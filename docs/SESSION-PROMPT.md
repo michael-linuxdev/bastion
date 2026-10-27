@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Erste Übungsseite in der App:** Kompetenzgraph und Vorlagen laden, eine Aufgabe anzeigen (zuerst `zahl-eingabe`, `auswahl`, dann Bild-Typen), Antwort auswerten, Fehlerbild-Rückmeldung und Lösungsweg zeigen. Die Inhalte sind dafür vollständig da.
+7. **Übungsseite ausbauen:** Ergebnisse als Lernereignisse speichern (DATENMODELL, I-6: Generator-Version und Seed, bei Fehlern ein Schnappschuss), dann Wiederholung (Phase 1b). Bild-Eingaben antippbar machen (Koordinaten im Gitter, I-11).
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -72,7 +72,8 @@ Mit Claude Code, als Nächstes:
 - **Umrechnungs-Generator** `gr.einheiten-umrechnen@1` kennt jetzt auch Flächen, Volumen und ml/l. Für die bisherigen Größen bleibt jede Aufgabe gleich, deshalb keine neue Version.
 - Kommazahlen rechnen die Generatoren intern als ganze Zahlen (Hundertstel, Tausendstel), damit keine Gleitkommafehler entstehen.
 - Abwechslungs-Schwellen in den Tests sind gemessen und stehen mit Kommentar „gemessen“ im Test.
-- 1352 Tests, Lint, Build grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Erste Übungsseite** (Start → „Üben“): Übersicht der Klasse 5 nach Bereich, entlang des Graphen, Wahl von Niveau G oder M; Aufgabe mit Bild, Eingabe passend zur Lösungsart, Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg. Inhalte kommen als Pakete von der eigenen Adresse (`tools/inhalte/pakete.ts`) und gehen offline. Kern: `src/core/learning/auswertung.ts`, `text.ts`, `uebung.ts`; Oberfläche: `src/ui/ueben/`. Gespeichert wird noch nichts.
+- 1565 Tests und 3 Browser-Tests, Lint, Build, Größenbudget (60 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

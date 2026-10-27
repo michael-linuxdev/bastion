@@ -1,0 +1,243 @@
+<script lang="ts">
+  // Eine Übungsrunde zu einer Kompetenz auf einem Niveau: Aufgabe zeigen,
+  // Antwort prüfen, gezielte Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg.
+  // Ohne Zeitdruck und ohne Punkte (R1, R2); gespeichert wird noch nichts.
+  import type { Kompetenz, Niveau } from '../../core/competence/kompetenz';
+  import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
+  import type { Instanz, Loesung } from '../../core/learning/generator';
+  import { fuelle } from '../../core/learning/text';
+  import { naechsteVorlage, vorlagenFuer } from '../../core/learning/uebung';
+  import type { GeneratorVorlage } from '../../core/learning/vorlage';
+  import { generatoren } from '../../generators';
+  import { neuerSeed } from '../plattform/zufall';
+  import { t } from '../texte/texte';
+  import Eingabe from './Eingabe.svelte';
+  import Textteile from './Textteile.svelte';
+
+  let {
+    kompetenz,
+    niveau,
+    vorlagen,
+    onzurueck,
+  }: {
+    kompetenz: Kompetenz;
+    niveau: Niveau;
+    vorlagen: readonly GeneratorVorlage[];
+    onzurueck: () => void;
+  } = $props();
+
+  interface Aufgabe {
+    readonly vorlage: GeneratorVorlage;
+    readonly instanz: Instanz;
+    readonly nummer: number;
+  }
+
+  const auswahl = $derived(vorlagenFuer(vorlagen, kompetenz.id, niveau));
+  let nummer = $state(0);
+  let ergebnis = $state<Ergebnis | undefined>(undefined);
+  let kommaHinweis = $state(false);
+  let hilfen = $state(0);
+  let wegOffen = $state(false);
+
+  function erzeuge(n: number): Aufgabe | undefined {
+    const vorlage = naechsteVorlage(auswahl, n);
+    const generator = vorlage ? generatoren.get(vorlage.generator) : undefined;
+    if (!vorlage || !generator) return undefined;
+    return {
+      vorlage,
+      instanz: generator.erzeuge(neuerSeed(), vorlage.parameter[niveau]),
+      nummer: n,
+    };
+  }
+
+  let aufgabe = $derived(erzeuge(nummer));
+
+  function beantwortet(antwort: Loesung, hinweis?: 'punkt-statt-komma') {
+    if (!aufgabe) return;
+    const form = (aufgabe.vorlage.antwort?.['form'] ?? 'beliebig') as Bruchform;
+    ergebnis = auswerten(aufgabe.instanz, antwort, form);
+    kommaHinweis = hinweis === 'punkt-statt-komma';
+    if (!ergebnis.richtig) wegOffen = true;
+  }
+
+  function weiter() {
+    ergebnis = undefined;
+    kommaHinweis = false;
+    hilfen = 0;
+    wegOffen = false;
+    nummer += 1;
+  }
+
+  const rueckmeldung = $derived.by(() => {
+    if (!ergebnis || ergebnis.richtig || !aufgabe) return undefined;
+    if (ergebnis.fehlerbild) {
+      const text = aufgabe.vorlage.fehlerbilder[ergebnis.fehlerbild];
+      if (text) return fuelle(text.de, aufgabe.instanz.platzhalter);
+    }
+    if (ergebnis.hinweis) return fuelle(t(`uebung.${ergebnis.hinweis}`), {});
+    return undefined;
+  });
+</script>
+
+<section class="uebung">
+  <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+  <h2>
+    {kompetenz.titel.de} <span class="niveau">· {t(`niveau.${niveau === 'G' ? 'G' : 'M'}`)}</span>
+  </h2>
+
+  {#if !aufgabe}
+    <p>{t('uebung.keine-aufgaben')}</p>
+  {:else}
+    {#key aufgabe}
+      <article class="aufgabe" aria-live="polite">
+        <p class="text">
+          <Textteile teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)} />
+        </p>
+        {#if aufgabe.instanz.bild}
+          <figure class="bild" role="img" aria-label={aufgabe.instanz.bild.beschreibung.de}>
+            <!-- SVG stammt aus unseren Generatoren (Code, kein Paketinhalt);
+                 die Pflicht-Tests schließen Skripte und Verweise aus. -->
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html aufgabe.instanz.bild.svg}
+          </figure>
+        {/if}
+
+        <Eingabe
+          instanz={aufgabe.instanz}
+          typ={aufgabe.vorlage.typ}
+          gesperrt={ergebnis !== undefined}
+          onantwort={beantwortet}
+        />
+
+        <div class="knoepfe">
+          {#if ergebnis === undefined}
+            <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
+            {#if hilfen < aufgabe.vorlage.hilfen.length}
+              <button onclick={() => (hilfen += 1)}>
+                {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
+              </button>
+            {/if}
+          {/if}
+        </div>
+
+        {#if hilfen > 0 && ergebnis === undefined}
+          <ul class="hilfen">
+            {#each aufgabe.vorlage.hilfen.slice(0, hilfen) as hilfe, i (i)}
+              <li><Textteile teile={fuelle(hilfe.de, aufgabe.instanz.platzhalter)} /></li>
+            {/each}
+          </ul>
+        {/if}
+
+        {#if ergebnis}
+          <div class="rueckmeldung" class:richtig={ergebnis.richtig} role="status">
+            <p class="urteil">{ergebnis.richtig ? t('uebung.richtig') : t('uebung.falsch')}</p>
+            {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
+            {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
+          </div>
+          <details class="weg" bind:open={wegOffen}>
+            <summary>{t('uebung.loesungsweg')}</summary>
+            <ol>
+              {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
+                <li>{schritt.de}</li>
+              {/each}
+            </ol>
+          </details>
+          <div class="knoepfe">
+            <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
+          </div>
+        {/if}
+      </article>
+    {/key}
+  {/if}
+</section>
+
+<style>
+  .uebung {
+    display: grid;
+    gap: var(--abstand-m);
+  }
+
+  h2 {
+    margin-block: 0;
+  }
+
+  .niveau {
+    color: var(--farbe-text-leise);
+    font-weight: normal;
+  }
+
+  .aufgabe {
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    padding-block: var(--abstand-m);
+    padding-inline: var(--abstand-m);
+  }
+
+  .text {
+    font-size: 1.25rem;
+    margin-block-start: 0;
+  }
+
+  .bild {
+    margin-inline: 0;
+    max-inline-size: 26rem;
+  }
+
+  .bild :global(svg) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+  }
+
+  button {
+    font: inherit;
+    min-block-size: 2.75rem;
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border: 2px solid var(--farbe-akzent);
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
+  }
+
+  .haupt {
+    background: var(--farbe-akzent);
+    color: var(--farbe-hintergrund);
+  }
+
+  .zurueck {
+    justify-self: start;
+    border-color: transparent;
+    padding-inline: 0;
+  }
+
+  .hilfen {
+    color: var(--farbe-text-leise);
+  }
+
+  .rueckmeldung {
+    margin-block-start: var(--abstand-m);
+    border-inline-start: 4px solid var(--farbe-akzent);
+    padding-inline-start: var(--abstand-m);
+  }
+
+  .rueckmeldung.richtig {
+    border-inline-start-color: #3f7d3a;
+  }
+
+  .urteil {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  .weg summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>

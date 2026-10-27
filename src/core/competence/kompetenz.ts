@@ -217,3 +217,27 @@ export function pruefeGraph(
   for (const k of kompetenzen) if (!farbe.get(k.id)) besuche(k.id, []);
   return f;
 }
+
+/**
+ * Reihenfolge entlang des Graphen (K-15): erst Kompetenzen ohne Voraussetzungen,
+ * dann nach Länge der längsten Voraussetzungskette; bei Gleichstand bleibt die
+ * gegebene Reihenfolge. Setzt einen kreisfreien Graphen voraus (pruefeGraph).
+ */
+export function nachGraph<K extends Pick<Kompetenz, 'id' | 'voraussetzungen'>>(
+  kompetenzen: readonly K[],
+): K[] {
+  const nachId = new Map(kompetenzen.map((k) => [k.id, k]));
+  const tiefe = new Map<string, number>();
+  const tiefeVon = (id: string): number => {
+    const bekannt = tiefe.get(id);
+    if (bekannt !== undefined) return bekannt;
+    const vor = (nachId.get(id)?.voraussetzungen ?? []).filter((v) => nachId.has(v));
+    const t = vor.length === 0 ? 0 : 1 + Math.max(...vor.map(tiefeVon));
+    tiefe.set(id, t);
+    return t;
+  };
+  return kompetenzen
+    .map((k, i) => ({ k, i, t: tiefeVon(k.id) }))
+    .sort((a, b) => a.t - b.t || a.i - b.i)
+    .map((x) => x.k);
+}

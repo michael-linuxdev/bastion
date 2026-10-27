@@ -151,7 +151,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede Stufe ist für sich nutzbar und wird mit der Testgruppe geprüft.
 
 **1a – Aufgabenqualität (Klasse 5, Niveaus G und M, K-15)**
-1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *begonnen: 41 Kompetenzen Klasse 5 in `content/`, Prüfung von Schema und Graph (`pnpm inhalte:pruefen`)*
+1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *erste Übungsseite steht: Inhaltspakete, Auswertung mit Fehlerbild-Rückmeldung, Hilfen, Lösungsweg, offline nutzbar. Noch ohne Speichern der Ergebnisse (Lernereignisse) und ohne Anleitungen*
 2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *als Entwurf erledigt: alle 41 Kompetenzen mit mindestens zwei Vorlagen je Niveau (88 Vorlagen, 68 Generatoren mit Pflicht-Tests). Offen: Prüfung der Vorlagen (INHALTSFORMAT §10.1), Anleitungen zum Zeichnen (L-10)*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
@@ -201,3 +201,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | Erste Vorlagen (ERWEITERN.ZIELNENNER, STELLENWERT.ZIFFER-AN-STELLE, STELLENWERT.ZAHLWORT); Prüfwerkzeug gleicht Vorlagen mit Kompetenzen und Generatoren ab; STELLENWERT als erste Kompetenz mit 2 Vorlagen je Niveau |
 | 27.10.2026 | Generator `nz.zahlen-ordnen@1` mit Vorlage M.ZO.NZ.ORDNEN.DER-GROESSE-NACH; Lösungsart „Reihenfolge“ |
 | 27.10.2026 | 1a: Generatoren und Vorlagen für alle 41 Kompetenzen der Klasse 5 (Entwürfe): Zahlen und Rechnen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Daten, Geometrie mit SVG-Bildern, Flächen und Körper; Generatoren registrieren sich selbst; Pflicht-Tests mit optionalem Zeitlimit |
+| 27.10.2026 | Erste Übungsseite: Inhaltspakete aus `content/`, Auswertung (I-5, Bruchformen, Fehlerbilder), Vorlagentexte mit Formel-Teilmenge, Übersicht nach Graph, Übung mit Hilfen und Lösungsweg; E2E-Test offline |
