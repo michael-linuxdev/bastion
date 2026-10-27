@@ -161,6 +161,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | vite-plugin-pwa | 2.0.0 | Werkzeug (erzeugt Service Worker und Manifest) |
 | workbox-window | 7.4.1 | **Laufzeit**, ca. 2 KB komprimiert: meldet der Seite neue Versionen. Teil der Entscheidung „vite-plugin-pwa (Workbox)“, §4.1 |
 | Vitest | 5.0.5 | Werkzeug |
+| @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
 | typescript-eslint | 8.72.1 | Werkzeug |
@@ -202,6 +203,19 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 - **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis wird noch nicht angezeigt; ab Phase 1 erscheint es im Elternbereich zusammen mit der Sicherungs-Erinnerung.
 - **Icons:** `public/icon.svg` ist die Vorlage; die PNG-Icons sind daraus abgeleitet (Platzhalter bis zur Gestaltung).
 - Code: `vite.config.ts` (Manifest, Workbox), `src/ui/plattform/offline.svelte.ts`, `src/ui/plattform/speicher.ts`, `src/ui/UpdateHinweis.svelte`.
+
+### 4.10 Tests und CI (umgesetzt in 0.9)
+
+Workflow `.github/workflows/ci.yml`, bei jedem Push und Pull Request:
+
+1. `pnpm lint` – ESLint inkl. Ordnergrenzen, Prettier, Typprüfung
+2. `pnpm test` – Einheitentests (Vitest), darunter die Tests der Leitplanken
+3. `pnpm build` – mit `BASE_PATH=/bastion/` wie auf GitHub Pages
+4. `pnpm budget` – Größenbudget §9: alle JavaScript-Dateien zusammen ≤ 250 KB gzip (`tools/groessenbudget.ts`)
+5. `pnpm test:e2e` – Playwright gegen den fertigen Build: einmal online laden, dann offline neu laden; dabei darf keine Anfrage an eine fremde Adresse gehen (A2)
+6. Nur auf `main`: Veröffentlichung auf GitHub Pages
+
+Alle GitHub Actions sind auf Commit-Hashes gepinnt. Für die Veröffentlichung muss in den Repository-Einstellungen unter *Settings → Pages → Source* „GitHub Actions“ gewählt sein. GitHub Pages für private Repositories setzt einen kostenpflichtigen GitHub-Plan voraus; solange das Repository privat ist (O-8), schlägt nur der Schritt „Veröffentlichen“ fehl, die Prüfungen laufen trotzdem.
 
 ## 5. Datenmodell: Ereignisse als Wahrheit
 

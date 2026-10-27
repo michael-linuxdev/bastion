@@ -21,7 +21,11 @@ pnpm lint        # Prüfungen: ESLint inkl. Ordnergrenzen, Formatierung, Typen
 pnpm format      # Code automatisch formatieren
 pnpm test        # Einheitentests
 pnpm build       # fertige App nach dist/ bauen
+pnpm budget      # Größenbudget prüfen (nach pnpm build)
+pnpm test:e2e    # Ende-zu-Ende-Tests im Browser (nach pnpm build)
 ```
+
+Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, dann in den Entwicklerwerkzeugen „Offline“ einschalten (oder WLAN aus) und neu laden.
 
 ## Dokumentation
 
