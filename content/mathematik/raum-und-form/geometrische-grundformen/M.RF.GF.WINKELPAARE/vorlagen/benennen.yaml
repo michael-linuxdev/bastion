@@ -1,0 +1,23 @@
+# „Wie heißen α und β zueinander?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKELPAARE.BENENNEN
+kompetenz: M.RF.GF.WINKELPAARE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.winkelpaar-benennen@1
+parameter:
+  G: { beziehungen: [Scheitelwinkel, Nebenwinkel] }
+  M: { beziehungen: [Scheitelwinkel, Nebenwinkel, Stufenwinkel, Wechselwinkel] }
+text:
+  aufgabe:
+    de: '**Gib an**, wie die Winkel α und β zueinander liegen.'
+hilfen:
+  - de: Liegen α und β am selben Schnittpunkt oder an verschiedenen?
+  - de: 'Am selben Punkt: gegenüber oder nebeneinander? An verschiedenen Punkten: an der gleichen Stelle (F) oder über Kreuz (Z)?'
+fehlerbilder:
+  scheitel-neben-verwechselt:
+    de: Scheitelwinkel liegen sich gegenüber, Nebenwinkel liegen direkt nebeneinander und teilen sich einen Schenkel.
+  stufen-wechsel-verwechselt:
+    de: Stufenwinkel liegen an beiden Schnittpunkten an der gleichen Stelle (F-Form), Wechselwinkel über Kreuz (Z-Form).
+herkunft: ki-entwurf
+version: 1
