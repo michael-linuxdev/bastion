@@ -92,3 +92,48 @@ export const vieleck = (punkte: readonly (readonly [number, number])[], gefuellt
   `<polygon points="${punkte.map(([x, y]) => `${r2(x)},${r2(y)}`).join(' ')}"` +
   (gefuellt ? ' fill="currentColor" fill-opacity="0.25"' : '') +
   '/>';
+
+/** Punkt auf einem Kreis; Winkel in Grad, mathematisch (0° = rechts, gegen den Uhrzeigersinn). */
+export const aufKreis = (
+  cx: number,
+  cy: number,
+  radius: number,
+  grad: number,
+): [number, number] => [
+  cx + radius * Math.cos((grad * Math.PI) / 180),
+  cy - radius * Math.sin((grad * Math.PI) / 180),
+];
+
+/** Winkelbogen von grad1 bis grad2 (mathematisch, gegen den Uhrzeigersinn). */
+export function bogen(
+  cx: number,
+  cy: number,
+  radius: number,
+  grad1: number,
+  grad2: number,
+): string {
+  const [x1, y1] = aufKreis(cx, cy, radius, grad1);
+  const [x2, y2] = aufKreis(cx, cy, radius, grad2);
+  const gross = (grad2 - grad1 + 360) % 360 > 180 ? 1 : 0;
+  return `<path d="M${r2(x1)} ${r2(y1)} A${r2(radius)} ${r2(radius)} 0 ${gross} 0 ${r2(x2)} ${r2(y2)}" stroke-width="1.5"/>`;
+}
+
+/** Kästchen im Raster als gefülltes Quadrat (Zeile 0 = oben). */
+export const kaestchen = (x0: number, y0: number, groesse: number, spalte: number, zeile: number) =>
+  rechteck(x0 + spalte * groesse, y0 + zeile * groesse, groesse, groesse, true);
+
+/** Raster aus n × m Kästchen. */
+export function raster(
+  x0: number,
+  y0: number,
+  groesse: number,
+  spalten: number,
+  zeilen: number,
+): string[] {
+  const t: string[] = [];
+  for (let s = 0; s <= spalten; s++)
+    t.push(linie(x0 + s * groesse, y0, x0 + s * groesse, y0 + zeilen * groesse, 0.5));
+  for (let z = 0; z <= zeilen; z++)
+    t.push(linie(x0, y0 + z * groesse, x0 + spalten * groesse, y0 + z * groesse, 0.5));
+  return t;
+}

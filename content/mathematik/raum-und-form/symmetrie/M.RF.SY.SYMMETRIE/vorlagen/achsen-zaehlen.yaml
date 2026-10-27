@@ -1,0 +1,36 @@
+# „Wie viele Symmetrieachsen hat die Figur?“ Entwurf: noch nicht geprüft.
+id: M.RF.SY.SYMMETRIE.ACHSEN-ZAEHLEN
+kompetenz: M.RF.SY.SYMMETRIE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: sy.achsen-zaehlen@1
+parameter:
+  G: { formen: [Quadrat, Rechteck, gleichschenkliges Dreieck, Raute, Parallelogramm] }
+  M:
+    formen:
+      - Quadrat
+      - Rechteck
+      - gleichseitiges Dreieck
+      - gleichschenkliges Dreieck
+      - Raute
+      - gleichschenkliges Trapez
+      - Parallelogramm
+      - regelmäßiges Fünfeck
+      - regelmäßiges Sechseck
+      - Drachenviereck
+text:
+  aufgabe:
+    de: '**Gib an**, wie viele Symmetrieachsen die Figur hat.'
+hilfen:
+  - de: Eine Symmetrieachse teilt die Figur so, dass beide Hälften beim Falten genau aufeinanderliegen.
+  - de: Probiere waagerecht, senkrecht und schräg – auch die Diagonalen.
+fehlerbilder:
+  nur-waagerecht-senkrecht:
+    de: Du hast nur waagerechte und senkrechte Achsen gezählt. Auch schräge Achsen können Symmetrieachsen sein.
+  diagonalen-als-achsen:
+    de: Nicht jede Diagonale ist eine Symmetrieachse. Falte in Gedanken – liegen die Hälften wirklich aufeinander?
+  punktsymmetrie-als-achse:
+    de: Die Figur sieht nach einer halben Drehung gleich aus – das ist Punktsymmetrie, keine Achse.
+herkunft: ki-entwurf
+version: 1

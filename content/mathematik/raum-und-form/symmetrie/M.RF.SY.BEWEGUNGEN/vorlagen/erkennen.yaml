@@ -1,0 +1,23 @@
+# Spiegelung, Verschiebung oder Drehung erkennen. Entwurf: noch nicht geprüft.
+id: M.RF.SY.BEWEGUNGEN.ERKENNEN
+kompetenz: M.RF.SY.BEWEGUNGEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: sy.bewegung-erkennen@1
+parameter:
+  G: { mit_drehung: false }
+  M: { mit_drehung: true }
+text:
+  aufgabe:
+    de: 'Die rechte Figur ist aus der linken entstanden. **Gib an**, durch welche Bewegung.'
+hilfen:
+  - de: Sieht die rechte Figur genauso aus, nur woanders? Oder ist sie umgeklappt oder gedreht?
+  - de: Achte auf ein auffälliges Kästchen und schau, wo es danach liegt.
+fehlerbilder:
+  spiegelung-verschiebung-verwechselt:
+    de: Bei einer Verschiebung bleibt alles gleich ausgerichtet. Ist die Figur umgeklappt, wurde gespiegelt.
+  drehung-spiegelung-verwechselt:
+    de: Gespiegelt und gedreht sehen ähnlich aus. Bei einer Drehung steht die Figur auf dem Kopf, bei einer Spiegelung ist sie seitenverkehrt.
+herkunft: ki-entwurf
+version: 1
