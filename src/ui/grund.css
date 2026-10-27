@@ -1,0 +1,79 @@
+/*
+ * Grund-CSS für Bastion.
+ * - Nur logische Eigenschaften (margin-inline-start statt margin-left),
+ *   damit Arabisch und Persisch (dir="rtl") ohne Umbau funktionieren (A6).
+ * - Hell und Dunkel folgen der Systemeinstellung.
+ * - Nur Systemschriften: keine Schriftdateien aus dem Netz (A2).
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --farbe-hintergrund: #f7f4ee;
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #1f1d1a;
+  --farbe-text-leise: #5a554d;
+  --farbe-akzent: #8a4b14;
+  --farbe-rand: #ddd5c8;
+
+  --abstand-s: 0.5rem;
+  --abstand-m: 1rem;
+  --abstand-l: 2rem;
+  --radius: 0.75rem;
+
+  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --farbe-hintergrund: #191714;
+    --farbe-flaeche: #24211d;
+    --farbe-text: #f1ece4;
+    --farbe-text-leise: #b8b0a3;
+    --farbe-akzent: #e0a464;
+    --farbe-rand: #3a352e;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+  background: var(--farbe-hintergrund);
+  color: var(--farbe-text);
+  font-family: var(--schrift);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-block: 0 var(--abstand-m);
+}
+
+:focus-visible {
+  outline: 3px solid var(--farbe-akzent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

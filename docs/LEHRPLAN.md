@@ -88,6 +88,8 @@ version: 1
 **Entscheidung L-3:** Niveauwechsel sind **Vorschläge, keine Automatik**. Die App schlägt höher vor, wenn eine Kompetenz schnell und sicher gekonnt wird, und tiefer, wenn sie wiederholt nicht gelingt. Der Jugendliche entscheidet.
 *Warum:* Automatisches Herabstufen wirkt beschämend; automatisches Hochstufen kann überfordern. Selbstbestimmung über das eigene Niveau ist Teil der Autonomie, die langfristige Motivation trägt.
 
+*Scope bis Monat 12 (K-11):* Inhalte entstehen nur für **G** und **M**. Niveau E bleibt im Modell (IDs, Datenfelder), wird aber erst nach Monat 12 mit Aufgaben gefüllt. Bis dahin schlägt die App kein Hochstufen über M hinaus vor.
+
 ### 4.2 Niveau und Bauplan
 
 Jede Kompetenz kann auf jedem Niveau einmal gefestigt werden und bringt je einen Bauplan (BASEBAU B-4). Wer auf E festigt, muss G und M **nicht** vorher festigen – sie gelten dann als mitgefestigt, bringen aber keine zusätzlichen Baupläne.
@@ -223,7 +225,9 @@ Legende Abdeckung: **Gen** = Generator · **Hand** = handverfasst · **Mix** = g
 | M.GM.GR.KOMMA | Ich kann Größen in Kommaschreibweise angeben und damit rechnen. | UMRECHNEN, BR.DEZIMAL | Gen | I |
 | M.GM.GR.SACH | Ich kann Sachaufgaben mit Größen lösen. | UMRECHNEN, ZEIT | Mix | II |
 
-**Summe:** 23 Kompetenzen × 3 Niveaus. Davon 17 überwiegend generatorbasiert, 6 gemischt.
+**Reihenfolge (K-11):** Welle 1 = Felder TB und BR (12 Kompetenzen), Welle 2 = NZ und GR (11 Kompetenzen); aus Welle 2 zunächst nur, was Welle 1 als Voraussetzung braucht.
+
+**Summe:** 23 Kompetenzen × 3 Niveaus (bis Monat 12: × 2 Niveaus, G und M). Davon 17 überwiegend generatorbasiert, 6 gemischt.
 
 Zum Abgleich mit BASEBAU §5.3: Realistisch werden in einem Schuljahr 15–25 Kompetenz-Niveau-Paare gefestigt – passend zur Bauplan-Annahme von Epoche 1.
 

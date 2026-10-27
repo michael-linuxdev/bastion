@@ -54,6 +54,8 @@ IDs sind **ULIDs**: 26 Zeichen, zeitlich sortierbar, weltweit praktisch eindeuti
 
 Der Zufall für IDs kommt über eine Schnittstelle in den Kern (`ZufallsQuelle`), damit `src/core/` keine Browser-APIs nutzt (T-2). In der App liefert `crypto.getRandomValues` die Werte, in Tests ein fester Seed.
 
+*Umsetzung (0.7c):* `src/core/rng/ulid.ts` (`ulid(zeitMs, quelle)`), Schnittstelle `ZufallsQuelle` in `src/core/rng/zufallsquelle.ts`. Zeit und Zufall werden hereingereicht, der Kern ruft weder `Date.now()` noch `crypto` auf.
+
 ### 3.3 Zeit und Lerntag
 
 ```ts
@@ -64,6 +66,8 @@ type Tag = string;   // "2026-10-27"
 *Warum:*
 - Tagesgrenzen (Tageskurve Stein, 2 Bauschritte, Erz-Obergrenze) sollen sich an Lernverhalten orientieren. Wer um 0:30 Uhr eine Einheit beendet, gehört noch zum Vortag – sonst lädt Mitternacht zum Doppelt-Lernen ein.
 - Den Lerntag beim Schreiben festzuhalten, verhindert, dass ein Zeitzonenwechsel (Urlaub) im Nachhinein die Geschichte umsortiert.
+
+*Umsetzung (0.7c):* `lerntag(tsUtc, utcVersatzMinuten)` in `src/core/policy/lerntag.ts`. Den UTC-Versatz zum Zeitpunkt des Ereignisses ermittelt die App; der Kern kennt keine Zeitzonen.
 
 Manipulierte Geräteuhren werden bewusst nicht abgefangen (KONZEPT §11): Ohne Ranglisten schaden sie niemandem.
 
@@ -421,7 +425,6 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 
 | ID | Frage | Tendenz |
 |---|---|---|
-| D-O1 | ULID-Bibliothek oder eigene kleine Umsetzung im Kern? | Eigene Umsetzung (wenige Zeilen, keine Abhängigkeit) |
 | D-O2 | FSRS-Parameter persönlich anpassen (Optimierer) | Nicht vor Phase 4; braucht viele Wiederholungen pro Person |
 | D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Eigene Liste mit ~2 000 kindgerechten, eindeutigen deutschen Wörtern |
 | D-O4 | Wie oft an Sicherungen erinnern? | Monatlich, im Elternbereich einstellbar (T-1) |
@@ -442,3 +445,4 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-10 | Zusammenführen = Vereinigung der Ereignismengen | Entschieden |
 | D-11 | Rohe Aufgaben-Ereignisse nach 12 Monaten verdichten | Entschieden |
 | D-12 | Wiederherstellungscode für die Eltern-PIN | Entschieden |
+| D-13 | ULIDs mit eigener Umsetzung im Kern, ohne Bibliothek (war D-O1) | Entschieden |

@@ -144,6 +144,79 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide.
 
+### 4.6 Festgelegte Versionen
+
+Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`), das Lockfile `pnpm-lock.yaml` wird mit committet. Stand 27.10.2026:
+
+| Baustein | Version | Art |
+|---|---|---|
+| Node.js | ≥ 22 | Werkzeug |
+| pnpm | 10.28.0 | Werkzeug |
+| TypeScript | 6.0.3 | Werkzeug |
+| @types/node | 22.20.5 | Werkzeug (nur `tools/`, `tests/`, Konfiguration) |
+| Vite | 8.3.5 | Werkzeug |
+| Svelte | 5.57.3 | wird in die App kompiliert (T-3) |
+| @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
+| svelte-check | 4.7.7 | Werkzeug |
+| vite-plugin-pwa | 2.0.0 | Werkzeug (erzeugt Service Worker und Manifest) |
+| workbox-window | 7.4.1 | **Laufzeit**, ca. 2 KB komprimiert: meldet der Seite neue Versionen. Teil der Entscheidung „vite-plugin-pwa (Workbox)“, §4.1 |
+| Vitest | 5.0.5 | Werkzeug |
+| @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests) |
+| fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
+| ESLint | 10.13.0 | Werkzeug |
+| typescript-eslint | 8.72.1 | Werkzeug |
+| eslint-plugin-svelte | 3.23.1 | Werkzeug |
+| eslint-plugin-boundaries | 7.4.0 | Werkzeug (Ordnergrenzen, T-10) |
+| Prettier (+ prettier-plugin-svelte) | 3.9.10 (4.1.1) | Werkzeug |
+
+TypeScript 7 (die neue, native Umsetzung) wird noch nicht genutzt, weil `svelte-check` und `typescript-eslint` sie noch nicht unterstützen.
+
+Zwei TypeScript-Konfigurationen: `tsconfig.json` für die App (`src/`, Browser-Typen, keine Node-Typen) und `tsconfig.node.json` für `tools/`, `tests/` und Konfigurationsdateien (Node-Typen). `pnpm check` prüft beide.
+
+Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält die Ende-zu-Ende-Tests.
+
+### 4.7 Leitplanken im Lint (umgesetzt in 0.7b)
+
+`pnpm lint` führt nacheinander ESLint, Prettier (`--check`) und `svelte-check` aus; jede Meldung macht ihn rot.
+
+| Regel | Werkzeug |
+|---|---|
+| `src/core` importiert nichts aus `src/ui`, `src/storage`, `src/generators`, `src/main.ts` | `eslint-plugin-boundaries` |
+| `src/core/bastion` importiert nur aus `src/core/ledger`, keine Fremdpakete | `eslint-plugin-boundaries` + `no-restricted-imports` |
+| Keine Browser-APIs (`window`, `localStorage`, `crypto`, Timer …) und kein Svelte in `src/core` | `no-restricted-globals`, `no-restricted-imports` |
+| Nur Runes-Syntax: `export let` und `$:` sind Compilerfehler, `on:click` u. a. Warnungen gelten als Fehler | Svelte `runes: true`, `onwarn` im Build, `svelte/valid-compile`, `svelte-check --fail-on-warnings` |
+
+| Nur logische CSS-Eigenschaften (`margin-inline-start` statt `margin-left`, `inline-size` statt `width` …) | Test `tools/logische-css.test.ts` |
+
+`tools/ordnergrenzen.test.ts` prüft bei jedem Testlauf, dass absichtlich falsche Importe tatsächlich gemeldet werden – so kann eine Konfigurationsänderung die Grenzen nicht unbemerkt abschalten.
+
+### 4.8 Oberflächen-Grundlage (umgesetzt in 0.7d)
+
+- Oberflächentexte stehen in `src/ui/texte/de.json` und werden über `t('schluessel')` geholt; Tippfehler im Schlüssel sind Typfehler. Die Datei legt auch Sprache und Schreibrichtung (`lang`, `dir`) fest.
+- Grund-CSS in `src/ui/grund.css`: Farben als CSS-Variablen, Hell/Dunkel folgt der Systemeinstellung (`prefers-color-scheme`), reduzierte Bewegung wird respektiert, nur Systemschriften.
+- Eine Umschaltung Hell/Dunkel in der App folgt mit den Einstellungen (Phase 1).
+
+### 4.9 Offline-Hülle (umgesetzt in 0.8)
+
+- **Precaching:** Beim ersten Laden speichert der Service Worker die komplette App-Hülle (HTML, JS, CSS, Icons, Manifest). Danach startet die App ohne Netz.
+- **Updates:** `registerType: 'prompt'`. Eine neue Version wird im Hintergrund geladen, aber erst aktiviert, wenn die Person im Hinweis „Jetzt aktualisieren“ wählt. „Später“ blendet den Hinweis aus; beim nächsten Start wird erneut gefragt. So wechselt die Version nie mitten in einer Sitzung.
+- **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis wird noch nicht angezeigt; ab Phase 1 erscheint es im Elternbereich zusammen mit der Sicherungs-Erinnerung.
+- **Icons:** `public/icon.svg` ist die Vorlage; die PNG-Icons sind daraus abgeleitet (Platzhalter bis zur Gestaltung).
+- Code: `vite.config.ts` (Manifest, Workbox), `src/ui/plattform/offline.svelte.ts`, `src/ui/plattform/speicher.ts`, `src/ui/UpdateHinweis.svelte`.
+
+### 4.10 Tests und CI (umgesetzt in 0.9)
+
+Workflow `.github/workflows/ci.yml`, bei jedem Push und Pull Request:
+
+1. `pnpm lint` – ESLint inkl. Ordnergrenzen, Prettier, Typprüfung
+2. `pnpm test` – Einheitentests (Vitest), darunter die Tests der Leitplanken
+3. `pnpm build` – mit `BASE_PATH=/` wie unter https://bastion.micana.de/
+4. `pnpm budget` – Größenbudget §9: alle JavaScript-Dateien zusammen ≤ 250 KB gzip (`tools/groessenbudget.ts`)
+5. `pnpm test:e2e` – Playwright gegen den fertigen Build: einmal online laden, dann offline neu laden; dabei darf keine Anfrage an eine fremde Adresse gehen (A2)
+6. Nur auf `main`: Veröffentlichung auf GitHub Pages unter **https://bastion.micana.de/**
+
+Alle GitHub Actions sind auf Commit-Hashes gepinnt. Für die Veröffentlichung muss in den Repository-Einstellungen unter *Settings → Pages → Source* „GitHub Actions“ gewählt und unter *Custom domain* `bastion.micana.de` eingetragen sein (mit „Enforce HTTPS“). Beim DNS-Anbieter von `micana.de` braucht es dafür einen CNAME-Eintrag `bastion` → `michael-linuxdev.github.io`. Eine `CNAME`-Datei im Build ist bei Veröffentlichung über Actions nicht nötig. GitHub Pages für private Repositories setzt einen kostenpflichtigen GitHub-Plan voraus; solange das Repository privat ist (O-8), schlägt nur der Schritt „Veröffentlichen“ fehl, die Prüfungen laufen trotzdem.
+
 ## 5. Datenmodell: Ereignisse als Wahrheit
 
 **Entscheidung T-7:** Lernereignisse und Ressourcenbuchungen werden als unveränderliche Ereignisse gespeichert (append-only). Aktuelle Zustände sind daraus abgeleitet und werden zwischengespeichert.
@@ -234,7 +307,7 @@ Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
 ## 12. Offene Punkte zum Stack
 
 - **Formeleingabe:** MathLive gegen eigenes, schlankes Eingabefeld testen (Gewicht, Tablet-Bedienung, Screenreader).
-- **Hosting-Ort und Domain (O-13):** GitHub Pages ist für Entwicklung und Tests bequem. Für den Produktivbetrieb ist zu prüfen, ob ein Anbieter mit Sitz in der EU (z. B. Codeberg Pages oder ein deutscher Webhoster) besser passt: Beim ersten Laden erhält jeder Host die IP-Adresse, und Schulen achten bei US-Anbietern besonders auf Datenschutzfragen. Da die App eine statische Seite ist, ist ein späterer Umzug einfach.
+- **Hosting-Ort und Domain (O-13):** Domain ist `bastion.micana.de` (27.10.2026), ausgeliefert vorerst über GitHub Pages. Weil die App nur über die eigene Domain erreichbar ist, ist ein späterer Umzug des Hosters für Nutzer unsichtbar – wichtig, weil Service Worker und lokale Daten an die Adresse gebunden sind. GitHub Pages ist für Entwicklung und Tests bequem. Für den Produktivbetrieb ist zu prüfen, ob ein Anbieter mit Sitz in der EU (z. B. Codeberg Pages oder ein deutscher Webhoster) besser passt: Beim ersten Laden erhält jeder Host die IP-Adresse, und Schulen achten bei US-Anbietern besonders auf Datenschutzfragen. Da die App eine statische Seite ist, ist ein späterer Umzug einfach.
 - **Lerninsel-Daten übernehmen?** Ein Import des Lerninsel-Spielstands als „Erbstück“ in der Bastion wäre ein schöner Übergang – setzt Kenntnis des Lerninsel-Speicherformats voraus.
 
 ## 13. Anpassung an das Ein-Personen-Projekt

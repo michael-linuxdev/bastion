@@ -2,7 +2,7 @@
 
 > „Baue deine Bastion.“
 
-Status: Entwurf v0.1 · Stand: 27.10.2026 · Verantwortlich: Tech/Konzept-Lead
+Status: Entwurf v0.2 · Stand: 27.10.2026 · Verantwortlich: Tech/Konzept-Lead
 
 ---
 
@@ -30,6 +30,8 @@ Die Bastion ist kein Belohnungsautomat. Sie ist ein **Spiegel**: Jedes Gebäude,
 > Bastion macht sichtbar, was du kannst – und gibt dir einen Ort, der mit dir wächst.
 
 ## 4. Für wen
+
+Die Tabelle beschreibt die **Vision**. Bis Monat 12 gilt die engere Scope-Grenze in §11.
 
 | Gruppe | Was sie von Bastion brauchen |
 |---|---|
@@ -93,6 +95,8 @@ Bastion ist erfolgreich, wenn:
 
 Bewusst **keine** Erfolgskriterien: tägliche aktive Nutzer, Sitzungsdauer, Streak-Längen.
 
+Konkrete, messbare Kriterien für die ersten 12 Monate: `STRATEGIE.md` §6 (K-13).
+
 ## 9. Abgrenzung zur Lerninsel
 
 | | Lerninsel | Bastion |
@@ -107,3 +111,21 @@ Bewusst **keine** Erfolgskriterien: tägliche aktive Nutzer, Sitzungsdauer, Stre
 ## 10. Das Versprechen an die Nutzer
 
 > Was du hier baust, hast du dir selbst erarbeitet. Niemand kann es dir kaufen, niemand kann es dir wegnehmen, und es verrät niemandem etwas über dich, das du nicht selbst teilst.
+
+## 11. Scope-Grenze bis Monat 12 (verbindlich)
+
+Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Bis Oktober 2027 gilt deshalb (K-11, Begründung in `STRATEGIE.md` §2):
+
+| | Bis Monat 12 |
+|---|---|
+| Fach | **Mathematik** |
+| Klassenstufen | **5 und 6** (jede Schulform) |
+| Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
+| Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – vor allem bei Brüchen |
+| Priorität | Lernkern vor Basebau (K-12); Basebau nur als Minimum, bis Jugendliche den Lernkern als besser beschreiben |
+
+Alles andere steht ausdrücklich auf „später“: Liste der Nicht-Ziele in `PLAN.md` §2.1.
+
+Die Grundprinzipien (§7) gelten unverändert. Besonders Prinzip 3 gilt auch für die eigene Erfolgsmessung: Gemessen wird nur, was Teilnehmende freiwillig weitergeben (`STRATEGIE.md` §7).
+
+*Spannung zu Prinzip 7:* Hilfesprache und DaZ-Pfad gehören nicht zum Scope der ersten 12 Monate. Das ist ein bewusster Aufschub, kein Abrücken (KONZEPT §13). Einfache Sprache und RTL-fähiges Layout bleiben Pflicht.

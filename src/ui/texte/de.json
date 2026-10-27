@@ -1,0 +1,13 @@
+{
+  "sprache": "de",
+  "richtung": "ltr",
+  "app.titel": "Bastion",
+  "start.ueberschrift": "Bastion",
+  "start.untertitel": "Baue deine Bastion.",
+  "start.status": "Im Aufbau. Hier entsteht eine Lern-App, die ohne Internet funktioniert und keine Daten weitergibt.",
+  "start.versprechen": "Keine Werbung. Keine Käufe. Kein Konto. Kein Tracking.",
+  "start.offline": "Die App ist gespeichert und funktioniert jetzt auch ohne Internet.",
+  "update.text": "Eine neue Version von Bastion ist bereit.",
+  "update.jetzt": "Jetzt aktualisieren",
+  "update.spaeter": "Später"
+}
