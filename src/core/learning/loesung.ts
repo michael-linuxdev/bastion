@@ -17,6 +17,10 @@ export function gleicheLoesung(a: Loesung, b: Loesung): boolean {
       );
     case 'punkt':
       return b.typ === 'punkt' && a.wert.x === b.wert.x && a.wert.y === b.wert.y;
+    case 'mit-rest':
+      return (
+        b.typ === 'mit-rest' && a.wert.quotient === b.wert.quotient && a.wert.rest === b.wert.rest
+      );
   }
 }
 

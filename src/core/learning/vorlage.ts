@@ -20,6 +20,8 @@ export const AUFGABENTYPEN = [
   'bild-zahl',
   'koordinaten-eingabe',
   'bild-auswahl',
+  // Division mit Rest: zwei Eingabefelder (Ergebnis, Rest)
+  'rest-eingabe',
 ] as const;
 export type Aufgabentyp = (typeof AUFGABENTYPEN)[number];
 

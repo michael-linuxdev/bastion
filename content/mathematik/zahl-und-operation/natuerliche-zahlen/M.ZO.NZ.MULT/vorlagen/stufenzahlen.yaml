@@ -1,0 +1,23 @@
+# „Berechne im Kopf: 40 · 300“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.MULT.STUFENZAHLEN
+kompetenz: M.ZO.NZ.MULT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.stufenzahlen-mal@1
+parameter:
+  G: { nullen_max: 3, vorne_max: 9 }
+  M: { nullen_max: 6, vorne_max: 25 }
+text:
+  aufgabe:
+    de: '**Berechne** im Kopf: {a} · {b}'
+hilfen:
+  - de: Rechne zuerst ohne die Nullen.
+  - de: Zähle dann alle Nullen beider Zahlen zusammen und hänge sie an.
+fehlerbilder:
+  null-zu-wenig:
+    de: Es fehlt eine Null. Zähle die Nullen beider Zahlen zusammen – und achte auf Nullen, die beim Multiplizieren neu entstehen (5 · 4 = 20).
+  null-zu-viel:
+    de: Es ist eine Null zu viel. Zähle die Nullen beider Zahlen noch einmal.
+herkunft: ki-entwurf
+version: 1

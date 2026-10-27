@@ -31,7 +31,12 @@ export type Loesung =
   /** Aufgabentypen `auswahl` und `bild-auswahl`: Index der richtigen Option. */
   | { readonly typ: 'auswahl'; readonly wert: number }
   /** Aufgabentyp `koordinaten-eingabe`. */
-  | { readonly typ: 'punkt'; readonly wert: Punkt };
+  | { readonly typ: 'punkt'; readonly wert: Punkt }
+  /** Aufgabentyp `rest-eingabe`: Division mit Rest. */
+  | {
+      readonly typ: 'mit-rest';
+      readonly wert: { readonly quotient: number; readonly rest: number };
+    };
 
 /**
  * Vom Generator erzeugtes Bild (INHALTSFORMAT I-11): SVG als Text, ohne

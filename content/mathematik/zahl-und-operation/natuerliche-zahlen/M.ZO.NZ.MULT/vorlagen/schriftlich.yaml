@@ -1,0 +1,23 @@
+# „Berechne schriftlich: 347 · 26“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.MULT.SCHRIFTLICH
+kompetenz: M.ZO.NZ.MULT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.schriftlich-multiplizieren@1
+parameter:
+  G: { stellen_a_min: 2, stellen_a_max: 4, stellen_b: 1 }
+  M: { stellen_a_min: 3, stellen_a_max: 4, stellen_b: 2 }
+text:
+  aufgabe:
+    de: '**Berechne** schriftlich: {a} · {b}'
+hilfen:
+  - de: Multipliziere die erste Zahl mit jeder Ziffer der zweiten Zahl. Beginne rechts.
+  - de: Rücke jedes Teilprodukt um eine Stelle nach links ein. Addiere am Ende alle Teilprodukte.
+fehlerbilder:
+  uebertrag-vergessen:
+    de: Du hast einen Übertrag vergessen. Ist ein Produkt 10 oder größer, schreibe die Einer hin und addiere die Zehner zum nächsten Produkt.
+  teilprodukt-nicht-eingerueckt:
+    de: Die Teilprodukte stehen nicht richtig untereinander. Das Teilprodukt mit der Zehnerziffer rückst du um eine Stelle nach links ein.
+herkunft: ki-entwurf
+version: 1
