@@ -1,0 +1,20 @@
+# „Welche Figur ist kein Würfelnetz?“ – mit unauffälligem Nicht-Netz. Entwurf: noch nicht geprüft.
+id: M.RF.KP.DARSTELLEN.KEIN-NETZ
+kompetenz: M.RF.KP.DARSTELLEN
+niveaus: [M]
+typ: bild-auswahl
+quelle: generator
+generator: kp.wuerfelnetz-waehlen@1
+parameter:
+  M: { gesucht: kein-netz }
+text:
+  aufgabe:
+    de: 'Drei Figuren sind Würfelnetze. **Wähle** die Figur **aus**, die sich nicht zu einem Würfel falten lässt.'
+hilfen:
+  - de: Lege in Gedanken ein Quadrat als Boden fest und klappe die anderen nach oben.
+  - de: Achte darauf, ob zwei Quadrate auf derselben Würfelseite landen würden.
+fehlerbilder:
+  falsch-gefaltet:
+    de: Diese Figur lässt sich doch zu einem Würfel falten. Probiere es Quadrat für Quadrat – jede Fläche entsteht genau einmal.
+herkunft: ki-entwurf
+version: 1

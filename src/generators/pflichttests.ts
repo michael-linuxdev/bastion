@@ -16,6 +16,8 @@ export interface PflichtPruefung<P> {
   readonly mindestensVerschieden: Readonly<Record<string, number>>;
   /** Seeds je Niveau für die Eigenschaftstests (Standard: 10 000). */
   readonly laeufe?: number;
+  /** Zeitlimit je Test in ms für rechenintensive Generatoren (Standard: Vitest-Vorgabe). */
+  readonly zeitlimitMs?: number;
 }
 
 const seed = fc.nat({ max: 0xffffffff });
@@ -48,95 +50,123 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
   describe(`${generator.id}@${generator.version} – Pflicht-Tests`, () => {
     for (const [niveau, parameter] of Object.entries(pruefung.niveaus)) {
       describe(`Niveau ${niveau}`, () => {
-        it('Lösung stimmt mit unabhängiger Berechnung überein', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              const instanz = generator.erzeuge(s, parameter);
-              expect(instanz.loesung).toEqual(pruefung.unabhaengigeLoesung(instanz, parameter));
-            }),
-            { numRuns: laeufe },
-          );
-        });
-
-        it('alle Zahlen liegen in den Niveau-Grenzen', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              expect(
-                pruefung.grenzverletzungen(generator.erzeuge(s, parameter), parameter),
-              ).toEqual([]);
-            }),
-            { numRuns: laeufe },
-          );
-        });
-
-        it('kein Fehlerbild ergibt die richtige Antwort, keine Antwort doppelt', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              const instanz = generator.erzeuge(s, parameter);
-              const antworten = instanz.fehlerbilder.map((f) => f.antwort);
-              for (const [i, a] of antworten.entries()) {
-                expect(gleicheLoesung(a, instanz.loesung)).toBe(false);
-                for (const b of antworten.slice(i + 1)) expect(gleicheLoesung(a, b)).toBe(false);
-              }
-              for (const f of instanz.fehlerbilder) {
-                expect(generator.fehlerbildIds).toContain(f.id);
-              }
-            }),
-            { numRuns: laeufe },
-          );
-        });
-
-        it('Bilder sind beschrieben und laden nichts nach; Auswahl-Lösungen zeigen auf Optionen', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              const instanz = generator.erzeuge(s, parameter);
-              const bilder = [instanz.bild, ...(instanz.optionen ?? []).map((o) => o.bild)];
-              for (const b of bilder) if (b) expect(bildprobleme(b)).toEqual([]);
-              for (const l of [instanz.loesung, ...instanz.fehlerbilder.map((f) => f.antwort)]) {
-                if (l.typ !== 'auswahl') continue;
-                expect(l.wert).toBeGreaterThanOrEqual(0);
-                expect(l.wert).toBeLessThan(instanz.optionen?.length ?? 0);
-              }
-            }),
-            { numRuns: Math.min(laeufe, 2000) },
-          );
-        });
-
-        it('alle Platzhalter werden gefüllt', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              const instanz = generator.erzeuge(s, parameter);
-              expect(Object.keys(instanz.platzhalter).sort()).toEqual(
-                [...generator.platzhalter].sort(),
-              );
-              for (const wert of Object.values(instanz.platzhalter)) {
-                expect(wert).toBeDefined();
-              }
-            }),
-            { numRuns: laeufe },
-          );
-        });
-
-        it('gleicher Seed → identische Instanz', () => {
-          fc.assert(
-            fc.property(seed, (s) => {
-              expect(generator.erzeuge(s, parameter)).toEqual(generator.erzeuge(s, parameter));
-            }),
-            { numRuns: Math.min(laeufe, 1000) },
-          );
-        });
-
-        it('bietet Abwechslung in 100 aufeinanderfolgenden Seeds', () => {
-          const mindestens = pruefung.mindestensVerschieden[niveau] ?? 1;
-          for (const start of [0, 1_000_000, 0xffffffff - 99]) {
-            const verschieden = new Set(
-              Array.from({ length: 100 }, (_, i) =>
-                JSON.stringify(sichtbar(generator.erzeuge(start + i, parameter))),
-              ),
+        it(
+          'Lösung stimmt mit unabhängiger Berechnung überein',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                const instanz = generator.erzeuge(s, parameter);
+                expect(instanz.loesung).toEqual(pruefung.unabhaengigeLoesung(instanz, parameter));
+              }),
+              { numRuns: laeufe },
             );
-            expect(verschieden.size).toBeGreaterThanOrEqual(mindestens);
-          }
-        });
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'alle Zahlen liegen in den Niveau-Grenzen',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                expect(
+                  pruefung.grenzverletzungen(generator.erzeuge(s, parameter), parameter),
+                ).toEqual([]);
+              }),
+              { numRuns: laeufe },
+            );
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'kein Fehlerbild ergibt die richtige Antwort, keine Antwort doppelt',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                const instanz = generator.erzeuge(s, parameter);
+                const antworten = instanz.fehlerbilder.map((f) => f.antwort);
+                for (const [i, a] of antworten.entries()) {
+                  expect(gleicheLoesung(a, instanz.loesung)).toBe(false);
+                  for (const b of antworten.slice(i + 1)) expect(gleicheLoesung(a, b)).toBe(false);
+                }
+                for (const f of instanz.fehlerbilder) {
+                  expect(generator.fehlerbildIds).toContain(f.id);
+                }
+              }),
+              { numRuns: laeufe },
+            );
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'Bilder sind beschrieben und laden nichts nach; Auswahl-Lösungen zeigen auf Optionen',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                const instanz = generator.erzeuge(s, parameter);
+                const bilder = [instanz.bild, ...(instanz.optionen ?? []).map((o) => o.bild)];
+                for (const b of bilder) if (b) expect(bildprobleme(b)).toEqual([]);
+                for (const l of [instanz.loesung, ...instanz.fehlerbilder.map((f) => f.antwort)]) {
+                  if (l.typ !== 'auswahl') continue;
+                  expect(l.wert).toBeGreaterThanOrEqual(0);
+                  expect(l.wert).toBeLessThan(instanz.optionen?.length ?? 0);
+                }
+              }),
+              { numRuns: Math.min(laeufe, 2000) },
+            );
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'alle Platzhalter werden gefüllt',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                const instanz = generator.erzeuge(s, parameter);
+                expect(Object.keys(instanz.platzhalter).sort()).toEqual(
+                  [...generator.platzhalter].sort(),
+                );
+                for (const wert of Object.values(instanz.platzhalter)) {
+                  expect(wert).toBeDefined();
+                }
+              }),
+              { numRuns: laeufe },
+            );
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'gleicher Seed → identische Instanz',
+          () => {
+            fc.assert(
+              fc.property(seed, (s) => {
+                expect(generator.erzeuge(s, parameter)).toEqual(generator.erzeuge(s, parameter));
+              }),
+              { numRuns: Math.min(laeufe, 1000) },
+            );
+          },
+          pruefung.zeitlimitMs,
+        );
+
+        it(
+          'bietet Abwechslung in 100 aufeinanderfolgenden Seeds',
+          () => {
+            const mindestens = pruefung.mindestensVerschieden[niveau] ?? 1;
+            for (const start of [0, 1_000_000, 0xffffffff - 99]) {
+              const verschieden = new Set(
+                Array.from({ length: 100 }, (_, i) =>
+                  JSON.stringify(sichtbar(generator.erzeuge(start + i, parameter))),
+                ),
+              );
+              expect(verschieden.size).toBeGreaterThanOrEqual(mindestens);
+            }
+          },
+          pruefung.zeitlimitMs,
+        );
       });
     }
   });

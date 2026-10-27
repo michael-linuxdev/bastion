@@ -1,0 +1,21 @@
+# „Welche Figur ist ein Würfelnetz?“ Entwurf: noch nicht geprüft.
+id: M.RF.KP.DARSTELLEN.NETZ-WAEHLEN
+kompetenz: M.RF.KP.DARSTELLEN
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: kp.wuerfelnetz-waehlen@1
+parameter:
+  G: { gesucht: netz }
+  M: { gesucht: netz }
+text:
+  aufgabe:
+    de: '**Wähle** die Figur **aus**, die sich zu einem Würfel falten lässt.'
+hilfen:
+  - de: Lege in Gedanken ein Quadrat als Boden fest und klappe die anderen nach oben.
+  - de: Landen zwei Quadrate aufeinander, ist es kein Würfelnetz.
+fehlerbilder:
+  falsch-gefaltet:
+    de: Falte diese Figur noch einmal in Gedanken, Quadrat für Quadrat. Zwei Quadrate landen aufeinander, und eine Würfelfläche bleibt offen.
+herkunft: ki-entwurf
+version: 1
