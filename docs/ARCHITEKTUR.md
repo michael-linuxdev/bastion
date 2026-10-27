@@ -158,10 +158,28 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
 | svelte-check | 4.7.7 | Werkzeug |
 | Vitest | 5.0.5 | Werkzeug |
+| ESLint | 10.13.0 | Werkzeug |
+| typescript-eslint | 8.72.1 | Werkzeug |
+| eslint-plugin-svelte | 3.23.1 | Werkzeug |
+| eslint-plugin-boundaries | 7.4.0 | Werkzeug (Ordnergrenzen, T-10) |
+| Prettier (+ prettier-plugin-svelte) | 3.9.10 (4.1.1) | Werkzeug |
 
 TypeScript 7 (die neue, native Umsetzung) wird noch nicht genutzt, weil `svelte-check` und `typescript-eslint` sie noch nicht unterstützen.
 
 Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält die Ende-zu-Ende-Tests.
+
+### 4.7 Leitplanken im Lint (umgesetzt in 0.7b)
+
+`pnpm lint` führt nacheinander ESLint, Prettier (`--check`) und `svelte-check` aus; jede Meldung macht ihn rot.
+
+| Regel | Werkzeug |
+|---|---|
+| `src/core` importiert nichts aus `src/ui`, `src/storage`, `src/generators`, `src/main.ts` | `eslint-plugin-boundaries` |
+| `src/core/bastion` importiert nur aus `src/core/ledger`, keine Fremdpakete | `eslint-plugin-boundaries` + `no-restricted-imports` |
+| Keine Browser-APIs (`window`, `localStorage`, `crypto`, Timer …) und kein Svelte in `src/core` | `no-restricted-globals`, `no-restricted-imports` |
+| Nur Runes-Syntax: `export let` und `$:` sind Compilerfehler, `on:click` u. a. Warnungen gelten als Fehler | Svelte `runes: true`, `onwarn` im Build, `svelte/valid-compile`, `svelte-check --fail-on-warnings` |
+
+`tools/ordnergrenzen.test.ts` prüft bei jedem Testlauf, dass absichtlich falsche Importe tatsächlich gemeldet werden – so kann eine Konfigurationsänderung die Grenzen nicht unbemerkt abschalten.
 
 ## 5. Datenmodell: Ereignisse als Wahrheit
 

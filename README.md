@@ -17,7 +17,8 @@ Voraussetzungen: Node.js ab Version 22 und pnpm (`corepack enable` aktiviert die
 ```sh
 pnpm install     # Abhängigkeiten installieren
 pnpm dev         # Entwicklungsserver starten, Adresse steht in der Ausgabe
-pnpm lint        # Prüfungen (Typen, Svelte)
+pnpm lint        # Prüfungen: ESLint inkl. Ordnergrenzen, Formatierung, Typen
+pnpm format      # Code automatisch formatieren
 pnpm test        # Einheitentests
 pnpm build       # fertige App nach dist/ bauen
 ```
