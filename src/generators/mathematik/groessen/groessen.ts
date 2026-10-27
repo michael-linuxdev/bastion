@@ -29,7 +29,37 @@ export const GROESSEN: Readonly<Record<string, readonly { einheit: string; fakto
     { einheit: 'h', faktor: 24 },
     { einheit: 'd', faktor: 1 },
   ],
+  flaeche: [
+    { einheit: 'mm²', faktor: 100 },
+    { einheit: 'cm²', faktor: 100 },
+    { einheit: 'dm²', faktor: 100 },
+    { einheit: 'm²', faktor: 100 },
+    { einheit: 'a', faktor: 100 },
+    { einheit: 'ha', faktor: 100 },
+    { einheit: 'km²', faktor: 1 },
+  ],
+  volumen: [
+    { einheit: 'mm³', faktor: 1000 },
+    { einheit: 'cm³', faktor: 1000 },
+    { einheit: 'dm³', faktor: 1000 },
+    { einheit: 'm³', faktor: 1 },
+  ],
+  hohlmass: [
+    { einheit: 'ml', faktor: 1000 },
+    { einheit: 'l', faktor: 1 },
+  ],
 };
+
+/**
+ * Typisch falsche Umrechnungszahl: bei Flächen die der Längen (10 statt 100 je Schritt),
+ * bei Volumen die der Flächen (100 statt 1000 je Schritt), sonst 10 bzw. 100.
+ */
+function falscheUmrechnungszahl(groesse: string, f: number): number {
+  if (groesse === 'flaeche') return Math.round(Math.sqrt(f));
+  if (groesse === 'volumen') return Math.round(f ** (2 / 3));
+  if (groesse === 'hohlmass') return 100;
+  return f === 10 ? 100 : 10;
+}
 
 /** Umrechnungszahl von Einheit i nach Einheit j (i < j: so viele i ergeben ein j). */
 export function umrechnungszahl(groesse: string, i: number, j: number): number {
@@ -74,7 +104,7 @@ export const einheitenUmrechnen: Generator<UmrechnenParameter> = {
     }
     const wert = hundertstel / 100;
     const richtig = p.richtung === 'in-kleinere' ? (hundertstel * f) / 100 : hundertstel / f / 100;
-    const falscheZahl = f === 10 ? 100 : 10;
+    const falscheZahl = falscheUmrechnungszahl(g, f);
     return {
       platzhalter: {
         wert: de(dezimalDeutsch(wert)),

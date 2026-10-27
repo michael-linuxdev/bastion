@@ -30,6 +30,19 @@ const IN_KLEINSTER: Record<string, number> = {
   min: 60,
   h: 3600,
   d: 86_400,
+  'mm²': 1,
+  'cm²': 100,
+  'dm²': 10_000,
+  'm²': 1_000_000,
+  a: 100_000_000,
+  ha: 10_000_000_000,
+  'km²': 1_000_000_000_000,
+  'mm³': 1,
+  'cm³': 1000,
+  'dm³': 1_000_000,
+  'm³': 1_000_000_000,
+  ml: 1,
+  l: 1000,
 };
 const r6 = (x: number) => Math.round(x * 1e6) / 1e6;
 // Uhrzeit „7:45 Uhr“ → Minuten nach Mitternacht
@@ -49,6 +62,36 @@ for (const richtung of ['in-kleinere', 'in-groessere'] as const) {
           dezimal: false,
         },
         M: { groessen: ['laenge', 'masse', 'geld'], richtung, sprung_max: 3, dezimal: true },
+      },
+      unabhaengigeLoesung(i) {
+        // in ganzen Hundertsteln rechnen, damit keine Gleitkomma-Ungenauigkeit entsteht
+        const hundertstel = Math.round(zahlAus(t(i, 'wert')) * 100);
+        const von = IN_KLEINSTER[t(i, 'von')] ?? NaN;
+        const nach = IN_KLEINSTER[t(i, 'nach')] ?? NaN;
+        return { typ: 'zahl', wert: (hundertstel * von) / (nach * 100) };
+      },
+      grenzverletzungen(i) {
+        const l = i.loesung;
+        return l.typ === 'zahl' && Math.round(l.wert * 1000) / 1000 !== l.wert
+          ? ['mehr als 3 Nachkommastellen']
+          : [];
+      },
+      mindestensVerschieden: { G: 85, M: 90 },
+    });
+  });
+}
+
+for (const richtung of ['in-kleinere', 'in-groessere'] as const) {
+  describe(`${richtung} (Flächen und Volumen)`, () => {
+    pflichttests(einheitenUmrechnen, {
+      niveaus: {
+        G: {
+          groessen: ['flaeche', 'volumen', 'hohlmass'],
+          richtung,
+          sprung_max: 1,
+          dezimal: false,
+        },
+        M: { groessen: ['flaeche', 'volumen', 'hohlmass'], richtung, sprung_max: 2, dezimal: true },
       },
       unabhaengigeLoesung(i) {
         // in ganzen Hundertsteln rechnen, damit keine Gleitkomma-Ungenauigkeit entsteht
