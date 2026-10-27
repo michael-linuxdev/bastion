@@ -42,7 +42,8 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell, Mathe Kl. 5–6 |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
-| [PLAN](docs/PLAN.md) | Aktueller Stand und Aufgaben |
+| [STRATEGIE](docs/STRATEGIE.md) | Ziel, Scope und Erfolgskriterien für die nächsten 12 Monate |
+| [PLAN](docs/PLAN.md) | Aktueller Stand, Aufgaben, Nicht-Ziele |
 | [ENTSCHEIDUNGEN](docs/ENTSCHEIDUNGEN.md) | Entscheidungs-Review (Checkliste) |
 | [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung |
 

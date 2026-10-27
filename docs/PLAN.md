@@ -1,7 +1,7 @@
 # Bastion – Plan
 
-Status: v0.1 · Stand: 27.10.2026
-Roadmap-Begründung: `KONZEPT.md` §12–13. Dieses Dokument enthält nur **Stand und Aufgaben**.
+Status: v0.2 · Stand: 27.10.2026
+Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12: `STRATEGIE.md`.** Dieses Dokument enthält nur **Stand und Aufgaben**.
 
 ---
 
@@ -10,24 +10,60 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. Dieses Dokument enthält nur **Stan
 | | |
 |---|---|
 | Aktuelle Phase | **0 – Fundament** |
-| Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9 |
-| Nächster Schritt | CI auf GitHub prüfen, GitHub Pages einrichten, dann 0.10 Referenzgeräte |
+| Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
+| Nächster Schritt | Block E (Fokus, 14 Tage): Testpersonen ansprechen, Angebote selbst durchspielen; parallel 0.10 Referenzgeräte |
 | Blocker | keine |
 
 ## 2. Phasenübersicht
 
-| Phase | Name | Status |
-|---|---|---|
-| 0 | Fundament | 🔄 läuft |
-| 1 | Lern-MVP (Mathe Kl. 5–6) | ⏳ |
-| 2 | Bastion-Mechanik (Listenansicht, Simulator) | ⏳ |
-| 3 | Bastion sichtbar (Grafik, QR) | ⏳ |
-| 4 | Mathe Sek I + Belagerungen | ⏳ |
-| 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ |
-| 6 | Zweites Fach + Portfolio | ⏳ |
-| – | Horizont (Oberstufe, berufliche Bildung …) | ohne Termin |
+Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeitpunkt, nicht als Termin (`STRATEGIE.md` §1).
+
+| Phase | Name | Status | Bis Monat 12? |
+|---|---|---|---|
+| 0 | Fundament | 🔄 läuft | ja |
+| 1 | **Lernkern** Mathe Kl. 5–6, Niveaus G + M (Monate 1–5) | ⏳ | ja – Schwerpunkt |
+| 2a | **Basebau-Minimum** (Versuchsaufbau, K-12) | ⏳ | ja |
+| 2b | Bastion-Mechanik voll (Simulator, alle Gebäude Epoche 1) | ⏳ | nur nach Schwelle „Lernkern trägt“ |
+| 3 | Bastion sichtbar (Grafik, QR) | ⏳ | nur nach Schwelle, frühestens nach 2b |
+| 4 | Mathe Sek I + Belagerungen | ⏳ | nein |
+| 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
+| 6 | Zweites Fach + Portfolio | ⏳ | nein |
+| – | Horizont (Oberstufe, berufliche Bildung …) | ohne Termin | nein |
 
 Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein GitHub-Milestone, jede Aufgabe ein Issue (T-12).
+
+### 2.1 Nicht-Ziele bis Monat 12
+
+Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Liste ändern – mit Begründung im Änderungsprotokoll.
+
+**Inhalte**
+- Kein zweites Fach. Keine Klassenstufen außer 5 und 6.
+- Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine.
+- Keine Geometrie, keine Daten und Zufall, keine Zeichen- oder Diagramm-Interaktionen.
+- Keine Formeleingabe (MathLive o. Ä.).
+- Kein Länderbezug über den gemeinsamen Kern hinaus (LEHRPLAN §10).
+
+**Basebau**
+- Keine grafische Bastion (PixiJS), keine Epochen nach Epoche 1, keine Belagerungen.
+- Kein Balancing-Simulator, solange nur das Basebau-Minimum existiert.
+- Keine Studierstube, keine Spezialisierung, keine Zierde.
+
+**Sprache und Zielgruppen**
+- Keine Hilfesprache, kein DaZ-Pfad, keine weiteren Oberflächensprachen. *Spannung zu Prinzip 7, bewusst in Kauf genommen (KONZEPT §13).* Abfederung: einfache Sprache, Fachbegriffe mit Erklärung, RTL-fähiges Layout bleibt.
+- Kein Operatoren-Training.
+- Keine Oberstufe, keine berufliche Bildung.
+
+**Funktionen und Plattform**
+- Kein QR-Transfer zwischen Geräten (Datei-Export/Import genügt).
+- Keine Elternstufen „vereinbart“ und „selbstverwaltet“; nur „begleitet“.
+- Kein Kompetenzportfolio zum Vorzeigen.
+- Kein Lehrkräfte-Modus, keine Klassen, keine Aufgabenpakete für Lehrkräfte.
+- Keine App-Store-Versionen.
+- Keine Mehrgeräte-Synchronisation.
+
+**Messung**
+- Keine Nutzungsstatistik, kein Analytics, keine Telemetrie – auch nicht „nur anonym“. Messung nur über freiwillige Studienberichte (K-14, vorgeschlagen) und Gespräche.
+- Keine Vanity-Metrics: Downloads, Aufrufe, Sitzungsdauer, Bewertungen.
 
 ## 3. Phase 0 – Fundament
 
@@ -91,24 +127,54 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
 
 ### Block D – Menschen
 
-- [ ] **0.11 Testjugendliche gewinnen**
-  - 3–5 Jugendliche Kl. 5–6, möglichst aus unterschiedlichen Schulformen
-  - Einverständnis der Eltern einholen; kurz schriftlich festhalten, was getestet und was beobachtet wird
+- [ ] **0.11 Testjugendliche gewinnen** (Vorgehen und Material: `TESTS.md`)
+  - Zuerst 5–8, bis Monat 3 insgesamt 8–12 Jugendliche Kl. 5–6, möglichst aus unterschiedlichen Schulformen
+  - Davon mindestens 3–4, die „normalerweise keine Lern-Apps mögen“
+  - Einverständnis der Eltern schriftlich (Vorlage `TESTS.md` §3)
   - Keine Daten der Testpersonen im Repository
 
-## 4. Phase 1 – Vorschau
+### Block E – Fokus (die nächsten 14 Tage, `STRATEGIE.md` §8)
 
-Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Grobe Bausteine:
+- [x] **0.12 Scope-Entscheidung festhalten** – K-11: Mathe, Kl. 5–6, Niveaus G und M (`STRATEGIE.md` §2, `VISION.md` §11)
+- [x] **0.13 Nicht-Ziele bis Monat 12** – §2.1
+- [ ] **0.14 Bestehende Angebote selbst durchspielen** – Entwurf `WETTBEWERB.md` liegt vor. Offen: ANTON, bettermarks (falls Landeslizenz zugänglich) und eine dritte App je 30 Minuten mit denselben drei Bruch-Aufgaben durchspielen, absichtlich typische Fehler machen, Rückmeldung protokollieren (Raster in `WETTBEWERB.md` §5)
+- [ ] **0.15 Erste 5–8 Testpersonen ansprechen** – Ansprache-Text und Elterninfo in `TESTS.md` §2–3
+- [x] **0.16 Basebau-Minimum festlegen** – K-12 (`STRATEGIE.md` §3)
+- [ ] **0.17 K-14 entscheiden** – freiwilliger Studienbericht ja/nein, vor der ersten Testrunde in Phase 1
 
+## 4. Phase 1 – Lernkern (Vorschau)
+
+Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede Stufe ist für sich nutzbar und wird mit der Testgruppe geprüft.
+
+**1a – Aufgabenqualität (Welle 1: Brüche und Teilbarkeit, Niveaus G und M)**
 1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung
-2. Generatoren für die Kompetenzen aus 0.4
-3. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus
-4. Diagnose-Modus
-5. Elternbereich (PIN, Stufe „begleitet“, Kompetenzbericht)
-6. Export/Import, Sicherungs-Erinnerung
-7. Abschlussbildschirm „Was habe ich heute gekonnt?“ (zunächst ohne Ressourcen)
-8. Ledger bucht bereits im Hintergrund (B-10), ohne Anzeige
-9. Testrunde mit Testjugendlichen
+2. Generatoren für TB und BR (plus nötige Voraussetzungen aus NZ), je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7)
+3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
+4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
+
+**1b – Wiederholung und Fehlerwerkstatt**
+5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus
+6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“)
+
+**1c – Diagnose und sichtbarer Fortschritt**
+7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform)
+8. Kompetenzansicht: was gefestigt ist, was wackelt – ohne Bastion verständlich
+9. Elternbereich minimal (PIN, Stufe „begleitet“, Kompetenzbericht)
+10. Export/Import, Sicherungs-Erinnerung
+
+**Durchgehend**
+11. Ledger bucht im Hintergrund (B-10), ohne Anzeige
+12. Testrunden mit der Testgruppe nach 1a, 1b und 1c (`TESTS.md`)
+13. Welle 2 (NZ, GR) erst, wenn Welle 1 in den Tests trägt
+
+**Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
+
+## 4a. Phase 2a – Basebau-Minimum (Vorschau)
+
+Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 in `STRATEGIE.md` §6):
+- Listenansicht mit Stein, Erz, Bauplänen; ein bis zwei Gebäude der Epoche 1
+- Basebau-Schalter (R7)
+- Testfrage: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
 ## 5. Änderungsprotokoll
 
@@ -120,3 +186,4 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Grobe Bausteine:
 | 27.10.2026 | Entscheidungs-Review abgeschlossen; Lizenz festgelegt; `CLAUDE.md` angelegt (T-13) |
 | 27.10.2026 | `DATENMODELL.md` v0.1: Ereignisse, Projektionen, Export/Import, Zusammenführen, Verdichtung, Datenschutzprüfung; Block B abgeschlossen |
 | 27.10.2026 | `LICENSE` (AGPL-3.0); Block C 0.7–0.9: Gerüst, Leitplanken, Kern-Grundlagen, Offline-Hülle, Tests und CI |
+| 27.10.2026 | Strategie für 12 Monate (`STRATEGIE.md`): Scope K-11 (Mathe, Kl. 5–6, G+M), Lernkern vor Basebau K-12, Erfolgskriterien K-13; Nicht-Ziele §2.1; Block E; Phase 1 neu gegliedert; Testgruppe 8–12 |

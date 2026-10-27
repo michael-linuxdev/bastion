@@ -218,10 +218,13 @@ Bastion wird von **einer Person** entwickelt. Das ist keine Randbedingung, sonde
 
 Detailplanung in `PLAN.md`.
 
+**Fokus bis Monat 12 (K-11, K-12, `STRATEGIE.md`):** Phase 1 nur mit den Niveaus G und M, Inhalte in zwei Wellen (zuerst Brüche und Teilbarkeit). Danach ein **Basebau-Minimum** (Phase 2a) als Versuchsaufbau. Phase 2 vollständig und Phase 3 erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben. Phasen 4–6 liegen jenseits von Monat 12.
+
 | Phase | Inhalt | Bewusst nicht enthalten | Prüfkriterium |
 |---|---|---|---|
 | **0 – Fundament** | `BASEBAU.md`, Kompetenzmodell-Ausschnitt Mathe 5/6, `PLAN.md`, `SESSION-PROMPT.md`; Repo-Gerüst, Build, Tests, Leistungsmessung | Code für Funktionen | Dokumente widerspruchsfrei, Gerüst läuft offline |
-| **1 – Lern-MVP** | Mathe Kl. 5–6, 3–4 Kompetenzbereiche, generatorbasiert, drei Niveaus; Üben, Wiederholen (FSRS), Diagnose; Elternbereich (Stufe „begleitet“); Datei-Export/Import | Basebau, QR, weitere Fächer, Hilfesprache | Testjugendliche lernen messbar (Wiederholungserfolg) und verstehen die App ohne Hilfe |
+| **1 – Lern-MVP** | Mathe Kl. 5–6, 3–4 Kompetenzbereiche, generatorbasiert, Niveaus G und M (E später, K-11); Üben, Wiederholen (FSRS), Diagnose; Elternbereich (Stufe „begleitet“); Datei-Export/Import | Basebau, QR, weitere Fächer, Hilfesprache | Testjugendliche lernen messbar (Wiederholungserfolg) und verstehen die App ohne Hilfe |
+| **2a – Basebau-Minimum** | Ledger sichtbar, Listenansicht, 1–2 Gebäude Epoche 1, Basebau-Schalter | Simulator, Grafik, weitere Gebäude | Verbindung „Lernen → Ressource → Bauen“ wird verstanden; Lernqualität sinkt nicht |
 | **2 – Bastion-Mechanik** | Ledger, drei Ressourcen, ~6 Gebäude, Bauen in Lerneinheiten, Listenansicht, Basebau-Schalter, Balancing-Simulator | Grafische Bastion, Belagerungen | Simulator zeigt: Farmen lohnt nicht, Pausen schaden nicht. Tests: Lernqualität sinkt mit Basebau nicht |
 | **3 – Bastion sichtbar** | Grafische Ansicht (PixiJS), Epoche 1, QR-Transfer | Weitere Epochen | Jugendliche wollen ihre Bastion zeigen |
 | **4 – Mathe Sek I** | Mathe Kl. 7–10, Belagerungen als Prüfungssimulation, ESA/MSA-Vorbereitung Mathe | Weitere Fächer | Hauptschul- *und* Gymnasiums-Testpersonen nutzen es für echte Klassenarbeiten |
@@ -290,3 +293,7 @@ Detailplanung in `PLAN.md`.
 | L-1–L-8 | Kompetenzmodell-Entscheidungen (siehe LEHRPLAN.md) | 27.10.2026 | Entschieden |
 | I-1–I-10 | Inhaltsformat-Entscheidungen (siehe INHALTSFORMAT.md) | 27.10.2026 | Entschieden |
 | D-1–D-12 | Datenmodell-Entscheidungen (siehe DATENMODELL.md) | 27.10.2026 | Entschieden |
+| K-11 | Scope bis Monat 12: Mathe, Kl. 5–6, Niveaus G und M (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
+| K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
+| K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
+| K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |

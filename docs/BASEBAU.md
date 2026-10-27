@@ -3,6 +3,8 @@
 Status: Entwurf v0.1 · Stand: 27.10.2026 · Bezug: `VISION.md` (R1–R7), `KONZEPT.md` §5, `ARCHITEKTUR.md` (T-7, T-9)
 Alle Zahlen sind **Startwerte für den Balancing-Simulator** (Phase 2), keine endgültigen Werte.
 
+> **Bis Monat 12 gilt K-12 (`STRATEGIE.md` §3):** Gebaut wird nur das **Basebau-Minimum** – Ledger sichtbar, Listenansicht, ein bis zwei Gebäude der Epoche 1, Basebau-Schalter. Alles Weitere in diesem Dokument erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben.
+
 ---
 
 ## 1. Zweck des Basebaus
