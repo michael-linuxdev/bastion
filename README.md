@@ -6,6 +6,10 @@ Bastion ist eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 
 
 **Keine Werbung. Keine In-App-Käufe. Kein Account. Kein Tracking.**
 
+## Online
+
+Testversion: **https://bastion.micana.de/** (wird bei jedem Push auf `main` automatisch aktualisiert)
+
 ## Status
 
 Phase 0 – Fundament. Technisches Gerüst im Aufbau.

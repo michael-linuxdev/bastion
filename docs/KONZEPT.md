@@ -262,7 +262,7 @@ Detailplanung in `PLAN.md`.
 | O-10 | Ziel-Plattformen | Nur PWA / App-Stores | PWA, App-Stores im Horizont | — |
 | O-11 | Grafikquelle | Freie Grafikpakete (z. B. CC0) / eigener schlichter Stil / Auftrag | Schlichter eigener Stil, ergänzt um CC0-Pakete | Phase 3 |
 | O-12 | Zweites Fach | Englisch / Deutsch | Englisch (besser strukturierbar, Wortschatz eignet sich für Kartei) | Phase 6 |
-| O-13 | Hosting im Produktivbetrieb | GitHub Pages / EU-Anbieter (z. B. Codeberg Pages) / eigener Webhoster | EU-Anbieter; GitHub Pages für Entwicklung | vor erster öffentlicher Version |
+| O-13 | Hosting im Produktivbetrieb | GitHub Pages / EU-Anbieter (z. B. Codeberg Pages) / eigener Webhoster | Domain festgelegt: `bastion.micana.de`. Hoster: EU-Anbieter; GitHub Pages vorerst | vor erster öffentlicher Version |
 
 ## 16. Entscheidungslog
 

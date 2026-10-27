@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Unterordner auf GitHub Pages: https://<name>.github.io/bastion/
-  BASE_PATH: /bastion/
+  # Die App liegt im Wurzelverzeichnis der eigenen Domain https://bastion.micana.de/
+  BASE_PATH: /
 
 jobs:
   pruefen:

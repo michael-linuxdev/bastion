@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// Unterordner wie im Deployment (z. B. "/bastion/"), damit genau das getestet
+// Pfad wie im Deployment (BASE_PATH, auf bastion.micana.de "/"), damit genau das getestet
 // wird, was ausgeliefert wird.
 const basis = process.env['BASE_PATH'] ?? '/';
 const port = 4173;

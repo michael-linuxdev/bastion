@@ -210,12 +210,12 @@ Workflow `.github/workflows/ci.yml`, bei jedem Push und Pull Request:
 
 1. `pnpm lint` – ESLint inkl. Ordnergrenzen, Prettier, Typprüfung
 2. `pnpm test` – Einheitentests (Vitest), darunter die Tests der Leitplanken
-3. `pnpm build` – mit `BASE_PATH=/bastion/` wie auf GitHub Pages
+3. `pnpm build` – mit `BASE_PATH=/` wie unter https://bastion.micana.de/
 4. `pnpm budget` – Größenbudget §9: alle JavaScript-Dateien zusammen ≤ 250 KB gzip (`tools/groessenbudget.ts`)
 5. `pnpm test:e2e` – Playwright gegen den fertigen Build: einmal online laden, dann offline neu laden; dabei darf keine Anfrage an eine fremde Adresse gehen (A2)
-6. Nur auf `main`: Veröffentlichung auf GitHub Pages
+6. Nur auf `main`: Veröffentlichung auf GitHub Pages unter **https://bastion.micana.de/**
 
-Alle GitHub Actions sind auf Commit-Hashes gepinnt. Für die Veröffentlichung muss in den Repository-Einstellungen unter *Settings → Pages → Source* „GitHub Actions“ gewählt sein. GitHub Pages für private Repositories setzt einen kostenpflichtigen GitHub-Plan voraus; solange das Repository privat ist (O-8), schlägt nur der Schritt „Veröffentlichen“ fehl, die Prüfungen laufen trotzdem.
+Alle GitHub Actions sind auf Commit-Hashes gepinnt. Für die Veröffentlichung muss in den Repository-Einstellungen unter *Settings → Pages → Source* „GitHub Actions“ gewählt und unter *Custom domain* `bastion.micana.de` eingetragen sein (mit „Enforce HTTPS“). Beim DNS-Anbieter von `micana.de` braucht es dafür einen CNAME-Eintrag `bastion` → `michael-linuxdev.github.io`. Eine `CNAME`-Datei im Build ist bei Veröffentlichung über Actions nicht nötig. GitHub Pages für private Repositories setzt einen kostenpflichtigen GitHub-Plan voraus; solange das Repository privat ist (O-8), schlägt nur der Schritt „Veröffentlichen“ fehl, die Prüfungen laufen trotzdem.
 
 ## 5. Datenmodell: Ereignisse als Wahrheit
 
@@ -307,7 +307,7 @@ Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
 ## 12. Offene Punkte zum Stack
 
 - **Formeleingabe:** MathLive gegen eigenes, schlankes Eingabefeld testen (Gewicht, Tablet-Bedienung, Screenreader).
-- **Hosting-Ort und Domain (O-13):** GitHub Pages ist für Entwicklung und Tests bequem. Für den Produktivbetrieb ist zu prüfen, ob ein Anbieter mit Sitz in der EU (z. B. Codeberg Pages oder ein deutscher Webhoster) besser passt: Beim ersten Laden erhält jeder Host die IP-Adresse, und Schulen achten bei US-Anbietern besonders auf Datenschutzfragen. Da die App eine statische Seite ist, ist ein späterer Umzug einfach.
+- **Hosting-Ort und Domain (O-13):** Domain ist `bastion.micana.de` (27.10.2026), ausgeliefert vorerst über GitHub Pages. Weil die App nur über die eigene Domain erreichbar ist, ist ein späterer Umzug des Hosters für Nutzer unsichtbar – wichtig, weil Service Worker und lokale Daten an die Adresse gebunden sind. GitHub Pages ist für Entwicklung und Tests bequem. Für den Produktivbetrieb ist zu prüfen, ob ein Anbieter mit Sitz in der EU (z. B. Codeberg Pages oder ein deutscher Webhoster) besser passt: Beim ersten Laden erhält jeder Host die IP-Adresse, und Schulen achten bei US-Anbietern besonders auf Datenschutzfragen. Da die App eine statische Seite ist, ist ein späterer Umzug einfach.
 - **Lerninsel-Daten übernehmen?** Ein Import des Lerninsel-Spielstands als „Erbstück“ in der Bastion wäre ein schöner Übergang – setzt Kenntnis des Lerninsel-Speicherformats voraus.
 
 ## 13. Anpassung an das Ein-Personen-Projekt
