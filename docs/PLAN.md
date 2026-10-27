@@ -11,7 +11,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 |---|---|
 | Aktuelle Phase | **0 – Fundament** |
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
-| Nächster Schritt | Block E (Fokus, 14 Tage): Testpersonen ansprechen, Angebote selbst durchspielen; parallel 0.10 Referenzgeräte |
+| Nächster Schritt | Block E (Fokus, 14 Tage): Testpersonen ansprechen, Angebote selbst durchspielen, K-14 entscheiden; parallel 0.10 Referenzgeräte |
 | Blocker | keine |
 
 ## 2. Phasenübersicht

@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (6) · Phase 0 – Fundament
+Stand: 27.10.2026 (7) · Phase 0 – Fundament
 
 ---
 
@@ -36,34 +36,40 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Dokumente (Lesereihenfolge)
 
-1. `docs/VISION.md` – Warum, für wen, Prinzipien
-2. `docs/KONZEPT.md` – Gesamtkonzept, Roadmap, offene Entscheidungen
-3. `docs/PLAN.md` – aktueller Stand und Aufgaben
-4. je nach Aufgabe: `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/LEHRPLAN.md`, `docs/INHALTSFORMAT.md`, `docs/DATENMODELL.md`
+1. `docs/VISION.md` – Warum, für wen, Prinzipien; §11 Scope-Grenze bis Monat 12
+2. `docs/STRATEGIE.md` – Ziel, Scope und Erfolgskriterien für 12 Monate
+3. `docs/PLAN.md` – aktueller Stand, Aufgaben, **Nicht-Ziele bis Monat 12**
+4. `docs/KONZEPT.md` – Gesamtkonzept, Roadmap, offene Entscheidungen
+5. je nach Aufgabe: `docs/WETTBEWERB.md`, `docs/TESTS.md`, `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/LEHRPLAN.md`, `docs/INHALTSFORMAT.md`, `docs/DATENMODELL.md`
 
 ## Aktueller Auftrag
 
-**Phase 0 abschließen.** Ausführung mit Claude Code; Regeln in `CLAUDE.md`.
+**Block E – Fokus (14 Tage), dann Phase 0 abschließen.** Scope bis Monat 12: Mathe, Klasse 5–6, Niveaus G und M (K-11). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
-1. **CI auf GitHub prüfen:** Der Workflow `.github/workflows/ci.yml` muss auf `main` grün laufen. Dazu den Branch der letzten Sitzung nach `main` übernehmen.
-2. **GitHub Pages einrichten:** *Settings → Pages → Source: GitHub Actions*. Für private Repositories braucht Pages einen kostenpflichtigen Plan – sonst erst nach dem Öffentlich-Schalten (O-8).
-3. **Probe im Flugmodus:** Testversion auf einem Handy öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, Flugmodus an, neu öffnen.
-4. **0.10 Referenzgeräte und Messung** (`PLAN.md`): drei Geräte festlegen, Gerüst-App messen, Ergebnis in `ARCHITEKTUR.md` §9 eintragen.
-5. Offen aus Block A: Milestones und Issues für die Phasen anlegen (T-12), Repository öffentlich schalten (O-8).
+Vom Projektverantwortlichen (nicht delegierbar):
+1. **0.15** Erste 5–8 Testpersonen ansprechen (Texte in `TESTS.md` §2), Einwilligungsblatt aus `TESTS.md` §3 gegenlesen lassen.
+2. **0.14** ANTON, bettermarks (falls zugänglich) und ein drittes Angebot nach Raster `WETTBEWERB.md` §5 durchspielen; Ergebnisse in §4 einarbeiten.
+3. **0.17** K-14 entscheiden (freiwilliger Studienbericht, `STRATEGIE.md` §7).
+4. PR #1 mergen; GitHub Pages mit Domain `bastion.micana.de` einrichten (ARCHITEKTUR §4.10); Standard-Branch auf `main` stellen.
 
-Danach: Phase 1 in Aufgaben zerlegen (`PLAN.md` §4).
+Mit Claude Code:
+5. **0.10** Referenzgeräte und erste Messung.
+6. Danach Phase 1a in Issues zerlegen (`PLAN.md` §4): zuerst Kompetenzgraph laden und der erste Generator `bruch.erweitern-zielnenner` (G und M) mit Fehlerbildern und Pflicht-Tests (INHALTSFORMAT §6.3).
 
 ## Übergabe der letzten Sitzung
 
-- `LICENSE` mit dem offiziellen AGPL-3.0-Text angelegt.
-- **0.7a** Projekt: Vite 8, Svelte 5 (Runes-Modus erzwungen), TypeScript 6 strict, pnpm 10; alle Versionen exakt gepinnt (ARCHITEKTUR §4.6). TypeScript 7 noch nicht, weil `svelte-check` und `typescript-eslint` es nicht unterstützen.
-- **0.7b** Leitplanken (ARCHITEKTUR §4.7): `eslint-plugin-boundaries` für die Ordnergrenzen, Browser-APIs und Svelte in `src/core` verboten, Svelte-Warnungen brechen Lint und Build ab, Prettier. `tools/ordnergrenzen.test.ts` beweist bei jedem Testlauf, dass falsche Importe gemeldet werden.
-- **0.7c** Kern: `src/core/rng/rng.ts` (sfc32 mit Seed, feste Referenzwerte im Test), `src/core/rng/ulid.ts` mit `ZufallsQuelle` (D-O1 → D-13 entschieden: eigene Umsetzung), `src/core/policy/lerntag.ts` (4:00 Uhr, UTC-Versatz wird hereingereicht).
-- **0.7d** Startseite „Bastion – im Aufbau“, Texte in `src/ui/texte/de.json`, Grund-CSS mit logischen Eigenschaften (per Test erzwungen), Hell/Dunkel nach Systemeinstellung.
-- **0.8** Offline-Hülle: Precaching, Manifest, Platzhalter-Icons aus `public/icon.svg`, Update nur nach Zustimmung, `navigator.storage.persist()`.
-- **0.9** Playwright-Test „online laden, offline neu laden, keine fremden Anfragen“, Größenbudget-Skript (aktuell ca. 21 KB von 250 KB), CI mit Deployment auf GitHub Pages.
-- Lokal geprüft: `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm budget`, `pnpm test:e2e` grün. CI auf GitHub für den Arbeitszweig grün (Lauf 2); Veröffentlichung läuft erst auf `main`.
-- Zwei TypeScript-Konfigurationen: `tsconfig.json` (App, ohne Node-Typen) und `tsconfig.node.json` (Werkzeuge, Tests).
+- PR #1 (Block C) nach `main` angelegt; `main` existierte noch nicht und wurde auf dem ersten Commit (Konzeptdokumente) erzeugt.
+- Veröffentlichung unter **https://bastion.micana.de/**: CI baut jetzt ohne Unterordner (`BASE_PATH=/`). Einrichtung von Pages und DNS steht in ARCHITEKTUR §4.10; noch nicht geprüft, ob die Domain bereits auflöst.
+- **Strategie für 12 Monate** (`STRATEGIE.md`):
+  - K-11 Scope: Mathe, Kl. 5–6, G + M; Welle 1 Brüche und Teilbarkeit, Welle 2 natürliche Zahlen und Größen. Zielgruppe: in Mathe unsichere oder durchschnittliche Jugendliche jeder Schulform.
+  - K-12 Lernkern vor Basebau; Basebau-Minimum (Ledger sichtbar, Liste, 1–2 Gebäude) bis die Schwelle „Lernkern trägt“ erreicht ist.
+  - K-13 Erfolgskriterien Oktober 2027: 40 Jugendliche ≥ 4 Monate regelmäßig, Behalten messbar besser, 15 sagen unaufgefordert „meins“.
+  - K-14 **vorgeschlagen**: freiwilliger Studienbericht als einzige Messquelle – Spannung zu Prinzip 3, deshalb bewusst offen.
+- `PLAN.md`: Nicht-Ziele bis Monat 12 (§2.1), Block E, Phase 1 in 1a/1b/1c gegliedert, Phase 2a Basebau-Minimum, Testgruppe 8–12.
+- `VISION.md` §11, `KONZEPT.md` §13/§16, `LEHRPLAN.md` §4.1/§8.2, `BASEBAU.md` an den Scope angepasst.
+- `WETTBEWERB.md`: ehrlicher Vergleich (Bastion hat noch keinen Mathe-Kern), Hypothesen H1–H5, Durchspiel-Raster.
+- `TESTS.md`: Ansprache, Einwilligung, Gesprächsfragen, Protokollvorlage, Behaltenstest für E2.
+- Offene Spannungen, bewusst dokumentiert: DaZ/Hilfesprache außerhalb des Scopes (Prinzip 7); E1 (40 Nutzende) braucht Verbreitung über die Testgruppe hinaus; E3 braucht das Basebau-Minimum spätestens um Monat 6–7.
 
 ## Am Ende der Sitzung aktualisieren
 
