@@ -1,0 +1,23 @@
+# Sachaufgabe Einkauf mit Rückgeld. Entwurf: noch nicht geprüft.
+id: M.GM.GR.SACH.EINKAUF
+kompetenz: M.GM.GR.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.sach-einkauf@1
+parameter:
+  G: { menge_max: 4 }
+  M: { menge_max: 9 }
+text:
+  aufgabe:
+    de: '{geschichte} **Berechne** das Rückgeld in Euro.'
+hilfen:
+  - de: Berechne zuerst, wie viel alles zusammen kostet.
+  - de: Ziehe den Preis vom bezahlten Betrag ab.
+fehlerbilder:
+  rueckgeld-vergessen:
+    de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Betrag ab.
+  nur-ein-stueck:
+    de: Du hast nur ein Stück berechnet. Lies noch einmal, wie viele gekauft werden.
+herkunft: ki-entwurf
+version: 1

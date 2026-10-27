@@ -1,0 +1,22 @@
+# „3,07 m = ? cm“. Entwurf: noch nicht geprüft.
+id: M.GM.GR.KOMMA.ZU-KLEINER
+kompetenz: M.GM.GR.KOMMA
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.kommaschreibweise@1
+parameter:
+  G: { groessen: [geld, laenge], richtung: zu-kleiner }
+  M: { groessen: [geld, laenge, masse], richtung: zu-kleiner }
+text:
+  aufgabe:
+    de: '**Gib** in {einheit_klein} **an**: {komma} {einheit_gross} = ? {einheit_klein}'
+hilfen:
+  - de: Multipliziere mit der Umrechnungszahl. Das Komma wandert nach rechts.
+fehlerbilder:
+  falsche-stelle:
+    de: Achte darauf, wie viele Stellen das Komma wandert.
+  nullen-falsch:
+    de: 'Die Null hinter dem Komma zählt mit: 3,07 m sind 3 m und 7 cm, also 307 cm.'
+herkunft: ki-entwurf
+version: 1

@@ -24,6 +24,8 @@ export const AUFGABENTYPEN = [
   'rest-eingabe',
   // Primfaktorzerlegung: Faktoren eingeben, Lösung als aufsteigende Reihenfolge
   'faktoren-eingabe',
+  // Uhrzeit hh:mm; Lösung als Minuten nach Mitternacht
+  'uhrzeit-eingabe',
 ] as const;
 export type Aufgabentyp = (typeof AUFGABENTYPEN)[number];
 

@@ -1,0 +1,23 @@
+# „Der Film beginnt um 19:35 Uhr und dauert 1 h 50 min. Wann endet er?“ Entwurf: noch nicht geprüft.
+id: M.GM.GR.ZEIT.ENDZEIT
+kompetenz: M.GM.GR.ZEIT
+niveaus: [G, M]
+typ: uhrzeit-eingabe
+quelle: generator
+generator: gr.endzeit@1
+parameter:
+  G: { bis_stunden: 3, ueber_mitternacht: false }
+  M: { bis_stunden: 9, ueber_mitternacht: true }
+text:
+  aufgabe:
+    de: 'Ein Film beginnt um {beginn} und dauert {stunden} h {minuten} min. **Bestimme**, wann er endet.'
+hilfen:
+  - de: Addiere zuerst die Stunden, dann die Minuten.
+  - de: Werden es 60 Minuten oder mehr, wird daraus eine Stunde mehr.
+fehlerbilder:
+  minuten-vergessen:
+    de: Du hast nur die Stunden addiert. Die {minuten} Minuten kommen noch dazu.
+  stunde-nicht-erhoeht:
+    de: Aus 60 Minuten wird eine Stunde – die Stundenzahl muss um 1 größer werden.
+herkunft: ki-entwurf
+version: 1
