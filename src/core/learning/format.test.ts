@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { zahlDeutsch } from './format';
+import { dezimalDeutsch, zahlDeutsch } from './format';
 
 describe('zahlDeutsch', () => {
   it('gliedert ab fünf Stellen in Dreiergruppen', () => {
@@ -16,5 +16,16 @@ describe('zahlDeutsch', () => {
 
   it('weist Kommazahlen ab', () => {
     expect(() => zahlDeutsch(1.5)).toThrow(RangeError);
+  });
+});
+
+describe('dezimalDeutsch', () => {
+  it('schreibt Dezimalzahlen mit Komma und ohne Nullen am Ende', () => {
+    expect(dezimalDeutsch(0.75)).toBe('0,75');
+    expect(dezimalDeutsch(12.8)).toBe('12,8');
+    expect(dezimalDeutsch(0.1 + 0.2)).toBe('0,3');
+    expect(dezimalDeutsch(3)).toBe('3');
+    expect(dezimalDeutsch(12345.5)).toBe('12 345,5');
+    expect(dezimalDeutsch(-0.5)).toBe('−0,5');
   });
 });

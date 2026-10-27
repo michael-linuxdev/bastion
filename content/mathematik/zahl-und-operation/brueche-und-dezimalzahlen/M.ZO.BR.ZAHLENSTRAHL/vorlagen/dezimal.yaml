@@ -1,0 +1,22 @@
+# Zahlenstrahl → Dezimalzahl. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ZAHLENSTRAHL.DEZIMAL
+kompetenz: M.ZO.BR.ZAHLENSTRAHL
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: br.zahlenstrahl-ablesen@1
+parameter:
+  G: { nenner: [10], bis: 1, dezimal: true }
+  M: { nenner: [10], bis: 2, dezimal: true }
+text:
+  aufgabe:
+    de: '**Gib** die Dezimalzahl **an**, die an der Markierung steht.'
+hilfen:
+  - de: Zwischen 0 und 1 liegen 10 Abschnitte. Jeder Abschnitt ist ein Zehntel, also 0,1.
+fehlerbilder:
+  striche-statt-abstaende:
+    de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen.
+  nur-teile-gezaehlt:
+    de: Du hast die Anzahl der Abschnitte angegeben. Jeder Abschnitt ist aber nur 0,1 groß.
+herkunft: ki-entwurf
+version: 1

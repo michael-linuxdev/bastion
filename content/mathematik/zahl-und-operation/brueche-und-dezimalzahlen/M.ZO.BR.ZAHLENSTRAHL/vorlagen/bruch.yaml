@@ -1,0 +1,25 @@
+# Zahlenstrahl → Bruch. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ZAHLENSTRAHL.BRUCH
+kompetenz: M.ZO.BR.ZAHLENSTRAHL
+niveaus: [G, M]
+typ: bruch-bild
+quelle: generator
+generator: br.zahlenstrahl-ablesen@1
+parameter:
+  G: { nenner: [2, 4, 5, 10], bis: 1, dezimal: false }
+  M: { nenner: [3, 4, 5, 6, 8, 10], bis: 2, dezimal: false }
+antwort:
+  form: beliebig
+text:
+  aufgabe:
+    de: '**Gib** den Bruch **an**, der an der Markierung steht.'
+hilfen:
+  - de: Zähle die Abschnitte zwischen 0 und 1. So viele Teile hat ein Ganzes – das ist der Nenner.
+  - de: Zähle dann die Abschnitte von 0 bis zur Markierung.
+fehlerbilder:
+  striche-statt-abstaende:
+    de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen. Zwischen 0 und 1 liegen so viele Abschnitte wie Teile.
+  nur-teile-gezaehlt:
+    de: Gib die Zahl als Bruch an – nicht nur die Anzahl der Abschnitte.
+herkunft: ki-entwurf
+version: 1
