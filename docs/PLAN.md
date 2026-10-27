@@ -121,9 +121,10 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
   - Vitest (Beispieltest im Kern), Playwright-Test „erster Start, dann offline neu laden“
   - CI-Schritte: Lint → Tests → Build → Größenbudget (ARCHITEKTUR §9)
   - Automatisches Deployment auf GitHub Pages für Testversionen
-- [ ] **0.10 Referenzgeräte und Messung**
-  - Drei Referenzgeräte festlegen (altes Android, Chromebook, älteres iPad – oder verfügbarer Ersatz)
-  - Erste Messung der Gerüst-App, Ergebnis in `ARCHITEKTUR.md` §9 eintragen
+- [ ] **0.10 Referenzgeräte und Messung** (teilweise: nachgeahmte Messung erledigt, ARCHITEKTUR §9.2)
+  - Drei Referenzgeräte festlegen (altes Android, Chromebook, älteres iPad – oder verfügbarer Ersatz) – *offen, Projektverantwortlicher*
+  - [x] Messskript `pnpm messen` und erste nachgeahmte Messung der Gerüst-App in `ARCHITEKTUR.md` §9.2
+  - Messung auf den echten Referenzgeräten – *offen*
 
 ### Block D – Menschen
 
