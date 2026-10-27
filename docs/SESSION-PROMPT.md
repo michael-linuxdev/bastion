@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (12) · Phase 0 – Fundament
+Stand: 27.10.2026 (13) · Phase 0 – Fundament, Phase 1a begonnen
 
 ---
 
@@ -48,35 +48,31 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
-1a. I-11 (neue Aufgabentypen für Bilder, Koordinaten, Anleitungen) bestätigen.
 2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
 3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
 4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
+Vom Projektverantwortlichen, neu:
+6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+
 Mit Claude Code, als Nächstes:
-6. Generatoren weiter entlang des Graphen, jeweils mit Vorlage und `pflichttests`: zweite Vorlage für `NZ.ORDNEN` (Vergleichszeichen <, >, = setzen), dann `NZ.RUNDEN` (zwei Vorlagen), dann `NZ.ADD-SUB` …
-7. Sobald I-11 bestätigt ist: Bild-Aufgaben (Zahlenstrahl, Winkel, Koordinaten) – Generatoren erzeugen SVG.
-8. Danach: erste Übungsseite in der App, die eine Vorlage lädt, eine Aufgabe zeigt und mit Fehlerbild-Rückmeldung auswertet.
-8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
+7. **Erste Übungsseite in der App:** Kompetenzgraph und Vorlagen laden, eine Aufgabe anzeigen (zuerst `zahl-eingabe`, `auswahl`, dann Bild-Typen), Antwort auswerten, Fehlerbild-Rückmeldung und Lösungsweg zeigen. Die Inhalte sind dafür vollständig da.
+8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
+9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung
 
-- PR #1 gemergt; https://bastion.micana.de/ wird bei jedem Push auf `main` veröffentlicht (Deploy-Lauf grün).
-- **Scope zweimal geändert (K-11):** erst Kl. 5–13 statt 5–6, dann präzisiert auf **Sachsen, Kl. 5–12, alle Schularten**. K-8 für die Mathe-Oberstufe aufgehoben. Neue Entscheidung **L-9**: Kompetenzen bekommen eine Zuordnung zu den sächsischen Lehrplänen je Schulart (Feld `sachsen`), der Graph bleibt länderneutral, keine Bundesland-Abfrage. Elternstufe „selbstverwaltet“ jetzt im Scope (Oberstufe).
-- Hinweis aus der Recherche: Brüche am sächsischen Gymnasium schon in Kl. 5 („Gemeine Brüche und Dezimalzahlen“, Lehrplan 2019), an der Oberschule in Kl. 6 – am Original zu prüfen (0.18).
-- **0.10 teilweise:** `pnpm messen` (`tools/messung.ts`) misst den Build auf einem nachgeahmten Altgerät (CPU ÷6, langsames 4G). Gerüst-App: nutzbar nach ca. 0,7 s online, 0,3 s offline (ARCHITEKTUR §9.2). Echte Referenzgeräte stehen aus.
-- **Erster Generator:** `bruch.erweitern-zielnenner@1` in `src/generators/mathematik/brueche/`. Typen liegen bewusst im Kern (`src/core/learning/generator.ts`, `bruch.ts`), weil die Auswertung sie braucht (INHALTSFORMAT §6, Umsetzung). Die Pflicht-Tests aus INHALTSFORMAT §6.3 sind ein wiederverwendbarer Baustein (`src/generators/pflichttests.ts`, 10 000 Seeds je Niveau); per absichtlich eingebauten Fehlern geprüft, dass sie anschlagen.
-- Fehlerbilder mit gleicher falscher Antwort: Der Generator meldet nur das vorrangige (INHALTSFORMAT §7).
-- **K-15 (neu):** Inhalte Klassenstufe für Klassenstufe, zuerst Klasse 5 vollständig (über alle Schularten; ein Thema gehört zur früheren Klassenstufe, wenn es an einer Schulart dort liegt). Abschlusskriterien je Klassenstufe in `STRATEGIE.md` §2. Ersetzt die Wellen nach Themen. Der Bruch-Generator passt dazu (Brüche: Gymnasium Kl. 5).
-- **K-16 (neu):** Die sächsischen Lehrpläne Mathematik (OS 2019, GY 2021) sind bindend. Ausgewertet für Klasse 5: 41 Kompetenzen in `LEHRPLAN.md` §8, einschließlich Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel/Quader. Erweitern/Kürzen liegt am GY in Kl. 5 (OS Kl. 6) und gehört deshalb zu Klasse 5. Rechnen mit Brüchen ist Klasse 6. Geometrie und Diagramme aus den Nicht-Zielen gestrichen.
-- **L-10:** Zeichnen und Konstruieren erklärt die App, geprüft wird nur das Prüfbare. **L-11:** Wahlbereiche zählen nicht zum Abschluss einer Klassenstufe.
-- Lehrplan-PDFs bewusst nicht im Repository (Weitergaberecht ungeklärt); Fundstellen in `docs/quellen/README.md`.
-- **Inhalte:** 41 Kompetenzen der Klasse 5 als YAML unter `content/mathematik/…/kompetenz.yaml` (Entwürfe, ungeprüft). Prüfung von Schema, Ordner, Lehrplanbezug und Graph: `pnpm inhalte:pruefen`, läuft auch in `pnpm test`. Prüflogik im Kern (`src/core/competence/kompetenz.ts`), damit die App sie später wiederverwenden kann. Werkzeug-Abhängigkeit `yaml` 2.9.1.
-- **Generatoren:** `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1` (deutsche Zahlwörter bis 999 Milliarden). Platzhalter dürfen Sprachobjekte sein.
-- **Vorlagen:** 4 Vorlagen als YAML in `content/…/vorlagen/`. `pnpm inhalte:pruefen` (über Vitest) gleicht sie mit Kompetenzen und Generatoren ab und zeigt die Abdeckung. M.ZO.NZ.STELLENWERT hat als erste Kompetenz 2 Vorlagen je Niveau.
-- **Generator** `nz.zahlen-ordnen@1` mit neuer Lösungsart „Reihenfolge“.
-- 157 Tests, Lint, Build und Budget grün.
+- **Klasse 5 inhaltlich abgedeckt (als Entwurf):** Alle 41 Kompetenzen haben mindestens zwei Vorlagen je Niveau G und M – 88 Vorlagen, 68 Generatoren, alle mit Pflicht-Tests (10 000 Seeds je Niveau). `pnpm inhalte:pruefen` zeigt die Abdeckung.
+- **Neu in dieser Sitzung** (je ein Commit „1a: …“): Vergleichszeichen, Runden, schriftliches Rechnen, Stufenzahlen, Potenzen, Rechengesetze, Terme, Gleichungen, Teilbarkeit, Brüche (Begriff mit Bildern, Kürzen, Vergleichen, Umwandeln, Prozent), Dezimalzahlen, Mittelwert, Größen, Koordinaten, Spiegeln und Verschieben, Symmetrie, Lagebeziehungen, Winkel, Winkelpaare, Flächen- und Volumeneinheiten, Rechteck, L-Figuren, Volumen, Oberfläche, Würfelnetze.
+- **Generatoren registrieren sich selbst:** Jeder exportierte Generator unter `src/generators/mathematik/` ist über `import.meta.glob` im Verzeichnis (`src/generators/index.ts`); die Inhaltsprüfung verlangt, dass jeder von einer Vorlage genutzt wird.
+- **Bilder als SVG** (I-11): Hilfen in `src/generators/svg.ts` (Linien, Vielecke, Bögen, Kästchen, Koordinatensystem …), Farbe über `currentColor`. Jedes Bild hat eine Beschreibung für Screenreader. Die Pflicht-Tests prüfen, dass Bilder nichts nachladen.
+- **Unabhängige Prüfung in den Tests:** Wo möglich lesen die Tests die Lösung aus dem Bild zurück, statt die Formel des Generators zu wiederholen – z. B. Fläche und Umfang aus dem gezeichneten Vieleck, Winkel aus den Bögen, Würfelnetze per Drehmatrizen statt Abrollen.
+- **Pflicht-Tests:** neues optionales `zeitlimitMs` für rechenintensive Generatoren (INHALTSFORMAT §6.3); die Zahl der Seeds bleibt 10 000.
+- **Umrechnungs-Generator** `gr.einheiten-umrechnen@1` kennt jetzt auch Flächen, Volumen und ml/l. Für die bisherigen Größen bleibt jede Aufgabe gleich, deshalb keine neue Version.
+- Kommazahlen rechnen die Generatoren intern als ganze Zahlen (Hundertstel, Tausendstel), damit keine Gleitkommafehler entstehen.
+- Abwechslungs-Schwellen in den Tests sind gemessen und stehen mit Kommentar „gemessen“ im Test.
+- 1352 Tests, Lint, Build grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

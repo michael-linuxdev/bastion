@@ -11,7 +11,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 |---|---|
 | Aktuelle Phase | **0 – Fundament** |
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
-| Nächster Schritt | Block E (Fokus, 14 Tage): Testpersonen ansprechen, Angebote selbst durchspielen, K-14 entscheiden; parallel 0.10 Referenzgeräte |
+| Nächster Schritt | Vorlagen der Klasse 5 prüfen (Projektverantwortlicher, möglichst mit Lehrkraft); erste Übungsseite in der App; parallel Block E (Testpersonen, Angebote durchspielen, K-14) und 0.10 Referenzgeräte |
 | Blocker | keine |
 
 ## 2. Phasenübersicht
@@ -152,7 +152,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1a – Aufgabenqualität (Klasse 5, Niveaus G und M, K-15)**
 1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *begonnen: 41 Kompetenzen Klasse 5 in `content/`, Prüfung von Schema und Graph (`pnpm inhalte:pruefen`)*
-2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *begonnen: `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1`, `nz.zahlen-ordnen@1` mit Pflicht-Tests und Vorlagen*
+2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *als Entwurf erledigt: alle 41 Kompetenzen mit mindestens zwei Vorlagen je Niveau (88 Vorlagen, 68 Generatoren mit Pflicht-Tests). Offen: Prüfung der Vorlagen (INHALTSFORMAT §10.1), Anleitungen zum Zeichnen (L-10)*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
 
@@ -200,3 +200,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | Generatoren `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` für M.ZO.NZ.STELLENWERT |
 | 27.10.2026 | Erste Vorlagen (ERWEITERN.ZIELNENNER, STELLENWERT.ZIFFER-AN-STELLE, STELLENWERT.ZAHLWORT); Prüfwerkzeug gleicht Vorlagen mit Kompetenzen und Generatoren ab; STELLENWERT als erste Kompetenz mit 2 Vorlagen je Niveau |
 | 27.10.2026 | Generator `nz.zahlen-ordnen@1` mit Vorlage M.ZO.NZ.ORDNEN.DER-GROESSE-NACH; Lösungsart „Reihenfolge“ |
+| 27.10.2026 | 1a: Generatoren und Vorlagen für alle 41 Kompetenzen der Klasse 5 (Entwürfe): Zahlen und Rechnen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Daten, Geometrie mit SVG-Bildern, Flächen und Körper; Generatoren registrieren sich selbst; Pflicht-Tests mit optionalem Zeitlimit |
