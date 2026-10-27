@@ -144,6 +144,25 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide.
 
+### 4.6 Festgelegte Versionen
+
+Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`), das Lockfile `pnpm-lock.yaml` wird mit committet. Stand 27.10.2026:
+
+| Baustein | Version | Art |
+|---|---|---|
+| Node.js | ≥ 22 | Werkzeug |
+| pnpm | 10.28.0 | Werkzeug |
+| TypeScript | 6.0.3 | Werkzeug |
+| Vite | 8.3.5 | Werkzeug |
+| Svelte | 5.57.3 | wird in die App kompiliert (T-3) |
+| @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
+| svelte-check | 4.7.7 | Werkzeug |
+| Vitest | 5.0.5 | Werkzeug |
+
+TypeScript 7 (die neue, native Umsetzung) wird noch nicht genutzt, weil `svelte-check` und `typescript-eslint` sie noch nicht unterstützen.
+
+Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält die Ende-zu-Ende-Tests.
+
 ## 5. Datenmodell: Ereignisse als Wahrheit
 
 **Entscheidung T-7:** Lernereignisse und Ressourcenbuchungen werden als unveränderliche Ereignisse gespeichert (append-only). Aktuelle Zustände sind daraus abgeleitet und werden zwischengespeichert.

@@ -8,7 +8,19 @@ Bastion ist eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 
 
 ## Status
 
-Phase 0 – Fundament (Konzeption). Noch kein lauffähiger Code.
+Phase 0 – Fundament. Technisches Gerüst im Aufbau.
+
+## Selbst ausprobieren
+
+Voraussetzungen: Node.js ab Version 22 und pnpm (`corepack enable` aktiviert die passende Version).
+
+```sh
+pnpm install     # Abhängigkeiten installieren
+pnpm dev         # Entwicklungsserver starten, Adresse steht in der Ausgabe
+pnpm lint        # Prüfungen (Typen, Svelte)
+pnpm test        # Einheitentests
+pnpm build       # fertige App nach dist/ bauen
+```
 
 ## Dokumentation
 
