@@ -158,6 +158,8 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | Svelte | 5.57.3 | wird in die App kompiliert (T-3) |
 | @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
 | svelte-check | 4.7.7 | Werkzeug |
+| vite-plugin-pwa | 2.0.0 | Werkzeug (erzeugt Service Worker und Manifest) |
+| workbox-window | 7.4.1 | **Laufzeit**, ca. 2 KB komprimiert: meldet der Seite neue Versionen. Teil der Entscheidung „vite-plugin-pwa (Workbox)“, §4.1 |
 | Vitest | 5.0.5 | Werkzeug |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
@@ -192,6 +194,14 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 - Oberflächentexte stehen in `src/ui/texte/de.json` und werden über `t('schluessel')` geholt; Tippfehler im Schlüssel sind Typfehler. Die Datei legt auch Sprache und Schreibrichtung (`lang`, `dir`) fest.
 - Grund-CSS in `src/ui/grund.css`: Farben als CSS-Variablen, Hell/Dunkel folgt der Systemeinstellung (`prefers-color-scheme`), reduzierte Bewegung wird respektiert, nur Systemschriften.
 - Eine Umschaltung Hell/Dunkel in der App folgt mit den Einstellungen (Phase 1).
+
+### 4.9 Offline-Hülle (umgesetzt in 0.8)
+
+- **Precaching:** Beim ersten Laden speichert der Service Worker die komplette App-Hülle (HTML, JS, CSS, Icons, Manifest). Danach startet die App ohne Netz.
+- **Updates:** `registerType: 'prompt'`. Eine neue Version wird im Hintergrund geladen, aber erst aktiviert, wenn die Person im Hinweis „Jetzt aktualisieren“ wählt. „Später“ blendet den Hinweis aus; beim nächsten Start wird erneut gefragt. So wechselt die Version nie mitten in einer Sitzung.
+- **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis wird noch nicht angezeigt; ab Phase 1 erscheint es im Elternbereich zusammen mit der Sicherungs-Erinnerung.
+- **Icons:** `public/icon.svg` ist die Vorlage; die PNG-Icons sind daraus abgeleitet (Platzhalter bis zur Gestaltung).
+- Code: `vite.config.ts` (Manifest, Workbox), `src/ui/plattform/offline.svelte.ts`, `src/ui/plattform/speicher.ts`, `src/ui/UpdateHinweis.svelte`.
 
 ## 5. Datenmodell: Ereignisse als Wahrheit
 

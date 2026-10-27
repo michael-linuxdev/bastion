@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { offline } from './plattform/offline.svelte';
   import { t } from './texte/texte';
+  import UpdateHinweis from './UpdateHinweis.svelte';
 </script>
 
 <main class="start">
@@ -7,7 +9,12 @@
   <p class="untertitel">{t('start.untertitel')}</p>
   <p>{t('start.status')}</p>
   <p class="versprechen">{t('start.versprechen')}</p>
+  {#if offline.bereit}
+    <p class="offline" role="status">{t('start.offline')}</p>
+  {/if}
 </main>
+
+<UpdateHinweis />
 
 <style>
   .start {
@@ -31,5 +38,10 @@
     color: var(--farbe-text-leise);
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  .offline {
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
   }
 </style>

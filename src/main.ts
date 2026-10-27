@@ -1,5 +1,7 @@
 import { mount } from 'svelte';
 import App from './ui/App.svelte';
+import { offlineStarten } from './ui/plattform/offline.svelte';
+import { dauerhaftenSpeicherAnfragen } from './ui/plattform/speicher';
 import { sprache, t } from './ui/texte/texte';
 import './ui/grund.css';
 
@@ -12,4 +14,9 @@ if (!ziel) {
   throw new Error('Element #app fehlt in index.html');
 }
 
-export default mount(App, { target: ziel });
+const app = mount(App, { target: ziel });
+
+offlineStarten();
+void dauerhaftenSpeicherAnfragen();
+
+export default app;
