@@ -1,0 +1,21 @@
+# Winkel am abgebildeten Winkelmesser ablesen. Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKEL.ABLESEN
+kompetenz: M.RF.GF.WINKEL
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: gf.winkel-ablesen@1
+parameter:
+  G: { schritt: 10, beide_seiten: false }
+  M: { schritt: 5, beide_seiten: true }
+text:
+  aufgabe:
+    de: '**Lies** die Größe des markierten Winkels am Winkelmesser in Grad **ab**.'
+hilfen:
+  - de: Ein Winkelmesser hat zwei Skalen. Suche den Schenkel, der bei 0 liegt.
+  - de: Lies auf der Skala weiter, die bei diesem Schenkel mit 0 beginnt.
+fehlerbilder:
+  falsche-skala:
+    de: Du hast auf der falschen Skala abgelesen. Nimm die Skala, die beim ersten Schenkel bei 0 anfängt. Spitze Winkel sind kleiner als 90°.
+herkunft: ki-entwurf
+version: 1

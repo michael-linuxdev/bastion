@@ -1,0 +1,23 @@
+# „Welche Winkelart hat α?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKEL.ART
+kompetenz: M.RF.GF.WINKEL
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.winkelart@1
+parameter:
+  G: { ueberstumpf: false }
+  M: { ueberstumpf: true }
+text:
+  aufgabe:
+    de: '**Gib an**, welche Winkelart der Winkel α hat.'
+hilfen:
+  - de: Vergleiche mit einem rechten Winkel, zum Beispiel einer Heftecke.
+  - de: Ist α kleiner als die Heftecke, genau so groß oder größer? Und ist er größer als eine gerade Linie?
+fehlerbilder:
+  spitz-stumpf-verwechselt:
+    de: Spitz und stumpf sind vertauscht. Spitz ist kleiner als ein rechter Winkel, stumpf ist größer.
+  innen-statt-aussen:
+    de: Du hast den Winkel auf der anderen Seite betrachtet. Der Bogen zeigt, welcher Winkel gemeint ist – hier ist er größer als 180°.
+herkunft: ki-entwurf
+version: 1
