@@ -1,0 +1,23 @@
+# „Setze das richtige Zeichen ein: 48 312 ☐ 48 231“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN
+kompetenz: M.ZO.NZ.ORDNEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: nz.vergleichszeichen@1
+parameter:
+  G: { stellen: 4 }
+  M: { stellen: 8 }
+text:
+  aufgabe:
+    de: '**Vergleiche** und wähle das richtige Zeichen: {a} ☐ {b}'
+hilfen:
+  - de: Zähle zuerst die Stellen beider Zahlen.
+  - de: Bei gleich vielen Stellen vergleiche von links Ziffer für Ziffer.
+fehlerbilder:
+  erste-ziffer-verglichen:
+    de: Du hast nur die erste Ziffer verglichen. Die Zahlen haben aber verschieden viele Stellen – die Zahl mit mehr Stellen ist größer.
+  zeichen-verdreht:
+    de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt immer auf die kleinere Zahl: 3 < 5.'
+herkunft: ki-entwurf
+version: 1
