@@ -3,13 +3,14 @@
 // Lernereignisse auf sie verweisen können (INHALTSFORMAT §6.1, Regel 5).
 import type { Generator } from '../core/learning/generator';
 import { erweiternZielnenner } from './mathematik/brueche/erweitern-zielnenner';
+import { zahlwortZuZahl } from './mathematik/natuerliche-zahlen/zahlwort-zu-zahl';
 import { zifferAnStelle } from './mathematik/natuerliche-zahlen/ziffer-an-stelle';
 
 // Generatoren haben je eigene Parametertypen; im Verzeichnis zählt nur die Schnittstelle.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Parametertyp je Generator verschieden
 type BeliebigerGenerator = Generator<any>;
 
-const alle: readonly BeliebigerGenerator[] = [erweiternZielnenner, zifferAnStelle];
+const alle: readonly BeliebigerGenerator[] = [erweiternZielnenner, zifferAnStelle, zahlwortZuZahl];
 
 export const generatoren: ReadonlyMap<string, BeliebigerGenerator> = new Map(
   alle.map((g) => [`${g.id}@${g.version}`, g]),
