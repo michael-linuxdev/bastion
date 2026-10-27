@@ -40,7 +40,8 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [KONZEPT](docs/KONZEPT.md) | Gesamtkonzept, Roadmap, offene Entscheidungen |
 | [ARCHITEKTUR](docs/ARCHITEKTUR.md) | Tech-Stack und Architektur |
 | [BASEBAU](docs/BASEBAU.md) | Ressourcen, Gebäude, Balancing |
-| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell, erster Ausschnitt Mathe (Grundlagen Kl. 5–6) |
+| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 nach den sächsischen Lehrplänen |
+| [Quellen](docs/quellen/README.md) | Verbindliche Lehrpläne (Sachsen) |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
 | [STRATEGIE](docs/STRATEGIE.md) | Ziel, Scope und Erfolgskriterien für die nächsten 12 Monate |

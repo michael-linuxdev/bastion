@@ -40,7 +40,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - Kein zweites Fach. (Klassenstufen: 5–12 in Sachsen sind Zielgruppe; Inhalte entstehen Klassenstufe für Klassenstufe, `STRATEGIE.md` §2.)
 - Keine Inhalte einer höheren Klassenstufe, solange die laufende nicht abgeschlossen ist (K-15).
 - Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine.
-- Kein freies Zeichnen und Konstruieren (Zirkel, Geodreieck). *Geometrie und Daten der Klasse 5 ohne Zeichnen: offen, O-15 (Vorschlag: in den Scope).*
+- Kein freies Zeichnen in der App. *(Geometrie, Diagramme und Statistik gehören dazu, sobald der sächsische Lehrplan sie verlangt – K-16. Zeichnen und Konstruieren mit Geodreieck und Zirkel werden erklärt, L-10.)*
 - Keine Formeleingabe (MathLive o. Ä.).
 - Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
 
@@ -142,8 +142,8 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - [ ] **0.14 Bestehende Angebote selbst durchspielen** – Entwurf `WETTBEWERB.md` liegt vor. Offen: ANTON, bettermarks (falls Landeslizenz zugänglich) und eine dritte App je 30 Minuten mit denselben drei Bruch-Aufgaben durchspielen, absichtlich typische Fehler machen, Rückmeldung protokollieren (Raster in `WETTBEWERB.md` §5)
 - [ ] **0.15 Erste 5–8 Testpersonen ansprechen** – Ansprache-Text und Elterninfo in `TESTS.md` §2–3
 - [x] **0.16 Basebau-Minimum festlegen** – K-12 (`STRATEGIE.md` §3)
-- [ ] **0.18 Sächsische Lehrpläne Mathematik beschaffen** (Oberschule, Gymnasium; Gemeinschaftsschule) und die 23 Kompetenzen aus LEHRPLAN §8 den Lernbereichen und Klassenstufen zuordnen (L-9, L-O1)
-- [ ] **0.19 O-15 entscheiden** – Geometrie und Daten der Klasse 5 ohne freies Zeichnen in den Scope?
+- [x] **0.18 Sächsische Lehrpläne Mathematik auswerten** – OS 2019 und GY 2021 für Klasse 5: 40 Kompetenzen in `LEHRPLAN.md` §8, Quellen in `docs/quellen/`. Offen: Gemeinschaftsschule/Oberschule+ und Förderschulen prüfen
+- [x] **0.19 O-15 entschieden** – K-16: Lehrpläne bindend, Geometrie und Diagramme gehören dazu; Zeichnen wird erklärt (L-10)
 - [ ] **0.17 K-14 entscheiden** – freiwilliger Studienbericht ja/nein, vor der ersten Testrunde in Phase 1
 
 ## 4. Phase 1 – Lernkern (Vorschau)
@@ -195,3 +195,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | 0.10 teilweise (Messskript, nachgeahmte Messung); erster Generator `bruch.erweitern-zielnenner@1` mit wiederverwendbaren Pflicht-Tests |
 | 27.10.2026 | K-11 präzisiert: Start in Sachsen, Kl. 5–12, alle allgemeinbildenden Schularten; L-9 Lehrplanbezug Sachsen; Aufgabe 0.18 |
 | 27.10.2026 | K-15: Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe; O-15 (Geometrie/Daten Kl. 5) offen |
+| 27.10.2026 | K-16: sächsische Lehrpläne bindend; LEHRPLAN §8 neu: Klasse 5 mit 40 Kompetenzen (OS 2019 + GY 2021); L-10 Zeichnen erklären, L-11 Wahlbereiche; Geometrie/Diagramme aus den Nicht-Zielen gestrichen |

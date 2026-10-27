@@ -124,6 +124,7 @@ Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen,
 | Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
 | Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen |
 | Inhalte | Klassenstufe für Klassenstufe (K-15): zuerst Klasse 5 vollständig, dann Klasse 6 usw. |
+| Maßstab | Die sächsischen Lehrpläne Mathematik (Oberschule 2019, Gymnasium 2021) sind bindend (K-16) |
 | Priorität | Lernkern vor Basebau (K-12); Basebau nur als Minimum, bis Jugendliche den Lernkern als besser beschreiben |
 
 Alles andere steht ausdrücklich auf „später“: Liste der Nicht-Ziele in `PLAN.md` §2.1.

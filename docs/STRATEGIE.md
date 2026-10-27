@@ -40,7 +40,7 @@ Alles in diesem Dokument dient diesem einen Ziel. Was nicht dazu beiträgt, wird
 
 Die Inhalte werden **sukzessiv** aufgebaut: zuerst **Klasse 5** vollständig, erst danach Klasse 6, dann 7 usw. Das schärft K-6 („Tiefe vor Breite“) auf Klassenstufen zu.
 
-**Was „Klasse 5“ umfasst:** alle Lernbereiche der sächsischen Lehrpläne Mathematik für Klasse 5 – über alle Schularten zusammengenommen. Liegt ein Thema an einer Schulart in Klasse 5 und an einer anderen in Klasse 6 (z. B. Brüche: Gymnasium Kl. 5, Oberschule Kl. 6 – *am Original prüfen*), gehört es zum **früheren** Abschnitt. Die genaue Liste entsteht aus Aufgabe 0.18 (`LEHRPLAN.md` §8).
+**Was „Klasse 5“ umfasst:** alle Pflicht-Lernbereiche der sächsischen Lehrpläne Mathematik für Klasse 5 – Oberschule und Gymnasium zusammengenommen. Liegt ein Inhalt an einer Schulart in Klasse 5 und an der anderen in Klasse 6 (z. B. Erweitern und Kürzen: Gymnasium Kl. 5, Oberschule Kl. 6), gehört er zum **früheren** Abschnitt. Die Liste steht in `LEHRPLAN.md` §8 (Aufgabe 0.18).
 
 **Reihenfolge innerhalb einer Klassenstufe:** entlang des Kompetenzgraphen, von den Kompetenzen ohne Voraussetzungen aus.
 
@@ -54,7 +54,10 @@ Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe.
 
 *Warum:* Eine vollständige Klasse 5 ist für echte Jugendliche ein brauchbares Werkzeug für ein ganzes Schuljahr; zwei halbe Klassenstufen sind es nicht. Jede abgeschlossene Klassenstufe ist für sich nutzbar (KONZEPT §12.2) und ein ehrlicher Fortschritt, den man Eltern und Lehrkräften zeigen kann.
 
-*Offene Frage O-15 (Geometrie und Daten in Klasse 5):* Klasse 5 enthält in Sachsen sehr wahrscheinlich auch Geometrie (z. B. Grundbegriffe, Winkel, Figuren, Koordinaten) und Daten (Diagramme). „Klasse 5 abgeschlossen“ geht nur mit ihnen – die Nicht-Ziele schließen sie bisher aus. **Vorschlag:** Geometrie und Daten der Klasse 5 kommen in den Scope, aber nur mit Aufgaben, die ohne freies Zeichnen auskommen (Bild als SVG zeigen, dann Zahl eingeben, auswählen, zuordnen, Koordinaten eingeben). Konstruieren mit Zirkel und Geodreieck bleibt außerhalb und wird im Lehrplanbezug als „nicht in der App“ vermerkt. Status: **Vorgeschlagen**, Entscheidung durch den Projektverantwortlichen.
+**Entscheidung K-16: Die sächsischen Lehrpläne Mathematik sind bindend für das MVP.** *(27.10.2026)* Lehrplan Oberschule Mathematik 2019 und Lehrplan Gymnasium Mathematik (Fassung 2021) haben höchste Priorität (Fundstellen: `docs/quellen/README.md`). Was dort als Pflicht-Lernbereich steht, gehört zum Inhalt der jeweiligen Klassenstufe – **auch Geometrie und Diagramme/Statistik**. Damit ist O-15 erledigt.
+- Klasse 5 umfasst danach 40 Kompetenzen (`LEHRPLAN.md` §8): natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel und Quader.
+- **Zeichnen und Konstruieren** (Geodreieck, Winkelmesser, später Zirkel) darf und soll die App **erklären**; geprüft wird nur, was sich ohne freies Zeichnen prüfen lässt (L-10).
+- Wahlbereiche der Lehrpläne zählen nicht zu den Abschlusskriterien (L-11).
 
 **Zielgruppe in einem Satz:**
 > Schülerinnen und Schüler in Sachsen, Klassen 5 bis 12, jeder Schulart, die in Mathe unsicher oder durchschnittlich sind. Inhalte gibt es zuerst für Klasse 5; für Ältere ist Bastion bis dahin ein Werkzeug gegen Lücken aus Klasse 5.
@@ -148,7 +151,7 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 | K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M | Entschieden (27.10.2026, am selben Tag zweimal geändert) |
 | L-9 | Lehrplanbezug Sachsen statt nur KMK (siehe LEHRPLAN.md §10) | Entschieden (27.10.2026) |
 | K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe | Entschieden (27.10.2026) |
-| O-15 | Geometrie und Daten der Klasse 5 ohne freies Zeichnen in den Scope | Vorgeschlagen |
+| K-16 | Sächsische Lehrpläne Mathematik (OS 2019, GY 2021) bindend für das MVP; Geometrie und Diagramme gehören dazu (erledigt O-15) | Entschieden (27.10.2026) |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026) |
 | K-13 | Erfolgskriterien E1–E3 für Oktober 2027, keine Vanity-Metrics | Entschieden (27.10.2026) |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle für E1/E2 | Vorgeschlagen |

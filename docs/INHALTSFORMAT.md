@@ -171,6 +171,17 @@ review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau]
 | `fehler-finden` | Fehlerhaften Schritt einer Rechnung wählen, dann Begründung auswählen | Beide Teile korrekt; Teilrückmeldung | E-Niveaus |
 | `bruch-bild` | Bild → Bruch eingeben *oder* Bruch → Felder einfärben | Wertgleich bzw. Anteil korrekt | BR.BEGRIFF |
 
+**Ergänzung für Klasse 5 (K-16, L-10) – Vorschlag I-11, Status: Vorgeschlagen:**
+
+| Typ | Eingabe | Auswertung | Einsatz |
+|---|---|---|---|
+| `bild-zahl` | Generiertes Bild (SVG: Winkel mit Winkelmesser, Rechteck, Quadernetz …) + Zahl- oder Größeneingabe | wie `zahl-eingabe` / `groesse-eingabe`, mit Toleranz bei Messwerten | GF.WINKEL, FL, KP |
+| `koordinaten-eingabe` | Punkt als Zahlenpaar eingeben *oder* im Gitter antippen | exakt (Gitterpunkte) | GF.KOORDINATEN, SY.SPIEGELN |
+| `bild-auswahl` | mehrere Bilder, eines oder mehrere wählen (Netz, Schrägbild, Symmetrieachse) | exakte Übereinstimmung | KP.DARSTELLEN, SY |
+| `anleitung` | Schritt-für-Schritt-Erklärung zum Zeichnen/Konstruieren auf Papier, mit Bildern; am Ende optional Selbsteinschätzung | **nicht bewertet**; zählt nicht für „gekonnt“ (L-10) | GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN |
+
+Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz) und haben eine Textbeschreibung.
+
 **Barrierefreiheit:** Jeder Typ ist vollständig per Tastatur bedienbar. `bruch-bild` hat zusätzlich eine Textbeschreibung („Ein Rechteck aus 8 gleich großen Feldern, 3 davon sind gefärbt“) und eine Alternative ohne Bild.
 
 **Später (offen, I-O1):** `rechenschema` für schriftliche Rechenverfahren mit stellenweiser Eingabe. In Phase 1 wird bei NZ.ADD-SUB bis NZ.DIV nur das Ergebnis geprüft; der Lösungsweg zeigt das Schema.
