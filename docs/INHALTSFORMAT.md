@@ -353,6 +353,8 @@ packs/
 
 Die App lädt das Manifest, zeigt vor dem Download die Größe an und speichert Pakete in IndexedDB. Neue Paketversionen werden nur zwischen Sitzungen eingespielt.
 
+*Umsetzung (Stand Klasse 5):* `tools/inhalte/pakete.ts` baut die Pakete als Vite-Plugin – im Entwicklungsserver unter `/packs/`, im Build als Dateien in `dist/packs/`. Dateinamen tragen den Anfang der Prüfsumme (`mathematik.grund.dde4758d8e.json`), das Manifest heißt `manifest.json` und nennt Name, Datei, Bereich, Größe und SHA-256. Alle Pakete der Klasse 5 zusammen sind etwa 23 KB (gzip) groß; deshalb speichert der Service Worker sie vorerst vollständig vorab, statt sie nach Auswahl in IndexedDB zu laden. Die Auswahl vor dem Download folgt, wenn weitere Klassenstufen dazukommen.
+
 ## 11. Texte und Darstellung
 
 - Formatierung: kleines Markdown-Subset (fett, kursiv, Zeilenumbruch, Liste). Keine Links, keine Bilder per URL.
