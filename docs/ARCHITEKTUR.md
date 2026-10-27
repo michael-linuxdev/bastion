@@ -153,6 +153,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | Node.js | ≥ 22 | Werkzeug |
 | pnpm | 10.28.0 | Werkzeug |
 | TypeScript | 6.0.3 | Werkzeug |
+| @types/node | 22.20.5 | Werkzeug (nur `tools/`, `tests/`, Konfiguration) |
 | Vite | 8.3.5 | Werkzeug |
 | Svelte | 5.57.3 | wird in die App kompiliert (T-3) |
 | @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
@@ -166,6 +167,8 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | Prettier (+ prettier-plugin-svelte) | 3.9.10 (4.1.1) | Werkzeug |
 
 TypeScript 7 (die neue, native Umsetzung) wird noch nicht genutzt, weil `svelte-check` und `typescript-eslint` sie noch nicht unterstützen.
+
+Zwei TypeScript-Konfigurationen: `tsconfig.json` für die App (`src/`, Browser-Typen, keine Node-Typen) und `tsconfig.node.json` für `tools/`, `tests/` und Konfigurationsdateien (Node-Typen). `pnpm check` prüft beide.
 
 Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält die Ende-zu-Ende-Tests.
 
