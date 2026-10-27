@@ -2,8 +2,8 @@
 // *.test.ts-Dateien aufgerufen, nie aus der App.
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { gleichGeschrieben } from '../core/learning/bruch';
-import type { Generator, Instanz, Loesung } from '../core/learning/generator';
+import type { Bild, Generator, Instanz, Loesung } from '../core/learning/generator';
+import { gleicheLoesung } from '../core/learning/loesung';
 
 export interface PflichtPruefung<P> {
   /** Parameter je Niveau, wie sie in der Vorlage stehen. */
@@ -18,19 +18,29 @@ export interface PflichtPruefung<P> {
   readonly laeufe?: number;
 }
 
-function gleicheLoesung(a: Loesung, b: Loesung): boolean {
-  if (a.typ === 'bruch' && b.typ === 'bruch') return gleichGeschrieben(a.wert, b.wert);
-  if (a.typ === 'zahl' && b.typ === 'zahl') return a.wert === b.wert;
-  if (a.typ === 'reihenfolge' && b.typ === 'reihenfolge') {
-    return a.wert.length === b.wert.length && a.wert.every((x, i) => x === b.wert[i]);
-  }
-  return false;
-}
-
 const seed = fc.nat({ max: 0xffffffff });
 
 /** Was die Person von einer Aufgabe sieht – Grundlage für den Abwechslungs-Test. */
-const sichtbar = (i: Instanz) => ({ platzhalter: i.platzhalter, elemente: i.elemente });
+const sichtbar = (i: Instanz) => ({
+  platzhalter: i.platzhalter,
+  elemente: i.elemente,
+  bild: i.bild?.svg,
+  optionen: i.optionen,
+});
+
+/** Probleme eines Bildes: keine Beschreibung, nicht wohlgeformt, Verweise nach außen (A2, A5). */
+function bildprobleme(bild: Bild): string[] {
+  const p: string[] = [];
+  if (!bild.beschreibung.de.trim()) p.push('Bild ohne Textbeschreibung');
+  if (!/^<svg [^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"[^>]*viewBox="[^"]+"/.test(bild.svg)) {
+    p.push('Bild beginnt nicht mit <svg xmlns=… viewBox=…>');
+  }
+  if (!bild.svg.endsWith('</svg>')) p.push('Bild endet nicht mit </svg>');
+  if (/<script|href=|url\(|<foreignObject|<image|on[a-z]+=/i.test(bild.svg)) {
+    p.push('Bild enthält Skript, Verweis oder eingebettete Datei');
+  }
+  return p;
+}
 
 export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefung<P>): void {
   const laeufe = pruefung.laeufe ?? 10_000;
@@ -73,6 +83,22 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
               }
             }),
             { numRuns: laeufe },
+          );
+        });
+
+        it('Bilder sind beschrieben und laden nichts nach; Auswahl-Lösungen zeigen auf Optionen', () => {
+          fc.assert(
+            fc.property(seed, (s) => {
+              const instanz = generator.erzeuge(s, parameter);
+              const bilder = [instanz.bild, ...(instanz.optionen ?? []).map((o) => o.bild)];
+              for (const b of bilder) if (b) expect(bildprobleme(b)).toEqual([]);
+              for (const l of [instanz.loesung, ...instanz.fehlerbilder.map((f) => f.antwort)]) {
+                if (l.typ !== 'auswahl') continue;
+                expect(l.wert).toBeGreaterThanOrEqual(0);
+                expect(l.wert).toBeLessThan(instanz.optionen?.length ?? 0);
+              }
+            }),
+            { numRuns: Math.min(laeufe, 2000) },
           );
         });
 

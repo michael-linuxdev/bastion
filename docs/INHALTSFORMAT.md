@@ -176,7 +176,7 @@ review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau]
 | `fehler-finden` | Fehlerhaften Schritt einer Rechnung wählen, dann Begründung auswählen | Beide Teile korrekt; Teilrückmeldung | E-Niveaus |
 | `bruch-bild` | Bild → Bruch eingeben *oder* Bruch → Felder einfärben | Wertgleich bzw. Anteil korrekt | BR.BEGRIFF |
 
-**Ergänzung für Klasse 5 (K-16, L-10) – Vorschlag I-11, Status: Vorgeschlagen:**
+**Ergänzung für Klasse 5 (K-16, L-10) – Entscheidung I-11 (bestätigt 27.10.2026):**
 
 | Typ | Eingabe | Auswertung | Einsatz |
 |---|---|---|---|
@@ -393,3 +393,4 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 | I-8 | Review an Inhalts-Hash gebunden | Entschieden |
 | I-9 | Herkunft und Lizenz je Vorlage | Entschieden |
 | I-10 | Pakete je Fach × Bereich mit allen Niveaus (korrigiert ARCHITEKTUR §6) | Entschieden |
+| I-11 | Aufgabentypen `bild-zahl`, `koordinaten-eingabe`, `bild-auswahl`, `anleitung`; Bilder als SVG aus dem Generator | Entschieden |

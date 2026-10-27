@@ -16,6 +16,10 @@ export const AUFGABENTYPEN = [
   'zuordnen',
   'fehler-finden',
   'bruch-bild',
+  // I-11 (bestätigt 27.10.2026)
+  'bild-zahl',
+  'koordinaten-eingabe',
+  'bild-auswahl',
 ] as const;
 export type Aufgabentyp = (typeof AUFGABENTYPEN)[number];
 
