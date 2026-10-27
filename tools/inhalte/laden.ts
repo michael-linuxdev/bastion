@@ -35,3 +35,43 @@ export function ladeKompetenzen(inhaltsordner: string): GeleseneDatei[] {
       }
     });
 }
+
+export interface GeleseneVorlage extends GeleseneDatei {
+  /** Dateiname ohne Endung, z. B. "ziffer-an-stelle" */
+  readonly dateiname: string;
+  /** ID der Kompetenz, in deren Ordner die Vorlage liegt */
+  readonly ordnerKompetenz: string;
+}
+
+/** Liest alle Vorlagen aus …/<Kompetenz-ID>/vorlagen/*.yaml */
+export function ladeVorlagen(inhaltsordner: string): GeleseneVorlage[] {
+  const alle = readdirSync(join(inhaltsordner, 'mathematik'), {
+    recursive: true,
+    withFileTypes: true,
+  });
+  return alle
+    .filter(
+      (e) => e.isFile() && e.name.endsWith('.yaml') && e.parentPath.endsWith(`${sep}vorlagen`),
+    )
+    .map((e) => join(e.parentPath, e.name))
+    .sort()
+    .map((pfad) => {
+      const datei = relative(inhaltsordner, pfad);
+      const teile = datei.split(sep);
+      const dateiname = (teile.at(-1) ?? '').replace(/\.yaml$/, '');
+      const ordnerKompetenz = teile.at(-3) ?? '';
+      try {
+        const daten = parse(readFileSync(pfad, 'utf8')) as unknown;
+        return { datei, pfadTeile: teile.slice(1, -2), daten, dateiname, ordnerKompetenz };
+      } catch (fehler) {
+        return {
+          datei,
+          pfadTeile: teile.slice(1, -2),
+          daten: undefined,
+          lesefehler: String(fehler),
+          dateiname,
+          ordnerKompetenz,
+        };
+      }
+    });
+}

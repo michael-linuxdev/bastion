@@ -198,3 +198,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | K-16: sächsische Lehrpläne bindend; LEHRPLAN §8 neu: Klasse 5 mit 41 Kompetenzen (OS 2019 + GY 2021); L-10 Zeichnen erklären, L-11 Wahlbereiche; Geometrie/Diagramme aus den Nicht-Zielen gestrichen |
 | 27.10.2026 | 41 Kompetenzen Klasse 5 als YAML in `content/`; Prüfwerkzeug für Schema, Ordner und Graph (`pnpm inhalte:pruefen`, auch im Testlauf) |
 | 27.10.2026 | Generatoren `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` für M.ZO.NZ.STELLENWERT |
+| 27.10.2026 | Erste Vorlagen (ERWEITERN.ZIELNENNER, STELLENWERT.ZIFFER-AN-STELLE, STELLENWERT.ZAHLWORT); Prüfwerkzeug gleicht Vorlagen mit Kompetenzen und Generatoren ab; STELLENWERT als erste Kompetenz mit 2 Vorlagen je Niveau |

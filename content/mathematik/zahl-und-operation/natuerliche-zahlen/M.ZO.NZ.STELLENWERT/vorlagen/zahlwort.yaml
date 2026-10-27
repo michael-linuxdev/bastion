@@ -1,0 +1,23 @@
+# „Gib als Zahl an: drei Millionen vierhunderttausendfünf“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.STELLENWERT.ZAHLWORT
+kompetenz: M.ZO.NZ.STELLENWERT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.zahlwort-zu-zahl@1
+parameter:
+  G: { stellen_min: 4, stellen_max: 7 }
+  M: { stellen_min: 7, stellen_max: 12 }
+text:
+  aufgabe:
+    de: '**Gib** die Zahl in Ziffern **an**: {zahlwort}'
+hilfen:
+  - de: Zerlege das Zahlwort in Milliarden, Millionen, Tausender und den Rest.
+  - de: 'Trage jeden Teil in eine Stellenwerttafel ein. Leere Stellen bekommen eine 0.'
+fehlerbilder:
+  nullen-vergessen:
+    de: Es fehlen Nullen. Jede Stelle braucht eine Ziffer – auch wenn sie nicht gesprochen wird. Die Stellenwerttafel hilft dir.
+  zehner-einer-vertauscht:
+    de: 'Zehner und Einer sind vertauscht. Im Deutschen sagt man die Einer zuerst: „vierundzwanzig“ heißt 2 Zehner und 4 Einer, also 24.'
+herkunft: ki-entwurf
+version: 1
