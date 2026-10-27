@@ -43,6 +43,7 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
 | [STRATEGIE](docs/STRATEGIE.md) | Ziel, Scope und Erfolgskriterien für die nächsten 12 Monate |
+| [WETTBEWERB](docs/WETTBEWERB.md) | Vergleich mit bestehenden Angeboten, Hypothesen |
 | [PLAN](docs/PLAN.md) | Aktueller Stand, Aufgaben, Nicht-Ziele |
 | [ENTSCHEIDUNGEN](docs/ENTSCHEIDUNGEN.md) | Entscheidungs-Review (Checkliste) |
 | [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung |
