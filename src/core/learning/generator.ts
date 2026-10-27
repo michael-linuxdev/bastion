@@ -12,8 +12,11 @@ export interface Sprachobjekt {
   readonly de: string;
 }
 
-/** Wert eines Platzhalters im Vorlagentext, z. B. {bruch} oder {nenner}. */
-export type Wert = number | Bruch;
+/**
+ * Wert eines Platzhalters im Vorlagentext, z. B. {bruch}, {nenner} oder {stelle}.
+ * Texte (z. B. Stellennamen) sind Sprachobjekte, nie nackte Zeichenketten (I-3).
+ */
+export type Wert = number | Bruch | Sprachobjekt;
 
 export type Loesung =
   { readonly typ: 'bruch'; readonly wert: Bruch } | { readonly typ: 'zahl'; readonly wert: number };

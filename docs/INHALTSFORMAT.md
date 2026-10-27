@@ -279,7 +279,7 @@ Für jeweils 10 000 Seeds pro Niveau:
 - Gleicher Seed → identische Instanz.
 - Nicht mehr als ein kleiner Anteil identischer Instanzen in 100 aufeinanderfolgenden Seeds (Abwechslung).
 
-*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Erster Generator: `bruch.erweitern-zielnenner@1` (`src/generators/mathematik/brueche/`).
+*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Generatoren: `bruch.erweitern-zielnenner@1` (`src/generators/mathematik/brueche/`), `nz.ziffer-an-stelle@1` (`src/generators/mathematik/natuerliche-zahlen/`). Platzhalter dürfen Zahlen, Brüche oder Sprachobjekte sein (z. B. Stellennamen), nie nackte Texte (I-3). Zahlen im Lösungsweg werden mit `zahlDeutsch` gegliedert (`src/core/learning/format.ts`, §11).
 
 ### 6.4 Was ein Lernereignis speichert
 
