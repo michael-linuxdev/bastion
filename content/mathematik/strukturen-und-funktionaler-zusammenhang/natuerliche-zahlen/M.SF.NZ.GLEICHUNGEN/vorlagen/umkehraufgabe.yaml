@@ -1,0 +1,21 @@
+# „Löse: x + 540 = 684“. Entwurf: noch nicht geprüft.
+id: M.SF.NZ.GLEICHUNGEN.UMKEHRAUFGABE
+kompetenz: M.SF.NZ.GLEICHUNGEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.gleichung-umkehr@1
+parameter:
+  G: { zahl_max: 100, rechenarten: 2 }
+  M: { zahl_max: 1000, rechenarten: 4 }
+text:
+  aufgabe:
+    de: '**Bestimme** x: {gleichung}'
+hilfen:
+  - de: 'Nutze die Umkehraufgabe: Aus Plus wird Minus, aus Mal wird Geteilt – und umgekehrt.'
+  - de: Setze dein Ergebnis zur Probe in die Gleichung ein.
+fehlerbilder:
+  gleiche-rechenart:
+    de: Du hast mit derselben Rechenart weitergerechnet. Die Umkehraufgabe nutzt die entgegengesetzte Rechenart. Mach die Probe!
+herkunft: ki-entwurf
+version: 1

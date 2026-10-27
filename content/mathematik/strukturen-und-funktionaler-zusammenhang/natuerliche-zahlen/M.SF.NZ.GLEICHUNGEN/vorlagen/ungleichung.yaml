@@ -1,0 +1,21 @@
+# „Größte Zahl y mit y + 10 < 25“. Entwurf: noch nicht geprüft.
+id: M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG
+kompetenz: M.SF.NZ.GLEICHUNGEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.ungleichung-groesste@1
+parameter:
+  G: { zahl_max: 30 }
+  M: { zahl_max: 1000 }
+text:
+  aufgabe:
+    de: '**Gib** die größte natürliche Zahl y **an**, für die gilt: {ungleichung}'
+hilfen:
+  - de: Löse zuerst die Gleichung mit „=“ statt „<“.
+  - de: „Kleiner als“ heißt, die Grenze selbst gehört nicht dazu.
+fehlerbilder:
+  grenze-mitgezaehlt:
+    de: Mit dieser Zahl wären beide Seiten gleich groß. Gefragt ist „kleiner als“ – die Grenze selbst gehört nicht dazu.
+herkunft: ki-entwurf
+version: 1

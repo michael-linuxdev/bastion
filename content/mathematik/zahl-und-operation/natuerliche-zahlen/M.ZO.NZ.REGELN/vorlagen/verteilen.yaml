@@ -1,0 +1,21 @@
+# „Rechne geschickt: 7 · 98“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.REGELN.VERTEILEN
+kompetenz: M.ZO.NZ.REGELN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.verteilungsgesetz@1
+parameter:
+  G: { faktor_max: 9, stufe: 10 }
+  M: { faktor_max: 20, stufe: 100 }
+text:
+  aufgabe:
+    de: '**Berechne** geschickt: {a} · {b}'
+hilfen:
+  - de: Zerlege {b} in eine glatte Zahl und einen kleinen Rest.
+  - de: Multipliziere beide Teile mit {a}.
+fehlerbilder:
+  nur-ein-teil-multipliziert:
+    de: Du hast nur die glatte Zahl mit {a} multipliziert. Auch der kleine Rest muss mit {a} multipliziert werden.
+herkunft: ki-entwurf
+version: 1

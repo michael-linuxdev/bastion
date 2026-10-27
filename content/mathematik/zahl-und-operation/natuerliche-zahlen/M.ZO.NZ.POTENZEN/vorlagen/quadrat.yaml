@@ -1,0 +1,22 @@
+# „Berechne 13²“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.POTENZEN.QUADRAT
+kompetenz: M.ZO.NZ.POTENZEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.quadratzahl@1
+parameter:
+  G: { basis_max: 10, wurzel: false }
+  M: { basis_max: 20, wurzel: false }
+text:
+  aufgabe:
+    de: '**Berechne** im Kopf: ${basis}^2$'
+hilfen:
+  - de: 'Die kleine 2 bedeutet: Die Zahl wird mit sich selbst multipliziert.'
+fehlerbilder:
+  mal-zwei:
+    de: 'Du hast mit 2 multipliziert. Hoch 2 heißt: die Zahl mal sich selbst, also {basis} · {basis}.'
+  halbiert:
+    de: Halbieren ist hier nicht gemeint.
+herkunft: ki-entwurf
+version: 1
