@@ -1,0 +1,38 @@
+# Prozentschreibweise – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.PROZENT
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Prozentschreibweise
+kann_satz:
+  de:
+    Ich kann einfache Anteile in Prozentschreibweise angeben (1 %, 10 %, 20 %, 25 %, 50 %, 75 %, 100
+    %).
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.BR.DEZIMAL
+niveaus:
+  G:
+    beschreibung:
+      de: 50 %, 25 % und 100 % als Bruch und Dezimalzahl erkennen.
+  M:
+    beschreibung:
+      de: Die Anteile 0,01; 0,1; 0,2; 0,25; 0,5; 0,75 und 1 zwischen Bruch, Dezimalzahl und Prozent umwandeln.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche, Dezimalzahlen und Größen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

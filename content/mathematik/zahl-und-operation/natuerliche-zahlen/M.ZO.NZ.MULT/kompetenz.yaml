@@ -1,0 +1,35 @@
+# Multiplizieren – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.MULT
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Multiplizieren
+kann_satz:
+  de: Ich kann multiplizieren – im Kopf, halbschriftlich und schriftlich.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ADD-SUB
+niveaus:
+  G:
+    beschreibung:
+      de: Schriftlich mit einer ein- oder zweistelligen Zahl multiplizieren.
+  M:
+    beschreibung:
+      de: Schriftlich mit mehrstelligen Zahlen multiplizieren; mit Zehnerpotenzen im Kopf.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

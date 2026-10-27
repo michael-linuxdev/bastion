@@ -1,0 +1,40 @@
+# Parallel, senkrecht, schneidend – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.GF.LAGE
+fach: mathematik
+bereich: raum-und-form
+feld: geometrische-grundformen
+titel:
+  de: Parallel, senkrecht, schneidend
+kann_satz:
+  de:
+    Ich kann erkennen und beschreiben, ob Geraden und Strecken parallel, senkrecht oder schneidend zueinander
+    liegen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen: []
+niveaus:
+  G:
+    beschreibung:
+      de: In Bildern parallele und senkrechte Geraden erkennen und benennen.
+  M:
+    beschreibung:
+      de:
+        Lagebeziehungen in Figuren und im Koordinatensystem bestimmen und mit Fachbegriffen beschreiben;
+        Zeichnen mit dem Geodreieck wird erklärt.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K6
+anforderungsbereiche:
+  - I
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1

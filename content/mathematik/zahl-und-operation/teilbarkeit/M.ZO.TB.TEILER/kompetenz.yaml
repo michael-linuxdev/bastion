@@ -1,0 +1,35 @@
+# Teiler und Vielfache – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.TB.TEILER
+fach: mathematik
+bereich: zahl-und-operation
+feld: teilbarkeit
+titel:
+  de: Teiler und Vielfache
+kann_satz:
+  de: Ich kann Teiler und Vielfache einer Zahl finden.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.DIV
+niveaus:
+  G:
+    beschreibung:
+      de: Alle Teiler von Zahlen bis 50 finden; Vielfache aufzählen.
+  M:
+    beschreibung:
+      de: Teilermengen von Zahlen bis 200 vollständig angeben; gemeinsame Teiler und Vielfache finden.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

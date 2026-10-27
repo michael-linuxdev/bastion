@@ -79,6 +79,11 @@ review:
   hash: 3f9a…                # s. Abschnitt 8
 ```
 
+**Ergänzt (27.10.2026):**
+- `sachsen` (Pflicht, LEHRPLAN L-9): Lehrplanbezug je Schulart, z. B. `gymnasium: { klassenstufe: 5, lernbereich: "LB 2 Gemeine Brüche und Dezimalzahlen" }`. Fehlt eine Schulart, steht die Kompetenz dort nicht in den ausgewerteten Klassenstufen.
+- `zeichnen_erklaert: true` (optional, LEHRPLAN L-10): Zur Kompetenz gehört eine Zeichen- oder Konstruktionsanleitung, die nicht bewertet wird.
+- Solange es kein Review-Werkzeug gibt, haben Kompetenzen noch kein `review`-Feld; alle gelten als ungeprüft.
+
 **Entscheidung I-3: Alle Texte sind ab Tag 1 Sprachobjekte** (`{ de: … }`), auch wenn es zunächst nur Deutsch gibt.
 *Warum:* Hilfesprache kommt in Phase 5. Wird jetzt ein einfacher String verwendet, müssen später alle Inhalte migriert werden. So wird später nur ergänzt.
 
@@ -315,6 +320,8 @@ Der Build lehnt ab: fehlendes Review, abweichenden Hash, fehlende Prüfpunkte.
 ## 10. Build und Pakete
 
 ### 10.1 Prüfschritte (`tools/content-build`)
+
+*Umgesetzt (27.10.2026) für Kompetenzen, Punkte 1–3:* `pnpm inhalte:pruefen` (`tools/inhalte/`), zusätzlich bei jedem `pnpm test`. Statt eines JSON-Schemas prüft die TypeScript-Funktion `pruefeKompetenz` in `src/core/competence/kompetenz.ts` – so braucht es keine Schema-Bibliothek, und die App kann dieselbe Prüfung später für geladene Pakete nutzen. Zusätzlich geprüft: Ordner passt zur ID, Leitidee passt zum Bereich, Kann-Satz beginnt mit „Ich kann“, Lehrplanbezug Sachsen vorhanden.
 
 1. YAML lesen, gegen JSON-Schema prüfen.
 2. Verweise prüfen: Kompetenzen, Voraussetzungen, Generatoren (registriert, Version vorhanden), Fehlerbild-IDs.

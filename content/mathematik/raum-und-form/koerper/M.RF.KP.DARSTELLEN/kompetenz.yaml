@@ -1,0 +1,38 @@
+# Würfel und Quader darstellen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KP.DARSTELLEN
+fach: mathematik
+bereich: raum-und-form
+feld: koerper
+titel:
+  de: Würfel und Quader darstellen
+kann_satz:
+  de: Ich kann Netze, Schrägbilder und Ansichten von Würfeln und Quadern erkennen und dem Körper zuordnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen: []
+niveaus:
+  G:
+    beschreibung:
+      de: Erkennen, ob ein Netz einen Würfel ergibt.
+  M:
+    beschreibung:
+      de:
+        Netze, Schrägbilder, Grundriss und Seitenansichten von Quadern und zusammengesetzten Körpern
+        zuordnen; Zeichnen des Schrägbilds wird erklärt.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 4 Rechtecke und Quader
+version: 1

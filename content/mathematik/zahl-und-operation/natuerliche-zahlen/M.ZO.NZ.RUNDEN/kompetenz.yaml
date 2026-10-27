@@ -1,0 +1,37 @@
+# Runden, schätzen, überschlagen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.RUNDEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Runden, schätzen, überschlagen
+kann_satz:
+  de: Ich kann Zahlen runden, schätzen und Ergebnisse überschlagen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.STELLENWERT
+niveaus:
+  G:
+    beschreibung:
+      de: Auf Zehner, Hunderter und Tausender runden.
+  M:
+    beschreibung:
+      de: Auf eine gegebene Stelle runden; Rechnungen überschlagen und Ergebnisse damit prüfen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

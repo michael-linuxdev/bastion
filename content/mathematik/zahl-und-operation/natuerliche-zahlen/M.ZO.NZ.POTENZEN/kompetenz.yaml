@@ -1,0 +1,37 @@
+# Potenzen und Quadratzahlen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.POTENZEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Potenzen und Quadratzahlen
+kann_satz:
+  de: Ich kann Zehnerpotenzen und Quadratzahlen bis 20² angeben und die Quadratwurzel als Umkehrung nutzen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: Quadratzahlen bis 10² und Zehnerpotenzen bis 10⁶ angeben.
+  M:
+    beschreibung:
+      de:
+        Quadratzahlen bis 20² im Kopf, Quadratwurzeln davon; große Zahlen mit abgetrennten Zehnerpotenzen
+        schreiben.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

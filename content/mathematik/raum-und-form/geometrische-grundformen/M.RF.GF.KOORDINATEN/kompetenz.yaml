@@ -1,0 +1,35 @@
+# Koordinatensystem – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.GF.KOORDINATEN
+fach: mathematik
+bereich: raum-und-form
+feld: geometrische-grundformen
+titel:
+  de: Koordinatensystem
+kann_satz:
+  de: Ich kann Punkte im Koordinatensystem ablesen und eintragen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ORDNEN
+niveaus:
+  G:
+    beschreibung:
+      de: Punkte mit natürlichen Koordinaten im ersten Quadranten ablesen und eintragen.
+  M:
+    beschreibung:
+      de: Auch Koordinaten mit Brüchen und Dezimalzahlen; Strecken und Figuren über ihre Eckpunkte angeben.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1

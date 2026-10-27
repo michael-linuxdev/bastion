@@ -1,0 +1,38 @@
+# Anteile von Größen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.ANTEIL-VON
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Anteile von Größen
+kann_satz:
+  de: Ich kann Anteile von Größen berechnen, z. B. 2/3 von 27 km.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.BR.BEGRIFF
+  - M.ZO.NZ.DIV
+niveaus:
+  G:
+    beschreibung:
+      de: Stammbrüche von Größen berechnen, z. B. 1/4 von 20 €.
+  M:
+    beschreibung:
+      de: Beliebige Anteile von Größen und Anzahlen berechnen, z. B. 2/3 von 24 Schülern.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche, Dezimalzahlen und Größen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

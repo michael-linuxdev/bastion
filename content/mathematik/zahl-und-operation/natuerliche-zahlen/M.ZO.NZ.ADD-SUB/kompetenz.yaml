@@ -1,0 +1,35 @@
+# Addieren und Subtrahieren – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.ADD-SUB
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Addieren und Subtrahieren
+kann_satz:
+  de: Ich kann addieren und subtrahieren – im Kopf, halbschriftlich und schriftlich.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.STELLENWERT
+niveaus:
+  G:
+    beschreibung:
+      de: Schriftlich addieren und subtrahieren mit zwei Zahlen und wenigen Überträgen.
+  M:
+    beschreibung:
+      de: Mehrere Zahlen, viele Überträge; im Kopf geschickt rechnen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

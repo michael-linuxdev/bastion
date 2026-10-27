@@ -278,12 +278,12 @@ Legende: **Gen** = Generator · **Hand** = handverfasst · **Mix** = gemischt ·
 | M.GM.KP.OBERFLAECHE *(neu)* | Ich kann den Oberflächeninhalt von Würfeln und Quadern berechnen. | FL.RECHTECK, DARSTELLEN | OS LB 3 (Würfel), GY LB 4 | Gen |
 | M.GM.KP.EINHEITEN *(neu)* | Ich kann Volumeneinheiten und Hohlmaße umrechnen (mm³ bis m³, ml, l). | VOLUMEN, GR.UMRECHNEN | OS LB 3, GY LB 4 | Gen |
 
-**Summe Klasse 5:** 40 Kompetenzen × 2 Niveaus (G, M). Davon 29 überwiegend generatorbasiert, 11 gemischt; bei 5 wird zusätzlich Zeichnen oder Konstruieren erklärt (L-10).
+**Summe Klasse 5:** 41 Kompetenzen × 2 Niveaus (G, M). Davon 34 überwiegend generatorbasiert, 7 gemischt; bei 4 wird zusätzlich Zeichnen erklärt (L-10). Datenquelle: `content/mathematik/…/kompetenz.yaml`.
 
 **Aus dem früheren Ausschnitt nach Klasse 6 verschoben** (Lehrplan OS Kl. 6 LB 1 bzw. GY Kl. 6 LB 1): M.ZO.BR.ADD-SUB, M.ZO.BR.MULT, M.ZO.BR.DIV. IDs bleiben unverändert (L-1).
 **Nicht ausdrücklich im Lehrplan:** M.ZO.TB.GGT-KGV steht weder im OS- noch im GY-Lehrplan Kl. 5–6. Es bleibt als Hilfskompetenz für das Addieren ungleichnamiger Brüche (Hauptnenner) in Klasse 6 im Graphen, zählt aber nicht zu den Abschlusskriterien.
 
-*Ehrliche Einordnung:* 40 Kompetenzen mit je mindestens zwei Vorlagen pro Niveau bedeuten rund 160 geprüfte Vorlagen für Klasse 5. Für eine Person ist das die Arbeit vieler Monate – das ist der Preis von K-15 und K-16 und wird bewusst in Kauf genommen.
+*Ehrliche Einordnung:* 41 Kompetenzen mit je mindestens zwei Vorlagen pro Niveau bedeuten rund 165 geprüfte Vorlagen für Klasse 5. Für eine Person ist das die Arbeit vieler Monate – das ist der Preis von K-15 und K-16 und wird bewusst in Kauf genommen.
 
 ### 8.3 Zeichnen und Konstruieren
 
@@ -302,7 +302,8 @@ NZ.STELLENWERT ─┬─ NZ.ORDNEN ─┬─ GF.KOORDINATEN ─ SY.SPIEGELN
                 ├─ NZ.RUNDEN ─ BR.DEZ-ORDNEN
                 ├─ NZ.ADD-SUB ─ NZ.MULT ─┬─ NZ.DIV ─┬─ TB.TEILER ─┬─ TB.REGELN
                 │      │                 │          │             └─ TB.PRIM
-                │      │                 │          └─ BR.BEGRIFF ─┬─ BR.ERWEITERN ─ BR.VERGLEICHEN
+                │      │                 │          └─ BR.BEGRIFF ─┬─ BR.ERWEITERN
+│      │                 │                         ├─ BR.VERGLEICHEN
                 │      │                 │                         ├─ BR.ANTEIL-VON
                 │      │                 │                         └─ BR.DEZIMAL ─┬─ BR.PROZENT
                 │      │                 │                                        └─ BR.DEZ-RECHNEN ─ DA.MITTELWERT

@@ -1,0 +1,37 @@
+# Uhrzeiten und Zeitspannen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.GR.ZEIT
+fach: mathematik
+bereich: groessen-und-messen
+feld: groessen
+titel:
+  de: Uhrzeiten und Zeitspannen
+kann_satz:
+  de: Ich kann mit Uhrzeiten und Zeitspannen rechnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ADD-SUB
+niveaus:
+  G:
+    beschreibung:
+      de: Zeitspannen innerhalb eines Tages bestimmen.
+  M:
+    beschreibung:
+      de: Zeitspannen über Mitternacht und mehrere Tage; Fahrpläne lesen.
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche, Dezimalzahlen und Größen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: 'LB 5 Vernetzung: Mathematik im Alltag'
+version: 1

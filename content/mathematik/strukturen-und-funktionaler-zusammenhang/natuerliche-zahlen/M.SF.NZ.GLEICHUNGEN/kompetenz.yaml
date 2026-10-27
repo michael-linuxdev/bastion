@@ -1,0 +1,41 @@
+# Einfache Gleichungen und Ungleichungen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.NZ.GLEICHUNGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: natuerliche-zahlen
+titel:
+  de: Einfache Gleichungen und Ungleichungen
+kann_satz:
+  de:
+    Ich kann einfache Gleichungen und Ungleichungen durch Probieren oder mit der Umkehraufgabe lösen
+    und Textgleichungen aufstellen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ADD-SUB
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: Gleichungen wie 540 + y = 684 mit der Umkehraufgabe lösen.
+  M:
+    beschreibung:
+      de: Gleichungen und Ungleichungen wie y + 10 < 25 lösen; zu einem Text eine Gleichung aufstellen.
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K3
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

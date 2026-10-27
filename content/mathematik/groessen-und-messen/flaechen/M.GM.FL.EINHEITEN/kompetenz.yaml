@@ -1,0 +1,36 @@
+# Flächeneinheiten – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.FL.EINHEITEN
+fach: mathematik
+bereich: groessen-und-messen
+feld: flaechen
+titel:
+  de: Flächeneinheiten
+kann_satz:
+  de: Ich kann Flächeneinheiten umrechnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.GM.FL.RECHTECK
+  - M.GM.GR.UMRECHNEN
+niveaus:
+  G:
+    beschreibung:
+      de: In benachbarte Flächeneinheiten umrechnen (Umrechnungszahl 100).
+  M:
+    beschreibung:
+      de: Über mehrere Einheiten umrechnen, auch mit Dezimalzahlen; Einheiten sinnvoll wählen.
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 4 Rechtecke und Quader
+version: 1

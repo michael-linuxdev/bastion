@@ -1,0 +1,34 @@
+# Symmetrische Figuren – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.SY.SYMMETRIE
+fach: mathematik
+bereich: raum-und-form
+feld: symmetrie
+titel:
+  de: Symmetrische Figuren
+kann_satz:
+  de: Ich kann achsensymmetrische und punktsymmetrische Figuren erkennen und Symmetrieachsen finden.
+klassenstufe_typisch:
+  - 5
+voraussetzungen: []
+niveaus:
+  G:
+    beschreibung:
+      de: Achsensymmetrische Figuren erkennen und ihre Symmetrieachsen finden.
+  M:
+    beschreibung:
+      de: Auch punktsymmetrische Figuren und Muster erkennen; Anzahl der Symmetrieachsen bestimmen.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+anforderungsbereiche:
+  - I
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 4 Symmetrie und deckungsgleiche Figuren
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1

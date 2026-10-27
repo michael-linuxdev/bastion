@@ -1,0 +1,36 @@
+# Dezimalzahlen vergleichen und runden – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.DEZ-ORDNEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Dezimalzahlen vergleichen und runden
+kann_satz:
+  de: Ich kann Dezimalzahlen vergleichen, ordnen und runden.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.BR.DEZIMAL
+  - M.ZO.NZ.RUNDEN
+niveaus:
+  G:
+    beschreibung:
+      de: Dezimalzahlen mit gleich vielen Nachkommastellen vergleichen; auf Zehntel runden.
+  M:
+    beschreibung:
+      de: Dezimalzahlen mit verschieden vielen Nachkommastellen ordnen; auf eine gegebene Stelle runden.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche, Dezimalzahlen und Größen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

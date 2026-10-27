@@ -47,7 +47,7 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 **Phase 1a – Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
-1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 40 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
+1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
 1a. I-11 (neue Aufgabentypen für Bilder, Koordinaten, Anleitungen) bestätigen.
 2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
 3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
@@ -55,7 +55,7 @@ Vom Projektverantwortlichen (nicht delegierbar):
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Mit Claude Code, als Nächstes:
-6. Die 40 Kompetenzen der Klasse 5 als YAML in `content/` anlegen (INHALTSFORMAT §3, mit Feld `sachsen`) und ein kleines Prüfwerkzeug für Graph und Verweise (INHALTSFORMAT §10.1, Punkte 1–3).
+6. Die 41 Kompetenzen der Klasse 5 als YAML in `content/` anlegen (INHALTSFORMAT §3, mit Feld `sachsen`) und ein kleines Prüfwerkzeug für Graph und Verweise (INHALTSFORMAT §10.1, Punkte 1–3).
 7. Generatoren entlang des Graphen von der Wurzel aus: `M.ZO.NZ.STELLENWERT`, `NZ.ORDNEN`, `NZ.RUNDEN` … – jeweils mit `pflichttests`.
 8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
 
@@ -68,7 +68,7 @@ Mit Claude Code, als Nächstes:
 - **Erster Generator:** `bruch.erweitern-zielnenner@1` in `src/generators/mathematik/brueche/`. Typen liegen bewusst im Kern (`src/core/learning/generator.ts`, `bruch.ts`), weil die Auswertung sie braucht (INHALTSFORMAT §6, Umsetzung). Die Pflicht-Tests aus INHALTSFORMAT §6.3 sind ein wiederverwendbarer Baustein (`src/generators/pflichttests.ts`, 10 000 Seeds je Niveau); per absichtlich eingebauten Fehlern geprüft, dass sie anschlagen.
 - Fehlerbilder mit gleicher falscher Antwort: Der Generator meldet nur das vorrangige (INHALTSFORMAT §7).
 - **K-15 (neu):** Inhalte Klassenstufe für Klassenstufe, zuerst Klasse 5 vollständig (über alle Schularten; ein Thema gehört zur früheren Klassenstufe, wenn es an einer Schulart dort liegt). Abschlusskriterien je Klassenstufe in `STRATEGIE.md` §2. Ersetzt die Wellen nach Themen. Der Bruch-Generator passt dazu (Brüche: Gymnasium Kl. 5).
-- **K-16 (neu):** Die sächsischen Lehrpläne Mathematik (OS 2019, GY 2021) sind bindend. Ausgewertet für Klasse 5: 40 Kompetenzen in `LEHRPLAN.md` §8, einschließlich Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel/Quader. Erweitern/Kürzen liegt am GY in Kl. 5 (OS Kl. 6) und gehört deshalb zu Klasse 5. Rechnen mit Brüchen ist Klasse 6. Geometrie und Diagramme aus den Nicht-Zielen gestrichen.
+- **K-16 (neu):** Die sächsischen Lehrpläne Mathematik (OS 2019, GY 2021) sind bindend. Ausgewertet für Klasse 5: 41 Kompetenzen in `LEHRPLAN.md` §8, einschließlich Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel/Quader. Erweitern/Kürzen liegt am GY in Kl. 5 (OS Kl. 6) und gehört deshalb zu Klasse 5. Rechnen mit Brüchen ist Klasse 6. Geometrie und Diagramme aus den Nicht-Zielen gestrichen.
 - **L-10:** Zeichnen und Konstruieren erklärt die App, geprüft wird nur das Prüfbare. **L-11:** Wahlbereiche zählen nicht zum Abschluss einer Klassenstufe.
 - Lehrplan-PDFs bewusst nicht im Repository (Weitergaberecht ungeklärt); Fundstellen in `docs/quellen/README.md`.
 - 51 Tests, Lint, Build und Budget grün.

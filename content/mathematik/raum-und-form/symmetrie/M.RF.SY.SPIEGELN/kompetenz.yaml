@@ -1,0 +1,41 @@
+# An einer Geraden spiegeln – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.SY.SPIEGELN
+fach: mathematik
+bereich: raum-und-form
+feld: symmetrie
+titel:
+  de: An einer Geraden spiegeln
+kann_satz:
+  de: Ich kann Figuren an einer Geraden spiegeln – auch im Koordinatensystem – und Original und Bild zuordnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.RF.SY.SYMMETRIE
+  - M.RF.GF.KOORDINATEN
+niveaus:
+  G:
+    beschreibung:
+      de: Bildpunkte bei Spiegelung an einer waagerechten oder senkrechten Achse im Gitter angeben.
+  M:
+    beschreibung:
+      de:
+        Bildfiguren bestimmen, Original und Bild zuordnen, maßgleiche Seiten und Winkel erkennen; Zeichenschritte
+        werden erklärt.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 4 Symmetrie und deckungsgleiche Figuren
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1

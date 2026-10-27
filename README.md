@@ -28,6 +28,7 @@ pnpm build       # fertige App nach dist/ bauen
 pnpm budget      # Größenbudget prüfen (nach pnpm build)
 pnpm test:e2e    # Ende-zu-Ende-Tests im Browser (nach pnpm build)
 pnpm messen      # Ladezeiten auf nachgeahmtem Altgerät messen (nach pnpm build)
+pnpm inhalte:pruefen  # Inhalte in content/ prüfen (Schema, Voraussetzungen)
 ```
 
 Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, dann in den Entwicklerwerkzeugen „Offline“ einschalten (oder WLAN aus) und neu laden.

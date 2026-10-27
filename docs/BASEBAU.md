@@ -160,7 +160,7 @@ Referenzprofil P1 „regelmäßig“: 4 Lerneinheiten pro Woche à 15 Minuten.
 - Pro Einheit ca. 15 Aufgaben → 15 Stein, ca. 5 Wiederholungen → 5 Erz, 1 Bauschritt.
 - Pro Woche: ca. 60 Stein, 20 Erz, 4 Bauschritte.
 - Über 40 Schulwochen: ca. 2 400 Stein, 800 Erz, 160 Bauschritte.
-- Baupläne: In Mathe Kl. 5–6 erwarten wir in einem Schuljahr 15–25 gefestigte Kompetenzen. *(Zur Einordnung: Klasse 5 hat nach dem sächsischen Lehrplan 40 Kompetenzen × 2 Niveaus, `LEHRPLAN.md` §8. Der Startwert ist im Simulator zu prüfen.)*
+- Baupläne: In Mathe Kl. 5–6 erwarten wir in einem Schuljahr 15–25 gefestigte Kompetenzen. *(Zur Einordnung: Klasse 5 hat nach dem sächsischen Lehrplan 41 Kompetenzen × 2 Niveaus, `LEHRPLAN.md` §8. Der Startwert ist im Simulator zu prüfen.)*
 
 Damit ist Epoche 1 für P1 in **etwa einem Schuljahr** abschließbar, mit Puffer. Erz ist bewusst knapper angesetzt als die Einnahme, weil Wiederholungsquoten zu Beginn schwanken.
 

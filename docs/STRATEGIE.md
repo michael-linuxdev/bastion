@@ -55,7 +55,7 @@ Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe.
 *Warum:* Eine vollständige Klasse 5 ist für echte Jugendliche ein brauchbares Werkzeug für ein ganzes Schuljahr; zwei halbe Klassenstufen sind es nicht. Jede abgeschlossene Klassenstufe ist für sich nutzbar (KONZEPT §12.2) und ein ehrlicher Fortschritt, den man Eltern und Lehrkräften zeigen kann.
 
 **Entscheidung K-16: Die sächsischen Lehrpläne Mathematik sind bindend für das MVP.** *(27.10.2026)* Lehrplan Oberschule Mathematik 2019 und Lehrplan Gymnasium Mathematik (Fassung 2021) haben höchste Priorität (Fundstellen: `docs/quellen/README.md`). Was dort als Pflicht-Lernbereich steht, gehört zum Inhalt der jeweiligen Klassenstufe – **auch Geometrie und Diagramme/Statistik**. Damit ist O-15 erledigt.
-- Klasse 5 umfasst danach 40 Kompetenzen (`LEHRPLAN.md` §8): natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel und Quader.
+- Klasse 5 umfasst danach 41 Kompetenzen (`LEHRPLAN.md` §8): natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel und Quader.
 - **Zeichnen und Konstruieren** (Geodreieck, Winkelmesser, später Zirkel) darf und soll die App **erklären**; geprüft wird nur, was sich ohne freies Zeichnen prüfen lässt (L-10).
 - Wahlbereiche der Lehrpläne zählen nicht zu den Abschlusskriterien (L-11).
 

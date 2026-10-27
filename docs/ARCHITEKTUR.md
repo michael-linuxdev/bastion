@@ -162,6 +162,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | workbox-window | 7.4.1 | **Laufzeit**, ca. 2 KB komprimiert: meldet der Seite neue Versionen. Teil der Entscheidung „vite-plugin-pwa (Workbox)“, §4.1 |
 | Vitest | 5.0.5 | Werkzeug |
 | @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests, Leistungsmessung) |
+| yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
 | typescript-eslint | 8.72.1 | Werkzeug |

@@ -1,0 +1,37 @@
+# Teilbarkeitsregeln – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.TB.REGELN
+fach: mathematik
+bereich: zahl-und-operation
+feld: teilbarkeit
+titel:
+  de: Teilbarkeitsregeln
+kann_satz:
+  de: Ich kann die Teilbarkeitsregeln für 2, 3, 4, 5, 6 und 10 anwenden.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.TB.TEILER
+niveaus:
+  G:
+    beschreibung:
+      de: Teilbarkeit durch 2, 5 und 10 sowie durch 3 entscheiden.
+  M:
+    beschreibung:
+      de: Teilbarkeit durch 3, 4 und 6 entscheiden und die Entscheidung mit der Regel begründen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

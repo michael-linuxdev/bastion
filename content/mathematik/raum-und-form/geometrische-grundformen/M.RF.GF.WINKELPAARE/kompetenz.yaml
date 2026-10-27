@@ -1,0 +1,35 @@
+# Winkelpaare an Geraden – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.GF.WINKELPAARE
+fach: mathematik
+bereich: raum-und-form
+feld: geometrische-grundformen
+titel:
+  de: Winkelpaare an Geraden
+kann_satz:
+  de: Ich kann Scheitel-, Neben-, Stufen- und Wechselwinkel erkennen und ihre Größen bestimmen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.RF.GF.WINKEL
+  - M.RF.GF.LAGE
+niveaus:
+  G:
+    beschreibung:
+      de: Scheitel- und Nebenwinkel erkennen und ihre Größe bestimmen.
+  M:
+    beschreibung:
+      de: Auch Stufen- und Wechselwinkel an geschnittenen Parallelen; Größen begründet bestimmen.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1
