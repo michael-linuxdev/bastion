@@ -50,7 +50,7 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
 - [x] **0.3 Offene Entscheidungen vor Phase 1 klären** – AGPL-3.0 / CC BY-SA 4.0; Inhalte: Generatoren + KI-Entwürfe mit Prüfung + OER
   - O-8 Lizenz für Code und Inhalte
   - O-2 Inhaltsquellen (Tendenz: Generatoren + KI-gestützte Eigenproduktion mit Prüfpflicht + passende OER)
-  - Offen: offiziellen AGPL-Text als `LICENSE` anlegen, Repo öffentlich schalten
+  - Erledigt: offizieller AGPL-Text als `LICENSE` angelegt. Offen: Repo öffentlich schalten
 
 ### Block B – Konzeptdokumente für Phase 1
 
