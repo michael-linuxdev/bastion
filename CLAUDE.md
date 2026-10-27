@@ -1,0 +1,30 @@
+# CLAUDE.md – Arbeitsregeln für Claude Code in Bastion
+
+## Zuerst lesen
+1. `docs/SESSION-PROMPT.md` – aktueller Auftrag und letzter Stand
+2. `docs/VISION.md` §7 – unveränderliche Prinzipien und Design-Regeln R1–R7
+3. Die im Auftrag genannten Dokumente in `docs/`
+
+Bei Widerspruch zwischen Code und Dokumenten: nachfragen, nicht raten.
+
+## Unverhandelbar
+- **Keine Netzwerkverbindungen** zur Laufzeit außer dem Laden der App und der Inhaltspakete von der eigenen Adresse. Kein Analytics, keine Fehler-Tracking-Dienste, keine CDN-Fonts, keine externen Bilder.
+- **Keine Werbung, keine Käufe, keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall.**
+- **Ordnergrenzen:** `src/core/` importiert nichts aus `src/ui/` oder Browser-APIs. `src/core/bastion/` importiert nur aus `src/core/ledger/`.
+- **Keine neue Laufzeitabhängigkeit** ohne Eintrag im Entscheidungslog von `docs/ARCHITEKTUR.md` – vorher fragen.
+
+## Technik
+- TypeScript im strengen Modus. Kein `any` ohne Begründung im Kommentar.
+- **Svelte 5, ausschließlich Runes-Syntax:** `$state`, `$derived`, `$effect`, `$props`, Ereignisse als `onclick`. Verboten: `export let`, `$:`, `on:click`, Stores für lokalen Komponentenzustand.
+- CSS mit Logical Properties (`margin-inline-start` statt `margin-left`) – RTL-Fähigkeit.
+- Oberflächentexte nie hart im Code, sondern in der Textdatei für Übersetzungen.
+- Generatoren: rein und deterministisch, Zufall nur über `src/core/rng`. Pflicht-Tests nach `docs/INHALTSFORMAT.md` §6.3.
+- Datenänderungen nur über Ereignisse (append-only) und mit Schemaversion; jede Migration mit Test.
+
+## Arbeitsweise
+- **Kleine Schritte.** Eine Aufgabe, ein Thema, ein Commit. Lieber drei kleine Commits als ein großer.
+- **Vor dem Commit:** `pnpm lint`, `pnpm test`, `pnpm build` müssen grün sein.
+- **Erkläre jede Änderung in einfachem Deutsch:** Was wurde geändert, warum, wie kann ich es selbst ausprobieren? Der Projektverantwortliche ist kein Framework-Experte.
+- **Dokumente im selben Commit aktualisieren**, wenn sich Verhalten, Struktur oder Entscheidungen ändern.
+- **Am Ende jeder Sitzung:** `docs/SESSION-PROMPT.md` und `docs/PLAN.md` aktualisieren.
+- Commit-Nachrichten auf Deutsch, im Präsens, mit Aufgaben-Nummer: `0.7: Projektgerüst mit Vite und Svelte 5 anlegen`.
