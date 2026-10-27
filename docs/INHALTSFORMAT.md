@@ -208,6 +208,12 @@ export interface Fehlerbild {
 }
 ```
 
+**Umsetzung (27.10.2026):** Die Typen liegen nicht in `src/generators/types.ts`, sondern im Kern: `src/core/learning/generator.ts` (Generator, Instanz, Fehlerbild, Lösung) und `src/core/learning/bruch.ts` (Bruch, ggT, Vergleiche). *Warum:* Die Auswertung im Kern braucht dieselben Typen, darf aber nicht aus `src/generators` importieren (T-2); umgekehrt dürfen Generatoren aus dem Kern importieren. Gegenüber dem Entwurf oben ergänzt:
+- `platzhalter`: Namen aller Platzhalter, die jede Instanz füllt (für den Pflicht-Test „alle Platzhalter gefüllt“ und den Abgleich mit der Vorlage).
+- `fehlerbildIds`: alle Fehlerbild-IDs, die vorkommen können (für den Build-Abgleich mit `fehlerbilder` der Vorlage, §10.1).
+- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung` (`{ typ: 'bruch', wert }`).
+- Verzeichnis aller Generatoren: `src/generators/index.ts`, Schlüssel `id@version`.
+
 ### 6.1 Regeln für Generatoren
 
 1. **Rein und deterministisch.** Gleicher Seed + gleiche Parameter = gleiche Aufgabe. Kein `Math.random`, kein `Date`, keine Browser-APIs. Zufall nur über den Zufallszahlengenerator aus `src/core/rng` (`rng(seed)` mit `int`, `pick`, `zahl`; Verfahren sfc32, durch feste Testwerte gegen Änderungen geschützt).
@@ -257,6 +263,8 @@ Für jeweils 10 000 Seeds pro Niveau:
 - Gleicher Seed → identische Instanz.
 - Nicht mehr als ein kleiner Anteil identischer Instanzen in 100 aufeinanderfolgenden Seeds (Abwechslung).
 
+*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Erster Generator: `bruch.erweitern-zielnenner@1` (`src/generators/mathematik/brueche/`).
+
 ### 6.4 Was ein Lernereignis speichert
 
 **Entscheidung I-6:** Ein Lernereignis speichert `generator@version` und `seed`. Bei **falschen** Antworten zusätzlich einen kompakten Schnappschuss der Instanz (Platzhalter, Lösung, gegebene Antwort, Fehlerbild-ID).
@@ -272,6 +280,8 @@ Für jeweils 10 000 Seeds pro Niveau:
 - **Diagnose:** Häufiges Fehlerbild → gezielter Vorschlag einer Voraussetzung (LEHRPLAN §7).
 
 Unbekannte falsche Antworten bekommen eine allgemeine Rückmeldung und den Lösungsweg.
+
+**Doppelte Fehler-Antworten:** Können zwei Fehlverständnisse dieselbe falsche Antwort erzeugen (bei `erweitern-zielnenner` etwa 1/2 → ?/4: „addiert“ und „falscher Faktor“ ergeben beide 3/4), meldet der Generator nur das erste in seiner festen Reihenfolge. Die Reihenfolge steht im Generator und ist nach Häufigkeit des Fehlers gewählt.
 
 ## 8. Review-Pflicht
 

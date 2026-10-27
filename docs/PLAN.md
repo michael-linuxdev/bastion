@@ -149,7 +149,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1a – Aufgabenqualität (Welle 1: Brüche und Teilbarkeit, Niveaus G und M)**
 1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung
-2. Generatoren für TB und BR (plus nötige Voraussetzungen aus NZ), je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7)
+2. Generatoren für TB und BR (plus nötige Voraussetzungen aus NZ), je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *begonnen: `bruch.erweitern-zielnenner@1` mit Pflicht-Tests*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
 
@@ -189,3 +189,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | `LICENSE` (AGPL-3.0); Block C 0.7–0.9: Gerüst, Leitplanken, Kern-Grundlagen, Offline-Hülle, Tests und CI |
 | 27.10.2026 | Strategie für 12 Monate (`STRATEGIE.md`): Scope K-11 (Mathe, Kl. 5–6, G+M), Lernkern vor Basebau K-12, Erfolgskriterien K-13; Nicht-Ziele §2.1; Block E; Phase 1 neu gegliedert; Testgruppe 8–12 |
 | 27.10.2026 | K-11 geändert: Zielgruppe Mathe Kl. 5–13 von Anfang an (statt 5–6); Inhalte weiter in Wellen ab Brüchen; Elternstufe „selbstverwaltet“ in den Scope; K-8 für Mathe-Oberstufe aufgehoben |
+| 27.10.2026 | 0.10 teilweise (Messskript, nachgeahmte Messung); erster Generator `bruch.erweitern-zielnenner@1` mit wiederverwendbaren Pflicht-Tests |
