@@ -18,7 +18,9 @@
     "format": "prettier --write .",
     "test": "vitest run --passWithNoTests",
     "test:e2e": "playwright test",
-    "budget": "node tools/groessenbudget.ts"
+    "budget": "node tools/groessenbudget.ts",
+    "messen": "node tools/messung.ts",
+    "inhalte:pruefen": "node tools/inhalte/pruefen.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -41,6 +43,7 @@
     "vite": "8.3.5",
     "vite-plugin-pwa": "2.0.0",
     "vitest": "5.0.5",
-    "workbox-window": "7.4.1"
+    "workbox-window": "7.4.1",
+    "yaml": "2.9.1"
   }
 }

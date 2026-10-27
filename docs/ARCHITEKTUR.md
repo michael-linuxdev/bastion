@@ -17,7 +17,7 @@ Der Stack wird nicht nach Vorliebe gewählt, sondern aus diesen Anforderungen ab
 | A4 | Lebensdauer von Jahren; Spielstände müssen Updates und Gerätewechsel überleben | Bastion als Langzeitbegleiter |
 | A5 | Barrierearm: Screenreader, Tastatur, reizarmer Modus, Vorlesen | Fokus-Hilfen, KONZEPT §9 |
 | A6 | Mehrsprachig inkl. Rechts-nach-links-Schriften (Arabisch, Persisch) | DaZ / Hilfesprache |
-| A7 | Mathematische und naturwissenschaftliche Notation offline | Inhalte Kl. 5–13 |
+| A7 | Mathematische und naturwissenschaftliche Notation offline | Inhalte Kl. 5–13 (Start: Sachsen, Kl. 5–12) |
 | A8 | Große, modular nachladbare Inhaltsmengen | Fächer × Schulformen × Niveaus |
 | A9 | Basebau als 2D-Welt mit flüssiger Darstellung – und vollständig abschaltbar | R7, K-1 |
 | A10 | Wartbar durch ein kleines Team; geringe Abhängigkeit von einzelnen Frameworks | Projektrealität |
@@ -161,7 +161,8 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | vite-plugin-pwa | 2.0.0 | Werkzeug (erzeugt Service Worker und Manifest) |
 | workbox-window | 7.4.1 | **Laufzeit**, ca. 2 KB komprimiert: meldet der Seite neue Versionen. Teil der Entscheidung „vite-plugin-pwa (Workbox)“, §4.1 |
 | Vitest | 5.0.5 | Werkzeug |
-| @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests) |
+| @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests, Leistungsmessung) |
+| yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
 | typescript-eslint | 8.72.1 | Werkzeug |
@@ -276,6 +277,33 @@ Zielwerte, in der Build-Pipeline geprüft:
 | Referenzgeräte | ein günstiges Android-Handy (ca. 4 Jahre alt), ein Schul-Chromebook, ein älteres iPad |
 
 Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
+
+### 9.1 Referenzgeräte (Aufgabe 0.10)
+
+| Rolle | Kriterium | Gerät |
+|---|---|---|
+| Günstiges Android-Handy | ca. 4 Jahre alt, ≤ 3 GB RAM, Chrome | *vom Projektverantwortlichen festzulegen* |
+| Schul-Chromebook | Einstiegsmodell, wie es Schulen ausgeben | *festzulegen (oder Ersatz: alter Laptop mit Chrome)* |
+| Älteres iPad | ≥ 5 Jahre alt, aktuellstes noch unterstütztes iPadOS, Safari | *festzulegen* |
+
+Geräte aus dem eigenen Umfeld oder dem der Testgruppe genügen. Wichtig ist, dass sie gleich bleiben, damit Messungen vergleichbar sind.
+
+### 9.2 Messung
+
+**Nachgeahmt (reproduzierbar):** `pnpm build && pnpm messen` (`tools/messung.ts`) lädt den Build in Chromium – je fünfmal mit leerem Browserprofil – einmal ungedrosselt und einmal als „Altgerät“ (CPU sechsfach gedrosselt, langsames 4G: 150 ms Latenz, 1,6 Mbit/s). Gemessen werden die erste Darstellung, „nutzbar“ (Überschrift sichtbar) und die übertragene Datenmenge, jeweils für den ersten Besuch online und den Neustart offline. Die Drosselung wirkt relativ zum Messrechner; Werte verschiedener Rechner sind nur grob vergleichbar.
+
+**Erste Messung (27.10.2026, Gerüst-App, Messrechner: Cloud-Container):**
+
+| Profil | Fall | Erste Darstellung | Nutzbar | Übertragen |
+|---|---|---|---|---|
+| Desktop, ungedrosselt | erster Besuch online | 56 ms | 98 ms | 17,9 KB |
+| Desktop, ungedrosselt | Neustart offline | 44 ms | 69 ms | 0 KB |
+| Altgerät (CPU ÷6, langsames 4G) | erster Besuch online | 556 ms | 716 ms | 17,9 KB |
+| Altgerät (CPU ÷6, langsames 4G) | Neustart offline | 156 ms | 323 ms | 0 KB |
+
+Ziel „erste Nutzbarkeit ≤ 3 s“ ist für die Gerüst-App deutlich erfüllt. Aussagekräftig wird die Messung erst mit Lernkern und Inhalten; sie wird bei jeder größeren Änderung wiederholt und hier ergänzt.
+
+**Auf echten Geräten (offen):** Seite `https://bastion.micana.de/` in einem frischen privaten Fenster öffnen und die Zeit bis zur sichtbaren Überschrift notieren; genauer über die Entwicklerwerkzeuge (Android: Chrome-Fernzugriff über `chrome://inspect`; iPad: Safari-Webinformationen über einen Mac). Danach Flugmodus an, App neu öffnen, ebenso messen. Ergebnisse in eine Tabelle wie oben eintragen.
 
 ## 10. Später, nicht jetzt
 

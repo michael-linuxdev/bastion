@@ -1,0 +1,39 @@
+# Brüche erweitern und kürzen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.ERWEITERN
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche erweitern und kürzen
+kann_satz:
+  de: Ich kann Brüche erweitern und kürzen.
+klassenstufe_typisch:
+  - 5
+  - 6
+voraussetzungen:
+  - M.ZO.BR.BEGRIFF
+  - M.ZO.TB.TEILER
+niveaus:
+  G:
+    beschreibung:
+      de: Erweitern und Kürzen mit kleinen Zahlen und vorgegebener Zahl.
+  M:
+    beschreibung:
+      de: Auf einen Zielnenner erweitern, vollständig kürzen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: LB 1 Gebrochene Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

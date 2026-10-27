@@ -27,6 +27,8 @@ pnpm test        # Einheitentests
 pnpm build       # fertige App nach dist/ bauen
 pnpm budget      # Größenbudget prüfen (nach pnpm build)
 pnpm test:e2e    # Ende-zu-Ende-Tests im Browser (nach pnpm build)
+pnpm messen      # Ladezeiten auf nachgeahmtem Altgerät messen (nach pnpm build)
+pnpm inhalte:pruefen  # Inhalte in content/ prüfen (Schema, Voraussetzungen)
 ```
 
 Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, dann in den Entwicklerwerkzeugen „Offline“ einschalten (oder WLAN aus) und neu laden.
@@ -39,7 +41,8 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [KONZEPT](docs/KONZEPT.md) | Gesamtkonzept, Roadmap, offene Entscheidungen |
 | [ARCHITEKTUR](docs/ARCHITEKTUR.md) | Tech-Stack und Architektur |
 | [BASEBAU](docs/BASEBAU.md) | Ressourcen, Gebäude, Balancing |
-| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell, Mathe Kl. 5–6 |
+| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 nach den sächsischen Lehrplänen |
+| [Quellen](docs/quellen/README.md) | Verbindliche Lehrpläne (Sachsen) |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
 | [STRATEGIE](docs/STRATEGIE.md) | Ziel, Scope und Erfolgskriterien für die nächsten 12 Monate |

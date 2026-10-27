@@ -114,14 +114,17 @@ Konkrete, messbare Kriterien für die ersten 12 Monate: `STRATEGIE.md` §6 (K-13
 
 ## 11. Scope-Grenze bis Monat 12 (verbindlich)
 
-Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Bis Oktober 2027 gilt deshalb (K-11, Begründung in `STRATEGIE.md` §2):
+Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Eingegrenzt wird über Fach, Bundesland und Inhalte, nicht über das Alter. Bis Oktober 2027 gilt (K-11, Begründung in `STRATEGIE.md` §2):
 
 | | Bis Monat 12 |
 |---|---|
 | Fach | **Mathematik** |
-| Klassenstufen | **5 und 6** (jede Schulform) |
+| Bundesland | **Sachsen** |
+| Klassenstufen | **5–12** von Anfang an, alle allgemeinbildenden Schularten; berufliche Bildung später |
 | Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
-| Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – vor allem bei Brüchen |
+| Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen |
+| Inhalte | Klassenstufe für Klassenstufe (K-15): zuerst Klasse 5 vollständig, dann Klasse 6 usw. |
+| Maßstab | Die sächsischen Lehrpläne Mathematik (Oberschule 2019, Gymnasium 2021) sind bindend (K-16) |
 | Priorität | Lernkern vor Basebau (K-12); Basebau nur als Minimum, bis Jugendliche den Lernkern als besser beschreiben |
 
 Alles andere steht ausdrücklich auf „später“: Liste der Nicht-Ziele in `PLAN.md` §2.1.

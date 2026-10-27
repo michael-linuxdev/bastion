@@ -1,0 +1,38 @@
+# Arithmetisches Mittel – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.DA.MITTELWERT
+fach: mathematik
+bereich: daten-und-zufall
+feld: daten
+titel:
+  de: Arithmetisches Mittel
+kann_satz:
+  de: Ich kann das arithmetische Mittel (den Durchschnitt) berechnen.
+klassenstufe_typisch:
+  - 5
+  - 6
+voraussetzungen:
+  - M.ZO.BR.DEZ-RECHNEN
+niveaus:
+  G:
+    beschreibung:
+      de: Den Durchschnitt von drei bis fünf natürlichen Zahlen berechnen.
+  M:
+    beschreibung:
+      de: Den Durchschnitt auch mit Dezimalzahlen berechnen und in Sachzusammenhängen deuten, z. B. Notendurchschnitt.
+kmk:
+  leitidee: L5
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: LB 1 Gebrochene Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

@@ -1,0 +1,37 @@
+# Umfang und Fläche des Rechtecks – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.FL.RECHTECK
+fach: mathematik
+bereich: groessen-und-messen
+feld: flaechen
+titel:
+  de: Umfang und Fläche des Rechtecks
+kann_satz:
+  de: Ich kann Umfang und Flächeninhalt von Rechtecken und Quadraten berechnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: Umfang und Flächeninhalt aus gegebenen Seitenlängen berechnen.
+  M:
+    beschreibung:
+      de: Auch fehlende Seitenlängen aus Umfang oder Flächeninhalt bestimmen; Sachaufgaben.
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 4 Rechtecke und Quader
+version: 1

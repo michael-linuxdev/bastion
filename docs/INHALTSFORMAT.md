@@ -79,6 +79,11 @@ review:
   hash: 3f9a…                # s. Abschnitt 8
 ```
 
+**Ergänzt (27.10.2026):**
+- `sachsen` (Pflicht, LEHRPLAN L-9): Lehrplanbezug je Schulart, z. B. `gymnasium: { klassenstufe: 5, lernbereich: "LB 2 Gemeine Brüche und Dezimalzahlen" }`. Fehlt eine Schulart, steht die Kompetenz dort nicht in den ausgewerteten Klassenstufen.
+- `zeichnen_erklaert: true` (optional, LEHRPLAN L-10): Zur Kompetenz gehört eine Zeichen- oder Konstruktionsanleitung, die nicht bewertet wird.
+- Solange es kein Review-Werkzeug gibt, haben Kompetenzen noch kein `review`-Feld; alle gelten als ungeprüft.
+
 **Entscheidung I-3: Alle Texte sind ab Tag 1 Sprachobjekte** (`{ de: … }`), auch wenn es zunächst nur Deutsch gibt.
 *Warum:* Hilfesprache kommt in Phase 5. Wird jetzt ein einfacher String verwendet, müssen später alle Inhalte migriert werden. So wird später nur ergänzt.
 
@@ -171,6 +176,17 @@ review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau]
 | `fehler-finden` | Fehlerhaften Schritt einer Rechnung wählen, dann Begründung auswählen | Beide Teile korrekt; Teilrückmeldung | E-Niveaus |
 | `bruch-bild` | Bild → Bruch eingeben *oder* Bruch → Felder einfärben | Wertgleich bzw. Anteil korrekt | BR.BEGRIFF |
 
+**Ergänzung für Klasse 5 (K-16, L-10) – Vorschlag I-11, Status: Vorgeschlagen:**
+
+| Typ | Eingabe | Auswertung | Einsatz |
+|---|---|---|---|
+| `bild-zahl` | Generiertes Bild (SVG: Winkel mit Winkelmesser, Rechteck, Quadernetz …) + Zahl- oder Größeneingabe | wie `zahl-eingabe` / `groesse-eingabe`, mit Toleranz bei Messwerten | GF.WINKEL, FL, KP |
+| `koordinaten-eingabe` | Punkt als Zahlenpaar eingeben *oder* im Gitter antippen | exakt (Gitterpunkte) | GF.KOORDINATEN, SY.SPIEGELN |
+| `bild-auswahl` | mehrere Bilder, eines oder mehrere wählen (Netz, Schrägbild, Symmetrieachse) | exakte Übereinstimmung | KP.DARSTELLEN, SY |
+| `anleitung` | Schritt-für-Schritt-Erklärung zum Zeichnen/Konstruieren auf Papier, mit Bildern; am Ende optional Selbsteinschätzung | **nicht bewertet**; zählt nicht für „gekonnt“ (L-10) | GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN |
+
+Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz) und haben eine Textbeschreibung.
+
 **Barrierefreiheit:** Jeder Typ ist vollständig per Tastatur bedienbar. `bruch-bild` hat zusätzlich eine Textbeschreibung („Ein Rechteck aus 8 gleich großen Feldern, 3 davon sind gefärbt“) und eine Alternative ohne Bild.
 
 **Später (offen, I-O1):** `rechenschema` für schriftliche Rechenverfahren mit stellenweiser Eingabe. In Phase 1 wird bei NZ.ADD-SUB bis NZ.DIV nur das Ergebnis geprüft; der Lösungsweg zeigt das Schema.
@@ -207,6 +223,12 @@ export interface Fehlerbild {
   antwort: Loesung;      // die falsche Antwort, die dieses Fehlerbild erzeugt
 }
 ```
+
+**Umsetzung (27.10.2026):** Die Typen liegen nicht in `src/generators/types.ts`, sondern im Kern: `src/core/learning/generator.ts` (Generator, Instanz, Fehlerbild, Lösung) und `src/core/learning/bruch.ts` (Bruch, ggT, Vergleiche). *Warum:* Die Auswertung im Kern braucht dieselben Typen, darf aber nicht aus `src/generators` importieren (T-2); umgekehrt dürfen Generatoren aus dem Kern importieren. Gegenüber dem Entwurf oben ergänzt:
+- `platzhalter`: Namen aller Platzhalter, die jede Instanz füllt (für den Pflicht-Test „alle Platzhalter gefüllt“ und den Abgleich mit der Vorlage).
+- `fehlerbildIds`: alle Fehlerbild-IDs, die vorkommen können (für den Build-Abgleich mit `fehlerbilder` der Vorlage, §10.1).
+- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung` (`{ typ: 'bruch', wert }`).
+- Verzeichnis aller Generatoren: `src/generators/index.ts`, Schlüssel `id@version`.
 
 ### 6.1 Regeln für Generatoren
 
@@ -257,6 +279,8 @@ Für jeweils 10 000 Seeds pro Niveau:
 - Gleicher Seed → identische Instanz.
 - Nicht mehr als ein kleiner Anteil identischer Instanzen in 100 aufeinanderfolgenden Seeds (Abwechslung).
 
+*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Generatoren: `bruch.erweitern-zielnenner@1` (`src/generators/mathematik/brueche/`), `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` (`src/generators/mathematik/natuerliche-zahlen/`). Wo die Lösung nicht schlicht nachzurechnen ist, prüft der Test sie auf einem echten Rückweg (z. B. liest ein eigener Zahlwort-Leser im Test die Aufgabe zurück in eine Zahl). Platzhalter dürfen Zahlen, Brüche oder Sprachobjekte sein (z. B. Stellennamen), nie nackte Texte (I-3). Zahlen im Lösungsweg werden mit `zahlDeutsch` gegliedert (`src/core/learning/format.ts`, §11).
+
 ### 6.4 Was ein Lernereignis speichert
 
 **Entscheidung I-6:** Ein Lernereignis speichert `generator@version` und `seed`. Bei **falschen** Antworten zusätzlich einen kompakten Schnappschuss der Instanz (Platzhalter, Lösung, gegebene Antwort, Fehlerbild-ID).
@@ -272,6 +296,8 @@ Für jeweils 10 000 Seeds pro Niveau:
 - **Diagnose:** Häufiges Fehlerbild → gezielter Vorschlag einer Voraussetzung (LEHRPLAN §7).
 
 Unbekannte falsche Antworten bekommen eine allgemeine Rückmeldung und den Lösungsweg.
+
+**Doppelte Fehler-Antworten:** Können zwei Fehlverständnisse dieselbe falsche Antwort erzeugen (bei `erweitern-zielnenner` etwa 1/2 → ?/4: „addiert“ und „falscher Faktor“ ergeben beide 3/4), meldet der Generator nur das erste in seiner festen Reihenfolge. Die Reihenfolge steht im Generator und ist nach Häufigkeit des Fehlers gewählt.
 
 ## 8. Review-Pflicht
 
@@ -294,6 +320,8 @@ Der Build lehnt ab: fehlendes Review, abweichenden Hash, fehlende Prüfpunkte.
 ## 10. Build und Pakete
 
 ### 10.1 Prüfschritte (`tools/content-build`)
+
+*Umgesetzt (27.10.2026) für Kompetenzen, Punkte 1–3:* `pnpm inhalte:pruefen` (`tools/inhalte/`), zusätzlich bei jedem `pnpm test`. Statt eines JSON-Schemas prüft die TypeScript-Funktion `pruefeKompetenz` in `src/core/competence/kompetenz.ts` – so braucht es keine Schema-Bibliothek, und die App kann dieselbe Prüfung später für geladene Pakete nutzen. Zusätzlich geprüft: Ordner passt zur ID, Leitidee passt zum Bereich, Kann-Satz beginnt mit „Ich kann“, Lehrplanbezug Sachsen vorhanden.
 
 1. YAML lesen, gegen JSON-Schema prüfen.
 2. Verweise prüfen: Kompetenzen, Voraussetzungen, Generatoren (registriert, Version vorhanden), Fehlerbild-IDs.

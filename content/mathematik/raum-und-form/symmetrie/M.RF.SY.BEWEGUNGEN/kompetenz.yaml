@@ -1,0 +1,41 @@
+# Spiegeln, Verschieben, Drehen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.SY.BEWEGUNGEN
+fach: mathematik
+bereich: raum-und-form
+feld: symmetrie
+titel:
+  de: Spiegeln, Verschieben, Drehen
+kann_satz:
+  de:
+    Ich kann Spiegelung, Verschiebung und Drehung unterscheiden und eine Verschiebung durch Richtung
+    und Weite beschreiben.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.RF.SY.SYMMETRIE
+niveaus:
+  G:
+    beschreibung:
+      de: Erkennen, ob ein Bild durch Spiegelung oder Verschiebung entstanden ist.
+  M:
+    beschreibung:
+      de:
+        Spiegelung, Verschiebung und Drehung unterscheiden; Verschiebungen durch Richtung und Weite
+        (auch im Koordinatensystem) angeben.
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 4 Symmetrie und deckungsgleiche Figuren
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
+version: 1

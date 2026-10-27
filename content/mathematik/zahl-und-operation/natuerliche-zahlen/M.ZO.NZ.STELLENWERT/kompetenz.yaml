@@ -1,0 +1,37 @@
+# Große Zahlen und Stellenwerte – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.STELLENWERT
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Große Zahlen und Stellenwerte
+kann_satz:
+  de: Ich kann große Zahlen lesen, schreiben und in der Stellenwerttafel darstellen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen: []
+niveaus:
+  G:
+    beschreibung:
+      de: Zahlen bis zur Million lesen, schreiben und in die Stellenwerttafel eintragen.
+  M:
+    beschreibung:
+      de:
+        Zahlen bis zur Billion; Zahlwort und Ziffernschreibweise ineinander umwandeln, Stellenwerte
+        bestimmen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

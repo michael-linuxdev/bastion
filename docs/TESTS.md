@@ -21,7 +21,7 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 ## 2. Testgruppe zusammenstellen
 
-**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus Klasse 5 oder 6.
+**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus **Sachsen**, Klasse 5–12. Solange es nur Inhalte der Klasse 5 gibt (K-15): vor allem Jugendliche aus Klasse 5, dazu einige Ältere, bei denen Stoff der Klasse 5 (z. B. Brüche) wackelt.
 
 **Mischung (Ziel):**
 
@@ -29,14 +29,15 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 |---|---|
 | Mag „normalerweise keine Lern-Apps“ | **mindestens 3–4** |
 | Unsicher oder durchschnittlich in Mathe (Zielgruppe K-11) | mindestens die Hälfte |
-| Schulformen | mindestens drei verschiedene (z. B. Gesamt-, Real-/Ober-, Mittel-/Hauptschule, Gymnasium; in Berlin/Brandenburg Grundschule Kl. 5–6) |
+| Schularten | mindestens drei verschiedene: Oberschule Hauptschulbildungsgang, Oberschule Realschulbildungsgang, Gymnasium; wenn möglich Gemeinschaftsschule/Oberschule+ oder Förderschule |
+| Altersstufen | mindestens eine Person aus Kl. 5–7, eine aus Kl. 8–10 und, sobald passende Inhalte da sind, eine aus der Oberstufe |
 | Eigene Kinder und Kinder enger Freunde | höchstens ein Drittel – sie sind zu höflich |
 
 **Wo suchen:** Kolleginnen und Kollegen, Nachbarschaft, Sportverein, Hausaufgabenhilfe, Jugendtreff, Elternvertretung einer Schule. Ausdrücklich auch dort fragen, wo Kinder „keinen Bock auf Mathe“ haben.
 
 **Ansprache an Eltern (Vorlage, kurz):**
 
-> Hallo …, ich entwickle in meiner Freizeit eine Mathe-App für Klasse 5 und 6: ohne Werbung, ohne Konto, die Daten bleiben auf dem Gerät. Ich suche Kinder, die sie ein paar Wochen ausprobieren und mir ehrlich sagen, was sie davon halten – **gerade auch Kinder, die Lern-Apps eigentlich nicht mögen.** Aufwand: ein Treffen von etwa 30 Minuten zum Start, danach nutzen, wann und wie oft sie wollen, und alle paar Wochen ein kurzes Gespräch. Hättet ihr Lust? Ich schicke euch gern eine Seite mit allen Infos.
+> Hallo …, ich entwickle in meiner Freizeit eine Mathe-App für Jugendliche ab Klasse 5: ohne Werbung, ohne Konto, die Daten bleiben auf dem Gerät. Ich suche Kinder, die sie ein paar Wochen ausprobieren und mir ehrlich sagen, was sie davon halten – **gerade auch Kinder, die Lern-Apps eigentlich nicht mögen.** Aufwand: ein Treffen von etwa 30 Minuten zum Start, danach nutzen, wann und wie oft sie wollen, und alle paar Wochen ein kurzes Gespräch. Hättet ihr Lust? Ich schicke euch gern eine Seite mit allen Infos.
 
 **Ansprache an Jugendliche (mündlich, sinngemäß):**
 
@@ -50,7 +51,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 
 **Info- und Einwilligungsblatt für Eltern (Gliederung):**
 
-1. Worum es geht: Test einer Mathe-App für Kl. 5–6, Dauer etwa bis …, freiwillig.
+1. Worum es geht: Test einer Mathe-App für Jugendliche ab Kl. 5, Dauer etwa bis …, freiwillig.
 2. Was passiert: Starttreffen (ca. 30 Min., Eltern dürfen dabei sein), App auf eigenem Gerät, Gespräche alle 3–4 Wochen (ca. 15 Min.), ggf. ein kurzer Mathe-Test auf Papier (§5) – keine Note, keine Weitergabe an die Schule.
 3. Welche Daten entstehen:
    - In der App: alles bleibt auf dem Gerät. Die App sendet nichts.
@@ -119,7 +120,7 @@ Frage: Behalten Jugendliche Bruch-Kompetenzen besser, wenn Bastion sie über Woc
 
 **Aufbau (innerhalb jeder Person, damit kleine Gruppen genügen):**
 
-1. Vier Kompetenzen aus Welle 1 auswählen, die die Person **noch nicht** sicher kann (Diagnose), z. B. ERWEITERN, VERGLEICHEN, ADD-SUB, MULT.
+1. Vier Kompetenzen aus der laufenden Klassenstufe auswählen, die die Person **noch nicht** sicher kann (Diagnose), z. B. ERWEITERN, VERGLEICHEN, ADD-SUB, MULT.
 2. Je Person werden zwei davon **mit Bastion-Wiederholung** geübt, zwei **nur einmal im Block** (eine Übungssitzung, dann keine Wiederholung in der App). Welche zwei, wird **pro Person gewechselt** (ausbalanciert), damit nicht die leichteren immer auf einer Seite landen.
 3. Nach **4 Wochen** ohne gezieltes Üben dieser vier: kurzer Papiertest, je Kompetenz 4 Aufgaben mit **neuen** Zahlen.
 4. Vergleich: Anteil richtiger Antworten „mit Wiederholung“ gegen „nur Block“ – je Person und gesamt.

@@ -1,0 +1,37 @@
+# Terme mit Klammern und Vorrangregeln – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.NZ.TERME
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: natuerliche-zahlen
+titel:
+  de: Terme mit Klammern und Vorrangregeln
+kann_satz:
+  de: Ich kann Terme mit Klammern und Punkt-vor-Strich berechnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.REGELN
+niveaus:
+  G:
+    beschreibung:
+      de: Terme mit einer Klammer oder Punkt-vor-Strich berechnen.
+  M:
+    beschreibung:
+      de: Terme mit mehreren Klammern und Rechenarten berechnen; einfache Terme zu Texten aufstellen.
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

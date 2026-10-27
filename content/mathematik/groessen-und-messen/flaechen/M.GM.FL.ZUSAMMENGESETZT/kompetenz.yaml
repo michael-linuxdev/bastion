@@ -1,0 +1,36 @@
+# Zusammengesetzte Figuren – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.FL.ZUSAMMENGESETZT
+fach: mathematik
+bereich: groessen-und-messen
+feld: flaechen
+titel:
+  de: Zusammengesetzte Figuren
+kann_satz:
+  de: Ich kann Umfang und Flächeninhalt von Figuren bestimmen, die sich in Rechtecke zerlegen lassen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.GM.FL.RECHTECK
+niveaus:
+  G:
+    beschreibung:
+      de: 'Figuren aus zwei Rechtecken: Flächeninhalt durch Zerlegen.'
+  M:
+    beschreibung:
+      de: Figuren aus mehreren Rechtecken, auch durch Ergänzen; Umfang als Summe der Seitenlängen.
+kmk:
+  leitidee: L2
+  prozesse:
+    - K2
+    - K5
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 3 Geometrische Grundformen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 4 Rechtecke und Quader
+version: 1

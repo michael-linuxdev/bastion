@@ -21,14 +21,14 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 | Phase | Name | Status | Bis Monat 12? |
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
-| 1 | **Lernkern** Mathe Kl. 5–6, Niveaus G + M (Monate 1–5) | ⏳ | ja – Schwerpunkt |
+| 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
 | 2a | **Basebau-Minimum** (Versuchsaufbau, K-12) | ⏳ | ja |
 | 2b | Bastion-Mechanik voll (Simulator, alle Gebäude Epoche 1) | ⏳ | nur nach Schwelle „Lernkern trägt“ |
 | 3 | Bastion sichtbar (Grafik, QR) | ⏳ | nur nach Schwelle, frühestens nach 2b |
-| 4 | Mathe Sek I + Belagerungen | ⏳ | nein |
+| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte: Klasse 6, 7 … jeweils erst nach Abschluss der vorigen (K-15); Belagerungen nein |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
 | 6 | Zweites Fach + Portfolio | ⏳ | nein |
-| – | Horizont (Oberstufe, berufliche Bildung …) | ohne Termin | nein |
+| – | Horizont (berufliche Bildung, weitere Fächer …) | ohne Termin | nein |
 
 Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein GitHub-Milestone, jede Aufgabe ein Issue (T-12).
 
@@ -37,11 +37,12 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
 Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Liste ändern – mit Begründung im Änderungsprotokoll.
 
 **Inhalte**
-- Kein zweites Fach. Keine Klassenstufen außer 5 und 6.
+- Kein zweites Fach. (Klassenstufen: 5–12 in Sachsen sind Zielgruppe; Inhalte entstehen Klassenstufe für Klassenstufe, `STRATEGIE.md` §2.)
+- Keine Inhalte einer höheren Klassenstufe, solange die laufende nicht abgeschlossen ist (K-15).
 - Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine.
-- Keine Geometrie, keine Daten und Zufall, keine Zeichen- oder Diagramm-Interaktionen.
+- Kein freies Zeichnen in der App. *(Geometrie, Diagramme und Statistik gehören dazu, sobald der sächsische Lehrplan sie verlangt – K-16. Zeichnen und Konstruieren mit Geodreieck und Zirkel werden erklärt, L-10.)*
 - Keine Formeleingabe (MathLive o. Ä.).
-- Kein Länderbezug über den gemeinsamen Kern hinaus (LEHRPLAN §10).
+- Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
 
 **Basebau**
 - Keine grafische Bastion (PixiJS), keine Epochen nach Epoche 1, keine Belagerungen.
@@ -51,11 +52,11 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 **Sprache und Zielgruppen**
 - Keine Hilfesprache, kein DaZ-Pfad, keine weiteren Oberflächensprachen. *Spannung zu Prinzip 7, bewusst in Kauf genommen (KONZEPT §13).* Abfederung: einfache Sprache, Fachbegriffe mit Erklärung, RTL-fähiges Layout bleibt.
 - Kein Operatoren-Training.
-- Keine Oberstufe, keine berufliche Bildung.
+- Keine berufliche Bildung (Lernfelder).
 
 **Funktionen und Plattform**
 - Kein QR-Transfer zwischen Geräten (Datei-Export/Import genügt).
-- Keine Elternstufen „vereinbart“ und „selbstverwaltet“; nur „begleitet“.
+- Keine Elternstufe „vereinbart“. Es gibt „begleitet“ und – weil die Oberstufe zur Zielgruppe gehört – „selbstverwaltet“ ohne Elternbereich (K-4).
 - Kein Kompetenzportfolio zum Vorzeigen.
 - Kein Lehrkräfte-Modus, keine Klassen, keine Aufgabenpakete für Lehrkräfte.
 - Keine App-Store-Versionen.
@@ -121,34 +122,37 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
   - Vitest (Beispieltest im Kern), Playwright-Test „erster Start, dann offline neu laden“
   - CI-Schritte: Lint → Tests → Build → Größenbudget (ARCHITEKTUR §9)
   - Automatisches Deployment auf GitHub Pages für Testversionen
-- [ ] **0.10 Referenzgeräte und Messung**
-  - Drei Referenzgeräte festlegen (altes Android, Chromebook, älteres iPad – oder verfügbarer Ersatz)
-  - Erste Messung der Gerüst-App, Ergebnis in `ARCHITEKTUR.md` §9 eintragen
+- [ ] **0.10 Referenzgeräte und Messung** (teilweise: nachgeahmte Messung erledigt, ARCHITEKTUR §9.2)
+  - Drei Referenzgeräte festlegen (altes Android, Chromebook, älteres iPad – oder verfügbarer Ersatz) – *offen, Projektverantwortlicher*
+  - [x] Messskript `pnpm messen` und erste nachgeahmte Messung der Gerüst-App in `ARCHITEKTUR.md` §9.2
+  - Messung auf den echten Referenzgeräten – *offen*
 
 ### Block D – Menschen
 
 - [ ] **0.11 Testjugendliche gewinnen** (Vorgehen und Material: `TESTS.md`)
-  - Zuerst 5–8, bis Monat 3 insgesamt 8–12 Jugendliche Kl. 5–6, möglichst aus unterschiedlichen Schulformen
+  - Zuerst 5–8, bis Monat 3 insgesamt 8–12 Jugendliche aus Sachsen – solange es nur Inhalte der Klasse 5 gibt, vor allem aus Klasse 5, dazu einige Ältere mit Lücken im Stoff der Klasse 5; möglichst aus unterschiedlichen Schularten
   - Davon mindestens 3–4, die „normalerweise keine Lern-Apps mögen“
   - Einverständnis der Eltern schriftlich (Vorlage `TESTS.md` §3)
   - Keine Daten der Testpersonen im Repository
 
 ### Block E – Fokus (die nächsten 14 Tage, `STRATEGIE.md` §8)
 
-- [x] **0.12 Scope-Entscheidung festhalten** – K-11: Mathe, Kl. 5–6, Niveaus G und M (`STRATEGIE.md` §2, `VISION.md` §11)
+- [x] **0.12 Scope-Entscheidung festhalten** – K-11: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M (`STRATEGIE.md` §2, `VISION.md` §11)
 - [x] **0.13 Nicht-Ziele bis Monat 12** – §2.1
 - [ ] **0.14 Bestehende Angebote selbst durchspielen** – Entwurf `WETTBEWERB.md` liegt vor. Offen: ANTON, bettermarks (falls Landeslizenz zugänglich) und eine dritte App je 30 Minuten mit denselben drei Bruch-Aufgaben durchspielen, absichtlich typische Fehler machen, Rückmeldung protokollieren (Raster in `WETTBEWERB.md` §5)
 - [ ] **0.15 Erste 5–8 Testpersonen ansprechen** – Ansprache-Text und Elterninfo in `TESTS.md` §2–3
 - [x] **0.16 Basebau-Minimum festlegen** – K-12 (`STRATEGIE.md` §3)
+- [x] **0.18 Sächsische Lehrpläne Mathematik auswerten** – OS 2019 und GY 2021 für Klasse 5: 41 Kompetenzen in `LEHRPLAN.md` §8, Quellen in `docs/quellen/`. Offen: Gemeinschaftsschule/Oberschule+ und Förderschulen prüfen
+- [x] **0.19 O-15 entschieden** – K-16: Lehrpläne bindend, Geometrie und Diagramme gehören dazu; Zeichnen wird erklärt (L-10)
 - [ ] **0.17 K-14 entscheiden** – freiwilliger Studienbericht ja/nein, vor der ersten Testrunde in Phase 1
 
 ## 4. Phase 1 – Lernkern (Vorschau)
 
 Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede Stufe ist für sich nutzbar und wird mit der Testgruppe geprüft.
 
-**1a – Aufgabenqualität (Welle 1: Brüche und Teilbarkeit, Niveaus G und M)**
-1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung
-2. Generatoren für TB und BR (plus nötige Voraussetzungen aus NZ), je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7)
+**1a – Aufgabenqualität (Klasse 5, Niveaus G und M, K-15)**
+1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *begonnen: 41 Kompetenzen Klasse 5 in `content/`, Prüfung von Schema und Graph (`pnpm inhalte:pruefen`)*
+2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *begonnen: `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1` mit Pflicht-Tests*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
 
@@ -165,7 +169,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 **Durchgehend**
 11. Ledger bucht im Hintergrund (B-10), ohne Anzeige
 12. Testrunden mit der Testgruppe nach 1a, 1b und 1c (`TESTS.md`)
-13. Welle 2 (NZ, GR) erst, wenn Welle 1 in den Tests trägt
+13. Klasse 6 erst, wenn Klasse 5 nach den Kriterien in `STRATEGIE.md` §2 abgeschlossen ist
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 
@@ -187,3 +191,10 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | `DATENMODELL.md` v0.1: Ereignisse, Projektionen, Export/Import, Zusammenführen, Verdichtung, Datenschutzprüfung; Block B abgeschlossen |
 | 27.10.2026 | `LICENSE` (AGPL-3.0); Block C 0.7–0.9: Gerüst, Leitplanken, Kern-Grundlagen, Offline-Hülle, Tests und CI |
 | 27.10.2026 | Strategie für 12 Monate (`STRATEGIE.md`): Scope K-11 (Mathe, Kl. 5–6, G+M), Lernkern vor Basebau K-12, Erfolgskriterien K-13; Nicht-Ziele §2.1; Block E; Phase 1 neu gegliedert; Testgruppe 8–12 |
+| 27.10.2026 | K-11 geändert: Zielgruppe Mathe Kl. 5–13 von Anfang an (statt 5–6); Inhalte weiter in Wellen ab Brüchen; Elternstufe „selbstverwaltet“ in den Scope; K-8 für Mathe-Oberstufe aufgehoben |
+| 27.10.2026 | 0.10 teilweise (Messskript, nachgeahmte Messung); erster Generator `bruch.erweitern-zielnenner@1` mit wiederverwendbaren Pflicht-Tests |
+| 27.10.2026 | K-11 präzisiert: Start in Sachsen, Kl. 5–12, alle allgemeinbildenden Schularten; L-9 Lehrplanbezug Sachsen; Aufgabe 0.18 |
+| 27.10.2026 | K-15: Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe; O-15 (Geometrie/Daten Kl. 5) offen |
+| 27.10.2026 | K-16: sächsische Lehrpläne bindend; LEHRPLAN §8 neu: Klasse 5 mit 41 Kompetenzen (OS 2019 + GY 2021); L-10 Zeichnen erklären, L-11 Wahlbereiche; Geometrie/Diagramme aus den Nicht-Zielen gestrichen |
+| 27.10.2026 | 41 Kompetenzen Klasse 5 als YAML in `content/`; Prüfwerkzeug für Schema, Ordner und Graph (`pnpm inhalte:pruefen`, auch im Testlauf) |
+| 27.10.2026 | Generatoren `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` für M.ZO.NZ.STELLENWERT |

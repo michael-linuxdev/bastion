@@ -1,0 +1,38 @@
+# Rechengesetze und Rechenvorteile – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.REGELN
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Rechengesetze und Rechenvorteile
+kann_satz:
+  de: Ich kann Rechengesetze und Rechenvorteile nutzen, um geschickt zu rechnen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ADD-SUB
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: Vertauschen und Zusammenfassen nutzen, um einfacher zu rechnen.
+  M:
+    beschreibung:
+      de: Verteilungsgesetz nutzen; begründen, welcher Rechenweg geschickter ist.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

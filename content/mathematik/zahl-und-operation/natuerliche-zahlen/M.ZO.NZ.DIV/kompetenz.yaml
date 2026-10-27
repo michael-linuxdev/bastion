@@ -1,0 +1,38 @@
+# Dividieren – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.DIV
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Dividieren
+kann_satz:
+  de: Ich kann durch eine einstellige Zahl dividieren, auch mit Rest.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: Im Kopf zweistellige durch einstellige Zahlen dividieren; schriftlich ohne Rest.
+  M:
+    beschreibung:
+      de:
+        Schriftlich bis zu dreistellige (und größere) Zahlen durch einstellige dividieren, auch mit
+        Rest; Probe mit der Umkehraufgabe.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

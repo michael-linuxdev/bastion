@@ -1,0 +1,35 @@
+# Primzahlen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.TB.PRIM
+fach: mathematik
+bereich: zahl-und-operation
+feld: teilbarkeit
+titel:
+  de: Primzahlen
+kann_satz:
+  de: Ich kann Primzahlen erkennen und einfache Zahlen in Primfaktoren zerlegen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.TB.TEILER
+niveaus:
+  G:
+    beschreibung:
+      de: Primzahlen bis 50 erkennen.
+  M:
+    beschreibung:
+      de: Primzahlen bis 100 erkennen; Zahlen wie 20 = 2 · 2 · 5 in Primfaktoren zerlegen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1

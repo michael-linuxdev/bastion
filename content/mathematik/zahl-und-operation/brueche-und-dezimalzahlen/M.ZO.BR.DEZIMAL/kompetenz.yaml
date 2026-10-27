@@ -1,0 +1,39 @@
+# Brüche und Dezimalzahlen umwandeln – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.DEZIMAL
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche und Dezimalzahlen umwandeln
+kann_satz:
+  de: Ich kann Zehnerbrüche, Dezimalzahlen und passende gemeine Brüche ineinander umwandeln.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.BR.BEGRIFF
+  - M.ZO.NZ.STELLENWERT
+niveaus:
+  G:
+    beschreibung:
+      de: Zehnerbrüche wie 7/10 und 23/100 als Dezimalzahl schreiben und umgekehrt.
+  M:
+    beschreibung:
+      de:
+        Gemeine Brüche, die sich in Zehnerbrüche umwandeln lassen (z. B. 3/4, 2/5), als Dezimalzahl
+        schreiben; erweiterte Stellenwerttafel nutzen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche, Dezimalzahlen und Größen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
+version: 1

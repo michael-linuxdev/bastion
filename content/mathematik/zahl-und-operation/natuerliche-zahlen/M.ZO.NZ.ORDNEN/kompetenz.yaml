@@ -1,0 +1,36 @@
+# Zahlen vergleichen und ordnen – Klasse 5 (LEHRPLAN §8). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.NZ.ORDNEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: natuerliche-zahlen
+titel:
+  de: Zahlen vergleichen und ordnen
+kann_satz:
+  de: Ich kann natürliche Zahlen vergleichen, ordnen und am Zahlenstrahl darstellen.
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.STELLENWERT
+niveaus:
+  G:
+    beschreibung:
+      de: Zwei bis vier Zahlen vergleichen und ordnen; ganze Teilstriche am Zahlenstrahl ablesen.
+  M:
+    beschreibung:
+      de: Viele große Zahlen ordnen; Zahlen an Zahlenstrahlen mit passender Einteilung ablesen und eintragen.
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: LB 1 Natürliche Zahlen
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
+version: 1
