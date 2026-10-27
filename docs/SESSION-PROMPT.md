@@ -3,13 +3,13 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (7) · Phase 0 – Fundament
+Stand: 27.10.2026 (8) · Phase 0 – Fundament
 
 ---
 
 ## Rolle
 
-Du bist technischer und konzeptioneller Lead für **Bastion**, den Nachfolger der Lern-App „Lerninsel“: eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 und berufsbildende Schulen, in der nachgewiesene Kompetenz durch einen optionalen, langfristigen Basebau sichtbar wird.
+Du bist technischer und konzeptioneller Lead für **Bastion**, den Nachfolger der Lern-App „Lerninsel“: eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 und berufsbildende Schulen (Start: Mathe in Sachsen, Kl. 5–12), in der nachgewiesene Kompetenz durch einen optionalen, langfristigen Basebau sichtbar wird.
 
 Das Projekt wird von **einer Person** entwickelt. Plane entsprechend: kleine Schritte, jede Phase für sich nutzbar.
 
@@ -44,32 +44,29 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Block E – Fokus (14 Tage), dann Phase 0 abschließen.** Scope bis Monat 12: Mathe, Klasse 5–6, Niveaus G und M (K-11). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Phase 1a beginnen – Welle 1 (Brüche und Teilbarkeit).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
-1. **0.15** Erste 5–8 Testpersonen ansprechen (Texte in `TESTS.md` §2), Einwilligungsblatt aus `TESTS.md` §3 gegenlesen lassen.
-2. **0.14** ANTON, bettermarks (falls zugänglich) und ein drittes Angebot nach Raster `WETTBEWERB.md` §5 durchspielen; Ergebnisse in §4 einarbeiten.
-3. **0.17** K-14 entscheiden (freiwilliger Studienbericht, `STRATEGIE.md` §7).
-4. PR #1 mergen; GitHub Pages mit Domain `bastion.micana.de` einrichten (ARCHITEKTUR §4.10); Standard-Branch auf `main` stellen.
+1. **0.18** Sächsische Lehrpläne Mathematik (Oberschule, Gymnasium) beschaffen; Zuordnung der Brüche (Gym Kl. 5 / OS Kl. 6) bestätigen.
+2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
+3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
+4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
+5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
-Mit Claude Code:
-5. **0.10** Referenzgeräte und erste Messung.
-6. Danach Phase 1a in Issues zerlegen (`PLAN.md` §4): zuerst Kompetenzgraph laden und der erste Generator `bruch.erweitern-zielnenner` (G und M) mit Fehlerbildern und Pflicht-Tests (INHALTSFORMAT §6.3).
+Mit Claude Code, als Nächstes:
+6. Vorlage `M.ZO.BR.ERWEITERN.ZIELNENNER` als YAML in `content/` anlegen (INHALTSFORMAT §4.1) – zunächst ohne Review-Werkzeug.
+7. Weitere Generatoren für `M.ZO.BR.ERWEITERN` (`erweitern-mit-zahl`, `kuerzen`), jeweils mit `pflichttests`.
+8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
 
 ## Übergabe der letzten Sitzung
 
-- PR #1 (Block C) nach `main` angelegt; `main` existierte noch nicht und wurde auf dem ersten Commit (Konzeptdokumente) erzeugt.
-- Veröffentlichung unter **https://bastion.micana.de/**: CI baut jetzt ohne Unterordner (`BASE_PATH=/`). Einrichtung von Pages und DNS steht in ARCHITEKTUR §4.10; noch nicht geprüft, ob die Domain bereits auflöst.
-- **Strategie für 12 Monate** (`STRATEGIE.md`):
-  - K-11 Scope: Mathe, Kl. 5–6, G + M; Welle 1 Brüche und Teilbarkeit, Welle 2 natürliche Zahlen und Größen. Zielgruppe: in Mathe unsichere oder durchschnittliche Jugendliche jeder Schulform.
-  - K-12 Lernkern vor Basebau; Basebau-Minimum (Ledger sichtbar, Liste, 1–2 Gebäude) bis die Schwelle „Lernkern trägt“ erreicht ist.
-  - K-13 Erfolgskriterien Oktober 2027: 40 Jugendliche ≥ 4 Monate regelmäßig, Behalten messbar besser, 15 sagen unaufgefordert „meins“.
-  - K-14 **vorgeschlagen**: freiwilliger Studienbericht als einzige Messquelle – Spannung zu Prinzip 3, deshalb bewusst offen.
-- `PLAN.md`: Nicht-Ziele bis Monat 12 (§2.1), Block E, Phase 1 in 1a/1b/1c gegliedert, Phase 2a Basebau-Minimum, Testgruppe 8–12.
-- `VISION.md` §11, `KONZEPT.md` §13/§16, `LEHRPLAN.md` §4.1/§8.2, `BASEBAU.md` an den Scope angepasst.
-- `WETTBEWERB.md`: ehrlicher Vergleich (Bastion hat noch keinen Mathe-Kern), Hypothesen H1–H5, Durchspiel-Raster.
-- `TESTS.md`: Ansprache, Einwilligung, Gesprächsfragen, Protokollvorlage, Behaltenstest für E2.
-- Offene Spannungen, bewusst dokumentiert: DaZ/Hilfesprache außerhalb des Scopes (Prinzip 7); E1 (40 Nutzende) braucht Verbreitung über die Testgruppe hinaus; E3 braucht das Basebau-Minimum spätestens um Monat 6–7.
+- PR #1 gemergt; https://bastion.micana.de/ wird bei jedem Push auf `main` veröffentlicht (Deploy-Lauf grün).
+- **Scope zweimal geändert (K-11):** erst Kl. 5–13 statt 5–6, dann präzisiert auf **Sachsen, Kl. 5–12, alle Schularten**. K-8 für die Mathe-Oberstufe aufgehoben. Neue Entscheidung **L-9**: Kompetenzen bekommen eine Zuordnung zu den sächsischen Lehrplänen je Schulart (Feld `sachsen`), der Graph bleibt länderneutral, keine Bundesland-Abfrage. Elternstufe „selbstverwaltet“ jetzt im Scope (Oberstufe).
+- Hinweis aus der Recherche: Brüche am sächsischen Gymnasium schon in Kl. 5 („Gemeine Brüche und Dezimalzahlen“, Lehrplan 2019), an der Oberschule in Kl. 6 – am Original zu prüfen (0.18).
+- **0.10 teilweise:** `pnpm messen` (`tools/messung.ts`) misst den Build auf einem nachgeahmten Altgerät (CPU ÷6, langsames 4G). Gerüst-App: nutzbar nach ca. 0,7 s online, 0,3 s offline (ARCHITEKTUR §9.2). Echte Referenzgeräte stehen aus.
+- **Erster Generator:** `bruch.erweitern-zielnenner@1` in `src/generators/mathematik/brueche/`. Typen liegen bewusst im Kern (`src/core/learning/generator.ts`, `bruch.ts`), weil die Auswertung sie braucht (INHALTSFORMAT §6, Umsetzung). Die Pflicht-Tests aus INHALTSFORMAT §6.3 sind ein wiederverwendbarer Baustein (`src/generators/pflichttests.ts`, 10 000 Seeds je Niveau); per absichtlich eingebauten Fehlern geprüft, dass sie anschlagen.
+- Fehlerbilder mit gleicher falscher Antwort: Der Generator meldet nur das vorrangige (INHALTSFORMAT §7).
+- 51 Tests, Lint, Build und Budget grün.
 
 ## Am Ende der Sitzung aktualisieren
 
