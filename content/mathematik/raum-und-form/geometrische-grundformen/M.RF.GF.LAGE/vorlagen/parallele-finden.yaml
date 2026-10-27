@@ -1,0 +1,21 @@
+# „Welche Gerade ist parallel zu a?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.LAGE.PARALLELE-FINDEN
+kompetenz: M.RF.GF.LAGE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.parallele-finden@1
+parameter:
+  G: { schraeg: false }
+  M: { schraeg: true }
+text:
+  aufgabe:
+    de: '**Wähle** die Gerade **aus**, die parallel zu a ist.'
+hilfen:
+  - de: Parallele Geraden zeigen in dieselbe Richtung.
+  - de: Lege das Geodreieck an a an und schiebe es zu den anderen Geraden.
+fehlerbilder:
+  senkrechte-gewaehlt:
+    de: Diese Gerade steht senkrecht auf a. Parallel heißt dieselbe Richtung, nicht quer dazu.
+herkunft: ki-entwurf
+version: 1

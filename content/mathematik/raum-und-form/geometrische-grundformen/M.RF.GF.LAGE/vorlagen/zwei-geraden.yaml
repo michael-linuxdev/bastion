@@ -1,0 +1,23 @@
+# „Wie liegen g und h zueinander?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.LAGE.ZWEI-GERADEN
+kompetenz: M.RF.GF.LAGE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.lagebeziehung@1
+parameter:
+  G: { schraeg: false }
+  M: { schraeg: true }
+text:
+  aufgabe:
+    de: '**Gib an**, wie die Geraden g und h zueinander liegen.'
+hilfen:
+  - de: Eine Gerade hat kein Ende. Verlängere die Linien in Gedanken nach beiden Seiten.
+  - de: Lege das Geodreieck an g an. Passt h genau auf die Mittellinie, steht h senkrecht auf g.
+fehlerbilder:
+  kreuzung-ausserhalb-uebersehen:
+    de: Im Bild berühren sich g und h nicht – aber verlängert schneiden sie sich. Parallel heißt, sie schneiden sich nie.
+  schief-fuer-senkrecht:
+    de: Die Geraden schneiden sich, aber nicht im rechten Winkel. Prüfe mit dem Geodreieck, ob es wirklich 90° sind.
+herkunft: ki-entwurf
+version: 1
