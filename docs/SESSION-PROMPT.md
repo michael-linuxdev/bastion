@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (10) · Phase 0 – Fundament
+Stand: 27.10.2026 (11) · Phase 0 – Fundament
 
 ---
 
@@ -55,8 +55,8 @@ Vom Projektverantwortlichen (nicht delegierbar):
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Mit Claude Code, als Nächstes:
-6. Die 41 Kompetenzen der Klasse 5 als YAML in `content/` anlegen (INHALTSFORMAT §3, mit Feld `sachsen`) und ein kleines Prüfwerkzeug für Graph und Verweise (INHALTSFORMAT §10.1, Punkte 1–3).
-7. Generatoren entlang des Graphen von der Wurzel aus: `M.ZO.NZ.STELLENWERT`, `NZ.ORDNEN`, `NZ.RUNDEN` … – jeweils mit `pflichttests`.
+6. Vorlagen als YAML (INHALTSFORMAT §4.1) für die vorhandenen Generatoren anlegen und das Prüfwerkzeug um Vorlagen erweitern (Generator registriert, Platzhalter und Fehlerbild-IDs stimmen mit dem Generator überein).
+7. Generatoren weiter entlang des Graphen: `NZ.ORDNEN` (vergleichen, Zahlenstrahl), `NZ.RUNDEN`, dann `NZ.ADD-SUB` … – jeweils mit `pflichttests`.
 8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
 
 ## Übergabe der letzten Sitzung
@@ -71,7 +71,9 @@ Mit Claude Code, als Nächstes:
 - **K-16 (neu):** Die sächsischen Lehrpläne Mathematik (OS 2019, GY 2021) sind bindend. Ausgewertet für Klasse 5: 41 Kompetenzen in `LEHRPLAN.md` §8, einschließlich Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel/Quader. Erweitern/Kürzen liegt am GY in Kl. 5 (OS Kl. 6) und gehört deshalb zu Klasse 5. Rechnen mit Brüchen ist Klasse 6. Geometrie und Diagramme aus den Nicht-Zielen gestrichen.
 - **L-10:** Zeichnen und Konstruieren erklärt die App, geprüft wird nur das Prüfbare. **L-11:** Wahlbereiche zählen nicht zum Abschluss einer Klassenstufe.
 - Lehrplan-PDFs bewusst nicht im Repository (Weitergaberecht ungeklärt); Fundstellen in `docs/quellen/README.md`.
-- 51 Tests, Lint, Build und Budget grün.
+- **Inhalte:** 41 Kompetenzen der Klasse 5 als YAML unter `content/mathematik/…/kompetenz.yaml` (Entwürfe, ungeprüft). Prüfung von Schema, Ordner, Lehrplanbezug und Graph: `pnpm inhalte:pruefen`, läuft auch in `pnpm test`. Prüflogik im Kern (`src/core/competence/kompetenz.ts`), damit die App sie später wiederverwenden kann. Werkzeug-Abhängigkeit `yaml` 2.9.1.
+- **Generatoren:** `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1` (deutsche Zahlwörter bis 999 Milliarden). Platzhalter dürfen Sprachobjekte sein.
+- 128 Tests, Lint, Build und Budget grün.
 
 ## Am Ende der Sitzung aktualisieren
 

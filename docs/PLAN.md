@@ -152,7 +152,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1a – Aufgabenqualität (Klasse 5, Niveaus G und M, K-15)**
 1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *begonnen: 41 Kompetenzen Klasse 5 in `content/`, Prüfung von Schema und Graph (`pnpm inhalte:pruefen`)*
-2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *begonnen: `bruch.erweitern-zielnenner@1` mit Pflicht-Tests (Brüche: Gymnasium Kl. 5)*
+2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *begonnen: `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1` mit Pflicht-Tests*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
 
@@ -197,3 +197,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | K-15: Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe; O-15 (Geometrie/Daten Kl. 5) offen |
 | 27.10.2026 | K-16: sächsische Lehrpläne bindend; LEHRPLAN §8 neu: Klasse 5 mit 41 Kompetenzen (OS 2019 + GY 2021); L-10 Zeichnen erklären, L-11 Wahlbereiche; Geometrie/Diagramme aus den Nicht-Zielen gestrichen |
 | 27.10.2026 | 41 Kompetenzen Klasse 5 als YAML in `content/`; Prüfwerkzeug für Schema, Ordner und Graph (`pnpm inhalte:pruefen`, auch im Testlauf) |
+| 27.10.2026 | Generatoren `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` für M.ZO.NZ.STELLENWERT |
