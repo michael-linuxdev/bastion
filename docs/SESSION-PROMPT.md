@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (11) · Phase 0 – Fundament
+Stand: 27.10.2026 (12) · Phase 0 – Fundament
 
 ---
 
@@ -55,8 +55,9 @@ Vom Projektverantwortlichen (nicht delegierbar):
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Mit Claude Code, als Nächstes:
-6. Vorlagen als YAML (INHALTSFORMAT §4.1) für die vorhandenen Generatoren anlegen und das Prüfwerkzeug um Vorlagen erweitern (Generator registriert, Platzhalter und Fehlerbild-IDs stimmen mit dem Generator überein).
-7. Generatoren weiter entlang des Graphen: `NZ.ORDNEN` (vergleichen, Zahlenstrahl), `NZ.RUNDEN`, dann `NZ.ADD-SUB` … – jeweils mit `pflichttests`.
+6. Generatoren weiter entlang des Graphen, jeweils mit Vorlage und `pflichttests`: zweite Vorlage für `NZ.ORDNEN` (Vergleichszeichen <, >, = setzen), dann `NZ.RUNDEN` (zwei Vorlagen), dann `NZ.ADD-SUB` …
+7. Sobald I-11 bestätigt ist: Bild-Aufgaben (Zahlenstrahl, Winkel, Koordinaten) – Generatoren erzeugen SVG.
+8. Danach: erste Übungsseite in der App, die eine Vorlage lädt, eine Aufgabe zeigt und mit Fehlerbild-Rückmeldung auswertet.
 8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
 
 ## Übergabe der letzten Sitzung
@@ -73,7 +74,9 @@ Mit Claude Code, als Nächstes:
 - Lehrplan-PDFs bewusst nicht im Repository (Weitergaberecht ungeklärt); Fundstellen in `docs/quellen/README.md`.
 - **Inhalte:** 41 Kompetenzen der Klasse 5 als YAML unter `content/mathematik/…/kompetenz.yaml` (Entwürfe, ungeprüft). Prüfung von Schema, Ordner, Lehrplanbezug und Graph: `pnpm inhalte:pruefen`, läuft auch in `pnpm test`. Prüflogik im Kern (`src/core/competence/kompetenz.ts`), damit die App sie später wiederverwenden kann. Werkzeug-Abhängigkeit `yaml` 2.9.1.
 - **Generatoren:** `bruch.erweitern-zielnenner@1`, `nz.ziffer-an-stelle@1`, `nz.zahlwort-zu-zahl@1` (deutsche Zahlwörter bis 999 Milliarden). Platzhalter dürfen Sprachobjekte sein.
-- 128 Tests, Lint, Build und Budget grün.
+- **Vorlagen:** 4 Vorlagen als YAML in `content/…/vorlagen/`. `pnpm inhalte:pruefen` (über Vitest) gleicht sie mit Kompetenzen und Generatoren ab und zeigt die Abdeckung. M.ZO.NZ.STELLENWERT hat als erste Kompetenz 2 Vorlagen je Niveau.
+- **Generator** `nz.zahlen-ordnen@1` mit neuer Lösungsart „Reihenfolge“.
+- 157 Tests, Lint, Build und Budget grün.
 
 ## Am Ende der Sitzung aktualisieren
 
