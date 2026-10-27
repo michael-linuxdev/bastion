@@ -1,0 +1,27 @@
+# Oberflächeninhalt eines Würfels. Entwurf: noch nicht geprüft.
+id: M.GM.KP.OBERFLAECHE.WUERFEL
+kompetenz: M.GM.KP.OBERFLAECHE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: kp.oberflaeche@1
+parameter:
+  G: { wuerfel: true, gegeben: kanten, max: 10 }
+  M: { wuerfel: true, gegeben: kanten, max: 20 }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** den Oberflächeninhalt in {einheit}.'
+hilfen:
+  - de: Wie viele Flächen hat ein Würfel? Stell dir sein Netz vor.
+  - de: Alle Flächen sind gleich große Quadrate.
+fehlerbilder:
+  nur-eine-flaeche:
+    de: Das ist erst eine Fläche. Ein Würfel hat sechs davon.
+  nur-drei-flaechen:
+    de: Du hast nur drei Flächen gezählt. Jede kommt zweimal vor – vorne und hinten, oben und unten, links und rechts.
+  vier-flaechen:
+    de: Du hast nur vier Flächen gezählt. Denk an Deckel und Boden – ein Würfel hat sechs Flächen.
+  volumen-berechnet:
+    de: Das ist das Volumen. Für die Oberfläche addierst du die Flächeninhalte aller sechs Seiten.
+herkunft: ki-entwurf
+version: 1

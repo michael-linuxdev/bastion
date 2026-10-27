@@ -1,0 +1,25 @@
+# Volumen eines Würfels. Entwurf: noch nicht geprüft.
+id: M.GM.KP.VOLUMEN.WUERFEL
+kompetenz: M.GM.KP.VOLUMEN
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: kp.volumen@1
+parameter:
+  G: { wuerfel: true, max: 10 }
+  M: { wuerfel: true, max: 25 }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** das Volumen in {einheit}.'
+hilfen:
+  - de: Wie viele Einheitswürfel passen in die unterste Schicht? Wie viele Schichten gibt es?
+  - de: Volumen = Länge · Breite · Höhe.
+fehlerbilder:
+  kanten-addiert:
+    de: Du hast die Kantenlängen addiert. Für das Volumen wird multipliziert.
+  nur-grundflaeche:
+    de: Das ist erst die Grundfläche. Multipliziere noch mit der Höhe – so viele Schichten liegen übereinander.
+  oberflaeche-berechnet:
+    de: Das ist die Oberfläche. Das Volumen sagt, wie viel hineinpasst – multipliziere die drei Kantenlängen.
+herkunft: ki-entwurf
+version: 1
