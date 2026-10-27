@@ -210,7 +210,7 @@ export interface Fehlerbild {
 
 ### 6.1 Regeln für Generatoren
 
-1. **Rein und deterministisch.** Gleicher Seed + gleiche Parameter = gleiche Aufgabe. Kein `Math.random`, kein `Date`, keine Browser-APIs. Zufall nur über den Zufallszahlengenerator aus `src/core/rng`.
+1. **Rein und deterministisch.** Gleicher Seed + gleiche Parameter = gleiche Aufgabe. Kein `Math.random`, kein `Date`, keine Browser-APIs. Zufall nur über den Zufallszahlengenerator aus `src/core/rng` (`rng(seed)` mit `int`, `pick`, `zahl`; Verfahren sfc32, durch feste Testwerte gegen Änderungen geschützt).
 2. **Endlich.** Höchstens eine feste Zahl von Versuchen bei Wiederholungen („neu würfeln“); danach ein sicherer Standardfall.
 3. **Keine trivialen oder hässlichen Fälle.** Kein Faktor 1, keine Aufgaben, deren Antwort im Text steht, keine Zahlen, die das Niveau sprengen.
 4. **Unabhängig geprüfte Lösung.** Der Test berechnet die Lösung auf einem zweiten, einfachen Weg und vergleicht.

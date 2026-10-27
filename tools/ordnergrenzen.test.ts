@@ -36,6 +36,22 @@ describe('Ordnergrenzen', () => {
     expect(fehler).toContain('no-restricted-imports');
   });
 
+  it('verbietet src/core/bastion andere Kernteile als das Ledger', async () => {
+    const fehler = await fehlerFuer(
+      'src/core/bastion/probe.ts',
+      "import { rng } from '../rng/rng';\nexport const x = rng;\n",
+    );
+    expect(fehler).toContain('boundaries/dependencies');
+  });
+
+  it('erlaubt Kernteilen untereinander zu importieren', async () => {
+    const fehler = await fehlerFuer(
+      'src/core/srs/probe.ts',
+      "import { rng } from '../rng/rng';\nexport const x = rng;\n",
+    );
+    expect(fehler).toEqual([]);
+  });
+
   it('verbietet src/core/bastion Fremdpakete', async () => {
     const fehler = await fehlerFuer(
       'src/core/bastion/probe.ts',

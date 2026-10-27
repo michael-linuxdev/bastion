@@ -158,6 +158,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | @sveltejs/vite-plugin-svelte | 7.3.1 | Werkzeug |
 | svelte-check | 4.7.7 | Werkzeug |
 | Vitest | 5.0.5 | Werkzeug |
+| fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
 | typescript-eslint | 8.72.1 | Werkzeug |
 | eslint-plugin-svelte | 3.23.1 | Werkzeug |
