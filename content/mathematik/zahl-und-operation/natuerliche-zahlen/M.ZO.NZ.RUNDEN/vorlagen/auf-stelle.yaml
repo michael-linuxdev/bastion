@@ -1,0 +1,25 @@
+# „Runde 4 372 auf Hunderter.“ Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.RUNDEN.AUF-STELLE
+kompetenz: M.ZO.NZ.RUNDEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.runden-auf-stelle@1
+parameter:
+  G: { stelle_min: 1, stelle_max: 3, zusatzstellen_max: 2 } # Zehner bis Tausender
+  M: { stelle_min: 2, stelle_max: 6, zusatzstellen_max: 3 } # Hunderter bis Millionen
+text:
+  aufgabe:
+    de: '**Runde** {zahl} auf {stelle}.'
+hilfen:
+  - de: Schau auf die Ziffer rechts neben der Rundungsstelle.
+  - de: Bei 0, 1, 2, 3 oder 4 wird abgerundet, bei 5, 6, 7, 8 oder 9 aufgerundet. Alle Stellen rechts davon werden zu 0.
+fehlerbilder:
+  falsche-richtung:
+    de: Du hast in die falsche Richtung gerundet. Entscheidend ist nur die Ziffer rechts neben der Rundungsstelle.
+  uebertrag-vergessen:
+    de: Beim Aufrunden wird aus der 9 eine 10 – das gibt einen Übertrag auf die nächste Stelle links.
+  falsche-stelle:
+    de: Du hast auf eine andere Stelle gerundet. Lies noch einmal, auf welche Stelle gerundet werden soll.
+herkunft: ki-entwurf
+version: 1
