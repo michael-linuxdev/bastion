@@ -1,0 +1,25 @@
+# „Berechne den Notendurchschnitt.“ Entwurf: noch nicht geprüft.
+id: M.DZ.DA.MITTELWERT.NOTEN
+kompetenz: M.DZ.DA.MITTELWERT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: da.mittelwert@1
+parameter:
+  G: { anzahl_min: 3, anzahl_max: 5, wert_max: 6, noten: true, ganzzahlig: false }
+  M: { anzahl_min: 5, anzahl_max: 8, wert_max: 6, noten: true, ganzzahlig: false }
+text:
+  aufgabe:
+    de: 'Ein Schüler hat diese Noten: {werte}. **Berechne** den Notendurchschnitt und runde auf eine Nachkommastelle.'
+hilfen:
+  - de: Addiere alle Noten und teile durch die Anzahl der Noten ({anzahl}).
+  - de: Runde auf Zehntel.
+fehlerbilder:
+  durch-falsche-anzahl:
+    de: Du hast durch die falsche Anzahl geteilt. Es sind {anzahl} Noten.
+  nur-summe:
+    de: Das ist erst die Summe der Noten. Teile sie noch durch die Anzahl der Noten.
+  nicht-gerundet:
+    de: Fast! Runde noch auf eine Nachkommastelle.
+herkunft: ki-entwurf
+version: 1

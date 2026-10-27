@@ -1,0 +1,23 @@
+# „Vergleiche: 0,45 ☐ 0,5“. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN
+kompetenz: M.ZO.BR.DEZ-ORDNEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.dezimal-vergleichen@1
+parameter:
+  G: { ganz_max: 0 }
+  M: { ganz_max: 100 }
+text:
+  aufgabe:
+    de: '**Vergleiche** und wähle das richtige Zeichen: {a} ☐ {b}'
+hilfen:
+  - de: Vergleiche zuerst die Zahl vor dem Komma, dann die Zehntel, dann die Hundertstel.
+  - de: Hänge Nullen an, damit beide gleich viele Nachkommastellen haben.
+fehlerbilder:
+  mehr-stellen-groesser:
+    de: Mehr Nachkommastellen machen eine Zahl nicht größer. 0,5 ist dasselbe wie 0,50 – und 0,50 ist größer als 0,45.
+  zeichen-verdreht:
+    de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt auf die kleinere Zahl.'
+herkunft: ki-entwurf
+version: 1
