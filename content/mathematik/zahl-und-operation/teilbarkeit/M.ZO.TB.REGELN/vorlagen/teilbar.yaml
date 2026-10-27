@@ -1,0 +1,23 @@
+# „Ist 4 716 durch 3 teilbar?“ Entwurf: noch nicht geprüft.
+id: M.ZO.TB.REGELN.TEILBAR
+kompetenz: M.ZO.TB.REGELN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tb.teilbar-durch@1
+parameter:
+  G: { teiler: [2, 3, 5, 10], stellen: 3 }
+  M: { teiler: [3, 4, 6], stellen: 6 }
+text:
+  aufgabe:
+    de: '**Entscheide** mit einer Teilbarkeitsregel: Ist {zahl} durch {teiler} teilbar?'
+hilfen:
+  - de: 'Durch 2, 5, 10: Schau auf die letzte Ziffer. Durch 4: auf die letzten beiden Ziffern.'
+  - de: 'Durch 3: Bilde die Quersumme. Durch 6: Die Zahl muss gerade und durch 3 teilbar sein.'
+fehlerbilder:
+  letzte-ziffer-statt-quersumme:
+    de: Bei 3 und 6 hilft die letzte Ziffer nicht. Bilde die Quersumme – alle Ziffern zusammengezählt.
+  bei-4-nur-letzte-ziffer:
+    de: Eine gerade Zahl ist noch nicht durch 4 teilbar. Prüfe die Zahl aus den letzten beiden Ziffern.
+herkunft: ki-entwurf
+version: 1

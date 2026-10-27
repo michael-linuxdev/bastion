@@ -22,6 +22,8 @@ export const AUFGABENTYPEN = [
   'bild-auswahl',
   // Division mit Rest: zwei Eingabefelder (Ergebnis, Rest)
   'rest-eingabe',
+  // Primfaktorzerlegung: Faktoren eingeben, Lösung als aufsteigende Reihenfolge
+  'faktoren-eingabe',
 ] as const;
 export type Aufgabentyp = (typeof AUFGABENTYPEN)[number];
 
