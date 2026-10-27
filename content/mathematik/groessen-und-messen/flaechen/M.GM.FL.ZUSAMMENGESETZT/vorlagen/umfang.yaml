@@ -1,0 +1,27 @@
+# Umfang einer L-förmigen Figur. Entwurf: noch nicht geprüft.
+id: M.GM.FL.ZUSAMMENGESETZT.UMFANG
+kompetenz: M.GM.FL.ZUSAMMENGESETZT
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.zusammengesetzt@1
+parameter:
+  G: { gesucht: umfang, alle_masse: true, max: 12 }
+  M: { gesucht: umfang, alle_masse: false, max: 30 }
+text:
+  aufgabe:
+    de: '**Berechne** den Umfang der Figur in {einheit}.'
+hilfen:
+  - de: Fahre mit dem Finger einmal außen herum. Wie viele Seiten hat die Figur?
+  - de: Fehlt eine Länge, findest du sie über die gegenüberliegenden Seiten.
+fehlerbilder:
+  einschnitt-vergessen:
+    de: Du hast die beiden Seiten am Einschnitt vergessen. Die Figur hat sechs Seiten.
+  flaeche-statt-umfang:
+    de: Das ist der Flächeninhalt. Für den Umfang addierst du alle Seitenlängen.
+  aussen-multipliziert:
+    de: Du hast multipliziert. Für den Umfang addierst du die Seitenlängen.
+  addiert-statt-abgezogen:
+    de: Das ist eine Fläche, kein Umfang. Für den Umfang addierst du die Seitenlängen.
+herkunft: ki-entwurf
+version: 1
