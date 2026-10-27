@@ -81,7 +81,7 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
   - vite-plugin-pwa, Manifest, Service Worker mit Precaching
   - Update-Strategie: Hinweis an Nutzer, nie Aktualisierung mitten in einer Sitzung
   - `navigator.storage.persist()` anfragen
-- [x] **0.9 Tests und CI (GitHub Actions)** (ARCHITEKTUR §4.10; offen: erster grüner Lauf auf GitHub, Pages-Quelle einstellen)
+- [x] **0.9 Tests und CI (GitHub Actions)** (ARCHITEKTUR §4.10; CI grün; offen: Übernahme nach `main`, Pages-Quelle einstellen)
   - Vitest (Beispieltest im Kern), Playwright-Test „erster Start, dann offline neu laden“
   - CI-Schritte: Lint → Tests → Build → Größenbudget (ARCHITEKTUR §9)
   - Automatisches Deployment auf GitHub Pages für Testversionen

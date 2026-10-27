@@ -62,7 +62,7 @@ Danach: Phase 1 in Aufgaben zerlegen (`PLAN.md` §4).
 - **0.7d** Startseite „Bastion – im Aufbau“, Texte in `src/ui/texte/de.json`, Grund-CSS mit logischen Eigenschaften (per Test erzwungen), Hell/Dunkel nach Systemeinstellung.
 - **0.8** Offline-Hülle: Precaching, Manifest, Platzhalter-Icons aus `public/icon.svg`, Update nur nach Zustimmung, `navigator.storage.persist()`.
 - **0.9** Playwright-Test „online laden, offline neu laden, keine fremden Anfragen“, Größenbudget-Skript (aktuell ca. 21 KB von 250 KB), CI mit Deployment auf GitHub Pages.
-- Lokal geprüft: `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm budget`, `pnpm test:e2e` grün. Ein Lauf der CI auf GitHub steht noch aus.
+- Lokal geprüft: `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm budget`, `pnpm test:e2e` grün. CI auf GitHub für den Arbeitszweig grün (Lauf 2); Veröffentlichung läuft erst auf `main`.
 - Zwei TypeScript-Konfigurationen: `tsconfig.json` (App, ohne Node-Typen) und `tsconfig.node.json` (Werkzeuge, Tests).
 
 ## Am Ende der Sitzung aktualisieren
