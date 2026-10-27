@@ -17,7 +17,7 @@ Der Stack wird nicht nach Vorliebe gewählt, sondern aus diesen Anforderungen ab
 | A4 | Lebensdauer von Jahren; Spielstände müssen Updates und Gerätewechsel überleben | Bastion als Langzeitbegleiter |
 | A5 | Barrierearm: Screenreader, Tastatur, reizarmer Modus, Vorlesen | Fokus-Hilfen, KONZEPT §9 |
 | A6 | Mehrsprachig inkl. Rechts-nach-links-Schriften (Arabisch, Persisch) | DaZ / Hilfesprache |
-| A7 | Mathematische und naturwissenschaftliche Notation offline | Inhalte Kl. 5–13 |
+| A7 | Mathematische und naturwissenschaftliche Notation offline | Inhalte Kl. 5–13 (Start: Sachsen, Kl. 5–12) |
 | A8 | Große, modular nachladbare Inhaltsmengen | Fächer × Schulformen × Niveaus |
 | A9 | Basebau als 2D-Welt mit flüssiger Darstellung – und vollständig abschaltbar | R7, K-1 |
 | A10 | Wartbar durch ein kleines Team; geringe Abhängigkeit von einzelnen Frameworks | Projektrealität |

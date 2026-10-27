@@ -1,7 +1,9 @@
 # Bastion – Vergleich mit bestehenden Angeboten
 
 Status: Entwurf v0.1 · Stand: 27.10.2026 · Aufgabe 0.14 · Bezug: `STRATEGIE.md` §2
-Zielgruppe des Vergleichs: Mathe Klasse 5–13, Niveaus G und M, zum Start Schwerpunkt Brüche (K-11).
+Zielgruppe des Vergleichs: Mathe in Sachsen, Klasse 5–12, alle Schularten, Niveaus G und M, zum Start Schwerpunkt Brüche (K-11).
+
+*Sachsen-spezifisch noch zu prüfen:* ob bettermarks oder andere Systeme in Sachsen per Landeslizenz verfügbar sind; welche Materialien das Sächsische Bildungsportal (OER) zur Bruchrechnung anbietet; welche Rolle LernSax für Übungsangebote spielt.
 
 > **Quellenhinweis:** Die Angaben zu fremden Angeboten stammen aus einer kurzen Web-Recherche (Quellen in §6) und aus allgemeinem Wissen. Preise, Funktionen und Datenschutzpraxis ändern sich. Alles mit *(prüfen)* muss in 0.14 durch eigenes Ausprobieren bestätigt werden, bevor es nach außen kommuniziert wird.
 

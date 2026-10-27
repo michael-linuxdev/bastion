@@ -114,12 +114,13 @@ Konkrete, messbare Kriterien für die ersten 12 Monate: `STRATEGIE.md` §6 (K-13
 
 ## 11. Scope-Grenze bis Monat 12 (verbindlich)
 
-Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Eingegrenzt wird über das Fach und die Inhalte, nicht über das Alter. Bis Oktober 2027 gilt (K-11, Begründung in `STRATEGIE.md` §2):
+Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Eingegrenzt wird über Fach, Bundesland und Inhalte, nicht über das Alter. Bis Oktober 2027 gilt (K-11, Begründung in `STRATEGIE.md` §2):
 
 | | Bis Monat 12 |
 |---|---|
 | Fach | **Mathematik** |
-| Klassenstufen | **5–13** von Anfang an (jede Schulform); berufliche Bildung später |
+| Bundesland | **Sachsen** |
+| Klassenstufen | **5–12** von Anfang an, alle allgemeinbildenden Schularten; berufliche Bildung später |
 | Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
 | Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen |
 | Inhalte | wachsen in Wellen, beginnend mit Brüchen und Teilbarkeit |

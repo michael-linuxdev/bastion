@@ -176,7 +176,7 @@ Für handverfasste Vorlagen ohne Generator gibt es mindestens 5 gleichwertige Va
 **Entscheidung L-6:** Phase 1 umfasst vier Felder aus L1, L2 und L3: Natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen.
 *Warum:* Sie sind in praktisch allen Ländern und Schulformen Kern von Klasse 5–6, bauen aufeinander auf (Teilbarkeit → Kürzen) und sind gut generatorfähig (K-7). Geometrie und Daten brauchen Zeichen- und Diagramm-Interaktionen und folgen in Phase 4.
 
-*Hinweis:* In Berlin und Brandenburg sind Klasse 5 und 6 Teil der Grundschule. Bastion muss diese Jugendlichen genauso ansprechen – der Übergang aus der Lerninsel passiert dort später.
+*Hinweis Sachsen (L-9):* Klasse 5 beginnt in Sachsen an der weiterführenden Schule. Am Gymnasium liegt der Lernbereich „Gemeine Brüche und Dezimalzahlen“ nach dem Lehrplan von 2019 bereits in **Klasse 5**, an der Oberschule liegt die Bruchrechnung schwerpunktmäßig in **Klasse 6** *(beides am Originallehrplan prüfen, Aufgabe 0.18)*. `klassenstufe_typisch` bleibt eine Orientierung; die Zuordnung je Schulart steht im Feld `sachsen` (§10).
 
 ### 8.2 Kompetenzen
 
@@ -255,14 +255,29 @@ Operatoren in Phase 1 (einheitliche Liste): *berechne, bestimme, gib an, ordne, 
 
 ## 10. Länderbezug
 
-**Entscheidung L-8:** Phase 1 arbeitet nur mit KMK-Bezug und typischer Klassenstufe. Eine Zuordnung zu einzelnen Landeslehrplänen gibt es noch nicht; das Bundesland wird nicht abgefragt.
+**Entscheidung L-9 (27.10.2026, ersetzt L-8): Lehrplanbezug Sachsen.** Bastion startet in Sachsen (K-11). Jede Kompetenz bekommt zusätzlich zum KMK-Bezug eine Zuordnung zu den sächsischen Lehrplänen Mathematik, je Schulart:
+
+```yaml
+sachsen:
+  oberschule: { klassenstufe: 6, lernbereich: "…" }   # Haupt- und Realschulbildungsgang
+  gymnasium:  { klassenstufe: 5, lernbereich: "Gemeine Brüche und Dezimalzahlen" }
+```
+
+- Die Zuordnung dient der Diagnose (Startvorschlag aus Klassenstufe und Schulart), der Themenwahl vor Klassenarbeiten und der Sprache gegenüber Lehrkräften und Eltern („passt zu Lernbereich … in Klasse …“).
+- Der Kompetenzgraph bleibt länderneutral (§1); andere Länder bekommen später ein eigenes Zuordnungsfeld, ohne dass sich IDs ändern (L-1).
+- Das Bundesland wird **nicht abgefragt** – es gibt vorerst nur Sachsen. Die Schulart ist eine freiwillige Einstellung.
+- Abschlussprüfungen in Sachsen (Hauptschulabschluss Kl. 9, Realschulabschluss Kl. 10, Abitur) werden zum Bezugspunkt der späteren Wellen.
+
+*Warum:* Ein konkretes Land macht Inhalte für Jugendliche, Eltern und Lehrkräfte wiedererkennbar („genau das kommt in unserer Arbeit dran“). Der KMK-Bezug bleibt die Grundlage, damit der Graph später für andere Länder taugt.
+
+*Bisher – L-8 (ersetzt):* Phase 1 arbeitet nur mit KMK-Bezug und typischer Klassenstufe. Eine Zuordnung zu einzelnen Landeslehrplänen gibt es noch nicht; das Bundesland wird nicht abgefragt.
 *Warum:* Für Kl. 5–6 Mathematik sind die Unterschiede überwiegend Reihenfolge, die der Graph abfängt. Eine Länderzuordnung ist für eine Person erst sinnvoll, wenn Abschlussprüfungen (Phase 4) länderspezifisch werden. Und jede nicht abgefragte Angabe ist gelebter Datenschutz.
 
 ## 11. Offene Punkte
 
 | ID | Frage | Tendenz |
 |---|---|---|
-| L-O1 | KMK-Bezeichnungen und Zuordnungen am Original prüfen | vor Abschluss Phase 0 |
+| L-O1 | KMK-Bezeichnungen und Zuordnungen am Original prüfen; sächsische Lehrpläne (Oberschule, Gymnasium) beschaffen und zuordnen (0.18) | vor Abschluss Phase 0 |
 | L-O2 | Negative Zahlen in Phase 1? (Kl. 6 oder 7, je nach Land) | Nein, Phase 4 |
 | L-O3 | Schwellen für „gekonnt“ und „gefestigt“ | „Gefestigt“: 90 % + 7 Tage im Review bestätigt (Startwert); Feinkalibrierung mit Testjugendlichen und Simulator |
 | L-O4 | Darstellung von Brüchen als Bild (Kreis, Rechteck) – Generator mit SVG | Ja, für BR.BEGRIFF nötig; Aufwand in `INHALTSFORMAT.md` klären |
@@ -279,4 +294,5 @@ Operatoren in Phase 1 (einheitliche Liste): *berechne, bestimme, gib an, ordne, 
 | L-5 | Graph empfiehlt, sperrt nicht | Entschieden |
 | L-6 | Phase 1: Natürliche Zahlen, Teilbarkeit, Brüche/Dezimalzahlen, Größen | Entschieden |
 | L-7 | Einfache Sprache in allen Aufgaben ab Phase 1 | Entschieden |
-| L-8 | Kein Länderbezug und keine Bundesland-Abfrage in Phase 1 | Entschieden |
+| L-8 | Kein Länderbezug und keine Bundesland-Abfrage in Phase 1 | Ersetzt durch L-9 |
+| L-9 | Lehrplanbezug Sachsen je Schulart zusätzlich zum KMK-Bezug; keine Bundesland-Abfrage | Entschieden |

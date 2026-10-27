@@ -15,20 +15,22 @@ Alles in diesem Dokument dient diesem einen Ziel. Was nicht dazu beiträgt, wird
 
 ## 2. Phase A – Fokus-Entscheidung
 
-**Entscheidung K-11: Verbindliche Scope-Grenze bis Monat 12.** *(Geändert am 27.10.2026: Klassenstufen 5–13 von Anfang an statt nur 5–6.)*
+**Entscheidung K-11: Verbindliche Scope-Grenze bis Monat 12.** *(Am 27.10.2026 zweimal geändert: zuerst Klassenstufen 5–13 statt 5–6, dann Start in **Sachsen** mit Klassenstufen 5–12.)*
 
 | | Im Scope | Ausdrücklich später |
 |---|---|---|
 | **Fach** | Mathematik | alle anderen Fächer |
-| **Klassenstufen** | **5–13** von Anfang an (jede Schulform) | berufliche Bildung |
+| **Bundesland** | **Sachsen** | andere Länder (der KMK-Bezug bleibt Grundlage, `LEHRPLAN.md` §5) |
+| **Klassenstufen** | **5–12** von Anfang an | berufliche Bildung (Berufliches Gymnasium, Fachoberschule, Berufsschule) |
+| **Schularten** | alle allgemeinbildenden: Oberschule (Haupt- und Realschulbildungsgang), Gymnasium, Gemeinschaftsschule/Oberschule+, Förderschulen | – |
 | **Niveaus** | **G** (grundlegend) und **M** (mittel) | **E** (erweitert) |
 | **Inhalt** | Kompetenzgraph wächst in Wellen (unten), beginnend mit den Grundlagen aus `LEHRPLAN.md` §8 | Geometrie, Daten und Zufall, solange keine Zeichen- und Diagramm-Interaktionen existieren |
 
 *Warum Mathe:* Generatoren liefern hier am meisten Inhalt pro Arbeitsstunde (K-7).
 
-*Warum Klasse 5–13 von Anfang an:* Entscheidung des Projektverantwortlichen (27.10.2026). Bastion soll vom Start an die ganze Altersspanne ansprechen, für die es gedacht ist; die Zielgruppe wird über **Fach und Inhalte** eingegrenzt, nicht über das Alter.
+*Warum Sachsen, Klasse 5–12, alle Schularten:* Entscheidung des Projektverantwortlichen (27.10.2026). Bastion soll vom Start an die ganze Altersspanne ansprechen, für die es gedacht ist; eingegrenzt wird über **Fach, Bundesland und Inhalte**, nicht über das Alter. Ein Bundesland statt aller macht die Zielgruppe greifbar: ein Lehrplan je Schulart, gemeinsame Abschlussprüfungen (Hauptschulabschluss Kl. 9, Realschulabschluss Kl. 10, Abitur nach Kl. 12), erreichbare Testpersonen und Kanäle vor Ort. In Sachsen beginnt Klasse 5 bereits an der weiterführenden Schule.
 
-*Ehrliche Folge:* Für eine Person ist Mathe 5–13 inhaltlich nicht in 12 Monaten abzudecken. Breite Zielgruppe heißt deshalb **nicht** breite Inhalte zum Start: Die Inhalte wachsen in Wellen, und die Diagnose führt jede Person zu den Grundlagen, die bei ihr wackeln – auch eine Neuntklässlerin zu den Brüchen. Altersgerechte Gestaltung (Ton, Optik, Elternbereich) muss dafür von Anfang an für 10- bis 19-Jährige passen (KONZEPT §14, Risiko „Altersspanne“).
+*Ehrliche Folge:* Für eine Person ist Mathe 5–12 inhaltlich nicht in 12 Monaten abzudecken. Breite Zielgruppe heißt deshalb **nicht** breite Inhalte zum Start: Die Inhalte wachsen in Wellen, und die Diagnose führt jede Person zu den Grundlagen, die bei ihr wackeln – auch eine Neuntklässlerin zu den Brüchen. Altersgerechte Gestaltung (Ton, Optik, Elternbereich) muss dafür von Anfang an für 10- bis 18-Jährige passen (KONZEPT §14, Risiko „Altersspanne“).
 
 *Warum G und M, nicht E:* Die Zielgruppe sind **Jugendliche, die in Mathe nicht zu den Stärksten gehören** – unabhängig von der Schulform. Für sie ist der Abstand zu den bestehenden Angeboten am größten (`WETTBEWERB.md`): Sie brauchen gezielte Rückmeldung auf ihre Fehler und Wiederholung, bis es sitzt – nicht mehr Knobelaufgaben. E ist zudem das teuerste Niveau (Begründen, Fehler analysieren, ungewohnte Darstellungen) und für Generatoren am schwersten.
 
@@ -41,7 +43,7 @@ Alles in diesem Dokument dient diesem einen Ziel. Was nicht dazu beiträgt, wird
 3. **Weitere Wellen – Sek I und Oberstufe:** Auswahl der Felder (z. B. Prozent- und Zinsrechnung, Terme und Gleichungen, Funktionen) nach Testlage und Bedarf der Testgruppe; jede Welle braucht vorher ihren Ausschnitt im Kompetenzmodell (`LEHRPLAN.md`).
 
 **Zielgruppe in einem Satz:**
-> Schülerinnen und Schüler der Klassen 5 bis 13, jeder Schulform, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen.
+> Schülerinnen und Schüler in Sachsen, Klassen 5 bis 12, jeder Schulart, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen.
 
 ## 3. Phase B – Lernkern vor Basebau (Monate 1–5)
 
@@ -84,7 +86,7 @@ Nicht erst, wenn die App „fertig“ ist. Zu klären und hier fortzuschreiben:
 
 | Frage | Erster Stand |
 |---|---|
-| Welche Eltern- und Lehrkräfte-Kanäle sind realistisch erreichbar? | Offen. Kandidaten: eigenes Umfeld und Schulen der Testgruppe, Elternvertretungen, Lerntherapie/Nachhilfe-Initiativen, Hausaufgabenhilfen, Bildungs-Blogs mit Datenschutz-Fokus, OER-Netzwerke (passt zu CC BY-SA). Bewertung nach Erreichbarkeit für eine Person, nicht nach Reichweite. |
+| Welche Eltern- und Lehrkräfte-Kanäle sind realistisch erreichbar? | Offen. In Sachsen zu prüfen: Landeselternrat und Elternräte der Schulen, Fachberater:innen Mathematik, Sächsisches Bildungsportal (OER), LernSax als Ort, an dem Lehrkräfte Links teilen. Weitere Kandidaten: eigenes Umfeld und Schulen der Testgruppe, Elternvertretungen, Lerntherapie/Nachhilfe-Initiativen, Hausaufgabenhilfen, Bildungs-Blogs mit Datenschutz-Fokus, OER-Netzwerke (passt zu CC BY-SA). Bewertung nach Erreichbarkeit für eine Person, nicht nach Reichweite. |
 | Gibt es den einen Satz „Warum sollte ich das meinem Kind empfehlen?“ | Entwurf: *„Bastion übt mit deinem Kind genau die Bruchrechnung, die es noch nicht sicher kann, wiederholt sie, bis sie sitzt – ohne Werbung, ohne Konto, ohne dass Daten das Gerät verlassen.“* In Tests mit Eltern prüfen und schärfen. |
 | Ist ein schlanker Einstieg für Lehrkräfte denkbar, ohne dass die App schulisch wird? | Denkbar, ohne Lehrkräfte-Konto: eine druckbare Seite „Was Bastion übt“ (Kompetenzliste mit Bezug zu den KMK-Leitideen) und ein Link/QR für die Klasse. Kein Klassen-Modus, keine Datenrückmeldung an Lehrkräfte (O-5 bleibt im Horizont). |
 
@@ -129,7 +131,8 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 
 | ID | Entscheidung | Status |
 |---|---|---|
-| K-11 | Scope bis Monat 12: Mathe, Kl. 5–13 von Anfang an, Niveaus G und M; Welle 1 Brüche + Teilbarkeit | Entschieden (27.10.2026, Klassenstufen am selben Tag geändert) |
+| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M; Welle 1 Brüche + Teilbarkeit | Entschieden (27.10.2026, am selben Tag zweimal geändert) |
+| L-9 | Lehrplanbezug Sachsen statt nur KMK (siehe LEHRPLAN.md §10) | Entschieden (27.10.2026) |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026) |
 | K-13 | Erfolgskriterien E1–E3 für Oktober 2027, keine Vanity-Metrics | Entschieden (27.10.2026) |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle für E1/E2 | Vorgeschlagen |

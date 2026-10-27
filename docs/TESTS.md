@@ -21,7 +21,7 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 ## 2. Testgruppe zusammenstellen
 
-**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus Klasse 5–13. Solange es nur Inhalte der Welle 1 gibt: Jugendliche, bei denen Brüche wackeln – das sind typischerweise Klassen 6–9, aber ausdrücklich auch Ältere.
+**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus **Sachsen**, Klasse 5–12. Solange es nur Inhalte der Welle 1 gibt: Jugendliche, bei denen Brüche wackeln – das sind typischerweise Klassen 6–9, aber ausdrücklich auch Ältere.
 
 **Mischung (Ziel):**
 
@@ -29,7 +29,7 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 |---|---|
 | Mag „normalerweise keine Lern-Apps“ | **mindestens 3–4** |
 | Unsicher oder durchschnittlich in Mathe (Zielgruppe K-11) | mindestens die Hälfte |
-| Schulformen | mindestens drei verschiedene (z. B. Gesamt-, Real-/Ober-, Mittel-/Hauptschule, Gymnasium; in Berlin/Brandenburg Grundschule Kl. 5–6) |
+| Schularten | mindestens drei verschiedene: Oberschule Hauptschulbildungsgang, Oberschule Realschulbildungsgang, Gymnasium; wenn möglich Gemeinschaftsschule/Oberschule+ oder Förderschule |
 | Altersstufen | mindestens eine Person aus Kl. 5–7, eine aus Kl. 8–10 und, sobald passende Inhalte da sind, eine aus der Oberstufe |
 | Eigene Kinder und Kinder enger Freunde | höchstens ein Drittel – sie sind zu höflich |
 

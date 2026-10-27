@@ -244,7 +244,7 @@ Detailplanung in `PLAN.md`.
 | **Überlastung des Entwicklers** | Hoch; Ein-Personen-Projekte scheitern selten an Technik, oft an Erschöpfung | Kleine Phasen, kein Termindruck, jede Phase für sich nutzbar |
 | **Fachliche Fehler in KI-entworfenen Inhalten** | Mittel bis hoch | Prüfpflicht im Build; Fehlermeldefunktion in der App (lokal, Export auf Wunsch) |
 | **Korrumpierungseffekt** – äußere Belohnung verdrängt innere Motivation | Real | Basebau abschaltbar; Belohnung an Kompetenz; Phase 2 prüft Lernqualität mit und ohne Basebau |
-| **Altersspanne 10–19** | Hoch – seit K-11 (Kl. 5–13 von Anfang an) nicht mehr entschärft | Ton und Optik von Anfang an altersneutral, nicht kindlich; Elternstufe „selbstverwaltet“; Altersoptik der Epochen bleibt Konzept |
+| **Altersspanne 10–19** | Hoch – seit K-11 (Sachsen, Kl. 5–12 von Anfang an) nicht mehr entschärft | Ton und Optik von Anfang an altersneutral, nicht kindlich; Elternstufe „selbstverwaltet“; Altersoptik der Epochen bleibt Konzept |
 | **Grafik ohne Grafiker** | Mittel | K-10; freie Grafikpakete oder bewusst schlichter Stil (O-11) |
 | **Basebau ohne Timer wird langweilig** | Mittel | Tiefe durch Planung, Spezialisierung, Belagerungen |
 | **Bus-Faktor 1** | Hoch für Nutzer mit Langzeit-Bastionen | Offene Formate, offener Code (O-8), Dokumentation, Export jederzeit möglich |
@@ -293,7 +293,7 @@ Detailplanung in `PLAN.md`.
 | L-1–L-8 | Kompetenzmodell-Entscheidungen (siehe LEHRPLAN.md) | 27.10.2026 | Entschieden |
 | I-1–I-10 | Inhaltsformat-Entscheidungen (siehe INHALTSFORMAT.md) | 27.10.2026 | Entschieden |
 | D-1–D-12 | Datenmodell-Entscheidungen (siehe DATENMODELL.md) | 27.10.2026 | Entschieden |
-| K-11 | Scope bis Monat 12: Mathe, Kl. 5–13 von Anfang an, Niveaus G und M, Inhalte in Wellen (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
+| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M, Inhalte in Wellen (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |
