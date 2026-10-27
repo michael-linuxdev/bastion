@@ -1,0 +1,23 @@
+# „Ordne die Zahlen der Größe nach.“ Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.ORDNEN.DER-GROESSE-NACH
+kompetenz: M.ZO.NZ.ORDNEN
+niveaus: [G, M]
+typ: ordnen
+quelle: generator
+generator: nz.zahlen-ordnen@1
+parameter:
+  G: { anzahl: 4, stellen: 4 } # vier- und fünfstellige Zahlen
+  M: { anzahl: 5, stellen: 7 } # sieben- und achtstellige Zahlen
+text:
+  aufgabe:
+    de: '**Ordne** die Zahlen der Größe nach. Beginne mit der kleinsten Zahl.'
+hilfen:
+  - de: Zähle zuerst die Stellen. Eine Zahl mit mehr Stellen ist größer.
+  - de: Haben zwei Zahlen gleich viele Stellen, vergleiche von links Ziffer für Ziffer.
+fehlerbilder:
+  wie-woerter-sortiert:
+    de: Du hast nur auf die erste Ziffer geschaut – so wie man Wörter im Alphabet ordnet. Bei Zahlen zählt zuerst, wie viele Stellen sie haben.
+  absteigend:
+    de: Die Reihenfolge ist genau umgekehrt. Beginne mit der kleinsten Zahl.
+herkunft: ki-entwurf
+version: 1

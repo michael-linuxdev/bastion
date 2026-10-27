@@ -19,7 +19,10 @@ export interface Sprachobjekt {
 export type Wert = number | Bruch | Sprachobjekt;
 
 export type Loesung =
-  { readonly typ: 'bruch'; readonly wert: Bruch } | { readonly typ: 'zahl'; readonly wert: number };
+  | { readonly typ: 'bruch'; readonly wert: Bruch }
+  | { readonly typ: 'zahl'; readonly wert: number }
+  /** Aufgabentyp `ordnen`: die Elemente in der richtigen Reihenfolge. */
+  | { readonly typ: 'reihenfolge'; readonly wert: readonly number[] };
 
 export interface Fehlerbild {
   /** Muss in der Vorlage unter `fehlerbilder` stehen. */
@@ -30,6 +33,8 @@ export interface Fehlerbild {
 
 export interface Instanz {
   readonly platzhalter: Readonly<Record<string, Wert>>;
+  /** Elemente zum Ordnen (Aufgabentyp `ordnen`) in der angezeigten, gemischten Reihenfolge. */
+  readonly elemente?: readonly number[];
   readonly loesung: Loesung;
   readonly loesungsweg: readonly Sprachobjekt[];
   /** Erwartbare falsche Antworten; nie gleich der Lösung, untereinander verschieden. */

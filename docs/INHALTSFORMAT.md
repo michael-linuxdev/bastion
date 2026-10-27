@@ -227,7 +227,8 @@ export interface Fehlerbild {
 **Umsetzung (27.10.2026):** Die Typen liegen nicht in `src/generators/types.ts`, sondern im Kern: `src/core/learning/generator.ts` (Generator, Instanz, Fehlerbild, Lösung) und `src/core/learning/bruch.ts` (Bruch, ggT, Vergleiche). *Warum:* Die Auswertung im Kern braucht dieselben Typen, darf aber nicht aus `src/generators` importieren (T-2); umgekehrt dürfen Generatoren aus dem Kern importieren. Gegenüber dem Entwurf oben ergänzt:
 - `platzhalter`: Namen aller Platzhalter, die jede Instanz füllt (für den Pflicht-Test „alle Platzhalter gefüllt“ und den Abgleich mit der Vorlage).
 - `fehlerbildIds`: alle Fehlerbild-IDs, die vorkommen können (für den Build-Abgleich mit `fehlerbilder` der Vorlage, §10.1).
-- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung` (`{ typ: 'bruch', wert }`).
+- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung`: `{ typ: 'bruch' | 'zahl' | 'reihenfolge', wert }`.
+- `elemente` (optional): die zu ordnenden Zahlen beim Typ `ordnen`, in der angezeigten, gemischten Reihenfolge. Der Abwechslungs-Test vergleicht Platzhalter **und** Elemente.
 - Verzeichnis aller Generatoren: `src/generators/index.ts`, Schlüssel `id@version`.
 
 ### 6.1 Regeln für Generatoren

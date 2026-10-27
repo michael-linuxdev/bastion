@@ -21,10 +21,16 @@ export interface PflichtPruefung<P> {
 function gleicheLoesung(a: Loesung, b: Loesung): boolean {
   if (a.typ === 'bruch' && b.typ === 'bruch') return gleichGeschrieben(a.wert, b.wert);
   if (a.typ === 'zahl' && b.typ === 'zahl') return a.wert === b.wert;
+  if (a.typ === 'reihenfolge' && b.typ === 'reihenfolge') {
+    return a.wert.length === b.wert.length && a.wert.every((x, i) => x === b.wert[i]);
+  }
   return false;
 }
 
 const seed = fc.nat({ max: 0xffffffff });
+
+/** Was die Person von einer Aufgabe sieht – Grundlage für den Abwechslungs-Test. */
+const sichtbar = (i: Instanz) => ({ platzhalter: i.platzhalter, elemente: i.elemente });
 
 export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefung<P>): void {
   const laeufe = pruefung.laeufe ?? 10_000;
@@ -99,7 +105,7 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
           for (const start of [0, 1_000_000, 0xffffffff - 99]) {
             const verschieden = new Set(
               Array.from({ length: 100 }, (_, i) =>
-                JSON.stringify(generator.erzeuge(start + i, parameter).platzhalter),
+                JSON.stringify(sichtbar(generator.erzeuge(start + i, parameter))),
               ),
             );
             expect(verschieden.size).toBeGreaterThanOrEqual(mindestens);
