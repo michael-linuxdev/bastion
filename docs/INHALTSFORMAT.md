@@ -356,7 +356,7 @@ Die App lädt das Manifest, zeigt vor dem Download die Größe an und speichert 
 ## 11. Texte und Darstellung
 
 - Formatierung: kleines Markdown-Subset (fett, kursiv, Zeilenumbruch, Liste). Keine Links, keine Bilder per URL.
-- Mathematik: KaTeX zwischen `$…$`. Brüche aus Platzhaltern werden automatisch als Bruch gesetzt.
+- Mathematik: zwischen `$…$`. Brüche aus Platzhaltern werden automatisch als Bruch gesetzt. *Stand Klasse 5:* Eine kleine eigene Teilmenge reicht – Hochzahl (`^2`, `^{…}`), Wurzel (`\sqrt{…}`) und Malpunkt (`\cdot`), umgesetzt in `src/core/learning/text.ts`. KaTeX (ARCHITEKTUR §4.1) wird erst eingebunden, wenn Inhalte mehr brauchen; bis dahin spart das Ladegröße.
 - Zahlen aus Platzhaltern werden automatisch deutsch formatiert (Komma; bei großen Zahlen schmales Leerzeichen als Tausendergliederung *in der Anzeige*).
 - Sprachregeln aus LEHRPLAN L-7. Richtwert: Aufgabentexte auf Niveau G höchstens zwei Sätze, Operator am Satzanfang.
 
