@@ -180,7 +180,15 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 | Keine Browser-APIs (`window`, `localStorage`, `crypto`, Timer …) und kein Svelte in `src/core` | `no-restricted-globals`, `no-restricted-imports` |
 | Nur Runes-Syntax: `export let` und `$:` sind Compilerfehler, `on:click` u. a. Warnungen gelten als Fehler | Svelte `runes: true`, `onwarn` im Build, `svelte/valid-compile`, `svelte-check --fail-on-warnings` |
 
+| Nur logische CSS-Eigenschaften (`margin-inline-start` statt `margin-left`, `inline-size` statt `width` …) | Test `tools/logische-css.test.ts` |
+
 `tools/ordnergrenzen.test.ts` prüft bei jedem Testlauf, dass absichtlich falsche Importe tatsächlich gemeldet werden – so kann eine Konfigurationsänderung die Grenzen nicht unbemerkt abschalten.
+
+### 4.8 Oberflächen-Grundlage (umgesetzt in 0.7d)
+
+- Oberflächentexte stehen in `src/ui/texte/de.json` und werden über `t('schluessel')` geholt; Tippfehler im Schlüssel sind Typfehler. Die Datei legt auch Sprache und Schreibrichtung (`lang`, `dir`) fest.
+- Grund-CSS in `src/ui/grund.css`: Farben als CSS-Variablen, Hell/Dunkel folgt der Systemeinstellung (`prefers-color-scheme`), reduzierte Bewegung wird respektiert, nur Systemschriften.
+- Eine Umschaltung Hell/Dunkel in der App folgt mit den Einstellungen (Phase 1).
 
 ## 5. Datenmodell: Ereignisse als Wahrheit
 
