@@ -1,0 +1,23 @@
+# „Berechne schriftlich: 5 203 − 1 876“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.ADD-SUB.SUBTRAHIEREN
+kompetenz: M.ZO.NZ.ADD-SUB
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.schriftlich-subtrahieren@1
+parameter:
+  G: { stellen_min: 3, stellen_max: 4 }
+  M: { stellen_min: 5, stellen_max: 8 }
+text:
+  aufgabe:
+    de: '**Berechne** schriftlich: {a} − {b}'
+hilfen:
+  - de: Schreibe die kleinere Zahl stellengerecht unter die größere.
+  - de: Reicht eine Ziffer oben nicht, entbündle – nimm 1 von der Stelle links daneben.
+fehlerbilder:
+  kleinere-von-groesserer:
+    de: Du hast in einer Spalte die obere von der unteren Ziffer abgezogen. Es wird immer die untere von der oberen abgezogen – reicht es nicht, entbündelst du.
+  entbuendeln-vergessen:
+    de: Du hast entbündelt, aber die Stelle links daneben nicht um 1 verringert.
+herkunft: ki-entwurf
+version: 1
