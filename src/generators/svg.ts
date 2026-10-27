@@ -64,3 +64,31 @@ export const text = (x: number, y: number, inhalt: string, groesse = 16) =>
 /** Pfeilspitze nach unten bei (x, y) – Markierung auf dem Zahlenstrahl. */
 export const markierung = (x: number, y: number) =>
   `<path d="M${r2(x - 7)} ${r2(y - 14)} L${r2(x + 7)} ${r2(y - 14)} L${r2(x)} ${r2(y)} Z" fill="currentColor" stroke="none"/>`;
+
+/** Koordinatensystem (1. Quadrant) von 0 … xmax bzw. ymax; liefert Umrechnung in Bildkoordinaten. */
+export function koordinatensystem(xmax: number, ymax: number, raster = 30, beschriftungAlle = 1) {
+  const rand = 30;
+  const breite = rand + xmax * raster + 20;
+  const hoehe = rand + ymax * raster + 20;
+  const px = (x: number) => rand + x * raster;
+  const py = (y: number) => 20 + (ymax - y) * raster;
+  const teile: string[] = [];
+  for (let x = 0; x <= xmax; x++) teile.push(linie(px(x), py(0), px(x), py(ymax), 0.5));
+  for (let y = 0; y <= ymax; y++) teile.push(linie(px(0), py(y), px(xmax), py(y), 0.5));
+  teile.push(linie(px(0), py(0), px(xmax), py(0), 2), linie(px(0), py(0), px(0), py(ymax), 2));
+  for (let x = 0; x <= xmax; x += beschriftungAlle)
+    teile.push(text(px(x), py(0) + 18, String(x), 12));
+  for (let y = beschriftungAlle; y <= ymax; y += beschriftungAlle)
+    teile.push(text(px(0) - 12, py(y) + 4, String(y), 12));
+  return { breite, hoehe, px, py, teile };
+}
+
+/** Punkt mit Beschriftung im Koordinatensystem. */
+export const punkt = (x: number, y: number, name: string) =>
+  kreis(x, y, 4, true) + text(x + 12, y - 8, name, 14);
+
+/** Vieleck (Linienzug, geschlossen). */
+export const vieleck = (punkte: readonly (readonly [number, number])[], gefuellt = false) =>
+  `<polygon points="${punkte.map(([x, y]) => `${r2(x)},${r2(y)}`).join(' ')}"` +
+  (gefuellt ? ' fill="currentColor" fill-opacity="0.25"' : '') +
+  '/>';
