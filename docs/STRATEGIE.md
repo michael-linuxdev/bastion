@@ -24,26 +24,40 @@ Alles in diesem Dokument dient diesem einen Ziel. Was nicht dazu beiträgt, wird
 | **Klassenstufen** | **5–12** von Anfang an | berufliche Bildung (Berufliches Gymnasium, Fachoberschule, Berufsschule) |
 | **Schularten** | alle allgemeinbildenden: Oberschule (Haupt- und Realschulbildungsgang), Gymnasium, Gemeinschaftsschule/Oberschule+, Förderschulen | – |
 | **Niveaus** | **G** (grundlegend) und **M** (mittel) | **E** (erweitert) |
-| **Inhalt** | Kompetenzgraph wächst in Wellen (unten), beginnend mit den Grundlagen aus `LEHRPLAN.md` §8 | Geometrie, Daten und Zufall, solange keine Zeichen- und Diagramm-Interaktionen existieren |
+| **Inhalt** | **Klassenstufe für Klassenstufe** (K-15): erst Klasse 5 vollständig, dann Klasse 6 usw. | Inhalte einer höheren Klassenstufe, solange die laufende nicht abgeschlossen ist |
 
 *Warum Mathe:* Generatoren liefern hier am meisten Inhalt pro Arbeitsstunde (K-7).
 
 *Warum Sachsen, Klasse 5–12, alle Schularten:* Entscheidung des Projektverantwortlichen (27.10.2026). Bastion soll vom Start an die ganze Altersspanne ansprechen, für die es gedacht ist; eingegrenzt wird über **Fach, Bundesland und Inhalte**, nicht über das Alter. Ein Bundesland statt aller macht die Zielgruppe greifbar: ein Lehrplan je Schulart, gemeinsame Abschlussprüfungen (Hauptschulabschluss Kl. 9, Realschulabschluss Kl. 10, Abitur nach Kl. 12), erreichbare Testpersonen und Kanäle vor Ort. In Sachsen beginnt Klasse 5 bereits an der weiterführenden Schule.
 
-*Ehrliche Folge:* Für eine Person ist Mathe 5–12 inhaltlich nicht in 12 Monaten abzudecken. Breite Zielgruppe heißt deshalb **nicht** breite Inhalte zum Start: Die Inhalte wachsen in Wellen, und die Diagnose führt jede Person zu den Grundlagen, die bei ihr wackeln – auch eine Neuntklässlerin zu den Brüchen. Altersgerechte Gestaltung (Ton, Optik, Elternbereich) muss dafür von Anfang an für 10- bis 18-Jährige passen (KONZEPT §14, Risiko „Altersspanne“).
+*Ehrliche Folge:* Für eine Person ist Mathe 5–12 inhaltlich nicht in 12 Monaten abzudecken. Breite Zielgruppe heißt deshalb **nicht** breite Inhalte zum Start: Die Inhalte wachsen Klassenstufe für Klassenstufe, und die Diagnose führt jede Person zu den Grundlagen, die bei ihr wackeln – auch eine Neuntklässlerin zu den Brüchen. Bis höhere Klassenstufen gefüllt sind, ist Bastion für Ältere ein Werkzeug, um Lücken aus den unteren Klassen zu schließen. Altersgerechte Gestaltung (Ton, Optik, Elternbereich) muss dafür von Anfang an für 10- bis 18-Jährige passen (KONZEPT §14, Risiko „Altersspanne“).
 
 *Warum G und M, nicht E:* Die Zielgruppe sind **Jugendliche, die in Mathe nicht zu den Stärksten gehören** – unabhängig von der Schulform. Für sie ist der Abstand zu den bestehenden Angeboten am größten (`WETTBEWERB.md`): Sie brauchen gezielte Rückmeldung auf ihre Fehler und Wiederholung, bis es sitzt – nicht mehr Knobelaufgaben. E ist zudem das teuerste Niveau (Begründen, Fehler analysieren, ungewohnte Darstellungen) und für Generatoren am schwersten.
 
 *Was das für die Daten heißt:* Das Datenmodell behält `'E'` als möglichen Wert (DATENMODELL §4.1). E wird nur nicht mit Inhalten gefüllt. Ein späterer Ausbau braucht keine Migration.
 
-**Reihenfolge der Inhalte (Wellen):**
+**Entscheidung K-15: Tiefe vor Breite – Klassenstufe für Klassenstufe.** *(27.10.2026, ersetzt die bisherige Reihenfolge in Wellen nach Themen)*
 
-1. **Welle 1 – Brüche und Teilbarkeit** (Felder TB und BR, 12 Kompetenzen). Hier sind die Lücken am größten, die Fehlerbilder am klarsten (Erweitern vs. Addieren, Nenner addieren …), und es ist der Stoff, bei dem Eltern am ehesten Hilfe suchen.
-2. **Welle 2 – Natürliche Zahlen und Größen** (Felder NZ und GR, 11 Kompetenzen). Zunächst nur so weit, wie Welle 1 sie als Voraussetzung braucht (z. B. NZ.DIV für TB.TEILER); vollständig erst, wenn Welle 1 in Tests trägt.
-3. **Weitere Wellen – Sek I und Oberstufe:** Auswahl der Felder (z. B. Prozent- und Zinsrechnung, Terme und Gleichungen, Funktionen) nach Testlage und Bedarf der Testgruppe; jede Welle braucht vorher ihren Ausschnitt im Kompetenzmodell (`LEHRPLAN.md`).
+Die Inhalte werden **sukzessiv** aufgebaut: zuerst **Klasse 5** vollständig, erst danach Klasse 6, dann 7 usw. Das schärft K-6 („Tiefe vor Breite“) auf Klassenstufen zu.
+
+**Was „Klasse 5“ umfasst:** alle Lernbereiche der sächsischen Lehrpläne Mathematik für Klasse 5 – über alle Schularten zusammengenommen. Liegt ein Thema an einer Schulart in Klasse 5 und an einer anderen in Klasse 6 (z. B. Brüche: Gymnasium Kl. 5, Oberschule Kl. 6 – *am Original prüfen*), gehört es zum **früheren** Abschnitt. Die genaue Liste entsteht aus Aufgabe 0.18 (`LEHRPLAN.md` §8).
+
+**Reihenfolge innerhalb einer Klassenstufe:** entlang des Kompetenzgraphen, von den Kompetenzen ohne Voraussetzungen aus.
+
+**Eine Klassenstufe ist abgeschlossen, wenn:**
+1. alle ihre Lernbereiche als Kompetenzen im Graphen stehen, mit Zuordnung zu den sächsischen Lehrplänen (L-9);
+2. jede dieser Kompetenzen je Niveau G und M mindestens zwei geprüfte Vorlagen hat (INHALTSFORMAT §10.1), Generatoren mit bestandenen Pflicht-Tests;
+3. Üben, Wiederholen, Fehlerwerkstatt und Diagnose für alle ihre Kompetenzen funktionieren;
+4. Jugendliche dieser Klassenstufe aus der Testgruppe sie genutzt haben und gemeldete fachliche Fehler behoben sind.
+
+Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe.
+
+*Warum:* Eine vollständige Klasse 5 ist für echte Jugendliche ein brauchbares Werkzeug für ein ganzes Schuljahr; zwei halbe Klassenstufen sind es nicht. Jede abgeschlossene Klassenstufe ist für sich nutzbar (KONZEPT §12.2) und ein ehrlicher Fortschritt, den man Eltern und Lehrkräften zeigen kann.
+
+*Offene Frage O-15 (Geometrie und Daten in Klasse 5):* Klasse 5 enthält in Sachsen sehr wahrscheinlich auch Geometrie (z. B. Grundbegriffe, Winkel, Figuren, Koordinaten) und Daten (Diagramme). „Klasse 5 abgeschlossen“ geht nur mit ihnen – die Nicht-Ziele schließen sie bisher aus. **Vorschlag:** Geometrie und Daten der Klasse 5 kommen in den Scope, aber nur mit Aufgaben, die ohne freies Zeichnen auskommen (Bild als SVG zeigen, dann Zahl eingeben, auswählen, zuordnen, Koordinaten eingeben). Konstruieren mit Zirkel und Geodreieck bleibt außerhalb und wird im Lehrplanbezug als „nicht in der App“ vermerkt. Status: **Vorgeschlagen**, Entscheidung durch den Projektverantwortlichen.
 
 **Zielgruppe in einem Satz:**
-> Schülerinnen und Schüler in Sachsen, Klassen 5 bis 12, jeder Schulart, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen.
+> Schülerinnen und Schüler in Sachsen, Klassen 5 bis 12, jeder Schulart, die in Mathe unsicher oder durchschnittlich sind. Inhalte gibt es zuerst für Klasse 5; für Ältere ist Bastion bis dahin ein Werkzeug gegen Lücken aus Klasse 5.
 
 ## 3. Phase B – Lernkern vor Basebau (Monate 1–5)
 
@@ -131,8 +145,10 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 
 | ID | Entscheidung | Status |
 |---|---|---|
-| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M; Welle 1 Brüche + Teilbarkeit | Entschieden (27.10.2026, am selben Tag zweimal geändert) |
+| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M | Entschieden (27.10.2026, am selben Tag zweimal geändert) |
 | L-9 | Lehrplanbezug Sachsen statt nur KMK (siehe LEHRPLAN.md §10) | Entschieden (27.10.2026) |
+| K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe | Entschieden (27.10.2026) |
+| O-15 | Geometrie und Daten der Klasse 5 ohne freies Zeichnen in den Scope | Vorgeschlagen |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026) |
 | K-13 | Erfolgskriterien E1–E3 für Oktober 2027, keine Vanity-Metrics | Entschieden (27.10.2026) |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle für E1/E2 | Vorgeschlagen |

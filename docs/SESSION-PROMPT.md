@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (8) · Phase 0 – Fundament
+Stand: 27.10.2026 (9) · Phase 0 – Fundament
 
 ---
 
@@ -44,18 +44,19 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Phase 1a beginnen – Welle 1 (Brüche und Teilbarkeit).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Phase 1a – Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
-1. **0.18** Sächsische Lehrpläne Mathematik (Oberschule, Gymnasium) beschaffen; Zuordnung der Brüche (Gym Kl. 5 / OS Kl. 6) bestätigen.
+1. **0.18** Sächsische Lehrpläne Mathematik (Oberschule, Gymnasium) beschaffen – für Claude nicht erreichbar, bitte als PDF ins Repository (`docs/quellen/`) oder als Liste der Lernbereiche Klasse 5 liefern. Daraus entsteht der vollständige Abschnitt „Klasse 5“.
+1a. **0.19** O-15 entscheiden: Geometrie und Daten der Klasse 5 ohne freies Zeichnen in den Scope?
 2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
 3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
 4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Mit Claude Code, als Nächstes:
-6. Vorlage `M.ZO.BR.ERWEITERN.ZIELNENNER` als YAML in `content/` anlegen (INHALTSFORMAT §4.1) – zunächst ohne Review-Werkzeug.
-7. Weitere Generatoren für `M.ZO.BR.ERWEITERN` (`erweitern-mit-zahl`, `kuerzen`), jeweils mit `pflichttests`.
+6. Kompetenzen der Klasse 5 als YAML in `content/` anlegen, beginnend mit den sicheren Kandidaten (natürliche Zahlen, Größen) und der Vorlage `M.ZO.BR.ERWEITERN.ZIELNENNER` (INHALTSFORMAT §4.1).
+7. Generatoren entlang des Graphen von der Wurzel aus: `M.ZO.NZ.STELLENWERT`, `RUNDEN`, `ADD-SUB` … – jeweils mit `pflichttests`.
 8. Danach: Kompetenzgraph laden und eine erste Übungsseite, die eine Generator-Aufgabe anzeigt und die Antwort mit Fehlerbild-Rückmeldung auswertet.
 
 ## Übergabe der letzten Sitzung
@@ -66,6 +67,8 @@ Mit Claude Code, als Nächstes:
 - **0.10 teilweise:** `pnpm messen` (`tools/messung.ts`) misst den Build auf einem nachgeahmten Altgerät (CPU ÷6, langsames 4G). Gerüst-App: nutzbar nach ca. 0,7 s online, 0,3 s offline (ARCHITEKTUR §9.2). Echte Referenzgeräte stehen aus.
 - **Erster Generator:** `bruch.erweitern-zielnenner@1` in `src/generators/mathematik/brueche/`. Typen liegen bewusst im Kern (`src/core/learning/generator.ts`, `bruch.ts`), weil die Auswertung sie braucht (INHALTSFORMAT §6, Umsetzung). Die Pflicht-Tests aus INHALTSFORMAT §6.3 sind ein wiederverwendbarer Baustein (`src/generators/pflichttests.ts`, 10 000 Seeds je Niveau); per absichtlich eingebauten Fehlern geprüft, dass sie anschlagen.
 - Fehlerbilder mit gleicher falscher Antwort: Der Generator meldet nur das vorrangige (INHALTSFORMAT §7).
+- **K-15 (neu):** Inhalte Klassenstufe für Klassenstufe, zuerst Klasse 5 vollständig (über alle Schularten; ein Thema gehört zur früheren Klassenstufe, wenn es an einer Schulart dort liegt). Abschlusskriterien je Klassenstufe in `STRATEGIE.md` §2. Ersetzt die Wellen nach Themen. Der Bruch-Generator passt dazu (Brüche: Gymnasium Kl. 5).
+- **O-15 offen:** Geometrie und Daten der Klasse 5 – Vorschlag: ohne freies Zeichnen in den Scope.
 - 51 Tests, Lint, Build und Budget grün.
 
 ## Am Ende der Sitzung aktualisieren

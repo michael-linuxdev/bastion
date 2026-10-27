@@ -123,7 +123,7 @@ Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen,
 | Klassenstufen | **5–12** von Anfang an, alle allgemeinbildenden Schularten; berufliche Bildung später |
 | Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
 | Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen |
-| Inhalte | wachsen in Wellen, beginnend mit Brüchen und Teilbarkeit |
+| Inhalte | Klassenstufe für Klassenstufe (K-15): zuerst Klasse 5 vollständig, dann Klasse 6 usw. |
 | Priorität | Lernkern vor Basebau (K-12); Basebau nur als Minimum, bis Jugendliche den Lernkern als besser beschreiben |
 
 Alles andere steht ausdrücklich auf „später“: Liste der Nicht-Ziele in `PLAN.md` §2.1.

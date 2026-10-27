@@ -225,7 +225,7 @@ Legende Abdeckung: **Gen** = Generator · **Hand** = handverfasst · **Mix** = g
 | M.GM.GR.KOMMA | Ich kann Größen in Kommaschreibweise angeben und damit rechnen. | UMRECHNEN, BR.DEZIMAL | Gen | I |
 | M.GM.GR.SACH | Ich kann Sachaufgaben mit Größen lösen. | UMRECHNEN, ZEIT | Mix | II |
 
-**Reihenfolge (K-11):** Welle 1 = Felder TB und BR (12 Kompetenzen), Welle 2 = NZ und GR (11 Kompetenzen); aus Welle 2 zunächst nur, was Welle 1 als Voraussetzung braucht.
+**Reihenfolge (K-15):** Inhalte entstehen Klassenstufe für Klassenstufe. Dieser Ausschnitt ist der Ausgangspunkt für **Klasse 5**; er wird mit Aufgabe 0.18 gegen die sächsischen Lehrpläne (alle Schularten) abgeglichen: Kompetenzen, die in Sachsen erst in Klasse 6 liegen, wandern in den Abschnitt Klasse 6 – außer sie liegen an *einer* Schulart schon in Klasse 5 (dann bleiben sie in Klasse 5). Fehlende Lernbereiche der Klasse 5 (voraussichtlich Geometrie und Daten, O-15) kommen hinzu. Innerhalb der Klassenstufe wird entlang des Graphen gebaut, von den Kompetenzen ohne Voraussetzungen aus.
 
 **Summe:** 23 Kompetenzen × 3 Niveaus (bis Monat 12: × 2 Niveaus, G und M). Davon 17 überwiegend generatorbasiert, 6 gemischt.
 
@@ -266,7 +266,7 @@ sachsen:
 - Die Zuordnung dient der Diagnose (Startvorschlag aus Klassenstufe und Schulart), der Themenwahl vor Klassenarbeiten und der Sprache gegenüber Lehrkräften und Eltern („passt zu Lernbereich … in Klasse …“).
 - Der Kompetenzgraph bleibt länderneutral (§1); andere Länder bekommen später ein eigenes Zuordnungsfeld, ohne dass sich IDs ändern (L-1).
 - Das Bundesland wird **nicht abgefragt** – es gibt vorerst nur Sachsen. Die Schulart ist eine freiwillige Einstellung.
-- Abschlussprüfungen in Sachsen (Hauptschulabschluss Kl. 9, Realschulabschluss Kl. 10, Abitur) werden zum Bezugspunkt der späteren Wellen.
+- Abschlussprüfungen in Sachsen (Hauptschulabschluss Kl. 9, Realschulabschluss Kl. 10, Abitur) werden zum Bezugspunkt, sobald die Klassenstufen 9, 10 und 11–12 an der Reihe sind (K-15).
 
 *Warum:* Ein konkretes Land macht Inhalte für Jugendliche, Eltern und Lehrkräfte wiedererkennbar („genau das kommt in unserer Arbeit dran“). Der KMK-Bezug bleibt die Grundlage, damit der Graph später für andere Länder taugt.
 

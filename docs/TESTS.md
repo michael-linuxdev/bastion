@@ -21,7 +21,7 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 ## 2. Testgruppe zusammenstellen
 
-**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus **Sachsen**, Klasse 5–12. Solange es nur Inhalte der Welle 1 gibt: Jugendliche, bei denen Brüche wackeln – das sind typischerweise Klassen 6–9, aber ausdrücklich auch Ältere.
+**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus **Sachsen**, Klasse 5–12. Solange es nur Inhalte der Klasse 5 gibt (K-15): vor allem Jugendliche aus Klasse 5, dazu einige Ältere, bei denen Stoff der Klasse 5 (z. B. Brüche) wackelt.
 
 **Mischung (Ziel):**
 
@@ -120,7 +120,7 @@ Frage: Behalten Jugendliche Bruch-Kompetenzen besser, wenn Bastion sie über Woc
 
 **Aufbau (innerhalb jeder Person, damit kleine Gruppen genügen):**
 
-1. Vier Kompetenzen aus Welle 1 auswählen, die die Person **noch nicht** sicher kann (Diagnose), z. B. ERWEITERN, VERGLEICHEN, ADD-SUB, MULT.
+1. Vier Kompetenzen aus der laufenden Klassenstufe auswählen, die die Person **noch nicht** sicher kann (Diagnose), z. B. ERWEITERN, VERGLEICHEN, ADD-SUB, MULT.
 2. Je Person werden zwei davon **mit Bastion-Wiederholung** geübt, zwei **nur einmal im Block** (eine Übungssitzung, dann keine Wiederholung in der App). Welche zwei, wird **pro Person gewechselt** (ausbalanciert), damit nicht die leichteren immer auf einer Seite landen.
 3. Nach **4 Wochen** ohne gezieltes Üben dieser vier: kurzer Papiertest, je Kompetenz 4 Aufgaben mit **neuen** Zahlen.
 4. Vergleich: Anteil richtiger Antworten „mit Wiederholung“ gegen „nur Block“ – je Person und gesamt.

@@ -189,7 +189,7 @@ Bastion wird von **einer Person** entwickelt. Das ist keine Randbedingung, sonde
 
 ### 12.1 Konsequenzen
 
-**Entscheidung K-6: Tiefe vor Breite.** Ein Fach wird über mehrere Klassenstufen gut gemacht, bevor ein zweites beginnt.
+**Entscheidung K-6: Tiefe vor Breite.** Ein Fach wird über mehrere Klassenstufen gut gemacht, bevor ein zweites beginnt. *Geschärft durch K-15:* Innerhalb des Fachs wird eine Klassenstufe abgeschlossen, bevor die nächste beginnt (`STRATEGIE.md` §2).
 *Warum:* Zehn halbfertige Fächer helfen niemandem. Ein Fach, das von Klasse 5 bis zum MSA trägt, ist für echte Jugendliche nützlich und beweist das Konzept.
 
 **Entscheidung K-7: Mathematik zuerst.**
@@ -218,7 +218,7 @@ Bastion wird von **einer Person** entwickelt. Das ist keine Randbedingung, sonde
 
 Detailplanung in `PLAN.md`.
 
-**Fokus bis Monat 12 (K-11, K-12, `STRATEGIE.md`):** Phase 1 nur mit den Niveaus G und M, Inhalte in zwei Wellen (zuerst Brüche und Teilbarkeit). Danach ein **Basebau-Minimum** (Phase 2a) als Versuchsaufbau. Phase 2 vollständig und Phase 3 erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben. Phasen 4–6 liegen jenseits von Monat 12.
+**Fokus bis Monat 12 (K-11, K-12, `STRATEGIE.md`):** Phase 1 nur mit den Niveaus G und M; Inhalte Klassenstufe für Klassenstufe, zuerst Klasse 5 vollständig (K-15). Danach ein **Basebau-Minimum** (Phase 2a) als Versuchsaufbau. Phase 2 vollständig und Phase 3 erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben. Phasen 4–6 liegen jenseits von Monat 12.
 
 | Phase | Inhalt | Bewusst nicht enthalten | Prüfkriterium |
 |---|---|---|---|
@@ -293,7 +293,8 @@ Detailplanung in `PLAN.md`.
 | L-1–L-8 | Kompetenzmodell-Entscheidungen (siehe LEHRPLAN.md) | 27.10.2026 | Entschieden |
 | I-1–I-10 | Inhaltsformat-Entscheidungen (siehe INHALTSFORMAT.md) | 27.10.2026 | Entschieden |
 | D-1–D-12 | Datenmodell-Entscheidungen (siehe DATENMODELL.md) | 27.10.2026 | Entschieden |
-| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M, Inhalte in Wellen (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
+| K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
+| K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5 (schärft K-6) | 27.10.2026 | Entschieden |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |
