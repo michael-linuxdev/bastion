@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (5) · Phase 0 – Fundament
+Stand: 27.10.2026 (6) · Phase 0 – Fundament
 
 ---
 
@@ -43,33 +43,27 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Phase 0, Block C: Technisches Gerüst (Aufgaben 0.7–0.9).** Ausführung mit Claude Code; Regeln in `CLAUDE.md`.
+**Phase 0 abschließen.** Ausführung mit Claude Code; Regeln in `CLAUDE.md`.
 
-In dieser Reihenfolge, jeweils als eigener Commit:
+1. **CI auf GitHub prüfen:** Der Workflow `.github/workflows/ci.yml` muss auf `main` grün laufen. Dazu den Branch der letzten Sitzung nach `main` übernehmen.
+2. **GitHub Pages einrichten:** *Settings → Pages → Source: GitHub Actions*. Für private Repositories braucht Pages einen kostenpflichtigen Plan – sonst erst nach dem Öffentlich-Schalten (O-8).
+3. **Probe im Flugmodus:** Testversion auf einem Handy öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, Flugmodus an, neu öffnen.
+4. **0.10 Referenzgeräte und Messung** (`PLAN.md`): drei Geräte festlegen, Gerüst-App messen, Ergebnis in `ARCHITEKTUR.md` §9 eintragen.
+5. Offen aus Block A: Milestones und Issues für die Phasen anlegen (T-12), Repository öffentlich schalten (O-8).
 
-1. **0.7a Projekt anlegen:** Vite + Svelte 5 + TypeScript (strict), pnpm, Versionen gepinnt. Ordnerstruktur nach `ARCHITEKTUR.md` §3/§13: `src/core/{competence,learning,srs,ledger,bastion,policy,rng}`, `src/storage/`, `src/ui/`, `src/generators/`, `tools/`, `content/`, `tests/`.
-2. **0.7b Leitplanken:** ESLint mit Ordnergrenzen (`core` ohne UI und Browser-APIs; `bastion` nur auf `ledger`), Svelte-Compilerwarnungen zu veralteter Syntax als Fehler, Prettier. Ein absichtlich falscher Import muss den Lint rot machen (prüfen, dann entfernen).
-3. **0.7c Grundlagen im Kern:** `src/core/rng` (Zufallszahlen mit Seed) und ULID-Erzeugung mit eingespeister Zufallsquelle (`DATENMODELL.md` §3.2, D-O1), Lerntag-Berechnung mit Grenze 4:00 Uhr (D-2). Jeweils mit Tests.
-4. **0.7d Oberflächen-Grundlage:** eine Startseite „Bastion – im Aufbau“, Texte aus einer Textdatei, RTL-fähiges Grund-CSS (Logical Properties), Hell/Dunkel.
-5. **0.8 Offline-Hülle:** vite-plugin-pwa, Manifest, Precaching, Update-Hinweis statt Zwangs-Update, `navigator.storage.persist()`.
-6. **0.9 Tests und CI:** Vitest, Playwright-Test „einmal online laden, dann offline neu laden“, GitHub Actions mit Lint → Tests → Build → Größenbudget (ARCHITEKTUR §9), Deployment auf GitHub Pages.
-
-Fertig, wenn: Die Startseite lädt einmal online und startet danach im Flugmodus; CI ist grün; ein Verstoß gegen die Ordnergrenzen macht die CI rot.
-
-Noch nicht: Dexie-Tabellen, Lernlogik, Inhalte. Das ist Phase 1.
+Danach: Phase 1 in Aufgaben zerlegen (`PLAN.md` §4).
 
 ## Übergabe der letzten Sitzung
 
-- Vision, Konzept, Architektur und Basebau liegen als Entwürfe vor.
-- Stack neu gedacht: PWA, framework-freier TS-Kern, Svelte 5, Dexie, FSRS, PixiJS (später).
-- Ein-Personen-Zuschnitt: Mathe zuerst, Tiefe vor Breite, Oberstufe und berufliche Bildung im Horizont.
-- Basebau: Stein, Erz, Baupläne, Bauschritte; Versorgungsgebäude und Lagergrenzen gestrichen.
-- Arbeit im GitHub-Repository; kein separates Claude-Projekt. Repository angelegt.
-- `LEHRPLAN.md` v0.1: Kompetenzgraph, Niveaus G/M/E pro Kompetenz, Status bis „gefestigt“, 23 Kompetenzen Mathe Kl. 5–6. FSRS-Karte = Aufgabenvorlage, jede Wiederholung erzeugt neue Zahlen (L-4).
-- `INHALTSFORMAT.md` v0.1: nur YAML, Texte als Sprachobjekte, Generatoren als App-Code mit Pflicht-Tests, Fehlerbilder für gezielte Rückmeldung, Review an Inhalts-Hash gebunden, Pakete je Fach × Bereich (I-10 korrigiert ARCHITEKTUR §6).
-- Entscheidungs-Review abgeschlossen: alle Entscheidungen bestätigt. Svelte 5 (nur Runes-Syntax), Lizenz AGPL-3.0 / CC BY-SA 4.0, Inhalte aus Generatoren + KI-Entwürfen mit Prüfpflicht + OER.
-- Implementierung überwiegend mit Claude Code (T-13); Arbeitsregeln in `CLAUDE.md`.
-- `DATENMODELL.md` v0.1: alles als Ereignisse (auch Einstellungen), Projektionen als neu aufbaubarer Zwischenspeicher, Ledger pro Sitzung, Lerntag ab 4:00 Uhr, Zusammenführen als Vereinigung, Verdichtung nach 12 Monaten, Sicherungen immer verschlüsselt mit Wort-Code. Block B (Konzeptdokumente) damit abgeschlossen. D-1 bis D-12 bestätigt.
+- `LICENSE` mit dem offiziellen AGPL-3.0-Text angelegt.
+- **0.7a** Projekt: Vite 8, Svelte 5 (Runes-Modus erzwungen), TypeScript 6 strict, pnpm 10; alle Versionen exakt gepinnt (ARCHITEKTUR §4.6). TypeScript 7 noch nicht, weil `svelte-check` und `typescript-eslint` es nicht unterstützen.
+- **0.7b** Leitplanken (ARCHITEKTUR §4.7): `eslint-plugin-boundaries` für die Ordnergrenzen, Browser-APIs und Svelte in `src/core` verboten, Svelte-Warnungen brechen Lint und Build ab, Prettier. `tools/ordnergrenzen.test.ts` beweist bei jedem Testlauf, dass falsche Importe gemeldet werden.
+- **0.7c** Kern: `src/core/rng/rng.ts` (sfc32 mit Seed, feste Referenzwerte im Test), `src/core/rng/ulid.ts` mit `ZufallsQuelle` (D-O1 → D-13 entschieden: eigene Umsetzung), `src/core/policy/lerntag.ts` (4:00 Uhr, UTC-Versatz wird hereingereicht).
+- **0.7d** Startseite „Bastion – im Aufbau“, Texte in `src/ui/texte/de.json`, Grund-CSS mit logischen Eigenschaften (per Test erzwungen), Hell/Dunkel nach Systemeinstellung.
+- **0.8** Offline-Hülle: Precaching, Manifest, Platzhalter-Icons aus `public/icon.svg`, Update nur nach Zustimmung, `navigator.storage.persist()`.
+- **0.9** Playwright-Test „online laden, offline neu laden, keine fremden Anfragen“, Größenbudget-Skript (aktuell ca. 21 KB von 250 KB), CI mit Deployment auf GitHub Pages.
+- Lokal geprüft: `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm budget`, `pnpm test:e2e` grün. Ein Lauf der CI auf GitHub steht noch aus.
+- Zwei TypeScript-Konfigurationen: `tsconfig.json` (App, ohne Node-Typen) und `tsconfig.node.json` (Werkzeuge, Tests).
 
 ## Am Ende der Sitzung aktualisieren
 

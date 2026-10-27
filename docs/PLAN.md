@@ -10,8 +10,8 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. Dieses Dokument enthält nur **Stan
 | | |
 |---|---|
 | Aktuelle Phase | **0 – Fundament** |
-| Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt |
-| Nächster Schritt | Block C: Aufgaben 0.7–0.9 mit Claude Code |
+| Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9 |
+| Nächster Schritt | CI auf GitHub prüfen, GitHub Pages einrichten, dann 0.10 Referenzgeräte |
 | Blocker | keine |
 
 ## 2. Phasenübersicht
@@ -71,16 +71,17 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
 
 ### Block C – Technisches Gerüst
 
-- [ ] **0.7 Projekt aufsetzen**
+- [x] **0.7 Projekt aufsetzen** (0.7a–d, ARCHITEKTUR §4.6–4.8)
   - Vite + Svelte 5 + TypeScript (strict), pnpm, Versionen gepinnt
   - Ordnerstruktur nach ARCHITEKTUR §3/§13 (`src/core/…`, `src/storage/`, `src/ui/`, `tools/`)
   - Lint-Regel für Ordnergrenzen (`core` ohne UI-Importe, `bastion` nur auf `ledger`)
   - RTL-fähiges Grund-CSS (Logical Properties), Oberflächentexte in einer Textdatei
-- [ ] **0.8 Offline-Hülle**
+  - Kern-Grundlagen: `rng` mit Seed, ULID (D-13), Lerntag ab 4:00 Uhr
+- [x] **0.8 Offline-Hülle** (ARCHITEKTUR §4.9)
   - vite-plugin-pwa, Manifest, Service Worker mit Precaching
   - Update-Strategie: Hinweis an Nutzer, nie Aktualisierung mitten in einer Sitzung
   - `navigator.storage.persist()` anfragen
-- [ ] **0.9 Tests und CI (GitHub Actions)**
+- [x] **0.9 Tests und CI (GitHub Actions)** (ARCHITEKTUR §4.10; offen: erster grüner Lauf auf GitHub, Pages-Quelle einstellen)
   - Vitest (Beispieltest im Kern), Playwright-Test „erster Start, dann offline neu laden“
   - CI-Schritte: Lint → Tests → Build → Größenbudget (ARCHITEKTUR §9)
   - Automatisches Deployment auf GitHub Pages für Testversionen
@@ -118,3 +119,4 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Grobe Bausteine:
 | 27.10.2026 | `INHALTSFORMAT.md` v0.1: YAML-Format, Generator-Schnittstelle, Fehlerbilder, Review per Hash |
 | 27.10.2026 | Entscheidungs-Review abgeschlossen; Lizenz festgelegt; `CLAUDE.md` angelegt (T-13) |
 | 27.10.2026 | `DATENMODELL.md` v0.1: Ereignisse, Projektionen, Export/Import, Zusammenführen, Verdichtung, Datenschutzprüfung; Block B abgeschlossen |
+| 27.10.2026 | `LICENSE` (AGPL-3.0); Block C 0.7–0.9: Gerüst, Leitplanken, Kern-Grundlagen, Offline-Hülle, Tests und CI |
