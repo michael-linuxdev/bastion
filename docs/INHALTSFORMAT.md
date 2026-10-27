@@ -200,6 +200,8 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 
 *Warum:* Viele Jugendliche mit DaZ kennen den Dezimalpunkt. Sie dafür als falsch zu werten, misst Konvention statt Mathematik. Tausenderpunkte würden dagegen Mehrdeutigkeit erzeugen („3.500“).
 
+*Umsetzung:* `src/core/learning/auswertung.ts` liest Zahlen, Brüche (auch gemischt, „1 3/4“), Primfaktoren und Uhrzeiten und wertet Antworten aus. Ohne `antwort.form` gilt für Brüche `beliebig`. Erkannt wird zuerst die exakt gleiche Fehler-Antwort, dann eine wertgleiche (6/10 bei Fehlerbild 3/5). Wertgleich, aber in falscher Form, ergibt einen eigenen Hinweis (`nicht-gekuerzt`, `andere-schreibweise`). Ein Probelauf mit allen Vorlagen (`tools/inhalte/auswertung.test.ts`) stellt sicher, dass jede echte Lösung als richtig und jede Fehlerbild-Antwort als genau dieses Fehlerbild erkannt wird.
+
 ## 6. Generator-Schnittstelle
 
 ```ts
