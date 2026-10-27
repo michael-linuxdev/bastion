@@ -195,7 +195,7 @@ Bastion wird von **einer Person** entwickelt. Das ist keine Randbedingung, sonde
 **Entscheidung K-7: Mathematik zuerst.**
 *Warum:* Mathematik ist das Fach, in dem parametrisierte Generatoren am meisten Inhalt pro Arbeitsstunde liefern. Ein guter Generator für Bruchrechnung ersetzt hunderte handgeschriebene Aufgaben – auf drei Niveaus. Für eine Einzelperson ist das der einzige skalierbare Einstieg.
 
-**Entscheidung K-8: Oberstufe und berufliche Bildung wandern in den Horizont.** Sie bleiben Teil der Vision und der Architektur (Kompetenzgraph, Lernfelder sind vorgesehen), haben aber keinen Termin in der Roadmap.
+**Entscheidung K-8: Oberstufe und berufliche Bildung wandern in den Horizont.** *(Für Mathematik aufgehoben am 27.10.2026: Die Oberstufe gehört von Anfang an zur Zielgruppe, K-11. Für berufliche Bildung gilt K-8 weiter.)* Sie bleiben Teil der Vision und der Architektur (Kompetenzgraph, Lernfelder sind vorgesehen), haben aber keinen Termin in der Roadmap.
 *Warum:* Beides ist inhaltlich so umfangreich, dass es allein nicht seriös zu leisten ist. Ehrlich „später“ ist besser als heimlich „halb“. Wiederaufnahme, sobald es Mitwirkende gibt oder die Sek-I-Basis steht.
 
 **Entscheidung K-9: Inhalte dürfen KI-gestützt entstehen – zur Bauzeit, nie zur Laufzeit, und nie ungeprüft.**
@@ -244,7 +244,7 @@ Detailplanung in `PLAN.md`.
 | **Überlastung des Entwicklers** | Hoch; Ein-Personen-Projekte scheitern selten an Technik, oft an Erschöpfung | Kleine Phasen, kein Termindruck, jede Phase für sich nutzbar |
 | **Fachliche Fehler in KI-entworfenen Inhalten** | Mittel bis hoch | Prüfpflicht im Build; Fehlermeldefunktion in der App (lokal, Export auf Wunsch) |
 | **Korrumpierungseffekt** – äußere Belohnung verdrängt innere Motivation | Real | Basebau abschaltbar; Belohnung an Kompetenz; Phase 2 prüft Lernqualität mit und ohne Basebau |
-| **Altersspanne 10–19** | Hoch | Durch K-8 vorerst entschärft (Fokus Kl. 5–10); Epochen und Altersoptik bleiben Konzept |
+| **Altersspanne 10–19** | Hoch – seit K-11 (Kl. 5–13 von Anfang an) nicht mehr entschärft | Ton und Optik von Anfang an altersneutral, nicht kindlich; Elternstufe „selbstverwaltet“; Altersoptik der Epochen bleibt Konzept |
 | **Grafik ohne Grafiker** | Mittel | K-10; freie Grafikpakete oder bewusst schlichter Stil (O-11) |
 | **Basebau ohne Timer wird langweilig** | Mittel | Tiefe durch Planung, Spezialisierung, Belagerungen |
 | **Bus-Faktor 1** | Hoch für Nutzer mit Langzeit-Bastionen | Offene Formate, offener Code (O-8), Dokumentation, Export jederzeit möglich |
@@ -278,7 +278,7 @@ Detailplanung in `PLAN.md`.
 | K-5 | Phase 1 ohne Basebau | 27.10.2026 | Entschieden |
 | K-6 | Tiefe vor Breite | 27.10.2026 | Entschieden |
 | K-7 | Mathematik als erstes Fach | 27.10.2026 | Entschieden |
-| K-8 | Oberstufe und berufliche Bildung in den Horizont | 27.10.2026 | Entschieden |
+| K-8 | Oberstufe und berufliche Bildung in den Horizont (für Mathe-Oberstufe aufgehoben durch K-11) | 27.10.2026 | Teilweise aufgehoben |
 | K-9 | KI-gestützte Inhalte nur zur Bauzeit, mit menschlicher Prüfpflicht | 27.10.2026 | Entschieden |
 | K-10 | Basebau-Mechanik vor Grafik | 27.10.2026 | Entschieden |
 | R1–R7 | Abgeleitete Design-Regeln (siehe VISION.md) | 27.10.2026 | Entschieden |
@@ -293,7 +293,7 @@ Detailplanung in `PLAN.md`.
 | L-1–L-8 | Kompetenzmodell-Entscheidungen (siehe LEHRPLAN.md) | 27.10.2026 | Entschieden |
 | I-1–I-10 | Inhaltsformat-Entscheidungen (siehe INHALTSFORMAT.md) | 27.10.2026 | Entschieden |
 | D-1–D-12 | Datenmodell-Entscheidungen (siehe DATENMODELL.md) | 27.10.2026 | Entschieden |
-| K-11 | Scope bis Monat 12: Mathe, Kl. 5–6, Niveaus G und M (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
+| K-11 | Scope bis Monat 12: Mathe, Kl. 5–13 von Anfang an, Niveaus G und M, Inhalte in Wellen (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |

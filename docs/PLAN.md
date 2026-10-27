@@ -21,14 +21,14 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 | Phase | Name | Status | Bis Monat 12? |
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
-| 1 | **Lernkern** Mathe Kl. 5–6, Niveaus G + M (Monate 1–5) | ⏳ | ja – Schwerpunkt |
+| 1 | **Lernkern** Mathe (Zielgruppe Kl. 5–13), Niveaus G + M, Inhalte in Wellen ab Brüchen (Monate 1–5) | ⏳ | ja – Schwerpunkt |
 | 2a | **Basebau-Minimum** (Versuchsaufbau, K-12) | ⏳ | ja |
 | 2b | Bastion-Mechanik voll (Simulator, alle Gebäude Epoche 1) | ⏳ | nur nach Schwelle „Lernkern trägt“ |
 | 3 | Bastion sichtbar (Grafik, QR) | ⏳ | nur nach Schwelle, frühestens nach 2b |
-| 4 | Mathe Sek I + Belagerungen | ⏳ | nein |
+| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte ja, als weitere Wellen; Belagerungen nein |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
 | 6 | Zweites Fach + Portfolio | ⏳ | nein |
-| – | Horizont (Oberstufe, berufliche Bildung …) | ohne Termin | nein |
+| – | Horizont (berufliche Bildung, weitere Fächer …) | ohne Termin | nein |
 
 Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein GitHub-Milestone, jede Aufgabe ein Issue (T-12).
 
@@ -37,7 +37,7 @@ Phasen haben Prüfkriterien, keine Termine (KONZEPT §12.2). Jede Phase ist ein 
 Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Liste ändern – mit Begründung im Änderungsprotokoll.
 
 **Inhalte**
-- Kein zweites Fach. Keine Klassenstufen außer 5 und 6.
+- Kein zweites Fach. (Klassenstufen: 5–13 sind Zielgruppe; Inhalte wachsen in Wellen, `STRATEGIE.md` §2.)
 - Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine.
 - Keine Geometrie, keine Daten und Zufall, keine Zeichen- oder Diagramm-Interaktionen.
 - Keine Formeleingabe (MathLive o. Ä.).
@@ -51,11 +51,11 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 **Sprache und Zielgruppen**
 - Keine Hilfesprache, kein DaZ-Pfad, keine weiteren Oberflächensprachen. *Spannung zu Prinzip 7, bewusst in Kauf genommen (KONZEPT §13).* Abfederung: einfache Sprache, Fachbegriffe mit Erklärung, RTL-fähiges Layout bleibt.
 - Kein Operatoren-Training.
-- Keine Oberstufe, keine berufliche Bildung.
+- Keine berufliche Bildung (Lernfelder).
 
 **Funktionen und Plattform**
 - Kein QR-Transfer zwischen Geräten (Datei-Export/Import genügt).
-- Keine Elternstufen „vereinbart“ und „selbstverwaltet“; nur „begleitet“.
+- Keine Elternstufe „vereinbart“. Es gibt „begleitet“ und – weil die Oberstufe zur Zielgruppe gehört – „selbstverwaltet“ ohne Elternbereich (K-4).
 - Kein Kompetenzportfolio zum Vorzeigen.
 - Kein Lehrkräfte-Modus, keine Klassen, keine Aufgabenpakete für Lehrkräfte.
 - Keine App-Store-Versionen.
@@ -128,14 +128,14 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 ### Block D – Menschen
 
 - [ ] **0.11 Testjugendliche gewinnen** (Vorgehen und Material: `TESTS.md`)
-  - Zuerst 5–8, bis Monat 3 insgesamt 8–12 Jugendliche Kl. 5–6, möglichst aus unterschiedlichen Schulformen
+  - Zuerst 5–8, bis Monat 3 insgesamt 8–12 Jugendliche aus Kl. 5–13 mit Bruchlücken (Welle 1), möglichst aus unterschiedlichen Schulformen und Altersstufen
   - Davon mindestens 3–4, die „normalerweise keine Lern-Apps mögen“
   - Einverständnis der Eltern schriftlich (Vorlage `TESTS.md` §3)
   - Keine Daten der Testpersonen im Repository
 
 ### Block E – Fokus (die nächsten 14 Tage, `STRATEGIE.md` §8)
 
-- [x] **0.12 Scope-Entscheidung festhalten** – K-11: Mathe, Kl. 5–6, Niveaus G und M (`STRATEGIE.md` §2, `VISION.md` §11)
+- [x] **0.12 Scope-Entscheidung festhalten** – K-11: Mathe, Kl. 5–13, Niveaus G und M (`STRATEGIE.md` §2, `VISION.md` §11)
 - [x] **0.13 Nicht-Ziele bis Monat 12** – §2.1
 - [ ] **0.14 Bestehende Angebote selbst durchspielen** – Entwurf `WETTBEWERB.md` liegt vor. Offen: ANTON, bettermarks (falls Landeslizenz zugänglich) und eine dritte App je 30 Minuten mit denselben drei Bruch-Aufgaben durchspielen, absichtlich typische Fehler machen, Rückmeldung protokollieren (Raster in `WETTBEWERB.md` §5)
 - [ ] **0.15 Erste 5–8 Testpersonen ansprechen** – Ansprache-Text und Elterninfo in `TESTS.md` §2–3
@@ -187,3 +187,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | `DATENMODELL.md` v0.1: Ereignisse, Projektionen, Export/Import, Zusammenführen, Verdichtung, Datenschutzprüfung; Block B abgeschlossen |
 | 27.10.2026 | `LICENSE` (AGPL-3.0); Block C 0.7–0.9: Gerüst, Leitplanken, Kern-Grundlagen, Offline-Hülle, Tests und CI |
 | 27.10.2026 | Strategie für 12 Monate (`STRATEGIE.md`): Scope K-11 (Mathe, Kl. 5–6, G+M), Lernkern vor Basebau K-12, Erfolgskriterien K-13; Nicht-Ziele §2.1; Block E; Phase 1 neu gegliedert; Testgruppe 8–12 |
+| 27.10.2026 | K-11 geändert: Zielgruppe Mathe Kl. 5–13 von Anfang an (statt 5–6); Inhalte weiter in Wellen ab Brüchen; Elternstufe „selbstverwaltet“ in den Scope; K-8 für Mathe-Oberstufe aufgehoben |

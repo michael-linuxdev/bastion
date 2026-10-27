@@ -1,7 +1,7 @@
 # Bastion – Vergleich mit bestehenden Angeboten
 
 Status: Entwurf v0.1 · Stand: 27.10.2026 · Aufgabe 0.14 · Bezug: `STRATEGIE.md` §2
-Zielgruppe des Vergleichs: Mathe Klasse 5–6, Niveaus G und M, Schwerpunkt Brüche (K-11).
+Zielgruppe des Vergleichs: Mathe Klasse 5–13, Niveaus G und M, zum Start Schwerpunkt Brüche (K-11).
 
 > **Quellenhinweis:** Die Angaben zu fremden Angeboten stammen aus einer kurzen Web-Recherche (Quellen in §6) und aus allgemeinem Wissen. Preise, Funktionen und Datenschutzpraxis ändern sich. Alles mit *(prüfen)* muss in 0.14 durch eigenes Ausprobieren bestätigt werden, bevor es nach außen kommuniziert wird.
 

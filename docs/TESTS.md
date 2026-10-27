@@ -21,7 +21,7 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 ## 2. Testgruppe zusammenstellen
 
-**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus Klasse 5 oder 6.
+**Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus Klasse 5–13. Solange es nur Inhalte der Welle 1 gibt: Jugendliche, bei denen Brüche wackeln – das sind typischerweise Klassen 6–9, aber ausdrücklich auch Ältere.
 
 **Mischung (Ziel):**
 
@@ -30,13 +30,14 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 | Mag „normalerweise keine Lern-Apps“ | **mindestens 3–4** |
 | Unsicher oder durchschnittlich in Mathe (Zielgruppe K-11) | mindestens die Hälfte |
 | Schulformen | mindestens drei verschiedene (z. B. Gesamt-, Real-/Ober-, Mittel-/Hauptschule, Gymnasium; in Berlin/Brandenburg Grundschule Kl. 5–6) |
+| Altersstufen | mindestens eine Person aus Kl. 5–7, eine aus Kl. 8–10 und, sobald passende Inhalte da sind, eine aus der Oberstufe |
 | Eigene Kinder und Kinder enger Freunde | höchstens ein Drittel – sie sind zu höflich |
 
 **Wo suchen:** Kolleginnen und Kollegen, Nachbarschaft, Sportverein, Hausaufgabenhilfe, Jugendtreff, Elternvertretung einer Schule. Ausdrücklich auch dort fragen, wo Kinder „keinen Bock auf Mathe“ haben.
 
 **Ansprache an Eltern (Vorlage, kurz):**
 
-> Hallo …, ich entwickle in meiner Freizeit eine Mathe-App für Klasse 5 und 6: ohne Werbung, ohne Konto, die Daten bleiben auf dem Gerät. Ich suche Kinder, die sie ein paar Wochen ausprobieren und mir ehrlich sagen, was sie davon halten – **gerade auch Kinder, die Lern-Apps eigentlich nicht mögen.** Aufwand: ein Treffen von etwa 30 Minuten zum Start, danach nutzen, wann und wie oft sie wollen, und alle paar Wochen ein kurzes Gespräch. Hättet ihr Lust? Ich schicke euch gern eine Seite mit allen Infos.
+> Hallo …, ich entwickle in meiner Freizeit eine Mathe-App für Jugendliche ab Klasse 5: ohne Werbung, ohne Konto, die Daten bleiben auf dem Gerät. Ich suche Kinder, die sie ein paar Wochen ausprobieren und mir ehrlich sagen, was sie davon halten – **gerade auch Kinder, die Lern-Apps eigentlich nicht mögen.** Aufwand: ein Treffen von etwa 30 Minuten zum Start, danach nutzen, wann und wie oft sie wollen, und alle paar Wochen ein kurzes Gespräch. Hättet ihr Lust? Ich schicke euch gern eine Seite mit allen Infos.
 
 **Ansprache an Jugendliche (mündlich, sinngemäß):**
 
@@ -50,7 +51,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 
 **Info- und Einwilligungsblatt für Eltern (Gliederung):**
 
-1. Worum es geht: Test einer Mathe-App für Kl. 5–6, Dauer etwa bis …, freiwillig.
+1. Worum es geht: Test einer Mathe-App für Jugendliche ab Kl. 5, Dauer etwa bis …, freiwillig.
 2. Was passiert: Starttreffen (ca. 30 Min., Eltern dürfen dabei sein), App auf eigenem Gerät, Gespräche alle 3–4 Wochen (ca. 15 Min.), ggf. ein kurzer Mathe-Test auf Papier (§5) – keine Note, keine Weitergabe an die Schule.
 3. Welche Daten entstehen:
    - In der App: alles bleibt auf dem Gerät. Die App sendet nichts.
