@@ -1,0 +1,24 @@
+# „Vergleiche: 3/5 ☐ 3/4“. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.VERGLEICHEN.ZEICHEN
+kompetenz: M.ZO.BR.VERGLEICHEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.brueche-vergleichen@1
+parameter:
+  G: { faelle: [gleichnamig, gleicher-zaehler], nenner_max: 8 }
+  M: { faelle: [gleicher-zaehler, ungleichnamig], nenner_max: 12 }
+text:
+  aufgabe:
+    de: '**Vergleiche** und wähle das richtige Zeichen: {a} ☐ {b}'
+hilfen:
+  - de: 'Gleiche Nenner: Vergleiche die Zähler.'
+  - de: 'Gleiche Zähler: Je größer der Nenner, desto kleiner die Teile.'
+  - de: 'Sonst: Bringe beide Brüche auf denselben Nenner.'
+fehlerbilder:
+  groesserer-nenner-groesser:
+    de: Ein größerer Nenner bedeutet kleinere Teile. 1/8 einer Pizza ist weniger als 1/4.
+  nur-zaehler-verglichen:
+    de: Du hast nur die Zähler verglichen. Bei verschiedenen Nennern bringst du die Brüche zuerst auf denselben Nenner.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+# „Kürze 18/24 vollständig.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ERWEITERN.KUERZEN
+kompetenz: M.ZO.BR.ERWEITERN
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.kuerzen@1
+parameter:
+  G: { nenner_max: 6, faktor_max: 5 }
+  M: { nenner_max: 12, faktor_max: 12 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Kürze** den Bruch {bruch} vollständig.'
+hilfen:
+  - de: Suche eine Zahl, durch die Zähler **und** Nenner teilbar sind.
+  - de: Teile so lange weiter, bis es keinen gemeinsamen Teiler mehr gibt.
+fehlerbilder:
+  nicht-vollstaendig:
+    de: Du hast richtig gekürzt, aber noch nicht vollständig. Zähler und Nenner haben noch einen gemeinsamen Teiler.
+  nur-nenner-gekuerzt:
+    de: Du hast nur den Nenner geteilt. Beim Kürzen werden Zähler und Nenner durch dieselbe Zahl geteilt.
+  subtrahiert:
+    de: Du hast von Zähler und Nenner dieselbe Zahl abgezogen. Kürzen heißt **teilen** – nicht subtrahieren.
+herkunft: ki-entwurf
+version: 1
