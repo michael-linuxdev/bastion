@@ -344,8 +344,12 @@ Inhalt (verschlüsselt):  gzip( JSON { format, profile[], ereignisse[] } )
 - Komprimierung über die eingebaute `CompressionStream`-Schnittstelle des Browsers.
 - Zwei Varianten: **Profil-Sicherung** (ein Profil) und **Geräte-Sicherung** (alle Profile, nur im Elternbereich).
 
-**Entscheidung D-9: Sicherungen sind immer verschlüsselt. Den Sicherungscode schlägt die App vor** – vier zufällige, leicht schreibbare deutsche Wörter. Ein eigener Code ist möglich, muss aber mindestens gleich stark sein.
+**Entscheidung D-9: Sicherungen sind immer verschlüsselt. Den Sicherungscode schlägt die App vor** – sechs zufällige, leicht schreibbare deutsche Wörter (geändert am 28.10.2026 vom Projektverantwortlichen, vorher vier). Ein eigener Code ist möglich, muss aber mindestens gleich stark sein.
 *Warum:* Eine unverschlüsselte Datei mit der Lerngeschichte eines Kindes kann in Messenger-Chats, auf Schul-PCs oder in Cloud-Ordnern landen. Ein vorgeschlagener Wort-Code ist für 11-Jährige merkbar und abschreibbar, aber nicht zu erraten. Ehrlicher Hinweis in der App: *Ohne Code lässt sich die Sicherung nicht öffnen – auch nicht von uns.*
+
+*Warum sechs statt vier Wörter:* Die Wortliste hat 256 Wörter (8 Bit je Wort). Vier Wörter (32 Bit) könnte ein Angreifer mit einer Grafikkarte in etwa einem Tag durchprobieren – eine Sicherungsdatei kann ja in fremde Hände geraten. Sechs Wörter (48 Bit) machen das aussichtslos, und die Liste bleibt klein und kindgerecht. Für den Wiederherstellungscode der PIN (D-12) reichen vier Wörter: Er schützt keine Datei, sondern wird nur in der App geprüft.
+
+*Umsetzung (1c):* Kopf, Prüfung des Inhalts, Zusammenführen und Erinnerung in `src/core/sicherung/sicherung.ts`. Kopf: „BASTION“ (7 Byte), Formatversion (1 Byte), Erstellt-Tag (10 Byte), Salz (16 Byte), IV (12 Byte). Der Kopf ist als zusätzliche Daten in die AES-GCM-Prüfung einbezogen; PBKDF2-SHA256 mit 600 000 Durchläufen. Eine Sicherung aus einer neueren App (Formatversion, Ereignisart oder Schemaversion unbekannt) wird nicht eingespielt, sondern mit dem Hinweis abgelehnt, die App zu aktualisieren.
 
 Alle Ereignisse reisen in der Profil-Sicherung mit, auch die Elterneinstellungen. Eine Sicherung auf ein neues Gerät zu spielen, hebt Elterneinstellungen also nicht auf. **Die PIN gilt aber nur auf dem Gerät, auf dem sie festgelegt wurde** (D-15). (Ein neues, leeres Profil anzulegen, lässt sich lokal nicht verhindern – das ist die ehrliche Grenze aus ARCHITEKTUR §7.)
 
@@ -444,7 +448,7 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | ID | Frage | Tendenz |
 |---|---|---|
 | D-O2 | FSRS-Parameter persönlich anpassen (Optimierer) | Nicht vor Phase 4; braucht viele Wiederholungen pro Person |
-| D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Eigene Liste mit ~2 000 kindgerechten, eindeutigen deutschen Wörtern |
+| D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Vorerst 256 Wörter (`src/core/rng/wortcode.ts`), dafür sechs Wörter für Sicherungen (D-9). Eine größere Liste nur, wenn sechs Wörter in den Testrunden zu lang wirken |
 | D-O4 | Wie oft an Sicherungen erinnern? | Monatlich, im Elternbereich einstellbar (T-1) |
 
 ## 12. Entscheidungen dieses Dokuments
@@ -459,7 +463,7 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-6 | Ereignis und Projektion in einer Transaktion; Neuaufbau jederzeit möglich, per Test abgesichert | Entschieden |
 | D-7 | Getrennte Tabellen je Ereignisart | Entschieden |
 | D-8 | Erst sichern, dann migrieren | Entschieden |
-| D-9 | Sicherungen immer verschlüsselt, Wort-Code von der App vorgeschlagen | Entschieden |
+| D-9 | Sicherungen immer verschlüsselt, Wort-Code aus sechs Wörtern von der App vorgeschlagen | Entschieden (sechs Wörter: 28.10.2026) |
 | D-10 | Zusammenführen = Vereinigung der Ereignismengen | Entschieden |
 | D-11 | Rohe Aufgaben-Ereignisse nach 12 Monaten verdichten | Entschieden |
 | D-12 | Wiederherstellungscode für die Eltern-PIN | Entschieden |
