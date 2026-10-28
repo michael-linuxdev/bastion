@@ -274,6 +274,20 @@ Jahr 1 bei P1: rund 3 100 Fleiß, 880 Behalten, 22 Können, 210 Schritte – nah
 
 **Entscheidungen dazu (28.10.2026):** B-19 bis B-22. Geprüft im Simulator vor der Entscheidung: Billigere Kosten für Kern Stufe 3 verschieben weder das Ende der Epoche noch die Lücken – Taktgeber sind die Baupläne (B-5). „Zierde ohne Sparen“ halbiert die Lücken (30 Tage), schiebt Epoche 1 bei P1 aber auf 12,7 Monate. Eine Schwelle von 85 % für „gefestigt“ ändert bei P6 nichts; „gekonnt“ schon bei 4 von 6 macht P6 sogar schneller als P1 (8,4 Monate) und wurde deshalb verworfen.
 
+**Nach den Entscheidungen (2.11a–c):** Einfassung 40 Stück, Einlagern, Ziel vormerken. Der Simulator baut Einfassung und Zierde jetzt aus Überschuss im Wechsel (beides braucht kein Können) und lagert Zierde ein, wenn für ein fehlendes Gebäude kein zusammenhängender Platz frei ist.
+
+| Profil | Epoche 1 | Jahr 1: Gebäude (davon Zierde) | größte Lücke Jahr 1 | Belegung nach 12 Mon. | Erwartung §8 (mit B-19) |
+|---|---|---|---|---|---|
+| P1 regelmäßig | 9,8 Mon. | 67 (34) | 58 Tage | 80 % | 9–12 Mon. ✓ · höchstens ~8 Wochen ohne Gebäude ✓ |
+| P2 eifrig | 8,3 Mon. | 97 (52), 11-mal eingelagert | 52 Tage | 97 % | höchstens doppelt so schnell ✓ |
+| P3 Wochenende | 10,5 Mon. | 77 (40) | 35 Tage | 91 % | ≤ 18 Mon., jede Woche Fortschritt ✓ |
+| P4 Farmer | nie | 74 (44) | 3 Tage | 92 % | nicht schneller als P1 ✓ |
+| P5 Pause | 11,1 Mon. | 58 (29) | 58 Tage | 72 % | kein Verlust ✓ |
+| P6 schwach | 12,8 Mon. | 66 (34) | 60 Tage | 80 % | baut fast so viel wie P1 (66 zu 67) ✓ |
+| P7 Prüfungsphase | 9,7 Mon. | 77 (40) | 65 Tage | 91 % | kein großer Vorteil ✓ |
+
+Alle Erwartungen aus §8 sind damit erfüllt und werden in `tools/sim/simulator.test.ts` bei jedem Testlauf geprüft. *Ohne* Einlagern erreichte P2 die Epoche nicht: Der Platz war zerstückelt voll – B-21 ist also nötig, nicht nur bequem.
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:
@@ -368,6 +382,8 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | je gefestigtem Thema | Buch | Blume | Stern | Buch | Perle |
 | Ganzes | Deine Bastion | Dein Garten | Deine Raumstation | Dein Dorf | Deine Unterwasserstadt |
 | Epoche 1 | Außenposten | Wildgarten | Forschungsstation | Weiler | Tauchstation |
+
+*Umsetzung 2.11c (B-20):* `src/core/bastion/ziel.ts`. Jedes Angebot, das gerade nicht geht, hat „Vormerken“. Oben in der Bastion steht dann „Dein Ziel: …“ mit „Dafür fehlt noch: 60 Stein, 30 Erz“ und, falls etwas anderes im Weg steht, dem Grund (z. B. „Braucht zuerst: Bergfried Stufe 2“); sind alle Ressourcen da: „Alles da – du kannst es jetzt bauen.“ Gespeichert als Einstellung `basebau.ziel`; ist das Vorhaben begonnen, erlischt die Vormerkung von selbst.
 
 Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je Thema und Skin austauschbar. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.
 

@@ -6,7 +6,14 @@
  * Ledger-Regeln und Bauen. Ausgedacht sind nur die Jugendlichen: wann sie
  * lernen, wie viele Aufgaben, wie oft richtig, was sie bauen. Deterministisch.
  */
-import { bastionAus, beginnen, beginnHindernisse, freierPlatz } from '../../src/core/bastion/bauen';
+import {
+  bastionAus,
+  beginnen,
+  beginnHindernisse,
+  einlagerbar,
+  einlagern,
+  freierPlatz,
+} from '../../src/core/bastion/bauen';
 import type { BauEreignis, Bastion } from '../../src/core/bastion/bauen';
 import { epochenstand } from '../../src/core/bastion/epoche';
 import { BAUPLATZ, KATALOG, kosten, type GebaeudeTyp } from '../../src/core/bastion/katalog';
@@ -122,9 +129,15 @@ const ZIELE: readonly { typ: GebaeudeTyp; stufe: number }[] = [
   { typ: 'turm', stufe: 2 },
   { typ: 'turm', stufe: 2 },
   { typ: 'kern', stufe: 3 },
-  ...Array.from({ length: 36 }, () => ({ typ: 'einfassung' as const, stufe: 1 })),
 ];
-const ZIERDE: readonly GebaeudeTyp[] = ['flaeche', 'denkmal', 'zeichen'];
+/** Aus Überschuss, ohne Können: Einfassung (bis 40) und Zierde im Wechsel */
+const UEBERSCHUSS: readonly GebaeudeTyp[] = [
+  'einfassung',
+  'flaeche',
+  'einfassung',
+  'denkmal',
+  'zeichen',
+];
 
 export interface Ergebnis {
   readonly profil: Lernprofil;
@@ -142,6 +155,8 @@ export interface Ergebnis {
   /** Wochen mit Lernen, aber ohne sichtbaren Fortschritt (kein Bauschritt, nichts fertig) */
   readonly wochenOhneFortschritt: number;
   readonly einfassung: number;
+  /** wie oft Zierde eingelagert wurde, um Platz zu schaffen (B-21) */
+  readonly eingelagert: number;
   /** alle Ereignisse – für die Gegenprüfung mit dem Neuaufbau */
   readonly sitzungen: readonly SitzungEreignis[];
   readonly aufgabenListe: readonly AufgabeEreignis[];
@@ -170,6 +185,7 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
   let epocheTag: number | undefined;
   let belegung12 = 0;
   let zierde = 0;
+  let eingelagerteStuecke = 0;
   const fertigSchon = new Set<string>();
   const fertig: { tag: number; typ: GebaeudeTyp }[] = [];
   const wochen = new Map<number, { gelernt: boolean; fortschritt: boolean }>();
@@ -305,13 +321,29 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
               ? b.bauwerke.find((x) => x.typ === ziel.typ && x.stufe === ziel.stufe - 1)
               : undefined;
           const pos = freierPlatz(b, ziel.typ);
+          // Kein zusammenhängender Platz frei: Zierde einlagern (B-21) und es noch einmal versuchen
+          if (!ausbau && !pos) {
+            const zierStueck = b.bauwerke.find((x) => einlagerbar(x.typ) && x.typ !== 'ursprung');
+            if (zierStueck) {
+              const eingelagert = einlagern(b, zierStueck.id, angaben);
+              if (eingelagert.ok) {
+                bau.push(eingelagert.bau);
+                eingelagerteStuecke++;
+                continue;
+              }
+            }
+          }
           const ort = ausbau ? { ausbau: ausbau.id } : pos ? { pos } : undefined;
           if (ort) e = beginnen(b, k, ziel.typ, ort, angaben);
         }
         if (!e?.ok) {
           // Zierde nur aus Überschuss: genug Fleiß für das nächste Ziel bleibt übrig
           const reserve = ziel ? (kosten(ziel.typ, ziel.stufe)?.fleiss ?? 0) : 0;
-          const typ = ZIERDE[zierde % ZIERDE.length] ?? 'zeichen';
+          const naechster = UEBERSCHUSS[zierde % UEBERSCHUSS.length] ?? 'zeichen';
+          const einfassungVoll =
+            b.bauwerke.filter((x) => x.typ === 'einfassung').length >=
+            (KATALOG.einfassung.hoechstens ?? 0);
+          const typ = naechster === 'einfassung' && einfassungVoll ? 'zeichen' : naechster;
           const preis = kosten(typ, 1)?.fleiss ?? 0;
           const pos = freierPlatz(b, typ);
           // Ein vernünftiges Kind hält Platz frei für die Gebäude, die noch fehlen
@@ -360,6 +392,7 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
     belegung12,
     wochenOhneFortschritt: [...wochen.values()].filter((w) => w.gelernt && !w.fortschritt).length,
     einfassung: b.bauwerke.filter((x) => x.typ === 'einfassung').length,
+    eingelagert: eingelagerteStuecke,
     sitzungen,
     aufgabenListe: aufgaben,
     buchungen,
@@ -428,5 +461,6 @@ export function auswerten(e: Ergebnis) {
     belegung12: Math.round(e.belegung12 * 100),
     belegung: Math.round(e.belegung * 100),
     einfassung: e.einfassung,
+    eingelagert: e.eingelagert,
   };
 }

@@ -27,8 +27,7 @@ describe('Simulator (T-9)', () => {
     expect(auswerten(simuliere(profil('P3'), 90))).toEqual(auswerten(simuliere(profil('P3'), 90)));
   });
 
-  // Erwartungen aus BASEBAU §8, die mit den Startwerten erfüllt sind (Schutz vor Rückschritten).
-  // Noch offen und deshalb nicht geprüft: P1 „alle 2 Wochen ein Gebäude“, P6 „kaum langsamer“.
+  // Erwartungen aus BASEBAU §8 (mit B-19) – Schutz vor Rückschritten beim Balancing.
   it('BASEBAU §8: P1 in 9–12 Monaten, P2 höchstens doppelt so schnell, P3 ≤ 18 Monate, P4 nie', () => {
     const tag = (id: string) => simuliere(profil(id)).epocheTag;
     const p1 = tag('P1');
@@ -48,5 +47,12 @@ describe('Simulator (T-9)', () => {
     expect(p5 - p1).toBeLessThanOrEqual(21 + 21);
     expect(p1 - p7).toBeLessThanOrEqual(14);
     expect(auswerten(simuliere(profil('P3'))).wochenOhneFortschritt).toBe(0);
+  }, 60_000);
+
+  it('BASEBAU §8 (B-19): P1 höchstens etwa 8 Wochen ohne Gebäude, P6 baut fast so viel wie P1', () => {
+    const p1 = auswerten(simuliere(profil('P1')));
+    const p6 = auswerten(simuliere(profil('P6')));
+    expect(p1.lueckeJahr1).toBeLessThanOrEqual(60);
+    expect(p6.fertigJahr1).toBeGreaterThanOrEqual(0.85 * p1.fertigJahr1);
   }, 60_000);
 });

@@ -19,6 +19,7 @@ import {
 } from '../../core/bastion/bauen';
 import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
+import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
@@ -26,6 +27,7 @@ import {
   basebauAktiv,
   THEMA_SCHLUESSEL,
   themaAus,
+  ZIEL_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -325,6 +327,17 @@ export async function themaWahl(): Promise<Thema> {
 
 /** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
 export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
+
+/** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
+export async function zielVorgemerkt(): Promise<Ziel | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  return zielAus(await einstellung(db, inst.profil, ZIEL_SCHLUESSEL).catch(() => undefined));
+}
+
+/** Ziel vormerken oder (ohne Ziel) die Vormerkung aufheben. */
+export const zielSetzen = (z: Ziel | undefined) =>
+  setze(ZIEL_SCHLUESSEL, z ? zielText(z) : '', 'jugendlich');
 
 /** Basebau ein- oder ausschalten – Jugendliche und Eltern dürfen das (B-13). Das Ledger bucht weiter (B-10). */
 export const basebauSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>

@@ -475,5 +475,11 @@
   "bastion.einlagern": "Einlagern",
   "bastion.lager": "Im Lager",
   "bastion.aufstellen": "Aufstellen",
-  "bastion.lager-erklaerung": "Was im Lager ist, steht nicht auf dem Bauplatz und macht Platz frei. Aufstellen kostet nichts – es kommt auf das erste freie Feld."
+  "bastion.lager-erklaerung": "Was im Lager ist, steht nicht auf dem Bauplatz und macht Platz frei. Aufstellen kostet nichts – es kommt auf das erste freie Feld.",
+  "bastion.dein-ziel": "Dein Ziel:",
+  "bastion.fehlt": "Dafür fehlt noch:",
+  "bastion.alles-da": "Alles da – du kannst es jetzt bauen.",
+  "bastion.vormerken": "Vormerken",
+  "bastion.vorgemerkt": "Vorgemerkt",
+  "bastion.nicht-vormerken": "Nicht mehr vormerken"
 }

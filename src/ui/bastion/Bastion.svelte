@@ -22,6 +22,8 @@
   import {
     bauAusfuehren,
     themaSetzen,
+    zielSetzen,
+    zielVorgemerkt,
     bastionLage,
     type BastionLage,
     type BauAuftrag,
@@ -39,6 +41,7 @@
   import { THEMEN, type Thema } from '../../core/policy/einstellung';
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
+  import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
 
   let { kompetenzen }: { kompetenzen: readonly Kompetenz[] } = $props();
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
@@ -54,9 +57,27 @@
     void themaSetzen(th);
   }
 
-  void bastionLage().then((l) => {
+  /** Vorgemerktes Ziel (B-20) */
+  let ziel = $state<Ziel | undefined>(undefined);
+
+  void Promise.all([bastionLage(), zielVorgemerkt()]).then(([l, z]) => {
     lage = l;
+    ziel = z;
     geladen = true;
+  });
+
+  function merken(z: Ziel | undefined) {
+    ziel = z;
+    void zielSetzen(z);
+  }
+
+  const ist = (a: Angebot, z: Ziel | undefined) =>
+    z !== undefined && z.typ === a.typ && z.stufe === a.stufe && z.gebaeude === a.ausbau?.id;
+
+  const zielZustand = $derived(lage && ziel ? ziellage(lage.bastion, lage.konto, ziel) : undefined);
+  // Begonnen oder fertig: Die Vormerkung hat ihren Zweck erfüllt
+  $effect(() => {
+    if (zielZustand?.erreicht) merken(undefined);
   });
 
   async function ausfuehren(auftrag: BauAuftrag) {
@@ -200,6 +221,28 @@
       <p class="leise">{tt('bastion.ziel-erklaerung')}</p>
     {/if}
 
+    {#if ziel && zielZustand && !zielZustand.erreicht}
+      {@const z = ziel}
+      {@const fehlend = (['fleiss', 'behalten', 'koennen'] as const)
+        .filter((r) => zielZustand.fehlt[r] > 0)
+        .map((r) => menge(r, zielZustand.fehlt[r]))}
+      <section class="vorgemerkt" aria-labelledby="ziel-titel">
+        <h3 id="ziel-titel">
+          {tt('bastion.dein-ziel')}
+          {name(z.typ)}{#if z.gebaeude}, {tt('bastion.stufe')} {z.stufe}{/if}
+        </h3>
+        {#if fehlend.length > 0}
+          <p>{tt('bastion.fehlt')} {fehlend.join(', ')}</p>
+        {:else if zielZustand.hindernisse.length === 0}
+          <p>{tt('bastion.alles-da')}</p>
+        {/if}
+        {#each zielZustand.hindernisse as h (h)}
+          <p class="leise">{hindernisText(h, z.typ, z.stufe)}</p>
+        {/each}
+        <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
+      </section>
+    {/if}
+
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">
       <li>{menge('fleiss', l.konto.stand.fleiss)}</li>
@@ -255,15 +298,26 @@
             >
           {/if}
         </span>
-        <button
-          disabled={a.hindernisse.length > 0}
-          onclick={() =>
-            void ausfuehren({
-              art: 'beginnen',
-              typ: a.typ,
-              ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
-            })}>{a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.knopf-bauen')}</button
-        >
+        <span class="knoepfe">
+          {#if a.hindernisse.length > 0}
+            {#if ist(a, ziel)}
+              <small class="leise">{tt('bastion.vorgemerkt')}</small>
+            {:else}
+              <button onclick={() => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
+                >{tt('bastion.vormerken')}</button
+              >
+            {/if}
+          {/if}
+          <button
+            disabled={a.hindernisse.length > 0}
+            onclick={() =>
+              void ausfuehren({
+                art: 'beginnen',
+                typ: a.typ,
+                ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
+              })}>{a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.knopf-bauen')}</button
+          >
+        </span>
       </li>
     {/snippet}
 
@@ -473,6 +527,23 @@
   .meldung {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  .vorgemerkt {
+    border: 2px solid var(--farbe-akzent);
+    border-radius: var(--radius);
+    padding: var(--abstand-m);
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .vorgemerkt h3,
+  .vorgemerkt p {
+    margin: 0;
+  }
+
+  .vorgemerkt button {
+    justify-self: start;
   }
 
   .knoepfe {

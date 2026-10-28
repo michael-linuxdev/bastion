@@ -592,6 +592,20 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     'Spalte 12, Reihe 12',
   );
 
+  // Ziel vormerken (B-20): zeigt, was noch fehlt – auch nach dem Neuladen
+  await page
+    .getByRole('listitem')
+    .filter({ hasText: /^Bergfried\s+auf Stufe 2/ })
+    .getByRole('button', { name: 'Vormerken' })
+    .click();
+  const ziel = page.getByRole('region', { name: /Dein Ziel: Bergfried, Stufe 2/ });
+  await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(ziel).toBeVisible();
+  await ziel.getByRole('button', { name: 'Nicht mehr vormerken' }).click();
+  await expect(ziel).toHaveCount(0);
+
   // Ausgeschaltet: kein Bastion-Knopf auf der Startseite (R7)
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.getByRole('button', { name: 'Mein Stand' }).click();

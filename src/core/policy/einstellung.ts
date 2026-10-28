@@ -62,6 +62,9 @@ export const THEMA_SCHLUESSEL = 'basebau.thema';
 /** Unbekanntes oder nicht Gewähltes gilt als Bastion. */
 export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert) ?? 'bastion';
 
+/** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
+export const ZIEL_SCHLUESSEL = 'basebau.ziel';
+
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';
 
