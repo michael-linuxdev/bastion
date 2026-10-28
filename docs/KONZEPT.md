@@ -99,7 +99,7 @@ Bauvorhaben haben eine **Bauzeit in Lerneinheiten** statt in Stunden (technisch:
 | **Kern** | Bergfried | Bestimmt die Ausbaustufe der Bastion |
 | **Wissen** | Studierstube, später Bibliothek, Observatorium, Labor, Archiv, Werkstatt, Hafen (Sprachen) | Spiegel des Kompetenzprofils; schalten **keine** Lernfunktionen frei (B-2) |
 | **Verteidigung** | Mauern, Türme, Tore | Relevant für Belagerungen (5.4) |
-| **Bau** | Bauhütte | Mehrere Bauvorhaben gleichzeitig |
+| **Bau** | Zimmerei | Mehrere Bauvorhaben gleichzeitig |
 | **Zierde** | Banner, Gärten, Statuen | Reiner Ausdruck, Identität |
 
 Versorgungsgebäude und Lagergrenzen wurden gestrichen (B-1, siehe `BASEBAU.md`).

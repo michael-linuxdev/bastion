@@ -109,7 +109,7 @@ Was er ausdrücklich **nicht** tun darf:
 | **Kern** (Bergfried) | Bestimmt die maximale Stufe aller anderen Gebäude; Voraussetzung für Epochenwechsel |
 | **Wissen** (Studierstube → Bibliothek, Observatorium …) | Spiegel des Kompetenzprofils (4.3) |
 | **Verteidigung** (Palisade/Mauer, Turm, Tor) | Gestaltung; ab Phase 4 Bedeutung in Belagerungen |
-| **Bau** (Bauhütte) | Mehrere Bauvorhaben gleichzeitig |
+| **Bau** (Zimmerei) | Mehrere Bauvorhaben gleichzeitig |
 | **Zierde** (Banner, Garten, Feuerstelle, Statue …) | Ausdruck und Persönlichkeit; einfacher Steinverbrauch |
 
 **Entscheidung B-1: Keine Versorgungsgebäude.** Der Entwurf in KONZEPT §5.3 sah Steinbruch, Erzmine und Lager vor. Das wird gestrichen.
@@ -123,7 +123,7 @@ Was er ausdrücklich **nicht** tun darf:
 - Jedes Gebäude hat Stufen. Die Stufe eines Gebäudes kann die Stufe des Bergfrieds nicht übersteigen.
 - Jede Stufe kostet Stein, Erz, Baupläne und Bauschritte.
 - Bauen läuft in drei Schritten: **Planen** (Platz wählen, Kosten sehen) → **Beginnen** (Ressourcen werden abgebucht) → **Fertigstellen** (nach den nötigen Bauschritten).
-- Anfangs ist ein Bauvorhaben gleichzeitig möglich, mit der Bauhütte zwei.
+- Anfangs ist ein Bauvorhaben gleichzeitig möglich, mit der Zimmerei zwei.
 - Ein begonnenes Bauvorhaben kann jederzeit abgebrochen werden; die Ressourcen kommen vollständig zurück.
 - Gebäude dürfen jederzeit kostenlos versetzt werden. Layout ist Gestaltung, keine Prüfung.
 
@@ -151,7 +151,7 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 |---|---|---|---|---|---|---|
 | Bergfried | 2 | 250 | 80 | 2 | 10 | – |
 | Bergfried | 3 | 500 | 160 | 4 | 16 | – |
-| Bauhütte | 1 | 150 | 40 | 1 | 6 | Bergfried 2 |
+| Zimmerei | 1 | 150 | 40 | 1 | 6 | Bergfried 2 |
 | Studierstube | 1 | 100 | 30 | 1 | 6 | – |
 | Studierstube | 2 | 200 | 60 | 2 | 10 | Bergfried 2 |
 | Späherturm (2×) | 1 | 100 | 30 | 1 | 6 | – |
@@ -165,7 +165,7 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 *Umsetzung (2.5):* `src/core/bastion/katalog.ts` – Katalog als Daten, genau nach dieser Tabelle (Test: 2 000 Stein, 570 Erz, 17 Baupläne, 93 Bauschritte). Präzisierungen:
 - **Banner 10 Stein, 1 Bauschritt** statt 20–40: Nur so reicht die erste Lerneinheit (etwa 10 Stein) für ein Banner, wie §5.1 verlangt. Garten 30, Statue 40 Stein, je 1 Bauschritt; Zierde ohne Höchstzahl, begrenzt nur durch den Platz.
 - **Feuerstelle** steht nur im Startzustand und wird nicht gebaut.
-- **Größen** in Feldern (Draufsicht, B-11): Bergfried 3 × 3, Bauhütte, Studierstube und Garten 2 × 2, alles andere 1 × 1.
+- **Größen** in Feldern (Draufsicht, B-11): Bergfried 3 × 3, Zimmerei, Studierstube und Garten 2 × 2, alles andere 1 × 1.
 - **Startzustand:** Bergfried in der Mitte, Feuerstelle davor, vier Palisaden mit einer Lücke für das Tor.
 - **Hindernisse** ohne Blick auf Ressourcen: nicht baubar, Höchststufe, Höchstzahl, Bergfried zu niedrig (§4.2), fehlende Voraussetzung. Ob die Ressourcen reichen, prüft das Bauen (2.6).
 - Namen und je ein Satz „wozu“ stehen in der Textdatei (`gebaeude.<typ>`).
@@ -273,7 +273,8 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-12 | Gebäudebilder zuerst im **eigenen schlichten Stil** aus dem Code, austauschbar über einen Bildkatalog (erledigt KONZEPT O-11) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-13 | Basebau-Schalter: Standard **an**; Jugendliche und Eltern können ihn jederzeit umschalten | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-14 | Erste Gebäude in der Umsetzung: **Banner und Späherturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
-| B-15 | Der Turm heißt **Späherturm**, nicht „Wachturm“ – wegen der Nähe zur Zeitschrift „Der Wachtturm“ der Zeugen Jehovas. Gebäudenamen dürfen keinen erkennbaren Bezug zu Religionsgemeinschaften, Parteien oder Marken haben | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-15 | Der Turm heißt **Späherturm**, nicht „Wachturm“ – wegen der Nähe zur Zeitschrift „Der Wachtturm“ der Zeugen Jehovas. Gebäudenamen dürfen keinen erkennbaren Bezug zu Religionsgemeinschaften, Parteien, Marken oder anderen Spielen haben | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-16 | Die „Bauhütte“ heißt **Zimmerei** – „Bauhütte“ ist zu nah an einem Gebäude aus „Clash of Clans“ (B-15 gilt auch für andere Spiele) | Entschieden (28.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -293,7 +294,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.5 ✅ | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
-| 2.6 | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Bauhütte zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
+| 2.6 | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Zimmerei zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
 | 2.7 | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
 | 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
 | 2.9 | **Studierstube** | jede gefestigte Kompetenz als Buch mit Kann-Satz, automatisch und kostenlos, das Buch bleibt im Regal (B-6) | Einheitentests |

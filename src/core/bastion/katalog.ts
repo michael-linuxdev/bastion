@@ -10,7 +10,7 @@ import type { Ressource } from '../ledger/regeln';
 
 export type GebaeudeTyp =
   | 'bergfried'
-  | 'bauhuette'
+  | 'zimmerei'
   | 'studierstube'
   | 'spaeherturm'
   | 'tor'
@@ -60,8 +60,8 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     // Stufe 1 steht von Anfang an (§5.1)
     stufen: [{ kosten: NICHTS }, { kosten: k(250, 80, 2, 10) }, { kosten: k(500, 160, 4, 16) }],
   },
-  bauhuette: {
-    typ: 'bauhuette',
+  zimmerei: {
+    typ: 'zimmerei',
     familie: 'bau',
     groesse: [2, 2],
     hoechstens: 1,

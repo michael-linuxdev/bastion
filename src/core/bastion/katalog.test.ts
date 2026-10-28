@@ -71,10 +71,10 @@ describe('Startzustand (§5.1)', () => {
 });
 
 describe('Hindernisse (§4.2)', () => {
-  it('am Start: Banner, Späherturm, Tor, Studierstube gehen; Bauhütte braucht Bergfried 2', () => {
+  it('am Start: Banner, Späherturm, Tor, Studierstube gehen; Zimmerei braucht Bergfried 2', () => {
     for (const typ of ['banner', 'spaeherturm', 'tor', 'studierstube', 'palisade'] as const)
       expect(hindernisse(typ, START)).toEqual([]);
-    expect(hindernisse('bauhuette', START)).toEqual(['voraussetzung']);
+    expect(hindernisse('zimmerei', START)).toEqual(['voraussetzung']);
     expect(hindernisse('feuerstelle', START)).toEqual(['nicht-baubar']);
   });
 
