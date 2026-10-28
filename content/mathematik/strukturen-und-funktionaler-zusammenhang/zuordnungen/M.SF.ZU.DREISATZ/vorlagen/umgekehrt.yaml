@@ -1,0 +1,21 @@
+# „4 Pumpen brauchen 6 Stunden …“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DREISATZ.UMGEKEHRT
+kompetenz: M.SF.ZU.DREISATZ
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zu.dreisatz-umgekehrt@1
+parameter:
+  G: { produkt_max: 72 }
+  M: { produkt_max: 360 }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: Mehr Helfer brauchen weniger Zeit. Wie lange bräuchte einer allein?
+  - de: Teile diese Zeit durch die neue Anzahl.
+fehlerbilder:
+  wie-proportional:
+    de: 'Du hast gerechnet, als bräuchten mehr Helfer mehr Zeit. Hier ist es [[umgekehrt proportional]] – rechne über „einer allein“.'
+herkunft: ki-entwurf
+version: 1

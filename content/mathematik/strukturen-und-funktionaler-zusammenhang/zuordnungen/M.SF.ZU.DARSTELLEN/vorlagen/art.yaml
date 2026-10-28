@@ -1,0 +1,23 @@
+# „Welche Art von Zuordnung ist das?“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DARSTELLEN.ART
+kompetenz: M.SF.ZU.DARSTELLEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zu.art@1
+parameter:
+  G: { worte: false }
+  M: { worte: true }
+text:
+  aufgabe:
+    de: '{frage} **Entscheide**, welche Art von [[Zuordnung]] es ist.'
+hilfen:
+  - de: 'Mehrdeutig: Einem [[Element]] werden mehrere zugeordnet. Eindeutig: Jedem genau eines.'
+  - de: 'Eineindeutig: eindeutig – und auch umgekehrt gehört zu jedem Ziel genau ein [[Element]].'
+fehlerbilder:
+  eindeutig-eineindeutig-verwechselt:
+    de: 'Schau auch von rechts nach links. Kommen bei einem Ziel zwei Pfeile an, ist die [[Zuordnung]] nicht eineindeutig.'
+  mehrdeutig-uebersehen:
+    de: 'Einem [[Element]] werden hier mehrere zugeordnet. Dann ist die [[Zuordnung]] mehrdeutig.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Lies am Graphen ab: Welcher y-Wert gehört zu x = 3?“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.GRAPH.ABLESEN
+kompetenz: M.SF.ZU.GRAPH
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: zu.graph-ablesen@1
+parameter:
+  G: { umgekehrt: false }
+  M: { umgekehrt: true }
+text:
+  aufgabe:
+    de: '**Lies** am [[Graphen]] **ab**: Welcher y-Wert gehört zu x = {x}?'
+hilfen:
+  - de: 'Gehe bei x = {x} [[senkrecht]] nach oben, bis du auf den [[Graphen]] triffst.'
+  - de: Gehe von dort waagerecht zur y-Achse und lies den Wert ab. Achte auf die Beschriftung.
+fehlerbilder:
+  x-y-vertauscht:
+    de: Das ist der x-Wert. Gesucht ist der y-Wert – lies an der senkrechten Achse ab.
+  kaestchen-gezaehlt:
+    de: Du hast Kästchen gezählt. Lies die Zahl an der y-Achse ab – ein Kästchen ist hier mehr als 1.
+herkunft: ki-entwurf
+version: 1

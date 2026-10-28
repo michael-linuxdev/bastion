@@ -36,6 +36,31 @@ begriffe:
     formen: [Teilmenge]
     erklaerung:
       de: 'Eine Menge, die ganz in einer anderen steckt. Die geraden Zahlen sind eine Teilmenge der natürlichen Zahlen.'
+  - id: zuordnung
+    wort: { de: Zuordnung }
+    formen: [Zuordnung, Zuordnungen]
+    erklaerung:
+      de: 'Eine Vorschrift, die Dingen etwas anderes zuordnet, zum Beispiel jeder Anzahl Hefte ihren Preis.'
+  - id: proportional
+    wort: { de: proportional }
+    formen: [proportional, proportionalen]
+    erklaerung:
+      de: 'Doppelt so viel ergibt doppelt so viel, dreimal so viel ergibt dreimal so viel. Alle Quotienten y : x sind gleich.'
+  - id: umgekehrt-proportional
+    wort: { de: umgekehrt proportional }
+    formen: [umgekehrt proportional, umgekehrt proportionalen]
+    erklaerung:
+      de: 'Doppelt so viel ergibt halb so viel. Alle Produkte x · y sind gleich.'
+  - id: graph
+    wort: { de: Graph }
+    formen: [Graphen, Graph]
+    erklaerung:
+      de: 'Die Linie oder Kurve, die eine Zuordnung im Koordinatensystem zeigt.'
+  - id: quotient
+    wort: { de: Quotient }
+    formen: [Quotienten]
+    erklaerung:
+      de: 'Das Ergebnis einer Geteiltaufgabe. Bei 12 : 3 = 4 ist 4 der Quotient.'
   - id: summe
     wort: { de: Summe }
     formen: [Summe]

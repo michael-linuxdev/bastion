@@ -1,0 +1,23 @@
+# „5 Hefte kosten 7,50 €. Wie viel kosten 8 Hefte?“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DREISATZ.PROPORTIONAL
+kompetenz: M.SF.ZU.DREISATZ
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zu.dreisatz-proportional@1
+parameter:
+  G: { cent_schritt: 100, anzahl_max: 10 }
+  M: { cent_schritt: 10, anzahl_max: 20 }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: Rechne zuerst aus, wie viel eines kostet.
+  - de: Dann nimm das mit der neuen Anzahl mal.
+fehlerbilder:
+  umgekehrt-gerechnet:
+    de: 'Du hast wie bei einer [[umgekehrt proportionalen]] [[Zuordnung]] gerechnet. Mehr Stück kosten aber mehr, nicht weniger.'
+  differenz-addiert:
+    de: Du hast für jedes Stück mehr einfach 1 € dazugezählt. Rechne zuerst aus, wie viel ein Stück kostet.
+herkunft: ki-entwurf
+version: 1

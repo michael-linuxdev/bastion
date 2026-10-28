@@ -417,7 +417,7 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 6, sonst angegeben.
 
 **Summe Klasse 6:** 26 Kompetenzen × 2 Niveaus (G, M), davon 21 überwiegend generatorbasiert, 5 gemischt; bei 3 wird Zeichnen erklärt (L-10): Dreiecke konstruieren, besondere Linien, Schrägbilder von Prismen. Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [6]`.
 
-*Stand 28.10.2026:* Kompetenzen und Graph stehen. **Feld BR vollständig als Entwurf:** alle 11 Kompetenzen mit mindestens zwei Vorlagen je Niveau (23 Vorlagen, Generatoren in `src/generators/mathematik/brueche/rechnen.ts` und `anwenden.ts`). Die übrigen Felder folgen entlang des Graphen (wie bei Klasse 5). Neue Felder im ID-Schema: ZU (zuordnungen), ZF (zufall), DV (dreiecke-und-vierecke).
+*Stand 28.10.2026:* Kompetenzen und Graph stehen. **Feld BR vollständig als Entwurf:** alle 11 Kompetenzen mit mindestens zwei Vorlagen je Niveau (23 Vorlagen, Generatoren in `src/generators/mathematik/brueche/rechnen.ts` und `anwenden.ts`). **Feld ZU vollständig als Entwurf:** 4 Kompetenzen, 8 Vorlagen (`src/generators/mathematik/zuordnungen/`). Die übrigen Felder folgen entlang des Graphen (wie bei Klasse 5). Neue Felder im ID-Schema: ZU (zuordnungen), ZF (zufall), DV (dreiecke-und-vierecke).
 
 ## 9. Sprache in Aufgaben
 
