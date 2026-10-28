@@ -8,6 +8,10 @@
     alleAufgaben,
     fehlergruppen,
     merke,
+    sitzungBeenden,
+    alleBuchungen,
+    basebauAn,
+    themaWahl,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -23,6 +27,7 @@
   import Elternbereich from './eltern/Elternbereich.svelte';
   import Sicherung from './sicherung/Sicherung.svelte';
   import type { AufgabeEreignis } from '../core/learning/ereignis';
+  import type { BuchungEreignis } from '../core/ledger/buchung';
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Abschluss from './ueben/Abschluss.svelte';
@@ -34,6 +39,8 @@
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
+  import BastionAnsicht from './bastion/Bastion.svelte';
+  import { aktiv, tt } from './bastion/thema.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -48,8 +55,12 @@
     | 'sicherung'
     | 'abschluss'
     | 'anleitung'
+    | 'bastion'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
+  let buchungsListe = $state<readonly BuchungEreignis[]>([]);
+  /** Basebau-Schalter (R7, B-13) */
+  let basebau = $state(true);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
   /** Klasse des laufenden Diagnosegangs – bleibt fest, sobald geantwortet wurde */
@@ -93,6 +104,8 @@
     gruppen = await fehlergruppen();
     aufgabenListe = await alleAufgaben();
     sichern = await sicherungAnstehend();
+    basebau = await basebauAn();
+    aktiv.thema = await themaWahl();
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -161,6 +174,8 @@
 
   async function fertig() {
     await speichern;
+    await sitzungBeenden();
+    buchungsListe = await alleBuchungen();
     await aktualisiere();
     ansicht = 'abschluss';
   }
@@ -180,7 +195,10 @@
 
   {#if ansicht === 'start'}
     {#if rueckkehr}
-      <p class="untertitel" role="status">{t('rueckkehr.gruss')}</p>
+      <p class="untertitel" role="status">
+        {t('rueckkehr.gruss')}{#if basebau}
+          {tt('rueckkehr.bastion')}{/if}
+      </p>
       {#if faellig > 0}<p>{t('rueckkehr.hinweis')}</p>{/if}
     {:else}
       <p class="untertitel">{t('start.untertitel')}</p>
@@ -206,6 +224,15 @@
       >
       {#if faellig > 0}
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
+      {/if}
+      {#if basebau}
+        <button
+          class="zweit"
+          onclick={() => {
+            inhalte ??= ladeInhalte();
+            ansicht = 'bastion';
+          }}>{tt('bastion.knopf')}</button
+        >
       {/if}
       {#if offeneFehler > 0}
         <button class="zweit" onclick={werkstatt}>{t('werkstatt.knopf')}</button>
@@ -259,13 +286,18 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'anleitung' && anleitung}
+      {#if ansicht === 'bastion'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <BastionAnsicht kompetenzen={geladen.kompetenzen} />
+      {:else if ansicht === 'anleitung' && anleitung}
         <AnleitungAnsicht {anleitung} onzurueck={() => (ansicht = 'uebung')} />
       {:else if ansicht === 'abschluss'}
         <Abschluss
           kompetenzen={geladen.kompetenzen}
           {zustand}
           aufgaben={aufgabenListe}
+          buchungen={buchungsListe}
+          {basebau}
           onstart={() => (ansicht = 'start')}
         />
       {:else if ansicht === 'eltern'}
@@ -275,6 +307,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           aufgaben={aufgabenListe}
+          bind:basebau
         />
       {:else if ansicht === 'stand'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
@@ -283,6 +316,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           aufgaben={aufgabenListe}
+          bind:basebau
           bind:niveau
           bind:klasse
           onueben={(k) => {

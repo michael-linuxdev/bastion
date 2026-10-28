@@ -99,7 +99,7 @@ Bauvorhaben haben eine **Bauzeit in Lerneinheiten** statt in Stunden (technisch:
 | **Kern** | Bergfried | Bestimmt die Ausbaustufe der Bastion |
 | **Wissen** | Studierstube, später Bibliothek, Observatorium, Labor, Archiv, Werkstatt, Hafen (Sprachen) | Spiegel des Kompetenzprofils; schalten **keine** Lernfunktionen frei (B-2) |
 | **Verteidigung** | Mauern, Türme, Tore | Relevant für Belagerungen (5.4) |
-| **Bau** | Bauhütte | Mehrere Bauvorhaben gleichzeitig |
+| **Bau** | Zimmerei | Mehrere Bauvorhaben gleichzeitig |
 | **Zierde** | Banner, Gärten, Statuen | Reiner Ausdruck, Identität |
 
 Versorgungsgebäude und Lagergrenzen wurden gestrichen (B-1, siehe `BASEBAU.md`).
@@ -218,6 +218,8 @@ Bastion wird von **einer Person** entwickelt. Das ist keine Randbedingung, sonde
 
 Detailplanung in `PLAN.md`.
 
+*Seit K-18 (28.10.2026) entsteht Epoche 1 vollständig mit Grafik vor Klasse 7 (`BASEBAU.md` §11); die folgende Phasentabelle bleibt als ursprüngliche Planung stehen.*
+
 **Fokus bis Monat 12 (K-11, K-12, `STRATEGIE.md`):** Phase 1 nur mit den Niveaus G und M; Inhalte Klassenstufe für Klassenstufe, zuerst Klasse 5 vollständig (K-15). Danach ein **Basebau-Minimum** (Phase 2a) als Versuchsaufbau. Phase 2 vollständig und Phase 3 erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben. Phasen 4–6 liegen jenseits von Monat 12.
 
 | Phase | Inhalt | Bewusst nicht enthalten | Prüfkriterium |
@@ -263,7 +265,7 @@ Detailplanung in `PLAN.md`.
 | O-8 | Lizenz (Code und Inhalte) | Open Source / CC-Lizenz für Inhalte / proprietär | **Entschieden:** Code AGPL-3.0, Inhalte CC BY-SA 4.0 | — |
 | O-9 | Bastion einem Freund zeigen | Keine / nur lokal | Nur lokal, ohne Vergleichswerte | Phase 3 |
 | O-10 | Ziel-Plattformen | Nur PWA / App-Stores | PWA, App-Stores im Horizont | — |
-| O-11 | Grafikquelle | Freie Grafikpakete (z. B. CC0) / eigener schlichter Stil / Auftrag | Schlichter eigener Stil, ergänzt um CC0-Pakete | Phase 3 |
+| O-11 | Grafikquelle | Freie Grafikpakete (z. B. CC0) / eigener schlichter Stil / Auftrag | **Entschieden (B-12):** erst eigener schlichter Stil aus dem Code, später austauschbar | — |
 | O-12 | Zweites Fach | Englisch / Deutsch | Englisch (besser strukturierbar, Wortschatz eignet sich für Kartei) | Phase 6 |
 | O-13 | Hosting im Produktivbetrieb | GitHub Pages / EU-Anbieter (z. B. Codeberg Pages) / eigener Webhoster | Domain festgelegt: `bastion.micana.de`. Hoster: EU-Anbieter; GitHub Pages vorerst | vor erster öffentlicher Version |
 
@@ -297,6 +299,6 @@ Detailplanung in `PLAN.md`.
 | K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5 (schärft K-6) | 27.10.2026 | Entschieden |
 | K-16 | Sächsische Lehrpläne Mathematik (OS 2019, GY 2021) bindend für das MVP | 27.10.2026 | Entschieden |
 | K-17 | Erst Lehrplan bis Klasse 12 aufbauen (als Entwurf), dann gesammelt prüfen und testen (ändert K-15 Punkte 2 und 4) | 28.10.2026 | Entschieden |
-| K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
+| K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden, Grenze aufgehoben durch K-18 (28.10.2026) |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |

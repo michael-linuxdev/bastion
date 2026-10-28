@@ -144,7 +144,7 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 **Entscheidung T-6:** PixiJS, nachgeladen, mit gleichwertiger Listenansicht.
 
-Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide.
+Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide. *Entschieden: Draufsicht (BASEBAU B-11). PixiJS bleibt nach Rückfrage am 28.10.2026 gesetzt; die genaue Version kommt mit Schritt 2.12 in §4.6.*
 
 ### 4.6 Festgelegte Versionen
 
@@ -267,6 +267,8 @@ Ausgearbeitet in `DATENMODELL.md`; dort werden Snapshots durch Projektionen und 
 Beispielprofile: „15 Min. täglich, gemischte Leistung“, „Wochenend-Lernerin“, „Farmer, der nur leichte Aufgaben macht“, „drei Wochen krank“, „Prüfungsphase“.
 
 Ausgabe: Wie schnell wächst die Bastion pro Profil über Wochen und Jahre? Lohnt Farmen? Wird die Wochenend-Lernerin abgehängt?
+
+*Umsetzung (2.11):* `tools/sim/simulator.ts`, Aufruf `pnpm sim`. Ergebnisse in `BASEBAU.md` §8a.
 
 *Warum:* Balancing-Fehler sind in einem Langzeitspiel teuer, weil wir Erfolge nie zurücknehmen (R3). Wir müssen sie finden, bevor echte Jugendliche sie finden. Das ist nur möglich, weil der Kern framework-frei ist (T-2).
 

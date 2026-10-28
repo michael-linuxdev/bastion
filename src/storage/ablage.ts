@@ -8,6 +8,22 @@ import {
   type KompetenzStand,
   type Projektion,
 } from '../core/learning/fortschritt';
+import { offeneSitzungen, type SitzungEreignis } from '../core/learning/sitzung';
+import {
+  fehlendeBuchungen,
+  kontoAus,
+  leeresKonto,
+  verbuche,
+  type BuchungEreignis,
+  type Konto,
+} from '../core/ledger/buchung';
+import {
+  bastionAus,
+  fertigmeldungen,
+  type Bastion,
+  type BauEreignis,
+  type Ergebnis,
+} from '../core/bastion/bauen';
 import { kartenSchluessel, type Karte } from '../core/srs/karten';
 import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
@@ -103,22 +119,191 @@ export async function kompetenzStaende(
 
 /** Projektionen aus allen Ereignissen neu berechnen (D-6), z. B. nach Import oder Migration. */
 export async function neuBerechnen(db: BastionDatenbank, profil: string): Promise<void> {
-  await db.transaction('rw', db.aufgaben, db.kompetenzen, db.karten, async () => {
-    const ereignisse = await db.aufgaben
-      .where('[profil+ts]')
-      .between([profil, -Infinity], [profil, Infinity])
-      .toArray();
-    const p = neuAufbauen(ereignisse);
-    const alteStaende = await kompetenzStaende(db, profil);
-    await db.kompetenzen.bulkDelete(
-      alteStaende.map((s) => [s.profil, s.kompetenz, s.niveau] as [string, string, string]),
-    );
-    const alteKarten = await karten(db, profil);
-    await db.karten.bulkDelete(
-      alteKarten.map((k) => [k.profil, k.vorlage, k.niveau] as [string, string, string]),
-    );
-    await db.kompetenzen.bulkPut([...p.staende.values()]);
-    await db.karten.bulkPut([...p.karten.values()]);
+  await db.transaction(
+    'rw',
+    [db.aufgaben, db.kompetenzen, db.karten, db.buchungen, db.konto, db.bau, db.bastion],
+    async () => {
+      const ereignisse = await db.aufgaben
+        .where('[profil+ts]')
+        .between([profil, -Infinity], [profil, Infinity])
+        .toArray();
+      const p = neuAufbauen(ereignisse);
+      const alteStaende = await kompetenzStaende(db, profil);
+      await db.kompetenzen.bulkDelete(
+        alteStaende.map((s) => [s.profil, s.kompetenz, s.niveau] as [string, string, string]),
+      );
+      const alteKarten = await karten(db, profil);
+      await db.karten.bulkDelete(
+        alteKarten.map((k) => [k.profil, k.vorlage, k.niveau] as [string, string, string]),
+      );
+      await db.kompetenzen.bulkPut([...p.staende.values()]);
+      await db.karten.bulkPut([...p.karten.values()]);
+      const alleBuchungen = await buchungen(db, profil);
+      await db.konto.put(kontoAus(profil, alleBuchungen));
+      await db.bastion.put({
+        profil,
+        ...bastionAus(await bauEreignisse(db, profil), alleBuchungen),
+      });
+    },
+  );
+}
+
+/** Sitzungs-Ereignis speichern (DATENMODELL §4.2); eine schon erfasste Sitzung bleibt, wie sie ist. */
+export async function speichereSitzung(db: BastionDatenbank, e: SitzungEreignis): Promise<void> {
+  await db.transaction('rw', db.sitzungen, async () => {
+    if (!(await db.sitzungen.get(e.id))) await db.sitzungen.add(e);
+  });
+}
+
+/** Alle Sitzungs-Ereignisse eines Profils, nach Zeit. */
+export async function sitzungen(db: BastionDatenbank, profil: string): Promise<SitzungEreignis[]> {
+  return db.sitzungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/**
+ * Sitzungen dieses Geräts nachtragen, die nie regulär beendet wurden (D-3) –
+ * alle außer der laufenden. Liefert die Zahl der nachgetragenen Sitzungen.
+ */
+export async function sitzungenNachtragen(
+  db: BastionDatenbank,
+  inst: Installation,
+  laufend: string,
+): Promise<number> {
+  return db.transaction('rw', db.aufgaben, db.sitzungen, async () => {
+    const bekannt = new Set((await sitzungen(db, inst.profil)).map((s) => s.id));
+    const offen = offeneSitzungen(await aufgaben(db, inst.profil), bekannt, inst.geraet, laufend);
+    await db.sitzungen.bulkAdd(offen);
+    return offen.length;
+  });
+}
+
+/** Alle Buchungen eines Profils, nach Zeit. */
+export async function buchungen(db: BastionDatenbank, profil: string): Promise<BuchungEreignis[]> {
+  return db.buchungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/** Kontostand eines Profils (Projektion `konto`). */
+export async function konto(db: BastionDatenbank, profil: string): Promise<Konto> {
+  return (await db.konto.get(profil)) ?? leeresKonto(profil);
+}
+
+/**
+ * Buchen (DATENMODELL §4.3): Was nach den Regeln zusteht und noch fehlt, als
+ * Buchungen speichern und das Konto in derselben Transaktion fortschreiben (D-6).
+ * Liefert die neuen Buchungen. Läuft nach jedem Sitzungsende und nach dem Einspielen.
+ */
+export async function buchen(
+  db: BastionDatenbank,
+  inst: Installation,
+  jetzt: number,
+): Promise<BuchungEreignis[]> {
+  return db.transaction(
+    'rw',
+    [db.aufgaben, db.sitzungen, db.kompetenzen, db.buchungen, db.konto],
+    async () => {
+      const vorhanden = new Set(
+        await db.buchungen
+          .where('[profil+ts]')
+          .between([inst.profil, -Infinity], [inst.profil, Infinity])
+          .primaryKeys(),
+      );
+      const neu = fehlendeBuchungen(
+        await sitzungen(db, inst.profil),
+        await aufgaben(db, inst.profil),
+        await kompetenzStaende(db, inst.profil),
+        vorhanden,
+        { profil: inst.profil, geraet: inst.geraet, jetzt },
+      );
+      if (neu.length === 0) return neu;
+      await db.buchungen.bulkAdd(neu);
+      await db.konto.put(neu.reduce(verbuche, await konto(db, inst.profil)));
+      return neu;
+    },
+  );
+}
+
+/** Alle Bau-Ereignisse eines Profils, nach Zeit. */
+export async function bauEreignisse(db: BastionDatenbank, profil: string): Promise<BauEreignis[]> {
+  return db.bau.where('[profil+ts]').between([profil, -Infinity], [profil, Infinity]).toArray();
+}
+
+/** Stand der Bastion (Projektion `bastion`); ohne gespeicherten Stand aus den Ereignissen. */
+export async function bastion(db: BastionDatenbank, profil: string): Promise<Bastion> {
+  const stand = await db.bastion.get(profil);
+  if (stand)
+    return {
+      bauwerke: stand.bauwerke,
+      vorhaben: stand.vorhaben,
+      fertig: stand.fertig,
+      vorrat: stand.vorrat,
+      // ältere gespeicherte Stände kennen das Lager noch nicht
+      lager: stand.lager ?? [],
+    };
+  return bastionAus(await bauEreignisse(db, profil), await buchungen(db, profil));
+}
+
+/** Neue IDs und Lerntage für Fertigmeldungen – die App reicht Zufall und Zeitzone herein. */
+export interface Melder {
+  readonly id: () => string;
+  readonly tag: (ts: number) => string;
+}
+
+/**
+ * Projektion `bastion` aus allen Bau-Ereignissen und Buchungen neu berechnen
+ * und fertige Vorhaben als Ereignis `fertigstellen` festhalten (DATENMODELL §4.4).
+ * Läuft innerhalb einer Transaktion über `bau`, `buchungen` und `bastion`.
+ */
+async function bastionFortschreiben(
+  db: BastionDatenbank,
+  inst: Installation,
+  melder: Melder,
+): Promise<Bastion> {
+  const bau = await bauEreignisse(db, inst.profil);
+  const alleBuchungen = await buchungen(db, inst.profil);
+  let b = bastionAus(bau, alleBuchungen);
+  const meldungen = fertigmeldungen(b, inst, melder.id, melder.tag);
+  if (meldungen.length > 0) {
+    await db.bau.bulkAdd(meldungen);
+    b = bastionAus([...bau, ...meldungen], alleBuchungen);
+  }
+  await db.bastion.put({ profil: inst.profil, ...b });
+  return b;
+}
+
+/** Bastion nach neuen Bauschritten auf den Stand bringen (nach `buchen`). */
+export async function bastionAktualisieren(
+  db: BastionDatenbank,
+  inst: Installation,
+  melder: Melder,
+): Promise<Bastion> {
+  return db.transaction('rw', [db.bau, db.buchungen, db.bastion], () =>
+    bastionFortschreiben(db, inst, melder),
+  );
+}
+
+/**
+ * Bau-Aktion speichern (DATENMODELL §4.4): Ereignis, Abbuchung oder Erstattung,
+ * Konto und Bastion in einer Transaktion (D-6).
+ */
+export async function bauSpeichern(
+  db: BastionDatenbank,
+  inst: Installation,
+  e: Extract<Ergebnis, { ok: true }>,
+  melder: Melder,
+): Promise<Bastion> {
+  return db.transaction('rw', [db.bau, db.buchungen, db.konto, db.bastion], async () => {
+    await db.bau.add(e.bau);
+    if (e.buchungen.length > 0) {
+      await db.buchungen.bulkAdd([...e.buchungen]);
+      await db.konto.put(e.buchungen.reduce(verbuche, await konto(db, inst.profil)));
+    }
+    return bastionFortschreiben(db, inst, melder);
   });
 }
 
@@ -171,14 +356,24 @@ async function einstellungenNeu(db: BastionDatenbank, profil: string): Promise<v
 
 /** Profil-Sicherung (DATENMODELL §7.1): nur Profil und Ereignisse, keine Projektionen. */
 export async function exportieren(db: BastionDatenbank, profil: string): Promise<SicherungsInhalt> {
-  return db.transaction('r', db.profile, db.aufgaben, db.einstellungen_ereignisse, async () => {
-    const p = await db.profile.get(profil);
-    return {
-      format: FORMAT,
-      profile: p ? [{ id: p.id, erstellt: p.erstellt }] : [],
-      ereignisse: [...(await aufgaben(db, profil)), ...(await einstellungsEreignisse(db, profil))],
-    };
-  });
+  return db.transaction(
+    'r',
+    [db.profile, db.aufgaben, db.sitzungen, db.buchungen, db.bau, db.einstellungen_ereignisse],
+    async () => {
+      const p = await db.profile.get(profil);
+      return {
+        format: FORMAT,
+        profile: p ? [{ id: p.id, erstellt: p.erstellt }] : [],
+        ereignisse: [
+          ...(await aufgaben(db, profil)),
+          ...(await sitzungen(db, profil)),
+          ...(await buchungen(db, profil)),
+          ...(await bauEreignisse(db, profil)),
+          ...(await einstellungsEreignisse(db, profil)),
+        ],
+      };
+    },
+  );
 }
 
 export type ImportErgebnis =
@@ -212,6 +407,11 @@ export async function importieren(
     [
       db.profile,
       db.aufgaben,
+      db.sitzungen,
+      db.buchungen,
+      db.konto,
+      db.bau,
+      db.bastion,
       db.einstellungen_ereignisse,
       db.einstellungen,
       db.kompetenzen,
@@ -236,9 +436,15 @@ export async function importieren(
       if (!(await db.profile.get(ziel.id))) await db.profile.put({ ...ziel });
 
       const auf: AufgabeEreignis[] = [];
+      const sit: SitzungEreignis[] = [];
+      const buc: BuchungEreignis[] = [];
+      const bau: BauEreignis[] = [];
       const ein: EinstellungEreignis[] = [];
       for (const e of inhalt.ereignisse) {
         if (e.art === 'aufgabe') auf.push(e);
+        else if (e.art === 'sitzung') sit.push(e);
+        else if (e.art === 'buchung') buc.push(e);
+        else if (e.art === 'bau') bau.push(e);
         else ein.push(e);
       }
       const neueAufgaben = fehlende(
@@ -259,11 +465,50 @@ export async function importieren(
         ),
         ein,
       );
+      const neueSitzungen = fehlende(
+        new Set(
+          await db.sitzungen
+            .where('id')
+            .anyOf(sit.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        sit,
+      );
       await db.aufgaben.bulkAdd(neueAufgaben);
+      const neueBuchungen = fehlende(
+        new Set(
+          await db.buchungen
+            .where('id')
+            .anyOf(buc.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        buc,
+      );
+      await db.sitzungen.bulkAdd(neueSitzungen);
+      const neueBau = fehlende(
+        new Set(
+          await db.bau
+            .where('id')
+            .anyOf(bau.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        bau,
+      );
+      await db.buchungen.bulkAdd(neueBuchungen);
+      await db.bau.bulkAdd(neueBau);
       await db.einstellungen_ereignisse.bulkAdd(neueEinstellungen);
       await neuBerechnen(db, ziel.id);
       await einstellungenNeu(db, ziel.id);
-      return { ok: true, profil: ziel.id, neu: neueAufgaben.length + neueEinstellungen.length };
+      return {
+        ok: true,
+        profil: ziel.id,
+        neu:
+          neueAufgaben.length +
+          neueSitzungen.length +
+          neueBuchungen.length +
+          neueBau.length +
+          neueEinstellungen.length,
+      };
     },
   );
 }

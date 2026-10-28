@@ -1,6 +1,10 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
 import { describe, expect, it } from 'vitest';
-import { aufgabeEreignis, type AufgabeAngaben } from '../core/learning/ereignis';
+import {
+  aufgabeEreignis,
+  type AufgabeAngaben,
+  type AufgabeEreignis,
+} from '../core/learning/ereignis';
 import { quelleAusSeed } from '../core/rng/zufallsquelle';
 import {
   einrichten,
@@ -15,7 +19,20 @@ import {
   neuBerechnen,
   speichereAufgabe,
   speichereEinstellung,
+  speichereSitzung,
+  sitzungen,
+  sitzungenNachtragen,
+  buchen,
+  buchungen,
+  konto,
+  bastion,
+  bastionAktualisieren,
+  bauEreignisse,
+  bauSpeichern,
 } from './ablage';
+import { beginnen } from '../core/bastion/bauen';
+import { kontoAus } from '../core/ledger/buchung';
+import { sitzungEreignis } from '../core/learning/sitzung';
 import { einstellungEreignis } from '../core/policy/einstellung';
 import { BastionDatenbank } from './datenbank';
 
@@ -195,6 +212,145 @@ describe('Ablage', () => {
       grund: 'anderes-profil',
     });
     expect((await exportieren(b, pb.profil)).ereignisse).toHaveLength(1);
+  });
+
+  it('Sitzungen: nachtragen, nichts doppelt, mit in der Sicherung', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(4);
+    const speichere = (sitzung: string, ts: number) =>
+      speichereAufgabe(
+        db,
+        aufgabeEreignis(angaben(inst.profil, inst.geraet, { sitzung }), ts, 60, zufall),
+      );
+    for (let i = 0; i < 3; i++) await speichere('ALT', 2000 + i * 10_000);
+    await speichere('BEENDET', 50_000);
+    await speichere('JETZT', 60_000);
+
+    // „Fertig für heute“ schreibt die Sitzung regulär; zweimal schreiben ändert nichts
+    const beendet = (await exportieren(db, inst.profil)).ereignisse.filter(
+      (e): e is AufgabeEreignis => e.art === 'aufgabe' && e.sitzung === 'BEENDET',
+    );
+    const regulaer = sitzungEreignis(beendet, 'regulaer');
+    await speichereSitzung(db, regulaer);
+    await speichereSitzung(db, { ...regulaer, abschluss: 'nachgetragen' });
+
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(1);
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(0);
+    const alle = await sitzungen(db, inst.profil);
+    expect(alle.map((s) => [s.id, s.abschluss, s.aufgaben])).toEqual([
+      ['ALT', 'nachgetragen', 3],
+      ['BEENDET', 'regulaer', 1],
+    ]);
+
+    // Sicherung trägt die Sitzungen mit; Einspielen bringt sie ohne Doppelte zurück
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((e) => e.art === 'sitzung')).toHaveLength(2);
+    const neu = neueDb();
+    const ziel = await einrichten(neu, 5000, quelleAusSeed(2));
+    expect(await importieren(neu, sicherung, ziel.profil, 6000)).toMatchObject({
+      ok: true,
+      neu: 7,
+    });
+    expect(await sitzungen(neu, inst.profil)).toEqual(alle);
+    expect(await importieren(neu, sicherung, inst.profil, 7000)).toMatchObject({ neu: 0 });
+  });
+
+  it('Buchen: einmal je Anlass, Konto passt zu den Buchungen, in der Sicherung dabei', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(5);
+    // zwölf Aufgaben in einer Sitzung: Lerneinheit, 12 Stein, 1 Bauschritt
+    for (let i = 0; i < 12; i++)
+      await speichereAufgabe(
+        db,
+        aufgabeEreignis(
+          angaben(inst.profil, inst.geraet, { sitzung: 'S1', vorlage: `V${i % 2}` }),
+          2000 + i * 20_000,
+          60,
+          zufall,
+        ),
+      );
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(1);
+    const neu = await buchen(db, inst, 999_999);
+    expect(neu.map((b) => [b.ressource, b.menge])).toEqual([
+      ['fleiss', 12],
+      ['schritt', 1],
+    ]);
+    expect(await buchen(db, inst, 1_000_000)).toEqual([]);
+    const k = await konto(db, inst.profil);
+    expect(k.stand).toEqual({ fleiss: 12, behalten: 0, koennen: 0, schritt: 1 });
+    expect(k).toEqual(kontoAus(inst.profil, await buchungen(db, inst.profil)));
+
+    // Neuberechnung ergibt dasselbe Konto (D-6)
+    await neuBerechnen(db, inst.profil);
+    expect(await konto(db, inst.profil)).toEqual(k);
+
+    // Sicherung: Buchungen kommen mit, das Konto stimmt auf dem neuen Gerät
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((e) => e.art === 'buchung')).toHaveLength(2);
+    const ziel = neueDb();
+    const z = await einrichten(ziel, 5000, quelleAusSeed(2));
+    expect(await importieren(ziel, sicherung, z.profil, 6000)).toMatchObject({ ok: true, neu: 15 });
+    expect(await konto(ziel, inst.profil)).toEqual(k);
+    // Das neue Gerät rechnet nach und findet nichts, was fehlt
+    expect(await buchen(ziel, { profil: inst.profil, geraet: 'anderes1' }, 7000)).toEqual([]);
+    expect(await importieren(ziel, sicherung, inst.profil, 8000)).toMatchObject({ neu: 0 });
+  });
+
+  it('Bauen: Ereignis, Abbuchung, Konto und Bastion zusammen; Fertigmeldung; Sicherung', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(6);
+    for (let i = 0; i < 12; i++)
+      await speichereAufgabe(
+        db,
+        aufgabeEreignis(
+          angaben(inst.profil, inst.geraet, { sitzung: 'S1', vorlage: `V${i % 2}` }),
+          2000 + i * 20_000,
+          60,
+          zufall,
+        ),
+      );
+    await sitzungenNachtragen(db, inst, 'JETZT');
+    await buchen(db, inst, 300_000);
+    let n = 0;
+    const melder = { id: () => `W${String((n += 1)).padStart(4, '0')}`, tag: () => '2026-11-01' };
+    // Vor dem Bauen: ein Bauschritt im Vorrat
+    expect((await bastionAktualisieren(db, inst, melder)).vorrat).toBe(1);
+
+    const e = beginnen(
+      await bastion(db, inst.profil),
+      await konto(db, inst.profil),
+      'zeichen',
+      { pos: { x: 0, y: 0 } },
+      { profil: inst.profil, geraet: inst.geraet, id: 'V0001', jetzt: 400_000, tag: '2026-11-01' },
+    );
+    if (!e.ok) throw new Error(e.hindernisse.join());
+    const b = await bauSpeichern(db, inst, e, melder);
+    // Das Banner ist sofort fertig; die Fertigmeldung ist festgehalten
+    expect(b.bauwerke.some((x) => x.typ === 'zeichen')).toBe(true);
+    expect(b.fertig).toMatchObject([{ vorhaben: 'V0001', gemeldet: true }]);
+    expect((await bauEreignisse(db, inst.profil)).map((x) => x.aktion)).toEqual([
+      'beginnen',
+      'fertigstellen',
+    ]);
+    expect((await konto(db, inst.profil)).stand.fleiss).toBe(2);
+    expect(await konto(db, inst.profil)).toEqual(
+      kontoAus(inst.profil, await buchungen(db, inst.profil)),
+    );
+
+    // Neu berechnet ergibt sich dieselbe Bastion (D-6)
+    await neuBerechnen(db, inst.profil);
+    expect(await bastion(db, inst.profil)).toEqual(b);
+
+    // Sicherung trägt die Bau-Ereignisse mit
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((x) => x.art === 'bau')).toHaveLength(2);
+    const ziel = neueDb();
+    const z = await einrichten(ziel, 5000, quelleAusSeed(2));
+    await importieren(ziel, sicherung, z.profil, 6000);
+    expect(await bastion(ziel, inst.profil)).toEqual(b);
   });
 
   it('merkt sich die letzte Sicherung', async () => {

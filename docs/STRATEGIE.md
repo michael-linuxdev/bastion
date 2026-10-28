@@ -57,10 +57,19 @@ Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe. *Seit K-17 
 **Entscheidung K-17: Erst den Lehrplan bis Klasse 12 aufbauen, dann prüfen und testen.** *(28.10.2026, Projektverantwortlicher; ändert K-15 Punkte 2 und 4)*
 - Die Klassenstufen werden weiter **nacheinander** aufgebaut (K-15 bleibt: erst 5, dann 6 …), aber eine Klassenstufe gilt schon als abgeschlossen, wenn ihre Kompetenzen im Graphen stehen, je Niveau G und M mindestens zwei Vorlagen als **Entwurf** haben (Generatoren mit bestandenen Pflicht-Tests) und Üben, Wiederholen, Fehlerwerkstatt und Diagnose für sie funktionieren.
 - Die **fachliche Prüfung** der Vorlagen (INHALTSFORMAT §10.1) und die **Testrunden** mit Jugendlichen (`TESTS.md`) kommen gesammelt, wenn der Lehrplan bis Klasse 12 aufgebaut ist.
-- Die Schwelle „Lernkern trägt“ (K-12) bleibt; sie wird damit erst nach Klasse 12 geprüft. Bis dahin bleibt es beim Basebau-Minimum.
+- Die Schwelle „Lernkern trägt“ (K-12) bleibt; sie wird damit erst nach Klasse 12 geprüft. ~~Bis dahin bleibt es beim Basebau-Minimum.~~ *Aufgehoben durch K-18.*
 
 *Warum:* Entscheidung des Projektverantwortlichen – erst soll das vollständige Angebot für die ganze Zielgruppe stehen.
 *Ehrlich benannt:* Fehler im Lernkern oder in vielen Vorlagen derselben Art fallen so erst spät auf und müssen dann an vielen Stellen behoben werden. Abfederung: Pflicht-Tests je Generator, die automatische Inhaltsprüfung und die Browser-Tests laufen bei jeder Änderung; alle Inhalte bleiben als `ki-entwurf` gekennzeichnet, bis sie geprüft sind.
+
+**Entscheidung K-18: Epoche 1 vollständig und mit Grafik bauen – jetzt, vor Klasse 7.** *(28.10.2026, Projektverantwortlicher; ändert K-12)*
+- Der Basebau wird nicht mehr auf das Minimum begrenzt: Ledger, alle Gebäude der Epoche 1, Listenansicht, Balancing-Simulator und die grafische Bastion (PixiJS, T-6, Draufsicht) entstehen jetzt. Umsetzungsplan: `BASEBAU.md` §11.
+- K-10 bleibt: zuerst Mechanik und Listenansicht, danach die Grafik.
+- Danach geht es mit den Inhalten weiter (Klasse 7, K-15/K-17).
+- Nicht enthalten: Epochen 2–4, Belagerungen, QR-Übertragung.
+
+*Warum:* Entscheidung des Projektverantwortlichen – die Bastion soll als Ganzes erlebbar sein, nicht nur als Versuchsaufbau.
+*Ehrlich benannt:* Die Schwelle „Lernkern trägt“ (K-12) wird damit nicht mehr abgewartet; ob der Basebau die Lernqualität stört, zeigt sich erst in den Testrunden nach Klasse 12 (K-17). Das Balancing stützt sich bis dahin allein auf den Simulator. Abfederung: Der Basebau-Schalter (R7) und die Regel „Lernkern lädt die Grafik nie“ halten den Lernkern unabhängig.
 
 **Entscheidung K-16: Die sächsischen Lehrpläne Mathematik sind bindend für das MVP.** *(27.10.2026)* Lehrplan Oberschule Mathematik 2019 und Lehrplan Gymnasium Mathematik (Fassung 2021) haben höchste Priorität (Fundstellen: `docs/quellen/README.md`). Was dort als Pflicht-Lernbereich steht, gehört zum Inhalt der jeweiligen Klassenstufe – **auch Geometrie und Diagramme/Statistik**. Damit ist O-15 erledigt.
 - Klasse 5 umfasst danach 41 Kompetenzen (`LEHRPLAN.md` §8): natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel und Quader.
@@ -80,6 +89,8 @@ Priorität in dieser Reihenfolge:
 2. **Wiederholung (FSRS) und Fehlerwerkstatt** wirklich gut machen.
 3. **Diagnose und sichtbarer Kompetenzfortschritt** – auch ganz ohne Bastion.
 4. Erst danach den **Basebau** so weit ausbauen, dass er Lernfortschritt spürbar belohnt.
+
+*Seit K-18 gilt die folgende Grenze nicht mehr; sie bleibt zur Nachvollziehbarkeit stehen.*
 
 **Regel (Schwelle „Lernkern trägt“):** Solange der Lernkern nicht von echten Nutzerinnen und Nutzern als *„besser als das, was ich sonst mache“* beschrieben wird, wird am Basebau nur das **Basebau-Minimum** gebaut:
 
@@ -150,7 +161,7 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 | 2 | Liste „Nicht-Ziele bis Monat 12“ | erledigt: `PLAN.md` §2.1 |
 | 3 | Mathe-Kern schonungslos gegen die besten Angebote halten | Entwurf: `WETTBEWERB.md`; offen: selbst durchspielen (`PLAN.md` 0.14) |
 | 4 | Erste 5–8 Testpersonen identifizieren und ansprechen | Material bereit: `TESTS.md`; Ansprache durch den Projektverantwortlichen |
-| 5 | Basebau auf das Minimum begrenzen | festgelegt: §3, K-12 |
+| 5 | Basebau auf das Minimum begrenzen | festgelegt: §3, K-12; *aufgehoben durch K-18* |
 
 ## 9. Entscheidungen dieses Dokuments
 
@@ -160,6 +171,7 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 | L-9 | Lehrplanbezug Sachsen statt nur KMK (siehe LEHRPLAN.md §10) | Entschieden (27.10.2026) |
 | K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5; Abschlusskriterien je Klassenstufe | Entschieden (27.10.2026) |
 | K-16 | Sächsische Lehrpläne Mathematik (OS 2019, GY 2021) bindend für das MVP; Geometrie und Diagramme gehören dazu (erledigt O-15) | Entschieden (27.10.2026) |
-| K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026) |
+| K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026), *Grenze aufgehoben durch K-18* |
+| K-18 | Epoche 1 vollständig und mit Grafik bauen, vor Klasse 7 | Entschieden (28.10.2026) |
 | K-13 | Erfolgskriterien E1–E3 für Oktober 2027, keine Vanity-Metrics | Entschieden (27.10.2026) |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle für E1/E2 | Vorgeschlagen |

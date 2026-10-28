@@ -151,6 +151,14 @@ Die Sitzung wird **am Ende** geschrieben. Stürzt die App ab oder wird sie gesch
 **Entscheidung D-3: Auch nachgetragene Sitzungen zählen als Lerneinheit**, wenn der Mindestumfang erreicht wurde.
 *Warum:* Leerer Akku oder ein geschlossener Browser-Tab sind kein Grund, erarbeiteten Fortschritt zu verweigern. Das präzisiert BASEBAU §3.4 („mit regulärem Sitzungsabschluss“) zugunsten der Lernenden.
 
+*Umsetzung (2.1):* `src/core/learning/sitzung.ts`. Das Sitzungs-Ereignis ergibt sich **allein aus den Aufgaben der Sitzung** – regulär und nachgetragen entsteht dasselbe:
+- `id` ist die Sitzungs-ID der Aufgaben. Wird eine Sitzung auf zwei Wegen erfasst, bleibt beim Zusammenführen nur eine (D-10).
+- `ts` und `tag` sind Zeit und Lerntag der letzten Antwort, nicht des Schreibens – eine am nächsten Morgen nachgetragene Sitzung gehört zu ihrem Tag. `beginn` ist die erste Antwort minus deren Bearbeitungszeit.
+- **Ernsthaft** (BASEBAU §3.1): nicht übersprungen und nicht geraten. Geraten heißt falsch und schneller als 3 Sekunden (Auswahl) bzw. 5 Sekunden (Eingabe). Richtig zählt immer; „Weiß ich nicht“ in der Diagnose ist ehrlich und zählt.
+- **Aktive Zeit:** Bearbeitungszeit der ersten Aufgabe, danach die Abstände zwischen zwei Antworten, jeder höchstens 2 Minuten. So zählt das Lesen von Rückmeldung und Lösungsweg mit, eine Pause nicht.
+- **Ende einer Sitzung:** „Fertig für heute“ (regulär); 30 Minuten Ruhe oder ein neuer Lerntag vor der nächsten Antwort (nachgetragen); App geschlossen – dann trägt der nächste Start alle Sitzungen dieses Geräts nach, außer der laufenden. Sitzungen anderer Geräte kommen mit ihrem eigenen Ereignis aus der Sicherung.
+- Sitzungen gehören zur Sicherung (§7) und werden beim Einspielen ohne Doppelte zusammengeführt.
+
 ### 4.3 `buchung` – Ressourcen-Ledger
 
 ```ts
@@ -188,6 +196,13 @@ Die Gutschrift erfolgt beim Sitzungsabschluss. Während der Sitzung zeigt die Ob
 
 Das ist bewusst großzügig: Wer eine Zeit lang nur lernt und nicht baut, verliert nichts (R3).
 
+*Umsetzung (2.3):* `src/core/ledger/buchung.ts`, Speicher in `src/storage/ablage.ts` (`buchen`).
+- **Wann:** nach jedem Sitzungsende, beim Start (nach dem Nachtragen) und nach dem Einspielen einer Sicherung. Die Regeln (BASEBAU §3.4a) laufen dann über alle Sitzungen; gespeichert werden nur Buchungen, die noch fehlen. Gespeicherte Buchungen ändern sich nie, auch wenn eine spätere Regelversion anders rechnen würde.
+- **Feste IDs** statt ULID: `Profil.Ressource.Bezug`, z. B. `<Profil>.stein.<Sitzung>` oder `<Profil>.bauplan.M.ZO.BR.ERWEITERN@G`. Derselbe Anlass ergibt immer dieselbe ID – erneutes Rechnen und Zusammenführen zweier Geräte (D-10) können nichts doppelt buchen.
+- `ts` und `tag` einer Sitzungsbuchung sind die ihrer Sitzung; bei Bauplänen gilt der Lerntag des ersten „gefestigt“.
+- **Projektion `konto`:** Stand und Summe des Erworbenen je Ressource (Erworbenes zählt für den Epochenwechsel, BASEBAU §5.4). Sie wird in derselben Transaktion fortgeschrieben (D-6); `neuBerechnen` baut sie aus allen Buchungen neu auf. Pflicht-Test: fortgeschrieben = neu aufgebaut.
+- Buchungen gehören zur Sicherung (§7). Eine Datenbank-Migration ist nicht nötig: Die Tabellen `buchungen` und `konto` gibt es seit Schemaversion 1; neu ist nur die Ereignisart (`v` = 1). Ältere App-Versionen melden Sicherungen mit Buchungen als „aus einer neueren App“.
+
 ### 4.4 `bau` – Aktionen in der Bastion
 
 ```ts
@@ -196,7 +211,7 @@ interface BauEreignis extends Ereignis {
   aktion: 'beginnen' | 'abbrechen' | 'fertigstellen' | 'versetzen' | 'gestalten' | 'epoche';
   vorhaben?: ID;                     // bei beginnen/abbrechen/fertigstellen
   gebaeude: ID;                      // Instanz-ID des Gebäudes
-  typ: string;                       // "wachturm"
+  typ: string;                       // Rolle, z. B. "turm" (B-17)
   stufe?: number;                    // Zielstufe
   pos?: { x: number; y: number; drehung: 0 | 90 | 180 | 270 };
   gestaltung?: Record<string, string>;  // z. B. Bannerfarbe
@@ -206,6 +221,14 @@ interface BauEreignis extends Ereignis {
 `fertigstellen` wird geschrieben, sobald die nötigen Bauschritte erreicht sind. Das ist ableitbar, wird aber als Ereignis festgehalten, damit die Bastion-Geschichte („Am 12. März wurde der Bergfried Stufe 2 fertig“) ohne Neuberechnung erzählbar bleibt.
 
 Geplante, aber nicht begonnene Gebäude existieren nur in der Oberfläche – Planen kostet nichts und hinterlässt keine Spuren.
+
+*Umsetzung (2.6):* `src/core/bastion/bauen.ts`, Speicher `bauSpeichern` und `bastionAktualisieren` in `src/storage/ablage.ts`. Bisher die Aktionen `beginnen`, `abbrechen`, `fertigstellen`, `versetzen` und – seit 2.11b – `einlagern` und `aufstellen` (nur Zierde, kostenlos, B-21; die Projektion `bastion` hat dafür ein `lager`, Eingelagertes zählt für Höchstzahlen mit); `gestalten` kommt mit 2.14, `epoche` später.
+- **Beginnen** prüft alles (Katalog-Hindernisse, freier Bauplatz – einer, mit Zimmerei zwei –, Platz auf dem Feld, Stein, Erz, Baupläne) und schreibt das Ereignis zusammen mit den Abbuchungen (`grund: 'bau-beginn'`, je Ressource eine Buchung mit fester ID `<Profil>.<Ressource>.bau-beginn.<Vorhaben>`). **Abbrechen** schreibt die Erstattung (`bau-abbruch`) in derselben Höhe.
+- **Bauschritte werden nicht abgebucht** – anders als in §4.3 zuerst gedacht. Vorrat und Fortschritt berechnet die Projektion `bastion` jedes Mal aus allen Bau-Ereignissen und Bauschritt-Gutschriften in Zeitfolge: Ein Bauschritt ohne laufendes Vorhaben geht in den Vorrat; Beginnen nimmt aus dem Vorrat, so viel das Vorhaben braucht; jeder neue Bauschritt wirkt auf **jedes** laufende Vorhaben (B-7). *Warum:* Ein Bauschritt kann später mit früherer Zeit eintreffen (nachgetragene Sitzung, zweites Gerät). Eine gespeicherte Abbuchung wäre dann falsch; die Berechnung stimmt immer.
+- **Abbruch gibt alles zurück** (B-8). Bauschritte, die zwei Vorhaben gleichzeitig bekamen, bleiben beim anderen Vorhaben – sonst entstünde ein Schritt doppelt. Was ein Vorhaben allein bekam oder aus dem Vorrat nahm, geht zurück in den Vorrat.
+- **Fertig** ist ein Vorhaben, sobald es genug Bauschritte hat; die Ablage hält das als Ereignis `fertigstellen` mit der Zeit des Fertigwerdens fest. Neubauten belegen ihr Feld schon während des Bauens; ein Ausbau steht am Platz des Gebäudes.
+- **Zusammenführen:** Die Projektion nimmt alle Ereignisse, wie sie sind – auch wenn zwei Geräte gleichzeitig gebaut haben und etwas nicht mehr zusammenpasst (§7.3). Geprüft wird nur beim Erzeugen neuer Ereignisse.
+- Bau-Ereignisse gehören zur Sicherung; `neuBerechnen` baut die Projektion `bastion` neu auf.
 
 ### 4.5 `einstellung` – Einstellungen und Profilangaben
 
@@ -300,7 +323,7 @@ db.version(1).stores({
 });
 ```
 
-*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `kompetenzen`, `profile`, `meta`.
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `bau` und `bastion` (seit 2.6), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
 
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.

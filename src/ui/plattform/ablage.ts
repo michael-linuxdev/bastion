@@ -1,11 +1,34 @@
 // Verbindet die App mit der Ablage im Browser: echte Uhr, echter Zufall,
-// eine Sitzung je App-Start. Ist IndexedDB nicht nutzbar (z. B. privater
+// Lernsitzungen (DATENMODELL §4.2): Eine Sitzung endet mit „Fertig für heute“,
+// nach 30 Minuten Ruhe oder mit dem Lerntag; nie beendete trägt der nächste Start nach. Ist IndexedDB nicht nutzbar (z. B. privater
 // Modus mancher Browser), funktioniert Üben weiter – nur ohne Speichern.
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
+import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
+import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
+import {
+  abbrechen,
+  aufstellen,
+  beginnen,
+  einlagern,
+  freierPlatz,
+  versetzen,
+  type Bastion,
+  type BauHindernis,
+  type Ergebnis,
+} from '../../core/bastion/bauen';
+import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
+import { buecher, type Buch } from '../../core/bastion/wissen';
+import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
+  BASEBAU_SCHLUESSEL,
+  basebauAktiv,
+  THEMA_SCHLUESSEL,
+  themaAus,
+  ZIEL_SCHLUESSEL,
+  type Thema,
   einstellungEreignis,
   JE_GERAET,
   PIN_NACH_SICHERUNG,
@@ -28,7 +51,13 @@ import { istFaellig, type Karte } from '../../core/srs/karten';
 import { gruppiere, offeneFehler, type Fehlergruppe } from '../../core/learning/werkstatt';
 import {
   aufgaben,
+  bastion,
+  bastionAktualisieren,
+  bauSpeichern,
+  buchen,
+  buchungen,
   einrichten,
+  konto,
   einstellung,
   einstellungsEreignisse,
   ersteAufgabe,
@@ -36,12 +65,15 @@ import {
   importieren,
   letzteSicherung,
   sicherungVermerken,
+  sitzungenNachtragen,
   speichereEinstellung,
+  speichereSitzung,
   karte,
   karten,
   kompetenzStaende,
   speichereAufgabe,
   type Installation,
+  type Melder,
 } from '../../storage/ablage';
 import { BastionDatenbank } from '../../storage/datenbank';
 
@@ -52,12 +84,66 @@ const zufall: ZufallsQuelle = {
   },
 };
 const db = new BastionDatenbank();
-const sitzung = ulid(Date.now(), zufall);
+let sitzung = ulid(Date.now(), zufall);
+/** Antworten der laufenden Sitzung – daraus entsteht ihr Sitzungs-Ereignis */
+let laufende: AufgabeEreignis[] = [];
 let installation: Promise<Installation | undefined> | undefined;
 
 function bereit(): Promise<Installation | undefined> {
-  installation ??= einrichten(db, Date.now(), zufall).catch(() => undefined);
+  installation ??= einrichten(db, Date.now(), zufall)
+    .then(async (inst) => {
+      await sitzungenNachtragen(db, inst, sitzung).catch(() => 0);
+      // Das Ledger bucht immer, auch bei abgeschaltetem Basebau (B-10)
+      await buchenUndBauen(inst);
+      return inst;
+    })
+    .catch(() => undefined);
   return installation;
+}
+
+const versatz = (ts: number) => -new Date(ts).getTimezoneOffset();
+
+/** Neue IDs und Lerntage für Ereignisse, die die Ablage selbst schreibt. */
+const melder: Melder = {
+  id: () => ulid(Date.now(), zufall),
+  tag: (ts) => lerntag(ts, versatz(ts)),
+};
+
+/** Ledger buchen, dann die Bastion mit neuen Bauschritten fortschreiben. */
+async function buchenUndBauen(inst: Installation): Promise<void> {
+  await buchen(db, inst, Date.now()).catch(() => []);
+  await bastionAktualisieren(db, inst, melder).catch(() => undefined);
+}
+
+/** Laufende Sitzung abschließen und eine neue beginnen (nur wenn es Antworten gab). */
+async function sitzungAbschliessen(
+  inst: Installation,
+  abschluss: 'regulaer' | 'nachgetragen',
+): Promise<void> {
+  const fertig = laufende;
+  if (fertig.length === 0) return;
+  laufende = [];
+  sitzung = ulid(Date.now(), zufall);
+  await speichereSitzung(db, sitzungEreignis(fertig, abschluss)).catch(() => undefined);
+  await buchenUndBauen(inst);
+}
+
+/** „Fertig für heute“: Die Sitzung ist regulär beendet. */
+export async function sitzungBeenden(): Promise<void> {
+  const inst = await bereit();
+  if (inst) await sitzungAbschliessen(inst, 'regulaer');
+}
+
+/** Alle Buchungen des Profils (Abschlussbildschirm). */
+export async function alleBuchungen(): Promise<BuchungEreignis[]> {
+  const inst = await bereit();
+  return inst ? buchungen(db, inst.profil).catch(() => []) : [];
+}
+
+/** Kontostand des Profils (leer, wenn nicht gespeichert werden kann). */
+export async function kontostand(): Promise<Konto | undefined> {
+  const inst = await bereit();
+  return inst ? konto(db, inst.profil).catch(() => undefined) : undefined;
 }
 
 export type Antwortdaten = Omit<AufgabeAngaben, 'profil' | 'geraet' | 'sitzung' | 'faellig'>;
@@ -67,6 +153,9 @@ export async function merke(daten: Antwortdaten): Promise<void> {
   const inst = await bereit();
   if (!inst) return;
   const jetzt = Date.now();
+  // Lange Ruhe oder neuer Lerntag: Die alte Sitzung gilt als beendet, ohne „Fertig für heute“
+  if (neueSitzungNoetig(laufende.at(-1), jetzt, lerntag(jetzt, versatz(jetzt))))
+    await sitzungAbschliessen(inst, 'nachgetragen');
   // „Fällig“ hält fest, ob die Karte in diesem Moment zur Wiederholung anstand (LEHRPLAN §6).
   const k = await karte(db, inst.profil, daten.vorlage, daten.niveau).catch(() => undefined);
   const e = aufgabeEreignis(
@@ -81,7 +170,11 @@ export async function merke(daten: Antwortdaten): Promise<void> {
     -new Date(jetzt).getTimezoneOffset(),
     zufall,
   );
-  await speichereAufgabe(db, e).catch(() => undefined);
+  const gespeichert = await speichereAufgabe(db, e).then(
+    () => true,
+    () => false,
+  );
+  if (gespeichert) laufende.push(e);
 }
 
 export interface Zustand {
@@ -119,14 +212,18 @@ export async function alleAufgaben(): Promise<AufgabeEreignis[]> {
   return aufgaben(db, inst.profil).catch(() => []);
 }
 
-async function setze(schluessel: string, wert: string | number): Promise<void> {
+async function setze(
+  schluessel: string,
+  wert: string | number | boolean,
+  durch: 'jugendlich' | 'eltern' = 'eltern',
+): Promise<void> {
   const inst = await bereit();
   if (!inst) throw new Error('Speichern nicht möglich');
   const jetzt = Date.now();
   await speichereEinstellung(
     db,
     einstellungEreignis(
-      { profil: inst.profil, geraet: inst.geraet, schluessel, wert, durch: 'eltern' },
+      { profil: inst.profil, geraet: inst.geraet, schluessel, wert, durch },
       jetzt,
       -new Date(jetzt).getTimezoneOffset(),
       zufall,
@@ -147,6 +244,104 @@ async function lies(schluessel: string): Promise<string | undefined> {
     : await einstellung(db, inst.profil, schluessel).catch(() => undefined);
   return typeof w === 'string' ? w : undefined;
 }
+
+export interface BastionLage {
+  readonly bastion: Bastion;
+  readonly konto: Konto;
+  /** Studierstube: ein Buch je gefestigter Kompetenz (B-6) */
+  readonly buecher: readonly Buch[];
+}
+
+/** Bastion und Kontostand (Listenansicht, BASEBAU §11 Schritt 2.8). */
+export async function bastionLage(): Promise<BastionLage | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const [b, k, alle] = await Promise.all([
+    bastion(db, inst.profil),
+    konto(db, inst.profil),
+    buchungen(db, inst.profil),
+  ]);
+  return { bastion: b, konto: k, buecher: buecher(alle) };
+}
+
+export type BauAuftrag =
+  | { readonly art: 'beginnen'; readonly typ: GebaeudeTyp; readonly ausbau?: string }
+  | { readonly art: 'abbrechen'; readonly vorhaben: string }
+  | { readonly art: 'versetzen'; readonly gebaeude: string; readonly pos: Position }
+  | { readonly art: 'einlagern'; readonly gebaeude: string }
+  | { readonly art: 'aufstellen'; readonly gebaeude: string };
+
+/**
+ * Eine Bau-Aktion ausführen. Ein Neubau kommt auf das erste freie Feld; versetzen
+ * lässt er sich danach kostenlos. Liefert die neue Lage oder die Hindernisse.
+ */
+export async function bauAusfuehren(
+  auftrag: BauAuftrag,
+): Promise<BastionLage | { readonly hindernisse: readonly BauHindernis[] }> {
+  const inst = await bereit();
+  if (!inst) return { hindernisse: ['nicht-baubar'] };
+  const lage = await bastionLage();
+  if (!lage) return { hindernisse: ['nicht-baubar'] };
+  const jetzt = Date.now();
+  const a = {
+    profil: inst.profil,
+    geraet: inst.geraet,
+    id: ulid(jetzt, zufall),
+    jetzt,
+    tag: lerntag(jetzt, versatz(jetzt)),
+  };
+  let e: Ergebnis;
+  if (auftrag.art === 'beginnen') {
+    const pos = freierPlatz(lage.bastion, auftrag.typ);
+    const ort = auftrag.ausbau ? { ausbau: auftrag.ausbau } : pos ? { pos } : undefined;
+    if (!ort) return { hindernisse: ['belegt'] };
+    e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
+  } else if (auftrag.art === 'abbrechen') e = abbrechen(lage.bastion, auftrag.vorhaben, a);
+  else if (auftrag.art === 'einlagern') e = einlagern(lage.bastion, auftrag.gebaeude, a);
+  else if (auftrag.art === 'aufstellen') {
+    const typ = lage.bastion.lager.find((x) => x.id === auftrag.gebaeude)?.typ;
+    const pos = typ ? freierPlatz(lage.bastion, typ) : undefined;
+    if (!pos) return { hindernisse: ['belegt'] };
+    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a);
+  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
+  if (!e.ok) return { hindernisse: e.hindernisse };
+  const b = await bauSpeichern(db, inst, e, melder);
+  return { ...lage, bastion: b, konto: await konto(db, inst.profil) };
+}
+
+/** Ist der Basebau eingeschaltet (R7)? Ohne Speicher: an (B-13). */
+export async function basebauAn(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return basebauAktiv(undefined);
+  return basebauAktiv(
+    await einstellung(db, inst.profil, BASEBAU_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+/** Gewähltes Thema der Bastion (B-17); ohne Speicher: Bastion. */
+export async function themaWahl(): Promise<Thema> {
+  const inst = await bereit();
+  if (!inst) return themaAus(undefined);
+  return themaAus(await einstellung(db, inst.profil, THEMA_SCHLUESSEL).catch(() => undefined));
+}
+
+/** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
+export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
+
+/** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
+export async function zielVorgemerkt(): Promise<Ziel | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  return zielAus(await einstellung(db, inst.profil, ZIEL_SCHLUESSEL).catch(() => undefined));
+}
+
+/** Ziel vormerken oder (ohne Ziel) die Vormerkung aufheben. */
+export const zielSetzen = (z: Ziel | undefined) =>
+  setze(ZIEL_SCHLUESSEL, z ? zielText(z) : '', 'jugendlich');
+
+/** Basebau ein- oder ausschalten – Jugendliche und Eltern dürfen das (B-13). Das Ledger bucht weiter (B-10). */
+export const basebauSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>
+  setze(BASEBAU_SCHLUESSEL, an, durch);
 
 export const pinGesetzt = async () => (await lies('eltern.pin')) !== undefined;
 
@@ -263,5 +458,6 @@ export async function sicherungEinspielen(
   if (!r) return { ok: false, grund: 'speicher' };
   if (!r.ok) return r;
   installation = undefined; // Profil kann gewechselt haben
+  await bereit(); // bucht, was aus der Sicherung noch fehlt
   return { ok: true, neu: r.neu };
 }
