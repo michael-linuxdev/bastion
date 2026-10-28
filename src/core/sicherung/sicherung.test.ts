@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   dateiname,
   ERINNERUNG_TAGE,
+  erinnerungTage,
   fehlende,
   FORMAT,
   inhaltPruefen,
@@ -116,6 +117,15 @@ describe('Sicherungs-Erinnerung', () => {
     expect(sicherungFaellig(undefined, 0, ERINNERUNG_TAGE * TAG)).toBe(true);
     expect(sicherungFaellig(10 * TAG, 0, (ERINNERUNG_TAGE + 5) * TAG)).toBe(false);
     expect(sicherungFaellig(10 * TAG, 0, (ERINNERUNG_TAGE + 10) * TAG)).toBe(true);
+  });
+  it('Abstand wählbar, abschaltbar (D-O4)', () => {
+    expect(sicherungFaellig(undefined, 0, 14 * TAG, 14)).toBe(true);
+    expect(sicherungFaellig(undefined, 0, 89 * TAG, 90)).toBe(false);
+    expect(sicherungFaellig(undefined, 0, 1000 * TAG, 0)).toBe(false);
+    expect(erinnerungTage(undefined)).toBe(ERINNERUNG_TAGE);
+    expect(erinnerungTage(0)).toBe(0);
+    expect(erinnerungTage(90)).toBe(90);
+    expect(erinnerungTage(7)).toBe(ERINNERUNG_TAGE);
   });
   it('Dateiname mit Tag', () => {
     expect(dateiname('2026-10-28')).toBe('bastion-sicherung-2026-10-28.bastion');

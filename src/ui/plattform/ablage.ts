@@ -12,7 +12,13 @@ import {
   vonAnderemGeraet,
 } from '../../core/policy/einstellung';
 import { lerntag } from '../../core/policy/lerntag';
-import { CODE_WOERTER, dateiname, sicherungFaellig } from '../../core/sicherung/sicherung';
+import {
+  CODE_WOERTER,
+  dateiname,
+  ERINNERUNG_SCHLUESSEL,
+  erinnerungTage,
+  sicherungFaellig,
+} from '../../core/sicherung/sicherung';
 import { oeffnen, verschluesseln, type OeffnenFehler } from './sicherung';
 import { normalisiereCode, wortcode } from '../../core/rng/wortcode';
 import { hashe, pruefe } from './pin';
@@ -113,7 +119,7 @@ export async function alleAufgaben(): Promise<AufgabeEreignis[]> {
   return aufgaben(db, inst.profil).catch(() => []);
 }
 
-async function setze(schluessel: string, wert: string): Promise<void> {
+async function setze(schluessel: string, wert: string | number): Promise<void> {
   const inst = await bereit();
   if (!inst) throw new Error('Speichern nicht möglich');
   const jetzt = Date.now();
@@ -194,12 +200,25 @@ export async function mitCodeZuruecksetzen(
 export async function sicherungAnstehend(): Promise<boolean> {
   const inst = await bereit();
   if (!inst) return false;
-  const [letzte, erste] = await Promise.all([
+  const [letzte, erste, tage] = await Promise.all([
     letzteSicherung(db).catch(() => undefined),
     ersteAufgabe(db, inst.profil).catch(() => undefined),
+    erinnerungAlle(),
   ]);
-  return sicherungFaellig(letzte, erste, Date.now());
+  return sicherungFaellig(letzte, erste, Date.now(), tage);
 }
+
+/** Abstand der Sicherungs-Erinnerung in Tagen; 0 = aus (D-O4). */
+export async function erinnerungAlle(): Promise<number> {
+  const inst = await bereit();
+  if (!inst) return erinnerungTage(undefined);
+  return erinnerungTage(
+    await einstellung(db, inst.profil, ERINNERUNG_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+/** Eltern stellen den Abstand ein (als Einstellungs-Ereignis, D-5). */
+export const erinnerungSetzen = (tage: number) => setze(ERINNERUNG_SCHLUESSEL, tage);
 
 export async function letzteSicherungAm(): Promise<number | undefined> {
   return (await bereit()) ? letzteSicherung(db).catch(() => undefined) : undefined;

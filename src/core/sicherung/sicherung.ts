@@ -20,8 +20,15 @@ export const KOPF_LAENGE = MAGIE.length + 1 + TAG_LAENGE + SALZ_LAENGE + IV_LAEN
 /** Sicherungscode: sechs Wörter (D-9, 48 Bit), damit Durchprobieren aussichtslos ist. */
 export const CODE_WOERTER = 6;
 
-/** Erinnerung an eine Sicherung (ARCHITEKTUR §2, D-O4): monatlich. */
+/** Erinnerung an eine Sicherung (ARCHITEKTUR §2, D-O4): Standard monatlich. */
 export const ERINNERUNG_TAGE = 30;
+/** Wählbare Abstände in Tagen; 0 = keine Erinnerung. Eltern stellen ein (Einstellung `sicherung.erinnerung`). */
+export const ERINNERUNG_WAHL = [14, 30, 90, 0] as const;
+export const ERINNERUNG_SCHLUESSEL = 'sicherung.erinnerung';
+
+/** Gespeicherten Wert lesen; Unbekanntes gilt als Standard. */
+export const erinnerungTage = (wert: unknown): number =>
+  ERINNERUNG_WAHL.find((w) => w === wert) ?? ERINNERUNG_TAGE;
 
 export interface SicherungsProfil {
   readonly id: string;
@@ -132,16 +139,18 @@ const TAG_MS = 24 * 60 * 60 * 1000;
 
 /**
  * Ist eine Erinnerung an eine Sicherung fällig? Erst wenn es etwas zu sichern
- * gibt; dann 30 Tage nach der letzten Sicherung bzw. nach der ersten Aufgabe.
+ * gibt; dann `tage` Tage nach der letzten Sicherung bzw. nach der ersten Aufgabe.
+ * `tage` = 0: keine Erinnerung.
  */
 export function sicherungFaellig(
   letzteSicherung: number | undefined,
   ersteAufgabe: number | undefined,
   jetzt: number,
+  tage: number = ERINNERUNG_TAGE,
 ): boolean {
-  if (ersteAufgabe === undefined) return false;
+  if (ersteAufgabe === undefined || tage <= 0) return false;
   const seit = letzteSicherung ?? ersteAufgabe;
-  return jetzt - seit >= ERINNERUNG_TAGE * TAG_MS;
+  return jetzt - seit >= tage * TAG_MS;
 }
 
 /** Dateiname, z. B. "bastion-sicherung-2026-10-28.bastion". */

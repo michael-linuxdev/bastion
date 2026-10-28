@@ -189,5 +189,10 @@
   "eltern.speicher-dauerhaft": "Der Browser hat zugesagt, die Daten dieser App nicht von selbst zu löschen.",
   "eltern.speicher-unsicher": "Der Browser hat nicht zugesagt, die Daten dieser App zu behalten. Regelmäßige Sicherungen sind deshalb besonders wichtig.",
   "eltern.pin-aus-sicherung": "Auf diesem Gerät wurde eine Sicherung eingespielt. Die PIN von früher gilt hier nicht – legen Sie eine neue fest. Das wird im Elternbereich dauerhaft vermerkt.",
-  "eltern.vermerk": "Am {tag} wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung eingespielt wurde."
+  "eltern.vermerk": "Am {tag} wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung eingespielt wurde.",
+  "eltern.erinnerung": "An eine Sicherung erinnern:",
+  "eltern.erinnerung-14": "alle zwei Wochen",
+  "eltern.erinnerung-30": "jeden Monat",
+  "eltern.erinnerung-90": "alle drei Monate",
+  "eltern.erinnerung-0": "nie"
 }

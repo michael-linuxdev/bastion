@@ -453,7 +453,7 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 |---|---|---|
 | D-O2 | FSRS-Parameter persönlich anpassen (Optimierer) | Nicht vor Phase 4; braucht viele Wiederholungen pro Person |
 | D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Vorerst 256 Wörter (`src/core/rng/wortcode.ts`), dafür sechs Wörter für Sicherungen (D-9). Eine größere Liste nur, wenn sechs Wörter in den Testrunden zu lang wirken |
-| D-O4 | Wie oft an Sicherungen erinnern? | Umgesetzt: monatlich (30 Tage nach der letzten Sicherung bzw. der ersten Aufgabe). Offen: im Elternbereich einstellbar oder abschaltbar (ARCHITEKTUR §2) |
+| D-O4 | Wie oft an Sicherungen erinnern? | Umgesetzt: Standard monatlich (30 Tage nach der letzten Sicherung bzw. der ersten Aufgabe); im Elternbereich einstellbar: alle zwei Wochen, jeden Monat, alle drei Monate, nie (Einstellung `sicherung.erinnerung`, D-5) |
 
 ## 12. Entscheidungen dieses Dokuments
 

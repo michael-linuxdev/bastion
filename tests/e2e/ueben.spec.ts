@@ -328,6 +328,14 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
   const vermerk = /wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung/;
   await expect(seite.getByText(vermerk)).toBeVisible();
+  // Erinnerung einstellbar und abschaltbar (D-O4)
+  await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('30');
+  await seite.getByLabel(/An eine Sicherung erinnern/).selectOption({ label: 'nie' });
+  await seite.reload();
+  await seite.getByRole('button', { name: 'Für Eltern' }).click();
+  await seite.getByLabel('PIN', { exact: true }).fill('1357');
+  await seite.getByRole('button', { name: 'Öffnen' }).click();
+  await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('0');
   await seite.reload();
   await seite.getByRole('button', { name: 'Mein Stand' }).click();
   await seite.locator('summary', { hasText: 'Was meine Eltern sehen' }).click();
