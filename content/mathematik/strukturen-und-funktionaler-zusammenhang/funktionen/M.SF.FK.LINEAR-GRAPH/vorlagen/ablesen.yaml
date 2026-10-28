@@ -1,0 +1,25 @@
+# y-Achsenabschnitt und Anstieg ablesen. Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GRAPH.ABLESEN
+kompetenz: M.SF.FK.LINEAR-GRAPH
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fk.gerade-ablesen@1
+parameter:
+  G: { anstieg: false }
+  M: { anstieg: true }
+text:
+  aufgabe:
+    de: '**Lies ab**: {frage}'
+hilfen:
+  - de: 'Der [[y-Achsenabschnitt]] n ist die Stelle, an der die [[Gerade]] die y-Achse schneidet.'
+  - de: '[[Anstieg]]: Wie weit geht es im [[Steigungsdreieck]] hoch oder runter? Teile durch die Breite. Runter heißt negativ.'
+fehlerbilder:
+  nullstelle-statt-n:
+    de: 'Das ist der [[Schnittpunkt]] mit der x-Achse. n liest du auf der y-Achse ab.'
+  kehrwert:
+    de: 'Du hast Breite durch [[Höhe]] gerechnet. Der [[Anstieg]] ist Höhe durch Breite.'
+  vorzeichen-falsch:
+    de: 'Achte auf das [[Vorzeichen]]: Fällt die [[Gerade]], ist m negativ. Liegt der [[Schnittpunkt]] unter der x-Achse, ist n negativ.'
+herkunft: ki-entwurf
+version: 1

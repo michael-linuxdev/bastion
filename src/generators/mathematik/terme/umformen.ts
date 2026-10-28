@@ -27,7 +27,11 @@ export function summe(glieder: readonly (readonly [number, string])[]): string {
 }
 
 /** Vier verschiedene Optionen: richtig zuerst, dann Fehler; doppelte fallen weg */
-function optionenAus(r: Rng, richtig: string, falsche: readonly (readonly [string, string])[]) {
+export function optionenAus(
+  r: Rng,
+  richtig: string,
+  falsche: readonly (readonly [string, string])[],
+) {
   const liste: (readonly [string, string])[] = [['richtig', richtig]];
   for (const f of falsche) if (!liste.some(([, t]) => t === f[1])) liste.push(f);
   const optionen = mische(r, liste.slice(0, 4));

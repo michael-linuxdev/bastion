@@ -1,0 +1,22 @@
+# Nullstelle einer Geraden ablesen. Entwurf: noch nicht geprüft.
+id: M.SF.FK.NULLSTELLE.ABLESEN
+kompetenz: M.SF.FK.NULLSTELLE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fk.nullstelle-ablesen@1
+parameter:
+  G: {}
+  M: {}
+text:
+  aufgabe:
+    de: '**Lies** die [[Nullstelle]] der [[Geraden]] **ab**.'
+hilfen:
+  - de: 'Die [[Nullstelle]] ist die Stelle, an der die [[Gerade]] die x-Achse schneidet.'
+fehlerbilder:
+  n-statt-nullstelle:
+    de: 'Das ist der [[Schnittpunkt]] mit der y-Achse. Die [[Nullstelle]] liegt auf der x-Achse.'
+  vorzeichen-falsch:
+    de: 'Links von 0 sind die Zahlen negativ. Achte auf das [[Vorzeichen]].'
+herkunft: ki-entwurf
+version: 1

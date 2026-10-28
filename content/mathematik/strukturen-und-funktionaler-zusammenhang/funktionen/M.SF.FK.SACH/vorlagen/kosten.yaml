@@ -1,0 +1,25 @@
+# Tarife: Kosten berechnen, zwei Tarife vergleichen. Entwurf: noch nicht geprüft.
+id: M.SF.FK.SACH.KOSTEN
+kompetenz: M.SF.FK.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: fk.tarif@1
+parameter:
+  G: { vergleich: false }
+  M: { vergleich: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Kosten = Preis je Einheit · Menge + [[Grundgebühr]].'
+  - de: 'Beim Vergleich: Berechne zuerst, wann beide Tarife gleich viel kosten.'
+fehlerbilder:
+  grundgebuehr-vergessen:
+    de: 'Die [[Grundgebühr]] zahlt man immer dazu – du hast sie vergessen.'
+  grundgebuehr-mal-menge:
+    de: 'Die [[Grundgebühr]] zahlt man nur einmal, nicht für jede Einheit.'
+  gleichstand-statt-guenstiger:
+    de: 'Bei dieser Menge kosten beide Tarife gleich viel. Günstiger wird es erst eine Einheit später.'
+herkunft: ki-entwurf
+version: 1

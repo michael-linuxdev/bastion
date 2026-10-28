@@ -845,3 +845,49 @@ begriffe:
     formen: [Ungleichung]
     erklaerung:
       de: 'Wie eine Gleichung, aber mit <, >, ≤ oder ≥ statt =. Meist erfüllen viele Zahlen eine Ungleichung.'
+  # Klasse 8: Funktionen
+  - id: funktion
+    wort: { de: Funktion }
+    formen: [Funktion, Funktionen]
+    erklaerung:
+      de: 'Eine Zuordnung, bei der jedem x genau ein y zugeordnet ist. Man schreibt zum Beispiel f(x) = 2·x + 1.'
+  - id: funktionswert
+    wort: { de: Funktionswert }
+    formen: [Funktionswert, Funktionswerte]
+    erklaerung:
+      de: 'Das y, das zu einem bestimmten x gehört. f(3) ist der Funktionswert an der Stelle 3.'
+  - id: nullstelle
+    wort: { de: Nullstelle }
+    formen: [Nullstelle, Nullstellen]
+    erklaerung:
+      de: 'Eine Stelle x, an der der Funktionswert 0 ist. Dort schneidet oder berührt der Graph die x-Achse.'
+  - id: lineare-funktion
+    wort: { de: lineare Funktion }
+    formen: [lineare Funktion, linearen Funktion]
+    erklaerung:
+      de: 'Eine Funktion mit der Gleichung y = m·x + n. Ihr Graph ist eine Gerade.'
+  - id: anstieg
+    wort: { de: Anstieg }
+    formen: [Anstieg]
+    erklaerung:
+      de: 'Die Zahl m in y = m·x + n. Sie sagt, um wie viel y wächst, wenn x um 1 größer wird. Negativ heißt: Die Gerade fällt.'
+  - id: y-achsenabschnitt
+    wort: { de: y-Achsenabschnitt }
+    formen: [y-Achsenabschnitt]
+    erklaerung:
+      de: 'Die Zahl n in y = m·x + n. An dieser Stelle schneidet die Gerade die y-Achse.'
+  - id: steigungsdreieck
+    wort: { de: Steigungsdreieck }
+    formen: [Steigungsdreieck]
+    erklaerung:
+      de: 'Ein rechtwinkliges Dreieck an der Geraden: ein Stück nach rechts, dann hoch oder runter bis zur Geraden. Höhe : Breite ergibt den Anstieg.'
+  - id: hochpunkt
+    wort: { de: Hochpunkt }
+    formen: [Hochpunkt]
+    erklaerung:
+      de: 'Ein Punkt des Graphen, der höher liegt als alle Punkte in seiner Nähe. Links davon steigt der Graph, rechts davon fällt er.'
+  - id: grundgebuehr
+    wort: { de: Grundgebühr }
+    formen: [Grundgebühr]
+    erklaerung:
+      de: 'Ein fester Betrag, den man immer zahlt – egal, wie viel man nutzt. In y = m·x + n ist das n.'

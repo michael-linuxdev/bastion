@@ -1,0 +1,22 @@
+# Tarif → Funktionsgleichung. Entwurf: noch nicht geprüft.
+id: M.SF.FK.SACH.GLEICHUNG
+kompetenz: M.SF.FK.SACH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: fk.tarif-gleichung@1
+parameter:
+  G: {}
+  M: {}
+text:
+  aufgabe:
+    de: '**Wähle** die [[Gleichung]] **aus**, die die Kosten y für x Einheiten beschreibt: {tarif}'
+hilfen:
+  - de: 'Der Preis je Einheit steht vor dem x – er ist der [[Anstieg]]. Die [[Grundgebühr]] ist der [[y-Achsenabschnitt]].'
+fehlerbilder:
+  m-n-vertauscht:
+    de: 'Hier sind [[Grundgebühr]] und Preis je Einheit vertauscht. Mit x malgenommen wird der Preis je Einheit.'
+  ohne-grundgebuehr:
+    de: 'Die [[Grundgebühr]] fehlt. Sie kommt einmal dazu – als Zahl ohne x.'
+herkunft: ki-entwurf
+version: 1

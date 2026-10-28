@@ -1,0 +1,23 @@
+# Nullstellen zählen, Hoch- und Tiefpunkt ablesen. Entwurf: noch nicht geprüft.
+id: M.SF.FK.EIGENSCHAFTEN.ABLESEN
+kompetenz: M.SF.FK.EIGENSCHAFTEN
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fk.graph-ablesen@1
+parameter:
+  G: { extrem: false }
+  M: { extrem: true }
+text:
+  aufgabe:
+    de: '**Lies ab**: {frage}'
+hilfen:
+  - de: '[[Nullstellen]] sind die Stellen, an denen der [[Graph]] die x-Achse trifft.'
+  - de: 'Beim [[Hochpunkt]] ist der [[Graph]] am höchsten. Gefragt ist die Stelle x, also wie weit links oder rechts der Punkt liegt.'
+fehlerbilder:
+  y-statt-x:
+    de: 'Das ist die [[Höhe]] des Punktes (y). Gefragt ist die Stelle x – lies auf der x-Achse ab.'
+  schnitt-mit-y-achse:
+    de: 'Der [[Schnittpunkt]] mit der y-Achse ist keine [[Nullstelle]]. Zähle nur die Stellen auf der x-Achse.'
+herkunft: ki-entwurf
+version: 1

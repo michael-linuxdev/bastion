@@ -1,0 +1,25 @@
+# n aus einem Punkt, m aus zwei Punkten. Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GLEICHUNG.BESTIMMEN
+kompetenz: M.SF.FK.LINEAR-GLEICHUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: fk.gerade-bestimmen@1
+parameter:
+  G: { zwei_punkte: false }
+  M: { zwei_punkte: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Setze die [[Koordinaten]] des Punktes für x und y ein und löse nach n auf.'
+  - de: '[[Anstieg]] aus zwei Punkten: m = (y₂ − y₁) : (x₂ − x₁).'
+fehlerbilder:
+  kehrwert:
+    de: 'Du hast den Unterschied der x-Werte durch den der y-Werte geteilt. Richtig ist y-Unterschied : x-Unterschied.'
+  vorzeichen-falsch:
+    de: 'Ziehe in [[Zähler]] und [[Nenner]] in derselben Reihenfolge ab: zuerst den zweiten Punkt, dann den ersten.'
+  n-falsch-umgestellt:
+    de: 'Beim Umstellen musst du m·x abziehen, nicht addieren.'
+herkunft: ki-entwurf
+version: 1
