@@ -68,6 +68,11 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
 
   // Drei Tage später: die Aufgabe ist zum Wiederholen dran
   await page.clock.setSystemTime(new Date('2026-11-05T10:00:00Z'));
