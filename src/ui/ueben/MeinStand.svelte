@@ -10,6 +10,7 @@
   import PinVermerke from '../eltern/PinVermerke.svelte';
   import { pinVermerke, type Zustand } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholung, sitzt, statusVon } from './stand';
 
@@ -19,6 +20,7 @@
     zustand,
     aufgaben,
     niveau = $bindable(),
+    klasse = $bindable(5),
     onueben,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -26,6 +28,7 @@
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
     niveau: Niveau;
+    klasse?: number;
     onueben: (k: Kompetenz) => void;
   } = $props();
 
@@ -34,24 +37,24 @@
 
   // Einmal beim Öffnen – kein laufender Timer (R2)
   const jetzt = Date.now();
-  const klasse5 = $derived(
+  const themen = $derived(
     nachGraph(nachBereich(kompetenzen)).filter(
       (k) =>
-        k.klassenstufe_typisch.includes(5) &&
+        k.klassenstufe_typisch.includes(klasse) &&
         vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
     ),
   );
   const status = $derived(
-    new Map(klasse5.map((k) => [k.id, statusVon(zustand, k.id, niveau, jetzt)])),
+    new Map(themen.map((k) => [k.id, statusVon(zustand, k.id, niveau, jetzt)])),
   );
-  const gruppe = (s: AnzeigeStatus) => klasse5.filter((k) => status.get(k.id) === s);
+  const gruppe = (s: AnzeigeStatus) => themen.filter((k) => status.get(k.id) === s);
   const weiter = $derived(
-    empfohlen(klasse5, (id) => sitzt(status.get(id) ?? 'neu'))
+    empfohlen(themen, (id) => sitzt(status.get(id) ?? 'neu'))
       .slice(0, 3)
-      .map((id) => klasse5.find((k) => k.id === id))
+      .map((id) => themen.find((k) => k.id === id))
       .filter((k): k is Kompetenz => k !== undefined),
   );
-  const angefangen = $derived(klasse5.some((k) => status.get(k.id) !== 'neu'));
+  const angefangen = $derived(themen.some((k) => status.get(k.id) !== 'neu'));
   const datum = (ms: number) =>
     new Date(ms).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' });
 
@@ -67,9 +70,10 @@
     <label><input type="radio" value="G" bind:group={niveau} /> {t('niveau.G')}</label>
     <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
   </fieldset>
+  <KlassenWahl bind:klasse />
 
   <p class="zahlen">
-    {klasse5.length}
+    {themen.length}
     {t('stand.zusammenfassung')} ·
     {gruppe('gefestigt').length}
     {t('status.gefestigt')} ·

@@ -1,0 +1,23 @@
+# „Ergänze die Tabelle.“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DARSTELLEN.TABELLE
+kompetenz: M.SF.ZU.DARSTELLEN
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: zu.tabelle-ergaenzen@1
+parameter:
+  G: { mit_grundwert: false, k_max: 9 }
+  M: { mit_grundwert: true, k_max: 12 }
+text:
+  aufgabe:
+    de: '**Ergänze** die Tabelle: Welcher Wert gehört zu {x}?'
+hilfen:
+  - de: Wie verändert sich der untere Wert, wenn der obere um 1 größer wird?
+  - de: 'Stelle eine [[Gleichung]] für die [[Zuordnung]] auf und setze {x} ein.'
+fehlerbilder:
+  letzter-schritt-addiert:
+    de: Du bist nur einen Schritt weitergegangen. Prüfe, wie weit {x} vom letzten Wert entfernt ist.
+  grundwert-vergessen:
+    de: 'Bei dieser [[Zuordnung]] kommt zu jedem Wert noch ein fester Betrag dazu. Prüfe deine [[Gleichung]] an einem Wert aus der Tabelle.'
+herkunft: ki-entwurf
+version: 1

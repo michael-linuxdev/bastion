@@ -1,0 +1,37 @@
+# Brüche multiplizieren – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.MULT
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche multiplizieren
+kann_satz:
+  de: Ich kann Brüche miteinander und mit natürlichen Zahlen multiplizieren.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.ERWEITERN
+  - M.ZO.BR.ANTEIL-VON
+niveaus:
+  G:
+    beschreibung:
+      de: 'Bruch mal natürliche Zahl und Bruch mal Bruch mit kleinen Zahlen.'
+  M:
+    beschreibung:
+      de: 'Vor dem Ausrechnen kürzen; gemischte Zahlen; Ergebnis vollständig gekürzt.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

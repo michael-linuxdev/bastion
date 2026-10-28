@@ -1,0 +1,36 @@
+# Dezimalzahlen multiplizieren und dividieren – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.DEZ-MULT-DIV
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Dezimalzahlen multiplizieren und dividieren
+kann_satz:
+  de: Ich kann Dezimalzahlen miteinander multiplizieren und durch Dezimalzahlen dividieren.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.DEZ-RECHNEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Im Kopf mit überschaubaren Zahlen, z. B. 0,6 · 0,2 oder 3,6 : 0,4.'
+  M:
+    beschreibung:
+      de: 'Schriftlich, mit Überschlag zur Lage des Kommas.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

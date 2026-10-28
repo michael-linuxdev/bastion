@@ -1,0 +1,41 @@
+# Volumen und Oberfläche von Prismen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.KP.PRISMA
+fach: mathematik
+bereich: groessen-und-messen
+feld: koerper
+titel:
+  de: Volumen und Oberfläche von Prismen
+kann_satz:
+  de: Ich kann Volumen und Oberflächeninhalt gerader Prismen und zusammengesetzter Körper berechnen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.KP.PRISMEN
+  - M.GM.FL.DREIECK
+  - M.GM.FL.VIERECKE
+  - M.GM.KP.VOLUMEN
+  - M.GM.KP.OBERFLAECHE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Volumen = Grundfläche · Höhe bei Prismen mit Rechteck- oder Dreiecksgrundfläche.'
+  M:
+    beschreibung:
+      de: 'Oberflächeninhalt als zusammengesetzte Fläche; Körper aus mehreren Prismen.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 4 Geometrische Körper'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 4 Prismen'
+version: 1

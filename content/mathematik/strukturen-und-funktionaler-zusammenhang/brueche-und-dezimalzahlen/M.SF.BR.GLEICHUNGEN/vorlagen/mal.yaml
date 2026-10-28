@@ -1,0 +1,21 @@
+# „Bestimme x: 3 · x = 3/4.“ Entwurf: noch nicht geprüft.
+id: M.SF.BR.GLEICHUNGEN.MAL
+kompetenz: M.SF.BR.GLEICHUNGEN
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: gl.bruch-mal@1
+parameter:
+  G: { faktor: zahl, nenner_max: 10 }
+  M: { faktor: bruch, nenner_max: 10 }
+text:
+  aufgabe:
+    de: '**Bestimme** x: {k} · x = {b}'
+hilfen:
+  - de: '[[Umkehraufgabe]]: x = {b} : {k}'
+  - de: 'Teilen heißt malnehmen mit dem [[Kehrwert]].'
+fehlerbilder:
+  mal-statt-durch:
+    de: 'Du hast malgenommen statt geteilt. Die [[Umkehraufgabe]] zu „mal“ ist „geteilt“. Mach die [[Probe]]!'
+herkunft: ki-entwurf
+version: 1

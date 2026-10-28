@@ -1,0 +1,36 @@
+# Besondere Linien im Dreieck – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.BESONDERE-LINIEN
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: Besondere Linien im Dreieck
+kann_satz:
+  de: Ich kann Höhen, Mittelsenkrechten, Winkelhalbierende und Seitenhalbierende im Dreieck erkennen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.DV.DREIECKE
+  - M.RF.GF.LAGE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die Höhe zu einer Seite erkennen.'
+  M:
+    beschreibung:
+      de: 'Alle besonderen Linien unterscheiden und wissen, welche sich im Umkreis- bzw. Inkreismittelpunkt schneiden.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

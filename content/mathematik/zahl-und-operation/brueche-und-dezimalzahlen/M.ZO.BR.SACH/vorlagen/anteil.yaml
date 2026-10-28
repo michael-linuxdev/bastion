@@ -1,0 +1,23 @@
+# „Von 60 € gibt Lea ein Viertel aus.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.SACH.ANTEIL
+kompetenz: M.ZO.BR.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.sach-anteil@1
+parameter:
+  G: { ausgaben: 1 }
+  M: { ausgaben: 2 }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: 'Berechne zuerst, wie viel Euro der [[Anteil]] ist. Teile dazu durch den [[Nenner]] und nimm mit dem [[Zähler]] mal.'
+  - de: Ziehe dann alle Ausgaben vom Geld ab.
+fehlerbilder:
+  ausgabe-statt-rest:
+    de: Das ist das Geld, das ausgegeben wurde. Gefragt ist, wie viel übrig bleibt.
+  nur-erste-ausgabe:
+    de: Du hast nur die erste Ausgabe abgezogen. Es gibt noch eine zweite.
+herkunft: ki-entwurf
+version: 1

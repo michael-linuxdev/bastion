@@ -1,0 +1,25 @@
+# „Im Dreieck ist α = 50° und β = 70°. Berechne γ.“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.WINKELSAETZE.INNENWINKEL
+kompetenz: M.RF.DV.WINKELSAETZE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: dv.innenwinkel@1
+parameter:
+  G: { gleichschenklig: false }
+  M: { gleichschenklig: true }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** den [[Winkel]] γ in [[Grad]].'
+hilfen:
+  - de: 'Die drei [[Innenwinkel]] eines Dreiecks ergeben zusammen 180°.'
+  - de: 'In einem [[gleichschenkligen]] Dreieck sind die beiden [[Basiswinkel]] gleich groß.'
+fehlerbilder:
+  summe-360:
+    de: 'Du hast mit 360° gerechnet. Die [[Innenwinkel]] eines Dreiecks ergeben zusammen 180°.'
+  nur-addiert:
+    de: 'Das ist die [[Summe]] der beiden gegebenen [[Winkel]]. Ziehe sie von 180° ab.'
+  basiswinkel-einmal:
+    de: 'Du hast nur einen [[Basiswinkel]] abgezogen. Im [[gleichschenkligen]] Dreieck ist der zweite Basiswinkel genauso groß.'
+herkunft: ki-entwurf
+version: 1

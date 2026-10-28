@@ -1,0 +1,23 @@
+# „Gegeben: a, b, γ. Welcher Kongruenzsatz?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.KONSTRUIEREN.KONGRUENZSATZ
+kompetenz: M.RF.DV.KONSTRUIEREN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.kongruenzsatz@1
+parameter:
+  G: { ssw: false }
+  M: { ssw: true }
+text:
+  aufgabe:
+    de: 'Gegeben: {angabe}. **Entscheide**: Mit welchem [[Kongruenzsatz]] ist das Dreieck eindeutig konstruierbar?'
+hilfen:
+  - de: 'Die Seite a liegt dem [[Winkel]] α gegenüber, b dem Winkel β, c dem Winkel γ.'
+  - de: 'Bei sws liegt der [[Winkel]] zwischen den beiden Seiten, bei wsw liegen beide Winkel an der Seite.'
+fehlerbilder:
+  winkel-nicht-eingeschlossen:
+    de: 'Der [[Winkel]] liegt nicht zwischen den beiden Seiten – er liegt einer von ihnen gegenüber. Dann ist es nicht sws.'
+  ssw-kuerzere-seite:
+    de: 'Für SsW muss der [[Winkel]] der **längeren** der beiden Seiten gegenüberliegen. Hier liegt er der kürzeren gegenüber.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Berechne (1/6 + 5/6) · 3.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.RECHENGESETZE.BRUECHE-KLAMMER
+kompetenz: M.ZO.BR.RECHENGESETZE
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.term-bruch-klammer@1
+parameter:
+  G: { nenner_max: 8, faktor_max: 5 }
+  M: { nenner_max: 12, faktor_max: 9 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: ({a} + {b}) · {k}'
+hilfen:
+  - de: Rechne zuerst die Klammer aus.
+  - de: Dann nimm das Ergebnis mal {k}.
+fehlerbilder:
+  klammer-uebersehen:
+    de: Du hast die Klammer übersehen. Was in der Klammer steht, wird zuerst gerechnet.
+herkunft: ki-entwurf
+version: 1

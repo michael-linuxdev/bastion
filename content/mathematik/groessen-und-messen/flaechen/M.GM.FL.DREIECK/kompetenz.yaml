@@ -1,0 +1,38 @@
+# Flächeninhalt von Dreiecken – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.FL.DREIECK
+fach: mathematik
+bereich: groessen-und-messen
+feld: flaechen
+titel:
+  de: Flächeninhalt von Dreiecken
+kann_satz:
+  de: Ich kann Umfang und Flächeninhalt von Dreiecken mit Grundseite und zugehöriger Höhe berechnen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.GM.FL.RECHTECK
+  - M.RF.DV.DREIECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Flächeninhalt mit A = g · h : 2 berechnen, wenn Grundseite und Höhe gegeben sind.'
+  M:
+    beschreibung:
+      de: 'Die passende Höhe zur Grundseite wählen; fehlende Seite oder Höhe rückwärts berechnen.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

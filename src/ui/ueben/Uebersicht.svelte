@@ -1,10 +1,11 @@
 <script lang="ts">
-  // Übersicht der Kompetenzen der Klasse 5, nach Bereich und Feld, mit Wahl des Niveaus.
+  // Übersicht der Kompetenzen einer Klassenstufe, nach Bereich und Feld, mit Wahl des Niveaus.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import KlassenWahl from './KlassenWahl.svelte';
   import { BEREICHE } from './reihenfolge';
   import { sitzt, statusVon } from './stand';
 
@@ -13,12 +14,15 @@
     vorlagen,
     zustand,
     niveau = $bindable(),
+    klasse = $bindable(5),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
     niveau: Niveau;
+    /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
+    klasse?: number;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -36,7 +40,7 @@
       kompetenzen: nachGraph(kompetenzen).filter(
         (k) =>
           k.bereich === bereich &&
-          k.klassenstufe_typisch.includes(5) &&
+          k.klassenstufe_typisch.includes(klasse) &&
           vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
       ),
     })).filter((b) => b.kompetenzen.length > 0),
@@ -54,7 +58,9 @@
     <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
   </fieldset>
 
-  <h3>{t('uebersicht.klasse5')}</h3>
+  <KlassenWahl bind:klasse />
+
+  <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}
     <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
     <ul class="liste">

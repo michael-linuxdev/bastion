@@ -1,0 +1,37 @@
+# Brüche addieren und subtrahieren – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.ADD-SUB
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche addieren und subtrahieren
+kann_satz:
+  de: Ich kann gemeine Brüche addieren und subtrahieren – gleichnamige und ungleichnamige.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.ERWEITERN
+  - M.ZO.TB.GGT-KGV
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichnamige Brüche und ungleichnamige Brüche, bei denen ein Nenner ein Vielfaches des anderen ist.'
+  M:
+    beschreibung:
+      de: 'Beliebige ungleichnamige Brüche und gemischte Zahlen; Ergebnis vollständig gekürzt.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

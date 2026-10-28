@@ -52,11 +52,14 @@
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
+  /** Klasse des laufenden Diagnosegangs – bleibt fest, sobald geantwortet wurde */
+  let diagnoseKlasse = $state(5);
   let gruppen = $state<readonly Fehlergruppe[]>([]);
   /** Aufträge der gerade aufgearbeiteten Fehlergruppe. */
   let werkstattListe = $state<readonly Auftrag[]>([]);
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
   let niveau = $state<Niveau>('G');
+  let klasse = $state(5);
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
   let zustand = $state<Zustand>({ staende: new Map(), karten: [] });
   /** Fachbegriffe aus dem Grundpaket – für alle Texte (L-7) */
@@ -189,6 +192,7 @@
         class="zweit"
         onclick={() => {
           inhalte ??= ladeInhalte();
+          if (diagnoseAntworten.length === 0) diagnoseKlasse = klasse;
           ansicht = 'diagnose';
         }}>{t('diagnose.knopf')}</button
       >
@@ -280,6 +284,7 @@
           {zustand}
           aufgaben={aufgabenListe}
           bind:niveau
+          bind:klasse
           onueben={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';
@@ -298,6 +303,7 @@
           vorlagen={geladen.vorlagen}
           paketVon={geladen.paketVon}
           bind:antworten={diagnoseAntworten}
+          bind:klasse={diagnoseKlasse}
           onergebnis={(d) => void ergebnis(d)}
           onueben={(k) => {
             gewaehlt = k;
@@ -390,6 +396,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           bind:niveau
+          bind:klasse
           onwahl={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';

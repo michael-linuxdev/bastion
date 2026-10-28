@@ -1,0 +1,18 @@
+# Mittelsenkrechte konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.DV.BESONDERE-LINIEN.MITTELSENKRECHTE
+kompetenz: M.RF.DV.BESONDERE-LINIEN
+titel:
+  de: 'Eine [[Mittelsenkrechte]] konstruieren'
+material:
+  de: 'Papier, spitzer Bleistift, Lineal, [[Zirkel]]'
+bilder: anleitung.mittelsenkrechte@1
+schritte:
+  - de: Zeichne eine Strecke AB.
+  - de: 'Stelle den [[Zirkel]] auf mehr als die Hälfte der Strecke ein. Stich in A ein und zeichne einen Bogen oberhalb und einen unterhalb von AB.'
+  - de: Stich mit derselben Zirkelöffnung in B ein und zeichne zwei Bögen, die die ersten schneiden.
+  - de: 'Verbinde die beiden Schnittpunkte. Das ist die [[Mittelsenkrechte]] von AB. Sie geht durch die Mitte von AB und steht [[senkrecht]] darauf.'
+pruefen:
+  - de: Miss nach – teilt deine Linie AB in zwei gleich lange Hälften?
+  - de: 'Steht sie im [[rechten Winkel]] auf AB? Prüfe mit dem [[Geodreieck]].'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,37 @@
+# Besondere Vierecke – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.VIERECKE
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: Besondere Vierecke
+kann_satz:
+  de: Ich kann Quadrat, Rechteck, Raute, Parallelogramm, Trapez und Drachenviereck an ihren Eigenschaften erkennen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.GF.LAGE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Vierecke benennen und ihre Eigenschaften (Seiten, Winkel, Diagonalen) angeben.'
+  M:
+    beschreibung:
+      de: 'Beziehungen zwischen den Vierecken begründen, z. B. „Jedes Quadrat ist eine Raute“.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

@@ -1,0 +1,38 @@
+# Zufallsversuche und Häufigkeiten – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZF.HAEUFIGKEIT
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufall
+titel:
+  de: Zufallsversuche und Häufigkeiten
+kann_satz:
+  de: Ich kann Ergebnisse von Zufallsversuchen angeben und absolute und relative Häufigkeiten bestimmen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.BEGRIFF
+  - M.ZO.BR.DEZIMAL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Mögliche Ergebnisse angeben, absolute Häufigkeiten aus einer Strichliste ablesen.'
+  M:
+    beschreibung:
+      de: 'Relative Häufigkeiten als Bruch, Dezimalzahl und in Prozent angeben.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K4
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 5 Mathematik im Alltag'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+version: 1

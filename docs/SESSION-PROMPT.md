@@ -44,7 +44,7 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Erster Schritt: sächsische Lehrpläne Klasse 6 auswerten (wie 0.18 für Klasse 5) und die Kompetenzen der Klasse 6 in `LEHRPLAN.md` eintragen. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/`. **Klasse 6 ist inhaltlich abgedeckt (als Entwurf):** alle 26 Kompetenzen haben Vorlagen – BR 23, ZU 8, ZF/DA 4, DV 10, FL 4, KP 4, zusammen 53 Vorlagen, dazu 3 Anleitungen (Dreieck aus drei Seiten, Mittelsenkrechte, Schrägbild eines Prismas). Übersicht, „Mein Stand“ und Diagnose haben eine Klassenwahl (5 oder 6). Nächster Schritt: Klasse 6 per PR auf `main` bringen (wenn gewünscht), danach Klasse 7 – Lehrpläne auswerten wie bei Klasse 6. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Klasse 6 (K-17):** Lehrpläne OS und GY Klasse 6 auswerten, Kompetenzen und Graph in `LEHRPLAN.md` und `content/`, dann Generatoren entlang des Graphen wie bei Klasse 5.
+7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Erledigt als Entwurf: 53 Vorlagen, 3 Anleitungen; Übersicht, „Mein Stand“ und Diagnose mit Klassenwahl (`src/ui/ueben/KlassenWahl.svelte`). Die Diagnose prüft nur die gewählte Klasse; die Klasse bleibt fest, sobald die erste Antwort gegeben ist.
 8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung
@@ -86,6 +86,7 @@ Mit Claude Code, als Nächstes:
 - **Fachbegriffe (1a, L-7):** Wörterbuch `content/mathematik/begriffe.yaml` (83 Begriffe), in Texten als `[[Form]]` markiert und antippbar; Erklärung erscheint direkt dahinter. `pnpm test` verlangt die Markierung beim ersten Vorkommen je Text; `pnpm inhalte:begriffe` markiert automatisch. In der Diagnose keine Erklärungen (keine Hilfen).
 - **Zeichen-Anleitungen (1a, L-10):** fünf Anleitungen (Senkrechte, Parallele, Winkel 50°, Spiegeln auf Kästchenpapier, Würfel aus Papier) in `content/…/anleitungen/*.yaml`, Bilder je Schritt aus `src/generators/anleitungen/`. Beim Üben der Kompetenz unter „Zeichnen lernen“; am Ende eine Prüfliste zum Abhaken, nicht gespeichert, nicht bewertet (INHALTSFORMAT §4.3).
 - Sicherung ist mit PR #9 auf `main`; Abschluss und Fachbegriffe stehen in PR #10. Die Anleitungen liegen auf dem Branch `claude/new-session-fl56ro`.
+- **Klasse 6 (K-17):** Lehrpläne OS 2019 und GY 2021 für Klasse 6 ausgewertet (PDFs vom Projektverantwortlichen). 26 Kompetenzen in sechs Feldern, neue Felder ZU, ZF, DV. Vorgezogen fürs GY: Kreisdiagramme, Flächenanteile, Prismen berechnen (OS Kl. 7). Nicht abbildbar: Präsentationen, Modellbau, DGS, Taschenrechner.
 - 1650 Tests und 14 Browser-Tests, Lint, Build, Größenbudget (120 von 250 KB) grün.
 
 ## Am Ende der Sitzung aktualisieren

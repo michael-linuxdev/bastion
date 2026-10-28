@@ -1,0 +1,25 @@
+# „Berechne 3/4 + 5/6.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ADD-SUB.UNGLEICHNAMIG
+kompetenz: M.ZO.BR.ADD-SUB
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.add-sub@1
+parameter:
+  G: { art: vielfaches, nenner_max: 10, unecht: false }
+  M: { art: beliebig, nenner_max: 12, unecht: true }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: 'Bringe beide [[Brüche]] auf einen gemeinsamen [[Nenner]]. Das kleinste gemeinsame [[Vielfache]] der Nenner ist am einfachsten.'
+  - de: '[[Erweitere]] beide [[Brüche]]. Dann rechne mit den Zählern.'
+fehlerbilder:
+  nenner-addiert:
+    de: 'Du hast [[Zähler]] mit Zählern und [[Nenner]] mit Nennern verrechnet. [[Brüche]] addierst du so nicht – bringe sie zuerst auf einen [[gemeinsamen Nenner]].'
+  nicht-erweitert:
+    de: 'Der gemeinsame [[Nenner]] stimmt, aber die [[Zähler]] hast du nicht mit erweitert. [[Erweitern]] heißt Zähler und Nenner mit derselben Zahl malnehmen.'
+herkunft: ki-entwurf
+version: 1

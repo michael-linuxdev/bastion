@@ -1,0 +1,35 @@
+# Gemeinsamer Nenner – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.TB.GGT-KGV
+fach: mathematik
+bereich: zahl-und-operation
+feld: teilbarkeit
+titel:
+  de: Gemeinsamer Nenner
+kann_satz:
+  de: Ich kann das kleinste gemeinsame Vielfache und den größten gemeinsamen Teiler zweier Zahlen finden.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.TB.TEILER
+niveaus:
+  G:
+    beschreibung:
+      de: 'Das kleinste gemeinsame Vielfache kleiner Zahlen als gemeinsamen Nenner finden.'
+  M:
+    beschreibung:
+      de: 'Auch den größten gemeinsamen Teiler bestimmen, um vollständig zu kürzen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

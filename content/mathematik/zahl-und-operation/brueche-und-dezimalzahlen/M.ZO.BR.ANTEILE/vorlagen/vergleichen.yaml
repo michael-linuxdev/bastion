@@ -1,0 +1,23 @@
+# „Was ist mehr: 3/5 oder 45 %?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ANTEILE.VERGLEICHEN
+kompetenz: M.ZO.BR.ANTEILE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.anteil-vergleich@1
+parameter:
+  G: { schwer: false }
+  M: { schwer: true }
+text:
+  aufgabe:
+    de: '**Vergleiche** die beiden Anteile.'
+hilfen:
+  - de: 'Schreibe beide Anteile auf dieselbe Art, am einfachsten in [[Prozent]].'
+  - de: '[[Prozent]] heißt „von Hundert“: [[Erweitere]] den [[Bruch]] auf den [[Nenner]] 100.'
+fehlerbilder:
+  prozentzahl-groesser:
+    de: 'Die Zahl vor dem Prozentzeichen ist größer, aber der [[Anteil]] nicht. Rechne beide in [[Prozent]] um und vergleiche dann.'
+  gleich-uebersehen:
+    de: 'Rechne beide in [[Prozent]] um: Die Anteile sind genau gleich groß.'
+herkunft: ki-entwurf
+version: 1

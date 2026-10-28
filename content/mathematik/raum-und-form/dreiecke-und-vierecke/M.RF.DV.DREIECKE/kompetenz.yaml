@@ -1,0 +1,37 @@
+# Dreiecksarten – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.DREIECKE
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: Dreiecksarten
+kann_satz:
+  de: Ich kann Dreiecke nach Seiten und Winkeln einteilen und entscheiden, ob es ein Dreieck mit gegebenen Seiten gibt.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.GF.WINKEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Dreiecke nach Seiten (gleichseitig, gleichschenklig, unregelmäßig) und Winkeln (spitz-, recht-, stumpfwinklig) benennen.'
+  M:
+    beschreibung:
+      de: 'Seiten-Winkel-Relation und Dreiecksungleichung anwenden.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

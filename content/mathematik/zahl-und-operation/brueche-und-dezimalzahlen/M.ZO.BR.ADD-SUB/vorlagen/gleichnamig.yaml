@@ -1,0 +1,25 @@
+# „Berechne 3/8 + 7/8.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ADD-SUB.GLEICHNAMIG
+kompetenz: M.ZO.BR.ADD-SUB
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.add-sub@1
+parameter:
+  G: { art: gleichnamig, nenner_max: 12, unecht: false }
+  M: { art: gleichnamig, nenner_max: 20, unecht: true }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: 'Die [[Nenner]] sind gleich. Rechne nur mit den Zählern, der Nenner bleibt.'
+  - de: '[[Kürze]] das Ergebnis am Ende.'
+fehlerbilder:
+  nenner-addiert:
+    de: 'Du hast auch die [[Nenner]] zusammengerechnet. Bei gleichen Nennern bleibt der Nenner gleich – es ändert sich nur die Anzahl der Teile.'
+  nicht-erweitert:
+    de: '[[Erweitern]] musst du hier nicht – die [[Nenner]] sind schon gleich.'
+herkunft: ki-entwurf
+version: 1

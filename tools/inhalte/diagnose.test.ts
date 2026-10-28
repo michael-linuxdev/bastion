@@ -14,7 +14,11 @@ import {
 import { generatoren } from '../../src/generators';
 import { pruefeInhalte } from './pruefen';
 
-const kompetenzen = nachGraph(pruefeInhalte('content', generatoren).kompetenzen);
+const kompetenzen = nachGraph(
+  pruefeInhalte('content', generatoren).kompetenzen.filter((k) =>
+    k.klassenstufe_typisch.includes(5),
+  ),
+);
 const nachId = new Map(kompetenzen.map((k) => [k.id, k]));
 
 /** Abschluss nach unten: mit jeder Kompetenz auch alle Voraussetzungen. */

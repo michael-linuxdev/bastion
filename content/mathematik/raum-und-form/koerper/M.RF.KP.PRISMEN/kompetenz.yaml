@@ -1,0 +1,39 @@
+# Prismen darstellen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KP.PRISMEN
+fach: mathematik
+bereich: raum-und-form
+feld: koerper
+titel:
+  de: Prismen darstellen
+kann_satz:
+  de: Ich kann gerade Prismen an ihren Eigenschaften erkennen und Netze, Schrägbilder und Ansichten dem Körper zuordnen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.KP.DARSTELLEN
+  - M.RF.DV.DREIECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Prismen und ihre Grundfläche erkennen; Ecken, Kanten und Flächen zählen.'
+  M:
+    beschreibung:
+      de: 'Netz, Schrägbild (Kavalierperspektive), Grundriss und Seitenansichten zuordnen – auch bei aus Quadern zusammengesetzten Körpern.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 4 Geometrische Körper'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 4 Prismen'
+version: 1

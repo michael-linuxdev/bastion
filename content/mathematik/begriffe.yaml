@@ -21,6 +21,71 @@ begriffe:
     formen: [natürliche Zahl, natürlichen Zahlen]
     erklaerung:
       de: 'Die Zahlen zum Zählen: 0, 1, 2, 3 … – ohne Komma und ohne Bruch.'
+  - id: gebrochene-zahl
+    wort: { de: gebrochene Zahl }
+    formen: [gebrochene Zahl, gebrochenen Zahlen, gebrochene Zahlen]
+    erklaerung:
+      de: 'Jede Zahl, die man als Bruch schreiben kann – zum Beispiel 3/4, 0,5 oder auch 3 = 3/1.'
+  - id: element
+    wort: { de: Element }
+    formen: [Element]
+    erklaerung:
+      de: 'Ein Ding, das zu einer Menge gehört. 7 ist ein Element der natürlichen Zahlen.'
+  - id: teilmenge
+    wort: { de: Teilmenge }
+    formen: [Teilmenge]
+    erklaerung:
+      de: 'Eine Menge, die ganz in einer anderen steckt. Die geraden Zahlen sind eine Teilmenge der natürlichen Zahlen.'
+  - id: zuordnung
+    wort: { de: Zuordnung }
+    formen: [Zuordnung, Zuordnungen]
+    erklaerung:
+      de: 'Eine Vorschrift, die Dingen etwas anderes zuordnet, zum Beispiel jeder Anzahl Hefte ihren Preis.'
+  - id: proportional
+    wort: { de: proportional }
+    formen: [proportional, proportionalen]
+    erklaerung:
+      de: 'Doppelt so viel ergibt doppelt so viel, dreimal so viel ergibt dreimal so viel. Alle Quotienten y : x sind gleich.'
+  - id: umgekehrt-proportional
+    wort: { de: umgekehrt proportional }
+    formen: [umgekehrt proportional, umgekehrt proportionalen]
+    erklaerung:
+      de: 'Doppelt so viel ergibt halb so viel. Alle Produkte x · y sind gleich.'
+  - id: graph
+    wort: { de: Graph }
+    formen: [Graphen, Graph]
+    erklaerung:
+      de: 'Die Linie oder Kurve, die eine Zuordnung im Koordinatensystem zeigt.'
+  - id: quotient
+    wort: { de: Quotient }
+    formen: [Quotienten]
+    erklaerung:
+      de: 'Das Ergebnis einer Geteiltaufgabe. Bei 12 : 3 = 4 ist 4 der Quotient.'
+  - id: relative-haeufigkeit
+    wort: { de: relative Häufigkeit }
+    formen: [relative Häufigkeit, relativen Häufigkeit]
+    erklaerung:
+      de: 'Wie oft etwas vorkam, geteilt durch alle Versuche. 5-mal die 6 bei 20 Würfen: 5/20 = 25 %.'
+  - id: absolute-haeufigkeit
+    wort: { de: absolute Häufigkeit }
+    formen: [absolute Häufigkeit]
+    erklaerung:
+      de: 'Wie oft ein Ergebnis vorkam, zum Beispiel 5-mal die 6.'
+  - id: strichliste
+    wort: { de: Strichliste }
+    formen: [Strichliste]
+    erklaerung:
+      de: 'Für jedes Ergebnis ein Strich. Jeder fünfte Strich geht quer über die vier davor – das ist ein Fünferbündel.'
+  - id: kreisdiagramm
+    wort: { de: Kreisdiagramm }
+    formen: [Kreisdiagramm]
+    erklaerung:
+      de: 'Ein Kreis, der in Teile geteilt ist. Jeder Teil zeigt einen Anteil am Ganzen.'
+  - id: mittelpunktswinkel
+    wort: { de: Mittelpunktswinkel }
+    formen: [Mittelpunktswinkel]
+    erklaerung:
+      de: 'Der Winkel eines Kreisteils am Mittelpunkt des Kreises. Der ganze Kreis hat 360°.'
   - id: summe
     wort: { de: Summe }
     formen: [Summe]
@@ -170,6 +235,26 @@ begriffe:
     formen: [Kürze, kürze, Kürzen, kürzen, gekürzt, gekürzten]
     erklaerung:
       de: 'Zähler und Nenner durch dieselbe Zahl teilen. Der Wert bleibt gleich: 6/8 = 3/4.'
+  - id: kehrwert
+    wort: { de: Kehrwert }
+    formen: [Kehrwert]
+    erklaerung:
+      de: 'Der Bruch mit vertauschtem Zähler und Nenner. Der Kehrwert von 3/4 ist 4/3, der von 5 ist 1/5.'
+  - id: gemeinsamer-nenner
+    wort: { de: gemeinsamer Nenner }
+    formen: [gemeinsamen Nenner, gemeinsamer Nenner]
+    erklaerung:
+      de: 'Ein Nenner, auf den man beide Brüche erweitern kann. Für 1/4 und 1/6 ist 12 der kleinste gemeinsame Nenner.'
+  - id: periodisch
+    wort: { de: periodisch }
+    formen: [periodisch]
+    erklaerung:
+      de: 'Eine Dezimalzahl ist periodisch, wenn sich Ziffern hinter dem Komma unendlich oft wiederholen: 1/3 = 0,333…'
+  - id: periodenstrich
+    wort: { de: Periodenstrich }
+    formen: [Periodenstrich]
+    erklaerung:
+      de: 'Der Strich über den Ziffern, die sich wiederholen. 0,16̅ heißt 0,1666…'
   - id: dezimalzahl
     wort: { de: Dezimalzahl }
     formen: [Dezimalzahl, Dezimalzahlen]
@@ -289,6 +374,88 @@ begriffe:
     formen: [Würfelnetze, Würfelnetz, Netz]
     erklaerung:
       de: 'Die Oberfläche eines Körpers, aufgeklappt und flach hingelegt. Ein Würfelnetz besteht aus sechs Quadraten.'
+
+  # Dreiecke und Vierecke (Klasse 6)
+  - id: innenwinkel
+    wort: { de: Innenwinkel }
+    formen: [Innenwinkel]
+    erklaerung:
+      de: 'Die Winkel innen an den Ecken einer Figur. Im Dreieck sind es drei, zusammen immer 180°.'
+  - id: basiswinkel
+    wort: { de: Basiswinkel }
+    formen: [Basiswinkel]
+    erklaerung:
+      de: 'Die beiden Winkel an der Basis eines gleichschenkligen Dreiecks. Sie sind gleich groß.'
+  - id: gleichschenklig
+    wort: { de: gleichschenklig }
+    formen: [gleichschenklig, gleichschenkligen]
+    erklaerung:
+      de: 'Ein Dreieck mit zwei gleich langen Seiten (den Schenkeln). Die dritte Seite heißt Basis.'
+  - id: gleichseitig
+    wort: { de: gleichseitig }
+    formen: [gleichseitig]
+    erklaerung:
+      de: 'Ein Dreieck, dessen drei Seiten alle gleich lang sind. Alle Winkel sind dann 60°.'
+  - id: kongruenzsatz
+    wort: { de: Kongruenzsatz }
+    formen: [Kongruenzsatz]
+    erklaerung:
+      de: 'Ein Satz, der sagt, welche drei Angaben ein Dreieck eindeutig festlegen: sss, sws, wsw oder SsW.'
+  - id: zirkel
+    wort: { de: Zirkel }
+    formen: [Zirkel]
+    erklaerung:
+      de: 'Ein Gerät zum Zeichnen von Kreisen und Kreisbögen. Seine Öffnung ist der Radius.'
+  - id: hoehe
+    wort: { de: Höhe }
+    formen: [Höhe]
+    erklaerung:
+      de: 'Ein senkrechter Abstand. Im Dreieck: die Strecke von einer Ecke senkrecht auf die gegenüberliegende Seite.'
+  - id: seitenhalbierende
+    wort: { de: Seitenhalbierende }
+    formen: [Seitenhalbierende]
+    erklaerung:
+      de: 'Die Strecke von einer Ecke des Dreiecks zur Mitte der gegenüberliegenden Seite.'
+  - id: winkelhalbierende
+    wort: { de: Winkelhalbierende }
+    formen: [Winkelhalbierende]
+    erklaerung:
+      de: 'Eine Linie, die einen Winkel in zwei gleich große Winkel teilt.'
+  - id: mittelsenkrechte
+    wort: { de: Mittelsenkrechte }
+    formen: [Mittelsenkrechte]
+    erklaerung:
+      de: 'Eine Gerade, die durch die Mitte einer Strecke geht und senkrecht auf ihr steht.'
+  - id: umkreis
+    wort: { de: Umkreis }
+    formen: [Umkreis]
+    erklaerung:
+      de: 'Der Kreis, der durch alle drei Ecken eines Dreiecks geht.'
+  - id: inkreis
+    wort: { de: Inkreis }
+    formen: [Inkreis]
+    erklaerung:
+      de: 'Der Kreis im Dreieck, der alle drei Seiten berührt.'
+  - id: raute
+    wort: { de: Raute }
+    formen: [Raute]
+    erklaerung:
+      de: 'Ein Viereck mit vier gleich langen Seiten. Ein Quadrat ist eine besondere Raute mit rechten Winkeln.'
+  - id: parallelogramm
+    wort: { de: Parallelogramm }
+    formen: [Parallelogramm, Parallelogrammen]
+    erklaerung:
+      de: 'Ein Viereck, bei dem gegenüberliegende Seiten parallel und gleich lang sind.'
+  - id: trapez
+    wort: { de: Trapez }
+    formen: [Trapez, Trapezen]
+    erklaerung:
+      de: 'Ein Viereck mit (mindestens) zwei parallelen gegenüberliegenden Seiten.'
+  - id: drachenviereck
+    wort: { de: Drachenviereck }
+    formen: [Drachenviereck, Drachenvierecken]
+    erklaerung:
+      de: 'Ein Viereck mit zwei Paaren gleich langer Seiten, die jeweils nebeneinanderliegen – wie ein Drachen.'
 
   # Geometrie
   - id: koordinaten
@@ -431,3 +598,18 @@ begriffe:
     formen: [Diagonalen, Diagonale]
     erklaerung:
       de: 'Eine Strecke, die zwei Ecken verbindet, die nicht nebeneinanderliegen.'
+  - id: prisma
+    wort: { de: Prisma }
+    formen: [Prismas, Prismen, Prisma]
+    erklaerung:
+      de: 'Ein Körper mit zwei gleichen, parallelen Vielecken als Grund- und Deckfläche. Die Seitenflächen sind Rechtecke.'
+  - id: deckflaeche
+    wort: { de: Deckfläche }
+    formen: [Deckfläche]
+    erklaerung:
+      de: 'Die Fläche oben auf einem Prisma. Sie ist genauso groß wie die Grundfläche.'
+  - id: schraegbild
+    wort: { de: Schrägbild }
+    formen: [Schrägbild]
+    erklaerung:
+      de: 'Eine Zeichnung, die einen Körper räumlich zeigt. Die Kanten nach hinten werden schräg und verkürzt gezeichnet.'

@@ -1,0 +1,38 @@
+# Anteile vergleichen und darstellen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.ANTEILE
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Anteile vergleichen und darstellen
+kann_satz:
+  de: Ich kann Anteile als Bruch, Dezimalzahl und in Prozent angeben und vergleichen – auch Flächenanteile.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.PROZENT
+  - M.ZO.BR.PERIODISCH
+niveaus:
+  G:
+    beschreibung:
+      de: 'Anteile in der jeweils anderen Schreibweise angeben und vergleichen.'
+  M:
+    beschreibung:
+      de: 'Flächen- und Volumenanteile geometrischer Figuren bestimmen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: LB 2 Anteile und Prozente
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 5 Vernetzung: Anteile'
+version: 1

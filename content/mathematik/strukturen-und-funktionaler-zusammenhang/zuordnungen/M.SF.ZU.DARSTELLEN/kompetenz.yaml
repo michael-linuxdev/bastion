@@ -1,0 +1,37 @@
+# Zuordnungen darstellen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.ZU.DARSTELLEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: zuordnungen
+titel:
+  de: Zuordnungen darstellen
+kann_satz:
+  de: Ich kann Zuordnungen aus dem Alltag in Worten, Tabellen, Pfeilbildern, Diagrammen und mit Gleichungen darstellen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.GF.KOORDINATEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Zuordnungen aus Tabellen und Diagrammen ablesen und in eine andere Darstellung übertragen.'
+  M:
+    beschreibung:
+      de: 'Eindeutige, eineindeutige und mehrdeutige Zuordnungen unterscheiden; Gleichungen aufstellen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+version: 1

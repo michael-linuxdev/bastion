@@ -1,0 +1,25 @@
+# „Welches Viereck ist das?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE.ERKENNEN
+kompetenz: M.RF.DV.VIERECKE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.viereck-name@1
+parameter:
+  G: { diagonalen: false }
+  M: { diagonalen: true }
+text:
+  aufgabe:
+    de: '{beschreibung} **Entscheide**: Welches Viereck ist das?'
+hilfen:
+  - de: 'Achte auf Seiten, [[Winkel]] und – bei den [[Diagonalen]] – ob sie gleich lang sind, sich halbieren oder [[senkrecht]] stehen.'
+  - de: 'Beim [[Drachenviereck]] liegen die gleich langen Seiten nebeneinander, beim [[Parallelogramm]] einander gegenüber.'
+fehlerbilder:
+  raute-quadrat:
+    de: 'Ein Quadrat hätte rechte [[Winkel]] und gleich lange [[Diagonalen]]. Hier fehlt das – es ist eine [[Raute]].'
+  rechteck-quadrat:
+    de: Ein Quadrat hätte vier gleich lange Seiten. Hier fehlt das – es ist ein Rechteck.
+  parallelogramm-trapez:
+    de: 'Beim [[Parallelogramm]] sind beide Paare gegenüberliegender Seiten [[parallel]]. Hier ist es nur eines – es ist ein [[Trapez]].'
+herkunft: ki-entwurf
+version: 1

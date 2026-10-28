@@ -1,0 +1,23 @@
+# „Berechne 1/6 + 5/6 · 3.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT
+kompetenz: M.ZO.BR.RECHENGESETZE
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.term-bruch-punkt@1
+parameter:
+  G: { nenner_max: 8, faktor_max: 5 }
+  M: { nenner_max: 12, faktor_max: 9 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} + {b} · {k}'
+hilfen:
+  - de: '[[Punkt vor Strich]] gilt auch bei Brüchen.'
+  - de: Rechne zuerst {b} · {k}, dann addiere {a}.
+fehlerbilder:
+  links-nach-rechts:
+    de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]] – erst das Malnehmen.'
+herkunft: ki-entwurf
+version: 1

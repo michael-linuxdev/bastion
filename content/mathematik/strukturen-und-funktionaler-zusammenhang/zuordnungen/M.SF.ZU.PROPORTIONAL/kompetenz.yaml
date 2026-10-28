@@ -1,0 +1,37 @@
+# Proportional oder nicht? – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.ZU.PROPORTIONAL
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: zuordnungen
+titel:
+  de: 'Proportional oder nicht?'
+kann_satz:
+  de: Ich kann erkennen, ob eine Zuordnung proportional, umgekehrt proportional oder keins von beiden ist.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.SF.ZU.DARSTELLEN
+  - M.ZO.BR.DEZ-RECHNEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Mit „je mehr – desto mehr“ und „je mehr – desto weniger“ eine Vermutung äußern und an der Tabelle prüfen.'
+  M:
+    beschreibung:
+      de: 'Mit Quotientengleichheit und Produktgleichheit begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K1
+    - K3
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+version: 1

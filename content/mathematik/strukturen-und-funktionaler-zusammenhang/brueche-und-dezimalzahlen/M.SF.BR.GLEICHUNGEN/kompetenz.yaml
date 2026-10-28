@@ -1,0 +1,39 @@
+# Gleichungen mit Brüchen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.BR.GLEICHUNGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Gleichungen mit Brüchen
+kann_satz:
+  de: Ich kann Gleichungen und Ungleichungen mit gebrochenen Zahlen durch Probieren oder mit der Umkehraufgabe lösen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.SF.NZ.GLEICHUNGEN
+  - M.ZO.BR.ADD-SUB
+  - M.ZO.BR.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichungen mit einem Rechenschritt, z. B. x + 3/4 = 2.'
+  M:
+    beschreibung:
+      de: 'Gleichungen mit zwei Rechenschritten und einfache Ungleichungen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

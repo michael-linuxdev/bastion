@@ -1,0 +1,20 @@
+# „Was ist der nächste Konstruktionsschritt?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.KONSTRUIEREN.SCHRITT
+kompetenz: M.RF.DV.KONSTRUIEREN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.konstruktion-schritt@1
+parameter:
+  G: { saetze: [sss] }
+  M: { saetze: [sss, sws, wsw] }
+text:
+  aufgabe:
+    de: '{satz} Du hast schon: {bisher} **Entscheide**: Was ist der nächste Schritt?'
+hilfen:
+  - de: Überlege, welcher Punkt des Dreiecks als Nächstes festgelegt werden kann.
+fehlerbilder:
+  schritt-uebersprungen:
+    de: Dieser Schritt kommt später. Dafür brauchst du erst einen Punkt oder eine Linie, die noch fehlt.
+herkunft: ki-entwurf
+version: 1

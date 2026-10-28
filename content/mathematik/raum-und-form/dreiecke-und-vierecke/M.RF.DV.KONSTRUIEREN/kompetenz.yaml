@@ -1,0 +1,38 @@
+# Dreiecke konstruieren – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.KONSTRUIEREN
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: Dreiecke konstruieren
+kann_satz:
+  de: Ich kann mit den Kongruenzsätzen entscheiden, ob ein Dreieck aus gegebenen Stücken eindeutig konstruierbar ist, und Dreiecke konstruieren.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.DV.DREIECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den passenden Kongruenzsatz (sss, sws, wsw) zu gegebenen Stücken nennen.'
+  M:
+    beschreibung:
+      de: 'Entscheiden, ob es keine, genau eine oder mehrere Lösungen gibt (auch SsW); Konstruktionsschritte ordnen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K2
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

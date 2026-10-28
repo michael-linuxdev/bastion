@@ -1,0 +1,23 @@
+# „Ein Dreieck hat die Seiten 5 cm, 5 cm und 7 cm …“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.DREIECKE.ART
+kompetenz: M.RF.DV.DREIECKE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.dreiecksart@1
+parameter:
+  G: { dritter_winkel: false }
+  M: { dritter_winkel: true }
+text:
+  aufgabe:
+    de: '{angabe} **Entscheide**, welche Art von Dreieck es ist.'
+hilfen:
+  - de: 'Nach Seiten – wie viele Seiten sind gleich lang? Nach Winkeln – wie groß ist der größte [[Winkel]]?'
+  - de: 'Fehlt ein [[Winkel]], berechne ihn mit der Winkelsumme 180°.'
+fehlerbilder:
+  gleichseitig-uebersehen:
+    de: 'Hier sind alle drei Seiten gleich lang. Das Dreieck ist [[gleichseitig]].'
+  groesster-winkel-uebersehen:
+    de: 'Berechne zuerst den dritten [[Winkel]]. Er ist der größte und entscheidet über die Art des Dreiecks.'
+herkunft: ki-entwurf
+version: 1

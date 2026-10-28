@@ -9,6 +9,8 @@ Verbindliche Grundlage für die Mathe-Inhalte von Bastion (K-16, `STRATEGIE.md` 
 
 Die PDF-Dateien liegen **nicht** im Repository: Das Repository soll öffentlich werden (O-8), und ob die Lehrpläne frei weiterverbreitet werden dürfen, ist nicht geklärt. Bastion übernimmt nur die Gliederung (Lernbereiche, Zeitrichtwerte) und verweist im Kompetenzmodell darauf (`LEHRPLAN.md` §8, Feld `sachsen`).
 
+**Ausgewertet:** Klasse 5 (0.18, `LEHRPLAN.md` §8) und Klasse 6 (28.10.2026, `LEHRPLAN.md` §8b) aus denselben Fassungen. Die PDF-Dateien für Klasse 6 hat der Projektverantwortliche bereitgestellt, weil die Lehrplandatenbank aus der Arbeitsumgebung nicht erreichbar war.
+
 **Vor jeder neuen Klassenstufe:** in der Lehrplandatenbank prüfen, ob es eine neuere Fassung gibt, und die Fassung hier nachtragen.
 
 Noch nicht ausgewertet: Lehrpläne der Gemeinschaftsschule/Oberschule+ und der Förderschulen (Mathematik). Sie folgen für die Inhalte voraussichtlich den Lehrplänen von OS und GY – zu prüfen.

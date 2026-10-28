@@ -1,0 +1,23 @@
+# „Gib den größten gemeinsamen Teiler von 24 und 36 an.“ Entwurf: noch nicht geprüft.
+id: M.ZO.TB.GGT-KGV.GGT
+kompetenz: M.ZO.TB.GGT-KGV
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tb.ggt@1
+parameter:
+  G: { zahl_max: 12 }
+  M: { zahl_max: 60 }
+text:
+  aufgabe:
+    de: '**Gib** den größten [[gemeinsamen Teiler]] von {a} und {b} **an**.'
+hilfen:
+  - de: 'Schreibe alle [[Teiler]] beider Zahlen auf.'
+  - de: 'Welcher [[Teiler]] kommt bei beiden vor und ist am größten?'
+fehlerbilder:
+  kgv-statt-ggt:
+    de: 'Das ist ein gemeinsames [[Vielfaches]]. Gesucht ist ein [[Teiler]] – er ist höchstens so groß wie die kleinere Zahl.'
+  eins:
+    de: 'Die 1 teilt zwar beide Zahlen, aber es gibt einen größeren [[gemeinsamen Teiler]].'
+herkunft: ki-entwurf
+version: 1

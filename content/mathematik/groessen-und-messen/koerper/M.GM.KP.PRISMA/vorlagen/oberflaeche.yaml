@@ -1,0 +1,25 @@
+# Oberflächeninhalt eines Dreiecksprismas. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PRISMA.OBERFLAECHE
+kompetenz: M.GM.KP.PRISMA
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.prisma-oberflaeche@1
+parameter:
+  G: { faktor_max: 2, hoehe_max: 10 }
+  M: { faktor_max: 4, hoehe_max: 20 }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** den [[Oberflächeninhalt]] in cm².'
+hilfen:
+  - de: 'Die [[Oberfläche]] besteht aus zwei Dreiecken und drei Rechtecken. Stell dir das [[Netz]] vor.'
+  - de: 'Die drei Rechtecke zusammen sind so lang wie der [[Umfang]] des Dreiecks und so hoch wie das [[Prisma]].'
+fehlerbilder:
+  grundflaeche-einmal:
+    de: 'Du hast das Dreieck nur einmal gezählt. [[Grundfläche]] und [[Deckfläche]] sind zwei Dreiecke.'
+  mantel-vergessen:
+    de: 'Das sind nur die beiden Dreiecke. Die drei Rechtecke an der Seite gehören auch dazu.'
+  grundflaeche-nicht-halbiert:
+    de: 'Beim Dreieck fehlt das Teilen durch 2.'
+herkunft: ki-entwurf
+version: 1

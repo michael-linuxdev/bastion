@@ -1,0 +1,23 @@
+# „Wie groß ist der Mittelpunktswinkel für 3/8?“ Entwurf: noch nicht geprüft.
+id: M.DZ.DA.KREISDIAGRAMM.WINKEL
+kompetenz: M.DZ.DA.KREISDIAGRAMM
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kd.winkel@1
+parameter:
+  G: { prozent: false }
+  M: { prozent: true }
+text:
+  aufgabe:
+    de: 'Ein [[Anteil]] von {anteil} soll im [[Kreisdiagramm]] gezeigt werden. **Berechne** den [[Mittelpunktswinkel]] in [[Grad]].'
+hilfen:
+  - de: Der ganze Kreis hat 360°.
+  - de: 'Nimm den [[Anteil]] von 360°: Teile durch den [[Nenner]] und nimm mit dem [[Zähler]] mal – oder 1 % sind 3,6°.'
+fehlerbilder:
+  hundert-statt-360:
+    de: Du hast mit 100 statt mit 360 gerechnet. Ein ganzer Kreis hat 360°.
+  halbkreis:
+    de: Du hast mit 180° gerechnet. Das ist nur ein Halbkreis – der ganze Kreis hat 360°.
+herkunft: ki-entwurf
+version: 1

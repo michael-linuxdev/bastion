@@ -1,0 +1,23 @@
+# „Welcher Graph gehört zur Tabelle?“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.GRAPH.WAEHLEN
+kompetenz: M.SF.ZU.GRAPH
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: zu.graph-waehlen@1
+parameter:
+  G: { umgekehrt: false }
+  M: { umgekehrt: true }
+text:
+  aufgabe:
+    de: '**Wähle** den [[Graphen]] **aus**, der zur Tabelle passt.'
+hilfen:
+  - de: 'Ist die [[Zuordnung]] [[proportional]], [[umgekehrt proportional]] oder keins von beiden?'
+  - de: 'Der [[Graph]] einer [[proportionalen]] [[Zuordnung]] ist eine [[Gerade]] durch den [[Ursprung]].'
+fehlerbilder:
+  nicht-durch-ursprung:
+    de: 'Diese [[Gerade]] geht nicht durch den [[Ursprung]]. Bei x = 0 müsste auch y = 0 sein.'
+  gerade-statt-kurve:
+    de: 'Eine fallende [[Gerade]] passt nicht. Bei [[umgekehrt proportionalen]] [[Zuordnungen]] ist der [[Graph]] eine Kurve.'
+herkunft: ki-entwurf
+version: 1

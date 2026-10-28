@@ -1,0 +1,27 @@
+# „Ist 5/6 als Dezimalzahl endlich oder periodisch?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PERIODISCH.ERKENNEN
+kompetenz: M.ZO.BR.PERIODISCH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.periodisch@1
+parameter:
+  G: { schreibweise: false, nenner_max: 12 }
+  M: { schreibweise: true, nenner_max: 15 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche Antwort passt zu {bruch} als [[Dezimalzahl]]?'
+hilfen:
+  - de: 'Lässt sich der [[Nenner]] auf 10, 100 oder 1000 [[erweitern]], ist die [[Dezimalzahl]] endlich.'
+  - de: 'Sonst teile schriftlich. Wiederholen sich die [[Ziffern]], ist sie [[periodisch]] – der Strich steht über dem Teil, der sich wiederholt.'
+fehlerbilder:
+  nenner-ungerade-gleich-periodisch:
+    de: 'Ein ungerader [[Nenner]] allein macht die Zahl nicht [[periodisch]]. 5 und 25 lassen sich auf 10 und 100 [[erweitern]].'
+  periode-zu-frueh:
+    de: 'Der Strich steht zu weit vorn. Er gehört nur über die [[Ziffern]], die sich wirklich wiederholen.'
+  ohne-strich:
+    de: 'Hier fehlt der [[Periodenstrich]]. Ohne ihn hört die Zahl nach diesen [[Ziffern]] auf – aber sie geht unendlich weiter.'
+  abgebrochen:
+    de: 'Das ist nur der Anfang der Zahl. Die [[Ziffern]] wiederholen sich unendlich – das zeigt der [[Periodenstrich]].'
+herkunft: ki-entwurf
+version: 1

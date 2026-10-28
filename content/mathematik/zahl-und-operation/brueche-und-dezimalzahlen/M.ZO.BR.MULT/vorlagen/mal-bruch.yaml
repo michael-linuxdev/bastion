@@ -1,0 +1,23 @@
+# „Berechne 2/3 · 9/10.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.MULT.MAL-BRUCH
+kompetenz: M.ZO.BR.MULT
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.mal-bruch@1
+parameter:
+  G: { nenner_max: 6, zahl_max: 2 }
+  M: { nenner_max: 12, zahl_max: 2 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: '[[Zähler]] mal Zähler, [[Nenner]] mal Nenner.'
+  - de: 'Du kannst vor dem Ausrechnen über Kreuz [[kürzen]].'
+fehlerbilder:
+  nenner-addiert:
+    de: 'Du hast die [[Nenner]] addiert. Beim Malnehmen werden auch die Nenner **malgenommen** – [[Zähler]] mal Zähler, Nenner mal Nenner.'
+herkunft: ki-entwurf
+version: 1

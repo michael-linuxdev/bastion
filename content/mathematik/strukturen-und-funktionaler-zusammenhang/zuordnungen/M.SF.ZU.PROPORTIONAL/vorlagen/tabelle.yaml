@@ -1,0 +1,23 @@
+# „Ist die Zuordnung proportional?“ Entwurf: noch nicht geprüft.
+id: M.SF.ZU.PROPORTIONAL.TABELLE
+kompetenz: M.SF.ZU.PROPORTIONAL
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zu.proportional-tabelle@1
+parameter:
+  G: { weder: false }
+  M: { weder: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche Art von [[Zuordnung]] zeigt die Tabelle?'
+hilfen:
+  - de: 'Proportional: Alle [[Quotienten]] y : x sind gleich.'
+  - de: 'Umgekehrt [[proportional]]: Alle Produkte x · y sind gleich.'
+fehlerbilder:
+  je-mehr-desto-mehr:
+    de: '„Je mehr, desto mehr“ reicht nicht. Bei [[proportionalen]] [[Zuordnungen]] sind alle [[Quotienten]] y : x gleich – prüfe nach.'
+  je-mehr-desto-weniger:
+    de: '„Je mehr, desto weniger“ reicht nicht. Bei [[umgekehrt proportionalen]] [[Zuordnungen]] sind alle Produkte x · y gleich – prüfe nach.'
+herkunft: ki-entwurf
+version: 1

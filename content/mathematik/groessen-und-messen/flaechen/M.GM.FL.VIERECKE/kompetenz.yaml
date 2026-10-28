@@ -1,0 +1,38 @@
+# Flächeninhalt von Vierecken – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.FL.VIERECKE
+fach: mathematik
+bereich: groessen-und-messen
+feld: flaechen
+titel:
+  de: Flächeninhalt von Vierecken
+kann_satz:
+  de: Ich kann Umfang und Flächeninhalt von Parallelogrammen, Trapezen und Drachenvierecken berechnen – auch durch Zerlegen und Ergänzen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.GM.FL.DREIECK
+  - M.RF.DV.VIERECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Flächeninhalt von Parallelogrammen und Trapezen mit der Formel berechnen.'
+  M:
+    beschreibung:
+      de: 'Drachenvierecke und zusammengesetzte Figuren durch Zerlegen oder Ergänzen berechnen.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

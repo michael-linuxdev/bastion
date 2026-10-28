@@ -235,3 +235,169 @@ export const wuerfelnetz: AnleitungsBilder = {
     ];
   },
 };
+
+/** Dreieck aus a = 5 cm, b = 4 cm, c = 6 cm konstruieren (1 cm = 30 Bildpunkte) */
+export const sss: AnleitungsBilder = {
+  id: 'anleitung.sss',
+  version: 1,
+  bilder: () => {
+    const A: [number, number] = [60, 190];
+    const B: [number, number] = [240, 190];
+    // C aus den Kreisen um A (r = 120) und B (r = 150)
+    const cx = A[0] + 67.5;
+    const cy = A[1] - Math.sqrt(120 ** 2 - 67.5 ** 2);
+    const grund = [
+      linie(A[0], A[1], B[0], B[1]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      text(150, 210, 'c = 6 cm', 13),
+    ];
+    const bogenA = bogen(A[0], A[1], 120, 40, 72);
+    const bogenB = bogen(B[0], B[1], 150, 124, 154);
+    return [
+      bild(300, 220, grund, { de: 'Die Strecke AB ist 6 cm lang.' }),
+      bild(300, 220, [...grund, bogenA], {
+        de: 'Um A ist ein Kreisbogen mit dem Radius 4 cm gezeichnet.',
+      }),
+      bild(300, 220, [...grund, bogenA, bogenB, kreis(cx, cy, 3, true)], {
+        de: 'Um B ist ein Kreisbogen mit dem Radius 5 cm gezeichnet. Die beiden Bögen schneiden sich.',
+      }),
+      bild(
+        300,
+        220,
+        [
+          ...grund,
+          bogenA,
+          bogenB,
+          dick(A[0], A[1], cx, cy),
+          dick(B[0], B[1], cx, cy),
+          punkt(cx, cy, 'C'),
+        ],
+        {
+          de: 'Der Schnittpunkt C ist mit A und B verbunden. Das Dreieck ABC ist fertig.',
+        },
+      ),
+    ];
+  },
+};
+
+/** Mittelsenkrechte einer Strecke AB mit dem Zirkel */
+export const mittelsenkrechte: AnleitungsBilder = {
+  id: 'anleitung.mittelsenkrechte',
+  version: 1,
+  bilder: () => {
+    const A: [number, number] = [70, 120];
+    const B: [number, number] = [230, 120];
+    const h = Math.sqrt(110 ** 2 - 80 ** 2);
+    const grund = [linie(A[0], A[1], B[0], B[1]), punkt(A[0], A[1], 'A'), punkt(B[0], B[1], 'B')];
+    const boegenA = [bogen(A[0], A[1], 110, 30, 56), bogen(A[0], A[1], 110, 304, 330)];
+    const boegenB = [bogen(B[0], B[1], 110, 124, 150), bogen(B[0], B[1], 110, 210, 236)];
+    const oben: [number, number] = [150, A[1] - h];
+    const unten: [number, number] = [150, A[1] + h];
+    return [
+      bild(300, 240, grund, { de: 'Eine waagerechte Strecke AB.' }),
+      bild(300, 240, [...grund, ...boegenA], {
+        de: 'Um A sind zwei Bögen gezeichnet, einer oberhalb und einer unterhalb von AB.',
+      }),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          ...boegenA,
+          ...boegenB,
+          kreis(oben[0], oben[1], 3, true),
+          kreis(unten[0], unten[1], 3, true),
+        ],
+        {
+          de: 'Um B sind mit derselben Zirkelöffnung zwei Bögen gezeichnet. Sie schneiden die ersten oben und unten.',
+        },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          ...boegenA,
+          ...boegenB,
+          dick(oben[0], oben[1] - 10, unten[0], unten[1] + 10),
+          rechterWinkel(150, 120, 12, -12),
+        ],
+        {
+          de: 'Die beiden Schnittpunkte sind verbunden. Die Linie halbiert AB und steht senkrecht darauf.',
+        },
+      ),
+    ];
+  },
+};
+
+/** Schrägbild eines Dreiecksprismas (Kavalierperspektive: 45°, Tiefe halbiert) */
+export const schraegbildPrisma: AnleitungsBilder = {
+  id: 'anleitung.schraegbild-prisma',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const A: P = [60, 200];
+    const B: P = [180, 200];
+    const C: P = [120, 100];
+    // Tiefe 6 Kästchen → gezeichnet 3 Kästchendiagonalen nach rechts oben
+    const hinten = (p: P): P => [p[0] + 60, p[1] - 60];
+    const [A2, B2, C2] = [hinten(A), hinten(B), hinten(C)];
+    const strich = (p: P, q: P, art: 'normal' | 'dick' | 'verdeckt' = 'normal') =>
+      art === 'dick'
+        ? dick(p[0], p[1], q[0], q[1])
+        : art === 'verdeckt'
+          ? gestrichelt(p[0], p[1], q[0], q[1])
+          : linie(p[0], p[1], q[0], q[1]);
+    const grund = [
+      ...raster(0, 0, 20, 15, 12),
+      vieleck([A, B, C]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      punkt(C[0], C[1], 'C'),
+    ];
+    return [
+      bild(300, 240, grund, {
+        de: 'Auf Kästchenpapier ist vorne das Dreieck ABC in wahrer Größe gezeichnet.',
+      }),
+      bild(
+        300,
+        240,
+        [...grund, strich(A, A2, 'dick'), strich(B, B2, 'dick'), strich(C, C2, 'dick')],
+        {
+          de: 'Von A, B und C gehen schräge Linien nach rechts oben, jede drei Kästchendiagonalen lang.',
+        },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          strich(A, A2),
+          strich(B, B2),
+          strich(C, C2),
+          strich(A2, B2, 'dick'),
+          strich(B2, C2, 'dick'),
+          strich(C2, A2, 'dick'),
+        ],
+        { de: 'Die Endpunkte der schrägen Linien sind zum hinteren Dreieck verbunden.' },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          strich(B, B2),
+          strich(C, C2),
+          strich(B2, C2),
+          strich(A, A2, 'verdeckt'),
+          strich(A2, B2, 'verdeckt'),
+          strich(A2, C2, 'verdeckt'),
+        ],
+        {
+          de: 'Die drei Kanten an der hinteren Ecke unten links sind gestrichelt, weil sie verdeckt sind.',
+        },
+      ),
+    ];
+  },
+};
