@@ -1,0 +1,23 @@
+# „Gib die größte ganze Zahl an, die 3·x − 2 < 13 erfüllt.“ Entwurf: noch nicht geprüft.
+id: M.SF.TU.UNGLEICHUNGEN.RAND
+kompetenz: M.SF.TU.UNGLEICHUNGEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tu.ungleichung-rand@1
+parameter:
+  G: { negativ: false }
+  M: { negativ: true }
+text:
+  aufgabe:
+    de: '**Gib** die {welche} [[ganze Zahl]] **an**, die die [[Ungleichung]] {ungleichung} erfüllt.'
+hilfen:
+  - de: 'Löse zuerst die [[Ungleichung]]. Prüfe dann die Zahlen an der Grenze.'
+  - de: 'Bei < gehört die Grenze nicht dazu, bei ≤ schon.'
+fehlerbilder:
+  grenze-selbst:
+    de: 'Die Grenze selbst erfüllt die [[Ungleichung]] nicht – bei < oder > gehört sie nicht dazu.'
+  zeichen-nicht-gedreht:
+    de: 'Beim Teilen durch eine [[negative Zahl]] dreht sich das Zeichen um. Prüfe deine Zahl durch Einsetzen.'
+herkunft: ki-entwurf
+version: 1

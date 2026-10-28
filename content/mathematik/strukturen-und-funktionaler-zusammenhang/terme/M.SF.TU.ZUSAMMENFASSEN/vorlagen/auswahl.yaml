@@ -1,0 +1,25 @@
+# „Fasse zusammen: 5·a − (2·a − 3·b) + 4·b“ – Auswahl. Entwurf: noch nicht geprüft.
+id: M.SF.TU.ZUSAMMENFASSEN.AUSWAHL
+kompetenz: M.SF.TU.ZUSAMMENFASSEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tu.zusammenfassen@1
+parameter:
+  G: { klammer: false }
+  M: { klammer: true }
+text:
+  aufgabe:
+    de: '**Fasse** den [[Term]] {term} so weit wie möglich **zusammen**.'
+hilfen:
+  - de: 'Nur gleichartige Glieder lassen sich zusammenfassen: x-Glieder mit x-Gliedern, Zahlen mit Zahlen.'
+  - de: 'Steht ein Minus vor der Klammer, drehst du beim Weglassen der Klammer alle [[Vorzeichen]] in der Klammer um.'
+fehlerbilder:
+  minusklammer:
+    de: 'Vor der Klammer steht ein Minus. Dann wechseln **alle** Glieder in der Klammer ihr [[Vorzeichen]]: −(2·x − 3·y) = −2·x + 3·y.'
+  ungleichartige-zusammengefasst:
+    de: 'x-Glieder und Zahlen (oder x und y) kann man nicht zusammenfassen – sie bleiben getrennt stehen.'
+  vorzeichen-verloren:
+    de: 'Achte auf das [[Vorzeichen]] vor jedem Glied. Ein Minus gehört zu dem Glied, das danach kommt.'
+herkunft: ki-entwurf
+version: 1

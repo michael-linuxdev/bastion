@@ -639,7 +639,7 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 8 (bei der OS meist der RS), sonst a
 
 **Summe Klasse 8:** 27 Kompetenzen × 2 Niveaus (G, M), davon 24 überwiegend generatorbasiert, 3 gemischt; bei 3 wird Zeichnen erklärt (L-10): regelmäßige Vielecke, Kreiszylinder darstellen, zentrische Streckung. Neue Felder im ID-Schema: TU (terme), FK (funktionen), GS (gleichungssysteme), AE (aehnlichkeit); KR (kreis) jetzt auch unter Größen und Messen. Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [8]`.
 
-*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld.
+*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. **Feld TU vollständig als Entwurf:** Zusammenfassen (Auswahl, Lücke), Ausmultiplizieren und Ausklammern (Lücke, Auswahl), binomische Formeln (Lücke, Auswahl), Gleichungen mit Klammern (lösen, Klammern auflösen), Ungleichungen (Lösungsmenge, größte/kleinste ganze Zahl) – 10 Vorlagen (`src/generators/mathematik/terme/umformen.ts`). Ganze Terme werden als Auswahl oder als Lücke mit einer Zahl abgefragt. Die Klassenwahl hat „Klasse 8“.
 
 ## 9. Sprache in Aufgaben
 

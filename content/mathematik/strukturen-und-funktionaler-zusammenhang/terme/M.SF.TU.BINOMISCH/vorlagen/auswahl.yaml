@@ -1,0 +1,29 @@
+# „Multipliziere aus: (x + 3)²“ – Auswahl. Entwurf: noch nicht geprüft.
+id: M.SF.TU.BINOMISCH.AUSWAHL
+kompetenz: M.SF.TU.BINOMISCH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tu.binomisch-wahl@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**[[Multipliziere aus]]**: {term}'
+hilfen:
+  - de: 'Welche [[binomische Formel]] passt? Plus im Quadrat, Minus im Quadrat oder Plus mal Minus?'
+  - de: '(x + 3)² ist (x + 3)·(x + 3) – nicht x² + 3².'
+fehlerbilder:
+  ohne-mittelglied:
+    de: '(a + b)² ist nicht a² + b². Es fehlt das Mittelglied 2·a·b.'
+  nicht-verdoppelt:
+    de: 'Das Mittelglied ist 2·a·b – du hast das Doppelte vergessen.'
+  nicht-quadriert:
+    de: 'Das letzte Glied ist das Quadrat der Zahl, nicht das Doppelte.'
+  vorzeichen-falsch:
+    de: 'Prüfe die [[Vorzeichen]]: Bei (a − b)² ist das Mittelglied negativ, b² aber positiv.'
+  mittelglied-erfunden:
+    de: 'Bei (a + b)·(a − b) heben sich die Mittelglieder auf – es bleibt a² − b².'
+herkunft: ki-entwurf
+version: 1

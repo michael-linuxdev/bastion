@@ -1,0 +1,25 @@
+# „4·(x − 3) = 4·x − ☐“, „12·x − 18 = 6·(2·x + ☐)“. Entwurf: noch nicht geprüft.
+id: M.SF.TU.AUSMULTIPLIZIEREN.LUECKE
+kompetenz: M.SF.TU.AUSMULTIPLIZIEREN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tu.ausmultiplizieren-luecke@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Ergänze** die Zahl im Kästchen: {aufgabe}'
+hilfen:
+  - de: '[[Ausmultiplizieren]]: Die Zahl vor der Klammer wird mit **jedem** Glied in der Klammer malgenommen.'
+  - de: '[[Ausklammern]] ist das Gegenteil: Du teilst jedes Glied durch den gemeinsamen [[Faktor]].'
+fehlerbilder:
+  nur-erstes-glied:
+    de: 'Auch das zweite Glied in der Klammer wird mit der Zahl davor malgenommen.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Minus mal Minus ergibt plus.'
+  nicht-geteilt:
+    de: 'Beim [[Ausklammern]] teilst du durch den [[Faktor]] vor der Klammer.'
+herkunft: ki-entwurf
+version: 1

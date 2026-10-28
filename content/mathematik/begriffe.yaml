@@ -824,3 +824,24 @@ begriffe:
     formen: [Dichte]
     erklaerung:
       de: 'Wie schwer 1 cm³ eines Stoffes ist. Wasser hat die Dichte 1 g/cm³, Eisen etwa 7,9 g/cm³.'
+  # Klasse 8: Terme umformen
+  - id: ausmultiplizieren
+    wort: { de: ausmultiplizieren }
+    formen: [ausmultiplizieren, Ausmultiplizieren, Multipliziere aus, multipliziere aus]
+    erklaerung:
+      de: 'Eine Klammer auflösen, indem man die Zahl davor mit jedem Glied in der Klammer malnimmt: 3·(x + 4) = 3·x + 12.'
+  - id: ausklammern
+    wort: { de: ausklammern }
+    formen: [ausklammern, Ausklammern, Klammere aus]
+    erklaerung:
+      de: 'Einen gemeinsamen Faktor vor eine Klammer ziehen: 6·x + 9 = 3·(2·x + 3). Das Gegenteil von ausmultiplizieren.'
+  - id: binomische-formel
+    wort: { de: binomische Formel }
+    formen: [binomische Formel, binomischen Formel, binomischen Formeln, binomische Formeln]
+    erklaerung:
+      de: '(a + b)² = a² + 2·a·b + b², (a − b)² = a² − 2·a·b + b² und (a + b)·(a − b) = a² − b².'
+  - id: ungleichung
+    wort: { de: Ungleichung }
+    formen: [Ungleichung]
+    erklaerung:
+      de: 'Wie eine Gleichung, aber mit <, >, ≤ oder ≥ statt =. Meist erfüllen viele Zahlen eine Ungleichung.'

@@ -1,0 +1,23 @@
+# „Multipliziere aus: −2·(x − 4)“ – Auswahl. Entwurf: noch nicht geprüft.
+id: M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL
+kompetenz: M.SF.TU.AUSMULTIPLIZIEREN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tu.ausmultiplizieren-wahl@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**[[Multipliziere aus]]**: {term}'
+hilfen:
+  - de: 'Nimm die Zahl vor der Klammer mit jedem Glied in der Klammer mal.'
+  - de: 'Achte auf die [[Vorzeichen]]: (−2) · (−4) = 8.'
+fehlerbilder:
+  nur-erstes-glied:
+    de: 'Hier wurde nur ein Glied malgenommen. Jedes Glied in der Klammer gehört dazu.'
+  vorzeichen-falsch:
+    de: 'Prüfe die [[Vorzeichen]]: Minus mal Minus ergibt plus, Minus mal Plus ergibt minus.'
+herkunft: ki-entwurf
+version: 1
