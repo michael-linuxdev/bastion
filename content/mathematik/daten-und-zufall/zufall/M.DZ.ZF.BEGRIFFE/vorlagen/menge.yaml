@@ -1,0 +1,25 @@
+# „Welche Menge beschreibt das Ereignis ‚ungerade Zahl‘?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BEGRIFFE.MENGE
+kompetenz: M.DZ.ZF.BEGRIFFE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zf.ereignis-menge@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{versuch} **Welche Menge** beschreibt das [[Ereignis]] „{gefragt}“?'
+hilfen:
+  - de: 'Die [[Ergebnismenge]] enthält alle möglichen Ergebnisse.'
+  - de: 'Ein [[Ereignis]] ist ein Teil davon: nur die Ergebnisse, die passen.'
+fehlerbilder:
+  ergebnismenge-statt-ereignis:
+    de: 'Das ist die ganze [[Ergebnismenge]]. Zum [[Ereignis]] gehören nur die passenden Ergebnisse.'
+  gegenereignis:
+    de: 'Das sind genau die Ergebnisse, die **nicht** passen.'
+  grenze-falsch:
+    de: 'Achte auf die Grenze: „mindestens 4“ schließt die 4 ein, „größer als 4“ nicht.'
+herkunft: ki-entwurf
+version: 1

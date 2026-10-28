@@ -1,0 +1,23 @@
+# „Wie viele Ergebnisse gehören zum Ereignis ‚mindestens 4‘?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BEGRIFFE.ZAEHLEN
+kompetenz: M.DZ.ZF.BEGRIFFE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zf.ereignis-zaehlen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{versuch} **Wie viele** Ergebnisse gehören zum [[Ereignis]] „{ereignis}“?'
+hilfen:
+  - de: 'Schreibe zuerst die [[Ergebnismenge]] auf: alle Zahlen, die vorkommen können.'
+  - de: 'Kreise dann die Zahlen ein, die zum [[Ereignis]] passen. „Mindestens 4“ heißt: 4 oder mehr. „Größer als 4“ heißt: ohne die 4.'
+fehlerbilder:
+  grenze-falsch:
+    de: 'Achte auf die Grenze: „mindestens 4“ und „höchstens 4“ schließen die 4 ein, „größer als 4“ nicht.'
+  gegenereignis:
+    de: 'Du hast die Ergebnisse gezählt, die **nicht** zum [[Ereignis]] gehören.'
+herkunft: ki-entwurf
+version: 1

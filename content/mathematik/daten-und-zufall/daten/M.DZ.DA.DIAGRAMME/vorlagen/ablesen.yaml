@@ -1,0 +1,25 @@
+# Säulen- und Liniendiagramm ablesen. Entwurf: noch nicht geprüft.
+id: M.DZ.DA.DIAGRAMME.ABLESEN
+kompetenz: M.DZ.DA.DIAGRAMME
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: da.diagramm-ablesen@1
+parameter:
+  G: { unterschied: false }
+  M: { unterschied: true }
+text:
+  aufgabe:
+    de: '**Lies ab**: {frage}'
+hilfen:
+  - de: 'Geh vom oberen Ende der Säule oder vom Punkt waagerecht nach links zur Achse.'
+  - de: 'Schau, wie groß ein Kästchen auf der Achse ist: Die Zahlen gehen in gleichen Schritten.'
+fehlerbilder:
+  nachbar-abgelesen:
+    de: 'Das ist der Wert eines anderen Monats. Suche zuerst unten den richtigen Monat.'
+  eine-linie-daneben:
+    de: 'Du bist eine Linie zu hoch gelandet. Geh genau vom oberen Ende der Säule waagerecht zur Achse.'
+  nur-ein-wert:
+    de: 'Das ist nur einer der beiden Werte. Gefragt ist der Unterschied: Zieh den kleineren vom größeren ab.'
+herkunft: ki-entwurf
+version: 1

@@ -706,3 +706,29 @@ begriffe:
     formen: [Zinssatz]
     erklaerung:
       de: 'Wie viel Prozent Zinsen es in einem Jahr gibt. In der Zinsrechnung ist er der Prozentsatz.'
+  # Klasse 7: Daten und Zufall
+  - id: saeulendiagramm
+    wort: { de: Säulendiagramm }
+    formen: [Säulendiagramm]
+    erklaerung:
+      de: 'Ein Diagramm mit Säulen. Je höher die Säule, desto größer der Wert. Gut zum Vergleichen.'
+  - id: liniendiagramm
+    wort: { de: Liniendiagramm }
+    formen: [Liniendiagramm]
+    erklaerung:
+      de: 'Ein Diagramm mit Punkten, die durch Linien verbunden sind. Es zeigt, wie sich etwas mit der Zeit verändert.'
+  - id: ergebnismenge
+    wort: { de: Ergebnismenge }
+    formen: [Ergebnismenge]
+    erklaerung:
+      de: 'Alle möglichen Ergebnisse eines Zufallsversuchs. Beim Würfel: {1; 2; 3; 4; 5; 6}.'
+  - id: ereignis
+    wort: { de: Ereignis }
+    formen: [Ereignis, Ereignisse]
+    erklaerung:
+      de: 'Ein Teil der Ergebnismenge, zum Beispiel „eine gerade Zahl würfeln“ = {2; 4; 6}.'
+  - id: wahrscheinlichkeit
+    wort: { de: Wahrscheinlichkeit }
+    formen: [Wahrscheinlichkeit]
+    erklaerung:
+      de: 'Wie groß die Chance für ein Ereignis ist – eine Zahl von 0 (unmöglich) bis 1 (sicher). Bei gleich wahrscheinlichen Ergebnissen: günstige durch alle.'
