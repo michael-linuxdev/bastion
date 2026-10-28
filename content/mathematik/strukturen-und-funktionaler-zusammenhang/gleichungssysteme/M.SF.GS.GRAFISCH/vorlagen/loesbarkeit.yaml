@@ -1,0 +1,25 @@
+# Genau eine, keine oder unendlich viele Lösungen. Entwurf: noch nicht geprüft.
+id: M.SF.GS.GRAFISCH.LOESBARKEIT
+kompetenz: M.SF.GS.GRAFISCH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gs.loesbarkeit@1
+parameter:
+  G: { allgemein: false }
+  M: { allgemein: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Wie viele Lösungen hat das [[Gleichungssystem]] {system}?'
+hilfen:
+  - de: 'Stell dir die beiden [[Geraden]] vor. Schneiden sie sich, sind sie [[parallel]] oder liegen sie aufeinander?'
+  - de: 'Gleicher [[Anstieg]] heißt [[parallel]] oder gleich. Dann entscheidet der [[y-Achsenabschnitt]].'
+fehlerbilder:
+  parallel-schneiden:
+    de: 'Die [[Geraden]] haben den gleichen [[Anstieg]], aber verschiedene Achsenabschnitte. Sie sind [[parallel]] und schneiden sich nie.'
+  gleich-statt-parallel:
+    de: 'Prüfe, ob beide Gleichungen dieselbe [[Gerade]] beschreiben: Ist (II) ein [[Vielfaches]] von (I) – auch auf der rechten Seite?'
+  nur-n-verglichen:
+    de: 'Die Anstiege sind verschieden. Dann schneiden sich die [[Geraden]] immer – genau eine Lösung.'
+herkunft: ki-entwurf
+version: 1

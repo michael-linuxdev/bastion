@@ -1,0 +1,27 @@
+# Welche Gleichung entsteht beim Einsetzen oder Addieren? Entwurf: noch nicht geprüft.
+id: M.SF.GS.RECHNERISCH.SCHRITT
+kompetenz: M.SF.GS.RECHNERISCH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gs.schritt@1
+parameter:
+  G: { addition: false }
+  M: { addition: true }
+text:
+  aufgabe:
+    de: '**Wähle aus**: {schritt}. Welche [[Gleichung]] entsteht? {system}'
+hilfen:
+  - de: 'Beim Einsetzen kommt der ganze [[Term]] für y in Klammern. Jedes Glied in der Klammer wird mit der Zahl davor malgenommen.'
+  - de: 'Beim Addieren: links x-Glieder zu x-Gliedern, y-Glieder zu y-Gliedern, rechts Zahl zu Zahl.'
+fehlerbilder:
+  klammer-vergessen:
+    de: 'Die Zahl vor der Klammer muss mit jedem Glied in der Klammer malgenommen werden – auch mit der Zahl allein.'
+  falsch-eingesetzt:
+    de: 'Der [[Term]] aus (I) steht für y, nicht für x. Ersetze in (II) nur das y.'
+  rechte-seite-falsch:
+    de: 'Auch die rechten Seiten werden addiert.'
+  subtrahiert:
+    de: 'Hier wurde subtrahiert. Addiere beide Gleichungen – dann fallen die y-Glieder weg.'
+herkunft: ki-entwurf
+version: 1

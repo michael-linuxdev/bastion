@@ -1,0 +1,25 @@
+# Passendes Gleichungssystem zur Sachaufgabe wählen. Entwurf: noch nicht geprüft.
+id: M.SF.GS.SACH.AUFSTELLEN
+kompetenz: M.SF.GS.SACH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gs.sach-system@1
+parameter:
+  G: {}
+  M: {}
+text:
+  aufgabe:
+    de: '**Wähle** das passende [[Gleichungssystem]] **aus**. {sache}'
+hilfen:
+  - de: 'Eine [[Gleichung]] zählt die Anzahl: x + y = Gesamtzahl.'
+  - de: 'Die andere [[Gleichung]] zählt Beine, Räder oder Euro: Wert je Stück mal Anzahl.'
+fehlerbilder:
+  werte-vertauscht:
+    de: 'Die Werte je Stück sind vertauscht. Die Zahl vor x gehört zu dem, wofür x steht.'
+  summe-statt-wert:
+    de: 'Die Gesamtzahl und der Gesamtwert sind vertauscht.'
+  anzahl-mal-wert:
+    de: 'In der zweiten [[Gleichung]] fehlt das y. Beide Arten zählen mit ihrem eigenen Wert.'
+herkunft: ki-entwurf
+version: 1

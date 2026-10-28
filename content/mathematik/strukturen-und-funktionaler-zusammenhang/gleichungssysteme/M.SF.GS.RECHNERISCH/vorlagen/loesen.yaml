@@ -1,0 +1,24 @@
+# Gleichungssystem rechnerisch lösen. Entwurf: noch nicht geprüft.
+id: M.SF.GS.RECHNERISCH.LOESEN
+kompetenz: M.SF.GS.RECHNERISCH
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: gs.loesen@1
+parameter:
+  G: { addition: false }
+  M: { addition: true }
+text:
+  aufgabe:
+    de: '**Löse** das [[Gleichungssystem]] und gib die Lösung als (x|y) an: {system}'
+hilfen:
+  - de: 'Ist eine [[Gleichung]] nach y aufgelöst, nutze das [[Einsetzungsverfahren]]. Sind beide nach y aufgelöst, setze die rechten Seiten gleich.'
+  - de: 'Beim [[Additionsverfahren]] addierst du beide Gleichungen so, dass y wegfällt.'
+  - de: 'Hast du x, setze es in eine [[Gleichung]] ein und berechne y.'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'x und y sind vertauscht. Prüfe, welche Zahl du für x berechnet hast.'
+  y-vorzeichen:
+    de: 'Prüfe das [[Vorzeichen]] von y – mache die [[Probe]] in beiden Gleichungen.'
+herkunft: ki-entwurf
+version: 1
