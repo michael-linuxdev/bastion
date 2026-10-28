@@ -21,7 +21,7 @@ export interface Buch {
 export function buecher(buchungen: readonly BuchungEreignis[]): Buch[] {
   const regal = new Map<string, Buch>();
   for (const b of buchungen) {
-    if (b.grund !== 'kompetenz-gefestigt' || b.ressource !== 'bauplan' || b.menge <= 0) continue;
+    if (b.grund !== 'kompetenz-gefestigt' || b.ressource !== 'koennen' || b.menge <= 0) continue;
     const at = b.bezug.lastIndexOf('@');
     if (at < 1 || regal.has(b.bezug)) continue;
     regal.set(b.bezug, {

@@ -312,7 +312,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
-| 2.10a | **Rollen statt Burg-Wörter** im Code | Gebäude-Kennungen werden Rollen (`kern`, `werkstatt`, `wissen`, `turm`, `eingang`, `einfassung`, `ursprung`, `zeichen`, `flaeche`, `denkmal`), Ressourcen werden `fleiss`, `behalten`, `koennen`, `schritt`. Jetzt günstig: Es gibt noch keine echten Bau-Daten | alle Tests unverändert grün |
+| 2.10a ✅ | **Rollen statt Burg-Wörter** im Code | Gebäude-Kennungen werden Rollen (`kern`, `werkstatt`, `wissen`, `turm`, `eingang`, `einfassung`, `ursprung`, `zeichen`, `flaeche`, `denkmal`), Ressourcen werden `fleiss`, `behalten`, `koennen`, `schritt`. Jetzt günstig: Es gibt noch keine echten Bau-Daten | alle Tests unverändert grün |
 | 2.10b | **Themen und Wahl** | Namen je Thema in der Textdatei (`thema.<thema>.…`), Einstellung `basebau.thema` (Standard Bastion), Wahl in der Bastion und in „Mein Stand“; Abschluss, Liste und Begrüßung sprechen die Sprache des Themas | Test: jedes Thema hat jeden Namen; Wechsel ändert nur Wörter |
 
 Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je Thema und Skin austauschbar. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.

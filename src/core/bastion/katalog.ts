@@ -4,21 +4,25 @@
  * Darf nur aus `src/core/ledger/` importieren (K-1).
  *
  * Alle Zahlen sind Startwerte; der Simulator prüft sie (Schritt 2.11).
+ *
+ * Kennungen sind Rollen, keine Burg-Wörter (B-17): Was eine Rolle ist – Bergfried,
+ * Baumhaus, Kommandomodul … –, bestimmt das Thema in der Textdatei. Kommentare und
+ * Testnamen nennen zur Anschauung die Namen des Themas Bastion (BASEBAU §5.2).
  * Namen und Beschreibungen stehen in der Textdatei (`gebaeude.<typ>`).
  */
 import type { Ressource } from '../ledger/regeln';
 
 export type GebaeudeTyp =
-  | 'bergfried'
-  | 'zimmerei'
-  | 'studierstube'
-  | 'spaeherturm'
-  | 'tor'
-  | 'palisade'
-  | 'feuerstelle'
-  | 'banner'
-  | 'garten'
-  | 'statue';
+  | 'kern'
+  | 'werkstatt'
+  | 'wissen'
+  | 'turm'
+  | 'eingang'
+  | 'einfassung'
+  | 'ursprung'
+  | 'zeichen'
+  | 'flaeche'
+  | 'denkmal';
 
 export type Familie = 'kern' | 'wissen' | 'verteidigung' | 'bau' | 'zierde';
 
@@ -41,72 +45,72 @@ export interface Gebaeude {
   readonly stufen: readonly Stufe[];
 }
 
-const k = (stein: number, erz = 0, bauplan = 0, bauschritt = 1): Kosten => ({
-  stein,
-  erz,
-  bauplan,
-  bauschritt,
+const k = (fleiss: number, behalten = 0, koennen = 0, schritt = 1): Kosten => ({
+  fleiss,
+  behalten,
+  koennen,
+  schritt,
 });
 const NICHTS = k(0, 0, 0, 0);
-const BERGFRIED_2 = { typ: 'bergfried', stufe: 2 } as const;
+const KERN_2 = { typ: 'kern', stufe: 2 } as const;
 
 /** Tabelle BASEBAU §5.2 */
 export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
-  bergfried: {
-    typ: 'bergfried',
+  kern: {
+    typ: 'kern',
     familie: 'kern',
     groesse: [3, 3],
     hoechstens: 1,
     // Stufe 1 steht von Anfang an (§5.1)
     stufen: [{ kosten: NICHTS }, { kosten: k(250, 80, 2, 10) }, { kosten: k(500, 160, 4, 16) }],
   },
-  zimmerei: {
-    typ: 'zimmerei',
+  werkstatt: {
+    typ: 'werkstatt',
     familie: 'bau',
     groesse: [2, 2],
     hoechstens: 1,
-    stufen: [{ kosten: k(150, 40, 1, 6), braucht: BERGFRIED_2 }],
+    stufen: [{ kosten: k(150, 40, 1, 6), braucht: KERN_2 }],
   },
-  studierstube: {
-    typ: 'studierstube',
+  wissen: {
+    typ: 'wissen',
     familie: 'wissen',
     groesse: [2, 2],
     hoechstens: 1,
-    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: BERGFRIED_2 }],
+    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: KERN_2 }],
   },
-  spaeherturm: {
-    typ: 'spaeherturm',
+  turm: {
+    typ: 'turm',
     familie: 'verteidigung',
     groesse: [1, 1],
     hoechstens: 2,
-    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: BERGFRIED_2 }],
+    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: KERN_2 }],
   },
-  tor: {
-    typ: 'tor',
+  eingang: {
+    typ: 'eingang',
     familie: 'verteidigung',
     groesse: [1, 1],
     hoechstens: 1,
     stufen: [{ kosten: k(80, 20, 1, 5) }],
   },
-  palisade: {
-    typ: 'palisade',
+  einfassung: {
+    typ: 'einfassung',
     familie: 'verteidigung',
     groesse: [1, 1],
     // 4 von Anfang an, 8 weitere baubar
     hoechstens: 12,
     stufen: [{ kosten: k(15) }],
   },
-  feuerstelle: {
-    typ: 'feuerstelle',
+  ursprung: {
+    typ: 'ursprung',
     familie: 'zierde',
     groesse: [1, 1],
     hoechstens: 1,
     stufen: [],
   },
   // Das Banner reicht nach der ersten Lerneinheit (§5.1: etwa 10 Stein, 1 Bauschritt)
-  banner: { typ: 'banner', familie: 'zierde', groesse: [1, 1], stufen: [{ kosten: k(10) }] },
-  garten: { typ: 'garten', familie: 'zierde', groesse: [2, 2], stufen: [{ kosten: k(30) }] },
-  statue: { typ: 'statue', familie: 'zierde', groesse: [1, 1], stufen: [{ kosten: k(40) }] },
+  zeichen: { typ: 'zeichen', familie: 'zierde', groesse: [1, 1], stufen: [{ kosten: k(10) }] },
+  flaeche: { typ: 'flaeche', familie: 'zierde', groesse: [2, 2], stufen: [{ kosten: k(30) }] },
+  denkmal: { typ: 'denkmal', familie: 'zierde', groesse: [1, 1], stufen: [{ kosten: k(40) }] },
 };
 
 export const GEBAEUDE_TYPEN = Object.keys(KATALOG) as readonly GebaeudeTyp[];
@@ -130,11 +134,11 @@ export interface Bauwerk {
 
 /** Startzustand (§5.1): Bergfried Stufe 1, Feuerstelle, 4 Palisaden-Segmente. */
 export const START: readonly Bauwerk[] = [
-  { id: 'start.bergfried', typ: 'bergfried', stufe: 1, pos: { x: 5, y: 4 } },
-  { id: 'start.feuerstelle', typ: 'feuerstelle', stufe: 1, pos: { x: 6, y: 8 } },
+  { id: 'start.kern', typ: 'kern', stufe: 1, pos: { x: 5, y: 4 } },
+  { id: 'start.ursprung', typ: 'ursprung', stufe: 1, pos: { x: 6, y: 8 } },
   ...[4, 5, 7, 8].map((x) => ({
-    id: `start.palisade.${x}`,
-    typ: 'palisade' as const,
+    id: `start.einfassung.${x}`,
+    typ: 'einfassung' as const,
     stufe: 1,
     pos: { x, y: 10 },
   })),
@@ -146,10 +150,10 @@ export function kosten(typ: GebaeudeTyp, stufe: number): Kosten | undefined {
 }
 
 export type Hindernis =
-  'nicht-baubar' | 'hoechststufe' | 'hoechstzahl' | 'bergfried-zu-niedrig' | 'voraussetzung';
+  'nicht-baubar' | 'hoechststufe' | 'hoechstzahl' | 'kern-zu-niedrig' | 'voraussetzung';
 
-const bergfriedStufe = (bestand: readonly Bauwerk[]) =>
-  Math.max(0, ...bestand.filter((b) => b.typ === 'bergfried').map((b) => b.stufe));
+const kernStufe = (bestand: readonly Bauwerk[]) =>
+  Math.max(0, ...bestand.filter((b) => b.typ === 'kern').map((b) => b.stufe));
 
 /**
  * Was spricht gegen ein Bauvorhaben – ohne Blick auf die Ressourcen (die prüft
@@ -171,7 +175,7 @@ export function hindernisse(
     if (bestand.filter((b) => b.typ === typ).length >= g.hoechstens) h.push('hoechstzahl');
   }
   // Kein Gebäude über der Stufe des Bergfrieds (§4.2)
-  if (typ !== 'bergfried' && ziel > bergfriedStufe(bestand)) h.push('bergfried-zu-niedrig');
+  if (typ !== 'kern' && ziel > kernStufe(bestand)) h.push('kern-zu-niedrig');
   const braucht = stufe?.braucht;
   if (braucht && !bestand.some((b) => b.typ === braucht.typ && b.stufe >= braucht.stufe))
     h.push('voraussetzung');

@@ -16,7 +16,7 @@ import {
   type Ergebnis,
 } from '../../core/bastion/bauen';
 import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
-import { buecher, type Buch } from '../../core/bastion/studierstube';
+import { buecher, type Buch } from '../../core/bastion/wissen';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,

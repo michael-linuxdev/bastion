@@ -14,7 +14,7 @@ import { ERTRAG, type Ressource } from './regeln';
 export interface Tagesertrag {
   readonly menge: Readonly<Record<Ressource, number>>;
   /** ernsthaft bearbeitete Aufgaben, die Stein gebracht haben (voll oder halb) */
-  readonly steinAufgaben: number;
+  readonly fleissAufgaben: number;
   /** Aufgaben jenseits des vollen Ertrags (ab der 26. am Tag, §3.1) */
   readonly weniger: boolean;
   /** sehr schnelle falsche Antworten ohne Stein (§3.1) */
@@ -26,7 +26,7 @@ export interface Tagesertrag {
   /** Heute gefestigte Themen, für die es einen Bauplan gab */
   readonly bauplaene: readonly { readonly kompetenz: string; readonly niveau: Niveau }[];
   /** Beide Bauschritte des Tages erreicht (§3.4) */
-  readonly bauschritteVoll: boolean;
+  readonly schritteVoll: boolean;
 }
 
 const zahl = (b: BuchungEreignis, schluessel: string) => b.aufschluesselung[schluessel] ?? 0;
@@ -41,7 +41,7 @@ export function tagesertrag(
     (b) =>
       b.tag === tag && b.menge > 0 && (b.grund === 'sitzung' || b.grund === 'kompetenz-gefestigt'),
   );
-  const menge: Record<Ressource, number> = { stein: 0, erz: 0, bauplan: 0, bauschritt: 0 };
+  const menge: Record<Ressource, number> = { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 };
   let voll = 0;
   let halb = 0;
   const geraten = aufgaben.filter(
@@ -53,27 +53,27 @@ export function tagesertrag(
   const bauplaene: { kompetenz: string; niveau: Niveau }[] = [];
   for (const b of heute) {
     menge[b.ressource] += b.menge;
-    if (b.ressource === 'stein') {
+    if (b.ressource === 'fleiss') {
       voll += zahl(b, 'voll');
       halb += zahl(b, 'halb');
-    } else if (b.ressource === 'erz') {
+    } else if (b.ressource === 'behalten') {
       wiederholungen += zahl(b, 'wiederholungen');
       korrekturen += zahl(b, 'korrekturen');
       gekappt += zahl(b, 'gekappt');
-    } else if (b.ressource === 'bauplan') {
+    } else if (b.ressource === 'koennen') {
       const [kompetenz = '', niveau] = b.bezug.split('@');
       if (niveau === 'G' || niveau === 'M' || niveau === 'E') bauplaene.push({ kompetenz, niveau });
     }
   }
   return {
     menge,
-    steinAufgaben: voll + halb,
+    fleissAufgaben: voll + halb,
     weniger: halb > 0,
     geraten,
     wiederholungen,
     korrekturen,
     gekappt,
     bauplaene,
-    bauschritteVoll: menge.bauschritt >= ERTRAG.bauschritteJeTag,
+    schritteVoll: menge.schritt >= ERTRAG.schritteJeTag,
   };
 }

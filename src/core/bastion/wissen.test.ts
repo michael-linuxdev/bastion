@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { BuchungEreignis } from '../ledger/buchung';
-import { buecher } from './studierstube';
+import { buecher } from './wissen';
 
 const buchung = (teil: Partial<BuchungEreignis>): BuchungEreignis => ({
   id: `X${Math.random()}`,
@@ -10,7 +10,7 @@ const buchung = (teil: Partial<BuchungEreignis>): BuchungEreignis => ({
   ts: 0,
   tag: '2026-11-01',
   geraet: 'g',
-  ressource: 'bauplan',
+  ressource: 'koennen',
   menge: 1,
   grund: 'kompetenz-gefestigt',
   bezug: 'M.ZO.BR.ERWEITERN@G',
@@ -38,7 +38,7 @@ describe('Studierstube (B-6)', () => {
     const b = buecher([
       buchung({}),
       buchung({ menge: -1, grund: 'bau-beginn', bezug: 'bau-beginn.V1' }),
-      buchung({ ressource: 'stein', menge: 12, grund: 'sitzung', bezug: 'S1' }),
+      buchung({ ressource: 'fleiss', menge: 12, grund: 'sitzung', bezug: 'S1' }),
       buchung({}), // dieselbe Buchung noch einmal (z. B. nach dem Zusammenführen)
     ]);
     expect(b).toHaveLength(1);

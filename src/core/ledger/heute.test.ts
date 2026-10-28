@@ -53,45 +53,45 @@ describe('Tagesertrag (BASEBAU §6.1)', () => {
     const e = tagesertrag(
       [
         b({
-          ressource: 'stein',
+          ressource: 'fleiss',
           menge: 26,
           aufschluesselung: { aufgaben: 30, voll: 25, halb: 2, geraten: 3 },
         }),
         b({
-          ressource: 'erz',
+          ressource: 'behalten',
           menge: 3,
           aufschluesselung: { wiederholungen: 2, korrekturen: 1, gekappt: 0 },
         }),
-        b({ ressource: 'bauschritt', menge: 1, bezug: 'S1' }),
-        b({ ressource: 'bauschritt', menge: 1, bezug: 'S2' }),
+        b({ ressource: 'schritt', menge: 1, bezug: 'S1' }),
+        b({ ressource: 'schritt', menge: 1, bezug: 'S2' }),
         b({
-          ressource: 'bauplan',
+          ressource: 'koennen',
           menge: 1,
           grund: 'kompetenz-gefestigt',
           bezug: 'M.ZO.BR.ERWEITERN@G',
         }),
-        b({ ressource: 'stein', menge: 9, bezug: 'GESTERN', tag: '2026-10-27' }),
+        b({ ressource: 'fleiss', menge: 9, bezug: 'GESTERN', tag: '2026-10-27' }),
       ],
       [geraten('2026-10-28'), geraten('2026-10-28'), geraten('2026-10-27')],
       '2026-10-28',
     );
     expect(e).toEqual({
-      menge: { stein: 26, erz: 3, bauplan: 1, bauschritt: 2 },
-      steinAufgaben: 27,
+      menge: { fleiss: 26, behalten: 3, koennen: 1, schritt: 2 },
+      fleissAufgaben: 27,
       weniger: true,
       geraten: 2,
       wiederholungen: 2,
       korrekturen: 1,
       gekappt: 0,
       bauplaene: [{ kompetenz: 'M.ZO.BR.ERWEITERN', niveau: 'G' }],
-      bauschritteVoll: true,
+      schritteVoll: true,
     });
   });
 
   it('ohne Buchungen: alles null', () => {
     expect(tagesertrag([], [], '2026-10-28')).toMatchObject({
-      menge: { stein: 0, erz: 0, bauplan: 0, bauschritt: 0 },
-      bauschritteVoll: false,
+      menge: { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 },
+      schritteVoll: false,
       bauplaene: [],
     });
   });

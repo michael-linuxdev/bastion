@@ -11,7 +11,7 @@
 import type { AufgabeEreignis } from '../learning/ereignis';
 import type { KompetenzStand } from '../learning/fortschritt';
 import type { SitzungEreignis } from '../learning/sitzung';
-import { alleSitzungsBuchungen, bauplanBuchungen, type Buchung, type Ressource } from './regeln';
+import { alleSitzungsBuchungen, koennenBuchungen, type Buchung, type Ressource } from './regeln';
 
 /** Schemaversion der Ereignisart `buchung` (DATENMODELL §6.2). */
 export const BUCHUNG_V = 1;
@@ -51,13 +51,13 @@ export function fehlendeBuchungen(
   const zeit = new Map(sitzungen.map((s) => [s.id, s.ts]));
   const schonBauplaene = new Set(
     [...vorhanden].flatMap((id) => {
-      const vorne = `${k.profil}.bauplan.`;
+      const vorne = `${k.profil}.koennen.`;
       return id.startsWith(vorne) ? [id.slice(vorne.length)] : [];
     }),
   );
   const alle: Buchung[] = [
     ...alleSitzungsBuchungen(sitzungen, aufgaben),
-    ...bauplanBuchungen(staende, schonBauplaene),
+    ...koennenBuchungen(staende, schonBauplaene),
   ];
   return alle
     .map((b) => ({
@@ -80,7 +80,7 @@ export interface Konto {
   readonly erworben: Readonly<Record<Ressource, number>>;
 }
 
-const null4 = (): Record<Ressource, number> => ({ stein: 0, erz: 0, bauplan: 0, bauschritt: 0 });
+const null4 = (): Record<Ressource, number> => ({ fleiss: 0, behalten: 0, koennen: 0, schritt: 0 });
 
 export const leeresKonto = (profil: string): Konto => ({
   profil,

@@ -274,12 +274,12 @@ describe('Ablage', () => {
     expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(1);
     const neu = await buchen(db, inst, 999_999);
     expect(neu.map((b) => [b.ressource, b.menge])).toEqual([
-      ['stein', 12],
-      ['bauschritt', 1],
+      ['fleiss', 12],
+      ['schritt', 1],
     ]);
     expect(await buchen(db, inst, 1_000_000)).toEqual([]);
     const k = await konto(db, inst.profil);
-    expect(k.stand).toEqual({ stein: 12, erz: 0, bauplan: 0, bauschritt: 1 });
+    expect(k.stand).toEqual({ fleiss: 12, behalten: 0, koennen: 0, schritt: 1 });
     expect(k).toEqual(kontoAus(inst.profil, await buchungen(db, inst.profil)));
 
     // Neuberechnung ergibt dasselbe Konto (D-6)
@@ -322,20 +322,20 @@ describe('Ablage', () => {
     const e = beginnen(
       await bastion(db, inst.profil),
       await konto(db, inst.profil),
-      'banner',
+      'zeichen',
       { pos: { x: 0, y: 0 } },
       { profil: inst.profil, geraet: inst.geraet, id: 'V0001', jetzt: 400_000, tag: '2026-11-01' },
     );
     if (!e.ok) throw new Error(e.hindernisse.join());
     const b = await bauSpeichern(db, inst, e, melder);
     // Das Banner ist sofort fertig; die Fertigmeldung ist festgehalten
-    expect(b.bauwerke.some((x) => x.typ === 'banner')).toBe(true);
+    expect(b.bauwerke.some((x) => x.typ === 'zeichen')).toBe(true);
     expect(b.fertig).toMatchObject([{ vorhaben: 'V0001', gemeldet: true }]);
     expect((await bauEreignisse(db, inst.profil)).map((x) => x.aktion)).toEqual([
       'beginnen',
       'fertigstellen',
     ]);
-    expect((await konto(db, inst.profil)).stand.stein).toBe(2);
+    expect((await konto(db, inst.profil)).stand.fleiss).toBe(2);
     expect(await konto(db, inst.profil)).toEqual(
       kontoAus(inst.profil, await buchungen(db, inst.profil)),
     );

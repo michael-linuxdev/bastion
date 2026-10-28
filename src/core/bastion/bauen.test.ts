@@ -59,9 +59,9 @@ class Welt {
     });
   }
   reich() {
-    this.gutschrift('stein', 5000);
-    this.gutschrift('erz', 2000);
-    this.gutschrift('bauplan', 50);
+    this.gutschrift('fleiss', 5000);
+    this.gutschrift('behalten', 2000);
+    this.gutschrift('koennen', 50);
   }
   uebernimm(e: Ergebnis) {
     if (!e.ok) throw new Error(`Hindernisse: ${e.hindernisse.join(', ')}`);
@@ -80,10 +80,10 @@ class Welt {
     );
   }
   /** Bergfried direkt auf Stufe 2 bringen */
-  bergfried2() {
-    const v = this.hoeher('start.bergfried');
-    for (let i = 0; i < 10; i++) this.gutschrift('bauschritt', 1);
-    expect(this.bastion.bauwerke.find((x) => x.id === 'start.bergfried')?.stufe).toBe(2);
+  kern2() {
+    const v = this.hoeher('start.kern');
+    for (let i = 0; i < 10; i++) this.gutschrift('schritt', 1);
+    expect(this.bastion.bauwerke.find((x) => x.id === 'start.kern')?.stufe).toBe(2);
     return v;
   }
 }
@@ -100,50 +100,50 @@ describe('Start', () => {
 describe('Bauen mit Bauschritten (B-7)', () => {
   it('ohne Vorhaben kommen Bauschritte in den Vorrat; ein Banner nimmt einen und steht sofort', () => {
     const w = new Welt();
-    w.gutschrift('stein', 12);
-    w.gutschrift('bauschritt', 1);
+    w.gutschrift('fleiss', 12);
+    w.gutschrift('schritt', 1);
     expect(w.bastion.vorrat).toBe(1);
-    const v = w.neu('banner', { x: 0, y: 0 });
+    const v = w.neu('zeichen', { x: 0, y: 0 });
     const b = w.bastion;
     expect(b.vorrat).toBe(0);
     expect(b.vorhaben).toEqual([]);
-    expect(b.bauwerke.find((x) => x.id === v.gebaeude)).toMatchObject({ typ: 'banner', stufe: 1 });
-    expect(w.konto.stand.stein).toBe(2);
-    expect(w.konto.erworben.stein).toBe(12);
+    expect(b.bauwerke.find((x) => x.id === v.gebaeude)).toMatchObject({ typ: 'zeichen', stufe: 1 });
+    expect(w.konto.stand.fleiss).toBe(2);
+    expect(w.konto.erworben.fleiss).toBe(12);
   });
 
   it('ein Vorhaben nimmt den Vorrat und wächst mit jedem neuen Bauschritt', () => {
     const w = new Welt();
     w.reich();
-    w.gutschrift('bauschritt', 2);
-    w.neu('spaeherturm', { x: 0, y: 0 });
+    w.gutschrift('schritt', 2);
+    w.neu('turm', { x: 0, y: 0 });
     expect(w.bastion.vorhaben[0]).toMatchObject({ fortschritt: 2, bedarf: 6 });
-    for (let i = 0; i < 3; i++) w.gutschrift('bauschritt', 1);
+    for (let i = 0; i < 3; i++) w.gutschrift('schritt', 1);
     expect(w.bastion.vorhaben[0]?.fortschritt).toBe(5);
-    w.gutschrift('bauschritt', 1);
+    w.gutschrift('schritt', 1);
     expect(w.bastion.vorhaben).toEqual([]);
-    expect(w.bastion.fertig).toMatchObject([{ typ: 'spaeherturm', stufe: 1, gemeldet: false }]);
+    expect(w.bastion.fertig).toMatchObject([{ typ: 'turm', stufe: 1, gemeldet: false }]);
   });
 
   it('mit Zimmerei zwei Vorhaben; ein Bauschritt wirkt auf beide', () => {
     const w = new Welt();
     w.reich();
-    w.bergfried2();
-    w.neu('zimmerei', { x: 0, y: 0 });
-    for (let i = 0; i < 6; i++) w.gutschrift('bauschritt', 1);
+    w.kern2();
+    w.neu('werkstatt', { x: 0, y: 0 });
+    for (let i = 0; i < 6; i++) w.gutschrift('schritt', 1);
     expect(plaetze(w.bastion)).toBe(2);
-    w.neu('spaeherturm', { x: 0, y: 3 });
-    w.neu('tor', { x: 6, y: 10 });
-    w.gutschrift('bauschritt', 1);
+    w.neu('turm', { x: 0, y: 3 });
+    w.neu('eingang', { x: 6, y: 10 });
+    w.gutschrift('schritt', 1);
     expect(w.bastion.vorhaben.map((v) => v.fortschritt)).toEqual([1, 1]);
   });
 
   it('ein später eingetroffener Bauschritt mit früherer Zeit zählt richtig (nachgetragene Sitzung)', () => {
     const w = new Welt();
     w.reich();
-    w.neu('spaeherturm', { x: 0, y: 0 });
+    w.neu('turm', { x: 0, y: 0 });
     // Die Sitzung lag vor dem Baubeginn und wird erst jetzt gebucht
-    w.gutschrift('bauschritt', 1, 1_005);
+    w.gutschrift('schritt', 1, 1_005);
     expect(w.bastion.vorhaben[0]).toMatchObject({ fortschritt: 1, erstattbar: 1 });
     expect(w.bastion.vorrat).toBe(0);
   });
@@ -153,33 +153,34 @@ describe('Abbrechen (B-8)', () => {
   it('gibt Stein, Erz, Baupläne und die Bauschritte vollständig zurück', () => {
     const w = new Welt();
     w.reich();
-    w.gutschrift('bauschritt', 2);
+    w.gutschrift('schritt', 2);
     const vorher = w.konto.stand;
-    const v = w.neu('spaeherturm', { x: 0, y: 0 });
-    w.gutschrift('bauschritt', 1);
-    expect(w.konto.stand).toMatchObject({ stein: vorher.stein - 100, erz: vorher.erz - 30 });
+    const v = w.neu('turm', { x: 0, y: 0 });
+    w.gutschrift('schritt', 1);
+    expect(w.konto.stand).toMatchObject({
+      fleiss: vorher.fleiss - 100,
+      behalten: vorher.behalten - 30,
+    });
     w.uebernimm(abbrechen(w.bastion, v.id, w.angaben()));
     expect(w.konto.stand).toMatchObject({
-      stein: vorher.stein,
-      erz: vorher.erz,
-      bauplan: vorher.bauplan,
+      fleiss: vorher.fleiss,
+      behalten: vorher.behalten,
+      koennen: vorher.koennen,
     });
     expect(w.bastion).toMatchObject({ vorhaben: [], vorrat: 3 });
     // Der Platz ist wieder frei
-    expect(beginnHindernisse(w.bastion, w.konto, 'spaeherturm', { pos: { x: 0, y: 0 } })).toEqual(
-      [],
-    );
+    expect(beginnHindernisse(w.bastion, w.konto, 'turm', { pos: { x: 0, y: 0 } })).toEqual([]);
   });
 
   it('ein Bauschritt, den zwei Vorhaben teilten, entsteht beim Abbruch nicht doppelt', () => {
     const w = new Welt();
     w.reich();
-    w.bergfried2();
-    w.neu('zimmerei', { x: 0, y: 0 });
-    for (let i = 0; i < 6; i++) w.gutschrift('bauschritt', 1);
-    const a = w.neu('spaeherturm', { x: 0, y: 3 });
-    w.neu('tor', { x: 6, y: 10 });
-    w.gutschrift('bauschritt', 2);
+    w.kern2();
+    w.neu('werkstatt', { x: 0, y: 0 });
+    for (let i = 0; i < 6; i++) w.gutschrift('schritt', 1);
+    const a = w.neu('turm', { x: 0, y: 3 });
+    w.neu('eingang', { x: 6, y: 10 });
+    w.gutschrift('schritt', 2);
     w.uebernimm(abbrechen(w.bastion, a.id, w.angaben()));
     expect(w.bastion.vorrat).toBe(0);
     expect(w.bastion.vorhaben[0]?.fortschritt).toBe(2);
@@ -189,45 +190,45 @@ describe('Abbrechen (B-8)', () => {
 describe('Hindernisse beim Beginnen', () => {
   it('Ressourcen, Bauplatz, Platz, Ausbau, Höchstzahl', () => {
     const w = new Welt();
-    expect(beginnHindernisse(w.bastion, w.konto, 'spaeherturm', { pos: { x: 0, y: 0 } })).toEqual([
-      'zu-wenig-stein',
-      'zu-wenig-erz',
-      'zu-wenig-bauplan',
+    expect(beginnHindernisse(w.bastion, w.konto, 'turm', { pos: { x: 0, y: 0 } })).toEqual([
+      'zu-wenig-fleiss',
+      'zu-wenig-behalten',
+      'zu-wenig-koennen',
     ]);
     w.reich();
-    expect(beginnHindernisse(w.bastion, w.konto, 'banner', { pos: { x: 11, y: 12 } })).toEqual([
+    expect(beginnHindernisse(w.bastion, w.konto, 'zeichen', { pos: { x: 11, y: 12 } })).toEqual([
       'ausserhalb',
     ]);
     // Der Bergfried steht auf 5–7 × 4–6
-    expect(beginnHindernisse(w.bastion, w.konto, 'banner', { pos: { x: 6, y: 5 } })).toEqual([
+    expect(beginnHindernisse(w.bastion, w.konto, 'zeichen', { pos: { x: 6, y: 5 } })).toEqual([
       'belegt',
     ]);
-    w.neu('spaeherturm', { x: 0, y: 0 });
-    expect(beginnHindernisse(w.bastion, w.konto, 'banner', { pos: { x: 0, y: 0 } })).toEqual([
+    w.neu('turm', { x: 0, y: 0 });
+    expect(beginnHindernisse(w.bastion, w.konto, 'zeichen', { pos: { x: 0, y: 0 } })).toEqual([
       'kein-freier-bauplatz',
       'belegt',
     ]);
-    w.gutschrift('bauschritt', 6);
-    w.neu('spaeherturm', { x: 1, y: 0 });
-    expect(beginnHindernisse(w.bastion, w.konto, 'spaeherturm', { pos: { x: 2, y: 0 } })).toEqual([
+    w.gutschrift('schritt', 6);
+    w.neu('turm', { x: 1, y: 0 });
+    expect(beginnHindernisse(w.bastion, w.konto, 'turm', { pos: { x: 2, y: 0 } })).toEqual([
       'hoechstzahl',
       'kein-freier-bauplatz',
     ]);
-    expect(
-      beginnHindernisse(w.bastion, w.konto, 'bergfried', { ausbau: 'start.bergfried' }),
-    ).toEqual(['kein-freier-bauplatz']);
+    expect(beginnHindernisse(w.bastion, w.konto, 'kern', { ausbau: 'start.kern' })).toEqual([
+      'kein-freier-bauplatz',
+    ]);
   });
 
   it('dasselbe Gebäude wird nicht zweimal gleichzeitig ausgebaut', () => {
     const w = new Welt();
     w.reich();
-    w.bergfried2();
-    w.neu('zimmerei', { x: 0, y: 0 });
-    w.gutschrift('bauschritt', 6);
-    w.hoeher('start.bergfried');
-    expect(
-      beginnHindernisse(w.bastion, w.konto, 'bergfried', { ausbau: 'start.bergfried' }),
-    ).toContain('wird-schon-gebaut');
+    w.kern2();
+    w.neu('werkstatt', { x: 0, y: 0 });
+    w.gutschrift('schritt', 6);
+    w.hoeher('start.kern');
+    expect(beginnHindernisse(w.bastion, w.konto, 'kern', { ausbau: 'start.kern' })).toContain(
+      'wird-schon-gebaut',
+    );
   });
 });
 
@@ -235,49 +236,49 @@ describe('Versetzen (§4.2)', () => {
   it('kostenlos, nur auf freie Felder im Bauplatz', () => {
     const w = new Welt();
     const vorher = w.konto;
-    w.uebernimm(versetzen(w.bastion, 'start.feuerstelle', { x: 0, y: 0 }, w.angaben()));
-    expect(w.bastion.bauwerke.find((x) => x.id === 'start.feuerstelle')?.pos).toEqual({
+    w.uebernimm(versetzen(w.bastion, 'start.ursprung', { x: 0, y: 0 }, w.angaben()));
+    expect(w.bastion.bauwerke.find((x) => x.id === 'start.ursprung')?.pos).toEqual({
       x: 0,
       y: 0,
     });
     expect(w.konto).toEqual(vorher);
-    expect(versetzen(w.bastion, 'start.feuerstelle', { x: 5, y: 4 }, w.angaben())).toEqual({
+    expect(versetzen(w.bastion, 'start.ursprung', { x: 5, y: 4 }, w.angaben())).toEqual({
       ok: false,
       hindernisse: ['belegt'],
     });
     // Der Bergfried darf sich selbst überlappen (ein Feld weiter)
-    expect(versetzen(w.bastion, 'start.bergfried', { x: 4, y: 4 }, w.angaben()).ok).toBe(true);
+    expect(versetzen(w.bastion, 'start.kern', { x: 4, y: 4 }, w.angaben()).ok).toBe(true);
   });
 });
 
 describe('freier Platz', () => {
   it('erstes passendes Feld, nie auf einem Gebäude; voller Platz: keiner', () => {
     const w = new Welt();
-    expect(freierPlatz(w.bastion, 'banner')).toEqual({ x: 0, y: 0 });
+    expect(freierPlatz(w.bastion, 'zeichen')).toEqual({ x: 0, y: 0 });
     w.reich();
-    w.gutschrift('bauschritt', 1);
-    w.neu('banner', { x: 0, y: 0 });
-    expect(freierPlatz(w.bastion, 'banner')).toEqual({ x: 1, y: 0 });
-    expect(freierPlatz(w.bastion, 'garten')).toEqual({ x: 1, y: 0 });
+    w.gutschrift('schritt', 1);
+    w.neu('zeichen', { x: 0, y: 0 });
+    expect(freierPlatz(w.bastion, 'zeichen')).toEqual({ x: 1, y: 0 });
+    expect(freierPlatz(w.bastion, 'flaeche')).toEqual({ x: 1, y: 0 });
     const voll: Bastion = {
       ...w.bastion,
       bauwerke: Array.from({ length: 144 }, (_, i) => ({
         id: `b${i}`,
-        typ: 'banner' as const,
+        typ: 'zeichen' as const,
         stufe: 1,
         pos: { x: i % 12, y: Math.floor(i / 12) },
       })),
     };
-    expect(freierPlatz(voll, 'banner')).toBeUndefined();
+    expect(freierPlatz(voll, 'zeichen')).toBeUndefined();
   });
 });
 
 describe('Fertigmeldungen (DATENMODELL §4.4)', () => {
   it('je fertigem Vorhaben genau ein Ereignis, mit der Zeit des Fertigwerdens', () => {
     const w = new Welt();
-    w.gutschrift('stein', 20);
-    w.gutschrift('bauschritt', 1);
-    const v = w.neu('banner', { x: 0, y: 0 });
+    w.gutschrift('fleiss', 20);
+    w.gutschrift('schritt', 1);
+    const v = w.neu('zeichen', { x: 0, y: 0 });
     let n = 0;
     const meldungen = fertigmeldungen(
       w.bastion,
@@ -286,7 +287,7 @@ describe('Fertigmeldungen (DATENMODELL §4.4)', () => {
       () => '2026-11-01',
     );
     expect(meldungen).toMatchObject([
-      { aktion: 'fertigstellen', vorhaben: v.id, ts: v.ts, typ: 'banner' },
+      { aktion: 'fertigstellen', vorhaben: v.id, ts: v.ts, typ: 'zeichen' },
     ]);
     w.bau.push(...meldungen);
     expect(w.bastion.fertig[0]?.gemeldet).toBe(true);
@@ -303,13 +304,13 @@ describe('Fertigmeldungen (DATENMODELL §4.4)', () => {
 
 describe('Eigenschaften', () => {
   const TYPEN: GebaeudeTyp[] = [
-    'banner',
-    'garten',
-    'statue',
-    'spaeherturm',
-    'tor',
-    'palisade',
-    'studierstube',
+    'zeichen',
+    'flaeche',
+    'denkmal',
+    'turm',
+    'eingang',
+    'einfassung',
+    'wissen',
   ];
   const schritt = fc.oneof(
     fc.record({ art: fc.constant('lernen' as const), menge: fc.integer({ min: 1, max: 3 }) }),
@@ -320,29 +321,23 @@ describe('Eigenschaften', () => {
       y: fc.integer({ min: 0, max: BAUPLATZ.tiefe - 1 }),
     }),
     fc.record({ art: fc.constant('abbrechen' as const) }),
-    fc.record({ art: fc.constant('bergfried' as const) }),
+    fc.record({ art: fc.constant('kern' as const) }),
   );
 
   it('nie negative Ressourcen, nie Überlappung, Abbruch erstattet genau, Reihenfolge der Eingaben egal', () => {
     fc.assert(
       fc.property(fc.array(schritt, { maxLength: 40 }), (plan) => {
         const w = new Welt();
-        w.gutschrift('stein', 800);
-        w.gutschrift('erz', 200);
-        w.gutschrift('bauplan', 6);
+        w.gutschrift('fleiss', 800);
+        w.gutschrift('behalten', 200);
+        w.gutschrift('koennen', 6);
         for (const s of plan) {
-          if (s.art === 'lernen') w.gutschrift('bauschritt', s.menge);
+          if (s.art === 'lernen') w.gutschrift('schritt', s.menge);
           else if (s.art === 'bauen') {
             const e = beginnen(w.bastion, w.konto, s.typ, { pos: { x: s.x, y: s.y } }, w.angaben());
             if (e.ok) w.uebernimm(e);
-          } else if (s.art === 'bergfried') {
-            const e = beginnen(
-              w.bastion,
-              w.konto,
-              'bergfried',
-              { ausbau: 'start.bergfried' },
-              w.angaben(),
-            );
+          } else if (s.art === 'kern') {
+            const e = beginnen(w.bastion, w.konto, 'kern', { ausbau: 'start.kern' }, w.angaben());
             if (e.ok) w.uebernimm(e);
           } else {
             const v = w.bastion.vorhaben[0];
@@ -350,11 +345,11 @@ describe('Eigenschaften', () => {
               const vorher = { ...w.konto.stand };
               w.uebernimm(abbrechen(w.bastion, v.id, w.angaben()));
               const k = KATALOG[v.typ].stufen[v.stufe - 1]?.kosten;
-              expect(w.konto.stand.stein).toBe(vorher.stein + (k?.stein ?? 0));
+              expect(w.konto.stand.fleiss).toBe(vorher.fleiss + (k?.fleiss ?? 0));
             }
           }
           const b = w.bastion;
-          for (const r of ['stein', 'erz', 'bauplan'] as const)
+          for (const r of ['fleiss', 'behalten', 'koennen'] as const)
             expect(w.konto.stand[r]).toBeGreaterThanOrEqual(0);
           expect(b.vorrat).toBeGreaterThanOrEqual(0);
           expect(b.vorhaben.length).toBeLessThanOrEqual(plaetze(b));
@@ -369,7 +364,7 @@ describe('Eigenschaften', () => {
               }
           }
           // Bauschritte entstehen nie aus dem Nichts
-          const gutgeschrieben = w.konto.erworben.bauschritt;
+          const gutgeschrieben = w.konto.erworben.schritt;
           expect(b.vorrat + b.vorhaben.reduce((s, v) => s + v.erstattbar, 0)).toBeLessThanOrEqual(
             gutgeschrieben,
           );

@@ -62,12 +62,12 @@ describe('fehlende Buchungen', () => {
     const a = sitzung('S1', 12);
     const erst = fehlendeBuchungen([a.sitzung], a.aufgaben, [gefestigt('K1')], new Set(), kontext);
     expect(erst.map((b) => b.id)).toEqual([
-      'P.stein.S1',
-      'P.erz.S1',
-      'P.bauschritt.S1',
-      'P.bauplan.K1@G',
+      'P.fleiss.S1',
+      'P.behalten.S1',
+      'P.schritt.S1',
+      'P.koennen.K1@G',
     ]);
-    expect(erst.find((b) => b.ressource === 'stein')).toMatchObject({
+    expect(erst.find((b) => b.ressource === 'fleiss')).toMatchObject({
       art: 'buchung',
       v: 1,
       menge: 12,
@@ -79,7 +79,7 @@ describe('fehlende Buchungen', () => {
     expect(
       fehlendeBuchungen([a.sitzung], a.aufgaben, [gefestigt('K1')], vorhanden, kontext),
     ).toEqual([]);
-    expect(buchungsId('P', { ressource: 'erz', bezug: 'S1' })).toBe('P.erz.S1');
+    expect(buchungsId('P', { ressource: 'behalten', bezug: 'S1' })).toBe('P.behalten.S1');
   });
 
   it('gespeicherte Buchungen bleiben, auch wenn neue Sitzungen hinzukommen', () => {
@@ -95,19 +95,19 @@ describe('fehlende Buchungen', () => {
     );
     expect(dann.every((x) => x.bezug === 'S2')).toBe(true);
     // zweite Sitzung am selben Tag: Aufgaben 31–50 halb, danach nichts (BASEBAU §3.1)
-    expect(dann.find((x) => x.ressource === 'stein')?.menge).toBe(10);
+    expect(dann.find((x) => x.ressource === 'fleiss')?.menge).toBe(10);
   });
 });
 
 describe('Konto (DATENMODELL §5)', () => {
   it('Stand und Erworbenes je Ressource', () => {
     const k = [
-      { ressource: 'stein' as const, menge: 20 },
-      { ressource: 'stein' as const, menge: -5 },
-      { ressource: 'bauplan' as const, menge: 1 },
+      { ressource: 'fleiss' as const, menge: 20 },
+      { ressource: 'fleiss' as const, menge: -5 },
+      { ressource: 'koennen' as const, menge: 1 },
     ].reduce(verbuche, leeresKonto('P'));
-    expect(k.stand).toEqual({ stein: 15, erz: 0, bauplan: 1, bauschritt: 0 });
-    expect(k.erworben).toEqual({ stein: 20, erz: 0, bauplan: 1, bauschritt: 0 });
+    expect(k.stand).toEqual({ fleiss: 15, behalten: 0, koennen: 1, schritt: 0 });
+    expect(k.erworben).toEqual({ fleiss: 20, behalten: 0, koennen: 1, schritt: 0 });
   });
 
   it('Pflicht-Test D-6: fortgeschrieben = neu aufgebaut, in jeder Reihenfolge des Buchens', () => {
@@ -145,7 +145,7 @@ describe('Konto (DATENMODELL §5)', () => {
           });
           expect(konto).toEqual(kontoAus('P', gebucht));
           expect(new Set(gebucht.map((b) => b.id)).size).toBe(gebucht.length);
-          expect(konto.stand.bauplan).toBe(staende.length);
+          expect(konto.stand.koennen).toBe(staende.length);
         },
       ),
     );

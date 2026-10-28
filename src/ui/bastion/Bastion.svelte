@@ -59,12 +59,10 @@
 
   function kostenText(k: Kosten): string {
     return [
-      k.stein > 0 ? `${k.stein} ${t('ressource.stein')}` : '',
-      k.erz > 0 ? `${k.erz} ${t('ressource.erz')}` : '',
-      k.bauplan > 0 ? mit(k.bauplan, 'ressource.bauplan-einer', 'ressource.bauplaene') : '',
-      k.bauschritt > 0
-        ? mit(k.bauschritt, 'ressource.bauschritt-einer', 'ressource.bauschritte')
-        : '',
+      k.fleiss > 0 ? `${k.fleiss} ${t('ressource.fleiss')}` : '',
+      k.behalten > 0 ? `${k.behalten} ${t('ressource.behalten')}` : '',
+      k.koennen > 0 ? mit(k.koennen, 'ressource.koennen-einer', 'ressource.koennen-viele') : '',
+      k.schritt > 0 ? mit(k.schritt, 'ressource.schritt-einer', 'ressource.schritt-viele') : '',
     ]
       .filter(Boolean)
       .join(' · ');
@@ -82,18 +80,18 @@
   const einzeln = (h: readonly BauHindernis[]) =>
     h.filter((x) => x !== 'kein-freier-bauplatz' && !x.startsWith('zu-wenig-'));
   const fehlt = (h: readonly BauHindernis[]) =>
-    (['stein', 'erz', 'bauplan'] as const)
+    (['fleiss', 'behalten', 'koennen'] as const)
       .filter((r) => h.includes(`zu-wenig-${r}`))
-      .map((r) => t(r === 'bauplan' ? 'ressource.bauplaene' : `ressource.${r}`));
+      .map((r) => t(r === 'koennen' ? 'ressource.koennen-viele' : `ressource.${r}`));
   const belegt = $derived(
     lage !== undefined && lage.bastion.vorhaben.length >= plaetze(lage.bastion),
   );
 
   /** B-14: zuerst Banner und Späherturm, dann der übrige Katalog */
   const REIHENFOLGE: readonly GebaeudeTyp[] = [
-    'banner',
-    'spaeherturm',
-    ...GEBAEUDE_TYPEN.filter((x) => x !== 'banner' && x !== 'spaeherturm'),
+    'zeichen',
+    'turm',
+    ...GEBAEUDE_TYPEN.filter((x) => x !== 'zeichen' && x !== 'turm'),
   ];
 
   interface Angebot {
@@ -156,9 +154,9 @@
       <h3>{t('bastion.ziel')}</h3>
       <ul class="ziel">
         <li>
-          {epoche.bergfried >= EPOCHE_1_ZIEL.bergfried ? '✓' : '○'}
-          {t('bastion.ziel-bergfried')} ({t('bastion.stufe')}
-          {epoche.bergfried})
+          {epoche.kern >= EPOCHE_1_ZIEL.kern ? '✓' : '○'}
+          {t('bastion.ziel-kern')} ({t('bastion.stufe')}
+          {epoche.kern})
         </li>
         <li>
           {epoche.bauplaene >= EPOCHE_1_ZIEL.bauplaene ? '✓' : '○'}
@@ -173,11 +171,11 @@
 
     <h3>{t('bastion.vorrat')}</h3>
     <ul class="vorrat">
-      <li><strong>{l.konto.stand.stein}</strong> {t('ressource.stein')}</li>
-      <li><strong>{l.konto.stand.erz}</strong> {t('ressource.erz')}</li>
+      <li><strong>{l.konto.stand.fleiss}</strong> {t('ressource.fleiss')}</li>
+      <li><strong>{l.konto.stand.behalten}</strong> {t('ressource.behalten')}</li>
       <li>
-        <strong>{l.konto.stand.bauplan}</strong>
-        {t(l.konto.stand.bauplan === 1 ? 'ressource.bauplan-einer' : 'ressource.bauplaene')}
+        <strong>{l.konto.stand.koennen}</strong>
+        {t(l.konto.stand.koennen === 1 ? 'ressource.koennen-einer' : 'ressource.koennen-viele')}
       </li>
       <li><strong>{l.bastion.vorrat}</strong> {t('bastion.bauschritte-vorrat')}</li>
     </ul>
@@ -320,7 +318,7 @@
           </li>
         {/each}
       </ul>
-      {#if !l.bastion.bauwerke.some((b) => b.typ === 'studierstube')}
+      {#if !l.bastion.bauwerke.some((b) => b.typ === 'wissen')}
         <p class="leise">{t('bastion.buecher-ohne-stube')}</p>
       {/if}
     {/if}

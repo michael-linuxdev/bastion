@@ -487,14 +487,14 @@ async function vorratAnlegen(page: Page, stand: Record<string, number>, gefestig
             // Ein gefestigtes Thema: Bauplan-Buchung wie in der App (B-6)
             if (gefestigt)
               tx.objectStore('buchungen').put({
-                id: `${profil}.bauplan.${gefestigt}`,
+                id: `${profil}.koennen.${gefestigt}`,
                 art: 'buchung',
                 v: 1,
                 profil,
                 ts: Date.now() - 60_000,
                 tag: '2026-11-04',
                 geraet: 'test0001',
-                ressource: 'bauplan',
+                ressource: 'koennen',
                 menge: 1,
                 grund: 'kompetenz-gefestigt',
                 bezug: gefestigt,
@@ -521,7 +521,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 }) => {
   await page.goto('./');
   await expect(page.getByRole('button', { name: 'Bastion' })).toBeVisible();
-  await vorratAnlegen(page, { stein: 200, erz: 50, bauplan: 2, bauschritt: 3 });
+  await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
   await page.getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('heading', { name: 'Deine Bastion' })).toBeVisible();
@@ -594,7 +594,7 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
   await page.getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByText(/Noch steht hier kein Buch/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
-  await vorratAnlegen(page, { stein: 0, erz: 0, bauplan: 1, bauschritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
+  await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
   await page.getByRole('button', { name: 'Bastion' }).click();
   await expect(

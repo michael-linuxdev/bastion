@@ -103,50 +103,52 @@
     </ul>
     {#if basebau}
       <h3>{t('abschluss.ertrag')}</h3>
-      {#if ertrag.menge.stein + ertrag.menge.erz + ertrag.menge.bauschritt + ertrag.menge.bauplan === 0}
+      {#if ertrag.menge.fleiss + ertrag.menge.behalten + ertrag.menge.schritt + ertrag.menge.koennen === 0}
         <p class="leise">{t('abschluss.ertrag-nichts')}</p>
       {:else}
         <ul class="ertrag">
-          {#if ertrag.menge.stein > 0}
+          {#if ertrag.menge.fleiss > 0}
             <li>
-              <strong>{ertrag.menge.stein} {t('ressource.stein')}</strong> – {t('abschluss.aus')}
+              <strong>{ertrag.menge.fleiss} {t('ressource.fleiss')}</strong> – {t('abschluss.aus')}
               {mit(
-                ertrag.steinAufgaben,
+                ertrag.fleissAufgaben,
                 t('abschluss.aufgabe-bearbeitet-eine'),
                 t('abschluss.aufgaben-bearbeitet'),
               )}
             </li>
           {/if}
-          {#if ertrag.menge.erz > 0}
+          {#if ertrag.menge.behalten > 0}
             <li>
-              <strong>{ertrag.menge.erz} {t('ressource.erz')}</strong> – {t('abschluss.aus')}
+              <strong>{ertrag.menge.behalten} {t('ressource.behalten')}</strong> – {t(
+                'abschluss.aus',
+              )}
               {erzWoher}
             </li>
           {/if}
-          {#if ertrag.menge.bauschritt > 0}
+          {#if ertrag.menge.schritt > 0}
             <li>
               <strong
                 >{mit(
-                  ertrag.menge.bauschritt,
-                  t('ressource.bauschritt-einer'),
-                  t('ressource.bauschritte'),
+                  ertrag.menge.schritt,
+                  t('ressource.schritt-einer'),
+                  t('ressource.schritt-viele'),
                 )}</strong
               >
               – {t('abschluss.aus')}
               {mit(
-                ertrag.menge.bauschritt,
+                ertrag.menge.schritt,
                 t('abschluss.lerneinheit-eine'),
                 t('abschluss.lerneinheiten'),
               )}
             </li>
           {/if}
-          {#if ertrag.menge.bauplan > 0}
+          {#if ertrag.menge.koennen > 0}
             <li>
               <strong
                 >{mit(
-                  ertrag.menge.bauplan,
-                  t('ressource.bauplan-einer'),
-                  t('ressource.bauplaene'),
+                  ertrag.menge.koennen,
+                  t('ressource.koennen-einer'),
+                  t('ressource.koennen-viele'),
                 )}</strong
               >
               – {t('abschluss.weil')}
@@ -158,7 +160,7 @@
       {#if ertrag.geraten > 0}<p class="leise">{t('abschluss.geraten')}</p>{/if}
       {#if ertrag.weniger}<p class="leise">{t('abschluss.weniger')}</p>{/if}
       {#if ertrag.gekappt > 0}<p class="leise">{t('abschluss.gekappt')}</p>{/if}
-      {#if ertrag.bauschritteVoll}<p class="leise">{t('abschluss.bauschritte-voll')}</p>{/if}
+      {#if ertrag.schritteVoll}<p class="leise">{t('abschluss.schritte-voll')}</p>{/if}
     {/if}
 
     <p class="pause">{t('abschluss.pause')}</p>

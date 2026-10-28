@@ -18,14 +18,14 @@ export const REGEL = 1;
 /** Startwerte (BASEBAU §3); der Simulator prüft sie (Schritt 2.11). */
 export const ERTRAG = {
   /** Aufgaben je Lerntag mit vollem Stein … */
-  steinVoll: 25,
+  fleissVoll: 25,
   /** … bis hierhin mit halbem Stein (je zwei Aufgaben ein Stein), danach keiner */
-  steinHalbBis: 50,
-  erzJeTag: 30,
-  bauschritteJeTag: 2,
+  fleissHalbBis: 50,
+  behaltenJeTag: 30,
+  schritteJeTag: 2,
 } as const;
 
-export type Ressource = 'stein' | 'erz' | 'bauplan' | 'bauschritt';
+export type Ressource = 'fleiss' | 'behalten' | 'koennen' | 'schritt';
 
 /** Inhalt einer Buchung ohne Ereignis-Hülle (die kommt in Schritt 2.3). */
 export interface Buchung {
@@ -44,16 +44,16 @@ export interface Buchung {
 export interface Tagesstand {
   /** ernsthaft bearbeitete Aufgaben (Tageskurve Stein) */
   readonly aufgaben: number;
-  readonly erz: number;
+  readonly behalten: number;
   readonly bauschritte: number;
 }
 
-export const LEERER_TAG: Tagesstand = { aufgaben: 0, erz: 0, bauschritte: 0 };
+export const LEERER_TAG: Tagesstand = { aufgaben: 0, behalten: 0, bauschritte: 0 };
 
 /** Stein für die ersten n ernsthaften Aufgaben eines Lerntags (Tageskurve, BASEBAU §3.1). */
-export function steinBis(n: number): number {
-  const voll = Math.min(n, ERTRAG.steinVoll);
-  const halb = Math.max(0, Math.min(n, ERTRAG.steinHalbBis) - ERTRAG.steinVoll);
+export function fleissBis(n: number): number {
+  const voll = Math.min(n, ERTRAG.fleissVoll);
+  const halb = Math.max(0, Math.min(n, ERTRAG.fleissHalbBis) - ERTRAG.fleissVoll);
   return voll + Math.floor(halb / 2);
 }
 
@@ -115,13 +115,13 @@ export function sitzungsBuchungen(
 
   // Stein: Fleiß, richtig und falsch gleich (§3.1)
   const nachher = vorher.aufgaben + ernst.length;
-  const stein = steinBis(nachher) - steinBis(vorher.aufgaben);
-  const voll = Math.max(0, Math.min(nachher, ERTRAG.steinVoll) - vorher.aufgaben);
+  const fleiss = fleissBis(nachher) - fleissBis(vorher.aufgaben);
+  const voll = Math.max(0, Math.min(nachher, ERTRAG.fleissVoll) - vorher.aufgaben);
   const halb = Math.max(
     0,
-    Math.min(nachher, ERTRAG.steinHalbBis) - Math.max(vorher.aufgaben, ERTRAG.steinVoll),
+    Math.min(nachher, ERTRAG.fleissHalbBis) - Math.max(vorher.aufgaben, ERTRAG.fleissVoll),
   );
-  buche('stein', stein, {
+  buche('fleiss', fleiss, {
     aufgaben: zaehlbar.length,
     voll,
     halb,
@@ -137,19 +137,19 @@ export function sitzungsBuchungen(
     if (anlass === 'korrektur') korrekturen++;
   }
   const erzRoh = wiederholungen + korrekturen;
-  const erz = Math.min(erzRoh, Math.max(0, ERTRAG.erzJeTag - vorher.erz));
-  buche('erz', erz, { wiederholungen, korrekturen, gekappt: erzRoh - erz });
+  const behalten = Math.min(erzRoh, Math.max(0, ERTRAG.behaltenJeTag - vorher.behalten));
+  buche('behalten', behalten, { wiederholungen, korrekturen, gekappt: erzRoh - behalten });
 
   // Bauschritt: eine Lerneinheit, höchstens 2 am Tag (§3.4)
-  const bauschritt = sitzung.lerneinheit && vorher.bauschritte < ERTRAG.bauschritteJeTag ? 1 : 0;
-  buche('bauschritt', bauschritt, { lerneinheit: 1 });
+  const schritt = sitzung.lerneinheit && vorher.bauschritte < ERTRAG.schritteJeTag ? 1 : 0;
+  buche('schritt', schritt, { lerneinheit: 1 });
 
   return {
     buchungen,
     danach: {
       aufgaben: nachher,
-      erz: vorher.erz + erz,
-      bauschritte: vorher.bauschritte + bauschritt,
+      behalten: vorher.behalten + behalten,
+      bauschritte: vorher.bauschritte + schritt,
     },
   };
 }
@@ -192,7 +192,7 @@ export function alleSitzungsBuchungen(
  * dieselbe Regel wie in „Mein Stand“ (LEHRPLAN §6), damit Bastion und
  * Kompetenzansicht nie widersprechen.
  */
-export function bauplanBuchungen(
+export function koennenBuchungen(
   staende: readonly KompetenzStand[],
   schonGebucht: ReadonlySet<string>,
 ): Buchung[] {
@@ -202,7 +202,7 @@ export function bauplanBuchungen(
     .filter((b) => !schonGebucht.has(b.bezug))
     .sort((a, b) => (a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : a.bezug < b.bezug ? -1 : 1))
     .map((b) => ({
-      ressource: 'bauplan' as const,
+      ressource: 'koennen' as const,
       menge: 1,
       grund: 'kompetenz-gefestigt' as const,
       bezug: b.bezug,
@@ -214,7 +214,7 @@ export function bauplanBuchungen(
 
 /** Summe je Ressource. */
 export function summe(buchungen: readonly Buchung[]): Record<Ressource, number> {
-  const s: Record<Ressource, number> = { stein: 0, erz: 0, bauplan: 0, bauschritt: 0 };
+  const s: Record<Ressource, number> = { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 };
   for (const b of buchungen) s[b.ressource] += b.menge;
   return s;
 }

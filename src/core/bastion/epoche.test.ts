@@ -4,22 +4,22 @@ import type { Bastion } from './bauen';
 import { epochenstand } from './epoche';
 import { START } from './katalog';
 
-const bastion = (bergfried: number): Bastion => ({
-  bauwerke: START.map((b) => (b.typ === 'bergfried' ? { ...b, stufe: bergfried } : b)),
+const bastion = (kern: number): Bastion => ({
+  bauwerke: START.map((b) => (b.typ === 'kern' ? { ...b, stufe: kern } : b)),
   vorhaben: [],
   fertig: [],
   vorrat: 0,
 });
 const konto = (erworben: number, ausgegeben = 0) =>
   [
-    { ressource: 'bauplan' as const, menge: erworben },
-    { ressource: 'bauplan' as const, menge: -ausgegeben },
+    { ressource: 'koennen' as const, menge: erworben },
+    { ressource: 'koennen' as const, menge: -ausgegeben },
   ].reduce(verbuche, leeresKonto('P'));
 
 describe('Ende der Epoche 1 (§5.4)', () => {
   it('Bergfried 3 und 15 erworbene Baupläne – beides nötig', () => {
     expect(epochenstand(bastion(1), konto(0))).toEqual({
-      bergfried: 1,
+      kern: 1,
       bauplaene: 0,
       geschafft: false,
     });

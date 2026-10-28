@@ -5,9 +5,9 @@ import type { KompetenzStand } from '../learning/fortschritt';
 import { sitzungEreignis } from '../learning/sitzung';
 import {
   alleSitzungsBuchungen,
-  bauplanBuchungen,
+  koennenBuchungen,
   ERTRAG,
-  steinBis,
+  fleissBis,
   summe,
   type Buchung,
 } from './regeln';
@@ -62,11 +62,11 @@ const reihe = (anzahl: number, teil: Partial<AufgabeEreignis> = {}) =>
 
 describe('Stein (BASEBAU §3.1)', () => {
   it('Tageskurve: 25 voll, bis 50 halb, danach nichts', () => {
-    expect(steinBis(0)).toBe(0);
-    expect(steinBis(25)).toBe(25);
-    expect(steinBis(27)).toBe(26);
-    expect(steinBis(50)).toBe(37);
-    expect(steinBis(200)).toBe(37);
+    expect(fleissBis(0)).toBe(0);
+    expect(fleissBis(25)).toBe(25);
+    expect(fleissBis(27)).toBe(26);
+    expect(fleissBis(50)).toBe(37);
+    expect(fleissBis(200)).toBe(37);
   });
 
   it('richtig und falsch zählen gleich, Geratenes nicht', () => {
@@ -76,7 +76,7 @@ describe('Stein (BASEBAU §3.1)', () => {
       ...Array.from({ length: 4 }, () => falsch({ dauerMs: 1_000 })),
       aufgabe({ ergebnis: 'uebersprungen', bewertung: null }),
     ]);
-    expect(b.find((x) => x.ressource === 'stein')).toMatchObject({
+    expect(b.find((x) => x.ressource === 'fleiss')).toMatchObject({
       menge: 6,
       aufschluesselung: { aufgaben: 10, voll: 6, halb: 0, geraten: 4 },
     });
@@ -89,7 +89,7 @@ describe('Stein (BASEBAU §3.1)', () => {
         (groessen) => {
           const aufgaben = groessen.flatMap((g, i) => reihe(g, { sitzung: `S${i}` }));
           const gesamt = groessen.reduce((a, b) => a + b, 0);
-          expect(summe(buche(aufgaben)).stein).toBe(steinBis(gesamt));
+          expect(summe(buche(aufgaben)).fleiss).toBe(fleissBis(gesamt));
         },
       ),
     );
@@ -100,7 +100,7 @@ describe('Stein (BASEBAU §3.1)', () => {
       ...reihe(60, { sitzung: 'T1', tag: '2026-10-28' }),
       ...reihe(60, { sitzung: 'T2', tag: '2026-10-29' }),
     ]);
-    expect(summe(b).stein).toBe(2 * steinBis(60));
+    expect(summe(b).fleiss).toBe(2 * fleissBis(60));
   });
 });
 
@@ -111,16 +111,16 @@ describe('Erz (BASEBAU §3.2)', () => {
       ...reihe(5, { faellig: false }),
       falsch({ faellig: true, modus: 'wiederholen' }),
     ]);
-    expect(b.find((x) => x.ressource === 'erz')).toMatchObject({
+    expect(b.find((x) => x.ressource === 'behalten')).toMatchObject({
       menge: 3,
       aufschluesselung: { wiederholungen: 3, korrekturen: 0, gekappt: 0 },
     });
   });
 
   it('die Diagnose bringt kein Erz', () => {
-    expect(summe(buche(reihe(5, { modus: 'diagnose', faellig: true, bewertung: null }))).erz).toBe(
-      0,
-    );
+    expect(
+      summe(buche(reihe(5, { modus: 'diagnose', faellig: true, bewertung: null }))).behalten,
+    ).toBe(0);
   });
 
   it('absichtlich falsch antworten bringt keinen Vorteil', () => {
@@ -132,8 +132,8 @@ describe('Erz (BASEBAU §3.2)', () => {
       fehler,
       aufgabe({ sitzung: 'Y2', modus: 'fehlerwerkstatt', korrigiert: fehler.id }),
     ]);
-    expect(summe(bestanden).erz).toBe(1);
-    expect(summe(korrigiert).erz).toBe(1);
+    expect(summe(bestanden).behalten).toBe(1);
+    expect(summe(korrigiert).behalten).toBe(1);
   });
 
   it('erst raten, dann korrigieren bringt nichts; zweimal korrigieren zählt einmal', () => {
@@ -146,7 +146,7 @@ describe('Erz (BASEBAU §3.2)', () => {
       aufgabe({ sitzung: 'R2', modus: 'fehlerwerkstatt', korrigiert: ernst.id }),
       aufgabe({ sitzung: 'R3', modus: 'fehlerwerkstatt', korrigiert: ernst.id }),
     ]);
-    expect(summe(b).erz).toBe(1);
+    expect(summe(b).behalten).toBe(1);
   });
 
   it('höchstens 30 am Lerntag, der Rest ist sichtbar gekappt', () => {
@@ -154,9 +154,9 @@ describe('Erz (BASEBAU §3.2)', () => {
       ...reihe(20, { sitzung: 'E1', faellig: true, modus: 'wiederholen' }),
       ...reihe(20, { sitzung: 'E2', faellig: true, modus: 'wiederholen' }),
     ]);
-    expect(summe(b).erz).toBe(ERTRAG.erzJeTag);
+    expect(summe(b).behalten).toBe(ERTRAG.behaltenJeTag);
     expect(
-      b.filter((x) => x.ressource === 'erz').map((x) => x.aufschluesselung['gekappt']),
+      b.filter((x) => x.ressource === 'behalten').map((x) => x.aufschluesselung['gekappt']),
     ).toEqual([0, 10]);
   });
 });
@@ -170,7 +170,7 @@ describe('Bauschritte (BASEBAU §3.4)', () => {
       ...reihe(10, { sitzung: 'L3' }),
       ...reihe(10, { sitzung: 'L4', tag: '2026-10-29' }),
     ]);
-    expect(b.filter((x) => x.ressource === 'bauschritt').map((x) => x.bezug)).toEqual([
+    expect(b.filter((x) => x.ressource === 'schritt').map((x) => x.bezug)).toEqual([
       'L1',
       'L2',
       'L4',
@@ -219,7 +219,7 @@ describe('Grundregeln (BASEBAU §3.5, B-4)', () => {
 
   it('keine Buchungen über null und nie negative Mengen', () => {
     const b = buche([...reihe(3, { sitzung: 'N' }), falsch({ sitzung: 'N', dauerMs: 100 })]);
-    expect(b.map((x) => x.ressource)).toEqual(['stein']);
+    expect(b.map((x) => x.ressource)).toEqual(['fleiss']);
     expect(b.every((x) => x.menge > 0 && x.regel === 1 && x.bezug === 'N')).toBe(true);
   });
 });
@@ -242,12 +242,12 @@ describe('Baupläne (BASEBAU §3.3)', () => {
       stand('K1', 'M', '2026-11-09'),
       stand('K3', 'G'),
     ];
-    const erst = bauplanBuchungen(staende, new Set());
+    const erst = koennenBuchungen(staende, new Set());
     expect(erst.map((b) => [b.bezug, b.tag, b.menge, b.grund])).toEqual([
       ['K1@G', '2026-11-01', 1, 'kompetenz-gefestigt'],
       ['K2@G', '2026-11-05', 1, 'kompetenz-gefestigt'],
       ['K1@M', '2026-11-09', 1, 'kompetenz-gefestigt'],
     ]);
-    expect(bauplanBuchungen(staende, new Set(erst.map((b) => b.bezug)))).toEqual([]);
+    expect(koennenBuchungen(staende, new Set(erst.map((b) => b.bezug)))).toEqual([]);
   });
 });

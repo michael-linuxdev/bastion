@@ -6,23 +6,20 @@
 import type { Konto } from '../ledger/buchung';
 import type { Bastion } from './bauen';
 
-export const EPOCHE_1_ZIEL = { bergfried: 3, bauplaene: 15 } as const;
+export const EPOCHE_1_ZIEL = { kern: 3, bauplaene: 15 } as const;
 
 export interface Epochenstand {
-  readonly bergfried: number;
+  readonly kern: number;
   readonly bauplaene: number;
   readonly geschafft: boolean;
 }
 
 export function epochenstand(b: Bastion, konto: Konto): Epochenstand {
-  const bergfried = Math.max(
-    0,
-    ...b.bauwerke.filter((x) => x.typ === 'bergfried').map((x) => x.stufe),
-  );
-  const bauplaene = konto.erworben.bauplan;
+  const kern = Math.max(0, ...b.bauwerke.filter((x) => x.typ === 'kern').map((x) => x.stufe));
+  const bauplaene = konto.erworben.koennen;
   return {
-    bergfried,
+    kern,
     bauplaene,
-    geschafft: bergfried >= EPOCHE_1_ZIEL.bergfried && bauplaene >= EPOCHE_1_ZIEL.bauplaene,
+    geschafft: kern >= EPOCHE_1_ZIEL.kern && bauplaene >= EPOCHE_1_ZIEL.bauplaene,
   };
 }

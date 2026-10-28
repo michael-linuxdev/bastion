@@ -109,7 +109,7 @@ export function bastionAus(
   const eintraege: Eintrag[] = [
     ...bau,
     ...buchungen
-      .filter((b) => b.ressource === 'bauschritt' && b.menge > 0)
+      .filter((b) => b.ressource === 'schritt' && b.menge > 0)
       .map((b) => ({ art: 'gutschrift' as const, ts: b.ts, id: b.id, menge: b.menge })),
   ].sort(reihenfolge);
 
@@ -160,7 +160,7 @@ export function bastionAus(
     switch (e.aktion) {
       case 'beginnen': {
         const stufe = e.stufe ?? 1;
-        const bedarf = kosten(e.typ, stufe)?.bauschritt ?? 0;
+        const bedarf = kosten(e.typ, stufe)?.schritt ?? 0;
         const genommen = Math.min(vorrat, bedarf);
         vorrat -= genommen;
         const v: Vorhaben = {
@@ -212,7 +212,7 @@ export function bastionAus(
 }
 
 /** Wie viele Vorhaben gleichzeitig: eines, mit fertiger Zimmerei zwei (§4.2). */
-export const plaetze = (b: Bastion) => (b.bauwerke.some((x) => x.typ === 'zimmerei') ? 2 : 1);
+export const plaetze = (b: Bastion) => (b.bauwerke.some((x) => x.typ === 'werkstatt') ? 2 : 1);
 
 export type BauHindernis =
   | Hindernis
@@ -220,7 +220,7 @@ export type BauHindernis =
   | 'wird-schon-gebaut'
   | 'ausserhalb'
   | 'belegt'
-  | `zu-wenig-${'stein' | 'erz' | 'bauplan'}`;
+  | `zu-wenig-${'fleiss' | 'behalten' | 'koennen'}`;
 
 /** Felder, die ein Gebäude an `pos` belegt */
 function felder(typ: GebaeudeTyp, pos: Position): string[] {
@@ -282,7 +282,7 @@ export function beginnHindernisse(
   if ('pos' in ort) h.push(...platzHindernisse(b, typ, ort.pos));
   const k = kosten(typ, ausbau ? ausbau.stufe + 1 : 1);
   if (k)
-    for (const r of ['stein', 'erz', 'bauplan'] as const)
+    for (const r of ['fleiss', 'behalten', 'koennen'] as const)
       if (konto.stand[r] < k[r]) h.push(`zu-wenig-${r}`);
   return h;
 }
@@ -321,7 +321,7 @@ function kostenBuchungen(
   const k = kosten(typ, stufe);
   if (!k) return [];
   const vorzeichen = grund === 'bau-beginn' ? -1 : 1;
-  return (['stein', 'erz', 'bauplan'] as const satisfies readonly Ressource[])
+  return (['fleiss', 'behalten', 'koennen'] as const satisfies readonly Ressource[])
     .filter((r) => k[r] > 0)
     .map((r) => {
       const bezug = `${grund}.${vorhaben}`;
