@@ -9,6 +9,7 @@ import {
   beginnHindernisse,
   einlagern,
   aufstellen,
+  gestalten,
   platzHindernisse,
   fertigmeldungen,
   freierPlatz,
@@ -283,6 +284,25 @@ describe('Einlagern (B-21)', () => {
     expect(beginnHindernisse(w.bastion, w.konto, 'ursprung', { pos: { x: 0, y: 0 } })).toContain(
       'nicht-baubar',
     );
+  });
+});
+
+describe('Gestalten (2.14)', () => {
+  it('Zierde bekommt eine Farbe, kostenlos und jederzeit änderbar; bleibt beim Einlagern', () => {
+    const w = new Welt();
+    w.gutschrift('fleiss', 20);
+    w.gutschrift('schritt', 1);
+    const v = w.neu('zeichen', { x: 0, y: 0 });
+    const vorher = w.konto;
+    w.uebernimm(gestalten(w.bastion, v.gebaeude, 'blau', w.angaben()));
+    w.uebernimm(gestalten(w.bastion, v.gebaeude, 'gelb', w.angaben()));
+    expect(w.bastion.bauwerke.find((x) => x.id === v.gebaeude)?.farbe).toBe('gelb');
+    expect(w.konto).toEqual(vorher);
+    w.uebernimm(einlagern(w.bastion, v.gebaeude, w.angaben()));
+    w.uebernimm(aufstellen(w.bastion, v.gebaeude, { x: 1, y: 0 }, w.angaben()));
+    expect(w.bastion.bauwerke.find((x) => x.id === v.gebaeude)?.farbe).toBe('gelb');
+    // Gebäude mit Aufgabe werden nicht gestaltet
+    expect(gestalten(w.bastion, 'start.kern', 'rot', w.angaben()).ok).toBe(false);
   });
 });
 

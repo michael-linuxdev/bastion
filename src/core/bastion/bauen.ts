@@ -26,6 +26,7 @@ import {
   kosten,
   START,
   type Bauwerk,
+  type Farbe,
   type GebaeudeTyp,
   type Hindernis,
   type Position,
@@ -50,7 +51,9 @@ export interface BauEreignis {
     /** Zierde vom Bauplatz ins Lager (B-21) */
     | 'einlagern'
     /** Zierde aus dem Lager an `pos` aufstellen (B-21) */
-    | 'aufstellen';
+    | 'aufstellen'
+    /** Zierde gestalten, z. B. die Farbe des Zeichens (Schritt 2.14) */
+    | 'gestalten';
   /** bei beginnen, abbrechen, fertigstellen */
   readonly vorhaben?: string;
   /** Instanz-ID des Gebäudes; bei einem Neubau gleich der Vorhaben-ID */
@@ -59,6 +62,8 @@ export interface BauEreignis {
   /** Zielstufe */
   readonly stufe?: number;
   readonly pos?: Position;
+  /** bei gestalten */
+  readonly gestaltung?: { readonly farbe?: Farbe };
 }
 
 export interface Vorhaben {
@@ -226,6 +231,12 @@ export function bastionAus(
           lager.delete(b.id);
           bauwerke.set(b.id, { ...b, pos: e.pos });
         }
+        break;
+      }
+      case 'gestalten': {
+        const farbe = e.gestaltung?.farbe;
+        const b = bauwerke.get(e.gebaeude) ?? lager.get(e.gebaeude);
+        if (b && farbe) (bauwerke.has(b.id) ? bauwerke : lager).set(b.id, { ...b, farbe });
         break;
       }
     }
@@ -479,6 +490,17 @@ export function aufstellen(b: Bastion, gebaeude: string, pos: Position, a: Bauan
   return {
     ok: true,
     bau: ereignis(a, { aktion: 'aufstellen', gebaeude, typ: ziel.typ, pos }),
+    buchungen: [],
+  };
+}
+
+/** Zierde kostenlos gestalten – Farbe wählen (Schritt 2.14). Nur Zierde; jederzeit änderbar. */
+export function gestalten(b: Bastion, gebaeude: string, farbe: Farbe, a: Bauangaben): Ergebnis {
+  const ziel = b.bauwerke.find((x) => x.id === gebaeude);
+  if (!ziel || !einlagerbar(ziel.typ)) return { ok: false, hindernisse: ['nicht-baubar'] };
+  return {
+    ok: true,
+    bau: ereignis(a, { aktion: 'gestalten', gebaeude, typ: ziel.typ, gestaltung: { farbe } }),
     buchungen: [],
   };
 }

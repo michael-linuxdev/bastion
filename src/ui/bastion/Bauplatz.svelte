@@ -8,6 +8,7 @@
   import { bildSetzen, bildZeigen, type BauAuftrag } from '../plattform/ablage';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { gebaeudeName, tt } from './thema.svelte';
+  import FarbWahl from './FarbWahl.svelte';
 
   let { bastion, onaktion }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean> } =
     $props();
@@ -155,6 +156,13 @@
             {/if}
             <button onclick={() => (auswahl = undefined)}>{tt('bastion.fertig')}</button>
           </span>
+          {#if einlagerbar(gewaehlt.typ)}
+            <FarbWahl
+              farbe={gewaehlt.farbe}
+              name="farbe-auswahl"
+              onwahl={(f) => void onaktion({ art: 'gestalten', gebaeude: gewaehlt.id, farbe: f })}
+            />
+          {/if}
         {/if}
       </div>
     {:else}

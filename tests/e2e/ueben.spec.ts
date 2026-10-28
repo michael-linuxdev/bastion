@@ -599,6 +599,12 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await feuer.getByRole('button', { name: 'Hierhin' }).click();
   await expect(feuer).toContainText('Spalte 12, Reihe 12');
 
+  // Gestalten (2.14): Farbe des Banners wählen – kostenlos, bleibt gespeichert
+  const bannerZeile = page.getByRole('listitem').filter({ hasText: /^Banner\s+Feld/ });
+  await bannerZeile.getByRole('radio', { name: 'Blau' }).check();
+  await expect(bannerZeile.getByRole('radio', { name: 'Blau' })).toBeChecked();
+  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+
   // Zierde einlagern und wieder aufstellen (B-21)
   const banner = page.getByRole('listitem').filter({ hasText: /^Banner\s+Feld/ });
   await banner.getByRole('button', { name: 'Einlagern' }).click();
@@ -613,12 +619,19 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
 
   // Bleibt nach dem Neuladen, wie es ist
+  // (auch die Farbe des Banners)
   await page.reload();
   await page.getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
     'Spalte 12, Reihe 12',
   );
+  await expect(
+    page
+      .getByRole('listitem')
+      .filter({ hasText: /^Banner\s+Feld/ })
+      .getByRole('radio', { name: 'Blau' }),
+  ).toBeChecked();
 
   // Ziel vormerken (B-20): zeigt, was noch fehlt – auch nach dem Neuladen
   await page
