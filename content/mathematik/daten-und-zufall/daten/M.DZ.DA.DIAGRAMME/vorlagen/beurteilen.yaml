@@ -1,0 +1,27 @@
+# Passendes Diagramm wählen; abgeschnittene Achse erkennen. Entwurf: noch nicht geprüft.
+id: M.DZ.DA.DIAGRAMME.BEURTEILEN
+kompetenz: M.DZ.DA.DIAGRAMME
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: da.diagramm-beurteilen@1
+parameter:
+  G: { achse: false }
+  M: { achse: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: {frage}'
+hilfen:
+  - de: 'Ein [[Säulendiagramm]] vergleicht Werte. Ein [[Liniendiagramm]] zeigt eine Entwicklung über die Zeit. Ein [[Kreisdiagramm]] zeigt Anteile an einem Ganzen.'
+  - de: 'Schau immer, wo die Achse beginnt. Beginnt sie nicht bei 0, täuschen die Höhen der Säulen.'
+fehlerbilder:
+  saeulen-fuer-anteile:
+    de: 'Säulen vergleichen gut, aber hier geht es um Anteile an einem Ganzen. Dafür passt ein [[Kreisdiagramm]].'
+  linie-ohne-zeit:
+    de: 'Ein [[Liniendiagramm]] passt, wenn sich etwas mit der Zeit verändert. Hier gibt es keinen zeitlichen Verlauf.'
+  hoehe-verglichen:
+    de: 'Die Säulen täuschen: Die Achse beginnt nicht bei 0. Vergleiche die Zahlen an der Achse, nicht die [[Höhe]] der Säulen.'
+  falsch-abgelesen:
+    de: 'Die Achse beginnt nicht bei 0. Lies den Wert an der Achse ab, nicht die [[Höhe]] der Säule.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Wo ist die Chance auf Rot größer?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.WAHRSCHEINLICHKEIT.VERGLEICHEN
+kompetenz: M.DZ.ZF.WAHRSCHEINLICHKEIT
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zf.chancen-vergleichen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: 'In Beutel A liegen {a}, in Beutel B {b}. Du ziehst ohne Hinsehen eine Kugel. **Entscheide**: Bei welchem Beutel ist die Chance auf eine rote Kugel größer?'
+hilfen:
+  - de: 'Es kommt nicht auf die Anzahl der roten Kugeln an, sondern auf ihren [[Anteil]] an allen Kugeln.'
+  - de: 'Schreibe die [[Wahrscheinlichkeit]] für Rot als [[Bruch]]: rote Kugeln durch alle Kugeln. Vergleiche dann die Brüche.'
+fehlerbilder:
+  anzahl-statt-anteil:
+    de: 'Mehr rote Kugeln heißt nicht mehr Chance. Es kommt darauf an, wie viele Kugeln insgesamt im Beutel sind: Vergleiche den [[Anteil]].'
+  nur-blaue-verglichen:
+    de: 'Nur auf die blauen Kugeln zu schauen reicht nicht. Vergleiche rote Kugeln durch alle Kugeln.'
+herkunft: ki-entwurf
+version: 1
