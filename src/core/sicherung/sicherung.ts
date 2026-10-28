@@ -8,6 +8,7 @@
  */
 import { AUFGABE_V, type AufgabeEreignis } from '../learning/ereignis';
 import { SITZUNG_V, type SitzungEreignis } from '../learning/sitzung';
+import { BUCHUNG_V, type BuchungEreignis } from '../ledger/buchung';
 import { EINSTELLUNG_V, type EinstellungEreignis } from '../policy/einstellung';
 import type { Tag } from '../policy/lerntag';
 
@@ -36,7 +37,8 @@ export interface SicherungsProfil {
   readonly erstellt: number;
 }
 
-export type SicherungsEreignis = AufgabeEreignis | SitzungEreignis | EinstellungEreignis;
+export type SicherungsEreignis =
+  AufgabeEreignis | SitzungEreignis | BuchungEreignis | EinstellungEreignis;
 
 export interface SicherungsInhalt {
   readonly format: number;
@@ -96,6 +98,7 @@ const istZahl = (x: unknown): x is number => typeof x === 'number' && Number.isF
 const VERSION: Readonly<Record<string, number>> = {
   aufgabe: AUFGABE_V,
   sitzung: SITZUNG_V,
+  buchung: BUCHUNG_V,
   einstellung: EINSTELLUNG_V,
 };
 

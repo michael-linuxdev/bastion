@@ -22,7 +22,11 @@ import {
   speichereSitzung,
   sitzungen,
   sitzungenNachtragen,
+  buchen,
+  buchungen,
+  konto,
 } from './ablage';
+import { kontoAus } from '../core/ledger/buchung';
 import { sitzungEreignis } from '../core/learning/sitzung';
 import { einstellungEreignis } from '../core/policy/einstellung';
 import { BastionDatenbank } from './datenbank';
@@ -245,6 +249,48 @@ describe('Ablage', () => {
     });
     expect(await sitzungen(neu, inst.profil)).toEqual(alle);
     expect(await importieren(neu, sicherung, inst.profil, 7000)).toMatchObject({ neu: 0 });
+  });
+
+  it('Buchen: einmal je Anlass, Konto passt zu den Buchungen, in der Sicherung dabei', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(5);
+    // zwölf Aufgaben in einer Sitzung: Lerneinheit, 12 Stein, 1 Bauschritt
+    for (let i = 0; i < 12; i++)
+      await speichereAufgabe(
+        db,
+        aufgabeEreignis(
+          angaben(inst.profil, inst.geraet, { sitzung: 'S1', vorlage: `V${i % 2}` }),
+          2000 + i * 20_000,
+          60,
+          zufall,
+        ),
+      );
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(1);
+    const neu = await buchen(db, inst, 999_999);
+    expect(neu.map((b) => [b.ressource, b.menge])).toEqual([
+      ['stein', 12],
+      ['bauschritt', 1],
+    ]);
+    expect(await buchen(db, inst, 1_000_000)).toEqual([]);
+    const k = await konto(db, inst.profil);
+    expect(k.stand).toEqual({ stein: 12, erz: 0, bauplan: 0, bauschritt: 1 });
+    expect(k).toEqual(kontoAus(inst.profil, await buchungen(db, inst.profil)));
+
+    // Neuberechnung ergibt dasselbe Konto (D-6)
+    await neuBerechnen(db, inst.profil);
+    expect(await konto(db, inst.profil)).toEqual(k);
+
+    // Sicherung: Buchungen kommen mit, das Konto stimmt auf dem neuen Gerät
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((e) => e.art === 'buchung')).toHaveLength(2);
+    const ziel = neueDb();
+    const z = await einrichten(ziel, 5000, quelleAusSeed(2));
+    expect(await importieren(ziel, sicherung, z.profil, 6000)).toMatchObject({ ok: true, neu: 15 });
+    expect(await konto(ziel, inst.profil)).toEqual(k);
+    // Das neue Gerät rechnet nach und findet nichts, was fehlt
+    expect(await buchen(ziel, { profil: inst.profil, geraet: 'anderes1' }, 7000)).toEqual([]);
+    expect(await importieren(ziel, sicherung, inst.profil, 8000)).toMatchObject({ neu: 0 });
   });
 
   it('merkt sich die letzte Sicherung', async () => {

@@ -4,6 +4,7 @@ import { Dexie, type DexieOptions, type Table } from 'dexie';
 import type { AufgabeEreignis } from '../core/learning/ereignis';
 import type { KompetenzStand } from '../core/learning/fortschritt';
 import type { SitzungEreignis } from '../core/learning/sitzung';
+import type { BuchungEreignis, Konto } from '../core/ledger/buchung';
 import type { Karte } from '../core/srs/karten';
 import type { EinstellungEreignis } from '../core/policy/einstellung';
 import type { SicherungsInhalt } from '../core/sicherung/sicherung';
@@ -37,6 +38,8 @@ export interface MetaEintrag {
 export class BastionDatenbank extends Dexie {
   aufgaben!: Table<AufgabeEreignis, string>;
   sitzungen!: Table<SitzungEreignis, string>;
+  buchungen!: Table<BuchungEreignis, string>;
+  konto!: Table<Konto, string>;
   kompetenzen!: Table<KompetenzStand, [string, string, string]>;
   karten!: Table<Karte, [string, string, string]>;
   profile!: Table<Profil, string>;

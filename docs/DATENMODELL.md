@@ -196,6 +196,13 @@ Die Gutschrift erfolgt beim Sitzungsabschluss. Während der Sitzung zeigt die Ob
 
 Das ist bewusst großzügig: Wer eine Zeit lang nur lernt und nicht baut, verliert nichts (R3).
 
+*Umsetzung (2.3):* `src/core/ledger/buchung.ts`, Speicher in `src/storage/ablage.ts` (`buchen`).
+- **Wann:** nach jedem Sitzungsende, beim Start (nach dem Nachtragen) und nach dem Einspielen einer Sicherung. Die Regeln (BASEBAU §3.4a) laufen dann über alle Sitzungen; gespeichert werden nur Buchungen, die noch fehlen. Gespeicherte Buchungen ändern sich nie, auch wenn eine spätere Regelversion anders rechnen würde.
+- **Feste IDs** statt ULID: `Profil.Ressource.Bezug`, z. B. `<Profil>.stein.<Sitzung>` oder `<Profil>.bauplan.M.ZO.BR.ERWEITERN@G`. Derselbe Anlass ergibt immer dieselbe ID – erneutes Rechnen und Zusammenführen zweier Geräte (D-10) können nichts doppelt buchen.
+- `ts` und `tag` einer Sitzungsbuchung sind die ihrer Sitzung; bei Bauplänen gilt der Lerntag des ersten „gefestigt“.
+- **Projektion `konto`:** Stand und Summe des Erworbenen je Ressource (Erworbenes zählt für den Epochenwechsel, BASEBAU §5.4). Sie wird in derselben Transaktion fortgeschrieben (D-6); `neuBerechnen` baut sie aus allen Buchungen neu auf. Pflicht-Test: fortgeschrieben = neu aufgebaut.
+- Buchungen gehören zur Sicherung (§7). Eine Datenbank-Migration ist nicht nötig: Die Tabellen `buchungen` und `konto` gibt es seit Schemaversion 1; neu ist nur die Ereignisart (`v` = 1). Ältere App-Versionen melden Sicherungen mit Buchungen als „aus einer neueren App“.
+
 ### 4.4 `bau` – Aktionen in der Bastion
 
 ```ts
@@ -308,7 +315,7 @@ db.version(1).stores({
 });
 ```
 
-*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
 
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.
