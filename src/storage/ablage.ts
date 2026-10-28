@@ -1,7 +1,14 @@
 // Repository-Schnittstelle (T-4): Ereignisse schreiben, Projektionen in
 // derselben Transaktion fortschreiben (D-6), Stände lesen, neu aufbauen.
 import type { AufgabeEreignis } from '../core/learning/ereignis';
-import { fortschreiben, neuAufbauen, type KompetenzStand } from '../core/learning/fortschritt';
+import {
+  neuAufbauen,
+  standSchluessel,
+  verarbeite,
+  type KompetenzStand,
+  type Projektion,
+} from '../core/learning/fortschritt';
+import { kartenSchluessel, type Karte } from '../core/srs/karten';
 import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
 import type { BastionDatenbank } from './datenbank';
@@ -33,13 +40,36 @@ export async function einrichten(
   });
 }
 
-/** Ereignis speichern und den Stand der Kompetenz in derselben Transaktion fortschreiben. */
+/** Alle Karten eines Profils (wenige hundert – Filtern im Speicher genügt). */
+export async function karten(db: BastionDatenbank, profil: string): Promise<Karte[]> {
+  return db.karten
+    .where('[profil+faellig]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/**
+ * Ereignis speichern und Karte sowie Kompetenzstand in derselben Transaktion
+ * fortschreiben (D-6) – mit derselben Regel wie beim Neuaufbau (verarbeite).
+ */
 export async function speichereAufgabe(db: BastionDatenbank, e: AufgabeEreignis): Promise<void> {
-  await db.transaction('rw', db.aufgaben, db.kompetenzen, async () => {
+  await db.transaction('rw', db.aufgaben, db.kompetenzen, db.karten, async () => {
     await db.aufgaben.add(e);
-    const alt = await db.kompetenzen.get([e.profil, e.kompetenz, e.niveau]);
-    const neu = fortschreiben(alt, e);
-    if (neu) await db.kompetenzen.put(neu);
+    const vorher: Projektion = {
+      staende: new Map(),
+      karten: new Map(
+        (await karten(db, e.profil))
+          .filter((k) => k.kompetenz === e.kompetenz && k.niveau === e.niveau)
+          .map((k) => [kartenSchluessel(k), k]),
+      ),
+    };
+    const stand = await db.kompetenzen.get([e.profil, e.kompetenz, e.niveau]);
+    if (stand) vorher.staende.set(standSchluessel(stand), stand);
+    verarbeite(vorher, e);
+    const neueKarte = vorher.karten.get(kartenSchluessel(e));
+    if (neueKarte) await db.karten.put(neueKarte);
+    const neuerStand = vorher.staende.get(standSchluessel(e));
+    if (neuerStand) await db.kompetenzen.put(neuerStand);
   });
 }
 
@@ -51,17 +81,23 @@ export async function kompetenzStaende(
   return db.kompetenzen.where('[profil+status]').between([profil, ''], [profil, '￿']).toArray();
 }
 
-/** Projektion aus allen Ereignissen neu berechnen (D-6), z. B. nach Import oder Migration. */
+/** Projektionen aus allen Ereignissen neu berechnen (D-6), z. B. nach Import oder Migration. */
 export async function neuBerechnen(db: BastionDatenbank, profil: string): Promise<void> {
-  await db.transaction('rw', db.aufgaben, db.kompetenzen, async () => {
+  await db.transaction('rw', db.aufgaben, db.kompetenzen, db.karten, async () => {
     const ereignisse = await db.aufgaben
       .where('[profil+ts]')
       .between([profil, -Infinity], [profil, Infinity])
       .toArray();
-    const alt = await kompetenzStaende(db, profil);
+    const p = neuAufbauen(ereignisse);
+    const alteStaende = await kompetenzStaende(db, profil);
     await db.kompetenzen.bulkDelete(
-      alt.map((s) => [s.profil, s.kompetenz, s.niveau] as [string, string, string]),
+      alteStaende.map((s) => [s.profil, s.kompetenz, s.niveau] as [string, string, string]),
     );
-    await db.kompetenzen.bulkPut([...neuAufbauen(ereignisse).values()]);
+    const alteKarten = await karten(db, profil);
+    await db.karten.bulkDelete(
+      alteKarten.map((k) => [k.profil, k.vorlage, k.niveau] as [string, string, string]),
+    );
+    await db.kompetenzen.bulkPut([...p.staende.values()]);
+    await db.karten.bulkPut([...p.karten.values()]);
   });
 }

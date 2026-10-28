@@ -3,6 +3,7 @@
 import { Dexie, type DexieOptions, type Table } from 'dexie';
 import type { AufgabeEreignis } from '../core/learning/ereignis';
 import type { KompetenzStand } from '../core/learning/fortschritt';
+import type { Karte } from '../core/srs/karten';
 
 export interface Profil {
   readonly id: string;
@@ -17,6 +18,7 @@ export interface MetaEintrag {
 export class BastionDatenbank extends Dexie {
   aufgaben!: Table<AufgabeEreignis, string>;
   kompetenzen!: Table<KompetenzStand, [string, string, string]>;
+  karten!: Table<Karte, [string, string, string]>;
   profile!: Table<Profil, string>;
   meta!: Table<MetaEintrag, string>;
 

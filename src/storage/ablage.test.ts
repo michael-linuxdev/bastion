@@ -2,7 +2,7 @@ import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
 import { describe, expect, it } from 'vitest';
 import { aufgabeEreignis, type AufgabeAngaben } from '../core/learning/ereignis';
 import { quelleAusSeed } from '../core/rng/zufallsquelle';
-import { einrichten, kompetenzStaende, neuBerechnen, speichereAufgabe } from './ablage';
+import { einrichten, karten, kompetenzStaende, neuBerechnen, speichereAufgabe } from './ablage';
 import { BastionDatenbank } from './datenbank';
 
 let nr = 0;
@@ -74,7 +74,17 @@ describe('Ablage', () => {
     ]);
     expect(await db.aufgaben.count()).toBe(6);
 
+    const kartenVorher = await karten(db, profil);
+    expect(kartenVorher.map((k) => k.vorlage).sort()).toEqual([
+      'M.ZO.NZ.RUNDEN.A',
+      'M.ZO.NZ.RUNDEN.AUF-STELLE',
+      'M.ZO.NZ.RUNDEN.B',
+    ]);
+
     await neuBerechnen(db, profil);
+    const sortiere = (k: { vorlage: string; niveau: string }[]) =>
+      [...k].sort((a, b) => (a.vorlage + a.niveau).localeCompare(b.vorlage + b.niveau));
+    expect(sortiere(await karten(db, profil))).toEqual(sortiere(kartenVorher));
     expect(
       (await kompetenzStaende(db, profil)).sort((a, b) => a.niveau.localeCompare(b.niveau)),
     ).toEqual(staende.sort((a, b) => a.niveau.localeCompare(b.niveau)));
