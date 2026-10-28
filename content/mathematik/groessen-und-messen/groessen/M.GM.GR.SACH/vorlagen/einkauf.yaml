@@ -13,10 +13,10 @@ text:
     de: '{geschichte} **Berechne** das Rückgeld in Euro.'
 hilfen:
   - de: Berechne zuerst, wie viel alles zusammen kostet.
-  - de: Ziehe den Preis vom bezahlten Betrag ab.
+  - de: Ziehe den Preis vom bezahlten Geld ab.
 fehlerbilder:
   rueckgeld-vergessen:
-    de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Betrag ab.
+    de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Geld ab.
   nur-ein-stueck:
     de: Du hast nur ein Stück berechnet. Lies noch einmal, wie viele gekauft werden.
 herkunft: ki-entwurf

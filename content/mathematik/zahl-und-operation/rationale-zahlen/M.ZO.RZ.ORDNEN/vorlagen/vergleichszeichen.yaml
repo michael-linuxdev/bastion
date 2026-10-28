@@ -1,0 +1,23 @@
+# „Setze das richtige Zeichen ein: −7 ☐ −3“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ORDNEN.VERGLEICHSZEICHEN
+kompetenz: M.ZO.RZ.ORDNEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: rz.vergleichen@1
+parameter:
+  G: { dezimal: false, max: 20 }
+  M: { dezimal: true, max: 20 }
+text:
+  aufgabe:
+    de: '**Vergleiche** und wähle das richtige Zeichen: {a} ☐ {b}'
+hilfen:
+  - de: 'Stell dir die [[Zahlengerade]] vor: Die kleinere Zahl liegt weiter links.'
+  - de: 'Bei zwei [[negativen Zahlen]] ist die mit dem größeren [[Betrag]] die kleinere: −8 < −3.'
+fehlerbilder:
+  betraege-verglichen:
+    de: 'Du hast nur die Zahlen ohne Minus verglichen. Bei [[negativen Zahlen]] ist es umgekehrt: −8 ist kleiner als −3, weil −8 weiter links liegt.'
+  zeichen-verdreht:
+    de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt immer auf die kleinere Zahl: −5 < 2.'
+herkunft: ki-entwurf
+version: 1

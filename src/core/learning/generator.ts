@@ -68,6 +68,10 @@ export interface Instanz {
   readonly bild?: Bild;
   /** Antwortmöglichkeiten (Aufgabentypen `auswahl`, `bild-auswahl`). */
   readonly optionen?: readonly Option[];
+  /** Antworten können negativ sein (ab Klasse 7): Die Eingabe bietet einen Knopf „±“, weil
+   * Handy-Zahlentastaturen oft kein Minus haben. Gilt für jede Instanz des Generators,
+   * damit der Knopf nichts über die Lösung verrät. */
+  readonly vorzeichen?: boolean;
   readonly loesung: Loesung;
   readonly loesungsweg: readonly Sprachobjekt[];
   /** Erwartbare falsche Antworten; nie gleich der Lösung, untereinander verschieden. */

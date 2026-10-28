@@ -20,6 +20,6 @@ fehlerbilder:
   komma-falsch:
     de: 'Das Komma steht falsch. Prüfe mit einem [[Überschlag]], wie groß der Preis ungefähr sein muss.'
   kein-rueckgeld:
-    de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Betrag ab.
+    de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Geld ab.
 herkunft: ki-entwurf
 version: 1

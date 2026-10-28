@@ -535,7 +535,7 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 7 (bei der OS der RS; der HS hat die
 
 **Summe Klasse 7:** 29 Kompetenzen × 2 Niveaus (G, M), davon 23 überwiegend generatorbasiert, 6 gemischt; bei 4 wird Zeichnen erklärt (L-10): Kreis und Gerade (In- und Umkreis), Vierecke konstruieren, Zweitafelbild, Pyramiden darstellen. Neue Felder im ID-Schema: RZ (rationale-zahlen), GL (gleichungen), PZ (prozent-und-zins), KR (kreis). Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [7]`.
 
-*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. Die Klassenwahl bekommt „Klasse 7“, sobald die ersten Vorlagen da sind.
+*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. **RZ begonnen:** Begriff (Zahlengerade, Gegenzahl und Betrag, Alltag), Ordnen (Vergleichszeichen, der Größe nach) und Zahlbereiche (zuordnen, Aussagen) mit 7 Vorlagen (`src/generators/mathematik/rationale-zahlen/begriff.ts`). Negative Antworten gibt man mit dem Knopf „±“ ein (INHALTSFORMAT §5.1). Die Klassenwahl hat „Klasse 7“.
 
 ## 9. Sprache in Aufgaben
 

@@ -839,3 +839,20 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
   await expect(bild).toHaveCount(0);
 });
+
+test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 7' }).check();
+  await expect(page.getByRole('heading', { name: 'Klasse 7' })).toBeVisible();
+  await page.getByRole('button', { name: /^Negative Zahlen/ }).click();
+  const feld = page.getByRole('textbox', { name: 'Deine Antwort' });
+  await feld.fill('5');
+  const pm = page.getByRole('button', { name: 'Minus setzen oder entfernen' });
+  await pm.click();
+  await expect(feld).toHaveValue('−5');
+  await pm.click();
+  await expect(feld).toHaveValue('5');
+});
