@@ -77,7 +77,7 @@ export default defineConfig({
   test: {
     include: ['src/**/*.test.ts', 'tools/**/*.test.ts'],
     // Der dauerhafte Modul-Zwischenspeicher bemerkt neue Dateien hinter
-    // import.meta.glob (src/generators/index.ts) nicht – lieber verlässlich als schnell.
+    // import.meta.glob (src/generators/alle.ts) nicht – lieber verlässlich als schnell.
     fsModuleCache: false,
   },
 });

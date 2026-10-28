@@ -172,7 +172,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 15. Klasse 8 (K-15, K-17) – *Stand: Lehrpläne ausgewertet, 27 Kompetenzen und Graph in `LEHRPLAN.md` §8d; alle 27 Kompetenzen haben Vorlagen (54, Entwurf) und 3 Anleitungen, Klassenwahl mit Klasse 8 – Klasse 8 ist inhaltlich abgedeckt*
 16. Nach Klasse 8 (K-20): Startpaket für Späteinsteiger (B-24) – *steht (BASEBAU §3.4b)*, Hinterhof (B-25) – *Stufe 1 steht*, Wechsel begleiten (L-12) – *steht*, Bericht für die Lehrkraft im Elternbereich (L-13) – *steht*
 17. Klasse 9 bis 12, danach Mathe im Studium (K-19)
-18. Budget der App-Hülle: Generatoren nachladen, sobald 250 KB knapp werden (vom Projektverantwortlichen freigegeben, 28.10.2026; Eintrag im Entscheidungslog von `ARCHITEKTUR.md`)
+18. Budget der App-Hülle: Generatoren nachladen (vom Projektverantwortlichen freigegeben, 28.10.2026) – *steht: ARCHITEKTUR T-14, App-Hülle 120 KB statt 212 KB*
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 

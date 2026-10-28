@@ -3,7 +3,7 @@
 // als genau dieses Fehlerbild erkannt.
 import { describe, expect, it } from 'vitest';
 import { auswerten, type Bruchform } from '../../src/core/learning/auswertung';
-import { generatoren } from '../../src/generators';
+import { generatoren } from '../../src/generators/alle';
 import { pruefeInhalte } from './pruefen';
 
 const { vorlagen } = pruefeInhalte('content', generatoren);

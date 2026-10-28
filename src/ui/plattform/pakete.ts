@@ -4,6 +4,7 @@ import type { Kompetenz } from '../../core/competence/kompetenz';
 import type { Anleitung } from '../../core/learning/anleitung';
 import { begriffskarte, type Begriff, type Begriffskarte } from '../../core/learning/begriffe';
 import type { GeneratorVorlage } from '../../core/learning/vorlage';
+import { generatorenLaden } from '../../generators';
 
 interface Manifest {
   readonly format: number;
@@ -30,6 +31,8 @@ async function hole<T>(datei: string): Promise<T> {
 }
 
 export async function ladeInhalte(): Promise<Inhalte> {
+  // Die Generatoren kommen nachgeladen, aber vorab gespeichert (ARCHITEKTUR T-14)
+  const generatorenBereit = generatorenLaden();
   const manifest = await hole<Manifest>('manifest.json');
   if (manifest.format !== UNTERSTUETZTES_FORMAT) throw new Error('Paketformat unbekannt');
   const pakete = await Promise.all(
@@ -42,6 +45,7 @@ export async function ladeInhalte(): Promise<Inhalte> {
       }>(p.datei),
     ),
   );
+  await generatorenBereit;
   const paketVon = new Map<string, string>();
   pakete.forEach((p, i) => {
     const datei = manifest.pakete[i]?.datei.replace(/\.json$/, '') ?? '';
