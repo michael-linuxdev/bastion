@@ -397,3 +397,14 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
   await page.getByRole('button', { name: 'Zurück zum Üben' }).click();
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
 });
+
+test('Klasse 6 wählen und Brüche addieren üben', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await expect(page.getByRole('heading', { name: 'Klasse 6' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toHaveCount(0);
+  await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
+  await expect(page.getByText(/Berechne/)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+});

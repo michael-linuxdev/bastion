@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Danach: Übersicht, Diagnose und „Mein Stand“ für Klasse 6 öffnen (sie zeigen bisher nur Klasse 5), Anleitungen für DV.KONSTRUIEREN, DV.BESONDERE-LINIEN und KP.PRISMEN.
+7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Die Übersicht beim Üben hat eine Klassenwahl (5 oder 6). Noch offen: Diagnose und „Mein Stand“ für Klasse 6 öffnen (sie zeigen bisher nur Klasse 5), Anleitungen für DV.KONSTRUIEREN, DV.BESONDERE-LINIEN und KP.PRISMEN.
 8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung

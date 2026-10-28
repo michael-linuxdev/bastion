@@ -57,6 +57,7 @@
   let werkstattListe = $state<readonly Auftrag[]>([]);
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
   let niveau = $state<Niveau>('G');
+  let klasse = $state(5);
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
   let zustand = $state<Zustand>({ staende: new Map(), karten: [] });
   /** Fachbegriffe aus dem Grundpaket – für alle Texte (L-7) */
@@ -390,6 +391,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           bind:niveau
+          bind:klasse
           onwahl={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';

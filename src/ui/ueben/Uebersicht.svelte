@@ -13,12 +13,15 @@
     vorlagen,
     zustand,
     niveau = $bindable(),
+    klasse = $bindable(5),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
     niveau: Niveau;
+    /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
+    klasse?: number;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -30,13 +33,16 @@
     new Set(empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)))),
   );
 
+  /** Klassenstufen, für die es schon Aufgaben gibt */
+  const KLASSEN = [5, 6] as const;
+
   const bereiche = $derived(
     BEREICHE.map((bereich) => ({
       bereich,
       kompetenzen: nachGraph(kompetenzen).filter(
         (k) =>
           k.bereich === bereich &&
-          k.klassenstufe_typisch.includes(5) &&
+          k.klassenstufe_typisch.includes(klasse) &&
           vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
       ),
     })).filter((b) => b.kompetenzen.length > 0),
@@ -54,7 +60,14 @@
     <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
   </fieldset>
 
-  <h3>{t('uebersicht.klasse5')}</h3>
+  <fieldset class="niveau">
+    <legend>{t('klasse.ueberschrift')}</legend>
+    {#each KLASSEN as k (k)}
+      <label><input type="radio" value={k} bind:group={klasse} /> {t('klasse.name')} {k}</label>
+    {/each}
+  </fieldset>
+
+  <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}
     <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
     <ul class="liste">

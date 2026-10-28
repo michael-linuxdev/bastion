@@ -14,7 +14,6 @@
   "uebersicht.ueberschrift": "Was möchtest du üben?",
   "uebersicht.laedt": "Aufgaben werden geladen …",
   "uebersicht.fehler": "Die Aufgaben konnten nicht geladen werden. Prüfe die Internetverbindung und lade die Seite neu.",
-  "uebersicht.klasse5": "Klasse 5",
   "uebersicht.entwurf": "Entwurf: Diese Aufgaben sind noch nicht von einer Lehrkraft geprüft. Wenn dir ein Fehler auffällt, sag uns Bescheid.",
   "niveau.ueberschrift": "Niveau",
   "niveau.G": "grundlegend",
@@ -220,5 +219,7 @@
   "anleitung.pruefen": "Prüfe deine Zeichnung",
   "anleitung.nur-fuer-dich": "Das ist nur für dich: Es wird nicht gespeichert und nicht bewertet.",
   "anleitung.nochmal": "Noch einmal von vorn",
-  "anleitung.zum-ueben": "Zurück zum Üben"
+  "anleitung.zum-ueben": "Zurück zum Üben",
+  "klasse.ueberschrift": "Klasse",
+  "klasse.name": "Klasse"
 }
