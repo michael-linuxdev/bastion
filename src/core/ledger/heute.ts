@@ -27,6 +27,12 @@ export interface Tagesertrag {
   readonly bauplaene: readonly { readonly kompetenz: string; readonly niveau: Niveau }[];
   /** Beide Bauschritte des Tages erreicht (§3.4) */
   readonly schritteVoll: boolean;
+  /** Startpaket (B-24): für so viele in der Diagnose nachgewiesene Kompetenzen, mit Stein und Bauschritten */
+  readonly startpaket: {
+    readonly kompetenzen: number;
+    readonly fleiss: number;
+    readonly schritt: number;
+  };
 }
 
 const zahl = (b: BuchungEreignis, schluessel: string) => b.aufschluesselung[schluessel] ?? 0;
@@ -51,6 +57,14 @@ export function tagesertrag(
   let korrekturen = 0;
   let gekappt = 0;
   const bauplaene: { kompetenz: string; niveau: Niveau }[] = [];
+  const startpaket = { kompetenzen: 0, fleiss: 0, schritt: 0 };
+  for (const b of buchungen) {
+    if (b.tag !== tag || b.grund !== 'startpaket' || b.menge <= 0) continue;
+    if (b.ressource === 'fleiss') {
+      startpaket.kompetenzen++;
+      startpaket.fleiss += b.menge;
+    } else if (b.ressource === 'schritt') startpaket.schritt += b.menge;
+  }
   for (const b of heute) {
     menge[b.ressource] += b.menge;
     if (b.ressource === 'fleiss') {
@@ -75,5 +89,6 @@ export function tagesertrag(
     gekappt,
     bauplaene,
     schritteVoll: menge.schritt >= ERTRAG.schritteJeTag,
+    startpaket,
   };
 }

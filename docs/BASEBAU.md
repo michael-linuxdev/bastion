@@ -92,6 +92,19 @@ Was er ausdrücklich **nicht** tun darf:
 - **Bauschritt** für jede Sitzung, die eine Lerneinheit ist (DATENMODELL §4.2), höchstens zwei je Lerntag.
 - **Bauplan** beim ersten „gefestigt“ einer Kompetenz auf einem Niveau. „Gefestigt“ ist **dieselbe Regel wie in „Mein Stand“** (LEHRPLAN §6, `src/core/learning/fortschritt.ts`): jede geübte Vorlage zweimal als fällige Wiederholung bestanden, mindestens 7 Tage nach „gekonnt“, Erinnerungswahrscheinlichkeit aller Vorlagen mindestens 90 %. Das deckt §3.3 ab; so widersprechen Studierstube und Kompetenzansicht einander nie.
 
+### 3.4b Startpaket für Späteinsteiger (B-24)
+
+| | |
+|---|---|
+| Entsteht | Einmal je Kompetenz, deren erstes „gekonnt“ aus der Diagnose kam (also nachgewiesenes Vorwissen) |
+| Menge | 10 Stein und 1 Bauschritt je Kompetenz, höchstens für 40 Kompetenzen (zusammen 400 Stein und 40 Bauschritte, etwa ein Fünftel der Epoche 1) |
+| Baupläne | keine – sie entstehen weiter nur bei „gefestigt“ (§3.3) |
+| Tagesgrenzen | zählen nicht mit; das Startpaket ist kein Sitzungsertrag |
+
+*Warum so:* Wer in Klasse 8 einsteigt und Klasse 5 bis 7 in der Diagnose zeigt, sieht nach wenigen Tagen eine ansehnliche Bastion. Das große Ziel der Epoche (Bergfried, Baupläne) bleibt an behaltenes Können gebunden. Die Grenze von 40 hält das Startpaket kleiner als ein Schuljahr Lernen. *Offen:* Die Startwerte im Simulator mit einem Profil „Späteinsteiger“ prüfen.
+
+*Umsetzung:* `startpaketBuchungen` in `src/core/ledger/regeln.ts` (Regelversion 2; Sitzungen und Baupläne rechnen unverändert), Grund `startpaket`, Bezug `startpaket:<Kompetenz>`, feste ID wie alle Buchungen. Der Abschlussbildschirm zeigt das Startpaket in einer eigenen Zeile.
+
 ### 3.5 Grundregeln für alle Ressourcen
 
 - **Niveauneutral:** Kein Ertragsfaktor für Schulform oder Niveau. Gleiche Anstrengung, gleiche Belohnung.
@@ -326,8 +339,8 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-21 | **Einlagern:** Zierde lässt sich jederzeit kostenlos vom Bauplatz ins Lager nehmen und wieder aufstellen. Nichts geht verloren (R3), nichts lässt sich farmen – so wird der Platz nie zur Falle | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-22 | **Einfassung 40 Stück** in Epoche 1 (4 am Start, 36 baubar, je 15 Fleiß und 1 Bauschritt), damit sich ein Teil des Bauplatzes umschließen lässt | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-23 | Im Thema Dorf heißt der Kern **Gemeindehaus**, nicht „Rathaus“ | Entschieden (28.10.2026, Projektverantwortlicher) |
-| B-24 | **Startpaket für Späteinsteiger:** Für jede Kompetenz, die in der Diagnose als „gekonnt“ nachgewiesen wird, gibt es **einmalig** einen festen Betrag Fleiß und Bauschritte (vorhersehbar, R1; je Kompetenz nur einmal, also nicht farmbar). Baupläne gibt es weiter nur bei „gefestigt“ (R4, B-19). Wer in Klasse 8 einsteigt, hat so nach kurzer Zeit eine ansehnliche Bastion; das Ziel der Epoche bleibt an behaltenes Können gebunden. Beträge legt der Simulator fest | Entschieden (28.10.2026, Projektverantwortlicher), umzusetzen nach Klasse 8 |
-| B-25 | **Hinterhof – Können sichtbar:** ein eigener Bereich hinter der Bastion (Name je Thema). Jeder Lernbereich ist ein Feld, das sich mit jeder gefestigten Kompetenz füllt; G und M sind unterscheidbar (z. B. Bronze und Silber). Volle Felder zeigen Stärken, leere „noch offen“ (nicht rot). Vorwissen aus früheren Klassen und vorausgearbeitete Themen bekommen eine eigene Markierung. Der Hinterhof hat keine eigenen Daten, er wird aus dem Lernstand berechnet und ist deshalb jederzeit umbaubar. Er ist **der Ort zum Angeben** und später stufenweise ausbaubar (Denkmal oder Wappen für volle Lernbereiche, Verzierungen). Schutz nach Prinzip 6: privat, beim Zeigen nur dabei, wenn das Kind es selbst einschaltet, nur von Gerät zu Gerät, keine Rangliste; verschwindet mit dem Basebau-Schalter (R7) | Entschieden (28.10.2026, Projektverantwortlicher), umzusetzen nach Klasse 8 |
+| B-24 | **Startpaket für Späteinsteiger:** Für jede Kompetenz, die in der Diagnose als „gekonnt“ nachgewiesen wird, gibt es **einmalig** einen festen Betrag Fleiß und Bauschritte (vorhersehbar, R1; je Kompetenz nur einmal, also nicht farmbar). Baupläne gibt es weiter nur bei „gefestigt“ (R4, B-19). Wer in Klasse 8 einsteigt, hat so nach kurzer Zeit eine ansehnliche Bastion; das Ziel der Epoche bleibt an behaltenes Können gebunden. Beträge legt der Simulator fest | Entschieden (28.10.2026, Projektverantwortlicher); umgesetzt mit Startwerten (§3.4b) |
+| B-25 | **Hinterhof – Können sichtbar:** ein eigener Bereich hinter der Bastion (Name je Thema). Jeder Lernbereich ist ein Feld, das sich mit jeder gefestigten Kompetenz füllt; G und M sind unterscheidbar (z. B. Bronze und Silber). Volle Felder zeigen Stärken, leere „noch offen“ (nicht rot). Vorwissen aus früheren Klassen und vorausgearbeitete Themen bekommen eine eigene Markierung. Der Hinterhof hat keine eigenen Daten, er wird aus dem Lernstand berechnet und ist deshalb jederzeit umbaubar. Er ist **der Ort zum Angeben** und später stufenweise ausbaubar (Denkmal oder Wappen für volle Lernbereiche, Verzierungen). Schutz nach Prinzip 6: privat, beim Zeigen nur dabei, wenn das Kind es selbst einschaltet, nur von Gerät zu Gerät, keine Rangliste; verschwindet mit dem Basebau-Schalter (R7) | Entschieden (28.10.2026, Projektverantwortlicher); Stufe 1 umgesetzt: `src/core/learning/hinterhof.ts` (rein, aus Lernstand und Diagnose-Nachweisen), Ansicht `src/ui/bastion/Hinterhof.svelte` unter der Bastion – je Lernfeld eine Reihe Plätze, aufklappbar mit Titel und Zustand; Vorwissen gepunktet, Vorausgearbeitetes blau umrandet; Name je Thema (Hinterhof, Gewächshaus, Sternenkarte, Scheune, Schatzkammer). Denkmal/Wappen und Zeigen folgen |
 | B-26 | **Eigene Studien-Epoche** für Mathe im Studium (Erwachsene, Stufe „selbstverwaltet“, kein Elternbereich) | Entschieden (28.10.2026, Projektverantwortlicher), Ausarbeitung mit den Studieninhalten |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)

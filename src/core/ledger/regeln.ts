@@ -8,12 +8,16 @@
  * Fach oder Kompetenz.
  */
 import type { AufgabeEreignis } from '../learning/ereignis';
-import type { KompetenzStand } from '../learning/fortschritt';
+import { diagnoseNachweise, type KompetenzStand } from '../learning/fortschritt';
 import { ernsthaft, type SitzungEreignis } from '../learning/sitzung';
 import type { Tag } from '../policy/lerntag';
 
-/** Version der Regeln; neue Regeln wirken nur auf neue Buchungen (DATENMODELL §6.2). */
-export const REGEL = 1;
+/**
+ * Version der Regeln; neue Regeln wirken nur auf neue Buchungen (DATENMODELL §6.2).
+ * 2: Startpaket für in der Diagnose nachgewiesene Kompetenzen (B-24); Sitzungen und
+ * Baupläne rechnen wie in Version 1.
+ */
+export const REGEL = 2;
 
 /** Startwerte (BASEBAU §3); der Simulator prüft sie (Schritt 2.11). */
 export const ERTRAG = {
@@ -32,8 +36,8 @@ export interface Buchung {
   readonly ressource: Ressource;
   readonly menge: number;
   /** Erträge aus dem Lernen; Abbuchung und Erstattung beim Bauen (BASEBAU §4.2) */
-  readonly grund: 'sitzung' | 'kompetenz-gefestigt' | 'bau-beginn' | 'bau-abbruch';
-  /** Sitzungs-ID, "Kompetenz@Niveau" oder Bauvorhaben-ID */
+  readonly grund: 'sitzung' | 'kompetenz-gefestigt' | 'startpaket' | 'bau-beginn' | 'bau-abbruch';
+  /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:Kompetenz" oder Bauvorhaben-ID */
   readonly bezug: string;
   readonly tag: Tag;
   readonly aufschluesselung: Readonly<Record<string, number>>;
@@ -210,6 +214,43 @@ export function koennenBuchungen(
       aufschluesselung: {},
       regel: REGEL,
     }));
+}
+
+/**
+ * Startpaket für Späteinsteiger (B-24): Wird eine Kompetenz in der Diagnose als
+ * „gekonnt“ nachgewiesen, gibt es einmalig einen festen Betrag Stein und einen
+ * Bauschritt – vorhersehbar (R1), je Kompetenz nur einmal und höchstens für
+ * `STARTPAKET.hoechstens` Kompetenzen, also nicht farmbar. Baupläne entstehen
+ * weiter nur durch „gefestigt“ (R4).
+ */
+export const STARTPAKET = { fleiss: 10, schritt: 1, hoechstens: 40 } as const;
+
+/** Bezug der Startpaket-Buchungen einer Kompetenz */
+export const startpaketBezug = (kompetenz: string) => `startpaket:${kompetenz}`;
+
+export function startpaketBuchungen(
+  aufgaben: readonly AufgabeEreignis[],
+  staende: readonly KompetenzStand[],
+  schonGebucht: ReadonlySet<string>,
+): Buchung[] {
+  // In der Diagnose nachgewiesen: Das erste „gekonnt“ kam von einer Diagnose-Aufgabe.
+  const frueheste = diagnoseNachweise(aufgaben, staende);
+  const frei = Math.max(0, STARTPAKET.hoechstens - schonGebucht.size);
+  return [...frueheste.entries()]
+    .filter(([k]) => !schonGebucht.has(k))
+    .sort(([ka, a], [kb, b]) => a.ts - b.ts || (ka < kb ? -1 : 1))
+    .slice(0, frei)
+    .flatMap(([kompetenz, e]) =>
+      (['fleiss', 'schritt'] as const).map((ressource) => ({
+        ressource,
+        menge: STARTPAKET[ressource],
+        grund: 'startpaket' as const,
+        bezug: startpaketBezug(kompetenz),
+        tag: e.tag,
+        aufschluesselung: { kompetenzen: 1 },
+        regel: REGEL,
+      })),
+    );
 }
 
 /** Summe je Ressource. */

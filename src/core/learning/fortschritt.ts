@@ -178,3 +178,28 @@ export function neuAufbauen(ereignisse: readonly AufgabeEreignis[]): Projektion 
   for (const e of sortiert) verarbeite(p, e);
   return p;
 }
+
+/**
+ * In der Diagnose nachgewiesenes Vorwissen (B-24, B-25): Kompetenzen, deren erstes
+ * „gekonnt“ (auf irgendeinem Niveau) von einer Diagnose-Aufgabe kam – mit der
+ * frühesten solchen Aufgabe.
+ */
+export function diagnoseNachweise(
+  aufgaben: readonly AufgabeEreignis[],
+  staende: readonly KompetenzStand[],
+): Map<string, AufgabeEreignis> {
+  const diagnose = new Map(
+    aufgaben
+      .filter((e) => e.modus === 'diagnose')
+      .map((e) => [`${e.kompetenz}|${e.niveau}|${e.ts}`, e]),
+  );
+  const frueheste = new Map<string, AufgabeEreignis>();
+  for (const s of staende) {
+    if (s.gekonntTs === undefined) continue;
+    const e = diagnose.get(`${s.kompetenz}|${s.niveau}|${s.gekonntTs}`);
+    if (!e) continue;
+    const bisher = frueheste.get(s.kompetenz);
+    if (!bisher || e.ts < bisher.ts) frueheste.set(s.kompetenz, e);
+  }
+  return frueheste;
+}

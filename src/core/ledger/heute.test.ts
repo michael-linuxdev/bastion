@@ -85,7 +85,23 @@ describe('Tagesertrag (BASEBAU §6.1)', () => {
       gekappt: 0,
       bauplaene: [{ kompetenz: 'M.ZO.BR.ERWEITERN', niveau: 'G' }],
       schritteVoll: true,
+      startpaket: { kompetenzen: 0, fleiss: 0, schritt: 0 },
     });
+  });
+
+  it('Startpaket getrennt vom Ertrag der Sitzungen (B-24)', () => {
+    const e = tagesertrag(
+      [
+        b({ ressource: 'fleiss', menge: 10, grund: 'startpaket', bezug: 'startpaket:K1' }),
+        b({ ressource: 'schritt', menge: 1, grund: 'startpaket', bezug: 'startpaket:K1' }),
+        b({ ressource: 'fleiss', menge: 10, grund: 'startpaket', bezug: 'startpaket:K2' }),
+        b({ ressource: 'schritt', menge: 1, grund: 'startpaket', bezug: 'startpaket:K2' }),
+      ],
+      [],
+      '2026-10-28',
+    );
+    expect(e.startpaket).toEqual({ kompetenzen: 2, fleiss: 20, schritt: 2 });
+    expect(e.menge.fleiss).toBe(0);
   });
 
   it('ohne Buchungen: alles null', () => {

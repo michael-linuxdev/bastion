@@ -25,6 +25,8 @@
   --bastion-verteidigung: #77706a;
   --bastion-bau: #b07a3e;
   --bastion-zierde: #3f7d3a;
+  --hinterhof-g: #a8682f;
+  --hinterhof-m: #8d949c;
 
   --abstand-s: 0.5rem;
   --abstand-m: 1rem;
@@ -51,6 +53,8 @@
     --bastion-verteidigung: #b3aca4;
     --bastion-bau: #d1a06a;
     --bastion-zierde: #86c278;
+    --hinterhof-g: #d39a5d;
+    --hinterhof-m: #c9d0d8;
   }
 }
 

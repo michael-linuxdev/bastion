@@ -103,7 +103,7 @@
     </ul>
     {#if basebau}
       <h3>{tt('abschluss.ertrag')}</h3>
-      {#if ertrag.menge.fleiss + ertrag.menge.behalten + ertrag.menge.schritt + ertrag.menge.koennen === 0}
+      {#if ertrag.menge.fleiss + ertrag.menge.behalten + ertrag.menge.schritt + ertrag.menge.koennen + ertrag.startpaket.kompetenzen === 0}
         <p class="leise">{tt('abschluss.ertrag-nichts')}</p>
       {:else}
         <ul class="ertrag">
@@ -139,6 +139,21 @@
               <strong>{menge('koennen', ertrag.menge.koennen)}</strong>
               – {tt('abschluss.weil')}
               {ertrag.bauplaene.map(name).join(', ')}
+            </li>
+          {/if}
+          {#if ertrag.startpaket.kompetenzen > 0}
+            <li>
+              <strong
+                >{menge('fleiss', ertrag.startpaket.fleiss)}
+                {tt('abschluss.und')}
+                {menge('schritt', ertrag.startpaket.schritt)}</strong
+              >
+              – {tt('abschluss.startpaket')}
+              {mit(
+                ertrag.startpaket.kompetenzen,
+                tt('abschluss.startpaket-thema'),
+                tt('abschluss.startpaket-themen'),
+              )}
             </li>
           {/if}
         </ul>
