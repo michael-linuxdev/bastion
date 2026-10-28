@@ -482,7 +482,7 @@
   "bastion.vormerken": "Vormerken",
   "bastion.vorgemerkt": "Vorgemerkt",
   "bastion.nicht-vormerken": "Nicht mehr vormerken",
-  "bastion.bild-hinweis": "So sieht {ganzes} von oben aus. Tippe ein Gebäude an, um es zu versetzen. Die Liste darunter zeigt dasselbe.",
+  "bastion.bild-hinweis": "So sieht {ganzes} von oben aus. Tippe ein Gebäude an, um es zu versetzen; mit + und − vergrößerst du das Bild und verschiebst es mit dem Finger. Die Liste darunter zeigt dasselbe.",
   "bastion.tippe-feld": "Tippe auf das Feld, wohin es soll.",
   "bastion.fertig": "Fertig",
   "bastion.bild-aus": "Bild ausblenden – nur die Liste",
@@ -495,5 +495,8 @@
   "farbe.blau": "Blau",
   "farbe.lila": "Lila",
   "farbe.weiss": "Weiß",
-  "farbe.schwarz": "Schwarz"
+  "farbe.schwarz": "Schwarz",
+  "bastion.zoom": "Größe des Bildes",
+  "bastion.zoom-kleiner": "Verkleinern",
+  "bastion.zoom-groesser": "Vergrößern"
 }

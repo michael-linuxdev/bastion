@@ -5,7 +5,13 @@
   // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
   import { KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
-  import { bildSetzen, bildZeigen, type BauAuftrag } from '../plattform/ablage';
+  import {
+    bildSetzen,
+    bildZeigen,
+    zoomSetzen,
+    zoomWahl,
+    type BauAuftrag,
+  } from '../plattform/ablage';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
@@ -19,6 +25,50 @@
   /** Bild zeigen (Einstellung `basebau.bild`); aus = reizarm, PixiJS wird nicht geladen */
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
+
+  /** Zoom (2.13a): 100, 150, 200 %. Auf schmalen Bildschirmen anfangs 150 %, damit ein
+   * Feld mindestens etwa 44 Punkte groß ist; die Wahl wird gemerkt (`basebau.zoom`). */
+  const ZOOM = [1, 1.5, 2] as const;
+  let zoom = $state<number>(1);
+  let fenster = $state<HTMLDivElement | undefined>(undefined);
+  let fensterBreite = $state(0);
+  let gewaehlterZoom = $state<number | undefined>(undefined);
+  let zoomGeladen = $state(false);
+  void zoomWahl().then((z) => {
+    gewaehlterZoom = z;
+    zoomGeladen = true;
+  });
+  $effect(() => {
+    if (!zoomGeladen || fensterBreite === 0) return;
+    zoom = gewaehlterZoom ?? (fensterBreite / 12 < 44 ? 1.5 : 1);
+  });
+  const stufeIndex = $derived(
+    Math.max(
+      0,
+      ZOOM.findIndex((z) => z === zoom),
+    ),
+  );
+  let druck: { x: number; y: number } | undefined;
+
+  function zoomen(richtung: -1 | 1) {
+    const neu = ZOOM[Math.min(ZOOM.length - 1, Math.max(0, stufeIndex + richtung))] ?? 1;
+    const f = fenster;
+    // Die Mitte des sichtbaren Ausschnitts bleibt in der Mitte
+    const mitte = f
+      ? {
+          x: (f.scrollLeft + f.clientWidth / 2) / (f.scrollWidth || 1),
+          y: (f.scrollTop + f.clientHeight / 2) / (f.scrollHeight || 1),
+        }
+      : undefined;
+    zoom = neu;
+    gewaehlterZoom = neu;
+    void zoomSetzen(neu);
+    requestAnimationFrame(() => {
+      if (!f || !mitte) return;
+      f.scrollLeft = mitte.x * f.scrollWidth - f.clientWidth / 2;
+      f.scrollTop = mitte.y * f.scrollHeight - f.clientHeight / 2;
+    });
+  }
 
   let auswahl = $state<string | undefined>(undefined);
   let versetzen = $state(false);
@@ -121,13 +171,34 @@
 {#if zeigen !== undefined}
   {#if zeigen && !fehlgeschlagen}
     <!-- Die Grafik ist für Screenreader ausgeblendet: Die Liste darunter zeigt alles. -->
-    <div
-      class="bauplatz"
-      class:versetzen
-      bind:this={rahmen}
-      aria-hidden="true"
-      onpointerup={(e) => void angetippt(e)}
-    ></div>
+    <div class="zoom" role="group" aria-label={tt('bastion.zoom')}>
+      <button
+        aria-label={tt('bastion.zoom-kleiner')}
+        disabled={stufeIndex === 0}
+        onclick={() => zoomen(-1)}>−</button
+      >
+      <span>{Math.round(zoom * 100)} %</span>
+      <button
+        aria-label={tt('bastion.zoom-groesser')}
+        disabled={stufeIndex === ZOOM.length - 1}
+        onclick={() => zoomen(1)}>+</button
+      >
+    </div>
+    <div class="fenster" bind:this={fenster} bind:clientWidth={fensterBreite}>
+      <div
+        class="bauplatz"
+        class:versetzen
+        style:inline-size={`${zoom * 100}%`}
+        bind:this={rahmen}
+        aria-hidden="true"
+        onpointerdown={(e) => (druck = { x: e.clientX, y: e.clientY })}
+        onpointerup={(e) => {
+          // Wer zum Verschieben wischt, tippt nicht: nur kurze Wege zählen als Tipp
+          if (druck && Math.hypot(e.clientX - druck.x, e.clientY - druck.y) < 10) void angetippt(e);
+          druck = undefined;
+        }}
+      ></div>
+    </div>
     {#if gewaehlt}
       <div class="wahl" role="status">
         <strong>{gebaeudeName(gewaehlt.typ)}</strong>
@@ -175,21 +246,44 @@
 {/if}
 
 <style>
-  .bauplatz {
+  .fenster {
     inline-size: 100%;
     max-inline-size: 30rem;
     aspect-ratio: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
     border-radius: var(--radius);
-    overflow: hidden;
     border: 1px solid var(--farbe-rand);
     background: var(--bastion-boden);
+  }
+
+  .bauplatz {
+    aspect-ratio: 1;
     cursor: pointer;
-    touch-action: manipulation;
+    touch-action: pan-x pan-y;
+  }
+
+  .zoom {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+  }
+
+  .zoom span {
+    min-inline-size: 3.5rem;
+    text-align: center;
+    color: var(--farbe-text-leise);
+  }
+
+  .zoom button {
+    min-inline-size: 2.75rem;
+    font-size: 1.25rem;
   }
 
   .bauplatz.versetzen {
     cursor: crosshair;
-    border-color: var(--farbe-akzent);
+    outline: 3px solid var(--farbe-akzent);
+    outline-offset: -3px;
   }
 
   .wahl {
