@@ -1,0 +1,23 @@
+# Temperatur, Kontostand, Tauchtiefe – Veränderungen über die 0 hinweg. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ADD-SUB.SACH
+kompetenz: M.ZO.RZ.ADD-SUB
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.veraenderung@1
+parameter:
+  G: { dezimal: false }
+  M: { dezimal: true }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: 'Steigen, einzahlen und aufsteigen heißt plus. Sinken, abheben und tiefer tauchen heißt minus.'
+  - de: 'Zeichne eine [[Zahlengerade]] und geh vom Start aus nach rechts (plus) oder links (minus).'
+fehlerbilder:
+  richtung-verwechselt:
+    de: 'Du bist in die falsche Richtung gegangen. Steigen heißt plus, sinken heißt minus.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Liegt das Ergebnis über oder unter null?'
+herkunft: ki-entwurf
+version: 1

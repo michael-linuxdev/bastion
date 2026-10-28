@@ -626,7 +626,7 @@ begriffe:
       de: 'Ein Zahlenstrahl, der nach links über die 0 hinaus weitergeht. Rechts von 0 stehen die positiven, links die negativen Zahlen.'
   - id: gegenzahl
     wort: { de: Gegenzahl }
-    formen: [Gegenzahl]
+    formen: [Gegenzahl, Gegenzahlen]
     erklaerung:
       de: 'Die Zahl auf der anderen Seite der 0, gleich weit entfernt. Die Gegenzahl von 4 ist −4, die Gegenzahl von −4 ist 4.'
   - id: betrag
@@ -649,3 +649,8 @@ begriffe:
     formen: [rationale Zahl, rationalen Zahlen, rationale Zahlen]
     erklaerung:
       de: 'Jede Zahl, die man als Bruch schreiben kann – auch mit Minus: 3, −2, 3/4, −0,5.'
+  - id: quadrant
+    wort: { de: Quadrant }
+    formen: [Quadrant, Quadranten]
+    erklaerung:
+      de: 'Eines der vier Viertel, in die die Achsen das Koordinatensystem teilen. Man zählt gegen den Uhrzeigersinn: I oben rechts, II oben links, III unten links, IV unten rechts.'

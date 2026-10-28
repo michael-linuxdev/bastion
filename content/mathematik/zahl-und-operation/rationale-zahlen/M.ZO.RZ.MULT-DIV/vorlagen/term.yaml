@@ -1,0 +1,23 @@
+# „Berechne (−36) : 4“, „3,6 : (−1,2)“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.MULT-DIV.TERM
+kompetenz: M.ZO.RZ.MULT-DIV
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.mal-geteilt@1
+parameter:
+  G: { zweiter_natuerlich: true, dezimal: false, max: 12 }
+  M: { zweiter_natuerlich: false, dezimal: true, max: 12 }
+text:
+  aufgabe:
+    de: '**Berechne**: {term}'
+hilfen:
+  - de: 'Rechne zuerst ohne [[Vorzeichen]]. Bestimme danach das Vorzeichen.'
+  - de: 'Gleiche [[Vorzeichen]] ergeben plus: (−3) · (−4) = 12. Verschiedene Vorzeichen ergeben minus: (−3) · 4 = −12.'
+fehlerbilder:
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Gleiche Vorzeichen ergeben plus, verschiedene ergeben minus.'
+  komma-falsch:
+    de: 'Die [[Ziffern]] stimmen, aber das Komma sitzt an der falschen Stelle. Mach einen [[Überschlag]].'
+herkunft: ki-entwurf
+version: 1

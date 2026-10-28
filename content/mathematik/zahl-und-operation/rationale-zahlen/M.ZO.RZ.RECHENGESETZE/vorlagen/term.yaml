@@ -1,0 +1,25 @@
+# „Berechne (−3) · 4 − 12 : (−2)“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.RECHENGESETZE.TERM
+kompetenz: M.ZO.RZ.RECHENGESETZE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.term@1
+parameter:
+  G: { dezimal: false, klammern: false }
+  M: { dezimal: true, klammern: true }
+text:
+  aufgabe:
+    de: '**Berechne**: {term}'
+hilfen:
+  - de: 'Zuerst die Klammern, dann [[Punkt vor Strich]].'
+  - de: 'Schreib jedes Zwischenergebnis mit seinem [[Vorzeichen]] auf.'
+fehlerbilder:
+  links-nach-rechts:
+    de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]]: Zuerst malnehmen und teilen.'
+  klammer-uebersehen:
+    de: 'Was in der Klammer steht, wird zuerst berechnet.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Prüfe die Vorzeichen bei jedem Schritt.'
+herkunft: ki-entwurf
+version: 1

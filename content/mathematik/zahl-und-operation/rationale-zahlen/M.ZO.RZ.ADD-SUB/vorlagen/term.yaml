@@ -1,0 +1,26 @@
+# „Berechne 3 − (−9)“, „−2,5 + 4,1 − (−1,3)“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ADD-SUB.TERM
+kompetenz: M.ZO.RZ.ADD-SUB
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.plus-minus@1
+parameter:
+  G: { dezimal: false, max: 20, glieder: 2 }
+  M: { dezimal: true, max: 20, glieder: 3 }
+text:
+  aufgabe:
+    de: '**Berechne**: {term}'
+hilfen:
+  - de: 'Das Minus in der Klammer ist ein [[Vorzeichen]], das Minus davor ein Rechenzeichen.'
+  - de: 'Minus eine [[negative Zahl]] ist plus ihre [[Gegenzahl]]: 3 − (−9) = 3 + 9 = 12.'
+  - de: 'Plus eine [[negative Zahl]] ist minus ihren [[Betrag]]: 3 + (−9) = 3 − 9 = −6.'
+fehlerbilder:
+  minus-minus:
+    de: 'Minus und Minus direkt hintereinander ergeben plus: 3 − (−9) = 3 + 9. Wer eine [[negative Zahl]] abzieht, geht auf der [[Zahlengerade]] nach rechts.'
+  plus-minus:
+    de: 'Plus eine [[negative Zahl]] heißt: auf der [[Zahlengerade]] nach links gehen. 3 + (−9) = 3 − 9 = −6.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Überlege, auf welcher Seite der 0 das Ergebnis liegt.'
+herkunft: ki-entwurf
+version: 1

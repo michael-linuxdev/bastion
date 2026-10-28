@@ -1,0 +1,27 @@
+# „Berechne (−3)²“, „−4²“, „(−0,2)³“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.POTENZEN.POTENZ
+kompetenz: M.ZO.RZ.POTENZEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.potenz@1
+parameter:
+  G: { dezimal: false, ohne_klammer: false }
+  M: { dezimal: true, ohne_klammer: true }
+text:
+  aufgabe:
+    de: '**Berechne**: {term}'
+hilfen:
+  - de: 'Die [[Hochzahl]] sagt, wie oft die Zahl mit sich selbst multipliziert wird: (−3)³ = (−3) · (−3) · (−3).'
+  - de: 'Ohne Klammer gehört die [[Hochzahl]] nur zur Zahl, nicht zum Minus: −4² = −(4 · 4) = −16.'
+fehlerbilder:
+  klammer-uebersehen:
+    de: 'Achte auf die Klammer. (−4)² = (−4) · (−4) = 16, aber −4² = −(4 · 4) = −16.'
+  vorzeichen-falsch:
+    de: 'Zähle die Minuszeichen: Bei einer geraden [[Hochzahl]] ist (−a)ⁿ positiv, bei einer ungeraden negativ.'
+  mal-hochzahl:
+    de: 'Du hast die Zahl mit der [[Hochzahl]] multipliziert. Gemeint ist: die Zahl so oft mit sich selbst multiplizieren.'
+  komma-falsch:
+    de: 'Zähle die [[Nachkommastellen]]: 0,2 · 0,2 · 0,2 hat drei Nachkommastellen, also 0,008.'
+herkunft: ki-entwurf
+version: 1
