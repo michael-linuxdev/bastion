@@ -26,6 +26,7 @@
   } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
   import type { Kompetenz } from '../../core/competence/kompetenz';
+  import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
 
   let { kompetenzen }: { kompetenzen: readonly Kompetenz[] } = $props();
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
@@ -148,6 +149,28 @@
     <p>{t('bastion.ohne-speicher')}</p>
   {:else if lage}
     {@const l = lage}
+    {@const epoche = epochenstand(l.bastion, l.konto)}
+    {#if epoche.geschafft}
+      <p class="geschafft" role="status">{t('bastion.geschafft')}</p>
+    {:else}
+      <h3>{t('bastion.ziel')}</h3>
+      <ul class="ziel">
+        <li>
+          {epoche.bergfried >= EPOCHE_1_ZIEL.bergfried ? '✓' : '○'}
+          {t('bastion.ziel-bergfried')} ({t('bastion.stufe')}
+          {epoche.bergfried})
+        </li>
+        <li>
+          {epoche.bauplaene >= EPOCHE_1_ZIEL.bauplaene ? '✓' : '○'}
+          {Math.min(epoche.bauplaene, EPOCHE_1_ZIEL.bauplaene)}
+          {t('bastion.von')}
+          {EPOCHE_1_ZIEL.bauplaene}
+          {t('bastion.ziel-bauplaene')}
+        </li>
+      </ul>
+      <p class="leise">{t('bastion.ziel-erklaerung')}</p>
+    {/if}
+
     <h3>{t('bastion.vorrat')}</h3>
     <ul class="vorrat">
       <li><strong>{l.konto.stand.stein}</strong> {t('ressource.stein')}</li>
@@ -357,6 +380,18 @@
     padding: var(--abstand-s);
     border: 1px solid var(--farbe-rand);
     border-radius: var(--radius);
+  }
+
+  .ziel {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .geschafft {
+    border-inline-start: 4px solid var(--farbe-akzent);
+    padding-inline-start: var(--abstand-m);
+    font-weight: bold;
   }
 
   .regal {

@@ -190,6 +190,8 @@ Außenposten → Burg: Bergfried Stufe 3 **und** 15 Baupläne insgesamt erworben
 
 Beim Wechsel wird die Bastion umgebaut: größerer Bauplatz, neuer Baustil, neue Gebäude (z. B. Bibliothek statt Studierstube, Steinmauern statt Palisaden). **Alles Gebaute bleibt erhalten** und wird in den neuen Stil übertragen.
 
+*Umsetzung (2.10):* `src/core/bastion/epoche.ts`. Die Listenansicht zeigt oben „Ziel der Epoche 1: Außenposten“ mit beiden Bedingungen (Bergfried Stufe 3; erworbene Baupläne von 15) und erklärt, dass auch verbaute Baupläne zählen. Ist beides erreicht, steht dort „Epoche 1 geschafft! Dein Außenposten steht. Du kannst weiter gestalten – oder einfach stolz darauf sein.“ Einen Wechsel in Epoche 2 gibt es noch nicht (K-18); fertig sein ist erlaubt (§9 Punkt 3). Die Rückkehr-Begrüßung (§6.3) ergänzt bei eingeschaltetem Basebau „Deine Bastion hat gewartet.“
+
 Epochen 2–4 werden ausgearbeitet, wenn Epoche 1 getestet ist (Phase 3). Nur so viel wird festgelegt: Jede Epoche braucht deutlich mehr Baupläne als die vorige, aber nicht mehr Stein pro Woche. Höhere Epochen spiegeln mehr Können, nicht mehr Fleiß.
 
 ## 6. Verzahnung mit dem Lernen
@@ -300,7 +302,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | 2.7 ✅ | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
 | 2.8 ✅ | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
 | 2.9 ✅ | **Studierstube** | jede gefestigte Kompetenz als Buch mit Kann-Satz, automatisch und kostenlos, das Buch bleibt im Regal (B-6) | Einheitentests |
-| 2.10 | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
+| 2.10 ✅ | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
 
 *Umsetzung 2.8:* `src/ui/bastion/Bastion.svelte`, auf der Startseite der Knopf „Bastion“ (nur bei eingeschaltetem Basebau). Von oben nach unten: Vorrat (Stein, Erz, Baupläne, Bauschritte im Vorrat), „Im Bau“ mit Fortschrittsbalken und „Abbrechen“, „Neu bauen“ (Banner und Späherturm zuerst, B-14) und „Ausbauen“ mit Zweck, Kosten und den Gründen, warum etwas gerade nicht geht, „Deine Gebäude“ mit Feld und „Versetzen“ (Spalte und Reihe wählen), „Fertig geworden“ als kleine Geschichte. Ein Neubau kommt auf das erste freie Feld; versetzen lässt er sich danach kostenlos. Der volle Bauplatz steht einmal über der Liste, fehlende Ressourcen stehen in einer Zeile („Dafür reicht es noch nicht: Stein, Erz“). Keine Zähler „noch X …“ (R5).
 

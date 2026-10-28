@@ -159,6 +159,8 @@ test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', asy
   await page.clock.setSystemTime(new Date('2026-11-12T10:00:00Z'));
   await page.reload();
   await expect(page.getByText('Willkommen zurück. Schön, dass du wieder da bist.')).toBeVisible();
+  // Mit Basebau auch der Satz über die Bastion (BASEBAU §6.3)
+  await expect(page.getByText(/Deine Bastion hat gewartet/)).toBeVisible();
   await expect(page.getByText(/kleine Auswahl zum Wiederholen/)).toBeVisible();
   // Keine Pausenlänge, kein Zähler verpasster Tage
   await expect(page.getByText(/Tage|Tagen|verpasst/)).toHaveCount(0);
@@ -527,6 +529,9 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(
     page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
   ).toBeVisible();
+  // Ziel der Epoche 1 (§5.4): erworbene Baupläne zählen
+  await expect(page.getByRole('heading', { name: 'Ziel der Epoche 1: Außenposten' })).toBeVisible();
+  await expect(page.getByText(/2\s+von\s+15\s+Baupläne erworben/)).toBeVisible();
 
   // Banner: kostet einen Bauschritt aus dem Vorrat und steht sofort (B-14)
   await page

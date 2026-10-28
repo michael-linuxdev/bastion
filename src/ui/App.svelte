@@ -192,7 +192,10 @@
 
   {#if ansicht === 'start'}
     {#if rueckkehr}
-      <p class="untertitel" role="status">{t('rueckkehr.gruss')}</p>
+      <p class="untertitel" role="status">
+        {t('rueckkehr.gruss')}{#if basebau}
+          {t('rueckkehr.bastion')}{/if}
+      </p>
       {#if faellig > 0}<p>{t('rueckkehr.hinweis')}</p>{/if}
     {:else}
       <p class="untertitel">{t('start.untertitel')}</p>
