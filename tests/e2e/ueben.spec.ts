@@ -2,6 +2,31 @@ import { expect, test, type Page } from '@playwright/test';
 
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
+/** Aktueller Wert einer Einstellung aus IndexedDB (Projektion `einstellungen`). */
+function einstellungImSpeicher(page: Page, schluessel: string) {
+  return page.evaluate(
+    (schluessel) =>
+      new Promise<unknown>((fertig, fehler) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onerror = () => fehler(anfrage.error);
+        anfrage.onsuccess = () => {
+          const lesen = anfrage.result
+            .transaction('einstellungen')
+            .objectStore('einstellungen')
+            .getAll();
+          lesen.onsuccess = () => {
+            anfrage.result.close();
+            const e = (lesen.result as { schluessel: string; wert: unknown }[]).find(
+              (x) => x.schluessel === schluessel,
+            );
+            fertig(e?.wert);
+          };
+        };
+      }),
+    schluessel,
+  );
+}
+
 /** Sitzungs-Ereignisse direkt aus IndexedDB lesen (nur die geprüften Felder). */
 function sitzungenImSpeicher(page: Page) {
   return page.evaluate(
@@ -362,6 +387,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   // Erinnerung einstellbar und abschaltbar (D-O4)
   await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('30');
   await seite.getByLabel(/An eine Sicherung erinnern/).selectOption({ label: 'nie' });
+  await expect.poll(() => einstellungImSpeicher(seite, 'sicherung.erinnerung')).toBe(0);
   await seite.reload();
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await seite.getByLabel('PIN', { exact: true }).fill('1357');
@@ -436,6 +462,8 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   const schalter = page.getByRole('checkbox', { name: 'Bastion anzeigen' });
   await expect(schalter).toBeChecked();
   await schalter.uncheck();
+  // Speichern läuft im Hintergrund – erst neu laden, wenn es angekommen ist
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.reload();
   await page.getByRole('button', { name: 'Mein Stand' }).click();
   await expect(schalter).not.toBeChecked();
@@ -600,6 +628,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     .click();
   const ziel = page.getByRole('region', { name: /Dein Ziel: Bergfried, Stufe 2/ });
   await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.ziel')).toContain('"kern"');
   await page.reload();
   await page.getByRole('button', { name: 'Bastion' }).click();
   await expect(ziel).toBeVisible();
@@ -610,6 +639,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.reload();
   await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
@@ -650,6 +680,7 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
   await expect(page.getByText(/^Wimpel – fertig am/)).toBeVisible();
 
   // Nach dem Neuladen bleibt das Thema; der Knopf heißt wie das Thema
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
   await page.getByRole('button', { name: 'Garten', exact: true }).click();
   await page.getByRole('radio', { name: 'Unterwasserstadt' }).check();
