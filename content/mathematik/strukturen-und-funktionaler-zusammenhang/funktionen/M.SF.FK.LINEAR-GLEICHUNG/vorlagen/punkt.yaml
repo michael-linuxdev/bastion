@@ -1,0 +1,22 @@
+# „Liegt P auf der Geraden?“ Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GLEICHUNG.PUNKT
+kompetenz: M.SF.FK.LINEAR-GLEICHUNG
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: fk.punkt-auf-gerade@1
+parameter:
+  G: {}
+  M: {}
+text:
+  aufgabe:
+    de: '**Entscheide**: Liegt der Punkt {punkt} auf der [[Geraden]] {gerade}?'
+hilfen:
+  - de: 'Setze die x-[[Koordinate]] des Punktes in die [[Gleichung]] ein. Kommt seine y-Koordinate heraus?'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'Im Punkt P(x|y) steht zuerst x, dann y. Setze die erste Zahl für x ein.'
+  falsch-eingesetzt:
+    de: 'Rechne das Einsetzen noch einmal nach – achte auf Minus und auf [[Punkt vor Strich]].'
+herkunft: ki-entwurf
+version: 1

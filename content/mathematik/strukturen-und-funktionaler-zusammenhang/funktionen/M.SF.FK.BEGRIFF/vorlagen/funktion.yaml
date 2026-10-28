@@ -1,0 +1,23 @@
+# „Ist die Zuordnung eine Funktion?“ Entwurf: noch nicht geprüft.
+id: M.SF.FK.BEGRIFF.FUNKTION
+kompetenz: M.SF.FK.BEGRIFF
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: fk.ist-funktion@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Ist diese [[Zuordnung]] eine [[Funktion]]? {zuordnung}'
+hilfen:
+  - de: 'Eine [[Funktion]] ordnet jedem x genau ein y zu.'
+  - de: 'Suche ein x, das zweimal vorkommt. Hat es zweimal dasselbe y oder zwei verschiedene?'
+fehlerbilder:
+  gleiche-y-werte:
+    de: 'Gleiche y-Werte für verschiedene x sind erlaubt. Verboten ist nur, dass ein x zwei verschiedene y hat.'
+  doppeltes-x-uebersehen:
+    de: 'Schau genau hin: Ein x kommt zweimal vor – mit verschiedenen y. Dann ist es keine [[Funktion]].'
+herkunft: ki-entwurf
+version: 1

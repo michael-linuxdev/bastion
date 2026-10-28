@@ -1,0 +1,23 @@
+# „Welche Gleichung gehört zur Geraden?“ Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GRAPH.GLEICHUNG
+kompetenz: M.SF.FK.LINEAR-GRAPH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: fk.gleichung-zum-graph@1
+parameter:
+  G: { anstieg: false }
+  M: { anstieg: true }
+text:
+  aufgabe:
+    de: '**Wähle** die [[Gleichung]] der [[linearen Funktion]] **aus**, deren [[Graph]] die [[Gerade]] zeigt.'
+hilfen:
+  - de: 'In y = m·x + n ist n der [[y-Achsenabschnitt]] und m der [[Anstieg]].'
+  - de: 'Lies zuerst n auf der y-Achse ab. Gehe dann 1 nach rechts: Um wie viel geht es hoch oder runter?'
+fehlerbilder:
+  m-n-vertauscht:
+    de: 'Hier sind m und n vertauscht. Die Zahl vor dem x ist der [[Anstieg]], die Zahl allein ist der [[y-Achsenabschnitt]].'
+  vorzeichen-falsch:
+    de: 'Prüfe die [[Vorzeichen]]: Steigt die [[Gerade]] oder fällt sie? Schneidet sie die y-Achse oberhalb oder unterhalb von 0?'
+herkunft: ki-entwurf
+version: 1

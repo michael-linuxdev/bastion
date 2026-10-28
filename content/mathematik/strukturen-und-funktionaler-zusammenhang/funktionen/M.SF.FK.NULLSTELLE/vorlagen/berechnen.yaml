@@ -1,0 +1,22 @@
+# „Berechne die Nullstelle von f(x) = 2·x − 6.“ Entwurf: noch nicht geprüft.
+id: M.SF.FK.NULLSTELLE.BERECHNEN
+kompetenz: M.SF.FK.NULLSTELLE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: fk.nullstelle-berechnen@1
+parameter:
+  G: { dezimal: false }
+  M: { dezimal: true }
+text:
+  aufgabe:
+    de: '**Berechne** die [[Nullstelle]] von {funktion}.'
+hilfen:
+  - de: 'An der [[Nullstelle]] ist f(x) = 0. Setze den [[Term]] gleich 0 und löse nach x auf.'
+fehlerbilder:
+  n-statt-nullstelle:
+    de: 'Das ist der [[y-Achsenabschnitt]]. Die [[Nullstelle]] ist das x, für das f(x) = 0 ist.'
+  vorzeichen-falsch:
+    de: 'Prüfe das [[Vorzeichen]]: Bringe n auf die andere Seite – dabei ändert es sein Vorzeichen.'
+herkunft: ki-entwurf
+version: 1

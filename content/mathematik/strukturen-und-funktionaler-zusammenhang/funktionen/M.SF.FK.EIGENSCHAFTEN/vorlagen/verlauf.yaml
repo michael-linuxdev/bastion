@@ -1,0 +1,22 @@
+# Steigt oder fällt der Graph? Entwurf: noch nicht geprüft.
+id: M.SF.FK.EIGENSCHAFTEN.VERLAUF
+kompetenz: M.SF.FK.EIGENSCHAFTEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: fk.graph-verlauf@1
+parameter:
+  G: { bereich: false }
+  M: { bereich: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: {frage}'
+hilfen:
+  - de: 'Lies den [[Graphen]] wie einen Text von links nach rechts. Geht es bergauf, steigt er.'
+fehlerbilder:
+  steigen-fallen-verwechselt:
+    de: 'Hier steigt der [[Graph]]. Von links nach rechts gelesen geht er dort bergauf.'
+  bereich-falsch:
+    de: 'Der Bereich beginnt an der Stelle x des Hoch- oder Tiefpunkts. Lies sie auf der x-Achse ab.'
+herkunft: ki-entwurf
+version: 1

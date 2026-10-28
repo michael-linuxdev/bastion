@@ -1,0 +1,25 @@
+# „f(x) = 3·x − 4. Berechne f(−2).“ Entwurf: noch nicht geprüft.
+id: M.SF.FK.BEGRIFF.WERT
+kompetenz: M.SF.FK.BEGRIFF
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: fk.funktionswert@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'f(−2) heißt: Setze −2 für x ein. Schreibe [[negative Zahlen]] in Klammern.'
+  - de: 'Ist das x gesucht, löse die [[Gleichung]] f(x) = Wert nach x auf.'
+fehlerbilder:
+  minus-vergessen:
+    de: 'Prüfe das [[Vorzeichen]] der eingesetzten Zahl. Minus mal Minus ergibt Plus.'
+  quadrat-vorzeichen:
+    de: '(−3)² ist 9, nicht −9. Das Quadrat einer negativen Zahl ist positiv.'
+  wert-statt-argument:
+    de: 'Gesucht ist das x, nicht der [[Funktionswert]]. Löse die [[Gleichung]] nach x auf.'
+herkunft: ki-entwurf
+version: 1
