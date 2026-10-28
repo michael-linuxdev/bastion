@@ -249,6 +249,14 @@ export function platzHindernisse(
   return felder(typ, pos).some((f) => belegt.has(f)) ? ['belegt'] : [];
 }
 
+/** Erstes freies Feld für ein Gebäude, Reihe für Reihe von oben links – oder undefined. */
+export function freierPlatz(b: Bastion, typ: GebaeudeTyp): Position | undefined {
+  for (let y = 0; y < BAUPLATZ.tiefe; y++)
+    for (let x = 0; x < BAUPLATZ.breite; x++)
+      if (platzHindernisse(b, typ, { x, y }).length === 0) return { x, y };
+  return undefined;
+}
+
 /**
  * Was spricht gegen ein neues Bauvorhaben? `ausbau`: Instanz-ID des Gebäudes,
  * das eine Stufe höher soll; sonst Neubau an `pos`. Leere Liste = möglich.

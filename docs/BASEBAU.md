@@ -296,9 +296,11 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | 2.5 ✅ | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
 | 2.6 ✅ | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Zimmerei zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
 | 2.7 ✅ | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
-| 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
+| 2.8 ✅ | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
 | 2.9 | **Studierstube** | jede gefestigte Kompetenz als Buch mit Kann-Satz, automatisch und kostenlos, das Buch bleibt im Regal (B-6) | Einheitentests |
 | 2.10 | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
+
+*Umsetzung 2.8:* `src/ui/bastion/Bastion.svelte`, auf der Startseite der Knopf „Bastion“ (nur bei eingeschaltetem Basebau). Von oben nach unten: Vorrat (Stein, Erz, Baupläne, Bauschritte im Vorrat), „Im Bau“ mit Fortschrittsbalken und „Abbrechen“, „Neu bauen“ (Banner und Späherturm zuerst, B-14) und „Ausbauen“ mit Zweck, Kosten und den Gründen, warum etwas gerade nicht geht, „Deine Gebäude“ mit Feld und „Versetzen“ (Spalte und Reihe wählen), „Fertig geworden“ als kleine Geschichte. Ein Neubau kommt auf das erste freie Feld; versetzen lässt er sich danach kostenlos. Der volle Bauplatz steht einmal über der Liste, fehlende Ressourcen stehen in einer Zeile („Dafür reicht es noch nicht: Stein, Erz“). Keine Zähler „noch X …“ (R5).
 
 ### Stufe C – Balancing
 

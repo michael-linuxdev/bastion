@@ -8,6 +8,7 @@ import {
   beginnen,
   beginnHindernisse,
   fertigmeldungen,
+  freierPlatz,
   plaetze,
   versetzen,
   type BauEreignis,
@@ -246,6 +247,28 @@ describe('Versetzen (§4.2)', () => {
     });
     // Der Bergfried darf sich selbst überlappen (ein Feld weiter)
     expect(versetzen(w.bastion, 'start.bergfried', { x: 4, y: 4 }, w.angaben()).ok).toBe(true);
+  });
+});
+
+describe('freier Platz', () => {
+  it('erstes passendes Feld, nie auf einem Gebäude; voller Platz: keiner', () => {
+    const w = new Welt();
+    expect(freierPlatz(w.bastion, 'banner')).toEqual({ x: 0, y: 0 });
+    w.reich();
+    w.gutschrift('bauschritt', 1);
+    w.neu('banner', { x: 0, y: 0 });
+    expect(freierPlatz(w.bastion, 'banner')).toEqual({ x: 1, y: 0 });
+    expect(freierPlatz(w.bastion, 'garten')).toEqual({ x: 1, y: 0 });
+    const voll: Bastion = {
+      ...w.bastion,
+      bauwerke: Array.from({ length: 144 }, (_, i) => ({
+        id: `b${i}`,
+        typ: 'banner' as const,
+        stufe: 1,
+        pos: { x: i % 12, y: Math.floor(i / 12) },
+      })),
+    };
+    expect(freierPlatz(voll, 'banner')).toBeUndefined();
   });
 });
 

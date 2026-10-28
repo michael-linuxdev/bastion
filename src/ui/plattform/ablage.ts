@@ -6,6 +6,16 @@ import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereign
 import type { KompetenzStand } from '../../core/learning/fortschritt';
 import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
 import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
+import {
+  abbrechen,
+  beginnen,
+  freierPlatz,
+  versetzen,
+  type Bastion,
+  type BauHindernis,
+  type Ergebnis,
+} from '../../core/bastion/bauen';
+import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
@@ -33,7 +43,9 @@ import { istFaellig, type Karte } from '../../core/srs/karten';
 import { gruppiere, offeneFehler, type Fehlergruppe } from '../../core/learning/werkstatt';
 import {
   aufgaben,
+  bastion,
   bastionAktualisieren,
+  bauSpeichern,
   buchen,
   buchungen,
   einrichten,
@@ -223,6 +235,56 @@ async function lies(schluessel: string): Promise<string | undefined> {
       )?.wert
     : await einstellung(db, inst.profil, schluessel).catch(() => undefined);
   return typeof w === 'string' ? w : undefined;
+}
+
+export interface BastionLage {
+  readonly bastion: Bastion;
+  readonly konto: Konto;
+}
+
+/** Bastion und Kontostand (Listenansicht, BASEBAU §11 Schritt 2.8). */
+export async function bastionLage(): Promise<BastionLage | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const [b, k] = await Promise.all([bastion(db, inst.profil), konto(db, inst.profil)]);
+  return { bastion: b, konto: k };
+}
+
+export type BauAuftrag =
+  | { readonly art: 'beginnen'; readonly typ: GebaeudeTyp; readonly ausbau?: string }
+  | { readonly art: 'abbrechen'; readonly vorhaben: string }
+  | { readonly art: 'versetzen'; readonly gebaeude: string; readonly pos: Position };
+
+/**
+ * Eine Bau-Aktion ausführen. Ein Neubau kommt auf das erste freie Feld; versetzen
+ * lässt er sich danach kostenlos. Liefert die neue Lage oder die Hindernisse.
+ */
+export async function bauAusfuehren(
+  auftrag: BauAuftrag,
+): Promise<BastionLage | { readonly hindernisse: readonly BauHindernis[] }> {
+  const inst = await bereit();
+  if (!inst) return { hindernisse: ['nicht-baubar'] };
+  const lage = await bastionLage();
+  if (!lage) return { hindernisse: ['nicht-baubar'] };
+  const jetzt = Date.now();
+  const a = {
+    profil: inst.profil,
+    geraet: inst.geraet,
+    id: ulid(jetzt, zufall),
+    jetzt,
+    tag: lerntag(jetzt, versatz(jetzt)),
+  };
+  let e: Ergebnis;
+  if (auftrag.art === 'beginnen') {
+    const pos = freierPlatz(lage.bastion, auftrag.typ);
+    const ort = auftrag.ausbau ? { ausbau: auftrag.ausbau } : pos ? { pos } : undefined;
+    if (!ort) return { hindernisse: ['belegt'] };
+    e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
+  } else if (auftrag.art === 'abbrechen') e = abbrechen(lage.bastion, auftrag.vorhaben, a);
+  else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
+  if (!e.ok) return { hindernisse: e.hindernisse };
+  const b = await bauSpeichern(db, inst, e, melder);
+  return { bastion: b, konto: await konto(db, inst.profil) };
 }
 
 /** Ist der Basebau eingeschaltet (R7)? Ohne Speicher: an (B-13). */

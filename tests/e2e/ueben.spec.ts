@@ -453,6 +453,120 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   await expect(page.getByText('1 Stein – aus 1 bearbeiteten Aufgabe')).toBeVisible();
 });
 
+/** Erarbeitete Ressourcen direkt in die Ablage schreiben (Buchungen und passendes Konto). */
+async function vorratAnlegen(page: Page, stand: Record<string, number>) {
+  await page.evaluate(
+    (stand) =>
+      new Promise<void>((fertig, fehler) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onerror = () => fehler(anfrage.error);
+        anfrage.onsuccess = () => {
+          const db = anfrage.result;
+          const tx = db.transaction(['profile', 'buchungen', 'konto', 'bastion'], 'readwrite');
+          const profile = tx.objectStore('profile').getAll();
+          profile.onsuccess = () => {
+            const profil = (profile.result[0] as { id: string }).id;
+            for (const [ressource, menge] of Object.entries(stand))
+              tx.objectStore('buchungen').put({
+                id: `${profil}.${ressource}.TEST`,
+                art: 'buchung',
+                v: 1,
+                profil,
+                ts: Date.now() - 60_000,
+                tag: '2026-01-01',
+                geraet: 'test0001',
+                ressource,
+                menge,
+                grund: 'sitzung',
+                bezug: 'TEST',
+                aufschluesselung: {},
+                regel: 1,
+              });
+            tx.objectStore('konto').put({ profil, stand, erworben: stand });
+            // Projektion `bastion` neu berechnen lassen (beim nächsten Start)
+            tx.objectStore('bastion').delete(profil);
+          };
+          tx.oncomplete = () => {
+            db.close();
+            fertig();
+          };
+          tx.onerror = () => fehler(tx.error);
+        };
+      }),
+    stand,
+  );
+}
+
+test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: 'Bastion' })).toBeVisible();
+  await vorratAnlegen(page, { stein: 200, erz: 50, bauplan: 2, bauschritt: 3 });
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.getByRole('heading', { name: 'Deine Bastion' })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^200 Stein$/ })).toBeVisible();
+  await expect(
+    page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
+  ).toBeVisible();
+
+  // Banner: kostet einen Bauschritt aus dem Vorrat und steht sofort (B-14)
+  await page
+    .getByRole('listitem')
+    .filter({ hasText: /^Banner/ })
+    .getByRole('button', { name: 'Bauen' })
+    .click();
+  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
+
+  // Späherturm: nimmt die übrigen zwei Bauschritte, braucht sechs
+  await page
+    .getByRole('listitem')
+    .filter({ hasText: /^Späherturm.*Kosten/ })
+    .getByRole('button', { name: 'Bauen' })
+    .click();
+  await expect(page.getByRole('heading', { name: 'Im Bau' })).toBeVisible();
+  await expect(page.getByText('2 von 6 Bauschritten')).toBeVisible();
+  // Nur ein Vorhaben gleichzeitig: Tor geht gerade nicht
+  await expect(
+    page.getByRole('listitem').filter({ hasText: /^Tor/ }).getByRole('button', { name: 'Bauen' }),
+  ).toBeDisabled();
+
+  // Abbrechen gibt alles zurück
+  await page.getByRole('button', { name: 'Abbrechen' }).click();
+  await expect(page.getByRole('heading', { name: 'Im Bau' })).toHaveCount(0);
+  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(
+    page.getByRole('listitem').filter({ hasText: /^2 Bauschritte im Vorrat$/ }),
+  ).toBeVisible();
+
+  // Versetzen kostet nichts
+  const feuer = page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ });
+  await feuer.getByRole('button', { name: 'Versetzen' }).click();
+  await feuer.getByLabel('Spalte').selectOption({ label: '12' });
+  await feuer.getByLabel('Reihe').selectOption({ label: '12' });
+  await feuer.getByRole('button', { name: 'Hierhin' }).click();
+  await expect(feuer).toContainText('Spalte 12, Reihe 12');
+
+  // Bleibt nach dem Neuladen, wie es ist
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
+    'Spalte 12, Reihe 12',
+  );
+
+  // Ausgeschaltet: kein Bastion-Knopf auf der Startseite (R7)
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Bastion' })).toHaveCount(0);
+});
+
 test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({
   page,
 }) => {

@@ -38,6 +38,7 @@
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
+  import BastionAnsicht from './bastion/Bastion.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -52,6 +53,7 @@
     | 'sicherung'
     | 'abschluss'
     | 'anleitung'
+    | 'bastion'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   let buchungsListe = $state<readonly BuchungEreignis[]>([]);
@@ -217,6 +219,9 @@
       {#if faellig > 0}
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
       {/if}
+      {#if basebau}
+        <button class="zweit" onclick={() => (ansicht = 'bastion')}>{t('bastion.knopf')}</button>
+      {/if}
       {#if offeneFehler > 0}
         <button class="zweit" onclick={werkstatt}>{t('werkstatt.knopf')}</button>
       {/if}
@@ -256,6 +261,9 @@
     {#if offline.bereit}
       <p class="offline" role="status">{t('start.offline')}</p>
     {/if}
+  {:else if ansicht === 'bastion'}
+    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+    <BastionAnsicht />
   {:else if ansicht === 'sicherung'}
     <button
       class="zurueck"
