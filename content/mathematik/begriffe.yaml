@@ -336,7 +336,7 @@ begriffe:
       de: 'Ein Quadrat mit der Seitenlänge 1, zum Beispiel 1 cm. Sein Flächeninhalt ist 1 cm².'
   - id: quader
     wort: { de: Quader }
-    formen: [Quader]
+    formen: [Quader, Quaders]
     erklaerung:
       de: 'Ein Körper mit sechs rechteckigen Flächen, wie ein Schuhkarton.'
   - id: wuerfel
@@ -356,7 +356,7 @@ begriffe:
       de: 'Die Fläche, auf der ein Körper steht. Beim Quader: Breite mal Tiefe.'
   - id: volumen
     wort: { de: Volumen }
-    formen: [Volumen]
+    formen: [Volumen, Volumens]
     erklaerung:
       de: Wie viel Raum ein Körper einnimmt – also wie viel hineinpasst. Man zählt Einheitswürfel.
   - id: einheitswuerfel
@@ -793,3 +793,34 @@ begriffe:
     formen: [Gegenbeispiel]
     erklaerung:
       de: 'Ein Beispiel, das zeigt: Eine Aussage über „jede“ Zahl oder Figur stimmt nicht.'
+  # Klasse 7: Körper
+  - id: pyramide
+    wort: { de: Pyramide }
+    formen: [Pyramide, Pyramiden]
+    erklaerung:
+      de: 'Ein Körper mit einem Vieleck als Grundfläche und Dreiecken als Seitenflächen, die sich oben in einer Spitze treffen.'
+  - id: pyramidenstumpf
+    wort: { de: Pyramidenstumpf }
+    formen: [Pyramidenstumpf]
+    erklaerung:
+      de: 'Eine Pyramide, deren Spitze parallel zur Grundfläche abgeschnitten ist. Die Seitenflächen sind Trapeze.'
+  - id: zweitafelbild
+    wort: { de: Zweitafelbild }
+    formen: [Zweitafelbild]
+    erklaerung:
+      de: 'Zwei Ansichten eines Körpers genau übereinander: oben die Vorderansicht (Aufriss), unten die Draufsicht (Grundriss).'
+  - id: aufriss
+    wort: { de: Aufriss }
+    formen: [Aufriss]
+    erklaerung:
+      de: 'Die Ansicht eines Körpers genau von vorne.'
+  - id: grundriss
+    wort: { de: Grundriss }
+    formen: [Grundriss]
+    erklaerung:
+      de: 'Die Ansicht eines Körpers genau von oben.'
+  - id: dichte
+    wort: { de: Dichte }
+    formen: [Dichte]
+    erklaerung:
+      de: 'Wie schwer 1 cm³ eines Stoffes ist. Wasser hat die Dichte 1 g/cm³, Eisen etwa 7,9 g/cm³.'

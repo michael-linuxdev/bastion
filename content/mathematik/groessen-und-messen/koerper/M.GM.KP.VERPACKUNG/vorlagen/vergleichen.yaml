@@ -1,0 +1,21 @@
+# „Welche Schachtel braucht am wenigsten Pappe?“ Entwurf: noch nicht geprüft.
+id: M.GM.KP.VERPACKUNG.VERGLEICHEN
+kompetenz: M.GM.KP.VERPACKUNG
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kp.verpackung-vergleich@1
+parameter:
+  G: { drei: false }
+  M: { drei: true }
+text:
+  aufgabe:
+    de: 'Alle Schachteln fassen {volumen}. **Entscheide**: Welche braucht am wenigsten Pappe?'
+hilfen:
+  - de: 'Die Pappe ist die [[Oberfläche]] der Schachtel: O = 2 · (a · b + a · c + b · c).'
+  - de: 'Schachteln, die einem [[Würfel]] ähnlich sind, brauchen bei gleichem [[Volumen]] am wenigsten Material.'
+fehlerbilder:
+  meiste-pappe:
+    de: 'Diese Schachtel braucht am **meisten** Pappe. Rechne die [[Oberfläche]] aller Schachteln aus und vergleiche.'
+herkunft: ki-entwurf
+version: 1

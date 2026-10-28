@@ -1,0 +1,25 @@
+# Pappe für eine Schachtel, auf M ohne Deckel und mit Zuschlag. Entwurf: noch nicht geprüft.
+id: M.GM.KP.VERPACKUNG.MATERIAL
+kompetenz: M.GM.KP.VERPACKUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.verpackung-material@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Die Pappe ist die [[Oberfläche]]: zwei Flächen a · b, zwei Flächen a · c, zwei Flächen b · c.'
+  - de: 'Ohne Deckel fehlt eine Fläche a · b. Ein Zuschlag von 10 % heißt: mal 1,1.'
+fehlerbilder:
+  volumen-statt-oberflaeche:
+    de: 'Das ist das [[Volumen]], also wie viel in die Schachtel passt. Für die Pappe brauchst du die [[Oberfläche]].'
+  deckel-mitgezaehlt:
+    de: 'Die Schachtel hat keinen Deckel – zieh die obere Fläche a · b ab.'
+  zuschlag-vergessen:
+    de: 'Die Klebelaschen fehlen noch: Rechne den Zuschlag dazu.'
+herkunft: ki-entwurf
+version: 1

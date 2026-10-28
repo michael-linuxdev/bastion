@@ -1,0 +1,25 @@
+# Oberfläche von Pyramiden. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PYRAMIDE.OBERFLAECHE
+kompetenz: M.GM.KP.PYRAMIDE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.pyramide-oberflaeche@1
+parameter:
+  G: { rechteckig: false }
+  M: { rechteckig: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Die [[Oberfläche]] besteht aus der [[Grundfläche]] und allen dreieckigen Seitenflächen.'
+  - de: 'Jedes Dreieck: Grundkante · [[Höhe]] der Seitenfläche : 2.'
+fehlerbilder:
+  grundflaeche-vergessen:
+    de: 'Das sind nur die Seitenflächen. Die [[Grundfläche]] gehört auch zur [[Oberfläche]].'
+  dreieck-nicht-halbiert:
+    de: 'Ein Dreieck ist ein halbes Rechteck: Teile Grundkante · [[Höhe]] noch durch 2.'
+  koerperhoehe-genommen:
+    de: 'Für die Seitenflächen brauchst du die [[Höhe]] der Dreiecke, nicht die Höhe der [[Pyramide]].'
+herkunft: ki-entwurf
+version: 1

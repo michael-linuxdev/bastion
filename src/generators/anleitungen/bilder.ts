@@ -500,3 +500,89 @@ export const parallelogramm: AnleitungsBilder = {
     ];
   },
 };
+
+/** Zweitafelbild eines Quaders: Rissachse, Grundriss, Ordnungslinien, Aufriss */
+export const zweitafelQuader: AnleitungsBilder = {
+  id: 'anleitung.zweitafel-quader',
+  version: 1,
+  bilder: () => {
+    const [x0, x1] = [80, 200]; // Länge 6 cm
+    const achse = 150;
+    const grundriss = [
+      linie(x0, achse + 20, x1, achse + 20),
+      linie(x1, achse + 20, x1, achse + 80),
+      linie(x1, achse + 80, x0, achse + 80),
+      linie(x0, achse + 80, x0, achse + 20),
+    ];
+    const achseL = [linie(30, achse, 270, achse, 1.5), text(258, achse - 6, 'x₁₂', 12)];
+    const ordnung = [gestrichelt(x0, achse + 20, x0, 50), gestrichelt(x1, achse + 20, x1, 50)];
+    const aufriss = [
+      linie(x0, achse - 10, x1, achse - 10, 3),
+      linie(x1, achse - 10, x1, achse - 90, 3),
+      linie(x1, achse - 90, x0, achse - 90, 3),
+      linie(x0, achse - 90, x0, achse - 10, 3),
+    ];
+    return [
+      bild(300, 250, achseL, {
+        de: 'Eine waagerechte Linie: die Rissachse x₁₂. Oben kommt der Aufriss hin, unten der Grundriss.',
+      }),
+      bild(300, 250, [...achseL, ...grundriss], {
+        de: 'Unter der Rissachse ist der Grundriss gezeichnet: ein Rechteck, so lang und so tief wie der Quader.',
+      }),
+      bild(300, 250, [...achseL, ...grundriss, ...ordnung], {
+        de: 'Von den Ecken des Grundrisses gehen dünne Ordnungslinien senkrecht nach oben über die Rissachse.',
+      }),
+      bild(300, 250, [...achseL, ...grundriss, ...ordnung, ...aufriss], {
+        de: 'Zwischen den Ordnungslinien ist über der Rissachse der Aufriss gezeichnet: ein Rechteck, so lang und so hoch wie der Quader.',
+      }),
+    ];
+  },
+};
+
+/** Schrägbild einer quadratischen Pyramide (Kavalierperspektive) */
+export const schraegbildPyramide: AnleitungsBilder = {
+  id: 'anleitung.schraegbild-pyramide',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const A: P = [60, 210];
+    const B: P = [180, 210];
+    const hinten = (p: P): P => [p[0] + 42, p[1] - 42]; // Tiefe halbiert, 45°
+    const C = hinten(B);
+    const D = hinten(A);
+    const M: P = [(A[0] + C[0]) / 2, (A[1] + C[1]) / 2];
+    const S: P = [M[0], M[1] - 140];
+    const grund = [
+      linie(A[0], A[1], B[0], B[1]),
+      linie(B[0], B[1], C[0], C[1]),
+      gestrichelt(C[0], C[1], D[0], D[1]),
+      gestrichelt(D[0], D[1], A[0], A[1]),
+    ];
+    const diag = [
+      gestrichelt(A[0], A[1], C[0], C[1]),
+      gestrichelt(B[0], B[1], D[0], D[1]),
+      kreis(M[0], M[1], 3, true),
+    ];
+    const hoehe = [gestrichelt(M[0], M[1], S[0], S[1]), punkt(S[0], S[1], 'S')];
+    const kanten = [
+      dick(A[0], A[1], S[0], S[1]),
+      dick(B[0], B[1], S[0], S[1]),
+      dick(C[0], C[1], S[0], S[1]),
+      gestrichelt(D[0], D[1], S[0], S[1]),
+    ];
+    return [
+      bild(280, 240, grund, {
+        de: 'Die quadratische Grundfläche im Schrägbild: vorne die Kante in wahrer Länge, die Kanten nach hinten schräg und halb so lang. Verdeckte Kanten gestrichelt.',
+      }),
+      bild(280, 240, [...grund, ...diag], {
+        de: 'Die beiden Diagonalen der Grundfläche schneiden sich im Mittelpunkt.',
+      }),
+      bild(280, 240, [...grund, ...diag, ...hoehe], {
+        de: 'Vom Mittelpunkt aus ist die Höhe senkrecht nach oben abgetragen. Dort liegt die Spitze S.',
+      }),
+      bild(280, 240, [...grund, ...hoehe, ...kanten], {
+        de: 'Die Ecken sind mit der Spitze verbunden. Die Kante von der hinteren linken Ecke ist verdeckt und gestrichelt.',
+      }),
+    ];
+  },
+};

@@ -1,0 +1,23 @@
+# „Welches Bild zeigt die Draufsicht?“ Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZWEITAFEL.ANSICHT
+kompetenz: M.RF.KP.ZWEITAFEL
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: kp.ansicht-waehlen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: 'Das Bild zeigt das [[Schrägbild]] eines Körpers ({koerper}). **Entscheide**: Welches Bild zeigt {ansicht}?'
+hilfen:
+  - de: 'Stell dir vor, du schaust genau von vorne, von oben oder von links auf den Körper – ohne schräg zu blicken.'
+  - de: 'Von oben siehst du die Kanten, die zur Spitze oder nach oben führen, als Linien in der Fläche.'
+fehlerbilder:
+  andere-ansicht:
+    de: 'Das ist eine andere Ansicht desselben Körpers. Schau noch einmal, von wo du blicken sollst.'
+  anderer-koerper:
+    de: 'Diese Ansicht gehört zu einem anderen Körper. Vergleiche die Flächen des Körpers mit dem Bild.'
+herkunft: ki-entwurf
+version: 1

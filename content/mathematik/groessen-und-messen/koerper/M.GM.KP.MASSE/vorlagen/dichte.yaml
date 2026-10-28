@@ -1,0 +1,23 @@
+# Masse, Volumen oder Dichte berechnen. Entwurf: noch nicht geprüft.
+id: M.GM.KP.MASSE.DICHTE
+kompetenz: M.GM.KP.MASSE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.masse-dichte@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Masse = [[Dichte]] · [[Volumen]]. Die Dichte sagt, wie schwer 1 cm³ eines Stoffes ist.'
+  - de: 'Für das [[Volumen]] oder die [[Dichte]] stellst du die [[Formel]] um: V = m : ϱ, ϱ = m : V.'
+fehlerbilder:
+  geteilt-statt-mal:
+    de: 'Hier wird malgenommen: Masse = [[Dichte]] · [[Volumen]].'
+  mal-statt-geteilt:
+    de: 'Für das [[Volumen]] teilst du die Masse durch die [[Dichte]].'
+herkunft: ki-entwurf
+version: 1
