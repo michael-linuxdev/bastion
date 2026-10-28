@@ -12,7 +12,7 @@ text:
   aufgabe:
     de: '**Berechne**: {frage} (in [[Grad]])'
 hilfen:
-  - de: '[[Satz des Thales]]: Liegt C auf dem Kreis über dem Durchmesser AB, ist der [[Winkel]] bei C ein [[rechter Winkel]].'
+  - de: '[[Satz des Thales]]: Liegt C auf dem Kreis über dem [[Durchmesser]] AB, ist der [[Winkel]] bei C ein [[rechter Winkel]].'
   - de: 'Der [[Zentriwinkel]] ist doppelt so groß wie der [[Peripheriewinkel]] über derselben Sehne.'
   - de: 'Im [[Sehnenviereck]] ergeben gegenüberliegende [[Winkel]] zusammen 180°.'
 fehlerbilder:

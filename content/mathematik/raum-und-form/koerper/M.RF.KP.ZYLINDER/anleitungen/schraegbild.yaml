@@ -1,0 +1,18 @@
+# Schrägbild eines Zylinders zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZYLINDER.SCHRAEGBILD
+kompetenz: M.RF.KP.ZYLINDER
+titel:
+  de: 'Das [[Schrägbild]] eines [[Zylinders]] zeichnen'
+material:
+  de: 'Kariertes Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.schraegbild-zylinder@1
+schritte:
+  - de: 'Zeichne die [[Grundfläche]] als flache Ellipse: so breit wie der [[Durchmesser]], nach hinten nur halb so tief. Die hintere Hälfte zeichnest du gestrichelt.'
+  - de: 'Zeichne am linken und rechten Rand der Ellipse je eine senkrechte Linie nach oben, so lang wie die [[Höhe]] des [[Zylinders]].'
+  - de: 'Zeichne oben die [[Deckfläche]] als ganze Ellipse, genauso groß wie unten.'
+  - de: 'Radiere Hilfslinien weg. Sichtbar bleiben die [[Deckfläche]], die beiden Seitenlinien und die vordere Hälfte der [[Grundfläche]].'
+pruefen:
+  - de: 'Sind Grund- und [[Deckfläche]] gleich groß?'
+  - de: 'Ist die hintere Hälfte der [[Grundfläche]] gestrichelt?'
+herkunft: ki-entwurf
+version: 1

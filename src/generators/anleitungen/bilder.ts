@@ -586,3 +586,42 @@ export const schraegbildPyramide: AnleitungsBilder = {
     ];
   },
 };
+
+/** Schrägbild eines Kreiszylinders */
+export const schraegbildZylinder: AnleitungsBilder = {
+  id: 'anleitung.schraegbild-zylinder',
+  version: 1,
+  bilder: () => {
+    const cx = 140;
+    const rx = 70;
+    const ry = 20;
+    const unten = 200;
+    const oben = 60;
+    const vorne = (y: number) =>
+      `<path d="M ${cx - rx} ${y} A ${rx} ${ry} 0 0 0 ${cx + rx} ${y}" stroke-width="3"/>`;
+    const hinten = (y: number) =>
+      `<path d="M ${cx - rx} ${y} A ${rx} ${ry} 0 0 1 ${cx + rx} ${y}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    const grund = [
+      vorne(unten),
+      hinten(unten),
+      linie(cx - rx, unten, cx + rx, unten, 1),
+      kreis(cx, unten, 3, true),
+    ];
+    const seiten = [dick(cx - rx, unten, cx - rx, oben), dick(cx + rx, unten, cx + rx, oben)];
+    const deckel = `<ellipse cx="${cx}" cy="${oben}" rx="${rx}" ry="${ry}" stroke-width="3"/>`;
+    return [
+      bild(280, 240, grund, {
+        de: 'Die Grundfläche als flache Ellipse: so breit wie der Durchmesser, nach hinten halb so tief. Die hintere Hälfte ist gestrichelt.',
+      }),
+      bild(280, 240, [...grund, ...seiten], {
+        de: 'An den Rändern links und rechts steigen zwei senkrechte Linien in der Höhe des Zylinders auf.',
+      }),
+      bild(280, 240, [...grund, ...seiten, deckel], {
+        de: 'Oben sitzt die Deckfläche als ganze Ellipse, genauso groß wie die Grundfläche.',
+      }),
+      bild(280, 240, [vorne(unten), hinten(unten), ...seiten, deckel], {
+        de: 'Fertig: Die Hilfslinie unten ist weg, sichtbar sind die Deckfläche, die beiden Seitenlinien und die vordere Hälfte der Grundfläche.',
+      }),
+    ];
+  },
+};

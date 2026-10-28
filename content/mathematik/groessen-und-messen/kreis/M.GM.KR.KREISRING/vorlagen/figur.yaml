@@ -1,0 +1,25 @@
+# Halb-, Viertelkreis und zusammengesetzte Figuren. Entwurf: noch nicht geprüft.
+id: M.GM.KR.KREISRING.FIGUR
+kompetenz: M.GM.KR.KREISRING
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: kr.figur@1
+parameter:
+  G: { zusammengesetzt: false }
+  M: { zusammengesetzt: true }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Flächeninhalt]] der Figur in cm². Rechne mit [[π]] ≈ 3,14.'
+hilfen:
+  - de: 'Ein Halbkreis ist die Hälfte, ein Viertelkreis ein Viertel der ganzen Kreisfläche.'
+  - de: 'Zerlege die Figur in Rechteck und Kreisteile. Berechne jedes Teil und addiere.'
+fehlerbilder:
+  ganzer-kreis:
+    de: 'Das ist der ganze Kreis. Hier ist nur ein Teil davon zu sehen.'
+  kreisteil-vergessen:
+    de: 'Das ist nur das Rechteck. Die Kreisteile gehören dazu.'
+  radius-durchmesser:
+    de: 'Für die Kreisfläche brauchst du den [[Radius]] – die halbe Seite des Rechtecks oder den halben [[Durchmesser]].'
+herkunft: ki-entwurf
+version: 1

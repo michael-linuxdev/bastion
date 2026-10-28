@@ -1,0 +1,24 @@
+# Länge des Mantelrechtecks, Radius aus der Länge. Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZYLINDER.MANTEL
+kompetenz: M.RF.KP.ZYLINDER
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: zy.mantel-laenge@1
+parameter:
+  G: { umkehr: false }
+  M: { umkehr: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: 'Die lange Seite des [[Mantelrechtecks]] ist so lang wie der [[Umfang]] der Kreise: u = 2 · [[π]] · r.'
+fehlerbilder:
+  radius-durchmesser:
+    de: '[[Radius]] und [[Durchmesser]] sind verwechselt. Der [[Umfang]] ist 2 · [[π]] · r.'
+  flaeche-statt-umfang:
+    de: 'Das ist der [[Flächeninhalt]] des Kreises. Gesucht ist eine Länge – der [[Umfang]].'
+  hoehe-genommen:
+    de: 'Die [[Höhe]] des [[Zylinders]] ist die kurze Seite des Rechtecks. Um den Kreis wird die lange Seite gewickelt.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+# „Welche Figur ist ein Netz eines Zylinders?“ Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZYLINDER.NETZ
+kompetenz: M.RF.KP.ZYLINDER
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: zy.netz@1
+parameter:
+  G: { figuren: 3 }
+  M: { figuren: 4 }
+text:
+  aufgabe:
+    de: '**Wähle** das [[Netz]] eines [[Zylinders]] **aus**.'
+hilfen:
+  - de: 'Ein [[Zylinder]] besteht aus zwei gleichen Kreisen und einem [[Mantel]]. Abgerollt ist der Mantel ein Rechteck.'
+  - de: 'Die lange Seite des Rechtecks wird um den Kreis gewickelt. Sie muss so lang sein wie der Kreisumfang.'
+fehlerbilder:
+  gleiche-seite:
+    de: 'Beide Kreise liegen auf derselben Seite. Beim Falten kämen sie aufeinander – oben oder unten fehlte ein Deckel.'
+  kurze-seiten:
+    de: 'Die Kreise sitzen an den kurzen Seiten. Um einen Kreis passt aber nur die lange Seite, die so lang ist wie sein [[Umfang]].'
+  kreise-zu-klein:
+    de: 'Die Kreise sind zu klein. Ihr [[Umfang]] muss so lang sein wie die lange Seite des Rechtecks.'
+herkunft: ki-entwurf
+version: 1

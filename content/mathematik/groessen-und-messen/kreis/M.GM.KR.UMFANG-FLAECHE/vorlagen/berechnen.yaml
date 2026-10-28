@@ -1,0 +1,28 @@
+# Umfang und Flächeninhalt, Umkehraufgaben. Entwurf: noch nicht geprüft.
+id: M.GM.KR.UMFANG-FLAECHE.BERECHNEN
+kompetenz: M.GM.KR.UMFANG-FLAECHE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kr.berechnen@1
+parameter:
+  G: { umkehr: false }
+  M: { umkehr: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: '[[Umfang]]: u = [[π]] · d = 2 · π · r. [[Flächeninhalt]]: A = π · r².'
+  - de: 'Ist der [[Durchmesser]] gegeben, halbiere ihn zuerst: r = d : 2.'
+  - de: 'Rückwärts: Teile durch 3,14. Beim [[Flächeninhalt]] bekommst du r² – ziehe dann die [[Wurzel]].'
+fehlerbilder:
+  radius-durchmesser:
+    de: '[[Radius]] und [[Durchmesser]] sind verwechselt. Der Durchmesser ist doppelt so lang wie der Radius.'
+  umfang-flaeche:
+    de: 'Das ist die andere Größe. [[Umfang]] ist die Länge um den Kreis herum (u = 2 · [[π]] · r), [[Flächeninhalt]] die Fläche innen (A = π · r²).'
+  mal-zwei-statt-quadrat:
+    de: 'r² heißt r · r, nicht 2 · r.'
+  wurzel-vergessen:
+    de: 'A : 3,14 ergibt r², noch nicht r. Ziehe die [[Wurzel]].'
+herkunft: ki-entwurf
+version: 1
