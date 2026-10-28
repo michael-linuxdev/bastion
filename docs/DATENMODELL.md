@@ -227,6 +227,8 @@ Geräteweite Einstellungen (Sprache der Oberfläche, Farbschema) verwenden `prof
 
 Die Eltern-PIN wird als PBKDF2-Hash mit Salz unter `eltern.pin` gespeichert. Im Protokoll erscheint nur „PIN geändert“.
 
+*Umsetzung (1c):* PBKDF2-SHA256 mit 150 000 Durchläufen über WebCrypto (`src/ui/plattform/pin.ts`), Format `pbkdf2-sha256$<Durchläufe>$<Salz>$<Hash>`; der Vergleich läuft in konstanter Zeit. Der Wiederherstellungscode (D-12) liegt ebenso gehasht unter `eltern.wiederherstellung`. Beide Schlüssel sind geheim (`GEHEIM` in `src/core/policy/einstellung.ts`). Die PIN hat 4 bis 8 Ziffern.
+
 ### 4.6 `verdichtung` – Zusammenfassung alter Rohdaten
 
 Siehe Abschnitt 8.
@@ -267,6 +269,8 @@ Der Basebau liest ausschließlich `konto`, `bastion` und die Liste gefestigter K
 
 **Entscheidung D-14 (28.10.2026, Projektverantwortlicher; ersetzt die frühere Regel „nie einzelne Aufgaben“):** Eltern dürfen alles sehen. **Standard ist eine einfache Ansicht**: Kompetenzstatus und Wochenzusammenfassung (`kompetenzen`, `wochen`). Auf Wunsch zeigt eine **ausführliche Ansicht** die einzelnen Aufgaben mit Datum und Uhrzeit, Thema, Ergebnis, erkanntem Fehlerbild, genutzten Hilfen und Bearbeitungsdauer.
 *Warum:* Eltern tragen die Verantwortung und sollen nicht ausgesperrt sein. Die einfache Ansicht als Standard hält den Blick auf Kompetenzen statt auf Klicks. Das Transparenzprinzip (KONZEPT §10) gilt unverändert: Jugendliche sehen jederzeit beide Ansichten genau so, wie Eltern sie sehen – nichts geschieht hinter ihrem Rücken.
+
+*Umsetzung (1c):* `src/core/learning/bericht.ts` (Wochen nach ISO 8601, einzelne Aufgaben), `src/ui/eltern/Bericht.svelte`. Die einfache Ansicht zeigt geübte Themen mit Status je Niveau und die letzten 8 Wochen (Lerntage, Aufgaben), die ausführliche die letzten 100 Aufgaben. Jugendliche finden dieselbe Komponente unter „Mein Stand“ → „Was meine Eltern sehen“. Der Elternbereich sagt ehrlich, dass eine PIN auf einem Gerät des Kindes eine Hürde ist, keine Festung.
 
 ## 6. Speicherung in IndexedDB (Dexie)
 
@@ -404,6 +408,8 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 
 **Entscheidung D-12: Beim Festlegen der PIN zeigt die App einmalig einen Wiederherstellungscode** (vier Wörter, wie D-9) zum Aufschreiben. Mit diesem Code lässt sich die PIN zurücksetzen. Ohne ihn bleibt nur: Profil-Sicherung erstellen lassen, App zurücksetzen, Sicherung einspielen – dann gelten die alten Elterneinstellungen weiter, und eine neue PIN wird festgelegt.
 *Warum:* Ein „PIN vergessen“-Knopf ohne Hürde würde den Elternbereich für jeden Jugendlichen in zwei Klicks öffnen. Ein Code, der bei den Eltern liegt, ist die einfachste ehrliche Lösung ohne Server.
+
+*Umsetzung (1c):* vier Wörter aus einer Liste von 256 (`src/core/rng/wortcode.ts`); bei der Eingabe zählen Groß- und Kleinschreibung, Bindestriche und Leerzeichen nicht. Nach dem Zurücksetzen gibt es einen neuen Code.
 
 ## 10. Datenschutz-Prüfung
 

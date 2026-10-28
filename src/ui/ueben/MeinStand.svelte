@@ -4,7 +4,9 @@
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { AnzeigeStatus } from '../../core/learning/fortschritt';
+  import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
+  import Bericht from '../eltern/Bericht.svelte';
   import type { Zustand } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
   import { nachBereich } from './reihenfolge';
@@ -14,12 +16,14 @@
     kompetenzen,
     vorlagen,
     zustand,
+    aufgaben,
     niveau = $bindable(),
     onueben,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
+    aufgaben: readonly AufgabeEreignis[];
     niveau: Niveau;
     onueben: (k: Kompetenz) => void;
   } = $props();
@@ -112,6 +116,13 @@
   {#if gruppe('neu').length > 0 && angefangen}
     <p class="leise">{t('stand.neu')}: {gruppe('neu').length}</p>
   {/if}
+
+  <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->
+  <details class="eltern-sehen">
+    <summary>{t('stand.eltern-sehen')}</summary>
+    <p class="leise">{t('stand.eltern-sehen-text')}</p>
+    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
+  </details>
 </section>
 
 <style>
@@ -179,6 +190,15 @@
 
   .liste small {
     display: block;
+  }
+
+  .eltern-sehen {
+    margin-block-start: var(--abstand-l);
+  }
+
+  .eltern-sehen summary {
+    cursor: pointer;
+    font-weight: bold;
   }
 
   button {

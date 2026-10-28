@@ -200,3 +200,64 @@ test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen'
   await page.getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 });
+
+test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz', async ({
+  page,
+}) => {
+  await page.goto('./');
+  // etwas üben, damit es etwas zu berichten gibt
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+  await page.goto('./');
+
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('12');
+  await page.getByLabel('PIN wiederholen').fill('12');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await expect(page.getByText(/4 bis 8 Ziffern bestehen/)).toBeVisible();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  const code = (await page.locator('.code').innerText()).trim();
+  expect(code.split(' ')).toHaveLength(4);
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+
+  // Einfache Ansicht ist Standard: Themen und Wochen, keine einzelnen Aufgaben
+  await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
+  await expect(page.getByText('Die letzten 100 Aufgaben')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Ausführliche Ansicht' }).click();
+  await expect(page.getByText('Die letzten 100 Aufgaben')).toBeVisible();
+  await expect(page.getByRole('cell', { name: /falsch/ }).first()).toBeVisible();
+
+  await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('0000');
+  await page.getByRole('button', { name: 'Öffnen' }).click();
+  await expect(page.getByText('Die PIN stimmt nicht.')).toBeVisible();
+
+  // PIN vergessen: mit dem Code eine neue festlegen
+  await page.getByRole('button', { name: 'PIN vergessen?' }).click();
+  await page.getByLabel(/Wiederherstellungscode/).fill('falsch falsch falsch falsch');
+  await page.getByLabel('Neue PIN').fill('2468');
+  await page.getByLabel('PIN wiederholen').fill('2468');
+  await page.getByRole('button', { name: 'Neue PIN festlegen' }).click();
+  await expect(page.getByText('Der Wiederherstellungscode stimmt nicht.')).toBeVisible();
+  await page.getByLabel(/Wiederherstellungscode/).fill(code.toUpperCase());
+  await page.getByRole('button', { name: 'Neue PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('2468');
+  await page.getByRole('button', { name: 'Öffnen' }).click();
+  await expect(page.getByRole('button', { name: 'Ausführliche Ansicht' })).toBeVisible();
+
+  // Transparenz: Jugendliche sehen dasselbe unter „Mein Stand“
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByText('Was meine Eltern sehen').click();
+  await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
+});

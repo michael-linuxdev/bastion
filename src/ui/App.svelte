@@ -5,6 +5,7 @@
   import type { Antwort } from '../core/learning/diagnose';
   import type { Fehlergruppe } from '../core/learning/werkstatt';
   import {
+    alleAufgaben,
     fehlergruppen,
     merke,
     zustand as ladeZustand,
@@ -17,6 +18,8 @@
   import type { Auftrag } from './ueben/auftrag';
   import Diagnose from './ueben/Diagnose.svelte';
   import MeinStand from './ueben/MeinStand.svelte';
+  import Elternbereich from './eltern/Elternbereich.svelte';
+  import type { AufgabeEreignis } from '../core/learning/ereignis';
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Uebersicht from './ueben/Uebersicht.svelte';
@@ -33,7 +36,9 @@
     | 'werkstatt-uebung'
     | 'diagnose'
     | 'stand'
+    | 'eltern'
   >('start');
+  let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
   let gruppen = $state<readonly Fehlergruppe[]>([]);
@@ -58,6 +63,7 @@
     rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
     faellig = wiederholRunde(zustand.karten, jetzt).length;
     gruppen = await fehlergruppen();
+    aufgabenListe = await alleAufgaben();
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -178,6 +184,16 @@
       </p>
     {/if}
     <p class="versprechen">{t('start.versprechen')}</p>
+    <p>
+      <button
+        class="dezent"
+        onclick={() => {
+          inhalte ??= ladeInhalte();
+          ansicht = 'eltern';
+          void aktualisiere();
+        }}>{t('eltern.knopf')}</button
+      >
+    </p>
     {#if offline.bereit}
       <p class="offline" role="status">{t('start.offline')}</p>
     {/if}
@@ -185,12 +201,21 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'stand'}
+      {#if ansicht === 'eltern'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <Elternbereich
+          kompetenzen={geladen.kompetenzen}
+          vorlagen={geladen.vorlagen}
+          {zustand}
+          aufgaben={aufgabenListe}
+        />
+      {:else if ansicht === 'stand'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <MeinStand
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}
+          aufgaben={aufgabenListe}
           bind:niveau
           onueben={(k) => {
             gewaehlt = k;
@@ -349,6 +374,17 @@
     border: none;
     background: transparent;
     color: var(--farbe-text);
+    cursor: pointer;
+    padding-inline: 0;
+    min-block-size: 2.75rem;
+  }
+
+  .dezent {
+    font: inherit;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text-leise);
+    text-decoration: underline;
     cursor: pointer;
     padding-inline: 0;
     min-block-size: 2.75rem;

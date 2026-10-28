@@ -4,10 +4,19 @@ import { Dexie, type DexieOptions, type Table } from 'dexie';
 import type { AufgabeEreignis } from '../core/learning/ereignis';
 import type { KompetenzStand } from '../core/learning/fortschritt';
 import type { Karte } from '../core/srs/karten';
+import type { EinstellungEreignis } from '../core/policy/einstellung';
 
 export interface Profil {
   readonly id: string;
   readonly erstellt: number;
+}
+
+/** Projektion `einstellungen`: aktueller Wert je Profil und Schlüssel. */
+export interface Einstellung {
+  readonly profil: string;
+  readonly schluessel: string;
+  readonly wert: unknown;
+  readonly ts: number;
 }
 
 export interface MetaEintrag {
@@ -20,6 +29,8 @@ export class BastionDatenbank extends Dexie {
   kompetenzen!: Table<KompetenzStand, [string, string, string]>;
   karten!: Table<Karte, [string, string, string]>;
   profile!: Table<Profil, string>;
+  einstellungen_ereignisse!: Table<EinstellungEreignis, string>;
+  einstellungen!: Table<Einstellung, [string, string]>;
   meta!: Table<MetaEintrag, string>;
 
   constructor(name = 'bastion', optionen?: DexieOptions) {
