@@ -1,0 +1,23 @@
+# „Welche Rechnung passt?“ – Grundaufgaben zuordnen. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.GRUNDAUFGABEN.RECHNUNG
+kompetenz: M.ZO.PZ.GRUNDAUFGABEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pz.welche-rechnung@1
+parameter:
+  G: { alle: false }
+  M: { alle: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche Rechnung passt zu dieser Aufgabe? „{aufgabe}“'
+hilfen:
+  - de: 'Was ist gesucht: der [[Prozentwert]] (ein Teil), der [[Grundwert]] (das Ganze) oder der [[Prozentsatz]] (in %)?'
+  - de: 'W = G · p : 100, G = W · 100 : p, p = W · 100 : G.'
+fehlerbilder:
+  falsche-grundaufgabe:
+    de: 'Diese Rechnung gehört zu einer anderen Grundaufgabe. Überlege zuerst, was gesucht ist.'
+  hundert-vergessen:
+    de: 'In der Rechnung fehlt die 100. [[Prozent]] heißt „von hundert“.'
+herkunft: ki-entwurf
+version: 1

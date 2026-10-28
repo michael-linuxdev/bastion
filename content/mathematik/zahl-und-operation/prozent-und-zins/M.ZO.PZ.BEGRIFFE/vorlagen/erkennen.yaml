@@ -1,0 +1,23 @@
+# „Welche Angabe ist der Grundwert?“ Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.BEGRIFFE.ERKENNEN
+kompetenz: M.ZO.PZ.BEGRIFFE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pz.begriffe-erkennen@1
+parameter:
+  G: { vertauscht: false }
+  M: { vertauscht: true }
+text:
+  aufgabe:
+    de: '{geschichte} **Welche Angabe ist {rolle}?**'
+hilfen:
+  - de: 'Der [[Grundwert]] ist das Ganze – er entspricht 100 %.'
+  - de: 'Der [[Prozentwert]] ist ein Teil davon. Der [[Prozentsatz]] ist die Angabe mit dem Zeichen %.'
+fehlerbilder:
+  grundwert-prozentwert-vertauscht:
+    de: '[[Grundwert]] und [[Prozentwert]] sind vertauscht. Der Grundwert ist das Ganze, der Prozentwert ein Teil davon – meist die kleinere Zahl.'
+  prozentsatz-verwechselt:
+    de: 'Der [[Prozentsatz]] ist die Angabe mit dem Zeichen % – und nur sie.'
+herkunft: ki-entwurf
+version: 1

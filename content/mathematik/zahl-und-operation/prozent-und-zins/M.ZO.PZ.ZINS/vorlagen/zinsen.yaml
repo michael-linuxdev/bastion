@@ -1,0 +1,25 @@
+# Jahreszinsen, auf M auch Tageszinsen, Zinssatz und Kapital. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.ZINS.ZINSEN
+kompetenz: M.ZO.PZ.ZINS
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.zinsen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Zinsrechnung ist Prozentrechnung: Das [[Kapital]] ist der [[Grundwert]], die [[Zinsen]] sind der [[Prozentwert]], der [[Zinssatz]] ist der [[Prozentsatz]].'
+  - de: '[[Zinsen]] für ein Jahr: Z = K · p : 100. Für einige Tage: noch · Tage : 360.'
+fehlerbilder:
+  hundert-vergessen:
+    de: '[[Prozent]] heißt „von hundert“. Teile noch durch 100.'
+  tage-vergessen:
+    de: 'Das sind die [[Zinsen]] für ein ganzes Jahr. Das Geld liegt aber nur einige Tage auf dem Konto: · Tage : 360.'
+  falsche-grundaufgabe:
+    de: 'Überlege zuerst, was gesucht ist: [[Kapital]], [[Zinsen]] oder [[Zinssatz]].'
+herkunft: ki-entwurf
+version: 1

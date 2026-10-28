@@ -1,0 +1,23 @@
+# Kapital nach einem Jahr, auf M nach zwei Jahren mit Zinseszins. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.ZINS.KAPITAL
+kompetenz: M.ZO.PZ.ZINS
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.kapital-nach-jahren@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Rechne die [[Zinsen]] für das erste Jahr aus und zähle sie zum [[Kapital]] dazu.'
+  - de: 'Im zweiten Jahr gibt es [[Zinsen]] auf das neue, größere [[Kapital]].'
+fehlerbilder:
+  nur-zinsen:
+    de: 'Das sind nur die [[Zinsen]]. Gefragt ist, wie viel Geld insgesamt auf dem Konto ist.'
+  zinseszins-vergessen:
+    de: 'Im zweiten Jahr werden auch die [[Zinsen]] aus dem ersten Jahr verzinst. Rechne das zweite Jahr mit dem neuen [[Kapital]].'
+herkunft: ki-entwurf
+version: 1
