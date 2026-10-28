@@ -342,3 +342,21 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await expect(seite.getByText(vermerk)).toBeVisible();
   await neu.close();
 });
+
+test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await expect(page.getByRole('button', { name: 'Fertig für heute' })).toHaveCount(0);
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Fertig für heute' }).click();
+  await expect(page.getByRole('heading', { name: 'Was du heute gekonnt hast' })).toBeVisible();
+  await expect(
+    page.getByRole('listitem').filter({ hasText: /^Addieren und Subtrahieren · / }),
+  ).toHaveCount(1);
+  await expect(page.getByText('1 Aufgabe bearbeitet')).toBeVisible();
+  await expect(page.getByText(/Für heute ist das gut/)).toBeVisible();
+  await page.getByRole('button', { name: 'Zur Startseite' }).click();
+  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+});

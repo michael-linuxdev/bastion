@@ -194,5 +194,19 @@
   "eltern.erinnerung-14": "alle zwei Wochen",
   "eltern.erinnerung-30": "jeden Monat",
   "eltern.erinnerung-90": "alle drei Monate",
-  "eltern.erinnerung-0": "nie"
+  "eltern.erinnerung-0": "nie",
+  "abschluss.knopf": "Fertig für heute",
+  "abschluss.ueberschrift": "Was du heute gekonnt hast",
+  "abschluss.nichts": "Heute hast du noch keine Aufgabe bearbeitet. Das ist in Ordnung – es gibt kein „zu spät“.",
+  "abschluss.gefestigt": "Heute gefestigt",
+  "abschluss.gekonnt": "Heute neu gekonnt",
+  "abschluss.geuebt": "Heute geübt",
+  "abschluss.aufgabe-eine": "1 Aufgabe bearbeitet",
+  "abschluss.aufgaben": "Aufgaben bearbeitet",
+  "abschluss.wiederholt-eine": "1 Wiederholung",
+  "abschluss.wiederholt": "Wiederholungen",
+  "abschluss.aufgearbeitet-einer": "1 Fehler aufgearbeitet",
+  "abschluss.aufgearbeitet": "Fehler aufgearbeitet",
+  "abschluss.pause": "Für heute ist das gut. Eine Pause hilft deinem Gedächtnis – morgen sitzt es besser.",
+  "abschluss.startseite": "Zur Startseite"
 }

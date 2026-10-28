@@ -154,7 +154,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *erste Übungsseite steht: Inhaltspakete, Auswertung mit Fehlerbild-Rückmeldung, Hilfen, Lösungsweg, offline nutzbar. Ergebnisse werden als Lernereignisse auf dem Gerät gespeichert, die Übersicht zeigt „in Arbeit“ und „gekonnt“. Noch ohne Anleitungen*
 2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *als Entwurf erledigt: alle 41 Kompetenzen mit mindestens zwei Vorlagen je Niveau (88 Vorlagen, 68 Generatoren mit Pflicht-Tests). Offen: Prüfung der Vorlagen (INHALTSFORMAT §10.1), Anleitungen zum Zeichnen (L-10)*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
-4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
+4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen) – *steht: Knopf „Fertig für heute“ beim Üben, Wiederholen und in der Werkstatt; zeigt heute gefestigte und neu gekonnte Themen, geübte Themen, Zahl der Aufgaben, Wiederholungen und aufgearbeiteten Fehler – ohne Punkte und Prozente – und schlägt eine Pause vor (R5). Berechnet aus den Aufgaben des Lerntags (`src/core/learning/heute.ts`); Sitzungs-Ereignisse kommen mit dem Ledger*
 
 **1b – Wiederholung und Fehlerwerkstatt**
 5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus – *Wiederholungsmodus steht: FSRS-Karten je Vorlage und Niveau (ts-fsrs 5.4.2), fällige Aufgaben über „Wiederholen“, Status bis „gefestigt“ und „auffrischen“, Rückkehrmodus nach Pausen (Begrüßung ohne Vorwurf, Portionen von höchstens 20)*

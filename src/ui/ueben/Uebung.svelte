@@ -22,6 +22,7 @@
     modus,
     paketVon,
     onzurueck,
+    onfertig,
     onergebnis,
     vorschlag,
     onwechsel,
@@ -32,6 +33,8 @@
     modus: 'ueben' | 'wiederholen' | 'fehlerwerkstatt';
     paketVon: ReadonlyMap<string, string>;
     onzurueck: () => void;
+    /** „Fertig für heute“ → Abschlussbildschirm */
+    onfertig?: () => void;
     onergebnis: (daten: Antwortdaten) => void;
     /** Rückweg bei Fehlern (LEHRPLAN §7): Vorschlag nach mehreren Fehlern in Folge */
     vorschlag?: (kompetenz: string, fehlerInFolge: number) => Kompetenz | undefined;
@@ -218,6 +221,9 @@
       </article>
     {/key}
   {/if}
+  {#if onfertig && nummer + (ergebnis ? 1 : 0) > 0}
+    <button class="fertig" onclick={onfertig}>{t('abschluss.knopf')}</button>
+  {/if}
 </section>
 
 <style>
@@ -291,6 +297,10 @@
   .haupt {
     background: var(--farbe-akzent);
     color: var(--farbe-hintergrund);
+  }
+
+  .fertig {
+    justify-self: start;
   }
 
   .zurueck {
