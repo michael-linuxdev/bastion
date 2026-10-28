@@ -138,3 +138,33 @@ test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', asy
   await expect(page.getByText(/Tage|Tagen|verpasst/)).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeVisible();
 });
+
+test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await expect(page.getByText(/keine Note und keine Punkte/)).toBeVisible();
+  await page.getByRole('button', { name: "Los geht's" }).click();
+
+  let halbzeit = 0;
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
+    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+      halbzeit += 1;
+      await page.getByRole('button', { name: 'Weiter', exact: true }).click();
+      continue;
+    }
+    // Während der Diagnose keine Wertung
+    await expect(page.getByText('Das stimmt noch nicht.')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
+  }
+  expect(halbzeit).toBe(1);
+  await expect(page.getByText('Hier stehst du – hier geht es weiter')).toBeVisible();
+  await expect(page.getByText(/Punkte|%/)).toHaveCount(0);
+
+  // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt
+  await page.getByRole('button', { name: 'Üben' }).first().click();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
+});

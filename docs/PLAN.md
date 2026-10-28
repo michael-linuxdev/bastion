@@ -161,7 +161,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“) – *steht: offene Fehler nach Ursache gruppiert (Fehlerbild, sonst je Kompetenz), genau die damalige Aufgabe mit der damaligen Antwort, erledigt nach richtiger Korrektur. Offen: Belohnung fürs Korrigieren (R6) kommt mit dem Basebau-Ledger*
 
 **1c – Diagnose und sichtbarer Fortschritt**
-7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform)
+7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform) – *steht: „Wo stehe ich?“ auf der Startseite, adaptiv durch den Graphen der Klasse 5, höchstens 30 Aufgaben in zwei Etappen, ohne Wertung und ohne Hilfen, Ergebnis „Hier stehst du – hier geht es weiter“ mit Empfehlungen zum Üben; bestandene Kompetenzen werden „gekonnt“*
 8. Kompetenzansicht: was gefestigt ist, was wackelt – ohne Bastion verständlich
 9. Elternbereich minimal (PIN, Stufe „begleitet“, Kompetenzbericht)
 10. Export/Import, Sicherungs-Erinnerung
@@ -206,3 +206,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 28.10.2026 | PR #4 gemergt. Wiederholung mit FSRS: Karten, „gefestigt“, „auffrischen“, Wiederholen-Knopf mit fälligen Aufgaben; ts-fsrs 5.4.2 (freigegeben) |
 | 28.10.2026 | PR #5 gemergt (Wiederholung). Fehlerwerkstatt: offene Fehler nach Ursache, Aufarbeiten der damaligen Aufgabe, Ereignisfeld `korrigiert` |
 | 28.10.2026 | Rückkehrmodus (BASEBAU §6.3): Begrüßung nach mehr als 7 Tagen Pause, Wiederholungen portioniert (höchstens 20, die gefährdetsten zuerst); CI-Test „Wiederholen“ robuster |
+| 28.10.2026 | PR #6 gemergt (Fehlerwerkstatt, Rückkehrmodus). 1c Diagnose: adaptiver Gang durch den Graphen, Simulation mit 500 Wissensständen, „Wo stehe ich?“ in der App |

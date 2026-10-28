@@ -44,7 +44,7 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Phase 1a – Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Phase 1c – Diagnose und sichtbarer Fortschritt** (1a und 1b fertig bis auf Prüfung der Vorlagen und die Belohnung fürs Korrigieren). Rahmen: **Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **1c – Diagnose:** Einstieg ohne Vorwissen über die Schulform (LEHRPLAN §7): kurzer Test entlang des Graphen, der Kompetenzen höchstens als „gekonnt“ markiert und den Start empfiehlt. Danach Kompetenzansicht und Elternbereich (PLAN 1c).
+7. **1c weiter:** Kompetenzansicht – was gefestigt ist, was wackelt, auch ohne Bastion verständlich (PLAN 1c, Punkt 8); in der Übersicht „empfohlen“ nach L-5 markieren; „Rückweg bei Fehlern“ (LEHRPLAN §7: nach wiederholtem Scheitern gezielt eine Voraussetzung vorschlagen). Danach Elternbereich minimal und Export/Import.
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -78,7 +78,8 @@ Mit Claude Code, als Nächstes:
 - **Fehlerwerkstatt (1b):** Startseite zeigt „Fehlerwerkstatt“, wenn offene Fehler da sind. Gruppiert nach Ursache – mit der Rückmeldung des Fehlerbilds als Überschrift; Fehler ohne Muster je Kompetenz. „Aufarbeiten“ zeigt genau die damalige Aufgabe (gleicher Seed) mit der damaligen Antwort; richtig gelöst ist der Fehler erledigt (`korrigiert`). Kern: `src/core/learning/werkstatt.ts`. Die Belohnung fürs Korrigieren (R6) folgt mit dem Basebau-Ledger. PR #5 (Wiederholung) ist gemergt.
 - **Rückkehrmodus (1b):** nach mehr als 7 Tagen ohne Aufgabe Begrüßung ohne Vorwurf, keine Pausenlänge; jede Wiederholungsrunde höchstens 20 Aufgaben, die gefährdetsten zuerst (`src/core/srs/rueckkehr.ts`). Phase 1b ist damit bis auf die Belohnung fürs Korrigieren (R6, braucht den Ledger) fertig.
 - Lehre aus der CI: Browser-Tests müssen warten, bis im Hintergrund gespeichert ist, bevor sie neu laden (z. B. „in Arbeit“ in der Übersicht abwarten).
-- 1593 Tests und 7 Browser-Tests, Lint, Build, Größenbudget (101 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Diagnose (1c):** „Wo stehe ich?“ auf der Startseite (`src/core/learning/diagnose.ts`, `src/ui/ueben/Diagnose.svelte`). Testet je Schritt die Kompetenz, deren Ergebnis am meisten entscheidet, zwei Aufgaben je Kompetenz (bei 1 : 1 eine dritte), höchstens 30 in zwei Etappen; keine Wertung, keine Hilfen, „Weiß ich nicht“ erlaubt und kein Fehler für die Werkstatt. Ergebnis: Empfehlungen mit „Üben“-Knopf und Liste dessen, was sitzt. Getestet bestanden → „gekonnt“; Gefolgertes wird nicht gespeichert. Diagnose-Aufgaben ohne FSRS-Bewertung. Ehrliche Grenze: Bei sehr Starken bleiben wegen der 21 Endpunkte des Graphen Themen ungetestet. PR #6 ist gemergt.
+- 1604 Tests und 8 Browser-Tests, Lint, Build, Größenbudget (103 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

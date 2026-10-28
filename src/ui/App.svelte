@@ -2,6 +2,7 @@
   import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
   import { istRueckkehr, wiederholRunde } from '../core/srs/rueckkehr';
+  import type { Antwort } from '../core/learning/diagnose';
   import type { Fehlergruppe } from '../core/learning/werkstatt';
   import {
     fehlergruppen,
@@ -14,14 +15,23 @@
   import { ladeInhalte, type Inhalte } from './plattform/pakete';
   import { t } from './texte/texte';
   import type { Auftrag } from './ueben/auftrag';
+  import Diagnose from './ueben/Diagnose.svelte';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
 
   let ansicht = $state<
-    'start' | 'uebersicht' | 'uebung' | 'wiederholen' | 'werkstatt' | 'werkstatt-uebung'
+    | 'start'
+    | 'uebersicht'
+    | 'uebung'
+    | 'wiederholen'
+    | 'werkstatt'
+    | 'werkstatt-uebung'
+    | 'diagnose'
   >('start');
+  /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
+  let diagnoseAntworten = $state<Antwort[]>([]);
   let gruppen = $state<readonly Fehlergruppe[]>([]);
   /** Aufträge der gerade aufgearbeiteten Fehlergruppe. */
   let werkstattListe = $state<readonly Auftrag[]>([]);
@@ -129,6 +139,13 @@
     {/if}
     <p class="knoepfe">
       <button class="haupt" onclick={ueben}>{t('start.ueben')}</button>
+      <button
+        class="zweit"
+        onclick={() => {
+          inhalte ??= ladeInhalte();
+          ansicht = 'diagnose';
+        }}>{t('diagnose.knopf')}</button
+      >
       {#if faellig > 0}
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
       {/if}
@@ -156,7 +173,31 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'werkstatt'}
+      {#if ansicht === 'diagnose'}
+        <button
+          class="zurueck"
+          onclick={() => {
+            ansicht = 'start';
+            void aktualisiere();
+          }}>← {t('uebung.zurueck')}</button
+        >
+        <Diagnose
+          kompetenzen={geladen.kompetenzen}
+          vorlagen={geladen.vorlagen}
+          paketVon={geladen.paketVon}
+          bind:antworten={diagnoseAntworten}
+          onergebnis={(d) => void ergebnis(d)}
+          onueben={(k) => {
+            gewaehlt = k;
+            niveau = 'G';
+            ansicht = 'uebung';
+          }}
+          onende={() => {
+            ansicht = 'start';
+            void aktualisiere();
+          }}
+        />
+      {:else if ansicht === 'werkstatt'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <Werkstatt
           {gruppen}

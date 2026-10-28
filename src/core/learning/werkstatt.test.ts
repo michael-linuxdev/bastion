@@ -33,13 +33,22 @@ const e = (teil: Partial<AufgabeEreignis>): AufgabeEreignis => ({
 });
 
 describe('Fehlerwerkstatt', () => {
-  it('findet offene Fehler; richtig korrigierte sind erledigt, falsch korrigierte nicht', () => {
+  it('findet offene Fehler; richtig korrigierte sind erledigt, falsch korrigierte und Diagnose nicht', () => {
     const a = e({ fehlerbild: 'addiert' });
     const b = e({ fehlerbild: 'addiert' });
     const c = e({});
     const richtig = e({ ergebnis: 'richtig', korrigiert: a.id, modus: 'fehlerwerkstatt' });
     const nochFalsch = e({ korrigiert: b.id, modus: 'fehlerwerkstatt' });
-    const offen = offeneFehler([a, b, c, richtig, nochFalsch, e({ ergebnis: 'richtig' })]);
+    const diagnose = e({ modus: 'diagnose' });
+    const offen = offeneFehler([
+      a,
+      b,
+      c,
+      richtig,
+      nochFalsch,
+      e({ ergebnis: 'richtig' }),
+      diagnose,
+    ]);
     expect(offen.map((x) => x.id)).toEqual([b.id, c.id]);
   });
 

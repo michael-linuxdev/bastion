@@ -5,6 +5,7 @@
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import { BEREICHE } from './reihenfolge';
 
   let {
     kompetenzen,
@@ -20,14 +21,6 @@
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
-  const REIHENFOLGE = [
-    'zahl-und-operation',
-    'strukturen-und-funktionaler-zusammenhang',
-    'groessen-und-messen',
-    'raum-und-form',
-    'daten-und-zufall',
-  ];
-
   // Status zur Anzeige, einmal beim Öffnen berechnet (kein laufender Timer, R2)
   const jetzt = Date.now();
   const status = (k: Kompetenz) =>
@@ -38,7 +31,7 @@
     );
 
   const bereiche = $derived(
-    REIHENFOLGE.map((bereich) => ({
+    BEREICHE.map((bereich) => ({
       bereich,
       kompetenzen: nachGraph(kompetenzen).filter(
         (k) =>
