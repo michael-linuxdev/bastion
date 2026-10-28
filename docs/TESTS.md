@@ -70,7 +70,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 
 ## 4. Ablauf der Testrunden
 
-Testrunden nach den Stufen von Phase 1 (`PLAN.md` §4): nach **1a**, **1b**, **1c** und nach dem **Basebau-Minimum (2a)**.
+~~Testrunden nach den Stufen von Phase 1 (`PLAN.md` §4): nach **1a**, **1b**, **1c** und nach dem **Basebau-Minimum (2a)**.~~ *Seit K-17 (`STRATEGIE.md` §2): Die Testrunden beginnen, wenn der Lehrplan bis Klasse 12 aufgebaut ist.*
 
 ### 4.1 Starttreffen (ca. 30 Min.)
 

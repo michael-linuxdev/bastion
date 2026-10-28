@@ -44,11 +44,11 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Phase 1c – Diagnose und sichtbarer Fortschritt** (1a und 1b fertig bis auf Prüfung der Vorlagen und die Belohnung fürs Korrigieren). Rahmen: **Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Erster Schritt: sächsische Lehrpläne Klasse 6 auswerten (wie 0.18 für Klasse 5) und die Kompetenzen der Klasse 6 in `LEHRPLAN.md` eintragen. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
-2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
+2. **0.15** Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3) – nach K-17 erst, wenn der Lehrplan bis Klasse 12 steht.
 3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
 4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Phase 1a–1c sind bis auf Prüfungen und Testrunde fertig.** Als Nächstes mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe vorbereiten (TESTS.md), oder „So geht's“-Erklärungen je Thema.
+7. **Klasse 6 (K-17):** Lehrpläne OS und GY Klasse 6 auswerten, Kompetenzen und Graph in `LEHRPLAN.md` und `content/`, dann Generatoren entlang des Graphen wie bei Klasse 5.
 8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung

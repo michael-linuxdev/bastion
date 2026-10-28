@@ -296,6 +296,7 @@ Detailplanung in `PLAN.md`.
 | K-11 | Scope bis Monat 12: Mathe in Sachsen, Kl. 5–12, alle Schularten, Niveaus G und M (siehe STRATEGIE.md) | 27.10.2026 | Entschieden |
 | K-15 | Inhalte Klassenstufe für Klassenstufe, beginnend mit Klasse 5 (schärft K-6) | 27.10.2026 | Entschieden |
 | K-16 | Sächsische Lehrpläne Mathematik (OS 2019, GY 2021) bindend für das MVP | 27.10.2026 | Entschieden |
+| K-17 | Erst Lehrplan bis Klasse 12 aufbauen (als Entwurf), dann gesammelt prüfen und testen (ändert K-15 Punkte 2 und 4) | 28.10.2026 | Entschieden |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
 | K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |

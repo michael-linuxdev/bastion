@@ -48,11 +48,19 @@ Die Inhalte werden **sukzessiv** aufgebaut: zuerst **Klasse 5** vollständig, er
 1. alle ihre Lernbereiche als Kompetenzen im Graphen stehen, mit Zuordnung zu den sächsischen Lehrplänen (L-9);
 2. jede dieser Kompetenzen je Niveau G und M mindestens zwei geprüfte Vorlagen hat (INHALTSFORMAT §10.1), Generatoren mit bestandenen Pflicht-Tests;
 3. Üben, Wiederholen, Fehlerwerkstatt und Diagnose für alle ihre Kompetenzen funktionieren;
-4. Jugendliche dieser Klassenstufe aus der Testgruppe sie genutzt haben und gemeldete fachliche Fehler behoben sind.
+4. ~~Jugendliche dieser Klassenstufe aus der Testgruppe sie genutzt haben und gemeldete fachliche Fehler behoben sind.~~ *Ausgesetzt durch K-17.*
 
-Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe.
+Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe. *Seit K-17 genügen dafür die Punkte 1 und 3 sowie Punkt 2 ohne „geprüft“; Prüfung und Test kommen gesammelt später.*
 
 *Warum:* Eine vollständige Klasse 5 ist für echte Jugendliche ein brauchbares Werkzeug für ein ganzes Schuljahr; zwei halbe Klassenstufen sind es nicht. Jede abgeschlossene Klassenstufe ist für sich nutzbar (KONZEPT §12.2) und ein ehrlicher Fortschritt, den man Eltern und Lehrkräften zeigen kann.
+
+**Entscheidung K-17: Erst den Lehrplan bis Klasse 12 aufbauen, dann prüfen und testen.** *(28.10.2026, Projektverantwortlicher; ändert K-15 Punkte 2 und 4)*
+- Die Klassenstufen werden weiter **nacheinander** aufgebaut (K-15 bleibt: erst 5, dann 6 …), aber eine Klassenstufe gilt schon als abgeschlossen, wenn ihre Kompetenzen im Graphen stehen, je Niveau G und M mindestens zwei Vorlagen als **Entwurf** haben (Generatoren mit bestandenen Pflicht-Tests) und Üben, Wiederholen, Fehlerwerkstatt und Diagnose für sie funktionieren.
+- Die **fachliche Prüfung** der Vorlagen (INHALTSFORMAT §10.1) und die **Testrunden** mit Jugendlichen (`TESTS.md`) kommen gesammelt, wenn der Lehrplan bis Klasse 12 aufgebaut ist.
+- Die Schwelle „Lernkern trägt“ (K-12) bleibt; sie wird damit erst nach Klasse 12 geprüft. Bis dahin bleibt es beim Basebau-Minimum.
+
+*Warum:* Entscheidung des Projektverantwortlichen – erst soll das vollständige Angebot für die ganze Zielgruppe stehen.
+*Ehrlich benannt:* Fehler im Lernkern oder in vielen Vorlagen derselben Art fallen so erst spät auf und müssen dann an vielen Stellen behoben werden. Abfederung: Pflicht-Tests je Generator, die automatische Inhaltsprüfung und die Browser-Tests laufen bei jeder Änderung; alle Inhalte bleiben als `ki-entwurf` gekennzeichnet, bis sie geprüft sind.
 
 **Entscheidung K-16: Die sächsischen Lehrpläne Mathematik sind bindend für das MVP.** *(27.10.2026)* Lehrplan Oberschule Mathematik 2019 und Lehrplan Gymnasium Mathematik (Fassung 2021) haben höchste Priorität (Fundstellen: `docs/quellen/README.md`). Was dort als Pflicht-Lernbereich steht, gehört zum Inhalt der jeweiligen Klassenstufe – **auch Geometrie und Diagramme/Statistik**. Damit ist O-15 erledigt.
 - Klasse 5 umfasst danach 41 Kompetenzen (`LEHRPLAN.md` §8): natürliche Zahlen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Koordinaten, Winkel, Symmetrie, Rechtecke, Würfel und Quader.
