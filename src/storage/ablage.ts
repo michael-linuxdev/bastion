@@ -11,7 +11,8 @@ import {
 import { kartenSchluessel, type Karte } from '../core/srs/karten';
 import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
-import type { EinstellungEreignis } from '../core/policy/einstellung';
+import { aktuelleEinstellungen, type EinstellungEreignis } from '../core/policy/einstellung';
+import { fehlende, FORMAT, type SicherungsInhalt } from '../core/sicherung/sicherung';
 import type { BastionDatenbank } from './datenbank';
 
 export interface Installation {
@@ -146,4 +147,143 @@ export async function einstellung(
   schluessel: string,
 ): Promise<unknown> {
   return (await db.einstellungen.get([profil, schluessel]))?.wert;
+}
+
+/** Alle Einstellungs-Ereignisse eines Profils (z. B. für die PIN je Gerät, D-15). */
+export async function einstellungsEreignisse(
+  db: BastionDatenbank,
+  profil: string,
+): Promise<EinstellungEreignis[]> {
+  return db.einstellungen_ereignisse
+    .where('[profil+schluessel+ts]')
+    .between([profil, '', -Infinity], [profil, '￿', Infinity])
+    .toArray();
+}
+
+/** Projektion `einstellungen` aus allen Ereignissen neu aufbauen (§7.3: jüngste gilt). */
+async function einstellungenNeu(db: BastionDatenbank, profil: string): Promise<void> {
+  const aktuell = aktuelleEinstellungen(await einstellungsEreignisse(db, profil));
+  await db.einstellungen.where('[profil+schluessel]').between([profil, ''], [profil, '￿']).delete();
+  await db.einstellungen.bulkPut(
+    aktuell.map((e) => ({ profil: e.profil, schluessel: e.schluessel, wert: e.wert, ts: e.ts })),
+  );
+}
+
+/** Profil-Sicherung (DATENMODELL §7.1): nur Profil und Ereignisse, keine Projektionen. */
+export async function exportieren(db: BastionDatenbank, profil: string): Promise<SicherungsInhalt> {
+  return db.transaction('r', db.profile, db.aufgaben, db.einstellungen_ereignisse, async () => {
+    const p = await db.profile.get(profil);
+    return {
+      format: FORMAT,
+      profile: p ? [{ id: p.id, erstellt: p.erstellt }] : [],
+      ereignisse: [...(await aufgaben(db, profil)), ...(await einstellungsEreignisse(db, profil))],
+    };
+  });
+}
+
+export type ImportErgebnis =
+  | { readonly ok: true; readonly profil: string; readonly neu: number }
+  | { readonly ok: false; readonly grund: 'anderes-profil' };
+
+const LOKALE_SICHERUNGEN = 2;
+
+/**
+ * Sicherung einspielen (DATENMODELL §7.2): vorher automatisch lokal sichern,
+ * dann Ereignisse vereinigen (D-10) und Projektionen neu aufbauen.
+ *
+ * Bisher gibt es ein Profil je Gerät. Gehört die Sicherung zu einem anderen
+ * Profil, übernimmt sie das Gerät nur, wenn das vorhandene Profil noch leer ist
+ * (z. B. nach dem Zurücksetzen der App) – sonst ginge ein Lernstand verloren.
+ */
+export async function importieren(
+  db: BastionDatenbank,
+  inhalt: SicherungsInhalt,
+  profil: string,
+  jetzt: number,
+): Promise<ImportErgebnis> {
+  const ziel = inhalt.profile[0];
+  if (inhalt.profile.length !== 1 || !ziel) return { ok: false, grund: 'anderes-profil' };
+  const vorher = await exportieren(db, profil);
+  if (ziel.id !== profil && vorher.ereignisse.length > 0)
+    return { ok: false, grund: 'anderes-profil' };
+
+  return db.transaction(
+    'rw',
+    [
+      db.profile,
+      db.aufgaben,
+      db.einstellungen_ereignisse,
+      db.einstellungen,
+      db.kompetenzen,
+      db.karten,
+      db.sicherungen,
+    ],
+    async () => {
+      await db.sicherungen.put({
+        id: String(jetzt),
+        erstellt: jetzt,
+        anlass: 'import',
+        inhalt: vorher,
+      });
+      const alt = await db.sicherungen
+        .orderBy('erstellt')
+        .reverse()
+        .offset(LOKALE_SICHERUNGEN)
+        .primaryKeys();
+      await db.sicherungen.bulkDelete(alt);
+
+      if (ziel.id !== profil) await db.profile.delete(profil);
+      if (!(await db.profile.get(ziel.id))) await db.profile.put({ ...ziel });
+
+      const auf: AufgabeEreignis[] = [];
+      const ein: EinstellungEreignis[] = [];
+      for (const e of inhalt.ereignisse) {
+        if (e.art === 'aufgabe') auf.push(e);
+        else ein.push(e);
+      }
+      const neueAufgaben = fehlende(
+        new Set(
+          await db.aufgaben
+            .where('id')
+            .anyOf(auf.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        auf,
+      );
+      const neueEinstellungen = fehlende(
+        new Set(
+          await db.einstellungen_ereignisse
+            .where('id')
+            .anyOf(ein.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        ein,
+      );
+      await db.aufgaben.bulkAdd(neueAufgaben);
+      await db.einstellungen_ereignisse.bulkAdd(neueEinstellungen);
+      await neuBerechnen(db, ziel.id);
+      await einstellungenNeu(db, ziel.id);
+      return { ok: true, profil: ziel.id, neu: neueAufgaben.length + neueEinstellungen.length };
+    },
+  );
+}
+
+/** Zeitpunkt der letzten eigenen Sicherung (für die Erinnerung, ARCHITEKTUR §2). */
+export async function letzteSicherung(db: BastionDatenbank): Promise<number | undefined> {
+  const w = (await db.meta.get('letzteSicherung'))?.wert;
+  return w === undefined ? undefined : Number(w);
+}
+
+export async function sicherungVermerken(db: BastionDatenbank, jetzt: number): Promise<void> {
+  await db.meta.put({ schluessel: 'letzteSicherung', wert: String(jetzt) });
+}
+
+/** Zeitpunkt der ersten Aufgabe eines Profils. */
+export async function ersteAufgabe(
+  db: BastionDatenbank,
+  profil: string,
+): Promise<number | undefined> {
+  return (
+    await db.aufgaben.where('[profil+ts]').between([profil, -Infinity], [profil, Infinity]).first()
+  )?.ts;
 }

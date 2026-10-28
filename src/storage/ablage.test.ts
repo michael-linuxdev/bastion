@@ -5,7 +5,12 @@ import { quelleAusSeed } from '../core/rng/zufallsquelle';
 import {
   einrichten,
   einstellung,
+  ersteAufgabe,
+  exportieren,
+  importieren,
   karten,
+  letzteSicherung,
+  sicherungVermerken,
   kompetenzStaende,
   neuBerechnen,
   speichereAufgabe,
@@ -124,5 +129,78 @@ describe('Ablage', () => {
     await speichereEinstellung(db, e('alt', 2500)); // nachträglich eingespielt, älter
     expect(await einstellung(db, profil, 'eltern.pin')).toBe('b');
     expect(await db.einstellungen_ereignisse.count()).toBe(3);
+  });
+
+  it('Export und Import: Gerätewechsel, Zusammenführen ohne Doppelte (D-10)', async () => {
+    const alt = neueDb();
+    const { profil, geraet } = await einrichten(alt, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(9);
+    for (let i = 0; i < 6; i++)
+      await speichereAufgabe(
+        alt,
+        aufgabeEreignis(
+          angaben(profil, geraet, { vorlage: `M.ZO.NZ.RUNDEN.${i % 2}` }),
+          2000 + i,
+          60,
+          zufall,
+        ),
+      );
+    await speichereEinstellung(
+      alt,
+      einstellungEreignis(
+        { profil, geraet, schluessel: 'eltern.pin', wert: 'hash', durch: 'eltern' },
+        2500,
+        60,
+        zufall,
+      ),
+    );
+    const sicherung = await exportieren(alt, profil);
+    expect(sicherung.profile).toEqual([{ id: profil, erstellt: 1000 }]);
+    expect(sicherung.ereignisse).toHaveLength(7);
+    expect(await ersteAufgabe(alt, profil)).toBe(2000);
+
+    // Neues Gerät: eigenes, leeres Profil – die Sicherung übernimmt es
+    const neu = neueDb();
+    const inst = await einrichten(neu, 5000, quelleAusSeed(2));
+    expect(inst.profil).not.toBe(profil);
+    const r = await importieren(neu, sicherung, inst.profil, 6000);
+    expect(r).toEqual({ ok: true, profil, neu: 7 });
+    expect((await einrichten(neu, 7000, quelleAusSeed(3))).profil).toBe(profil);
+    expect(await kompetenzStaende(neu, profil)).toEqual(await kompetenzStaende(alt, profil));
+    expect(await karten(neu, profil)).toEqual(await karten(alt, profil));
+    expect(await einstellung(neu, profil, 'eltern.pin')).toBe('hash');
+
+    // Nochmal einspielen: nichts kommt doppelt
+    expect(await importieren(neu, sicherung, profil, 8000)).toEqual({ ok: true, profil, neu: 0 });
+    expect((await exportieren(neu, profil)).ereignisse).toHaveLength(7);
+    // Vor jedem Import eine lokale Sicherung, höchstens zwei bleiben (D-8)
+    expect(await neu.sicherungen.count()).toBe(2);
+  });
+
+  it('Import überschreibt keinen anderen Lernstand', async () => {
+    const a = neueDb();
+    const pa = await einrichten(a, 1000, quelleAusSeed(1));
+    await speichereAufgabe(
+      a,
+      aufgabeEreignis(angaben(pa.profil, pa.geraet, {}), 2000, 60, quelleAusSeed(4)),
+    );
+    const b = neueDb();
+    const pb = await einrichten(b, 1000, quelleAusSeed(2));
+    await speichereAufgabe(
+      b,
+      aufgabeEreignis(angaben(pb.profil, pb.geraet, {}), 2000, 60, quelleAusSeed(5)),
+    );
+    expect(await importieren(b, await exportieren(a, pa.profil), pb.profil, 3000)).toEqual({
+      ok: false,
+      grund: 'anderes-profil',
+    });
+    expect((await exportieren(b, pb.profil)).ereignisse).toHaveLength(1);
+  });
+
+  it('merkt sich die letzte Sicherung', async () => {
+    const db = neueDb();
+    expect(await letzteSicherung(db)).toBeUndefined();
+    await sicherungVermerken(db, 1234);
+    expect(await letzteSicherung(db)).toBe(1234);
   });
 });

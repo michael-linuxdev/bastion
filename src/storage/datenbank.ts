@@ -5,6 +5,7 @@ import type { AufgabeEreignis } from '../core/learning/ereignis';
 import type { KompetenzStand } from '../core/learning/fortschritt';
 import type { Karte } from '../core/srs/karten';
 import type { EinstellungEreignis } from '../core/policy/einstellung';
+import type { SicherungsInhalt } from '../core/sicherung/sicherung';
 
 export interface Profil {
   readonly id: string;
@@ -17,6 +18,14 @@ export interface Einstellung {
   readonly schluessel: string;
   readonly wert: unknown;
   readonly ts: number;
+}
+
+/** Automatische, lokale Sicherung vor Import oder Migration (D-8). */
+export interface LokaleSicherung {
+  readonly id: string;
+  readonly erstellt: number;
+  readonly anlass: 'import' | 'migration';
+  readonly inhalt: SicherungsInhalt;
 }
 
 export interface MetaEintrag {
@@ -32,6 +41,7 @@ export class BastionDatenbank extends Dexie {
   einstellungen_ereignisse!: Table<EinstellungEreignis, string>;
   einstellungen!: Table<Einstellung, [string, string]>;
   meta!: Table<MetaEintrag, string>;
+  sicherungen!: Table<LokaleSicherung, string>;
 
   constructor(name = 'bastion', optionen?: DexieOptions) {
     super(name, optionen);

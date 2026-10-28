@@ -364,6 +364,8 @@ Alle Ereignisse reisen in der Profil-Sicherung mit, auch die Elterneinstellungen
 
 Vor jedem Import wird automatisch eine Sicherung angelegt (wie D-8).
 
+*Umsetzung (1c):* `exportieren` und `importieren` in `src/storage/ablage.ts`. Die lokale Sicherung vor dem Import liegt in der Tabelle `sicherungen` (die letzten zwei bleiben). Bis es mehrere Profile gibt, gilt: Eine Sicherung eines **anderen** Profils übernimmt das Gerät nur, wenn das vorhandene Profil noch leer ist (z. B. nach dem Zurücksetzen der App); sonst lehnt die App ab, statt einen Lernstand zu verdrängen. Nach dem Import werden `kompetenzen`, `karten` und `einstellungen` aus den Ereignissen neu aufgebaut.
+
 ### 7.3 Zusammenführen
 
 **Entscheidung D-10: Zusammenführen ist die Vereinigung der Ereignismengen.** Ereignisse mit gleicher ID gelten als identisch. Danach werden alle Projektionen neu aufgebaut.
