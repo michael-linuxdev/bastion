@@ -1,0 +1,23 @@
+# Netz eines Dreiecksprismas erkennen. Entwurf: noch nicht geprüft.
+id: M.RF.KP.PRISMEN.NETZ
+kompetenz: M.RF.KP.PRISMEN
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: kp.prisma-netz@1
+parameter:
+  G: { figuren: 3 }
+  M: { figuren: 4 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche Figur ist ein [[Netz]] eines [[Prismas]] mit dreieckiger [[Grundfläche]]?'
+hilfen:
+  - de: 'Zähle: Das [[Prisma]] hat zwei Dreiecke und drei Rechtecke.'
+  - de: 'Falte in Gedanken: Die Dreiecke müssen am Ende oben und unten liegen.'
+fehlerbilder:
+  dreiecke-gleiche-seite:
+    de: 'Hier liegen beide Dreiecke oben. Beim Falten decken sie dieselbe Öffnung ab – unten bleibt das [[Prisma]] offen.'
+  falsche-anzahl-rechtecke:
+    de: 'Zähle die Rechtecke. Ein Dreieck hat drei Seiten, also braucht das [[Prisma]] genau drei Seitenflächen.'
+herkunft: ki-entwurf
+version: 1

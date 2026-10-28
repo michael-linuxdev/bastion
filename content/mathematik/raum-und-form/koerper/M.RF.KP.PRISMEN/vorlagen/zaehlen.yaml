@@ -1,0 +1,25 @@
+# Ecken, Kanten und Flächen eines Prismas zählen. Entwurf: noch nicht geprüft.
+id: M.RF.KP.PRISMEN.ZAEHLEN
+kompetenz: M.RF.KP.PRISMEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.prisma-zaehlen@1
+parameter:
+  G: { ecken_max: 6, kanten: false }
+  M: { ecken_max: 10, kanten: true }
+text:
+  aufgabe:
+    de: 'Ein gerades [[Prisma]] hat ein {grundflaeche} als [[Grundfläche]]. Wie viele {was} hat es?'
+hilfen:
+  - de: 'Ein [[Prisma]] hat zwei gleiche Flächen oben und unten: [[Grundfläche]] und [[Deckfläche]]. Dazwischen liegen Rechtecke.'
+  - de: 'Jede Ecke der [[Grundfläche]] hat eine Partnerecke in der [[Deckfläche]] und ist mit ihr durch eine Seitenkante verbunden.'
+fehlerbilder:
+  nur-grundflaeche:
+    de: 'Das ist nur die Zahl für die [[Grundfläche]]. Denk an die [[Deckfläche]] und die Seiten.'
+  deckel-vergessen:
+    de: 'Du hast eine Fläche vergessen. Zu den Seitenflächen gehören [[Grundfläche]] und [[Deckfläche]].'
+  seitenkanten-vergessen:
+    de: 'Du hast die Kanten von Grund- und [[Deckfläche]] gezählt. Es fehlen die Seitenkanten dazwischen.'
+herkunft: ki-entwurf
+version: 1

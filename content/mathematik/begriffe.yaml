@@ -598,3 +598,18 @@ begriffe:
     formen: [Diagonalen, Diagonale]
     erklaerung:
       de: 'Eine Strecke, die zwei Ecken verbindet, die nicht nebeneinanderliegen.'
+  - id: prisma
+    wort: { de: Prisma }
+    formen: [Prismas, Prismen, Prisma]
+    erklaerung:
+      de: 'Ein Körper mit zwei gleichen, parallelen Vielecken als Grund- und Deckfläche. Die Seitenflächen sind Rechtecke.'
+  - id: deckflaeche
+    wort: { de: Deckfläche }
+    formen: [Deckfläche]
+    erklaerung:
+      de: 'Die Fläche oben auf einem Prisma. Sie ist genauso groß wie die Grundfläche.'
+  - id: schraegbild
+    wort: { de: Schrägbild }
+    formen: [Schrägbild]
+    erklaerung:
+      de: 'Eine Zeichnung, die einen Körper räumlich zeigt. Die Kanten nach hinten werden schräg und verkürzt gezeichnet.'

@@ -1,0 +1,23 @@
+# Volumen eines geraden Prismas. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PRISMA.VOLUMEN
+kompetenz: M.GM.KP.PRISMA
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.prisma-volumen@1
+parameter:
+  G: { trapez: false, max: 10 }
+  M: { trapez: true, max: 20 }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** das [[Volumen]] in cm³.'
+hilfen:
+  - de: 'Berechne zuerst den [[Flächeninhalt]] der [[Grundfläche]].'
+  - de: '[[Volumen]] = [[Grundfläche]] · [[Höhe]] des [[Prismas]].'
+fehlerbilder:
+  grundflaeche-nicht-halbiert:
+    de: 'Bei der [[Grundfläche]] fehlt das Teilen durch 2. Dreieck und [[Trapez]] rechnest du mit „: 2“.'
+  nur-grundflaeche:
+    de: 'Das ist erst die [[Grundfläche]]. Multipliziere sie noch mit der [[Höhe]] des [[Prismas]].'
+herkunft: ki-entwurf
+version: 1

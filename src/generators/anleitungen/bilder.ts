@@ -330,3 +330,74 @@ export const mittelsenkrechte: AnleitungsBilder = {
     ];
   },
 };
+
+/** Schrägbild eines Dreiecksprismas (Kavalierperspektive: 45°, Tiefe halbiert) */
+export const schraegbildPrisma: AnleitungsBilder = {
+  id: 'anleitung.schraegbild-prisma',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const A: P = [60, 200];
+    const B: P = [180, 200];
+    const C: P = [120, 100];
+    // Tiefe 6 Kästchen → gezeichnet 3 Kästchendiagonalen nach rechts oben
+    const hinten = (p: P): P => [p[0] + 60, p[1] - 60];
+    const [A2, B2, C2] = [hinten(A), hinten(B), hinten(C)];
+    const strich = (p: P, q: P, art: 'normal' | 'dick' | 'verdeckt' = 'normal') =>
+      art === 'dick'
+        ? dick(p[0], p[1], q[0], q[1])
+        : art === 'verdeckt'
+          ? gestrichelt(p[0], p[1], q[0], q[1])
+          : linie(p[0], p[1], q[0], q[1]);
+    const grund = [
+      ...raster(0, 0, 20, 15, 12),
+      vieleck([A, B, C]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      punkt(C[0], C[1], 'C'),
+    ];
+    return [
+      bild(300, 240, grund, {
+        de: 'Auf Kästchenpapier ist vorne das Dreieck ABC in wahrer Größe gezeichnet.',
+      }),
+      bild(
+        300,
+        240,
+        [...grund, strich(A, A2, 'dick'), strich(B, B2, 'dick'), strich(C, C2, 'dick')],
+        {
+          de: 'Von A, B und C gehen schräge Linien nach rechts oben, jede drei Kästchendiagonalen lang.',
+        },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          strich(A, A2),
+          strich(B, B2),
+          strich(C, C2),
+          strich(A2, B2, 'dick'),
+          strich(B2, C2, 'dick'),
+          strich(C2, A2, 'dick'),
+        ],
+        { de: 'Die Endpunkte der schrägen Linien sind zum hinteren Dreieck verbunden.' },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          strich(B, B2),
+          strich(C, C2),
+          strich(B2, C2),
+          strich(A, A2, 'verdeckt'),
+          strich(A2, B2, 'verdeckt'),
+          strich(A2, C2, 'verdeckt'),
+        ],
+        {
+          de: 'Die drei Kanten an der hinteren Ecke unten links sind gestrichelt, weil sie verdeckt sind.',
+        },
+      ),
+    ];
+  },
+};

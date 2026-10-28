@@ -1,0 +1,18 @@
+# Schrägbild eines Prismas zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.PRISMEN.SCHRAEGBILD
+kompetenz: M.RF.KP.PRISMEN
+titel:
+  de: 'Ein [[Schrägbild]] eines [[Prismas]] zeichnen'
+material:
+  de: 'Kästchenpapier, spitzer Bleistift, Lineal'
+bilder: anleitung.schraegbild-prisma@1
+schritte:
+  - de: 'Zeichne die [[Grundfläche]] als vordere Fläche in wahrer Größe, hier das Dreieck ABC.'
+  - de: 'Zeichne von jeder Ecke eine schräge Linie nach rechts oben, entlang der Kästchendiagonalen. Sie ist halb so lang wie die [[Höhe]] des [[Prismas]]: Bei 6 cm Höhe gehst du 3 Kästchendiagonalen weit.'
+  - de: 'Verbinde die Endpunkte. So entsteht die hintere Fläche, genauso groß wie die vordere.'
+  - de: 'Zeichne die Kanten, die man nicht sehen kann, gestrichelt. Fertig ist das [[Schrägbild]].'
+pruefen:
+  - de: 'Sind alle schrägen Linien gleich lang und [[parallel]]?'
+  - de: Ist die hintere Fläche genauso groß wie die vordere?
+herkunft: ki-entwurf
+version: 1
