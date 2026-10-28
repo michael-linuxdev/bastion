@@ -6,7 +6,9 @@ import type { KompetenzStand } from '../../core/learning/fortschritt';
 import { ulid } from '../../core/rng/ulid';
 import type { ZufallsQuelle } from '../../core/rng/zufallsquelle';
 import { istFaellig, type Karte } from '../../core/srs/karten';
+import { gruppiere, offeneFehler, type Fehlergruppe } from '../../core/learning/werkstatt';
 import {
+  aufgaben,
   einrichten,
   karte,
   karten,
@@ -73,4 +75,12 @@ export async function zustand(): Promise<Zustand> {
     staende: new Map(liste.map((s) => [`${s.kompetenz}|${s.niveau}`, s])),
     karten: alleKarten,
   };
+}
+
+/** Offene Fehler, nach Ursache gruppiert (Fehlerwerkstatt). */
+export async function fehlergruppen(): Promise<Fehlergruppe[]> {
+  const inst = await bereit();
+  if (!inst) return [];
+  const alle = await aufgaben(db, inst.profil).catch(() => []);
+  return gruppiere(offeneFehler(alle));
 }

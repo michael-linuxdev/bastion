@@ -158,7 +158,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1b – Wiederholung und Fehlerwerkstatt**
 5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus – *Wiederholungsmodus steht: FSRS-Karten je Vorlage und Niveau (ts-fsrs 5.4.2), fällige Aufgaben über „Wiederholen“, Status bis „gefestigt“ und „auffrischen“. Offen: Rückkehrmodus*
-6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“)
+6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“) – *steht: offene Fehler nach Ursache gruppiert (Fehlerbild, sonst je Kompetenz), genau die damalige Aufgabe mit der damaligen Antwort, erledigt nach richtiger Korrektur. Offen: Belohnung fürs Korrigieren (R6) kommt mit dem Basebau-Ledger*
 
 **1c – Diagnose und sichtbarer Fortschritt**
 7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform)
@@ -204,3 +204,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | Erste Übungsseite: Inhaltspakete aus `content/`, Auswertung (I-5, Bruchformen, Fehlerbilder), Vorlagentexte mit Formel-Teilmenge, Übersicht nach Graph, Übung mit Hilfen und Lösungsweg; E2E-Test offline |
 | 28.10.2026 | PR #3 gemergt. Ergebnisse speichern: Ereignis `aufgabe`, Projektion `kompetenzen` (neu, in Arbeit, gekonnt) mit Pflicht-Test D-6, Ablage mit Dexie 4.4.6 (freigegeben), Status in der Übersicht |
 | 28.10.2026 | PR #4 gemergt. Wiederholung mit FSRS: Karten, „gefestigt“, „auffrischen“, Wiederholen-Knopf mit fälligen Aufgaben; ts-fsrs 5.4.2 (freigegeben) |
+| 28.10.2026 | PR #5 gemergt (Wiederholung). Fehlerwerkstatt: offene Fehler nach Ursache, Aufarbeiten der damaligen Aufgabe, Ereignisfeld `korrigiert` |

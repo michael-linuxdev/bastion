@@ -24,7 +24,7 @@
   "bereich.groessen-und-messen": "Größen und Messen",
   "bereich.raum-und-form": "Raum und Form",
   "bereich.daten-und-zufall": "Daten",
-  "uebung.zurueck": "Zurück zur Übersicht",
+  "uebung.zurueck": "Zurück",
   "uebung.pruefen": "Prüfen",
   "uebung.weiter": "Nächste Aufgabe",
   "uebung.hilfe": "Hilfe",
@@ -65,5 +65,16 @@
   "wiederholen.eine": "1 Aufgabe ist zum Wiederholen dran.",
   "wiederholen.mehrere": "Aufgaben sind zum Wiederholen dran.",
   "wiederholen.keine": "Gerade ist nichts zum Wiederholen dran. Was du übst, kommt hier wieder, kurz bevor du es vergessen würdest.",
-  "wiederholen.fertig": "Alles wiederholt, was heute dran war. Gut gemacht – jetzt ist ein guter Moment für eine Pause."
+  "wiederholen.fertig": "Alles wiederholt, was heute dran war. Gut gemacht – jetzt ist ein guter Moment für eine Pause.",
+  "werkstatt.knopf": "Fehlerwerkstatt",
+  "werkstatt.ueberschrift": "Fehlerwerkstatt",
+  "werkstatt.einleitung": "Hier liegen Aufgaben, die noch nicht geklappt haben – sortiert nach dem, was dabei schiefging. Fehler sind zum Lernen da: Schau dir an, woran es lag, und probier es noch einmal.",
+  "werkstatt.ohne-muster": "Fehler ohne bekanntes Muster",
+  "werkstatt.mal": "mal",
+  "werkstatt.aufarbeiten": "Aufarbeiten",
+  "werkstatt.leer": "Keine offenen Fehler. Alles, was schiefging, hast du schon aufgearbeitet.",
+  "werkstatt.damals": "Deine Antwort damals:",
+  "werkstatt.fertig": "Diese Fehler hast du aufgearbeitet. Gut gemacht!",
+  "werkstatt.offen-eins": "1 Fehler wartet in der Fehlerwerkstatt.",
+  "werkstatt.offen-mehrere": "Fehler warten in der Fehlerwerkstatt."
 }

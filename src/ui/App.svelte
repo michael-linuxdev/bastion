@@ -2,7 +2,9 @@
   import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
   import { istFaellig } from '../core/srs/karten';
+  import type { Fehlergruppe } from '../core/learning/werkstatt';
   import {
+    fehlergruppen,
     merke,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -14,9 +16,15 @@
   import type { Auftrag } from './ueben/auftrag';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
+  import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
 
-  let ansicht = $state<'start' | 'uebersicht' | 'uebung' | 'wiederholen'>('start');
+  let ansicht = $state<
+    'start' | 'uebersicht' | 'uebung' | 'wiederholen' | 'werkstatt' | 'werkstatt-uebung'
+  >('start');
+  let gruppen = $state<readonly Fehlergruppe[]>([]);
+  /** Aufträge der gerade aufgearbeiteten Fehlergruppe. */
+  let werkstattListe = $state<readonly Auftrag[]>([]);
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
   let niveau = $state<Niveau>('G');
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
@@ -31,6 +39,40 @@
     zustand = await ladeZustand();
     const jetzt = Date.now();
     faellig = zustand.karten.filter((k) => istFaellig(k, jetzt)).length;
+    gruppen = await fehlergruppen();
+  }
+
+  const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
+
+  function werkstatt() {
+    inhalte ??= ladeInhalte();
+    ansicht = 'werkstatt';
+    void aktualisiere();
+  }
+
+  /** Genau die damaligen Aufgaben – nur, wenn der Generator noch dieselbe Version hat. */
+  function aufarbeiten(geladen: Inhalte, g: Fehlergruppe) {
+    const vorlagen = new Map(geladen.vorlagen.map((v) => [v.id, v]));
+    const kompetenz = geladen.kompetenzen.find((k) => k.id === g.kompetenz);
+    werkstattListe = g.fehler.flatMap((e) => {
+      const vorlage = vorlagen.get(e.vorlage);
+      return kompetenz &&
+        vorlage &&
+        vorlage.generator === `${e.quelle.generator}@${e.quelle.version}` &&
+        e.schnappschuss
+        ? [
+            {
+              kompetenz,
+              vorlage,
+              niveau: e.niveau,
+              seed: e.quelle.seed,
+              korrigiert: e.id,
+              frueher: e.schnappschuss.antwort,
+            },
+          ]
+        : [];
+    });
+    ansicht = 'werkstatt-uebung';
   }
   void aktualisiere();
 
@@ -84,10 +126,20 @@
       {#if faellig > 0}
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
       {/if}
+      {#if offeneFehler > 0}
+        <button class="zweit" onclick={werkstatt}>{t('werkstatt.knopf')}</button>
+      {/if}
     </p>
     {#if faellig > 0}
       <p class="hinweis">
         {faellig === 1 ? t('wiederholen.eine') : `${faellig} ${t('wiederholen.mehrere')}`}
+      </p>
+    {/if}
+    {#if offeneFehler > 0}
+      <p class="hinweis">
+        {offeneFehler === 1
+          ? t('werkstatt.offen-eins')
+          : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}
       </p>
     {/if}
     <p class="versprechen">{t('start.versprechen')}</p>
@@ -98,7 +150,27 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'wiederholen'}
+      {#if ansicht === 'werkstatt'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <Werkstatt
+          {gruppen}
+          vorlagen={new Map(geladen.vorlagen.map((v) => [v.id, v]))}
+          kompetenzen={new Map(geladen.kompetenzen.map((k) => [k.id, k]))}
+          onaufarbeiten={(g) => aufarbeiten(geladen, g)}
+        />
+      {:else if ansicht === 'werkstatt-uebung'}
+        <Uebung
+          ueberschrift={t('werkstatt.ueberschrift')}
+          auftrag={(i) => werkstattListe[i]}
+          modus="fehlerwerkstatt"
+          paketVon={geladen.paketVon}
+          onzurueck={() => {
+            ansicht = 'werkstatt';
+            void aktualisiere();
+          }}
+          onergebnis={(d) => void ergebnis(d)}
+        />
+      {:else if ansicht === 'wiederholen'}
         <Uebung
           ueberschrift={t('wiederholen.ueberschrift')}
           auftrag={(i) => wiederholListe[i]}
@@ -186,6 +258,16 @@
     border: 2px solid var(--farbe-akzent);
     background: transparent;
     color: var(--farbe-text);
+  }
+
+  .zurueck {
+    font: inherit;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
+    padding-inline: 0;
+    min-block-size: 2.75rem;
   }
 
   .hinweis {
