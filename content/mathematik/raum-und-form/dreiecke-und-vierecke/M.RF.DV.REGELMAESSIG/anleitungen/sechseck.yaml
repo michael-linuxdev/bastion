@@ -1,0 +1,18 @@
+# Regelmäßiges Sechseck mit dem Umkreis konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.DV.REGELMAESSIG.SECHSECK
+kompetenz: M.RF.DV.REGELMAESSIG
+titel:
+  de: 'Ein regelmäßiges Sechseck konstruieren'
+material:
+  de: 'Papier, spitzer Bleistift, [[Zirkel]], Lineal'
+bilder: anleitung.sechseck-umkreis@1
+schritte:
+  - de: 'Zeichne mit dem [[Zirkel]] einen Kreis um den Mittelpunkt M. Er wird der [[Umkreis]] des Sechsecks.'
+  - de: 'Markiere einen Punkt A auf dem Kreis.'
+  - de: 'Lass den [[Zirkel]] auf den [[Radius]] eingestellt. Stich in A ein und markiere den nächsten Punkt B auf dem Kreis. Stich in B ein und so weiter – nach sechs Schritten bist du wieder bei A.'
+  - de: 'Verbinde die sechs Punkte der Reihe nach. Fertig ist das regelmäßige Sechseck.'
+pruefen:
+  - de: 'Sind alle sechs Seiten gleich lang, so lang wie der [[Radius]]?'
+  - de: 'Kommst du nach sechs Schritten genau wieder bei A an?'
+herkunft: ki-entwurf
+version: 1

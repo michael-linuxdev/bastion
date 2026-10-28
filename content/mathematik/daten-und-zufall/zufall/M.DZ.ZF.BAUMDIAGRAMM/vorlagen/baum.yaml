@@ -1,0 +1,25 @@
+# Wahrscheinlichkeit am Baumdiagramm. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BAUMDIAGRAMM.BAUM
+kompetenz: M.DZ.ZF.BAUMDIAGRAMM
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: zf.baum-ablesen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+antwort:
+  form: beliebig
+text:
+  aufgabe:
+    de: '**Gib** die [[Wahrscheinlichkeit]] als [[Bruch]] **an**: {frage}'
+hilfen:
+  - de: '[[Produktregel]]: Nimm die Wahrscheinlichkeiten entlang des [[Pfades]] mal.'
+  - de: '[[Summenregel]]: Gehören mehrere [[Pfade]] dazu, addiere ihre Wahrscheinlichkeiten.'
+fehlerbilder:
+  addiert-statt-mal:
+    de: 'Entlang eines [[Pfades]] wird malgenommen, nicht addiert.'
+  nur-ein-pfad:
+    de: 'Genau ein Treffer geht auf zwei Wegen: T dann N, oder N dann T. Addiere beide [[Pfade]].'
+herkunft: ki-entwurf
+version: 1

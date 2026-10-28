@@ -1,0 +1,29 @@
+# Möglichkeiten zählen. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.ZAEHLEN.ANZAHL
+kompetenz: M.DZ.ZF.ZAEHLEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zf.zaehlen@1
+parameter:
+  G: { anordnung: false }
+  M: { anordnung: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Wie viele Möglichkeiten gibt es auf jeder Stufe? Nimm diese Zahlen mal ([[Produktregel]]).'
+  - de: 'Ohne Wiederholung wird es mit jeder Stufe eine Möglichkeit weniger: 5 · 4 · 3 …'
+fehlerbilder:
+  addiert:
+    de: 'Die Möglichkeiten der Stufen werden malgenommen, nicht addiert. Zu jedem T-Shirt passt jede Hose.'
+  stufe-vergessen:
+    de: 'Eine Stufe fehlt. Nimm die Anzahlen aller Stufen mal.'
+  n-mal-n:
+    de: 'Für den ersten Platz gibt es n Möglichkeiten, für den zweiten nur noch n − 1 und so weiter.'
+  ohne-statt-mit:
+    de: 'Beim Zahlenschloss darf sich eine [[Ziffer]] wiederholen. Jeder Ring hat alle Ziffern zur Auswahl.'
+  mit-statt-ohne:
+    de: 'Wer schon einen Platz hat, kann keinen zweiten bekommen. Mit jedem Platz gibt es eine Möglichkeit weniger.'
+herkunft: ki-entwurf
+version: 1

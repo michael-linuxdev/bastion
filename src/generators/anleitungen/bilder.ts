@@ -667,3 +667,43 @@ export const zentrischeStreckung: AnleitungsBilder = {
     ];
   },
 };
+
+/** Regelmäßiges Sechseck mit dem Umkreis konstruieren */
+export const sechseckUmkreis: AnleitungsBilder = {
+  id: 'anleitung.sechseck-umkreis',
+  version: 1,
+  bilder: () => {
+    const m = 130;
+    const rr = 80;
+    const ecke = (k: number) =>
+      [
+        m + rr * Math.cos((Math.PI / 3) * k - Math.PI / 2),
+        m + rr * Math.sin((Math.PI / 3) * k - Math.PI / 2),
+      ] as const;
+    const ecken = Array.from({ length: 6 }, (_, k) => ecke(k));
+    const umkreis = [kreis(m, m, rr), punkt(m, m, 'M')];
+    const start = [...umkreis, punkt(ecken[0]?.[0] ?? 0, ecken[0]?.[1] ?? 0, 'A')];
+    const markiert = [
+      ...umkreis,
+      ...ecken.map(([x, y], k) => punkt(x, y, 'ABCDEF'[k] ?? '')),
+      ...ecken.slice(1).map(([x, y]) => kreis(x, y, 10)),
+    ];
+    return [
+      bild(260, 260, umkreis, {
+        de: 'Ein Kreis um den Mittelpunkt M – der Umkreis des Sechsecks.',
+      }),
+      bild(260, 260, start, { de: 'Oben auf dem Kreis ist der erste Eckpunkt A markiert.' }),
+      bild(260, 260, markiert, {
+        de: 'Mit dem Zirkel, auf den Radius eingestellt, sind von A aus nacheinander die Punkte B bis F auf dem Kreis abgetragen. Nach sechs Schritten ist man wieder bei A.',
+      }),
+      bild(
+        260,
+        260,
+        [...umkreis, ...ecken.map(([x, y], k) => punkt(x, y, 'ABCDEF'[k] ?? '')), vieleck(ecken)],
+        {
+          de: 'Die sechs Punkte sind der Reihe nach verbunden: ein regelmäßiges Sechseck.',
+        },
+      ),
+    ];
+  },
+};

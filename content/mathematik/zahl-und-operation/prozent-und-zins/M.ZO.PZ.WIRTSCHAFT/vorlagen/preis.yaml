@@ -1,0 +1,27 @@
+# Rabatt, Skonto, Mehrwertsteuer. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.WIRTSCHAFT.PREIS
+kompetenz: M.ZO.PZ.WIRTSCHAFT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.rabatt-skonto@1
+parameter:
+  G: { mehrstufig: false }
+  M: { mehrstufig: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: '[[Rabatt]] und [[Skonto]] werden abgezogen, die [[Mehrwertsteuer]] kommt dazu.'
+  - de: 'Mehrere Nachlässe nacheinander: Der zweite wird vom neuen Preis berechnet. Brutto ist 119 % vom Netto.'
+fehlerbilder:
+  nur-prozentwert:
+    de: 'Das ist nur der Nachlass oder die Steuer selbst. Gefragt ist der Preis danach.'
+  aufgeschlagen:
+    de: 'Ein Nachlass wird abgezogen, nicht dazugerechnet.'
+  prozente-addiert:
+    de: 'Das zweite [[Prozent]] bezieht sich auf den neuen Preis. Rechne nacheinander, nicht beide Prozente zusammen.'
+  mwst-abgezogen:
+    de: 'Die [[Mehrwertsteuer]] kommt dazu. Und vom Brutto zurück zum Netto teilst du durch 1,19 – 19 % abziehen ist zu viel.'
+herkunft: ki-entwurf
+version: 1

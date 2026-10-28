@@ -1,0 +1,25 @@
+# Innenwinkel und Innenwinkelsumme. Entwurf: noch nicht geprüft.
+id: M.RF.DV.REGELMAESSIG.INNENWINKEL
+kompetenz: M.RF.DV.REGELMAESSIG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: dv.innenwinkel-vieleck@1
+parameter:
+  G: { einzeln: false }
+  M: { einzeln: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Ein n-Eck lässt sich in n − 2 Dreiecke zerlegen. [[Innenwinkelsumme]]: (n − 2) · 180°.'
+  - de: 'Im regelmäßigen n-Eck sind alle [[Innenwinkel]] gleich: [[Summe]] : n. Innenwinkel und [[Mittelpunktswinkel]] ergeben zusammen 180°.'
+fehlerbilder:
+  n-mal-180:
+    de: 'Es sind nicht n Dreiecke, sondern n − 2.'
+  mittelpunktswinkel:
+    de: 'Das ist der [[Mittelpunktswinkel]] (360° : n). Der [[Innenwinkel]] ist 180° minus Mittelpunktswinkel.'
+  summe-statt-einzeln:
+    de: 'Das ist die [[Summe]] aller [[Innenwinkel]]. Teile noch durch die Zahl der Ecken.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+# Ereignisse verknüpfen als Menge. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.EREIGNISSE.MENGE
+kompetenz: M.DZ.ZF.EREIGNISSE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zf.verknuepfen@1
+parameter:
+  G: { zwei: false }
+  M: { zwei: true }
+text:
+  aufgabe:
+    de: '{versuch} **Wähle** die Menge **aus** für {gefragt}.'
+hilfen:
+  - de: 'Schreibe zuerst A (und B) als Menge auf.'
+  - de: '„A und B“: in beiden Mengen. „A oder B“: in mindestens einer. „Nicht A“: alle anderen Ergebnisse.'
+fehlerbilder:
+  und-oder-verwechselt:
+    de: 'Prüfe das Verbindungswort: Bei „und“ muss eine Zahl in beiden Mengen stehen, bei „oder“ reicht eine.'
+  gegenereignis-verwechselt:
+    de: 'Das passt nicht: Das [[Gegenereignis]] enthält genau die Ergebnisse, die nicht dazugehören – nicht mehr und nicht weniger.'
+  ereignis-selbst:
+    de: 'Das ist A selbst. Gefragt ist eine andere Menge.'
+herkunft: ki-entwurf
+version: 1

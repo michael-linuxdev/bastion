@@ -1,0 +1,22 @@
+# Rechnung prüfen. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.WIRTSCHAFT.RECHNUNG
+kompetenz: M.ZO.PZ.WIRTSCHAFT
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pz.rechnung-pruefen@1
+parameter:
+  G: { zeile: false }
+  M: { zeile: true }
+text:
+  aufgabe:
+    de: '**Prüfe** die Rechnung: {rechnung}'
+hilfen:
+  - de: 'Rechne Zeile für Zeile nach: [[Rabatt]] vom Preis, Zwischensumme, 19 % [[Mehrwertsteuer]] davon, Endbetrag.'
+fehlerbilder:
+  fehler-uebersehen:
+    de: 'Rechne den Endbetrag nach: Zwischensumme plus [[Mehrwertsteuer]].'
+  richtiges-bemaengelt:
+    de: 'Diese Zeile stimmt. Rechne jede Zeile mit den Werten darüber nach.'
+herkunft: ki-entwurf
+version: 1

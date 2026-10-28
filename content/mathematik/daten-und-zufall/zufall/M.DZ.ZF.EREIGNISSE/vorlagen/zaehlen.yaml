@@ -1,0 +1,23 @@
+# Ergebnisse zu verknüpften Ereignissen zählen. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.EREIGNISSE.ZAEHLEN
+kompetenz: M.DZ.ZF.EREIGNISSE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zf.verknuepfen-zaehlen@1
+parameter:
+  G: { zwei: false }
+  M: { zwei: true }
+text:
+  aufgabe:
+    de: '{versuch} **Gib an**, wie viele Ergebnisse {gefragt} gehören.'
+hilfen:
+  - de: 'Schreibe die Mengen auf und zähle.'
+  - de: 'Bei „A oder B“ zählen Zahlen, die in beiden Mengen stehen, nur einmal.'
+fehlerbilder:
+  doppelt-gezaehlt:
+    de: 'Du hast Zahlen, die zu A und zu B gehören, doppelt gezählt.'
+  ereignis-statt-gegenereignis:
+    de: 'Das ist die Zahl der Ergebnisse von A. Das [[Gegenereignis]] enthält die übrigen.'
+herkunft: ki-entwurf
+version: 1
