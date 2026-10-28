@@ -11,7 +11,13 @@
 import type { AufgabeEreignis } from '../learning/ereignis';
 import type { KompetenzStand } from '../learning/fortschritt';
 import type { SitzungEreignis } from '../learning/sitzung';
-import { alleSitzungsBuchungen, koennenBuchungen, type Buchung, type Ressource } from './regeln';
+import {
+  alleSitzungsBuchungen,
+  koennenBuchungen,
+  startpaketBuchungen,
+  type Buchung,
+  type Ressource,
+} from './regeln';
 
 /** Schemaversion der Ereignisart `buchung` (DATENMODELL §6.2). */
 export const BUCHUNG_V = 1;
@@ -55,9 +61,16 @@ export function fehlendeBuchungen(
       return id.startsWith(vorne) ? [id.slice(vorne.length)] : [];
     }),
   );
+  const vorneStart = `${k.profil}.fleiss.startpaket:`;
+  const schonStartpaket = new Set(
+    [...vorhanden].flatMap((id) =>
+      id.startsWith(vorneStart) ? [id.slice(vorneStart.length)] : [],
+    ),
+  );
   const alle: Buchung[] = [
     ...alleSitzungsBuchungen(sitzungen, aufgaben),
     ...koennenBuchungen(staende, schonBauplaene),
+    ...startpaketBuchungen(aufgaben, staende, schonStartpaket),
   ];
   return alle
     .map((b) => ({

@@ -856,3 +856,21 @@ test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)'
   await pm.click();
   await expect(feld).toHaveValue('5');
 });
+
+test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Dein Hinterhof: was du sicher kannst' }),
+  ).toBeVisible();
+  const feld = page.locator('.hinterhof summary').filter({ hasText: 'Natürliche Zahlen' });
+  await expect(feld).toContainText(/0 von \d+/);
+  await feld.click();
+  await expect(
+    page
+      .locator('.hinterhof li')
+      .filter({ hasText: /noch offen/ })
+      .first(),
+  ).toBeVisible();
+  await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
+});

@@ -959,3 +959,59 @@ begriffe:
     formen: [Hauptähnlichkeitssatz]
     erklaerung:
       de: 'Zwei Dreiecke sind ähnlich, wenn sie in zwei Winkeln übereinstimmen. Der dritte Winkel ist dann von selbst gleich.'
+  # Klasse 8: Zufall, Prozente, Vielecke
+  - id: gegenereignis
+    wort: { de: Gegenereignis }
+    formen: [Gegenereignis]
+    erklaerung:
+      de: 'Alle Ergebnisse, die nicht zum Ereignis gehören. Gegenereignis von „gerade Zahl“ beim Würfel ist {1; 3; 5}.'
+  - id: baumdiagramm
+    wort: { de: Baumdiagramm }
+    formen: [Baumdiagramm]
+    erklaerung:
+      de: 'Ein Bild für mehrstufige Zufallsversuche: Jede Stufe verzweigt sich in Äste, an jedem Ast steht seine Wahrscheinlichkeit.'
+  - id: pfad
+    wort: { de: Pfad }
+    formen: [Pfad, Pfades, Pfade]
+    erklaerung:
+      de: 'Ein Weg im Baumdiagramm vom Anfang bis zu einem Ende, also ein mögliches Gesamtergebnis.'
+  - id: produktregel
+    wort: { de: Produktregel }
+    formen: [Produktregel]
+    erklaerung:
+      de: 'Die Wahrscheinlichkeiten entlang eines Pfades werden malgenommen. Beim Zählen: Die Anzahlen der Stufen werden malgenommen.'
+  - id: summenregel
+    wort: { de: Summenregel }
+    formen: [Summenregel]
+    erklaerung:
+      de: 'Gehören mehrere Pfade zu einem Ereignis, werden ihre Wahrscheinlichkeiten addiert.'
+  - id: rabatt
+    wort: { de: Rabatt }
+    formen: [Rabatt]
+    erklaerung:
+      de: 'Ein Preisnachlass, meist in Prozent: 20 % Rabatt heißt, man zahlt 20 % weniger.'
+  - id: skonto
+    wort: { de: Skonto }
+    formen: [Skonto]
+    erklaerung:
+      de: 'Ein kleiner Nachlass, meist 2 % oder 3 %, wenn man eine Rechnung schnell bezahlt.'
+  - id: mehrwertsteuer
+    wort: { de: Mehrwertsteuer }
+    formen: [Mehrwertsteuer]
+    erklaerung:
+      de: 'Eine Steuer, die auf den Preis aufgeschlagen wird, in Deutschland meist 19 %. Netto ist der Preis ohne, brutto der Preis mit Mehrwertsteuer.'
+  - id: ratenkauf
+    wort: { de: Ratenkauf }
+    formen: [Ratenkauf, Raten]
+    erklaerung:
+      de: 'Man bezahlt nicht alles auf einmal, sondern in festen Teilbeträgen, den Raten. Meist kostet das zusammen mehr als die Barzahlung.'
+  - id: regelmaessiges-vieleck
+    wort: { de: regelmäßiges Vieleck }
+    formen: [regelmäßiges Vieleck, regelmäßigen Vieleck, regelmäßiger n-Ecke]
+    erklaerung:
+      de: 'Ein Vieleck, bei dem alle Seiten gleich lang und alle Winkel gleich groß sind – zum Beispiel ein Quadrat oder ein regelmäßiges Sechseck.'
+  - id: innenwinkelsumme
+    wort: { de: Innenwinkelsumme }
+    formen: [Innenwinkelsumme]
+    erklaerung:
+      de: 'Alle Innenwinkel eines Vielecks zusammen. Beim n-Eck sind es (n − 2) · 180°.'

@@ -1,0 +1,27 @@
+# Zweimal aus der Urne ziehen. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BAUMDIAGRAMM.URNE
+kompetenz: M.DZ.ZF.BAUMDIAGRAMM
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: zf.pfadregel@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+antwort:
+  form: beliebig
+text:
+  aufgabe:
+    de: '**Gib** die [[Wahrscheinlichkeit]] als [[Bruch]] **an**: {aufgabe}'
+hilfen:
+  - de: 'Zeichne ein [[Baumdiagramm]] mit zwei Stufen. Entlang eines [[Pfades]] wird malgenommen ([[Produktregel]]).'
+  - de: 'Ohne Zurücklegen fehlt beim zweiten Zug eine Kugel. Passen mehrere [[Pfade]], addiere sie ([[Summenregel]]).'
+fehlerbilder:
+  addiert-statt-mal:
+    de: 'Entlang eines [[Pfades]] werden die Wahrscheinlichkeiten malgenommen, nicht addiert.'
+  mit-zuruecklegen:
+    de: 'Ohne Zurücklegen liegt beim zweiten Zug eine Kugel weniger in der Urne – [[Zähler]] und [[Nenner]] ändern sich.'
+  nur-ein-pfad:
+    de: 'Zwei [[Pfade]] passen: erst Rot, dann Blau – und erst Blau, dann Rot. Addiere beide.'
+herkunft: ki-entwurf
+version: 1

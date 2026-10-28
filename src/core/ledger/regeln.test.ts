@@ -7,7 +7,10 @@ import {
   alleSitzungsBuchungen,
   koennenBuchungen,
   ERTRAG,
+  REGEL,
   fleissBis,
+  STARTPAKET,
+  startpaketBuchungen,
   summe,
   type Buchung,
 } from './regeln';
@@ -220,7 +223,7 @@ describe('Grundregeln (BASEBAU §3.5, B-4)', () => {
   it('keine Buchungen über null und nie negative Mengen', () => {
     const b = buche([...reihe(3, { sitzung: 'N' }), falsch({ sitzung: 'N', dauerMs: 100 })]);
     expect(b.map((x) => x.ressource)).toEqual(['fleiss']);
-    expect(b.every((x) => x.menge > 0 && x.regel === 1 && x.bezug === 'N')).toBe(true);
+    expect(b.every((x) => x.menge > 0 && x.regel === REGEL && x.bezug === 'N')).toBe(true);
   });
 });
 
@@ -249,5 +252,41 @@ describe('Baupläne (BASEBAU §3.3)', () => {
       ['K1@M', '2026-11-09', 1, 'kompetenz-gefestigt'],
     ]);
     expect(koennenBuchungen(staende, new Set(erst.map((b) => b.bezug)))).toEqual([]);
+  });
+});
+
+describe('Startpaket (B-24)', () => {
+  const gekonnt = (e: AufgabeEreignis): KompetenzStand => ({
+    profil: 'P',
+    kompetenz: e.kompetenz,
+    niveau: e.niveau,
+    status: 'gekonnt',
+    gekonntAm: e.tag,
+    gekonntTs: e.ts,
+    aufgaben: 2,
+    letzte: [],
+  });
+
+  it('gibt es nur, wenn das erste „gekonnt“ aus der Diagnose kam – einmal je Kompetenz', () => {
+    const d1 = aufgabe({ modus: 'diagnose', kompetenz: 'K1', bewertung: null, tag: '2026-11-02' });
+    const d2 = aufgabe({ modus: 'diagnose', kompetenz: 'K1', niveau: 'M', bewertung: null });
+    const u = aufgabe({ modus: 'ueben', kompetenz: 'K2' });
+    const b = startpaketBuchungen([d1, d2, u], [gekonnt(d1), gekonnt(d2), gekonnt(u)], new Set());
+    expect(b.map((x) => [x.ressource, x.menge, x.grund, x.bezug, x.tag])).toEqual([
+      ['fleiss', STARTPAKET.fleiss, 'startpaket', 'startpaket:K1', '2026-11-02'],
+      ['schritt', STARTPAKET.schritt, 'startpaket', 'startpaket:K1', '2026-11-02'],
+    ]);
+    expect(startpaketBuchungen([d1, d2, u], [gekonnt(d1)], new Set(['K1']))).toEqual([]);
+  });
+
+  it('höchstens für STARTPAKET.hoechstens Kompetenzen, die frühesten zuerst', () => {
+    const d = Array.from({ length: STARTPAKET.hoechstens + 5 }, (_, i) =>
+      aufgabe({ modus: 'diagnose', kompetenz: `K${i}`, bewertung: null }),
+    );
+    const b = startpaketBuchungen(d, d.map(gekonnt), new Set(['X1', 'X2']));
+    const themen = new Set(b.map((x) => x.bezug));
+    expect(themen.size).toBe(STARTPAKET.hoechstens - 2);
+    expect(themen.has('startpaket:K0')).toBe(true);
+    expect(themen.has(`startpaket:K${STARTPAKET.hoechstens + 4}`)).toBe(false);
   });
 });

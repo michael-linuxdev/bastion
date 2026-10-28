@@ -40,6 +40,7 @@
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import BastionAnsicht from './bastion/Bastion.svelte';
+  import Hinterhof from './bastion/Hinterhof.svelte';
   import { aktiv, tt } from './bastion/thema.svelte';
 
   let ansicht = $state<
@@ -289,6 +290,12 @@
       {#if ansicht === 'bastion'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <BastionAnsicht kompetenzen={geladen.kompetenzen} />
+        <Hinterhof
+          kompetenzen={geladen.kompetenzen}
+          staende={[...zustand.staende.values()]}
+          aufgaben={aufgabenListe}
+          {klasse}
+        />
       {:else if ansicht === 'anleitung' && anleitung}
         <AnleitungAnsicht {anleitung} onzurueck={() => (ansicht = 'uebung')} />
       {:else if ansicht === 'abschluss'}

@@ -1,0 +1,28 @@
+# Passende Rechnung zum Zählen wählen. Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.ZAEHLEN.RECHNUNG
+kompetenz: M.DZ.ZF.ZAEHLEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: zf.zaehlen-rechnung@1
+parameter:
+  G: { anordnung: false }
+  M: { anordnung: true }
+text:
+  aufgabe:
+    de: '**Wähle** die passende Rechnung **aus**: {aufgabe}'
+hilfen:
+  - de: 'Zähle für jede Stufe, wie viele Möglichkeiten es gibt. Diese Zahlen werden malgenommen.'
+fehlerbilder:
+  addiert:
+    de: 'Die Möglichkeiten der Stufen werden malgenommen, nicht addiert.'
+  stufe-vergessen:
+    de: 'Hier fehlt eine Stufe.'
+  n-mal-n:
+    de: 'Für jeden weiteren Platz gibt es eine Möglichkeit weniger.'
+  ohne-statt-mit:
+    de: 'Beim Zahlenschloss darf sich eine [[Ziffer]] wiederholen.'
+  mit-statt-ohne:
+    de: 'Ein Platz kann nur einmal vergeben werden – es gibt jedes Mal eine Möglichkeit weniger.'
+herkunft: ki-entwurf
+version: 1

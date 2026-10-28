@@ -1,0 +1,23 @@
+# Angebote vergleichen. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.ANGEBOTE.VERGLEICH
+kompetenz: M.ZO.PZ.ANGEBOTE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pz.angebot-vergleich@1
+parameter:
+  G: { raten: false }
+  M: { raten: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welches Angebot ist günstiger? {angebote}'
+hilfen:
+  - de: 'Rechne für jedes Angebot aus, was du insgesamt bezahlst.'
+  - de: 'Beim [[Ratenkauf]]: Anzahlung plus alle Raten zusammen.'
+fehlerbilder:
+  packungspreis-verglichen:
+    de: 'Die Packungen sind verschieden groß. Vergleiche den Gesamtpreis für die Menge, die du brauchst.'
+  raten-nicht-zusammengezaehlt:
+    de: 'Eine Rate ist klein, aber es sind viele. Zähle alle [[Raten]] zusammen.'
+herkunft: ki-entwurf
+version: 1

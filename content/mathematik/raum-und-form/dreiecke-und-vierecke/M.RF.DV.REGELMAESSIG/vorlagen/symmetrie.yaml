@@ -1,0 +1,25 @@
+# Symmetrieachsen und Mittelpunktswinkel. Entwurf: noch nicht geprüft.
+id: M.RF.DV.REGELMAESSIG.SYMMETRIE
+kompetenz: M.RF.DV.REGELMAESSIG
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: dv.vieleck-symmetrie@1
+parameter:
+  G: { winkel: false }
+  M: { winkel: true }
+text:
+  aufgabe:
+    de: '**Gib an**: {frage}'
+hilfen:
+  - de: 'Ein [[regelmäßiges Vieleck]] mit n Ecken hat n [[Symmetrieachsen]].'
+  - de: 'Die [[Mittelpunktswinkel]] teilen 360° in n gleiche Teile.'
+fehlerbilder:
+  nur-durch-ecken:
+    de: 'Es gibt auch Achsen durch die Mitten gegenüberliegender Seiten.'
+  innenwinkel-statt-mittelpunktswinkel:
+    de: 'Das ist der [[Innenwinkel]] an einer Ecke. Der [[Mittelpunktswinkel]] liegt in der Mitte: 360° : n.'
+  halber-winkel:
+    de: 'Der Vollwinkel um den Mittelpunkt hat 360°, nicht 180°.'
+herkunft: ki-entwurf
+version: 1
