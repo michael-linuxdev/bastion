@@ -4,7 +4,7 @@
 // Als Vite-Plugin: im Entwicklungsserver unter /packs/, im Build als Dateien.
 import { createHash } from 'node:crypto';
 import type { Plugin } from 'vite';
-import { ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
+import { ladeAnleitungen, ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
 
 /** Version des Paketformats; steigt, wenn die App Pakete anders lesen muss. */
 export const PAKETFORMAT = 1;
@@ -31,6 +31,10 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
   const vorlagen = ladeVorlagen(inhaltsordner).flatMap((v) => {
     if (v.lesefehler) fehler.push(`${v.datei}: ${v.lesefehler}`);
     return v.lesefehler ? [] : [{ daten: v.daten, bereich: v.pfadTeile[0] ?? '' }];
+  });
+  const anleitungen = ladeAnleitungen(inhaltsordner).flatMap((a) => {
+    if (a.lesefehler) fehler.push(`${a.datei}: ${a.lesefehler}`);
+    return a.lesefehler ? [] : [{ daten: a.daten, bereich: a.pfadTeile[0] ?? '' }];
   });
   const begriffe = ladeBegriffe(inhaltsordner);
   if (begriffe.lesefehler) fehler.push(`${begriffe.datei}: ${begriffe.lesefehler}`);
@@ -66,6 +70,7 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
         fach: 'mathematik',
         bereich,
         vorlagen: vorlagen.filter((v) => v.bereich === bereich).map((v) => v.daten),
+        anleitungen: anleitungen.filter((a) => a.bereich === bereich).map((a) => a.daten),
       },
       bereich,
     );

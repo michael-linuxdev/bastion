@@ -298,6 +298,8 @@ Legende: **Gen** = Generator · **Hand** = handverfasst · **Mix** = gemischt ·
 - Bewertet werden nur Teilfähigkeiten, die sich ohne freies Zeichnen prüfen lassen: Winkel an einem abgebildeten Winkelmesser ablesen, Winkelart bestimmen, Koordinaten des Bildpunkts angeben, das richtige Netz oder Schrägbild auswählen, Zeichenschritte in die richtige Reihenfolge bringen.
 - Freies Zeichnen in der App gibt es nicht. Ob eine Zeichnung auf Papier gelungen ist, schätzt die Person selbst ein; diese Selbsteinschätzung zählt **nicht** für „gekonnt“ oder „gefestigt“ (wie Hilfen, L-O5).
 
+*Umsetzung (1a):* Fünf Anleitungen (INHALTSFORMAT §4.3), beim Üben der Kompetenz unter „Zeichnen lernen“. Jeder Schritt mit Bild; am Ende eine Prüfliste zum Abhaken, die nicht gespeichert wird – die Selbsteinschätzung bleibt so ganz bei den Lernenden.
+
 *Warum:* Die Lehrpläne verlangen Zeichnen und Konstruieren mit echten Geräten („unliniertes Papier, Geodreieck und Winkelmesser“). Die App ersetzt das nicht, sie bereitet es vor und sichert das Verständnis ab. Eine Zeichenfläche mit automatischer Prüfung wäre aufwendig, auf Handys ungenau und für Screenreader kaum zugänglich (A5).
 
 ### 8.4 Graph Klasse 5 (vereinfacht)

@@ -209,5 +209,16 @@
   "abschluss.aufgearbeitet": "Fehler aufgearbeitet",
   "abschluss.pause": "Für heute ist das gut. Eine Pause hilft deinem Gedächtnis – morgen sitzt es besser.",
   "abschluss.startseite": "Zur Startseite",
-  "begriff.antippen": "Antippen für eine Erklärung"
+  "begriff.antippen": "Antippen für eine Erklärung",
+  "anleitung.knopf": "Zeichnen lernen:",
+  "anleitung.material": "Du brauchst:",
+  "anleitung.schritt": "Schritt",
+  "anleitung.von": "von",
+  "anleitung.weiter": "Weiter",
+  "anleitung.zurueck": "Schritt zurück",
+  "anleitung.fertig": "Fertig gezeichnet",
+  "anleitung.pruefen": "Prüfe deine Zeichnung",
+  "anleitung.nur-fuer-dich": "Das ist nur für dich: Es wird nicht gespeichert und nicht bewertet.",
+  "anleitung.nochmal": "Noch einmal von vorn",
+  "anleitung.zum-ueben": "Zurück zum Üben"
 }

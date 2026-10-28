@@ -4,13 +4,13 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { begriffskarte, markiere, type Begriff } from '../../src/core/learning/begriffe';
-import { ladeBegriffe, ladeVorlagen } from './laden';
+import { ladeAnleitungen, ladeBegriffe, ladeVorlagen } from './laden';
 
 const ordner = process.argv[2] ?? 'content';
 const begriffe = (ladeBegriffe(ordner).daten as { begriffe: Begriff[] }).begriffe;
 const karte = begriffskarte(begriffe);
 let geaendert = 0;
-for (const v of ladeVorlagen(ordner)) {
+for (const v of [...ladeVorlagen(ordner), ...ladeAnleitungen(ordner)]) {
   const pfad = join(ordner, v.datei);
   const alt = readFileSync(pfad, 'utf8');
   const neu = alt.replace(/^(\s*(?:- )?de: )(.*)$/gm, (zeile, anfang: string, wert: string) => {
@@ -24,4 +24,4 @@ for (const v of ladeVorlagen(ordner)) {
     geaendert += 1;
   }
 }
-console.log(`${geaendert} Vorlagen geändert.`);
+console.log(`${geaendert} Dateien geändert.`);

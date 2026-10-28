@@ -2,10 +2,15 @@
 // Fehlerhafte Inhalte machen die CI rot.
 import { describe, expect, it } from 'vitest';
 import { generatoren } from '../../src/generators';
+import { anleitungsBilder } from '../../src/generators/anleitungen';
 import { abdeckung, pruefeInhalte } from './pruefen';
 
 describe('Inhalte in content/', () => {
-  const bericht = pruefeInhalte('content', generatoren);
+  const bericht = pruefeInhalte(
+    'content',
+    generatoren,
+    new Map([...anleitungsBilder].map(([id, a]) => [id, a.bilder().length])),
+  );
   const { fehler, kompetenzen, vorlagen } = bericht;
 
   it('sind fehlerfrei (Schema, Ordner, Voraussetzungen, Kreise, Vorlagen ↔ Generatoren)', () => {

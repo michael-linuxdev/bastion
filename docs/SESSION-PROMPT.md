@@ -44,22 +44,21 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Phase 1c – Diagnose und sichtbarer Fortschritt** (1a und 1b fertig bis auf Prüfung der Vorlagen und die Belohnung fürs Korrigieren). Rahmen: **Klasse 5 vollständig aufbauen (K-15: Tiefe vor Breite, Klassenstufe für Klassenstufe).** Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Klasse 6 erst, wenn Klasse 5 nach `STRATEGIE.md` §2 abgeschlossen ist. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Erster Schritt: sächsische Lehrpläne Klasse 6 auswerten (wie 0.18 für Klasse 5) und die Kompetenzen der Klasse 6 in `LEHRPLAN.md` eintragen. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
-2. **0.15** Erste 5–8 Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3).
+2. **0.15** Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3) – nach K-17 erst, wenn der Lehrplan bis Klasse 12 steht.
 3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
 4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Vom Projektverantwortlichen, neu:
-6. **Vorlagen und Fachbegriffe prüfen (INHALTSFORMAT §10.1, §11.1).** Alle 88 Vorlagen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Phase 1a–1c sind bis auf Prüfungen und Testrunde fertig.** Offen mit Claude Code: Anleitungen zum Zeichnen (L-10, Punkt 8 unten). Danach mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe vorbereiten (TESTS.md).
-8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
-9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
+7. **Klasse 6 (K-17):** Lehrpläne OS und GY Klasse 6 auswerten, Kompetenzen und Graph in `LEHRPLAN.md` und `content/`, dann Generatoren entlang des Graphen wie bei Klasse 5.
+8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung
 
@@ -85,8 +84,9 @@ Mit Claude Code, als Nächstes:
 - **D-15:** Die PIN gilt je Gerät. Nach dem Einspielen auf einem anderen Gerät wird eine neue PIN festgelegt; das steht dann dauerhaft im Elternbereich und unter „Mein Stand“.
 - **Abschlussbildschirm (1a):** Knopf „Fertig für heute“ beim Üben, Wiederholen und in der Werkstatt. Zeigt zuerst das Können (heute gefestigt, neu gekonnt, geübt), dann Zahlen (Aufgaben, Wiederholungen, aufgearbeitete Fehler), ohne Punkte und Prozente, und schlägt eine Pause vor (R5). Berechnet aus den Aufgaben des Lerntags (`src/core/learning/heute.ts`).
 - **Fachbegriffe (1a, L-7):** Wörterbuch `content/mathematik/begriffe.yaml` (83 Begriffe), in Texten als `[[Form]]` markiert und antippbar; Erklärung erscheint direkt dahinter. `pnpm test` verlangt die Markierung beim ersten Vorkommen je Text; `pnpm inhalte:begriffe` markiert automatisch. In der Diagnose keine Erklärungen (keine Hilfen).
-- Sicherung ist mit PR #9 auf `main`. Abschluss und Fachbegriffe liegen auf dem Branch `claude/new-session-fl56ro` (wartet auf OK für einen PR).
-- 1648 Tests und 13 Browser-Tests, Lint, Build, Größenbudget (117 von 250 KB) grün.
+- **Zeichen-Anleitungen (1a, L-10):** fünf Anleitungen (Senkrechte, Parallele, Winkel 50°, Spiegeln auf Kästchenpapier, Würfel aus Papier) in `content/…/anleitungen/*.yaml`, Bilder je Schritt aus `src/generators/anleitungen/`. Beim Üben der Kompetenz unter „Zeichnen lernen“; am Ende eine Prüfliste zum Abhaken, nicht gespeichert, nicht bewertet (INHALTSFORMAT §4.3).
+- Sicherung ist mit PR #9 auf `main`; Abschluss und Fachbegriffe stehen in PR #10. Die Anleitungen liegen auf dem Branch `claude/new-session-fl56ro`.
+- 1650 Tests und 14 Browser-Tests, Lint, Build, Größenbudget (120 von 250 KB) grün.
 
 ## Am Ende der Sitzung aktualisieren
 

@@ -45,13 +45,23 @@ export interface GeleseneVorlage extends GeleseneDatei {
 
 /** Liest alle Vorlagen aus …/<Kompetenz-ID>/vorlagen/*.yaml */
 export function ladeVorlagen(inhaltsordner: string): GeleseneVorlage[] {
+  return ladeUnterordner(inhaltsordner, 'vorlagen');
+}
+
+/** Liest alle Zeichen-Anleitungen aus …/<Kompetenz-ID>/anleitungen/*.yaml (L-10) */
+export function ladeAnleitungen(inhaltsordner: string): GeleseneVorlage[] {
+  return ladeUnterordner(inhaltsordner, 'anleitungen');
+}
+
+function ladeUnterordner(inhaltsordner: string, unterordner: string): GeleseneVorlage[] {
   const alle = readdirSync(join(inhaltsordner, 'mathematik'), {
     recursive: true,
     withFileTypes: true,
   });
   return alle
     .filter(
-      (e) => e.isFile() && e.name.endsWith('.yaml') && e.parentPath.endsWith(`${sep}vorlagen`),
+      (e) =>
+        e.isFile() && e.name.endsWith('.yaml') && e.parentPath.endsWith(`${sep}${unterordner}`),
     )
     .map((e) => join(e.parentPath, e.name))
     .sort()
