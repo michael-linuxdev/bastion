@@ -1,0 +1,37 @@
+# Ergebnis und Ereignis – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZF.BEGRIFFE
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufall
+titel:
+  de: 'Ergebnis und Ereignis'
+kann_satz:
+  de: 'Ich kann bei Zufallsversuchen Ergebnisse, Ergebnismenge und Ereignisse angeben.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.DZ.ZF.HAEUFIGKEIT
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die möglichen Ergebnisse eines Zufallsversuchs aufzählen.'
+  M:
+    beschreibung:
+      de: 'Ereignisse als Teilmengen der Ergebnismenge angeben, z. B. „gerade Zahl würfeln“.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Elemente der Stochastik'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Zufallsversuche'
+version: 1

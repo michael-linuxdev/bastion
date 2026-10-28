@@ -1,0 +1,38 @@
+# Grundwert, Prozentwert, Prozentsatz – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.BEGRIFFE
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Grundwert, Prozentwert, Prozentsatz'
+kann_satz:
+  de: 'Ich kann in Sachtexten Grundwert, Prozentwert und Prozentsatz erkennen und mit bequemen Prozentsätzen rechnen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.BR.PROZENT
+  - M.ZO.BR.ANTEILE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Grundwert, Prozentwert und Prozentsatz in einem kurzen Text benennen; 10 %, 25 % und 50 % von einer Größe angeben.'
+  M:
+    beschreibung:
+      de: 'Bequeme Prozentsätze (1 %, 5 %, 20 %, 75 % …) im Kopf nutzen; Angaben in Texten richtig zuordnen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Prozent- und Zinsrechnung'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

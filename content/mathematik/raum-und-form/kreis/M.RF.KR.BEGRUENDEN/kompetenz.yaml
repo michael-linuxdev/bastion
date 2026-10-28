@@ -1,0 +1,34 @@
+# Sätze verstehen und begründen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KR.BEGRUENDEN
+fach: mathematik
+bereich: raum-und-form
+feld: kreis
+titel:
+  de: 'Sätze verstehen und begründen'
+kann_satz:
+  de: 'Ich kann Satz und Definition unterscheiden, Wenn-dann-Aussagen umkehren und Aussagen durch ein Gegenbeispiel widerlegen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.RF.KR.WINKELSAETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Voraussetzung und Behauptung eines Satzes benennen; ein Gegenbeispiel erkennen.'
+  M:
+    beschreibung:
+      de: 'Die Umkehrung eines Satzes bilden und prüfen; Schritte eines Beweises in die richtige Reihenfolge bringen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K6
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: gemischt
+sachsen:
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Geometrie in der Ebene'
+version: 1

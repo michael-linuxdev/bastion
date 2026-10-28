@@ -1,0 +1,37 @@
+# Zinsrechnung – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.ZINS
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Zinsrechnung'
+kann_satz:
+  de: 'Ich kann Zinsen, Zinssatz und Kapital berechnen – auch für Teile eines Jahres und mit Zinseszins.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.PZ.GRUNDAUFGABEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Jahreszinsen aus Kapital und Zinssatz berechnen.'
+  M:
+    beschreibung:
+      de: 'Tageszinsen, Zinssatz oder Kapital berechnen; Zinseszins über wenige Jahre.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Prozent- und Zinsrechnung'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 5 Vernetzung: Zinsrechnung'
+version: 1

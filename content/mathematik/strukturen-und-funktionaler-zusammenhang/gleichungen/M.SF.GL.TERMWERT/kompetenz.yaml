@@ -1,0 +1,38 @@
+# Terme und Termwerte – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.GL.TERMWERT
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: gleichungen
+titel:
+  de: 'Terme und Termwerte'
+kann_satz:
+  de: 'Ich kann Variable in Terme einsetzen und Termwerte auch mit negativen Zahlen berechnen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.SF.NZ.TERME
+  - M.ZO.RZ.MULT-DIV
+niveaus:
+  G:
+    beschreibung:
+      de: 'Eine ganze Zahl in einen Term mit einer Variablen einsetzen, z. B. 3·x − 5 für x = −2.'
+  M:
+    beschreibung:
+      de: 'Termwerte für Brüche und Dezimalzahlen berechnen; Wertetabellen ausfüllen; prüfen, ob eine Zahl Lösung einer Gleichung ist.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

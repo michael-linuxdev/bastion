@@ -1,0 +1,38 @@
+# Negative Zahlen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.RZ.BEGRIFF
+fach: mathematik
+bereich: zahl-und-operation
+feld: rationale-zahlen
+titel:
+  de: 'Negative Zahlen'
+kann_satz:
+  de: 'Ich kann negative Zahlen im Alltag deuten, auf der Zahlengeraden darstellen und Gegenzahl und Betrag angeben.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.NZ.ORDNEN
+  - M.ZO.BR.ZAHLENSTRAHL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Temperaturen, Kontostände und Meerestiefen als positive oder negative Zahl angeben; ganze Zahlen auf der Zahlengeraden ablesen.'
+  M:
+    beschreibung:
+      de: 'Gegenzahl und Betrag auch von Brüchen und Dezimalzahlen angeben; Abstände auf der Zahlengeraden bestimmen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

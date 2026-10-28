@@ -419,6 +419,124 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 6, sonst angegeben.
 
 *Stand 28.10.2026:* Kompetenzen und Graph stehen. **Feld BR vollständig als Entwurf:** alle 11 Kompetenzen mit mindestens zwei Vorlagen je Niveau (23 Vorlagen, Generatoren in `src/generators/mathematik/brueche/rechnen.ts` und `anwenden.ts`). **Feld ZU vollständig als Entwurf:** 4 Kompetenzen, 8 Vorlagen (`src/generators/mathematik/zuordnungen/`). **ZF und DA (Klasse 6):** Häufigkeiten und Kreisdiagramme mit je 2 Vorlagen (`src/generators/mathematik/daten/zufall.ts`). **Feld DV vollständig als Entwurf:** 5 Kompetenzen, 10 Vorlagen (`src/generators/mathematik/dreiecke/`), dazu die Anleitungen „Dreieck aus drei Seiten konstruieren“ und „Mittelsenkrechte konstruieren“ (L-10). **FL (Klasse 6):** Dreiecke und Vierecke mit 4 Vorlagen (`src/generators/mathematik/flaechen/vielecke.ts`). **KP (Klasse 6):** Prismen mit 4 Vorlagen (`src/generators/mathematik/koerper/prismen.ts`) und der Anleitung „Schrägbild eines Prismas“. Damit haben alle 26 Kompetenzen von Klasse 6 Vorlagen. Neue Felder im ID-Schema: ZU (zuordnungen), ZF (zufall), DV (dreiecke-und-vierecke).
 
+## 8c. Klasse 7 (Sachsen) – Kompetenzen für den dritten Bauabschnitt
+
+Grundlage wie §8 (K-16): Lehrplan Oberschule Mathematik 2019 (Haupt- und Realschulbildungsgang), Lehrplan Gymnasium Mathematik (Kl. 5–8 seit 1. August 2021). Ausgewertet am 28.10.2026 aus denselben PDF-Dateien wie Klasse 6. Nach K-17 entstehen Kompetenzen und Vorlagen als **Entwurf**; Prüfung und Test folgen gesammelt.
+
+### 8c.1 Auswahl
+
+Ab Klasse 7 teilt sich die Oberschule in **Hauptschulbildungsgang (HS)** und **Realschulbildungsgang (RS)**. Beide zählen; wo sie sich unterscheiden, liegt der HS-Umfang meist auf Niveau G, der RS-Umfang auf M (Niveaus bleiben nach L-2 aber unabhängig von der Schulart).
+
+| | OS Klasse 7 – RS | OS Klasse 7 – HS | GY Klasse 7 |
+|---|---|---|---|
+| LB 1 | Prozent- und Zinsrechnung (28 Ustd.) | Zusammengesetzte Flächen und Körper (20 Ustd.) | Geometrie in der Ebene (24 Ustd.) |
+| LB 2 | Elemente der Stochastik (12 Ustd.) | Anteile und Prozente (32 Ustd.) | Arbeiten mit rationalen Zahlen (56 Ustd.) |
+| LB 3 | Rationale Zahlen und Gleichungen (28 Ustd.) | Rationale Zahlen (20 Ustd.) | Darstellen und Berechnen von Prismen und Pyramiden (20 Ustd.) |
+| LB 4 | Vielecke und Prismen (32 Ustd.) | Vielecke und Prismen (28 Ustd.) | Vernetzung: Darstellen von Daten (4 Ustd.) |
+
+**Wahlbereiche** (RS: Technisches Zeichnen, Unterhaltungsmathematik und Rechenverfahren, Parkettierungen; HS: Bandornamente und Parkettierungen, Optische Täuschungen, Unterhaltungsmathematik; GY: Tabellenkalkulation, Maßstäbe und ihre Anwendungen, Platonische Körper) zählen nicht (L-11).
+
+**Regel wie bei Klasse 5 und 6 (L-6):** Was eine Schulart in Klasse 7 hat und eine andere erst später, steht hier und ist für die andere „vorgezogen“:
+- **Zinsrechnung** (RS Kl. 7; HS Kl. 8; GY erst Kl. 10 LB 5),
+- **Ergebnis, Ereignis, Wahrscheinlichkeit** (OS Kl. 7; GY Kl. 8 LB 2),
+- **Kreis und Gerade, Satz des Thales** (GY Kl. 7; OS Kl. 8 – Thales im HS nur als Differenzierungshinweis),
+- **Pyramiden** (GY Kl. 7; OS Kl. 9 bzw. 10).
+Schon in Klasse 6 stehen Kreisdiagramme, Flächenanteile und das Berechnen von Prismen (§8b, für die OS vorgezogen). Die Masse über die Dichte steht in allen drei Lehrplänen in Klasse 7.
+
+**Wichtige Unterschiede in Klasse 7:**
+- **Rationale Zahlen:** Der HS multipliziert und dividiert ganze Zahlen nur mit bzw. durch natürliche Zahlen, rationale Zahlen mit dem Taschenrechner; RS und GY rechnen in allen Grundrechenarten, das GY auch mit Quadratwurzeln.
+- **Gleichungen:** HS löst einfache Gleichungen inhaltlich; RS und GY lösen a·x + b = c·x + d kalkülmäßig und stellen Formeln um.
+- **Beweisen** (Satz und Definition, wenn-dann, Gegenbeispiel, direkter Beweis) steht nur im GY-Lehrplan (LB 1); es wird an den Sätzen am Kreis geübt.
+
+**Nicht in der App abbildbar** (wie bei Klasse 6): Arbeit mit dynamischer Geometriesoftware und Tabellenkalkulation, Modelle herstellen, Simulation mit dem Taschenrechner, die **Konstruktion der wahren Länge** im Zweitafelbild (GY LB 3) und Tangentenkonstruktionen mit Zirkel (GY LB 1) – sie werden höchstens erklärt (L-10). Die Strategien **Vorwärts- und Rückwärtsarbeiten** (GY LB 1) und **Gleichung aufstellen** (OS) fließen in die Sachaufgaben ein.
+
+### 8c.2 Kompetenzen
+
+Legende wie §8.2. *Sachsen:* LB der Klasse 7 (bei der OS der RS; der HS hat dieselben Inhalte in LB 2–4, ohne Zins und kalkülmäßiges Gleichungslösen), sonst angegeben.
+
+**Feld RZ – Rationale Zahlen** (KMK L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.ZO.RZ.BEGRIFF | Ich kann negative Zahlen im Alltag deuten, auf der Zahlengeraden darstellen und Gegenzahl und Betrag angeben. | NZ.ORDNEN, BR.ZAHLENSTRAHL | OS LB 3, GY LB 2 | Gen |
+| M.ZO.RZ.ORDNEN | Ich kann rationale Zahlen vergleichen und der Größe nach ordnen. | RZ.BEGRIFF, BR.VERGLEICHEN | OS LB 3, GY LB 2 | Gen |
+| M.ZO.RZ.ZAHLBEREICHE | Ich kann natürliche, ganze, gebrochene und rationale Zahlen unterscheiden und ihre Beziehungen im Mengendiagramm zeigen. | RZ.BEGRIFF, BR.MENGEN | OS LB 3, GY LB 2 | Mix |
+| M.ZO.RZ.ADD-SUB | Ich kann rationale Zahlen addieren und subtrahieren und dabei Vorzeichen und Rechenzeichen unterscheiden. | RZ.ORDNEN, BR.ADD-SUB, BR.DEZ-RECHNEN | OS LB 3, GY LB 2 | Gen |
+| M.ZO.RZ.MULT-DIV | Ich kann rationale Zahlen multiplizieren und dividieren und das Vorzeichen des Ergebnisses bestimmen. | RZ.ADD-SUB, BR.MULT, BR.DIV, BR.DEZ-MULT-DIV | OS LB 3, GY LB 2 | Gen |
+| M.ZO.RZ.POTENZEN | Ich kann Potenzen rationaler Zahlen berechnen und Quadratwurzeln ziehen. | RZ.MULT-DIV, NZ.POTENZEN | OS LB 3, GY LB 2 | Gen |
+| M.ZO.RZ.RECHENGESETZE | Ich kann Rechengesetze und Vorrangregeln bei rationalen Zahlen nutzen. | RZ.MULT-DIV, BR.RECHENGESETZE | OS LB 3, GY LB 2 | Gen |
+
+**Feld GF – Koordinatensystem** (KMK L4)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.GF.QUADRANTEN | Ich kann Punkte mit negativen Koordinaten in alle vier Quadranten eintragen und ablesen. | GF.KOORDINATEN, RZ.BEGRIFF | OS LB 3, GY LB 2 | Gen |
+
+**Feld GL – Terme und Gleichungen** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.SF.GL.TERMWERT | Ich kann Variable in Terme einsetzen und Termwerte auch mit negativen Zahlen berechnen. | NZ.TERME, RZ.MULT-DIV | OS LB 3, GY LB 2 | Gen |
+| M.SF.GL.LINEAR | Ich kann lineare Gleichungen durch Umformen lösen und die Lösung durch eine Probe prüfen. | GL.TERMWERT, BR.GLEICHUNGEN, RZ.RECHENGESETZE | OS LB 3, GY LB 2 | Gen |
+| M.SF.GL.FORMELN | Ich kann Formeln nach einer gesuchten Größe umstellen. | GL.LINEAR | OS LB 3, GY LB 2 | Gen |
+| M.SF.GL.AUFSTELLEN | Ich kann zu Zahlenrätseln und Sachaufgaben eine Gleichung aufstellen und lösen. | GL.LINEAR | OS LB 3, GY LB 2 | Gen |
+
+**Feld PZ – Prozent- und Zinsrechnung** (KMK L1, L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.ZO.PZ.BEGRIFFE | Ich kann in Sachtexten Grundwert, Prozentwert und Prozentsatz erkennen und mit bequemen Prozentsätzen rechnen. | BR.PROZENT, BR.ANTEILE | OS LB 1, GY LB 2 | Gen |
+| M.ZO.PZ.GRUNDAUFGABEN | Ich kann Prozentwert, Grundwert und Prozentsatz mit dem Dreisatz oder einer Formel berechnen. | PZ.BEGRIFFE, ZU.DREISATZ | OS LB 1, GY LB 2 | Gen |
+| M.ZO.PZ.VERAENDERUNG | Ich kann Preiserhöhungen und Preissenkungen berechnen und „Steigerung um“ von „Steigerung auf“ unterscheiden. | PZ.GRUNDAUFGABEN | OS LB 1, GY LB 2 | Gen |
+| M.ZO.PZ.ZINS | Ich kann Zinsen, Zinssatz und Kapital berechnen – auch für Teile eines Jahres und mit Zinseszins. | PZ.GRUNDAUFGABEN | OS LB 1, GY Kl. 10 LB 5 – vorgez. | Gen |
+
+**Feld DA – Daten** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.DZ.DA.DIAGRAMME | Ich kann Daten in Säulen-, Linien- und Kreisdiagrammen darstellen, auswerten und irreführende Darstellungen erkennen. | DA.KREISDIAGRAMM, PZ.GRUNDAUFGABEN | OS LB 2, GY LB 4 | Gen |
+
+**Feld ZF – Zufall** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.DZ.ZF.BEGRIFFE | Ich kann bei Zufallsversuchen Ergebnisse, Ergebnismenge und Ereignisse angeben. | ZF.HAEUFIGKEIT | OS LB 2, GY Kl. 8 LB 2 – vorgez. | Gen |
+| M.DZ.ZF.WAHRSCHEINLICHKEIT | Ich kann Wahrscheinlichkeiten bei gleich wahrscheinlichen Ergebnissen angeben und aus relativen Häufigkeiten schätzen. | ZF.BEGRIFFE, BR.ANTEILE | OS LB 2, GY Kl. 8 LB 2 – vorgez. | Gen |
+
+**Feld KR – Kreis und Begründen** (KMK L4, K1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.KR.LAGE | Ich kann Sekante, Tangente und Passante unterscheiden und Inkreis und Umkreis eines Dreiecks beschreiben. | DV.BESONDERE-LINIEN, GF.LAGE | OS Kl. 8 LB 4 – vorgez., GY LB 1 | Mix · Erkl |
+| M.RF.KR.WINKELSAETZE | Ich kann mit dem Satz des Thales, dem Peripheriewinkelsatz und dem Zentri-Peripheriewinkelsatz Winkel am Kreis berechnen. | KR.LAGE, DV.WINKELSAETZE | OS Kl. 8 LB 4 – vorgez., GY LB 1 | Gen |
+| M.RF.KR.BEGRUENDEN | Ich kann Satz und Definition unterscheiden, Wenn-dann-Aussagen umkehren und Aussagen durch ein Gegenbeispiel widerlegen. | KR.WINKELSAETZE | OS –, GY LB 1 | Mix |
+
+**Feld DV – Vierecke konstruieren** (KMK L4)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.DV.VIERECKE-KONSTRUIEREN | Ich kann Parallelogramme, Drachenvierecke und Trapeze aus gegebenen Stücken konstruieren. | DV.KONSTRUIEREN, DV.VIERECKE | OS LB 4, GY LB 1 | Mix · Erkl |
+
+**Feld FL – Flächeninhalt** (KMK L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.GM.FL.VIELECKE | Ich kann Flächeninhalt und Umfang von Vielecken durch Zerlegen in Dreiecke und Vierecke berechnen. | FL.VIERECKE, FL.ZUSAMMENGESETZT | OS LB 4, GY LB 3 | Gen |
+
+**Feld KP – Körper** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.KP.ZWEITAFEL | Ich kann Körper im senkrechten Zweitafelbild lesen und Vorderansicht, Draufsicht und Seitenansicht dem Körper zuordnen. | KP.PRISMEN | OS LB 4, GY LB 3 | Mix · Erkl |
+| M.GM.KP.MASSE | Ich kann die Masse eines Körpers aus Volumen und Dichte berechnen. | KP.PRISMA, KP.EINHEITEN | OS LB 4, GY LB 3 | Gen |
+| M.GM.KP.VERPACKUNG | Ich kann Oberfläche und Volumen verschiedener Verpackungen vergleichen und den Materialverbrauch beurteilen. | KP.PRISMA | OS LB 4, GY – | Gen |
+| M.RF.KP.PYRAMIDEN | Ich kann Pyramiden und Pyramidenstümpfe an ihren Eigenschaften erkennen und Netze, Schrägbilder und Ansichten zuordnen. | KP.PRISMEN, KP.ZWEITAFEL | OS Kl. 9 LB 2 – vorgez., GY LB 3 | Mix · Erkl |
+| M.GM.KP.PYRAMIDE | Ich kann Volumen, Oberfläche und Masse von Pyramiden und zusammengesetzten Körpern berechnen. | KP.PYRAMIDEN, KP.PRISMA, KP.MASSE | OS Kl. 9 LB 2 – vorgez., GY LB 3 | Gen |
+
+**Summe Klasse 7:** 29 Kompetenzen × 2 Niveaus (G, M), davon 23 überwiegend generatorbasiert, 6 gemischt; bei 4 wird Zeichnen erklärt (L-10): Kreis und Gerade (In- und Umkreis), Vierecke konstruieren, Zweitafelbild, Pyramiden darstellen. Neue Felder im ID-Schema: RZ (rationale-zahlen), GL (gleichungen), PZ (prozent-und-zins), KR (kreis). Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [7]`.
+
+*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. Die Klassenwahl bekommt „Klasse 7“, sobald die ersten Vorlagen da sind.
+
 ## 9. Sprache in Aufgaben
 
 **Entscheidung L-7:** Alle Aufgabentexte folgen ab Phase 1 Regeln für einfache, klare Sprache: kurze Sätze, eine Information pro Satz, Operatoren fett und einheitlich, keine unnötigen Nebensätze, Fachbegriffe mit Erklärung beim ersten Auftreten.

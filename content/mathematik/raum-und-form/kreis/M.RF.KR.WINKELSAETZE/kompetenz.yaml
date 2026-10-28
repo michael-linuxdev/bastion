@@ -1,0 +1,38 @@
+# Winkel am Kreis – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KR.WINKELSAETZE
+fach: mathematik
+bereich: raum-und-form
+feld: kreis
+titel:
+  de: 'Winkel am Kreis'
+kann_satz:
+  de: 'Ich kann mit dem Satz des Thales, dem Peripheriewinkelsatz und dem Zentri-Peripheriewinkelsatz Winkel am Kreis berechnen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.RF.KR.LAGE
+  - M.RF.DV.WINKELSAETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Mit dem Satz des Thales rechte Winkel erkennen und fehlende Winkel im Dreieck berechnen.'
+  M:
+    beschreibung:
+      de: 'Peripherie- und Zentriwinkel berechnen; Gegenwinkel im Sehnenviereck nutzen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K2
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Kreise und Kreiszylinder'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Geometrie in der Ebene'
+version: 1

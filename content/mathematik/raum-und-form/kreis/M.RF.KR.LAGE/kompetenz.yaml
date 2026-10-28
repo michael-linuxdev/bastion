@@ -1,0 +1,39 @@
+# Kreis und Gerade – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KR.LAGE
+fach: mathematik
+bereich: raum-und-form
+feld: kreis
+titel:
+  de: 'Kreis und Gerade'
+kann_satz:
+  de: 'Ich kann Sekante, Tangente und Passante unterscheiden und Inkreis und Umkreis eines Dreiecks beschreiben.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.RF.DV.BESONDERE-LINIEN
+  - M.RF.GF.LAGE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Sekante, Tangente und Passante an ihrer Lage zum Kreis erkennen.'
+  M:
+    beschreibung:
+      de: 'Wissen, dass die Tangente senkrecht auf dem Berührungsradius steht; Mittelpunkt von Inkreis und Umkreis mit den besonderen Linien bestimmen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Kreise und Kreiszylinder'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Geometrie in der Ebene'
+version: 1

@@ -21,6 +21,13 @@ describe('Inhalte in content/', () => {
     expect(kompetenzen.filter((k) => k.klassenstufe_typisch.includes(5))).toHaveLength(41);
   });
 
+  it('enthalten die 26 Kompetenzen der Klasse 6 (LEHRPLAN §8b) und die 29 der Klasse 7 (§8c)', () => {
+    // gezählt nach der ersten Klassenstufe: manche Kompetenz der Klasse 5 gilt auch für 6
+    const ab = (n: number) => kompetenzen.filter((k) => Math.min(...k.klassenstufe_typisch) === n);
+    expect(ab(6)).toHaveLength(26);
+    expect(ab(7)).toHaveLength(29);
+  });
+
   it('haben für Klasse 5 die Niveaus G und M, aber noch kein E (K-11)', () => {
     for (const k of kompetenzen) expect(Object.keys(k.niveaus).sort(), k.id).toEqual(['G', 'M']);
   });

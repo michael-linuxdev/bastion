@@ -1,0 +1,38 @@
+# Wahrscheinlichkeiten schätzen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZF.WAHRSCHEINLICHKEIT
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufall
+titel:
+  de: 'Wahrscheinlichkeiten schätzen'
+kann_satz:
+  de: 'Ich kann Wahrscheinlichkeiten bei gleich wahrscheinlichen Ergebnissen angeben und aus relativen Häufigkeiten schätzen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.DZ.ZF.BEGRIFFE
+  - M.ZO.BR.ANTEILE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Chancen vergleichen; die Wahrscheinlichkeit bei Würfel, Münze oder Glücksrad als Bruch angeben.'
+  M:
+    beschreibung:
+      de: 'Wahrscheinlichkeiten von Ereignissen berechnen und aus vielen Versuchen schätzen, auch bei nicht gleich wahrscheinlichen Ergebnissen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Elemente der Stochastik'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Zufallsversuche'
+version: 1

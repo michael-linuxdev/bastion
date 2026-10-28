@@ -1,0 +1,39 @@
+# Daten darstellen und beurteilen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.DA.DIAGRAMME
+fach: mathematik
+bereich: daten-und-zufall
+feld: daten
+titel:
+  de: 'Daten darstellen und beurteilen'
+kann_satz:
+  de: 'Ich kann Daten in Säulen-, Linien- und Kreisdiagrammen darstellen, auswerten und irreführende Darstellungen erkennen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.DZ.DA.KREISDIAGRAMM
+  - M.ZO.PZ.GRUNDAUFGABEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Werte aus Säulen-, Linien- und Kreisdiagrammen ablesen und das passende Diagramm wählen.'
+  M:
+    beschreibung:
+      de: 'Diagramme beurteilen, z. B. abgeschnittene Achsen oder unpassende Anteile erkennen; Aussagen über Daten prüfen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Elemente der Stochastik'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 4 Vernetzung: Darstellen von Daten'
+version: 1

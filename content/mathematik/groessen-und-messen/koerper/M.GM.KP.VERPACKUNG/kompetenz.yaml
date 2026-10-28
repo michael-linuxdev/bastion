@@ -1,0 +1,34 @@
+# Materialverbrauch bei Verpackungen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.KP.VERPACKUNG
+fach: mathematik
+bereich: groessen-und-messen
+feld: koerper
+titel:
+  de: 'Materialverbrauch bei Verpackungen'
+kann_satz:
+  de: 'Ich kann Oberfläche und Volumen verschiedener Verpackungen vergleichen und den Materialverbrauch beurteilen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.GM.KP.PRISMA
+niveaus:
+  G:
+    beschreibung:
+      de: 'Bei zwei Schachteln mit gleichem Volumen die mit weniger Material finden.'
+  M:
+    beschreibung:
+      de: 'Verpackungen aus Prismen vergleichen, Verschnitt und Zuschläge berücksichtigen und eine Wahl begründen.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K3
+    - K1
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 4 Vielecke und Prismen'
+version: 1
