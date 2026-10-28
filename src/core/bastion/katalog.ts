@@ -130,7 +130,22 @@ export interface Bauwerk {
   readonly typ: GebaeudeTyp;
   readonly stufe: number;
   readonly pos: Position;
+  /** Selbst gewählte Farbe (nur Zierde, Schritt 2.14) */
+  readonly farbe?: Farbe;
 }
+
+/** Farben zum Gestalten (Schritt 2.14) – kräftig genug für hell und dunkel. Namen in der Textdatei. */
+export const FARBEN = [
+  'rot',
+  'orange',
+  'gelb',
+  'gruen',
+  'blau',
+  'lila',
+  'weiss',
+  'schwarz',
+] as const;
+export type Farbe = (typeof FARBEN)[number];
 
 /** Startzustand (§5.1): Bergfried Stufe 1, Feuerstelle, 4 Palisaden-Segmente. */
 export const START: readonly Bauwerk[] = [

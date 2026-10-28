@@ -486,5 +486,14 @@
   "bastion.tippe-feld": "Tippe auf das Feld, wohin es soll.",
   "bastion.fertig": "Fertig",
   "bastion.bild-aus": "Bild ausblenden – nur die Liste",
-  "bastion.bild-an": "Bild zeigen"
+  "bastion.bild-an": "Bild zeigen",
+  "bastion.farbe": "Farbe",
+  "farbe.rot": "Rot",
+  "farbe.orange": "Orange",
+  "farbe.gelb": "Gelb",
+  "farbe.gruen": "Grün",
+  "farbe.blau": "Blau",
+  "farbe.lila": "Lila",
+  "farbe.weiss": "Weiß",
+  "farbe.schwarz": "Schwarz"
 }

@@ -11,13 +11,14 @@ import {
   aufstellen,
   beginnen,
   einlagern,
+  gestalten,
   freierPlatz,
   versetzen,
   type Bastion,
   type BauHindernis,
   type Ergebnis,
 } from '../../core/bastion/bauen';
-import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
+import type { Farbe, GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
 import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
 import { ulid } from '../../core/rng/ulid';
@@ -270,7 +271,8 @@ export type BauAuftrag =
   | { readonly art: 'abbrechen'; readonly vorhaben: string }
   | { readonly art: 'versetzen'; readonly gebaeude: string; readonly pos: Position }
   | { readonly art: 'einlagern'; readonly gebaeude: string }
-  | { readonly art: 'aufstellen'; readonly gebaeude: string };
+  | { readonly art: 'aufstellen'; readonly gebaeude: string }
+  | { readonly art: 'gestalten'; readonly gebaeude: string; readonly farbe: Farbe };
 
 /**
  * Eine Bau-Aktion ausführen. Ein Neubau kommt auf das erste freie Feld; versetzen
@@ -299,6 +301,8 @@ export async function bauAusfuehren(
     e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
   } else if (auftrag.art === 'abbrechen') e = abbrechen(lage.bastion, auftrag.vorhaben, a);
   else if (auftrag.art === 'einlagern') e = einlagern(lage.bastion, auftrag.gebaeude, a);
+  else if (auftrag.art === 'gestalten')
+    e = gestalten(lage.bastion, auftrag.gebaeude, auftrag.farbe, a);
   else if (auftrag.art === 'aufstellen') {
     const typ = lage.bastion.lager.find((x) => x.id === auftrag.gebaeude)?.typ;
     const pos = typ ? freierPlatz(lage.bastion, typ) : undefined;

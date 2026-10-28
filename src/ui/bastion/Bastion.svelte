@@ -30,6 +30,7 @@
   } from '../plattform/ablage';
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
+  import FarbWahl from './FarbWahl.svelte';
   import {
     aktiv,
     gebaeudeName,
@@ -389,6 +390,13 @@
                 >
               {/if}
             </span>
+          {/if}
+          {#if einlagerbar(b.typ) && versetzt?.id !== b.id}
+            <FarbWahl
+              farbe={b.farbe}
+              name={`farbe-${b.id}`}
+              onwahl={(f) => void ausfuehren({ art: 'gestalten', gebaeude: b.id, farbe: f })}
+            />
           {/if}
         </li>
       {/each}

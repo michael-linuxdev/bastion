@@ -5,6 +5,7 @@
 // importiert; die Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
+import { FARBWERT } from '../farben';
 import {
   BAUPLATZ,
   KATALOG,
@@ -205,7 +206,7 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
           py,
           w,
           t,
-          farben.familie[KATALOG[x.typ].familie],
+          x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
           farben.linie,
         );
         if (a.auswahl === x.id)
