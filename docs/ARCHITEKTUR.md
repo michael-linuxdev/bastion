@@ -144,7 +144,9 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 **Entscheidung T-6:** PixiJS, nachgeladen, mit gleichwertiger Listenansicht.
 
-Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide. *Entschieden: Draufsicht (BASEBAU B-11). PixiJS bleibt nach Rückfrage am 28.10.2026 gesetzt; die genaue Version kommt mit Schritt 2.12 in §4.6.*
+Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide. *Entschieden: Draufsicht (BASEBAU B-11). PixiJS bleibt nach Rückfrage am 28.10.2026 gesetzt.*
+
+*Umsetzung (2.12):* PixiJS 8.22.0 (§4.6). Nur `src/ui/bastion/grafik/grafik-buehne.ts` importiert es, und nur per dynamischem Import aus `Bauplatz.svelte` – also erst, wenn die Bastion bei eingeschaltetem Basebau geöffnet wird. `tools/nachgeladen.ts` bestimmt aus dem Vite-Manifest, welche Dateien nur nachgeladen werden: Sie stehen **nicht** im Vorab-Speicher des Service Workers, werden beim ersten Öffnen gespeichert (CacheFirst) und gehen danach offline. Damit das schon beim ersten Besuch klappt, übernimmt der Service Worker die Seite sofort (`clientsClaim`); Updates warten weiter auf Zustimmung. Ohne WebGL oder bei einem Fehler entfällt das Bild; die Liste bleibt.
 
 ### 4.6 Festgelegte Versionen
 
@@ -166,6 +168,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests, Leistungsmessung) |
 | yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
 | Dexie | 4.4.6 | **Laufzeit**, ca. 32 KB komprimiert: Speicher im Browser (T-4). Freigegeben vom Projektverantwortlichen am 28.10.2026; bewusst nicht die jüngste Version 4.4.7 (erst 9 Tage alt) |
+| pixi.js | 8.22.0 | **Laufzeit**, nur nachgeladen: Grafik der Bastion (T-6). Freigegeben vom Projektverantwortlichen am 28.10.2026 (veröffentlicht am 1.10.2026). Mitgebrachte Pakete mit MIT-, ISC- oder BSD-Lizenz. Etwa 147 KB komprimiert, eigenes Budget 300 KB (§9) |
 | ts-fsrs | 5.4.2 | **Laufzeit**: Wiederholungsplanung FSRS (T-5). Freigegeben vom Projektverantwortlichen am 28.10.2026. Eingestellt ohne Zufall in den Abständen und ohne Minuten-Lernschritte, damit die Planung aus den Ereignissen wiederholbar ist |
 | fake-indexeddb | 6.2.5 | Werkzeug (IndexedDB in Node für Tests der Ablage) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
@@ -285,6 +288,8 @@ Zielwerte, in der Build-Pipeline geprüft:
 
 Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
 
+
+*Seit 2.12 prüft `pnpm budget` beides getrennt:* App-Hülle und Lernkern ≤ 250 KB, Nachgeladenes (Grafik der Bastion) ≤ 300 KB, jeweils gzip. Stand 28.10.2026: 156 KB und 147 KB.
 ### 9.1 Referenzgeräte (Aufgabe 0.10)
 
 | Rolle | Kriterium | Gerät |

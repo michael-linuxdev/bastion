@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { VitePWA } from 'vite-plugin-pwa';
 import { inhaltsPakete } from './tools/inhalte/pakete';
+import { nachgeladeneDateien } from './tools/nachgeladen';
 
 export default defineConfig({
   // Unterordner, unter dem die App ausgeliefert wird (z. B. "/bastion/" auf GitHub Pages).
@@ -43,13 +44,35 @@ export default defineConfig({
         // Vorerst auch alle Inhaltspakete (Klasse 5 ist klein); Auswahl vor dem
         // Herunterladen folgt mit weiteren Klassenstufen (ARCHITEKTUR §6).
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json}'],
+        // Nur bei Bedarf Nachgeladenes (die Grafik der Bastion, PixiJS) nicht vorab:
+        // Wer den Basebau nie öffnet, lädt es nie (R7, A3). Beim ersten Öffnen wird es
+        // gespeichert und geht danach auch ohne Netz.
+        manifestTransforms: [
+          (eintraege) => {
+            const nachgeladen = nachgeladeneDateien('dist');
+            return { manifest: eintraege.filter((e) => !nachgeladen.has(e.url)), warnings: [] };
+          },
+        ],
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/[^/]+\.js$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'bastion-nachgeladen', expiration: { maxEntries: 40 } },
+          },
+        ],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
+        // Schon beim ersten Besuch die Seite übernehmen: Sonst sähe der Service Worker
+        // die nachgeladene Grafik nicht und könnte sie nicht für offline speichern.
+        // Updates warten weiter auf Zustimmung (registerType 'prompt', kein skipWaiting).
+        clientsClaim: true,
       },
     }),
   ],
   build: {
     target: 'es2022',
+    // Vite-Manifest: daraus bestimmt das Größenbudget, was nur nachgeladen wird (grafik)
+    manifest: true,
   },
   test: {
     include: ['src/**/*.test.ts', 'tools/**/*.test.ts'],

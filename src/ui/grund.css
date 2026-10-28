@@ -16,6 +16,16 @@
   --farbe-akzent: #8a4b14;
   --farbe-rand: #ddd5c8;
 
+  /* Bauplatz (BASEBAU B-12): schlichter eigener Stil, eine Farbe je Gebäudefamilie */
+  --bastion-boden: #ebe2d0;
+  --bastion-raster: #d6c9b1;
+  --bastion-linie: #4a3a26;
+  --bastion-kern: #8a4b14;
+  --bastion-wissen: #2f6f8f;
+  --bastion-verteidigung: #77706a;
+  --bastion-bau: #b07a3e;
+  --bastion-zierde: #3f7d3a;
+
   --abstand-s: 0.5rem;
   --abstand-m: 1rem;
   --abstand-l: 2rem;
@@ -32,6 +42,15 @@
     --farbe-text-leise: #b8b0a3;
     --farbe-akzent: #e0a464;
     --farbe-rand: #3a352e;
+
+    --bastion-boden: #2a2620;
+    --bastion-raster: #3d372f;
+    --bastion-linie: #f1ece4;
+    --bastion-kern: #e0a464;
+    --bastion-wissen: #72b5d4;
+    --bastion-verteidigung: #b3aca4;
+    --bastion-bau: #d1a06a;
+    --bastion-zierde: #86c278;
   }
 }
 

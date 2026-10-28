@@ -397,7 +397,7 @@ Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je 
 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
-| 2.12 | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
+| 2.12 ✅ | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
 | 2.13 | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
 | 2.14 | **Gestalten** | Bannerfarbe, Zierde (Garten, Statue …) | Einheitentests |
 

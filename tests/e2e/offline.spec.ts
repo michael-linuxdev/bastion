@@ -33,3 +33,28 @@ test('liefert ein gültiges Web-App-Manifest aus', async ({ request }) => {
   expect(manifest.name).toBe('Bastion');
   expect(manifest.icons.length).toBeGreaterThan(0);
 });
+
+// Grafik der Bastion (Schritt 2.12): nicht vorab geladen, aber nach dem ersten Öffnen offline da.
+test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', async ({
+  page,
+  context,
+}) => {
+  const grafik: string[] = [];
+  page.on('request', (anfrage) => {
+    if (/grafik-buehne-[^/]*\.js$/.test(anfrage.url())) grafik.push(anfrage.url());
+  });
+  await page.goto('./');
+  await expect(page.getByText('funktioniert jetzt auch ohne Internet')).toBeVisible();
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  // Startseite und Vorab-Speicher laden die Grafik nicht (R7, A3)
+  expect(grafik).toEqual([]);
+
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.locator('.bauplatz canvas')).toBeVisible();
+  expect(grafik.length).toBeGreaterThan(0);
+
+  await context.setOffline(true);
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.locator('.bauplatz canvas')).toBeVisible();
+});
