@@ -253,6 +253,8 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   const code = (await page.locator('.code').innerText()).trim();
   expect(code.split(' ')).toHaveLength(4);
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  // Auch Eltern können die Bastion ein- und ausschalten (B-13)
+  await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toBeChecked();
 
   // Einfache Ansicht ist Standard: Themen und Wochen, keine einzelnen Aufgaben
   await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
@@ -414,6 +416,41 @@ test('Fertig für heute: Ressourcen unter dem Können, mit „woher“ (BASEBAU 
   // Erst das Können, dann die Ressourcen (§9 Punkt 2)
   const oben = async (l: typeof gekonnt) => (await l.boundingBox())?.y ?? 0;
   expect(await oben(gekonnt)).toBeLessThan(await oben(ertrag));
+});
+
+test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (R7)', async ({
+  page,
+}) => {
+  const antworten = async (ruhig: boolean) => {
+    await page.getByRole('button', { name: 'Üben', exact: true }).click();
+    await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+    if (ruhig) await page.waitForTimeout(5_200);
+    await page.getByLabel('Deine Antwort').fill('0');
+    await page.getByRole('button', { name: 'Prüfen' }).click();
+    await page.getByRole('button', { name: 'Fertig für heute' }).click();
+  };
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  const schalter = page.getByRole('checkbox', { name: 'Bastion anzeigen' });
+  await expect(schalter).toBeChecked();
+  await schalter.uncheck();
+  await page.reload();
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(schalter).not.toBeChecked();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+
+  // Ausgeschaltet: lernen wie immer, aber keine Ressourcen im Abschluss
+  await antworten(true);
+  await expect(page.getByRole('heading', { name: 'Was du heute gekonnt hast' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Dafür hast du erarbeitet' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Zur Startseite' }).click();
+
+  // Wieder an: Der Stein von eben ist da (B-10)
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await schalter.check();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await antworten(false);
+  await expect(page.getByText('1 Stein – aus 1 bearbeiteten Aufgabe')).toBeVisible();
 });
 
 test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({

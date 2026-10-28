@@ -10,6 +10,7 @@
     merke,
     sitzungBeenden,
     alleBuchungen,
+    basebauAn,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -54,6 +55,8 @@
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   let buchungsListe = $state<readonly BuchungEreignis[]>([]);
+  /** Basebau-Schalter (R7, B-13) */
+  let basebau = $state(true);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
   /** Klasse des laufenden Diagnosegangs – bleibt fest, sobald geantwortet wurde */
@@ -97,6 +100,7 @@
     gruppen = await fehlergruppen();
     aufgabenListe = await alleAufgaben();
     sichern = await sicherungAnstehend();
+    basebau = await basebauAn();
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -273,6 +277,7 @@
           {zustand}
           aufgaben={aufgabenListe}
           buchungen={buchungsListe}
+          {basebau}
           onstart={() => (ansicht = 'start')}
         />
       {:else if ansicht === 'eltern'}
@@ -282,6 +287,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           aufgaben={aufgabenListe}
+          bind:basebau
         />
       {:else if ansicht === 'stand'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
@@ -290,6 +296,7 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           aufgaben={aufgabenListe}
+          bind:basebau
           bind:niveau
           bind:klasse
           onueben={(k) => {

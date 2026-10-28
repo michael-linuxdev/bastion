@@ -9,6 +9,8 @@ import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
+  BASEBAU_SCHLUESSEL,
+  basebauAktiv,
   einstellungEreignis,
   JE_GERAET,
   PIN_NACH_SICHERUNG,
@@ -190,14 +192,18 @@ export async function alleAufgaben(): Promise<AufgabeEreignis[]> {
   return aufgaben(db, inst.profil).catch(() => []);
 }
 
-async function setze(schluessel: string, wert: string | number): Promise<void> {
+async function setze(
+  schluessel: string,
+  wert: string | number | boolean,
+  durch: 'jugendlich' | 'eltern' = 'eltern',
+): Promise<void> {
   const inst = await bereit();
   if (!inst) throw new Error('Speichern nicht möglich');
   const jetzt = Date.now();
   await speichereEinstellung(
     db,
     einstellungEreignis(
-      { profil: inst.profil, geraet: inst.geraet, schluessel, wert, durch: 'eltern' },
+      { profil: inst.profil, geraet: inst.geraet, schluessel, wert, durch },
       jetzt,
       -new Date(jetzt).getTimezoneOffset(),
       zufall,
@@ -218,6 +224,19 @@ async function lies(schluessel: string): Promise<string | undefined> {
     : await einstellung(db, inst.profil, schluessel).catch(() => undefined);
   return typeof w === 'string' ? w : undefined;
 }
+
+/** Ist der Basebau eingeschaltet (R7)? Ohne Speicher: an (B-13). */
+export async function basebauAn(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return basebauAktiv(undefined);
+  return basebauAktiv(
+    await einstellung(db, inst.profil, BASEBAU_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+/** Basebau ein- oder ausschalten – Jugendliche und Eltern dürfen das (B-13). Das Ledger bucht weiter (B-10). */
+export const basebauSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>
+  setze(BASEBAU_SCHLUESSEL, an, durch);
 
 export const pinGesetzt = async () => (await lies('eltern.pin')) !== undefined;
 

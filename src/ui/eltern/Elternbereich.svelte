@@ -22,17 +22,21 @@
   import { pinGueltig } from '../plattform/pin';
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
+  import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
 
   let {
     kompetenzen,
     vorlagen,
     zustand,
     aufgaben,
+    basebau = $bindable(true),
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
+    /** Basebau-Schalter (R7) – auch Eltern dürfen ihn umlegen (B-13) */
+    basebau?: boolean;
   } = $props();
 
   type Schritt = 'laden' | 'einrichten' | 'code' | 'gesperrt' | 'zuruecksetzen' | 'offen';
@@ -207,6 +211,8 @@
         {/each}
       </select></label
     >
+    <h3>{t('basebau.ueberschrift')}</h3>
+    <BasebauSchalter bind:an={basebau} durch="eltern" />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button
       onclick={() => {

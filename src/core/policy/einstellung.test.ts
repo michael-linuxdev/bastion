@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BASEBAU_SCHLUESSEL,
+  basebauAktiv,
   aktuelleEinstellungen,
   aufDiesemGeraet,
   vonAnderemGeraet,
@@ -50,5 +52,15 @@ describe('Einstellungen', () => {
     expect(aufDiesemGeraet(liste, 'eltern.pin', 'DRITT')).toBeUndefined();
     expect(vonAnderemGeraet(liste, 'eltern.pin', 'DRITT')).toBe(true);
     expect(vonAnderemGeraet(liste.slice(1), 'eltern.pin', 'NEU')).toBe(false);
+  });
+});
+
+describe('Basebau-Schalter (R7, B-13)', () => {
+  it('Standard an; nur ein ausdrückliches „aus“ schaltet ab', () => {
+    expect(basebauAktiv(undefined)).toBe(true);
+    expect(basebauAktiv(true)).toBe(true);
+    expect(basebauAktiv(false)).toBe(false);
+    expect(basebauAktiv('irgendwas')).toBe(true);
+    expect(BASEBAU_SCHLUESSEL).toBe('basebau.aktiv');
   });
 });

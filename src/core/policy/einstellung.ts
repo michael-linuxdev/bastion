@@ -48,6 +48,12 @@ export function einstellungEreignis(
  */
 export const JE_GERAET = GEHEIM;
 
+/** Basebau-Schalter (R7, BASEBAU B-13): Einstellung `basebau.aktiv`. */
+export const BASEBAU_SCHLUESSEL = 'basebau.aktiv';
+
+/** Standard an (B-13): Nur ein ausdrückliches „aus“ schaltet den Basebau ab. */
+export const basebauAktiv = (wert: unknown): boolean => wert !== false;
+
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';
 

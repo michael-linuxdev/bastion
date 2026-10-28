@@ -10,6 +10,7 @@
   import PinVermerke from '../eltern/PinVermerke.svelte';
   import { pinVermerke, type Zustand } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholung, sitzt, statusVon } from './stand';
@@ -21,6 +22,7 @@
     aufgaben,
     niveau = $bindable(),
     klasse = $bindable(5),
+    basebau = $bindable(true),
     onueben,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -29,6 +31,8 @@
     aufgaben: readonly AufgabeEreignis[];
     niveau: Niveau;
     klasse?: number;
+    /** Basebau-Schalter (R7) */
+    basebau?: boolean;
     onueben: (k: Kompetenz) => void;
   } = $props();
 
@@ -124,6 +128,9 @@
   {#if gruppe('neu').length > 0 && angefangen}
     <p class="leise">{t('stand.neu')}: {gruppe('neu').length}</p>
   {/if}
+
+  <h3>{t('basebau.ueberschrift')}</h3>
+  <BasebauSchalter bind:an={basebau} durch="jugendlich" />
 
   <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->
   <details class="eltern-sehen">

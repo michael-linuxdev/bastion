@@ -17,12 +17,15 @@
     zustand,
     aufgaben,
     buchungen,
+    basebau = true,
     onstart,
   }: {
     kompetenzen: readonly Kompetenz[];
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
     buchungen: readonly BuchungEreignis[];
+    /** Basebau aus (R7): keine Ressourcen zeigen – gebucht wird trotzdem (B-10) */
+    basebau?: boolean;
     onstart: () => void;
   } = $props();
 
@@ -98,63 +101,65 @@
         </li>
       {/if}
     </ul>
-    <h3>{t('abschluss.ertrag')}</h3>
-    {#if ertrag.menge.stein + ertrag.menge.erz + ertrag.menge.bauschritt + ertrag.menge.bauplan === 0}
-      <p class="leise">{t('abschluss.ertrag-nichts')}</p>
-    {:else}
-      <ul class="ertrag">
-        {#if ertrag.menge.stein > 0}
-          <li>
-            <strong>{ertrag.menge.stein} {t('ressource.stein')}</strong> – {t('abschluss.aus')}
-            {mit(
-              ertrag.steinAufgaben,
-              t('abschluss.aufgabe-bearbeitet-eine'),
-              t('abschluss.aufgaben-bearbeitet'),
-            )}
-          </li>
-        {/if}
-        {#if ertrag.menge.erz > 0}
-          <li>
-            <strong>{ertrag.menge.erz} {t('ressource.erz')}</strong> – {t('abschluss.aus')}
-            {erzWoher}
-          </li>
-        {/if}
-        {#if ertrag.menge.bauschritt > 0}
-          <li>
-            <strong
-              >{mit(
+    {#if basebau}
+      <h3>{t('abschluss.ertrag')}</h3>
+      {#if ertrag.menge.stein + ertrag.menge.erz + ertrag.menge.bauschritt + ertrag.menge.bauplan === 0}
+        <p class="leise">{t('abschluss.ertrag-nichts')}</p>
+      {:else}
+        <ul class="ertrag">
+          {#if ertrag.menge.stein > 0}
+            <li>
+              <strong>{ertrag.menge.stein} {t('ressource.stein')}</strong> – {t('abschluss.aus')}
+              {mit(
+                ertrag.steinAufgaben,
+                t('abschluss.aufgabe-bearbeitet-eine'),
+                t('abschluss.aufgaben-bearbeitet'),
+              )}
+            </li>
+          {/if}
+          {#if ertrag.menge.erz > 0}
+            <li>
+              <strong>{ertrag.menge.erz} {t('ressource.erz')}</strong> – {t('abschluss.aus')}
+              {erzWoher}
+            </li>
+          {/if}
+          {#if ertrag.menge.bauschritt > 0}
+            <li>
+              <strong
+                >{mit(
+                  ertrag.menge.bauschritt,
+                  t('ressource.bauschritt-einer'),
+                  t('ressource.bauschritte'),
+                )}</strong
+              >
+              – {t('abschluss.aus')}
+              {mit(
                 ertrag.menge.bauschritt,
-                t('ressource.bauschritt-einer'),
-                t('ressource.bauschritte'),
-              )}</strong
-            >
-            – {t('abschluss.aus')}
-            {mit(
-              ertrag.menge.bauschritt,
-              t('abschluss.lerneinheit-eine'),
-              t('abschluss.lerneinheiten'),
-            )}
-          </li>
-        {/if}
-        {#if ertrag.menge.bauplan > 0}
-          <li>
-            <strong
-              >{mit(
-                ertrag.menge.bauplan,
-                t('ressource.bauplan-einer'),
-                t('ressource.bauplaene'),
-              )}</strong
-            >
-            – {t('abschluss.weil')}
-            {ertrag.bauplaene.map(name).join(', ')}
-          </li>
-        {/if}
-      </ul>
+                t('abschluss.lerneinheit-eine'),
+                t('abschluss.lerneinheiten'),
+              )}
+            </li>
+          {/if}
+          {#if ertrag.menge.bauplan > 0}
+            <li>
+              <strong
+                >{mit(
+                  ertrag.menge.bauplan,
+                  t('ressource.bauplan-einer'),
+                  t('ressource.bauplaene'),
+                )}</strong
+              >
+              – {t('abschluss.weil')}
+              {ertrag.bauplaene.map(name).join(', ')}
+            </li>
+          {/if}
+        </ul>
+      {/if}
+      {#if ertrag.geraten > 0}<p class="leise">{t('abschluss.geraten')}</p>{/if}
+      {#if ertrag.weniger}<p class="leise">{t('abschluss.weniger')}</p>{/if}
+      {#if ertrag.gekappt > 0}<p class="leise">{t('abschluss.gekappt')}</p>{/if}
+      {#if ertrag.bauschritteVoll}<p class="leise">{t('abschluss.bauschritte-voll')}</p>{/if}
     {/if}
-    {#if ertrag.geraten > 0}<p class="leise">{t('abschluss.geraten')}</p>{/if}
-    {#if ertrag.weniger}<p class="leise">{t('abschluss.weniger')}</p>{/if}
-    {#if ertrag.gekappt > 0}<p class="leise">{t('abschluss.gekappt')}</p>{/if}
-    {#if ertrag.bauschritteVoll}<p class="leise">{t('abschluss.bauschritte-voll')}</p>{/if}
 
     <p class="pause">{t('abschluss.pause')}</p>
   {/if}
