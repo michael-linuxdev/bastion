@@ -130,6 +130,8 @@ interface Schnappschuss {
 
 Die vierte FSRS-Stufe („leicht“) wird nicht genutzt; drei Stufen sind für Jugendliche verständlicher (T-5). Die Bearbeitungszeit fließt bewusst **nicht** in die Bewertung ein – langsames, sorgfältiges Arbeiten darf nicht schlechter bewertet werden.
 
+*Umsetzung (1a):* `src/core/learning/ereignis.ts` – Typ `AufgabeEreignis` und `aufgabeEreignis(…)`, das aus Aufgabe, Antwort und Auswertung das Ereignis baut: ULID, Lerntag, Bewertung nach der Tabelle, Dauer auf 10 Minuten gekappt, Schnappschuss und Fehlerbild nur bei falschen Antworten. Zeit, Zeitzone, Zufall und Gerät reicht die App herein.
+
 ### 4.2 `sitzung` – eine Lernsitzung
 
 ```ts
