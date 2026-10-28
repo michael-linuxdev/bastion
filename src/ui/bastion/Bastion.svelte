@@ -81,14 +81,16 @@
     if (zielZustand?.erreicht) merken(undefined);
   });
 
-  async function ausfuehren(auftrag: BauAuftrag) {
+  async function ausfuehren(auftrag: BauAuftrag): Promise<boolean> {
     const r = await bauAusfuehren(auftrag);
-    if ('hindernisse' in r) meldung = r.hindernisse;
-    else {
-      lage = r;
-      meldung = [];
-      versetzt = undefined;
+    if ('hindernisse' in r) {
+      meldung = r.hindernisse;
+      return false;
     }
+    lage = r;
+    meldung = [];
+    versetzt = undefined;
+    return true;
   }
 
   const name = gebaeudeName;
@@ -244,7 +246,7 @@
       </section>
     {/if}
 
-    <Bauplatz bastion={l.bastion} />
+    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">

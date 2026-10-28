@@ -399,8 +399,10 @@ Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.12 ✅ | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
-| 2.13 | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
+| 2.13 ✅ | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
 | 2.14 | **Gestalten** | Bannerfarbe, Zierde (Garten, Statue …) | Einheitentests |
+
+*Umsetzung 2.12–2.13:* `src/ui/bastion/Bauplatz.svelte`, `src/ui/bastion/grafik/grafik-buehne.ts`. Je Rolle eine schlichte Form aus dem Code (Kern mit Zinnen, runder Turm, Dach der Werkstatt, Buch für Wissen, Tor mit Durchgang, Pfähle der Einfassung, Feuer, Fahne, Beet, Raute fürs Denkmal), Farbe je Familie, Stufe als Punkte, Neubauten im Bau als Umriss. **Antippen** wählt ein Gebäude; darunter erscheinen „Versetzen“, bei Zierde „Einlagern“, und „Fertig“. Nach „Versetzen“ versetzt ein Tipp auf ein freies Feld das Gebäude; auf einem belegten Feld steht „Dort ist kein Platz frei.“. **„Bild ausblenden – nur die Liste“** schaltet auf die reizarme Ansicht um (Einstellung `basebau.bild`); dann wird PixiJS gar nicht geladen. Neu gebaut wird weiter über die Liste (erstes freies Feld) und danach versetzt. Die Felder sind auf dem Handy etwa 30 Punkte groß – knapp unter der Empfehlung von 44; Zoom kommt bei Bedarf nach den Testrunden.
 
 ### Ausdrücklich nicht in diesem Plan
 

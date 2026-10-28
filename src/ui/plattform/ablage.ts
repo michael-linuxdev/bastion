@@ -28,6 +28,7 @@ import {
   THEMA_SCHLUESSEL,
   themaAus,
   ZIEL_SCHLUESSEL,
+  BILD_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -327,6 +328,15 @@ export async function themaWahl(): Promise<Thema> {
 
 /** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
 export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
+
+/** Bauplatz als Bild zeigen (2.13)? Standard ja; aus = reizarm, nur die Liste. */
+export async function bildZeigen(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return true;
+  return (await einstellung(db, inst.profil, BILD_SCHLUESSEL).catch(() => undefined)) !== false;
+}
+
+export const bildSetzen = (an: boolean) => setze(BILD_SCHLUESSEL, an, 'jugendlich');
 
 /** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
 export async function zielVorgemerkt(): Promise<Ziel | undefined> {

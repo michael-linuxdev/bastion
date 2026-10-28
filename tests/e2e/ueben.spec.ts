@@ -769,3 +769,41 @@ test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
   await page.getByRole('button', { name: "Los geht's" }).click();
   await expect(page.getByRole('button', { name: 'Weiß ich nicht' })).toBeVisible();
 });
+
+test('Bauplatz als Bild: antippen, versetzen, Bild ausblenden (BASEBAU 2.13)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  const bild = page.locator('.bauplatz canvas');
+  await expect(bild).toBeVisible();
+  /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum Bild, scrollt dorthin */
+  const tippe = async (x: number, y: number) => {
+    const r = await bild.boundingBox();
+    if (!r) throw new Error('kein Bild');
+    await bild.click({
+      position: { x: ((x + 0.5) * r.width) / 12, y: ((y + 0.5) * r.height) / 12 },
+    });
+  };
+  // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
+  await tippe(6, 8);
+  const wahl = page.locator('.wahl');
+  await expect(wahl).toContainText('Feuerstelle');
+  await wahl.getByRole('button', { name: 'Versetzen' }).click();
+  await expect(wahl).toContainText('Tippe auf das Feld');
+  // Auf den Bergfried geht es nicht …
+  await tippe(6, 5);
+  await expect(wahl).toContainText('Dort ist kein Platz frei');
+  // … auf ein freies Feld schon
+  await tippe(0, 11);
+  await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
+    'Spalte 1, Reihe 12',
+  );
+
+  // Bild ausblenden: nur noch die Liste – auch nach dem Neuladen
+  await page.getByRole('button', { name: /Bild ausblenden/ }).click();
+  await expect(bild).toHaveCount(0);
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.bild')).toBe(false);
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
+  await expect(bild).toHaveCount(0);
+});
