@@ -295,6 +295,8 @@ db.version(1).stores({
 });
 ```
 
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `kompetenzen`, `profile`, `meta`.
+
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.
 

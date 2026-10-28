@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
+  import type { KompetenzStand } from '../core/learning/fortschritt';
+  import { merke, staende, type Antwortdaten } from './plattform/ablage';
   import { offline } from './plattform/offline.svelte';
   import { ladeInhalte, type Inhalte } from './plattform/pakete';
   import { t } from './texte/texte';
@@ -11,10 +13,21 @@
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
   let niveau = $state<Niveau>('G');
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
+  let stand = $state<ReadonlyMap<string, KompetenzStand>>(new Map());
+
+  async function aktualisiere() {
+    stand = await staende();
+  }
 
   function ueben() {
     inhalte ??= ladeInhalte();
     ansicht = 'uebersicht';
+    void aktualisiere();
+  }
+
+  async function ergebnis(daten: Antwortdaten) {
+    await merke(daten);
+    await aktualisiere();
   }
 </script>
 
@@ -38,12 +51,15 @@
           kompetenz={gewaehlt}
           {niveau}
           vorlagen={geladen.vorlagen}
+          paketVon={geladen.paketVon}
           onzurueck={() => (ansicht = 'uebersicht')}
+          onergebnis={(d) => void ergebnis(d)}
         />
       {:else}
         <Uebersicht
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
+          staende={stand}
           bind:niveau
           onwahl={(k) => {
             gewaehlt = k;

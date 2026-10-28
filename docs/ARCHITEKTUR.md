@@ -120,7 +120,7 @@ Kandidaten waren Svelte, Preact und Solid (klein, schnell) sowie React und Vue (
 - **Dexie/IndexedDB:** überall verfügbar, ausgereift, gute Migrationsunterstützung, kein WASM-Download.
 - **SQLite-WASM:** echte Abfragesprache, attraktiv für komplexe Auswertungen – aber zusätzliches Gewicht, mehr Browser-Sonderfälle und für unser Datenmodell nicht nötig.
 
-**Entscheidung T-4:** Dexie. Zugriff ausschließlich über Repository-Schnittstellen in `packages/storage`, damit ein späterer Wechsel möglich bleibt.
+**Entscheidung T-4:** Dexie. Zugriff ausschließlich über Repository-Schnittstellen in `src/storage/` (umgesetzt: `ablage.ts`), damit ein späterer Wechsel möglich bleibt.
 
 localStorage nur für kleine Geräteeinstellungen (Theme, Sprache), nie für Lern- oder Bastion-Daten.
 
@@ -163,6 +163,8 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | Vitest | 5.0.5 | Werkzeug |
 | @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests, Leistungsmessung) |
 | yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
+| Dexie | 4.4.6 | **Laufzeit**, ca. 32 KB komprimiert: Speicher im Browser (T-4). Freigegeben vom Projektverantwortlichen am 28.10.2026; bewusst nicht die jüngste Version 4.4.7 (erst 9 Tage alt) |
+| fake-indexeddb | 6.2.5 | Werkzeug (IndexedDB in Node für Tests der Ablage) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |
 | typescript-eslint | 8.72.1 | Werkzeug |

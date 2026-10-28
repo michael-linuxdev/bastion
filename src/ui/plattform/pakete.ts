@@ -11,6 +11,8 @@ interface Manifest {
 export interface Inhalte {
   readonly kompetenzen: readonly Kompetenz[];
   readonly vorlagen: readonly GeneratorVorlage[];
+  /** Vorlagen-ID → Paket mit Prüfsummen-Anfang, z. B. "mathematik.raum-und-form.0cfb07d011" */
+  readonly paketVon: ReadonlyMap<string, string>;
 }
 
 const UNTERSTUETZTES_FORMAT = 1;
@@ -29,8 +31,14 @@ export async function ladeInhalte(): Promise<Inhalte> {
       hole<{ kompetenzen?: Kompetenz[]; vorlagen?: GeneratorVorlage[] }>(p.datei),
     ),
   );
+  const paketVon = new Map<string, string>();
+  pakete.forEach((p, i) => {
+    const datei = manifest.pakete[i]?.datei.replace(/\.json$/, '') ?? '';
+    for (const v of p.vorlagen ?? []) paketVon.set(v.id, datei);
+  });
   return {
     kompetenzen: pakete.flatMap((p) => p.kompetenzen ?? []),
     vorlagen: pakete.flatMap((p) => p.vorlagen ?? []),
+    paketVon,
   };
 }

@@ -54,5 +54,8 @@
   "eingabe.nenner-null": "Der Nenner darf nicht 0 sein.",
   "eingabe.auswahl": "Wähle zuerst eine Antwort aus.",
   "eingabe.option": "Antwort",
-  "text.wurzel-aus": "Wurzel aus"
+  "text.wurzel-aus": "Wurzel aus",
+  "status.in-arbeit": "in Arbeit",
+  "status.gekonnt": "gekonnt",
+  "uebersicht.gespeichert": "Dein Fortschritt wird nur auf diesem Gerät gespeichert."
 }
