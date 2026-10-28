@@ -261,3 +261,76 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   await page.getByText('Was meine Eltern sehen').click();
   await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
 });
+
+test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (D-15)', async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await expect(page.getByText('Letzte Sicherung: noch keine.')).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+
+  // Sicherung erstellen: sechs Wörter, Datei herunterladen
+  await page.getByRole('button', { name: 'Sicherung', exact: true }).click();
+  await page.getByRole('button', { name: 'Sicherung erstellen' }).click();
+  const code = (await page.getByTestId('sicherungscode').innerText()).trim();
+  expect(code.split(' ')).toHaveLength(6);
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Code notiert – Datei speichern' }).click(),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/^bastion-sicherung-\d{4}-\d{2}-\d{2}\.bastion$/);
+  const pfad = await download.path();
+
+  // Neues Gerät: leerer Speicher
+  const neu = await browser.newContext(baseURL ? { baseURL } : {});
+  const seite = await neu.newPage();
+  await seite.goto('./');
+  await seite.getByRole('button', { name: 'Sicherung', exact: true }).click();
+  await seite.getByLabel(/Sicherungsdatei/).setInputFiles(pfad);
+  await seite.getByLabel(/Sicherungscode/).fill('apfel apfel apfel apfel apfel apfel');
+  await seite.getByRole('button', { name: 'Einspielen' }).click();
+  await expect(seite.getByText(/Der Code passt nicht/)).toBeVisible();
+  await seite.getByLabel(/Sicherungscode/).fill(code.toUpperCase().replaceAll(' ', '-'));
+  await seite.getByRole('button', { name: 'Einspielen' }).click();
+  await expect(seite.getByText(/Fertig\. Übernommen: 3 Einträge/)).toBeVisible();
+  // Nochmal einspielen: nichts kommt doppelt (D-10)
+  await seite.getByLabel(/Sicherungscode/).fill(code);
+  await seite.getByRole('button', { name: 'Einspielen' }).click();
+  await expect(seite.getByText(/Alles aus dieser Sicherung war schon da/)).toBeVisible();
+  await seite.getByRole('button', { name: /Zurück/ }).click();
+
+  await seite.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(seite.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
+
+  // Die alte PIN gilt hier nicht – neue PIN, dauerhafter Vermerk
+  await seite.getByRole('button', { name: /Zurück/ }).click();
+  await seite.getByRole('button', { name: 'Für Eltern' }).click();
+  await expect(seite.getByText(/Die PIN von früher gilt hier nicht/)).toBeVisible();
+  await seite.getByLabel('PIN', { exact: true }).fill('1357');
+  await seite.getByLabel('PIN wiederholen').fill('1357');
+  await seite.getByRole('button', { name: 'PIN festlegen' }).click();
+  await seite.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  const vermerk = /wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung/;
+  await expect(seite.getByText(vermerk)).toBeVisible();
+  await seite.reload();
+  await seite.getByRole('button', { name: 'Mein Stand' }).click();
+  await seite.locator('summary', { hasText: 'Was meine Eltern sehen' }).click();
+  await expect(seite.getByText(vermerk)).toBeVisible();
+  await neu.close();
+});

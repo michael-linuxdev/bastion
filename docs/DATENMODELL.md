@@ -422,6 +422,8 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 
 *Warum:* Ein vergessener Wiederherstellungscode soll nicht den ganzen Lernstand kosten. Derselbe Weg steht auch Jugendlichen offen – das lässt sich lokal nicht verhindern (ARCHITEKTUR §7). Der Vermerk sorgt dafür, dass er nicht unbemerkt bleibt. Verworfen: PIN-Hash beim Import mitnehmen (dann bliebe ohne Code nur ein Neuanfang ohne Lernstand) und PIN ohne Vermerk verwerfen (Umgehen bliebe unsichtbar).
 
+*Umsetzung (1c):* `aufDiesemGeraet` und `vonAnderemGeraet` in `src/core/policy/einstellung.ts`; der Vermerk erscheint im Elternbereich und unter „Mein Stand“ → „Was meine Eltern sehen“ (`src/ui/eltern/PinVermerke.svelte`).
+
 *Umsetzung (1c):* vier Wörter aus einer Liste von 256 (`src/core/rng/wortcode.ts`); bei der Eingabe zählen Groß- und Kleinschreibung, Bindestriche und Leerzeichen nicht. Nach dem Zurücksetzen gibt es einen neuen Code.
 
 ## 10. Datenschutz-Prüfung
@@ -451,7 +453,7 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 |---|---|---|
 | D-O2 | FSRS-Parameter persönlich anpassen (Optimierer) | Nicht vor Phase 4; braucht viele Wiederholungen pro Person |
 | D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Vorerst 256 Wörter (`src/core/rng/wortcode.ts`), dafür sechs Wörter für Sicherungen (D-9). Eine größere Liste nur, wenn sechs Wörter in den Testrunden zu lang wirken |
-| D-O4 | Wie oft an Sicherungen erinnern? | Monatlich, im Elternbereich einstellbar (T-1) |
+| D-O4 | Wie oft an Sicherungen erinnern? | Umgesetzt: monatlich (30 Tage nach der letzten Sicherung bzw. der ersten Aufgabe). Offen: im Elternbereich einstellbar oder abschaltbar (ARCHITEKTUR §2) |
 
 ## 12. Entscheidungen dieses Dokuments
 

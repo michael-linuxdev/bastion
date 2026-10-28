@@ -7,7 +7,8 @@
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import Bericht from '../eltern/Bericht.svelte';
-  import type { Zustand } from '../plattform/ablage';
+  import PinVermerke from '../eltern/PinVermerke.svelte';
+  import { pinVermerke, type Zustand } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholung, sitzt, statusVon } from './stand';
@@ -27,6 +28,9 @@
     niveau: Niveau;
     onueben: (k: Kompetenz) => void;
   } = $props();
+
+  let vermerke = $state<readonly string[]>([]);
+  void pinVermerke().then((v) => (vermerke = v));
 
   // Einmal beim Öffnen – kein laufender Timer (R2)
   const jetzt = Date.now();
@@ -121,6 +125,7 @@
   <details class="eltern-sehen">
     <summary>{t('stand.eltern-sehen')}</summary>
     <p class="leise">{t('stand.eltern-sehen-text')}</p>
+    <PinVermerke {vermerke} />
     <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
   </details>
 </section>

@@ -8,6 +8,7 @@
     alleAufgaben,
     fehlergruppen,
     merke,
+    sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
     type Zustand,
@@ -19,6 +20,7 @@
   import Diagnose from './ueben/Diagnose.svelte';
   import MeinStand from './ueben/MeinStand.svelte';
   import Elternbereich from './eltern/Elternbereich.svelte';
+  import Sicherung from './sicherung/Sicherung.svelte';
   import type { AufgabeEreignis } from '../core/learning/ereignis';
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
@@ -37,6 +39,7 @@
     | 'diagnose'
     | 'stand'
     | 'eltern'
+    | 'sicherung'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
@@ -56,6 +59,8 @@
   let faellig = $state(0);
   /** Rückkehr nach einer Pause – einmal beim App-Start festgestellt (BASEBAU §6.3). */
   let rueckkehr = $state<boolean | undefined>(undefined);
+  /** Erinnerung an eine Sicherung (monatlich, ARCHITEKTUR §2) – beim Laden festgestellt. */
+  let sichern = $state(false);
 
   async function aktualisiere() {
     zustand = await ladeZustand();
@@ -64,6 +69,7 @@
     faellig = wiederholRunde(zustand.karten, jetzt).length;
     gruppen = await fehlergruppen();
     aufgabenListe = await alleAufgaben();
+    sichern = await sicherungAnstehend();
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -183,8 +189,17 @@
           : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}
       </p>
     {/if}
+    {#if sichern}
+      <p class="hinweis">
+        {t('sicherung.erinnerung')}
+        <button class="dezent" onclick={() => (ansicht = 'sicherung')}
+          >{t('sicherung.erstellen')}</button
+        >
+      </p>
+    {/if}
     <p class="versprechen">{t('start.versprechen')}</p>
-    <p>
+    <p class="leiste">
+      <button class="dezent" onclick={() => (ansicht = 'sicherung')}>{t('sicherung.knopf')}</button>
       <button
         class="dezent"
         onclick={() => {
@@ -197,6 +212,15 @@
     {#if offline.bereit}
       <p class="offline" role="status">{t('start.offline')}</p>
     {/if}
+  {:else if ansicht === 'sicherung'}
+    <button
+      class="zurueck"
+      onclick={() => {
+        ansicht = 'start';
+        void aktualisiere();
+      }}>← {t('uebung.zurueck')}</button
+    >
+    <Sicherung oneingespielt={() => void aktualisiere()} />
   {:else if inhalte}
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
@@ -392,6 +416,12 @@
 
   .hinweis {
     color: var(--farbe-text-leise);
+  }
+
+  .leiste {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-l);
   }
 
   .versprechen {

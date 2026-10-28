@@ -5,12 +5,17 @@
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import {
+    letzteSicherungAm,
     mitCodeZuruecksetzen,
+    pinAusSicherung,
     pinFestlegen,
     pinGesetzt,
     pinPruefen,
+    pinVermerke,
     type Zustand,
   } from '../plattform/ablage';
+  import { istDauerhaft } from '../plattform/speicher';
+  import PinVermerke from './PinVermerke.svelte';
   import { pinGueltig } from '../plattform/pin';
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
@@ -36,7 +41,21 @@
   let fehler = $state<TextSchluessel | undefined>(undefined);
   let beschaeftigt = $state(false);
 
-  void pinGesetzt().then((ja) => (schritt = ja ? 'gesperrt' : 'einrichten'));
+  let ausSicherung = $state(false);
+  let vermerke = $state<readonly string[]>([]);
+  let letzte = $state<number | undefined>(undefined);
+  let dauerhaft = $state(false);
+
+  async function laden() {
+    [ausSicherung, vermerke] = await Promise.all([pinAusSicherung(), pinVermerke()]);
+    schritt = (await pinGesetzt()) ? 'gesperrt' : 'einrichten';
+  }
+  void laden();
+
+  async function oeffnen() {
+    schritt = 'offen';
+    [letzte, dauerhaft] = await Promise.all([letzteSicherungAm(), istDauerhaft()]);
+  }
 
   function leeren() {
     pin = '';
@@ -53,6 +72,8 @@
     code = await pinFestlegen(pin);
     beschaeftigt = false;
     leeren();
+    ausSicherung = false;
+    vermerke = await pinVermerke();
     schritt = 'code';
   }
 
@@ -63,7 +84,7 @@
     beschaeftigt = false;
     if (!ok) return (fehler = 'eltern.pin-falsch');
     leeren();
-    schritt = 'offen';
+    await oeffnen();
   }
 
   async function zuruecksetzen(ereignis: SubmitEvent) {
@@ -82,11 +103,13 @@
 
 <section class="eltern">
   <h2>{t('eltern.ueberschrift')}</h2>
+  {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
     <form onsubmit={schritt === 'einrichten' ? festlegen : zuruecksetzen}>
       {#if schritt === 'einrichten'}
         <p>{t('eltern.einrichten')}</p>
+        {#if ausSicherung}<p class="hinweis">{t('eltern.pin-aus-sicherung')}</p>{/if}
       {:else}
         <label
           >{t('eltern.code-eingeben')}
@@ -124,7 +147,7 @@
       class="haupt"
       onclick={() => {
         code = '';
-        schritt = 'offen';
+        void oeffnen();
       }}>{t('eltern.code-notiert')}</button
     >
   {:else if schritt === 'gesperrt'}
@@ -151,6 +174,17 @@
   {:else if schritt === 'offen'}
     <p class="leise">{t('eltern.transparenz')}</p>
     <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
+    <p>
+      {#if letzte === undefined}{t('eltern.sicherung-keine')}{:else}{t('eltern.sicherung-letzte')}
+        {new Date(letzte).toLocaleDateString('de-DE', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}{/if}
+    </p>
+    <p class="leise">
+      {dauerhaft ? t('eltern.speicher-dauerhaft') : t('eltern.speicher-unsicher')}
+    </p>
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button
       onclick={() => {
@@ -228,5 +262,10 @@
 
   .leise {
     color: var(--farbe-text-leise);
+  }
+
+  .hinweis {
+    border-inline-start: 4px solid var(--farbe-akzent);
+    padding-inline-start: var(--abstand-m);
   }
 </style>
