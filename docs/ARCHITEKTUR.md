@@ -134,6 +134,8 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 **Entscheidung T-5:** FSRS als Planungsverfahren, sichtbar als einfache Kartei.
 
+*Umsetzung (1b):* `src/core/srs/karten.ts` – eine Karte je Vorlage und Niveau, Zielerinnerung 90 %, Bewertung „nochmal/schwer/gut“ aus dem Ereignis (DATENMODELL §4.1).
+
 ### 4.5 Bastion-Darstellung
 
 - **PixiJS:** flüssige 2D-Darstellung mit vielen Objekten, Zoom, Animationen; fällt automatisch auf Canvas zurück. Wird **nur geladen, wenn der Basebau aktiv ist** (R7, A3).
@@ -164,6 +166,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | @playwright/test | 1.63.0 | Werkzeug (Ende-zu-Ende-Tests, Leistungsmessung) |
 | yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
 | Dexie | 4.4.6 | **Laufzeit**, ca. 32 KB komprimiert: Speicher im Browser (T-4). Freigegeben vom Projektverantwortlichen am 28.10.2026; bewusst nicht die jüngste Version 4.4.7 (erst 9 Tage alt) |
+| ts-fsrs | 5.4.2 | **Laufzeit**: Wiederholungsplanung FSRS (T-5). Freigegeben vom Projektverantwortlichen am 28.10.2026. Eingestellt ohne Zufall in den Abständen und ohne Minuten-Lernschritte, damit die Planung aus den Ereignissen wiederholbar ist |
 | fake-indexeddb | 6.2.5 | Werkzeug (IndexedDB in Node für Tests der Ablage) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
 | ESLint | 10.13.0 | Werkzeug |

@@ -1,38 +1,37 @@
 <script lang="ts">
-  // Eine Übungsrunde zu einer Kompetenz auf einem Niveau: Aufgabe zeigen,
-  // Antwort prüfen, gezielte Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg.
-  // Ohne Zeitdruck und ohne Punkte (R1, R2); gespeichert wird noch nichts.
-  import type { Kompetenz, Niveau } from '../../core/competence/kompetenz';
+  // Eine Übungsrunde: Aufgabe zeigen, Antwort prüfen, gezielte Rückmeldung zum
+  // Fehlerbild, Hilfen, Lösungsweg. Welche Aufgabe als Nächstes kommt, bestimmt
+  // `auftrag` – reihum zu einer Kompetenz (Üben) oder aus der Liste fälliger
+  // Karten (Wiederholen). Ohne Zeitdruck und ohne Punkte (R1, R2).
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
-  import { naechsteVorlage, vorlagenFuer } from '../../core/learning/uebung';
-  import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { generatoren } from '../../generators';
   import type { Antwortdaten } from '../plattform/ablage';
   import { neuerSeed } from '../plattform/zufall';
   import { t } from '../texte/texte';
+  import type { Auftrag } from './auftrag';
   import Eingabe from './Eingabe.svelte';
   import Textteile from './Textteile.svelte';
 
   let {
-    kompetenz,
-    niveau,
-    vorlagen,
+    ueberschrift,
+    auftrag,
+    modus,
     paketVon,
     onzurueck,
     onergebnis,
   }: {
-    kompetenz: Kompetenz;
-    niveau: Niveau;
-    vorlagen: readonly GeneratorVorlage[];
+    ueberschrift: string;
+    /** Der n-te Auftrag dieser Runde; undefined = Runde zu Ende. */
+    auftrag: (n: number) => Auftrag | undefined;
+    modus: 'ueben' | 'wiederholen';
     paketVon: ReadonlyMap<string, string>;
     onzurueck: () => void;
     onergebnis: (daten: Antwortdaten) => void;
   } = $props();
 
-  interface Aufgabe {
-    readonly vorlage: GeneratorVorlage;
+  interface Aufgabe extends Auftrag {
     readonly instanz: Instanz;
     readonly seed: number;
     readonly nummer: number;
@@ -40,7 +39,6 @@
     readonly beginn: number;
   }
 
-  const auswahl = $derived(vorlagenFuer(vorlagen, kompetenz.id, niveau));
   let nummer = $state(0);
   let ergebnis = $state<Ergebnis | undefined>(undefined);
   let kommaHinweis = $state(false);
@@ -48,13 +46,13 @@
   let wegOffen = $state(false);
 
   function erzeuge(n: number): Aufgabe | undefined {
-    const vorlage = naechsteVorlage(auswahl, n);
-    const generator = vorlage ? generatoren.get(vorlage.generator) : undefined;
-    if (!vorlage || !generator) return undefined;
+    const a = auftrag(n);
+    const generator = a ? generatoren.get(a.vorlage.generator) : undefined;
+    if (!a || !generator) return undefined;
     const seed = neuerSeed();
     return {
-      vorlage,
-      instanz: generator.erzeuge(seed, vorlage.parameter[niveau]),
+      ...a,
+      instanz: generator.erzeuge(seed, a.vorlage.parameter[a.niveau]),
       seed,
       nummer: n,
       beginn: Date.now(),
@@ -69,15 +67,15 @@
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
     kommaHinweis = hinweis === 'punkt-statt-komma';
     onergebnis({
-      kompetenz: kompetenz.id,
+      modus,
+      kompetenz: aufgabe.kompetenz.id,
       vorlage: aufgabe.vorlage.id,
-      niveau,
+      niveau: aufgabe.niveau,
       generator: aufgabe.vorlage.generator,
       seed: aufgabe.seed,
       paket: paketVon.get(aufgabe.vorlage.id) ?? '',
       hilfen,
       dauerMs: Date.now() - aufgabe.beginn,
-      faellig: false,
       platzhalter: aufgabe.instanz.platzhalter,
       loesung: aufgabe.instanz.loesung,
       antwort,
@@ -107,15 +105,20 @@
 
 <section class="uebung">
   <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
-  <h2>
-    {kompetenz.titel.de} <span class="niveau">· {t(`niveau.${niveau === 'G' ? 'G' : 'M'}`)}</span>
-  </h2>
+  <h2>{ueberschrift}</h2>
 
   {#if !aufgabe}
-    <p>{t('uebung.keine-aufgaben')}</p>
+    <p>
+      {modus === 'wiederholen' && nummer > 0 ? t('wiederholen.fertig') : t('uebung.keine-aufgaben')}
+    </p>
   {:else}
     {#key aufgabe}
       <article class="aufgabe" aria-live="polite">
+        {#if modus === 'wiederholen'}
+          <p class="herkunft">
+            {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
+          </p>
+        {/if}
         <p class="text">
           <Textteile teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)} />
         </p>
@@ -187,17 +190,18 @@
     margin-block: 0;
   }
 
-  .niveau {
-    color: var(--farbe-text-leise);
-    font-weight: normal;
-  }
-
   .aufgabe {
     background: var(--farbe-flaeche);
     border: 1px solid var(--farbe-rand);
     border-radius: var(--radius);
     padding-block: var(--abstand-m);
     padding-inline: var(--abstand-m);
+  }
+
+  .herkunft {
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
+    margin-block-start: 0;
   }
 
   .text {

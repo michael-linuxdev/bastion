@@ -57,5 +57,13 @@
   "text.wurzel-aus": "Wurzel aus",
   "status.in-arbeit": "in Arbeit",
   "status.gekonnt": "gekonnt",
-  "uebersicht.gespeichert": "Dein Fortschritt wird nur auf diesem Gerät gespeichert."
+  "uebersicht.gespeichert": "Dein Fortschritt wird nur auf diesem Gerät gespeichert.",
+  "status.gefestigt": "gefestigt",
+  "status.auffrischen": "auffrischen",
+  "wiederholen.knopf": "Wiederholen",
+  "wiederholen.ueberschrift": "Wiederholen",
+  "wiederholen.eine": "1 Aufgabe ist zum Wiederholen dran.",
+  "wiederholen.mehrere": "Aufgaben sind zum Wiederholen dran.",
+  "wiederholen.keine": "Gerade ist nichts zum Wiederholen dran. Was du übst, kommt hier wieder, kurz bevor du es vergessen würdest.",
+  "wiederholen.fertig": "Alles wiederholt, was heute dran war. Gut gemacht – jetzt ist ein guter Moment für eine Pause."
 }

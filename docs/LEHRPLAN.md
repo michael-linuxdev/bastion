@@ -146,7 +146,7 @@ neu → in Arbeit → gekonnt → gefestigt
 
 Konkretisierung von BASEBAU §3.3: Die „Elemente“ einer Kompetenz sind ihre **Aufgabenvorlagen**.
 
-*Umsetzung (1a/1b):* `src/core/learning/fortschritt.ts` berechnet „neu“, „in Arbeit“ und „gekonnt“. Präzisierung: Gezählt werden die letzten 6 bearbeiteten Aufgaben (übersprungene zählen nicht); von ihnen müssen mindestens 5 ohne Hilfe richtig sein, und diese 5 müssen aus mindestens 2 Vorlagen stammen. Einmal erreicht, bleibt „gekonnt“ bestehen – ob es hält, entscheidet später die Wiederholung. „Gefestigt“ und „auffrischen“ folgen mit FSRS in Phase 1b.
+*Umsetzung (1b):* `src/core/learning/fortschritt.ts` berechnet alle Stufen. Präzisierungen: Für „gekonnt“ zählen die letzten 6 bearbeiteten Aufgaben (übersprungene nicht); mindestens 5 davon ohne Hilfe richtig, aus mindestens 2 Vorlagen. Für „gefestigt“ zählen die Vorlagen, die auf diesem Niveau geübt wurden (mindestens 2); geprüft wird bei jeder Antwort, die Erinnerung mit FSRS (`src/core/srs/karten.ts`). „Gekonnt“ und „gefestigt“ bleiben nach dem ersten Erreichen bestehen; „auffrischen“ wird beim Anzeigen berechnet.
 
 Der Bauplan entsteht beim *ersten* Erreichen von „gefestigt“. „Auffrischen“ wirkt nur im Portfolio und in der Wiederholungsplanung, nie auf die Bastion (B-6).
 
