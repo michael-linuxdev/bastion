@@ -168,7 +168,7 @@ Aus der Lerninsel übernommen, aber altersgestuft:
 ## 10. Elternbereich
 
 - PIN-geschützt, wie Lerninsel.
-- Berichte auf **Kompetenzebene** („Bruchrechnung: gefestigt“), nicht auf Klick-Ebene. Keine Einzelantworten, keine Uhrzeitprotokolle.
+- Standard: Berichte auf **Kompetenzebene** („Bruchrechnung: gefestigt“) und Wochenzusammenfassung. Eine ausführliche Ansicht mit einzelnen Aufgaben gibt es auf Wunsch (D-14, DATENMODELL §5.2).
 - Einstellungen: Zeitsystem-Stufe, Tagesgrenzen, Basebau an/aus, Hilfesprache.
 - Jugendliche sehen immer, was Eltern sehen können (Transparenzprinzip).
 

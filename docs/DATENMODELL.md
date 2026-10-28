@@ -265,7 +265,8 @@ Der Basebau liest ausschließlich `konto`, `bastion` und die Liste gefestigter K
 
 ### 5.2 Was Eltern sehen
 
-Der Elternbericht liest ausschließlich `kompetenzen` und `wochen`. **Nie** einzelne Aufgaben, Antworten, Fehler, Uhrzeiten oder Bearbeitungsdauern.
+**Entscheidung D-14 (28.10.2026, Projektverantwortlicher; ersetzt die frühere Regel „nie einzelne Aufgaben“):** Eltern dürfen alles sehen. **Standard ist eine einfache Ansicht**: Kompetenzstatus und Wochenzusammenfassung (`kompetenzen`, `wochen`). Auf Wunsch zeigt eine **ausführliche Ansicht** die einzelnen Aufgaben mit Datum und Uhrzeit, Thema, Ergebnis, erkanntem Fehlerbild, genutzten Hilfen und Bearbeitungsdauer.
+*Warum:* Eltern tragen die Verantwortung und sollen nicht ausgesperrt sein. Die einfache Ansicht als Standard hält den Blick auf Kompetenzen statt auf Klicks. Das Transparenzprinzip (KONZEPT §10) gilt unverändert: Jugendliche sehen jederzeit beide Ansichten genau so, wie Eltern sie sehen – nichts geschieht hinter ihrem Rücken.
 
 ## 6. Speicherung in IndexedDB (Dexie)
 
@@ -410,8 +411,8 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 |---|---|---|---|---|---|
 | Spitzname, Avatar | Anrede, Profilwahl | bis Löschung | ja | ja | nur im Export |
 | Klassenstufe, Schulform (freiwillig) | Startvorschlag Diagnose | bis Löschung | ja | ja | nur im Export |
-| Einzelne Antworten, Bearbeitungszeit | Wiederholungsplanung, Ernsthaftigkeitsregel, Status | **12 Monate**, dann verdichtet | eigene Fehler in der Fehlerwerkstatt | **nein** | nur im Export |
-| Fehler-Schnappschüsse | Fehlerwerkstatt | bis korrigiert bzw. Verdichtung | ja | **nein** | nur im Export |
+| Einzelne Antworten, Bearbeitungszeit | Wiederholungsplanung, Ernsthaftigkeitsregel, Status | **12 Monate**, dann verdichtet | ja (Fehlerwerkstatt, „Was meine Eltern sehen“) | ja, in der ausführlichen Ansicht (D-14) | nur im Export |
+| Fehler-Schnappschüsse | Fehlerwerkstatt | bis korrigiert bzw. Verdichtung | ja | erkanntes Fehlerbild in der ausführlichen Ansicht (D-14) | nur im Export |
 | FSRS-Zustand je Vorlage | Wiederholungsplanung | bis Löschung | indirekt (fällige Wiederholungen) | nein | nur im Export |
 | Kompetenzstatus | Fortschritt, Portfolio, Bauplan | bis Löschung | ja | ja | nur im Export |
 | Wochenzusammenfassungen | Elternbericht, Wochenrückblick | bis Löschung | ja | ja | nur im Export |
@@ -421,9 +422,9 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | PIN-Hash, Wiederherstellungs-Hash | Elternbereich | bis Löschung | nein | nein (nur Prüfung) | nur im Export |
 | Geräte-ID (Zufall) | Zusammenführen | bis Neuinstallation | nein | nein | nur im Export |
 
-**Bewusst nicht erhoben:** echter Name, Geburtsdatum, Wohnort, Schule, E-Mail, Telefonnummer, Standort, Geräteinformationen, Uhrzeiten in Berichten, Nutzungsstatistiken für die Entwickler.
+**Bewusst nicht erhoben:** echter Name, Geburtsdatum, Wohnort, Schule, E-Mail, Telefonnummer, Standort, Geräteinformationen, Nutzungsstatistiken für die Entwickler.
 
-**Bewusst nicht gezeigt:** Eltern sehen keine einzelnen Antworten, keine Fehler, keine Uhrzeiten und keine Bearbeitungszeiten. Das schützt den Raum, in dem Jugendliche Fehler machen dürfen (R6).
+**Gezeigt nach D-14:** Eltern sehen standardmäßig nur die einfache Ansicht; einzelne Aufgaben, Fehler, Uhrzeiten und Bearbeitungszeiten erst, wenn sie die ausführliche Ansicht öffnen. Was Eltern sehen können, sehen Jugendliche immer auch selbst. Den Raum, Fehler zu machen (R6), schützt die App weiterhin im Ton: Fehler erscheinen als Lernstoff, nie als Bewertung.
 
 ## 11. Offene Punkte
 
@@ -450,3 +451,4 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-11 | Rohe Aufgaben-Ereignisse nach 12 Monaten verdichten | Entschieden |
 | D-12 | Wiederherstellungscode für die Eltern-PIN | Entschieden |
 | D-13 | ULIDs mit eigener Umsetzung im Kern, ohne Bibliothek (war D-O1) | Entschieden |
+| D-14 | Eltern dürfen alles sehen; Standard ist die einfache Ansicht, ausführliche Ansicht auf Wunsch; Jugendliche sehen beides (ersetzt „nie einzelne Aufgaben“ in §5.2 und §10) | Entschieden (28.10.2026) |
