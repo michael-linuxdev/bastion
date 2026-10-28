@@ -1,17 +1,20 @@
 <script lang="ts">
   // Übersicht der Kompetenzen der Klasse 5, nach Bereich und Feld, mit Wahl des Niveaus.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
+  import type { KompetenzStand } from '../../core/learning/fortschritt';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
 
   let {
     kompetenzen,
     vorlagen,
+    staende,
     niveau = $bindable(),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
+    staende: ReadonlyMap<string, KompetenzStand>;
     niveau: Niveau;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
@@ -40,6 +43,7 @@
 <section class="uebersicht">
   <h2>{t('uebersicht.ueberschrift')}</h2>
   <p class="entwurf">{t('uebersicht.entwurf')}</p>
+  <p class="leise">{t('uebersicht.gespeichert')}</p>
 
   <fieldset class="niveau">
     <legend>{t('niveau.ueberschrift')}</legend>
@@ -54,7 +58,14 @@
       {#each b.kompetenzen as k (k.id)}
         <li>
           <button onclick={() => onwahl(k)}>
-            <span class="titel">{k.titel.de}</span>
+            <span class="titel">
+              {k.titel.de}
+              {#if staende.get(`${k.id}|${niveau}`)?.status === 'gekonnt'}
+                <span class="status gekonnt">✓ {t('status.gekonnt')}</span>
+              {:else if staende.has(`${k.id}|${niveau}`)}
+                <span class="status">{t('status.in-arbeit')}</span>
+              {/if}
+            </span>
             <span class="kann">{k.kann_satz.de}</span>
           </button>
         </li>
@@ -125,6 +136,24 @@
 
   .titel {
     font-weight: bold;
+  }
+
+  .status {
+    font-weight: normal;
+    font-size: 0.9rem;
+    color: var(--farbe-text-leise);
+    margin-inline-start: var(--abstand-s);
+  }
+
+  .status.gekonnt {
+    color: #3f7d3a;
+    font-weight: bold;
+  }
+
+  .leise {
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
+    margin-block: 0;
   }
 
   .kann {

@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 27.10.2026 (13) · Phase 0 – Fundament, Phase 1a begonnen
+Stand: 28.10.2026 (14) · Phase 0 – Fundament, Phase 1a begonnen
 
 ---
 
@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Übungsseite ausbauen:** Ergebnisse als Lernereignisse speichern (DATENMODELL, I-6: Generator-Version und Seed, bei Fehlern ein Schnappschuss), dann Wiederholung (Phase 1b). Bild-Eingaben antippbar machen (Koordinaten im Gitter, I-11).
+7. **Wiederholung (Phase 1b):** FSRS-Karten je Vorlage und Niveau (Projektion `karten`), fällige Aufgaben anbieten, dann „gefestigt“ und „auffrischen“ (LEHRPLAN §6). Vorher klären: ts-fsrs als Laufzeitabhängigkeit (T-5) – ist geplant, aber vor dem Einbau fragen. Danach Fehlerwerkstatt aus den Schnappschüssen.
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -72,8 +72,9 @@ Mit Claude Code, als Nächstes:
 - **Umrechnungs-Generator** `gr.einheiten-umrechnen@1` kennt jetzt auch Flächen, Volumen und ml/l. Für die bisherigen Größen bleibt jede Aufgabe gleich, deshalb keine neue Version.
 - Kommazahlen rechnen die Generatoren intern als ganze Zahlen (Hundertstel, Tausendstel), damit keine Gleitkommafehler entstehen.
 - Abwechslungs-Schwellen in den Tests sind gemessen und stehen mit Kommentar „gemessen“ im Test.
-- **Erste Übungsseite** (Start → „Üben“): Übersicht der Klasse 5 nach Bereich, entlang des Graphen, Wahl von Niveau G oder M; Aufgabe mit Bild, Eingabe passend zur Lösungsart, Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg. Inhalte kommen als Pakete von der eigenen Adresse (`tools/inhalte/pakete.ts`) und gehen offline. Kern: `src/core/learning/auswertung.ts`, `text.ts`, `uebung.ts`; Oberfläche: `src/ui/ueben/`. Gespeichert wird noch nichts.
-- 1565 Tests und 3 Browser-Tests, Lint, Build, Größenbudget (60 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Erste Übungsseite** (Start → „Üben“): Übersicht der Klasse 5 nach Bereich, entlang des Graphen, Wahl von Niveau G oder M; Aufgabe mit Bild, Eingabe passend zur Lösungsart, Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg. Inhalte kommen als Pakete von der eigenen Adresse (`tools/inhalte/pakete.ts`) und gehen offline. Kern: `src/core/learning/auswertung.ts`, `text.ts`, `uebung.ts`; Oberfläche: `src/ui/ueben/`. Ergebnisse werden gespeichert (siehe unten).
+- **Ergebnisse speichern (1b begonnen):** Jede geprüfte Antwort wird als Ereignis `aufgabe` gespeichert (`src/core/learning/ereignis.ts`), der Status je Kompetenz und Niveau fortgeschrieben (`fortschritt.ts`: neu, in Arbeit, gekonnt; Pflicht-Test D-6). Ablage mit Dexie 4.4.6 in `src/storage/` (vom Projektverantwortlichen freigegeben). Die Übersicht zeigt „in Arbeit“ und „✓ gekonnt“. PR #3 ist gemergt; die Arbeit läuft auf demselben Branch weiter.
+- 1578 Tests und 4 Browser-Tests, Lint, Build, Größenbudget (92 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

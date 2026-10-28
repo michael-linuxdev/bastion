@@ -36,3 +36,24 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   // Datenschutz (A2): keine einzige Anfrage an fremde Adressen.
   expect(fremdeAnfragen).toEqual([]);
 });
+
+test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben' }).click();
+  const thema = page.getByRole('button', { name: /^Addieren und Subtrahieren/ });
+  await expect(thema).not.toContainText('in Arbeit');
+  await thema.click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+
+  await page.reload();
+  await page.getByRole('button', { name: 'Üben' }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+});

@@ -9,6 +9,7 @@
   import { naechsteVorlage, vorlagenFuer } from '../../core/learning/uebung';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { generatoren } from '../../generators';
+  import type { Antwortdaten } from '../plattform/ablage';
   import { neuerSeed } from '../plattform/zufall';
   import { t } from '../texte/texte';
   import Eingabe from './Eingabe.svelte';
@@ -18,18 +19,25 @@
     kompetenz,
     niveau,
     vorlagen,
+    paketVon,
     onzurueck,
+    onergebnis,
   }: {
     kompetenz: Kompetenz;
     niveau: Niveau;
     vorlagen: readonly GeneratorVorlage[];
+    paketVon: ReadonlyMap<string, string>;
     onzurueck: () => void;
+    onergebnis: (daten: Antwortdaten) => void;
   } = $props();
 
   interface Aufgabe {
     readonly vorlage: GeneratorVorlage;
     readonly instanz: Instanz;
+    readonly seed: number;
     readonly nummer: number;
+    /** Zeitpunkt, zu dem die Aufgabe erschien – nur für die Bearbeitungsdauer im Ereignis. */
+    readonly beginn: number;
   }
 
   const auswahl = $derived(vorlagenFuer(vorlagen, kompetenz.id, niveau));
@@ -43,10 +51,13 @@
     const vorlage = naechsteVorlage(auswahl, n);
     const generator = vorlage ? generatoren.get(vorlage.generator) : undefined;
     if (!vorlage || !generator) return undefined;
+    const seed = neuerSeed();
     return {
       vorlage,
-      instanz: generator.erzeuge(neuerSeed(), vorlage.parameter[niveau]),
+      instanz: generator.erzeuge(seed, vorlage.parameter[niveau]),
+      seed,
       nummer: n,
+      beginn: Date.now(),
     };
   }
 
@@ -57,6 +68,21 @@
     const form = (aufgabe.vorlage.antwort?.['form'] ?? 'beliebig') as Bruchform;
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
     kommaHinweis = hinweis === 'punkt-statt-komma';
+    onergebnis({
+      kompetenz: kompetenz.id,
+      vorlage: aufgabe.vorlage.id,
+      niveau,
+      generator: aufgabe.vorlage.generator,
+      seed: aufgabe.seed,
+      paket: paketVon.get(aufgabe.vorlage.id) ?? '',
+      hilfen,
+      dauerMs: Date.now() - aufgabe.beginn,
+      faellig: false,
+      platzhalter: aufgabe.instanz.platzhalter,
+      loesung: aufgabe.instanz.loesung,
+      antwort,
+      ergebnis,
+    });
     if (!ergebnis.richtig) wegOffen = true;
   }
 

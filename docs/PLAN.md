@@ -151,13 +151,13 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede Stufe ist für sich nutzbar und wird mit der Testgruppe geprüft.
 
 **1a – Aufgabenqualität (Klasse 5, Niveaus G und M, K-15)**
-1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *erste Übungsseite steht: Inhaltspakete, Auswertung mit Fehlerbild-Rückmeldung, Hilfen, Lösungsweg, offline nutzbar. Noch ohne Speichern der Ergebnisse (Lernereignisse) und ohne Anleitungen*
+1. Kern: Kompetenzgraph laden, Aufgaben-Engine, Auswertung – *erste Übungsseite steht: Inhaltspakete, Auswertung mit Fehlerbild-Rückmeldung, Hilfen, Lösungsweg, offline nutzbar. Ergebnisse werden als Lernereignisse auf dem Gerät gespeichert, die Übersicht zeigt „in Arbeit“ und „gekonnt“. Noch ohne Anleitungen*
 2. Generatoren für alle Kompetenzen der Klasse 5, entlang des Graphen, je mit Fehlerbildern und Lösungsweg (INHALTSFORMAT §6–7) – *als Entwurf erledigt: alle 41 Kompetenzen mit mindestens zwei Vorlagen je Niveau (88 Vorlagen, 68 Generatoren mit Pflicht-Tests). Offen: Prüfung der Vorlagen (INHALTSFORMAT §10.1), Anleitungen zum Zeichnen (L-10)*
 3. Erklärungen in einfacher Sprache; Fachbegriffe mit Erklärung
 4. Abschlussbildschirm „Was habe ich heute gekonnt?“ (ohne Ressourcen)
 
 **1b – Wiederholung und Fehlerwerkstatt**
-5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus
+5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus – *begonnen: Ereignis `aufgabe` mit FSRS-Bewertung, Ablage mit Dexie, Status „gekonnt“*
 6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“)
 
 **1c – Diagnose und sichtbarer Fortschritt**
@@ -202,3 +202,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 27.10.2026 | Generator `nz.zahlen-ordnen@1` mit Vorlage M.ZO.NZ.ORDNEN.DER-GROESSE-NACH; Lösungsart „Reihenfolge“ |
 | 27.10.2026 | 1a: Generatoren und Vorlagen für alle 41 Kompetenzen der Klasse 5 (Entwürfe): Zahlen und Rechnen, Teilbarkeit, Brüche und Dezimalzahlen, Größen, Daten, Geometrie mit SVG-Bildern, Flächen und Körper; Generatoren registrieren sich selbst; Pflicht-Tests mit optionalem Zeitlimit |
 | 27.10.2026 | Erste Übungsseite: Inhaltspakete aus `content/`, Auswertung (I-5, Bruchformen, Fehlerbilder), Vorlagentexte mit Formel-Teilmenge, Übersicht nach Graph, Übung mit Hilfen und Lösungsweg; E2E-Test offline |
+| 28.10.2026 | PR #3 gemergt. Ergebnisse speichern: Ereignis `aufgabe`, Projektion `kompetenzen` (neu, in Arbeit, gekonnt) mit Pflicht-Test D-6, Ablage mit Dexie 4.4.6 (freigegeben), Status in der Übersicht |

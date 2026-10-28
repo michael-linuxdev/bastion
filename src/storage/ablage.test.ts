@@ -1,0 +1,91 @@
+import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
+import { describe, expect, it } from 'vitest';
+import { aufgabeEreignis, type AufgabeAngaben } from '../core/learning/ereignis';
+import { quelleAusSeed } from '../core/rng/zufallsquelle';
+import { einrichten, kompetenzStaende, neuBerechnen, speichereAufgabe } from './ablage';
+import { BastionDatenbank } from './datenbank';
+
+let nr = 0;
+const neueDb = () => new BastionDatenbank(`test-${(nr += 1)}`, { indexedDB, IDBKeyRange });
+
+const angaben = (
+  profil: string,
+  geraet: string,
+  teil: Partial<AufgabeAngaben>,
+): AufgabeAngaben => ({
+  profil,
+  geraet,
+  sitzung: 'S',
+  modus: 'ueben',
+  kompetenz: 'M.ZO.NZ.RUNDEN',
+  vorlage: 'M.ZO.NZ.RUNDEN.AUF-STELLE',
+  niveau: 'G',
+  generator: 'nz.runden-auf-stelle@1',
+  seed: 1,
+  paket: 'p',
+  hilfen: 0,
+  dauerMs: 5000,
+  faellig: false,
+  platzhalter: {},
+  loesung: { typ: 'zahl', wert: 1 },
+  antwort: { typ: 'zahl', wert: 1 },
+  ergebnis: { richtig: true },
+  ...teil,
+});
+
+describe('Ablage', () => {
+  it('richtet Gerät und Profil einmal ein und behält sie', async () => {
+    const db = neueDb();
+    const a = await einrichten(db, 1000, quelleAusSeed(1));
+    const b = await einrichten(db, 2000, quelleAusSeed(2));
+    expect(a).toEqual(b);
+    expect(a.geraet).toHaveLength(8);
+    expect(a.profil).toHaveLength(26);
+  });
+
+  it('speichert Ereignisse und schreibt den Stand fort; Neuberechnung ergibt dasselbe', async () => {
+    const db = neueDb();
+    const { profil, geraet } = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(7);
+    const vorlagen = ['A', 'B', 'A', 'B', 'A'];
+    for (const [i, v] of vorlagen.entries()) {
+      const e = aufgabeEreignis(
+        angaben(profil, geraet, { vorlage: `M.ZO.NZ.RUNDEN.${v}` }),
+        2000 + i,
+        60,
+        zufall,
+      );
+      await speichereAufgabe(db, e);
+    }
+    await speichereAufgabe(
+      db,
+      aufgabeEreignis(
+        angaben(profil, geraet, { niveau: 'M', ergebnis: { richtig: false } }),
+        3000,
+        60,
+        zufall,
+      ),
+    );
+
+    const staende = await kompetenzStaende(db, profil);
+    expect(staende.map((s) => [s.niveau, s.status, s.aufgaben]).sort()).toEqual([
+      ['G', 'gekonnt', 5],
+      ['M', 'in-arbeit', 1],
+    ]);
+    expect(await db.aufgaben.count()).toBe(6);
+
+    await neuBerechnen(db, profil);
+    expect(
+      (await kompetenzStaende(db, profil)).sort((a, b) => a.niveau.localeCompare(b.niveau)),
+    ).toEqual(staende.sort((a, b) => a.niveau.localeCompare(b.niveau)));
+  });
+
+  it('schreibt nichts halb: doppelte Ereignis-ID bricht die ganze Transaktion ab', async () => {
+    const db = neueDb();
+    const { profil, geraet } = await einrichten(db, 1000, quelleAusSeed(1));
+    const e = aufgabeEreignis(angaben(profil, geraet, {}), 2000, 60, quelleAusSeed(3));
+    await speichereAufgabe(db, e);
+    await expect(speichereAufgabe(db, e)).rejects.toThrow();
+    expect((await kompetenzStaende(db, profil))[0]?.aufgaben).toBe(1);
+  });
+});
