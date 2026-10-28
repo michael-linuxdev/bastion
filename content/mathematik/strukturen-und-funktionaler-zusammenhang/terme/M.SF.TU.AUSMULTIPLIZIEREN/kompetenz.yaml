@@ -1,0 +1,36 @@
+# Ausmultiplizieren und Ausklammern – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TU.AUSMULTIPLIZIEREN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: terme
+titel:
+  de: 'Ausmultiplizieren und Ausklammern'
+kann_satz:
+  de: 'Ich kann ein Produkt aus einer Zahl und einer Summe ausmultiplizieren und einen gemeinsamen Faktor ausklammern.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.TU.ZUSAMMENFASSEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Eine Zahl mit einer Summe multiplizieren, z. B. 3·(x + 4).'
+  M:
+    beschreibung:
+      de: 'Auch mit negativen Faktoren und Variablen ausmultiplizieren und ausklammern, z. B. 12·x − 18 = 6·(2·x − 3).'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Lineare Gleichungen'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Arbeiten mit Termen und Gleichungen'
+version: 1

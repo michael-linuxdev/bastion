@@ -1,0 +1,37 @@
+# Gleichungen mit Klammern lösen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TU.GLEICHUNGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: terme
+titel:
+  de: 'Gleichungen mit Klammern lösen'
+kann_satz:
+  de: 'Ich kann lineare Gleichungen lösen, bei denen ich zuerst Klammern auflösen und zusammenfassen muss.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.TU.AUSMULTIPLIZIEREN
+  - M.SF.GL.LINEAR
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichungen mit einer Klammer lösen, z. B. 3·(x + 2) = 2·x + 10.'
+  M:
+    beschreibung:
+      de: 'Gleichungen mit Klammern auf beiden Seiten und Dezimalzahlen lösen, z. B. 3·x + 45 = 1,5·(2·x + 16) − x.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Lineare Gleichungen'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Arbeiten mit Termen und Gleichungen'
+version: 1

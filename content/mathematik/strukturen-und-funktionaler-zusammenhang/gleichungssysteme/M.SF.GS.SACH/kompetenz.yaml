@@ -1,0 +1,38 @@
+# Gleichungssysteme aufstellen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.GS.SACH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: gleichungssysteme
+titel:
+  de: 'Gleichungssysteme aufstellen'
+kann_satz:
+  de: 'Ich kann zu Sachaufgaben ein Gleichungssystem aufstellen und lösen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.GS.RECHNERISCH
+  - M.SF.GL.AUFSTELLEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Zu einer Sachaufgabe das passende Gleichungssystem auswählen.'
+  M:
+    beschreibung:
+      de: 'Ein Gleichungssystem selbst aufstellen, lösen und das Ergebnis im Sachzusammenhang deuten.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K3
+    - K2
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Lineare Funktionen und Gleichungssysteme'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 3 Funktionen und lineare Gleichungssysteme'
+version: 1

@@ -1,0 +1,38 @@
+# Ereignisse verknüpfen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZF.EREIGNISSE
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufall
+titel:
+  de: 'Ereignisse verknüpfen'
+kann_satz:
+  de: 'Ich kann Ereignisse mit „und“, „oder“ und „nicht“ verknüpfen und als Mengen angeben.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.DZ.ZF.BEGRIFFE
+  - M.ZO.RZ.ZAHLBEREICHE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Das Gegenereignis angeben; unmögliche und sichere Ereignisse erkennen.'
+  M:
+    beschreibung:
+      de: 'Vereinigung, Schnitt und Differenz zweier Ereignisse als Menge angeben.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K5
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 5 Zufällige Ereignisse'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Zufallsversuche'
+version: 1

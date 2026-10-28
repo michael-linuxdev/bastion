@@ -1,0 +1,35 @@
+# Eigenschaften von Funktionen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FK.EIGENSCHAFTEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen
+titel:
+  de: 'Eigenschaften von Funktionen'
+kann_satz:
+  de: 'Ich kann am Graphen ablesen, wo eine Funktion steigt oder fällt, Nullstellen, größte und kleinste Werte und Symmetrie erkennen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.FK.BEGRIFF
+  - M.RF.GF.QUADRANTEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Am Graphen ablesen, ob die Funktion steigt oder fällt, und Nullstellen ablesen.'
+  M:
+    beschreibung:
+      de: 'Hoch- und Tiefpunkte, Symmetrie und Monotoniebereiche am Graphen erkennen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 3 Funktionen und lineare Gleichungssysteme'
+version: 1

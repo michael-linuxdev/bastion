@@ -1,0 +1,35 @@
+# Binomische Formeln – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TU.BINOMISCH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: terme
+titel:
+  de: 'Binomische Formeln'
+kann_satz:
+  de: 'Ich kann die binomischen Formeln anwenden, um Terme auszumultiplizieren.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.TU.AUSMULTIPLIZIEREN
+  - M.ZO.RZ.POTENZEN
+niveaus:
+  G:
+    beschreibung:
+      de: '(a + b)² und (a − b)² mit Zahlen und einer Variablen ausmultiplizieren.'
+  M:
+    beschreibung:
+      de: 'Auch (a + b)·(a − b) und Terme wie (2·x − 3)² ausmultiplizieren; Lücken in binomischen Formeln ergänzen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Arbeiten mit Termen und Gleichungen'
+version: 1

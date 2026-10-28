@@ -1,0 +1,38 @@
+# Mehrstufige Zufallsversuche – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZF.BAUMDIAGRAMM
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufall
+titel:
+  de: 'Mehrstufige Zufallsversuche'
+kann_satz:
+  de: 'Ich kann mehrstufige Zufallsversuche mit Baumdiagrammen darstellen und Wahrscheinlichkeiten mit den Pfadregeln berechnen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.DZ.ZF.WAHRSCHEINLICHKEIT
+  - M.ZO.BR.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die Wahrscheinlichkeit eines Pfades mit der Produktregel berechnen (zweistufig, mit Zurücklegen).'
+  M:
+    beschreibung:
+      de: 'Mit der Summenregel Ereignisse aus mehreren Pfaden berechnen; Ziehen ohne Zurücklegen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K3
+    - K4
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 5 Zufällige Ereignisse'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Zufallsversuche'
+version: 1

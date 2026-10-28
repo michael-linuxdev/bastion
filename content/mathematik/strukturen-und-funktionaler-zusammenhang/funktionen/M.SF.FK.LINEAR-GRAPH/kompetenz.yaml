@@ -1,0 +1,38 @@
+# Graphen linearer Funktionen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FK.LINEAR-GRAPH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen
+titel:
+  de: 'Graphen linearer Funktionen'
+kann_satz:
+  de: 'Ich kann Graphen linearer Funktionen y = m·x + n zeichnen und lesen und die Bedeutung von m und n erklären.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.FK.BEGRIFF
+  - M.SF.ZU.GRAPH
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den y-Achsenabschnitt n ablesen; erkennen, ob m positiv oder negativ ist.'
+  M:
+    beschreibung:
+      de: 'Zum Graphen die Gleichung wählen; mit dem Steigungsdreieck den Anstieg m bestimmen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 2 Lineare Funktionen und Gleichungssysteme'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 3 Funktionen und lineare Gleichungssysteme'
+version: 1

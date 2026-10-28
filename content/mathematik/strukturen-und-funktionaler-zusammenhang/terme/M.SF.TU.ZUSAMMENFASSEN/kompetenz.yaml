@@ -1,0 +1,37 @@
+# Terme zusammenfassen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TU.ZUSAMMENFASSEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: terme
+titel:
+  de: 'Terme zusammenfassen'
+kann_satz:
+  de: 'Ich kann gleichartige Glieder zusammenfassen und Summen und Differenzen in Klammern auflösen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.GL.TERMWERT
+  - M.ZO.RZ.RECHENGESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichartige Glieder zusammenfassen, z. B. 3·x + 5·x − 2·x; Plusklammern weglassen.'
+  M:
+    beschreibung:
+      de: 'Minusklammern auflösen und Terme mit mehreren Variablen vereinfachen, z. B. 19·a − (17·a − b).'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Lineare Gleichungen'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Arbeiten mit Termen und Gleichungen'
+version: 1

@@ -1,0 +1,35 @@
+# Angebote vergleichen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.ANGEBOTE
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Angebote vergleichen'
+kann_satz:
+  de: 'Ich kann Angebote, Tarife und Kosten im Alltag vergleichen und das günstigste wählen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.ZO.PZ.WIRTSCHAFT
+  - M.ZO.BR.SACH
+niveaus:
+  G:
+    beschreibung:
+      de: 'Bei zwei Angeboten für eine bestimmte Menge den Gesamtpreis vergleichen.'
+  M:
+    beschreibung:
+      de: 'Angebote mit Grundgebühr, Rabatt oder Ratenzahlung vergleichen; Mehrkosten bei Raten berechnen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K6
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 6 Mathematik im Alltag'
+version: 1
