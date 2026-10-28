@@ -30,6 +30,7 @@ import {
   themaAus,
   ZIEL_SCHLUESSEL,
   BILD_SCHLUESSEL,
+  ZOOM_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -341,6 +342,16 @@ export async function bildZeigen(): Promise<boolean> {
 }
 
 export const bildSetzen = (an: boolean) => setze(BILD_SCHLUESSEL, an, 'jugendlich');
+
+/** Gewählter Zoom des Bauplatzes (2.13a) – oder keiner (dann passt die App ihn an). */
+export async function zoomWahl(): Promise<number | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const w = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
+  return typeof w === 'number' && w >= 1 && w <= 2 ? w : undefined;
+}
+
+export const zoomSetzen = (zoom: number) => setze(ZOOM_SCHLUESSEL, zoom, 'jugendlich');
 
 /** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
 export async function zielVorgemerkt(): Promise<Ziel | undefined> {

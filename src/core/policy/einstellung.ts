@@ -65,6 +65,9 @@ export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert)
 /** Bauplatz als Bild zeigen (BASEBAU 2.13); nur `false` blendet es aus. */
 export const BILD_SCHLUESSEL = 'basebau.bild';
 
+/** Zoom des Bauplatzes (BASEBAU 2.13a): 1, 1,5 oder 2. */
+export const ZOOM_SCHLUESSEL = 'basebau.zoom';
+
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 

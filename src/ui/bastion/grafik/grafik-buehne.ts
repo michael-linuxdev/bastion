@@ -161,7 +161,8 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
     height: BAUPLATZ.tiefe * FELD,
     background: farben.boden,
     antialias: true,
-    resolution: Math.min(2, globalThis.devicePixelRatio || 1),
+    // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
+    resolution: Math.min(4, (globalThis.devicePixelRatio || 1) * 2),
     autoDensity: true,
     // keine Erweiterungen nachladen, die wir nicht brauchen (Größe, A3)
     manageImports: false,

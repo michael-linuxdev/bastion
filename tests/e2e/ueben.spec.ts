@@ -783,7 +783,9 @@ test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Weiß ich nicht' })).toBeVisible();
 });
 
-test('Bauplatz als Bild: antippen, versetzen, Bild ausblenden (BASEBAU 2.13)', async ({ page }) => {
+test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2.13)', async ({
+  page,
+}) => {
   await page.goto('./');
   await page.getByRole('button', { name: 'Bastion' }).click();
   const bild = page.locator('.bauplatz canvas');
@@ -810,6 +812,23 @@ test('Bauplatz als Bild: antippen, versetzen, Bild ausblenden (BASEBAU 2.13)', a
   await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
     'Spalte 1, Reihe 12',
   );
+
+  // Zoom (2.13a): vergrößern macht das Bild breiter als das Fenster, die Wahl bleibt gemerkt
+  const fenster = page.locator('.fenster');
+  const breite = async () => (await bild.boundingBox())?.width ?? 0;
+  const vorher = await breite();
+  await page.getByRole('button', { name: 'Vergrößern' }).click();
+  await expect.poll(breite).toBeGreaterThan(vorher * 1.3);
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBeGreaterThan(1);
+  expect(await breite()).toBeGreaterThan((await fenster.boundingBox())?.width ?? 0);
+  // Auch vergrößert trifft ein Tipp das richtige Feld
+  await fenster.evaluate((f) => (f.scrollLeft = 0));
+  await tippe(0, 11);
+  await expect(wahl).toContainText('Feuerstelle');
+  await page.getByRole('button', { name: 'Verkleinern' }).click();
+  await page.getByRole('button', { name: 'Verkleinern' }).click();
+  await expect(page.getByRole('button', { name: 'Verkleinern' })).toBeDisabled();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(1);
 
   // Bild ausblenden: nur noch die Liste – auch nach dem Neuladen
   await page.getByRole('button', { name: /Bild ausblenden/ }).click();
