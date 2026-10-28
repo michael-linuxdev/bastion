@@ -23,12 +23,13 @@ describe('Katalog Epoche 1 (BASEBAU §5.2)', () => {
     for (const g of Object.values(KATALOG)) {
       if (g.familie === 'zierde') continue;
       // Anzahl baubarer Exemplare: Palisaden 8 weitere, Späherturm 2, sonst 1
-      const stueck = g.typ === 'einfassung' ? 8 : (g.hoechstens ?? 1);
+      const stueck = g.typ === 'einfassung' ? 36 : (g.hoechstens ?? 1);
       for (const s of g.stufen)
         for (const r of ['fleiss', 'behalten', 'koennen', 'schritt'] as const)
           summe[r] += s.kosten[r] * stueck;
     }
-    expect(summe).toEqual({ fleiss: 2000, behalten: 570, koennen: 17, schritt: 93 });
+    // §5.2 mit 36 statt 8 Einfassungs-Stücken (B-22): 2 000 + 28 · 15 Fleiß, 93 + 28 Bauschritte
+    expect(summe).toEqual({ fleiss: 2420, behalten: 570, koennen: 17, schritt: 121 });
   });
 
   it('die erste Lerneinheit reicht für ein Banner (§5.1)', () => {
@@ -92,7 +93,7 @@ describe('Hindernisse (§4.2)', () => {
     expect(hindernisse('kern', [kern], kern)).toEqual(['hoechststufe']);
     const tor = bau('eingang');
     expect(hindernisse('eingang', [bau('kern', 3), tor], tor)).toEqual(['hoechststufe']);
-    const palisaden = Array.from({ length: 12 }, (_, i) => bau('einfassung', 1, `p${i}`));
+    const palisaden = Array.from({ length: 40 }, (_, i) => bau('einfassung', 1, `p${i}`));
     expect(
       hindernisse('einfassung', [...START.filter((b) => b.typ !== 'einfassung'), ...palisaden]),
     ).toEqual(['hoechstzahl']);

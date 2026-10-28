@@ -96,8 +96,8 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     typ: 'einfassung',
     familie: 'verteidigung',
     groesse: [1, 1],
-    // 4 von Anfang an, 8 weitere baubar
-    hoechstens: 12,
+    // 4 von Anfang an, 36 weitere baubar – genug, um einen Teil des Platzes zu umschließen (B-22)
+    hoechstens: 40,
     stufen: [{ kosten: k(15) }],
   },
   ursprung: {

@@ -159,10 +159,10 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 | Späherturm (2×) | 1 | 100 | 30 | 1 | 6 | – |
 | Späherturm (2×) | 2 | 200 | 60 | 2 | 10 | Bergfried 2 |
 | Tor | 1 | 80 | 20 | 1 | 5 | – |
-| Palisade (8 weitere Segmente) | – | je 15 | – | – | je 1 | – |
+| Palisade (~~8~~ 36 weitere Segmente, B-22) | – | je 15 | – | – | je 1 | – |
 | Banner, Garten, Statue u. a. | – | 20–40 | – | – | 1 | – |
 
-**Summe Epoche 1** (ohne beliebige Zierde): ca. 2 000 Stein, 570 Erz, 17 Baupläne, ~100 Bauschritte.
+**Summe Epoche 1** (ohne beliebige Zierde): ca. 2 000 Stein, 570 Erz, 17 Baupläne, ~100 Bauschritte. *Mit 36 Palisaden (B-22): 2 420 Stein und 121 Bauschritte.*
 
 *Umsetzung (2.5):* `src/core/bastion/katalog.ts` – Katalog als Daten, genau nach dieser Tabelle (Test: 2 000 Stein, 570 Erz, 17 Baupläne, 93 Bauschritte). Präzisierungen:
 - **Banner 10 Stein, 1 Bauschritt** statt 20–40: Nur so reicht die erste Lerneinheit (etwa 10 Stein) für ein Banner, wie §5.1 verlangt. Garten 30, Statue 40 Stein, je 1 Bauschritt; Zierde ohne Höchstzahl, begrenzt nur durch den Platz.

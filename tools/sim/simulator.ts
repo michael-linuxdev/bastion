@@ -122,7 +122,7 @@ const ZIELE: readonly { typ: GebaeudeTyp; stufe: number }[] = [
   { typ: 'turm', stufe: 2 },
   { typ: 'turm', stufe: 2 },
   { typ: 'kern', stufe: 3 },
-  ...Array.from({ length: 8 }, () => ({ typ: 'einfassung' as const, stufe: 1 })),
+  ...Array.from({ length: 36 }, () => ({ typ: 'einfassung' as const, stufe: 1 })),
 ];
 const ZIERDE: readonly GebaeudeTyp[] = ['flaeche', 'denkmal', 'zeichen'];
 
