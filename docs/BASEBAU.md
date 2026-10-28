@@ -84,6 +84,14 @@ Was er ausdrücklich **nicht** tun darf:
 
 *Kritische Gegenfrage:* Benachteiligt die Grenze die Wochenend-Lernerin? Ja, bewusst ein wenig – sie baut langsamer als jemand, der dieselbe Zeit über die Woche verteilt. Die Kosten (Abschnitt 5) sind so angelegt, dass auch zwei Lerntage pro Woche **jede Woche sichtbaren Fortschritt** bringen. Der Simulator muss das bestätigen (Profil P3).
 
+### 3.4a Umsetzung (2.2)
+
+`src/core/ledger/regeln.ts`, Regelversion 1, rein und deterministisch. Präzisierungen:
+- **Stein** gibt es für ernsthafte Aufgaben **aller** Lernmodi, auch beim Wiederholen (so rechnet die Herleitung in §5.3: 15 Aufgaben je Einheit, darunter die Wiederholungen). „Halber Ertrag“ heißt: je zwei Aufgaben zwischen der 26. und 50. ein Stein. Die Tageskurve gilt je Lerntag, gleich wie sich die Aufgaben auf Sitzungen verteilen.
+- **Erz** für eine bestandene fällige Wiederholung (richtig, mit oder ohne Hilfe) oder für die **erste** richtige Korrektur eines Fehlers. Beides zugleich bringt ein Erz, nicht zwei. Die Diagnose bringt kein Erz. *Neu:* Ein **geratener** Fehler (§3.1) bringt beim Korrigieren kein Erz – sonst lohnte es, erst schnell zu raten und dann zu korrigieren. Was über 30 am Tag hinausgeht, steht als „gekappt“ in der Aufschlüsselung.
+- **Bauschritt** für jede Sitzung, die eine Lerneinheit ist (DATENMODELL §4.2), höchstens zwei je Lerntag.
+- **Bauplan** beim ersten „gefestigt“ einer Kompetenz auf einem Niveau. „Gefestigt“ ist **dieselbe Regel wie in „Mein Stand“** (LEHRPLAN §6, `src/core/learning/fortschritt.ts`): jede geübte Vorlage zweimal als fällige Wiederholung bestanden, mindestens 7 Tage nach „gekonnt“, Erinnerungswahrscheinlichkeit aller Vorlagen mindestens 90 %. Das deckt §3.3 ab; so widersprechen Studierstube und Kompetenzansicht einander nie.
+
 ### 3.5 Grundregeln für alle Ressourcen
 
 - **Niveauneutral:** Kein Ertragsfaktor für Schulform oder Niveau. Gleiche Anstrengung, gleiche Belohnung.
@@ -266,7 +274,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.1 ✅ | **Sitzungen** | `sitzung`-Ereignis (DATENMODELL §4.2) beim Abschluss („Fertig für heute“, Verlassen); fehlende Sitzungen beim nächsten Start nachtragen (D-3); Lerneinheit = mindestens 10 ernsthafte Aufgaben oder 8 Minuten aktive Zeit (§3.4) | Einheitentests, auch für Abbruch und Nachtragen |
-| 2.2 | **Ledger-Regeln** in `src/core/ledger/` | rein und deterministisch, Regelversion 1: Stein mit Tageskurve und Rateregel (§3.1), Erz aus fälligen bestandenen Wiederholungen und Korrekturen, höchstens 30 am Tag (§3.2), Bauschritte höchstens 2 am Tag (§3.4), Bauplan beim ersten „gefestigt“ je Kompetenz und Niveau (§3.3) | fast-check: Tagesgrenzen halten, absichtlich falsch antworten bringt nichts, Niveau ändert nichts (B-4) |
+| 2.2 ✅ | **Ledger-Regeln** in `src/core/ledger/` | rein und deterministisch, Regelversion 1: Stein mit Tageskurve und Rateregel (§3.1), Erz aus fälligen bestandenen Wiederholungen und Korrekturen, höchstens 30 am Tag (§3.2), Bauschritte höchstens 2 am Tag (§3.4), Bauplan beim ersten „gefestigt“ je Kompetenz und Niveau (§3.3) | fast-check: Tagesgrenzen halten, absichtlich falsch antworten bringt nichts, Niveau ändert nichts (B-4) |
 | 2.3 | **Buchungen und Konto** | `buchung`-Ereignisse je Sitzung mit Aufschlüsselung (D-4), Projektion `konto`; Sicherung, Einspielen und Zusammenführen kennen die neue Ereignisart (DATENMODELL §7.3); Schemaversion mit Migrationstest | Pflicht-Test D-6: fortgeschrieben = neu aufgebaut |
 | 2.4 | **Abschluss mit Ressourcen** | Ressourcen **unter** dem Können, mit „woher“ (§6.1, §9 Punkt 2); „Für heute ist das gut“ nach dem zweiten Bauschritt (R5); Belohnung fürs Korrigieren sichtbar (R6) | Browser-Test |
 
