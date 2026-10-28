@@ -1,0 +1,25 @@
+# „Um wie viel Prozent ist der Preis gestiegen?“ – „um“ und „auf“. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.VERAENDERUNG.UM-AUF
+kompetenz: M.ZO.PZ.VERAENDERUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.um-auf@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: 'Der alte Preis ist der [[Grundwert]], also 100 %.'
+  - de: '„Um wie viel [[Prozent]]“ fragt nach dem Unterschied. „Auf wie viel Prozent“ fragt nach dem neuen Preis im Vergleich zum alten.'
+fehlerbilder:
+  auf-statt-um:
+    de: 'Das ist „auf wie viel [[Prozent]]“. Gefragt ist „um wie viel Prozent“ – zieh noch die 100 % ab.'
+  um-statt-auf:
+    de: 'Das ist „um wie viel [[Prozent]]“. Gefragt ist „auf wie viel Prozent“ – rechne die 100 % noch dazu bzw. zieh die Änderung von 100 % ab.'
+  falscher-grundwert:
+    de: 'Du hast durch den neuen Preis geteilt. Der [[Grundwert]] ist der alte Preis.'
+herkunft: ki-entwurf
+version: 1

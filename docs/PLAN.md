@@ -168,7 +168,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 11. Ledger bucht im Hintergrund (B-10), ohne Anzeige
 12. ~~Testrunden mit der Testgruppe nach 1a, 1b und 1c~~ – *nach K-17 erst, wenn der Lehrplan bis Klasse 12 aufgebaut ist (`TESTS.md`)*
 13. Klasse 6 erst, wenn Klasse 5 nach den Kriterien in `STRATEGIE.md` §2 abgeschlossen ist – *nach K-17 ohne Prüfung und Test: Klasse 5 ist damit abgeschlossen, Klasse 6 ist dran. Stand: alle 26 Kompetenzen der Klasse 6 haben Vorlagen (53, Entwurf), Übersicht, „Mein Stand“ und Diagnose mit Klassenwahl*
-14. Klasse 7 (K-15, K-17) – *Stand: Lehrpläne ausgewertet (OS mit Haupt- und Realschulbildungsgang, GY), 29 Kompetenzen und Graph in `LEHRPLAN.md` §8c; Vorlagen folgen Feld für Feld (RZ, Quadranten und GL fertig), Klassenwahl mit Klasse 7*
+14. Klasse 7 (K-15, K-17) – *Stand: Lehrpläne ausgewertet (OS mit Haupt- und Realschulbildungsgang, GY), 29 Kompetenzen und Graph in `LEHRPLAN.md` §8c; Vorlagen folgen Feld für Feld (RZ, Quadranten, GL und PZ fertig), Klassenwahl mit Klasse 7*
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 

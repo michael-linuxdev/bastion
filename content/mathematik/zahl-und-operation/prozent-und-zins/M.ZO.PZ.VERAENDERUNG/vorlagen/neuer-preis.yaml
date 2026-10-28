@@ -1,0 +1,26 @@
+# Preis steigt oder sinkt um p % – neuer Preis, auf M auch alter Preis. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.VERAENDERUNG.NEUER-PREIS
+kompetenz: M.ZO.PZ.VERAENDERUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.neuer-preis@1
+parameter:
+  G: { rueckwaerts: false }
+  M: { rueckwaerts: true }
+text:
+  aufgabe:
+    de: '{geschichte}'
+hilfen:
+  - de: 'Rechne zuerst aus, um wie viel Euro sich der Preis ändert. Zähle dann dazu oder zieh ab.'
+  - de: 'Schneller: Steigt der Preis um 15 %, kostet es danach 115 % des alten Preises.'
+  - de: 'Rückwärts: Der alte Preis ist der [[Grundwert]] (100 %), nicht der neue.'
+fehlerbilder:
+  nur-prozentwert:
+    de: 'Das ist nur die Änderung. Gefragt ist der neue Preis – zähle die Änderung noch dazu bzw. zieh sie ab.'
+  falsche-richtung:
+    de: 'Du hast in die falsche Richtung gerechnet. Steigt der Preis, wird es teurer.'
+  rueckwaerts-falscher-grundwert:
+    de: 'Die Prozente beziehen sich auf den alten Preis, nicht auf den neuen. Der neue Preis ist zum Beispiel 115 % des alten: Teile durch 115 und nimm mal 100.'
+herkunft: ki-entwurf
+version: 1

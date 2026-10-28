@@ -675,3 +675,34 @@ begriffe:
     formen: [umformen, Umformen, Umformung, Umformungsschritt]
     erklaerung:
       de: 'Auf beiden Seiten einer Gleichung dasselbe rechnen. Die Gleichung wird einfacher, die Lösung bleibt gleich.'
+  # Klasse 7: Prozent- und Zinsrechnung
+  - id: grundwert
+    wort: { de: Grundwert }
+    formen: [Grundwert]
+    erklaerung:
+      de: 'Das Ganze, von dem man Prozent nimmt – es sind 100 %. In „25 % von 80 €“ ist 80 € der Grundwert.'
+  - id: prozentwert
+    wort: { de: Prozentwert }
+    formen: [Prozentwert]
+    erklaerung:
+      de: 'Der Teil vom Grundwert. In „25 % von 80 € sind 20 €“ ist 20 € der Prozentwert.'
+  - id: prozentsatz
+    wort: { de: Prozentsatz }
+    formen: [Prozentsatz, Prozentsätze, Prozentsätzen]
+    erklaerung:
+      de: 'Die Angabe mit dem Zeichen %. Sie sagt, wie viele Hundertstel vom Ganzen gemeint sind. In „25 % von 80 €“ ist 25 % der Prozentsatz.'
+  - id: kapital
+    wort: { de: Kapital }
+    formen: [Kapital]
+    erklaerung:
+      de: 'Das Geld, das man auf ein Konto legt oder sich leiht. In der Zinsrechnung ist es der Grundwert.'
+  - id: zinsen
+    wort: { de: Zinsen }
+    formen: [Zinsen]
+    erklaerung:
+      de: 'Geld, das man für angelegtes Geld bekommt oder für geliehenes Geld bezahlt. In der Zinsrechnung sind die Zinsen der Prozentwert.'
+  - id: zinssatz
+    wort: { de: Zinssatz }
+    formen: [Zinssatz]
+    erklaerung:
+      de: 'Wie viel Prozent Zinsen es in einem Jahr gibt. In der Zinsrechnung ist er der Prozentsatz.'

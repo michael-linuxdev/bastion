@@ -1,0 +1,26 @@
+# „Berechne 15 % von 240 €.“ / Grundwert, Prozentsatz gesucht. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.GRUNDAUFGABEN.BERECHNEN
+kompetenz: M.ZO.PZ.GRUNDAUFGABEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.grundaufgabe@1
+parameter:
+  G: { alle: false }
+  M: { alle: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Schreibe auf, was gegeben ist: [[Grundwert]] G, [[Prozentwert]] W oder [[Prozentsatz]] p.'
+  - de: 'Mit dem Dreisatz: Von 100 % auf 1 % und dann auf den gesuchten [[Prozentsatz]].'
+  - de: 'Mit [[Formeln]]: W = G · p : 100, G = W · 100 : p, p = W · 100 : G.'
+fehlerbilder:
+  hundert-vergessen:
+    de: '[[Prozent]] heißt „von hundert“. In der Rechnung fehlt das Teilen bzw. Malnehmen mit 100.'
+  falsch-herum-geteilt:
+    de: 'Du hast falsch herum geteilt. Mach einen [[Überschlag]]: Passt das Ergebnis zur Aufgabe?'
+  prozentwert-berechnet:
+    de: 'Gesucht ist der [[Grundwert]], also das Ganze. Er ist größer als der [[Prozentwert]].'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Berechne 25 % von 80 €.“ – bequeme Prozentsätze im Kopf. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.BEGRIFFE.BEQUEM
+kompetenz: M.ZO.PZ.BEGRIFFE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.bequem@1
+parameter:
+  G: { saetze: [10, 25, 50, 100] }
+  M: { saetze: [1, 5, 20, 75] }
+text:
+  aufgabe:
+    de: '**Berechne** im Kopf: {prozentsatz} von {grundwert}.'
+hilfen:
+  - de: '50 % ist die Hälfte, 25 % ein Viertel, 10 % ein [[Zehntel]], 1 % ein [[Hundertstel]].'
+  - de: '20 % sind 2 · 10 %, 5 % sind die Hälfte von 10 %, 75 % sind 3 · 25 %.'
+fehlerbilder:
+  geteilt-durch-prozentzahl:
+    de: 'Du hast durch die Prozentzahl geteilt. 25 % heißt aber „25 von 100“ – also ein Viertel.'
+  hundert-vergessen:
+    de: '[[Prozent]] heißt „von hundert“. Teile noch durch 100.'
+herkunft: ki-entwurf
+version: 1
