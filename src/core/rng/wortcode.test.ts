@@ -16,5 +16,9 @@ describe('Wort-Codes', () => {
   });
   it('normalisiert Eingaben', () => {
     expect(normalisiereCode('  Apfel   Baum\tHund kuh ')).toBe('apfel baum hund kuh');
+    expect(normalisiereCode('apfel-baum, hund. kuh')).toBe('apfel baum hund kuh');
+  });
+  it('sechs Wörter für Sicherungen (D-9)', () => {
+    expect(wortcode(quelleAusSeed(3), 6).split(' ')).toHaveLength(6);
   });
 });

@@ -206,7 +206,7 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 
 - **Precaching:** Beim ersten Laden speichert der Service Worker die komplette App-Hülle (HTML, JS, CSS, Icons, Manifest). Danach startet die App ohne Netz.
 - **Updates:** `registerType: 'prompt'`. Eine neue Version wird im Hintergrund geladen, aber erst aktiviert, wenn die Person im Hinweis „Jetzt aktualisieren“ wählt. „Später“ blendet den Hinweis aus; beim nächsten Start wird erneut gefragt. So wechselt die Version nie mitten in einer Sitzung.
-- **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis wird noch nicht angezeigt; ab Phase 1 erscheint es im Elternbereich zusammen mit der Sicherungs-Erinnerung.
+- **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis zeigt der Elternbereich zusammen mit dem Datum der letzten Sicherung (seit 1c). Die Erinnerung an eine Sicherung erscheint monatlich auf der Startseite (`sicherungFaellig` in `src/core/sicherung/sicherung.ts`).
 - **Icons:** `public/icon.svg` ist die Vorlage; die PNG-Icons sind daraus abgeleitet (Platzhalter bis zur Gestaltung).
 - Code: `vite.config.ts` (Manifest, Workbox), `src/ui/plattform/offline.svelte.ts`, `src/ui/plattform/speicher.ts`, `src/ui/UpdateHinweis.svelte`.
 

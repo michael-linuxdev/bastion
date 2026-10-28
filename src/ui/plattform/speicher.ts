@@ -5,3 +5,8 @@ export async function dauerhaftenSpeicherAnfragen(): Promise<boolean> {
   if (await navigator.storage.persisted()) return true;
   return navigator.storage.persist();
 }
+
+/** Hat der Browser zugesagt, die Daten zu behalten? (Anzeige im Elternbereich) */
+export async function istDauerhaft(): Promise<boolean> {
+  return (await navigator.storage?.persisted?.().catch(() => false)) ?? false;
+}

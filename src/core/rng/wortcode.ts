@@ -271,5 +271,11 @@ export function wortcode(zufall: ZufallsQuelle, anzahl = 4): string {
   return [...bytes].map((b) => WOERTER[b] ?? '').join(' ');
 }
 
-/** Für den Vergleich: Kleinbuchstaben, einfache Leerzeichen, Ränder weg. */
-export const normalisiereCode = (code: string) => code.trim().toLowerCase().split(/\s+/).join(' ');
+/** Für den Vergleich: Kleinbuchstaben, Wörter durch ein Leerzeichen getrennt –
+ * egal ob mit Leerzeichen, Bindestrich, Komma oder Punkt geschrieben. */
+export const normalisiereCode = (code: string) =>
+  code
+    .toLowerCase()
+    .split(/[\s,.\-–]+/)
+    .filter(Boolean)
+    .join(' ');

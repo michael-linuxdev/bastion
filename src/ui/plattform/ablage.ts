@@ -4,7 +4,22 @@
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
 import { ulid } from '../../core/rng/ulid';
-import { einstellungEreignis } from '../../core/policy/einstellung';
+import {
+  aufDiesemGeraet,
+  einstellungEreignis,
+  JE_GERAET,
+  PIN_NACH_SICHERUNG,
+  vonAnderemGeraet,
+} from '../../core/policy/einstellung';
+import { lerntag } from '../../core/policy/lerntag';
+import {
+  CODE_WOERTER,
+  dateiname,
+  ERINNERUNG_SCHLUESSEL,
+  erinnerungTage,
+  sicherungFaellig,
+} from '../../core/sicherung/sicherung';
+import { oeffnen, verschluesseln, type OeffnenFehler } from './sicherung';
 import { normalisiereCode, wortcode } from '../../core/rng/wortcode';
 import { hashe, pruefe } from './pin';
 import type { AufgabeEreignis } from '../../core/learning/ereignis';
@@ -15,6 +30,12 @@ import {
   aufgaben,
   einrichten,
   einstellung,
+  einstellungsEreignisse,
+  ersteAufgabe,
+  exportieren,
+  importieren,
+  letzteSicherung,
+  sicherungVermerken,
   speichereEinstellung,
   karte,
   karten,
@@ -98,7 +119,7 @@ export async function alleAufgaben(): Promise<AufgabeEreignis[]> {
   return aufgaben(db, inst.profil).catch(() => []);
 }
 
-async function setze(schluessel: string, wert: string): Promise<void> {
+async function setze(schluessel: string, wert: string | number): Promise<void> {
   const inst = await bereit();
   if (!inst) throw new Error('Speichern nicht möglich');
   const jetzt = Date.now();
@@ -116,14 +137,44 @@ async function setze(schluessel: string, wert: string): Promise<void> {
 async function lies(schluessel: string): Promise<string | undefined> {
   const inst = await bereit();
   if (!inst) return undefined;
-  const w = await einstellung(db, inst.profil, schluessel).catch(() => undefined);
+  // PIN und Wiederherstellungscode gelten nur auf diesem Gerät (D-15)
+  const w = JE_GERAET.has(schluessel)
+    ? aufDiesemGeraet(
+        await einstellungsEreignisse(db, inst.profil).catch(() => []),
+        schluessel,
+        inst.geraet,
+      )?.wert
+    : await einstellung(db, inst.profil, schluessel).catch(() => undefined);
   return typeof w === 'string' ? w : undefined;
 }
 
 export const pinGesetzt = async () => (await lies('eltern.pin')) !== undefined;
 
+/** Gibt es für dieses Profil eine PIN von einem anderen Gerät, aber keine hier (D-15)? */
+export async function pinAusSicherung(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst || (await pinGesetzt())) return false;
+  const alle = await einstellungsEreignisse(db, inst.profil).catch(() => []);
+  return vonAnderemGeraet(alle, 'eltern.pin', inst.geraet);
+}
+
+/** Lerntage, an denen die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
+export async function pinVermerke(): Promise<string[]> {
+  const inst = await bereit();
+  if (!inst) return [];
+  const alle = await einstellungsEreignisse(db, inst.profil).catch(() => []);
+  return alle
+    .filter((e) => e.schluessel === PIN_NACH_SICHERUNG && typeof e.wert === 'string')
+    .sort((a, b) => a.ts - b.ts)
+    .map((e) => String(e.wert));
+}
+
 /** PIN festlegen (oder neu setzen); liefert den neuen Wiederherstellungscode (D-12). */
 export async function pinFestlegen(pin: string): Promise<string> {
+  if (await pinAusSicherung()) {
+    const jetzt = Date.now();
+    await setze(PIN_NACH_SICHERUNG, lerntag(jetzt, -new Date(jetzt).getTimezoneOffset()));
+  }
   const code = wortcode(zufall);
   await setze('eltern.pin', await hashe(pin));
   await setze('eltern.wiederherstellung', await hashe(normalisiereCode(code)));
@@ -143,4 +194,74 @@ export async function mitCodeZuruecksetzen(
   const h = await lies('eltern.wiederherstellung');
   if (h === undefined || !(await pruefe(normalisiereCode(code), h))) return undefined;
   return pinFestlegen(neuePin);
+}
+
+/** Ist es Zeit, an eine Sicherung zu erinnern (monatlich, ARCHITEKTUR §2)? */
+export async function sicherungAnstehend(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  const [letzte, erste, tage] = await Promise.all([
+    letzteSicherung(db).catch(() => undefined),
+    ersteAufgabe(db, inst.profil).catch(() => undefined),
+    erinnerungAlle(),
+  ]);
+  return sicherungFaellig(letzte, erste, Date.now(), tage);
+}
+
+/** Abstand der Sicherungs-Erinnerung in Tagen; 0 = aus (D-O4). */
+export async function erinnerungAlle(): Promise<number> {
+  const inst = await bereit();
+  if (!inst) return erinnerungTage(undefined);
+  return erinnerungTage(
+    await einstellung(db, inst.profil, ERINNERUNG_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+/** Eltern stellen den Abstand ein (als Einstellungs-Ereignis, D-5). */
+export const erinnerungSetzen = (tage: number) => setze(ERINNERUNG_SCHLUESSEL, tage);
+
+export async function letzteSicherungAm(): Promise<number | undefined> {
+  return (await bereit()) ? letzteSicherung(db).catch(() => undefined) : undefined;
+}
+
+export interface NeueSicherung {
+  readonly code: string;
+  readonly name: string;
+  readonly datei: Uint8Array;
+}
+
+/** Profil-Sicherung mit neuem Sicherungscode aus sechs Wörtern erstellen (D-9). */
+export async function sicherungErstellen(): Promise<NeueSicherung> {
+  const inst = await bereit();
+  if (!inst) throw new Error('Speichern nicht möglich');
+  const jetzt = Date.now();
+  const tag = lerntag(jetzt, -new Date(jetzt).getTimezoneOffset());
+  const code = wortcode(zufall, CODE_WOERTER);
+  const datei = await verschluesseln(await exportieren(db, inst.profil), code, tag);
+  return { code, name: dateiname(tag), datei };
+}
+
+/** Nach dem Speichern der Datei: für die Erinnerung festhalten. */
+export async function sicherungGespeichert(): Promise<void> {
+  if (await bereit()) await sicherungVermerken(db, Date.now());
+}
+
+export type EinspielenErgebnis =
+  | { readonly ok: true; readonly neu: number }
+  | { readonly ok: false; readonly grund: OeffnenFehler | 'anderes-profil' | 'speicher' };
+
+/** Sicherungsdatei mit Code öffnen und einspielen (DATENMODELL §7.2). */
+export async function sicherungEinspielen(
+  datei: Uint8Array,
+  code: string,
+): Promise<EinspielenErgebnis> {
+  const inst = await bereit();
+  if (!inst) return { ok: false, grund: 'speicher' };
+  const inhalt = await oeffnen(datei, code);
+  if (typeof inhalt === 'string') return { ok: false, grund: inhalt };
+  const r = await importieren(db, inhalt, inst.profil, Date.now()).catch(() => undefined);
+  if (!r) return { ok: false, grund: 'speicher' };
+  if (!r.ok) return r;
+  installation = undefined; // Profil kann gewechselt haben
+  return { ok: true, neu: r.neu };
 }

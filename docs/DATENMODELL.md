@@ -344,10 +344,14 @@ Inhalt (verschlüsselt):  gzip( JSON { format, profile[], ereignisse[] } )
 - Komprimierung über die eingebaute `CompressionStream`-Schnittstelle des Browsers.
 - Zwei Varianten: **Profil-Sicherung** (ein Profil) und **Geräte-Sicherung** (alle Profile, nur im Elternbereich).
 
-**Entscheidung D-9: Sicherungen sind immer verschlüsselt. Den Sicherungscode schlägt die App vor** – vier zufällige, leicht schreibbare deutsche Wörter. Ein eigener Code ist möglich, muss aber mindestens gleich stark sein.
+**Entscheidung D-9: Sicherungen sind immer verschlüsselt. Den Sicherungscode schlägt die App vor** – sechs zufällige, leicht schreibbare deutsche Wörter (geändert am 28.10.2026 vom Projektverantwortlichen, vorher vier). Ein eigener Code ist möglich, muss aber mindestens gleich stark sein.
 *Warum:* Eine unverschlüsselte Datei mit der Lerngeschichte eines Kindes kann in Messenger-Chats, auf Schul-PCs oder in Cloud-Ordnern landen. Ein vorgeschlagener Wort-Code ist für 11-Jährige merkbar und abschreibbar, aber nicht zu erraten. Ehrlicher Hinweis in der App: *Ohne Code lässt sich die Sicherung nicht öffnen – auch nicht von uns.*
 
-Elterneinstellungen und PIN-Hash reisen in der Profil-Sicherung mit. Eine Sicherung auf ein neues Gerät zu spielen, hebt Elterneinstellungen also nicht auf. (Ein neues, leeres Profil anzulegen, lässt sich lokal nicht verhindern – das ist die ehrliche Grenze aus ARCHITEKTUR §7.)
+*Warum sechs statt vier Wörter:* Die Wortliste hat 256 Wörter (8 Bit je Wort). Vier Wörter (32 Bit) könnte ein Angreifer mit einer Grafikkarte in etwa einem Tag durchprobieren – eine Sicherungsdatei kann ja in fremde Hände geraten. Sechs Wörter (48 Bit) machen das aussichtslos, und die Liste bleibt klein und kindgerecht. Für den Wiederherstellungscode der PIN (D-12) reichen vier Wörter: Er schützt keine Datei, sondern wird nur in der App geprüft.
+
+*Umsetzung (1c):* Kopf, Prüfung des Inhalts, Zusammenführen und Erinnerung in `src/core/sicherung/sicherung.ts`. Kopf: „BASTION“ (7 Byte), Formatversion (1 Byte), Erstellt-Tag (10 Byte), Salz (16 Byte), IV (12 Byte). Der Kopf ist als zusätzliche Daten in die AES-GCM-Prüfung einbezogen; PBKDF2-SHA256 mit 600 000 Durchläufen. Eine Sicherung aus einer neueren App (Formatversion, Ereignisart oder Schemaversion unbekannt) wird nicht eingespielt, sondern mit dem Hinweis abgelehnt, die App zu aktualisieren.
+
+Alle Ereignisse reisen in der Profil-Sicherung mit, auch die Elterneinstellungen. Eine Sicherung auf ein neues Gerät zu spielen, hebt Elterneinstellungen also nicht auf. **Die PIN gilt aber nur auf dem Gerät, auf dem sie festgelegt wurde** (D-15). (Ein neues, leeres Profil anzulegen, lässt sich lokal nicht verhindern – das ist die ehrliche Grenze aus ARCHITEKTUR §7.)
 
 ### 7.2 Import
 
@@ -359,6 +363,8 @@ Elterneinstellungen und PIN-Hash reisen in der Profil-Sicherung mit. Eine Sicher
 | Andere Formatversion | Wird beim Import auf das aktuelle Schema gehoben (gleiche Upgrade-Funktionen wie 6.2) |
 
 Vor jedem Import wird automatisch eine Sicherung angelegt (wie D-8).
+
+*Umsetzung (1c):* `exportieren` und `importieren` in `src/storage/ablage.ts`. Die lokale Sicherung vor dem Import liegt in der Tabelle `sicherungen` (die letzten zwei bleiben). Bis es mehrere Profile gibt, gilt: Eine Sicherung eines **anderen** Profils übernimmt das Gerät nur, wenn das vorhandene Profil noch leer ist (z. B. nach dem Zurücksetzen der App); sonst lehnt die App ab, statt einen Lernstand zu verdrängen. Nach dem Import werden `kompetenzen`, `karten` und `einstellungen` aus den Ereignissen neu aufgebaut.
 
 ### 7.3 Zusammenführen
 
@@ -406,8 +412,17 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 
 ### 9.1 PIN vergessen
 
-**Entscheidung D-12: Beim Festlegen der PIN zeigt die App einmalig einen Wiederherstellungscode** (vier Wörter, wie D-9) zum Aufschreiben. Mit diesem Code lässt sich die PIN zurücksetzen. Ohne ihn bleibt nur: Profil-Sicherung erstellen lassen, App zurücksetzen, Sicherung einspielen – dann gelten die alten Elterneinstellungen weiter, und eine neue PIN wird festgelegt.
+**Entscheidung D-12: Beim Festlegen der PIN zeigt die App einmalig einen Wiederherstellungscode** (vier Wörter, wie D-9) zum Aufschreiben. Mit diesem Code lässt sich die PIN zurücksetzen. Ohne ihn bleibt nur: Profil-Sicherung erstellen lassen, App zurücksetzen, Sicherung einspielen – dann gelten die alten Elterneinstellungen weiter, und eine neue PIN wird festgelegt (D-15).
 *Warum:* Ein „PIN vergessen“-Knopf ohne Hürde würde den Elternbereich für jeden Jugendlichen in zwei Klicks öffnen. Ein Code, der bei den Eltern liegt, ist die einfachste ehrliche Lösung ohne Server.
+
+**Entscheidung D-15 (28.10.2026, Projektverantwortlicher): Die PIN gilt je Gerät; wird sie nach dem Einspielen einer Sicherung neu festgelegt, steht das dauerhaft und sichtbar im Elternbereich.**
+- PIN und Wiederherstellungscode wirken nur auf dem Gerät, auf dem sie festgelegt wurden (Feld `geraet` des Einstellungs-Ereignisses). Ihre Ereignisse reisen zwar mit (D-10: es geht nichts verloren), zählen auf einem anderen Gerät aber nicht.
+- Hat ein Profil eine PIN von einem anderen Gerät, auf diesem Gerät aber noch keine, verlangt der Elternbereich beim Öffnen eine neue PIN. Dabei schreibt die App zusätzlich das Ereignis `eltern.pin-nach-sicherung` (Wert: der Lerntag).
+- Der Elternbereich zeigt danach **dauerhaft**: „Am … wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung eingespielt wurde.“ Jugendliche sehen den Hinweis ebenso (Transparenz in beide Richtungen, D-5).
+
+*Warum:* Ein vergessener Wiederherstellungscode soll nicht den ganzen Lernstand kosten. Derselbe Weg steht auch Jugendlichen offen – das lässt sich lokal nicht verhindern (ARCHITEKTUR §7). Der Vermerk sorgt dafür, dass er nicht unbemerkt bleibt. Verworfen: PIN-Hash beim Import mitnehmen (dann bliebe ohne Code nur ein Neuanfang ohne Lernstand) und PIN ohne Vermerk verwerfen (Umgehen bliebe unsichtbar).
+
+*Umsetzung (1c):* `aufDiesemGeraet` und `vonAnderemGeraet` in `src/core/policy/einstellung.ts`; der Vermerk erscheint im Elternbereich und unter „Mein Stand“ → „Was meine Eltern sehen“ (`src/ui/eltern/PinVermerke.svelte`).
 
 *Umsetzung (1c):* vier Wörter aus einer Liste von 256 (`src/core/rng/wortcode.ts`); bei der Eingabe zählen Groß- und Kleinschreibung, Bindestriche und Leerzeichen nicht. Nach dem Zurücksetzen gibt es einen neuen Code.
 
@@ -437,8 +452,8 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | ID | Frage | Tendenz |
 |---|---|---|
 | D-O2 | FSRS-Parameter persönlich anpassen (Optimierer) | Nicht vor Phase 4; braucht viele Wiederholungen pro Person |
-| D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Eigene Liste mit ~2 000 kindgerechten, eindeutigen deutschen Wörtern |
-| D-O4 | Wie oft an Sicherungen erinnern? | Monatlich, im Elternbereich einstellbar (T-1) |
+| D-O3 | Wortliste für Sicherungs- und Wiederherstellungscodes | Vorerst 256 Wörter (`src/core/rng/wortcode.ts`), dafür sechs Wörter für Sicherungen (D-9). Eine größere Liste nur, wenn sechs Wörter in den Testrunden zu lang wirken |
+| D-O4 | Wie oft an Sicherungen erinnern? | Umgesetzt: Standard monatlich (30 Tage nach der letzten Sicherung bzw. der ersten Aufgabe); im Elternbereich einstellbar: alle zwei Wochen, jeden Monat, alle drei Monate, nie (Einstellung `sicherung.erinnerung`, D-5) |
 
 ## 12. Entscheidungen dieses Dokuments
 
@@ -452,9 +467,10 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-6 | Ereignis und Projektion in einer Transaktion; Neuaufbau jederzeit möglich, per Test abgesichert | Entschieden |
 | D-7 | Getrennte Tabellen je Ereignisart | Entschieden |
 | D-8 | Erst sichern, dann migrieren | Entschieden |
-| D-9 | Sicherungen immer verschlüsselt, Wort-Code von der App vorgeschlagen | Entschieden |
+| D-9 | Sicherungen immer verschlüsselt, Wort-Code aus sechs Wörtern von der App vorgeschlagen | Entschieden (sechs Wörter: 28.10.2026) |
 | D-10 | Zusammenführen = Vereinigung der Ereignismengen | Entschieden |
 | D-11 | Rohe Aufgaben-Ereignisse nach 12 Monaten verdichten | Entschieden |
 | D-12 | Wiederherstellungscode für die Eltern-PIN | Entschieden |
 | D-13 | ULIDs mit eigener Umsetzung im Kern, ohne Bibliothek (war D-O1) | Entschieden |
 | D-14 | Eltern dürfen alles sehen; Standard ist die einfache Ansicht, ausführliche Ansicht auf Wunsch; Jugendliche sehen beides (ersetzt „nie einzelne Aufgaben“ in §5.2 und §10) | Entschieden (28.10.2026) |
+| D-15 | PIN gilt je Gerät; nach Einspielen einer Sicherung neue PIN mit dauerhaftem, sichtbarem Vermerk (löst den Widerspruch zwischen §7.1 und D-12) | Entschieden (28.10.2026) |
