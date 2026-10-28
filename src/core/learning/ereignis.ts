@@ -45,6 +45,8 @@ export interface AufgabeEreignis {
   readonly bewertung: Bewertung | null;
   readonly fehlerbild?: string;
   readonly schnappschuss?: Schnappschuss;
+  /** Fehlerwerkstatt: ID des früheren falschen Ereignisses, das hier korrigiert wurde. */
+  readonly korrigiert?: string;
 }
 
 /** FSRS-Bewertung nach der Tabelle in DATENMODELL §4.1; Zeit zählt bewusst nicht. */
@@ -72,6 +74,7 @@ export interface AufgabeAngaben {
   readonly loesung: Loesung;
   readonly antwort: Loesung;
   readonly ergebnis: Ergebnis;
+  readonly korrigiert?: string;
 }
 
 /** Baut das Ereignis; Schnappschuss nur bei falschen Antworten (I-6, Datensparsamkeit). */
@@ -104,6 +107,7 @@ export function aufgabeEreignis(
     faellig: a.faellig,
     bewertung: bewertung(richtig, a.hilfen),
     ...(!a.ergebnis.richtig && a.ergebnis.fehlerbild ? { fehlerbild: a.ergebnis.fehlerbild } : {}),
+    ...(a.korrigiert ? { korrigiert: a.korrigiert } : {}),
     ...(richtig
       ? {}
       : { schnappschuss: { platzhalter: a.platzhalter, loesung: a.loesung, antwort: a.antwort } }),

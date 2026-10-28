@@ -83,6 +83,14 @@ export async function speichereAufgabe(db: BastionDatenbank, e: AufgabeEreignis)
   });
 }
 
+/** Alle Aufgaben-Ereignisse eines Profils, nach Zeit (z. B. für die Fehlerwerkstatt). */
+export async function aufgaben(db: BastionDatenbank, profil: string): Promise<AufgabeEreignis[]> {
+  return db.aufgaben
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
 /** Alle Kompetenzstände eines Profils. */
 export async function kompetenzStaende(
   db: BastionDatenbank,

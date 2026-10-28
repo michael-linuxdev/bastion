@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Fehlerwerkstatt (Phase 1b):** aus den gespeicherten Schnappschüssen Fehler nach Fehlerbild gruppieren („Du verwechselst manchmal …“) und gezielt nachüben (Ereignis mit `korrigiert`). Danach Rückkehrmodus nach längerer Pause.
+7. **1c – Diagnose:** Einstieg ohne Vorwissen über die Schulform (LEHRPLAN §7): kurzer Test entlang des Graphen, der Kompetenzen höchstens als „gekonnt“ markiert und den Start empfiehlt. Danach Kompetenzansicht und Elternbereich (PLAN 1c).
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -75,7 +75,10 @@ Mit Claude Code, als Nächstes:
 - **Erste Übungsseite** (Start → „Üben“): Übersicht der Klasse 5 nach Bereich, entlang des Graphen, Wahl von Niveau G oder M; Aufgabe mit Bild, Eingabe passend zur Lösungsart, Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg. Inhalte kommen als Pakete von der eigenen Adresse (`tools/inhalte/pakete.ts`) und gehen offline. Kern: `src/core/learning/auswertung.ts`, `text.ts`, `uebung.ts`; Oberfläche: `src/ui/ueben/`. Ergebnisse werden gespeichert (siehe unten).
 - **Ergebnisse speichern (1b begonnen):** Jede geprüfte Antwort wird als Ereignis `aufgabe` gespeichert (`src/core/learning/ereignis.ts`), der Status je Kompetenz und Niveau fortgeschrieben (`fortschritt.ts`: neu, in Arbeit, gekonnt; Pflicht-Test D-6). Ablage mit Dexie 4.4.6 in `src/storage/` (vom Projektverantwortlichen freigegeben). Die Übersicht zeigt „in Arbeit“ und „✓ gekonnt“. PR #3 ist gemergt; die Arbeit läuft auf demselben Branch weiter.
 - **Wiederholung (1b):** FSRS-Karten je Vorlage und Niveau (`src/core/srs/karten.ts`, ts-fsrs 5.4.2, freigegeben; ohne Zufall und ohne Minuten-Lernschritte). Startseite zeigt „Wiederholen“ mit der Zahl fälliger Aufgaben; eine Runde arbeitet die fälligen Karten ab und endet mit einem Pausenhinweis (R5). Status bis „gefestigt“ (fällige Wiederholungen bestanden, ≥ 7 Tage nach „gekonnt“, Erinnerung ≥ 90 %) und „auffrischen“ (< 80 %). PR #4 ist gemergt.
-- 1586 Tests und 5 Browser-Tests, Lint, Build, Größenbudget (100 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Fehlerwerkstatt (1b):** Startseite zeigt „Fehlerwerkstatt“, wenn offene Fehler da sind. Gruppiert nach Ursache – mit der Rückmeldung des Fehlerbilds als Überschrift; Fehler ohne Muster je Kompetenz. „Aufarbeiten“ zeigt genau die damalige Aufgabe (gleicher Seed) mit der damaligen Antwort; richtig gelöst ist der Fehler erledigt (`korrigiert`). Kern: `src/core/learning/werkstatt.ts`. Die Belohnung fürs Korrigieren (R6) folgt mit dem Basebau-Ledger. PR #5 (Wiederholung) ist gemergt.
+- **Rückkehrmodus (1b):** nach mehr als 7 Tagen ohne Aufgabe Begrüßung ohne Vorwurf, keine Pausenlänge; jede Wiederholungsrunde höchstens 20 Aufgaben, die gefährdetsten zuerst (`src/core/srs/rueckkehr.ts`). Phase 1b ist damit bis auf die Belohnung fürs Korrigieren (R6, braucht den Ledger) fertig.
+- Lehre aus der CI: Browser-Tests müssen warten, bis im Hintergrund gespeichert ist, bevor sie neu laden (z. B. „in Arbeit“ in der Übersicht abwarten).
+- 1593 Tests und 7 Browser-Tests, Lint, Build, Größenbudget (101 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

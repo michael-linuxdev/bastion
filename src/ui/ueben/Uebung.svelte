@@ -6,6 +6,7 @@
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
+  import { antwortText } from '../../core/learning/werkstatt';
   import { generatoren } from '../../generators';
   import type { Antwortdaten } from '../plattform/ablage';
   import { neuerSeed } from '../plattform/zufall';
@@ -25,7 +26,7 @@
     ueberschrift: string;
     /** Der n-te Auftrag dieser Runde; undefined = Runde zu Ende. */
     auftrag: (n: number) => Auftrag | undefined;
-    modus: 'ueben' | 'wiederholen';
+    modus: 'ueben' | 'wiederholen' | 'fehlerwerkstatt';
     paketVon: ReadonlyMap<string, string>;
     onzurueck: () => void;
     onergebnis: (daten: Antwortdaten) => void;
@@ -49,7 +50,7 @@
     const a = auftrag(n);
     const generator = a ? generatoren.get(a.vorlage.generator) : undefined;
     if (!a || !generator) return undefined;
-    const seed = neuerSeed();
+    const seed = a.seed ?? neuerSeed();
     return {
       ...a,
       instanz: generator.erzeuge(seed, a.vorlage.parameter[a.niveau]),
@@ -68,6 +69,7 @@
     kommaHinweis = hinweis === 'punkt-statt-komma';
     onergebnis({
       modus,
+      ...(aufgabe.korrigiert ? { korrigiert: aufgabe.korrigiert } : {}),
       kompetenz: aufgabe.kompetenz.id,
       vorlage: aufgabe.vorlage.id,
       niveau: aufgabe.niveau,
@@ -109,12 +111,16 @@
 
   {#if !aufgabe}
     <p>
-      {modus === 'wiederholen' && nummer > 0 ? t('wiederholen.fertig') : t('uebung.keine-aufgaben')}
+      {nummer === 0
+        ? t('uebung.keine-aufgaben')
+        : modus === 'wiederholen'
+          ? t('wiederholen.fertig')
+          : t('werkstatt.fertig')}
     </p>
   {:else}
     {#key aufgabe}
       <article class="aufgabe" aria-live="polite">
-        {#if modus === 'wiederholen'}
+        {#if modus !== 'ueben'}
           <p class="herkunft">
             {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
           </p>
@@ -129,6 +135,19 @@
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html aufgabe.instanz.bild.svg}
           </figure>
+        {/if}
+
+        {#if aufgabe.frueher}
+          <p class="damals">
+            {t('werkstatt.damals')}
+            <strong
+              >{antwortText(
+                aufgabe.frueher,
+                aufgabe.instanz.optionen,
+                aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+              )}</strong
+            >
+          </p>
         {/if}
 
         <Eingabe
@@ -196,6 +215,10 @@
     border-radius: var(--radius);
     padding-block: var(--abstand-m);
     padding-inline: var(--abstand-m);
+  }
+
+  .damals {
+    color: var(--farbe-text-leise);
   }
 
   .herkunft {

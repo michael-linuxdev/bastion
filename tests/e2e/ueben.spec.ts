@@ -68,6 +68,11 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
 
   // Drei Tage später: die Aufgabe ist zum Wiederholen dran
   await page.clock.setSystemTime(new Date('2026-11-05T10:00:00Z'));
@@ -79,4 +84,57 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   await expect(page.getByText(/Alles wiederholt, was heute dran war/)).toBeVisible();
+});
+
+test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erledigt', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  // Erste Vorlage reihum ist das schriftliche Addieren: „Berechne schriftlich: a + b“
+  const text = (await page.locator('.aufgabe .text').innerText()).replace(/[\s\u202f]/g, '');
+  const summe = (/:([\d+]+)$/.exec(text)?.[1] ?? '').split('+').reduce((s, x) => s + Number(x), 0);
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.reload();
+
+  await expect(page.getByText('1 Fehler wartet in der Fehlerwerkstatt.')).toBeVisible();
+  await page.getByRole('button', { name: 'Fehlerwerkstatt' }).click();
+  await page.getByRole('button', { name: 'Aufarbeiten' }).click();
+  await expect(page.getByText('Deine Antwort damals:')).toContainText('0');
+  const nochmal = (await page.locator('.aufgabe .text').innerText()).replace(/[\s\u202f]/g, '');
+  expect(nochmal).toBe(text);
+
+  await page.getByLabel('Deine Antwort').fill(String(summe));
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByText('Richtig!')).toBeVisible();
+  await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  await expect(page.getByText('Diese Fehler hast du aufgearbeitet.')).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByText(/Keine offenen Fehler/)).toBeVisible();
+});
+
+test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
+  await page.goto('./');
+  await expect(page.getByText('Willkommen zurück')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+
+  await page.clock.setSystemTime(new Date('2026-11-12T10:00:00Z'));
+  await page.reload();
+  await expect(page.getByText('Willkommen zurück. Schön, dass du wieder da bist.')).toBeVisible();
+  await expect(page.getByText(/kleine Auswahl zum Wiederholen/)).toBeVisible();
+  // Keine Pausenlänge, kein Zähler verpasster Tage
+  await expect(page.getByText(/Tage|Tagen|verpasst/)).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeVisible();
 });
