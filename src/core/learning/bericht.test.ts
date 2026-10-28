@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { einzelne, isoWoche, wochen } from './bericht';
+import type { Kompetenz } from '../competence/kompetenz';
+import { einzelne, isoWoche, lehrkraftBericht, wochen } from './bericht';
 import type { AufgabeEreignis } from './ereignis';
+import type { KompetenzStand } from './fortschritt';
 
 const e = (tag: string, ts: number, ergebnis: AufgabeEreignis['ergebnis'] = 'richtig') =>
   ({ tag, ts, ergebnis }) as AufgabeEreignis;
@@ -29,5 +31,36 @@ describe('Elternbericht', () => {
 
   it('einzelne Aufgaben neueste zuerst', () => {
     expect(einzelne([e('a', 1), e('b', 3), e('c', 2)]).map((x) => x.ts)).toEqual([3, 2, 1]);
+  });
+});
+
+describe('Bericht für die Lehrkraft (L-13)', () => {
+  const kmp = (id: string, feld: string, klasse: number) =>
+    ({ id, feld, klassenstufe_typisch: [klasse] }) as unknown as Kompetenz;
+  const st = (kompetenz: string, gefestigt = false): KompetenzStand => ({
+    profil: 'P',
+    kompetenz,
+    niveau: 'G',
+    status: gefestigt ? 'gefestigt' : 'gekonnt',
+    gekonntAm: '2026-10-01',
+    gekonntTs: 1,
+    ...(gefestigt ? { gefestigtAm: '2026-10-10' } : {}),
+    aufgaben: 6,
+    letzte: [],
+  });
+
+  it('zählt je Feld bis zur Klasse, nennt offene aus früheren Klassen und Vorausgearbeitetes', () => {
+    const ks = [
+      kmp('B5', 'brueche', 5),
+      kmp('B6', 'brueche', 6),
+      kmp('B7', 'brueche', 7),
+      kmp('F8', 'funktionen', 8),
+      kmp('F9', 'funktionen', 9),
+    ];
+    const r = lehrkraftBericht(ks, [st('B5', true), st('B7'), st('F9')], 7);
+    expect(r).toEqual([
+      { feld: 'brueche', bisKlasse: 3, gekonnt: 2, gefestigt: 1, offen: ['B6'], voraus: [] },
+      { feld: 'funktionen', bisKlasse: 0, gekonnt: 0, gefestigt: 0, offen: [], voraus: ['F9'] },
+    ]);
   });
 });

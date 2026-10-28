@@ -24,6 +24,7 @@
     paketVon,
     antworten = $bindable(),
     klasse = $bindable(5),
+    auswahl,
     onergebnis,
     onueben,
     onende,
@@ -35,6 +36,8 @@
     antworten: Antwort[];
     /** Klassenstufe der Diagnose; wählbar, solange noch nichts beantwortet ist */
     klasse?: number;
+    /** Nur diese Kompetenzen prüfen (Wechsel begleiten, L-12) – statt einer ganzen Klasse */
+    auswahl?: readonly string[] | undefined;
     onergebnis: (daten: Antwortdaten) => void;
     onueben: (k: Kompetenz) => void;
     onende: () => void;
@@ -44,7 +47,8 @@
   const themen = $derived(
     nachGraph(nachBereich(kompetenzen)).filter(
       (k) =>
-        k.klassenstufe_typisch.includes(klasse) && vorlagenFuer(vorlagen, k.id, 'G').length > 0,
+        (auswahl ? auswahl.includes(k.id) : k.klassenstufe_typisch.includes(klasse)) &&
+        vorlagenFuer(vorlagen, k.id, 'G').length > 0,
     ),
   );
   const stand = $derived(diagnose(themen, antworten));
@@ -134,7 +138,7 @@
 
   {#if !gestartet && stand.naechste && !pause}
     <p>{t('diagnose.einleitung')}</p>
-    {#if antworten.length === 0}
+    {#if antworten.length === 0 && !auswahl}
       <KlassenWahl bind:klasse />
     {/if}
     <p class="leise">{t('diagnose.dauer')}</p>

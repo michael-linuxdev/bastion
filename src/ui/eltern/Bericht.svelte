@@ -3,7 +3,7 @@
   // als Standard, ausführliche Ansicht mit einzelnen Aufgaben auf Wunsch.
   // Dieselbe Komponente sehen Jugendliche unter „Was meine Eltern sehen“.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
-  import { einzelne, wochen } from '../../core/learning/bericht';
+  import { einzelne, lehrkraftBericht, wochen } from '../../core/learning/bericht';
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import type { Zustand } from '../plattform/ablage';
@@ -16,15 +16,43 @@
     vorlagen,
     zustand,
     aufgaben,
+    klasse = 5,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
+    /** gewählte Klasse – Maßstab im Bericht für die Lehrkraft (L-13) */
+    klasse?: number;
   } = $props();
 
-  let ausfuehrlich = $state(false);
+  let ansicht = $state<'einfach' | 'ausfuehrlich' | 'lehrkraft'>('einfach');
   const jetzt = Date.now();
+  const lehrkraft = $derived(lehrkraftBericht(kompetenzen, [...zustand.staende.values()], klasse));
+  const feldName = (f: string) => t(`feld.${f}` as TextSchluessel);
+  const namen = (ids: readonly string[]) => ids.map((id) => titel.get(id) ?? id).join(', ');
+  /** Der Bericht als einfacher Text – zum Speichern, Ausdrucken oder Zeigen */
+  const lehrkraftText = $derived(
+    [
+      `${t('bericht.lehrkraft-titel')} – ${t('klasse.name')} ${klasse}`,
+      new Date(jetzt).toLocaleDateString('de-DE'),
+      '',
+      ...lehrkraft.flatMap((f) => [
+        `${feldName(f.feld)}: ${f.gekonnt} ${t('bericht.von')} ${f.bisKlasse} ${t('bericht.lk-gekonnt')}, ${f.gefestigt} ${t('bericht.lk-gefestigt')}`,
+        ...(f.offen.length > 0 ? [`  ${t('bericht.lk-offen')}: ${namen(f.offen)}`] : []),
+        ...(f.voraus.length > 0 ? [`  ${t('bericht.lk-voraus')}: ${namen(f.voraus)}`] : []),
+      ]),
+      '',
+      t('bericht.lk-hinweis'),
+    ].join('\n'),
+  );
+  let dateiLink = $state<string | undefined>(undefined);
+  function speichern() {
+    if (dateiLink) URL.revokeObjectURL(dateiLink);
+    dateiLink = URL.createObjectURL(
+      new Blob([lehrkraftText], { type: 'text/plain;charset=utf-8' }),
+    );
+  }
   const NIVEAUS: readonly Niveau[] = ['G', 'M'];
 
   const titel = $derived(new Map(kompetenzen.map((k) => [k.id, k.titel.de])));
@@ -57,17 +85,44 @@
 
 <div class="bericht">
   <div class="umschalter" role="group">
-    <button aria-pressed={!ausfuehrlich} onclick={() => (ausfuehrlich = false)}>
+    <button aria-pressed={ansicht === 'einfach'} onclick={() => (ansicht = 'einfach')}>
       {t('bericht.einfach')}
     </button>
-    <button aria-pressed={ausfuehrlich} onclick={() => (ausfuehrlich = true)}>
+    <button aria-pressed={ansicht === 'ausfuehrlich'} onclick={() => (ansicht = 'ausfuehrlich')}>
       {t('bericht.ausfuehrlich')}
+    </button>
+    <button aria-pressed={ansicht === 'lehrkraft'} onclick={() => (ansicht = 'lehrkraft')}>
+      {t('bericht.lehrkraft')}
     </button>
   </div>
 
   {#if aufgaben.length === 0}
     <p>{t('bericht.keine-aufgaben')}</p>
-  {:else if !ausfuehrlich}
+  {:else if ansicht === 'lehrkraft'}
+    <h4>{t('bericht.lehrkraft-titel')} – {t('klasse.name')} {klasse}</h4>
+    <p class="leise">{t('bericht.lk-erklaerung')}</p>
+    <ul class="lk">
+      {#each lehrkraft as f (f.feld)}
+        <li>
+          <strong>{feldName(f.feld)}</strong>:
+          {f.gekonnt}
+          {t('bericht.von')}
+          {f.bisKlasse}
+          {t('bericht.lk-gekonnt')}, {f.gefestigt}
+          {t('bericht.lk-gefestigt')}
+          {#if f.offen.length > 0}<small>{t('bericht.lk-offen')}: {namen(f.offen)}</small>{/if}
+          {#if f.voraus.length > 0}<small>{t('bericht.lk-voraus')}: {namen(f.voraus)}</small>{/if}
+        </li>
+      {/each}
+    </ul>
+    <p class="leise">{t('bericht.lk-hinweis')}</p>
+    <p>
+      <button class="zweit" onclick={speichern}>{t('bericht.lk-speichern')}</button>
+      {#if dateiLink}<a href={dateiLink} download="bastion-bericht-klasse-{klasse}.txt"
+          >{t('bericht.lk-herunterladen')}</a
+        >{/if}
+    </p>
+  {:else if ansicht === 'einfach'}
     <h4>{t('bericht.kompetenzen')}</h4>
     <table>
       <thead>
@@ -195,6 +250,12 @@
     padding-block: 0.3rem;
     padding-inline: 0.4rem;
     border-block-end: 1px solid var(--farbe-rand);
+  }
+
+  .lk {
+    display: grid;
+    gap: var(--abstand-s);
+    padding-inline-start: var(--abstand-m);
   }
 
   small {

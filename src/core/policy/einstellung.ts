@@ -71,6 +71,17 @@ export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 
+/** Gewählte Klassenstufe (L-12): Einstellung `lernen.klasse`, 5 bis 12; sonst 5. */
+export const KLASSE_SCHLUESSEL = 'lernen.klasse';
+export const klasseAus = (wert: unknown): number =>
+  typeof wert === 'number' && Number.isInteger(wert) && wert >= 5 && wert <= 12 ? wert : 5;
+
+/** Schulart (L-9, L-12), freiwillig: `lernen.schulart` – Oberschule, Gymnasium oder keine Angabe. */
+export const SCHULART_SCHLUESSEL = 'lernen.schulart';
+export const SCHULARTEN = ['oberschule', 'gymnasium'] as const;
+export const schulartAus = (wert: unknown): (typeof SCHULARTEN)[number] | undefined =>
+  SCHULARTEN.find((s) => s === wert);
+
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';
 

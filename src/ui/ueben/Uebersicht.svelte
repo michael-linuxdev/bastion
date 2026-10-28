@@ -15,6 +15,7 @@
     zustand,
     niveau = $bindable(),
     klasse = $bindable(5),
+    schulart = $bindable(undefined),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -23,6 +24,7 @@
     niveau: Niveau;
     /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
     klasse?: number;
+    schulart?: 'oberschule' | 'gymnasium' | undefined;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -58,7 +60,7 @@
     <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
   </fieldset>
 
-  <KlassenWahl bind:klasse />
+  <KlassenWahl bind:klasse bind:schulart mitSchulart />
 
   <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}

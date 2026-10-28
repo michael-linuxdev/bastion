@@ -31,6 +31,7 @@
     zustand,
     aufgaben,
     basebau = $bindable(true),
+    klasse = 5,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
@@ -38,6 +39,8 @@
     aufgaben: readonly AufgabeEreignis[];
     /** Basebau-Schalter (R7) – auch Eltern dürfen ihn umlegen (B-13) */
     basebau?: boolean;
+    /** gewählte Klasse – für den Bericht für die Lehrkraft (L-13) */
+    klasse?: number;
   } = $props();
 
   type Schritt = 'laden' | 'einrichten' | 'code' | 'gesperrt' | 'zuruecksetzen' | 'offen';
@@ -186,7 +189,7 @@
     >
   {:else if schritt === 'offen'}
     <p class="leise">{t('eltern.transparenz')}</p>
-    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
+    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
     <p>
       {#if letzte === undefined}{t('eltern.sicherung-keine')}{:else}{t('eltern.sicherung-letzte')}
         {new Date(letzte).toLocaleDateString('de-DE', {
