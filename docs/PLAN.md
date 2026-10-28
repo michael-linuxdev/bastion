@@ -175,7 +175,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
 - **A – Ledger:** 2.1 Sitzungen · 2.2 Ledger-Regeln · 2.3 Buchungen und Konto · 2.4 Abschluss mit Ressourcen
-- **B – Bauen:** 2.5 Gebäudekatalog · 2.6 Bauen · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Wachturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
+- **B – Bauen:** 2.5 Gebäudekatalog · 2.6 Bauen · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Späherturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7
 - **D – Grafik:** 2.12 PixiJS einbinden · 2.13 Bauplatz in Draufsicht · 2.14 Gestalten
 
@@ -185,7 +185,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17). Testfragen für die spät
 
 | Datum | Änderung |
 |---|---|
-| 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Wachturm (B-11 bis B-14) |
+| 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Späherturm (B-11 bis B-14) |
 | 27.10.2026 | Plan angelegt; Phase 0 gestartet; Arbeit im GitHub-Repository festgelegt |
 | 27.10.2026 | Repository angelegt; `LEHRPLAN.md` v0.1 mit 23 Kompetenzen Mathe Kl. 5–6 |
 | 27.10.2026 | `INHALTSFORMAT.md` v0.1: YAML-Format, Generator-Schnittstelle, Fehlerbilder, Review per Hash |

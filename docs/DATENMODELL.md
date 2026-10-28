@@ -196,7 +196,7 @@ interface BauEreignis extends Ereignis {
   aktion: 'beginnen' | 'abbrechen' | 'fertigstellen' | 'versetzen' | 'gestalten' | 'epoche';
   vorhaben?: ID;                     // bei beginnen/abbrechen/fertigstellen
   gebaeude: ID;                      // Instanz-ID des Gebäudes
-  typ: string;                       // "wachturm"
+  typ: string;                       // "spaeherturm"
   stufe?: number;                    // Zielstufe
   pos?: { x: number; y: number; drehung: 0 | 90 | 180 | 270 };
   gestaltung?: Record<string, string>;  // z. B. Bannerfarbe

@@ -146,8 +146,8 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 | Bauhütte | 1 | 150 | 40 | 1 | 6 | Bergfried 2 |
 | Studierstube | 1 | 100 | 30 | 1 | 6 | – |
 | Studierstube | 2 | 200 | 60 | 2 | 10 | Bergfried 2 |
-| Wachturm (2×) | 1 | 100 | 30 | 1 | 6 | – |
-| Wachturm (2×) | 2 | 200 | 60 | 2 | 10 | Bergfried 2 |
+| Späherturm (2×) | 1 | 100 | 30 | 1 | 6 | – |
+| Späherturm (2×) | 2 | 200 | 60 | 2 | 10 | Bergfried 2 |
 | Tor | 1 | 80 | 20 | 1 | 5 | – |
 | Palisade (8 weitere Segmente) | – | je 15 | – | – | je 1 | – |
 | Banner, Garten, Statue u. a. | – | 20–40 | – | – | 1 | – |
@@ -254,7 +254,8 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-11 | Bastion in **Draufsicht** (Plan von oben), nicht isometrisch | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-12 | Gebäudebilder zuerst im **eigenen schlichten Stil** aus dem Code, austauschbar über einen Bildkatalog (erledigt KONZEPT O-11) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-13 | Basebau-Schalter: Standard **an**; Jugendliche und Eltern können ihn jederzeit umschalten | Entschieden (28.10.2026, Projektverantwortlicher) |
-| B-14 | Erste Gebäude in der Umsetzung: **Banner und Wachturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-14 | Erste Gebäude in der Umsetzung: **Banner und Späherturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-15 | Der Turm heißt **Späherturm**, nicht „Wachturm“ – wegen der Nähe zur Zeitschrift „Der Wachtturm“ der Zeugen Jehovas. Gebäudenamen dürfen keinen erkennbaren Bezug zu Religionsgemeinschaften, Parteien oder Marken haben | Entschieden (28.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -276,7 +277,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | 2.5 | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
 | 2.6 | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Bauhütte zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
 | 2.7 | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
-| 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Wachturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
+| 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
 | 2.9 | **Studierstube** | jede gefestigte Kompetenz als Buch mit Kann-Satz, automatisch und kostenlos, das Buch bleibt im Regal (B-6) | Einheitentests |
 | 2.10 | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
 
