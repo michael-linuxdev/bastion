@@ -1,0 +1,23 @@
+# „Wie viel Prozent der Fläche sind gefärbt?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ANTEILE.FLAECHE
+kompetenz: M.ZO.BR.ANTEILE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: br.flaechenanteil@1
+parameter:
+  G: { raster: [[5, 2], [5, 4], [5, 5], [10, 5], [10, 10]] }
+  M: { raster: [[5, 4], [8, 5], [10, 4], [4, 5]] }
+text:
+  aufgabe:
+    de: '**Gib an**, wie viel [[Prozent]] der Fläche gefärbt sind.'
+hilfen:
+  - de: 'Zähle alle Kästchen und die gefärbten Kästchen. Das ergibt einen [[Bruch]].'
+  - de: '[[Erweitere]] den [[Bruch]] auf den [[Nenner]] 100.'
+fehlerbilder:
+  anzahl-statt-prozent:
+    de: 'Das ist die Anzahl der gefärbten Kästchen. Gesucht ist ihr [[Anteil]] in [[Prozent]] – vergleiche mit allen Kästchen.'
+  ungefaerbt:
+    de: 'Das ist der [[Anteil]] der weißen Kästchen. Gesucht ist der gefärbte Anteil.'
+herkunft: ki-entwurf
+version: 1

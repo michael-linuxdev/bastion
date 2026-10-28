@@ -21,6 +21,21 @@ begriffe:
     formen: [natürliche Zahl, natürlichen Zahlen]
     erklaerung:
       de: 'Die Zahlen zum Zählen: 0, 1, 2, 3 … – ohne Komma und ohne Bruch.'
+  - id: gebrochene-zahl
+    wort: { de: gebrochene Zahl }
+    formen: [gebrochene Zahl, gebrochenen Zahlen, gebrochene Zahlen]
+    erklaerung:
+      de: 'Jede Zahl, die man als Bruch schreiben kann – zum Beispiel 3/4, 0,5 oder auch 3 = 3/1.'
+  - id: element
+    wort: { de: Element }
+    formen: [Element]
+    erklaerung:
+      de: 'Ein Ding, das zu einer Menge gehört. 7 ist ein Element der natürlichen Zahlen.'
+  - id: teilmenge
+    wort: { de: Teilmenge }
+    formen: [Teilmenge]
+    erklaerung:
+      de: 'Eine Menge, die ganz in einer anderen steckt. Die geraden Zahlen sind eine Teilmenge der natürlichen Zahlen.'
   - id: summe
     wort: { de: Summe }
     formen: [Summe]

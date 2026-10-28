@@ -6,7 +6,7 @@ import { dezimalDeutsch, zahlDeutsch } from '../../../core/learning/format';
 import type { Fehlerbild, Generator, Loesung, Option } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng, type Rng } from '../../../core/rng/rng';
-import { auswahl, de, mische, verlange, zahl } from '../../hilfen';
+import { auswahl, de, mische, variante, verlange, zahl } from '../../hilfen';
 
 export const kgV = (a: number, b: number) => (a / ggT(a, b)) * b;
 
@@ -40,25 +40,6 @@ function echterBruch(r: Rng, nenner: readonly number[]): Bruch {
   const zaehler: number[] = [];
   for (let z = 1; z < n; z++) if (ggT(z, n) === 1) zaehler.push(z);
   return bruch(r.pick(zaehler), n);
-}
-
-/** Variante eines internen Generators mit festen Parametern und eigenen Fehlerbildern. */
-function variante<P, F extends Partial<P>>(
-  basis: Generator<P>,
-  id: string,
-  fehlerbildIds: readonly string[],
-  fest: F,
-): Generator<Omit<P, keyof F>> {
-  return {
-    id,
-    version: 1,
-    platzhalter: basis.platzhalter,
-    fehlerbildIds,
-    erzeuge: (seed, p) => {
-      const i = basis.erzeuge(seed, { ...p, ...fest } as P);
-      return { ...i, fehlerbilder: i.fehlerbilder.filter((f) => fehlerbildIds.includes(f.id)) };
-    },
-  };
 }
 
 const bis = (a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => a + i);

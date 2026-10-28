@@ -44,7 +44,7 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/` (noch ohne Vorlagen). Nächster Schritt: Generatoren und Vorlagen entlang des Graphen, beginnend mit dem Feld BR (Brüche). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/` (noch ohne Vorlagen). Feld BR (Brüche, 11 Kompetenzen, 23 Vorlagen) steht als Entwurf. Nächster Schritt: Feld ZU (Zuordnungen), dann ZF/DA, DV, FL, KP. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.

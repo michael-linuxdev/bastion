@@ -1,0 +1,21 @@
+# „Bestimme x: x + 3/8 = 7/8.“ Entwurf: noch nicht geprüft.
+id: M.SF.BR.GLEICHUNGEN.PLUS-MINUS
+kompetenz: M.SF.BR.GLEICHUNGEN
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: gl.bruch-plus-minus@1
+parameter:
+  G: { gleichnamig: true, nenner_max: 10 }
+  M: { gleichnamig: false, nenner_max: 12 }
+text:
+  aufgabe:
+    de: '**Bestimme** x: x {zeichen} {a} = {b}'
+hilfen:
+  - de: 'Nutze die [[Umkehraufgabe]]: Aus Plus wird Minus, aus Minus wird Plus.'
+  - de: 'Setze dein Ergebnis zur [[Probe]] in die [[Gleichung]] ein.'
+fehlerbilder:
+  falsche-umkehr:
+    de: 'Du hast mit derselben Rechenart weitergerechnet. Die [[Umkehraufgabe]] nutzt die entgegengesetzte Rechenart. Mach die [[Probe]]!'
+herkunft: ki-entwurf
+version: 1

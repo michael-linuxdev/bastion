@@ -1,5 +1,5 @@
 // Gemeinsame Bausteine für Generatoren. Rein; Zufall nur über das übergebene Rng.
-import type { Loesung, Sprachobjekt } from '../core/learning/generator';
+import type { Generator, Loesung, Sprachobjekt } from '../core/learning/generator';
 import type { Rng } from '../core/rng/rng';
 
 /** Zufällige natürliche Zahl mit genau `stellen` Stellen. */
@@ -31,4 +31,23 @@ export function runde(n: number, einheit: number): number {
 /** Prüft Generator-Parameter und meldet Unsinn früh. */
 export function verlange(bedingung: boolean, meldung: string): void {
   if (!bedingung) throw new RangeError(meldung);
+}
+
+/** Variante eines internen Generators mit festen Parametern und eigenen Fehlerbildern. */
+export function variante<P, F extends Partial<P>>(
+  basis: Generator<P>,
+  id: string,
+  fehlerbildIds: readonly string[],
+  fest: F,
+): Generator<Omit<P, keyof F>> {
+  return {
+    id,
+    version: 1,
+    platzhalter: basis.platzhalter,
+    fehlerbildIds,
+    erzeuge: (seed, p) => {
+      const i = basis.erzeuge(seed, { ...p, ...fest } as P);
+      return { ...i, fehlerbilder: i.fehlerbilder.filter((f) => fehlerbildIds.includes(f.id)) };
+    },
+  };
 }

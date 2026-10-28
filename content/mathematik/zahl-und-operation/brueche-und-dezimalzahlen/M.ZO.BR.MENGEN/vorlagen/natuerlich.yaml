@@ -1,0 +1,23 @@
+# „Ist 12/4 eine natürliche Zahl?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.MENGEN.NATUERLICH
+kompetenz: M.ZO.BR.MENGEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.natuerlich@1
+parameter:
+  G: { verkleidet: false }
+  M: { verkleidet: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Ist {zahl} eine [[natürliche Zahl]]?'
+hilfen:
+  - de: 'Natürliche Zahlen sind die Zahlen zum Zählen: 0, 1, 2, 3 …'
+  - de: 'Manche [[Brüche]] sind in Wirklichkeit natürliche Zahlen. Rechne nach, ob der [[Zähler]] durch den [[Nenner]] [[teilbar]] ist.'
+fehlerbilder:
+  bruch-heisst-nicht-natuerlich:
+    de: 'Auch als [[Bruch]] geschrieben kann eine Zahl natürlich sein: 12/4 ist 3.'
+  komma-zahl-natuerlich:
+    de: 'Eine Zahl mit [[Ziffern]] hinter dem Komma (außer Nullen) liegt zwischen zwei [[natürlichen Zahlen]] – sie ist keine natürliche Zahl.'
+herkunft: ki-entwurf
+version: 1
