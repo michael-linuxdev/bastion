@@ -16,6 +16,9 @@
   import { t } from './texte/texte';
   import type { Auftrag } from './ueben/auftrag';
   import Diagnose from './ueben/Diagnose.svelte';
+  import MeinStand from './ueben/MeinStand.svelte';
+  import { sitzt, statusVon } from './ueben/stand';
+  import { rueckweg } from '../core/learning/empfehlung';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
@@ -29,6 +32,7 @@
     | 'werkstatt'
     | 'werkstatt-uebung'
     | 'diagnose'
+    | 'stand'
   >('start');
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
@@ -146,6 +150,14 @@
           ansicht = 'diagnose';
         }}>{t('diagnose.knopf')}</button
       >
+      <button
+        class="zweit"
+        onclick={() => {
+          inhalte ??= ladeInhalte();
+          ansicht = 'stand';
+          void aktualisiere();
+        }}>{t('stand.knopf')}</button
+      >
       {#if faellig > 0}
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
       {/if}
@@ -173,7 +185,19 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'diagnose'}
+      {#if ansicht === 'stand'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <MeinStand
+          kompetenzen={geladen.kompetenzen}
+          vorlagen={geladen.vorlagen}
+          {zustand}
+          bind:niveau
+          onueben={(k) => {
+            gewaehlt = k;
+            ansicht = 'uebung';
+          }}
+        />
+      {:else if ansicht === 'diagnose'}
         <button
           class="zurueck"
           onclick={() => {
@@ -233,14 +257,27 @@
           <p>{t('wiederholen.keine')}</p>
         {/if}
       {:else if ansicht === 'uebung' && gewaehlt}
-        <Uebung
-          ueberschrift="{gewaehlt.titel.de} · {t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}"
-          auftrag={uebenAuftrag(geladen, gewaehlt)}
-          modus="ueben"
-          paketVon={geladen.paketVon}
-          onzurueck={() => (ansicht = 'uebersicht')}
-          onergebnis={(d) => void ergebnis(d)}
-        />
+        {#key gewaehlt}
+          <Uebung
+            ueberschrift="{gewaehlt.titel.de} · {t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}"
+            auftrag={uebenAuftrag(geladen, gewaehlt)}
+            modus="ueben"
+            paketVon={geladen.paketVon}
+            onzurueck={() => (ansicht = 'uebersicht')}
+            onergebnis={(d) => void ergebnis(d)}
+            vorschlag={(id, fehler) => {
+              const jetzt = Date.now();
+              const ziel = rueckweg(
+                id,
+                geladen.kompetenzen,
+                (x) => sitzt(statusVon(zustand, x, niveau, jetzt)),
+                fehler,
+              );
+              return geladen.kompetenzen.find((k) => k.id === ziel);
+            }}
+            onwechsel={(k) => (gewaehlt = k)}
+          />
+        {/key}
       {:else}
         <Uebersicht
           kompetenzen={geladen.kompetenzen}

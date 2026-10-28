@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **1c weiter:** Kompetenzansicht – was gefestigt ist, was wackelt, auch ohne Bastion verständlich (PLAN 1c, Punkt 8); in der Übersicht „empfohlen“ nach L-5 markieren; „Rückweg bei Fehlern“ (LEHRPLAN §7: nach wiederholtem Scheitern gezielt eine Voraussetzung vorschlagen). Danach Elternbereich minimal und Export/Import.
+7. **1c weiter:** Elternbereich minimal (PIN, Stufe „begleitet“, Kompetenzbericht – liest nur Kompetenzen und Wochen, DATENMODELL §5.2) und Export/Import mit Sicherungs-Erinnerung (DATENMODELL §7). Elternbereich vorher mit dem Projektverantwortlichen abstimmen (PIN-Ablage, Ton, was Eltern sehen).
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -79,7 +79,8 @@ Mit Claude Code, als Nächstes:
 - **Rückkehrmodus (1b):** nach mehr als 7 Tagen ohne Aufgabe Begrüßung ohne Vorwurf, keine Pausenlänge; jede Wiederholungsrunde höchstens 20 Aufgaben, die gefährdetsten zuerst (`src/core/srs/rueckkehr.ts`). Phase 1b ist damit bis auf die Belohnung fürs Korrigieren (R6, braucht den Ledger) fertig.
 - Lehre aus der CI: Browser-Tests müssen warten, bis im Hintergrund gespeichert ist, bevor sie neu laden (z. B. „in Arbeit“ in der Übersicht abwarten).
 - **Diagnose (1c):** „Wo stehe ich?“ auf der Startseite (`src/core/learning/diagnose.ts`, `src/ui/ueben/Diagnose.svelte`). Testet je Schritt die Kompetenz, deren Ergebnis am meisten entscheidet, zwei Aufgaben je Kompetenz (bei 1 : 1 eine dritte), höchstens 30 in zwei Etappen; keine Wertung, keine Hilfen, „Weiß ich nicht“ erlaubt und kein Fehler für die Werkstatt. Ergebnis: Empfehlungen mit „Üben“-Knopf und Liste dessen, was sitzt. Getestet bestanden → „gekonnt“; Gefolgertes wird nicht gespeichert. Diagnose-Aufgaben ohne FSRS-Bewertung. Ehrliche Grenze: Bei sehr Starken bleiben wegen der 21 Endpunkte des Graphen Themen ungetestet. PR #6 ist gemergt.
-- 1604 Tests und 8 Browser-Tests, Lint, Build, Größenbudget (103 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Kompetenzansicht (1c):** „Mein Stand“ auf der Startseite – Zusammenfassung, Empfehlungen, Abschnitte „Wackelt gerade“, „In Arbeit“, „Gekonnt“ (mit nächster Wiederholung), „Gefestigt“, jeweils mit Erklärung in einfacher Sprache; „empfohlen“ in der Übersicht (L-5); Rückweg bei Fehlern nach drei Fehlern in Folge (`src/core/learning/empfehlung.ts`). PR #7 (Diagnose) ist gemergt.
+- 1609 Tests und 9 Browser-Tests, Lint, Build, Größenbudget (105 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

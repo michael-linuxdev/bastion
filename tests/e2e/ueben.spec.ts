@@ -168,3 +168,35 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await page.goto('./');
   await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
 });
+
+test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(page.getByText(/Du hast noch nichts geübt/)).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  // Ohne Vorwissen ist eine Kompetenz ohne Voraussetzungen empfohlen
+  await expect(page.getByRole('button', { name: /^Große Zahlen und Stellenwerte/ })).toContainText(
+    'empfohlen',
+  );
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  for (let i = 0; i < 3; i++) {
+    await expect(page.getByText('Kurz üben')).toHaveCount(0);
+    await page.getByLabel('Deine Antwort').fill('0');
+    await page.getByRole('button', { name: 'Prüfen' }).click();
+    if (i < 2) await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  }
+  await expect(page.getByText(/worauf dieses Thema aufbaut/)).toContainText(
+    'Große Zahlen und Stellenwerte',
+  );
+  await page.getByRole('button', { name: 'Kurz üben' }).click();
+  await expect(page.getByRole('heading', { name: /^Große Zahlen und Stellenwerte/ })).toBeVisible();
+
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(page.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
+});

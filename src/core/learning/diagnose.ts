@@ -8,6 +8,7 @@
  * aus den bisherigen Antworten.
  */
 import type { Kompetenz } from '../competence/kompetenz';
+import { empfohlen } from './empfehlung';
 
 export const DIAGNOSE = {
   /** Aufgaben insgesamt (LEHRPLAN §7: höchstens 15 Minuten) … */
@@ -123,20 +124,11 @@ export function diagnose(
 export const kann = (s: DiagnoseStand, id: string) =>
   (s.getestet.get(id) ?? s.gefolgert.get(id)) === 'kann';
 
-/**
- * „Hier geht es weiter“ (L-5): Kompetenzen, die noch nicht sitzen, deren
- * Voraussetzungen aber alle sitzen – in Graphreihenfolge, höchstens `anzahl`.
- */
+/** „Hier geht es weiter“ (L-5): Empfehlungen nach dem Diagnosestand, höchstens `anzahl`. */
 export function empfehlungen(
   kompetenzen: readonly Pick<Kompetenz, 'id' | 'voraussetzungen'>[],
   s: DiagnoseStand,
   anzahl = 3,
 ): string[] {
-  const ids = new Set(kompetenzen.map((k) => k.id));
-  return kompetenzen
-    .filter(
-      (k) => !kann(s, k.id) && k.voraussetzungen.filter((v) => ids.has(v)).every((v) => kann(s, v)),
-    )
-    .slice(0, anzahl)
-    .map((k) => k.id);
+  return empfohlen(kompetenzen, (id) => kann(s, id)).slice(0, anzahl);
 }
