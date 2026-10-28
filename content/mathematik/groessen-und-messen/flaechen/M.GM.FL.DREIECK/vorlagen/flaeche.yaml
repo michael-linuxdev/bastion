@@ -1,0 +1,23 @@
+# Flächeninhalt eines Dreiecks aus Grundseite und Höhe. Entwurf: noch nicht geprüft.
+id: M.GM.FL.DREIECK.FLAECHE
+kompetenz: M.GM.FL.DREIECK
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.dreieck-flaeche@1
+parameter:
+  G: { max: 12, stumpf: false }
+  M: { max: 20, stumpf: true }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Flächeninhalt]] des Dreiecks in cm².'
+hilfen:
+  - de: 'Zwei gleiche Dreiecke ergeben zusammen ein [[Parallelogramm]] mit derselben Grundseite und [[Höhe]].'
+  - de: 'A = g · h : 2. Die [[Höhe]] steht [[senkrecht]] auf der Grundseite.'
+fehlerbilder:
+  nicht-halbiert:
+    de: 'Du hast g · h gerechnet. Das Dreieck ist nur halb so groß – teile noch durch 2.'
+  seite-statt-hoehe:
+    de: 'Du hast die schräge Seite statt der [[Höhe]] genommen. Die Höhe steht [[senkrecht]] auf der Grundseite.'
+herkunft: ki-entwurf
+version: 1

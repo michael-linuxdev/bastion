@@ -1,0 +1,20 @@
+# Fehlende Grundseite oder Höhe aus dem Flächeninhalt. Entwurf: noch nicht geprüft.
+id: M.GM.FL.DREIECK.RUECKWAERTS
+kompetenz: M.GM.FL.DREIECK
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: fl.dreieck-rueckwaerts@1
+parameter:
+  M: { max: 30 }
+text:
+  aufgabe:
+    de: '{angabe} Gib die Länge in cm an.'
+hilfen:
+  - de: 'A = g · h : 2. Verdopple zuerst den [[Flächeninhalt]], dann erhältst du g · h.'
+  - de: 'Teile g · h durch die bekannte Länge.'
+fehlerbilder:
+  nicht-verdoppelt:
+    de: 'Du hast den [[Flächeninhalt]] direkt geteilt. Verdopple ihn zuerst, denn A = g · h : 2.'
+herkunft: ki-entwurf
+version: 1

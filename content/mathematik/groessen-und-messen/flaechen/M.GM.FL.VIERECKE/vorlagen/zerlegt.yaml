@@ -1,0 +1,23 @@
+# Flächeninhalt einer Hausfigur aus Rechteck und Dreieck. Entwurf: noch nicht geprüft.
+id: M.GM.FL.VIERECKE.ZERLEGT
+kompetenz: M.GM.FL.VIERECKE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.zerlegt@1
+parameter:
+  G: { max: 10 }
+  M: { max: 20 }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Flächeninhalt]] der Figur in cm².'
+hilfen:
+  - de: 'Zerlege die Figur in ein Rechteck und ein Dreieck.'
+  - de: 'Rechne beide Flächen einzeln aus und addiere sie.'
+fehlerbilder:
+  dach-nicht-halbiert:
+    de: 'Beim Dach hast du nicht durch 2 geteilt. Das Dreieck ist halb so groß wie das Rechteck darum.'
+  nur-rechteck:
+    de: 'Du hast nur das Rechteck berechnet. Das Dreieck oben gehört auch dazu.'
+herkunft: ki-entwurf
+version: 1

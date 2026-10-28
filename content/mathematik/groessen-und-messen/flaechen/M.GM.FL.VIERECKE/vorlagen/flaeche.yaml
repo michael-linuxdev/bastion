@@ -1,0 +1,25 @@
+# Flächeninhalt von Parallelogramm, Trapez und Drachenviereck. Entwurf: noch nicht geprüft.
+id: M.GM.FL.VIERECKE.FLAECHE
+kompetenz: M.GM.FL.VIERECKE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.viereck-flaeche@1
+parameter:
+  G: { arten: [parallelogramm, trapez], max: 12 }
+  M: { arten: [parallelogramm, trapez, drachen], max: 20 }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Flächeninhalt]] {figur} in cm².'
+hilfen:
+  - de: '[[Parallelogramm]]: A = g · h. [[Trapez]]: A = (a + c) · h : 2. [[Drachenviereck]]: A = e · f : 2.'
+  - de: 'Die [[Höhe]] steht immer [[senkrecht]] auf der Grundseite – nimm nicht die schräge Seite.'
+fehlerbilder:
+  seite-statt-hoehe:
+    de: 'Du hast die schräge Seite statt der [[Höhe]] genommen. Die Höhe steht [[senkrecht]] auf der Grundseite.'
+  trapez-nicht-halbiert:
+    de: 'Du hast (a + c) · h gerechnet. Beim [[Trapez]] teilst du noch durch 2.'
+  drachen-nicht-halbiert:
+    de: 'Du hast e · f gerechnet. Das ist das umgebende Rechteck – das [[Drachenviereck]] ist halb so groß.'
+herkunft: ki-entwurf
+version: 1
