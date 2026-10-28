@@ -1,0 +1,21 @@
+# „Welche Gleichung entsteht beim Auflösen der Klammern?“ Entwurf: noch nicht geprüft.
+id: M.SF.TU.GLEICHUNGEN.AUFLOESEN
+kompetenz: M.SF.TU.GLEICHUNGEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tu.klammer-aufloesen@1
+parameter:
+  G: { beidseitig: false }
+  M: { beidseitig: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche [[Gleichung]] entsteht, wenn du in {gleichung} die Klammern auflöst?'
+hilfen:
+  - de: 'Die Zahl vor der Klammer wird mit jedem Glied in der Klammer malgenommen.'
+  - de: 'Was außerhalb der Klammer steht, bleibt unverändert.'
+fehlerbilder:
+  nur-erstes-glied:
+    de: 'Hier wurde die Zahl in der Klammer nicht mitgenommen. Auch sie wird mit der Zahl vor der Klammer malgenommen.'
+herkunft: ki-entwurf
+version: 1

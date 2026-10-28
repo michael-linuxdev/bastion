@@ -1,0 +1,23 @@
+# „Löse: 3·(x + 2) = 2·x + 10“. Entwurf: noch nicht geprüft.
+id: M.SF.TU.GLEICHUNGEN.LOESEN
+kompetenz: M.SF.TU.GLEICHUNGEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tu.gleichung-klammer@1
+parameter:
+  G: { beidseitig: false }
+  M: { beidseitig: true }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] {gleichung}. **Gib** x **an**.'
+hilfen:
+  - de: 'Löse zuerst die Klammern auf ([[ausmultiplizieren]]) und fasse zusammen.'
+  - de: 'Bring dann alle x auf eine Seite und alle Zahlen auf die andere. Mach am Ende die [[Probe]].'
+fehlerbilder:
+  nur-erstes-glied:
+    de: 'Beim Auflösen der Klammer wird auch die Zahl in der Klammer malgenommen: 3·(x + 2) = 3·x + 6.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Mach die [[Probe]].'
+herkunft: ki-entwurf
+version: 1

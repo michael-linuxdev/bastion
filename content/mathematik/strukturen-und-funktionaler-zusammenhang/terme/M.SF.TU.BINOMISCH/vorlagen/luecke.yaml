@@ -1,0 +1,25 @@
+# „(x + 5)² = x² + ☐·x + 25“. Entwurf: noch nicht geprüft.
+id: M.SF.TU.BINOMISCH.LUECKE
+kompetenz: M.SF.TU.BINOMISCH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tu.binomisch-luecke@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Ergänze** mit einer [[binomischen Formel]]: {aufgabe}'
+hilfen:
+  - de: '(a + b)² = a² + 2·a·b + b². Das Mittelglied ist das **Doppelte** von a mal b.'
+  - de: '(a + b)·(a − b) = a² − b². Hier gibt es kein Mittelglied.'
+fehlerbilder:
+  nicht-verdoppelt:
+    de: 'Das Mittelglied ist 2·a·b – du hast das Doppelte vergessen.'
+  nicht-quadriert:
+    de: 'Das letzte Glied ist das Quadrat der Zahl: 5² = 25, nicht 2 · 5.'
+  vorzeichen-falsch:
+    de: 'Bei (a + b)·(a − b) steht vor b² ein Minus.'
+herkunft: ki-entwurf
+version: 1

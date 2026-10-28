@@ -1,0 +1,23 @@
+# „7·x − 3·x + 2·x = ☐·x“. Entwurf: noch nicht geprüft.
+id: M.SF.TU.ZUSAMMENFASSEN.LUECKE
+kompetenz: M.SF.TU.ZUSAMMENFASSEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tu.zusammenfassen-luecke@1
+parameter:
+  G: { klammer: false }
+  M: { klammer: true }
+text:
+  aufgabe:
+    de: '**Ergänze** die Zahl im Kästchen: {aufgabe}'
+hilfen:
+  - de: 'Zähle die Zahlen vor x mit ihren [[Vorzeichen]] zusammen: 7·x − 3·x heißt 7 − 3.'
+  - de: 'Ein Minus vor der Klammer dreht alle [[Vorzeichen]] in der Klammer um.'
+fehlerbilder:
+  vorzeichen-verloren:
+    de: 'Ein Minus vor einem Glied heißt: Diese Zahl wird abgezogen. Rechne mit den [[Vorzeichen]].'
+  minusklammer:
+    de: 'Vor der Klammer steht ein Minus – dann dreht sich das [[Vorzeichen]] des y-Glieds um.'
+herkunft: ki-entwurf
+version: 1

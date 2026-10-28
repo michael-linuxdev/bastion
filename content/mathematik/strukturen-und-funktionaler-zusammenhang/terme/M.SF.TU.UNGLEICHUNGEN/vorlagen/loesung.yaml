@@ -1,0 +1,25 @@
+# „Welche Zahlen erfüllen 2·x + 3 < 11?“ Entwurf: noch nicht geprüft.
+id: M.SF.TU.UNGLEICHUNGEN.LOESUNG
+kompetenz: M.SF.TU.UNGLEICHUNGEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tu.ungleichung-loesung@1
+parameter:
+  G: { negativ: false }
+  M: { negativ: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche Zahlen x erfüllen die [[Ungleichung]] {ungleichung}?'
+hilfen:
+  - de: 'Löse die [[Ungleichung]] wie eine [[Gleichung]].'
+  - de: 'Aber Achtung: Multiplizierst oder teilst du durch eine [[negative Zahl]], dreht sich das Zeichen um – aus < wird >.'
+fehlerbilder:
+  zeichen-nicht-gedreht:
+    de: 'Du hast durch eine [[negative Zahl]] geteilt. Dann dreht sich das Zeichen um: aus < wird >, aus ≤ wird ≥.'
+  zeichen-verdreht:
+    de: 'Prüfe mit einer Zahl: Setze sie ein und schau, ob die [[Ungleichung]] stimmt.'
+  gleich-vergessen:
+    de: 'Achte darauf, ob die Grenze dazugehört: ≤ und ≥ schließen sie ein, < und > nicht.'
+herkunft: ki-entwurf
+version: 1
