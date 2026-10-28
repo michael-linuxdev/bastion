@@ -1,7 +1,7 @@
 // Läuft bei jedem pnpm test und mit pnpm inhalte:pruefen:
 // Fehlerhafte Inhalte machen die CI rot.
 import { describe, expect, it } from 'vitest';
-import { generatoren } from '../../src/generators';
+import { generatoren } from '../../src/generators/alle';
 import { anleitungsBilder } from '../../src/generators/anleitungen';
 import { abdeckung, pruefeInhalte } from './pruefen';
 

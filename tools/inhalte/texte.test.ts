@@ -2,7 +2,7 @@
 // je Niveau füllen, ohne dass Platzhalter, $ oder ** übrig bleiben.
 import { describe, expect, it } from 'vitest';
 import { alsText, fuelle } from '../../src/core/learning/text';
-import { generatoren } from '../../src/generators';
+import { generatoren } from '../../src/generators/alle';
 import { pruefeInhalte } from './pruefen';
 
 const { vorlagen } = pruefeInhalte('content', generatoren);

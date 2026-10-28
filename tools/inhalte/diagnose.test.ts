@@ -11,7 +11,7 @@ import {
   kann,
   type Antwort,
 } from '../../src/core/learning/diagnose';
-import { generatoren } from '../../src/generators';
+import { generatoren } from '../../src/generators/alle';
 import { pruefeInhalte } from './pruefen';
 
 const kompetenzen = nachGraph(

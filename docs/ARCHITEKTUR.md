@@ -220,7 +220,7 @@ Workflow `.github/workflows/ci.yml`, bei jedem Push und Pull Request:
 1. `pnpm lint` – ESLint inkl. Ordnergrenzen, Prettier, Typprüfung
 2. `pnpm test` – Einheitentests (Vitest), darunter die Tests der Leitplanken
 3. `pnpm build` – mit `BASE_PATH=/` wie unter https://bastion.micana.de/
-4. `pnpm budget` – Größenbudget §9: alle JavaScript-Dateien zusammen ≤ 250 KB gzip (`tools/groessenbudget.ts`)
+4. `pnpm budget` – Größenbudget §9: App-Hülle ≤ 250 KB, Generatoren ≤ 400 KB, Grafik ≤ 300 KB, jeweils gzip (`tools/groessenbudget.ts`)
 5. `pnpm test:e2e` – Playwright gegen den fertigen Build: einmal online laden, dann offline neu laden; dabei darf keine Anfrage an eine fremde Adresse gehen (A2)
 6. Nur auf `main`: Veröffentlichung auf GitHub Pages unter **https://bastion.micana.de/**
 
@@ -283,13 +283,14 @@ Zielwerte, in der Build-Pipeline geprüft:
 |---|---|
 | App-Hülle + Lernkern (komprimiert) | ≤ 250 KB JavaScript |
 | Bastion-Modul (zusätzlich, nachgeladen) | ≤ 300 KB + Grafiken |
+| Aufgaben-Generatoren (nachgeladen, vorab gespeichert, T-14) | ≤ 400 KB JavaScript |
 | Erste Nutzbarkeit auf Referenz-Altgerät | ≤ 3 s |
 | Referenzgeräte | ein günstiges Android-Handy (ca. 4 Jahre alt), ein Schul-Chromebook, ein älteres iPad |
 
 Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
 
 
-*Seit 2.12 prüft `pnpm budget` beides getrennt:* App-Hülle und Lernkern ≤ 250 KB, Nachgeladenes (Grafik der Bastion) ≤ 300 KB, jeweils gzip. Stand 28.10.2026: 156 KB und 147 KB.
+*Seit 2.12 prüft `pnpm budget` beides getrennt:* App-Hülle und Lernkern ≤ 250 KB, Nachgeladenes (Grafik der Bastion) ≤ 300 KB, jeweils gzip. Stand 28.10.2026: 156 KB und 147 KB. *Seit T-14 (28.10.2026) dazu die Aufgaben-Generatoren getrennt:* ≤ 400 KB. Stand nach dem Umbau mit Klasse 5 bis 8: App-Hülle 120 KB (vorher 212 KB), Generatoren 93 KB, Grafik 148 KB.
 ### 9.1 Referenzgeräte (Aufgabe 0.10)
 
 | Rolle | Kriterium | Gerät |
@@ -343,6 +344,7 @@ Ziel „erste Nutzbarkeit ≤ 3 s“ ist für die Gerüst-App deutlich erfüllt.
 | T-11 | Stack-Bausteine phasenweise einführen | Entschieden |
 | T-12 | GitHub-Repo als einzige Quelle der Wahrheit; Phasen als Milestones, Aufgaben als Issues | Entschieden |
 | T-13 | Implementierung überwiegend mit Claude Code; Qualität über automatische Prüfungen und `CLAUDE.md` abgesichert | Entschieden |
+| T-14 | **Aufgaben-Generatoren nachgeladen, aber vorab gespeichert:** `src/generators/alle.ts` sammelt alle Generatoren und wird mit den Inhaltspaketen nachgeladen (`generatorenLaden()` in `src/generators/index.ts`). Der Service Worker speichert die Datei trotzdem beim Installieren, Üben geht also auch ohne Netz. So bleibt die App-Hülle klein, auch wenn bis Klasse 12 und darüber hinaus Generatoren dazukommen. Keine neue Abhängigkeit. Eigenes Budget 400 KB (§9) | Entschieden (28.10.2026, freigegeben vom Projektverantwortlichen) |
 
 ## 12. Offene Punkte zum Stack
 
