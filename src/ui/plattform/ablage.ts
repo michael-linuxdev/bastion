@@ -39,6 +39,7 @@ import {
   ERWACHSEN_SCHLUESSEL,
   PROFIL_GEFRAGT_SCHLUESSEL,
   SCHULJAHR_SCHLUESSEL,
+  GERADE_DRAN_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -404,6 +405,16 @@ export async function schuljahrGemerkt(): Promise<number | undefined> {
 }
 
 export const schuljahrSetzen = (jahr: number) => setze(SCHULJAHR_SCHLUESSEL, jahr, 'jugendlich');
+
+/** „Gerade in der Schule dran“ (L-18) – gespeicherter Text; gelesen mit `auswahlAus`. */
+export async function geradeDranWahl(): Promise<unknown> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  return einstellung(db, inst.profil, GERADE_DRAN_SCHLUESSEL).catch(() => undefined);
+}
+
+export const geradeDranSetzen = (ids: readonly string[]) =>
+  setze(GERADE_DRAN_SCHLUESSEL, ids.join(','), 'jugendlich');
 
 /** Bauplatz als Bild zeigen (2.13)? Standard ja; aus = reizarm, nur die Liste. */
 export async function bildZeigen(): Promise<boolean> {

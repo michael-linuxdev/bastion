@@ -963,3 +963,41 @@ test('Schuljahreswechsel: einmal nach der Klasse fragen (L-17)', async ({ page }
   await page.getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
 });
+
+test('Gerade dran: Lernbereich wählen, Themen stehen oben (L-18)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await page.getByText('Was ist gerade in der Schule dran? Wählen').click();
+  const lb = page.locator('.dran fieldset').first();
+  await lb.locator('legend input').check();
+  await expect(page.getByRole('heading', { name: 'Gerade in der Schule dran' })).toBeVisible();
+  const anzahl = await page.locator('.dran .liste li').count();
+  expect(anzahl).toBeGreaterThan(0);
+  // ein Thema wieder abwählen
+  await lb.locator('label.thema input').first().uncheck();
+  await expect(page.locator('.dran .liste li')).toHaveCount(anzahl - 1);
+  await page.reload();
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await expect(page.locator('.dran .liste li')).toHaveCount(anzahl - 1);
+});
+
+test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await page.getByRole('radio', { name: /Alles ab Klasse 5/ }).check();
+  await expect(page.getByRole('radio', { name: 'Klasse 6' })).toHaveCount(0);
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
+    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+      await page.getByRole('button', { name: 'Weiter', exact: true }).click();
+      continue;
+    }
+    await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
+  }
+  await expect(page.getByText(/Am besten fängst du bei Klasse 5 an/)).toBeVisible();
+  await page.getByRole('button', { name: 'Themen zeigen: Klasse 5' }).click();
+  await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Klasse 5' })).toBeChecked();
+});

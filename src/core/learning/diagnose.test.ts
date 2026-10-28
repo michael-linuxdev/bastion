@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { diagnose, DIAGNOSE, empfehlungen, kann, type Antwort } from './diagnose';
+import {
+  diagnose,
+  DIAGNOSE,
+  empfehlungen,
+  kann,
+  standKlasse,
+  type Antwort,
+  type DiagnoseStand,
+} from './diagnose';
 
 // Kette A → B → C → D (D baut auf C auf usw.)
 const kette = [
@@ -62,5 +70,26 @@ describe('Diagnose (LEHRPLAN §7)', () => {
     }
     expect(s.aufgaben).toBe(DIAGNOSE.hoechstens);
     expect(pause).toBe(1);
+  });
+});
+
+describe('Stand im Sinne einer Klasse (L-16)', () => {
+  const k = (id: string, c: number) => ({ id, klassenstufe_typisch: [c] });
+  const stand = (kann: string[], nicht: string[]): DiagnoseStand => ({
+    getestet: new Map([
+      ...kann.map((i) => [i, 'kann'] as const),
+      ...nicht.map((i) => [i, 'kann-noch-nicht'] as const),
+    ]),
+    gefolgert: new Map(),
+    aufgaben: 10,
+    etappenEnde: false,
+  });
+  const ks = [k('A5', 5), k('B5', 5), k('A6', 6), k('B6', 6), k('A7', 7), k('B7', 7)];
+
+  it('höchste Klasse, bis zu der jede Klasse mindestens 70 % sitzt', () => {
+    expect(standKlasse(ks, stand(['A5', 'B5', 'A6', 'B6'], ['A7', 'B7']))).toBe(6);
+    expect(standKlasse(ks, stand(['A5', 'B5', 'A7', 'B7'], ['A6', 'B6']))).toBe(5);
+    expect(standKlasse(ks, stand([], ['A5']))).toBe(4);
+    expect(standKlasse(ks, stand([], []))).toBeUndefined();
   });
 });

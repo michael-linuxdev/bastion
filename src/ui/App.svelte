@@ -18,6 +18,8 @@
     profilUebersprungen,
     schuljahrGemerkt,
     schuljahrSetzen,
+    geradeDranWahl,
+    geradeDranSetzen,
     klasseSetzen,
     schulartSetzen,
     sicherungAnstehend,
@@ -110,10 +112,24 @@
   const selbst = $derived(selbstverwaltet(profil, heuteTag));
   /** Neues Schuljahr begonnen – einmal nach der Klasse fragen (L-17) */
   let neuesSchuljahr = $state(false);
+  /** „Gerade in der Schule dran“ (L-18) – Kompetenz-IDs */
+  let geradeDran = $state<readonly string[]>([]);
+  /** zuletzt gespeicherter Stand – nur Änderungen werden gespeichert */
+  let geradeDranGespeichert: string | undefined;
+  $effect(() => {
+    const text = geradeDran.join(',');
+    if (geradeDranGespeichert === undefined || text === geradeDranGespeichert) return;
+    geradeDranGespeichert = text;
+    void geradeDranSetzen(geradeDran);
+  });
   /** Schuljahr erst mit der ersten Klassenwahl merken – beim ersten Start wird nichts gespeichert */
   let schuljahrBekannt = false;
   /** Diagnose nur für ausgewählte Kompetenzen (nach einem Schulartwechsel) */
   let diagnoseAuswahl = $state<readonly string[] | undefined>(undefined);
+  /** Wiedereinstieg über alle Klassen (L-16); für Erwachsene vorgewählt */
+  let diagnoseUebergreifend = $state(false);
+  /** Klasse kommt aus dem Wiedereinstieg – dann kein Hinweis auf übersprungene Klassen */
+  let stillerWechsel = false;
   $effect(() => {
     const k = klasse;
     const s = schulart;
@@ -122,7 +138,9 @@
       if (k !== gemerkt.klasse) {
         const ueber = uebersprungeneKlassen(gemerkt.neu ? 4 : gemerkt.klasse, k, KLASSEN);
         // Hochstellen über Klassen hinweg: Diagnose anbieten; zurückstellen: nichts (neutral)
-        wechsel = ueber.length > 0 ? { art: 'klassen', klassen: ueber } : undefined;
+        wechsel =
+          ueber.length > 0 && !stillerWechsel ? { art: 'klassen', klassen: ueber } : undefined;
+        stillerWechsel = false;
         void klasseSetzen(k, ansicht === 'eltern' ? 'eltern' : 'jugendlich');
         if (!schuljahrBekannt) {
           schuljahrBekannt = true;
@@ -182,6 +200,9 @@
       klasse = w.klasse;
       schulart = w.schulart;
       gemerkt = w;
+      const gd = await geradeDranWahl();
+      geradeDranGespeichert = typeof gd === 'string' ? gd : '';
+      geradeDran = geradeDranGespeichert === '' ? [] : geradeDranGespeichert.split(',');
       const sj = await schuljahrGemerkt();
       schuljahrBekannt = sj !== undefined;
       neuesSchuljahr = !w.neu && schuljahrFragen(sj, heuteTag, profil.erwachsen);
@@ -290,6 +311,7 @@
         onbestaetigen={(k) => {
           klasse = k;
           neuesSchuljahr = false;
+          geradeDran = []; // neues Schuljahr, neue Themen (L-17)
           void schuljahrSetzen(schuljahrVon(heuteTag));
         }}
       />
@@ -318,6 +340,7 @@
           if (diagnoseAntworten.length === 0) {
             diagnoseKlasse = klasse;
             diagnoseAuswahl = undefined;
+            diagnoseUebergreifend = selbst;
           }
           ansicht = 'diagnose';
         }}>{t('diagnose.knopf')}</button
@@ -470,6 +493,12 @@
           bind:antworten={diagnoseAntworten}
           bind:klasse={diagnoseKlasse}
           auswahl={diagnoseAuswahl}
+          bind:uebergreifend={diagnoseUebergreifend}
+          onklasse={(k) => {
+            stillerWechsel = k !== klasse;
+            klasse = k;
+            ansicht = 'uebersicht';
+          }}
           onergebnis={(d) => void ergebnis(d)}
           onueben={(k) => {
             gewaehlt = k;
@@ -585,6 +614,7 @@
           bind:niveau
           bind:klasse
           bind:schulart
+          bind:geradeDran
           onwahl={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';

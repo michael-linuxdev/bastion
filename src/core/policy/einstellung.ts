@@ -90,6 +90,9 @@ export const PROFIL_GEFRAGT_SCHLUESSEL = 'profil.gefragt';
 /** Zuletzt bestätigtes Schuljahr (L-17), z. B. 2026 für 2026/27. */
 export const SCHULJAHR_SCHLUESSEL = 'lernen.schuljahr';
 
+/** „Gerade in der Schule dran“ (L-18): Kompetenz-IDs, durch Komma getrennt. */
+export const GERADE_DRAN_SCHLUESSEL = 'lernen.gerade-dran';
+
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';
 
