@@ -1,0 +1,21 @@
+# „Welche Fläche liegt gegenüber von A?“ Entwurf: noch nicht geprüft.
+id: M.RF.KP.DARSTELLEN.GEGENUEBER
+kompetenz: M.RF.KP.DARSTELLEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kp.gegenueber@1
+parameter:
+  G: { nur_in_reihe: true }
+  M: { nur_in_reihe: false }
+text:
+  aufgabe:
+    de: 'Aus dem Netz wird ein Würfel gefaltet. **Gib an**, welche Fläche dann der Fläche {flaeche} gegenüberliegt.'
+hilfen:
+  - de: Flächen, die im Netz aneinanderstoßen, sind am Würfel Nachbarn – nicht Gegenüber.
+  - de: Liegen drei Quadrate in einer Reihe, sind das erste und das dritte gegenüber.
+fehlerbilder:
+  nachbar-gewaehlt:
+    de: Diese Fläche stößt im Netz direkt an {flaeche}. Beim Falten werden sie Nachbarn, nicht Gegenüber.
+herkunft: ki-entwurf
+version: 1

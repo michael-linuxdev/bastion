@@ -1,0 +1,21 @@
+# „Berechne 3,45 + 12,8“. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-RECHNEN.ADD-SUB
+kompetenz: M.ZO.BR.DEZ-RECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.dezimal-add-sub@1
+parameter:
+  G: { ganz_max: 20 }
+  M: { ganz_max: 1000 }
+text:
+  aufgabe:
+    de: '**Berechne**: {a} {zeichen} {b}'
+hilfen:
+  - de: Schreibe Komma unter Komma.
+  - de: Fülle fehlende Nachkommastellen mit Nullen auf.
+fehlerbilder:
+  rechtsbuendig-geschrieben:
+    de: Die Zahlen standen nicht Komma unter Komma. Hundertstel gehören unter Hundertstel, Zehntel unter Zehntel.
+herkunft: ki-entwurf
+version: 1

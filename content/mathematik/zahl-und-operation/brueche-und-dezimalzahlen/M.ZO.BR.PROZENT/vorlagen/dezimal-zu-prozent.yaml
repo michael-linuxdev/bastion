@@ -1,0 +1,22 @@
+# „Gib 0,25 in Prozent an.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT
+kompetenz: M.ZO.BR.PROZENT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.prozentschreibweise@1
+parameter:
+  G: { richtung: dezimal-zu-prozent, prozente: [10, 25, 50, 75, 100] }
+  M: { richtung: dezimal-zu-prozent, prozente: [1, 10, 20, 25, 50, 75, 100] }
+text:
+  aufgabe:
+    de: '**Gib** {wert} in Prozent **an**.'
+hilfen:
+  - de: Prozent heißt „von Hundert“. Schreibe die Zahl als Hundertstel.
+fehlerbilder:
+  komma-verschoben:
+    de: 'Das Komma ist verrutscht. 0,25 sind 25 Hundertstel, also 25 %.'
+  prozent-als-nenner-zehn:
+    de: Prozent heißt „von Hundert“, nicht „von Zehn“.
+herkunft: ki-entwurf
+version: 1

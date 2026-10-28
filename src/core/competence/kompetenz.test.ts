@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { pruefeGraph, pruefeKompetenz } from './kompetenz';
+import { nachGraph, pruefeGraph, pruefeKompetenz } from './kompetenz';
 
 const gueltig = () => ({
   id: 'M.ZO.BR.ERWEITERN',
@@ -83,5 +83,13 @@ describe('pruefeGraph', () => {
       { id: 'C', voraussetzungen: ['B'] },
     ]);
     expect(fehler.join()).toContain('Kreis');
+  });
+});
+
+describe('nachGraph', () => {
+  it('stellt Voraussetzungen vor die Kompetenzen, die sie brauchen', () => {
+    const k = (id: string, voraussetzungen: string[] = []) => ({ id, voraussetzungen });
+    const sortiert = nachGraph([k('C', ['B']), k('B', ['A']), k('D'), k('A')]).map((x) => x.id);
+    expect(sortiert).toEqual(['D', 'A', 'B', 'C']);
   });
 });

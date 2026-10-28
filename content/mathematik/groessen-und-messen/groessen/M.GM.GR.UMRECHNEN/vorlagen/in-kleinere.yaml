@@ -1,0 +1,23 @@
+# „Rechne um: 3 km = ? m“. Entwurf: noch nicht geprüft.
+id: M.GM.GR.UMRECHNEN.IN-KLEINERE
+kompetenz: M.GM.GR.UMRECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.einheiten-umrechnen@1
+parameter:
+  G: { groessen: [laenge, masse, geld, zeit], richtung: in-kleinere, sprung_max: 1, dezimal: false }
+  M: { groessen: [laenge, masse, geld], richtung: in-kleinere, sprung_max: 3, dezimal: true }
+text:
+  aufgabe:
+    de: '**Rechne um**: {wert} {von} = ? {nach}'
+hilfen:
+  - de: In eine kleinere Einheit umrechnen heißt multiplizieren – die Zahl wird größer.
+  - de: 'Wie viele {nach} hat ein {von}? Denke an die Umrechnungszahlen: 10, 100, 1000 – bei der Zeit 60 und 24.'
+fehlerbilder:
+  falsche-richtung:
+    de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.
+  falsche-umrechnungszahl:
+    de: Die Umrechnungszahl stimmt nicht. Prüfe, wie viele {nach} in einen {von} passen.
+herkunft: ki-entwurf
+version: 1

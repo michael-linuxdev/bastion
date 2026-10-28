@@ -1,0 +1,23 @@
+# „Schreibe 3/4 als Dezimalzahl.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZIMAL.BRUCH-ZU-DEZIMAL
+kompetenz: M.ZO.BR.DEZIMAL
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.bruch-zu-dezimal@1
+parameter:
+  G: { nenner: [2, 4, 5, 10, 100] }
+  M: { nenner: [4, 8, 20, 25, 50, 1000] }
+text:
+  aufgabe:
+    de: '**Gib** {bruch} als Dezimalzahl **an**.'
+hilfen:
+  - de: Erweitere den Bruch auf den Nenner 10, 100 oder 1000.
+  - de: 'Dann steht der Zähler in der Stellenwerttafel: Zehntel, Hundertstel, Tausendstel.'
+fehlerbilder:
+  zaehler-komma-nenner:
+    de: Zähler und Nenner werden nicht einfach mit Komma hintereinander geschrieben. Erweitere zuerst auf 10, 100 oder 1000.
+  stelle-verschoben:
+    de: Das Komma steht an der falschen Stelle. Zehntel stehen direkt hinter dem Komma, Hundertstel an der zweiten Stelle.
+herkunft: ki-entwurf
+version: 1

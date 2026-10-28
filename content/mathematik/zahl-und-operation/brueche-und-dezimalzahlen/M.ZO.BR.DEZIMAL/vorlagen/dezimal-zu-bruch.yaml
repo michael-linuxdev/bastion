@@ -1,0 +1,25 @@
+# „Schreibe 0,35 als Bruch.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZIMAL.DEZIMAL-ZU-BRUCH
+kompetenz: M.ZO.BR.DEZIMAL
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.dezimal-zu-bruch@1
+parameter:
+  G: { nachkommastellen_max: 1 }
+  M: { nachkommastellen_max: 3 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Gib** {dezimal} als Bruch **an** und kürze vollständig.'
+hilfen:
+  - de: 'Eine Nachkommastelle: Zehntel. Zwei: Hundertstel. Drei: Tausendstel.'
+  - de: Kürze am Ende so weit wie möglich.
+fehlerbilder:
+  immer-zehntel:
+    de: Bei zwei Nachkommastellen sind es Hundertstel, nicht Zehntel.
+  nicht-gekuerzt:
+    de: Richtig umgewandelt – jetzt noch vollständig kürzen.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+# „Welche Ziffer steht an der Hunderttausenderstelle?“ Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.STELLENWERT.ZIFFER-AN-STELLE
+kompetenz: M.ZO.NZ.STELLENWERT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.ziffer-an-stelle@1
+parameter:
+  G: { stellen_min: 4, stellen_max: 7 } # bis zu den Millionen
+  M: { stellen_min: 7, stellen_max: 12 } # bis zu den Hundertmilliarden
+text:
+  aufgabe:
+    de: '**Gib an**, welche Ziffer in der Zahl {zahl} an der {stelle} steht.'
+hilfen:
+  - de: 'Zähle die Stellen von rechts: Einer, Zehner, Hunderter, Tausender …'
+  - de: Trage die Zahl in eine Stellenwerttafel ein. Dann kannst du die {stelle} direkt ablesen.
+fehlerbilder:
+  von-links-gezaehlt:
+    de: Du hast von links gezählt. Die Stellen werden von rechts gezählt – ganz rechts stehen die Einer.
+  stelle-links-daneben:
+    de: Fast! Das ist die Stelle links daneben. Zähle noch einmal von den Einern aus.
+  stelle-rechts-daneben:
+    de: Fast! Das ist die Stelle rechts daneben. Zähle noch einmal von den Einern aus.
+herkunft: ki-entwurf
+version: 1

@@ -18,8 +18,40 @@ export interface Sprachobjekt {
  */
 export type Wert = number | Bruch | Sprachobjekt;
 
+export interface Punkt {
+  readonly x: number;
+  readonly y: number;
+}
+
 export type Loesung =
-  { readonly typ: 'bruch'; readonly wert: Bruch } | { readonly typ: 'zahl'; readonly wert: number };
+  | { readonly typ: 'bruch'; readonly wert: Bruch }
+  | { readonly typ: 'zahl'; readonly wert: number }
+  /** Aufgabentyp `ordnen`: die Elemente in der richtigen Reihenfolge. */
+  | { readonly typ: 'reihenfolge'; readonly wert: readonly number[] }
+  /** Aufgabentypen `auswahl` und `bild-auswahl`: Index der richtigen Option. */
+  | { readonly typ: 'auswahl'; readonly wert: number }
+  /** Aufgabentyp `koordinaten-eingabe`. */
+  | { readonly typ: 'punkt'; readonly wert: Punkt }
+  /** Aufgabentyp `rest-eingabe`: Division mit Rest. */
+  | {
+      readonly typ: 'mit-rest';
+      readonly wert: { readonly quotient: number; readonly rest: number };
+    };
+
+/**
+ * Vom Generator erzeugtes Bild (INHALTSFORMAT I-11): SVG als Text, ohne
+ * Verweise nach außen, mit Textbeschreibung für Screenreader (A5).
+ */
+export interface Bild {
+  readonly svg: string;
+  readonly beschreibung: Sprachobjekt;
+}
+
+/** Antwortmöglichkeit bei `auswahl` und `bild-auswahl`. */
+export interface Option {
+  readonly text?: Sprachobjekt;
+  readonly bild?: Bild;
+}
 
 export interface Fehlerbild {
   /** Muss in der Vorlage unter `fehlerbilder` stehen. */
@@ -30,6 +62,12 @@ export interface Fehlerbild {
 
 export interface Instanz {
   readonly platzhalter: Readonly<Record<string, Wert>>;
+  /** Elemente zum Ordnen (Aufgabentyp `ordnen`) in der angezeigten, gemischten Reihenfolge. */
+  readonly elemente?: readonly number[];
+  /** Bild zur Aufgabe (Aufgabentypen `bild-zahl`, `koordinaten-eingabe` …). */
+  readonly bild?: Bild;
+  /** Antwortmöglichkeiten (Aufgabentypen `auswahl`, `bild-auswahl`). */
+  readonly optionen?: readonly Option[];
   readonly loesung: Loesung;
   readonly loesungsweg: readonly Sprachobjekt[];
   /** Erwartbare falsche Antworten; nie gleich der Lösung, untereinander verschieden. */

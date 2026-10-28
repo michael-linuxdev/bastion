@@ -1,0 +1,23 @@
+# „Berechne schriftlich: 3 482 + 917“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.ADD-SUB.ADDIEREN
+kompetenz: M.ZO.NZ.ADD-SUB
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.schriftlich-addieren@1
+parameter:
+  G: { anzahl: 2, stellen_min: 3, stellen_max: 4 }
+  M: { anzahl: 3, stellen_min: 4, stellen_max: 7 }
+text:
+  aufgabe:
+    de: '**Berechne** schriftlich: {aufgabe}'
+hilfen:
+  - de: Schreibe die Zahlen untereinander – Einer unter Einer, Zehner unter Zehner.
+  - de: Beginne rechts. Ist die Summe einer Spalte 10 oder mehr, schreibe den Übertrag klein über die nächste Spalte.
+fehlerbilder:
+  uebertrag-vergessen:
+    de: Du hast einen Übertrag vergessen. Ist eine Spaltensumme 10 oder mehr, wandert der Zehner in die nächste Spalte links.
+  stellen-verrutscht:
+    de: Die Zahlen stehen nicht stellengerecht untereinander. Richte sie rechts aus – Einer unter Einer.
+herkunft: ki-entwurf
+version: 1

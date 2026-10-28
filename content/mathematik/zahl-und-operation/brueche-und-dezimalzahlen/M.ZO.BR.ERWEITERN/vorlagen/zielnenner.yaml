@@ -1,0 +1,27 @@
+# „Erweitere 3/4 auf den Nenner 20.“ (INHALTSFORMAT §4.1). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ERWEITERN.ZIELNENNER
+kompetenz: M.ZO.BR.ERWEITERN
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: bruch.erweitern-zielnenner@1
+parameter:
+  G: { nenner_max: 6, faktor_max: 5 }
+  M: { nenner_max: 15, faktor_max: 12 }
+antwort:
+  form: exakt # Nenner muss genau {zielnenner} sein
+text:
+  aufgabe:
+    de: '**Erweitere** den Bruch {bruch} so, dass der Nenner {zielnenner} ist.'
+hilfen:
+  - de: 'Durch welche Zahl musst du den Nenner teilen, um {zielnenner} zu erhalten? Rechne {zielnenner} : {nenner}.'
+  - de: 'Multipliziere Zähler **und** Nenner mit {faktor}.'
+fehlerbilder:
+  addiert:
+    de: Du hast zum Zähler etwas addiert. Beim Erweitern wird **multipliziert** – Zähler und Nenner mit derselben Zahl.
+  nur-nenner:
+    de: Du hast nur den Nenner verändert. Der Zähler muss mit derselben Zahl multipliziert werden.
+  zaehler-falscher-faktor:
+    de: Der Nenner stimmt. Prüfe, mit welcher Zahl du den Zähler multipliziert hast.
+herkunft: ki-entwurf
+version: 1

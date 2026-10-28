@@ -1,0 +1,22 @@
+# „Ist 7 ein Teiler von 91?“ Entwurf: noch nicht geprüft.
+id: M.ZO.TB.TEILER.IST-TEILER
+kompetenz: M.ZO.TB.TEILER
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tb.ist-teiler@1
+parameter:
+  G: { zahl_max: 100 }
+  M: { zahl_max: 1000 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Ist {a} ein Teiler von {b}?'
+hilfen:
+  - de: Teile {b} durch {a}. Bleibt kein Rest, ist {a} ein Teiler.
+fehlerbilder:
+  teiler-vielfaches-verwechselt:
+    de: 'Umgekehrt stimmt es: {b} ist ein Teiler von {a}. Gefragt ist aber, ob {a} in {b} ohne Rest aufgeht.'
+  gerade-ungerade-geraten:
+    de: Dass beide Zahlen gerade sind, reicht nicht. Teile {b} durch {a} und schau, ob ein Rest bleibt.
+herkunft: ki-entwurf
+version: 1

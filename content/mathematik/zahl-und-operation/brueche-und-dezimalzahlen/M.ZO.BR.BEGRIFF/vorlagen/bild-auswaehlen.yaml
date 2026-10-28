@@ -1,0 +1,24 @@
+# Bruch → Bild: „Welches Bild zeigt 3/8?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN
+kompetenz: M.ZO.BR.BEGRIFF
+niveaus: [G, M]
+typ: bild-auswahl
+quelle: generator
+generator: br.bild-zu-bruch@1
+parameter:
+  G: { nenner_max: 6 }
+  M: { nenner_max: 12 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welches Bild zeigt den Anteil {bruch}?'
+hilfen:
+  - de: Der Nenner sagt, in wie viele gleiche Teile das Ganze geteilt ist. Der Zähler sagt, wie viele davon gefärbt sind.
+fehlerbilder:
+  ungefaerbter-teil:
+    de: Hier ist der Rest gefärbt – nicht der gesuchte Anteil.
+  nenner-als-anzahl-gefaerbt:
+    de: Hier sind so viele Teile gefärbt, wie der Nenner angibt. Gefärbt sein müssen so viele, wie der Zähler sagt.
+  falsche-einteilung:
+    de: Zähle die Teile noch einmal. Das Ganze muss in so viele Teile geteilt sein, wie der Nenner angibt.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Berechne 2,4 · 6“. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-RECHNEN.EINSTELLIG
+kompetenz: M.ZO.BR.DEZ-RECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.dezimal-mal-durch@1
+parameter:
+  G: { mit_zehnerpotenz: false }
+  M: { mit_zehnerpotenz: false }
+text:
+  aufgabe:
+    de: '**Berechne**: {a} {zeichen} {b}'
+hilfen:
+  - de: Rechne zuerst ohne Komma.
+  - de: Mache einen Überschlag. So findest du heraus, wo das Komma hingehört.
+fehlerbilder:
+  komma-um-eine-stelle-falsch:
+    de: Das Komma steht eine Stelle falsch. Prüfe mit einem Überschlag, wie groß das Ergebnis ungefähr sein muss.
+  komma-falsche-richtung:
+    de: Das Komma wurde in die falsche Richtung verschoben.
+herkunft: ki-entwurf
+version: 1

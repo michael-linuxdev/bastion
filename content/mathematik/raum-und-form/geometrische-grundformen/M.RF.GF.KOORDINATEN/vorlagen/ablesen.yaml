@@ -1,0 +1,22 @@
+# „Gib die Koordinaten von P an.“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.KOORDINATEN.ABLESEN
+kompetenz: M.RF.GF.KOORDINATEN
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: gf.punkt-ablesen@1
+parameter:
+  G: { max: 6 }
+  M: { max: 12 }
+text:
+  aufgabe:
+    de: '**Gib** die Koordinaten des Punktes P **an**.'
+hilfen:
+  - de: Zuerst kommt der x-Wert (nach rechts), dann der y-Wert (nach oben).
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'x und y sind vertauscht. Merke: Erst nach rechts (x), dann nach oben (y).'
+  kaestchen-statt-linien:
+    de: Du hast Kästchen gezählt. Die Zahlen stehen an den Linien – lies dort ab, wo der Punkt liegt.
+herkunft: ki-entwurf
+version: 1

@@ -176,7 +176,7 @@ review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau]
 | `fehler-finden` | Fehlerhaften Schritt einer Rechnung wählen, dann Begründung auswählen | Beide Teile korrekt; Teilrückmeldung | E-Niveaus |
 | `bruch-bild` | Bild → Bruch eingeben *oder* Bruch → Felder einfärben | Wertgleich bzw. Anteil korrekt | BR.BEGRIFF |
 
-**Ergänzung für Klasse 5 (K-16, L-10) – Vorschlag I-11, Status: Vorgeschlagen:**
+**Ergänzung für Klasse 5 (K-16, L-10) – Entscheidung I-11 (bestätigt 27.10.2026):**
 
 | Typ | Eingabe | Auswertung | Einsatz |
 |---|---|---|---|
@@ -199,6 +199,8 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 - Leerzeichen am Rand, führende Nullen und ein überflüssiges `+` werden ignoriert.
 
 *Warum:* Viele Jugendliche mit DaZ kennen den Dezimalpunkt. Sie dafür als falsch zu werten, misst Konvention statt Mathematik. Tausenderpunkte würden dagegen Mehrdeutigkeit erzeugen („3.500“).
+
+*Umsetzung:* `src/core/learning/auswertung.ts` liest Zahlen, Brüche (auch gemischt, „1 3/4“), Primfaktoren und Uhrzeiten und wertet Antworten aus. Ohne `antwort.form` gilt für Brüche `beliebig`. Erkannt wird zuerst die exakt gleiche Fehler-Antwort, dann eine wertgleiche (6/10 bei Fehlerbild 3/5). Wertgleich, aber in falscher Form, ergibt einen eigenen Hinweis (`nicht-gekuerzt`, `andere-schreibweise`). Ein Probelauf mit allen Vorlagen (`tools/inhalte/auswertung.test.ts`) stellt sicher, dass jede echte Lösung als richtig und jede Fehlerbild-Antwort als genau dieses Fehlerbild erkannt wird.
 
 ## 6. Generator-Schnittstelle
 
@@ -227,7 +229,8 @@ export interface Fehlerbild {
 **Umsetzung (27.10.2026):** Die Typen liegen nicht in `src/generators/types.ts`, sondern im Kern: `src/core/learning/generator.ts` (Generator, Instanz, Fehlerbild, Lösung) und `src/core/learning/bruch.ts` (Bruch, ggT, Vergleiche). *Warum:* Die Auswertung im Kern braucht dieselben Typen, darf aber nicht aus `src/generators` importieren (T-2); umgekehrt dürfen Generatoren aus dem Kern importieren. Gegenüber dem Entwurf oben ergänzt:
 - `platzhalter`: Namen aller Platzhalter, die jede Instanz füllt (für den Pflicht-Test „alle Platzhalter gefüllt“ und den Abgleich mit der Vorlage).
 - `fehlerbildIds`: alle Fehlerbild-IDs, die vorkommen können (für den Build-Abgleich mit `fehlerbilder` der Vorlage, §10.1).
-- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung` (`{ typ: 'bruch', wert }`).
+- `fehlerbilder` ist immer vorhanden (ggf. leer); `antwort` ist eine `Loesung`: `{ typ: 'bruch' | 'zahl' | 'reihenfolge', wert }`.
+- `elemente` (optional): die zu ordnenden Zahlen beim Typ `ordnen`, in der angezeigten, gemischten Reihenfolge. Der Abwechslungs-Test vergleicht Platzhalter **und** Elemente.
 - Verzeichnis aller Generatoren: `src/generators/index.ts`, Schlüssel `id@version`.
 
 ### 6.1 Regeln für Generatoren
@@ -279,7 +282,7 @@ Für jeweils 10 000 Seeds pro Niveau:
 - Gleicher Seed → identische Instanz.
 - Nicht mehr als ein kleiner Anteil identischer Instanzen in 100 aufeinanderfolgenden Seeds (Abwechslung).
 
-*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Generatoren: `bruch.erweitern-zielnenner@1` (`src/generators/mathematik/brueche/`), `nz.ziffer-an-stelle@1` und `nz.zahlwort-zu-zahl@1` (`src/generators/mathematik/natuerliche-zahlen/`). Wo die Lösung nicht schlicht nachzurechnen ist, prüft der Test sie auf einem echten Rückweg (z. B. liest ein eigener Zahlwort-Leser im Test die Aufgabe zurück in eine Zahl). Platzhalter dürfen Zahlen, Brüche oder Sprachobjekte sein (z. B. Stellennamen), nie nackte Texte (I-3). Zahlen im Lösungsweg werden mit `zahlDeutsch` gegliedert (`src/core/learning/format.ts`, §11).
+*Umsetzung:* `src/generators/pflichttests.ts` stellt alle sechs Prüfungen bereit; jeder Generator ruft sie in seiner Testdatei mit seinen Niveau-Parametern, einer unabhängigen Lösungsberechnung, den Niveau-Grenzen und einer Mindestzahl verschiedener Instanzen auf. Zusätzlich geprüft: Fehlerbild-Antworten sind untereinander verschieden, und jede Fehlerbild-ID ist beim Generator angemeldet. Generatoren liegen unter `src/generators/mathematik/<feld>/` und registrieren sich selbst (`src/generators/index.ts`). Rechenintensive Generatoren (z. B. Würfelnetze) dürfen ein höheres Zeitlimit je Test angeben (`zeitlimitMs`); die Zahl der Seeds bleibt 10 000. Wo die Lösung nicht schlicht nachzurechnen ist, prüft der Test sie auf einem echten Rückweg (z. B. liest ein eigener Zahlwort-Leser im Test die Aufgabe zurück in eine Zahl). Platzhalter dürfen Zahlen, Brüche oder Sprachobjekte sein (z. B. Stellennamen), nie nackte Texte (I-3). Zahlen im Lösungsweg werden mit `zahlDeutsch` gegliedert (`src/core/learning/format.ts`, §11).
 
 ### 6.4 Was ein Lernereignis speichert
 
@@ -321,7 +324,7 @@ Der Build lehnt ab: fehlendes Review, abweichenden Hash, fehlende Prüfpunkte.
 
 ### 10.1 Prüfschritte (`tools/content-build`)
 
-*Umgesetzt (27.10.2026) für Kompetenzen, Punkte 1–3:* `pnpm inhalte:pruefen` (`tools/inhalte/`), zusätzlich bei jedem `pnpm test`. Statt eines JSON-Schemas prüft die TypeScript-Funktion `pruefeKompetenz` in `src/core/competence/kompetenz.ts` – so braucht es keine Schema-Bibliothek, und die App kann dieselbe Prüfung später für geladene Pakete nutzen. Zusätzlich geprüft: Ordner passt zur ID, Leitidee passt zum Bereich, Kann-Satz beginnt mit „Ich kann“, Lehrplanbezug Sachsen vorhanden.
+*Umgesetzt (27.10.2026) für Kompetenzen (Punkte 1–3) und Vorlagen mit Generator (Punkt 2):* `pnpm inhalte:pruefen` (`tools/inhalte/`, läuft über Vitest und zeigt einen Bericht mit der Abdeckung je Kompetenz), zusätzlich bei jedem `pnpm test`. Für Vorlagen wird geprüft: Kompetenz und Niveaus existieren, ID = Kompetenz-ID + `.` + Dateiname in Großbuchstaben, Generator mit genau dieser Version registriert, Parameter je Niveau vorhanden, jeder `{platzhalter}` in Aufgabe, Hilfen und Rückmeldungen wird vom Generator geliefert, und für **jedes** Fehlerbild des Generators gibt es genau eine Rückmeldung (keine fehlende, keine überzählige). Prüflogik: `src/core/learning/vorlage.ts`. Handverfasste Vorlagen folgen. Statt eines JSON-Schemas prüft die TypeScript-Funktion `pruefeKompetenz` in `src/core/competence/kompetenz.ts` – so braucht es keine Schema-Bibliothek, und die App kann dieselbe Prüfung später für geladene Pakete nutzen. Zusätzlich geprüft: Ordner passt zur ID, Leitidee passt zum Bereich, Kann-Satz beginnt mit „Ich kann“, Lehrplanbezug Sachsen vorhanden.
 
 1. YAML lesen, gegen JSON-Schema prüfen.
 2. Verweise prüfen: Kompetenzen, Voraussetzungen, Generatoren (registriert, Version vorhanden), Fehlerbild-IDs.
@@ -350,10 +353,12 @@ packs/
 
 Die App lädt das Manifest, zeigt vor dem Download die Größe an und speichert Pakete in IndexedDB. Neue Paketversionen werden nur zwischen Sitzungen eingespielt.
 
+*Umsetzung (Stand Klasse 5):* `tools/inhalte/pakete.ts` baut die Pakete als Vite-Plugin – im Entwicklungsserver unter `/packs/`, im Build als Dateien in `dist/packs/`. Dateinamen tragen den Anfang der Prüfsumme (`mathematik.grund.dde4758d8e.json`), das Manifest heißt `manifest.json` und nennt Name, Datei, Bereich, Größe und SHA-256. Alle Pakete der Klasse 5 zusammen sind etwa 23 KB (gzip) groß; deshalb speichert der Service Worker sie vorerst vollständig vorab, statt sie nach Auswahl in IndexedDB zu laden. Die Auswahl vor dem Download folgt, wenn weitere Klassenstufen dazukommen.
+
 ## 11. Texte und Darstellung
 
 - Formatierung: kleines Markdown-Subset (fett, kursiv, Zeilenumbruch, Liste). Keine Links, keine Bilder per URL.
-- Mathematik: KaTeX zwischen `$…$`. Brüche aus Platzhaltern werden automatisch als Bruch gesetzt.
+- Mathematik: zwischen `$…$`. Brüche aus Platzhaltern werden automatisch als Bruch gesetzt. *Stand Klasse 5:* Eine kleine eigene Teilmenge reicht – Hochzahl (`^2`, `^{…}`), Wurzel (`\sqrt{…}`) und Malpunkt (`\cdot`), umgesetzt in `src/core/learning/text.ts`. KaTeX (ARCHITEKTUR §4.1) wird erst eingebunden, wenn Inhalte mehr brauchen; bis dahin spart das Ladegröße.
 - Zahlen aus Platzhaltern werden automatisch deutsch formatiert (Komma; bei großen Zahlen schmales Leerzeichen als Tausendergliederung *in der Anzeige*).
 - Sprachregeln aus LEHRPLAN L-7. Richtwert: Aufgabentexte auf Niveau G höchstens zwei Sätze, Operator am Satzanfang.
 
@@ -392,3 +397,4 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 | I-8 | Review an Inhalts-Hash gebunden | Entschieden |
 | I-9 | Herkunft und Lizenz je Vorlage | Entschieden |
 | I-10 | Pakete je Fach × Bereich mit allen Niveaus (korrigiert ARCHITEKTUR §6) | Entschieden |
+| I-11 | Aufgabentypen `bild-zahl`, `koordinaten-eingabe`, `bild-auswahl`, `anleitung`; Bilder als SVG aus dem Generator | Entschieden |

@@ -1,0 +1,20 @@
+# „Welche Zahl ist durch 4 teilbar?“ Entwurf: noch nicht geprüft.
+id: M.ZO.TB.REGELN.WELCHE
+kompetenz: M.ZO.TB.REGELN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tb.welche-teilbar@1
+parameter:
+  G: { teiler: [3, 9], stellen: 3 }
+  M: { teiler: [3, 4, 6, 9], stellen: 5 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche der Zahlen ist durch {teiler} teilbar?'
+hilfen:
+  - de: Nutze die passende Teilbarkeitsregel für {teiler}.
+fehlerbilder:
+  nur-letzte-ziffer-geprueft:
+    de: Du hast nur auf die letzte Ziffer geschaut. Für {teiler} brauchst du die Quersumme oder die letzten beiden Ziffern.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Berechne 24,5 : 1000“. Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-RECHNEN.ZEHNERPOTENZ
+kompetenz: M.ZO.BR.DEZ-RECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.dezimal-mal-durch@1
+parameter:
+  G: { mit_zehnerpotenz: true }
+  M: { mit_zehnerpotenz: true }
+text:
+  aufgabe:
+    de: '**Berechne** im Kopf: {a} {zeichen} {b}'
+hilfen:
+  - de: 'Mal 10, 100, 1000: Komma um 1, 2, 3 Stellen nach rechts.'
+  - de: 'Durch 10, 100, 1000: Komma um 1, 2, 3 Stellen nach links. Fehlende Stellen mit Nullen auffüllen.'
+fehlerbilder:
+  komma-um-eine-stelle-falsch:
+    de: Das Komma steht eine Stelle falsch. Zähle die Nullen von {b} – so viele Stellen wandert das Komma.
+  komma-falsche-richtung:
+    de: Das Komma ist in die falsche Richtung gewandert. Beim Malnehmen wird die Zahl größer, beim Teilen kleiner.
+herkunft: ki-entwurf
+version: 1

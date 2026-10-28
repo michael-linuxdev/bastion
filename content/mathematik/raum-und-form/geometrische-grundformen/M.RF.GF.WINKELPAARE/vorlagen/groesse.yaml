@@ -1,0 +1,23 @@
+# „α = 65°. β ist der Nebenwinkel von α. Wie groß ist β?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKELPAARE.GROESSE
+kompetenz: M.RF.GF.WINKELPAARE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: gf.winkelpaar-groesse@1
+parameter:
+  G: { beziehungen: [Scheitelwinkel, Nebenwinkel] }
+  M: { beziehungen: [Scheitelwinkel, Nebenwinkel, Stufenwinkel, Wechselwinkel] }
+text:
+  aufgabe:
+    de: 'Der Winkel α ist {alpha}° groß. β ist der {beziehung} von α. **Berechne** die Größe von β in Grad.'
+hilfen:
+  - de: Sind die beiden Winkel gleich groß, oder ergänzen sie sich zu einem gestreckten Winkel?
+  - de: Nebenwinkel ergänzen sich zu 180°. Scheitel-, Stufen- und Wechselwinkel sind gleich groß.
+fehlerbilder:
+  gleich-statt-ergaenzt:
+    de: Nebenwinkel sind nicht gleich groß – zusammen bilden sie eine gerade Linie, also 180°.
+  ergaenzt-statt-gleich:
+    de: Du hast von 180° abgezogen. {beziehung} sind aber gleich groß.
+herkunft: ki-entwurf
+version: 1

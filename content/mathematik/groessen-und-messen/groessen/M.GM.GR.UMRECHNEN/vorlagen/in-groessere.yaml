@@ -1,0 +1,23 @@
+# „Rechne um: 3 400 g = ? kg“. Entwurf: noch nicht geprüft.
+id: M.GM.GR.UMRECHNEN.IN-GROESSERE
+kompetenz: M.GM.GR.UMRECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.einheiten-umrechnen@1
+parameter:
+  G:
+    { groessen: [laenge, masse, geld, zeit], richtung: in-groessere, sprung_max: 1, dezimal: false }
+  M: { groessen: [laenge, masse, geld], richtung: in-groessere, sprung_max: 3, dezimal: true }
+text:
+  aufgabe:
+    de: '**Rechne um**: {wert} {von} = ? {nach}'
+hilfen:
+  - de: In eine größere Einheit umrechnen heißt teilen – die Zahl wird kleiner.
+fehlerbilder:
+  falsche-richtung:
+    de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
+  falsche-umrechnungszahl:
+    de: Die Umrechnungszahl stimmt nicht. Prüfe, wie viele {von} einen {nach} ergeben.
+herkunft: ki-entwurf
+version: 1

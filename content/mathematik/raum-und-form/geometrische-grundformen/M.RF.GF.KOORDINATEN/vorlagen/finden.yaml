@@ -1,0 +1,20 @@
+# „Welcher Punkt hat die Koordinaten (3|5)?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.KOORDINATEN.FINDEN
+kompetenz: M.RF.GF.KOORDINATEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.punkt-finden@1
+parameter:
+  G: { max: 6 }
+  M: { max: 12 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welcher Punkt hat die Koordinaten ({x}|{y})?'
+hilfen:
+  - de: Gehe vom Ursprung {x} nach rechts und dann {y} nach oben.
+fehlerbilder:
+  x-y-vertauscht:
+    de: Dieser Punkt hat die Koordinaten ({y}|{x}) – x und y sind vertauscht. Erst nach rechts, dann nach oben.
+herkunft: ki-entwurf
+version: 1

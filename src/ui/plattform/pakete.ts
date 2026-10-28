@@ -1,0 +1,36 @@
+// Lädt die Inhaltspakete von der eigenen Adresse (CLAUDE.md: keine anderen
+// Netzverbindungen). Offline kommen sie aus dem Speicher des Service Workers.
+import type { Kompetenz } from '../../core/competence/kompetenz';
+import type { GeneratorVorlage } from '../../core/learning/vorlage';
+
+interface Manifest {
+  readonly format: number;
+  readonly pakete: readonly { readonly name: string; readonly datei: string }[];
+}
+
+export interface Inhalte {
+  readonly kompetenzen: readonly Kompetenz[];
+  readonly vorlagen: readonly GeneratorVorlage[];
+}
+
+const UNTERSTUETZTES_FORMAT = 1;
+
+async function hole<T>(datei: string): Promise<T> {
+  const antwort = await fetch(`${import.meta.env.BASE_URL}packs/${datei}`);
+  if (!antwort.ok) throw new Error(`Paket ${datei}: ${antwort.status}`);
+  return (await antwort.json()) as T;
+}
+
+export async function ladeInhalte(): Promise<Inhalte> {
+  const manifest = await hole<Manifest>('manifest.json');
+  if (manifest.format !== UNTERSTUETZTES_FORMAT) throw new Error('Paketformat unbekannt');
+  const pakete = await Promise.all(
+    manifest.pakete.map((p) =>
+      hole<{ kompetenzen?: Kompetenz[]; vorlagen?: GeneratorVorlage[] }>(p.datei),
+    ),
+  );
+  return {
+    kompetenzen: pakete.flatMap((p) => p.kompetenzen ?? []),
+    vorlagen: pakete.flatMap((p) => p.vorlagen ?? []),
+  };
+}

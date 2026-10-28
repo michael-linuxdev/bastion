@@ -1,0 +1,25 @@
+# Spiegeln an einer Achse im Koordinatensystem. Entwurf: noch nicht geprüft.
+id: M.RF.SY.SPIEGELN.DREIECK
+kompetenz: M.RF.SY.SPIEGELN
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: sy.spiegelpunkt@1
+parameter:
+  G: { max: 8, figur: true }
+  M: { max: 12, figur: true }
+text:
+  aufgabe:
+    de: '**Spiegle** das Dreieck an der Geraden {achse}. **Gib** die Koordinaten des Bildpunktes von {punkt} **an**.'
+hilfen:
+  - de: Zähle, wie viele Kästchen der Punkt von der Spiegelachse entfernt ist.
+  - de: Der Bildpunkt liegt genauso weit auf der anderen Seite – auf einer Senkrechten zur Achse.
+fehlerbilder:
+  nicht-gespiegelt:
+    de: Das ist noch der ursprüngliche Punkt. Gespiegelt liegt er auf der anderen Seite der Achse.
+  auf-die-achse:
+    de: Du bist nur bis zur Achse gegangen. Der Bildpunkt liegt genauso weit **hinter** der Achse.
+  falsche-achse:
+    de: Du hast in die falsche Richtung gespiegelt. Bei {achse} ändert sich nur eine Koordinate.
+herkunft: ki-entwurf
+version: 1

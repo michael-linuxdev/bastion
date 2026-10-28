@@ -1,0 +1,24 @@
+# „Schreibe 75 % als Bruch.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH
+kompetenz: M.ZO.BR.PROZENT
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.prozentschreibweise@1
+parameter:
+  G: { richtung: prozent-zu-bruch, prozente: [10, 25, 50, 75, 100] }
+  M: { richtung: prozent-zu-bruch, prozente: [1, 10, 20, 25, 50, 75, 100] }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Gib** {wert} als vollständig gekürzten Bruch **an**.'
+hilfen:
+  - de: Schreibe die Prozentzahl als Bruch mit dem Nenner 100. Kürze dann.
+fehlerbilder:
+  komma-verschoben:
+    de: Prozent heißt „von Hundert“ – der Nenner ist zuerst 100.
+  prozent-als-nenner-zehn:
+    de: Prozent heißt „von Hundert“ – der Nenner ist 100, nicht 10.
+herkunft: ki-entwurf
+version: 1

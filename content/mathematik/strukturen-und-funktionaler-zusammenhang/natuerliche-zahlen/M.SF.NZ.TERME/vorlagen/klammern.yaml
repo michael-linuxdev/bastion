@@ -1,0 +1,23 @@
+# „Berechne: (18 + 6) · 7 − 5“. Entwurf: noch nicht geprüft.
+id: M.SF.NZ.TERME.KLAMMERN
+kompetenz: M.SF.NZ.TERME
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.term-berechnen@1
+parameter:
+  G: { zahl_max: 20, klammern: true }
+  M: { zahl_max: 99, klammern: true }
+text:
+  aufgabe:
+    de: '**Berechne**: {term}'
+hilfen:
+  - de: Rechne zuerst, was in der Klammer steht.
+  - de: Danach gilt Punkt vor Strich.
+fehlerbilder:
+  von-links-gerechnet:
+    de: Achte auf die Reihenfolge der Rechenschritte.
+  klammer-uebersehen:
+    de: Du hast die Klammer übersehen. Was in der Klammer steht, wird immer zuerst gerechnet.
+herkunft: ki-entwurf
+version: 1

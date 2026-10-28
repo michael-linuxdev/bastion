@@ -1,0 +1,23 @@
+# „Rechne um: 500 cm² = ? dm²“. Entwurf: noch nicht geprüft.
+id: M.GM.FL.EINHEITEN.IN-GROESSERE
+kompetenz: M.GM.FL.EINHEITEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.einheiten-umrechnen@1
+parameter:
+  G: { groessen: [flaeche], richtung: in-groessere, sprung_max: 1, dezimal: false }
+  M: { groessen: [flaeche], richtung: in-groessere, sprung_max: 2, dezimal: true }
+text:
+  aufgabe:
+    de: '**Rechne um**: {wert} {von} = ? {nach}'
+hilfen:
+  - de: In eine größere Einheit umrechnen heißt dividieren – die Zahl wird kleiner.
+  - de: 'Bei Flächeneinheiten ist die Umrechnungszahl 100: 100 cm² = 1 dm², 100 a = 1 ha.'
+fehlerbilder:
+  falsche-richtung:
+    de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
+  falsche-umrechnungszahl:
+    de: 'Du hast wie bei Längen durch 10 geteilt. Bei Flächen ist die Umrechnungszahl 100 je Schritt.'
+herkunft: ki-entwurf
+version: 1

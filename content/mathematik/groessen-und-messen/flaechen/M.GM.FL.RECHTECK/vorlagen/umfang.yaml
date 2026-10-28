@@ -1,0 +1,25 @@
+# Umfang eines Rechtecks oder Quadrats. Entwurf: noch nicht geprüft.
+id: M.GM.FL.RECHTECK.UMFANG
+kompetenz: M.GM.FL.RECHTECK
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.rechteck@1
+parameter:
+  G: { gesucht: umfang, max: 12, einheiten: [cm, m] }
+  M: { gesucht: umfang, max: 60, einheiten: [mm, cm, dm, m] }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** den Umfang in {einheit}.'
+hilfen:
+  - de: Der Umfang ist der Weg einmal ganz außen herum.
+  - de: Ein Rechteck hat zwei lange und zwei kurze Seiten – alle vier zählen.
+fehlerbilder:
+  umfang-flaeche-verwechselt:
+    de: Das ist der Flächeninhalt. Für den Umfang addierst du die Längen aller Seiten.
+  nur-zwei-seiten:
+    de: Du hast nur zwei Seiten addiert. Ein Rechteck hat vier Seiten – jede Länge kommt zweimal vor.
+  addiert:
+    de: Du hast Länge und Breite nur einmal addiert. Jede Seite kommt zweimal vor.
+herkunft: ki-entwurf
+version: 1

@@ -1,16 +1,59 @@
 <script lang="ts">
+  import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
   import { offline } from './plattform/offline.svelte';
+  import { ladeInhalte, type Inhalte } from './plattform/pakete';
   import { t } from './texte/texte';
+  import Uebersicht from './ueben/Uebersicht.svelte';
+  import Uebung from './ueben/Uebung.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
+
+  let ansicht = $state<'start' | 'uebersicht' | 'uebung'>('start');
+  let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
+  let niveau = $state<Niveau>('G');
+  let gewaehlt = $state<Kompetenz | undefined>(undefined);
+
+  function ueben() {
+    inhalte ??= ladeInhalte();
+    ansicht = 'uebersicht';
+  }
 </script>
 
 <main class="start">
   <h1>{t('start.ueberschrift')}</h1>
-  <p class="untertitel">{t('start.untertitel')}</p>
-  <p>{t('start.status')}</p>
-  <p class="versprechen">{t('start.versprechen')}</p>
-  {#if offline.bereit}
-    <p class="offline" role="status">{t('start.offline')}</p>
+
+  {#if ansicht === 'start'}
+    <p class="untertitel">{t('start.untertitel')}</p>
+    <p>{t('start.status')}</p>
+    <p><button class="haupt" onclick={ueben}>{t('start.ueben')}</button></p>
+    <p class="versprechen">{t('start.versprechen')}</p>
+    {#if offline.bereit}
+      <p class="offline" role="status">{t('start.offline')}</p>
+    {/if}
+  {:else if inhalte}
+    {#await inhalte}
+      <p role="status">{t('uebersicht.laedt')}</p>
+    {:then geladen}
+      {#if ansicht === 'uebung' && gewaehlt}
+        <Uebung
+          kompetenz={gewaehlt}
+          {niveau}
+          vorlagen={geladen.vorlagen}
+          onzurueck={() => (ansicht = 'uebersicht')}
+        />
+      {:else}
+        <Uebersicht
+          kompetenzen={geladen.kompetenzen}
+          vorlagen={geladen.vorlagen}
+          bind:niveau
+          onwahl={(k) => {
+            gewaehlt = k;
+            ansicht = 'uebung';
+          }}
+        />
+      {/if}
+    {:catch}
+      <p role="alert">{t('uebersicht.fehler')}</p>
+    {/await}
   {/if}
 </main>
 
@@ -32,6 +75,18 @@
 
   .untertitel {
     font-size: 1.375rem;
+  }
+
+  .haupt {
+    font: inherit;
+    font-size: 1.25rem;
+    min-block-size: 3rem;
+    padding-inline: var(--abstand-l);
+    border-radius: var(--radius);
+    border: none;
+    background: var(--farbe-akzent);
+    color: var(--farbe-hintergrund);
+    cursor: pointer;
   }
 
   .versprechen {

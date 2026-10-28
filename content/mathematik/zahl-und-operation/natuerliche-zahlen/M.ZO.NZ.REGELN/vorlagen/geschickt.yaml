@@ -1,0 +1,19 @@
+# „Rechne geschickt: 37 + 48 + 63“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.REGELN.GESCHICKT
+kompetenz: M.ZO.NZ.REGELN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.geschickt-rechnen@1
+parameter:
+  G: { stufe: 10 }
+  M: { stufe: 100 }
+text:
+  aufgabe:
+    de: '**Berechne** geschickt: {aufgabe}'
+hilfen:
+  - de: Suche zwei Zahlen, die zusammen eine glatte Zahl ergeben (10, 100, 1000).
+  - de: Du darfst die Reihenfolge vertauschen – bei Plus und bei Mal.
+fehlerbilder: {}
+herkunft: ki-entwurf
+version: 1

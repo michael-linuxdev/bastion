@@ -1,0 +1,25 @@
+# „Überschlage 3 870 + 2 450.“ Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.RUNDEN.UEBERSCHLAG
+kompetenz: M.ZO.NZ.RUNDEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.ueberschlag@1
+parameter:
+  G: { stellen_min: 3, stellen_max: 4, stelle: 2 } # auf Hunderter
+  M: { stellen_min: 5, stellen_max: 7, stelle: 3 } # auf Tausender
+text:
+  aufgabe:
+    de: '**Überschlage** {a} {zeichen} {b}. Runde dazu zuerst beide Zahlen auf {stelle}.'
+hilfen:
+  - de: Runde zuerst jede Zahl für sich auf {stelle}.
+  - de: Rechne dann mit den gerundeten Zahlen.
+fehlerbilder:
+  genau-gerechnet:
+    de: Du hast genau gerechnet. Beim Überschlag rundest du zuerst und rechnest dann mit den gerundeten Zahlen – das geht im Kopf.
+  eine-zahl-nicht-gerundet:
+    de: Du hast nur eine Zahl gerundet. Runde beide Zahlen, bevor du rechnest.
+  ergebnis-gerundet:
+    de: Du hast erst gerechnet und dann das Ergebnis gerundet. Beim Überschlag rundest du vorher.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „Welcher Bruch ist am größten?“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.VERGLEICHEN.GROESSTER
+kompetenz: M.ZO.BR.VERGLEICHEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: br.groesster-bruch@1
+parameter:
+  G: { nenner_max: 6 }
+  M: { nenner_max: 12 }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welcher Bruch ist am größten?'
+hilfen:
+  - de: Vergleiche jeden Bruch mit einem Halben – ist er größer oder kleiner?
+  - de: Bringe die übrigen Brüche auf einen gemeinsamen Nenner.
+fehlerbilder:
+  groesster-nenner:
+    de: Der größte Nenner macht den Bruch nicht groß – im Gegenteil, die Teile werden kleiner.
+  groesster-zaehler:
+    de: Ein großer Zähler allein reicht nicht. Es kommt auf das Verhältnis von Zähler und Nenner an.
+herkunft: ki-entwurf
+version: 1

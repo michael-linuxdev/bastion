@@ -1,0 +1,24 @@
+# „Gib als Zahl an: 3 · 10⁵“. Entwurf: noch nicht geprüft.
+id: M.ZO.NZ.POTENZEN.ZEHNERPOTENZ
+kompetenz: M.ZO.NZ.POTENZEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: nz.zehnerpotenz@1
+parameter:
+  G: { exponent_max: 6, mit_faktor: false }
+  M: { exponent_max: 12, mit_faktor: true }
+text:
+  aufgabe:
+    de: '**Gib** als Zahl **an**: ${faktor} \cdot 10^{ {exponent} }$'
+hilfen:
+  - de: 10 hoch {exponent} ist eine 1 mit {exponent} Nullen.
+fehlerbilder:
+  null-zu-wenig:
+    de: Es fehlt eine Null. Die Hochzahl {exponent} sagt, wie viele Nullen angehängt werden.
+  null-zu-viel:
+    de: Es ist eine Null zu viel. Die Hochzahl {exponent} sagt, wie viele Nullen angehängt werden.
+  faktor-mal-exponent:
+    de: 'Du hast mit der Hochzahl multipliziert. 10 hoch {exponent} heißt: {exponent}-mal die 10 als Faktor.'
+herkunft: ki-entwurf
+version: 1

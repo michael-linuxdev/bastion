@@ -1,0 +1,21 @@
+# „Kleinstes Vielfaches von 7, das größer als 60 ist“. Entwurf: noch nicht geprüft.
+id: M.ZO.TB.TEILER.VIELFACHES
+kompetenz: M.ZO.TB.TEILER
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tb.naechstes-vielfaches@1
+parameter:
+  G: { zahl_max: 100 }
+  M: { zahl_max: 1000 }
+text:
+  aufgabe:
+    de: '**Gib** das kleinste Vielfache von {a} **an**, das größer als {grenze} ist.'
+hilfen:
+  - de: Die Vielfachen von {a} sind {a}, 2 · {a}, 3 · {a} …
+  - de: Welches Vielfache liegt knapp unter {grenze}? Das nächste ist gesucht.
+fehlerbilder:
+  nicht-groesser:
+    de: Diese Zahl ist nicht größer als {grenze}. Gesucht ist das nächste Vielfache darüber.
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,23 @@
+# „3 l = ? dm³“ – Hohlmaß und Volumen verbinden. Entwurf: noch nicht geprüft.
+id: M.GM.KP.EINHEITEN.LITER
+kompetenz: M.GM.KP.EINHEITEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gr.hohlmass-volumen@1
+parameter:
+  G: { paare: 5, dezimal: false }
+  M: { paare: 8, dezimal: true }
+text:
+  aufgabe:
+    de: '**Rechne um**: {wert} {von} = ? {nach}'
+hilfen:
+  - de: Ein Liter passt genau in einen Würfel mit 1 dm Kantenlänge.
+  - de: 1 l = 1 dm³ und 1 ml = 1 cm³.
+fehlerbilder:
+  liter-nicht-gleich-dm3:
+    de: Hier musst du nicht mit 1000 malnehmen. 1 l und 1 dm³ sind gleich viel, ebenso 1 ml und 1 cm³.
+  nicht-umgerechnet:
+    de: 'Du hast die Zahl nicht umgerechnet. 1 l = 1 dm³ = 1000 cm³ – die Umrechnungszahl ist 1000.'
+herkunft: ki-entwurf
+version: 1

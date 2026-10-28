@@ -1,0 +1,24 @@
+# „Berechne 1/4 von 20 €.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ANTEIL-VON.STAMMBRUCH
+kompetenz: M.ZO.BR.ANTEIL-VON
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.anteil-von@1
+parameter:
+  G: { stammbruch: true, nenner_max: 6, ganzes_max: 60 }
+  M: { stammbruch: true, nenner_max: 12, ganzes_max: 1000 }
+text:
+  aufgabe:
+    de: '**Berechne** {anteil} von {ganzes} {einheit}.'
+hilfen:
+  - de: Teile {ganzes} durch den Nenner.
+fehlerbilder:
+  nur-geteilt:
+    de: Du hast nur durch den Nenner geteilt. Multipliziere noch mit dem Zähler.
+  nur-mit-zaehler-mal:
+    de: Du hast nur mit dem Zähler multipliziert. Teile zuerst durch den Nenner.
+  zaehler-nenner-vertauscht:
+    de: Du hast mit dem Nenner multipliziert. Durch den Nenner wird geteilt.
+herkunft: ki-entwurf
+version: 1

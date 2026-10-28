@@ -1,12 +1,15 @@
 import { defineConfig } from 'vitest/config';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { VitePWA } from 'vite-plugin-pwa';
+import { inhaltsPakete } from './tools/inhalte/pakete';
 
 export default defineConfig({
   // Unterordner, unter dem die App ausgeliefert wird (z. B. "/bastion/" auf GitHub Pages).
   base: process.env['BASE_PATH'] ?? '/',
   plugins: [
     svelte(),
+    // Inhaltspakete aus content/ (INHALTSFORMAT §10.3), ausgeliefert unter packs/
+    inhaltsPakete(),
     VitePWA({
       // Update nur nach Zustimmung – nie mitten in einer Sitzung (PLAN 0.8).
       registerType: 'prompt',
@@ -37,7 +40,9 @@ export default defineConfig({
       },
       workbox: {
         // App-Hülle vollständig vorab speichern: danach startet sie ohne Netz (A1).
-        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
+        // Vorerst auch alle Inhaltspakete (Klasse 5 ist klein); Auswahl vor dem
+        // Herunterladen folgt mit weiteren Klassenstufen (ARCHITEKTUR §6).
+        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },
@@ -48,5 +53,8 @@ export default defineConfig({
   },
   test: {
     include: ['src/**/*.test.ts', 'tools/**/*.test.ts'],
+    // Der dauerhafte Modul-Zwischenspeicher bemerkt neue Dateien hinter
+    // import.meta.glob (src/generators/index.ts) nicht – lieber verlässlich als schnell.
+    fsModuleCache: false,
   },
 });
