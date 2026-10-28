@@ -1,0 +1,23 @@
+# „Was ist der nächste Konstruktionsschritt?“ – Vierecke. Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE-KONSTRUIEREN.SCHRITT
+kompetenz: M.RF.DV.VIERECKE-KONSTRUIEREN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.viereck-schritt@1
+parameter:
+  G: { vierecke: [parallelogramm, drachen] }
+  M: { vierecke: [parallelogramm, drachen, trapez] }
+text:
+  aufgabe:
+    de: '{aufgabe} Bisher: {bisher} **Was ist der nächste Schritt?**'
+hilfen:
+  - de: 'Beim [[Parallelogramm]] gehören zwei Seiten und der [[Winkel]] dazwischen zusammen. Die vierte Ecke findest du mit Parallelen.'
+  - de: 'Beim [[Drachenviereck]] zeichnest du zuerst die [[Diagonale]] und dann Kreisbögen um ihre Enden.'
+fehlerbilder:
+  schritt-uebersprungen:
+    de: 'Dieser Schritt kommt später. Was brauchst du, bevor du ihn machen kannst?'
+  anderes-viereck:
+    de: 'Dieser Schritt gehört zu einem anderen Viereck. Lies noch einmal, was gegeben ist.'
+herkunft: ki-entwurf
+version: 1

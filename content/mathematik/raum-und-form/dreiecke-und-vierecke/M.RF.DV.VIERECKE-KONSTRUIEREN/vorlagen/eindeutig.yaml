@@ -1,0 +1,23 @@
+# „Legen die Angaben das Viereck eindeutig fest?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE-KONSTRUIEREN.EINDEUTIG
+kompetenz: M.RF.DV.VIERECKE-KONSTRUIEREN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.viereck-eindeutig@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Ist {angabe} durch diese Angaben eindeutig festgelegt?'
+hilfen:
+  - de: 'Stell dir vor, die Seiten sind Stäbe mit Gelenken. Kann man die Figur noch „verbiegen“, fehlt eine Angabe.'
+  - de: 'Ein [[Parallelogramm]] braucht zwei Seiten und einen [[Winkel]]. Bei einem Quadrat reicht eine Seite.'
+fehlerbilder:
+  zu-wenig-angaben:
+    de: 'Mit diesen Angaben kann man verschiedene Vierecke zeichnen. Versuch es: Die Form lässt sich noch verändern.'
+  genug-angaben:
+    de: 'Die Angaben reichen aus: Jeder Schritt der Konstruktion ist festgelegt. Es gibt nur ein solches Viereck.'
+herkunft: ki-entwurf
+version: 1
