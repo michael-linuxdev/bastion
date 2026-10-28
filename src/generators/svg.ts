@@ -83,6 +83,28 @@ export function koordinatensystem(xmax: number, ymax: number, raster = 30, besch
   return { breite, hoehe, px, py, teile };
 }
 
+/** Koordinatensystem mit vier Quadranten von −max … max; liefert Umrechnung in Bildkoordinaten. */
+export function koordinatensystem4(max: number, raster = 26) {
+  const rand = 20;
+  const seite = 2 * rand + 2 * max * raster;
+  const px = (x: number) => rand + (x + max) * raster;
+  const py = (y: number) => rand + (max - y) * raster;
+  const teile: string[] = [];
+  for (let t = -max; t <= max; t++) {
+    teile.push(linie(px(t), py(-max), px(t), py(max), 0.5));
+    teile.push(linie(px(-max), py(t), px(max), py(t), 0.5));
+  }
+  teile.push(linie(px(-max), py(0), px(max), py(0), 2), linie(px(0), py(-max), px(0), py(max), 2));
+  const beschriftung = (t: number) => (t < 0 ? `−${-t}` : String(t));
+  for (let t = -max; t <= max; t++) {
+    if (t === 0) continue;
+    teile.push(text(px(t), py(0) + 16, beschriftung(t), 11));
+    teile.push(text(px(0) - 15, py(t) + 4, beschriftung(t), 11));
+  }
+  teile.push(text(px(0) - 10, py(0) + 16, '0', 11));
+  return { breite: seite, hoehe: seite, px, py, teile };
+}
+
 /** Punkt mit Beschriftung im Koordinatensystem. */
 export const punkt = (x: number, y: number, name: string) =>
   kreis(x, y, 4, true) + text(x + 12, y - 8, name, 14);

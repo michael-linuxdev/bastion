@@ -1,0 +1,23 @@
+# „Berechne geschickt: (−25) · 7 · 4“, „−3,7 + 5,2 + 3,7“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.RECHENGESETZE.GESCHICKT
+kompetenz: M.ZO.RZ.RECHENGESETZE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.geschickt@1
+parameter:
+  G: { dezimal: false }
+  M: { dezimal: true }
+text:
+  aufgabe:
+    de: '**Berechne** geschickt: {term}'
+hilfen:
+  - de: 'Suche [[Gegenzahlen]], die zusammen 0 ergeben, oder [[Faktoren]], die zusammen 100 ergeben.'
+  - de: 'Steht dieselbe Zahl zweimal als [[Faktor]] da, hilft das Verteilungsgesetz: (−6) · 13 + (−6) · 7 = (−6) · 20.'
+fehlerbilder:
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Zähle die [[negativen Zahlen]] noch einmal.'
+  gegenzahl-uebersehen:
+    de: '−a und +a sind [[Gegenzahlen]] – zusammen ergeben sie 0, nicht das Doppelte.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# „Welches Vorzeichen hat (−17) · 23 · (−4)?“ Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.MULT-DIV.VORZEICHEN
+kompetenz: M.ZO.RZ.MULT-DIV
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: rz.vorzeichen@1
+parameter:
+  G: { faktoren_min: 3, faktoren_max: 4, gemischt: false }
+  M: { faktoren_min: 4, faktoren_max: 6, gemischt: true }
+text:
+  aufgabe:
+    de: '**Entscheide** ohne auszurechnen: Ist das Ergebnis von {term} positiv oder negativ?'
+hilfen:
+  - de: 'Zähle die [[negativen Zahlen]].'
+  - de: 'Eine gerade Anzahl Minuszeichen ergibt plus, eine ungerade Anzahl ergibt minus. Beim Teilen gilt dieselbe Regel.'
+  - de: 'Ist ein [[Faktor]] 0, ist das ganze [[Produkt]] 0.'
+fehlerbilder:
+  minus-falsch-gezaehlt:
+    de: 'Zähle die [[negativen Zahlen]] noch einmal. Zwei Minus ergeben plus, drei Minus ergeben wieder minus.'
+  null-uebersehen:
+    de: 'In der Rechnung steckt eine 0 als [[Faktor]]. Dann ist das Ergebnis 0 – weder positiv noch negativ.'
+herkunft: ki-entwurf
+version: 1

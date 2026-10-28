@@ -1,0 +1,25 @@
+# „Spiegle P(−3|5) an der x-Achse.“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.QUADRANTEN.SPIEGELN
+kompetenz: M.RF.GF.QUADRANTEN
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: gf.spiegeln-4@1
+parameter:
+  G: { max: 5, ursprung: false }
+  M: { max: 8, ursprung: true }
+text:
+  aufgabe:
+    de: '**[[Spiegle]]** den Punkt P{punkt} {woran}. **Gib** die [[Koordinaten]] des [[Bildpunktes]] **an**.'
+hilfen:
+  - de: 'An der x-Achse: x bleibt, y bekommt das andere [[Vorzeichen]].'
+  - de: 'An der y-Achse: y bleibt, x bekommt das andere [[Vorzeichen]]. Am [[Ursprung]]: beide wechseln.'
+fehlerbilder:
+  achse-verwechselt:
+    de: 'Du hast an der anderen Achse gespiegelt. An der x-Achse ändert sich y – der Punkt klappt nach oben oder unten.'
+  beide-vorzeichen:
+    de: 'Beim Spiegeln an einer Achse ändert sich nur eine [[Koordinate]]. Beide ändern sich nur am [[Ursprung]].'
+  nur-ein-vorzeichen:
+    de: 'Am [[Ursprung]] gespiegelt wechseln x und y beide das [[Vorzeichen]].'
+herkunft: ki-entwurf
+version: 1
