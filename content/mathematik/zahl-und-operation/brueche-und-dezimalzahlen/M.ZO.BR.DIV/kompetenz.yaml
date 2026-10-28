@@ -1,0 +1,36 @@
+# Brüche dividieren – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.DIV
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche dividieren
+kann_satz:
+  de: Ich kann Brüche durch natürliche Zahlen und durch Brüche dividieren.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: 'Bruch durch natürliche Zahl und durch einen Stammbruch.'
+  M:
+    beschreibung:
+      de: 'Bruch durch Bruch mit dem Kehrwert, auch gemischte Zahlen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

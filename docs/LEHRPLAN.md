@@ -330,6 +330,95 @@ ohne Voraussetzung:  GF.LAGE · GF.WINKEL ─ GF.WINKELPAARE · SY.SYMMETRIE ─
 
 Der maßgebliche Graph ist die Datenquelle in `content/`; diese Skizze dient nur der Übersicht.
 
+## 8b. Klasse 6 (Sachsen) – Kompetenzen für den zweiten Bauabschnitt
+
+Grundlage wie §8 (K-16): Lehrplan Oberschule Mathematik 2019, Lehrplan Gymnasium Mathematik (Kl. 5–8 seit 1. August 2021). Ausgewertet am 28.10.2026 aus den vom Projektverantwortlichen bereitgestellten PDF-Dateien. Nach K-17 entstehen die Kompetenzen und Vorlagen als **Entwurf**; Prüfung und Test folgen gesammelt.
+
+### 8b.1 Auswahl
+
+| | OS Klasse 6 | GY Klasse 6 |
+|---|---|---|
+| LB 1 | Gebrochene Zahlen (35 Ustd.) | Arbeiten mit gebrochenen Zahlen (34 Ustd.) |
+| LB 2 | Zuordnungen in der Umwelt (25 Ustd.) | Zuordnungen in der Umwelt (24 Ustd.) |
+| LB 3 | Geometrie in der Ebene (30 Ustd.) | Dreiecke und Vierecke (30 Ustd.) |
+| LB 4 | Geometrische Körper (20 Ustd.) | Prismen (12 Ustd.) |
+| LB 5 | Mathematik im Alltag (15 Ustd.) | Vernetzung: Anteile (4 Ustd.) |
+
+**Wahlbereiche** (OS: Dynamisieren geometrischer Objekte, Mathematische Spiele, Erfassen und Auswerten von Daten; GY: Finden von Vermutungen mit dynamischer Geometrie, Unterhaltsame Geometrie, Primzahlen) zählen nicht (L-11).
+
+**Regel wie bei Klasse 5 (L-6):** Was eine Schulart schon in Klasse 5 hat, steht in §8 (z. B. Erweitern und Kürzen, arithmetisches Mittel, Winkelpaare – OS erst Kl. 6). Was eine Schulart in Klasse 6 und die andere erst in Klasse 7 hat, steht hier und ist für die andere „vorgezogen“: **Kreisdiagramme und Flächenanteile** (GY Kl. 6 LB 5, OS Kl. 7 LB 2 „Anteile und Prozente“) sowie **Berechnen von Prismen** (GY Kl. 6 LB 4, OS Kl. 7 LB 4 „Vielecke und Prismen“; die OS berechnet in Kl. 6 nur aus Quadern zusammengesetzte Körper).
+
+**Wichtige Unterschiede der Schularten in Klasse 6:**
+- **Geometrie:** Beide behandeln Winkelsätze, Dreiecksarten, Kongruenzsätze, Seiten-Winkel-Relation, Dreiecksungleichung und Flächeninhalte von Dreiecken und Vierecken. **Besondere Linien im Dreieck** (Höhe, Mittelsenkrechte, Winkelhalbierende, Seitenhalbierende) stehen nur im GY-Lehrplan; die OS braucht die Höhe für die Flächenformel.
+- **Zufall:** OS in LB 5 (Einblick: Zufallsversuche, absolute und relative Häufigkeit), GY in LB 2 (Häufigkeiten als Zuordnungen).
+- **Mengen:** beide nur „Einblick gewinnen“ (Element, Menge, Teilmenge).
+
+**Nicht in der App abbildbar** (ehrlich benannt, wie freies Zeichnen in L-10): Präsentationen anfertigen (OS LB 5), Modelle bauen, Arbeit mit dynamischer Geometriesoftware und mit dem Taschenrechner. Problemlösestrategien (systematisches Probieren, Zurückführen auf Bekanntes, Skizzen) fließen in die Sachaufgaben ein, statt eine eigene Kompetenz zu sein.
+
+### 8b.2 Kompetenzen
+
+Legende wie §8.2. *Sachsen:* LB der Klasse 6, sonst angegeben.
+
+**Feld BR – Gebrochene Zahlen** (KMK L1, L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.ZO.BR.MENGEN | Ich kann Zahlen einem Zahlbereich zuordnen und Element, Menge und Teilmenge unterscheiden. | BR.BEGRIFF | OS LB 1, GY LB 1 (je Einblick) | Mix |
+| M.ZO.BR.PERIODISCH | Ich kann gemeine Brüche in Dezimalzahlen umwandeln und umgekehrt – auch periodische Dezimalzahlen. | BR.DEZIMAL, BR.ERWEITERN | OS LB 1, GY LB 1 | Gen |
+| M.ZO.TB.GGT-KGV | Ich kann das kleinste gemeinsame Vielfache und den größten gemeinsamen Teiler zweier Zahlen finden. | TB.TEILER | Hilfskompetenz für LB 1 (Hauptnenner, vollständig kürzen) | Gen |
+| M.ZO.BR.ADD-SUB | Ich kann gemeine Brüche addieren und subtrahieren – gleichnamige und ungleichnamige. | BR.ERWEITERN, TB.GGT-KGV | OS LB 1, GY LB 1 | Gen |
+| M.ZO.BR.MULT | Ich kann Brüche miteinander und mit natürlichen Zahlen multiplizieren. | BR.ERWEITERN, BR.ANTEIL-VON | OS LB 1, GY LB 1 | Gen |
+| M.ZO.BR.DIV | Ich kann Brüche durch natürliche Zahlen und durch Brüche dividieren. | BR.MULT | OS LB 1, GY LB 1 | Gen |
+| M.ZO.BR.DEZ-MULT-DIV | Ich kann Dezimalzahlen miteinander multiplizieren und durch Dezimalzahlen dividieren. | BR.DEZ-RECHNEN | OS LB 1, GY LB 1 | Gen |
+| M.ZO.BR.RECHENGESETZE | Ich kann Rechengesetze und Vorrangregeln auch bei Brüchen und Dezimalzahlen nutzen. | BR.ADD-SUB, BR.MULT, BR.DEZ-MULT-DIV, SF.NZ.TERME | OS LB 1, GY LB 1 | Gen |
+| M.SF.BR.GLEICHUNGEN | Ich kann Gleichungen und Ungleichungen mit gebrochenen Zahlen durch Probieren oder mit der Umkehraufgabe lösen. | SF.NZ.GLEICHUNGEN, BR.ADD-SUB, BR.MULT | OS LB 1, GY LB 1 | Gen |
+| M.ZO.BR.SACH | Ich kann Sachaufgaben mit Brüchen und Dezimalzahlen lösen, Ergebnisse überschlagen und sinnvoll runden. | BR.RECHENGESETZE | OS LB 1, GY LB 1 | Mix |
+| M.ZO.BR.ANTEILE | Ich kann Anteile als Bruch, Dezimalzahl und in Prozent angeben und vergleichen – auch Flächenanteile. | BR.PROZENT, BR.PERIODISCH | GY LB 5 (OS Kl. 7 LB 2 – GY vorgez.) | Gen |
+
+**Feld ZU – Zuordnungen** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.SF.ZU.DARSTELLEN | Ich kann Zuordnungen aus dem Alltag in Worten, Tabellen, Pfeilbildern, Diagrammen und mit Gleichungen darstellen. | GF.KOORDINATEN | OS LB 2, GY LB 2 | Mix |
+| M.SF.ZU.PROPORTIONAL | Ich kann erkennen, ob eine Zuordnung proportional, umgekehrt proportional oder keins von beiden ist. | ZU.DARSTELLEN, BR.DEZ-RECHNEN | OS LB 2, GY LB 2 | Gen |
+| M.SF.ZU.DREISATZ | Ich kann Sachaufgaben mit proportionalen und umgekehrt proportionalen Zuordnungen mit dem Dreisatz lösen. | ZU.PROPORTIONAL | OS LB 2 (auch Verhältnisgleichungen, LB 1), GY LB 2 | Gen |
+| M.SF.ZU.GRAPH | Ich kann proportionale und umgekehrt proportionale Zuordnungen im Koordinatensystem darstellen und Werte ablesen. | ZU.PROPORTIONAL, GF.KOORDINATEN | OS LB 2, GY LB 2 | Gen |
+
+**Feld ZF – Zufall und Feld DA – Daten** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.DZ.ZF.HAEUFIGKEIT | Ich kann Ergebnisse von Zufallsversuchen angeben und absolute und relative Häufigkeiten bestimmen. | BR.BEGRIFF, BR.DEZIMAL | OS LB 5, GY LB 2 | Gen |
+| M.DZ.DA.KREISDIAGRAMM | Ich kann Anteile in Kreisdiagrammen ablesen und darstellen. | BR.ANTEIL-VON, GF.WINKEL | GY LB 5 (OS Kl. 7 LB 2 – GY vorgez.) | Gen |
+
+**Feld DV – Dreiecke und Vierecke** (KMK L4)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.DV.WINKELSAETZE | Ich kann mit Neben-, Scheitel-, Stufen- und Wechselwinkelsatz und dem Innenwinkelsatz für Dreiecke Winkel berechnen. | GF.WINKELPAARE | OS LB 3, GY LB 3 | Gen |
+| M.RF.DV.DREIECKE | Ich kann Dreiecke nach Seiten und Winkeln einteilen und entscheiden, ob es ein Dreieck mit gegebenen Seiten gibt. | GF.WINKEL | OS LB 3, GY LB 3 | Gen |
+| M.RF.DV.VIERECKE | Ich kann Quadrat, Rechteck, Raute, Parallelogramm, Trapez und Drachenviereck an ihren Eigenschaften erkennen. | GF.LAGE | OS LB 3, GY LB 3 | Gen |
+| M.RF.DV.KONSTRUIEREN | Ich kann mit den Kongruenzsätzen entscheiden, ob ein Dreieck aus gegebenen Stücken eindeutig konstruierbar ist, und Dreiecke konstruieren. | DV.DREIECKE | OS LB 3, GY LB 3 | Mix · Erkl |
+| M.RF.DV.BESONDERE-LINIEN | Ich kann Höhen, Mittelsenkrechten, Winkelhalbierende und Seitenhalbierende im Dreieck erkennen. | DV.DREIECKE, GF.LAGE | GY LB 3 | Mix · Erkl |
+
+**Feld FL – Flächeninhalt** (KMK L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.GM.FL.DREIECK | Ich kann Umfang und Flächeninhalt von Dreiecken mit Grundseite und zugehöriger Höhe berechnen. | FL.RECHTECK, DV.DREIECKE | OS LB 3, GY LB 3 | Gen |
+| M.GM.FL.VIERECKE | Ich kann Umfang und Flächeninhalt von Parallelogrammen, Trapezen und Drachenvierecken berechnen – auch durch Zerlegen und Ergänzen. | FL.DREIECK, DV.VIERECKE | OS LB 3, GY LB 3 | Gen |
+
+**Feld KP – Prismen** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.KP.PRISMEN | Ich kann gerade Prismen an ihren Eigenschaften erkennen und Netze, Schrägbilder und Ansichten dem Körper zuordnen. | KP.DARSTELLEN, DV.DREIECKE | OS LB 4, GY LB 4 | Mix · Erkl |
+| M.GM.KP.PRISMA | Ich kann Volumen und Oberflächeninhalt gerader Prismen und zusammengesetzter Körper berechnen. | KP.PRISMEN, FL.DREIECK, FL.VIERECKE, KP.VOLUMEN, KP.OBERFLAECHE | GY LB 4; OS LB 4 (aus Quadern zusammengesetzt; Prismen OS Kl. 7 LB 4 – GY vorgez.) | Gen |
+
+**Summe Klasse 6:** 26 Kompetenzen × 2 Niveaus (G, M), davon 21 überwiegend generatorbasiert, 5 gemischt; bei 3 wird Zeichnen erklärt (L-10): Dreiecke konstruieren, besondere Linien, Schrägbilder von Prismen. Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [6]`.
+
+*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen, Generatoren und Anleitungen folgen entlang des Graphen (wie bei Klasse 5). Neue Felder im ID-Schema: ZU (zuordnungen), ZF (zufall), DV (dreiecke-und-vierecke).
+
 ## 9. Sprache in Aufgaben
 
 **Entscheidung L-7:** Alle Aufgabentexte folgen ab Phase 1 Regeln für einfache, klare Sprache: kurze Sätze, eine Information pro Satz, Operatoren fett und einheitlich, keine unnötigen Nebensätze, Fachbegriffe mit Erklärung beim ersten Auftreten.

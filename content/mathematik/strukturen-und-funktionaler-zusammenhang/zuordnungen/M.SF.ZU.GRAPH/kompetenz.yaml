@@ -1,0 +1,37 @@
+# Zuordnungen im Koordinatensystem – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.ZU.GRAPH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: zuordnungen
+titel:
+  de: Zuordnungen im Koordinatensystem
+kann_satz:
+  de: Ich kann proportionale und umgekehrt proportionale Zuordnungen im Koordinatensystem darstellen und Werte ablesen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.SF.ZU.PROPORTIONAL
+  - M.RF.GF.KOORDINATEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Werte aus einem Graphen ablesen; erkennen, dass proportionale Zuordnungen eine Gerade durch den Ursprung ergeben.'
+  M:
+    beschreibung:
+      de: 'Den passenden Graphen zu einer Tabelle oder Gleichung auswählen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+version: 1

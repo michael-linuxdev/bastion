@@ -1,0 +1,37 @@
+# Zahlbereiche und Mengen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.MENGEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Zahlbereiche und Mengen
+kann_satz:
+  de: Ich kann Zahlen einem Zahlbereich zuordnen und Element, Menge und Teilmenge unterscheiden.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.BEGRIFF
+niveaus:
+  G:
+    beschreibung:
+      de: 'Entscheiden, ob eine Zahl eine natürliche oder eine gebrochene Zahl ist.'
+  M:
+    beschreibung:
+      de: 'Teilmengen und Mengendiagramme deuten; begründen, warum die natürlichen Zahlen eine Teilmenge der gebrochenen Zahlen sind.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

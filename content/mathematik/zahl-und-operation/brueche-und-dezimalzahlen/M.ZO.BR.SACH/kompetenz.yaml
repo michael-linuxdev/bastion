@@ -1,0 +1,37 @@
+# Sachaufgaben mit Brüchen und Dezimalzahlen – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.SACH
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Sachaufgaben mit Brüchen und Dezimalzahlen
+kann_satz:
+  de: Ich kann Sachaufgaben mit Brüchen und Dezimalzahlen lösen, Ergebnisse überschlagen und sinnvoll runden.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.RECHENGESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Sachaufgaben mit einem oder zwei Rechenschritten.'
+  M:
+    beschreibung:
+      de: 'Mehrschrittige Sachaufgaben; Ergebnis mit sinnvoller Genauigkeit angeben.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K2
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1

@@ -114,8 +114,13 @@ export function pruefeInhalte(
     fehler.push(...f.map((x) => `${a.datei}: ${x}`));
     if (f.length === 0) anleitungen.push(a.daten as Anleitung);
   }
+  // Sobald eine Kompetenz mit zeichnen_erklaert Aufgaben hat, braucht sie auch eine Anleitung
   for (const k of kompetenzen)
-    if (k.zeichnen_erklaert && !anleitungen.some((a) => a.kompetenz === k.id))
+    if (
+      k.zeichnen_erklaert &&
+      vorlagen.some((v) => v.kompetenz === k.id) &&
+      !anleitungen.some((a) => a.kompetenz === k.id)
+    )
       fehler.push(`${k.id}: zeichnen_erklaert, aber keine Anleitung (L-10)`);
 
   // Fachbegriffe (L-7): bekannt, beim ersten Vorkommen je Text markiert, jeder genutzt

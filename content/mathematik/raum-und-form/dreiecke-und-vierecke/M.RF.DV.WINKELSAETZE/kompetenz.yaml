@@ -1,0 +1,37 @@
+# Winkelsätze – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.WINKELSAETZE
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: Winkelsätze
+kann_satz:
+  de: Ich kann mit Neben-, Scheitel-, Stufen- und Wechselwinkelsatz und dem Innenwinkelsatz für Dreiecke Winkel berechnen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.RF.GF.WINKELPAARE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Fehlende Winkel im Dreieck mit dem Innenwinkelsatz berechnen.'
+  M:
+    beschreibung:
+      de: 'Winkel an geschnittenen Parallelen und im Dreieck in mehreren Schritten berechnen und den Satz nennen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Geometrie in der Ebene'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 3 Dreiecke und Vierecke'
+version: 1

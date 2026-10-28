@@ -24,7 +24,8 @@ describe('Inhaltspakete', () => {
       const p = manifest.pakete.find((x) => x.name === name);
       return JSON.parse(dateien.get(p?.datei ?? '') ?? '{}') as Record<string, unknown[]>;
     };
-    expect(lies('mathematik.grund')['kompetenzen']).toHaveLength(41);
+    // Klasse 5 (41) und Klasse 6 (26, LEHRPLAN §9)
+    expect(lies('mathematik.grund')['kompetenzen']).toHaveLength(67);
     const bereiche = manifest.pakete.filter((p) => p.bereich);
     // ein Paket je Bereich, keines leer
     expect(new Set(bereiche.map((b) => b.bereich)).size).toBe(bereiche.length);

@@ -1,0 +1,36 @@
+# Dreisatz – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.ZU.DREISATZ
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: zuordnungen
+titel:
+  de: Dreisatz
+kann_satz:
+  de: Ich kann Sachaufgaben mit proportionalen und umgekehrt proportionalen Zuordnungen mit dem Dreisatz lösen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.SF.ZU.PROPORTIONAL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Proportionale Zuordnungen mit glatten Zahlen.'
+  M:
+    beschreibung:
+      de: 'Auch umgekehrt proportionale Zuordnungen und Verhältnisgleichungen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 2 Zuordnungen in der Umwelt'
+version: 1

@@ -1,0 +1,38 @@
+# Brüche und Dezimalzahlen umwandeln – Klasse 6 (LEHRPLAN §8b). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.BR.PERIODISCH
+fach: mathematik
+bereich: zahl-und-operation
+feld: brueche-und-dezimalzahlen
+titel:
+  de: Brüche und Dezimalzahlen umwandeln
+kann_satz:
+  de: Ich kann gemeine Brüche in Dezimalzahlen umwandeln und umgekehrt – auch periodische Dezimalzahlen.
+klassenstufe_typisch:
+  - 6
+voraussetzungen:
+  - M.ZO.BR.DEZIMAL
+  - M.ZO.BR.ERWEITERN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Brüche mit Nennern wie 2, 4, 5, 8, 20, 25 in endliche Dezimalzahlen umwandeln; periodische Dezimalzahlen wie 0,333… erkennen.'
+  M:
+    beschreibung:
+      de: 'Periodische Dezimalzahlen mit Periodenstrich schreiben; endliche Dezimalzahlen als vollständig gekürzte Brüche angeben.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Gebrochene Zahlen'
+  gymnasium:
+    klassenstufe: 6
+    lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
+version: 1
