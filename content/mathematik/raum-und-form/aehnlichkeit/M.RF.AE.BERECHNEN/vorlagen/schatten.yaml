@@ -1,0 +1,25 @@
+# Schattenaufgaben; Fläche und Volumen beim Strecken. Entwurf: noch nicht geprüft.
+id: M.RF.AE.BERECHNEN.SCHATTEN
+kompetenz: M.RF.AE.BERECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: ae.schatten-flaeche@1
+parameter:
+  G: { potenz: false }
+  M: { potenz: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Stab mit Schatten und Gegenstand mit Schatten bilden [[ähnliche]] Dreiecke. Wie oft passt der kurze Schatten in den langen?'
+  - de: 'Beim Strecken mit k wird der [[Flächeninhalt]] k²-mal und das [[Volumen]] k³-mal so groß.'
+fehlerbilder:
+  kehrwert:
+    de: 'Das Verhältnis ist umgedreht. Der längere Schatten gehört zum höheren Gegenstand.'
+  nur-k:
+    de: 'Längen werden k-mal so groß, Flächen aber k²-mal und [[Volumen]] k³-mal.'
+  k-quadrat-statt-k-hoch-3:
+    de: 'Beim [[Volumen]] kommt k dreimal vor (Länge, Breite, [[Höhe]]): k³.'
+herkunft: ki-entwurf
+version: 1

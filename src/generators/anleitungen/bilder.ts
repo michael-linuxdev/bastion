@@ -625,3 +625,45 @@ export const schraegbildZylinder: AnleitungsBilder = {
     ];
   },
 };
+
+/** Zentrische Streckung eines Dreiecks mit k = 2 */
+export const zentrischeStreckung: AnleitungsBilder = {
+  id: 'anleitung.zentrische-streckung',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const Z: P = [30, 210];
+    const A: P = [80, 170];
+    const B: P = [140, 185];
+    const C: P = [100, 120];
+    const bildVon = (p: P): P => [Z[0] + 2 * (p[0] - Z[0]), Z[1] + 2 * (p[1] - Z[1])];
+    const [A2, B2, C2] = [bildVon(A), bildVon(B), bildVon(C)];
+    const original = [
+      vieleck([A, B, C]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      punkt(C[0], C[1], 'C'),
+      punkt(Z[0], Z[1], 'Z'),
+    ];
+    const strahl = (q: P) =>
+      linie(Z[0], Z[1], Z[0] + 2.3 * (q[0] - Z[0]), Z[1] + 2.3 * (q[1] - Z[1]), 1);
+    const strahlen = [strahl(A), strahl(B), strahl(C)];
+    const bildpunkte = [
+      punkt(A2[0], A2[1], 'A′'),
+      punkt(B2[0], B2[1], 'B′'),
+      punkt(C2[0], C2[1], 'C′'),
+    ];
+    return [
+      bild(300, 240, original, { de: 'Ein Dreieck ABC und links unten das Streckzentrum Z.' }),
+      bild(300, 240, [...strahlen, ...original], {
+        de: 'Von Z aus gehen drei Strahlen durch A, B und C und darüber hinaus.',
+      }),
+      bild(300, 240, [...strahlen, ...original, ...bildpunkte], {
+        de: 'Auf jedem Strahl liegt der Bildpunkt doppelt so weit von Z entfernt wie der Originalpunkt: A′, B′ und C′.',
+      }),
+      bild(300, 240, [...strahlen, ...original, ...bildpunkte, vieleck([A2, B2, C2])], {
+        de: 'Das Bilddreieck A′B′C′ ist doppelt so groß wie ABC, seine Seiten sind parallel zu den Originalseiten.',
+      }),
+    ];
+  },
+};

@@ -1,0 +1,25 @@
+# Sind zwei Figuren ähnlich? Entwurf: noch nicht geprüft.
+id: M.RF.AE.AEHNLICH.PRUEFEN
+kompetenz: M.RF.AE.AEHNLICH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: ae.aehnlich-pruefen@1
+parameter:
+  G: { winkel: false }
+  M: { winkel: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Sind die beiden Figuren [[ähnlich]]? {figuren}'
+hilfen:
+  - de: 'Bei [[ähnlichen]] Figuren sind alle Seiten mit demselben [[Faktor]] gestreckt. Vergleiche die Verhältnisse.'
+  - de: 'Bei Dreiecken reichen zwei gleiche [[Winkel]] ([[Hauptähnlichkeitssatz]]). Berechne den dritten Winkel mit der Winkelsumme 180°.'
+fehlerbilder:
+  gleich-viel-dazu:
+    de: 'Beide Seiten sind um gleich viel länger geworden – das ist keine Streckung. Ähnlich heißt: mit demselben [[Faktor]] malgenommen.'
+  verhaeltnis-uebersehen:
+    de: 'Rechne die Verhältnisse nach: Beide Seiten sind mit demselben [[Faktor]] gestreckt. Die Rechtecke sind [[ähnlich]].'
+  dritter-winkel:
+    de: 'Berechne den dritten [[Winkel]]. Dann siehst du: Beide Dreiecke haben dieselben drei Winkel.'
+herkunft: ki-entwurf
+version: 1

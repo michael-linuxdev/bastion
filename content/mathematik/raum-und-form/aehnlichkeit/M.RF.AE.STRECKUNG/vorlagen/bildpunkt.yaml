@@ -1,0 +1,25 @@
+# Bildpunkt im Koordinatensystem. Entwurf: noch nicht geprüft.
+id: M.RF.AE.STRECKUNG.BILDPUNKT
+kompetenz: M.RF.AE.STRECKUNG
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: ae.bildpunkt@1
+parameter:
+  G: { zentrum_frei: false }
+  M: { zentrum_frei: true }
+text:
+  aufgabe:
+    de: "**Strecke** den Punkt P [[zentrisch]] mit dem [[Streckzentrum]] {zentrum} und dem [[Streckfaktor]] k = {faktor}. **Gib** den [[Bildpunkt]] P' **an**."
+hilfen:
+  - de: 'Zähle, wie weit P von Z entfernt ist: so viel nach rechts, so viel nach oben.'
+  - de: 'Nimm beide Wege mit k mal und gehe sie von Z aus.'
+fehlerbilder:
+  vom-ursprung:
+    de: 'Du hast vom [[Ursprung]] aus gestreckt. Gestreckt wird vom [[Streckzentrum]] Z aus.'
+  nur-verschoben:
+    de: 'Du hast den Weg von Z nach P einfach noch einmal angehängt. Das passt nur bei k = 2 – prüfe den [[Streckfaktor]].'
+  x-y-vertauscht:
+    de: 'x und y sind vertauscht. Erst kommt der x-Wert, dann der y-Wert.'
+herkunft: ki-entwurf
+version: 1
