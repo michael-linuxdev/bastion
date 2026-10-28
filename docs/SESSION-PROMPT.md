@@ -44,7 +44,7 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/` (noch ohne Vorlagen). Feld BR (Brüche, 11 Kompetenzen, 23 Vorlagen) steht als Entwurf. Feld ZU (Zuordnungen, 4 Kompetenzen, 8 Vorlagen) steht ebenfalls. Häufigkeiten und Kreisdiagramme (ZF/DA) stehen auch. Dreiecke und Vierecke (DV, 10 Vorlagen, 2 Anleitungen mit Zirkel) stehen auch. Nächster Schritt: FL (Flächeninhalt von Dreiecken und Vierecken), dann KP (Prismen, mit Anleitung zum Schrägbild). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Klasse 6 aufbauen** (Phase 1a–1c für Klasse 5 fertig, als Entwurf). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/`. **Klasse 6 ist inhaltlich abgedeckt (als Entwurf):** alle 26 Kompetenzen haben Vorlagen – BR 23, ZU 8, ZF/DA 4, DV 10, FL 4, KP 4, zusammen 53 Vorlagen, dazu 3 Anleitungen (Dreieck aus drei Seiten, Mittelsenkrechte, Schrägbild eines Prismas). Übersicht, „Mein Stand“ und Diagnose haben eine Klassenwahl (5 oder 6). Nächster Schritt: Klasse 6 per PR auf `main` bringen (wenn gewünscht), danach Klasse 7 – Lehrpläne auswerten wie bei Klasse 6. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
 Vom Projektverantwortlichen (nicht delegierbar):
 1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Die Übersicht beim Üben hat eine Klassenwahl (5 oder 6). Noch offen: Diagnose und „Mein Stand“ für Klasse 6 öffnen (sie zeigen bisher nur Klasse 5), Anleitungen für DV.KONSTRUIEREN, DV.BESONDERE-LINIEN und KP.PRISMEN.
+7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Erledigt als Entwurf: 53 Vorlagen, 3 Anleitungen; Übersicht, „Mein Stand“ und Diagnose mit Klassenwahl (`src/ui/ueben/KlassenWahl.svelte`). Die Diagnose prüft nur die gewählte Klasse; die Klasse bleibt fest, sobald die erste Antwort gegeben ist.
 8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung

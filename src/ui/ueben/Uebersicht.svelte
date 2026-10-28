@@ -1,10 +1,11 @@
 <script lang="ts">
-  // Übersicht der Kompetenzen der Klasse 5, nach Bereich und Feld, mit Wahl des Niveaus.
+  // Übersicht der Kompetenzen einer Klassenstufe, nach Bereich und Feld, mit Wahl des Niveaus.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import KlassenWahl from './KlassenWahl.svelte';
   import { BEREICHE } from './reihenfolge';
   import { sitzt, statusVon } from './stand';
 
@@ -33,9 +34,6 @@
     new Set(empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)))),
   );
 
-  /** Klassenstufen, für die es schon Aufgaben gibt */
-  const KLASSEN = [5, 6] as const;
-
   const bereiche = $derived(
     BEREICHE.map((bereich) => ({
       bereich,
@@ -60,12 +58,7 @@
     <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
   </fieldset>
 
-  <fieldset class="niveau">
-    <legend>{t('klasse.ueberschrift')}</legend>
-    {#each KLASSEN as k (k)}
-      <label><input type="radio" value={k} bind:group={klasse} /> {t('klasse.name')} {k}</label>
-    {/each}
-  </fieldset>
+  <KlassenWahl bind:klasse />
 
   <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}

@@ -14,6 +14,7 @@
   import { neuerSeed } from '../plattform/zufall';
   import { t } from '../texte/texte';
   import Eingabe from './Eingabe.svelte';
+  import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import Textteile from './Textteile.svelte';
 
@@ -22,6 +23,7 @@
     vorlagen,
     paketVon,
     antworten = $bindable(),
+    klasse = $bindable(5),
     onergebnis,
     onueben,
     onende,
@@ -31,18 +33,21 @@
     paketVon: ReadonlyMap<string, string>;
     /** Antworten dieses Diagnosegangs – beim Elternteil gehalten, damit „Später“ weitergeht */
     antworten: Antwort[];
+    /** Klassenstufe der Diagnose; wählbar, solange noch nichts beantwortet ist */
+    klasse?: number;
     onergebnis: (daten: Antwortdaten) => void;
     onueben: (k: Kompetenz) => void;
     onende: () => void;
   } = $props();
 
-  // Nur Kompetenzen der Klasse 5 mit Aufgaben auf Niveau G, in Graphreihenfolge
-  const klasse5 = $derived(
+  // Nur Kompetenzen der gewählten Klasse mit Aufgaben auf Niveau G, in Graphreihenfolge
+  const themen = $derived(
     nachGraph(nachBereich(kompetenzen)).filter(
-      (k) => k.klassenstufe_typisch.includes(5) && vorlagenFuer(vorlagen, k.id, 'G').length > 0,
+      (k) =>
+        k.klassenstufe_typisch.includes(klasse) && vorlagenFuer(vorlagen, k.id, 'G').length > 0,
     ),
   );
-  const stand = $derived(diagnose(klasse5, antworten));
+  const stand = $derived(diagnose(themen, antworten));
   let gestartet = $state(false);
   let pauseGesehen = $state(false);
 
@@ -55,7 +60,7 @@
   }
 
   function neueAufgabe(): Aufgabe | undefined {
-    const kompetenz = klasse5.find((k) => k.id === stand.naechste);
+    const kompetenz = themen.find((k) => k.id === stand.naechste);
     if (!kompetenz) return undefined;
     // Vorlagen reihum, damit zwei Antworten aus zwei Vorlagen stammen
     const schon = antworten.filter((a) => a.kompetenz === kompetenz.id).length;
@@ -114,10 +119,10 @@
     aufgabe = neueAufgabe();
   }
 
-  const titel = (id: string) => klasse5.find((k) => k.id === id);
-  const sitzt = $derived(klasse5.filter((k) => kann(stand, k.id)));
+  const titel = (id: string) => themen.find((k) => k.id === id);
+  const sitzt = $derived(themen.filter((k) => kann(stand, k.id)));
   const weiterMit = $derived(
-    empfehlungen(klasse5, stand)
+    empfehlungen(themen, stand)
       .map(titel)
       .filter((k): k is Kompetenz => k !== undefined),
   );
@@ -129,6 +134,9 @@
 
   {#if !gestartet && stand.naechste && !pause}
     <p>{t('diagnose.einleitung')}</p>
+    {#if antworten.length === 0}
+      <KlassenWahl bind:klasse />
+    {/if}
     <p class="leise">{t('diagnose.dauer')}</p>
     <button class="haupt" onclick={starte}
       >{antworten.length === 0 ? t('diagnose.starten') : t('diagnose.weiter')}</button
@@ -200,7 +208,7 @@
         </ul>
       </details>
     {/if}
-    {#if stand.getestet.size + stand.gefolgert.size < klasse5.length}
+    {#if stand.getestet.size + stand.gefolgert.size < themen.length}
       <p class="leise">{t('diagnose.noch-offen')}</p>
     {/if}
   {/if}
