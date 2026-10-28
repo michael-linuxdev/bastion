@@ -9,6 +9,7 @@
   import Bericht from '../eltern/Bericht.svelte';
   import PinVermerke from '../eltern/PinVermerke.svelte';
   import { pinVermerke, type Zustand } from '../plattform/ablage';
+  import { tt } from '../bastion/thema.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
@@ -129,7 +130,7 @@
     <p class="leise">{t('stand.neu')}: {gruppe('neu').length}</p>
   {/if}
 
-  <h3>{t('basebau.ueberschrift')}</h3>
+  <h3>{tt('basebau.ueberschrift')}</h3>
   <BasebauSchalter bind:an={basebau} durch="jugendlich" />
 
   <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->

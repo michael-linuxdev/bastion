@@ -22,6 +22,9 @@ import {
   aufDiesemGeraet,
   BASEBAU_SCHLUESSEL,
   basebauAktiv,
+  THEMA_SCHLUESSEL,
+  themaAus,
+  type Thema,
   einstellungEreignis,
   JE_GERAET,
   PIN_NACH_SICHERUNG,
@@ -302,6 +305,16 @@ export async function basebauAn(): Promise<boolean> {
     await einstellung(db, inst.profil, BASEBAU_SCHLUESSEL).catch(() => undefined),
   );
 }
+
+/** Gewähltes Thema der Bastion (B-17); ohne Speicher: Bastion. */
+export async function themaWahl(): Promise<Thema> {
+  const inst = await bereit();
+  if (!inst) return themaAus(undefined);
+  return themaAus(await einstellung(db, inst.profil, THEMA_SCHLUESSEL).catch(() => undefined));
+}
+
+/** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
+export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
 
 /** Basebau ein- oder ausschalten – Jugendliche und Eltern dürfen das (B-13). Das Ledger bucht weiter (B-10). */
 export const basebauSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>

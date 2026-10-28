@@ -20,6 +20,7 @@
   import { istDauerhaft } from '../plattform/speicher';
   import PinVermerke from './PinVermerke.svelte';
   import { pinGueltig } from '../plattform/pin';
+  import { tt } from '../bastion/thema.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
@@ -211,7 +212,7 @@
         {/each}
       </select></label
     >
-    <h3>{t('basebau.ueberschrift')}</h3>
+    <h3>{tt('basebau.ueberschrift')}</h3>
     <BasebauSchalter bind:an={basebau} durch="eltern" />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button

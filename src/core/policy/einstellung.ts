@@ -54,6 +54,14 @@ export const BASEBAU_SCHLUESSEL = 'basebau.aktiv';
 /** Standard an (B-13): Nur ein ausdrückliches „aus“ schaltet den Basebau ab. */
 export const basebauAktiv = (wert: unknown): boolean => wert !== false;
 
+/** Themen der Bastion (B-17): gleiche Mechanik, eigene Namen. Einstellung `basebau.thema`. */
+export const THEMEN = ['bastion', 'garten', 'weltraum', 'dorf', 'unterwasser'] as const;
+export type Thema = (typeof THEMEN)[number];
+export const THEMA_SCHLUESSEL = 'basebau.thema';
+
+/** Unbekanntes oder nicht Gewähltes gilt als Bastion. */
+export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert) ?? 'bastion';
+
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';
 

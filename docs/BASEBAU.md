@@ -313,7 +313,31 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.10a ✅ | **Rollen statt Burg-Wörter** im Code | Gebäude-Kennungen werden Rollen (`kern`, `werkstatt`, `wissen`, `turm`, `eingang`, `einfassung`, `ursprung`, `zeichen`, `flaeche`, `denkmal`), Ressourcen werden `fleiss`, `behalten`, `koennen`, `schritt`. Jetzt günstig: Es gibt noch keine echten Bau-Daten | alle Tests unverändert grün |
-| 2.10b | **Themen und Wahl** | Namen je Thema in der Textdatei (`thema.<thema>.…`), Einstellung `basebau.thema` (Standard Bastion), Wahl in der Bastion und in „Mein Stand“; Abschluss, Liste und Begrüßung sprechen die Sprache des Themas | Test: jedes Thema hat jeden Namen; Wechsel ändert nur Wörter |
+| 2.10b ✅ | **Themen und Wahl** | Namen je Thema in der Textdatei (`thema.<thema>.…`), Einstellung `basebau.thema` (Standard Bastion), Wahl in der Bastion und in „Mein Stand“; Abschluss, Liste und Begrüßung sprechen die Sprache des Themas | Test: jedes Thema hat jeden Namen; Wechsel ändert nur Wörter |
+
+*Umsetzung 2.10a/b:* Kennungen sind Rollen (`src/core/bastion/katalog.ts`), Ressourcen `fleiss`, `behalten`, `koennen`, `schritt`. Die Wörter jedes Themas stehen in der Textdatei unter `thema.<thema>.…` (Name, „Dein …“, Epoche, je Ressource Ein- und Mehrzahl, „ein Buch“/„eine Blume“ mit Zeichen, je Rolle Name und „wozu“). Texte der Bastion, des Abschlusses und der Begrüßung haben Platzhalter wie `{ganzes}` oder `{fleiss-viele}`, die `src/ui/bastion/thema.svelte.ts` mit den Wörtern des gewählten Themas füllt. Gewählt wird oben in der Bastion („Wie soll es aussehen?“), gespeichert als Einstellung `basebau.thema` (Standard Bastion). Ein Test prüft, dass jedes Thema jedes Wort hat und jeder Platzhalter auflösbar ist.
+
+**Namen der Themen** (vom Projektverantwortlichen bestätigt, 28.10.2026):
+
+| Rolle | Bastion | Garten | Weltraum | Dorf | Unterwasser |
+|---|---|---|---|---|---|
+| kern | Bergfried | Baumhaus | Kommandomodul | Rathaus | Hauptkuppel |
+| werkstatt | Zimmerei | Geräteschuppen | Montagehalle | Schreinerei | Werft |
+| wissen | Studierstube | Gewächshaus | Sternwarte | Bücherei | Perlenkammer |
+| turm | Späherturm | Aussichtsbaum | Antennenmast | Windmühle | Leuchtturm |
+| eingang | Tor | Gartentor | Luftschleuse | Dorfbrücke | Tauchschleuse |
+| einfassung | Palisade | Hecke | Schutzwand | Zaun | Korallenriff |
+| ursprung | Feuerstelle | Gartenbank | Landeplatz | Dorfbrunnen | Anker |
+| zeichen | Banner | Wimpel | Flagge | Wappen | Boje |
+| flaeche | Garten | Blumenbeet | Kristallfeld | Obstwiese | Seegraswiese |
+| denkmal | Statue | Gartenzwerg | Satellit | Denkmal | Muschelskulptur |
+| fleiss | Stein | Samen | Metall | Holz | Sand |
+| behalten | Erz | Wassertropfen | Energie | Lehm | Kristall |
+| koennen | Bauplan | Gartenplan | Konstruktionsplan | Bauplan | Seekarte |
+| schritt | Bauschritt | Gartenschritt | Montageschritt | Bauschritt | Tauchgang |
+| je gefestigtem Thema | Buch | Blume | Stern | Buch | Perle |
+| Ganzes | Deine Bastion | Dein Garten | Deine Raumstation | Dein Dorf | Deine Unterwasserstadt |
+| Epoche 1 | Außenposten | Wildgarten | Forschungsstation | Weiler | Tauchstation |
 
 Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je Thema und Skin austauschbar. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.
 

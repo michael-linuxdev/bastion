@@ -2,7 +2,7 @@
   // Basebau-Schalter (R7, BASEBAU B-13): ein- und ausschaltbar, ohne Nachteil.
   // Das Ledger bucht weiter (B-10) – beim Wiedereinschalten ist alles da.
   import { basebauSetzen } from '../plattform/ablage';
-  import { t } from '../texte/texte';
+  import { tt } from './thema.svelte';
 
   let { an = $bindable(), durch }: { an: boolean; durch: 'jugendlich' | 'eltern' } = $props();
 </script>
@@ -16,9 +16,9 @@
       void basebauSetzen(an, durch);
     }}
   />
-  {t('basebau.schalter')}
+  {tt('basebau.schalter')}
 </label>
-<p class="leise">{t('basebau.schalter-erklaerung')}</p>
+<p class="leise">{tt('basebau.schalter-erklaerung')}</p>
 
 <style>
   .schalter {

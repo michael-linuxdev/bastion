@@ -388,7 +388,7 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   ).toHaveCount(1);
   await expect(page.getByText('1 Aufgabe bearbeitet')).toBeVisible();
   // Die schnelle falsche Antwort gilt als geraten: keine Ressourcen, ein freundlicher Hinweis
-  await expect(page.getByText(/Heute gab es noch keine Ressourcen/)).toBeVisible();
+  await expect(page.getByText(/Heute gab es noch nichts zum Bauen/)).toBeVisible();
   await expect(page.getByText(/Nimm dir ruhig etwas mehr Zeit/)).toBeVisible();
   await expect(page.getByText(/Für heute ist das gut/)).toBeVisible();
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
@@ -549,7 +549,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     .getByRole('button', { name: 'Bauen' })
     .click();
   await expect(page.getByRole('heading', { name: 'Im Bau' })).toBeVisible();
-  await expect(page.getByText('2 von 6 Bauschritten')).toBeVisible();
+  await expect(page.getByText(/Bauschritte:\s+2\s+von\s+6/)).toBeVisible();
   // Nur ein Vorhaben gleichzeitig: Tor geht gerade nicht
   await expect(
     page.getByRole('listitem').filter({ hasText: /^Tor/ }).getByRole('button', { name: 'Bauen' }),
@@ -592,7 +592,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('button', { name: 'Bastion' }).click();
-  await expect(page.getByText(/Noch steht hier kein Buch/)).toBeVisible();
+  await expect(page.getByText(/Noch ist hier nichts/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
@@ -602,7 +602,34 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
       .getByRole('listitem')
       .filter({ hasText: /Ich kann Zahlen runden[\s\S]*grundlegend,\s+seit\s+4\.\s+November/ }),
   ).toBeVisible();
-  await expect(page.getByText(/Baust du die Studierstube/)).toBeVisible();
+  await expect(page.getByText(/Mit dem Gebäude „Studierstube“/)).toBeVisible();
+});
+
+test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {
+  await page.goto('./');
+  await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('radio', { name: 'Garten' }).check();
+  await expect(page.getByRole('heading', { name: 'Dein Garten' })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^200 Samen$/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Ziel der Epoche 1: Wildgarten' })).toBeVisible();
+  await expect(page.getByText(/^Baumhaus\s+Stufe 1/)).toBeVisible();
+  await page
+    .getByRole('listitem')
+    .filter({ hasText: /^Wimpel/ })
+    .getByRole('button', { name: 'Bauen' })
+    .click();
+  await expect(page.getByText(/^Wimpel – fertig am/)).toBeVisible();
+
+  // Nach dem Neuladen bleibt das Thema; der Knopf heißt wie das Thema
+  await page.reload();
+  await page.getByRole('button', { name: 'Garten', exact: true }).click();
+  await page.getByRole('radio', { name: 'Unterwasserstadt' }).check();
+  await expect(page.getByRole('heading', { name: 'Deine Unterwasserstadt' })).toBeVisible();
+  // Was gebaut ist, bleibt – es heißt nur anders
+  await expect(page.getByText(/^Boje – fertig am/)).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^190 Sand$/ })).toBeVisible();
 });
 
 test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({

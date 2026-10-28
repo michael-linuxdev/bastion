@@ -20,11 +20,22 @@
   } from '../../core/bastion/katalog';
   import {
     bauAusfuehren,
+    themaSetzen,
     bastionLage,
     type BastionLage,
     type BauAuftrag,
   } from '../plattform/ablage';
-  import { t, type TextSchluessel } from '../texte/texte';
+  import { type TextSchluessel } from '../texte/texte';
+  import {
+    aktiv,
+    gebaeudeName,
+    gebaeudeWozu,
+    menge,
+    ressourceName,
+    tt,
+    wort,
+  } from './thema.svelte';
+  import { THEMEN, type Thema } from '../../core/policy/einstellung';
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
 
@@ -36,6 +47,11 @@
   let meldung = $state<readonly BauHindernis[]>([]);
   /** Gebäude, das gerade versetzt wird, mit gewähltem Feld */
   let versetzt = $state<{ id: string; x: number; y: number } | undefined>(undefined);
+
+  function themaWaehlen(th: Thema) {
+    aktiv.thema = th;
+    void themaSetzen(th);
+  }
 
   void bastionLage().then((l) => {
     lage = l;
@@ -52,17 +68,15 @@
     }
   }
 
-  const name = (typ: GebaeudeTyp) => t(`gebaeude.${typ}` as TextSchluessel);
-  const wozu = (typ: GebaeudeTyp) => t(`gebaeude.${typ}.wozu` as TextSchluessel);
-  const mit = (n: number, eins: TextSchluessel, mehrere: TextSchluessel) =>
-    `${n} ${t(n === 1 ? eins : mehrere)}`;
+  const name = gebaeudeName;
+  const wozu = gebaeudeWozu;
 
   function kostenText(k: Kosten): string {
     return [
-      k.fleiss > 0 ? `${k.fleiss} ${t('ressource.fleiss')}` : '',
-      k.behalten > 0 ? `${k.behalten} ${t('ressource.behalten')}` : '',
-      k.koennen > 0 ? mit(k.koennen, 'ressource.koennen-einer', 'ressource.koennen-viele') : '',
-      k.schritt > 0 ? mit(k.schritt, 'ressource.schritt-einer', 'ressource.schritt-viele') : '',
+      k.fleiss > 0 ? menge('fleiss', k.fleiss) : '',
+      k.behalten > 0 ? menge('behalten', k.behalten) : '',
+      k.koennen > 0 ? menge('koennen', k.koennen) : '',
+      k.schritt > 0 ? menge('schritt', k.schritt) : '',
     ]
       .filter(Boolean)
       .join(' · ');
@@ -71,9 +85,9 @@
   function hindernisText(h: BauHindernis, typ: GebaeudeTyp, stufe: number): string {
     if (h === 'voraussetzung') {
       const b = KATALOG[typ].stufen[stufe - 1]?.braucht;
-      if (b) return `${t('bastion.braucht')} ${name(b.typ)} ${t('bastion.stufe')} ${b.stufe}.`;
+      if (b) return `${tt('bastion.braucht')} ${name(b.typ)} ${tt('bastion.stufe')} ${b.stufe}.`;
     }
-    return t(`bastion.hindernis.${h}` as TextSchluessel);
+    return tt(`bastion.hindernis.${h}` as TextSchluessel);
   }
 
   /** Was an jedem Angebot steht; der volle Bauplatz und fehlende Ressourcen werden zusammengefasst */
@@ -82,7 +96,7 @@
   const fehlt = (h: readonly BauHindernis[]) =>
     (['fleiss', 'behalten', 'koennen'] as const)
       .filter((r) => h.includes(`zu-wenig-${r}`))
-      .map((r) => t(r === 'koennen' ? 'ressource.koennen-viele' : `ressource.${r}`));
+      .map(ressourceName);
   const belegt = $derived(
     lage !== undefined && lage.bastion.vorhaben.length >= plaetze(lage.bastion),
   );
@@ -136,79 +150,91 @@
   const datum = (ms: number) =>
     new Date(ms).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' });
   const feld = (x: number, y: number) =>
-    `${t('bastion.spalte')} ${x + 1}, ${t('bastion.reihe')} ${y + 1}`;
+    `${tt('bastion.spalte')} ${x + 1}, ${tt('bastion.reihe')} ${y + 1}`;
 </script>
 
 <section class="bastion">
-  <h2>{t('bastion.ueberschrift')}</h2>
-  <p class="leise">{t('bastion.einleitung')}</p>
+  <h2>{tt('bastion.ueberschrift')}</h2>
+  <p class="leise">{tt('bastion.einleitung')}</p>
+
+  <fieldset class="themen">
+    <legend>{tt('bastion.thema')}</legend>
+    {#each THEMEN as th (th)}
+      <label
+        ><input
+          type="radio"
+          name="thema"
+          checked={aktiv.thema === th}
+          onchange={() => themaWaehlen(th)}
+        />
+        {wort('name', th)}</label
+      >
+    {/each}
+  </fieldset>
+  <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 
   {#if geladen && !lage}
-    <p>{t('bastion.ohne-speicher')}</p>
+    <p>{tt('bastion.ohne-speicher')}</p>
   {:else if lage}
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
     {#if epoche.geschafft}
-      <p class="geschafft" role="status">{t('bastion.geschafft')}</p>
+      <p class="geschafft" role="status">{tt('bastion.geschafft')}</p>
     {:else}
-      <h3>{t('bastion.ziel')}</h3>
+      <h3>{tt('bastion.ziel')}</h3>
       <ul class="ziel">
         <li>
           {epoche.kern >= EPOCHE_1_ZIEL.kern ? '✓' : '○'}
-          {t('bastion.ziel-kern')} ({t('bastion.stufe')}
+          {tt('bastion.ziel-kern')} ({tt('bastion.stufe')}
           {epoche.kern})
         </li>
         <li>
           {epoche.bauplaene >= EPOCHE_1_ZIEL.bauplaene ? '✓' : '○'}
           {Math.min(epoche.bauplaene, EPOCHE_1_ZIEL.bauplaene)}
-          {t('bastion.von')}
+          {tt('bastion.von')}
           {EPOCHE_1_ZIEL.bauplaene}
-          {t('bastion.ziel-bauplaene')}
+          {tt('bastion.ziel-bauplaene')}
         </li>
       </ul>
-      <p class="leise">{t('bastion.ziel-erklaerung')}</p>
+      <p class="leise">{tt('bastion.ziel-erklaerung')}</p>
     {/if}
 
-    <h3>{t('bastion.vorrat')}</h3>
+    <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">
-      <li><strong>{l.konto.stand.fleiss}</strong> {t('ressource.fleiss')}</li>
-      <li><strong>{l.konto.stand.behalten}</strong> {t('ressource.behalten')}</li>
-      <li>
-        <strong>{l.konto.stand.koennen}</strong>
-        {t(l.konto.stand.koennen === 1 ? 'ressource.koennen-einer' : 'ressource.koennen-viele')}
-      </li>
-      <li><strong>{l.bastion.vorrat}</strong> {t('bastion.bauschritte-vorrat')}</li>
+      <li>{menge('fleiss', l.konto.stand.fleiss)}</li>
+      <li>{menge('behalten', l.konto.stand.behalten)}</li>
+      <li>{menge('koennen', l.konto.stand.koennen)}</li>
+      <li><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</li>
     </ul>
-    <p class="leise">{t('bastion.bauschritte-erklaerung')}</p>
+    <p class="leise">{tt('bastion.bauschritte-erklaerung')}</p>
 
     {#if meldung.length > 0}
       <p class="meldung" role="status">
-        {meldung.map((h) => t(`bastion.hindernis.${h}` as TextSchluessel)).join(' ')}
+        {meldung.map((h) => tt(`bastion.hindernis.${h}` as TextSchluessel)).join(' ')}
       </p>
     {/if}
 
     {#if l.bastion.vorhaben.length > 0}
-      <h3>{t('bastion.im-bau')}</h3>
+      <h3>{tt('bastion.im-bau')}</h3>
       <ul class="liste">
         {#each l.bastion.vorhaben as v (v.id)}
           <li>
             <span>
               <strong>{name(v.typ)}</strong>
-              {#if v.stufe > 1}{t('bastion.auf-stufe')} {v.stufe}{/if}
+              {#if v.stufe > 1}{tt('bastion.auf-stufe')} {v.stufe}{/if}
               <br />
               <progress max={v.bedarf} value={v.fortschritt}></progress>
-              {v.fortschritt}
-              {t('bastion.von')}
+              {tt('bastion.bauschritten')}: {v.fortschritt}
+              {tt('bastion.von')}
               {v.bedarf}
-              {t('bastion.bauschritten')}
             </span>
             <button onclick={() => void ausfuehren({ art: 'abbrechen', vorhaben: v.id })}
-              >{t('bastion.abbrechen')}</button
+              >{tt('bastion.abbrechen')}</button
             >
           </li>
         {/each}
       </ul>
-      <p class="leise">{t('bastion.abbrechen-erklaerung')}</p>
+      <p class="leise">{tt('bastion.abbrechen-erklaerung')}</p>
     {/if}
 
     {#snippet angebot(a: Angebot)}
@@ -216,15 +242,15 @@
       <li>
         <span>
           <strong>{name(a.typ)}</strong>
-          {#if a.ausbau}{t('bastion.auf-stufe')} {a.stufe}{/if}
+          {#if a.ausbau}{tt('bastion.auf-stufe')} {a.stufe}{/if}
           <br /><small class="leise">{wozu(a.typ)}</small>
-          {#if k}<br /><small>{t('bastion.kosten')} {kostenText(k)}</small>{/if}
+          {#if k}<br /><small>{tt('bastion.kosten')} {kostenText(k)}</small>{/if}
           {#each einzeln(a.hindernisse) as h (h)}
             <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
           {/each}
           {#if fehlt(a.hindernisse).length > 0}
             <br /><small class="hindernis"
-              >{t('bastion.reicht-nicht')} {fehlt(a.hindernisse).join(', ')}</small
+              >{tt('bastion.reicht-nicht')} {fehlt(a.hindernisse).join(', ')}</small
             >
           {/if}
         </span>
@@ -235,37 +261,37 @@
               art: 'beginnen',
               typ: a.typ,
               ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
-            })}>{a.ausbau ? t('bastion.knopf-ausbauen') : t('bastion.knopf-bauen')}</button
+            })}>{a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.knopf-bauen')}</button
         >
       </li>
     {/snippet}
 
-    <h3>{t('bastion.bauen')}</h3>
-    {#if belegt}<p class="leise">{t('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
+    <h3>{tt('bastion.bauen')}</h3>
+    {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
     <ul class="liste">
       {#each neubauten as a (a.typ)}{@render angebot(a)}{/each}
     </ul>
 
     {#if ausbauten.length > 0}
-      <h3>{t('bastion.ausbauen')}</h3>
+      <h3>{tt('bastion.ausbauen')}</h3>
       <ul class="liste">
         {#each ausbauten as a (a.ausbau?.id)}{@render angebot(a)}{/each}
       </ul>
     {/if}
 
-    <h3>{t('bastion.gebaeude')}</h3>
+    <h3>{tt('bastion.gebaeude')}</h3>
     <ul class="liste">
       {#each gebaeude as b (b.id)}
         <li>
           <span>
             <strong>{name(b.typ)}</strong>
-            {#if KATALOG[b.typ].stufen.length > 1}{t('bastion.stufe')} {b.stufe}{/if}
-            <br /><small class="leise">{t('bastion.feld')}: {feld(b.pos.x, b.pos.y)}</small>
+            {#if KATALOG[b.typ].stufen.length > 1}{tt('bastion.stufe')} {b.stufe}{/if}
+            <br /><small class="leise">{tt('bastion.feld')}: {feld(b.pos.x, b.pos.y)}</small>
           </span>
           {#if versetzt && versetzt.id === b.id}
             <span class="versetzen">
               <label
-                >{t('bastion.spalte')}
+                >{tt('bastion.spalte')}
                 <select bind:value={versetzt.x}>
                   {#each Array.from({ length: BAUPLATZ.breite }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
@@ -273,7 +299,7 @@
                 </select></label
               >
               <label
-                >{t('bastion.reihe')}
+                >{tt('bastion.reihe')}
                 <select bind:value={versetzt.y}>
                   {#each Array.from({ length: BAUPLATZ.tiefe }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
@@ -289,47 +315,49 @@
                     art: 'versetzen',
                     gebaeude: b.id,
                     pos: { x: versetzt.x, y: versetzt.y },
-                  })}>{t('bastion.hierhin')}</button
+                  })}>{tt('bastion.hierhin')}</button
               >
             </span>
           {:else}
             <button onclick={() => (versetzt = { id: b.id, x: b.pos.x, y: b.pos.y })}
-              >{t('bastion.versetzen')}</button
+              >{tt('bastion.versetzen')}</button
             >
           {/if}
         </li>
       {/each}
     </ul>
-    <p class="leise">{t('bastion.versetzen-erklaerung')}</p>
+    <p class="leise">{tt('bastion.versetzen-erklaerung')}</p>
 
-    <h3>{t('bastion.buecher')}</h3>
-    <p class="leise">{t('bastion.buecher-erklaerung')}</p>
+    <h3>{tt('bastion.buecher')}</h3>
+    <p class="leise">{tt('bastion.buecher-erklaerung')}</p>
     {#if l.buecher.length === 0}
-      <p>{t('bastion.buecher-leer')}</p>
+      <p>{tt('bastion.buecher-leer')}</p>
     {:else}
       <ul class="regal">
         {#each l.buecher as buch (`${buch.kompetenz}@${buch.niveau}`)}
           <li>
-            📖 {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
+            {wort('wissen-zeichen')}
+            {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
             <small class="leise"
-              >({t(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {t('bastion.seit')}
+              >({tt(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {tt('bastion.seit')}
               {datum(Date.parse(buch.seit))})</small
             >
           </li>
         {/each}
       </ul>
       {#if !l.bastion.bauwerke.some((b) => b.typ === 'wissen')}
-        <p class="leise">{t('bastion.buecher-ohne-stube')}</p>
+        <p class="leise">{tt('bastion.buecher-ohne-stube')}</p>
       {/if}
     {/if}
 
     {#if l.bastion.fertig.length > 0}
-      <h3>{t('bastion.geschichte')}</h3>
+      <h3>{tt('bastion.geschichte')}</h3>
       <ul>
         {#each [...l.bastion.fertig].reverse() as f (f.vorhaben)}
           <li>
-            {name(f.typ)}{#if KATALOG[f.typ].stufen.length > 1}, {t('bastion.stufe')} {f.stufe}{/if}
-            – {t('bastion.fertig-am')}
+            {name(f.typ)}{#if KATALOG[f.typ].stufen.length > 1}, {tt('bastion.stufe')}
+              {f.stufe}{/if}
+            – {tt('bastion.fertig-am')}
             {datum(f.ts)}
           </li>
         {/each}
@@ -378,6 +406,21 @@
     padding: var(--abstand-s);
     border: 1px solid var(--farbe-rand);
     border-radius: var(--radius);
+  }
+
+  .themen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-m);
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+  }
+
+  .themen label {
+    min-block-size: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
   }
 
   .ziel {

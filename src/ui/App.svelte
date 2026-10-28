@@ -11,6 +11,7 @@
     sitzungBeenden,
     alleBuchungen,
     basebauAn,
+    themaWahl,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -39,6 +40,7 @@
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import BastionAnsicht from './bastion/Bastion.svelte';
+  import { aktiv, tt } from './bastion/thema.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -103,6 +105,7 @@
     aufgabenListe = await alleAufgaben();
     sichern = await sicherungAnstehend();
     basebau = await basebauAn();
+    aktiv.thema = await themaWahl();
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -194,7 +197,7 @@
     {#if rueckkehr}
       <p class="untertitel" role="status">
         {t('rueckkehr.gruss')}{#if basebau}
-          {t('rueckkehr.bastion')}{/if}
+          {tt('rueckkehr.bastion')}{/if}
       </p>
       {#if faellig > 0}<p>{t('rueckkehr.hinweis')}</p>{/if}
     {:else}
@@ -228,7 +231,7 @@
           onclick={() => {
             inhalte ??= ladeInhalte();
             ansicht = 'bastion';
-          }}>{t('bastion.knopf')}</button
+          }}>{tt('bastion.knopf')}</button
         >
       {/if}
       {#if offeneFehler > 0}
