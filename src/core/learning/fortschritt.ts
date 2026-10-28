@@ -30,6 +30,13 @@ export interface KompetenzStand {
   /** Erstes Erreichen von „gefestigt“ – hier entsteht später der Bauplan (B-4). */
   readonly gefestigtAm?: Tag;
   readonly aufgaben: number;
+  /** Zählung der letzten Diagnose (je Sitzung neu) – LEHRPLAN §7 */
+  readonly diagnose?: {
+    readonly sitzung: string;
+    readonly richtig: number;
+    readonly falsch: number;
+    readonly vorlagen: readonly string[];
+  };
   /** Die letzten Aufgaben (höchstens GEKONNT.fenster), älteste zuerst. */
   readonly letzte: readonly { readonly vorlage: string; readonly ohneHilfeRichtig: boolean }[];
 }
@@ -73,8 +80,31 @@ export function fortschreiben(
     ...(stand?.letzte ?? []),
     { vorlage: e.vorlage, ohneHilfeRichtig: e.ergebnis === 'richtig' && e.hilfen === 0 },
   ].slice(-GEKONNT.fenster);
+  // Diagnose: zwei richtige Antworten aus zwei Vorlagen, höchstens eine falsche
+  // (dieselbe Regel wie im Diagnosegang) – ergibt „gekonnt“, nie mehr (LEHRPLAN §7).
+  const vorher = stand?.diagnose?.sitzung === e.sitzung ? stand.diagnose : undefined;
+  const diagnose =
+    e.modus === 'diagnose'
+      ? {
+          sitzung: e.sitzung,
+          richtig: (vorher?.richtig ?? 0) + (e.ergebnis === 'richtig' ? 1 : 0),
+          falsch: (vorher?.falsch ?? 0) + (e.ergebnis === 'richtig' ? 0 : 1),
+          vorlagen: [
+            ...new Set([
+              ...(vorher?.vorlagen ?? []),
+              ...(e.ergebnis === 'richtig' ? [e.vorlage] : []),
+            ]),
+          ],
+        }
+      : stand?.diagnose;
+  const diagnoseBestanden =
+    e.modus === 'diagnose' &&
+    diagnose !== undefined &&
+    diagnose.richtig >= 2 &&
+    diagnose.falsch <= 1 &&
+    diagnose.vorlagen.length >= GEKONNT.vorlagen;
   // Einmal gekonnt bzw. gefestigt bleibt es; Nachlassen zeigt „auffrischen“ (anzeigeStatus).
-  const neuGekonnt = !stand?.gekonntAm && istGekonnt(letzte);
+  const neuGekonnt = !stand?.gekonntAm && (istGekonnt(letzte) || diagnoseBestanden);
   const gekonntAm = stand?.gekonntAm ?? (neuGekonnt ? e.tag : undefined);
   const gekonntTs = stand?.gekonntTs ?? (neuGekonnt ? e.ts : undefined);
   const gefestigtAm =
@@ -89,6 +119,7 @@ export function fortschreiben(
     ...(gekonntTs !== undefined ? { gekonntTs } : {}),
     ...(gefestigtAm ? { gefestigtAm } : {}),
     aufgaben: (stand?.aufgaben ?? 0) + 1,
+    ...(diagnose ? { diagnose } : {}),
     letzte,
   };
 }

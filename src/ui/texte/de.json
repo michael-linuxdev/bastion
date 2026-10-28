@@ -78,5 +78,20 @@
   "werkstatt.offen-eins": "1 Fehler wartet in der Fehlerwerkstatt.",
   "werkstatt.offen-mehrere": "Fehler warten in der Fehlerwerkstatt.",
   "rueckkehr.gruss": "Willkommen zurück. Schön, dass du wieder da bist.",
-  "rueckkehr.hinweis": "Fang ganz entspannt an: Hier ist eine kleine Auswahl zum Wiederholen – das Wichtigste zuerst."
+  "rueckkehr.hinweis": "Fang ganz entspannt an: Hier ist eine kleine Auswahl zum Wiederholen – das Wichtigste zuerst.",
+  "diagnose.knopf": "Wo stehe ich?",
+  "diagnose.ueberschrift": "Wo stehe ich?",
+  "diagnose.einleitung": "Ein paar Aufgaben aus Klasse 5 zeigen, was schon sitzt und wo es für dich weitergeht. Es gibt keine Note und keine Punkte. Wenn du etwas nicht weißt, ist das völlig in Ordnung – genau dafür ist das hier da.",
+  "diagnose.dauer": "Dauer: höchstens etwa 15 Minuten. Nach der Hälfte kannst du eine Pause machen.",
+  "diagnose.starten": "Los geht's",
+  "diagnose.weiss-nicht": "Weiß ich nicht",
+  "diagnose.halbzeit": "Halbzeit! Du kannst jetzt eine Pause machen und später weitermachen – oder gleich weiter.",
+  "diagnose.weiter": "Weiter",
+  "diagnose.spaeter": "Später weitermachen",
+  "diagnose.ergebnis": "Hier stehst du – hier geht es weiter",
+  "diagnose.empfehlung": "Damit geht es am besten weiter:",
+  "diagnose.sitzt": "Das sitzt schon",
+  "diagnose.noch-offen": "Zu einigen Themen gab es dieses Mal keine Aufgaben. Die kannst du jederzeit selbst üben.",
+  "diagnose.alles": "Bei den Aufgaben der Klasse 5 sitzt schon alles, was wir geprüft haben. Stark!",
+  "diagnose.ueben": "Üben"
 }

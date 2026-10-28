@@ -10,13 +10,22 @@ import type { AufgabeEreignis } from './ereignis';
 import type { Loesung, Option } from './generator';
 import { zahlText } from './text';
 
-/** Falsch beantwortete Aufgaben mit Schnappschuss, die noch nicht richtig korrigiert wurden. */
+/**
+ * Falsch beantwortete Aufgaben mit Schnappschuss, die noch nicht richtig korrigiert
+ * wurden. Diagnose-Aufgaben gehören nicht dazu: Die Diagnose soll ohne Druck
+ * feststellen, was sitzt – „Weiß ich nicht“ ist dort kein Fehler (LEHRPLAN §7).
+ */
 export function offeneFehler(ereignisse: readonly AufgabeEreignis[]): AufgabeEreignis[] {
   const erledigt = new Set(
     ereignisse.filter((e) => e.korrigiert && e.ergebnis === 'richtig').map((e) => e.korrigiert),
   );
   return ereignisse.filter(
-    (e) => e.ergebnis === 'falsch' && e.schnappschuss && !e.korrigiert && !erledigt.has(e.id),
+    (e) =>
+      e.ergebnis === 'falsch' &&
+      e.modus !== 'diagnose' &&
+      e.schnappschuss &&
+      !e.korrigiert &&
+      !erledigt.has(e.id),
   );
 }
 

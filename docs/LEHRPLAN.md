@@ -169,6 +169,8 @@ Für handverfasste Vorlagen ohne Generator gibt es mindestens 5 gleichwertige Va
 - Ergebnis wird **nicht als Punktzahl** gezeigt, sondern als „Hier stehst du – hier geht es weiter“.
 - Diagnose-Ergebnisse markieren Kompetenzen höchstens als *gekonnt*, nie als *gefestigt* (dafür braucht es Zeit, 6.).
 
+*Umsetzung (1c):* `src/core/learning/diagnose.ts`. Je Kompetenz zwei Aufgaben aus zwei Vorlagen (bei 1 : 1 eine dritte); als Nächstes getestet wird die offene Kompetenz, deren Ergebnis in beide Richtungen am meisten entscheidet (wer sie kann, kann vermutlich die Voraussetzungen; wer nicht, vermutlich auch nicht, was darauf aufbaut). Höchstens 30 Aufgaben in zwei Etappen zu 15. Präzisierungen: Gestartet wird für alle bei Klasse 5 und Niveau G – Klassenstufe und Schulform werden (noch) nicht abgefragt, weil es nur Inhalte der Klasse 5 gibt. Nur **getestete** Kompetenzen werden „gekonnt“; gefolgerte zeigt die Ergebnisseite, gespeichert werden sie nicht. Simulation mit dem echten Graphen: bei Unsicheren reicht das Budget für ein vollständiges Bild (z. B. 26 Aufgaben); bei sehr Starken bleiben Kompetenzen offen, weil der Graph 21 Endpunkte hat – sie zeigen sich beim Üben schnell als „gekonnt“.
+
 **Rückweg bei Fehlern:** Scheitert jemand wiederholt an einer Kompetenz, schlägt die App gezielt eine Voraussetzung vor („Kurz Teiler auffrischen?“), statt immer weiter dieselbe Kompetenz zu wiederholen.
 
 ## 8. Klasse 5 (Sachsen) – Kompetenzen für den ersten Bauabschnitt

@@ -105,7 +105,8 @@ export function aufgabeEreignis(
     hilfen: a.hilfen,
     dauerMs: Math.min(Math.max(0, Math.round(a.dauerMs)), DAUER_MAX_MS),
     faellig: a.faellig,
-    bewertung: bewertung(richtig, a.hilfen),
+    // Diagnose plant keine Wiederholung (DATENMODELL §4.1: null bei Diagnose)
+    bewertung: a.modus === 'diagnose' ? null : bewertung(richtig, a.hilfen),
     ...(!a.ergebnis.richtig && a.ergebnis.fehlerbild ? { fehlerbild: a.ergebnis.fehlerbild } : {}),
     ...(a.korrigiert ? { korrigiert: a.korrigiert } : {}),
     ...(richtig
