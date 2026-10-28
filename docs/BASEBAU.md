@@ -325,6 +325,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-20 | **Ziel vormerken:** Das Kind kann ein Bauvorhaben vormerken und sieht, was dafür noch fehlt. Sparen wird sichtbare Vorfreude; keine Zeitvorgabe, kein Tageszähler (R5) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-21 | **Einlagern:** Zierde lässt sich jederzeit kostenlos vom Bauplatz ins Lager nehmen und wieder aufstellen. Nichts geht verloren (R3), nichts lässt sich farmen – so wird der Platz nie zur Falle | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-22 | **Einfassung 40 Stück** in Epoche 1 (4 am Start, 36 baubar, je 15 Fleiß und 1 Bauschritt), damit sich ein Teil des Bauplatzes umschließen lässt | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-23 | Im Thema Dorf heißt der Kern **Gemeindehaus**, nicht „Rathaus“ | Entschieden (28.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -365,7 +366,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 | Rolle | Bastion | Garten | Weltraum | Dorf | Unterwasser |
 |---|---|---|---|---|---|
-| kern | Bergfried | Baumhaus | Kommandomodul | Rathaus | Hauptkuppel |
+| kern | Bergfried | Baumhaus | Kommandomodul | Gemeindehaus | Hauptkuppel |
 | werkstatt | Zimmerei | Geräteschuppen | Montagehalle | Schreinerei | Werft |
 | wissen | Studierstube | Gewächshaus | Sternwarte | Bücherei | Perlenkammer |
 | turm | Späherturm | Aussichtsbaum | Antennenmast | Windmühle | Leuchtturm |
@@ -398,8 +399,10 @@ Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.12 ✅ | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
-| 2.13 | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
+| 2.13 ✅ | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
 | 2.14 | **Gestalten** | Bannerfarbe, Zierde (Garten, Statue …) | Einheitentests |
+
+*Umsetzung 2.12–2.13:* `src/ui/bastion/Bauplatz.svelte`, `src/ui/bastion/grafik/grafik-buehne.ts`. Je Rolle eine schlichte Form aus dem Code (Kern mit Zinnen, runder Turm, Dach der Werkstatt, Buch für Wissen, Tor mit Durchgang, Pfähle der Einfassung, Feuer, Fahne, Beet, Raute fürs Denkmal), Farbe je Familie, Stufe als Punkte, Neubauten im Bau als Umriss. **Antippen** wählt ein Gebäude; darunter erscheinen „Versetzen“, bei Zierde „Einlagern“, und „Fertig“. Nach „Versetzen“ versetzt ein Tipp auf ein freies Feld das Gebäude; auf einem belegten Feld steht „Dort ist kein Platz frei.“. **„Bild ausblenden – nur die Liste“** schaltet auf die reizarme Ansicht um (Einstellung `basebau.bild`); dann wird PixiJS gar nicht geladen. Neu gebaut wird weiter über die Liste (erstes freies Feld) und danach versetzt. Die Felder sind auf dem Handy etwa 30 Punkte groß – knapp unter der Empfehlung von 44; Zoom kommt bei Bedarf nach den Testrunden.
 
 ### Ausdrücklich nicht in diesem Plan
 

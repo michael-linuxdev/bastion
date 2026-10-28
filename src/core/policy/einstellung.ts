@@ -62,6 +62,9 @@ export const THEMA_SCHLUESSEL = 'basebau.thema';
 /** Unbekanntes oder nicht Gewähltes gilt als Bastion. */
 export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert) ?? 'bastion';
 
+/** Bauplatz als Bild zeigen (BASEBAU 2.13); nur `false` blendet es aus. */
+export const BILD_SCHLUESSEL = 'basebau.bild';
+
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 

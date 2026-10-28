@@ -417,7 +417,7 @@
   "thema.dorf.wissen-ein": "ein Buch",
   "thema.dorf.wissen-viele": "Bücher",
   "thema.dorf.wissen-zeichen": "📖",
-  "thema.dorf.gebaeude.kern": "Rathaus",
+  "thema.dorf.gebaeude.kern": "Gemeindehaus",
   "thema.dorf.gebaeude.kern.wozu": "Die Mitte deines Dorfes. Kein anderes Haus kann höher ausgebaut werden.",
   "thema.dorf.gebaeude.werkstatt": "Schreinerei",
   "thema.dorf.gebaeude.werkstatt.wozu": "Mit ihr kannst du an zwei Vorhaben gleichzeitig bauen.",
@@ -482,5 +482,9 @@
   "bastion.vormerken": "Vormerken",
   "bastion.vorgemerkt": "Vorgemerkt",
   "bastion.nicht-vormerken": "Nicht mehr vormerken",
-  "bastion.bild-hinweis": "So sieht {ganzes} von oben aus. Die Liste darunter zeigt dasselbe – dort baust und versetzt du."
+  "bastion.bild-hinweis": "So sieht {ganzes} von oben aus. Tippe ein Gebäude an, um es zu versetzen. Die Liste darunter zeigt dasselbe.",
+  "bastion.tippe-feld": "Tippe auf das Feld, wohin es soll.",
+  "bastion.fertig": "Fertig",
+  "bastion.bild-aus": "Bild ausblenden – nur die Liste",
+  "bastion.bild-an": "Bild zeigen"
 }

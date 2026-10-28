@@ -178,7 +178,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **B – Bauen:** 2.5 Gebäudekatalog ✅ (`src/core/bastion/katalog.ts`) · 2.6 Bauen ✅ (`src/core/bastion/bauen.ts`) · 2.7 Basebau-Schalter (Standard an) ✅ · 2.8 Listenansicht (zuerst Banner und Späherturm) ✅ · 2.9 Studierstube ✅ · 2.10 Ende der Epoche 1 ✅
 - **Zwischenschritt Themen (B-17):** 2.10a Rollen statt Burg-Wörter ✅ · 2.10b Themen und Wahl (Bastion, Garten, Weltraum, Dorf, Unterwasser) ✅
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
-- **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht · 2.14 Gestalten
+- **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ · 2.14 Gestalten
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17). Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
