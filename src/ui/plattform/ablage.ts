@@ -16,6 +16,7 @@ import {
   type Ergebnis,
 } from '../../core/bastion/bauen';
 import type { GebaeudeTyp, Position } from '../../core/bastion/katalog';
+import { buecher, type Buch } from '../../core/bastion/studierstube';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
@@ -240,14 +241,20 @@ async function lies(schluessel: string): Promise<string | undefined> {
 export interface BastionLage {
   readonly bastion: Bastion;
   readonly konto: Konto;
+  /** Studierstube: ein Buch je gefestigter Kompetenz (B-6) */
+  readonly buecher: readonly Buch[];
 }
 
 /** Bastion und Kontostand (Listenansicht, BASEBAU §11 Schritt 2.8). */
 export async function bastionLage(): Promise<BastionLage | undefined> {
   const inst = await bereit();
   if (!inst) return undefined;
-  const [b, k] = await Promise.all([bastion(db, inst.profil), konto(db, inst.profil)]);
-  return { bastion: b, konto: k };
+  const [b, k, alle] = await Promise.all([
+    bastion(db, inst.profil),
+    konto(db, inst.profil),
+    buchungen(db, inst.profil),
+  ]);
+  return { bastion: b, konto: k, buecher: buecher(alle) };
 }
 
 export type BauAuftrag =
@@ -284,7 +291,7 @@ export async function bauAusfuehren(
   else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
   if (!e.ok) return { hindernisse: e.hindernisse };
   const b = await bauSpeichern(db, inst, e, melder);
-  return { bastion: b, konto: await konto(db, inst.profil) };
+  return { ...lage, bastion: b, konto: await konto(db, inst.profil) };
 }
 
 /** Ist der Basebau eingeschaltet (R7)? Ohne Speicher: an (B-13). */

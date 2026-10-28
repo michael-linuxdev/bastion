@@ -25,6 +25,10 @@
     type BauAuftrag,
   } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import type { Kompetenz } from '../../core/competence/kompetenz';
+
+  let { kompetenzen }: { kompetenzen: readonly Kompetenz[] } = $props();
+  const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
 
   let lage = $state<BastionLage | undefined>(undefined);
   let geladen = $state(false);
@@ -277,6 +281,27 @@
     </ul>
     <p class="leise">{t('bastion.versetzen-erklaerung')}</p>
 
+    <h3>{t('bastion.buecher')}</h3>
+    <p class="leise">{t('bastion.buecher-erklaerung')}</p>
+    {#if l.buecher.length === 0}
+      <p>{t('bastion.buecher-leer')}</p>
+    {:else}
+      <ul class="regal">
+        {#each l.buecher as buch (`${buch.kompetenz}@${buch.niveau}`)}
+          <li>
+            📖 {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
+            <small class="leise"
+              >({t(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {t('bastion.seit')}
+              {datum(Date.parse(buch.seit))})</small
+            >
+          </li>
+        {/each}
+      </ul>
+      {#if !l.bastion.bauwerke.some((b) => b.typ === 'studierstube')}
+        <p class="leise">{t('bastion.buecher-ohne-stube')}</p>
+      {/if}
+    {/if}
+
     {#if l.bastion.fertig.length > 0}
       <h3>{t('bastion.geschichte')}</h3>
       <ul>
@@ -332,6 +357,14 @@
     padding: var(--abstand-s);
     border: 1px solid var(--farbe-rand);
     border-radius: var(--radius);
+  }
+
+  .regal {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--abstand-s);
   }
 
   .hindernis {

@@ -220,7 +220,13 @@
         <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
       {/if}
       {#if basebau}
-        <button class="zweit" onclick={() => (ansicht = 'bastion')}>{t('bastion.knopf')}</button>
+        <button
+          class="zweit"
+          onclick={() => {
+            inhalte ??= ladeInhalte();
+            ansicht = 'bastion';
+          }}>{t('bastion.knopf')}</button
+        >
       {/if}
       {#if offeneFehler > 0}
         <button class="zweit" onclick={werkstatt}>{t('werkstatt.knopf')}</button>
@@ -261,9 +267,6 @@
     {#if offline.bereit}
       <p class="offline" role="status">{t('start.offline')}</p>
     {/if}
-  {:else if ansicht === 'bastion'}
-    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-    <BastionAnsicht />
   {:else if ansicht === 'sicherung'}
     <button
       class="zurueck"
@@ -277,7 +280,10 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'anleitung' && anleitung}
+      {#if ansicht === 'bastion'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <BastionAnsicht kompetenzen={geladen.kompetenzen} />
+      {:else if ansicht === 'anleitung' && anleitung}
         <AnleitungAnsicht {anleitung} onzurueck={() => (ansicht = 'uebung')} />
       {:else if ansicht === 'abschluss'}
         <Abschluss

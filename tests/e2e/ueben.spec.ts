@@ -454,9 +454,9 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
 });
 
 /** Erarbeitete Ressourcen direkt in die Ablage schreiben (Buchungen und passendes Konto). */
-async function vorratAnlegen(page: Page, stand: Record<string, number>) {
+async function vorratAnlegen(page: Page, stand: Record<string, number>, gefestigt?: string) {
   await page.evaluate(
-    (stand) =>
+    ({ stand, gefestigt }) =>
       new Promise<void>((fertig, fehler) => {
         const anfrage = indexedDB.open('bastion');
         anfrage.onerror = () => fehler(anfrage.error);
@@ -482,6 +482,23 @@ async function vorratAnlegen(page: Page, stand: Record<string, number>) {
                 aufschluesselung: {},
                 regel: 1,
               });
+            // Ein gefestigtes Thema: Bauplan-Buchung wie in der App (B-6)
+            if (gefestigt)
+              tx.objectStore('buchungen').put({
+                id: `${profil}.bauplan.${gefestigt}`,
+                art: 'buchung',
+                v: 1,
+                profil,
+                ts: Date.now() - 60_000,
+                tag: '2026-11-04',
+                geraet: 'test0001',
+                ressource: 'bauplan',
+                menge: 1,
+                grund: 'kompetenz-gefestigt',
+                bezug: gefestigt,
+                aufschluesselung: {},
+                regel: 1,
+              });
             tx.objectStore('konto').put({ profil, stand, erworben: stand });
             // Projektion `bastion` neu berechnen lassen (beim nächsten Start)
             tx.objectStore('bastion').delete(profil);
@@ -493,7 +510,7 @@ async function vorratAnlegen(page: Page, stand: Record<string, number>) {
           tx.onerror = () => fehler(tx.error);
         };
       }),
-    stand,
+    { stand, gefestigt },
   );
 }
 
@@ -565,6 +582,22 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await page.reload();
   await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Bastion' })).toHaveCount(0);
+});
+
+test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.getByText(/Noch steht hier kein Buch/)).toBeVisible();
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await vorratAnlegen(page, { stein: 0, erz: 0, bauplan: 1, bauschritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
+  await page.reload();
+  await page.getByRole('button', { name: 'Bastion' }).click();
+  await expect(
+    page
+      .getByRole('listitem')
+      .filter({ hasText: /Ich kann Zahlen runden[\s\S]*grundlegend,\s+seit\s+4\.\s+November/ }),
+  ).toBeVisible();
+  await expect(page.getByText(/Baust du die Studierstube/)).toBeVisible();
 });
 
 test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({
