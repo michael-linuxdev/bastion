@@ -57,7 +57,7 @@ Vom Projektverantwortlichen, neu:
 6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **1c weiter:** Kompetenzansicht – was gefestigt ist, was wackelt, auch ohne Bastion verständlich (PLAN 1c, Punkt 8); in der Übersicht „empfohlen“ nach L-5 markieren; „Rückweg bei Fehlern“ (LEHRPLAN §7: nach wiederholtem Scheitern gezielt eine Voraussetzung vorschlagen). Danach Elternbereich minimal und Export/Import.
+7. **1c weiter:** Export/Import mit Sicherungs-Erinnerung (DATENMODELL §7). Danach ist Phase 1c bis auf die Testrunde fertig.
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -79,7 +79,9 @@ Mit Claude Code, als Nächstes:
 - **Rückkehrmodus (1b):** nach mehr als 7 Tagen ohne Aufgabe Begrüßung ohne Vorwurf, keine Pausenlänge; jede Wiederholungsrunde höchstens 20 Aufgaben, die gefährdetsten zuerst (`src/core/srs/rueckkehr.ts`). Phase 1b ist damit bis auf die Belohnung fürs Korrigieren (R6, braucht den Ledger) fertig.
 - Lehre aus der CI: Browser-Tests müssen warten, bis im Hintergrund gespeichert ist, bevor sie neu laden (z. B. „in Arbeit“ in der Übersicht abwarten).
 - **Diagnose (1c):** „Wo stehe ich?“ auf der Startseite (`src/core/learning/diagnose.ts`, `src/ui/ueben/Diagnose.svelte`). Testet je Schritt die Kompetenz, deren Ergebnis am meisten entscheidet, zwei Aufgaben je Kompetenz (bei 1 : 1 eine dritte), höchstens 30 in zwei Etappen; keine Wertung, keine Hilfen, „Weiß ich nicht“ erlaubt und kein Fehler für die Werkstatt. Ergebnis: Empfehlungen mit „Üben“-Knopf und Liste dessen, was sitzt. Getestet bestanden → „gekonnt“; Gefolgertes wird nicht gespeichert. Diagnose-Aufgaben ohne FSRS-Bewertung. Ehrliche Grenze: Bei sehr Starken bleiben wegen der 21 Endpunkte des Graphen Themen ungetestet. PR #6 ist gemergt.
-- 1604 Tests und 8 Browser-Tests, Lint, Build, Größenbudget (103 von 250 KB) grün. Branch `claude/new-session-fl56ro`, noch **nicht** nach `main` gebracht (wartet auf OK).
+- **Kompetenzansicht (1c):** „Mein Stand“ auf der Startseite – Zusammenfassung, Empfehlungen, Abschnitte „Wackelt gerade“, „In Arbeit“, „Gekonnt“ (mit nächster Wiederholung), „Gefestigt“, jeweils mit Erklärung in einfacher Sprache; „empfohlen“ in der Übersicht (L-5); Rückweg bei Fehlern nach drei Fehlern in Folge (`src/core/learning/empfehlung.ts`). PR #7 (Diagnose) ist gemergt.
+- **Elternbereich (1c, D-14):** „Für Eltern“ auf der Startseite. Beim ersten Öffnen PIN festlegen (4–8 Ziffern, PBKDF2 über WebCrypto), danach einmalig ein Wiederherstellungscode aus vier Wörtern (D-12) zum Aufschreiben; „PIN vergessen?“ setzt mit dem Code zurück. Standard ist die einfache Ansicht (Themen mit Status je Niveau, Wochen mit Lerntagen und Aufgaben), auf Wunsch die ausführliche (letzte 100 Aufgaben mit Zeit, Ergebnis, Fehlerbild, Hilfen, Dauer). Jugendliche sehen genau das unter „Mein Stand“ → „Was meine Eltern sehen“. PIN und Code sind Einstellungs-Ereignisse (D-5), geheim und nur gehasht. Ehrlicher Hinweis: Eine PIN auf dem Gerät des Kindes ist eine Hürde, keine Festung.
+- 1620 Tests und 10 Browser-Tests, Lint, Build, Größenbudget (110 von 250 KB) grün. Branch `claude/new-session-fl56ro`; Kompetenzansicht und Elternbereich noch **nicht** nach `main` gebracht (wartet auf OK).
 
 ## Am Ende der Sitzung aktualisieren
 

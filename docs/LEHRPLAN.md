@@ -173,6 +173,8 @@ Für handverfasste Vorlagen ohne Generator gibt es mindestens 5 gleichwertige Va
 
 **Rückweg bei Fehlern:** Scheitert jemand wiederholt an einer Kompetenz, schlägt die App gezielt eine Voraussetzung vor („Kurz Teiler auffrischen?“), statt immer weiter dieselbe Kompetenz zu wiederholen.
 
+*Umsetzung (1c):* `src/core/learning/empfehlung.ts`. „Empfohlen“ (L-5) steht in der Übersicht und in „Mein Stand“. Rückweg: nach **drei** falschen Antworten in Folge beim Üben schlägt die App die grundlegendste Voraussetzung vor, die noch nicht mindestens „gekonnt“ ist („Kurz üben“); gibt es keine, kommt kein Vorschlag.
+
 ## 8. Klasse 5 (Sachsen) – Kompetenzen für den ersten Bauabschnitt
 
 Grundlage (K-16, bindend): **Lehrplan Oberschule Mathematik 2019** und **Lehrplan Gymnasium Mathematik 2004/2009/2011/2013/2019/2021** (Klassenstufen 5–8 in Kraft seit 1. August 2021), Sächsisches Staatsministerium für Kultus; Fundstellen in `docs/quellen/README.md`. Abkürzungen: **OS** = Oberschule, **GY** = Gymnasium, **LB** = Lernbereich.

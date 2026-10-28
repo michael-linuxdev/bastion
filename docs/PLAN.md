@@ -162,8 +162,8 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1c – Diagnose und sichtbarer Fortschritt**
 7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform) – *steht: „Wo stehe ich?“ auf der Startseite, adaptiv durch den Graphen der Klasse 5, höchstens 30 Aufgaben in zwei Etappen, ohne Wertung und ohne Hilfen, Ergebnis „Hier stehst du – hier geht es weiter“ mit Empfehlungen zum Üben; bestandene Kompetenzen werden „gekonnt“*
-8. Kompetenzansicht: was gefestigt ist, was wackelt – ohne Bastion verständlich
-9. Elternbereich minimal (PIN, Stufe „begleitet“, Kompetenzbericht)
+8. Kompetenzansicht: was gefestigt ist, was wackelt – ohne Bastion verständlich – *steht: „Mein Stand“ mit Erklärung jeder Stufe, nächster Wiederholung und Empfehlungen; „empfohlen“ in der Übersicht (L-5); Rückweg bei Fehlern nach drei Fehlern in Folge (LEHRPLAN §7)*
+9. Elternbereich minimal (PIN, Stufe „begleitet“, Kompetenzbericht) – *steht: „Für Eltern“ auf der Startseite, PIN beim ersten Öffnen, Wiederherstellungscode aus vier Wörtern (D-12), einfache Ansicht (Themen, Wochen) als Standard und ausführliche Ansicht mit einzelnen Aufgaben (D-14); Jugendliche sehen dasselbe unter „Mein Stand“*
 10. Export/Import, Sicherungs-Erinnerung
 
 **Durchgehend**
@@ -207,3 +207,4 @@ Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 i
 | 28.10.2026 | PR #5 gemergt (Wiederholung). Fehlerwerkstatt: offene Fehler nach Ursache, Aufarbeiten der damaligen Aufgabe, Ereignisfeld `korrigiert` |
 | 28.10.2026 | Rückkehrmodus (BASEBAU §6.3): Begrüßung nach mehr als 7 Tagen Pause, Wiederholungen portioniert (höchstens 20, die gefährdetsten zuerst); CI-Test „Wiederholen“ robuster |
 | 28.10.2026 | PR #6 gemergt (Fehlerwerkstatt, Rückkehrmodus). 1c Diagnose: adaptiver Gang durch den Graphen, Simulation mit 500 Wissensständen, „Wo stehe ich?“ in der App |
+| 28.10.2026 | PR #7 gemergt (Diagnose). Kompetenzansicht „Mein Stand“, „empfohlen“ in der Übersicht, Rückweg bei Fehlern |

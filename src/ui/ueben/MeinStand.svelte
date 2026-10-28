@@ -1,0 +1,214 @@
+<script lang="ts">
+  // Kompetenzansicht (PLAN 1c, Punkt 8): was gefestigt ist, was wackelt – ohne
+  // Bastion verständlich, ohne Noten und Prozente, mit Erklärung jeder Stufe.
+  import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
+  import { empfohlen } from '../../core/learning/empfehlung';
+  import type { AnzeigeStatus } from '../../core/learning/fortschritt';
+  import type { AufgabeEreignis } from '../../core/learning/ereignis';
+  import type { GeneratorVorlage } from '../../core/learning/vorlage';
+  import Bericht from '../eltern/Bericht.svelte';
+  import type { Zustand } from '../plattform/ablage';
+  import { t, type TextSchluessel } from '../texte/texte';
+  import { nachBereich } from './reihenfolge';
+  import { naechsteWiederholung, sitzt, statusVon } from './stand';
+
+  let {
+    kompetenzen,
+    vorlagen,
+    zustand,
+    aufgaben,
+    niveau = $bindable(),
+    onueben,
+  }: {
+    kompetenzen: readonly Kompetenz[];
+    vorlagen: readonly GeneratorVorlage[];
+    zustand: Zustand;
+    aufgaben: readonly AufgabeEreignis[];
+    niveau: Niveau;
+    onueben: (k: Kompetenz) => void;
+  } = $props();
+
+  // Einmal beim Öffnen – kein laufender Timer (R2)
+  const jetzt = Date.now();
+  const klasse5 = $derived(
+    nachGraph(nachBereich(kompetenzen)).filter(
+      (k) =>
+        k.klassenstufe_typisch.includes(5) &&
+        vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
+    ),
+  );
+  const status = $derived(
+    new Map(klasse5.map((k) => [k.id, statusVon(zustand, k.id, niveau, jetzt)])),
+  );
+  const gruppe = (s: AnzeigeStatus) => klasse5.filter((k) => status.get(k.id) === s);
+  const weiter = $derived(
+    empfohlen(klasse5, (id) => sitzt(status.get(id) ?? 'neu'))
+      .slice(0, 3)
+      .map((id) => klasse5.find((k) => k.id === id))
+      .filter((k): k is Kompetenz => k !== undefined),
+  );
+  const angefangen = $derived(klasse5.some((k) => status.get(k.id) !== 'neu'));
+  const datum = (ms: number) =>
+    new Date(ms).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' });
+
+  const ABSCHNITTE: readonly AnzeigeStatus[] = ['auffrischen', 'in-arbeit', 'gekonnt', 'gefestigt'];
+</script>
+
+<section class="stand">
+  <h2>{t('stand.ueberschrift')}</h2>
+  <p class="leise">{t('stand.einleitung')}</p>
+
+  <fieldset class="niveau">
+    <legend>{t('niveau.ueberschrift')}</legend>
+    <label><input type="radio" value="G" bind:group={niveau} /> {t('niveau.G')}</label>
+    <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
+  </fieldset>
+
+  <p class="zahlen">
+    {klasse5.length}
+    {t('stand.zusammenfassung')} ·
+    {gruppe('gefestigt').length}
+    {t('status.gefestigt')} ·
+    {gruppe('gekonnt').length + gruppe('auffrischen').length}
+    {t('status.gekonnt')} ·
+    {gruppe('in-arbeit').length}
+    {t('status.in-arbeit')}
+  </p>
+
+  {#if !angefangen}
+    <p>{t('stand.leer')}</p>
+  {/if}
+
+  {#if weiter.length > 0}
+    <h3>{t('stand.empfohlen')}</h3>
+    <ul class="liste">
+      {#each weiter as k (k.id)}
+        <li>
+          <span>{k.titel.de}</span>
+          <button onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
+        </li>
+      {/each}
+    </ul>
+  {/if}
+
+  {#each ABSCHNITTE as s (s)}
+    {@const liste = gruppe(s)}
+    {#if liste.length > 0}
+      <h3 class="abschnitt {s}">{t(`stand.${s}` as TextSchluessel)} ({liste.length})</h3>
+      <p class="leise">{t(`stand.${s}-erklaerung` as TextSchluessel)}</p>
+      <ul class="liste">
+        {#each liste as k (k.id)}
+          {@const wann = naechsteWiederholung(zustand, k.id, niveau)}
+          <li>
+            <span>
+              {k.titel.de}
+              {#if wann !== undefined && (s === 'gekonnt' || s === 'gefestigt')}
+                <small class="leise">{t('stand.wiederholung')} {datum(wann)}</small>
+              {/if}
+            </span>
+            <button onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  {/each}
+
+  {#if gruppe('neu').length > 0 && angefangen}
+    <p class="leise">{t('stand.neu')}: {gruppe('neu').length}</p>
+  {/if}
+
+  <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->
+  <details class="eltern-sehen">
+    <summary>{t('stand.eltern-sehen')}</summary>
+    <p class="leise">{t('stand.eltern-sehen-text')}</p>
+    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
+  </details>
+</section>
+
+<style>
+  .stand {
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .leise {
+    color: var(--farbe-text-leise);
+  }
+
+  .zahlen {
+    font-weight: bold;
+  }
+
+  .niveau {
+    display: flex;
+    gap: var(--abstand-m);
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+  }
+
+  .niveau label {
+    min-block-size: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+  }
+
+  .abschnitt {
+    margin-block-end: 0;
+    border-inline-start: 4px solid var(--farbe-rand);
+    padding-inline-start: var(--abstand-s);
+  }
+
+  .abschnitt.gefestigt,
+  .abschnitt.gekonnt {
+    border-inline-start-color: #3f7d3a;
+  }
+
+  .abschnitt.auffrischen {
+    border-inline-start-color: var(--farbe-akzent);
+  }
+
+  .liste {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .liste li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--abstand-s);
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+  }
+
+  .liste small {
+    display: block;
+  }
+
+  .eltern-sehen {
+    margin-block-start: var(--abstand-l);
+  }
+
+  .eltern-sehen summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button {
+    font: inherit;
+    min-block-size: 2.75rem;
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border: 2px solid var(--farbe-akzent);
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
+  }
+</style>

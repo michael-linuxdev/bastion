@@ -2,7 +2,16 @@ import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
 import { describe, expect, it } from 'vitest';
 import { aufgabeEreignis, type AufgabeAngaben } from '../core/learning/ereignis';
 import { quelleAusSeed } from '../core/rng/zufallsquelle';
-import { einrichten, karten, kompetenzStaende, neuBerechnen, speichereAufgabe } from './ablage';
+import {
+  einrichten,
+  einstellung,
+  karten,
+  kompetenzStaende,
+  neuBerechnen,
+  speichereAufgabe,
+  speichereEinstellung,
+} from './ablage';
+import { einstellungEreignis } from '../core/policy/einstellung';
 import { BastionDatenbank } from './datenbank';
 
 let nr = 0;
@@ -97,5 +106,23 @@ describe('Ablage', () => {
     await speichereAufgabe(db, e);
     await expect(speichereAufgabe(db, e)).rejects.toThrow();
     expect((await kompetenzStaende(db, profil))[0]?.aufgaben).toBe(1);
+  });
+
+  it('Einstellungen: Ereignis plus aktueller Wert; die jüngste Änderung gilt', async () => {
+    const db = neueDb();
+    const { profil, geraet } = await einrichten(db, 1000, quelleAusSeed(1));
+    const z = quelleAusSeed(5);
+    const e = (wert: string, ts: number) =>
+      einstellungEreignis(
+        { profil, geraet, schluessel: 'eltern.pin', wert, durch: 'eltern' },
+        ts,
+        60,
+        z,
+      );
+    await speichereEinstellung(db, e('a', 2000));
+    await speichereEinstellung(db, e('b', 3000));
+    await speichereEinstellung(db, e('alt', 2500)); // nachträglich eingespielt, älter
+    expect(await einstellung(db, profil, 'eltern.pin')).toBe('b');
+    expect(await db.einstellungen_ereignisse.count()).toBe(3);
   });
 });

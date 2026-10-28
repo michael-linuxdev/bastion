@@ -11,6 +11,7 @@ import {
 import { kartenSchluessel, type Karte } from '../core/srs/karten';
 import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
+import type { EinstellungEreignis } from '../core/policy/einstellung';
 import type { BastionDatenbank } from './datenbank';
 
 export interface Installation {
@@ -118,4 +119,31 @@ export async function neuBerechnen(db: BastionDatenbank, profil: string): Promis
     await db.kompetenzen.bulkPut([...p.staende.values()]);
     await db.karten.bulkPut([...p.karten.values()]);
   });
+}
+
+/** Einstellung speichern: Ereignis und aktueller Wert in einer Transaktion (D-5, D-6). */
+export async function speichereEinstellung(
+  db: BastionDatenbank,
+  e: EinstellungEreignis,
+): Promise<void> {
+  await db.transaction('rw', db.einstellungen_ereignisse, db.einstellungen, async () => {
+    await db.einstellungen_ereignisse.add(e);
+    const alt = await db.einstellungen.get([e.profil, e.schluessel]);
+    // Pro Schlüssel gilt die jüngste Änderung (D-5)
+    if (!alt || alt.ts <= e.ts)
+      await db.einstellungen.put({
+        profil: e.profil,
+        schluessel: e.schluessel,
+        wert: e.wert,
+        ts: e.ts,
+      });
+  });
+}
+
+export async function einstellung(
+  db: BastionDatenbank,
+  profil: string,
+  schluessel: string,
+): Promise<unknown> {
+  return (await db.einstellungen.get([profil, schluessel]))?.wert;
 }

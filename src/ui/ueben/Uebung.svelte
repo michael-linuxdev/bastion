@@ -3,6 +3,7 @@
   // Fehlerbild, Hilfen, Lösungsweg. Welche Aufgabe als Nächstes kommt, bestimmt
   // `auftrag` – reihum zu einer Kompetenz (Üben) oder aus der Liste fälliger
   // Karten (Wiederholen). Ohne Zeitdruck und ohne Punkte (R1, R2).
+  import type { Kompetenz } from '../../core/competence/kompetenz';
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
@@ -22,6 +23,8 @@
     paketVon,
     onzurueck,
     onergebnis,
+    vorschlag,
+    onwechsel,
   }: {
     ueberschrift: string;
     /** Der n-te Auftrag dieser Runde; undefined = Runde zu Ende. */
@@ -30,7 +33,11 @@
     paketVon: ReadonlyMap<string, string>;
     onzurueck: () => void;
     onergebnis: (daten: Antwortdaten) => void;
+    /** Rückweg bei Fehlern (LEHRPLAN §7): Vorschlag nach mehreren Fehlern in Folge */
+    vorschlag?: (kompetenz: string, fehlerInFolge: number) => Kompetenz | undefined;
+    onwechsel?: (k: Kompetenz) => void;
   } = $props();
+  let fehlerInFolge = $state(0);
 
   interface Aufgabe extends Auftrag {
     readonly instanz: Instanz;
@@ -84,6 +91,7 @@
       ergebnis,
     });
     if (!ergebnis.richtig) wegOffen = true;
+    fehlerInFolge = ergebnis.richtig ? 0 : fehlerInFolge + 1;
   }
 
   function weiter() {
@@ -93,6 +101,12 @@
     wegOffen = false;
     nummer += 1;
   }
+
+  const rueckwegZu = $derived(
+    ergebnis && !ergebnis.richtig && aufgabe && vorschlag
+      ? vorschlag(aufgabe.kompetenz.id, fehlerInFolge)
+      : undefined,
+  );
 
   const rueckmeldung = $derived.by(() => {
     if (!ergebnis || ergebnis.richtig || !aufgabe) return undefined;
@@ -190,6 +204,13 @@
               {/each}
             </ol>
           </details>
+          {#if rueckwegZu && onwechsel}
+            {@const ziel = rueckwegZu}
+            <div class="rueckweg">
+              <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
+              <button onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
+            </div>
+          {/if}
           <div class="knoepfe">
             <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
           </div>
@@ -215,6 +236,14 @@
     border-radius: var(--radius);
     padding-block: var(--abstand-m);
     padding-inline: var(--abstand-m);
+  }
+
+  .rueckweg {
+    margin-block: var(--abstand-m);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border: 1px dashed var(--farbe-akzent);
+    border-radius: var(--radius);
   }
 
   .damals {

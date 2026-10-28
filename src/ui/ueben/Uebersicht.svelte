@@ -1,11 +1,12 @@
 <script lang="ts">
   // Übersicht der Kompetenzen der Klasse 5, nach Bereich und Feld, mit Wahl des Niveaus.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
-  import { anzeigeStatus } from '../../core/learning/fortschritt';
+  import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
   import { BEREICHE } from './reihenfolge';
+  import { sitzt, statusVon } from './stand';
 
   let {
     kompetenzen,
@@ -23,12 +24,11 @@
 
   // Status zur Anzeige, einmal beim Öffnen berechnet (kein laufender Timer, R2)
   const jetzt = Date.now();
-  const status = (k: Kompetenz) =>
-    anzeigeStatus(
-      zustand.staende.get(`${k.id}|${niveau}`),
-      zustand.karten.filter((x) => x.kompetenz === k.id && x.niveau === niveau),
-      jetzt,
-    );
+  const status = (k: Kompetenz) => statusVon(zustand, k.id, niveau, jetzt);
+  // Empfohlen (L-5): alle Voraussetzungen sitzen, die Kompetenz selbst noch nicht – gesperrt wird nichts
+  const empfehlungen = $derived(
+    new Set(empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)))),
+  );
 
   const bereiche = $derived(
     BEREICHE.map((bereich) => ({
@@ -69,6 +69,8 @@
                     `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
                   )}
                 </span>
+              {:else if empfehlungen.has(k.id)}
+                <span class="status empfohlen">{t('status.empfohlen')}</span>
               {/if}
             </span>
             <span class="kann">{k.kann_satz.de}</span>
@@ -154,6 +156,10 @@
   .status.gefestigt {
     color: #3f7d3a;
     font-weight: bold;
+  }
+
+  .status.empfohlen {
+    color: var(--farbe-akzent);
   }
 
   .status.auffrischen {
