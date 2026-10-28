@@ -162,6 +162,14 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 
 **Summe Epoche 1** (ohne beliebige Zierde): ca. 2 000 Stein, 570 Erz, 17 Baupläne, ~100 Bauschritte.
 
+*Umsetzung (2.5):* `src/core/bastion/katalog.ts` – Katalog als Daten, genau nach dieser Tabelle (Test: 2 000 Stein, 570 Erz, 17 Baupläne, 93 Bauschritte). Präzisierungen:
+- **Banner 10 Stein, 1 Bauschritt** statt 20–40: Nur so reicht die erste Lerneinheit (etwa 10 Stein) für ein Banner, wie §5.1 verlangt. Garten 30, Statue 40 Stein, je 1 Bauschritt; Zierde ohne Höchstzahl, begrenzt nur durch den Platz.
+- **Feuerstelle** steht nur im Startzustand und wird nicht gebaut.
+- **Größen** in Feldern (Draufsicht, B-11): Bergfried 3 × 3, Bauhütte, Studierstube und Garten 2 × 2, alles andere 1 × 1.
+- **Startzustand:** Bergfried in der Mitte, Feuerstelle davor, vier Palisaden mit einer Lücke für das Tor.
+- **Hindernisse** ohne Blick auf Ressourcen: nicht baubar, Höchststufe, Höchstzahl, Bergfried zu niedrig (§4.2), fehlende Voraussetzung. Ob die Ressourcen reichen, prüft das Bauen (2.6).
+- Namen und je ein Satz „wozu“ stehen in der Textdatei (`gebaeude.<typ>`).
+
 ### 5.3 Herleitung
 
 Referenzprofil P1 „regelmäßig“: 4 Lerneinheiten pro Woche à 15 Minuten.
@@ -284,7 +292,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
-| 2.5 | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
+| 2.5 ✅ | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
 | 2.6 | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Bauhütte zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
 | 2.7 | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
 | 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Späherturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
