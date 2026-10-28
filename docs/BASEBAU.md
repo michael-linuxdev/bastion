@@ -325,6 +325,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-20 | **Ziel vormerken:** Das Kind kann ein Bauvorhaben vormerken und sieht, was dafür noch fehlt. Sparen wird sichtbare Vorfreude; keine Zeitvorgabe, kein Tageszähler (R5) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-21 | **Einlagern:** Zierde lässt sich jederzeit kostenlos vom Bauplatz ins Lager nehmen und wieder aufstellen. Nichts geht verloren (R3), nichts lässt sich farmen – so wird der Platz nie zur Falle | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-22 | **Einfassung 40 Stück** in Epoche 1 (4 am Start, 36 baubar, je 15 Fleiß und 1 Bauschritt), damit sich ein Teil des Bauplatzes umschließen lässt | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-23 | Im Thema Dorf heißt der Kern **Gemeindehaus**, nicht „Rathaus“ | Entschieden (28.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -365,7 +366,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 | Rolle | Bastion | Garten | Weltraum | Dorf | Unterwasser |
 |---|---|---|---|---|---|
-| kern | Bergfried | Baumhaus | Kommandomodul | Rathaus | Hauptkuppel |
+| kern | Bergfried | Baumhaus | Kommandomodul | Gemeindehaus | Hauptkuppel |
 | werkstatt | Zimmerei | Geräteschuppen | Montagehalle | Schreinerei | Werft |
 | wissen | Studierstube | Gewächshaus | Sternwarte | Bücherei | Perlenkammer |
 | turm | Späherturm | Aussichtsbaum | Antennenmast | Windmühle | Leuchtturm |
