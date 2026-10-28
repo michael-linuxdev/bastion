@@ -1,0 +1,23 @@
+# „Relative Häufigkeit der 3 in Prozent?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.HAEUFIGKEIT.RELATIV
+kompetenz: M.DZ.ZF.HAEUFIGKEIT
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: zf.relativ@1
+parameter:
+  G: { wuerfe: [10, 20, 25, 50, 100] }
+  M: { wuerfe: [40, 80, 120, 200] }
+text:
+  aufgabe:
+    de: 'Ein [[Würfel]] wurde {n}-mal geworfen. **Gib** die [[relative Häufigkeit]] der Augenzahl {augen} in [[Prozent]] **an**.'
+hilfen:
+  - de: 'Relative Häufigkeit = wie oft die {augen} kam : wie oft insgesamt geworfen wurde.'
+  - de: 'Schreibe das Ergebnis als [[Bruch]] und erweitere auf den [[Nenner]] 100.'
+fehlerbilder:
+  absolut-statt-relativ:
+    de: 'Das ist die [[absolute Häufigkeit]] – wie oft die {augen} kam. Für die [[relative Häufigkeit]] teilst du durch die Anzahl aller Würfe.'
+  dezimal-statt-prozent:
+    de: 'Das ist die [[relative Häufigkeit]] als [[Dezimalzahl]]. Gefragt ist sie in [[Prozent]] – nimm sie mal 100.'
+herkunft: ki-entwurf
+version: 1

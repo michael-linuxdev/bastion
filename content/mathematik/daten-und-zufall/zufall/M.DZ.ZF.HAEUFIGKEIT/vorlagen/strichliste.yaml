@@ -1,0 +1,23 @@
+# „Wie oft wurde die 4 gewürfelt?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.HAEUFIGKEIT.STRICHLISTE
+kompetenz: M.DZ.ZF.HAEUFIGKEIT
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: zf.strichliste@1
+parameter:
+  G: { anzahl_max: 12 }
+  M: { anzahl_max: 30 }
+text:
+  aufgabe:
+    de: 'Ein [[Würfel]] wurde oft geworfen. **Lies** aus der [[Strichliste]] **ab**: Wie oft wurde die {augen} gewürfelt?'
+hilfen:
+  - de: Vier Striche und ein Querstrich sind ein Fünferbündel.
+  - de: Zähle die Fünferbündel, nimm sie mal 5 und zähle die einzelnen Striche dazu.
+fehlerbilder:
+  buendel-als-vier:
+    de: Du hast den Querstrich nicht mitgezählt. Ein Bündel mit Querstrich sind fünf Striche.
+  buendel-als-zehn:
+    de: Ein Bündel sind fünf Striche, nicht zehn.
+herkunft: ki-entwurf
+version: 1

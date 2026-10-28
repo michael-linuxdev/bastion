@@ -61,6 +61,31 @@ begriffe:
     formen: [Quotienten]
     erklaerung:
       de: 'Das Ergebnis einer Geteiltaufgabe. Bei 12 : 3 = 4 ist 4 der Quotient.'
+  - id: relative-haeufigkeit
+    wort: { de: relative Häufigkeit }
+    formen: [relative Häufigkeit, relativen Häufigkeit]
+    erklaerung:
+      de: 'Wie oft etwas vorkam, geteilt durch alle Versuche. 5-mal die 6 bei 20 Würfen: 5/20 = 25 %.'
+  - id: absolute-haeufigkeit
+    wort: { de: absolute Häufigkeit }
+    formen: [absolute Häufigkeit]
+    erklaerung:
+      de: 'Wie oft ein Ergebnis vorkam, zum Beispiel 5-mal die 6.'
+  - id: strichliste
+    wort: { de: Strichliste }
+    formen: [Strichliste]
+    erklaerung:
+      de: 'Für jedes Ergebnis ein Strich. Jeder fünfte Strich geht quer über die vier davor – das ist ein Fünferbündel.'
+  - id: kreisdiagramm
+    wort: { de: Kreisdiagramm }
+    formen: [Kreisdiagramm]
+    erklaerung:
+      de: 'Ein Kreis, der in Teile geteilt ist. Jeder Teil zeigt einen Anteil am Ganzen.'
+  - id: mittelpunktswinkel
+    wort: { de: Mittelpunktswinkel }
+    formen: [Mittelpunktswinkel]
+    erklaerung:
+      de: 'Der Winkel eines Kreisteils am Mittelpunkt des Kreises. Der ganze Kreis hat 360°.'
   - id: summe
     wort: { de: Summe }
     formen: [Summe]

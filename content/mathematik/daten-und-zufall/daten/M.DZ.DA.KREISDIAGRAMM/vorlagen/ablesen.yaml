@@ -1,0 +1,25 @@
+# „Welcher Anteil ist im Kreisdiagramm gefärbt?“ Entwurf: noch nicht geprüft.
+id: M.DZ.DA.KREISDIAGRAMM.ABLESEN
+kompetenz: M.DZ.DA.KREISDIAGRAMM
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: kd.anteil-ablesen@1
+parameter:
+  G: { nenner: [2, 3, 4, 5], einteilung: true }
+  M: { nenner: [4, 6, 8, 12], einteilung: false }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Gib** den gefärbten [[Anteil]] als vollständig [[gekürzten]] [[Bruch]] **an**.'
+hilfen:
+  - de: In wie viele gleich große Teile ist der Kreis geteilt, und wie viele davon sind gefärbt?
+  - de: 'Ohne Einteilung hilft der [[Winkel]]. Der ganze Kreis hat 360°, ein Viertel sind 90°.'
+fehlerbilder:
+  ungefaerbt:
+    de: 'Das ist der weiße [[Anteil]]. Gesucht ist der gefärbte.'
+  teile-gezaehlt:
+    de: 'Du hast gefärbte mit weißen Teilen verglichen. Der [[Nenner]] zählt **alle** Teile des Kreises.'
+herkunft: ki-entwurf
+version: 1
