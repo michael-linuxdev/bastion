@@ -170,6 +170,9 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 13. Klasse 6 erst, wenn Klasse 5 nach den Kriterien in `STRATEGIE.md` §2 abgeschlossen ist – *nach K-17 ohne Prüfung und Test: Klasse 5 ist damit abgeschlossen, Klasse 6 ist dran. Stand: alle 26 Kompetenzen der Klasse 6 haben Vorlagen (53, Entwurf), Übersicht, „Mein Stand“ und Diagnose mit Klassenwahl*
 14. Klasse 7 (K-15, K-17) – *Stand: Lehrpläne ausgewertet (OS mit Haupt- und Realschulbildungsgang, GY), 29 Kompetenzen und Graph in `LEHRPLAN.md` §8c; alle 29 Kompetenzen haben Vorlagen (60, Entwurf) und 4 Anleitungen, Klassenwahl mit Klasse 7 – Klasse 7 ist inhaltlich abgedeckt*
 15. Klasse 8 (K-15, K-17) – *Stand: Lehrpläne ausgewertet, 27 Kompetenzen und Graph in `LEHRPLAN.md` §8d; Vorlagen folgen Feld für Feld (TU und FK fertig), Klassenwahl mit Klasse 8*
+16. Nach Klasse 8 (K-20): Startpaket für Späteinsteiger (B-24), Hinterhof (B-25), Wechsel begleiten (L-12), Bericht für die Lehrkraft im Elternbereich (L-13)
+17. Klasse 9 bis 12, danach Mathe im Studium (K-19)
+18. Budget der App-Hülle: Generatoren nachladen, sobald 250 KB knapp werden (vom Projektverantwortlichen freigegeben, 28.10.2026; Eintrag im Entscheidungslog von `ARCHITEKTUR.md`)
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 
