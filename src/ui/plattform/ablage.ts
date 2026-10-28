@@ -5,7 +5,7 @@
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
 import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
-import type { Konto } from '../../core/ledger/buchung';
+import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
@@ -32,6 +32,7 @@ import { gruppiere, offeneFehler, type Fehlergruppe } from '../../core/learning/
 import {
   aufgaben,
   buchen,
+  buchungen,
   einrichten,
   konto,
   einstellung,
@@ -95,6 +96,12 @@ async function sitzungAbschliessen(
 export async function sitzungBeenden(): Promise<void> {
   const inst = await bereit();
   if (inst) await sitzungAbschliessen(inst, 'regulaer');
+}
+
+/** Alle Buchungen des Profils (Abschlussbildschirm). */
+export async function alleBuchungen(): Promise<BuchungEreignis[]> {
+  const inst = await bereit();
+  return inst ? buchungen(db, inst.profil).catch(() => []) : [];
 }
 
 /** Kontostand des Profils (leer, wenn nicht gespeichert werden kann). */

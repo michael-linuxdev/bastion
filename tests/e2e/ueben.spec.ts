@@ -383,6 +383,9 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
     page.getByRole('listitem').filter({ hasText: /^Addieren und Subtrahieren · / }),
   ).toHaveCount(1);
   await expect(page.getByText('1 Aufgabe bearbeitet')).toBeVisible();
+  // Die schnelle falsche Antwort gilt als geraten: keine Ressourcen, ein freundlicher Hinweis
+  await expect(page.getByText(/Heute gab es noch keine Ressourcen/)).toBeVisible();
+  await expect(page.getByText(/Nimm dir ruhig etwas mehr Zeit/)).toBeVisible();
   await expect(page.getByText(/Für heute ist das gut/)).toBeVisible();
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
   await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
@@ -391,6 +394,26 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   expect(await sitzungenImSpeicher(page)).toEqual([
     { abschluss: 'regulaer', aufgaben: 0, lerneinheit: false },
   ]);
+});
+
+test('Fertig für heute: Ressourcen unter dem Können, mit „woher“ (BASEBAU §6.1)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  // in Ruhe nachdenken: mehr als 5 Sekunden, dann zählt auch eine falsche Antwort
+  await page.waitForTimeout(5_200);
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Fertig für heute' }).click();
+  const gekonnt = page.getByRole('heading', { name: 'Was du heute gekonnt hast' });
+  const ertrag = page.getByRole('heading', { name: 'Dafür hast du erarbeitet' });
+  await expect(ertrag).toBeVisible();
+  await expect(page.getByText('1 Stein – aus 1 bearbeiteten Aufgabe')).toBeVisible();
+  // Erst das Können, dann die Ressourcen (§9 Punkt 2)
+  const oben = async (l: typeof gekonnt) => (await l.boundingBox())?.y ?? 0;
+  expect(await oben(gekonnt)).toBeLessThan(await oben(ertrag));
 });
 
 test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({

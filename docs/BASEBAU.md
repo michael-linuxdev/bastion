@@ -192,6 +192,8 @@ Epochen 2–4 werden ausgearbeitet, wenn Epoche 1 getestet ist (Phase 3). Nur so
 
 *Umsetzung (1a, Lernkern):* Der Abschlussbildschirm steht ohne Ressourcen (`src/ui/ueben/Abschluss.svelte`): Knopf „Fertig für heute“, zuerst das Können (gefestigt, neu gekonnt, geübt), dann Zahlen, dann der Pausenvorschlag. Bis es Sitzungs-Ereignisse gibt, gilt der Lerntag als Einheit. Ressourcen ergänzt Phase 2a – unter dem Können, nicht darüber (Korrumpierungseffekt, §9).
 
+*Umsetzung (2.4):* Unter „Was du heute gekonnt hast“ steht „Dafür hast du erarbeitet“ mit je einer Zeile pro Ressource und ihrem Ursprung, z. B. „12 Stein – aus 12 bearbeiteten Aufgaben“, „3 Erz – aus 2 Wiederholungen und 1 aufgearbeiteten Fehler“ (R6), „1 Bauschritt – aus 1 Lerneinheit“, „1 Bauplan – weil du jetzt sicher behalten hast: …“ (`src/core/ledger/heute.ts`). Darunter, nur wenn sie zutreffen, sachliche Hinweise: geratene Antworten bringen keinen Stein („Nimm dir ruhig etwas mehr Zeit“, §3.1), ab der 26. Aufgabe gibt es weniger Stein, mehr als 30 Erz am Tag gibt es nicht, beide Bauschritte des Tages sind geschafft (Punkt 4). Der Pausenvorschlag bleibt immer am Ende. Keine Zähler „noch X bis zum nächsten …“ – sie würden zum Weitermachen drängen (R5).
+
 ### 6.2 Zeitsystem
 Zeit in der Bastion zählt als Spielzeit im Sinne von „Erst lernen, dann …“. Das Verhältnis legen Eltern bzw. der Jugendliche je nach Stufe fest (KONZEPT §6). Startwert: 15 Minuten Lernen → 5 Minuten Bastion.
 
@@ -276,7 +278,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | 2.1 ✅ | **Sitzungen** | `sitzung`-Ereignis (DATENMODELL §4.2) beim Abschluss („Fertig für heute“, Verlassen); fehlende Sitzungen beim nächsten Start nachtragen (D-3); Lerneinheit = mindestens 10 ernsthafte Aufgaben oder 8 Minuten aktive Zeit (§3.4) | Einheitentests, auch für Abbruch und Nachtragen |
 | 2.2 ✅ | **Ledger-Regeln** in `src/core/ledger/` | rein und deterministisch, Regelversion 1: Stein mit Tageskurve und Rateregel (§3.1), Erz aus fälligen bestandenen Wiederholungen und Korrekturen, höchstens 30 am Tag (§3.2), Bauschritte höchstens 2 am Tag (§3.4), Bauplan beim ersten „gefestigt“ je Kompetenz und Niveau (§3.3) | fast-check: Tagesgrenzen halten, absichtlich falsch antworten bringt nichts, Niveau ändert nichts (B-4) |
 | 2.3 ✅ | **Buchungen und Konto** | `buchung`-Ereignisse je Sitzung mit Aufschlüsselung (D-4), Projektion `konto`; Sicherung, Einspielen und Zusammenführen kennen die neue Ereignisart (DATENMODELL §7.3); Schemaversion mit Migrationstest | Pflicht-Test D-6: fortgeschrieben = neu aufgebaut |
-| 2.4 | **Abschluss mit Ressourcen** | Ressourcen **unter** dem Können, mit „woher“ (§6.1, §9 Punkt 2); „Für heute ist das gut“ nach dem zweiten Bauschritt (R5); Belohnung fürs Korrigieren sichtbar (R6) | Browser-Test |
+| 2.4 ✅ | **Abschluss mit Ressourcen** | Ressourcen **unter** dem Können, mit „woher“ (§6.1, §9 Punkt 2); „Für heute ist das gut“ nach dem zweiten Bauschritt (R5); Belohnung fürs Korrigieren sichtbar (R6) | Browser-Test |
 
 ### Stufe B – Bau-Mechanik und Listenansicht
 

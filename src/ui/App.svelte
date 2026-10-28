@@ -9,6 +9,7 @@
     fehlergruppen,
     merke,
     sitzungBeenden,
+    alleBuchungen,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -24,6 +25,7 @@
   import Elternbereich from './eltern/Elternbereich.svelte';
   import Sicherung from './sicherung/Sicherung.svelte';
   import type { AufgabeEreignis } from '../core/learning/ereignis';
+  import type { BuchungEreignis } from '../core/ledger/buchung';
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Abschluss from './ueben/Abschluss.svelte';
@@ -51,6 +53,7 @@
     | 'anleitung'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
+  let buchungsListe = $state<readonly BuchungEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
   let diagnoseAntworten = $state<Antwort[]>([]);
   /** Klasse des laufenden Diagnosegangs – bleibt fest, sobald geantwortet wurde */
@@ -163,6 +166,7 @@
   async function fertig() {
     await speichern;
     await sitzungBeenden();
+    buchungsListe = await alleBuchungen();
     await aktualisiere();
     ansicht = 'abschluss';
   }
@@ -268,6 +272,7 @@
           kompetenzen={geladen.kompetenzen}
           {zustand}
           aufgaben={aufgabenListe}
+          buchungen={buchungsListe}
           onstart={() => (ansicht = 'start')}
         />
       {:else if ansicht === 'eltern'}

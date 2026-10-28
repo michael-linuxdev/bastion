@@ -156,7 +156,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **1b – Wiederholung und Fehlerwerkstatt**
 5. FSRS-Anbindung, Wiederholungsmodus, Rückkehrmodus – *Wiederholungsmodus steht: FSRS-Karten je Vorlage und Niveau (ts-fsrs 5.4.2), fällige Aufgaben über „Wiederholen“, Status bis „gefestigt“ und „auffrischen“, Rückkehrmodus nach Pausen (Begrüßung ohne Vorwurf, Portionen von höchstens 20)*
-6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“) – *steht: offene Fehler nach Ursache gruppiert (Fehlerbild, sonst je Kompetenz), genau die damalige Aufgabe mit der damaligen Antwort, erledigt nach richtiger Korrektur. Offen: Belohnung fürs Korrigieren (R6) kommt mit dem Basebau-Ledger*
+6. Fehlerwerkstatt nach Fehlerbildern („Du verwechselst manchmal Erweitern mit Addieren“) – *steht: offene Fehler nach Ursache gruppiert (Fehlerbild, sonst je Kompetenz), genau die damalige Aufgabe mit der damaligen Antwort, erledigt nach richtiger Korrektur. Belohnung fürs Korrigieren (R6): Erz, sichtbar im Abschluss (2.4)*
 
 **1c – Diagnose und sichtbarer Fortschritt**
 7. Diagnose-Modus (Einstieg ohne Vorwissen über die Schulform) – *steht: „Wo stehe ich?“ auf der Startseite, adaptiv durch den Graphen der Klasse 5, höchstens 30 Aufgaben in zwei Etappen, ohne Wertung und ohne Hilfen, Ergebnis „Hier stehst du – hier geht es weiter“ mit Empfehlungen zum Üben; bestandene Kompetenzen werden „gekonnt“*
@@ -174,7 +174,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
 
 Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
-- **A – Ledger:** 2.1 Sitzungen ✅ (`src/core/learning/sitzung.ts`) · 2.2 Ledger-Regeln ✅ (`src/core/ledger/regeln.ts`) · 2.3 Buchungen und Konto ✅ (`src/core/ledger/buchung.ts`) · 2.4 Abschluss mit Ressourcen
+- **A – Ledger:** 2.1 Sitzungen ✅ (`src/core/learning/sitzung.ts`) · 2.2 Ledger-Regeln ✅ (`src/core/ledger/regeln.ts`) · 2.3 Buchungen und Konto ✅ (`src/core/ledger/buchung.ts`) · 2.4 Abschluss mit Ressourcen ✅
 - **B – Bauen:** 2.5 Gebäudekatalog · 2.6 Bauen · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Späherturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7
 - **D – Grafik:** 2.12 PixiJS einbinden · 2.13 Bauplatz in Draufsicht · 2.14 Gestalten
