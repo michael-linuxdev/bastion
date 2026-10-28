@@ -12,11 +12,11 @@ text:
   aufgabe:
     de: '**Entscheide**: Welcher Satz hilft hier? {lage}'
 hilfen:
-  - de: '[[Satz des Thales]]: ein [[Winkel]], dessen Ecke auf einem Halbkreis über einem Durchmesser liegt.'
+  - de: '[[Satz des Thales]]: ein [[Winkel]], dessen Ecke auf einem Halbkreis über einem [[Durchmesser]] liegt.'
   - de: '[[Zentriwinkel]] bei M und [[Peripheriewinkel]] auf dem Kreis: Zentri-Peripheriewinkelsatz. Zwei Peripheriewinkel auf demselben Bogen: Peripheriewinkelsatz.'
   - de: 'Vier Ecken auf einem Kreis: Satz über das [[Sehnenviereck]].'
 fehlerbilder:
   anderer-satz:
-    de: 'Dieser Satz passt nicht zur Lage. Schau, wo die Ecken der [[Winkel]] liegen: auf dem Kreis, im Mittelpunkt, auf einem Durchmesser?'
+    de: 'Dieser Satz passt nicht zur Lage. Schau, wo die Ecken der [[Winkel]] liegen: auf dem Kreis, im Mittelpunkt, auf einem [[Durchmesser]]?'
 herkunft: ki-entwurf
 version: 1

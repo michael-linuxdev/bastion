@@ -1,0 +1,29 @@
+# Volumen, Mantel, Oberfläche, Hohlzylinder, Höhe. Entwurf: noch nicht geprüft.
+id: M.GM.KP.ZYLINDER.BERECHNEN
+kompetenz: M.GM.KP.ZYLINDER
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zy.berechnen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: '[[Volumen]]: V = [[π]] · r² · h. [[Mantel]]: M = 2 · π · r · h.'
+  - de: '[[Oberfläche]]: zwei Kreise und der [[Mantel]]. [[Hohlzylinder]]: [[Grundfläche]] ist ein [[Kreisring]].'
+fehlerbilder:
+  radius-durchmesser:
+    de: '[[Radius]] und [[Durchmesser]] sind verwechselt – oder du hast mit dem Unterschied der Radien gerechnet. Prüfe, welche Länge in die [[Formel]] gehört.'
+  umfang-statt-flaeche:
+    de: 'Für das [[Volumen]] brauchst du die Kreisfläche ([[π]] · r²), für den [[Mantel]] den [[Umfang]] (2 · π · r). Hier ist es vertauscht.'
+  ein-deckel:
+    de: 'Ein [[Zylinder]] hat zwei Kreise: unten und oben.'
+  mantel-statt-oberflaeche:
+    de: 'Das ist nur der [[Mantel]]. Zur [[Oberfläche]] gehören auch die beiden Kreise.'
+  innen-vergessen:
+    de: 'Das Rohr ist innen hohl. Ziehe den inneren [[Zylinder]] ab.'
+herkunft: ki-entwurf
+version: 1

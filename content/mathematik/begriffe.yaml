@@ -907,3 +907,29 @@ begriffe:
     formen: [Additionsverfahren]
     erklaerung:
       de: 'Man addiert beide Gleichungen so, dass eine Variable wegfällt. Vorher kann man eine Gleichung mit einer Zahl malnehmen.'
+  # Klasse 8: Kreis und Zylinder
+  - id: durchmesser
+    wort: { de: Durchmesser }
+    formen: [Durchmesser]
+    erklaerung:
+      de: 'Eine Strecke quer durch den Kreis, durch den Mittelpunkt. Sie ist doppelt so lang wie der Radius: d = 2·r.'
+  - id: kreiszahl
+    wort: { de: Kreiszahl π }
+    formen: [π]
+    erklaerung:
+      de: 'Die Zahl π („pi“) ≈ 3,14. Bei jedem Kreis ist der Umfang π-mal so lang wie der Durchmesser.'
+  - id: kreisring
+    wort: { de: Kreisring }
+    formen: [Kreisrings, Kreisring]
+    erklaerung:
+      de: 'Die Fläche zwischen zwei Kreisen mit demselben Mittelpunkt – wie bei einer Unterlegscheibe.'
+  - id: zylinder
+    wort: { de: Zylinder }
+    formen: [Zylinders, Zylinder, Hohlzylinder]
+    erklaerung:
+      de: 'Ein Körper wie eine Dose: unten und oben je ein gleich großer Kreis, dazwischen eine gebogene Fläche, der Mantel. Ein Hohlzylinder ist innen hohl wie ein Rohr.'
+  - id: mantel
+    wort: { de: Mantel }
+    formen: [Mantelrechtecks, Mantelrechteck, Mantels, Mantel]
+    erklaerung:
+      de: 'Die gebogene Seitenfläche eines Zylinders. Abgerollt ist sie ein Rechteck: so lang wie der Kreisumfang, so hoch wie der Zylinder.'

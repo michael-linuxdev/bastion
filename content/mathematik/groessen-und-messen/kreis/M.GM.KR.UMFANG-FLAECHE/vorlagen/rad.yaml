@@ -1,0 +1,23 @@
+# Sachaufgabe: Rad rollt. Entwurf: noch nicht geprüft.
+id: M.GM.KR.UMFANG-FLAECHE.RAD
+kompetenz: M.GM.KR.UMFANG-FLAECHE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kr.sach@1
+parameter:
+  G: { umkehr: false }
+  M: { umkehr: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: 'Bei einer Umdrehung rollt das Rad genau seinen [[Umfang]] ab.'
+  - de: '100 cm sind 1 m.'
+fehlerbilder:
+  radius-durchmesser:
+    de: 'Der [[Umfang]] ist [[π]] · d – mit dem [[Durchmesser]], nicht 2 · π · d.'
+  einheit-vergessen:
+    de: 'Achte auf die Einheiten: Der [[Durchmesser]] ist in cm, die Strecke in m. Rechne vorher um.'
+herkunft: ki-entwurf
+version: 1

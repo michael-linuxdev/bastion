@@ -1,0 +1,25 @@
+# Flächeninhalt des Kreisrings. Entwurf: noch nicht geprüft.
+id: M.GM.KR.KREISRING.RING
+kompetenz: M.GM.KR.KREISRING
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kr.kreisring@1
+parameter:
+  G: { durchmesser: false }
+  M: { durchmesser: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: '[[Kreisring]] = großer Kreis minus kleiner Kreis.'
+  - de: 'Berechne beide Kreisflächen einzeln und ziehe sie voneinander ab.'
+fehlerbilder:
+  radien-abgezogen:
+    de: 'Du hast zuerst die Radien abgezogen. Ziehe die Flächen ab: [[π]] · R² − π · r², nicht π · (R − r)².'
+  nur-aussen:
+    de: 'Das ist der ganze große Kreis. Das Loch in der Mitte gehört nicht dazu.'
+  radius-durchmesser:
+    de: 'Gegeben sind [[Durchmesser]]. Halbiere sie, bevor du rechnest.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+# Dosen und Stäbe: Inhalt und Masse. Entwurf: noch nicht geprüft.
+id: M.GM.KP.ZYLINDER.SACH
+kompetenz: M.GM.KP.ZYLINDER
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: zy.sach@1
+parameter:
+  G: { masse: false }
+  M: { masse: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {aufgabe}'
+hilfen:
+  - de: '1 cm³ = 1 ml, 1 000 cm³ = 1 l.'
+  - de: 'Masse = [[Volumen]] · [[Dichte]].'
+fehlerbilder:
+  radius-durchmesser:
+    de: 'In die [[Formel]] gehört der [[Radius]], also der halbe [[Durchmesser]].'
+  einheit-falsch:
+    de: 'Das sind cm³ (= ml). Gefragt sind Liter: Teile durch 1 000.'
+  dichte-vergessen:
+    de: 'Das ist das [[Volumen]] in cm³. Für die Masse musst du noch mit der [[Dichte]] malnehmen.'
+herkunft: ki-entwurf
+version: 1
