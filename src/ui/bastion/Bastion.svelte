@@ -29,6 +29,7 @@
     type BauAuftrag,
   } from '../plattform/ablage';
   import { type TextSchluessel } from '../texte/texte';
+  import Bauplatz from './Bauplatz.svelte';
   import {
     aktiv,
     gebaeudeName,
@@ -242,6 +243,8 @@
         <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
       </section>
     {/if}
+
+    <Bauplatz bastion={l.bastion} />
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">

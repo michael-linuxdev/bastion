@@ -481,5 +481,6 @@
   "bastion.alles-da": "Alles da – du kannst es jetzt bauen.",
   "bastion.vormerken": "Vormerken",
   "bastion.vorgemerkt": "Vorgemerkt",
-  "bastion.nicht-vormerken": "Nicht mehr vormerken"
+  "bastion.nicht-vormerken": "Nicht mehr vormerken",
+  "bastion.bild-hinweis": "So sieht {ganzes} von oben aus. Die Liste darunter zeigt dasselbe – dort baust und versetzt du."
 }
