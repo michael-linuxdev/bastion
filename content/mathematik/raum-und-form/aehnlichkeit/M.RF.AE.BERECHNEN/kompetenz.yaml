@@ -1,0 +1,38 @@
+# Mit Ähnlichkeit rechnen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.AE.BERECHNEN
+fach: mathematik
+bereich: raum-und-form
+feld: aehnlichkeit
+titel:
+  de: 'Mit Ähnlichkeit rechnen'
+kann_satz:
+  de: 'Ich kann fehlende Längen in ähnlichen Figuren berechnen und wissen, wie sich Flächen und Volumen beim Strecken ändern.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.RF.AE.AEHNLICH
+  - M.SF.ZU.DREISATZ
+niveaus:
+  G:
+    beschreibung:
+      de: 'Fehlende Seiten ähnlicher Dreiecke mit dem Streckfaktor berechnen.'
+  M:
+    beschreibung:
+      de: 'Flächeninhalt (k²) und Volumen (k³) ähnlicher Figuren berechnen; Höhen mit Schattenlängen bestimmen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+version: 1

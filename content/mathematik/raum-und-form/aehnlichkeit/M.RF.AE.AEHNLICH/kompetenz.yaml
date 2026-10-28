@@ -1,0 +1,38 @@
+# Ähnliche Figuren – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.AE.AEHNLICH
+fach: mathematik
+bereich: raum-und-form
+feld: aehnlichkeit
+titel:
+  de: 'Ähnliche Figuren'
+kann_satz:
+  de: 'Ich kann entscheiden, ob zwei Figuren ähnlich sind, und den Hauptähnlichkeitssatz für Dreiecke anwenden.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.RF.AE.STRECKUNG
+  - M.RF.DV.WINKELSAETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Ähnliche Figuren an gleichen Winkeln und gleichen Seitenverhältnissen erkennen.'
+  M:
+    beschreibung:
+      de: 'Mit dem Hauptähnlichkeitssatz (zwei gleiche Winkel) begründen, dass Dreiecke ähnlich sind; Kongruenz als Sonderfall (k = 1).'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+version: 1

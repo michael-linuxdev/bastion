@@ -1,0 +1,36 @@
+# Ungleichungen – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TU.UNGLEICHUNGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: terme
+titel:
+  de: 'Ungleichungen'
+kann_satz:
+  de: 'Ich kann einfache lineare Ungleichungen lösen und die Lösungsmenge angeben.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.SF.TU.GLEICHUNGEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Ungleichungen wie 2·x + 3 < 11 lösen.'
+  M:
+    beschreibung:
+      de: 'Beim Multiplizieren oder Dividieren mit einer negativen Zahl das Zeichen umdrehen; Lösungsmenge angeben.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Lineare Ungleichungen und Optimierung'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Arbeiten mit Termen und Gleichungen'
+version: 1

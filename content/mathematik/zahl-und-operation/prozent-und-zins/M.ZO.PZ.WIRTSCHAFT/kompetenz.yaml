@@ -1,0 +1,33 @@
+# Rabatt, Skonto und Mehrwertsteuer – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.WIRTSCHAFT
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Rabatt, Skonto und Mehrwertsteuer'
+kann_satz:
+  de: 'Ich kann Rabatt, Skonto und Mehrwertsteuer berechnen und Rechnungen prüfen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.ZO.PZ.VERAENDERUNG
+niveaus:
+  G:
+    beschreibung:
+      de: 'Rabatt und Skonto von einem Preis abziehen; Mehrwertsteuer dazurechnen.'
+  M:
+    beschreibung:
+      de: 'Mehrere Schritte nacheinander rechnen (Rabatt, dann Skonto); Nettopreis aus dem Bruttopreis bestimmen; Rechnungen prüfen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 1 Wirtschaftliches Rechnen'
+version: 1

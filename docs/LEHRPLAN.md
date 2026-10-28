@@ -537,6 +537,110 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 7 (bei der OS der RS; der HS hat die
 
 *Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. **RZ begonnen:** Begriff (Zahlengerade, Gegenzahl und Betrag, Alltag), Ordnen (Vergleichszeichen, der Größe nach) und Zahlbereiche (zuordnen, Aussagen) mit 7 Vorlagen (`src/generators/mathematik/rationale-zahlen/begriff.ts`). **RZ vollständig als Entwurf:** dazu Addieren und Subtrahieren (Term, Sachaufgabe), Multiplizieren und Dividieren (Term, Vorzeichenregel), Potenzen und Quadratwurzeln, Vorrangregeln und Rechenvorteile – 15 Vorlagen für 7 Kompetenzen (`rechnen.ts`). **GF.QUADRANTEN:** Ablesen, Quadrant bestimmen, an Achsen und Ursprung spiegeln (3 Vorlagen, `src/generators/mathematik/geometrie/quadranten.ts`). **Feld GL vollständig als Entwurf:** Termwerte und Probe, Gleichungen lösen und Umformungsschritte erkennen, Formeln umstellen und anwenden, Gleichungen zu Zahlenrätseln wählen und lösen – 8 Vorlagen für 4 Kompetenzen (`src/generators/mathematik/gleichungen/linear.ts`); neue Fachbegriffe Variable, Term, Formel, umformen. **Feld PZ vollständig als Entwurf:** Grundwert, Prozentwert und Prozentsatz erkennen, bequeme Prozentsätze, Grundaufgaben (berechnen und passende Rechnung wählen), neuer und alter Preis, „um“ und „auf“, Jahres- und Tageszinsen, Zinssatz und Kapital, Zinseszins über zwei Jahre – 8 Vorlagen für 4 Kompetenzen (`src/generators/mathematik/prozent/prozent.ts`). **DA und ZF (Klasse 7) als Entwurf:** Säulen- und Liniendiagramme ablesen, passendes Diagramm wählen, abgeschnittene Achse erkennen; Ergebnisse eines Ereignisses zählen und als Menge angeben; Wahrscheinlichkeit als Bruch, Chancen vergleichen – 6 Vorlagen für 3 Kompetenzen (`src/generators/mathematik/daten/diagramme.ts`, `wahrscheinlichkeit.ts`). **Feld KR vollständig als Entwurf:** Sekante, Tangente, Passante (am Bild, auf M aus Abstand und Radius), Mittelpunkt von Inkreis und Umkreis, Winkel am Kreis (Thales auf G; Zentri-Peripheriewinkel und Sehnenviereck auf M), passenden Satz wählen, Voraussetzung und Behauptung, Umkehrung, Gegenbeispiel – 6 Vorlagen für 3 Kompetenzen (`src/generators/mathematik/geometrie/kreis.ts`), dazu die Anleitung „Den Umkreis eines Dreiecks konstruieren“ (L-10). **DV.VIERECKE-KONSTRUIEREN:** nächster Konstruktionsschritt (Parallelogramm, Drachenviereck, auf M auch Trapez) und „eindeutig festgelegt?“ – 2 Vorlagen (`src/generators/mathematik/dreiecke/vierecke-konstruieren.ts`) und die Anleitung „Ein Parallelogramm konstruieren“. **FL.VIELECKE:** Flächeninhalt durch Zerlegen und durch Ergänzen zum Rechteck – 2 Vorlagen (`src/generators/mathematik/flaechen/vielecke-zerlegen.ts`). **Feld KP (Klasse 7) vollständig als Entwurf:** Ansicht zum Schrägbild wählen und Körper zum Zweitafelbild bestimmen (Schrägbild und Ansichten werden aus einer Beschreibung des Körpers berechnet, `koerper/ansichten.ts`), Ecken, Kanten und Flächen von Pyramiden und Pyramidenstümpfen, Pyramide, Prisma oder Stumpf erkennen, Volumen und Oberfläche von Pyramiden (auf M auch zusammengesetzt), Masse und Dichte, Verpackungen vergleichen und Materialbedarf – 10 Vorlagen für 5 Kompetenzen (`koerper/pyramiden.ts`), dazu die Anleitungen „Das Zweitafelbild eines Quaders zeichnen“ und „Das Schrägbild einer Pyramide zeichnen“. **Damit haben alle 29 Kompetenzen der Klasse 7 Vorlagen (60, Entwurf) und alle 4 mit Zeichnen eine Anleitung (L-10).** Negative Antworten gibt man mit dem Knopf „±“ ein (INHALTSFORMAT §5.1). Die Klassenwahl hat „Klasse 7“.
 
+## 8d. Klasse 8 (Sachsen) – Kompetenzen für den vierten Bauabschnitt
+
+Grundlage wie §8 (K-16): Lehrplan Oberschule Mathematik 2019 (Haupt- und Realschulbildungsgang), Lehrplan Gymnasium Mathematik (Kl. 5–8 seit 1. August 2021). Ausgewertet am 28.10.2026 aus denselben PDF-Dateien. Nach K-17 entstehen Kompetenzen und Vorlagen als **Entwurf**.
+
+### 8d.1 Auswahl
+
+| | OS Klasse 8 – RS | OS Klasse 8 – HS | GY Klasse 8 |
+|---|---|---|---|
+| LB 1 | Lineare Gleichungen (16 Ustd.) | Wirtschaftliches Rechnen (24 Ustd.) | Arbeiten mit Termen und Gleichungen (24 Ustd.) |
+| LB 2 | Lineare Funktionen und Gleichungssysteme (26 Ustd.) | Formeln und Gleichungen (16 Ustd.) | Zufallsversuche (24 Ustd.) |
+| LB 3 | Kreis und Kreiszylinder (18 Ustd.) | Vom Vieleck zum Kreis (16 Ustd.) | Funktionen und lineare Gleichungssysteme (32 Ustd.) |
+| LB 4 | Ähnlichkeit (14 Ustd.) | Kreiszylinder und Hohlzylinder (16 Ustd.) | Ähnlichkeit (20 Ustd.) |
+| LB 5 | Zufällige Ereignisse (14 Ustd.) | Mathematik im Alltag (28 Ustd.) | Vernetzung: Heuristische Strategien (4 Ustd.) |
+| LB 6 | Mathematik im Alltag (12 Ustd.) | – | – |
+
+**Wahlbereiche** (RS: Das Fahrrad, Modellbau, Polyeder; HS: Das Fahrrad, Achtung Schuldenfalle, Modellbau; GY: Programmierung mathematischer Algorithmen, Lineare Optimierung, Simulation mit Zufallszahlen) zählen nicht (L-11).
+
+**Regel wie bei Klasse 5 bis 7 (L-6):** Was eine Schulart in Klasse 8 hat und eine andere erst später, steht hier und ist für die andere „vorgezogen“:
+- **Kreis und Kreiszylinder** (OS Kl. 8; GY Kl. 9 LB 2),
+- **Ungleichungen** (GY Kl. 8 „Einblick“; RS Kl. 10 LB 2).
+Schon früher stehen Zinsrechnung, Wahrscheinlichkeit und Satz des Thales (§8c). Die **binomischen Formeln** und die **Eigenschaften von Funktionen** (Monotonie, Extrema, Symmetrie) stehen nur im GY-Lehrplan; **regelmäßige Vielecke** und **Rabatt, Skonto, Mehrwertsteuer** nur im HS-Lehrplan (für das GY ohne Klassenstufe, bei der RS im Alltag LB 6). Lineare Funktionen hat der HS erst in Kl. 9 – sie stehen hier für RS und GY.
+
+**Nicht in der App abbildbar:** Arbeit mit CAS, DGS und Tabellenkalkulation, lineare Regression mit CAS, Simulation mit Zufallszahlen, Realexperimente, Kreisornamente gestalten, Präsentationen, Haushaltsbuch führen. Die heuristischen Strategien (GY LB 5) fließen in die Sachaufgaben ein.
+
+### 8d.2 Kompetenzen
+
+Legende wie §8.2. *Sachsen:* LB der Klasse 8 (bei der OS meist der RS), sonst angegeben.
+
+**Feld TU – Terme umformen** (KMK L3, L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.SF.TU.ZUSAMMENFASSEN | Ich kann gleichartige Glieder zusammenfassen und Summen und Differenzen in Klammern auflösen. | GL.TERMWERT, RZ.RECHENGESETZE | OS LB 1, GY LB 1 | Gen |
+| M.SF.TU.AUSMULTIPLIZIEREN | Ich kann ein Produkt aus einer Zahl und einer Summe ausmultiplizieren und einen gemeinsamen Faktor ausklammern. | TU.ZUSAMMENFASSEN | OS LB 1, GY LB 1 | Gen |
+| M.SF.TU.BINOMISCH | Ich kann die binomischen Formeln anwenden, um Terme auszumultiplizieren. | TU.AUSMULTIPLIZIEREN, RZ.POTENZEN | OS –, GY LB 1 | Gen |
+| M.SF.TU.GLEICHUNGEN | Ich kann lineare Gleichungen lösen, bei denen ich zuerst Klammern auflösen und zusammenfassen muss. | TU.AUSMULTIPLIZIEREN, GL.LINEAR | OS LB 1, GY LB 1 | Gen |
+| M.SF.TU.UNGLEICHUNGEN | Ich kann einfache lineare Ungleichungen lösen und die Lösungsmenge angeben. | TU.GLEICHUNGEN | OS Kl. 10 LB 2 – vorgez., GY LB 1 | Gen |
+
+**Feld FK – Funktionen** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.SF.FK.BEGRIFF | Ich kann entscheiden, ob eine Zuordnung eine Funktion ist, und Funktionswerte, Definitions- und Wertebereich angeben. | ZU.DARSTELLEN, GL.TERMWERT | OS LB 2, GY LB 3 | Gen |
+| M.SF.FK.EIGENSCHAFTEN | Ich kann am Graphen ablesen, wo eine Funktion steigt oder fällt, Nullstellen, größte und kleinste Werte und Symmetrie erkennen. | FK.BEGRIFF, GF.QUADRANTEN | OS –, GY LB 3 | Gen |
+| M.SF.FK.LINEAR-GRAPH | Ich kann Graphen linearer Funktionen y = m·x + n zeichnen und lesen und die Bedeutung von m und n erklären. | FK.BEGRIFF, ZU.GRAPH | OS LB 2, GY LB 3 | Gen |
+| M.SF.FK.LINEAR-GLEICHUNG | Ich kann die Gleichung einer linearen Funktion aus zwei Punkten oder aus Anstieg und einem Punkt bestimmen. | FK.LINEAR-GRAPH, GL.LINEAR | OS LB 2, GY LB 3 | Gen |
+| M.SF.FK.NULLSTELLE | Ich kann Nullstellen linearer Funktionen zeichnerisch und rechnerisch bestimmen. | FK.LINEAR-GRAPH, GL.LINEAR | OS LB 2, GY LB 3 | Gen |
+| M.SF.FK.SACH | Ich kann Sachsituationen wie Tarife mit linearen Funktionen beschreiben und vergleichen. | FK.LINEAR-GLEICHUNG | OS LB 2, GY LB 3 | Gen |
+
+**Feld GS – Lineare Gleichungssysteme** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.SF.GS.GRAFISCH | Ich kann ein lineares Gleichungssystem mit zwei Gleichungen grafisch lösen und die drei Lösbarkeitsfälle unterscheiden. | FK.LINEAR-GRAPH | OS LB 2, GY LB 3 | Gen |
+| M.SF.GS.RECHNERISCH | Ich kann lineare Gleichungssysteme mit zwei Gleichungen und zwei Variablen rechnerisch lösen. | GS.GRAFISCH, TU.GLEICHUNGEN | OS LB 2, GY LB 3 | Gen |
+| M.SF.GS.SACH | Ich kann zu Sachaufgaben ein Gleichungssystem aufstellen und lösen. | GS.RECHNERISCH, GL.AUFSTELLEN | OS LB 2, GY LB 3 | Gen |
+
+**Feld KR – Kreis** (KMK L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.GM.KR.UMFANG-FLAECHE | Ich kann Umfang und Flächeninhalt von Kreisen berechnen. | KR.LAGE, FL.VIELECKE | OS LB 3, GY Kl. 9 LB 2 – vorgez. | Gen |
+| M.GM.KR.KREISRING | Ich kann den Flächeninhalt von Kreisringen, Halb- und Viertelkreisen und daraus zusammengesetzten Figuren berechnen. | KR.UMFANG-FLAECHE | OS LB 3, GY Kl. 9 LB 2 – vorgez. | Gen |
+
+**Feld DV – Regelmäßige Vielecke** (KMK L4)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.DV.REGELMAESSIG | Ich kann Innenwinkel und Symmetrien regelmäßiger Vielecke bestimmen und regelmäßige Vielecke mit dem Umkreis konstruieren. | DV.WINKELSAETZE, SY.SYMMETRIE, KR.LAGE | OS LB 3, GY – | Mix · Erkl |
+
+**Feld KP – Kreiszylinder** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.KP.ZYLINDER | Ich kann Netze, Ansichten und Schrägbilder von Kreiszylindern und Hohlzylindern erkennen und skizzieren. | KP.ZWEITAFEL, KR.LAGE | OS LB 3, GY Kl. 9 LB 2 – vorgez. | Mix · Erkl |
+| M.GM.KP.ZYLINDER | Ich kann Mantel, Oberfläche, Volumen und Masse von Kreiszylindern und Hohlzylindern berechnen. | KP.ZYLINDER, KR.UMFANG-FLAECHE, KP.MASSE | OS LB 3, GY Kl. 9 LB 2 – vorgez. | Gen |
+
+**Feld AE – Ähnlichkeit** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.RF.AE.STRECKUNG | Ich kann zentrische Streckungen mit Streckzentrum und Streckfaktor beschreiben und Bildpunkte und Bildstrecken bestimmen. | GF.QUADRANTEN, BR.ANTEILE | OS LB 4, GY LB 4 | Mix · Erkl |
+| M.RF.AE.AEHNLICH | Ich kann entscheiden, ob zwei Figuren ähnlich sind, und den Hauptähnlichkeitssatz für Dreiecke anwenden. | AE.STRECKUNG, DV.WINKELSAETZE | OS LB 4, GY LB 4 | Gen |
+| M.RF.AE.BERECHNEN | Ich kann fehlende Längen in ähnlichen Figuren berechnen und wissen, wie sich Flächen und Volumen beim Strecken ändern. | AE.AEHNLICH, ZU.DREISATZ | OS LB 4, GY LB 4 | Gen |
+
+**Feld ZF – Zufall** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.DZ.ZF.EREIGNISSE | Ich kann Ereignisse mit „und“, „oder“ und „nicht“ verknüpfen und als Mengen angeben. | ZF.BEGRIFFE, RZ.ZAHLBEREICHE | OS LB 5, GY LB 2 | Gen |
+| M.DZ.ZF.BAUMDIAGRAMM | Ich kann mehrstufige Zufallsversuche mit Baumdiagrammen darstellen und Wahrscheinlichkeiten mit den Pfadregeln berechnen. | ZF.WAHRSCHEINLICHKEIT, BR.MULT | OS LB 5, GY LB 2 | Gen |
+| M.DZ.ZF.ZAEHLEN | Ich kann mit der Produktregel zählen, wie viele Möglichkeiten es gibt. | ZF.BEGRIFFE, NZ.MULT | OS LB 5, GY LB 2 | Gen |
+
+**Feld PZ – Mathematik im Alltag** (KMK L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. |
+|---|---|---|---|---|
+| M.ZO.PZ.WIRTSCHAFT | Ich kann Rabatt, Skonto und Mehrwertsteuer berechnen und Rechnungen prüfen. | PZ.VERAENDERUNG | OS LB 1, GY – | Gen |
+| M.ZO.PZ.ANGEBOTE | Ich kann Angebote, Tarife und Kosten im Alltag vergleichen und das günstigste wählen. | PZ.WIRTSCHAFT, BR.SACH | OS LB 6, GY – | Gen |
+
+**Summe Klasse 8:** 27 Kompetenzen × 2 Niveaus (G, M), davon 24 überwiegend generatorbasiert, 3 gemischt; bei 3 wird Zeichnen erklärt (L-10): regelmäßige Vielecke, Kreiszylinder darstellen, zentrische Streckung. Neue Felder im ID-Schema: TU (terme), FK (funktionen), GS (gleichungssysteme), AE (aehnlichkeit); KR (kreis) jetzt auch unter Größen und Messen. Datenquelle: `content/mathematik/…/kompetenz.yaml` mit `klassenstufe_typisch: [8]`.
+
+*Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld.
+
 ## 9. Sprache in Aufgaben
 
 **Entscheidung L-7:** Alle Aufgabentexte folgen ab Phase 1 Regeln für einfache, klare Sprache: kurze Sätze, eine Information pro Satz, Operatoren fett und einheitlich, keine unnötigen Nebensätze, Fachbegriffe mit Erklärung beim ersten Auftreten.

@@ -1,0 +1,39 @@
+# Zentrische Streckung – Klasse 8 (LEHRPLAN §8d). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.AE.STRECKUNG
+fach: mathematik
+bereich: raum-und-form
+feld: aehnlichkeit
+titel:
+  de: 'Zentrische Streckung'
+kann_satz:
+  de: 'Ich kann zentrische Streckungen mit Streckzentrum und Streckfaktor beschreiben und Bildpunkte und Bildstrecken bestimmen.'
+klassenstufe_typisch:
+  - 8
+voraussetzungen:
+  - M.RF.GF.QUADRANTEN
+  - M.ZO.BR.ANTEILE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Mit dem Streckfaktor k Bildstrecken berechnen; vergrößern (k > 1) und verkleinern (0 < k < 1) unterscheiden.'
+  M:
+    beschreibung:
+      de: 'Streckfaktor aus Original und Bild bestimmen; Bildpunkte im Koordinatensystem angeben.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+  gymnasium:
+    klassenstufe: 8
+    lernbereich: 'LB 4 Ähnlichkeit'
+version: 1
