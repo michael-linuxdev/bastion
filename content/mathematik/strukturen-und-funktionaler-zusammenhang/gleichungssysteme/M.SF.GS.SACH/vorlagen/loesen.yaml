@@ -1,0 +1,23 @@
+# Sachaufgabe mit Gleichungssystem lösen. Entwurf: noch nicht geprüft.
+id: M.SF.GS.SACH.LOESEN
+kompetenz: M.SF.GS.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gs.sach-loesen@1
+parameter:
+  G: { ohne_system: false }
+  M: { ohne_system: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {sache} {frage}'
+hilfen:
+  - de: 'Stelle zwei Gleichungen auf: eine für die Anzahl, eine für den Gesamtwert.'
+  - de: 'Löse (I) nach y auf und setze in (II) ein.'
+fehlerbilder:
+  andere-unbekannte:
+    de: 'Das ist die Anzahl der anderen Art. Lies die Frage noch einmal.'
+  nur-anzahl-geteilt:
+    de: 'Halb und halb passt nur, wenn der Gesamtwert stimmt. Prüfe mit der zweiten [[Gleichung]].'
+herkunft: ki-entwurf
+version: 1

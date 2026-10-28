@@ -891,3 +891,19 @@ begriffe:
     formen: [Grundgebühr]
     erklaerung:
       de: 'Ein fester Betrag, den man immer zahlt – egal, wie viel man nutzt. In y = m·x + n ist das n.'
+  # Klasse 8: Gleichungssysteme
+  - id: gleichungssystem
+    wort: { de: Gleichungssystem }
+    formen: [Gleichungssystem, Gleichungssystems, Gleichungssysteme]
+    erklaerung:
+      de: 'Zwei Gleichungen mit zwei Variablen x und y, die beide zugleich gelten sollen. Die Lösung ist ein Zahlenpaar (x|y).'
+  - id: einsetzungsverfahren
+    wort: { de: Einsetzungsverfahren }
+    formen: [Einsetzungsverfahren]
+    erklaerung:
+      de: 'Eine Gleichung ist nach y aufgelöst. Man setzt diesen Term für y in die andere Gleichung ein – so bleibt nur x übrig.'
+  - id: additionsverfahren
+    wort: { de: Additionsverfahren }
+    formen: [Additionsverfahren]
+    erklaerung:
+      de: 'Man addiert beide Gleichungen so, dass eine Variable wegfällt. Vorher kann man eine Gleichung mit einer Zahl malnehmen.'

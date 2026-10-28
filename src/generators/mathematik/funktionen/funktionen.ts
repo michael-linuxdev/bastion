@@ -38,9 +38,13 @@ function graphBild(
   return bild(ks.breite, ks.hoehe, teile, de(beschreibung));
 }
 
-/** Gerade y = m·x + n, abgeschnitten am Rand des Gitters */
-function geradeBild(m: number, n: number, max = MAX, extra: string[] = []): Bild {
-  const ks = koordinatensystem4(max);
+/** Linie der Geraden y = m·x + n, abgeschnitten am Rand des Gitters von −max … max */
+export function geradeLinie(
+  ks: ReturnType<typeof koordinatensystem4>,
+  m: number,
+  n: number,
+  max = MAX,
+) {
   const punkte: [number, number][] = [];
   for (let x = -max; x <= max; x += 0.01) {
     const y = m * x + n;
@@ -48,10 +52,16 @@ function geradeBild(m: number, n: number, max = MAX, extra: string[] = []): Bild
   }
   const a = punkte[0] ?? [0, 0];
   const b = punkte[punkte.length - 1] ?? [0, 0];
+  return linie(ks.px(a[0]), ks.py(a[1]), ks.px(b[0]), ks.py(b[1]), 3);
+}
+
+/** Gerade y = m·x + n im Koordinatensystem */
+function geradeBild(m: number, n: number, max = MAX, extra: string[] = []): Bild {
+  const ks = koordinatensystem4(max);
   return bild(
     ks.breite,
     ks.hoehe,
-    [...ks.teile, linie(ks.px(a[0]), ks.py(a[1]), ks.px(b[0]), ks.py(b[1]), 3), ...extra],
+    [...ks.teile, geradeLinie(ks, m, n, max), ...extra],
     de(
       `Ein Koordinatensystem mit einer Geraden durch die Punkte (0|${zahlText(n)}) und (2|${zahlText(runde10(2 * m + n, 6))}).`,
     ),

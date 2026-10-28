@@ -1,0 +1,23 @@
+# Lösung am Schnittpunkt ablesen. Entwurf: noch nicht geprüft.
+id: M.SF.GS.GRAFISCH.SCHNITTPUNKT
+kompetenz: M.SF.GS.GRAFISCH
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: gs.schnittpunkt-ablesen@1
+parameter:
+  G: { halbe: false }
+  M: { halbe: true }
+text:
+  aufgabe:
+    de: '**Lies** die Lösung des [[Gleichungssystems]] **ab**: {system}'
+hilfen:
+  - de: 'Die Lösung liegt auf beiden [[Geraden]] – also im [[Schnittpunkt]].'
+  - de: 'Gib zuerst x an (nach rechts), dann y (nach oben). Prüfe durch Einsetzen in beide Gleichungen.'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'x und y sind vertauscht. Erst kommt der x-Wert, dann der y-Wert.'
+  achsenschnitt:
+    de: 'Das ist der [[Schnittpunkt]] einer [[Geraden]] mit der y-Achse. Gesucht ist der Punkt, an dem sich beide Geraden schneiden.'
+herkunft: ki-entwurf
+version: 1
