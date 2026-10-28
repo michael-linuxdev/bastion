@@ -268,6 +268,8 @@ Beispielprofile: „15 Min. täglich, gemischte Leistung“, „Wochenend-Lerner
 
 Ausgabe: Wie schnell wächst die Bastion pro Profil über Wochen und Jahre? Lohnt Farmen? Wird die Wochenend-Lernerin abgehängt?
 
+*Umsetzung (2.11):* `tools/sim/simulator.ts`, Aufruf `pnpm sim`. Ergebnisse in `BASEBAU.md` §8a.
+
 *Warum:* Balancing-Fehler sind in einem Langzeitspiel teuer, weil wir Erfolge nie zurücknehmen (R3). Wir müssen sie finden, bevor echte Jugendliche sie finden. Das ist nur möglich, weil der Kern framework-frei ist (T-2).
 
 ## 9. Leistungsbudget

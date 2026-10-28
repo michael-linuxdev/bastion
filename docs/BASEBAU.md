@@ -248,6 +248,32 @@ Nur Ledger-Buchungen und die Liste gefestigter Kompetenzen (für die Studierstub
 
 Wird eine Erwartung verfehlt, werden zuerst die **Kosten** angepasst, dann die Tageskurven, zuletzt die Ressourcenregeln.
 
+## 8a. Ergebnisse des Simulators (Schritt 2.11, Startwerte, 28.10.2026)
+
+`tools/sim/simulator.ts` (`pnpm sim`) spielt die Profile zwei Jahre lang mit dem **echten Kern** durch: Aufgaben-Ereignisse, FSRS, „gekonnt“/„gefestigt“, Sitzungen, Ledger-Regeln, Bauen. Ausgedacht sind nur die Kinder:
+- **Schulrhythmus:** ein neues Thema alle zwei Wochen (etwa 25 im Schuljahr, §5.3) aus 134 Themen (Klasse 5 und 6, zwei Niveaus); dazwischen fällige Wiederholungen (höchstens 20), bis zu drei Fehler in der Werkstatt, Üben von Bekanntem. Richtig mit 85 % (P6: 50 %), etwa 45 Sekunden je Aufgabe.
+- **Bauen:** zuerst das Zeichen (Banner), dann der Reihe nach Turm, Wissen, Kern 2, Werkstatt, Eingang, Turm, Wissen 2, Türme 2, Kern 3, Einfassung. Zierde nur aus Überschuss: genug Fleiß fürs nächste Ziel und genug Platz für alle fehlenden Gebäude bleiben übrig.
+
+| Profil | Epoche 1 | Jahr 1: Gebäude (davon Zierde) | größte Lücke Jahr 1 | Belegung nach 12 Mon. | Erwartung §8 |
+|---|---|---|---|---|---|
+| P1 regelmäßig | 9,8 Mon. | 59 (41) | 58 Tage | 81 % | 9–12 Mon. ✓ · alle 2 Wochen ein Gebäude ✗ |
+| P2 eifrig | 8,3 Mon. | 73 (55) | 52 Tage | 99 % | höchstens doppelt so schnell ✓ |
+| P3 Wochenende | 10,5 Mon. | 67 (49) | 35 Tage | 90 % | ≤ 18 Mon., jede Woche Fortschritt ✓ |
+| P4 Farmer | nie | 55 (55) | 4 Tage | 85 % | nicht schneller als P1 ✓, viel Zierde ✓ |
+| P5 Pause | 11,1 Mon. | 53 (35) | 58 Tage | 72 % | kein Verlust, rasch wieder im Rhythmus ✓ |
+| P6 schwach | 12,8 Mon. | 55 (46) | 60 Tage | 81 % | kaum langsamer als P1 ✗ (+3 Monate) |
+| P7 Prüfungsphase | 9,7 Mon. | 67 (49) | 63 Tage | 90 % | kein großer Vorteil ✓ |
+
+Jahr 1 bei P1: rund 3 100 Fleiß, 880 Behalten, 22 Können, 210 Schritte – nahe an der Herleitung in §5.3.
+
+**Befunde:**
+1. **Lücken von fast zwei Monaten (P1, P6, P7):** Sie entstehen vor dem großen Schritt Kern Stufe 3 (500 Fleiß, 160 Behalten, 4 Können, 16 Schritte). Engpass ist vor allem *Behalten*. In dieser Zeit wird gespart, und es entsteht nichts.
+2. **Schwache Lernende (P6) brauchen drei Monate länger.** Sie festigen weniger Themen und bekommen so weniger Können (16 statt 22 im Jahr 1) – das ist der Taktgeber (B-5). §9 Punkt 5 schlug dafür vor, die Schwelle für „gefestigt“ von 90 % auf 85 % zu senken.
+3. **Der Bauplatz ist nach einem Jahr zu 80–99 % voll**, vor allem mit Zierde: Fleiß gibt es reichlich (3 100 im Jahr, Gebäude brauchen 2 000 in der ganzen Epoche). *Ohne Rücksicht auf Platz baut ein eifriges Kind den Platz so voll, dass Turm, Tor und Co. keinen Platz mehr finden – und Abreißen gibt es nicht.* Das ist eine echte Lücke im Spiel.
+4. **Die Einfassung** erreicht ihre 12 Stück, umschließt damit aber nichts (siehe Vergleich mit 44 × 44 im Gespräch vom 28.10.2026).
+
+Offene Entscheidungen dazu stehen in `SESSION-PROMPT.md`; die Erwartungen P1 „alle 2 Wochen“ und P6 „kaum langsamer“ werden erst nach dieser Entscheidung geprüft (`tools/sim/simulator.test.ts`).
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:
@@ -345,7 +371,7 @@ Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je 
 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
-| 2.11 | **Simulator** `tools/sim` (T-9) | spielt die Profile P1–P7 (§8) mit dem echten Kern durch und schreibt einen Bericht; nur Werkzeug, nicht in der App | Bericht erfüllt §8; sonst Kosten anpassen, dann Tageskurven, zuletzt Regeln |
+| 2.11 ✅ | **Simulator** `tools/sim` (T-9) | spielt die Profile P1–P7 (§8) mit dem echten Kern durch und schreibt einen Bericht; nur Werkzeug, nicht in der App | Bericht erfüllt §8; sonst Kosten anpassen, dann Tageskurven, zuletzt Regeln |
 
 ### Stufe D – Grafik
 
