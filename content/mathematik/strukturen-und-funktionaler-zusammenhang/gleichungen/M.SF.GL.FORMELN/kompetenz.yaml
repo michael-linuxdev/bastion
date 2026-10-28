@@ -1,0 +1,36 @@
+# Formeln umstellen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.GL.FORMELN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: gleichungen
+titel:
+  de: 'Formeln umstellen'
+kann_satz:
+  de: 'Ich kann Formeln nach einer gesuchten Größe umstellen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.SF.GL.LINEAR
+niveaus:
+  G:
+    beschreibung:
+      de: 'Einfache Formeln wie u = 4·a oder A = a·b nach einer Größe umstellen.'
+  M:
+    beschreibung:
+      de: 'Formeln aus Geometrie und Physik wie V = a·b·c oder s = v·t nach jeder Größe umstellen und Werte einsetzen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

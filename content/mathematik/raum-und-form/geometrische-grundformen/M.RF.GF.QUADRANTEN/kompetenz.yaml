@@ -1,0 +1,38 @@
+# Koordinatensystem mit vier Quadranten – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.GF.QUADRANTEN
+fach: mathematik
+bereich: raum-und-form
+feld: geometrische-grundformen
+titel:
+  de: 'Koordinatensystem mit vier Quadranten'
+kann_satz:
+  de: 'Ich kann Punkte mit negativen Koordinaten in alle vier Quadranten eintragen und ablesen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.RF.GF.KOORDINATEN
+  - M.ZO.RZ.BEGRIFF
+niveaus:
+  G:
+    beschreibung:
+      de: 'Punkte mit ganzzahligen Koordinaten ablesen und den Quadranten angeben.'
+  M:
+    beschreibung:
+      de: 'Punkte spiegeln und verschieben und die neuen Koordinaten angeben.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

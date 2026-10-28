@@ -1,0 +1,37 @@
+# Prozentuale Veränderungen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.VERAENDERUNG
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Prozentuale Veränderungen'
+kann_satz:
+  de: 'Ich kann Preiserhöhungen und Preissenkungen berechnen und „Steigerung um“ von „Steigerung auf“ unterscheiden.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.PZ.GRUNDAUFGABEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Einen neuen Preis nach einer Erhöhung oder einem Rabatt berechnen.'
+  M:
+    beschreibung:
+      de: 'Vom neuen Preis auf den alten schließen; „um“ und „auf“ unterscheiden; Prozentangaben in Medien kritisch prüfen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K1
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Prozent- und Zinsrechnung'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

@@ -1,0 +1,39 @@
+# Vierecke konstruieren – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.DV.VIERECKE-KONSTRUIEREN
+fach: mathematik
+bereich: raum-und-form
+feld: dreiecke-und-vierecke
+titel:
+  de: 'Vierecke konstruieren'
+kann_satz:
+  de: 'Ich kann Parallelogramme, Drachenvierecke und Trapeze aus gegebenen Stücken konstruieren.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.RF.DV.KONSTRUIEREN
+  - M.RF.DV.VIERECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die passenden Konstruktionsschritte für ein Parallelogramm oder Drachenviereck auswählen.'
+  M:
+    beschreibung:
+      de: 'Konstruktionsschritte ordnen und entscheiden, ob die gegebenen Stücke ein Viereck eindeutig festlegen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K4
+anforderungsbereiche:
+  - II
+  - III
+abdeckung: gemischt
+zeichnen_erklaert: true
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 4 Vielecke und Prismen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Geometrie in der Ebene'
+version: 1

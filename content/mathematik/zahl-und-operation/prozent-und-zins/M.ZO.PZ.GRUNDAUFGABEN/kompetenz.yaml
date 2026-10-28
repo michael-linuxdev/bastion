@@ -1,0 +1,38 @@
+# Grundaufgaben der Prozentrechnung – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.GRUNDAUFGABEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Grundaufgaben der Prozentrechnung'
+kann_satz:
+  de: 'Ich kann Prozentwert, Grundwert und Prozentsatz mit dem Dreisatz oder einer Formel berechnen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.PZ.BEGRIFFE
+  - M.SF.ZU.DREISATZ
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Prozentwert berechnen, z. B. 15 % von 80 €.'
+  M:
+    beschreibung:
+      de: 'Alle drei Grundaufgaben lösen, auch den Grundwert und den Prozentsatz, und den passenden Lösungsweg wählen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 1 Prozent- und Zinsrechnung'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

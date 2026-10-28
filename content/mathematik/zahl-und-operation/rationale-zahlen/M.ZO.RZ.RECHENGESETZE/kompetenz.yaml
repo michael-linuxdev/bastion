@@ -1,0 +1,38 @@
+# Geschickt rechnen mit rationalen Zahlen – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.RZ.RECHENGESETZE
+fach: mathematik
+bereich: zahl-und-operation
+feld: rationale-zahlen
+titel:
+  de: 'Geschickt rechnen mit rationalen Zahlen'
+kann_satz:
+  de: 'Ich kann Rechengesetze und Vorrangregeln bei rationalen Zahlen nutzen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.RZ.MULT-DIV
+  - M.ZO.BR.RECHENGESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Terme mit ganzen Zahlen und Klammern in der richtigen Reihenfolge berechnen.'
+  M:
+    beschreibung:
+      de: 'Rechenvorteile mit Vertauschen, Verbinden und Verteilen bei Brüchen und Dezimalzahlen mit Vorzeichen nutzen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1

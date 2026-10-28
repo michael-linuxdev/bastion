@@ -57,6 +57,10 @@ export const FELDER: Readonly<Record<string, string>> = {
   ZU: 'zuordnungen',
   ZF: 'zufall',
   DV: 'dreiecke-und-vierecke',
+  RZ: 'rationale-zahlen',
+  GL: 'gleichungen',
+  PZ: 'prozent-und-zins',
+  KR: 'kreis',
 };
 
 const ID_MUSTER = /^M\.([A-Z]{2})\.([A-Z]{2})\.[A-Z0-9]+(?:-[A-Z0-9]+)*$/;

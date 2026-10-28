@@ -1,0 +1,39 @@
+# Rationale Zahlen multiplizieren und dividieren – Klasse 7 (LEHRPLAN §8c). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.RZ.MULT-DIV
+fach: mathematik
+bereich: zahl-und-operation
+feld: rationale-zahlen
+titel:
+  de: 'Rationale Zahlen multiplizieren und dividieren'
+kann_satz:
+  de: 'Ich kann rationale Zahlen multiplizieren und dividieren und das Vorzeichen des Ergebnisses bestimmen.'
+klassenstufe_typisch:
+  - 7
+voraussetzungen:
+  - M.ZO.RZ.ADD-SUB
+  - M.ZO.BR.MULT
+  - M.ZO.BR.DIV
+  - M.ZO.BR.DEZ-MULT-DIV
+niveaus:
+  G:
+    beschreibung:
+      de: 'Ganze Zahlen mit einer natürlichen Zahl multiplizieren und durch eine natürliche Zahl teilen, z. B. (−36) : 4.'
+  M:
+    beschreibung:
+      de: 'Brüche und Dezimalzahlen mit Vorzeichen multiplizieren und dividieren, z. B. 3,6 : (−1,2).'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 7
+    lernbereich: 'LB 3 Rationale Zahlen und Gleichungen'
+  gymnasium:
+    klassenstufe: 7
+    lernbereich: 'LB 2 Arbeiten mit rationalen Zahlen'
+version: 1
