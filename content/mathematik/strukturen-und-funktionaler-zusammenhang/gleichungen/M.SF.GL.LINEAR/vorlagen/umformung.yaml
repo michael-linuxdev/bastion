@@ -1,0 +1,23 @@
+# „3 · x + 4 = 19 wird zu 3 · x = 15. Was wurde gerechnet?“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.LINEAR.UMFORMUNG
+kompetenz: M.SF.GL.LINEAR
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gl.umformung@1
+parameter:
+  G: { beidseitig: false }
+  M: { beidseitig: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Aus {vorher} wird {nachher}. Welcher [[Umformungsschritt]] war das?'
+hilfen:
+  - de: 'Vergleiche beide Zeilen: Was ist verschwunden, was hat sich verändert?'
+  - de: 'Verschwindet + 4, wurde auf beiden Seiten − 4 gerechnet.'
+fehlerbilder:
+  rechenzeichen-verdreht:
+    de: 'Das Rechenzeichen ist verdreht. Um + 4 wegzubekommen, rechnet man − 4.'
+  falsche-zahl:
+    de: 'Mit diesem Schritt käme etwas anderes heraus. Schau, welche Zahl verschwunden ist.'
+herkunft: ki-entwurf
+version: 1

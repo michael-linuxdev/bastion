@@ -1,0 +1,23 @@
+# „Ein Quader hat V = 120 cm³, a = 4 cm, b = 5 cm. Berechne c.“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.FORMELN.ANWENDEN
+kompetenz: M.SF.GL.FORMELN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gl.formel-anwenden@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: 'Stelle die [[Formel]] zuerst nach der gesuchten Größe um. Setze dann die Zahlen ein.'
+  - de: 'Mach zum Schluss die [[Probe]]: Setze dein Ergebnis in die [[Formel]] ein.'
+fehlerbilder:
+  multipliziert:
+    de: 'Du hast malgenommen. Die gesuchte Größe steckt als [[Faktor]] in der [[Formel]] – du musst also teilen.'
+  nur-durch-eine:
+    de: 'Du hast nur einen Teil umgekehrt. Teile durch alle bekannten Größen bzw. rechne auch den Rest weg.'
+herkunft: ki-entwurf
+version: 1

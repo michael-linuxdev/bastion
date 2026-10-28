@@ -1,0 +1,27 @@
+# „Welche Gleichung passt zum Rätsel?“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.AUFSTELLEN.AUSWAHL
+kompetenz: M.SF.GL.AUFSTELLEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gl.gleichung-waehlen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche [[Gleichung]] passt? „{raetsel}“'
+hilfen:
+  - de: 'Übersetze Stück für Stück: „eine Zahl“ ist x, „das Dreifache“ ist 3 · x, „vermehrt um“ ist +, „vermindert um“ ist −.'
+  - de: 'Wird zuerst addiert und dann multipliziert, braucht die [[Summe]] eine Klammer.'
+fehlerbilder:
+  klammer-falsch:
+    de: 'Achte auf die Reihenfolge: Was zuerst gerechnet wird, steht in Klammern. „Das Dreifache einer Zahl vermehrt um 5“ ist 3 · x + 5 – ohne Klammer.'
+  reihenfolge-falsch:
+    de: 'Die Teile stehen in der falschen Reihenfolge. „Vermindert man eine Zahl um 5“ heißt x − 5, nicht 5 − x.'
+  rechenzeichen-falsch:
+    de: '„Vermehrt um“ heißt plus, „vermindert um“ heißt minus. Hier ist das Rechenzeichen vertauscht.'
+  fache-als-plus:
+    de: '„Das Dreifache der Zahl“ heißt 3 · x, nicht 3 + x.'
+herkunft: ki-entwurf
+version: 1

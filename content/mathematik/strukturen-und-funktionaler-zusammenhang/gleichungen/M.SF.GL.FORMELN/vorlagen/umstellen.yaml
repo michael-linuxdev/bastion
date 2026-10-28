@@ -1,0 +1,26 @@
+# „Stelle A = a · b nach b um.“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.FORMELN.UMSTELLEN
+kompetenz: M.SF.GL.FORMELN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gl.formel-umstellen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Stelle** die [[Formel]] {formel} nach {nach} **um**.'
+hilfen:
+  - de: 'Mit der [[Formel]] [[umformen]] wie mit einer [[Gleichung]]: auf beiden Seiten dasselbe rechnen.'
+  - de: 'Aus „mal“ wird „geteilt“, aus „plus“ wird „minus“.'
+  - de: 'Prüfe mit Zahlen: Aus 12 = 3 · 4 folgt 4 = 12 : 3.'
+fehlerbilder:
+  umkehr-falsch:
+    de: 'Hier wurde nicht umgekehrt gerechnet. Aus „mal“ wird beim Umstellen „geteilt“.'
+  kehrwert:
+    de: 'Die Reihenfolge beim Teilen ist vertauscht. Prüfe mit Zahlen: Aus 12 = 3 · 4 folgt 4 = 12 : 3, nicht 3 : 12.'
+  falsche-rechenart:
+    de: 'Malnehmen kehrt man mit Teilen um, nicht mit Abziehen.'
+herkunft: ki-entwurf
+version: 1

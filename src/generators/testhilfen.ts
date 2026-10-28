@@ -57,3 +57,58 @@ export function gilt(gleichung: string, variable: string, wert: number): boolean
   const r = rechne(rechts ?? '');
   return ersetzt.includes('<') ? l < r : l === r;
 }
+
+/**
+ * Rechner für Terme mit rationalen Zahlen (Klasse 7), bewusst unabhängig vom Generator-Code:
+ * Zahlen mit Komma, −, +, ·, :, Klammern, ² und ³ (Hochzahl bindet stärker als das Minus davor).
+ */
+export function rechneRational(term: string): number {
+  const t = term.replace(/\s/g, '').replaceAll(String.fromCharCode(0x202f), '');
+  let i = 0;
+  const zeichen = () => t[i];
+  function zahlLesen(): number {
+    const m = /^\d+(,\d+)?/.exec(t.slice(i));
+    if (!m) throw new Error(`keine Zahl bei ${t.slice(i)}`);
+    i += m[0].length;
+    return Number(m[0].replace(',', '.'));
+  }
+  function grund(): number {
+    let x: number;
+    if (zeichen() === '(') {
+      i++;
+      x = summe();
+      if (zeichen() !== ')') throw new Error('Klammer fehlt');
+      i++;
+    } else x = zahlLesen();
+    while (zeichen() === '²' || zeichen() === '³') x = x ** (t[i++] === '²' ? 2 : 3);
+    return x;
+  }
+  function vorzeichen(): number {
+    if (zeichen() === '−') {
+      i++;
+      return -vorzeichen();
+    }
+    return grund();
+  }
+  function produkt(): number {
+    let x = vorzeichen();
+    while (zeichen() === '·' || zeichen() === ':') {
+      const op = t[i++];
+      const y = vorzeichen();
+      x = op === '·' ? x * y : x / y;
+    }
+    return x;
+  }
+  function summe(): number {
+    let x = produkt();
+    while (zeichen() === '+' || zeichen() === '−') {
+      const op = t[i++];
+      const y = produkt();
+      x = op === '+' ? x + y : x - y;
+    }
+    return x;
+  }
+  const x = summe();
+  if (i !== t.length) throw new Error(`Rest: ${t.slice(i)}`);
+  return x;
+}

@@ -11,7 +11,7 @@ text:
   aufgabe:
     de: '{angabe} **Berechne**, wie lang die andere Seite ist (in {einheit}).'
 hilfen:
-  - de: Schreibe die Formel auf und setze ein, was du kennst.
+  - de: 'Schreibe die [[Formel]] auf und setze ein, was du kennst.'
   - de: 'Beim [[Umfang]] kommt jede Seite zweimal vor. Beim [[Flächeninhalt]] rechnest du rückwärts: geteilt statt mal.'
 fehlerbilder:
   subtrahiert:

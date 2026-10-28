@@ -1,0 +1,25 @@
+# „Berechne 3 · x − 5 für x = −2.“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.TERMWERT.EINSETZEN
+kompetenz: M.SF.GL.TERMWERT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gl.termwert@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Term]] {term} für x = {x}.'
+hilfen:
+  - de: 'Setze die Zahl für die [[Variable]] x ein – eine [[negative Zahl]] in Klammern: 3 · (−2) − 5.'
+  - de: 'Rechne dann [[Punkt vor Strich]]. Bei x² wird die Zahl samt Minus quadriert: (−3)² = 9.'
+fehlerbilder:
+  minus-vergessen:
+    de: 'Du hast ohne das Minus von x gerechnet. Setze x mit Klammer ein, dann geht das [[Vorzeichen]] nicht verloren.'
+  quadrat-vorzeichen:
+    de: 'Für x = −3 ist x² = (−3)² = 9, nicht −9. Das Minus gehört mit in die Klammer.'
+  links-nach-rechts:
+    de: 'Zuerst wird die Klammer ausgerechnet, dann malgenommen.'
+herkunft: ki-entwurf
+version: 1

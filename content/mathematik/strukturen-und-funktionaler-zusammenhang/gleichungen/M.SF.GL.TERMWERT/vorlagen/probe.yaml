@@ -1,0 +1,23 @@
+# „Ist x = −3 eine Lösung von 2 · x + 7 = 1?“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.TERMWERT.PROBE
+kompetenz: M.SF.GL.TERMWERT
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gl.ist-loesung@1
+parameter:
+  G: { beidseitig: false }
+  M: { beidseitig: true }
+text:
+  aufgabe:
+    de: '**Entscheide** mit einer [[Probe]]: Ist x = {x} eine Lösung der [[Gleichung]] {gleichung}?'
+hilfen:
+  - de: 'Setze die Zahl auf beiden Seiten für x ein und rechne beide Seiten aus.'
+  - de: 'Nur wenn beide Seiten gleich sind, ist die Zahl eine Lösung.'
+fehlerbilder:
+  minus-vergessen:
+    de: 'Rechne noch einmal mit dem Minus: Setze x in Klammern ein, zum Beispiel 2 · (−3).'
+  nur-eine-seite:
+    de: 'Rechne beide Seiten aus und vergleiche. Hier kommen verschiedene Zahlen heraus.'
+herkunft: ki-entwurf
+version: 1
