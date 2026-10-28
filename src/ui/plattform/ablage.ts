@@ -31,6 +31,10 @@ import {
   ZIEL_SCHLUESSEL,
   BILD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
+  KLASSE_SCHLUESSEL,
+  klasseAus,
+  SCHULART_SCHLUESSEL,
+  schulartAus,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -333,6 +337,30 @@ export async function themaWahl(): Promise<Thema> {
 
 /** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
 export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
+
+/** Gewählte Klassenstufe und Schulart (L-12); ohne Speicher: Klasse 5, keine Schulart. */
+export async function lernWahl(): Promise<{
+  klasse: number;
+  schulart: 'oberschule' | 'gymnasium' | undefined;
+  /** noch nie gewählt – dann zählt beim ersten Hochstellen auch Klasse 5 als übersprungen */
+  neu: boolean;
+}> {
+  const inst = await bereit();
+  if (!inst) return { klasse: 5, schulart: undefined, neu: true };
+  const k = await einstellung(db, inst.profil, KLASSE_SCHLUESSEL).catch(() => undefined);
+  return {
+    neu: k === undefined,
+    klasse: klasseAus(k),
+    schulart: schulartAus(
+      await einstellung(db, inst.profil, SCHULART_SCHLUESSEL).catch(() => undefined),
+    ),
+  };
+}
+
+export const klasseSetzen = (klasse: number) => setze(KLASSE_SCHLUESSEL, klasse, 'jugendlich');
+/** Keine Angabe wird als leerer Text gespeichert. */
+export const schulartSetzen = (schulart: 'oberschule' | 'gymnasium' | undefined) =>
+  setze(SCHULART_SCHLUESSEL, schulart ?? '', 'jugendlich');
 
 /** Bauplatz als Bild zeigen (2.13)? Standard ja; aus = reizarm, nur die Liste. */
 export async function bildZeigen(): Promise<boolean> {

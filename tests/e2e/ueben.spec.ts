@@ -874,3 +874,51 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
   ).toBeVisible();
   await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
 });
+
+test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 8' }).check();
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Kurz prüfen: Klasse 5' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Kurz prüfen: Klasse 7' })).toBeVisible();
+  // Zurückstellen ist neutral: kein Hinweis
+  await page.getByRole('radio', { name: 'Klasse 7' }).check();
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toHaveCount(0);
+  // Die Wahl bleibt nach dem Neuladen
+  await page.reload();
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await expect(page.getByRole('radio', { name: 'Klasse 7' })).toBeChecked();
+  // Schulartwechsel zeigt Themen, die die neue Schulart früher hat
+  await page.getByRole('radio', { name: 'Klasse 5' }).check();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await expect(page.getByRole('heading', { name: 'Neue Schulart' })).toHaveCount(0);
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await expect(page.getByRole('heading', { name: 'Neue Schulart' })).toBeVisible();
+  await page.getByRole('button', { name: 'Kurz prüfen', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Wo stehe ich?' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Klasse 5' })).toHaveCount(0);
+});
+
+test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Fertig für heute' }).click();
+  await page.getByRole('button', { name: 'Zur Startseite' }).click();
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByText('Was meine Eltern sehen').click();
+  await page.getByRole('button', { name: 'Für die Lehrkraft' }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Bericht für die Lehrkraft – Klasse 5' }),
+  ).toBeVisible();
+  await expect(page.locator('.lk li').filter({ hasText: 'Natürliche Zahlen' })).toContainText(
+    /0\s+von\s+10\s+Themen gekonnt/,
+  );
+  await page.getByRole('button', { name: 'Als Textdatei vorbereiten' }).click();
+  const download = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Datei speichern' }).click();
+  expect((await download).suggestedFilename()).toBe('bastion-bericht-klasse-5.txt');
+});

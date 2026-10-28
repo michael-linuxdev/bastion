@@ -138,7 +138,7 @@
     <summary>{t('stand.eltern-sehen')}</summary>
     <p class="leise">{t('stand.eltern-sehen-text')}</p>
     <PinVermerke {vermerke} />
-    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} />
+    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
   </details>
 </section>
 

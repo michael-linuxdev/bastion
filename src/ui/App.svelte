@@ -12,6 +12,9 @@
     alleBuchungen,
     basebauAn,
     themaWahl,
+    lernWahl,
+    klasseSetzen,
+    schulartSetzen,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -41,6 +44,10 @@
   import UpdateHinweis from './UpdateHinweis.svelte';
   import BastionAnsicht from './bastion/Bastion.svelte';
   import Hinterhof from './bastion/Hinterhof.svelte';
+  import Wechsel from './ueben/Wechsel.svelte';
+  import { KLASSEN } from './ueben/klassen';
+  import { uebersprungeneKlassen, type WechselHinweis } from '../core/learning/wechsel';
+  import { untrack } from 'svelte';
   import { aktiv, tt } from './bastion/thema.svelte';
 
   let ansicht = $state<
@@ -72,6 +79,38 @@
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
   let niveau = $state<Niveau>('G');
   let klasse = $state(5);
+  /** Freiwillige Schulart (L-9) */
+  let schulart = $state<'oberschule' | 'gymnasium' | undefined>(undefined);
+  /** Zuletzt gespeicherte Wahl – Vergleich für „Wechsel begleiten“ (L-12) */
+  let gemerkt = $state<{
+    klasse: number;
+    schulart: 'oberschule' | 'gymnasium' | undefined;
+    neu: boolean;
+  }>();
+  let wechsel = $state<WechselHinweis | undefined>(undefined);
+  /** Diagnose nur für ausgewählte Kompetenzen (nach einem Schulartwechsel) */
+  let diagnoseAuswahl = $state<readonly string[] | undefined>(undefined);
+  $effect(() => {
+    const k = klasse;
+    const s = schulart;
+    untrack(() => {
+      if (!gemerkt) return;
+      if (k !== gemerkt.klasse) {
+        const ueber = uebersprungeneKlassen(gemerkt.neu ? 4 : gemerkt.klasse, k, KLASSEN);
+        // Hochstellen über Klassen hinweg: Diagnose anbieten; zurückstellen: nichts (neutral)
+        wechsel = ueber.length > 0 ? { art: 'klassen', klassen: ueber } : undefined;
+        void klasseSetzen(k);
+      }
+      if (s !== gemerkt.schulart) {
+        wechsel =
+          gemerkt.schulart && s
+            ? { art: 'schulart', alt: gemerkt.schulart, neu: s, klasse: k }
+            : wechsel;
+        void schulartSetzen(s);
+      }
+      gemerkt = { klasse: k, schulart: s, neu: gemerkt.neu && k === gemerkt.klasse };
+    });
+  });
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
   let zustand = $state<Zustand>({ staende: new Map(), karten: [] });
   /** Fachbegriffe aus dem Grundpaket – für alle Texte (L-7) */
@@ -107,6 +146,12 @@
     sichern = await sicherungAnstehend();
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
+    if (!gemerkt) {
+      const w = await lernWahl();
+      klasse = w.klasse;
+      schulart = w.schulart;
+      gemerkt = w;
+    }
   }
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
@@ -211,7 +256,10 @@
         class="zweit"
         onclick={() => {
           inhalte ??= ladeInhalte();
-          if (diagnoseAntworten.length === 0) diagnoseKlasse = klasse;
+          if (diagnoseAntworten.length === 0) {
+            diagnoseKlasse = klasse;
+            diagnoseAuswahl = undefined;
+          }
           ansicht = 'diagnose';
         }}>{t('diagnose.knopf')}</button
       >
@@ -315,6 +363,7 @@
           {zustand}
           aufgaben={aufgabenListe}
           bind:basebau
+          {klasse}
         />
       {:else if ansicht === 'stand'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
@@ -345,6 +394,7 @@
           paketVon={geladen.paketVon}
           bind:antworten={diagnoseAntworten}
           bind:klasse={diagnoseKlasse}
+          auswahl={diagnoseAuswahl}
           onergebnis={(d) => void ergebnis(d)}
           onueben={(k) => {
             gewaehlt = k;
@@ -432,12 +482,34 @@
           </p>
         {/if}
       {:else}
+        {#if wechsel}
+          <Wechsel
+            hinweis={wechsel}
+            kompetenzen={geladen.kompetenzen}
+            staende={[...zustand.staende.values()]}
+            onklasse={(k) => {
+              wechsel = undefined;
+              diagnoseAntworten = [];
+              diagnoseKlasse = k;
+              diagnoseAuswahl = undefined;
+              ansicht = 'diagnose';
+            }}
+            onauswahl={(ids) => {
+              wechsel = undefined;
+              diagnoseAntworten = [];
+              diagnoseAuswahl = ids;
+              ansicht = 'diagnose';
+            }}
+            onschliessen={() => (wechsel = undefined)}
+          />
+        {/if}
         <Uebersicht
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}
           bind:niveau
           bind:klasse
+          bind:schulart
           onwahl={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';
