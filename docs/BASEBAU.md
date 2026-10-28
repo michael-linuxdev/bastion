@@ -265,7 +265,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
-| 2.1 | **Sitzungen** | `sitzung`-Ereignis (DATENMODELL §4.2) beim Abschluss („Fertig für heute“, Verlassen); fehlende Sitzungen beim nächsten Start nachtragen (D-3); Lerneinheit = mindestens 10 ernsthafte Aufgaben oder 8 Minuten aktive Zeit (§3.4) | Einheitentests, auch für Abbruch und Nachtragen |
+| 2.1 ✅ | **Sitzungen** | `sitzung`-Ereignis (DATENMODELL §4.2) beim Abschluss („Fertig für heute“, Verlassen); fehlende Sitzungen beim nächsten Start nachtragen (D-3); Lerneinheit = mindestens 10 ernsthafte Aufgaben oder 8 Minuten aktive Zeit (§3.4) | Einheitentests, auch für Abbruch und Nachtragen |
 | 2.2 | **Ledger-Regeln** in `src/core/ledger/` | rein und deterministisch, Regelversion 1: Stein mit Tageskurve und Rateregel (§3.1), Erz aus fälligen bestandenen Wiederholungen und Korrekturen, höchstens 30 am Tag (§3.2), Bauschritte höchstens 2 am Tag (§3.4), Bauplan beim ersten „gefestigt“ je Kompetenz und Niveau (§3.3) | fast-check: Tagesgrenzen halten, absichtlich falsch antworten bringt nichts, Niveau ändert nichts (B-4) |
 | 2.3 | **Buchungen und Konto** | `buchung`-Ereignisse je Sitzung mit Aufschlüsselung (D-4), Projektion `konto`; Sicherung, Einspielen und Zusammenführen kennen die neue Ereignisart (DATENMODELL §7.3); Schemaversion mit Migrationstest | Pflicht-Test D-6: fortgeschrieben = neu aufgebaut |
 | 2.4 | **Abschluss mit Ressourcen** | Ressourcen **unter** dem Können, mit „woher“ (§6.1, §9 Punkt 2); „Für heute ist das gut“ nach dem zweiten Bauschritt (R5); Belohnung fürs Korrigieren sichtbar (R6) | Browser-Test |

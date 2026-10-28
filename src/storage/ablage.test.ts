@@ -1,6 +1,10 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
 import { describe, expect, it } from 'vitest';
-import { aufgabeEreignis, type AufgabeAngaben } from '../core/learning/ereignis';
+import {
+  aufgabeEreignis,
+  type AufgabeAngaben,
+  type AufgabeEreignis,
+} from '../core/learning/ereignis';
 import { quelleAusSeed } from '../core/rng/zufallsquelle';
 import {
   einrichten,
@@ -15,7 +19,11 @@ import {
   neuBerechnen,
   speichereAufgabe,
   speichereEinstellung,
+  speichereSitzung,
+  sitzungen,
+  sitzungenNachtragen,
 } from './ablage';
+import { sitzungEreignis } from '../core/learning/sitzung';
 import { einstellungEreignis } from '../core/policy/einstellung';
 import { BastionDatenbank } from './datenbank';
 
@@ -195,6 +203,48 @@ describe('Ablage', () => {
       grund: 'anderes-profil',
     });
     expect((await exportieren(b, pb.profil)).ereignisse).toHaveLength(1);
+  });
+
+  it('Sitzungen: nachtragen, nichts doppelt, mit in der Sicherung', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(4);
+    const speichere = (sitzung: string, ts: number) =>
+      speichereAufgabe(
+        db,
+        aufgabeEreignis(angaben(inst.profil, inst.geraet, { sitzung }), ts, 60, zufall),
+      );
+    for (let i = 0; i < 3; i++) await speichere('ALT', 2000 + i * 10_000);
+    await speichere('BEENDET', 50_000);
+    await speichere('JETZT', 60_000);
+
+    // „Fertig für heute“ schreibt die Sitzung regulär; zweimal schreiben ändert nichts
+    const beendet = (await exportieren(db, inst.profil)).ereignisse.filter(
+      (e): e is AufgabeEreignis => e.art === 'aufgabe' && e.sitzung === 'BEENDET',
+    );
+    const regulaer = sitzungEreignis(beendet, 'regulaer');
+    await speichereSitzung(db, regulaer);
+    await speichereSitzung(db, { ...regulaer, abschluss: 'nachgetragen' });
+
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(1);
+    expect(await sitzungenNachtragen(db, inst, 'JETZT')).toBe(0);
+    const alle = await sitzungen(db, inst.profil);
+    expect(alle.map((s) => [s.id, s.abschluss, s.aufgaben])).toEqual([
+      ['ALT', 'nachgetragen', 3],
+      ['BEENDET', 'regulaer', 1],
+    ]);
+
+    // Sicherung trägt die Sitzungen mit; Einspielen bringt sie ohne Doppelte zurück
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((e) => e.art === 'sitzung')).toHaveLength(2);
+    const neu = neueDb();
+    const ziel = await einrichten(neu, 5000, quelleAusSeed(2));
+    expect(await importieren(neu, sicherung, ziel.profil, 6000)).toMatchObject({
+      ok: true,
+      neu: 7,
+    });
+    expect(await sitzungen(neu, inst.profil)).toEqual(alle);
+    expect(await importieren(neu, sicherung, inst.profil, 7000)).toMatchObject({ neu: 0 });
   });
 
   it('merkt sich die letzte Sicherung', async () => {

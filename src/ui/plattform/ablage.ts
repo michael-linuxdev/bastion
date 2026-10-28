@@ -1,8 +1,10 @@
 // Verbindet die App mit der Ablage im Browser: echte Uhr, echter Zufall,
-// eine Sitzung je App-Start. Ist IndexedDB nicht nutzbar (z. B. privater
+// Lernsitzungen (DATENMODELL §4.2): Eine Sitzung endet mit „Fertig für heute“,
+// nach 30 Minuten Ruhe oder mit dem Lerntag; nie beendete trägt der nächste Start nach. Ist IndexedDB nicht nutzbar (z. B. privater
 // Modus mancher Browser), funktioniert Üben weiter – nur ohne Speichern.
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
+import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
 import { ulid } from '../../core/rng/ulid';
 import {
   aufDiesemGeraet,
@@ -36,7 +38,9 @@ import {
   importieren,
   letzteSicherung,
   sicherungVermerken,
+  sitzungenNachtragen,
   speichereEinstellung,
+  speichereSitzung,
   karte,
   karten,
   kompetenzStaende,
@@ -52,12 +56,35 @@ const zufall: ZufallsQuelle = {
   },
 };
 const db = new BastionDatenbank();
-const sitzung = ulid(Date.now(), zufall);
+let sitzung = ulid(Date.now(), zufall);
+/** Antworten der laufenden Sitzung – daraus entsteht ihr Sitzungs-Ereignis */
+let laufende: AufgabeEreignis[] = [];
 let installation: Promise<Installation | undefined> | undefined;
 
 function bereit(): Promise<Installation | undefined> {
-  installation ??= einrichten(db, Date.now(), zufall).catch(() => undefined);
+  installation ??= einrichten(db, Date.now(), zufall)
+    .then(async (inst) => {
+      await sitzungenNachtragen(db, inst, sitzung).catch(() => 0);
+      return inst;
+    })
+    .catch(() => undefined);
   return installation;
+}
+
+const versatz = (ts: number) => -new Date(ts).getTimezoneOffset();
+
+/** Laufende Sitzung abschließen und eine neue beginnen (nur wenn es Antworten gab). */
+async function sitzungAbschliessen(abschluss: 'regulaer' | 'nachgetragen'): Promise<void> {
+  const fertig = laufende;
+  if (fertig.length === 0) return;
+  laufende = [];
+  sitzung = ulid(Date.now(), zufall);
+  await speichereSitzung(db, sitzungEreignis(fertig, abschluss)).catch(() => undefined);
+}
+
+/** „Fertig für heute“: Die Sitzung ist regulär beendet. */
+export async function sitzungBeenden(): Promise<void> {
+  if (await bereit()) await sitzungAbschliessen('regulaer');
 }
 
 export type Antwortdaten = Omit<AufgabeAngaben, 'profil' | 'geraet' | 'sitzung' | 'faellig'>;
@@ -67,6 +94,9 @@ export async function merke(daten: Antwortdaten): Promise<void> {
   const inst = await bereit();
   if (!inst) return;
   const jetzt = Date.now();
+  // Lange Ruhe oder neuer Lerntag: Die alte Sitzung gilt als beendet, ohne „Fertig für heute“
+  if (neueSitzungNoetig(laufende.at(-1), jetzt, lerntag(jetzt, versatz(jetzt))))
+    await sitzungAbschliessen('nachgetragen');
   // „Fällig“ hält fest, ob die Karte in diesem Moment zur Wiederholung anstand (LEHRPLAN §6).
   const k = await karte(db, inst.profil, daten.vorlage, daten.niveau).catch(() => undefined);
   const e = aufgabeEreignis(
@@ -81,7 +111,11 @@ export async function merke(daten: Antwortdaten): Promise<void> {
     -new Date(jetzt).getTimezoneOffset(),
     zufall,
   );
-  await speichereAufgabe(db, e).catch(() => undefined);
+  const gespeichert = await speichereAufgabe(db, e).then(
+    () => true,
+    () => false,
+  );
+  if (gespeichert) laufende.push(e);
 }
 
 export interface Zustand {

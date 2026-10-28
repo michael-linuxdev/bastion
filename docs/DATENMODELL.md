@@ -151,6 +151,14 @@ Die Sitzung wird **am Ende** geschrieben. Stürzt die App ab oder wird sie gesch
 **Entscheidung D-3: Auch nachgetragene Sitzungen zählen als Lerneinheit**, wenn der Mindestumfang erreicht wurde.
 *Warum:* Leerer Akku oder ein geschlossener Browser-Tab sind kein Grund, erarbeiteten Fortschritt zu verweigern. Das präzisiert BASEBAU §3.4 („mit regulärem Sitzungsabschluss“) zugunsten der Lernenden.
 
+*Umsetzung (2.1):* `src/core/learning/sitzung.ts`. Das Sitzungs-Ereignis ergibt sich **allein aus den Aufgaben der Sitzung** – regulär und nachgetragen entsteht dasselbe:
+- `id` ist die Sitzungs-ID der Aufgaben. Wird eine Sitzung auf zwei Wegen erfasst, bleibt beim Zusammenführen nur eine (D-10).
+- `ts` und `tag` sind Zeit und Lerntag der letzten Antwort, nicht des Schreibens – eine am nächsten Morgen nachgetragene Sitzung gehört zu ihrem Tag. `beginn` ist die erste Antwort minus deren Bearbeitungszeit.
+- **Ernsthaft** (BASEBAU §3.1): nicht übersprungen und nicht geraten. Geraten heißt falsch und schneller als 3 Sekunden (Auswahl) bzw. 5 Sekunden (Eingabe). Richtig zählt immer; „Weiß ich nicht“ in der Diagnose ist ehrlich und zählt.
+- **Aktive Zeit:** Bearbeitungszeit der ersten Aufgabe, danach die Abstände zwischen zwei Antworten, jeder höchstens 2 Minuten. So zählt das Lesen von Rückmeldung und Lösungsweg mit, eine Pause nicht.
+- **Ende einer Sitzung:** „Fertig für heute“ (regulär); 30 Minuten Ruhe oder ein neuer Lerntag vor der nächsten Antwort (nachgetragen); App geschlossen – dann trägt der nächste Start alle Sitzungen dieses Geräts nach, außer der laufenden. Sitzungen anderer Geräte kommen mit ihrem eigenen Ereignis aus der Sicherung.
+- Sitzungen gehören zur Sicherung (§7) und werden beim Einspielen ohne Doppelte zusammengeführt.
+
 ### 4.3 `buchung` – Ressourcen-Ledger
 
 ```ts
@@ -300,7 +308,7 @@ db.version(1).stores({
 });
 ```
 
-*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `kompetenzen`, `profile`, `meta`.
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
 
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.

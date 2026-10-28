@@ -1,7 +1,33 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
+/** Sitzungs-Ereignisse direkt aus IndexedDB lesen (nur die geprüften Felder). */
+function sitzungenImSpeicher(page: Page) {
+  return page.evaluate(
+    () =>
+      new Promise<unknown[]>((fertig, fehler) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onerror = () => fehler(anfrage.error);
+        anfrage.onsuccess = () => {
+          const lesen = anfrage.result.transaction('sitzungen').objectStore('sitzungen').getAll();
+          lesen.onsuccess = () => {
+            anfrage.result.close();
+            fertig(
+              (lesen.result as { abschluss: string; aufgaben: number; lerneinheit: boolean }[]).map(
+                (s) => ({
+                  abschluss: s.abschluss,
+                  aufgaben: s.aufgaben,
+                  lerneinheit: s.lerneinheit,
+                }),
+              ),
+            );
+          };
+        };
+      }),
+  );
+}
+
 test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   page,
   context,
@@ -308,7 +334,8 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await expect(seite.getByText(/Der Code passt nicht/)).toBeVisible();
   await seite.getByLabel(/Sicherungscode/).fill(code.toUpperCase().replaceAll(' ', '-'));
   await seite.getByRole('button', { name: 'Einspielen' }).click();
-  await expect(seite.getByText(/Fertig\. Übernommen: 3 Einträge/)).toBeVisible();
+  // Aufgabe, ihre beim Neuladen nachgetragene Sitzung, PIN und Wiederherstellungscode
+  await expect(seite.getByText(/Fertig\. Übernommen: 4 Einträge/)).toBeVisible();
   // Nochmal einspielen: nichts kommt doppelt (D-10)
   await seite.getByLabel(/Sicherungscode/).fill(code);
   await seite.getByRole('button', { name: 'Einspielen' }).click();
@@ -359,6 +386,28 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   await expect(page.getByText(/Für heute ist das gut/)).toBeVisible();
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
   await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+  // Die Sitzung ist regulär beendet und gespeichert (DATENMODELL §4.2). Die
+  // schnelle falsche Antwort gilt als geraten und zählt nicht als ernsthaft.
+  expect(await sitzungenImSpeicher(page)).toEqual([
+    { abschluss: 'regulaer', aufgaben: 0, lerneinheit: false },
+  ]);
+});
+
+test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetragen (D-3)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByRole('button', { name: 'Fertig für heute' })).toBeVisible();
+  expect(await sitzungenImSpeicher(page)).toEqual([]);
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+  await expect
+    .poll(() => sitzungenImSpeicher(page))
+    .toEqual([{ abschluss: 'nachgetragen', aufgaben: 0, lerneinheit: false }]);
 });
 
 test('Fachbegriffe: antippen zeigt die Erklärung (L-7)', async ({ page }) => {

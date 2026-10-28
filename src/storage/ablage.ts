@@ -8,6 +8,7 @@ import {
   type KompetenzStand,
   type Projektion,
 } from '../core/learning/fortschritt';
+import { offeneSitzungen, type SitzungEreignis } from '../core/learning/sitzung';
 import { kartenSchluessel, type Karte } from '../core/srs/karten';
 import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
@@ -122,6 +123,38 @@ export async function neuBerechnen(db: BastionDatenbank, profil: string): Promis
   });
 }
 
+/** Sitzungs-Ereignis speichern (DATENMODELL §4.2); eine schon erfasste Sitzung bleibt, wie sie ist. */
+export async function speichereSitzung(db: BastionDatenbank, e: SitzungEreignis): Promise<void> {
+  await db.transaction('rw', db.sitzungen, async () => {
+    if (!(await db.sitzungen.get(e.id))) await db.sitzungen.add(e);
+  });
+}
+
+/** Alle Sitzungs-Ereignisse eines Profils, nach Zeit. */
+export async function sitzungen(db: BastionDatenbank, profil: string): Promise<SitzungEreignis[]> {
+  return db.sitzungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/**
+ * Sitzungen dieses Geräts nachtragen, die nie regulär beendet wurden (D-3) –
+ * alle außer der laufenden. Liefert die Zahl der nachgetragenen Sitzungen.
+ */
+export async function sitzungenNachtragen(
+  db: BastionDatenbank,
+  inst: Installation,
+  laufend: string,
+): Promise<number> {
+  return db.transaction('rw', db.aufgaben, db.sitzungen, async () => {
+    const bekannt = new Set((await sitzungen(db, inst.profil)).map((s) => s.id));
+    const offen = offeneSitzungen(await aufgaben(db, inst.profil), bekannt, inst.geraet, laufend);
+    await db.sitzungen.bulkAdd(offen);
+    return offen.length;
+  });
+}
+
 /** Einstellung speichern: Ereignis und aktueller Wert in einer Transaktion (D-5, D-6). */
 export async function speichereEinstellung(
   db: BastionDatenbank,
@@ -171,14 +204,22 @@ async function einstellungenNeu(db: BastionDatenbank, profil: string): Promise<v
 
 /** Profil-Sicherung (DATENMODELL §7.1): nur Profil und Ereignisse, keine Projektionen. */
 export async function exportieren(db: BastionDatenbank, profil: string): Promise<SicherungsInhalt> {
-  return db.transaction('r', db.profile, db.aufgaben, db.einstellungen_ereignisse, async () => {
-    const p = await db.profile.get(profil);
-    return {
-      format: FORMAT,
-      profile: p ? [{ id: p.id, erstellt: p.erstellt }] : [],
-      ereignisse: [...(await aufgaben(db, profil)), ...(await einstellungsEreignisse(db, profil))],
-    };
-  });
+  return db.transaction(
+    'r',
+    [db.profile, db.aufgaben, db.sitzungen, db.einstellungen_ereignisse],
+    async () => {
+      const p = await db.profile.get(profil);
+      return {
+        format: FORMAT,
+        profile: p ? [{ id: p.id, erstellt: p.erstellt }] : [],
+        ereignisse: [
+          ...(await aufgaben(db, profil)),
+          ...(await sitzungen(db, profil)),
+          ...(await einstellungsEreignisse(db, profil)),
+        ],
+      };
+    },
+  );
 }
 
 export type ImportErgebnis =
@@ -212,6 +253,7 @@ export async function importieren(
     [
       db.profile,
       db.aufgaben,
+      db.sitzungen,
       db.einstellungen_ereignisse,
       db.einstellungen,
       db.kompetenzen,
@@ -236,9 +278,11 @@ export async function importieren(
       if (!(await db.profile.get(ziel.id))) await db.profile.put({ ...ziel });
 
       const auf: AufgabeEreignis[] = [];
+      const sit: SitzungEreignis[] = [];
       const ein: EinstellungEreignis[] = [];
       for (const e of inhalt.ereignisse) {
         if (e.art === 'aufgabe') auf.push(e);
+        else if (e.art === 'sitzung') sit.push(e);
         else ein.push(e);
       }
       const neueAufgaben = fehlende(
@@ -259,11 +303,25 @@ export async function importieren(
         ),
         ein,
       );
+      const neueSitzungen = fehlende(
+        new Set(
+          await db.sitzungen
+            .where('id')
+            .anyOf(sit.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        sit,
+      );
       await db.aufgaben.bulkAdd(neueAufgaben);
+      await db.sitzungen.bulkAdd(neueSitzungen);
       await db.einstellungen_ereignisse.bulkAdd(neueEinstellungen);
       await neuBerechnen(db, ziel.id);
       await einstellungenNeu(db, ziel.id);
-      return { ok: true, profil: ziel.id, neu: neueAufgaben.length + neueEinstellungen.length };
+      return {
+        ok: true,
+        profil: ziel.id,
+        neu: neueAufgaben.length + neueSitzungen.length + neueEinstellungen.length,
+      };
     },
   );
 }

@@ -7,6 +7,7 @@
  * Komprimieren übernimmt die Plattform.
  */
 import { AUFGABE_V, type AufgabeEreignis } from '../learning/ereignis';
+import { SITZUNG_V, type SitzungEreignis } from '../learning/sitzung';
 import { EINSTELLUNG_V, type EinstellungEreignis } from '../policy/einstellung';
 import type { Tag } from '../policy/lerntag';
 
@@ -35,7 +36,7 @@ export interface SicherungsProfil {
   readonly erstellt: number;
 }
 
-export type SicherungsEreignis = AufgabeEreignis | EinstellungEreignis;
+export type SicherungsEreignis = AufgabeEreignis | SitzungEreignis | EinstellungEreignis;
 
 export interface SicherungsInhalt {
   readonly format: number;
@@ -94,6 +95,7 @@ const istText = (x: unknown): x is string => typeof x === 'string' && x.length >
 const istZahl = (x: unknown): x is number => typeof x === 'number' && Number.isFinite(x);
 const VERSION: Readonly<Record<string, number>> = {
   aufgabe: AUFGABE_V,
+  sitzung: SITZUNG_V,
   einstellung: EINSTELLUNG_V,
 };
 

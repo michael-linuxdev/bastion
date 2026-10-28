@@ -8,6 +8,7 @@
     alleAufgaben,
     fehlergruppen,
     merke,
+    sitzungBeenden,
     sicherungAnstehend,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -161,6 +162,7 @@
 
   async function fertig() {
     await speichern;
+    await sitzungBeenden();
     await aktualisiere();
     ansicht = 'abschluss';
   }
