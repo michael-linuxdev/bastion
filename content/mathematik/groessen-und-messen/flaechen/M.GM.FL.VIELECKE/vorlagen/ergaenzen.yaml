@@ -1,0 +1,23 @@
+# Flächeninhalt durch Ergänzen zum Rechteck. Entwurf: noch nicht geprüft.
+id: M.GM.FL.VIELECKE.ERGAENZEN
+kompetenz: M.GM.FL.VIELECKE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: fl.vieleck-ergaenzen@1
+parameter:
+  G: { ecken: 1 }
+  M: { ecken: 2 }
+text:
+  aufgabe:
+    de: '**Berechne** den [[Flächeninhalt]] der Figur in cm². Tipp: Ergänze sie zu einem Rechteck.'
+hilfen:
+  - de: 'Berechne zuerst das ganze Rechteck, als wären die Ecken nicht abgeschnitten.'
+  - de: 'Zieh dann die abgeschnittenen Dreiecke ab. Jedes ist ein halbes Rechteck: Seite · Seite : 2.'
+fehlerbilder:
+  ecken-nicht-abgezogen:
+    de: 'Das ist das ganze Rechteck. Die abgeschnittenen Ecken gehören nicht zur Figur – zieh sie ab.'
+  ecke-nicht-halbiert:
+    de: 'Die abgeschnittenen Ecken sind Dreiecke, also nur halbe Rechtecke. Teile ihren [[Flächeninhalt]] durch 2.'
+herkunft: ki-entwurf
+version: 1

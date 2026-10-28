@@ -451,3 +451,52 @@ export const umkreis: AnleitungsBilder = {
     ];
   },
 };
+
+/** Parallelogramm aus a, b und α: Seite, Winkel, zweite Seite, Parallelen */
+export const parallelogramm: AnleitungsBilder = {
+  id: 'anleitung.parallelogramm',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const A: P = [40, 190];
+    const B: P = [200, 190];
+    const alpha = 60;
+    const D = aufKreis(A[0], A[1], 100, alpha);
+    const C: P = [B[0] + (D[0] - A[0]), B[1] + (D[1] - A[1])];
+    const schenkel = aufKreis(A[0], A[1], 150, alpha);
+    const grund = [linie(A[0], A[1], B[0], B[1]), punkt(A[0], A[1], 'A'), punkt(B[0], B[1], 'B')];
+    const winkelA = [
+      linie(A[0], A[1], schenkel[0], schenkel[1], 1.5),
+      bogen(A[0], A[1], 28, 0, alpha),
+      text(A[0] + 40, A[1] - 12, 'α', 13),
+    ];
+    const dPunkt = punkt(D[0], D[1], 'D');
+    return [
+      bild(320, 230, grund, { de: 'Die Seite a = AB ist gezeichnet.' }),
+      bild(320, 230, [...grund, ...winkelA], {
+        de: 'In A ist der Winkel α an AB angetragen. Der freie Schenkel zeigt schräg nach oben.',
+      }),
+      bild(320, 230, [...grund, ...winkelA, dick(A[0], A[1], D[0], D[1]), dPunkt], {
+        de: 'Auf dem freien Schenkel ist die Länge b abgetragen. Dort liegt D.',
+      }),
+      bild(
+        320,
+        230,
+        [
+          ...grund,
+          ...winkelA,
+          linie(A[0], A[1], D[0], D[1]),
+          dPunkt,
+          gestrichelt(D[0] - 20, D[1], C[0] + 40, C[1]),
+          gestrichelt(B[0], B[1], C[0] + (C[0] - B[0]) * 0.2, C[1] + (C[1] - B[1]) * 0.2),
+          punkt(C[0], C[1], 'C'),
+          linie(D[0], D[1], C[0], C[1], 3),
+          linie(B[0], B[1], C[0], C[1], 3),
+        ],
+        {
+          de: 'Durch D ist die Parallele zu AB gezeichnet, durch B die Parallele zu AD. Sie schneiden sich in C.',
+        },
+      ),
+    ];
+  },
+};

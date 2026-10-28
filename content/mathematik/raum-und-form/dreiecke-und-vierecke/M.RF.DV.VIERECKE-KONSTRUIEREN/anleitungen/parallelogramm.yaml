@@ -1,0 +1,18 @@
+# Parallelogramm aus a, b und α konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE-KONSTRUIEREN.PARALLELOGRAMM
+kompetenz: M.RF.DV.VIERECKE-KONSTRUIEREN
+titel:
+  de: 'Ein [[Parallelogramm]] konstruieren'
+material:
+  de: 'Papier, spitzer Bleistift, [[Geodreieck]], [[Zirkel]]'
+bilder: anleitung.parallelogramm@1
+schritte:
+  - de: 'Zeichne die Seite a = AB, zum Beispiel 6 cm lang.'
+  - de: 'Trage in A den [[Winkel]] α an AB an, zum Beispiel 60°. Zeichne den freien [[Schenkel]] lang genug.'
+  - de: 'Trage auf dem freien [[Schenkel]] von A aus die Länge b ab, zum Beispiel 4 cm. Dort liegt D.'
+  - de: 'Zeichne durch D die [[Parallele]] zu AB und durch B die Parallele zu AD. Ihr [[Schnittpunkt]] ist C.'
+pruefen:
+  - de: 'Miss nach: Sind DC und AB gleich lang? Sind BC und AD gleich lang?'
+  - de: 'Gegenüberliegende [[Winkel]] sind im [[Parallelogramm]] gleich groß. Ist der Winkel bei C auch 60°?'
+herkunft: ki-entwurf
+version: 1
