@@ -191,6 +191,8 @@ Nach mehr als 7 Tagen ohne Lerneinheit:
 - Fällige Wiederholungen werden **portioniert**: höchstens 20 pro Sitzung, die wichtigsten zuerst.
 - Keine Anzeige der Pausenlänge, kein Zähler verpasster Tage.
 
+*Umsetzung (1b, Lernkern):* `src/core/srs/rueckkehr.ts`. Präzisierungen, solange es noch keine Lerneinheiten (Sitzungs-Ereignisse) und keine Bastion gibt: Als Pause zählt die Zeit seit der letzten bearbeiteten Aufgabe. Die Begrüßung lautet „Willkommen zurück. Schön, dass du wieder da bist.“ – der Satz über die Bastion kommt mit dem Basebau. „Die wichtigsten zuerst“ heißt: die Karten mit der niedrigsten Erinnerungswahrscheinlichkeit. Die Portion von 20 gilt für **jede** Wiederholungsrunde, nicht nur nach Pausen (natürliche Pausenpunkte, R5); die Startseite nennt nur die Größe der nächsten Runde, nie die ganze Menge.
+
 ### 6.4 Was die Bastion vom Lernkern weiß
 Nur Ledger-Buchungen und die Liste gefestigter Kompetenzen (für die Studierstube). Keine Antworten, keine Fehler, keine Zeiten (K-1).
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
-  import { istFaellig } from '../core/srs/karten';
+  import { istRueckkehr, wiederholRunde } from '../core/srs/rueckkehr';
   import type { Fehlergruppe } from '../core/learning/werkstatt';
   import {
     fehlergruppen,
@@ -33,12 +33,16 @@
   let wiederholListe = $state<readonly Auftrag[]>([]);
 
   // Fällig ist, was beim letzten Laden fällig war – kein laufender Timer (R2).
+  // Gezeigt wird die Größe der nächsten Runde (höchstens eine Portion), nie ein Berg.
   let faellig = $state(0);
+  /** Rückkehr nach einer Pause – einmal beim App-Start festgestellt (BASEBAU §6.3). */
+  let rueckkehr = $state<boolean | undefined>(undefined);
 
   async function aktualisiere() {
     zustand = await ladeZustand();
     const jetzt = Date.now();
-    faellig = zustand.karten.filter((k) => istFaellig(k, jetzt)).length;
+    rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
+    faellig = wiederholRunde(zustand.karten, jetzt).length;
     gruppen = await fehlergruppen();
   }
 
@@ -89,14 +93,11 @@
     const jetzt = Date.now();
     const vorlage = new Map(geladen.vorlagen.map((v) => [v.id, v]));
     const kompetenz = new Map(geladen.kompetenzen.map((k) => [k.id, k]));
-    wiederholListe = zustand.karten
-      .filter((k) => istFaellig(k, jetzt))
-      .sort((a, b) => a.faellig - b.faellig)
-      .flatMap((k) => {
-        const v = vorlage.get(k.vorlage);
-        const komp = kompetenz.get(k.kompetenz);
-        return v && komp ? [{ kompetenz: komp, vorlage: v, niveau: k.niveau }] : [];
-      });
+    wiederholListe = wiederholRunde(zustand.karten, jetzt).flatMap((k) => {
+      const v = vorlage.get(k.vorlage);
+      const komp = kompetenz.get(k.kompetenz);
+      return v && komp ? [{ kompetenz: komp, vorlage: v, niveau: k.niveau }] : [];
+    });
     ansicht = 'wiederholen';
   }
 
@@ -119,8 +120,13 @@
   <h1>{t('start.ueberschrift')}</h1>
 
   {#if ansicht === 'start'}
-    <p class="untertitel">{t('start.untertitel')}</p>
-    <p>{t('start.status')}</p>
+    {#if rueckkehr}
+      <p class="untertitel" role="status">{t('rueckkehr.gruss')}</p>
+      {#if faellig > 0}<p>{t('rueckkehr.hinweis')}</p>{/if}
+    {:else}
+      <p class="untertitel">{t('start.untertitel')}</p>
+      <p>{t('start.status')}</p>
+    {/if}
     <p class="knoepfe">
       <button class="haupt" onclick={ueben}>{t('start.ueben')}</button>
       {#if faellig > 0}

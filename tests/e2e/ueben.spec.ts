@@ -115,3 +115,26 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByText(/Keine offenen Fehler/)).toBeVisible();
 });
+
+test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
+  await page.goto('./');
+  await expect(page.getByText('Willkommen zurück')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
+    'in Arbeit',
+  );
+
+  await page.clock.setSystemTime(new Date('2026-11-12T10:00:00Z'));
+  await page.reload();
+  await expect(page.getByText('Willkommen zurück. Schön, dass du wieder da bist.')).toBeVisible();
+  await expect(page.getByText(/kleine Auswahl zum Wiederholen/)).toBeVisible();
+  // Keine Pausenlänge, kein Zähler verpasster Tage
+  await expect(page.getByText(/Tage|Tagen|verpasst/)).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeVisible();
+});

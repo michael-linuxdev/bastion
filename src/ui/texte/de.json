@@ -76,5 +76,7 @@
   "werkstatt.damals": "Deine Antwort damals:",
   "werkstatt.fertig": "Diese Fehler hast du aufgearbeitet. Gut gemacht!",
   "werkstatt.offen-eins": "1 Fehler wartet in der Fehlerwerkstatt.",
-  "werkstatt.offen-mehrere": "Fehler warten in der Fehlerwerkstatt."
+  "werkstatt.offen-mehrere": "Fehler warten in der Fehlerwerkstatt.",
+  "rueckkehr.gruss": "Willkommen zurück. Schön, dass du wieder da bist.",
+  "rueckkehr.hinweis": "Fang ganz entspannt an: Hier ist eine kleine Auswahl zum Wiederholen – das Wichtigste zuerst."
 }
