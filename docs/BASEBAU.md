@@ -238,12 +238,12 @@ Nur Ledger-Buchungen und die Liste gefestigter Kompetenzen (für die Studierstub
 
 | Profil | Verhalten | Erwartung (muss erfüllt sein) |
 |---|---|---|
-| P1 regelmäßig | 4×/Woche, 15 Min. | Epoche 1 in 9–12 Monaten; mindestens alle 2 Wochen ein fertiges Gebäude |
+| P1 regelmäßig | 4×/Woche, 15 Min. | Epoche 1 in 9–12 Monaten; ~~mindestens alle 2 Wochen ein fertiges Gebäude~~ höchstens etwa 8 Wochen ohne fertiges Gebäude (B-19) |
 | P2 eifrig | täglich, 30 Min. | Schneller als P1, aber höchstens etwa doppelt so schnell |
 | P3 Wochenende | 2×/Woche, je 45 Min. | Jede Woche sichtbarer Fortschritt; Epoche 1 in höchstens 18 Monaten |
 | P4 Farmer | nur leichte Aufgaben, viel Masse | Nicht schneller als P1 bei Bergfried und Epoche; viel Zierde ist in Ordnung |
 | P5 Pause | P1 mit 3 Wochen Krankheit | Kein Verlust; nach Rückkehr in 2 Wochen wieder im Rhythmus |
-| P6 schwach | 4×/Woche, Fehlerquote 50 % | Fortschritt kaum langsamer als P1, weil Stein und Erz aus Fehlerkorrektur fließen |
+| P6 schwach | 4×/Woche, Fehlerquote 50 % | ~~Fortschritt kaum langsamer als P1~~ Baut fast so viel wie P1 (mindestens 85 % der Gebäude im Jahr 1); das Ziel der Epoche darf später kommen, weil es Können spiegelt (B-19) |
 | P7 Prüfungsphase | 2 Wochen täglich 60 Min., davor und danach P1 | Kein großer Vorteil durch Marathon (Tageskurve, Bauschritt-Grenze) |
 
 Wird eine Erwartung verfehlt, werden zuerst die **Kosten** angepasst, dann die Tageskurven, zuletzt die Ressourcenregeln.
@@ -272,7 +272,7 @@ Jahr 1 bei P1: rund 3 100 Fleiß, 880 Behalten, 22 Können, 210 Schritte – nah
 3. **Der Bauplatz ist nach einem Jahr zu 80–99 % voll**, vor allem mit Zierde: Fleiß gibt es reichlich (3 100 im Jahr, Gebäude brauchen 2 000 in der ganzen Epoche). *Ohne Rücksicht auf Platz baut ein eifriges Kind den Platz so voll, dass Turm, Tor und Co. keinen Platz mehr finden – und Abreißen gibt es nicht.* Das ist eine echte Lücke im Spiel.
 4. **Die Einfassung** erreicht ihre 12 Stück, umschließt damit aber nichts (siehe Vergleich mit 44 × 44 im Gespräch vom 28.10.2026).
 
-Offene Entscheidungen dazu stehen in `SESSION-PROMPT.md`; die Erwartungen P1 „alle 2 Wochen“ und P6 „kaum langsamer“ werden erst nach dieser Entscheidung geprüft (`tools/sim/simulator.test.ts`).
+**Entscheidungen dazu (28.10.2026):** B-19 bis B-22. Geprüft im Simulator vor der Entscheidung: Billigere Kosten für Kern Stufe 3 verschieben weder das Ende der Epoche noch die Lücken – Taktgeber sind die Baupläne (B-5). „Zierde ohne Sparen“ halbiert die Lücken (30 Tage), schiebt Epoche 1 bei P1 aber auf 12,7 Monate. Eine Schwelle von 85 % für „gefestigt“ ändert bei P6 nichts; „gekonnt“ schon bei 4 von 6 macht P6 sogar schneller als P1 (8,4 Monate) und wurde deshalb verworfen.
 
 ## 9. Kritische Gegenprüfung
 
@@ -307,6 +307,10 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-16 | Die „Bauhütte“ heißt **Zimmerei** – „Bauhütte“ ist zu nah an einem Gebäude aus „Clash of Clans“ (B-15 gilt auch für andere Spiele) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-17 | **Drei Ebenen:** Mechanik (Rollen, Kosten, Stufen, Regeln) – **Thema** (was eine Rolle ist: Namen von Gebäuden, Ressourcen, Epochen, Bildern) – **Skin** (Aussehen des Spielfelds, z. B. saisonal). Alle Themen haben **dieselbe Mechanik**; ein Thema ist reine Darstellung. Das Kind wählt das Thema und kann jederzeit kostenlos und ohne Verlust wechseln. Themen zum Start: **Bastion, Garten, Weltraum, Dorf, Unterwasser**. Ressourcen heißen je Thema anders | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-18 | Skins sind nie Belohnung und nie knapp: Nichts gibt es „nur jetzt“ (R1, Prinzip 6). Ein saisonaler Skin darf sich nach dem Kalender einschalten. Skins wirken als Farbpalette mit wenigen Auflagen über jedem Thema, damit der Grafikaufwand nicht mit der Zahl der Themen wächst | Vorgeschlagen |
+| B-19 | Erwartungen §8 nach dem Simulator angepasst: **P1** höchstens etwa 8 Wochen ohne fertiges Gebäude (Zierde zählt mit), längere Pausen nur vor dem großen Ziel der Epoche; **P6** baut fast so viel wie P1 (mindestens 85 % der Gebäude im Jahr 1), das Ziel der Epoche darf später kommen, weil es echtes Können spiegelt. „Gekonnt“ und „gefestigt“ bleiben unverändert – sonst wäre „Mein Stand“ nicht mehr ehrlich | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-20 | **Ziel vormerken:** Das Kind kann ein Bauvorhaben vormerken und sieht, was dafür noch fehlt. Sparen wird sichtbare Vorfreude; keine Zeitvorgabe, kein Tageszähler (R5) | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-21 | **Einlagern:** Zierde lässt sich jederzeit kostenlos vom Bauplatz ins Lager nehmen und wieder aufstellen. Nichts geht verloren (R3), nichts lässt sich farmen – so wird der Platz nie zur Falle | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-22 | **Einfassung 40 Stück** in Epoche 1 (4 am Start, 36 baubar, je 15 Fleiß und 1 Bauschritt), damit sich ein Teil des Bauplatzes umschließen lässt | Entschieden (28.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
