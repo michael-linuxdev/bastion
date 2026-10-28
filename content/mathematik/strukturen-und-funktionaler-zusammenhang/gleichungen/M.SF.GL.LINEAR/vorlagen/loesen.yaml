@@ -1,0 +1,26 @@
+# „Löse: 3 · x + 4 = −11“, „5 · x − 2 = 3 · x + 6“. Entwurf: noch nicht geprüft.
+id: M.SF.GL.LINEAR.LOESEN
+kompetenz: M.SF.GL.LINEAR
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gl.linear-loesen@1
+parameter:
+  G: { formen: [einfach] }
+  M: { formen: [beidseitig, klammer] }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] {gleichung}. **Gib** x **an**.'
+hilfen:
+  - de: '[[Umformen]]: Rechne auf beiden Seiten dasselbe, bis x allein steht.'
+  - de: 'Erst die Zahl ohne x wegrechnen (mit der Gegenrechnung), dann durch die Zahl vor x teilen.'
+  - de: 'Steht x auf beiden Seiten, bring zuerst alle x auf eine Seite. Mach am Ende die [[Probe]].'
+fehlerbilder:
+  falsche-richtung:
+    de: 'Du hast die Zahl auf die falsche Art weggerechnet. Aus + 4 wird auf der anderen Seite − 4.'
+  nicht-geteilt:
+    de: 'Fast fertig – du musst noch durch die Zahl vor x teilen.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Mach die [[Probe]].'
+herkunft: ki-entwurf
+version: 1

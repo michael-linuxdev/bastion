@@ -654,3 +654,24 @@ begriffe:
     formen: [Quadrant, Quadranten]
     erklaerung:
       de: 'Eines der vier Viertel, in die die Achsen das Koordinatensystem teilen. Man zählt gegen den Uhrzeigersinn: I oben rechts, II oben links, III unten links, IV unten rechts.'
+  # Klasse 7: Terme und Gleichungen
+  - id: variable
+    wort: { de: Variable }
+    formen: [Variable, Variablen]
+    erklaerung:
+      de: 'Ein Buchstabe wie x, der für eine Zahl steht. Man kann verschiedene Zahlen für ihn einsetzen.'
+  - id: term
+    wort: { de: Term }
+    formen: [Term, Terme]
+    erklaerung:
+      de: 'Ein Rechenausdruck ohne Gleichheitszeichen, zum Beispiel 3 · x − 5 oder (4 + 2) · 7.'
+  - id: formel
+    wort: { de: Formel }
+    formen: [Formel, Formeln]
+    erklaerung:
+      de: 'Eine Gleichung mit Buchstaben, die immer gilt – zum Beispiel A = a · b für den Flächeninhalt eines Rechtecks.'
+  - id: umformen
+    wort: { de: umformen }
+    formen: [umformen, Umformen, Umformung, Umformungsschritt]
+    erklaerung:
+      de: 'Auf beiden Seiten einer Gleichung dasselbe rechnen. Die Gleichung wird einfacher, die Lösung bleibt gleich.'

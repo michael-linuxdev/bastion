@@ -1,0 +1,23 @@
+# „Das Dreifache einer Zahl vermindert um 7 ergibt 14. Wie heißt die Zahl?“ Entwurf: noch nicht geprüft.
+id: M.SF.GL.AUFSTELLEN.LOESEN
+kompetenz: M.SF.GL.AUFSTELLEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gl.raetsel-loesen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{raetsel} **Wie heißt die Zahl?**'
+hilfen:
+  - de: 'Stelle zuerst eine [[Gleichung]] auf: Die gesuchte Zahl ist x.'
+  - de: 'Löse die [[Gleichung]]. Oder arbeite rückwärts: Geh vom Ergebnis aus und mach jeden Schritt rückgängig.'
+fehlerbilder:
+  falsche-richtung:
+    de: 'Beim Rückwärtsarbeiten wird jeder Schritt umgekehrt: Aus „vermehrt um“ wird minus, aus „vermindert um“ wird plus.'
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Setze deine Zahl in das Rätsel ein und prüfe.'
+herkunft: ki-entwurf
+version: 1

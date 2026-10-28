@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Instanz, Loesung, Sprachobjekt } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
+import { rechneRational as rechne } from '../../testhilfen';
 import {
   geschickt,
   malGeteilt,
@@ -18,61 +19,6 @@ const zahlL = (x: number): Loesung => ({ typ: 'zahl', wert: Number(x.toFixed(6))
 const wert = (i: Instanz) => (i.loesung.typ === 'zahl' ? i.loesung.wert : NaN);
 const zehntelGenau = (x: number, stellen = 1) =>
   Math.abs(x * 10 ** stellen - Math.round(x * 10 ** stellen)) < 1e-6;
-
-/**
- * Kleiner, unabhängiger Rechner für die angezeigten Terme:
- * Zahlen mit Komma, −, +, ·, :, Klammern, ² und ³ (Hochzahl bindet stärker als das Minus davor).
- */
-function rechne(term: string): number {
-  const t = term.replace(/\s/g, '');
-  let i = 0;
-  const zeichen = () => t[i];
-  function zahlLesen(): number {
-    const m = /^\d+(,\d+)?/.exec(t.slice(i));
-    if (!m) throw new Error(`keine Zahl bei ${t.slice(i)}`);
-    i += m[0].length;
-    return Number(m[0].replace(',', '.'));
-  }
-  function grund(): number {
-    let x: number;
-    if (zeichen() === '(') {
-      i++;
-      x = summe();
-      if (zeichen() !== ')') throw new Error('Klammer fehlt');
-      i++;
-    } else x = zahlLesen();
-    while (zeichen() === '²' || zeichen() === '³') x = x ** (t[i++] === '²' ? 2 : 3);
-    return x;
-  }
-  function vorzeichen(): number {
-    if (zeichen() === '−') {
-      i++;
-      return -vorzeichen();
-    }
-    return grund();
-  }
-  function produkt(): number {
-    let x = vorzeichen();
-    while (zeichen() === '·' || zeichen() === ':') {
-      const op = t[i++];
-      const y = vorzeichen();
-      x = op === '·' ? x * y : x / y;
-    }
-    return x;
-  }
-  function summe(): number {
-    let x = produkt();
-    while (zeichen() === '+' || zeichen() === '−') {
-      const op = t[i++];
-      const y = produkt();
-      x = op === '+' ? x + y : x - y;
-    }
-    return x;
-  }
-  const x = summe();
-  if (i !== t.length) throw new Error(`Rest: ${t.slice(i)}`);
-  return x;
-}
 
 describe('Testrechner', () => {
   it('rechnet wie in der Schule', () => {
