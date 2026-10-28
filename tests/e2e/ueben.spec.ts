@@ -571,6 +571,19 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await feuer.getByRole('button', { name: 'Hierhin' }).click();
   await expect(feuer).toContainText('Spalte 12, Reihe 12');
 
+  // Zierde einlagern und wieder aufstellen (B-21)
+  const banner = page.getByRole('listitem').filter({ hasText: /^Banner\s+Feld/ });
+  await banner.getByRole('button', { name: 'Einlagern' }).click();
+  await expect(page.getByRole('heading', { name: 'Im Lager' })).toBeVisible();
+  await page
+    .getByRole('listitem')
+    .filter({ hasText: /^Banner\s+Aufstellen/ })
+    .getByRole('button', { name: 'Aufstellen' })
+    .click();
+  await expect(page.getByRole('heading', { name: 'Im Lager' })).toHaveCount(0);
+  await expect(banner).toContainText('Spalte 1, Reihe 1');
+  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+
   // Bleibt nach dem Neuladen, wie es ist
   await page.reload();
   await page.getByRole('button', { name: 'Bastion' }).click();

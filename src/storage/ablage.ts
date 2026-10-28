@@ -242,6 +242,8 @@ export async function bastion(db: BastionDatenbank, profil: string): Promise<Bas
       vorhaben: stand.vorhaben,
       fertig: stand.fertig,
       vorrat: stand.vorrat,
+      // ältere gespeicherte Stände kennen das Lager noch nicht
+      lager: stand.lager ?? [],
     };
   return bastionAus(await bauEreignisse(db, profil), await buchungen(db, profil));
 }

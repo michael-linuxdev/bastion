@@ -9,6 +9,7 @@ const bastion = (kern: number): Bastion => ({
   vorhaben: [],
   fertig: [],
   vorrat: 0,
+  lager: [],
 });
 const konto = (erworben: number, ausgegeben = 0) =>
   [

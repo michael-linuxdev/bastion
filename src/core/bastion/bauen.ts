@@ -42,7 +42,15 @@ export interface BauEreignis {
   readonly ts: number;
   readonly tag: string;
   readonly geraet: string;
-  readonly aktion: 'beginnen' | 'abbrechen' | 'fertigstellen' | 'versetzen';
+  readonly aktion:
+    | 'beginnen'
+    | 'abbrechen'
+    | 'fertigstellen'
+    | 'versetzen'
+    /** Zierde vom Bauplatz ins Lager (B-21) */
+    | 'einlagern'
+    /** Zierde aus dem Lager an `pos` aufstellen (B-21) */
+    | 'aufstellen';
   /** bei beginnen, abbrechen, fertigstellen */
   readonly vorhaben?: string;
   /** Instanz-ID des Gebäudes; bei einem Neubau gleich der Vorhaben-ID */
@@ -83,6 +91,8 @@ export interface Bastion {
   readonly fertig: readonly Fertig[];
   /** Bauschritte, die auf ein Vorhaben warten */
   readonly vorrat: number;
+  /** Eingelagerte Zierde – nicht auf dem Bauplatz, jederzeit wieder aufstellbar (B-21) */
+  readonly lager: readonly Bauwerk[];
 }
 
 /** Ereignisse für die Projektion: Bau-Ereignisse und Bauschritt-Gutschriften */
@@ -114,6 +124,7 @@ export function bastionAus(
   ].sort(reihenfolge);
 
   const bauwerke = new Map<string, Bauwerk>(START.map((b) => [b.id, b]));
+  const lager = new Map<string, Bauwerk>();
   let vorhaben: Vorhaben[] = [];
   const fertig = new Map<string, Fertig>();
   const gemeldet = new Set<string>();
@@ -201,6 +212,22 @@ export function bastionAus(
         vorhaben = vorhaben.map((v) => (v.gebaeude === e.gebaeude ? { ...v, pos } : v));
         break;
       }
+      case 'einlagern': {
+        const b = bauwerke.get(e.gebaeude);
+        if (b) {
+          bauwerke.delete(b.id);
+          lager.set(b.id, b);
+        }
+        break;
+      }
+      case 'aufstellen': {
+        const b = lager.get(e.gebaeude);
+        if (b && e.pos) {
+          lager.delete(b.id);
+          bauwerke.set(b.id, { ...b, pos: e.pos });
+        }
+        break;
+      }
     }
   }
   return {
@@ -208,6 +235,7 @@ export function bastionAus(
     vorhaben,
     fertig: [...fertig.values()].sort((a, b) => a.ts - b.ts),
     vorrat,
+    lager: [...lager.values()],
   };
 }
 
@@ -268,12 +296,13 @@ export function beginnHindernisse(
   ort: { readonly ausbau: string } | { readonly pos: Position },
 ): BauHindernis[] {
   const ausbau = 'ausbau' in ort ? b.bauwerke.find((x) => x.id === ort.ausbau) : undefined;
-  const h: BauHindernis[] = [...hindernisse(typ, b.bauwerke, ausbau)];
+  // Eingelagertes zählt für die Höchstzahl mit
+  const h: BauHindernis[] = [...hindernisse(typ, [...b.bauwerke, ...b.lager], ausbau)];
   // Ein Neubau, der schon läuft, zählt für die Höchstzahl mit
   if (!ausbau && !h.includes('hoechstzahl')) {
     const max = KATALOG[typ].hoechstens;
     const zahl =
-      b.bauwerke.filter((x) => x.typ === typ).length +
+      [...b.bauwerke, ...b.lager].filter((x) => x.typ === typ).length +
       b.vorhaben.filter((v) => v.typ === typ && v.stufe === 1).length;
     if (max !== undefined && zahl >= max) h.push('hoechstzahl');
   }
@@ -425,4 +454,31 @@ export function fertigmeldungen(
         },
       ),
     );
+}
+
+/** Nur Zierde lässt sich einlagern (B-21); Gebäude mit Aufgabe bleiben stehen. */
+export const einlagerbar = (typ: GebaeudeTyp) => KATALOG[typ].familie === 'zierde';
+
+/** Zierde kostenlos vom Bauplatz ins Lager nehmen (B-21). */
+export function einlagern(b: Bastion, gebaeude: string, a: Bauangaben): Ergebnis {
+  const ziel = b.bauwerke.find((x) => x.id === gebaeude);
+  if (!ziel || !einlagerbar(ziel.typ)) return { ok: false, hindernisse: ['nicht-baubar'] };
+  return {
+    ok: true,
+    bau: ereignis(a, { aktion: 'einlagern', gebaeude, typ: ziel.typ }),
+    buchungen: [],
+  };
+}
+
+/** Eingelagerte Zierde kostenlos wieder aufstellen – auf ein freies Feld (B-21). */
+export function aufstellen(b: Bastion, gebaeude: string, pos: Position, a: Bauangaben): Ergebnis {
+  const ziel = b.lager.find((x) => x.id === gebaeude);
+  if (!ziel) return { ok: false, hindernisse: ['nicht-baubar'] };
+  const h = platzHindernisse(b, ziel.typ, pos);
+  if (h.length > 0) return { ok: false, hindernisse: h };
+  return {
+    ok: true,
+    bau: ereignis(a, { aktion: 'aufstellen', gebaeude, typ: ziel.typ, pos }),
+    buchungen: [],
+  };
 }

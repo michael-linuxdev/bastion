@@ -4,6 +4,7 @@
   // hier: Kosten und Hindernisse sehen – erst „Bauen“ bucht ab (§4.2).
   import {
     beginnHindernisse,
+    einlagerbar,
     freierPlatz,
     plaetze,
     platzHindernisse,
@@ -319,14 +320,36 @@
               >
             </span>
           {:else}
-            <button onclick={() => (versetzt = { id: b.id, x: b.pos.x, y: b.pos.y })}
-              >{tt('bastion.versetzen')}</button
-            >
+            <span class="knoepfe">
+              <button onclick={() => (versetzt = { id: b.id, x: b.pos.x, y: b.pos.y })}
+                >{tt('bastion.versetzen')}</button
+              >
+              {#if einlagerbar(b.typ)}
+                <button onclick={() => void ausfuehren({ art: 'einlagern', gebaeude: b.id })}
+                  >{tt('bastion.einlagern')}</button
+                >
+              {/if}
+            </span>
           {/if}
         </li>
       {/each}
     </ul>
     <p class="leise">{tt('bastion.versetzen-erklaerung')}</p>
+
+    {#if l.bastion.lager.length > 0}
+      <h3>{tt('bastion.lager')}</h3>
+      <ul class="liste">
+        {#each l.bastion.lager as b (b.id)}
+          <li>
+            <strong>{name(b.typ)}</strong>
+            <button onclick={() => void ausfuehren({ art: 'aufstellen', gebaeude: b.id })}
+              >{tt('bastion.aufstellen')}</button
+            >
+          </li>
+        {/each}
+      </ul>
+      <p class="leise">{tt('bastion.lager-erklaerung')}</p>
+    {/if}
 
     <h3>{tt('bastion.buecher')}</h3>
     <p class="leise">{tt('bastion.buecher-erklaerung')}</p>
@@ -450,6 +473,13 @@
   .meldung {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+    justify-content: flex-end;
   }
 
   .versetzen {

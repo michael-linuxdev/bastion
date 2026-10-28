@@ -251,7 +251,7 @@
   "bastion.reihe": "Reihe",
   "bastion.versetzen": "Versetzen",
   "bastion.hierhin": "Hierhin",
-  "bastion.versetzen-erklaerung": "Versetzen kostet nichts.",
+  "bastion.versetzen-erklaerung": "Versetzen und Einlagern kosten nichts.",
   "bastion.geschichte": "Fertig geworden",
   "bastion.fertig-am": "fertig am",
   "bastion.ohne-speicher": "Ohne Speicher im Browser kann deine Bastion nicht gebaut werden.",
@@ -471,5 +471,9 @@
   "thema.unterwasser.gebaeude.flaeche": "Seegraswiese",
   "thema.unterwasser.gebaeude.flaeche.wozu": "Seegras, das sanft in der Strömung schwingt.",
   "thema.unterwasser.gebaeude.denkmal": "Muschelskulptur",
-  "thema.unterwasser.gebaeude.denkmal.wozu": "Eine Skulptur ganz nach deinem Geschmack."
+  "thema.unterwasser.gebaeude.denkmal.wozu": "Eine Skulptur ganz nach deinem Geschmack.",
+  "bastion.einlagern": "Einlagern",
+  "bastion.lager": "Im Lager",
+  "bastion.aufstellen": "Aufstellen",
+  "bastion.lager-erklaerung": "Was im Lager ist, steht nicht auf dem Bauplatz und macht Platz frei. Aufstellen kostet nichts – es kommt auf das erste freie Feld."
 }

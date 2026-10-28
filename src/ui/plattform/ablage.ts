@@ -8,7 +8,9 @@ import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung'
 import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import {
   abbrechen,
+  aufstellen,
   beginnen,
+  einlagern,
   freierPlatz,
   versetzen,
   type Bastion,
@@ -263,7 +265,9 @@ export async function bastionLage(): Promise<BastionLage | undefined> {
 export type BauAuftrag =
   | { readonly art: 'beginnen'; readonly typ: GebaeudeTyp; readonly ausbau?: string }
   | { readonly art: 'abbrechen'; readonly vorhaben: string }
-  | { readonly art: 'versetzen'; readonly gebaeude: string; readonly pos: Position };
+  | { readonly art: 'versetzen'; readonly gebaeude: string; readonly pos: Position }
+  | { readonly art: 'einlagern'; readonly gebaeude: string }
+  | { readonly art: 'aufstellen'; readonly gebaeude: string };
 
 /**
  * Eine Bau-Aktion ausführen. Ein Neubau kommt auf das erste freie Feld; versetzen
@@ -291,7 +295,13 @@ export async function bauAusfuehren(
     if (!ort) return { hindernisse: ['belegt'] };
     e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
   } else if (auftrag.art === 'abbrechen') e = abbrechen(lage.bastion, auftrag.vorhaben, a);
-  else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
+  else if (auftrag.art === 'einlagern') e = einlagern(lage.bastion, auftrag.gebaeude, a);
+  else if (auftrag.art === 'aufstellen') {
+    const typ = lage.bastion.lager.find((x) => x.id === auftrag.gebaeude)?.typ;
+    const pos = typ ? freierPlatz(lage.bastion, typ) : undefined;
+    if (!pos) return { hindernisse: ['belegt'] };
+    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a);
+  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
   if (!e.ok) return { hindernisse: e.hindernisse };
   const b = await bauSpeichern(db, inst, e, melder);
   return { ...lage, bastion: b, konto: await konto(db, inst.profil) };

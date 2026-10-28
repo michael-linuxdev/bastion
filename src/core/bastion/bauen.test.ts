@@ -7,6 +7,9 @@ import {
   bastionAus,
   beginnen,
   beginnHindernisse,
+  einlagern,
+  aufstellen,
+  platzHindernisse,
   fertigmeldungen,
   freierPlatz,
   plaetze,
@@ -248,6 +251,38 @@ describe('Versetzen (§4.2)', () => {
     });
     // Der Bergfried darf sich selbst überlappen (ein Feld weiter)
     expect(versetzen(w.bastion, 'start.kern', { x: 4, y: 4 }, w.angaben()).ok).toBe(true);
+  });
+});
+
+describe('Einlagern (B-21)', () => {
+  it('Zierde kostenlos ins Lager und wieder aufstellen; der Platz wird frei', () => {
+    const w = new Welt();
+    w.gutschrift('fleiss', 20);
+    w.gutschrift('schritt', 1);
+    const v = w.neu('zeichen', { x: 0, y: 0 });
+    const vorher = w.konto;
+    w.uebernimm(einlagern(w.bastion, v.gebaeude, w.angaben()));
+    expect(w.bastion.bauwerke.some((x) => x.id === v.gebaeude)).toBe(false);
+    expect(w.bastion.lager).toMatchObject([{ id: v.gebaeude, typ: 'zeichen' }]);
+    expect(platzHindernisse(w.bastion, 'zeichen', { x: 0, y: 0 })).toEqual([]);
+    w.uebernimm(aufstellen(w.bastion, v.gebaeude, { x: 3, y: 0 }, w.angaben()));
+    expect(w.bastion.lager).toEqual([]);
+    expect(w.bastion.bauwerke.find((x) => x.id === v.gebaeude)?.pos).toEqual({ x: 3, y: 0 });
+    expect(w.konto).toEqual(vorher);
+  });
+
+  it('nur Zierde; aufstellen nur auf freie Felder', () => {
+    const w = new Welt();
+    expect(einlagern(w.bastion, 'start.kern', w.angaben()).ok).toBe(false);
+    w.uebernimm(einlagern(w.bastion, 'start.ursprung', w.angaben()));
+    expect(aufstellen(w.bastion, 'start.ursprung', { x: 5, y: 4 }, w.angaben())).toEqual({
+      ok: false,
+      hindernisse: ['belegt'],
+    });
+    // Eingelagertes zählt für die Höchstzahl mit (Ursprung: höchstens einer)
+    expect(beginnHindernisse(w.bastion, w.konto, 'ursprung', { pos: { x: 0, y: 0 } })).toContain(
+      'nicht-baubar',
+    );
   });
 });
 
