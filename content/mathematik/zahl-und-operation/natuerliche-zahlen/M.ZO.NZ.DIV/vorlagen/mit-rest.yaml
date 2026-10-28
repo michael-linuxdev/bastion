@@ -13,13 +13,13 @@ text:
     de: '**Berechne** schriftlich: {a} : {b}. Gib auch den Rest an.'
 hilfen:
   - de: Teile von links nach rechts. Wie oft passt {b} in die erste Stelle – oder in die ersten beiden?
-  - de: Passt {b} nicht hinein, schreibe eine 0 ins Ergebnis und nimm die nächste Ziffer dazu.
-  - de: 'Mache die Probe: Ergebnis mal {b} plus Rest muss {a} ergeben.'
+  - de: 'Passt {b} nicht hinein, schreibe eine 0 ins Ergebnis und nimm die nächste [[Ziffer]] dazu.'
+  - de: 'Mache die [[Probe]]: Ergebnis mal {b} plus Rest muss {a} ergeben.'
 fehlerbilder:
   null-vergessen:
     de: Im Ergebnis fehlt eine 0. Wenn {b} in eine Stelle nicht hineinpasst, schreibst du eine 0 ins Ergebnis.
   rest-zu-gross:
-    de: Der Rest ist größer als der Teiler – dann passt {b} noch einmal hinein.
+    de: 'Der Rest ist größer als die Zahl, durch die du teilst – dann passt {b} noch einmal hinein.'
   rest-vergessen:
     de: Es bleibt ein Rest. Gib ihn mit an.
 herkunft: ki-entwurf

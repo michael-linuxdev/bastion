@@ -17,6 +17,6 @@ fehlerbilder:
   mal-zwei:
     de: Verdoppeln ist hier nicht gemeint.
   halbiert:
-    de: 'Du hast halbiert. Die Wurzel ist die Zahl, die mit sich selbst multipliziert {quadrat} ergibt.'
+    de: 'Du hast halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst multipliziert {quadrat} ergibt.'
 herkunft: ki-entwurf
 version: 1

@@ -12,14 +12,14 @@ antwort:
   form: gekuerzt
 text:
   aufgabe:
-    de: '**Gib** {dezimal} als Bruch **an** und kürze vollständig.'
+    de: '**Gib** {dezimal} als [[Bruch]] **an** und [[kürze]] vollständig.'
 hilfen:
-  - de: 'Eine Nachkommastelle: Zehntel. Zwei: Hundertstel. Drei: Tausendstel.'
-  - de: Kürze am Ende so weit wie möglich.
+  - de: 'Eine [[Nachkommastelle]]: [[Zehntel]]. Zwei: [[Hundertstel]]. Drei: [[Tausendstel]].'
+  - de: '[[Kürze]] am Ende so weit wie möglich.'
 fehlerbilder:
   immer-zehntel:
-    de: Bei zwei Nachkommastellen sind es Hundertstel, nicht Zehntel.
+    de: 'Bei zwei [[Nachkommastellen]] sind es [[Hundertstel]], nicht [[Zehntel]].'
   nicht-gekuerzt:
-    de: Richtig umgewandelt – jetzt noch vollständig kürzen.
+    de: 'Richtig umgewandelt – jetzt noch vollständig [[kürzen]].'
 herkunft: ki-entwurf
 version: 1

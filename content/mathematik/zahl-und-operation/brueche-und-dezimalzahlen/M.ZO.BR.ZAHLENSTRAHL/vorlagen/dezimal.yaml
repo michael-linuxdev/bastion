@@ -10,9 +10,9 @@ parameter:
   M: { nenner: [10], bis: 2, dezimal: true }
 text:
   aufgabe:
-    de: '**Gib** die Dezimalzahl **an**, die an der Markierung steht.'
+    de: '**Gib** die [[Dezimalzahl]] **an**, die an der Markierung steht.'
 hilfen:
-  - de: Zwischen 0 und 1 liegen 10 Abschnitte. Jeder Abschnitt ist ein Zehntel, also 0,1.
+  - de: 'Zwischen 0 und 1 liegen 10 Abschnitte. Jeder Abschnitt ist ein [[Zehntel]], also 0,1.'
 fehlerbilder:
   striche-statt-abstaende:
     de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen.

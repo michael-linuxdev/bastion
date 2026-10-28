@@ -12,7 +12,7 @@ text:
   aufgabe:
     de: '**Gib** in {einheit_klein} **an**: {komma} {einheit_gross} = ? {einheit_klein}'
 hilfen:
-  - de: Multipliziere mit der Umrechnungszahl. Das Komma wandert nach rechts.
+  - de: 'Multipliziere mit der [[Umrechnungszahl]]. Das Komma wandert nach rechts.'
 fehlerbilder:
   falsche-stelle:
     de: Achte darauf, wie viele Stellen das Komma wandert.

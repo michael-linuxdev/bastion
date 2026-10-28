@@ -15,10 +15,10 @@ hilfen:
   - de: 10 hoch {exponent} ist eine 1 mit {exponent} Nullen.
 fehlerbilder:
   null-zu-wenig:
-    de: Es fehlt eine Null. Die Hochzahl {exponent} sagt, wie viele Nullen angehängt werden.
+    de: 'Es fehlt eine Null. Die [[Hochzahl]] {exponent} sagt, wie viele Nullen angehängt werden.'
   null-zu-viel:
-    de: Es ist eine Null zu viel. Die Hochzahl {exponent} sagt, wie viele Nullen angehängt werden.
+    de: 'Es ist eine Null zu viel. Die [[Hochzahl]] {exponent} sagt, wie viele Nullen angehängt werden.'
   faktor-mal-exponent:
-    de: 'Du hast mit der Hochzahl multipliziert. 10 hoch {exponent} heißt: {exponent}-mal die 10 als Faktor.'
+    de: 'Du hast mit der [[Hochzahl]] multipliziert. 10 hoch {exponent} heißt: {exponent}-mal die 10 als [[Faktor]].'
 herkunft: ki-entwurf
 version: 1

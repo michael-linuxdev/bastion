@@ -12,14 +12,14 @@ antwort:
   form: beliebig # 2/4 und 1/2 sind beide richtig
 text:
   aufgabe:
-    de: '**Gib** als Bruch **an**: Welcher Anteil ist gefärbt?'
+    de: '**Gib** als [[Bruch]] **an**: Welcher [[Anteil]] ist gefärbt?'
 hilfen:
-  - de: In wie viele gleich große Teile ist das Ganze geteilt? Das ist der Nenner.
-  - de: Wie viele Teile sind gefärbt? Das ist der Zähler.
+  - de: 'In wie viele gleich große Teile ist das Ganze geteilt? Das ist der [[Nenner]].'
+  - de: 'Wie viele Teile sind gefärbt? Das ist der [[Zähler]].'
 fehlerbilder:
   gefaerbt-zu-ungefaerbt:
-    de: Du hast die gefärbten mit den ungefärbten Teilen verglichen. Der Nenner zählt **alle** Teile.
+    de: 'Du hast die gefärbten mit den ungefärbten Teilen verglichen. Der [[Nenner]] zählt **alle** Teile.'
   ungefaerbter-teil:
-    de: Das ist der ungefärbte Anteil. Gefragt ist der gefärbte.
+    de: 'Das ist der ungefärbte [[Anteil]]. Gefragt ist der gefärbte.'
 herkunft: ki-entwurf
 version: 1

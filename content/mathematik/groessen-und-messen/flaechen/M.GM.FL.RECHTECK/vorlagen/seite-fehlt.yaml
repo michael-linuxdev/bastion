@@ -12,11 +12,11 @@ text:
     de: '{angabe} **Berechne**, wie lang die andere Seite ist (in {einheit}).'
 hilfen:
   - de: Schreibe die Formel auf und setze ein, was du kennst.
-  - de: 'Beim Umfang kommt jede Seite zweimal vor. Beim Flächeninhalt rechnest du rückwärts: geteilt statt mal.'
+  - de: 'Beim [[Umfang]] kommt jede Seite zweimal vor. Beim [[Flächeninhalt]] rechnest du rückwärts: geteilt statt mal.'
 fehlerbilder:
   subtrahiert:
-    de: Du hast die Seite vom Flächeninhalt abgezogen. Weil A = a · b ist, musst du durch a teilen.
+    de: 'Du hast die Seite vom [[Flächeninhalt]] abgezogen. Weil A = a · b ist, musst du durch a teilen.'
   umfang-nicht-halbiert:
-    de: Im Umfang kommen beide Seiten zweimal vor. Ziehe zweimal die bekannte Seite ab und halbiere den Rest.
+    de: 'Im [[Umfang]] kommen beide Seiten zweimal vor. Ziehe zweimal die bekannte Seite ab und halbiere den Rest.'
 herkunft: ki-entwurf
 version: 1

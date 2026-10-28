@@ -12,10 +12,10 @@ text:
   aufgabe:
     de: '**Bestimme** x: {gleichung}'
 hilfen:
-  - de: 'Nutze die Umkehraufgabe: Aus Plus wird Minus, aus Mal wird Geteilt – und umgekehrt.'
-  - de: Setze dein Ergebnis zur Probe in die Gleichung ein.
+  - de: 'Nutze die [[Umkehraufgabe]]: Aus Plus wird Minus, aus Mal wird Geteilt – und umgekehrt.'
+  - de: 'Setze dein Ergebnis zur [[Probe]] in die [[Gleichung]] ein.'
 fehlerbilder:
   gleiche-rechenart:
-    de: Du hast mit derselben Rechenart weitergerechnet. Die Umkehraufgabe nutzt die entgegengesetzte Rechenart. Mach die Probe!
+    de: 'Du hast mit derselben Rechenart weitergerechnet. Die [[Umkehraufgabe]] nutzt die entgegengesetzte Rechenart. Mach die [[Probe]]!'
 herkunft: ki-entwurf
 version: 1

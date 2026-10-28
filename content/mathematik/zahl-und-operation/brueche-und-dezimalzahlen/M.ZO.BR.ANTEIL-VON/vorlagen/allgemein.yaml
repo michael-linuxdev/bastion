@@ -12,14 +12,14 @@ text:
   aufgabe:
     de: '**Berechne** {anteil} von {ganzes} {einheit}.'
 hilfen:
-  - de: Teile {ganzes} durch den Nenner – so groß ist ein Teil.
-  - de: Multipliziere dann mit dem Zähler – so viele Teile sind gemeint.
+  - de: 'Teile {ganzes} durch den [[Nenner]] – so groß ist ein Teil.'
+  - de: 'Multipliziere dann mit dem [[Zähler]] – so viele Teile sind gemeint.'
 fehlerbilder:
   nur-geteilt:
-    de: Du hast nur durch den Nenner geteilt. Multipliziere noch mit dem Zähler.
+    de: 'Du hast nur durch den [[Nenner]] geteilt. Multipliziere noch mit dem [[Zähler]].'
   nur-mit-zaehler-mal:
-    de: Du hast nur mit dem Zähler multipliziert. Teile zuerst durch den Nenner.
+    de: 'Du hast nur mit dem [[Zähler]] multipliziert. Teile zuerst durch den [[Nenner]].'
   zaehler-nenner-vertauscht:
-    de: Du hast mit dem Nenner multipliziert. Durch den Nenner wird geteilt.
+    de: 'Du hast mit dem [[Nenner]] multipliziert. Durch den Nenner wird geteilt.'
 herkunft: ki-entwurf
 version: 1

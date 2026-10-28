@@ -10,16 +10,16 @@ parameter:
   M: { gesucht: flaeche, max: 60, einheiten: [mm, cm, dm, m] }
 text:
   aufgabe:
-    de: '{angabe} **Berechne** den Flächeninhalt in {einheit}.'
+    de: '{angabe} **Berechne** den [[Flächeninhalt]] in {einheit}.'
 hilfen:
-  - de: Wie viele Einheitsquadrate passen in eine Reihe, und wie viele Reihen gibt es?
-  - de: Flächeninhalt = Länge mal Breite.
+  - de: 'Wie viele [[Einheitsquadrate]] passen in eine Reihe, und wie viele Reihen gibt es?'
+  - de: '[[Flächeninhalt]] = Länge mal Breite.'
 fehlerbilder:
   umfang-flaeche-verwechselt:
-    de: Das ist der Umfang. Für den Flächeninhalt multiplizierst du Länge und Breite.
+    de: 'Das ist der [[Umfang]]. Für den [[Flächeninhalt]] multiplizierst du Länge und Breite.'
   addiert:
-    de: Du hast Länge und Breite addiert. Für den Flächeninhalt wird multipliziert.
+    de: 'Du hast Länge und Breite addiert. Für den [[Flächeninhalt]] wird multipliziert.'
   nur-zwei-seiten:
-    de: Du hast nur zwei Seiten addiert. Für den Flächeninhalt wird multipliziert.
+    de: 'Du hast nur zwei Seiten addiert. Für den [[Flächeninhalt]] wird multipliziert.'
 herkunft: ki-entwurf
 version: 1

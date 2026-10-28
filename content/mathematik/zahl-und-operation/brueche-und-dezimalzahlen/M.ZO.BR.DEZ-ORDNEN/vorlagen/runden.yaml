@@ -12,10 +12,10 @@ text:
   aufgabe:
     de: '**Runde** {zahl} auf {stelle}.'
 hilfen:
-  - de: Schau auf die Ziffer direkt rechts von der Rundungsstelle. Ab 5 wird aufgerundet.
+  - de: 'Schau auf die [[Ziffer]] direkt rechts von der [[Rundungsstelle]]. Ab 5 wird aufgerundet.'
 fehlerbilder:
   abgeschnitten:
-    de: Du hast die Stellen nur weggelassen. Ist die nächste Ziffer 5 oder größer, wird aufgerundet.
+    de: 'Du hast die Stellen nur weggelassen. Ist die nächste [[Ziffer]] 5 oder größer, wird aufgerundet.'
   falsche-stelle:
     de: Du hast auf eine andere Stelle gerundet. Lies noch einmal, auf welche Stelle gerundet werden soll.
 herkunft: ki-entwurf

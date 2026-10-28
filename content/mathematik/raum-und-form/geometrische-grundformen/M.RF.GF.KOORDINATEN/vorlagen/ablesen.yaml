@@ -10,7 +10,7 @@ parameter:
   M: { max: 12 }
 text:
   aufgabe:
-    de: '**Gib** die Koordinaten des Punktes P **an**.'
+    de: '**Gib** die [[Koordinaten]] des Punktes P **an**.'
 hilfen:
   - de: Zuerst kommt der x-Wert (nach rechts), dann der y-Wert (nach oben).
 fehlerbilder:

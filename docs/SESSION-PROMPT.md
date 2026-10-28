@@ -54,10 +54,10 @@ Vom Projektverantwortlichen (nicht delegierbar):
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Vom Projektverantwortlichen, neu:
-6. **Vorlagen prüfen (INHALTSFORMAT §10.1).** Alle 88 Vorlagen sind `herkunft: ki-entwurf`. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+6. **Vorlagen und Fachbegriffe prüfen (INHALTSFORMAT §10.1, §11.1).** Alle 88 Vorlagen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Phase 1c ist bis auf die Testrunde fertig.** Als Nächstes mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe (TESTS.md) vorbereiten, oder offene Punkte aus 1a (Erklärungen in einfacher Sprache, Abschlussbildschirm „Was habe ich heute gekonnt?“).
+7. **Phase 1a–1c sind bis auf Prüfungen und Testrunde fertig.** Offen mit Claude Code: Anleitungen zum Zeichnen (L-10, Punkt 8 unten). Danach mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe vorbereiten (TESTS.md).
 8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
 9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
@@ -83,7 +83,10 @@ Mit Claude Code, als Nächstes:
 - **Elternbereich (1c, D-14):** „Für Eltern“ auf der Startseite. Beim ersten Öffnen PIN festlegen (4–8 Ziffern, PBKDF2 über WebCrypto), danach einmalig ein Wiederherstellungscode aus vier Wörtern (D-12) zum Aufschreiben; „PIN vergessen?“ setzt mit dem Code zurück. Standard ist die einfache Ansicht (Themen mit Status je Niveau, Wochen mit Lerntagen und Aufgaben), auf Wunsch die ausführliche (letzte 100 Aufgaben mit Zeit, Ergebnis, Fehlerbild, Hilfen, Dauer). Jugendliche sehen genau das unter „Mein Stand“ → „Was meine Eltern sehen“. PIN und Code sind Einstellungs-Ereignisse (D-5), geheim und nur gehasht. Ehrlicher Hinweis: Eine PIN auf dem Gerät des Kindes ist eine Hürde, keine Festung.
 - **Sicherung (1c, DATENMODELL §7):** „Sicherung“ auf der Startseite. Erstellen zeigt einen Code aus **sechs** Wörtern (D-9, geändert: vier Wörter wären zu leicht durchzuprobieren) und speichert die verschlüsselte Datei `bastion-sicherung-JJJJ-MM-TT.bastion` (AES-GCM, PBKDF2 600 000, gzip; `src/ui/plattform/sicherung.ts`). Einspielen vereinigt die Ereignisse (D-10), legt vorher eine lokale Sicherung an und baut alle Projektionen neu auf. Eine Sicherung eines anderen Profils übernimmt das Gerät nur, wenn dessen Profil noch leer ist. Erinnerung auf der Startseite, Standard monatlich; Eltern stellen sie im Elternbereich ein oder ab (D-O4). Elternbereich zeigt letzte Sicherung und ob der Browser die Daten behalten will.
 - **D-15:** Die PIN gilt je Gerät. Nach dem Einspielen auf einem anderen Gerät wird eine neue PIN festgelegt; das steht dann dauerhaft im Elternbereich und unter „Mein Stand“.
-- 1641 Tests und 11 Browser-Tests, Lint, Build, Größenbudget (114 von 250 KB) grün. Kompetenzansicht und Elternbereich sind mit PR #8 auf `main`; die Sicherung liegt auf dem Branch `claude/new-session-fl56ro` (wartet auf OK für einen PR).
+- **Abschlussbildschirm (1a):** Knopf „Fertig für heute“ beim Üben, Wiederholen und in der Werkstatt. Zeigt zuerst das Können (heute gefestigt, neu gekonnt, geübt), dann Zahlen (Aufgaben, Wiederholungen, aufgearbeitete Fehler), ohne Punkte und Prozente, und schlägt eine Pause vor (R5). Berechnet aus den Aufgaben des Lerntags (`src/core/learning/heute.ts`).
+- **Fachbegriffe (1a, L-7):** Wörterbuch `content/mathematik/begriffe.yaml` (83 Begriffe), in Texten als `[[Form]]` markiert und antippbar; Erklärung erscheint direkt dahinter. `pnpm test` verlangt die Markierung beim ersten Vorkommen je Text; `pnpm inhalte:begriffe` markiert automatisch. In der Diagnose keine Erklärungen (keine Hilfen).
+- Sicherung ist mit PR #9 auf `main`. Abschluss und Fachbegriffe liegen auf dem Branch `claude/new-session-fl56ro` (wartet auf OK für einen PR).
+- 1648 Tests und 13 Browser-Tests, Lint, Build, Größenbudget (117 von 250 KB) grün.
 
 ## Am Ende der Sitzung aktualisieren
 

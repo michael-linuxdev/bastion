@@ -10,11 +10,11 @@ parameter:
   M: { max: 12 }
 text:
   aufgabe:
-    de: '**Entscheide**: Welcher Punkt hat die Koordinaten ({x}|{y})?'
+    de: '**Entscheide**: Welcher Punkt hat die [[Koordinaten]] ({x}|{y})?'
 hilfen:
-  - de: Gehe vom Ursprung {x} nach rechts und dann {y} nach oben.
+  - de: 'Gehe vom [[Ursprung]] {x} nach rechts und dann {y} nach oben.'
 fehlerbilder:
   x-y-vertauscht:
-    de: Dieser Punkt hat die Koordinaten ({y}|{x}) – x und y sind vertauscht. Erst nach rechts, dann nach oben.
+    de: 'Dieser Punkt hat die [[Koordinaten]] ({y}|{x}) – x und y sind vertauscht. Erst nach rechts, dann nach oben.'
 herkunft: ki-entwurf
 version: 1

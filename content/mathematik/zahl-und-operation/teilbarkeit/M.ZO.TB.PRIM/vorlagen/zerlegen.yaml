@@ -10,12 +10,12 @@ parameter:
   M: { zahl_max: 500, faktoren_min: 3 }
 text:
   aufgabe:
-    de: '**Zerlege** {zahl} in Primfaktoren.'
+    de: '**Zerlege** {zahl} in [[Primfaktoren]].'
 hilfen:
-  - de: Teile durch die kleinste Primzahl, die passt (2, 3, 5, 7 …). Mache mit dem Ergebnis weiter.
-  - de: Am Ende stehen nur noch Primzahlen da.
+  - de: 'Teile durch die kleinste [[Primzahl]], die passt (2, 3, 5, 7 …). Mache mit dem Ergebnis weiter.'
+  - de: 'Am Ende stehen nur noch [[Primzahlen]] da.'
 fehlerbilder:
   nicht-vollstaendig-zerlegt:
-    de: Nicht alle Faktoren sind Primzahlen. Zerlege weiter, bis nur noch Primzahlen übrig sind.
+    de: 'Nicht alle [[Faktoren]] sind [[Primzahlen]]. Zerlege weiter, bis nur noch Primzahlen übrig sind.'
 herkunft: ki-entwurf
 version: 1

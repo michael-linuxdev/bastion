@@ -12,10 +12,10 @@ text:
   aufgabe:
     de: '**Berechne**: {term}'
 hilfen:
-  - de: 'Punkt vor Strich: Rechne zuerst Mal und Geteilt, dann Plus und Minus.'
+  - de: '[[Punkt vor Strich]]: Rechne zuerst Mal und Geteilt, dann Plus und Minus.'
 fehlerbilder:
   von-links-gerechnet:
-    de: Du hast von links nach rechts gerechnet. Es gilt Punkt vor Strich – erst das Malnehmen.
+    de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]] – erst das Malnehmen.'
   klammer-uebersehen:
     de: Achte auf die Reihenfolge der Rechenschritte.
 herkunft: ki-entwurf

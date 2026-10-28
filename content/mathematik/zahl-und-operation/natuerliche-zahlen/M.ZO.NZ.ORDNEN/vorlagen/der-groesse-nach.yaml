@@ -13,10 +13,10 @@ text:
     de: '**Ordne** die Zahlen der Größe nach. Beginne mit der kleinsten Zahl.'
 hilfen:
   - de: Zähle zuerst die Stellen. Eine Zahl mit mehr Stellen ist größer.
-  - de: Haben zwei Zahlen gleich viele Stellen, vergleiche von links Ziffer für Ziffer.
+  - de: 'Haben zwei Zahlen gleich viele Stellen, vergleiche von links [[Ziffer]] für Ziffer.'
 fehlerbilder:
   wie-woerter-sortiert:
-    de: Du hast nur auf die erste Ziffer geschaut – so wie man Wörter im Alphabet ordnet. Bei Zahlen zählt zuerst, wie viele Stellen sie haben.
+    de: 'Du hast nur auf die erste [[Ziffer]] geschaut – so wie man Wörter im Alphabet ordnet. Bei Zahlen zählt zuerst, wie viele Stellen sie haben.'
   absteigend:
     de: Die Reihenfolge ist genau umgekehrt. Beginne mit der kleinsten Zahl.
 herkunft: ki-entwurf

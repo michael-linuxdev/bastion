@@ -360,3 +360,16 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
   await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
 });
+
+test('Fachbegriffe: antippen zeigt die Erklärung (L-7)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Teilbarkeitsregeln/ }).click();
+  const begriff = page.getByRole('button', { name: 'teilbar', exact: true });
+  await expect(begriff).toHaveAttribute('aria-expanded', 'false');
+  await begriff.click();
+  await expect(begriff).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('note')).toContainText('weil beim Teilen kein Rest bleibt');
+  await begriff.click();
+  await expect(page.getByRole('note')).toHaveCount(0);
+});

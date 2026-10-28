@@ -13,10 +13,10 @@ text:
     de: '**Vergleiche** und wähle das richtige Zeichen: {a} ☐ {b}'
 hilfen:
   - de: Zähle zuerst die Stellen beider Zahlen.
-  - de: Bei gleich vielen Stellen vergleiche von links Ziffer für Ziffer.
+  - de: 'Bei gleich vielen Stellen vergleiche von links [[Ziffer]] für Ziffer.'
 fehlerbilder:
   erste-ziffer-verglichen:
-    de: Du hast nur die erste Ziffer verglichen. Die Zahlen haben aber verschieden viele Stellen – die Zahl mit mehr Stellen ist größer.
+    de: 'Du hast nur die erste [[Ziffer]] verglichen. Die Zahlen haben aber verschieden viele Stellen – die Zahl mit mehr Stellen ist größer.'
   zeichen-verdreht:
     de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt immer auf die kleinere Zahl: 3 < 5.'
 herkunft: ki-entwurf

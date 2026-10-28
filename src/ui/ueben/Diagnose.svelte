@@ -153,6 +153,7 @@
           <p class="text">
             <Textteile
               teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)}
+              erklaeren={false}
             />
           </p>
           {#if aufgabe.instanz.bild}

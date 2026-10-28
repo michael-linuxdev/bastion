@@ -25,6 +25,8 @@
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Abschluss from './ueben/Abschluss.svelte';
+  import { begriffeBereitstellen } from './ueben/begriffe';
+  import type { Begriffskarte } from '../core/learning/begriffe';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
@@ -53,6 +55,16 @@
   let niveau = $state<Niveau>('G');
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
   let zustand = $state<Zustand>({ staende: new Map(), karten: [] });
+  /** Fachbegriffe aus dem Grundpaket – für alle Texte (L-7) */
+  let begriffe = $state<Begriffskarte | undefined>(undefined);
+  begriffeBereitstellen({
+    get karte() {
+      return begriffe;
+    },
+  });
+  $effect(() => {
+    void inhalte?.then((i) => (begriffe = i.begriffe)).catch(() => undefined);
+  });
   /** Fällige Karten, festgehalten beim Start einer Wiederholungsrunde. */
   let wiederholListe = $state<readonly Auftrag[]>([]);
 

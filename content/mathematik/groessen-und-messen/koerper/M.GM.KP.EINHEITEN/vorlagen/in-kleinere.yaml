@@ -13,11 +13,11 @@ text:
     de: '**Rechne um**: {wert} {von} = ? {nach}'
 hilfen:
   - de: In eine kleinere Einheit umrechnen heißt multiplizieren – die Zahl wird größer.
-  - de: 'Bei Volumeneinheiten ist die Umrechnungszahl 1000: 1 dm³ = 1000 cm³. Und 1 l = 1000 ml.'
+  - de: 'Bei [[Volumeneinheiten]] ist die [[Umrechnungszahl]] 1000: 1 dm³ = 1000 cm³. Und 1 l = 1000 ml.'
 fehlerbilder:
   falsche-richtung:
     de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.
   falsche-umrechnungszahl:
-    de: 'Die Umrechnungszahl stimmt nicht. Ein Würfel mit 1 dm Kante enthält 10 · 10 · 10 = 1000 Würfel mit 1 cm Kante; 1 l sind 1000 ml.'
+    de: 'Die [[Umrechnungszahl]] stimmt nicht. Ein [[Würfel]] mit 1 dm [[Kante]] enthält 10 · 10 · 10 = 1000 Würfel mit 1 cm Kante; 1 l sind 1000 ml.'
 herkunft: ki-entwurf
 version: 1

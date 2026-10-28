@@ -10,16 +10,16 @@ parameter:
   M: { max: 12, figur: false }
 text:
   aufgabe:
-    de: '**Spiegle** den Punkt {punkt} an der Geraden {achse}. **Gib** die Koordinaten des Bildpunktes **an**.'
+    de: '**[[Spiegle]]** den Punkt {punkt} an der [[Geraden]] {achse}. **Gib** die [[Koordinaten]] des [[Bildpunktes]] **an**.'
 hilfen:
-  - de: Zähle, wie viele Kästchen der Punkt von der Spiegelachse entfernt ist.
-  - de: Der Bildpunkt liegt genauso weit auf der anderen Seite – auf einer Senkrechten zur Achse.
+  - de: 'Zähle, wie viele Kästchen der Punkt von der [[Spiegelachse]] entfernt ist.'
+  - de: 'Der [[Bildpunkt]] liegt genauso weit auf der anderen Seite – auf einer [[Senkrechten]] zur Achse.'
 fehlerbilder:
   nicht-gespiegelt:
     de: Das ist noch der ursprüngliche Punkt. Gespiegelt liegt er auf der anderen Seite der Achse.
   auf-die-achse:
-    de: Du bist nur bis zur Achse gegangen. Der Bildpunkt liegt genauso weit **hinter** der Achse.
+    de: 'Du bist nur bis zur Achse gegangen. Der [[Bildpunkt]] liegt genauso weit **hinter** der Achse.'
   falsche-achse:
-    de: Du hast in die falsche Richtung gespiegelt. Bei {achse} ändert sich nur eine Koordinate.
+    de: 'Du hast in die falsche Richtung gespiegelt. Bei {achse} ändert sich nur eine [[Koordinate]].'
 herkunft: ki-entwurf
 version: 1

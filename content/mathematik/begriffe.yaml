@@ -1,0 +1,433 @@
+# Fachbegriffe Klasse 5 mit Erklärung in einfacher Sprache (LEHRPLAN L-7, INHALTSFORMAT §11.1).
+# Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+#
+# formen: genau so geschrieben, wie der Begriff in Texten vorkommt (Groß-/Kleinschreibung
+# zählt). In Vorlagentexten wird das erste Vorkommen je Text als [[Form]] markiert;
+# pnpm test prüft das.
+begriffe:
+  # Zahlen und Rechnen
+  - id: ziffer
+    wort: { de: Ziffer }
+    formen: [Ziffer, Ziffern]
+    erklaerung:
+      de: 'Eines der zehn Zeichen 0, 1, 2 … 9. Aus Ziffern schreibt man Zahlen: Die Zahl 305 hat die Ziffern 3, 0 und 5.'
+  - id: stellenwerttafel
+    wort: { de: Stellenwerttafel }
+    formen: [Stellenwerttafel]
+    erklaerung:
+      de: Eine Tabelle mit Spalten für Einer, Zehner, Hunderter, Tausender … In jede Spalte kommt genau eine Ziffer.
+  - id: natuerliche-zahl
+    wort: { de: natürliche Zahl }
+    formen: [natürliche Zahl, natürlichen Zahlen]
+    erklaerung:
+      de: 'Die Zahlen zum Zählen: 0, 1, 2, 3 … – ohne Komma und ohne Bruch.'
+  - id: summe
+    wort: { de: Summe }
+    formen: [Summe]
+    erklaerung:
+      de: 'Das Ergebnis einer Plusaufgabe. Bei 3 + 4 = 7 ist 7 die Summe.'
+  - id: produkt
+    wort: { de: Produkt }
+    formen: [Produkt]
+    erklaerung:
+      de: 'Das Ergebnis einer Malaufgabe. Bei 3 · 4 = 12 ist 12 das Produkt.'
+  - id: teilprodukt
+    wort: { de: Teilprodukt }
+    formen: [Teilprodukt, Teilprodukte]
+    erklaerung:
+      de: Beim schriftlichen Multiplizieren das Ergebnis mit einer einzelnen Ziffer der zweiten Zahl. Am Ende werden alle Teilprodukte addiert.
+  - id: faktor
+    wort: { de: Faktor }
+    formen: [Faktor, Faktoren]
+    erklaerung:
+      de: 'Eine Zahl, die mit einer anderen multipliziert wird. Bei 3 · 4 sind 3 und 4 die Faktoren.'
+  - id: uebertrag
+    wort: { de: Übertrag }
+    formen: [Übertrag]
+    erklaerung:
+      de: Beim schriftlichen Rechnen der Zehner, der in die nächste Spalte links wandert, wenn eine Spalte 10 oder mehr ergibt.
+  - id: stellengerecht
+    wort: { de: stellengerecht }
+    formen: [stellengerecht]
+    erklaerung:
+      de: 'So untereinander geschrieben, dass gleiche Stellen genau untereinander stehen: Einer unter Einer, Zehner unter Zehner.'
+  - id: entbuendeln
+    wort: { de: entbündeln }
+    formen: [entbündle, entbündelst, entbündelt]
+    erklaerung:
+      de: 'Einen Zehner in zehn Einer umtauschen (oder einen Hunderter in zehn Zehner). So hat die Stelle genug zum Abziehen.'
+  - id: rundungsstelle
+    wort: { de: Rundungsstelle }
+    formen: [Rundungsstelle]
+    erklaerung:
+      de: Die Stelle, auf die gerundet wird, zum Beispiel die Hunderter.
+  - id: ueberschlag
+    wort: { de: Überschlag }
+    formen: [Überschlag, Überschlage]
+    erklaerung:
+      de: Eine schnelle Rechnung mit gerundeten Zahlen. Sie zeigt, wie groß das Ergebnis ungefähr sein muss.
+  - id: hochzahl
+    wort: { de: Hochzahl }
+    formen: [Hochzahl]
+    erklaerung:
+      de: 'Die kleine Zahl oben rechts. Sie sagt, wie oft die Zahl mit sich selbst malgenommen wird: 10³ = 10 · 10 · 10.'
+  - id: wurzel
+    wort: { de: Wurzel }
+    formen: [Wurzel]
+    erklaerung:
+      de: 'Die Wurzel aus 49 ist die Zahl, die mit sich selbst malgenommen 49 ergibt: 7, denn 7 · 7 = 49.'
+  - id: punkt-vor-strich
+    wort: { de: Punkt vor Strich }
+    formen: [Punkt vor Strich]
+    erklaerung:
+      de: 'Rechenregel: Mal und Geteilt (Punktrechnung) werden vor Plus und Minus (Strichrechnung) gerechnet.'
+  - id: umkehraufgabe
+    wort: { de: Umkehraufgabe }
+    formen: [Umkehraufgabe]
+    erklaerung:
+      de: 'Die Aufgabe, die eine Rechnung rückgängig macht. Zu 3 + 4 = 7 gehört 7 − 4 = 3.'
+  - id: probe
+    wort: { de: Probe }
+    formen: [Probe]
+    erklaerung:
+      de: Eine Kontrolle. Du setzt dein Ergebnis ein oder rechnest rückwärts und prüfst, ob es stimmt.
+  - id: gleichung
+    wort: { de: Gleichung }
+    formen: [Gleichung]
+    erklaerung:
+      de: 'Zwei Rechenausdrücke mit einem Gleichheitszeichen dazwischen, zum Beispiel x + 3 = 7.'
+
+  # Teilbarkeit
+  - id: teiler
+    wort: { de: Teiler }
+    formen: [Teiler]
+    erklaerung:
+      de: 'Eine Zahl, durch die man ohne Rest teilen kann. 3 ist ein Teiler von 12, denn 12 : 3 = 4.'
+  - id: gemeinsamer-teiler
+    wort: { de: gemeinsamer Teiler }
+    formen: [gemeinsamen Teiler]
+    erklaerung:
+      de: 'Eine Zahl, die Teiler von beiden Zahlen ist. 4 ist ein gemeinsamer Teiler von 8 und 12.'
+  - id: vielfaches
+    wort: { de: Vielfaches }
+    formen: [Vielfaches, Vielfache, Vielfachen]
+    erklaerung:
+      de: 'Das Ergebnis, wenn man eine Zahl mit 1, 2, 3 … malnimmt. Vielfache von 4 sind 4, 8, 12, 16 …'
+  - id: teilbar
+    wort: { de: teilbar }
+    formen: [teilbar]
+    erklaerung:
+      de: '12 ist durch 3 teilbar, weil beim Teilen kein Rest bleibt: 12 : 3 = 4.'
+  - id: teilbarkeitsregel
+    wort: { de: Teilbarkeitsregel }
+    formen: [Teilbarkeitsregel]
+    erklaerung:
+      de: 'Ein Trick, mit dem du ohne Teilen erkennst, ob eine Zahl teilbar ist. Beispiel: Endet sie auf 0 oder 5, ist sie durch 5 teilbar.'
+  - id: quersumme
+    wort: { de: Quersumme }
+    formen: [Quersumme]
+    erklaerung:
+      de: 'Alle Ziffern einer Zahl zusammengezählt. Die Quersumme von 4 716 ist 4 + 7 + 1 + 6 = 18.'
+  - id: primzahl
+    wort: { de: Primzahl }
+    formen: [Primzahl, Primzahlen]
+    erklaerung:
+      de: 'Eine Zahl mit genau zwei Teilern: 1 und sich selbst. Zum Beispiel 2, 3, 5, 7, 11.'
+  - id: primfaktor
+    wort: { de: Primfaktor }
+    formen: [Primfaktoren]
+    erklaerung:
+      de: 'Ein Faktor, der eine Primzahl ist. 12 = 2 · 2 · 3 – die Primfaktoren sind 2, 2 und 3.'
+
+  # Brüche, Dezimalzahlen, Prozent
+  - id: bruch
+    wort: { de: Bruch }
+    formen: [Bruch, Brüche]
+    erklaerung:
+      de: 'Eine Zahl wie 3/4. Sie beschreibt einen Anteil: 3 von 4 gleich großen Teilen.'
+  - id: anteil
+    wort: { de: Anteil }
+    formen: [Anteil]
+    erklaerung:
+      de: 'Ein Teil von einem Ganzen, zum Beispiel 3/4 einer Pizza.'
+  - id: zaehler
+    wort: { de: Zähler }
+    formen: [Zähler]
+    erklaerung:
+      de: Die Zahl über dem Bruchstrich. Sie sagt, wie viele Teile gemeint sind.
+  - id: nenner
+    wort: { de: Nenner }
+    formen: [Nenner]
+    erklaerung:
+      de: Die Zahl unter dem Bruchstrich. Sie sagt, in wie viele gleich große Teile das Ganze geteilt ist.
+  - id: erweitern
+    wort: { de: erweitern }
+    formen: [Erweitere, Erweitern, erweitern]
+    erklaerung:
+      de: 'Zähler und Nenner mit derselben Zahl malnehmen. Der Wert bleibt gleich: 1/2 = 2/4.'
+  - id: kuerzen
+    wort: { de: kürzen }
+    formen: [Kürze, kürze, Kürzen, kürzen, gekürzt, gekürzten]
+    erklaerung:
+      de: 'Zähler und Nenner durch dieselbe Zahl teilen. Der Wert bleibt gleich: 6/8 = 3/4.'
+  - id: dezimalzahl
+    wort: { de: Dezimalzahl }
+    formen: [Dezimalzahl, Dezimalzahlen]
+    erklaerung:
+      de: 'Eine Zahl mit Komma, zum Beispiel 3,25. Hinter dem Komma stehen Zehntel, Hundertstel, Tausendstel.'
+  - id: nachkommastelle
+    wort: { de: Nachkommastelle }
+    formen: [Nachkommastelle, Nachkommastellen]
+    erklaerung:
+      de: 'Eine Stelle hinter dem Komma. 3,25 hat zwei Nachkommastellen.'
+  - id: zehntel
+    wort: { de: Zehntel }
+    formen: [Zehntel]
+    erklaerung:
+      de: 'Ein Zehntel ist 1/10 = 0,1. Es steht an der ersten Stelle hinter dem Komma.'
+  - id: hundertstel
+    wort: { de: Hundertstel }
+    formen: [Hundertstel]
+    erklaerung:
+      de: 'Ein Hundertstel ist 1/100 = 0,01. Es steht an der zweiten Stelle hinter dem Komma.'
+  - id: tausendstel
+    wort: { de: Tausendstel }
+    formen: [Tausendstel]
+    erklaerung:
+      de: 'Ein Tausendstel ist 1/1000 = 0,001. Es steht an der dritten Stelle hinter dem Komma.'
+  - id: prozent
+    wort: { de: Prozent }
+    formen: [Prozent]
+    erklaerung:
+      de: 'Prozent heißt „von Hundert“. 25 % sind 25 Hundertstel, also 25/100.'
+  - id: durchschnitt
+    wort: { de: Durchschnitt }
+    formen: [arithmetische Mittel, Notendurchschnitt, Durchschnitt]
+    erklaerung:
+      de: 'Auch „arithmetisches Mittel“: Alle Werte addieren und durch ihre Anzahl teilen. Von 2, 3 und 7 ist der Durchschnitt 12 : 3 = 4.'
+
+  # Größen
+  - id: umrechnungszahl
+    wort: { de: Umrechnungszahl }
+    formen: [Umrechnungszahl, Umrechnungszahlen]
+    erklaerung:
+      de: 'Die Zahl, mit der man zwischen zwei benachbarten Einheiten umrechnet. Zwischen m und dm ist sie 10, zwischen m² und dm² ist sie 100.'
+  - id: kommaschreibweise
+    wort: { de: Kommaschreibweise }
+    formen: [Kommaschreibweise]
+    erklaerung:
+      de: 'Eine Größe mit Komma statt mit zwei Einheiten: 3,07 m statt 3 m 7 cm.'
+  - id: flaecheneinheit
+    wort: { de: Flächeneinheit }
+    formen: [Flächeneinheiten]
+    erklaerung:
+      de: 'Einheiten für Flächen: mm², cm², dm², m², a, ha, km².'
+  - id: volumeneinheit
+    wort: { de: Volumeneinheit }
+    formen: [Volumeneinheiten]
+    erklaerung:
+      de: 'Einheiten für den Rauminhalt: mm³, cm³, dm³, m³.'
+  - id: hohlmass
+    wort: { de: Hohlmaß }
+    formen: [Hohlmaßen]
+    erklaerung:
+      de: 'Einheiten für das, was in ein Gefäß passt: Milliliter (ml) und Liter (l). 1 l = 1 dm³.'
+
+  # Flächen und Körper
+  - id: umfang
+    wort: { de: Umfang }
+    formen: [Umfang]
+    erklaerung:
+      de: Die Länge des Weges einmal ganz außen um eine Figur herum.
+  - id: flaecheninhalt
+    wort: { de: Flächeninhalt }
+    formen: [Flächeninhalt, Flächeninhalte]
+    erklaerung:
+      de: Wie viel Fläche eine Figur bedeckt. Man zählt, wie viele Einheitsquadrate hineinpassen.
+  - id: einheitsquadrat
+    wort: { de: Einheitsquadrat }
+    formen: [Einheitsquadrate, Quadrateinheiten]
+    erklaerung:
+      de: 'Ein Quadrat mit der Seitenlänge 1, zum Beispiel 1 cm. Sein Flächeninhalt ist 1 cm².'
+  - id: quader
+    wort: { de: Quader }
+    formen: [Quader]
+    erklaerung:
+      de: 'Ein Körper mit sechs rechteckigen Flächen, wie ein Schuhkarton.'
+  - id: wuerfel
+    wort: { de: Würfel }
+    formen: [Würfel]
+    erklaerung:
+      de: Ein Quader, bei dem alle sechs Flächen gleich große Quadrate sind.
+  - id: kante
+    wort: { de: Kante }
+    formen: [Kantenlänge, Kantenlängen, Kante]
+    erklaerung:
+      de: Die Linie, an der zwei Flächen eines Körpers zusammenstoßen. Ein Quader hat 12 Kanten.
+  - id: grundflaeche
+    wort: { de: Grundfläche }
+    formen: [Grundfläche]
+    erklaerung:
+      de: 'Die Fläche, auf der ein Körper steht. Beim Quader: Breite mal Tiefe.'
+  - id: volumen
+    wort: { de: Volumen }
+    formen: [Volumen]
+    erklaerung:
+      de: Wie viel Raum ein Körper einnimmt – also wie viel hineinpasst. Man zählt Einheitswürfel.
+  - id: einheitswuerfel
+    wort: { de: Einheitswürfel }
+    formen: [Einheitswürfel]
+    erklaerung:
+      de: 'Ein Würfel mit der Kantenlänge 1, zum Beispiel 1 cm. Sein Volumen ist 1 cm³.'
+  - id: oberflaeche
+    wort: { de: Oberfläche }
+    formen: [Oberflächeninhalt, Oberfläche]
+    erklaerung:
+      de: Alle Außenflächen eines Körpers zusammen. Ihr Flächeninhalt heißt Oberflächeninhalt.
+  - id: netz
+    wort: { de: Würfelnetz }
+    formen: [Würfelnetze, Würfelnetz, Netz]
+    erklaerung:
+      de: 'Die Oberfläche eines Körpers, aufgeklappt und flach hingelegt. Ein Würfelnetz besteht aus sechs Quadraten.'
+
+  # Geometrie
+  - id: koordinaten
+    wort: { de: Koordinaten }
+    formen: [Koordinaten, Koordinate]
+    erklaerung:
+      de: 'Zwei Zahlen, die sagen, wo ein Punkt liegt: erst x (nach rechts), dann y (nach oben). P(3|2).'
+  - id: ursprung
+    wort: { de: Ursprung }
+    formen: [Ursprung]
+    erklaerung:
+      de: 'Der Punkt (0|0), an dem sich die beiden Achsen des Koordinatensystems schneiden.'
+  - id: gerade
+    wort: { de: Gerade }
+    formen: [Gerade, Geraden]
+    erklaerung:
+      de: Eine gerade Linie ohne Anfang und ohne Ende. Man zeichnet nur ein Stück davon.
+  - id: parallel
+    wort: { de: parallel }
+    formen: [parallel, Parallel, Parallele]
+    erklaerung:
+      de: Zwei Geraden sind parallel, wenn sie überall gleich weit voneinander entfernt sind. Sie schneiden sich nie.
+  - id: senkrecht
+    wort: { de: senkrecht }
+    formen: [senkrecht, Senkrechten]
+    erklaerung:
+      de: 'Zwei Geraden stehen senkrecht aufeinander, wenn sie sich im rechten Winkel (90°) schneiden. Ohne zweite Gerade heißt senkrecht: von oben nach unten.'
+  - id: schnittpunkt
+    wort: { de: Schnittpunkt }
+    formen: [Schnittpunkt, Schnittpunkten]
+    erklaerung:
+      de: Der Punkt, an dem sich zwei Linien kreuzen.
+  - id: geodreieck
+    wort: { de: Geodreieck }
+    formen: [Geodreieck]
+    erklaerung:
+      de: 'Ein dreieckiges Lineal mit Mittellinie und Winkelskala. Damit misst und zeichnet man Längen, Winkel, Parallelen und Senkrechte.'
+  - id: winkel
+    wort: { de: Winkel }
+    formen: [Winkel]
+    erklaerung:
+      de: 'Zwei Linien (die Schenkel), die von einem Punkt (dem Scheitel) ausgehen. Seine Größe misst man in Grad.'
+  - id: rechter-winkel
+    wort: { de: rechter Winkel }
+    formen: [rechten Winkel, rechter Winkel]
+    erklaerung:
+      de: 'Ein Winkel von genau 90°, wie eine Heftecke.'
+  - id: gestreckter-winkel
+    wort: { de: gestreckter Winkel }
+    formen: [gestreckten Winkel]
+    erklaerung:
+      de: 'Ein Winkel von genau 180°. Die beiden Schenkel bilden eine gerade Linie.'
+  - id: winkelart
+    wort: { de: Winkelart }
+    formen: [Winkelart]
+    erklaerung:
+      de: 'Winkel werden nach ihrer Größe benannt: spitz (unter 90°), recht (90°), stumpf (zwischen 90° und 180°), gestreckt (180°), überstumpf (über 180°).'
+  - id: schenkel
+    wort: { de: Schenkel }
+    formen: [Schenkel]
+    erklaerung:
+      de: 'Die beiden Linien, die einen Winkel bilden.'
+  - id: grad
+    wort: { de: Grad }
+    formen: [Grad]
+    erklaerung:
+      de: 'Die Maßeinheit für Winkel, geschrieben °. Ein rechter Winkel hat 90°, ein ganzer Kreis 360°.'
+  - id: winkelmesser
+    wort: { de: Winkelmesser }
+    formen: [Winkelmesser]
+    erklaerung:
+      de: 'Ein Halbkreis mit einer Skala in Grad. Damit misst man Winkel. Auch das Geodreieck hat einen.'
+  - id: skala
+    wort: { de: Skala }
+    formen: [Skalen, Skala]
+    erklaerung:
+      de: Eine Reihe von Strichen mit Zahlen zum Ablesen, wie auf einem Lineal.
+  - id: scheitelwinkel
+    wort: { de: Scheitelwinkel }
+    formen: [Scheitelwinkel, Scheitel-]
+    erklaerung:
+      de: 'Zwei Winkel, die sich am Schnittpunkt zweier Geraden genau gegenüberliegen. Sie sind gleich groß.'
+  - id: nebenwinkel
+    wort: { de: Nebenwinkel }
+    formen: [Nebenwinkel]
+    erklaerung:
+      de: 'Zwei Winkel, die nebeneinander liegen und einen Schenkel teilen. Zusammen sind sie 180°.'
+  - id: stufenwinkel
+    wort: { de: Stufenwinkel }
+    formen: [Stufenwinkel, Stufen-]
+    erklaerung:
+      de: 'Zwei Winkel an zwei Schnittpunkten, die an der gleichen Stelle liegen (F-Form). Bei parallelen Geraden sind sie gleich groß.'
+  - id: wechselwinkel
+    wort: { de: Wechselwinkel }
+    formen: [Wechselwinkel]
+    erklaerung:
+      de: 'Zwei Winkel an zwei Schnittpunkten, die über Kreuz liegen (Z-Form). Bei parallelen Geraden sind sie gleich groß.'
+  - id: verschiebung
+    wort: { de: Verschiebung }
+    formen: [Verschiebung]
+    erklaerung:
+      de: Eine Bewegung, bei der eine Figur nur woanders hin rutscht. Sie wird nicht gedreht und nicht umgeklappt.
+  - id: spiegelung
+    wort: { de: Spiegelung }
+    formen: [Spiegelung, Spiegle]
+    erklaerung:
+      de: 'Eine Bewegung, bei der eine Figur an einer Linie umgeklappt wird – wie im Spiegel. Danach ist sie seitenverkehrt.'
+  - id: drehung
+    wort: { de: Drehung }
+    formen: [Drehung]
+    erklaerung:
+      de: Eine Bewegung, bei der sich eine Figur um einen Punkt dreht.
+  - id: bildpunkt
+    wort: { de: Bildpunkt }
+    formen: [Bildpunktes, Bildpunkt]
+    erklaerung:
+      de: 'Der Punkt, an dem ein Punkt nach einer Spiegelung oder Verschiebung landet. Zu P gehört der Bildpunkt P′.'
+  - id: spiegelachse
+    wort: { de: Spiegelachse }
+    formen: [Spiegelachse]
+    erklaerung:
+      de: 'Die Linie, an der gespiegelt wird. Punkt und Bildpunkt sind gleich weit von ihr entfernt.'
+  - id: symmetrieachse
+    wort: { de: Symmetrieachse }
+    formen: [Symmetrieachsen, Symmetrieachse]
+    erklaerung:
+      de: 'Eine Linie, an der man eine Figur falten kann, sodass beide Hälften genau aufeinanderliegen.'
+  - id: achsensymmetrisch
+    wort: { de: achsensymmetrisch }
+    formen: [achsensymmetrisch]
+    erklaerung:
+      de: Eine Figur ist achsensymmetrisch, wenn sie mindestens eine Symmetrieachse hat.
+  - id: punktsymmetrie
+    wort: { de: Punktsymmetrie }
+    formen: [Punktsymmetrie]
+    erklaerung:
+      de: Eine Figur ist punktsymmetrisch, wenn sie nach einer halben Drehung genauso aussieht wie vorher.
+  - id: diagonale
+    wort: { de: Diagonale }
+    formen: [Diagonalen, Diagonale]
+    erklaerung:
+      de: 'Eine Strecke, die zwei Ecken verbindet, die nicht nebeneinanderliegen.'

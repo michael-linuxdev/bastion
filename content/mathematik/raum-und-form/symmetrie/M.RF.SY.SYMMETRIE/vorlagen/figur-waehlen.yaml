@@ -10,7 +10,7 @@ parameter:
   M: { kaestchen: 7 }
 text:
   aufgabe:
-    de: '**Wähle** die Figur **aus**, die achsensymmetrisch ist.'
+    de: '**Wähle** die Figur **aus**, die [[achsensymmetrisch]] ist.'
 hilfen:
   - de: Suche eine Linie, an der du die Figur falten könntest.
   - de: Zähle auf beiden Seiten der Linie die Kästchen in jeder Reihe.
