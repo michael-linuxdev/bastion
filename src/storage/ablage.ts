@@ -40,6 +40,16 @@ export async function einrichten(
   });
 }
 
+/** Eine Karte (Vorlage × Niveau), falls schon geübt. */
+export async function karte(
+  db: BastionDatenbank,
+  profil: string,
+  vorlage: string,
+  niveau: string,
+): Promise<Karte | undefined> {
+  return db.karten.get([profil, vorlage, niveau]);
+}
+
 /** Alle Karten eines Profils (wenige hundert – Filtern im Speicher genügt). */
 export async function karten(db: BastionDatenbank, profil: string): Promise<Karte[]> {
   return db.karten

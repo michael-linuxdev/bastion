@@ -57,3 +57,26 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
     'in Arbeit',
   );
 });
+
+test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+
+  // Drei Tage später: die Aufgabe ist zum Wiederholen dran
+  await page.clock.setSystemTime(new Date('2026-11-05T10:00:00Z'));
+  await page.reload();
+  await expect(page.getByText('1 Aufgabe ist zum Wiederholen dran.')).toBeVisible();
+  await page.getByRole('button', { name: 'Wiederholen' }).click();
+  await expect(page.getByText(/^Addieren und Subtrahieren · grundlegend/)).toBeVisible();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  await expect(page.getByText(/Alles wiederholt, was heute dran war/)).toBeVisible();
+});

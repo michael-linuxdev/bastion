@@ -1,20 +1,21 @@
 <script lang="ts">
   // Übersicht der Kompetenzen der Klasse 5, nach Bereich und Feld, mit Wahl des Niveaus.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
-  import type { KompetenzStand } from '../../core/learning/fortschritt';
+  import { anzeigeStatus } from '../../core/learning/fortschritt';
+  import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
 
   let {
     kompetenzen,
     vorlagen,
-    staende,
+    zustand,
     niveau = $bindable(),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
-    staende: ReadonlyMap<string, KompetenzStand>;
+    zustand: Zustand;
     niveau: Niveau;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
@@ -26,6 +27,15 @@
     'raum-und-form',
     'daten-und-zufall',
   ];
+
+  // Status zur Anzeige, einmal beim Öffnen berechnet (kein laufender Timer, R2)
+  const jetzt = Date.now();
+  const status = (k: Kompetenz) =>
+    anzeigeStatus(
+      zustand.staende.get(`${k.id}|${niveau}`),
+      zustand.karten.filter((x) => x.kompetenz === k.id && x.niveau === niveau),
+      jetzt,
+    );
 
   const bereiche = $derived(
     REIHENFOLGE.map((bereich) => ({
@@ -60,10 +70,12 @@
           <button onclick={() => onwahl(k)}>
             <span class="titel">
               {k.titel.de}
-              {#if staende.get(`${k.id}|${niveau}`)?.status === 'gekonnt'}
-                <span class="status gekonnt">✓ {t('status.gekonnt')}</span>
-              {:else if staende.has(`${k.id}|${niveau}`)}
-                <span class="status">{t('status.in-arbeit')}</span>
+              {#if status(k) !== 'neu'}
+                <span class="status {status(k)}">
+                  {status(k) === 'gekonnt' || status(k) === 'gefestigt' ? '✓ ' : ''}{t(
+                    `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
+                  )}
+                </span>
               {/if}
             </span>
             <span class="kann">{k.kann_satz.de}</span>
@@ -145,9 +157,14 @@
     margin-inline-start: var(--abstand-s);
   }
 
-  .status.gekonnt {
+  .status.gekonnt,
+  .status.gefestigt {
     color: #3f7d3a;
     font-weight: bold;
+  }
+
+  .status.auffrischen {
+    color: var(--farbe-akzent);
   }
 
   .leise {
