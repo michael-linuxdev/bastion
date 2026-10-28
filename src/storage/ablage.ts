@@ -389,6 +389,8 @@ const LOKALE_SICHERUNGEN = 2;
  * Bisher gibt es ein Profil je Gerät. Gehört die Sicherung zu einem anderen
  * Profil, übernimmt sie das Gerät nur, wenn das vorhandene Profil noch leer ist
  * (z. B. nach dem Zurücksetzen der App) – sonst ginge ein Lernstand verloren.
+ * Nur Einstellungen (Klasse, Profil, Thema …) sind noch kein Lernstand: Wer auf
+ * dem neuen Gerät zuerst die Klasse wählt, kann trotzdem einspielen.
  */
 export async function importieren(
   db: BastionDatenbank,
@@ -399,7 +401,7 @@ export async function importieren(
   const ziel = inhalt.profile[0];
   if (inhalt.profile.length !== 1 || !ziel) return { ok: false, grund: 'anderes-profil' };
   const vorher = await exportieren(db, profil);
-  if (ziel.id !== profil && vorher.ereignisse.length > 0)
+  if (ziel.id !== profil && vorher.ereignisse.some((e) => e.art !== 'einstellung'))
     return { ok: false, grund: 'anderes-profil' };
 
   return db.transaction(

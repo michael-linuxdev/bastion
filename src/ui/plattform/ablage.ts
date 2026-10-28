@@ -35,6 +35,10 @@ import {
   klasseAus,
   SCHULART_SCHLUESSEL,
   schulartAus,
+  GEBURTSDATUM_SCHLUESSEL,
+  ERWACHSEN_SCHLUESSEL,
+  PROFIL_GEFRAGT_SCHLUESSEL,
+  SCHULJAHR_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -42,6 +46,7 @@ import {
   vonAnderemGeraet,
 } from '../../core/policy/einstellung';
 import { lerntag } from '../../core/policy/lerntag';
+import { geburtsdatumAus, type Profil } from '../../core/policy/alter';
 import {
   CODE_WOERTER,
   dateiname,
@@ -357,10 +362,48 @@ export async function lernWahl(): Promise<{
   };
 }
 
-export const klasseSetzen = (klasse: number) => setze(KLASSE_SCHLUESSEL, klasse, 'jugendlich');
+/** Klasse und Schulart pflegen Kind und Eltern (L-17) – protokolliert mit „durch wen“. */
+export const klasseSetzen = (klasse: number, durch: 'jugendlich' | 'eltern' = 'jugendlich') =>
+  setze(KLASSE_SCHLUESSEL, klasse, durch);
 /** Keine Angabe wird als leerer Text gespeichert. */
-export const schulartSetzen = (schulart: 'oberschule' | 'gymnasium' | undefined) =>
-  setze(SCHULART_SCHLUESSEL, schulart ?? '', 'jugendlich');
+export const schulartSetzen = (
+  schulart: 'oberschule' | 'gymnasium' | undefined,
+  durch: 'jugendlich' | 'eltern' = 'jugendlich',
+) => setze(SCHULART_SCHLUESSEL, schulart ?? '', durch);
+
+/** Profil (L-15): freiwilliges Geburtsdatum, „Ich bin erwachsen“, ob schon gefragt wurde. */
+export async function profilWahl(): Promise<Profil & { gefragt: boolean }> {
+  const inst = await bereit();
+  if (!inst) return { geburtsdatum: undefined, erwachsen: false, gefragt: true };
+  const jetzt = Date.now();
+  const wert = (s: string) => einstellung(db, inst.profil, s).catch(() => undefined);
+  return {
+    geburtsdatum: geburtsdatumAus(
+      await wert(GEBURTSDATUM_SCHLUESSEL),
+      lerntag(jetzt, -new Date(jetzt).getTimezoneOffset()),
+    ),
+    erwachsen: (await wert(ERWACHSEN_SCHLUESSEL)) === true,
+    gefragt: (await wert(PROFIL_GEFRAGT_SCHLUESSEL)) === true,
+  };
+}
+
+export async function profilSetzen(p: Profil): Promise<void> {
+  await setze(GEBURTSDATUM_SCHLUESSEL, p.geburtsdatum ?? '', 'jugendlich');
+  await setze(ERWACHSEN_SCHLUESSEL, p.erwachsen, 'jugendlich');
+  await setze(PROFIL_GEFRAGT_SCHLUESSEL, true, 'jugendlich');
+}
+
+export const profilUebersprungen = () => setze(PROFIL_GEFRAGT_SCHLUESSEL, true, 'jugendlich');
+
+/** Zuletzt bestätigtes Schuljahr (L-17) – oder keins. */
+export async function schuljahrGemerkt(): Promise<number | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const w = await einstellung(db, inst.profil, SCHULJAHR_SCHLUESSEL).catch(() => undefined);
+  return typeof w === 'number' ? w : undefined;
+}
+
+export const schuljahrSetzen = (jahr: number) => setze(SCHULJAHR_SCHLUESSEL, jahr, 'jugendlich');
 
 /** Bauplatz als Bild zeigen (2.13)? Standard ja; aus = reizarm, nur die Liste. */
 export async function bildZeigen(): Promise<boolean> {

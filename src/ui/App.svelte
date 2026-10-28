@@ -13,6 +13,11 @@
     basebauAn,
     themaWahl,
     lernWahl,
+    profilWahl,
+    profilSetzen,
+    profilUebersprungen,
+    schuljahrGemerkt,
+    schuljahrSetzen,
     klasseSetzen,
     schulartSetzen,
     sicherungAnstehend,
@@ -45,6 +50,15 @@
   import BastionAnsicht from './bastion/Bastion.svelte';
   import Hinterhof from './bastion/Hinterhof.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
+  import ProfilForm from './profil/Profil.svelte';
+  import {
+    schuljahrFragen,
+    schuljahrVon,
+    selbstverwaltet,
+    type Profil,
+  } from '../core/policy/alter';
+  import Schuljahr from './ueben/Schuljahr.svelte';
+  import { lerntag as lerntagVon } from '../core/policy/lerntag';
   import { KLASSEN } from './ueben/klassen';
   import { uebersprungeneKlassen, type WechselHinweis } from '../core/learning/wechsel';
   import { untrack } from 'svelte';
@@ -60,6 +74,7 @@
     | 'diagnose'
     | 'stand'
     | 'eltern'
+    | 'profil'
     | 'sicherung'
     | 'abschluss'
     | 'anleitung'
@@ -88,6 +103,15 @@
     neu: boolean;
   }>();
   let wechsel = $state<WechselHinweis | undefined>(undefined);
+  /** Profil (L-15) – freiwillig; ohne Angabe: Schülerin oder Schüler mit Elternbereich */
+  let profil = $state<Profil>({ geburtsdatum: undefined, erwachsen: false });
+  let profilGefragt = $state(true);
+  const heuteTag = lerntagVon(Date.now(), -new Date().getTimezoneOffset());
+  const selbst = $derived(selbstverwaltet(profil, heuteTag));
+  /** Neues Schuljahr begonnen – einmal nach der Klasse fragen (L-17) */
+  let neuesSchuljahr = $state(false);
+  /** Schuljahr erst mit der ersten Klassenwahl merken – beim ersten Start wird nichts gespeichert */
+  let schuljahrBekannt = false;
   /** Diagnose nur für ausgewählte Kompetenzen (nach einem Schulartwechsel) */
   let diagnoseAuswahl = $state<readonly string[] | undefined>(undefined);
   $effect(() => {
@@ -99,14 +123,18 @@
         const ueber = uebersprungeneKlassen(gemerkt.neu ? 4 : gemerkt.klasse, k, KLASSEN);
         // Hochstellen über Klassen hinweg: Diagnose anbieten; zurückstellen: nichts (neutral)
         wechsel = ueber.length > 0 ? { art: 'klassen', klassen: ueber } : undefined;
-        void klasseSetzen(k);
+        void klasseSetzen(k, ansicht === 'eltern' ? 'eltern' : 'jugendlich');
+        if (!schuljahrBekannt) {
+          schuljahrBekannt = true;
+          void schuljahrSetzen(schuljahrVon(heuteTag));
+        }
       }
       if (s !== gemerkt.schulart) {
         wechsel =
           gemerkt.schulart && s
             ? { art: 'schulart', alt: gemerkt.schulart, neu: s, klasse: k }
             : wechsel;
-        void schulartSetzen(s);
+        void schulartSetzen(s, ansicht === 'eltern' ? 'eltern' : 'jugendlich');
       }
       gemerkt = { klasse: k, schulart: s, neu: gemerkt.neu && k === gemerkt.klasse };
     });
@@ -146,11 +174,17 @@
     sichern = await sicherungAnstehend();
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
+    const pr = await profilWahl();
+    profil = { geburtsdatum: pr.geburtsdatum, erwachsen: pr.erwachsen };
+    profilGefragt = pr.gefragt;
     if (!gemerkt) {
       const w = await lernWahl();
       klasse = w.klasse;
       schulart = w.schulart;
       gemerkt = w;
+      const sj = await schuljahrGemerkt();
+      schuljahrBekannt = sj !== undefined;
+      neuesSchuljahr = !w.neu && schuljahrFragen(sj, heuteTag, profil.erwachsen);
     }
   }
 
@@ -250,6 +284,31 @@
       <p class="untertitel">{t('start.untertitel')}</p>
       <p>{t('start.status')}</p>
     {/if}
+    {#if neuesSchuljahr}
+      <Schuljahr
+        vorschlag={Math.min(klasse + 1, KLASSEN[KLASSEN.length - 1] ?? klasse)}
+        onbestaetigen={(k) => {
+          klasse = k;
+          neuesSchuljahr = false;
+          void schuljahrSetzen(schuljahrVon(heuteTag));
+        }}
+      />
+    {/if}
+    {#if !profilGefragt}
+      <ProfilForm
+        {profil}
+        erstesMal
+        onspeichern={(p) => {
+          profil = p;
+          profilGefragt = true;
+          void profilSetzen(p);
+        }}
+        onueberspringen={() => {
+          profilGefragt = true;
+          void profilUebersprungen();
+        }}
+      />
+    {/if}
     <p class="knoepfe">
       <button class="haupt" onclick={ueben}>{t('start.ueben')}</button>
       <button
@@ -310,18 +369,32 @@
     <p class="versprechen">{t('start.versprechen')}</p>
     <p class="leiste">
       <button class="dezent" onclick={() => (ansicht = 'sicherung')}>{t('sicherung.knopf')}</button>
-      <button
-        class="dezent"
-        onclick={() => {
-          inhalte ??= ladeInhalte();
-          ansicht = 'eltern';
-          void aktualisiere();
-        }}>{t('eltern.knopf')}</button
-      >
+      <button class="dezent" onclick={() => (ansicht = 'profil')}>{t('profil.knopf')}</button>
+      {#if !selbst}
+        <button
+          class="dezent"
+          onclick={() => {
+            inhalte ??= ladeInhalte();
+            ansicht = 'eltern';
+            void aktualisiere();
+          }}>{t('eltern.knopf')}</button
+        >
+      {/if}
     </p>
     {#if offline.bereit}
       <p class="offline" role="status">{t('start.offline')}</p>
     {/if}
+  {:else if ansicht === 'profil'}
+    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+    <ProfilForm
+      {profil}
+      onspeichern={(p) => {
+        profil = p;
+        profilGefragt = true;
+        void profilSetzen(p);
+        ansicht = 'start';
+      }}
+    />
   {:else if ansicht === 'sicherung'}
     <button
       class="zurueck"
@@ -363,7 +436,8 @@
           {zustand}
           aufgaben={aufgabenListe}
           bind:basebau
-          {klasse}
+          bind:klasse
+          bind:schulart
         />
       {:else if ansicht === 'stand'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
@@ -375,6 +449,7 @@
           bind:basebau
           bind:niveau
           bind:klasse
+          {selbst}
           onueben={(k) => {
             gewaehlt = k;
             ansicht = 'uebung';

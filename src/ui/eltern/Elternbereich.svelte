@@ -1,6 +1,7 @@
 <script lang="ts">
   // Elternbereich (KONZEPT §10, DATENMODELL §5.2, D-12, D-14): PIN beim ersten
   // Öffnen festlegen, Wiederherstellungscode einmalig zeigen, danach Bericht.
+  import KlassenWahl from '../ueben/KlassenWahl.svelte';
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
@@ -31,7 +32,8 @@
     zustand,
     aufgaben,
     basebau = $bindable(true),
-    klasse = 5,
+    klasse = $bindable(5),
+    schulart = $bindable(undefined),
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
@@ -41,6 +43,8 @@
     basebau?: boolean;
     /** gewählte Klasse – für den Bericht für die Lehrkraft (L-13) */
     klasse?: number;
+    /** Klasse und Schulart pflegen auch Eltern (L-17) */
+    schulart?: 'oberschule' | 'gymnasium' | undefined;
   } = $props();
 
   type Schritt = 'laden' | 'einrichten' | 'code' | 'gesperrt' | 'zuruecksetzen' | 'offen';
@@ -215,6 +219,8 @@
         {/each}
       </select></label
     >
+    <h3>{t('eltern.klasse-titel')}</h3>
+    <KlassenWahl bind:klasse bind:schulart mitSchulart />
     <h3>{tt('basebau.ueberschrift')}</h3>
     <BasebauSchalter bind:an={basebau} durch="eltern" />
     <p class="leise">{t('eltern.ehrlich')}</p>
