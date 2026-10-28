@@ -1,0 +1,23 @@
+# „In welchem Quadranten liegt P(−3|5)?“ Entwurf: noch nicht geprüft.
+id: M.RF.GF.QUADRANTEN.QUADRANT
+kompetenz: M.RF.GF.QUADRANTEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: gf.quadrant@1
+parameter:
+  G: { max: 5 }
+  M: { max: 8 }
+text:
+  aufgabe:
+    de: '**Entscheide**: In welchem [[Quadranten]] liegt der Punkt P{punkt}?'
+hilfen:
+  - de: 'Die [[Quadranten]] zählt man gegen den Uhrzeigersinn: I oben rechts, II oben links, III unten links, IV unten rechts.'
+  - de: 'Ein negatives x heißt links vom [[Ursprung]], ein negatives y heißt unten.'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'Du hast x und y vertauscht. Die erste Zahl sagt rechts oder links, die zweite oben oder unten.'
+  falsch-herum-gezaehlt:
+    de: 'Die [[Quadranten]] werden gegen den Uhrzeigersinn gezählt: Auf I oben rechts folgt II oben links.'
+herkunft: ki-entwurf
+version: 1

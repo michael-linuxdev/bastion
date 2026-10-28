@@ -1,0 +1,23 @@
+# „Gib die Koordinaten von P an.“ – vier Quadranten. Entwurf: noch nicht geprüft.
+id: M.RF.GF.QUADRANTEN.ABLESEN
+kompetenz: M.RF.GF.QUADRANTEN
+niveaus: [G, M]
+typ: koordinaten-eingabe
+quelle: generator
+generator: gf.punkt-ablesen-4@1
+parameter:
+  G: { max: 5 }
+  M: { max: 8 }
+text:
+  aufgabe:
+    de: '**Gib** die [[Koordinaten]] des Punktes P **an**.'
+hilfen:
+  - de: 'Zuerst x: nach rechts positiv, nach links negativ. Dann y: nach oben positiv, nach unten negativ.'
+  - de: 'Für ein Minus tippe auf ± neben dem Feld.'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'x und y sind vertauscht. Erst nach rechts oder links (x), dann nach oben oder unten (y).'
+  vorzeichen-vergessen:
+    de: 'Links vom [[Ursprung]] ist x negativ, unterhalb ist y negativ. Achte auf das [[Vorzeichen]].'
+herkunft: ki-entwurf
+version: 1
