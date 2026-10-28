@@ -1,0 +1,23 @@
+# „Ordne der Größe nach: −3; 5; −7 …“. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ORDNEN.DER-GROESSE-NACH
+kompetenz: M.ZO.RZ.ORDNEN
+niveaus: [G, M]
+typ: ordnen
+quelle: generator
+generator: rz.ordnen@1
+parameter:
+  G: { anzahl: 5, dezimal: false, max: 20 }
+  M: { anzahl: 6, dezimal: true, max: 20 }
+text:
+  aufgabe:
+    de: '**Ordne** die Zahlen der Größe nach. Beginne mit der kleinsten Zahl.'
+hilfen:
+  - de: 'Ganz links auf der [[Zahlengerade]] steht die kleinste Zahl.'
+  - de: 'Zuerst kommen die [[negativen Zahlen]] – die mit dem größten [[Betrag]] zuerst –, dann die positiven.'
+fehlerbilder:
+  nach-betrag:
+    de: 'Du hast nach dem Abstand zur 0 geordnet. Eine [[negative Zahl]] ist aber kleiner als jede positive: −7 < −3 < 3 < 7.'
+  absteigend:
+    de: 'Die Reihenfolge ist genau umgekehrt. Beginne mit der kleinsten Zahl.'
+herkunft: ki-entwurf
+version: 1

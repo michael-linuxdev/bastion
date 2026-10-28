@@ -4,8 +4,8 @@
 
   let { klasse = $bindable(5) }: { klasse?: number } = $props();
 
-  /** Klassenstufen, für die es schon Aufgaben gibt (K-15: 5 und 6) */
-  const KLASSEN = [5, 6] as const;
+  /** Klassenstufen, für die es schon Aufgaben gibt (K-15: 5, 6 und 7 – Klasse 7 im Aufbau) */
+  const KLASSEN = [5, 6, 7] as const;
 </script>
 
 <fieldset class="klasse">

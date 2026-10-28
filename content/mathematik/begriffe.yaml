@@ -613,3 +613,39 @@ begriffe:
     formen: [Schrägbild]
     erklaerung:
       de: 'Eine Zeichnung, die einen Körper räumlich zeigt. Die Kanten nach hinten werden schräg und verkürzt gezeichnet.'
+  # Klasse 7: rationale Zahlen
+  - id: negative-zahl
+    wort: { de: negative Zahl }
+    formen: [negative Zahl, negativen Zahlen, negative Zahlen]
+    erklaerung:
+      de: 'Eine Zahl kleiner als 0, mit Minus davor: −3, −0,5. Sie steht links von der 0. Beispiele: −5 °C, 20 € Schulden.'
+  - id: zahlengerade
+    wort: { de: Zahlengerade }
+    formen: [Zahlengerade, Zahlengeraden]
+    erklaerung:
+      de: 'Ein Zahlenstrahl, der nach links über die 0 hinaus weitergeht. Rechts von 0 stehen die positiven, links die negativen Zahlen.'
+  - id: gegenzahl
+    wort: { de: Gegenzahl }
+    formen: [Gegenzahl]
+    erklaerung:
+      de: 'Die Zahl auf der anderen Seite der 0, gleich weit entfernt. Die Gegenzahl von 4 ist −4, die Gegenzahl von −4 ist 4.'
+  - id: betrag
+    wort: { de: Betrag }
+    formen: [Betrag, Beträge, Beträgen]
+    erklaerung:
+      de: 'Der Abstand einer Zahl von der 0, ohne Vorzeichen. Man schreibt |−4| = 4. Ein Betrag ist nie negativ.'
+  - id: vorzeichen
+    wort: { de: Vorzeichen }
+    formen: [Vorzeichen]
+    erklaerung:
+      de: 'Das Plus oder Minus vor einer Zahl. Es sagt, auf welcher Seite der 0 die Zahl liegt. Das Plus lässt man meist weg.'
+  - id: ganze-zahl
+    wort: { de: ganze Zahl }
+    formen: [ganze Zahl, ganzen Zahlen, ganze Zahlen]
+    erklaerung:
+      de: 'Die natürlichen Zahlen und ihre Gegenzahlen: … −2, −1, 0, 1, 2 … – ohne Komma und ohne Bruch.'
+  - id: rationale-zahl
+    wort: { de: rationale Zahl }
+    formen: [rationale Zahl, rationalen Zahlen, rationale Zahlen]
+    erklaerung:
+      de: 'Jede Zahl, die man als Bruch schreiben kann – auch mit Minus: 3, −2, 3/4, −0,5.'

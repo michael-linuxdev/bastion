@@ -1,0 +1,28 @@
+# „Zu welchen Zahlbereichen gehört −3/4?“ Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ZAHLBEREICHE.ZUORDNEN
+kompetenz: M.ZO.RZ.ZAHLBEREICHE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: rz.zahlbereich@1
+parameter:
+  G: { verkleidet: false }
+  M: { verkleidet: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Zu welchen Zahlbereichen gehört {zahl}?'
+hilfen:
+  - de: 'Die [[ganzen Zahlen]] haben kein Komma und keinen [[Bruch]], dürfen aber negativ sein: −3, 0, 7.'
+  - de: 'Die [[gebrochenen Zahlen]] sind alle [[Brüche]] ohne Minus. Die [[rationalen Zahlen]] sind alle Brüche, auch mit Minus.'
+  - de: 'Manche [[Brüche]] sind eigentlich [[ganze Zahlen]]: −12/4 = −3.'
+fehlerbilder:
+  ganze-zahl-vergessen:
+    de: 'Diese Zahl hat kein Komma und keinen [[Bruch]] – sie ist eine [[ganze Zahl]], auch mit Minus.'
+  vorzeichen-uebersehen:
+    de: 'Achte auf das Minus. Eine [[negative Zahl]] ist keine [[natürliche Zahl]] und keine [[gebrochene Zahl]].'
+  natuerlich-nicht-gebrochen:
+    de: 'Jede [[natürliche Zahl]] kann man als [[Bruch]] schreiben, zum Beispiel 5 = 5/1. Sie gehört also zu allen vier Zahlbereichen.'
+  verkleidet-uebersehen:
+    de: 'Rechne den [[Bruch]] aus: Er ergibt eine Zahl ohne Rest. Damit ist er eine [[ganze Zahl]].'
+herkunft: ki-entwurf
+version: 1

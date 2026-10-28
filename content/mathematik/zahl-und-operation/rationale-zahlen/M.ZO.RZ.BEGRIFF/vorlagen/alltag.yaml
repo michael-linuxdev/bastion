@@ -1,0 +1,23 @@
+# Negative Zahlen im Alltag: Temperatur, Meerestiefe, Konto, Aufzug. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.BEGRIFF.ALLTAG
+kompetenz: M.ZO.RZ.BEGRIFF
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: rz.alltag@1
+parameter:
+  G: { unterschied: false }
+  M: { unterschied: true }
+text:
+  aufgabe:
+    de: '{geschichte} **{frage}**'
+hilfen:
+  - de: 'Unter null, unter dem Meeresspiegel, unter dem Erdgeschoss und Schulden: Das sind [[negative Zahlen]].'
+  - de: 'Für einen Unterschied über die 0 hinweg: Rechne den Weg bis zur 0 und den Weg von der 0 weiter zusammen.'
+fehlerbilder:
+  vorzeichen-vergessen:
+    de: 'Achte auf das [[Vorzeichen]]: Unter null, unter dem Meeresspiegel oder Schulden schreibt man mit Minus.'
+  abstand-ohne-null:
+    de: 'Du hast die beiden Zahlen voneinander abgezogen, als lägen sie auf derselben Seite der 0. Hier musst du über die 0 hinweg: Weg bis zur 0 plus Weg von der 0 weiter.'
+herkunft: ki-entwurf
+version: 1

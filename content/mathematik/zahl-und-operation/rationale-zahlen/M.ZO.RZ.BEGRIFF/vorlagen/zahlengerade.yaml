@@ -1,0 +1,25 @@
+# Zahlengerade mit negativen Zahlen ablesen. Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.BEGRIFF.ZAHLENGERADE
+kompetenz: M.ZO.RZ.BEGRIFF
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: rz.zahlengerade@1
+parameter:
+  G: { schritt_zehntel: 10, bis: 10 }
+  M: { schritt_zehntel: 5, bis: 5 }
+text:
+  aufgabe:
+    de: '**Gib** die Zahl **an**, die an der Markierung auf der [[Zahlengerade]] steht.'
+hilfen:
+  - de: 'Schau zuerst, wie groß ein Abschnitt zwischen zwei Strichen ist.'
+  - de: 'Links von der 0 stehen die [[negativen Zahlen]]. Sie bekommen ein Minus – tippe dafür auf ±.'
+fehlerbilder:
+  vorzeichen-vergessen:
+    de: 'Die Markierung steht auf der anderen Seite der 0. Links von 0 ist eine Zahl negativ, rechts positiv – achte auf das [[Vorzeichen]].'
+  striche-statt-abstaende:
+    de: 'Du hast die Striche gezählt und die 0 mitgezählt. Zähle die Abschnitte von der 0 bis zur Markierung.'
+  striche-als-ganze:
+    de: 'Ein Abschnitt ist hier nur 0,5 groß, nicht 1. Erst zwei Abschnitte ergeben 1.'
+herkunft: ki-entwurf
+version: 1
