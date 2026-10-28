@@ -375,6 +375,88 @@ begriffe:
     erklaerung:
       de: 'Die Oberfläche eines Körpers, aufgeklappt und flach hingelegt. Ein Würfelnetz besteht aus sechs Quadraten.'
 
+  # Dreiecke und Vierecke (Klasse 6)
+  - id: innenwinkel
+    wort: { de: Innenwinkel }
+    formen: [Innenwinkel]
+    erklaerung:
+      de: 'Die Winkel innen an den Ecken einer Figur. Im Dreieck sind es drei, zusammen immer 180°.'
+  - id: basiswinkel
+    wort: { de: Basiswinkel }
+    formen: [Basiswinkel]
+    erklaerung:
+      de: 'Die beiden Winkel an der Basis eines gleichschenkligen Dreiecks. Sie sind gleich groß.'
+  - id: gleichschenklig
+    wort: { de: gleichschenklig }
+    formen: [gleichschenklig, gleichschenkligen]
+    erklaerung:
+      de: 'Ein Dreieck mit zwei gleich langen Seiten (den Schenkeln). Die dritte Seite heißt Basis.'
+  - id: gleichseitig
+    wort: { de: gleichseitig }
+    formen: [gleichseitig]
+    erklaerung:
+      de: 'Ein Dreieck, dessen drei Seiten alle gleich lang sind. Alle Winkel sind dann 60°.'
+  - id: kongruenzsatz
+    wort: { de: Kongruenzsatz }
+    formen: [Kongruenzsatz]
+    erklaerung:
+      de: 'Ein Satz, der sagt, welche drei Angaben ein Dreieck eindeutig festlegen: sss, sws, wsw oder SsW.'
+  - id: zirkel
+    wort: { de: Zirkel }
+    formen: [Zirkel]
+    erklaerung:
+      de: 'Ein Gerät zum Zeichnen von Kreisen und Kreisbögen. Seine Öffnung ist der Radius.'
+  - id: hoehe
+    wort: { de: Höhe }
+    formen: [Höhe]
+    erklaerung:
+      de: 'Ein senkrechter Abstand. Im Dreieck: die Strecke von einer Ecke senkrecht auf die gegenüberliegende Seite.'
+  - id: seitenhalbierende
+    wort: { de: Seitenhalbierende }
+    formen: [Seitenhalbierende]
+    erklaerung:
+      de: 'Die Strecke von einer Ecke des Dreiecks zur Mitte der gegenüberliegenden Seite.'
+  - id: winkelhalbierende
+    wort: { de: Winkelhalbierende }
+    formen: [Winkelhalbierende]
+    erklaerung:
+      de: 'Eine Linie, die einen Winkel in zwei gleich große Winkel teilt.'
+  - id: mittelsenkrechte
+    wort: { de: Mittelsenkrechte }
+    formen: [Mittelsenkrechte]
+    erklaerung:
+      de: 'Eine Gerade, die durch die Mitte einer Strecke geht und senkrecht auf ihr steht.'
+  - id: umkreis
+    wort: { de: Umkreis }
+    formen: [Umkreis]
+    erklaerung:
+      de: 'Der Kreis, der durch alle drei Ecken eines Dreiecks geht.'
+  - id: inkreis
+    wort: { de: Inkreis }
+    formen: [Inkreis]
+    erklaerung:
+      de: 'Der Kreis im Dreieck, der alle drei Seiten berührt.'
+  - id: raute
+    wort: { de: Raute }
+    formen: [Raute]
+    erklaerung:
+      de: 'Ein Viereck mit vier gleich langen Seiten. Ein Quadrat ist eine besondere Raute mit rechten Winkeln.'
+  - id: parallelogramm
+    wort: { de: Parallelogramm }
+    formen: [Parallelogramm, Parallelogrammen]
+    erklaerung:
+      de: 'Ein Viereck, bei dem gegenüberliegende Seiten parallel und gleich lang sind.'
+  - id: trapez
+    wort: { de: Trapez }
+    formen: [Trapez, Trapezen]
+    erklaerung:
+      de: 'Ein Viereck mit (mindestens) zwei parallelen gegenüberliegenden Seiten.'
+  - id: drachenviereck
+    wort: { de: Drachenviereck }
+    formen: [Drachenviereck, Drachenvierecken]
+    erklaerung:
+      de: 'Ein Viereck mit zwei Paaren gleich langer Seiten, die jeweils nebeneinanderliegen – wie ein Drachen.'
+
   # Geometrie
   - id: koordinaten
     wort: { de: Koordinaten }

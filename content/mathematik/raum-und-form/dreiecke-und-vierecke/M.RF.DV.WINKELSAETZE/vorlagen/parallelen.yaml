@@ -1,0 +1,23 @@
+# „g ∥ h, α = 65°. Berechne β.“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.WINKELSAETZE.PARALLELEN
+kompetenz: M.RF.DV.WINKELSAETZE
+niveaus: [G, M]
+typ: bild-zahl
+quelle: generator
+generator: dv.parallelen-winkel@1
+parameter:
+  G: { lagen: [stufen, wechsel] }
+  M: { lagen: [stufen, wechsel, ergaenzung-oben, ergaenzung-unten] }
+text:
+  aufgabe:
+    de: 'Die [[Geraden]] g und h sind [[parallel]]. α ist {alpha}° groß. **Berechne** β in [[Grad]].'
+hilfen:
+  - de: '[[Stufenwinkel]] und [[Wechselwinkel]] an Parallelen sind gleich groß.'
+  - de: 'Liegt β neben einem solchen [[Winkel]], ergänzen sich beide zu 180°.'
+fehlerbilder:
+  gleich-statt-ergaenzt:
+    de: 'β ist hier nicht gleich groß wie α. Suche den [[Stufen-]] oder [[Wechselwinkel]] zu α – β ist sein [[Nebenwinkel]].'
+  ergaenzt-statt-gleich:
+    de: β und α liegen an den Parallelen an der gleichen Stelle oder über Kreuz – dann sind sie gleich groß.
+herkunft: ki-entwurf
+version: 1

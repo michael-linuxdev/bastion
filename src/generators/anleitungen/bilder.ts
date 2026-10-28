@@ -235,3 +235,98 @@ export const wuerfelnetz: AnleitungsBilder = {
     ];
   },
 };
+
+/** Dreieck aus a = 5 cm, b = 4 cm, c = 6 cm konstruieren (1 cm = 30 Bildpunkte) */
+export const sss: AnleitungsBilder = {
+  id: 'anleitung.sss',
+  version: 1,
+  bilder: () => {
+    const A: [number, number] = [60, 190];
+    const B: [number, number] = [240, 190];
+    // C aus den Kreisen um A (r = 120) und B (r = 150)
+    const cx = A[0] + 67.5;
+    const cy = A[1] - Math.sqrt(120 ** 2 - 67.5 ** 2);
+    const grund = [
+      linie(A[0], A[1], B[0], B[1]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      text(150, 210, 'c = 6 cm', 13),
+    ];
+    const bogenA = bogen(A[0], A[1], 120, 40, 72);
+    const bogenB = bogen(B[0], B[1], 150, 124, 154);
+    return [
+      bild(300, 220, grund, { de: 'Die Strecke AB ist 6 cm lang.' }),
+      bild(300, 220, [...grund, bogenA], {
+        de: 'Um A ist ein Kreisbogen mit dem Radius 4 cm gezeichnet.',
+      }),
+      bild(300, 220, [...grund, bogenA, bogenB, kreis(cx, cy, 3, true)], {
+        de: 'Um B ist ein Kreisbogen mit dem Radius 5 cm gezeichnet. Die beiden Bögen schneiden sich.',
+      }),
+      bild(
+        300,
+        220,
+        [
+          ...grund,
+          bogenA,
+          bogenB,
+          dick(A[0], A[1], cx, cy),
+          dick(B[0], B[1], cx, cy),
+          punkt(cx, cy, 'C'),
+        ],
+        {
+          de: 'Der Schnittpunkt C ist mit A und B verbunden. Das Dreieck ABC ist fertig.',
+        },
+      ),
+    ];
+  },
+};
+
+/** Mittelsenkrechte einer Strecke AB mit dem Zirkel */
+export const mittelsenkrechte: AnleitungsBilder = {
+  id: 'anleitung.mittelsenkrechte',
+  version: 1,
+  bilder: () => {
+    const A: [number, number] = [70, 120];
+    const B: [number, number] = [230, 120];
+    const h = Math.sqrt(110 ** 2 - 80 ** 2);
+    const grund = [linie(A[0], A[1], B[0], B[1]), punkt(A[0], A[1], 'A'), punkt(B[0], B[1], 'B')];
+    const boegenA = [bogen(A[0], A[1], 110, 30, 56), bogen(A[0], A[1], 110, 304, 330)];
+    const boegenB = [bogen(B[0], B[1], 110, 124, 150), bogen(B[0], B[1], 110, 210, 236)];
+    const oben: [number, number] = [150, A[1] - h];
+    const unten: [number, number] = [150, A[1] + h];
+    return [
+      bild(300, 240, grund, { de: 'Eine waagerechte Strecke AB.' }),
+      bild(300, 240, [...grund, ...boegenA], {
+        de: 'Um A sind zwei Bögen gezeichnet, einer oberhalb und einer unterhalb von AB.',
+      }),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          ...boegenA,
+          ...boegenB,
+          kreis(oben[0], oben[1], 3, true),
+          kreis(unten[0], unten[1], 3, true),
+        ],
+        {
+          de: 'Um B sind mit derselben Zirkelöffnung zwei Bögen gezeichnet. Sie schneiden die ersten oben und unten.',
+        },
+      ),
+      bild(
+        300,
+        240,
+        [
+          ...grund,
+          ...boegenA,
+          ...boegenB,
+          dick(oben[0], oben[1] - 10, unten[0], unten[1] + 10),
+          rechterWinkel(150, 120, 12, -12),
+        ],
+        {
+          de: 'Die beiden Schnittpunkte sind verbunden. Die Linie halbiert AB und steht senkrecht darauf.',
+        },
+      ),
+    ];
+  },
+};

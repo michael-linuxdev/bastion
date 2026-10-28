@@ -1,0 +1,20 @@
+# „Stimmt das: Jedes Rechteck ist ein Parallelogramm?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE.HAUS
+kompetenz: M.RF.DV.VIERECKE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.viereck-aussage@1
+parameter:
+  G: { alle: false }
+  M: { alle: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Stimmt die Aussage „{x} ist {y}“?'
+hilfen:
+  - de: Hat das erste Viereck immer alle Eigenschaften, die das zweite braucht?
+fehlerbilder:
+  richtung-verdreht:
+    de: 'Es ist umgekehrt. Prüfe: Hat jedes Viereck der ersten Art alle Eigenschaften der zweiten?'
+herkunft: ki-entwurf
+version: 1

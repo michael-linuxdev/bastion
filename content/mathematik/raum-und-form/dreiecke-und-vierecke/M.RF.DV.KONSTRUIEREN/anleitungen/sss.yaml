@@ -1,0 +1,18 @@
+# Dreieck aus drei Seiten konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.DV.KONSTRUIEREN.SSS
+kompetenz: M.RF.DV.KONSTRUIEREN
+titel:
+  de: Ein Dreieck aus drei Seiten konstruieren
+material:
+  de: 'Papier, spitzer Bleistift, Lineal, [[Zirkel]]'
+bilder: anleitung.sss@1
+schritte:
+  - de: Gegeben sind a = 5 cm, b = 4 cm und c = 6 cm. Zeichne die Seite c = 6 cm. Ihre Enden sind A und B.
+  - de: 'Stelle den [[Zirkel]] auf 4 cm (die Länge b) ein. Stich in A ein und zeichne einen Kreisbogen oberhalb von AB.'
+  - de: 'Stelle den [[Zirkel]] auf 5 cm (die Länge a) ein. Stich in B ein und zeichne einen Kreisbogen, der den ersten schneidet.'
+  - de: 'Der [[Schnittpunkt]] der beiden Bögen ist C. Verbinde C mit A und mit B. Fertig ist das Dreieck ABC.'
+pruefen:
+  - de: Miss nach – ist AC 4 cm und BC 5 cm lang?
+  - de: Schneiden sich die Bögen nicht, ist die eine Seite zu lang. Prüfe mit der Dreiecksungleichung.
+herkunft: ki-entwurf
+version: 1

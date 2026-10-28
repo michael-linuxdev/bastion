@@ -1,0 +1,22 @@
+# „Gibt es ein Dreieck mit 3 cm, 4 cm und 8 cm?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.DREIECKE.GIBT-ES
+kompetenz: M.RF.DV.DREIECKE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.dreiecksungleichung@1
+parameter:
+  G: { grenzfall: false }
+  M: { grenzfall: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Gibt es ein Dreieck mit den Seitenlängen {a} cm, {b} cm und {c} cm?'
+hilfen:
+  - de: Die beiden kürzeren Seiten zusammen müssen länger sein als die längste Seite.
+fehlerbilder:
+  gleichheit-reicht:
+    de: Sind die kurzen Seiten zusammen genau so lang wie die längste, liegen sie flach auf ihr. Ein Dreieck entsteht nicht.
+  nur-zwei-verglichen:
+    de: Vergleiche die längste Seite mit den beiden anderen zusammen – nicht einfach die ersten beiden mit der dritten.
+herkunft: ki-entwurf
+version: 1

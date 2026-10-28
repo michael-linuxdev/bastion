@@ -1,0 +1,20 @@
+# „Wo schneiden sich die Mittelsenkrechten?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.BESONDERE-LINIEN.SCHNITTPUNKT
+kompetenz: M.RF.DV.BESONDERE-LINIEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.schnittpunkt@1
+parameter:
+  G: { linien: [Mittelsenkrechte, Winkelhalbierende] }
+  M: { linien: [Mittelsenkrechte, Winkelhalbierende, Seitenhalbierende, Höhe] }
+text:
+  aufgabe:
+    de: '**Entscheide**: Wie heißt der Punkt, in dem sich {linie} schneiden?'
+hilfen:
+  - de: '[[Mittelsenkrechte]]: gleich weit von den Ecken – [[Umkreis]]. [[Winkelhalbierende]]: gleich weit von den Seiten – [[Inkreis]].'
+fehlerbilder:
+  um-in-verwechselt:
+    de: '[[Umkreis]] und [[Inkreis]] sind vertauscht. Der Umkreis geht durch die Ecken, der Inkreis berührt die Seiten.'
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,22 @@
+# „Welche besondere Linie ist gestrichelt?“ Entwurf: noch nicht geprüft.
+id: M.RF.DV.BESONDERE-LINIEN.ERKENNEN
+kompetenz: M.RF.DV.BESONDERE-LINIEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: dv.linie-erkennen@1
+parameter:
+  G: { linien: [Höhe, Seitenhalbierende] }
+  M: { linien: [Höhe, Seitenhalbierende, Winkelhalbierende, Mittelsenkrechte] }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welche besondere Linie ist gestrichelt gezeichnet?'
+hilfen:
+  - de: 'Achte auf die Markierungen – [[rechter Winkel]], gleich lange Hälften oder gleich große [[Winkel]].'
+fehlerbilder:
+  hoehe-seitenhalbierende:
+    de: 'Unterscheide: Die [[Höhe]] steht [[senkrecht]] auf der Seite, die [[Seitenhalbierende]] trifft ihre Mitte.'
+  mittelsenkrechte-hoehe:
+    de: 'Diese Linie geht nicht durch eine Ecke. Sie steht in der Mitte der Seite [[senkrecht]] – das ist die [[Mittelsenkrechte]].'
+herkunft: ki-entwurf
+version: 1

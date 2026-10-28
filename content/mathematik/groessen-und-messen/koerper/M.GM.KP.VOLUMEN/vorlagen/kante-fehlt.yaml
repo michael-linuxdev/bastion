@@ -12,7 +12,7 @@ text:
     de: '{angabe} **Berechne**, wie hoch er ist (in {einheit}).'
 hilfen:
   - de: 'Berechne zuerst die [[Grundfläche]] aus Breite und Tiefe.'
-  - de: '[[Volumen]] = [[Grundfläche]] · Höhe. Also ist die Höhe = Volumen : Grundfläche.'
+  - de: '[[Volumen]] = [[Grundfläche]] · [[Höhe]]. Also ist die Höhe = Volumen : Grundfläche.'
 fehlerbilder:
   nur-durch-eine-kante:
     de: 'Du hast nur durch eine [[Kante]] geteilt. Teile durch die [[Grundfläche]], also durch Breite mal Tiefe.'
