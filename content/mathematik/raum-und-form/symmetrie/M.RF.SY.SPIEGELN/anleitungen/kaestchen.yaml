@@ -1,0 +1,19 @@
+# Figur auf Kästchenpapier an einer Achse spiegeln (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.SY.SPIEGELN.KAESTCHEN
+kompetenz: M.RF.SY.SPIEGELN
+titel:
+  de: Eine Figur auf Kästchenpapier spiegeln
+material:
+  de: 'Kästchenpapier, spitzer Bleistift, Lineal oder [[Geodreieck]]'
+bilder: anleitung.spiegeln@1
+schritte:
+  - de: 'Zeichne das Dreieck ABC und die [[Spiegelachse]] a auf Kästchenpapier. Die Achse liegt auf einer Kästchenlinie.'
+  - de: Fang mit einem Eckpunkt an, zum Beispiel A. Zähle die Kästchen von A waagerecht bis zur Achse.
+  - de: 'Zähle hinter der Achse genauso viele Kästchen weiter. Dort liegt der [[Bildpunkt]] A′. Markiere ihn.'
+  - de: Mache das Gleiche mit B und C. So bekommst du B′ und C′.
+  - de: Verbinde A′, B′ und C′. Das ist das Spiegelbild. Es ist seitenverkehrt.
+pruefen:
+  - de: Falte das Papier an der Achse. Liegen Dreieck und Spiegelbild genau aufeinander?
+  - de: 'Ist jeder [[Bildpunkt]] genauso weit von der Achse entfernt wie sein Punkt?'
+herkunft: ki-entwurf
+version: 1

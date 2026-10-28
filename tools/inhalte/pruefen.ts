@@ -12,7 +12,8 @@ import {
   unmarkiert,
   type Begriff,
 } from '../../src/core/learning/begriffe';
-import { ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
+import { pruefeAnleitung, type Anleitung } from '../../src/core/learning/anleitung';
+import { ladeAnleitungen, ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
 
 /** Erklärungen kurz halten (L-7): höchstens so viele Wörter. */
 export const ERKLAERUNG_WOERTER = 35;
@@ -22,6 +23,7 @@ export interface Pruefbericht {
   readonly kompetenzen: Kompetenz[];
   readonly vorlagen: GeneratorVorlage[];
   readonly begriffe: Begriff[];
+  readonly anleitungen: Anleitung[];
 }
 
 const istText = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0;
@@ -58,6 +60,8 @@ function pruefeBegriffe(daten: unknown): { fehler: string[]; begriffe: Begriff[]
 export function pruefeInhalte(
   inhaltsordner: string,
   generatoren: ReadonlyMap<string, GeneratorAngaben>,
+  /** Bilder der Zeichen-Anleitungen: "id@version" → Anzahl */
+  anleitungsBilder: ReadonlyMap<string, number> = new Map(),
 ): Pruefbericht {
   const fehler: string[] = [];
   const kompetenzen: Kompetenz[] = [];
@@ -95,6 +99,25 @@ export function pruefeInhalte(
     }
   }
 
+  const anleitungen: Anleitung[] = [];
+  for (const a of ladeAnleitungen(inhaltsordner)) {
+    if (a.lesefehler) {
+      fehler.push(`${a.datei}: ${a.lesefehler}`);
+      continue;
+    }
+    const f = pruefeAnleitung(a.daten, {
+      dateiname: a.dateiname,
+      ordnerKompetenz: a.ordnerKompetenz,
+      kompetenzen: nachId,
+      bilder: anleitungsBilder,
+    });
+    fehler.push(...f.map((x) => `${a.datei}: ${x}`));
+    if (f.length === 0) anleitungen.push(a.daten as Anleitung);
+  }
+  for (const k of kompetenzen)
+    if (k.zeichnen_erklaert && !anleitungen.some((a) => a.kompetenz === k.id))
+      fehler.push(`${k.id}: zeichnen_erklaert, aber keine Anleitung (L-10)`);
+
   // Fachbegriffe (L-7): bekannt, beim ersten Vorkommen je Text markiert, jeder genutzt
   const gelesen = ladeBegriffe(inhaltsordner);
   const geprueft = gelesen.lesefehler
@@ -103,8 +126,15 @@ export function pruefeInhalte(
   fehler.push(...geprueft.fehler.map((x) => `${gelesen.datei}: ${x}`));
   const karte = begriffskarte(geprueft.begriffe);
   const genutzt = new Set<string>();
-  for (const v of vorlagen) {
-    const texte = [v.text.aufgabe, ...v.hilfen, ...Object.values(v.fehlerbilder)];
+  const textgruppen = [
+    ...vorlagen.map((v) => ({
+      id: v.id,
+      texte: [v.text.aufgabe, ...v.hilfen, ...Object.values(v.fehlerbilder)],
+    })),
+    ...anleitungen.map((a) => ({ id: a.id, texte: [...a.schritte, ...a.pruefen] })),
+  ];
+  for (const v of textgruppen) {
+    const texte = v.texte;
     for (const t of texte) {
       for (const f of fundstellen(t.de, karte)) {
         if (f.markiert && !f.begriff)
@@ -120,7 +150,7 @@ export function pruefeInhalte(
   for (const b of geprueft.begriffe)
     if (!genutzt.has(b.id)) fehler.push(`${gelesen.datei}: ${b.id} kommt in keiner Vorlage vor`);
 
-  return { fehler, kompetenzen, vorlagen, begriffe: geprueft.begriffe };
+  return { fehler, kompetenzen, vorlagen, begriffe: geprueft.begriffe, anleitungen };
 }
 
 /** Abdeckung je Kompetenz und Niveau: Anzahl Vorlagen (Ziel: mindestens 2, INHALTSFORMAT §10.1). */

@@ -54,12 +54,11 @@ Vom Projektverantwortlichen (nicht delegierbar):
 5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
 
 Vom Projektverantwortlichen, neu:
-6. **Vorlagen und Fachbegriffe prüfen (INHALTSFORMAT §10.1, §11.1).** Alle 88 Vorlagen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
 
 Mit Claude Code, als Nächstes:
-7. **Phase 1a–1c sind bis auf Prüfungen und Testrunde fertig.** Offen mit Claude Code: Anleitungen zum Zeichnen (L-10, Punkt 8 unten). Danach mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe vorbereiten (TESTS.md).
-8. Anleitungen (`anleitung`, L-10) für Zeichnen mit Geodreieck und Winkelmesser: GF.LAGE, GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN (`zeichnen_erklaert: true`) – nicht bewertet.
-9. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
+7. **Phase 1a–1c sind bis auf Prüfungen und Testrunde fertig.** Als Nächstes mit dem Projektverantwortlichen klären: Testrunde mit der Testgruppe vorbereiten (TESTS.md), oder „So geht's“-Erklärungen je Thema.
+8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
 
 ## Übergabe der letzten Sitzung
 
@@ -85,8 +84,9 @@ Mit Claude Code, als Nächstes:
 - **D-15:** Die PIN gilt je Gerät. Nach dem Einspielen auf einem anderen Gerät wird eine neue PIN festgelegt; das steht dann dauerhaft im Elternbereich und unter „Mein Stand“.
 - **Abschlussbildschirm (1a):** Knopf „Fertig für heute“ beim Üben, Wiederholen und in der Werkstatt. Zeigt zuerst das Können (heute gefestigt, neu gekonnt, geübt), dann Zahlen (Aufgaben, Wiederholungen, aufgearbeitete Fehler), ohne Punkte und Prozente, und schlägt eine Pause vor (R5). Berechnet aus den Aufgaben des Lerntags (`src/core/learning/heute.ts`).
 - **Fachbegriffe (1a, L-7):** Wörterbuch `content/mathematik/begriffe.yaml` (83 Begriffe), in Texten als `[[Form]]` markiert und antippbar; Erklärung erscheint direkt dahinter. `pnpm test` verlangt die Markierung beim ersten Vorkommen je Text; `pnpm inhalte:begriffe` markiert automatisch. In der Diagnose keine Erklärungen (keine Hilfen).
-- Sicherung ist mit PR #9 auf `main`. Abschluss und Fachbegriffe liegen auf dem Branch `claude/new-session-fl56ro` (wartet auf OK für einen PR).
-- 1648 Tests und 13 Browser-Tests, Lint, Build, Größenbudget (117 von 250 KB) grün.
+- **Zeichen-Anleitungen (1a, L-10):** fünf Anleitungen (Senkrechte, Parallele, Winkel 50°, Spiegeln auf Kästchenpapier, Würfel aus Papier) in `content/…/anleitungen/*.yaml`, Bilder je Schritt aus `src/generators/anleitungen/`. Beim Üben der Kompetenz unter „Zeichnen lernen“; am Ende eine Prüfliste zum Abhaken, nicht gespeichert, nicht bewertet (INHALTSFORMAT §4.3).
+- Sicherung ist mit PR #9 auf `main`; Abschluss und Fachbegriffe stehen in PR #10. Die Anleitungen liegen auf dem Branch `claude/new-session-fl56ro`.
+- 1650 Tests und 14 Browser-Tests, Lint, Build, Größenbudget (120 von 250 KB) grün.
 
 ## Am Ende der Sitzung aktualisieren
 

@@ -373,3 +373,27 @@ test('Fachbegriffe: antippen zeigt die Erklärung (L-7)', async ({ page }) => {
   await begriff.click();
   await expect(page.getByRole('note')).toHaveCount(0);
 });
+
+test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page
+    .getByRole('button', { name: /^Winkel\b/ })
+    .first()
+    .click();
+  await page.getByRole('button', { name: 'Einen Winkel von 50° zeichnen' }).click();
+  await expect(page.getByText('Schritt 1 von 5')).toBeVisible();
+  await expect(page.getByRole('img', { name: /Schenkel nach rechts/ })).toBeVisible();
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Weiter' }).click();
+  await expect(page.getByText('Schritt 5 von 5')).toBeVisible();
+  await page.getByRole('button', { name: 'Schritt zurück' }).click();
+  await expect(page.getByText('Schritt 4 von 5')).toBeVisible();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  await page.getByRole('button', { name: 'Fertig gezeichnet' }).click();
+  await expect(page.getByRole('heading', { name: 'Prüfe deine Zeichnung' })).toBeVisible();
+  await expect(page.getByText(/nicht gespeichert und nicht bewertet/)).toBeVisible();
+  await page.getByRole('button', { name: 'Zurück zum Üben' }).click();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+});

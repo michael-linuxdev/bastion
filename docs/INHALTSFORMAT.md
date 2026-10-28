@@ -163,6 +163,26 @@ review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau]
 **Entscheidung I-4: Vorlagen-IDs sind stabil** – wie Kompetenz-IDs (L-1). Wird eine Vorlage ersetzt, bekommt sie eine neue ID; die alte wird mit `ausgemustert: true` markiert, nicht gelöscht.
 *Warum:* An Vorlagen hängen FSRS-Karten und Fehlerwerkstatt-Einträge. Eine ausgemusterte Vorlage wird nicht mehr neu geplant; vorhandener Fortschritt der Kompetenz bleibt unberührt.
 
+### 4.3 Zeichen-Anleitung (Typ `anleitung`, LEHRPLAN L-10)
+
+Liegt unter `…/<Kompetenz-ID>/anleitungen/<name>.yaml`; die ID ist Kompetenz-ID + Dateiname in Großbuchstaben. Nur Kompetenzen mit `zeichnen_erklaert: true` haben Anleitungen, und jede solche Kompetenz hat mindestens eine.
+
+```yaml
+id: M.RF.GF.WINKEL.ZEICHNEN
+kompetenz: M.RF.GF.WINKEL
+titel: { de: Einen Winkel von 50° zeichnen }
+material: { de: 'Papier, spitzer Bleistift, [[Geodreieck]]' }
+bilder: anleitung.winkel@1        # Bilder aus src/generators/anleitungen, je Schritt eins
+schritte:                         # mindestens zwei
+  - de: Markiere einen Punkt S. …
+pruefen:                          # Prüfliste zum Abhaken, wird nicht gespeichert
+  - de: Lege das [[Geodreieck]] noch einmal an und miss nach. …
+herkunft: ki-entwurf
+version: 1
+```
+
+Die Bilder sind wie Generatoren App-Code (I-1): SVG ohne Verweise, mit Beschreibung. `pnpm test` prüft, dass es genau so viele Bilder wie Schritte gibt. Anleitungen werden nicht bewertet und erzeugen keine Lernereignisse (L-10); sie reisen im Paket des Bereichs mit. Stand 1a: fünf Anleitungen – Senkrechte und Parallele (GF.LAGE), Winkel zeichnen (GF.WINKEL), Spiegeln auf Kästchenpapier (SY.SPIEGELN), Würfel aus Papier (KP.DARSTELLEN).
+
 ## 5. Aufgabentypen Phase 1
 
 | Typ | Eingabe | Auswertung | Einsatz |

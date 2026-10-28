@@ -1,0 +1,18 @@
+# Parallele durch einen Punkt zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.GF.LAGE.PARALLELE
+kompetenz: M.RF.GF.LAGE
+titel:
+  de: 'Eine [[Parallele]] zeichnen'
+material:
+  de: 'Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.parallele@1
+schritte:
+  - de: 'Zeichne eine [[Gerade]] g. Markiere einen Punkt P, der nicht auf g liegt.'
+  - de: 'Lege die lange [[Kante]] des Geodreiecks an P. Auf dem [[Geodreieck]] sind dünne Linien [[parallel]] zur langen Kante. Drehe und schiebe es, bis eine dieser Linien genau auf g liegt.'
+  - de: 'Halte das [[Geodreieck]] gut fest. Zeichne an der langen [[Kante]] entlang eine Linie durch P.'
+  - de: 'Nimm das [[Geodreieck]] weg. Deine neue [[Gerade]] h ist [[parallel]] zu g. Man schreibt h ∥ g.'
+pruefen:
+  - de: Miss an zwei Stellen, die weit auseinanderliegen, den Abstand zwischen g und h. Ist er gleich?
+  - de: Geht h genau durch P?
+herkunft: ki-entwurf
+version: 1

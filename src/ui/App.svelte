@@ -16,6 +16,7 @@
   import { offline } from './plattform/offline.svelte';
   import { ladeInhalte, type Inhalte } from './plattform/pakete';
   import { t } from './texte/texte';
+  import { alsText, fuelle } from '../core/learning/text';
   import type { Auftrag } from './ueben/auftrag';
   import Diagnose from './ueben/Diagnose.svelte';
   import MeinStand from './ueben/MeinStand.svelte';
@@ -25,6 +26,8 @@
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Abschluss from './ueben/Abschluss.svelte';
+  import AnleitungAnsicht from './ueben/Anleitung.svelte';
+  import type { Anleitung } from '../core/learning/anleitung';
   import { begriffeBereitstellen } from './ueben/begriffe';
   import type { Begriffskarte } from '../core/learning/begriffe';
   import Uebersicht from './ueben/Uebersicht.svelte';
@@ -44,6 +47,7 @@
     | 'eltern'
     | 'sicherung'
     | 'abschluss'
+    | 'anleitung'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
@@ -67,6 +71,8 @@
   });
   /** Fällige Karten, festgehalten beim Start einer Wiederholungsrunde. */
   let wiederholListe = $state<readonly Auftrag[]>([]);
+  /** Geöffnete Zeichen-Anleitung (L-10) */
+  let anleitung = $state<Anleitung | undefined>(undefined);
 
   // Fällig ist, was beim letzten Laden fällig war – kein laufender Timer (R2).
   // Gezeigt wird die Größe der nächsten Runde (höchstens eine Portion), nie ein Berg.
@@ -249,7 +255,9 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'abschluss'}
+      {#if ansicht === 'anleitung' && anleitung}
+        <AnleitungAnsicht {anleitung} onzurueck={() => (ansicht = 'uebung')} />
+      {:else if ansicht === 'abschluss'}
         <Abschluss
           kompetenzen={geladen.kompetenzen}
           {zustand}
@@ -361,6 +369,21 @@
             onwechsel={(k) => (gewaehlt = k)}
           />
         {/key}
+        {@const zuKompetenz = geladen.anleitungen.filter((a) => a.kompetenz === gewaehlt?.id)}
+        {#if zuKompetenz.length > 0}
+          <p class="anleitungen">
+            {t('anleitung.knopf')}
+            {#each zuKompetenz as a (a.id)}
+              <button
+                class="dezent"
+                onclick={() => {
+                  anleitung = a;
+                  ansicht = 'anleitung';
+                }}>{alsText(fuelle(a.titel.de, {}))}</button
+              >
+            {/each}
+          </p>
+        {/if}
       {:else}
         <Uebersicht
           kompetenzen={geladen.kompetenzen}
@@ -450,6 +473,14 @@
 
   .hinweis {
     color: var(--farbe-text-leise);
+  }
+
+  .anleitungen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--abstand-m);
+    margin-block: 0;
   }
 
   .leiste {

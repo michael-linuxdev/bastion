@@ -1,0 +1,18 @@
+# Senkrechte durch einen Punkt zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.GF.LAGE.SENKRECHTE
+kompetenz: M.RF.GF.LAGE
+titel:
+  de: Eine Senkrechte zeichnen
+material:
+  de: 'Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.senkrechte@1
+schritte:
+  - de: 'Zeichne eine [[Gerade]] g. Markiere einen Punkt P, der nicht auf g liegt.'
+  - de: 'Lege das [[Geodreieck]] so hin, dass die Mittellinie genau auf g liegt. Schiebe es an g entlang, bis die lange [[Kante]] durch P geht.'
+  - de: 'Halte das [[Geodreieck]] gut fest. Zeichne an der langen [[Kante]] entlang eine Linie durch P bis zu g.'
+  - de: 'Nimm das [[Geodreieck]] weg. Deine Linie steht [[senkrecht]] auf g. Markiere den [[rechten Winkel]] mit einem kleinen Viereck und einem Punkt darin.'
+pruefen:
+  - de: Geht deine Linie genau durch P?
+  - de: 'Lege das [[Geodreieck]] noch einmal an. Ist der [[Winkel]] zwischen g und deiner Linie genau 90°?'
+herkunft: ki-entwurf
+version: 1

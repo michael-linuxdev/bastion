@@ -1,0 +1,19 @@
+# Winkel mit vorgegebener Größe zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKEL.ZEICHNEN
+kompetenz: M.RF.GF.WINKEL
+titel:
+  de: 'Einen [[Winkel]] von 50° zeichnen'
+material:
+  de: 'Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.winkel@1
+schritte:
+  - de: 'Markiere einen Punkt S. Das wird der Scheitel. Zeichne von S aus eine Linie nach rechts. Das ist der erste [[Schenkel]].'
+  - de: 'Lege die lange [[Kante]] des Geodreiecks auf den [[Schenkel]]. Der Nullpunkt in der Mitte der langen Kante muss genau auf S liegen.'
+  - de: 'Suche auf der Winkelskala 50°. Zähle von der Seite aus, auf der dein [[Schenkel]] liegt – dort beginnt die [[Skala]] bei 0. Markiere bei 50° einen Punkt am Rand des Geodreiecks.'
+  - de: 'Nimm das [[Geodreieck]] weg. Verbinde S mit deinem Punkt und zeichne die Linie etwas länger. Das ist der zweite [[Schenkel]].'
+  - de: Zeichne zwischen den beiden Schenkeln einen kleinen Bogen und schreibe 50° daneben.
+pruefen:
+  - de: 'Lege das [[Geodreieck]] noch einmal an und miss nach. Sind es wirklich 50°?'
+  - de: 'Ein [[Winkel]] von 50° ist spitz, also kleiner als ein [[rechter Winkel]]. Sieht dein Winkel so aus? Wenn er stumpf ist, hast du auf der falschen [[Skala]] gezählt.'
+herkunft: ki-entwurf
+version: 1

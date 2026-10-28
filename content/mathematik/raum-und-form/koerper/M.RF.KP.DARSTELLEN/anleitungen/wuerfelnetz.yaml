@@ -1,0 +1,18 @@
+# Würfelnetz zeichnen, ausschneiden und falten (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.DARSTELLEN.WUERFELNETZ
+kompetenz: M.RF.KP.DARSTELLEN
+titel:
+  de: 'Einen [[Würfel]] aus Papier bauen'
+material:
+  de: Kästchenpapier, Bleistift, Lineal, Schere, Kleber
+bilder: anleitung.wuerfelnetz@1
+schritte:
+  - de: Zeichne vier gleich große Quadrate in einer Reihe, jedes 4 Kästchen lang und 4 Kästchen breit.
+  - de: 'Setze über und unter das zweite Quadrat je ein weiteres Quadrat. Jetzt hast du ein [[Würfelnetz]] aus sechs Quadraten.'
+  - de: 'Zeichne an einige Außenkanten schmale Klebelaschen. Sie sind etwas kürzer als die [[Kante]].'
+  - de: 'Schneide das [[Netz]] mit den Laschen aus. Falte an allen Linien zwischen den Quadraten und an den Laschen. Klebe die Laschen innen fest.'
+pruefen:
+  - de: 'Ist ein geschlossener [[Würfel]] mit sechs Flächen entstanden?'
+  - de: 'Probiere auch ein anderes [[Netz]]. Nicht jede Anordnung von sechs Quadraten lässt sich zu einem [[Würfel]] falten.'
+herkunft: ki-entwurf
+version: 1
