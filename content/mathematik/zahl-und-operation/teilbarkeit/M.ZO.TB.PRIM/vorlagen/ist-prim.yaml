@@ -10,16 +10,16 @@ parameter:
   M: { zahl_max: 200 }
 text:
   aufgabe:
-    de: '**Entscheide**: Ist {zahl} eine Primzahl?'
+    de: '**Entscheide**: Ist {zahl} eine [[Primzahl]]?'
 hilfen:
-  - de: Eine Primzahl hat genau zwei Teiler – 1 und sich selbst.
-  - de: Probiere, ob {zahl} durch 2, 3, 5, 7, 11 oder 13 teilbar ist.
+  - de: 'Eine [[Primzahl]] hat genau zwei [[Teiler]] – 1 und sich selbst.'
+  - de: 'Probiere, ob {zahl} durch 2, 3, 5, 7, 11 oder 13 [[teilbar]] ist.'
 fehlerbilder:
   ungerade-fuer-prim-gehalten:
-    de: Nicht jede ungerade Zahl ist eine Primzahl. Probiere die Teiler 3, 7, 11 und 13.
+    de: 'Nicht jede ungerade Zahl ist eine [[Primzahl]]. Probiere die [[Teiler]] 3, 7, 11 und 13.'
   eins-fuer-prim-gehalten:
-    de: 1 hat nur einen einzigen Teiler. Primzahlen haben genau zwei – deshalb ist 1 keine Primzahl.
+    de: '1 hat nur einen einzigen [[Teiler]]. [[Primzahlen]] haben genau zwei – deshalb ist 1 keine Primzahl.'
   zwei-nicht-erkannt:
-    de: 2 hat genau die Teiler 1 und 2 – sie ist die einzige gerade Primzahl.
+    de: '2 hat genau die [[Teiler]] 1 und 2 – sie ist die einzige gerade [[Primzahl]].'
 herkunft: ki-entwurf
 version: 1

@@ -10,12 +10,12 @@ parameter:
   M: { groessen: [geld, laenge, masse], richtung: zu-komma }
 text:
   aufgabe:
-    de: '**Gib** in Kommaschreibweise **an**: {gross} {einheit_gross} {klein} {einheit_klein} = ? {einheit_gross}'
+    de: '**Gib** in [[Kommaschreibweise]] **an**: {gross} {einheit_gross} {klein} {einheit_klein} = ? {einheit_gross}'
 hilfen:
   - de: Wie viele {einheit_klein} hat ein {einheit_gross}? So viele Stellen gibt es hinter dem Komma.
 fehlerbilder:
   falsche-stelle:
-    de: 'Die Ziffer steht an der falschen Stelle hinter dem Komma. Beispiel: 3 ct sind 0,03 € – nicht 0,3 €.'
+    de: 'Die [[Ziffer]] steht an der falschen Stelle hinter dem Komma. Beispiel: 3 ct sind 0,03 € – nicht 0,3 €.'
   nullen-falsch:
     de: Achte auf die Nullen hinter dem Komma.
 herkunft: ki-entwurf

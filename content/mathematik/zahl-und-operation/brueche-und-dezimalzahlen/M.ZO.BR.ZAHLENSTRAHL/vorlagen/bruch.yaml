@@ -12,14 +12,14 @@ antwort:
   form: beliebig
 text:
   aufgabe:
-    de: '**Gib** den Bruch **an**, der an der Markierung steht.'
+    de: '**Gib** den [[Bruch]] **an**, der an der Markierung steht.'
 hilfen:
-  - de: Zähle die Abschnitte zwischen 0 und 1. So viele Teile hat ein Ganzes – das ist der Nenner.
+  - de: 'Zähle die Abschnitte zwischen 0 und 1. So viele Teile hat ein Ganzes – das ist der [[Nenner]].'
   - de: Zähle dann die Abschnitte von 0 bis zur Markierung.
 fehlerbilder:
   striche-statt-abstaende:
     de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen. Zwischen 0 und 1 liegen so viele Abschnitte wie Teile.
   nur-teile-gezaehlt:
-    de: Gib die Zahl als Bruch an – nicht nur die Anzahl der Abschnitte.
+    de: 'Gib die Zahl als [[Bruch]] an – nicht nur die Anzahl der Abschnitte.'
 herkunft: ki-entwurf
 version: 1

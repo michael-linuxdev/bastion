@@ -1,6 +1,7 @@
 // Lädt die Inhaltspakete von der eigenen Adresse (CLAUDE.md: keine anderen
 // Netzverbindungen). Offline kommen sie aus dem Speicher des Service Workers.
 import type { Kompetenz } from '../../core/competence/kompetenz';
+import { begriffskarte, type Begriff, type Begriffskarte } from '../../core/learning/begriffe';
 import type { GeneratorVorlage } from '../../core/learning/vorlage';
 
 interface Manifest {
@@ -13,6 +14,8 @@ export interface Inhalte {
   readonly vorlagen: readonly GeneratorVorlage[];
   /** Vorlagen-ID → Paket mit Prüfsummen-Anfang, z. B. "mathematik.raum-und-form.0cfb07d011" */
   readonly paketVon: ReadonlyMap<string, string>;
+  /** Fachbegriffe mit Erklärung (L-7), Form → Begriff */
+  readonly begriffe: Begriffskarte;
 }
 
 const UNTERSTUETZTES_FORMAT = 1;
@@ -28,7 +31,9 @@ export async function ladeInhalte(): Promise<Inhalte> {
   if (manifest.format !== UNTERSTUETZTES_FORMAT) throw new Error('Paketformat unbekannt');
   const pakete = await Promise.all(
     manifest.pakete.map((p) =>
-      hole<{ kompetenzen?: Kompetenz[]; vorlagen?: GeneratorVorlage[] }>(p.datei),
+      hole<{ kompetenzen?: Kompetenz[]; vorlagen?: GeneratorVorlage[]; begriffe?: Begriff[] }>(
+        p.datei,
+      ),
     ),
   );
   const paketVon = new Map<string, string>();
@@ -40,5 +45,6 @@ export async function ladeInhalte(): Promise<Inhalte> {
     kompetenzen: pakete.flatMap((p) => p.kompetenzen ?? []),
     vorlagen: pakete.flatMap((p) => p.vorlagen ?? []),
     paketVon,
+    begriffe: begriffskarte(pakete.flatMap((p) => p.begriffe ?? [])),
   };
 }

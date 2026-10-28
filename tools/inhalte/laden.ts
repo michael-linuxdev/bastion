@@ -75,3 +75,14 @@ export function ladeVorlagen(inhaltsordner: string): GeleseneVorlage[] {
       }
     });
 }
+
+/** Liest das Wörterbuch der Fachbegriffe (INHALTSFORMAT §11.1). */
+export function ladeBegriffe(inhaltsordner: string): GeleseneDatei {
+  const datei = join('mathematik', 'begriffe.yaml');
+  try {
+    const daten = parse(readFileSync(join(inhaltsordner, datei), 'utf8')) as unknown;
+    return { datei, pfadTeile: [], daten };
+  } catch (fehler) {
+    return { datei, pfadTeile: [], daten: undefined, lesefehler: String(fehler) };
+  }
+}

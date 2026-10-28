@@ -13,7 +13,7 @@ text:
     de: '**Berechne**: {term}'
 hilfen:
   - de: Rechne zuerst, was in der Klammer steht.
-  - de: Danach gilt Punkt vor Strich.
+  - de: 'Danach gilt [[Punkt vor Strich]].'
 fehlerbilder:
   von-links-gerechnet:
     de: Achte auf die Reihenfolge der Rechenschritte.

@@ -16,6 +16,8 @@ export type Textteil =
       readonly nenner: string;
       readonly fett: boolean;
     }
+  /** Fachbegriff [[…]] – die Oberfläche zeigt auf Antippen die Erklärung (L-7) */
+  | { readonly art: 'begriff'; readonly text: string; readonly fett: boolean }
   | { readonly art: 'hoch'; readonly text: string }
   | { readonly art: 'wurzel'; readonly text: string };
 
@@ -38,16 +40,18 @@ function holeWert(name: string, platzhalter: Readonly<Record<string, Wert>>): We
   return w;
 }
 
-/** Text außerhalb von Formeln: Platzhalter und **fett**. */
+/** Text außerhalb von Formeln: Platzhalter, **fett** und [[Fachbegriffe]]. */
 function fliesstext(
   text: string,
   platzhalter: Readonly<Record<string, Wert>>,
   teile: Textteil[],
   fett: { an: boolean },
 ) {
-  for (const m of text.matchAll(/\*\*|\{([a-z_]+)\}|[^*{]+|[*{]/g)) {
+  for (const m of text.matchAll(/\*\*|\{([a-z_]+)\}|\[\[([^\]]+)\]\]|[^*{[]+|[*{[]/g)) {
     if (m[0] === '**') {
       fett.an = !fett.an;
+    } else if (m[2]) {
+      teile.push({ art: 'begriff', text: m[2], fett: fett.an });
     } else if (m[1]) {
       const w = holeWert(m[1], platzhalter);
       if (typeof w === 'object' && istBruch(w))

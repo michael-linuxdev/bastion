@@ -10,10 +10,10 @@ parameter:
   M: { gesucht: netz }
 text:
   aufgabe:
-    de: '**Wähle** die Figur **aus**, die sich zu einem Würfel falten lässt.'
+    de: '**Wähle** die Figur **aus**, die sich zu einem [[Würfel]] falten lässt.'
 hilfen:
   - de: Lege in Gedanken ein Quadrat als Boden fest und klappe die anderen nach oben.
-  - de: Landen zwei Quadrate aufeinander, ist es kein Würfelnetz.
+  - de: 'Landen zwei Quadrate aufeinander, ist es kein [[Würfelnetz]].'
 fehlerbilder:
   falsch-gefaltet:
     de: Falte diese Figur noch einmal in Gedanken, Quadrat für Quadrat. Zwei Quadrate landen aufeinander, und eine Würfelfläche bleibt offen.

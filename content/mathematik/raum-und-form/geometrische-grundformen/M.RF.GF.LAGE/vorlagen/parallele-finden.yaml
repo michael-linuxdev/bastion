@@ -10,12 +10,12 @@ parameter:
   M: { schraeg: true }
 text:
   aufgabe:
-    de: '**Wähle** die Gerade **aus**, die parallel zu a ist.'
+    de: '**Wähle** die [[Gerade]] **aus**, die [[parallel]] zu a ist.'
 hilfen:
-  - de: Parallele Geraden zeigen in dieselbe Richtung.
-  - de: Lege das Geodreieck an a an und schiebe es zu den anderen Geraden.
+  - de: '[[Parallele]] [[Geraden]] zeigen in dieselbe Richtung.'
+  - de: 'Lege das [[Geodreieck]] an a an und schiebe es zu den anderen [[Geraden]].'
 fehlerbilder:
   senkrechte-gewaehlt:
-    de: Diese Gerade steht senkrecht auf a. Parallel heißt dieselbe Richtung, nicht quer dazu.
+    de: 'Diese [[Gerade]] steht [[senkrecht]] auf a. [[Parallel]] heißt dieselbe Richtung, nicht quer dazu.'
 herkunft: ki-entwurf
 version: 1

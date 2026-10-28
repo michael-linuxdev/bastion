@@ -10,10 +10,10 @@ parameter:
   M: { stellen_min: 7, stellen_max: 12 } # bis zu den Hundertmilliarden
 text:
   aufgabe:
-    de: '**Gib an**, welche Ziffer in der Zahl {zahl} an der {stelle} steht.'
+    de: '**Gib an**, welche [[Ziffer]] in der Zahl {zahl} an der {stelle} steht.'
 hilfen:
   - de: 'Zähle die Stellen von rechts: Einer, Zehner, Hunderter, Tausender …'
-  - de: Trage die Zahl in eine Stellenwerttafel ein. Dann kannst du die {stelle} direkt ablesen.
+  - de: 'Trage die Zahl in eine [[Stellenwerttafel]] ein. Dann kannst du die {stelle} direkt ablesen.'
 fehlerbilder:
   von-links-gezaehlt:
     de: Du hast von links gezählt. Die Stellen werden von rechts gezählt – ganz rechts stehen die Einer.

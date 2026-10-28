@@ -10,13 +10,13 @@ parameter:
   M: { richtung: dezimal-zu-prozent, prozente: [1, 10, 20, 25, 50, 75, 100] }
 text:
   aufgabe:
-    de: '**Gib** {wert} in Prozent **an**.'
+    de: '**Gib** {wert} in [[Prozent]] **an**.'
 hilfen:
-  - de: Prozent heißt „von Hundert“. Schreibe die Zahl als Hundertstel.
+  - de: '[[Prozent]] heißt „von Hundert“. Schreibe die Zahl als [[Hundertstel]].'
 fehlerbilder:
   komma-verschoben:
-    de: 'Das Komma ist verrutscht. 0,25 sind 25 Hundertstel, also 25 %.'
+    de: 'Das Komma ist verrutscht. 0,25 sind 25 [[Hundertstel]], also 25 %.'
   prozent-als-nenner-zehn:
-    de: Prozent heißt „von Hundert“, nicht „von Zehn“.
+    de: '[[Prozent]] heißt „von Hundert“, nicht „von Zehn“.'
 herkunft: ki-entwurf
 version: 1

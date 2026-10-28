@@ -13,11 +13,11 @@ text:
     de: '**Berechne** schriftlich: {aufgabe}'
 hilfen:
   - de: Schreibe die Zahlen untereinander – Einer unter Einer, Zehner unter Zehner.
-  - de: Beginne rechts. Ist die Summe einer Spalte 10 oder mehr, schreibe den Übertrag klein über die nächste Spalte.
+  - de: 'Beginne rechts. Ist die [[Summe]] einer Spalte 10 oder mehr, schreibe den [[Übertrag]] klein über die nächste Spalte.'
 fehlerbilder:
   uebertrag-vergessen:
-    de: Du hast einen Übertrag vergessen. Ist eine Spaltensumme 10 oder mehr, wandert der Zehner in die nächste Spalte links.
+    de: 'Du hast einen [[Übertrag]] vergessen. Ist eine Spaltensumme 10 oder mehr, wandert der Zehner in die nächste Spalte links.'
   stellen-verrutscht:
-    de: Die Zahlen stehen nicht stellengerecht untereinander. Richte sie rechts aus – Einer unter Einer.
+    de: 'Die Zahlen stehen nicht [[stellengerecht]] untereinander. Richte sie rechts aus – Einer unter Einer.'
 herkunft: ki-entwurf
 version: 1

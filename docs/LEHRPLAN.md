@@ -333,6 +333,8 @@ Der maßgebliche Graph ist die Datenquelle in `content/`; diese Skizze dient nur
 **Entscheidung L-7:** Alle Aufgabentexte folgen ab Phase 1 Regeln für einfache, klare Sprache: kurze Sätze, eine Information pro Satz, Operatoren fett und einheitlich, keine unnötigen Nebensätze, Fachbegriffe mit Erklärung beim ersten Auftreten.
 *Warum:* DaZ und Hilfesprache kommen erst in Phase 5 (KONZEPT §13). Einfache Sprache ist die Abfederung bis dahin – und hilft allen, nicht nur Jugendlichen mit DaZ. Gerade Sachaufgaben (GR.SACH) messen sonst Lesekompetenz statt Mathematik.
 
+*Umsetzung (1a):* Fachbegriffe stehen mit Erklärung im Wörterbuch `content/mathematik/begriffe.yaml` (Entwurf, 83 Begriffe der Klasse 5) und sind in den Texten antippbar; `pnpm test` erzwingt die Markierung beim ersten Vorkommen je Text (INHALTSFORMAT §11.1). Die Erklärungen sind wie die Vorlagen `ki-entwurf` und gehören zur Prüfung mit einer Lehrkraft.
+
 Operatoren in Phase 1 (einheitliche Liste): *berechne, bestimme, gib an, ordne, vergleiche, runde, überschlage, entscheide, begründe, finde den Fehler*.
 
 ## 10. Länderbezug

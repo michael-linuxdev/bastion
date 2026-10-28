@@ -12,12 +12,12 @@ text:
   aufgabe:
     de: '**Berechne** schriftlich: {a} · {b}'
 hilfen:
-  - de: Multipliziere die erste Zahl mit jeder Ziffer der zweiten Zahl. Beginne rechts.
-  - de: Rücke jedes Teilprodukt um eine Stelle nach links ein. Addiere am Ende alle Teilprodukte.
+  - de: 'Multipliziere die erste Zahl mit jeder [[Ziffer]] der zweiten Zahl. Beginne rechts.'
+  - de: 'Rücke jedes [[Teilprodukt]] um eine Stelle nach links ein. Addiere am Ende alle Teilprodukte.'
 fehlerbilder:
   uebertrag-vergessen:
-    de: Du hast einen Übertrag vergessen. Ist ein Produkt 10 oder größer, schreibe die Einer hin und addiere die Zehner zum nächsten Produkt.
+    de: 'Du hast einen [[Übertrag]] vergessen. Ist ein [[Produkt]] 10 oder größer, schreibe die Einer hin und addiere die Zehner zum nächsten Produkt.'
   teilprodukt-nicht-eingerueckt:
-    de: Die Teilprodukte stehen nicht richtig untereinander. Das Teilprodukt mit der Zehnerziffer rückst du um eine Stelle nach links ein.
+    de: 'Die [[Teilprodukte]] stehen nicht richtig untereinander. Das Teilprodukt mit der Zehnerziffer rückst du um eine Stelle nach links ein.'
 herkunft: ki-entwurf
 version: 1

@@ -13,11 +13,11 @@ text:
     de: '**Rechne um**: {wert} {von} = ? {nach}'
 hilfen:
   - de: In eine größere Einheit umrechnen heißt dividieren – die Zahl wird kleiner.
-  - de: 'Bei Flächeneinheiten ist die Umrechnungszahl 100: 100 cm² = 1 dm², 100 a = 1 ha.'
+  - de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100: 100 cm² = 1 dm², 100 a = 1 ha.'
 fehlerbilder:
   falsche-richtung:
     de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
   falsche-umrechnungszahl:
-    de: 'Du hast wie bei Längen durch 10 geteilt. Bei Flächen ist die Umrechnungszahl 100 je Schritt.'
+    de: 'Du hast wie bei Längen durch 10 geteilt. Bei Flächen ist die [[Umrechnungszahl]] 100 je Schritt.'
 herkunft: ki-entwurf
 version: 1

@@ -10,14 +10,14 @@ parameter:
   M: { schraeg: true }
 text:
   aufgabe:
-    de: '**Gib an**, wie die Geraden g und h zueinander liegen.'
+    de: '**Gib an**, wie die [[Geraden]] g und h zueinander liegen.'
 hilfen:
-  - de: Eine Gerade hat kein Ende. Verlängere die Linien in Gedanken nach beiden Seiten.
-  - de: Lege das Geodreieck an g an. Passt h genau auf die Mittellinie, steht h senkrecht auf g.
+  - de: 'Eine [[Gerade]] hat kein Ende. Verlängere die Linien in Gedanken nach beiden Seiten.'
+  - de: 'Lege das [[Geodreieck]] an g an. Passt h genau auf die Mittellinie, steht h [[senkrecht]] auf g.'
 fehlerbilder:
   kreuzung-ausserhalb-uebersehen:
-    de: Im Bild berühren sich g und h nicht – aber verlängert schneiden sie sich. Parallel heißt, sie schneiden sich nie.
+    de: 'Im Bild berühren sich g und h nicht – aber verlängert schneiden sie sich. [[Parallel]] heißt, sie schneiden sich nie.'
   schief-fuer-senkrecht:
-    de: Die Geraden schneiden sich, aber nicht im rechten Winkel. Prüfe mit dem Geodreieck, ob es wirklich 90° sind.
+    de: 'Die [[Geraden]] schneiden sich, aber nicht im [[rechten Winkel]]. Prüfe mit dem [[Geodreieck]], ob es wirklich 90° sind.'
 herkunft: ki-entwurf
 version: 1

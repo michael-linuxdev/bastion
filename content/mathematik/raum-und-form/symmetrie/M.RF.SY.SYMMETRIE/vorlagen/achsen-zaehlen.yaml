@@ -21,16 +21,16 @@ parameter:
       - Drachenviereck
 text:
   aufgabe:
-    de: '**Gib an**, wie viele Symmetrieachsen die Figur hat.'
+    de: '**Gib an**, wie viele [[Symmetrieachsen]] die Figur hat.'
 hilfen:
-  - de: Eine Symmetrieachse teilt die Figur so, dass beide Hälften beim Falten genau aufeinanderliegen.
-  - de: Probiere waagerecht, senkrecht und schräg – auch die Diagonalen.
+  - de: 'Eine [[Symmetrieachse]] teilt die Figur so, dass beide Hälften beim Falten genau aufeinanderliegen.'
+  - de: 'Probiere waagerecht, [[senkrecht]] und schräg – auch die [[Diagonalen]].'
 fehlerbilder:
   nur-waagerecht-senkrecht:
-    de: Du hast nur waagerechte und senkrechte Achsen gezählt. Auch schräge Achsen können Symmetrieachsen sein.
+    de: 'Du hast nur waagerechte und senkrechte Achsen gezählt. Auch schräge Achsen können [[Symmetrieachsen]] sein.'
   diagonalen-als-achsen:
-    de: Nicht jede Diagonale ist eine Symmetrieachse. Falte in Gedanken – liegen die Hälften wirklich aufeinander?
+    de: 'Nicht jede [[Diagonale]] ist eine [[Symmetrieachse]]. Falte in Gedanken – liegen die Hälften wirklich aufeinander?'
   punktsymmetrie-als-achse:
-    de: Die Figur sieht nach einer halben Drehung gleich aus – das ist Punktsymmetrie, keine Achse.
+    de: 'Die Figur sieht nach einer halben [[Drehung]] gleich aus – das ist [[Punktsymmetrie]], keine Achse.'
 herkunft: ki-entwurf
 version: 1

@@ -10,13 +10,13 @@ parameter:
   M: { stellen_min: 7, stellen_max: 12 }
 text:
   aufgabe:
-    de: '**Gib** die Zahl in Ziffern **an**: {zahlwort}'
+    de: '**Gib** die Zahl in [[Ziffern]] **an**: {zahlwort}'
 hilfen:
   - de: Zerlege das Zahlwort in Milliarden, Millionen, Tausender und den Rest.
-  - de: 'Trage jeden Teil in eine Stellenwerttafel ein. Leere Stellen bekommen eine 0.'
+  - de: 'Trage jeden Teil in eine [[Stellenwerttafel]] ein. Leere Stellen bekommen eine 0.'
 fehlerbilder:
   nullen-vergessen:
-    de: Es fehlen Nullen. Jede Stelle braucht eine Ziffer – auch wenn sie nicht gesprochen wird. Die Stellenwerttafel hilft dir.
+    de: 'Es fehlen Nullen. Jede Stelle braucht eine [[Ziffer]] – auch wenn sie nicht gesprochen wird. Die [[Stellenwerttafel]] hilft dir.'
   zehner-einer-vertauscht:
     de: 'Zehner und Einer sind vertauscht. Im Deutschen sagt man die Einer zuerst: „vierundzwanzig“ heißt 2 Zehner und 4 Einer, also 24.'
 herkunft: ki-entwurf

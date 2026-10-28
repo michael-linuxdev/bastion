@@ -24,6 +24,9 @@
   import type { AufgabeEreignis } from '../core/learning/ereignis';
   import { sitzt, statusVon } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
+  import Abschluss from './ueben/Abschluss.svelte';
+  import { begriffeBereitstellen } from './ueben/begriffe';
+  import type { Begriffskarte } from '../core/learning/begriffe';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
@@ -40,6 +43,7 @@
     | 'stand'
     | 'eltern'
     | 'sicherung'
+    | 'abschluss'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   /** Antworten des laufenden Diagnosegangs – bleiben bis zum Neuladen, damit „Später“ weitergeht. */
@@ -51,6 +55,16 @@
   let niveau = $state<Niveau>('G');
   let gewaehlt = $state<Kompetenz | undefined>(undefined);
   let zustand = $state<Zustand>({ staende: new Map(), karten: [] });
+  /** Fachbegriffe aus dem Grundpaket – für alle Texte (L-7) */
+  let begriffe = $state<Begriffskarte | undefined>(undefined);
+  begriffeBereitstellen({
+    get karte() {
+      return begriffe;
+    },
+  });
+  $effect(() => {
+    void inhalte?.then((i) => (begriffe = i.begriffe)).catch(() => undefined);
+  });
   /** Fällige Karten, festgehalten beim Start einer Wiederholungsrunde. */
   let wiederholListe = $state<readonly Auftrag[]>([]);
 
@@ -127,9 +141,19 @@
     ansicht = 'wiederholen';
   }
 
+  /** Laufendes Speichern – der Abschluss wartet darauf, damit die letzte Antwort mitzählt. */
+  let speichern: Promise<void> = Promise.resolve();
+
   async function ergebnis(daten: Antwortdaten) {
-    await merke(daten);
+    speichern = speichern.then(() => merke(daten));
+    await speichern;
     await aktualisiere();
+  }
+
+  async function fertig() {
+    await speichern;
+    await aktualisiere();
+    ansicht = 'abschluss';
   }
 
   function uebenAuftrag(geladen: Inhalte, k: Kompetenz) {
@@ -225,7 +249,14 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'eltern'}
+      {#if ansicht === 'abschluss'}
+        <Abschluss
+          kompetenzen={geladen.kompetenzen}
+          {zustand}
+          aufgaben={aufgabenListe}
+          onstart={() => (ansicht = 'start')}
+        />
+      {:else if ansicht === 'eltern'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <Elternbereich
           kompetenzen={geladen.kompetenzen}
@@ -283,6 +314,7 @@
           ueberschrift={t('werkstatt.ueberschrift')}
           auftrag={(i) => werkstattListe[i]}
           modus="fehlerwerkstatt"
+          onfertig={() => void fertig()}
           paketVon={geladen.paketVon}
           onzurueck={() => {
             ansicht = 'werkstatt';
@@ -295,6 +327,7 @@
           ueberschrift={t('wiederholen.ueberschrift')}
           auftrag={(i) => wiederholListe[i]}
           modus="wiederholen"
+          onfertig={() => void fertig()}
           paketVon={geladen.paketVon}
           onzurueck={() => {
             ansicht = 'start';
@@ -311,6 +344,7 @@
             ueberschrift="{gewaehlt.titel.de} · {t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}"
             auftrag={uebenAuftrag(geladen, gewaehlt)}
             modus="ueben"
+            onfertig={() => void fertig()}
             paketVon={geladen.paketVon}
             onzurueck={() => (ansicht = 'uebersicht')}
             onergebnis={(d) => void ergebnis(d)}

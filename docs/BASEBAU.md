@@ -182,6 +182,8 @@ Epochen 2–4 werden ausgearbeitet, wenn Epoche 1 getestet ist (Phase 3). Nur so
 3. Optional: Bastion öffnen, bauen, gestalten.
 4. Hinweis „Für heute ist das gut“, sobald die 2 Bauschritte des Tages erreicht sind.
 
+*Umsetzung (1a, Lernkern):* Der Abschlussbildschirm steht ohne Ressourcen (`src/ui/ueben/Abschluss.svelte`): Knopf „Fertig für heute“, zuerst das Können (gefestigt, neu gekonnt, geübt), dann Zahlen, dann der Pausenvorschlag. Bis es Sitzungs-Ereignisse gibt, gilt der Lerntag als Einheit. Ressourcen ergänzt Phase 2a – unter dem Können, nicht darüber (Korrumpierungseffekt, §9).
+
 ### 6.2 Zeitsystem
 Zeit in der Bastion zählt als Spielzeit im Sinne von „Erst lernen, dann …“. Das Verhältnis legen Eltern bzw. der Jugendliche je nach Stufe fest (KONZEPT §6). Startwert: 15 Minuten Lernen → 5 Minuten Bastion.
 

@@ -18,6 +18,6 @@ fehlerbilder:
   falsche-richtung:
     de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
   falsche-umrechnungszahl:
-    de: Die Umrechnungszahl stimmt nicht. Prüfe, wie viele {von} einen {nach} ergeben.
+    de: 'Die [[Umrechnungszahl]] stimmt nicht. Prüfe, wie viele {von} einen {nach} ergeben.'
 herkunft: ki-entwurf
 version: 1

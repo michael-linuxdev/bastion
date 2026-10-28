@@ -13,7 +13,7 @@ text:
     de: '**Rechne um**: {wert} {von} = ? {nach}'
 hilfen:
   - de: In eine kleinere Einheit umrechnen heißt multiplizieren – die Zahl wird größer.
-  - de: 'Bei Flächeneinheiten ist die Umrechnungszahl 100: 1 m² = 100 dm², 1 ha = 100 a.'
+  - de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100: 1 m² = 100 dm², 1 ha = 100 a.'
 fehlerbilder:
   falsche-richtung:
     de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.

@@ -10,16 +10,16 @@ parameter:
   M: { max: 15 }
 text:
   aufgabe:
-    de: 'Bei einer Verschiebung wird der Punkt P{p} auf P′{p_bild} abgebildet. **Gib** die Koordinaten des Bildpunktes von Q{q} **an**.'
+    de: 'Bei einer [[Verschiebung]] wird der Punkt P{p} auf P′{p_bild} abgebildet. **Gib** die [[Koordinaten]] des [[Bildpunktes]] von Q{q} **an**.'
 hilfen:
   - de: Wie weit nach rechts oder links und wie weit nach oben oder unten wird P verschoben?
   - de: Q wird genau gleich verschoben.
 fehlerbilder:
   nur-x-verschoben:
-    de: Du hast nur nach rechts oder links verschoben. Die Verschiebung nach oben oder unten gehört auch dazu.
+    de: 'Du hast nur nach rechts oder links verschoben. Die [[Verschiebung]] nach oben oder unten gehört auch dazu.'
   falsche-richtung:
     de: Du hast in die Gegenrichtung verschoben. Schau, wohin P wandert – Q wandert in dieselbe Richtung.
   auf-p-bild-gesetzt:
-    de: Das ist der Bildpunkt von P. Gesucht ist der Bildpunkt von Q.
+    de: 'Das ist der [[Bildpunkt]] von P. Gesucht ist der Bildpunkt von Q.'
 herkunft: ki-entwurf
 version: 1

@@ -10,9 +10,9 @@ parameter:
   M: { zahl_max: 1000 }
 text:
   aufgabe:
-    de: '**Gib** die größte natürliche Zahl y **an**, für die gilt: {ungleichung}'
+    de: '**Gib** die größte [[natürliche Zahl]] y **an**, für die gilt: {ungleichung}'
 hilfen:
-  - de: Löse zuerst die Gleichung mit „=“ statt „<“.
+  - de: 'Löse zuerst die [[Gleichung]] mit „=“ statt „<“.'
   - de: „Kleiner als“ heißt, die Grenze selbst gehört nicht dazu.
 fehlerbilder:
   grenze-mitgezaehlt:

@@ -6,12 +6,53 @@ import {
   type GeneratorAngaben,
   type GeneratorVorlage,
 } from '../../src/core/learning/vorlage';
-import { ladeKompetenzen, ladeVorlagen } from './laden';
+import {
+  begriffskarte,
+  fundstellen,
+  unmarkiert,
+  type Begriff,
+} from '../../src/core/learning/begriffe';
+import { ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
+
+/** Erklärungen kurz halten (L-7): höchstens so viele Wörter. */
+export const ERKLAERUNG_WOERTER = 35;
 
 export interface Pruefbericht {
   readonly fehler: string[];
   readonly kompetenzen: Kompetenz[];
   readonly vorlagen: GeneratorVorlage[];
+  readonly begriffe: Begriff[];
+}
+
+const istText = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0;
+
+/** Wörterbuch prüfen: Pflichtfelder, eindeutige IDs und Formen, kurze Erklärungen. */
+function pruefeBegriffe(daten: unknown): { fehler: string[]; begriffe: Begriff[] } {
+  const fehler: string[] = [];
+  const liste = (daten as { begriffe?: unknown } | undefined)?.begriffe;
+  if (!Array.isArray(liste)) return { fehler: ['begriffe: Liste fehlt'], begriffe: [] };
+  const begriffe: Begriff[] = [];
+  const ids = new Set<string>();
+  const formen = new Set<string>();
+  for (const roh of liste as unknown[]) {
+    const b = roh as Partial<Begriff> | null;
+    const id = b?.id ?? '?';
+    if (!b || !istText(b.id) || !/^[a-z0-9-]+$/.test(b.id)) fehler.push(`${id}: ungültige id`);
+    if (!istText(b?.wort?.de)) fehler.push(`${id}: wort.de fehlt`);
+    if (!istText(b?.erklaerung?.de)) fehler.push(`${id}: erklaerung.de fehlt`);
+    else if (b.erklaerung.de.split(/\s+/).length > ERKLAERUNG_WOERTER)
+      fehler.push(`${id}: Erklärung länger als ${ERKLAERUNG_WOERTER} Wörter (L-7)`);
+    if (!Array.isArray(b?.formen) || b.formen.length === 0 || !b.formen.every(istText))
+      fehler.push(`${id}: formen fehlen`);
+    if (ids.has(id)) fehler.push(`${id}: id doppelt`);
+    ids.add(id);
+    for (const f of b?.formen ?? []) {
+      if (formen.has(f)) fehler.push(`${id}: Form „${f}“ gehört schon zu einem anderen Begriff`);
+      formen.add(f);
+    }
+    if (b && fehler.length === 0) begriffe.push(b as Begriff);
+  }
+  return { fehler, begriffe };
 }
 
 export function pruefeInhalte(
@@ -53,7 +94,33 @@ export function pruefeInhalte(
       vorlagen.push(vorlage);
     }
   }
-  return { fehler, kompetenzen, vorlagen };
+
+  // Fachbegriffe (L-7): bekannt, beim ersten Vorkommen je Text markiert, jeder genutzt
+  const gelesen = ladeBegriffe(inhaltsordner);
+  const geprueft = gelesen.lesefehler
+    ? { fehler: [gelesen.lesefehler], begriffe: [] }
+    : pruefeBegriffe(gelesen.daten);
+  fehler.push(...geprueft.fehler.map((x) => `${gelesen.datei}: ${x}`));
+  const karte = begriffskarte(geprueft.begriffe);
+  const genutzt = new Set<string>();
+  for (const v of vorlagen) {
+    const texte = [v.text.aufgabe, ...v.hilfen, ...Object.values(v.fehlerbilder)];
+    for (const t of texte) {
+      for (const f of fundstellen(t.de, karte)) {
+        if (f.markiert && !f.begriff)
+          fehler.push(`${v.id}: [[${f.form}]] steht nicht im Wörterbuch`);
+        if (f.begriff) genutzt.add(f.begriff.id);
+      }
+      for (const f of unmarkiert(t.de, karte))
+        fehler.push(
+          `${v.id}: Fachbegriff „${f.form}“ beim ersten Vorkommen als [[${f.form}]] markieren (L-7): ${t.de}`,
+        );
+    }
+  }
+  for (const b of geprueft.begriffe)
+    if (!genutzt.has(b.id)) fehler.push(`${gelesen.datei}: ${b.id} kommt in keiner Vorlage vor`);
+
+  return { fehler, kompetenzen, vorlagen, begriffe: geprueft.begriffe };
 }
 
 /** Abdeckung je Kompetenz und Niveau: Anzahl Vorlagen (Ziel: mindestens 2, INHALTSFORMAT §10.1). */

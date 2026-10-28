@@ -4,7 +4,7 @@
 // Als Vite-Plugin: im Entwicklungsserver unter /packs/, im Build als Dateien.
 import { createHash } from 'node:crypto';
 import type { Plugin } from 'vite';
-import { ladeKompetenzen, ladeVorlagen } from './laden';
+import { ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
 
 /** Version des Paketformats; steigt, wenn die App Pakete anders lesen muss. */
 export const PAKETFORMAT = 1;
@@ -32,6 +32,8 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
     if (v.lesefehler) fehler.push(`${v.datei}: ${v.lesefehler}`);
     return v.lesefehler ? [] : [{ daten: v.daten, bereich: v.pfadTeile[0] ?? '' }];
   });
+  const begriffe = ladeBegriffe(inhaltsordner);
+  if (begriffe.lesefehler) fehler.push(`${begriffe.datei}: ${begriffe.lesefehler}`);
   // Die vollständige Prüfung läuft in pnpm test; hier nur, was den Bau unmöglich macht.
   if (fehler.length > 0) throw new Error(`Inhalte nicht lesbar:\n${fehler.join('\n')}`);
 
@@ -51,7 +53,11 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
     });
   };
 
-  lege('mathematik.grund', { fach: 'mathematik', kompetenzen });
+  lege('mathematik.grund', {
+    fach: 'mathematik',
+    kompetenzen,
+    begriffe: (begriffe.daten as { begriffe?: unknown[] } | undefined)?.begriffe ?? [],
+  });
   const bereiche = [...new Set(vorlagen.map((v) => v.bereich))].sort();
   for (const bereich of bereiche) {
     lege(

@@ -10,18 +10,18 @@ parameter:
   M: { wuerfel: false, gegeben: kanten, max: 20 }
 text:
   aufgabe:
-    de: '{angabe} **Berechne** den Oberflächeninhalt in {einheit}.'
+    de: '{angabe} **Berechne** den [[Oberflächeninhalt]] in {einheit}.'
 hilfen:
-  - de: Ein Quader hat sechs Flächen. Je zwei gegenüberliegende sind gleich groß.
+  - de: 'Ein [[Quader]] hat sechs Flächen. Je zwei gegenüberliegende sind gleich groß.'
   - de: Berechne die drei verschiedenen Flächen, addiere sie und nimm das Ergebnis mal 2.
 fehlerbilder:
   nur-eine-flaeche:
-    de: Das ist erst eine Fläche. Ein Quader hat sechs davon.
+    de: 'Das ist erst eine Fläche. Ein [[Quader]] hat sechs davon.'
   nur-drei-flaechen:
     de: Du hast jede Fläche nur einmal gezählt. Jede kommt zweimal vor – vorne und hinten, oben und unten, links und rechts.
   vier-flaechen:
     de: Du hast nur vier Flächen gezählt. Denk an Deckel und Boden.
   volumen-berechnet:
-    de: Das ist das Volumen. Für die Oberfläche addierst du die Flächeninhalte aller sechs Seiten.
+    de: 'Das ist das [[Volumen]]. Für die [[Oberfläche]] addierst du die [[Flächeninhalte]] aller sechs Seiten.'
 herkunft: ki-entwurf
 version: 1

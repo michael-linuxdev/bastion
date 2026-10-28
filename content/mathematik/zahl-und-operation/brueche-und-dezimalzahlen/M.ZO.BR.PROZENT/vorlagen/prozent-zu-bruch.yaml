@@ -12,13 +12,13 @@ antwort:
   form: gekuerzt
 text:
   aufgabe:
-    de: '**Gib** {wert} als vollständig gekürzten Bruch **an**.'
+    de: '**Gib** {wert} als vollständig [[gekürzten]] [[Bruch]] **an**.'
 hilfen:
-  - de: Schreibe die Prozentzahl als Bruch mit dem Nenner 100. Kürze dann.
+  - de: 'Schreibe die Prozentzahl als [[Bruch]] mit dem [[Nenner]] 100. [[Kürze]] dann.'
 fehlerbilder:
   komma-verschoben:
-    de: Prozent heißt „von Hundert“ – der Nenner ist zuerst 100.
+    de: '[[Prozent]] heißt „von Hundert“ – der [[Nenner]] ist zuerst 100.'
   prozent-als-nenner-zehn:
-    de: Prozent heißt „von Hundert“ – der Nenner ist 100, nicht 10.
+    de: '[[Prozent]] heißt „von Hundert“ – der [[Nenner]] ist 100, nicht 10.'
 herkunft: ki-entwurf
 version: 1

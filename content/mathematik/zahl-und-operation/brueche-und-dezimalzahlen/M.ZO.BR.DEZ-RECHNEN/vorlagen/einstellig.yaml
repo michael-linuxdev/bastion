@@ -13,10 +13,10 @@ text:
     de: '**Berechne**: {a} {zeichen} {b}'
 hilfen:
   - de: Rechne zuerst ohne Komma.
-  - de: Mache einen Überschlag. So findest du heraus, wo das Komma hingehört.
+  - de: 'Mache einen [[Überschlag]]. So findest du heraus, wo das Komma hingehört.'
 fehlerbilder:
   komma-um-eine-stelle-falsch:
-    de: Das Komma steht eine Stelle falsch. Prüfe mit einem Überschlag, wie groß das Ergebnis ungefähr sein muss.
+    de: 'Das Komma steht eine Stelle falsch. Prüfe mit einem [[Überschlag]], wie groß das Ergebnis ungefähr sein muss.'
   komma-falsche-richtung:
     de: Das Komma wurde in die falsche Richtung verschoben.
 herkunft: ki-entwurf

@@ -10,15 +10,15 @@ parameter:
   M: { anzahl_min: 4, anzahl_max: 6, wert_max: 200, noten: false, ganzzahlig: false }
 text:
   aufgabe:
-    de: '**Berechne** das arithmetische Mittel (den Durchschnitt) der Werte: {werte}'
+    de: '**Berechne** das [[arithmetische Mittel]] (den Durchschnitt) der Werte: {werte}'
 hilfen:
   - de: Addiere alle Werte.
-  - de: Teile die Summe durch die Anzahl der Werte ({anzahl}).
+  - de: 'Teile die [[Summe]] durch die Anzahl der Werte ({anzahl}).'
 fehlerbilder:
   durch-falsche-anzahl:
     de: Du hast durch die falsche Anzahl geteilt. Zähle die Werte noch einmal – es sind {anzahl}.
   nur-summe:
-    de: Das ist erst die Summe. Teile sie noch durch die Anzahl der Werte.
+    de: 'Das ist erst die [[Summe]]. Teile sie noch durch die Anzahl der Werte.'
   nicht-gerundet:
     de: Runde das Ergebnis wie verlangt.
 herkunft: ki-entwurf
