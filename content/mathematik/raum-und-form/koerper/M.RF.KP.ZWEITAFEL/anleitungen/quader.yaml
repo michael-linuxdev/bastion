@@ -1,0 +1,18 @@
+# Zweitafelbild eines Quaders zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZWEITAFEL.QUADER
+kompetenz: M.RF.KP.ZWEITAFEL
+titel:
+  de: 'Das [[Zweitafelbild]] eines [[Quaders]] zeichnen'
+material:
+  de: 'Kariertes Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.zweitafel-quader@1
+schritte:
+  - de: 'Zeichne quer über das Blatt eine waagerechte Linie. Das ist die Rissachse x₁₂.'
+  - de: 'Zeichne unter der Rissachse den [[Grundriss]]: ein Rechteck, so lang und so tief wie der [[Quader]] – zum Beispiel 6 cm × 3 cm.'
+  - de: 'Zeichne von den linken und rechten Ecken des Grundrisses dünne [[senkrecht]]e Ordnungslinien nach oben über die Rissachse.'
+  - de: 'Zeichne zwischen den Ordnungslinien über der Rissachse den [[Aufriss]]: ein Rechteck, so lang und so hoch wie der [[Quader]] – zum Beispiel 6 cm × 4 cm.'
+pruefen:
+  - de: 'Sind [[Grundriss]] und [[Aufriss]] genau gleich lang und stehen sie genau übereinander?'
+  - de: 'Ist der [[Grundriss]] so tief und der [[Aufriss]] so hoch wie der [[Quader]]?'
+herkunft: ki-entwurf
+version: 1

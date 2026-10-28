@@ -1,0 +1,25 @@
+# Ecken, Kanten und Flächen von Pyramiden und Pyramidenstümpfen. Entwurf: noch nicht geprüft.
+id: M.RF.KP.PYRAMIDEN.ZAEHLEN
+kompetenz: M.RF.KP.PYRAMIDEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.pyramide-zaehlen@1
+parameter:
+  G: { n_max: 4, stumpf: false }
+  M: { n_max: 8, stumpf: true }
+text:
+  aufgabe:
+    de: '**{frage}**'
+hilfen:
+  - de: 'Eine [[Pyramide]] hat unten ein Vieleck und so viele dreieckige Seitenflächen, wie das Vieleck Ecken hat. Alle treffen sich in der Spitze.'
+  - de: 'Ein [[Pyramidenstumpf]] hat zwei Vielecke, oben und unten, und Trapeze dazwischen.'
+fehlerbilder:
+  wie-prisma:
+    de: 'So viele hat ein [[Prisma]]. Eine [[Pyramide]] hat oben keine zweite Fläche, sondern nur eine Spitze.'
+  spitze-vergessen:
+    de: 'Du hast die Spitze vergessen – auch sie ist eine Ecke.'
+  grundflaeche-vergessen:
+    de: 'Du hast nur die Seitenflächen gezählt. Die [[Grundfläche]] ist auch eine Fläche.'
+herkunft: ki-entwurf
+version: 1

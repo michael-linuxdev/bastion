@@ -1,0 +1,18 @@
+# Schrägbild einer quadratischen Pyramide zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.PYRAMIDEN.SCHRAEGBILD
+kompetenz: M.RF.KP.PYRAMIDEN
+titel:
+  de: 'Das [[Schrägbild]] einer [[Pyramide]] zeichnen'
+material:
+  de: 'Kariertes Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.schraegbild-pyramide@1
+schritte:
+  - de: 'Zeichne die quadratische [[Grundfläche]] im [[Schrägbild]]: vorne eine [[Kante]] in wahrer Länge, die Kanten nach hinten unter 45° und halb so lang. Hintere Kanten zeichnest du gestrichelt.'
+  - de: 'Zeichne die beiden [[Diagonalen]] der [[Grundfläche]] dünn ein. Sie schneiden sich im Mittelpunkt.'
+  - de: 'Trage vom Mittelpunkt aus die [[Höhe]] der [[Pyramide]] [[senkrecht]] nach oben ab. Dort liegt die Spitze S.'
+  - de: 'Verbinde jede Ecke der [[Grundfläche]] mit der Spitze. Die [[Kante]] von der hinteren linken Ecke ist verdeckt – zeichne sie gestrichelt.'
+pruefen:
+  - de: 'Liegt die Spitze genau über dem Mittelpunkt der [[Grundfläche]]?'
+  - de: 'Sind die verdeckten Kanten gestrichelt?'
+herkunft: ki-entwurf
+version: 1

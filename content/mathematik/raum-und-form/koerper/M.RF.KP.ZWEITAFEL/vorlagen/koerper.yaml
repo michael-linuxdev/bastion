@@ -1,0 +1,23 @@
+# „Welcher Körper hat dieses Zweitafelbild?“ Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZWEITAFEL.KOERPER
+kompetenz: M.RF.KP.ZWEITAFEL
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kp.zweitafel-koerper@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: 'Das Bild zeigt ein [[Zweitafelbild]]: oben den [[Aufriss]], unten den [[Grundriss]]. **Entscheide**: Welcher Körper ist das?'
+hilfen:
+  - de: 'Der [[Aufriss]] zeigt den Körper von vorne, der [[Grundriss]] von oben.'
+  - de: 'Erst beide zusammen verraten den Körper: Ein Dreieck von vorne kann ein [[Prisma]] oder eine [[Pyramide]] sein – von oben siehst du den Unterschied.'
+fehlerbilder:
+  nur-aufriss:
+    de: 'Dieser Körper sieht von vorne genauso aus, aber von oben anders. Schau dir auch den [[Grundriss]] an.'
+  nur-grundriss:
+    de: 'Dieser Körper sieht von oben genauso aus, aber von vorne anders. Schau dir auch den [[Aufriss]] an.'
+herkunft: ki-entwurf
+version: 1

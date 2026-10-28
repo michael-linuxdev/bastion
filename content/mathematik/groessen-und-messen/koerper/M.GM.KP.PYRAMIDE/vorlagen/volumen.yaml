@@ -1,0 +1,25 @@
+# Volumen von Pyramiden, auf M auch zusammengesetzte Körper. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PYRAMIDE.VOLUMEN
+kompetenz: M.GM.KP.PYRAMIDE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.pyramide-volumen@1
+parameter:
+  G: { erweitert: false }
+  M: { erweitert: true }
+text:
+  aufgabe:
+    de: '{aufgabe}'
+hilfen:
+  - de: '[[Volumen]] einer [[Pyramide]]: V = G · h : 3. G ist der [[Flächeninhalt]] der [[Grundfläche]].'
+  - de: 'Eine [[Pyramide]] hat ein Drittel des [[Volumens]] eines [[Prismas]] mit gleicher [[Grundfläche]] und [[Höhe]].'
+fehlerbilder:
+  drittel-vergessen:
+    de: 'Das wäre das [[Volumen]] eines [[Prismas]]. Bei der [[Pyramide]] teilst du noch durch 3.'
+  halbiert-statt-gedrittelt:
+    de: 'Bei der [[Pyramide]] teilst du durch 3, nicht durch 2.'
+  quader-vergessen:
+    de: 'Das ist nur die [[Pyramide]]. Der [[Quader]] darunter gehört auch zum Turm.'
+herkunft: ki-entwurf
+version: 1

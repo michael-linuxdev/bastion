@@ -1,0 +1,25 @@
+# Pyramide, Prisma oder Pyramidenstumpf? Entwurf: noch nicht geprüft.
+id: M.RF.KP.PYRAMIDEN.ERKENNEN
+kompetenz: M.RF.KP.PYRAMIDEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kp.pyramide-erkennen@1
+parameter:
+  G: { netze: false }
+  M: { netze: true }
+text:
+  aufgabe:
+    de: '{beschreibung} **Welcher Körper ist das?**'
+hilfen:
+  - de: '[[Pyramide]]: eine [[Grundfläche]], dreieckige Seitenflächen, eine Spitze.'
+  - de: '[[Prisma]]: zwei gleiche, parallele Flächen und Rechtecke. [[Pyramidenstumpf]]: zwei verschieden große, parallele Flächen und Trapeze.'
+fehlerbilder:
+  stumpf-als-prisma:
+    de: 'Bei einem [[Prisma]] sind die beiden parallelen Flächen gleich groß. Hier ist eine kleiner – und die Seitenflächen sind Trapeze.'
+  stumpf-als-pyramide:
+    de: 'Eine [[Pyramide]] hat eine Spitze. Hier ist oben eine kleinere Fläche – die Spitze ist abgeschnitten.'
+  pyramide-als-prisma:
+    de: 'Achte auf die Seitenflächen: Dreiecke mit Spitze gehören zur [[Pyramide]], Rechtecke zum [[Prisma]].'
+herkunft: ki-entwurf
+version: 1
