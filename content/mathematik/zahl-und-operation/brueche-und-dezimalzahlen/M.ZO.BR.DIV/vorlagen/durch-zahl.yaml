@@ -1,0 +1,25 @@
+# „Berechne 3/4 : 6.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DIV.DURCH-ZAHL
+kompetenz: M.ZO.BR.DIV
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.durch-zahl@1
+parameter:
+  G: { nenner_max: 10, zahl_max: 6 }
+  M: { nenner_max: 15, zahl_max: 12 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: 'Teilen durch eine Zahl heißt malnehmen mit ihrem [[Kehrwert]]. Der Kehrwert von {b} ist 1/{b}.'
+  - de: 'Der [[Nenner]] wird also mit {b} malgenommen, der [[Zähler]] bleibt.'
+fehlerbilder:
+  mal-statt-durch:
+    de: Du hast malgenommen statt geteilt. Beim Teilen muss das Ergebnis kleiner werden.
+  beide-mal-zahl:
+    de: 'Du hast [[Zähler]] und [[Nenner]] malgenommen. Das ist [[Erweitern]] – der Wert bleibt gleich. Beim Teilen wird nur der Nenner malgenommen.'
+herkunft: ki-entwurf
+version: 1

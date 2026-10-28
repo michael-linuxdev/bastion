@@ -1,0 +1,21 @@
+# „Berechne 3,6 : 0,4.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-MULT-DIV.DURCH
+kompetenz: M.ZO.BR.DEZ-MULT-DIV
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.dez-durch@1
+parameter:
+  G: { stellen: 1, ziffern_max: 9 }
+  M: { stellen: 2, ziffern_max: 99 }
+text:
+  aufgabe:
+    de: '**Berechne**: {a} {zeichen} {b}'
+hilfen:
+  - de: Verschiebe das Komma bei beiden Zahlen gleich weit nach rechts, bis die zweite Zahl kein Komma mehr hat.
+  - de: 'Dann teilst du durch eine [[natürliche Zahl]].'
+fehlerbilder:
+  komma-nicht-verschoben:
+    de: Du hast das Komma nur bei der zweiten Zahl weggelassen. Verschiebe es bei **beiden** Zahlen um gleich viele Stellen.
+herkunft: ki-entwurf
+version: 1

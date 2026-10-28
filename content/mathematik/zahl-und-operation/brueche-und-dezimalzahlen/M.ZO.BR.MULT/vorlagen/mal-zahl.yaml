@@ -1,0 +1,25 @@
+# „Berechne 3/8 · 4.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.MULT.MAL-ZAHL
+kompetenz: M.ZO.BR.MULT
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.mal-zahl@1
+parameter:
+  G: { nenner_max: 10, zahl_max: 6 }
+  M: { nenner_max: 15, zahl_max: 12 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: '[[Bruch]] mal Zahl: Nimm nur den [[Zähler]] mal, der [[Nenner]] bleibt.'
+  - de: '[[Kürze]] das Ergebnis am Ende – oder schon vorher.'
+fehlerbilder:
+  nenner-mal-zahl:
+    de: 'Du hast den [[Nenner]] malgenommen. Dadurch werden die Teile kleiner – das Ergebnis müsste aber größer werden. Nimm den [[Zähler]] mal.'
+  beide-mal-zahl:
+    de: 'Du hast [[Zähler]] und [[Nenner]] malgenommen. Das ist [[Erweitern]] – der Wert bleibt gleich. Beim Malnehmen wird nur der Zähler malgenommen.'
+herkunft: ki-entwurf
+version: 1

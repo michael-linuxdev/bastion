@@ -170,6 +170,26 @@ begriffe:
     formen: [Kürze, kürze, Kürzen, kürzen, gekürzt, gekürzten]
     erklaerung:
       de: 'Zähler und Nenner durch dieselbe Zahl teilen. Der Wert bleibt gleich: 6/8 = 3/4.'
+  - id: kehrwert
+    wort: { de: Kehrwert }
+    formen: [Kehrwert]
+    erklaerung:
+      de: 'Der Bruch mit vertauschtem Zähler und Nenner. Der Kehrwert von 3/4 ist 4/3, der von 5 ist 1/5.'
+  - id: gemeinsamer-nenner
+    wort: { de: gemeinsamer Nenner }
+    formen: [gemeinsamen Nenner, gemeinsamer Nenner]
+    erklaerung:
+      de: 'Ein Nenner, auf den man beide Brüche erweitern kann. Für 1/4 und 1/6 ist 12 der kleinste gemeinsame Nenner.'
+  - id: periodisch
+    wort: { de: periodisch }
+    formen: [periodisch]
+    erklaerung:
+      de: 'Eine Dezimalzahl ist periodisch, wenn sich Ziffern hinter dem Komma unendlich oft wiederholen: 1/3 = 0,333…'
+  - id: periodenstrich
+    wort: { de: Periodenstrich }
+    formen: [Periodenstrich]
+    erklaerung:
+      de: 'Der Strich über den Ziffern, die sich wiederholen. 0,16̅ heißt 0,1666…'
   - id: dezimalzahl
     wort: { de: Dezimalzahl }
     formen: [Dezimalzahl, Dezimalzahlen]

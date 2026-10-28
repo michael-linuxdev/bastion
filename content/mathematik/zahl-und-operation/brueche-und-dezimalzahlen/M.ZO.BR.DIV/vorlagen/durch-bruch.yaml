@@ -1,0 +1,25 @@
+# „Berechne 2/3 : 4/5.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DIV.DURCH-BRUCH
+kompetenz: M.ZO.BR.DIV
+niveaus: [G, M]
+typ: bruch-eingabe
+quelle: generator
+generator: br.durch-bruch@1
+parameter:
+  G: { nenner_max: 6, zahl_max: 2 }
+  M: { nenner_max: 12, zahl_max: 2 }
+antwort:
+  form: gekuerzt
+text:
+  aufgabe:
+    de: '**Berechne** und [[kürze]] vollständig: {a} {zeichen} {b}'
+hilfen:
+  - de: 'Durch einen [[Bruch]] teilst du, indem du mit seinem [[Kehrwert]] malnimmst. Beim Kehrwert sind [[Zähler]] und [[Nenner]] vertauscht.'
+  - de: 'Nur der zweite [[Bruch]] wird umgedreht, der erste bleibt.'
+fehlerbilder:
+  kein-kehrwert:
+    de: 'Du hast die [[Brüche]] malgenommen, ohne den zweiten umzudrehen. Teilen heißt malnehmen mit dem [[Kehrwert]].'
+  kehrwert-erster:
+    de: 'Du hast den ersten [[Bruch]] umgedreht. Der [[Kehrwert]] gehört zum zweiten Bruch – zu dem, durch den geteilt wird.'
+herkunft: ki-entwurf
+version: 1

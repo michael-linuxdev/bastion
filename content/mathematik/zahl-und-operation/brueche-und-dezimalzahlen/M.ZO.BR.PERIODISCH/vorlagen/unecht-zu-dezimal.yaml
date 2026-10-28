@@ -1,0 +1,23 @@
+# „Gib 7/4 als Dezimalzahl an.“ (Klasse 5 übt echte Brüche) Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PERIODISCH.UNECHT-ZU-DEZIMAL
+kompetenz: M.ZO.BR.PERIODISCH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.unecht-zu-dezimal@1
+parameter:
+  G: { nenner: [2, 4, 5, 10, 20, 25], unecht: true }
+  M: { nenner: [2, 4, 5, 8, 10, 20, 25, 40, 50], unecht: true }
+text:
+  aufgabe:
+    de: '**Gib** {bruch} als [[Dezimalzahl]] **an**.'
+hilfen:
+  - de: '[[Erweitere]] den [[Bruch]] auf den [[Nenner]] 10, 100 oder 1000.'
+  - de: 'Oder teile den [[Zähler]] durch den [[Nenner]].'
+fehlerbilder:
+  ziffern-hintereinander:
+    de: '[[Zähler]] und [[Nenner]] werden nicht einfach mit Komma hintereinander geschrieben. [[Erweitere]] auf 10, 100 oder 1000.'
+  kehrwert:
+    de: 'Du hast den [[Nenner]] durch den [[Zähler]] geteilt. Es ist umgekehrt – der Zähler wird durch den Nenner geteilt.'
+herkunft: ki-entwurf
+version: 1

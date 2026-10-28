@@ -1,0 +1,21 @@
+# „Berechne 0,6 · 0,12.“ Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-MULT-DIV.MAL
+kompetenz: M.ZO.BR.DEZ-MULT-DIV
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: br.dez-mal@1
+parameter:
+  G: { stellen: 1, ziffern_max: 9 }
+  M: { stellen: 2, ziffern_max: 99 }
+text:
+  aufgabe:
+    de: '**Berechne**: {a} {zeichen} {b}'
+hilfen:
+  - de: Rechne zuerst ohne Komma.
+  - de: 'Zähle die [[Nachkommastellen]] beider Zahlen zusammen. So viele hat auch das Ergebnis.'
+fehlerbilder:
+  komma-stellen-falsch:
+    de: 'Das Komma steht falsch. Beim Malnehmen zählst du die [[Nachkommastellen]] **beider** Zahlen zusammen.'
+herkunft: ki-entwurf
+version: 1

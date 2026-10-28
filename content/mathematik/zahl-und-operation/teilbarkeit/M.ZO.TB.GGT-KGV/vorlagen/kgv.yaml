@@ -1,0 +1,25 @@
+# „Gib das kleinste gemeinsame Vielfache von 6 und 8 an.“ Entwurf: noch nicht geprüft.
+id: M.ZO.TB.GGT-KGV.KGV
+kompetenz: M.ZO.TB.GGT-KGV
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tb.kgv@1
+parameter:
+  G: { zahl_max: 12 }
+  M: { zahl_max: 30 }
+text:
+  aufgabe:
+    de: '**Gib** das kleinste gemeinsame [[Vielfache]] von {a} und {b} **an**.'
+hilfen:
+  - de: 'Schreibe die [[Vielfachen]] der größeren Zahl auf.'
+  - de: 'Welches davon ist auch durch die kleinere Zahl [[teilbar]]?'
+fehlerbilder:
+  produkt:
+    de: 'Das ist ein gemeinsames [[Vielfaches]], aber nicht das kleinste. Es gibt ein kleineres, das durch {a} und {b} [[teilbar]] ist.'
+  ggt-statt-kgv:
+    de: 'Das ist der größte gemeinsame [[Teiler]]. Gesucht ist ein [[Vielfaches]] – es ist mindestens so groß wie beide Zahlen.'
+  groessere-zahl:
+    de: 'Die größere Zahl ist hier kein [[Vielfaches]] der kleineren. Geh in der Reihe der Vielfachen weiter.'
+herkunft: ki-entwurf
+version: 1
