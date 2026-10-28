@@ -22,9 +22,8 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
 | 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
-| 2a | **Basebau-Minimum** (Versuchsaufbau, K-12) | ⏳ | ja |
-| 2b | Bastion-Mechanik voll (Simulator, alle Gebäude Epoche 1) | ⏳ | nur nach Schwelle „Lernkern trägt“ |
-| 3 | Bastion sichtbar (Grafik, QR) | ⏳ | nur nach Schwelle, frühestens nach 2b |
+| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik in Draufsicht (K-18, `BASEBAU.md` §11) | 🔄 geplant, als Nächstes | ja |
+| 3 | Bastion zeigen (QR-Übertragung, O-9) | ⏳ | nein |
 | 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte: Klasse 6, 7 … jeweils erst nach Abschluss der vorigen (K-15); Belagerungen nein |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
 | 6 | Zweites Fach + Portfolio | ⏳ | nein |
@@ -45,9 +44,8 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
 
 **Basebau**
-- Keine grafische Bastion (PixiJS), keine Epochen nach Epoche 1, keine Belagerungen.
-- Kein Balancing-Simulator, solange nur das Basebau-Minimum existiert.
-- Keine Studierstube, keine Spezialisierung, keine Zierde.
+- Keine Epochen nach Epoche 1, keine Belagerungen, keine QR-Übertragung. *(Grafik, Simulator, Studierstube und Zierde gehören seit K-18 zu Epoche 1.)*
+- Keine Spezialisierung.
 
 **Sprache und Zielgruppen**
 - Keine Hilfesprache, kein DaZ-Pfad, keine weiteren Oberflächensprachen. *Spannung zu Prinzip 7, bewusst in Kauf genommen (KONZEPT §13).* Abfederung: einfache Sprache, Fachbegriffe mit Erklärung, RTL-fähiges Layout bleibt.
@@ -173,17 +171,21 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 
-## 4a. Phase 2a – Basebau-Minimum (Vorschau)
+## 4a. Phase 2 – Basebau Epoche 1 (K-18)
 
-Nach 1b, spätestens so, dass die Testgruppe es ab etwa Monat 6–7 erlebt (E3 in `STRATEGIE.md` §6):
-- Listenansicht mit Stein, Erz, Bauplänen; ein bis zwei Gebäude der Epoche 1
-- Basebau-Schalter (R7)
-- Testfrage: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
+Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
+- **A – Ledger:** 2.1 Sitzungen · 2.2 Ledger-Regeln · 2.3 Buchungen und Konto · 2.4 Abschluss mit Ressourcen
+- **B – Bauen:** 2.5 Gebäudekatalog · 2.6 Bauen · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Wachturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
+- **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7
+- **D – Grafik:** 2.12 PixiJS einbinden · 2.13 Bauplatz in Draufsicht · 2.14 Gestalten
+
+Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17). Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
 ## 5. Änderungsprotokoll
 
 | Datum | Änderung |
 |---|---|
+| 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Wachturm (B-11 bis B-14) |
 | 27.10.2026 | Plan angelegt; Phase 0 gestartet; Arbeit im GitHub-Repository festgelegt |
 | 27.10.2026 | Repository angelegt; `LEHRPLAN.md` v0.1 mit 23 Kompetenzen Mathe Kl. 5–6 |
 | 27.10.2026 | `INHALTSFORMAT.md` v0.1: YAML-Format, Generator-Schnittstelle, Fehlerbilder, Review per Hash |

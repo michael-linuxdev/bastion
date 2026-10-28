@@ -144,7 +144,7 @@ Die Lerninsel nutzt eine Lernkartei. Für Bastion schlage ich **FSRS** vor, ein 
 
 **Entscheidung T-6:** PixiJS, nachgeladen, mit gleichwertiger Listenansicht.
 
-Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide.
+Grafikstil (isometrisch vs. Draufsicht) ist eine Gestaltungsentscheidung für `BASEBAU.md`; technisch tragen beide. *Entschieden: Draufsicht (BASEBAU B-11). PixiJS bleibt nach Rückfrage am 28.10.2026 gesetzt; die genaue Version kommt mit Schritt 2.12 in §4.6.*
 
 ### 4.6 Festgelegte Versionen
 

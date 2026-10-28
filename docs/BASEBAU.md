@@ -1,9 +1,9 @@
 # Bastion – Basebau
 
-Status: Entwurf v0.1 · Stand: 27.10.2026 · Bezug: `VISION.md` (R1–R7), `KONZEPT.md` §5, `ARCHITEKTUR.md` (T-7, T-9)
+Status: Entwurf v0.2 · Stand: 28.10.2026 · Bezug: `VISION.md` (R1–R7), `KONZEPT.md` §5, `ARCHITEKTUR.md` (T-7, T-9)
 Alle Zahlen sind **Startwerte für den Balancing-Simulator** (Phase 2), keine endgültigen Werte.
 
-> **Bis Monat 12 gilt K-12 (`STRATEGIE.md` §3):** Gebaut wird nur das **Basebau-Minimum** – Ledger sichtbar, Listenansicht, ein bis zwei Gebäude der Epoche 1, Basebau-Schalter. Alles Weitere in diesem Dokument erst, wenn Jugendliche den Lernkern als besser als ihr bisheriges Üben beschreiben.
+> **Seit K-18 (`STRATEGIE.md` §3, 28.10.2026):** Epoche 1 wird **vollständig und mit Grafik** gebaut, jetzt und vor Klasse 7. Die Grenze „nur Basebau-Minimum“ aus K-12 ist aufgehoben. Epochen 2–4 und Belagerungen bleiben außen vor. Der Umsetzungsplan steht in §11.
 
 ---
 
@@ -251,3 +251,54 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-8 | Abbruch eines Bauvorhabens gibt alle Ressourcen zurück; Versetzen ist kostenlos | Entschieden |
 | B-9 | Rückkehrmodus nach Pausen ohne Vorwurf und mit portionierten Wiederholungen | Entschieden |
 | B-10 | Ledger bucht auch bei abgeschaltetem Basebau | Entschieden |
+| B-11 | Bastion in **Draufsicht** (Plan von oben), nicht isometrisch | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-12 | Gebäudebilder zuerst im **eigenen schlichten Stil** aus dem Code, austauschbar über einen Bildkatalog (erledigt KONZEPT O-11) | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-13 | Basebau-Schalter: Standard **an**; Jugendliche und Eltern können ihn jederzeit umschalten | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-14 | Erste Gebäude in der Umsetzung: **Banner und Wachturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
+
+## 11. Umsetzungsplan Epoche 1 (K-18)
+
+Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder Schritt ist ein kleiner Commit mit Tests; die Nummern setzen den Plan in `PLAN.md` §4a fort.
+
+### Stufe A – Ledger (Kern, noch ohne Bauen)
+
+| Nr. | Schritt | Kern der Sache | Prüfung |
+|---|---|---|---|
+| 2.1 | **Sitzungen** | `sitzung`-Ereignis (DATENMODELL §4.2) beim Abschluss („Fertig für heute“, Verlassen); fehlende Sitzungen beim nächsten Start nachtragen (D-3); Lerneinheit = mindestens 10 ernsthafte Aufgaben oder 8 Minuten aktive Zeit (§3.4) | Einheitentests, auch für Abbruch und Nachtragen |
+| 2.2 | **Ledger-Regeln** in `src/core/ledger/` | rein und deterministisch, Regelversion 1: Stein mit Tageskurve und Rateregel (§3.1), Erz aus fälligen bestandenen Wiederholungen und Korrekturen, höchstens 30 am Tag (§3.2), Bauschritte höchstens 2 am Tag (§3.4), Bauplan beim ersten „gefestigt“ je Kompetenz und Niveau (§3.3) | fast-check: Tagesgrenzen halten, absichtlich falsch antworten bringt nichts, Niveau ändert nichts (B-4) |
+| 2.3 | **Buchungen und Konto** | `buchung`-Ereignisse je Sitzung mit Aufschlüsselung (D-4), Projektion `konto`; Sicherung, Einspielen und Zusammenführen kennen die neue Ereignisart (DATENMODELL §7.3); Schemaversion mit Migrationstest | Pflicht-Test D-6: fortgeschrieben = neu aufgebaut |
+| 2.4 | **Abschluss mit Ressourcen** | Ressourcen **unter** dem Können, mit „woher“ (§6.1, §9 Punkt 2); „Für heute ist das gut“ nach dem zweiten Bauschritt (R5); Belohnung fürs Korrigieren sichtbar (R6) | Browser-Test |
+
+### Stufe B – Bau-Mechanik und Listenansicht
+
+| Nr. | Schritt | Kern der Sache | Prüfung |
+|---|---|---|---|
+| 2.5 | **Gebäudekatalog** | alle Gebäude der Epoche 1 als Daten (§5.2), Stufen, Kosten, Voraussetzungen, Bergfried-Grenze (§4.2); Startzustand (§5.1) | Einheitentests |
+| 2.6 | **Bauen** in `src/core/bastion/` (liest nur `ledger`) | `bau`-Ereignisse (DATENMODELL §4.4): beginnen bucht ab, abbrechen erstattet alles (B-8), Bauschritte wirken auf alle aktiven Vorhaben (B-7), fertigstellen, versetzen kostenlos; ein Vorhaben gleichzeitig, mit Bauhütte zwei; Projektion `bastion` | fast-check: nie negativer Vorrat, Abbruch erstattet genau, Neuaufbau = Fortschreibung |
+| 2.7 | **Basebau-Schalter** | Einstellung `basebau.aktiv`, Standard an (B-13); aus heißt: nichts vom Basebau sichtbar, das Ledger bucht weiter (B-10, R7) | Browser-Test: aus → ein, alles Erarbeitete ist da |
+| 2.8 | **Listenansicht** | barrierefrei und reizarm (ARCHITEKTUR §4.5): Vorrat, Gebäude, Vorhaben, Planen → Beginnen → Fertigstellen; zuerst Banner und Wachturm (B-14), dann der übrige Katalog | Browser-Test: lernen → Ressource → bauen |
+| 2.9 | **Studierstube** | jede gefestigte Kompetenz als Buch mit Kann-Satz, automatisch und kostenlos, das Buch bleibt im Regal (B-6) | Einheitentests |
+| 2.10 | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
+
+### Stufe C – Balancing
+
+| Nr. | Schritt | Kern der Sache | Prüfung |
+|---|---|---|---|
+| 2.11 | **Simulator** `tools/sim` (T-9) | spielt die Profile P1–P7 (§8) mit dem echten Kern durch und schreibt einen Bericht; nur Werkzeug, nicht in der App | Bericht erfüllt §8; sonst Kosten anpassen, dann Tageskurven, zuletzt Regeln |
+
+### Stufe D – Grafik
+
+| Nr. | Schritt | Kern der Sache | Prüfung |
+|---|---|---|---|
+| 2.12 | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
+| 2.13 | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
+| 2.14 | **Gestalten** | Bannerfarbe, Zierde (Garten, Statue …) | Einheitentests |
+
+### Ausdrücklich nicht in diesem Plan
+
+Epochen 2–4, Belagerungen (Phase 4), QR-Übertragung und Zeigen (Phase 3), Zeitsystem „15 Minuten Lernen → 5 Minuten Bastion“ (§6.2, kommt mit den Elternstufen), Testrunden (K-17).
+
+### Offene Startwerte, die der Plan festlegt (Simulator prüft sie)
+
+- **Rateregel (§3.1):** Eine falsche Antwort zählt als geraten bei weniger als 3 Sekunden (Auswahl) bzw. 5 Sekunden (Eingabe).
+- **„Gefestigt“ für den Bauplan:** Der Lernkern hat schon eine Regel (`src/core/learning/fortschritt.ts`, LEHRPLAN §6). In Schritt 2.2 wird sie mit §3.3 (zwei bestandene Wiederholungen mit 7 Tagen Abstand, 90 %) abgeglichen. Bei Abweichung gilt eine einzige Definition für beide, damit Studierstube und „Mein Stand“ nie widersprechen.
