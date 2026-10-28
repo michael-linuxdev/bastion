@@ -9,6 +9,7 @@
 import { AUFGABE_V, type AufgabeEreignis } from '../learning/ereignis';
 import { SITZUNG_V, type SitzungEreignis } from '../learning/sitzung';
 import { BUCHUNG_V, type BuchungEreignis } from '../ledger/buchung';
+import { BAU_V, type BauEreignis } from '../bastion/bauen';
 import { EINSTELLUNG_V, type EinstellungEreignis } from '../policy/einstellung';
 import type { Tag } from '../policy/lerntag';
 
@@ -38,7 +39,7 @@ export interface SicherungsProfil {
 }
 
 export type SicherungsEreignis =
-  AufgabeEreignis | SitzungEreignis | BuchungEreignis | EinstellungEreignis;
+  AufgabeEreignis | SitzungEreignis | BuchungEreignis | BauEreignis | EinstellungEreignis;
 
 export interface SicherungsInhalt {
   readonly format: number;
@@ -99,6 +100,7 @@ const VERSION: Readonly<Record<string, number>> = {
   aufgabe: AUFGABE_V,
   sitzung: SITZUNG_V,
   buchung: BUCHUNG_V,
+  bau: BAU_V,
   einstellung: EINSTELLUNG_V,
 };
 

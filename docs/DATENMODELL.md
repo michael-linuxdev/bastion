@@ -222,6 +222,14 @@ interface BauEreignis extends Ereignis {
 
 Geplante, aber nicht begonnene Gebäude existieren nur in der Oberfläche – Planen kostet nichts und hinterlässt keine Spuren.
 
+*Umsetzung (2.6):* `src/core/bastion/bauen.ts`, Speicher `bauSpeichern` und `bastionAktualisieren` in `src/storage/ablage.ts`. Bisher die Aktionen `beginnen`, `abbrechen`, `fertigstellen`, `versetzen`; `gestalten` kommt mit 2.14, `epoche` später.
+- **Beginnen** prüft alles (Katalog-Hindernisse, freier Bauplatz – einer, mit Zimmerei zwei –, Platz auf dem Feld, Stein, Erz, Baupläne) und schreibt das Ereignis zusammen mit den Abbuchungen (`grund: 'bau-beginn'`, je Ressource eine Buchung mit fester ID `<Profil>.<Ressource>.bau-beginn.<Vorhaben>`). **Abbrechen** schreibt die Erstattung (`bau-abbruch`) in derselben Höhe.
+- **Bauschritte werden nicht abgebucht** – anders als in §4.3 zuerst gedacht. Vorrat und Fortschritt berechnet die Projektion `bastion` jedes Mal aus allen Bau-Ereignissen und Bauschritt-Gutschriften in Zeitfolge: Ein Bauschritt ohne laufendes Vorhaben geht in den Vorrat; Beginnen nimmt aus dem Vorrat, so viel das Vorhaben braucht; jeder neue Bauschritt wirkt auf **jedes** laufende Vorhaben (B-7). *Warum:* Ein Bauschritt kann später mit früherer Zeit eintreffen (nachgetragene Sitzung, zweites Gerät). Eine gespeicherte Abbuchung wäre dann falsch; die Berechnung stimmt immer.
+- **Abbruch gibt alles zurück** (B-8). Bauschritte, die zwei Vorhaben gleichzeitig bekamen, bleiben beim anderen Vorhaben – sonst entstünde ein Schritt doppelt. Was ein Vorhaben allein bekam oder aus dem Vorrat nahm, geht zurück in den Vorrat.
+- **Fertig** ist ein Vorhaben, sobald es genug Bauschritte hat; die Ablage hält das als Ereignis `fertigstellen` mit der Zeit des Fertigwerdens fest. Neubauten belegen ihr Feld schon während des Bauens; ein Ausbau steht am Platz des Gebäudes.
+- **Zusammenführen:** Die Projektion nimmt alle Ereignisse, wie sie sind – auch wenn zwei Geräte gleichzeitig gebaut haben und etwas nicht mehr zusammenpasst (§7.3). Geprüft wird nur beim Erzeugen neuer Ereignisse.
+- Bau-Ereignisse gehören zur Sicherung; `neuBerechnen` baut die Projektion `bastion` neu auf.
+
 ### 4.5 `einstellung` – Einstellungen und Profilangaben
 
 ```ts
@@ -315,7 +323,7 @@ db.version(1).stores({
 });
 ```
 
-*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `bau` und `bastion` (seit 2.6), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
 
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.

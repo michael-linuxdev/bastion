@@ -31,8 +31,9 @@ export type Ressource = 'stein' | 'erz' | 'bauplan' | 'bauschritt';
 export interface Buchung {
   readonly ressource: Ressource;
   readonly menge: number;
-  readonly grund: 'sitzung' | 'kompetenz-gefestigt';
-  /** Sitzungs-ID oder "Kompetenz@Niveau" */
+  /** Erträge aus dem Lernen; Abbuchung und Erstattung beim Bauen (BASEBAU §4.2) */
+  readonly grund: 'sitzung' | 'kompetenz-gefestigt' | 'bau-beginn' | 'bau-abbruch';
+  /** Sitzungs-ID, "Kompetenz@Niveau" oder Bauvorhaben-ID */
   readonly bezug: string;
   readonly tag: Tag;
   readonly aufschluesselung: Readonly<Record<string, number>>;

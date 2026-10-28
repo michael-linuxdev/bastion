@@ -175,7 +175,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
 - **A – Ledger:** 2.1 Sitzungen ✅ (`src/core/learning/sitzung.ts`) · 2.2 Ledger-Regeln ✅ (`src/core/ledger/regeln.ts`) · 2.3 Buchungen und Konto ✅ (`src/core/ledger/buchung.ts`) · 2.4 Abschluss mit Ressourcen ✅
-- **B – Bauen:** 2.5 Gebäudekatalog ✅ (`src/core/bastion/katalog.ts`) · 2.6 Bauen · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Späherturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
+- **B – Bauen:** 2.5 Gebäudekatalog ✅ (`src/core/bastion/katalog.ts`) · 2.6 Bauen ✅ (`src/core/bastion/bauen.ts`) · 2.7 Basebau-Schalter (Standard an) · 2.8 Listenansicht (zuerst Banner und Späherturm) · 2.9 Studierstube · 2.10 Ende der Epoche 1
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7
 - **D – Grafik:** 2.12 PixiJS einbinden · 2.13 Bauplatz in Draufsicht · 2.14 Gestalten
 

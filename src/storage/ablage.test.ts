@@ -25,7 +25,12 @@ import {
   buchen,
   buchungen,
   konto,
+  bastion,
+  bastionAktualisieren,
+  bauEreignisse,
+  bauSpeichern,
 } from './ablage';
+import { beginnen } from '../core/bastion/bauen';
 import { kontoAus } from '../core/ledger/buchung';
 import { sitzungEreignis } from '../core/learning/sitzung';
 import { einstellungEreignis } from '../core/policy/einstellung';
@@ -291,6 +296,61 @@ describe('Ablage', () => {
     // Das neue Gerät rechnet nach und findet nichts, was fehlt
     expect(await buchen(ziel, { profil: inst.profil, geraet: 'anderes1' }, 7000)).toEqual([]);
     expect(await importieren(ziel, sicherung, inst.profil, 8000)).toMatchObject({ neu: 0 });
+  });
+
+  it('Bauen: Ereignis, Abbuchung, Konto und Bastion zusammen; Fertigmeldung; Sicherung', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const zufall = quelleAusSeed(6);
+    for (let i = 0; i < 12; i++)
+      await speichereAufgabe(
+        db,
+        aufgabeEreignis(
+          angaben(inst.profil, inst.geraet, { sitzung: 'S1', vorlage: `V${i % 2}` }),
+          2000 + i * 20_000,
+          60,
+          zufall,
+        ),
+      );
+    await sitzungenNachtragen(db, inst, 'JETZT');
+    await buchen(db, inst, 300_000);
+    let n = 0;
+    const melder = { id: () => `W${String((n += 1)).padStart(4, '0')}`, tag: () => '2026-11-01' };
+    // Vor dem Bauen: ein Bauschritt im Vorrat
+    expect((await bastionAktualisieren(db, inst, melder)).vorrat).toBe(1);
+
+    const e = beginnen(
+      await bastion(db, inst.profil),
+      await konto(db, inst.profil),
+      'banner',
+      { pos: { x: 0, y: 0 } },
+      { profil: inst.profil, geraet: inst.geraet, id: 'V0001', jetzt: 400_000, tag: '2026-11-01' },
+    );
+    if (!e.ok) throw new Error(e.hindernisse.join());
+    const b = await bauSpeichern(db, inst, e, melder);
+    // Das Banner ist sofort fertig; die Fertigmeldung ist festgehalten
+    expect(b.bauwerke.some((x) => x.typ === 'banner')).toBe(true);
+    expect(b.fertig).toMatchObject([{ vorhaben: 'V0001', gemeldet: true }]);
+    expect((await bauEreignisse(db, inst.profil)).map((x) => x.aktion)).toEqual([
+      'beginnen',
+      'fertigstellen',
+    ]);
+    expect((await konto(db, inst.profil)).stand.stein).toBe(2);
+    expect(await konto(db, inst.profil)).toEqual(
+      kontoAus(inst.profil, await buchungen(db, inst.profil)),
+    );
+
+    // Neu berechnet ergibt sich dieselbe Bastion (D-6)
+    await neuBerechnen(db, inst.profil);
+    expect(await bastion(db, inst.profil)).toEqual(b);
+
+    // Sicherung trägt die Bau-Ereignisse mit
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((x) => x.art === 'bau')).toHaveLength(2);
+    const ziel = neueDb();
+    const z = await einrichten(ziel, 5000, quelleAusSeed(2));
+    await importieren(ziel, sicherung, z.profil, 6000);
+    expect(await bastion(ziel, inst.profil)).toEqual(b);
   });
 
   it('merkt sich die letzte Sicherung', async () => {

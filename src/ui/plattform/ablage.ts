@@ -31,6 +31,7 @@ import { istFaellig, type Karte } from '../../core/srs/karten';
 import { gruppiere, offeneFehler, type Fehlergruppe } from '../../core/learning/werkstatt';
 import {
   aufgaben,
+  bastionAktualisieren,
   buchen,
   buchungen,
   einrichten,
@@ -50,6 +51,7 @@ import {
   kompetenzStaende,
   speichereAufgabe,
   type Installation,
+  type Melder,
 } from '../../storage/ablage';
 import { BastionDatenbank } from '../../storage/datenbank';
 
@@ -70,7 +72,7 @@ function bereit(): Promise<Installation | undefined> {
     .then(async (inst) => {
       await sitzungenNachtragen(db, inst, sitzung).catch(() => 0);
       // Das Ledger bucht immer, auch bei abgeschaltetem Basebau (B-10)
-      await buchen(db, inst, Date.now()).catch(() => []);
+      await buchenUndBauen(inst);
       return inst;
     })
     .catch(() => undefined);
@@ -78,6 +80,18 @@ function bereit(): Promise<Installation | undefined> {
 }
 
 const versatz = (ts: number) => -new Date(ts).getTimezoneOffset();
+
+/** Neue IDs und Lerntage für Ereignisse, die die Ablage selbst schreibt. */
+const melder: Melder = {
+  id: () => ulid(Date.now(), zufall),
+  tag: (ts) => lerntag(ts, versatz(ts)),
+};
+
+/** Ledger buchen, dann die Bastion mit neuen Bauschritten fortschreiben. */
+async function buchenUndBauen(inst: Installation): Promise<void> {
+  await buchen(db, inst, Date.now()).catch(() => []);
+  await bastionAktualisieren(db, inst, melder).catch(() => undefined);
+}
 
 /** Laufende Sitzung abschließen und eine neue beginnen (nur wenn es Antworten gab). */
 async function sitzungAbschliessen(
@@ -89,7 +103,7 @@ async function sitzungAbschliessen(
   laufende = [];
   sitzung = ulid(Date.now(), zufall);
   await speichereSitzung(db, sitzungEreignis(fertig, abschluss)).catch(() => undefined);
-  await buchen(db, inst, Date.now()).catch(() => []);
+  await buchenUndBauen(inst);
 }
 
 /** „Fertig für heute“: Die Sitzung ist regulär beendet. */

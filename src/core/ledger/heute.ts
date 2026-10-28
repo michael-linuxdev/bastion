@@ -36,7 +36,11 @@ export function tagesertrag(
   aufgaben: readonly AufgabeEreignis[],
   tag: Tag,
 ): Tagesertrag {
-  const heute = buchungen.filter((b) => b.tag === tag && b.menge > 0);
+  // Nur Erarbeitetes – eine Erstattung nach Abbruch ist kein neuer Ertrag
+  const heute = buchungen.filter(
+    (b) =>
+      b.tag === tag && b.menge > 0 && (b.grund === 'sitzung' || b.grund === 'kompetenz-gefestigt'),
+  );
   const menge: Record<Ressource, number> = { stein: 0, erz: 0, bauplan: 0, bauschritt: 0 };
   let voll = 0;
   let halb = 0;

@@ -80,7 +80,7 @@ describe('Inhalt prüfen', () => {
     expect(inhaltPruefen({ format: FORMAT + 1, profile: [], ereignisse: [] })).toBe('zu-neu');
     for (const neu of [
       { ...ereignis, v: 99 },
-      { ...ereignis, art: 'bau' },
+      { ...ereignis, art: 'verdichtung' },
     ])
       expect(inhaltPruefen({ format: 1, profile: [profil], ereignisse: [neu] })).toBe('zu-neu');
   });
