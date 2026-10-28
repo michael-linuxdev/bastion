@@ -1,0 +1,28 @@
+# Winkel am Kreis: Thales, Zentri-Peripheriewinkel, Sehnenviereck. Entwurf: noch nicht geprüft.
+id: M.RF.KR.WINKELSAETZE.BERECHNEN
+kompetenz: M.RF.KR.WINKELSAETZE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kr.winkel-am-kreis@1
+parameter:
+  G: { saetze: [thales] }
+  M: { saetze: [zentri, sehnenviereck] }
+text:
+  aufgabe:
+    de: '**Berechne**: {frage} (in [[Grad]])'
+hilfen:
+  - de: '[[Satz des Thales]]: Liegt C auf dem Kreis über dem Durchmesser AB, ist der [[Winkel]] bei C ein [[rechter Winkel]].'
+  - de: 'Der [[Zentriwinkel]] ist doppelt so groß wie der [[Peripheriewinkel]] über derselben Sehne.'
+  - de: 'Im [[Sehnenviereck]] ergeben gegenüberliegende [[Winkel]] zusammen 180°.'
+fehlerbilder:
+  ohne-rechten-winkel:
+    de: 'Du hast den [[rechten Winkel]] bei C vergessen. Nach dem [[Satz des Thales]] ist er 90° groß – zieh ihn auch ab.'
+  halbiert-statt-verdoppelt:
+    de: 'Genau umgekehrt: Der [[Zentriwinkel]] bei M ist doppelt so groß wie der [[Peripheriewinkel]] auf dem Kreis.'
+  gleich-gesetzt:
+    de: 'Die beiden [[Winkel]] sind nicht gleich groß. Prüfe, welcher Satz hier gilt.'
+  voll-statt-gestreckt:
+    de: 'Gegenüberliegende [[Winkel]] im [[Sehnenviereck]] ergeben zusammen 180°, nicht 360°.'
+herkunft: ki-entwurf
+version: 1

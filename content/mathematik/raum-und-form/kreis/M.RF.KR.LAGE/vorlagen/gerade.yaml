@@ -1,0 +1,23 @@
+# Sekante, Tangente oder Passante? Entwurf: noch nicht geprüft.
+id: M.RF.KR.LAGE.GERADE
+kompetenz: M.RF.KR.LAGE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kr.kreis-gerade@1
+parameter:
+  G: { abstand: false }
+  M: { abstand: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: {frage}'
+hilfen:
+  - de: 'Zähle die gemeinsamen Punkte von [[Gerade]] und Kreis: zwei – [[Sekante]], einer – [[Tangente]], keiner – [[Passante]].'
+  - de: 'Mit Abstand d und [[Radius]] r: d < r – [[Sekante]], d = r – [[Tangente]], d > r – [[Passante]].'
+fehlerbilder:
+  sekante-tangente-verwechselt:
+    de: 'Eine [[Tangente]] berührt den Kreis nur in einem Punkt. Eine [[Sekante]] schneidet ihn in zwei Punkten.'
+  passante-verwechselt:
+    de: 'Eine [[Passante]] hat keinen gemeinsamen Punkt mit dem Kreis – sie geht vorbei.'
+herkunft: ki-entwurf
+version: 1

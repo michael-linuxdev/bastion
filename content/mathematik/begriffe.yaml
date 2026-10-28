@@ -732,3 +732,64 @@ begriffe:
     formen: [Wahrscheinlichkeit]
     erklaerung:
       de: 'Wie groß die Chance für ein Ereignis ist – eine Zahl von 0 (unmöglich) bis 1 (sicher). Bei gleich wahrscheinlichen Ergebnissen: günstige durch alle.'
+  # Klasse 7: Kreis und Begründen
+  - id: radius
+    wort: { de: Radius }
+    formen: [Radius]
+    erklaerung:
+      de: 'Der Abstand vom Mittelpunkt eines Kreises zu jedem Punkt auf dem Kreis.'
+  - id: sekante
+    wort: { de: Sekante }
+    formen: [Sekante]
+    erklaerung:
+      de: 'Eine Gerade, die einen Kreis in zwei Punkten schneidet.'
+  - id: tangente
+    wort: { de: Tangente }
+    formen: [Tangente]
+    erklaerung:
+      de: 'Eine Gerade, die einen Kreis in genau einem Punkt berührt. Sie steht senkrecht auf dem Radius zu diesem Punkt.'
+  - id: passante
+    wort: { de: Passante }
+    formen: [Passante]
+    erklaerung:
+      de: 'Eine Gerade, die am Kreis vorbeigeht – ohne gemeinsamen Punkt.'
+  - id: thales
+    wort: { de: Satz des Thales }
+    formen: [Satz des Thales]
+    erklaerung:
+      de: 'Liegt der Punkt C auf einem Kreis mit dem Durchmesser AB, dann ist der Winkel bei C im Dreieck ABC ein rechter Winkel.'
+  - id: zentriwinkel
+    wort: { de: Zentriwinkel }
+    formen: [Zentriwinkel]
+    erklaerung:
+      de: 'Ein Winkel mit der Ecke im Mittelpunkt des Kreises. Seine Schenkel gehen zu zwei Punkten auf dem Kreis.'
+  - id: peripheriewinkel
+    wort: { de: Peripheriewinkel }
+    formen: [Peripheriewinkel]
+    erklaerung:
+      de: 'Ein Winkel mit der Ecke auf dem Kreis. Seine Schenkel gehen zu zwei anderen Punkten auf dem Kreis.'
+  - id: sehnenviereck
+    wort: { de: Sehnenviereck }
+    formen: [Sehnenviereck]
+    erklaerung:
+      de: 'Ein Viereck, dessen vier Ecken alle auf einem Kreis liegen.'
+  - id: voraussetzung
+    wort: { de: Voraussetzung }
+    formen: [Voraussetzung]
+    erklaerung:
+      de: 'Der Teil eines Satzes nach „Wenn“: Das muss gelten, damit der Satz etwas sagt.'
+  - id: behauptung
+    wort: { de: Behauptung }
+    formen: [Behauptung]
+    erklaerung:
+      de: 'Der Teil eines Satzes nach „dann“: Das folgt aus der Voraussetzung.'
+  - id: umkehrung
+    wort: { de: Umkehrung }
+    formen: [Umkehrung]
+    erklaerung:
+      de: 'Der Satz, bei dem Voraussetzung und Behauptung die Plätze tauschen. Sie kann wahr oder falsch sein.'
+  - id: gegenbeispiel
+    wort: { de: Gegenbeispiel }
+    formen: [Gegenbeispiel]
+    erklaerung:
+      de: 'Ein Beispiel, das zeigt: Eine Aussage über „jede“ Zahl oder Figur stimmt nicht.'
