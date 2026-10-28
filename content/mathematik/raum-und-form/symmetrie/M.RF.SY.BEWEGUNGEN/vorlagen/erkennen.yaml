@@ -18,6 +18,6 @@ fehlerbilder:
   spiegelung-verschiebung-verwechselt:
     de: 'Bei einer [[Verschiebung]] bleibt alles gleich ausgerichtet. Ist die Figur umgeklappt, wurde gespiegelt.'
   drehung-spiegelung-verwechselt:
-    de: 'Gespiegelt und gedreht sehen ähnlich aus. Bei einer [[Drehung]] steht die Figur auf dem Kopf, bei einer [[Spiegelung]] ist sie seitenverkehrt.'
+    de: 'Gespiegelt und gedreht sehen fast gleich aus. Bei einer [[Drehung]] steht die Figur auf dem Kopf, bei einer [[Spiegelung]] ist sie seitenverkehrt.'
 herkunft: ki-entwurf
 version: 1

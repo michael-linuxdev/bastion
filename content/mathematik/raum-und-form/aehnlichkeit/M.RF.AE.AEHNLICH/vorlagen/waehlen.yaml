@@ -1,0 +1,22 @@
+# Welche Figur ist ähnlich? Entwurf: noch nicht geprüft.
+id: M.RF.AE.AEHNLICH.WAEHLEN
+kompetenz: M.RF.AE.AEHNLICH
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: ae.aehnlich-waehlen@1
+parameter:
+  G: { winkel: false }
+  M: { winkel: true }
+text:
+  aufgabe:
+    de: '**Wähle** die Figur **aus**, die [[ähnlich]] ist zum {figur}.'
+hilfen:
+  - de: 'Teile jede neue Seite durch die passende alte. Bei der [[ähnlichen]] Figur kommt jedes Mal dieselbe Zahl heraus.'
+fehlerbilder:
+  gleich-viel-dazu:
+    de: 'Hier ist zu jeder Seite gleich viel dazugekommen. Ähnlich heißt: Jede Seite ist mit demselben [[Faktor]] malgenommen.'
+  nur-eine-seite:
+    de: 'Hier sind nicht alle Seiten mit demselben [[Faktor]] gestreckt.'
+herkunft: ki-entwurf
+version: 1

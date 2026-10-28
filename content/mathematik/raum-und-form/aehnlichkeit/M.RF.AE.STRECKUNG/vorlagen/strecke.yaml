@@ -1,0 +1,25 @@
+# Bildstrecke und Streckfaktor. Entwurf: noch nicht geprüft.
+id: M.RF.AE.STRECKUNG.STRECKE
+kompetenz: M.RF.AE.STRECKUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: ae.bildstrecke@1
+parameter:
+  G: { faktor_gesucht: false }
+  M: { faktor_gesucht: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Bei einer [[zentrischen Streckung]] wird jede Länge mit dem [[Streckfaktor]] k malgenommen.'
+  - de: 'Rückwärts: k = Bildstrecke : Originalstrecke.'
+fehlerbilder:
+  geteilt-statt-mal:
+    de: 'Du hast durch k geteilt. Die Bildstrecke ist k-mal so lang wie die Originalstrecke.'
+  addiert:
+    de: 'Der [[Streckfaktor]] wird nicht addiert, sondern malgenommen.'
+  kehrwert:
+    de: 'Du hast Original durch Bild gerechnet. Der [[Streckfaktor]] ist Bild durch Original.'
+herkunft: ki-entwurf
+version: 1

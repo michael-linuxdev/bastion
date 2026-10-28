@@ -1,0 +1,23 @@
+# Fehlende Seite ähnlicher Dreiecke. Entwurf: noch nicht geprüft.
+id: M.RF.AE.BERECHNEN.SEITE
+kompetenz: M.RF.AE.BERECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: ae.fehlende-seite@1
+parameter:
+  G: { krumm: false }
+  M: { krumm: true }
+text:
+  aufgabe:
+    de: '**Rechne**: {aufgabe}'
+hilfen:
+  - de: 'Bestimme zuerst den [[Streckfaktor]] k aus den Seiten, die du von beiden Dreiecken kennst.'
+  - de: 'Dann ist jede Bildseite k-mal so lang wie die Originalseite.'
+fehlerbilder:
+  differenz-addiert:
+    de: 'Du hast den Unterschied addiert. Bei [[ähnlichen]] Dreiecken wird malgenommen, nicht addiert.'
+  kehrwert:
+    de: 'Du hast durch k geteilt. Die Bildseite ist k-mal so lang wie die Originalseite.'
+herkunft: ki-entwurf
+version: 1

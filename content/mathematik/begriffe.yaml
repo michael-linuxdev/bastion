@@ -933,3 +933,29 @@ begriffe:
     formen: [Mantelrechtecks, Mantelrechteck, Mantels, Mantel]
     erklaerung:
       de: 'Die gebogene Seitenfläche eines Zylinders. Abgerollt ist sie ein Rechteck: so lang wie der Kreisumfang, so hoch wie der Zylinder.'
+  # Klasse 8: Ähnlichkeit
+  - id: zentrische-streckung
+    wort: { de: zentrische Streckung }
+    formen: [zentrische Streckung, zentrischen Streckung, zentrisch]
+    erklaerung:
+      de: 'Eine Figur wird von einem festen Punkt Z aus vergrößert oder verkleinert. Jeder Punkt wandert auf seinem Strahl von Z weg oder zu Z hin.'
+  - id: streckfaktor
+    wort: { de: Streckfaktor }
+    formen: [Streckfaktor, Streckfaktoren]
+    erklaerung:
+      de: 'Die Zahl k, mit der alle Längen malgenommen werden. k > 1 vergrößert, k zwischen 0 und 1 verkleinert.'
+  - id: streckzentrum
+    wort: { de: Streckzentrum }
+    formen: [Streckzentrum]
+    erklaerung:
+      de: 'Der feste Punkt Z, von dem aus gestreckt wird. Er selbst bleibt an seinem Platz.'
+  - id: aehnlich
+    wort: { de: ähnlich }
+    formen: [ähnlich, ähnliche, ähnlichen, Ähnlichkeit]
+    erklaerung:
+      de: 'Zwei Figuren sind ähnlich, wenn die eine eine vergrößerte oder verkleinerte Kopie der anderen ist: gleiche Winkel, alle Seiten mit demselben Faktor gestreckt.'
+  - id: hauptaehnlichkeitssatz
+    wort: { de: Hauptähnlichkeitssatz }
+    formen: [Hauptähnlichkeitssatz]
+    erklaerung:
+      de: 'Zwei Dreiecke sind ähnlich, wenn sie in zwei Winkeln übereinstimmen. Der dritte Winkel ist dann von selbst gleich.'

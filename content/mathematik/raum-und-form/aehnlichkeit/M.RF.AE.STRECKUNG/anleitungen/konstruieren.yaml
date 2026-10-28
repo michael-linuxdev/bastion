@@ -1,0 +1,18 @@
+# Zentrische Streckung konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.AE.STRECKUNG.KONSTRUIEREN
+kompetenz: M.RF.AE.STRECKUNG
+titel:
+  de: 'Ein Dreieck [[zentrisch]] strecken'
+material:
+  de: 'Papier, spitzer Bleistift, [[Geodreieck]] oder Lineal, [[Zirkel]]'
+bilder: anleitung.zentrische-streckung@1
+schritte:
+  - de: 'Zeichne das Dreieck ABC und markiere das [[Streckzentrum]] Z.'
+  - de: 'Zeichne von Z aus Strahlen durch A, B und C – über die Punkte hinaus.'
+  - de: 'Miss die Strecke von Z bis A und nimm sie mit dem [[Streckfaktor]] mal, hier k = 2. Trage die neue Länge von Z aus auf dem Strahl ab: Dort liegt A′. Genauso für B′ und C′.'
+  - de: 'Verbinde A′, B′ und C′. Das Bilddreieck ist [[ähnlich]] zum Original, seine Seiten sind doppelt so lang.'
+pruefen:
+  - de: 'Liegen Z, A und A′ auf einer [[Geraden]]?'
+  - de: 'Ist jede Bildseite [[parallel]] zur Originalseite und k-mal so lang?'
+herkunft: ki-entwurf
+version: 1
