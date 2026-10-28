@@ -129,6 +129,20 @@ describe('gefestigt und auffrischen (LEHRPLAN §6)', () => {
   });
 });
 
+describe('Diagnose (LEHRPLAN §7)', () => {
+  it('zwei richtige aus zwei Vorlagen: gekonnt, aber nicht gefestigt', () => {
+    const d = { modus: 'diagnose' as const, bewertung: null, sitzung: 'D1' };
+    expect(folge([d, { ...d, vorlage: 'K.B' }])?.status).toBe('gekonnt');
+  });
+  it('eine falsche ist erlaubt, zwei nicht; andere Sitzung zählt neu', () => {
+    const d = { modus: 'diagnose' as const, bewertung: null, sitzung: 'D1' };
+    const f = { ...d, ergebnis: 'falsch' as const };
+    expect(folge([d, f, { ...d, vorlage: 'K.B' }])?.status).toBe('gekonnt');
+    expect(folge([f, f, d, { ...d, vorlage: 'K.B' }])?.status).toBe('in-arbeit');
+    expect(folge([d, { ...d, sitzung: 'D2', vorlage: 'K.B' }])?.status).toBe('in-arbeit');
+  });
+});
+
 describe('Pflicht-Test D-6: fortgeschrieben = neu aufgebaut', () => {
   it('für zufällige Ereignisfolgen über mehrere Wochen', () => {
     const arb = fc.array(
@@ -139,6 +153,7 @@ describe('Pflicht-Test D-6: fortgeschrieben = neu aufgebaut', () => {
         ergebnis: fc.constantFrom('richtig' as const, 'falsch' as const, 'uebersprungen' as const),
         hilfen: fc.integer({ min: 0, max: 2 }),
         faellig: fc.boolean(),
+        modus: fc.constantFrom('ueben' as const, 'diagnose' as const),
         abstand: fc.integer({ min: 0, max: 5 * TAG }),
       }),
       { maxLength: 60 },

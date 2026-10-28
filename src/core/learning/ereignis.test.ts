@@ -79,4 +79,10 @@ describe('aufgabeEreignis', () => {
     const nachts = aufgabeEreignis(basis, Date.UTC(2026, 9, 28, 1, 30), 60, quelleAusSeed(1));
     expect(nachts.tag).toBe('2026-10-27');
   });
+
+  it('Diagnose-Aufgaben bekommen keine FSRS-Bewertung', () => {
+    expect(
+      aufgabeEreignis({ ...basis, modus: 'diagnose' }, TS, 60, quelleAusSeed(1)).bewertung,
+    ).toBeNull();
+  });
 });
