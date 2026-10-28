@@ -13,13 +13,13 @@ text:
     de: '**Entscheide**: Stimmt die Aussage? „{aussage}“'
 hilfen:
   - de: 'Die [[natürlichen Zahlen]] stecken in den [[ganzen Zahlen]], die ganzen in den [[rationalen Zahlen]].'
-  - de: 'Eine Aussage über „jede Zahl“ stimmt nicht, wenn du ein einziges Gegenbeispiel findest.'
+  - de: 'Eine Aussage über „jede Zahl“ stimmt nicht, wenn du ein einziges [[Gegenbeispiel]] findest.'
   - de: 'Die Schnittmenge enthält nur, was in beiden Mengen liegt. Die Vereinigungsmenge enthält alles aus beiden.'
 fehlerbilder:
   falsch-geglaubt:
-    de: 'Die Aussage stimmt. Suche ein Gegenbeispiel – du wirst keines finden.'
+    de: 'Die Aussage stimmt. Suche ein [[Gegenbeispiel]] – du wirst keines finden.'
   teilmenge-verdreht:
-    de: 'Es ist umgekehrt: −3 ist eine [[ganze Zahl]], aber keine [[natürliche Zahl]]; 1/2 ist eine [[rationale Zahl]], aber keine ganze. Ein Gegenbeispiel genügt.'
+    de: 'Es ist umgekehrt: −3 ist eine [[ganze Zahl]], aber keine [[natürliche Zahl]]; 1/2 ist eine [[rationale Zahl]], aber keine ganze. Ein [[Gegenbeispiel]] genügt.'
   negativ-gebrochen:
     de: 'Die [[gebrochenen Zahlen]] haben kein Minus. −1/2 ist eine [[rationale Zahl]], aber keine gebrochene.'
   kleinste-zahl:

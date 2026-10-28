@@ -401,3 +401,53 @@ export const schraegbildPrisma: AnleitungsBilder = {
     ];
   },
 };
+
+/** Umkreis eines Dreiecks: zwei Mittelsenkrechten, Schnittpunkt M, Kreis um M durch A */
+export const umkreis: AnleitungsBilder = {
+  id: 'anleitung.umkreis',
+  version: 1,
+  bilder: () => {
+    type P = readonly [number, number];
+    const A: P = [60, 210];
+    const B: P = [240, 210];
+    const C: P = [130, 80];
+    // Mittelsenkrechte von AB: x = 150; von BC: durch die Mitte von BC, senkrecht zu BC
+    const mBC: P = [(B[0] + C[0]) / 2, (B[1] + C[1]) / 2];
+    const [dx, dy] = [C[0] - B[0], C[1] - B[1]];
+    const laenge = Math.hypot(dx, dy);
+    const senk: P = [-dy / laenge, dx / laenge];
+    const t = (150 - mBC[0]) / senk[0]; // Schnitt mit x = 150
+    const M: P = [150, mBC[1] + t * senk[1]];
+    const radius = Math.hypot(A[0] - M[0], A[1] - M[1]);
+    const dreieck = [
+      linie(A[0], A[1], B[0], B[1]),
+      linie(B[0], B[1], C[0], C[1]),
+      linie(C[0], C[1], A[0], A[1]),
+      punkt(A[0], A[1], 'A'),
+      punkt(B[0], B[1], 'B'),
+      punkt(C[0], C[1], 'C'),
+    ];
+    const msAB = gestrichelt(150, 50, 150, 300);
+    const msBC = gestrichelt(
+      mBC[0] - 120 * senk[0],
+      mBC[1] - 120 * senk[1],
+      mBC[0] + 90 * senk[0],
+      mBC[1] + 90 * senk[1],
+    );
+    const mPunkt = kreis(M[0], M[1], 3.5, true) + text(M[0] + 14, M[1] + 4, 'M', 14);
+    return [
+      bild(300, 320, [...dreieck, msAB, rechterWinkel(150, 210, 10, -10)], {
+        de: 'Ein Dreieck ABC. Die Mittelsenkrechte von AB ist eingezeichnet: Sie steht senkrecht in der Mitte von AB.',
+      }),
+      bild(300, 320, [...dreieck, msAB, msBC], {
+        de: 'Dazu ist die Mittelsenkrechte von BC eingezeichnet.',
+      }),
+      bild(300, 320, [...dreieck, msAB, msBC, mPunkt], {
+        de: 'Die beiden Mittelsenkrechten schneiden sich im Punkt M.',
+      }),
+      bild(300, 320, [...dreieck, mPunkt, kreis(M[0], M[1], radius)], {
+        de: 'Um M ist ein Kreis gezeichnet. Er geht durch alle drei Ecken A, B und C – das ist der Umkreis.',
+      }),
+    ];
+  },
+};

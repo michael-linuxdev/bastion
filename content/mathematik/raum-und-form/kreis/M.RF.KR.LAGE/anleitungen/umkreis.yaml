@@ -1,0 +1,18 @@
+# Umkreis eines Dreiecks konstruieren (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KR.LAGE.UMKREIS
+kompetenz: M.RF.KR.LAGE
+titel:
+  de: 'Den [[Umkreis]] eines Dreiecks konstruieren'
+material:
+  de: 'Papier, spitzer Bleistift, Lineal, [[Zirkel]], [[Geodreieck]]'
+bilder: anleitung.umkreis@1
+schritte:
+  - de: 'Zeichne ein Dreieck ABC. Konstruiere die [[Mittelsenkrechte]] der Seite AB – wie in der Anleitung zur Mittelsenkrechten.'
+  - de: 'Konstruiere genauso die [[Mittelsenkrechte]] der Seite BC.'
+  - de: 'Die beiden Mittelsenkrechten schneiden sich in einem Punkt. Nenne ihn M. Er ist von A, B und C gleich weit entfernt.'
+  - de: 'Stich mit dem [[Zirkel]] in M ein und stelle ihn auf die Entfernung bis A ein. Zeichne den Kreis. Er geht durch alle drei Ecken: Das ist der [[Umkreis]].'
+pruefen:
+  - de: 'Geht dein Kreis wirklich durch A, B und C? Wenn nicht, ist eine [[Mittelsenkrechte]] ungenau.'
+  - de: 'Zeichne zur [[Probe]] auch die dritte [[Mittelsenkrechte]] (von CA). Sie muss ebenfalls durch M gehen.'
+herkunft: ki-entwurf
+version: 1

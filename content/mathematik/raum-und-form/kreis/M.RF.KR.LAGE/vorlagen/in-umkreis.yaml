@@ -1,0 +1,25 @@
+# Mittelpunkt von Inkreis und Umkreis. Entwurf: noch nicht geprüft.
+id: M.RF.KR.LAGE.IN-UMKREIS
+kompetenz: M.RF.KR.LAGE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kr.in-umkreis@1
+parameter:
+  G: { lage: false }
+  M: { lage: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: {frage}'
+hilfen:
+  - de: 'Der [[Umkreis]] geht durch alle drei Ecken. Sein Mittelpunkt ist von den Ecken gleich weit weg – wie jeder Punkt auf einer [[Mittelsenkrechte]].'
+  - de: 'Der [[Inkreis]] berührt alle drei Seiten. Sein Mittelpunkt ist von den Seiten gleich weit weg – wie jeder Punkt auf einer [[Winkelhalbierende]].'
+fehlerbilder:
+  in-um-verwechselt:
+    de: '[[Inkreis]] und [[Umkreis]] sind verwechselt. Um: durch die Ecken (Mittelsenkrechten). In: an den Seiten ([[Winkelhalbierende]]).'
+  andere-linie:
+    de: 'Diese Linien schneiden sich auch in einem Punkt, aber der ist nicht der Mittelpunkt von [[Inkreis]] oder [[Umkreis]].'
+  immer-innen:
+    de: 'Der Mittelpunkt vom [[Umkreis]] liegt nur beim spitzwinkligen Dreieck innen. Beim rechtwinkligen liegt er auf der längsten Seite, beim stumpfwinkligen außerhalb.'
+herkunft: ki-entwurf
+version: 1

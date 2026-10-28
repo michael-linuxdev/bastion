@@ -1,0 +1,21 @@
+# „Welches Beispiel widerlegt die Aussage?“ Entwurf: noch nicht geprüft.
+id: M.RF.KR.BEGRUENDEN.GEGENBEISPIEL
+kompetenz: M.RF.KR.BEGRUENDEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kr.gegenbeispiel@1
+parameter:
+  G: { geometrie: false }
+  M: { geometrie: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: Welches Beispiel widerlegt die Aussage „{aussage}“?'
+hilfen:
+  - de: 'Ein [[Gegenbeispiel]] erfüllt die Bedingung der Aussage, aber nicht das, was behauptet wird.'
+  - de: 'Ein einziges [[Gegenbeispiel]] genügt, um eine Aussage über „jede“ Zahl oder Figur zu widerlegen.'
+fehlerbilder:
+  bestaetigt-statt-widerlegt:
+    de: 'Dieses Beispiel passt zur Aussage – es bestätigt sie nur. Gesucht ist ein Beispiel, für das die Aussage **nicht** gilt.'
+herkunft: ki-entwurf
+version: 1

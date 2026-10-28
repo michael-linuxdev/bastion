@@ -1,0 +1,25 @@
+# Voraussetzung, Behauptung, Umkehrung. Entwurf: noch nicht geprüft.
+id: M.RF.KR.BEGRUENDEN.SATZBAU
+kompetenz: M.RF.KR.BEGRUENDEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: kr.satzbau@1
+parameter:
+  G: { umkehrung: false }
+  M: { umkehrung: true }
+text:
+  aufgabe:
+    de: '**Entscheide**: {frage}'
+hilfen:
+  - de: 'Im Satz „Wenn …, dann …“ steht die [[Voraussetzung]] nach „Wenn“, die [[Behauptung]] nach „dann“.'
+  - de: 'Bei der [[Umkehrung]] tauschen [[Voraussetzung]] und [[Behauptung]] die Plätze. Sie kann stimmen – muss aber nicht.'
+fehlerbilder:
+  voraussetzung-behauptung-vertauscht:
+    de: '[[Voraussetzung]] und [[Behauptung]] sind vertauscht. Die Voraussetzung steht nach „Wenn“.'
+  umkehrung-gleich-satz:
+    de: 'Aus einem wahren Satz folgt nicht, dass auch die [[Umkehrung]] wahr ist. Suche ein [[Gegenbeispiel]]: Eine [[Raute]] hat vier gleich lange Seiten, ist aber kein Quadrat.'
+  umkehrung-zu-streng:
+    de: 'Hier stimmt die [[Umkehrung]] tatsächlich. Versuch ein [[Gegenbeispiel]] zu finden – es gibt keines.'
+herkunft: ki-entwurf
+version: 1
