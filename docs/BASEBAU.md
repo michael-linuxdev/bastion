@@ -279,6 +279,8 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-14 | Erste Gebäude in der Umsetzung: **Banner und Späherturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-15 | Der Turm heißt **Späherturm**, nicht „Wachturm“ – wegen der Nähe zur Zeitschrift „Der Wachtturm“ der Zeugen Jehovas. Gebäudenamen dürfen keinen erkennbaren Bezug zu Religionsgemeinschaften, Parteien, Marken oder anderen Spielen haben | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-16 | Die „Bauhütte“ heißt **Zimmerei** – „Bauhütte“ ist zu nah an einem Gebäude aus „Clash of Clans“ (B-15 gilt auch für andere Spiele) | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-17 | **Drei Ebenen:** Mechanik (Rollen, Kosten, Stufen, Regeln) – **Thema** (was eine Rolle ist: Namen von Gebäuden, Ressourcen, Epochen, Bildern) – **Skin** (Aussehen des Spielfelds, z. B. saisonal). Alle Themen haben **dieselbe Mechanik**; ein Thema ist reine Darstellung. Das Kind wählt das Thema und kann jederzeit kostenlos und ohne Verlust wechseln. Themen zum Start: **Bastion, Garten, Weltraum, Dorf, Unterwasser**. Ressourcen heißen je Thema anders | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-18 | Skins sind nie Belohnung und nie knapp: Nichts gibt es „nur jetzt“ (R1, Prinzip 6). Ein saisonaler Skin darf sich nach dem Kalender einschalten. Skins wirken als Farbpalette mit wenigen Auflagen über jedem Thema, damit der Grafikaufwand nicht mit der Zahl der Themen wächst | Vorgeschlagen |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -305,6 +307,15 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 | 2.10 ✅ | **Ende der Epoche 1** | Bergfried 3 und 15 erworbene Baupläne: „Epoche 1 geschafft“; Epoche 2 wird nicht gebaut, fertig sein ist erlaubt (§9 Punkt 3); Rückkehr-Begrüßung „Deine Bastion hat gewartet“ (§6.3) | Einheitentests |
 
 *Umsetzung 2.8:* `src/ui/bastion/Bastion.svelte`, auf der Startseite der Knopf „Bastion“ (nur bei eingeschaltetem Basebau). Von oben nach unten: Vorrat (Stein, Erz, Baupläne, Bauschritte im Vorrat), „Im Bau“ mit Fortschrittsbalken und „Abbrechen“, „Neu bauen“ (Banner und Späherturm zuerst, B-14) und „Ausbauen“ mit Zweck, Kosten und den Gründen, warum etwas gerade nicht geht, „Deine Gebäude“ mit Feld und „Versetzen“ (Spalte und Reihe wählen), „Fertig geworden“ als kleine Geschichte. Ein Neubau kommt auf das erste freie Feld; versetzen lässt er sich danach kostenlos. Der volle Bauplatz steht einmal über der Liste, fehlende Ressourcen stehen in einer Zeile („Dafür reicht es noch nicht: Stein, Erz“). Keine Zähler „noch X …“ (R5).
+
+### Zwischenschritt – Themen (B-17)
+
+| Nr. | Schritt | Kern der Sache | Prüfung |
+|---|---|---|---|
+| 2.10a | **Rollen statt Burg-Wörter** im Code | Gebäude-Kennungen werden Rollen (`kern`, `werkstatt`, `wissen`, `turm`, `eingang`, `einfassung`, `ursprung`, `zeichen`, `flaeche`, `denkmal`), Ressourcen werden `fleiss`, `behalten`, `koennen`, `schritt`. Jetzt günstig: Es gibt noch keine echten Bau-Daten | alle Tests unverändert grün |
+| 2.10b | **Themen und Wahl** | Namen je Thema in der Textdatei (`thema.<thema>.…`), Einstellung `basebau.thema` (Standard Bastion), Wahl in der Bastion und in „Mein Stand“; Abschluss, Liste und Begrüßung sprechen die Sprache des Themas | Test: jedes Thema hat jeden Namen; Wechsel ändert nur Wörter |
+
+Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je Thema und Skin austauschbar. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.
 
 ### Stufe C – Balancing
 
