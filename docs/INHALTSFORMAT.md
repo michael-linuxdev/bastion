@@ -217,6 +217,7 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 - Dezimaltrennzeichen ist das **Komma**. Ein **Punkt wird als Dezimaltrennzeichen akzeptiert** – mit dem freundlichen Hinweis, dass man im Deutschen ein Komma schreibt.
 - **Tausendertrennzeichen werden nicht akzeptiert** (weder Punkt noch Leerzeichen innerhalb der Zahl).
 - Leerzeichen am Rand, führende Nullen und ein überflüssiges `+` werden ignoriert.
+- **Negative Zahlen** (ab Klasse 7): `-` und `−` gelten beide als Minus. Weil die Zahlentastaturen auf dem Handy oft kein Minus haben, setzt ein Generator `vorzeichen: true` für **jede** Instanz, deren Antwort negativ sein *kann*. Dann steht neben jedem Zahlenfeld (Ergebnis, Zähler, x und y) ein Knopf „±“, der das Minus vorn setzt oder entfernt. Weil der Knopf bei allen Aufgaben des Generators erscheint, verrät er nichts über die Lösung.
 
 *Warum:* Viele Jugendliche mit DaZ kennen den Dezimalpunkt. Sie dafür als falsch zu werten, misst Konvention statt Mathematik. Tausenderpunkte würden dagegen Mehrdeutigkeit erzeugen („3.500“).
 
@@ -238,6 +239,7 @@ export interface Instanz {
   loesungsweg: Schritt[];                // für Anzeige nach der Antwort
   fehlerbilder?: Fehlerbild[];           // erwartbare falsche Antworten
   optionen?: Option[];                   // bei auswahl / fehler-finden
+  vorzeichen?: boolean;                  // Antwort kann negativ sein → Knopf „±“ (§5.1)
 }
 
 export interface Fehlerbild {

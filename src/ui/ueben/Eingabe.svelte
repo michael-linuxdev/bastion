@@ -34,6 +34,10 @@
 
   const art = $derived(instanz.loesung.typ);
 
+  /** Minus vorn setzen oder entfernen – für Tastaturen ohne Minustaste (Instanz.vorzeichen) */
+  const umgedreht = (s: string) =>
+    /^\s*[-−]/.test(s) ? s.replace(/^\s*[-−]/, '') : `−${s.trim()}`;
+
   function zahlen(...gelesen: Gelesen<number>[]): number[] | undefined {
     for (const g of gelesen) {
       if (!g.ok) {
@@ -87,6 +91,16 @@
   }
 </script>
 
+{#snippet plusMinus(nr: 1 | 2)}
+  <button
+    type="button"
+    class="vorzeichen"
+    disabled={gesperrt}
+    aria-label={t('eingabe.vorzeichen')}
+    onclick={() => (nr === 1 ? (feld1 = umgedreht(feld1)) : (feld2 = umgedreht(feld2)))}>±</button
+  >
+{/snippet}
+
 <form onsubmit={pruefen} class="eingabe" id="antwort">
   {#if art === 'auswahl'}
     <fieldset class="optionen" class:bilder={instanz.optionen?.some((o) => o.bild)}>
@@ -136,7 +150,7 @@
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
-        /></label
+        />{#if instanz.vorzeichen}{@render plusMinus(1)}{/if}</label
       >
       <label
         ><span class="unsichtbar">{t('eingabe.nenner')}</span>
@@ -157,7 +171,7 @@
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
-        /></label
+        />{#if instanz.vorzeichen}{@render plusMinus(1)}{/if}</label
       >
       |
       <label
@@ -167,7 +181,7 @@
           autocomplete="off"
           bind:value={feld2}
           disabled={gesperrt}
-        /></label
+        />{#if instanz.vorzeichen}{@render plusMinus(2)}{/if}</label
       >)
     </span>
   {:else if art === 'mit-rest'}
@@ -200,6 +214,9 @@
         bind:value={feld1}
         disabled={gesperrt}
       />
+      {#if instanz.vorzeichen && typ !== 'faktoren-eingabe' && typ !== 'uhrzeit-eingabe'}
+        {@render plusMinus(1)}
+      {/if}
     </label>
     {#if typ === 'faktoren-eingabe'}<p class="hinweis">{t('eingabe.faktoren-hinweis')}</p>{/if}
     {#if typ === 'uhrzeit-eingabe'}<p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>{/if}
@@ -227,6 +244,13 @@
 
   input:focus-visible {
     outline: 3px solid var(--farbe-akzent);
+  }
+
+  .vorzeichen {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    margin-inline-start: var(--abstand-s);
+    font-size: 1.25rem;
   }
 
   .bruchfelder {

@@ -498,5 +498,6 @@
   "farbe.schwarz": "Schwarz",
   "bastion.zoom": "Größe des Bildes",
   "bastion.zoom-kleiner": "Verkleinern",
-  "bastion.zoom-groesser": "Vergrößern"
+  "bastion.zoom-groesser": "Vergrößern",
+  "eingabe.vorzeichen": "Minus setzen oder entfernen"
 }
