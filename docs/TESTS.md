@@ -58,7 +58,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 3. Welche Daten entstehen:
    - In der App: alles bleibt auf dem Gerät. Die App sendet nichts.
    - Gesprächsnotizen: handschriftlich bzw. lokal, nur mit **Teilnehmer-Nummer**, ohne Namen.
-   - Nur falls K-14 beschlossen ist: ein freiwilliger **Studienbericht** mit zusammengefassten Zahlen (z. B. Lerntage pro Woche), den Sie/Ihr Kind vorher im Klartext sehen und selbst weitergeben.
+   - Ein **Testprotokoll** (K-14), nur wenn Sie es im Elternbereich mit dem Testcode einschalten. Es enthält, welche Aufgaben bearbeitet wurden, Antworten bei Fehlern, welche Seiten geöffnet wurden und wie lange. Es enthält keinen Namen und keinen Spitznamen, nur die Teilnehmer-Nummer. Die App zeigt es Ihnen und Ihrem Kind vorher lesbar an. Sie geben die Datei selbst weiter. Ausschalten und Löschen geht jederzeit.
    - Keine Fotos, keine Ton- oder Videoaufnahmen.
 4. Wer sieht die Daten: nur der Projektverantwortliche. Veröffentlicht werden nur zusammengefasste Ergebnisse ohne Personenbezug (z. B. „5 von 9 sagten …“) und einzelne Zitate ohne Namen, Alter in Klassenstufe, ohne Schule.
 5. Widerruf: jederzeit ohne Begründung; Notizen werden dann gelöscht.

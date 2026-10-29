@@ -168,6 +168,14 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 
 *Warum Vorschlag statt Entscheidung:* Es ist die erste Funktion, deren Zweck Daten für das Projekt sind. Das braucht eine bewusste Entscheidung und einen Eintrag in `DATENMODELL.md` (Datenschutzprüfung §10), bevor sie gebaut wird.
 
+**Entschieden am 29.10.2026 (Projektverantwortlicher), ausführlicher als vorgeschlagen: Testprotokoll.** Für die Testphase braucht es mehr als zusammengefasste Zahlen, nämlich das tatsächliche Nutzungsverhalten.
+
+- **Inhalt:** alle Lernereignisse (Aufgaben mit Antworten bei Fehlern, Hilfen, Zwischenschritte, Vermittlung, Sitzungen) und zusätzlich ein **Nutzungsprotokoll**: welche Ansicht wann geöffnet wurde, Abbrüche, „Weiter ohne Weg“, Verweildauer je Ansicht. Kein Spitzname, keine Geräte-ID, keine Eingaben außerhalb von Aufgaben. Statt einer Person steht die Teilnehmer-Nummer darin.
+- **Einschalten:** nur im Elternbereich (hinter der PIN) mit Testcode und Teilnehmer-Nummer. Erst dann wird mitgeschrieben. Solange es läuft, steht ein sichtbarer Hinweis in der App: „Testphase: Die Nutzung wird auf diesem Gerät protokolliert.“ Man kann es jederzeit ausschalten und das Protokoll löschen.
+- **Weitergabe:** Die App sendet weiterhin nichts. „Testprotokoll exportieren“ zeigt den Inhalt zuerst lesbar an und speichert dann eine **unverschlüsselte JSON-Datei**, die man selbst weitergibt.
+- **Zeitpunkt:** Gebaut wird es nach U3 und vor dem Test mit den Testerinnen (PLAN U4a).
+- Einzelheiten stehen in `DATENMODELL.md` §4.8 (D-18), in §10 und in `TESTS.md` §3.
+
 ## 8. Die nächsten 14 Tage
 
 | Nr. | Schritt | Stand |
@@ -189,7 +197,7 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis zur Schwelle „Lernkern trägt“ | Entschieden (27.10.2026), *Grenze aufgehoben durch K-18* |
 | K-18 | Epoche 1 vollständig und mit Grafik bauen, vor Klasse 7 | Entschieden (28.10.2026) |
 | K-13 | Erfolgskriterien E1–E3 für Oktober 2027, keine Vanity-Metrics | Entschieden (27.10.2026) |
-| K-14 | Freiwilliger Studienbericht als einzige Messquelle für E1/E2 | Vorgeschlagen |
+| K-14 | Freiwilliges Testprotokoll als einzige Messquelle für E1/E2: Lernereignisse und Nutzungsprotokoll, nur mit Testcode im Elternbereich, Export als JSON-Datei mit Vorschau (§7) | Entschieden (29.10.2026, Projektverantwortlicher; ausführlicher als der Vorschlag „Studienbericht“) |
 | K-19 | **Nach Klasse 12: Mathe im Studium** (erweitert K-11). Reihenfolge: Brückenkurs vor dem Studium → Mathe für Ingenieure, Naturwissenschaften und Wirtschaft → Mathematik Bachelor und Lehramt (Analysis, Lineare Algebra) → darüber hinaus bis zur Mathe der theoretischen Physik (Tensoren, Differentialgeometrie, Hilberträume, partielle Differentialgleichungen; Physik als Kontext, kein eigenes Fach). Grundlage: Modulbeschreibungen sächsischer Universitäten (TU Dresden, Uni Leipzig, TU Chemnitz). Beweise als Bausteine (ordnen, fehlenden Schritt wählen, Fehler finden). Ab dem Studium gibt es das Niveau E (G = Rechnen, M = Verstehen, E = Beweisen). Eigene Studien-Epoche (B-26). Grenze: Forschungsniveau ohne eindeutig prüfbare Aufgaben bewertet die App nicht | Entschieden (28.10.2026, Projektverantwortlicher) |
 | K-20 | **Reihenfolge ab hier:** Klasse 8 abschließen → B-24, B-25, L-12, L-13 umsetzen → Klasse 9 bis 12 → Studium (K-19). *Ergänzt am 28.10.2026:* Vor Klasse 9 kommen die Anpassungen L-15 bis L-19 (Erwachsene, Altersgerechtigkeit, Wiedereinstieg, Klasse pflegen, „Gerade dran“, Klassenarbeit). Klasse 9 ist angehalten; ein Entwurf liegt nicht auf `main` | Entschieden (28.10.2026, Projektverantwortlicher) |
 | K-21 | **Auch für Erwachsene:** Bastion soll auch Erwachsenen dienen, die den Schulstoff neu lernen wollen (Zielgruppe erweitert, K-11). Dafür L-15 und L-16 | Entschieden (28.10.2026, Projektverantwortlicher) |

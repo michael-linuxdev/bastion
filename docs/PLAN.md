@@ -62,7 +62,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - Keine Mehrgeräte-Synchronisation.
 
 **Messung**
-- Keine Nutzungsstatistik, kein Analytics, keine Telemetrie – auch nicht „nur anonym“. Messung nur über freiwillige Studienberichte (K-14, vorgeschlagen) und Gespräche.
+- Keine Nutzungsstatistik, kein Analytics, keine Telemetrie – auch nicht „nur anonym“. Messung nur über das freiwillige Testprotokoll (K-14) und Gespräche. Es ist nur mit Testcode eingeschaltet, die App sendet nichts.
 - Keine Vanity-Metrics: Downloads, Aufrufe, Sitzungsdauer, Bewertungen.
 
 ## 3. Phase 0 – Fundament
@@ -143,7 +143,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - [x] **0.16 Basebau-Minimum festlegen** – K-12 (`STRATEGIE.md` §3)
 - [x] **0.18 Sächsische Lehrpläne Mathematik auswerten** – OS 2019 und GY 2021 für Klasse 5: 41 Kompetenzen in `LEHRPLAN.md` §8, Quellen in `docs/quellen/`. Offen: Gemeinschaftsschule/Oberschule+ und Förderschulen prüfen
 - [x] **0.19 O-15 entschieden** – K-16: Lehrpläne bindend, Geometrie und Diagramme gehören dazu; Zeichnen wird erklärt (L-10)
-- [ ] **0.17 K-14 entscheiden** – freiwilliger Studienbericht ja/nein, vor der ersten Testrunde in Phase 1
+- [x] **0.17 K-14 entschieden** (29.10.2026): freiwilliges Testprotokoll, gebaut in U4a
 
 ## 4. Phase 1 – Lernkern (Vorschau)
 
@@ -203,7 +203,9 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [ ] **U3j** Fehlerwerkstatt nach Ursachen
   - [ ] **U3k** Unbekannte Fehler für die Pflege exportieren
   - [ ] **U3l** Browser-Tests und Dokumente
-- [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)
+- [ ] **U4** Testphase, in zwei Schritten:
+  - [ ] **U4a** Testprotokoll (K-14, D-18): Testcode und Teilnehmer-Nummer im Elternbereich, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
+  - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden

@@ -322,4 +322,4 @@ Detailplanung in `PLAN.md`.
 | K-17 | Erst Lehrplan bis Klasse 12 aufbauen (als Entwurf), dann gesammelt prüfen und testen (ändert K-15 Punkte 2 und 4) | 28.10.2026 | Entschieden |
 | K-12 | Lernkern vor Basebau; Basebau-Minimum bis Schwelle „Lernkern trägt“ | 27.10.2026 | Entschieden, Grenze aufgehoben durch K-18 (28.10.2026) |
 | K-13 | Erfolgskriterien für Monat 12, keine Vanity-Metrics | 27.10.2026 | Entschieden |
-| K-14 | Freiwilliger Studienbericht als einzige Messquelle | 27.10.2026 | Vorgeschlagen |
+| K-14 | Freiwilliges Testprotokoll als einzige Messquelle (STRATEGIE §7) | 29.10.2026 | Entschieden |
