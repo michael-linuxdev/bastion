@@ -497,7 +497,7 @@
     gap: var(--abstand-s);
   }
 
-  @media (min-width: 36rem) {
+  @media (width >= 36rem) {
     .vorrat {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
