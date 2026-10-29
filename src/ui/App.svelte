@@ -25,6 +25,7 @@
     klassenarbeitSetzen,
     klasseSetzen,
     merkeVermittlung,
+    alleVermittlungen,
     vermittelteKompetenzen,
     schulartSetzen,
     sicherungAnstehend,
@@ -83,6 +84,15 @@
   import Mehr from './start/Mehr.svelte';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
   import Angebot from './vermittlung/Angebot.svelte';
+  import {
+    FV_REGELN,
+    fvKatalog,
+    fvZustaende,
+    type FvStand,
+    type FvZustand,
+  } from '../core/learning/fv-diagnose';
+  import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
+  import type { Fehlvorstellung } from '../core/learning/fehlvorstellung';
 
   let ansicht = $state<
     | 'start'
@@ -219,6 +229,67 @@
 
   /** Kompetenzen mit abgeschlossener Erstvermittlung (VERMITTLUNG §2.4) */
   let vermittelte = $state<ReadonlySet<string>>(new Set());
+  let vermittlungListe = $state<readonly VermittlungEreignis[]>([]);
+  /** Rückweg aus dem Fehlerkatalog: an dieser Stelle der Erstvermittlung beginnen */
+  let vermittlungStart = $state<string | undefined>(undefined);
+  /**
+   * Kontrastaufgaben, die beim Üben als Nächstes drankommen (VERMITTLUNG §3.3).
+   * Bewusst nicht reaktiv: Die laufende Aufgabe darf sich dadurch nicht ändern.
+   */
+  let kontrastSchlange: Auftrag[] = [];
+
+  /** Diagnose der Fehlvorstellungen aus allen Ereignissen (U3e) */
+  function fvStaende(geladen: Inhalte): ReadonlyMap<string, FvStand> {
+    return fvZustaende(
+      aufgabenListe,
+      vermittlungListe,
+      fvKatalog(geladen.vorlagen, [...geladen.fehlvorstellungen.values()]),
+    );
+  }
+
+  /** Fehlvorstellungen, die eine Antwort zeigt: Fehlerbild des Ergebnisses und der Schritte */
+  function fvsVon(geladen: Inhalte, d: Antwortdaten): string[] {
+    const vorlage = geladen.vorlagen.find((v) => v.id === d.vorlage);
+    const aus =
+      !d.ergebnis.richtig && d.ergebnis.fehlerbild
+        ? vorlage?.fehlerbilder[d.ergebnis.fehlerbild]?.fv
+        : undefined;
+    const schritte = (d.schritte ?? []).flatMap((s) =>
+      (s.fehler ?? []).flatMap((f) => (f.fv ? [f.fv] : [])),
+    );
+    return [...new Set([aus, ...schritte].filter((x): x is string => x !== undefined))];
+  }
+
+  /**
+   * Rückweg aus der langen Erklärung (VERMITTLUNG §3.2, §3.3): „wieder da“ führt zur
+   * Voraussetzung, falls es eine gibt; sonst zurück in die Erstvermittlung an der
+   * genannten Stelle, falls es sie schon gibt.
+   */
+  function rueckwegArt(
+    geladen: Inhalte,
+    fv: Fehlvorstellung,
+    zustand: FvZustand | undefined,
+  ): 'erklaerung' | 'grundlage' | undefined {
+    const v = fv.rueckweg.voraussetzung;
+    if (zustand === 'wieder-da' && v && geladen.kompetenzen.some((k) => k.id === v))
+      return 'grundlage';
+    const kid = fv.rueckweg.vermittlung.split('#')[0] ?? '';
+    return geladen.vermittlungen.has(kid) ? 'erklaerung' : undefined;
+  }
+
+  function rueckwegGehen(geladen: Inhalte, fv: Fehlvorstellung, art: 'erklaerung' | 'grundlage') {
+    if (art === 'grundlage') {
+      const k = geladen.kompetenzen.find((x) => x.id === fv.rueckweg.voraussetzung);
+      if (k) zumUeben(geladen, k);
+      return;
+    }
+    const [kid = '', schritt] = fv.rueckweg.vermittlung.split('#');
+    const k = geladen.kompetenzen.find((x) => x.id === kid);
+    if (!k) return;
+    gewaehlt = k;
+    vermittlungStart = schritt;
+    ansicht = 'vermittlung';
+  }
 
   /**
    * Zum Üben einer Kompetenz. Ist sie neu und gibt es eine Erstvermittlung, kommt
@@ -234,6 +305,7 @@
   async function aktualisiere() {
     zustand = await ladeZustand();
     vermittelte = await vermittelteKompetenzen();
+    vermittlungListe = await alleVermittlungen();
     const jetzt = Date.now();
     rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
     faellig = wiederholRunde(zustand.karten, jetzt).length;
@@ -362,9 +434,26 @@
   let speichern: Promise<void> = Promise.resolve();
 
   async function ergebnis(daten: Antwortdaten) {
+    const geladen = inhalte ? await inhalte.catch(() => undefined) : undefined;
+    const vorher = geladen ? fvStaende(geladen) : undefined;
     speichern = speichern.then(() => merke(daten));
     await speichern;
     await aktualisiere();
+    if (!geladen || !vorher || daten.modus !== 'ueben') return;
+    // Neu „vermutet“ oder „wieder da“: als Nächstes Kontrastaufgaben (VERMITTLUNG §3.3)
+    const nachher = fvStaende(geladen);
+    for (const fv of fvsVon(geladen, daten)) {
+      const z = nachher.get(fv)?.zustand;
+      if ((z !== 'vermutet' && z !== 'wieder-da') || vorher.get(fv)?.zustand === z) continue;
+      const kontrast = (geladen.fehlvorstellungen.get(fv)?.kontrast ?? []).flatMap((id) => {
+        const v = geladen.vorlagen.find((x) => x.id === id);
+        const k = v && geladen.kompetenzen.find((x) => x.id === v.kompetenz);
+        const n = v && (v.niveaus.includes(daten.niveau) ? daten.niveau : v.niveaus[0]);
+        return v && k && n ? [{ kompetenz: k, vorlage: v, niveau: n }] : [];
+      });
+      for (let i = 0; i < FV_REGELN.kontraste && kontrast.length > 0; i++)
+        kontrastSchlange.push(kontrast[i % kontrast.length] as Auftrag);
+    }
   }
 
   async function fertig() {
@@ -378,9 +467,16 @@
   function uebenAuftrag(geladen: Inhalte, k: Kompetenz) {
     const auswahl = vorlagenFuer(geladen.vorlagen, k.id, niveau);
     const n = niveau;
+    // Jede Nummer bekommt ihren Auftrag genau einmal – auch wenn neu berechnet wird
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- bewusst nicht reaktiv
+    const vergeben = new Map<number, Auftrag | undefined>();
     return (i: number): Auftrag | undefined => {
+      if (vergeben.has(i)) return vergeben.get(i);
       const v = naechsteVorlage(auswahl, i);
-      return v ? { kompetenz: k, vorlage: v, niveau: n } : undefined;
+      const a =
+        kontrastSchlange.shift() ?? (v ? { kompetenz: k, vorlage: v, niveau: n } : undefined);
+      vergeben.set(i, a);
+      return a;
     };
   }
 </script>
@@ -480,6 +576,7 @@
           {@const angaben = { kompetenz: k.id, inhalt: `${v.id}@${v.version}` }}
           <VermittlungAnsicht
             vermittlung={v}
+            start={vermittlungStart}
             titel={k.titel.de}
             fehlvorstellungen={geladen.fehlvorstellungen}
             kompetenzName={(id) => geladen.kompetenzen.find((x) => x.id === id)?.titel.de}
@@ -617,6 +714,10 @@
           auftrag={(i) => werkstattListe[i]}
           modus="fehlerwerkstatt"
           onfertig={() => void fertig()}
+          fehlvorstellungen={geladen.fehlvorstellungen}
+          fvStaende={fvStaende(geladen)}
+          rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
             ansicht = 'werkstatt';
@@ -631,6 +732,10 @@
           auftrag={(i) => wiederholListe[i]}
           modus="wiederholen"
           onfertig={() => void fertig()}
+          fehlvorstellungen={geladen.fehlvorstellungen}
+          fvStaende={fvStaende(geladen)}
+          rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
             ansicht = 'start';
@@ -664,8 +769,15 @@
             }}
             onwechsel={(k) => (gewaehlt = k)}
             onerklaerung={geladen.vermittlungen.has(gewaehlt.id)
-              ? () => (ansicht = 'vermittlung')
+              ? () => {
+                  vermittlungStart = undefined;
+                  ansicht = 'vermittlung';
+                }
               : undefined}
+            fehlvorstellungen={geladen.fehlvorstellungen}
+            fvStaende={fvStaende(geladen)}
+            rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+            onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           />
         {/key}
         {@const zuKompetenz = geladen.anleitungen.filter((a) => a.kompetenz === gewaehlt?.id)}

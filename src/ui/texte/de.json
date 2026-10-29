@@ -683,5 +683,14 @@
   "weg.alles-richtig": "Dein Weg stimmt. Beim Ergebnis hast du dich wohl nur verschrieben.",
   "weg.zaehler": "Zähler",
   "weg.nenner": "Nenner",
-  "weg.antwort": "Deine Eingabe"
+  "weg.antwort": "Deine Eingabe",
+  "fv.so-denkst-du": "So denkst du gerade",
+  "fv.warum-nicht": "Warum das nicht stimmt",
+  "fv.so-stimmt-es": "So stimmt es",
+  "fv.gegenbeispiel": "Zum Nachdenken:",
+  "fv.vermutet": "Dieser Denkfehler ist dir schon öfter passiert. Schau ihn dir in Ruhe an.",
+  "fv.wieder-da": "Dieser Denkfehler ist wieder aufgetaucht.",
+  "fv.zur-erklaerung": "Zurück zur Erklärung",
+  "fv.grundlage": "Erst die Grundlage üben",
+  "fv.kontrast": "Gleich kommen zwei Aufgaben, mit denen du es überprüfen kannst."
 }

@@ -168,6 +168,12 @@ Je Fehlvorstellung führt Bastion eine Zählung aus den gespeicherten Aufgaben-E
   - „In Arbeit“ beginnt mit der ersten Gelegenheit nach „vermutet“, denn die lange Erklärung kam schon mit der Rückmeldung.
   - Ein neuer Treffer in Arbeit setzt zurück auf „vermutet“ und die Kontraste auf null.
   - Treffer aus der Erstvermittlung zählen mit.
+- *Umsetzung (U3i):* Die Übung (`src/ui/ueben/FvRueckmeldung.svelte`) zeigt zu jeder erkannten Fehlvorstellung einer Antwort, auch aus den Zwischenschritten:
+  - bis „aufgefallen“ die kurze Erklärung,
+  - bei „vermutet“ und „wieder da“ die lange Erklärung in drei Teilen mit Bild, das Gegenbeispiel und den Rückweg.
+  - Der Rückweg führt in die Erstvermittlung an die Stelle aus `rueckweg.vermittlung`. Bei „wieder da“ führt er zur Voraussetzung, falls es eine gibt.
+  - Beim Üben kommen danach zwei Kontrastaufgaben aus `kontrast`, auch aus einer anderen Kompetenz.
+  - Der Zustand wird nach dem Speichern neu berechnet. Die lange Erklärung erscheint also, sobald die Antwort gespeichert ist.
 - Die Fehlerwerkstatt gruppiert künftig nach Fehlvorstellung statt nach Fehlerbild.
 - Der bisherige Rückweg (drei Fehler in Folge → Voraussetzung, LEHRPLAN §7) bleibt für Fehler ohne erkannte Fehlvorstellung.
 

@@ -15,6 +15,9 @@
   import type { Auftrag } from './auftrag';
   import Eingabe from './Eingabe.svelte';
   import Schrittweg from './Schrittweg.svelte';
+  import FvRueckmeldung from './FvRueckmeldung.svelte';
+  import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
+  import type { FvStand, FvZustand } from '../../core/learning/fv-diagnose';
   import type { SchrittErgebnis } from '../../core/learning/ereignis';
   import { untrack } from 'svelte';
   import Textteile from './Textteile.svelte';
@@ -32,6 +35,10 @@
     vorschlag,
     onwechsel,
     onerklaerung,
+    fehlvorstellungen,
+    fvStaende,
+    rueckwegArt,
+    onrueckweg,
   }: {
     ueberschrift: string;
     /** Niveau, als Schild neben der Überschrift */
@@ -51,6 +58,15 @@
     onwechsel?: (k: Kompetenz) => void;
     /** Erstvermittlung dieser Kompetenz ansehen (VERMITTLUNG §2.4), nur wenn es eine gibt */
     onerklaerung?: (() => void) | undefined;
+    /** Fehlerkatalog und Diagnose (VERMITTLUNG §3.3) für die Rückmeldung */
+    fehlvorstellungen?: ReadonlyMap<string, Fehlvorstellung>;
+    fvStaende?: ReadonlyMap<string, FvStand>;
+    /** Welcher Rückweg passt: zur Erklärung, zur Grundlage oder keiner */
+    rueckwegArt?: (
+      fv: Fehlvorstellung,
+      zustand: FvZustand | undefined,
+    ) => 'erklaerung' | 'grundlage' | undefined;
+    onrueckweg?: (fv: Fehlvorstellung, art: 'erklaerung' | 'grundlage') => void;
   } = $props();
   let fehlerInFolge = $state(0);
   const BLOCK = 5;
@@ -95,9 +111,12 @@
   let weg = $state<'aus' | 'laeuft' | 'fertig'>('aus');
   // raw: das Ereignis muss sich in IndexedDB speichern lassen (kein Proxy)
   let ausstehend = $state.raw<Antwortdaten | undefined>(undefined);
+  /** Schritte der letzten Antwort – ihre Fehlvorstellungen zählen für die Rückmeldung */
+  let letzteSchritte = $state.raw<readonly SchrittErgebnis[]>([]);
 
   function speichern(schritte?: SchrittErgebnis[]) {
     if (!ausstehend) return;
+    letzteSchritte = schritte ?? [];
     onergebnis(schritte ? { ...ausstehend, schritte } : ausstehend);
     ausstehend = undefined;
     weg = 'fertig';
@@ -144,6 +163,7 @@
 
   function weiter() {
     weg = 'aus';
+    letzteSchritte = [];
     ergebnis = undefined;
     kommaHinweis = false;
     hilfen = 0;
@@ -167,6 +187,24 @@
       ? vorschlag(aufgabe.kompetenz.id, fehlerInFolge)
       : undefined,
   );
+
+  /** Erkannte Fehlvorstellungen dieser Antwort: Fehlerbild des Ergebnisses und der Schritte */
+  const fvs = $derived.by((): Fehlvorstellung[] => {
+    if (!ergebnis || ergebnis.richtig || !aufgabe || weg === 'laeuft' || !fehlvorstellungen)
+      return [];
+    const aus = ergebnis.fehlerbild
+      ? aufgabe.vorlage.fehlerbilder[ergebnis.fehlerbild]?.fv
+      : undefined;
+    const ids = new Set(
+      [aus, ...letzteSchritte.flatMap((s) => (s.fehler ?? []).map((f) => f.fv))].filter(
+        (x): x is string => x !== undefined,
+      ),
+    );
+    return [...ids].flatMap((id) => {
+      const fv = fehlvorstellungen.get(id);
+      return fv ? [fv] : [];
+    });
+  });
 
   const rueckmeldung = $derived.by(() => {
     if (!ergebnis || ergebnis.richtig || !aufgabe) return undefined;
@@ -296,6 +334,16 @@
             />
           {/if}
           {#if weg !== 'laeuft'}
+            {#each fvs as fv (fv.id)}
+              {@const zustand = fvStaende?.get(fv.id)?.zustand}
+              {@const art = rueckwegArt?.(fv, zustand)}
+              <FvRueckmeldung
+                {fv}
+                {zustand}
+                rueckweg={art}
+                onrueckweg={() => art && onrueckweg?.(fv, art)}
+              />
+            {/each}
             <details class="weg" bind:open={wegOffen}>
               <summary>{t('uebung.loesungsweg')}</summary>
               <ol>
