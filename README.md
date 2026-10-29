@@ -2,19 +2,36 @@
 
 > Baue deine Bastion.
 
-Bastion ist eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 und berufsbildende Schulen – der Nachfolger der [Lerninsel](https://github.com/michael-linuxdev/lerninsel). Nachgewiesene Kompetenz wird sichtbar: als eigene Festung, die über Jahre wächst. Der Basebau ist vollständig optional.
+Bastion ist eine Lern-App für Mathematik, zuerst nach den Lehrplänen in **Sachsen**. Sie läuft im Browser, auch ohne Internet. Sie ist der Nachfolger der [Lerninsel](https://github.com/michael-linuxdev/lerninsel).
 
-**Keine Werbung. Keine In-App-Käufe. Kein Account. Kein Tracking.**
+Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahre wächst. Wer das nicht möchte, schaltet den Bau ab und lernt ohne Nachteil weiter.
 
-## Online
+**Keine Werbung. Keine In-App-Käufe. Kein Konto. Kein Tracking.** Alle Daten bleiben auf dem Gerät.
 
-Testversion: **https://bastion.micana.de/** (wird bei jedem Push auf `main` automatisch aktualisiert)
+## Ausprobieren
 
-## Status
+**https://bastion.micana.de/** – im Browser öffnen, nichts installieren, kein Konto. Nach dem ersten Laden geht es auch offline. Die Seite wird bei jeder Änderung auf `main` automatisch aktualisiert.
 
-Phase 0 – Fundament. Technisches Gerüst im Aufbau.
+## Für wen
 
-## Selbst ausprobieren
+- **Schülerinnen und Schüler** der Klassen 5 bis 8 an Oberschule und Gymnasium in Sachsen. Klasse 9 bis 12 folgen.
+- **Erwachsene**, die Schulmathematik neu lernen oder auffrischen möchten. Ab 18 Jahren verwaltet man sich selbst, ganz ohne Elternbereich.
+- **Eltern**: Im Elternbereich (mit PIN) sehen sie, was geübt wurde, und können Klasse und Schulart einstellen.
+- **Lehrkräfte**: Auf Wunsch zeigen Kinder oder Eltern einen Bericht je Lernfeld, auch als Textdatei.
+
+## Was die App heute kann
+
+- **Üben:** 255 Aufgabenvorlagen zu 123 Themen aus Klasse 5 bis 8, je auf zwei Niveaus (Grundlagen und mehr). Dazu gibt es Hilfen, Lösungswege, Bilder und Zeichen-Anleitungen. Fachbegriffe lassen sich antippen und werden erklärt.
+- **Wiederholen** zur richtigen Zeit. Die Fehlerwerkstatt arbeitet falsch gelöste Aufgaben gezielt auf.
+- **„Wo stehe ich?“:** Diagnose für eine Klasse oder für alles ab Klasse 5. Für den Wiedereinstieg zeigt sie, welcher Klasse der eigene Stand etwa entspricht.
+- **Schulalltag:** Was ist gerade in der Schule dran? Wann ist die nächste Klassenarbeit, mit welchen Themen? Dazu gibt es eine Probe-Klassenarbeit ohne Note. Das Datum steht da, ohne Countdown.
+- **Wechsel begleiten:** Wer eine Klasse überspringt, bekommt gezielt die Lücken daraus geprüft. Ein Schulartwechsel zeigt die Themen, die nun früher drankommen. Wer eine Klasse wiederholt, bekommt keine Meldung, und nichts geht verloren.
+- **Bastion bauen** (abschaltbar): Für geübte und gefestigte Themen gibt es Baustoffe. Es gibt keine Zufallsbelohnungen, keine Zeitdruck-Timer und keinen Verfall.
+- **Sicherung:** Eine verschlüsselte Datei mit Code aus sechs Wörtern. So kommt man zum Beispiel auf ein neues Gerät.
+
+**Wichtig:** Alle Aufgaben und Erklärungen sind ein Entwurf. Eine Lehrkraft hat sie noch nicht geprüft. Hinweise auf Fehler sind sehr willkommen.
+
+## Für Entwickler: selbst bauen
 
 Voraussetzungen: Node.js ab Version 22 und pnpm (`corepack enable` aktiviert die passende Version).
 
@@ -41,7 +58,7 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [KONZEPT](docs/KONZEPT.md) | Gesamtkonzept, Roadmap, offene Entscheidungen |
 | [ARCHITEKTUR](docs/ARCHITEKTUR.md) | Tech-Stack und Architektur |
 | [BASEBAU](docs/BASEBAU.md) | Ressourcen, Gebäude, Balancing |
-| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 nach den sächsischen Lehrplänen |
+| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 bis 8 nach den sächsischen Lehrplänen, Entscheidungen L-1 bis L-19 |
 | [Quellen](docs/quellen/README.md) | Verbindliche Lehrpläne (Sachsen) |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
