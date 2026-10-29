@@ -268,6 +268,32 @@ interface VerdichtungEreignis extends Ereignis {
 }
 ```
 
+### 4.7 `vermittlung` – ein beantworteter Schritt der Erstvermittlung (geplant, U3)
+
+Festgelegt mit U1 (29.10.2026, `VERMITTLUNG.md` §2.4). Umgesetzt wird es mit dem Abspieler in U3, mit Schemaversion und Migrationstest.
+
+```ts
+interface VermittlungEreignis extends Ereignis {
+  art: 'vermittlung';
+  kompetenz: string;                 // ID der Kompetenz = ID der Sequenz
+  inhalt: string;                    // "<Kompetenz-ID>@<version>" der vermittlung.yaml
+  schritt: string;                   // Schritt-ID
+  typ: 'antwort' | 'abgeschlossen';
+  // nur bei typ 'antwort':
+  richtig?: boolean;
+  fv?: string;                       // erkannte Fehlvorstellung, falls eine
+  antwort?: string;                  // gewählte Option (Index) oder Eingabe als Text
+}
+```
+
+- **Gespeichert wird nur, was die Diagnose braucht.** Das sind beantwortete Schritte und der Abschluss (`uebergang` erreicht). Reines Lesen von Erklärungen erzeugt kein Ereignis.
+- **Zustand „vermittelt“:** Eine Kompetenz ist vermittelt, sobald es ein Ereignis `abgeschlossen` gibt. Die Projektion `kompetenzen` bekommt dafür das Datum `vermittelt` (neuer Zustand vor „geübt“, LEHRPLAN L-5 wird ergänzt).
+- **Fehlvorstellungen:** Die Zählung nach `VERMITTLUNG.md` §3.3 ist eine Projektion `fehlvorstellungen` (Profil × Fehlvorstellung → Zustand, letzte Treffer). Ihre Quellen sind `aufgabe` (Fehlerbild → `fv` der Vorlage) und `vermittlung` (`fv`). Es braucht kein eigenes Ereignis dafür.
+- **Datenschutz:** wie bei `aufgabe`. Alles bleibt auf dem Gerät, Eltern sehen es in der ausführlichen Ansicht (D-14).
+
+**Entscheidung D-16:** Vermittlungs-Schritte sind eigene Ereignisse (`vermittlung`, eigene Tabelle nach D-7). Fehlvorstellungen sind eine reine Projektion.
+*Warum:* Die Vermittlung ist kein Üben. Sie darf weder FSRS-Karten noch Ressourcen bewegen (K-1, R4). Die Diagnose der Fehlvorstellungen lässt sich jederzeit aus den Ereignissen neu berechnen (D-6), auch wenn sich der Fehlerkatalog ändert.
+
 ## 5. Projektionen
 
 | Projektion | Schlüssel | Inhalt | Quelle |
@@ -278,6 +304,7 @@ interface VerdichtungEreignis extends Ereignis {
 | `konto` | Profil | Stand je Ressource, Summe erworbener Baupläne, Bauschritt-Vorrat | `buchung` |
 | `bastion` | Profil | Gebäude mit Typ, Stufe, Position, Gestaltung; aktive Vorhaben mit Fortschritt; Epoche | `bau`, `buchung` |
 | `einstellungen` | Profil × Schlüssel | aktueller Wert | `einstellung` |
+| `fehlvorstellungen` (geplant, U3) | Profil × Fehlvorstellung | Zustand nach `VERMITTLUNG.md` §3.3 (aufgefallen … aufgelöst), letzte Treffer | `aufgabe` (über `fv` der Fehlerbilder), `vermittlung` |
 
 **Entscheidung D-6: Ereignis und Projektion werden in derselben Datenbank-Transaktion geschrieben.** Es gibt außerdem eine Funktion `neuAufbauen(profil)`, die alle Projektionen aus den Ereignissen neu berechnet.
 
@@ -498,3 +525,4 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-13 | ULIDs mit eigener Umsetzung im Kern, ohne Bibliothek (war D-O1) | Entschieden |
 | D-14 | Eltern dürfen alles sehen; Standard ist die einfache Ansicht, ausführliche Ansicht auf Wunsch; Jugendliche sehen beides (ersetzt „nie einzelne Aufgaben“ in §5.2 und §10) | Entschieden (28.10.2026) |
 | D-15 | PIN gilt je Gerät; nach Einspielen einer Sicherung neue PIN mit dauerhaftem, sichtbarem Vermerk (löst den Widerspruch zwischen §7.1 und D-12) | Entschieden (28.10.2026) |
+| D-16 | Vermittlungs-Schritte als eigene Ereignisse `vermittlung`; Fehlvorstellungen als reine Projektion (§4.7) | Entschieden (29.10.2026, U1) |

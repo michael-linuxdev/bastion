@@ -96,11 +96,13 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
    - Abitur-Vorgaben: Muster und Leseproben sind ausgewertet (`PRUEFUNGEN.md`), die amtlichen Vorgaben für 2029 fehlen noch,
    - ~~PDF-Technik~~ (Druckfunktion des Browsers, T-17),
    - Werkzeuge (vorerst Bruchstreifen und Zahlenstrahl).
-2. Dann **U1** (`PLAN.md` §4b):
-   - Format für Erstvermittlung und Fehlerkatalog in `INHALTSFORMAT.md`,
-   - Prüfwerkzeug,
-   - Datenmodell für Vermittlungs-Ereignisse.
-3. Dann **U2**, das Musterfeld Brüche.
+2. ~~**U1**~~ erledigt:
+   - Format in `INHALTSFORMAT.md` §15 und §16,
+   - Prüfung in `pnpm inhalte:pruefen`,
+   - Datenmodell in `DATENMODELL.md` §4.7.
+3. **Als Nächstes U2**, das Musterfeld Brüche:
+   - Erstvermittlung und Fehlerkatalog für `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN` und `M.ZO.BR.ADD-SUB`,
+   - die Werkzeuge Bruchstreifen und Zahlenstrahl.
 
 Erst danach an Inhalten oder Code für die neue Ausrichtung arbeiten.
 

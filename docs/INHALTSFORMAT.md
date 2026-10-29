@@ -429,3 +429,109 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 | I-9 | Herkunft und Lizenz je Vorlage | Entschieden |
 | I-10 | Pakete je Fach × Bereich mit allen Niveaus (korrigiert ARCHITEKTUR §6) | Entschieden |
 | I-11 | Aufgabentypen `bild-zahl`, `koordinaten-eingabe`, `bild-auswahl`, `anleitung`; Bilder als SVG aus dem Generator | Entschieden |
+| I-12 | **Erstvermittlung als Datei je Kompetenz** (`vermittlung.yaml`, §15): Schritte mit festen Typen, Verzweigung über Fehlvorstellungen, geprüfte Wege. Bilder und Interaktion nur über Werkzeuge aus dem App-Code (wie I-1) | Entschieden (29.10.2026, K-24) |
+| I-13 | **Fehlvorstellungen als eigene Dateien je Fach** (§16), verknüpft mit den Fehlerbildern der Vorlagen über `fv` | Entschieden (29.10.2026, K-24) |
+
+## 15. Erstvermittlung (`vermittlung.yaml`, VERMITTLUNG §2)
+
+Eine Datei je Kompetenz: `…/<Kompetenz-ID>/vermittlung.yaml`. Sie beschreibt eine Sequenz aus Schritten (Bausteine nach `VERMITTLUNG.md` §2.1). Alle Texte sind Sprachobjekte (I-3). Fachbegriffe werden wie überall mit `[[…]]` markiert (§11.1).
+
+```yaml
+id: M.ZO.BR.ERWEITERN            # = Kompetenz-ID
+kompetenz: M.ZO.BR.ERWEITERN
+niveau: G                        # Niveau der Einstiegsaufgaben im uebergang
+dauer_min: 12                    # geschätzt, höchstens 15 (V7)
+schritte:
+  - id: ziel
+    typ: ziel
+    text: { de: Danach kannst du einen Bruch so umschreiben, dass er gleich groß bleibt. }
+  - id: vorwissen
+    typ: anknuepfen
+    text: { de: Welcher Anteil ist gefärbt? }
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    antwort:
+      optionen:
+        - { wert: { de: 3/4 }, richtig: true }
+        - { wert: { de: 4/3 }, fv: FV.BR.ZAEHLER-NENNER-VERTAUSCHT }
+        - { wert: { de: 3/7 }, fv: FV.BR.TEIL-ZU-REST }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }       # Rückweg zur Voraussetzung
+  - id: entdecken
+    typ: entdecken
+    text: { de: Teile jeden Abschnitt in zwei Hälften. Wie viel ist jetzt gefärbt? }
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3, verfeinern: true } }
+    antwort:
+      eingabe: { art: bruch, loesung: '6/8' }
+    weiter: erklaeren
+  - id: erklaeren
+    typ: erklaeren
+    text: { de: Feiner teilen ändert nicht, *wie viel* gefärbt ist. … }
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 6 } }
+    weiter: beispiel
+  # … beispiel, ergaenzen, gegenbeispiel, merksatz, pruefen
+  - id: uebergang
+    typ: uebergang
+    text: { de: Jetzt probierst du es selbst. }
+    vorlagen: [M.ZO.BR.ERWEITERN.ZIELNENNER]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
+```
+
+**Regeln** (geprüft von `pnpm inhalte:pruefen`):
+
+- `id` und `kompetenz` stimmen mit dem Ordner überein. Die Kompetenz gibt es.
+- Jeder Schritt hat eine eindeutige `id` (Kleinbuchstaben, Ziffern, Bindestrich), einen bekannten `typ` und einen Text.
+- Der erste Schritt hat den Typ `ziel`, und es gibt genau einen Schritt `uebergang`. Er ist der letzte.
+- **Antworten** gibt es bei `anknuepfen`, `entdecken`, `ergaenzen`, `gegenbeispiel` und `pruefen`. Dort ist `antwort` Pflicht, bei den anderen Typen verboten. Es gibt zwei Formen:
+  - `optionen`: mindestens zwei, genau eine mit `richtig: true`. Jede falsche Option hat eine `fv` (bei `pruefen` Pflicht, sonst empfohlen).
+  - `eingabe`: `art` ist `zahl` oder `bruch`, dazu `loesung`. Optional `fehler: [{ wert, fv }]` für bekannte falsche Eingaben.
+- **Weiter:** Jeder Schritt außer `uebergang` hat `weiter`. Das ist die `id` eines Schritts dieser Sequenz.
+- **Verzweigungen** (`bei`): Schlüssel sind Fehlvorstellungen oder `sonst`. Ziele sind Schritte dieser Sequenz oder (Rückweg) eine Kompetenz-ID aus `voraussetzungen`.
+- **Wege enden:** Von jedem Schritt führt ein Weg über `weiter` zum `uebergang`. Jeder Schritt ist vom ersten aus erreichbar.
+- Jede genannte `fv` steht im Fehlerkatalog (§16).
+- **Bilder und Werkzeuge** nennen ein bekanntes Werkzeug `name@version` (VERMITTLUNG §2.3). Die Liste steht im Kern, die Umsetzung in `src/ui`.
+- `uebergang.vorlagen` nennt mindestens eine Vorlage der Kompetenz, die es auf dem Niveau `niveau` gibt.
+- `dauer_min` ist höchstens 15. Texte haben höchstens 40 Wörter je Schritt (V8).
+- Pflicht sind außerdem: mindestens ein `beispiel`, ein `ergaenzen`, ein `gegenbeispiel`, ein `merksatz` und ein `pruefen` (V4–V6).
+- `herkunft` und `version` wie bei Vorlagen. Das Review folgt I-8.
+
+## 16. Fehlerkatalog (Fehlvorstellungen, VERMITTLUNG §3)
+
+Eine Datei je Fehlvorstellung: `content/mathematik/fehlvorstellungen/<ID>.yaml`. Fehlvorstellungen gehören zum Fach, nicht zu einer Kompetenz, weil dieselbe in vielen Kompetenzen auftritt.
+
+```yaml
+id: FV.BR.ADDIERT
+name: { de: Rechnet bei Brüchen mit Addition statt Multiplikation }
+art: falsche-regel
+beschreibung: { de: Überträgt das Rechnen mit natürlichen Zahlen auf Zähler und Nenner … }
+kompetenzen: [M.ZO.BR.ERWEITERN, M.ZO.BR.ADD-SUB]
+erklaerung:
+  kurz: { de: Beim Erweitern wird multipliziert – Zähler und Nenner mit derselben Zahl. }
+  lang:
+    - { teil: so-denkst-du, de: Du hast zu Zähler und Nenner dieselbe Zahl addiert. }
+    - { teil: warum-nicht, de: …, bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } } }
+    - { teil: so-stimmt-es, de: … }
+gegenbeispiel: { de: 1/2 → 2/3? Ein halber Kuchen ist nicht dasselbe wie zwei Drittel. }
+rueckweg:
+  vermittlung: M.ZO.BR.ERWEITERN#erklaeren
+  voraussetzung: M.ZO.BR.BEGRIFF          # optional
+kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER]
+quelle: { de: Fachdidaktik Bruchrechnung }
+herkunft: ki-entwurf
+version: 1
+```
+
+**Regeln:**
+
+- **ID:** `FV.<FELD>.<NAME>` in Großbuchstaben. Sie ist gleich dem Dateinamen und stabil wie Vorlagen-IDs (I-4).
+- `art` ist eine von: `falsche-grundvorstellung`, `falsche-regel`, `uebergeneralisiert`, `verwechslung`, `lesefehler`, `rechenfehler`.
+- `kompetenzen`: mindestens eine, alle vorhanden.
+- `erklaerung.kurz` hat höchstens 35 Wörter. `erklaerung.lang` enthält genau die Teile `so-denkst-du`, `warum-nicht` und `so-stimmt-es`, in dieser Reihenfolge (F3, F4).
+- `gegenbeispiel` ist Pflicht.
+- `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
+- `kontrast`: mindestens eine vorhandene Vorlage (F3).
+
+**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld nachgerüstet ist (F2, PLAN U5).
+
+**Werkzeuge** (Stand U1): `bruchstreifen@1`, `zahlenstrahl@1`. Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in die Oberfläche.
