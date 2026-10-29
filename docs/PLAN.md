@@ -197,7 +197,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3d** Einstieg vor dem ersten Üben (Angebot, überspringbar), Zustand „vermittelt“ (in der Übersicht „erklärt“), Abschluss bringt einen Bauschritt (einmal je Kompetenz), Kurzfassung zum Nachschlagen
   - [x] **U3e** Projektion `fehlvorstellungen` (VERMITTLUNG §3.3), im Kern berechnet (`src/core/learning/fv-diagnose.ts`)
   - [x] **U3f** Zwischenschritte (K-29): Format `schritte` und Prüfung (`INHALTSFORMAT.md` §17), Generator-Schnittstelle `schritt`, Pflicht-Tests (`src/core/learning/zwischenschritte.ts`)
-  - [ ] **U3g** Zwischenschritte im Musterfeld Brüche (Vorlagen und Generatoren von Erweitern/Kürzen und Addieren/Subtrahieren)
+  - [x] **U3g** Zwischenschritte im Musterfeld Brüche (Erweitern auf Zielnenner, Kürzen, ungleichnamig Addieren/Subtrahieren; INHALTSFORMAT §17)
   - [ ] **U3h** Schritt-Eingabe beim Üben: „Zeig mir deinen Weg“, zwei Versuche je Schritt; Ereignis `aufgabe` mit `schritte` (`v` = 2, D-17)
   - [ ] **U3i** Rückmeldung beim Üben: kurze und lange Erklärung, Rückweg, Kontrastaufgaben
   - [ ] **U3j** Fehlerwerkstatt nach Ursachen

@@ -605,4 +605,15 @@ Auswertung und Musterweg: `pruefeSchritt` und `musterweg` in `src/core/learning/
 - Die Fehlerbild-Antworten eines Schritts sind untereinander verschieden.
 - Gemeldete Platzhalter sind gefüllt.
 
-*Umsetzung (U3f, 29.10.2026):* Format, Prüfung, Schnittstelle und Pflicht-Tests stehen. Die ersten Generatoren mit Schritten kommen mit U3g (Musterfeld Brüche).
+*Umsetzung (U3f, 29.10.2026):* Format, Prüfung, Schnittstelle und Pflicht-Tests stehen.
+
+*Musterfeld Brüche (U3g, 29.10.2026):*
+
+| Vorlage | Schritte |
+|---|---|
+| `M.ZO.BR.ERWEITERN.ZIELNENNER` | Faktor, erweiterter Bruch |
+| `M.ZO.BR.ERWEITERN.KUERZEN` | größter gemeinsamer Teiler, gekürzter Bruch |
+| `M.ZO.BR.ADD-SUB.UNGLEICHNAMIG` | gemeinsamer Nenner (jedes gemeinsame Vielfache gilt), erster und zweiter Bruch erweitert, Zähler verrechnet, gekürzt |
+
+- `M.ZO.BR.ADD-SUB.GLEICHNAMIG` nutzt denselben Generator, zeigt aber keine Schritte. Die Schritte passen zu ungleichnamigen Brüchen; eigene Schritte für gleichnamige folgen mit U5.
+- Die Generator-Versionen bleiben gleich, weil die Aufgaben selbst unverändert sind. Die Schritte kommen nur dazu.

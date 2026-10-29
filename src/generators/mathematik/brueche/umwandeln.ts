@@ -13,6 +13,22 @@ export interface KuerzenParameter {
   readonly faktor_max: number; // 2 … 12
 }
 
+/** Zufallswerte einer Kürzen-Aufgabe – gemeinsam für Aufgabe und Zwischenschritte. */
+function kuerzenWerte(seed: number, p: KuerzenParameter) {
+  verlange(
+    p.nenner_max >= 3 && p.nenner_max <= 12 && p.faktor_max >= 2 && p.faktor_max <= 12,
+    'Parameter außerhalb',
+  );
+  const r = rng(seed);
+  const n = r.int(2, p.nenner_max);
+  let z = r.int(1, n - 1);
+  while (ggT(z, n) !== 1) z -= 1;
+  // Faktor mit echtem Teiler, damit „nicht vollständig gekürzt“ möglich ist (4, 6, 8, 9, 10, 12 …)
+  const k = r.pick([2, 3, 4, 5, 6, 8, 9, 10, 12].filter((f) => f <= p.faktor_max));
+  const teilfaktor = [2, 3, 5].find((t) => k % t === 0 && t < k);
+  return { n, z, k, teilfaktor };
+}
+
 /** „Kürze 18/24 vollständig.“ – Vorlage M.ZO.BR.ERWEITERN.KUERZEN */
 export const kuerzen: Generator<KuerzenParameter> = {
   id: 'br.kuerzen',
@@ -20,20 +36,38 @@ export const kuerzen: Generator<KuerzenParameter> = {
   platzhalter: ['bruch'],
   fehlerbildIds: ['nicht-vollstaendig', 'nur-nenner-gekuerzt', 'subtrahiert'],
 
+  // Zwischenschritte (INHALTSFORMAT §17): erst der größte gemeinsame Teiler, dann der gekürzte Bruch
+  schritte: [
+    { id: 'teiler', fehlerbildIds: ['kleiner-teiler'] },
+    { id: 'ergebnis', fehlerbildIds: ['nur-nenner-gekuerzt', 'subtrahiert'] },
+  ],
+
+  schritt(seed, p, id) {
+    const { n, z, k, teilfaktor } = kuerzenWerte(seed, p);
+    if (id === 'teiler') {
+      const loesung: Loesung = { typ: 'zahl', wert: k };
+      return {
+        loesung,
+        // ein gemeinsamer Teiler, aber nicht der größte: danach wäre nicht vollständig gekürzt
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['kleiner-teiler', teilfaktor ? { typ: 'zahl', wert: teilfaktor } : undefined],
+        ]),
+      };
+    }
+    const loesung = alsBruch(bruch(z, n));
+    return {
+      loesung,
+      fehlerbilder: fehlerbilderAus(loesung, [
+        ['nur-nenner-gekuerzt', alsBruch(bruch(z * k, n))],
+        ['subtrahiert', alsBruch(bruch(z, n * k - (z * k - z)))],
+      ]),
+    };
+  },
+
   erzeuge(seed, p) {
-    verlange(
-      p.nenner_max >= 3 && p.nenner_max <= 12 && p.faktor_max >= 2 && p.faktor_max <= 12,
-      'Parameter außerhalb',
-    );
-    const r = rng(seed);
-    const n = r.int(2, p.nenner_max);
-    let z = r.int(1, n - 1);
-    while (ggT(z, n) !== 1) z -= 1;
-    // Faktor mit echtem Teiler, damit „nicht vollständig gekürzt“ möglich ist (4, 6, 8, 9, 10, 12 …)
-    const k = r.pick([2, 3, 4, 5, 6, 8, 9, 10, 12].filter((f) => f <= p.faktor_max));
+    const { n, z, k, teilfaktor } = kuerzenWerte(seed, p);
     const gross = bruch(z * k, n * k);
     const richtig = alsBruch(bruch(z, n));
-    const teilfaktor = [2, 3, 5].find((t) => k % t === 0 && t < k);
     return {
       platzhalter: { bruch: gross },
       loesung: richtig,
