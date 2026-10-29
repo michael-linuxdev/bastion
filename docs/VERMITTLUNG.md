@@ -184,7 +184,7 @@ Falsche Antworten ohne Fehlerbild bekommen weiter die allgemeine Rückmeldung un
 
 ## 6. Prüfungen auf Knopfdruck (K-25) – Anforderungen
 
-Das gehört zur Kernaufgabe 4 und kommt nach Vermitteln und Diagnose. Damit es später trägt, gilt schon jetzt:
+Das gehört zur Kernaufgabe 4 und kommt nach Vermitteln und Diagnose. Den Aufbau der sächsischen Prüfungen (Abitur GK und LK ab 2025, Realschulabschluss) beschreibt `PRUEFUNGEN.md`. Damit es später trägt, gilt schon jetzt:
 
 - **Aufbau wie die echte Prüfung:** Teile, Hilfsmittel, Anforderungsbereiche I–III, Bewertungseinheiten und Operatoren nach den sächsischen Vorgaben. Grundlage sind die veröffentlichten Vorgaben und Prüfungen. Es wird nichts Geschütztes kopiert.
 - **Neue Aufgaben bei jedem Druck:** Die Aufgaben kommen aus den Generatoren und handverfassten Vorlagen mit Parametern. Offene Aufgaben (Begründen, Beweisen, Modellieren) brauchen Vorlagen mit **Erwartungshorizont** und Bewertungshinweisen.
@@ -213,6 +213,6 @@ Reihenfolge nach K-28 (zuerst Klasse 5–8 nachrüsten):
 
 1. **Musterkompetenzen:** passen Bruchbegriff, Erweitern/Kürzen und Addieren/Subtrahieren?
 2. **Fachliche Prüfung:** Gibt es eine Lehrkraft, die Sequenzen und Kataloge abnimmt? In welchem Takt?
-3. **Abitur-Vorgaben:** Die sächsischen Vorgaben und Prüfungen der letzten Jahrgänge (GK und LK) werden als Quellen gebraucht (`docs/quellen/`).
+3. **Abitur-Vorgaben:** Teilweise beantwortet. Muster und Leseproben sind ausgewertet (`PRUEFUNGEN.md`). Es fehlen noch amtliche Vorgaben für 2029 (Verwaltungsvorschrift, Operatorenliste, Hilfsmittel). Außerdem ist zu klären, wie Bastion mit dem gemeinsamen IQB-Aufgabenpool umgeht.
 4. **Druck und PDF:** Reicht die Druckansicht des Browsers („Als PDF speichern“), oder soll Bastion die PDF selbst erzeugen (neue Abhängigkeit)?
 5. **Werkzeuge:** Welche handelnden Darstellungen sind dir am wichtigsten?

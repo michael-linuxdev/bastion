@@ -75,7 +75,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 1. Dieser Session-Prompt (verbindlich)
 2. `docs/VISION.md` v1.0 – Unterrichtsersatz ohne KI, Variante A zuerst
-3. `docs/VERMITTLUNG.md` – Konzept Vermitteln und Diagnostizieren ohne KI
+3. `docs/VERMITTLUNG.md` – Konzept Vermitteln und Diagnostizieren ohne KI; `docs/PRUEFUNGEN.md` – Aufbau der sächsischen Prüfungen
 4. `docs/STRATEGIE.md` §0 (Schwelle für Variante B) und §9 (K-23 bis K-28)
 5. `docs/KONZEPT.md` – §0 fasst die neue Ausrichtung zusammen; die vollständige Überarbeitung folgt mit dem Pilot
 6. `docs/PLAN.md` §4b (Arbeitsplan U0 bis U8), §2.1 (Nicht-Ziele)
