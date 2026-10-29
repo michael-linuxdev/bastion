@@ -145,7 +145,7 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     writeFileSync(
       vorlage,
       readFileSync(vorlage, 'utf8').replace(
-        /(\n  addiert:\n    de: [^\n]*)/,
+        /(\n {2}addiert:\n {4}de: [^\n]*)/,
         '$1\n    fv: FV.BR.GIBTS-NICHT',
       ),
     );
