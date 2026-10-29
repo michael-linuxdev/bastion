@@ -18,6 +18,8 @@
 
   let {
     ueberschrift,
+    stufe,
+    anzahl,
     auftrag,
     modus,
     paketVon,
@@ -28,6 +30,10 @@
     onwechsel,
   }: {
     ueberschrift: string;
+    /** Niveau, als Schild neben der Überschrift */
+    stufe?: string;
+    /** Bekannte Länge der Runde (Wiederholen, Fehlerwerkstatt); sonst Blöcke zu fünf (R5) */
+    anzahl?: number;
     /** Der n-te Auftrag dieser Runde; undefined = Runde zu Ende. */
     auftrag: (n: number) => Auftrag | undefined;
     modus: 'ueben' | 'wiederholen' | 'fehlerwerkstatt';
@@ -41,6 +47,7 @@
     onwechsel?: (k: Kompetenz) => void;
   } = $props();
   let fehlerInFolge = $state(0);
+  const BLOCK = 5;
 
   interface Aufgabe extends Auftrag {
     readonly instanz: Instanz;
@@ -105,6 +112,17 @@
     nummer += 1;
   }
 
+  /** Erledigte Aufgaben dieser Runde – nur Menge, keine Zeit und kein Urteil (R1, R2) */
+  const erledigt = $derived(nummer + (ergebnis ? 1 : 0));
+  /** Punkte für den Fortschritt: die ganze Runde oder der laufende Fünferblock */
+  const punkte = $derived.by(() => {
+    if (anzahl !== undefined) return { gesamt: anzahl, voll: Math.min(erledigt, anzahl) };
+    const imBlock = erledigt % BLOCK;
+    return { gesamt: BLOCK, voll: imBlock === 0 && erledigt > 0 ? BLOCK : imBlock };
+  });
+  /** Nach jedem vollen Block: ein natürlicher Pausenpunkt (R5) */
+  const pause = $derived(anzahl === undefined && ergebnis !== undefined && erledigt % BLOCK === 0);
+
   const rueckwegZu = $derived(
     ergebnis && !ergebnis.richtig && aufgabe && vorschlag
       ? vorschlag(aufgabe.kompetenz.id, fehlerInFolge)
@@ -124,7 +142,21 @@
 
 <section class="uebung">
   <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
-  <h2>{ueberschrift}</h2>
+  <header class="kopf">
+    <h2>{ueberschrift}</h2>
+    {#if stufe}<span class="stufe">{stufe}</span>{/if}
+    {#if aufgabe || erledigt > 0}
+      <span
+        class="punkte"
+        role="img"
+        aria-label="{punkte.voll} {t('uebung.von')} {punkte.gesamt} {t('uebung.erledigt')}"
+      >
+        {#each Array.from({ length: punkte.gesamt }, (_, i) => i) as i (i)}
+          <span class="punkt" class:voll={i < punkte.voll}></span>
+        {/each}
+      </span>
+    {/if}
+  </header>
 
   {#if !aufgabe}
     <p>
@@ -178,7 +210,7 @@
           {#if ergebnis === undefined}
             <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
             {#if hilfen < aufgabe.vorlage.hilfen.length}
-              <button onclick={() => (hilfen += 1)}>
+              <button class="zweit" onclick={() => (hilfen += 1)}>
                 {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
               </button>
             {/if}
@@ -211,9 +243,10 @@
             {@const ziel = rueckwegZu}
             <div class="rueckweg">
               <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
-              <button onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
+              <button class="zweit" onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
             </div>
           {/if}
+          {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
           <div class="knoepfe">
             <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
           </div>
@@ -222,7 +255,7 @@
     {/key}
   {/if}
   {#if onfertig && nummer + (ergebnis ? 1 : 0) > 0}
-    <button class="fertig" onclick={onfertig}>{t('abschluss.knopf')}</button>
+    <button class="zweit fertig" onclick={onfertig}>{t('abschluss.knopf')}</button>
   {/if}
 </section>
 
@@ -232,24 +265,60 @@
     gap: var(--abstand-m);
   }
 
+  .kopf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--abstand-s) var(--abstand-m);
+  }
+
   h2 {
     margin-block: 0;
+    font-size: 1.375rem;
+  }
+
+  .stufe {
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding-block: 0.125rem;
+    padding-inline: var(--abstand-s);
+    border-radius: 999px;
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text-leise);
+  }
+
+  .punkte {
+    display: flex;
+    gap: 0.375rem;
+    margin-inline-start: auto;
+  }
+
+  .punkt {
+    inline-size: 0.625rem;
+    block-size: 0.625rem;
+    border-radius: 50%;
+    background: var(--farbe-flaeche-leise);
+    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
+  }
+
+  .punkt.voll {
+    background: var(--farbe-akzent);
+    box-shadow: none;
   }
 
   .aufgabe {
     background: var(--farbe-flaeche);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    padding-block: var(--abstand-m);
-    padding-inline: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    padding: var(--abstand-m);
   }
 
   .rueckweg {
     margin-block: var(--abstand-m);
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-m);
-    border: 1px dashed var(--farbe-akzent);
     border-radius: var(--radius);
+    background: var(--farbe-hinweis-flaeche);
   }
 
   .damals {
@@ -263,12 +332,14 @@
   }
 
   .text {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.4;
     margin-block-start: 0;
   }
 
   .bild {
-    margin-inline: 0;
+    margin-inline: auto;
     max-inline-size: 26rem;
   }
 
@@ -283,20 +354,8 @@
     gap: var(--abstand-s);
   }
 
-  button {
-    font: inherit;
-    min-block-size: 2.75rem;
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-  }
-
-  .haupt {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
+  .knoepfe .haupt {
+    padding-inline: var(--abstand-l);
   }
 
   .fertig {
@@ -304,8 +363,13 @@
   }
 
   .zurueck {
+    font: inherit;
     justify-self: start;
-    border-color: transparent;
+    min-block-size: var(--ziel);
+    border: none;
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
     padding-inline: 0;
   }
 
@@ -315,21 +379,43 @@
 
   .rueckmeldung {
     margin-block-start: var(--abstand-m);
-    border-inline-start: 4px solid var(--farbe-akzent);
-    padding-inline-start: var(--abstand-m);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border-inline-start: 6px solid var(--farbe-akzent-warm);
+    background: var(--farbe-flaeche-leise);
   }
 
   .rueckmeldung.richtig {
     border-inline-start-color: var(--farbe-erfolg);
   }
 
+  .rueckmeldung p:last-child {
+    margin-block-end: 0;
+  }
+
   .urteil {
-    font-weight: bold;
+    font-weight: 800;
     font-size: 1.25rem;
+  }
+
+  .rueckmeldung.richtig .urteil {
+    color: var(--farbe-erfolg);
+  }
+
+  .weg {
+    margin-block: var(--abstand-m);
   }
 
   .weg summary {
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
+    min-block-size: var(--ziel);
+    display: flex;
+    align-items: center;
+  }
+
+  .pause {
+    color: var(--farbe-text-leise);
   }
 </style>
