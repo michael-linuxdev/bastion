@@ -377,6 +377,8 @@ Die App lädt das Manifest, zeigt vor dem Download die Größe an und speichert 
 
 *Umsetzung (Stand Klasse 5):* `tools/inhalte/pakete.ts` baut die Pakete als Vite-Plugin – im Entwicklungsserver unter `/packs/`, im Build als Dateien in `dist/packs/`. Dateinamen tragen den Anfang der Prüfsumme (`mathematik.grund.dde4758d8e.json`), das Manifest heißt `manifest.json` und nennt Name, Datei, Bereich, Größe und SHA-256. Alle Pakete der Klasse 5 zusammen sind etwa 23 KB (gzip) groß; deshalb speichert der Service Worker sie vorerst vollständig vorab, statt sie nach Auswahl in IndexedDB zu laden. Die Auswahl vor dem Download folgt, wenn weitere Klassenstufen dazukommen.
 
+*Seit U3b (29.10.2026):* Das Grundpaket enthält zusätzlich den Fehlerkatalog (`fehlvorstellungen`, §16), weil er zum Fach gehört. Die Erstvermittlungen (`vermittlungen`, §15) liegen im Paket des Bereichs ihrer Kompetenz. Das Paketformat bleibt 1: Ältere App-Versionen übersehen die neuen Felder einfach. Die App liest sie in `src/ui/plattform/pakete.ts` als Zuordnung Kompetenz → Sequenz und ID → Fehlvorstellung.
+
 ## 11. Texte und Darstellung
 
 - Formatierung: kleines Markdown-Subset (fett, kursiv, Zeilenumbruch, Liste). Keine Links, keine Bilder per URL.

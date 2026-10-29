@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { ladeKompetenzen, ladeVorlagen } from './laden';
+import { ladeFehlvorstellungen, ladeKompetenzen, ladeVermittlungen, ladeVorlagen } from './laden';
 import { bauePakete, PAKETFORMAT, type PaketEintrag } from './pakete';
 
 describe('Inhaltspakete', () => {
@@ -32,6 +32,22 @@ describe('Inhaltspakete', () => {
     for (const b of bereiche) expect(lies(b.name)['vorlagen']?.length, b.name).toBeGreaterThan(0);
     const summe = bereiche.reduce((s, b) => s + (lies(b.name)['vorlagen']?.length ?? 0), 0);
     expect(summe).toBe(ladeVorlagen('content').length);
+  });
+
+  it('Fehlerkatalog im Grundpaket, Erstvermittlungen im Paket ihres Bereichs', () => {
+    const lies = (name: string) => {
+      const p = manifest.pakete.find((x) => x.name === name);
+      return JSON.parse(dateien.get(p?.datei ?? '') ?? '{}') as Record<string, unknown[]>;
+    };
+    const fv = lies('mathematik.grund')['fehlvorstellungen'] ?? [];
+    expect(fv.length).toBe(ladeFehlvorstellungen('content').length);
+    expect(fv.length).toBeGreaterThan(0);
+    const vermittlungen = ladeVermittlungen('content');
+    expect(vermittlungen.length).toBeGreaterThan(0);
+    for (const v of vermittlungen) {
+      const im = lies(`mathematik.${v.pfadTeile[0] ?? ''}`)['vermittlungen'] ?? [];
+      expect(im, v.datei).toContainEqual(v.daten);
+    }
   });
 
   it('gleiche Inhalte → gleiche Dateinamen (zwischenspeicherbar)', () => {

@@ -1,10 +1,18 @@
 // Baut aus content/ die Inhaltspakete (INHALTSFORMAT §10.2–10.3): ein
 // Grundpaket mit allen Kompetenzen je Fach und ein Paket je Bereich mit den
 // Vorlagen aller Niveaus, dazu ein Manifest mit Prüfsummen und Größen.
+// Der Fehlerkatalog gehört zum Fach (Grundpaket), Erstvermittlungen zum Bereich ihrer Kompetenz.
 // Als Vite-Plugin: im Entwicklungsserver unter /packs/, im Build als Dateien.
 import { createHash } from 'node:crypto';
 import type { Plugin } from 'vite';
-import { ladeAnleitungen, ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
+import {
+  ladeAnleitungen,
+  ladeBegriffe,
+  ladeFehlvorstellungen,
+  ladeKompetenzen,
+  ladeVermittlungen,
+  ladeVorlagen,
+} from './laden';
 
 /** Version des Paketformats; steigt, wenn die App Pakete anders lesen muss. */
 export const PAKETFORMAT = 1;
@@ -36,6 +44,14 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
     if (a.lesefehler) fehler.push(`${a.datei}: ${a.lesefehler}`);
     return a.lesefehler ? [] : [{ daten: a.daten, bereich: a.pfadTeile[0] ?? '' }];
   });
+  const vermittlungen = ladeVermittlungen(inhaltsordner).flatMap((v) => {
+    if (v.lesefehler) fehler.push(`${v.datei}: ${v.lesefehler}`);
+    return v.lesefehler ? [] : [{ daten: v.daten, bereich: v.pfadTeile[0] ?? '' }];
+  });
+  const fehlvorstellungen = ladeFehlvorstellungen(inhaltsordner).flatMap((f) => {
+    if (f.lesefehler) fehler.push(`${f.datei}: ${f.lesefehler}`);
+    return f.lesefehler ? [] : [f.daten];
+  });
   const begriffe = ladeBegriffe(inhaltsordner);
   if (begriffe.lesefehler) fehler.push(`${begriffe.datei}: ${begriffe.lesefehler}`);
   // Die vollständige Prüfung läuft in pnpm test; hier nur, was den Bau unmöglich macht.
@@ -61,6 +77,7 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
     fach: 'mathematik',
     kompetenzen,
     begriffe: (begriffe.daten as { begriffe?: unknown[] } | undefined)?.begriffe ?? [],
+    fehlvorstellungen,
   });
   const bereiche = [...new Set(vorlagen.map((v) => v.bereich))].sort();
   for (const bereich of bereiche) {
@@ -71,6 +88,7 @@ export function bauePakete(inhaltsordner: string): Map<string, string> {
         bereich,
         vorlagen: vorlagen.filter((v) => v.bereich === bereich).map((v) => v.daten),
         anleitungen: anleitungen.filter((a) => a.bereich === bereich).map((a) => a.daten),
+        vermittlungen: vermittlungen.filter((v) => v.bereich === bereich).map((v) => v.daten),
       },
       bereich,
     );
