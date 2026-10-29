@@ -21,8 +21,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Die Leiste unten verdeckt nichts, wenn zu einem Feld gescrollt wird */
-  scroll-padding-block-end: 5.5rem;
+  /* Die Leiste unten verdeckt nichts, wenn zu einem Feld gescrollt wird.
+     --leiste-hoehe misst die Leiste selbst (Leiste.svelte), samt Rand des iPhones. */
+  scroll-padding-block-end: calc(var(--leiste-hoehe, 5.5rem) + var(--abstand-s, 0.5rem));
 }
 
 body {

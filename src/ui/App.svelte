@@ -661,7 +661,9 @@
   .start {
     max-inline-size: 40rem;
     margin-inline: auto;
-    padding-block: var(--abstand-m) 6rem;
+    /* oben Abstand zur Statusleiste des iPhones (viewport-fit=cover), unten Platz für die Leiste */
+    padding-block: calc(env(safe-area-inset-top) + var(--abstand-l))
+      calc(var(--leiste-hoehe, 6rem) + var(--abstand-s));
     padding-inline: var(--abstand-m);
   }
 
