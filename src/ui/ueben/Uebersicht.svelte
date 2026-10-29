@@ -149,11 +149,13 @@
     text-align: start;
     display: grid;
     gap: 0.2rem;
+    min-block-size: var(--ziel);
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-m);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
+    border: 2px solid transparent;
+    border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
+    box-shadow: 0 2px 8px var(--farbe-schatten);
     color: var(--farbe-text);
     cursor: pointer;
   }
@@ -164,7 +166,7 @@
   }
 
   .titel {
-    font-weight: bold;
+    font-weight: 800;
   }
 
   .status {

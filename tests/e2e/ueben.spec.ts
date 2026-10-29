@@ -1127,3 +1127,15 @@ test('Leiste unten: Start, Üben, Bastion, Mein Stand (GRAFIK §1)', async ({ pa
   await leiste.getByRole('button', { name: 'Start' }).click();
   await expect(page.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
 });
+
+test('Üben: Punkte zeigen den Fortschritt im Fünferblock, ohne Zeit (GRAFIK §5)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await expect(page.getByRole('img', { name: '0 von 5 Aufgaben erledigt' })).toBeVisible();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByRole('img', { name: '1 von 5 Aufgaben erledigt' })).toBeVisible();
+});

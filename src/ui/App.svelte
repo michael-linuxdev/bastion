@@ -546,6 +546,7 @@
       {:else if ansicht === 'werkstatt-uebung'}
         <Uebung
           ueberschrift={t('werkstatt.ueberschrift')}
+          anzahl={werkstattListe.length}
           auftrag={(i) => werkstattListe[i]}
           modus="fehlerwerkstatt"
           onfertig={() => void fertig()}
@@ -559,6 +560,7 @@
       {:else if ansicht === 'wiederholen'}
         <Uebung
           ueberschrift={t('wiederholen.ueberschrift')}
+          anzahl={wiederholListe.length}
           auftrag={(i) => wiederholListe[i]}
           modus="wiederholen"
           onfertig={() => void fertig()}
@@ -575,7 +577,8 @@
       {:else if ansicht === 'uebung' && gewaehlt}
         {#key gewaehlt}
           <Uebung
-            ueberschrift="{gewaehlt.titel.de} · {t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}"
+            ueberschrift={gewaehlt.titel.de}
+            stufe={t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}
             auftrag={uebenAuftrag(geladen, gewaehlt)}
             modus="ueben"
             onfertig={() => void fertig()}

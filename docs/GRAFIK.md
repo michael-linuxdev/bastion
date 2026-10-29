@@ -95,5 +95,10 @@ Vier Schritte, jeder ein eigener PR:
    - Vier Kacheln: Wiederholen, Fehlerwerkstatt, Wo stehe ich?, Mein Stand. Ist nichts fällig oder kein Fehler offen, bleibt die Kachel sichtbar, ist aber nicht wählbar.
    - Hinweis auf die Klassenarbeit nur mit Datum.
    - Leiste unten (`Leiste.svelte`) in allen Ansichten; ohne Basebau ohne Bastion (R7). Symbole in `src/ui/grafik/Symbol.svelte`.
-3. Üben.
+3. ✅ **Üben** (`src/ui/ueben/Uebung.svelte`):
+   - Kopf mit Thema, Niveau als Schild und Punkten für den Fortschritt der Runde. Die Punkte zeigen nur die Menge, keine Zeit und kein richtig oder falsch (R1, R2).
+   - Beim Wiederholen und in der Fehlerwerkstatt umfassen die Punkte die ganze Runde. Beim Üben zeigen sie Blöcke zu fünf Aufgaben. Nach jedem Block erscheint „Eine gute Stelle für eine Pause“ (R5).
+   - Die Aufgabe steht groß auf einer Karte. Die Knöpfe heißen „Prüfen“ und „Tipp“. Der Lösungsweg kommt wie bisher nach dem Prüfen, damit er nicht vorher verrät, was zu tun ist.
+   - Die Rückmeldung erscheint als Fläche: grün bei richtig, warm bei falsch, nie rot (Fehler als Rohstoff).
+   - Die Themenliste zeigt die Themen als Karten.
 4. Bastion (isometrische Insel).
