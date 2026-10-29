@@ -91,11 +91,11 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 **Als Nächstes:**
 
 1. Mit dem Projektverantwortlichen die offenen Fragen in `VERMITTLUNG.md` §8 klären:
-   - Musterkompetenzen,
+   - ~~Musterkompetenzen~~ (bestätigt: Bruchbegriff, Erweitern/Kürzen, Addieren/Subtrahieren),
    - fachliche Prüfung durch eine Lehrkraft,
-   - Abitur-Vorgaben als Quellen,
-   - PDF-Technik,
-   - Werkzeuge.
+   - Abitur-Vorgaben: Muster und Leseproben sind ausgewertet (`PRUEFUNGEN.md`), die amtlichen Vorgaben für 2029 fehlen noch,
+   - ~~PDF-Technik~~ (Druckfunktion des Browsers, T-17),
+   - Werkzeuge (vorerst Bruchstreifen und Zahlenstrahl).
 2. Dann **U1** (`PLAN.md` §4b):
    - Format für Erstvermittlung und Fehlerkatalog in `INHALTSFORMAT.md`,
    - Prüfwerkzeug,

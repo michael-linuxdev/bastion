@@ -190,7 +190,7 @@ Das gehört zur Kernaufgabe 4 und kommt nach Vermitteln und Diagnose. Den Aufbau
 - **Neue Aufgaben bei jedem Druck:** Die Aufgaben kommen aus den Generatoren und handverfassten Vorlagen mit Parametern. Offene Aufgaben (Begründen, Beweisen, Modellieren) brauchen Vorlagen mit **Erwartungshorizont** und Bewertungshinweisen.
 - **Nachvollziehbar und geheim zugleich:** Jede Prüfung trägt einen Prüfungscode, aus dem sie sich genau wieder erzeugen lässt. Der Zufall dafür kommt aus einem großen Zahlenraum (mindestens 64 Bit, sicherer Zufall des Geräts). So lässt sich eine echte Prüfung nicht erraten, obwohl die App öffentlich ist.
 - **Gleiche Funktion für alle:** Ministerium, Lehrkraft und Schülerin nutzen dieselbe Funktion (VISION §6).
-- **Druck ohne Netz:** Aufgabenblatt, Lösungsblatt und Bewertungshinweise getrennt, mit sauberem Formelsatz. Die Technik (Druckansicht des Browsers oder eigene PDF-Erzeugung, Formelsatz) ist **noch offen**. Eine neue Laufzeitabhängigkeit braucht einen Eintrag in ARCHITEKTUR (CLAUDE.md).
+- **Druck ohne Netz:** Aufgabenblatt, Lösungsblatt und Bewertungshinweise getrennt, mit sauberem Formelsatz. **Entschieden (T-17):** PDF über die Druckfunktion des Browsers („Als PDF speichern“), mit eigener Druckansicht (CSS für den Druck). Es gibt keine PDF-Bibliothek. Offen ist noch der Formelsatz. Eine Bibliothek dafür wäre eine neue Abhängigkeit und braucht vorher eine Rückfrage.
 - **Noten nur auf Wunsch** (K-26): Punkte und Bewertungshinweise immer. Eine Note nach sächsischem Schlüssel nur, wenn sie eingeschaltet ist.
 - **Zeit:** Die Bearbeitungszeit steht auf dem Blatt. In der App gibt es höchstens eine freiwillige Uhr, ohne Folgen (R2-Ausnahme, VISION §9).
 
@@ -201,7 +201,7 @@ Dafür nötig und bisher Nicht-Ziel: Niveau E (Leistungskurs), Operatoren-Traini
 Reihenfolge nach K-28 (zuerst Klasse 5–8 nachrüsten):
 
 1. **Format festlegen** für Sequenz und Fehlerkatalog, in `INHALTSFORMAT.md`. Dazu ein Prüfwerkzeug für Wege, Ziele und Verweise.
-2. **Musterfeld Brüche** (Zielgruppe „Lücken bei Brüchen“, VISION §11): Erstvermittlung und Fehlerkatalog für drei Kompetenzen, Vorschlag `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB`. Dazu die Werkzeuge Bruchstreifen und Zahlenstrahl.
+2. **Musterfeld Brüche** (Zielgruppe „Lücken bei Brüchen“, VISION §11): Erstvermittlung und Fehlerkatalog für drei Kompetenzen: `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB` (bestätigt am 29.10.2026). Dazu die Werkzeuge Bruchstreifen und Zahlenstrahl.
 3. **Abspieler in der App:** Sequenz zeigen, verzweigen, Ereignisse speichern; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen.
 4. **Test mit den drei Testerinnen** (`TESTS.md` §2): Verstehen sie das Thema nur mit der Vermittlung? Treffen die Erklärungen?
 5. **Ausrollen** Feld für Feld über alle 123 Kompetenzen der Klassen 5–8. Jedes Feld ist ein PR mit Review-Liste.
@@ -211,8 +211,8 @@ Reihenfolge nach K-28 (zuerst Klasse 5–8 nachrüsten):
 
 ## 8. Offene Fragen an den Projektverantwortlichen
 
-1. **Musterkompetenzen:** passen Bruchbegriff, Erweitern/Kürzen und Addieren/Subtrahieren?
+1. ~~**Musterkompetenzen**~~ – *entschieden am 29.10.2026:* Bruchbegriff, Erweitern/Kürzen und Addieren/Subtrahieren (`M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB`).
 2. **Fachliche Prüfung:** Gibt es eine Lehrkraft, die Sequenzen und Kataloge abnimmt? In welchem Takt?
 3. **Abitur-Vorgaben:** Teilweise beantwortet. Muster und Leseproben sind ausgewertet (`PRUEFUNGEN.md`). Es fehlen noch amtliche Vorgaben für 2029 (Verwaltungsvorschrift, Operatorenliste, Hilfsmittel). Außerdem ist zu klären, wie Bastion mit dem gemeinsamen IQB-Aufgabenpool umgeht.
-4. **Druck und PDF:** Reicht die Druckansicht des Browsers („Als PDF speichern“), oder soll Bastion die PDF selbst erzeugen (neue Abhängigkeit)?
+4. ~~**Druck und PDF**~~ – *entschieden am 29.10.2026:* Die Druckfunktion des Browsers reicht (T-17).
 5. **Werkzeuge:** Welche handelnden Darstellungen sind dir am wichtigsten?
