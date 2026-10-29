@@ -90,6 +90,10 @@ Vier Schritte, jeder ein eigener PR:
    - `src/ui/grafik/darstellung.svelte.ts` schreibt die Tokens an `<html>` und setzt `data-modus` auf `hell` oder `dunkel`. Das Bild der Bastion zeichnet sich beim Wechsel neu.
    - Wahl „Aussehen“ unter „Über mich“: Wie das Gerät, Hell, Dunkel (Abend). Einstellung `darstellung.modus`.
    - Schrift Nunito mitgeliefert (T-16). Knöpfe `haupt`, `zweit`, `dezent` und Eingabefelder einheitlich in `grund.css`.
-2. Startseite mit der Leiste unten.
+2. ✅ **Startseite mit der Leiste unten** (`src/ui/start/`):
+   - Datum und Begrüßung, kleine Ansicht der Bastion (`src/ui/grafik/MiniBastion.svelte`, nur Bild), großer Knopf „Üben“ mit „Gerade dran“.
+   - Vier Kacheln: Wiederholen, Fehlerwerkstatt, Wo stehe ich?, Mein Stand. Ist nichts fällig oder kein Fehler offen, bleibt die Kachel sichtbar, ist aber nicht wählbar.
+   - Hinweis auf die Klassenarbeit nur mit Datum.
+   - Leiste unten (`Leiste.svelte`) in allen Ansichten; ohne Basebau ohne Bastion (R7). Symbole in `src/ui/grafik/Symbol.svelte`.
 3. Üben.
 4. Bastion (isometrische Insel).

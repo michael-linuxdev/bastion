@@ -70,7 +70,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   await context.setOffline(true);
   await page.reload();
 
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
 
@@ -90,7 +90,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
 
 test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   const thema = page.getByRole('button', { name: /^Addieren und Subtrahieren/ });
   await expect(thema).not.toContainText('in Arbeit');
   await thema.click();
@@ -103,7 +103,7 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
   );
 
   await page.reload();
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
     'in Arbeit',
   );
@@ -112,9 +112,10 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
 test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
-  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
+  // Die Kachel bleibt sichtbar, ist aber ohne fällige Aufgaben nicht wählbar
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -141,7 +142,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   // Erste Vorlage reihum ist das schriftliche Addieren: „Berechne schriftlich: a + b“
   const text = (await page.locator('.aufgabe .text').innerText()).replace(/[\s\u202f]/g, '');
@@ -171,7 +172,7 @@ test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', asy
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
   await expect(page.getByText('Willkommen zurück')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Üben' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -194,7 +195,7 @@ test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', asy
 
 test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Wo stehe ich?' }).click();
   await expect(page.getByText(/keine Note und keine Punkte/)).toBeVisible();
   await page.getByRole('button', { name: "Los geht's" }).click();
 
@@ -215,22 +216,22 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await expect(page.getByText(/Punkte|%/)).toHaveCount(0);
 
   // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt
-  await page.getByRole('button', { name: 'Üben' }).first().click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).first().click();
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
-  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
 });
 
 test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByText(/Du hast noch nichts geübt/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   // Ohne Vorwissen ist eine Kompetenz ohne Voraussetzungen empfohlen
   await expect(page.getByRole('button', { name: /^Große Zahlen und Stellenwerte/ })).toContainText(
     'empfohlen',
@@ -250,7 +251,7 @@ test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen'
 
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 });
 
@@ -259,7 +260,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
 }) => {
   await page.goto('./');
   // etwas üben, damit es etwas zu berichten gibt
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -312,7 +313,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
 
   // Transparenz: Jugendliche sehen dasselbe unter „Mein Stand“
   await page.getByRole('button', { name: /Zurück/ }).click();
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByText('Was meine Eltern sehen').click();
   await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
 });
@@ -323,7 +324,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   baseURL,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -371,7 +372,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await expect(seite.getByText(/Alles aus dieser Sicherung war schon da/)).toBeVisible();
   await seite.getByRole('button', { name: /Zurück/ }).click();
 
-  await seite.getByRole('button', { name: 'Mein Stand' }).click();
+  await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(seite.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 
   // Die alte PIN gilt hier nicht – neue PIN, dauerhafter Vermerk
@@ -394,7 +395,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByRole('button', { name: 'Öffnen' }).click();
   await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('0');
   await seite.reload();
-  await seite.getByRole('button', { name: 'Mein Stand' }).click();
+  await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await seite.locator('summary', { hasText: 'Was meine Eltern sehen' }).click();
   await expect(seite.getByText(vermerk)).toBeVisible();
   await neu.close();
@@ -402,7 +403,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
 
 test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await expect(page.getByRole('button', { name: 'Fertig für heute' })).toHaveCount(0);
   await page.getByLabel('Deine Antwort').fill('0');
@@ -418,7 +419,9 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   await expect(page.getByText(/Nimm dir ruhig etwas mehr Zeit/)).toBeVisible();
   await expect(page.getByText(/Für heute ist das gut/)).toBeVisible();
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
-  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
   // Die Sitzung ist regulär beendet und gespeichert (DATENMODELL §4.2). Die
   // schnelle falsche Antwort gilt als geraten und zählt nicht als ernsthaft.
   expect(await sitzungenImSpeicher(page)).toEqual([
@@ -430,7 +433,7 @@ test('Fertig für heute: Ressourcen unter dem Können, mit „woher“ (BASEBAU 
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   // in Ruhe nachdenken: mehr als 5 Sekunden, dann zählt auch eine falsche Antwort
   await page.waitForTimeout(5_200);
@@ -450,7 +453,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   page,
 }) => {
   const antworten = async (ruhig: boolean) => {
-    await page.getByRole('button', { name: 'Üben', exact: true }).click();
+    await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
     await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
     if (ruhig) await page.waitForTimeout(5_200);
     await page.getByLabel('Deine Antwort').fill('0');
@@ -458,14 +461,14 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
     await page.getByRole('button', { name: 'Fertig für heute' }).click();
   };
   await page.goto('./');
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   const schalter = page.getByRole('checkbox', { name: 'Bastion anzeigen' });
   await expect(schalter).toBeChecked();
   await schalter.uncheck();
   // Speichern läuft im Hintergrund – erst neu laden, wenn es angekommen ist
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.reload();
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(schalter).not.toBeChecked();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
@@ -476,7 +479,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
 
   // Wieder an: Der Stein von eben ist da (B-10)
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await schalter.check();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await antworten(false);
@@ -548,10 +551,10 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   page,
 }) => {
   await page.goto('./');
-  await expect(page.getByRole('button', { name: 'Bastion' })).toBeVisible();
+  await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('heading', { name: 'Deine Bastion' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Stein$/ })).toBeVisible();
   await expect(
@@ -621,7 +624,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Bleibt nach dem Neuladen, wie es ist
   // (auch die Farbe des Banners)
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
     'Spalte 12, Reihe 12',
@@ -643,30 +646,32 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.ziel')).toContain('"kern"');
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(ziel).toBeVisible();
   await ziel.getByRole('button', { name: 'Nicht mehr vormerken' }).click();
   await expect(ziel).toHaveCount(0);
 
   // Ausgeschaltet: kein Bastion-Knopf auf der Startseite (R7)
   await page.getByRole('button', { name: /Zurück/ }).click();
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Bastion' })).toHaveCount(0);
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toHaveCount(0);
 });
 
 test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByText(/Noch ist hier nichts/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(
     page
       .getByRole('listitem')
@@ -679,7 +684,7 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
   await page.goto('./');
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await page.getByRole('radio', { name: 'Garten' }).check();
   await expect(page.getByRole('heading', { name: 'Dein Garten' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Samen$/ })).toBeVisible();
@@ -695,7 +700,10 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
   // Nach dem Neuladen bleibt das Thema; der Knopf heißt wie das Thema
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
-  await page.getByRole('button', { name: 'Garten', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Garten', exact: true }).click();
+  await expect(
+    page.getByRole('navigation').getByRole('button', { name: 'Garten', exact: true }),
+  ).toBeVisible();
   await page.getByRole('radio', { name: 'Unterwasserstadt' }).check();
   await expect(page.getByRole('heading', { name: 'Deine Unterwasserstadt' })).toBeVisible();
   // Was gebaut ist, bleibt – es heißt nur anders
@@ -707,14 +715,16 @@ test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetrage
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByRole('button', { name: 'Fertig für heute' })).toBeVisible();
   expect(await sitzungenImSpeicher(page)).toEqual([]);
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Üben', exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
   await expect
     .poll(() => sitzungenImSpeicher(page))
     .toEqual([{ abschluss: 'nachgetragen', aufgaben: 0, lerneinheit: false }]);
@@ -722,7 +732,7 @@ test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetrage
 
 test('Fachbegriffe: antippen zeigt die Erklärung (L-7)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Teilbarkeitsregeln/ }).click();
   const begriff = page.getByRole('button', { name: 'teilbar', exact: true });
   await expect(begriff).toHaveAttribute('aria-expanded', 'false');
@@ -737,7 +747,7 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page
     .getByRole('button', { name: /^Winkel\b/ })
     .first()
@@ -759,7 +769,7 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
 
 test('Klasse 6 wählen und Brüche addieren üben', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await expect(page.getByRole('heading', { name: 'Klasse 6' })).toBeVisible();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toHaveCount(0);
@@ -770,14 +780,14 @@ test('Klasse 6 wählen und Brüche addieren üben', async ({ page }) => {
 
 test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByText(/^41\s+Themen insgesamt/)).toBeVisible();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await expect(page.getByText(/^28\s+Themen insgesamt/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
   // Die Diagnose übernimmt die gewählte Klasse
-  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Wo stehe ich?' }).click();
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
   await page.getByRole('button', { name: "Los geht's" }).click();
   await expect(page.getByRole('button', { name: 'Weiß ich nicht' })).toBeVisible();
@@ -787,7 +797,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   const bild = page.locator('.bauplatz canvas');
   await expect(bild).toBeVisible();
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum Bild, scrollt dorthin */
@@ -835,7 +845,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(bild).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.bild')).toBe(false);
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
   await expect(bild).toHaveCount(0);
 });
@@ -844,7 +854,7 @@ test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)'
   page,
 }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
   await expect(page.getByRole('heading', { name: 'Klasse 7' })).toBeVisible();
   await page.getByRole('button', { name: /^Negative Zahlen/ }).click();
@@ -859,7 +869,7 @@ test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)'
 
 test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(
     page.getByRole('heading', { name: 'Dein Hinterhof: was du sicher kannst' }),
   ).toBeVisible();
@@ -877,7 +887,7 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
 
 test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 8' }).check();
   await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toBeVisible();
   await expect(page.getByText(/Aus Klasse 5: \d+ Themen offen/)).toBeVisible();
@@ -889,7 +899,7 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   // Die Wahl bleibt nach dem Neuladen (erst neu laden, wenn gespeichert)
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(7);
   await page.reload();
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(page.getByRole('radio', { name: 'Klasse 7' })).toBeChecked();
   // Schulartwechsel zeigt Themen, die die neue Schulart früher hat
   await page.getByRole('radio', { name: 'Klasse 5' }).check();
@@ -904,11 +914,11 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
 
 test('Übersprungene Klasse: gezielte Diagnose der Lücken daraus (L-12)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(6);
   await page.reload();
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   // Klasse 7 übersprungen: nur ihre Themen werden geprüft
   await page.getByRole('radio', { name: 'Klasse 8' }).check();
   await expect(page.getByText(/Aus Klasse 7: \d+ Themen offen/)).toBeVisible();
@@ -929,13 +939,13 @@ test('Übersprungene Klasse: gezielte Diagnose der Lücken daraus (L-12)', async
 
 test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: 'Fertig für heute' }).click();
   await page.getByRole('button', { name: 'Zur Startseite' }).click();
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByText('Was meine Eltern sehen').click();
   await page.getByRole('button', { name: 'Für die Lehrkraft' }).click();
   await expect(
@@ -967,14 +977,14 @@ test('Profil: freiwillig, ab 18 ohne Elternbereich (L-15)', async ({ page }) => 
   await expect.poll(() => einstellungImSpeicher(page, 'profil.geburtsdatum')).toBe('1985-04-12');
   await page.reload();
   await expect(page.getByRole('button', { name: 'Für Eltern' })).toHaveCount(0);
-  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByText('Mein Bericht (auch zum Zeigen für Lehrkräfte)')).toBeVisible();
 });
 
 test('Schuljahreswechsel: einmal nach der Klasse fragen (L-17)', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-07-20T10:00:00') });
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2025);
@@ -991,13 +1001,13 @@ test('Schuljahreswechsel: einmal nach der Klasse fragen (L-17)', async ({ page }
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2026);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
 });
 
 test('Gerade dran: Lernbereich wählen, Themen stehen oben (L-18)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Oberschule' }).check();
   await page.getByText('Was ist gerade in der Schule dran? Wählen').click();
   const lb = page.locator('.dran fieldset').first();
@@ -1014,13 +1024,13 @@ test('Gerade dran: Lernbereich wählen, Themen stehen oben (L-18)', async ({ pag
     )
     .toBe(anzahl - 1);
   await page.reload();
-  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(page.locator('.dran .liste li')).toHaveCount(anzahl - 1);
 });
 
 test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', async ({ page }) => {
   await page.goto('./');
-  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Wo stehe ich?' }).click();
   await page.getByRole('radio', { name: /Alles ab Klasse 5/ }).check();
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toHaveCount(0);
   await page.getByRole('button', { name: "Los geht's" }).click();
@@ -1089,4 +1099,31 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+});
+
+test('Leiste unten: Start, Üben, Bastion, Mein Stand (GRAFIK §1)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Überspringen' }).click();
+  const leiste = page.getByRole('navigation', { name: 'Bereiche' });
+  await expect(leiste.getByRole('button', { name: 'Start' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await leiste.getByRole('button', { name: 'Üben' }).click();
+  await expect(leiste.getByRole('button', { name: 'Üben' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await leiste.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(leiste.getByRole('button', { name: 'Mein Stand' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await leiste.getByRole('button', { name: 'Bastion' }).click();
+  await expect(leiste.getByRole('button', { name: 'Bastion' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await leiste.getByRole('button', { name: 'Start' }).click();
+  await expect(page.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
 });
