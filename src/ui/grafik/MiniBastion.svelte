@@ -15,9 +15,9 @@
   <ellipse cx="62" cy="44" rx="20" ry="6" class="wolke" />
   <ellipse cx="80" cy="40" rx="14" ry="6" class="wolke" />
   <!-- Insel: Oberseite und Rand -->
-  <path d="M30 92 120 64l90 28-90 28Z" style="fill: var(--bastion-zierde)" />
-  <path d="M30 92v6l90 28v-6Z" style="fill: var(--bastion-bau)" />
-  <path d="M210 92v6l-90 28v-6Z" style="fill: var(--hinterhof-g)" />
+  <path d="M30 92 120 64l90 28-90 28Z" style="fill: var(--bastion-boden)" />
+  <path d="M30 92v6l90 28v-6Z" style="fill: var(--bastion-raster)" />
+  <path d="M210 92v6l-90 28v-6Z" style="fill: var(--bastion-zierde)" />
   <!-- Turm: zwei Seitentöne, Dach warm -->
   <path d="M100 96V60l20 6v36Z" style="fill: var(--bastion-verteidigung)" />
   <path d="M140 96V60l-20 6v36Z" style="fill: var(--bastion-raster)" />
