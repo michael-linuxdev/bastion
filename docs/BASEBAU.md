@@ -180,7 +180,7 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 *Umsetzung (2.5):* `src/core/bastion/katalog.ts` – Katalog als Daten, genau nach dieser Tabelle (Test: 2 000 Stein, 570 Erz, 17 Baupläne, 93 Bauschritte). Präzisierungen:
 - **Banner 10 Stein, 1 Bauschritt** statt 20–40: Nur so reicht die erste Lerneinheit (etwa 10 Stein) für ein Banner, wie §5.1 verlangt. Garten 30, Statue 40 Stein, je 1 Bauschritt; Zierde ohne Höchstzahl, begrenzt nur durch den Platz.
 - **Feuerstelle** steht nur im Startzustand und wird nicht gebaut.
-- **Größen** in Feldern (Draufsicht, B-11): Bergfried 3 × 3, Zimmerei, Studierstube und Garten 2 × 2, alles andere 1 × 1.
+- **Größen** in Feldern (B-11; seit K-22 schräg von oben gezeichnet): Bergfried 3 × 3, Zimmerei, Studierstube und Garten 2 × 2, alles andere 1 × 1.
 - **Startzustand:** Bergfried in der Mitte, Feuerstelle davor, vier Palisaden mit einer Lücke für das Tor.
 - **Hindernisse** ohne Blick auf Ressourcen: nicht baubar, Höchststufe, Höchstzahl, Bergfried zu niedrig (§4.2), fehlende Voraussetzung. Ob die Ressourcen reichen, prüft das Bauen (2.6).
 - Namen und je ein Satz „wozu“ stehen in der Textdatei (`gebaeude.<typ>`).
@@ -326,7 +326,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-8 | Abbruch eines Bauvorhabens gibt alle Ressourcen zurück; Versetzen ist kostenlos | Entschieden |
 | B-9 | Rückkehrmodus nach Pausen ohne Vorwurf und mit portionierten Wiederholungen | Entschieden |
 | B-10 | Ledger bucht auch bei abgeschaltetem Basebau | Entschieden |
-| B-11 | Bastion in **Draufsicht** (Plan von oben), nicht isometrisch | Entschieden (28.10.2026, Projektverantwortlicher) |
+| B-11 | Bastion in **Draufsicht** (Plan von oben), nicht isometrisch | Abgelöst am 29.10.2026 durch K-22: Richtung A zeigt die Insel schräg von oben (isometrisch, `GRAFIK.md` §1, §5). Felder, Größen und Daten bleiben gleich |
 | B-12 | Gebäudebilder zuerst im **eigenen schlichten Stil** aus dem Code, austauschbar über einen Bildkatalog (erledigt KONZEPT O-11) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-13 | Basebau-Schalter: Standard **an**; Jugendliche und Eltern können ihn jederzeit umschalten. *Umsetzung (2.7):* Einstellung `basebau.aktiv` (nur `false` schaltet ab), Schalter „Bastion anzeigen“ in „Mein Stand“ (Jugendliche) und im Elternbereich (Eltern); es gilt die jüngste Änderung (D-5). Aus heißt: keine Ressourcen im Abschluss, später kein Bastion-Knopf – das Ledger bucht weiter (B-10) | Entschieden (28.10.2026, Projektverantwortlicher) |
 | B-14 | Erste Gebäude in der Umsetzung: **Banner und Späherturm** – sie prüfen den frühen Erfolg (§5.1) und die ganze Kette aus allen vier Ressourcen | Entschieden (28.10.2026, Projektverantwortlicher) |
@@ -416,7 +416,7 @@ Die Grafik (Stufe D) zeichnet zuerst nur das Thema Bastion, aber mit Bildern je 
 | Nr. | Schritt | Kern der Sache | Prüfung |
 |---|---|---|---|
 | 2.12 ✅ | **PixiJS einbinden** (T-6) | genaue Version im Entscheidungslog (ARCHITEKTUR §4.6), nur nachgeladen bei aktivem Basebau, im Offline-Speicher, Budget ≤ 300 KB (ARCHITEKTUR §9) | Leistungsmessung, Offline-Test |
-| 2.13 ✅ | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
+| 2.13 ✅ | **Bauplatz** | 12 × 12 Felder in Draufsicht (B-11; seit K-22 schräg von oben, `GRAFIK.md` §5), Gebäude im schlichten Stil aus dem Code (B-12), hell und dunkel; Feld antippen = Platz wählen, Versetzen; Umschalter zur gleichwertigen Listenansicht | Browser-Test mit Grafik und offline |
 | 2.13a ✅ | **Zoom** | Bauplatz vergrößern (100/150/200 %), verschieben mit dem Finger; Felder auf dem Handy mindestens 44 Punkte | Browser-Test |
 | 2.14 ✅ | **Gestalten** | Bannerfarbe, Zierde (Garten, Statue …) | Einheitentests |
 

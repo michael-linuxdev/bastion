@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { BUEHNE_B, BUEHNE_H, punkt } from '../../src/ui/bastion/grafik/iso';
 
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
@@ -804,8 +805,10 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   const tippe = async (x: number, y: number) => {
     const r = await bild.boundingBox();
     if (!r) throw new Error('kein Bild');
+    // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
+    const p = punkt(x + 0.5, y + 0.5);
     await bild.click({
-      position: { x: ((x + 0.5) * r.width) / 12, y: ((y + 0.5) * r.height) / 12 },
+      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
     });
   };
   // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
@@ -835,9 +838,11 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await fenster.evaluate((f) => (f.scrollLeft = 0));
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
-  await page.getByRole('button', { name: 'Verkleinern' }).click();
-  await page.getByRole('button', { name: 'Verkleinern' }).click();
-  await expect(page.getByRole('button', { name: 'Verkleinern' })).toBeDisabled();
+  // Zurück auf 100 % – je nach Startstufe ein- oder zweimal
+  const kleiner = page.getByRole('button', { name: 'Verkleinern' });
+  await kleiner.click();
+  if (await kleiner.isEnabled()) await kleiner.click();
+  await expect(kleiner).toBeDisabled();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(1);
 
   // Bild ausblenden: nur noch die Liste – auch nach dem Neuladen

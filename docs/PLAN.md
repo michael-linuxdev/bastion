@@ -172,7 +172,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 15. Klasse 8 (K-15, K-17) – *Stand: Lehrpläne ausgewertet, 27 Kompetenzen und Graph in `LEHRPLAN.md` §8d; alle 27 Kompetenzen haben Vorlagen (54, Entwurf) und 3 Anleitungen, Klassenwahl mit Klasse 8 – Klasse 8 ist inhaltlich abgedeckt*
 16. Nach Klasse 8 (K-20): Startpaket für Späteinsteiger (B-24) – *steht (BASEBAU §3.4b)*, Hinterhof (B-25) – *Stufe 1 steht*, Wechsel begleiten (L-12) – *steht, beim Überspringen mit gezielter Lücken-Diagnose*, Bericht für die Lehrkraft im Elternbereich (L-13) – *steht*
 17. Vor Klasse 9 (K-20, ergänzt): Profil mit Geburtsdatum und Ansprache (L-15) – *Profil steht, „Sie“ offen*, Schuljahreswechsel und Klasse pflegen (L-17) – *steht*, „Gerade dran“ (L-18) – *steht*, Diagnose zum Wiedereinstieg (L-16) – *steht*, Klassenarbeit (L-19) – *steht (Termin, Themen, Probe-Klassenarbeit); offen: Wiederholungen bis zum Termin planen*
-17a. **Vorher: Grafik deutlich ansprechender (K-22)** – drei Testerinnen (12–16 Jahre) stehen bereit (`TESTS.md` §2). *Entschieden: Richtung A „Tag, warm“, Leiste unten, hell/dunkel/System, austauschbar (`GRAFIK.md`, B-27). Reihenfolge des Umbaus: Grundlage (Tokens, Schrift, Modi), Startseite, Üben, Bastion – je ein PR. Später: lebendige Szenen, Jahreszeiten, Wetter (T-15), Skins*
+17a. **Vorher: Grafik deutlich ansprechender (K-22)** – drei Testerinnen (12–16 Jahre) stehen bereit (`TESTS.md` §2). *Entschieden: Richtung A „Tag, warm“, Leiste unten, hell/dunkel/System, austauschbar (`GRAFIK.md`, B-27). Reihenfolge des Umbaus: Grundlage (Tokens, Schrift, Modi), Startseite, Üben, Bastion – je ein PR. Später: lebendige Szenen, Jahreszeiten, Wetter (T-15), Skins* – *umgesetzt am 29.10.2026 in vier PRs (#42 bis #45): Grundlage mit Fassung „tag-warm“, Nunito und Modi; Startseite mit Leiste unten; Üben mit Fortschrittspunkten; Bastion als Insel schräg von oben (`GRAFIK.md` §5). Offen: Test mit den drei Testerinnen*
 17b. Klasse 9 bis 12, danach Mathe im Studium (K-19) – *erst nach 17a; Beginn nach Rückfrage beim Projektverantwortlichen, siehe `SESSION-PROMPT.md`*
 17c. *Später, nur gemerkt:* Prüfungen entwerfen – Übungen bis Abiturprüfung je Klasse und Kurs, mit Lösungen, zum Drucken, Timer optional (`LEHRPLAN.md` L-20). Erst nach Klasse 12; offene Fragen stehen bei L-20.
 18. Budget der App-Hülle: Generatoren nachladen (vom Projektverantwortlichen freigegeben, 28.10.2026) – *steht: ARCHITEKTUR T-14, App-Hülle 120 KB statt 212 KB*
@@ -194,6 +194,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 29.10.2026 | K-22 umgesetzt: Grafik in Richtung A „Tag, warm“ (`GRAFIK.md` §5); B-11 (Draufsicht) abgelöst; Schrift Nunito mitgeliefert (T-16) |
 | 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Späherturm (B-11 bis B-14) |
 | 27.10.2026 | Plan angelegt; Phase 0 gestartet; Arbeit im GitHub-Repository festgelegt |
 | 27.10.2026 | Repository angelegt; `LEHRPLAN.md` v0.1 mit 23 Kompetenzen Mathe Kl. 5–6 |

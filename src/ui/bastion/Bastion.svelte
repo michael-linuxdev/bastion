@@ -30,6 +30,7 @@
   } from '../plattform/ablage';
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
+  import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import {
     aktiv,
@@ -183,27 +184,60 @@
   <h2>{tt('bastion.ueberschrift')}</h2>
   <p class="leise">{tt('bastion.einleitung')}</p>
 
-  <fieldset class="themen">
-    <legend>{tt('bastion.thema')}</legend>
-    {#each THEMEN as th (th)}
-      <label
-        ><input
-          type="radio"
-          name="thema"
-          checked={aktiv.thema === th}
-          onchange={() => themaWaehlen(th)}
-        />
-        {wort('name', th)}</label
-      >
-    {/each}
-  </fieldset>
-  <p class="leise">{tt('bastion.thema-erklaerung')}</p>
-
   {#if geladen && !lage}
     <p>{tt('bastion.ohne-speicher')}</p>
   {:else if lage}
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
+
+    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
+
+    <h3>{tt('bastion.vorrat')}</h3>
+    <ul class="vorrat">
+      {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
+        <li><Symbol name={symbol} /><span>{menge(r, l.konto.stand[r])}</span></li>
+      {/each}
+      <li>
+        <Symbol name="bastion" /><span
+          ><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</span
+        >
+      </li>
+    </ul>
+    <p class="leise">{tt('bastion.bauschritte-erklaerung')}</p>
+
+    {#if ziel && zielZustand && !zielZustand.erreicht}
+      {@const z = ziel}
+      {@const fehlend = (['fleiss', 'behalten', 'koennen'] as const)
+        .filter((r) => zielZustand.fehlt[r] > 0)
+        .map((r) => menge(r, zielZustand.fehlt[r]))}
+      {@const k = kosten(z.typ, z.stufe)}
+      {@const gesamt = k ? k.fleiss + k.behalten + k.koennen : 0}
+      {@const offen =
+        zielZustand.fehlt.fleiss + zielZustand.fehlt.behalten + zielZustand.fehlt.koennen}
+      <section class="vorgemerkt" aria-labelledby="ziel-titel">
+        <h3 id="ziel-titel">
+          {tt('bastion.dein-ziel')}
+          {name(z.typ)}{#if z.gebaeude}, {tt('bastion.stufe')} {z.stufe}{/if}
+        </h3>
+        {#if gesamt > 0}
+          <progress
+            max={gesamt}
+            value={Math.max(0, gesamt - offen)}
+            aria-label={tt('bastion.ziel-fortschritt')}
+          ></progress>
+        {/if}
+        {#if fehlend.length > 0}
+          <p>{tt('bastion.fehlt')} {fehlend.join(', ')}</p>
+        {:else if zielZustand.hindernisse.length === 0}
+          <p>{tt('bastion.alles-da')}</p>
+        {/if}
+        {#each zielZustand.hindernisse as h (h)}
+          <p class="leise">{hindernisText(h, z.typ, z.stufe)}</p>
+        {/each}
+        <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
+      </section>
+    {/if}
+
     {#if epoche.geschafft}
       <p class="geschafft" role="status">{tt('bastion.geschafft')}</p>
     {:else}
@@ -224,39 +258,6 @@
       </ul>
       <p class="leise">{tt('bastion.ziel-erklaerung')}</p>
     {/if}
-
-    {#if ziel && zielZustand && !zielZustand.erreicht}
-      {@const z = ziel}
-      {@const fehlend = (['fleiss', 'behalten', 'koennen'] as const)
-        .filter((r) => zielZustand.fehlt[r] > 0)
-        .map((r) => menge(r, zielZustand.fehlt[r]))}
-      <section class="vorgemerkt" aria-labelledby="ziel-titel">
-        <h3 id="ziel-titel">
-          {tt('bastion.dein-ziel')}
-          {name(z.typ)}{#if z.gebaeude}, {tt('bastion.stufe')} {z.stufe}{/if}
-        </h3>
-        {#if fehlend.length > 0}
-          <p>{tt('bastion.fehlt')} {fehlend.join(', ')}</p>
-        {:else if zielZustand.hindernisse.length === 0}
-          <p>{tt('bastion.alles-da')}</p>
-        {/if}
-        {#each zielZustand.hindernisse as h (h)}
-          <p class="leise">{hindernisText(h, z.typ, z.stufe)}</p>
-        {/each}
-        <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
-      </section>
-    {/if}
-
-    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
-
-    <h3>{tt('bastion.vorrat')}</h3>
-    <ul class="vorrat">
-      <li>{menge('fleiss', l.konto.stand.fleiss)}</li>
-      <li>{menge('behalten', l.konto.stand.behalten)}</li>
-      <li>{menge('koennen', l.konto.stand.koennen)}</li>
-      <li><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</li>
-    </ul>
-    <p class="leise">{tt('bastion.bauschritte-erklaerung')}</p>
 
     {#if meldung.length > 0}
       <p class="meldung" role="status">
@@ -454,6 +455,22 @@
       </ul>
     {/if}
   {/if}
+
+  <fieldset class="themen">
+    <legend>{tt('bastion.thema')}</legend>
+    {#each THEMEN as th (th)}
+      <label
+        ><input
+          type="radio"
+          name="thema"
+          checked={aktiv.thema === th}
+          onchange={() => themaWaehlen(th)}
+        />
+        {wort('name', th)}</label
+      >
+    {/each}
+  </fieldset>
+  <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 </section>
 
 <style>
@@ -475,9 +492,32 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-m);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--abstand-s);
+  }
+
+  @media (width >= 36rem) {
+    .vorrat {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .vorrat li {
+    display: grid;
+    justify-items: center;
+    gap: 0.25rem;
+    padding: var(--abstand-s);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 8px var(--farbe-schatten);
+    color: var(--farbe-akzent);
+    text-align: center;
+  }
+
+  .vorrat span {
+    color: var(--farbe-text);
+    font-weight: 700;
   }
 
   .liste {
@@ -493,9 +533,9 @@
     justify-content: space-between;
     align-items: center;
     gap: var(--abstand-m);
-    padding: var(--abstand-s);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
+    padding: var(--abstand-s) var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
   }
 
   .themen {
@@ -543,8 +583,10 @@
   }
 
   .vorgemerkt {
-    border: 2px solid var(--farbe-akzent);
-    border-radius: var(--radius);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    border-inline-start: 6px solid var(--farbe-akzent);
     padding: var(--abstand-m);
     display: grid;
     gap: var(--abstand-s);
@@ -575,6 +617,12 @@
 
   progress {
     inline-size: 8rem;
+    accent-color: var(--farbe-akzent);
+  }
+
+  .vorgemerkt progress {
+    inline-size: 100%;
+    block-size: 0.75rem;
   }
 
   button {

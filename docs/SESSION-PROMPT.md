@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 29.10.2026 (15) · Phase 1 – Lernkern; Klasse 5 bis 8 als Entwurf, L-15 bis L-19 umgesetzt
+Stand: 29.10.2026 (16) · Phase 1 – Lernkern; Klasse 5 bis 8 als Entwurf, Grafik in Richtung A umgesetzt (K-22)
 
 ---
 
@@ -46,20 +46,11 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 **Zu Beginn der Sitzung den Projektverantwortlichen fragen, womit es weitergeht** (entschieden am 29.10.2026). Nichts davon ohne diese Antwort beginnen. Zur Auswahl stehen:
 
-0. **Grafik umbauen (K-22)** – *muss vor Klasse 9 kommen.* Drei Testerinnen von 12 bis 16 Jahren stehen bereit (`TESTS.md` §2).
-   - **Entschieden am 29.10.2026:**
-     - Richtung A „Tag, warm“ für Bastion, Startseite und Üben, dazu die Leiste unten.
-     - Hell, Dunkel (als Abendstimmung) und System sind wählbar.
-     - Die Grafikschicht bleibt austauschbar.
-     - Alles steht in `docs/GRAFIK.md`.
-   - **Vorschlag für die Reihenfolge:**
-     1. Grundlage: Tokens, mitgelieferte Schrift Nunito, Modi.
-     2. Startseite mit der Leiste unten.
-     3. Üben.
-     4. Bastion (isometrische Insel).
-   - Jeder Schritt wird ein PR. Vorher fragen, ob es so losgehen soll.
+0. **Grafik nachbessern (K-22)** – der Umbau auf Richtung A ist fertig (`GRAFIK.md` §5, PRs #42 bis #45).
+   - Rückmeldungen der drei Testerinnen (12 bis 16 Jahre, `TESTS.md` §2) einarbeiten.
+   - Noch im alten Stil: Diagnose, Mein Stand, Fehlerwerkstatt, Klassenarbeit, Elternbereich, Sicherung. Sie nutzen die neuen Tokens, haben aber noch eigene Knopfstile. Sie lassen sich Schritt für Schritt auf die gemeinsamen Knöpfe `haupt`, `zweit` und `dezent` umstellen.
    - Später: lebendige Szenen, Jahreszeiten, Wetter (T-15, nur freiwillig) und Skins (B-27).
-1. **Klasse 9** (K-20, erst nach Punkt 0): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
+1. **Klasse 9** (K-20; die Grafik ist umgesetzt, Klasse 9 kann beginnen): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
 2. **Offene Reste:**
    - Anrede „Sie“ für Erwachsene (L-15). Dafür braucht es eine zweite Fassung aller Texte; vorher fragen, wie.
    - Wiederholungen bis zum Termin der Klassenarbeit planen (L-19).
@@ -90,47 +81,39 @@ Fragen vorher stellen, nicht raten.
 6. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
 7. **0.10** Drei Referenzgeräte festlegen und darauf messen (Anleitung in ARCHITEKTUR §9.2).
 
-## Übergabe der letzten Sitzung (28./29.10.2026)
+## Übergabe der letzten Sitzung (29.10.2026)
 
-**Was seit der vorigen Übergabe dazukam:**
+**Was dazukam: Grafik in Richtung A „Tag, warm“ (K-22), in vier PRs:**
 
-- **Klasse 7 und 8 sind als Entwurf fertig** (§8c, §8d):
-  - Klasse 7: 29 Kompetenzen, 60 Vorlagen, 4 Anleitungen.
-  - Klasse 8: 27 Kompetenzen, 54 Vorlagen, 3 Anleitungen.
-  - Die Klassenwahl umfasst 5 bis 8 (`src/ui/ueben/klassen.ts`).
-- **Basebau Epoche 1 ist vollständig** (BASEBAU §11). Dazu kommen:
-  - Startpaket für Späteinsteiger (B-24).
-  - Hinterhof mit dem Können je Lernfeld (B-25).
-- **Generatoren werden nachgeladen und vorab gespeichert** (T-14, `src/generators/alle.ts`). Die App-Hülle hat 125,6 KB von 250 KB.
-- **Wechsel begleiten (L-12)**, `src/core/learning/wechsel.ts`:
-  - Überspringen: Der Hinweis zeigt die offenen Themen je übersprungener Klasse (`klassenLuecken`). „Lücken gezielt prüfen“ startet eine Diagnose genau dieser Themen.
-  - Schulartwechsel: Der Hinweis zeigt die Themen, die nun früher drankommen.
-  - Zurückstellen bleibt neutral, ohne Meldung.
-- **Bericht für die Lehrkraft (L-13)** im Elternbereich, auch als Textdatei.
-- **Profil (L-15):**
-  - „Über mich“ mit freiwilligem Geburtsdatum und „Ich bin erwachsen“ (`src/core/policy/alter.ts`).
-  - Ab 18 gibt es keinen Elternbereich mehr. Der Bericht heißt dann „Mein Bericht“.
-- **Wiedereinstieg (L-16):** Die Diagnose „Alles ab Klasse 5“ endet mit „Dein Stand entspricht etwa Klasse N“ (`standKlasse`, Schwelle 70 %).
-- **Klasse pflegen (L-17):**
-  - Klasse und Schulart werden gemerkt und lassen sich auch im Elternbereich ändern.
-  - Ab 1. August fragt die App einmal „Neues Schuljahr!“.
-- **Gerade dran (L-18):** Lernbereiche oder einzelne Themen wählen. Diese Themen stehen in der Übersicht oben.
-- **Klassenarbeit (L-19):**
-  - Termin und Themen eintragen, „Das solltest du noch üben“.
-  - Probe-Klassenarbeit: Diagnose im Modus `pruefung`.
-  - Die Startseite zeigt nur das Datum, ohne Countdown.
-- **Sicherung:** Ein Profil, das nur Einstellungen hat, gilt als leer. Eine Sicherung lässt sich also auch einspielen, wenn man vorher schon die Klasse gewählt hat.
+- **#42 Grundlage:**
+  - Alle Farben, die Schrift und die Formen stehen als Fassung „tag-warm“ in `src/ui/grafik/fassungen.ts`, hell und dunkel. Ein Test prüft den Kontrast.
+  - `darstellung.svelte.ts` schreibt die Tokens an `<html>`.
+  - Unter „Über mich“ steht die Wahl „Aussehen“: Wie das Gerät, Hell oder Dunkel (Abend). Einstellung `darstellung.modus`.
+  - Die Schrift Nunito wird mitgeliefert (`@fontsource-variable/nunito`, T-16).
+  - Die Knöpfe `haupt`, `zweit` und `dezent` sind global in `grund.css` gestaltet.
+- **#43 Startseite** (`src/ui/start/`):
+  - Datum und Begrüßung, eine kleine Bastion als Bild, der große Knopf „Üben“ mit „Gerade dran“ und vier Kacheln.
+  - Die Leiste unten (Start, Üben, Bastion, Mein Stand) ist in allen Ansichten sichtbar.
+- **#44 Üben:**
+  - Kopf mit Thema, Niveau als Schild und Punkten für die Runde: Blöcke zu fünf Aufgaben, danach ein Pausenhinweis (R5).
+  - Die Knöpfe heißen „Prüfen“ und „Tipp“. Die Rückmeldung erscheint als Fläche.
+- **#45 Bastion:**
+  - Die Insel steht schräg von oben (`iso.ts`, `grafik-buehne.ts`). Am Abend stehen Mond und Sterne am Himmel, und die Fenster leuchten.
+  - Vier Karten zeigen den Vorrat. Das vorgemerkte Ziel hat einen Fortschrittsbalken.
+  - B-11 (Draufsicht) ist abgelöst.
 
 **Lehren:**
 
-- Browser-Tests müssen vor `page.reload()` warten, bis gespeichert ist. Dafür gibt es `expect.poll(() => einstellungImSpeicher(page, '…'))`. Sonst bricht das Neuladen auf dem langsameren CI-Rechner das Speichern ab. Lokal lässt sich das mit CPU-Drosselung nachstellen.
-- Lint-Regeln für Svelte:
-  - `$derived` statt `$state` mit `$effect`.
-  - Kein veränderliches `Set` oder `Map` im Komponentenzustand.
-  - Startwerte aus Props mit `untrack`.
-- `getByText` mit regulärem Ausdruck findet Text nicht, der im Markup umbrochen ist. Den Text darum in einem Stück ausgeben.
+- Knöpfe gibt es jetzt doppelt, auf der Seite und in der Leiste. Browser-Tests suchen sie deshalb mit `page.getByRole('main').getByRole('button', …)`.
+- Auf dem Bauplatz tippen die Tests über `punkt()` aus `src/ui/bastion/grafik/iso.ts`. Das ist dieselbe Rechnung wie in der App.
+- Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf die Zeitgrenze von 5 s. Das passiert auf diesem Rechner auch auf `main`, in der CI nicht.
+- Prozesse nie mit `pkill -f "vite preview"` beenden. Das Muster trifft auch die eigene Shell. Stattdessen `pkill -f "[v]ite preview --port 4173"`.
 
-**Zahlen:** 4442 Einheitentests und 34 Browser-Tests, alle grün; Lint und Build auch. PRs bis #38 sind auf `main`.
+**Zahlen:**
+
+- Etwa 4454 Einheitentests und 37 Browser-Tests. Die Browser-Tests, Lint und Build sind grün. Bei den Einheitentests überschreitet lokal nur `fk.graph-ablesen` die Zeitgrenze (siehe oben).
+- App-Hülle 129,8 KB von 250 KB.
+- Bis #44 ist alles auf `main`. #45 (Bastion) ist der letzte PR dieser Sitzung.
 
 ## Am Ende der Sitzung aktualisieren
 
