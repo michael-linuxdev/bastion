@@ -4,6 +4,7 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import type { Bild, Generator, Instanz, Loesung } from '../core/learning/generator';
 import { gleicheLoesung } from '../core/learning/loesung';
+import { musterweg, pruefeSchritt } from '../core/learning/zwischenschritte';
 
 export interface PflichtPruefung<P> {
   /** Parameter je Niveau, wie sie in der Vorlage stehen. */
@@ -167,6 +168,44 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
           },
           pruefung.zeitlimitMs,
         );
+
+        // Zwischenschritte (INHALTSFORMAT §17): nur für Generatoren, die welche haben
+        if (generator.schritt && generator.schritte) {
+          const ids = generator.schritte;
+          it(
+            'Zwischenschritte: Musterweg endet beim Ergebnis, Schrittfehler erkannt und nie richtig',
+            () => {
+              fc.assert(
+                fc.property(seed, (s) => {
+                  const instanz = generator.erzeuge(s, parameter);
+                  const weg = musterweg(generator, s, parameter);
+                  expect(weg.map((x) => x.id)).toEqual(ids.map((x) => x.id));
+                  expect(
+                    gleicheLoesung(weg.at(-1)?.aufgabe.loesung ?? instanz.loesung, instanz.loesung),
+                  ).toBe(true);
+                  for (const [i, { aufgabe }] of weg.entries()) {
+                    expect(pruefeSchritt(aufgabe, aufgabe.loesung)).toEqual({ richtig: true });
+                    const antworten = aufgabe.fehlerbilder.map((f) => f.antwort);
+                    for (const f of aufgabe.fehlerbilder) {
+                      expect(ids[i]?.fehlerbildIds).toContain(f.id);
+                      expect(pruefeSchritt(aufgabe, f.antwort)).toEqual({
+                        richtig: false,
+                        fehlerbild: f.id,
+                      });
+                    }
+                    for (const [j, a] of antworten.entries())
+                      for (const b of antworten.slice(j + 1))
+                        expect(gleicheLoesung(a, b)).toBe(false);
+                    for (const p of ids[i]?.platzhalter ?? [])
+                      expect(aufgabe.platzhalter?.[p], p).toBeDefined();
+                  }
+                }),
+                { numRuns: laeufe },
+              );
+            },
+            pruefung.zeitlimitMs,
+          );
+        }
       });
     }
   });

@@ -5,7 +5,9 @@
  * Prüfung im Werkzeug und später in der App gleich funktioniert.
  */
 import type { Kompetenz, Niveau } from '../competence/kompetenz';
-import type { Sprachobjekt } from './generator';
+import type { Generator, Sprachobjekt } from './generator';
+import { platzhalterIn } from './text';
+import { pruefeSchritte, type VorlagenSchritt } from './zwischenschritte';
 
 export const AUFGABENTYPEN = [
   'zahl-eingabe',
@@ -43,6 +45,8 @@ export interface GeneratorVorlage {
   readonly hilfen: readonly Sprachobjekt[];
   /** Rückmeldung je Fehlerbild; `fv` verweist auf den Fehlerkatalog (INHALTSFORMAT §16) */
   readonly fehlerbilder: Readonly<Record<string, Sprachobjekt & { readonly fv?: string }>>;
+  /** Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17) */
+  readonly schritte?: readonly VorlagenSchritt[];
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
 }
@@ -51,6 +55,7 @@ export interface GeneratorVorlage {
 export interface GeneratorAngaben {
   readonly platzhalter: readonly string[];
   readonly fehlerbildIds: readonly string[];
+  readonly schritte?: Generator<unknown>['schritte'];
 }
 
 const istSprachobjekt = (x: unknown): x is Sprachobjekt =>
@@ -62,10 +67,7 @@ const istSprachobjekt = (x: unknown): x is Sprachobjekt =>
 const istObjekt = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
 
-/** Namen aller {platzhalter} in einem Text. */
-export function platzhalterIn(text: string): string[] {
-  return [...text.matchAll(/\{([a-z_]+)\}/g)].map((m) => m[1] ?? '');
-}
+export { platzhalterIn };
 
 /**
  * Prüft eine Vorlage mit Generator (handverfasste Vorlagen folgen später).
@@ -162,5 +164,6 @@ export function pruefeVorlage(
       }
     }
   }
+  f.push(...pruefeSchritte(d['schritte'], generator));
   return f;
 }

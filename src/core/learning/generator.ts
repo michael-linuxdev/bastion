@@ -78,6 +78,23 @@ export interface Instanz {
   readonly fehlerbilder: readonly Fehlerbild[];
 }
 
+/**
+ * Ein Zwischenschritt (INHALTSFORMAT §17, K-29): richtige Eingabe, bekannte falsche
+ * Eingaben und weitere richtige Wege. Berechnet aus Seed, Parametern und den
+ * bisherigen gültigen Eingaben – so rechnet, wer einen anderen richtigen Weg
+ * nimmt (z. B. einen größeren gemeinsamen Nenner), mit seinem Weg weiter.
+ */
+export interface SchrittAufgabe {
+  /** Wird nach dem zweiten Fehlversuch gezeigt und gilt dann als Eingabe. */
+  readonly loesung: Loesung;
+  /** Bekannte falsche Eingaben dieses Schritts; nie richtig, untereinander verschieden. */
+  readonly fehlerbilder: readonly Fehlerbild[];
+  /** Weitere richtige Eingaben außer `loesung` (andere gültige Wege). */
+  readonly auchRichtig?: (eingabe: Loesung) => boolean;
+  /** Platzhalter für die Frage des Schritts, z. B. {nenner} */
+  readonly platzhalter?: Readonly<Record<string, Wert>>;
+}
+
 export interface Generator<P> {
   /** Stabile ID, z. B. "bruch.erweitern-zielnenner". */
   readonly id: string;
@@ -89,4 +106,18 @@ export interface Generator<P> {
   readonly fehlerbildIds: readonly string[];
   /** Rein und deterministisch: gleicher Seed + gleiche Parameter = gleiche Instanz. */
   erzeuge(seed: number, parameter: P): Instanz;
+  /** Zwischenschritte (INHALTSFORMAT §17): IDs in Reihenfolge und Fehlerbild-IDs je Schritt. */
+  readonly schritte?: readonly {
+    readonly id: string;
+    readonly fehlerbildIds: readonly string[];
+    /** Platzhalter, die nur dieser Schritt liefert (SchrittAufgabe.platzhalter) */
+    readonly platzhalter?: readonly string[];
+  }[];
+  /** Schritt `id` mit den bisherigen gültigen Eingaben; rein wie `erzeuge`. */
+  schritt?(
+    seed: number,
+    parameter: P,
+    id: string,
+    bisher: Readonly<Record<string, Loesung>>,
+  ): SchrittAufgabe;
 }
