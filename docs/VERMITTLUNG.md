@@ -69,6 +69,13 @@ Schritte, die eine Antwort verlangen (`anknuepfen`, `entdecken`, `ergaenzen`, `g
 - Jeder Weg durch die Sequenz endet beim `uebergang`. Kein Weg ist eine Sackgasse, und kein Schritt wird öfter als zweimal hintereinander gezeigt. Danach geht es mit dem Hinweis „Das schauen wir uns beim Üben noch einmal an“ weiter.
 - Ein Werkzeug prüft beim Bauen der Inhalte: Alle Ziele existieren, alle Wege enden, jede `fv` steht im Fehlerkatalog.
 
+*Umsetzung (U3c, 29.10.2026):* Der Abspieler (`src/core/learning/abspielen.ts`, Oberfläche `src/ui/vermittlung/Vermittlung.svelte`) zeigt einen Schritt nach dem anderen mit Fortschrittsbalken.
+- Antworten werden sofort ausgewertet. Brüche müssen genau so geschrieben sein wie verlangt, weil es ums Ablesen geht.
+- Nach einer falschen Antwort zeigt er die kurze Erklärung der erkannten Fehlvorstellung und die richtige Antwort. Dann folgt er `bei` (Fehlvorstellung, sonst `sonst`, sonst `weiter`).
+- Ein Ziel, das kein Schritt ist, ist eine Voraussetzung. Dann fragt er „Erst das üben“ oder „Trotzdem weiter“.
+- Jede Antwort und der Abschluss werden als Ereignis `vermittlung` gespeichert.
+- Ein Probelauf über alle Sequenzen prüft, dass richtige Antworten ans Ende führen und jede bekannte falsche Antwort ihre Fehlvorstellung ergibt (`tools/inhalte/abspielen.test.ts`).
+
 ### 2.3 Interaktive Werkzeuge
 
 Handelnde Darstellungen sind App-Code wie die Generatoren (I-1): ein fester Satz von Werkzeugen mit Parametern, zum Beispiel:

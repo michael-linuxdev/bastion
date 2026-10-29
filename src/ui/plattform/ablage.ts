@@ -4,6 +4,10 @@
 // Modus mancher Browser), funktioniert Üben weiter – nur ohne Speichern.
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
+import {
+  vermittlungEreignis,
+  type VermittlungAngaben,
+} from '../../core/learning/vermittlung-ereignis';
 import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
 import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import {
@@ -89,6 +93,7 @@ import {
   karten,
   kompetenzStaende,
   speichereAufgabe,
+  speichereVermittlung,
   type Installation,
   type Melder,
 } from '../../storage/ablage';
@@ -192,6 +197,26 @@ export async function merke(daten: Antwortdaten): Promise<void> {
     () => false,
   );
   if (gespeichert) laufende.push(e);
+}
+
+/** Ein beantworteter Schritt oder der Abschluss einer Erstvermittlung (DATENMODELL §4.7). */
+export async function merkeVermittlung(
+  angaben: VermittlungAngaben extends infer A
+    ? A extends unknown
+      ? Omit<A, 'profil' | 'geraet'>
+      : never
+    : never,
+): Promise<void> {
+  const inst = await bereit();
+  if (!inst) return;
+  const jetzt = Date.now();
+  const e = vermittlungEreignis(
+    { ...angaben, profil: inst.profil, geraet: inst.geraet } as VermittlungAngaben,
+    jetzt,
+    versatz(jetzt),
+    zufall,
+  );
+  await speichereVermittlung(db, e).catch(() => undefined);
 }
 
 export interface Zustand {

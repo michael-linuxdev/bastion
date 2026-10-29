@@ -24,6 +24,7 @@
     klassenarbeitWahl,
     klassenarbeitSetzen,
     klasseSetzen,
+    merkeVermittlung,
     schulartSetzen,
     sicherungAnstehend,
     zustand as ladeZustand,
@@ -79,6 +80,7 @@
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Leiste, { type Bereich } from './start/Leiste.svelte';
   import Mehr from './start/Mehr.svelte';
+  import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -95,6 +97,7 @@
     | 'sicherung'
     | 'abschluss'
     | 'anleitung'
+    | 'vermittlung'
     | 'bastion'
     | 'mehr'
   >('start');
@@ -443,6 +446,39 @@
           aufgaben={aufgabenListe}
           {klasse}
         />
+      {:else if ansicht === 'vermittlung' && gewaehlt && geladen.vermittlungen.has(gewaehlt.id)}
+        {@const v = geladen.vermittlungen.get(gewaehlt.id)}
+        {#if v}
+          {@const k = gewaehlt}
+          {@const angaben = { kompetenz: k.id, inhalt: `${v.id}@${v.version}` }}
+          <VermittlungAnsicht
+            vermittlung={v}
+            titel={k.titel.de}
+            fehlvorstellungen={geladen.fehlvorstellungen}
+            kompetenzName={(id) => geladen.kompetenzen.find((x) => x.id === id)?.titel.de}
+            onantwort={(s, antwort, b) => {
+              if ('richtig' in b)
+                void merkeVermittlung({
+                  ...angaben,
+                  schritt: s.id,
+                  typ: 'antwort',
+                  richtig: b.richtig,
+                  antwort,
+                  ...(!b.richtig && b.fv ? { fv: b.fv } : {}),
+                });
+            }}
+            onende={() => {
+              void merkeVermittlung({ ...angaben, schritt: 'uebergang', typ: 'abgeschlossen' });
+              ansicht = 'uebung';
+            }}
+            onvoraussetzung={(id) => {
+              const ziel = geladen.kompetenzen.find((x) => x.id === id);
+              if (ziel) gewaehlt = ziel;
+              ansicht = 'uebung';
+            }}
+            onzurueck={() => (ansicht = 'uebung')}
+          />
+        {/if}
       {:else if ansicht === 'anleitung' && anleitung}
         <AnleitungAnsicht {anleitung} onzurueck={() => (ansicht = 'uebung')} />
       {:else if ansicht === 'abschluss'}
@@ -600,6 +636,9 @@
               return geladen.kompetenzen.find((k) => k.id === ziel);
             }}
             onwechsel={(k) => (gewaehlt = k)}
+            onerklaerung={geladen.vermittlungen.has(gewaehlt.id)
+              ? () => (ansicht = 'vermittlung')
+              : undefined}
           />
         {/key}
         {@const zuKompetenz = geladen.anleitungen.filter((a) => a.kompetenz === gewaehlt?.id)}
