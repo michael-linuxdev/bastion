@@ -6,6 +6,7 @@
   import {
     bewerte,
     erster,
+    kurzfassung,
     naechstes,
     richtigeAntwort,
     type Bewertung,
@@ -51,6 +52,8 @@
   let nenner = $state('');
   let hinweis = $state<TextSchluessel | undefined>(undefined);
   let karte = $state<HTMLElement | undefined>(undefined);
+  /** Kurzfassung zum Nachschlagen: nur Beispiele und Merksätze (VERMITTLUNG §2.4) */
+  let kurz = $state(false);
 
   const nummer = $derived(schritt ? vermittlung.schritte.indexOf(schritt) + 1 : 0);
   const beantwortet = $derived(bewertung !== undefined && !('ungueltig' in bewertung));
@@ -110,9 +113,23 @@
       value={nummer}
       aria-label={t('vermittlung.fortschritt')}
     ></progress>
+    <button class="dezent umschalten" aria-pressed={kurz} onclick={() => (kurz = !kurz)}
+      >{kurz ? t('vermittlung.ganz') : t('vermittlung.kurzfassung')}</button
+    >
   </header>
 
-  {#if rueckweg}
+  {#if kurz}
+    {#each kurzfassung(vermittlung) as s (s.id)}
+      <article class="karte">
+        <p class="typ">{t(`vermittlung.typ.${s.typ}`)}</p>
+        <p class="text"><Textteile teile={fuelle(s.text.de, {})} /></p>
+        {#if s.bild}
+          {@const Bild = WERKZEUG_KOMPONENTEN[s.bild.werkzeug]}
+          {#if Bild}<div class="werkzeug"><Bild parameter={s.bild.parameter ?? {}} /></div>{/if}
+        {/if}
+      </article>
+    {/each}
+  {:else if rueckweg}
     <article class="karte" aria-live="polite">
       <p class="text">{t('vermittlung.voraussetzung')}</p>
       <p class="voraussetzung">{kompetenzName(rueckweg.kompetenz) ?? rueckweg.kompetenz}</p>
@@ -230,6 +247,10 @@
   h2 {
     margin-block: 0;
     font-size: 1.375rem;
+  }
+
+  .umschalten {
+    justify-self: start;
   }
 
   progress {

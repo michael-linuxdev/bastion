@@ -105,6 +105,17 @@ Was er ausdrücklich **nicht** tun darf:
 
 *Umsetzung:* `startpaketBuchungen` in `src/core/ledger/regeln.ts` (Regelversion 2; Sitzungen und Baupläne rechnen unverändert), Grund `startpaket`, Bezug `startpaket:<Kompetenz>`, feste ID wie alle Buchungen. Der Abschlussbildschirm zeigt das Startpaket in einer eigenen Zeile.
 
+### 3.4c Erstvermittlung abgeschlossen (D-16, ergänzt am 29.10.2026)
+
+| | |
+|---|---|
+| Entsteht | Einmal je Kompetenz, wenn ihre Erstvermittlung zum ersten Mal bis zum Ende durchlaufen ist |
+| Menge | 1 Bauschritt, wie für eine Lerneinheit |
+| Antworten in der Vermittlung | bringen nichts (R4), damit niemand durchklickt |
+| Tagesgrenzen | zählen nicht mit; Wiederansehen bringt nichts mehr |
+
+*Umsetzung (U3d):* `vermittlungsBuchungen` in `src/core/ledger/regeln.ts` (Regelversion 3), Grund `vermittlung`, Bezug `vermittlung:<Kompetenz>`. Der Abschlussbildschirm zählt den Bauschritt zum Ertrag des Tages.
+
 ### 3.5 Grundregeln für alle Ressourcen
 
 - **Niveauneutral:** Kein Ertragsfaktor für Schulform oder Niveau. Gleiche Anstrengung, gleiche Belohnung.

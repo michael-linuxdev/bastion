@@ -95,6 +95,11 @@ Jedes Werkzeug hat eine gleichwertige Bedienung ohne Ziehen (Tastatur, Knöpfe) 
 - Wer eine Kompetenz zum ersten Mal wählt, bekommt die Vermittlung angeboten, nicht erzwungen. Wer sie in der Diagnose schon kann, überspringt sie. *Bestätigt am 29.10.2026:* Vor dem ersten Üben fragt Bastion: „Das ist neu für dich. Erst erklären lassen?“ mit „Erklär es mir“ (hervorgehoben) und „Ich kann das schon“. Danach bleibt die Erklärung jederzeit erreichbar.
 - **Der Abschluss zählt als Lerneinheit** (entschieden am 29.10.2026). Wer eine Vermittlung bis zum Ende durchgeht, bekommt dafür einen Bauschritt wie für eine Übungseinheit. Es gibt keine Ressourcen je Antwort, damit niemand durchklickt (R4). Das ergänzt D-16.
 - Die Sequenz lässt sich jederzeit wieder ansehen. Es gibt auch eine **Kurzfassung**: nur Merksätze und Beispiele, zum Auffrischen.
+- *Umsetzung (U3d):*
+  - Wählt jemand eine Kompetenz, die weder vermittelt noch geübt ist und eine Erstvermittlung hat, kommt das Angebot (`src/ui/vermittlung/Angebot.svelte`). Das gilt beim Üben, in „Mein Stand“, in der Diagnose und bei der Klassenarbeit.
+  - Vermittelte, noch nicht geübte Kompetenzen stehen in der Übersicht als „erklärt“.
+  - Im Abspieler schaltet „Nur Kurzfassung“ auf Beispiele und Merksätze um.
+  - Der Abschluss bucht einen Bauschritt (BASEBAU §3.4c).
 - Die Schritte erzeugen Lernereignisse mit Schemaversion (D-Regeln), damit die Diagnose weiß, welche Fehlvorstellung schon in der Vermittlung aufgefallen ist.
 
 ### 2.5 Qualitätskriterien je Sequenz (Prüfliste für das Review)

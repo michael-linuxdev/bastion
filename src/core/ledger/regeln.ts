@@ -11,13 +11,15 @@ import type { AufgabeEreignis } from '../learning/ereignis';
 import { diagnoseNachweise, type KompetenzStand } from '../learning/fortschritt';
 import { ernsthaft, type SitzungEreignis } from '../learning/sitzung';
 import type { Tag } from '../policy/lerntag';
+import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 
 /**
  * Version der Regeln; neue Regeln wirken nur auf neue Buchungen (DATENMODELL §6.2).
  * 2: Startpaket für in der Diagnose nachgewiesene Kompetenzen (B-24); Sitzungen und
  * Baupläne rechnen wie in Version 1.
+ * 3: Bauschritt für eine abgeschlossene Erstvermittlung (D-16, ergänzt 29.10.2026).
  */
-export const REGEL = 2;
+export const REGEL = 3;
 
 /** Startwerte (BASEBAU §3); der Simulator prüft sie (Schritt 2.11). */
 export const ERTRAG = {
@@ -36,8 +38,9 @@ export interface Buchung {
   readonly ressource: Ressource;
   readonly menge: number;
   /** Erträge aus dem Lernen; Abbuchung und Erstattung beim Bauen (BASEBAU §4.2) */
-  readonly grund: 'sitzung' | 'kompetenz-gefestigt' | 'startpaket' | 'bau-beginn' | 'bau-abbruch';
-  /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:Kompetenz" oder Bauvorhaben-ID */
+  readonly grund:
+    'sitzung' | 'kompetenz-gefestigt' | 'startpaket' | 'vermittlung' | 'bau-beginn' | 'bau-abbruch';
+  /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:Kompetenz", "vermittlung:Kompetenz" oder Bauvorhaben-ID */
   readonly bezug: string;
   readonly tag: Tag;
   readonly aufschluesselung: Readonly<Record<string, number>>;
@@ -251,6 +254,37 @@ export function startpaketBuchungen(
         regel: REGEL,
       })),
     );
+}
+
+/**
+ * Erstvermittlung abgeschlossen (VERMITTLUNG §2.4, D-16 ergänzt am 29.10.2026):
+ * Sie zählt wie eine Lerneinheit und bringt einen Bauschritt – einmal je Kompetenz,
+ * also nicht durch Wiederansehen farmbar. Antworten in der Vermittlung bringen nichts (R4).
+ */
+export const vermittlungBezug = (kompetenz: string) => `vermittlung:${kompetenz}`;
+
+export function vermittlungsBuchungen(
+  vermittlungen: readonly VermittlungEreignis[],
+  schonGebucht: ReadonlySet<string>,
+): Buchung[] {
+  const erste = new Map<string, VermittlungEreignis>();
+  for (const e of vermittlungen) {
+    if (e.typ !== 'abgeschlossen' || schonGebucht.has(e.kompetenz)) continue;
+    const bisher = erste.get(e.kompetenz);
+    if (!bisher || e.ts < bisher.ts || (e.ts === bisher.ts && e.id < bisher.id))
+      erste.set(e.kompetenz, e);
+  }
+  return [...erste.values()]
+    .sort((a, b) => a.ts - b.ts || (a.id < b.id ? -1 : 1))
+    .map((e) => ({
+      ressource: 'schritt' as const,
+      menge: 1,
+      grund: 'vermittlung' as const,
+      bezug: vermittlungBezug(e.kompetenz),
+      tag: e.tag,
+      aufschluesselung: { vermittlungen: 1 },
+      regel: REGEL,
+    }));
 }
 
 /** Summe je Ressource. */

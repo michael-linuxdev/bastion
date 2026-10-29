@@ -5,6 +5,7 @@
 import { aufgabeEreignis, type AufgabeAngaben } from '../../core/learning/ereignis';
 import type { KompetenzStand } from '../../core/learning/fortschritt';
 import {
+  vermittelt,
   vermittlungEreignis,
   type VermittlungAngaben,
 } from '../../core/learning/vermittlung-ereignis';
@@ -94,6 +95,7 @@ import {
   kompetenzStaende,
   speichereAufgabe,
   speichereVermittlung,
+  vermittlungen,
   type Installation,
   type Melder,
 } from '../../storage/ablage';
@@ -217,6 +219,15 @@ export async function merkeVermittlung(
     zufall,
   );
   await speichereVermittlung(db, e).catch(() => undefined);
+  // Der Abschluss zählt als Lerneinheit (D-16, ergänzt): gleich buchen und bauen
+  if (e.typ === 'abgeschlossen') await buchenUndBauen(inst);
+}
+
+/** Kompetenzen mit abgeschlossener Erstvermittlung (Zustand „vermittelt“). */
+export async function vermittelteKompetenzen(): Promise<ReadonlySet<string>> {
+  const inst = await bereit();
+  if (!inst) return new Set();
+  return new Set(vermittelt(await vermittlungen(db, inst.profil).catch(() => [])).keys());
 }
 
 export interface Zustand {

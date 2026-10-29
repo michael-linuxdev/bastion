@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { AufgabeEreignis } from '../learning/ereignis';
 import type { KompetenzStand } from '../learning/fortschritt';
 import { sitzungEreignis } from '../learning/sitzung';
+import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import {
   alleSitzungsBuchungen,
   koennenBuchungen,
@@ -12,6 +13,7 @@ import {
   STARTPAKET,
   startpaketBuchungen,
   summe,
+  vermittlungsBuchungen,
   type Buchung,
 } from './regeln';
 
@@ -288,5 +290,38 @@ describe('Startpaket (B-24)', () => {
     expect(themen.size).toBe(STARTPAKET.hoechstens - 2);
     expect(themen.has('startpaket:K0')).toBe(true);
     expect(themen.has(`startpaket:K${STARTPAKET.hoechstens + 4}`)).toBe(false);
+  });
+});
+
+describe('Erstvermittlung abgeschlossen (D-16, ergänzt)', () => {
+  const v = (
+    id: string,
+    kompetenz: string,
+    ts: number,
+    typ: VermittlungEreignis['typ'] = 'abgeschlossen',
+  ): VermittlungEreignis => ({
+    id,
+    art: 'vermittlung',
+    v: 1,
+    profil: 'P',
+    ts,
+    tag: '2026-10-29',
+    geraet: 'g',
+    kompetenz,
+    inhalt: `${kompetenz}@1`,
+    schritt: 'uebergang',
+    typ,
+  });
+
+  it('ein Bauschritt je Kompetenz, nur für den Abschluss, nie doppelt', () => {
+    const b = vermittlungsBuchungen(
+      [v('1', 'K1', 5), v('2', 'K1', 9), v('3', 'K2', 7, 'antwort'), v('4', 'K3', 6)],
+      new Set(),
+    );
+    expect(b.map((x) => [x.ressource, x.menge, x.grund, x.bezug, x.regel])).toEqual([
+      ['schritt', 1, 'vermittlung', 'vermittlung:K1', REGEL],
+      ['schritt', 1, 'vermittlung', 'vermittlung:K3', REGEL],
+    ]);
+    expect(vermittlungsBuchungen([v('1', 'K1', 5)], new Set(['K1']))).toEqual([]);
   });
 });
