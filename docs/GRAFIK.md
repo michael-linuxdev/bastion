@@ -1,6 +1,6 @@
 # Grafik
 
-Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · noch nicht umgesetzt
+Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · Umbau läuft (§5)
 
 Wie Bastion aussieht und wie die Grafik gebaut wird. Die Richtung kommt aus sechs Entwürfen (je zwei für Bastion, Startseite und Üben). Gewählt hat der Projektverantwortliche **Richtung A „Tag, warm“** für alle drei Bereiche.
 
@@ -80,3 +80,16 @@ Erst nach dem Umbau auf Richtung A, ohne festen Zeitpunkt:
 - Das Wetter und die Jahreszeiten ändern nur das Bild, nie Baustoffe, Fortschritt oder Belohnungen.
 - Kein Verfall bei schlechtem Wetter oder langer Pause (R3).
 - Keine Uhrzeit-Ereignisse, die zum Öffnen drängen (R2).
+
+## 5. Umbau auf Richtung A
+
+Vier Schritte, jeder ein eigener PR:
+
+1. ✅ **Grundlage:**
+   - Tokens als Fassung „tag-warm“ in `src/ui/grafik/fassungen.ts`, hell und dunkel. Ein Test prüft, dass jede Rolle gefüllt ist und der Kontrast reicht (Text 4,5 : 1, Bilder 3 : 1).
+   - `src/ui/grafik/darstellung.svelte.ts` schreibt die Tokens an `<html>` und setzt `data-modus` auf `hell` oder `dunkel`. Das Bild der Bastion zeichnet sich beim Wechsel neu.
+   - Wahl „Aussehen“ unter „Über mich“: Wie das Gerät, Hell, Dunkel (Abend). Einstellung `darstellung.modus`.
+   - Schrift Nunito mitgeliefert (T-16). Knöpfe `haupt`, `zweit`, `dezent` und Eingabefelder einheitlich in `grund.css`.
+2. Startseite mit der Leiste unten.
+3. Üben.
+4. Bastion (isometrische Insel).

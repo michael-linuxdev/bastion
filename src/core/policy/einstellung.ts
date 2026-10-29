@@ -68,6 +68,13 @@ export const BILD_SCHLUESSEL = 'basebau.bild';
 /** Zoom des Bauplatzes (BASEBAU 2.13a): 1, 1,5 oder 2. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 
+/** Hell, dunkel oder wie das System (GRAFIK §2): Einstellung `darstellung.modus`. */
+export const MODUS_SCHLUESSEL = 'darstellung.modus';
+export const MODI = ['system', 'hell', 'dunkel'] as const;
+export type Modus = (typeof MODI)[number];
+/** Unbekanntes oder nicht Gewähltes folgt dem System. */
+export const modusAus = (wert: unknown): Modus => MODI.find((m) => m === wert) ?? 'system';
+
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 

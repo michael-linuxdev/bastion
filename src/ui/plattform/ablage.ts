@@ -28,6 +28,9 @@ import {
   basebauAktiv,
   THEMA_SCHLUESSEL,
   themaAus,
+  MODUS_SCHLUESSEL,
+  modusAus,
+  type Modus,
   ZIEL_SCHLUESSEL,
   BILD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
@@ -344,6 +347,15 @@ export async function themaWahl(): Promise<Thema> {
 
 /** Thema wechseln – jederzeit, kostenlos, ohne Verlust (B-17). */
 export const themaSetzen = (thema: Thema) => setze(THEMA_SCHLUESSEL, thema, 'jugendlich');
+
+/** Hell, dunkel oder System (GRAFIK §2); ohne Speicher: System. */
+export async function modusWahl(): Promise<Modus> {
+  const inst = await bereit();
+  if (!inst) return modusAus(undefined);
+  return modusAus(await einstellung(db, inst.profil, MODUS_SCHLUESSEL).catch(() => undefined));
+}
+
+export const modusSetzen = (modus: Modus) => setze(MODUS_SCHLUESSEL, modus, 'jugendlich');
 
 /** Gewählte Klassenstufe und Schulart (L-12); ohne Speicher: Klasse 5, keine Schulart. */
 export async function lernWahl(): Promise<{

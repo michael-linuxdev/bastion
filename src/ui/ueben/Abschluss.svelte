@@ -188,7 +188,7 @@
   .erfolg {
     list-style: none;
     padding-inline-start: 0;
-    color: #3f7d3a;
+    color: var(--farbe-erfolg);
     font-weight: bold;
   }
 
@@ -228,6 +228,6 @@
 
   .haupt {
     background: var(--farbe-akzent);
-    color: var(--farbe-hintergrund);
+    color: var(--farbe-auf-akzent);
   }
 </style>
