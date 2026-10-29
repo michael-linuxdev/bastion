@@ -20,7 +20,7 @@ schritte:
     typ: entdecken
     text:
       de: 'Der Streifen ist ein Ganzes. Teile ihn in 4 gleich große Teile und färbe 3 davon. Wie viele Teile gibt es insgesamt?'
-    werkzeug: { id: bruchstreifen@1, parameter: { teile: 1, ziel_teile: 4, ziel_gefaerbt: 3 } }
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 1 } }
     antwort:
       optionen:
         - wert: { de: '4' }
