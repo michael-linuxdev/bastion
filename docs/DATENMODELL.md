@@ -311,7 +311,7 @@ interface VermittlungEreignis extends Ereignis {
 - **Datenschutz:** wie bei `aufgabe`. Alles bleibt auf dem Gerät, Eltern sehen es in der ausführlichen Ansicht (D-14).
 
 **Entscheidung D-16:** Vermittlungs-Schritte sind eigene Ereignisse (`vermittlung`, eigene Tabelle nach D-7). Fehlvorstellungen sind eine reine Projektion.
-*Warum:* Die Vermittlung ist kein Üben. Sie darf weder FSRS-Karten noch Ressourcen bewegen (K-1, R4). Die Diagnose der Fehlvorstellungen lässt sich jederzeit aus den Ereignissen neu berechnen (D-6), auch wenn sich der Fehlerkatalog ändert.
+*Warum:* Die Vermittlung ist kein Üben. Sie darf weder FSRS-Karten noch Ressourcen bewegen (K-1, R4). *Ergänzt am 29.10.2026 (Projektverantwortlicher):* Der Abschluss einer Vermittlung zählt als Lerneinheit und bringt wie eine Übungseinheit einen Bauschritt (Buchung mit Bezug auf das Ereignis `abgeschlossen`). Antworten in der Vermittlung bringen nichts. Die Diagnose der Fehlvorstellungen lässt sich jederzeit aus den Ereignissen neu berechnen (D-6), auch wenn sich der Fehlerkatalog ändert.
 
 ### 4.8 `nutzung` – Nutzungsprotokoll der Testphase (geplant, U4a)
 
@@ -331,7 +331,7 @@ interface NutzungEreignis extends Ereignis {
 }
 ```
 
-- **Einstellungen:** `test.aktiv` (an/aus) und `test.teilnehmer` (Nummer vom Papier) sind Einstellungs-Ereignisse der Eltern (D-5). Der Testcode selbst wird nicht gespeichert, nur geprüft.
+- **Einstellungen:** `test.aktiv` (an/aus) und `test.teilnehmer` (Nummer vom Papier) sind Einstellungs-Ereignisse der Eltern (D-5). Die Teilnehmer-Nummer hat eine Prüfziffer und dient zugleich als Testcode.
 - **Eigene Tabelle** `nutzungen` (D-7), mit der nächsten Schemaversion.
 - **Nicht in der Sicherung.** Das Nutzungsprotokoll gehört nur zum Testprotokoll. Es reist nicht in `.bastion`-Dateien mit und hat keine Projektion.
 - **Testprotokoll-Datei** (unverschlüsselt, JSON):

@@ -2,6 +2,8 @@
 // Netzverbindungen). Offline kommen sie aus dem Speicher des Service Workers.
 import type { Kompetenz } from '../../core/competence/kompetenz';
 import type { Anleitung } from '../../core/learning/anleitung';
+import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
+import type { Vermittlung } from '../../core/learning/vermittlung';
 import { begriffskarte, type Begriff, type Begriffskarte } from '../../core/learning/begriffe';
 import type { GeneratorVorlage } from '../../core/learning/vorlage';
 import { generatorenLaden } from '../../generators';
@@ -20,6 +22,10 @@ export interface Inhalte {
   readonly begriffe: Begriffskarte;
   /** Zeichen-Anleitungen (L-10) */
   readonly anleitungen: readonly Anleitung[];
+  /** Erstvermittlungen (VERMITTLUNG §2), Kompetenz-ID → Sequenz */
+  readonly vermittlungen: ReadonlyMap<string, Vermittlung>;
+  /** Fehlerkatalog (VERMITTLUNG §3), ID → Fehlvorstellung */
+  readonly fehlvorstellungen: ReadonlyMap<string, Fehlvorstellung>;
 }
 
 const UNTERSTUETZTES_FORMAT = 1;
@@ -42,6 +48,8 @@ export async function ladeInhalte(): Promise<Inhalte> {
         vorlagen?: GeneratorVorlage[];
         begriffe?: Begriff[];
         anleitungen?: Anleitung[];
+        vermittlungen?: Vermittlung[];
+        fehlvorstellungen?: Fehlvorstellung[];
       }>(p.datei),
     ),
   );
@@ -57,5 +65,11 @@ export async function ladeInhalte(): Promise<Inhalte> {
     paketVon,
     begriffe: begriffskarte(pakete.flatMap((p) => p.begriffe ?? [])),
     anleitungen: pakete.flatMap((p) => p.anleitungen ?? []),
+    vermittlungen: new Map(
+      pakete.flatMap((p) => p.vermittlungen ?? []).map((v) => [v.kompetenz, v]),
+    ),
+    fehlvorstellungen: new Map(
+      pakete.flatMap((p) => p.fehlvorstellungen ?? []).map((f) => [f.id, f]),
+    ),
   };
 }
