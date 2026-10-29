@@ -1341,3 +1341,35 @@ test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je 
   await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
   await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
 });
+
+test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U3i)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: /^Brüche erweitern und kürzen/ }).click();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
+
+  const ggt = (a: number, b: number): number => (b === 0 ? a : ggt(b, a % b));
+  // Zweimal „nur den Nenner verändert“ (FV.BR.NUR-NENNER) – bei Kürzen und bei Erweitern
+  for (let runde = 0; runde < 2; runde++) {
+    const text = (await page.locator('.aufgabe .text').textContent()) ?? '';
+    const z = Number(await page.locator('.aufgabe .text .zaehler').first().textContent());
+    const n = Number(await page.locator('.aufgabe .text .nenner').first().textContent());
+    const ziel = /Nenner\s*(\d+)\s*ist/.exec(text);
+    const falsch = ziel ? [z, Number(ziel[1])] : [z, n / ggt(z, n)];
+    const form = page.locator('form#antwort');
+    await form.getByLabel('Zähler').fill(String(falsch[0]));
+    await form.getByLabel('Nenner').fill(String(falsch[1]));
+    await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
+    await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
+    if (runde === 0) await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  }
+  await expect(page.getByText('Dieser Denkfehler ist dir schon öfter passiert.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'So denkst du gerade' })).toBeVisible();
+  await page.getByRole('button', { name: 'Zurück zur Erklärung' }).click();
+  // Rückweg: mitten in die Erstvermittlung, nicht an den Anfang
+  await expect(page.getByText('Dein Ziel')).toHaveCount(0);
+  await expect(page.locator('.vermittlung .karte')).toBeVisible();
+});

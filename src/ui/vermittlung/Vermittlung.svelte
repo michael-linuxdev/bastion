@@ -22,6 +22,7 @@
 
   let {
     vermittlung,
+    start,
     titel,
     fehlvorstellungen,
     kompetenzName,
@@ -31,6 +32,8 @@
     onzurueck,
   }: {
     vermittlung: Vermittlung;
+    /** Schritt-ID für den Rückweg aus dem Fehlerkatalog; sonst der erste Schritt */
+    start?: string | undefined;
     titel: string;
     fehlvorstellungen: ReadonlyMap<string, Fehlvorstellung>;
     /** Name einer Kompetenz für den Rückweg zur Voraussetzung */
@@ -42,7 +45,9 @@
   } = $props();
 
   // Startet beim ersten Schritt der Sequenz
-  let schritt = $state<Schritt | undefined>(untrack(() => erster(vermittlung)));
+  let schritt = $state<Schritt | undefined>(
+    untrack(() => vermittlung.schritte.find((s) => s.id === start) ?? erster(vermittlung)),
+  );
   /** Rückweg zur Voraussetzung, solange er angeboten wird */
   let rueckweg = $state<Extract<Ziel, { art: 'voraussetzung' }> | undefined>(undefined);
   let bewertung = $state<Bewertung | undefined>(undefined);
