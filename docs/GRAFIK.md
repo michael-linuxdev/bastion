@@ -115,5 +115,6 @@ Vier Schritte, jeder ein eigener PR:
    - Die Leiste misst ihre Höhe selbst (`--leiste-hoehe`). Der Hinweis auf eine neue Version steht darüber statt dahinter.
    - Oben ist mehr Abstand. Das Datum lag vorher am Rand unter der Statusleiste, wo iOS Inhalte unscharf zeichnet.
    - Die Startseite füllt den Bildschirm bis zur Leiste. Den freien Platz bekommt das Bild der Bastion (höchstens 20rem), ohne Basebau die Kacheln.
+   - Die Fehlerwerkstatt hat als Symbol eine Glühbirne statt eines Schraubenschlüssels: Aus Fehlern wird ein Aha (R6).
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).
