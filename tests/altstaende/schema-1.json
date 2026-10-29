@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "tabellen": {
+    "aufgaben": [
+      {
+        "id": "01M5CX8YZ0JF623HNTW5NS2AS1",
+        "art": "aufgabe",
+        "v": 1,
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "ts": 1792508460000,
+        "tag": "2026-10-20",
+        "geraet": "JS6SE39X",
+        "sitzung": "SITZUNG-ALT",
+        "modus": "ueben",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "vorlage": "M.ZO.BR.ERWEITERN.ERWEITERN",
+        "niveau": "G",
+        "quelle": {
+          "generator": "br.erweitern",
+          "version": 1,
+          "seed": 4
+        },
+        "paket": "mathematik-5-8",
+        "ergebnis": "richtig",
+        "hilfen": 0,
+        "dauerMs": 20000,
+        "faellig": false,
+        "bewertung": "gut"
+      },
+      {
+        "id": "01M5CXASJ0D3N7DPWH0DX7BXNR",
+        "art": "aufgabe",
+        "v": 1,
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "ts": 1792508520000,
+        "tag": "2026-10-20",
+        "geraet": "JS6SE39X",
+        "sitzung": "SITZUNG-ALT",
+        "modus": "ueben",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "vorlage": "M.ZO.BR.ERWEITERN.ERWEITERN",
+        "niveau": "G",
+        "quelle": {
+          "generator": "br.erweitern",
+          "version": 1,
+          "seed": 5
+        },
+        "paket": "mathematik-5-8",
+        "ergebnis": "falsch",
+        "hilfen": 0,
+        "dauerMs": 20000,
+        "faellig": false,
+        "bewertung": "nochmal",
+        "fehlerbild": "nur-nenner",
+        "schnappschuss": {
+          "platzhalter": {
+            "z": 2,
+            "n": 3,
+            "k": 4
+          },
+          "loesung": {
+            "typ": "zahl",
+            "wert": 8
+          },
+          "antwort": {
+            "typ": "zahl",
+            "wert": 6
+          }
+        }
+      }
+    ],
+    "sitzungen": [
+      {
+        "id": "SITZUNG-ALT",
+        "art": "sitzung",
+        "v": 1,
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "ts": 1792508520000,
+        "tag": "2026-10-20",
+        "geraet": "JS6SE39X",
+        "beginn": 1792508440000,
+        "ende": 1792508520000,
+        "abschluss": "nachgetragen",
+        "aufgaben": 2,
+        "aktivMs": 80000,
+        "lerneinheit": false
+      }
+    ],
+    "buchungen": [
+      {
+        "ressource": "fleiss",
+        "menge": 2,
+        "grund": "sitzung",
+        "bezug": "SITZUNG-ALT",
+        "tag": "2026-10-20",
+        "aufschluesselung": {
+          "aufgaben": 2,
+          "voll": 2,
+          "halb": 0,
+          "geraten": 0
+        },
+        "regel": 2,
+        "id": "01M5CX74C0K5MTBJGMKC2GHB9F.fleiss.SITZUNG-ALT",
+        "art": "buchung",
+        "v": 1,
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "ts": 1792508520000,
+        "geraet": "JS6SE39X"
+      }
+    ],
+    "einstellungen_ereignisse": [
+      {
+        "id": "01M5CXG9B0M87PA3DQGZEQVYEV",
+        "art": "einstellung",
+        "v": 1,
+        "ts": 1792508700000,
+        "tag": "2026-10-20",
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "geraet": "JS6SE39X",
+        "schluessel": "darstellung.modus",
+        "wert": "dunkel",
+        "durch": "jugendlich"
+      }
+    ],
+    "karten": [
+      {
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "vorlage": "M.ZO.BR.ERWEITERN.ERWEITERN",
+        "niveau": "G",
+        "faellig": 1792594920000,
+        "stabilitaet": 0.52337685,
+        "schwierigkeit": 7.39450274,
+        "geplanteTage": 1,
+        "lernschritte": 0,
+        "wiederholungen": 2,
+        "fehler": 1,
+        "zustand": 2,
+        "letzte": 1792508520000,
+        "bestandenFaellig": 0
+      }
+    ],
+    "kompetenzen": [
+      {
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "niveau": "G",
+        "status": "in-arbeit",
+        "aufgaben": 2,
+        "letzte": [
+          {
+            "vorlage": "M.ZO.BR.ERWEITERN.ERWEITERN",
+            "ohneHilfeRichtig": true
+          },
+          {
+            "vorlage": "M.ZO.BR.ERWEITERN.ERWEITERN",
+            "ohneHilfeRichtig": false
+          }
+        ]
+      }
+    ],
+    "konto": [
+      {
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "stand": {
+          "fleiss": 2,
+          "behalten": 0,
+          "koennen": 0,
+          "schritt": 0
+        },
+        "erworben": {
+          "fleiss": 2,
+          "behalten": 0,
+          "koennen": 0,
+          "schritt": 0
+        }
+      }
+    ],
+    "einstellungen": [
+      {
+        "profil": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "schluessel": "darstellung.modus",
+        "wert": "dunkel",
+        "ts": 1792508700000
+      }
+    ],
+    "profile": [
+      {
+        "id": "01M5CX74C0K5MTBJGMKC2GHB9F",
+        "erstellt": 1792508400000
+      }
+    ],
+    "meta": [
+      {
+        "schluessel": "geraet",
+        "wert": "JS6SE39X"
+      }
+    ]
+  }
+}

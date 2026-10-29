@@ -190,7 +190,16 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U2a** Fehlerkatalog: 10 Fehlvorstellungen in `content/mathematik/fehlvorstellungen/`; alle 15 Fehlerbilder der 6 Vorlagen verweisen per `fv` darauf; Tests für F1 und F2
   - [x] **U2b** Erstvermittlung für die drei Kompetenzen (`vermittlung.yaml`, je 10 bis 11 Schritte, 12 bis 15 Minuten), alle Rückwege des Fehlerkatalogs zeigen auf vorhandene Schritte
   - [x] **U2c** Werkzeuge Bruchstreifen und Zahlenstrahl (`src/ui/vermittlung/werkzeuge/`): zeigen und interaktiv, ohne Ziehen bedienbar, mit Beschreibung für Screenreader
-- [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen
+- [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen, in Schritten:
+  - [x] **U3a** Ereignis `vermittlung` (`src/core/learning/vermittlung-ereignis.ts`), Datenbank-Schemaversion 2 mit Tabelle `vermittlungen`, in Sicherung und Import; Migrationstest mit Altstand `tests/altstaende/schema-1.json`
+  - [ ] **U3b** Erstvermittlungen und Fehlerkatalog in die Inhaltspakete
+  - [ ] **U3c** Abspieler: Schritte zeigen, Antworten auswerten, Werkzeuge einbinden, Verzweigungen folgen
+  - [ ] **U3d** Einstieg vor dem ersten Üben, Zustand „vermittelt“, Kurzfassung zum Nachschlagen
+  - [ ] **U3e** Projektion `fehlvorstellungen` (VERMITTLUNG §3.3)
+  - [ ] **U3f** Rückmeldung beim Üben: kurze und lange Erklärung, Rückweg, Kontrastaufgaben
+  - [ ] **U3g** Fehlerwerkstatt nach Ursachen
+  - [ ] **U3h** Unbekannte Fehler für die Pflege exportieren
+  - [ ] **U3i** Browser-Tests und Dokumente
 - [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E

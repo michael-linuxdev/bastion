@@ -8,6 +8,7 @@ import type { BuchungEreignis, Konto } from '../core/ledger/buchung';
 import type { Bastion, BauEreignis } from '../core/bastion/bauen';
 import type { Karte } from '../core/srs/karten';
 import type { EinstellungEreignis } from '../core/policy/einstellung';
+import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
 import type { SicherungsInhalt } from '../core/sicherung/sicherung';
 
 export interface Profil {
@@ -41,6 +42,31 @@ export interface MetaEintrag {
   readonly wert: string;
 }
 
+/** Schemaversion 1 vollständig nach DATENMODELL §6. */
+export const SCHEMA_1 = {
+  aufgaben: 'id, [profil+ts], [profil+tag], [profil+vorlage+niveau], sitzung',
+  sitzungen: 'id, [profil+ts], [profil+tag]',
+  buchungen: 'id, [profil+ts], [profil+ressource]',
+  bau: 'id, [profil+ts], gebaeude',
+  einstellungen_ereignisse: 'id, [profil+schluessel+ts]',
+  verdichtungen: 'id, [profil+bis]',
+  karten: '[profil+vorlage+niveau], [profil+faellig]',
+  kompetenzen: '[profil+kompetenz+niveau], [profil+status]',
+  wochen: '[profil+woche]',
+  konto: 'profil',
+  bastion: 'profil',
+  einstellungen: '[profil+schluessel]',
+  profile: 'id',
+  pakete: 'id',
+  meta: 'schluessel',
+  sicherungen: 'id, erstellt',
+} as const;
+
+/** Tabellen, die Schemaversion 2 ergänzt. */
+export const SCHEMA_2 = {
+  vermittlungen: 'id, [profil+ts], [profil+kompetenz]',
+} as const;
+
 export class BastionDatenbank extends Dexie {
   aufgaben!: Table<AufgabeEreignis, string>;
   sitzungen!: Table<SitzungEreignis, string>;
@@ -52,6 +78,7 @@ export class BastionDatenbank extends Dexie {
   karten!: Table<Karte, [string, string, string]>;
   profile!: Table<Profil, string>;
   einstellungen_ereignisse!: Table<EinstellungEreignis, string>;
+  vermittlungen!: Table<VermittlungEreignis, string>;
   einstellungen!: Table<Einstellung, [string, string]>;
   meta!: Table<MetaEintrag, string>;
   sicherungen!: Table<LokaleSicherung, string>;
@@ -60,23 +87,10 @@ export class BastionDatenbank extends Dexie {
     super(name, optionen);
     // Schemaversion 1 vollständig nach DATENMODELL §6 – auch Tabellen, die
     // erst später gefüllt werden, damit dafür keine Migration nötig ist.
-    this.version(1).stores({
-      aufgaben: 'id, [profil+ts], [profil+tag], [profil+vorlage+niveau], sitzung',
-      sitzungen: 'id, [profil+ts], [profil+tag]',
-      buchungen: 'id, [profil+ts], [profil+ressource]',
-      bau: 'id, [profil+ts], gebaeude',
-      einstellungen_ereignisse: 'id, [profil+schluessel+ts]',
-      verdichtungen: 'id, [profil+bis]',
-      karten: '[profil+vorlage+niveau], [profil+faellig]',
-      kompetenzen: '[profil+kompetenz+niveau], [profil+status]',
-      wochen: '[profil+woche]',
-      konto: 'profil',
-      bastion: 'profil',
-      einstellungen: '[profil+schluessel]',
-      profile: 'id',
-      pakete: 'id',
-      meta: 'schluessel',
-      sicherungen: 'id, erstellt',
-    });
+    this.version(1).stores(SCHEMA_1);
+    // Schemaversion 2 (U3a, DATENMODELL §6.2): neue Tabelle für das Ereignis
+    // `vermittlung` (D-16). Vorhandene Ereignisse bleiben unverändert, deshalb
+    // braucht es keine Upgrade-Funktion und keine Sicherung vorab (D-8).
+    this.version(2).stores(SCHEMA_2);
   }
 }
