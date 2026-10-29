@@ -352,7 +352,9 @@ interface NutzungEreignis extends Ereignis {
 | `konto` | Profil | Stand je Ressource, Summe erworbener Baupläne, Bauschritt-Vorrat | `buchung` |
 | `bastion` | Profil | Gebäude mit Typ, Stufe, Position, Gestaltung; aktive Vorhaben mit Fortschritt; Epoche | `bau`, `buchung` |
 | `einstellungen` | Profil × Schlüssel | aktueller Wert | `einstellung` |
-| `fehlvorstellungen` (geplant, U3) | Profil × Fehlvorstellung | Zustand nach `VERMITTLUNG.md` §3.3 (aufgefallen … aufgelöst), letzte Treffer | `aufgabe` (über `fv` der Fehlerbilder und der Zwischenschritte), `vermittlung` |
+| `fehlvorstellungen` (seit U3e, ohne Tabelle) | Profil × Fehlvorstellung | Zustand nach `VERMITTLUNG.md` §3.3 (aufgefallen … aufgelöst), letzte Treffer | `aufgabe` (über `fv` der Fehlerbilder und der Zwischenschritte), `vermittlung` |
+
+*Umsetzung `fehlvorstellungen` (U3e, 29.10.2026):* `fvZustaende` in `src/core/learning/fv-diagnose.ts` rechnet die Zustände bei Bedarf aus allen Aufgaben- und Vermittlungs-Ereignissen. Eine eigene Tabelle gibt es nicht: Die Ereignisse eines Profils sind wenige Tausend, und so stimmt die Diagnose auch dann, wenn sich der Fehlerkatalog ändert (D-16). Gelegenheiten sind Aufgaben einer Vorlage, bei der die Fehlvorstellung auftreten kann, und ihre Kontrastaufgaben.
 
 **Entscheidung D-6: Ereignis und Projektion werden in derselben Datenbank-Transaktion geschrieben.** Es gibt außerdem eine Funktion `neuAufbauen(profil)`, die alle Projektionen aus den Ereignissen neu berechnet.
 

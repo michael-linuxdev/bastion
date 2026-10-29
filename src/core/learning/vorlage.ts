@@ -41,7 +41,8 @@ export interface GeneratorVorlage {
   readonly antwort?: Readonly<Record<string, unknown>>;
   readonly text: { readonly aufgabe: Sprachobjekt };
   readonly hilfen: readonly Sprachobjekt[];
-  readonly fehlerbilder: Readonly<Record<string, Sprachobjekt>>;
+  /** Rückmeldung je Fehlerbild; `fv` verweist auf den Fehlerkatalog (INHALTSFORMAT §16) */
+  readonly fehlerbilder: Readonly<Record<string, Sprachobjekt & { readonly fv?: string }>>;
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
 }
