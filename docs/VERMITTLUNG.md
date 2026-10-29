@@ -163,6 +163,11 @@ Je Fehlvorstellung führt Bastion eine Zählung aus den gespeicherten Aufgaben-E
 | **wieder da** | nach „aufgelöst“ erneut erkannt | wie „vermutet“, aber mit Rückweg zur Voraussetzung, falls es eine gibt |
 
 - Die Schwellen sind Startwerte und werden mit Lernenden geprüft.
+- *Umsetzung (U3e):* `src/core/learning/fv-diagnose.ts` (`FV_REGELN`).
+  - Das Fenster zählt **Gelegenheiten**: Aufgaben einer Vorlage, bei der die Fehlvorstellung auftreten kann, und Kontrastaufgaben.
+  - „In Arbeit“ beginnt mit der ersten Gelegenheit nach „vermutet“, denn die lange Erklärung kam schon mit der Rückmeldung.
+  - Ein neuer Treffer in Arbeit setzt zurück auf „vermutet“ und die Kontraste auf null.
+  - Treffer aus der Erstvermittlung zählen mit.
 - Die Fehlerwerkstatt gruppiert künftig nach Fehlvorstellung statt nach Fehlerbild.
 - Der bisherige Rückweg (drei Fehler in Folge → Voraussetzung, LEHRPLAN §7) bleibt für Fehler ohne erkannte Fehlvorstellung.
 

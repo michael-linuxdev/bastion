@@ -8,6 +8,7 @@ import {
   vermittelt,
   vermittlungEreignis,
   type VermittlungAngaben,
+  type VermittlungEreignis,
 } from '../../core/learning/vermittlung-ereignis';
 import { neueSitzungNoetig, sitzungEreignis } from '../../core/learning/sitzung';
 import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
@@ -221,6 +222,13 @@ export async function merkeVermittlung(
   await speichereVermittlung(db, e).catch(() => undefined);
   // Der Abschluss zählt als Lerneinheit (D-16, ergänzt): gleich buchen und bauen
   if (e.typ === 'abgeschlossen') await buchenUndBauen(inst);
+}
+
+/** Alle Vermittlungs-Ereignisse des Profils (für die Diagnose der Fehlvorstellungen). */
+export async function alleVermittlungen(): Promise<VermittlungEreignis[]> {
+  const inst = await bereit();
+  if (!inst) return [];
+  return vermittlungen(db, inst.profil).catch(() => []);
 }
 
 /** Kompetenzen mit abgeschlossener Erstvermittlung (Zustand „vermittelt“). */
