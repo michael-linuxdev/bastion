@@ -19,6 +19,12 @@
     onwahl: (b: Bereich) => void;
   } = $props();
 
+  // Höhe für Seitenränder und Hinweise darüber (grund.css, UpdateHinweis.svelte)
+  let hoehe = $state(0);
+  $effect(() => {
+    if (hoehe > 0) document.documentElement.style.setProperty('--leiste-hoehe', `${hoehe}px`);
+  });
+
   const bereiche = $derived<Bereich[]>(
     basebau ? ['start', 'ueben', 'bastion', 'mehr'] : ['start', 'ueben', 'mehr'],
   );
@@ -32,7 +38,7 @@
           : t('leiste.mehr');
 </script>
 
-<nav class="leiste" aria-label={t('leiste.name')}>
+<nav class="leiste" aria-label={t('leiste.name')} bind:offsetHeight={hoehe}>
   {#each bereiche as b (b)}
     <button
       class:aktiv={aktuell === b}

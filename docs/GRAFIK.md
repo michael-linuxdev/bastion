@@ -110,5 +110,11 @@ Vier Schritte, jeder ein eigener PR:
    - Ein vorgemerktes Ziel erscheint als Karte mit Fortschrittsbalken und „Dafür fehlt noch …“. Die Themenwahl steht am Ende der Seite.
 
 5. ✅ **„Mehr“ statt „Mein Stand“** in der Leiste (`src/ui/start/Mehr.svelte`). Die Startseite ist kompakter und passt auf das iPhone 13. Der Name „Bastion“ steht für Screenreader weiter als Überschrift, sichtbar aber nur unter „Mehr“. Wenn eine Erinnerung an die Sicherung und eine Klassenarbeit zugleich angezeigt werden, kann die Seite etwas länger werden.
+6. ✅ **Korrekturen nach dem ersten Blick auf dem iPhone 13** (29.10.2026):
+   - Die App nutzt den ganzen Bildschirm (`viewport-fit=cover`). Die Leiste hält Abstand zum Strich unten am iPhone, deshalb ist die Markierung von „Start“ ganz zu sehen.
+   - Die Leiste misst ihre Höhe selbst (`--leiste-hoehe`). Der Hinweis auf eine neue Version steht darüber statt dahinter.
+   - Oben ist mehr Abstand. Das Datum lag vorher am Rand unter der Statusleiste, wo iOS Inhalte unscharf zeichnet.
+   - Die Startseite füllt den Bildschirm bis zur Leiste. Den freien Platz bekommt das Bild der Bastion (höchstens 20rem), ohne Basebau die Kacheln.
+   - Die Fehlerwerkstatt hat als Symbol eine Glühbirne statt eines Schraubenschlüssels: Aus Fehlern wird ein Aha (R6).
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).
