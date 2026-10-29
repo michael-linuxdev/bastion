@@ -8,7 +8,7 @@
 Bei Widerspruch zwischen Code und Dokumenten: nachfragen, nicht raten.
 
 ## Unverhandelbar
-- **Keine Netzwerkverbindungen** zur Laufzeit außer dem Laden der App und der Inhaltspakete von der eigenen Adresse. Kein Analytics, keine Fehler-Tracking-Dienste, keine CDN-Fonts, keine externen Bilder.
+- **Keine Netzwerkverbindungen** zur Laufzeit außer dem Laden der App und der Inhaltspakete von der eigenen Adresse. Kein Analytics, keine Fehler-Tracking-Dienste, keine CDN-Fonts, keine externen Bilder. Einzige Ausnahme: echtes Wetter von Open-Meteo, nur nach ausdrücklichem Einschalten (ARCHITEKTUR T-15).
 - **Keine Werbung, keine Käufe, keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall.**
 - **Ordnergrenzen:** `src/core/` importiert nichts aus `src/ui/` oder Browser-APIs. `src/core/bastion/` importiert nur aus `src/core/ledger/`.
 - **Keine neue Laufzeitabhängigkeit** ohne Eintrag im Entscheidungslog von `docs/ARCHITEKTUR.md` – vorher fragen.

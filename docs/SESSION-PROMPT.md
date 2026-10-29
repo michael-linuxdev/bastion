@@ -46,7 +46,19 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 **Zu Beginn der Sitzung den Projektverantwortlichen fragen, womit es weitergeht** (entschieden am 29.10.2026). Nichts davon ohne diese Antwort beginnen. Zur Auswahl stehen:
 
-0. **Grafik deutlich ansprechender machen (K-22)** – *muss vor Klasse 9 kommen.* Drei Testerinnen von 12 bis 16 Jahren stehen bereit (`TESTS.md` §2). Vor Beginn fragen: Was genau soll anders aussehen, welcher Weg (eigener Stil aus dem Code, freie Grafikpakete, Auftrag) und was zuerst (Bastion, Startseite, Üben)?
+0. **Grafik umbauen (K-22)** – *muss vor Klasse 9 kommen.* Drei Testerinnen von 12 bis 16 Jahren stehen bereit (`TESTS.md` §2).
+   - **Entschieden am 29.10.2026:**
+     - Richtung A „Tag, warm“ für Bastion, Startseite und Üben, dazu die Leiste unten.
+     - Hell, Dunkel (als Abendstimmung) und System sind wählbar.
+     - Die Grafikschicht bleibt austauschbar.
+     - Alles steht in `docs/GRAFIK.md`.
+   - **Vorschlag für die Reihenfolge:**
+     1. Grundlage: Tokens, mitgelieferte Schrift Nunito, Modi.
+     2. Startseite mit der Leiste unten.
+     3. Üben.
+     4. Bastion (isometrische Insel).
+   - Jeder Schritt wird ein PR. Vorher fragen, ob es so losgehen soll.
+   - Später: lebendige Szenen, Jahreszeiten, Wetter (T-15, nur freiwillig) und Skins (B-27).
 1. **Klasse 9** (K-20, erst nach Punkt 0): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
 2. **Offene Reste:**
    - Anrede „Sie“ für Erwachsene (L-15). Dafür braucht es eine zweite Fassung aller Texte; vorher fragen, wie.
