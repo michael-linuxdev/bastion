@@ -1,6 +1,11 @@
 import { expect, test, type Page } from '@playwright/test';
 import { BUEHNE_B, BUEHNE_H, punkt } from '../../src/ui/bastion/grafik/iso';
 
+/** „Mehr“ in der Leiste unten öffnen: Sicherung, Über mich, Klassenarbeit, Für Eltern */
+async function mehr(seite: Page) {
+  await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
+}
+
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
 /** Aktueller Wert einer Einstellung aus IndexedDB (Projektion `einstellungen`). */
@@ -66,6 +71,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   });
 
   await page.goto('./');
+  await mehr(page);
   await expect(page.getByText('funktioniert jetzt auch ohne Internet')).toBeVisible();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await context.setOffline(true);
@@ -271,6 +277,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   );
   await page.goto('./');
 
+  await mehr(page);
   await page.getByRole('button', { name: 'Für Eltern' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('12');
   await page.getByLabel('PIN wiederholen').fill('12');
@@ -334,6 +341,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
     'in Arbeit',
   );
   await page.goto('./');
+  await mehr(page);
   await page.getByRole('button', { name: 'Für Eltern' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('4711');
   await page.getByLabel('PIN wiederholen').fill('4711');
@@ -343,6 +351,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await page.getByRole('button', { name: /Zurück/ }).click();
 
   // Sicherung erstellen: sechs Wörter, Datei herunterladen
+  await mehr(page);
   await page.getByRole('button', { name: 'Sicherung', exact: true }).click();
   await page.getByRole('button', { name: 'Sicherung erstellen' }).click();
   const code = (await page.getByTestId('sicherungscode').innerText()).trim();
@@ -358,6 +367,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   const neu = await browser.newContext(baseURL ? { baseURL } : {});
   const seite = await neu.newPage();
   await seite.goto('./');
+  await mehr(seite);
   await seite.getByRole('button', { name: 'Sicherung', exact: true }).click();
   await seite.getByLabel(/Sicherungsdatei/).setInputFiles(pfad);
   await seite.getByLabel(/Sicherungscode/).fill('apfel apfel apfel apfel apfel apfel');
@@ -378,6 +388,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
 
   // Die alte PIN gilt hier nicht – neue PIN, dauerhafter Vermerk
   await seite.getByRole('button', { name: /Zurück/ }).click();
+  await mehr(seite);
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await expect(seite.getByText(/Die PIN von früher gilt hier nicht/)).toBeVisible();
   await seite.getByLabel('PIN', { exact: true }).fill('1357');
@@ -391,6 +402,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByLabel(/An eine Sicherung erinnern/).selectOption({ label: 'nie' });
   await expect.poll(() => einstellungImSpeicher(seite, 'sicherung.erinnerung')).toBe(0);
   await seite.reload();
+  await mehr(seite);
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await seite.getByLabel('PIN', { exact: true }).fill('1357');
   await seite.getByRole('button', { name: 'Öffnen' }).click();
@@ -970,17 +982,21 @@ test('Profil: freiwillig, ab 18 ohne Elternbereich (L-15)', async ({ page }) => 
   await expect(page.getByRole('heading', { name: 'Über mich' })).toBeVisible();
   await page.getByRole('button', { name: 'Überspringen' }).click();
   await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
+  await mehr(page);
   await expect(page.getByRole('button', { name: 'Für Eltern' })).toBeVisible();
   await expect.poll(() => einstellungImSpeicher(page, 'profil.gefragt')).toBe(true);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
   // Später doch angeben: erwachsen
+  await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
   await page.getByLabel('Geburtsdatum').fill('1985-04-12');
   await page.getByRole('button', { name: 'Speichern' }).click();
+  await mehr(page);
   await expect(page.getByRole('button', { name: 'Für Eltern' })).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'profil.geburtsdatum')).toBe('1985-04-12');
   await page.reload();
+  await mehr(page);
   await expect(page.getByRole('button', { name: 'Für Eltern' })).toHaveCount(0);
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByText('Mein Bericht (auch zum Zeigen für Lehrkräfte)')).toBeVisible();
@@ -1056,6 +1072,7 @@ test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', 
 test('Klassenarbeit: Termin und Themen, Probe ohne Note (L-19)', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00') });
   await page.goto('./');
+  await mehr(page);
   await page.getByRole('button', { name: 'Klassenarbeit', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Klassenarbeit vorbereiten' })).toBeVisible();
   await page.getByLabel('Termin').fill('2026-11-10');
@@ -1093,12 +1110,14 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   // Standard: wie das Gerät
   await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
   await page.getByRole('button', { name: 'Überspringen' }).click();
+  await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
   await page.getByLabel('Hell').check();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
   await expect.poll(() => einstellungImSpeicher(page, 'darstellung.modus')).toBe('hell');
   await page.reload();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
   await page.getByLabel('Wie das Gerät').check();
   await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
@@ -1106,7 +1125,7 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
 });
 
-test('Leiste unten: Start, Üben, Bastion, Mein Stand (GRAFIK §1)', async ({ page }) => {
+test('Leiste unten: Start, Üben, Bastion, Mehr (GRAFIK §1)', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();
   const leiste = page.getByRole('navigation', { name: 'Bereiche' });
@@ -1119,8 +1138,9 @@ test('Leiste unten: Start, Üben, Bastion, Mein Stand (GRAFIK §1)', async ({ pa
     'aria-current',
     'page',
   );
-  await leiste.getByRole('button', { name: 'Mein Stand' }).click();
-  await expect(leiste.getByRole('button', { name: 'Mein Stand' })).toHaveAttribute(
+  await leiste.getByRole('button', { name: 'Mehr' }).click();
+  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
+  await expect(leiste.getByRole('button', { name: 'Mehr' })).toHaveAttribute(
     'aria-current',
     'page',
   );

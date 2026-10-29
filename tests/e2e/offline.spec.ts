@@ -1,4 +1,9 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/** „Mehr“ in der Leiste unten öffnen: Sicherung, Über mich, Klassenarbeit, Für Eltern */
+async function mehr(seite: Page) {
+  await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
+}
 
 // Kritischer Weg „erster Start offline“ (ARCHITEKTUR §13):
 // einmal online laden, dann ohne Netz neu laden – die App muss starten.
@@ -13,6 +18,7 @@ test('startet nach dem ersten Laden auch ohne Netz', async ({ page, context, bas
   await expect(page.getByRole('heading', { level: 1, name: 'Bastion' })).toBeVisible();
 
   // Warten, bis der Service Worker die App-Hülle gespeichert hat.
+  await mehr(page);
   await expect(page.getByText('funktioniert jetzt auch ohne Internet')).toBeVisible();
   await page.evaluate(() => navigator.serviceWorker.ready);
 
@@ -44,11 +50,13 @@ test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', asy
     if (/grafik-buehne-[^/]*\.js$/.test(anfrage.url())) grafik.push(anfrage.url());
   });
   await page.goto('./');
+  await mehr(page);
   await expect(page.getByText('funktioniert jetzt auch ohne Internet')).toBeVisible();
   await page.evaluate(() => navigator.serviceWorker.ready);
   // Startseite und Vorab-Speicher laden die Grafik nicht (R7, A3)
   expect(grafik).toEqual([]);
 
+  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.locator('.bauplatz canvas')).toBeVisible();
   expect(grafik.length).toBeGreaterThan(0);

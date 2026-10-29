@@ -1,0 +1,92 @@
+<script lang="ts">
+  // „Mehr“ (Leiste unten): alles, was nicht täglich gebraucht wird – damit die
+  // Startseite auf einen Bildschirm passt. Dazu der Name der App und das Versprechen.
+  import Symbol from '../grafik/Symbol.svelte';
+  import { t } from '../texte/texte';
+  import type { Ziel } from './Startseite.svelte';
+
+  let {
+    eltern,
+    offline,
+    onziel,
+  }: {
+    /** Elternbereich anbieten (nicht bei Erwachsenen, L-15) */
+    eltern: boolean;
+    offline: boolean;
+    onziel: (z: Ziel) => void;
+  } = $props();
+
+  const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
+    { ziel: 'stand', name: t('stand.knopf') },
+    { ziel: 'klassenarbeit', name: t('ka.knopf') },
+    { ziel: 'profil', name: t('profil.knopf') },
+    { ziel: 'sicherung', name: t('sicherung.knopf') },
+    ...(eltern ? [{ ziel: 'eltern' as const, name: t('eltern.knopf') }] : []),
+  ]);
+</script>
+
+<section class="mehr">
+  <p class="marke">{t('start.ueberschrift')}</p>
+  <ul class="liste">
+    {#each eintraege as e (e.ziel)}
+      <li>
+        <button onclick={() => onziel(e.ziel)}>
+          {#if e.ziel === 'stand'}<Symbol name="stand" />{/if}
+          <span>{e.name}</span>
+        </button>
+      </li>
+    {/each}
+  </ul>
+  <p class="versprechen">{t('start.versprechen')}</p>
+  {#if offline}
+    <p class="offline" role="status">{t('start.offline')}</p>
+  {/if}
+</section>
+
+<style>
+  .mehr {
+    display: grid;
+    gap: var(--abstand-m);
+  }
+  .marke {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--farbe-akzent);
+    margin: 0;
+  }
+  .liste {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--abstand-s);
+  }
+  button {
+    font: inherit;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    inline-size: 100%;
+    min-block-size: 3.25rem;
+    padding-inline: var(--abstand-m);
+    border: none;
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 8px var(--farbe-schatten);
+    color: var(--farbe-text);
+    text-align: start;
+    cursor: pointer;
+  }
+  .versprechen {
+    color: var(--farbe-text-leise);
+    border-inline-start: 4px solid var(--farbe-akzent);
+    padding-inline-start: var(--abstand-m);
+    margin: 0;
+  }
+  .offline {
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
+    margin: 0;
+  }
+</style>
