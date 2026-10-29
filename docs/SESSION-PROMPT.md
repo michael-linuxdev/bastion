@@ -3,7 +3,7 @@
 > Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
 > Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
 
-Stand: 28.10.2026 (14) · Phase 0 – Fundament, Phase 1a begonnen
+Stand: 29.10.2026 (15) · Phase 1 – Lernkern; Klasse 5 bis 8 als Entwurf, L-15 bis L-19 umgesetzt
 
 ---
 
@@ -44,50 +44,78 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 ## Aktueller Auftrag
 
-**Basebau Epoche 1 bauen (K-18)**, danach Klasse 7 (Phase 1a–1c für Klasse 5, Klasse 6 als Entwurf fertig). Rahmen: **K-17** – der Lehrplan wird Klassenstufe für Klassenstufe bis Klasse 12 aufgebaut (K-15), Prüfung der Vorlagen und Testrunden kommen gesammelt danach. Scope (K-11): Mathe in **Sachsen**, Klassenstufen **5–12**, alle allgemeinbildenden Schularten, Niveaus G und M. Lehrpläne Klasse 6 sind ausgewertet: 26 Kompetenzen in `LEHRPLAN.md` §8b und `content/`. **Klasse 6 ist inhaltlich abgedeckt (als Entwurf):** alle 26 Kompetenzen haben Vorlagen – BR 23, ZU 8, ZF/DA 4, DV 10, FL 4, KP 4, zusammen 53 Vorlagen, dazu 3 Anleitungen (Dreieck aus drei Seiten, Mittelsenkrechte, Schrägbild eines Prismas). Übersicht, „Mein Stand“ und Diagnose haben eine Klassenwahl (5 oder 6). Klasse 6 ist per PR #12 auf `main`. **Nächster Schritt: Basebau Epoche 1 nach K-18** (`BASEBAU.md` §11), Stufe A (2.1–2.4: Sitzungen, Ledger-Regeln, Buchungen und Konto, Abschluss mit Ressourcen) steht; 2.5 Gebäudekatalog, 2.6 Bauen, 2.7 Basebau-Schalter Stufe B (2.5–2.10: Katalog, Bauen, Schalter, Listenansicht, Studierstube, Ende der Epoche 1) steht – man kann die ganze Epoche 1 als Liste bauen; der Zwischenschritt Themen (B-17: 2.10a Rollen-Kennungen, 2.10b fünf Themen mit eigenen Namen und Wahl) steht; 2.11 Simulator steht (`pnpm sim`, Ergebnisse BASEBAU §8a). Entschieden und umgesetzt (B-19 bis B-22, 2.11a–c): Erwartungen §8 angepasst, Einfassung 40, Zierde einlagern, Ziel vormerken – alle Erwartungen aus §8 erfüllt (BASEBAU §8a). Stufe D: 2.12 PixiJS 8.22.0 eingebunden (nachgeladen, offline, Budget getrennt); 2.13 Bauplatz in Draufsicht steht (Formen je Rolle, antippen, versetzen, Bild ausblendbar); 2.13a Zoom steht (100/150/200 %, auf dem Handy 150 %, verschiebbar); 2.14 Gestalten steht (Farbe der Zierde). **Basebau Epoche 1 nach K-18 ist damit vollständig** (BASEBAU §11). **Klasse 7 begonnen:** Lehrpläne ausgewertet (OS Haupt- und Realschulbildungsgang, GY), 29 Kompetenzen und Graph in `LEHRPLAN.md` §8c (neue Felder RZ, GL, PZ, KR). Vorlagen Feld für Feld: RZ begonnen (Begriff, Ordnen, Zahlbereiche – 7 Vorlagen; Knopf „±“ für negative Antworten; „Klasse 7“ in der Klassenwahl). RZ rechnen und GF.QUADRANTEN stehen (zusammen 18 Vorlagen für 8 Kompetenzen). GL und PZ stehen (je 8 Vorlagen), DA/ZF auch (6 Vorlagen). KR steht (6 Vorlagen, Anleitung Umkreis). DV.VIERECKE-KONSTRUIEREN und FL.VIELECKE stehen (je 2 Vorlagen, Anleitung Parallelogramm). KP steht (10 Vorlagen, Anleitungen Zweitafelbild und Pyramide). **Klasse 7 ist inhaltlich abgedeckt (als Entwurf): 29 Kompetenzen, 60 Vorlagen, 4 Anleitungen.** **Klasse 8:** Lehrpläne ausgewertet, 27 Kompetenzen und Graph in `LEHRPLAN.md` §8d (neue Felder TU, FK, GS, AE). TU steht (10 Vorlagen), „Klasse 8“ ist in der Klassenwahl. FK steht (12 Vorlagen), GS auch (6 Vorlagen), Kreis und Zylinder auch (8 Vorlagen, Anleitung Zylinder, π ≈ 3,14). AE steht (6 Vorlagen, Anleitung zentrische Streckung), ZF, PZ und DV.REGELMAESSIG auch. **Klasse 8 ist inhaltlich abgedeckt (als Entwurf): 27 Kompetenzen, 54 Vorlagen, 3 Anleitungen.** **Danach (K-20):** Startpaket (B-24, steht), Hinterhof (B-25, Stufe 1 steht), Wechsel begleiten (L-12, steht), Bericht für die Lehrkraft (L-13, steht); dann **(ergänzt K-20, K-21)** L-15 bis L-19 – **stehen alle (29.10.2026)**: Profil mit Geburtsdatum, ab 18 ohne Elternbereich (offen: Anrede „Sie“); Klasse pflegen und Schuljahreswechsel; „Gerade dran“; Diagnose zum Wiedereinstieg; beim Überspringen gezielte Lücken-Diagnose der übersprungenen Klassen (L-12); Klassenarbeit mit Termin, Themen und Probe (offen: Wiederholungen bis zum Termin planen). **Nächster Schritt: auf Freigabe des Projektverantwortlichen warten** – dann Klasse 9 bis 12 (angehalten; Entwurf nicht auf `main`), dann Mathe im Studium (K-19). MINT-Kontexte erst nach Klasse 12, abschaltbar (L-14). Budget: Generatoren werden nachgeladen und vorab gespeichert (T-14), App-Hülle 120 KB. **Arbeitsregel (Projektverantwortlicher, 28.10.2026): Jeder fertige Schritt kommt gleich per PR auf `main` (nach grüner CI mergen), damit die Webseite selbst getestet werden kann.** danach Klasse 7. Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
+**Zu Beginn der Sitzung den Projektverantwortlichen fragen, womit es weitergeht** (entschieden am 29.10.2026). Nichts davon ohne diese Antwort beginnen. Zur Auswahl stehen:
 
-Vom Projektverantwortlichen (nicht delegierbar):
-1. Kompetenzliste Klasse 5 (`LEHRPLAN.md` §8, 41 Kompetenzen) fachlich gegenlesen – sie ist aus den Lehrplänen abgeleitet, aber noch nicht von einer Lehrkraft geprüft.
-2. **0.15** Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3) – nach K-17 erst, wenn der Lehrplan bis Klasse 12 steht.
-3. **0.14** Angebote nach Raster `WETTBEWERB.md` §5 durchspielen.
-4. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
-5. **0.10** Drei Referenzgeräte festlegen und auf ihnen messen (Anleitung ARCHITEKTUR §9.2).
+1. **Klasse 9** (K-20): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
+2. **Offene Reste:**
+   - Anrede „Sie“ für Erwachsene (L-15). Dafür braucht es eine zweite Fassung aller Texte; vorher fragen, wie.
+   - Wiederholungen bis zum Termin der Klassenarbeit planen (L-19).
+   - „Gerade dran“-Themen beim Wiederholen öfter drannehmen (L-18).
+   - `M.GM.FL.DREIECK` hat auf Niveau G nur eine Vorlage. Es braucht zwei (`pnpm inhalte:pruefen`).
+3. **Prüfen und testen:** Vorlagen von Klasse 5 bis 8 mit einer Lehrkraft durchgehen. Die App könnte Hilfen fürs Prüfen bekommen (INHALTSFORMAT §8).
 
-Vom Projektverantwortlichen, neu:
-6. **Vorlagen, Fachbegriffe und Anleitungen prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alle 88 Vorlagen, die 5 Zeichen-Anleitungen und die 83 Erklärungen in `content/mathematik/begriffe.yaml` sind KI-Entwurf. Das Abschlusskriterium für Klasse 5 (`STRATEGIE.md` §2, Punkt 2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+Rahmen: Mathe in **Sachsen**, Klasse 5–12, alle allgemeinbildenden Schularten, Niveaus G und M (K-11, K-15, K-17). Auch Erwachsene nutzen die App (K-21). MINT-Kontexte kommen erst nach Klasse 12 und lassen sich abschalten (L-14). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
-Mit Claude Code, als Nächstes:
-7. **Klasse 6 (K-17):** Generatoren und Vorlagen für die 26 Kompetenzen (§8b), je Niveau mindestens zwei, entlang des Graphen. Erledigt als Entwurf: 53 Vorlagen, 3 Anleitungen; Übersicht, „Mein Stand“ und Diagnose mit Klassenwahl (`src/ui/ueben/KlassenWahl.svelte`). Die Diagnose prüft nur die gewählte Klasse; die Klasse bleibt fest, sobald die erste Antwort gegeben ist.
-8. Laufzeit der Tests im Blick behalten: `pnpm test` dauert jetzt etwa eine Minute; die Würfelnetz-Tests allein etwa 20 Sekunden.
+**Arbeitsregel (Projektverantwortlicher, 28.10.2026, bestätigt 29.10.2026):** Jeder fertige Schritt kommt gleich per PR auf `main`. Ablauf:
 
-## Übergabe der letzten Sitzung
+1. PR öffnen und abonnieren.
+2. Nach grüner CI per Squash mergen.
+3. `main` mit `git merge -s ours origin/main` in den Arbeitsbranch übernehmen.
+4. Pushen.
 
-- **Klasse 5 inhaltlich abgedeckt (als Entwurf):** Alle 41 Kompetenzen haben mindestens zwei Vorlagen je Niveau G und M – 88 Vorlagen, 68 Generatoren, alle mit Pflicht-Tests (10 000 Seeds je Niveau). `pnpm inhalte:pruefen` zeigt die Abdeckung.
-- **Neu in dieser Sitzung** (je ein Commit „1a: …“): Vergleichszeichen, Runden, schriftliches Rechnen, Stufenzahlen, Potenzen, Rechengesetze, Terme, Gleichungen, Teilbarkeit, Brüche (Begriff mit Bildern, Kürzen, Vergleichen, Umwandeln, Prozent), Dezimalzahlen, Mittelwert, Größen, Koordinaten, Spiegeln und Verschieben, Symmetrie, Lagebeziehungen, Winkel, Winkelpaare, Flächen- und Volumeneinheiten, Rechteck, L-Figuren, Volumen, Oberfläche, Würfelnetze.
-- **Generatoren registrieren sich selbst:** Jeder exportierte Generator unter `src/generators/mathematik/` ist über `import.meta.glob` im Verzeichnis (`src/generators/index.ts`); die Inhaltsprüfung verlangt, dass jeder von einer Vorlage genutzt wird.
-- **Bilder als SVG** (I-11): Hilfen in `src/generators/svg.ts` (Linien, Vielecke, Bögen, Kästchen, Koordinatensystem …), Farbe über `currentColor`. Jedes Bild hat eine Beschreibung für Screenreader. Die Pflicht-Tests prüfen, dass Bilder nichts nachladen.
-- **Unabhängige Prüfung in den Tests:** Wo möglich lesen die Tests die Lösung aus dem Bild zurück, statt die Formel des Generators zu wiederholen – z. B. Fläche und Umfang aus dem gezeichneten Vieleck, Winkel aus den Bögen, Würfelnetze per Drehmatrizen statt Abrollen.
-- **Pflicht-Tests:** neues optionales `zeitlimitMs` für rechenintensive Generatoren (INHALTSFORMAT §6.3); die Zahl der Seeds bleibt 10 000.
-- **Umrechnungs-Generator** `gr.einheiten-umrechnen@1` kennt jetzt auch Flächen, Volumen und ml/l. Für die bisherigen Größen bleibt jede Aufgabe gleich, deshalb keine neue Version.
-- Kommazahlen rechnen die Generatoren intern als ganze Zahlen (Hundertstel, Tausendstel), damit keine Gleitkommafehler entstehen.
-- Abwechslungs-Schwellen in den Tests sind gemessen und stehen mit Kommentar „gemessen“ im Test.
-- **Erste Übungsseite** (Start → „Üben“): Übersicht der Klasse 5 nach Bereich, entlang des Graphen, Wahl von Niveau G oder M; Aufgabe mit Bild, Eingabe passend zur Lösungsart, Rückmeldung zum Fehlerbild, Hilfen, Lösungsweg. Inhalte kommen als Pakete von der eigenen Adresse (`tools/inhalte/pakete.ts`) und gehen offline. Kern: `src/core/learning/auswertung.ts`, `text.ts`, `uebung.ts`; Oberfläche: `src/ui/ueben/`. Ergebnisse werden gespeichert (siehe unten).
-- **Ergebnisse speichern (1b begonnen):** Jede geprüfte Antwort wird als Ereignis `aufgabe` gespeichert (`src/core/learning/ereignis.ts`), der Status je Kompetenz und Niveau fortgeschrieben (`fortschritt.ts`: neu, in Arbeit, gekonnt; Pflicht-Test D-6). Ablage mit Dexie 4.4.6 in `src/storage/` (vom Projektverantwortlichen freigegeben). Die Übersicht zeigt „in Arbeit“ und „✓ gekonnt“. PR #3 ist gemergt; die Arbeit läuft auf demselben Branch weiter.
-- **Wiederholung (1b):** FSRS-Karten je Vorlage und Niveau (`src/core/srs/karten.ts`, ts-fsrs 5.4.2, freigegeben; ohne Zufall und ohne Minuten-Lernschritte). Startseite zeigt „Wiederholen“ mit der Zahl fälliger Aufgaben; eine Runde arbeitet die fälligen Karten ab und endet mit einem Pausenhinweis (R5). Status bis „gefestigt“ (fällige Wiederholungen bestanden, ≥ 7 Tage nach „gekonnt“, Erinnerung ≥ 90 %) und „auffrischen“ (< 80 %). PR #4 ist gemergt.
-- **Fehlerwerkstatt (1b):** Startseite zeigt „Fehlerwerkstatt“, wenn offene Fehler da sind. Gruppiert nach Ursache – mit der Rückmeldung des Fehlerbilds als Überschrift; Fehler ohne Muster je Kompetenz. „Aufarbeiten“ zeigt genau die damalige Aufgabe (gleicher Seed) mit der damaligen Antwort; richtig gelöst ist der Fehler erledigt (`korrigiert`). Kern: `src/core/learning/werkstatt.ts`. Die Belohnung fürs Korrigieren (R6) folgt mit dem Basebau-Ledger. PR #5 (Wiederholung) ist gemergt.
-- **Rückkehrmodus (1b):** nach mehr als 7 Tagen ohne Aufgabe Begrüßung ohne Vorwurf, keine Pausenlänge; jede Wiederholungsrunde höchstens 20 Aufgaben, die gefährdetsten zuerst (`src/core/srs/rueckkehr.ts`). Phase 1b ist damit bis auf die Belohnung fürs Korrigieren (R6, braucht den Ledger) fertig.
-- Lehre aus der CI: Browser-Tests müssen warten, bis im Hintergrund gespeichert ist, bevor sie neu laden (z. B. „in Arbeit“ in der Übersicht abwarten).
-- **Diagnose (1c):** „Wo stehe ich?“ auf der Startseite (`src/core/learning/diagnose.ts`, `src/ui/ueben/Diagnose.svelte`). Testet je Schritt die Kompetenz, deren Ergebnis am meisten entscheidet, zwei Aufgaben je Kompetenz (bei 1 : 1 eine dritte), höchstens 30 in zwei Etappen; keine Wertung, keine Hilfen, „Weiß ich nicht“ erlaubt und kein Fehler für die Werkstatt. Ergebnis: Empfehlungen mit „Üben“-Knopf und Liste dessen, was sitzt. Getestet bestanden → „gekonnt“; Gefolgertes wird nicht gespeichert. Diagnose-Aufgaben ohne FSRS-Bewertung. Ehrliche Grenze: Bei sehr Starken bleiben wegen der 21 Endpunkte des Graphen Themen ungetestet. PR #6 ist gemergt.
-- **Kompetenzansicht (1c):** „Mein Stand“ auf der Startseite – Zusammenfassung, Empfehlungen, Abschnitte „Wackelt gerade“, „In Arbeit“, „Gekonnt“ (mit nächster Wiederholung), „Gefestigt“, jeweils mit Erklärung in einfacher Sprache; „empfohlen“ in der Übersicht (L-5); Rückweg bei Fehlern nach drei Fehlern in Folge (`src/core/learning/empfehlung.ts`). PR #7 (Diagnose) ist gemergt.
-- **Elternbereich (1c, D-14):** „Für Eltern“ auf der Startseite. Beim ersten Öffnen PIN festlegen (4–8 Ziffern, PBKDF2 über WebCrypto), danach einmalig ein Wiederherstellungscode aus vier Wörtern (D-12) zum Aufschreiben; „PIN vergessen?“ setzt mit dem Code zurück. Standard ist die einfache Ansicht (Themen mit Status je Niveau, Wochen mit Lerntagen und Aufgaben), auf Wunsch die ausführliche (letzte 100 Aufgaben mit Zeit, Ergebnis, Fehlerbild, Hilfen, Dauer). Jugendliche sehen genau das unter „Mein Stand“ → „Was meine Eltern sehen“. PIN und Code sind Einstellungs-Ereignisse (D-5), geheim und nur gehasht. Ehrlicher Hinweis: Eine PIN auf dem Gerät des Kindes ist eine Hürde, keine Festung.
-- **Sicherung (1c, DATENMODELL §7):** „Sicherung“ auf der Startseite. Erstellen zeigt einen Code aus **sechs** Wörtern (D-9, geändert: vier Wörter wären zu leicht durchzuprobieren) und speichert die verschlüsselte Datei `bastion-sicherung-JJJJ-MM-TT.bastion` (AES-GCM, PBKDF2 600 000, gzip; `src/ui/plattform/sicherung.ts`). Einspielen vereinigt die Ereignisse (D-10), legt vorher eine lokale Sicherung an und baut alle Projektionen neu auf. Eine Sicherung eines anderen Profils übernimmt das Gerät nur, wenn dessen Profil noch leer ist. Erinnerung auf der Startseite, Standard monatlich; Eltern stellen sie im Elternbereich ein oder ab (D-O4). Elternbereich zeigt letzte Sicherung und ob der Browser die Daten behalten will.
-- **D-15:** Die PIN gilt je Gerät. Nach dem Einspielen auf einem anderen Gerät wird eine neue PIN festgelegt; das steht dann dauerhaft im Elternbereich und unter „Mein Stand“.
-- **Abschlussbildschirm (1a):** Knopf „Fertig für heute“ beim Üben, Wiederholen und in der Werkstatt. Zeigt zuerst das Können (heute gefestigt, neu gekonnt, geübt), dann Zahlen (Aufgaben, Wiederholungen, aufgearbeitete Fehler), ohne Punkte und Prozente, und schlägt eine Pause vor (R5). Berechnet aus den Aufgaben des Lerntags (`src/core/learning/heute.ts`).
-- **Fachbegriffe (1a, L-7):** Wörterbuch `content/mathematik/begriffe.yaml` (83 Begriffe), in Texten als `[[Form]]` markiert und antippbar; Erklärung erscheint direkt dahinter. `pnpm test` verlangt die Markierung beim ersten Vorkommen je Text; `pnpm inhalte:begriffe` markiert automatisch. In der Diagnose keine Erklärungen (keine Hilfen).
-- **Zeichen-Anleitungen (1a, L-10):** fünf Anleitungen (Senkrechte, Parallele, Winkel 50°, Spiegeln auf Kästchenpapier, Würfel aus Papier) in `content/…/anleitungen/*.yaml`, Bilder je Schritt aus `src/generators/anleitungen/`. Beim Üben der Kompetenz unter „Zeichnen lernen“; am Ende eine Prüfliste zum Abhaken, nicht gespeichert, nicht bewertet (INHALTSFORMAT §4.3).
-- Sicherung ist mit PR #9 auf `main`; Abschluss und Fachbegriffe stehen in PR #10. Die Anleitungen liegen auf dem Branch `claude/new-session-fl56ro`.
-- **Klasse 6 (K-17):** Lehrpläne OS 2019 und GY 2021 für Klasse 6 ausgewertet (PDFs vom Projektverantwortlichen). 26 Kompetenzen in sechs Feldern, neue Felder ZU, ZF, DV. Vorgezogen fürs GY: Kreisdiagramme, Flächenanteile, Prismen berechnen (OS Kl. 7). Nicht abbildbar: Präsentationen, Modellbau, DGS, Taschenrechner.
-- 1650 Tests und 14 Browser-Tests, Lint, Build, Größenbudget (120 von 250 KB) grün.
+Fragen vorher stellen, nicht raten.
+
+### Vom Projektverantwortlichen (nicht delegierbar)
+
+1. **Inhalte prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alles ist KI-Entwurf: 255 Vorlagen zu 123 Kompetenzen (Klasse 5 bis 8), 15 Zeichen-Anleitungen und 197 Fachbegriffe in `content/mathematik/begriffe.yaml`. Das Abschlusskriterium einer Klasse (`STRATEGIE.md` §2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+2. Die Kompetenzlisten (`LEHRPLAN.md` §8 bis §8d) fachlich gegenlesen.
+3. Lehrplan-PDFs für Klasse 9 (OS, GY) bereitstellen, sobald Klasse 9 dran ist.
+4. **0.15** Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3). Nach K-17 erst, wenn der Lehrplan bis Klasse 12 steht.
+5. **0.14** Angebote nach dem Raster in `WETTBEWERB.md` §5 durchspielen.
+6. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
+7. **0.10** Drei Referenzgeräte festlegen und darauf messen (Anleitung in ARCHITEKTUR §9.2).
+
+## Übergabe der letzten Sitzung (28./29.10.2026)
+
+**Was seit der vorigen Übergabe dazukam:**
+
+- **Klasse 7 und 8 sind als Entwurf fertig** (§8c, §8d):
+  - Klasse 7: 29 Kompetenzen, 60 Vorlagen, 4 Anleitungen.
+  - Klasse 8: 27 Kompetenzen, 54 Vorlagen, 3 Anleitungen.
+  - Die Klassenwahl umfasst 5 bis 8 (`src/ui/ueben/klassen.ts`).
+- **Basebau Epoche 1 ist vollständig** (BASEBAU §11). Dazu kommen:
+  - Startpaket für Späteinsteiger (B-24).
+  - Hinterhof mit dem Können je Lernfeld (B-25).
+- **Generatoren werden nachgeladen und vorab gespeichert** (T-14, `src/generators/alle.ts`). Die App-Hülle hat 125,6 KB von 250 KB.
+- **Wechsel begleiten (L-12)**, `src/core/learning/wechsel.ts`:
+  - Überspringen: Der Hinweis zeigt die offenen Themen je übersprungener Klasse (`klassenLuecken`). „Lücken gezielt prüfen“ startet eine Diagnose genau dieser Themen.
+  - Schulartwechsel: Der Hinweis zeigt die Themen, die nun früher drankommen.
+  - Zurückstellen bleibt neutral, ohne Meldung.
+- **Bericht für die Lehrkraft (L-13)** im Elternbereich, auch als Textdatei.
+- **Profil (L-15):**
+  - „Über mich“ mit freiwilligem Geburtsdatum und „Ich bin erwachsen“ (`src/core/policy/alter.ts`).
+  - Ab 18 gibt es keinen Elternbereich mehr. Der Bericht heißt dann „Mein Bericht“.
+- **Wiedereinstieg (L-16):** Die Diagnose „Alles ab Klasse 5“ endet mit „Dein Stand entspricht etwa Klasse N“ (`standKlasse`, Schwelle 70 %).
+- **Klasse pflegen (L-17):**
+  - Klasse und Schulart werden gemerkt und lassen sich auch im Elternbereich ändern.
+  - Ab 1. August fragt die App einmal „Neues Schuljahr!“.
+- **Gerade dran (L-18):** Lernbereiche oder einzelne Themen wählen. Diese Themen stehen in der Übersicht oben.
+- **Klassenarbeit (L-19):**
+  - Termin und Themen eintragen, „Das solltest du noch üben“.
+  - Probe-Klassenarbeit: Diagnose im Modus `pruefung`.
+  - Die Startseite zeigt nur das Datum, ohne Countdown.
+- **Sicherung:** Ein Profil, das nur Einstellungen hat, gilt als leer. Eine Sicherung lässt sich also auch einspielen, wenn man vorher schon die Klasse gewählt hat.
+
+**Lehren:**
+
+- Browser-Tests müssen vor `page.reload()` warten, bis gespeichert ist. Dafür gibt es `expect.poll(() => einstellungImSpeicher(page, '…'))`. Sonst bricht das Neuladen auf dem langsameren CI-Rechner das Speichern ab. Lokal lässt sich das mit CPU-Drosselung nachstellen.
+- Lint-Regeln für Svelte:
+  - `$derived` statt `$state` mit `$effect`.
+  - Kein veränderliches `Set` oder `Map` im Komponentenzustand.
+  - Startwerte aus Props mit `untrack`.
+- `getByText` mit regulärem Ausdruck findet Text nicht, der im Markup umbrochen ist. Den Text darum in einem Stück ausgeben.
+
+**Zahlen:** 4442 Einheitentests und 34 Browser-Tests, alle grün; Lint und Build auch. PRs bis #38 sind auf `main`.
 
 ## Am Ende der Sitzung aktualisieren
 
