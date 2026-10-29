@@ -29,6 +29,7 @@ import { ulid } from '../core/rng/ulid';
 import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
 import { aktuelleEinstellungen, type EinstellungEreignis } from '../core/policy/einstellung';
 import { fehlende, FORMAT, type SicherungsInhalt } from '../core/sicherung/sicherung';
+import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
 import type { BastionDatenbank } from './datenbank';
 
 export interface Installation {
@@ -158,6 +159,28 @@ export async function speichereSitzung(db: BastionDatenbank, e: SitzungEreignis)
 /** Alle Sitzungs-Ereignisse eines Profils, nach Zeit. */
 export async function sitzungen(db: BastionDatenbank, profil: string): Promise<SitzungEreignis[]> {
   return db.sitzungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/**
+ * Vermittlungs-Ereignis speichern (DATENMODELL §4.7). Es bewegt weder Karten
+ * noch Ressourcen (D-16); die Projektionen dafür folgen mit U3d und U3e.
+ */
+export async function speichereVermittlung(
+  db: BastionDatenbank,
+  e: VermittlungEreignis,
+): Promise<void> {
+  await db.vermittlungen.add(e);
+}
+
+/** Alle Vermittlungs-Ereignisse eines Profils, nach Zeit. */
+export async function vermittlungen(
+  db: BastionDatenbank,
+  profil: string,
+): Promise<VermittlungEreignis[]> {
+  return db.vermittlungen
     .where('[profil+ts]')
     .between([profil, -Infinity], [profil, Infinity])
     .toArray();
@@ -358,7 +381,15 @@ async function einstellungenNeu(db: BastionDatenbank, profil: string): Promise<v
 export async function exportieren(db: BastionDatenbank, profil: string): Promise<SicherungsInhalt> {
   return db.transaction(
     'r',
-    [db.profile, db.aufgaben, db.sitzungen, db.buchungen, db.bau, db.einstellungen_ereignisse],
+    [
+      db.profile,
+      db.aufgaben,
+      db.sitzungen,
+      db.buchungen,
+      db.bau,
+      db.einstellungen_ereignisse,
+      db.vermittlungen,
+    ],
     async () => {
       const p = await db.profile.get(profil);
       return {
@@ -370,6 +401,7 @@ export async function exportieren(db: BastionDatenbank, profil: string): Promise
           ...(await buchungen(db, profil)),
           ...(await bauEreignisse(db, profil)),
           ...(await einstellungsEreignisse(db, profil)),
+          ...(await vermittlungen(db, profil)),
         ],
       };
     },
@@ -416,6 +448,7 @@ export async function importieren(
       db.bastion,
       db.einstellungen_ereignisse,
       db.einstellungen,
+      db.vermittlungen,
       db.kompetenzen,
       db.karten,
       db.sicherungen,
@@ -442,11 +475,13 @@ export async function importieren(
       const buc: BuchungEreignis[] = [];
       const bau: BauEreignis[] = [];
       const ein: EinstellungEreignis[] = [];
+      const ver: VermittlungEreignis[] = [];
       for (const e of inhalt.ereignisse) {
         if (e.art === 'aufgabe') auf.push(e);
         else if (e.art === 'sitzung') sit.push(e);
         else if (e.art === 'buchung') buc.push(e);
         else if (e.art === 'bau') bau.push(e);
+        else if (e.art === 'vermittlung') ver.push(e);
         else ein.push(e);
       }
       const neueAufgaben = fehlende(
@@ -499,6 +534,16 @@ export async function importieren(
       await db.buchungen.bulkAdd(neueBuchungen);
       await db.bau.bulkAdd(neueBau);
       await db.einstellungen_ereignisse.bulkAdd(neueEinstellungen);
+      const neueVermittlungen = fehlende(
+        new Set(
+          await db.vermittlungen
+            .where('id')
+            .anyOf(ver.map((e) => e.id))
+            .primaryKeys(),
+        ),
+        ver,
+      );
+      await db.vermittlungen.bulkAdd(neueVermittlungen);
       await neuBerechnen(db, ziel.id);
       await einstellungenNeu(db, ziel.id);
       return {
@@ -509,7 +554,8 @@ export async function importieren(
           neueSitzungen.length +
           neueBuchungen.length +
           neueBau.length +
-          neueEinstellungen.length,
+          neueEinstellungen.length +
+          neueVermittlungen.length,
       };
     },
   );

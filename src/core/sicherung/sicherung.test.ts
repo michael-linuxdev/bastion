@@ -76,6 +76,13 @@ describe('Inhalt prüfen', () => {
     ])
       expect(inhaltPruefen(kaputt)).toBe('beschaedigt');
   });
+  it('versteht Vermittlungs-Ereignisse (U3a)', () => {
+    const v = { ...ereignis, art: 'vermittlung', v: 1 };
+    expect(inhaltPruefen({ format: 1, profile: [profil], ereignisse: [v] })).not.toBe('zu-neu');
+    expect(inhaltPruefen({ format: 1, profile: [profil], ereignisse: [{ ...v, v: 2 }] })).toBe(
+      'zu-neu',
+    );
+  });
   it('erkennt Sicherungen aus einer neueren App', () => {
     expect(inhaltPruefen({ format: FORMAT + 1, profile: [], ereignisse: [] })).toBe('zu-neu');
     for (const neu of [

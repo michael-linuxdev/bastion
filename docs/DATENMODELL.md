@@ -268,9 +268,9 @@ interface VerdichtungEreignis extends Ereignis {
 }
 ```
 
-### 4.7 `vermittlung` – ein beantworteter Schritt der Erstvermittlung (geplant, U3)
+### 4.7 `vermittlung` – ein beantworteter Schritt der Erstvermittlung
 
-Festgelegt mit U1 (29.10.2026, `VERMITTLUNG.md` §2.4). Umgesetzt wird es mit dem Abspieler in U3, mit Schemaversion und Migrationstest.
+Festgelegt mit U1 (29.10.2026, `VERMITTLUNG.md` §2.4). *Umsetzung (U3a):* Ereignis mit `v` = 1 in `src/core/learning/vermittlung-ereignis.ts`, Tabelle `vermittlungen` ab Datenbank-Schemaversion 2 (§6), Speichern und Lesen in `src/storage/ablage.ts`, in der Profil-Sicherung dabei (§7). Ältere App-Versionen melden Sicherungen mit Vermittlungs-Ereignissen als „aus einer neueren App“. Die Projektionen „vermittelt“ und `fehlvorstellungen` folgen mit U3d und U3e.
 
 ```ts
 interface VermittlungEreignis extends Ereignis {
@@ -349,9 +349,13 @@ db.version(1).stores({
   meta:         'schluessel',    // schemaVersion, geraet, ...
   sicherungen:  'id, erstellt',  // automatische Sicherungen vor Migrationen
 });
+
+db.version(2).stores({
+  vermittlungen: 'id, [profil+ts], [profil+kompetenz]',   // Ereignis `vermittlung` (§4.7, U3a)
+});
 ```
 
-*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Bisher genutzt: `aufgaben`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `bau` und `bastion` (seit 2.6), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
+*Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Seit U3a gibt es Schemaversion 2 mit der Tabelle `vermittlungen` (§6.2). Bisher genutzt: `aufgaben`, `vermittlungen`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `bau` und `bastion` (seit 2.6), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
 
 **Entscheidung D-7: Getrennte Tabellen je Ereignisart** statt einer gemeinsamen Ereignistabelle.
 *Warum:* Aufgaben-Ereignisse sind um ein Vielfaches häufiger als alle anderen und brauchen andere Indizes. Getrennte Tabellen halten Abfragen schnell und Verdichtung einfach. Die gemeinsame Sicht „alle Ereignisse eines Profils nach Zeit“ entsteht im Kern durch Zusammenführen sortierter Listen.
@@ -376,6 +380,8 @@ Speicher ist also kein Grund zur Verdichtung – Datensparsamkeit ist es (s. 8).
 4. Schlägt etwas fehl, bietet die App beim nächsten Start die Wiederherstellung aus der Sicherung an.
 
 Jede Migration hat einen Test mit **echten Altständen** aus einem Testdaten-Archiv (`tests/altstaende/`), das ab Phase 1 mit jeder Schemaversion wächst.
+
+*Schemaversion 2 (U3a, 29.10.2026):* ergänzt nur die Tabelle `vermittlungen`. Kein vorhandenes Ereignis ändert sich, deshalb gibt es keine Upgrade-Funktion und keine Sicherung vorab. D-8 greift, sobald eine Migration Ereignisse anhebt. Test: `src/storage/migration.test.ts` mit dem Altstand `tests/altstaende/schema-1.json`.
 
 Ereignisse werden durch Migrationen **in ihrer Form**, nie **in ihrer Bedeutung** geändert. Ein Ergebnis bleibt richtig, eine Buchung behält ihre Menge. Neue Balancing-Regeln wirken nur auf neue Buchungen (`regel`).
 

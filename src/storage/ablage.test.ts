@@ -29,11 +29,14 @@ import {
   bastionAktualisieren,
   bauEreignisse,
   bauSpeichern,
+  speichereVermittlung,
+  vermittlungen,
 } from './ablage';
 import { beginnen } from '../core/bastion/bauen';
 import { kontoAus } from '../core/ledger/buchung';
 import { sitzungEreignis } from '../core/learning/sitzung';
 import { einstellungEreignis } from '../core/policy/einstellung';
+import { vermittlungEreignis } from '../core/learning/vermittlung-ereignis';
 import { BastionDatenbank } from './datenbank';
 
 let nr = 0;
@@ -386,5 +389,51 @@ describe('Ablage', () => {
     expect(await letzteSicherung(db)).toBeUndefined();
     await sicherungVermerken(db, 1234);
     expect(await letzteSicherung(db)).toBe(1234);
+  });
+
+  it('Vermittlung: Ereignisse speichern, ohne Karten oder Konto zu bewegen; Sicherung', async () => {
+    const db = neueDb();
+    const inst = await einrichten(db, 1000, quelleAusSeed(1));
+    const z = quelleAusSeed(6);
+    const basis = {
+      profil: inst.profil,
+      geraet: inst.geraet,
+      kompetenz: 'M.ZO.BR.BEGRIFF',
+      inhalt: 'M.ZO.BR.BEGRIFF@1',
+    };
+    const antwort = vermittlungEreignis(
+      {
+        ...basis,
+        schritt: 'pruefen-1',
+        typ: 'antwort',
+        richtig: false,
+        antwort: '1',
+        fv: 'FV.BR.TEIL-ZU-REST',
+      },
+      2000,
+      60,
+      z,
+    );
+    const ende = vermittlungEreignis(
+      { ...basis, schritt: 'uebergang', typ: 'abgeschlossen' },
+      3000,
+      60,
+      z,
+    );
+    await speichereVermittlung(db, ende);
+    await speichereVermittlung(db, antwort);
+    expect(await vermittlungen(db, inst.profil)).toEqual([antwort, ende]);
+    // D-16: Vermittlung ist kein Üben
+    expect(await karten(db, inst.profil)).toEqual([]);
+    expect(await kompetenzStaende(db, inst.profil)).toEqual([]);
+    expect(await buchen(db, inst, 4000)).toEqual([]);
+
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.filter((e) => e.art === 'vermittlung')).toHaveLength(2);
+    const ziel = neueDb();
+    const zi = await einrichten(ziel, 5000, quelleAusSeed(2));
+    expect(await importieren(ziel, sicherung, zi.profil, 6000)).toMatchObject({ ok: true, neu: 2 });
+    expect(await vermittlungen(ziel, inst.profil)).toEqual([antwort, ende]);
+    expect(await importieren(ziel, sicherung, inst.profil, 7000)).toMatchObject({ neu: 0 });
   });
 });

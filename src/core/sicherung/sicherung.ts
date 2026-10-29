@@ -11,6 +11,7 @@ import { SITZUNG_V, type SitzungEreignis } from '../learning/sitzung';
 import { BUCHUNG_V, type BuchungEreignis } from '../ledger/buchung';
 import { BAU_V, type BauEreignis } from '../bastion/bauen';
 import { EINSTELLUNG_V, type EinstellungEreignis } from '../policy/einstellung';
+import { VERMITTLUNG_V, type VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import type { Tag } from '../policy/lerntag';
 
 export const FORMAT = 1;
@@ -39,7 +40,12 @@ export interface SicherungsProfil {
 }
 
 export type SicherungsEreignis =
-  AufgabeEreignis | SitzungEreignis | BuchungEreignis | BauEreignis | EinstellungEreignis;
+  | AufgabeEreignis
+  | SitzungEreignis
+  | BuchungEreignis
+  | BauEreignis
+  | EinstellungEreignis
+  | VermittlungEreignis;
 
 export interface SicherungsInhalt {
   readonly format: number;
@@ -102,6 +108,7 @@ const VERSION: Readonly<Record<string, number>> = {
   buchung: BUCHUNG_V,
   bau: BAU_V,
   einstellung: EINSTELLUNG_V,
+  vermittlung: VERMITTLUNG_V,
 };
 
 /**
