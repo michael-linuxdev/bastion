@@ -72,6 +72,11 @@ describe('Inhalte in content/', () => {
     expect(ohne).toEqual([]);
   });
 
+  it('nachgerüstete Kompetenzen haben eine geprüfte Erstvermittlung (V1–V8)', () => {
+    const mit = new Set(bericht.vermittlungen.map((v) => v.kompetenz));
+    expect(NACHGERUESTET.filter((k) => !mit.has(k))).toEqual([]);
+  });
+
   it('nachgerüstete Kompetenzen: mindestens drei Fehlvorstellungen je Kompetenz (F1)', () => {
     for (const k of NACHGERUESTET)
       expect(

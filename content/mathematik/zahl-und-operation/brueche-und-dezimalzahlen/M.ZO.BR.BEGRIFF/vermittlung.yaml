@@ -1,0 +1,113 @@
+id: M.ZO.BR.BEGRIFF
+kompetenz: M.ZO.BR.BEGRIFF
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du sagen, welcher Teil von einem Ganzen gefärbt ist – und das als [[Bruch]] aufschreiben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Vier Kinder teilen sich 12 Gummibärchen gerecht. Wie viele bekommt jedes Kind?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.DIV }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Der Streifen ist ein Ganzes. Teile ihn in 4 gleich große Teile und färbe 3 davon. Wie viele Teile gibt es insgesamt?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 1, ziel_teile: 4, ziel_gefaerbt: 3 } }
+    antwort:
+      optionen:
+        - wert: { de: '4' }
+          richtig: true
+        - wert: { de: '3' }
+          fv: FV.BR.TEIL-ZU-REST
+        - wert: { de: '1' }
+          fv: FV.BR.TEIL-ZU-REST
+    weiter: erklaeren-ganzes
+    bei: { sonst: erklaeren-ganzes }
+  - id: erklaeren-ganzes
+    typ: erklaeren
+    text:
+      de: 'Ein [[Bruch]] beschreibt einen [[Anteil]] am Ganzen. Unten steht der [[Nenner]]: in wie viele Teile das Ganze geteilt ist. Oben steht der [[Zähler]]: wie viele Teile gemeint sind. Hier also 3/4.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: erklaeren-gleich
+  - id: erklaeren-gleich
+    typ: erklaeren
+    text:
+      de: 'Wichtig: Alle Teile müssen **gleich groß** sein. Nur dann ist jeder Teil ein Viertel. Merke dir: [[Nenner]] nennt die Teilgröße, [[Zähler]] zählt die Teile.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Kreis ist in 8 gleich große Stücke geteilt, 5 sind gefärbt. Alle Teile: 8, das ist der [[Nenner]]. Gefärbte Teile: 5, das ist der [[Zähler]]. Der [[Anteil]] ist 5/8.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Streifen hat 6 gleich große Teile, 2 sind gefärbt. Der [[Nenner]] ist 6. Welcher [[Bruch]] beschreibt den gefärbten [[Anteil]]?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 2 } }
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '2/6'
+        fehler:
+          - { wert: '2/4', fv: FV.BR.TEIL-ZU-REST }
+          - { wert: '4/6', fv: FV.BR.GEGENTEIL }
+          - { wert: '6/2', fv: FV.BR.VERTAUSCHT }
+    weiter: gegenbeispiel
+    bei:
+      FV.BR.TEIL-ZU-REST: erklaeren-ganzes
+      FV.BR.VERTAUSCHT: erklaeren-gleich
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lea teilt einen Kuchen in 4 Stücke – eins davon ist riesig. Sie sagt: „Jedes Stück ist ein Viertel.“ Hat sie recht?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1, ungleich: true } }
+    antwort:
+      optionen:
+        - wert: { de: 'Nein, die Teile sind nicht gleich groß.' }
+          richtig: true
+        - wert: { de: 'Ja, es sind ja 4 Stücke.' }
+          fv: FV.BR.EINTEILUNG
+    weiter: merksatz
+    bei: { FV.BR.EINTEILUNG: erklaeren-gleich }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Teile das Ganze in gleich große Teile. Der [[Nenner]] sagt, wie viele Teile es sind. Der [[Zähler]] sagt, wie viele davon gemeint sind.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Streifen hat 5 gleich große Teile, 3 sind gefärbt. Welcher [[Bruch]] beschreibt den gefärbten [[Anteil]]?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
+    antwort:
+      optionen:
+        - wert: { de: '3/5' }
+          richtig: true
+        - wert: { de: '3/2' }
+          fv: FV.BR.TEIL-ZU-REST
+        - wert: { de: '2/5' }
+          fv: FV.BR.GEGENTEIL
+        - wert: { de: '5/3' }
+          fv: FV.BR.VERTAUSCHT
+    weiter: uebergang
+    bei:
+      FV.BR.TEIL-ZU-REST: erklaeren-ganzes
+      FV.BR.GEGENTEIL: beispiel
+      FV.BR.VERTAUSCHT: erklaeren-gleich
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ein paar Anteile ab.'
+    vorlagen: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN, M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
