@@ -1164,3 +1164,52 @@ test('Üben: Punkte zeigen den Fortschritt im Fünferblock, ohne Zeit (GRAFIK §
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByRole('img', { name: '1 von 5 Aufgaben erledigt' })).toBeVisible();
 });
+
+test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, dann üben (U3c)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Brüche als Anteile/ }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Erklärung' }).click();
+
+  await expect(page.getByText('Dein Ziel')).toBeVisible();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Vorwissen: 12 Gummibärchen für 4 Kinder
+  await page.getByLabel('Deine Antwort').fill('3');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByText('Richtig!')).toBeVisible();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Entdecken: falsche Wahl zeigt die kurze Erklärung der Fehlvorstellung
+  await page.getByRole('radio', { name: '3', exact: true }).check();
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await expect(page.getByText('Noch nicht ganz.')).toBeVisible();
+  await expect(page.getByText('Richtig ist: 4')).toBeVisible();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  await expect(page.getByText('So geht es')).toBeVisible();
+
+  // Gespeichert: zwei Antworten als Ereignis „vermittlung“
+  const gespeichert = await page.evaluate(
+    () =>
+      new Promise<{ schritt: string; richtig: boolean; fv?: string }[]>((fertig) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onsuccess = () => {
+          const lesen = anfrage.result
+            .transaction('vermittlungen')
+            .objectStore('vermittlungen')
+            .getAll();
+          lesen.onsuccess = () => {
+            anfrage.result.close();
+            fertig(lesen.result as { schritt: string; richtig: boolean; fv?: string }[]);
+          };
+        };
+      }),
+  );
+  expect(gespeichert.map((e) => [e.schritt, e.richtig, e.fv])).toEqual([
+    ['vorwissen', true, undefined],
+    ['entdecken', false, 'FV.BR.TEIL-ZU-REST'],
+  ]);
+
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+});

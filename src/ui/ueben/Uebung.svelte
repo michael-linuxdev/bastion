@@ -28,6 +28,7 @@
     onergebnis,
     vorschlag,
     onwechsel,
+    onerklaerung,
   }: {
     ueberschrift: string;
     /** Niveau, als Schild neben der Überschrift */
@@ -45,6 +46,8 @@
     /** Rückweg bei Fehlern (LEHRPLAN §7): Vorschlag nach mehreren Fehlern in Folge */
     vorschlag?: (kompetenz: string, fehlerInFolge: number) => Kompetenz | undefined;
     onwechsel?: (k: Kompetenz) => void;
+    /** Erstvermittlung dieser Kompetenz ansehen (VERMITTLUNG §2.4), nur wenn es eine gibt */
+    onerklaerung?: (() => void) | undefined;
   } = $props();
   let fehlerInFolge = $state(0);
   const BLOCK = 5;
@@ -145,6 +148,9 @@
   <header class="kopf">
     <h2>{ueberschrift}</h2>
     {#if stufe}<span class="stufe">{stufe}</span>{/if}
+    {#if onerklaerung}
+      <button class="zweit erklaerung" onclick={onerklaerung}>{t('vermittlung.knopf')}</button>
+    {/if}
     {#if aufgabe || erledigt > 0}
       <span
         class="punkte"

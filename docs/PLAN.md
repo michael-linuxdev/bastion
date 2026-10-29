@@ -193,7 +193,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
 - [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen, in Schritten:
   - [x] **U3a** Ereignis `vermittlung` (`src/core/learning/vermittlung-ereignis.ts`), Datenbank-Schemaversion 2 mit Tabelle `vermittlungen`, in Sicherung und Import; Migrationstest mit Altstand `tests/altstaende/schema-1.json`
   - [x] **U3b** Erstvermittlungen und Fehlerkatalog in die Inhaltspakete (Grundpaket: Fehlerkatalog; Bereichspaket: Erstvermittlungen)
-  - [ ] **U3c** Abspieler: Schritte zeigen, Antworten auswerten, Werkzeuge einbinden, Verzweigungen folgen
+  - [x] **U3c** Abspieler: Schritte zeigen, Antworten auswerten, Werkzeuge einbinden, Verzweigungen folgen (`src/core/learning/abspielen.ts`, `src/ui/vermittlung/Vermittlung.svelte`); vorerst über den Knopf „Erklärung“ beim Üben
   - [ ] **U3d** Einstieg vor dem ersten Üben (Angebot, überspringbar), Zustand „vermittelt“, Abschluss zählt als Lerneinheit, Kurzfassung zum Nachschlagen
   - [ ] **U3e** Projektion `fehlvorstellungen` (VERMITTLUNG §3.3)
   - [ ] **U3f** Zwischenschritte (K-29): Format `schritte` und Prüfung (`INHALTSFORMAT.md` §17), Generator-Schnittstelle `schritt`, Pflicht-Tests
