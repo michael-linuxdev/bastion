@@ -139,7 +139,9 @@
         const ueber = uebersprungeneKlassen(gemerkt.neu ? 4 : gemerkt.klasse, k, KLASSEN);
         // Hochstellen über Klassen hinweg: Diagnose anbieten; zurückstellen: nichts (neutral)
         wechsel =
-          ueber.length > 0 && !stillerWechsel ? { art: 'klassen', klassen: ueber } : undefined;
+          ueber.length > 0 && !stillerWechsel
+            ? { art: 'klassen', klassen: ueber, schulart: s }
+            : undefined;
         stillerWechsel = false;
         void klasseSetzen(k, ansicht === 'eltern' ? 'eltern' : 'jugendlich');
         if (!schuljahrBekannt) {
@@ -591,13 +593,6 @@
             hinweis={wechsel}
             kompetenzen={geladen.kompetenzen}
             staende={[...zustand.staende.values()]}
-            onklasse={(k) => {
-              wechsel = undefined;
-              diagnoseAntworten = [];
-              diagnoseKlasse = k;
-              diagnoseAuswahl = undefined;
-              ansicht = 'diagnose';
-            }}
             onauswahl={(ids) => {
               wechsel = undefined;
               diagnoseAntworten = [];

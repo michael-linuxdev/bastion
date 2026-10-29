@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { Kompetenz } from '../competence/kompetenz';
 import type { KompetenzStand } from './fortschritt';
-import { schulartLuecken, uebersprungeneKlassen } from './wechsel';
+import { klassenLuecken, schulartLuecken, uebersprungeneKlassen } from './wechsel';
 
 const k = (id: string, os?: number, gy?: number): Kompetenz =>
   ({
     id,
+    klassenstufe_typisch: [Math.min(os ?? 99, gy ?? 99)],
     sachsen: {
       ...(os ? { oberschule: { klassenstufe: os, lernbereich: 'LB 1' } } : {}),
       ...(gy ? { gymnasium: { klassenstufe: gy, lernbereich: 'LB 1' } } : {}),
@@ -46,5 +47,26 @@ describe('Wechsel begleiten (L-12)', () => {
     ]);
     expect(schulartLuecken(ks, [], 'gymnasium', 'oberschule', 6)).toEqual([]);
     expect(schulartLuecken(ks, [], 'gymnasium', 'gymnasium', 6)).toEqual([]);
+  });
+
+  it('Lücken der übersprungenen Klassen: nach Schulart, ohne Gekonntes, nach Klasse geordnet', () => {
+    const ks = [k('SPAET', 7, 7), k('FRUEH', 6, 5), k('NUR-GY', undefined, 6), k('ACHT', 8, 8)];
+    const gekonnt: KompetenzStand = {
+      profil: 'P',
+      kompetenz: 'SPAET',
+      niveau: 'G',
+      status: 'gekonnt',
+      gekonntAm: '2026-10-01',
+      gekonntTs: 1,
+      aufgaben: 5,
+      letzte: [],
+    };
+    const ids = (xs: { klasse: number; kompetenz: Kompetenz }[]) =>
+      xs.map((x) => `${x.klasse}:${x.kompetenz.id}`);
+    expect(ids(klassenLuecken(ks, [], [6, 7], 'oberschule'))).toEqual(['6:FRUEH', '7:SPAET']);
+    expect(ids(klassenLuecken(ks, [gekonnt], [6, 7], 'oberschule'))).toEqual(['6:FRUEH']);
+    expect(ids(klassenLuecken(ks, [], [6, 7], 'gymnasium'))).toEqual(['6:NUR-GY', '7:SPAET']);
+    // ohne Schulart: typische (früheste) Klassenstufe
+    expect(ids(klassenLuecken(ks, [], [6, 7]))).toEqual(['6:NUR-GY', '7:SPAET']);
   });
 });

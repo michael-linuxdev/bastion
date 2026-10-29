@@ -880,8 +880,9 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   await page.getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 8' }).check();
   await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Kurz prüfen: Klasse 5' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Kurz prüfen: Klasse 7' })).toBeVisible();
+  await expect(page.getByText(/Aus Klasse 5: \d+ Themen offen/)).toBeVisible();
+  await expect(page.getByText(/Aus Klasse 7: \d+ Themen offen/)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Lücken gezielt prüfen' })).toBeVisible();
   // Zurückstellen ist neutral: kein Hinweis
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
   await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toHaveCount(0);
@@ -899,6 +900,31 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   await page.getByRole('button', { name: 'Kurz prüfen', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Wo stehe ich?' })).toBeVisible();
   await expect(page.getByRole('radio', { name: 'Klasse 5' })).toHaveCount(0);
+});
+
+test('Übersprungene Klasse: gezielte Diagnose der Lücken daraus (L-12)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(6);
+  await page.reload();
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  // Klasse 7 übersprungen: nur ihre Themen werden geprüft
+  await page.getByRole('radio', { name: 'Klasse 8' }).check();
+  await expect(page.getByText(/Aus Klasse 7: \d+ Themen offen/)).toBeVisible();
+  await expect(page.getByText(/Aus Klasse 6:/)).toHaveCount(0);
+  await page.getByRole('button', { name: 'Lücken gezielt prüfen' }).click();
+  await expect(page.getByRole('heading', { name: 'Wo stehe ich?' })).toBeVisible();
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
+    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+      await page.getByRole('button', { name: 'Weiter', exact: true }).click();
+      continue;
+    }
+    await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
+  }
+  await expect(page.getByText('Diese Lücken lohnt es sich zu schließen:')).toBeVisible();
 });
 
 test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page }) => {
