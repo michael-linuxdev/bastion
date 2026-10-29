@@ -9,8 +9,11 @@ import type { Niveau } from '../competence/kompetenz';
 import type { Ergebnis } from './auswertung';
 import type { Loesung, Wert } from './generator';
 
-/** Schemaversion der Ereignisart `aufgabe` (DATENMODELL §6.2). */
-export const AUFGABE_V = 1;
+/**
+ * Schemaversion der Ereignisart `aufgabe` (DATENMODELL §6.2).
+ * 2: optionales Feld `schritte` (Zwischenschritte, D-17); Ereignisse mit v = 1 bleiben gültig.
+ */
+export const AUFGABE_V = 2;
 
 /** Bearbeitungszeit wird bei 10 Minuten gekappt (DATENMODELL §4.1). */
 export const DAUER_MAX_MS = 10 * 60_000;
@@ -21,6 +24,21 @@ export interface Schnappschuss {
   readonly platzhalter: Readonly<Record<string, Wert>>;
   readonly loesung: Loesung;
   readonly antwort: Loesung;
+}
+
+/** Ein Zwischenschritt nach falschem Ergebnis (DATENMODELL §4.1, D-17). */
+export interface SchrittErgebnis {
+  readonly id: string;
+  /** 1 oder 2; nach dem zweiten Fehlversuch zeigt Bastion den Schritt */
+  readonly versuche: number;
+  /** im ersten oder zweiten Versuch richtig */
+  readonly richtig: boolean;
+  /** nur die falschen Versuche (Datensparsamkeit) */
+  readonly fehler?: readonly {
+    readonly fehlerbild?: string;
+    readonly fv?: string;
+    readonly eingabe: Loesung;
+  }[];
 }
 
 export interface AufgabeEreignis {
@@ -47,6 +65,8 @@ export interface AufgabeEreignis {
   readonly schnappschuss?: Schnappschuss;
   /** Fehlerwerkstatt: ID des früheren falschen Ereignisses, das hier korrigiert wurde. */
   readonly korrigiert?: string;
+  /** Zwischenschritte nach falschem Ergebnis (ab v = 2); fehlt bei „Weiter ohne Weg“ */
+  readonly schritte?: readonly SchrittErgebnis[];
 }
 
 /** FSRS-Bewertung nach der Tabelle in DATENMODELL §4.1; Zeit zählt bewusst nicht. */
@@ -75,6 +95,7 @@ export interface AufgabeAngaben {
   readonly antwort: Loesung;
   readonly ergebnis: Ergebnis;
   readonly korrigiert?: string;
+  readonly schritte?: readonly SchrittErgebnis[];
 }
 
 /** Baut das Ereignis; Schnappschuss nur bei falschen Antworten (I-6, Datensparsamkeit). */
@@ -109,6 +130,8 @@ export function aufgabeEreignis(
     bewertung: a.modus === 'diagnose' ? null : bewertung(richtig, a.hilfen),
     ...(!a.ergebnis.richtig && a.ergebnis.fehlerbild ? { fehlerbild: a.ergebnis.fehlerbild } : {}),
     ...(a.korrigiert ? { korrigiert: a.korrigiert } : {}),
+    // Schritte gibt es nur nach einem falschen Ergebnis (K-29)
+    ...(!richtig && a.schritte && a.schritte.length > 0 ? { schritte: a.schritte } : {}),
     ...(richtig
       ? {}
       : { schnappschuss: { platzhalter: a.platzhalter, loesung: a.loesung, antwort: a.antwort } }),

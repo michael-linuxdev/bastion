@@ -140,13 +140,13 @@ Die vierte FSRS-Stufe („leicht“) wird nicht genutzt; drei Stufen sind für J
 
 *Umsetzung (1a):* `src/core/learning/ereignis.ts` – Typ `AufgabeEreignis` und `aufgabeEreignis(…)`, das aus Aufgabe, Antwort und Auswertung das Ereignis baut: ULID, Lerntag, Bewertung nach der Tabelle, Dauer auf 10 Minuten gekappt, Schnappschuss und Fehlerbild nur bei falschen Antworten. Zeit, Zeitzone, Zufall und Gerät reicht die App herein. Fehlerwerkstatt (1b): `korrigiert` verweist auf das frühere falsche Ereignis; ein Fehler gilt als aufgearbeitet, sobald ein Ereignis ihn richtig korrigiert (`src/core/learning/werkstatt.ts`). Die Aufgabe wird über Generator-Version und Seed exakt wiederhergestellt; hat sich die Generator-Version geändert, bleibt der Fehler bis zur Verdichtung liegen.
 
-**Zwischenschritte (K-29, D-17, geplant mit U3):** Nach einem falschen Ergebnis zeigt Bastion die Schritte der Vorlage (`INHALTSFORMAT.md` §17). Was dabei passiert, steht im selben Ereignis unter `schritte`, nicht in einem eigenen Ereignis.
+**Zwischenschritte (K-29, D-17, umgesetzt mit U3h):** Nach einem falschen Ergebnis zeigt Bastion die Schritte der Vorlage (`INHALTSFORMAT.md` §17). Was dabei passiert, steht im selben Ereignis unter `schritte`, nicht in einem eigenen Ereignis.
 
 - Gespeichert werden nur die falschen Versuche mit Eingabe, Fehlerbild und Fehlvorstellung. Richtige Schritte stehen nur mit `id`, `versuche` und `richtig` darin (Datensparsamkeit).
 - Hat das Kind „Weiter ohne Weg“ gewählt, fehlt `schritte`.
 - `ergebnis` und `bewertung` ändern sich durch die Schritte nicht (R6, gleiche Bedeutung wie bisher).
 - Die Projektion `fehlvorstellungen` zählt `fv` aus den Schritten wie `fv` aus dem Fehlerbild des Ergebnisses. Eine Aufgabe zählt dabei je Fehlvorstellung höchstens einmal.
-- Mit dem Feld steigt `AUFGABE_V` auf 2. Ereignisse mit `v` = 1 bleiben gültig, wie sie sind, und brauchen keine Migration. Ältere App-Versionen melden Sicherungen mit `v` = 2 als „aus einer neueren App“.
+- Mit dem Feld steigt `AUFGABE_V` auf 2 (`src/core/learning/ereignis.ts`, Typ `SchrittErgebnis`). Ereignisse mit `v` = 1 bleiben gültig, wie sie sind, und brauchen keine Migration. Ältere App-Versionen melden Sicherungen mit `v` = 2 als „aus einer neueren App“.
 
 **Entscheidung D-17:** Zwischenschritte gehören zum Aufgaben-Ereignis (`schritte`), nicht in ein eigenes Ereignis.
 *Warum:* Sie entstehen nur innerhalb einer Aufgabe und gehören zu genau einem Ergebnis. Die Fehlerwerkstatt und die Diagnose lesen sie so zusammen mit der Aufgabe, ohne zwei Tabellen zusammenzuführen.

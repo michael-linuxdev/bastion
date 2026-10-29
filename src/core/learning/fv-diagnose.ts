@@ -116,15 +116,22 @@ export function fvZustaende(
     const e = s.e;
     if (e.ergebnis === 'uebersprungen') continue;
     const fv = e.fehlerbild ? katalog.fvVon(e.vorlage, e.fehlerbild) : undefined;
-    if (fv) {
-      const l = stand.get(fv) ?? neu();
-      stand.set(fv, l);
+    // Treffer der Aufgabe: Fehlerbild des Ergebnisses und Fehler in den Zwischenschritten
+    // (K-29); je Aufgabe zählt jede Fehlvorstellung höchstens einmal.
+    const treffer = new Set(
+      [fv, ...(e.schritte ?? []).flatMap((x) => (x.fehler ?? []).map((f) => f.fv))].filter(
+        (x): x is string => x !== undefined,
+      ),
+    );
+    for (const t of treffer) {
+      const l = stand.get(t) ?? neu();
+      stand.set(t, l);
       l.gelegenheiten += 1;
       treffe(l, e.ts);
     }
     // Gelegenheit ohne Treffer: für jede schon aufgefallene Fehlvorstellung dieser Vorlage
     for (const [id, l] of stand) {
-      if (id === fv) continue;
+      if (treffer.has(id)) continue;
       const kontrast = katalog.kontrast(id).has(e.vorlage);
       if (!kontrast && !katalog.moeglich(e.vorlage).has(id)) continue;
       l.gelegenheiten += 1;

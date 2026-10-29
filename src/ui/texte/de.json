@@ -670,5 +670,18 @@
   "vermittlung.angebot.spaeter": "Die Erklärung findest du auch später beim Üben.",
   "vermittlung.kurzfassung": "Nur Kurzfassung",
   "vermittlung.ganz": "Ganze Erklärung",
-  "vermittlung.erklaert": "erklärt"
+  "vermittlung.erklaert": "erklärt",
+  "weg.frage": "Zeig mir deinen Weg – Schritt für Schritt.",
+  "weg.ohne": "Weiter ohne Weg",
+  "weg.schritt": "Schritt",
+  "weg.von": "von",
+  "weg.pruefen": "Prüfen",
+  "weg.richtig": "Richtig.",
+  "weg.nochmal": "Noch nicht. Versuch es noch einmal.",
+  "weg.richtig-ist": "So geht es:",
+  "weg.fehler-hier": "Dein Fehler lag hier:",
+  "weg.alles-richtig": "Dein Weg stimmt. Beim Ergebnis hast du dich wohl nur verschrieben.",
+  "weg.zaehler": "Zähler",
+  "weg.nenner": "Nenner",
+  "weg.antwort": "Deine Eingabe"
 }
