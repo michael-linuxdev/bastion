@@ -209,7 +209,7 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 
 **Barrierefreiheit:** Jeder Typ ist vollständig per Tastatur bedienbar. `bruch-bild` hat zusätzlich eine Textbeschreibung („Ein Rechteck aus 8 gleich großen Feldern, 3 davon sind gefärbt“) und eine Alternative ohne Bild.
 
-**Später (offen, I-O1):** `rechenschema` für schriftliche Rechenverfahren mit stellenweiser Eingabe. In Phase 1 wird bei NZ.ADD-SUB bis NZ.DIV nur das Ergebnis geprüft; der Lösungsweg zeigt das Schema.
+**Später (I-O1, beantwortet durch K-29):** Schriftliche Rechenverfahren werden Zwischenschritte mit stellenweiser Eingabe (§17). Bis dahin wird bei NZ.ADD-SUB bis NZ.DIV nur das Ergebnis geprüft; der Lösungsweg zeigt das Schema.
 
 ### 5.1 Normalisierung von Zahleingaben
 
@@ -409,7 +409,7 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 
 | ID | Frage | Tendenz |
 |---|---|---|
-| I-O1 | Aufgabentyp `rechenschema` für schriftliche Verfahren in Phase 1? | Nein, nach Phase 1 entscheiden |
+| I-O1 | Aufgabentyp `rechenschema` für schriftliche Verfahren in Phase 1? | *Beantwortet (29.10.2026, K-29):* als Zwischenschritte mit stellenweiser Eingabe (§17) |
 | I-O2 | Termeingabe (z. B. „Stelle einen Term auf“) | Phase 1 nur als `auswahl`; freie Termeingabe frühestens Phase 4 |
 | I-O3 | Eigener kleiner Editor für Vorlagen statt YAML von Hand? | Erst, wenn Mitwirkende dazukommen |
 | I-O4 | Wie viele Varianten braucht eine handverfasste Vorlage wirklich? | 5 als Startwert, mit FSRS-Daten prüfen |
@@ -431,6 +431,7 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 | I-11 | Aufgabentypen `bild-zahl`, `koordinaten-eingabe`, `bild-auswahl`, `anleitung`; Bilder als SVG aus dem Generator | Entschieden |
 | I-12 | **Erstvermittlung als Datei je Kompetenz** (`vermittlung.yaml`, §15): Schritte mit festen Typen, Verzweigung über Fehlvorstellungen, geprüfte Wege. Bilder und Interaktion nur über Werkzeuge aus dem App-Code (wie I-1) | Entschieden (29.10.2026, K-24) |
 | I-13 | **Fehlvorstellungen als eigene Dateien je Fach** (§16), verknüpft mit den Fehlerbildern der Vorlagen über `fv` | Entschieden (29.10.2026, K-24) |
+| I-14 | **Zwischenschritte als `schritte` in der Vorlage** (§17); der Generator berechnet jeden Schritt aus den bisherigen Eingaben | Entschieden (29.10.2026, K-29) |
 
 ## 15. Erstvermittlung (`vermittlung.yaml`, VERMITTLUNG §2)
 
@@ -540,3 +541,55 @@ version: 1
 |---|---|---|
 | `bruchstreifen@1` | `teile` (1–24), `gefaerbt`, `verfeinern` (Knopf „Jedes Teil halbieren“ statt + und −), `ungleich` (erstes Teil absichtlich größer) | Teile antippen färbt sie; + und − ändern die Zahl der Teile |
 | `zahlenstrahl@1` | `von`, `bis` (ganze Zahlen), `einteilung` (Teile je Einheit), `markiert` (Zähler bezogen auf die Einteilung) | Striche antippen markiert eine Stelle |
+
+## 17. Zwischenschritte (`schritte`, VERMITTLUNG §3.6, I-14)
+
+Eine Vorlage mit einer mehrschrittigen Rechnung bekommt `schritte`. Sie erscheinen nur nach einem falschen Ergebnis (K-29).
+
+```yaml
+# in vorlagen/ungleichnamig.yaml (M.ZO.BR.ADD-SUB)
+schritte:
+  - id: nenner
+    frage: { de: Welcher gemeinsame Nenner passt? }
+    typ: zahl-eingabe
+    fehlerbilder:
+      summe-nenner: { de: Du hast die Nenner addiert. Der gemeinsame Nenner ist ein Vielfaches beider Nenner., fv: FV.BR.NENNER-ADDIERT }
+      kein-vielfaches: { de: '{eingabe} ist kein Vielfaches von {n1} und {n2}.', fv: FV.BR.EINEN-NENNER }
+  - id: erweitert
+    frage: { de: 'Erweitere beide Brüche auf den Nenner {nenner}.' }
+    typ: bruch-eingabe
+    felder: 2
+    fehlerbilder:
+      nur-nenner: { de: Du hast nur den Nenner verändert., fv: FV.BR.NUR-NENNER }
+  - id: summe
+    frage: { de: Addiere die Zähler. }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nenner-addiert: { de: Die Nenner werden nicht addiert., fv: FV.BR.NENNER-ADDIERT }
+```
+
+**Regeln:**
+
+- `id` ist eindeutig innerhalb der Vorlage. Die Reihenfolge ist die Reihenfolge der Schritte.
+- `typ` ist ein Eingabetyp aus §5. `felder` gibt an, wie viele Eingaben der Schritt hat (Standard 1).
+- `frage` darf die Platzhalter der Aufgabe und die Eingaben früherer Schritte nutzen (`{nenner}` ist hier die Eingabe des Schritts `nenner`).
+- `fehlerbilder` wie in §7, mit `fv` (F6). `{eingabe}` steht für die Eingabe des Kindes.
+- Das letzte Feld des letzten Schritts ist das Ergebnis der Aufgabe.
+
+**Generator-Schnittstelle:** Der Generator berechnet jeden Schritt aus den Parametern und den bisherigen Eingaben. So sind mehrere richtige Wege möglich. Die Funktion ist rein wie `erzeuge`:
+
+```ts
+interface Generator<P> {
+  // … wie §6
+  /** Nur bei Vorlagen mit Schritten. `bisher` sind die gültigen Eingaben der früheren Schritte. */
+  schritt?(seed: number, param: P, id: string, bisher: Readonly<Record<string, Loesung>>): {
+    pruefe(eingabe: Loesung): { richtig: true } | { richtig: false; fehlerbild?: string };
+    loesung: Loesung;                // wird nach dem zweiten Fehlversuch gezeigt
+  };
+  schrittIds?: readonly string[];    // für den Abgleich mit der Vorlage
+}
+```
+
+**Prüfung** (`pnpm inhalte:pruefen`): Die `schritte` der Vorlage passen genau zu `schrittIds` des Generators. Jedes Fehlerbild ist angemeldet und hat `fv` (F6).
+
+**Pflicht-Tests je Generator** (zusätzlich zu §6.3): Für 10 000 Seeds je Niveau ergibt der Weg mit den gezeigten Lösungen aller Schritte genau das Ergebnis der Aufgabe. Jede Fehlerbild-Antwort eines Schritts wird als genau dieses Fehlerbild erkannt und nie als richtig. Ein alternativer richtiger Weg (z. B. ein größerer gemeinsamer Nenner) führt ebenfalls zum richtigen Ergebnis.

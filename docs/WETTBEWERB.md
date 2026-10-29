@@ -36,7 +36,7 @@ Daraus folgt: Der Vergleich beantwortet nicht „Ist Bastion besser?“, sondern
 Ehrlich und endgültig – hier nicht konkurrieren:
 
 1. **Umfang.** ANTON und bettermarks decken 10+ Klassenstufen ab. Bastion deckt 23 Kompetenzen auf 2 Niveaus ab.
-2. **Fehleranalyse von Zwischenschritten.** bettermarks wertet Rechenwege aus. Bastion vergleicht nach `INHALTSFORMAT.md` die *Endantwort* mit bekannten Fehlerbildern. Das ist schwächer und bleibt bis Monat 12 so.
+2. **Fehleranalyse von Zwischenschritten.** bettermarks wertet Rechenwege aus. Bastion vergleicht nach `INHALTSFORMAT.md` die *Endantwort* mit bekannten Fehlerbildern. Das ist schwächer. *Überholt am 29.10.2026 (K-29):* Bastion prüft nach einem falschen Ergebnis die Zwischenschritte (`VERMITTLUNG.md` §3.6). Den Vorsprung von bettermarks bei der Menge der erkannten Fehler holt Bastion damit nicht ein.
 3. **Erklärvideos.** simpleclub und Studyflix sind dafür gebaut. Bastion macht keine Videos.
 4. **Platz in der Schule.** bettermarks hat Landeslizenzen und Lehrkräfte-Werkzeuge. Bastion hat keinen Lehrkräfte-Modus (Nicht-Ziel).
 5. **Sofortige Antwort auf jede Frage.** KI-Chatbots beantworten alles. Bastion beantwortet nur, was es kennt.
