@@ -56,6 +56,8 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 Rahmen: Mathe in **Sachsen**, Klasse 5–12, alle allgemeinbildenden Schularten, Niveaus G und M (K-11, K-15, K-17). Auch Erwachsene nutzen die App (K-21). MINT-Kontexte kommen erst nach Klasse 12 und lassen sich abschalten (L-14). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
 
+Gemerkt für später (nicht jetzt umsetzen): Prüfungen entwerfen bis zum Abitur, mit Lösungen und zum Drucken (`LEHRPLAN.md` L-20).
+
 **Arbeitsregel (Projektverantwortlicher, 28.10.2026, bestätigt 29.10.2026):** Jeder fertige Schritt kommt gleich per PR auf `main`. Ablauf:
 
 1. PR öffnen und abonnieren.
