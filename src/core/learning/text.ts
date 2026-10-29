@@ -116,3 +116,8 @@ export function alsText(teile: readonly Textteil[]): string {
     )
     .join('');
 }
+
+/** Namen aller {platzhalter} in einem Text. */
+export function platzhalterIn(text: string): string[] {
+  return [...text.matchAll(/\{([a-z_]+)\}/g)].map((m) => m[1] ?? '');
+}

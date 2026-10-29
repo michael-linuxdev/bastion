@@ -552,46 +552,57 @@ Eine Vorlage mit einer mehrschrittigen Rechnung bekommt `schritte`. Sie erschein
 # in vorlagen/ungleichnamig.yaml (M.ZO.BR.ADD-SUB)
 schritte:
   - id: nenner
-    frage: { de: Welcher gemeinsame Nenner passt? }
+    frage: { de: 'Welcher gemeinsame [[Nenner]] passt zu {a} und {b}?' }
     typ: zahl-eingabe
     fehlerbilder:
-      summe-nenner: { de: Du hast die Nenner addiert. Der gemeinsame Nenner ist ein Vielfaches beider Nenner., fv: FV.BR.NENNER-ADDIERT }
-      kein-vielfaches: { de: '{eingabe} ist kein Vielfaches von {n1} und {n2}.', fv: FV.BR.EINEN-NENNER }
-  - id: erweitert
-    frage: { de: 'Erweitere beide Brüche auf den Nenner {nenner}.' }
+      nenner-addiert: { de: Du hast die Nenner addiert. Der gemeinsame Nenner ist ein Vielfaches beider Nenner., fv: FV.BR.NENNER-ADDIERT }
+  - id: erster
+    frage: { de: 'Erweitere {a} auf den Nenner {nenner}.' }
     typ: bruch-eingabe
-    felder: 2
     fehlerbilder:
       nur-nenner: { de: Du hast nur den Nenner verändert., fv: FV.BR.NUR-NENNER }
-  - id: summe
-    frage: { de: Addiere die Zähler. }
-    typ: bruch-eingabe
-    fehlerbilder:
-      nenner-addiert: { de: Die Nenner werden nicht addiert., fv: FV.BR.NENNER-ADDIERT }
+  # … zweiter, summe
 ```
 
 **Regeln:**
 
-- `id` ist eindeutig innerhalb der Vorlage. Die Reihenfolge ist die Reihenfolge der Schritte.
-- `typ` ist ein Eingabetyp aus §5. `felder` gibt an, wie viele Eingaben der Schritt hat (Standard 1).
-- `frage` darf die Platzhalter der Aufgabe und die Eingaben früherer Schritte nutzen (`{nenner}` ist hier die Eingabe des Schritts `nenner`).
-- `fehlerbilder` wie in §7, mit `fv` (F6). `{eingabe}` steht für die Eingabe des Kindes.
-- Das letzte Feld des letzten Schritts ist das Ergebnis der Aufgabe.
+- `id` ist eindeutig. Die Reihenfolge und die IDs sind genau die des Generators (`schritte` im Generator).
+- Ein Schritt hat **ein** Eingabefeld: `typ` ist `zahl-eingabe` oder `bruch-eingabe`. Wer zwei Brüche erweitert, macht das in zwei Schritten.
+- `frage` darf nutzen:
+  - die Platzhalter der Aufgabe,
+  - die Platzhalter, die der Generator für diesen Schritt meldet,
+  - die Eingaben früherer Schritte (`{nenner}` ist die Eingabe des Schritts `nenner`).
+- `fehlerbilder` wie in §7, jedes mit `fv` (F6). Jede Fehlerbild-ID ist beim Generator für diesen Schritt angemeldet, und zu jeder angemeldeten gibt es eine Rückmeldung.
+- Die Lösung des letzten Schritts ist das Ergebnis der Aufgabe.
+- Brüche zählen in Schritten so, wie sie geschrieben sind: Wer auf den Nenner 12 erweitern soll, schreibt 12 in den Nenner.
 
-**Generator-Schnittstelle:** Der Generator berechnet jeden Schritt aus den Parametern und den bisherigen Eingaben. So sind mehrere richtige Wege möglich. Die Funktion ist rein wie `erzeuge`:
+**Generator-Schnittstelle** (`src/core/learning/generator.ts`): Der Generator meldet seine Schritte und berechnet jeden Schritt aus Seed, Parametern und den bisherigen gültigen Eingaben. So sind mehrere richtige Wege möglich.
 
 ```ts
 interface Generator<P> {
   // … wie §6
-  /** Nur bei Vorlagen mit Schritten. `bisher` sind die gültigen Eingaben der früheren Schritte. */
-  schritt?(seed: number, param: P, id: string, bisher: Readonly<Record<string, Loesung>>): {
-    pruefe(eingabe: Loesung): { richtig: true } | { richtig: false; fehlerbild?: string };
-    loesung: Loesung;                // wird nach dem zweiten Fehlversuch gezeigt
-  };
-  schrittIds?: readonly string[];    // für den Abgleich mit der Vorlage
+  readonly schritte?: readonly { id: string; fehlerbildIds: readonly string[]; platzhalter?: readonly string[] }[];
+  schritt?(seed: number, param: P, id: string, bisher: Readonly<Record<string, Loesung>>): SchrittAufgabe;
+}
+
+interface SchrittAufgabe {
+  loesung: Loesung;                          // nach dem zweiten Fehlversuch gezeigt
+  fehlerbilder: readonly Fehlerbild[];       // bekannte falsche Eingaben dieses Schritts
+  auchRichtig?: (eingabe: Loesung) => boolean;  // weitere richtige Wege, z. B. ein größerer gemeinsamer Nenner
+  platzhalter?: Readonly<Record<string, Wert>>;
 }
 ```
 
-**Prüfung** (`pnpm inhalte:pruefen`): Die `schritte` der Vorlage passen genau zu `schrittIds` des Generators. Jedes Fehlerbild ist angemeldet und hat `fv` (F6).
+Auswertung und Musterweg: `pruefeSchritt` und `musterweg` in `src/core/learning/zwischenschritte.ts`.
 
-**Pflicht-Tests je Generator** (zusätzlich zu §6.3): Für 10 000 Seeds je Niveau ergibt der Weg mit den gezeigten Lösungen aller Schritte genau das Ergebnis der Aufgabe. Jede Fehlerbild-Antwort eines Schritts wird als genau dieses Fehlerbild erkannt und nie als richtig. Ein alternativer richtiger Weg (z. B. ein größerer gemeinsamer Nenner) führt ebenfalls zum richtigen Ergebnis.
+**Prüfung** (`pnpm inhalte:pruefen`, `pruefeSchritte`): Schritte passen zum Generator, Fragen nutzen nur bekannte Platzhalter, jedes Fehlerbild ist angemeldet und hat `fv`.
+
+**Pflicht-Tests je Generator mit Schritten** (zusätzlich zu §6.3, automatisch in `pflichttests`), für 10 000 Seeds je Niveau:
+
+- Der Musterweg endet genau beim Ergebnis der Aufgabe.
+- Jede Lösung eines Schritts gilt als richtig.
+- Jede Fehlerbild-Antwort eines Schritts wird als genau dieses Fehlerbild erkannt und nie als richtig.
+- Die Fehlerbild-Antworten eines Schritts sind untereinander verschieden.
+- Gemeldete Platzhalter sind gefüllt.
+
+*Umsetzung (U3f, 29.10.2026):* Format, Prüfung, Schnittstelle und Pflicht-Tests stehen. Die ersten Generatoren mit Schritten kommen mit U3g (Musterfeld Brüche).
