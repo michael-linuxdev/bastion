@@ -1,5 +1,5 @@
 // Liest alle Kompetenz-Dateien aus content/ (INHALTSFORMAT §2).
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { parse } from 'yaml';
 
@@ -82,6 +82,48 @@ function ladeUnterordner(inhaltsordner: string, unterordner: string): GeleseneVo
           dateiname,
           ordnerKompetenz,
         };
+      }
+    });
+}
+
+/** Liest alle Erstvermittlungen …/<Kompetenz-ID>/vermittlung.yaml (INHALTSFORMAT §15). */
+export function ladeVermittlungen(inhaltsordner: string): GeleseneDatei[] {
+  return ladeKompetenzen(inhaltsordner).flatMap((k) => {
+    const pfad = join(inhaltsordner, k.datei.replace(/kompetenz\.yaml$/, 'vermittlung.yaml'));
+    if (!existsSync(pfad)) return [];
+    const datei = relative(inhaltsordner, pfad);
+    try {
+      return [
+        { datei, pfadTeile: k.pfadTeile, daten: parse(readFileSync(pfad, 'utf8')) as unknown },
+      ];
+    } catch (fehler) {
+      return [{ datei, pfadTeile: k.pfadTeile, daten: undefined, lesefehler: String(fehler) }];
+    }
+  });
+}
+
+/** Liest den Fehlerkatalog content/mathematik/fehlvorstellungen/*.yaml (INHALTSFORMAT §16). */
+export function ladeFehlvorstellungen(
+  inhaltsordner: string,
+): (GeleseneDatei & { dateiname: string })[] {
+  const ordner = join(inhaltsordner, 'mathematik', 'fehlvorstellungen');
+  if (!existsSync(ordner)) return [];
+  return readdirSync(ordner)
+    .filter((n) => n.endsWith('.yaml'))
+    .sort()
+    .map((name) => {
+      const pfad = join(ordner, name);
+      const datei = relative(inhaltsordner, pfad);
+      const dateiname = name.replace(/\.yaml$/, '');
+      try {
+        return {
+          datei,
+          dateiname,
+          pfadTeile: [],
+          daten: parse(readFileSync(pfad, 'utf8')) as unknown,
+        };
+      } catch (fehler) {
+        return { datei, dateiname, pfadTeile: [], daten: undefined, lesefehler: String(fehler) };
       }
     });
 }

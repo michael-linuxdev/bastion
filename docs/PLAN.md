@@ -185,7 +185,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
 
 - [x] **U0** Neue Vision, vier Kernaufgaben als Qualitätskriterien, Konzept „Vermitteln und Diagnostizieren ohne KI“ (`VISION.md` v1.0, `VERMITTLUNG.md`, `STRATEGIE.md` §0)
-- [ ] **U1** Format für Erstvermittlung und Fehlerkatalog in `INHALTSFORMAT.md`; Prüfwerkzeug für Wege und Verweise; Datenmodell für Vermittlungs-Ereignisse und Zustand „vermittelt“
+- [x] **U1** Format für Erstvermittlung und Fehlerkatalog (`INHALTSFORMAT.md` §15, §16, I-12, I-13); Prüfung in `pnpm inhalte:pruefen` (`src/core/learning/vermittlung.ts`, `fehlvorstellung.ts`); Datenmodell `vermittlung` und Projektion `fehlvorstellungen` (`DATENMODELL.md` §4.7, D-16)
 - [ ] **U2** Musterfeld Brüche: Erstvermittlung und Fehlerkatalog für drei Kompetenzen; Werkzeuge Bruchstreifen und Zahlenstrahl
 - [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen
 - [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)

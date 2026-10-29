@@ -13,7 +13,19 @@ import {
   type Begriff,
 } from '../../src/core/learning/begriffe';
 import { pruefeAnleitung, type Anleitung } from '../../src/core/learning/anleitung';
-import { ladeAnleitungen, ladeBegriffe, ladeKompetenzen, ladeVorlagen } from './laden';
+import { pruefeVermittlung, type Vermittlung } from '../../src/core/learning/vermittlung';
+import {
+  pruefeFehlvorstellung,
+  type Fehlvorstellung,
+} from '../../src/core/learning/fehlvorstellung';
+import {
+  ladeAnleitungen,
+  ladeBegriffe,
+  ladeFehlvorstellungen,
+  ladeKompetenzen,
+  ladeVermittlungen,
+  ladeVorlagen,
+} from './laden';
 
 /** Erklärungen kurz halten (L-7): höchstens so viele Wörter. */
 export const ERKLAERUNG_WOERTER = 35;
@@ -24,6 +36,8 @@ export interface Pruefbericht {
   readonly vorlagen: GeneratorVorlage[];
   readonly begriffe: Begriff[];
   readonly anleitungen: Anleitung[];
+  readonly vermittlungen: Vermittlung[];
+  readonly fehlvorstellungen: Fehlvorstellung[];
 }
 
 const istText = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0;
@@ -123,6 +137,59 @@ export function pruefeInhalte(
     )
       fehler.push(`${k.id}: zeichnen_erklaert, aber keine Anleitung (L-10)`);
 
+  // Erstvermittlungen und Fehlerkatalog (INHALTSFORMAT §15, §16)
+  const fvDateien = ladeFehlvorstellungen(inhaltsordner);
+  const fvIds = new Set(
+    fvDateien.flatMap((d) =>
+      typeof (d.daten as { id?: unknown })?.id === 'string' ? [d.dateiname] : [],
+    ),
+  );
+  const vorlagenInfo = new Map(
+    vorlagen.map((v) => [v.id, { kompetenz: v.kompetenz, niveaus: v.niveaus }]),
+  );
+  const vermittlungen: Vermittlung[] = [];
+  for (const d of ladeVermittlungen(inhaltsordner)) {
+    if (d.lesefehler) {
+      fehler.push(`${d.datei}: ${d.lesefehler}`);
+      continue;
+    }
+    const f = pruefeVermittlung(d.daten, {
+      ordnerKompetenz: d.pfadTeile.at(-1) ?? '',
+      kompetenzen: nachId,
+      vorlagen: vorlagenInfo,
+      fehlvorstellungen: fvIds,
+    });
+    fehler.push(...f.map((x) => `${d.datei}: ${x}`));
+    if (f.length === 0) vermittlungen.push(d.daten as Vermittlung);
+  }
+  const schritteJe = new Map(
+    vermittlungen.map((v) => [v.kompetenz, new Set(v.schritte.map((s) => s.id))]),
+  );
+  const fehlvorstellungen: Fehlvorstellung[] = [];
+  for (const d of fvDateien) {
+    if (d.lesefehler) {
+      fehler.push(`${d.datei}: ${d.lesefehler}`);
+      continue;
+    }
+    const f = pruefeFehlvorstellung(d.daten, {
+      dateiname: d.dateiname,
+      kompetenzen: nachId,
+      vorlagen: vorlagenIds,
+      vermittlungen: schritteJe,
+    });
+    fehler.push(...f.map((x) => `${d.datei}: ${x}`));
+    if (f.length === 0) fehlvorstellungen.push(d.daten as Fehlvorstellung);
+  }
+  // Fehlerbilder mit fv verweisen auf eine bekannte Fehlvorstellung (INHALTSFORMAT §16, F2)
+  for (const v of vorlagen)
+    for (const [fid, t] of Object.entries(v.fehlerbilder)) {
+      const fv = (t as { fv?: unknown }).fv;
+      if (fv !== undefined && !fvIds.has(String(fv)))
+        fehler.push(
+          `${v.id}: Fehlerbild ${fid} verweist auf unbekannte Fehlvorstellung ${String(fv)}`,
+        );
+    }
+
   // Fachbegriffe (L-7): bekannt, beim ersten Vorkommen je Text markiert, jeder genutzt
   const gelesen = ladeBegriffe(inhaltsordner);
   const geprueft = gelesen.lesefehler
@@ -137,6 +204,14 @@ export function pruefeInhalte(
       texte: [v.text.aufgabe, ...v.hilfen, ...Object.values(v.fehlerbilder)],
     })),
     ...anleitungen.map((a) => ({ id: a.id, texte: [...a.schritte, ...a.pruefen] })),
+    ...vermittlungen.map((v) => ({
+      id: `${v.id} (Vermittlung)`,
+      texte: v.schritte.map((s) => s.text),
+    })),
+    ...fehlvorstellungen.map((fv) => ({
+      id: fv.id,
+      texte: [fv.erklaerung.kurz, ...fv.erklaerung.lang, fv.gegenbeispiel],
+    })),
   ];
   for (const v of textgruppen) {
     const texte = v.texte;
@@ -155,7 +230,15 @@ export function pruefeInhalte(
   for (const b of geprueft.begriffe)
     if (!genutzt.has(b.id)) fehler.push(`${gelesen.datei}: ${b.id} kommt in keiner Vorlage vor`);
 
-  return { fehler, kompetenzen, vorlagen, begriffe: geprueft.begriffe, anleitungen };
+  return {
+    fehler,
+    kompetenzen,
+    vorlagen,
+    begriffe: geprueft.begriffe,
+    anleitungen,
+    vermittlungen,
+    fehlvorstellungen,
+  };
 }
 
 /** Abdeckung je Kompetenz und Niveau: Anzahl Vorlagen (Ziel: mindestens 2, INHALTSFORMAT §10.1). */
