@@ -85,7 +85,8 @@ Jedes Werkzeug hat eine gleichwertige Bedienung ohne Ziehen (Tastatur, Knöpfe) 
 ### 2.4 Zustand „vermittelt“
 
 - Eine Kompetenz, deren Sequenz bis zum `uebergang` durchlaufen ist, gilt als **vermittelt**. Das ist ein neuer Zustand vor „geübt“ und „gekonnt“ (LEHRPLAN L-5 wird ergänzt).
-- Wer eine Kompetenz zum ersten Mal wählt, bekommt die Vermittlung angeboten, nicht erzwungen. Wer sie in der Diagnose schon kann, überspringt sie.
+- Wer eine Kompetenz zum ersten Mal wählt, bekommt die Vermittlung angeboten, nicht erzwungen. Wer sie in der Diagnose schon kann, überspringt sie. *Bestätigt am 29.10.2026:* Vor dem ersten Üben fragt Bastion: „Das ist neu für dich. Erst erklären lassen?“ mit „Erklär es mir“ (hervorgehoben) und „Ich kann das schon“. Danach bleibt die Erklärung jederzeit erreichbar.
+- **Der Abschluss zählt als Lerneinheit** (entschieden am 29.10.2026). Wer eine Vermittlung bis zum Ende durchgeht, bekommt dafür einen Bauschritt wie für eine Übungseinheit. Es gibt keine Ressourcen je Antwort, damit niemand durchklickt (R4). Das ergänzt D-16.
 - Die Sequenz lässt sich jederzeit wieder ansehen. Es gibt auch eine **Kurzfassung**: nur Merksätze und Beispiele, zum Auffrischen.
 - Die Schritte erzeugen Lernereignisse mit Schemaversion (D-Regeln), damit die Diagnose weiß, welche Fehlvorstellung schon in der Vermittlung aufgefallen ist.
 
@@ -155,7 +156,7 @@ Je Fehlvorstellung führt Bastion eine Zählung aus den gespeicherten Aufgaben-E
 
 ### 3.4 Unbekannte Fehler
 
-Falsche Antworten ohne Fehlerbild bekommen weiter die allgemeine Rückmeldung und den Lösungsweg. Sie bleiben in der Fehlerwerkstatt. Lernende können sie freiwillig als Datei exportieren („Fehler, die Bastion nicht erklären konnte“), zum Beispiel für die Testrunden. Die Datei enthält nur Aufgabe und Antwort, nichts Persönliches. So wächst der Katalog aus echten Fehlern, ohne Telemetrie.
+Falsche Antworten ohne Fehlerbild bekommen weiter die allgemeine Rückmeldung und den Lösungsweg. Sie bleiben in der Fehlerwerkstatt. Für die Testrunden stehen sie im Testprotokoll (K-14, `DATENMODELL.md` §4.8). Einen eigenen Export für alle gibt es nicht (entschieden am 29.10.2026). So wächst der Katalog aus echten Fehlern, ohne Telemetrie.
 
 ### 3.5 Qualitätskriterien je Fehlerkatalog
 
@@ -184,6 +185,7 @@ Bisher sieht Bastion nur das Endergebnis. Ein falsches Ergebnis verrät aber oft
 - **Die Schritte sind vorgegeben** (geführte Schrittfelder). Bei Gleichungen und Termumformungen kommen später **Rechenzeilen** dazu: Das Kind schreibt die Umformung („| − 3“) und die neue Zeile, und Bastion prüft jede Zeile auf Gleichwertigkeit und auf bekannte Fehler. Das kommt mit dem Feld Gleichungen. Was dafür ab Klasse 9 nötig ist, wird vorher entschieden; eine neue Abhängigkeit gibt es nur nach Rückfrage.
 - **Mehrere richtige Wege** sind erlaubt. Ein gemeinsamer Nenner muss nicht der kleinste sein. Der Generator berechnet jeden Schritt aus den bisherigen Eingaben des Kindes. Wer 24 statt 12 wählt, rechnet mit 24 weiter.
 - **Das Ergebnis der Aufgabe bleibt „falsch“.** Die Schritte ändern nichts an der Bewertung für die Wiederholung. Sie dienen nur der Diagnose und dem Verstehen (R6).
+- **Auch in der Fehlerwerkstatt** wird nach einem falschen Ergebnis nach dem Weg gefragt (entschieden am 29.10.2026).
 - **Überspringen ist erlaubt** („Weiter ohne Weg“). Dann gibt es die Rückmeldung wie bisher. Ob das zu oft genutzt wird, zeigen die Testrunden.
 - **Schriftliche Rechenverfahren** (Addieren bis Dividieren) werden als Schritte mit stellenweiser Eingabe umgesetzt. Damit ist I-O1 (`rechenschema`) beantwortet.
 - **Nicht jede Vorlage braucht Schritte.** Einschrittige Aufgaben wie Ablesen, Auswahl oder Runden haben keine. Mehrschrittige Rechenaufgaben brauchen Schritte (F6).

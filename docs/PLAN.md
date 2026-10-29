@@ -194,17 +194,17 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3a** Ereignis `vermittlung` (`src/core/learning/vermittlung-ereignis.ts`), Datenbank-Schemaversion 2 mit Tabelle `vermittlungen`, in Sicherung und Import; Migrationstest mit Altstand `tests/altstaende/schema-1.json`
   - [ ] **U3b** Erstvermittlungen und Fehlerkatalog in die Inhaltspakete
   - [ ] **U3c** Abspieler: Schritte zeigen, Antworten auswerten, Werkzeuge einbinden, Verzweigungen folgen
-  - [ ] **U3d** Einstieg vor dem ersten Üben, Zustand „vermittelt“, Kurzfassung zum Nachschlagen
+  - [ ] **U3d** Einstieg vor dem ersten Üben (Angebot, überspringbar), Zustand „vermittelt“, Abschluss zählt als Lerneinheit, Kurzfassung zum Nachschlagen
   - [ ] **U3e** Projektion `fehlvorstellungen` (VERMITTLUNG §3.3)
   - [ ] **U3f** Zwischenschritte (K-29): Format `schritte` und Prüfung (`INHALTSFORMAT.md` §17), Generator-Schnittstelle `schritt`, Pflicht-Tests
   - [ ] **U3g** Zwischenschritte im Musterfeld Brüche (Vorlagen und Generatoren von Erweitern/Kürzen und Addieren/Subtrahieren)
   - [ ] **U3h** Schritt-Eingabe beim Üben: „Zeig mir deinen Weg“, zwei Versuche je Schritt; Ereignis `aufgabe` mit `schritte` (`v` = 2, D-17)
   - [ ] **U3i** Rückmeldung beim Üben: kurze und lange Erklärung, Rückweg, Kontrastaufgaben
   - [ ] **U3j** Fehlerwerkstatt nach Ursachen
-  - [ ] **U3k** Unbekannte Fehler für die Pflege exportieren
+  - [x] ~~**U3k** Unbekannte Fehler für die Pflege exportieren~~ – entfällt, steht im Testprotokoll (U4a)
   - [ ] **U3l** Browser-Tests und Dokumente
 - [ ] **U4** Testphase, in zwei Schritten:
-  - [ ] **U4a** Testprotokoll (K-14, D-18): Testcode und Teilnehmer-Nummer im Elternbereich, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
+  - [ ] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
