@@ -58,6 +58,7 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [KONZEPT](docs/KONZEPT.md) | Gesamtkonzept, Roadmap, offene Entscheidungen |
 | [ARCHITEKTUR](docs/ARCHITEKTUR.md) | Tech-Stack und Architektur |
 | [BASEBAU](docs/BASEBAU.md) | Ressourcen, Gebäude, Balancing |
+| [GRAFIK](docs/GRAFIK.md) | Aussehen: Richtung, Farben, hell und dunkel, austauschbare Grafik |
 | [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 bis 8 nach den sächsischen Lehrplänen, Entscheidungen L-1 bis L-19 |
 | [Quellen](docs/quellen/README.md) | Verbindliche Lehrpläne (Sachsen) |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |

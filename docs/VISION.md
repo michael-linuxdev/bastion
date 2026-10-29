@@ -64,7 +64,7 @@ Diese Prinzipien sind die Verfassung des Projekts. Jede Funktion muss sich an ih
 
 1. **Erst lernen, dann spielen/bauen.** Bau-Ressourcen entstehen ausschließlich durch Lernen.
 2. **Offline-first.** Nach dem ersten Laden vollständig offline nutzbar.
-3. **Datenschutz zuerst.** Keine personenbezogenen Daten verlassen das Gerät, außer durch explizit vom Nutzer ausgelöste Exporte oder QR-Transfers. Kein Zwangs-Account, kein Tracking.
+3. **Datenschutz zuerst.** Keine personenbezogenen Daten verlassen das Gerät, außer durch explizit vom Nutzer ausgelöste Exporte oder QR-Transfers. Einzige Netzabfrage nach außen: das echte Wetter, nur wenn es ausdrücklich eingeschaltet wurde, mit einem selbst eingetragenen groben Ort (ARCHITEKTUR T-15). Kein Zwangs-Account, kein Tracking.
 4. **Keine Werbung, keine In-App-Käufe, keine Lootboxen.**
 5. **Eltern als letzte Instanz** – PIN-geschützter Bereich mit Berichten und Einstellungen.
 6. **Kein sozialer Druck.** Keine öffentlichen Ranglisten, kein Pflicht-PvP, kein FOMO-Design.
