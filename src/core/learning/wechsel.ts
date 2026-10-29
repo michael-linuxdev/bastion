@@ -10,7 +10,11 @@ import type { KompetenzStand } from './fortschritt';
 
 /** Hinweis nach einem Wechsel; Zurückstellen ergibt keinen. */
 export type WechselHinweis =
-  | { readonly art: 'klassen'; readonly klassen: readonly number[] }
+  | {
+      readonly art: 'klassen';
+      readonly klassen: readonly number[];
+      readonly schulart?: Schulart | undefined;
+    }
   | {
       readonly art: 'schulart';
       readonly alt: Schulart;
@@ -25,6 +29,31 @@ export function uebersprungeneKlassen(
   verfuegbar: readonly number[],
 ): number[] {
   return verfuegbar.filter((k) => k > alt && k < neu);
+}
+
+/**
+ * Lücken aus übersprungenen Klassen: alle Kompetenzen dieser Klassen (nach dem
+ * Lehrplan der Schulart, ohne Schulart nach der typischen Klassenstufe), die
+ * noch nicht gekonnt sind – geordnet nach Klasse. Daraus wird eine gezielte
+ * Diagnose genau dieser Themen.
+ */
+export function klassenLuecken(
+  kompetenzen: readonly Kompetenz[],
+  staende: readonly KompetenzStand[],
+  klassen: readonly number[],
+  schulart?: Schulart,
+): { klasse: number; kompetenz: Kompetenz }[] {
+  const gekonnt = new Set(staende.filter((s) => s.gekonntAm !== undefined).map((s) => s.kompetenz));
+  return kompetenzen
+    .map((k) => ({
+      klasse: schulart ? k.sachsen[schulart]?.klassenstufe : Math.min(...k.klassenstufe_typisch),
+      kompetenz: k,
+    }))
+    .filter(
+      (x): x is { klasse: number; kompetenz: Kompetenz } =>
+        x.klasse !== undefined && klassen.includes(x.klasse) && !gekonnt.has(x.kompetenz.id),
+    )
+    .sort((a, b) => a.klasse - b.klasse);
 }
 
 /**

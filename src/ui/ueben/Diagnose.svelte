@@ -237,7 +237,7 @@
       {/if}
     {/if}
     {#if weiterMit.length > 0}
-      <p>{t('diagnose.empfehlung')}</p>
+      <p>{auswahl ? t('diagnose.luecken') : t('diagnose.empfehlung')}</p>
       <ul class="liste">
         {#each weiterMit as k (k.id)}
           <li>
@@ -247,7 +247,7 @@
         {/each}
       </ul>
     {:else}
-      <p>{t('diagnose.alles')}</p>
+      <p>{auswahl ? t('diagnose.keine-luecken') : t('diagnose.alles')}</p>
     {/if}
     {#if sitzt.length > 0}
       <details>
