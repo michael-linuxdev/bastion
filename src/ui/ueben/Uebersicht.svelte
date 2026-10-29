@@ -5,6 +5,7 @@
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
+  import GeradeDran from './GeradeDran.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
   import { BEREICHE } from './reihenfolge';
   import { sitzt, statusVon } from './stand';
@@ -16,6 +17,7 @@
     niveau = $bindable(),
     klasse = $bindable(5),
     schulart = $bindable(undefined),
+    geradeDran = $bindable([]),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -25,6 +27,8 @@
     /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
     klasse?: number;
     schulart?: 'oberschule' | 'gymnasium' | undefined;
+    /** „Gerade in der Schule dran“ (L-18) */
+    geradeDran?: readonly string[];
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -61,6 +65,16 @@
   </fieldset>
 
   <KlassenWahl bind:klasse bind:schulart mitSchulart />
+
+  <GeradeDran
+    kompetenzen={kompetenzen.filter((k) =>
+      vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
+    )}
+    {klasse}
+    {schulart}
+    bind:auswahl={geradeDran}
+    {onwahl}
+  />
 
   <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}

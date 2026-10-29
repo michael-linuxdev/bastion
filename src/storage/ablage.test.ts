@@ -194,6 +194,34 @@ describe('Ablage', () => {
     expect(await neu.sicherungen.count()).toBe(2);
   });
 
+  it('Import auf ein neues Gerät, auf dem nur Einstellungen gewählt wurden', async () => {
+    const a = neueDb();
+    const pa = await einrichten(a, 1000, quelleAusSeed(1));
+    await speichereAufgabe(
+      a,
+      aufgabeEreignis(angaben(pa.profil, pa.geraet, {}), 2000, 60, quelleAusSeed(4)),
+    );
+    const b = neueDb();
+    const pb = await einrichten(b, 1000, quelleAusSeed(2));
+    await speichereEinstellung(
+      b,
+      einstellungEreignis(
+        {
+          profil: pb.profil,
+          geraet: pb.geraet,
+          schluessel: 'lernen.klasse',
+          wert: 7,
+          durch: 'jugendlich',
+        },
+        1500,
+        60,
+        quelleAusSeed(6),
+      ),
+    );
+    const r = await importieren(b, await exportieren(a, pa.profil), pb.profil, 3000);
+    expect(r).toMatchObject({ ok: true, profil: pa.profil });
+  });
+
   it('Import überschreibt keinen anderen Lernstand', async () => {
     const a = neueDb();
     const pa = await einrichten(a, 1000, quelleAusSeed(1));

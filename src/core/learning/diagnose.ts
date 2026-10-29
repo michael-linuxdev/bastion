@@ -132,3 +132,37 @@ export function empfehlungen(
 ): string[] {
   return empfohlen(kompetenzen, (id) => kann(s, id)).slice(0, anzahl);
 }
+
+/** Ab diesem Anteil sicherer Themen gilt eine Klasse als „sitzt“ (L-16). */
+export const STAND_SCHWELLE = 0.7;
+
+/**
+ * Stand im Sinne einer Schulklasse nach einer klassenübergreifenden Diagnose
+ * (L-16, Wiedereinstieg): die höchste Klasse, bis zu der in jeder Klasse
+ * mindestens 70 % der entschiedenen Themen sitzen. Klassen ohne entschiedenes
+ * Thema zählen nicht. 4 heißt: schon Klasse 5 sitzt noch nicht; undefined:
+ * noch nichts entschieden.
+ */
+export function standKlasse(
+  kompetenzen: readonly Pick<Kompetenz, 'id' | 'klassenstufe_typisch'>[],
+  s: DiagnoseStand,
+): number | undefined {
+  const klassen = new Map<number, { kann: number; entschieden: number }>();
+  for (const k of kompetenzen) {
+    const u = s.getestet.get(k.id) ?? s.gefolgert.get(k.id);
+    if (!u) continue;
+    const c = Math.min(...k.klassenstufe_typisch);
+    const z = klassen.get(c) ?? { kann: 0, entschieden: 0 };
+    z.entschieden++;
+    if (u === 'kann') z.kann++;
+    klassen.set(c, z);
+  }
+  if (klassen.size === 0) return undefined;
+  let stand = Math.min(...klassen.keys()) - 1;
+  for (const c of [...klassen.keys()].sort((a, b) => a - b)) {
+    const z = klassen.get(c);
+    if (!z || z.kann / z.entschieden < STAND_SCHWELLE) break;
+    stand = c;
+  }
+  return stand;
+}

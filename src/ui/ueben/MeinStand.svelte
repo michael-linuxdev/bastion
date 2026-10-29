@@ -24,6 +24,7 @@
     niveau = $bindable(),
     klasse = $bindable(5),
     basebau = $bindable(true),
+    selbst = false,
     onueben,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -34,6 +35,8 @@
     klasse?: number;
     /** Basebau-Schalter (R7) */
     basebau?: boolean;
+    /** selbstverwaltet (L-15): kein Elternbereich – der Bericht gehört einem selbst */
+    selbst?: boolean;
     onueben: (k: Kompetenz) => void;
   } = $props();
 
@@ -135,8 +138,8 @@
 
   <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->
   <details class="eltern-sehen">
-    <summary>{t('stand.eltern-sehen')}</summary>
-    <p class="leise">{t('stand.eltern-sehen-text')}</p>
+    <summary>{selbst ? t('stand.bericht-selbst') : t('stand.eltern-sehen')}</summary>
+    {#if !selbst}<p class="leise">{t('stand.eltern-sehen-text')}</p>{/if}
     <PinVermerke {vermerke} />
     <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
   </details>

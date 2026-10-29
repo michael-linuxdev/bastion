@@ -4,7 +4,14 @@
   // Etappe, Ergebnis als „Hier stehst du – hier geht es weiter“ statt Punktzahl.
   import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
   import { auswerten, type Bruchform } from '../../core/learning/auswertung';
-  import { diagnose, empfehlungen, kann, type Antwort } from '../../core/learning/diagnose';
+  import {
+    diagnose,
+    empfehlungen,
+    kann,
+    standKlasse,
+    type Antwort,
+  } from '../../core/learning/diagnose';
+  import { KLASSEN } from './klassen';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
   import { vorlagenFuer } from '../../core/learning/uebung';
@@ -25,6 +32,8 @@
     antworten = $bindable(),
     klasse = $bindable(5),
     auswahl,
+    uebergreifend = $bindable(false),
+    onklasse,
     onergebnis,
     onueben,
     onende,
@@ -38,6 +47,10 @@
     klasse?: number;
     /** Nur diese Kompetenzen prüfen (Wechsel begleiten, L-12) – statt einer ganzen Klasse */
     auswahl?: readonly string[] | undefined;
+    /** Wiedereinstieg (L-16): alle Klassen in einem Gang statt einer Klasse */
+    uebergreifend?: boolean;
+    /** Nach dem Wiedereinstieg: in der Übersicht diese Klasse zeigen */
+    onklasse?: (klasse: number) => void;
     onergebnis: (daten: Antwortdaten) => void;
     onueben: (k: Kompetenz) => void;
     onende: () => void;
@@ -47,7 +60,11 @@
   const themen = $derived(
     nachGraph(nachBereich(kompetenzen)).filter(
       (k) =>
-        (auswahl ? auswahl.includes(k.id) : k.klassenstufe_typisch.includes(klasse)) &&
+        (auswahl
+          ? auswahl.includes(k.id)
+          : uebergreifend
+            ? Math.min(...k.klassenstufe_typisch) <= (KLASSEN[KLASSEN.length - 1] ?? 5)
+            : k.klassenstufe_typisch.includes(klasse)) &&
         vorlagenFuer(vorlagen, k.id, 'G').length > 0,
     ),
   );
@@ -131,6 +148,11 @@
       .filter((k): k is Kompetenz => k !== undefined),
   );
   const pause = $derived(stand.aufgaben >= 15 && !pauseGesehen && stand.naechste !== undefined);
+  /** Stand im Sinne einer Klasse (L-16) – nur beim Wiedereinstieg */
+  const standK = $derived(uebergreifend ? standKlasse(themen, stand) : undefined);
+  const weiterKlasse = $derived(
+    standK === undefined ? undefined : Math.min(standK + 1, KLASSEN[KLASSEN.length - 1] ?? 5),
+  );
 </script>
 
 <section class="diagnose">
@@ -139,7 +161,18 @@
   {#if !gestartet && stand.naechste && !pause}
     <p>{t('diagnose.einleitung')}</p>
     {#if antworten.length === 0 && !auswahl}
-      <KlassenWahl bind:klasse />
+      <fieldset class="umfang">
+        <legend>{t('diagnose.umfang')}</legend>
+        <label
+          ><input type="radio" value={false} bind:group={uebergreifend} />
+          {t('diagnose.eine-klasse')}</label
+        >
+        <label
+          ><input type="radio" value={true} bind:group={uebergreifend} />
+          {t('diagnose.alle-klassen')}</label
+        >
+      </fieldset>
+      {#if !uebergreifend}<KlassenWahl bind:klasse />{/if}
     {/if}
     <p class="leise">{t('diagnose.dauer')}</p>
     <button class="haupt" onclick={starte}
@@ -191,6 +224,18 @@
     {/if}
   {:else}
     <h3>{t('diagnose.ergebnis')}</h3>
+    {#if uebergreifend && standK !== undefined}
+      <p class="stand">
+        {standK < 5 ? t('diagnose.stand-unter') : `${t('diagnose.stand')} ${standK}.`}
+      </p>
+      {#if weiterKlasse !== undefined && onklasse}
+        <p>
+          <button class="zweit" onclick={() => onklasse(weiterKlasse)}
+            >{t('diagnose.klasse-zeigen')} {weiterKlasse}</button
+          >
+        </p>
+      {/if}
+    {/if}
     {#if weiterMit.length > 0}
       <p>{t('diagnose.empfehlung')}</p>
       <ul class="liste">
@@ -219,6 +264,24 @@
 </section>
 
 <style>
+  .umfang {
+    display: grid;
+    gap: var(--abstand-s);
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+  }
+
+  .umfang label {
+    min-block-size: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+  }
+
+  .stand {
+    font-weight: 600;
+  }
+
   .diagnose {
     display: grid;
     gap: var(--abstand-s);

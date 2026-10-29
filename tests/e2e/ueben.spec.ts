@@ -885,7 +885,8 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   // Zurückstellen ist neutral: kein Hinweis
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
   await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toHaveCount(0);
-  // Die Wahl bleibt nach dem Neuladen
+  // Die Wahl bleibt nach dem Neuladen (erst neu laden, wenn gespeichert)
+  await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(7);
   await page.reload();
   await page.getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(page.getByRole('radio', { name: 'Klasse 7' })).toBeChecked();
@@ -921,4 +922,92 @@ test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page 
   const download = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Datei speichern' }).click();
   expect((await download).suggestedFilename()).toBe('bastion-bericht-klasse-5.txt');
+});
+
+test('Profil: freiwillig, ab 18 ohne Elternbereich (L-15)', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.getByRole('heading', { name: 'Über mich' })).toBeVisible();
+  await page.getByRole('button', { name: 'Überspringen' }).click();
+  await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Für Eltern' })).toBeVisible();
+  await expect.poll(() => einstellungImSpeicher(page, 'profil.gefragt')).toBe(true);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
+  // Später doch angeben: erwachsen
+  await page.getByRole('button', { name: 'Über mich' }).click();
+  await page.getByLabel('Geburtsdatum').fill('1985-04-12');
+  await page.getByRole('button', { name: 'Speichern' }).click();
+  await expect(page.getByRole('button', { name: 'Für Eltern' })).toHaveCount(0);
+  await expect.poll(() => einstellungImSpeicher(page, 'profil.geburtsdatum')).toBe('1985-04-12');
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Für Eltern' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(page.getByText('Mein Bericht (auch zum Zeigen für Lehrkräfte)')).toBeVisible();
+});
+
+test('Schuljahreswechsel: einmal nach der Klasse fragen (L-17)', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-07-20T10:00:00') });
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
+  await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2025);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await page.clock.setSystemTime(new Date('2026-08-03T10:00:00'));
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Klasse 7' })).toBeChecked();
+  // Sitzenbleiben: dieselbe Klasse, ohne Kommentar
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: 'Passt so' }).click();
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2026);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
+});
+
+test('Gerade dran: Lernbereich wählen, Themen stehen oben (L-18)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await page.getByText('Was ist gerade in der Schule dran? Wählen').click();
+  const lb = page.locator('.dran fieldset').first();
+  await lb.locator('legend input').check();
+  await expect(page.getByRole('heading', { name: 'Gerade in der Schule dran' })).toBeVisible();
+  const anzahl = await page.locator('.dran .liste li').count();
+  expect(anzahl).toBeGreaterThan(0);
+  // ein Thema wieder abwählen
+  await lb.locator('label.thema input').first().uncheck();
+  await expect(page.locator('.dran .liste li')).toHaveCount(anzahl - 1);
+  await expect
+    .poll(
+      async () => String(await einstellungImSpeicher(page, 'lernen.gerade-dran')).split(',').length,
+    )
+    .toBe(anzahl - 1);
+  await page.reload();
+  await page.getByRole('button', { name: 'Üben', exact: true }).click();
+  await expect(page.locator('.dran .liste li')).toHaveCount(anzahl - 1);
+});
+
+test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Wo stehe ich?' }).click();
+  await page.getByRole('radio', { name: /Alles ab Klasse 5/ }).check();
+  await expect(page.getByRole('radio', { name: 'Klasse 6' })).toHaveCount(0);
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
+    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+      await page.getByRole('button', { name: 'Weiter', exact: true }).click();
+      continue;
+    }
+    await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
+  }
+  await expect(page.getByText(/Am besten fängst du bei Klasse 5 an/)).toBeVisible();
+  await page.getByRole('button', { name: 'Themen zeigen: Klasse 5' }).click();
+  await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Klasse 5' })).toBeChecked();
 });
