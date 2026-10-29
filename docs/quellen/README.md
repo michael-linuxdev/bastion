@@ -14,3 +14,16 @@ Die PDF-Dateien liegen **nicht** im Repository: Das Repository soll öffentlich 
 **Vor jeder neuen Klassenstufe:** in der Lehrplandatenbank prüfen, ob es eine neuere Fassung gibt, und die Fassung hier nachtragen.
 
 Noch nicht ausgewertet: Lehrpläne der Gemeinschaftsschule/Oberschule+ und der Förderschulen (Mathematik). Sie folgen für die Inhalte voraussichtlich den Lehrplänen von OS und GY – zu prüfen.
+
+## Prüfungen (K-25)
+
+Bereitgestellt vom Projektverantwortlichen am 29.10.2026. Ausgewertet in `PRUEFUNGEN.md`. **Die Dateien liegen nicht im Repository**:
+
+| Kürzel | Dokument | Herausgeber | Rechte |
+|---|---|---|---|
+| SMK-M | Schriftliche Abiturprüfung Leistungskursfach Mathematik – MUSTER, Material für den Prüfling Teil A und Deckblatt Teil B (ältere Fassung, 120 BE) | Sächsisches Staatsministerium für Kultus | Weiterverbreitung ungeklärt |
+| ST-LK | STARK Abitur Sachsen Mathematik LK 2026, Leseprobe | STARK Verlag | urheberrechtlich geschützt, keine Verwertung |
+| ST-GK | STARK Abitur Sachsen Mathematik GK 2027, Leseprobe | STARK Verlag | wie oben |
+| ST-RS | STARK Realschulabschluss Sachsen Mathematik 2027, Leseprobe | STARK Verlag | wie oben |
+
+Aus den STARK-Proben werden nur Tatsachen über den Prüfungsaufbau übernommen (Teile, Zeiten, Hilfsmittel, BE, Notenskala), keine Aufgaben, Lösungen oder Texte. Vor der Umsetzung ist alles an amtlichen Quellen zu prüfen: OAVO, Verwaltungsvorschrift zur Abiturprüfung, IQB-Hinweise zu Operatoren und Hilfsmitteln.

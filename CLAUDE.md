@@ -2,12 +2,13 @@
 
 ## Zuerst lesen
 1. `docs/SESSION-PROMPT.md` – aktueller Auftrag und letzter Stand
-2. `docs/VISION.md` §7 – unveränderliche Prinzipien und Design-Regeln R1–R7
+2. `docs/VISION.md` §3 und §9 – die vier Kernaufgaben (Qualitätskriterien), Grundprinzipien und Design-Regeln R1–R7
 3. Die im Auftrag genannten Dokumente in `docs/`
 
 Bei Widerspruch zwischen Code und Dokumenten: nachfragen, nicht raten.
 
 ## Unverhandelbar
+- **Keine KI in der App** (VISION v1.0, K-23): Erklärungen und Rückmeldungen sind vorab geschriebene, geprüfte Inhalte, nichts wird zur Laufzeit von einem Sprachmodell erzeugt.
 - **Keine Netzwerkverbindungen** zur Laufzeit außer dem Laden der App und der Inhaltspakete von der eigenen Adresse. Kein Analytics, keine Fehler-Tracking-Dienste, keine CDN-Fonts, keine externen Bilder. Einzige Ausnahme: echtes Wetter von Open-Meteo, nur nach ausdrücklichem Einschalten (ARCHITEKTUR T-15).
 - **Keine Werbung, keine Käufe, keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall.**
 - **Ordnergrenzen:** `src/core/` importiert nichts aus `src/ui/` oder Browser-APIs. `src/core/bastion/` importiert nur aus `src/core/ledger/`.
