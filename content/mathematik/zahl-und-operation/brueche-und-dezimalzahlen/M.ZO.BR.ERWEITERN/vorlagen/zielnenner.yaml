@@ -26,5 +26,33 @@ fehlerbilder:
   zaehler-falscher-faktor:
     de: 'Der [[Nenner]] stimmt. Prüfe, mit welcher Zahl du den [[Zähler]] multipliziert hast.'
     fv: FV.BR.FAKTOR
+# Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17)
+schritte:
+  - id: faktor
+    frage:
+      {
+        de: 'Mit welcher Zahl musst du den [[Nenner]] {nenner} multiplizieren, damit {zielnenner} herauskommt?',
+      }
+    typ: zahl-eingabe
+    fehlerbilder:
+      differenz:
+        de: 'Du hast den Unterschied der [[Nenner]] genommen. Beim [[Erweitern]] wird **multipliziert**: Rechne {zielnenner} : {nenner}.'
+        fv: FV.BR.ADDITIV
+  - id: ergebnis
+    frage:
+      {
+        de: 'Multipliziere [[Zähler]] und [[Nenner]] von {bruch} mit {faktor}. Wie heißt der erweiterte [[Bruch]]?',
+      }
+    typ: bruch-eingabe
+    fehlerbilder:
+      addiert:
+        de: 'Du hast zum [[Zähler]] etwas addiert. Auch der Zähler wird **multipliziert**.'
+        fv: FV.BR.ADDITIV
+      nur-nenner:
+        de: 'Du hast nur den [[Nenner]] verändert. Der [[Zähler]] wird mit derselben Zahl multipliziert.'
+        fv: FV.BR.NUR-NENNER
+      zaehler-falscher-faktor:
+        de: 'Der [[Nenner]] stimmt. Nimm für den [[Zähler]] dieselbe Zahl.'
+        fv: FV.BR.FAKTOR
 herkunft: ki-entwurf
 version: 1

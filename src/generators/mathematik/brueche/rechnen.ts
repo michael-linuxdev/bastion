@@ -120,6 +120,36 @@ export interface BruchAddSubParameter {
   readonly unecht: boolean;
 }
 
+/** Zufallswerte einer Plus-/Minus-Aufgabe – gemeinsam für Aufgabe und Zwischenschritte. */
+function addSubWerte(seed: number, p: BruchAddSubParameter): { a: Bruch; b: Bruch; plus: boolean } {
+  verlange(p.nenner_max >= 4 && p.nenner_max <= 20, 'nenner_max: 4 … 20');
+  const r = rng(seed);
+  const plus = r.int(0, 1) === 0;
+  let a: Bruch;
+  let b: Bruch;
+  for (;;) {
+    const n1 = r.int(2, p.nenner_max);
+    let n2: number;
+    if (p.art === 'gleichnamig') n2 = n1;
+    else if (p.art === 'vielfaches') {
+      const k = r.int(2, Math.max(2, Math.floor(p.nenner_max / n1)));
+      n2 = n1 * k;
+      if (n2 > p.nenner_max * 2) continue;
+    } else n2 = r.int(2, p.nenner_max);
+    if (p.art !== 'gleichnamig' && n1 === n2) continue;
+    const zmax1 = p.unecht ? 2 * n1 : n1 - 1;
+    const zmax2 = p.unecht ? 2 * n2 : n2 - 1;
+    a = bruch(r.int(1, zmax1), n1);
+    b = bruch(r.int(1, zmax2), n2);
+    if (!istGekuerzt(a) || !istGekuerzt(b) || a.zaehler % a.nenner === 0) continue;
+    if (!plus && a.zaehler * b.nenner <= b.zaehler * a.nenner) [a, b] = [b, a];
+    if (!plus && wertgleich(a, b)) continue;
+    break;
+  }
+  if (r.int(0, 1) === 0 && plus) [a, b] = [b, a];
+  return { a, b, plus };
+}
+
 /** „Berechne 3/4 + 5/6.“ – Vorlagen M.ZO.BR.ADD-SUB.* */
 export const bruchAddSub: Generator<BruchAddSubParameter> = {
   id: 'br.add-sub',
@@ -127,32 +157,74 @@ export const bruchAddSub: Generator<BruchAddSubParameter> = {
   platzhalter: ['a', 'zeichen', 'b'],
   fehlerbildIds: ['nenner-addiert', 'nicht-erweitert'],
 
-  erzeuge(seed, p) {
-    verlange(p.nenner_max >= 4 && p.nenner_max <= 20, 'nenner_max: 4 … 20');
-    const r = rng(seed);
-    const plus = r.int(0, 1) === 0;
-    let a: Bruch;
-    let b: Bruch;
-    for (;;) {
-      const n1 = r.int(2, p.nenner_max);
-      let n2: number;
-      if (p.art === 'gleichnamig') n2 = n1;
-      else if (p.art === 'vielfaches') {
-        const k = r.int(2, Math.max(2, Math.floor(p.nenner_max / n1)));
-        n2 = n1 * k;
-        if (n2 > p.nenner_max * 2) continue;
-      } else n2 = r.int(2, p.nenner_max);
-      if (p.art !== 'gleichnamig' && n1 === n2) continue;
-      const zmax1 = p.unecht ? 2 * n1 : n1 - 1;
-      const zmax2 = p.unecht ? 2 * n2 : n2 - 1;
-      a = bruch(r.int(1, zmax1), n1);
-      b = bruch(r.int(1, zmax2), n2);
-      if (!istGekuerzt(a) || !istGekuerzt(b) || a.zaehler % a.nenner === 0) continue;
-      if (!plus && a.zaehler * b.nenner <= b.zaehler * a.nenner) [a, b] = [b, a];
-      if (!plus && wertgleich(a, b)) continue;
-      break;
+  // Zwischenschritte (INHALTSFORMAT §17): gemeinsamer Nenner, beide Brüche erweitern,
+  // Zähler verrechnen, kürzen. Ein anderer gemeinsamer Nenner ist auch richtig.
+  schritte: [
+    { id: 'nenner', fehlerbildIds: ['nenner-addiert', 'einen-nenner'] },
+    { id: 'erster', fehlerbildIds: ['nur-nenner', 'addiert'], platzhalter: ['bruch', 'hn'] },
+    { id: 'zweiter', fehlerbildIds: ['nur-nenner', 'addiert'], platzhalter: ['bruch', 'hn'] },
+    { id: 'rechnen', fehlerbildIds: ['nenner-addiert'] },
+    { id: 'kuerzen', fehlerbildIds: ['nicht-vollstaendig'] },
+  ],
+
+  schritt(seed, p, id, bisher) {
+    const { a, b, plus } = addSubWerte(seed, p);
+    const gemeinsam = (x: number) =>
+      Number.isInteger(x) && x > 0 && x <= 1000 && x % a.nenner === 0 && x % b.nenner === 0;
+    const gewaehlt = bisher['nenner'];
+    const n =
+      gewaehlt?.typ === 'zahl' && gemeinsam(gewaehlt.wert)
+        ? gewaehlt.wert
+        : kgV(a.nenner, b.nenner);
+    const op = (x: number, y: number) => (plus ? x + y : x - y);
+    const kein = (x: number): Loesung | undefined =>
+      gemeinsam(x) ? undefined : { typ: 'zahl', wert: x };
+    if (id === 'nenner') {
+      const loesung: Loesung = { typ: 'zahl', wert: kgV(a.nenner, b.nenner) };
+      return {
+        loesung,
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['nenner-addiert', kein(a.nenner + b.nenner)],
+          ['einen-nenner', kein(Math.max(a.nenner, b.nenner))],
+        ]),
+        auchRichtig: (e) => e.typ === 'zahl' && gemeinsam(e.wert),
+      };
     }
-    if (r.int(0, 1) === 0 && plus) [a, b] = [b, a];
+    if (id === 'erster' || id === 'zweiter') {
+      const x = id === 'erster' ? a : b;
+      const loesung = alsLoesung(bruch(x.zaehler * (n / x.nenner), n));
+      return {
+        loesung,
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['nur-nenner', alsLoesung(bruch(x.zaehler, n))],
+          ['addiert', alsLoesung(bruch(x.zaehler + n - x.nenner, n))],
+        ]),
+        platzhalter: { bruch: x, hn: n },
+      };
+    }
+    const roh = bruch(op(a.zaehler * (n / a.nenner), b.zaehler * (n / b.nenner)), n);
+    if (id === 'rechnen') {
+      const loesung = alsLoesung(roh);
+      return {
+        loesung,
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['nenner-addiert', plus ? alsLoesung(bruch(roh.zaehler, 2 * n)) : undefined],
+        ]),
+      };
+    }
+    const loesung = alsLoesung(gekuerzt(roh));
+    const g = ggT(roh.zaehler, roh.nenner);
+    const t = [2, 3, 5, 7].find((q) => g % q === 0 && q < g);
+    return {
+      loesung,
+      fehlerbilder: fehlerbilderAus(loesung, [
+        ['nicht-vollstaendig', t ? alsLoesung(bruch(roh.zaehler / t, roh.nenner / t)) : undefined],
+      ]),
+    };
+  },
+
+  erzeuge(seed, p) {
+    const { a, b, plus } = addSubWerte(seed, p);
     const hn = kgV(a.nenner, b.nenner);
     const za = a.zaehler * (hn / a.nenner);
     const zb = b.zaehler * (hn / b.nenner);

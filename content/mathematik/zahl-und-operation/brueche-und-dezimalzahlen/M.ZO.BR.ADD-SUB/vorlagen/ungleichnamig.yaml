@@ -23,5 +23,51 @@ fehlerbilder:
   nicht-erweitert:
     de: 'Der gemeinsame [[Nenner]] stimmt, aber die [[Zähler]] hast du nicht mit erweitert. [[Erweitern]] heißt Zähler und Nenner mit derselben Zahl malnehmen.'
     fv: FV.BR.NUR-NENNER
+# Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17)
+schritte:
+  - id: nenner
+    frage: { de: 'Welcher gemeinsame [[Nenner]] passt zu {a} und {b}?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      nenner-addiert:
+        de: 'Du hast die [[Nenner]] addiert. Der gemeinsame Nenner ist ein [[Vielfaches]] von beiden Nennern.'
+        fv: FV.BR.NENNER-ADDIERT
+      einen-nenner:
+        de: 'Das ist nur einer der [[Nenner]]. Der gemeinsame Nenner muss durch beide Nenner [[teilbar]] sein.'
+        fv: FV.BR.EINEN-NENNER
+  - id: erster
+    frage: { de: '[[Erweitere]] {bruch} auf den [[Nenner]] {hn}.' }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nur-nenner:
+        de: 'Du hast nur den [[Nenner]] verändert. Multipliziere den [[Zähler]] mit derselben Zahl.'
+        fv: FV.BR.NUR-NENNER
+      addiert:
+        de: 'Du hast zum [[Zähler]] etwas addiert. Beim [[Erweitern]] wird **multipliziert**.'
+        fv: FV.BR.ADDITIV
+  - id: zweiter
+    frage: { de: '[[Erweitere]] jetzt {bruch} auf den [[Nenner]] {hn}.' }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nur-nenner:
+        de: 'Du hast nur den [[Nenner]] verändert. Multipliziere den [[Zähler]] mit derselben Zahl.'
+        fv: FV.BR.NUR-NENNER
+      addiert:
+        de: 'Du hast zum [[Zähler]] etwas addiert. Beim [[Erweitern]] wird **multipliziert**.'
+        fv: FV.BR.ADDITIV
+  - id: rechnen
+    frage: { de: 'Rechne {erster} {zeichen} {zweiter}.' }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nenner-addiert:
+        de: 'Du hast auch die [[Nenner]] addiert. Der Nenner bleibt gleich, nur die [[Zähler]] werden verrechnet.'
+        fv: FV.BR.NENNER-ADDIERT
+  - id: kuerzen
+    frage: { de: '[[Kürze]] {rechnen} vollständig.' }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nicht-vollstaendig:
+        de: 'Du hast gekürzt, aber noch nicht vollständig. [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+        fv: FV.BR.NICHT-VOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1

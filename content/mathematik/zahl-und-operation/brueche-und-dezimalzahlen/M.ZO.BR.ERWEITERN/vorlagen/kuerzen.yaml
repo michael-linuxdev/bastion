@@ -26,5 +26,28 @@ fehlerbilder:
   subtrahiert:
     de: 'Du hast von [[Zähler]] und [[Nenner]] dieselbe Zahl abgezogen. [[Kürzen]] heißt **teilen** – nicht subtrahieren.'
     fv: FV.BR.ADDITIV
+# Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17)
+schritte:
+  - id: teiler
+    frage:
+      { de: 'Was ist der größte [[gemeinsame Teiler]] von [[Zähler]] und [[Nenner]] von {bruch}?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      kleiner-teiler:
+        de: 'Das ist ein gemeinsamer Teiler, aber nicht der größte. Danach könntest du noch weiter [[kürzen]].'
+        fv: FV.BR.NICHT-VOLLSTAENDIG
+  - id: ergebnis
+    frage:
+      {
+        de: 'Teile [[Zähler]] und [[Nenner]] von {bruch} durch {teiler}. Wie heißt der gekürzte [[Bruch]]?',
+      }
+    typ: bruch-eingabe
+    fehlerbilder:
+      nur-nenner-gekuerzt:
+        de: 'Du hast nur den [[Nenner]] geteilt. Teile auch den [[Zähler]] durch dieselbe Zahl.'
+        fv: FV.BR.NUR-NENNER
+      subtrahiert:
+        de: 'Du hast abgezogen. [[Kürzen]] heißt **teilen**.'
+        fv: FV.BR.ADDITIV
 herkunft: ki-entwurf
 version: 1

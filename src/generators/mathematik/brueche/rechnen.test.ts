@@ -85,6 +85,24 @@ describe('Brüche addieren und subtrahieren', () => {
     },
     mindestensVerschieden: { 'G-gleich': 40, 'M-gleich': 70, 'G-ungleich': 40, 'M-ungleich': 80 },
   });
+
+  it('Zwischenschritte: ein anderer gemeinsamer Nenner führt auch zum Ergebnis (§17)', () => {
+    for (let seed = 0; seed < 500; seed++) {
+      const p = NIVEAUS['M-ungleich'];
+      const schritt = bruchAddSub.schritt;
+      if (!schritt) throw new Error('keine Schritte');
+      const kleinster = schritt(seed, p, 'nenner', {}).loesung;
+      if (kleinster.typ !== 'zahl') throw new Error('Nenner ist keine Zahl');
+      const nenner = { typ: 'zahl', wert: 2 * kleinster.wert } as const;
+      const erster = schritt(seed, p, 'nenner', {});
+      expect(erster.auchRichtig?.(nenner)).toBe(true);
+      const bisher: Record<string, Loesung> = { nenner };
+      for (const id of ['erster', 'zweiter', 'rechnen', 'kuerzen'])
+        bisher[id] = schritt(seed, p, id, bisher).loesung;
+      expect(bisher['kuerzen']).toEqual(bruchAddSub.erzeuge(seed, p).loesung);
+      if (bisher['erster']?.typ === 'bruch') expect(bisher['erster'].wert.nenner).toBe(nenner.wert);
+    }
+  });
 });
 
 describe('Brüche multiplizieren und dividieren', () => {
