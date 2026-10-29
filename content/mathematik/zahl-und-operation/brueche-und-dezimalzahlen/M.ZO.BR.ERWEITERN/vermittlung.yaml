@@ -1,0 +1,114 @@
+id: M.ZO.BR.ERWEITERN
+kompetenz: M.ZO.BR.ERWEITERN
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen [[Bruch]] anders schreiben, ohne dass sich der [[Anteil]] ändert – mit größeren oder kleineren Zahlen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Anteil]] ist hier gefärbt?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
+    antwort:
+      optionen:
+        - wert: { de: '2/3' }
+          richtig: true
+        - wert: { de: '2/1' }
+          fv: FV.BR.TEIL-ZU-REST
+        - wert: { de: '3/2' }
+          fv: FV.BR.VERTAUSCHT
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Teile jedes Drittel in zwei gleich große Hälften. Ist jetzt mehr gefärbt als vorher? Welcher [[Bruch]] beschreibt den gefärbten [[Anteil]] jetzt?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2, verfeinern: true } }
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '4/6'
+        fehler:
+          - { wert: '3/4', fv: FV.BR.ADDITIV }
+          - { wert: '2/6', fv: FV.BR.NUR-NENNER }
+    weiter: erklaeren-erweitern
+  - id: erklaeren-erweitern
+    typ: erklaeren
+    text:
+      de: 'Gefärbt ist genauso viel wie vorher. Jedes Teil ist halb so groß, dafür sind es doppelt so viele. Darum gilt 2/3 = 4/6. Das heißt [[Erweitern]]: [[Zähler]] und [[Nenner]] mit derselben Zahl malnehmen.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 4 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3/4 soll Zwölftel bekommen. Rechne 12 : 4 = 3. Nimm [[Zähler]] und [[Nenner]] mal 3: 3 · 3 = 9 und 4 · 3 = 12. Also ist 3/4 = 9/12.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '[[Erweitere]] 2/5 auf [[Zehntel]]. Mit welcher Zahl nimmst du [[Zähler]] und [[Nenner]] mal, und wie heißt der neue Zähler?'
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '4/10'
+        fehler:
+          - { wert: '7/10', fv: FV.BR.ADDITIV }
+          - { wert: '2/10', fv: FV.BR.NUR-NENNER }
+    weiter: erklaeren-kuerzen
+    bei:
+      FV.BR.ADDITIV: erklaeren-erweitern
+      FV.BR.NUR-NENNER: erklaeren-erweitern
+  - id: erklaeren-kuerzen
+    typ: erklaeren
+    text:
+      de: 'Es geht auch rückwärts: [[Zähler]] und [[Nenner]] durch dieselbe Zahl teilen. Das heißt [[Kürzen]]. 6/8 = 3/4, weil 6 : 2 = 3 und 8 : 2 = 4. Die Teile werden größer, der [[Anteil]] bleibt.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim rechnet: „Ich zähle oben und unten 1 dazu. Aus 1/2 wird 2/3.“ Ist 2/3 gleich groß wie 1/2?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
+    antwort:
+      optionen:
+        - wert: { de: 'Nein, 2/3 ist mehr als die Hälfte.' }
+          richtig: true
+        - wert: { de: 'Ja, oben und unten wurde dasselbe gemacht.' }
+          fv: FV.BR.ADDITIV
+    weiter: merksatz
+    bei: { FV.BR.ADDITIV: erklaeren-erweitern }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Erweitern]]: [[Zähler]] und [[Nenner]] mit derselben Zahl malnehmen. [[Kürzen]]: beide durch dieselbe Zahl teilen. Der [[Anteil]] bleibt gleich. Nie addieren oder subtrahieren.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher [[Bruch]] ist genauso groß wie 3/4?'
+    antwort:
+      optionen:
+        - wert: { de: '6/8' }
+          richtig: true
+        - wert: { de: '4/5' }
+          fv: FV.BR.ADDITIV
+        - wert: { de: '3/8' }
+          fv: FV.BR.NUR-NENNER
+        - wert: { de: '6/4' }
+          fv: FV.BR.NUR-NENNER
+    weiter: uebergang
+    bei:
+      FV.BR.ADDITIV: erklaeren-erweitern
+      FV.BR.NUR-NENNER: beispiel
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt erweiterst und kürzt du selbst.'
+    vorlagen: [M.ZO.BR.ERWEITERN.ZIELNENNER, M.ZO.BR.ERWEITERN.KUERZEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

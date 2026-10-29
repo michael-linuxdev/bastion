@@ -1,0 +1,109 @@
+id: M.ZO.BR.ADD-SUB
+kompetenz: M.ZO.BR.ADD-SUB
+niveau: G
+dauer_min: 15
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Brüche]] addieren und subtrahieren – auch wenn die [[Nenner]] verschieden sind.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '[[Erweitere]] 1/2 auf Viertel. Wie heißt der [[Bruch]]?'
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '2/4'
+        fehler:
+          - { wert: '1/4', fv: FV.BR.NUR-NENNER }
+          - { wert: '3/4', fv: FV.BR.ADDITIV }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.ERWEITERN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Färbe erst 1/4 des Streifens, dann noch 2/4 dazu. Wie viele Viertel sind jetzt gefärbt?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 0, ziel_gefaerbt: 3 } }
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '3/4'
+        fehler:
+          - { wert: '3/8', fv: FV.BR.NENNER-ADDIERT }
+    weiter: erklaeren-gleichnamig
+  - id: erklaeren-gleichnamig
+    typ: erklaeren
+    text:
+      de: 'Ein Viertel und zwei Viertel sind drei Viertel. Die Teile bleiben gleich groß, nur ihre Anzahl ändert sich. Darum addierst du nur die [[Zähler]]. Der [[Nenner]] bleibt: 1/4 + 2/4 = 3/4.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Subtrahieren geht genauso: 5/6 − 2/6 = 3/6. Von 5 Sechsteln nimmst du 2 weg, es bleiben 3 Sechstel. Der [[Nenner]] bleibt 6.'
+    weiter: erklaeren-ungleichnamig
+  - id: erklaeren-ungleichnamig
+    typ: erklaeren
+    text:
+      de: 'Bei 1/2 + 1/4 sind die Teile verschieden groß. Du kannst sie erst zusammenzählen, wenn sie gleich groß sind. Darum [[erweitern]]: 1/2 = 2/4. Dann gilt 2/4 + 1/4 = 3/4.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 1/3 + 1/6. [[Erweitere]] zuerst 1/3 auf Sechstel. Wie heißt das Ergebnis?'
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '3/6'
+        fehler:
+          - { wert: '2/9', fv: FV.BR.NENNER-ADDIERT }
+          - { wert: '2/6', fv: FV.BR.EINEN-NENNER }
+    weiter: gegenbeispiel
+    bei:
+      FV.BR.NENNER-ADDIERT: erklaeren-gleichnamig
+      FV.BR.EINEN-NENNER: erklaeren-ungleichnamig
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim rechnet: „1/2 + 1/2 = 2/4, oben plus oben, unten plus unten.“ Stimmt das?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 2 } }
+    antwort:
+      optionen:
+        - wert: { de: 'Nein, zwei Hälften sind ein Ganzes, nicht 2/4.' }
+          richtig: true
+        - wert: { de: 'Ja, so rechnet man mit Brüchen.' }
+          fv: FV.BR.NENNER-ADDIERT
+    weiter: merksatz
+    bei: { FV.BR.NENNER-ADDIERT: erklaeren-gleichnamig }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Gleiche [[Nenner]]: nur die [[Zähler]] addieren oder subtrahieren, der Nenner bleibt. Verschiedene Nenner: zuerst auf einen [[gemeinsamen Nenner]] [[erweitern]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 1/2 + 1/4?'
+    antwort:
+      optionen:
+        - wert: { de: '3/4' }
+          richtig: true
+        - wert: { de: '2/6' }
+          fv: FV.BR.NENNER-ADDIERT
+        - wert: { de: '2/4' }
+          fv: FV.BR.EINEN-NENNER
+    weiter: uebergang
+    bei:
+      FV.BR.NENNER-ADDIERT: erklaeren-gleichnamig
+      FV.BR.EINEN-NENNER: erklaeren-ungleichnamig
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.BR.ADD-SUB.GLEICHNAMIG, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

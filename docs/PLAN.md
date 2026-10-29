@@ -188,7 +188,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
 - [x] **U1** Format für Erstvermittlung und Fehlerkatalog (`INHALTSFORMAT.md` §15, §16, I-12, I-13); Prüfung in `pnpm inhalte:pruefen` (`src/core/learning/vermittlung.ts`, `fehlvorstellung.ts`); Datenmodell `vermittlung` und Projektion `fehlvorstellungen` (`DATENMODELL.md` §4.7, D-16)
 - [ ] **U2** Musterfeld Brüche (`M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB`), in drei Schritten:
   - [x] **U2a** Fehlerkatalog: 10 Fehlvorstellungen in `content/mathematik/fehlvorstellungen/`; alle 15 Fehlerbilder der 6 Vorlagen verweisen per `fv` darauf; Tests für F1 und F2
-  - [ ] **U2b** Erstvermittlung für die drei Kompetenzen
+  - [x] **U2b** Erstvermittlung für die drei Kompetenzen (`vermittlung.yaml`, je 10 bis 11 Schritte, 12 bis 15 Minuten), alle Rückwege des Fehlerkatalogs zeigen auf vorhandene Schritte
   - [ ] **U2c** Werkzeuge Bruchstreifen und Zahlenstrahl
 - [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen
 - [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)

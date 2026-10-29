@@ -138,7 +138,7 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     );
     const bericht = pruefen();
     expect(bericht.fehler).toEqual([]);
-    expect(bericht.vermittlungen.map((v) => v.id)).toEqual(['M.ZO.BR.ERWEITERN']);
+    expect(bericht.vermittlungen.map((v) => v.id)).toContain('M.ZO.BR.ERWEITERN');
     expect(bericht.fehlvorstellungen.map((f) => f.id)).toContain('FV.BR.ADDIERT');
   });
 
