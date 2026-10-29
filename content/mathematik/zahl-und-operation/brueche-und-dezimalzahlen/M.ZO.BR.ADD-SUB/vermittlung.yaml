@@ -25,7 +25,7 @@ schritte:
     typ: entdecken
     text:
       de: 'Färbe erst 1/4 des Streifens, dann noch 2/4 dazu. Wie viele Viertel sind jetzt gefärbt?'
-    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 0, ziel_gefaerbt: 3 } }
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 0 } }
     antwort:
       eingabe:
         art: bruch

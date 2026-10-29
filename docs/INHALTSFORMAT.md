@@ -534,4 +534,9 @@ version: 1
 
 **Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld nachgerüstet ist (F2, PLAN U5).
 
-**Werkzeuge** (Stand U1): `bruchstreifen@1`, `zahlenstrahl@1`. Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in die Oberfläche.
+**Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
+
+| Werkzeug | Parameter | Interaktiv |
+|---|---|---|
+| `bruchstreifen@1` | `teile` (1–24), `gefaerbt`, `verfeinern` (Knopf „Jedes Teil halbieren“ statt + und −), `ungleich` (erstes Teil absichtlich größer) | Teile antippen färbt sie; + und − ändern die Zahl der Teile |
+| `zahlenstrahl@1` | `von`, `bis` (ganze Zahlen), `einteilung` (Teile je Einheit), `markiert` (Zähler bezogen auf die Einteilung) | Striche antippen markiert eine Stelle |
