@@ -1,122 +1,157 @@
-# Session-Prompt
+# Session-Prompt – Bastion (Unterrichtsersatz)
 
-> Diese Datei ist der Einstieg in jede Arbeitssitzung – allein oder mit KI-Unterstützung.
-> Am Ende jeder Sitzung wird sie aktualisiert und mit committet.
+> Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
+> Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 29.10.2026 (16) · Phase 1 – Lernkern; Klasse 5 bis 8 als Entwurf, Grafik in Richtung A umgesetzt (K-22)
+Stand: 29.10.2026 (17) · Neue Ausrichtung beschlossen und dokumentiert (K-23 bis K-28)
 
 ---
 
 ## Rolle
 
-Du bist technischer und konzeptioneller Lead für **Bastion**, den Nachfolger der Lern-App „Lerninsel“: eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 und berufsbildende Schulen (Start: Mathe in Sachsen, Kl. 5–12), in der nachgewiesene Kompetenz durch einen optionalen, langfristigen Basebau sichtbar wird.
+Du bist technischer und konzeptioneller Lead für **Bastion**.
 
-Das Projekt wird von **einer Person** entwickelt. Plane entsprechend: kleine Schritte, jede Phase für sich nutzbar.
+Bastion ist nicht mehr nur ein Lernwerkzeug oder Kompetenzspiegel. **Bastion wird ein Ersatz für Unterricht – ohne KI.**
 
-## Unveränderliche Grundprinzipien
+Das Projekt wird weiterhin von **einer Person** entwickelt. Plane entsprechend: kleine, in sich abgeschlossene Schritte.
 
-1. Erst lernen, dann spielen/bauen.
-2. Offline-first.
-3. Datenschutz zuerst – keine Daten verlassen das Gerät ohne ausdrückliche Nutzeraktion; kein Account, kein Tracking.
-4. Keine Werbung, keine In-App-Käufe, keine Lootboxen.
-5. Eltern als letzte Instanz (PIN), altersgerecht abnehmend.
-6. Kein sozialer Druck – keine Ranglisten, kein PvP, kein FOMO.
-7. Mehrsprachigkeit & DaZ bleiben zentral.
-8. Kompetenz vor Stoff.
+---
 
-Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall, Qualität vor Menge, natürliche Pausenpunkte, Fehler als Rohstoff, Basebau ohne Nachteil abschaltbar.
+## Verbindliche Grundentscheidungen (nicht verhandelbar)
+
+1. **Ziel:** Bastion soll die vier Kernaufgaben einer Lehrkraft leisten (K-24, `VISION.md` §3):
+   - **Vermitteln** (Erstvermittlung neuer Inhalte)
+   - **Diagnostizieren & Erklären** (individuelle Denkfehler verstehen und auflösen)
+   - **Üben & Festigen**
+   - **Steuern & Bewerten** (Lernpfade, später Klassen, Leistungsnachweise)
+2. **Ohne KI.** Alle Lösungen sind regelbasiert, inhaltsgetrieben und arbeiten mit klassischer Adaptivität: Generatoren, Fehlerkataloge, Kompetenzgraph, Verzweigungen, FSRS. _Geklärt am 29.10.2026:_ Das gilt für die App. Inhalte dürfen mit KI-Hilfe entworfen werden und gelten erst nach menschlicher Prüfung als geprüft (K-23, K-9).
+3. **Reihenfolge der Ausbaustufen:**
+   - **Zuerst Variante A** (konservativ): stark lokal, kein Pflicht-Konto, Fokus auf den einzelnen Schüler als „persönlicher Lehrer“.
+   - **Erst wenn Variante A wirklich gut ist** (Schwelle in `STRATEGIE.md` §0), kommt **Variante B**: Klassenräume, Lehrkräfte-Konten, zentrale Steuerung.
+4. Die alte Vision („kein Ersatz für Unterricht“) ist aufgehoben. „Strikt offline-only“, „kein Konto unter allen Umständen“ und „kein soziales Element“ sind für Variante B später verhandelbar, gelten in Variante A aber so streng wie möglich.
+5. **Prüfungen auf Knopfdruck (K-25):** Bastion soll druckbare PDFs mit jedes Mal neu erzeugten Übungen, Kurz- und Leistungskontrollen, Klassenarbeiten, Klausuren und Prüfungen bis zur Abiturprüfung Mathe GK und LK erzeugen. **Die Abiturprüfung 2029 Mathe LK und GK Sachsen soll von einem Ministerium aus dieser App erzeugt werden können – mit genau derselben Funktion, die ein Schüler zur Vorbereitung nutzt.** Ehrgeizig, aber machbar. Deshalb machen wir das.
+
+Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
+
+**Geklärt am 29.10.2026 (Fragerunde):**
+
+- Noten gibt es nur auf Wunsch, Standard ist aus (K-26).
+- Der Basebau bleibt als Nebensache (K-27).
+- Erst Klasse 5 bis 8 mit Vermittlung und Fehlerkatalog nachrüsten, dann Klasse 9 bis 12 (K-28).
+
+---
+
+## Aktuelle Priorität (Variante A)
+
+1. **Vermitteln und Diagnostizieren eng verzahnen** (höchste Priorität):
+   - Jede Kompetenz erhält eine hochwertige, interaktive Erstvermittlungs-Sequenz.
+   - Sehr reiche, handgepflegte Fehlerkataloge mit konkreten Erklärungen und Rückwegen in die Vermittlung.
+2. Starke individuelle Lernpfade und Steuerung auf Ebene des einzelnen Schülers.
+3. Üben und Festigen weiter verbessern.
+4. Leistungsnachweise und Portfolio (lokal und exportierbar).
+
+Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **ausdrücklich gesperrt**, bis Variante A als „wirklich gut“ gilt.
+
+---
 
 ## Arbeitsweise
 
-- Dokumente vor Code. Jede größere Entscheidung mit Begründung im passenden Entscheidungslog.
-- Eigene Vorschläge kritisch prüfen, besonders bei Motivation, Balancing und pädagogischer Sauberkeit.
-- Bei Widerspruch zwischen Dokumenten gilt das speziellere (z. B. `BASEBAU.md` vor `KONZEPT.md` §5) – und der Widerspruch wird behoben.
+- Dokumente vor Code. Jede größere Entscheidung mit Begründung im passenden Entscheidungslog festhalten.
+- Besonders kritisch prüfen: die didaktische Qualität der Erstvermittlung und der Fehlererklärungen.
+- Bei Widerspruch zwischen Dokumenten gelten dieser Session-Prompt und die neuen Grundentscheidungen.
 - Rückfragen stellen, wenn wichtige Informationen fehlen.
 - Auf Deutsch arbeiten.
-
-## Dokumente (Lesereihenfolge)
-
-1. `docs/VISION.md` – Warum, für wen, Prinzipien; §11 Scope-Grenze bis Monat 12
-2. `docs/STRATEGIE.md` – Ziel, Scope und Erfolgskriterien für 12 Monate
-3. `docs/PLAN.md` – aktueller Stand, Aufgaben, **Nicht-Ziele bis Monat 12**
-4. `docs/KONZEPT.md` – Gesamtkonzept, Roadmap, offene Entscheidungen
-5. je nach Aufgabe: `docs/WETTBEWERB.md`, `docs/TESTS.md`, `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/LEHRPLAN.md`, `docs/INHALTSFORMAT.md`, `docs/DATENMODELL.md`
-
-## Aktueller Auftrag
-
-**Zu Beginn der Sitzung den Projektverantwortlichen fragen, womit es weitergeht** (entschieden am 29.10.2026). Nichts davon ohne diese Antwort beginnen. Zur Auswahl stehen:
-
-0. **Grafik nachbessern (K-22)** – der Umbau auf Richtung A ist fertig (`GRAFIK.md` §5, PRs #42 bis #45).
-   - Rückmeldungen der drei Testerinnen (12 bis 16 Jahre, `TESTS.md` §2) einarbeiten.
-   - Noch im alten Stil: Diagnose, Mein Stand, Fehlerwerkstatt, Klassenarbeit, Elternbereich, Sicherung. Sie nutzen die neuen Tokens, haben aber noch eigene Knopfstile. Sie lassen sich Schritt für Schritt auf die gemeinsamen Knöpfe `haupt`, `zweit` und `dezent` umstellen.
-   - Später: lebendige Szenen, Jahreszeiten, Wetter (T-15, nur freiwillig) und Skins (B-27).
-1. **Klasse 9** (K-20; die Grafik ist umgesetzt, Klasse 9 kann beginnen): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
-2. **Offene Reste:**
-   - Anrede „Sie“ für Erwachsene (L-15). Dafür braucht es eine zweite Fassung aller Texte; vorher fragen, wie.
-   - Wiederholungen bis zum Termin der Klassenarbeit planen (L-19).
-   - „Gerade dran“-Themen beim Wiederholen öfter drannehmen (L-18).
-   - `M.GM.FL.DREIECK` hat auf Niveau G nur eine Vorlage. Es braucht zwei (`pnpm inhalte:pruefen`).
-3. **Prüfen und testen:** Vorlagen von Klasse 5 bis 8 mit einer Lehrkraft durchgehen. Die App könnte Hilfen fürs Prüfen bekommen (INHALTSFORMAT §8).
-
-Rahmen: Mathe in **Sachsen**, Klasse 5–12, alle allgemeinbildenden Schularten, Niveaus G und M (K-11, K-15, K-17). Auch Erwachsene nutzen die App (K-21). MINT-Kontexte kommen erst nach Klasse 12 und lassen sich abschalten (L-14). Vor jeder neuen Aufgabe gegen `PLAN.md` §2.1 (Nicht-Ziele) prüfen.
-
-Gemerkt für später (nicht jetzt umsetzen): Prüfungen entwerfen bis zum Abitur, mit Lösungen und zum Drucken (`LEHRPLAN.md` L-20).
 
 **Arbeitsregel (Projektverantwortlicher, 28.10.2026, bestätigt 29.10.2026):** Jeder fertige Schritt kommt gleich per PR auf `main`. Ablauf:
 
 1. PR öffnen und abonnieren.
 2. Nach grüner CI per Squash mergen.
-3. `main` mit `git merge -s ours origin/main` in den Arbeitsbranch übernehmen.
+3. `main` mit `git merge -s ours origin/main` in den Arbeitsbranch übernehmen. Das geht nur, wenn der Arbeitsbranch schon alles von `main` enthält. Sonst normal mergen.
 4. Pushen.
 
-Fragen vorher stellen, nicht raten.
+---
+
+## Dokumente (Lesereihenfolge)
+
+1. Dieser Session-Prompt (verbindlich)
+2. `docs/VISION.md` v1.0 – Unterrichtsersatz ohne KI, Variante A zuerst
+3. `docs/VERMITTLUNG.md` – Konzept Vermitteln und Diagnostizieren ohne KI
+4. `docs/STRATEGIE.md` §0 (Schwelle für Variante B) und §9 (K-23 bis K-28)
+5. `docs/KONZEPT.md` – §0 fasst die neue Ausrichtung zusammen; die vollständige Überarbeitung folgt mit dem Pilot
+6. `docs/PLAN.md` §4b (Arbeitsplan U0 bis U8), §2.1 (Nicht-Ziele)
+7. `docs/LEHRPLAN.md`, `docs/INHALTSFORMAT.md`, `docs/DATENMODELL.md`
+8. Je nach Aufgabe: `docs/GRAFIK.md`, `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/TESTS.md`
+
+---
+
+## Aktueller Auftrag
+
+**Erledigt (U0):** Neue Vision (`VISION.md` v1.0), vier Kernaufgaben als Qualitätskriterien (VISION §3, STRATEGIE §0, KONZEPT §0, VERMITTLUNG §2.5 und §3.5), Konzept „Vermitteln und Diagnostizieren ohne KI“ (`VERMITTLUNG.md`).
+
+**Als Nächstes:**
+
+1. Mit dem Projektverantwortlichen die offenen Fragen in `VERMITTLUNG.md` §8 klären:
+   - Musterkompetenzen,
+   - fachliche Prüfung durch eine Lehrkraft,
+   - Abitur-Vorgaben als Quellen,
+   - PDF-Technik,
+   - Werkzeuge.
+2. Dann **U1** (`PLAN.md` §4b):
+   - Format für Erstvermittlung und Fehlerkatalog in `INHALTSFORMAT.md`,
+   - Prüfwerkzeug,
+   - Datenmodell für Vermittlungs-Ereignisse.
+3. Dann **U2**, das Musterfeld Brüche.
+
+Erst danach an Inhalten oder Code für die neue Ausrichtung arbeiten.
 
 ### Vom Projektverantwortlichen (nicht delegierbar)
 
-1. **Inhalte prüfen (INHALTSFORMAT §10.1, §11.1, §4.3).** Alles ist KI-Entwurf: 255 Vorlagen zu 123 Kompetenzen (Klasse 5 bis 8), 15 Zeichen-Anleitungen und 197 Fachbegriffe in `content/mathematik/begriffe.yaml`. Das Abschlusskriterium einer Klasse (`STRATEGIE.md` §2) verlangt *geprüfte* Vorlagen. Am besten mit einer Lehrkraft, Kompetenz für Kompetenz.
+1. **Inhalte prüfen** (INHALTSFORMAT §8). Alles ist bisher KI-Entwurf:
+   - 255 Vorlagen zu 123 Kompetenzen (Klasse 5 bis 8),
+   - 15 Zeichen-Anleitungen,
+   - 197 Fachbegriffe.
+
+   Am besten mit einer Lehrkraft, Kompetenz für Kompetenz. Ab jetzt kommen Erstvermittlungen und Fehlerkataloge dazu.
+
 2. Die Kompetenzlisten (`LEHRPLAN.md` §8 bis §8d) fachlich gegenlesen.
-3. Lehrplan-PDFs für Klasse 9 (OS, GY) bereitstellen, sobald Klasse 9 dran ist.
-4. **0.15** Testpersonen in Sachsen ansprechen (`TESTS.md` §2–3). Nach K-17 erst, wenn der Lehrplan bis Klasse 12 steht.
-5. **0.14** Angebote nach dem Raster in `WETTBEWERB.md` §5 durchspielen.
-6. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
-7. **0.10** Drei Referenzgeräte festlegen und darauf messen (Anleitung in ARCHITEKTUR §9.2).
+3. Quellen bereitstellen:
+   - die sächsischen Abitur-Vorgaben und Prüfungen der letzten Jahrgänge (GK und LK),
+   - später die Lehrplan-PDFs für Klasse 9 bis 12.
+4. **0.15** Testpersonen ansprechen (`TESTS.md` §2–3). Die drei Testerinnen stehen bereit.
+5. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
+6. **0.10** Drei Referenzgeräte festlegen und darauf messen.
+
+---
 
 ## Übergabe der letzten Sitzung (29.10.2026)
 
-**Was dazukam: Grafik in Richtung A „Tag, warm“ (K-22), in vier PRs:**
+**Grafik (K-22), PRs #42 bis #46:**
 
-- **#42 Grundlage:**
-  - Alle Farben, die Schrift und die Formen stehen als Fassung „tag-warm“ in `src/ui/grafik/fassungen.ts`, hell und dunkel. Ein Test prüft den Kontrast.
-  - `darstellung.svelte.ts` schreibt die Tokens an `<html>`.
-  - Unter „Über mich“ steht die Wahl „Aussehen“: Wie das Gerät, Hell oder Dunkel (Abend). Einstellung `darstellung.modus`.
-  - Die Schrift Nunito wird mitgeliefert (`@fontsource-variable/nunito`, T-16).
-  - Die Knöpfe `haupt`, `zweit` und `dezent` sind global in `grund.css` gestaltet.
-- **#43 Startseite** (`src/ui/start/`):
-  - Datum und Begrüßung, eine kleine Bastion als Bild, der große Knopf „Üben“ mit „Gerade dran“ und vier Kacheln.
-  - Die Leiste unten (Start, Üben, Bastion, Mein Stand) ist in allen Ansichten sichtbar.
-- **#44 Üben:**
-  - Kopf mit Thema, Niveau als Schild und Punkten für die Runde: Blöcke zu fünf Aufgaben, danach ein Pausenhinweis (R5).
-  - Die Knöpfe heißen „Prüfen“ und „Tipp“. Die Rückmeldung erscheint als Fläche.
-- **#45 Bastion:**
-  - Die Insel steht schräg von oben (`iso.ts`, `grafik-buehne.ts`). Am Abend stehen Mond und Sterne am Himmel, und die Fenster leuchten.
-  - Vier Karten zeigen den Vorrat. Das vorgemerkte Ziel hat einen Fortschrittsbalken.
-  - B-11 (Draufsicht) ist abgelöst.
+- Richtung A „Tag, warm“: Fassung mit Tokens (`src/ui/grafik/fassungen.ts`), Schrift Nunito mitgeliefert (T-16), Hell/Dunkel/System unter „Über mich“.
+- Startseite mit Leiste unten (Start, Üben, Bastion, Mehr). Sie passt auf das iPhone 13.
+- Üben mit Fortschrittspunkten und Pausenhinweis nach fünf Aufgaben.
+- Bastion als Insel schräg von oben (`iso.ts`, `grafik-buehne.ts`), abends mit Mond und leuchtenden Fenstern.
+- Alles in `GRAFIK.md` §5.
+
+**Neue Ausrichtung (dieser PR):** VISION v1.0, VERMITTLUNG.md, STRATEGIE §0, K-23 bis K-28, PLAN §4b, KONZEPT §0, CLAUDE.md um „Keine KI in der App“ ergänzt.
+
+**Offene Punkte:**
+
+- Fragen in `VERMITTLUNG.md` §8.
+- PDF- und Formelsatz-Technik für die Prüfungen (neue Abhängigkeit möglich, vorher fragen).
+- Niveau E und Operatoren-Training werden mit Klasse 11/12 nötig (`PLAN.md` §2.1).
+- KONZEPT vollständig überarbeiten, wenn der Pilot steht.
 
 **Lehren:**
 
-- Knöpfe gibt es jetzt doppelt, auf der Seite und in der Leiste. Browser-Tests suchen sie deshalb mit `page.getByRole('main').getByRole('button', …)`.
-- Auf dem Bauplatz tippen die Tests über `punkt()` aus `src/ui/bastion/grafik/iso.ts`. Das ist dieselbe Rechnung wie in der App.
-- Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf die Zeitgrenze von 5 s. Das passiert auf diesem Rechner auch auf `main`, in der CI nicht.
-- Prozesse nie mit `pkill -f "vite preview"` beenden. Das Muster trifft auch die eigene Shell. Stattdessen `pkill -f "[v]ite preview --port 4173"`.
-
-**Zahlen:**
-
-- Etwa 4454 Einheitentests und 37 Browser-Tests. Die Browser-Tests, Lint und Build sind grün. Bei den Einheitentests überschreitet lokal nur `fk.graph-ablesen` die Zeitgrenze (siehe oben).
-- App-Hülle 129,8 KB von 250 KB.
-- Bis #44 ist alles auf `main`. #45 (Bastion) ist der letzte PR dieser Sitzung.
+- Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für Einträge unter „Mehr“ gibt es `mehr(page)`.
+- Auf dem Bauplatz tippen die Tests über `punkt()` aus `iso.ts`.
+- Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
+- Prozesse nie mit `pkill -f "vite preview"` beenden, das Muster trifft die eigene Shell. Stattdessen `pkill -f "[v]ite preview --port 4173"`.
+- `tools/logische-css.test.ts` verbietet auch `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 
 ## Am Ende der Sitzung aktualisieren
 
 - [ ] „Aktueller Auftrag“ auf den nächsten Schritt setzen
-- [ ] „Übergabe der letzten Sitzung“ ersetzen
-- [ ] `PLAN.md` Stand und Checkboxen aktualisieren
+- [ ] Wichtige Entscheidungen und offene Punkte hier festhalten
+- [ ] `PLAN.md` und Entscheidungslogs anpassen

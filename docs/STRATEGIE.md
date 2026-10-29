@@ -3,7 +3,22 @@
 Status: v0.1 · Stand: 27.10.2026 · Überprüfung: Oktober 2027 (Monat 12)
 Bezug: `VISION.md` (Prinzipien), `PLAN.md` (Aufgaben), `WETTBEWERB.md` (Vergleich), `TESTS.md` (Realitätstests)
 
+> **Neue Ausrichtung seit 29.10.2026 (K-23 bis K-28):** Bastion wird Unterrichtsersatz ohne KI (`VISION.md` v1.0). Wo dieses Dokument davon abweicht, gilt die Vision. Neu ist §0 mit der Schwelle für Variante A; die Abschnitte 1 bis 8 bleiben als Plan für die Realitätstests gültig, ihr Ziel ist um die vier Kernaufgaben erweitert.
+
 ---
+
+## 0. Variante A „wirklich gut“ – die Schwelle vor Variante B (K-23)
+
+Variante B (Klassen, Lehrkräfte-Konten, zentrale Daten) bleibt gesperrt, bis alle Punkte erfüllt sind. Gemessen wird je **Klassenstufe**, beginnend mit Klasse 5.
+
+| Kernaufgabe | Kriterium für eine Klassenstufe |
+|---|---|
+| 1 Vermitteln | Jede Kompetenz hat eine geprüfte Erstvermittlung (Kriterien V1–V9, `VERMITTLUNG.md` §2.5). In Tests lösen mindestens 2 von 3 Lernenden, die das Thema nicht kannten, danach die Einstiegsaufgaben ohne fremde Hilfe. |
+| 2 Diagnostizieren & Erklären | Jede Kompetenz hat einen geprüften Fehlerkatalog (F1–F4). Mindestens 80 % der falschen Antworten in den Testrunden haben ein Fehlerbild (F5). Lernende beschreiben die Erklärungen als treffend. |
+| 3 Üben & Festigen | Alle Vorlagen sind geprüft (I-8). Der Behaltenstest (E2) zeigt einen Vorteil. |
+| 4 Steuern & Bewerten | Lernpfade führen zu Lücken zurück (Rückweg), eine erzeugte Klassenarbeit wird von einer Lehrkraft ohne Änderung als einsetzbar beurteilt. |
+
+Zusätzlich für ganz Variante A: Prüfungen auf Knopfdruck bis zum Abitur (K-25) funktionieren für Klasse 5 bis 12.
 
 ## 1. Oberstes Ziel
 
@@ -178,4 +193,10 @@ Prinzip 3 gilt auch für die eigene Erfolgsmessung: **Die App sendet nichts.** F
 | K-19 | **Nach Klasse 12: Mathe im Studium** (erweitert K-11). Reihenfolge: Brückenkurs vor dem Studium → Mathe für Ingenieure, Naturwissenschaften und Wirtschaft → Mathematik Bachelor und Lehramt (Analysis, Lineare Algebra) → darüber hinaus bis zur Mathe der theoretischen Physik (Tensoren, Differentialgeometrie, Hilberträume, partielle Differentialgleichungen; Physik als Kontext, kein eigenes Fach). Grundlage: Modulbeschreibungen sächsischer Universitäten (TU Dresden, Uni Leipzig, TU Chemnitz). Beweise als Bausteine (ordnen, fehlenden Schritt wählen, Fehler finden). Ab dem Studium gibt es das Niveau E (G = Rechnen, M = Verstehen, E = Beweisen). Eigene Studien-Epoche (B-26). Grenze: Forschungsniveau ohne eindeutig prüfbare Aufgaben bewertet die App nicht | Entschieden (28.10.2026, Projektverantwortlicher) |
 | K-20 | **Reihenfolge ab hier:** Klasse 8 abschließen → B-24, B-25, L-12, L-13 umsetzen → Klasse 9 bis 12 → Studium (K-19). *Ergänzt am 28.10.2026:* Vor Klasse 9 kommen die Anpassungen L-15 bis L-19 (Erwachsene, Altersgerechtigkeit, Wiedereinstieg, Klasse pflegen, „Gerade dran“, Klassenarbeit). Klasse 9 ist angehalten; ein Entwurf liegt nicht auf `main` | Entschieden (28.10.2026, Projektverantwortlicher) |
 | K-21 | **Auch für Erwachsene:** Bastion soll auch Erwachsenen dienen, die den Schulstoff neu lernen wollen (Zielgruppe erweitert, K-11). Dafür L-15 und L-16 | Entschieden (28.10.2026, Projektverantwortlicher) |
+| K-23 | **Bastion wird Unterrichtsersatz – ohne KI.** Die alte Vision „kein Ersatz für Unterricht“ ist aufgehoben. Ohne KI heißt: keine KI in der App; Inhalte dürfen mit KI-Hilfe entworfen werden und gelten erst nach menschlicher Prüfung als geprüft (bestätigt K-9). **Zuerst Variante A** (lokal, ohne Konto, Einzelne), **Variante B** (Klassen, Lehrkräfte-Konten, zentrale Steuerung) erst nach der Schwelle in §0. Offline-only, kein Konto und nichts Soziales gelten in A so streng wie möglich und sind für B verhandelbar | Entschieden (29.10.2026, Projektverantwortlicher) |
+| K-24 | **Die vier Kernaufgaben einer Lehrkraft sind verbindliche Qualitätskriterien:** Vermitteln, Diagnostizieren & Erklären, Üben & Festigen, Steuern & Bewerten (`VISION.md` §3, `VERMITTLUNG.md`). Priorität in Variante A: 1 und 2 eng verzahnt, dann Lernpfade, dann Üben, dann Leistungsnachweise und Portfolio | Entschieden (29.10.2026, Projektverantwortlicher) |
+| K-25 | **Prüfungen auf Knopfdruck bis zum Abitur:** druckbare PDFs mit jedes Mal neu erzeugten Übungen, Kurz- und Leistungskontrollen, Klassenarbeiten, Klausuren und Prüfungen bis zur Abiturprüfung Mathematik Sachsen GK und LK. **Maßstab: Das Abitur 2029 soll von einem Ministerium mit genau dieser Funktion erzeugt werden können.** Macht L-20 zum Ziel. R2-Ausnahme: Bearbeitungszeit nur auf dem Blatt oder als freiwillige Uhr ohne Folgen. Technik für PDF und Formelsatz offen (`VERMITTLUNG.md` §6) | Entschieden (29.10.2026, Projektverantwortlicher) |
+| K-26 | **Noten nur auf Wunsch:** Punkte und Bewertungshinweise immer, eine Note nach sächsischem Schlüssel nur, wenn sie ausdrücklich eingeschaltet ist (Standard aus). Üben bleibt ohne Bewertung. Ersetzt „Bastion benotet nicht“ | Entschieden (29.10.2026, Projektverantwortlicher) |
+| K-27 | **Der Basebau bleibt als Nebensache:** wie gebaut, abschaltbar (R7); keine neue Arbeit daran, bis Vermitteln und Diagnose für Klasse 5–8 stehen | Entschieden (29.10.2026, Projektverantwortlicher) |
+| K-28 | **Reihenfolge ab hier:** Format und Musterfeld Brüche → Klasse 5–8 mit Erstvermittlung und Fehlerkatalog nachrüsten → Klasse 9–12 gleich im neuen Format (mit Niveau E) → Prüfungen. Ersetzt K-20 für die Zeit nach Klasse 8 | Entschieden (29.10.2026, Projektverantwortlicher) |
 | K-22 | **Erst die Grafik, dann Klasse 9:** Bevor es mit Klasse 9 weitergeht, muss die Grafik deutlich ansprechender werden – Bastion und App für Jugendliche von 12 bis 16 Jahren. Anlass: Drei Testerinnen in diesem Alter stehen bereit, für den Moment mit Rückhalt ihrer Eltern (`TESTS.md` §2). Ihr Eindruck zählt mehr, wenn das Erste, was sie sehen, schon überzeugt | Gemerkt (29.10.2026, Projektverantwortlicher). *Entschieden (29.10.2026):* Eigener Stil aus dem Code, **Richtung A „Tag, warm“** für Bastion, Startseite und Üben. Die Leiste unten kommt dazu. Hell, Dunkel (Abendstimmung) und System sind wählbar. Die Grafik bleibt austauschbar (B-27). Die Einzelheiten stehen in `GRAFIK.md`. Umgesetzt wird erst in einer späteren Sitzung |

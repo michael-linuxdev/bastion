@@ -1,9 +1,29 @@
 # Bastion – Gesamtkonzept
 
-Status: v0.3 (Entscheidungen bestätigt) · Stand: 27.10.2026 · Bezug: `VISION.md`
+Status: v0.4 · Stand: 29.10.2026 · Bezug: `VISION.md` v1.0
+
+> **Neue Ausrichtung (K-23 bis K-28):** Bastion wird Unterrichtsersatz ohne KI. §0 fasst die Folgen zusammen. Die übrigen Abschnitte gelten weiter, soweit sie nicht widersprechen. Bei Widerspruch gelten `VISION.md` v1.0 und `VERMITTLUNG.md`. Eine vollständige Überarbeitung folgt mit dem Pilot.
 Detailtiefe: Überblick. Technik in `ARCHITEKTUR.md`; Basebau in `BASEBAU.md`, Kompetenzmodell in `LEHRPLAN.md`, Roadmap in `PLAN.md`.
 
 ---
+
+## 0. Unterrichtsersatz: die vier Kernaufgaben
+
+Jede Funktion dient mindestens einer der vier Kernaufgaben einer Lehrkraft (K-24, `VISION.md` §3). Sie sind die Qualitätskriterien des ganzen Konzepts:
+
+| Kernaufgabe | Bausteine (bestehend und neu) | Wo beschrieben |
+|---|---|---|
+| 1 Vermitteln | **neu:** Erstvermittlung je Kompetenz mit Verzweigungen und interaktiven Werkzeugen | `VERMITTLUNG.md` §2 |
+| 2 Diagnostizieren & Erklären | Fehlerbilder (I-7), **neu:** Fehlerkataloge mit Fehlvorstellungen, Diagnose nach Regeln, Rückwege in die Vermittlung | `VERMITTLUNG.md` §3 |
+| 3 Üben & Festigen | Generatoren, Hilfen, Lösungswege, Fehlerwerkstatt, FSRS (§3) | `INHALTSFORMAT.md`, `LEHRPLAN.md` §6 |
+| 4 Steuern & Bewerten | Kompetenzgraph, Diagnose „Wo stehe ich?“, Klassenarbeit (L-19), **neu:** Prüfungen auf Knopfdruck bis zum Abitur (K-25), Noten nur auf Wunsch (K-26) | `LEHRPLAN.md` §7, `VERMITTLUNG.md` §6 |
+
+Folgen für dieses Dokument:
+
+- §3.2 bekommt einen neuen ersten Lernmodus **Vermitteln** (vor Üben).
+- §5 (Basebau) ist Nebensache (K-27); die Belagerungen (§5.4) gehen in den Prüfungen auf Knopfdruck auf.
+- §7 (Portfolio) wird Teil von Kernaufgabe 4: Leistungsnachweise lokal und exportierbar.
+- Variante B (Klassen, Lehrkräfte) ist gesperrt bis zur Schwelle in `STRATEGIE.md` §0.
 
 ## 1. Systemüberblick
 
@@ -52,6 +72,7 @@ Langfristige Schleife: Wochen → Kompetenz-Meilensteine → neue Baupläne. Sch
 ### 3.2 Lernmodi
 | Modus | Zweck |
 |---|---|
+| **Vermitteln** (neu, K-24) | Erstvermittlung einer Kompetenz, bevor geübt wird (`VERMITTLUNG.md` §2) |
 | **Üben** | Neues festigen, adaptiv nach Niveau |
 | **Wiederholen** | Fällige Karten/Kompetenzen (SRS) |
 | **Diagnose** | Einstiegs- und Zwischenstandsbestimmung, ohne Ressourcenertrag-Druck |

@@ -1,6 +1,6 @@
 # Bastion – Plan
 
-Status: v0.2 · Stand: 27.10.2026
+Status: v0.3 · Stand: 29.10.2026
 Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12: `STRATEGIE.md`.** Dieses Dokument enthält nur **Stand und Aufgaben**.
 
 ---
@@ -11,7 +11,8 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 |---|---|
 | Aktuelle Phase | **0 – Fundament** |
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
-| Nächster Schritt | Vorlagen der Klasse 5 prüfen (Projektverantwortlicher, möglichst mit Lehrkraft); erste Übungsseite in der App; parallel Block E (Testpersonen, Angebote durchspielen, K-14) und 0.10 Referenzgeräte |
+| Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
+| Nächster Schritt | Fragen in `VERMITTLUNG.md` §8 klären, dann Format für Erstvermittlung und Fehlerkatalog festlegen (§4b, Schritt U1) |
 | Blocker | keine |
 
 ## 2. Phasenübersicht
@@ -38,7 +39,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 **Inhalte**
 - Kein zweites Fach. (Klassenstufen: 5–12 in Sachsen sind Zielgruppe; Inhalte entstehen Klassenstufe für Klassenstufe, `STRATEGIE.md` §2.)
 - Keine Inhalte einer höheren Klassenstufe, solange die laufende nicht abgeschlossen ist (K-15).
-- Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine.
+- Kein Niveau E (erweitert). Die Datenstruktur kennt es, Inhalte gibt es keine. *(Wird für den Leistungskurs ab Klasse 11 nötig, K-25/K-28.)*
 - Kein freies Zeichnen in der App. *(Geometrie, Diagramme und Statistik gehören dazu, sobald der sächsische Lehrplan sie verlangt – K-16. Zeichnen und Konstruieren mit Geodreieck und Zirkel werden erklärt, L-10.)*
 - Keine Formeleingabe (MathLive o. Ä.).
 - Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
@@ -49,13 +50,13 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 
 **Sprache und Zielgruppen**
 - Keine Hilfesprache, kein DaZ-Pfad, keine weiteren Oberflächensprachen. *Spannung zu Prinzip 7, bewusst in Kauf genommen (KONZEPT §13).* Abfederung: einfache Sprache, Fachbegriffe mit Erklärung, RTL-fähiges Layout bleibt.
-- Kein Operatoren-Training.
+- Kein Operatoren-Training. *(Wird mit den Prüfungen nötig, K-25 – erst nach Klasse 9 bis 12, K-28.)*
 - Keine berufliche Bildung (Lernfelder).
 
-**Funktionen und Plattform**
+**Funktionen und Plattform** *(K-23: Variante B bleibt gesperrt bis `STRATEGIE.md` §0)*
 - Kein QR-Transfer zwischen Geräten (Datei-Export/Import genügt).
 - Keine Elternstufe „vereinbart“. Es gibt „begleitet“ und – weil die Oberstufe zur Zielgruppe gehört – „selbstverwaltet“ ohne Elternbereich (K-4).
-- Kein Kompetenzportfolio zum Vorzeigen.
+- Kein Kompetenzportfolio zum Vorzeigen. *(Leistungsnachweise und Portfolio sind Priorität 4 von Variante A, K-24 – nach Vermitteln, Lernpfaden und Üben.)*
 - Kein Lehrkräfte-Modus, keine Klassen, keine Aufgabenpakete für Lehrkräfte.
 - Keine App-Store-Versionen.
 - Keine Mehrgeräte-Synchronisation.
@@ -179,6 +180,20 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 
 **Prüfkriterium Phase 1:** Die Schwelle „Lernkern trägt“ (`STRATEGIE.md` §3) ist erreicht – oder es ist klar, warum nicht und was sich ändern muss.
 
+## 4b. Unterrichtsersatz – Variante A (K-23 bis K-28)
+
+Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
+
+- [x] **U0** Neue Vision, vier Kernaufgaben als Qualitätskriterien, Konzept „Vermitteln und Diagnostizieren ohne KI“ (`VISION.md` v1.0, `VERMITTLUNG.md`, `STRATEGIE.md` §0)
+- [ ] **U1** Format für Erstvermittlung und Fehlerkatalog in `INHALTSFORMAT.md`; Prüfwerkzeug für Wege und Verweise; Datenmodell für Vermittlungs-Ereignisse und Zustand „vermittelt“
+- [ ] **U2** Musterfeld Brüche: Erstvermittlung und Fehlerkatalog für drei Kompetenzen; Werkzeuge Bruchstreifen und Zahlenstrahl
+- [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen
+- [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)
+- [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen
+- [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
+- [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
+- [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
+
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
 
 Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
@@ -194,6 +209,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 29.10.2026 | **Neue Ausrichtung: Unterrichtsersatz ohne KI** (K-23 bis K-28). `VISION.md` v1.0, neues `VERMITTLUNG.md`, Schwelle für Variante A in `STRATEGIE.md` §0, Arbeitsplan §4b; Nicht-Ziele §2.1 mit Hinweisen ergänzt |
 | 29.10.2026 | K-22 umgesetzt: Grafik in Richtung A „Tag, warm“ (`GRAFIK.md` §5); B-11 (Draufsicht) abgelöst; Schrift Nunito mitgeliefert (T-16) |
 | 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Späherturm (B-11 bis B-14) |
 | 27.10.2026 | Plan angelegt; Phase 0 gestartet; Arbeit im GitHub-Repository festgelegt |

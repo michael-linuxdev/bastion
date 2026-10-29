@@ -1,134 +1,148 @@
 # Bastion – Vision
 
-> „Baue deine Bastion.“
+> „Dein Unterricht. Ohne KI. In deiner Tasche.“
 
-Status: Entwurf v0.2 · Stand: 27.10.2026 · Verantwortlich: Tech/Konzept-Lead
+Status: v1.0 · Stand: 29.10.2026 · Neue Ausrichtung, beschlossen vom Projektverantwortlichen (K-23 bis K-28)
+Ersetzt: Entwurf v0.2 vom 27.10.2026 („Lernwerkzeug, kein Ersatz für Unterricht“)
 
 ---
 
 ## 1. Das Problem
 
-Jugendliche zwischen 10 und 19 lernen in einem Umfeld, das um ihre Aufmerksamkeit kämpft. Die meisten Lern-Apps reagieren darauf auf eine von zwei Arten:
+Viele Jugendliche bekommen in Mathe nicht den Unterricht, den sie brauchen:
 
-- **Sie werden selbst zur Aufmerksamkeitsmaschine** – Streaks, Ranglisten, Zufallsbelohnungen, Push-Druck. Kurzfristig wirksam, langfristig ermüdend, pädagogisch fragwürdig.
-- **Sie bleiben trockene Aufgabensammlungen** – sauber, aber ohne Grund, morgen wiederzukommen.
-
-Dazu kommen drei strukturelle Lücken:
-
-1. **Schulformen werden ignoriert.** Angebote richten sich meist implizit an Gymnasiasten. Hauptschule, Gesamtschule und vor allem berufsbildende Schulen sind unterversorgt.
-2. **Datenschutz ist ein Nachgedanke.** Accounts, Cloud-Zwang, Tracking und Werbung sind Standard.
-3. **Lernen wird als Stoffabarbeitung gezeigt, nicht als Kompetenzaufbau.** Jugendliche sehen selten, was sie *können* – nur, was sie noch *müssen*.
+- **Unterricht fällt aus oder erreicht sie nicht.** Lehrkräfte fehlen, Klassen sind groß, das Tempo passt selten für alle. Wer einmal den Anschluss verliert, holt ihn im Klassenverband kaum wieder auf.
+- **Nachhilfe ist teuer** und nicht überall zu haben.
+- **Lern-Apps üben nur.** Sie setzen voraus, dass jemand den Stoff schon erklärt hat. Wer etwas *nicht verstanden* hat, bekommt dort nur mehr vom Gleichen und „Leider falsch“.
+- **KI-Tutoren** erklären zwar, aber sie sind nicht nachprüfbar, schicken Daten an fremde Server, irren sich manchmal mit großer Sicherheit und brauchen ständig Netz.
 
 ## 2. Die Antwort
 
-**Bastion ist eine offline-fähige, datenschutzstarke Lern-App für Klasse 5–13 und berufsbildende Schulen, in der echte, nachgewiesene Kompetenz sichtbar wird – als eigene Festung, die über Jahre wächst.**
+**Bastion wird ein Ersatz für Unterricht – ohne KI.**
 
-Die Bastion ist kein Belohnungsautomat. Sie ist ein **Spiegel**: Jedes Gebäude, jede Mauer, jeder Turm steht für etwas, das der Jugendliche tatsächlich beherrscht. Wer seine Bastion anschaut, sieht seinen eigenen Lernweg.
+Bastion übernimmt die vier Kernaufgaben einer Lehrkraft (§3). Alles ist regelbasiert und inhaltsgetrieben. Die App arbeitet mit Aufgaben-Generatoren, handgepflegten Fehlerkatalogen, einem Kompetenzgraphen, Verzweigungen in den Erklärungen und geplanter Wiederholung (FSRS). Jede Erklärung und jede Rückmeldung ist vorher geschrieben, geprüft und nachvollziehbar. Die App rät nie.
 
-## 3. Leitbild in einem Satz
+Leitbild in einem Satz:
 
-> Bastion macht sichtbar, was du kannst – und gibt dir einen Ort, der mit dir wächst.
+> Bastion erklärt dir Mathe so, wie eine gute Lehrkraft es für dich allein tun würde – geduldig, genau, und ohne dass deine Daten das Gerät verlassen.
 
-## 4. Für wen
+## 3. Die vier Kernaufgaben (verbindliche Qualitätskriterien)
 
-Die Tabelle beschreibt die **Vision**. Bis Monat 12 gilt die engere Scope-Grenze in §11.
+Jede Kompetenz, jede Funktion und jede Ausbaustufe wird daran gemessen, wie gut sie diese vier Aufgaben erfüllt (K-24). Was keiner davon dient, hat keinen Vorrang.
+
+| # | Kernaufgabe | Was Bastion dafür tut | Woran wir Qualität erkennen |
+|---|---|---|---|
+| 1 | **Vermitteln** – Neues zum ersten Mal erklären | Eine interaktive **Erstvermittlung** je Kompetenz: Anknüpfen an Vorwissen, Erarbeiten in kleinen Schritten, Beispiel und Gegenbeispiel, Merksatz, Verständnisfragen (`VERMITTLUNG.md` §2) | Wer die Kompetenz noch nie gesehen hat, kann nach der Vermittlung die Einstiegsaufgaben lösen – ohne fremde Hilfe |
+| 2 | **Diagnostizieren & Erklären** – Denkfehler finden und auflösen | **Fehlerkataloge** je Kompetenz: typische Fehlvorstellungen mit Erkennungsregeln, Erklärung, Gegenbeispiel und Rückweg in die passende Stelle der Vermittlung (`VERMITTLUNG.md` §3) | Für die häufigen falschen Antworten gibt es eine Erklärung, die die *Ursache* trifft – nicht nur „falsch“ und den Lösungsweg |
+| 3 | **Üben & Festigen** | Generatoren mit beliebig vielen neuen Aufgaben, Hilfen, Lösungswege, Fehlerwerkstatt, Wiederholung nach FSRS | Gelerntes sitzt auch nach Wochen noch (gemessen an Wiederholungen) |
+| 4 | **Steuern & Bewerten** | Lernpfade über den Kompetenzgraphen, Diagnose „Wo stehe ich?“, Klassenarbeit vorbereiten, **Leistungsnachweise und Prüfungen auf Knopfdruck** bis zum Abitur (§6) | Der Lernpfad führt zu Lücken zurück, bevor Neues darauf aufbaut. Prüfungen entsprechen in Aufbau und Anspruch den echten |
+
+## 4. Ausbaustufen: zuerst Variante A, dann Variante B
+
+| | **Variante A – persönlicher Lehrer** (jetzt) | **Variante B – Klassenraum** (später) |
+|---|---|---|
+| Für wen | die einzelne Schülerin, der einzelne Schüler (und Erwachsene, K-21) | zusätzlich Lehrkräfte und Klassen |
+| Konto | kein Konto | Lehrkräfte-Konten möglich |
+| Daten | bleiben auf dem Gerät | zentrale Daten möglich, mit eigener Datenschutzprüfung |
+| Steuerung | durch die App und die Lernenden selbst, Eltern als letzte Instanz | zusätzlich durch Lehrkräfte |
+| Soziales | nichts | verhandelbar |
+
+**Variante B ist gesperrt, bis Variante A „wirklich gut“ ist** (K-23). Was „wirklich gut“ heißt, legt `STRATEGIE.md` fest. Bis dahin entsteht nichts, was nur Variante B nützt.
+
+## 5. Für wen
 
 | Gruppe | Was sie von Bastion brauchen |
 |---|---|
-| Schüler:innen Kl. 5–7 | Orientierung, klare Struktur, spielerischer Einstieg, Übergang aus der Grundschule (Lerninsel-Nachfolge) |
-| Schüler:innen Kl. 8–10 | Differenzierung nach Niveau, Abschlussvorbereitung (ESA/MSA), Autonomie |
-| Oberstufe Kl. 11–13 | Prüfungsvorbereitung Abitur, Selbststeuerung, ernstes Erscheinungsbild ohne Kindlichkeit |
-| Berufsbildende Schulen | Lernfeld-Bezug, berufsbezogene Kompetenzen, allgemeinbildende Fächer, Abschlussprüfung |
-| Jugendliche mit DaZ | Bildungssprache und Fachsprache als eigener Pfad, Hilfesprache durchgängig |
-| Jugendliche mit Fokus-Schwierigkeiten | Reizarme Modi, kurze Einheiten, klare Abschlüsse |
-| Eltern / Erziehungsberechtigte | Kontrolle und Einblick ohne Überwachung, altersgerecht abnehmend |
+| Schüler:innen Kl. 5–7 | Klare Erklärungen, kleine Schritte, Übergang aus der Grundschule |
+| Schüler:innen Kl. 8–10 | Lücken schließen, Niveau passend, Abschlussvorbereitung |
+| Oberstufe Kl. 11–12 | Grund- und Leistungskurs, Abiturvorbereitung, Klausuren |
+| Erwachsene (K-21) | Schulstoff neu lernen, ohne Kindlichkeit |
+| Eltern | Einblick ohne Überwachung, mit dem Alter abnehmend |
+| Später | Berufsbildende Schulen, weitere Fächer, Hilfesprache und DaZ-Pfad, Studium (K-19) |
 
-## 5. Was Bastion ist
+## 6. Prüfungen auf Knopfdruck – bis zum Abitur 2029
 
-- **Ein Lernwerkzeug zuerst.** Die Lerninhalte funktionieren vollständig ohne den Basebau.
-- **Ein langfristiger Begleiter.** Konzipiert für Jahre, nicht für Wochen. Eine Bastion aus Klasse 5 kann in Klasse 12 noch existieren.
-- **Ein Kompetenznachweis für den Jugendlichen selbst.** Das Kompetenzportfolio gehört dem Nutzer.
-- **Ruhig.** Bastion wartet. Sie verfällt nicht, sie wird nicht angegriffen, während man weg ist.
+Bastion soll auf Knopfdruck **druckbare PDFs mit völlig neu erzeugten Aufgaben** erstellen (K-25):
 
-## 6. Was Bastion ausdrücklich nicht ist
+- Übungsblätter,
+- Kurzkontrollen und Leistungskontrollen,
+- Klassenarbeiten und Klausuren,
+- Prüfungen bis zur **Abiturprüfung Mathematik in Sachsen, Grund- und Leistungskurs**.
 
-- Kein Clash-of-Clans-Klon. Wir übernehmen das **Gefühl** von Aufbau und Planung, **nicht** die Mechaniken, die Clash of Clans monetarisieren: Echtzeit-Timer, Beschleuniger, Angriffe auf Abwesende, Clan-Druck.
-- Kein soziales Netzwerk.
-- Kein Bewertungs- oder Notensystem. Bastion benotet nicht.
+Jeweils mit Aufgabenblatt, Lösungsblatt und Bewertungshinweisen getrennt. Jedes Mal entstehen neue Aufgaben aus den Generatoren, im Aufbau und Anspruch der echten Prüfung.
+
+**Der Maßstab ist ehrgeizig und bewusst so gesetzt:** Die Abiturprüfung Mathematik LK und GK Sachsen 2029 soll von einem Ministerium mit dieser App erzeugt werden können – mit genau derselben Funktion, die eine Schülerin zur Vorbereitung nutzt. Es gibt keine Sonderversion. Das zwingt zu höchster fachlicher Qualität, zu genauer Treue zu den Prüfungsvorgaben und zu nachvollziehbaren Generatoren.
+
+## 7. Was Bastion ist
+
+- **Ein Unterrichtsersatz für Mathematik**, zuerst in Sachsen, Klasse 5 bis 12.
+- **Nachprüfbar.** Jede Erklärung, jede Rückmeldung und jede Aufgabe lässt sich auf eine geprüfte Quelle im Repository zurückführen. Inhalte dürfen mit KI-Hilfe entworfen werden, gelten aber erst nach menschlicher Prüfung als geprüft (K-9, K-23).
+- **Offline und privat** in Variante A.
+- **Ruhig.** Kein Druck, kein Verfall, keine Uhr, die abläuft.
+- **Langfristig.** Ein Begleiter über Schuljahre.
+
+## 8. Was Bastion ausdrücklich nicht ist
+
+- **Keine KI in der App.** Kein Sprachmodell, keine automatisch formulierten Erklärungen, keine Netzabfrage für Inhalte.
+- Kein Clash-of-Clans-Klon und keine Aufmerksamkeitsmaschine.
+- Kein soziales Netzwerk (in Variante A gar nichts Soziales).
 - Kein Überwachungswerkzeug für Eltern oder Schule.
-- Kein Ersatz für Unterricht.
+- **Keine Pflicht-Noten.** Noten gibt es nur, wenn man sie ausdrücklich einschaltet. Standard ist aus (K-26).
 
-## 7. Unveränderliche Grundprinzipien
+## 9. Grundprinzipien
 
-Diese Prinzipien sind die Verfassung des Projekts. Jede Funktion muss sich an ihnen messen lassen.
+Diese Prinzipien gelten in Variante A so streng wie möglich. Prinzipien, die mit „B“ markiert sind, sind für Variante B später verhandelbar (K-23).
 
-1. **Erst lernen, dann spielen/bauen.** Bau-Ressourcen entstehen ausschließlich durch Lernen.
-2. **Offline-first.** Nach dem ersten Laden vollständig offline nutzbar.
-3. **Datenschutz zuerst.** Keine personenbezogenen Daten verlassen das Gerät, außer durch explizit vom Nutzer ausgelöste Exporte oder QR-Transfers. Einzige Netzabfrage nach außen: das echte Wetter, nur wenn es ausdrücklich eingeschaltet wurde, mit einem selbst eingetragenen groben Ort (ARCHITEKTUR T-15). Kein Zwangs-Account, kein Tracking.
-4. **Keine Werbung, keine In-App-Käufe, keine Lootboxen.**
-5. **Eltern als letzte Instanz** – PIN-geschützter Bereich mit Berichten und Einstellungen.
-6. **Kein sozialer Druck.** Keine öffentlichen Ranglisten, kein Pflicht-PvP, kein FOMO-Design.
-7. **Mehrsprachigkeit & Integration.** Hilfesprache und eigener DaZ-Pfad bleiben zentral.
-8. **Kompetenz vor Stoff.** Sichtbare, übertragbare Kompetenzen stehen im Mittelpunkt.
+1. **Vermitteln vor Üben.** Wer etwas noch nicht kennt, bekommt zuerst eine Erklärung, nicht eine Aufgabe.
+2. **Ohne KI, regelbasiert, nachprüfbar.**
+3. **Offline-first** (B). Nach dem ersten Laden vollständig offline nutzbar.
+4. **Datenschutz zuerst** (B). Keine personenbezogenen Daten verlassen das Gerät, außer durch ausdrücklich ausgelöste Exporte. Einzige Netzabfrage nach außen: das echte Wetter, nur nach Einschalten (ARCHITEKTUR T-15).
+5. **Kein Konto** (B).
+6. **Keine Werbung, keine Käufe, keine Lootboxen** – auch nicht in Variante B.
+7. **Kein sozialer Druck** (B). Keine Ranglisten, kein Vergleich mit anderen.
+8. **Eltern als letzte Instanz**, mit dem Alter abnehmend; ab 18 Selbstverwaltung (K-4, L-15).
+9. **Kompetenz vor Stoff.** Kompetenzen sind die Grundeinheit (K-2).
+10. **Mehrsprachigkeit und DaZ bleiben Ziel**, kommen aber später (§11).
 
-### Abgeleitete Design-Regeln (neu, verbindlich)
+### Design-Regeln R1–R7 (unverändert verbindlich)
 
-Aus den Prinzipien folgen konkrete Regeln, die wir hier festhalten, damit sie nicht in späteren Diskussionen aufweichen:
+- **R1 – Keine Zufallsbelohnungen.** Jede Belohnung ist vorhersehbar und nachvollziehbar.
+- **R2 – Keine Echtzeit-Timer.** Bauen dauert Lerneinheiten, nicht Stunden. *Ausnahme in Prüfungen (K-25):* Eine Bearbeitungszeit darf angezeigt werden, freiwillig und ohne Folgen für die Bastion – so wie auf dem Papier der echten Prüfung.
+- **R3 – Kein Verfall, keine Verluste.** Pausen werden nie bestraft.
+- **R4 – Qualität schlägt Menge.**
+- **R5 – Natürliche Pausenpunkte.** Jede Sitzung hat ein klares Ende.
+- **R6 – Fehler sind Rohstoff, keine Strafe.** Ein Fehler ist der Anlass für eine Erklärung.
+- **R7 – Der Basebau ist abschaltbar** – ohne Nachteil für das Lernen.
 
-- **R1 – Keine Zufallsbelohnungen.** Jede Belohnung ist vorhersehbar und nachvollziehbar. Keine variablen Belohnungsquoten, keine „Truhen“.
-- **R2 – Keine Echtzeit-Timer.** Bauen dauert *Lerneinheiten*, nicht Stunden auf der Uhr. Niemand muss um 6:40 Uhr die App öffnen.
-- **R3 – Kein Verfall, keine Verluste.** Pausen werden nie bestraft. Ferien, Krankheit, Prüfungsstress: Die Bastion wartet unverändert.
-- **R4 – Qualität schlägt Menge.** Ressourcen belohnen nachgewiesenes, dauerhaftes Können (z. B. bestandene Wiederholungen nach Tagen) stärker als reine Klickmenge. Tägliches Farmen hat abnehmenden Ertrag.
-- **R5 – Natürliche Pausenpunkte.** Jede Sitzung hat ein klares Ende. Die App sagt aktiv „Für heute ist das gut“.
-- **R6 – Fehler sind Rohstoff, keine Strafe.** Wer einen Fehler später korrigiert, wird dafür belohnt.
-- **R7 – Der Basebau ist abschaltbar** – vollständig und ohne Nachteil für den Lernfortschritt.
+### Die Bastion
 
-## 8. Erfolgskriterien
+Der Basebau bleibt, wie er gebaut ist: eine ruhige, abschaltbare Schicht, in der sichtbar wird, was jemand kann. Er ist **Nebensache** (K-27). Neue Arbeit daran gibt es erst, wenn Vermitteln und Diagnostizieren für Klasse 5 bis 8 stehen.
+
+## 10. Erfolgskriterien
 
 Bastion ist erfolgreich, wenn:
 
-- Nutzer **nachweislich behalten**, was sie gelernt haben (gemessen lokal über Wiederholungserfolg, nicht über Nutzungsdauer).
-- Nutzer über **Monate und Schuljahre** wiederkommen, ohne dass Druckmechanismen nötig sind.
-- Ein Hauptschüler und eine Abiturientin die App **beide als „für mich gemacht“** empfinden.
-- Eltern sagen: „Ich weiß, was mein Kind lernt, ohne es zu überwachen.“
-- Jugendliche ihr Kompetenzportfolio **freiwillig** zeigen (Bewerbung, Lehrkraft, Familie).
+- jemand ein Thema **nur mit Bastion** lernen kann, das er vorher nicht konnte – nachgewiesen durch eine Prüfung, die er vorher nicht bestanden hätte;
+- die Erklärungen bei Fehlern die **Ursache** treffen. Lernende sagen: „Jetzt verstehe ich, was ich falsch gemacht habe.“;
+- Gelerntes nach Wochen noch sitzt;
+- eine Lehrkraft eine erzeugte Klassenarbeit **ohne Änderung** einsetzen würde;
+- das Abitur 2029 aus Bastion erzeugt werden kann (§6).
 
-Bewusst **keine** Erfolgskriterien: tägliche aktive Nutzer, Sitzungsdauer, Streak-Längen.
+Bewusst **keine** Erfolgskriterien: tägliche Nutzer, Sitzungsdauer, Streaks.
 
-Konkrete, messbare Kriterien für die ersten 12 Monate: `STRATEGIE.md` §6 (K-13).
+## 11. Scope
 
-## 9. Abgrenzung zur Lerninsel
-
-| | Lerninsel | Bastion |
-|---|---|---|
-| Alter | 6–10 | 10–19+ |
-| Welt | Kinderinsel, freundlich | Festung, Zufluchtsort, eigenständig |
-| Motivation | Sterne, kurze Spiele | Langfristiger Aufbau, Planung, Sichtbarkeit von Können |
-| Inhalt | Grundschulstoff | Fachkompetenzen nach Schulform, Niveau, Bildungsgang |
-| Eltern | Volle Kontrolle | Mit dem Alter abnehmend bis Selbstverwaltung |
-| Ziel | Grundlagen sichern | Kompetenz, Abschlüsse, Übergänge |
-
-## 10. Das Versprechen an die Nutzer
-
-> Was du hier baust, hast du dir selbst erarbeitet. Niemand kann es dir kaufen, niemand kann es dir wegnehmen, und es verrät niemandem etwas über dich, das du nicht selbst teilst.
-
-## 11. Scope-Grenze bis Monat 12 (verbindlich)
-
-Die Vision bleibt Klasse 5–13 und berufsbildende Schulen. Um sie zu erreichen, muss Bastion zuerst für **eine** Gruppe spürbar besser sein als alles andere. Eingegrenzt wird über Fach, Bundesland und Inhalte, nicht über das Alter. Bis Oktober 2027 gilt (K-11, Begründung in `STRATEGIE.md` §2):
-
-| | Bis Monat 12 |
+| | Variante A, jetzt |
 |---|---|
-| Fach | **Mathematik** |
-| Bundesland | **Sachsen** |
-| Klassenstufen | **5–12** von Anfang an, alle allgemeinbildenden Schularten; berufliche Bildung später |
-| Niveaus | **grundlegend (G)** und **mittel (M)**; erweitert (E) später |
-| Zielgruppe | Schülerinnen und Schüler, die in Mathe unsicher oder durchschnittlich sind – zum Start vor allem mit Lücken bei Brüchen |
-| Inhalte | Klassenstufe für Klassenstufe (K-15): zuerst Klasse 5 vollständig, dann Klasse 6 usw. |
-| Maßstab | Die sächsischen Lehrpläne Mathematik (Oberschule 2019, Gymnasium 2021) sind bindend (K-16) |
-| Priorität | Lernkern vor Basebau (K-12); ~~Basebau nur als Minimum, bis Jugendliche den Lernkern als besser beschreiben~~ – seit K-18 wird Epoche 1 vollständig mit Grafik gebaut |
+| Fach | Mathematik |
+| Bundesland | Sachsen; Lehrpläne Oberschule 2019 und Gymnasium 2021 sind bindend (K-16) |
+| Klassenstufen | 5–12, alle allgemeinbildenden Schularten; Abiturprüfung GK und LK |
+| Niveaus | G und M; **E (erweitert) für den Leistungskurs** wird mit Klasse 11/12 nötig |
+| Reihenfolge | **Zuerst Klasse 5 bis 8 mit Erstvermittlung und Fehlerkatalog nachrüsten**, dann Klasse 9 bis 12 gleich im neuen Format (K-28), dann Prüfungen bis zum Abitur |
+| Später | weitere Fächer, berufliche Bildung, Hilfesprache und DaZ-Pfad, Studium (K-19), Variante B |
 
-Alles andere steht ausdrücklich auf „später“: Liste der Nicht-Ziele in `PLAN.md` §2.1.
+Nicht-Ziele im Einzelnen: `PLAN.md` §2.1.
 
-Die Grundprinzipien (§7) gelten unverändert. Besonders Prinzip 3 gilt auch für die eigene Erfolgsmessung: Gemessen wird nur, was Teilnehmende freiwillig weitergeben (`STRATEGIE.md` §7).
+## 12. Das Versprechen an die Nutzer
 
-*Spannung zu Prinzip 7:* Hilfesprache und DaZ-Pfad gehören nicht zum Scope der ersten 12 Monate. Das ist ein bewusster Aufschub, kein Abrücken (KONZEPT §13). Einfache Sprache und RTL-fähiges Layout bleiben Pflicht.
+> Hier lernst du, ohne dass dich jemand bewertet, der dich nicht kennt, und ohne dass deine Daten dein Gerät verlassen. Jede Erklärung hat ein Mensch geprüft. Was du kannst, hast du dir selbst erarbeitet.
