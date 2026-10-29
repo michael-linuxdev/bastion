@@ -14,6 +14,7 @@
     type BauAuftrag,
   } from '../plattform/ablage';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
+  import { BUEHNE_B, BUEHNE_H, RAUTE_B } from './grafik/iso';
   import { gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
 
@@ -41,7 +42,7 @@
   });
   $effect(() => {
     if (!zoomGeladen || fensterBreite === 0) return;
-    zoom = gewaehlterZoom ?? (fensterBreite / 12 < 44 ? 1.5 : 1);
+    zoom = gewaehlterZoom ?? ((fensterBreite * RAUTE_B) / BUEHNE_B < 44 ? 1.5 : 1);
   });
   const stufeIndex = $derived(
     Math.max(
@@ -87,6 +88,11 @@
       linie: v('--bastion-linie'),
       imBau: v('--farbe-akzent'),
       auswahl: v('--farbe-akzent'),
+      himmel: v('--farbe-himmel'),
+      licht: v('--farbe-licht'),
+      wolke: v('--farbe-flaeche'),
+      dach: v('--farbe-akzent-warm'),
+      abend: darstellung.dunkel,
       familie: {
         kern: v('--bastion-kern'),
         wissen: v('--bastion-wissen'),
@@ -187,11 +193,17 @@
         onclick={() => zoomen(1)}>+</button
       >
     </div>
-    <div class="fenster" bind:this={fenster} bind:clientWidth={fensterBreite}>
+    <div
+      class="fenster"
+      style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
+      bind:this={fenster}
+      bind:clientWidth={fensterBreite}
+    >
       <div
         class="bauplatz"
         class:versetzen
         style:inline-size={`${zoom * 100}%`}
+        style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
         bind:this={rahmen}
         aria-hidden="true"
         onpointerdown={(e) => (druck = { x: e.clientX, y: e.clientY })}
@@ -251,17 +263,15 @@
 <style>
   .fenster {
     inline-size: 100%;
-    max-inline-size: 30rem;
-    aspect-ratio: 1;
+    max-inline-size: 36rem;
     overflow: auto;
     overscroll-behavior: contain;
-    border-radius: var(--radius);
-    border: 1px solid var(--farbe-rand);
-    background: var(--bastion-boden);
+    border-radius: var(--radius-karte);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    background: var(--farbe-himmel);
   }
 
   .bauplatz {
-    aspect-ratio: 1;
     cursor: pointer;
     touch-action: pan-x pan-y;
   }

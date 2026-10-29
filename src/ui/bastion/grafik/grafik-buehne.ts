@@ -1,7 +1,9 @@
-// Bauplatz als Grafik (ARCHITEKTUR T-6, BASEBAU B-11/B-12, Schritte 2.12–2.13):
-// PixiJS, nachgeladen nur bei geöffneter Bastion. Draufsicht, schlichter eigener
-// Stil: je Rolle eine Form aus dem Code, Farbe je Gebäudefamilie – austauschbar
-// je Thema und Skin (B-17, B-18). Diese Datei ist der einzige Ort, der PixiJS
+// Bauplatz als Grafik (ARCHITEKTUR T-6, BASEBAU B-11/B-12, GRAFIK §1):
+// PixiJS, nachgeladen nur bei geöffneter Bastion. Richtung A „Tag, warm“: die Insel
+// schräg von oben (isometrisch), flache Farbflächen mit zwei Seitentönen je Gebäude,
+// Himmel mit Sonne und Wolken; dunkel als Abend mit erleuchteten Fenstern.
+// Je Rolle eine Form aus dem Code, Farbe je Gebäudefamilie – austauschbar je Thema
+// und Skin (B-17, B-18, B-27). Diese Datei ist der einzige Ort, der PixiJS
 // importiert; die Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
@@ -13,6 +15,7 @@ import {
   type GebaeudeTyp,
   type Position,
 } from '../../../core/bastion/katalog';
+import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 
 export interface Farben {
   readonly boden: string;
@@ -21,6 +24,14 @@ export interface Farben {
   readonly familie: Readonly<Record<Familie, string>>;
   readonly imBau: string;
   readonly auswahl: string;
+  readonly himmel: string;
+  /** Sonne bei Tag, Mond und Fenster am Abend */
+  readonly licht: string;
+  readonly wolke: string;
+  /** Dächer */
+  readonly dach: string;
+  /** Abendstimmung: Fenster leuchten, Sterne statt Wolken */
+  readonly abend: boolean;
 }
 
 export interface Ansicht {
@@ -37,129 +48,304 @@ export interface Buehne {
   zerstoere(): void;
 }
 
-/** Größe eines Feldes in Bildpunkten – die Bühne wird per CSS auf die Breite skaliert */
-const FELD = 40;
+type Punkt = { x: number; y: number };
 
-/** Schlichte Draufsicht je Rolle (B-12). x, y, w, t in Bildpunkten. */
+/** Farbe abdunkeln (Seitentöne): f = 1 bleibt, f = 0.7 ist 30 % dunkler. */
+function dunkler(farbe: string, f: number): string {
+  const n = parseInt(farbe.slice(1, 7), 16);
+  const kanal = (s: number) =>
+    Math.round(((n >> s) & 255) * f)
+      .toString(16)
+      .padStart(2, '0');
+  return `#${kanal(16)}${kanal(8)}${kanal(0)}`;
+}
+
+const hoch = (p: Punkt, h: number): Punkt => ({ x: p.x, y: p.y - h });
+const flach = (...p: Punkt[]) => p.flatMap((q) => [q.x, q.y]);
+
+/** Höhe des Körpers je Rolle in Bildpunkten; Kern und Turm wachsen mit der Stufe. */
+function hoehe(typ: GebaeudeTyp, stufe: number): number {
+  const grund: Record<GebaeudeTyp, number> = {
+    kern: 54,
+    turm: 46,
+    werkstatt: 26,
+    wissen: 28,
+    eingang: 32,
+    einfassung: 12,
+    ursprung: 8,
+    zeichen: 6,
+    flaeche: 3,
+    denkmal: 14,
+  };
+  return grund[typ] + (typ === 'kern' || typ === 'turm' ? (stufe - 1) * 8 : 0);
+}
+
+/** Ecken eines Rechtecks auf dem Boden: hinten, rechts, vorne, links */
+function ecken(gx: number, gy: number, w: number, t: number, rand: number) {
+  return {
+    hinten: punkt(gx + rand, gy + rand),
+    rechts: punkt(gx + w - rand, gy + rand),
+    vorne: punkt(gx + w - rand, gy + t - rand),
+    links: punkt(gx + rand, gy + t - rand),
+  };
+}
+
+/** Quader mit Deckfläche und zwei Seitentönen; gibt die Ecken der Deckfläche zurück. */
+function quader(
+  g: Graphics,
+  boden: ReturnType<typeof ecken>,
+  h: number,
+  farbe: string,
+  linie: string,
+  /** Höhe, auf der der Quader steht (z. B. ein Turm auf dem Bergfried) */
+  basis = 0,
+) {
+  const e = {
+    hinten: hoch(boden.hinten, basis),
+    rechts: hoch(boden.rechts, basis),
+    vorne: hoch(boden.vorne, basis),
+    links: hoch(boden.links, basis),
+  };
+  const o = {
+    hinten: hoch(e.hinten, h),
+    rechts: hoch(e.rechts, h),
+    vorne: hoch(e.vorne, h),
+    links: hoch(e.links, h),
+  };
+  const kontur = { width: 1, color: linie, alpha: 0.35 };
+  g.poly(flach(e.links, e.vorne, o.vorne, o.links))
+    .fill(dunkler(farbe, 0.82))
+    .stroke(kontur);
+  g.poly(flach(e.vorne, e.rechts, o.rechts, o.vorne))
+    .fill(dunkler(farbe, 0.66))
+    .stroke(kontur);
+  g.poly(flach(o.hinten, o.rechts, o.vorne, o.links))
+    .fill(farbe)
+    .stroke(kontur);
+  return o;
+}
+
+/** Fenster auf beiden sichtbaren Seiten; am Abend leuchten sie. */
+function fenster(g: Graphics, e: ReturnType<typeof ecken>, h: number, f: Farben) {
+  const farbe = f.abend ? f.licht : dunkler(f.linie, 1);
+  const alpha = f.abend ? 1 : 0.35;
+  for (const [a, b] of [
+    [e.links, e.vorne],
+    [e.vorne, e.rechts],
+  ] as const) {
+    const m = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - h * 0.55 };
+    g.roundRect(m.x - 3, m.y - 5, 6, 10, 3).fill({ color: farbe, alpha });
+  }
+}
+
+/** Dach als Pyramide über der Deckfläche */
+function pyramide(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben) {
+  const spitze = hoch({ x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 }, h);
+  const kontur = { width: 1, color: f.linie, alpha: 0.35 };
+  g.poly(flach(o.links, o.vorne, spitze))
+    .fill(dunkler(f.dach, 0.85))
+    .stroke(kontur);
+  g.poly(flach(o.vorne, o.rechts, spitze))
+    .fill(dunkler(f.dach, 0.7))
+    .stroke(kontur);
+}
+
+/** Satteldach entlang der Breite */
+function satteldach(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben) {
+  const firstL = hoch({ x: (o.hinten.x + o.links.x) / 2, y: (o.hinten.y + o.links.y) / 2 }, h);
+  const firstR = hoch({ x: (o.rechts.x + o.vorne.x) / 2, y: (o.rechts.y + o.vorne.y) / 2 }, h);
+  const kontur = { width: 1, color: f.linie, alpha: 0.35 };
+  g.poly(flach(o.links, o.vorne, firstR, firstL))
+    .fill(dunkler(f.dach, 0.9))
+    .stroke(kontur);
+  g.poly(flach(o.vorne, o.rechts, firstR))
+    .fill(dunkler(f.dach, 0.7))
+    .stroke(kontur);
+}
+
+/** Ein Gebäude je Rolle (B-12) */
 function zeichneRolle(
   g: Graphics,
   typ: GebaeudeTyp,
   stufe: number,
-  x: number,
-  y: number,
-  w: number,
-  t: number,
+  pos: Position,
   farbe: string,
-  linie: string,
+  f: Farben,
 ) {
-  const m = { x: x + w / 2, y: y + t / 2 };
-  const r = Math.min(w, t) / 2;
-  const kontur = { width: 2, color: linie };
+  const [w, t] = KATALOG[typ].groesse;
+  const h = hoehe(typ, stufe);
   switch (typ) {
     case 'kern': {
-      // Turm mit Zinnen: Quadrat, innen ein zweites, Zinnen am Rand
-      g.rect(x, y, w, t).fill(farbe).stroke(kontur);
-      const z = w / 7;
-      for (let i = 0; i < 7; i += 2) {
-        g.rect(x + i * z, y - 3, z, 6)
-          .fill(farbe)
-          .stroke({ width: 1, color: linie });
-        g.rect(x + i * z, y + t - 3, z, 6)
-          .fill(farbe)
-          .stroke({ width: 1, color: linie });
-      }
-      g.rect(x + w * 0.3, y + t * 0.3, w * 0.4, t * 0.4).stroke(kontur);
+      const e = ecken(pos.x, pos.y, w, t, 0.12);
+      const o = quader(g, e, h, farbe, f.linie);
+      // Zinnen an den beiden vorderen Kanten
+      for (const [a, b] of [
+        [o.links, o.vorne],
+        [o.vorne, o.rechts],
+      ] as const)
+        for (const s of [0.1, 0.45, 0.8]) {
+          const p = { x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s };
+          const q = { x: a.x + (b.x - a.x) * (s + 0.12), y: a.y + (b.y - a.y) * (s + 0.12) };
+          g.poly(flach(p, q, hoch(q, 6), hoch(p, 6))).fill(dunkler(farbe, 0.75));
+        }
+      fenster(g, e, h, f);
+      // Turm in der Mitte mit Dach
+      const innen = ecken(pos.x + w * 0.3, pos.y + t * 0.3, w * 0.4, t * 0.4, 0);
+      const spitze = quader(g, innen, 26, farbe, f.linie, h);
+      pyramide(g, spitze, 24, f);
       break;
     }
-    case 'turm':
-      g.circle(m.x, m.y, r).fill(farbe).stroke(kontur);
-      g.circle(m.x, m.y, r * 0.45).stroke({ width: 1.5, color: linie });
+    case 'turm': {
+      const e = ecken(pos.x, pos.y, w, t, 0.18);
+      const o = quader(g, e, h, farbe, f.linie);
+      pyramide(g, o, 22, f);
+      fenster(g, e, h, f);
       break;
-    case 'werkstatt':
-      // Dach von oben: Rechteck mit First
-      g.rect(x, y, w, t).fill(farbe).stroke(kontur);
-      g.moveTo(x, y)
-        .lineTo(m.x, m.y)
-        .lineTo(x + w, y)
-        .moveTo(x, y + t)
-        .lineTo(m.x, m.y)
-        .lineTo(x + w, y + t);
-      g.stroke({ width: 1.5, color: linie });
+    }
+    case 'werkstatt': {
+      const e = ecken(pos.x, pos.y, w, t, 0.1);
+      const o = quader(g, e, h, farbe, f.linie);
+      satteldach(g, o, 16, f);
+      fenster(g, e, h, f);
       break;
-    case 'wissen':
-      // offenes Buch
-      g.roundRect(x, y, w, t, 4).fill(farbe).stroke(kontur);
-      g.moveTo(m.x, y + t * 0.2).lineTo(m.x, y + t * 0.8);
-      for (const f of [0.35, 0.5, 0.65]) {
-        g.moveTo(x + w * 0.2, y + t * f).lineTo(x + w * 0.42, y + t * f);
-        g.moveTo(x + w * 0.58, y + t * f).lineTo(x + w * 0.8, y + t * f);
-      }
-      g.stroke({ width: 1.5, color: linie });
+    }
+    case 'wissen': {
+      const e = ecken(pos.x, pos.y, w, t, 0.12);
+      const o = quader(g, e, h, farbe, f.linie);
+      pyramide(g, o, 16, f);
+      fenster(g, e, h, f);
       break;
-    case 'eingang':
-      // Torbogen: Rechteck mit Durchgang
-      g.rect(x, y, w, t).fill(farbe).stroke(kontur);
-      g.roundRect(x + w * 0.3, y + t * 0.35, w * 0.4, t * 0.65, 6).fill(linie);
+    }
+    case 'eingang': {
+      const e = ecken(pos.x, pos.y, w, t, 0.1);
+      quader(g, e, h, farbe, f.linie);
+      // Torbogen auf der linken Seite
+      const m = { x: (e.links.x + e.vorne.x) / 2, y: (e.links.y + e.vorne.y) / 2 };
+      g.roundRect(m.x - 6, m.y - 20, 12, 18, 6).fill({ color: f.linie, alpha: 0.7 });
       break;
+    }
     case 'einfassung':
-      // drei Pfähle
-      for (let i = 0; i < 3; i++)
-        g.roundRect(x + (w / 3) * i + 2, y + 2, w / 3 - 4, t - 4, 3)
-          .fill(farbe)
-          .stroke({ width: 1, color: linie });
+      for (let i = 0; i < 3; i++) {
+        const e = ecken(pos.x + (w / 3) * i, pos.y, w / 3, t, 0.08);
+        quader(g, e, h, farbe, f.linie);
+      }
       break;
-    case 'ursprung':
-      g.circle(m.x, m.y, r * 0.9)
-        .fill(farbe)
-        .stroke(kontur);
-      g.poly([
-        m.x,
-        m.y - r * 0.55,
-        m.x + r * 0.35,
-        m.y + r * 0.4,
-        m.x - r * 0.35,
-        m.y + r * 0.4,
-      ]).fill(linie);
+    case 'ursprung': {
+      // Feuerstelle: flacher Ring, darin eine Flamme
+      const e = ecken(pos.x, pos.y, w, t, 0.2);
+      const o = quader(g, e, h, farbe, f.linie);
+      const m = { x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 };
+      g.poly([m.x, m.y - 14, m.x + 5, m.y, m.x - 5, m.y]).fill(f.licht);
       break;
-    case 'zeichen':
+    }
+    case 'zeichen': {
       // Mast mit Fahne
-      g.moveTo(x + w * 0.3, y + t * 0.1)
-        .lineTo(x + w * 0.3, y + t * 0.9)
-        .stroke({ width: 2.5, color: linie });
-      g.poly([x + w * 0.3, y + t * 0.12, x + w * 0.85, y + t * 0.3, x + w * 0.3, y + t * 0.5])
+      const e = ecken(pos.x, pos.y, w, t, 0.3);
+      quader(g, e, h, dunkler(f.boden, 0.8), f.linie);
+      const fuss = hoch({ x: (e.hinten.x + e.vorne.x) / 2, y: (e.hinten.y + e.vorne.y) / 2 }, h);
+      const spitze = hoch(fuss, 40);
+      g.moveTo(fuss.x, fuss.y).lineTo(spitze.x, spitze.y).stroke({ width: 2.5, color: f.linie });
+      g.poly([spitze.x, spitze.y, spitze.x + 18, spitze.y + 6, spitze.x, spitze.y + 12])
         .fill(farbe)
-        .stroke({ width: 1, color: linie });
+        .stroke({ width: 1, color: f.linie, alpha: 0.5 });
       break;
+    }
     case 'flaeche': {
-      g.roundRect(x, y, w, t, 10).fill(farbe).stroke(kontur);
-      for (const [fx, fy] of [
+      const e = ecken(pos.x, pos.y, w, t, 0.06);
+      const o = quader(g, e, h, farbe, f.linie);
+      for (const [sx, sy] of [
         [0.3, 0.3],
         [0.7, 0.35],
         [0.4, 0.7],
         [0.72, 0.72],
         [0.5, 0.5],
-      ] as const)
-        g.circle(x + w * fx, y + t * fy, r * 0.12).fill(linie);
+      ] as const) {
+        const p = {
+          x: o.hinten.x + (o.rechts.x - o.hinten.x) * sx + (o.links.x - o.hinten.x) * sy,
+          y: o.hinten.y + (o.rechts.y - o.hinten.y) * sx + (o.links.y - o.hinten.y) * sy,
+        };
+        g.circle(p.x, p.y, 2.5).fill(dunkler(farbe, 0.6));
+      }
       break;
     }
-    case 'denkmal':
-      g.poly([m.x, y, x + w, m.y, m.x, y + t, x, m.y])
+    case 'denkmal': {
+      const e = ecken(pos.x, pos.y, w, t, 0.22);
+      const o = quader(g, e, h, dunkler(f.boden, 0.85), f.linie);
+      const m = { x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 };
+      g.poly([m.x, m.y - 26, m.x + 8, m.y, m.x, m.y + 4, m.x - 8, m.y])
         .fill(farbe)
-        .stroke(kontur);
-      g.circle(m.x, m.y, r * 0.2).fill(linie);
+        .stroke({ width: 1, color: f.linie, alpha: 0.5 });
       break;
+    }
   }
-  // Stufe als Punkte unten rechts (ab Stufe 2)
-  for (let i = 0; i < stufe && stufe > 1; i++)
-    g.circle(x + w - 5 - i * 7, y + t - 5, 2.5).fill(linie);
+  // Stufe als Punkte an der vorderen Ecke (ab Stufe 2)
+  if (stufe > 1) {
+    const v = punkt(pos.x + w, pos.y + t);
+    for (let i = 0; i < stufe; i++) g.circle(v.x - 4 - i * 7, v.y - 6, 2.5).fill(f.linie);
+  }
+}
+
+/** Raute auf dem Boden – für Auswahl, Ziel und Neubauten */
+function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
+  const [w, t] = KATALOG[typ].groesse;
+  const e = ecken(pos.x, pos.y, w, t, abstand);
+  return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
+}
+
+/** Himmel: Sonne und Wolken am Tag, Mond und Sterne am Abend – feste Plätze, kein Zufall. */
+function himmel(g: Graphics, f: Farben) {
+  g.circle(BUEHNE_B - 70, 52, f.abend ? 16 : 22).fill(f.licht);
+  if (f.abend) {
+    g.circle(BUEHNE_B - 62, 46, 14).fill(f.himmel);
+    for (const [x, y] of [
+      [60, 30],
+      [140, 70],
+      [210, 24],
+      [300, 54],
+      [380, 20],
+      [460, 80],
+      [90, 96],
+    ] as const)
+      g.circle(x, y, 1.6).fill({ color: f.licht, alpha: 0.8 });
+  } else {
+    for (const [x, y, s] of [
+      [90, 50, 1],
+      [300, 34, 0.8],
+    ] as const) {
+      g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
+      g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
+    }
+  }
+}
+
+/** Die Insel: Deckfläche mit Raster, zwei Seitentöne nach vorn */
+function insel(g: Graphics, f: Farben) {
+  const W = BAUPLATZ.breite;
+  const T = BAUPLATZ.tiefe;
+  const [h, r, v, l] = [punkt(0, 0), punkt(W, 0), punkt(W, T), punkt(0, T)];
+  const u = (p: Punkt) => ({ x: p.x, y: p.y + INSEL });
+  g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
+  g.poly(flach(v, r, u(r), u(v))).fill(dunkler(f.boden, 0.62));
+  g.poly(flach(h, r, v, l)).fill(f.boden);
+  for (let i = 0; i <= W; i++) {
+    const a = punkt(i, 0);
+    const b = punkt(i, T);
+    g.moveTo(a.x, a.y).lineTo(b.x, b.y);
+  }
+  for (let j = 0; j <= T; j++) {
+    const a = punkt(0, j);
+    const b = punkt(W, j);
+    g.moveTo(a.x, a.y).lineTo(b.x, b.y);
+  }
+  g.stroke({ width: 1, color: f.raster });
 }
 
 export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promise<Buehne> {
   const app = new Application();
   await app.init({
-    width: BAUPLATZ.breite * FELD,
-    height: BAUPLATZ.tiefe * FELD,
-    background: farben.boden,
+    width: BUEHNE_B,
+    height: BUEHNE_H,
+    background: farben.himmel,
     antialias: true,
     // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
     resolution: Math.min(4, (globalThis.devicePixelRatio || 1) * 2),
@@ -173,57 +359,61 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  const raster = new Graphics();
-  for (let i = 0; i <= BAUPLATZ.breite; i++)
-    raster.moveTo(i * FELD, 0).lineTo(i * FELD, BAUPLATZ.tiefe * FELD);
-  for (let j = 0; j <= BAUPLATZ.tiefe; j++)
-    raster.moveTo(0, j * FELD).lineTo(BAUPLATZ.breite * FELD, j * FELD);
-  raster.stroke({ width: 1, color: farben.raster });
+  const hintergrund = new Graphics();
+  himmel(hintergrund, farben);
+  insel(hintergrund, farben);
   const gebaeude = new Container();
-  app.stage.addChild(raster, gebaeude);
+  app.stage.addChild(hintergrund, gebaeude);
 
-  const rand = 5;
-  const rechteck = (pos: Position, typ: GebaeudeTyp) => {
-    const [w, t] = KATALOG[typ].groesse;
-    return [
-      pos.x * FELD + rand,
-      pos.y * FELD + rand,
-      w * FELD - 2 * rand,
-      t * FELD - 2 * rand,
-    ] as const;
-  };
+  /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
+  let treffer: { pos: Position; umriss: number[] }[] = [];
 
   return {
     zeichne(b, a) {
       gebaeude.removeChildren().forEach((c) => c.destroy());
       const g = new Graphics();
-      for (const x of b.bauwerke) {
-        const [px, py, w, t] = rechteck(x.pos, x.typ);
+      // Neubauten im Bau: Umriss auf dem Boden
+      for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
+        raute(g, v.pos, v.typ, 0.1)
+          .fill({ color: farben.imBau, alpha: 0.18 })
+          .stroke({ width: 2, color: farben.imBau });
+      }
+      // Von hinten nach vorn zeichnen, damit Vorderes Hinteres verdeckt
+      const reihe = [...b.bauwerke].sort((p, q) => {
+        const [pw, pt] = KATALOG[p.typ].groesse;
+        const [qw, qt] = KATALOG[q.typ].groesse;
+        return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
+      });
+      treffer = [];
+      for (const x of reihe) {
+        const [w, t] = KATALOG[x.typ].groesse;
+        if (a.auswahl === x.id)
+          raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
         zeichneRolle(
           g,
           x.typ,
           x.stufe,
-          px,
-          py,
-          w,
-          t,
+          x.pos,
           x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
-          farben.linie,
+          farben,
         );
-        if (a.auswahl === x.id)
-          g.roundRect(px - 4, py - 4, w + 8, t + 8, 8).stroke({ width: 3, color: farben.auswahl });
-      }
-      // Neubauten im Bau: gestrichelt wirkender Umriss
-      for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
-        const [px, py, w, t] = rechteck(v.pos, v.typ);
-        g.roundRect(px, py, w, t, 6).stroke({ width: 3, color: farben.imBau });
-        g.moveTo(px, py)
-          .lineTo(px + w, py + t)
-          .stroke({ width: 1, color: farben.imBau });
+        // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
+        const e = ecken(x.pos.x, x.pos.y, w, t, 0);
+        const h = hoehe(x.typ, x.stufe) + 20;
+        treffer.push({
+          pos: x.pos,
+          umriss: flach(
+            e.links,
+            e.vorne,
+            e.rechts,
+            hoch(e.rechts, h),
+            hoch(e.hinten, h),
+            hoch(e.links, h),
+          ),
+        });
       }
       if (a.ziel) {
-        const [px, py, w, t] = rechteck(a.ziel.pos, a.ziel.typ);
-        g.roundRect(px - 2, py - 2, w + 4, t + 4, 6).stroke({
+        raute(g, a.ziel.pos, a.ziel.typ, 0).stroke({
           width: 3,
           color: a.ziel.frei ? farben.auswahl : farben.linie,
           alpha: a.ziel.frei ? 1 : 0.4,
@@ -233,12 +423,28 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
     },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
-      const x = Math.floor(((clientX - r.left) / r.width) * BAUPLATZ.breite);
-      const y = Math.floor(((clientY - r.top) / r.height) * BAUPLATZ.tiefe);
-      return x >= 0 && y >= 0 && x < BAUPLATZ.breite && y < BAUPLATZ.tiefe ? { x, y } : undefined;
+      const x = ((clientX - r.left) / r.width) * BUEHNE_B;
+      const y = ((clientY - r.top) / r.height) * BUEHNE_H;
+      // Erst die Gebäude, von vorn nach hinten – auch ein Tipp aufs Dach trifft
+      for (const z of [...treffer].reverse()) if (innen(z.umriss, x, y)) return z.pos;
+      return feldUnter(x, y);
     },
     zerstoere() {
       app.destroy(true, { children: true });
     },
   };
+}
+
+/** Liegt (x, y) im Vieleck? (Strahlverfahren) */
+function innen(umriss: readonly number[], x: number, y: number): boolean {
+  let drin = false;
+  const n = umriss.length / 2;
+  for (let i = 0, j = n - 1; i < n; j = i++) {
+    const xi = umriss[2 * i] ?? 0;
+    const yi = umriss[2 * i + 1] ?? 0;
+    const xj = umriss[2 * j] ?? 0;
+    const yj = umriss[2 * j + 1] ?? 0;
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) drin = !drin;
+  }
+  return drin;
 }
