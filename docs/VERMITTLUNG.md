@@ -207,6 +207,12 @@ Bisher sieht Bastion nur das Endergebnis. Ein falsches Ergebnis verrät aber oft
 - **Schriftliche Rechenverfahren** (Addieren bis Dividieren) werden als Schritte mit stellenweiser Eingabe umgesetzt. Damit ist I-O1 (`rechenschema`) beantwortet.
 - **Nicht jede Vorlage braucht Schritte.** Einschrittige Aufgaben wie Ablesen, Auswahl oder Runden haben keine. Mehrschrittige Rechenaufgaben brauchen Schritte (F6).
 
+*Umsetzung (U3h, 29.10.2026):*
+- Die Übung (`src/ui/ueben/Uebung.svelte`) speichert das Ergebnis erst nach dem Weg, damit die Schritte im Ereignis stehen. Wer die Übung mitten im Weg verlässt, speichert das Ergebnis ohne Schritte.
+- `src/ui/ueben/Schrittweg.svelte` zeigt einen Schritt nach dem anderen. Die erledigten Schritte stehen darüber: ✓ bei richtig, „So geht es:“ bei gezeigtem Schritt.
+- Nach einem Fehlversuch kommt die Rückmeldung des Fehlerbilds. Am Ende steht „Dein Fehler lag hier:“ mit dem ersten Schritt, der nicht gleich stimmte.
+- Das gilt beim Üben, Wiederholen und in der Fehlerwerkstatt.
+
 **F6 (neu):** Jede mehrschrittige Rechenaufgabe hat Schritte. Jeder Schritt hat mindestens ein Fehlerbild mit Fehlvorstellung, oder eine Begründung, warum es keines gibt.
 
 ## 4. Der Kreis im Überblick

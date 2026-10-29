@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { quelleAusSeed } from '../rng/zufallsquelle';
-import { aufgabeEreignis, bewertung, DAUER_MAX_MS, type AufgabeAngaben } from './ereignis';
+import {
+  aufgabeEreignis,
+  AUFGABE_V,
+  bewertung,
+  DAUER_MAX_MS,
+  type AufgabeAngaben,
+} from './ereignis';
 
 const basis: AufgabeAngaben = {
   profil: 'P',
@@ -38,7 +44,7 @@ describe('aufgabeEreignis', () => {
     const e = aufgabeEreignis(basis, TS, 60, quelleAusSeed(1));
     expect(e).toMatchObject({
       art: 'aufgabe',
-      v: 1,
+      v: AUFGABE_V,
       tag: '2026-10-27',
       quelle: { generator: 'nz.runden-auf-stelle', version: 1, seed: 42 },
       ergebnis: 'richtig',
@@ -48,6 +54,27 @@ describe('aufgabeEreignis', () => {
     expect(e.id).toHaveLength(26);
     expect(e).not.toHaveProperty('schnappschuss');
     expect(e).not.toHaveProperty('fehlerbild');
+  });
+
+  it('Zwischenschritte stehen nur bei falschem Ergebnis im Ereignis (D-17)', () => {
+    const schritte = [
+      {
+        id: 'nenner',
+        versuche: 2,
+        richtig: true,
+        fehler: [{ fehlerbild: 'x', fv: 'FV.BR.X', eingabe: { typ: 'zahl', wert: 5 } as const }],
+      },
+    ];
+    const falsch = aufgabeEreignis(
+      { ...basis, ergebnis: { richtig: false }, schritte },
+      TS,
+      60,
+      quelleAusSeed(1),
+    );
+    expect(falsch.schritte).toEqual(schritte);
+    expect(aufgabeEreignis({ ...basis, schritte }, TS, 60, quelleAusSeed(1))).not.toHaveProperty(
+      'schritte',
+    );
   });
 
   it('falsche Antwort: mit Schnappschuss und erkanntem Fehlerbild', () => {

@@ -83,6 +83,25 @@ describe('Diagnose der Fehlvorstellungen (VERMITTLUNG §3.3)', () => {
     expect(s).toMatchObject({ zustand: 'in-arbeit', treffer: 3, kontrasteRichtig: 1 });
   });
 
+  it('Fehler in den Zwischenschritten zählen als Treffer, je Aufgabe einmal (K-29)', () => {
+    const mitSchritten = (): AufgabeEreignis => ({
+      ...aufgabe('V.ERW', 'anders'),
+      schritte: [
+        {
+          id: 's1',
+          versuche: 2,
+          richtig: false,
+          fehler: [
+            { fv: 'FV.ADD', eingabe: { typ: 'zahl', wert: 1 } },
+            { fv: 'FV.ADD', eingabe: { typ: 'zahl', wert: 2 } },
+          ],
+        },
+      ],
+    });
+    expect(fvZustaende([mitSchritten()], [], katalog).get('FV.ADD')?.treffer).toBe(1);
+    expect(zustand([mitSchritten(), mitSchritten()])).toBe('vermutet');
+  });
+
   it('Treffer aus der Erstvermittlung zählen mit', () => {
     const v: VermittlungEreignis = {
       id: 'V0',

@@ -1277,3 +1277,67 @@ test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot meh
   );
   expect(gruende).toContain('vermittlung:M.ZO.BR.BEGRIFF');
 });
+
+test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je Schritt (U3h)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: /^Brüche erweitern und kürzen/ }).click();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
+
+  // Absichtlich falsch: 1/1 ist hier nie richtig
+  const aufgabe = page.locator('form#antwort');
+  await aufgabe.getByLabel('Zähler').fill('1');
+  await aufgabe.getByLabel('Nenner').fill('1');
+  await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
+  await expect(page.getByText('Zeig mir deinen Weg')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toHaveCount(0);
+
+  const schritt = page.locator('form.aktuell');
+  // Schritt 1 (Zahl): zweimal falsch → Bastion zeigt den Schritt
+  for (let i = 0; i < 2; i++) {
+    await schritt.getByLabel('Deine Eingabe').fill('0');
+    await schritt.getByRole('button', { name: 'Prüfen' }).click();
+  }
+  await expect(page.getByText(/So geht es:/)).toBeVisible();
+  // Schritt 2 (Bruch): zweimal falsch
+  for (let i = 0; i < 2; i++) {
+    await schritt.getByLabel('Zähler').fill('1');
+    await schritt.getByLabel('Nenner').fill('1');
+    await schritt.getByRole('button', { name: 'Prüfen' }).click();
+  }
+  await expect(page.getByText('Dein Fehler lag hier:')).toBeVisible();
+  await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+
+  // Gespeichert: das Ereignis mit beiden Schritten
+  const lies = () =>
+    page.evaluate(
+      () =>
+        new Promise<unknown[]>((fertig) => {
+          const anfrage = indexedDB.open('bastion');
+          anfrage.onsuccess = () => {
+            const lesen = anfrage.result.transaction('aufgaben').objectStore('aufgaben').getAll();
+            lesen.onsuccess = () => {
+              anfrage.result.close();
+              const e = (lesen.result as { schritte?: unknown[] }[]).at(-1);
+              fertig(e?.schritte ?? []);
+            };
+          };
+        }),
+    );
+  await expect.poll(async () => (await lies()).length).toBe(2);
+  const schritte = await lies();
+  expect(schritte).toMatchObject([
+    { versuche: 2, richtig: false },
+    { versuche: 2, richtig: false },
+  ]);
+
+  // „Weiter ohne Weg“: Ergebnis wie bisher, Lösungsweg offen
+  await aufgabe.getByLabel('Zähler').fill('1');
+  await aufgabe.getByLabel('Nenner').fill('1');
+  await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
+  await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
+  await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
+});

@@ -5,7 +5,7 @@
   // Karten (Wiederholen). Ohne Zeitdruck und ohne Punkte (R1, R2).
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
-  import type { Instanz, Loesung } from '../../core/learning/generator';
+  import type { Generator, Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
   import { antwortText } from '../../core/learning/werkstatt';
   import { generatoren } from '../../generators';
@@ -14,6 +14,9 @@
   import { t } from '../texte/texte';
   import type { Auftrag } from './auftrag';
   import Eingabe from './Eingabe.svelte';
+  import Schrittweg from './Schrittweg.svelte';
+  import type { SchrittErgebnis } from '../../core/learning/ereignis';
+  import { untrack } from 'svelte';
   import Textteile from './Textteile.svelte';
 
   let {
@@ -54,6 +57,7 @@
 
   interface Aufgabe extends Auftrag {
     readonly instanz: Instanz;
+    readonly generator: Generator<unknown> | undefined;
     readonly seed: number;
     readonly nummer: number;
     /** Zeitpunkt, zu dem die Aufgabe erschien – nur für die Bearbeitungsdauer im Ereignis. */
@@ -73,6 +77,7 @@
     const seed = a.seed ?? neuerSeed();
     return {
       ...a,
+      generator,
       instanz: generator.erzeuge(seed, a.vorlage.parameter[a.niveau]),
       seed,
       nummer: n,
@@ -82,12 +87,34 @@
 
   let aufgabe = $derived(erzeuge(nummer));
 
+  /**
+   * Zwischenschritte (K-29): Nach einem falschen Ergebnis fragt Bastion nach dem Weg,
+   * wenn die Vorlage Schritte hat. Das Ereignis wird erst danach gespeichert, damit
+   * die Schritte darin stehen (D-17).
+   */
+  let weg = $state<'aus' | 'laeuft' | 'fertig'>('aus');
+  // raw: das Ereignis muss sich in IndexedDB speichern lassen (kein Proxy)
+  let ausstehend = $state.raw<Antwortdaten | undefined>(undefined);
+
+  function speichern(schritte?: SchrittErgebnis[]) {
+    if (!ausstehend) return;
+    onergebnis(schritte ? { ...ausstehend, schritte } : ausstehend);
+    ausstehend = undefined;
+    weg = 'fertig';
+  }
+
+  // Verlässt jemand die Übung mitten im Weg, wird das Ergebnis ohne Schritte gespeichert.
+  $effect(() => () => {
+    const a = untrack(() => ausstehend);
+    if (a) onergebnis(a);
+  });
+
   function beantwortet(antwort: Loesung, hinweis?: 'punkt-statt-komma') {
     if (!aufgabe) return;
     const form = (aufgabe.vorlage.antwort?.['form'] ?? 'beliebig') as Bruchform;
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
     kommaHinweis = hinweis === 'punkt-statt-komma';
-    onergebnis({
+    const daten: Antwortdaten = {
       modus,
       ...(aufgabe.korrigiert ? { korrigiert: aufgabe.korrigiert } : {}),
       kompetenz: aufgabe.kompetenz.id,
@@ -102,12 +129,21 @@
       loesung: aufgabe.instanz.loesung,
       antwort,
       ergebnis,
-    });
-    if (!ergebnis.richtig) wegOffen = true;
+    };
+    const mitWeg =
+      !ergebnis.richtig &&
+      (aufgabe.vorlage.schritte?.length ?? 0) > 0 &&
+      aufgabe.generator?.schritt !== undefined;
+    if (mitWeg) {
+      ausstehend = daten;
+      weg = 'laeuft';
+    } else onergebnis(daten);
+    if (!ergebnis.richtig) wegOffen = !mitWeg;
     fehlerInFolge = ergebnis.richtig ? 0 : fehlerInFolge + 1;
   }
 
   function weiter() {
+    weg = 'aus';
     ergebnis = undefined;
     kommaHinweis = false;
     hilfen = 0;
@@ -234,28 +270,52 @@
         {#if ergebnis}
           <div class="rueckmeldung" class:richtig={ergebnis.richtig} role="status">
             <p class="urteil">{ergebnis.richtig ? t('uebung.richtig') : t('uebung.falsch')}</p>
-            {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
-            {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
+            {#if weg !== 'laeuft'}
+              {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
+              {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
+            {/if}
           </div>
-          <details class="weg" bind:open={wegOffen}>
-            <summary>{t('uebung.loesungsweg')}</summary>
-            <ol>
-              {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
-                <li>{schritt.de}</li>
-              {/each}
-            </ol>
-          </details>
-          {#if rueckwegZu && onwechsel}
-            {@const ziel = rueckwegZu}
-            <div class="rueckweg">
-              <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
-              <button class="zweit" onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
+          {#if weg !== 'aus' && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
+            {@const g = aufgabe.generator}
+            {@const a = aufgabe}
+            <Schrittweg
+              schritte={a.vorlage.schritte ?? []}
+              berechne={(id, bisher) =>
+                (g.schritt as NonNullable<typeof g.schritt>)(
+                  a.seed,
+                  a.vorlage.parameter[a.niveau],
+                  id,
+                  bisher,
+                )}
+              platzhalter={a.instanz.platzhalter}
+              onfertig={(s) => speichern(s)}
+              onueberspringen={() => {
+                speichern();
+                wegOffen = true;
+              }}
+            />
+          {/if}
+          {#if weg !== 'laeuft'}
+            <details class="weg" bind:open={wegOffen}>
+              <summary>{t('uebung.loesungsweg')}</summary>
+              <ol>
+                {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
+                  <li>{schritt.de}</li>
+                {/each}
+              </ol>
+            </details>
+            {#if rueckwegZu && onwechsel}
+              {@const ziel = rueckwegZu}
+              <div class="rueckweg">
+                <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
+                <button class="zweit" onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
+              </div>
+            {/if}
+            {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
+            <div class="knoepfe">
+              <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
             </div>
           {/if}
-          {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
-          <div class="knoepfe">
-            <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
-          </div>
         {/if}
       </article>
     {/key}
