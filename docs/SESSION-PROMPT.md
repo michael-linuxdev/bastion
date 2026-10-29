@@ -39,6 +39,7 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 - Der Basebau bleibt als Nebensache (K-27).
 - Erst Klasse 5 bis 8 mit Vermittlung und Fehlerkatalog nachrüsten, dann Klasse 9 bis 12 (K-28).
 - Zwischenschritte werden geprüft wie bei bettermarks: nach einem falschen Ergebnis, mit Schrittfeldern, zwei Versuche je Schritt (K-29, `VERMITTLUNG.md` §3.6).
+- Für die Testphase gibt es ein Testprotokoll: Lernereignisse und Nutzungsprotokoll, nur mit Testcode im Elternbereich, Export als JSON-Datei mit Vorschau (K-14, D-18).
 
 ---
 
@@ -121,7 +122,7 @@ Erst danach an Inhalten oder Code für die neue Ausrichtung arbeiten.
    - die sächsischen Abitur-Vorgaben und Prüfungen der letzten Jahrgänge (GK und LK),
    - später die Lehrplan-PDFs für Klasse 9 bis 12.
 4. **0.15** Testpersonen ansprechen (`TESTS.md` §2–3). Die drei Testerinnen stehen bereit.
-5. **0.17** K-14 entscheiden (freiwilliger Studienbericht).
+5. ~~**0.17** K-14 entscheiden~~ – entschieden am 29.10.2026: Testprotokoll mit Testcode, Export als JSON-Datei (STRATEGIE §7, D-18), gebaut in U4a.
 6. **0.10** Drei Referenzgeräte festlegen und darauf messen.
 
 ---

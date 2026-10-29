@@ -313,6 +313,34 @@ interface VermittlungEreignis extends Ereignis {
 **Entscheidung D-16:** Vermittlungs-Schritte sind eigene Ereignisse (`vermittlung`, eigene Tabelle nach D-7). Fehlvorstellungen sind eine reine Projektion.
 *Warum:* Die Vermittlung ist kein Üben. Sie darf weder FSRS-Karten noch Ressourcen bewegen (K-1, R4). Die Diagnose der Fehlvorstellungen lässt sich jederzeit aus den Ereignissen neu berechnen (D-6), auch wenn sich der Fehlerkatalog ändert.
 
+### 4.8 `nutzung` – Nutzungsprotokoll der Testphase (geplant, U4a)
+
+Nur, solange das Testprotokoll eingeschaltet ist (K-14). Ohne Testcode entsteht kein einziges Ereignis dieser Art.
+
+```ts
+interface NutzungEreignis extends Ereignis {
+  art: 'nutzung';
+  was:
+    | 'ansicht'            // eine Ansicht wurde geöffnet (start, ueben, bastion, mehr, vermittlung …)
+    | 'abbruch'            // Übung oder Vermittlung ohne Abschluss verlassen
+    | 'weg-uebersprungen'  // „Weiter ohne Weg“ bei Zwischenschritten
+    | 'hilfe'              // Tipp, Lösungsweg, Fachbegriff geöffnet
+    | 'app';               // App geöffnet, in den Hintergrund, wieder vorn
+  ziel?: string;           // z. B. Name der Ansicht oder Kompetenz-ID, nie freier Text
+  dauerMs?: number;        // Verweildauer der vorigen Ansicht, höchstens 10 Minuten
+}
+```
+
+- **Einstellungen:** `test.aktiv` (an/aus) und `test.teilnehmer` (Nummer vom Papier) sind Einstellungs-Ereignisse der Eltern (D-5). Der Testcode selbst wird nicht gespeichert, nur geprüft.
+- **Eigene Tabelle** `nutzungen` (D-7), mit der nächsten Schemaversion.
+- **Nicht in der Sicherung.** Das Nutzungsprotokoll gehört nur zum Testprotokoll. Es reist nicht in `.bastion`-Dateien mit und hat keine Projektion.
+- **Testprotokoll-Datei** (unverschlüsselt, JSON):
+  `{ format, teilnehmer, erstellt: Tag, app: Version, ereignisse: [...] }`. Darin stehen alle Lern- und Nutzungsereignisse des Profils seit dem Einschalten. `profil` und `geraet` werden durch die Teilnehmer-Nummer ersetzt, Einstellungs-Ereignisse fehlen bis auf `test.*`. Vor dem Speichern zeigt die App den Inhalt lesbar an: Zahl der Ereignisse je Art, Zeitraum und eine Liste zum Durchblättern.
+- **Ausschalten** stoppt das Mitschreiben. **Löschen** entfernt alle `nutzung`-Ereignisse; Lernereignisse bleiben, weil sie der App selbst dienen.
+
+**Entscheidung D-18:** Das Nutzungsprotokoll ist eine eigene Ereignisart, die nur mit Testcode entsteht, nicht in Sicherungen reist und sich vollständig löschen lässt.
+*Warum:* Der Test braucht echtes Verhalten (K-14). Außerhalb des Tests sammelt Bastion weiterhin keine Nutzungsdaten (Grundprinzip, PLAN §2.1). Der Schalter hinter der PIN, der sichtbare Hinweis und die Vorschau vor dem Export halten es transparent für Kind und Eltern.
+
 ## 5. Projektionen
 
 | Projektion | Schlüssel | Inhalt | Quelle |
@@ -518,8 +546,9 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | Einstellungen und Protokoll | Zeitsystem, Elternbereich, Transparenz | bis Löschung | ja (ohne geheime Werte) | ja | nur im Export |
 | PIN-Hash, Wiederherstellungs-Hash | Elternbereich | bis Löschung | nein | nein (nur Prüfung) | nur im Export |
 | Geräte-ID (Zufall) | Zusammenführen | bis Neuinstallation | nein | nein | nur im Export |
+| Nutzungsprotokoll (nur Testphase, K-14) | Auswertung des Tests | bis Ausschalten und Löschen, spätestens Testende | ja (Hinweis und Vorschau) | ja | nur als Testprotokoll-Datei, von Hand weitergegeben, mit Teilnehmer-Nummer statt Profil |
 
-**Bewusst nicht erhoben:** echter Name, Geburtsdatum, Wohnort, Schule, E-Mail, Telefonnummer, Standort, Geräteinformationen, Nutzungsstatistiken für die Entwickler.
+**Bewusst nicht erhoben:** echter Name, Geburtsdatum, Wohnort, Schule, E-Mail, Telefonnummer, Standort, Geräteinformationen, Nutzungsstatistiken für die Entwickler. Einzige Ausnahme: das Testprotokoll in der Testphase (K-14, §4.8), nur mit Einwilligung und Testcode.
 
 **Gezeigt nach D-14:** Eltern sehen standardmäßig nur die einfache Ansicht; einzelne Aufgaben, Fehler, Uhrzeiten und Bearbeitungszeiten erst, wenn sie die ausführliche Ansicht öffnen. Was Eltern sehen können, sehen Jugendliche immer auch selbst. Den Raum, Fehler zu machen (R6), schützt die App weiterhin im Ton: Fehler erscheinen als Lernstoff, nie als Bewertung.
 
@@ -552,3 +581,4 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-15 | PIN gilt je Gerät; nach Einspielen einer Sicherung neue PIN mit dauerhaftem, sichtbarem Vermerk (löst den Widerspruch zwischen §7.1 und D-12) | Entschieden (28.10.2026) |
 | D-16 | Vermittlungs-Schritte als eigene Ereignisse `vermittlung`; Fehlvorstellungen als reine Projektion (§4.7) | Entschieden (29.10.2026, U1) |
 | D-17 | Zwischenschritte als Feld `schritte` im Ereignis `aufgabe` (§4.1, `v` = 2) | Entschieden (29.10.2026, K-29) |
+| D-18 | Nutzungsprotokoll `nutzung` nur mit Testcode, nicht in Sicherungen, vollständig löschbar; Export als Testprotokoll-Datei (§4.8) | Entschieden (29.10.2026, K-14) |
