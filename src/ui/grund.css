@@ -2,60 +2,14 @@
  * Grund-CSS für Bastion.
  * - Nur logische Eigenschaften (margin-inline-start statt margin-left),
  *   damit Arabisch und Persisch (dir="rtl") ohne Umbau funktionieren (A6).
- * - Hell und Dunkel folgen der Systemeinstellung.
- * - Nur Systemschriften: keine Schriftdateien aus dem Netz (A2).
+ * - Farben, Schrift und Formen kommen aus der Fassung der Grafik
+ *   (src/ui/grafik/fassungen.ts); hier stehen nur Ersatzwerte, bis sie angewendet ist.
+ * - Die Schrift Nunito wird mitgeliefert, nie aus dem Netz geladen (A2).
  */
+@import './grafik/schrift.css';
 
 :root {
   color-scheme: light dark;
-
-  --farbe-hintergrund: #f7f4ee;
-  --farbe-flaeche: #ffffff;
-  --farbe-text: #1f1d1a;
-  --farbe-text-leise: #5a554d;
-  --farbe-akzent: #8a4b14;
-  --farbe-rand: #ddd5c8;
-
-  /* Bauplatz (BASEBAU B-12): schlichter eigener Stil, eine Farbe je Gebäudefamilie */
-  --bastion-boden: #ebe2d0;
-  --bastion-raster: #d6c9b1;
-  --bastion-linie: #4a3a26;
-  --bastion-kern: #8a4b14;
-  --bastion-wissen: #2f6f8f;
-  --bastion-verteidigung: #77706a;
-  --bastion-bau: #b07a3e;
-  --bastion-zierde: #3f7d3a;
-  --hinterhof-g: #a8682f;
-  --hinterhof-m: #8d949c;
-
-  --abstand-s: 0.5rem;
-  --abstand-m: 1rem;
-  --abstand-l: 2rem;
-  --radius: 0.75rem;
-
-  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --farbe-hintergrund: #191714;
-    --farbe-flaeche: #24211d;
-    --farbe-text: #f1ece4;
-    --farbe-text-leise: #b8b0a3;
-    --farbe-akzent: #e0a464;
-    --farbe-rand: #3a352e;
-
-    --bastion-boden: #2a2620;
-    --bastion-raster: #3d372f;
-    --bastion-linie: #f1ece4;
-    --bastion-kern: #e0a464;
-    --bastion-wissen: #72b5d4;
-    --bastion-verteidigung: #b3aca4;
-    --bastion-bau: #d1a06a;
-    --bastion-zierde: #86c278;
-    --hinterhof-g: #d39a5d;
-    --hinterhof-m: #c9d0d8;
-  }
 }
 
 *,
@@ -73,9 +27,9 @@ body {
   margin: 0;
   min-block-size: 100vh;
   min-block-size: 100dvh;
-  background: var(--farbe-hintergrund);
-  color: var(--farbe-text);
-  font-family: var(--schrift);
+  background: var(--farbe-hintergrund, Canvas);
+  color: var(--farbe-text, CanvasText);
+  font-family: var(--schrift, system-ui, sans-serif);
   font-size: 1.125rem;
   line-height: 1.5;
 }
@@ -85,6 +39,75 @@ h2,
 h3,
 p {
   margin-block: 0 var(--abstand-m);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  min-block-size: var(--ziel);
+  padding-inline: var(--abstand-s);
+  border: 2px solid var(--farbe-rand);
+  border-radius: var(--radius);
+  background: var(--farbe-flaeche);
+  color: var(--farbe-text);
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  min-block-size: auto;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  accent-color: var(--farbe-akzent);
+}
+
+/*
+ * Knöpfe für alle Bereiche (Richtung A: Flächen statt Rahmen, große Radien).
+ * Komponenten können sie mit eigenen Regeln verfeinern.
+ */
+.haupt,
+.zweit {
+  font: inherit;
+  font-weight: 700;
+  min-block-size: var(--ziel);
+  padding-inline: var(--abstand-m);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.haupt {
+  background: var(--farbe-akzent);
+  color: var(--farbe-auf-akzent);
+}
+
+.zweit {
+  background: var(--farbe-flaeche-leise);
+  color: var(--farbe-text);
+}
+
+.haupt:disabled,
+.zweit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.dezent {
+  font: inherit;
+  border: none;
+  background: transparent;
+  color: var(--farbe-text-leise);
+  text-decoration: underline;
+  cursor: pointer;
+  padding-inline: 0;
+  min-block-size: var(--ziel);
 }
 
 :focus-visible {

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  modusAus,
+  MODUS_SCHLUESSEL,
   BASEBAU_SCHLUESSEL,
   basebauAktiv,
   aktuelleEinstellungen,
@@ -62,5 +64,15 @@ describe('Basebau-Schalter (R7, B-13)', () => {
     expect(basebauAktiv(false)).toBe(false);
     expect(basebauAktiv('irgendwas')).toBe(true);
     expect(BASEBAU_SCHLUESSEL).toBe('basebau.aktiv');
+  });
+});
+
+describe('Hell, dunkel, System (GRAFIK §2)', () => {
+  it('Standard ist System; nur bekannte Werte gelten', () => {
+    expect(modusAus(undefined)).toBe('system');
+    expect(modusAus('hell')).toBe('hell');
+    expect(modusAus('dunkel')).toBe('dunkel');
+    expect(modusAus('lila')).toBe('system');
+    expect(MODUS_SCHLUESSEL).toBe('darstellung.modus');
   });
 });

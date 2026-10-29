@@ -26,8 +26,8 @@ export default defineConfig({
         start_url: './',
         scope: './',
         display: 'standalone',
-        background_color: '#f7f4ee',
-        theme_color: '#8a4b14',
+        background_color: '#f6f1e7',
+        theme_color: '#1f7a72',
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -43,7 +43,7 @@ export default defineConfig({
         // App-Hülle vollständig vorab speichern: danach startet sie ohne Netz (A1).
         // Vorerst auch alle Inhaltspakete (Klasse 5 ist klein); Auswahl vor dem
         // Herunterladen folgt mit weiteren Klassenstufen (ARCHITEKTUR §6).
-        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json,woff2}'],
         // Nur bei Bedarf Nachgeladenes (die Grafik der Bastion, PixiJS) nicht vorab:
         // Wer den Basebau nie öffnet, lädt es nie (R7, A3). Beim ersten Öffnen wird es
         // gespeichert und geht danach auch ohne Netz.

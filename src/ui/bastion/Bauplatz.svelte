@@ -3,6 +3,7 @@
   // die Bastion bei eingeschaltetem Basebau öffnet und das Bild zeigt, lädt es (R7, A3).
   // Antippen wählt ein Gebäude; „Versetzen“ und dann ein freies Feld antippen versetzt
   // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
+  import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
   import { KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
   import {
@@ -99,6 +100,8 @@
   $effect(() => {
     const ort = rahmen;
     if (!ort) return;
+    // Neu zeichnen, wenn hell oder dunkel wechselt (GRAFIK §2)
+    void darstellung.dunkel;
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     import('./grafik/grafik-buehne')

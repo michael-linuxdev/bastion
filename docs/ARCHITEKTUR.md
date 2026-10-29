@@ -169,6 +169,7 @@ Alle Versionen sind in `package.json` exakt gepinnt (`.npmrc`: `save-exact=true`
 | yaml | 2.9.1 | Werkzeug (liest die Inhalte in `content/`, nicht in der App) |
 | Dexie | 4.4.6 | **Laufzeit**, ca. 32 KB komprimiert: Speicher im Browser (T-4). Freigegeben vom Projektverantwortlichen am 28.10.2026; bewusst nicht die jüngste Version 4.4.7 (erst 9 Tage alt) |
 | pixi.js | 8.22.0 | **Laufzeit**, nur nachgeladen: Grafik der Bastion (T-6). Freigegeben vom Projektverantwortlichen am 28.10.2026 (veröffentlicht am 1.10.2026). Mitgebrachte Pakete mit MIT-, ISC- oder BSD-Lizenz. Etwa 147 KB komprimiert, eigenes Budget 300 KB (§9) |
+| @fontsource-variable/nunito | 5.3.0 | **Laufzeit**, nur Schriftdateien, kein Code: die Schrift Nunito (SIL Open Font License 1.1) zum Mitliefern (T-16). Freigegeben vom Projektverantwortlichen am 29.10.2026 |
 | ts-fsrs | 5.4.2 | **Laufzeit**: Wiederholungsplanung FSRS (T-5). Freigegeben vom Projektverantwortlichen am 28.10.2026. Eingestellt ohne Zufall in den Abständen und ohne Minuten-Lernschritte, damit die Planung aus den Ereignissen wiederholbar ist |
 | fake-indexeddb | 6.2.5 | Werkzeug (IndexedDB in Node für Tests der Ablage) |
 | fast-check | 4.10.2 | Werkzeug (Eigenschaftstests) |
@@ -202,8 +203,9 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 ### 4.8 Oberflächen-Grundlage (umgesetzt in 0.7d)
 
 - Oberflächentexte stehen in `src/ui/texte/de.json` und werden über `t('schluessel')` geholt; Tippfehler im Schlüssel sind Typfehler. Die Datei legt auch Sprache und Schreibrichtung (`lang`, `dir`) fest.
-- Grund-CSS in `src/ui/grund.css`: Farben als CSS-Variablen, Hell/Dunkel folgt der Systemeinstellung (`prefers-color-scheme`), reduzierte Bewegung wird respektiert, nur Systemschriften.
-- Eine Umschaltung Hell/Dunkel in der App folgt mit den Einstellungen (Phase 1).
+- Grund-CSS in `src/ui/grund.css`: Grundformen, Knöpfe `haupt`, `zweit`, `dezent` für alle Bereiche, reduzierte Bewegung wird respektiert.
+- Farben, Schrift und Formen kommen aus der **Fassung der Grafik** (`src/ui/grafik/fassungen.ts`, GRAFIK §3). `src/ui/grafik/darstellung.svelte.ts` schreibt sie als CSS-Variablen an `<html>`. Hell, Dunkel oder System wählt man unter „Über mich“ (Einstellung `darstellung.modus`); „System“ folgt `prefers-color-scheme`, auch während die App offen ist. Ein Test prüft den Kontrast jeder Fassung (Text 4,5 : 1).
+- Schrift Nunito, mitgeliefert (T-16, `src/ui/grafik/schrift.css`); Ersatz `system-ui`.
 
 ### 4.9 Offline-Hülle (umgesetzt in 0.8)
 
@@ -346,6 +348,7 @@ Ziel „erste Nutzbarkeit ≤ 3 s“ ist für die Gerüst-App deutlich erfüllt.
 | T-13 | Implementierung überwiegend mit Claude Code; Qualität über automatische Prüfungen und `CLAUDE.md` abgesichert | Entschieden |
 | T-14 | **Aufgaben-Generatoren nachgeladen, aber vorab gespeichert:** `src/generators/alle.ts` sammelt alle Generatoren und wird mit den Inhaltspaketen nachgeladen (`generatorenLaden()` in `src/generators/index.ts`). Der Service Worker speichert die Datei trotzdem beim Installieren, Üben geht also auch ohne Netz. So bleibt die App-Hülle klein, auch wenn bis Klasse 12 und darüber hinaus Generatoren dazukommen. Keine neue Abhängigkeit. Eigenes Budget 400 KB (§9) | Entschieden (28.10.2026, freigegeben vom Projektverantwortlichen) |
 | T-15 | **Ausnahme vom Netzverbot: echtes Wetter von Open-Meteo, nur freiwillig.** Standard ist aus. Dann entsteht das Wetter ohne Netz aus dem Datum. Erst nach ausdrücklichem Einschalten fragt die App das Wetter bei Open-Meteo ab, für einen groben Ort, den man selbst einträgt (zum Beispiel „Dresden“). Es gibt keine Standortabfrage über das Gerät. Bei Kindern schalten die Eltern das ein. Ab 18 schaltet man es selbst ein (L-15). Es wird nichts außer dem groben Ort übertragen. Ohne Netz geht alles weiter. Das Wetter ändert nur das Bild (`GRAFIK.md` §4). VISION Prinzip 3 und die Regel in `CLAUDE.md` nennen diese Ausnahme | Entschieden (29.10.2026, Projektverantwortlicher); Umsetzung später |
+| T-16 | **Schrift Nunito mitliefern über `@fontsource-variable/nunito`.** Das Paket enthält nur Schriftdateien und CSS, keinen Code. Vite legt die Dateien in den eigenen Build; der Service Worker speichert sie vorab (`woff2` in `globPatterns`). Es gibt keine Verbindung zu Google Fonts oder anderen fremden Servern. Eingebunden sind nur Lateinisch und Lateinisch erweitert (zusammen etwa 75 KB, eine Variable-Schrift für alle Stärken); andere Schriften zeigt der Browser in der Systemschrift. Alternative wäre die Datei von Hand ins Repo zu legen; das Paket macht Updates und Lizenz nachvollziehbar | Entschieden (29.10.2026, Projektverantwortlicher) |
 
 ## 12. Offene Punkte zum Stack
 

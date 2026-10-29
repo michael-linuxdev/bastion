@@ -181,7 +181,7 @@
 
   .abschnitt.gefestigt,
   .abschnitt.gekonnt {
-    border-inline-start-color: #3f7d3a;
+    border-inline-start-color: var(--farbe-erfolg);
   }
 
   .abschnitt.auffrischen {

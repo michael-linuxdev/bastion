@@ -39,7 +39,7 @@
     border-radius: var(--radius);
     border: 2px solid var(--farbe-akzent);
     background: var(--farbe-akzent);
-    color: var(--farbe-hintergrund);
+    color: var(--farbe-auf-akzent);
     cursor: pointer;
   }
 

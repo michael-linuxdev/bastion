@@ -275,7 +275,7 @@
 
   .haupt {
     background: var(--farbe-akzent);
-    color: var(--farbe-hintergrund);
+    color: var(--farbe-auf-akzent);
   }
 
   .leise-knopf {

@@ -176,7 +176,7 @@
 
   .status.gekonnt,
   .status.gefestigt {
-    color: #3f7d3a;
+    color: var(--farbe-erfolg);
     font-weight: bold;
   }
 

@@ -1070,3 +1070,23 @@ test('Klassenarbeit: Termin und Themen, Probe ohne Note (L-19)', async ({ page }
   await page.reload();
   await expect(page.getByText(/Klassenarbeit am/)).toHaveCount(0);
 });
+
+test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('./');
+  const wurzel = page.locator('html');
+  // Standard: wie das Gerät
+  await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
+  await page.getByRole('button', { name: 'Überspringen' }).click();
+  await page.getByRole('button', { name: 'Über mich' }).click();
+  await page.getByLabel('Hell').check();
+  await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await expect.poll(() => einstellungImSpeicher(page, 'darstellung.modus')).toBe('hell');
+  await page.reload();
+  await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await page.getByRole('button', { name: 'Über mich' }).click();
+  await page.getByLabel('Wie das Gerät').check();
+  await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
+  await page.emulateMedia({ colorScheme: 'light' });
+  await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+});

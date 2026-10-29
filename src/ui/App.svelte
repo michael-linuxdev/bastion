@@ -12,6 +12,7 @@
     alleBuchungen,
     basebauAn,
     themaWahl,
+    modusWahl,
     lernWahl,
     profilWahl,
     profilSetzen,
@@ -73,6 +74,8 @@
   } from '../core/learning/klassenarbeit';
   import { untrack } from 'svelte';
   import { aktiv, tt } from './bastion/thema.svelte';
+  import { darstellungSetzen } from './grafik/darstellung.svelte';
+  import ModusWahl from './profil/ModusWahl.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -214,6 +217,7 @@
     sichern = await sicherungAnstehend();
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
+    darstellungSetzen(await modusWahl());
     const pr = await profilWahl();
     profil = { geburtsdatum: pr.geburtsdatum, erwachsen: pr.erwachsen };
     profilGefragt = pr.gefragt;
@@ -468,6 +472,7 @@
         ansicht = 'start';
       }}
     />
+    <ModusWahl />
   {:else if ansicht === 'sicherung'}
     <button
       class="zurueck"
@@ -736,7 +741,7 @@
   .haupt {
     border: none;
     background: var(--farbe-akzent);
-    color: var(--farbe-hintergrund);
+    color: var(--farbe-auf-akzent);
   }
 
   .zweit {
