@@ -2,7 +2,7 @@
   // Kleine Symbole für Leiste und Kacheln (GRAFIK §1). Strich in der Textfarbe,
   // rein schmückend: Der Name steht immer daneben.
   export type SymbolName =
-    'start' | 'ueben' | 'bastion' | 'stand' | 'wiederholen' | 'werkstatt' | 'diagnose';
+    'start' | 'ueben' | 'bastion' | 'stand' | 'wiederholen' | 'werkstatt' | 'diagnose' | 'mehr';
 </script>
 
 <script lang="ts">
@@ -16,6 +16,7 @@
     wiederholen: 'M4 12a8 8 0 0 1 14-5.3L20 8M20 4v4h-4M20 12a8 8 0 0 1-14 5.3L4 16m0 4v-4h4',
     werkstatt:
       'M14.5 6.5a4 4 0 0 0 5 5l-8.5 8.5a2.1 2.1 0 0 1-3-3l8.5-8.5a4 4 0 0 0-2-2ZM6 6l3 3M4 4l2 2',
+    mehr: 'M4 7h16M4 12h16M4 17h16',
     diagnose: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm3.5 5.5-2 5-5 2 2-5 5-2Z',
   };
 </script>

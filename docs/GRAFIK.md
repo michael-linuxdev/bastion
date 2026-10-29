@@ -42,7 +42,8 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
   - Die Aufgabe steht groß auf einer Karte, mit Bild (zum Beispiel einem Bruchstreifen).
   - Eingabefelder passend zur Lösungsart (Zähler und Nenner getrennt).
   - Knöpfe „Prüfen“, „Tipp“ und „Lösungsweg“, darunter „Fertig für heute“.
-- **Leiste unten** (aus Richtung B übernommen): Start, Üben, Bastion, Mein Stand – immer sichtbar, aktueller Bereich hervorgehoben.
+- **Leiste unten** (aus Richtung B übernommen): Start, Üben, Bastion, Mehr – immer sichtbar, aktueller Bereich hervorgehoben. *Geändert am 29.10.2026 (Projektverantwortlicher): „Mehr“ ersetzt „Mein Stand“.*
+- **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
 
 ## 2. Hell, dunkel, System
 
@@ -107,5 +108,7 @@ Vier Schritte, jeder ein eigener PR:
    - Antippen trifft auch das Dach eines Gebäudes, nicht nur den Boden darunter.
    - Die Seite zeigt das Bild zuerst. Darunter stehen die Baustoffe als vier Karten mit Symbol. Die Symbole zeigen, woher ein Baustoff kommt: Üben, Wiederholen, Können und Bauschritte.
    - Ein vorgemerktes Ziel erscheint als Karte mit Fortschrittsbalken und „Dafür fehlt noch …“. Die Themenwahl steht am Ende der Seite.
+
+5. ✅ **„Mehr“ statt „Mein Stand“** in der Leiste (`src/ui/start/Mehr.svelte`). Die Startseite ist kompakter und passt auf das iPhone 13. Der Name „Bastion“ steht für Screenreader weiter als Überschrift, sichtbar aber nur unter „Mehr“. Wenn eine Erinnerung an die Sicherung und eine Klassenarbeit zugleich angezeigt werden, kann die Seite etwas länger werden.
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).

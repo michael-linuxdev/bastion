@@ -1,9 +1,9 @@
 <script lang="ts" module>
-  export type Bereich = 'start' | 'ueben' | 'bastion' | 'stand';
+  export type Bereich = 'start' | 'ueben' | 'bastion' | 'mehr';
 </script>
 
 <script lang="ts">
-  // Leiste unten (GRAFIK §1): Start, Üben, Bastion, Mein Stand – immer sichtbar,
+  // Leiste unten (GRAFIK §1): Start, Üben, Bastion, Mehr – immer sichtbar,
   // der aktuelle Bereich ist hervorgehoben. Ohne Basebau fehlt die Bastion (R7).
   import Symbol from '../grafik/Symbol.svelte';
   import { tt } from '../bastion/thema.svelte';
@@ -20,7 +20,7 @@
   } = $props();
 
   const bereiche = $derived<Bereich[]>(
-    basebau ? ['start', 'ueben', 'bastion', 'stand'] : ['start', 'ueben', 'stand'],
+    basebau ? ['start', 'ueben', 'bastion', 'mehr'] : ['start', 'ueben', 'mehr'],
   );
   const name = (b: Bereich) =>
     b === 'start'
@@ -29,7 +29,7 @@
         ? t('start.ueben')
         : b === 'bastion'
           ? tt('bastion.knopf')
-          : t('stand.knopf');
+          : t('leiste.mehr');
 </script>
 
 <nav class="leiste" aria-label={t('leiste.name')}>

@@ -93,7 +93,7 @@ Fragen vorher stellen, nicht raten.
   - Die Knöpfe `haupt`, `zweit` und `dezent` sind global in `grund.css` gestaltet.
 - **#43 Startseite** (`src/ui/start/`):
   - Datum und Begrüßung, eine kleine Bastion als Bild, der große Knopf „Üben“ mit „Gerade dran“ und vier Kacheln.
-  - Die Leiste unten (Start, Üben, Bastion, Mein Stand) ist in allen Ansichten sichtbar.
+  - Die Leiste unten (Start, Üben, Bastion, Mehr) ist in allen Ansichten sichtbar.
 - **#44 Üben:**
   - Kopf mit Thema, Niveau als Schild und Punkten für die Runde: Blöcke zu fünf Aufgaben, danach ein Pausenhinweis (R5).
   - Die Knöpfe heißen „Prüfen“ und „Tipp“. Die Rückmeldung erscheint als Fläche.
@@ -101,10 +101,11 @@ Fragen vorher stellen, nicht raten.
   - Die Insel steht schräg von oben (`iso.ts`, `grafik-buehne.ts`). Am Abend stehen Mond und Sterne am Himmel, und die Fenster leuchten.
   - Vier Karten zeigen den Vorrat. Das vorgemerkte Ziel hat einen Fortschrittsbalken.
   - B-11 (Draufsicht) ist abgelöst.
+- **#46 „Mehr“:** Auf Wunsch des Projektverantwortlichen passt die Startseite auf das iPhone 13. Sicherung, Über mich, Klassenarbeit, Für Eltern, Mein Stand, der Name und das Versprechen stehen unter „Mehr“ in der Leiste.
 
 **Lehren:**
 
-- Knöpfe gibt es jetzt doppelt, auf der Seite und in der Leiste. Browser-Tests suchen sie deshalb mit `page.getByRole('main').getByRole('button', …)`.
+- Knöpfe gibt es jetzt doppelt, auf der Seite und in der Leiste. Browser-Tests suchen sie deshalb mit `page.getByRole('main').getByRole('button', …)`. Für Einträge unter „Mehr“ gibt es die Hilfsfunktion `mehr(page)`.
 - Auf dem Bauplatz tippen die Tests über `punkt()` aus `src/ui/bastion/grafik/iso.ts`. Das ist dieselbe Rechnung wie in der App.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf die Zeitgrenze von 5 s. Das passiert auf diesem Rechner auch auf `main`, in der CI nicht.
 - Prozesse nie mit `pkill -f "vite preview"` beenden. Das Muster trifft auch die eigene Shell. Stattdessen `pkill -f "[v]ite preview --port 4173"`.
@@ -113,7 +114,7 @@ Fragen vorher stellen, nicht raten.
 
 - Etwa 4454 Einheitentests und 37 Browser-Tests. Die Browser-Tests, Lint und Build sind grün. Bei den Einheitentests überschreitet lokal nur `fk.graph-ablesen` die Zeitgrenze (siehe oben).
 - App-Hülle 129,8 KB von 250 KB.
-- Bis #44 ist alles auf `main`. #45 (Bastion) ist der letzte PR dieser Sitzung.
+- Bis #45 ist alles auf `main`. #46 („Mehr“) ist der letzte PR dieser Sitzung.
 
 ## Am Ende der Sitzung aktualisieren
 

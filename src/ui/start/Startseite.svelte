@@ -31,8 +31,6 @@
     geradeDran,
     klassenarbeit,
     sichern,
-    eltern,
-    offline,
     onziel,
     children,
   }: {
@@ -46,9 +44,6 @@
     /** Termin „JJJJ-MM-TT“ */
     klassenarbeit: string | undefined;
     sichern: boolean;
-    /** Elternbereich anbieten (nicht bei Erwachsenen, L-15) */
-    eltern: boolean;
-    offline: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
   } = $props();
@@ -147,22 +142,9 @@
   </p>
 {/if}
 
-<p class="versprechen">{t('start.versprechen')}</p>
-<p class="weiteres">
-  <button class="dezent" onclick={() => onziel('sicherung')}>{t('sicherung.knopf')}</button>
-  <button class="dezent" onclick={() => onziel('profil')}>{t('profil.knopf')}</button>
-  <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.knopf')}</button>
-  {#if eltern}
-    <button class="dezent" onclick={() => onziel('eltern')}>{t('eltern.knopf')}</button>
-  {/if}
-</p>
-{#if offline}
-  <p class="offline" role="status">{t('start.offline')}</p>
-{/if}
-
 <style>
   .kopf {
-    margin-block-end: var(--abstand-m);
+    margin-block-end: var(--abstand-s);
   }
   .datum {
     color: var(--farbe-text-leise);
@@ -170,7 +152,7 @@
     margin-block-end: 0.25rem;
   }
   .gruss {
-    font-size: 1.625rem;
+    font-size: 1.375rem;
     font-weight: 800;
     line-height: 1.25;
     margin-block-end: var(--abstand-s);
@@ -195,15 +177,23 @@
     box-shadow: 0 2px 10px var(--farbe-schatten);
     overflow: hidden;
     text-align: start;
-    margin-block-end: var(--abstand-m);
+    margin-block-end: var(--abstand-s);
+  }
+  .bastion {
+    position: relative;
   }
   .bastion .bild {
     display: block;
-    block-size: 10rem;
+    block-size: 6.75rem;
   }
   .bastion-name {
-    display: block;
-    padding: var(--abstand-s) var(--abstand-m);
+    position: absolute;
+    inset-block-start: var(--abstand-s);
+    inset-inline-start: var(--abstand-s);
+    padding-block: 0.125rem;
+    padding-inline: var(--abstand-s);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
     font-weight: 800;
   }
 
@@ -211,14 +201,15 @@
     display: grid;
     gap: 0.25rem;
     inline-size: 100%;
-    min-block-size: 5rem;
-    padding: var(--abstand-m);
+    min-block-size: 4.25rem;
+    padding-block: 0.75rem;
+    padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-akzent);
     color: var(--farbe-auf-akzent);
     text-align: start;
-    margin-block-end: var(--abstand-m);
+    margin-block-end: var(--abstand-s);
   }
   .ueben-titel {
     display: flex;
@@ -235,15 +226,15 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--abstand-s);
-    margin-block-end: var(--abstand-m);
+    margin-block-end: var(--abstand-s);
   }
   .kachel {
     display: grid;
     align-content: start;
     justify-items: start;
     gap: 0.25rem;
-    min-block-size: 7rem;
-    padding: var(--abstand-m);
+    min-block-size: 5.5rem;
+    padding: 0.75rem;
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
@@ -268,7 +259,7 @@
     color: var(--farbe-text);
   }
   .kachel-info {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: var(--farbe-text-leise);
     line-height: 1.35;
   }
@@ -278,7 +269,8 @@
     flex-wrap: wrap;
     align-items: center;
     column-gap: var(--abstand-m);
-    padding-block: var(--abstand-s);
+    margin-block-end: var(--abstand-s);
+    padding-block: 0;
     padding-inline: var(--abstand-m);
     border: 2px solid var(--farbe-hinweis-rand);
     border-radius: var(--radius-karte);
@@ -287,20 +279,5 @@
   .hinweis .dezent {
     color: var(--farbe-text);
     font-weight: 700;
-  }
-
-  .versprechen {
-    color: var(--farbe-text-leise);
-    border-inline-start: 4px solid var(--farbe-akzent);
-    padding-inline-start: var(--abstand-m);
-  }
-  .weiteres {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: var(--abstand-l);
-  }
-  .offline {
-    color: var(--farbe-text-leise);
-    font-size: 1rem;
   }
 </style>
