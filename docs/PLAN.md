@@ -190,7 +190,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U2a** Fehlerkatalog: 10 Fehlvorstellungen in `content/mathematik/fehlvorstellungen/`; alle 15 Fehlerbilder der 6 Vorlagen verweisen per `fv` darauf; Tests für F1 und F2
   - [x] **U2b** Erstvermittlung für die drei Kompetenzen (`vermittlung.yaml`, je 10 bis 11 Schritte, 12 bis 15 Minuten), alle Rückwege des Fehlerkatalogs zeigen auf vorhandene Schritte
   - [x] **U2c** Werkzeuge Bruchstreifen und Zahlenstrahl (`src/ui/vermittlung/werkzeuge/`): zeigen und interaktiv, ohne Ziehen bedienbar, mit Beschreibung für Screenreader
-- [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen, in Schritten:
+- [x] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen, in Schritten:
   - [x] **U3a** Ereignis `vermittlung` (`src/core/learning/vermittlung-ereignis.ts`), Datenbank-Schemaversion 2 mit Tabelle `vermittlungen`, in Sicherung und Import; Migrationstest mit Altstand `tests/altstaende/schema-1.json`
   - [x] **U3b** Erstvermittlungen und Fehlerkatalog in die Inhaltspakete (Grundpaket: Fehlerkatalog; Bereichspaket: Erstvermittlungen)
   - [x] **U3c** Abspieler: Schritte zeigen, Antworten auswerten, Werkzeuge einbinden, Verzweigungen folgen (`src/core/learning/abspielen.ts`, `src/ui/vermittlung/Vermittlung.svelte`); vorerst über den Knopf „Erklärung“ beim Üben
@@ -202,7 +202,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3i** Rückmeldung beim Üben: kurze und lange Erklärung, Rückweg (Erklärung oder Grundlage), Kontrastaufgaben
   - [x] **U3j** Fehlerwerkstatt nach Ursachen: Gruppen je Fehlvorstellung über Vorlagen und Kompetenzen hinweg
   - [x] ~~**U3k** Unbekannte Fehler für die Pflege exportieren~~ – entfällt, steht im Testprotokoll (U4a)
-  - [ ] **U3l** Browser-Tests und Dokumente
+  - [x] **U3l** Browser-Tests (je Schritt einer) und Dokumente (LEHRPLAN §6 „erklärt“, KONZEPT §0, VERMITTLUNG §7)
 - [ ] **U4** Testphase, in zwei Schritten:
   - [ ] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)

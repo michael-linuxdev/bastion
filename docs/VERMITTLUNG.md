@@ -259,7 +259,7 @@ Reihenfolge nach K-28 (zuerst Klasse 5–8 nachrüsten):
 
 1. **Format festlegen** für Sequenz und Fehlerkatalog, in `INHALTSFORMAT.md`. Dazu ein Prüfwerkzeug für Wege, Ziele und Verweise.
 2. **Musterfeld Brüche** (Zielgruppe „Lücken bei Brüchen“, VISION §11): Erstvermittlung und Fehlerkatalog für drei Kompetenzen: `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB` (bestätigt am 29.10.2026). Dazu die Werkzeuge Bruchstreifen und Zahlenstrahl.
-3. **Abspieler in der App:** Sequenz zeigen, verzweigen, Ereignisse speichern; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen.
+3. **Abspieler in der App:** Sequenz zeigen, verzweigen, Ereignisse speichern; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen. *Erledigt am 29.10.2026 (U3a bis U3l):* dazu Zwischenschritte (K-29) im Musterfeld.
 4. **Test mit den drei Testerinnen** (`TESTS.md` §2): Verstehen sie das Thema nur mit der Vermittlung? Treffen die Erklärungen?
 5. **Ausrollen** Feld für Feld über alle 123 Kompetenzen der Klassen 5–8. Jedes Feld ist ein PR mit Review-Liste.
 6. Dann **Klasse 9 bis 12** gleich im neuen Format, mit Niveau E. Dann die **Prüfungen** (§6).

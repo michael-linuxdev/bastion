@@ -131,7 +131,7 @@ Jede Kompetenz kann auf jedem Niveau einmal gefestigt werden und bringt je einen
 ## 6. Status einer Kompetenz
 
 ```
-neu → in Arbeit → gekonnt → gefestigt
+neu → (erklärt) → in Arbeit → gekonnt → gefestigt
                               ↓ (Erinnerung sinkt)
                           auffrischen → (Wiederholung bestanden) → gefestigt
 ```
@@ -139,6 +139,7 @@ neu → in Arbeit → gekonnt → gefestigt
 | Status | Bedingung (Startwerte) |
 |---|---|
 | **neu** | Noch keine Aufgabe bearbeitet |
+| **erklärt** | Noch keine Aufgabe bearbeitet, aber die Erstvermittlung ist bis zum Ende durchlaufen (VERMITTLUNG §2.4, „vermittelt“; seit U3d). Nur eine Anzeige vor dem ersten Üben; für „gekonnt“ zählt allein das Üben |
 | **in Arbeit** | Mindestens eine Aufgabe bearbeitet |
 | **gekonnt** | Von den letzten 6 Aufgaben auf diesem Niveau mindestens 5 richtig, ohne Hilfe, verteilt über mindestens 2 Aufgabenvorlagen |
 | **gefestigt** | Gekonnt, *und* jede Aufgabenvorlage mindestens 2× als fällige Wiederholung bestanden, mit mindestens 7 Tagen zwischen erster Gekonnt-Feststellung und letzter Wiederholung, *und* geschätzte Erinnerungswahrscheinlichkeit aller Vorlagen ≥ 90 % |
