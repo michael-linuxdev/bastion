@@ -21,6 +21,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Die Leiste unten verdeckt nichts, wenn zu einem Feld gescrollt wird */
+  scroll-padding-block-end: 5.5rem;
 }
 
 body {

@@ -78,6 +78,7 @@
   import ModusWahl from './profil/ModusWahl.svelte';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Leiste, { type Bereich } from './start/Leiste.svelte';
+  import Mehr from './start/Mehr.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -95,6 +96,7 @@
     | 'abschluss'
     | 'anleitung'
     | 'bastion'
+    | 'mehr'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   let buchungsListe = $state<readonly BuchungEreignis[]>([]);
@@ -296,8 +298,9 @@
   }
 
   /** Ein Bereich der App öffnen – von der Startseite oder aus der Leiste unten. */
-  function gehe(ziel: Ziel | 'start') {
-    if (ziel !== 'start' && ziel !== 'sicherung' && ziel !== 'profil') inhalte ??= ladeInhalte();
+  function gehe(ziel: Ziel | 'start' | 'mehr') {
+    if (ziel !== 'start' && ziel !== 'mehr' && ziel !== 'sicherung' && ziel !== 'profil')
+      inhalte ??= ladeInhalte();
     switch (ziel) {
       case 'ueben':
         ueben();
@@ -325,12 +328,12 @@
 
   /** Hervorgehobener Bereich in der Leiste unten */
   const bereich = $derived<Bereich | undefined>(
-    ansicht === 'bastion' || ansicht === 'stand'
+    ansicht === 'start' || ansicht === 'bastion'
       ? ansicht
       : ansicht === 'abschluss'
         ? undefined
-        : ['start', 'profil', 'sicherung', 'eltern', 'klassenarbeit'].includes(ansicht)
-          ? 'start'
+        : ['mehr', 'stand', 'profil', 'sicherung', 'eltern', 'klassenarbeit'].includes(ansicht)
+          ? 'mehr'
           : 'ueben',
   );
 
@@ -362,7 +365,8 @@
 </script>
 
 <main class="start">
-  <h1 class="marke">{t('start.ueberschrift')}</h1>
+  <!-- Der Name steht sichtbar unter „Mehr“; hier nur für Screenreader -->
+  <h1 class="unsichtbar">{t('start.ueberschrift')}</h1>
 
   {#if ansicht === 'start'}
     <Startseite
@@ -374,8 +378,6 @@
       geradeDran={geradeDran.length}
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
-      eltern={!selbst}
-      offline={offline.bereit}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -405,6 +407,8 @@
         />
       {/if}
     </Startseite>
+  {:else if ansicht === 'mehr'}
+    <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
   {:else if ansicht === 'profil'}
     <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
     <ProfilForm
@@ -661,10 +665,13 @@
     padding-inline: var(--abstand-m);
   }
 
-  .marke {
-    font-size: 1.5rem;
-    color: var(--farbe-akzent);
-    margin-block-end: var(--abstand-m);
+  .unsichtbar {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .zurueck {
