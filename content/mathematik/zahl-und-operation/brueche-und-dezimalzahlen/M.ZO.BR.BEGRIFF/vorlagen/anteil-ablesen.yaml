@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   gefaerbt-zu-ungefaerbt:
     de: 'Du hast die gefärbten mit den ungefärbten Teilen verglichen. Der [[Nenner]] zählt **alle** Teile.'
+    fv: FV.BR.TEIL-ZU-REST
   ungefaerbter-teil:
     de: 'Das ist der ungefärbte [[Anteil]]. Gefragt ist der gefärbte.'
+    fv: FV.BR.GEGENTEIL
 herkunft: ki-entwurf
 version: 1

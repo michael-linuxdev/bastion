@@ -1,0 +1,27 @@
+id: FV.BR.VERTAUSCHT
+name:
+  de: Verwechselt Zähler und Nenner
+art: verwechslung
+beschreibung:
+  de: >-
+    Färbt so viele Teile, wie der Nenner angibt, oder schreibt die Zahl der gefärbten Teile nach
+    unten. Die Rollen von oben und unten sind noch nicht sicher.
+kompetenzen: [M.ZO.BR.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Unten steht der [[Nenner]]: in wie viele Teile das Ganze geteilt ist. Oben steht der [[Zähler]]: wie viele davon gemeint sind.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden Zahlen im [[Bruch]] vertauscht.'
+    - teil: warum-nicht
+      de: 'Das passiert leicht, beide sind einfach Zahlen. Aber sie haben verschiedene Aufgaben: Der [[Nenner]] **nennt**, wie groß die Teile sind. Der [[Zähler]] **zählt** sie.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    - teil: so-stimmt-es
+      de: 'Merke: [[Nenner]] nennt, [[Zähler]] zählt. Bei 1/4 ist das Ganze in 4 Teile geteilt, und 1 Teil ist gemeint.'
+gegenbeispiel:
+  de: '1/4 einer Tafel Schokolade ist ein kleines Stück. 4/1 wären vier ganze Tafeln.'
+rueckweg:
+  vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
+kontrast: [M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+herkunft: ki-entwurf
+version: 1

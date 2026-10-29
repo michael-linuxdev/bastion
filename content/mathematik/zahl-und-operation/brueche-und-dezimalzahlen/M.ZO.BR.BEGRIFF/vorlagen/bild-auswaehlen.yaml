@@ -16,9 +16,12 @@ hilfen:
 fehlerbilder:
   ungefaerbter-teil:
     de: 'Hier ist der Rest gefärbt – nicht der gesuchte [[Anteil]].'
+    fv: FV.BR.GEGENTEIL
   nenner-als-anzahl-gefaerbt:
     de: 'Hier sind so viele Teile gefärbt, wie der [[Nenner]] angibt. Gefärbt sein müssen so viele, wie der [[Zähler]] sagt.'
+    fv: FV.BR.VERTAUSCHT
   falsche-einteilung:
     de: 'Zähle die Teile noch einmal. Das Ganze muss in so viele Teile geteilt sein, wie der [[Nenner]] angibt.'
+    fv: FV.BR.EINTEILUNG
 herkunft: ki-entwurf
 version: 1

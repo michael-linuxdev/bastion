@@ -57,4 +57,26 @@ describe('Inhalte in content/', () => {
     );
     expect(tabelle.size).toBe(kompetenzen.length);
   });
+
+  // Nachgerüstete Kompetenzen (PLAN U2, U5): Fehlerkatalog vollständig (VERMITTLUNG §3.5)
+  const NACHGERUESTET = ['M.ZO.BR.BEGRIFF', 'M.ZO.BR.ERWEITERN', 'M.ZO.BR.ADD-SUB'];
+
+  it('nachgerüstete Kompetenzen: jedes Fehlerbild verweist auf eine Fehlvorstellung (F2)', () => {
+    const ohne = vorlagen
+      .filter((v) => NACHGERUESTET.includes(v.kompetenz))
+      .flatMap((v) =>
+        Object.entries(v.fehlerbilder)
+          .filter(([, t]) => !(t as { fv?: string }).fv)
+          .map(([fid]) => `${v.id}: ${fid}`),
+      );
+    expect(ohne).toEqual([]);
+  });
+
+  it('nachgerüstete Kompetenzen: mindestens drei Fehlvorstellungen je Kompetenz (F1)', () => {
+    for (const k of NACHGERUESTET)
+      expect(
+        bericht.fehlvorstellungen.filter((f) => f.kompetenzen.includes(k)).length,
+        k,
+      ).toBeGreaterThanOrEqual(3);
+  });
 });

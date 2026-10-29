@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   nenner-addiert:
     de: 'Du hast auch die [[Nenner]] zusammengerechnet. Bei gleichen Nennern bleibt der Nenner gleich – es ändert sich nur die Anzahl der Teile.'
+    fv: FV.BR.NENNER-ADDIERT
   nicht-erweitert:
     de: '[[Erweitern]] musst du hier nicht – die [[Nenner]] sind schon gleich.'
+    fv: FV.BR.NUR-NENNER
 herkunft: ki-entwurf
 version: 1

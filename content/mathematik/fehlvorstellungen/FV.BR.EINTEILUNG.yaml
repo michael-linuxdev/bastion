@@ -1,0 +1,27 @@
+id: FV.BR.EINTEILUNG
+name:
+  de: Achtet nicht darauf, in wie viele gleich große Teile das Ganze geteilt ist
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Zählt die Teile falsch oder hält eine Einteilung in ungleich große Stücke für passend. Die
+    Vorstellung „Bruch = gleich große Teile eines Ganzen“ fehlt noch.
+kompetenzen: [M.ZO.BR.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Das Ganze muss in so viele **gleich große** Teile geteilt sein, wie der [[Nenner]] angibt. Zähle sie noch einmal.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast ein Bild gewählt, bei dem die Zahl oder die Größe der Teile nicht passt.'
+    - teil: warum-nicht
+      de: 'Ein [[Bruch]] beschreibt nur dann einen [[Anteil]], wenn alle Teile gleich groß sind. Sonst kann ein „Viertel“ riesig oder winzig sein.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1, ungleich: true } }
+    - teil: so-stimmt-es
+      de: 'Prüfe zuerst: Sind alle Teile gleich groß? Dann zähle sie. Das ist der [[Nenner]].'
+gegenbeispiel:
+  de: 'Wenn du einen Kuchen in 4 Stücke schneidest, eins davon riesig, bekommt nicht jeder ein Viertel.'
+rueckweg:
+  vermittlung: M.ZO.BR.BEGRIFF#erklaeren-gleich
+kontrast: [M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+herkunft: ki-entwurf
+version: 1

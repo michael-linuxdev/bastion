@@ -1,0 +1,27 @@
+id: FV.BR.NICHT-VOLLSTAENDIG
+name:
+  de: Hört beim Kürzen zu früh auf
+art: falsche-regel
+beschreibung:
+  de: >-
+    Kürzt einmal richtig, prüft aber nicht, ob Zähler und Nenner noch einen gemeinsamen Teiler
+    haben. „Vollständig kürzen“ ist als Ziel noch nicht verankert.
+kompetenzen: [M.ZO.BR.ERWEITERN]
+erklaerung:
+  kurz:
+    de: 'Richtig [[gekürzt]], aber noch nicht vollständig: [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einmal [[gekürzt]] und dann aufgehört.'
+    - teil: warum-nicht
+      de: 'Der Schritt war richtig. „Vollständig“ heißt aber: Es gibt keinen [[gemeinsamen Teiler]] mehr außer 1.'
+    - teil: so-stimmt-es
+      de: 'Prüfe nach jedem Schritt: Lassen sich [[Zähler]] und [[Nenner]] noch durch dieselbe Zahl teilen? Oder [[kürze]] gleich durch den größten [[gemeinsamen Teiler]].'
+gegenbeispiel:
+  de: '12/18 → 6/9 ist richtig [[gekürzt]]. Aber 6 und 9 lassen sich noch durch 3 teilen: 6/9 = 2/3.'
+rueckweg:
+  vermittlung: M.ZO.BR.ERWEITERN#erklaeren-kuerzen
+  voraussetzung: M.ZO.TB.TEILER
+kontrast: [M.ZO.BR.ERWEITERN.KUERZEN]
+herkunft: ki-entwurf
+version: 1

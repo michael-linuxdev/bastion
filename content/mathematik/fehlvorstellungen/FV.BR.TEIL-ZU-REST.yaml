@@ -1,0 +1,30 @@
+id: FV.BR.TEIL-ZU-REST
+name:
+  de: Vergleicht den Teil mit dem Rest statt mit dem Ganzen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt bei 3 gefärbten und 1 ungefärbten Teil „3/1“ statt „3/4“. Der Nenner wird als Zahl der
+    übrigen Teile gelesen, nicht als Zahl aller Teile. Häufig, wenn Brüche nur als Verhältnis
+    „so viele zu so vielen“ erlebt wurden.
+kompetenzen: [M.ZO.BR.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Der [[Nenner]] zählt **alle** Teile des Ganzen – die gefärbten und die ungefärbten zusammen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die gefärbten Teile mit den ungefärbten verglichen: 3 gefärbte, 1 ungefärbter, also 3/1.'
+    - teil: warum-nicht
+      de: 'Das ist eine naheliegende Idee. Aber 3/1 wäre dreimal das ganze Ding – viel mehr, als da ist. Der [[Bruch]] sagt, welcher Teil vom **Ganzen** gefärbt ist.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: 'Zähle zuerst alle Teile: Das ist der [[Nenner]]. Dann zähle die gefärbten: Das ist der [[Zähler]]. Hier also 3/4.'
+gegenbeispiel:
+  de: 'Bei einer Pizza mit 4 Stücken isst du 3. Du hast nicht „3 von 1“ gegessen, sondern 3 von 4.'
+rueckweg:
+  vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
+kontrast: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN]
+quelle:
+  de: Fachdidaktik Bruchrechnung (Teil-Ganzes-Vorstellung)
+herkunft: ki-entwurf
+version: 1

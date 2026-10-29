@@ -1,0 +1,27 @@
+id: FV.BR.NUR-NENNER
+name:
+  de: Verändert nur den Nenner, nicht den Zähler
+art: falsche-regel
+beschreibung:
+  de: >-
+    Erweitert oder kürzt nur den Nenner, etwa 3/4 → 3/8 oder beim Addieren 1/2 + 1/4 → 1/4 + 1/4.
+    Die neue Teilgröße wird richtig gefunden, die Zahl der Teile aber nicht angepasst.
+kompetenzen: [M.ZO.BR.ERWEITERN, M.ZO.BR.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Wenn du den [[Nenner]] veränderst, musst du den [[Zähler]] mit derselben Zahl verändern.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Teile kleiner gemacht, aber nicht mehr davon genommen.'
+    - teil: warum-nicht
+      de: 'Kleinere Teile sind richtig gedacht. Doch wenn jedes Teil halb so groß ist, brauchst du doppelt so viele, sonst schrumpft der [[Anteil]].'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: 'Nimm [[Zähler]] und [[Nenner]] mit derselben Zahl mal: 3/4 = 6/8.'
+gegenbeispiel:
+  de: '3/4 einer Pizza sind fast alles. 3/8 sind weniger als die Hälfte – das kann nicht dasselbe sein.'
+rueckweg:
+  vermittlung: M.ZO.BR.ERWEITERN#erklaeren-erweitern
+kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER, M.ZO.BR.ERWEITERN.KUERZEN, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
+herkunft: ki-entwurf
+version: 1

@@ -19,9 +19,12 @@ hilfen:
 fehlerbilder:
   nicht-vollstaendig:
     de: 'Du hast richtig [[gekürzt]], aber noch nicht vollständig. [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+    fv: FV.BR.NICHT-VOLLSTAENDIG
   nur-nenner-gekuerzt:
     de: 'Du hast nur den [[Nenner]] geteilt. Beim [[Kürzen]] werden [[Zähler]] und Nenner durch dieselbe Zahl geteilt.'
+    fv: FV.BR.NUR-NENNER
   subtrahiert:
     de: 'Du hast von [[Zähler]] und [[Nenner]] dieselbe Zahl abgezogen. [[Kürzen]] heißt **teilen** – nicht subtrahieren.'
+    fv: FV.BR.ADDITIV
 herkunft: ki-entwurf
 version: 1

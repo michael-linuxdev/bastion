@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   nenner-addiert:
     de: 'Du hast [[Zähler]] mit Zählern und [[Nenner]] mit Nennern verrechnet. [[Brüche]] addierst du so nicht – bringe sie zuerst auf einen [[gemeinsamen Nenner]].'
+    fv: FV.BR.NENNER-ADDIERT
   nicht-erweitert:
     de: 'Der gemeinsame [[Nenner]] stimmt, aber die [[Zähler]] hast du nicht mit erweitert. [[Erweitern]] heißt Zähler und Nenner mit derselben Zahl malnehmen.'
+    fv: FV.BR.NUR-NENNER
 herkunft: ki-entwurf
 version: 1

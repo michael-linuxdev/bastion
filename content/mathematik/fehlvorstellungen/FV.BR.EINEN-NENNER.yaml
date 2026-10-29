@@ -1,0 +1,28 @@
+id: FV.BR.EINEN-NENNER
+name:
+  de: Übernimmt einfach einen der Nenner, ohne zu erweitern
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 1/2 + 1/4 = 2/4: Die Zähler werden addiert, als Nenner wird einer der beiden genommen.
+    Weiß, dass ein gemeinsamer Nenner nötig ist, aber nicht, wie man ihn herstellt.
+kompetenzen: [M.ZO.BR.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Du brauchst einen [[gemeinsamen Nenner]]. Dafür musst du die [[Brüche]] [[erweitern]] – [[Zähler]] und [[Nenner]] zusammen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Zähler]] addiert und einen der beiden [[Nenner]] übernommen.'
+    - teil: warum-nicht
+      de: 'Du weißt schon: Am Ende muss ein [[gemeinsamer Nenner]] stehen. Aber 1/2 sind nicht 1/4 – die Hälfte ist doppelt so groß wie ein Viertel.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 2 } }
+    - teil: so-stimmt-es
+      de: '[[Erweitere]] zuerst: 1/2 = 2/4. Dann addiere: 2/4 + 1/4 = 3/4.'
+gegenbeispiel:
+  de: 'Eine halbe und eine viertel Pizza sind mehr als eine halbe. Das Ergebnis 2/4 wäre aber genau eine halbe.'
+rueckweg:
+  vermittlung: M.ZO.BR.ADD-SUB#erklaeren-ungleichnamig
+  voraussetzung: M.ZO.BR.ERWEITERN
+kontrast: [M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
+herkunft: ki-entwurf
+version: 1

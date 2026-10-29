@@ -19,9 +19,12 @@ hilfen:
 fehlerbilder:
   addiert:
     de: 'Du hast zum [[Zähler]] etwas addiert. Beim [[Erweitern]] wird **multipliziert** – Zähler und [[Nenner]] mit derselben Zahl.'
+    fv: FV.BR.ADDITIV
   nur-nenner:
     de: 'Du hast nur den [[Nenner]] verändert. Der [[Zähler]] muss mit derselben Zahl multipliziert werden.'
+    fv: FV.BR.NUR-NENNER
   zaehler-falscher-faktor:
     de: 'Der [[Nenner]] stimmt. Prüfe, mit welcher Zahl du den [[Zähler]] multipliziert hast.'
+    fv: FV.BR.FAKTOR
 herkunft: ki-entwurf
 version: 1
