@@ -11,10 +11,12 @@
 import type { AufgabeEreignis } from '../learning/ereignis';
 import type { KompetenzStand } from '../learning/fortschritt';
 import type { SitzungEreignis } from '../learning/sitzung';
+import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import {
   alleSitzungsBuchungen,
   koennenBuchungen,
   startpaketBuchungen,
+  vermittlungsBuchungen,
   type Buchung,
   type Ressource,
 } from './regeln';
@@ -53,6 +55,7 @@ export function fehlendeBuchungen(
   staende: readonly KompetenzStand[],
   vorhanden: ReadonlySet<string>,
   k: Buchungskontext,
+  vermittlungen: readonly VermittlungEreignis[] = [],
 ): BuchungEreignis[] {
   const zeit = new Map(sitzungen.map((s) => [s.id, s.ts]));
   const schonBauplaene = new Set(
@@ -67,10 +70,17 @@ export function fehlendeBuchungen(
       id.startsWith(vorneStart) ? [id.slice(vorneStart.length)] : [],
     ),
   );
+  const vorneVermittlung = `${k.profil}.schritt.vermittlung:`;
+  const schonVermittelt = new Set(
+    [...vorhanden].flatMap((id) =>
+      id.startsWith(vorneVermittlung) ? [id.slice(vorneVermittlung.length)] : [],
+    ),
+  );
   const alle: Buchung[] = [
     ...alleSitzungsBuchungen(sitzungen, aufgaben),
     ...koennenBuchungen(staende, schonBauplaene),
     ...startpaketBuchungen(aufgaben, staende, schonStartpaket),
+    ...vermittlungsBuchungen(vermittlungen, schonVermittelt),
   ];
   return alle
     .map((b) => ({

@@ -391,7 +391,7 @@ describe('Ablage', () => {
     expect(await letzteSicherung(db)).toBe(1234);
   });
 
-  it('Vermittlung: Ereignisse speichern, ohne Karten oder Konto zu bewegen; Sicherung', async () => {
+  it('Vermittlung: speichern ohne Karten; Abschluss bringt einen Bauschritt; Sicherung', async () => {
     const db = neueDb();
     const inst = await einrichten(db, 1000, quelleAusSeed(1));
     const z = quelleAusSeed(6);
@@ -426,13 +426,17 @@ describe('Ablage', () => {
     // D-16: Vermittlung ist kein Üben
     expect(await karten(db, inst.profil)).toEqual([]);
     expect(await kompetenzStaende(db, inst.profil)).toEqual([]);
-    expect(await buchen(db, inst, 4000)).toEqual([]);
+    // Der Abschluss zählt als Lerneinheit: ein Bauschritt, einmal je Kompetenz
+    expect((await buchen(db, inst, 4000)).map((b) => [b.ressource, b.menge, b.bezug])).toEqual([
+      ['schritt', 1, 'vermittlung:M.ZO.BR.BEGRIFF'],
+    ]);
+    expect(await buchen(db, inst, 4500)).toEqual([]);
 
     const sicherung = await exportieren(db, inst.profil);
     expect(sicherung.ereignisse.filter((e) => e.art === 'vermittlung')).toHaveLength(2);
     const ziel = neueDb();
     const zi = await einrichten(ziel, 5000, quelleAusSeed(2));
-    expect(await importieren(ziel, sicherung, zi.profil, 6000)).toMatchObject({ ok: true, neu: 2 });
+    expect(await importieren(ziel, sicherung, zi.profil, 6000)).toMatchObject({ ok: true, neu: 3 });
     expect(await vermittlungen(ziel, inst.profil)).toEqual([antwort, ende]);
     expect(await importieren(ziel, sicherung, inst.profil, 7000)).toMatchObject({ neu: 0 });
   });

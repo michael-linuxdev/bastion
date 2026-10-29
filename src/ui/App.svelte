@@ -25,6 +25,7 @@
     klassenarbeitSetzen,
     klasseSetzen,
     merkeVermittlung,
+    vermittelteKompetenzen,
     schulartSetzen,
     sicherungAnstehend,
     zustand as ladeZustand,
@@ -81,6 +82,7 @@
   import Leiste, { type Bereich } from './start/Leiste.svelte';
   import Mehr from './start/Mehr.svelte';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
+  import Angebot from './vermittlung/Angebot.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -98,6 +100,7 @@
     | 'abschluss'
     | 'anleitung'
     | 'vermittlung'
+    | 'angebot'
     | 'bastion'
     | 'mehr'
   >('start');
@@ -214,8 +217,23 @@
   /** Erinnerung an eine Sicherung (monatlich, ARCHITEKTUR §2) – beim Laden festgestellt. */
   let sichern = $state(false);
 
+  /** Kompetenzen mit abgeschlossener Erstvermittlung (VERMITTLUNG §2.4) */
+  let vermittelte = $state<ReadonlySet<string>>(new Set());
+
+  /**
+   * Zum Üben einer Kompetenz. Ist sie neu und gibt es eine Erstvermittlung, kommt
+   * vorher das Angebot „Erst erklären lassen?“ – überspringbar (U3d).
+   */
+  function zumUeben(geladen: Inhalte, k: Kompetenz) {
+    gewaehlt = k;
+    const neu =
+      !vermittelte.has(k.id) && ![...zustand.staende.values()].some((s) => s.kompetenz === k.id);
+    ansicht = neu && geladen.vermittlungen.has(k.id) ? 'angebot' : 'uebung';
+  }
+
   async function aktualisiere() {
     zustand = await ladeZustand();
+    vermittelte = await vermittelteKompetenzen();
     const jetzt = Date.now();
     rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
     faellig = wiederholRunde(zustand.karten, jetzt).length;
@@ -446,6 +464,15 @@
           aufgaben={aufgabenListe}
           {klasse}
         />
+      {:else if ansicht === 'angebot' && gewaehlt}
+        {@const k = gewaehlt}
+        <Angebot
+          titel={k.titel.de}
+          dauer={geladen.vermittlungen.get(k.id)?.dauer_min}
+          onja={() => (ansicht = 'vermittlung')}
+          onnein={() => (ansicht = 'uebung')}
+          onzurueck={() => (ansicht = 'uebersicht')}
+        />
       {:else if ansicht === 'vermittlung' && gewaehlt && geladen.vermittlungen.has(gewaehlt.id)}
         {@const v = geladen.vermittlungen.get(gewaehlt.id)}
         {#if v}
@@ -468,7 +495,12 @@
                 });
             }}
             onende={() => {
-              void merkeVermittlung({ ...angaben, schritt: 'uebergang', typ: 'abgeschlossen' });
+              vermittelte = new Set([...vermittelte, k.id]);
+              speichern = merkeVermittlung({
+                ...angaben,
+                schritt: 'uebergang',
+                typ: 'abgeschlossen',
+              });
               ansicht = 'uebung';
             }}
             onvoraussetzung={(id) => {
@@ -512,10 +544,7 @@
           bind:niveau
           bind:klasse
           {selbst}
-          onueben={(k) => {
-            gewaehlt = k;
-            ansicht = 'uebung';
-          }}
+          onueben={(k) => zumUeben(geladen, k)}
         />
       {:else if ansicht === 'diagnose'}
         <button
@@ -541,9 +570,8 @@
           }}
           onergebnis={(d) => void ergebnis(d)}
           onueben={(k) => {
-            gewaehlt = k;
             niveau = 'G';
-            ansicht = 'uebung';
+            zumUeben(geladen, k);
           }}
           onende={() => {
             ansicht = 'start';
@@ -563,9 +591,8 @@
           heute={heuteTag}
           bind:klassenarbeit
           onueben={(k) => {
-            gewaehlt = k;
             niveau = 'G';
-            ansicht = 'uebung';
+            zumUeben(geladen, k);
           }}
           onprobe={(themen) => {
             diagnoseAntworten = [];
@@ -680,10 +707,8 @@
           bind:klasse
           bind:schulart
           bind:geradeDran
-          onwahl={(k) => {
-            gewaehlt = k;
-            ansicht = 'uebung';
-          }}
+          vermittelt={vermittelte}
+          onwahl={(k) => zumUeben(geladen, k)}
         />
       {/if}
     {:catch}

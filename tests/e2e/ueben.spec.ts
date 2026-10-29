@@ -787,6 +787,9 @@ test('Klasse 6 wählen und Brüche addieren üben', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Klasse 6' })).toBeVisible();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toHaveCount(0);
   await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
+  // Neu und mit Erstvermittlung: erst das Angebot, überspringbar (U3d)
+  await expect(page.getByText('Das ist neu für dich.', { exact: false })).toBeVisible();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
   await expect(page.getByText(/Berechne/)).toBeVisible();
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
 });
@@ -1171,7 +1174,7 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('button', { name: /^Brüche als Anteile/ }).click();
-  await page.getByRole('main').getByRole('button', { name: 'Erklärung' }).click();
+  await page.getByRole('button', { name: 'Erklär es mir' }).click();
 
   await expect(page.getByText('Dein Ziel')).toBeVisible();
   await page.getByRole('button', { name: 'Weiter' }).click();
@@ -1212,4 +1215,65 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
 
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+});
+
+test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot mehr, Kurzfassung (U3d)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Brüche als Anteile/ }).click();
+  await page.getByRole('button', { name: 'Erklär es mir' }).click();
+  // Alles richtig beantworten bis zum Übergang
+  const richtig: Record<string, () => Promise<void>> = {
+    'Was du schon weißt': () => page.getByLabel('Deine Antwort').fill('3'),
+    'Probier es aus': () => page.getByRole('radio', { name: '4', exact: true }).check(),
+    'Jetzt du': async () => {
+      await page.getByLabel('Zähler').fill('2');
+      await page.getByLabel('Nenner').fill('6');
+    },
+    'Stimmt das?': () => page.getByRole('radio', { name: /^Nein/ }).check(),
+    'Prüfe dich': () => page.getByRole('radio', { name: '3/5', exact: true }).check(),
+  };
+  for (let i = 0; i < 20; i++) {
+    if (await page.getByRole('button', { name: 'Jetzt üben' }).isVisible()) break;
+    const typ = (await page.locator('.typ').first().textContent())?.trim() ?? '';
+    const antwort = Object.entries(richtig).find(([k]) => k.toUpperCase() === typ.toUpperCase());
+    if (antwort) {
+      await antwort[1]();
+      await page.getByRole('button', { name: 'Prüfen' }).click();
+      await expect(page.getByText('Richtig!')).toBeVisible();
+    }
+    await page.getByRole('button', { name: 'Weiter' }).click();
+  }
+  await page.getByRole('button', { name: 'Jetzt üben' }).click();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+
+  // Zurück zur Übersicht: „erklärt“, und beim nächsten Mal kein Angebot mehr
+  await page.getByRole('button', { name: /Zurück/ }).click();
+  await expect(page.getByRole('button', { name: /^Brüche als Anteile erklärt/ })).toBeVisible();
+  await page.getByRole('button', { name: /^Brüche als Anteile/ }).click();
+  await expect(page.getByRole('button', { name: 'Erklär es mir' })).toHaveCount(0);
+
+  // Kurzfassung: nur Beispiele und Merksätze
+  await page.getByRole('main').getByRole('button', { name: 'Erklärung' }).click();
+  await page.getByRole('button', { name: 'Nur Kurzfassung' }).click();
+  await expect(page.getByText('Merke dir')).toBeVisible();
+  await expect(page.getByText('Dein Ziel')).toHaveCount(0);
+
+  // Der Abschluss brachte einen Bauschritt (D-16, ergänzt)
+  const gruende = await page.evaluate(
+    () =>
+      new Promise<string[]>((fertig) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onsuccess = () => {
+          const lesen = anfrage.result.transaction('buchungen').objectStore('buchungen').getAll();
+          lesen.onsuccess = () => {
+            anfrage.result.close();
+            fertig((lesen.result as { bezug: string }[]).map((b) => b.bezug));
+          };
+        };
+      }),
+  );
+  expect(gruende).toContain('vermittlung:M.ZO.BR.BEGRIFF');
 });

@@ -189,6 +189,7 @@ interface BuchungEreignis extends Ereignis {
     | 'sitzung'                      // Stein, Erz, Bauschritt aus einer Sitzung
     | 'kompetenz-gefestigt'          // Bauplan
     | 'startpaket'                   // Stein und Bauschritt für Vorwissen aus der Diagnose (B-24)
+    | 'vermittlung'                  // Bauschritt für eine abgeschlossene Erstvermittlung (§4.7, einmal je Kompetenz)
     | 'belagerung'                   // Bauplan (ab Phase 4)
     | 'bau-beginn'                   // Abbuchung
     | 'bau-abbruch'                  // Erstattung

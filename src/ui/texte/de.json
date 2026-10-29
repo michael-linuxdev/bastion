@@ -660,5 +660,15 @@
   "vermittlung.fortschritt": "Fortschritt der Erklärung",
   "vermittlung.antwort": "Deine Antwort",
   "vermittlung.bruch-zaehler": "Zähler",
-  "vermittlung.bruch-nenner": "Nenner"
+  "vermittlung.bruch-nenner": "Nenner",
+  "vermittlung.angebot.neu": "Das ist neu für dich.",
+  "vermittlung.angebot.frage": "Erst erklären lassen?",
+  "vermittlung.angebot.dauer": "Dauert etwa",
+  "vermittlung.angebot.minuten": "Minuten.",
+  "vermittlung.angebot.ja": "Erklär es mir",
+  "vermittlung.angebot.nein": "Ich kann das schon",
+  "vermittlung.angebot.spaeter": "Die Erklärung findest du auch später beim Üben.",
+  "vermittlung.kurzfassung": "Nur Kurzfassung",
+  "vermittlung.ganz": "Ganze Erklärung",
+  "vermittlung.erklaert": "erklärt"
 }

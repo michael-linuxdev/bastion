@@ -18,6 +18,7 @@
     klasse = $bindable(5),
     schulart = $bindable(undefined),
     geradeDran = $bindable([]),
+    vermittelt = new Set(),
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -29,6 +30,8 @@
     schulart?: 'oberschule' | 'gymnasium' | undefined;
     /** „Gerade in der Schule dran“ (L-18) */
     geradeDran?: readonly string[];
+    /** Kompetenzen mit abgeschlossener Erstvermittlung: Zustand „erklärt“ vor dem ersten Üben */
+    vermittelt?: ReadonlySet<string>;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -91,6 +94,8 @@
                     `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
                   )}
                 </span>
+              {:else if vermittelt.has(k.id)}
+                <span class="status">{t('vermittlung.erklaert')}</span>
               {:else if empfehlungen.has(k.id)}
                 <span class="status empfohlen">{t('status.empfohlen')}</span>
               {/if}

@@ -228,7 +228,7 @@ export async function buchen(
 ): Promise<BuchungEreignis[]> {
   return db.transaction(
     'rw',
-    [db.aufgaben, db.sitzungen, db.kompetenzen, db.buchungen, db.konto],
+    [db.aufgaben, db.sitzungen, db.kompetenzen, db.buchungen, db.konto, db.vermittlungen],
     async () => {
       const vorhanden = new Set(
         await db.buchungen
@@ -242,6 +242,7 @@ export async function buchen(
         await kompetenzStaende(db, inst.profil),
         vorhanden,
         { profil: inst.profil, geraet: inst.geraet, jetzt },
+        await vermittlungen(db, inst.profil),
       );
       if (neu.length === 0) return neu;
       await db.buchungen.bulkAdd(neu);

@@ -45,7 +45,9 @@ export function tagesertrag(
   // Nur Erarbeitetes – eine Erstattung nach Abbruch ist kein neuer Ertrag
   const heute = buchungen.filter(
     (b) =>
-      b.tag === tag && b.menge > 0 && (b.grund === 'sitzung' || b.grund === 'kompetenz-gefestigt'),
+      b.tag === tag &&
+      b.menge > 0 &&
+      (b.grund === 'sitzung' || b.grund === 'kompetenz-gefestigt' || b.grund === 'vermittlung'),
   );
   const menge: Record<Ressource, number> = { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 };
   let voll = 0;
