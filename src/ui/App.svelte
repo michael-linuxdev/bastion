@@ -3,7 +3,11 @@
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
   import { istRueckkehr, wiederholRunde } from '../core/srs/rueckkehr';
   import type { Antwort } from '../core/learning/diagnose';
-  import type { Fehlergruppe } from '../core/learning/werkstatt';
+  import {
+    gruppiere,
+    offeneFehler as offeneAufgaben,
+    type Fehlergruppe,
+  } from '../core/learning/werkstatt';
   import {
     alleAufgaben,
     fehlergruppen,
@@ -247,6 +251,15 @@
     );
   }
 
+  /** Fehlerwerkstatt nach Ursachen (U3j): gleiche Fehlvorstellung = eine Gruppe */
+  function gruppenNachUrsache(geladen: Inhalte): Fehlergruppe[] {
+    const katalog = fvKatalog(geladen.vorlagen, [...geladen.fehlvorstellungen.values()]);
+    return gruppiere(offeneAufgaben(aufgabenListe), (e) => {
+      const aus = e.fehlerbild ? katalog.fvVon(e.vorlage, e.fehlerbild) : undefined;
+      return aus ?? e.schritte?.flatMap((s) => (s.fehler ?? []).map((f) => f.fv)).find(Boolean);
+    });
+  }
+
   /** Fehlvorstellungen, die eine Antwort zeigt: Fehlerbild des Ergebnisses und der Schritte */
   function fvsVon(geladen: Inhalte, d: Antwortdaten): string[] {
     const vorlage = geladen.vorlagen.find((v) => v.id === d.vorlage);
@@ -346,8 +359,9 @@
   /** Genau die damaligen Aufgaben – nur, wenn der Generator noch dieselbe Version hat. */
   function aufarbeiten(geladen: Inhalte, g: Fehlergruppe) {
     const vorlagen = new Map(geladen.vorlagen.map((v) => [v.id, v]));
-    const kompetenz = geladen.kompetenzen.find((k) => k.id === g.kompetenz);
     werkstattListe = g.fehler.flatMap((e) => {
+      // Eine Gruppe nach Denkfehler kann Aufgaben mehrerer Kompetenzen enthalten
+      const kompetenz = geladen.kompetenzen.find((k) => k.id === e.kompetenz);
       const vorlage = vorlagen.get(e.vorlage);
       return kompetenz &&
         vorlage &&
@@ -702,7 +716,9 @@
       {:else if ansicht === 'werkstatt'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <Werkstatt
-          {gruppen}
+          gruppen={gruppenNachUrsache(geladen)}
+          fehlvorstellungen={geladen.fehlvorstellungen}
+          fvStaende={fvStaende(geladen)}
           vorlagen={new Map(geladen.vorlagen.map((v) => [v.id, v]))}
           kompetenzen={new Map(geladen.kompetenzen.map((k) => [k.id, k]))}
           onaufarbeiten={(g) => aufarbeiten(geladen, g)}

@@ -174,7 +174,7 @@ Je Fehlvorstellung führt Bastion eine Zählung aus den gespeicherten Aufgaben-E
   - Der Rückweg führt in die Erstvermittlung an die Stelle aus `rueckweg.vermittlung`. Bei „wieder da“ führt er zur Voraussetzung, falls es eine gibt.
   - Beim Üben kommen danach zwei Kontrastaufgaben aus `kontrast`, auch aus einer anderen Kompetenz.
   - Der Zustand wird nach dem Speichern neu berechnet. Die lange Erklärung erscheint also, sobald die Antwort gespeichert ist.
-- Die Fehlerwerkstatt gruppiert künftig nach Fehlvorstellung statt nach Fehlerbild.
+- Die Fehlerwerkstatt gruppiert nach Fehlvorstellung statt nach Fehlerbild. *Umsetzung (U3j):* `gruppiere` in `src/core/learning/werkstatt.ts` fasst offene Fehler mit derselben Fehlvorstellung zu einer Gruppe zusammen, auch über Vorlagen und Kompetenzen hinweg. Grundlage ist das Fehlerbild des Ergebnisses, sonst der erste Schrittfehler. Die Werkstatt zeigt „Denkfehler: …“, die kurze Erklärung, den Stand der Diagnose in Worten ohne Wertung und die betroffenen Themen. Fehler ohne Fehlvorstellung bleiben nach Fehlerbild gruppiert.
 - Der bisherige Rückweg (drei Fehler in Folge → Voraussetzung, LEHRPLAN §7) bleibt für Fehler ohne erkannte Fehlvorstellung.
 
 ### 3.4 Unbekannte Fehler

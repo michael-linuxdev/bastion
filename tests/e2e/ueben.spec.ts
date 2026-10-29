@@ -1373,3 +1373,36 @@ test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U
   await expect(page.getByText('Dein Ziel')).toHaveCount(0);
   await expect(page.locator('.vermittlung .karte')).toBeVisible();
 });
+
+test('Fehlerwerkstatt nach Ursachen: ein Denkfehler aus Kürzen und Erweitern ist eine Gruppe (U3j)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: /^Brüche erweitern und kürzen/ }).click();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
+  const ggt = (a: number, b: number): number => (b === 0 ? a : ggt(b, a % b));
+  for (let runde = 0; runde < 2; runde++) {
+    const text = (await page.locator('.aufgabe .text').textContent()) ?? '';
+    const z = Number(await page.locator('.aufgabe .text .zaehler').first().textContent());
+    const n = Number(await page.locator('.aufgabe .text .nenner').first().textContent());
+    const ziel = /Nenner\s*(\d+)\s*ist/.exec(text);
+    const falsch = ziel ? [z, Number(ziel[1])] : [z, n / ggt(z, n)];
+    const form = page.locator('form#antwort');
+    await form.getByLabel('Zähler').fill(String(falsch[0]));
+    await form.getByLabel('Nenner').fill(String(falsch[1]));
+    await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
+    await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
+    await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  }
+  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  await page
+    .getByRole('main')
+    .getByRole('button', { name: /Fehlerwerkstatt/ })
+    .click();
+  const gruppen = page.locator('.gruppe');
+  await expect(gruppen).toHaveCount(1);
+  await expect(gruppen.first()).toContainText('Denkfehler: Verändert nur den Nenner');
+  await expect(gruppen.first()).toContainText('2');
+});

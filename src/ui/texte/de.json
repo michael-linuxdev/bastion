@@ -692,5 +692,11 @@
   "fv.wieder-da": "Dieser Denkfehler ist wieder aufgetaucht.",
   "fv.zur-erklaerung": "Zurück zur Erklärung",
   "fv.grundlage": "Erst die Grundlage üben",
-  "fv.kontrast": "Gleich kommen zwei Aufgaben, mit denen du es überprüfen kannst."
+  "fv.kontrast": "Gleich kommen zwei Aufgaben, mit denen du es überprüfen kannst.",
+  "werkstatt.denkfehler": "Denkfehler:",
+  "werkstatt.fv.vermutet": "taucht öfter auf",
+  "werkstatt.fv.wieder-da": "taucht öfter auf",
+  "werkstatt.fv.in-arbeit": "du arbeitest daran",
+  "werkstatt.fv.aufgeloest": "schon geklärt",
+  "werkstatt.fv.aufgefallen": "einmal aufgefallen"
 }

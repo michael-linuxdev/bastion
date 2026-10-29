@@ -200,7 +200,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3g** Zwischenschritte im Musterfeld Brüche (Erweitern auf Zielnenner, Kürzen, ungleichnamig Addieren/Subtrahieren; INHALTSFORMAT §17)
   - [x] **U3h** Schritt-Eingabe beim Üben: „Zeig mir deinen Weg“, zwei Versuche je Schritt; Ereignis `aufgabe` mit `schritte` (`v` = 2, D-17); Diagnose zählt Schrittfehler
   - [x] **U3i** Rückmeldung beim Üben: kurze und lange Erklärung, Rückweg (Erklärung oder Grundlage), Kontrastaufgaben
-  - [ ] **U3j** Fehlerwerkstatt nach Ursachen
+  - [x] **U3j** Fehlerwerkstatt nach Ursachen: Gruppen je Fehlvorstellung über Vorlagen und Kompetenzen hinweg
   - [x] ~~**U3k** Unbekannte Fehler für die Pflege exportieren~~ – entfällt, steht im Testprotokoll (U4a)
   - [ ] **U3l** Browser-Tests und Dokumente
 - [ ] **U4** Testphase, in zwei Schritten:
