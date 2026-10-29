@@ -92,6 +92,8 @@ export const SCHULJAHR_SCHLUESSEL = 'lernen.schuljahr';
 
 /** „Gerade in der Schule dran“ (L-18): Kompetenz-IDs, durch Komma getrennt. */
 export const GERADE_DRAN_SCHLUESSEL = 'lernen.gerade-dran';
+/** Nächste Klassenarbeit (L-19): JSON mit Termin und Themen; leer = keine. */
+export const KLASSENARBEIT_SCHLUESSEL = 'lernen.klassenarbeit';
 
 /** Vermerk, dass die PIN nach dem Einspielen einer Sicherung neu festgelegt wurde (D-15). */
 export const PIN_NACH_SICHERUNG = 'eltern.pin-nach-sicherung';

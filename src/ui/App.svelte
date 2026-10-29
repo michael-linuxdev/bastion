@@ -20,6 +20,8 @@
     schuljahrSetzen,
     geradeDranWahl,
     geradeDranSetzen,
+    klassenarbeitWahl,
+    klassenarbeitSetzen,
     klasseSetzen,
     schulartSetzen,
     sicherungAnstehend,
@@ -33,6 +35,7 @@
   import { alsText, fuelle } from '../core/learning/text';
   import type { Auftrag } from './ueben/auftrag';
   import Diagnose from './ueben/Diagnose.svelte';
+  import KlassenarbeitAnsicht from './ueben/Klassenarbeit.svelte';
   import MeinStand from './ueben/MeinStand.svelte';
   import Elternbereich from './eltern/Elternbereich.svelte';
   import Sicherung from './sicherung/Sicherung.svelte';
@@ -63,6 +66,11 @@
   import { lerntag as lerntagVon } from '../core/policy/lerntag';
   import { KLASSEN } from './ueben/klassen';
   import { uebersprungeneKlassen, type WechselHinweis } from '../core/learning/wechsel';
+  import {
+    klassenarbeitAus,
+    klassenarbeitText,
+    type Klassenarbeit,
+  } from '../core/learning/klassenarbeit';
   import { untrack } from 'svelte';
   import { aktiv, tt } from './bastion/thema.svelte';
 
@@ -74,6 +82,7 @@
     | 'werkstatt'
     | 'werkstatt-uebung'
     | 'diagnose'
+    | 'klassenarbeit'
     | 'stand'
     | 'eltern'
     | 'profil'
@@ -122,6 +131,17 @@
     geradeDranGespeichert = text;
     void geradeDranSetzen(geradeDran);
   });
+  /** Nächste Klassenarbeit (L-19) – nach dem Termin vorbei */
+  let klassenarbeit = $state<Klassenarbeit | undefined>(undefined);
+  let klassenarbeitGespeichert: string | undefined;
+  $effect(() => {
+    const text = klassenarbeit ? klassenarbeitText(klassenarbeit) : '';
+    if (klassenarbeitGespeichert === undefined || text === klassenarbeitGespeichert) return;
+    klassenarbeitGespeichert = text;
+    void klassenarbeitSetzen(text);
+  });
+  /** Laufende Diagnose ist eine Probe-Klassenarbeit (L-19) */
+  let diagnoseProbe = $state(false);
   /** Schuljahr erst mit der ersten Klassenwahl merken – beim ersten Start wird nichts gespeichert */
   let schuljahrBekannt = false;
   /** Diagnose nur für ausgewählte Kompetenzen (nach einem Schulartwechsel) */
@@ -205,6 +225,9 @@
       const gd = await geradeDranWahl();
       geradeDranGespeichert = typeof gd === 'string' ? gd : '';
       geradeDran = geradeDranGespeichert === '' ? [] : geradeDranGespeichert.split(',');
+      const ka = await klassenarbeitWahl();
+      klassenarbeit = klassenarbeitAus(ka, heuteTag);
+      klassenarbeitGespeichert = typeof ka === 'string' ? ka : '';
       const sj = await schuljahrGemerkt();
       schuljahrBekannt = sj !== undefined;
       neuesSchuljahr = !w.neu && schuljahrFragen(sj, heuteTag, profil.erwachsen);
@@ -343,6 +366,7 @@
             diagnoseKlasse = klasse;
             diagnoseAuswahl = undefined;
             diagnoseUebergreifend = selbst;
+            diagnoseProbe = false;
           }
           ansicht = 'diagnose';
         }}>{t('diagnose.knopf')}</button
@@ -383,6 +407,23 @@
           : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}
       </p>
     {/if}
+    {#if klassenarbeit}
+      <p class="hinweis">
+        {t('ka.am')}
+        {new Date(`${klassenarbeit.termin}T12:00:00`).toLocaleDateString('de-DE', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+        })}
+        <button
+          class="dezent"
+          onclick={() => {
+            inhalte ??= ladeInhalte();
+            ansicht = 'klassenarbeit';
+          }}>{t('ka.vorbereiten')}</button
+        >
+      </p>
+    {/if}
     {#if sichern}
       <p class="hinweis">
         {t('sicherung.erinnerung')}
@@ -395,6 +436,13 @@
     <p class="leiste">
       <button class="dezent" onclick={() => (ansicht = 'sicherung')}>{t('sicherung.knopf')}</button>
       <button class="dezent" onclick={() => (ansicht = 'profil')}>{t('profil.knopf')}</button>
+      <button
+        class="dezent"
+        onclick={() => {
+          inhalte ??= ladeInhalte();
+          ansicht = 'klassenarbeit';
+        }}>{t('ka.knopf')}</button
+      >
       {#if !selbst}
         <button
           class="dezent"
@@ -495,6 +543,7 @@
           bind:antworten={diagnoseAntworten}
           bind:klasse={diagnoseKlasse}
           auswahl={diagnoseAuswahl}
+          probe={diagnoseProbe}
           bind:uebergreifend={diagnoseUebergreifend}
           onklasse={(k) => {
             stillerWechsel = k !== klasse;
@@ -510,6 +559,31 @@
           onende={() => {
             ansicht = 'start';
             void aktualisiere();
+          }}
+        />
+      {:else if ansicht === 'klassenarbeit'}
+        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <KlassenarbeitAnsicht
+          kompetenzen={geladen.kompetenzen.filter(
+            (k) => vorlagenFuer(geladen.vorlagen, k.id, 'G').length > 0,
+          )}
+          {klasse}
+          {schulart}
+          {zustand}
+          {geradeDran}
+          heute={heuteTag}
+          bind:klassenarbeit
+          onueben={(k) => {
+            gewaehlt = k;
+            niveau = 'G';
+            ansicht = 'uebung';
+          }}
+          onprobe={(themen) => {
+            diagnoseAntworten = [];
+            diagnoseAuswahl = themen;
+            diagnoseUebergreifend = false;
+            diagnoseProbe = true;
+            ansicht = 'diagnose';
           }}
         />
       {:else if ansicht === 'werkstatt'}
@@ -597,6 +671,7 @@
               wechsel = undefined;
               diagnoseAntworten = [];
               diagnoseAuswahl = ids;
+              diagnoseProbe = false;
               ansicht = 'diagnose';
             }}
             onschliessen={() => (wechsel = undefined)}
