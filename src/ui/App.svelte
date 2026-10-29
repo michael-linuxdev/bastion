@@ -73,9 +73,11 @@
     type Klassenarbeit,
   } from '../core/learning/klassenarbeit';
   import { untrack } from 'svelte';
-  import { aktiv, tt } from './bastion/thema.svelte';
+  import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen } from './grafik/darstellung.svelte';
   import ModusWahl from './profil/ModusWahl.svelte';
+  import Startseite, { type Ziel } from './start/Startseite.svelte';
+  import Leiste, { type Bereich } from './start/Leiste.svelte';
 
   let ansicht = $state<
     | 'start'
@@ -293,6 +295,45 @@
     ansicht = 'wiederholen';
   }
 
+  /** Ein Bereich der App öffnen – von der Startseite oder aus der Leiste unten. */
+  function gehe(ziel: Ziel | 'start') {
+    if (ziel !== 'start' && ziel !== 'sicherung' && ziel !== 'profil') inhalte ??= ladeInhalte();
+    switch (ziel) {
+      case 'ueben':
+        ueben();
+        return;
+      case 'wiederholen':
+        void wiederholen();
+        return;
+      case 'werkstatt':
+        werkstatt();
+        return;
+      case 'diagnose':
+        if (diagnoseAntworten.length === 0) {
+          diagnoseKlasse = klasse;
+          diagnoseAuswahl = undefined;
+          diagnoseUebergreifend = selbst;
+          diagnoseProbe = false;
+        }
+        ansicht = 'diagnose';
+        return;
+      default:
+        ansicht = ziel;
+        if (ziel === 'start' || ziel === 'stand' || ziel === 'eltern') void aktualisiere();
+    }
+  }
+
+  /** Hervorgehobener Bereich in der Leiste unten */
+  const bereich = $derived<Bereich | undefined>(
+    ansicht === 'bastion' || ansicht === 'stand'
+      ? ansicht
+      : ansicht === 'abschluss'
+        ? undefined
+        : ['start', 'profil', 'sicherung', 'eltern', 'klassenarbeit'].includes(ansicht)
+          ? 'start'
+          : 'ueben',
+  );
+
   /** Laufendes Speichern – der Abschluss wartet darauf, damit die letzte Antwort mitzählt. */
   let speichern: Promise<void> = Promise.resolve();
 
@@ -321,146 +362,49 @@
 </script>
 
 <main class="start">
-  <h1>{t('start.ueberschrift')}</h1>
+  <h1 class="marke">{t('start.ueberschrift')}</h1>
 
   {#if ansicht === 'start'}
-    {#if rueckkehr}
-      <p class="untertitel" role="status">
-        {t('rueckkehr.gruss')}{#if basebau}
-          {tt('rueckkehr.bastion')}{/if}
-      </p>
-      {#if faellig > 0}<p>{t('rueckkehr.hinweis')}</p>{/if}
-    {:else}
-      <p class="untertitel">{t('start.untertitel')}</p>
-      <p>{t('start.status')}</p>
-    {/if}
-    {#if neuesSchuljahr}
-      <Schuljahr
-        vorschlag={Math.min(klasse + 1, KLASSEN[KLASSEN.length - 1] ?? klasse)}
-        onbestaetigen={(k) => {
-          klasse = k;
-          neuesSchuljahr = false;
-          geradeDran = []; // neues Schuljahr, neue Themen (L-17)
-          void schuljahrSetzen(schuljahrVon(heuteTag));
-        }}
-      />
-    {/if}
-    {#if !profilGefragt}
-      <ProfilForm
-        {profil}
-        erstesMal
-        onspeichern={(p) => {
-          profil = p;
-          profilGefragt = true;
-          void profilSetzen(p);
-        }}
-        onueberspringen={() => {
-          profilGefragt = true;
-          void profilUebersprungen();
-        }}
-      />
-    {/if}
-    <p class="knoepfe">
-      <button class="haupt" onclick={ueben}>{t('start.ueben')}</button>
-      <button
-        class="zweit"
-        onclick={() => {
-          inhalte ??= ladeInhalte();
-          if (diagnoseAntworten.length === 0) {
-            diagnoseKlasse = klasse;
-            diagnoseAuswahl = undefined;
-            diagnoseUebergreifend = selbst;
-            diagnoseProbe = false;
-          }
-          ansicht = 'diagnose';
-        }}>{t('diagnose.knopf')}</button
-      >
-      <button
-        class="zweit"
-        onclick={() => {
-          inhalte ??= ladeInhalte();
-          ansicht = 'stand';
-          void aktualisiere();
-        }}>{t('stand.knopf')}</button
-      >
-      {#if faellig > 0}
-        <button class="zweit" onclick={() => void wiederholen()}>{t('wiederholen.knopf')}</button>
+    <Startseite
+      heute={new Date()}
+      rueckkehr={rueckkehr === true}
+      {faellig}
+      {offeneFehler}
+      {basebau}
+      geradeDran={geradeDran.length}
+      klassenarbeit={klassenarbeit?.termin}
+      {sichern}
+      eltern={!selbst}
+      offline={offline.bereit}
+      onziel={gehe}
+    >
+      {#if neuesSchuljahr}
+        <Schuljahr
+          vorschlag={Math.min(klasse + 1, KLASSEN[KLASSEN.length - 1] ?? klasse)}
+          onbestaetigen={(k) => {
+            klasse = k;
+            neuesSchuljahr = false;
+            geradeDran = []; // neues Schuljahr, neue Themen (L-17)
+            void schuljahrSetzen(schuljahrVon(heuteTag));
+          }}
+        />
       {/if}
-      {#if basebau}
-        <button
-          class="zweit"
-          onclick={() => {
-            inhalte ??= ladeInhalte();
-            ansicht = 'bastion';
-          }}>{tt('bastion.knopf')}</button
-        >
+      {#if !profilGefragt}
+        <ProfilForm
+          {profil}
+          erstesMal
+          onspeichern={(p) => {
+            profil = p;
+            profilGefragt = true;
+            void profilSetzen(p);
+          }}
+          onueberspringen={() => {
+            profilGefragt = true;
+            void profilUebersprungen();
+          }}
+        />
       {/if}
-      {#if offeneFehler > 0}
-        <button class="zweit" onclick={werkstatt}>{t('werkstatt.knopf')}</button>
-      {/if}
-    </p>
-    {#if faellig > 0}
-      <p class="hinweis">
-        {faellig === 1 ? t('wiederholen.eine') : `${faellig} ${t('wiederholen.mehrere')}`}
-      </p>
-    {/if}
-    {#if offeneFehler > 0}
-      <p class="hinweis">
-        {offeneFehler === 1
-          ? t('werkstatt.offen-eins')
-          : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}
-      </p>
-    {/if}
-    {#if klassenarbeit}
-      <p class="hinweis">
-        {t('ka.am')}
-        {new Date(`${klassenarbeit.termin}T12:00:00`).toLocaleDateString('de-DE', {
-          weekday: 'long',
-          day: 'numeric',
-          month: 'long',
-        })}
-        <button
-          class="dezent"
-          onclick={() => {
-            inhalte ??= ladeInhalte();
-            ansicht = 'klassenarbeit';
-          }}>{t('ka.vorbereiten')}</button
-        >
-      </p>
-    {/if}
-    {#if sichern}
-      <p class="hinweis">
-        {t('sicherung.erinnerung')}
-        <button class="dezent" onclick={() => (ansicht = 'sicherung')}
-          >{t('sicherung.erstellen')}</button
-        >
-      </p>
-    {/if}
-    <p class="versprechen">{t('start.versprechen')}</p>
-    <p class="leiste">
-      <button class="dezent" onclick={() => (ansicht = 'sicherung')}>{t('sicherung.knopf')}</button>
-      <button class="dezent" onclick={() => (ansicht = 'profil')}>{t('profil.knopf')}</button>
-      <button
-        class="dezent"
-        onclick={() => {
-          inhalte ??= ladeInhalte();
-          ansicht = 'klassenarbeit';
-        }}>{t('ka.knopf')}</button
-      >
-      {#if !selbst}
-        <button
-          class="dezent"
-          onclick={() => {
-            inhalte ??= ladeInhalte();
-            ansicht = 'eltern';
-            void aktualisiere();
-          }}>{t('eltern.knopf')}</button
-        >
-      {/if}
-    </p>
-    {#if offline.bereit}
-      <p class="offline" role="status">{t('start.offline')}</p>
-    {/if}
+    </Startseite>
   {:else if ansicht === 'profil'}
     <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
     <ProfilForm
@@ -702,52 +646,22 @@
   {/if}
 </main>
 
+<Leiste aktuell={bereich} {basebau} onwahl={gehe} />
+
 <UpdateHinweis />
 
 <style>
   .start {
     max-inline-size: 40rem;
     margin-inline: auto;
-    padding-block: var(--abstand-l);
+    padding-block: var(--abstand-m) 6rem;
     padding-inline: var(--abstand-m);
   }
 
-  h1 {
-    font-size: 2.5rem;
+  .marke {
+    font-size: 1.5rem;
     color: var(--farbe-akzent);
-    margin-block-end: var(--abstand-s);
-  }
-
-  .untertitel {
-    font-size: 1.375rem;
-  }
-
-  .knoepfe {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-s);
-  }
-
-  .haupt,
-  .zweit {
-    font: inherit;
-    font-size: 1.25rem;
-    min-block-size: 3rem;
-    padding-inline: var(--abstand-l);
-    border-radius: var(--radius);
-    cursor: pointer;
-  }
-
-  .haupt {
-    border: none;
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
-  }
-
-  .zweit {
-    border: 2px solid var(--farbe-akzent);
-    background: transparent;
-    color: var(--farbe-text);
+    margin-block-end: var(--abstand-m);
   }
 
   .zurueck {
@@ -760,43 +674,11 @@
     min-block-size: 2.75rem;
   }
 
-  .dezent {
-    font: inherit;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text-leise);
-    text-decoration: underline;
-    cursor: pointer;
-    padding-inline: 0;
-    min-block-size: 2.75rem;
-  }
-
-  .hinweis {
-    color: var(--farbe-text-leise);
-  }
-
   .anleitungen {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     column-gap: var(--abstand-m);
     margin-block: 0;
-  }
-
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-l);
-  }
-
-  .versprechen {
-    color: var(--farbe-text-leise);
-    border-inline-start: 4px solid var(--farbe-akzent);
-    padding-inline-start: var(--abstand-m);
-  }
-
-  .offline {
-    color: var(--farbe-text-leise);
-    font-size: 1rem;
   }
 </style>

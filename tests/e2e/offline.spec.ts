@@ -49,12 +49,12 @@ test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', asy
   // Startseite und Vorab-Speicher laden die Grafik nicht (R7, A3)
   expect(grafik).toEqual([]);
 
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.locator('.bauplatz canvas')).toBeVisible();
   expect(grafik.length).toBeGreaterThan(0);
 
   await context.setOffline(true);
   await page.reload();
-  await page.getByRole('button', { name: 'Bastion' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.locator('.bauplatz canvas')).toBeVisible();
 });
