@@ -111,6 +111,14 @@ interface AufgabeEreignis extends Ereignis {
   fehlerbild?: string;               // erkanntes Fehlerbild (I-7)
   schnappschuss?: Schnappschuss;     // nur bei falsch/teilweise (I-6)
   korrigiert?: ID;                   // Fehlerwerkstatt: welches frühere Ereignis
+  schritte?: SchrittErgebnis[];      // ab v = 2: Zwischenschritte nach falschem Ergebnis (K-29)
+}
+
+interface SchrittErgebnis {
+  id: string;                        // Schritt-ID der Vorlage
+  versuche: 1 | 2;                   // nach dem zweiten Fehlversuch zeigt Bastion den Schritt
+  richtig: boolean;                  // im ersten oder zweiten Versuch
+  fehler?: { fehlerbild?: string; fv?: string; eingabe: unknown }[];  // nur die falschen Versuche
 }
 
 interface Schnappschuss {
@@ -131,6 +139,17 @@ interface Schnappschuss {
 Die vierte FSRS-Stufe („leicht“) wird nicht genutzt; drei Stufen sind für Jugendliche verständlicher (T-5). Die Bearbeitungszeit fließt bewusst **nicht** in die Bewertung ein – langsames, sorgfältiges Arbeiten darf nicht schlechter bewertet werden.
 
 *Umsetzung (1a):* `src/core/learning/ereignis.ts` – Typ `AufgabeEreignis` und `aufgabeEreignis(…)`, das aus Aufgabe, Antwort und Auswertung das Ereignis baut: ULID, Lerntag, Bewertung nach der Tabelle, Dauer auf 10 Minuten gekappt, Schnappschuss und Fehlerbild nur bei falschen Antworten. Zeit, Zeitzone, Zufall und Gerät reicht die App herein. Fehlerwerkstatt (1b): `korrigiert` verweist auf das frühere falsche Ereignis; ein Fehler gilt als aufgearbeitet, sobald ein Ereignis ihn richtig korrigiert (`src/core/learning/werkstatt.ts`). Die Aufgabe wird über Generator-Version und Seed exakt wiederhergestellt; hat sich die Generator-Version geändert, bleibt der Fehler bis zur Verdichtung liegen.
+
+**Zwischenschritte (K-29, D-17, geplant mit U3):** Nach einem falschen Ergebnis zeigt Bastion die Schritte der Vorlage (`INHALTSFORMAT.md` §17). Was dabei passiert, steht im selben Ereignis unter `schritte`, nicht in einem eigenen Ereignis.
+
+- Gespeichert werden nur die falschen Versuche mit Eingabe, Fehlerbild und Fehlvorstellung. Richtige Schritte stehen nur mit `id`, `versuche` und `richtig` darin (Datensparsamkeit).
+- Hat das Kind „Weiter ohne Weg“ gewählt, fehlt `schritte`.
+- `ergebnis` und `bewertung` ändern sich durch die Schritte nicht (R6, gleiche Bedeutung wie bisher).
+- Die Projektion `fehlvorstellungen` zählt `fv` aus den Schritten wie `fv` aus dem Fehlerbild des Ergebnisses. Eine Aufgabe zählt dabei je Fehlvorstellung höchstens einmal.
+- Mit dem Feld steigt `AUFGABE_V` auf 2. Ereignisse mit `v` = 1 bleiben gültig, wie sie sind, und brauchen keine Migration. Ältere App-Versionen melden Sicherungen mit `v` = 2 als „aus einer neueren App“.
+
+**Entscheidung D-17:** Zwischenschritte gehören zum Aufgaben-Ereignis (`schritte`), nicht in ein eigenes Ereignis.
+*Warum:* Sie entstehen nur innerhalb einer Aufgabe und gehören zu genau einem Ergebnis. Die Fehlerwerkstatt und die Diagnose lesen sie so zusammen mit der Aufgabe, ohne zwei Tabellen zusammenzuführen.
 
 ### 4.2 `sitzung` – eine Lernsitzung
 
@@ -304,7 +323,7 @@ interface VermittlungEreignis extends Ereignis {
 | `konto` | Profil | Stand je Ressource, Summe erworbener Baupläne, Bauschritt-Vorrat | `buchung` |
 | `bastion` | Profil | Gebäude mit Typ, Stufe, Position, Gestaltung; aktive Vorhaben mit Fortschritt; Epoche | `bau`, `buchung` |
 | `einstellungen` | Profil × Schlüssel | aktueller Wert | `einstellung` |
-| `fehlvorstellungen` (geplant, U3) | Profil × Fehlvorstellung | Zustand nach `VERMITTLUNG.md` §3.3 (aufgefallen … aufgelöst), letzte Treffer | `aufgabe` (über `fv` der Fehlerbilder), `vermittlung` |
+| `fehlvorstellungen` (geplant, U3) | Profil × Fehlvorstellung | Zustand nach `VERMITTLUNG.md` §3.3 (aufgefallen … aufgelöst), letzte Treffer | `aufgabe` (über `fv` der Fehlerbilder und der Zwischenschritte), `vermittlung` |
 
 **Entscheidung D-6: Ereignis und Projektion werden in derselben Datenbank-Transaktion geschrieben.** Es gibt außerdem eine Funktion `neuAufbauen(profil)`, die alle Projektionen aus den Ereignissen neu berechnet.
 
@@ -532,3 +551,4 @@ Bereits exportierte Sicherungsdateien liegen außerhalb der App und können von 
 | D-14 | Eltern dürfen alles sehen; Standard ist die einfache Ansicht, ausführliche Ansicht auf Wunsch; Jugendliche sehen beides (ersetzt „nie einzelne Aufgaben“ in §5.2 und §10) | Entschieden (28.10.2026) |
 | D-15 | PIN gilt je Gerät; nach Einspielen einer Sicherung neue PIN mit dauerhaftem, sichtbarem Vermerk (löst den Widerspruch zwischen §7.1 und D-12) | Entschieden (28.10.2026) |
 | D-16 | Vermittlungs-Schritte als eigene Ereignisse `vermittlung`; Fehlvorstellungen als reine Projektion (§4.7) | Entschieden (29.10.2026, U1) |
+| D-17 | Zwischenschritte als Feld `schritte` im Ereignis `aufgabe` (§4.1, `v` = 2) | Entschieden (29.10.2026, K-29) |

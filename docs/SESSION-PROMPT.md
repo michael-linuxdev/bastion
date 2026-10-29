@@ -38,6 +38,7 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 - Noten gibt es nur auf Wunsch, Standard ist aus (K-26).
 - Der Basebau bleibt als Nebensache (K-27).
 - Erst Klasse 5 bis 8 mit Vermittlung und Fehlerkatalog nachrüsten, dann Klasse 9 bis 12 (K-28).
+- Zwischenschritte werden geprüft wie bei bettermarks: nach einem falschen Ergebnis, mit Schrittfeldern, zwei Versuche je Schritt (K-29, `VERMITTLUNG.md` §3.6).
 
 ---
 

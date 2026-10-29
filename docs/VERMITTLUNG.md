@@ -164,6 +164,31 @@ Falsche Antworten ohne Fehlerbild bekommen weiter die allgemeine Rückmeldung un
 - **F3** Jede Fehlvorstellung hat eine kurze und eine lange Erklärung, ein Gegenbeispiel, einen Rückweg und mindestens eine Kontrastaufgabe.
 - **F4** Die lange Erklärung benennt die falsche Denkweise wertschätzend („Das ist eine naheliegende Idee, weil …“) und widerlegt sie mit einem Bild oder Gegenbeispiel, nicht nur mit der Regel.
 - **F5** Die häufigsten falschen Antworten aus den Testrunden sind abgedeckt (Ziel: 80 % aller falschen Antworten haben ein Fehlerbild).
+- **F6** Siehe §3.6: Mehrschrittige Rechenaufgaben haben Schritte mit Fehlerbildern.
+
+### 3.6 Zwischenschritte (K-29)
+
+Bisher sieht Bastion nur das Endergebnis. Ein falsches Ergebnis verrät aber oft nicht, *wo* der Denkfehler liegt, und viele Fehler erzeugen dasselbe falsche Ergebnis. Deshalb werden die Zwischenschritte geprüft, nach dem Vorbild von bettermarks (entschieden am 29.10.2026).
+
+**Ablauf:**
+
+1. Das Kind gibt wie bisher nur das Ergebnis ein. Ist es richtig, geht es weiter. Es gibt keine zusätzliche Tipparbeit.
+2. **Ist das Ergebnis falsch** und hat die Vorlage Schritte, sagt Bastion: „Zeig mir deinen Weg.“ Dann erscheinen die Schritte der Aufgabe mit eigenen Feldern, zum Beispiel „Gemeinsamer Nenner: __“, „Erweitert: __/__ und __/__“, „Summe: __/__“.
+3. **Jeder Schritt wird einzeln geprüft**, und zwar gegen den richtigen Wert und gegen die bekannten Fehler dieses Schritts.
+4. **Zwei Versuche je Schritt.** Beim ersten Fehler kommt ein Hinweis zur Ursache: die kurze Erklärung der Fehlvorstellung oder ein Hinweis zum Schritt. Beim zweiten Fehler zeigt Bastion den richtigen Schritt, und es geht mit ihm weiter. So rechnet jeder folgende Schritt mit richtigen Werten, und Folgefehler entstehen nicht.
+5. **Am Ende** nennt Bastion die Stelle: „Dein Fehler lag beim gemeinsamen Nenner.“ Erkannte Fehlvorstellungen zählen für die Diagnose (§3.3) wie Fehlerbilder. Bei „vermutet“ kommt die lange Erklärung mit Rückweg.
+6. **Alle Schritte richtig, aber das Ergebnis falsch:** Dann war es ein Schreib- oder Flüchtigkeitsfehler am Ende. Bastion sagt das freundlich. Das zählt nicht als Fehlvorstellung.
+
+**Grundsätze:**
+
+- **Die Schritte sind vorgegeben** (geführte Schrittfelder). Bei Gleichungen und Termumformungen kommen später **Rechenzeilen** dazu: Das Kind schreibt die Umformung („| − 3“) und die neue Zeile, und Bastion prüft jede Zeile auf Gleichwertigkeit und auf bekannte Fehler. Das kommt mit dem Feld Gleichungen. Was dafür ab Klasse 9 nötig ist, wird vorher entschieden; eine neue Abhängigkeit gibt es nur nach Rückfrage.
+- **Mehrere richtige Wege** sind erlaubt. Ein gemeinsamer Nenner muss nicht der kleinste sein. Der Generator berechnet jeden Schritt aus den bisherigen Eingaben des Kindes. Wer 24 statt 12 wählt, rechnet mit 24 weiter.
+- **Das Ergebnis der Aufgabe bleibt „falsch“.** Die Schritte ändern nichts an der Bewertung für die Wiederholung. Sie dienen nur der Diagnose und dem Verstehen (R6).
+- **Überspringen ist erlaubt** („Weiter ohne Weg“). Dann gibt es die Rückmeldung wie bisher. Ob das zu oft genutzt wird, zeigen die Testrunden.
+- **Schriftliche Rechenverfahren** (Addieren bis Dividieren) werden als Schritte mit stellenweiser Eingabe umgesetzt. Damit ist I-O1 (`rechenschema`) beantwortet.
+- **Nicht jede Vorlage braucht Schritte.** Einschrittige Aufgaben wie Ablesen, Auswahl oder Runden haben keine. Mehrschrittige Rechenaufgaben brauchen Schritte (F6).
+
+**F6 (neu):** Jede mehrschrittige Rechenaufgabe hat Schritte. Jeder Schritt hat mindestens ein Fehlerbild mit Fehlvorstellung, oder eine Begründung, warum es keines gibt.
 
 ## 4. Der Kreis im Überblick
 
@@ -180,6 +205,7 @@ Falsche Antworten ohne Fehlerbild bekommen weiter die allgemeine Rückmeldung un
 - Vorlagen: Jedes Fehlerbild bekommt `fv: <ID>`. Bestehende Texte werden zur kurzen Erklärung oder bleiben aufgabenbezogen.
 - Neue Lernereignisse für Vermittlungs-Schritte (mit Schemaversion und Migrationstest, CLAUDE.md). Die Diagnose der Fehlvorstellungen braucht kein neues Ereignis.
 - Neuer Kompetenzzustand „vermittelt“.
+- Vorlagen mit mehrschrittigen Rechnungen bekommen `schritte` (§3.6, `INHALTSFORMAT.md` §17); das Aufgaben-Ereignis hält die Schritte fest (`DATENMODELL.md` D-17).
 - Alles kommt mit dem Pilot genau in `INHALTSFORMAT.md` und `DATENMODELL.md`.
 
 ## 6. Prüfungen auf Knopfdruck (K-25) – Anforderungen
