@@ -1,0 +1,26 @@
+id: FV.BR.FAKTOR
+name:
+  de: Findet die richtige Zahl zum Erweitern nicht
+art: rechenfehler
+beschreibung:
+  de: >-
+    Der Zielnenner stimmt, der Zähler wurde aber mit einer anderen Zahl multipliziert. Meist ein
+    Rechenfehler beim Bestimmen des Faktors (Zielnenner geteilt durch alten Nenner).
+kompetenzen: [M.ZO.BR.ERWEITERN]
+erklaerung:
+  kurz:
+    de: 'Der [[Nenner]] stimmt. Prüfe, mit welcher Zahl du den [[Zähler]] multipliziert hast – es muss dieselbe sein.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den richtigen neuen [[Nenner]] gefunden, aber den [[Zähler]] mit einer anderen Zahl malgenommen.'
+    - teil: warum-nicht
+      de: 'Das Vorgehen stimmt schon fast. Nur wenn beide mit **derselben** Zahl malgenommen werden, bleibt der [[Anteil]] gleich.'
+    - teil: so-stimmt-es
+      de: 'Rechne zuerst: neuer [[Nenner]] geteilt durch alter Nenner. Mit diesem Ergebnis nimmst du den [[Zähler]] mal. Bei 2/3 auf Zwölftel: 12 : 3 = 4, also 8/12.'
+gegenbeispiel:
+  de: '2/3 auf Zwölftel: 12 : 3 = 4. 2 · 4 = 8, also 8/12. Mit 3 statt 4 käme 6/12 heraus – das ist nur die Hälfte.'
+rueckweg:
+  vermittlung: M.ZO.BR.ERWEITERN#beispiel
+kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER]
+herkunft: ki-entwurf
+version: 1

@@ -31,12 +31,18 @@ const sequenz = {
       id: 'ziel',
       typ: 'ziel',
       text: t('Danach kannst du gleich große Anteile anders schreiben.'),
-      weiter: 'erklaeren',
+      weiter: 'erklaeren-erweitern',
     },
     {
-      id: 'erklaeren',
+      id: 'erklaeren-erweitern',
       typ: 'erklaeren',
       text: t('Feiner teilen ändert nicht, wie viel gefärbt ist.'),
+      weiter: 'erklaeren-kuerzen',
+    },
+    {
+      id: 'erklaeren-kuerzen',
+      typ: 'erklaeren',
+      text: t('Rückwärts geht es auch: gröber teilen.'),
       weiter: 'beispiel',
     },
     {
@@ -81,7 +87,7 @@ const sequenz = {
         ],
       },
       weiter: 'uebergang',
-      bei: { 'FV.BR.ADDIERT': 'erklaeren' },
+      bei: { 'FV.BR.ADDIERT': 'erklaeren-erweitern' },
     },
     {
       id: 'uebergang',
@@ -108,7 +114,7 @@ const fehlvorstellung = {
     ],
   },
   gegenbeispiel: t('1 von 2 ist die Hälfte, 2 von 3 ist mehr.'),
-  rueckweg: { vermittlung: 'M.ZO.BR.ERWEITERN#erklaeren' },
+  rueckweg: { vermittlung: 'M.ZO.BR.ERWEITERN#erklaeren-erweitern' },
   kontrast: ['M.ZO.BR.ERWEITERN.ZIELNENNER'],
   herkunft: 'ki-entwurf',
   version: 1,
@@ -133,7 +139,7 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     const bericht = pruefen();
     expect(bericht.fehler).toEqual([]);
     expect(bericht.vermittlungen.map((v) => v.id)).toEqual(['M.ZO.BR.ERWEITERN']);
-    expect(bericht.fehlvorstellungen.map((f) => f.id)).toEqual(['FV.BR.ADDIERT']);
+    expect(bericht.fehlvorstellungen.map((f) => f.id)).toContain('FV.BR.ADDIERT');
   });
 
   it('meldet einen Rückweg auf einen fehlenden Schritt und ein Fehlerbild mit unbekannter fv', () => {
@@ -144,10 +150,7 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     const vorlage = join(ERWEITERN, 'vorlagen/zielnenner.yaml');
     writeFileSync(
       vorlage,
-      readFileSync(vorlage, 'utf8').replace(
-        /(\n {2}addiert:\n {4}de: [^\n]*)/,
-        '$1\n    fv: FV.BR.GIBTS-NICHT',
-      ),
+      readFileSync(vorlage, 'utf8').replace('fv: FV.BR.ADDITIV', 'fv: FV.BR.GIBTS-NICHT'),
     );
     const fehler = pruefen().fehler.join('\n');
     expect(fehler).toContain('Schritt weg fehlt in der Erstvermittlung von M.ZO.BR.ERWEITERN');

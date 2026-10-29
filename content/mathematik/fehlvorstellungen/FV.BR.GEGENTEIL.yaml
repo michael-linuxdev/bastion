@@ -1,0 +1,27 @@
+id: FV.BR.GEGENTEIL
+name:
+  de: Gibt den ungefärbten statt den gefärbten Anteil an
+art: lesefehler
+beschreibung:
+  de: >-
+    Zählt die ungefärbten Teile als Zähler. Meist kein Verständnisfehler, sondern die Frage wurde
+    nicht genau gelesen.
+kompetenzen: [M.ZO.BR.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Das ist der ungefärbte [[Anteil]]. Gefragt ist der gefärbte – lies die Frage noch einmal genau.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Teile gezählt, die **nicht** gefärbt sind.'
+    - teil: warum-nicht
+      de: 'Das ist richtig gezählt, nur die falsche Frage beantwortet. Gefärbt und ungefärbt ergeben zusammen das Ganze.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
+    - teil: so-stimmt-es
+      de: 'Zähle die Teile, nach denen gefragt ist – hier die gefärbten. Das ist der [[Zähler]].'
+gegenbeispiel:
+  de: 'Sind 2 von 5 Teilen gefärbt, dann sind 3 von 5 ungefärbt. 2/5 und 3/5 sind verschiedene Antworten.'
+rueckweg:
+  vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
+kontrast: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN, M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+herkunft: ki-entwurf
+version: 1

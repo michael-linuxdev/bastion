@@ -1,0 +1,30 @@
+id: FV.BR.NENNER-ADDIERT
+name:
+  de: Addiert Zähler und Nenner jeweils für sich
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet 1/4 + 2/4 = 3/8 oder 1/2 + 1/3 = 2/5. Die Regel „oben mit oben, unten mit unten“ wird
+    vom Multiplizieren oder einfach aus dem Aussehen des Bruchs übertragen. Eine der häufigsten
+    Fehlvorstellungen der Bruchrechnung.
+kompetenzen: [M.ZO.BR.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Der [[Nenner]] sagt, wie groß die Teile sind. Beim Addieren zählst du nur die Teile zusammen – der Nenner bleibt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Zähler]] plus Zähler und [[Nenner]] plus Nenner gerechnet.'
+    - teil: warum-nicht
+      de: 'So sieht es einfach aus. Aber 1/4 + 2/4 sind 3 Viertel. Bei 3/8 wären die Teile plötzlich halb so groß – das Ergebnis wäre kleiner als 2/4 allein.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: 'Bei gleichen Nennern addierst du nur die [[Zähler]]. Bei verschiedenen bringst du die [[Brüche]] zuerst auf einen [[gemeinsamen Nenner]].'
+gegenbeispiel:
+  de: '1/2 + 1/2 ist ein Ganzes. Mit „oben plus oben, unten plus unten“ käme 2/4 heraus – wieder nur die Hälfte.'
+rueckweg:
+  vermittlung: M.ZO.BR.ADD-SUB#erklaeren-gleichnamig
+kontrast: [M.ZO.BR.ADD-SUB.GLEICHNAMIG, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
+quelle:
+  de: Fachdidaktik Bruchrechnung (häufigster Fehler bei der Addition)
+herkunft: ki-entwurf
+version: 1

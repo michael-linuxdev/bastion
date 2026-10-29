@@ -186,7 +186,10 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
 
 - [x] **U0** Neue Vision, vier Kernaufgaben als Qualitätskriterien, Konzept „Vermitteln und Diagnostizieren ohne KI“ (`VISION.md` v1.0, `VERMITTLUNG.md`, `STRATEGIE.md` §0)
 - [x] **U1** Format für Erstvermittlung und Fehlerkatalog (`INHALTSFORMAT.md` §15, §16, I-12, I-13); Prüfung in `pnpm inhalte:pruefen` (`src/core/learning/vermittlung.ts`, `fehlvorstellung.ts`); Datenmodell `vermittlung` und Projektion `fehlvorstellungen` (`DATENMODELL.md` §4.7, D-16)
-- [ ] **U2** Musterfeld Brüche: Erstvermittlung und Fehlerkatalog für drei Kompetenzen; Werkzeuge Bruchstreifen und Zahlenstrahl
+- [ ] **U2** Musterfeld Brüche (`M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB`), in drei Schritten:
+  - [x] **U2a** Fehlerkatalog: 10 Fehlvorstellungen in `content/mathematik/fehlvorstellungen/`; alle 15 Fehlerbilder der 6 Vorlagen verweisen per `fv` darauf; Tests für F1 und F2
+  - [ ] **U2b** Erstvermittlung für die drei Kompetenzen
+  - [ ] **U2c** Werkzeuge Bruchstreifen und Zahlenstrahl
 - [ ] **U3** Abspieler in der App; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen
 - [ ] **U4** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen
