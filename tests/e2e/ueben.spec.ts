@@ -1037,3 +1037,36 @@ test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', 
   await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
   await expect(page.getByRole('radio', { name: 'Klasse 5' })).toBeChecked();
 });
+
+test('Klassenarbeit: Termin und Themen, Probe ohne Note (L-19)', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-11-02T10:00:00') });
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Klassenarbeit', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Klassenarbeit vorbereiten' })).toBeVisible();
+  await page.getByLabel('Termin').fill('2026-11-10');
+  await page.locator('.klassenarbeit input[type="checkbox"]').nth(0).check();
+  await page.locator('.klassenarbeit input[type="checkbox"]').nth(1).check();
+  await page.getByRole('button', { name: 'Speichern' }).click();
+  await expect(page.getByText('Klassenarbeit am Dienstag, 10. November')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Das solltest du noch üben' })).toBeVisible();
+  await expect(page.locator('.klassenarbeit .liste li')).toHaveCount(2);
+  // Probe: gemischt, ohne Hilfen, danach „Das noch üben“
+  await page.getByRole('button', { name: 'Probe-Klassenarbeit' }).click();
+  await expect(page.getByRole('heading', { name: 'Probe-Klassenarbeit' })).toBeVisible();
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  for (let i = 0; i < 20; i++) {
+    if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
+    await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
+  }
+  await expect(page.getByText('Das noch üben:')).toBeVisible();
+  // Auf der Startseite steht das Datum, kein Countdown – auch nach dem Neuladen
+  await expect
+    .poll(async () => String(await einstellungImSpeicher(page, 'lernen.klassenarbeit')))
+    .toContain('2026-11-10');
+  await page.reload();
+  await expect(page.getByText('Klassenarbeit am Dienstag, 10. November')).toBeVisible();
+  // Nach dem Termin ist sie vorbei
+  await page.clock.setSystemTime(new Date('2026-11-11T10:00:00'));
+  await page.reload();
+  await expect(page.getByText(/Klassenarbeit am/)).toHaveCount(0);
+});

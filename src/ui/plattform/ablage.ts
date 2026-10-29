@@ -40,6 +40,7 @@ import {
   PROFIL_GEFRAGT_SCHLUESSEL,
   SCHULJAHR_SCHLUESSEL,
   GERADE_DRAN_SCHLUESSEL,
+  KLASSENARBEIT_SCHLUESSEL,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -415,6 +416,16 @@ export async function geradeDranWahl(): Promise<unknown> {
 
 export const geradeDranSetzen = (ids: readonly string[]) =>
   setze(GERADE_DRAN_SCHLUESSEL, ids.join(','), 'jugendlich');
+
+/** Nächste Klassenarbeit (L-19) – gespeicherter Text; gelesen mit `klassenarbeitAus`. */
+export async function klassenarbeitWahl(): Promise<unknown> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  return einstellung(db, inst.profil, KLASSENARBEIT_SCHLUESSEL).catch(() => undefined);
+}
+
+export const klassenarbeitSetzen = (text: string) =>
+  setze(KLASSENARBEIT_SCHLUESSEL, text, 'jugendlich');
 
 /** Bauplatz als Bild zeigen (2.13)? Standard ja; aus = reizarm, nur die Liste. */
 export async function bildZeigen(): Promise<boolean> {

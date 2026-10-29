@@ -33,6 +33,7 @@
     klasse = $bindable(5),
     auswahl,
     uebergreifend = $bindable(false),
+    probe = false,
     onklasse,
     onergebnis,
     onueben,
@@ -49,6 +50,8 @@
     auswahl?: readonly string[] | undefined;
     /** Wiedereinstieg (L-16): alle Klassen in einem Gang statt einer Klasse */
     uebergreifend?: boolean;
+    /** Probe-Klassenarbeit (L-19): Antworten zählen als Prüfung, nicht als Diagnose */
+    probe?: boolean;
     /** Nach dem Wiedereinstieg: in der Übersicht diese Klasse zeigen */
     onklasse?: (klasse: number) => void;
     onergebnis: (daten: Antwortdaten) => void;
@@ -122,7 +125,7 @@
   function weiter(antwort: Loesung, ergebnis: { richtig: boolean }, unbekannt = false) {
     if (!aufgabe) return;
     onergebnis({
-      modus: 'diagnose',
+      modus: probe ? 'pruefung' : 'diagnose',
       kompetenz: aufgabe.kompetenz.id,
       vorlage: aufgabe.vorlage.id,
       niveau: 'G',
@@ -156,10 +159,10 @@
 </script>
 
 <section class="diagnose">
-  <h2>{t('diagnose.ueberschrift')}</h2>
+  <h2>{probe ? t('ka.probe') : t('diagnose.ueberschrift')}</h2>
 
   {#if !gestartet && stand.naechste && !pause}
-    <p>{t('diagnose.einleitung')}</p>
+    <p>{probe ? t('ka.probe-einleitung') : t('diagnose.einleitung')}</p>
     {#if antworten.length === 0 && !auswahl}
       <fieldset class="umfang">
         <legend>{t('diagnose.umfang')}</legend>
@@ -237,7 +240,9 @@
       {/if}
     {/if}
     {#if weiterMit.length > 0}
-      <p>{auswahl ? t('diagnose.luecken') : t('diagnose.empfehlung')}</p>
+      <p>
+        {probe ? t('ka.probe-noch') : auswahl ? t('diagnose.luecken') : t('diagnose.empfehlung')}
+      </p>
       <ul class="liste">
         {#each weiterMit as k (k.id)}
           <li>
@@ -247,7 +252,9 @@
         {/each}
       </ul>
     {:else}
-      <p>{auswahl ? t('diagnose.keine-luecken') : t('diagnose.alles')}</p>
+      <p>
+        {probe ? t('ka.probe-alles') : auswahl ? t('diagnose.keine-luecken') : t('diagnose.alles')}
+      </p>
     {/if}
     {#if sitzt.length > 0}
       <details>
