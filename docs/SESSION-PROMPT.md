@@ -46,7 +46,8 @@ Dazu die Design-Regeln R1–R7 (`VISION.md` §7): keine Zufallsbelohnungen, kein
 
 **Zu Beginn der Sitzung den Projektverantwortlichen fragen, womit es weitergeht** (entschieden am 29.10.2026). Nichts davon ohne diese Antwort beginnen. Zur Auswahl stehen:
 
-1. **Klasse 9** (K-20): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
+0. **Grafik deutlich ansprechender machen (K-22)** – *muss vor Klasse 9 kommen.* Drei Testerinnen von 12 bis 16 Jahren stehen bereit (`TESTS.md` §2). Vor Beginn fragen: Was genau soll anders aussehen, welcher Weg (eigener Stil aus dem Code, freie Grafikpakete, Auftrag) und was zuerst (Bastion, Startseite, Üben)?
+1. **Klasse 9** (K-20, erst nach Punkt 0): Lehrpläne auswerten (OS und GY; die PDFs gibt der Projektverantwortliche), Kompetenzen und Graph in `LEHRPLAN.md` §8e, dann Vorlagen Feld für Feld wie bei Klasse 5 bis 8. Danach Klasse 10 bis 12, dann Mathe im Studium (K-19). Ein früherer Entwurf für Klasse 9 wurde verworfen. Klasse 9 beginnt neu.
 2. **Offene Reste:**
    - Anrede „Sie“ für Erwachsene (L-15). Dafür braucht es eine zweite Fassung aller Texte; vorher fragen, wie.
    - Wiederholungen bis zum Termin der Klassenarbeit planen (L-19).

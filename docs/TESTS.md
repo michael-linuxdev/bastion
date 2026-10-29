@@ -23,6 +23,8 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 **Größe:** zuerst 5–8, bis etwa Monat 3 insgesamt **8–12** Jugendliche aus **Sachsen**, Klasse 5–12. Solange es nur Inhalte der Klasse 5 gibt (K-15): vor allem Jugendliche aus Klasse 5, dazu einige Ältere, bei denen Stoff der Klasse 5 (z. B. Brüche) wackelt.
 
+**Stand (29.10.2026):** Drei Testerinnen im Alter von 12 bis 16 Jahren stehen bereit, für den Moment mit Rückhalt ihrer Eltern. Die Einwilligung nach §3 ist vor der ersten Testrunde noch einzuholen. Namen stehen nicht im Repository. Zuerst soll die Grafik ansprechender werden (K-22). Die Mischung unten bleibt das Ziel: Bisher fehlen Jungen, die Klassen 5–6 und mehrere Schularten.
+
 **Mischung (Ziel):**
 
 | Merkmal | Ziel |
