@@ -183,6 +183,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
 - Browser-Tests, die neu laden, warten vorher, bis die Antwort in IndexedDB steht (`aufgabenImSpeicher`). Sonst geht sie beim Neuladen verloren, und der Test ist in der CI manchmal rot.
+- Browser-Tests öffnen Themen mit `thema(page, /^Name/)`. Hat das Thema eine Erstvermittlung, überspringt das das Angebot „Erst erklären lassen?“. Wer direkt klickt, ruft danach `angebotUeberspringen(page)` auf.
 - Werkzeug `zahlenstrahl@1`: `markiert` zählt ab 0 in Schritten der Einteilung, nicht ab `von`. Von 3 bis 4 in Zehnteln liegt 3,5 bei `markiert: 35`. Ganzzahlige Bereiche wie 30 bis 40 lassen sich damit nicht beschriften.
 - `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 

@@ -2,6 +2,23 @@ import { expect, test, type Page } from '@playwright/test';
 import { BUEHNE_B, BUEHNE_H, punkt } from '../../src/ui/bastion/grafik/iso';
 
 /** „Mehr“ in der Leiste unten öffnen: Sicherung, Über mich, Klassenarbeit, Für Eltern */
+/**
+ * Ein Thema zum Üben öffnen. Hat es eine Erstvermittlung, kommt beim ersten Mal das Angebot
+ * „Erst erklären lassen?“ (U3d). Das wird hier übersprungen; Tests zum Angebot selbst klicken es.
+ */
+async function thema(seite: Page, name: RegExp) {
+  await seite.getByRole('button', { name }).click();
+  await angebotUeberspringen(seite);
+}
+
+/** Kommt das Angebot zur Erstvermittlung, „Ich kann das schon“ wählen; sonst nichts tun. */
+async function angebotUeberspringen(seite: Page) {
+  const nein = seite.getByRole('button', { name: 'Ich kann das schon' });
+  const pruefen = seite.getByRole('button', { name: 'Prüfen' });
+  await expect(nein.or(pruefen).first()).toBeVisible();
+  if (await nein.isVisible()) await nein.click();
+}
+
 async function mehr(seite: Page) {
   await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
 }
@@ -97,7 +114,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
 
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
 
   // Eine sicher falsche Antwort
   await page.getByLabel('Deine Antwort').fill('0');
@@ -119,6 +136,7 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
   const thema = page.getByRole('button', { name: /^Addieren und Subtrahieren/ });
   await expect(thema).not.toContainText('in Arbeit');
   await thema.click();
+  await angebotUeberspringen(page);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
@@ -141,7 +159,7 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
@@ -168,7 +186,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
 }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   // Erste Vorlage reihum ist das schriftliche Addieren: „Berechne schriftlich: a + b“
   const text = (await page.locator('.aufgabe .text').innerText()).replace(/[\s\u202f]/g, '');
   const summe = (/:([\d+]+)$/.exec(text)?.[1] ?? '').split('+').reduce((s, x) => s + Number(x), 0);
@@ -198,7 +216,7 @@ test('Rückkehr nach einer Pause: Begrüßung ohne Vorwurf, kleine Auswahl', asy
   await page.goto('./');
   await expect(page.getByText('Willkommen zurück')).toHaveCount(0);
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
@@ -242,6 +260,7 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
 
   // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).first().click();
+  await angebotUeberspringen(page);
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
@@ -261,7 +280,7 @@ test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen'
   await expect(page.getByRole('button', { name: /^Große Zahlen und Stellenwerte/ })).toContainText(
     'empfohlen',
   );
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   for (let i = 0; i < 3; i++) {
     await expect(page.getByText('Kurz üben')).toHaveCount(0);
     await page.getByLabel('Deine Antwort').fill('0');
@@ -286,7 +305,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   await page.goto('./');
   // etwas üben, damit es etwas zu berichten gibt
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -351,7 +370,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
 }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -435,7 +454,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
 test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await expect(page.getByRole('button', { name: 'Fertig für heute' })).toHaveCount(0);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -465,7 +484,7 @@ test('Fertig für heute: Ressourcen unter dem Können, mit „woher“ (BASEBAU 
 }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   // in Ruhe nachdenken: mehr als 5 Sekunden, dann zählt auch eine falsche Antwort
   await page.waitForTimeout(5_200);
   await page.getByLabel('Deine Antwort').fill('0');
@@ -485,7 +504,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
 }) => {
   const antworten = async (ruhig: boolean) => {
     await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-    await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+    await thema(page, /^Addieren und Subtrahieren/);
     if (ruhig) await page.waitForTimeout(5_200);
     await page.getByLabel('Deine Antwort').fill('0');
     await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -747,7 +766,7 @@ test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetrage
 }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByRole('button', { name: 'Fertig für heute' })).toBeVisible();
@@ -766,7 +785,7 @@ test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetrage
 test('Fachbegriffe: antippen zeigt die Erklärung (L-7)', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Teilbarkeitsregeln/ }).click();
+  await thema(page, /^Teilbarkeitsregeln/);
   const begriff = page.getByRole('button', { name: 'teilbar', exact: true });
   await expect(begriff).toHaveAttribute('aria-expanded', 'false');
   await begriff.click();
@@ -897,7 +916,7 @@ test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)'
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
   await expect(page.getByRole('heading', { name: 'Klasse 7' })).toBeVisible();
-  await page.getByRole('button', { name: /^Negative Zahlen/ }).click();
+  await thema(page, /^Negative Zahlen/);
   const feld = page.getByRole('textbox', { name: 'Deine Antwort' });
   await feld.fill('5');
   const pm = page.getByRole('button', { name: 'Minus setzen oder entfernen' });
@@ -980,7 +999,7 @@ test('Übersprungene Klasse: gezielte Diagnose der Lücken daraus (L-12)', async
 test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: 'Fertig für heute' }).click();
@@ -1181,7 +1200,7 @@ test('Üben: Punkte zeigen den Fortschritt im Fünferblock, ohne Zeit (GRAFIK §
 }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await expect(page.getByRole('img', { name: '0 von 5 Aufgaben erledigt' })).toBeVisible();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -1452,7 +1471,7 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
     page.getByText('Testphase: Die Nutzung wird auf diesem Gerät protokolliert.'),
   ).toBeVisible();
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
 
