@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   gleiche-seite:
     de: 'Beide Kreise liegen auf derselben Seite. Beim Falten kämen sie aufeinander – oben oder unten fehlte ein Deckel.'
+    fv: FV.KP.NETZ-FALTEN
   kurze-seiten:
     de: 'Die Kreise sitzen an den kurzen Seiten. Um einen Kreis passt aber nur die lange Seite, die so lang ist wie sein [[Umfang]].'
+    fv: FV.KP.NETZ-FALTEN
   kreise-zu-klein:
     de: 'Die Kreise sind zu klein. Ihr [[Umfang]] muss so lang sein wie die lange Seite des Rechtecks.'
+    fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

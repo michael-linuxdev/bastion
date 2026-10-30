@@ -18,5 +18,6 @@ hilfen:
 fehlerbilder:
   anderer-satz:
     de: 'Dieser Satz passt nicht zur Lage. Schau, wo die Ecken der [[Winkel]] liegen: auf dem Kreis, im Mittelpunkt, auf einem [[Durchmesser]]?'
+    fv: FV.KR.KREISWINKEL
 herkunft: ki-entwurf
 version: 1

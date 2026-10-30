@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   wie-prisma:
     de: 'So viele hat ein [[Prisma]]. Eine [[Pyramide]] hat oben keine zweite Fläche, sondern nur eine Spitze.'
+    fv: FV.KP.ZAEHLEN
   spitze-vergessen:
     de: 'Du hast die Spitze vergessen – auch sie ist eine Ecke.'
+    fv: FV.KP.ZAEHLEN
   grundflaeche-vergessen:
     de: 'Du hast nur die Seitenflächen gezählt. Die [[Grundfläche]] ist auch eine Fläche.'
+    fv: FV.KP.ZAEHLEN
 herkunft: ki-entwurf
 version: 1

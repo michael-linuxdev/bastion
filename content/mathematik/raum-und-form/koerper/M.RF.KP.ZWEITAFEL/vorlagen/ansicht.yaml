@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   andere-ansicht:
     de: 'Das ist eine andere Ansicht desselben Körpers. Schau noch einmal, von wo du blicken sollst.'
+    fv: FV.KP.ANSICHTEN
   anderer-koerper:
     de: 'Diese Ansicht gehört zu einem anderen Körper. Vergleiche die Flächen des Körpers mit dem Bild.'
+    fv: FV.KP.ANSICHTEN
 herkunft: ki-entwurf
 version: 1

@@ -219,7 +219,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Größen, Flächen und Kreis (61 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 379 von 596)
     - [x] Körper (49 Fehlerbilder, 9 neue Fehlvorstellungen; Stand 428 von 596)
     - [x] Grundformen, Symmetrie, Dreiecke und Vierecke (64 Fehlerbilder, 21 neue Fehlvorstellungen; Stand 492 von 596)
-    - [ ] Körper, Kreis und Ähnlichkeit in der Geometrie · Daten und Zufall
+    - [x] Körper, Kreis und Ähnlichkeit in der Geometrie (54 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 546 von 596)
+    - [ ] Daten und Zufall
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -239,6 +240,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b Körper, Kreis und Ähnlichkeit (Raum und Form):** 54 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Grundformen, Symmetrie, Dreiecke und Vierecke:** 64 Fehlerbilder zugeordnet, 21 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Körper:** 49 Fehlerbilder zugeordnet, 9 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Größen, Flächen und Kreis:** 61 Fehlerbilder zugeordnet, 13 neue Fehlvorstellungen |

@@ -13,6 +13,7 @@ kompetenzen:
     M.SF.FK.LINEAR-GLEICHUNG,
     M.RF.GF.KOORDINATEN,
     M.RF.GF.QUADRANTEN,
+    M.RF.AE.STRECKUNG,
   ]
 erklaerung:
   kurz:
@@ -35,6 +36,7 @@ kontrast:
     M.SF.FK.LINEAR-GLEICHUNG.PUNKT,
     M.RF.GF.KOORDINATEN.ABLESEN,
     M.RF.GF.KOORDINATEN.FINDEN,
+    M.RF.AE.STRECKUNG.BILDPUNKT,
   ]
 herkunft: ki-entwurf
 version: 1

@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   stumpf-als-prisma:
     de: 'Bei einem [[Prisma]] sind die beiden parallelen Flächen gleich groß. Hier ist eine kleiner – und die Seitenflächen sind Trapeze.'
+    fv: FV.KP.KOERPER-ERKENNEN
   stumpf-als-pyramide:
     de: 'Eine [[Pyramide]] hat eine Spitze. Hier ist oben eine kleinere Fläche – die Spitze ist abgeschnitten.'
+    fv: FV.KP.KOERPER-ERKENNEN
   pyramide-als-prisma:
     de: 'Achte auf die Seitenflächen: Dreiecke mit Spitze gehören zur [[Pyramide]], Rechtecke zum [[Prisma]].'
+    fv: FV.KP.KOERPER-ERKENNEN
 herkunft: ki-entwurf
 version: 1

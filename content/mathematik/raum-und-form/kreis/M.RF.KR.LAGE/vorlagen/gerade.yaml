@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   sekante-tangente-verwechselt:
     de: 'Eine [[Tangente]] berührt den Kreis nur in einem Punkt. Eine [[Sekante]] schneidet ihn in zwei Punkten.'
+    fv: FV.KR.KREIS-GERADE
   passante-verwechselt:
     de: 'Eine [[Passante]] hat keinen gemeinsamen Punkt mit dem Kreis – sie geht vorbei.'
+    fv: FV.KR.KREIS-GERADE
 herkunft: ki-entwurf
 version: 1

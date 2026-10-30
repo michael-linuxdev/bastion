@@ -1,0 +1,26 @@
+id: FV.KP.ANSICHTEN
+name:
+  de: Verwechselt Ansichten eines Körpers oder nutzt nur eine davon
+art: lesefehler
+beschreibung:
+  de: >-
+    Wählt die Seitenansicht statt der Vorderansicht oder schließt aus dem Aufriss allein auf den Körper.
+    Dass erst Aufriss und Grundriss zusammen den Körper festlegen, ist nicht verankert.
+kompetenzen: [M.RF.KP.ZWEITAFEL]
+erklaerung:
+  kurz:
+    de: 'Der [[Aufriss]] zeigt den Körper von vorne, der [[Grundriss]] von oben. Erst beide zusammen verraten den Körper. Prüfe jede Ansicht einzeln.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine andere Ansicht gewählt oder nur auf eine Ansicht geschaut.'
+    - teil: warum-nicht
+      de: 'Eine Ansicht wirkt oft schon eindeutig. Aber ein [[Zylinder]] und ein [[Quader]] können von vorne beide wie ein Rechteck aussehen. Erst von oben siehst du Kreis oder Rechteck.'
+    - teil: so-stimmt-es
+      de: 'Stell dir vor, du stehst vor dem Körper und schaust geradeaus: Das ist der [[Aufriss]]. Dann schaust du von oben: der [[Grundriss]]. Prüfe den Körper mit beiden.'
+gegenbeispiel:
+  de: 'Von vorne sehen eine Dose und ein Karton gleich aus. Von oben ist die Dose rund.'
+rueckweg:
+  vermittlung: M.RF.KP.ZWEITAFEL#erklaeren-ansichten
+kontrast: [M.RF.KP.ZWEITAFEL.ANSICHT, M.RF.KP.ZWEITAFEL.KOERPER]
+herkunft: ki-entwurf
+version: 1

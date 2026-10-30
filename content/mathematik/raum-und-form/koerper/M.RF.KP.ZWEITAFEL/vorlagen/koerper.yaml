@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nur-aufriss:
     de: 'Dieser Körper sieht von vorne genauso aus, aber von oben anders. Schau dir auch den [[Grundriss]] an.'
+    fv: FV.KP.ANSICHTEN
   nur-grundriss:
     de: 'Dieser Körper sieht von oben genauso aus, aber von vorne anders. Schau dir auch den [[Aufriss]] an.'
+    fv: FV.KP.ANSICHTEN
 herkunft: ki-entwurf
 version: 1

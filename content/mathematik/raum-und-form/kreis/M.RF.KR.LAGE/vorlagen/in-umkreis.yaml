@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   in-um-verwechselt:
     de: '[[Inkreis]] und [[Umkreis]] sind verwechselt. Um: durch die Ecken (Mittelsenkrechten). In: an den Seiten ([[Winkelhalbierende]]).'
+    fv: FV.DV.UM-INKREIS
   andere-linie:
     de: 'Diese Linien schneiden sich auch in einem Punkt, aber der ist nicht der Mittelpunkt von [[Inkreis]] oder [[Umkreis]].'
+    fv: FV.DV.BESONDERE-LINIEN
   immer-innen:
     de: 'Der Mittelpunkt vom [[Umkreis]] liegt nur beim spitzwinkligen Dreieck innen. Beim rechtwinkligen liegt er auf der längsten Seite, beim stumpfwinkligen außerhalb.'
+    fv: FV.KR.UMKREIS-LAGE
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.KR.GEGENBEISPIEL
+name:
+  de: Wählt ein bestätigendes Beispiel statt eines Gegenbeispiels
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Sucht ein Gegenbeispiel und wählt ein Beispiel, für das die Aussage stimmt. Dass ein Gegenbeispiel
+    die Voraussetzung erfüllen, die Behauptung aber verletzen muss, ist nicht verankert.
+kompetenzen: [M.RF.KR.BEGRUENDEN]
+erklaerung:
+  kurz:
+    de: 'Ein [[Gegenbeispiel]] erfüllt die [[Voraussetzung]], aber nicht die [[Behauptung]]. Ein Beispiel, für das die Aussage stimmt, widerlegt nichts.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast ein Beispiel gewählt, das zur Aussage passt.'
+    - teil: warum-nicht
+      de: 'Ein passendes Beispiel fühlt sich nach „richtig“ an. Aber gefragt ist ein Beispiel, das zeigt, dass die Aussage **nicht immer** stimmt.'
+    - teil: so-stimmt-es
+      de: 'Prüfe jedes Beispiel in zwei Schritten: Erfüllt es das „Wenn“? Gilt dann das „dann“ nicht? Nur wenn beides zutrifft, ist es ein [[Gegenbeispiel]].'
+gegenbeispiel:
+  de: '„Alle Vögel können fliegen.“ Eine Taube bestätigt das nur. Ein Pinguin widerlegt es.'
+rueckweg:
+  vermittlung: M.RF.KR.BEGRUENDEN#erklaeren-gegenbeispiel
+kontrast: [M.RF.KR.BEGRUENDEN.GEGENBEISPIEL]
+herkunft: ki-entwurf
+version: 1

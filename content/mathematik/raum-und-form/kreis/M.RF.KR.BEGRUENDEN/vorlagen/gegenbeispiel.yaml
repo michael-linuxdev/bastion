@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   bestaetigt-statt-widerlegt:
     de: 'Dieses Beispiel passt zur Aussage – es bestätigt sie nur. Gesucht ist ein Beispiel, für das die Aussage **nicht** gilt.'
+    fv: FV.KR.GEGENBEISPIEL
 herkunft: ki-entwurf
 version: 1

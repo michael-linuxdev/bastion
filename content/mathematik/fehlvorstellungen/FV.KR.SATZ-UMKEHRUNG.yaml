@@ -1,0 +1,26 @@
+id: FV.KR.SATZ-UMKEHRUNG
+name:
+  de: Verwechselt Voraussetzung, Behauptung und Umkehrung eines Satzes
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Vertauscht Voraussetzung und Behauptung, hält die Umkehrung eines wahren Satzes automatisch für
+    wahr oder schließt umgekehrt aus, dass sie stimmen kann.
+kompetenzen: [M.RF.KR.BEGRUENDEN]
+erklaerung:
+  kurz:
+    de: 'Die [[Voraussetzung]] steht nach „Wenn“, die [[Behauptung]] nach „dann“. Die [[Umkehrung]] tauscht beide. Ob sie stimmt, musst du eigens prüfen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Teile des Satzes vertauscht oder von einem Satz auf seine [[Umkehrung]] geschlossen.'
+    - teil: warum-nicht
+      de: 'Im Alltag klingen „wenn A, dann B“ und „wenn B, dann A“ [[ähnlich]]. Aber „Wenn es regnet, ist die Straße nass“ stimmt, „Wenn die Straße nass ist, regnet es“ nicht immer.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche „Wenn …“ und „dann …“. Für die [[Umkehrung]] tausche sie und suche ein [[Gegenbeispiel]]. Findest du keins, kann sie stimmen.'
+gegenbeispiel:
+  de: 'Jedes Quadrat hat vier gleich lange Seiten. Aber nicht jedes Viereck mit vier gleich langen Seiten ist ein Quadrat: Die [[Raute]] ist eins.'
+rueckweg:
+  vermittlung: M.RF.KR.BEGRUENDEN#erklaeren-satzbau
+kontrast: [M.RF.KR.BEGRUENDEN.SATZBAU]
+herkunft: ki-entwurf
+version: 1

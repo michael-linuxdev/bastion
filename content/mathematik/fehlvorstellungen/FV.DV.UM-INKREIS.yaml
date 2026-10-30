@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Nennt den Schnittpunkt der Mittelsenkrechten Inkreismittelpunkt oder den der
     Winkelhalbierenden Umkreismittelpunkt.
-kompetenzen: [M.RF.DV.BESONDERE-LINIEN]
+kompetenzen: [M.RF.DV.BESONDERE-LINIEN, M.RF.KR.LAGE]
 erklaerung:
   kurz:
     de: 'Der [[Umkreis]] geht um das Dreieck herum durch alle Ecken: Mittelpunkt im Schnitt der Mittelsenkrechten. Der [[Inkreis]] liegt innen und berührt die Seiten: Mittelpunkt im Schnitt der Winkelhalbierenden.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: 'Ein Teller unter einem dreieckigen Stück Kuchen ist der [[Umkreis]]. Eine Münze, die genau in das Stück passt, ist der [[Inkreis]].'
 rueckweg:
   vermittlung: M.RF.DV.BESONDERE-LINIEN#erklaeren-kreise
-kontrast: [M.RF.DV.BESONDERE-LINIEN.SCHNITTPUNKT]
+kontrast: [M.RF.DV.BESONDERE-LINIEN.SCHNITTPUNKT, M.RF.KR.LAGE.IN-UMKREIS]
 herkunft: ki-entwurf
 version: 1

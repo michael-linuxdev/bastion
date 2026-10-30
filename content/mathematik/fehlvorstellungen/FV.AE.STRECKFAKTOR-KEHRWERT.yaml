@@ -1,0 +1,26 @@
+id: FV.AE.STRECKFAKTOR-KEHRWERT
+name:
+  de: Verwendet den Streckfaktor umgekehrt
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet k als Original durch Bild oder teilt die Originalstrecke durch k. Was Original und was
+    Bild ist, wird nicht festgehalten.
+kompetenzen: [M.RF.AE.BERECHNEN, M.RF.AE.STRECKUNG]
+erklaerung:
+  kurz:
+    de: 'Der [[Streckfaktor]] ist Bild durch Original. Die Bildstrecke ist k-mal so lang wie das Original. Bei k > 1 wird es größer.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Bild und Original vertauscht.'
+    - teil: warum-nicht
+      de: 'Beim Teilen ist die Reihenfolge leicht zu verwechseln. Aber k = 3 heißt: Alles wird dreimal so lang. Kommt etwas Kleineres heraus, stimmt die Richtung nicht.'
+    - teil: so-stimmt-es
+      de: 'Schreibe „Original“ und „Bild“ an die Strecken. Dann: k = Bild : Original, Bild = k · Original. Prüfe mit einem [[Überschlag]], ob es größer oder kleiner werden muss.'
+gegenbeispiel:
+  de: 'Ein Baum mit 6 m [[Höhe]] hat einen längeren Schatten als ein Stab von 1 m, nicht einen kürzeren.'
+rueckweg:
+  vermittlung: M.RF.AE.STRECKUNG#erklaeren-streckfaktor
+kontrast: [M.RF.AE.STRECKUNG.STRECKE, M.RF.AE.BERECHNEN.SCHATTEN, M.RF.AE.BERECHNEN.SEITE]
+herkunft: ki-entwurf
+version: 1

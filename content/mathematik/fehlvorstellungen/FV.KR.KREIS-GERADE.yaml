@@ -1,0 +1,26 @@
+id: FV.KR.KREIS-GERADE
+name:
+  de: Verwechselt Sekante, Tangente und Passante
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt eine Gerade, die den Kreis in zwei Punkten schneidet, Tangente, oder eine, die ihn nicht
+    trifft, Sekante. Die Zahl der gemeinsamen Punkte wird nicht geprüft.
+kompetenzen: [M.RF.KR.LAGE]
+erklaerung:
+  kurz:
+    de: 'Zähle die gemeinsamen Punkte: zwei: [[Sekante]], einer: [[Tangente]], keiner: [[Passante]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Gerade]] mit einem anderen Namen benannt.'
+    - teil: warum-nicht
+      de: 'Die drei Namen sind ungewohnt und klingen fremd. Jeder beschreibt aber nur, wie oft die [[Gerade]] den Kreis trifft.'
+    - teil: so-stimmt-es
+      de: 'Merkhilfe: „[[Tangente]]“ kommt von „berühren“, sie berührt in einem Punkt. Die „[[Passante]]“ geht vorbei. Die „[[Sekante]]“ schneidet.'
+gegenbeispiel:
+  de: 'Ein Ball auf dem Boden berührt ihn in einem Punkt, wie eine [[Tangente]]. Ein Stab, der durch einen Ring gesteckt wird, schneidet ihn zweimal.'
+rueckweg:
+  vermittlung: M.RF.KR.LAGE#erklaeren-geraden
+kontrast: [M.RF.KR.LAGE.GERADE]
+herkunft: ki-entwurf
+version: 1

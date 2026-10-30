@@ -13,6 +13,7 @@ kompetenzen:
     M.GM.FL.ZUSAMMENGESETZT,
     M.GM.KR.UMFANG-FLAECHE,
     M.GM.KP.ZYLINDER,
+    M.RF.KP.ZYLINDER,
   ]
 erklaerung:
   kurz:
@@ -34,6 +35,7 @@ kontrast:
     M.GM.FL.RECHTECK.UMFANG,
     M.GM.FL.ZUSAMMENGESETZT.UMFANG,
     M.GM.KP.ZYLINDER.BERECHNEN,
+    M.RF.KP.ZYLINDER.MANTEL,
   ]
 herkunft: ki-entwurf
 version: 1

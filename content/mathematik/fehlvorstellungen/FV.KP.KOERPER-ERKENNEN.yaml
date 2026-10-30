@@ -1,0 +1,26 @@
+id: FV.KP.KOERPER-ERKENNEN
+name:
+  de: Verwechselt Prisma, Pyramide und Pyramidenstumpf
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt einen Pyramidenstumpf Prisma oder Pyramide oder eine Pyramide Prisma. Die Merkmale
+    „gleich große parallele Flächen“ und „Spitze“ werden nicht geprüft.
+kompetenzen: [M.RF.KP.PYRAMIDEN]
+erklaerung:
+  kurz:
+    de: '[[Prisma]]: zwei gleich große parallele Flächen, Seiten sind Rechtecke. [[Pyramide]]: eine Spitze, Seiten sind Dreiecke. [[Pyramidenstumpf]]: oben eine kleinere Fläche, Seiten sind Trapeze.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Körper nach dem ersten Eindruck benannt.'
+    - teil: warum-nicht
+      de: 'Die drei Körper sehen sich [[ähnlich]], besonders im [[Schrägbild]]. Aber die Seitenflächen verraten sie: Rechtecke, Dreiecke oder Trapeze.'
+    - teil: so-stimmt-es
+      de: 'Schau auf eine Seitenfläche: Welche Form hat sie? Dann schau nach oben: Spitze, gleiche Fläche oder kleinere Fläche?'
+gegenbeispiel:
+  de: 'Ein Blumentopf ist oben breiter als unten. Er ist kein [[Prisma]], denn seine Kreise sind verschieden groß.'
+rueckweg:
+  vermittlung: M.RF.KP.PYRAMIDEN#erklaeren-koerper
+kontrast: [M.RF.KP.PYRAMIDEN.ERKENNEN]
+herkunft: ki-entwurf
+version: 1

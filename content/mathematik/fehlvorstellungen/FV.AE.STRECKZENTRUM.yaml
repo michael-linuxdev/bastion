@@ -1,0 +1,26 @@
+id: FV.AE.STRECKZENTRUM
+name:
+  de: Streckt nicht vom Streckzentrum aus
+art: falsche-regel
+beschreibung:
+  de: >-
+    Streckt vom Ursprung statt vom Streckzentrum aus oder hängt den Weg von Z nach P einfach noch einmal
+    an, egal wie groß k ist.
+kompetenzen: [M.RF.AE.STRECKUNG]
+erklaerung:
+  kurz:
+    de: 'Gestreckt wird vom [[Streckzentrum]] Z aus: Nimm den Weg von Z nach P und multipliziere ihn mit k. Dort liegt P′.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast von einem anderen Punkt aus gestreckt oder den Weg nicht mit k malgenommen.'
+    - teil: warum-nicht
+      de: 'Der [[Ursprung]] ist sonst oft der Bezugspunkt, darum liegt das nahe. Bei der [[zentrischen Streckung]] ist aber Z der feste Punkt, alles wandert von ihm weg.'
+    - teil: so-stimmt-es
+      de: 'Z(1|1), P(3|2), k = 3: Der Weg ist 2 nach rechts, 1 nach oben. Mal 3: 6 nach rechts, 3 nach oben. Von Z aus: P′(7|4).'
+gegenbeispiel:
+  de: 'Bei einem Beamer wird das Bild vom Gerät aus größer, nicht von der Zimmerecke aus.'
+rueckweg:
+  vermittlung: M.RF.AE.STRECKUNG#erklaeren-streckung
+kontrast: [M.RF.AE.STRECKUNG.BILDPUNKT]
+herkunft: ki-entwurf
+version: 1

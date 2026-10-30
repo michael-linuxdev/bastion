@@ -1,0 +1,27 @@
+id: FV.AE.GLEICH-VIEL-DAZU
+name:
+  de: Vergrößert ähnliche Figuren durch Addieren statt durch Malnehmen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält ein Rechteck 4 × 6 für ähnlich zu 2 × 4, weil jede Seite 2 länger ist, oder rechnet eine
+    Bildstrecke mit „plus Unterschied“. Vergrößern wird additiv statt multiplikativ gedacht.
+kompetenzen: [M.RF.AE.AEHNLICH, M.RF.AE.BERECHNEN, M.RF.AE.STRECKUNG]
+erklaerung:
+  kurz:
+    de: 'Zwei Figuren sind [[ähnlich]], wenn jede Länge mit demselben [[Faktor]] malgenommen wird. Gleich viel dazu ist keine Streckung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast zu jeder Seite gleich viel dazugezählt.'
+    - teil: warum-nicht
+      de: 'Größer werden durch Dazuzählen ist im Alltag üblich. Aber dann verändert sich die Form: Ein langes Rechteck wird mit jedem Dazuzählen quadratischer.'
+    - teil: so-stimmt-es
+      de: 'Rechne für jede Seite Bild : Original. Kommt überall dieselbe Zahl heraus, ist es eine Streckung: 4 : 2 = 2 und 8 : 4 = 2.'
+gegenbeispiel:
+  de: 'Ein Foto 10 × 15 cm, vergrößert auf 20 × 25 cm, sieht verzerrt aus. Auf 20 × 30 cm nicht.'
+rueckweg:
+  vermittlung: M.RF.AE.AEHNLICH#erklaeren-aehnlich
+  voraussetzung: M.SF.ZU.PROPORTIONAL
+kontrast: [M.RF.AE.AEHNLICH.PRUEFEN, M.RF.AE.AEHNLICH.WAEHLEN, M.RF.AE.BERECHNEN.SEITE]
+herkunft: ki-entwurf
+version: 1
