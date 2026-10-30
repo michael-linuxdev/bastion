@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   geteilt-statt-mal:
     de: 'Du hast durch k geteilt. Die Bildstrecke ist k-mal so lang wie die Originalstrecke.'
+    fv: FV.AE.STRECKFAKTOR-KEHRWERT
   addiert:
     de: 'Der [[Streckfaktor]] wird nicht addiert, sondern malgenommen.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
   kehrwert:
     de: 'Du hast Original durch Bild gerechnet. Der [[Streckfaktor]] ist Bild durch Original.'
+    fv: FV.AE.STRECKFAKTOR-KEHRWERT
 herkunft: ki-entwurf
 version: 1

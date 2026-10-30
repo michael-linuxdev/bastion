@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   voraussetzung-behauptung-vertauscht:
     de: '[[Voraussetzung]] und [[Behauptung]] sind vertauscht. Die Voraussetzung steht nach „Wenn“.'
+    fv: FV.KR.SATZ-UMKEHRUNG
   umkehrung-gleich-satz:
     de: 'Aus einem wahren Satz folgt nicht, dass auch die [[Umkehrung]] wahr ist. Suche ein [[Gegenbeispiel]]: Eine [[Raute]] hat vier gleich lange Seiten, ist aber kein Quadrat.'
+    fv: FV.KR.SATZ-UMKEHRUNG
   umkehrung-zu-streng:
     de: 'Hier stimmt die [[Umkehrung]] tatsächlich. Versuch ein [[Gegenbeispiel]] zu finden – es gibt keines.'
+    fv: FV.KR.SATZ-UMKEHRUNG
 herkunft: ki-entwurf
 version: 1

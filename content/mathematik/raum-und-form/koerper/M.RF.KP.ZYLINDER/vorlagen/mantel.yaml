@@ -16,9 +16,12 @@ hilfen:
 fehlerbilder:
   radius-durchmesser:
     de: '[[Radius]] und [[Durchmesser]] sind verwechselt. Der [[Umfang]] ist 2 · [[π]] · r.'
+    fv: FV.KR.RADIUS-DURCHMESSER
   flaeche-statt-umfang:
     de: 'Das ist der [[Flächeninhalt]] des Kreises. Gesucht ist eine Länge – der [[Umfang]].'
+    fv: FV.FL.UMFANG-FLAECHE
   hoehe-genommen:
     de: 'Die [[Höhe]] des [[Zylinders]] ist die kurze Seite des Rechtecks. Um den Kreis wird die lange Seite gewickelt.'
+    fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

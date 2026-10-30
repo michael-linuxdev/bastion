@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nur-grundflaeche:
     de: 'Das ist nur die Zahl für die [[Grundfläche]]. Denk an die [[Deckfläche]] und die Seiten.'
+    fv: FV.KP.ZAEHLEN
   deckel-vergessen:
     de: 'Du hast eine Fläche vergessen. Zu den Seitenflächen gehören [[Grundfläche]] und [[Deckfläche]].'
+    fv: FV.KP.ZAEHLEN
   seitenkanten-vergessen:
     de: 'Du hast die Kanten von Grund- und [[Deckfläche]] gezählt. Es fehlen die Seitenkanten dazwischen.'
+    fv: FV.KP.ZAEHLEN
 herkunft: ki-entwurf
 version: 1

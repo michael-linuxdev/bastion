@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   differenz-addiert:
     de: 'Du hast den Unterschied addiert. Bei [[ähnlichen]] Dreiecken wird malgenommen, nicht addiert.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
   kehrwert:
     de: 'Du hast durch k geteilt. Die Bildseite ist k-mal so lang wie die Originalseite.'
+    fv: FV.AE.STRECKFAKTOR-KEHRWERT
 herkunft: ki-entwurf
 version: 1

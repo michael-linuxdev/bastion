@@ -1,0 +1,27 @@
+id: FV.KR.UMKREIS-LAGE
+name:
+  de: Meint, der Umkreismittelpunkt liege immer im Dreieck
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Nimmt an, der Umkreismittelpunkt liege immer innen. Das stimmt nur bei spitzwinkligen Dreiecken;
+    gezeichnet werden meist solche.
+kompetenzen: [M.RF.KR.LAGE]
+erklaerung:
+  kurz:
+    de: 'Der Mittelpunkt vom [[Umkreis]] liegt beim spitzwinkligen Dreieck innen, beim rechtwinkligen auf der längsten Seite, beim stumpfwinkligen außerhalb.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht, der Mittelpunkt liegt immer im Dreieck.'
+    - teil: warum-nicht
+      de: 'Die meisten Dreiecke in Büchern sind spitzwinklig, darum wirkt es so. Bei einem sehr stumpfen Dreieck müssen die Ecken aber auf einem großen Kreis liegen, dessen Mitte weit draußen ist.'
+    - teil: so-stimmt-es
+      de: 'Bestimme zuerst die Art des Dreiecks. Beim rechtwinkligen ist die längste Seite ein [[Durchmesser]] ([[Satz des Thales]]), der Mittelpunkt liegt auf ihr.'
+gegenbeispiel:
+  de: 'Ein sehr flaches, stumpfes Dreieck passt in einen großen Kreis, dessen Mitte unterhalb des Dreiecks liegt.'
+rueckweg:
+  vermittlung: M.RF.KR.LAGE#erklaeren-umkreis
+  voraussetzung: M.RF.DV.BESONDERE-LINIEN
+kontrast: [M.RF.KR.LAGE.IN-UMKREIS]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,26 @@
+id: FV.AE.AEHNLICH-PRUEFEN
+name:
+  de: Prüft Ähnlichkeit nicht vollständig nach
+art: rechenfehler
+beschreibung:
+  de: >-
+    Hält ähnliche Figuren für nicht ähnlich, weil die Verhältnisse nicht ausgerechnet oder der dritte
+    Winkel im Dreieck nicht bestimmt wurde.
+kompetenzen: [M.RF.AE.AEHNLICH]
+erklaerung:
+  kurz:
+    de: 'Rechne nach, bevor du entscheidest: alle Seitenverhältnisse ausrechnen, beim Dreieck den dritten [[Winkel]] aus 180° bestimmen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach dem Aussehen entschieden, ohne nachzurechnen.'
+    - teil: warum-nicht
+      de: 'Ähnliche Figuren können verschieden aussehen, wenn sie gedreht oder viel größer sind. Erst die Zahlen zeigen es sicher.'
+    - teil: so-stimmt-es
+      de: 'Dreiecke: Sind zwei [[Winkel]] gleich, ist es auch der dritte, denn alle ergeben 180°. Rechtecke: Bild : Original für beide Seiten vergleichen.'
+gegenbeispiel:
+  de: 'Ein Dreieck mit 50° und 60° und eines mit 60° und 70° haben beide noch einen dritten [[Winkel]]: 70° und 50°. Sie sind [[ähnlich]].'
+rueckweg:
+  vermittlung: M.RF.AE.AEHNLICH#erklaeren-pruefen
+kontrast: [M.RF.AE.AEHNLICH.PRUEFEN]
+herkunft: ki-entwurf
+version: 1

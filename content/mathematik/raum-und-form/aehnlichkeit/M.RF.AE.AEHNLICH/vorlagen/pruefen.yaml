@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   gleich-viel-dazu:
     de: 'Beide Seiten sind um gleich viel länger geworden – das ist keine Streckung. Ähnlich heißt: mit demselben [[Faktor]] malgenommen.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
   verhaeltnis-uebersehen:
     de: 'Rechne die Verhältnisse nach: Beide Seiten sind mit demselben [[Faktor]] gestreckt. Die Rechtecke sind [[ähnlich]].'
+    fv: FV.AE.AEHNLICH-PRUEFEN
   dritter-winkel:
     de: 'Berechne den dritten [[Winkel]]. Dann siehst du: Beide Dreiecke haben dieselben drei Winkel.'
+    fv: FV.AE.AEHNLICH-PRUEFEN
 herkunft: ki-entwurf
 version: 1

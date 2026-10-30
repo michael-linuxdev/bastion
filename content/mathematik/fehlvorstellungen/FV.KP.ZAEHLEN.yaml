@@ -1,0 +1,26 @@
+id: FV.KP.ZAEHLEN
+name:
+  de: Zählt Ecken, Kanten oder Flächen eines Körpers unvollständig
+art: rechenfehler
+beschreibung:
+  de: >-
+    Vergisst beim Prisma Deckfläche oder Seitenkanten, bei der Pyramide die Spitze oder die
+    Grundfläche, oder zählt bei der Pyramide wie beim Prisma.
+kompetenzen: [M.RF.KP.PRISMEN, M.RF.KP.PYRAMIDEN]
+erklaerung:
+  kurz:
+    de: 'Zähle in Teilen: [[Grundfläche]], [[Deckfläche]] oder Spitze, Seiten. Ein [[Prisma]] mit n-Eck hat 2n Ecken, eine [[Pyramide]] n + 1.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Teil des Körpers nicht mitgezählt.'
+    - teil: warum-nicht
+      de: 'Auf dem Bild ist ein Teil verdeckt, und [[Prisma]] und [[Pyramide]] ähneln sich. Aber das [[Prisma]] hat oben eine zweite Fläche, die [[Pyramide]] nur eine Spitze.'
+    - teil: so-stimmt-es
+      de: 'Dreiseitiges [[Prisma]]: unten 3 Ecken, oben 3 Ecken, also 6. Kanten: 3 unten, 3 oben, 3 dazwischen, also 9. Flächen: 2 Dreiecke und 3 Rechtecke, also 5.'
+gegenbeispiel:
+  de: 'Ein Zelt mit Boden hat eine Fläche mehr als eines ohne Boden.'
+rueckweg:
+  vermittlung: M.RF.KP.PRISMEN#erklaeren-zaehlen
+kontrast: [M.RF.KP.PRISMEN.ZAEHLEN, M.RF.KP.PYRAMIDEN.ZAEHLEN]
+herkunft: ki-entwurf
+version: 1

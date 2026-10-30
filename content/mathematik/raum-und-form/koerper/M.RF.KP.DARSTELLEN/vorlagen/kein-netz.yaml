@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   falsch-gefaltet:
     de: 'Diese Figur lässt sich doch zu einem [[Würfel]] falten. Probiere es Quadrat für Quadrat – jede Fläche entsteht genau einmal.'
+    fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

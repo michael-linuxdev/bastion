@@ -18,11 +18,15 @@ hilfen:
 fehlerbilder:
   ohne-rechten-winkel:
     de: 'Du hast den [[rechten Winkel]] bei C vergessen. Nach dem [[Satz des Thales]] ist er 90° groß – zieh ihn auch ab.'
+    fv: FV.KR.KREISWINKEL
   halbiert-statt-verdoppelt:
     de: 'Genau umgekehrt: Der [[Zentriwinkel]] bei M ist doppelt so groß wie der [[Peripheriewinkel]] auf dem Kreis.'
+    fv: FV.KR.KREISWINKEL
   gleich-gesetzt:
     de: 'Die beiden [[Winkel]] sind nicht gleich groß. Prüfe, welcher Satz hier gilt.'
+    fv: FV.KR.KREISWINKEL
   voll-statt-gestreckt:
     de: 'Gegenüberliegende [[Winkel]] im [[Sehnenviereck]] ergeben zusammen 180°, nicht 360°.'
+    fv: FV.KR.KREISWINKEL
 herkunft: ki-entwurf
 version: 1

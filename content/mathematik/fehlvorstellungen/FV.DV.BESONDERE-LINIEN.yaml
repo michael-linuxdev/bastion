@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Nennt eine Seitenhalbierende Höhe oder eine Mittelsenkrechte Höhe. Die beiden Merkmale „durch
     eine Ecke?“ und „senkrecht?“ werden nicht getrennt geprüft.
-kompetenzen: [M.RF.DV.BESONDERE-LINIEN]
+kompetenzen: [M.RF.DV.BESONDERE-LINIEN, M.RF.KR.LAGE]
 erklaerung:
   kurz:
     de: '[[Höhe]]: durch eine Ecke und [[senkrecht]] zur Gegenseite. [[Seitenhalbierende]]: durch eine Ecke und die Mitte der Gegenseite. [[Mittelsenkrechte]]: durch die Mitte einer Seite und senkrecht, aber meist durch keine Ecke.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: 'In einem schiefen Dreieck trifft die [[Höhe]] die Seite meist nicht in der Mitte.'
 rueckweg:
   vermittlung: M.RF.DV.BESONDERE-LINIEN#erklaeren-linien
-kontrast: [M.RF.DV.BESONDERE-LINIEN.ERKENNEN]
+kontrast: [M.RF.DV.BESONDERE-LINIEN.ERKENNEN, M.RF.KR.LAGE.IN-UMKREIS]
 herkunft: ki-entwurf
 version: 1

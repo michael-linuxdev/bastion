@@ -1,0 +1,26 @@
+id: FV.AE.FLAECHE-VOLUMEN-FAKTOR
+name:
+  de: Nimmt bei Flächen und Volumen denselben Faktor wie bei Längen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint, bei doppelter Länge sei auch die Fläche doppelt so groß, oder rechnet beim Volumen mit k².
+    Dass Flächen mit k² und Volumen mit k³ wachsen, ist nicht verankert.
+kompetenzen: [M.RF.AE.BERECHNEN]
+erklaerung:
+  kurz:
+    de: 'Längen wachsen mit k, Flächen mit k², [[Volumen]] mit k³. Bei k = 2 wird die Fläche viermal, das Volumen achtmal so groß.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Fläche oder das [[Volumen]] mit demselben [[Faktor]] wie die Längen gerechnet.'
+    - teil: warum-nicht
+      de: 'Beim Vergrößern denkt man an „doppelt so groß“. Aber eine Fläche hat zwei Richtungen, die beide wachsen. Ein [[Volumen]] hat drei.'
+    - teil: so-stimmt-es
+      de: 'Zeichne ein Quadrat und eines mit doppelter Seite: Ins große passen 4 kleine. Bei Würfeln passen 8 kleine in den großen.'
+gegenbeispiel:
+  de: 'Eine Pizza mit doppeltem [[Durchmesser]] reicht nicht für 2, sondern für 4 Personen.'
+rueckweg:
+  vermittlung: M.RF.AE.BERECHNEN#erklaeren-flaechen
+kontrast: [M.RF.AE.BERECHNEN.SCHATTEN]
+herkunft: ki-entwurf
+version: 1

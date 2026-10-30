@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   nachbar-gewaehlt:
     de: 'Diese Fläche stößt im [[Netz]] direkt an {flaeche}. Beim Falten werden sie Nachbarn, nicht Gegenüber.'
+    fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

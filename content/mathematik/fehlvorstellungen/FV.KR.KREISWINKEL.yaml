@@ -1,0 +1,26 @@
+id: FV.KR.KREISWINKEL
+name:
+  de: Wendet die Winkelsätze am Kreis falsch an
+art: falsche-regel
+beschreibung:
+  de: >-
+    Vergisst beim Satz des Thales den rechten Winkel, halbiert den Zentriwinkel statt ihn zu
+    verdoppeln, setzt Winkel gleich, die es nicht sind, oder rechnet im Sehnenviereck mit 360°.
+kompetenzen: [M.RF.KR.WINKELSAETZE]
+erklaerung:
+  kurz:
+    de: 'Wo liegen die Ecken? Auf einem [[Durchmesser]]: [[Satz des Thales]], 90°. Im Mittelpunkt: [[Zentriwinkel]] = 2 · [[Peripheriewinkel]]. Im [[Sehnenviereck]]: Gegenüberliegende [[Winkel]] ergeben 180°.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Satz falsch oder den falschen Satz angewendet.'
+    - teil: warum-nicht
+      de: 'Die Sätze am Kreis sind viele und [[ähnlich]]. Jeder gehört aber zu einer bestimmten Lage. Der [[Zentriwinkel]] liegt näher am Bogen, darum ist er größer, nicht kleiner.'
+    - teil: so-stimmt-es
+      de: 'Markiere im Bild Mittelpunkt, [[Durchmesser]] und Ecken auf dem Kreis. Wähle dann den Satz, der zu dieser Lage gehört, und schreibe ihn hin, bevor du rechnest.'
+gegenbeispiel:
+  de: 'Steht ein [[Peripheriewinkel]] von 30° über einem Bogen, ist der [[Zentriwinkel]] darüber 60°, nicht 15°.'
+rueckweg:
+  vermittlung: M.RF.KR.WINKELSAETZE#erklaeren-saetze
+kontrast: [M.RF.KR.WINKELSAETZE.BERECHNEN, M.RF.KR.WINKELSAETZE.SATZ]
+herkunft: ki-entwurf
+version: 1

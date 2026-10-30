@@ -1,0 +1,27 @@
+id: FV.KP.NETZ-FALTEN
+name:
+  de: Kann ein Netz nicht in Gedanken zum Körper falten
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält benachbarte Flächen für gegenüberliegend, wählt ein Netz, bei dem zwei Flächen aufeinander
+    fallen, setzt beide Deckel auf dieselbe Seite oder passt die Seitenlängen nicht an (die lange
+    Seite des Zylindermantels ist sein Umfang).
+kompetenzen: [M.RF.KP.DARSTELLEN, M.RF.KP.PRISMEN, M.RF.KP.ZYLINDER]
+erklaerung:
+  kurz:
+    de: 'Falte in Gedanken Fläche für Fläche. Jede Fläche des Körpers muss genau einmal entstehen, und Kanten, die zusammenstoßen, müssen gleich lang sein.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das [[Netz]] nach dem Aussehen beurteilt, ohne es zu falten.'
+    - teil: warum-nicht
+      de: 'Ein [[Netz]] ist flach, der Körper nicht, das ist schwer vorzustellen. Flächen, die im Netz nebeneinanderliegen, werden aber Nachbarn. Und beim [[Zylinder]] wickelt sich die lange Seite des Rechtecks um den Kreis.'
+    - teil: so-stimmt-es
+      de: 'Wähle eine Fläche als Boden und klappe die Nachbarn hoch. Markiere, welche Fläche wo landet. Beim [[Würfel]] liegt eine Fläche gegenüber, wenn genau eine Fläche dazwischen liegt.'
+gegenbeispiel:
+  de: 'Bei einem Spielwürfel liegen 1 und 6 gegenüber. Im aufgeklappten [[Netz]] berühren sie sich nicht.'
+rueckweg:
+  vermittlung: M.RF.KP.DARSTELLEN#erklaeren-netz
+kontrast: [M.RF.KP.DARSTELLEN.GEGENUEBER, M.RF.KP.DARSTELLEN.NETZ-WAEHLEN, M.RF.KP.ZYLINDER.NETZ]
+herkunft: ki-entwurf
+version: 1

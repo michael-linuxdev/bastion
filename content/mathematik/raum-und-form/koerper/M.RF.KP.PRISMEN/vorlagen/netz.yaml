@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   dreiecke-gleiche-seite:
     de: 'Hier liegen beide Dreiecke oben. Beim Falten decken sie dieselbe Öffnung ab – unten bleibt das [[Prisma]] offen.'
+    fv: FV.KP.NETZ-FALTEN
   falsche-anzahl-rechtecke:
     de: 'Zähle die Rechtecke. Ein Dreieck hat drei Seiten, also braucht das [[Prisma]] genau drei Seitenflächen.'
+    fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

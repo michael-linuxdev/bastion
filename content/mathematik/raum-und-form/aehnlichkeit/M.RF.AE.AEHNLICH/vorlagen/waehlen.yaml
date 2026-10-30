@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   gleich-viel-dazu:
     de: 'Hier ist zu jeder Seite gleich viel dazugekommen. Ähnlich heißt: Jede Seite ist mit demselben [[Faktor]] malgenommen.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
   nur-eine-seite:
     de: 'Hier sind nicht alle Seiten mit demselben [[Faktor]] gestreckt.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
 herkunft: ki-entwurf
 version: 1

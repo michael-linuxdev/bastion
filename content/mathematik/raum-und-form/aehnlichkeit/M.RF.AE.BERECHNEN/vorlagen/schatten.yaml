@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   kehrwert:
     de: 'Das Verhältnis ist umgedreht. Der längere Schatten gehört zum höheren Gegenstand.'
+    fv: FV.AE.STRECKFAKTOR-KEHRWERT
   nur-k:
     de: 'Längen werden k-mal so groß, Flächen aber k²-mal und [[Volumen]] k³-mal.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
   k-quadrat-statt-k-hoch-3:
     de: 'Beim [[Volumen]] kommt k dreimal vor (Länge, Breite, [[Höhe]]): k³.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
 herkunft: ki-entwurf
 version: 1
