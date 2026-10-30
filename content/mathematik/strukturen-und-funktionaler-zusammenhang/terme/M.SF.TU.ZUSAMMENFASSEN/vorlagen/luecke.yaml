@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   vorzeichen-verloren:
     de: 'Ein Minus vor einem Glied heißt: Diese Zahl wird abgezogen. Rechne mit den [[Vorzeichen]].'
+    fv: FV.TU.VORZEICHEN-GLIED
   minusklammer:
     de: 'Vor der Klammer steht ein Minus – dann dreht sich das [[Vorzeichen]] des y-Glieds um.'
+    fv: FV.TU.MINUSKLAMMER
 herkunft: ki-entwurf
 version: 1

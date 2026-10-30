@@ -1,0 +1,30 @@
+id: FV.TU.MITTELGLIED
+name:
+  de: Lässt bei den binomischen Formeln das Mittelglied weg, halbiert oder erfindet es
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet (a + b)² = a² + b², schreibt das Mittelglied als a · b statt 2ab oder setzt bei
+    (a + b) · (a − b) ein Mittelglied ein. Das „Quadrat einer Summe“ wird wie ein Produkt behandelt,
+    bei dem sich die Hochzahl auf jedes Glied verteilt.
+kompetenzen: [M.SF.TU.BINOMISCH]
+erklaerung:
+  kurz:
+    de: '(a + b)² = a² + 2ab + b², das Mittelglied ist **doppelt** a · b. Bei (a + b) · (a − b) heben sich die Mittelglieder auf: a² − b².'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Mittelglied weggelassen, nicht verdoppelt oder eins hinzugefügt, wo keins hingehört.'
+    - teil: warum-nicht
+      de: 'Bei (a · b)² wäre a² · b² richtig, darum liegt die Abkürzung nahe. Aber (a + b)² ist (a + b) · (a + b). Beim [[Ausmultiplizieren]] kommt a · b zweimal vor.'
+    - teil: so-stimmt-es
+      de: 'Multipliziere einmal ganz aus: (a + b) · (a + b) = a² + ab + ab + b² = a² + 2ab + b². Bei (a + b) · (a − b) gibt es + ab und − ab, das ergibt 0.'
+gegenbeispiel:
+  de: '(3 + 4)² = 7² = 49. Aber 3² + 4² = 9 + 16 = 25.'
+rueckweg:
+  vermittlung: M.SF.TU.BINOMISCH#erklaeren-mittelglied
+  voraussetzung: M.SF.TU.AUSMULTIPLIZIEREN
+kontrast: [M.SF.TU.BINOMISCH.AUSWAHL, M.SF.TU.BINOMISCH.LUECKE]
+quelle:
+  de: Fachdidaktik Algebra („Freshman’s dream“)
+herkunft: ki-entwurf
+version: 1

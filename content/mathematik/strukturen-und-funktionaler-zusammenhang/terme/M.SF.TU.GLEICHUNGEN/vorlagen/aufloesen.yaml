@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   nur-erstes-glied:
     de: 'Hier wurde die Zahl in der Klammer nicht mitgenommen. Auch sie wird mit der Zahl vor der Klammer malgenommen.'
+    fv: FV.TU.KLAMMER-HALB
 herkunft: ki-entwurf
 version: 1

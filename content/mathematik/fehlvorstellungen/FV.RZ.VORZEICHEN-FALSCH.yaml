@@ -6,7 +6,16 @@ beschreibung:
   de: >-
     Das Ergebnis stimmt bis auf das Vorzeichen, etwa −3 · 4 = 12 oder −8 + 3 = 5. Das Vorzeichen
     wird nicht eigens bestimmt oder die Vorzeichenregel verwechselt.
-kompetenzen: [M.ZO.RZ.ADD-SUB, M.ZO.RZ.MULT-DIV, M.ZO.RZ.POTENZEN, M.ZO.RZ.RECHENGESETZE]
+kompetenzen:
+  [
+    M.ZO.RZ.ADD-SUB,
+    M.ZO.RZ.MULT-DIV,
+    M.ZO.RZ.POTENZEN,
+    M.ZO.RZ.RECHENGESETZE,
+    M.SF.TU.AUSMULTIPLIZIEREN,
+    M.SF.TU.BINOMISCH,
+    M.SF.TU.GLEICHUNGEN,
+  ]
 erklaerung:
   kurz:
     de: 'Bestimme das [[Vorzeichen]] extra. Beim Malnehmen und Teilen: gleiche Vorzeichen ergeben plus, verschiedene minus. Beim Addieren: Liegt das Ergebnis links oder rechts der 0?'
@@ -21,6 +30,12 @@ gegenbeispiel:
   de: '3 Tage lang je 4 € Schulden machen ergibt 12 € Schulden, also −12 €, nicht 12 € Guthaben.'
 rueckweg:
   vermittlung: M.ZO.RZ.MULT-DIV#erklaeren-vorzeichen
-kontrast: [M.ZO.RZ.MULT-DIV.TERM, M.ZO.RZ.MULT-DIV.VORZEICHEN, M.ZO.RZ.ADD-SUB.TERM]
+kontrast:
+  [
+    M.ZO.RZ.MULT-DIV.TERM,
+    M.ZO.RZ.MULT-DIV.VORZEICHEN,
+    M.ZO.RZ.ADD-SUB.TERM,
+    M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL,
+  ]
 herkunft: ki-entwurf
 version: 1

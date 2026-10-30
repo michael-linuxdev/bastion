@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nur-erstes-glied:
     de: 'Hier wurde nur ein Glied malgenommen. Jedes Glied in der Klammer gehört dazu.'
+    fv: FV.TU.KLAMMER-HALB
   vorzeichen-falsch:
     de: 'Prüfe die [[Vorzeichen]]: Minus mal Minus ergibt plus, Minus mal Plus ergibt minus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

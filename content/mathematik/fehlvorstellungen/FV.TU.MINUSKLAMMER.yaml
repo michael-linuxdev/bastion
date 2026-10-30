@@ -1,0 +1,27 @@
+id: FV.TU.MINUSKLAMMER
+name:
+  de: Ändert bei einer Minusklammer nur das erste Vorzeichen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 5x − (2x − 3) = 3x − 3. Das Minus vor der Klammer wird nur auf das erste Glied
+    angewendet. Dass es für die ganze Klammer gilt, ist nicht verankert.
+kompetenzen: [M.SF.TU.ZUSAMMENFASSEN]
+erklaerung:
+  kurz:
+    de: 'Steht vor der Klammer ein Minus, wechseln **alle** Glieder in der Klammer ihr [[Vorzeichen]]: −(2x − 3) = −2x + 3.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur beim ersten Glied das [[Vorzeichen]] gewechselt.'
+    - teil: warum-nicht
+      de: 'Das Minus steht direkt beim ersten Glied, darum liegt das nahe. Aber es bedeutet: Ziehe die ganze Klammer ab. Wer etwas abzieht, das selbst „minus 3“ enthält, zieht die 3 nicht ab, sondern zählt sie dazu.'
+    - teil: so-stimmt-es
+      de: 'Schreibe −(2x − 3) als (−1) · (2x − 3) und [[multipliziere aus]]: −2x + 3. Also 5x − (2x − 3) = 3x + 3.'
+gegenbeispiel:
+  de: 'Mit x = 1: 5 − (2 − 3) = 5 − (−1) = 6. Aber 3 · 1 − 3 = 0.'
+rueckweg:
+  vermittlung: M.SF.TU.ZUSAMMENFASSEN#erklaeren-minusklammer
+  voraussetzung: M.ZO.RZ.ADD-SUB
+kontrast: [M.SF.TU.ZUSAMMENFASSEN.AUSWAHL, M.SF.TU.ZUSAMMENFASSEN.LUECKE]
+herkunft: ki-entwurf
+version: 1

@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   zeichen-nicht-gedreht:
     de: 'Du hast durch eine [[negative Zahl]] geteilt. Dann dreht sich das Zeichen um: aus < wird >, aus ≤ wird ≥.'
+    fv: FV.TU.ZEICHEN-DREHEN
   zeichen-verdreht:
     de: 'Prüfe mit einer Zahl: Setze sie ein und schau, ob die [[Ungleichung]] stimmt.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
   gleich-vergessen:
     de: 'Achte darauf, ob die Grenze dazugehört: ≤ und ≥ schließen sie ein, < und > nicht.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
 herkunft: ki-entwurf
 version: 1

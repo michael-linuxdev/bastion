@@ -1,0 +1,26 @@
+id: FV.TU.AUSKLAMMERN
+name:
+  de: Teilt beim Ausklammern nicht durch den Faktor
+art: falsche-regel
+beschreibung:
+  de: >-
+    Schreibt 6x + 9 = 3 · (6x + 9) oder lässt die Glieder in der Klammer unverändert. Ausklammern
+    wird nicht als Umkehrung des Ausmultiplizierens gesehen.
+kompetenzen: [M.SF.TU.AUSMULTIPLIZIEREN]
+erklaerung:
+  kurz:
+    de: 'Beim [[Ausklammern]] teilst du jedes Glied durch den [[Faktor]], den du nach vorn holst: 6x + 9 = 3 · (2x + 3).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Faktor]] nach vorn geschrieben, aber die Glieder in der Klammer nicht geteilt.'
+    - teil: warum-nicht
+      de: 'Den [[Faktor]] zu finden war der richtige Schritt. Aber 3 · (6x + 9) ist dreimal so groß wie 6x + 9. Damit der [[Term]] gleich bleibt, muss in der Klammer ein Drittel stehen.'
+    - teil: so-stimmt-es
+      de: 'Teile jedes Glied: 6x : 3 = 2x, 9 : 3 = 3. [[Probe]] durch [[Ausmultiplizieren]]: 3 · (2x + 3) = 6x + 9.'
+gegenbeispiel:
+  de: 'Mit x = 1: 6 + 9 = 15. Aber 3 · (6 + 9) = 45.'
+rueckweg:
+  vermittlung: M.SF.TU.AUSMULTIPLIZIEREN#erklaeren-ausklammern
+kontrast: [M.SF.TU.AUSMULTIPLIZIEREN.LUECKE]
+herkunft: ki-entwurf
+version: 1

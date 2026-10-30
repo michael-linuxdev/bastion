@@ -17,13 +17,18 @@ hilfen:
 fehlerbilder:
   ohne-mittelglied:
     de: '(a + b)² ist nicht a² + b². Es fehlt das Mittelglied 2·a·b.'
+    fv: FV.TU.MITTELGLIED
   nicht-verdoppelt:
     de: 'Das Mittelglied ist 2·a·b – du hast das Doppelte vergessen.'
+    fv: FV.TU.MITTELGLIED
   nicht-quadriert:
     de: 'Das letzte Glied ist das Quadrat der Zahl, nicht das Doppelte.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
   vorzeichen-falsch:
     de: 'Prüfe die [[Vorzeichen]]: Bei (a − b)² ist das Mittelglied negativ, b² aber positiv.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   mittelglied-erfunden:
     de: 'Bei (a + b)·(a − b) heben sich die Mittelglieder auf – es bleibt a² − b².'
+    fv: FV.TU.MITTELGLIED
 herkunft: ki-entwurf
 version: 1

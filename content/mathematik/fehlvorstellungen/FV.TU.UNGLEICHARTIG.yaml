@@ -1,0 +1,26 @@
+id: FV.TU.UNGLEICHARTIG
+name:
+  de: Fasst ungleichartige Glieder zusammen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet 3x + 4 = 7x oder 2x + 3y = 5xy. Alles, was dasteht, wird zusammengezählt. Dass nur
+    gleichartige Glieder (gleiche Variable) zusammengefasst werden dürfen, ist nicht verankert.
+kompetenzen: [M.SF.TU.ZUSAMMENFASSEN]
+erklaerung:
+  kurz:
+    de: 'Zusammenfassen darfst du nur Glieder mit derselben [[Variable]]: 3x + 2x = 5x. Bei 3x + 4 bleibt beides stehen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Glieder mit verschiedenen [[Variablen]] oder ein x-Glied und eine Zahl zusammengezählt.'
+    - teil: warum-nicht
+      de: 'Bei Zahlen kann man immer alles zusammenrechnen. Aber 3x heißt drei x, und 4 heißt vier Einer. Drei Äpfel und vier Birnen sind nicht sieben Äpfel.'
+    - teil: so-stimmt-es
+      de: 'Sortiere zuerst: alle x-Glieder, alle y-Glieder, alle Zahlen. Fasse nur innerhalb jeder Gruppe zusammen.'
+gegenbeispiel:
+  de: 'Mit x = 10: 3 · 10 + 4 = 34. Aber 7 · 10 = 70.'
+rueckweg:
+  vermittlung: M.SF.TU.ZUSAMMENFASSEN#erklaeren-gleichartig
+kontrast: [M.SF.TU.ZUSAMMENFASSEN.AUSWAHL]
+herkunft: ki-entwurf
+version: 1

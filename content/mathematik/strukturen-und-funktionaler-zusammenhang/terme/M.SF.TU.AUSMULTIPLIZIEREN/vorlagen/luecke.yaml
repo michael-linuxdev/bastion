@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nur-erstes-glied:
     de: 'Auch das zweite Glied in der Klammer wird mit der Zahl davor malgenommen.'
+    fv: FV.TU.KLAMMER-HALB
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Minus mal Minus ergibt plus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   nicht-geteilt:
     de: 'Beim [[Ausklammern]] teilst du durch den [[Faktor]] vor der Klammer.'
+    fv: FV.TU.AUSKLAMMERN
 herkunft: ki-entwurf
 version: 1
