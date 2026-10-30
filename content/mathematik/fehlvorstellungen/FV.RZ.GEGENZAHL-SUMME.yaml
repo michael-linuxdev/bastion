@@ -1,0 +1,26 @@
+id: FV.RZ.GEGENZAHL-SUMME
+name:
+  de: Verdoppelt Gegenzahlen, statt sie zu 0 zusammenzufassen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet −7 + 3 + 7 = 17 oder −14 + 3. Dass eine Zahl und ihre Gegenzahl zusammen 0 ergeben,
+    wird beim geschickten Rechnen nicht genutzt.
+kompetenzen: [M.ZO.RZ.RECHENGESETZE]
+erklaerung:
+  kurz:
+    de: 'Eine Zahl und ihre [[Gegenzahl]] ergeben zusammen 0: −7 + 7 = 0. Suche solche Paare zuerst.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast −7 und 7 zusammengezählt, als wären beide positiv oder beide negativ.'
+    - teil: warum-nicht
+      de: 'Gleiche Zahlen zusammenfassen ist eine gute Idee. Aber −7 heißt 7 Schritte nach links, +7 heißt 7 Schritte nach rechts. Danach stehst du wieder bei 0.'
+    - teil: so-stimmt-es
+      de: '−7 + 3 + 7: Fasse −7 und 7 zusammen, das ist 0. Übrig bleibt 3.'
+gegenbeispiel:
+  de: '7 € Schulden machen und 7 € zurückzahlen: Danach hast du so viel wie vorher.'
+rueckweg:
+  vermittlung: M.ZO.RZ.RECHENGESETZE#erklaeren-geschickt
+kontrast: [M.ZO.RZ.RECHENGESETZE.GESCHICKT]
+herkunft: ki-entwurf
+version: 1

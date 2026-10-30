@@ -1,0 +1,26 @@
+id: FV.RZ.RICHTUNG
+name:
+  de: Geht bei Veränderungen in die falsche Richtung
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet bei „Die Temperatur sinkt um 5 Grad“ plus 5. Das Wort im Text wird nicht in eine
+    Richtung auf der Zahlengerade übersetzt.
+kompetenzen: [M.ZO.RZ.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Steigen, mehr werden, nach oben: plus, also nach rechts auf der [[Zahlengerade]]. Sinken, weniger werden, nach unten: minus, also nach links.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast in die falsche Richtung gerechnet.'
+    - teil: warum-nicht
+      de: 'Die Zahl hast du richtig gefunden. Aber die Wörter im Text sagen, wohin es geht. Wenn es kälter wird, muss die Temperatur kleiner werden.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche das Wort für die Richtung und zeichne einen Pfeil an die [[Zahlengerade]]. −2 °C und es wird 5 [[Grad]] kälter: −2 − 5 = −7 °C.'
+gegenbeispiel:
+  de: 'Wenn ein Taucher tiefer taucht, kann er danach nicht näher an der [[Oberfläche]] sein.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ADD-SUB#erklaeren-zahlengerade
+kontrast: [M.ZO.RZ.ADD-SUB.SACH]
+herkunft: ki-entwurf
+version: 1

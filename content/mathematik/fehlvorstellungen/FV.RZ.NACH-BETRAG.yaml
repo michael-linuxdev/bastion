@@ -1,0 +1,27 @@
+id: FV.RZ.NACH-BETRAG
+name:
+  de: Ordnet negative Zahlen nach ihrem Betrag
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält −8 für größer als −3, weil 8 > 3. Die Ordnung der natürlichen Zahlen wird auf die negativen
+    Zahlen übertragen.
+kompetenzen: [M.ZO.RZ.ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Je weiter links auf der [[Zahlengerade]], desto kleiner. Bei [[negativen Zahlen]] heißt das: −8 ist kleiner als −3.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen ohne Minus verglichen.'
+    - teil: warum-nicht
+      de: 'Bei positiven Zahlen stimmt „größere Zahl, größerer Wert“. Links von der 0 ist es umgekehrt: Je größer der [[Betrag]], desto weiter links liegt die Zahl.'
+    - teil: so-stimmt-es
+      de: 'Stell dir die [[Zahlengerade]] vor und ordne von links nach rechts: −8 < −3 < 3 < 8.'
+gegenbeispiel:
+  de: '−8 °C ist kälter als −3 °C. 8 € Schulden sind schlimmer als 3 € Schulden.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ORDNEN#erklaeren-ordnen
+  voraussetzung: M.ZO.RZ.BEGRIFF
+kontrast: [M.ZO.RZ.ORDNEN.DER-GROESSE-NACH, M.ZO.RZ.ORDNEN.VERGLEICHSZEICHEN]
+herkunft: ki-entwurf
+version: 1

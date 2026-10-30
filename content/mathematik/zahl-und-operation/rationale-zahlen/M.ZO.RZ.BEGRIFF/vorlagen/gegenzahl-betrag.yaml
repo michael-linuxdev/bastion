@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   zahl-selbst:
     de: 'Das ist die Zahl selbst. Gefragt ist eine andere Zahl – lies die Aufgabe noch einmal.'
+    fv: FV.RZ.GEGENZAHL-BETRAG
   betrag-statt-gegenzahl:
     de: 'Das ist der [[Betrag]]. Die [[Gegenzahl]] hat das andere [[Vorzeichen]]: Die Gegenzahl von 5 ist −5.'
+    fv: FV.RZ.GEGENZAHL-BETRAG
   gegenzahl-statt-betrag:
     de: 'Das ist die [[Gegenzahl]]. Der [[Betrag]] ist der Abstand zur 0 und nie negativ.'
+    fv: FV.RZ.GEGENZAHL-BETRAG
 herkunft: ki-entwurf
 version: 1

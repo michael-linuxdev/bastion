@@ -89,7 +89,7 @@ describe('Inhalte in content/', () => {
   });
 
   // Felder, deren Fehlerbilder schon zugeordnet sind (PLAN U5a): Präfix der Kompetenz-ID
-  const FV_ZUGEORDNET = ['M.ZO.BR.', 'M.SF.BR.', 'M.ZO.NZ.', 'M.SF.NZ.', 'M.ZO.TB.'];
+  const FV_ZUGEORDNET = ['M.ZO.BR.', 'M.SF.BR.', 'M.ZO.NZ.', 'M.SF.NZ.', 'M.ZO.TB.', 'M.ZO.RZ.'];
   const zugeordnet = (kompetenz: string) => FV_ZUGEORDNET.some((p) => kompetenz.startsWith(p));
 
   it('zugeordnete Felder: jedes Fehlerbild verweist auf eine Fehlvorstellung (F2)', () => {

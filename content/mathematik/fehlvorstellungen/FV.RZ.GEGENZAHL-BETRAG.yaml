@@ -1,0 +1,26 @@
+id: FV.RZ.GEGENZAHL-BETRAG
+name:
+  de: Verwechselt Gegenzahl und Betrag
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt bei der Gegenzahl von −5 die 5 und beim Betrag von 5 die −5 an, oder nennt die Zahl selbst.
+    Beide Begriffe haben mit „Minus weg oder dazu“ zu tun und werden vermischt.
+kompetenzen: [M.ZO.RZ.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Die [[Gegenzahl]] liegt auf der anderen Seite der 0, das [[Vorzeichen]] dreht sich um. Der [[Betrag]] ist der Abstand zur 0 und nie negativ.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Gegenzahl]] und [[Betrag]] verwechselt oder die Zahl selbst angegeben.'
+    - teil: warum-nicht
+      de: 'Bei [[negativen Zahlen]] kommt zufällig bei beiden dasselbe heraus: [[Gegenzahl]] und [[Betrag]] von −5 sind beide 5. Bei positiven Zahlen nicht: Die Gegenzahl von 5 ist −5, der Betrag bleibt 5.'
+    - teil: so-stimmt-es
+      de: '[[Gegenzahl]]: an der 0 spiegeln, 5 → −5, −5 → 5. [[Betrag]]: Abstand zur 0, immer ohne Minus, |5| = |−5| = 5.'
+gegenbeispiel:
+  de: 'Ob du 3 Schritte nach links oder nach rechts gehst: Der Weg ist beide Male 3 Schritte lang. Das ist der [[Betrag]].'
+rueckweg:
+  vermittlung: M.ZO.RZ.BEGRIFF#erklaeren-gegenzahl-betrag
+kontrast: [M.ZO.RZ.BEGRIFF.GEGENZAHL-BETRAG]
+herkunft: ki-entwurf
+version: 1

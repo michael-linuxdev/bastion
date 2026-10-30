@@ -18,7 +18,9 @@ hilfen:
 fehlerbilder:
   minus-falsch-gezaehlt:
     de: 'Zähle die [[negativen Zahlen]] noch einmal. Zwei Minus ergeben plus, drei Minus ergeben wieder minus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   null-uebersehen:
     de: 'In der Rechnung steckt eine 0 als [[Faktor]]. Dann ist das Ergebnis 0 – weder positiv noch negativ.'
+    fv: FV.RZ.NULL-FAKTOR
 herkunft: ki-entwurf
 version: 1

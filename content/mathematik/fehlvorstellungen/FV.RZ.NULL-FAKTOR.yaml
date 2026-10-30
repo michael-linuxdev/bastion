@@ -1,0 +1,26 @@
+id: FV.RZ.NULL-FAKTOR
+name:
+  de: Übersieht, dass ein Faktor 0 das Produkt 0 macht
+art: rechenfehler
+beschreibung:
+  de: >-
+    Entscheidet bei (−3) · 0 · (−5) nach den Minuszeichen „positiv“. Die 0 wird überlesen; dass
+    0 weder positiv noch negativ ist, ist nicht im Blick.
+kompetenzen: [M.ZO.RZ.MULT-DIV]
+erklaerung:
+  kurz:
+    de: 'Ist ein [[Faktor]] 0, ist das ganze [[Produkt]] 0, egal wie viele Minuszeichen es gibt. 0 ist weder positiv noch negativ.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Minuszeichen gezählt und die 0 übersehen.'
+    - teil: warum-nicht
+      de: 'Minuszeichen zählen ist sonst genau richtig. Aber 0 mal irgendetwas ist 0. Dann gibt es kein [[Vorzeichen]] mehr.'
+    - teil: so-stimmt-es
+      de: 'Suche zuerst nach einer 0 unter den [[Faktoren]]. Gibt es eine, ist das Ergebnis 0. Erst sonst zählst du die Minuszeichen.'
+gegenbeispiel:
+  de: '0 Tüten mit je −5 € Wert sind 0 €, kein Gewinn und kein Verlust.'
+rueckweg:
+  vermittlung: M.ZO.RZ.MULT-DIV#erklaeren-vorzeichen
+kontrast: [M.ZO.RZ.MULT-DIV.VORZEICHEN]
+herkunft: ki-entwurf
+version: 1

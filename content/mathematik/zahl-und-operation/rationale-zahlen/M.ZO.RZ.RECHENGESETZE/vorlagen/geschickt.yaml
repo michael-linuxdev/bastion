@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Zähle die [[negativen Zahlen]] noch einmal.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   gegenzahl-uebersehen:
     de: '−a und +a sind [[Gegenzahlen]] – zusammen ergeben sie 0, nicht das Doppelte.'
+    fv: FV.RZ.GEGENZAHL-SUMME
 herkunft: ki-entwurf
 version: 1

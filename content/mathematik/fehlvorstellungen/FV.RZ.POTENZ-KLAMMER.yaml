@@ -1,0 +1,26 @@
+id: FV.RZ.POTENZ-KLAMMER
+name:
+  de: Unterscheidet (−4)² und −4² nicht
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet −4² = 16 oder (−4)² = −16. Dass die Hochzahl ohne Klammer nur zur 4 gehört und mit
+    Klammer zur ganzen Zahl −4, wird übersehen.
+kompetenzen: [M.ZO.RZ.POTENZEN]
+erklaerung:
+  kurz:
+    de: 'Mit Klammer gehört das Minus zur Zahl: (−4)² = (−4) · (−4) = 16. Ohne Klammer gilt die [[Hochzahl]] nur für die 4: −4² = −16.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nicht beachtet, ob das Minus in der Klammer steht.'
+    - teil: warum-nicht
+      de: 'Die beiden Schreibweisen sehen fast gleich aus. Die Klammer entscheidet aber, was malgenommen wird: die [[ganze Zahl]] −4 oder nur die 4.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Potenz aus. (−4)² = (−4) · (−4) = 16. −4² = −(4 · 4) = −16.'
+gegenbeispiel:
+  de: '(−1)² = 1, denn minus mal minus ist plus. −1² = −1, denn hier wird nur 1 · 1 gerechnet und dann das Minus davor gesetzt.'
+rueckweg:
+  vermittlung: M.ZO.RZ.POTENZEN#erklaeren-klammer
+kontrast: [M.ZO.RZ.POTENZEN.POTENZ]
+herkunft: ki-entwurf
+version: 1

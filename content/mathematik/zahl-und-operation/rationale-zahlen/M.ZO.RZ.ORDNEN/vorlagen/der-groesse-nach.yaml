@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nach-betrag:
     de: 'Du hast nach dem Abstand zur 0 geordnet. Eine [[negative Zahl]] ist aber kleiner als jede positive: −7 < −3 < 3 < 7.'
+    fv: FV.RZ.NACH-BETRAG
   absteigend:
     de: 'Die Reihenfolge ist genau umgekehrt. Beginne mit der kleinsten Zahl.'
+    fv: FV.NZ.REIHENFOLGE-UMGEKEHRT
 herkunft: ki-entwurf
 version: 1

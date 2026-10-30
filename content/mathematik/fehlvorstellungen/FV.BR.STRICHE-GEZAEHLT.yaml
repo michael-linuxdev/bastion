@@ -1,12 +1,12 @@
 id: FV.BR.STRICHE-GEZAEHLT
 name:
-  de: Zählt am Zahlenstrahl die Striche statt der Abschnitte
+  de: Zählt am Zahlenstrahl oder an der Zahlengerade die Striche statt der Abschnitte
 art: falsche-grundvorstellung
 beschreibung:
   de: >-
     Zählt zwischen 0 und 1 alle Striche (einschließlich 0 und 1) und nimmt diese Zahl als Nenner
     oder als Zahl der Zehntel. Ist das Ganze in 5 Abschnitte geteilt, gibt es 6 Striche.
-kompetenzen: [M.ZO.BR.ZAHLENSTRAHL]
+kompetenzen: [M.ZO.BR.ZAHLENSTRAHL, M.ZO.RZ.BEGRIFF]
 erklaerung:
   kurz:
     de: 'Zähle die **Abschnitte** zwischen den Strichen, nicht die Striche. Von 0 bis 1 gibt es immer einen Strich mehr als Abschnitte.'
@@ -17,12 +17,12 @@ erklaerung:
       de: 'Striche fallen am meisten auf, das ist verständlich. Aber ein [[Anteil]] misst eine Strecke. Die Teile des Ganzen sind die Abschnitte zwischen den Strichen, und der erste Strich bei 0 gehört zu keinem Teil.'
       bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 5, markiert: 2 } }
     - teil: so-stimmt-es
-      de: 'Zähle die Abschnitte von 0 bis 1, das ist der [[Nenner]]. Zähle dann die Abschnitte von 0 bis zur Markierung, das ist der [[Zähler]].'
+      de: 'Zähle die Abschnitte von 0 bis zur Markierung. Bei einem [[Bruch]] ist die Zahl der Abschnitte bis zur 1 der [[Nenner]], die bis zur Markierung der [[Zähler]].'
 gegenbeispiel:
   de: 'Ein Lineal von 0 bis 1 cm mit einem Strich in der Mitte hat 3 Striche, aber nur 2 Hälften.'
 rueckweg:
   vermittlung: M.ZO.BR.ZAHLENSTRAHL#erklaeren-abschnitte
   voraussetzung: M.ZO.BR.BEGRIFF
-kontrast: [M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL]
+kontrast: [M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL, M.ZO.RZ.BEGRIFF.ZAHLENGERADE]
 herkunft: ki-entwurf
 version: 1

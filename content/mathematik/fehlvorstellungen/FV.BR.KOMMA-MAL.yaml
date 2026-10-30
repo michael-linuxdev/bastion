@@ -7,7 +7,15 @@ beschreibung:
     Rechnet 0,3 · 0,4 = 1,2 oder 2,4 : 3 = 8. Die Ziffern stimmen, das Komma nicht. Oft wird die
     Regel vom Addieren übertragen („Komma bleibt an seiner Stelle“), oder das Ergebnis wird nicht
     mit einem Überschlag geprüft.
-kompetenzen: [M.ZO.BR.DEZ-RECHNEN, M.ZO.BR.DEZ-MULT-DIV, M.ZO.BR.RECHENGESETZE, M.ZO.BR.SACH]
+kompetenzen:
+  [
+    M.ZO.BR.DEZ-RECHNEN,
+    M.ZO.BR.DEZ-MULT-DIV,
+    M.ZO.BR.RECHENGESETZE,
+    M.ZO.BR.SACH,
+    M.ZO.RZ.MULT-DIV,
+    M.ZO.RZ.POTENZEN,
+  ]
 erklaerung:
   kurz:
     de: 'Prüfe das Komma mit einem [[Überschlag]]: Wie groß muss das Ergebnis ungefähr sein? Beim Malnehmen hat das Ergebnis so viele [[Nachkommastellen]] wie beide Zahlen zusammen.'
@@ -22,6 +30,6 @@ gegenbeispiel:
   de: '0,5 · 0,5 ist die Hälfte von einer Hälfte, also 0,25. Mit dem Komma an der alten Stelle käme 2,5 heraus, mehr als 1.'
 rueckweg:
   vermittlung: M.ZO.BR.DEZ-RECHNEN#erklaeren-komma
-kontrast: [M.ZO.BR.DEZ-MULT-DIV.MAL, M.ZO.BR.DEZ-RECHNEN.EINSTELLIG]
+kontrast: [M.ZO.BR.DEZ-MULT-DIV.MAL, M.ZO.BR.DEZ-RECHNEN.EINSTELLIG, M.ZO.RZ.MULT-DIV.TERM]
 herkunft: ki-entwurf
 version: 1

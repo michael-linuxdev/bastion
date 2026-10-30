@@ -1,0 +1,26 @@
+id: FV.RZ.ABSTAND-UEBER-NULL
+name:
+  de: Zieht beim Abstand über die 0 hinweg die Beträge voneinander ab
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Berechnet den Unterschied zwischen −4 °C und 6 °C als 2 Grad. Die Zahlen werden behandelt, als
+    lägen sie auf derselben Seite der 0.
+kompetenzen: [M.ZO.RZ.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Liegen die Zahlen auf verschiedenen Seiten der 0, gehst du über die 0 hinweg: Weg bis zur 0 plus Weg von der 0 weiter.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden Zahlen ohne Minus voneinander abgezogen.'
+    - teil: warum-nicht
+      de: 'Bei zwei positiven Zahlen stimmt das. Aber von −4 bis 0 sind es schon 4 Schritte, und von 0 bis 6 noch einmal 6.'
+    - teil: so-stimmt-es
+      de: 'Zeichne die [[Zahlengerade]] und zähle die Schritte: 4 + 6 = 10 [[Grad]] Unterschied.'
+gegenbeispiel:
+  de: 'Wer vom Keller (−1) in den 2. Stock fährt, fährt 3 Stockwerke, nicht 1.'
+rueckweg:
+  vermittlung: M.ZO.RZ.BEGRIFF#erklaeren-zahlengerade
+kontrast: [M.ZO.RZ.BEGRIFF.ALLTAG]
+herkunft: ki-entwurf
+version: 1

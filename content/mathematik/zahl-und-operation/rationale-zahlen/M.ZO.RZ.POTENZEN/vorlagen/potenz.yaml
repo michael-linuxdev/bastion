@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   klammer-uebersehen:
     de: 'Achte auf die Klammer. (−4)² = (−4) · (−4) = 16, aber −4² = −(4 · 4) = −16.'
+    fv: FV.RZ.POTENZ-KLAMMER
   vorzeichen-falsch:
     de: 'Zähle die Minuszeichen: Bei einer geraden [[Hochzahl]] ist (−a)ⁿ positiv, bei einer ungeraden negativ.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   mal-hochzahl:
     de: 'Du hast die Zahl mit der [[Hochzahl]] multipliziert. Gemeint ist: die Zahl so oft mit sich selbst multiplizieren.'
+    fv: FV.NZ.HOCHZAHL-MAL
   komma-falsch:
     de: 'Zähle die [[Nachkommastellen]]: 0,2 · 0,2 · 0,2 hat drei Nachkommastellen, also 0,008.'
+    fv: FV.BR.KOMMA-MAL
 herkunft: ki-entwurf
 version: 1

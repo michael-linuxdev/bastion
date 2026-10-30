@@ -18,11 +18,15 @@ hilfen:
 fehlerbilder:
   ganze-zahl-vergessen:
     de: 'Diese Zahl hat kein Komma und keinen [[Bruch]] – sie ist eine [[ganze Zahl]], auch mit Minus.'
+    fv: FV.RZ.ZAHLBEREICHE
   vorzeichen-uebersehen:
     de: 'Achte auf das Minus. Eine [[negative Zahl]] ist keine [[natürliche Zahl]] und keine [[gebrochene Zahl]].'
+    fv: FV.RZ.ZAHLBEREICHE
   natuerlich-nicht-gebrochen:
     de: 'Jede [[natürliche Zahl]] kann man als [[Bruch]] schreiben, zum Beispiel 5 = 5/1. Sie gehört also zu allen vier Zahlbereichen.'
+    fv: FV.RZ.ZAHLBEREICHE
   verkleidet-uebersehen:
     de: 'Rechne den [[Bruch]] aus: Er ergibt eine Zahl ohne Rest. Damit ist er eine [[ganze Zahl]].'
+    fv: FV.BR.SCHREIBWEISE-ZAHL
 herkunft: ki-entwurf
 version: 1

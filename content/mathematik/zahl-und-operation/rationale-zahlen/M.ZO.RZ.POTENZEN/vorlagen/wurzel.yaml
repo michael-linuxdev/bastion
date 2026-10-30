@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   halbiert:
     de: 'Du hast halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst multipliziert {radikand} ergibt.'
+    fv: FV.NZ.WURZEL-HALBIERT
   komma-falsch:
     de: 'Mach die [[Probe]]: Multipliziere dein Ergebnis mit sich selbst. Die Zahl unter der [[Wurzel]] hat doppelt so viele [[Nachkommastellen]] wie das Ergebnis.'
+    fv: FV.BR.KOMMA-MAL
 herkunft: ki-entwurf
 version: 1

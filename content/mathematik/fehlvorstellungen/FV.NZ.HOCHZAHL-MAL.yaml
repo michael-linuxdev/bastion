@@ -1,26 +1,26 @@
 id: FV.NZ.HOCHZAHL-MAL
 name:
-  de: Nimmt mit der Hochzahl mal, statt die 10 so oft als Faktor zu nehmen
+  de: Nimmt mit der Hochzahl mal, statt die Zahl so oft als Faktor zu nehmen
 art: verwechslung
 beschreibung:
   de: >-
     Rechnet 10³ = 30 oder 2 · 10³ = 60. Die Hochzahl wird wie ein Faktor behandelt. Dass sie zählt,
     wie oft die 10 mit sich selbst malgenommen wird, ist noch nicht verankert.
-kompetenzen: [M.ZO.NZ.POTENZEN]
+kompetenzen: [M.ZO.NZ.POTENZEN, M.ZO.RZ.POTENZEN]
 erklaerung:
   kurz:
-    de: 'Die [[Hochzahl]] sagt, wie oft die 10 als [[Faktor]] vorkommt: 10³ = 10 · 10 · 10 = 1 000.'
+    de: 'Die [[Hochzahl]] sagt, wie oft die Zahl als [[Faktor]] vorkommt: 10³ = 10 · 10 · 10 = 1 000.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast die 10 mit der [[Hochzahl]] malgenommen.'
     - teil: warum-nicht
       de: 'Die kleine Zahl oben sieht aus wie ein [[Faktor]], darum liegt das nahe. Sie ist aber ein [[Zähler]] für Faktoren: 10³ heißt dreimal die 10 malnehmen, nicht 10 mal 3.'
     - teil: so-stimmt-es
-      de: 'Schreibe es aus: 10³ = 10 · 10 · 10 = 1 000. Also 2 · 10³ = 2 000.'
+      de: 'Schreibe es aus: 10³ = 10 · 10 · 10 = 1 000. Also 2 · 10³ = 2 000. Genauso 3⁴ = 3 · 3 · 3 · 3 = 81.'
 gegenbeispiel:
   de: '10² = 10 · 10 = 100. Mit „10 mal 2“ käme 20 heraus, das ist nur zwei Zehner.'
 rueckweg:
   vermittlung: M.ZO.NZ.POTENZEN#erklaeren-zehnerpotenz
-kontrast: [M.ZO.NZ.POTENZEN.ZEHNERPOTENZ]
+kontrast: [M.ZO.NZ.POTENZEN.ZEHNERPOTENZ, M.ZO.RZ.POTENZEN.POTENZ]
 herkunft: ki-entwurf
 version: 1
