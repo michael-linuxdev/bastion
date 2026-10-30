@@ -1,0 +1,81 @@
+id: M.ZO.NZ.ORDNEN
+kompetenz: M.ZO.NZ.ORDNEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du natürliche Zahlen vergleichen, ordnen und mit < und > schreiben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Stellen hat die Zahl 4 050?'
+    antwort:
+      eingabe: { art: zahl, loesung: '4' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.STELLENWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Welche Zahl ist größer, 9 oder 30? Gib sie an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '30', fehler: [{ wert: '9', fv: FV.NZ.ERSTE-ZIFFER }] }
+    weiter: erklaeren-vergleichen
+  - id: erklaeren-vergleichen
+    typ: erklaeren
+    text:
+      de: 'Zähle zuerst die Stellen: Die Zahl mit mehr Stellen ist größer. Haben beide gleich viele, vergleichst du von links [[Ziffer]] für Ziffer, bis sich zwei unterscheiden.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '315 und 92: 315 hat drei Stellen, 92 nur zwei. Also ist 315 größer. 4 271 und 4 217: Tausender und Hunderter gleich, bei den Zehnern ist 7 > 1.'
+    weiter: erklaeren-zeichen
+  - id: erklaeren-zeichen
+    typ: erklaeren
+    text:
+      de: 'Das Zeichen öffnet sich zur größeren Zahl, die Spitze zeigt auf die kleinere. 3 < 5 liest du „3 ist kleiner als 5“, 5 > 3 „5 ist größer als 3“.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welche Zahl ist kleiner: 1 090 oder 1 009?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1009', fehler: [{ wert: '1090', fv: FV.NZ.ERSTE-ZIFFER }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.ERSTE-ZIFFER: erklaeren-vergleichen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Finn schreibt 92 > 315, weil 9 größer ist als 3. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 315 hat mehr Stellen und ist größer.' }, richtig: true }
+        - { wert: { de: 'Ja, die erste Ziffer entscheidet.' }, fv: FV.NZ.ERSTE-ZIFFER }
+    weiter: merksatz
+    bei: { FV.NZ.ERSTE-ZIFFER: erklaeren-vergleichen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst die Stellen zählen, dann von links vergleichen. Die Spitze von < und > zeigt auf die kleinere Zahl.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welches Zeichen passt: 2 480 ☐ 2 408?'
+    antwort:
+      optionen:
+        - { wert: { de: '>' }, richtig: true }
+        - { wert: { de: '<' }, fv: FV.NZ.ZEICHEN-VERDREHT }
+    weiter: uebergang
+    bei: { FV.NZ.ZEICHEN-VERDREHT: erklaeren-zeichen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt bist du dran.'
+    vorlagen: [M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN, M.ZO.NZ.ORDNEN.DER-GROESSE-NACH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,94 @@
+id: M.ZO.NZ.POTENZEN
+kompetenz: M.ZO.NZ.POTENZEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du die Quadratzahlen bis 10², ihre Wurzeln und Zehnerpotenzen wie 10⁴.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 6 · 6?'
+    antwort:
+      eingabe: { art: zahl, loesung: '36', fehler: [{ wert: '12', fv: FV.NZ.QUADRAT-MAL-ZWEI }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Quadrat ist 5 Kästchen breit und 5 Kästchen hoch. Wie viele Kästchen hat es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '10', fv: FV.NZ.QUADRAT-MAL-ZWEI }] }
+    weiter: erklaeren-quadrat
+  - id: erklaeren-quadrat
+    typ: erklaeren
+    text:
+      de: '5² heißt: 5 mal sich selbst, 5 · 5 = 25. Die kleine 2 ist die [[Hochzahl]]. Sie sagt, wie oft die Zahl als [[Faktor]] vorkommt.'
+    weiter: erklaeren-wurzel
+  - id: erklaeren-wurzel
+    typ: erklaeren
+    text:
+      de: 'Die [[Wurzel]] fragt rückwärts: Welche Zahl mal sich selbst ergibt 25? Das ist 5, also √25 = 5. Halbieren ist etwas anderes.'
+    weiter: erklaeren-zehnerpotenz
+  - id: erklaeren-zehnerpotenz
+    typ: erklaeren
+    text:
+      de: '10³ = 10 · 10 · 10 = 1 000. Die [[Hochzahl]] zählt die Nullen. 3 · 10⁴ ist 3 mit vier Nullen: 30 000.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '9² = 81, also √81 = 9. 10⁶ ist eine 1 mit sechs Nullen: 1 000 000, eine Million.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Gib 7 · 10³ als Zahl an.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '7000',
+          fehler:
+            [{ wert: '700', fv: FV.NZ.NULLEN-ZAEHLEN }, { wert: '210', fv: FV.NZ.HOCHZAHL-MAL }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      { FV.NZ.NULLEN-ZAEHLEN: erklaeren-zehnerpotenz, FV.NZ.HOCHZAHL-MAL: erklaeren-zehnerpotenz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Leo sagt: „√64 ist 32, die Hälfte von 64.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 8 · 8 = 64, also ist √64 = 8.' }, richtig: true }
+        - { wert: { de: 'Ja, die Wurzel ist die Hälfte.' }, fv: FV.NZ.WURZEL-HALBIERT }
+    weiter: merksatz
+    bei: { FV.NZ.WURZEL-HALBIERT: erklaeren-wurzel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Hoch 2: Zahl mal sich selbst. [[Wurzel]]: Welche Zahl mal sich selbst ergibt das? 10 hoch n: eine 1 mit n Nullen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 8²?'
+    antwort:
+      optionen:
+        - { wert: { de: '64' }, richtig: true }
+        - { wert: { de: '16' }, fv: FV.NZ.QUADRAT-MAL-ZWEI }
+        - { wert: { de: '4' }, fv: FV.NZ.WURZEL-HALBIERT }
+    weiter: uebergang
+    bei: { FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-quadrat, FV.NZ.WURZEL-HALBIERT: erklaeren-wurzel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Klasse. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.NZ.POTENZEN.QUADRAT, M.ZO.NZ.POTENZEN.WURZEL, M.ZO.NZ.POTENZEN.ZEHNERPOTENZ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

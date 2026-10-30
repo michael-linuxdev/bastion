@@ -41,7 +41,7 @@ schritte:
     typ: erklaeren
     text:
       de: 'Auf [[Zehntel]] runden: Schau auf die [[Ziffer]] dahinter, die Hundertstelziffer. Bei 0 bis 4 rundest du ab, bei 5 bis 9 auf. 3,47 liegt näher an 3,5 als an 3,4.'
-    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 5 } }
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 35 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

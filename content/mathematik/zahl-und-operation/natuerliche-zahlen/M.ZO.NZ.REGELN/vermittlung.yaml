@@ -1,0 +1,81 @@
+id: M.ZO.NZ.REGELN
+kompetenz: M.ZO.NZ.REGELN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit Rechengesetzen geschickt rechnen, zum Beispiel durch Vertauschen oder Zerlegen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 7 · 20?'
+    antwort:
+      eingabe: { art: zahl, loesung: '140', fehler: [{ wert: '27', fv: FV.SA.RECHENART }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Rechne 37 + 48 + 63. Tipp: 37 und 63 passen gut zusammen. Was kommt heraus?'
+    antwort:
+      eingabe: { art: zahl, loesung: '148' }
+    weiter: erklaeren-geschickt
+  - id: erklaeren-geschickt
+    typ: erklaeren
+    text:
+      de: 'Beim Addieren und beim Malnehmen darfst du die Zahlen vertauschen und anders zusammenfassen. Das Ergebnis bleibt gleich. Suche Paare, die glatte Zahlen ergeben: 37 + 63 = 100.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '4 · 17 · 25: Vertausche zu 4 · 25 · 17. 4 · 25 = 100, und 100 · 17 = 1 700.'
+    weiter: erklaeren-verteilen
+  - id: erklaeren-verteilen
+    typ: erklaeren
+    text:
+      de: 'Beim Zerlegen nimmst du **jeden** Teil mal: 7 · 23 = 7 · 20 + 7 · 3 = 140 + 21 = 161. Denn 7-mal 23 sind 7-mal 20 und 7-mal 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 6 · 34 = 6 · 30 + 6 · 4.'
+    antwort:
+      eingabe: { art: zahl, loesung: '204', fehler: [{ wert: '184', fv: FV.NZ.VERTEILEN-HALB }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.VERTEILEN-HALB: erklaeren-verteilen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim rechnet 8 · 15 = 8 · 10 + 5 = 85. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auch die 5 wird malgenommen: 80 + 40 = 120.' }, richtig: true }
+        - { wert: { de: 'Ja, so zerlegt man.' }, fv: FV.NZ.VERTEILEN-HALB }
+    weiter: merksatz
+    bei: { FV.NZ.VERTEILEN-HALB: erklaeren-verteilen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Beim Plus und beim Mal darfst du vertauschen und zusammenfassen. Beim Zerlegen wird jeder Teil malgenommen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 5 · 42?'
+    antwort:
+      optionen:
+        - { wert: { de: '210' }, richtig: true }
+        - { wert: { de: '202' }, fv: FV.NZ.VERTEILEN-HALB }
+    weiter: uebergang
+    bei: { FV.NZ.VERTEILEN-HALB: erklaeren-verteilen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du geschickt.'
+    vorlagen: [M.ZO.NZ.REGELN.GESCHICKT, M.ZO.NZ.REGELN.VERTEILEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

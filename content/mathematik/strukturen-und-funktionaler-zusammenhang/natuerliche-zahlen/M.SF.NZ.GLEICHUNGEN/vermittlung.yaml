@@ -1,0 +1,85 @@
+id: M.SF.NZ.GLEICHUNGEN
+kompetenz: M.SF.NZ.GLEICHUNGEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einfache Gleichungen mit der [[Umkehraufgabe]] lösen und Ungleichungen prüfen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 684 − 540?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '144', fehler: [{ wert: '256', fv: FV.NZ.KLEINERE-VON-GROESSERER }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.ADD-SUB }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Lina denkt sich eine Zahl und rechnet plus 7. Es kommt 12 heraus. Welche Zahl hat sie sich gedacht?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '19', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: erklaeren-umkehraufgabe
+  - id: erklaeren-umkehraufgabe
+    typ: erklaeren
+    text:
+      de: 'Um die gesuchte Zahl zu finden, rechnest du rückwärts mit der [[Umkehraufgabe]]: Aus plus wird minus, aus mal wird geteilt. x + 7 = 12, also x = 12 − 7 = 5.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '6 · x = 42, also x = 42 : 6 = 7. [[Probe]]: 6 · 7 = 42. Es stimmt.'
+    weiter: erklaeren-ungleichung
+  - id: erklaeren-ungleichung
+    typ: erklaeren
+    text:
+      de: 'Bei einer [[Ungleichung]] wie y + 3 < 10 gibt es mehrere Lösungen. Finde zuerst die Grenze: 7 + 3 = 10. „Kleiner als“ heißt wirklich kleiner, darum ist die größte Lösung 6.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse x − 15 = 30 mit der [[Umkehraufgabe]].'
+    antwort:
+      eingabe: { art: zahl, loesung: '45', fehler: [{ wert: '15', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für y · 4 < 20 nennt Kim die größte Lösung y = 5. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, 5 · 4 = 20 ist nicht kleiner als 20. Die größte Lösung ist 4.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, 5 ist die Grenze.' }, fv: FV.NZ.GRENZE-MITGEZAEHLT }
+    weiter: merksatz
+    bei: { FV.NZ.GRENZE-MITGEZAEHLT: erklaeren-ungleichung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Gleichungen rückwärts mit der [[Umkehraufgabe]] lösen und mit der [[Probe]] prüfen. Bei „kleiner als“ gehört die Grenze nicht dazu.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl löst 8 · x = 56?'
+    antwort:
+      optionen:
+        - { wert: { de: '7' }, richtig: true }
+        - { wert: { de: '448' }, fv: FV.NZ.UMKEHRAUFGABE }
+    weiter: uebergang
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt löst du selbst.'
+    vorlagen: [M.SF.NZ.GLEICHUNGEN.UMKEHRAUFGABE, M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

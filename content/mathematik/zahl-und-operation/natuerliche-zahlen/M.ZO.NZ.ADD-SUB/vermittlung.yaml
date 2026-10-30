@@ -1,0 +1,100 @@
+id: M.ZO.NZ.ADD-SUB
+kompetenz: M.ZO.NZ.ADD-SUB
+niveau: G
+dauer_min: 15
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du große Zahlen schriftlich addieren und subtrahieren.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 1 Zehner und 3 Einer zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '13', fehler: [{ wert: '4', fv: FV.NZ.STELLEN-ZAEHLEN }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.STELLENWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In der Einerspalte stehen 8 und 7. Das sind 15 Einer. Wie viele Zehner kannst du daraus bündeln?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1' }
+    weiter: erklaeren-stellengerecht
+  - id: erklaeren-stellengerecht
+    typ: erklaeren
+    text:
+      de: 'Schreibe die Zahlen [[stellengerecht]] untereinander: Einer unter Einern, Zehner unter Zehnern. Rechne dann von rechts nach links, Spalte für Spalte.'
+    weiter: erklaeren-uebertrag
+  - id: erklaeren-uebertrag
+    typ: erklaeren
+    text:
+      de: 'Ist eine Spalte 10 oder mehr, schreibst du die Einer hin. Der Zehner wandert als kleiner [[Übertrag]] in die nächste Spalte links und wird dort mitgerechnet.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '458 + 267: Einer 8 + 7 = 15, schreibe 5, [[Übertrag]] 1. Zehner 5 + 6 + 1 = 12, schreibe 2, Übertrag 1. Hunderter 4 + 2 + 1 = 7. Ergebnis 725.'
+    weiter: erklaeren-entbuendeln
+  - id: erklaeren-entbuendeln
+    typ: erklaeren
+    text:
+      de: 'Beim Subtrahieren ziehst du immer unten von oben ab. Reicht oben die [[Ziffer]] nicht, [[entbündelst]] du: Hol dir einen Zehner von links, dort wird es 1 weniger.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 52 − 38. Aus 5 Zehnern und 2 Einern werden 4 Zehner und 12 Einer.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '14',
+          fehler:
+            [
+              { wert: '26', fv: FV.NZ.KLEINERE-VON-GROESSERER },
+              { wert: '24', fv: FV.NZ.ENTBUENDELN },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.NZ.KLEINERE-VON-GROESSERER: erklaeren-entbuendeln,
+        FV.NZ.ENTBUENDELN: erklaeren-entbuendeln,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan rechnet 58 + 7 = 55. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Übertrag fehlt: 65.' }, richtig: true }
+        - { wert: { de: 'Ja, 8 + 7 = 15, also 5.' }, fv: FV.NZ.UEBERTRAG }
+    weiter: merksatz
+    bei: { FV.NZ.UEBERTRAG: erklaeren-uebertrag }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Untereinander [[stellengerecht]] schreiben, von rechts rechnen, [[Übertrag]] notieren. Beim Subtrahieren unten von oben abziehen und, wenn nötig, entbündeln.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 245 + 38?'
+    antwort:
+      optionen:
+        - { wert: { de: '283' }, richtig: true }
+        - { wert: { de: '273' }, fv: FV.NZ.UEBERTRAG }
+        - { wert: { de: '625' }, fv: FV.NZ.STELLENGERECHT }
+    weiter: uebergang
+    bei: { FV.NZ.UEBERTRAG: erklaeren-uebertrag, FV.NZ.STELLENGERECHT: erklaeren-stellengerecht }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.NZ.ADD-SUB.ADDIEREN, M.ZO.NZ.ADD-SUB.SUBTRAHIEREN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,93 @@
+id: M.ZO.TB.GGT-KGV
+kompetenz: M.ZO.TB.GGT-KGV
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den größten [[gemeinsamen Teiler]] und das kleinste gemeinsame [[Vielfache]] zweier Zahlen finden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Nenne das größte [[Vielfache]] von 4, das kleiner als 13 ist.'
+    antwort:
+      eingabe: { art: zahl, loesung: '12' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.TB.TEILER }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Bus fährt alle 4 Minuten, ein anderer alle 6 Minuten. Beide fahren jetzt ab. Nach wie vielen Minuten fahren sie zum ersten Mal wieder gemeinsam?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '12',
+          fehler:
+            [
+              { wert: '24', fv: FV.TB.NICHT-GROESSTER-KLEINSTES },
+              { wert: '6', fv: FV.TB.GROESSERE-ZAHL-KGV },
+            ],
+        }
+    weiter: erklaeren-listen
+  - id: erklaeren-listen
+    typ: erklaeren
+    text:
+      de: 'Schreibe für beide Zahlen eine Liste. Für den [[gemeinsamen Teiler]] die [[Teiler]], für das gemeinsame [[Vielfache]] die Vielfachen. Dann suchst du den größten gemeinsamen Teiler oder das kleinste gemeinsame Vielfache.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Teiler]] von 12: 1, 2, 3, 4, 6, 12. Teiler von 18: 1, 2, 3, 6, 9, 18. Der größte gemeinsame ist 6. [[Vielfache]] von 4: 4, 8, 12; von 6: 6, 12. Das kleinste gemeinsame ist 12.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Finde das kleinste gemeinsame [[Vielfache]] von 3 und 5.'
+    antwort:
+      eingabe: { art: zahl, loesung: '15', fehler: [{ wert: '5', fv: FV.TB.GROESSERE-ZAHL-KGV }] }
+    weiter: gegenbeispiel
+    bei: { FV.TB.GROESSERE-ZAHL-KGV: erklaeren-listen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Emma sagt: „Der größte gemeinsame [[Teiler]] von 8 und 12 ist 24.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, 24 ist ein Vielfaches. Der größte gemeinsame Teiler ist 4.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, 24 passt zu beiden.' }, fv: FV.TB.TEILER-VIELFACHES }
+    weiter: merksatz
+    bei: { FV.TB.TEILER-VIELFACHES: erklaeren-listen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Den größten [[gemeinsamen Teiler]] findest du in den Listen der [[Teiler]], das kleinste gemeinsame [[Vielfache]] in den Listen der Vielfachen. Das kgV ist der kleinste [[gemeinsamer Nenner]] für [[Brüche]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie heißt der größte gemeinsame [[Teiler]] von 12 und 16?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '1' }, fv: FV.TB.NICHT-GROESSTER-KLEINSTES }
+        - { wert: { de: '48' }, fv: FV.TB.TEILER-VIELFACHES }
+    weiter: uebergang
+    bei:
+      {
+        FV.TB.NICHT-GROESSTER-KLEINSTES: erklaeren-listen,
+        FV.TB.TEILER-VIELFACHES: erklaeren-listen,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.TB.GGT-KGV.GGT, M.ZO.TB.GGT-KGV.KGV]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

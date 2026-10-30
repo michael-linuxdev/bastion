@@ -1,0 +1,95 @@
+id: M.ZO.NZ.STELLENWERT
+kompetenz: M.ZO.NZ.STELLENWERT
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du große Zahlen bis zur Million lesen, schreiben und jede [[Ziffer]] ihrer Stelle zuordnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Zehner hat die Zahl 70?'
+    antwort:
+      eingabe: { art: zahl, loesung: '7' }
+    weiter: entdecken
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In der Zahl 4 572 steht die 2 ganz rechts. Wofür steht die 5: für Einer, Zehner, Hunderter oder Tausender? Gib an, wie viel die 5 wert ist.'
+    antwort:
+      eingabe: { art: zahl, loesung: '500', fehler: [{ wert: '50', fv: FV.NZ.STELLEN-ZAEHLEN }] }
+    weiter: erklaeren-stellen
+  - id: erklaeren-stellen
+    typ: erklaeren
+    text:
+      de: 'Jede Stelle ist zehnmal so viel wert wie die rechts daneben. Gezählt wird von rechts: Einer, Zehner, Hunderter, Tausender, Zehntausender, Hunderttausender. Die [[Stellenwerttafel]] zeigt das.'
+    weiter: erklaeren-null
+  - id: erklaeren-null
+    typ: erklaeren
+    text:
+      de: 'Jede Stelle braucht eine [[Ziffer]]. Ist sie leer, schreibst du 0. Dreitausendvierzig: 3 Tausender, 0 Hunderter, 4 Zehner, 0 Einer, also 3 040.'
+    weiter: erklaeren-zahlwort
+  - id: erklaeren-zahlwort
+    typ: erklaeren
+    text:
+      de: 'Im Deutschen sprechen wir die Einer vor den Zehnern: „vierundzwanzig“. Geschrieben werden aber immer erst die großen Stellen: 2 Zehner, 4 Einer, also 24.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Zweihundertfünftausendsechzehn: 205 Tausender und 16. In der [[Stellenwerttafel]]: 2, 0, 5 | 0, 1, 6. Die Zahl heißt 205 016.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Schreibe „siebentausendacht“ in [[Ziffern]]. Denk an die leeren Stellen.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '7008',
+          fehler:
+            [
+              { wert: '78', fv: FV.NZ.NULL-PLATZHALTER },
+              { wert: '708', fv: FV.NZ.NULL-PLATZHALTER },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.NULL-PLATZHALTER: erklaeren-null }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Sara schreibt „zweiundsechzig“ als 26. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 6 Zehner und 2 Einer: 62.' }, richtig: true }
+        - { wert: { de: 'Ja, man hört zuerst die Zwei.' }, fv: FV.NZ.ZEHNER-EINER }
+    weiter: merksatz
+    bei: { FV.NZ.ZEHNER-EINER: erklaeren-zahlwort }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Stellen von rechts zählen: Einer, Zehner, Hunderter … Jede Stelle braucht eine [[Ziffer]], leere Stellen bekommen eine 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Ziffer]] steht in 38 914 an der Tausenderstelle?'
+    antwort:
+      optionen:
+        - { wert: { de: '8' }, richtig: true }
+        - { wert: { de: '9' }, fv: FV.NZ.STELLEN-ZAEHLEN }
+        - { wert: { de: '1' }, fv: FV.NZ.STELLEN-ZAEHLEN }
+    weiter: uebergang
+    bei: { FV.NZ.STELLEN-ZAEHLEN: erklaeren-stellen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.NZ.STELLENWERT.ZIFFER-AN-STELLE, M.ZO.NZ.STELLENWERT.ZAHLWORT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

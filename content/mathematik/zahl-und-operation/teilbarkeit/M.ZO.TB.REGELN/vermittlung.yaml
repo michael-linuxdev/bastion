@@ -1,0 +1,76 @@
+id: M.ZO.TB.REGELN
+kompetenz: M.ZO.TB.REGELN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit einer [[Teilbarkeitsregel]] schnell entscheiden, ob eine Zahl durch 2, 3, 5 oder 10 [[teilbar]] ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ist 5 ein [[Teiler]] von 35? Gib 35 : 5 an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '7' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.TB.TEILER }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '20, 35, 110, 45: Auf welche [[Ziffern]] enden alle Zahlen, die durch 5 [[teilbar]] sind? Gib die größere der beiden an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '5' }
+    weiter: erklaeren-regeln
+  - id: erklaeren-regeln
+    typ: erklaeren
+    text:
+      de: 'Durch 2, 5 und 10 entscheidet die letzte [[Ziffer]]: gerade, 0 oder 5, nur 0. Durch 3 hilft die letzte Ziffer nicht. Dort rechnest du die [[Quersumme]] aus: Ist sie durch 3 [[teilbar]], ist es die Zahl auch.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '471: [[Quersumme]] 4 + 7 + 1 = 12. 12 ist durch 3 [[teilbar]], also auch 471. [[Probe]]: 471 : 3 = 157.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne die [[Quersumme]] von 528.'
+    antwort:
+      eingabe: { art: zahl, loesung: '15' }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali sagt: „51 ist nicht durch 3 [[teilbar]], weil es auf 1 endet.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Quersumme 6, also teilbar: 51 = 3 · 17.' }, richtig: true }
+        - { wert: { de: 'Ja, die letzte Ziffer entscheidet.' }, fv: FV.TB.ENDZIFFER-REGEL }
+    weiter: merksatz
+    bei: { FV.TB.ENDZIFFER-REGEL: erklaeren-regeln }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Durch 2, 5, 10: auf die letzte [[Ziffer]] schauen. Durch 3: die [[Quersumme]] prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl ist durch 3 [[teilbar]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '84' }, richtig: true }
+        - { wert: { de: '73' }, fv: FV.TB.ENDZIFFER-REGEL }
+        - { wert: { de: '43' }, fv: FV.TB.ENDZIFFER-REGEL }
+    weiter: uebergang
+    bei: { FV.TB.ENDZIFFER-REGEL: erklaeren-regeln }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt prüfst du selbst.'
+    vorlagen: [M.ZO.TB.REGELN.TEILBAR, M.ZO.TB.REGELN.WELCHE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
