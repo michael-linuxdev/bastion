@@ -98,7 +98,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 **Als Nächstes:**
 
 0. ~~**U5b**~~ fertig (30.10.2026): Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen, `fv` ist Pflicht. Die PRs gehen nacheinander auf `main`. Als Nächstes gibt es zwei Möglichkeiten: U4b (Test) oder das Nachrüsten der Klassen 5 bis 8 mit Erstvermittlungen (U5, Rest). Die Erstvermittlungen müssen die Schritt-IDs anlegen, auf die die Rückwege schon zeigen (`…#erklaeren-…`).
-0. **U5c** (Entscheidung 30.10.2026: Erstvermittlungen vor dem Test): Erstvermittlungen Feld für Feld, je Feld ein PR. Brüche und Dezimalzahlen sind fertig. Weiter mit natürlichen Zahlen und Teilbarkeit, dann rationale Zahlen, Prozent, Terme und Gleichungen, Funktionen, Größen, Geometrie, Daten und Zufall. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen; die Pflicht-Schritte (Rückwege) zeigt das Hilfsskript im Session-Verlauf.
+0. **U5c** (Entscheidung 30.10.2026: Erstvermittlungen vor dem Test): Erstvermittlungen Feld für Feld, je Feld ein PR. Brüche und Dezimalzahlen, natürliche Zahlen und Teilbarkeit sind fertig. Weiter mit rationalen Zahlen, Prozent, Terme und Gleichungen, Funktionen, Größen, Geometrie, Daten und Zufall. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen; die Pflicht-Schritte (Rückwege) zeigt das Hilfsskript im Session-Verlauf.
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
@@ -183,6 +183,8 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
 - Browser-Tests, die neu laden, warten vorher, bis die Antwort in IndexedDB steht (`aufgabenImSpeicher`). Sonst geht sie beim Neuladen verloren, und der Test ist in der CI manchmal rot.
+- Browser-Tests öffnen Themen mit `thema(page, /^Name/)`. Hat das Thema eine Erstvermittlung, überspringt das das Angebot „Erst erklären lassen?“. Wer direkt klickt, ruft danach `angebotUeberspringen(page)` auf.
+- Werkzeug `zahlenstrahl@1`: `markiert` zählt ab 0 in Schritten der Einteilung, nicht ab `von`. Von 3 bis 4 in Zehnteln liegt 3,5 bei `markiert: 35`. Ganzzahlige Bereiche wie 30 bis 40 lassen sich damit nicht beschriften.
 - `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 
 ## Am Ende der Sitzung aktualisieren

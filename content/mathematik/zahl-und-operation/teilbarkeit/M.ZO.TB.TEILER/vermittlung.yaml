@@ -1,0 +1,75 @@
+id: M.ZO.TB.TEILER
+kompetenz: M.ZO.TB.TEILER
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du alle [[Teiler]] einer Zahl finden und ihre [[Vielfachen]] aufzählen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 18 : 3?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.DIV }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '12 Stühle sollen in gleich lange Reihen. Geht das mit Reihen zu 5 Stühlen ohne Rest? Gib den Rest an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '2' }
+    weiter: erklaeren-teiler-vielfache
+  - id: erklaeren-teiler-vielfache
+    typ: erklaeren
+    text:
+      de: 'Ein [[Teiler]] geht ohne Rest auf: 3 ist ein Teiler von 12, weil 12 : 3 = 4. Umgekehrt ist 12 ein [[Vielfaches]] von 3. Teiler sind höchstens so groß wie die Zahl, Vielfache mindestens so groß.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Teiler]] von 12 findest du paarweise: 1 · 12, 2 · 6, 3 · 4. Also 1, 2, 3, 4, 6, 12. [[Vielfache]] von 4: 4, 8, 12, 16, 20 …'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welches ist das kleinste [[Vielfache]] von 6, das größer als 30 ist?'
+    antwort:
+      eingabe: { art: zahl, loesung: '36', fehler: [{ wert: '30', fv: FV.NZ.GRENZE-MITGEZAEHLT }] }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben sagt: „4 ist ein [[Teiler]] von 18, weil beide gerade sind.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 18 : 4 = 4 Rest 2.' }, richtig: true }
+        - { wert: { de: 'Ja, gerade Zahlen teilen sich.' }, fv: FV.TB.GERADE-REICHT }
+    weiter: merksatz
+    bei: { FV.TB.GERADE-REICHT: erklaeren-teiler-vielfache }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Ein [[Teiler]] geht ohne Rest auf und ist nie größer als die Zahl. Ein [[Vielfaches]] entsteht durch Malnehmen und ist nie kleiner.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: '5 ist ein Teiler von 35.' }, richtig: true }
+        - { wert: { de: '35 ist ein Teiler von 5.' }, fv: FV.TB.TEILER-VIELFACHES }
+    weiter: uebergang
+    bei: { FV.TB.TEILER-VIELFACHES: erklaeren-teiler-vielfache }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.TB.TEILER.IST-TEILER, M.ZO.TB.TEILER.VIELFACHES]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

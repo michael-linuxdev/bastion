@@ -1,0 +1,83 @@
+id: M.ZO.TB.PRIM
+kompetenz: M.ZO.TB.PRIM
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Primzahlen]] erkennen und Zahlen in [[Primfaktoren]] zerlegen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele [[Teiler]] hat 6? Zähle sie.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.TB.TEILER }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '7 Plättchen sollen ein Rechteck bilden. Wie viele verschiedene Rechtecke gehen, wenn 1 · 7 und 7 · 1 dasselbe sind?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1' }
+    weiter: erklaeren-primzahl
+  - id: erklaeren-primzahl
+    typ: erklaeren
+    text:
+      de: 'Eine [[Primzahl]] hat genau zwei [[Teiler]]: 1 und sich selbst. 7 ist eine Primzahl, 9 nicht, denn 9 = 3 · 3. Die 1 ist keine Primzahl, sie hat nur einen Teiler. Die 2 ist die einzige gerade.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ist 21 eine [[Primzahl]]? Probiere 2, 3, 5: 21 : 3 = 7. Also nein, 21 = 3 · 7.'
+    weiter: erklaeren-zerlegen
+  - id: erklaeren-zerlegen
+    typ: erklaeren
+    text:
+      de: 'Jede Zahl lässt sich in [[Primfaktoren]] zerlegen. Teile immer wieder durch die kleinste passende [[Primzahl]], bis nur Primzahlen übrig sind: 36 = 2 · 2 · 3 · 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Zerlege 20: 20 = 2 · 10. Zerlege die 10 weiter. Welche [[Primzahl]] kommt neben der 2 vor?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '5', fehler: [{ wert: '10', fv: FV.TB.ZERLEGEN-UNVOLLSTAENDIG }] }
+    weiter: gegenbeispiel
+    bei: { FV.TB.ZERLEGEN-UNVOLLSTAENDIG: erklaeren-zerlegen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mara sagt: „15 ist eine [[Primzahl]], weil sie ungerade ist.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 15 = 3 · 5.' }, richtig: true }
+        - { wert: { de: 'Ja, ungerade Zahlen sind prim.' }, fv: FV.TB.UNGERADE-PRIM }
+    weiter: merksatz
+    bei: { FV.TB.UNGERADE-PRIM: erklaeren-primzahl }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Eine [[Primzahl]] hat genau zwei [[Teiler]]. In [[Primfaktoren]] zerlegen heißt: so lange teilen, bis nur Primzahlen übrig sind.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl ist eine [[Primzahl]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '2' }, richtig: true }
+        - { wert: { de: '1' }, fv: FV.TB.PRIM-BEGRIFF }
+        - { wert: { de: '27' }, fv: FV.TB.UNGERADE-PRIM }
+    weiter: uebergang
+    bei: { FV.TB.PRIM-BEGRIFF: erklaeren-primzahl, FV.TB.UNGERADE-PRIM: erklaeren-primzahl }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt bist du dran.'
+    vorlagen: [M.ZO.TB.PRIM.IST-PRIM, M.ZO.TB.PRIM.ZERLEGEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

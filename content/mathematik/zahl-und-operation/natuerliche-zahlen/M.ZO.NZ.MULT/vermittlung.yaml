@@ -1,0 +1,82 @@
+id: M.ZO.NZ.MULT
+kompetenz: M.ZO.NZ.MULT
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit Stufenzahlen im Kopf und mit einer ein- oder zweistelligen Zahl schriftlich multiplizieren.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne schriftlich 48 + 36.'
+    antwort:
+      eingabe: { art: zahl, loesung: '84', fehler: [{ wert: '74', fv: FV.NZ.UEBERTRAG }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.ADD-SUB }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '5 · 4 = 20. Wie viel ist dann 50 · 40?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2000', fehler: [{ wert: '200', fv: FV.NZ.NULLEN-ZAEHLEN }] }
+    weiter: erklaeren-stufenzahlen
+  - id: erklaeren-stufenzahlen
+    typ: erklaeren
+    text:
+      de: 'Mit Stufenzahlen wie 30, 400 oder 5 000 rechnest du erst ohne die Nullen. Dann hängst du alle Nullen beider Zahlen an. Achtung: 5 · 4 = 20 bringt selbst schon eine Null mit.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '300 · 70: 3 · 7 = 21, dazu drei Nullen: 21 000.'
+    weiter: erklaeren-schriftlich
+  - id: erklaeren-schriftlich
+    typ: erklaeren
+    text:
+      de: 'Schriftlich: Nimm die erste Zahl mit jeder [[Ziffer]] der zweiten mal. Jedes [[Teilprodukt]] rückst du so ein, dass es unter seiner Stelle steht. Dann addierst du die Teilprodukte.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 23 · 14. Die [[Teilprodukte]] sind 23 · 1 = 23, eine Stelle eingerückt, und 23 · 4 = 92. Wie heißt das Ergebnis?'
+    antwort:
+      eingabe: { art: zahl, loesung: '322', fehler: [{ wert: '115', fv: FV.NZ.STELLENGERECHT }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.STELLENGERECHT: erklaeren-schriftlich }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mila rechnet 400 · 50 = 2 000. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 4 · 5 = 20 und dazu drei Nullen: 20 000.' }, richtig: true }
+        - { wert: { de: 'Ja, 4 · 5 = 20 und zwei Nullen dazu.' }, fv: FV.NZ.NULLEN-ZAEHLEN }
+    weiter: merksatz
+    bei: { FV.NZ.NULLEN-ZAEHLEN: erklaeren-stufenzahlen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Stufenzahlen: erst ohne Nullen rechnen, dann alle Nullen anhängen. Schriftlich: [[Teilprodukte]] [[stellengerecht]] einrücken und addieren.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 60 · 30?'
+    antwort:
+      optionen:
+        - { wert: { de: '1 800' }, richtig: true }
+        - { wert: { de: '180' }, fv: FV.NZ.NULLEN-ZAEHLEN }
+        - { wert: { de: '18 000' }, fv: FV.NZ.NULLEN-ZAEHLEN }
+    weiter: uebergang
+    bei: { FV.NZ.NULLEN-ZAEHLEN: erklaeren-stufenzahlen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Super. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.NZ.MULT.STUFENZAHLEN, M.ZO.NZ.MULT.SCHRIFTLICH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

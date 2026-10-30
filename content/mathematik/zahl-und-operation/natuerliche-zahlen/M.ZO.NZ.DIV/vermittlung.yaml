@@ -1,0 +1,82 @@
+id: M.ZO.NZ.DIV
+kompetenz: M.ZO.NZ.DIV
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du schriftlich durch eine einstellige Zahl teilen, auch mit Rest.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 7 · 4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '28' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '29 Bonbons werden an 4 Kinder verteilt. Jedes bekommt 7. Wie viele Bonbons bleiben übrig?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1' }
+    weiter: erklaeren-teilen
+  - id: erklaeren-teilen
+    typ: erklaeren
+    text:
+      de: 'Schriftlich teilst du von links, Stelle für Stelle: Wie oft passt der [[Teiler]] hinein? Schreibe das Ergebnis, ziehe ab und hole die nächste [[Ziffer]] herunter. Passt er nicht hinein, schreibst du 0.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '618 : 6: 6 : 6 = 1. Die 1 herunter: 1 : 6 = 0, schreibe 0. Die 8 herunter: 18 : 6 = 3. Ergebnis 103.'
+    weiter: erklaeren-rest
+  - id: erklaeren-rest
+    typ: erklaeren
+    text:
+      de: 'Was am Ende übrig bleibt, ist der Rest. Er muss immer kleiner sein als der [[Teiler]], sonst passt der Teiler noch einmal hinein. Der Rest gehört zur Antwort: 29 : 4 = 7 Rest 1.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 824 : 4. Denk an die 0, wenn 4 in eine Stelle nicht hineinpasst.'
+    antwort:
+      eingabe: { art: zahl, loesung: '206', fehler: [{ wert: '26', fv: FV.NZ.NULL-PLATZHALTER }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.NULL-PLATZHALTER: erklaeren-teilen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ella rechnet 29 : 4 = 6 Rest 5. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 5 ist größer als 4. Richtig ist 7 Rest 1.' }, richtig: true }
+        - { wert: { de: 'Ja, 6 · 4 + 5 = 29.' }, fv: FV.NZ.REST-ZU-GROSS }
+    weiter: merksatz
+    bei: { FV.NZ.REST-ZU-GROSS: erklaeren-rest }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Schriftlich von links teilen, passt es nicht: 0 schreiben. Der Rest ist kleiner als der [[Teiler]] und gehört zur Antwort.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 38 : 5?'
+    antwort:
+      optionen:
+        - { wert: { de: '7 Rest 3' }, richtig: true }
+        - { wert: { de: '6 Rest 8' }, fv: FV.NZ.REST-ZU-GROSS }
+        - { wert: { de: '7' }, fv: FV.NZ.REST-VERGESSEN }
+    weiter: uebergang
+    bei: { FV.NZ.REST-ZU-GROSS: erklaeren-rest, FV.NZ.REST-VERGESSEN: erklaeren-rest }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt teilst du selbst.'
+    vorlagen: [M.ZO.NZ.DIV.OHNE-REST, M.ZO.NZ.DIV.MIT-REST]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

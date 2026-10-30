@@ -210,7 +210,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
   - [ ] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
     - [x] Brüche und Dezimalzahlen (15 neue, zusammen 18)
-    - [ ] natürliche Zahlen und Teilbarkeit · rationale Zahlen · Prozent · Terme, Gleichungen, Funktionen · Größen · Geometrie · Daten und Zufall
+    - [x] natürliche Zahlen und Teilbarkeit (14 neue)
+    - [ ] rationale Zahlen · Prozent · Terme, Gleichungen, Funktionen · Größen · Geometrie · Daten und Zufall
   - [x] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16): alle 596 Fehlerbilder, 200 Fehlvorstellungen; `fv` ist jetzt Pflicht
     - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
     - [x] Teilbarkeit (15 Fehlerbilder, 8 neue Fehlvorstellungen; Stand 140 von 596)
@@ -243,6 +244,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5c natürliche Zahlen und Teilbarkeit:** 14 Erstvermittlungen; Zahlenstrahl-Bilder mit `von` > 0 korrigiert (`markiert` zählt ab 0) |
 | 30.10.2026 | **U5c Brüche und Dezimalzahlen:** 15 Erstvermittlungen, jetzt hat das ganze Feld eine; `pnpm inhalte:begriffe` markiert auch Erstvermittlungen |
 | 30.10.2026 | **U5b fertig:** Daten und Zufall zugeordnet (50 Fehlerbilder, 13 neue Fehlvorstellungen). Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen; `fv` ist Pflicht |
 | 30.10.2026 | **U5b Körper, Kreis und Ähnlichkeit (Raum und Form):** 54 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |

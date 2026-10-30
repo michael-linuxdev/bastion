@@ -1,0 +1,81 @@
+id: M.SF.NZ.TERME
+kompetenz: M.SF.NZ.TERME
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Terme]] mit Klammern und mit Punkt- und Strichrechnung in der richtigen Reihenfolge berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 4 · 5 + 4 · 2?'
+    antwort:
+      eingabe: { art: zahl, loesung: '28' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.REGELN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du hast 2 € und kaufst 3 Hefte zu je 4 €. Wie viel Euro brauchst du für alles zusammen mit deinen 2 €? Rechne 2 + 3 · 4.'
+    antwort:
+      eingabe: { art: zahl, loesung: '14', fehler: [{ wert: '20', fv: FV.NZ.PUNKT-VOR-STRICH }] }
+    weiter: erklaeren-punkt-vor-strich
+  - id: erklaeren-punkt-vor-strich
+    typ: erklaeren
+    text:
+      de: 'Es gilt [[Punkt vor Strich]]: Erst malnehmen und teilen, dann addieren und subtrahieren. Sonst rechnest du von links nach rechts.'
+    weiter: erklaeren-klammern
+  - id: erklaeren-klammern
+    typ: erklaeren
+    text:
+      de: 'Was in einer Klammer steht, wird immer zuerst gerechnet, noch vor [[Punkt vor Strich]]: (2 + 3) · 4 = 5 · 4 = 20.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '20 − 12 : 4 = 20 − 3 = 17. Mit Klammer: (20 − 12) : 4 = 8 : 4 = 2.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne (7 + 3) · 5. Erst die Klammer.'
+    antwort:
+      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '22', fv: FV.NZ.KLAMMER }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.KLAMMER: erklaeren-klammern }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ron rechnet 10 − 2 · 3 = 24. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, erst 2 · 3 = 6, dann 10 − 6 = 4.' }, richtig: true }
+        - { wert: { de: 'Ja, erst 10 − 2 = 8, dann 8 · 3.' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+    weiter: merksatz
+    bei: { FV.NZ.PUNKT-VOR-STRICH: erklaeren-punkt-vor-strich }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst Klammern, dann [[Punkt vor Strich]], sonst von links nach rechts.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 6 + 4 · 2?'
+    antwort:
+      optionen:
+        - { wert: { de: '14' }, richtig: true }
+        - { wert: { de: '20' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+    weiter: uebergang
+    bei: { FV.NZ.PUNKT-VOR-STRICH: erklaeren-punkt-vor-strich }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.NZ.TERME.PUNKT-VOR-STRICH, M.SF.NZ.TERME.KLAMMERN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

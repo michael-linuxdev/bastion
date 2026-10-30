@@ -1,0 +1,91 @@
+id: M.ZO.NZ.RUNDEN
+kompetenz: M.ZO.NZ.RUNDEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du auf Zehner, Hunderter und Tausender runden und mit einem [[Überschlag]] schnell schätzen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche [[Ziffer]] steht in 3 462 an der Hunderterstelle?'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '6', fv: FV.NZ.STELLEN-ZAEHLEN }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.STELLENWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '37 liegt zwischen 30 und 40. Welchem Zehner liegt 37 näher?'
+    antwort:
+      eingabe: { art: zahl, loesung: '40', fehler: [{ wert: '30', fv: FV.NZ.RUNDEN-RICHTUNG }] }
+    weiter: erklaeren-runden
+  - id: erklaeren-runden
+    typ: erklaeren
+    text:
+      de: 'Runden heißt: die nächste glatte Zahl finden. Unterstreiche die [[Rundungsstelle]]. Nur die [[Ziffer]] rechts daneben entscheidet: 0 bis 4 abrunden, 5 bis 9 aufrunden. Rechts davon wird alles 0.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 462 auf Hunderter: [[Rundungsstelle]] ist die 4, rechts daneben steht 6. Aufrunden: 3 500. Auf Tausender: rechts neben der 3 steht 4, abrunden: 3 000.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Runde 7 961 auf Hunderter. Aus der 9 wird beim Aufrunden 10, das gibt einen [[Übertrag]].'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '8000',
+          fehler:
+            [{ wert: '7000', fv: FV.NZ.UEBERTRAG }, { wert: '7960', fv: FV.NZ.RUNDEN-STELLE }],
+        }
+    weiter: erklaeren-ueberschlag
+    bei: { FV.NZ.RUNDEN-STELLE: erklaeren-runden }
+  - id: erklaeren-ueberschlag
+    typ: erklaeren
+    text:
+      de: 'Beim [[Überschlag]] rundest du zuerst beide Zahlen und rechnest dann mit den einfachen Zahlen im Kopf. So prüfst du schnell, ob ein Ergebnis ungefähr stimmt: 387 + 512 ≈ 400 + 500 = 900.'
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ida rundet 4 349 auf Hunderter und schaut dafür auf die 9 ganz rechts. Sie schreibt 4 400. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, nur die 4 rechts neben der Hunderterstelle zählt: 4 300.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die 9 ist groß, also aufrunden.' }, fv: FV.NZ.RUNDEN-RICHTUNG }
+    weiter: merksatz
+    bei: { FV.NZ.RUNDEN-RICHTUNG: erklaeren-runden }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Runden: Nur die [[Ziffer]] rechts neben der [[Rundungsstelle]] entscheidet, 0 bis 4 ab, 5 bis 9 auf. [[Überschlag]]: erst runden, dann rechnen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was ist ein [[Überschlag]] für 289 + 612, auf Hunderter gerundet?'
+    antwort:
+      optionen:
+        - { wert: { de: '300 + 600 = 900' }, richtig: true }
+        - { wert: { de: '289 + 612 = 901' }, fv: FV.NZ.UEBERSCHLAG }
+        - { wert: { de: '901 ≈ 900' }, fv: FV.NZ.UEBERSCHLAG }
+    weiter: uebergang
+    bei: { FV.NZ.UEBERSCHLAG: erklaeren-ueberschlag }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rundest du selbst.'
+    vorlagen: [M.ZO.NZ.RUNDEN.AUF-STELLE, M.ZO.NZ.RUNDEN.UEBERSCHLAG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
