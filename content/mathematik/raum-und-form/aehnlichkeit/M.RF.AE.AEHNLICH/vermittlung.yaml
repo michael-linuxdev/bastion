@@ -43,7 +43,7 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Ein Rechteck ist 6 cm mal 4 cm. Ein ähnliches Rechteck ist 9 cm breit. Wie viele Zentimeter ist es hoch?'
+      de: 'Ein Rechteck ist 6 cm breit und 4 cm hoch. Ein ähnliches Rechteck ist 9 cm breit. Wie viele Zentimeter ist es hoch?'
     antwort:
       eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '7', fv: FV.AE.GLEICH-VIEL-DAZU }] }
     weiter: gegenbeispiel
