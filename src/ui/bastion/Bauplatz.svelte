@@ -14,7 +14,18 @@
     type BauAuftrag,
   } from '../plattform/ablage';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
-  import { BUEHNE_B, BUEHNE_H, RAUTE_B } from './grafik/iso';
+  import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
+  import {
+    ZIEH_SCHWELLE,
+    ZOOM_KNOPF,
+    ZOOM_MAX,
+    ZOOM_MIN,
+    ZOOM_RAD,
+    einpassen,
+    zentriert,
+    zoomAn,
+    type Kamera,
+  } from './grafik/kamera';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
 
@@ -28,48 +39,202 @@
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
 
-  /** Zoom (2.13a): 100, 150, 200 %. Auf schmalen Bildschirmen anfangs 150 %, damit ein
-   * Feld mindestens etwa 44 Punkte groß ist; die Wahl wird gemerkt (`basebau.zoom`). */
-  const ZOOM = [1, 1.5, 2] as const;
-  let zoom = $state<number>(1);
+  /** Kamera wie in Dorfkrieg: stufenlos, zum Zeiger, Ziehen verschiebt.
+   * Ein gemerkter Zoom (`basebau.zoom`) wird in die Mitte gelegt, sonst das ganze Bild. */
+  let kamera = $state<Kamera>({ x: 0, y: 0, zoom: 1 });
   let fenster = $state<HTMLDivElement | undefined>(undefined);
-  let fensterBreite = $state(0);
+  let kameraSichtbar = $state(false);
+  let zieht = $state(false);
   let gewaehlterZoom = $state<number | undefined>(undefined);
   let zoomGeladen = $state(false);
+  /** Der Nutzer hat selbst gezoomt oder gezogen – dann nicht beim Größenwechsel neu einpassen. */
+  let eigene = false;
+  let kameraGestartet = false;
   void zoomWahl().then((z) => {
     gewaehlterZoom = z;
     zoomGeladen = true;
   });
-  $effect(() => {
-    if (!zoomGeladen || fensterBreite === 0) return;
-    zoom = gewaehlterZoom ?? ((fensterBreite * RAUTE_B) / BUEHNE_B < 44 ? 1.5 : 1);
-  });
-  const stufeIndex = $derived(
-    Math.max(
-      0,
-      ZOOM.findIndex((z) => z === zoom),
-    ),
-  );
-  let druck: { x: number; y: number } | undefined;
+
+  const amAnschlag = (richtung: -1 | 1) =>
+    richtung < 0 ? kamera.zoom <= ZOOM_MIN + 0.001 : kamera.zoom >= ZOOM_MAX - 0.001;
+
+  function imFenster(clientX: number, clientY: number) {
+    const el = fenster;
+    if (!el) return { x: 0, y: 0 };
+    const r = el.getBoundingClientRect();
+    return { x: clientX - r.left, y: clientY - r.top };
+  }
+
+  let merkenTimer: ReturnType<typeof setTimeout> | undefined;
+  function merken() {
+    clearTimeout(merkenTimer);
+    merkenTimer = setTimeout(() => void zoomSetzen(kamera.zoom), 200);
+  }
 
   function zoomen(richtung: -1 | 1) {
-    const neu = ZOOM[Math.min(ZOOM.length - 1, Math.max(0, stufeIndex + richtung))] ?? 1;
-    const f = fenster;
-    // Die Mitte des sichtbaren Ausschnitts bleibt in der Mitte
-    const mitte = f
-      ? {
-          x: (f.scrollLeft + f.clientWidth / 2) / (f.scrollWidth || 1),
-          y: (f.scrollTop + f.clientHeight / 2) / (f.scrollHeight || 1),
-        }
-      : undefined;
-    zoom = neu;
-    gewaehlterZoom = neu;
-    void zoomSetzen(neu);
-    requestAnimationFrame(() => {
-      if (!f || !mitte) return;
-      f.scrollLeft = mitte.x * f.scrollWidth - f.clientWidth / 2;
-      f.scrollTop = mitte.y * f.scrollHeight - f.clientHeight / 2;
+    const el = fenster;
+    if (!el || amAnschlag(richtung)) return;
+    eigene = true;
+    const faktor = richtung > 0 ? ZOOM_KNOPF : 1 / ZOOM_KNOPF;
+    kamera = zoomAn(kamera, el.clientWidth / 2, el.clientHeight / 2, kamera.zoom * faktor);
+    merken();
+  }
+
+  function einpassenJetzt() {
+    const el = fenster;
+    if (!el) return;
+    eigene = false;
+    kamera = einpassen(el.clientWidth, el.clientHeight);
+    kameraSichtbar = true;
+    // 0 heißt: kein eigener Zoom, beim nächsten Öffnen wieder einpassen
+    clearTimeout(merkenTimer);
+    void zoomSetzen(0);
+  }
+
+  $effect(() => {
+    const el = fenster;
+    if (!el || !zoomGeladen) return;
+    const setzen = () => {
+      const breite = el.clientWidth;
+      const hoehe = el.clientHeight;
+      if (breite === 0 || hoehe === 0) return false;
+      const gewaehlt = gewaehlterZoom;
+      if (!kameraGestartet && gewaehlt !== undefined) {
+        eigene = true;
+        kamera = zentriert(breite, hoehe, gewaehlt);
+      } else if (!eigene) {
+        kamera = einpassen(breite, hoehe);
+      }
+      kameraSichtbar = true;
+      return true;
+    };
+    if (!kameraGestartet) kameraGestartet = setzen();
+    const beobachter = new ResizeObserver(() => {
+      if (!kameraGestartet) kameraGestartet = setzen();
+      else if (!eigene) setzen();
     });
+    beobachter.observe(el);
+    const rad = (event: WheelEvent) => {
+      event.preventDefault();
+      const ort = imFenster(event.clientX, event.clientY);
+      eigene = true;
+      kamera = zoomAn(
+        kamera,
+        ort.x,
+        ort.y,
+        kamera.zoom * (event.deltaY > 0 ? 1 / ZOOM_RAD : ZOOM_RAD),
+      );
+      merken();
+    };
+    el.addEventListener('wheel', rad, { passive: false });
+    return () => {
+      beobachter.disconnect();
+      el.removeEventListener('wheel', rad);
+    };
+  });
+
+  /** Bewusst kein SvelteMap: das ist nur die Geste, nicht der angezeigte Zustand. */
+  let zeiger: Record<number, { x: number; y: number }> = {};
+  let zieh: { x: number; y: number; bewegt: boolean; taste: number } | null = null;
+  let kniff: { abstand: number; x: number; y: number } | null = null;
+
+  const zeigerAnzahl = () => Object.keys(zeiger).length;
+
+  function zeigerWeg(id: number) {
+    const neu: typeof zeiger = {};
+    for (const schluessel of Object.keys(zeiger)) {
+      if (Number(schluessel) === id) continue;
+      const punkt = zeiger[Number(schluessel)];
+      if (punkt) neu[Number(schluessel)] = punkt;
+    }
+    zeiger = neu;
+  }
+
+  function kniffJetzt() {
+    const punkte = Object.values(zeiger);
+    const a = punkte[0];
+    const b = punkte[1];
+    if (!a || !b) return null;
+    return {
+      abstand: Math.hypot(a.x - b.x, a.y - b.y),
+      x: (a.x + b.x) / 2,
+      y: (a.y + b.y) / 2,
+    };
+  }
+
+  function zeigerRunter(event: PointerEvent) {
+    const el = fenster;
+    if (!el) return;
+    el.setPointerCapture(event.pointerId);
+    zeiger[event.pointerId] = { x: event.clientX, y: event.clientY };
+    if (zeigerAnzahl() === 1) {
+      zieh = { x: event.clientX, y: event.clientY, bewegt: false, taste: event.button };
+      kniff = null;
+    } else {
+      zieh = null;
+      kniff = kniffJetzt();
+    }
+  }
+
+  function zeigerBewegt(event: PointerEvent) {
+    const vorher = zeiger[event.pointerId];
+    if (!vorher) return;
+    zeiger[event.pointerId] = { x: event.clientX, y: event.clientY };
+    if (zeigerAnzahl() >= 2 && kniff) {
+      const naechstes = kniffJetzt();
+      if (naechstes && kniff.abstand > 0) {
+        const ort = imFenster(naechstes.x, naechstes.y);
+        const gezoomt = zoomAn(
+          kamera,
+          ort.x,
+          ort.y,
+          kamera.zoom * (naechstes.abstand / kniff.abstand),
+        );
+        kamera = {
+          zoom: gezoomt.zoom,
+          x: gezoomt.x + (naechstes.x - kniff.x),
+          y: gezoomt.y + (naechstes.y - kniff.y),
+        };
+        kniff = naechstes;
+        eigene = true;
+        zieht = true;
+        merken();
+      }
+      return;
+    }
+    if (!zieh) return;
+    if (Math.hypot(event.clientX - zieh.x, event.clientY - zieh.y) > ZIEH_SCHWELLE)
+      zieh.bewegt = true;
+    // Beim Versetzen verschiebt die linke Taste (und der Finger) nicht – ein Tipp setzt.
+    // Rechte und mittlere Taste verschieben weiter, zwei Finger auch.
+    const verschieben = zieh.taste === 1 || zieh.taste === 2 || (zieh.taste === 0 && !versetzen);
+    if (verschieben && zieh.bewegt) {
+      kamera = {
+        ...kamera,
+        x: kamera.x + (event.clientX - vorher.x),
+        y: kamera.y + (event.clientY - vorher.y),
+      };
+      eigene = true;
+      zieht = true;
+    }
+  }
+
+  function zeigerHoch(event: PointerEvent) {
+    zeigerWeg(event.pointerId);
+    if (zeigerAnzahl() < 2) kniff = null;
+    const war = zieh;
+    if (zeigerAnzahl() === 0) {
+      zieh = null;
+      zieht = false;
+    }
+    if (war && zeigerAnzahl() === 0 && !war.bewegt && war.taste === 0) void angetippt(event);
+  }
+
+  function zeigerAbbruch(event: PointerEvent) {
+    zeigerWeg(event.pointerId);
+    zieh = null;
+    kniff = null;
+    zieht = false;
   }
 
   let auswahl = $state<string | undefined>(undefined);
@@ -185,35 +350,37 @@
     <div class="zoom" role="group" aria-label={tt('bastion.zoom')}>
       <button
         aria-label={tt('bastion.zoom-kleiner')}
-        disabled={stufeIndex === 0}
+        disabled={amAnschlag(-1)}
         onclick={() => zoomen(-1)}>−</button
       >
-      <span>{Math.round(zoom * 100)} %</span>
       <button
         aria-label={tt('bastion.zoom-groesser')}
-        disabled={stufeIndex === ZOOM.length - 1}
+        disabled={amAnschlag(1)}
         onclick={() => zoomen(1)}>+</button
       >
+      <button aria-label={tt('bastion.zoom-passen')} onclick={einpassenJetzt}>⌖</button>
     </div>
     <div
       class="fenster"
+      class:sichtbar={kameraSichtbar}
+      class:versetzen
+      class:zieht
       style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
+      aria-hidden="true"
       bind:this={fenster}
-      bind:clientWidth={fensterBreite}
+      onpointerdown={zeigerRunter}
+      onpointermove={zeigerBewegt}
+      onpointerup={zeigerHoch}
+      onpointercancel={zeigerAbbruch}
+      oncontextmenu={(event) => event.preventDefault()}
     >
       <div
         class="bauplatz"
-        class:versetzen
-        style:inline-size={`${zoom * 100}%`}
-        style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
+        style:inline-size="{BUEHNE_B}px"
+        style:block-size="{BUEHNE_H}px"
+        style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
         bind:this={rahmen}
         aria-hidden="true"
-        onpointerdown={(e) => (druck = { x: e.clientX, y: e.clientY })}
-        onpointerup={(e) => {
-          // Wer zum Verschieben wischt, tippt nicht: nur kurze Wege zählen als Tipp
-          if (druck && Math.hypot(e.clientX - druck.x, e.clientY - druck.y) < 10) void angetippt(e);
-          druck = undefined;
-        }}
       ></div>
     </div>
     {#if gewaehlt}
@@ -264,18 +431,42 @@
 
 <style>
   .fenster {
+    position: relative;
     inline-size: 100%;
     max-inline-size: 36rem;
-    overflow: auto;
-    overscroll-behavior: contain;
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
     border-radius: var(--radius-karte);
     box-shadow: 0 2px 10px var(--farbe-schatten);
     background: var(--farbe-himmel);
+    cursor: grab;
+  }
+
+  .fenster.zieht {
+    cursor: grabbing;
+  }
+
+  .fenster.versetzen {
+    cursor: crosshair;
+    outline: 3px solid var(--farbe-akzent);
+    outline-offset: -3px;
   }
 
   .bauplatz {
-    cursor: pointer;
-    touch-action: pan-x pan-y;
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    transform-origin: 0 0;
+    visibility: hidden;
+  }
+
+  .bauplatz :global(canvas) {
+    touch-action: none;
+  }
+
+  .fenster.sichtbar .bauplatz {
+    visibility: visible;
   }
 
   .zoom {
@@ -284,21 +475,9 @@
     gap: var(--abstand-s);
   }
 
-  .zoom span {
-    min-inline-size: 3.5rem;
-    text-align: center;
-    color: var(--farbe-text-leise);
-  }
-
   .zoom button {
     min-inline-size: 2.75rem;
     font-size: 1.25rem;
-  }
-
-  .bauplatz.versetzen {
-    cursor: crosshair;
-    outline: 3px solid var(--farbe-akzent);
-    outline-offset: -3px;
   }
 
   .wahl {

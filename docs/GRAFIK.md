@@ -125,7 +125,7 @@ Unter „Wie soll es aussehen?“ in der Bastion gibt es das Thema **Dorf** (BAS
 
 Wählt man **Dorf**, zeichnet die Bastion die Platzhaltergrafik aus dem Spiel [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) desselben Urhebers: eine Wiese aus Rauten (hell und etwas dunkler im Wechsel), Häuser als Körper mit zwei Wandtönen und Dach, eine Fahne auf dem Gemeindehaus, einen Zaun aus drei Pfählen, Bäume am Rand. Die kleine Ansicht auf der Startseite zeigt dasselbe, nur vereinfacht.
 
-Die Bilder stehen im Programm (`src/ui/bastion/grafik/dorf.ts`) und werden von derselben Bühne gezeichnet wie die Insel. Es gibt keine Verbindung zu dorfkrieg.micana.de. Das Raster, das Antippen und der Zoom bleiben gleich. Gebäude, Kosten und der Lernstand ändern sich nicht (B-27).
+Die Bilder stehen im Programm (`src/ui/bastion/grafik/dorf.ts`) und werden von derselben Bühne gezeichnet wie die Insel. Es gibt keine Verbindung zu dorfkrieg.micana.de. Das Raster und das Antippen bleiben gleich. Der Zoom ist für alle Themen der aus Dorfkrieg: stufenlos, zum Zeiger, mit Ziehen und zwei Fingern (`src/ui/bastion/grafik/kamera.ts`). Gebäude, Kosten und der Lernstand ändern sich nicht (B-27).
 
 Die anderen Themen – Bastion, Garten, Raumstation, Unterwasserstadt – behalten die Insel. Hell, Dunkel und „Wie das Gerät“ gelten weiter: Am Abend wird die Wiese dunkler, und die Fenster der Häuser leuchten.
 
