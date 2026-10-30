@@ -881,24 +881,24 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
     'Spalte 1, Reihe 12',
   );
 
-  // Zoom (2.13a): vergrößern macht das Bild breiter als das Fenster, die Wahl bleibt gemerkt
-  const fenster = page.locator('.fenster');
+  // Zoom wie in Dorfkrieg: + vergrößert zum Mittelpunkt, der Tipp trifft weiter das Feld
   const breite = async () => (await bild.boundingBox())?.width ?? 0;
   const vorher = await breite();
   await page.getByRole('button', { name: 'Vergrößern' }).click();
-  await expect.poll(breite).toBeGreaterThan(vorher * 1.3);
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBeGreaterThan(1);
-  expect(await breite()).toBeGreaterThan((await fenster.boundingBox())?.width ?? 0);
-  // Auch vergrößert trifft ein Tipp das richtige Feld
-  await fenster.evaluate((f) => (f.scrollLeft = 0));
+  await expect.poll(breite).toBeGreaterThan(vorher * 1.08);
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBeGreaterThan(0.35);
+  const groesser = await einstellungImSpeicher(page, 'basebau.zoom');
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
-  // Zurück auf 100 % – je nach Startstufe ein- oder zweimal
-  const kleiner = page.getByRole('button', { name: 'Verkleinern' });
-  await kleiner.click();
-  if (await kleiner.isEnabled()) await kleiner.click();
-  await expect(kleiner).toBeDisabled();
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(1);
+  await page.getByRole('button', { name: 'Verkleinern' }).click();
+  await expect
+    .poll(() => einstellungImSpeicher(page, 'basebau.zoom'))
+    .toBeLessThan(groesser as number);
+  // Fadenkreuz: wieder das ganze Bild, kein eigener Zoom mehr
+  await page.getByRole('button', { name: 'Ganzes Bild' }).click();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(0);
+  await tippe(0, 11);
+  await expect(wahl).toContainText('Feuerstelle');
 
   // Bild ausblenden: nur noch die Liste – auch nach dem Neuladen
   await page.getByRole('button', { name: /Bild ausblenden/ }).click();

@@ -3,8 +3,9 @@
 // schräg von oben (isometrisch), flache Farbflächen mit zwei Seitentönen je Gebäude,
 // Himmel mit Sonne und Wolken; dunkel als Abend mit erleuchteten Fenstern.
 // Je Rolle eine Form aus dem Code, Farbe je Gebäudefamilie – austauschbar je Thema
-// und Skin (B-17, B-18, B-27). Diese Datei ist der einzige Ort, der PixiJS
-// importiert; die Listenansicht bleibt gleichwertig.
+// und Skin (B-17, B-18, B-27). Das Thema Dorf zeichnet stattdessen die Dorfbilder
+// (`dorf.ts`). Diese Datei ist der einzige Ort, der PixiJS importiert; die
+// Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
 import { FARBWERT } from '../farben';
@@ -15,7 +16,11 @@ import {
   type GebaeudeTyp,
   type Position,
 } from '../../../core/bastion/katalog';
+import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
+
+/** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
+export type Bildart = 'insel' | 'dorf';
 
 export interface Farben {
   readonly boden: string;
@@ -340,7 +345,35 @@ function insel(g: Graphics, f: Farben) {
   g.stroke({ width: 1, color: f.raster });
 }
 
-export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promise<Buehne> {
+/** PixiJS-Grafik als Stift, nur für die Dorfbilder. */
+function stiftVon(g: Graphics): Stift {
+  return {
+    flaeche(punkte, farbe, alpha = 1) {
+      g.poly([...punkte]).fill(alpha === 1 ? farbe : { color: farbe, alpha });
+    },
+    kontur(punkte, farbe, breite, alpha = 1) {
+      g.poly([...punkte]).stroke({ width: breite, color: farbe, alpha });
+    },
+    rechteck(x, y, b, h, farbe) {
+      g.rect(x, y, b, h).fill(farbe);
+    },
+    ellipse(x, y, rx, ry, farbe, alpha = 1) {
+      g.ellipse(x, y, rx, ry).fill(alpha === 1 ? farbe : { color: farbe, alpha });
+    },
+    kreis(x, y, r, farbe) {
+      g.circle(x, y, r).fill(farbe);
+    },
+    linie(x1, y1, x2, y2, farbe, breite) {
+      g.moveTo(x1, y1).lineTo(x2, y2).stroke({ width: breite, color: farbe, cap: 'round' });
+    },
+  };
+}
+
+export async function buehneErstellen(
+  ziel: HTMLElement,
+  farben: Farben,
+  art: Bildart = 'insel',
+): Promise<Buehne> {
   const app = new Application();
   await app.init({
     width: BUEHNE_B,
@@ -361,7 +394,8 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
 
   const hintergrund = new Graphics();
   himmel(hintergrund, farben);
-  insel(hintergrund, farben);
+  if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
+  else insel(hintergrund, farben);
   const gebaeude = new Container();
   app.stage.addChild(hintergrund, gebaeude);
 
@@ -385,21 +419,40 @@ export async function buehneErstellen(ziel: HTMLElement, farben: Farben): Promis
         return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
       });
       treffer = [];
+      if (art === 'dorf') {
+        dorfSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
+      }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
-        if (a.auswahl === x.id)
-          raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
-        zeichneRolle(
-          g,
-          x.typ,
-          x.stufe,
-          x.pos,
-          x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
-          farben,
-        );
+        if (art !== 'dorf') {
+          if (a.auswahl === x.id)
+            raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          zeichneRolle(
+            g,
+            x.typ,
+            x.stufe,
+            x.pos,
+            x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
+            farben,
+          );
+        }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
         const e = ecken(x.pos.x, x.pos.y, w, t, 0);
-        const h = hoehe(x.typ, x.stufe) + 20;
+        const h = (art === 'dorf' ? dorfHoehe(x.typ, x.stufe) : hoehe(x.typ, x.stufe)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(

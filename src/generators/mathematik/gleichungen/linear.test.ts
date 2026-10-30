@@ -201,6 +201,7 @@ pflichttests(gleichungWaehlen, {
     return !p.erweitert && /−/.test(T(i, 'raetsel')) ? ['negative Zahl auf G'] : [];
   },
   mindestensVerschieden: { G: 90, M: 90 },
+  zeitlimitMs: 20_000, // Probe jeder Option für x = −20 … 20, 10 000 Seeds; auf CI knapp über 5 s
 });
 
 pflichttests(raetselLoesen, {

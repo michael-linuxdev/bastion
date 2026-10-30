@@ -6,6 +6,7 @@
  * geladene Inhaltspakete.
  */
 import type { Sprachobjekt } from '../learning/generator';
+import { pruefeReview, type Review } from '../learning/review';
 
 export type Niveau = 'G' | 'M' | 'E';
 export type Schulart = 'oberschule' | 'gymnasium';
@@ -33,6 +34,8 @@ export interface Kompetenz {
   /** Lehrplanbezug Sachsen je Schulart (LEHRPLAN L-9). */
   readonly sachsen: Readonly<Partial<Record<Schulart, LehrplanBezug>>>;
   readonly version: number;
+  /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
+  readonly review?: Review;
 }
 
 /** Kürzel im ID-Schema ↔ Ordnername (INHALTSFORMAT §2). */
@@ -191,6 +194,7 @@ export function pruefeKompetenz(daten: unknown, pfadTeile?: readonly string[]): 
 
   if (!Number.isInteger(d['version']) || (d['version'] as number) < 1)
     f.push('version muss ≥ 1 sein');
+  f.push(...pruefeReview(d['review']));
   return f;
 }
 

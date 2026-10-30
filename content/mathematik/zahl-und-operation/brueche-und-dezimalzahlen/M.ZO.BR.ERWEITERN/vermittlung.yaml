@@ -50,7 +50,7 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: '[[Erweitere]] 2/5 auf [[Zehntel]]. Mit welcher Zahl nimmst du [[Zähler]] und [[Nenner]] mal, und wie heißt der neue Zähler?'
+      de: '[[Erweitere]] 2/5 auf [[Zehntel]]. Welchen [[Bruch]] schreibst du auf?'
     antwort:
       eingabe:
         art: bruch
