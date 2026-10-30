@@ -1,0 +1,26 @@
+id: FV.DA.DIAGRAMMART
+name:
+  de: Wählt eine Diagrammart, die nicht zu den Daten passt
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält ein Säulendiagramm für Anteile am Ganzen für am besten oder ein Liniendiagramm für Daten ohne
+    zeitlichen Verlauf. Wofür jede Diagrammart gedacht ist, ist nicht verankert.
+kompetenzen: [M.DZ.DA.DIAGRAMME]
+erklaerung:
+  kurz:
+    de: '[[Kreisdiagramm]]: Anteile an einem Ganzen. [[Säulendiagramm]]: Werte vergleichen. [[Liniendiagramm]]: Veränderung mit der Zeit.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Diagrammart gewählt, die zu einer anderen Frage passt.'
+    - teil: warum-nicht
+      de: 'Jedes Diagramm zeigt Zahlen, darum scheint jedes zu passen. Aber eine Linie verbindet Punkte und behauptet einen Verlauf dazwischen. Das ergibt nur Sinn, wenn es um Zeit geht.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Geht es um Teile eines Ganzen? Um einen Vergleich? Um eine Entwicklung? Wähle danach.'
+gegenbeispiel:
+  de: 'Die Lieblingsfarben einer Klasse haben keinen Verlauf. Eine Linie von Rot nach Blau ergibt keinen Sinn.'
+rueckweg:
+  vermittlung: M.DZ.DA.DIAGRAMME#erklaeren-arten
+kontrast: [M.DZ.DA.DIAGRAMME.BEURTEILEN]
+herkunft: ki-entwurf
+version: 1

@@ -208,7 +208,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
-  - [ ] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16):
+  - [x] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16): alle 596 Fehlerbilder, 200 Fehlvorstellungen; `fv` ist jetzt Pflicht
     - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
     - [x] Teilbarkeit (15 Fehlerbilder, 8 neue Fehlvorstellungen; Stand 140 von 596)
     - [x] rationale Zahlen (42 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 182 von 596)
@@ -220,7 +220,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Körper (49 Fehlerbilder, 9 neue Fehlvorstellungen; Stand 428 von 596)
     - [x] Grundformen, Symmetrie, Dreiecke und Vierecke (64 Fehlerbilder, 21 neue Fehlvorstellungen; Stand 492 von 596)
     - [x] Körper, Kreis und Ähnlichkeit in der Geometrie (54 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 546 von 596)
-    - [ ] Daten und Zufall
+    - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -240,6 +240,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b fertig:** Daten und Zufall zugeordnet (50 Fehlerbilder, 13 neue Fehlvorstellungen). Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen; `fv` ist Pflicht |
 | 30.10.2026 | **U5b Körper, Kreis und Ähnlichkeit (Raum und Form):** 54 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Grundformen, Symmetrie, Dreiecke und Vierecke:** 64 Fehlerbilder zugeordnet, 21 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Körper:** 49 Fehlerbilder zugeordnet, 9 neue Fehlvorstellungen |

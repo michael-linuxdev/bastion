@@ -1,0 +1,26 @@
+id: FV.DA.MITTELWERT-ANZAHL
+name:
+  de: Teilt beim Mittelwert durch die falsche Anzahl
+art: rechenfehler
+beschreibung:
+  de: >-
+    Teilt die Summe durch eine falsche Anzahl, etwa weil doppelte Werte nur einmal gezählt werden oder
+    eine Zahl übersehen wird.
+kompetenzen: [M.DZ.DA.MITTELWERT]
+erklaerung:
+  kurz:
+    de: 'Teile die [[Summe]] durch die Anzahl **aller** Werte, auch wenn manche gleich sind.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig zusammengezählt, aber durch eine andere Anzahl geteilt.'
+    - teil: warum-nicht
+      de: 'Gleiche Werte sieht man leicht als einen. Aber jede Note zählt einzeln, auch wenn jemand zweimal eine 2 hat.'
+    - teil: so-stimmt-es
+      de: 'Zähle die Werte mit dem Finger ab und schreibe die Anzahl auf, bevor du teilst. Noten 2, 2, 3, 1: [[Summe]] 8, Anzahl 4, [[Durchschnitt]] 2.'
+gegenbeispiel:
+  de: 'Wenn vier Kinder je 2 Äpfel haben, hat jedes im Schnitt 2 Äpfel, nicht 8.'
+rueckweg:
+  vermittlung: M.DZ.DA.MITTELWERT#erklaeren-mittelwert
+kontrast: [M.DZ.DA.MITTELWERT.NOTEN, M.DZ.DA.MITTELWERT.ZAHLEN]
+herkunft: ki-entwurf
+version: 1

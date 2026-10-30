@@ -1,0 +1,26 @@
+id: FV.ZF.ZAEHLPRINZIP
+name:
+  de: Addiert die Möglichkeiten der Stufen oder vergisst eine Stufe
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet bei 3 T-Shirts und 4 Hosen 3 + 4 = 7 Kombinationen oder lässt bei drei Stufen eine weg.
+    Dass jede Wahl mit jeder anderen kombiniert wird, ist nicht verankert.
+kompetenzen: [M.DZ.ZF.ZAEHLEN]
+erklaerung:
+  kurz:
+    de: 'Zu jeder Möglichkeit der einen Stufe passt jede Möglichkeit der anderen. Darum werden die Anzahlen aller Stufen malgenommen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Möglichkeiten addiert oder eine Stufe nicht mitgerechnet.'
+    - teil: warum-nicht
+      de: 'Zusammenzählen liegt nahe, wenn Dinge zusammenkommen. Aber zu jedem der 3 T-Shirts kannst du jede der 4 Hosen anziehen. Das sind 3 Reihen zu je 4.'
+    - teil: so-stimmt-es
+      de: 'Schreibe jede Stufe mit ihrer Anzahl auf und nimm alle mal: 3 T-Shirts · 4 Hosen · 2 Paar Schuhe = 24.'
+gegenbeispiel:
+  de: 'Mit 3 T-Shirts und 2 Hosen kann man 6 verschiedene Kombinationen anziehen, nicht nur 5.'
+rueckweg:
+  vermittlung: M.DZ.ZF.ZAEHLEN#erklaeren-zaehlprinzip
+kontrast: [M.DZ.ZF.ZAEHLEN.ANZAHL, M.DZ.ZF.ZAEHLEN.RECHNUNG]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   anzahl-statt-anteil:
     de: 'Mehr rote Kugeln heißt nicht mehr Chance. Es kommt darauf an, wie viele Kugeln insgesamt im Beutel sind: Vergleiche den [[Anteil]].'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
   nur-blaue-verglichen:
     de: 'Nur auf die blauen Kugeln zu schauen reicht nicht. Vergleiche rote Kugeln durch alle Kugeln.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
 herkunft: ki-entwurf
 version: 1

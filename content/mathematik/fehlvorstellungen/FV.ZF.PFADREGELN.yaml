@@ -1,0 +1,26 @@
+id: FV.ZF.PFADREGELN
+name:
+  de: Verwechselt Produkt- und Summenregel im Baumdiagramm
+art: verwechslung
+beschreibung:
+  de: >-
+    Addiert die Wahrscheinlichkeiten entlang eines Pfades oder nimmt nur einen von mehreren passenden
+    Pfaden. Wann malgenommen und wann addiert wird, ist nicht verankert.
+kompetenzen: [M.DZ.ZF.BAUMDIAGRAMM]
+erklaerung:
+  kurz:
+    de: 'Entlang eines [[Pfades]] wird malgenommen ([[Produktregel]]). Passen mehrere Pfade, werden ihre Ergebnisse addiert ([[Summenregel]]).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast addiert, wo malgenommen wird, oder einen passenden [[Pfad]] vergessen.'
+    - teil: warum-nicht
+      de: 'Beide Regeln stehen im selben Bild, darum verwechselt man sie leicht. Aber „erst A und dann B“ wird mit jedem Schritt unwahrscheinlicher, das zeigt das Malnehmen. „Entweder dieser oder jener Weg“ wird wahrscheinlicher, das zeigt das Addieren.'
+    - teil: so-stimmt-es
+      de: 'Markiere alle passenden [[Pfade]]. Nimm auf jedem die [[Brüche]] mal. Addiere dann die Ergebnisse der Pfade.'
+gegenbeispiel:
+  de: 'Zweimal Kopf beim Münzwurf: 1/2 + 1/2 wäre 1, also sicher. Richtig ist 1/2 · 1/2 = 1/4.'
+rueckweg:
+  vermittlung: M.DZ.ZF.BAUMDIAGRAMM#erklaeren-pfadregeln
+kontrast: [M.DZ.ZF.BAUMDIAGRAMM.BAUM, M.DZ.ZF.BAUMDIAGRAMM.URNE]
+herkunft: ki-entwurf
+version: 1

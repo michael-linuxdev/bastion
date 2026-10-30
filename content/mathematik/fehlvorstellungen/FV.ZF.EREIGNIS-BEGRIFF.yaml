@@ -1,0 +1,26 @@
+id: FV.ZF.EREIGNIS-BEGRIFF
+name:
+  de: Verwechselt Ereignis und Ergebnismenge
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt beim Ereignis „gerade Zahl“ die ganze Ergebnismenge {1, …, 6} an oder nennt das Ereignis
+    selbst, wenn eine andere Menge gefragt ist.
+kompetenzen: [M.DZ.ZF.BEGRIFFE, M.DZ.ZF.EREIGNISSE]
+erklaerung:
+  kurz:
+    de: 'Die [[Ergebnismenge]] enthält alle möglichen Ergebnisse. Ein [[Ereignis]] ist ein Teil davon: nur die Ergebnisse, die passen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast alle Ergebnisse oder eine andere Menge als die gefragte angegeben.'
+    - teil: warum-nicht
+      de: 'Beide sind Mengen von Ergebnissen, das macht es leicht, sie zu verwechseln. Aber das [[Ereignis]] „gerade Zahl“ ist nur {2, 4, 6}, nicht alle sechs Augenzahlen.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zuerst die [[Ergebnismenge]] auf. Kreise dann die Ergebnisse ein, die zur Beschreibung passen. Die eingekreisten sind das [[Ereignis]].'
+gegenbeispiel:
+  de: 'Wer „Ich ziehe eine rote Karte“ sagt, meint nicht alle Karten im Stapel.'
+rueckweg:
+  vermittlung: M.DZ.ZF.BEGRIFFE#erklaeren-ereignis
+kontrast: [M.DZ.ZF.BEGRIFFE.MENGE, M.DZ.ZF.EREIGNISSE.MENGE]
+herkunft: ki-entwurf
+version: 1

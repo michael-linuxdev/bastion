@@ -538,7 +538,7 @@ version: 1
 - `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
 - `kontrast`: mindestens eine vorhandene Vorlage (F3).
 
-**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld zugeordnet ist (F2, PLAN U5). Die zugeordneten Felder stehen in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`).
+**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Seit U5b (30.10.2026) ist `fv` für **jedes** Fehlerbild Pflicht (F2, Test in `tools/inhalte/pruefen.test.ts`). Neue Vorlagen bringen ihre Fehlvorstellungen also gleich mit.
 
 *Zuordnung U5a (30.10.2026):* Brüche und Dezimalzahlen (`M.ZO.BR.…`, `M.SF.BR.…`) sind zugeordnet, alle 67 übrigen Fehlerbilder der 40 Vorlagen. Dazu kamen 35 neue Fehlvorstellungen (jetzt 45), zwei vorhandene gelten jetzt auch in weiteren Kompetenzen (`FV.BR.VERTAUSCHT` beim Anteil von, `FV.BR.GEGENTEIL` bei Flächenanteilen). Der Rückweg nennt bei Kompetenzen ohne Erstvermittlung schon den Schritt, den sie später haben soll (etwa `M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler`). Bis dahin zeigt die App dort keinen Knopf „Zur Erklärung“.
 
@@ -557,6 +557,9 @@ version: 1
 | Körper | `M.GM.KP.` | 49 | 9; dazu `FV.SA.GEGENTEIL-GEFRAGT` |
 | Grundformen, Symmetrie, Dreiecke und Vierecke | `M.RF.GF.`, `M.RF.SY.`, `M.RF.DV.` | 64 | 21 (`FV.GF.…`, `FV.SY.…`, `FV.DV.…`) |
 | Körper, Kreis und Ähnlichkeit (Raum und Form) | `M.RF.KP.`, `M.RF.KR.`, `M.RF.AE.` | 54 | 14 (`FV.KP.…`, `FV.KR.…`, `FV.AE.…`) |
+| Daten und Zufall | `M.DZ.DA.`, `M.DZ.ZF.` | 50 | 13 (`FV.DA.…`, `FV.ZF.…`) |
+
+Damit verweisen alle 596 Fehlerbilder auf eine der 200 Fehlvorstellungen.
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 

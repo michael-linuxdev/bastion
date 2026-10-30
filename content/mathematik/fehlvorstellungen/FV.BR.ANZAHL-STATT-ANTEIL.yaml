@@ -7,7 +7,8 @@ beschreibung:
     Antwortet mit der Zahl der gefärbten Kästchen oder der gezählten Abschnitte, etwa „3“ statt 3/5
     oder 0,3. Die Anzahl wird nicht auf das Ganze bezogen. Ein Anteil ist aber immer „so viele von
     so vielen“.
-kompetenzen: [M.ZO.BR.ANTEILE, M.ZO.BR.ZAHLENSTRAHL]
+kompetenzen:
+  [M.ZO.BR.ANTEILE, M.ZO.BR.ZAHLENSTRAHL, M.DZ.ZF.HAEUFIGKEIT, M.DZ.ZF.WAHRSCHEINLICHKEIT]
 erklaerung:
   kurz:
     de: 'Ein [[Anteil]] sagt, wie viel **vom Ganzen** gemeint ist. Vergleiche die Anzahl mit allen Teilen des Ganzen.'
@@ -23,6 +24,13 @@ gegenbeispiel:
   de: '3 Stücke von einer Pizza mit 4 Stücken sind viel mehr als 3 Stücke von einer Pizza mit 12 Stücken.'
 rueckweg:
   vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
-kontrast: [M.ZO.BR.ANTEILE.FLAECHE, M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL]
+kontrast:
+  [
+    M.ZO.BR.ANTEILE.FLAECHE,
+    M.ZO.BR.ZAHLENSTRAHL.BRUCH,
+    M.ZO.BR.ZAHLENSTRAHL.DEZIMAL,
+    M.DZ.ZF.HAEUFIGKEIT.RELATIV,
+    M.DZ.ZF.WAHRSCHEINLICHKEIT.VERGLEICHEN,
+  ]
 herkunft: ki-entwurf
 version: 1

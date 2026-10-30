@@ -1,0 +1,26 @@
+id: FV.DA.ABLESEN
+name:
+  de: Liest im Diagramm ungenau oder an der falschen Stelle ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Nimmt den Wert eines Nachbarmonats oder landet eine Linie zu hoch oder zu tief. Der Weg von der
+    Säule zur Achse wird nicht genau verfolgt.
+kompetenzen: [M.DZ.DA.DIAGRAMME]
+erklaerung:
+  kurz:
+    de: 'Suche zuerst unten die richtige Säule. Geh dann vom oberen Ende genau waagerecht zur Achse, am besten mit einem Lineal.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast an einer anderen Säule oder auf einer anderen Linie abgelesen.'
+    - teil: warum-nicht
+      de: 'In einem Diagramm liegt vieles dicht beieinander, darum rutscht man leicht ab. Schon eine Linie daneben ergibt einen ganz anderen Wert.'
+    - teil: so-stimmt-es
+      de: 'Lege ein Lineal waagerecht an das obere Ende der Säule und lies dort an der Achse ab. Prüfe am Ende: Passt der Wert zur [[Höhe]] der Säule im Vergleich zu den anderen?'
+gegenbeispiel:
+  de: 'Wer im Busplan eine Zeile verrutscht, steht zur falschen Zeit an der Haltestelle.'
+rueckweg:
+  vermittlung: M.DZ.DA.DIAGRAMME#erklaeren-ablesen
+kontrast: [M.DZ.DA.DIAGRAMME.ABLESEN]
+herkunft: ki-entwurf
+version: 1

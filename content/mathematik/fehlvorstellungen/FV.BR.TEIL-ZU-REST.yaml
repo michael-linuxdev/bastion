@@ -7,7 +7,7 @@ beschreibung:
     Schreibt bei 3 gefärbten und 1 ungefärbten Teil „3/1“ statt „3/4“. Der Nenner wird als Zahl der
     übrigen Teile gelesen, nicht als Zahl aller Teile. Häufig, wenn Brüche nur als Verhältnis
     „so viele zu so vielen“ erlebt wurden.
-kompetenzen: [M.ZO.BR.BEGRIFF]
+kompetenzen: [M.ZO.BR.BEGRIFF, M.DZ.DA.KREISDIAGRAMM, M.DZ.ZF.WAHRSCHEINLICHKEIT]
 erklaerung:
   kurz:
     de: 'Der [[Nenner]] zählt **alle** Teile des Ganzen – die gefärbten und die ungefärbten zusammen.'
@@ -23,7 +23,12 @@ gegenbeispiel:
   de: 'Bei einer Pizza mit 4 Stücken isst du 3. Du hast nicht „3 von 1“ gegessen, sondern 3 von 4.'
 rueckweg:
   vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
-kontrast: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN]
+kontrast:
+  [
+    M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN,
+    M.DZ.DA.KREISDIAGRAMM.ABLESEN,
+    M.DZ.ZF.WAHRSCHEINLICHKEIT.BERECHNEN,
+  ]
 quelle:
   de: Fachdidaktik Bruchrechnung (Teil-Ganzes-Vorstellung)
 herkunft: ki-entwurf

@@ -1,0 +1,26 @@
+id: FV.ZF.WIEDERHOLUNG
+name:
+  de: Unterscheidet nicht, ob sich Möglichkeiten wiederholen dürfen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet bei der Vergabe von Plätzen n · n · n oder beim Zahlenschloss mit „einer weniger“. Ob ein
+    Element mehrfach vorkommen darf, wird vorher nicht geklärt.
+kompetenzen: [M.DZ.ZF.ZAEHLEN]
+erklaerung:
+  kurz:
+    de: 'Frage zuerst: Darf sich etwas wiederholen? Beim Zahlenschloss ja, jeder Ring hat alle [[Ziffern]]. Bei Plätzen nein, mit jedem Platz gibt es eine Möglichkeit weniger.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit Wiederholung gerechnet, wo keine erlaubt ist, oder umgekehrt.'
+    - teil: warum-nicht
+      de: 'Beide Rechnungen sehen [[ähnlich]] aus. Aber wer schon Erster ist, kann nicht auch Zweiter werden. Beim Zahlenschloss kann dagegen jede [[Ziffer]] auf jedem Ring stehen, auch zweimal.'
+    - teil: so-stimmt-es
+      de: '3 Plätze für 5 Kinder: 5 · 4 · 3 = 60. Schloss mit 3 Ringen und 10 [[Ziffern]]: 10 · 10 · 10 = 1000.'
+gegenbeispiel:
+  de: 'Bei einem Wettlauf kann niemand gleichzeitig Gold und Silber gewinnen.'
+rueckweg:
+  vermittlung: M.DZ.ZF.ZAEHLEN#erklaeren-wiederholung
+kontrast: [M.DZ.ZF.ZAEHLEN.ANZAHL, M.DZ.ZF.ZAEHLEN.RECHNUNG]
+herkunft: ki-entwurf
+version: 1

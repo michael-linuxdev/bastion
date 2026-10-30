@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   guenstig-durch-unguenstig:
     de: 'Du hast die passenden durch die nicht passenden Ergebnisse geteilt. In den [[Nenner]] gehören **alle** Ergebnisse.'
+    fv: FV.BR.TEIL-ZU-REST
   kehrwert:
     de: '[[Zähler]] und [[Nenner]] sind vertauscht. Eine [[Wahrscheinlichkeit]] ist nie größer als 1.'
+    fv: FV.BR.VERTAUSCHT
 herkunft: ki-entwurf
 version: 1

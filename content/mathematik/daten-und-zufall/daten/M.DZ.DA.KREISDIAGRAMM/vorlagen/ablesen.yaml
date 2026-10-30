@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   ungefaerbt:
     de: 'Das ist der weiße [[Anteil]]. Gesucht ist der gefärbte.'
+    fv: FV.BR.GEGENTEIL
   teile-gezaehlt:
     de: 'Du hast gefärbte mit weißen Teilen verglichen. Der [[Nenner]] zählt **alle** Teile des Kreises.'
+    fv: FV.BR.TEIL-ZU-REST
 herkunft: ki-entwurf
 version: 1

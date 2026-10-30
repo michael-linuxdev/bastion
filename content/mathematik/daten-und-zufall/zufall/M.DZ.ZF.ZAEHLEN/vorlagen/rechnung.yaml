@@ -16,13 +16,18 @@ hilfen:
 fehlerbilder:
   addiert:
     de: 'Die Möglichkeiten der Stufen werden malgenommen, nicht addiert.'
+    fv: FV.ZF.ZAEHLPRINZIP
   stufe-vergessen:
     de: 'Hier fehlt eine Stufe.'
+    fv: FV.ZF.ZAEHLPRINZIP
   n-mal-n:
     de: 'Für jeden weiteren Platz gibt es eine Möglichkeit weniger.'
+    fv: FV.ZF.WIEDERHOLUNG
   ohne-statt-mit:
     de: 'Beim Zahlenschloss darf sich eine [[Ziffer]] wiederholen.'
+    fv: FV.ZF.WIEDERHOLUNG
   mit-statt-ohne:
     de: 'Ein Platz kann nur einmal vergeben werden – es gibt jedes Mal eine Möglichkeit weniger.'
+    fv: FV.ZF.WIEDERHOLUNG
 herkunft: ki-entwurf
 version: 1

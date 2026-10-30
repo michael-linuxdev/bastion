@@ -19,9 +19,12 @@ hilfen:
 fehlerbilder:
   addiert-statt-mal:
     de: 'Entlang eines [[Pfades]] werden die Wahrscheinlichkeiten malgenommen, nicht addiert.'
+    fv: FV.ZF.PFADREGELN
   mit-zuruecklegen:
     de: 'Ohne Zurücklegen liegt beim zweiten Zug eine Kugel weniger in der Urne – [[Zähler]] und [[Nenner]] ändern sich.'
+    fv: FV.ZF.OHNE-ZURUECKLEGEN
   nur-ein-pfad:
     de: 'Zwei [[Pfade]] passen: erst Rot, dann Blau – und erst Blau, dann Rot. Addiere beide.'
+    fv: FV.ZF.PFADREGELN
 herkunft: ki-entwurf
 version: 1

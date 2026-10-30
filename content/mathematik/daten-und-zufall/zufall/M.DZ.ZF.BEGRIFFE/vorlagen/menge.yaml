@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   ergebnismenge-statt-ereignis:
     de: 'Das ist die ganze [[Ergebnismenge]]. Zum [[Ereignis]] gehören nur die passenden Ergebnisse.'
+    fv: FV.ZF.EREIGNIS-BEGRIFF
   gegenereignis:
     de: 'Das sind genau die Ergebnisse, die **nicht** passen.'
+    fv: FV.ZF.GEGENEREIGNIS
   grenze-falsch:
     de: 'Achte auf die Grenze: „mindestens 4“ schließt die 4 ein, „größer als 4“ nicht.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
 herkunft: ki-entwurf
 version: 1

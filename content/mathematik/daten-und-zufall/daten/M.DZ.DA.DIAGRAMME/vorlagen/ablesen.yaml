@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nachbar-abgelesen:
     de: 'Das ist der Wert eines anderen Monats. Suche zuerst unten den richtigen Monat.'
+    fv: FV.DA.ABLESEN
   eine-linie-daneben:
     de: 'Du bist eine Linie zu hoch gelandet. Geh genau vom oberen Ende der Säule waagerecht zur Achse.'
+    fv: FV.DA.ABLESEN
   nur-ein-wert:
     de: 'Das ist nur einer der beiden Werte. Gefragt ist der Unterschied: Zieh den kleineren vom größeren ab.'
+    fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1

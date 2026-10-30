@@ -6,7 +6,8 @@ beschreibung:
   de: >-
     Schreibt 0,25 als 2,5 % oder 30 % als 30/10. Dass „Prozent“ „von Hundert“ heißt und 1 % ein
     Hundertstel ist, ist noch nicht verankert. Das Komma wird dann nach Gefühl verschoben.
-kompetenzen: [M.ZO.BR.PROZENT, M.ZO.PZ.BEGRIFFE, M.ZO.PZ.GRUNDAUFGABEN, M.ZO.PZ.ZINS]
+kompetenzen:
+  [M.ZO.BR.PROZENT, M.ZO.PZ.BEGRIFFE, M.ZO.PZ.GRUNDAUFGABEN, M.ZO.PZ.ZINS, M.DZ.ZF.HAEUFIGKEIT]
 erklaerung:
   kurz:
     de: '[[Prozent]] heißt „von Hundert“: 1 % = 1/100 = 0,01. Der [[Nenner]] ist immer 100.'
@@ -24,6 +25,11 @@ rueckweg:
   vermittlung: M.ZO.BR.PROZENT#erklaeren-hundertstel
   voraussetzung: M.ZO.BR.DEZIMAL
 kontrast:
-  [M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT, M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH, M.ZO.PZ.BEGRIFFE.BEQUEM]
+  [
+    M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT,
+    M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH,
+    M.ZO.PZ.BEGRIFFE.BEQUEM,
+    M.DZ.ZF.HAEUFIGKEIT.RELATIV,
+  ]
 herkunft: ki-entwurf
 version: 1

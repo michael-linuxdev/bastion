@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   durch-falsche-anzahl:
     de: Du hast durch die falsche Anzahl geteilt. Zähle die Werte noch einmal – es sind {anzahl}.
+    fv: FV.DA.MITTELWERT-ANZAHL
   nur-summe:
     de: 'Das ist erst die [[Summe]]. Teile sie noch durch die Anzahl der Werte.'
+    fv: FV.SA.ZWISCHENERGEBNIS
   nicht-gerundet:
     de: Runde das Ergebnis wie verlangt.
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1
