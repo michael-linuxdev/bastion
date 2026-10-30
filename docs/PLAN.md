@@ -236,7 +236,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
 Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Commit:
 - **A – Ledger:** 2.1 Sitzungen ✅ (`src/core/learning/sitzung.ts`) · 2.2 Ledger-Regeln ✅ (`src/core/ledger/regeln.ts`) · 2.3 Buchungen und Konto ✅ (`src/core/ledger/buchung.ts`) · 2.4 Abschluss mit Ressourcen ✅
 - **B – Bauen:** 2.5 Gebäudekatalog ✅ (`src/core/bastion/katalog.ts`) · 2.6 Bauen ✅ (`src/core/bastion/bauen.ts`) · 2.7 Basebau-Schalter (Standard an) ✅ · 2.8 Listenansicht (zuerst Banner und Späherturm) ✅ · 2.9 Studierstube ✅ · 2.10 Ende der Epoche 1 ✅
-- **Zwischenschritt Themen (B-17):** 2.10a Rollen statt Burg-Wörter ✅ · 2.10b Themen und Wahl (Bastion, Garten, Weltraum, Dorf, Unterwasser) ✅
+- **Zwischenschritt Themen (B-17):** 2.10a Rollen statt Burg-Wörter ✅ · 2.10b Themen und Wahl (Bastion, Garten, Weltraum, Dorf, Unterwasser) ✅ · Dorfbilder zum Thema Dorf ✅ (`GRAFIK.md` §6, 30.10.2026)
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
 
@@ -246,6 +246,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |
 | 30.10.2026 | **U5c natürliche Zahlen und Teilbarkeit:** 14 Erstvermittlungen; Zahlenstrahl-Bilder mit `von` > 0 korrigiert (`markiert` zählt ab 0) |

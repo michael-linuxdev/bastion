@@ -118,3 +118,17 @@ Vier Schritte, jeder ein eigener PR:
    - Die Fehlerwerkstatt hat als Symbol eine Glühbirne statt eines Schraubenschlüssels: Aus Fehlern wird ein Aha (R6).
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).
+
+## 6. Thema Dorf – die Dorfbilder
+
+Unter „Wie soll es aussehen?“ in der Bastion gibt es das Thema **Dorf** (BASEBAU B-17). Die Wörter dafür gab es schon (Gemeindehaus, Zaun, Windmühle …). Seit dem 30.10.2026 wechselt dort auch das Bild.
+
+Wählt man **Dorf**, zeichnet die Bastion die Platzhaltergrafik aus dem Spiel [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) desselben Urhebers: eine Wiese aus Rauten (hell und etwas dunkler im Wechsel), Häuser als Körper mit zwei Wandtönen und Dach, eine Fahne auf dem Gemeindehaus, einen Zaun aus drei Pfählen, Bäume am Rand. Die kleine Ansicht auf der Startseite zeigt dasselbe, nur vereinfacht.
+
+Die Bilder stehen im Programm (`src/ui/bastion/grafik/dorf.ts`) und werden von derselben Bühne gezeichnet wie die Insel. Es gibt keine Verbindung zu dorfkrieg.micana.de. Das Raster, das Antippen und der Zoom bleiben gleich. Gebäude, Kosten und der Lernstand ändern sich nicht (B-27).
+
+Die anderen Themen – Bastion, Garten, Raumstation, Unterwasserstadt – behalten die Insel. Hell, Dunkel und „Wie das Gerät“ gelten weiter: Am Abend wird die Wiese dunkler, und die Fenster der Häuser leuchten.
+
+Die Kampffiguren aus Dorfkrieg gibt es hier nicht. Die zeigt das Spiel nur im Kampf. Bastion hat keine Truppen, und der Basebau bleibt eine ruhige Nebensache (K-27, R1–R3).
+
+Was eine Rolle im Bild ist: Gemeindehaus (rotes Dach, Fahne), Schreinerei (Säge), Bücherei (Buch), Windmühle (Flügel), Dorfbrücke, Zaun, Dorfbrunnen, Wappen, Obstwiese, Denkmal. Eine selbst gewählte Farbe der Zierde färbt Wappen, Brunnenwasser, Obst und Denkmal.

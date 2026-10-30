@@ -15,7 +15,7 @@
   } from '../plattform/ablage';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H, RAUTE_B } from './grafik/iso';
-  import { gebaeudeName, tt } from './thema.svelte';
+  import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
 
   let { bastion, onaktion }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean> } =
@@ -107,11 +107,13 @@
     const ort = rahmen;
     if (!ort) return;
     // Neu zeichnen, wenn hell oder dunkel wechselt (GRAFIK §2)
+    // oder das Thema auf Dorf (Dorfbilder) bzw. zurück wechselt (GRAFIK §6).
     void darstellung.dunkel;
+    const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     import('./grafik/grafik-buehne')
-      .then((m) => m.buehneErstellen(ort, farben()))
+      .then((m) => m.buehneErstellen(ort, farben(), bildart))
       .then((b) => {
         if (abgebrochen) b.zerstoere();
         else buehne = erstellt = b;
