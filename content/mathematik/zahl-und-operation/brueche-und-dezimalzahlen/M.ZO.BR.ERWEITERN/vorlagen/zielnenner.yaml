@@ -14,7 +14,7 @@ text:
   aufgabe:
     de: '**[[Erweitere]]** den [[Bruch]] {bruch} so, dass der [[Nenner]] {zielnenner} ist.'
 hilfen:
-  - de: 'Durch welche Zahl musst du den [[Nenner]] teilen, um {zielnenner} zu erhalten? Rechne {zielnenner} : {nenner}.'
+  - de: 'Mit welcher Zahl musst du den [[Nenner]] malnehmen, um {zielnenner} zu erhalten? Rechne {zielnenner} : {nenner}.'
   - de: 'Multipliziere [[Zähler]] **und** [[Nenner]] mit {faktor}.'
 fehlerbilder:
   addiert:
