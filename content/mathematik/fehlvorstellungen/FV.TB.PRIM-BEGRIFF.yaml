@@ -1,0 +1,26 @@
+id: FV.TB.PRIM-BEGRIFF
+name:
+  de: Ist sich bei 1 und 2 unsicher, ob sie Primzahlen sind
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält 1 für eine Primzahl („nur durch 1 und sich selbst teilbar“) oder 2 für keine („gerade
+    Zahlen sind nicht prim“). Die Bedingung „genau zwei Teiler“ ist noch nicht verankert.
+kompetenzen: [M.ZO.TB.PRIM]
+erklaerung:
+  kurz:
+    de: 'Eine [[Primzahl]] hat **genau zwei** [[Teiler]]: 1 und sich selbst. Die 1 hat nur einen, die 2 hat genau zwei.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast bei der 1 oder der 2 falsch entschieden.'
+    - teil: warum-nicht
+      de: 'Das sind die zwei Sonderfälle, an denen viele stolpern. Bei der 1 sind „1“ und „sie selbst“ dieselbe Zahl, also gibt es nur einen [[Teiler]]. Die 2 ist zwar gerade, hat aber nur die Teiler 1 und 2.'
+    - teil: so-stimmt-es
+      de: 'Zähle die [[Teiler]]: genau zwei heißt [[Primzahl]]. 1 ist keine, 2 ist die kleinste und die einzige gerade.'
+gegenbeispiel:
+  de: 'Ein Rechteck aus 2 Kästchen geht nur als 1 mal 2. Aus 1 Kästchen gibt es nur ein einziges Rechteck.'
+rueckweg:
+  vermittlung: M.ZO.TB.PRIM#erklaeren-primzahl
+kontrast: [M.ZO.TB.PRIM.IST-PRIM]
+herkunft: ki-entwurf
+version: 1

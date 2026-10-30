@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   produkt:
     de: 'Das ist ein gemeinsames [[Vielfaches]], aber nicht das kleinste. Es gibt ein kleineres, das durch {a} und {b} [[teilbar]] ist.'
+    fv: FV.TB.NICHT-GROESSTER-KLEINSTES
   ggt-statt-kgv:
     de: 'Das ist der größte gemeinsame [[Teiler]]. Gesucht ist ein [[Vielfaches]] – es ist mindestens so groß wie beide Zahlen.'
+    fv: FV.TB.TEILER-VIELFACHES
   groessere-zahl:
     de: 'Die größere Zahl ist hier kein [[Vielfaches]] der kleineren. Geh in der Reihe der Vielfachen weiter.'
+    fv: FV.TB.GROESSERE-ZAHL-KGV
 herkunft: ki-entwurf
 version: 1

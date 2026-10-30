@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   nicht-vollstaendig-zerlegt:
     de: 'Nicht alle [[Faktoren]] sind [[Primzahlen]]. Zerlege weiter, bis nur noch Primzahlen übrig sind.'
+    fv: FV.TB.ZERLEGEN-UNVOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1

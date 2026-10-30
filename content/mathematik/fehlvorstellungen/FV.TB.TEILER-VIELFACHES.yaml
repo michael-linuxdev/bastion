@@ -1,0 +1,27 @@
+id: FV.TB.TEILER-VIELFACHES
+name:
+  de: Verwechselt Teiler und Vielfache
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt beim größten gemeinsamen Teiler ein gemeinsames Vielfaches an oder umgekehrt, oder hält
+    12 für einen Teiler von 4, weil 4 ein Teiler von 12 ist. Die Begriffe klingen ähnlich und
+    beschreiben dieselbe Beziehung von zwei Seiten.
+kompetenzen: [M.ZO.TB.TEILER, M.ZO.TB.GGT-KGV]
+erklaerung:
+  kurz:
+    de: 'Ein [[Teiler]] ist höchstens so groß wie die Zahl, er geht in ihr auf. Ein [[Vielfaches]] ist mindestens so groß, die Zahl geht in ihm auf.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Teiler]] und [[Vielfaches]] vertauscht.'
+    - teil: warum-nicht
+      de: 'Beide Wörter beschreiben dieselbe Beziehung, das macht es schwer: 4 ist ein [[Teiler]] von 12, und 12 ist ein [[Vielfaches]] von 4. Es kommt darauf an, von welcher Zahl aus du schaust.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Soll die gesuchte Zahl kleiner sein ([[Teiler]]) oder größer ([[Vielfaches]])? Teiler von 12: 1, 2, 3, 4, 6, 12. Vielfache von 4: 4, 8, 12, 16 …'
+gegenbeispiel:
+  de: 'Eine Tafel mit 12 Stücken kann man in 4 Teile teilen. In eine Tafel mit 4 Stücken passen aber keine 12.'
+rueckweg:
+  vermittlung: M.ZO.TB.TEILER#erklaeren-teiler-vielfache
+kontrast: [M.ZO.TB.TEILER.IST-TEILER, M.ZO.TB.GGT-KGV.GGT, M.ZO.TB.GGT-KGV.KGV]
+herkunft: ki-entwurf
+version: 1

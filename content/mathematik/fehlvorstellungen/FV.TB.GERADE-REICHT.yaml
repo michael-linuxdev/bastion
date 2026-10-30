@@ -1,0 +1,26 @@
+id: FV.TB.GERADE-REICHT
+name:
+  de: Hält eine Zahl für einen Teiler, weil beide gerade sind
+art: falsche-regel
+beschreibung:
+  de: >-
+    Meint, 4 sei ein Teiler von 18, weil beide gerade sind. Eine gemeinsame Eigenschaft wird mit
+    Teilbarkeit verwechselt.
+kompetenzen: [M.ZO.TB.TEILER]
+erklaerung:
+  kurz:
+    de: 'Beide gerade heißt nur: Beide sind durch 2 [[teilbar]]. Ob die eine Zahl in der anderen aufgeht, zeigt erst die Rechnung ohne Rest.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast entschieden, weil beide Zahlen gerade sind.'
+    - teil: warum-nicht
+      de: '[[Gerade]] Zahlen haben die 2 gemeinsam, das ist richtig beobachtet. Aber 18 : 4 = 4 Rest 2. Die 4 geht nicht auf.'
+    - teil: so-stimmt-es
+      de: 'Teile die größere Zahl durch die kleinere. Bleibt kein Rest, ist sie ein [[Teiler]]: 18 : 6 = 3, also ist 6 ein Teiler von 18.'
+gegenbeispiel:
+  de: '10 Kekse lassen sich nicht gerecht auf 4 Kinder verteilen, obwohl 10 und 4 gerade sind.'
+rueckweg:
+  vermittlung: M.ZO.TB.TEILER#erklaeren-teiler-vielfache
+kontrast: [M.ZO.TB.TEILER.IST-TEILER]
+herkunft: ki-entwurf
+version: 1

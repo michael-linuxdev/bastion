@@ -1,0 +1,26 @@
+id: FV.TB.NICHT-GROESSTER-KLEINSTES
+name:
+  de: Findet einen gemeinsamen Teiler oder ein gemeinsames Vielfaches, aber nicht das gesuchte
+art: rechenfehler
+beschreibung:
+  de: >-
+    Gibt beim ggT die 1 an oder beim kgV das Produkt beider Zahlen. Beides ist gemeinsam, aber nicht
+    der größte Teiler oder das kleinste Vielfache. Die Suche wird zu früh beendet.
+kompetenzen: [M.ZO.TB.GGT-KGV]
+erklaerung:
+  kurz:
+    de: 'Deine Zahl ist gemeinsam, aber es gibt einen größeren [[gemeinsamen Teiler]] oder ein kleineres gemeinsames [[Vielfaches]]. Schreibe die Listen beider Zahlen auf und vergleiche.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine gemeinsame Zahl gefunden und die Suche dort beendet.'
+    - teil: warum-nicht
+      de: 'Die 1 teilt immer beide Zahlen, und das [[Produkt]] ist immer ein gemeinsames [[Vielfaches]]. Darum sind sie schnell gefunden. Gesucht ist aber der **größte** [[Teiler]] oder das **kleinste** Vielfache.'
+    - teil: so-stimmt-es
+      de: '[[Teiler]] von 12: 1, 2, 3, 4, 6, 12. Teiler von 18: 1, 2, 3, 6, 9, 18. Der größte gemeinsame ist 6. [[Vielfache]] von 4 und 6: Das erste gemeinsame ist 12, nicht 24.'
+gegenbeispiel:
+  de: '6/8 lässt sich durch 2 [[kürzen]]. Mit dem ggT 1 könntest du gar nicht kürzen.'
+rueckweg:
+  vermittlung: M.ZO.TB.GGT-KGV#erklaeren-listen
+kontrast: [M.ZO.TB.GGT-KGV.GGT, M.ZO.TB.GGT-KGV.KGV]
+herkunft: ki-entwurf
+version: 1
