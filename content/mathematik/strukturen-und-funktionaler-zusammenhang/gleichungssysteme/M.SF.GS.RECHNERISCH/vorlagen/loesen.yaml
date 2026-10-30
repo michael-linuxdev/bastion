@@ -18,7 +18,7 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'x und y sind vertauscht. Prüfe, welche Zahl du für x berechnet hast.'
-    fv: FV.RF.X-Y-VERTAUSCHT
+    fv: FV.GF.X-Y-VERTAUSCHT
   y-vorzeichen:
     de: 'Prüfe das [[Vorzeichen]] von y – mache die [[Probe]] in beiden Gleichungen.'
     fv: FV.RZ.VORZEICHEN-FALSCH
