@@ -250,6 +250,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **Merge-Reihenfolge abgearbeitet:** #85, #84, #82 auf `main`, danach `u5c-dz` als ein PR (Funktionen, Größen, Raum und Form, Daten und Zufall). In der Ähnlichkeit heißt das Rechteck jetzt „6 cm breit und 4 cm hoch“ |
 | 30.10.2026 | **U5c Daten und Zufall:** 9 Erstvermittlungen; damit hat jede der 123 Kompetenzen der Klassen 5 bis 8 eine (alle KI-Entwurf) |
 | 30.10.2026 | **U5c Raum und Form:** 26 Erstvermittlungen; Figuren, Netze und Ansichten in Worten beschrieben |
 | 30.10.2026 | **U5c Größen und Messen:** 20 Erstvermittlungen; Figuren und Körper in Worten beschrieben, weil es noch kein Geometrie-Werkzeug gibt |
