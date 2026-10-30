@@ -1,0 +1,88 @@
+id: M.SF.FK.LINEAR-GLEICHUNG
+kompetenz: M.SF.FK.LINEAR-GLEICHUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du aus m und n die [[Gleichung]] einer [[Geraden]] aufschreiben und prüfen, ob ein Punkt auf ihr liegt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'In y = 3 · x + 2: Welche Zahl ist der [[Anstieg]] m?'
+    antwort:
+      optionen:
+        - { wert: { de: '3' }, richtig: true }
+        - { wert: { de: '2' }, fv: FV.FK.M-N-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.SF.FK.LINEAR-GRAPH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Liegt der Punkt (2|8) auf y = 3 · x + 2? Setze x = 2 ein. Welches y kommt heraus?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '26', fv: FV.GF.X-Y-VERTAUSCHT }] }
+    weiter: erklaeren-punktprobe
+  - id: erklaeren-punktprobe
+    typ: erklaeren
+    text:
+      de: 'Punktprobe: Setze die erste Zahl des Punktes für x ein. Kommt die zweite Zahl als y heraus, liegt der Punkt auf der [[Geraden]]. Sonst nicht.'
+    weiter: erklaeren-aufschreiben
+  - id: erklaeren-aufschreiben
+    typ: erklaeren
+    text:
+      de: 'Kennst du m und n, schreibst du sie in y = m · x + n. Kennst du m und einen Punkt, setzt du den Punkt ein und löst nach n auf.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'm = 2, Punkt (3|7). Einsetzen: 7 = 2 · 3 + n, also 7 = 6 + n und n = 1. [[Gleichung]]: y = 2 · x + 1.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'm = 4, Punkt (1|9). Welche Zahl ist n?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '13', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-aufschreiben }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Liegt (4|1) auf y = 2 · x − 7? Ali setzt 1 für x ein: 2 · 1 − 7 = −5. Er sagt: nein. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, x = 4 einsetzen: 2 · 4 − 7 = 1. Der Punkt liegt darauf.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-punktprobe }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Punktprobe: erste Zahl für x einsetzen, zweite Zahl muss herauskommen. Fehlt n: Punkt einsetzen und nach n auflösen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher Punkt liegt auf y = 3 · x − 1?'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|5)' }, richtig: true }
+        - { wert: { de: '(5|2)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: '(2|7)' }, fv: FV.FK.M-N-VERTAUSCHT }
+    weiter: uebergang
+    bei:
+      { FV.GF.X-Y-VERTAUSCHT: erklaeren-punktprobe, FV.FK.M-N-VERTAUSCHT: erklaeren-aufschreiben }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.FK.LINEAR-GLEICHUNG.BESTIMMEN, M.SF.FK.LINEAR-GLEICHUNG.PUNKT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

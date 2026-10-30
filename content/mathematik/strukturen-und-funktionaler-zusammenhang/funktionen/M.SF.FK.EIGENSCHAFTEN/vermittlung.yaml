@@ -1,0 +1,90 @@
+id: M.SF.FK.EIGENSCHAFTEN
+kompetenz: M.SF.FK.EIGENSCHAFTEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du an einem [[Graphen]] ablesen, ob die [[Funktion]] steigt oder fällt und wo ihre [[Nullstellen]] liegen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'y = 2 · x + 1. Welcher [[Funktionswert]] gehört zu x = 3?'
+    antwort:
+      eingabe: { art: zahl, loesung: '7', fehler: [{ wert: '3', fv: FV.FK.X-ODER-Y }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.FK.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Graph]] geht durch (1|5), (2|4) und (3|3). Wird y größer oder kleiner, wenn x größer wird?'
+    antwort:
+      optionen:
+        - { wert: { de: 'kleiner' }, richtig: true }
+        - { wert: { de: 'größer' }, fv: FV.FK.STEIGEN-FALLEN }
+    weiter: erklaeren-verlauf
+  - id: erklaeren-verlauf
+    typ: erklaeren
+    text:
+      de: 'Lies einen [[Graphen]] immer von links nach rechts, wie einen Text. Geht er dabei nach oben, steigt die [[Funktion]]. Geht er nach unten, fällt sie.'
+    weiter: erklaeren-nullstelle
+  - id: erklaeren-nullstelle
+    typ: erklaeren
+    text:
+      de: 'Eine [[Nullstelle]] ist ein x, bei dem y = 0 ist. Dort trifft der [[Graph]] die x-Achse, die waagerechte Achse. Wo er die y-Achse trifft, ist keine Nullstelle.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein [[Graph]] geht durch (0|3), (1|2), (2|1) und (3|0). Von links nach rechts geht es nach unten: Die [[Funktion]] fällt. Bei x = 3 ist y = 0: [[Nullstelle]] 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Graph]] geht durch (−2|0), (0|4) und (1|6). Welche Zahl ist die [[Nullstelle]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '−2' }, richtig: true }
+        - { wert: { de: '4' }, fv: FV.FK.NULLSTELLE-ACHSE }
+        - { wert: { de: '0' }, fv: FV.FK.X-ODER-Y }
+    weiter: gegenbeispiel
+    bei: { FV.FK.NULLSTELLE-ACHSE: erklaeren-nullstelle, FV.FK.X-ODER-Y: erklaeren-nullstelle }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Graph]] beginnt links oben und endet rechts unten. Ida liest ihn von rechts nach links und sagt: Er steigt. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, von links nach rechts geht er nach unten: Er fällt.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.FK.STEIGEN-FALLEN }
+    weiter: merksatz
+    bei: { FV.FK.STEIGEN-FALLEN: erklaeren-verlauf }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Von links nach rechts lesen: nach oben steigt, nach unten fällt. [[Nullstelle]]: wo der [[Graph]] die x-Achse trifft, also y = 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Graph]] geht durch (0|−2), (1|0) und (2|2). Was stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Er steigt, die Nullstelle ist 1.' }, richtig: true }
+        - { wert: { de: 'Er fällt, die Nullstelle ist 1.' }, fv: FV.FK.STEIGEN-FALLEN }
+        - { wert: { de: 'Er steigt, die Nullstelle ist −2.' }, fv: FV.FK.NULLSTELLE-ACHSE }
+    weiter: uebergang
+    bei: { FV.FK.STEIGEN-FALLEN: erklaeren-verlauf, FV.FK.NULLSTELLE-ACHSE: erklaeren-nullstelle }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ab.'
+    vorlagen: [M.SF.FK.EIGENSCHAFTEN.ABLESEN, M.SF.FK.EIGENSCHAFTEN.VERLAUF]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

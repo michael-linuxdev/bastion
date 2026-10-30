@@ -1,0 +1,92 @@
+id: M.SF.ZU.DREISATZ
+kompetenz: M.SF.ZU.DREISATZ
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit dem Dreisatz rechnen, wenn du zu einer Menge den Preis kennst und eine andere Menge suchst.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '2 Hefte kosten 4 €, 5 Hefte kosten 10 €. Ist das [[proportional]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 4 : 2 = 10 : 5.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.ZU.JE-DESTO }
+    weiter: entdecken
+    bei: { sonst: M.SF.ZU.PROPORTIONAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '3 Kugeln Eis kosten 6 €. Wie viel Euro kostet 1 Kugel?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '4', fv: FV.ZU.ADDITIV }] }
+    weiter: erklaeren-dreisatz
+  - id: erklaeren-dreisatz
+    typ: erklaeren
+    text:
+      de: 'Dreisatz in drei Zeilen: Was du weißt, dann auf 1 rechnen, dann auf die gesuchte Menge. Auf beiden Seiten teilst oder multiplizierst du mit derselben Zahl, nie plus oder minus.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 Kugeln 6 €. Durch 3: 1 Kugel 2 €. Mal 5: 5 Kugeln 10 €.'
+    weiter: erklaeren-art
+  - id: erklaeren-art
+    typ: erklaeren
+    text:
+      de: 'Bei [[umgekehrt proportional]] rechnest du gegenläufig. 4 Kinder brauchen 6 Stunden. 1 Kind braucht 4-mal so lange: 24 Stunden. 8 Kinder brauchen nur ein Achtel davon: 3 Stunden.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '4 Äpfel kosten 2 €. Wie viel Euro kosten 10 Äpfel?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '5',
+          fehler: [{ wert: '8', fv: FV.ZU.ADDITIV }, { wert: '0,8', fv: FV.ZU.ART-VERWECHSELT }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ZU.ADDITIV: erklaeren-dreisatz, FV.ZU.ART-VERWECHSELT: erklaeren-art }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '2 Pumpen leeren ein Becken in 6 Stunden. Kim rechnet: 4 Pumpen brauchen 12 Stunden. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, doppelt so viele Pumpen brauchen halb so lange: 3 Stunden.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, das Doppelte.' }, fv: FV.ZU.ART-VERWECHSELT }
+    weiter: merksatz
+    bei: { FV.ZU.ART-VERWECHSELT: erklaeren-art }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst auf 1 rechnen, dann auf die gesuchte Menge. Proportional: beide Seiten gleich rechnen. Umgekehrt [[proportional]]: auf der anderen Seite das Gegenteil.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '5 Hefte kosten 7,50 €. Wie viel kosten 3 Hefte?'
+    antwort:
+      optionen:
+        - { wert: { de: '4,50 €' }, richtig: true }
+        - { wert: { de: '5,50 €' }, fv: FV.ZU.ADDITIV }
+        - { wert: { de: '12,50 €' }, fv: FV.ZU.ART-VERWECHSELT }
+    weiter: uebergang
+    bei: { FV.ZU.ADDITIV: erklaeren-dreisatz, FV.ZU.ART-VERWECHSELT: erklaeren-art }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.ZU.DREISATZ.PROPORTIONAL, M.SF.ZU.DREISATZ.UMGEKEHRT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

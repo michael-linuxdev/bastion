@@ -1,0 +1,88 @@
+id: M.SF.FK.SACH
+kompetenz: M.SF.FK.SACH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du zu einem Tarif mit [[Grundgebühr]] die [[Gleichung]] aufschreiben und Kosten ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'y = 2 · x + 5. Welcher [[Funktionswert]] gehört zu x = 10?'
+    antwort:
+      eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '70', fv: FV.FK.GRUNDGEBUEHR }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.FK.LINEAR-GLEICHUNG }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Leihrad kostet 3 € [[Grundgebühr]] und 2 € je Stunde. Wie viel Euro kosten 4 Stunden?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '11',
+          fehler: [{ wert: '8', fv: FV.FK.GRUNDGEBUEHR }, { wert: '20', fv: FV.FK.GRUNDGEBUEHR }],
+        }
+    weiter: erklaeren-tarif
+  - id: erklaeren-tarif
+    typ: erklaeren
+    text:
+      de: 'Die [[Grundgebühr]] zahlst du genau einmal, egal wie lange. Nur der Preis je Einheit wird mit der Menge malgenommen. Kosten y = Preis je Einheit · x + Grundgebühr.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Leihrad: m = 2 € je Stunde, n = 3 € [[Grundgebühr]]. y = 2 · x + 3. Für 4 Stunden: 2 · 4 + 3 = 11 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Handytarif kostet 5 € im Monat und 0,10 € je Minute. Wie viel Euro kosten 30 Minuten in einem Monat?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '8',
+          fehler:
+            [{ wert: '3', fv: FV.FK.GRUNDGEBUEHR }, { wert: '150,1', fv: FV.FK.M-N-VERTAUSCHT }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FK.GRUNDGEBUEHR: erklaeren-tarif, FV.FK.M-N-VERTAUSCHT: erklaeren-tarif }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Taxi: 4 € [[Grundgebühr]], 2 € je km. Eda schreibt y = 4 · x + 2. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Preis je km steht vor dem x: y = 2 · x + 4.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FK.M-N-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.FK.M-N-VERTAUSCHT: erklaeren-tarif }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Preis je Einheit vor das x, [[Grundgebühr]] allein dazu. Die Grundgebühr kommt nur einmal dazu.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Schwimmbad kostet 6 € Eintritt und 1,50 € je Saunastunde. Welche [[Gleichung]] beschreibt die Kosten y für x Stunden?'
+    antwort:
+      optionen:
+        - { wert: { de: 'y = 1,5 · x + 6' }, richtig: true }
+        - { wert: { de: 'y = 6 · x + 1,5' }, fv: FV.FK.M-N-VERTAUSCHT }
+        - { wert: { de: 'y = 7,5 · x' }, fv: FV.FK.GRUNDGEBUEHR }
+    weiter: uebergang
+    bei: { FV.FK.M-N-VERTAUSCHT: erklaeren-tarif, FV.FK.GRUNDGEBUEHR: erklaeren-tarif }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.FK.SACH.GLEICHUNG, M.SF.FK.SACH.KOSTEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
