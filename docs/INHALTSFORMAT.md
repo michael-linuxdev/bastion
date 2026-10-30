@@ -551,7 +551,7 @@ version: 1
 | Rationale Zahlen | `M.ZO.RZ.` | 42 | 14; 9 vorhandene gelten auch hier (Komma, Hochzahl, Wurzel, Ordnen, Punkt vor Strich, Klammer, Striche, Schreibweise) |
 | Prozent und Zins | `M.ZO.PZ.` | 31 | 11; `FV.BR.PROZENT-HUNDERTSTEL` und zwei `FV.SA.…` gelten auch hier |
 | Terme | `M.SF.TU.` | 26 | 7; Vorzeichen, Quadrat, Vergleichszeichen und Grenze gelten auch hier |
-| Gleichungen und Gleichungssysteme | `M.SF.GL.`, `M.SF.GS.` | 37 | 14; darunter `FV.RF.X-Y-VERTAUSCHT`, das zu den Koordinaten gehört |
+| Gleichungen und Gleichungssysteme | `M.SF.GL.`, `M.SF.GS.` | 37 | 14; darunter `FV.GF.X-Y-VERTAUSCHT`, das zu den Koordinaten gehört |
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 
