@@ -1,0 +1,89 @@
+id: M.SF.TU.ZUSAMMENFASSEN
+kompetenz: M.SF.TU.ZUSAMMENFASSEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Terme]] wie 3 · x + 5 · x − 2 · x kürzer schreiben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welchen Wert hat 4 · x für x = 3?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12' }
+    weiter: entdecken
+    bei: { sonst: M.SF.GL.TERMWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Lea hat 3 Kisten mit x Äpfeln, dann kommen 5 solche Kisten dazu. Wie viele Kisten mit x Äpfeln hat sie jetzt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '15', fv: FV.TU.UNGLEICHARTIG }] }
+    weiter: erklaeren-gleichartig
+  - id: erklaeren-gleichartig
+    typ: erklaeren
+    text:
+      de: 'Glieder mit derselben [[Variable]] heißen gleichartig. Nur sie fasst du zusammen: Du addierst die Zahlen davor. Jedes Glied nimmt sein [[Vorzeichen]] mit. 3 · x + 2 bleibt so stehen, x und Zahl sind ungleichartig.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '4 · x + 7 − x + 2: Erst die x-Glieder, 4 · x − x = 3 · x. Dann die Zahlen, 7 + 2 = 9. Ergebnis: 3 · x + 9.'
+    weiter: erklaeren-minusklammer
+  - id: erklaeren-minusklammer
+    typ: erklaeren
+    text:
+      de: 'Eine Plusklammer darfst du einfach weglassen. Steht ein Minus vor der Klammer, drehst du beim Weglassen jedes [[Vorzeichen]] in der Klammer um: 10 − (x + 3) = 10 − x − 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Fasse 6 · x + 2 − 4 · x zusammen. Wie viele x bleiben übrig?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '2',
+          fehler:
+            [{ wert: '10', fv: FV.TU.VORZEICHEN-GLIED }, { wert: '4', fv: FV.TU.UNGLEICHARTIG }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      { FV.TU.VORZEICHEN-GLIED: erklaeren-gleichartig, FV.TU.UNGLEICHARTIG: erklaeren-gleichartig }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben rechnet 9 · x − (2 · x + 4) = 7 · x + 4. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, das Minus gilt für beide Glieder: 7 · x − 4.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.TU.MINUSKLAMMER }
+    weiter: merksatz
+    bei: { FV.TU.MINUSKLAMMER: erklaeren-minusklammer }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Nur gleichartige Glieder zusammenfassen, jedes mit seinem [[Vorzeichen]]. Minus vor der Klammer: alle Vorzeichen in der Klammer umdrehen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was ergibt 5 · x + 3 − (x − 2) zusammengefasst?'
+    antwort:
+      optionen:
+        - { wert: { de: '4 · x + 5' }, richtig: true }
+        - { wert: { de: '4 · x + 1' }, fv: FV.TU.MINUSKLAMMER }
+        - { wert: { de: '9 · x' }, fv: FV.TU.UNGLEICHARTIG }
+    weiter: uebergang
+    bei: { FV.TU.MINUSKLAMMER: erklaeren-minusklammer, FV.TU.UNGLEICHARTIG: erklaeren-gleichartig }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt fasst du selbst zusammen.'
+    vorlagen: [M.SF.TU.ZUSAMMENFASSEN.AUSWAHL, M.SF.TU.ZUSAMMENFASSEN.LUECKE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

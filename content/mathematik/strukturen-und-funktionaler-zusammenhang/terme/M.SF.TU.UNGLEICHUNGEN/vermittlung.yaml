@@ -1,0 +1,94 @@
+id: M.SF.TU.UNGLEICHUNGEN
+kompetenz: M.SF.TU.UNGLEICHUNGEN
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Ungleichungen wie 2 · x + 3 < 11 lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse 2 · x + 3 = 11.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '8', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.TU.GLEICHUNGEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Ungleichung]] hat oft viele Lösungen. Welche ist die größte [[ganze Zahl]], die x < 4 erfüllt?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '3',
+          fehler:
+            [
+              { wert: '4', fv: FV.NZ.GRENZE-MITGEZAEHLT },
+              { wert: '5', fv: FV.NZ.ZEICHEN-VERDREHT },
+            ],
+        }
+    weiter: erklaeren-loesen
+  - id: erklaeren-loesen
+    typ: erklaeren
+    text:
+      de: 'Du löst eine [[Ungleichung]] wie eine [[Gleichung]]: auf beiden Seiten dasselbe tun. Am Ende steht zum Beispiel x < 4. Das heißt: alle Zahlen kleiner als 4, die 4 selbst nicht.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2 · x + 3 < 11 | − 3. Dann 2 · x < 8 | : 2. Also x < 4. Die 3 ist eine Lösung, die 4 nicht.'
+    weiter: erklaeren-umdrehen
+  - id: erklaeren-umdrehen
+    typ: erklaeren
+    text:
+      de: 'Eine Ausnahme: Teilst oder multiplizierst du mit einer negativen Zahl, drehst du das Zeichen um. Denn 2 < 3, aber −2 > −3. Aus −2 · x < 6 wird x > −3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse 3 · x − 2 > 13. Welche Zahl steht am Ende rechts in x > ☐?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '15', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: gegenbeispiel
+    bei: { FV.GL.NICHT-FERTIG: erklaeren-loesen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Sara löst −3 · x < 12 und schreibt x < −4. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, beim Teilen durch −3 dreht sich das Zeichen: x > −4.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, sie hat durch −3 geteilt.' }, fv: FV.TU.ZEICHEN-DREHEN }
+    weiter: merksatz
+    bei: { FV.TU.ZEICHEN-DREHEN: erklaeren-umdrehen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Ungleichungen löst du wie Gleichungen. Mal oder geteilt durch eine [[negative Zahl]]: Zeichen umdrehen. Bei < und > gehört die Grenze nicht dazu.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was ist die Lösung von −2 · x > 8?'
+    antwort:
+      optionen:
+        - { wert: { de: 'x < −4' }, richtig: true }
+        - { wert: { de: 'x > −4' }, fv: FV.TU.ZEICHEN-DREHEN }
+        - { wert: { de: 'x > 4' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: uebergang
+    bei: { FV.TU.ZEICHEN-DREHEN: erklaeren-umdrehen, FV.RZ.VORZEICHEN-FALSCH: erklaeren-umdrehen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt löst du selbst.'
+    vorlagen: [M.SF.TU.UNGLEICHUNGEN.LOESUNG, M.SF.TU.UNGLEICHUNGEN.RAND]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

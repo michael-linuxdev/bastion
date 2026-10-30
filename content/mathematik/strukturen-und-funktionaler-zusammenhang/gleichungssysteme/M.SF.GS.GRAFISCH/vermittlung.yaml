@@ -1,0 +1,87 @@
+id: M.SF.GS.GRAFISCH
+kompetenz: M.SF.GS.GRAFISCH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du die Lösung eines [[Gleichungssystems]] am [[Schnittpunkt]] zweier [[Geraden]] ablesen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Liegt der Punkt (2|5) auf der [[Geraden]] y = 2 · x + 1?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 2 · 2 + 1 = 5.' }, richtig: true }
+        - { wert: { de: 'Nein, 2 · 5 + 1 = 11.' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.SF.FK.LINEAR-GRAPH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Das [[Gleichungssystem]] y = x + 1 und y = 5 − x. Für welches x haben beide Gleichungen dasselbe y? Probiere x = 1, 2, 3.'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '3', fv: FV.GF.X-Y-VERTAUSCHT }] }
+    weiter: erklaeren-ablesen
+  - id: erklaeren-ablesen
+    typ: erklaeren
+    text:
+      de: 'Jede [[Gleichung]] ist eine [[Gerade]]. Die Lösung muss auf beiden liegen, also im [[Schnittpunkt]]. Nicht dort, wo eine Gerade eine Achse trifft. Lies zuerst x ab, dann y: (x|y).'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'y = x + 1 und y = 5 − x schneiden sich bei x = 2 und y = 3. Die Lösung ist (2|3). [[Probe]]: 2 + 1 = 3 und 5 − 2 = 3.'
+    weiter: erklaeren-loesbarkeit
+  - id: erklaeren-loesbarkeit
+    typ: erklaeren
+    text:
+      de: 'Zwei [[Geraden]] können sich einmal schneiden: genau eine Lösung. Sind sie [[parallel]], treffen sie sich nie: keine Lösung. Liegen sie aufeinander, ist jeder Punkt gemeinsam: unendlich viele Lösungen.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'y = 2 · x + 1 und y = 2 · x + 4 haben dieselbe Steigung, aber verschiedene Startwerte. Wie viele Lösungen hat das System?'
+    antwort:
+      optionen:
+        - { wert: { de: 'keine' }, richtig: true }
+        - { wert: { de: 'genau eine' }, fv: FV.GS.LOESBARKEIT }
+        - { wert: { de: 'unendlich viele' }, fv: FV.GS.LOESBARKEIT }
+    weiter: gegenbeispiel
+    bei: { FV.GS.LOESBARKEIT: erklaeren-loesbarkeit }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Die [[Gerade]] y = x + 1 trifft die y-Achse bei (0|1). Jonas sagt: Dann ist (0|1) die Lösung des Systems y = x + 1 und y = 5 − x. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, (0|1) liegt nicht auf y = 5 − x.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GS.ACHSENSCHNITT }
+    weiter: merksatz
+    bei: { FV.GS.ACHSENSCHNITT: erklaeren-ablesen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Die Lösung ist der [[Schnittpunkt]] beider [[Geraden]], erst x, dann y. [[Parallel]]: keine Lösung. Aufeinander: unendlich viele. Mache die [[Probe]] in beiden Gleichungen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Die [[Geraden]] y = 2 · x und y = x + 3 schneiden sich bei x = 3 und y = 6. Was ist die Lösung?'
+    antwort:
+      optionen:
+        - { wert: { de: '(3|6)' }, richtig: true }
+        - { wert: { de: '(6|3)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: '(0|3)' }, fv: FV.GS.ACHSENSCHNITT }
+    weiter: uebergang
+    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-ablesen, FV.GS.ACHSENSCHNITT: erklaeren-ablesen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ab.'
+    vorlagen: [M.SF.GS.GRAFISCH.LOESBARKEIT, M.SF.GS.GRAFISCH.SCHNITTPUNKT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

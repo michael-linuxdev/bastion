@@ -1,0 +1,84 @@
+id: M.SF.GL.LINEAR
+kompetenz: M.SF.GL.LINEAR
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Gleichungen wie 2 · x + 4 = 10 durch [[Umformen]] lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ist x = 3 eine Lösung von 2 · x + 4 = 10?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 2 · 3 + 4 = 10.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.GL.PROBE-HALB }
+    weiter: entdecken
+    bei: { sonst: M.SF.GL.TERMWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Gleichung]] ist wie eine Waage im Gleichgewicht. Auf der einen Seite liegen 2 · x und 4, auf der anderen 10. Was bleibt rechts, wenn du auf beiden Seiten 4 wegnimmst?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '14', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: erklaeren-umformen
+  - id: erklaeren-umformen
+    typ: erklaeren
+    text:
+      de: 'Beim [[Umformen]] machst du auf beiden Seiten dasselbe, damit die Waage im Gleichgewicht bleibt. Ziel: x allein. Erst die Zahl ohne x weg, dann durch die Zahl vor x teilen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2 · x + 4 = 10 | − 4. Dann 2 · x = 6 | : 2. Also x = 3. [[Probe]]: 2 · 3 + 4 = 10.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse 3 · x − 5 = 16. Erst + 5, dann : 3.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '7',
+          fehler: [{ wert: '21', fv: FV.GL.NICHT-FERTIG }, { wert: '11', fv: FV.NZ.UMKEHRAUFGABE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.GL.NICHT-FERTIG: erklaeren-umformen, FV.NZ.UMKEHRAUFGABE: erklaeren-umformen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mo löst 4 · x = 20 und schreibt als Ergebnis 4 · x = 20 | − 4, also x = 16. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, mal 4 macht man mit : 4 rückgängig: x = 5.' }, richtig: true }
+        - { wert: { de: 'Ja, die 4 muss weg.' }, fv: FV.NZ.UMKEHRAUFGABE }
+    weiter: merksatz
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umformen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Auf beiden Seiten dasselbe tun. Plus mit minus, mal mit geteilt rückgängig machen. Fertig ist es erst bei x = …, dann die [[Probe]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl löst 5 · x + 3 = 28?'
+    antwort:
+      optionen:
+        - { wert: { de: '5' }, richtig: true }
+        - { wert: { de: '25' }, fv: FV.GL.NICHT-FERTIG }
+        - { wert: { de: '6,2' }, fv: FV.NZ.UMKEHRAUFGABE }
+    weiter: uebergang
+    bei: { FV.GL.NICHT-FERTIG: erklaeren-umformen, FV.NZ.UMKEHRAUFGABE: erklaeren-umformen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt löst du selbst.'
+    vorlagen: [M.SF.GL.LINEAR.LOESEN, M.SF.GL.LINEAR.UMFORMUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

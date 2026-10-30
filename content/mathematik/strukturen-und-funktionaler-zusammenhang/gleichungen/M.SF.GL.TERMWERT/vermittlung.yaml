@@ -1,0 +1,83 @@
+id: M.SF.GL.TERMWERT
+kompetenz: M.SF.GL.TERMWERT
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Zahlen in einen [[Term]] mit einer [[Variable]] einsetzen und mit einer [[Probe]] Lösungen prüfen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 3 · (−2)?'
+    antwort:
+      optionen:
+        - { wert: { de: '−6' }, richtig: true }
+        - { wert: { de: '6' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.MULT-DIV }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Der [[Term]] 2 · x + 5 hat für jedes x einen anderen Wert. Wie viel ist er für x = 4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '13', fehler: [{ wert: '29', fv: FV.NZ.PUNKT-VOR-STRICH }] }
+    weiter: erklaeren-einsetzen
+  - id: erklaeren-einsetzen
+    typ: erklaeren
+    text:
+      de: 'Einsetzen heißt: Jedes x wird durch die Zahl ersetzt. Setze die Zahl in Klammern, besonders eine [[negative Zahl]]. Dann gelten die Regeln: Klammern, [[Punkt vor Strich]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 · x − 5 für x = −2: 3 · (−2) − 5 = −6 − 5 = −11. Für x² mit x = −3: (−3)² = 9.'
+    weiter: erklaeren-probe
+  - id: erklaeren-probe
+    typ: erklaeren
+    text:
+      de: 'Bei der [[Probe]] setzt du die Zahl in beide Seiten der [[Gleichung]] ein und rechnest beide aus. Nur wenn beide gleich sind, ist die Zahl eine Lösung.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ist x = 3 eine Lösung von 4 · x − 2 = 10? Rechne die linke Seite aus.'
+    antwort:
+      eingabe: { art: zahl, loesung: '10' }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für x = −4 rechnet Lea x · 2 + 1 = 4 · 2 + 1 = 9. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, mit Klammer: (−4) · 2 + 1 = −7.' }, richtig: true }
+        - { wert: { de: 'Ja, man setzt die 4 ein.' }, fv: FV.GL.EINSETZEN-KLAMMER }
+    weiter: merksatz
+    bei: { FV.GL.EINSETZEN-KLAMMER: erklaeren-einsetzen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Einsetzen: Zahl in Klammern für jedes x. [[Probe]]: beide Seiten ausrechnen und vergleichen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist x² für x = −5?'
+    antwort:
+      optionen:
+        - { wert: { de: '25' }, richtig: true }
+        - { wert: { de: '−25' }, fv: FV.RZ.POTENZ-KLAMMER }
+        - { wert: { de: '−10' }, fv: FV.NZ.QUADRAT-MAL-ZWEI }
+    weiter: uebergang
+    bei: { FV.RZ.POTENZ-KLAMMER: erklaeren-einsetzen, FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-einsetzen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt setzt du selbst ein.'
+    vorlagen: [M.SF.GL.TERMWERT.EINSETZEN, M.SF.GL.TERMWERT.PROBE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

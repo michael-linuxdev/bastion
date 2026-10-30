@@ -1,0 +1,90 @@
+id: M.SF.GS.SACH
+kompetenz: M.SF.GS.SACH
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du zu einer Sachaufgabe mit zwei Unbekannten das passende [[Gleichungssystem]] finden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse x + y = 10 und x − y = 4. Wie groß ist x?'
+    antwort:
+      eingabe: { art: zahl, loesung: '7', fehler: [{ wert: '14', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.GS.RECHNERISCH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In einer Klasse sind 24 Kinder. Es sind 4 Mädchen mehr als Jungen. Wie viele Mädchen sind es? Probiere: Sind es 12?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '14',
+          fehler: [{ wert: '12', fv: FV.GS.HALB-HALB }, { wert: '10', fv: FV.GS.SACH-AUFSTELLEN }],
+        }
+    weiter: erklaeren-aufstellen
+  - id: erklaeren-aufstellen
+    typ: erklaeren
+    text:
+      de: 'Lege zuerst fest: x steht für das eine, y für das andere. Jeder Satz mit einer Angabe wird eine [[Gleichung]]. Prüfe: Passt die Lösung zu beiden Sätzen, nicht nur zur [[Summe]]?'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'x = Mädchen, y = Jungen. „24 Kinder“: x + y = 24. „4 Mädchen mehr“: x = y + 4. Einsetzen: 2 · y + 4 = 24, also y = 10 und x = 14.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Heft und ein Stift kosten zusammen 5 €. Das Heft kostet 3 € mehr als der Stift. Wie viel Euro kostet das Heft?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler: [{ wert: '2,5', fv: FV.GS.HALB-HALB }, { wert: '1', fv: FV.SA.ZWISCHENERGEBNIS }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.GS.HALB-HALB: erklaeren-aufstellen, FV.SA.ZWISCHENERGEBNIS: erklaeren-aufstellen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'x = Erwachsene, y = Kinder. Ein Erwachsener zahlt 8 €, ein Kind 5 €. Emil schreibt: 5 · x + 8 · y = 62. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die Preise gehören zu den anderen: 8 · x + 5 · y = 62.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.GS.SACH-AUFSTELLEN }
+    weiter: merksatz
+    bei: { FV.GS.SACH-AUFSTELLEN: erklaeren-aufstellen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst x und y festlegen. Jede Angabe wird eine [[Gleichung]], jede Zahl gehört zur richtigen [[Variable]]. Am Ende die gefragte Größe angeben und mit dem Text prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Auf einem Hof sind Hühner (x) und Kühe (y), zusammen 10 Tiere mit 28 Beinen. Welches System passt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'x + y = 10 und 2 · x + 4 · y = 28' }, richtig: true }
+        - { wert: { de: 'x + y = 10 und 4 · x + 2 · y = 28' }, fv: FV.GS.SACH-AUFSTELLEN }
+        - { wert: { de: 'x = 5 und y = 5' }, fv: FV.GS.HALB-HALB }
+    weiter: uebergang
+    bei: { FV.GS.SACH-AUFSTELLEN: erklaeren-aufstellen, FV.GS.HALB-HALB: erklaeren-aufstellen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt stellst du selbst auf.'
+    vorlagen: [M.SF.GS.SACH.AUFSTELLEN, M.SF.GS.SACH.LOESEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

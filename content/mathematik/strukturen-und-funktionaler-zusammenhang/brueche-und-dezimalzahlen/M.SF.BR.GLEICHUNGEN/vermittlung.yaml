@@ -1,0 +1,76 @@
+id: M.SF.BR.GLEICHUNGEN
+kompetenz: M.SF.BR.GLEICHUNGEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Gleichungen wie x + 3/4 = 2 oder 3 · x = 1/2 mit der [[Umkehraufgabe]] lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse x + 7 = 12.'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '19', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.NZ.GLEICHUNGEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'x + 1/4 = 3/4. Welcher [[Bruch]] fehlt bis 3/4?'
+    antwort:
+      eingabe: { art: bruch, loesung: '2/4', fehler: [{ wert: '4/4', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: erklaeren-umkehraufgabe
+  - id: erklaeren-umkehraufgabe
+    typ: erklaeren
+    text:
+      de: 'Mit Brüchen geht es wie mit [[natürlichen Zahlen]]: Rechne rückwärts mit der [[Umkehraufgabe]]. Aus plus wird minus, aus mal wird geteilt. Prüfe mit der [[Probe]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 · x = 1/2, also x = 1/2 : 3 = 1/6. [[Probe]]: 3 · 1/6 = 3/6 = 1/2.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse x − 1/3 = 1/3. Gib x als [[Bruch]] an.'
+    antwort:
+      eingabe: { art: bruch, loesung: '2/3', fehler: [{ wert: '0/3', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Zu 2 · x = 4/5 sagt Ole: „x = 8/5, ich nehme mal 2.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, rückwärts wird geteilt: x = 2/5.' }, richtig: true }
+        - { wert: { de: 'Ja, da steht mal 2.' }, fv: FV.NZ.UMKEHRAUFGABE }
+    weiter: merksatz
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Auch mit Brüchen: rückwärts mit der [[Umkehraufgabe]], dann die [[Probe]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl löst x + 1/2 = 5/4?'
+    antwort:
+      optionen:
+        - { wert: { de: '3/4' }, richtig: true }
+        - { wert: { de: '7/4' }, fv: FV.NZ.UMKEHRAUFGABE }
+    weiter: uebergang
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt löst du selbst.'
+    vorlagen: [M.SF.BR.GLEICHUNGEN.PLUS-MINUS, M.SF.BR.GLEICHUNGEN.MAL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

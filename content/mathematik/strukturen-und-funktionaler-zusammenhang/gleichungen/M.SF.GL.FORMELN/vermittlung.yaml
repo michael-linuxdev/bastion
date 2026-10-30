@@ -1,0 +1,95 @@
+id: M.SF.GL.FORMELN
+kompetenz: M.SF.GL.FORMELN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einfache [[Formeln]] wie u = 4 · a oder A = a · b nach einer Größe umstellen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse 4 · a = 24.'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '96', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.GL.LINEAR }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Rechteck hat den [[Flächeninhalt]] A = 12 cm² und ist a = 3 cm breit. Wie viele Zentimeter ist es lang?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler:
+            [
+              { wert: '36', fv: FV.NZ.UMKEHRAUFGABE },
+              { wert: '0,25', fv: FV.GL.TEILEN-VERTAUSCHT },
+            ],
+        }
+    weiter: erklaeren-umstellen
+  - id: erklaeren-umstellen
+    typ: erklaeren
+    text:
+      de: 'Eine [[Formel]] stellst du um wie eine [[Gleichung]]: Was bei der gesuchten Größe steht, machst du auf beiden Seiten rückgängig. A = a · b nach b: durch a teilen, b = A : a.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'u = 4 · a nach a: auf beiden Seiten : 4, also a = u : 4. Prüfe mit Zahlen: u = 20 cm, a = 5 cm, und 4 · 5 = 20.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'V = a · b · c. Ein [[Quader]] hat V = 60 cm³, a = 5 cm, b = 3 cm. Wie hoch ist c in cm?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler:
+            [{ wert: '12', fv: FV.GL.UMSTELLEN-HALB }, { wert: '20', fv: FV.GL.UMSTELLEN-HALB }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.GL.UMSTELLEN-HALB: erklaeren-umstellen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ari stellt A = a · b nach b um und schreibt b = a : A. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, mit Zahlen: 12 = 3 · 4, also 4 = 12 : 3. Richtig ist b = A : a.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, man teilt.' }, fv: FV.GL.TEILEN-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.GL.TEILEN-VERTAUSCHT: erklaeren-umstellen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Formeln]] stellst du um wie Gleichungen: alles bei der gesuchten Größe rückgängig machen. Mit Zahlen prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Stelle u = 4 · a nach a um.'
+    antwort:
+      optionen:
+        - { wert: { de: 'a = u : 4' }, richtig: true }
+        - { wert: { de: 'a = 4 · u' }, fv: FV.NZ.UMKEHRAUFGABE }
+        - { wert: { de: 'a = 4 : u' }, fv: FV.GL.TEILEN-VERTAUSCHT }
+    weiter: uebergang
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umstellen, FV.GL.TEILEN-VERTAUSCHT: erklaeren-umstellen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt stellst du selbst um.'
+    vorlagen: [M.SF.GL.FORMELN.UMSTELLEN, M.SF.GL.FORMELN.ANWENDEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
