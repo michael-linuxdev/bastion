@@ -1,0 +1,88 @@
+id: M.RF.DV.DREIECKE
+kompetenz: M.RF.DV.DREIECKE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Dreiecke nach Seiten und Winkeln einteilen und prüfen, ob es ein Dreieck mit drei Seitenlängen gibt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche [[Winkelart]] hat ein [[Winkel]] von 100°?'
+    antwort:
+      optionen:
+        - { wert: { de: 'stumpf' }, richtig: true }
+        - { wert: { de: 'spitz' }, fv: FV.GF.WINKELART }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.WINKEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du hast drei Stäbe: 2 cm, 3 cm und 10 cm. Kannst du damit ein Dreieck legen?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die kurzen reichen nicht bis zueinander.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.DREIECKSUNGLEICHUNG }
+    weiter: erklaeren-seiten
+  - id: erklaeren-seiten
+    typ: erklaeren
+    text:
+      de: 'Ein Dreieck gibt es nur, wenn die zwei kürzeren Seiten zusammen länger sind als die längste. 2 + 3 = 5 ist kürzer als 10, also geht es nicht.'
+    weiter: erklaeren-arten
+  - id: erklaeren-arten
+    typ: erklaeren
+    text:
+      de: 'Nach Seiten: [[gleichseitig]] (alle gleich), [[gleichschenklig]] (zwei gleich), unregelmäßig. Nach Winkeln: spitzwinklig (alle unter 90°), rechtwinklig (einer 90°), stumpfwinklig (einer über 90°). Prüfe alle drei Angaben.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Winkel]] 90°, 45°, 45°: rechtwinklig und [[gleichschenklig]]. Winkel 30°, 50°, 100°: stumpfwinklig, denn 100° ist stumpf.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Dreieck hat die [[Winkel]] 40°, 60° und 80°. Welche Art ist es nach den Winkeln?'
+    antwort:
+      optionen:
+        - { wert: { de: 'spitzwinklig' }, richtig: true }
+        - { wert: { de: 'stumpfwinklig' }, fv: FV.DV.DREIECKSART }
+        - { wert: { de: 'rechtwinklig' }, fv: FV.DV.DREIECKSART }
+    weiter: gegenbeispiel
+    bei: { FV.DV.DREIECKSART: erklaeren-arten }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Dreieck hat die [[Winkel]] 20°, 30° und 130°. Lea sieht zwei spitze Winkel und sagt: spitzwinklig. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, ein Winkel ist stumpf: stumpfwinklig.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.DREIECKSART }
+    weiter: merksatz
+    bei: { FV.DV.DREIECKSART: erklaeren-arten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Alle drei [[Winkel]] und Seiten anschauen. Dreieck möglich: die zwei kürzeren Seiten zusammen länger als die längste.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Gibt es ein Dreieck mit 4 cm, 5 cm und 8 cm?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 4 + 5 = 9 ist länger als 8.' }, richtig: true }
+        - { wert: { de: 'Nein, 8 ist zu lang.' }, fv: FV.DV.DREIECKSUNGLEICHUNG }
+    weiter: uebergang
+    bei: { FV.DV.DREIECKSUNGLEICHUNG: erklaeren-seiten }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.RF.DV.DREIECKE.ART, M.RF.DV.DREIECKE.GIBT-ES]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

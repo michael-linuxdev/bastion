@@ -1,0 +1,90 @@
+id: M.RF.KP.ZYLINDER
+kompetenz: M.RF.KP.ZYLINDER
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du das [[Netz]] eines [[Zylinders]] und kannst die Breite seines [[Mantels]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '[[Aufriss]]: Rechteck. [[Grundriss]]: Kreis. Welcher Körper ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Zylinder' }, richtig: true }
+        - { wert: { de: 'Quader' }, fv: FV.KP.ANSICHTEN }
+    weiter: entdecken
+    bei: { sonst: M.RF.KP.ZWEITAFEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du schneidest das Etikett einer Dose [[senkrecht]] auf und rollst es flach aus. Welche Form hat es?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Rechteck' }, richtig: true }
+        - { wert: { de: 'ein Kreis' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: erklaeren-mantel
+  - id: erklaeren-mantel
+    typ: erklaeren
+    text:
+      de: 'Das [[Netz]] eines [[Zylinders]]: zwei gleiche Kreise und ein Rechteck, der [[Mantel]]. Die [[Höhe]] des Rechtecks ist die Höhe des Zylinders. Seine Breite ist der Kreisumfang: 2 · [[π]] · r.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Dose mit r = 5 cm und h = 10 cm. [[Mantel]]: 10 cm hoch, 2 · 3,14 · 5 = 31,4 cm breit.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Zylinder]] hat den [[Durchmesser]] 10 cm. Wie viele Zentimeter ist sein [[Mantel]] breit? Rechne mit [[π]] ≈ 3,14.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '31,4',
+          fehler:
+            [
+              { wert: '62,8', fv: FV.KR.RADIUS-DURCHMESSER },
+              { wert: '78,5', fv: FV.FL.UMFANG-FLAECHE },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KR.RADIUS-DURCHMESSER: erklaeren-mantel, FV.FL.UMFANG-FLAECHE: erklaeren-mantel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Netz]] zeigt ein Rechteck und nur einen Kreis. Kim sagt: Daraus wird ein geschlossener [[Zylinder]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es fehlt der zweite Kreis für den Deckel.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: merksatz
+    bei: { FV.KP.NETZ-FALTEN: erklaeren-mantel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Zylindernetz: zwei Kreise und ein Rechteck. Mantelbreite = Kreisumfang = 2 · [[π]] · r, Mantelhöhe = Zylinderhöhe.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Zylinder]] hat r = 2 cm. Wie breit ist der [[Mantel]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '12,56 cm' }, richtig: true }
+        - { wert: { de: '25,12 cm' }, fv: FV.KR.RADIUS-DURCHMESSER }
+        - { wert: { de: '6,28 cm' }, fv: FV.KR.RADIUS-DURCHMESSER }
+    weiter: uebergang
+    bei: { FV.KR.RADIUS-DURCHMESSER: erklaeren-mantel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt übst du selbst.'
+    vorlagen: [M.RF.KP.ZYLINDER.MANTEL, M.RF.KP.ZYLINDER.NETZ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

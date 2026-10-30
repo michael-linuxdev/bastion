@@ -1,0 +1,87 @@
+id: M.RF.KP.PYRAMIDEN
+kompetenz: M.RF.KP.PYRAMIDEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Pyramiden]] von [[Prismen]] unterscheiden und ihre Ecken, Kanten und Flächen zählen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Ecken hat ein [[Prisma]] mit Viereck als [[Grundfläche]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '4', fv: FV.KP.ZAEHLEN }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.KP.PRISMEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Pyramide]] hat unten ein Quadrat. Alle Seiten laufen oben in einer Spitze zusammen. Wie viele Ecken hat sie?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '5',
+          fehler: [{ wert: '4', fv: FV.KP.ZAEHLEN }, { wert: '8', fv: FV.KP.KOERPER-ERKENNEN }],
+        }
+    weiter: erklaeren-koerper
+  - id: erklaeren-koerper
+    typ: erklaeren
+    text:
+      de: '[[Prisma]]: Grund- und [[Deckfläche]] gleich, Seiten sind Rechtecke. [[Pyramide]]: nur eine [[Grundfläche]], Seiten sind Dreiecke, oben eine Spitze. [[Pyramidenstumpf]]: Pyramide ohne Spitze, oben eine kleinere Deckfläche.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Pyramide]] mit n-Eck als [[Grundfläche]]: n + 1 Ecken, 2 · n Kanten, n + 1 Flächen. Quadratische Pyramide: 5 Ecken, 8 Kanten, 5 Flächen.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine [[Pyramide]] hat ein Sechseck als [[Grundfläche]]. Wie viele Kanten hat sie?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '12',
+          fehler: [{ wert: '6', fv: FV.KP.ZAEHLEN }, { wert: '18', fv: FV.KP.KOERPER-ERKENNEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.ZAEHLEN: erklaeren-koerper, FV.KP.KOERPER-ERKENNEN: erklaeren-koerper }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Körper hat unten ein großes Quadrat, oben ein kleines Quadrat, die Seiten sind Trapeze. Ole sagt: [[Prisma]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Deckfläche ist kleiner: Pyramidenstumpf.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.KOERPER-ERKENNEN }
+    weiter: merksatz
+    bei: { FV.KP.KOERPER-ERKENNEN: erklaeren-koerper }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Prisma]]: zwei gleiche Flächen, Rechtecke dazwischen. [[Pyramide]]: eine [[Grundfläche]], Dreiecke zur Spitze. Stumpf: oben abgeschnitten.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Körper hat ein Dreieck als [[Grundfläche]] und drei Dreiecke, die sich oben in einer Spitze treffen. Welcher ist es?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Pyramide' }, richtig: true }
+        - { wert: { de: 'Prisma' }, fv: FV.KP.KOERPER-ERKENNEN }
+        - { wert: { de: 'Pyramidenstumpf' }, fv: FV.KP.KOERPER-ERKENNEN }
+    weiter: uebergang
+    bei: { FV.KP.KOERPER-ERKENNEN: erklaeren-koerper }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.RF.KP.PYRAMIDEN.ERKENNEN, M.RF.KP.PYRAMIDEN.ZAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

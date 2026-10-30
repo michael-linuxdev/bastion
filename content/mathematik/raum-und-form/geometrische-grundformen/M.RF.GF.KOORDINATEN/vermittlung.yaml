@@ -1,0 +1,84 @@
+id: M.RF.GF.KOORDINATEN
+kompetenz: M.RF.GF.KOORDINATEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du die [[Koordinaten]] eines Punktes ablesen und einen Punkt zu Koordinaten finden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Zahl ist größer: 7 oder 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '7' }, richtig: true }
+        - { wert: { de: '4' }, fv: FV.NZ.ZEICHEN-VERDREHT }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.ORDNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Auf einer Karte stehen die Buchstaben unten, die Zahlen am Rand links. Ein Schatz liegt bei „C 4“. Was suchst du zuerst: den Buchstaben unten oder die Zahl links?'
+    antwort:
+      optionen:
+        - { wert: { de: 'den Buchstaben unten' }, richtig: true }
+        - { wert: { de: 'die Zahl links' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: erklaeren-koordinaten
+  - id: erklaeren-koordinaten
+    typ: erklaeren
+    text:
+      de: 'Ein Punkt P(3|5) hat zwei [[Koordinaten]]. Erst x: 3 nach rechts. Dann y: 5 nach oben. Die Zahlen stehen an den Linien, nicht in den Kästchen. Gezählt wird ab dem [[Ursprung]] (0|0).'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Punkt liegt dort, wo sich die Linie bei 2 auf der x-Achse und die Linie bei 6 auf der y-Achse kreuzen. Seine [[Koordinaten]] sind (2|6).'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Der Punkt Q liegt 4 nach rechts und 1 nach oben vom [[Ursprung]]. Welche [[Koordinaten]] hat er?'
+    antwort:
+      optionen:
+        - { wert: { de: '(4|1)' }, richtig: true }
+        - { wert: { de: '(1|4)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: '(5|2)' }, fv: FV.GF.KAESTCHEN-LINIEN }
+    weiter: gegenbeispiel
+    bei:
+      { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten, FV.GF.KAESTCHEN-LINIEN: erklaeren-koordinaten }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lina soll den Punkt (2|5) einzeichnen. Sie geht 5 nach rechts und 2 nach oben. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, erst x: 2 nach rechts, dann 5 nach oben.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst nach rechts (x), dann nach oben (y). An den Linien ablesen, ab dem [[Ursprung]] zählen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Punkt liegt 6 nach rechts und 3 nach oben. Wie heißen seine [[Koordinaten]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '(6|3)' }, richtig: true }
+        - { wert: { de: '(3|6)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: uebergang
+    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ab.'
+    vorlagen: [M.RF.GF.KOORDINATEN.ABLESEN, M.RF.GF.KOORDINATEN.FINDEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

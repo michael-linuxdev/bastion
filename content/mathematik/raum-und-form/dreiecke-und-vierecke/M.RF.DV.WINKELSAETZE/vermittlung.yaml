@@ -1,0 +1,93 @@
+id: M.RF.DV.WINKELSAETZE
+kompetenz: M.RF.DV.WINKELSAETZE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du fehlende [[Winkel]] im Dreieck, im Viereck und an Parallelen ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'α = 70°. Wie viel [[Grad]] hat sein [[Nebenwinkel]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '110', fehler: [{ wert: '70', fv: FV.GF.GLEICH-ODER-180 }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.WINKELPAARE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du reißt von einem Papierdreieck die drei Ecken ab und legst sie mit den Spitzen aneinander. Sie bilden eine gerade Linie. Wie viel [[Grad]] sind das zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '180', fehler: [{ wert: '360', fv: FV.DV.WINKELSUMME }] }
+    weiter: erklaeren-winkelsumme
+  - id: erklaeren-winkelsumme
+    typ: erklaeren
+    text:
+      de: 'Im Dreieck ergeben die drei [[Innenwinkel]] zusammen immer 180°. Im Viereck sind es 360°, denn es lässt sich in zwei Dreiecke teilen. Fehlt ein [[Winkel]], ziehst du die bekannten von der [[Summe]] ab.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Dreieck mit α = 50° und β = 70°: γ = 180° − 50° − 70° = 60°. Viereck mit 90°, 90°, 100°: der vierte ist 360° − 280° = 80°.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Dreieck hat α = 35° und β = 85°. Wie viel [[Grad]] hat γ?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler:
+            [
+              { wert: '240', fv: FV.DV.WINKELSUMME },
+              { wert: '120', fv: FV.SA.ZWISCHENERGEBNIS },
+              { wert: '145', fv: FV.SA.ANGABE-UEBERSEHEN },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.DV.WINKELSUMME: erklaeren-winkelsumme,
+        FV.SA.ZWISCHENERGEBNIS: erklaeren-winkelsumme,
+        FV.SA.ANGABE-UEBERSEHEN: erklaeren-winkelsumme,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Viereck hat die [[Winkel]] 80°, 100° und 90°. Ben rechnet 180° − 270° und sagt: geht nicht. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, im Viereck ist die Summe 360°: 90°.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.WINKELSUMME }
+    weiter: merksatz
+    bei: { FV.DV.WINKELSUMME: erklaeren-winkelsumme }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Dreieck: [[Innenwinkelsumme]] 180°. Viereck: 360°. Den fehlenden [[Winkel]] durch Abziehen finden. An Parallelen helfen [[Stufen-]] und [[Wechselwinkel]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein rechtwinkliges Dreieck hat einen [[Winkel]] von 25°. Wie groß ist der dritte Winkel?'
+    antwort:
+      optionen:
+        - { wert: { de: '65°' }, richtig: true }
+        - { wert: { de: '155°' }, fv: FV.SA.ANGABE-UEBERSEHEN }
+        - { wert: { de: '245°' }, fv: FV.DV.WINKELSUMME }
+    weiter: uebergang
+    bei:
+      { FV.SA.ANGABE-UEBERSEHEN: erklaeren-winkelsumme, FV.DV.WINKELSUMME: erklaeren-winkelsumme }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.RF.DV.WINKELSAETZE.INNENWINKEL, M.RF.DV.WINKELSAETZE.PARALLELEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

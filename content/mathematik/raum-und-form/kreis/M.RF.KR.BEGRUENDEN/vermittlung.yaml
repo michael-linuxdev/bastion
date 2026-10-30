@@ -1,0 +1,88 @@
+id: M.RF.KR.BEGRUENDEN
+kompetenz: M.RF.KR.BEGRUENDEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du eine falsche Aussage mit einem [[Gegenbeispiel]] widerlegen und bei einem Satz [[Voraussetzung]], [[Behauptung]] und [[Umkehrung]] unterscheiden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Liegt C auf dem Kreis über dem [[Durchmesser]] AB: Wie groß ist der [[Winkel]] bei C?'
+    antwort:
+      eingabe: { art: zahl, loesung: '90', fehler: [{ wert: '180', fv: FV.KR.KREISWINKEL }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.KR.WINKELSAETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Jemand sagt: „Alle Vierecke mit vier gleich langen Seiten sind Quadrate.“ Welches Viereck zeigt, dass das falsch ist?'
+    antwort:
+      optionen:
+        - { wert: { de: 'eine schiefe Raute' }, richtig: true }
+        - { wert: { de: 'ein Quadrat' }, fv: FV.KR.GEGENBEISPIEL }
+    weiter: erklaeren-gegenbeispiel
+  - id: erklaeren-gegenbeispiel
+    typ: erklaeren
+    text:
+      de: 'Ein [[Gegenbeispiel]] erfüllt die Bedingung, aber nicht die Folgerung. Es reicht ein einziges, um eine Aussage „für alle“ zu widerlegen. Ein Beispiel, das passt, beweist dagegen nichts.'
+    weiter: erklaeren-satzbau
+  - id: erklaeren-satzbau
+    typ: erklaeren
+    text:
+      de: 'Ein Satz hat die Form „Wenn A, dann B“. A ist die [[Voraussetzung]], B die [[Behauptung]]. Die [[Umkehrung]] lautet „Wenn B, dann A“. Sie kann falsch sein, auch wenn der Satz stimmt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '„Wenn ein Viereck ein Quadrat ist, dann hat es vier rechte [[Winkel]].“ Das stimmt. Die [[Umkehrung]] „Wenn vier rechte Winkel, dann Quadrat“ ist falsch: [[Gegenbeispiel]] Rechteck 4 cm mal 2 cm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Im Satz „Wenn eine Zahl durch 4 [[teilbar]] ist, dann ist sie gerade“: Was ist die [[Voraussetzung]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Die Zahl ist durch 4 teilbar.' }, richtig: true }
+        - { wert: { de: 'Die Zahl ist gerade.' }, fv: FV.KR.SATZ-UMKEHRUNG }
+    weiter: gegenbeispiel
+    bei: { FV.KR.SATZ-UMKEHRUNG: erklaeren-satzbau }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Aussage: „Jede gerade Zahl ist durch 4 [[teilbar]].“ Lena nennt die 8 als [[Gegenbeispiel]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 8 ist durch 4 teilbar. Gegenbeispiel wäre 6.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KR.GEGENBEISPIEL }
+    weiter: merksatz
+    bei: { FV.KR.GEGENBEISPIEL: erklaeren-gegenbeispiel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Gegenbeispiel]]: Bedingung erfüllt, Folgerung falsch. Satz: wenn [[Voraussetzung]], dann [[Behauptung]]. [[Umkehrung]]: beide getauscht, extra prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie lautet die [[Umkehrung]] von „Wenn es regnet, dann ist die Straße nass“?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Wenn die Straße nass ist, dann regnet es.' }, richtig: true }
+        - {
+            wert: { de: 'Wenn es nicht regnet, dann ist die Straße trocken.' },
+            fv: FV.KR.SATZ-UMKEHRUNG,
+          }
+    weiter: uebergang
+    bei: { FV.KR.SATZ-UMKEHRUNG: erklaeren-satzbau }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt begründest du selbst.'
+    vorlagen: [M.RF.KR.BEGRUENDEN.GEGENBEISPIEL, M.RF.KR.BEGRUENDEN.SATZBAU]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,89 @@
+id: M.RF.GF.WINKELPAARE
+kompetenz: M.RF.GF.WINKELPAARE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du [[Scheitelwinkel]], [[Nebenwinkel]], [[Stufenwinkel]] und [[Wechselwinkel]] und kannst ihre Größe ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel [[Grad]] hat ein gestreckter [[Winkel]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '180',
+          fehler: [{ wert: '90', fv: FV.GF.WINKELART }, { wert: '360', fv: FV.GF.WINKELART }],
+        }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.WINKEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Zwei [[Geraden]] kreuzen sich. Ein [[Winkel]] ist 60°. Der Winkel direkt daneben bildet mit ihm zusammen eine gerade Linie. Wie groß ist er?'
+    antwort:
+      eingabe: { art: zahl, loesung: '120', fehler: [{ wert: '60', fv: FV.GF.GLEICH-ODER-180 }] }
+    weiter: erklaeren-winkelpaare
+  - id: erklaeren-winkelpaare
+    typ: erklaeren
+    text:
+      de: '[[Nebenwinkel]] liegen nebeneinander auf einer [[Geraden]]: zusammen 180°. [[Scheitelwinkel]] liegen sich gegenüber: gleich groß. An Parallelen sind [[Stufenwinkel]] (gleiche Lage) und [[Wechselwinkel]] (über Kreuz) gleich groß.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'α = 70°. Sein [[Nebenwinkel]]: 180° − 70° = 110°. Sein [[Scheitelwinkel]]: 70°. An einer Parallelen ist der [[Stufenwinkel]] von α auch 70°.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'α = 35°. β ist der [[Scheitelwinkel]] von α. Wie viel [[Grad]] hat β?'
+    antwort:
+      eingabe: { art: zahl, loesung: '35', fehler: [{ wert: '145', fv: FV.GF.GLEICH-ODER-180 }] }
+    weiter: gegenbeispiel
+    bei: { FV.GF.GLEICH-ODER-180: erklaeren-winkelpaare }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Zwei [[Winkel]] liegen nebeneinander auf einer [[Geraden]]. Kim nennt sie [[Scheitelwinkel]]. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, nebeneinander heißt Nebenwinkel. Scheitelwinkel liegen gegenüber.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.WINKELPAARE-NAMEN }
+    weiter: merksatz
+    bei: { FV.GF.WINKELPAARE-NAMEN: erklaeren-winkelpaare }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Nebenwinkel]]: zusammen 180°. [[Scheitelwinkel]], [[Stufenwinkel]] und [[Wechselwinkel]]: gleich groß.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'α = 50°. β ist der [[Nebenwinkel]] von α. Wie groß ist β?'
+    antwort:
+      optionen:
+        - { wert: { de: '130°' }, richtig: true }
+        - { wert: { de: '50°' }, fv: FV.GF.GLEICH-ODER-180 }
+        - { wert: { de: '310°' }, fv: FV.GF.WINKELPAARE-NAMEN }
+    weiter: uebergang
+    bei:
+      {
+        FV.GF.GLEICH-ODER-180: erklaeren-winkelpaare,
+        FV.GF.WINKELPAARE-NAMEN: erklaeren-winkelpaare,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt übst du selbst.'
+    vorlagen: [M.RF.GF.WINKELPAARE.BENENNEN, M.RF.GF.WINKELPAARE.GROESSE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

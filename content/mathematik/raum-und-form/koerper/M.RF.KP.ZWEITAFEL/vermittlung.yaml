@@ -1,0 +1,85 @@
+id: M.RF.KP.ZWEITAFEL
+kompetenz: M.RF.KP.ZWEITAFEL
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du aus [[Aufriss]] und [[Grundriss]] erkennen, welcher Körper gemeint ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Flächen hat ein [[Prisma]] mit Dreieck als [[Grundfläche]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '3', fv: FV.KP.ZAEHLEN }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.KP.PRISMEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Dose steht auf dem Tisch. Von vorne siehst du ein Rechteck. Was siehst du, wenn du von oben draufschaust?'
+    antwort:
+      optionen:
+        - { wert: { de: 'einen Kreis' }, richtig: true }
+        - { wert: { de: 'ein Rechteck' }, fv: FV.KP.ANSICHTEN }
+    weiter: erklaeren-ansichten
+  - id: erklaeren-ansichten
+    typ: erklaeren
+    text:
+      de: 'Ein [[Zweitafelbild]] zeigt zwei Ansichten: oben den [[Aufriss]] (von vorne), unten den [[Grundriss]] (von oben). Erst beide zusammen verraten den Körper. Eine Ansicht allein passt oft zu mehreren Körpern.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Aufriss]] Rechteck, [[Grundriss]] Kreis: [[Zylinder]]. Aufriss Rechteck, Grundriss Quadrat: [[Quader]] mit quadratischem Boden. Aufriss Dreieck, Grundriss Quadrat mit [[Diagonalen]]: [[Pyramide]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '[[Aufriss]]: Dreieck. [[Grundriss]]: Kreis mit Punkt in der Mitte. Welcher Körper ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Kegel' }, richtig: true }
+        - { wert: { de: 'Pyramide' }, fv: FV.KP.ANSICHTEN }
+        - { wert: { de: 'Zylinder' }, fv: FV.KP.ANSICHTEN }
+    weiter: gegenbeispiel
+    bei: { FV.KP.ANSICHTEN: erklaeren-ansichten }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Der [[Aufriss]] ist ein Rechteck. Ben sagt sofort: Das ist ein [[Quader]]. Stimmt das sicher?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, es kann auch ein Zylinder sein. Erst der Grundriss entscheidet.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.ANSICHTEN }
+    weiter: merksatz
+    bei: { FV.KP.ANSICHTEN: erklaeren-ansichten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Aufriss]]: von vorne. [[Grundriss]]: von oben. Immer beide Ansichten zusammen lesen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '[[Aufriss]]: Rechteck. [[Grundriss]]: Dreieck. Welcher Körper ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Dreiecksprisma' }, richtig: true }
+        - { wert: { de: 'Pyramide' }, fv: FV.KP.ANSICHTEN }
+        - { wert: { de: 'Quader' }, fv: FV.KP.ANSICHTEN }
+    weiter: uebergang
+    bei: { FV.KP.ANSICHTEN: erklaeren-ansichten }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt liest du selbst Ansichten.'
+    vorlagen: [M.RF.KP.ZWEITAFEL.ANSICHT, M.RF.KP.ZWEITAFEL.KOERPER]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

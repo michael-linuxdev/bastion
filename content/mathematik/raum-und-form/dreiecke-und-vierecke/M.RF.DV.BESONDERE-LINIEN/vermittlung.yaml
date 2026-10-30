@@ -1,0 +1,89 @@
+id: M.RF.DV.BESONDERE-LINIEN
+kompetenz: M.RF.DV.BESONDERE-LINIEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du [[Höhe]], [[Seitenhalbierende]], [[Mittelsenkrechte]] und [[Winkelhalbierende]] im Dreieck und weißt, wo [[Umkreis]] und [[Inkreis]] ihren Mittelpunkt haben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Zwei Linien schneiden sich im [[rechten Winkel]]. Wie liegen sie zueinander?'
+    antwort:
+      optionen:
+        - { wert: { de: 'senkrecht' }, richtig: true }
+        - { wert: { de: 'parallel' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.LAGE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Linie geht von einer Ecke zur Mitte der gegenüberliegenden Seite. Teilt sie diese Seite in zwei gleich lange Teile?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.DV.BESONDERE-LINIEN }
+    weiter: erklaeren-linien
+  - id: erklaeren-linien
+    typ: erklaeren
+    text:
+      de: '[[Höhe]]: von einer Ecke [[senkrecht]] auf die Gegenseite. [[Seitenhalbierende]]: von einer Ecke zur Mitte der Gegenseite. [[Mittelsenkrechte]]: senkrecht durch die Mitte einer Seite. [[Winkelhalbierende]]: teilt einen [[Winkel]] in zwei gleiche.'
+    weiter: erklaeren-kreise
+  - id: erklaeren-kreise
+    typ: erklaeren
+    text:
+      de: 'Die drei Mittelsenkrechten schneiden sich im Mittelpunkt des Umkreises, der durch alle Ecken geht. Die drei Winkelhalbierenden schneiden sich im Mittelpunkt des Inkreises, der alle Seiten innen berührt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Merkhilfe: [[Umkreis]] um die Ecken, also Mittelsenkrechten der Seiten. [[Inkreis]] innen an den Seiten, also [[Winkelhalbierende]] der [[Winkel]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine Linie steht [[senkrecht]] auf einer Seite und geht durch ihre Mitte, aber nicht unbedingt durch eine Ecke. Wie heißt sie?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Mittelsenkrechte' }, richtig: true }
+        - { wert: { de: 'Höhe' }, fv: FV.DV.BESONDERE-LINIEN }
+        - { wert: { de: 'Seitenhalbierende' }, fv: FV.DV.BESONDERE-LINIEN }
+    weiter: gegenbeispiel
+    bei: { FV.DV.BESONDERE-LINIEN: erklaeren-linien }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Nele sagt: Die Winkelhalbierenden schneiden sich im Mittelpunkt des Umkreises. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, im Mittelpunkt des Inkreises.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.UM-INKREIS }
+    weiter: merksatz
+    bei: { FV.DV.UM-INKREIS: erklaeren-kreise }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Höhe]]: [[senkrecht]] von der Ecke. [[Seitenhalbierende]]: zur Seitenmitte. [[Mittelsenkrechte]]: senkrecht durch die Seitenmitte, gibt den [[Umkreis]]. [[Winkelhalbierende]]: halbiert den [[Winkel]], gibt den [[Inkreis]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Kreis soll durch alle drei Ecken eines Dreiecks gehen. Welche Linien brauchst du für seinen Mittelpunkt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'die Mittelsenkrechten' }, richtig: true }
+        - { wert: { de: 'die Winkelhalbierenden' }, fv: FV.DV.UM-INKREIS }
+        - { wert: { de: 'die Höhen' }, fv: FV.DV.BESONDERE-LINIEN }
+    weiter: uebergang
+    bei: { FV.DV.UM-INKREIS: erklaeren-kreise, FV.DV.BESONDERE-LINIEN: erklaeren-linien }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.RF.DV.BESONDERE-LINIEN.ERKENNEN, M.RF.DV.BESONDERE-LINIEN.SCHNITTPUNKT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

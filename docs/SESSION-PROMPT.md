@@ -98,7 +98,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 **Als Nächstes:**
 
 0. ~~**U5b**~~ fertig (30.10.2026): Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen, `fv` ist Pflicht. Die PRs gehen nacheinander auf `main`. Als Nächstes gibt es zwei Möglichkeiten: U4b (Test) oder das Nachrüsten der Klassen 5 bis 8 mit Erstvermittlungen (U5, Rest). Die Erstvermittlungen müssen die Schritt-IDs anlegen, auf die die Rückwege schon zeigen (`…#erklaeren-…`).
-0. **U5c** (Entscheidung 30.10.2026: Erstvermittlungen vor dem Test): Erstvermittlungen Feld für Feld, je Feld ein PR. Brüche und Dezimalzahlen, natürliche Zahlen und Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen, Funktionen und Zuordnungen, Größen sind fertig. Weiter mit Geometrie (Raum und Form), Daten und Zufall. Achtung V8: Jedes Zeichen wie „·“ oder „=“ zählt als Wort. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen; die Pflicht-Schritte (Rückwege) zeigt das Hilfsskript im Session-Verlauf.
+0. **U5c** (Entscheidung 30.10.2026: Erstvermittlungen vor dem Test): Erstvermittlungen Feld für Feld, je Feld ein PR. Brüche und Dezimalzahlen, natürliche Zahlen und Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen, Funktionen und Zuordnungen, Größen, Raum und Form sind fertig. Weiter mit Daten und Zufall. Achtung V8: Jedes Zeichen wie „·“ oder „=“ zählt als Wort. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen; die Pflicht-Schritte (Rückwege) zeigt das Hilfsskript im Session-Verlauf.
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.

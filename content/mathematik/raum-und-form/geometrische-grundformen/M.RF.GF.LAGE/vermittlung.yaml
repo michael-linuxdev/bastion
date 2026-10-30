@@ -1,0 +1,73 @@
+id: M.RF.GF.LAGE
+kompetenz: M.RF.GF.LAGE
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du sagen, ob zwei [[Geraden]] [[parallel]] oder [[senkrecht]] zueinander sind oder sich nur schneiden.'
+    weiter: entdecken
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Denk an Schienen einer Eisenbahn. Treffen sich die beiden Schienen irgendwann?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, sie haben überall denselben Abstand.' }, richtig: true }
+        - { wert: { de: 'Ja, weit weg.' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: erklaeren-lage
+  - id: erklaeren-lage
+    typ: erklaeren
+    text:
+      de: '[[Parallel]]: Die [[Geraden]] haben überall denselben Abstand und schneiden sich nie. Senkrecht: Sie schneiden sich im [[rechten Winkel]], wie die Ecke eines Blatts. Sonst schneiden sie sich schräg.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Die Linien in einem Heft sind [[parallel]]. Der Rand und eine Heftlinie sind [[senkrecht]] zueinander. Zwei Zeiger einer Uhr um 2 Uhr schneiden sich schräg.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Zwei Straßen kreuzen sich und bilden vier gleich große Ecken wie bei einem Plus-Zeichen. Wie liegen sie zueinander?'
+    antwort:
+      optionen:
+        - { wert: { de: 'senkrecht' }, richtig: true }
+        - { wert: { de: 'parallel' }, fv: FV.GF.LAGEBEZIEHUNG }
+        - { wert: { de: 'nur schneidend' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: gegenbeispiel
+    bei: { FV.GF.LAGEBEZIEHUNG: erklaeren-lage }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Zwei [[Geraden]] schneiden sich schräg wie ein X, das zur Seite kippt. Ben sagt: Sie sind [[senkrecht]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, senkrecht ist nur ein Schnitt im rechten Winkel.' }, richtig: true }
+        - { wert: { de: 'Ja, jeder Schnitt ist senkrecht.' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: merksatz
+    bei: { FV.GF.LAGEBEZIEHUNG: erklaeren-lage }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Parallel]]: nie schneiden, immer gleicher Abstand. Senkrecht: schneiden im [[rechten Winkel]]. Alles andere: schneidend.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Die beiden langen Seiten eines Rechtecks: Wie liegen sie zueinander?'
+    antwort:
+      optionen:
+        - { wert: { de: 'parallel' }, richtig: true }
+        - { wert: { de: 'senkrecht' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: uebergang
+    bei: { FV.GF.LAGEBEZIEHUNG: erklaeren-lage }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.RF.GF.LAGE.PARALLELE-FINDEN, M.RF.GF.LAGE.ZWEI-GERADEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

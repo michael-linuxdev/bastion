@@ -1,0 +1,81 @@
+id: M.RF.SY.SYMMETRIE
+kompetenz: M.RF.SY.SYMMETRIE
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du erkennen, ob eine Figur [[achsensymmetrisch]] ist, und ihre [[Symmetrieachsen]] zählen.'
+    weiter: entdecken
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du faltest ein Herz aus Papier genau in der Mitte von oben nach unten. Liegen beide Hälften genau aufeinander?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.SY.ACHSENSYMMETRIE }
+    weiter: erklaeren-achsen
+  - id: erklaeren-achsen
+    typ: erklaeren
+    text:
+      de: 'Eine Figur ist [[achsensymmetrisch]], wenn du sie so falten kannst, dass beide Hälften genau aufeinanderliegen. Die Faltlinie heißt [[Symmetrieachse]]. Prüfe jede mögliche Linie, nicht nur die, die gerade aussieht.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Rechteck hat 2 [[Symmetrieachsen]]: waagerecht und [[senkrecht]] durch die Mitte. Die [[Diagonalen]] sind keine, die Ecken passen nicht aufeinander. Ein Quadrat hat 4: auch die Diagonalen.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie viele [[Symmetrieachsen]] hat ein gleichseitiges Dreieck?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '3',
+          fehler:
+            [{ wert: '1', fv: FV.SY.ACHSENSYMMETRIE }, { wert: '0', fv: FV.SY.ACHSENSYMMETRIE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-achsen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan sagt: Die [[Diagonale]] teilt ein Rechteck in zwei gleiche Dreiecke, also ist sie eine [[Symmetrieachse]]. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              { de: 'Nein, beim Falten an der Diagonale liegen die Hälften nicht aufeinander.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.SY.ACHSENSYMMETRIE }
+    weiter: merksatz
+    bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-achsen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Symmetrieachse]]: Faltlinie, an der beide Hälften genau aufeinanderliegen. Zwei gleich große Teile reichen nicht.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viele [[Symmetrieachsen]] hat ein Quadrat?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '2' }, fv: FV.SY.ACHSENSYMMETRIE }
+        - { wert: { de: '1' }, fv: FV.SY.ACHSENSYMMETRIE }
+    weiter: uebergang
+    bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-achsen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt suchst du selbst Achsen.'
+    vorlagen: [M.RF.SY.SYMMETRIE.ACHSEN-ZAEHLEN, M.RF.SY.SYMMETRIE.FIGUR-WAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

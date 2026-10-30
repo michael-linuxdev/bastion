@@ -1,0 +1,91 @@
+id: M.RF.SY.SPIEGELN
+kompetenz: M.RF.SY.SPIEGELN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen Punkt an einer [[Geraden]] spiegeln und die [[Koordinaten]] des [[Bildpunktes]] angeben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Der Punkt liegt 3 nach rechts und 4 nach oben. Welche [[Koordinaten]] hat er?'
+    antwort:
+      optionen:
+        - { wert: { de: '(3|4)' }, richtig: true }
+        - { wert: { de: '(4|3)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.KOORDINATEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du stehst 2 Schritte vor einem Spiegel. Wie viele Schritte hinter dem Spiegel scheint dein Spiegelbild zu stehen?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '2',
+          fehler:
+            [{ wert: '0', fv: FV.SY.SPIEGELABSTAND }, { wert: '4', fv: FV.SY.SPIEGELABSTAND }],
+        }
+    weiter: erklaeren-spiegeln
+  - id: erklaeren-spiegeln
+    typ: erklaeren
+    text:
+      de: 'Beim Spiegeln gehst du vom Punkt [[senkrecht]] zur Achse und zählst den Abstand. Dann gehst du genauso weit auf der anderen Seite weiter. Der [[Bildpunkt]] hat denselben Abstand zur Achse.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Achse: die senkrechte Linie bei x = 4. P(1|3) liegt 3 links davon. Der [[Bildpunkt]] liegt 3 rechts davon: P′(7|3). y bleibt gleich.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Achse: die senkrechte Linie bei x = 5. Der Punkt P(2|6) wird gespiegelt. Welche x-[[Koordinate]] hat der [[Bildpunkt]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '8',
+          fehler:
+            [{ wert: '5', fv: FV.SY.SPIEGELABSTAND }, { wert: '3', fv: FV.SY.SPIEGELABSTAND }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.SY.SPIEGELABSTAND: erklaeren-spiegeln }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Achse: die waagerechte Linie bei y = 2. Ida spiegelt P(3|5) und schreibt P′(5|3). Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, x bleibt, y geht 3 unter die Achse: P′(3|−1).' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.SPIEGELN-KOORDINATE }
+    weiter: merksatz
+    bei: { FV.GF.SPIEGELN-KOORDINATE: erklaeren-spiegeln }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Senkrecht zur Achse, gleicher Abstand auf der anderen Seite. Bei einer senkrechten Achse ändert sich nur x, bei einer waagerechten nur y.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Achse: die senkrechte Linie bei x = 3. [[Spiegle]] P(1|4). Welcher [[Bildpunkt]] entsteht?'
+    antwort:
+      optionen:
+        - { wert: { de: '(5|4)' }, richtig: true }
+        - { wert: { de: '(3|4)' }, fv: FV.SY.SPIEGELABSTAND }
+        - { wert: { de: '(1|2)' }, fv: FV.GF.SPIEGELN-KOORDINATE }
+    weiter: uebergang
+    bei: { FV.SY.SPIEGELABSTAND: erklaeren-spiegeln, FV.GF.SPIEGELN-KOORDINATE: erklaeren-spiegeln }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt spiegelst du selbst.'
+    vorlagen: [M.RF.SY.SPIEGELN.DREIECK, M.RF.SY.SPIEGELN.PUNKT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

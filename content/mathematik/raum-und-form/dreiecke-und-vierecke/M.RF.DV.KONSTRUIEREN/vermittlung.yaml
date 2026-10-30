@@ -1,0 +1,88 @@
+id: M.RF.DV.KONSTRUIEREN
+kompetenz: M.RF.DV.KONSTRUIEREN
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach weißt du, welche Angaben ein Dreieck eindeutig festlegen, und kannst die Konstruktion in der richtigen Reihenfolge planen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Gibt es ein Dreieck mit den Seiten 3 cm, 4 cm und 5 cm?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.DV.DREIECKSUNGLEICHUNG }
+    weiter: entdecken
+    bei: { sonst: M.RF.DV.DREIECKE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Dreieck hat die [[Winkel]] 60°, 60° und 60°. Ist damit festgelegt, wie groß es ist?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es kann klein oder groß sein.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: erklaeren-kongruenzsaetze
+  - id: erklaeren-kongruenzsaetze
+    typ: erklaeren
+    text:
+      de: 'Ein Dreieck ist eindeutig, wenn du nach einem [[Kongruenzsatz]] genug weißt: SSS drei Seiten, SWS zwei Seiten und der [[Winkel]] dazwischen, WSW eine Seite und beide Winkel daran, SsW zwei Seiten und der Winkel gegenüber der längeren.'
+    weiter: erklaeren-plan
+  - id: erklaeren-plan
+    typ: erklaeren
+    text:
+      de: 'Plane die Reihenfolge: Erst eine bekannte Seite zeichnen. Dann von ihren Enden aus mit [[Zirkel]] oder [[Winkel]] weiter. Ein Schritt geht nur, wenn sein Anfangspunkt schon da ist.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'SSS mit a = 5, b = 4, c = 3 cm: Erst c = 3 cm zeichnen, Ecken A und B. Kreis um A mit 4 cm, Kreis um B mit 5 cm. Der [[Schnittpunkt]] ist C.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Gegeben: zwei Seiten und der [[Winkel]] zwischen ihnen. Welcher [[Kongruenzsatz]] passt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'SWS' }, richtig: true }
+        - { wert: { de: 'SSS' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+        - { wert: { de: 'WSW' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: gegenbeispiel
+    bei: { FV.DV.EINDEUTIG-KONSTRUIERBAR: erklaeren-kongruenzsaetze }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Bei SSS will Kim zuerst den Kreis um C zeichnen. Bisher hat sie nur die Strecke AB. Geht das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, C kennt sie noch nicht. Erst Kreise um A und B.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.KONSTRUKTIONSREIHENFOLGE }
+    weiter: merksatz
+    bei: { FV.DV.KONSTRUKTIONSREIHENFOLGE: erklaeren-plan }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Eindeutig nur mit SSS, SWS, WSW oder SsW. Drei [[Winkel]] reichen nicht. Konstruieren: mit einer Seite beginnen, jeder Schritt braucht schon vorhandene Punkte.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Gegeben: c = 6 cm, α = 50° und β = 70°. Ist das Dreieck eindeutig?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, nach WSW.' }, richtig: true }
+        - { wert: { de: 'Nein, es fehlt eine Seite.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: uebergang
+    bei: { FV.DV.EINDEUTIG-KONSTRUIERBAR: erklaeren-kongruenzsaetze }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt planst du selbst.'
+    vorlagen: [M.RF.DV.KONSTRUIEREN.KONGRUENZSATZ, M.RF.DV.KONSTRUIEREN.SCHRITT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

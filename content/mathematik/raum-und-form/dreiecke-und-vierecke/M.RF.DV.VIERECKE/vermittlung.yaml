@@ -1,0 +1,86 @@
+id: M.RF.DV.VIERECKE
+kompetenz: M.RF.DV.VIERECKE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Quadrat, Rechteck, [[Raute]], [[Parallelogramm]], [[Trapez]] und [[Drachenviereck]] an ihren Eigenschaften erkennen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Zwei Seiten treffen sich nie und haben überall denselben Abstand. Wie liegen sie zueinander?'
+    antwort:
+      optionen:
+        - { wert: { de: 'parallel' }, richtig: true }
+        - { wert: { de: 'senkrecht' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.LAGE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Quadrat hat vier rechte [[Winkel]] und gegenüberliegende Seiten sind [[parallel]]. Hat es damit alles, was ein Rechteck braucht?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, also ist jedes Quadrat ein Rechteck.' }, richtig: true }
+        - { wert: { de: 'Nein, es sieht anders aus.' }, fv: FV.DV.VIERECKE-HAUS }
+    weiter: erklaeren-haus
+  - id: erklaeren-haus
+    typ: erklaeren
+    text:
+      de: 'Vierecke ordnet man nach Eigenschaften, nicht nach dem Aussehen. [[Trapez]]: ein Paar parallele Seiten. [[Parallelogramm]]: zwei Paare. Rechteck: dazu rechte [[Winkel]]. [[Raute]]: dazu vier gleiche Seiten. Quadrat: beides.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Quadrat ist ein besonderes Rechteck und eine besondere [[Raute]]. Jedes Rechteck ist ein [[Parallelogramm]]. Jedes Parallelogramm ist ein [[Trapez]]. Umgekehrt gilt das nicht.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Viereck hat vier gleich lange Seiten, aber keine [[rechten Winkel]]. Welches Viereck ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Raute' }, richtig: true }
+        - { wert: { de: 'Quadrat' }, fv: FV.DV.VIERECKE-HAUS }
+        - { wert: { de: 'Rechteck' }, fv: FV.DV.VIERECKE-HAUS }
+    weiter: gegenbeispiel
+    bei: { FV.DV.VIERECKE-HAUS: erklaeren-haus }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mo sagt: Jedes Rechteck ist ein Quadrat. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, ein Rechteck braucht keine vier gleich langen Seiten.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.VIERECKE-HAUS }
+    weiter: merksatz
+    bei: { FV.DV.VIERECKE-HAUS: erklaeren-haus }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Nach Eigenschaften ordnen: parallele Seiten, rechte [[Winkel]], gleiche Seiten. Das Quadrat hat alle, darum ist es auch Rechteck, [[Raute]] und [[Parallelogramm]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Stimmt die Aussage „Jedes Quadrat ist eine [[Raute]]“?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.DV.VIERECKE-HAUS }
+    weiter: uebergang
+    bei: { FV.DV.VIERECKE-HAUS: erklaeren-haus }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt ordnest du selbst.'
+    vorlagen: [M.RF.DV.VIERECKE.ERKENNEN, M.RF.DV.VIERECKE.HAUS]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,84 @@
+id: M.RF.AE.AEHNLICH
+kompetenz: M.RF.AE.AEHNLICH
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du prüfen, ob zwei Figuren [[ähnlich]] sind.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Eine Strecke von 4 cm wird mit k = 3 gestreckt. Wie viele Zentimeter ist sie dann lang?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '7', fv: FV.AE.GLEICH-VIEL-DAZU }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.AE.STRECKUNG }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Foto ist 10 cm breit und 6 cm hoch. Du machst es 5 cm breiter und 5 cm höher: 15 cm mal 11 cm. Sieht es noch genauso aus?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es ist verzerrt.' }, richtig: true }
+        - { wert: { de: 'Ja, beide Seiten wachsen gleich.' }, fv: FV.AE.GLEICH-VIEL-DAZU }
+    weiter: erklaeren-aehnlich
+  - id: erklaeren-aehnlich
+    typ: erklaeren
+    text:
+      de: 'Ähnliche Figuren haben dieselbe Form: Alle Seiten werden mit demselben [[Faktor]] malgenommen, nicht um dieselbe Zahl verlängert. Die [[Winkel]] bleiben dabei gleich.'
+    weiter: erklaeren-pruefen
+  - id: erklaeren-pruefen
+    typ: erklaeren
+    text:
+      de: 'Zum Prüfen teilst du jede neue Seite durch die passende alte. Kommt überall derselbe [[Faktor]] heraus, und sind die [[Winkel]] gleich, sind die Figuren [[ähnlich]]. Eine Seite allein reicht nicht.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Rechteck 4 cm mal 3 cm und Rechteck 8 cm mal 6 cm: 8 : 4 = 2 und 6 : 3 = 2. Gleicher [[Faktor]], also [[ähnlich]]. 8 cm mal 5 cm wäre nicht ähnlich.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Rechteck ist 6 cm mal 4 cm. Ein ähnliches Rechteck ist 9 cm breit. Wie viele Zentimeter ist es hoch?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '7', fv: FV.AE.GLEICH-VIEL-DAZU }] }
+    weiter: gegenbeispiel
+    bei: { FV.AE.GLEICH-VIEL-DAZU: erklaeren-aehnlich }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Dreieck 1 hat Seiten 3, 4, 5 cm. Dreieck 2 hat 6, 8, 9 cm. Ida prüft nur 6 : 3 = 2 und sagt: [[ähnlich]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 9 : 5 ist nicht 2. Nicht ähnlich.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.AE.AEHNLICH-PRUEFEN }
+    weiter: merksatz
+    bei: { FV.AE.AEHNLICH-PRUEFEN: erklaeren-pruefen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Ähnlich: alle Seiten mit demselben [[Faktor]] mal, [[Winkel]] gleich. Prüfe jedes Seitenpaar, nicht nur eins.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Sind die Rechtecke 5 cm mal 2 cm und 10 cm mal 7 cm [[ähnlich]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 10 : 5 = 2, aber 7 : 2 = 3,5.' }, richtig: true }
+        - { wert: { de: 'Ja, beide sind um 5 cm größer.' }, fv: FV.AE.GLEICH-VIEL-DAZU }
+        - { wert: { de: 'Ja, 10 : 5 = 2.' }, fv: FV.AE.AEHNLICH-PRUEFEN }
+    weiter: uebergang
+    bei: { FV.AE.GLEICH-VIEL-DAZU: erklaeren-aehnlich, FV.AE.AEHNLICH-PRUEFEN: erklaeren-pruefen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt prüfst du selbst.'
+    vorlagen: [M.RF.AE.AEHNLICH.PRUEFEN, M.RF.AE.AEHNLICH.WAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

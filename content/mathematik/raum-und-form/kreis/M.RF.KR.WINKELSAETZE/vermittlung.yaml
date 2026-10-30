@@ -1,0 +1,87 @@
+id: M.RF.KR.WINKELSAETZE
+kompetenz: M.RF.KR.WINKELSAETZE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Satz des Thales]] und den Zusammenhang von [[Mittelpunktswinkel]] und Umfangswinkel nutzen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Dreieck hat α = 40° und β = 50°. Wie viel [[Grad]] hat γ?'
+    antwort:
+      eingabe: { art: zahl, loesung: '90', fehler: [{ wert: '270', fv: FV.DV.WINKELSUMME }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.DV.WINKELSAETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'A und B sind die Enden eines Durchmessers. C liegt irgendwo auf dem Kreis. Probiere mit dem [[Geodreieck]]: Wie groß ist der [[Winkel]] bei C immer?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '90',
+          fehler: [{ wert: '180', fv: FV.KR.KREISWINKEL }, { wert: '45', fv: FV.KR.KREISWINKEL }],
+        }
+    weiter: erklaeren-saetze
+  - id: erklaeren-saetze
+    typ: erklaeren
+    text:
+      de: '[[Satz des Thales]]: Liegt C auf einem Kreis über dem [[Durchmesser]] AB, ist der [[Winkel]] bei C ein [[rechter Winkel]]. Allgemein: Der Umfangswinkel ist halb so groß wie der [[Mittelpunktswinkel]] über derselben Sehne.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Über einer Sehne ist der [[Mittelpunktswinkel]] 100°. Jeder Umfangswinkel auf demselben Bogen ist 50°. Beim [[Durchmesser]] ist der Mittelpunktswinkel 180°, der Umfangswinkel also 90°.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Der [[Mittelpunktswinkel]] über einer Sehne ist 80°. Wie viel [[Grad]] hat ein Umfangswinkel über derselben Sehne?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '40',
+          fehler: [{ wert: '160', fv: FV.KR.KREISWINKEL }, { wert: '80', fv: FV.KR.KREISWINKEL }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KR.KREISWINKEL: erklaeren-saetze }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Der Umfangswinkel ist 35°. Ali sagt: Der [[Mittelpunktswinkel]] ist auch 35°. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, er ist doppelt so groß: 70°.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KR.KREISWINKEL }
+    weiter: merksatz
+    bei: { FV.KR.KREISWINKEL: erklaeren-saetze }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Thales: über dem [[Durchmesser]] immer 90°. Umfangswinkel = [[Mittelpunktswinkel]] : 2.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Im Dreieck ABC ist AB ein [[Durchmesser]] des Umkreises, und α = 30°. Wie groß ist β?'
+    antwort:
+      optionen:
+        - { wert: { de: '60°' }, richtig: true }
+        - { wert: { de: '150°' }, fv: FV.KR.KREISWINKEL }
+        - { wert: { de: '30°' }, fv: FV.KR.KREISWINKEL }
+    weiter: uebergang
+    bei: { FV.KR.KREISWINKEL: erklaeren-saetze }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.RF.KR.WINKELSAETZE.BERECHNEN, M.RF.KR.WINKELSAETZE.SATZ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

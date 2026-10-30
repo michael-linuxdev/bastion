@@ -1,0 +1,80 @@
+id: M.RF.KP.DARSTELLEN
+kompetenz: M.RF.KP.DARSTELLEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du in Gedanken ein [[Netz]] zu einem [[Würfel]] falten und sagen, welche Flächen sich gegenüberliegen.'
+    weiter: entdecken
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du schneidest einen [[Würfel]] aus Pappe an einigen Kanten auf und legst ihn flach hin. Wie viele Quadrate siehst du?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '6',
+          fehler: [{ wert: '4', fv: FV.KP.NETZ-FALTEN }, { wert: '8', fv: FV.KP.NETZ-FALTEN }],
+        }
+    weiter: erklaeren-netz
+  - id: erklaeren-netz
+    typ: erklaeren
+    text:
+      de: 'Ein [[Würfelnetz]] hat 6 Quadrate, die an Kanten zusammenhängen. Falte in Gedanken: Wähle ein Quadrat als Boden und klappe die anderen hoch. In einer Reihe von drei liegen das erste und das dritte gegenüber.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Kreuz-[[Netz]]: Eine Reihe 1, 2, 3, 4 und je ein Quadrat oben und unten an der 2. Dann liegen 1 und 3 gegenüber, 2 und 4 gegenüber, oben und unten gegenüber.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Im [[Netz]] liegen vier Quadrate in einer Reihe: A, B, C, D. Welches liegt beim fertigen [[Würfel]] gegenüber von B?'
+    antwort:
+      optionen:
+        - { wert: { de: 'D' }, richtig: true }
+        - { wert: { de: 'C' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'A' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: gegenbeispiel
+    bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Netz]] hat 6 Quadrate in einer langen Reihe. Tim sagt: Daraus wird ein [[Würfel]]. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              { de: 'Nein, nach vier Quadraten ist der Ring zu, die letzten zwei liegen doppelt.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, es sind 6 Quadrate.' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: merksatz
+    bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Würfelnetz]]: 6 Quadrate. In Gedanken einen Boden wählen und hochklappen. In einer Reihe liegt jedes zweite Quadrat gegenüber.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Im [[Netz]] liegen drei Quadrate in einer Reihe: X, Y, Z. Welche zwei liegen beim [[Würfel]] gegenüber?'
+    antwort:
+      optionen:
+        - { wert: { de: 'X und Z' }, richtig: true }
+        - { wert: { de: 'X und Y' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: uebergang
+    bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt faltest du selbst in Gedanken.'
+    vorlagen: [M.RF.KP.DARSTELLEN.GEGENUEBER, M.RF.KP.DARSTELLEN.NETZ-WAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

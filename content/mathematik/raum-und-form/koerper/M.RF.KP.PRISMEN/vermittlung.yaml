@@ -1,0 +1,82 @@
+id: M.RF.KP.PRISMEN
+kompetenz: M.RF.KP.PRISMEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Ecken, Kanten und Flächen eines [[Prismas]] zählen und sein [[Netz]] erkennen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Flächen hat ein [[Würfel]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '4', fv: FV.KP.ZAEHLEN }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.KP.DARSTELLEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Prisma]] mit einem Dreieck als [[Grundfläche]] sieht aus wie ein Zelt. Unten ein Dreieck, oben ein Dreieck. Wie viele Ecken hat es zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '3', fv: FV.KP.ZAEHLEN }] }
+    weiter: erklaeren-zaehlen
+  - id: erklaeren-zaehlen
+    typ: erklaeren
+    text:
+      de: 'Ein [[Prisma]] hat zwei gleiche Vielecke als Grund- und [[Deckfläche]], dazwischen Rechtecke. Hat die [[Grundfläche]] n Ecken, dann: 2 · n Ecken, 3 · n Kanten und n + 2 Flächen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Dreiecksprisma, n = 3: 6 Ecken, 9 Kanten (3 unten, 3 oben, 3 dazwischen), 5 Flächen (2 Dreiecke, 3 Rechtecke). Sein [[Netz]]: 3 Rechtecke in einer Reihe und an einem je ein Dreieck oben und unten.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Prisma]] hat ein Sechseck als [[Grundfläche]]. Wie viele Kanten hat es?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '18',
+          fehler: [{ wert: '12', fv: FV.KP.ZAEHLEN }, { wert: '6', fv: FV.KP.ZAEHLEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.ZAEHLEN: erklaeren-zaehlen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Netz]] zeigt 3 Rechtecke und nur ein Dreieck. Mia sagt: Das ist ein Netz eines Dreiecksprismas. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es fehlt die Deckfläche, ein zweites Dreieck.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: merksatz
+    bei: { FV.KP.NETZ-FALTEN: erklaeren-zaehlen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Prisma]] mit n-Eck als [[Grundfläche]]: 2 · n Ecken, 3 · n Kanten, n + 2 Flächen. Im [[Netz]]: zwei n-Ecke und n Rechtecke.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Prisma]] hat ein Fünfeck als [[Grundfläche]]. Wie viele Flächen hat es?'
+    antwort:
+      optionen:
+        - { wert: { de: '7' }, richtig: true }
+        - { wert: { de: '5' }, fv: FV.KP.ZAEHLEN }
+        - { wert: { de: '10' }, fv: FV.KP.ZAEHLEN }
+    weiter: uebergang
+    bei: { FV.KP.ZAEHLEN: erklaeren-zaehlen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt zählst du selbst.'
+    vorlagen: [M.RF.KP.PRISMEN.NETZ, M.RF.KP.PRISMEN.ZAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
