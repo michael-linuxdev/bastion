@@ -547,6 +547,7 @@ version: 1
 | Feld | Präfix | Fehlerbilder | neue Fehlvorstellungen |
 |---|---|---|---|
 | Natürliche Zahlen | `M.ZO.NZ.`, `M.SF.NZ.` | 43 | 18; 6 vorhandene `FV.NZ.…` gelten jetzt auch hier, ihre Beispiele kommen ohne Brüche aus |
+| Teilbarkeit | `M.ZO.TB.` | 15 | 8; `FV.NZ.GRENZE-MITGEZAEHLT` gilt auch für „größer als“ |
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 

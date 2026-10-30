@@ -1,0 +1,26 @@
+id: FV.TB.ENDZIFFER-REGEL
+name:
+  de: Prüft die Teilbarkeit immer nur an der letzten Ziffer
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Prüft auch bei 3, 4, 6 oder 9 nur die letzte Ziffer. Die Endziffernregel für 2, 5 und 10 wird auf
+    alle Teiler übertragen.
+kompetenzen: [M.ZO.TB.REGELN]
+erklaerung:
+  kurz:
+    de: 'Die letzte [[Ziffer]] reicht nur bei 2, 5 und 10. Bei 3 und 9 hilft die [[Quersumme]], bei 4 die Zahl aus den letzten beiden Ziffern.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf die letzte [[Ziffer]] geschaut.'
+    - teil: warum-nicht
+      de: 'Bei 2, 5 und 10 ist das richtig, darum liegt es nahe. Aber ob 51 durch 3 [[teilbar]] ist, sieht man an der 1 nicht. Jede [[Teilbarkeitsregel]] gehört zu ihrem [[Teiler]].'
+    - teil: so-stimmt-es
+      de: 'Durch 3: [[Quersumme]] 5 + 1 = 6, durch 3 [[teilbar]], also ist 51 durch 3 teilbar. Durch 4: die letzten beiden [[Ziffern]] prüfen, 316 → 16, durch 4 teilbar.'
+gegenbeispiel:
+  de: '14 und 24 enden beide auf 4. Aber nur 24 ist durch 3 [[teilbar]].'
+rueckweg:
+  vermittlung: M.ZO.TB.REGELN#erklaeren-regeln
+kontrast: [M.ZO.TB.REGELN.TEILBAR, M.ZO.TB.REGELN.WELCHE]
+herkunft: ki-entwurf
+version: 1

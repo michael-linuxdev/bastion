@@ -1,0 +1,26 @@
+id: FV.TB.ZERLEGEN-UNVOLLSTAENDIG
+name:
+  de: Hört beim Zerlegen in Primfaktoren zu früh auf
+art: falsche-regel
+beschreibung:
+  de: >-
+    Schreibt 36 = 4 · 9 oder 60 = 2 · 30. Ein Faktor ist noch keine Primzahl. Die Zerlegung wird mit
+    irgendeiner Zerlegung verwechselt.
+kompetenzen: [M.ZO.TB.PRIM]
+erklaerung:
+  kurz:
+    de: 'Zerlege so lange weiter, bis jeder [[Faktor]] eine [[Primzahl]] ist. Prüfe am Ende jeden einzelnen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl zerlegt, aber nicht alle [[Faktoren]] sind [[Primzahlen]].'
+    - teil: warum-nicht
+      de: 'Der erste Schritt stimmt. 36 = 4 · 9 ist richtig gerechnet. Aber 4 und 9 lassen sich noch zerlegen. Erst mit [[Primzahlen]] ist die Zerlegung eindeutig.'
+    - teil: so-stimmt-es
+      de: 'Teile immer wieder durch die kleinste passende [[Primzahl]]: 36 : 2 = 18, 18 : 2 = 9, 9 : 3 = 3. Also 36 = 2 · 2 · 3 · 3.'
+gegenbeispiel:
+  de: '36 = 4 · 9 und 36 = 6 · 6 sehen verschieden aus. Mit [[Primfaktoren]] kommt immer dasselbe heraus: 2 · 2 · 3 · 3.'
+rueckweg:
+  vermittlung: M.ZO.TB.PRIM#erklaeren-zerlegen
+kontrast: [M.ZO.TB.PRIM.ZERLEGEN]
+herkunft: ki-entwurf
+version: 1

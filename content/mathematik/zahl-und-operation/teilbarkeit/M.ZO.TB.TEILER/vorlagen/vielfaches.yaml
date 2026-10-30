@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   nicht-groesser:
     de: 'Diese Zahl ist nicht größer als {grenze}. Gesucht ist das nächste [[Vielfache]] darüber.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
 herkunft: ki-entwurf
 version: 1

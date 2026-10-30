@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   teiler-vielfaches-verwechselt:
     de: 'Umgekehrt stimmt es: {b} ist ein [[Teiler]] von {a}. Gefragt ist aber, ob {a} in {b} ohne Rest aufgeht.'
+    fv: FV.TB.TEILER-VIELFACHES
   gerade-ungerade-geraten:
     de: Dass beide Zahlen gerade sind, reicht nicht. Teile {b} durch {a} und schau, ob ein Rest bleibt.
+    fv: FV.TB.GERADE-REICHT
 herkunft: ki-entwurf
 version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   letzte-ziffer-statt-quersumme:
     de: 'Bei 3 und 6 hilft die letzte [[Ziffer]] nicht. Bilde die [[Quersumme]] – alle Ziffern zusammengezählt.'
+    fv: FV.TB.ENDZIFFER-REGEL
   bei-4-nur-letzte-ziffer:
     de: 'Eine gerade Zahl ist noch nicht durch 4 [[teilbar]]. Prüfe die Zahl aus den letzten beiden [[Ziffern]].'
+    fv: FV.TB.ENDZIFFER-REGEL
 herkunft: ki-entwurf
 version: 1

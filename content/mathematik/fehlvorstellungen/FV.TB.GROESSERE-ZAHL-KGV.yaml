@@ -1,0 +1,26 @@
+id: FV.TB.GROESSERE-ZAHL-KGV
+name:
+  de: Nimmt die größere Zahl als kleinstes gemeinsames Vielfaches
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Gibt beim kgV von 4 und 6 die 6 an. Bei 3 und 6 stimmt das, weil 6 ein Vielfaches von 3 ist;
+    die Abkürzung wird dann auf alle Paare übertragen.
+kompetenzen: [M.ZO.TB.GGT-KGV]
+erklaerung:
+  kurz:
+    de: 'Die größere Zahl ist nur dann das kgV, wenn die kleinere in ihr aufgeht. Prüfe, ob sie [[teilbar]] ist, sonst geh in den [[Vielfachen]] weiter.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die größere der beiden Zahlen genommen.'
+    - teil: warum-nicht
+      de: 'Bei 3 und 6 klappt das, weil 6 durch 3 [[teilbar]] ist. Bei 4 und 6 aber nicht: 6 ist kein [[Vielfaches]] von 4.'
+    - teil: so-stimmt-es
+      de: 'Zähle die [[Vielfachen]] der größeren Zahl ab und prüfe jedes: 6 (nicht durch 4), 12 (durch 4 [[teilbar]]). Das kgV ist 12.'
+gegenbeispiel:
+  de: 'Ein Bus fährt alle 4 Minuten, einer alle 6. Nach 6 Minuten kommt nur der zweite, gemeinsam erst nach 12.'
+rueckweg:
+  vermittlung: M.ZO.TB.GGT-KGV#erklaeren-listen
+kontrast: [M.ZO.TB.GGT-KGV.KGV]
+herkunft: ki-entwurf
+version: 1

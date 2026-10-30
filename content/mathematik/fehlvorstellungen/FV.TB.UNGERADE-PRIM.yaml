@@ -1,0 +1,27 @@
+id: FV.TB.UNGERADE-PRIM
+name:
+  de: Hält jede ungerade Zahl für eine Primzahl
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält 9, 15 oder 21 für Primzahlen, weil sie ungerade sind. Dass gerade Zahlen (außer 2) keine
+    Primzahlen sind, wird umgedreht: Ungerade wird mit prim gleichgesetzt.
+kompetenzen: [M.ZO.TB.PRIM]
+erklaerung:
+  kurz:
+    de: 'Ungerade heißt nur: nicht durch 2 [[teilbar]]. Für eine [[Primzahl]] darf die Zahl durch gar keine andere Zahl außer 1 und sich selbst teilbar sein. Probiere 3, 5 und 7.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: ungerade, also [[Primzahl]].'
+    - teil: warum-nicht
+      de: 'Viele kleine [[Primzahlen]] sind ungerade, das stimmt. Aber 9 = 3 · 3 und 15 = 3 · 5. Sie haben mehr als zwei [[Teiler]].'
+    - teil: so-stimmt-es
+      de: 'Prüfe die kleinen [[Primzahlen]] als [[Teiler]]: 2, 3, 5, 7. Geht keine auf, ist die Zahl (bis 100) eine Primzahl.'
+gegenbeispiel:
+  de: '21 Kinder lassen sich in 3 Gruppen zu je 7 teilen. Eine [[Primzahl]] kann man so nicht aufteilen.'
+rueckweg:
+  vermittlung: M.ZO.TB.PRIM#erklaeren-primzahl
+  voraussetzung: M.ZO.TB.REGELN
+kontrast: [M.ZO.TB.PRIM.IST-PRIM]
+herkunft: ki-entwurf
+version: 1

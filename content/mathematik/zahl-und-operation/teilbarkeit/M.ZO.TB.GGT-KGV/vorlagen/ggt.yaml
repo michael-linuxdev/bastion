@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   kgv-statt-ggt:
     de: 'Das ist ein gemeinsames [[Vielfaches]]. Gesucht ist ein [[Teiler]] – er ist höchstens so groß wie die kleinere Zahl.'
+    fv: FV.TB.TEILER-VIELFACHES
   eins:
     de: 'Die 1 teilt zwar beide Zahlen, aber es gibt einen größeren [[gemeinsamen Teiler]].'
+    fv: FV.TB.NICHT-GROESSTER-KLEINSTES
 herkunft: ki-entwurf
 version: 1

@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   nur-letzte-ziffer-geprueft:
     de: 'Du hast nur auf die letzte [[Ziffer]] geschaut. Für {teiler} brauchst du die [[Quersumme]] oder die letzten beiden Ziffern.'
+    fv: FV.TB.ENDZIFFER-REGEL
 herkunft: ki-entwurf
 version: 1
