@@ -57,7 +57,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 2. Was passiert: Starttreffen (ca. 30 Min., Eltern dürfen dabei sein), App auf eigenem Gerät, Gespräche alle 3–4 Wochen (ca. 15 Min.), ggf. ein kurzer Mathe-Test auf Papier (§5) – keine Note, keine Weitergabe an die Schule.
 3. Welche Daten entstehen:
    - In der App: alles bleibt auf dem Gerät. Die App sendet nichts.
-   - Gesprächsnotizen: handschriftlich bzw. lokal, nur mit **Teilnehmer-Nummer**, ohne Namen.
+   - Gesprächsnotizen: handschriftlich bzw. lokal, nur mit **Teilnehmer-Nummer**, ohne Namen. Gültige Nummern (mit Prüfziffer, z. B. T-01-8) gibt `pnpm testnummern` aus.
    - Ein **Testprotokoll** (K-14), nur wenn Sie es im Elternbereich mit dem Testcode einschalten. Es enthält, welche Aufgaben bearbeitet wurden, Antworten bei Fehlern, welche Seiten geöffnet wurden und wie lange. Es enthält keinen Namen und keinen Spitznamen, nur die Teilnehmer-Nummer. Die App zeigt es Ihnen und Ihrem Kind vorher lesbar an. Sie geben die Datei selbst weiter. Ausschalten und Löschen geht jederzeit.
    - Keine Fotos, keine Ton- oder Videoaufnahmen.
 4. Wer sieht die Daten: nur der Projektverantwortliche. Veröffentlicht werden nur zusammengefasste Ergebnisse ohne Personenbezug (z. B. „5 von 9 sagten …“) und einzelne Zitate ohne Namen, Alter in Klassenstufe, ohne Schule.

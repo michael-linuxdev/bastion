@@ -3,6 +3,7 @@ import { Dexie } from 'dexie';
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb';
 import { describe, expect, it } from 'vitest';
 import altstand1 from '../../tests/altstaende/schema-1.json';
+import altstand2 from '../../tests/altstaende/schema-2.json';
 import { vermittlungEreignis } from '../core/learning/vermittlung-ereignis';
 import { quelleAusSeed } from '../core/rng/zufallsquelle';
 import {
@@ -12,10 +13,13 @@ import {
   karten,
   kompetenzStaende,
   neuBerechnen,
+  nutzungen,
+  speichereNutzung,
   speichereVermittlung,
   vermittlungen,
 } from './ablage';
-import { BastionDatenbank, SCHEMA_1 } from './datenbank';
+import { BastionDatenbank, SCHEMA_1, SCHEMA_2 } from './datenbank';
+import { nutzungEreignis } from '../core/testphase/nutzung';
 
 let nr = 0;
 
@@ -41,7 +45,7 @@ describe('Migration Schemaversion 1 → 2', () => {
     const name = await alteDatenbank(1, SCHEMA_1, altstand1.tabellen);
     const db = new BastionDatenbank(name, { indexedDB, IDBKeyRange });
     await db.open();
-    expect(db.verno).toBe(2);
+    expect(db.verno).toBe(3);
 
     // Nichts geht verloren, nichts ändert sich
     for (const [tabelle, zeilen] of Object.entries(altstand1.tabellen))
@@ -77,5 +81,29 @@ describe('Migration Schemaversion 1 → 2', () => {
     expect(await vermittlungen(db, inst.profil)).toEqual([e]);
     const sicherung = await exportieren(db, inst.profil);
     expect(sicherung.ereignisse.filter((x) => x.art === 'vermittlung')).toEqual([e]);
+  });
+});
+
+describe('Migration Schemaversion 2 → 3', () => {
+  it('behält alle Daten, auch Vermittlungen und Schritte; Nutzungsprotokoll nutzbar, nicht in der Sicherung', async () => {
+    const name = await alteDatenbank(2, { ...SCHEMA_1, ...SCHEMA_2 }, altstand2.tabellen);
+    const db = new BastionDatenbank(name, { indexedDB, IDBKeyRange });
+    await db.open();
+    expect(db.verno).toBe(3);
+    for (const [tabelle, zeilen] of Object.entries(altstand2.tabellen))
+      expect(await db.table(tabelle).toArray()).toEqual(zeilen);
+
+    const inst = await einrichten(db, Date.now(), quelleAusSeed(1));
+    expect(inst.profil).toBe(altstand2.tabellen.profile[0]?.id);
+    const n = nutzungEreignis(
+      { profil: inst.profil, geraet: inst.geraet, was: 'ansicht', ziel: 'start' },
+      Date.UTC(2026, 9, 29, 18),
+      60,
+      quelleAusSeed(3),
+    );
+    await speichereNutzung(db, n);
+    expect(await nutzungen(db, inst.profil)).toEqual([n]);
+    const sicherung = await exportieren(db, inst.profil);
+    expect(sicherung.ereignisse.some((e) => (e as { art: string }).art === 'nutzung')).toBe(false);
   });
 });

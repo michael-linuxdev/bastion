@@ -204,7 +204,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] ~~**U3k** Unbekannte Fehler für die Pflege exportieren~~ – entfällt, steht im Testprotokoll (U4a)
   - [x] **U3l** Browser-Tests (je Schritt einer) und Dokumente (LEHRPLAN §6 „erklärt“, KONZEPT §0, VERMITTLUNG §7)
 - [ ] **U4** Testphase, in zwei Schritten:
-  - [ ] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
+  - [x] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E

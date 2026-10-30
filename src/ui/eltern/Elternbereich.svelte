@@ -25,6 +25,7 @@
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
+  import Testphase from './Testphase.svelte';
 
   let {
     kompetenzen,
@@ -223,6 +224,7 @@
     <KlassenWahl bind:klasse bind:schulart mitSchulart />
     <h3>{tt('basebau.ueberschrift')}</h3>
     <BasebauSchalter bind:an={basebau} durch="eltern" />
+    <Testphase />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button
       onclick={() => {

@@ -29,6 +29,8 @@
     klassenarbeitSetzen,
     klasseSetzen,
     merkeVermittlung,
+    nutzungMerken,
+    testStand,
     alleVermittlungen,
     vermittelteKompetenzen,
     schulartSetzen,
@@ -234,6 +236,25 @@
   /** Kompetenzen mit abgeschlossener Erstvermittlung (VERMITTLUNG §2.4) */
   let vermittelte = $state<ReadonlySet<string>>(new Set());
   let vermittlungListe = $state<readonly VermittlungEreignis[]>([]);
+  /** Testprotokoll eingeschaltet (K-14): Hinweis auf der Startseite */
+  let testphase = $state(false);
+
+  // Nutzungsprotokoll (D-18): jede Ansicht mit der Verweildauer der vorigen.
+  // nutzungMerken schreibt nur, wenn das Testprotokoll eingeschaltet ist.
+  let ansichtSeit = Date.now();
+  $effect(() => {
+    const ziel = ansicht;
+    const jetzt = Date.now();
+    const dauer = jetzt - ansichtSeit;
+    ansichtSeit = jetzt;
+    void nutzungMerken('ansicht', ziel, dauer);
+  });
+  $effect(() => {
+    const sichtbar = () =>
+      void nutzungMerken('app', document.visibilityState === 'visible' ? 'vorn' : 'hintergrund');
+    document.addEventListener('visibilitychange', sichtbar);
+    return () => document.removeEventListener('visibilitychange', sichtbar);
+  });
   /** Rückweg aus dem Fehlerkatalog: an dieser Stelle der Erstvermittlung beginnen */
   let vermittlungStart = $state<string | undefined>(undefined);
   /**
@@ -319,6 +340,7 @@
     zustand = await ladeZustand();
     vermittelte = await vermittelteKompetenzen();
     vermittlungListe = await alleVermittlungen();
+    testphase = (await testStand()).aktiv;
     const jetzt = Date.now();
     rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
     faellig = wiederholRunde(zustand.karten, jetzt).length;
@@ -509,6 +531,7 @@
       geradeDran={geradeDran.length}
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
+      {testphase}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -619,7 +642,10 @@
               if (ziel) gewaehlt = ziel;
               ansicht = 'uebung';
             }}
-            onzurueck={() => (ansicht = 'uebung')}
+            onzurueck={() => {
+              void nutzungMerken('abbruch', `vermittlung:${k.id}`);
+              ansicht = 'uebung';
+            }}
           />
         {/if}
       {:else if ansicht === 'anleitung' && anleitung}
@@ -733,6 +759,7 @@
           fehlvorstellungen={geladen.fehlvorstellungen}
           fvStaende={fvStaende(geladen)}
           rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
           onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
@@ -751,6 +778,7 @@
           fehlvorstellungen={geladen.fehlvorstellungen}
           fvStaende={fvStaende(geladen)}
           rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
           onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
@@ -793,6 +821,7 @@
             fehlvorstellungen={geladen.fehlvorstellungen}
             fvStaende={fvStaende(geladen)}
             rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+            onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
             onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           />
         {/key}

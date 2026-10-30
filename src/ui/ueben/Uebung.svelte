@@ -39,6 +39,7 @@
     fvStaende,
     rueckwegArt,
     onrueckweg,
+    onnutzung,
   }: {
     ueberschrift: string;
     /** Niveau, als Schild neben der Überschrift */
@@ -67,6 +68,8 @@
       zustand: FvZustand | undefined,
     ) => 'erklaerung' | 'grundlage' | undefined;
     onrueckweg?: (fv: Fehlvorstellung, art: 'erklaerung' | 'grundlage') => void;
+    /** Nutzungsprotokoll der Testphase (D-18): Hilfen und „Weiter ohne Weg“ */
+    onnutzung?: (was: 'hilfe' | 'weg-uebersprungen', ziel: string) => void;
   } = $props();
   let fehlerInFolge = $state(0);
   const BLOCK = 5;
@@ -290,7 +293,13 @@
           {#if ergebnis === undefined}
             <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
             {#if hilfen < aufgabe.vorlage.hilfen.length}
-              <button class="zweit" onclick={() => (hilfen += 1)}>
+              <button
+                class="zweit"
+                onclick={() => {
+                  hilfen += 1;
+                  onnutzung?.('hilfe', `tipp:${aufgabe?.vorlage.id ?? ''}`);
+                }}
+              >
                 {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
               </button>
             {/if}
@@ -330,6 +339,7 @@
               onueberspringen={() => {
                 speichern();
                 wegOffen = true;
+                onnutzung?.('weg-uebersprungen', a.vorlage.id);
               }}
             />
           {/if}
@@ -345,7 +355,12 @@
               />
             {/each}
             <details class="weg" bind:open={wegOffen}>
-              <summary>{t('uebung.loesungsweg')}</summary>
+              <summary
+                onclick={() => {
+                  // nur das Öffnen von Hand zählt, nicht das automatische nach einem Fehler
+                  if (!wegOffen) onnutzung?.('hilfe', `loesungsweg:${aufgabe?.vorlage.id ?? ''}`);
+                }}>{t('uebung.loesungsweg')}</summary
+              >
               <ol>
                 {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
                   <li>{schritt.de}</li>
