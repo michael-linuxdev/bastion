@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   mal-zwei:
     de: 'Du hast mit 2 multipliziert. Hoch 2 heißt: die Zahl mal sich selbst, also {basis} · {basis}.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
   halbiert:
     de: Halbieren ist hier nicht gemeint.
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
 herkunft: ki-entwurf
 version: 1

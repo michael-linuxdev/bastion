@@ -1,0 +1,27 @@
+id: FV.NZ.ERSTE-ZIFFER
+name:
+  de: Vergleicht Zahlen nur nach der ersten Ziffer
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält 92 für größer als 315, weil 9 > 3, oder sortiert wie Wörter im Alphabet. Die Zahl der
+    Stellen wird nicht beachtet.
+kompetenzen: [M.ZO.NZ.ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Zähle zuerst die Stellen: Die Zahl mit mehr Stellen ist größer. Nur bei gleich vielen Stellen vergleichst du von links [[Ziffer]] für Ziffer.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf die erste [[Ziffer]] geschaut.'
+    - teil: warum-nicht
+      de: 'Bei gleich langen Zahlen klappt das, darum wirkt es richtig. Aber bei 315 ist die 3 ein Hunderter, bei 92 ist die 9 nur ein Zehner.'
+    - teil: so-stimmt-es
+      de: 'Erst die Stellen zählen: 315 hat drei, 92 hat zwei. Also ist 315 größer.'
+gegenbeispiel:
+  de: '9 € sind weniger als 30 €, obwohl 9 größer ist als 3.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ORDNEN#erklaeren-vergleichen
+  voraussetzung: M.ZO.NZ.STELLENWERT
+kontrast: [M.ZO.NZ.ORDNEN.DER-GROESSE-NACH, M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN]
+herkunft: ki-entwurf
+version: 1

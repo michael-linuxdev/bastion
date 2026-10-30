@@ -1,0 +1,26 @@
+id: FV.NZ.NULLEN-ZAEHLEN
+name:
+  de: Hängt bei Stufenzahlen zu wenige oder zu viele Nullen an
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet 50 · 40 = 200 oder 3 · 10⁴ = 300 000. Die Nullen werden ungenau gezählt, oder eine
+    Null, die beim Malnehmen neu entsteht (5 · 4 = 20), wird übersehen.
+kompetenzen: [M.ZO.NZ.MULT, M.ZO.NZ.POTENZEN]
+erklaerung:
+  kurz:
+    de: 'Rechne erst ohne Nullen, dann hänge alle Nullen beider Zahlen an. Bei 10 hoch 4 sind es genau 4 Nullen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig gerechnet, aber dich bei der Zahl der Nullen verzählt.'
+    - teil: warum-nicht
+      de: 'Viele Nullen hintereinander verschwimmen leicht. Jede Null macht die Zahl aber zehnmal größer. Eine Null zu wenig, und das Ergebnis ist zehnmal zu klein.'
+    - teil: so-stimmt-es
+      de: '50 · 40: Erst 5 · 4 = 20, dann die zwei Nullen anhängen: 2 000. Zähle zur Sicherheit die Nullen mit dem Finger.'
+gegenbeispiel:
+  de: '50 Kinder zahlen je 40 €. Das sind viel mehr als 200 €, denn schon 10 Kinder zahlen 400 €.'
+rueckweg:
+  vermittlung: M.ZO.NZ.MULT#erklaeren-stufenzahlen
+kontrast: [M.ZO.NZ.MULT.STUFENZAHLEN, M.ZO.NZ.POTENZEN.ZEHNERPOTENZ]
+herkunft: ki-entwurf
+version: 1

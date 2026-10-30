@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   grenze-mitgezaehlt:
     de: Mit dieser Zahl wären beide Seiten gleich groß. Gefragt ist „kleiner als“ – die Grenze selbst gehört nicht dazu.
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
 herkunft: ki-entwurf
 version: 1

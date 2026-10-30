@@ -5,11 +5,11 @@ art: falsche-regel
 beschreibung:
   de: >-
     Rechnet 2 + 3 · 4 = 20 statt 14. Die Leserichtung wird zur Rechenrichtung. Die Vorrangregel ist
-    bekannt, wird aber vergessen, sobald die Zahlen Brüche oder Dezimalzahlen sind.
-kompetenzen: [M.ZO.BR.RECHENGESETZE]
+    oft bekannt, wird aber vergessen, besonders sobald die Zahlen Brüche oder Dezimalzahlen sind.
+kompetenzen: [M.ZO.BR.RECHENGESETZE, M.SF.NZ.TERME]
 erklaerung:
   kurz:
-    de: 'Es gilt [[Punkt vor Strich]]: Erst malnehmen und teilen, dann addieren und subtrahieren. Das gilt auch mit Brüchen und [[Dezimalzahlen]].'
+    de: 'Es gilt [[Punkt vor Strich]]: Erst malnehmen und teilen, dann addieren und subtrahieren. Das gilt für alle Zahlen.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast von links nach rechts gerechnet, so wie man liest.'
@@ -21,6 +21,11 @@ gegenbeispiel:
   de: '2 € Eintritt plus 3 Getränke zu je 4 € sind 14 €. Mit 20 € würdest du 6 € zu viel bezahlen.'
 rueckweg:
   vermittlung: M.SF.NZ.TERME#erklaeren-punkt-vor-strich
-kontrast: [M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT, M.ZO.BR.RECHENGESETZE.DEZIMAL]
+kontrast:
+  [
+    M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT,
+    M.ZO.BR.RECHENGESETZE.DEZIMAL,
+    M.SF.NZ.TERME.PUNKT-VOR-STRICH,
+  ]
 herkunft: ki-entwurf
 version: 1

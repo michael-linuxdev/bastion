@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   genau-gerechnet:
     de: 'Du hast genau gerechnet. Beim [[Überschlag]] rundest du zuerst und rechnest dann mit den gerundeten Zahlen – das geht im Kopf.'
+    fv: FV.NZ.UEBERSCHLAG
   eine-zahl-nicht-gerundet:
     de: Du hast nur eine Zahl gerundet. Runde beide Zahlen, bevor du rechnest.
+    fv: FV.NZ.UEBERSCHLAG
   ergebnis-gerundet:
     de: 'Du hast erst gerechnet und dann das Ergebnis gerundet. Beim [[Überschlag]] rundest du vorher.'
+    fv: FV.NZ.UEBERSCHLAG
 herkunft: ki-entwurf
 version: 1

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 0,3² = 0,6 oder 5² = 10. Die Hochzahl wird als Faktor gelesen. Die Bedeutung „die Zahl
     so oft mit sich selbst malnehmen“ ist noch nicht sicher.
-kompetenzen: [M.ZO.BR.RECHENGESETZE]
+kompetenzen: [M.ZO.BR.RECHENGESETZE, M.ZO.NZ.POTENZEN]
 erklaerung:
   kurz:
     de: 'Hoch 2 heißt: die Zahl mal sich selbst. 5² = 5 · 5 = 25, nicht 5 · 2.'
@@ -16,11 +16,11 @@ erklaerung:
     - teil: warum-nicht
       de: 'Die kleine 2 sieht aus wie ein [[Faktor]], darum liegt das nahe. Die [[Hochzahl]] sagt aber, wie oft die Zahl selbst als Faktor vorkommt.'
     - teil: so-stimmt-es
-      de: 'Schreibe es aus: 0,3² = 0,3 · 0,3 = 0,09.'
+      de: 'Schreibe es aus: 7² = 7 · 7 = 49. Genauso bei Kommazahlen: 0,3² = 0,3 · 0,3 = 0,09.'
 gegenbeispiel:
   de: 'Ein Quadrat mit 5 cm Seitenlänge hat 25 Kästchen von 1 cm², nicht 10.'
 rueckweg:
   vermittlung: M.ZO.NZ.POTENZEN#erklaeren-quadrat
-kontrast: [M.ZO.BR.RECHENGESETZE.DEZIMAL]
+kontrast: [M.ZO.BR.RECHENGESETZE.DEZIMAL, M.ZO.NZ.POTENZEN.QUADRAT]
 herkunft: ki-entwurf
 version: 1

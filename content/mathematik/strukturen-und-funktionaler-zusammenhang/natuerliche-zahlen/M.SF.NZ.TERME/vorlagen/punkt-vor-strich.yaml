@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   von-links-gerechnet:
     de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]] – erst das Malnehmen.'
+    fv: FV.NZ.PUNKT-VOR-STRICH
   klammer-uebersehen:
     de: Achte auf die Reihenfolge der Rechenschritte.
+    fv: FV.NZ.KLAMMER
 herkunft: ki-entwurf
 version: 1

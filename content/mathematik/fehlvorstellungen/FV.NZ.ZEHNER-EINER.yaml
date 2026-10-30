@@ -1,0 +1,26 @@
+id: FV.NZ.ZEHNER-EINER
+name:
+  de: Vertauscht beim Schreiben Zehner und Einer
+art: verwechslung
+beschreibung:
+  de: >-
+    Schreibt „vierundzwanzig“ als 42. Im Deutschen werden die Einer vor den Zehnern gesprochen, aber
+    nach ihnen geschrieben. Das führt zu Zahlendrehern.
+kompetenzen: [M.ZO.NZ.STELLENWERT]
+erklaerung:
+  kurz:
+    de: 'Im Deutschen hört man die Einer zuerst, geschrieben werden sie aber rechts: „vierundzwanzig“ = 2 Zehner und 4 Einer = 24.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl in der Reihenfolge geschrieben, in der man sie spricht.'
+    - teil: warum-nicht
+      de: 'Das ist eine echte Falle der deutschen Sprache, viele Erwachsene verdrehen Zahlen auch. Geschrieben wird aber immer von den großen zu den kleinen Stellen.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zuerst die Zehner, dann die Einer. Bei großen Zahlen hilft die [[Stellenwerttafel]].'
+gegenbeispiel:
+  de: '24 Kinder und 42 Kinder sind sehr verschieden große Gruppen.'
+rueckweg:
+  vermittlung: M.ZO.NZ.STELLENWERT#erklaeren-zahlwort
+kontrast: [M.ZO.NZ.STELLENWERT.ZAHLWORT]
+herkunft: ki-entwurf
+version: 1

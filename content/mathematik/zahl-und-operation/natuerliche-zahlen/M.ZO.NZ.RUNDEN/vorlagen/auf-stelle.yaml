@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: 'Du hast in die falsche Richtung gerundet. Entscheidend ist nur die [[Ziffer]] rechts neben der [[Rundungsstelle]].'
+    fv: FV.NZ.RUNDEN-RICHTUNG
   uebertrag-vergessen:
     de: 'Beim Aufrunden wird aus der 9 eine 10 – das gibt einen [[Übertrag]] auf die nächste Stelle links.'
+    fv: FV.NZ.UEBERTRAG
   falsche-stelle:
     de: Du hast auf eine andere Stelle gerundet. Lies noch einmal, auf welche Stelle gerundet werden soll.
+    fv: FV.NZ.RUNDEN-STELLE
 herkunft: ki-entwurf
 version: 1

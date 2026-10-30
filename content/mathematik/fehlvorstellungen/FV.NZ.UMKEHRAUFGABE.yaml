@@ -4,9 +4,9 @@ name:
 art: falsche-regel
 beschreibung:
   de: >-
-    Löst x + 3/4 = 2 mit 2 + 3/4 oder 3 · x = 1/2 mit 3 · 1/2. Die Zahlen aus der Gleichung werden
+    Löst x + 7 = 12 mit 12 + 7 oder 3 · x = 1/2 mit 3 · 1/2. Die Zahlen aus der Gleichung werden
     mit derselben Rechenart verrechnet, die dasteht. Die Idee „rückwärts rechnen“ fehlt.
-kompetenzen: [M.SF.BR.GLEICHUNGEN]
+kompetenzen: [M.SF.BR.GLEICHUNGEN, M.SF.NZ.GLEICHUNGEN]
 erklaerung:
   kurz:
     de: 'Rechne rückwärts mit der [[Umkehraufgabe]]: Aus plus wird minus, aus mal wird geteilt. Mach danach die [[Probe]].'
@@ -16,11 +16,12 @@ erklaerung:
     - teil: warum-nicht
       de: 'Die Zahlen und das Zeichen stehen ja da, darum liegt das nahe. Aber gesucht ist die Zahl **vor** der Rechnung. Um zurückzukommen, musst du die Rechnung rückgängig machen.'
     - teil: so-stimmt-es
-      de: 'x + 3/4 = 2, also x = 2 − 3/4 = 5/4. [[Probe]]: 5/4 + 3/4 = 8/4 = 2. Es stimmt.'
+      de: 'x + 7 = 12, also x = 12 − 7 = 5. [[Probe]]: 5 + 7 = 12. Es stimmt. Mit Brüchen geht es genauso.'
 gegenbeispiel:
   de: 'Wenn x + 1 = 5 ist, kann x nicht 6 sein: 6 + 1 ist 7.'
 rueckweg:
   vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-umkehraufgabe
-kontrast: [M.SF.BR.GLEICHUNGEN.PLUS-MINUS, M.SF.BR.GLEICHUNGEN.MAL]
+kontrast:
+  [M.SF.BR.GLEICHUNGEN.PLUS-MINUS, M.SF.BR.GLEICHUNGEN.MAL, M.SF.NZ.GLEICHUNGEN.UMKEHRAUFGABE]
 herkunft: ki-entwurf
 version: 1

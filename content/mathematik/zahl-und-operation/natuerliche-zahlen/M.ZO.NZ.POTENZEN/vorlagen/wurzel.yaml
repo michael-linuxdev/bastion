@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   mal-zwei:
     de: Verdoppeln ist hier nicht gemeint.
+    fv: FV.NZ.WURZEL-HALBIERT
   halbiert:
     de: 'Du hast halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst multipliziert {quadrat} ergibt.'
+    fv: FV.NZ.WURZEL-HALBIERT
 herkunft: ki-entwurf
 version: 1

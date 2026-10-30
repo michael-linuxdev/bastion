@@ -1,0 +1,26 @@
+id: FV.NZ.GRENZE-MITGEZAEHLT
+name:
+  de: Zählt bei „kleiner als“ die Grenze selbst mit
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Gibt bei y + 3 < 10 die Zahl 7 als größte Lösung an. Dass „<“ die Gleichheit ausschließt, ist
+    noch nicht verankert; < und ≤ werden gleich behandelt.
+kompetenzen: [M.SF.NZ.GLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: '„Kleiner als“ heißt: wirklich kleiner, nicht gleich. Setze deine Zahl ein. Sind beide Seiten gleich, gehört sie nicht dazu.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl genommen, bei der beide Seiten gleich groß sind.'
+    - teil: warum-nicht
+      de: 'Die Grenze zu finden war der richtige erste Schritt. Aber 7 + 3 = 10, und 10 ist nicht kleiner als 10. Die Grenze selbst erfüllt die Bedingung nicht.'
+    - teil: so-stimmt-es
+      de: 'Finde die Grenze und gehe eins darunter: y + 3 < 10, die Grenze ist 7, die größte Lösung also 6. [[Probe]]: 6 + 3 = 9 < 10.'
+gegenbeispiel:
+  de: 'Wer jünger als 10 sein muss, darf nicht 10 Jahre alt sein.'
+rueckweg:
+  vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-ungleichung
+kontrast: [M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG]
+herkunft: ki-entwurf
+version: 1

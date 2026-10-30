@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   uebertrag-vergessen:
     de: 'Du hast einen [[Übertrag]] vergessen. Ist ein [[Produkt]] 10 oder größer, schreibe die Einer hin und addiere die Zehner zum nächsten Produkt.'
+    fv: FV.NZ.UEBERTRAG
   teilprodukt-nicht-eingerueckt:
     de: 'Die [[Teilprodukte]] stehen nicht richtig untereinander. Das Teilprodukt mit der Zehnerziffer rückst du um eine Stelle nach links ein.'
+    fv: FV.NZ.STELLENGERECHT
 herkunft: ki-entwurf
 version: 1

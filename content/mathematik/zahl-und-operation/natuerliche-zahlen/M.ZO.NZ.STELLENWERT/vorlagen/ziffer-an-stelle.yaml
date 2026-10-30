@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   von-links-gezaehlt:
     de: Du hast von links gezählt. Die Stellen werden von rechts gezählt – ganz rechts stehen die Einer.
+    fv: FV.NZ.STELLEN-ZAEHLEN
   stelle-links-daneben:
     de: Fast! Das ist die Stelle links daneben. Zähle noch einmal von den Einern aus.
+    fv: FV.NZ.STELLEN-ZAEHLEN
   stelle-rechts-daneben:
     de: Fast! Das ist die Stelle rechts daneben. Zähle noch einmal von den Einern aus.
+    fv: FV.NZ.STELLEN-ZAEHLEN
 herkunft: ki-entwurf
 version: 1

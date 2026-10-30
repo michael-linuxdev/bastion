@@ -1,0 +1,26 @@
+id: FV.NZ.NULL-PLATZHALTER
+name:
+  de: Lässt die Null für eine leere Stelle weg
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt „dreitausendvierzig“ als 340 oder 618 : 6 = 13 statt 103. Eine Stelle, an der nichts
+    ist, bekommt keine Ziffer. Dass die Null die Stelle frei hält, ist noch nicht verankert.
+kompetenzen: [M.ZO.NZ.STELLENWERT, M.ZO.NZ.DIV]
+erklaerung:
+  kurz:
+    de: 'Jede Stelle braucht eine [[Ziffer]]. Ist sie leer, steht dort eine 0. Sonst rutschen die anderen Ziffern an die falsche Stelle.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Stelle, an der nichts ist, einfach weggelassen.'
+    - teil: warum-nicht
+      de: 'Null klingt nach „nichts“, darum wirkt sie unwichtig. Aber sie hält den Platz frei. Ohne sie wird aus 3 Tausendern ein Hunderter, die Zahl ist zehnmal zu klein.'
+    - teil: so-stimmt-es
+      de: 'Trage die Zahl in eine [[Stellenwerttafel]] ein und fülle jede leere Spalte mit 0. Beim Teilen gilt: Passt die Zahl in eine Stelle nicht hinein, schreibst du 0 ins Ergebnis.'
+gegenbeispiel:
+  de: '305 € und 35 € sind sehr verschieden, obwohl nur eine 0 fehlt.'
+rueckweg:
+  vermittlung: M.ZO.NZ.STELLENWERT#erklaeren-null
+kontrast: [M.ZO.NZ.STELLENWERT.ZAHLWORT, M.ZO.NZ.DIV.OHNE-REST]
+herkunft: ki-entwurf
+version: 1

@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   null-vergessen:
     de: Im Ergebnis fehlt eine 0. Wenn {b} in eine Stelle nicht hineinpasst, schreibst du eine 0 ins Ergebnis.
+    fv: FV.NZ.NULL-PLATZHALTER
   rest-zu-gross:
     de: 'Der Rest ist größer als die Zahl, durch die du teilst – dann passt {b} noch einmal hinein.'
+    fv: FV.NZ.REST-ZU-GROSS
   rest-vergessen:
     de: Es bleibt ein Rest. Gib ihn mit an.
+    fv: FV.NZ.REST-VERGESSEN
 herkunft: ki-entwurf
 version: 1

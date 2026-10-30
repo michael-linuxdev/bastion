@@ -542,6 +542,12 @@ version: 1
 
 *Zuordnung U5a (30.10.2026):* Brüche und Dezimalzahlen (`M.ZO.BR.…`, `M.SF.BR.…`) sind zugeordnet, alle 67 übrigen Fehlerbilder der 40 Vorlagen. Dazu kamen 35 neue Fehlvorstellungen (jetzt 45), zwei vorhandene gelten jetzt auch in weiteren Kompetenzen (`FV.BR.VERTAUSCHT` beim Anteil von, `FV.BR.GEGENTEIL` bei Flächenanteilen). Der Rückweg nennt bei Kompetenzen ohne Erstvermittlung schon den Schritt, den sie später haben soll (etwa `M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler`). Bis dahin zeigt die App dort keinen Knopf „Zur Erklärung“.
 
+*Zuordnung U5b (Stand 30.10.2026):*
+
+| Feld | Präfix | Fehlerbilder | neue Fehlvorstellungen |
+|---|---|---|---|
+| Natürliche Zahlen | `M.ZO.NZ.`, `M.SF.NZ.` | 43 | 18; 6 vorhandene `FV.NZ.…` gelten jetzt auch hier, ihre Beispiele kommen ohne Brüche aus |
+
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 
 | Werkzeug | Parameter | Interaktiv |

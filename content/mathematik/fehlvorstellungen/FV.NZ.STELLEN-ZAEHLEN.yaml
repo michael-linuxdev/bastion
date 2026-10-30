@@ -1,0 +1,26 @@
+id: FV.NZ.STELLEN-ZAEHLEN
+name:
+  de: Zählt die Stellen einer Zahl von der falschen Seite oder verzählt sich
+art: lesefehler
+beschreibung:
+  de: >-
+    Nennt bei „Welche Ziffer steht an der Hunderterstelle von 4 572?“ die 4 oder die 7, oder zählt
+    von links. Die Stellen werden nicht von den Einern aus bestimmt.
+kompetenzen: [M.ZO.NZ.STELLENWERT]
+erklaerung:
+  kurz:
+    de: 'Zähle die Stellen immer von rechts: Ganz rechts stehen die Einer, dann Zehner, Hunderter, Tausender.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Stelle von links gezählt oder dich um eine Stelle verzählt.'
+    - teil: warum-nicht
+      de: 'Wir lesen von links, darum liegt das nahe. Die Namen der Stellen beginnen aber rechts bei den Einern, egal wie lang die Zahl ist.'
+    - teil: so-stimmt-es
+      de: 'Zeige von rechts mit dem Finger: E, Z, H, T. Bei 4 572 steht an der Hunderterstelle die 5.'
+gegenbeispiel:
+  de: 'Bei 72 und bei 4 572 steht die 2 an der Einerstelle, obwohl sie einmal die zweite und einmal die vierte [[Ziffer]] von links ist.'
+rueckweg:
+  vermittlung: M.ZO.NZ.STELLENWERT#erklaeren-stellen
+kontrast: [M.ZO.NZ.STELLENWERT.ZIFFER-AN-STELLE]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,26 @@
+id: FV.NZ.REIHENFOLGE-UMGEKEHRT
+name:
+  de: Ordnet in der umgekehrten Reihenfolge
+art: lesefehler
+beschreibung:
+  de: >-
+    Ordnet richtig, aber von der größten zur kleinsten Zahl, obwohl mit der kleinsten begonnen
+    werden soll. Meist wurde die Aufgabe zu schnell gelesen.
+kompetenzen: [M.ZO.NZ.ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Deine Reihenfolge ist richtig, nur andersherum. Lies noch einmal, womit du beginnen sollst.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast von der größten zur kleinsten Zahl geordnet.'
+    - teil: warum-nicht
+      de: 'Das Vergleichen hat geklappt. Die Aufgabe will aber die kleinste Zahl zuerst, wie auf einem Zahlenstrahl von links nach rechts.'
+    - teil: so-stimmt-es
+      de: 'Suche zuerst die kleinste Zahl und schreibe sie an den Anfang. Dann die nächstgrößere.'
+gegenbeispiel:
+  de: 'Wer sich der Größe nach aufstellt, die Kleinste vorn, darf nicht mit dem Größten anfangen.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ORDNEN#erklaeren-vergleichen
+kontrast: [M.ZO.NZ.ORDNEN.DER-GROESSE-NACH]
+herkunft: ki-entwurf
+version: 1

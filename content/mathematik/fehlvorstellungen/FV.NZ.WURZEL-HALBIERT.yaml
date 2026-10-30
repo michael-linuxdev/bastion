@@ -1,0 +1,26 @@
+id: FV.NZ.WURZEL-HALBIERT
+name:
+  de: Hält die Wurzel für die Hälfte der Zahl
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet √36 = 18. Weil Quadrieren mit „mal 2“ verwechselt wird, gilt das Wurzelziehen als
+    „durch 2“. Die Umkehrung von „mal sich selbst“ ist noch nicht verankert.
+kompetenzen: [M.ZO.NZ.POTENZEN]
+erklaerung:
+  kurz:
+    de: 'Die [[Wurzel]] ist die Zahl, die mal sich selbst die Zahl unter der Wurzel ergibt: √36 = 6, denn 6 · 6 = 36.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl unter der [[Wurzel]] halbiert.'
+    - teil: warum-nicht
+      de: 'Bei 4 klappt das zufällig: √4 = 2. Aber 18 · 18 ist 324, nicht 36. Die [[Wurzel]] fragt nach der Zahl, die mit sich selbst malgenommen wird.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Welche Zahl mal sich selbst ergibt 36? Probiere die Quadratzahlen durch: 5 · 5 = 25, 6 · 6 = 36.'
+gegenbeispiel:
+  de: 'Ein Quadrat aus 36 Kästchen ist 6 Kästchen breit, nicht 18.'
+rueckweg:
+  vermittlung: M.ZO.NZ.POTENZEN#erklaeren-wurzel
+kontrast: [M.ZO.NZ.POTENZEN.WURZEL]
+herkunft: ki-entwurf
+version: 1

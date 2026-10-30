@@ -1,0 +1,26 @@
+id: FV.NZ.ENTBUENDELN
+name:
+  de: Entbündelt, verringert aber die Stelle links nicht
+art: rechenfehler
+beschreibung:
+  de: >-
+    Holt beim Subtrahieren einen Zehner, zieht ihn aber in der Zehnerspalte nicht ab. Das Ergebnis
+    ist dann um 10 (oder 100 …) zu groß.
+kompetenzen: [M.ZO.NZ.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Wer [[entbündelt]], nimmt der Stelle links eine 1 weg. Streiche sie durch und schreibe die kleinere Zahl darüber.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dir einen Zehner geholt, ihn links aber nicht abgezogen.'
+    - teil: warum-nicht
+      de: 'Das Holen war richtig. Der Zehner kommt aber nicht aus dem Nichts. Er fehlt jetzt bei den Zehnern, sonst hättest du plötzlich 10 mehr.'
+    - teil: so-stimmt-es
+      de: '52 − 38: Aus 5 Zehnern werden 4, aus 2 Einern werden 12. Rechne dann mit den 4 Zehnern weiter: 4 − 3 = 1.'
+gegenbeispiel:
+  de: '52 − 38 ist weniger als 20. Ohne die 1 abzuziehen käme 24 heraus.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ADD-SUB#erklaeren-entbuendeln
+kontrast: [M.ZO.NZ.ADD-SUB.SUBTRAHIEREN]
+herkunft: ki-entwurf
+version: 1
