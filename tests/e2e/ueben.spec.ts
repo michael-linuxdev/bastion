@@ -33,6 +33,24 @@ function einstellungImSpeicher(page: Page, schluessel: string) {
   );
 }
 
+/** Zahl der gespeicherten Aufgaben-Ereignisse in IndexedDB. */
+function aufgabenImSpeicher(page: Page) {
+  return page.evaluate(
+    () =>
+      new Promise<number>((fertig, fehler) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onerror = () => fehler(anfrage.error);
+        anfrage.onsuccess = () => {
+          const zaehlen = anfrage.result.transaction('aufgaben').objectStore('aufgaben').count();
+          zaehlen.onsuccess = () => {
+            anfrage.result.close();
+            fertig(zaehlen.result);
+          };
+        };
+      }),
+  );
+}
+
 /** Sitzungs-Ereignisse direkt aus IndexedDB lesen (nur die geprüften Felder). */
 function sitzungenImSpeicher(page: Page) {
   return page.evaluate(
@@ -733,6 +751,8 @@ test('Sitzung ohne „Fertig für heute“ wird beim nächsten Start nachgetrage
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByRole('button', { name: 'Fertig für heute' })).toBeVisible();
+  // Erst neu laden, wenn die Antwort gespeichert ist: Nachgetragen wird aus den Aufgaben
+  await expect.poll(() => aufgabenImSpeicher(page)).toBe(1);
   expect(await sitzungenImSpeicher(page)).toEqual([]);
   await page.reload();
   await expect(

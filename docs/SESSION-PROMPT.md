@@ -181,6 +181,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - **Lint-Fehler von svelte-check** stehen in Großbuchstaben (`ERROR`). Beim Filtern der Ausgabe danach suchen.
 - Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
+- Browser-Tests, die neu laden, warten vorher, bis die Antwort in IndexedDB steht (`aufgabenImSpeicher`). Sonst geht sie beim Neuladen verloren, und der Test ist in der CI manchmal rot.
 - `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 
 ## Am Ende der Sitzung aktualisieren
