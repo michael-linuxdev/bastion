@@ -1,0 +1,26 @@
+id: FV.DA.VOLLKREIS-360
+name:
+  de: Rechnet beim Kreisdiagramm nicht mit 360°
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet den Mittelpunktswinkel für 25 % als 25° (mit 100) oder als 45° (mit 180). Dass der ganze
+    Kreis 360° hat, wird mit Prozent oder dem Halbkreis vermischt.
+kompetenzen: [M.DZ.DA.KREISDIAGRAMM]
+erklaerung:
+  kurz:
+    de: 'Der ganze Kreis hat 360°. Der [[Mittelpunktswinkel]] ist [[Anteil]] · 360°: 25 % sind 0,25 · 360° = 90°.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit 100 oder mit 180 statt mit 360 gerechnet.'
+    - teil: warum-nicht
+      de: 'Bei [[Prozent]] denkt man an 100, beim Kreis manchmal an den Halbkreis. Aber im [[Kreisdiagramm]] steht das Ganze für den vollen Kreis, und der hat 360°.'
+    - teil: so-stimmt-es
+      de: 'Rechne den [[Anteil]] als [[Bruch]] oder [[Dezimalzahl]] und nimm ihn mal 360°. Prüfe: Die Hälfte muss 180° ergeben.'
+gegenbeispiel:
+  de: 'Ein Viertel einer Pizza ist eine rechtwinklige Ecke, also 90°, nicht 25°.'
+rueckweg:
+  vermittlung: M.DZ.DA.KREISDIAGRAMM#erklaeren-winkel
+kontrast: [M.DZ.DA.KREISDIAGRAMM.WINKEL]
+herkunft: ki-entwurf
+version: 1

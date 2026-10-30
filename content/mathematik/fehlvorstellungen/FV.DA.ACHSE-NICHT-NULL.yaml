@@ -1,0 +1,26 @@
+id: FV.DA.ACHSE-NICHT-NULL
+name:
+  de: Lässt sich von einer Achse täuschen, die nicht bei 0 beginnt
+art: lesefehler
+beschreibung:
+  de: >-
+    Hält eine Säule für doppelt so groß, weil sie doppelt so hoch ist, obwohl die Achse bei 50 beginnt,
+    oder liest die Höhe statt der Zahl ab.
+kompetenzen: [M.DZ.DA.DIAGRAMME]
+erklaerung:
+  kurz:
+    de: 'Schau zuerst, wo die Achse beginnt. Beginnt sie nicht bei 0, täuschen die Höhen. Vergleiche die Zahlen an der Achse.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Höhe]] der Säulen verglichen oder abgelesen.'
+    - teil: warum-nicht
+      de: 'Normalerweise zeigt die [[Höhe]] den Wert, darum vertraut man ihr. Wird unten ein Stück abgeschnitten, sehen kleine Unterschiede aber riesig aus. Das wird in der Werbung oft ausgenutzt.'
+    - teil: so-stimmt-es
+      de: 'Lies für jede Säule den Wert an der Achse ab und vergleiche die Zahlen: 60 und 70 sind kein doppelter Unterschied, auch wenn eine Säule doppelt so hoch aussieht.'
+gegenbeispiel:
+  de: 'Steigt ein Preis von 100 € auf 105 €, sind das nur 5 %, auch wenn die Säule im Bild doppelt so hoch ist.'
+rueckweg:
+  vermittlung: M.DZ.DA.DIAGRAMME#erklaeren-beurteilen
+kontrast: [M.DZ.DA.DIAGRAMME.BEURTEILEN]
+herkunft: ki-entwurf
+version: 1

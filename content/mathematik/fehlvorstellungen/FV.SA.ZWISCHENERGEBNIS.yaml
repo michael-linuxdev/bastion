@@ -16,6 +16,8 @@ kompetenzen:
     M.GM.KP.ZYLINDER,
     M.RF.DV.REGELMAESSIG,
     M.RF.DV.WINKELSAETZE,
+    M.DZ.DA.DIAGRAMME,
+    M.DZ.DA.MITTELWERT,
   ]
 erklaerung:
   kurz:
@@ -40,6 +42,7 @@ kontrast:
     M.GM.GR.SACH.EINKAUF,
     M.GM.KP.MASSE.KOERPER,
     M.RF.DV.WINKELSAETZE.INNENWINKEL,
+    M.DZ.DA.MITTELWERT.ZAHLEN,
   ]
 herkunft: ki-entwurf
 version: 1

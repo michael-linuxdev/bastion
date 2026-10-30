@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   addiert-statt-mal:
     de: 'Entlang eines [[Pfades]] wird malgenommen, nicht addiert.'
+    fv: FV.ZF.PFADREGELN
   nur-ein-pfad:
     de: 'Genau ein Treffer geht auf zwei Wegen: T dann N, oder N dann T. Addiere beide [[Pfade]].'
+    fv: FV.ZF.PFADREGELN
 herkunft: ki-entwurf
 version: 1

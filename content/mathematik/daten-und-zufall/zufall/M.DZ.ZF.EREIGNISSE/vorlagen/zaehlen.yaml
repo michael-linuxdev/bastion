@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   doppelt-gezaehlt:
     de: 'Du hast Zahlen, die zu A und zu B gehören, doppelt gezählt.'
+    fv: FV.ZF.UND-ODER
   ereignis-statt-gegenereignis:
     de: 'Das ist die Zahl der Ergebnisse von A. Das [[Gegenereignis]] enthält die übrigen.'
+    fv: FV.ZF.GEGENEREIGNIS
 herkunft: ki-entwurf
 version: 1

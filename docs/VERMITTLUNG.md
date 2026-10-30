@@ -119,7 +119,7 @@ Jedes Werkzeug hat eine gleichwertige Bedienung ohne Ziehen (Tastatur, Knöpfe) 
 
 ### 3.1 Fehlvorstellung statt nur Fehlerbild
 
-Bisher hat jede Vorlage **Fehlerbilder** (I-7): Der Generator erkennt eine bestimmte falsche Antwort, und die Vorlage hat einen Satz dazu. Es gibt 596 Fehlerbilder in 255 Vorlagen. Das bleibt die **Erkennung**. Wie viele schon auf eine Fehlvorstellung verweisen, zeigt `pnpm inhalte:pruefen` im Bericht.
+Bisher hat jede Vorlage **Fehlerbilder** (I-7): Der Generator erkennt eine bestimmte falsche Antwort, und die Vorlage hat einen Satz dazu. Es gibt 596 Fehlerbilder in 255 Vorlagen. Das bleibt die **Erkennung**. Seit U5b (30.10.2026) verweisen alle 596 auf eine der 200 Fehlvorstellungen; `pnpm inhalte:pruefen` zeigt den Stand im Bericht.
 
 Neu kommt darüber der **Fehlerkatalog**: eine Liste von **Fehlvorstellungen**. Jede hat eine stabile, fachweite ID (zum Beispiel `FV.BR.ADDIERT`), weil dieselbe Fehlvorstellung in vielen Kompetenzen auftaucht (Brüche addieren, erweitern, vergleichen). Jedes Fehlerbild einer Vorlage verweist auf genau eine Fehlvorstellung.
 

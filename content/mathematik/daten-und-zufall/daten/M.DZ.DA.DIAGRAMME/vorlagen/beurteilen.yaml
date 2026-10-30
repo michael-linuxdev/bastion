@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   saeulen-fuer-anteile:
     de: 'Säulen vergleichen gut, aber hier geht es um Anteile an einem Ganzen. Dafür passt ein [[Kreisdiagramm]].'
+    fv: FV.DA.DIAGRAMMART
   linie-ohne-zeit:
     de: 'Ein [[Liniendiagramm]] passt, wenn sich etwas mit der Zeit verändert. Hier gibt es keinen zeitlichen Verlauf.'
+    fv: FV.DA.DIAGRAMMART
   hoehe-verglichen:
     de: 'Die Säulen täuschen: Die Achse beginnt nicht bei 0. Vergleiche die Zahlen an der Achse, nicht die [[Höhe]] der Säulen.'
+    fv: FV.DA.ACHSE-NICHT-NULL
   falsch-abgelesen:
     de: 'Die Achse beginnt nicht bei 0. Lies den Wert an der Achse ab, nicht die [[Höhe]] der Säule.'
+    fv: FV.DA.ACHSE-NICHT-NULL
 herkunft: ki-entwurf
 version: 1

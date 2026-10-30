@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (546 von 596 Fehlerbildern zugeordnet; offen: Daten und Zufall)
+Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (alle 596 Fehlerbilder zugeordnet, 200 Fehlvorstellungen)
 
 ---
 
@@ -97,7 +97,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 **Als Nächstes:**
 
-0. **U5b:** die übrigen Felder zuordnen, je Feld ein PR (Auftrag vom 30.10.2026: ohne Unterbrechung). Natürliche Zahlen, Teilbarkeit, rationale Zahlen, Prozent, Terme, Gleichungen, Gleichungssysteme, Funktionen und Zuordnungen, Größen, Flächen, Kreis und Körper sowie Grundformen, Symmetrie, Dreiecke und Vierecke sind fertig. Körper, Kreis und Ähnlichkeit (Raum und Form) ebenfalls. Weiter mit Daten und Zufall. Fertige Felder in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`) eintragen.
+0. ~~**U5b**~~ fertig (30.10.2026): Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen, `fv` ist Pflicht. Die PRs gehen nacheinander auf `main`. Als Nächstes gibt es zwei Möglichkeiten: U4b (Test) oder das Nachrüsten der Klassen 5 bis 8 mit Erstvermittlungen (U5, Rest). Die Erstvermittlungen müssen die Schritt-IDs anlegen, auf die die Rückwege schon zeigen (`…#erklaeren-…`).
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.

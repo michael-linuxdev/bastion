@@ -1,0 +1,26 @@
+id: FV.ZF.UND-ODER
+name:
+  de: Verwechselt „und“ und „oder“ bei Ereignissen
+art: verwechslung
+beschreibung:
+  de: >-
+    Nimmt bei „A und B“ alle Ergebnisse aus A und B oder bei „A oder B“ nur die gemeinsamen, oder zählt
+    gemeinsame Ergebnisse doppelt.
+kompetenzen: [M.DZ.ZF.EREIGNISSE]
+erklaerung:
+  kurz:
+    de: '„A und B“: nur Ergebnisse, die in **beiden** stehen. „A oder B“: alle, die in **mindestens einem** stehen, gemeinsame nur einmal gezählt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast „und“ und „oder“ vertauscht oder Ergebnisse doppelt gezählt.'
+    - teil: warum-nicht
+      de: 'Im Alltag wird „und“ oft für „alles zusammen“ benutzt. In der Mathematik heißt „und“ aber: beides gleichzeitig. Und wer bei „oder“ beide Listen zusammenzählt, zählt die Überschneidung zweimal.'
+    - teil: so-stimmt-es
+      de: 'Schreibe A und B als Mengen auf. A = {2, 4, 6}, B = {4, 5, 6}. A und B: {4, 6}. A oder B: {2, 4, 5, 6}, also 4 Ergebnisse, nicht 6.'
+gegenbeispiel:
+  de: 'Wer Kinder sucht, die schwimmen **und** reiten, sucht weniger Kinder als bei „schwimmen **oder** reiten“.'
+rueckweg:
+  vermittlung: M.DZ.ZF.EREIGNISSE#erklaeren-und-oder
+kontrast: [M.DZ.ZF.EREIGNISSE.MENGE, M.DZ.ZF.EREIGNISSE.ZAEHLEN]
+herkunft: ki-entwurf
+version: 1

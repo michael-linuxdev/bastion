@@ -1,0 +1,26 @@
+id: FV.ZF.OHNE-ZURUECKLEGEN
+name:
+  de: Rechnet beim Ziehen ohne Zurücklegen mit unveränderten Wahrscheinlichkeiten
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet beim zweiten Zug mit derselben Kugelzahl wie beim ersten. Dass ohne Zurücklegen eine Kugel
+    fehlt und sich Zähler und Nenner ändern, wird nicht beachtet.
+kompetenzen: [M.DZ.ZF.BAUMDIAGRAMM]
+erklaerung:
+  kurz:
+    de: 'Ohne Zurücklegen liegt beim zweiten Zug eine Kugel weniger in der Urne. Der [[Nenner]] wird um 1 kleiner, und der [[Zähler]] auch, wenn dieselbe Farbe schon gezogen wurde.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast beim zweiten Zug mit denselben Zahlen wie beim ersten gerechnet.'
+    - teil: warum-nicht
+      de: 'Mit Zurücklegen wäre das richtig. Aber die erste Kugel liegt jetzt in deiner Hand. In der Urne sind weniger Kugeln, und vielleicht eine rote weniger.'
+    - teil: so-stimmt-es
+      de: '3 rote und 2 blaue: erst Rot 3/5, dann noch 2 rote von 4 Kugeln, also 2/4. Zweimal Rot: 3/5 · 2/4 = 6/20 = 3/10.'
+gegenbeispiel:
+  de: 'Liegt nur eine rote Kugel in der Urne, kann man ohne Zurücklegen nicht zweimal Rot ziehen.'
+rueckweg:
+  vermittlung: M.DZ.ZF.BAUMDIAGRAMM#erklaeren-urne
+kontrast: [M.DZ.ZF.BAUMDIAGRAMM.URNE]
+herkunft: ki-entwurf
+version: 1

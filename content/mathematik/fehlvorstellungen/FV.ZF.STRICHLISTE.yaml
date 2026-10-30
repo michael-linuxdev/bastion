@@ -1,0 +1,26 @@
+id: FV.ZF.STRICHLISTE
+name:
+  de: Zählt die Bündel einer Strichliste falsch
+art: lesefehler
+beschreibung:
+  de: >-
+    Zählt ein Bündel als vier (ohne den Querstrich) oder als zehn. Dass ein Bündel aus vier Strichen und
+    einem Querstrich genau fünf sind, ist nicht sicher.
+kompetenzen: [M.DZ.ZF.HAEUFIGKEIT]
+erklaerung:
+  kurz:
+    de: 'Ein Bündel in der [[Strichliste]] sind fünf Striche: vier senkrechte und der Querstrich. Zähle in Fünferschritten und dann die einzelnen Striche.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast ein Bündel als vier oder als zehn gezählt.'
+    - teil: warum-nicht
+      de: 'Der Querstrich sieht wie eine Markierung aus, nicht wie ein Strich. Er ist aber der fünfte Strich, mit dem man das Bündel abschließt.'
+    - teil: so-stimmt-es
+      de: 'Zwei Bündel und drei Striche: 5 + 5 + 3 = 13.'
+gegenbeispiel:
+  de: 'Eine Hand hat fünf Finger, auch wenn der Daumen quer liegt.'
+rueckweg:
+  vermittlung: M.DZ.ZF.HAEUFIGKEIT#erklaeren-strichliste
+kontrast: [M.DZ.ZF.HAEUFIGKEIT.STRICHLISTE]
+herkunft: ki-entwurf
+version: 1

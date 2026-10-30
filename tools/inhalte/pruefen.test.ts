@@ -88,41 +88,13 @@ describe('Inhalte in content/', () => {
       ).toBeGreaterThanOrEqual(3);
   });
 
-  // Felder, deren Fehlerbilder schon zugeordnet sind (PLAN U5a): Präfix der Kompetenz-ID
-  const FV_ZUGEORDNET = [
-    'M.ZO.BR.',
-    'M.SF.BR.',
-    'M.ZO.NZ.',
-    'M.SF.NZ.',
-    'M.ZO.TB.',
-    'M.ZO.RZ.',
-    'M.ZO.PZ.',
-    'M.SF.TU.',
-    'M.SF.GL.',
-    'M.SF.GS.',
-    'M.SF.FK.',
-    'M.SF.ZU.',
-    'M.GM.GR.',
-    'M.GM.FL.',
-    'M.GM.KR.',
-    'M.GM.KP.',
-    'M.RF.GF.',
-    'M.RF.SY.',
-    'M.RF.DV.',
-    'M.RF.KP.',
-    'M.RF.KR.',
-    'M.RF.AE.',
-  ];
-  const zugeordnet = (kompetenz: string) => FV_ZUGEORDNET.some((p) => kompetenz.startsWith(p));
-
-  it('zugeordnete Felder: jedes Fehlerbild verweist auf eine Fehlvorstellung (F2)', () => {
-    const ohne = vorlagen
-      .filter((v) => zugeordnet(v.kompetenz))
-      .flatMap((v) =>
-        Object.entries(v.fehlerbilder)
-          .filter(([, t]) => !(t as { fv?: string }).fv)
-          .map(([fid]) => `${v.id}: ${fid}`),
-      );
+  // Seit U5b sind alle Felder zugeordnet: Jedes Fehlerbild braucht eine Fehlvorstellung (F2)
+  it('alle Vorlagen: jedes Fehlerbild verweist auf eine Fehlvorstellung (F2)', () => {
+    const ohne = vorlagen.flatMap((v) =>
+      Object.entries(v.fehlerbilder)
+        .filter(([, t]) => !(t as { fv?: string }).fv)
+        .map(([fid]) => `${v.id}: ${fid}`),
+    );
     expect(ohne).toEqual([]);
   });
 

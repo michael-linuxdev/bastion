@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   hundert-statt-360:
     de: Du hast mit 100 statt mit 360 gerechnet. Ein ganzer Kreis hat 360°.
+    fv: FV.DA.VOLLKREIS-360
   halbkreis:
     de: Du hast mit 180° gerechnet. Das ist nur ein Halbkreis – der ganze Kreis hat 360°.
+    fv: FV.DA.VOLLKREIS-360
 herkunft: ki-entwurf
 version: 1

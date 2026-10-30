@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   absolut-statt-relativ:
     de: 'Das ist die [[absolute Häufigkeit]] – wie oft die {augen} kam. Für die [[relative Häufigkeit]] teilst du durch die Anzahl aller Würfe.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
   dezimal-statt-prozent:
     de: 'Das ist die [[relative Häufigkeit]] als [[Dezimalzahl]]. Gefragt ist sie in [[Prozent]] – nimm sie mal 100.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   grenze-falsch:
     de: 'Achte auf die Grenze: „mindestens 4“ und „höchstens 4“ schließen die 4 ein, „größer als 4“ nicht.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
   gegenereignis:
     de: 'Du hast die Ergebnisse gezählt, die **nicht** zum [[Ereignis]] gehören.'
+    fv: FV.ZF.GEGENEREIGNIS
 herkunft: ki-entwurf
 version: 1

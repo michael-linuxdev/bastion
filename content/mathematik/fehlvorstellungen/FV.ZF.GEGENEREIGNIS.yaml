@@ -1,0 +1,26 @@
+id: FV.ZF.GEGENEREIGNIS
+name:
+  de: Verwechselt ein Ereignis mit seinem Gegenereignis
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt die Ergebnisse an, die nicht passen, oder umgekehrt, oder bildet das Gegenereignis
+    unvollständig. Das Wort „nicht“ in der Frage wird übersehen oder falsch angewendet.
+kompetenzen: [M.DZ.ZF.BEGRIFFE, M.DZ.ZF.EREIGNISSE]
+erklaerung:
+  kurz:
+    de: 'Das [[Gegenereignis]] enthält genau die Ergebnisse, die **nicht** zum [[Ereignis]] gehören, alle anderen und nur diese.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Ergebnisse des Gegenteils angegeben oder nicht alle übrigen erfasst.'
+    - teil: warum-nicht
+      de: '[[Ereignis]] und [[Gegenereignis]] gehören immer zusammen, darum greift man leicht das falsche. Zusammen ergeben sie genau die ganze [[Ergebnismenge]], ohne Überschneidung.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die [[Ergebnismenge]] auf und streiche die Ergebnisse des Ereignisses. Was übrig bleibt, ist das [[Gegenereignis]]: „mindestens 5“ ist {5, 6}, das Gegenereignis {1, 2, 3, 4}.'
+gegenbeispiel:
+  de: 'Das Gegenteil von „Ich gewinne“ ist „Ich gewinne nicht“, nicht „Ich gewinne zweimal“.'
+rueckweg:
+  vermittlung: M.DZ.ZF.EREIGNISSE#erklaeren-gegenereignis
+kontrast: [M.DZ.ZF.BEGRIFFE.ZAEHLEN, M.DZ.ZF.EREIGNISSE.MENGE, M.DZ.ZF.EREIGNISSE.ZAEHLEN]
+herkunft: ki-entwurf
+version: 1

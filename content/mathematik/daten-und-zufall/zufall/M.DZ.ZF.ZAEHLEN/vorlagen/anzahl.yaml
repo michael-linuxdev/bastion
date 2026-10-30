@@ -17,13 +17,18 @@ hilfen:
 fehlerbilder:
   addiert:
     de: 'Die Möglichkeiten der Stufen werden malgenommen, nicht addiert. Zu jedem T-Shirt passt jede Hose.'
+    fv: FV.ZF.ZAEHLPRINZIP
   stufe-vergessen:
     de: 'Eine Stufe fehlt. Nimm die Anzahlen aller Stufen mal.'
+    fv: FV.ZF.ZAEHLPRINZIP
   n-mal-n:
     de: 'Für den ersten Platz gibt es n Möglichkeiten, für den zweiten nur noch n − 1 und so weiter.'
+    fv: FV.ZF.WIEDERHOLUNG
   ohne-statt-mit:
     de: 'Beim Zahlenschloss darf sich eine [[Ziffer]] wiederholen. Jeder Ring hat alle Ziffern zur Auswahl.'
+    fv: FV.ZF.WIEDERHOLUNG
   mit-statt-ohne:
     de: 'Wer schon einen Platz hat, kann keinen zweiten bekommen. Mit jedem Platz gibt es eine Möglichkeit weniger.'
+    fv: FV.ZF.WIEDERHOLUNG
 herkunft: ki-entwurf
 version: 1

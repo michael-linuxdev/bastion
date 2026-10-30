@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   buendel-als-vier:
     de: Du hast den Querstrich nicht mitgezählt. Ein Bündel mit Querstrich sind fünf Striche.
+    fv: FV.ZF.STRICHLISTE
   buendel-als-zehn:
     de: Ein Bündel sind fünf Striche, nicht zehn.
+    fv: FV.ZF.STRICHLISTE
 herkunft: ki-entwurf
 version: 1

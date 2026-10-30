@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   und-oder-verwechselt:
     de: 'Prüfe das Verbindungswort: Bei „und“ muss eine Zahl in beiden Mengen stehen, bei „oder“ reicht eine.'
+    fv: FV.ZF.UND-ODER
   gegenereignis-verwechselt:
     de: 'Das passt nicht: Das [[Gegenereignis]] enthält genau die Ergebnisse, die nicht dazugehören – nicht mehr und nicht weniger.'
+    fv: FV.ZF.GEGENEREIGNIS
   ereignis-selbst:
     de: 'Das ist A selbst. Gefragt ist eine andere Menge.'
+    fv: FV.ZF.EREIGNIS-BEGRIFF
 herkunft: ki-entwurf
 version: 1
