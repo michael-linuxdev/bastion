@@ -1,0 +1,90 @@
+id: M.GM.GR.KOMMA
+kompetenz: M.GM.GR.KOMMA
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Größen wie 3 m 45 cm in [[Kommaschreibweise]] schreiben und zurück.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne um: 2 m = ? cm'
+    antwort:
+      eingabe: { art: zahl, loesung: '200', fehler: [{ wert: '20', fv: FV.GR.UMRECHNUNGSZAHL }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.GR.UMRECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Euro hat 100 Cent. 3 € 50 ct schreibt man 3,50 €. Wie viele Cent sind das insgesamt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '350', fehler: [{ wert: '53', fv: FV.GR.KOMMASCHREIBWEISE }] }
+    weiter: erklaeren-kommaschreibweise
+  - id: erklaeren-kommaschreibweise
+    typ: erklaeren
+    text:
+      de: 'Vor dem Komma steht die große Einheit. Nach dem Komma steht die kleine, mit so vielen Stellen, wie die [[Umrechnungszahl]] Nullen hat. Bei m und cm sind das 2 Stellen, bei km und m 3.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 m 45 cm = 3,45 m. 3 m 5 cm = 3,05 m, die Null füllt die Stelle. 2 km 50 m = 2,050 km.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '4,25 m = ? cm'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '425',
+          fehler:
+            [
+              { wert: '4,25', fv: FV.GR.UMRECHNEN-RICHTUNG },
+              { wert: '42,5', fv: FV.GR.KOMMASCHREIBWEISE },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.GR.KOMMASCHREIBWEISE: erklaeren-kommaschreibweise,
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-kommaschreibweise,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim schreibt 5 kg 80 g als 5,80 kg. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, kg und g brauchen 3 Stellen: 5,080 kg.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GR.KOMMASCHREIBWEISE }
+    weiter: merksatz
+    bei: { FV.GR.KOMMASCHREIBWEISE: erklaeren-kommaschreibweise }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Vor dem Komma die große Einheit, danach die kleine. So viele Stellen nach dem Komma, wie die [[Umrechnungszahl]] Nullen hat. Fehlende Stellen mit 0 auffüllen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Schreibe 7 m 8 cm in [[Kommaschreibweise]].'
+    antwort:
+      optionen:
+        - { wert: { de: '7,08 m' }, richtig: true }
+        - { wert: { de: '7,8 m' }, fv: FV.GR.KOMMASCHREIBWEISE }
+        - { wert: { de: '7,008 m' }, fv: FV.GR.KOMMASCHREIBWEISE }
+    weiter: uebergang
+    bei: { FV.GR.KOMMASCHREIBWEISE: erklaeren-kommaschreibweise }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt schreibst du selbst um.'
+    vorlagen: [M.GM.GR.KOMMA.ZU-KLEINER, M.GM.GR.KOMMA.ZU-KOMMA]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

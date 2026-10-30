@@ -1,0 +1,108 @@
+id: M.GM.GR.UMRECHNEN
+kompetenz: M.GM.GR.UMRECHNEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Längen, Gewichte und Geld in eine andere Einheit umrechnen, zum Beispiel 3 m in cm.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 7 · 100?'
+    antwort:
+      eingabe: { art: zahl, loesung: '700' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.STELLENWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Meter hat 100 Zentimeter. Ein Brett ist 3 m lang. Wie viele Zentimeter sind das?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '300',
+          fehler:
+            [
+              { wert: '30', fv: FV.GR.UMRECHNUNGSZAHL },
+              { wert: '0,03', fv: FV.GR.UMRECHNEN-RICHTUNG },
+            ],
+        }
+    weiter: erklaeren-umrechnen
+  - id: erklaeren-umrechnen
+    typ: erklaeren
+    text:
+      de: 'Von der großen in die kleine Einheit wird die Zahl größer: Du multiplizierst. Von der kleinen in die große wird sie kleiner: Du teilst. Rechnen kannst du erst, wenn alles dieselbe Einheit hat.'
+    weiter: erklaeren-umrechnungszahlen
+  - id: erklaeren-umrechnungszahlen
+    typ: erklaeren
+    text:
+      de: 'Die [[Umrechnungszahl]] hängt von den Einheiten ab: 1 km = 1000 m, 1 m = 10 dm = 100 cm, 1 cm = 10 mm. 1 kg = 1000 g, 1 t = 1000 kg. 1 € = 100 ct.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '4 km in m: groß nach klein, also mal 1000: 4000 m. 2500 g in kg: klein nach groß, also durch 1000: 2,5 kg.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne um: 6 cm = ? mm'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler:
+            [
+              { wert: '600', fv: FV.GR.UMRECHNUNGSZAHL },
+              { wert: '0,6', fv: FV.GR.UMRECHNEN-RICHTUNG },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.GR.UMRECHNUNGSZAHL: erklaeren-umrechnungszahlen,
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-umrechnen,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lena rechnet 5000 m in km um und schreibt 5 000 000 km. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, klein nach groß heißt teilen: 5 km.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GR.UMRECHNEN-RICHTUNG }
+    weiter: merksatz
+    bei: { FV.GR.UMRECHNEN-RICHTUNG: erklaeren-umrechnen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Groß nach klein: mal. Klein nach groß: geteilt. Die richtige [[Umrechnungszahl]] nehmen: 10, 100 oder 1000.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Rechne um: 3000 g = ? kg'
+    antwort:
+      optionen:
+        - { wert: { de: '3' }, richtig: true }
+        - { wert: { de: '3 000 000' }, fv: FV.GR.UMRECHNEN-RICHTUNG }
+        - { wert: { de: '30' }, fv: FV.GR.UMRECHNUNGSZAHL }
+    weiter: uebergang
+    bei:
+      {
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-umrechnen,
+        FV.GR.UMRECHNUNGSZAHL: erklaeren-umrechnungszahlen,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst um.'
+    vorlagen: [M.GM.GR.UMRECHNEN.IN-GROESSERE, M.GM.GR.UMRECHNEN.IN-KLEINERE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

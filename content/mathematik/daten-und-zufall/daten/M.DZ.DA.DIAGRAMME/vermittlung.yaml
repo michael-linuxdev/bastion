@@ -1,0 +1,94 @@
+id: M.DZ.DA.DIAGRAMME
+kompetenz: M.DZ.DA.DIAGRAMME
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Werte aus Diagrammen ablesen, die passende Diagrammart wählen und irreführende Diagramme erkennen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Stück im [[Kreisdiagramm]] hat 90°. Welcher [[Anteil]] ist das?'
+    antwort:
+      eingabe: { art: bruch, loesung: '1/4', fehler: [{ wert: '1/90', fv: FV.DA.VOLLKREIS-360 }] }
+    weiter: entdecken
+    bei: { sonst: M.DZ.DA.KREISDIAGRAMM }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In einem [[Säulendiagramm]] geht die Achse in 10er-Schritten. Eine Säule endet genau zwischen 20 und 30. Welcher Wert ist das?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '25',
+          fehler: [{ wert: '21', fv: FV.DA.ABLESEN }, { wert: '20', fv: FV.DA.ABLESEN }],
+        }
+    weiter: erklaeren-ablesen
+  - id: erklaeren-ablesen
+    typ: erklaeren
+    text:
+      de: 'Schau zuerst auf die Achse: Wie groß ist ein Schritt? Dann gehst du vom Ende der Säule oder vom Punkt waagerecht zur Achse und liest dort ab.'
+    weiter: erklaeren-arten
+  - id: erklaeren-arten
+    typ: erklaeren
+    text:
+      de: '[[Säulendiagramm]]: Mengen vergleichen. [[Liniendiagramm]]: wie sich etwas über die Zeit ändert. [[Kreisdiagramm]]: Anteile an einem Ganzen.'
+    weiter: erklaeren-beurteilen
+  - id: erklaeren-beurteilen
+    typ: erklaeren
+    text:
+      de: 'Beginnt die Achse nicht bei 0, sehen kleine Unterschiede riesig aus. Vergleiche darum die Zahlen an der Achse, nicht nur die [[Höhe]] der Säulen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Säulen für 98 und 102, die Achse beginnt bei 95. Die zweite Säule sieht fast doppelt so hoch aus. In Wahrheit sind es nur 4 mehr, etwa 4 % Unterschied.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Du willst zeigen, wie sich die Temperatur über einen Tag ändert. Welche Diagrammart passt am besten?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Liniendiagramm' }, richtig: true }
+        - { wert: { de: 'Kreisdiagramm' }, fv: FV.DA.DIAGRAMMART }
+    weiter: gegenbeispiel
+    bei: { FV.DA.DIAGRAMMART: erklaeren-arten }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Die Achse beginnt bei 50. Säule A zeigt 52, Säule B zeigt 56 und sieht dreimal so hoch aus. Jan sagt: B ist dreimal so viel. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 56 ist nur 4 mehr als 52.' }, richtig: true }
+        - { wert: { de: 'Ja, die Säule ist dreimal so hoch.' }, fv: FV.DA.ACHSE-NICHT-NULL }
+    weiter: merksatz
+    bei: { FV.DA.ACHSE-NICHT-NULL: erklaeren-beurteilen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst die Achse lesen, dann ablesen. Säulen für Mengen, Linien für Verläufe, Kreise für Anteile. Achsen ohne 0 genau prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine Achse zeigt 0, 50, 100, 150. Eine Säule endet genau in der Mitte zwischen 100 und 150. Welcher Wert ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: '125' }, richtig: true }
+        - { wert: { de: '105' }, fv: FV.DA.ABLESEN }
+        - { wert: { de: '110' }, fv: FV.DA.ABLESEN }
+    weiter: uebergang
+    bei: { FV.DA.ABLESEN: erklaeren-ablesen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ab.'
+    vorlagen: [M.DZ.DA.DIAGRAMME.ABLESEN, M.DZ.DA.DIAGRAMME.BEURTEILEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

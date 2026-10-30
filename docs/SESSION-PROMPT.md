@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (23) · Merge-Reihenfolge: zuerst PR #85 (Zoom), dann #84, dann #82, dann u5c-dz
+Stand: 30.10.2026 (24) · Merge-Reihenfolge abgearbeitet: #85, #84, #82 sind auf `main`, `u5c-dz` folgt als letzter PR
 
 ---
 
@@ -98,7 +98,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 **Als Nächstes:**
 
 0. ~~**U5b**~~ fertig (30.10.2026): Alle 596 Fehlerbilder verweisen auf eine der 200 Fehlvorstellungen, `fv` ist Pflicht. Die PRs gehen nacheinander auf `main`. Als Nächstes gibt es zwei Möglichkeiten: U4b (Test) oder das Nachrüsten der Klassen 5 bis 8 mit Erstvermittlungen (U5, Rest). Die Erstvermittlungen müssen die Schritt-IDs anlegen, auf die die Rückwege schon zeigen (`…#erklaeren-…`).
-0. **U5c** (Entscheidung 30.10.2026: Erstvermittlungen vor dem Test): Erstvermittlungen Feld für Feld, je Feld ein PR. Brüche und Dezimalzahlen, natürliche Zahlen und Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen sind fertig. Weiter mit Funktionen und Zuordnungen, Größen, Geometrie, Daten und Zufall. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen; die Pflicht-Schritte (Rückwege) zeigt das Hilfsskript im Session-Verlauf.
+0. ~~**U5c**~~ fertig (30.10.2026): Alle 123 Kompetenzen der Klassen 5 bis 8 haben eine Erstvermittlung, je Feld ein PR. Alle sind KI-Entwurf und noch nicht fachlich geprüft. Offen: Viele Kompetenzen haben weniger als drei Fehlvorstellungen (F1), und Felder ohne Werkzeug (Gleichungssysteme, Funktionen, Geometrie, Daten) haben keine Bilder (V3); dafür bräuchte es ein Koordinaten- und ein Geometrie-Werkzeug. Achtung V8: Jedes Zeichen wie „·“ oder „=“ zählt als Wort. Neue Erstvermittlungen in der Kurzform `text: { de: … }` schreiben und vor Prettier in die Blockform bringen.
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
@@ -107,7 +107,6 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.
-   - Empfehlung: U5 erst nach dem Test, damit Formatfehler sich nicht über 123 Kompetenzen verbreiten.
 
 ### Vom Projektverantwortlichen (nicht delegierbar)
 
@@ -132,6 +131,8 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihenfolge ersetzt den früheren Plan, PR #82 zuerst zu mergen.
 
+**Stand am Abend des 30.10.2026:** Schritte 1 bis 3 sind erledigt. #85 und #84 sind auf `main`, #82 wurde nach grüner CI gesquasht. Für Schritt 4 ist `main` in `u5c-dz` übernommen. Beim Konflikt in `M.ZO.PZ.ZINS` gilt die Fassung von `main` mit dem Schritt `erklaeren-neues-kapital` aus dem Lernkern-Review. Die Breite in der Ähnlichkeit ist festgelegt: „6 cm breit und 4 cm hoch“. Nach dem Merge dieses PRs ist die Liste abgearbeitet.
+
 1. **PR #85 geht zuerst live.** Grafik: Zoom des Bauplatzes wie in Dorfkrieg. Branch `cursor/dorfkrieg-zoom-e6c9`, https://github.com/michael-linuxdev/bastion/pull/85. Gilt für jedes Thema, nicht nur für Dorf: statt der drei Stufen 100 %, 150 % und 200 % mit Rollbalken zoomen **+** und **−** um etwa 12 % auf die Mitte, das Mausrad und zwei Finger zoomen auf den Zeiger, Ziehen verschiebt die Karte, **⌖** zeigt wieder das ganze Bild. Kleiner als 35 % und größer als 240 % geht es nicht.
 2. **Danach PR #84** (dieser Stand: Lernkern-Korrekturen, Review-Stufen, dieser Prompt), https://github.com/michael-linuxdev/bastion/pull/84. Vorher den Branch auf das neue `main` nach #85 setzen. Normal mergen, nicht mit `merge -s ours`: #85 steckt hier noch nicht drin. `git merge-tree` am 30.10.2026 zwischen diesem Branch und `cursor/dorfkrieg-zoom-e6c9`: keine Konflikte, keine gemeinsame Datei.
 3. **Dann PR #82** (`u5c-sf`, Erstvermittlungen Terme und Gleichungen). Konflikt voraussichtlich nur in `docs/PLAN.md` und `docs/SESSION-PROMPT.md`. Beide Absätze behalten.
@@ -149,7 +150,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 
 ### 1. Aus dem Lernkern-Review
 
-1. **Die Merge-Reihenfolge steht oben:** zuerst PR #85, dann PR #84 auf den neuen `main`, dann PR #82, dann einmal `u5c-dz`. Die Breite in der Ähnlichkeit gehört zu Schritt 4.
+1. ~~**Die Merge-Reihenfolge steht oben**~~ – erledigt am 30.10.2026, siehe dort.
 2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
 3. **Öffentliche Seite von `main` trennen.** `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: gleichnamiges Addieren und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.

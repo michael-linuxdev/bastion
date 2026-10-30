@@ -1,0 +1,99 @@
+id: M.GM.KP.VERPACKUNG
+kompetenz: M.GM.KP.VERPACKUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du ausrechnen, wie viel Material eine Verpackung braucht, und Verpackungen vergleichen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein [[Quader]] ist 4 cm, 2 cm und 1 cm groß. Wie viele cm² ist seine [[Oberfläche]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '28',
+          fehler:
+            [
+              { wert: '14', fv: FV.KP.FLAECHEN-VERGESSEN },
+              { wert: '8', fv: FV.KP.VOLUMEN-OBERFLAECHE },
+            ],
+        }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.PRISMA }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Zwei Schachteln fassen beide 8 cm³: ein [[Würfel]] 2 · 2 · 2 und ein [[Quader]] 8 · 1 · 1. Welche braucht weniger Pappe?'
+    antwort:
+      optionen:
+        - { wert: { de: 'der Würfel: 24 cm² statt 34 cm²' }, richtig: true }
+        - { wert: { de: 'beide gleich, sie fassen ja gleich viel' }, fv: FV.KP.VOLUMEN-OBERFLAECHE }
+    weiter: erklaeren-material
+  - id: erklaeren-material
+    typ: erklaeren
+    text:
+      de: 'Wie viel hineinpasst, sagt das [[Volumen]]. Wie viel Pappe du brauchst, sagt die [[Oberfläche]]. Bei gleichem Volumen braucht eine kompakte Form weniger Material als eine lange, flache. Lies genau, was gefragt ist.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Schachtel 10 cm, 5 cm, 4 cm. [[Oberfläche]] 2 · (50 + 40 + 20) = 220 cm². Kommen 10 % für Klebelaschen dazu, sind es 220 + 22 = 242 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Würfel]] mit 5 cm [[Kante]] wird aus Pappe gebaut. Für Laschen kommen 30 cm² dazu. Wie viele cm² Pappe braucht man?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '180',
+          fehler:
+            [
+              { wert: '150', fv: FV.SA.ANGABE-UEBERSEHEN },
+              { wert: '155', fv: FV.KP.VOLUMEN-OBERFLAECHE },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      { FV.SA.ANGABE-UEBERSEHEN: erklaeren-material, FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-material }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Gefragt ist, welche Schachtel am wenigsten Pappe braucht. Nele wählt die mit der größten [[Oberfläche]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, gesucht ist die kleinste Oberfläche.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.SA.GEGENTEIL-GEFRAGT }
+    weiter: merksatz
+    bei: { FV.SA.GEGENTEIL-GEFRAGT: erklaeren-material }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Material ist die [[Oberfläche]], Inhalt ist das [[Volumen]]. Zuschläge wie Laschen nicht vergessen. Genau lesen: am meisten oder am wenigsten?'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Beide Schachteln fassen 24 cm³: A ist 4 · 3 · 2, B ist 6 · 4 · 1. Welche braucht weniger Pappe?'
+    antwort:
+      optionen:
+        - { wert: { de: 'A mit 52 cm²' }, richtig: true }
+        - { wert: { de: 'B mit 68 cm²' }, fv: FV.SA.GEGENTEIL-GEFRAGT }
+        - { wert: { de: 'beide gleich' }, fv: FV.KP.VOLUMEN-OBERFLAECHE }
+    weiter: uebergang
+    bei:
+      { FV.SA.GEGENTEIL-GEFRAGT: erklaeren-material, FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-material }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt vergleichst du selbst.'
+    vorlagen: [M.GM.KP.VERPACKUNG.MATERIAL, M.GM.KP.VERPACKUNG.VERGLEICHEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

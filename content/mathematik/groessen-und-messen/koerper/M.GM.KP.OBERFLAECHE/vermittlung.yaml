@@ -1,0 +1,96 @@
+id: M.GM.KP.OBERFLAECHE
+kompetenz: M.GM.KP.OBERFLAECHE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Oberflächeninhalt]] von [[Würfel]] und [[Quader]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Rechteck ist 5 cm lang und 2 cm breit. Wie viele cm² ist sein [[Flächeninhalt]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '14', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.RECHTECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du klappst einen [[Würfel]] auf. Wie viele Quadrate hat sein [[Netz]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '6',
+          fehler:
+            [
+              { wert: '4', fv: FV.KP.FLAECHEN-VERGESSEN },
+              { wert: '3', fv: FV.KP.FLAECHEN-VERGESSEN },
+            ],
+        }
+    weiter: erklaeren-netz
+  - id: erklaeren-netz
+    typ: erklaeren
+    text:
+      de: 'Die [[Oberfläche]] ist alles, was du zum Einpacken brauchst: alle Flächen des Netzes. Ein [[Quader]] hat 6 Rechtecke, je zwei gleiche gegenüber: oben und unten, vorne und hinten, links und rechts.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Quader]] 5 cm, 3 cm, 2 cm. Oben und unten: 2 · 5 · 3 = 30. Vorne und hinten: 2 · 5 · 2 = 20. Links und rechts: 2 · 3 · 2 = 12. Zusammen 62 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Würfel]] hat die [[Kante]] 3 cm. Wie viele cm² ist sein [[Oberflächeninhalt]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '54',
+          fehler:
+            [
+              { wert: '27', fv: FV.KP.VOLUMEN-OBERFLAECHE },
+              { wert: '9', fv: FV.KP.FLAECHEN-VERGESSEN },
+              { wert: '36', fv: FV.KP.FLAECHEN-VERGESSEN },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-netz, FV.KP.FLAECHEN-VERGESSEN: erklaeren-netz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '[[Quader]] 4 cm, 2 cm, 1 cm. Mia rechnet 4 · 2 + 4 · 1 + 2 · 1 = 14 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, jede Fläche gibt es zweimal: 28 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.FLAECHEN-VERGESSEN }
+    weiter: merksatz
+    bei: { FV.KP.FLAECHEN-VERGESSEN: erklaeren-netz }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Oberfläche]]: alle 6 Flächen addieren. [[Quader]]: 2 · (a · b + a · c + b · c). [[Würfel]]: 6 · a · a. Einheit cm² oder m².'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Würfel]] hat die [[Kante]] 2 cm. Wie groß ist seine [[Oberfläche]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '24 cm²' }, richtig: true }
+        - { wert: { de: '8 cm²' }, fv: FV.KP.VOLUMEN-OBERFLAECHE }
+        - { wert: { de: '16 cm²' }, fv: FV.KP.FLAECHEN-VERGESSEN }
+    weiter: uebergang
+    bei: { FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-netz, FV.KP.FLAECHEN-VERGESSEN: erklaeren-netz }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.OBERFLAECHE.QUADER, M.GM.KP.OBERFLAECHE.WUERFEL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,93 @@
+id: M.GM.KP.PYRAMIDE
+kompetenz: M.GM.KP.PYRAMIDE
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]] und [[Oberfläche]] einer quadratischen [[Pyramide]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein [[Prisma]] hat die [[Grundfläche]] 36 cm² und die [[Höhe]] 5 cm. Wie viele cm³ ist sein [[Volumen]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '180', fehler: [{ wert: '36', fv: FV.KP.NUR-GRUNDFLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.PRISMA }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Pyramide]] und ein [[Prisma]] haben dieselbe [[Grundfläche]] und [[Höhe]]. Du füllst die Pyramide dreimal mit Sand und kippst ihn ins Prisma. Es ist dann voll. Welcher Teil ist die Pyramide?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Drittel' }, richtig: true }
+        - { wert: { de: 'die Hälfte' }, fv: FV.KP.PYRAMIDE-DRITTEL }
+    weiter: erklaeren-volumen
+  - id: erklaeren-volumen
+    typ: erklaeren
+    text:
+      de: '[[Volumen]] einer [[Pyramide]]: V = [[Grundfläche]] · Körperhöhe : 3. Ein Drittel, nicht die Hälfte. Die Körperhöhe h geht von der Spitze [[senkrecht]] zur Mitte der Grundfläche.'
+    weiter: erklaeren-hoehen
+  - id: erklaeren-hoehen
+    typ: erklaeren
+    text:
+      de: 'Die [[Pyramide]] hat zwei Höhen. Die Körperhöhe h brauchst du fürs [[Volumen]]. Die [[Höhe]] hs der Dreiecke an der Seite brauchst du für die [[Oberfläche]]: [[Grundfläche]] + 4 Dreiecke mit a · hs : 2.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'a = 6 cm, h = 4 cm, hs = 5 cm. V = 36 · 4 : 3 = 48 cm³. Ein Seitendreieck: 15 cm². O = 36 + 4 · 15 = 96 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine [[Pyramide]] hat die [[Grundfläche]] 30 cm² und die Körperhöhe 10 cm. Wie viele cm³ ist ihr [[Volumen]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '100',
+          fehler:
+            [
+              { wert: '300', fv: FV.KP.PYRAMIDE-DRITTEL },
+              { wert: '150', fv: FV.KP.PYRAMIDE-DRITTEL },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.PYRAMIDE-DRITTEL: erklaeren-volumen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '[[Pyramide]] mit a = 6 cm, h = 4 cm, hs = 5 cm. Ole rechnet das [[Volumen]] mit 36 · 5 : 3 = 60 cm³. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, fürs Volumen zählt die Körperhöhe: 48 cm³.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.HOEHENARTEN }
+    weiter: merksatz
+    bei: { FV.KP.HOEHENARTEN: erklaeren-hoehen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Volumen]]: [[Grundfläche]] · Körperhöhe : 3. [[Oberfläche]]: Grundfläche + 4 Seitendreiecke mit der Seitenhöhe. Die zwei Höhen nicht verwechseln.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Quadratische [[Pyramide]] mit a = 4 cm und Seitenhöhe hs = 6 cm. Wie groß ist die [[Oberfläche]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '64 cm²' }, richtig: true }
+        - { wert: { de: '112 cm²' }, fv: FV.FL.NICHT-HALBIERT }
+        - { wert: { de: '48 cm²' }, fv: FV.KP.FLAECHEN-VERGESSEN }
+    weiter: uebergang
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-hoehen, FV.KP.FLAECHEN-VERGESSEN: erklaeren-hoehen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.PYRAMIDE.OBERFLAECHE, M.GM.KP.PYRAMIDE.VOLUMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

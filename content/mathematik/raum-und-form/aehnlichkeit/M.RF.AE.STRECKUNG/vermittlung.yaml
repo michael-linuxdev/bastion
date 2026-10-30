@@ -1,0 +1,105 @@
+id: M.RF.AE.STRECKUNG
+kompetenz: M.RF.AE.STRECKUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen Punkt [[zentrisch]] strecken und Strecken mit dem [[Streckfaktor]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Der Punkt liegt 2 nach rechts und 3 nach oben. Welche [[Koordinaten]] hat er?'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|3)' }, richtig: true }
+        - { wert: { de: '(3|2)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.QUADRANTEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Taschenlampe im Punkt Z wirft den Schatten einer Figur an die Wand. Die Wand ist doppelt so weit von Z weg wie die Figur. Wie viel mal so groß ist der Schatten?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '2', fehler: [{ wert: '0,5', fv: FV.AE.STRECKFAKTOR-KEHRWERT }] }
+    weiter: erklaeren-streckung
+  - id: erklaeren-streckung
+    typ: erklaeren
+    text:
+      de: 'Bei der [[zentrischen Streckung]] gehst du vom [[Streckzentrum]] Z zum Punkt P. Diesen Weg nimmst du mal k und kommst zum [[Bildpunkt]] P′. Alles wird vom Streckzentrum aus gemessen.'
+    weiter: erklaeren-streckfaktor
+  - id: erklaeren-streckfaktor
+    typ: erklaeren
+    text:
+      de: 'Der [[Streckfaktor]] k sagt, wie viel mal so lang jede Strecke wird: Bildstrecke = k · alte Strecke. Ist k größer als 1, wird es größer, ist k kleiner als 1, kleiner.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Z(0|0), P(2|3), k = 2. Weg von Z: 2 nach rechts, 3 nach oben. Mal 2: P′(4|6). Eine Strecke von 5 cm wird 10 cm lang.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine Strecke ist 6 cm lang und wird mit k = 1,5 gestreckt. Wie viele Zentimeter ist die Bildstrecke lang?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '9',
+          fehler:
+            [
+              { wert: '4', fv: FV.AE.STRECKFAKTOR-KEHRWERT },
+              { wert: '7,5', fv: FV.AE.GLEICH-VIEL-DAZU },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.AE.STRECKFAKTOR-KEHRWERT: erklaeren-streckfaktor,
+        FV.AE.GLEICH-VIEL-DAZU: erklaeren-streckfaktor,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Z(1|1), P(3|2), k = 2. Ole rechnet einfach 2 · 3 und 2 · 2 und schreibt P′(6|4). Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, vom Streckzentrum aus: 2 rechts, 1 hoch, mal 2 ergibt P′(5|3).' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.AE.STRECKZENTRUM }
+    weiter: merksatz
+    bei: { FV.AE.STRECKZENTRUM: erklaeren-streckung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Vom [[Streckzentrum]] aus messen und den Weg mal k nehmen. Jede Strecke wird k-mal so lang, nicht k länger.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Z(0|0), P(4|2), k = 0,5. Welcher [[Bildpunkt]] entsteht?'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|1)' }, richtig: true }
+        - { wert: { de: '(8|4)' }, fv: FV.AE.STRECKFAKTOR-KEHRWERT }
+        - { wert: { de: '(4,5|2,5)' }, fv: FV.AE.GLEICH-VIEL-DAZU }
+    weiter: uebergang
+    bei:
+      {
+        FV.AE.STRECKFAKTOR-KEHRWERT: erklaeren-streckfaktor,
+        FV.AE.GLEICH-VIEL-DAZU: erklaeren-streckfaktor,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt streckst du selbst.'
+    vorlagen: [M.RF.AE.STRECKUNG.BILDPUNKT, M.RF.AE.STRECKUNG.STRECKE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

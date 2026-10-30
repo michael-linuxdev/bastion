@@ -1,0 +1,85 @@
+id: M.RF.DV.VIERECKE-KONSTRUIEREN
+kompetenz: M.RF.DV.VIERECKE-KONSTRUIEREN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach weißt du, wann Angaben ein Viereck eindeutig festlegen, und kannst die Konstruktion planen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Legen drei Seitenlängen ein Dreieck eindeutig fest?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, nach SSS.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: entdecken
+    bei: { sonst: M.RF.DV.KONSTRUIEREN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Viereck aus vier Stäben mit je 5 cm kannst du zusammendrücken: Aus dem Quadrat wird eine schiefe [[Raute]]. Legen vier Seiten ein Viereck eindeutig fest?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: erklaeren-viereck
+  - id: erklaeren-viereck
+    typ: erklaeren
+    text:
+      de: 'Ein Viereck zerlegst du mit einer [[Diagonale]] in zwei Dreiecke. Ist jedes Dreieck nach einem [[Kongruenzsatz]] eindeutig, ist es auch das Viereck. Konstruiere erst das eine Dreieck, dann das andere daran.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Rechteck mit a = 6 cm und b = 4 cm: Der rechte [[Winkel]] ist bekannt. Erst AB = 6 cm, dann in A und B [[senkrecht]] 4 cm nach oben, dann C und D verbinden.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ist ein Quadrat durch die Seitenlänge 3 cm eindeutig festgelegt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, alle Seiten und Winkel sind dann bekannt.' }, richtig: true }
+        - { wert: { de: 'Nein, wie bei vier Stäben.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: gegenbeispiel
+    bei: { FV.DV.EINDEUTIG-KONSTRUIERBAR: erklaeren-viereck }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Beim Rechteck hat Ole bisher nur die Strecke AB. Er will als Nächstes C und D verbinden. Geht das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, C und D gibt es noch nicht. Erst die Senkrechten in A und B.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.KONSTRUKTIONSREIHENFOLGE }
+    weiter: merksatz
+    bei: { FV.DV.KONSTRUKTIONSREIHENFOLGE: erklaeren-viereck }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Viereck in zwei Dreiecke zerlegen. Eindeutig, wenn beide Dreiecke eindeutig sind. Schritt für Schritt nur mit Punkten weiterbauen, die schon da sind.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ist eine [[Raute]] nur durch ihre Seitenlänge 4 cm eindeutig festgelegt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es fehlt ein Winkel oder eine Diagonale.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.DV.EINDEUTIG-KONSTRUIERBAR }
+    weiter: uebergang
+    bei: { FV.DV.EINDEUTIG-KONSTRUIERBAR: erklaeren-viereck }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt planst du selbst.'
+    vorlagen: [M.RF.DV.VIERECKE-KONSTRUIEREN.EINDEUTIG, M.RF.DV.VIERECKE-KONSTRUIEREN.SCHRITT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,100 @@
+id: M.RF.AE.BERECHNEN
+kompetenz: M.RF.AE.BERECHNEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit [[ähnlichen]] Figuren fehlende Längen ausrechnen und weißt, wie sich Flächen ändern.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Rechteck 4 cm mal 3 cm wird [[ähnlich]] vergrößert. Die neue Breite ist 8 cm. Wie hoch ist es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '7', fv: FV.AE.GLEICH-VIEL-DAZU }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.AE.AEHNLICH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Stab von 1 m wirft einen Schatten von 2 m. Zur selben Zeit wirft ein Baum einen Schatten von 12 m. Wie viele Meter ist der Baum hoch?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '6',
+          fehler:
+            [
+              { wert: '24', fv: FV.AE.STRECKFAKTOR-KEHRWERT },
+              { wert: '11', fv: FV.AE.GLEICH-VIEL-DAZU },
+            ],
+        }
+    weiter: erklaeren-laengen
+  - id: erklaeren-laengen
+    typ: erklaeren
+    text:
+      de: 'Bei [[ähnlichen]] Figuren ist das Verhältnis entsprechender Seiten gleich. Bestimme den [[Faktor]] aus einem Paar, das du ganz kennst. Dann nimm die gesuchte Seite mit diesem Faktor mal.'
+    weiter: erklaeren-flaechen
+  - id: erklaeren-flaechen
+    typ: erklaeren
+    text:
+      de: 'Werden alle Längen k-mal so lang, wird die Fläche k · k-mal so groß und das [[Volumen]] k · k · k-mal. Doppelte Seiten heißt also vierfache Fläche, nicht doppelte.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Quadrat mit 3 cm Seite hat 9 cm². Mit k = 2 hat es 6 cm Seite und 36 cm², das ist 4-mal so viel.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Dreieck hat 5 cm² Fläche. Alle Seiten werden 3-mal so lang. Wie viele cm² hat das neue Dreieck?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '45',
+          fehler:
+            [
+              { wert: '15', fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR },
+              { wert: '135', fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.AE.FLAECHE-VOLUMEN-FAKTOR: erklaeren-flaechen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Modell ist 1 : 10 verkleinert. Das Original ist 2 m lang. Tom rechnet 2 · 10 = 20 m für das Modell. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, das Modell ist kleiner: 2 m : 10 = 0,2 m.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.AE.STRECKFAKTOR-KEHRWERT }
+    weiter: merksatz
+    bei: { FV.AE.STRECKFAKTOR-KEHRWERT: erklaeren-laengen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Faktor]] aus einem bekannten Seitenpaar bestimmen. Längen mal k, Flächen mal k · k, [[Volumen]] mal k · k · k.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Würfel]] wird mit k = 2 vergrößert. Wie viel mal so groß wird sein [[Volumen]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '8-mal' }, richtig: true }
+        - { wert: { de: '2-mal' }, fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR }
+        - { wert: { de: '4-mal' }, fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR }
+    weiter: uebergang
+    bei: { FV.AE.FLAECHE-VOLUMEN-FAKTOR: erklaeren-flaechen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.RF.AE.BERECHNEN.SCHATTEN, M.RF.AE.BERECHNEN.SEITE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,84 @@
+id: M.SF.FK.NULLSTELLE
+kompetenz: M.SF.FK.NULLSTELLE
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du die [[Nullstelle]] einer [[linearen Funktion]] ablesen und ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse 2 · x = 8.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '16', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.GL.LINEAR }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'y = 2 · x − 6. Für welches x ist y = 0? Probiere x = 1, 2, 3.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '6', fv: FV.FK.NULLSTELLE-ACHSE }] }
+    weiter: erklaeren-nullstelle
+  - id: erklaeren-nullstelle
+    typ: erklaeren
+    text:
+      de: 'Die [[Nullstelle]] ist das x, bei dem y = 0 ist. Am [[Graphen]] ist das der Schnitt mit der x-Achse, nicht mit der y-Achse. Zum Rechnen setzt du y = 0 und löst nach x auf.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'y = 2 · x − 6. Setze 0 = 2 · x − 6. Plus 6: 6 = 2 · x. Durch 2: x = 3. Die [[Nullstelle]] ist 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne die [[Nullstelle]] von y = 4 · x − 12.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '3',
+          fehler:
+            [{ wert: '12', fv: FV.FK.NULLSTELLE-ACHSE }, { wert: '48', fv: FV.NZ.UMKEHRAUFGABE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FK.NULLSTELLE-ACHSE: erklaeren-nullstelle, FV.NZ.UMKEHRAUFGABE: erklaeren-nullstelle }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eine [[Gerade]] schneidet die y-Achse bei 2 und die x-Achse bei 4. Jonas sagt: Die [[Nullstelle]] ist 2. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Nullstelle liegt auf der x-Achse: 4.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FK.NULLSTELLE-ACHSE }
+    weiter: merksatz
+    bei: { FV.FK.NULLSTELLE-ACHSE: erklaeren-nullstelle }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Nullstelle]]: y = 0 setzen und nach x auflösen. Am [[Graphen]]: Schnitt mit der x-Achse.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Nullstelle]] hat y = −2 · x + 8?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '−4' }, fv: FV.FK.VORZEICHEN-GRAPH }
+        - { wert: { de: '8' }, fv: FV.FK.NULLSTELLE-ACHSE }
+    weiter: uebergang
+    bei:
+      { FV.FK.VORZEICHEN-GRAPH: erklaeren-nullstelle, FV.FK.NULLSTELLE-ACHSE: erklaeren-nullstelle }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt suchst du selbst [[Nullstellen]].'
+    vorlagen: [M.SF.FK.NULLSTELLE.ABLESEN, M.SF.FK.NULLSTELLE.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

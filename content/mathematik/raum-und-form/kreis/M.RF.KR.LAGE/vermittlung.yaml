@@ -1,0 +1,92 @@
+id: M.RF.KR.LAGE
+kompetenz: M.RF.KR.LAGE
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du sagen, wie eine [[Gerade]] zu einem Kreis liegt, und wo der Mittelpunkt des Umkreises liegt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Linien schneiden sich im Mittelpunkt des Umkreises?'
+    antwort:
+      optionen:
+        - { wert: { de: 'die Mittelsenkrechten' }, richtig: true }
+        - { wert: { de: 'die Winkelhalbierenden' }, fv: FV.DV.UM-INKREIS }
+    weiter: entdecken
+    bei: { sonst: M.RF.DV.BESONDERE-LINIEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Ball liegt auf dem Boden. Wie viele Punkte hat er mit dem Boden gemeinsam?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '1',
+          fehler: [{ wert: '2', fv: FV.KR.KREIS-GERADE }, { wert: '0', fv: FV.KR.KREIS-GERADE }],
+        }
+    weiter: erklaeren-geraden
+  - id: erklaeren-geraden
+    typ: erklaeren
+    text:
+      de: 'Eine [[Gerade]] kann einen Kreis auf drei Arten treffen. [[Sekante]]: zwei Schnittpunkte, sie schneidet durch. [[Tangente]]: genau ein Punkt, sie berührt. [[Passante]]: kein Punkt, sie geht vorbei.'
+    weiter: erklaeren-umkreis
+  - id: erklaeren-umkreis
+    typ: erklaeren
+    text:
+      de: 'Der Mittelpunkt des Umkreises liegt nicht immer im Dreieck. Spitzwinklig: innen. Rechtwinklig: genau auf der längsten Seite. Stumpfwinklig: außerhalb.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Kreis hat r = 3 cm. Eine [[Gerade]] mit Abstand 2 cm zum Mittelpunkt ist eine [[Sekante]], mit 3 cm eine [[Tangente]], mit 5 cm eine [[Passante]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Kreis hat r = 4 cm. Eine [[Gerade]] hat 4 cm Abstand vom Mittelpunkt. Wie heißt sie?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Tangente' }, richtig: true }
+        - { wert: { de: 'Sekante' }, fv: FV.KR.KREIS-GERADE }
+        - { wert: { de: 'Passante' }, fv: FV.KR.KREIS-GERADE }
+    weiter: gegenbeispiel
+    bei: { FV.KR.KREIS-GERADE: erklaeren-geraden }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Dreieck hat einen [[Winkel]] von 120°. Mia sagt: Der Mittelpunkt des Umkreises liegt im Dreieck. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, bei einem stumpfen Winkel liegt er außerhalb.' }, richtig: true }
+        - { wert: { de: 'Ja, er liegt immer innen.' }, fv: FV.KR.UMKREIS-LAGE }
+    weiter: merksatz
+    bei: { FV.KR.UMKREIS-LAGE: erklaeren-umkreis }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Sekante]]: 2 Punkte, [[Tangente]]: 1 Punkt, [[Passante]]: keiner. Umkreismittelpunkt: innen bei spitzwinklig, auf der Seite bei rechtwinklig, außen bei stumpfwinklig.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wo liegt der Mittelpunkt des Umkreises bei einem rechtwinkligen Dreieck?'
+    antwort:
+      optionen:
+        - { wert: { de: 'auf der längsten Seite' }, richtig: true }
+        - { wert: { de: 'immer im Dreieck' }, fv: FV.KR.UMKREIS-LAGE }
+        - { wert: { de: 'im Schnittpunkt der Winkelhalbierenden' }, fv: FV.DV.UM-INKREIS }
+    weiter: uebergang
+    bei: { FV.KR.UMKREIS-LAGE: erklaeren-umkreis, FV.DV.UM-INKREIS: erklaeren-umkreis }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.RF.KR.LAGE.GERADE, M.RF.KR.LAGE.IN-UMKREIS]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

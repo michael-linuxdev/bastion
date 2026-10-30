@@ -1,0 +1,84 @@
+id: M.SF.ZU.PROPORTIONAL
+kompetenz: M.SF.ZU.PROPORTIONAL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du an einer Tabelle prüfen, ob eine [[Zuordnung]] [[proportional]], [[umgekehrt proportional]] oder keins von beiden ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Tabelle: 1 Brötchen 0,50 €, 2 Brötchen 1 €. Wie viel Euro kosten 4 Brötchen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '1,5', fv: FV.ZU.SCHRITTWEITE }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.ZU.DARSTELLEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Je älter ein Kind, desto größer. Mit 5 Jahren ist Ben 110 cm groß. Ist er mit 10 Jahren 220 cm groß?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, so groß wird kein Kind.' }, richtig: true }
+        - { wert: { de: 'Ja, doppelt so alt heißt doppelt so groß.' }, fv: FV.ZU.JE-DESTO }
+    weiter: erklaeren-pruefen
+  - id: erklaeren-pruefen
+    typ: erklaeren
+    text:
+      de: '„Je mehr, desto mehr“ ist nur eine Vermutung. Proportional ist es, wenn zum Doppelten das Doppelte gehört: Alle [[Quotienten]] y : x sind gleich. Umgekehrt [[proportional]]: Alle Produkte x · y sind gleich.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2 Hefte 4 €, 5 Hefte 10 €: 4 : 2 = 10 : 5 = 2, also [[proportional]]. 2 Kinder je 4 Stücke, 4 Kinder je 2 Stücke: 2 · 4 = 4 · 2, also [[umgekehrt proportional]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Taxi: 2 km kosten 7 €, 4 km kosten 11 €. Rechne 7 : 2 und 11 : 4. Ist die [[Zuordnung]] [[proportional]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 3,5 und 2,75 sind verschieden.' }, richtig: true }
+        - { wert: { de: 'Ja, je weiter, desto teurer.' }, fv: FV.ZU.JE-DESTO }
+    weiter: gegenbeispiel
+    bei: { FV.ZU.JE-DESTO: erklaeren-pruefen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mila sagt: Je mehr Kinder beim Aufräumen helfen, desto weniger Zeit braucht es. Also ist das immer [[umgekehrt proportional]]. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nicht sicher, erst müssen alle Produkte x · y gleich sein.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, das sagt schon der Satz.' }, fv: FV.ZU.JE-DESTO }
+    weiter: merksatz
+    bei: { FV.ZU.JE-DESTO: erklaeren-pruefen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Je-desto ist nur eine Vermutung. Gleiche [[Quotienten]] y : x: [[proportional]]. Gleiche Produkte x · y: [[umgekehrt proportional]]. Sonst keins von beiden.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Tabelle: 1 kg 3 €, 2 kg 5 €, 3 kg 7 €. Welche [[Zuordnung]] ist das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'keins von beiden' }, richtig: true }
+        - { wert: { de: 'proportional' }, fv: FV.ZU.JE-DESTO }
+        - { wert: { de: 'umgekehrt proportional' }, fv: FV.ZU.ART-VERWECHSELT }
+    weiter: uebergang
+    bei: { FV.ZU.JE-DESTO: erklaeren-pruefen, FV.ZU.ART-VERWECHSELT: erklaeren-pruefen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt prüfst du selbst.'
+    vorlagen: [M.SF.ZU.PROPORTIONAL.JE-DESTO, M.SF.ZU.PROPORTIONAL.TABELLE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

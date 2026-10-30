@@ -1,0 +1,88 @@
+id: M.GM.GR.SACH
+kompetenz: M.GM.GR.SACH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Sachaufgaben mit Geld und Längen lösen, auch wenn verschiedene Einheiten vorkommen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne um: 1,5 km = ? m'
+    antwort:
+      eingabe: { art: zahl, loesung: '1500', fehler: [{ wert: '150', fv: FV.GR.UMRECHNUNGSZAHL }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.GR.UMRECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Mia läuft 2 km zur Schule und 500 m zum Bäcker. Wie viele Meter läuft sie zusammen?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '2500', fehler: [{ wert: '502', fv: FV.GR.EINHEITEN-MISCHEN }] }
+    weiter: erklaeren-vorgehen
+  - id: erklaeren-vorgehen
+    typ: erklaeren
+    text:
+      de: 'Erstens: Was ist gefragt? Zweitens: Alle Angaben heraussuchen. Drittens: Alles in dieselbe Einheit umrechnen. Dann rechnen und prüfen, ob die Antwort zur Frage passt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ben kauft 2 Hefte zu je 1,20 € und einen Stift zu 80 ct. Er zahlt mit 5 €. 2,40 € + 0,80 € = 3,20 €. Rückgeld: 5 € − 3,20 € = 1,80 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Lea kauft ein Brot für 2,50 € und Milch für 90 ct. Sie zahlt mit 10 €. Wie viel Euro Rückgeld bekommt sie?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '6,6',
+          fehler:
+            [
+              { wert: '3,4', fv: FV.SA.ZWISCHENERGEBNIS },
+              { wert: '7,5', fv: FV.SA.ANGABE-UEBERSEHEN },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-vorgehen, FV.SA.ANGABE-UEBERSEHEN: erklaeren-vorgehen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Weg ist 3 km lang, ein zweiter 400 m. Ole rechnet 3 + 400 = 403 und sagt: 403 km. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, erst umrechnen: 3000 m + 400 m = 3400 m = 3,4 km.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GR.EINHEITEN-MISCHEN }
+    weiter: merksatz
+    bei: { FV.GR.EINHEITEN-MISCHEN: erklaeren-vorgehen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Frage lesen, alle Angaben suchen, alles in eine Einheit bringen. Am Ende die gefragte Größe angeben, nicht ein Zwischenergebnis.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Tom fährt 1,2 km mit dem Rad und läuft dann 300 m. Wie weit ist das zusammen?'
+    antwort:
+      optionen:
+        - { wert: { de: '1,5 km' }, richtig: true }
+        - { wert: { de: '301,2 km' }, fv: FV.GR.EINHEITEN-MISCHEN }
+        - { wert: { de: '1,2 km' }, fv: FV.SA.ANGABE-UEBERSEHEN }
+    weiter: uebergang
+    bei:
+      { FV.GR.EINHEITEN-MISCHEN: erklaeren-vorgehen, FV.SA.ANGABE-UEBERSEHEN: erklaeren-vorgehen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt löst du selbst Sachaufgaben.'
+    vorlagen: [M.GM.GR.SACH.EINKAUF, M.GM.GR.SACH.WEG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,92 @@
+id: M.RF.SY.BEWEGUNGEN
+kompetenz: M.RF.SY.BEWEGUNGEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Spiegelung]], [[Verschiebung]] und [[Drehung]] unterscheiden und eine Verschiebung ausführen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele [[Symmetrieachsen]] hat ein Rechteck, das kein Quadrat ist?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '4', fv: FV.SY.ACHSENSYMMETRIE }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.SY.SYMMETRIE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du schiebst ein Buch auf dem Tisch nach rechts, ohne es zu drehen. Zeigt die Schrift danach noch in dieselbe Richtung?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Nein, sie ist gespiegelt.' }, fv: FV.SY.BEWEGUNG-ERKENNEN }
+    weiter: erklaeren-bewegungen
+  - id: erklaeren-bewegungen
+    typ: erklaeren
+    text:
+      de: '[[Verschiebung]]: Alles rückt gleich weit in dieselbe Richtung, nichts dreht sich. [[Drehung]]: Die Figur dreht sich um einen Punkt. [[Spiegelung]]: Die Figur wird umgeklappt, links und rechts tauschen.'
+    weiter: erklaeren-verschiebung
+  - id: erklaeren-verschiebung
+    typ: erklaeren
+    text:
+      de: 'Eine [[Verschiebung]] „3 nach rechts, 2 nach oben“ gilt für jeden Punkt: x plus 3, y plus 2. Nach links oder unten wird abgezogen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Verschiebung]] 3 nach rechts, 2 nach oben. P(1|4) wird zu P′(4|6). Q(5|1) wird zu Q′(8|3).'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '[[Verschiebung]] 4 nach rechts, 1 nach unten. P(2|5) wird verschoben. Welche y-[[Koordinate]] hat P′?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler: [{ wert: '6', fv: FV.SY.VERSCHIEBUNG }, { wert: '5', fv: FV.SY.VERSCHIEBUNG }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.SY.VERSCHIEBUNG: erklaeren-verschiebung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Pfeil zeigt nach rechts. Im Bild zeigt er nach links, an derselben [[Höhe]]. Tom sagt: Das ist eine [[Verschiebung]]. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die Richtung hat sich umgedreht: Spiegelung oder Drehung.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.SY.BEWEGUNG-ERKENNEN }
+    weiter: merksatz
+    bei: { FV.SY.BEWEGUNG-ERKENNEN: erklaeren-bewegungen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Verschiebung]]: gleiche Richtung, nur woanders. [[Drehung]]: um einen Punkt gedreht. [[Spiegelung]]: umgeklappt. Bei der Verschiebung jeden Punkt gleich weit bewegen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Bei einer [[Verschiebung]] wird P(1|1) zu P′(4|3). Wohin kommt Q(2|5)?'
+    antwort:
+      optionen:
+        - { wert: { de: '(5|7)' }, richtig: true }
+        - { wert: { de: '(5|5)' }, fv: FV.SY.VERSCHIEBUNG }
+        - { wert: { de: '(−1|3)' }, fv: FV.SY.VERSCHIEBUNG }
+    weiter: uebergang
+    bei: { FV.SY.VERSCHIEBUNG: erklaeren-verschiebung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt übst du selbst.'
+    vorlagen: [M.RF.SY.BEWEGUNGEN.ERKENNEN, M.RF.SY.BEWEGUNGEN.VERSCHIEBUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,89 @@
+id: M.RF.DV.REGELMAESSIG
+kompetenz: M.RF.DV.REGELMAESSIG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Mittelpunktswinkel]] und [[Innenwinkel]] eines regelmäßigen Vielecks ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel [[Grad]] ergeben die [[Innenwinkel]] eines Dreiecks zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '180', fehler: [{ wert: '360', fv: FV.DV.WINKELSUMME }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.DV.WINKELSAETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein regelmäßiges Sechseck hat 6 gleiche Seiten und 6 gleiche [[Winkel]]. Vom Mittelpunkt zu den Ecken entstehen 6 gleiche Dreiecke. Wie groß ist jeder Winkel am Mittelpunkt?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler:
+            [{ wert: '30', fv: FV.DV.WINKELSUMME }, { wert: '120', fv: FV.DV.INNEN-MITTELPUNKT }],
+        }
+    weiter: erklaeren-winkel
+  - id: erklaeren-winkel
+    typ: erklaeren
+    text:
+      de: '[[Mittelpunktswinkel]]: 360° : n, er liegt in der Mitte. [[Innenwinkel]]: 180° − Mittelpunktswinkel, er liegt an einer Ecke. Lies genau, welcher gefragt ist.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Regelmäßiges Achteck: [[Mittelpunktswinkel]] 360° : 8 = 45°. [[Innenwinkel]] 180° − 45° = 135°.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie groß ist ein [[Innenwinkel]] im regelmäßigen Fünfeck?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '108',
+          fehler:
+            [{ wert: '72', fv: FV.DV.INNEN-MITTELPUNKT }, { wert: '36', fv: FV.DV.WINKELSUMME }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.DV.INNEN-MITTELPUNKT: erklaeren-winkel, FV.DV.WINKELSUMME: erklaeren-winkel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Gefragt ist der [[Innenwinkel]] des regelmäßigen Sechsecks. Lea rechnet 360° : 6 = 60° und ist fertig. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, das ist der Mittelpunktswinkel. Innenwinkel 120°.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.SA.ZWISCHENERGEBNIS }
+    weiter: merksatz
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-winkel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Mittelpunktswinkel]] = 360° : n. [[Innenwinkel]] = 180° − Mittelpunktswinkel. Ein regelmäßiges n-Eck hat n [[Symmetrieachsen]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viele [[Symmetrieachsen]] hat ein regelmäßiges Sechseck?'
+    antwort:
+      optionen:
+        - { wert: { de: '6' }, richtig: true }
+        - { wert: { de: '3' }, fv: FV.SY.ACHSENSYMMETRIE }
+        - { wert: { de: '2' }, fv: FV.SY.ACHSENSYMMETRIE }
+    weiter: uebergang
+    bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-winkel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.RF.DV.REGELMAESSIG.INNENWINKEL, M.RF.DV.REGELMAESSIG.SYMMETRIE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

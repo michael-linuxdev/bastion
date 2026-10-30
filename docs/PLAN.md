@@ -208,13 +208,16 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
-  - [ ] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
+  - [x] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
     - [x] Brüche und Dezimalzahlen (15 neue, zusammen 18)
     - [x] natürliche Zahlen und Teilbarkeit (14 neue)
     - [x] rationale Zahlen (7 neue)
     - [x] Prozent und Zins (6 neue)
     - [x] Gleichungen, Terme und Gleichungssysteme (13 neue)
-    - [ ] Funktionen und Zuordnungen · Größen · Geometrie · Daten und Zufall
+    - [x] Funktionen und Zuordnungen (10 neue)
+    - [x] Größen und Messen (20 neue)
+    - [x] Raum und Form (26 neue)
+    - [x] Daten und Zufall (9 neue; jetzt haben alle 123 Kompetenzen eine)
   - [x] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16): alle 596 Fehlerbilder, 200 Fehlvorstellungen; `fv` ist jetzt Pflicht
     - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
     - [x] Teilbarkeit (15 Fehlerbilder, 8 neue Fehlvorstellungen; Stand 140 von 596)
@@ -247,6 +250,11 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **Merge-Reihenfolge abgearbeitet:** #85, #84, #82 auf `main`, danach `u5c-dz` als ein PR (Funktionen, Größen, Raum und Form, Daten und Zufall). In der Ähnlichkeit heißt das Rechteck jetzt „6 cm breit und 4 cm hoch“ |
+| 30.10.2026 | **U5c Daten und Zufall:** 9 Erstvermittlungen; damit hat jede der 123 Kompetenzen der Klassen 5 bis 8 eine (alle KI-Entwurf) |
+| 30.10.2026 | **U5c Raum und Form:** 26 Erstvermittlungen; Figuren, Netze und Ansichten in Worten beschrieben |
+| 30.10.2026 | **U5c Größen und Messen:** 20 Erstvermittlungen; Figuren und Körper in Worten beschrieben, weil es noch kein Geometrie-Werkzeug gibt |
+| 30.10.2026 | **U5c Funktionen und Zuordnungen:** 10 Erstvermittlungen; Graphen nur in Worten und mit Punkten, weil es noch kein Koordinaten-Werkzeug gibt |
 | 30.10.2026 | **U5c Gleichungen, Terme und Gleichungssysteme:** 13 Erstvermittlungen; Gleichungssysteme ohne Bild, weil es noch kein Koordinaten-Werkzeug gibt |
 | 30.10.2026 | **Merge-Reihenfolge:** zuerst PR #85 (Zoom des Bauplatzes wie in Dorfkrieg, für jedes Thema, statt dreier Stufen), dann PR #84 auf den neuen main, dann #82, dann einmal `u5c-dz`. PR #83 (Dorfbilder) ist schon gemergt. `merge-tree` von #84 und #85: keine Konflikte |
 | 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |

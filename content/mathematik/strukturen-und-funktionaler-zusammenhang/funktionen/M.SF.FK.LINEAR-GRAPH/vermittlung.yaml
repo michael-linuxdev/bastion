@@ -1,0 +1,82 @@
+id: M.SF.FK.LINEAR-GRAPH
+kompetenz: M.SF.FK.LINEAR-GRAPH
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du am [[Graphen]] einer [[linearen Funktion]] y = m · x + n den [[Anstieg]] m und den [[y-Achsenabschnitt]] n erkennen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'y = 2 · x + 1. Welcher [[Funktionswert]] gehört zu x = 0?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '3', fv: FV.FK.X-ODER-Y }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.FK.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Gerade]] geht durch (0|1), (1|3) und (2|5). Um wie viel wächst y, wenn x um 1 wächst?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '1', fv: FV.FK.M-N-VERTAUSCHT }] }
+    weiter: erklaeren-anstieg
+  - id: erklaeren-anstieg
+    typ: erklaeren
+    text:
+      de: 'Der [[Anstieg]] m sagt: Wie viel geht es nach oben, wenn du 1 nach rechts gehst? Geht es nach unten, ist m negativ. Mit zwei Punkten: m = y-Unterschied : x-Unterschied.'
+    weiter: erklaeren-gleichung
+  - id: erklaeren-gleichung
+    typ: erklaeren
+    text:
+      de: 'In y = m · x + n steht m vor dem x, das ist der [[Anstieg]]. n steht allein, das ist der [[y-Achsenabschnitt]]: Dort schneidet die [[Gerade]] die y-Achse, bei x = 0.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Die [[Gerade]] durch (0|1) und (1|3) schneidet die y-Achse bei 1, also n = 1. Je 1 nach rechts geht es 2 nach oben, also m = 2. [[Gleichung]]: y = 2 · x + 1.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine [[Gerade]] geht durch (1|2) und (3|8). Welchen [[Anstieg]] m hat sie?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '6', fv: FV.FK.ANSTIEG }] }
+    weiter: gegenbeispiel
+    bei: { FV.FK.ANSTIEG: erklaeren-anstieg }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Graph]] schneidet die y-Achse bei 3 und geht je 1 nach rechts 2 nach oben. Pia schreibt y = 3 · x + 2. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Anstieg steht vor dem x: y = 2 · x + 3.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FK.M-N-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.FK.M-N-VERTAUSCHT: erklaeren-gleichung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'm ist der [[Anstieg]]: je 1 nach rechts so viel nach oben, negativ heißt nach unten. n ist der [[y-Achsenabschnitt]] bei x = 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine [[Gerade]] schneidet die y-Achse bei 4 und fällt je 1 nach rechts um 1. Welche [[Gleichung]] passt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'y = −x + 4' }, richtig: true }
+        - { wert: { de: 'y = x + 4' }, fv: FV.FK.VORZEICHEN-GRAPH }
+        - { wert: { de: 'y = 4 · x − 1' }, fv: FV.FK.M-N-VERTAUSCHT }
+    weiter: uebergang
+    bei: { FV.FK.VORZEICHEN-GRAPH: erklaeren-anstieg, FV.FK.M-N-VERTAUSCHT: erklaeren-gleichung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt liest du selbst ab.'
+    vorlagen: [M.SF.FK.LINEAR-GRAPH.ABLESEN, M.SF.FK.LINEAR-GRAPH.GLEICHUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

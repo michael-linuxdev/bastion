@@ -1,0 +1,98 @@
+id: M.DZ.ZF.WAHRSCHEINLICHKEIT
+kompetenz: M.DZ.ZF.WAHRSCHEINLICHKEIT
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Wahrscheinlichkeiten als [[Bruch]] angeben und vergleichen, wo eine Chance größer ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele Ergebnisse gehören beim Würfeln zum [[Ereignis]] „gerade Zahl“?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '6', fv: FV.ZF.EREIGNIS-BEGRIFF }] }
+    weiter: entdecken
+    bei: { sonst: M.DZ.ZF.BEGRIFFE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In einem Beutel sind 3 rote und 1 blaue Kugel. Du ziehst ohne Hinsehen. Welcher [[Anteil]] der Kugeln ist rot?'
+    antwort:
+      eingabe:
+        {
+          art: bruch,
+          loesung: '3/4',
+          fehler: [{ wert: '3/1', fv: FV.BR.TEIL-ZU-REST }, { wert: '4/3', fv: FV.BR.VERTAUSCHT }],
+        }
+    weiter: erklaeren-wahrscheinlichkeit
+  - id: erklaeren-wahrscheinlichkeit
+    typ: erklaeren
+    text:
+      de: 'Sind alle Ergebnisse gleich wahrscheinlich, gilt: [[Wahrscheinlichkeit]] = Anzahl der passenden Ergebnisse : Anzahl aller Ergebnisse. Oben steht, was passt, unten alles, nicht nur der Rest.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Würfel]], [[Ereignis]] „gerade Zahl“: 3 passende von 6. [[Wahrscheinlichkeit]] 3/6 = 1/2.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'In einem Beutel sind 2 grüne und 8 gelbe Kugeln. Wie groß ist die [[Wahrscheinlichkeit]] für Grün? Gib sie [[gekürzt]] an.'
+    antwort:
+      eingabe:
+        {
+          art: bruch,
+          loesung: '1/5',
+          fehler: [{ wert: '1/4', fv: FV.BR.TEIL-ZU-REST }, { wert: '5/1', fv: FV.BR.VERTAUSCHT }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.BR.TEIL-ZU-REST: erklaeren-wahrscheinlichkeit,
+        FV.BR.VERTAUSCHT: erklaeren-wahrscheinlichkeit,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Beutel A: 3 rote von 10 Kugeln. Beutel B: 2 rote von 4 Kugeln. Ole wählt A, weil dort mehr rote sind. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, entscheidend ist der Anteil: 3/10 ist kleiner als 2/4.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
+    weiter: merksatz
+    bei: { FV.BR.ANZAHL-STATT-ANTEIL: erklaeren-wahrscheinlichkeit }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Wahrscheinlichkeit]] = passende : alle. Zum Vergleichen die Anteile vergleichen, nicht die Anzahlen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie groß ist beim Würfeln die [[Wahrscheinlichkeit]] für eine Zahl größer als 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '1/3' }, richtig: true }
+        - { wert: { de: '1/2' }, fv: FV.BR.TEIL-ZU-REST }
+        - { wert: { de: '2' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.TEIL-ZU-REST: erklaeren-wahrscheinlichkeit,
+        FV.BR.ANZAHL-STATT-ANTEIL: erklaeren-wahrscheinlichkeit,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.DZ.ZF.WAHRSCHEINLICHKEIT.BERECHNEN, M.DZ.ZF.WAHRSCHEINLICHKEIT.VERGLEICHEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

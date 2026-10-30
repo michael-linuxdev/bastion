@@ -1,0 +1,95 @@
+id: M.GM.KP.VOLUMEN
+kompetenz: M.GM.KP.VOLUMEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du das [[Volumen]] von [[Würfel]] und [[Quader]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Rechteck ist 4 cm lang und 3 cm breit. Wie viele cm² ist sein [[Flächeninhalt]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '14', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.RECHTECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In eine Kiste passen unten 4 mal 3 [[Würfel]] von 1 cm³. Du stapelst 2 solche Schichten. Wie viele Würfel sind es?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '24',
+          fehler:
+            [
+              { wert: '12', fv: FV.KP.NUR-GRUNDFLAECHE },
+              { wert: '9', fv: FV.KP.VOLUMEN-OBERFLAECHE },
+            ],
+        }
+    weiter: erklaeren-volumen
+  - id: erklaeren-volumen
+    typ: erklaeren
+    text:
+      de: 'Das [[Volumen]] sagt, wie viele [[Einheitswürfel]] hineinpassen. Beim [[Quader]]: Länge · Breite ergibt eine Schicht, mal [[Höhe]] ergibt alle Schichten. Einheit cm³ oder m³. Die [[Oberfläche]] ist etwas anderes: die Haut außen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Quader]] 5 cm lang, 3 cm breit, 2 cm hoch: 5 · 3 · 2 = 30 cm³. [[Würfel]] mit [[Kante]] 4 cm: 4 · 4 · 4 = 64 cm³.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Quader]] ist 6 cm lang, 2 cm breit und 5 cm hoch. Wie viele cm³ ist sein [[Volumen]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler:
+            [
+              { wert: '12', fv: FV.KP.NUR-GRUNDFLAECHE },
+              { wert: '13', fv: FV.KP.VOLUMEN-OBERFLAECHE },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.NUR-GRUNDFLAECHE: erklaeren-volumen, FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-volumen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Würfel]] hat die [[Kante]] 3 cm. Ben rechnet 3 · 3 = 9 cm³. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auch mal die Höhe: 3 · 3 · 3 = 27 cm³.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.NUR-GRUNDFLAECHE }
+    weiter: merksatz
+    bei: { FV.KP.NUR-GRUNDFLAECHE: erklaeren-volumen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Volumen]] [[Quader]]: Länge · Breite · [[Höhe]]. Volumen [[Würfel]]: [[Kante]] · Kante · Kante. Einheit cm³ oder m³.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Aquarium ist 50 cm lang, 20 cm breit und 30 cm hoch. Wie groß ist sein [[Volumen]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '30 000 cm³' }, richtig: true }
+        - { wert: { de: '1000 cm³' }, fv: FV.KP.NUR-GRUNDFLAECHE }
+        - { wert: { de: '100 cm³' }, fv: FV.KP.VOLUMEN-OBERFLAECHE }
+    weiter: uebergang
+    bei: { FV.KP.NUR-GRUNDFLAECHE: erklaeren-volumen, FV.KP.VOLUMEN-OBERFLAECHE: erklaeren-volumen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.VOLUMEN.WUERFEL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

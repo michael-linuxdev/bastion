@@ -1,0 +1,91 @@
+id: M.GM.FL.EINHEITEN
+kompetenz: M.GM.FL.EINHEITEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Flächeneinheiten]] wie cm² und m² ineinander umrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne um: 1 m = ? cm'
+    antwort:
+      eingabe: { art: zahl, loesung: '100', fehler: [{ wert: '10', fv: FV.GR.UMRECHNUNGSZAHL }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.GR.UMRECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Quadrat ist 1 cm lang und 1 cm breit, also 10 mm mal 10 mm. Wie viele kleine Quadrate von 1 mm² passen hinein?'
+    antwort:
+      eingabe: { art: zahl, loesung: '100', fehler: [{ wert: '10', fv: FV.FL.FLAECHE-100 }] }
+    weiter: erklaeren-flaecheneinheiten
+  - id: erklaeren-flaecheneinheiten
+    typ: erklaeren
+    text:
+      de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100, nicht 10: 1 cm² = 100 mm², 1 dm² = 100 cm², 1 m² = 100 dm². Denn Länge und Breite werden beide 10-mal so lang.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 m² in dm²: groß nach klein, mal 100: 300 dm². 500 cm² in dm²: klein nach groß, durch 100: 5 dm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne um: 7 dm² = ? cm²'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '700',
+          fehler:
+            [{ wert: '70', fv: FV.FL.FLAECHE-100 }, { wert: '0,07', fv: FV.GR.UMRECHNEN-RICHTUNG }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten,
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-flaecheneinheiten,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Sara rechnet 4 m² = 40 dm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, bei Flächen ist es mal 100: 400 dm².' }, richtig: true }
+        - { wert: { de: 'Ja, wie bei 4 m = 40 dm.' }, fv: FV.FL.FLAECHE-100 }
+    weiter: merksatz
+    bei: { FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Flächeneinheiten]]: [[Umrechnungszahl]] 100. Groß nach klein mal 100, klein nach groß durch 100.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Rechne um: 2500 mm² = ? cm²'
+    antwort:
+      optionen:
+        - { wert: { de: '25' }, richtig: true }
+        - { wert: { de: '250' }, fv: FV.FL.FLAECHE-100 }
+        - { wert: { de: '250 000' }, fv: FV.GR.UMRECHNEN-RICHTUNG }
+    weiter: uebergang
+    bei:
+      {
+        FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten,
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-flaecheneinheiten,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst um.'
+    vorlagen: [M.GM.FL.EINHEITEN.IN-GROESSERE, M.GM.FL.EINHEITEN.IN-KLEINERE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

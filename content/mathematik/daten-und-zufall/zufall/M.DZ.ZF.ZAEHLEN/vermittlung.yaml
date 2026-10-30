@@ -1,0 +1,87 @@
+id: M.DZ.ZF.ZAEHLEN
+kompetenz: M.DZ.ZF.ZAEHLEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Möglichkeiten mit dem Zählprinzip abzählen, mit und ohne Wiederholung.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 3 · 4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du hast 3 T-Shirts und 2 Hosen. Wie viele verschiedene Kombinationen aus einem T-Shirt und einer Hose gibt es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '5', fv: FV.ZF.ZAEHLPRINZIP }] }
+    weiter: erklaeren-zaehlprinzip
+  - id: erklaeren-zaehlprinzip
+    typ: erklaeren
+    text:
+      de: 'Zählprinzip: Gibt es für die erste Wahl a Möglichkeiten und für die zweite b, dann sind es zusammen a · b. Bei mehr Stufen nimmst du alle Zahlen mal, nicht plus.'
+    weiter: erklaeren-wiederholung
+  - id: erklaeren-wiederholung
+    typ: erklaeren
+    text:
+      de: 'Darf sich etwas wiederholen, bleibt die Zahl gleich: Ein Code aus 3 [[Ziffern]] hat 10 · 10 · 10. Darf nichts doppelt sein, wird sie kleiner: 3 Kinder auf 3 Plätze ergibt 3 · 2 · 1.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Eisbecher: 4 Sorten, 2 Soßen, 3 Toppings, je eins davon. 4 · 2 · 3 = 24 Becher. Siegerpodest mit 5 Läufern: 5 · 4 · 3 = 60 Möglichkeiten.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Fahrradschloss hat 3 Rädchen mit den [[Ziffern]] 0 bis 9. Wie viele Codes gibt es?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '1000',
+          fehler: [{ wert: '720', fv: FV.ZF.WIEDERHOLUNG }, { wert: '30', fv: FV.ZF.ZAEHLPRINZIP }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ZF.WIEDERHOLUNG: erklaeren-wiederholung, FV.ZF.ZAEHLPRINZIP: erklaeren-zaehlprinzip }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '4 Kinder stellen sich in eine Reihe. Lea rechnet 4 · 4 · 4 · 4 = 256 Reihenfolgen. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, jedes Kind steht nur einmal: 4 · 3 · 2 · 1 = 24.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.ZF.WIEDERHOLUNG }
+    weiter: merksatz
+    bei: { FV.ZF.WIEDERHOLUNG: erklaeren-wiederholung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Möglichkeiten jeder Stufe malnehmen. Mit Wiederholung bleibt die Zahl gleich, ohne Wiederholung wird sie jede Stufe um 1 kleiner.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Menü: 3 Vorspeisen, 4 Hauptgerichte, 2 Nachtische. Wie viele Menüs gibt es?'
+    antwort:
+      optionen:
+        - { wert: { de: '24' }, richtig: true }
+        - { wert: { de: '9' }, fv: FV.ZF.ZAEHLPRINZIP }
+        - { wert: { de: '12' }, fv: FV.ZF.ZAEHLPRINZIP }
+    weiter: uebergang
+    bei: { FV.ZF.ZAEHLPRINZIP: erklaeren-zaehlprinzip }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt zählst du selbst.'
+    vorlagen: [M.DZ.ZF.ZAEHLEN.ANZAHL, M.DZ.ZF.ZAEHLEN.RECHNUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

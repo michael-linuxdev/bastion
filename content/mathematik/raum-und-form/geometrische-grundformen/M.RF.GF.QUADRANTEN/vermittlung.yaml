@@ -1,0 +1,94 @@
+id: M.RF.GF.QUADRANTEN
+kompetenz: M.RF.GF.QUADRANTEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Punkte mit negativen [[Koordinaten]] ablesen, ihren [[Quadranten]] nennen und sie an einer Achse spiegeln.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Der Punkt liegt 2 nach rechts und 5 nach oben. Welche [[Koordinaten]] hat er?'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|5)' }, richtig: true }
+        - { wert: { de: '(5|2)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.KOORDINATEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die Achsen gehen auch nach links und unten, dort stehen [[negative Zahlen]]. Ein Punkt liegt 3 nach links und 2 nach oben. Welche [[Koordinaten]] hat er?'
+    antwort:
+      optionen:
+        - { wert: { de: '(−3|2)' }, richtig: true }
+        - { wert: { de: '(3|2)' }, fv: FV.RZ.MINUS-VERGESSEN }
+        - { wert: { de: '(2|−3)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: erklaeren-quadranten
+  - id: erklaeren-quadranten
+    typ: erklaeren
+    text:
+      de: 'Die Achsen teilen die Ebene in vier [[Quadranten]]. Du zählst gegen den Uhrzeigersinn: I rechts oben, II links oben, III links unten, IV rechts unten.'
+    weiter: erklaeren-spiegeln
+  - id: erklaeren-spiegeln
+    typ: erklaeren
+    text:
+      de: 'Spiegeln an der x-Achse: Nur y ändert das [[Vorzeichen]], x bleibt. Spiegeln an der y-Achse: Nur x ändert das Vorzeichen, y bleibt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'P(−3|2) liegt links oben, also im [[Quadranten]] II. An der x-Achse gespiegelt: (−3|−2). An der y-Achse gespiegelt: (3|2).'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'In welchem [[Quadranten]] liegt der Punkt (4|−1)?'
+    antwort:
+      optionen:
+        - { wert: { de: 'IV' }, richtig: true }
+        - { wert: { de: 'II' }, fv: FV.GF.QUADRANTEN-ZAEHLEN }
+        - { wert: { de: 'I' }, fv: FV.RZ.MINUS-VERGESSEN }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.GF.QUADRANTEN-ZAEHLEN: erklaeren-quadranten,
+        FV.RZ.MINUS-VERGESSEN: erklaeren-quadranten,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim spiegelt P(5|3) an der x-Achse und schreibt (−5|3). Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, an der x-Achse ändert sich y: (5|−3).' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.SPIEGELN-KOORDINATE }
+    weiter: merksatz
+    bei: { FV.GF.SPIEGELN-KOORDINATE: erklaeren-spiegeln }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Quadranten]] gegen den Uhrzeigersinn: I rechts oben, dann II, III, IV. An der x-Achse spiegeln: y dreht. An der y-Achse spiegeln: x dreht.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '[[Spiegle]] den Punkt (−2|4) an der y-Achse. Welchen [[Bildpunkt]] erhältst du?'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|4)' }, richtig: true }
+        - { wert: { de: '(−2|−4)' }, fv: FV.GF.SPIEGELN-KOORDINATE }
+        - { wert: { de: '(4|−2)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: uebergang
+    bei: { FV.GF.SPIEGELN-KOORDINATE: erklaeren-spiegeln, FV.GF.X-Y-VERTAUSCHT: erklaeren-spiegeln }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt übst du selbst.'
+    vorlagen: [M.RF.GF.QUADRANTEN.ABLESEN, M.RF.GF.QUADRANTEN.QUADRANT, M.RF.GF.QUADRANTEN.SPIEGELN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

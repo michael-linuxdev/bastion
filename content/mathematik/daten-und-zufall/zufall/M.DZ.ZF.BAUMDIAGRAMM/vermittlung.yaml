@@ -1,0 +1,88 @@
+id: M.DZ.ZF.BAUMDIAGRAMM
+kompetenz: M.DZ.ZF.BAUMDIAGRAMM
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit einem [[Baumdiagramm]] Wahrscheinlichkeiten für zweistufige Versuche ausrechnen, auch ohne Zurücklegen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'In einem Beutel sind 1 rote und 1 blaue Kugel. Wie groß ist die [[Wahrscheinlichkeit]] für Rot?'
+    antwort:
+      eingabe: { art: bruch, loesung: '1/2', fehler: [{ wert: '1/1', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.DZ.ZF.WAHRSCHEINLICHKEIT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du wirfst zweimal eine Münze. Bei jedem Wurf ist Kopf 1/2. In wie vielen von 4 gleich wahrscheinlichen Fällen kommt zweimal Kopf?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '2', fv: FV.ZF.PFADREGELN }] }
+    weiter: erklaeren-pfadregeln
+  - id: erklaeren-pfadregeln
+    typ: erklaeren
+    text:
+      de: 'Im [[Baumdiagramm]] steht an jedem Ast eine [[Wahrscheinlichkeit]]. [[Produktregel]]: Entlang eines [[Pfades]] nimmst du mal. [[Summenregel]]: Gehören mehrere Pfade zum [[Ereignis]], addierst du ihre Ergebnisse.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Zweimal Münze: Kopf, Kopf ist 1/2 · 1/2 = 1/4. Genau einmal Kopf hat zwei [[Pfade]], KZ und ZK: 1/4 + 1/4 = 1/2.'
+    weiter: erklaeren-urne
+  - id: erklaeren-urne
+    typ: erklaeren
+    text:
+      de: 'Ohne Zurücklegen ändert sich der Beutel nach dem ersten Zug: Es ist eine Kugel weniger drin. Darum ändern sich auf der zweiten Stufe [[Zähler]] und [[Nenner]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Im Beutel sind 2 rote und 2 blaue Kugeln. Du ziehst zweimal ohne Zurücklegen. Wie groß ist die [[Wahrscheinlichkeit]] für zweimal Rot? Gib sie [[gekürzt]] an.'
+    antwort:
+      eingabe:
+        {
+          art: bruch,
+          loesung: '1/6',
+          fehler:
+            [{ wert: '1/4', fv: FV.ZF.OHNE-ZURUECKLEGEN }, { wert: '5/6', fv: FV.ZF.PFADREGELN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ZF.OHNE-ZURUECKLEGEN: erklaeren-urne, FV.ZF.PFADREGELN: erklaeren-pfadregeln }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für zweimal Kopf rechnet Ben 1/2 + 1/2 = 1. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, entlang eines Pfades wird multipliziert: 1/4.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.ZF.PFADREGELN }
+    weiter: merksatz
+    bei: { FV.ZF.PFADREGELN: erklaeren-pfadregeln }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Entlang eines [[Pfades]]: mal. Mehrere Pfade: plus. Ohne Zurücklegen: auf der zweiten Stufe eine Kugel weniger.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Beutel hat 3 rote und 1 blaue Kugel. Du ziehst zweimal mit Zurücklegen. Wie groß ist die [[Wahrscheinlichkeit]] für zweimal Rot?'
+    antwort:
+      optionen:
+        - { wert: { de: '9/16' }, richtig: true }
+        - { wert: { de: '6/4' }, fv: FV.ZF.PFADREGELN }
+        - { wert: { de: '1/2' }, fv: FV.ZF.OHNE-ZURUECKLEGEN }
+    weiter: uebergang
+    bei: { FV.ZF.PFADREGELN: erklaeren-pfadregeln, FV.ZF.OHNE-ZURUECKLEGEN: erklaeren-urne }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.DZ.ZF.BAUMDIAGRAMM.BAUM, M.DZ.ZF.BAUMDIAGRAMM.URNE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

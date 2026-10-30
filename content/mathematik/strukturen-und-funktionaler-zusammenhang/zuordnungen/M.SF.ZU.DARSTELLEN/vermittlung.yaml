@@ -1,0 +1,86 @@
+id: M.SF.ZU.DARSTELLEN
+kompetenz: M.SF.ZU.DARSTELLEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du eine [[Zuordnung]] aus einer Tabelle lesen, Lücken füllen und sagen, ob sie eindeutig ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Im Punkt (4|7): Welche Zahl gehört zur waagerechten Achse?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '7' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.KOORDINATEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Heft kostet 2 €. Tabelle: 1 Heft 2 €, 2 Hefte 4 €, 3 Hefte 6 €. Wie viel Euro kosten 6 Hefte?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '8', fv: FV.ZU.SCHRITTWEITE }] }
+    weiter: erklaeren-tabelle
+  - id: erklaeren-tabelle
+    typ: erklaeren
+    text:
+      de: 'Eine [[Zuordnung]] ordnet jedem Wert links einen Wert rechts zu. Fehlt ein Wert, schau zuerst, wie viele Schritte es vom letzten bekannten Wert sind. So viele Schritte gehst du auch rechts.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Von 3 Heften nach 6 Heften sind es 3 Schritte. Jeder Schritt kostet 2 € mehr, also 3 · 2 € = 6 € mehr. 6 € + 6 € = 12 €.'
+    weiter: erklaeren-eindeutig
+  - id: erklaeren-eindeutig
+    typ: erklaeren
+    text:
+      de: 'Eindeutig heißt: Zu jedem Wert links gehört genau ein Wert rechts. Rechts darf derselbe Wert mehrmals vorkommen. Gehören zu einem Wert links zwei Werte rechts, ist sie mehrdeutig.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Jedem Kind wird sein Geburtsmonat zugeordnet. Lea und Tim haben beide im Mai Geburtstag. Ist die [[Zuordnung]] Kind → Monat eindeutig?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, jedes Kind hat genau einen Monat.' }, richtig: true }
+        - { wert: { de: 'Nein, der Mai kommt zweimal vor.' }, fv: FV.ZU.EINDEUTIGKEIT }
+    weiter: gegenbeispiel
+    bei: { FV.ZU.EINDEUTIGKEIT: erklaeren-eindeutig }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tabelle: 2 Stunden 10 km, 3 Stunden 15 km. Jan sagt: 5 Stunden sind 20 km, denn es kommt der nächste Wert. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, von 3 nach 5 sind es 2 Schritte: 25 km.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.ZU.SCHRITTWEITE }
+    weiter: merksatz
+    bei: { FV.ZU.SCHRITTWEITE: erklaeren-tabelle }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'In der Tabelle zählst du die Schritte bis zum gesuchten Wert. Eindeutig ist eine [[Zuordnung]], wenn von jedem Wert links genau ein Pfeil ausgeht.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Liter Saft kostet 3 €. Wie viel kosten 4 Liter, wenn 2 Liter 6 € kosten?'
+    antwort:
+      optionen:
+        - { wert: { de: '12 €' }, richtig: true }
+        - { wert: { de: '9 €' }, fv: FV.ZU.SCHRITTWEITE }
+        - { wert: { de: '15 €' }, fv: FV.FK.GRUNDGEBUEHR }
+    weiter: uebergang
+    bei: { FV.ZU.SCHRITTWEITE: erklaeren-tabelle, FV.FK.GRUNDGEBUEHR: erklaeren-tabelle }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt füllst du selbst Tabellen.'
+    vorlagen: [M.SF.ZU.DARSTELLEN.ART, M.SF.ZU.DARSTELLEN.TABELLE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

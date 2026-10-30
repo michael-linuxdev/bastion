@@ -1,0 +1,77 @@
+id: M.GM.FL.VIERECKE
+kompetenz: M.GM.FL.VIERECKE
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Flächeninhalt]] von [[Parallelogramm]], [[Trapez]] und [[Drachenviereck]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Dreieck hat die Grundseite 6 cm und die [[Höhe]] 4 cm. Wie viele cm² ist es groß?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '24', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.DREIECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Von einem [[Parallelogramm]] schneidest du links ein Dreieck ab und legst es rechts an. Es entsteht ein Rechteck mit Grundseite 7 cm und [[Höhe]] 3 cm. Wie viele cm² sind es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '21', fehler: [{ wert: '10,5', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: erklaeren-vierecke
+  - id: erklaeren-vierecke
+    typ: erklaeren
+    text:
+      de: '[[Parallelogramm]]: Grundseite · [[Höhe]], ohne Halbieren. [[Trapez]]: (a + c) : 2 · Höhe, a und c sind die parallelen Seiten. [[Drachenviereck]] und [[Raute]]: e · f : 2, e und f sind die [[Diagonalen]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Trapez]] mit a = 8 cm, c = 4 cm und [[Höhe]] 5 cm: (8 + 4) : 2 = 6, dann 6 · 5 = 30 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Trapez]] hat die parallelen Seiten 10 cm und 6 cm und die [[Höhe]] 3 cm. Wie viele cm² ist es groß?'
+    antwort:
+      eingabe: { art: zahl, loesung: '24', fehler: [{ wert: '48', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-vierecke }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Parallelogramm]] hat die Grundseite 6 cm, die [[Höhe]] 4 cm und eine schräge Seite von 5 cm. Lea rechnet 6 · 5 = 30 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, mit der Höhe: 6 · 4 = 24 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.SEITE-STATT-HOEHE }
+    weiter: merksatz
+    bei: { FV.FL.SEITE-STATT-HOEHE: erklaeren-vierecke }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Parallelogramm]]: g · h. [[Trapez]]: (a + c) : 2 · h. Drachen und [[Raute]]: e · f : 2. Immer die [[Höhe]], nie die schräge Seite.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine [[Raute]] hat die [[Diagonalen]] 8 cm und 5 cm. Wie groß ist sie?'
+    antwort:
+      optionen:
+        - { wert: { de: '20 cm²' }, richtig: true }
+        - { wert: { de: '40 cm²' }, fv: FV.FL.NICHT-HALBIERT }
+        - { wert: { de: '13 cm²' }, fv: FV.FL.ZERLEGEN }
+    weiter: uebergang
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-vierecke, FV.FL.ZERLEGEN: erklaeren-vierecke }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.FL.VIERECKE.FLAECHE, M.GM.FL.VIERECKE.ZERLEGT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

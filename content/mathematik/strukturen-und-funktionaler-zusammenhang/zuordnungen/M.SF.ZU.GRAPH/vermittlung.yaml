@@ -1,0 +1,84 @@
+id: M.SF.ZU.GRAPH
+kompetenz: M.SF.ZU.GRAPH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Werte an einem [[Graphen]] ablesen und erkennen, welcher Graph zu einer [[proportionalen]] [[Zuordnung]] passt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '1 kg kostet 3 €, 2 kg kosten 6 €. Ist das [[proportional]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 3 : 1 = 6 : 2.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.ZU.JE-DESTO }
+    weiter: entdecken
+    bei: { sonst: M.SF.ZU.PROPORTIONAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Wie viel kosten 0 kg, wenn 1 kg 3 € kostet?'
+    antwort:
+      eingabe: { art: zahl, loesung: '0', fehler: [{ wert: '3', fv: FV.ZU.GRAPH-FORM }] }
+    weiter: erklaeren-ablesen
+  - id: erklaeren-ablesen
+    typ: erklaeren
+    text:
+      de: 'Jedes Wertepaar ist ein Punkt: x nach rechts, y nach oben. Zum Ablesen gehst du bei x [[senkrecht]] hoch bis zum [[Graphen]] und dann waagerecht zur y-Achse. Achte darauf, wie groß ein Kästchen ist.'
+    weiter: erklaeren-form
+  - id: erklaeren-form
+    typ: erklaeren
+    text:
+      de: 'Proportional: Die Punkte liegen auf einer [[Geraden]] durch den [[Ursprung]] (0|0). Umgekehrt [[proportional]]: Die Punkte liegen auf einer Kurve, die immer flacher wird und die Achsen nie trifft.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Äpfel: (0|0), (1|3), (2|6) liegen auf einer [[Geraden]] durch den [[Ursprung]]. Pizza teilen: (1|8), (2|4), (4|2) liegen auf einer Kurve, die nach rechts immer flacher wird.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine [[Gerade]] geht durch (0|0) und (2|10). Welcher y-Wert gehört zu x = 1?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '1', fv: FV.FK.X-ODER-Y }] }
+    weiter: gegenbeispiel
+    bei: { FV.FK.X-ODER-Y: erklaeren-ablesen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Graph]] ist eine [[Gerade]], die bei 0 kg schon 2 € zeigt. Nele sagt: Das ist eine proportionale [[Zuordnung]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, sie geht nicht durch den Ursprung.' }, richtig: true }
+        - { wert: { de: 'Ja, es ist eine Gerade.' }, fv: FV.ZU.GRAPH-FORM }
+    weiter: merksatz
+    bei: { FV.ZU.GRAPH-FORM: erklaeren-form }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Ablesen: bei x hoch, dann zur y-Achse. Proportional: [[Gerade]] durch (0|0). Umgekehrt [[proportional]]: Kurve, die die Achsen nie trifft.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher [[Graph]] passt zu einer [[umgekehrt proportionalen]] [[Zuordnung]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'eine Kurve, die immer flacher wird' }, richtig: true }
+        - { wert: { de: 'eine Gerade durch (0|0)' }, fv: FV.ZU.GRAPH-FORM }
+        - { wert: { de: 'eine fallende Gerade' }, fv: FV.ZU.GRAPH-FORM }
+    weiter: uebergang
+    bei: { FV.ZU.GRAPH-FORM: erklaeren-form }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt liest du selbst ab.'
+    vorlagen: [M.SF.ZU.GRAPH.ABLESEN, M.SF.ZU.GRAPH.WAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

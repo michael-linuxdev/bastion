@@ -1,0 +1,81 @@
+id: M.RF.GF.WINKEL
+kompetenz: M.RF.GF.WINKEL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Winkel]] am [[Winkelmesser]] ablesen und sagen, welche [[Winkelart]] sie haben.'
+    weiter: entdecken
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Uhr um 3 Uhr: Die Zeiger bilden eine Ecke wie ein Blatt Papier. Wie viel [[Grad]] hat diese Ecke?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '90',
+          fehler: [{ wert: '180', fv: FV.GF.WINKELART }, { wert: '3', fv: FV.GF.WINKELART }],
+        }
+    weiter: erklaeren-winkelarten
+  - id: erklaeren-winkelarten
+    typ: erklaeren
+    text:
+      de: 'Winkelarten: spitz unter 90°, recht genau 90°, stumpf zwischen 90° und 180°, gestreckt genau 180°, überstumpf über 180°, voll 360°.'
+    weiter: erklaeren-messen
+  - id: erklaeren-messen
+    typ: erklaeren
+    text:
+      de: 'Am [[Winkelmesser]] gibt es zwei [[Skalen]]. Lege die Mitte auf den Scheitel und die 0 auf einen [[Schenkel]]. Lies auf der Skala ab, die bei diesem Schenkel mit 0 beginnt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein [[Schenkel]] liegt rechts auf der 0 der inneren [[Skala]]. Der andere Schenkel zeigt innen auf 40 und außen auf 140. Der [[Winkel]] ist spitz, also 40°.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welche [[Winkelart]] hat ein [[Winkel]] von 120°?'
+    antwort:
+      optionen:
+        - { wert: { de: 'stumpf' }, richtig: true }
+        - { wert: { de: 'spitz' }, fv: FV.GF.WINKELART }
+        - { wert: { de: 'überstumpf' }, fv: FV.GF.WINKELART }
+    weiter: gegenbeispiel
+    bei: { FV.GF.WINKELART: erklaeren-winkelarten }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Winkel]] ist deutlich spitz. Am [[Winkelmesser]] zeigt der [[Schenkel]] auf 30 und auf 150. Mia schreibt 150°. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, ein spitzer Winkel ist kleiner als 90°: 30°.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GF.WINKELMESSER-SKALA }
+    weiter: merksatz
+    bei: { FV.GF.WINKELMESSER-SKALA: erklaeren-messen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst schätzen: spitz, recht oder stumpf? Dann die [[Skala]] nehmen, die beim [[Schenkel]] mit 0 beginnt. Passt der Wert zur Schätzung?'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein stumpfer [[Winkel]]. Der [[Schenkel]] zeigt auf 70 und auf 110. Wie groß ist der Winkel?'
+    antwort:
+      optionen:
+        - { wert: { de: '110°' }, richtig: true }
+        - { wert: { de: '70°' }, fv: FV.GF.WINKELMESSER-SKALA }
+    weiter: uebergang
+    bei: { FV.GF.WINKELMESSER-SKALA: erklaeren-messen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt misst du selbst.'
+    vorlagen: [M.RF.GF.WINKEL.ABLESEN, M.RF.GF.WINKEL.ART]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,87 @@
+id: M.GM.KP.ZYLINDER
+kompetenz: M.GM.KP.ZYLINDER
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]] und [[Oberfläche]] eines [[Zylinders]] mit [[π]] ≈ 3,14 ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Kreis hat den [[Radius]] 10 cm. Wie viele cm² ist er groß? Rechne mit [[π]] ≈ 3,14.'
+    antwort:
+      eingabe: { art: zahl, loesung: '314', fehler: [{ wert: '62,8', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KR.UMFANG-FLAECHE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Zylinder]] ist wie ein [[Prisma]] mit Kreis als [[Grundfläche]]. Die Grundfläche hat 314 cm², die [[Höhe]] ist 5 cm. Wie viele cm³ passen hinein?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1570', fehler: [{ wert: '314', fv: FV.KP.NUR-GRUNDFLAECHE }] }
+    weiter: erklaeren-zylinder
+  - id: erklaeren-zylinder
+    typ: erklaeren
+    text:
+      de: '[[Volumen]]: V = [[π]] · r² · h. [[Oberfläche]]: zwei Kreise plus [[Mantel]]. Der Mantel ist aufgerollt ein Rechteck: Kreisumfang 2 · π · r mal [[Höhe]] h. Prüfe vorher, ob r oder d gegeben ist.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'r = 10 cm, h = 5 cm. [[Volumen]] 314 · 5 = 1570 cm³. [[Mantel]] 62,8 · 5 = 314 cm². [[Oberfläche]] 2 · 314 + 314 = 942 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine Dose hat den [[Durchmesser]] 20 cm und die [[Höhe]] 10 cm. Wie viele cm³ fasst sie?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '3140',
+          fehler:
+            [
+              { wert: '12560', fv: FV.KR.RADIUS-DURCHMESSER },
+              { wert: '314', fv: FV.SA.ZWISCHENERGEBNIS },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      { FV.KR.RADIUS-DURCHMESSER: erklaeren-zylinder, FV.SA.ZWISCHENERGEBNIS: erklaeren-zylinder }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '[[Zylinder]] mit [[Mantel]] 314 cm² und Kreisen von je 314 cm². Pia gibt als [[Oberfläche]] 628 cm² an. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es gibt zwei Kreise: 942 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.FLAECHEN-VERGESSEN }
+    weiter: merksatz
+    bei: { FV.KP.FLAECHEN-VERGESSEN: erklaeren-zylinder }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Zylinder]]: V = [[π]] · r · r · h. [[Oberfläche]] = 2 Kreise + [[Mantel]], Mantel = 2 · π · r · h. 1000 cm³ sind 1 Liter.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Zylinder]] hat 1570 cm³. Wie viele Liter sind das?'
+    antwort:
+      optionen:
+        - { wert: { de: '1,57 l' }, richtig: true }
+        - { wert: { de: '15,7 l' }, fv: FV.KP.LITER }
+        - { wert: { de: '1570 l' }, fv: FV.KP.LITER }
+    weiter: uebergang
+    bei: { FV.KP.LITER: erklaeren-zylinder }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.ZYLINDER.BERECHNEN, M.GM.KP.ZYLINDER.SACH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

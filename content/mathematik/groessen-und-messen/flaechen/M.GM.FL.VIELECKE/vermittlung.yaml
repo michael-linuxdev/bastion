@@ -1,0 +1,87 @@
+id: M.GM.FL.VIELECKE
+kompetenz: M.GM.FL.VIELECKE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Flächeninhalt]] von Vielecken durch Zerlegen oder Ergänzen ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein [[Trapez]] hat die parallelen Seiten 6 cm und 4 cm und die [[Höhe]] 2 cm. Wie viele cm² ist es groß?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '20', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.VIERECKE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Fünfeck sieht aus wie ein Haus: unten ein Quadrat 4 cm mal 4 cm, oben ein Dreieck mit Grundseite 4 cm und [[Höhe]] 2 cm. Wie viele cm² ist es groß?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '20',
+          fehler: [{ wert: '24', fv: FV.FL.NICHT-HALBIERT }, { wert: '16', fv: FV.FL.ZERLEGEN }],
+        }
+    weiter: erklaeren-vieleck
+  - id: erklaeren-vieleck
+    typ: erklaeren
+    text:
+      de: 'Für Vielecke gibt es keine eigene [[Formel]]. Zerlege in Rechtecke, Dreiecke und Trapeze, die du kennst, und addiere. Oder ergänze zu einem Rechteck und ziehe die Ecken ab.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Haus-Fünfeck: Quadrat 4 · 4 = 16 cm², Dach 4 · 2 : 2 = 4 cm². Zusammen 20 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Rechteck 6 cm mal 4 cm, an zwei Ecken ist je ein Dreieck abgeschnitten, jedes mit den Seiten 2 cm und 2 cm am [[rechten Winkel]]. Wie viele cm² bleiben?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '20',
+          fehler: [{ wert: '16', fv: FV.FL.NICHT-HALBIERT }, { wert: '22', fv: FV.FL.ZERLEGEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-vieleck, FV.FL.ZERLEGEN: erklaeren-vieleck }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Sechseck wird in ein Rechteck mit 12 cm² und zwei Dreiecke mit je 3 cm² zerlegt. Tom rechnet 12 + 3 = 15 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, beide Dreiecke zählen: 12 + 3 + 3 = 18 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.ZERLEGEN }
+    weiter: merksatz
+    bei: { FV.FL.ZERLEGEN: erklaeren-vieleck }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Vielecke zerlegen oder ergänzen. Jede Teilfläche mit ihrer [[Formel]], bei Dreiecken halbieren. Am Ende alle Teile zusammenzählen oder abziehen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Rechteck 10 cm mal 4 cm mit einem Dreieck oben drauf, Grundseite 10 cm, [[Höhe]] 3 cm. Wie groß ist die Figur?'
+    antwort:
+      optionen:
+        - { wert: { de: '55 cm²' }, richtig: true }
+        - { wert: { de: '70 cm²' }, fv: FV.FL.NICHT-HALBIERT }
+        - { wert: { de: '40 cm²' }, fv: FV.FL.ZERLEGEN }
+    weiter: uebergang
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-vieleck, FV.FL.ZERLEGEN: erklaeren-vieleck }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt zerlegst du selbst.'
+    vorlagen: [M.GM.FL.VIELECKE.ERGAENZEN, M.GM.FL.VIELECKE.ZERLEGEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

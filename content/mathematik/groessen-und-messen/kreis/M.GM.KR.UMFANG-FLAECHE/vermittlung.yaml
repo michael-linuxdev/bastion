@@ -1,0 +1,93 @@
+id: M.GM.KR.UMFANG-FLAECHE
+kompetenz: M.GM.KR.UMFANG-FLAECHE
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Umfang]] und [[Flächeninhalt]] eines Kreises mit [[π]] ≈ 3,14 ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Kreis hat den [[Durchmesser]] 8 cm. Wie lang ist sein [[Radius]] in cm?'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '16', fv: FV.KR.RADIUS-DURCHMESSER }] }
+    weiter: entdecken
+    bei: { sonst: M.RF.KR.LAGE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Legst du eine Schnur einmal um eine Dose mit 10 cm [[Durchmesser]], ist sie gut 31 cm lang. Etwa wie oft passt der Durchmesser in den [[Umfang]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'gut 3-mal' }, richtig: true }
+        - { wert: { de: '2-mal' }, fv: FV.KR.RADIUS-DURCHMESSER }
+    weiter: erklaeren-radius
+  - id: erklaeren-radius
+    typ: erklaeren
+    text:
+      de: 'Der [[Radius]] r geht vom Mittelpunkt zum Rand, der [[Durchmesser]] d einmal ganz durch: d = 2 · r. Prüfe immer zuerst, welcher gegeben ist. Die [[Formeln]] brauchen meist r.'
+    weiter: erklaeren-formeln
+  - id: erklaeren-formeln
+    typ: erklaeren
+    text:
+      de: '[[Umfang]]: U = 2 · [[π]] · r, ein Weg in cm. [[Flächeninhalt]]: A = π · r², also π · r · r, in cm². r² heißt r mal r, nicht r mal 2.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'r = 10 cm. U = 2 · 3,14 · 10 = 62,8 cm. A = 3,14 · 10 · 10 = 314 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Kreis hat den [[Durchmesser]] 20 cm. Wie viele cm² ist sein [[Flächeninhalt]]? Rechne mit [[π]] ≈ 3,14.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '314',
+          fehler:
+            [
+              { wert: '1256', fv: FV.KR.RADIUS-DURCHMESSER },
+              { wert: '62,8', fv: FV.NZ.QUADRAT-MAL-ZWEI },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KR.RADIUS-DURCHMESSER: erklaeren-radius, FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-formeln }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für einen Zaun um ein rundes Beet mit r = 2 m rechnet Lea 3,14 · 2 · 2 = 12,56 m². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Zaun ist der Umfang: 2 · 3,14 · 2 = 12,56 m.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.UMFANG-FLAECHE }
+    weiter: merksatz
+    bei: { FV.FL.UMFANG-FLAECHE: erklaeren-formeln }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst r bestimmen: r = d : 2. [[Umfang]] U = 2 · [[π]] · r in cm. Fläche A = π · r · r in cm².'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Kreis hat den [[Radius]] 5 cm. Wie groß ist sein [[Umfang]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '31,4 cm' }, richtig: true }
+        - { wert: { de: '78,5 cm' }, fv: FV.FL.UMFANG-FLAECHE }
+        - { wert: { de: '15,7 cm' }, fv: FV.KR.RADIUS-DURCHMESSER }
+    weiter: uebergang
+    bei: { FV.FL.UMFANG-FLAECHE: erklaeren-formeln, FV.KR.RADIUS-DURCHMESSER: erklaeren-radius }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KR.UMFANG-FLAECHE.BERECHNEN, M.GM.KR.UMFANG-FLAECHE.RAD]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

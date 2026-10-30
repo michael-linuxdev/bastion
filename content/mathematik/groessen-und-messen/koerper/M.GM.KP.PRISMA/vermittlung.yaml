@@ -1,0 +1,89 @@
+id: M.GM.KP.PRISMA
+kompetenz: M.GM.KP.PRISMA
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]] und [[Oberfläche]] von [[Prismen]] ausrechnen, zum Beispiel mit einem Dreieck als [[Grundfläche]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein [[Quader]] ist 4 cm lang, 3 cm breit und 5 cm hoch. Wie viele cm³ ist sein [[Volumen]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '60', fehler: [{ wert: '12', fv: FV.KP.NUR-GRUNDFLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.VOLUMEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Beim [[Quader]] ist Länge · Breite die [[Grundfläche]]. Ein Dreiecksprisma hat ein Dreieck mit 6 cm² als Grundfläche und ist 10 cm hoch. Wie viele cm³ passen hinein?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler:
+            [{ wert: '6', fv: FV.KP.NUR-GRUNDFLAECHE }, { wert: '30', fv: FV.FL.NICHT-HALBIERT }],
+        }
+    weiter: erklaeren-prisma
+  - id: erklaeren-prisma
+    typ: erklaeren
+    text:
+      de: '[[Volumen]] jedes [[Prismas]]: [[Grundfläche]] · [[Höhe]]. [[Oberfläche]]: zweimal die Grundfläche plus der [[Mantel]]. Der Mantel besteht aus Rechtecken: [[Umfang]] der Grundfläche · Höhe.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Grundfläche]] 6 cm² mit [[Umfang]] 12 cm, [[Höhe]] 10 cm. [[Volumen]]: 6 · 10 = 60 cm³. [[Mantel]]: 12 · 10 = 120 cm². [[Oberfläche]]: 2 · 6 + 120 = 132 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Prisma]] hat ein Dreieck mit Grundseite 4 cm und [[Höhe]] 3 cm als [[Grundfläche]]. Es ist 5 cm hoch. Wie viele cm³ ist sein [[Volumen]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '30',
+          fehler:
+            [{ wert: '60', fv: FV.FL.NICHT-HALBIERT }, { wert: '6', fv: FV.KP.NUR-GRUNDFLAECHE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-prisma, FV.KP.NUR-GRUNDFLAECHE: erklaeren-prisma }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein [[Prisma]] hat [[Grundfläche]] 6 cm² und [[Mantel]] 120 cm². Eda gibt als [[Oberfläche]] 126 cm² an. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Grund- und Deckfläche zählen beide: 132 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.FLAECHEN-VERGESSEN }
+    weiter: merksatz
+    bei: { FV.KP.FLAECHEN-VERGESSEN: erklaeren-prisma }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Prisma]]: [[Volumen]] = [[Grundfläche]] · [[Höhe]]. [[Oberfläche]] = 2 · Grundfläche + [[Mantel]]. Mantel = [[Umfang]] der Grundfläche · Höhe.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Prisma]] hat ein [[Trapez]] mit 12 cm² als [[Grundfläche]] und ist 4 cm hoch. Wie groß ist das [[Volumen]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '48 cm³' }, richtig: true }
+        - { wert: { de: '12 cm³' }, fv: FV.KP.NUR-GRUNDFLAECHE }
+        - { wert: { de: '24 cm³' }, fv: FV.FL.NICHT-HALBIERT }
+    weiter: uebergang
+    bei: { FV.KP.NUR-GRUNDFLAECHE: erklaeren-prisma, FV.FL.NICHT-HALBIERT: erklaeren-prisma }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.PRISMA.OBERFLAECHE, M.GM.KP.PRISMA.VOLUMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

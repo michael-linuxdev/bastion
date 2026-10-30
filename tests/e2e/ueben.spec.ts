@@ -804,6 +804,7 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
     .getByRole('button', { name: /^Winkel\b/ })
     .first()
     .click();
+  await angebotUeberspringen(page);
   await page.getByRole('button', { name: 'Einen Winkel von 50° zeichnen' }).click();
   await expect(page.getByText('Schritt 1 von 5')).toBeVisible();
   await expect(page.getByRole('img', { name: /Schenkel nach rechts/ })).toBeVisible();
