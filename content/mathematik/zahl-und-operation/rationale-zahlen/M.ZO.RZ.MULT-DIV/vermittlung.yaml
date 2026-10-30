@@ -1,0 +1,79 @@
+id: M.ZO.RZ.MULT-DIV
+kompetenz: M.ZO.RZ.MULT-DIV
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[negative Zahlen]] malnehmen und teilen und das [[Vorzeichen]] sicher bestimmen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist −2 + (−2) + (−2)?'
+    antwort:
+      optionen:
+        - { wert: { de: '−6' }, richtig: true }
+        - { wert: { de: '6' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.ADD-SUB }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du machst 3 Tage lang je 4 € Schulden, also 3 · (−4) €. Ist das Ergebnis positiv oder negativ?'
+    antwort:
+      optionen:
+        - { wert: { de: 'negativ: −12 €' }, richtig: true }
+        - { wert: { de: 'positiv: 12 €' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: erklaeren-vorzeichen
+  - id: erklaeren-vorzeichen
+    typ: erklaeren
+    text:
+      de: 'Rechne erst mit den [[Beträgen]], dann bestimme das [[Vorzeichen]]: gleiche Vorzeichen ergeben plus, verschiedene minus. Bei mehreren [[Faktoren]] zählst du die Minuszeichen: gerade Anzahl plus, ungerade minus. Ist ein Faktor 0, ist alles 0.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '(−36) : 4: [[Betrag]] 36 : 4 = 9, [[Vorzeichen]] verschieden, also −9. (−5) · (−3): Betrag 15, zwei Minus, also 15.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne (−6) · (−7). Zwei Minuszeichen ergeben plus.'
+    antwort:
+      eingabe: { art: zahl, loesung: '42' }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ilka sagt: „(−2) · 0 · (−5) ist positiv, weil es zwei Minus sind.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, mit dem Faktor 0 ist das Ergebnis 0.' }, richtig: true }
+        - { wert: { de: 'Ja, zwei Minus ergeben plus.' }, fv: FV.RZ.NULL-FAKTOR }
+    weiter: merksatz
+    bei: { FV.RZ.NULL-FAKTOR: erklaeren-vorzeichen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst den [[Betrag]], dann das [[Vorzeichen]]: gleiche Vorzeichen plus, verschiedene minus. Ein [[Faktor]] 0 macht alles 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ist (−2) · (−3) · (−4) positiv oder negativ?'
+    antwort:
+      optionen:
+        - { wert: { de: 'negativ' }, richtig: true }
+        - { wert: { de: 'positiv' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: uebergang
+    bei: { FV.RZ.VORZEICHEN-FALSCH: erklaeren-vorzeichen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.RZ.MULT-DIV.VORZEICHEN, M.ZO.RZ.MULT-DIV.TERM]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

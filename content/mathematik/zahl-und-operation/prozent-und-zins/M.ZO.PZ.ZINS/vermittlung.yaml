@@ -1,0 +1,83 @@
+id: M.ZO.PZ.ZINS
+kompetenz: M.ZO.PZ.ZINS
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Zinsen]] für ein Jahr und für einige Tage berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel sind 3 % von 500 €?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '15', fehler: [{ wert: '1500', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.PZ.GRUNDAUFGABEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du legst 500 € ein Jahr lang zu 3 % an. Wie viel Euro sind danach insgesamt auf dem Konto?'
+    antwort:
+      eingabe: { art: zahl, loesung: '515', fehler: [{ wert: '15', fv: FV.PZ.NUR-AENDERUNG }] }
+    weiter: erklaeren-zinsen
+  - id: erklaeren-zinsen
+    typ: erklaeren
+    text:
+      de: 'Zinsrechnung ist Prozentrechnung: Das [[Kapital]] ist der [[Grundwert]], der [[Zinssatz]] der [[Prozentsatz]], die [[Zinsen]] der [[Prozentwert]]. Zinsen für ein Jahr: Kapital · Zinssatz : 100.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2 000 € zu 2 % für ein Jahr: 2 000 € · 2 : 100 = 40 € [[Zinsen]]. Danach hast du 2 040 €.'
+    weiter: erklaeren-tageszinsen
+  - id: erklaeren-tageszinsen
+    typ: erklaeren
+    text:
+      de: 'Der [[Zinssatz]] gilt immer für ein Jahr. Liegt das Geld kürzer, nimmst du nur den passenden Teil. Die Bank zählt das Jahr mit 360 Tagen: [[Zinsen]] = Jahreszinsen · Tage : 360.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '1 200 € liegen zu 3 % für 90 Tage auf dem Konto. Die Jahreszinsen wären 36 €. Wie viel Euro [[Zinsen]] gibt es für 90 Tage?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '36', fv: FV.PZ.ZEITRAUM }] }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.ZEITRAUM: erklaeren-tageszinsen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Paula legt 1 000 € zwei Jahre zu 5 % an. Sie rechnet: „Im zweiten Jahr gibt es wieder 50 €.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, im zweiten Jahr werden 1 050 € verzinst: 52,50 €.' }, richtig: true }
+        - { wert: { de: 'Ja, die Zinsen sind jedes Jahr gleich.' }, fv: FV.PZ.FALSCHER-GRUNDWERT }
+    weiter: merksatz
+    bei: { FV.PZ.FALSCHER-GRUNDWERT: erklaeren-zinsen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Zinsen]] = [[Kapital]] · [[Zinssatz]] : 100 für ein Jahr. Für Tage: · Tage : 360. Im nächsten Jahr wird das neue Kapital verzinst.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel [[Zinsen]] bringen 800 € in einem Jahr zu 2 %?'
+    antwort:
+      optionen:
+        - { wert: { de: '16 €' }, richtig: true }
+        - { wert: { de: '1 600 €' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+        - { wert: { de: '816 €' }, fv: FV.PZ.GRUNDAUFGABE }
+    weiter: uebergang
+    bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-zinsen, FV.PZ.GRUNDAUFGABE: erklaeren-zinsen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.PZ.ZINS.ZINSEN, M.ZO.PZ.ZINS.KAPITAL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

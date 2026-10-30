@@ -1,0 +1,84 @@
+id: M.ZO.RZ.ORDNEN
+kompetenz: M.ZO.RZ.ORDNEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du auch [[negative Zahlen]] vergleichen und der Größe nach ordnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ist die [[Gegenzahl]] von 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '−4' }, richtig: true }
+        - { wert: { de: '4' }, fv: FV.RZ.GEGENZAHL-BETRAG }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Es ist −8 °C oder −3 °C. Wann ist es kälter?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -10, bis: 0, einteilung: 1, markiert: -8 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'bei −8 °C' }, richtig: true }
+        - { wert: { de: 'bei −3 °C' }, fv: FV.RZ.NACH-BETRAG }
+    weiter: erklaeren-ordnen
+  - id: erklaeren-ordnen
+    typ: erklaeren
+    text:
+      de: 'Auf der [[Zahlengerade]] gilt: Je weiter links, desto kleiner. Darum ist −8 kleiner als −3, obwohl 8 größer ist als 3. Jede [[negative Zahl]] ist kleiner als jede positive.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -10, bis: 0, einteilung: 1, markiert: -3 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ordne 3, −7, 0, −2: Von links nach rechts −7, −2, 0, 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welche Zahl ist kleiner: −12 oder −9?'
+    antwort:
+      optionen:
+        - { wert: { de: '−12' }, richtig: true }
+        - { wert: { de: '−9' }, fv: FV.RZ.NACH-BETRAG }
+    weiter: gegenbeispiel
+    bei: { FV.RZ.NACH-BETRAG: erklaeren-ordnen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Nico schreibt −6 > −1, weil 6 größer ist als 1. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, −6 liegt weiter links: −6 < −1.' }, richtig: true }
+        - { wert: { de: 'Ja, die größere Zahl ohne Minus gewinnt.' }, fv: FV.RZ.NACH-BETRAG }
+    weiter: merksatz
+    bei: { FV.RZ.NACH-BETRAG: erklaeren-ordnen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Weiter links auf der [[Zahlengerade]] heißt kleiner. Bei [[negativen Zahlen]]: Je größer der [[Betrag]], desto kleiner die Zahl.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welches Zeichen passt: −5 ☐ 2?'
+    antwort:
+      optionen:
+        - { wert: { de: '<' }, richtig: true }
+        - { wert: { de: '>' }, fv: FV.NZ.ZEICHEN-VERDREHT }
+    weiter: uebergang
+    bei: { FV.NZ.ZEICHEN-VERDREHT: erklaeren-ordnen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt ordnest du selbst.'
+    vorlagen: [M.ZO.RZ.ORDNEN.VERGLEICHSZEICHEN, M.ZO.RZ.ORDNEN.DER-GROESSE-NACH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

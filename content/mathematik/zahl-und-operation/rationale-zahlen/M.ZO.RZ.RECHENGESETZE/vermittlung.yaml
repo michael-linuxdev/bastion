@@ -1,0 +1,83 @@
+id: M.ZO.RZ.RECHENGESETZE
+kompetenz: M.ZO.RZ.RECHENGESETZE
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Terme]] mit [[negativen Zahlen]] in der richtigen Reihenfolge und geschickt berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist (−3) · 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '−12' }, richtig: true }
+        - { wert: { de: '12' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.MULT-DIV }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Rechne −7 + 3 + 7. Tipp: Welche zwei Zahlen heben sich auf?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '17', fv: FV.RZ.GEGENZAHL-SUMME }] }
+    weiter: erklaeren-geschickt
+  - id: erklaeren-geschickt
+    typ: erklaeren
+    text:
+      de: 'Auch mit [[negativen Zahlen]] darfst du beim Addieren vertauschen und zusammenfassen. Eine Zahl und ihre [[Gegenzahl]] ergeben 0. Die Regeln bleiben: Klammern zuerst, dann [[Punkt vor Strich]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '−25 + 18 + 25 − 8: Fasse −25 und 25 zusammen, das ist 0. Bleibt 18 − 8 = 10.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 5 + (−2) · 3. Erst das Malnehmen.'
+    antwort:
+      optionen:
+        - { wert: { de: '−1' }, richtig: true }
+        - { wert: { de: '9' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+        - { wert: { de: '11' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.PUNKT-VOR-STRICH: erklaeren-geschickt }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jona rechnet −9 + 4 + 9 = 22. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, −9 und 9 ergeben 0. Es bleibt 4.' }, richtig: true }
+        - { wert: { de: 'Ja, 9 + 4 + 9 = 22.' }, fv: FV.RZ.GEGENZAHL-SUMME }
+    weiter: merksatz
+    bei: { FV.RZ.GEGENZAHL-SUMME: erklaeren-geschickt }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Gegenzahlen]] zuerst zu 0 zusammenfassen. Klammern und [[Punkt vor Strich]] gelten auch für [[negative Zahlen]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist −12 + 5 + 12 − 3?'
+    antwort:
+      optionen:
+        - { wert: { de: '2' }, richtig: true }
+        - { wert: { de: '26' }, fv: FV.RZ.GEGENZAHL-SUMME }
+        - { wert: { de: '−2' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: uebergang
+    bei:
+      { FV.RZ.GEGENZAHL-SUMME: erklaeren-geschickt, FV.RZ.VORZEICHEN-FALSCH: erklaeren-geschickt }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du geschickt.'
+    vorlagen: [M.ZO.RZ.RECHENGESETZE.GESCHICKT, M.ZO.RZ.RECHENGESETZE.TERM]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

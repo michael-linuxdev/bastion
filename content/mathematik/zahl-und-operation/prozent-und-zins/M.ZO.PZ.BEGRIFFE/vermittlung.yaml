@@ -1,0 +1,92 @@
+id: M.ZO.PZ.BEGRIFFE
+kompetenz: M.ZO.PZ.BEGRIFFE
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Grundwert]], [[Prozentwert]] und [[Prozentsatz]] erkennen und 10 %, 25 % und 50 % von einer Größe im Kopf berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Bruch]] ist 25 %?'
+    antwort:
+      optionen:
+        - { wert: { de: '1/4' }, richtig: true }
+        - { wert: { de: '25/10' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.PROZENT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In einer Klasse sind 30 Kinder, 6 davon haben eine Brille. Das sind 20 %. Welche Zahl ist das Ganze, von dem man ausgeht?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '30',
+          fehler: [{ wert: '6', fv: FV.PZ.DREI-GROESSEN }, { wert: '20', fv: FV.PZ.DREI-GROESSEN }],
+        }
+    weiter: erklaeren-begriffe
+  - id: erklaeren-begriffe
+    typ: erklaeren
+    text:
+      de: 'Der [[Grundwert]] ist das Ganze, 100 %. Der [[Prozentwert]] ist ein Teil davon. Der [[Prozentsatz]] ist der [[Anteil]] mit dem Zeichen %. Hier: Grundwert 30 Kinder, Prozentwert 6 Kinder, Prozentsatz 20 %.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '50 % sind die Hälfte, 25 % ein Viertel, 10 % ein [[Zehntel]]. 10 % von 80 € sind 80 € : 10 = 8 €. 25 % von 80 € sind 80 € : 4 = 20 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie viel sind 10 % von 250 €?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '25',
+          fehler:
+            [
+              { wert: '2500', fv: FV.BR.PROZENT-HUNDERTSTEL },
+              { wert: '2,5', fv: FV.BR.PROZENT-HUNDERTSTEL },
+            ],
+        }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Von 40 Äpfeln sind 10 faul. Tim sagt: „Der [[Grundwert]] ist 10, denn darum geht es ja.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, das Ganze sind 40 Äpfel. 10 ist der Prozentwert.' }, richtig: true }
+        - { wert: { de: 'Ja, die faulen Äpfel sind der Grundwert.' }, fv: FV.PZ.DREI-GROESSEN }
+    weiter: merksatz
+    bei: { FV.PZ.DREI-GROESSEN: erklaeren-begriffe }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Grundwert]]: das Ganze. [[Prozentwert]]: der Teil. [[Prozentsatz]]: der [[Anteil]] mit %. 50 % = Hälfte, 25 % = Viertel, 10 % = [[Zehntel]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '„20 % von 50 € sind 10 €.“ Welche Angabe ist der [[Prozentwert]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '10 €' }, richtig: true }
+        - { wert: { de: '50 €' }, fv: FV.PZ.DREI-GROESSEN }
+        - { wert: { de: '20 %' }, fv: FV.PZ.DREI-GROESSEN }
+    weiter: uebergang
+    bei: { FV.PZ.DREI-GROESSEN: erklaeren-begriffe }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.PZ.BEGRIFFE.ERKENNEN, M.ZO.PZ.BEGRIFFE.BEQUEM]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

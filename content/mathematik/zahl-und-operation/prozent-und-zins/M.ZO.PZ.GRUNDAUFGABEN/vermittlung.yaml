@@ -1,0 +1,91 @@
+id: M.ZO.PZ.GRUNDAUFGABEN
+kompetenz: M.ZO.PZ.GRUNDAUFGABEN
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Prozentwert]], [[Prozentsatz]] und [[Grundwert]] berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel sind 10 % von 80 €?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.PZ.BEGRIFFE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '1 % von 80 € sind 0,80 €. Wie viel sind dann 15 % von 80 €?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '12', fehler: [{ wert: '1200', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: erklaeren-grundaufgaben
+  - id: erklaeren-grundaufgaben
+    typ: erklaeren
+    text:
+      de: 'Kläre zuerst, was gegeben und was gesucht ist. [[Prozentwert]]: [[Grundwert]] · [[Prozentsatz]] : 100. 15 % von 80 € = 80 € · 15 : 100 = 12 €.'
+    weiter: erklaeren-prozentsatz
+  - id: erklaeren-prozentsatz
+    typ: erklaeren
+    text:
+      de: '[[Prozentsatz]]: Teil durch Ganzes, 6 : 30 = 0,2 = 20 %. [[Grundwert]] rückwärts: 12 € sind 15 %, also 1 % = 0,80 € und 100 % = 80 €.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '9 von 36 Schülern fahren mit dem Rad. [[Prozentsatz]]: 9 : 36 = 0,25 = 25 %. [[Überschlag]]: 9 ist ein Viertel von 36, das passt.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '12 von 48 Losen gewinnen. Wie viel [[Prozent]] sind das?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '25', fehler: [{ wert: '400', fv: FV.PZ.FALSCH-HERUM-GETEILT }] }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.FALSCH-HERUM-GETEILT: erklaeren-prozentsatz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '30 % eines Preises sind 24 €. Gesucht ist der ganze Preis. Ina rechnet 30 % von 24 € = 7,20 €. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, gesucht ist der Grundwert: 24 € : 30 · 100 = 80 €.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, man rechnet immer Prozent von der Zahl.' }, fv: FV.PZ.GRUNDAUFGABE }
+    weiter: merksatz
+    bei: { FV.PZ.GRUNDAUFGABE: erklaeren-grundaufgaben }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst klären, was gesucht ist. [[Prozentwert]] = [[Grundwert]] · p : 100. [[Prozentsatz]] = Prozentwert : Grundwert. [[Grundwert]] über 1 % zurückrechnen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Rechnung passt? „Wie viel sind 20 % von 60 €?“'
+    antwort:
+      optionen:
+        - { wert: { de: '60 € · 20 : 100' }, richtig: true }
+        - { wert: { de: '60 € : 20 · 100' }, fv: FV.PZ.GRUNDAUFGABE }
+        - { wert: { de: '60 € · 20' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+    weiter: uebergang
+    bei:
+      {
+        FV.PZ.GRUNDAUFGABE: erklaeren-grundaufgaben,
+        FV.BR.PROZENT-HUNDERTSTEL: erklaeren-grundaufgaben,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.PZ.GRUNDAUFGABEN.BERECHNEN, M.ZO.PZ.GRUNDAUFGABEN.RECHNUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
