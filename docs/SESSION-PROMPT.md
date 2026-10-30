@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (22) · Lernkern-Review behoben; Review-Stufen festgelegt; nächste Sitzungen nur geplant
+Stand: 30.10.2026 (23) · Merge-Reihenfolge: zuerst PR #85 (Zoom), dann #84, dann #82, dann u5c-dz
 
 ---
 
@@ -128,6 +128,19 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 ---
 
+## Merge-Reihenfolge (30.10.2026)
+
+Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihenfolge ersetzt den früheren Plan, PR #82 zuerst zu mergen.
+
+1. **PR #85 geht zuerst live.** Grafik: Zoom des Bauplatzes wie in Dorfkrieg. Branch `cursor/dorfkrieg-zoom-e6c9`, https://github.com/michael-linuxdev/bastion/pull/85. Gilt für jedes Thema, nicht nur für Dorf: statt der drei Stufen 100 %, 150 % und 200 % mit Rollbalken zoomen **+** und **−** um etwa 12 % auf die Mitte, das Mausrad und zwei Finger zoomen auf den Zeiger, Ziehen verschiebt die Karte, **⌖** zeigt wieder das ganze Bild. Kleiner als 35 % und größer als 240 % geht es nicht.
+2. **Danach PR #84** (dieser Stand: Lernkern-Korrekturen, Review-Stufen, dieser Prompt), https://github.com/michael-linuxdev/bastion/pull/84. Vorher den Branch auf das neue `main` nach #85 setzen. Normal mergen, nicht mit `merge -s ours`: #85 steckt hier noch nicht drin. `git merge-tree` am 30.10.2026 zwischen diesem Branch und `cursor/dorfkrieg-zoom-e6c9`: keine Konflikte, keine gemeinsame Datei.
+3. **Dann PR #82** (`u5c-sf`, Erstvermittlungen Terme und Gleichungen). Konflikt voraussichtlich nur in `docs/PLAN.md` und `docs/SESSION-PROMPT.md`. Beide Absätze behalten.
+4. **Dann einmal `u5c-dz`**, nicht die Zwischenschritte `u5c-fz`, `u5c-gm` und `u5c-rf` als eigene PRs. In `M.RF.AE.AEHNLICH/vermittlung.yaml` (nur auf `u5c-dz`) die Breite festnageln: die 6 cm gehören zur neuen Breite 9 cm, Faktor 1,5, die andere Seite ist 6 cm.
+
+**PR #83** (Dorf-Grafik, Dorfbilder) ist bereits auf `main`.
+
+---
+
 ## Geplant für spätere Sitzungen (noch nicht anfangen)
 
 Dieser Abschnitt ist ein Arbeitsauftrag. Er wird erst umgesetzt, wenn eine Sitzung ihn ausdrücklich aufnimmt. Vorher kein Code, keine neuen Abhängigkeiten, keine Branches dafür.
@@ -136,7 +149,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 
 ### 1. Aus dem Lernkern-Review
 
-1. **PR #82 mergen** (Branch `u5c-sf`, Erstvermittlungen Terme und Gleichungen). Konflikt nur in `docs/PLAN.md` und voraussichtlich `docs/SESSION-PROMPT.md`: beide Absätze behalten. Danach **einmal `u5c-dz`** darauf setzen, nicht die Zwischenschritte `u5c-fz`, `u5c-gm` und `u5c-rf` als eigene PRs. In `M.RF.AE.AEHNLICH/vermittlung.yaml` (nur auf `u5c-dz`) die Breite festnageln: die 6 cm gehören zur neuen Breite 9 cm, Faktor 1,5, die andere Seite ist 6 cm. Nicht „6 cm mal 4 cm“ ohne zu sagen, welche Seite die Breite ist.
+1. **Die Merge-Reihenfolge steht oben:** zuerst PR #85, dann PR #84 auf den neuen `main`, dann PR #82, dann einmal `u5c-dz`. Die Breite in der Ähnlichkeit gehört zu Schritt 4.
 2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
 3. **Öffentliche Seite von `main` trennen.** `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: gleichnamiges Addieren und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
@@ -230,7 +243,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 - **Grafik:** Startseite auf dem iPhone 13 korrigiert (`viewport-fit=cover`, `--leiste-hoehe`), Glühbirne für die Fehlerwerkstatt.
 - **Generatoren mit Schritten:** Erweitern auf Zielnenner, Kürzen, Addieren/Subtrahieren. Der ungleichnamige Fall zeigt Schritte, der gleichnamige noch nicht.
 
-**Nebenbei (30.10.2026):** Das Thema **Dorf** unter „Wie soll es aussehen?“ zeigt jetzt die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume, `GRAFIK.md` §6). Die anderen Themen bleiben die Insel. Kampffiguren gibt es nicht. Der nächste inhaltliche Schritt bleibt U5c.
+**Nebenbei, Grafik (30.10.2026):** **PR #83** (Dorf-Grafik) ist auf `main`. Das Thema Dorf unter „Wie soll es aussehen?“ zeigt die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume, `GRAFIK.md` §6). Die anderen Themen bleiben die Insel. Kampffiguren gibt es nicht. **PR #85** (Zoom des Bauplatzes wie in Dorfkrieg) ist noch nicht auf `main` und geht vor diesem Stand live. Der Zoom gilt für jedes Thema: nicht mehr 100 %, 150 % und 200 % mit Rollbalken, sondern + und − um etwa 12 % auf die Mitte, Mausrad und zwei Finger auf den Zeiger, Ziehen verschiebt, ⌖ zeigt das ganze Bild. Grenze 35 % bis 240 %. Der nächste inhaltliche Schritt bleibt U5c.
 
 **Lernkern-Review (30.10.2026):** Drei Inhaltsfehler aus der Prüfung vom 30.10. sind behoben. Beim Schatten-Kehrwert steht jetzt das umgedrehte Verhältnis (Stab 2 m, Schatten 3 m, Baumschatten 12 m → 0,5 m). Die Fragen zum Erweitern und Vergleichen sagen, welcher Bruch einzutippen ist. Wer beim Zinseszins „wieder 50 €“ wählt, kommt zur Erklärung, dass das Kapital im zweiten Jahr größer ist. Ein Test rechnet beschriebene Fehlrechnungen aus dem Aufgabentext nach. Die Ähnlichkeits-Erstvermittlung (welche Seite die Breite ist) liegt nur auf `u5c-dz`, nicht auf main.
 
