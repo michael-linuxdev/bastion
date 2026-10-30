@@ -190,7 +190,17 @@
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
-    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
+    <Bauplatz
+      bastion={l.bastion}
+      garten={{
+        fleiss: l.konto.erworben.fleiss,
+        behalten: l.konto.erworben.behalten,
+        koennen: l.konto.erworben.koennen,
+        schritt: l.konto.erworben.schritt,
+        fertig: l.bastion.fertig.length,
+      }}
+      onaktion={ausfuehren}
+    />
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">

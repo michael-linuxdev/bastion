@@ -414,7 +414,7 @@ Reihenfolge nach K-10: **erst Mechanik und Listenansicht, dann Grafik.** Jeder S
 
 *Umsetzung 2.11c (B-20):* `src/core/bastion/ziel.ts`. Jedes Angebot, das gerade nicht geht, hat „Vormerken“. Oben in der Bastion steht dann „Dein Ziel: …“ mit „Dafür fehlt noch: 60 Stein, 30 Erz“ und, falls etwas anderes im Weg steht, dem Grund (z. B. „Braucht zuerst: Bergfried Stufe 2“); sind alle Ressourcen da: „Alles da – du kannst es jetzt bauen.“ Gespeichert als Einstellung `basebau.ziel`; ist das Vorhaben begonnen, erlischt die Vormerkung von selbst.
 
-Die Grafik (Stufe D) zeichnet die Insel für alle Themen gleich. Einzige Ausnahme seit dem 30.10.2026: das Thema **Dorf** zeigt die Dorfbilder aus Dorfkrieg (`GRAFIK.md` §6, `src/ui/bastion/grafik/dorf.ts`). Die Mechanik bleibt dieselbe; es wechseln Wörter und, nur bei Dorf, das Bild. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.
+Die Grafik (Stufe D) zeichnet die Insel für die Themen Bastion, Weltraum und Unterwasser. Das Thema **Dorf** zeigt die Dorfbilder (`GRAFIK.md` §6), das Thema **Garten** Wiese, Teich und Zwerge (`GRAFIK.md` §7). Die Mechanik bleibt dieselbe; es wechseln Wörter und, bei Dorf und Garten, das Bild. Später brauchen die Belagerungen (Phase 4) einen thema-neutralen Kern, etwa „Bewährungsprobe“.
 
 ### Stufe C – Balancing
 

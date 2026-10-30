@@ -4,7 +4,8 @@
 // Himmel mit Sonne und Wolken; dunkel als Abend mit erleuchteten Fenstern.
 // Je Rolle eine Form aus dem Code, Farbe je Gebäudefamilie – austauschbar je Thema
 // und Skin (B-17, B-18, B-27). Das Thema Dorf zeichnet stattdessen die Dorfbilder
-// (`dorf.ts`). Diese Datei ist der einzige Ort, der PixiJS importiert; die
+// (`dorf.ts`). Das Thema Garten zeichnet Wiese, Teich und Zwerge (`garten.ts`).
+// Diese Datei ist der einzige Ort, der PixiJS importiert; die
 // Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
@@ -17,10 +18,12 @@ import {
   type Position,
 } from '../../../core/bastion/katalog';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
+import { gartenBilder, gartenBoden, gartenHoehe, type Bild } from './garten';
+import { LEERE_EINGABE, type GartenEingabe } from './freischalten';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 
-/** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
-export type Bildart = 'insel' | 'dorf';
+/** Insel, Dorfbilder oder der Garten. */
+export type Bildart = 'insel' | 'dorf' | 'garten';
 
 export interface Farben {
   readonly boden: string;
@@ -47,7 +50,7 @@ export interface Ansicht {
 }
 
 export interface Buehne {
-  zeichne(b: Bastion, a: Ansicht): void;
+  zeichne(b: Bastion, a: Ansicht, garten?: GartenEingabe): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
   zerstoere(): void;
@@ -395,16 +398,51 @@ export async function buehneErstellen(
   const hintergrund = new Graphics();
   himmel(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
+  else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
   const gebaeude = new Container();
+  gebaeude.sortableChildren = true;
   app.stage.addChild(hintergrund, gebaeude);
+
+  const medien =
+    typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : undefined;
+  let ruhig = medien?.matches ?? false;
+  let tick: (() => void) | undefined;
+  let tickerStart = 0;
+  let anwenden: (t: number, istRuhig: boolean) => void = () => {};
+
+  function tickerAus() {
+    if (!tick) return;
+    app.ticker.remove(tick);
+    tick = undefined;
+  }
+  function tickerAn() {
+    if (tick || ruhig || art !== 'garten') return;
+    tickerStart = app.ticker.lastTime;
+    tick = () => anwenden((app.ticker.lastTime - tickerStart) / 1000, false);
+    app.ticker.add(tick);
+  }
+  const beiWandel = () => {
+    ruhig = medien?.matches ?? false;
+    if (ruhig) {
+      tickerAus();
+      app.ticker.stop();
+      anwenden(0, true);
+    } else {
+      app.ticker.start();
+      tickerAn();
+    }
+  };
+  medien?.addEventListener('change', beiWandel);
+  if (ruhig) app.ticker.stop();
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
 
   return {
-    zeichne(b, a) {
-      gebaeude.removeChildren().forEach((c) => c.destroy());
+    zeichne(b, a, garten = LEERE_EINGABE) {
+      tickerAus();
+      gebaeude.removeChildren().forEach((c) => c.destroy({ children: true }));
       const g = new Graphics();
       // Neubauten im Bau: Umriss auf dem Boden
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
@@ -435,10 +473,29 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'garten') {
+        const bauten = reihe.map((x) => ({
+          typ: x.typ,
+          stufe: x.stufe,
+          pos: x.pos,
+          ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+          auswahl: a.auswahl === x.id,
+        }));
+        const blocker = [
+          ...bauten,
+          ...b.vorhaben.map((v) => ({ typ: v.typ, stufe: v.stufe, pos: v.pos })),
+        ];
+        anwenden = bilderSetzen(
+          gebaeude,
+          gartenBilder(bauten, blocker, garten, farben.abend, farben.licht, farben.auswahl),
+          ruhig,
+        );
+        if (ruhig) anwenden(0, true);
+        else tickerAn();
       }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
-        if (art !== 'dorf') {
+        if (art === 'insel') {
           if (a.auswahl === x.id)
             raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           zeichneRolle(
@@ -452,7 +509,12 @@ export async function buehneErstellen(
         }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
         const e = ecken(x.pos.x, x.pos.y, w, t, 0);
-        const h = (art === 'dorf' ? dorfHoehe(x.typ, x.stufe) : hoehe(x.typ, x.stufe)) + 20;
+        const h =
+          (art === 'dorf'
+            ? dorfHoehe(x.typ, x.stufe)
+            : art === 'garten'
+              ? gartenHoehe(x.typ, x.stufe)
+              : hoehe(x.typ, x.stufe)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(
@@ -472,6 +534,7 @@ export async function buehneErstellen(
           alpha: a.ziel.frei ? 1 : 0.4,
         });
       }
+      g.zIndex = art === 'garten' ? 5000 : 0;
       gebaeude.addChild(g);
     },
     feldBei(clientX, clientY) {
@@ -483,8 +546,40 @@ export async function buehneErstellen(
       return feldUnter(x, y);
     },
     zerstoere() {
+      tickerAus();
+      medien?.removeEventListener('change', beiWandel);
       app.destroy(true, { children: true });
     },
+  };
+}
+
+/** Gras, Kronen und Gebäude einmal zeichnen, Zwerge und Falter je Takt. */
+function bilderSetzen(
+  ziel: Container,
+  bilder: readonly Bild[],
+  ruhig: boolean,
+): (t: number, istRuhig: boolean) => void {
+  const knoten = bilder.map((bild) => {
+    const c = new Container();
+    const g = new Graphics();
+    c.addChild(g);
+    if (bild.einmal) bild.male(stiftVon(g), 0, ruhig);
+    ziel.addChild(c);
+    return { bild, c, g };
+  });
+  return (t, istRuhig) => {
+    for (const k of knoten) {
+      if (!k.bild.einmal) {
+        k.g.clear();
+        k.bild.male(stiftVon(k.g), t, istRuhig);
+      }
+      const p = k.bild.lage(t, istRuhig);
+      k.c.position.set(p.x, p.y);
+      k.c.rotation = p.drehung;
+      k.c.alpha = p.alpha;
+      k.c.scale.x = p.sx;
+      k.c.zIndex = p.tiefe;
+    }
   };
 }
 
