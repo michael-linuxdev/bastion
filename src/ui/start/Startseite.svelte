@@ -31,6 +31,7 @@
     geradeDran,
     klassenarbeit,
     sichern,
+    testphase = false,
     onziel,
     children,
   }: {
@@ -44,6 +45,8 @@
     /** Termin „JJJJ-MM-TT“ */
     klassenarbeit: string | undefined;
     sichern: boolean;
+    /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
+    testphase?: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
   } = $props();
@@ -68,6 +71,7 @@
     {:else}
       <p class="gruss">{t('start.gruss')}</p>
     {/if}
+    {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
   </header>
 
   {@render children?.()}
@@ -185,6 +189,10 @@
   }
   .leise {
     color: var(--farbe-text-leise);
+  }
+  .test {
+    font-size: 0.875rem;
+    margin-block-end: var(--abstand-s);
   }
 
   button {

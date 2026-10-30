@@ -1373,3 +1373,95 @@ test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U
   await expect(page.getByText('Dein Ziel')).toHaveCount(0);
   await expect(page.locator('.vermittlung .karte')).toBeVisible();
 });
+
+test('Fehlerwerkstatt nach Ursachen: ein Denkfehler aus Kürzen und Erweitern ist eine Gruppe (U3j)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: /^Brüche erweitern und kürzen/ }).click();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
+  const ggt = (a: number, b: number): number => (b === 0 ? a : ggt(b, a % b));
+  for (let runde = 0; runde < 2; runde++) {
+    const text = (await page.locator('.aufgabe .text').textContent()) ?? '';
+    const z = Number(await page.locator('.aufgabe .text .zaehler').first().textContent());
+    const n = Number(await page.locator('.aufgabe .text .nenner').first().textContent());
+    const ziel = /Nenner\s*(\d+)\s*ist/.exec(text);
+    const falsch = ziel ? [z, Number(ziel[1])] : [z, n / ggt(z, n)];
+    const form = page.locator('form#antwort');
+    await form.getByLabel('Zähler').fill(String(falsch[0]));
+    await form.getByLabel('Nenner').fill(String(falsch[1]));
+    await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
+    await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
+    await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  }
+  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  await page
+    .getByRole('main')
+    .getByRole('button', { name: /Fehlerwerkstatt/ })
+    .click();
+  const gruppen = page.locator('.gruppe');
+  await expect(gruppen).toHaveCount(1);
+  await expect(gruppen.first()).toContainText('Denkfehler: Verändert nur den Nenner');
+  await expect(gruppen.first()).toContainText('2');
+});
+
+test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei, löschen (U4a)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+
+  await expect(page.getByText('Das Testprotokoll ist ausgeschaltet.')).toBeVisible();
+  await page.getByLabel('Teilnehmer-Nummer').fill('T-01-9');
+  await page.getByRole('button', { name: 'Einschalten' }).click();
+  await expect(page.getByText(/Diese Nummer stimmt nicht/)).toBeVisible();
+  await page.getByLabel('Teilnehmer-Nummer').fill('t 01 8');
+  await page.getByRole('button', { name: 'Einschalten' }).click();
+  await expect(page.getByText('Das Testprotokoll ist eingeschaltet.')).toBeVisible();
+
+  // Hinweis auf der Startseite, dann etwas üben
+  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  await expect(
+    page.getByText('Testphase: Die Nutzung wird auf diesem Gerät protokolliert.'),
+  ).toBeVisible();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
+  await page.getByRole('button', { name: /^Addieren und Subtrahieren/ }).click();
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+
+  // Vorschau und Datei
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByRole('button', { name: 'Öffnen' }).click();
+  await page.getByRole('button', { name: 'Protokoll ansehen' }).click();
+  await expect(page.getByText('T-01-8', { exact: true })).toBeVisible();
+  await expect(page.getByText(/Nutzung: [1-9]/)).toBeVisible();
+  await expect(page.getByText(/Aufgaben: 1/)).toBeVisible();
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Als Datei speichern' }).click(),
+  ]);
+  expect(download.suggestedFilename()).toMatch(
+    /^bastion-testprotokoll-T-01-8-\d{4}-\d{2}-\d{2}\.json$/,
+  );
+  const inhalt = JSON.parse(
+    await (await download.createReadStream()).toArray().then((t) => Buffer.concat(t).toString()),
+  ) as { teilnehmer: string; ereignisse: { art: string }[] };
+  expect(inhalt.teilnehmer).toBe('T-01-8');
+  expect(JSON.stringify(inhalt)).not.toContain('"profil"');
+  expect(inhalt.ereignisse.some((e) => e.art === 'nutzung')).toBe(true);
+
+  // Löschen mit Rückfrage: Nutzung weg, Aufgaben bleiben
+  await page.getByRole('button', { name: 'Nutzungsprotokoll löschen' }).click();
+  await page.getByRole('button', { name: /Wirklich löschen/ }).click();
+  await expect(page.getByText('Das Nutzungsprotokoll ist gelöscht.')).toBeVisible();
+  await expect(page.getByText(/Aufgaben: 1/)).toBeVisible();
+});

@@ -3,7 +3,11 @@
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
   import { istRueckkehr, wiederholRunde } from '../core/srs/rueckkehr';
   import type { Antwort } from '../core/learning/diagnose';
-  import type { Fehlergruppe } from '../core/learning/werkstatt';
+  import {
+    gruppiere,
+    offeneFehler as offeneAufgaben,
+    type Fehlergruppe,
+  } from '../core/learning/werkstatt';
   import {
     alleAufgaben,
     fehlergruppen,
@@ -25,6 +29,8 @@
     klassenarbeitSetzen,
     klasseSetzen,
     merkeVermittlung,
+    nutzungMerken,
+    testStand,
     alleVermittlungen,
     vermittelteKompetenzen,
     schulartSetzen,
@@ -230,6 +236,25 @@
   /** Kompetenzen mit abgeschlossener Erstvermittlung (VERMITTLUNG §2.4) */
   let vermittelte = $state<ReadonlySet<string>>(new Set());
   let vermittlungListe = $state<readonly VermittlungEreignis[]>([]);
+  /** Testprotokoll eingeschaltet (K-14): Hinweis auf der Startseite */
+  let testphase = $state(false);
+
+  // Nutzungsprotokoll (D-18): jede Ansicht mit der Verweildauer der vorigen.
+  // nutzungMerken schreibt nur, wenn das Testprotokoll eingeschaltet ist.
+  let ansichtSeit = Date.now();
+  $effect(() => {
+    const ziel = ansicht;
+    const jetzt = Date.now();
+    const dauer = jetzt - ansichtSeit;
+    ansichtSeit = jetzt;
+    void nutzungMerken('ansicht', ziel, dauer);
+  });
+  $effect(() => {
+    const sichtbar = () =>
+      void nutzungMerken('app', document.visibilityState === 'visible' ? 'vorn' : 'hintergrund');
+    document.addEventListener('visibilitychange', sichtbar);
+    return () => document.removeEventListener('visibilitychange', sichtbar);
+  });
   /** Rückweg aus dem Fehlerkatalog: an dieser Stelle der Erstvermittlung beginnen */
   let vermittlungStart = $state<string | undefined>(undefined);
   /**
@@ -245,6 +270,15 @@
       vermittlungListe,
       fvKatalog(geladen.vorlagen, [...geladen.fehlvorstellungen.values()]),
     );
+  }
+
+  /** Fehlerwerkstatt nach Ursachen (U3j): gleiche Fehlvorstellung = eine Gruppe */
+  function gruppenNachUrsache(geladen: Inhalte): Fehlergruppe[] {
+    const katalog = fvKatalog(geladen.vorlagen, [...geladen.fehlvorstellungen.values()]);
+    return gruppiere(offeneAufgaben(aufgabenListe), (e) => {
+      const aus = e.fehlerbild ? katalog.fvVon(e.vorlage, e.fehlerbild) : undefined;
+      return aus ?? e.schritte?.flatMap((s) => (s.fehler ?? []).map((f) => f.fv)).find(Boolean);
+    });
   }
 
   /** Fehlvorstellungen, die eine Antwort zeigt: Fehlerbild des Ergebnisses und der Schritte */
@@ -306,6 +340,7 @@
     zustand = await ladeZustand();
     vermittelte = await vermittelteKompetenzen();
     vermittlungListe = await alleVermittlungen();
+    testphase = (await testStand()).aktiv;
     const jetzt = Date.now();
     rueckkehr ??= istRueckkehr(zustand.karten, jetzt);
     faellig = wiederholRunde(zustand.karten, jetzt).length;
@@ -346,8 +381,9 @@
   /** Genau die damaligen Aufgaben – nur, wenn der Generator noch dieselbe Version hat. */
   function aufarbeiten(geladen: Inhalte, g: Fehlergruppe) {
     const vorlagen = new Map(geladen.vorlagen.map((v) => [v.id, v]));
-    const kompetenz = geladen.kompetenzen.find((k) => k.id === g.kompetenz);
     werkstattListe = g.fehler.flatMap((e) => {
+      // Eine Gruppe nach Denkfehler kann Aufgaben mehrerer Kompetenzen enthalten
+      const kompetenz = geladen.kompetenzen.find((k) => k.id === e.kompetenz);
       const vorlage = vorlagen.get(e.vorlage);
       return kompetenz &&
         vorlage &&
@@ -495,6 +531,7 @@
       geradeDran={geradeDran.length}
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
+      {testphase}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -605,7 +642,10 @@
               if (ziel) gewaehlt = ziel;
               ansicht = 'uebung';
             }}
-            onzurueck={() => (ansicht = 'uebung')}
+            onzurueck={() => {
+              void nutzungMerken('abbruch', `vermittlung:${k.id}`);
+              ansicht = 'uebung';
+            }}
           />
         {/if}
       {:else if ansicht === 'anleitung' && anleitung}
@@ -702,7 +742,9 @@
       {:else if ansicht === 'werkstatt'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
         <Werkstatt
-          {gruppen}
+          gruppen={gruppenNachUrsache(geladen)}
+          fehlvorstellungen={geladen.fehlvorstellungen}
+          fvStaende={fvStaende(geladen)}
           vorlagen={new Map(geladen.vorlagen.map((v) => [v.id, v]))}
           kompetenzen={new Map(geladen.kompetenzen.map((k) => [k.id, k]))}
           onaufarbeiten={(g) => aufarbeiten(geladen, g)}
@@ -717,6 +759,7 @@
           fehlvorstellungen={geladen.fehlvorstellungen}
           fvStaende={fvStaende(geladen)}
           rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
           onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
@@ -735,6 +778,7 @@
           fehlvorstellungen={geladen.fehlvorstellungen}
           fvStaende={fvStaende(geladen)}
           rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+          onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
           onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
@@ -777,6 +821,7 @@
             fehlvorstellungen={geladen.fehlvorstellungen}
             fvStaende={fvStaende(geladen)}
             rueckwegArt={(fv, z) => rueckwegArt(geladen, fv, z)}
+            onnutzung={(was, ziel) => void nutzungMerken(was, ziel)}
             onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           />
         {/key}

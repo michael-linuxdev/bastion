@@ -9,6 +9,7 @@ import type { Bastion, BauEreignis } from '../core/bastion/bauen';
 import type { Karte } from '../core/srs/karten';
 import type { EinstellungEreignis } from '../core/policy/einstellung';
 import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
+import type { NutzungEreignis } from '../core/testphase/nutzung';
 import type { SicherungsInhalt } from '../core/sicherung/sicherung';
 
 export interface Profil {
@@ -67,6 +68,11 @@ export const SCHEMA_2 = {
   vermittlungen: 'id, [profil+ts], [profil+kompetenz]',
 } as const;
 
+/** Tabellen, die Schemaversion 3 ergänzt. */
+export const SCHEMA_3 = {
+  nutzungen: 'id, [profil+ts]',
+} as const;
+
 export class BastionDatenbank extends Dexie {
   aufgaben!: Table<AufgabeEreignis, string>;
   sitzungen!: Table<SitzungEreignis, string>;
@@ -79,6 +85,7 @@ export class BastionDatenbank extends Dexie {
   profile!: Table<Profil, string>;
   einstellungen_ereignisse!: Table<EinstellungEreignis, string>;
   vermittlungen!: Table<VermittlungEreignis, string>;
+  nutzungen!: Table<NutzungEreignis, string>;
   einstellungen!: Table<Einstellung, [string, string]>;
   meta!: Table<MetaEintrag, string>;
   sicherungen!: Table<LokaleSicherung, string>;
@@ -92,5 +99,8 @@ export class BastionDatenbank extends Dexie {
     // `vermittlung` (D-16). Vorhandene Ereignisse bleiben unverändert, deshalb
     // braucht es keine Upgrade-Funktion und keine Sicherung vorab (D-8).
     this.version(2).stores(SCHEMA_2);
+    // Schemaversion 3 (U4a): Nutzungsprotokoll der Testphase (D-18). Wieder nur eine
+    // neue Tabelle, vorhandene Ereignisse bleiben unverändert.
+    this.version(3).stores(SCHEMA_3);
   }
 }

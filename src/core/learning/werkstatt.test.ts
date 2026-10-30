@@ -69,6 +69,21 @@ describe('Fehlerwerkstatt', () => {
     ]);
   });
 
+  it('gruppiert nach Fehlvorstellung über Vorlagen und Kompetenzen hinweg (U3j)', () => {
+    const liste = [
+      e({ fehlerbild: 'nur-nenner', vorlage: 'K.A' }),
+      e({ fehlerbild: 'nur-nenner-gekuerzt', vorlage: 'L.B', kompetenz: 'L' }),
+      e({ fehlerbild: 'anders' }),
+    ];
+    const fv = (x: AufgabeEreignis) =>
+      x.fehlerbild?.startsWith('nur-nenner') ? 'FV.BR.NUR-NENNER' : undefined;
+    const g = gruppiere(liste, fv);
+    expect(g.map((x) => [x.fv ?? '-', x.fehlerbild, x.fehler.length])).toEqual([
+      ['FV.BR.NUR-NENNER', 'nur-nenner', 2],
+      ['-', 'anders', 1],
+    ]);
+  });
+
   it('macht Antworten lesbar', () => {
     expect(antwortText({ typ: 'zahl', wert: 4.5 })).toBe('4,5');
     expect(antwortText({ typ: 'zahl', wert: 465 }, [], true)).toBe('7:45');

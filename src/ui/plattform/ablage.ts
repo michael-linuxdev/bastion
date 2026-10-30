@@ -97,10 +97,22 @@ import {
   speichereAufgabe,
   speichereVermittlung,
   vermittlungen,
+  speichereNutzung,
+  nutzungen,
+  nutzungenLoeschen,
+  sitzungen,
   type Installation,
   type Melder,
 } from '../../storage/ablage';
 import { BastionDatenbank } from '../../storage/datenbank';
+import { nutzungEreignis, type NutzungArt } from '../../core/testphase/nutzung';
+import {
+  TEST_AKTIV,
+  TEST_TEILNEHMER,
+  testprotokoll,
+  type Testprotokoll,
+} from '../../core/testphase/protokoll';
+import { teilnehmerLesen } from '../../core/testphase/teilnehmer';
 
 const zufall: ZufallsQuelle = {
   fuelle: (bytes) => {
@@ -634,4 +646,105 @@ export async function sicherungEinspielen(
   installation = undefined; // Profil kann gewechselt haben
   await bereit(); // bucht, was aus der Sicherung noch fehlt
   return { ok: true, neu: r.neu };
+}
+
+// ---------------------------------------------------------------------------
+// Testprotokoll der Testphase (K-14, DATENMODELL §4.8, D-18)
+
+export interface TestStand {
+  readonly aktiv: boolean;
+  readonly teilnehmer?: string;
+  /** Zeitpunkt des letzten Einschaltens */
+  readonly seit?: number;
+}
+
+/** Zwischengespeichert, damit das Mitschreiben ohne Datenbankabfrage entscheiden kann. */
+let testAktiv: boolean | undefined;
+
+export async function testStand(): Promise<TestStand> {
+  const inst = await bereit();
+  if (!inst) return { aktiv: false };
+  const ereignisse = await einstellungsEreignisse(db, inst.profil).catch(() => []);
+  const letztes = (schluessel: string) =>
+    ereignisse
+      .filter((e) => e.schluessel === schluessel)
+      .sort((a, b) => a.ts - b.ts)
+      .at(-1);
+  const aktiv = letztes(TEST_AKTIV)?.wert === true;
+  const teilnehmer = letztes(TEST_TEILNEHMER)?.wert;
+  const seit = aktiv ? letztes(TEST_AKTIV)?.ts : undefined;
+  testAktiv = aktiv;
+  return {
+    aktiv,
+    ...(typeof teilnehmer === 'string' ? { teilnehmer } : {}),
+    ...(seit !== undefined ? { seit } : {}),
+  };
+}
+
+/** Einschalten mit gültiger Teilnehmer-Nummer (sie ist zugleich der Testcode). */
+export async function testEinschalten(eingabe: string): Promise<boolean> {
+  const nr = teilnehmerLesen(eingabe);
+  if (!nr) return false;
+  await setze(TEST_TEILNEHMER, nr);
+  await setze(TEST_AKTIV, true);
+  testAktiv = true;
+  return true;
+}
+
+export async function testAusschalten(): Promise<void> {
+  await setze(TEST_AKTIV, false);
+  testAktiv = false;
+}
+
+/** Ein Nutzungs-Ereignis – nur, solange das Testprotokoll eingeschaltet ist. */
+export async function nutzungMerken(
+  was: NutzungArt,
+  ziel?: string,
+  dauerMs?: number,
+): Promise<void> {
+  if (testAktiv === undefined) await testStand();
+  if (!testAktiv) return;
+  const inst = await bereit();
+  if (!inst) return;
+  const jetzt = Date.now();
+  await speichereNutzung(
+    db,
+    nutzungEreignis(
+      { profil: inst.profil, geraet: inst.geraet, was, ziel, dauerMs },
+      jetzt,
+      versatz(jetzt),
+      zufall,
+    ),
+  ).catch(() => undefined);
+}
+
+/** Testprotokoll-Datei zusammenstellen (für Vorschau und Speichern). */
+export async function testprotokollErstellen(): Promise<Testprotokoll | undefined> {
+  const stand = await testStand();
+  const inst = await bereit();
+  if (!inst || !stand.teilnehmer) return undefined;
+  // Ausgeschaltet: alles seit dem letzten Einschalten bis jetzt
+  const ereignisse = await einstellungsEreignisse(db, inst.profil).catch(() => []);
+  const seit =
+    stand.seit ??
+    ereignisse
+      .filter((e) => e.schluessel === TEST_AKTIV && e.wert === true)
+      .reduce((m, e) => Math.max(m, e.ts), 0);
+  const jetzt = Date.now();
+  return testprotokoll({
+    teilnehmer: stand.teilnehmer,
+    erstellt: lerntag(jetzt, versatz(jetzt)),
+    seit,
+    aufgaben: await aufgaben(db, inst.profil).catch(() => []),
+    sitzungen: await sitzungen(db, inst.profil).catch(() => []),
+    vermittlungen: await vermittlungen(db, inst.profil).catch(() => []),
+    nutzungen: await nutzungen(db, inst.profil).catch(() => []),
+    einstellungen: ereignisse,
+  });
+}
+
+/** Nutzungsprotokoll löschen (D-18); Lernereignisse bleiben, die App braucht sie. */
+export async function nutzungLoeschen(): Promise<void> {
+  const inst = await bereit();
+  if (inst) await nutzungenLoeschen(db, inst.profil).catch(() => 0);
 }

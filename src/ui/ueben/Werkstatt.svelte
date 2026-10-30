@@ -5,6 +5,8 @@
   import { fuelle } from '../../core/learning/text';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import type { Fehlergruppe } from '../../core/learning/werkstatt';
+  import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
+  import type { FvStand } from '../../core/learning/fv-diagnose';
   import { t } from '../texte/texte';
   import Textteile from './Textteile.svelte';
 
@@ -12,15 +14,28 @@
     gruppen,
     vorlagen,
     kompetenzen,
+    fehlvorstellungen = new Map(),
+    fvStaende = new Map(),
     onaufarbeiten,
   }: {
     gruppen: readonly Fehlergruppe[];
     vorlagen: ReadonlyMap<string, GeneratorVorlage>;
     kompetenzen: ReadonlyMap<string, Kompetenz>;
+    /** Fehlerkatalog und Diagnose: Gruppen nach Denkfehler (U3j) */
+    fehlvorstellungen?: ReadonlyMap<string, Fehlvorstellung>;
+    fvStaende?: ReadonlyMap<string, FvStand>;
     onaufarbeiten: (gruppe: Fehlergruppe) => void;
   } = $props();
 
+  /** Themen einer Gruppe – bei Denkfehlern können es mehrere sein */
+  const themen = (g: Fehlergruppe) =>
+    [...new Set(g.fehler.map((e) => kompetenzen.get(e.kompetenz)?.titel.de ?? e.kompetenz))].join(
+      ', ',
+    );
+
   function ursache(g: Fehlergruppe) {
+    const fv = g.fv ? fehlvorstellungen.get(g.fv) : undefined;
+    if (fv) return fuelle(fv.erklaerung.kurz.de, {});
     const text = g.fehlerbild ? vorlagen.get(g.vorlage)?.fehlerbilder[g.fehlerbild] : undefined;
     const beispiel = g.fehler[0]?.schnappschuss?.platzhalter ?? {};
     if (!text) return undefined;
@@ -40,16 +55,24 @@
     <p>{t('werkstatt.leer')}</p>
   {:else}
     <ul class="liste">
-      {#each gruppen as g (`${g.vorlage}|${g.niveau}|${g.fehlerbild ?? ''}`)}
+      {#each gruppen as g (g.fv ?? `${g.vorlage}|${g.niveau}|${g.fehlerbild ?? ''}`)}
         {@const u = ursache(g)}
+        {@const fv = g.fv ? fehlvorstellungen.get(g.fv) : undefined}
+        {@const zustand = g.fv ? fvStaende.get(g.fv)?.zustand : undefined}
         <li class="gruppe">
+          {#if fv}
+            <p class="denkfehler">
+              {t('werkstatt.denkfehler')}
+              {fv.name.de}
+              {#if zustand}<span class="zustand">{t(`werkstatt.fv.${zustand}`)}</span>{/if}
+            </p>
+          {/if}
           <p class="ursache">
             {#if u}<Textteile teile={u} />{:else}{t('werkstatt.ohne-muster')}{/if}
           </p>
           <p class="herkunft">
-            {kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz} · {t(
-              g.niveau === 'G' ? 'niveau.G' : 'niveau.M',
-            )} · {g.fehler.length}
+            {fv ? themen(g) : (kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz)}
+            {#if !fv}· {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')}{/if} · {g.fehler.length}
             {t('werkstatt.mal')}
           </p>
           <button onclick={() => onaufarbeiten(g)}>{t('werkstatt.aufarbeiten')}</button>
@@ -63,6 +86,18 @@
   .werkstatt {
     display: grid;
     gap: var(--abstand-s);
+  }
+
+  .denkfehler {
+    font-weight: 800;
+    margin-block: 0;
+  }
+
+  .zustand {
+    font-weight: normal;
+    font-size: 0.875rem;
+    color: var(--farbe-text-leise);
+    margin-inline-start: var(--abstand-s);
   }
 
   .einleitung,

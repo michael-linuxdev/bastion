@@ -314,7 +314,7 @@ interface VermittlungEreignis extends Ereignis {
 **Entscheidung D-16:** Vermittlungs-Schritte sind eigene Ereignisse (`vermittlung`, eigene Tabelle nach D-7). Fehlvorstellungen sind eine reine Projektion.
 *Warum:* Die Vermittlung ist kein Üben. Sie darf weder FSRS-Karten noch Ressourcen bewegen (K-1, R4). *Ergänzt am 29.10.2026 (Projektverantwortlicher):* Der Abschluss einer Vermittlung zählt als Lerneinheit und bringt wie eine Übungseinheit einen Bauschritt (Buchung mit Bezug auf das Ereignis `abgeschlossen`). Antworten in der Vermittlung bringen nichts. Die Diagnose der Fehlvorstellungen lässt sich jederzeit aus den Ereignissen neu berechnen (D-6), auch wenn sich der Fehlerkatalog ändert.
 
-### 4.8 `nutzung` – Nutzungsprotokoll der Testphase (geplant, U4a)
+### 4.8 `nutzung` – Nutzungsprotokoll der Testphase
 
 Nur, solange das Testprotokoll eingeschaltet ist (K-14). Ohne Testcode entsteht kein einziges Ereignis dieser Art.
 
@@ -333,11 +333,22 @@ interface NutzungEreignis extends Ereignis {
 ```
 
 - **Einstellungen:** `test.aktiv` (an/aus) und `test.teilnehmer` (Nummer vom Papier) sind Einstellungs-Ereignisse der Eltern (D-5). Die Teilnehmer-Nummer hat eine Prüfziffer und dient zugleich als Testcode.
-- **Eigene Tabelle** `nutzungen` (D-7), mit der nächsten Schemaversion.
+- **Eigene Tabelle** `nutzungen` (D-7) ab Datenbank-Schemaversion 3 (§6.2).
 - **Nicht in der Sicherung.** Das Nutzungsprotokoll gehört nur zum Testprotokoll. Es reist nicht in `.bastion`-Dateien mit und hat keine Projektion.
 - **Testprotokoll-Datei** (unverschlüsselt, JSON):
-  `{ format, teilnehmer, erstellt: Tag, app: Version, ereignisse: [...] }`. Darin stehen alle Lern- und Nutzungsereignisse des Profils seit dem Einschalten. `profil` und `geraet` werden durch die Teilnehmer-Nummer ersetzt, Einstellungs-Ereignisse fehlen bis auf `test.*`. Vor dem Speichern zeigt die App den Inhalt lesbar an: Zahl der Ereignisse je Art, Zeitraum und eine Liste zum Durchblättern.
+  `{ format, teilnehmer, erstellt: Tag, seit, ereignisse: [...], unbekannteFehler: [...] }`. Darin stehen alle Lern- und Nutzungsereignisse des Profils seit dem Einschalten. `profil` und `geraet` werden durch die Teilnehmer-Nummer ersetzt, Einstellungs-Ereignisse fehlen bis auf `test.*`. Vor dem Speichern zeigt die App den Inhalt lesbar an: Zahl der Ereignisse je Art, Zeitraum und eine Liste zum Durchblättern.
 - **Ausschalten** stoppt das Mitschreiben. **Löschen** entfernt alle `nutzung`-Ereignisse; Lernereignisse bleiben, weil sie der App selbst dienen.
+
+*Umsetzung (U4a, 29.10.2026):*
+- Kern in `src/core/testphase/`:
+  - `teilnehmer.ts`: Nummer „T-07-4“ mit Prüfziffer nach Luhn; `pnpm testnummern` gibt gültige Nummern aus.
+  - `nutzung.ts`: das Ereignis.
+  - `protokoll.ts`: die Datei. `unbekannteFehler` listet falsche Antworten ohne Fehlerbild mit Aufgabe und Antwort (VERMITTLUNG §3.4).
+- Oberfläche:
+  - Im Elternbereich gibt es den Abschnitt „Testphase“ (`src/ui/eltern/Testphase.svelte`).
+  - Der Hinweis steht auf der Startseite.
+  - Protokolliert werden Ansichten, App im Hintergrund oder vorn, Abbruch einer Erklärung, Tipp, von Hand geöffneter Lösungsweg und „Weiter ohne Weg“.
+- Die App-Version steht nicht in der Datei. Die Ereignisse tragen ihr Inhaltspaket und die Generator-Version, das reicht für die Auswertung.
 
 **Entscheidung D-18:** Das Nutzungsprotokoll ist eine eigene Ereignisart, die nur mit Testcode entsteht, nicht in Sicherungen reist und sich vollständig löschen lässt.
 *Warum:* Der Test braucht echtes Verhalten (K-14). Außerhalb des Tests sammelt Bastion weiterhin keine Nutzungsdaten (Grundprinzip, PLAN §2.1). Der Schalter hinter der PIN, der sichtbare Hinweis und die Vorschau vor dem Export halten es transparent für Kind und Eltern.
@@ -403,6 +414,10 @@ db.version(1).stores({
 db.version(2).stores({
   vermittlungen: 'id, [profil+ts], [profil+kompetenz]',   // Ereignis `vermittlung` (§4.7, U3a)
 });
+
+db.version(3).stores({
+  nutzungen: 'id, [profil+ts]',                           // Nutzungsprotokoll der Testphase (§4.8, U4a)
+});
 ```
 
 *Umsetzung (1b):* `src/storage/datenbank.ts` legt Schemaversion 1 genau so an, auch die noch leeren Tabellen. `src/storage/ablage.ts` richtet Gerätekennung und erstes Profil ein, speichert Aufgaben-Ereignisse und schreibt `kompetenzen` in derselben Transaktion fort (D-6); `neuBerechnen` baut die Projektion neu auf. Seit U3a gibt es Schemaversion 2 mit der Tabelle `vermittlungen` (§6.2). Bisher genutzt: `aufgaben`, `vermittlungen`, `sitzungen` (seit 2.1), `buchungen` und `konto` (seit 2.3), `bau` und `bastion` (seit 2.6), `kompetenzen`, `karten`, `einstellungen_ereignisse`, `einstellungen`, `profile`, `meta`, `sicherungen`.
@@ -430,6 +445,8 @@ Speicher ist also kein Grund zur Verdichtung – Datensparsamkeit ist es (s. 8).
 4. Schlägt etwas fehl, bietet die App beim nächsten Start die Wiederherstellung aus der Sicherung an.
 
 Jede Migration hat einen Test mit **echten Altständen** aus einem Testdaten-Archiv (`tests/altstaende/`), das ab Phase 1 mit jeder Schemaversion wächst.
+
+*Schemaversion 3 (U4a, 29.10.2026):* ergänzt nur die Tabelle `nutzungen`, Test mit dem Altstand `tests/altstaende/schema-2.json`.
 
 *Schemaversion 2 (U3a, 29.10.2026):* ergänzt nur die Tabelle `vermittlungen`. Kein vorhandenes Ereignis ändert sich, deshalb gibt es keine Upgrade-Funktion und keine Sicherung vorab. D-8 greift, sobald eine Migration Ereignisse anhebt. Test: `src/storage/migration.test.ts` mit dem Altstand `tests/altstaende/schema-1.json`.
 

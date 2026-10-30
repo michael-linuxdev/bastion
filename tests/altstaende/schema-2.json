@@ -1,0 +1,214 @@
+{
+  "schema": 2,
+  "tabellen": {
+    "aufgaben": [
+      {
+        "id": "01M646CYS0ENSMCXPVXC03SR37",
+        "art": "aufgabe",
+        "v": 2,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289780000,
+        "tag": "2026-10-29",
+        "geraet": "9804ZGCK",
+        "sitzung": "SITZUNG-2",
+        "modus": "ueben",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "vorlage": "M.ZO.BR.ERWEITERN.KUERZEN",
+        "niveau": "G",
+        "quelle": {
+          "generator": "br.kuerzen",
+          "version": 1,
+          "seed": 9
+        },
+        "paket": "p",
+        "ergebnis": "falsch",
+        "hilfen": 0,
+        "dauerMs": 9000,
+        "faellig": false,
+        "bewertung": "nochmal",
+        "fehlerbild": "nur-nenner-gekuerzt",
+        "schritte": [
+          {
+            "id": "teiler",
+            "versuche": 2,
+            "richtig": false,
+            "fehler": [
+              {
+                "eingabe": {
+                  "typ": "zahl",
+                  "wert": 0
+                }
+              },
+              {
+                "eingabe": {
+                  "typ": "zahl",
+                  "wert": 0
+                }
+              }
+            ]
+          }
+        ],
+        "schnappschuss": {
+          "platzhalter": {},
+          "loesung": {
+            "typ": "zahl",
+            "wert": 1
+          },
+          "antwort": {
+            "typ": "zahl",
+            "wert": 2
+          }
+        }
+      }
+    ],
+    "sitzungen": [
+      {
+        "id": "SITZUNG-2",
+        "art": "sitzung",
+        "v": 1,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289780000,
+        "tag": "2026-10-29",
+        "geraet": "9804ZGCK",
+        "beginn": 1793289771000,
+        "ende": 1793289780000,
+        "abschluss": "nachgetragen",
+        "aufgaben": 1,
+        "aktivMs": 9000,
+        "lerneinheit": false
+      }
+    ],
+    "buchungen": [
+      {
+        "ressource": "fleiss",
+        "menge": 1,
+        "grund": "sitzung",
+        "bezug": "SITZUNG-2",
+        "tag": "2026-10-29",
+        "aufschluesselung": {
+          "aufgaben": 1,
+          "voll": 1,
+          "halb": 0,
+          "geraten": 0
+        },
+        "regel": 3,
+        "id": "01M6467F00R18Z58Q6E3576SSW.fleiss.SITZUNG-2",
+        "art": "buchung",
+        "v": 1,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289780000,
+        "geraet": "9804ZGCK"
+      },
+      {
+        "ressource": "schritt",
+        "menge": 1,
+        "grund": "vermittlung",
+        "bezug": "vermittlung:M.ZO.BR.BEGRIFF",
+        "tag": "2026-10-29",
+        "aufschluesselung": {
+          "vermittlungen": 1
+        },
+        "regel": 3,
+        "id": "01M6467F00R18Z58Q6E3576SSW.schritt.vermittlung:M.ZO.BR.BEGRIFF",
+        "art": "buchung",
+        "v": 1,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289800000,
+        "geraet": "9804ZGCK"
+      }
+    ],
+    "karten": [
+      {
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "vorlage": "M.ZO.BR.ERWEITERN.KUERZEN",
+        "niveau": "G",
+        "faellig": 1793376180000,
+        "stabilitaet": 0.212,
+        "schwierigkeit": 6.4133,
+        "geplanteTage": 1,
+        "lernschritte": 0,
+        "wiederholungen": 1,
+        "fehler": 0,
+        "zustand": 2,
+        "letzte": 1793289780000,
+        "bestandenFaellig": 0
+      }
+    ],
+    "kompetenzen": [
+      {
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "kompetenz": "M.ZO.BR.ERWEITERN",
+        "niveau": "G",
+        "status": "in-arbeit",
+        "aufgaben": 1,
+        "letzte": [
+          {
+            "vorlage": "M.ZO.BR.ERWEITERN.KUERZEN",
+            "ohneHilfeRichtig": false
+          }
+        ]
+      }
+    ],
+    "konto": [
+      {
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "stand": {
+          "fleiss": 1,
+          "behalten": 0,
+          "koennen": 0,
+          "schritt": 1
+        },
+        "erworben": {
+          "fleiss": 1,
+          "behalten": 0,
+          "koennen": 0,
+          "schritt": 1
+        }
+      }
+    ],
+    "profile": [
+      {
+        "id": "01M6467F00R18Z58Q6E3576SSW",
+        "erstellt": 1793289600000
+      }
+    ],
+    "meta": [
+      {
+        "schluessel": "geraet",
+        "wert": "9804ZGCK"
+      }
+    ],
+    "vermittlungen": [
+      {
+        "id": "01M64699K0F5VA270TAQFNJN1T",
+        "art": "vermittlung",
+        "v": 1,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289660000,
+        "tag": "2026-10-29",
+        "geraet": "9804ZGCK",
+        "kompetenz": "M.ZO.BR.BEGRIFF",
+        "inhalt": "M.ZO.BR.BEGRIFF@1",
+        "schritt": "pruefen",
+        "typ": "antwort",
+        "richtig": false,
+        "antwort": "1",
+        "fv": "FV.BR.TEIL-ZU-REST"
+      },
+      {
+        "id": "01M646B460VQ7PZWASZEXFSXB7",
+        "art": "vermittlung",
+        "v": 1,
+        "profil": "01M6467F00R18Z58Q6E3576SSW",
+        "ts": 1793289720000,
+        "tag": "2026-10-29",
+        "geraet": "9804ZGCK",
+        "kompetenz": "M.ZO.BR.BEGRIFF",
+        "inhalt": "M.ZO.BR.BEGRIFF@1",
+        "schritt": "uebergang",
+        "typ": "abgeschlossen"
+      }
+    ]
+  }
+}

@@ -174,7 +174,7 @@ Je Fehlvorstellung führt Bastion eine Zählung aus den gespeicherten Aufgaben-E
   - Der Rückweg führt in die Erstvermittlung an die Stelle aus `rueckweg.vermittlung`. Bei „wieder da“ führt er zur Voraussetzung, falls es eine gibt.
   - Beim Üben kommen danach zwei Kontrastaufgaben aus `kontrast`, auch aus einer anderen Kompetenz.
   - Der Zustand wird nach dem Speichern neu berechnet. Die lange Erklärung erscheint also, sobald die Antwort gespeichert ist.
-- Die Fehlerwerkstatt gruppiert künftig nach Fehlvorstellung statt nach Fehlerbild.
+- Die Fehlerwerkstatt gruppiert nach Fehlvorstellung statt nach Fehlerbild. *Umsetzung (U3j):* `gruppiere` in `src/core/learning/werkstatt.ts` fasst offene Fehler mit derselben Fehlvorstellung zu einer Gruppe zusammen, auch über Vorlagen und Kompetenzen hinweg. Grundlage ist das Fehlerbild des Ergebnisses, sonst der erste Schrittfehler. Die Werkstatt zeigt „Denkfehler: …“, die kurze Erklärung, den Stand der Diagnose in Worten ohne Wertung und die betroffenen Themen. Fehler ohne Fehlvorstellung bleiben nach Fehlerbild gruppiert.
 - Der bisherige Rückweg (drei Fehler in Folge → Voraussetzung, LEHRPLAN §7) bleibt für Fehler ohne erkannte Fehlvorstellung.
 
 ### 3.4 Unbekannte Fehler
@@ -259,7 +259,7 @@ Reihenfolge nach K-28 (zuerst Klasse 5–8 nachrüsten):
 
 1. **Format festlegen** für Sequenz und Fehlerkatalog, in `INHALTSFORMAT.md`. Dazu ein Prüfwerkzeug für Wege, Ziele und Verweise.
 2. **Musterfeld Brüche** (Zielgruppe „Lücken bei Brüchen“, VISION §11): Erstvermittlung und Fehlerkatalog für drei Kompetenzen: `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN`, `M.ZO.BR.ADD-SUB` (bestätigt am 29.10.2026). Dazu die Werkzeuge Bruchstreifen und Zahlenstrahl.
-3. **Abspieler in der App:** Sequenz zeigen, verzweigen, Ereignisse speichern; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen.
+3. **Abspieler in der App:** Sequenz zeigen, verzweigen, Ereignisse speichern; Diagnose der Fehlvorstellungen; Fehlerwerkstatt nach Ursachen. *Erledigt am 29.10.2026 (U3a bis U3l):* dazu Zwischenschritte (K-29) im Musterfeld.
 4. **Test mit den drei Testerinnen** (`TESTS.md` §2): Verstehen sie das Thema nur mit der Vermittlung? Treffen die Erklärungen?
 5. **Ausrollen** Feld für Feld über alle 123 Kompetenzen der Klassen 5–8. Jedes Feld ist ein PR mit Review-Liste.
 6. Dann **Klasse 9 bis 12** gleich im neuen Format, mit Niveau E. Dann die **Prüfungen** (§6).

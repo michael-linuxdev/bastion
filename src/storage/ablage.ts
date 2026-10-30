@@ -30,6 +30,7 @@ import type { ZufallsQuelle } from '../core/rng/zufallsquelle';
 import { aktuelleEinstellungen, type EinstellungEreignis } from '../core/policy/einstellung';
 import { fehlende, FORMAT, type SicherungsInhalt } from '../core/sicherung/sicherung';
 import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
+import type { NutzungEreignis } from '../core/testphase/nutzung';
 import type { BastionDatenbank } from './datenbank';
 
 export interface Installation {
@@ -173,6 +174,27 @@ export async function speichereVermittlung(
   e: VermittlungEreignis,
 ): Promise<void> {
   await db.vermittlungen.add(e);
+}
+
+/** Nutzungsprotokoll der Testphase (DATENMODELL §4.8): nur speichern, kein Neuaufbau. */
+export async function speichereNutzung(db: BastionDatenbank, e: NutzungEreignis): Promise<void> {
+  await db.nutzungen.add(e);
+}
+
+/** Alle Nutzungs-Ereignisse eines Profils, nach Zeit. */
+export async function nutzungen(db: BastionDatenbank, profil: string): Promise<NutzungEreignis[]> {
+  return db.nutzungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .toArray();
+}
+
+/** Nutzungsprotokoll vollständig löschen (D-18); Lernereignisse bleiben. */
+export async function nutzungenLoeschen(db: BastionDatenbank, profil: string): Promise<number> {
+  return db.nutzungen
+    .where('[profil+ts]')
+    .between([profil, -Infinity], [profil, Infinity])
+    .delete();
 }
 
 /** Alle Vermittlungs-Ereignisse eines Profils, nach Zeit. */

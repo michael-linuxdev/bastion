@@ -1,6 +1,7 @@
 /**
  * Fehlerwerkstatt (KONZEPT §3.2, R6): offene Fehler finden und nach Ursache
- * gruppieren – je Vorlage, Niveau und erkanntem Fehlerbild. Ein Fehler gilt
+ * gruppieren – nach Fehlvorstellung (VERMITTLUNG §3.3, U3j), sonst je Vorlage,
+ * Niveau und erkanntem Fehlerbild. Ein Fehler gilt
  * als aufgearbeitet, sobald ein späteres Ereignis ihn richtig korrigiert.
  * Rein: arbeitet nur auf den gespeicherten Ereignissen.
  */
@@ -36,31 +37,43 @@ export interface Fehlergruppe {
   readonly niveau: Niveau;
   /** Erkanntes Fehlerbild; undefined = Fehler ohne bekanntes Muster */
   readonly fehlerbild?: string;
+  /** Fehlvorstellung, nach der gruppiert ist – dann über Vorlagen und Kompetenzen hinweg */
+  readonly fv?: string;
   /** Älteste zuerst */
   readonly fehler: readonly AufgabeEreignis[];
 }
 
 /**
- * Gruppiert nach Ursache: Fehler mit erkanntem Fehlerbild je Vorlage, Niveau und
- * Fehlerbild; Fehler ohne Muster je Kompetenz und Niveau. Häufigste zuerst,
- * bei Gleichstand die älteste.
+ * Gruppiert nach Ursache: Fehler mit erkannter Fehlvorstellung (`fvVon`) je
+ * Fehlvorstellung, über Vorlagen und Kompetenzen hinweg; sonst mit erkanntem
+ * Fehlerbild je Vorlage, Niveau und Fehlerbild; Fehler ohne Muster je Kompetenz
+ * und Niveau. Häufigste zuerst, bei Gleichstand die älteste.
  */
-export function gruppiere(fehler: readonly AufgabeEreignis[]): Fehlergruppe[] {
-  const gruppen = new Map<string, AufgabeEreignis[]>();
+export function gruppiere(
+  fehler: readonly AufgabeEreignis[],
+  fvVon: (e: AufgabeEreignis) => string | undefined = () => undefined,
+): Fehlergruppe[] {
+  const gruppen = new Map<string, { fv: string | undefined; liste: AufgabeEreignis[] }>();
   for (const e of [...fehler].sort((a, b) => a.ts - b.ts)) {
-    const k = e.fehlerbild
-      ? `${e.vorlage}|${e.niveau}|${e.fehlerbild}`
-      : `${e.kompetenz}|${e.niveau}|`;
-    gruppen.set(k, [...(gruppen.get(k) ?? []), e]);
+    const fv = fvVon(e);
+    const k = fv
+      ? `fv|${fv}`
+      : e.fehlerbild
+        ? `${e.vorlage}|${e.niveau}|${e.fehlerbild}`
+        : `${e.kompetenz}|${e.niveau}|`;
+    const g = gruppen.get(k) ?? { fv, liste: [] };
+    g.liste.push(e);
+    gruppen.set(k, g);
   }
   return [...gruppen.values()]
-    .map((liste): Fehlergruppe => {
+    .map(({ fv, liste }): Fehlergruppe => {
       const erster = liste[0] as AufgabeEreignis;
       return {
         kompetenz: erster.kompetenz,
         vorlage: erster.vorlage,
         niveau: erster.niveau,
         ...(erster.fehlerbild ? { fehlerbild: erster.fehlerbild } : {}),
+        ...(fv ? { fv } : {}),
         fehler: liste,
       };
     })

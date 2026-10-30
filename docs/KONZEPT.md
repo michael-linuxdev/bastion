@@ -20,7 +20,7 @@ Jede Funktion dient mindestens einer der vier Kernaufgaben einer Lehrkraft (K-24
 
 Folgen für dieses Dokument:
 
-- §3.2 bekommt einen neuen ersten Lernmodus **Vermitteln** (vor Üben).
+- §3.2 bekommt einen neuen ersten Lernmodus **Vermitteln** (vor Üben). *Stand 29.10.2026:* Im Musterfeld Brüche umgesetzt (PLAN U3). Erstvermittlung, Diagnose der Fehlvorstellungen, Zwischenschritte und die Fehlerwerkstatt nach Ursachen laufen in der App.
 - §5 (Basebau) ist Nebensache (K-27); die Belagerungen (§5.4) gehen in den Prüfungen auf Knopfdruck auf.
 - §7 (Portfolio) wird Teil von Kernaufgabe 4: Leistungsnachweise lokal und exportierbar.
 - Variante B (Klassen, Lehrkräfte) ist gesperrt bis zur Schwelle in `STRATEGIE.md` §0.
