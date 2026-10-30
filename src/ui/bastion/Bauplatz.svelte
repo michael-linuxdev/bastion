@@ -13,6 +13,7 @@
     zoomWahl,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import type { GartenEingabe } from './grafik/freischalten';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
   import {
@@ -29,7 +30,11 @@
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
 
-  let { bastion, onaktion }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean> } =
+  let {
+    bastion,
+    onaktion,
+    garten,
+  }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean>; garten: GartenEingabe } =
     $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -272,9 +277,9 @@
     const ort = rahmen;
     if (!ort) return;
     // Neu zeichnen, wenn hell oder dunkel wechselt (GRAFIK §2)
-    // oder das Thema auf Dorf (Dorfbilder) bzw. zurück wechselt (GRAFIK §6).
+    // oder das Thema auf Dorf bzw. Garten oder zurück wechselt (GRAFIK §6–7).
     void darstellung.dunkel;
-    const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
+    const bildart = aktiv.thema === 'dorf' ? 'dorf' : aktiv.thema === 'garten' ? 'garten' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     import('./grafik/grafik-buehne')
@@ -305,7 +310,7 @@
           }
         : {}),
     };
-    buehne?.zeichne(bastion, a);
+    buehne?.zeichne(bastion, a, garten);
   });
 
   /** Gebäude, das ein Feld belegt (auch mehrfeldrige) */

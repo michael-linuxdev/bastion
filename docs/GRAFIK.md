@@ -127,8 +127,16 @@ Wählt man **Dorf**, zeichnet die Bastion die Platzhaltergrafik aus dem Spiel [D
 
 Die Bilder stehen im Programm (`src/ui/bastion/grafik/dorf.ts`) und werden von derselben Bühne gezeichnet wie die Insel. Es gibt keine Verbindung zu dorfkrieg.micana.de. Das Raster und das Antippen bleiben gleich. Der Zoom ist für alle Themen der aus Dorfkrieg: stufenlos, zum Zeiger, mit Ziehen und zwei Fingern (`src/ui/bastion/grafik/kamera.ts`). Gebäude, Kosten und der Lernstand ändern sich nicht (B-27).
 
-Die anderen Themen – Bastion, Garten, Raumstation, Unterwasserstadt – behalten die Insel. Hell, Dunkel und „Wie das Gerät“ gelten weiter: Am Abend wird die Wiese dunkler, und die Fenster der Häuser leuchten.
+Die Themen Bastion, Raumstation und Unterwasserstadt behalten die Insel. Hell, Dunkel und „Wie das Gerät“ gelten weiter: Am Abend wird die Wiese dunkler, und die Fenster der Häuser leuchten.
 
 Die Kampffiguren aus Dorfkrieg gibt es hier nicht. Die zeigt das Spiel nur im Kampf. Bastion hat keine Truppen, und der Basebau bleibt eine ruhige Nebensache (K-27, R1–R3).
 
 Was eine Rolle im Bild ist: Gemeindehaus (rotes Dach, Fahne), Schreinerei (Säge), Bücherei (Buch), Windmühle (Flügel), Dorfbrücke, Zaun, Dorfbrunnen, Wappen, Obstwiese, Denkmal. Eine selbst gewählte Farbe der Zierde färbt Wappen, Brunnenwasser, Obst und Denkmal.
+
+## 7. Thema Garten
+
+Wählt man **Garten**, zeichnet die Bastion eine Wiese mit Weg und Teich (`src/ui/bastion/grafik/garten.ts`). Gras, Blumen und Baumkronen wiegen im Wind, auf dem Teich liegt ein wandernder Glanz, ein paar Schmetterlinge fliegen langsam darüber. Die Gebäude bleiben dieselben Rollen, nur im Gartenstil: Baumhaus, Geräteschuppen, Gewächshaus, Aussichtsbaum, Gartentor, Hecke, Gartenbank, Wimpel, Blumenbeet, Gartenzwerg.
+
+Ein Gartenzwerg läuft ruhig über freie Kacheln (nicht durch Gebäude und nicht durch den Teich) und arbeitet ab und zu am Teich oder, wenn ein Blumenbeet steht, am Beet. Wie viele Zwerge es gibt, steht in `src/ui/bastion/grafik/freischalten.ts`: am Anfang einer, ab 12 Fortschrittspunkten zwei, ab 40 drei. Die Punkte kommen nur aus dem, was der Basebau schon kennt (erworbene Ressourcen, Kern-Stufe, zusätzliche Gebäude, fertige Vorhaben). Nichts hängt an der Uhr oder am Zufall. Weitere Ideen (Tageszeit, Jahreszeiten, Wetter, Lernbelohnung, mitwachsende Bauten, Antippen, weitere Tiere) kommen als neue Felder in dieselbe Tabelle.
+
+Es gibt einen gemeinsamen Takt. Wechselt man das Thema oder schließt die Ansicht, endet er. Bei „Bewegung reduzieren“ stehen Wind, Wasser, Schmetterlinge und Zwerge still. Die kleine Ansicht auf der Startseite zeigt den Garten ohne Bewegung. Hell und Dunkel gelten weiter.

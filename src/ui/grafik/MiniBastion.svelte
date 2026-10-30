@@ -3,6 +3,7 @@
   // oben, Himmel mit Sonne – am Abend (dunkel) mit erleuchteten Fenstern.
   // Im Thema Dorf dieselbe Karte, aber mit den Dorfbildern (GRAFIK §6):
   // Wiese, Gemeindehaus mit rotem Dach, Baum und Zaun.
+  // Im Thema Garten: Wiese, Teich, Baumhaus und ein Zwerg (GRAFIK §7), ohne Bewegung.
   // Nur Bild, keine Daten; die Farben der Insel kommen aus der Fassung.
   import { aktiv } from '../bastion/thema.svelte';
 </script>
@@ -40,6 +41,32 @@
       <rect x="184" y="108" width="4" height="10" />
       <path d="M182 108l4-5 4 5Z" />
     </g>
+  </svg>
+{:else if aktiv.thema === 'garten'}
+  <svg
+    viewBox="0 0 240 120"
+    aria-hidden="true"
+    focusable="false"
+    preserveAspectRatio="xMidYMax slice"
+  >
+    <rect width="240" height="120" style="fill: var(--farbe-himmel)" />
+    <circle cx="206" cy="22" r="11" style="fill: var(--farbe-licht)" />
+    <ellipse cx="40" cy="28" rx="16" ry="5" class="wolke" />
+    <ellipse cx="54" cy="25" rx="11" ry="5" class="wolke" />
+    <path d="M28 102 120 78l92 24-92 16Z" class="wiese" />
+    <path d="M28 102v4l92 16v-4Z" class="wiese-rand" />
+    <path d="M212 102v4l-92 16v-4Z" class="wiese-rand-vorn" />
+    <path d="M48 92 70 86l22 6-22 6Z" class="teich" />
+    <ellipse cx="78" cy="90" rx="6" ry="2.4" class="blatt" />
+    <rect x="118" y="78" width="5" height="22" fill="#6d4a2e" />
+    <circle cx="120" cy="72" r="12" fill="#2f6b3a" />
+    <circle cx="112" cy="76" r="7" fill="#3f8748" />
+    <path d="M108 74h24l-4 8h-16Z" fill="#c4a574" />
+    <path d="M106 74 120 64l14 10Z" fill="#c4603a" />
+    <rect x="116" y="76" width="6" height="5" class="luke" />
+    <circle cx="168" cy="108" r="4" fill="#f3c7a1" />
+    <path d="M164 106h8l-4-8Z" fill="#c0392b" />
+    <rect x="166" y="108" width="4" height="6" fill="#3d6b4f" />
   </svg>
 {:else}
   <svg
@@ -133,5 +160,17 @@
   }
   :global([data-modus='dunkel']) .luke {
     fill: var(--farbe-licht);
+  }
+  .teich {
+    fill: #3d8eb4;
+  }
+  .blatt {
+    fill: #3e8c4a;
+  }
+  :global([data-modus='dunkel']) .teich {
+    fill: #1a4556;
+  }
+  :global([data-modus='dunkel']) .blatt {
+    fill: #1e5a3a;
   }
 </style>
