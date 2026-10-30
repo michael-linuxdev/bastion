@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'x und y sind vertauscht. Erst kommt der x-Wert, dann der y-Wert.'
+    fv: FV.GF.X-Y-VERTAUSCHT
   achsenschnitt:
     de: 'Das ist der [[Schnittpunkt]] einer [[Geraden]] mit der y-Achse. Gesucht ist der Punkt, an dem sich beide Geraden schneiden.'
+    fv: FV.GS.ACHSENSCHNITT
 herkunft: ki-entwurf
 version: 1

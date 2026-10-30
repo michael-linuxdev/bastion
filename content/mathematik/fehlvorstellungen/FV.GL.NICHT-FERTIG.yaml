@@ -1,0 +1,26 @@
+id: FV.GL.NICHT-FERTIG
+name:
+  de: Hört beim Lösen vor dem letzten Schritt auf
+art: rechenfehler
+beschreibung:
+  de: >-
+    Gibt bei 3x + 4 = 16 die 12 als Lösung an. Die Gleichung ist bis 3x = 12 umgeformt, das Teilen
+    durch die Zahl vor x fehlt.
+kompetenzen: [M.SF.GL.LINEAR]
+erklaerung:
+  kurz:
+    de: 'Fertig bist du erst, wenn x allein dasteht: x = … Teile noch durch die Zahl vor x.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast bei 3x = 12 aufgehört und die 12 als Lösung genommen.'
+    - teil: warum-nicht
+      de: 'Der schwierige Teil ist geschafft. Aber 3x heißt drei mal x. Gesucht ist ein einziges x.'
+    - teil: so-stimmt-es
+      de: '3x = 12, beide Seiten durch 3: x = 4. [[Probe]]: 3 · 4 + 4 = 16.'
+gegenbeispiel:
+  de: 'Mit x = 12 wäre 3 · 12 + 4 = 40, nicht 16.'
+rueckweg:
+  vermittlung: M.SF.GL.LINEAR#erklaeren-umformen
+kontrast: [M.SF.GL.LINEAR.LOESEN]
+herkunft: ki-entwurf
+version: 1

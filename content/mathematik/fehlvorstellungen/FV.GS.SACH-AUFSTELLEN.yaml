@@ -1,0 +1,26 @@
+id: FV.GS.SACH-AUFSTELLEN
+name:
+  de: Stellt bei Sachaufgaben die Gleichungen mit vertauschten Rollen auf
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Vertauscht Stückwerte, setzt Gesamtzahl und Gesamtwert in die falsche Gleichung oder vergisst
+    eine Art im Gesamtwert. Was x und y bedeuten, wird nicht vorher festgelegt.
+kompetenzen: [M.SF.GS.SACH]
+erklaerung:
+  kurz:
+    de: 'Lege zuerst fest, wofür x und y stehen. Eine [[Gleichung]] zählt die Stücke, die andere den Wert: Anzahl · Wert je Stück für jede Art.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Werte oder Gleichungen den falschen Unbekannten zugeordnet.'
+    - teil: warum-nicht
+      de: 'In Sachaufgaben stehen viele Zahlen nebeneinander, das verwirrt leicht. Jede Zahl gehört aber zu einer bestimmten Sache: zur Anzahl oder zum Wert, zu x oder zu y.'
+    - teil: so-stimmt-es
+      de: 'Schreibe: x = Anzahl der Tickets für Kinder, y = Anzahl für Erwachsene. Dann: x + y = Gesamtzahl und 5x + 8y = Gesamtpreis.'
+gegenbeispiel:
+  de: 'Kosten Kinderkarten 5 € und Erwachsene 8 €, kann man sie nicht einfach zusammen 13 € zählen.'
+rueckweg:
+  vermittlung: M.SF.GS.SACH#erklaeren-aufstellen
+kontrast: [M.SF.GS.SACH.AUFSTELLEN]
+herkunft: ki-entwurf
+version: 1

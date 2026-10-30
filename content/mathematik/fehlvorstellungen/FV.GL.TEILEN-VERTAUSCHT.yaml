@@ -1,0 +1,26 @@
+id: FV.GL.TEILEN-VERTAUSCHT
+name:
+  de: Vertauscht beim Umstellen die Reihenfolge der Division
+art: verwechslung
+beschreibung:
+  de: >-
+    Stellt A = a · b nach b um und schreibt b = a : A. Bei der Division wird nicht beachtet, was
+    durch was geteilt wird.
+kompetenzen: [M.SF.GL.FORMELN]
+erklaerung:
+  kurz:
+    de: 'Prüfe mit Zahlen: Aus 12 = 3 · 4 folgt 4 = 12 : 3, nicht 3 : 12. Die große Größe, das [[Produkt]], wird geteilt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig erkannt, dass geteilt wird, aber die Reihenfolge vertauscht.'
+    - teil: warum-nicht
+      de: 'Bei Buchstaben sieht man nicht, was größer ist. Aber A ist das [[Produkt]], es ist das Ganze. Ein [[Faktor]] ist das Ganze geteilt durch den anderen Faktor.'
+    - teil: so-stimmt-es
+      de: 'Schreibe dir ein Zahlenbeispiel daneben: 12 = 3 · 4. Stelle es um wie die [[Formel]]: 4 = 12 : 3, also b = A : a.'
+gegenbeispiel:
+  de: 'Ein Rechteck mit 12 cm² und 3 cm Breite ist 4 cm lang, nicht 0,25 cm.'
+rueckweg:
+  vermittlung: M.SF.GL.FORMELN#erklaeren-umstellen
+kontrast: [M.SF.GL.FORMELN.UMSTELLEN]
+herkunft: ki-entwurf
+version: 1

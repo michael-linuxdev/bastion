@@ -1,0 +1,26 @@
+id: FV.GS.HALB-HALB
+name:
+  de: Teilt die Gesamtzahl einfach in zwei gleiche Hälften
+art: falsche-regel
+beschreibung:
+  de: >-
+    Nimmt bei 20 Tieren mit insgesamt 56 Beinen 10 Hühner und 10 Kaninchen an. Die zweite Bedingung
+    wird nicht geprüft.
+kompetenzen: [M.SF.GS.SACH]
+erklaerung:
+  kurz:
+    de: 'Halb und halb passt nur, wenn auch die zweite Bedingung stimmt. Prüfe deine Antwort mit beiden Gleichungen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Gesamtzahl gleichmäßig auf beide Arten verteilt.'
+    - teil: warum-nicht
+      de: 'Das ist ein naheliegender Startwert. Aber 10 Hühner und 10 Kaninchen haben 60 Beine, nicht 56. Die erste Bedingung stimmt, die zweite nicht.'
+    - teil: so-stimmt-es
+      de: 'Stelle beide Gleichungen auf und löse das System. [[Probe]]: 12 Hühner und 8 Kaninchen sind 20 Tiere mit 24 + 32 = 56 Beinen.'
+gegenbeispiel:
+  de: 'Wenn in einer Klasse 20 Kinder sind, müssen es nicht 10 Mädchen und 10 Jungen sein.'
+rueckweg:
+  vermittlung: M.SF.GS.SACH#erklaeren-aufstellen
+kontrast: [M.SF.GS.SACH.LOESEN]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: 'Beim Rückwärtsarbeiten wird jeder Schritt umgekehrt: Aus „vermehrt um“ wird minus, aus „vermindert um“ wird plus.'
+    fv: FV.NZ.UMKEHRAUFGABE
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Setze deine Zahl in das Rätsel ein und prüfe.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

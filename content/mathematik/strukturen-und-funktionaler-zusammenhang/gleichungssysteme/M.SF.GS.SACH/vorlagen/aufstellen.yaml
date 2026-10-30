@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   werte-vertauscht:
     de: 'Die Werte je Stück sind vertauscht. Die Zahl vor x gehört zu dem, wofür x steht.'
+    fv: FV.GS.SACH-AUFSTELLEN
   summe-statt-wert:
     de: 'Die Gesamtzahl und der Gesamtwert sind vertauscht.'
+    fv: FV.GS.SACH-AUFSTELLEN
   anzahl-mal-wert:
     de: 'In der zweiten [[Gleichung]] fehlt das y. Beide Arten zählen mit ihrem eigenen Wert.'
+    fv: FV.GS.SACH-AUFSTELLEN
 herkunft: ki-entwurf
 version: 1

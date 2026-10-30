@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 3 · (x + 2) = 3x + 2. Der Faktor vor der Klammer wird nur mit dem ersten Glied
     malgenommen. Dahinter steht oft die Vorstellung, die Klammer sei nur eine Markierung.
-kompetenzen: [M.SF.TU.AUSMULTIPLIZIEREN, M.SF.TU.GLEICHUNGEN]
+kompetenzen: [M.SF.TU.AUSMULTIPLIZIEREN, M.SF.TU.GLEICHUNGEN, M.SF.GS.RECHNERISCH]
 erklaerung:
   kurz:
     de: 'Der [[Faktor]] vor der Klammer wird mit **jedem** Glied in der Klammer malgenommen: 3 · (x + 2) = 3x + 6.'
@@ -23,6 +23,11 @@ rueckweg:
   vermittlung: M.SF.TU.AUSMULTIPLIZIEREN#erklaeren-ausmultiplizieren
   voraussetzung: M.ZO.NZ.REGELN
 kontrast:
-  [M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL, M.SF.TU.AUSMULTIPLIZIEREN.LUECKE, M.SF.TU.GLEICHUNGEN.LOESEN]
+  [
+    M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL,
+    M.SF.TU.AUSMULTIPLIZIEREN.LUECKE,
+    M.SF.TU.GLEICHUNGEN.LOESEN,
+    M.SF.GS.RECHNERISCH.SCHRITT,
+  ]
 herkunft: ki-entwurf
 version: 1

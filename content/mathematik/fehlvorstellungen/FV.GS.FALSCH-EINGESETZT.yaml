@@ -1,0 +1,26 @@
+id: FV.GS.FALSCH-EINGESETZT
+name:
+  de: Setzt beim Einsetzungsverfahren an der falschen Stelle ein
+art: verwechslung
+beschreibung:
+  de: >-
+    Hat y = 2x + 1 und ersetzt in der zweiten Gleichung das x statt des y. Welche Variable der Term
+    ersetzt, wird nicht beachtet.
+kompetenzen: [M.SF.GS.RECHNERISCH]
+erklaerung:
+  kurz:
+    de: 'Der [[Term]] ersetzt die [[Variable]], die links vom Gleichheitszeichen steht. Steht dort y, ersetzt du in der anderen [[Gleichung]] nur das y.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Term]] für die falsche [[Variable]] eingesetzt.'
+    - teil: warum-nicht
+      de: 'Im [[Term]] steht x, darum denkt man leicht an x. Aber y = 2x + 1 heißt: y ist dasselbe wie 2x + 1. Nur das y darf durch diesen Term ersetzt werden.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche in der zweiten [[Gleichung]] die [[Variable]], die ersetzt wird, und schreibe dort den [[Term]] in Klammern hin.'
+gegenbeispiel:
+  de: 'Wenn „Tom ist doppelt so alt wie Lea“, ersetzt du Toms Alter, nicht Leas.'
+rueckweg:
+  vermittlung: M.SF.GS.RECHNERISCH#erklaeren-einsetzen
+kontrast: [M.SF.GS.RECHNERISCH.SCHRITT]
+herkunft: ki-entwurf
+version: 1

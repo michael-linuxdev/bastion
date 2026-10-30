@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   rechenzeichen-verdreht:
     de: 'Das Rechenzeichen ist verdreht. Um + 4 wegzubekommen, rechnet man − 4.'
+    fv: FV.NZ.UMKEHRAUFGABE
   falsche-zahl:
     de: 'Mit diesem Schritt käme etwas anderes heraus. Schau, welche Zahl verschwunden ist.'
+    fv: FV.GL.UMFORMUNG-LESEN
 herkunft: ki-entwurf
 version: 1

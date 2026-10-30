@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: 'Du hast die Zahl auf die falsche Art weggerechnet. Aus + 4 wird auf der anderen Seite − 4.'
+    fv: FV.NZ.UMKEHRAUFGABE
   nicht-geteilt:
     de: 'Fast fertig – du musst noch durch die Zahl vor x teilen.'
+    fv: FV.GL.NICHT-FERTIG
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Mach die [[Probe]].'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.GS.ACHSENSCHNITT
+name:
+  de: Liest einen Achsenschnittpunkt statt des Schnittpunkts der Geraden ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Gibt als Lösung den Punkt an, an dem eine Gerade die y-Achse schneidet. Der Schnittpunkt beider
+    Geraden wird nicht gesucht.
+kompetenzen: [M.SF.GS.GRAFISCH]
+erklaerung:
+  kurz:
+    de: 'Die Lösung ist der Punkt, an dem sich **beide** [[Geraden]] schneiden, nicht der, an dem eine die Achse trifft.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Schnittpunkt]] einer [[Geraden]] mit der y-Achse abgelesen.'
+    - teil: warum-nicht
+      de: 'Achsenschnittpunkte fallen auf, weil sie auf einer Achse liegen. Die Lösung muss aber zu **beiden** Gleichungen passen. Das gilt nur für den gemeinsamen Punkt.'
+    - teil: so-stimmt-es
+      de: 'Suche den Punkt, an dem sich die [[Geraden]] kreuzen. Lies erst x, dann y ab und mache die [[Probe]] in beiden Gleichungen.'
+gegenbeispiel:
+  de: 'Zwei Wege treffen sich an einer Kreuzung, nicht dort, wo einer von ihnen eine Straße überquert.'
+rueckweg:
+  vermittlung: M.SF.GS.GRAFISCH#erklaeren-ablesen
+kontrast: [M.SF.GS.GRAFISCH.SCHNITTPUNKT]
+herkunft: ki-entwurf
+version: 1

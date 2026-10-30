@@ -1,0 +1,26 @@
+id: FV.GL.UMFORMUNG-LESEN
+name:
+  de: Erkennt nicht, welcher Umformungsschritt gemacht wurde
+art: lesefehler
+beschreibung:
+  de: >-
+    Wählt beim Vergleich von zwei Gleichungen einen Schritt mit der falschen Zahl. Die beiden
+    Gleichungen werden nicht Glied für Glied verglichen.
+kompetenzen: [M.SF.GL.LINEAR]
+erklaerung:
+  kurz:
+    de: 'Vergleiche vorher und nachher Glied für Glied: Welche Zahl ist verschwunden oder hat sich verändert? Der Schritt macht genau das rückgängig.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Schritt gewählt, der eine andere Zahl verändern würde.'
+    - teil: warum-nicht
+      de: 'Zwei Gleichungen untereinander sehen sich [[ähnlich]], darum übersieht man leicht etwas. Aber jeder [[Umformungsschritt]] verändert genau eine Sache.'
+    - teil: so-stimmt-es
+      de: 'Aus 2x + 7 = 15 wird 2x = 8: Die 7 ist links weg und rechts ist 7 weniger. Also war der Schritt „− 7“.'
+gegenbeispiel:
+  de: 'Wer rechts „− 2“ rechnet, macht aus 15 nicht 8.'
+rueckweg:
+  vermittlung: M.SF.GL.LINEAR#erklaeren-umformen
+kontrast: [M.SF.GL.LINEAR.UMFORMUNG]
+herkunft: ki-entwurf
+version: 1

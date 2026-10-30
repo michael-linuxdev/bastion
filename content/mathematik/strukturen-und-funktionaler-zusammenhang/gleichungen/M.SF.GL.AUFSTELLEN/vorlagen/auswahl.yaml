@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   klammer-falsch:
     de: 'Achte auf die Reihenfolge: Was zuerst gerechnet wird, steht in Klammern. „Das Dreifache einer Zahl vermehrt um 5“ ist 3 · x + 5 – ohne Klammer.'
+    fv: FV.GL.TEXT-IN-TERM
   reihenfolge-falsch:
     de: 'Die Teile stehen in der falschen Reihenfolge. „Vermindert man eine Zahl um 5“ heißt x − 5, nicht 5 − x.'
+    fv: FV.GL.TEXT-IN-TERM
   rechenzeichen-falsch:
     de: '„Vermehrt um“ heißt plus, „vermindert um“ heißt minus. Hier ist das Rechenzeichen vertauscht.'
+    fv: FV.GL.TEXT-IN-TERM
   fache-als-plus:
     de: '„Das Dreifache der Zahl“ heißt 3 · x, nicht 3 + x.'
+    fv: FV.GL.TEXT-IN-TERM
 herkunft: ki-entwurf
 version: 1
