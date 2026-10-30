@@ -15,6 +15,7 @@ kompetenzen:
     M.SF.GL.LINEAR,
     M.SF.FK.LINEAR-GLEICHUNG,
     M.SF.FK.NULLSTELLE,
+    M.GM.FL.RECHTECK,
   ]
 erklaerung:
   kurz:
@@ -38,6 +39,7 @@ kontrast:
     M.SF.GL.LINEAR.LOESEN,
     M.SF.GL.FORMELN.UMSTELLEN,
     M.SF.FK.NULLSTELLE.BERECHNEN,
+    M.GM.FL.RECHTECK.SEITE-FEHLT,
   ]
 herkunft: ki-entwurf
 version: 1

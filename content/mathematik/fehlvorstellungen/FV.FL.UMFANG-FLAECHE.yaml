@@ -1,0 +1,26 @@
+id: FV.FL.UMFANG-FLAECHE
+name:
+  de: Verwechselt Umfang und Flächeninhalt
+art: verwechslung
+beschreibung:
+  de: >-
+    Berechnet den Umfang, wenn der Flächeninhalt gefragt ist, oder umgekehrt, oder addiert Länge und
+    Breite für die Fläche. Beide Größen gehören zur selben Figur und werden vermischt.
+kompetenzen: [M.GM.FL.RECHTECK, M.GM.FL.VIELECKE, M.GM.FL.ZUSAMMENGESETZT, M.GM.KR.UMFANG-FLAECHE]
+erklaerung:
+  kurz:
+    de: 'Der [[Umfang]] ist die Länge um die Figur herum, du addierst Seiten (cm). Der [[Flächeninhalt]] ist, was innen Platz hat, beim Rechteck Länge mal Breite (cm²).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die andere Größe berechnet.'
+    - teil: warum-nicht
+      de: 'Beide werden mit denselben Seitenlängen berechnet, das macht es leicht, sie zu verwechseln. Aber der [[Umfang]] ist ein Zaun um ein Beet, der [[Flächeninhalt]] die Erde darin.'
+    - teil: so-stimmt-es
+      de: 'Lies, was gefragt ist, und schreibe die Einheit vorher hin: cm für den [[Umfang]], cm² für den [[Flächeninhalt]]. Beim Kreis: u = 2 · [[π]] · r, A = π · r².'
+gegenbeispiel:
+  de: 'Ein Rechteck 4 cm mal 3 cm hat 14 cm [[Umfang]] und 12 cm² Fläche. Zwei verschiedene Zahlen mit verschiedenen Einheiten.'
+rueckweg:
+  vermittlung: M.GM.FL.RECHTECK#erklaeren-umfang-flaeche
+kontrast: [M.GM.FL.RECHTECK.FLAECHE, M.GM.FL.RECHTECK.UMFANG, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
+herkunft: ki-entwurf
+version: 1

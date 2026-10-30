@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   falsche-stelle:
     de: Achte darauf, wie viele Stellen das Komma wandert.
+    fv: FV.GR.KOMMASCHREIBWEISE
   nullen-falsch:
     de: 'Die Null hinter dem Komma zählt mit: 3,07 m sind 3 m und 7 cm, also 307 cm.'
+    fv: FV.GR.KOMMASCHREIBWEISE
 herkunft: ki-entwurf
 version: 1

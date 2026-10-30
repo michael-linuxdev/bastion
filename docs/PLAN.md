@@ -216,7 +216,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Terme (26 Fehlerbilder, 7 neue Fehlvorstellungen; Stand 239 von 596)
     - [x] Gleichungen und Gleichungssysteme (37 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 276 von 596)
     - [x] Funktionen und Zuordnungen (42 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 318 von 596)
-    - [ ] Größen · Geometrie · Daten und Zufall
+    - [x] Größen, Flächen und Kreis (61 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 379 von 596)
+    - [ ] Körper · Geometrie · Daten und Zufall
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -236,6 +237,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b Größen, Flächen und Kreis:** 61 Fehlerbilder zugeordnet, 13 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Funktionen und Zuordnungen:** 42 Fehlerbilder zugeordnet, 13 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Gleichungen und Gleichungssysteme:** 37 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Terme:** 26 Fehlerbilder zugeordnet, 7 neue Fehlvorstellungen |

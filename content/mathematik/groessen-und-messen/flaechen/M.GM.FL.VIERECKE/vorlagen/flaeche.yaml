@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   seite-statt-hoehe:
     de: 'Du hast die schräge Seite statt der [[Höhe]] genommen. Die Höhe steht [[senkrecht]] auf der Grundseite.'
+    fv: FV.FL.SEITE-STATT-HOEHE
   trapez-nicht-halbiert:
     de: 'Du hast (a + c) · h gerechnet. Beim [[Trapez]] teilst du noch durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
   drachen-nicht-halbiert:
     de: 'Du hast e · f gerechnet. Das ist das umgebende Rechteck – das [[Drachenviereck]] ist halb so groß.'
+    fv: FV.FL.NICHT-HALBIERT
 herkunft: ki-entwurf
 version: 1

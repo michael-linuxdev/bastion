@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   radius-durchmesser:
     de: 'Der [[Umfang]] ist [[π]] · d – mit dem [[Durchmesser]], nicht 2 · π · d.'
+    fv: FV.KR.RADIUS-DURCHMESSER
   einheit-vergessen:
     de: 'Achte auf die Einheiten: Der [[Durchmesser]] ist in cm, die Strecke in m. Rechne vorher um.'
+    fv: FV.GR.EINHEITEN-MISCHEN
 herkunft: ki-entwurf
 version: 1

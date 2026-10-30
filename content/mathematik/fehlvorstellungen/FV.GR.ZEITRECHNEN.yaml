@@ -1,0 +1,26 @@
+id: FV.GR.ZEITRECHNEN
+name:
+  de: Rechnet mit Uhrzeiten wie mit gewöhnlichen Zahlen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet von 9:45 bis 10:15 wie 10,15 − 9,45 = 0,70, also 70 Minuten, oder erhöht bei 75 Minuten
+    die Stunde nicht. Dass eine Stunde 60 Minuten hat, wird beim Rechnen vergessen.
+kompetenzen: [M.GM.GR.ZEIT]
+erklaerung:
+  kurz:
+    de: 'Eine Stunde hat 60 Minuten, nicht 100. Rechne in Schritten: bis zur vollen Stunde, dann volle Stunden, dann die restlichen Minuten.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Uhrzeiten wie [[Dezimalzahlen]] verrechnet.'
+    - teil: warum-nicht
+      de: 'Uhrzeiten sehen aus wie Kommazahlen, darum liegt das nahe. Aber nach 59 Minuten kommt die nächste Stunde, nicht 60 Minuten.'
+    - teil: so-stimmt-es
+      de: 'Von 9:45 bis 10:00 sind es 15 Minuten, von 10:00 bis 10:15 noch einmal 15. Zusammen 30 Minuten.'
+gegenbeispiel:
+  de: 'Von Viertel vor zehn bis Viertel nach zehn ist es eine halbe Stunde, keine 70 Minuten.'
+rueckweg:
+  vermittlung: M.GM.GR.ZEIT#erklaeren-zeitspanne
+kontrast: [M.GM.GR.ZEIT.ZEITSPANNE, M.GM.GR.ZEIT.ENDZEIT]
+herkunft: ki-entwurf
+version: 1

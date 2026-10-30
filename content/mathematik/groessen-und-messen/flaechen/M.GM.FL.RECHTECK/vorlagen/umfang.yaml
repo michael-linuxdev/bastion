@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   umfang-flaeche-verwechselt:
     de: 'Das ist der [[Flächeninhalt]]. Für den [[Umfang]] addierst du die Längen aller Seiten.'
+    fv: FV.FL.UMFANG-FLAECHE
   nur-zwei-seiten:
     de: Du hast nur zwei Seiten addiert. Ein Rechteck hat vier Seiten – jede Länge kommt zweimal vor.
+    fv: FV.FL.UMFANG-SEITEN
   addiert:
     de: Du hast Länge und Breite nur einmal addiert. Jede Seite kommt zweimal vor.
+    fv: FV.FL.UMFANG-SEITEN
 herkunft: ki-entwurf
 version: 1

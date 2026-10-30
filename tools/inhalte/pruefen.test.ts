@@ -102,6 +102,9 @@ describe('Inhalte in content/', () => {
     'M.SF.GS.',
     'M.SF.FK.',
     'M.SF.ZU.',
+    'M.GM.GR.',
+    'M.GM.FL.',
+    'M.GM.KR.',
   ];
   const zugeordnet = (kompetenz: string) => FV_ZUGEORDNET.some((p) => kompetenz.startsWith(p));
 

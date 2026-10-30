@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   aussen-multipliziert:
     de: Du hast das große Rechteck berechnet. Ein Stück fehlt aber – das musst du abziehen.
+    fv: FV.FL.ZERLEGEN
   addiert-statt-abgezogen:
     de: Das fehlende Rechteck gehört nicht zur Figur. Ziehe es ab, statt es dazuzuzählen.
+    fv: FV.FL.ZERLEGEN
   einschnitt-vergessen:
     de: 'Das ist ein [[Umfang]], und dabei fehlen noch Seiten. Gesucht ist der [[Flächeninhalt]].'
+    fv: FV.FL.UMFANG-FLAECHE
   flaeche-statt-umfang:
     de: 'Prüfe, ob du den [[Flächeninhalt]] in [[Quadrateinheiten]] berechnet hast.'
+    fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.GR.EINHEITEN-MISCHEN
+name:
+  de: Rechnet mit verschiedenen Einheiten, ohne umzurechnen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Addiert 2 km und 500 m zu 502 km oder rechnet mit einem Durchmesser in cm und einer Strecke in m.
+    Die Zahlen werden verrechnet, die Einheiten nicht beachtet.
+kompetenzen: [M.GM.GR.SACH, M.GM.KR.UMFANG-FLAECHE]
+erklaerung:
+  kurz:
+    de: 'Rechne vor dem Rechnen alles in **dieselbe** Einheit um. Erst dann darfst du die Zahlen zusammenzählen oder vergleichen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Zahlen mit verschiedenen Einheiten direkt verrechnet.'
+    - teil: warum-nicht
+      de: 'Die Zahlen stehen da, darum rechnet man sie leicht zusammen. Aber 500 m sind nur ein halber Kilometer, nicht 500 Kilometer.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zu jeder Zahl ihre Einheit und rechne um: 500 m = 0,5 km. Dann 2 km + 0,5 km = 2,5 km.'
+gegenbeispiel:
+  de: 'Wer 2 km läuft und dann noch 500 m, ist nicht 502 km gelaufen.'
+rueckweg:
+  vermittlung: M.GM.GR.UMRECHNEN#erklaeren-umrechnen
+kontrast: [M.GM.GR.SACH.WEG, M.GM.KR.UMFANG-FLAECHE.RAD]
+herkunft: ki-entwurf
+version: 1

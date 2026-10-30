@@ -1,0 +1,27 @@
+id: FV.GR.UMRECHNEN-RICHTUNG
+name:
+  de: Multipliziert und teilt beim Umrechnen in der falschen Richtung
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 300 cm in m als 30 000 oder 4 m² in dm² als 0,04. Die Umrechnungszahl stimmt, aber es
+    wird geteilt statt malgenommen oder umgekehrt.
+kompetenzen: [M.GM.GR.UMRECHNEN, M.GM.FL.EINHEITEN]
+erklaerung:
+  kurz:
+    de: 'In eine **kleinere** Einheit: Die Zahl wird **größer**, du nimmst mal. In eine **größere** Einheit: Die Zahl wird **kleiner**, du teilst.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast in die falsche Richtung gerechnet.'
+    - teil: warum-nicht
+      de: '„Größere Einheit, größere Zahl“ klingt logisch. Aber eine große Einheit passt seltener hinein: 300 cm sind nur 3 m, weil ein Meter so lang ist.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Brauche ich mehr oder weniger Stück der neuen Einheit? Mehr: mal. Weniger: geteilt. 300 cm : 100 = 3 m.'
+gegenbeispiel:
+  de: 'Ein Schulweg von 2 km kann nicht 0,002 m lang sein.'
+rueckweg:
+  vermittlung: M.GM.GR.UMRECHNEN#erklaeren-umrechnen
+kontrast:
+  [M.GM.GR.UMRECHNEN.IN-GROESSERE, M.GM.GR.UMRECHNEN.IN-KLEINERE, M.GM.FL.EINHEITEN.IN-KLEINERE]
+herkunft: ki-entwurf
+version: 1

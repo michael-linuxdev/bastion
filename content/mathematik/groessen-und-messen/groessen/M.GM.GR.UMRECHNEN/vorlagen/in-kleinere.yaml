@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.
+    fv: FV.GR.UMRECHNEN-RICHTUNG
   falsche-umrechnungszahl:
     de: 'Die [[Umrechnungszahl]] stimmt nicht. Prüfe, wie viele {nach} in einen {von} passen.'
+    fv: FV.GR.UMRECHNUNGSZAHL
 herkunft: ki-entwurf
 version: 1

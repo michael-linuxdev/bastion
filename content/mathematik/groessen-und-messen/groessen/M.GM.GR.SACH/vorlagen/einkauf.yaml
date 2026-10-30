@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   rueckgeld-vergessen:
     de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Geld ab.
+    fv: FV.SA.ZWISCHENERGEBNIS
   nur-ein-stueck:
     de: Du hast nur ein Stück berechnet. Lies noch einmal, wie viele gekauft werden.
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1
