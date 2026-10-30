@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   dreieck-nicht-halbiert:
     de: 'Beim Dreieck musst du noch durch 2 teilen: Grundseite · [[Höhe]] : 2.'
+    fv: FV.FL.NICHT-HALBIERT
   dreieck-vergessen:
     de: 'Das ist nur das Rechteck. Die Dreiecke gehören auch zur Figur.'
+    fv: FV.FL.ZERLEGEN
   umfang-statt-flaeche:
     de: 'Du hast die Seiten zusammengezählt – das wäre der [[Umfang]]. Gefragt ist der [[Flächeninhalt]].'
+    fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

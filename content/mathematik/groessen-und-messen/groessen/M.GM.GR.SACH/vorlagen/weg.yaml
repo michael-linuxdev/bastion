@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   einheiten-nicht-umgerechnet:
     de: Du hast km und m addiert, ohne umzurechnen. Rechne zuerst alles in km um.
+    fv: FV.GR.EINHEITEN-MISCHEN
   nur-einfache-strecke:
     de: Der Weg wird hin **und** zurück gefahren – also zweimal.
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1

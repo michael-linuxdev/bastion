@@ -1,0 +1,26 @@
+id: FV.FL.SEITE-STATT-HOEHE
+name:
+  de: Nimmt die schräge Seite statt der Höhe
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet beim Dreieck oder Parallelogramm mit der schrägen Seite statt mit der Höhe. Die Höhe als
+    senkrechter Abstand ist nicht verankert.
+kompetenzen: [M.GM.FL.DREIECK, M.GM.FL.VIERECKE]
+erklaerung:
+  kurz:
+    de: 'Die [[Höhe]] steht [[senkrecht]] auf der Grundseite. Sie ist der kürzeste Abstand zur Spitze, nicht die schräge Seite.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit der schrägen Seite gerechnet.'
+    - teil: warum-nicht
+      de: 'Die Seite ist eingezeichnet und gut zu messen. Aber eine schräge Seite ist länger als die [[Höhe]]. Kippt man ein [[Parallelogramm]] immer flacher, bleibt die Seite gleich, die Fläche wird aber kleiner.'
+    - teil: so-stimmt-es
+      de: 'Lege das [[Geodreieck]] mit dem [[rechten Winkel]] auf die Grundseite und miss bis zur Spitze. Das ist die [[Höhe]].'
+gegenbeispiel:
+  de: 'Ein schiefer Turm ist nicht so hoch, wie seine Wand lang ist.'
+rueckweg:
+  vermittlung: M.GM.FL.DREIECK#erklaeren-hoehe
+kontrast: [M.GM.FL.DREIECK.FLAECHE, M.GM.FL.VIERECKE.FLAECHE]
+herkunft: ki-entwurf
+version: 1

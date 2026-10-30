@@ -18,11 +18,15 @@ hilfen:
 fehlerbilder:
   radius-durchmesser:
     de: '[[Radius]] und [[Durchmesser]] sind verwechselt. Der Durchmesser ist doppelt so lang wie der Radius.'
+    fv: FV.KR.RADIUS-DURCHMESSER
   umfang-flaeche:
     de: 'Das ist die andere Größe. [[Umfang]] ist die Länge um den Kreis herum (u = 2 · [[π]] · r), [[Flächeninhalt]] die Fläche innen (A = π · r²).'
+    fv: FV.FL.UMFANG-FLAECHE
   mal-zwei-statt-quadrat:
     de: 'r² heißt r · r, nicht 2 · r.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
   wurzel-vergessen:
     de: 'A : 3,14 ergibt r², noch nicht r. Ziehe die [[Wurzel]].'
+    fv: FV.GL.NICHT-FERTIG
 herkunft: ki-entwurf
 version: 1

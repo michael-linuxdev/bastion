@@ -1,0 +1,25 @@
+id: FV.KR.KREISRING-RADIEN
+name:
+  de: Zieht beim Kreisring die Radien statt der Flächen ab
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet π · (R − r)² statt π · R² − π · r². Die Ringbreite wird wie ein Radius behandelt.
+kompetenzen: [M.GM.KR.KREISRING]
+erklaerung:
+  kurz:
+    de: 'Ziehe die **Flächen** ab, nicht die Radien: A = [[π]] · R² − π · r². Großer Kreis minus Loch.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast zuerst die Radien abgezogen und dann die Fläche berechnet.'
+    - teil: warum-nicht
+      de: 'Die Ringbreite R − r ist leicht zu sehen. Aber ein Kreis mit diesem [[Radius]] ist viel kleiner als der Ring. Der Ring läuft ganz außen herum, wo die Kreise am größten sind.'
+    - teil: so-stimmt-es
+      de: 'Rechne zuerst die große Kreisfläche, dann die kleine, dann ziehe ab: [[π]] · 5² − π · 3² = 78,5 − 28,26 = 50,24 cm².'
+gegenbeispiel:
+  de: 'Mit R = 5 cm und r = 3 cm gäbe [[π]] · 2² nur 12,56 cm². Der Ring ist aber viermal so groß.'
+rueckweg:
+  vermittlung: M.GM.KR.KREISRING#erklaeren-kreisring
+kontrast: [M.GM.KR.KREISRING.RING]
+herkunft: ki-entwurf
+version: 1

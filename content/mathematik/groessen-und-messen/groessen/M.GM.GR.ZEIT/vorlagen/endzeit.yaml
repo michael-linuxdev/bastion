@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   minuten-vergessen:
     de: Du hast nur die Stunden addiert. Die {minuten} Minuten kommen noch dazu.
+    fv: FV.SA.ANGABE-UEBERSEHEN
   stunde-nicht-erhoeht:
     de: Aus 60 Minuten wird eine Stunde – die Stundenzahl muss um 1 größer werden.
+    fv: FV.GR.ZEITRECHNEN
 herkunft: ki-entwurf
 version: 1

@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   nicht-verdoppelt:
     de: 'Du hast den [[Flächeninhalt]] direkt geteilt. Verdopple ihn zuerst, denn A = g · h : 2.'
+    fv: FV.FL.NICHT-HALBIERT
 herkunft: ki-entwurf
 version: 1

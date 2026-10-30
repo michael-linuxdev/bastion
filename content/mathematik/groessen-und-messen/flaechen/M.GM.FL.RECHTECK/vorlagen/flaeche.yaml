@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   umfang-flaeche-verwechselt:
     de: 'Das ist der [[Umfang]]. Für den [[Flächeninhalt]] multiplizierst du Länge und Breite.'
+    fv: FV.FL.UMFANG-FLAECHE
   addiert:
     de: 'Du hast Länge und Breite addiert. Für den [[Flächeninhalt]] wird multipliziert.'
+    fv: FV.FL.UMFANG-FLAECHE
   nur-zwei-seiten:
     de: 'Du hast nur zwei Seiten addiert. Für den [[Flächeninhalt]] wird multipliziert.'
+    fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

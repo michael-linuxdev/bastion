@@ -1,0 +1,26 @@
+id: FV.FL.ZERLEGEN
+name:
+  de: Vergisst beim Zerlegen oder Ergänzen Teilflächen oder verrechnet sie falsch
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet nur das Rechteck einer zusammengesetzten Figur, zählt ein fehlendes Stück dazu statt es
+    abzuziehen oder nimmt den ganzen Kreis statt eines Teils.
+kompetenzen: [M.GM.FL.VIELECKE, M.GM.FL.VIERECKE, M.GM.FL.ZUSAMMENGESETZT, M.GM.KR.KREISRING]
+erklaerung:
+  kurz:
+    de: 'Liste alle Teilflächen auf. Was zur Figur gehört, zählst du dazu. Was fehlt oder herausgeschnitten ist, ziehst du ab.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Teilfläche vergessen, dazugezählt statt abgezogen oder den ganzen Kreis genommen.'
+    - teil: warum-nicht
+      de: 'Zerlegen ist der richtige Weg. Aber die Figur ist genau die [[Summe]] ihrer Teile. Fehlt ein Teil, ist das Ergebnis zu klein. Wird ein Loch dazugezählt, ist es zu groß.'
+    - teil: so-stimmt-es
+      de: 'Male die Teilflächen in verschiedenen Farben an und schreibe zu jeder Plus oder Minus. Rechne dann jede einzeln und fasse zusammen.'
+gegenbeispiel:
+  de: 'Ein Garten mit einem Teich hat weniger Rasen als der ganze Garten.'
+rueckweg:
+  vermittlung: M.GM.FL.ZUSAMMENGESETZT#erklaeren-zerlegen
+kontrast: [M.GM.FL.VIELECKE.ZERLEGEN, M.GM.FL.VIELECKE.ERGAENZEN, M.GM.FL.ZUSAMMENGESETZT.FLAECHE]
+herkunft: ki-entwurf
+version: 1

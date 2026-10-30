@@ -1,0 +1,26 @@
+id: FV.FL.UMFANG-SEITEN
+name:
+  de: Lässt beim Umfang Seiten weg
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet beim Rechteck nur Länge + Breite oder vergisst bei einer zusammengesetzten Figur die
+    Seiten am Einschnitt. Beim Rückwärtsrechnen wird der Umfang nicht halbiert.
+kompetenzen: [M.GM.FL.RECHTECK, M.GM.FL.ZUSAMMENGESETZT]
+erklaerung:
+  kurz:
+    de: 'Der [[Umfang]] ist der ganze Weg um die Figur. Fahre mit dem Finger einmal ringsum und zähle jede Seite. Beim Rechteck kommt jede Länge zweimal vor.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nicht alle Seiten mitgezählt.'
+    - teil: warum-nicht
+      de: 'Beim Rechteck sind gegenüberliegende Seiten gleich lang, darum schreibt man nur zwei Zahlen hin. Der Weg ringsum geht aber an allen vier Seiten entlang.'
+    - teil: so-stimmt-es
+      de: 'Rechteck: u = 2 · a + 2 · b. Rückwärts: Ziehe die bekannte Seite zweimal ab und halbiere den Rest. Bei Figuren mit Einschnitt zähle die Ecken, so viele Seiten hat sie.'
+gegenbeispiel:
+  de: 'Wer um einen Sportplatz läuft, läuft beide Längsseiten und beide Kurven, nicht nur eine.'
+rueckweg:
+  vermittlung: M.GM.FL.RECHTECK#erklaeren-umfang-flaeche
+kontrast: [M.GM.FL.RECHTECK.UMFANG, M.GM.FL.RECHTECK.SEITE-FEHLT, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
+herkunft: ki-entwurf
+version: 1

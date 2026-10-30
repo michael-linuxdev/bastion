@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   wie-dezimalzahl-gerechnet:
     de: Du hast die Uhrzeiten wie Zahlen abgezogen. Eine Stunde hat aber 60 Minuten, nicht 100.
+    fv: FV.GR.ZEITRECHNEN
   nur-stunden:
     de: Du hast nur die vollen Stunden gezählt. Die Minuten am Anfang und am Ende gehören dazu.
+    fv: FV.GR.ZEITRECHNEN
 herkunft: ki-entwurf
 version: 1

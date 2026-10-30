@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 0,3² = 0,6 oder 5² = 10. Die Hochzahl wird als Faktor gelesen. Die Bedeutung „die Zahl
     so oft mit sich selbst malnehmen“ ist noch nicht sicher.
-kompetenzen: [M.ZO.BR.RECHENGESETZE, M.ZO.NZ.POTENZEN, M.SF.TU.BINOMISCH]
+kompetenzen: [M.ZO.BR.RECHENGESETZE, M.ZO.NZ.POTENZEN, M.SF.TU.BINOMISCH, M.GM.KR.UMFANG-FLAECHE]
 erklaerung:
   kurz:
     de: 'Hoch 2 heißt: die Zahl mal sich selbst. 5² = 5 · 5 = 25, nicht 5 · 2.'
@@ -21,6 +21,12 @@ gegenbeispiel:
   de: 'Ein Quadrat mit 5 cm Seitenlänge hat 25 Kästchen von 1 cm², nicht 10.'
 rueckweg:
   vermittlung: M.ZO.NZ.POTENZEN#erklaeren-quadrat
-kontrast: [M.ZO.BR.RECHENGESETZE.DEZIMAL, M.ZO.NZ.POTENZEN.QUADRAT, M.SF.TU.BINOMISCH.LUECKE]
+kontrast:
+  [
+    M.ZO.BR.RECHENGESETZE.DEZIMAL,
+    M.ZO.NZ.POTENZEN.QUADRAT,
+    M.SF.TU.BINOMISCH.LUECKE,
+    M.GM.KR.UMFANG-FLAECHE.BERECHNEN,
+  ]
 herkunft: ki-entwurf
 version: 1

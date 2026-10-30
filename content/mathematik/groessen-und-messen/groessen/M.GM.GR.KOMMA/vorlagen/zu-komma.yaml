@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   falsche-stelle:
     de: 'Die [[Ziffer]] steht an der falschen Stelle hinter dem Komma. Beispiel: 3 ct sind 0,03 € – nicht 0,3 €.'
+    fv: FV.GR.KOMMASCHREIBWEISE
   nullen-falsch:
     de: Achte auf die Nullen hinter dem Komma.
+    fv: FV.GR.KOMMASCHREIBWEISE
 herkunft: ki-entwurf
 version: 1

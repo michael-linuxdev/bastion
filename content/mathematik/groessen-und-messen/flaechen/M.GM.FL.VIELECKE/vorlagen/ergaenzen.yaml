@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   ecken-nicht-abgezogen:
     de: 'Das ist das ganze Rechteck. Die abgeschnittenen Ecken gehören nicht zur Figur – zieh sie ab.'
+    fv: FV.FL.ZERLEGEN
   ecke-nicht-halbiert:
     de: 'Die abgeschnittenen Ecken sind Dreiecke, also nur halbe Rechtecke. Teile ihren [[Flächeninhalt]] durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
 herkunft: ki-entwurf
 version: 1

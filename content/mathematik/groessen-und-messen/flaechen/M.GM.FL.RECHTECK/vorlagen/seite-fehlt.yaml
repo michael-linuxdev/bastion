@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   subtrahiert:
     de: 'Du hast die Seite vom [[Flächeninhalt]] abgezogen. Weil A = a · b ist, musst du durch a teilen.'
+    fv: FV.NZ.UMKEHRAUFGABE
   umfang-nicht-halbiert:
     de: 'Im [[Umfang]] kommen beide Seiten zweimal vor. Ziehe zweimal die bekannte Seite ab und halbiere den Rest.'
+    fv: FV.FL.UMFANG-SEITEN
 herkunft: ki-entwurf
 version: 1

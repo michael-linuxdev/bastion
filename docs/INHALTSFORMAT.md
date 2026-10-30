@@ -553,6 +553,7 @@ version: 1
 | Terme | `M.SF.TU.` | 26 | 7; Vorzeichen, Quadrat, Vergleichszeichen und Grenze gelten auch hier |
 | Gleichungen und Gleichungssysteme | `M.SF.GL.`, `M.SF.GS.` | 37 | 14; darunter `FV.RF.X-Y-VERTAUSCHT`, das zu den Koordinaten gehört |
 | Funktionen und Zuordnungen | `M.SF.FK.`, `M.SF.ZU.` | 42 | 13; `FV.ZU.EINDEUTIGKEIT` gilt für Zuordnungen und Funktionen |
+| Größen, Flächen, Kreis | `M.GM.GR.`, `M.GM.FL.`, `M.GM.KR.` | 61 | 13 (`FV.GR.…`, `FV.FL.…`, `FV.KR.…`) |
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 

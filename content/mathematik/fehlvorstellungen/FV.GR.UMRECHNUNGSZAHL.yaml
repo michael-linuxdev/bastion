@@ -1,0 +1,26 @@
+id: FV.GR.UMRECHNUNGSZAHL
+name:
+  de: Nimmt beim Umrechnen die falsche Umrechnungszahl
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 1 m = 10 cm oder 1 kg = 100 g. Die Umrechnungszahlen zwischen den Einheiten sind nicht
+    sicher. Oft wird überall 10 oder überall 100 genommen.
+kompetenzen: [M.GM.GR.UMRECHNEN]
+erklaerung:
+  kurz:
+    de: 'Lerne die [[Umrechnungszahlen]] für jede Größe: mm → cm → dm → m je 10, m → km 1000, g → kg 1000, ct → € 100, min → h 60.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit einer anderen [[Umrechnungszahl]] gerechnet.'
+    - teil: warum-nicht
+      de: 'Die Zahlen sind verschieden, das ist schwer zu merken. Aber jede Umrechnung hat ihre eigene Zahl. 1 m ist so lang wie 100 Lineale von 1 cm, nicht 10.'
+    - teil: so-stimmt-es
+      de: 'Stelle dir die Einheiten an einem Beispiel vor: Ein Meter ist ein großer Schritt, ein Zentimeter etwa die Breite eines Fingers. Dann prüfe: 1 m = 100 cm.'
+gegenbeispiel:
+  de: 'Ein Liter Milch wiegt etwa 1 kg. Das sind 1000 g, nicht 100 g, sonst wäre er so leicht wie eine Tafel Schokolade.'
+rueckweg:
+  vermittlung: M.GM.GR.UMRECHNEN#erklaeren-umrechnungszahlen
+kontrast: [M.GM.GR.UMRECHNEN.IN-GROESSERE, M.GM.GR.UMRECHNEN.IN-KLEINERE]
+herkunft: ki-entwurf
+version: 1

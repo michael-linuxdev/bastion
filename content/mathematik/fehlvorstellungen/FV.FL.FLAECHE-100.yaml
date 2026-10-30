@@ -1,0 +1,27 @@
+id: FV.FL.FLAECHE-100
+name:
+  de: Rechnet bei Flächeneinheiten mit 10 statt 100
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet 1 m² = 10 dm². Die Umrechnungszahl der Längen wird auf Flächen übertragen. Dass in ein
+    Quadrat mit 1 m Seite 10 · 10 kleine Quadrate passen, ist nicht im Blick.
+kompetenzen: [M.GM.FL.EINHEITEN]
+erklaerung:
+  kurz:
+    de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100 je Schritt: 1 m² = 100 dm², 1 dm² = 100 cm².'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast wie bei Längen mit 10 gerechnet.'
+    - teil: warum-nicht
+      de: 'Bei Längen stimmt 10, darum liegt das nahe. Aber eine Fläche hat Länge **und** Breite. Ein Quadrat mit 1 m Seite ist 10 dm lang und 10 dm breit. Darin liegen 10 · 10 = 100 Quadrate mit 1 dm Seite.'
+    - teil: so-stimmt-es
+      de: 'Zeichne ein Quadrat und teile jede Seite in 10. Zähle die kleinen Quadrate: 100.'
+gegenbeispiel:
+  de: 'Ein Schachbrett hat 8 Felder an jeder Seite, aber 64 Felder insgesamt, nicht 8.'
+rueckweg:
+  vermittlung: M.GM.FL.EINHEITEN#erklaeren-flaecheneinheiten
+  voraussetzung: M.GM.GR.UMRECHNEN
+kontrast: [M.GM.FL.EINHEITEN.IN-GROESSERE, M.GM.FL.EINHEITEN.IN-KLEINERE]
+herkunft: ki-entwurf
+version: 1

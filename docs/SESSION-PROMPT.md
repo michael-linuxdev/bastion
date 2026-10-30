@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (318 von 596 Fehlerbildern zugeordnet, Zahlen und Algebra komplett)
+Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (379 von 596 Fehlerbildern zugeordnet; offen: Körper, Geometrie, Daten und Zufall)
 
 ---
 
@@ -97,7 +97,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 **Als Nächstes:**
 
-0. **U5b:** die übrigen Felder zuordnen, je Feld ein PR (Auftrag vom 30.10.2026: ohne Unterbrechung). Natürliche Zahlen, Teilbarkeit, rationale Zahlen, Prozent, Terme, Gleichungen, Gleichungssysteme, Funktionen und Zuordnungen sind fertig. Weiter mit Größen, Geometrie, Daten und Zufall. Fertige Felder in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`) eintragen.
+0. **U5b:** die übrigen Felder zuordnen, je Feld ein PR (Auftrag vom 30.10.2026: ohne Unterbrechung). Natürliche Zahlen, Teilbarkeit, rationale Zahlen, Prozent, Terme, Gleichungen, Gleichungssysteme, Funktionen und Zuordnungen, Größen, Flächen und Kreis sind fertig. Weiter mit Körpern, Geometrie, Daten und Zufall. Fertige Felder in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`) eintragen.
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.

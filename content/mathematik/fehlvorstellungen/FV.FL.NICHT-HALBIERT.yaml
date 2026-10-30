@@ -1,0 +1,28 @@
+id: FV.FL.NICHT-HALBIERT
+name:
+  de: Vergisst bei Dreieck, Trapez und Drachen das Halbieren
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet beim Dreieck g · h, beim Trapez (a + c) · h oder beim Drachen e · f, ohne durch 2 zu teilen,
+    oder teilt rückwärts, ohne erst zu verdoppeln. Die Formel ist bekannt, aber nicht mit dem Bild
+    „halbes Rechteck“ verbunden.
+kompetenzen: [M.GM.FL.DREIECK, M.GM.FL.VIERECKE, M.GM.FL.VIELECKE]
+erklaerung:
+  kurz:
+    de: 'Ein Dreieck ist ein halbes Rechteck, darum teilst du durch 2. Beim [[Trapez]] und beim [[Drachenviereck]] genauso. Rückwärts verdoppelst du zuerst.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Flächeninhalt]] des umgebenden Rechtecks berechnet.'
+    - teil: warum-nicht
+      de: 'g · h ist der richtige erste Schritt. Aber das Dreieck füllt nur die Hälfte dieses Rechtecks. Zwei gleiche Dreiecke ergeben zusammen das Rechteck.'
+    - teil: so-stimmt-es
+      de: 'Zeichne das Rechteck um das Dreieck und sieh die Hälften: A = g · h : 2. Rückwärts: A · 2 : g = h.'
+gegenbeispiel:
+  de: 'Schneidest du ein Brot diagonal, ist jede Hälfte halb so groß wie das ganze Brot.'
+rueckweg:
+  vermittlung: M.GM.FL.DREIECK#erklaeren-dreieck
+  voraussetzung: M.GM.FL.RECHTECK
+kontrast: [M.GM.FL.DREIECK.FLAECHE, M.GM.FL.VIERECKE.FLAECHE, M.GM.FL.DREIECK.RUECKWAERTS]
+herkunft: ki-entwurf
+version: 1

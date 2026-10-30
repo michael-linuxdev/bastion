@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   dach-nicht-halbiert:
     de: 'Beim Dach hast du nicht durch 2 geteilt. Das Dreieck ist halb so groß wie das Rechteck darum.'
+    fv: FV.FL.NICHT-HALBIERT
   nur-rechteck:
     de: 'Du hast nur das Rechteck berechnet. Das Dreieck oben gehört auch dazu.'
+    fv: FV.FL.ZERLEGEN
 herkunft: ki-entwurf
 version: 1

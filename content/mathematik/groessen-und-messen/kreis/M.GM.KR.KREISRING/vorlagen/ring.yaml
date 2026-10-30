@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   radien-abgezogen:
     de: 'Du hast zuerst die Radien abgezogen. Ziehe die Flächen ab: [[π]] · R² − π · r², nicht π · (R − r)².'
+    fv: FV.KR.KREISRING-RADIEN
   nur-aussen:
     de: 'Das ist der ganze große Kreis. Das Loch in der Mitte gehört nicht dazu.'
+    fv: FV.FL.ZERLEGEN
   radius-durchmesser:
     de: 'Gegeben sind [[Durchmesser]]. Halbiere sie, bevor du rechnest.'
+    fv: FV.KR.RADIUS-DURCHMESSER
 herkunft: ki-entwurf
 version: 1

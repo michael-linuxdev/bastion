@@ -1,0 +1,27 @@
+id: FV.GR.KOMMASCHREIBWEISE
+name:
+  de: Setzt beim Wechsel zur Kommaschreibweise die Ziffern an die falsche Stelle
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 3 € 5 ct als 3,5 € oder 3,07 m als 37 cm. Wie viele Stellen hinter dem Komma die kleinere
+    Einheit braucht, hängt von der Umrechnungszahl ab; das wird nicht beachtet.
+kompetenzen: [M.GM.GR.KOMMA]
+erklaerung:
+  kurz:
+    de: 'Die [[Umrechnungszahl]] sagt, wie viele Stellen hinter dem Komma die kleinere Einheit braucht: Bei 100 sind es zwei. 5 ct = 0,05 €, 3,07 m = 307 cm.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Ziffer]] der kleineren Einheit direkt hinter das Komma geschrieben oder eine Null weggelassen.'
+    - teil: warum-nicht
+      de: 'Beim Sprechen hört man „drei Euro fünf“, darum schreibt man leicht 3,5. Aber 3,5 € sind 3 € 50 ct. Die Cent brauchen zwei Stellen, weil 100 ct ein Euro sind.'
+    - teil: so-stimmt-es
+      de: 'Trage die Werte in eine [[Stellenwerttafel]] mit den Einheiten ein und fülle leere Stellen mit 0: 3 € 5 ct = 3,05 €.'
+gegenbeispiel:
+  de: 'Ein Kaugummi für 5 ct kostet nicht 0,50 €. Das wäre zehnmal so viel.'
+rueckweg:
+  vermittlung: M.GM.GR.KOMMA#erklaeren-kommaschreibweise
+  voraussetzung: M.ZO.BR.DEZIMAL
+kontrast: [M.GM.GR.KOMMA.ZU-KOMMA, M.GM.GR.KOMMA.ZU-KLEINER]
+herkunft: ki-entwurf
+version: 1

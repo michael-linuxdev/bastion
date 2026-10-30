@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   einschnitt-vergessen:
     de: Du hast die beiden Seiten am Einschnitt vergessen. Die Figur hat sechs Seiten.
+    fv: FV.FL.UMFANG-SEITEN
   flaeche-statt-umfang:
     de: 'Das ist der [[Flächeninhalt]]. Für den [[Umfang]] addierst du alle Seitenlängen.'
+    fv: FV.FL.UMFANG-FLAECHE
   aussen-multipliziert:
     de: 'Du hast multipliziert. Für den [[Umfang]] addierst du die Seitenlängen.'
+    fv: FV.FL.UMFANG-FLAECHE
   addiert-statt-abgezogen:
     de: 'Das ist eine Fläche, kein [[Umfang]]. Für den Umfang addierst du die Seitenlängen.'
+    fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

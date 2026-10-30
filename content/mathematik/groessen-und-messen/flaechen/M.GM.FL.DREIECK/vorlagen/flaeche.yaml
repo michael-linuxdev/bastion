@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nicht-halbiert:
     de: 'Du hast g · h gerechnet. Das Dreieck ist nur halb so groß – teile noch durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
   seite-statt-hoehe:
     de: 'Du hast die schräge Seite statt der [[Höhe]] genommen. Die Höhe steht [[senkrecht]] auf der Grundseite.'
+    fv: FV.FL.SEITE-STATT-HOEHE
 herkunft: ki-entwurf
 version: 1

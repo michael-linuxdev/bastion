@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.
+    fv: FV.GR.UMRECHNEN-RICHTUNG
   falsche-umrechnungszahl:
     de: 'Du hast wie bei Längen mit 10 gerechnet. Ein Quadrat mit 1 m Seite enthält 10 · 10 = 100 Quadrate mit 1 dm Seite.'
+    fv: FV.FL.FLAECHE-100
 herkunft: ki-entwurf
 version: 1

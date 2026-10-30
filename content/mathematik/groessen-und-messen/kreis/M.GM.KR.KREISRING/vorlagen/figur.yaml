@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   ganzer-kreis:
     de: 'Das ist der ganze Kreis. Hier ist nur ein Teil davon zu sehen.'
+    fv: FV.FL.ZERLEGEN
   kreisteil-vergessen:
     de: 'Das ist nur das Rechteck. Die Kreisteile gehören dazu.'
+    fv: FV.FL.ZERLEGEN
   radius-durchmesser:
     de: 'Für die Kreisfläche brauchst du den [[Radius]] – die halbe Seite des Rechtecks oder den halben [[Durchmesser]].'
+    fv: FV.KR.RADIUS-DURCHMESSER
 herkunft: ki-entwurf
 version: 1
