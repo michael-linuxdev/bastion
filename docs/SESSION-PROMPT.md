@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (alle 596 Fehlerbilder zugeordnet, 200 Fehlvorstellungen)
+Stand: 30.10.2026 (23) · Merge-Reihenfolge: zuerst PR #85 (Zoom), dann #84, dann #82, dann u5c-dz
 
 ---
 
@@ -128,6 +128,93 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 ---
 
+## Merge-Reihenfolge (30.10.2026)
+
+Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihenfolge ersetzt den früheren Plan, PR #82 zuerst zu mergen.
+
+1. **PR #85 geht zuerst live.** Grafik: Zoom des Bauplatzes wie in Dorfkrieg. Branch `cursor/dorfkrieg-zoom-e6c9`, https://github.com/michael-linuxdev/bastion/pull/85. Gilt für jedes Thema, nicht nur für Dorf: statt der drei Stufen 100 %, 150 % und 200 % mit Rollbalken zoomen **+** und **−** um etwa 12 % auf die Mitte, das Mausrad und zwei Finger zoomen auf den Zeiger, Ziehen verschiebt die Karte, **⌖** zeigt wieder das ganze Bild. Kleiner als 35 % und größer als 240 % geht es nicht.
+2. **Danach PR #84** (dieser Stand: Lernkern-Korrekturen, Review-Stufen, dieser Prompt), https://github.com/michael-linuxdev/bastion/pull/84. Vorher den Branch auf das neue `main` nach #85 setzen. Normal mergen, nicht mit `merge -s ours`: #85 steckt hier noch nicht drin. `git merge-tree` am 30.10.2026 zwischen diesem Branch und `cursor/dorfkrieg-zoom-e6c9`: keine Konflikte, keine gemeinsame Datei.
+3. **Dann PR #82** (`u5c-sf`, Erstvermittlungen Terme und Gleichungen). Konflikt voraussichtlich nur in `docs/PLAN.md` und `docs/SESSION-PROMPT.md`. Beide Absätze behalten.
+4. **Dann einmal `u5c-dz`**, nicht die Zwischenschritte `u5c-fz`, `u5c-gm` und `u5c-rf` als eigene PRs. In `M.RF.AE.AEHNLICH/vermittlung.yaml` (nur auf `u5c-dz`) die Breite festnageln: die 6 cm gehören zur neuen Breite 9 cm, Faktor 1,5, die andere Seite ist 6 cm.
+
+**PR #83** (Dorf-Grafik, Dorfbilder) ist bereits auf `main`.
+
+---
+
+## Geplant für spätere Sitzungen (noch nicht anfangen)
+
+Dieser Abschnitt ist ein Arbeitsauftrag. Er wird erst umgesetzt, wenn eine Sitzung ihn ausdrücklich aufnimmt. Vorher kein Code, keine neuen Abhängigkeiten, keine Branches dafür.
+
+Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Maschine, 2 Stichprobe durch eine Person, 3 mit Lernenden bewährt. Öffentlich erst ab Stufe 2. Das ist noch nicht erzwungen, weil die Seite `main` folgt.
+
+### 1. Aus dem Lernkern-Review
+
+1. **Die Merge-Reihenfolge steht oben:** zuerst PR #85, dann PR #84 auf den neuen `main`, dann PR #82, dann einmal `u5c-dz`. Die Breite in der Ähnlichkeit gehört zu Schritt 4.
+2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
+3. **Öffentliche Seite von `main` trennen.** `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
+4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: gleichnamiges Addieren und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
+5. **`docs/PLAN.md` Abschnitt 1** auf denselben nächsten Schritt setzen wie §4b und dieser Prompt. Der Kopf nennt noch U1 und den 29.10.2026. Abschnitt 4b ist der gültige Arbeitsplan.
+6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
+
+### 2. Eigene Tastatur für Zahlen und Terme
+
+Die Minustaste beim Üben (`src/ui/ueben/Eingabe.svelte`, Knopf ±, nur wenn die Instanz `vorzeichen` setzt) und das Zahlenfeld der Erstvermittlung (`inputmode="decimal"`, ohne Minus) werden eine Tastatur. Sie gehört zur App, läuft offline, und ersetzt den ±-Knopf. Die Systemtastatur bleibt für Namen und Freitext.
+
+**Anforderungen**
+
+- Tasten hängen an der Aufgabe, nicht an einem festen Layout. Ziffern immer, wenn eine Zahl kommt. Komma, wenn Dezimalzahlen vorkommen. Minus nur, wenn negative Antworten möglich sind. Bruchstrich bei Brüchen. Variablen und Einheiten nur, wenn die Vorlage sie nennt.
+- Dieselbe Tastatur in Üben, Wiederholen, Fehlerwerkstatt und Erstvermittlung.
+- Auf dem Handy groß genug für den Daumen, auf dem Rechner mit Tastatur weiterhin eingebbar. Fokus und Beschriftung für die Vorlese-Funktion. Kein Zeitdruck, kein Netz, keine neue Bibliothek.
+- Kein MathLive (PLAN §2.1: keine Formeleingabe dieser Art).
+
+**Datenmodell**
+
+Die Vorlage nennt die Zusatz-Tasten. Der Generator darf sie je Aufgabe enger setzen (Minus nur in dieser einen Aufgabe). Die Instanz gewinnt, wenn sie etwas sagt; sonst gilt die Vorlage; sonst der Aufgabentyp (Zahl: Ziffern; Bruch: Zähler, Nenner, Bruchstrich).
+
+```yaml
+tastatur:
+  - ziffern
+  - komma
+  - minus          # nur, wenn negative Antworten vorkommen
+  - bruchstrich
+  - variable: x
+  - einheit: cm
+```
+
+**Schritte, wenn es drankommt**
+
+1. Format in `INHALTSFORMAT.md` und Typen im Kern. Bestehende Vorlagen bleiben gültig; ohne Feld gilt der Aufgabentyp.
+2. Eine Komponente für die Tasten, eingebunden in `Eingabe.svelte` und `Vermittlung.svelte`. Den ±-Knopf entfernen.
+3. Tests: Minus fehlt, wenn die Aufgabe keins braucht; Bruchstrich erscheint bei Brüchen; Erstvermittlung und Üben zeigen dieselben Tasten.
+4. Im Browser prüfen, Handy und Rechner, einschließlich einer Aufgabe mit negativer Zahl und einer Bruchaufgabe.
+
+### 3. Mathematische Darstellung
+
+Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus dem Platzhalter, zwischen `$…$` Hochzahl, Wurzel und Malpunkt. Inhalte liefern kein HTML. Das bleibt der Ausgangspunkt.
+
+`ARCHITEKTUR.md` §4.1 bevorzugt **KaTeX**, lokal gebündelt, vor MathJax. Eingebunden ist es nicht. `PLAN.md` verbietet MathLive. Eine Bibliothek wäre eine neue Abhängigkeit und braucht vorher einen Eintrag im Entscheidungslog.
+
+**Vergleich, bevor jemand einbaut**
+
+| | Eigene Svelte-Teile (heute) | KaTeX | MathJax |
+|---|---|---|---|
+| Lizenz | eigener Code, passt zur AGPL | MIT, mit AGPL bündelbar | Apache-2.0, mit AGPL bündelbar |
+| Offline | ja | ja, wenn die Dateien mit der App kommen | ja, genauso |
+| Größe | schon da, sehr klein | kleiner als MathJax; vor der Entscheidung am echten Bundle messen | größer |
+| Barrierefreiheit | echte Zeichen und Bruch-Markup, das die Vorlese-Funktion lesen kann | MathML-Ausgabe prüfen, nicht nur das Bild der Formel | gilt als stärker für die Vorlese-Funktion; trotzdem messen |
+| YAML | `$…$` und Platzhalter, schon so | dieselben `$…$`, wenn die Teilmenge reicht | ebenso |
+
+**Richtung, noch keine Entscheidung:** Die eigene Teilmenge behalten, bis ein konkretes Zeichen fehlt (etwa Vektor, Matrix, Integral). Dann KaTeX gegen diese Teilmenge messen: Ladegröße, Offline, Vorlese-Funktion, ob `$…$` unverändert bleibt. MathJax nur, wenn KaTeX an der Vorlese-Funktion scheitert. Die Eingabe bleibt die Tastatur aus Punkt 2; sie schreibt dieselben Zeichen, die der Text schon versteht. Keine zweite Formelsprache.
+
+**Schritte, wenn es drankommt**
+
+1. Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.
+2. Bundle von KaTeX lokal messen, ohne es fest einzubauen. Entscheidungslog nur bei einem Ja.
+3. Wenn ja: Anzeige hinter derselben `$…$`-Schreibweise, Inhalte nicht umschreiben. Ein Test, dass alte Texte gleich aussehen.
+4. Vorlese-Funktion an einem Bruch, einer Hochzahl und einer Wurzel prüfen.
+
+---
+
 ## Übergabe der letzten Sitzung (29./30.10.2026, Nachtschicht)
 
 **Entscheidungen** (Fragerunden 29.10.2026):
@@ -155,6 +242,10 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
   - `eltern/Testphase.svelte`.
 - **Grafik:** Startseite auf dem iPhone 13 korrigiert (`viewport-fit=cover`, `--leiste-hoehe`), Glühbirne für die Fehlerwerkstatt.
 - **Generatoren mit Schritten:** Erweitern auf Zielnenner, Kürzen, Addieren/Subtrahieren. Der ungleichnamige Fall zeigt Schritte, der gleichnamige noch nicht.
+
+**Nebenbei, Grafik (30.10.2026):** **PR #83** (Dorf-Grafik) ist auf `main`. Das Thema Dorf unter „Wie soll es aussehen?“ zeigt die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume, `GRAFIK.md` §6). Die anderen Themen bleiben die Insel. Kampffiguren gibt es nicht. **PR #85** (Zoom des Bauplatzes wie in Dorfkrieg) ist noch nicht auf `main` und geht vor diesem Stand live. Der Zoom gilt für jedes Thema: nicht mehr 100 %, 150 % und 200 % mit Rollbalken, sondern + und − um etwa 12 % auf die Mitte, Mausrad und zwei Finger auf den Zeiger, Ziehen verschiebt, ⌖ zeigt das ganze Bild. Grenze 35 % bis 240 %. Der nächste inhaltliche Schritt bleibt U5c.
+
+**Lernkern-Review (30.10.2026):** Drei Inhaltsfehler aus der Prüfung vom 30.10. sind behoben. Beim Schatten-Kehrwert steht jetzt das umgedrehte Verhältnis (Stab 2 m, Schatten 3 m, Baumschatten 12 m → 0,5 m). Die Fragen zum Erweitern und Vergleichen sagen, welcher Bruch einzutippen ist. Wer beim Zinseszins „wieder 50 €“ wählt, kommt zur Erklärung, dass das Kapital im zweiten Jahr größer ist. Ein Test rechnet beschriebene Fehlrechnungen aus dem Aufgabentext nach. Die Ähnlichkeits-Erstvermittlung (welche Seite die Breite ist) liegt nur auf `u5c-dz`, nicht auf main.
 
 **Offene Punkte:**
 

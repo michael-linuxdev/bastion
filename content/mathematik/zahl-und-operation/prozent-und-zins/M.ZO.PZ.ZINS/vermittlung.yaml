@@ -56,7 +56,12 @@ schritte:
         - { wert: { de: 'Nein, im zweiten Jahr werden 1 050 € verzinst: 52,50 €.' }, richtig: true }
         - { wert: { de: 'Ja, die Zinsen sind jedes Jahr gleich.' }, fv: FV.PZ.FALSCHER-GRUNDWERT }
     weiter: merksatz
-    bei: { FV.PZ.FALSCHER-GRUNDWERT: erklaeren-zinsen }
+    bei: { FV.PZ.FALSCHER-GRUNDWERT: erklaeren-neues-kapital }
+  - id: erklaeren-neues-kapital
+    typ: erklaeren
+    text:
+      de: 'Im zweiten Jahr ist das [[Kapital]] größer: Die [[Zinsen]] vom ersten Jahr gehören dazu. Aus 1 000 € werden 1 050 €. 5 % davon sind 52,50 €, nicht wieder 50 €.'
+    weiter: merksatz
   - id: merksatz
     typ: merksatz
     text:

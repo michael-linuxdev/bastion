@@ -7,6 +7,7 @@
  */
 import type { Kompetenz } from '../competence/kompetenz';
 import type { Sprachobjekt } from './generator';
+import { pruefeReview, type Review } from './review';
 import { WERKZEUGE } from './vermittlung';
 
 export const FV_ARTEN = [
@@ -47,6 +48,8 @@ export interface Fehlvorstellung {
   readonly quelle?: Sprachobjekt;
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
+  /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
+  readonly review?: Review;
 }
 
 export const FV_ID = /^FV\.[A-Z]{2}\.[A-Z0-9-]+$/;
@@ -132,5 +135,6 @@ export function pruefeFehlvorstellung(
   if (daten['quelle'] !== undefined && !istSprachobjekt(daten['quelle'])) f.push('quelle.de fehlt');
   if (!['eigen', 'ki-entwurf', 'oer'].includes(String(daten['herkunft']))) f.push('herkunft fehlt');
   if (!Number.isInteger(daten['version'])) f.push('version fehlt');
+  f.push(...pruefeReview(daten['review']));
   return f;
 }

@@ -16,7 +16,7 @@ hilfen:
   - de: '[[Zinsen]] für ein Jahr: Z = K · p : 100. Für einige Tage: noch · Tage : 360.'
 fehlerbilder:
   hundert-vergessen:
-    de: '[[Prozent]] heißt „von hundert“. Teile noch durch 100.'
+    de: '[[Prozent]] heißt „von hundert“. In der Rechnung fehlt das Teilen oder Malnehmen mit 100.'
     fv: FV.BR.PROZENT-HUNDERTSTEL
   tage-vergessen:
     de: 'Das sind die [[Zinsen]] für ein ganzes Jahr. Das Geld liegt aber nur einige Tage auf dem Konto: · Tage : 360.'

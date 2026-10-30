@@ -5,6 +5,7 @@
  */
 import type { Kompetenz } from '../competence/kompetenz';
 import type { Sprachobjekt } from './generator';
+import { pruefeReview, type Review } from './review';
 
 export interface Anleitung {
   readonly id: string;
@@ -18,6 +19,8 @@ export interface Anleitung {
   readonly pruefen: readonly Sprachobjekt[];
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
+  /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
+  readonly review?: Review;
 }
 
 const istObjekt = (x: unknown): x is Record<string, unknown> =>
@@ -60,5 +63,6 @@ export function pruefeAnleitung(
     f.push(`${anzahl} Bilder, aber ${schritte.length} Schritte`);
   if (!['eigen', 'ki-entwurf', 'oer'].includes(String(daten['herkunft']))) f.push('herkunft fehlt');
   if (!Number.isInteger(daten['version'])) f.push('version fehlt');
+  f.push(...pruefeReview(daten['review']));
   return f;
 }

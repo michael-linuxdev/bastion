@@ -226,14 +226,17 @@ export const grundaufgabeBerechnen: Generator<GrundaufgabeParameter> = {
       a.gesucht === 'W'
         ? [
             ['hundert-vergessen', zahl(a.g * a.ps)],
-            ['falsch-herum-geteilt', zz(a.g / a.ps)],
+            // W = G · p : 100, falsch herum geteilt: G · 100 : p
+            ['falsch-herum-geteilt', zz((a.g * 100) / a.ps)],
           ]
         : a.gesucht === 'G'
           ? [
               ['prozentwert-berechnet', zz((a.w * a.ps) / 100)],
-              ['falsch-herum-geteilt', zz(a.w / a.ps)],
+              // G = W · 100 : p, falsch herum geteilt: p · 100 : W
+              ['falsch-herum-geteilt', zz((a.ps * 100) / a.w)],
             ]
           : [
+              // p = W · 100 : G, falsch herum geteilt: G · 100 : W
               ['falsch-herum-geteilt', zz((a.g * 100) / a.w)],
               ['hundert-vergessen', zz(a.w / a.g)],
             ];

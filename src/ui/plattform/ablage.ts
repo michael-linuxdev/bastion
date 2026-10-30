@@ -504,12 +504,13 @@ export async function bildZeigen(): Promise<boolean> {
 
 export const bildSetzen = (an: boolean) => setze(BILD_SCHLUESSEL, an, 'jugendlich');
 
-/** Gewählter Zoom des Bauplatzes (2.13a) – oder keiner (dann passt die App ihn an). */
+/** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {
   const inst = await bereit();
   if (!inst) return undefined;
   const w = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
-  return typeof w === 'number' && w >= 1 && w <= 2 ? w : undefined;
+  // Grenzen wie in Dorfkrieg (kamera.ts): 0,35 bis 2,4. 0 heißt „einpassen“.
+  return typeof w === 'number' && w >= 0.35 && w <= 2.4 ? w : undefined;
 }
 
 export const zoomSetzen = (zoom: number) => setze(ZOOM_SCHLUESSEL, zoom, 'jugendlich');

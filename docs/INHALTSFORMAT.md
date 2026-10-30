@@ -73,16 +73,17 @@ kmk: { leitidee: L1, prozesse: [K5, K1] }
 anforderungsbereiche: [I, II]
 abdeckung: generator
 version: 1
-review:
-  von: michael
-  datum: 2026-10-27
-  hash: 3f9a…                # s. Abschnitt 8
+review:                     # optional; ohne Feld gilt Stufe 0 (Abschnitt 8)
+  stufe: 2                  # 1 maschinell, 2 Stichprobe, 3 mit Lernenden bewährt
+  datum: 2026-10-30
+  pruefer: michael          # bei Stufe 1: maschine
+  hash: "<64 Hex-Zeichen>"  # SHA-256 über den Inhalt ohne dieses Feld
 ```
 
 **Ergänzt (27.10.2026):**
 - `sachsen` (Pflicht, LEHRPLAN L-9): Lehrplanbezug je Schulart, z. B. `gymnasium: { klassenstufe: 5, lernbereich: "LB 2 Gemeine Brüche und Dezimalzahlen" }`. Fehlt eine Schulart, steht die Kompetenz dort nicht in den ausgewerteten Klassenstufen.
 - `zeichnen_erklaert: true` (optional, LEHRPLAN L-10): Zur Kompetenz gehört eine Zeichen- oder Konstruktionsanleitung, die nicht bewertet wird.
-- Solange es kein Review-Werkzeug gibt, haben Kompetenzen noch kein `review`-Feld; alle gelten als ungeprüft.
+- `review` ist optional. Solange es fehlt, gilt Stufe 0. Keine der heutigen Dateien trägt das Feld.
 
 **Entscheidung I-3: Alle Texte sind ab Tag 1 Sprachobjekte** (`{ de: … }`), auch wenn es zunächst nur Deutsch gibt.
 *Warum:* Hilfesprache kommt in Phase 5. Wird jetzt ein einfacher String verwendet, müssen später alle Inhalte migriert werden. So wird später nur ergänzt.
@@ -123,11 +124,11 @@ fehlerbilder:
 herkunft: ki-entwurf          # eigen | ki-entwurf | oer
 lizenz: null                  # bei OER Pflicht, s. 9
 version: 1
-review:
-  von: michael
-  datum: 2026-10-27
-  geprueft: [fachlich, sprache, niveau, stichprobe]
-  hash: 7c21…
+review:                     # optional, Form in Abschnitt 8
+  stufe: 1
+  datum: 2026-10-30
+  pruefer: maschine
+  hash: "<64 Hex-Zeichen>"
 ```
 
 ### 4.2 Handverfasste Vorlage
@@ -157,7 +158,7 @@ fehlerbilder:
   differenz: { de: Die Differenz ist hier zufällig gleich. Gleichwertig sind Brüche, wenn man sie durch Erweitern oder Kürzen ineinander umformen kann. }
 herkunft: eigen
 version: 1
-review: { von: michael, datum: 2026-10-27, geprueft: [fachlich, sprache, niveau], hash: … }
+review: { stufe: 2, datum: 2026-10-30, pruefer: michael, hash: "<64 Hex-Zeichen>" }
 ```
 
 **Entscheidung I-4: Vorlagen-IDs sind stabil** – wie Kompetenz-IDs (L-1). Wird eine Vorlage ersetzt, bekommt sie eine neue ID; die alte wird mit `ausgemustert: true` markiert, nicht gelöscht.
@@ -324,18 +325,49 @@ Unbekannte falsche Antworten bekommen eine allgemeine Rückmeldung und den Lösu
 
 **Doppelte Fehler-Antworten:** Können zwei Fehlverständnisse dieselbe falsche Antwort erzeugen (bei `erweitern-zielnenner` etwa 1/2 → ?/4: „addiert“ und „falscher Faktor“ ergeben beide 3/4), meldet der Generator nur das erste in seiner festen Reihenfolge. Die Reihenfolge steht im Generator und ist nach Häufigkeit des Fehlers gewählt.
 
-## 8. Review-Pflicht
+## 8. Review-Stufen
 
-**Entscheidung I-8: Ein Review ist an den Inhalt gebunden.** `review.hash` ist eine Prüfsumme über alle Felder der Datei außer `review` selbst. Bei Vorlagen mit Generator gehört die Generator-Version dazu.
-*Warum:* Jede spätere Änderung – auch ein Komma im Text – macht das Review automatisch ungültig. So kann nichts ungeprüft durchrutschen, ohne dass jemand daran denken muss.
+**Entscheidung I-8 (ergänzt 30.10.2026): Ein Review ist an den Inhalt gebunden und hat drei Stufen.** Es gibt kein bloßes „geprüft / nicht geprüft“ mehr. `review` ist optional. Fehlt es, gilt **Stufe 0** (Entwurf). Dieselbe Form gilt für Kompetenzen, Vorlagen, Erstvermittlungen, Fehlvorstellungen und Zeichen-Anleitungen.
 
-Ablauf:
-1. Inhalt entsteht (eigen, KI-Entwurf, OER).
-2. `pnpm content:review <datei>` zeigt den Inhalt; bei Generatoren zusätzlich eine **Stichprobe von 20 erzeugten Aufgaben je Niveau** mit Lösung, Lösungsweg und Fehlerbildern.
-3. Prüfende Person bestätigt die Punkte `fachlich`, `sprache` (L-7), `niveau`, bei Generatoren `stichprobe`.
-4. Das Werkzeug schreibt `review` mit Datum und Hash in die Datei.
+```yaml
+review:
+  stufe: 1                  # 1, 2 oder 3
+  datum: 2026-10-30         # JJJJ-MM-TT, Tag dieser Stufe
+  pruefer: maschine         # Stufe 1: maschine. Stufe 2: Name. Stufe 3: Testrunde, z. B. u4b
+  hash: "<64 Hex-Zeichen>"  # SHA-256, kleine Buchstaben
+```
 
-Der Build lehnt ab: fehlendes Review, abweichenden Hash, fehlende Prüfpunkte.
+Der Hash deckt alle Felder außer `review` ab. Objekt-Schlüssel werden alphabetisch sortiert, die Reihenfolge in Listen bleibt, es gibt keine Leerzeichen dazwischen. Bei einer Vorlage mit Generator steckt die Generator-Version im Feld `generator` (`id@version`) und damit im Hash.
+
+*Warum der Hash:* Jede spätere Änderung – auch ein Komma im Text – trifft einen anderen Hash. Die **wirksame Stufe fällt auf 0**. Es gibt keine Teil-Rückstufung von 3 auf 2. Stufe 1 kann ein neuer Maschinenlauf wieder setzen. Stufe 2 und 3 muss ein Mensch wiederholen.
+
+### Was jede Stufe verlangt
+
+| Stufe | Name | Was vorher passiert sein muss | `pruefer` |
+|---|---|---|---|
+| 0 | Entwurf | nichts | Feld fehlt, oder der Hash passt nicht mehr |
+| 1 | maschinell geprüft | die vier Punkte unten, für genau diese Datei | `maschine` |
+| 2 | Stichprobe | Stufe 1, und ein Mensch hat die Datei plus bei Generatoren 20 Aufgaben je Niveau gelesen (fachlich, Sprache, Niveau) | Name der Person |
+| 3 | mit Lernenden bewährt | Stufe 2, und der Test mit Lernenden ist für diesen Inhalt bestanden | Name der Runde, z. B. `u4b` |
+
+**Stufe 1, die vier Maschinenpunkte:**
+
+1. Die Lösung stimmt auf einem zweiten Rechenweg (Pflicht-Tests des Generators). Bei Texten ohne Rechnung ist `pnpm inhalte:pruefen` grün.
+2. Die Zahl jedes Fehlerbilds passt zu dem Satz, den das Kind liest.
+3. Die Frage ist eindeutig: ein sicheres Kind weiß, welche eine Antwort einzutippen ist.
+4. Ein zweites Modell liest die Datei gegen einen festen Prüfkatalog und findet keinen Widerspruch zwischen Satz, Zahl und Erklärung.
+
+**Stufe 3, bestanden heißt:** Nach der Erstvermittlung lösen mindestens 2 von 3 Lernenden, die den Stoff noch nicht konnten, die Einstiegsaufgaben. Bei einer einzelnen Vorlage: sie kam im selben Test vor, und die Rückmeldung lag nicht reihenweise daneben.
+
+### Öffentliche Seite
+
+Auf der öffentlichen Seite stehen nur Inhalte ab **Stufe 2**. Stufe 1 bleibt in der Vorschau. Lernende sehen die Stufe nicht. Der Hinweis, dass etwas ein Entwurf ist, bleibt, solange die Seite noch `main` folgt.
+
+Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning/review.ts`) und **noch nicht erzwungen**. Die Seite folgt vorerst `main`. Das Trennen von Vorschau und öffentlicher Seite ist ein eigener, noch nicht begonnener Schritt.
+
+### Was die Prüfung heute tut
+
+`pnpm inhalte:pruefen` prüft die Form, wenn das Feld da ist: Stufe 1, 2 oder 3, echtes Datum, `pruefer`, 64 Hex-Zeichen, keine anderen Schlüssel. Ein fehlendes Feld ist in Ordnung. Ein Hash, der nicht mehr passt, ist **kein Fehler** der Datei; `wirksameStufe` rechnet dann 0. Die vier Maschinenpunkte und das Werkzeug, das den Block schreibt, gibt es noch nicht. Darum trägt heute keine Inhaltsdatei ein `review`.
 
 ## 9. Herkunft und Lizenz
 
@@ -351,7 +383,7 @@ Der Build lehnt ab: fehlendes Review, abweichenden Hash, fehlende Prüfpunkte.
 1. YAML lesen, gegen JSON-Schema prüfen.
 2. Verweise prüfen: Kompetenzen, Voraussetzungen, Generatoren (registriert, Version vorhanden), Fehlerbild-IDs.
 3. Graph prüfen: keine Zyklen in den Voraussetzungen.
-4. Reviews prüfen (8).
+4. Review-Form prüfen, wenn das Feld da ist (§8). Ein fehlendes Feld ist Stufe 0 und kein Fehler. Ein veralteter Hash setzt die wirksame Stufe auf 0, er lehnt die Datei nicht ab.
 5. Abdeckung prüfen: Jede Kompetenz hat **pro Niveau mindestens 2 Vorlagen**; handverfasste Vorlagen mindestens 5 Varianten.
 6. Probelauf: Jede Vorlage wird mit 50 Seeds je Niveau gerendert; kein Platzhalter darf offen bleiben, kein KaTeX-Fehler auftreten.
 7. Bericht: Abdeckung je Kompetenz und Niveau, Herkunftsverteilung, offene Reviews.
@@ -427,7 +459,7 @@ Abdeckung: G 2, M 2, E 3 Vorlagen – erfüllt die Mindestregel (10.1, Punkt 5).
 | I-5 | Komma Standard, Punkt akzeptiert, keine Tausendertrennzeichen | Entschieden |
 | I-6 | Ereignis speichert Generator@Version + Seed, bei Fehlern zusätzlich Schnappschuss | Entschieden |
 | I-7 | Fehlerbilder für gezielte Rückmeldung und Fehlerwerkstatt | Entschieden |
-| I-8 | Review an Inhalts-Hash gebunden | Entschieden |
+| I-8 | Review an Inhalts-Hash gebunden, drei Stufen (0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden). Öffentlich ab Stufe 2, noch nicht erzwungen | Entschieden (30.10.2026 ergänzt) |
 | I-9 | Herkunft und Lizenz je Vorlage | Entschieden |
 | I-10 | Pakete je Fach × Bereich mit allen Niveaus (korrigiert ARCHITEKTUR §6) | Entschieden |
 | I-11 | Aufgabentypen `bild-zahl`, `koordinaten-eingabe`, `bild-auswahl`, `anleitung`; Bilder als SVG aus dem Generator | Entschieden |
@@ -497,7 +529,7 @@ version: 1
 - `uebergang.vorlagen` nennt mindestens eine Vorlage der Kompetenz, die es auf dem Niveau `niveau` gibt.
 - `dauer_min` ist höchstens 15. Texte haben höchstens 40 Wörter je Schritt (V8).
 - Pflicht sind außerdem: mindestens ein `beispiel`, ein `ergaenzen`, ein `gegenbeispiel`, ein `merksatz` und ein `pruefen` (V4–V6).
-- `herkunft` und `version` wie bei Vorlagen. Das Review folgt I-8.
+- `herkunft` und `version` wie bei Vorlagen. `review` ist optional und folgt §8.
 
 ## 16. Fehlerkatalog (Fehlvorstellungen, VERMITTLUNG §3)
 
@@ -537,6 +569,7 @@ version: 1
 - `gegenbeispiel` ist Pflicht.
 - `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
 - `kontrast`: mindestens eine vorhandene Vorlage (F3).
+- `review` ist optional und folgt §8. Ohne Feld gilt Stufe 0.
 
 **Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Seit U5b (30.10.2026) ist `fv` für **jedes** Fehlerbild Pflicht (F2, Test in `tools/inhalte/pruefen.test.ts`). Neue Vorlagen bringen ihre Fehlvorstellungen also gleich mit.
 
