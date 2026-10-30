@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   grundflaeche-einmal:
     de: 'Du hast das Dreieck nur einmal gezählt. [[Grundfläche]] und [[Deckfläche]] sind zwei Dreiecke.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   mantel-vergessen:
     de: 'Das sind nur die beiden Dreiecke. Die drei Rechtecke an der Seite gehören auch dazu.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   grundflaeche-nicht-halbiert:
     de: 'Beim Dreieck fehlt das Teilen durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
 herkunft: ki-entwurf
 version: 1

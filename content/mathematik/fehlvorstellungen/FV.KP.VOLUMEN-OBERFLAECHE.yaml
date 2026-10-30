@@ -1,0 +1,26 @@
+id: FV.KP.VOLUMEN-OBERFLAECHE
+name:
+  de: Verwechselt Volumen und Oberfläche
+art: verwechslung
+beschreibung:
+  de: >-
+    Berechnet das Volumen, wenn die Oberfläche (etwa die Pappe einer Schachtel) gefragt ist, oder
+    umgekehrt, oder zählt die Kantenlängen zusammen.
+kompetenzen: [M.GM.KP.OBERFLAECHE, M.GM.KP.VERPACKUNG, M.GM.KP.VOLUMEN]
+erklaerung:
+  kurz:
+    de: 'Das [[Volumen]] ist, was hineinpasst: a · b · c, in cm³. Die [[Oberfläche]] ist die Hülle, alle Flächen zusammen, in cm². Kanten zusammenzählen ergibt keins von beiden.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die andere Größe berechnet.'
+    - teil: warum-nicht
+      de: 'Beide gehören zu demselben Körper und werden aus denselben [[Kantenlängen]] berechnet. Aber das [[Volumen]] ist der Saft im Karton, die [[Oberfläche]] der Karton selbst.'
+    - teil: so-stimmt-es
+      de: 'Lies, was gefragt ist, und schreibe die Einheit vorher hin: cm³ für das [[Volumen]], cm² für die [[Oberfläche]].'
+gegenbeispiel:
+  de: 'Ein [[Würfel]] mit 2 cm [[Kante]] fasst 8 cm³ und hat 24 cm² [[Oberfläche]]: zwei verschiedene Zahlen.'
+rueckweg:
+  vermittlung: M.GM.KP.VOLUMEN#erklaeren-volumen
+kontrast: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.OBERFLAECHE.QUADER, M.GM.KP.VERPACKUNG.MATERIAL]
+herkunft: ki-entwurf
+version: 1

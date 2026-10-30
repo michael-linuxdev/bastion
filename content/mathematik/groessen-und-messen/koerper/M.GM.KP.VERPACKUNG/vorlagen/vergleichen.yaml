@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   meiste-pappe:
     de: 'Diese Schachtel braucht am **meisten** Pappe. Rechne die [[Oberfläche]] aller Schachteln aus und vergleiche.'
+    fv: FV.SA.GEGENTEIL-GEFRAGT
 herkunft: ki-entwurf
 version: 1

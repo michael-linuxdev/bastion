@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   grundflaeche-vergessen:
     de: 'Das sind nur die Seitenflächen. Die [[Grundfläche]] gehört auch zur [[Oberfläche]].'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   dreieck-nicht-halbiert:
     de: 'Ein Dreieck ist ein halbes Rechteck: Teile Grundkante · [[Höhe]] noch durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
   koerperhoehe-genommen:
     de: 'Für die Seitenflächen brauchst du die [[Höhe]] der Dreiecke, nicht die Höhe der [[Pyramide]].'
+    fv: FV.KP.HOEHENARTEN
 herkunft: ki-entwurf
 version: 1

@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   radius-durchmesser:
     de: 'In die [[Formel]] gehört der [[Radius]], also der halbe [[Durchmesser]].'
+    fv: FV.KR.RADIUS-DURCHMESSER
   einheit-falsch:
     de: 'Das sind cm³ (= ml). Gefragt sind Liter: Teile durch 1 000.'
+    fv: FV.KP.LITER
   dichte-vergessen:
     de: 'Das ist das [[Volumen]] in cm³. Für die Masse musst du noch mit der [[Dichte]] malnehmen.'
+    fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1

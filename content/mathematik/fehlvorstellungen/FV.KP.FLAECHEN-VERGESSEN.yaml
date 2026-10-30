@@ -1,0 +1,32 @@
+id: FV.KP.FLAECHEN-VERGESSEN
+name:
+  de: Lässt bei der Oberfläche Flächen weg
+art: rechenfehler
+beschreibung:
+  de: >-
+    Zählt beim Quader nur eine, drei oder vier Flächen, beim Prisma nur eine Grundfläche oder beim
+    Zylinder nur den Mantel. Der Körper wird nicht in sein Netz zerlegt.
+kompetenzen: [M.GM.KP.OBERFLAECHE, M.GM.KP.PRISMA, M.GM.KP.PYRAMIDE, M.GM.KP.ZYLINDER]
+erklaerung:
+  kurz:
+    de: 'Die [[Oberfläche]] sind **alle** Flächen des Körpers zusammen. Stell dir das [[Netz]] vor und zähle jede Fläche: Ein [[Quader]] hat sechs, ein [[Zylinder]] zwei Kreise und einen [[Mantel]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nicht alle Flächen mitgezählt.'
+    - teil: warum-nicht
+      de: 'Auf einem Bild sieht man nur drei Seiten, die übrigen sind verdeckt. Zur [[Oberfläche]] gehören aber auch Rückseite, Boden und Deckel.'
+    - teil: so-stimmt-es
+      de: 'Zeichne das [[Netz]] und schreibe in jede Fläche ihren [[Flächeninhalt]]. Beim [[Quader]]: 2 · (a · b + a · c + b · c).'
+gegenbeispiel:
+  de: 'Wer ein Geschenk einpackt, braucht Papier für alle Seiten, nicht nur für die, die man von vorne sieht.'
+rueckweg:
+  vermittlung: M.GM.KP.OBERFLAECHE#erklaeren-netz
+kontrast:
+  [
+    M.GM.KP.OBERFLAECHE.QUADER,
+    M.GM.KP.OBERFLAECHE.WUERFEL,
+    M.GM.KP.PRISMA.OBERFLAECHE,
+    M.GM.KP.ZYLINDER.BERECHNEN,
+  ]
+herkunft: ki-entwurf
+version: 1

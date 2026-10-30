@@ -1,0 +1,26 @@
+id: FV.KP.NUR-GRUNDFLAECHE
+name:
+  de: Hört beim Volumen bei der Grundfläche auf
+art: rechenfehler
+beschreibung:
+  de: >-
+    Gibt beim Quader oder Prisma die Grundfläche als Volumen an. Die Höhe, also wie viele Schichten
+    übereinanderliegen, fehlt.
+kompetenzen: [M.GM.KP.PRISMA, M.GM.KP.VOLUMEN]
+erklaerung:
+  kurz:
+    de: '[[Volumen]] = [[Grundfläche]] · [[Höhe]]. Die Grundfläche ist eine Schicht, die Höhe sagt, wie viele Schichten übereinanderliegen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Grundfläche]] ausgerechnet und dort aufgehört.'
+    - teil: warum-nicht
+      de: 'Die [[Grundfläche]] ist der schwierige Teil, besonders beim [[Prisma]]. Aber sie ist flach, eine Fläche in cm². Erst mit der [[Höhe]] wird daraus ein Körper in cm³.'
+    - teil: so-stimmt-es
+      de: 'Rechne die [[Grundfläche]] und nimm sie mit der [[Höhe]] des Körpers mal: 12 cm² · 5 cm = 60 cm³.'
+gegenbeispiel:
+  de: 'Ein Blatt Papier hat eine Fläche, aber fast kein [[Volumen]]. Erst ein Stapel aus 500 Blättern ist ein Block.'
+rueckweg:
+  vermittlung: M.GM.KP.VOLUMEN#erklaeren-volumen
+kontrast: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.PRISMA.VOLUMEN]
+herkunft: ki-entwurf
+version: 1

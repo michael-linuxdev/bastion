@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   liter-nicht-gleich-dm3:
     de: Hier musst du nicht mit 1000 malnehmen. 1 l und 1 dm³ sind gleich viel, ebenso 1 ml und 1 cm³.
+    fv: FV.KP.LITER
   nicht-umgerechnet:
     de: 'Du hast die Zahl nicht umgerechnet. 1 l = 1 dm³ = 1000 cm³ – die [[Umrechnungszahl]] ist 1000.'
+    fv: FV.KP.LITER
 herkunft: ki-entwurf
 version: 1

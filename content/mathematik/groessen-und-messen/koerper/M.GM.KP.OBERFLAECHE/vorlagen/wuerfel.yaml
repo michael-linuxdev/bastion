@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   nur-eine-flaeche:
     de: 'Das ist erst eine Fläche. Ein [[Würfel]] hat sechs davon.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   nur-drei-flaechen:
     de: Du hast nur drei Flächen gezählt. Jede kommt zweimal vor – vorne und hinten, oben und unten, links und rechts.
+    fv: FV.KP.FLAECHEN-VERGESSEN
   vier-flaechen:
     de: 'Du hast nur vier Flächen gezählt. Denk an Deckel und Boden – ein [[Würfel]] hat sechs Flächen.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   volumen-berechnet:
     de: 'Das ist das [[Volumen]]. Für die [[Oberfläche]] addierst du die [[Flächeninhalte]] aller sechs Seiten.'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
 herkunft: ki-entwurf
 version: 1

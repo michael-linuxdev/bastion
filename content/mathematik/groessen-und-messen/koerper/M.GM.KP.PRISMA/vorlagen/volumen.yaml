@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   grundflaeche-nicht-halbiert:
     de: 'Bei der [[Grundfläche]] fehlt das Teilen durch 2. Dreieck und [[Trapez]] rechnest du mit „: 2“.'
+    fv: FV.FL.NICHT-HALBIERT
   nur-grundflaeche:
     de: 'Das ist erst die [[Grundfläche]]. Multipliziere sie noch mit der [[Höhe]] des [[Prismas]].'
+    fv: FV.KP.NUR-GRUNDFLAECHE
 herkunft: ki-entwurf
 version: 1

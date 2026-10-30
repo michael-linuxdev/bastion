@@ -1,0 +1,26 @@
+id: FV.KP.HOEHENARTEN
+name:
+  de: Verwechselt bei der Pyramide Körperhöhe und Höhe der Seitenflächen
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet die Seitenflächen einer Pyramide mit der Körperhöhe statt mit der Höhe der Dreiecke. Die
+    Körperhöhe steht innen senkrecht, die Dreieckshöhe liegt schräg auf der Seitenfläche.
+kompetenzen: [M.GM.KP.PYRAMIDE]
+erklaerung:
+  kurz:
+    de: 'Für die Seitendreiecke brauchst du ihre eigene [[Höhe]], schräg auf der Fläche. Die Körperhöhe brauchst du nur für das [[Volumen]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast für die Seitenflächen die [[Höhe]] der [[Pyramide]] genommen.'
+    - teil: warum-nicht
+      de: 'Beide heißen [[Höhe]], das verwirrt. Aber die Körperhöhe geht von der Spitze [[senkrecht]] nach unten in die Mitte. Sie liegt im Inneren und gehört zu keinem Dreieck.'
+    - teil: so-stimmt-es
+      de: 'Zeichne ein Seitendreieck einzeln und darin seine [[Höhe]] von der Grundkante zur Spitze. Mit ihr rechnest du g · h : 2.'
+gegenbeispiel:
+  de: 'Ein Dach ist schräg länger als das Haus darunter hoch ist.'
+rueckweg:
+  vermittlung: M.GM.KP.PYRAMIDE#erklaeren-hoehen
+kontrast: [M.GM.KP.PYRAMIDE.OBERFLAECHE]
+herkunft: ki-entwurf
+version: 1

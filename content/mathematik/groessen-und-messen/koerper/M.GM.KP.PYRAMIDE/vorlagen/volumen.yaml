@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   drittel-vergessen:
     de: 'Das wäre das [[Volumen]] eines [[Prismas]]. Bei der [[Pyramide]] teilst du noch durch 3.'
+    fv: FV.KP.PYRAMIDE-DRITTEL
   halbiert-statt-gedrittelt:
     de: 'Bei der [[Pyramide]] teilst du durch 3, nicht durch 2.'
+    fv: FV.KP.PYRAMIDE-DRITTEL
   quader-vergessen:
     de: 'Das ist nur die [[Pyramide]]. Der [[Quader]] darunter gehört auch zum Turm.'
+    fv: FV.FL.ZERLEGEN
 herkunft: ki-entwurf
 version: 1

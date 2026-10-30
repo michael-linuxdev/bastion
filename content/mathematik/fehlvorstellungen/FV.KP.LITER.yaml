@@ -1,0 +1,26 @@
+id: FV.KP.LITER
+name:
+  de: Kennt den Zusammenhang zwischen Liter und Kubikdezimeter nicht sicher
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 1 l = 1000 dm³ oder lässt 2 l in cm³ unverändert als 2. Dass 1 l = 1 dm³ und
+    1 ml = 1 cm³ ist, ist nicht verankert.
+kompetenzen: [M.GM.KP.EINHEITEN, M.GM.KP.ZYLINDER]
+erklaerung:
+  kurz:
+    de: '1 l = 1 dm³ = 1000 cm³ und 1 ml = 1 cm³. Liter und Kubikdezimeter sind gleich viel, nur anders benannt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast zwischen Litern und Kubikeinheiten falsch oder gar nicht umgerechnet.'
+    - teil: warum-nicht
+      de: 'Liter gehören zu den [[Hohlmaßen]], cm³ und dm³ zu den [[Volumeneinheiten]]. Das sieht nach zwei Welten aus. Aber ein [[Würfel]] mit 10 cm [[Kante]] fasst genau 1 Liter.'
+    - teil: so-stimmt-es
+      de: 'Merke die Brücke: 1 l = 1 dm³. Von dort rechnest du mit 1000 weiter: 1 dm³ = 1000 cm³ = 1000 ml.'
+gegenbeispiel:
+  de: 'Eine Flasche mit 1,5 l passt in einen [[Würfel]] mit 10 cm [[Kante]] nicht hinein, eine mit 1 l genau.'
+rueckweg:
+  vermittlung: M.GM.KP.EINHEITEN#erklaeren-liter
+kontrast: [M.GM.KP.EINHEITEN.LITER, M.GM.KP.ZYLINDER.SACH]
+herkunft: ki-entwurf
+version: 1

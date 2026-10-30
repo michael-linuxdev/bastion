@@ -6,7 +6,15 @@ beschreibung:
   de: >-
     Rechnet nur das Rechteck einer zusammengesetzten Figur, zählt ein fehlendes Stück dazu statt es
     abzuziehen oder nimmt den ganzen Kreis statt eines Teils.
-kompetenzen: [M.GM.FL.VIELECKE, M.GM.FL.VIERECKE, M.GM.FL.ZUSAMMENGESETZT, M.GM.KR.KREISRING]
+kompetenzen:
+  [
+    M.GM.FL.VIELECKE,
+    M.GM.FL.VIERECKE,
+    M.GM.FL.ZUSAMMENGESETZT,
+    M.GM.KR.KREISRING,
+    M.GM.KP.PYRAMIDE,
+    M.GM.KP.ZYLINDER,
+  ]
 erklaerung:
   kurz:
     de: 'Liste alle Teilflächen auf. Was zur Figur gehört, zählst du dazu. Was fehlt oder herausgeschnitten ist, ziehst du ab.'
@@ -21,6 +29,12 @@ gegenbeispiel:
   de: 'Ein Garten mit einem Teich hat weniger Rasen als der ganze Garten.'
 rueckweg:
   vermittlung: M.GM.FL.ZUSAMMENGESETZT#erklaeren-zerlegen
-kontrast: [M.GM.FL.VIELECKE.ZERLEGEN, M.GM.FL.VIELECKE.ERGAENZEN, M.GM.FL.ZUSAMMENGESETZT.FLAECHE]
+kontrast:
+  [
+    M.GM.FL.VIELECKE.ZERLEGEN,
+    M.GM.FL.VIELECKE.ERGAENZEN,
+    M.GM.FL.ZUSAMMENGESETZT.FLAECHE,
+    M.GM.KP.PYRAMIDE.VOLUMEN,
+  ]
 herkunft: ki-entwurf
 version: 1

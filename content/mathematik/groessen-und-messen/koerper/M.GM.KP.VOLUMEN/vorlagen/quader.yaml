@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   kanten-addiert:
     de: 'Du hast die [[Kantenlängen]] addiert. Für das [[Volumen]] wird multipliziert.'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
   nur-grundflaeche:
     de: 'Das ist erst die [[Grundfläche]]. Multipliziere noch mit der [[Höhe]] – so viele Schichten liegen übereinander.'
+    fv: FV.KP.NUR-GRUNDFLAECHE
   oberflaeche-berechnet:
     de: 'Das ist die [[Oberfläche]]. Das [[Volumen]] sagt, wie viel hineinpasst – multipliziere die drei [[Kantenlängen]].'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
 herkunft: ki-entwurf
 version: 1

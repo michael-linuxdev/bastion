@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   volumen-statt-oberflaeche:
     de: 'Das ist das [[Volumen]], also wie viel in die Schachtel passt. Für die Pappe brauchst du die [[Oberfläche]].'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
   deckel-mitgezaehlt:
     de: 'Die Schachtel hat keinen Deckel – zieh die obere Fläche a · b ab.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
   zuschlag-vergessen:
     de: 'Die Klebelaschen fehlen noch: Rechne den Zuschlag dazu.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1

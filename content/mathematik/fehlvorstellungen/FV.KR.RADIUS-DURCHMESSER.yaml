@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Setzt den Durchmesser in A = π · r² ein oder rechnet den Umfang als 2 · π · d. Dass der Durchmesser
     doppelt so lang ist wie der Radius, wird beim Einsetzen nicht beachtet.
-kompetenzen: [M.GM.KR.UMFANG-FLAECHE, M.GM.KR.KREISRING]
+kompetenzen: [M.GM.KR.UMFANG-FLAECHE, M.GM.KR.KREISRING, M.GM.KP.ZYLINDER]
 erklaerung:
   kurz:
     de: 'Der [[Radius]] r geht von der Mitte zum Rand, der [[Durchmesser]] d einmal ganz durch: d = 2 · r. Prüfe vor dem Einsetzen, welcher gegeben ist.'
@@ -21,6 +21,12 @@ gegenbeispiel:
   de: 'Eine Pizza mit 30 cm [[Durchmesser]] hat etwa 700 cm² Fläche, nicht 2800 cm².'
 rueckweg:
   vermittlung: M.GM.KR.UMFANG-FLAECHE#erklaeren-radius
-kontrast: [M.GM.KR.UMFANG-FLAECHE.BERECHNEN, M.GM.KR.UMFANG-FLAECHE.RAD, M.GM.KR.KREISRING.RING]
+kontrast:
+  [
+    M.GM.KR.UMFANG-FLAECHE.BERECHNEN,
+    M.GM.KR.UMFANG-FLAECHE.RAD,
+    M.GM.KR.KREISRING.RING,
+    M.GM.KP.ZYLINDER.BERECHNEN,
+  ]
 herkunft: ki-entwurf
 version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   geteilt-statt-mal:
     de: 'Hier wird malgenommen: Masse = [[Dichte]] · [[Volumen]].'
+    fv: FV.KP.DICHTE-FORMEL
   mal-statt-geteilt:
     de: 'Für das [[Volumen]] teilst du die Masse durch die [[Dichte]].'
+    fv: FV.KP.DICHTE-FORMEL
 herkunft: ki-entwurf
 version: 1

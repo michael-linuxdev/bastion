@@ -7,7 +7,15 @@ beschreibung:
     Rechnet beim Dreieck g · h, beim Trapez (a + c) · h oder beim Drachen e · f, ohne durch 2 zu teilen,
     oder teilt rückwärts, ohne erst zu verdoppeln. Die Formel ist bekannt, aber nicht mit dem Bild
     „halbes Rechteck“ verbunden.
-kompetenzen: [M.GM.FL.DREIECK, M.GM.FL.VIERECKE, M.GM.FL.VIELECKE]
+kompetenzen:
+  [
+    M.GM.FL.DREIECK,
+    M.GM.FL.VIERECKE,
+    M.GM.FL.VIELECKE,
+    M.GM.KP.MASSE,
+    M.GM.KP.PRISMA,
+    M.GM.KP.PYRAMIDE,
+  ]
 erklaerung:
   kurz:
     de: 'Ein Dreieck ist ein halbes Rechteck, darum teilst du durch 2. Beim [[Trapez]] und beim [[Drachenviereck]] genauso. Rückwärts verdoppelst du zuerst.'
@@ -23,6 +31,12 @@ gegenbeispiel:
 rueckweg:
   vermittlung: M.GM.FL.DREIECK#erklaeren-dreieck
   voraussetzung: M.GM.FL.RECHTECK
-kontrast: [M.GM.FL.DREIECK.FLAECHE, M.GM.FL.VIERECKE.FLAECHE, M.GM.FL.DREIECK.RUECKWAERTS]
+kontrast:
+  [
+    M.GM.FL.DREIECK.FLAECHE,
+    M.GM.FL.VIERECKE.FLAECHE,
+    M.GM.FL.DREIECK.RUECKWAERTS,
+    M.GM.KP.PRISMA.VOLUMEN,
+  ]
 herkunft: ki-entwurf
 version: 1

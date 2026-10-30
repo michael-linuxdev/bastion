@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: Du hast geteilt statt multipliziert. Kleinere Einheit heißt mehr Stück – die Zahl muss größer werden.
+    fv: FV.GR.UMRECHNEN-RICHTUNG
   falsche-umrechnungszahl:
     de: 'Die [[Umrechnungszahl]] stimmt nicht. Ein [[Würfel]] mit 1 dm [[Kante]] enthält 10 · 10 · 10 = 1000 Würfel mit 1 cm Kante; 1 l sind 1000 ml.'
+    fv: FV.KP.VOLUMEN-1000
 herkunft: ki-entwurf
 version: 1

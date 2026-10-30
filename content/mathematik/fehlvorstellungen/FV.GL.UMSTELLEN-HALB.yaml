@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet bei V = a · b · c nach c nur V : a statt V : (a · b). Ein Teil der bekannten Größen
     bleibt auf der falschen Seite.
-kompetenzen: [M.SF.GL.FORMELN]
+kompetenzen: [M.SF.GL.FORMELN, M.GM.KP.VOLUMEN]
 erklaerung:
   kurz:
     de: 'Rechne **alle** bekannten Größen weg, die bei der gesuchten stehen. Bei V = a · b · c ist c = V : (a · b).'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: 'Ein [[Quader]] mit V = 24 cm³, a = 2 cm, b = 3 cm hat c = 4 cm. Mit 24 : 2 käme 12 cm heraus.'
 rueckweg:
   vermittlung: M.SF.GL.FORMELN#erklaeren-umstellen
-kontrast: [M.SF.GL.FORMELN.ANWENDEN]
+kontrast: [M.SF.GL.FORMELN.ANWENDEN, M.GM.KP.VOLUMEN.KANTE-FEHLT]
 herkunft: ki-entwurf
 version: 1

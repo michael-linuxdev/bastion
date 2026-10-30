@@ -1,0 +1,26 @@
+id: FV.KP.DICHTE-FORMEL
+name:
+  de: Verwechselt bei der Dichte Malnehmen und Teilen
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet Masse = Volumen : Dichte oder Volumen = Masse · Dichte. Die Formel m = ρ · V wird nicht
+    sicher umgestellt.
+kompetenzen: [M.GM.KP.MASSE]
+erklaerung:
+  kurz:
+    de: 'Masse = [[Dichte]] · [[Volumen]]. Für das Volumen teilst du die Masse durch die Dichte, für die Dichte die Masse durch das Volumen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast geteilt, wo malgenommen wird, oder umgekehrt.'
+    - teil: warum-nicht
+      de: 'Drei Größen in einer [[Formel]] sind schwer zu überblicken. Aber die [[Dichte]] sagt, wie viel 1 cm³ wiegt. Viele cm³ wiegen dann viel mehr, also wird malgenommen.'
+    - teil: so-stimmt-es
+      de: 'Prüfe mit einem Beispiel: Wasser hat 1 g je cm³. 500 cm³ Wasser wiegen 500 · 1 g = 500 g.'
+gegenbeispiel:
+  de: 'Ein großer Eisenblock ist schwerer als ein kleiner. Wer durch die [[Dichte]] teilt, bekommt für den großen ein kleineres Gewicht.'
+rueckweg:
+  vermittlung: M.GM.KP.MASSE#erklaeren-dichte
+kontrast: [M.GM.KP.MASSE.DICHTE]
+herkunft: ki-entwurf
+version: 1

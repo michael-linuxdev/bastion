@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 300 cm in m als 30 000 oder 4 m² in dm² als 0,04. Die Umrechnungszahl stimmt, aber es
     wird geteilt statt malgenommen oder umgekehrt.
-kompetenzen: [M.GM.GR.UMRECHNEN, M.GM.FL.EINHEITEN]
+kompetenzen: [M.GM.GR.UMRECHNEN, M.GM.FL.EINHEITEN, M.GM.KP.EINHEITEN]
 erklaerung:
   kurz:
     de: 'In eine **kleinere** Einheit: Die Zahl wird **größer**, du nimmst mal. In eine **größere** Einheit: Die Zahl wird **kleiner**, du teilst.'
@@ -22,6 +22,11 @@ gegenbeispiel:
 rueckweg:
   vermittlung: M.GM.GR.UMRECHNEN#erklaeren-umrechnen
 kontrast:
-  [M.GM.GR.UMRECHNEN.IN-GROESSERE, M.GM.GR.UMRECHNEN.IN-KLEINERE, M.GM.FL.EINHEITEN.IN-KLEINERE]
+  [
+    M.GM.GR.UMRECHNEN.IN-GROESSERE,
+    M.GM.GR.UMRECHNEN.IN-KLEINERE,
+    M.GM.FL.EINHEITEN.IN-KLEINERE,
+    M.GM.KP.EINHEITEN.IN-KLEINERE,
+  ]
 herkunft: ki-entwurf
 version: 1
