@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (20) · U5a und U5b für die natürlichen Zahlen fertig (alle 596 Fehlerbilder zugeordnet, 200 Fehlvorstellungen)
+Stand: 30.10.2026 (22) · Lernkern-Review behoben; Review-Stufen festgelegt; nächste Sitzungen nur geplant
 
 ---
 
@@ -128,6 +128,80 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 ---
 
+## Geplant für spätere Sitzungen (noch nicht anfangen)
+
+Dieser Abschnitt ist ein Arbeitsauftrag. Er wird erst umgesetzt, wenn eine Sitzung ihn ausdrücklich aufnimmt. Vorher kein Code, keine neuen Abhängigkeiten, keine Branches dafür.
+
+Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Maschine, 2 Stichprobe durch eine Person, 3 mit Lernenden bewährt. Öffentlich erst ab Stufe 2. Das ist noch nicht erzwungen, weil die Seite `main` folgt.
+
+### 1. Aus dem Lernkern-Review
+
+1. **PR #82 mergen** (Branch `u5c-sf`, Erstvermittlungen Terme und Gleichungen). Konflikt nur in `docs/PLAN.md` und voraussichtlich `docs/SESSION-PROMPT.md`: beide Absätze behalten. Danach **einmal `u5c-dz`** darauf setzen, nicht die Zwischenschritte `u5c-fz`, `u5c-gm` und `u5c-rf` als eigene PRs. In `M.RF.AE.AEHNLICH/vermittlung.yaml` (nur auf `u5c-dz`) die Breite festnageln: die 6 cm gehören zur neuen Breite 9 cm, Faktor 1,5, die andere Seite ist 6 cm. Nicht „6 cm mal 4 cm“ ohne zu sagen, welche Seite die Breite ist.
+2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
+3. **Öffentliche Seite von `main` trennen.** `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
+4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: gleichnamiges Addieren und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
+5. **`docs/PLAN.md` Abschnitt 1** auf denselben nächsten Schritt setzen wie §4b und dieser Prompt. Der Kopf nennt noch U1 und den 29.10.2026. Abschnitt 4b ist der gültige Arbeitsplan.
+6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
+
+### 2. Eigene Tastatur für Zahlen und Terme
+
+Die Minustaste beim Üben (`src/ui/ueben/Eingabe.svelte`, Knopf ±, nur wenn die Instanz `vorzeichen` setzt) und das Zahlenfeld der Erstvermittlung (`inputmode="decimal"`, ohne Minus) werden eine Tastatur. Sie gehört zur App, läuft offline, und ersetzt den ±-Knopf. Die Systemtastatur bleibt für Namen und Freitext.
+
+**Anforderungen**
+
+- Tasten hängen an der Aufgabe, nicht an einem festen Layout. Ziffern immer, wenn eine Zahl kommt. Komma, wenn Dezimalzahlen vorkommen. Minus nur, wenn negative Antworten möglich sind. Bruchstrich bei Brüchen. Variablen und Einheiten nur, wenn die Vorlage sie nennt.
+- Dieselbe Tastatur in Üben, Wiederholen, Fehlerwerkstatt und Erstvermittlung.
+- Auf dem Handy groß genug für den Daumen, auf dem Rechner mit Tastatur weiterhin eingebbar. Fokus und Beschriftung für die Vorlese-Funktion. Kein Zeitdruck, kein Netz, keine neue Bibliothek.
+- Kein MathLive (PLAN §2.1: keine Formeleingabe dieser Art).
+
+**Datenmodell**
+
+Die Vorlage nennt die Zusatz-Tasten. Der Generator darf sie je Aufgabe enger setzen (Minus nur in dieser einen Aufgabe). Die Instanz gewinnt, wenn sie etwas sagt; sonst gilt die Vorlage; sonst der Aufgabentyp (Zahl: Ziffern; Bruch: Zähler, Nenner, Bruchstrich).
+
+```yaml
+tastatur:
+  - ziffern
+  - komma
+  - minus          # nur, wenn negative Antworten vorkommen
+  - bruchstrich
+  - variable: x
+  - einheit: cm
+```
+
+**Schritte, wenn es drankommt**
+
+1. Format in `INHALTSFORMAT.md` und Typen im Kern. Bestehende Vorlagen bleiben gültig; ohne Feld gilt der Aufgabentyp.
+2. Eine Komponente für die Tasten, eingebunden in `Eingabe.svelte` und `Vermittlung.svelte`. Den ±-Knopf entfernen.
+3. Tests: Minus fehlt, wenn die Aufgabe keins braucht; Bruchstrich erscheint bei Brüchen; Erstvermittlung und Üben zeigen dieselben Tasten.
+4. Im Browser prüfen, Handy und Rechner, einschließlich einer Aufgabe mit negativer Zahl und einer Bruchaufgabe.
+
+### 3. Mathematische Darstellung
+
+Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus dem Platzhalter, zwischen `$…$` Hochzahl, Wurzel und Malpunkt. Inhalte liefern kein HTML. Das bleibt der Ausgangspunkt.
+
+`ARCHITEKTUR.md` §4.1 bevorzugt **KaTeX**, lokal gebündelt, vor MathJax. Eingebunden ist es nicht. `PLAN.md` verbietet MathLive. Eine Bibliothek wäre eine neue Abhängigkeit und braucht vorher einen Eintrag im Entscheidungslog.
+
+**Vergleich, bevor jemand einbaut**
+
+| | Eigene Svelte-Teile (heute) | KaTeX | MathJax |
+|---|---|---|---|
+| Lizenz | eigener Code, passt zur AGPL | MIT, mit AGPL bündelbar | Apache-2.0, mit AGPL bündelbar |
+| Offline | ja | ja, wenn die Dateien mit der App kommen | ja, genauso |
+| Größe | schon da, sehr klein | kleiner als MathJax; vor der Entscheidung am echten Bundle messen | größer |
+| Barrierefreiheit | echte Zeichen und Bruch-Markup, das die Vorlese-Funktion lesen kann | MathML-Ausgabe prüfen, nicht nur das Bild der Formel | gilt als stärker für die Vorlese-Funktion; trotzdem messen |
+| YAML | `$…$` und Platzhalter, schon so | dieselben `$…$`, wenn die Teilmenge reicht | ebenso |
+
+**Richtung, noch keine Entscheidung:** Die eigene Teilmenge behalten, bis ein konkretes Zeichen fehlt (etwa Vektor, Matrix, Integral). Dann KaTeX gegen diese Teilmenge messen: Ladegröße, Offline, Vorlese-Funktion, ob `$…$` unverändert bleibt. MathJax nur, wenn KaTeX an der Vorlese-Funktion scheitert. Die Eingabe bleibt die Tastatur aus Punkt 2; sie schreibt dieselben Zeichen, die der Text schon versteht. Keine zweite Formelsprache.
+
+**Schritte, wenn es drankommt**
+
+1. Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.
+2. Bundle von KaTeX lokal messen, ohne es fest einzubauen. Entscheidungslog nur bei einem Ja.
+3. Wenn ja: Anzeige hinter derselben `$…$`-Schreibweise, Inhalte nicht umschreiben. Ein Test, dass alte Texte gleich aussehen.
+4. Vorlese-Funktion an einem Bruch, einer Hochzahl und einer Wurzel prüfen.
+
+---
+
 ## Übergabe der letzten Sitzung (29./30.10.2026, Nachtschicht)
 
 **Entscheidungen** (Fragerunden 29.10.2026):
@@ -157,6 +231,8 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - **Generatoren mit Schritten:** Erweitern auf Zielnenner, Kürzen, Addieren/Subtrahieren. Der ungleichnamige Fall zeigt Schritte, der gleichnamige noch nicht.
 
 **Nebenbei (30.10.2026):** Das Thema **Dorf** unter „Wie soll es aussehen?“ zeigt jetzt die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume, `GRAFIK.md` §6). Die anderen Themen bleiben die Insel. Kampffiguren gibt es nicht. Der nächste inhaltliche Schritt bleibt U5c.
+
+**Lernkern-Review (30.10.2026):** Drei Inhaltsfehler aus der Prüfung vom 30.10. sind behoben. Beim Schatten-Kehrwert steht jetzt das umgedrehte Verhältnis (Stab 2 m, Schatten 3 m, Baumschatten 12 m → 0,5 m). Die Fragen zum Erweitern und Vergleichen sagen, welcher Bruch einzutippen ist. Wer beim Zinseszins „wieder 50 €“ wählt, kommt zur Erklärung, dass das Kapital im zweiten Jahr größer ist. Ein Test rechnet beschriebene Fehlrechnungen aus dem Aufgabentext nach. Die Ähnlichkeits-Erstvermittlung (welche Seite die Breite ist) liegt nur auf `u5c-dz`, nicht auf main.
 
 **Offene Punkte:**
 

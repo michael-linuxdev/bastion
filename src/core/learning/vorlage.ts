@@ -6,6 +6,7 @@
  */
 import type { Kompetenz, Niveau } from '../competence/kompetenz';
 import type { Generator, Sprachobjekt } from './generator';
+import { pruefeReview, type Review } from './review';
 import { platzhalterIn } from './text';
 import { pruefeSchritte, type VorlagenSchritt } from './zwischenschritte';
 
@@ -49,6 +50,8 @@ export interface GeneratorVorlage {
   readonly schritte?: readonly VorlagenSchritt[];
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
+  /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
+  readonly review?: Review;
 }
 
 /** Was die Prüfung über einen Generator wissen muss. */
@@ -114,6 +117,7 @@ export function pruefeVorlage(
     f.push('herkunft oer braucht lizenz, quelle und urheber (noch nicht unterstützt)');
   if (!Number.isInteger(d['version']) || (d['version'] as number) < 1)
     f.push('version muss ≥ 1 sein');
+  f.push(...pruefeReview(d['review']));
 
   const generatorName = typeof d['generator'] === 'string' ? d['generator'] : '';
   const generator = kontext.generatoren.get(generatorName);
