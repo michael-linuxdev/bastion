@@ -1,0 +1,103 @@
+id: M.DZ.DA.MITTELWERT
+kompetenz: M.DZ.DA.MITTELWERT
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Durchschnitt]] von Werten ausrechnen, zum Beispiel einen Notendurchschnitt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 12 : 4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZ-RECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Drei Kinder haben 2, 5 und 8 Bonbons. Sie legen alle zusammen und teilen gerecht. Wie viele bekommt jedes?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '5',
+          fehler:
+            [
+              { wert: '15', fv: FV.SA.ZWISCHENERGEBNIS },
+              { wert: '7,5', fv: FV.DA.MITTELWERT-ANZAHL },
+            ],
+        }
+    weiter: erklaeren-mittelwert
+  - id: erklaeren-mittelwert
+    typ: erklaeren
+    text:
+      de: 'Das [[arithmetische Mittel]] ist dieser gerechte [[Anteil]]. Addiere alle Werte und teile durch die Anzahl der Werte. Zähle genau: Auch eine 0 oder ein doppelter Wert zählt mit.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Noten 2, 3, 3 und 4: [[Summe]] 12, Anzahl 4. [[Durchschnitt]] 12 : 4 = 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne den [[Durchschnitt]] von 4, 6, 6 und 8.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '6',
+          fehler:
+            [
+              { wert: '8', fv: FV.DA.MITTELWERT-ANZAHL },
+              { wert: '24', fv: FV.SA.ZWISCHENERGEBNIS },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.DA.MITTELWERT-ANZAHL: erklaeren-mittelwert,
+        FV.SA.ZWISCHENERGEBNIS: erklaeren-mittelwert,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lisa läuft an vier Tagen 3 km, 0 km, 5 km und 4 km. Sie rechnet 12 : 3 = 4 km im [[Durchschnitt]]. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es sind vier Tage: 12 : 4 = 3 km.' }, richtig: true }
+        - { wert: { de: 'Ja, die 0 zählt nicht.' }, fv: FV.DA.MITTELWERT-ANZAHL }
+    weiter: merksatz
+    bei: { FV.DA.MITTELWERT-ANZAHL: erklaeren-mittelwert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Durchschnitt]] = [[Summe]] aller Werte : Anzahl der Werte. Jeder Wert zählt, auch 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Werte: 10, 20, 0, 30. Wie groß ist das [[arithmetische Mittel]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '15' }, richtig: true }
+        - { wert: { de: '20' }, fv: FV.DA.MITTELWERT-ANZAHL }
+        - { wert: { de: '60' }, fv: FV.SA.ZWISCHENERGEBNIS }
+    weiter: uebergang
+    bei:
+      {
+        FV.DA.MITTELWERT-ANZAHL: erklaeren-mittelwert,
+        FV.SA.ZWISCHENERGEBNIS: erklaeren-mittelwert,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.DZ.DA.MITTELWERT.NOTEN, M.DZ.DA.MITTELWERT.ZAHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

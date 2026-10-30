@@ -1,0 +1,86 @@
+id: M.DZ.ZF.BEGRIFFE
+kompetenz: M.DZ.ZF.BEGRIFFE
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du bei einem Zufallsversuch Ergebnisse und [[Ereignisse]] unterscheiden und zählen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Bei 10 Würfen kam die 2 genau 3-mal. Wie groß ist die [[relative Häufigkeit]]?'
+    antwort:
+      eingabe: { art: bruch, loesung: '3/10', fehler: [{ wert: '3/7', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.DZ.ZF.HAEUFIGKEIT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du würfelst einmal mit einem normalen [[Würfel]]. Wie viele verschiedene Augenzahlen können oben liegen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '1', fv: FV.ZF.EREIGNIS-BEGRIFF }] }
+    weiter: erklaeren-ereignis
+  - id: erklaeren-ereignis
+    typ: erklaeren
+    text:
+      de: 'Ein Ergebnis ist ein möglicher Ausgang, zum Beispiel 4. Die [[Ergebnismenge]] sind alle: {1, 2, 3, 4, 5, 6}. Ein [[Ereignis]] ist ein Teil davon, zum Beispiel „gerade Zahl“ = {2, 4, 6}.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Ereignis]] „größer als 4“ beim Würfeln: {5, 6}, also 2 Ergebnisse. Die 4 gehört nicht dazu.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie viele Ergebnisse gehören beim Würfeln zum [[Ereignis]] „kleiner als 3“?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '2',
+          fehler:
+            [{ wert: '3', fv: FV.NZ.GRENZE-MITGEZAEHLT }, { wert: '4', fv: FV.ZF.GEGENEREIGNIS }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.GRENZE-MITGEZAEHLT: erklaeren-ereignis, FV.ZF.GEGENEREIGNIS: erklaeren-ereignis }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Gefragt ist das [[Ereignis]] „ungerade Zahl“. Mia schreibt {1, 2, 3, 4, 5, 6}. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, das ist die ganze Ergebnismenge. Ungerade ist {1, 3, 5}.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.ZF.EREIGNIS-BEGRIFF }
+    weiter: merksatz
+    bei: { FV.ZF.EREIGNIS-BEGRIFF: erklaeren-ereignis }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Ergebnis: ein Ausgang. [[Ergebnismenge]]: alle Ausgänge. [[Ereignis]]: die Ausgänge, die passen. Bei „kleiner als“ gehört die Grenze nicht dazu.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Menge beschreibt beim Würfeln das [[Ereignis]] „mindestens 5“?'
+    antwort:
+      optionen:
+        - { wert: { de: '{5, 6}' }, richtig: true }
+        - { wert: { de: '{6}' }, fv: FV.NZ.GRENZE-MITGEZAEHLT }
+        - { wert: { de: '{1, 2, 3, 4}' }, fv: FV.ZF.GEGENEREIGNIS }
+    weiter: uebergang
+    bei: { FV.NZ.GRENZE-MITGEZAEHLT: erklaeren-ereignis, FV.ZF.GEGENEREIGNIS: erklaeren-ereignis }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt übst du selbst.'
+    vorlagen: [M.DZ.ZF.BEGRIFFE.MENGE, M.DZ.ZF.BEGRIFFE.ZAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

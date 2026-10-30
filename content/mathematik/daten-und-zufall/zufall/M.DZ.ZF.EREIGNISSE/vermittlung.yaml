@@ -1,0 +1,96 @@
+id: M.DZ.ZF.EREIGNISSE
+kompetenz: M.DZ.ZF.EREIGNISSE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Gegenereignisse bilden und [[Ereignisse]] mit „und“ und „oder“ verknüpfen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Menge beschreibt beim Würfeln das [[Ereignis]] „gerade Zahl“?'
+    antwort:
+      optionen:
+        - { wert: { de: '{2, 4, 6}' }, richtig: true }
+        - { wert: { de: '{1, 3, 5}' }, fv: FV.ZF.GEGENEREIGNIS }
+    weiter: entdecken
+    bei: { sonst: M.DZ.ZF.BEGRIFFE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Beim Würfeln: A = „gerade“ = {2, 4, 6}, B = „größer als 3“ = {4, 5, 6}. Welche Zahlen erfüllen beide Bedingungen zugleich? Wie viele sind es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '4', fv: FV.ZF.UND-ODER }] }
+    weiter: erklaeren-und-oder
+  - id: erklaeren-und-oder
+    typ: erklaeren
+    text:
+      de: '„A und B“: Ergebnisse, die in beiden liegen. Hier {4, 6}. „A oder B“: Ergebnisse, die in mindestens einem liegen. Hier {2, 4, 5, 6}. Oder ist also größer als und.'
+    weiter: erklaeren-gegenereignis
+  - id: erklaeren-gegenereignis
+    typ: erklaeren
+    text:
+      de: 'Das [[Gegenereignis]] enthält alle Ergebnisse, die nicht zum [[Ereignis]] gehören. Zu „gerade“ = {2, 4, 6} ist es „ungerade“ = {1, 3, 5}. Zusammen ergeben sie die ganze [[Ergebnismenge]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Ereignis]] „mindestens 5“ = {5, 6}. [[Gegenereignis]] „höchstens 4“ = {1, 2, 3, 4}. Zusammen 6 Ergebnisse.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'A = {1, 2, 3}, B = {3, 4}. Wie viele Ergebnisse gehören zu „A oder B“?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler: [{ wert: '1', fv: FV.ZF.UND-ODER }, { wert: '5', fv: FV.ZF.UND-ODER }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ZF.UND-ODER: erklaeren-und-oder }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Zum [[Ereignis]] „mehr als 2“ nennt Kim das [[Gegenereignis]] „weniger als 2“. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die 2 fehlt dann. Gegenereignis ist „höchstens 2“ = {1, 2}.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.ZF.GEGENEREIGNIS }
+    weiter: merksatz
+    bei: { FV.ZF.GEGENEREIGNIS: erklaeren-gegenereignis }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Und: in beiden. Oder: in mindestens einem. [[Gegenereignis]]: alles, was übrig bleibt.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Beim Würfeln: Welche Menge ist das [[Gegenereignis]] von „kleiner als 3“?'
+    antwort:
+      optionen:
+        - { wert: { de: '{3, 4, 5, 6}' }, richtig: true }
+        - { wert: { de: '{4, 5, 6}' }, fv: FV.ZF.GEGENEREIGNIS }
+        - { wert: { de: '{1, 2}' }, fv: FV.ZF.EREIGNIS-BEGRIFF }
+    weiter: uebergang
+    bei:
+      {
+        FV.ZF.GEGENEREIGNIS: erklaeren-gegenereignis,
+        FV.ZF.EREIGNIS-BEGRIFF: erklaeren-gegenereignis,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt übst du selbst.'
+    vorlagen: [M.DZ.ZF.EREIGNISSE.MENGE, M.DZ.ZF.EREIGNISSE.ZAEHLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

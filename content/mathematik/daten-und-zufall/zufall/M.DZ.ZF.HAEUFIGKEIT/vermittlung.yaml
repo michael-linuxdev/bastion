@@ -1,0 +1,96 @@
+id: M.DZ.ZF.HAEUFIGKEIT
+kompetenz: M.DZ.ZF.HAEUFIGKEIT
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du eine [[Strichliste]] lesen und die [[relative Häufigkeit]] als [[Bruch]] angeben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '3 von 10 Kugeln sind rot. Welcher [[Anteil]] ist rot?'
+    antwort:
+      eingabe: { art: bruch, loesung: '3/10', fehler: [{ wert: '3/7', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'In einer [[Strichliste]] stehen zwei Bündel und dazu noch 3 einzelne Striche. Ein Bündel sind 4 Striche und ein Querstrich. Wie oft wurde gezählt?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '13',
+          fehler: [{ wert: '11', fv: FV.ZF.STRICHLISTE }, { wert: '5', fv: FV.ZF.STRICHLISTE }],
+        }
+    weiter: erklaeren-strichliste
+  - id: erklaeren-strichliste
+    typ: erklaeren
+    text:
+      de: 'In einer [[Strichliste]] ist jedes Bündel 5, der Querstrich zählt mit. Zähle erst die Bündel mal 5, dann die einzelnen Striche dazu. Das ist die [[absolute Häufigkeit]].'
+    weiter: erklaeren-relativ
+  - id: erklaeren-relativ
+    typ: erklaeren
+    text:
+      de: 'Die [[relative Häufigkeit]] ist ein [[Anteil]]: wie oft es vorkam, geteilt durch alle Versuche. Kam die 6 bei 20 Würfen 4-mal, ist ihre relative Häufigkeit 4/20 = 1/5 = 20 %.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Strichliste]] für „Kopf“: drei Bündel und 1 Strich, also 16. Bei 40 Würfen ist die [[relative Häufigkeit]] 16/40 = 2/5.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Würfel]] wurde 30-mal geworfen, die 3 kam 6-mal. Gib die [[relative Häufigkeit]] [[gekürzt]] an.'
+    antwort:
+      eingabe:
+        {
+          art: bruch,
+          loesung: '1/5',
+          fehler:
+            [{ wert: '6/24', fv: FV.BR.TEIL-ZU-REST }, { wert: '1/4', fv: FV.BR.TEIL-ZU-REST }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.BR.TEIL-ZU-REST: erklaeren-relativ }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Bei 50 Würfen kam die 1 genau 10-mal. Tim sagt: Die [[relative Häufigkeit]] ist 10. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, 10 ist die absolute Häufigkeit. Relativ: 10/50 = 1/5.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
+    weiter: merksatz
+    bei: { FV.BR.ANZAHL-STATT-ANTEIL: erklaeren-relativ }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Strichliste]]: Bündel mal 5 plus einzelne Striche. Relative Häufigkeit = Anzahl : alle Versuche, als [[Bruch]], [[Dezimalzahl]] oder [[Prozent]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Bei 20 Würfen kam die 6 genau 5-mal. Wie groß ist die [[relative Häufigkeit]] in [[Prozent]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '25 %' }, richtig: true }
+        - { wert: { de: '5 %' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+        - { wert: { de: '33 %' }, fv: FV.BR.TEIL-ZU-REST }
+    weiter: uebergang
+    bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-relativ, FV.BR.TEIL-ZU-REST: erklaeren-relativ }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt übst du selbst.'
+    vorlagen: [M.DZ.ZF.HAEUFIGKEIT.RELATIV, M.DZ.ZF.HAEUFIGKEIT.STRICHLISTE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
