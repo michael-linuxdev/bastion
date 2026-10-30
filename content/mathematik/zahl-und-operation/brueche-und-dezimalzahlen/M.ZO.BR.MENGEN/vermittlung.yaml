@@ -1,0 +1,87 @@
+id: M.ZO.BR.MENGEN
+kompetenz: M.ZO.BR.MENGEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du entscheiden, ob eine Zahl eine [[natürliche Zahl]] ist oder nur eine gebrochene.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist 12/4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Liegt 2,5 am Zahlenstrahl genau auf einer der Zahlen 0, 1, 2, 3 oder dazwischen?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 3, einteilung: 2, markiert: 5 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'dazwischen' }, richtig: true }
+        - { wert: { de: 'genau auf einer der Zahlen' }, fv: FV.BR.NATUERLICH-BEGRIFF }
+    weiter: erklaeren-zahlbereiche
+  - id: erklaeren-zahlbereiche
+    typ: erklaeren
+    text:
+      de: 'Die [[natürlichen Zahlen]] 0, 1, 2, 3 … sind die Zahlen zum Zählen. Gebrochene Zahlen sind alle, die man als [[Bruch]] schreiben kann, auch 3 = 3/1. Jede natürliche Zahl ist also auch eine gebrochene.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 3, einteilung: 2, markiert: 5 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '7/3 liegt zwischen 2 und 3. Es ist eine [[gebrochene Zahl]], aber keine natürliche. 8/4 ist genau 2, also natürlich, obwohl es als [[Bruch]] geschrieben ist.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 15/5 aus. Kommt eine Zahl ohne Rest heraus, ist der [[Bruch]] eine [[natürliche Zahl]].'
+    antwort:
+      eingabe: { art: zahl, loesung: '3' }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali sagt: „12/4 ist keine [[natürliche Zahl]], weil es ein [[Bruch]] ist.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 12/4 ist genau 3.' }, richtig: true }
+        - { wert: { de: 'Ja, Brüche sind nie natürlich.' }, fv: FV.BR.SCHREIBWEISE-ZAHL }
+    weiter: merksatz
+    bei: { FV.BR.SCHREIBWEISE-ZAHL: erklaeren-zahlbereiche }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Eine Zahl ist natürlich, wenn sie genau auf 0, 1, 2, 3 … liegt, egal wie sie geschrieben ist. Natürliche Zahlen sind eine [[Teilmenge]] der [[gebrochenen Zahlen]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Aussage stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Jede natürliche Zahl ist eine gebrochene Zahl.' }, richtig: true }
+        - {
+            wert: { de: 'Jede gebrochene Zahl ist eine natürliche Zahl.' },
+            fv: FV.BR.TEILMENGE-VERDREHT,
+          }
+        - { wert: { de: '2,5 ist eine natürliche Zahl.' }, fv: FV.BR.NATUERLICH-BEGRIFF }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.TEILMENGE-VERDREHT: erklaeren-zahlbereiche,
+        FV.BR.NATUERLICH-BEGRIFF: erklaeren-zahlbereiche,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt entscheidest du selbst.'
+    vorlagen: [M.ZO.BR.MENGEN.NATUERLICH, M.ZO.BR.MENGEN.AUSSAGEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

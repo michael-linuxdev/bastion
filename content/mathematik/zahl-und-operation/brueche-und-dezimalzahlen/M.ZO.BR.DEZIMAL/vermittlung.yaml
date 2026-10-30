@@ -1,0 +1,88 @@
+id: M.ZO.BR.DEZIMAL
+kompetenz: M.ZO.BR.DEZIMAL
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Brüche]] wie 7/10 oder 23/100 als [[Dezimalzahl]] schreiben und umgekehrt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Bruch]] zeigt den gefärbten Teil?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 10, gefaerbt: 3 } }
+    antwort:
+      eingabe: { art: bruch, loesung: '3/10', fehler: [{ wert: '3/7', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Der Zahlenstrahl ist in [[Zehntel]] geteilt. 3/10 schreibt man auch 0,3. Wie schreibt man 7 Zehntel?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '0,7', fehler: [{ wert: '7,1', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
+    weiter: erklaeren-stellenwert
+  - id: erklaeren-stellenwert
+    typ: erklaeren
+    text:
+      de: 'Hinter dem Komma: Die erste Stelle zählt [[Zehntel]], die zweite [[Hundertstel]], die dritte [[Tausendstel]]. 0,7 = 7/10, 0,07 = 7/100.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '23/100 = 0,23, das sind 2 [[Zehntel]] und 3 [[Hundertstel]]. Umgekehrt: 0,4 = 4/10, [[gekürzt]] 2/5.'
+    weiter: erklaeren-umwandeln
+  - id: erklaeren-umwandeln
+    typ: erklaeren
+    text:
+      de: 'Andere [[Nenner]] erweiterst du zuerst auf 10, 100 oder 1000: 3/4 = 75/100 = 0,75. Das Komma ersetzt nicht den Bruchstrich: 3/4 ist nicht 3,4.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      { de: 'Schreibe 2/5 als [[Dezimalzahl]]. [[Erweitere]] zuerst auf [[Zehntel]]: 2/5 = 4/10.' }
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '0,4', fehler: [{ wert: '2,5', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.KOMMA-ALS-BRUCHSTRICH: erklaeren-umwandeln }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jana schreibt 7/100 = 0,7. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Hundertstel stehen an der zweiten Stelle: 0,07.' }, richtig: true }
+        - { wert: { de: 'Ja, die 7 kommt hinter das Komma.' }, fv: FV.BR.STELLENWERT-DEZIMAL }
+    weiter: merksatz
+    bei: { FV.BR.STELLENWERT-DEZIMAL: erklaeren-stellenwert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Zehntel]], [[Hundertstel]], [[Tausendstel]] stehen an der ersten, zweiten, dritten Stelle hinter dem Komma. Andere [[Brüche]] zuerst auf 10, 100 oder 1000 [[erweitern]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher vollständig gekürzte [[Bruch]] ist 0,25?'
+    antwort:
+      optionen:
+        - { wert: { de: '1/4' }, richtig: true }
+        - { wert: { de: '25/10' }, fv: FV.BR.STELLENWERT-DEZIMAL }
+        - { wert: { de: '25/100' }, fv: FV.BR.NICHT-GEKUERZT }
+    weiter: uebergang
+    bei: { FV.BR.STELLENWERT-DEZIMAL: erklaeren-stellenwert }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Klasse. Jetzt bist du dran.'
+    vorlagen: [M.ZO.BR.DEZIMAL.BRUCH-ZU-DEZIMAL, M.ZO.BR.DEZIMAL.DEZIMAL-ZU-BRUCH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

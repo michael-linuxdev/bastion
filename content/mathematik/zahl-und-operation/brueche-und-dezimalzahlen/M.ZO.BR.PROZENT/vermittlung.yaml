@@ -1,0 +1,80 @@
+id: M.ZO.BR.PROZENT
+kompetenz: M.ZO.BR.PROZENT
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Anteile wie 50 %, 25 % und 100 % als [[Bruch]] und als [[Dezimalzahl]] schreiben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Schreibe 25/100 als [[Dezimalzahl]].'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '0,25', fehler: [{ wert: '2,5', fv: FV.BR.STELLENWERT-DEZIMAL }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZIMAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die Hälfte des Streifens ist gefärbt. Stell dir den Streifen in 100 kleine Teile geteilt vor. Wie viele [[Hundertstel]] sind gefärbt?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 2 } }
+    antwort:
+      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '5', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: erklaeren-hundertstel
+  - id: erklaeren-hundertstel
+    typ: erklaeren
+    text:
+      de: '[[Prozent]] heißt „von Hundert“. 1 % ist ein [[Hundertstel]]. 50 % sind 50/100, also 1/2 oder 0,5. 100 % sind das Ganze.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '25 % = 25/100. Gekürzt ist das 1/4. Als [[Dezimalzahl]]: 0,25.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie viel [[Prozent]] sind 0,75? Zähle die [[Hundertstel]].'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '75', fehler: [{ wert: '7,5', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lena sagt: „0,5 sind 5 %.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 0,5 = 50/100 = 50 %.' }, richtig: true }
+        - { wert: { de: 'Ja, die 5 bleibt die 5.' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+    weiter: merksatz
+    bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Prozent]] zählt [[Hundertstel]]: 50 % = 1/2 = 0,5, 25 % = 1/4 = 0,25, 100 % = 1.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher [[Bruch]] ist 25 %?'
+    antwort:
+      optionen:
+        - { wert: { de: '1/4' }, richtig: true }
+        - { wert: { de: '25/10' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+    weiter: uebergang
+    bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT, M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,84 @@
+id: M.ZO.BR.SACH
+kompetenz: M.ZO.BR.SACH
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Sachaufgaben mit Brüchen und [[Dezimalzahlen]] in einem oder zwei Schritten lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne 1,5 + 0,5 · 2.'
+    antwort:
+      eingabe: { art: zahl, loesung: '2,5', fehler: [{ wert: '4', fv: FV.NZ.PUNKT-VOR-STRICH }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.RECHENGESETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Mia hat 20 € und kauft für 7,50 € ein. Die Frage lautet: „Wie viel Geld hat sie noch?“ Was ist gesucht?'
+    antwort:
+      optionen:
+        - { wert: { de: 'das Geld, das übrig bleibt' }, richtig: true }
+        - { wert: { de: 'das Geld, das sie ausgibt' }, fv: FV.SA.ZWISCHENERGEBNIS }
+    weiter: erklaeren-frage
+  - id: erklaeren-frage
+    typ: erklaeren
+    text:
+      de: 'Lies zuerst die Frage und schreibe auf, was gesucht ist. Unterstreiche dann jede Zahl im Text. Am Ende prüfst du: Beantwortet meine Zahl die Frage?'
+    weiter: erklaeren-rechenart
+  - id: erklaeren-rechenart
+    typ: erklaeren
+    text:
+      de: 'Überlege, was die Zahlen bedeuten. Menge mal Preis je kg ergibt den Preis. Ausgaben vom Geld abziehen ergibt den Rest. Wenn du unsicher bist, probiere es mit kleinen Zahlen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '1,5 kg Äpfel kosten 2,40 € je kg. Du zahlst mit 5 €. Preis: 1,5 · 2,40 € = 3,60 €. Rückgeld: 5 € − 3,60 € = 1,40 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '2 kg Birnen kosten 1,80 € je kg. Wie viel Euro kosten sie zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3,6', fehler: [{ wert: '3,8', fv: FV.SA.RECHENART }] }
+    weiter: gegenbeispiel
+    bei: { FV.SA.RECHENART: erklaeren-rechenart }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lisa hat 10 € und gibt 3,20 € und 2,50 € aus. Tom rechnet den Rest: 10 € − 3,20 € = 6,80 €. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auch die 2,50 € muss er abziehen: 4,30 €.' }, richtig: true }
+        - { wert: { de: 'Ja, so viel bleibt übrig.' }, fv: FV.SA.ANGABE-UEBERSEHEN }
+    weiter: merksatz
+    bei: { FV.SA.ANGABE-UEBERSEHEN: erklaeren-frage }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst fragen, was gesucht ist. Alle Zahlen benutzen. Die Rechenart aus der Sache wählen. Zum Schluss prüfen, ob die Antwort zur Frage passt.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Heft kostet 1,20 €. Du kaufst 3 Hefte und zahlst mit 5 €. Wie viel bekommst du zurück?'
+    antwort:
+      optionen:
+        - { wert: { de: '1,40 €' }, richtig: true }
+        - { wert: { de: '3,60 €' }, fv: FV.SA.ZWISCHENERGEBNIS }
+        - { wert: { de: '4,20 €' }, fv: FV.SA.RECHENART }
+    weiter: uebergang
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-frage, FV.SA.RECHENART: erklaeren-rechenart }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt löst du selbst Aufgaben.'
+    vorlagen: [M.ZO.BR.SACH.PREIS, M.ZO.BR.SACH.ANTEIL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

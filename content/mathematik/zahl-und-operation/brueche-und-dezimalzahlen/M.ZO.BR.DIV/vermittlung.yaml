@@ -1,0 +1,90 @@
+id: M.ZO.BR.DIV
+kompetenz: M.ZO.BR.DIV
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen [[Bruch]] durch eine [[natürliche Zahl]] und durch einen Bruch teilen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne 2/3 · 4/5.'
+    antwort:
+      eingabe: { art: bruch, loesung: '8/15', fehler: [{ wert: '8/8', fv: FV.BR.REGELN-GEMISCHT }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '3/4 einer Pizza werden an 3 Kinder verteilt. Jedes bekommt gleich viel. Wie viel ist das, als [[Bruch]] in Vierteln?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    antwort:
+      eingabe:
+        { art: bruch, loesung: '1/4', fehler: [{ wert: '9/4', fv: FV.BR.ZAEHLER-ODER-NENNER }] }
+    weiter: erklaeren-durch-zahl
+  - id: erklaeren-durch-zahl
+    typ: erklaeren
+    text:
+      de: 'Durch eine Zahl teilen heißt: Jedes Teil wird in so viele Stücke geteilt. Die Teile werden kleiner, also wird der [[Nenner]] mit der Zahl malgenommen: 2/5 : 3 = 2/15.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 15, gefaerbt: 2 } }
+    weiter: erklaeren-kehrwert
+  - id: erklaeren-kehrwert
+    typ: erklaeren
+    text:
+      de: 'Durch einen [[Bruch]] teilen fragt: Wie oft passt er hinein? In 2 passt 1/2 viermal, also ist 2 : 1/2 = 2 · 2. Darum nimmst du mit dem [[Kehrwert]] des zweiten Bruchs mal.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3/4 : 1/2 = 3/4 · 2/1 = 6/4 = 3/2. Der erste [[Bruch]] bleibt, der zweite wird umgedreht.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 2/3 : 1/3 = 2/3 · 3/1. Schreibe das Ergebnis ungekürzt als [[Bruch]].'
+    antwort:
+      eingabe: { art: bruch, loesung: '6/3', fehler: [{ wert: '2/9', fv: FV.BR.KEHRWERT-REGEL }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.KEHRWERT-REGEL: erklaeren-kehrwert }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Paul rechnet 1/2 : 1/4 = 1/8. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, ein Viertel passt zweimal in eine Hälfte: 2.' }, richtig: true }
+        - { wert: { de: 'Ja, Zähler mal Zähler, Nenner mal Nenner.' }, fv: FV.BR.KEHRWERT-REGEL }
+    weiter: merksatz
+    bei: { FV.BR.KEHRWERT-REGEL: erklaeren-kehrwert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Durch eine Zahl: den [[Nenner]] mit der Zahl malnehmen. Durch einen [[Bruch]]: mit dem [[Kehrwert]] des zweiten Bruchs malnehmen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 4/5 : 2?'
+    antwort:
+      optionen:
+        - { wert: { de: '2/5' }, richtig: true }
+        - { wert: { de: '8/5' }, fv: FV.BR.ZAEHLER-ODER-NENNER }
+        - { wert: { de: '8/10' }, fv: FV.BR.ERWEITERT-STATT-GERECHNET }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.ZAEHLER-ODER-NENNER: erklaeren-durch-zahl,
+        FV.BR.ERWEITERT-STATT-GERECHNET: erklaeren-durch-zahl,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Super. Jetzt teilst du selbst.'
+    vorlagen: [M.ZO.BR.DIV.DURCH-ZAHL, M.ZO.BR.DIV.DURCH-BRUCH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

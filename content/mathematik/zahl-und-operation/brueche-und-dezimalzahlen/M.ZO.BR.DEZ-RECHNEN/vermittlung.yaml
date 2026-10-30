@@ -1,0 +1,97 @@
+id: M.ZO.BR.DEZ-RECHNEN
+kompetenz: M.ZO.BR.DEZ-RECHNEN
+niveau: G
+dauer_min: 15
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Dezimalzahlen]] addieren und subtrahieren und mit 10, 100 und 1000 malnehmen und teilen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche [[Ziffer]] steht in 4,26 an der Zehntelstelle?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '6', fv: FV.BR.STELLENWERT-DEZIMAL }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZIMAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du kaufst ein Heft für 3,50 € und einen Stift für 1,25 €. Wie viel Euro zahlst du zusammen?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '4,75', fehler: [{ wert: '1,6', fv: FV.BR.KOMMA-UNTER-KOMMA }] }
+    weiter: erklaeren-addieren
+  - id: erklaeren-addieren
+    typ: erklaeren
+    text:
+      de: 'Beim Addieren und Subtrahieren schreibst du Komma unter Komma. Dann stehen [[Zehntel]] unter Zehnteln und [[Hundertstel]] unter Hundertsteln. Fehlende Stellen füllst du mit 0: 3,50 + 1,25 = 4,75.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '12,4 + 3,85: Schreibe 12,40 über 3,85, Komma unter Komma. Rechne wie gewohnt von rechts: 16,25.'
+    weiter: erklaeren-zehnerpotenz
+  - id: erklaeren-zehnerpotenz
+    typ: erklaeren
+    text:
+      de: 'Mal 10 macht die Zahl zehnmal größer: Das Komma rückt eine Stelle nach rechts. Durch 10 rückt es nach links. Bei 100 sind es zwei Stellen, bei 1000 drei: 3,7 · 100 = 370.'
+    weiter: erklaeren-komma
+  - id: erklaeren-komma
+    typ: erklaeren
+    text:
+      de: 'Mal oder durch eine einstellige Zahl: Rechne ohne Komma und setze das Komma so, dass das Ergebnis zum [[Überschlag]] passt. 0,6 · 4: 6 · 4 = 24, Überschlag 0,5 · 4 = 2, also 2,4.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 3,7 · 100. Das Komma rückt zwei Stellen nach rechts.'
+    antwort:
+      eingabe:
+        art: zahl
+        loesung: '370'
+        fehler:
+          - { wert: '37', fv: FV.BR.ZEHNERPOTENZ }
+          - { wert: '0,037', fv: FV.BR.ZEHNERPOTENZ }
+    weiter: gegenbeispiel
+    bei: { FV.BR.ZEHNERPOTENZ: erklaeren-zehnerpotenz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben rechnet 0,8 · 3 = 24. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Überschlag: etwa 1 · 3 = 3. Richtig ist 2,4.' }, richtig: true }
+        - { wert: { de: 'Ja, 8 · 3 = 24.' }, fv: FV.BR.KOMMA-MAL }
+    weiter: merksatz
+    bei: { FV.BR.KOMMA-MAL: erklaeren-komma }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Plus und minus: Komma unter Komma. Mal 10, 100, 1000: Komma nach rechts, durch: nach links, so viele Stellen wie Nullen. Sonst hilft der [[Überschlag]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 2,5 + 0,75?'
+    antwort:
+      optionen:
+        - { wert: { de: '3,25' }, richtig: true }
+        - { wert: { de: '1,00' }, fv: FV.BR.KOMMA-UNTER-KOMMA }
+    weiter: uebergang
+    bei: { FV.BR.KOMMA-UNTER-KOMMA: erklaeren-addieren }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen:
+      [
+        M.ZO.BR.DEZ-RECHNEN.ADD-SUB,
+        M.ZO.BR.DEZ-RECHNEN.ZEHNERPOTENZ,
+        M.ZO.BR.DEZ-RECHNEN.EINSTELLIG,
+      ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

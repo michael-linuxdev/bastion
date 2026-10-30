@@ -1,0 +1,83 @@
+id: M.ZO.BR.ANTEILE
+kompetenz: M.ZO.BR.ANTEILE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Anteile als [[Bruch]], [[Dezimalzahl]] und in [[Prozent]] angeben und vergleichen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel [[Prozent]] sind 1/4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '4', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.PROZENT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Wie viel [[Prozent]] des Streifens sind gefärbt?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
+    antwort:
+      eingabe:
+        art: zahl
+        loesung: '40'
+        fehler:
+          - { wert: '2', fv: FV.BR.ANZAHL-STATT-ANTEIL }
+          - { wert: '60', fv: FV.BR.GEGENTEIL }
+    weiter: erklaeren-vergleichen
+  - id: erklaeren-vergleichen
+    typ: erklaeren
+    text:
+      de: '[[Bruch]], [[Dezimalzahl]] und [[Prozent]] sind drei Namen für denselben [[Anteil]]: 2/5 = 0,4 = 40 %. Zum Vergleichen bringst du alle in dieselbe Schreibweise, am einfachsten in Prozent.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Was ist mehr, 3/4 oder 70 %? 3/4 = 75/100 = 75 %. 75 % ist mehr als 70 %, also ist 3/4 größer.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Du willst 0,6 mit 65 % vergleichen. Wie viel [[Prozent]] sind 0,6?'
+    antwort:
+      eingabe: { art: zahl, loesung: '60', fehler: [{ wert: '6', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Max sagt: „30 % sind mehr als 2/5, weil 30 größer ist als 2 und 5.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 2/5 sind 40 %, also mehr als 30 %.' }, richtig: true }
+        - { wert: { de: 'Ja, die größere Zahl ist mehr.' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
+    weiter: merksatz
+    bei: { FV.BR.SCHREIBWEISE-VERGLEICH: erklaeren-vergleichen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Anteile in verschiedenen Schreibweisen vergleichst du erst, wenn alle gleich geschrieben sind, zum Beispiel alle in [[Prozent]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher [[Anteil]] ist am größten?'
+    antwort:
+      optionen:
+        - { wert: { de: '3/5' }, richtig: true }
+        - { wert: { de: '55 %' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
+        - { wert: { de: '0,58' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
+    weiter: uebergang
+    bei: { FV.BR.SCHREIBWEISE-VERGLEICH: erklaeren-vergleichen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt bist du dran.'
+    vorlagen: [M.ZO.BR.ANTEILE.FLAECHE, M.ZO.BR.ANTEILE.VERGLEICHEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,87 @@
+id: M.ZO.BR.DEZ-MULT-DIV
+kompetenz: M.ZO.BR.DEZ-MULT-DIV
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Dezimalzahlen]] miteinander malnehmen und durch eine Dezimalzahl teilen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne 0,3 · 10.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '0,03', fv: FV.BR.ZEHNERPOTENZ }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZ-RECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '0,3 sind 3 [[Zehntel]]. Ein Zehntel von einem Zehntel ist ein [[Hundertstel]]. Wie viel ist dann 0,3 · 0,2?'
+    antwort:
+      eingabe:
+        art: zahl
+        loesung: '0,06'
+        fehler:
+          - { wert: '0,6', fv: FV.BR.KOMMA-MAL }
+          - { wert: '6', fv: FV.BR.KOMMA-MAL }
+    weiter: erklaeren-malnehmen
+  - id: erklaeren-malnehmen
+    typ: erklaeren
+    text:
+      de: 'Malnehmen: Rechne erst ohne Komma. Das Ergebnis hat so viele [[Nachkommastellen]] wie beide Zahlen zusammen. Prüfe mit einem [[Überschlag]], ob die Größe passt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '1,2 · 0,4: Ohne Komma 12 · 4 = 48. [[Nachkommastellen]]: 1 + 1 = 2. Also 0,48. [[Überschlag]]: 1 · 0,5 = 0,5, das passt.'
+    weiter: erklaeren-teilen
+  - id: erklaeren-teilen
+    typ: erklaeren
+    text:
+      de: 'Teilen durch eine [[Dezimalzahl]]: Verschiebe das Komma bei **beiden** Zahlen gleich weit nach rechts, bis der [[Teiler]] keine [[Nachkommastellen]] mehr hat. 3,6 : 0,4 = 36 : 4 = 9.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 4,8 : 0,6. Verschiebe bei beiden das Komma: 48 : 6. Was kommt heraus?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '0,8', fv: FV.BR.KOMMA-DIVISION }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.KOMMA-DIVISION: erklaeren-teilen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ole rechnet 0,4 · 0,2 = 0,8. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, zwei Nachkommastellen: 0,08.' }, richtig: true }
+        - { wert: { de: 'Ja, 4 · 2 = 8 und eine Stelle hinter dem Komma.' }, fv: FV.BR.KOMMA-MAL }
+    weiter: merksatz
+    bei: { FV.BR.KOMMA-MAL: erklaeren-malnehmen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Mal: [[Nachkommastellen]] beider Zahlen zusammenzählen. Durch eine [[Dezimalzahl]]: bei beiden Zahlen das Komma gleich weit verschieben, bis der [[Teiler]] ganz ist.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 2,4 : 0,3?'
+    antwort:
+      optionen:
+        - { wert: { de: '8' }, richtig: true }
+        - { wert: { de: '0,8' }, fv: FV.BR.KOMMA-DIVISION }
+        - { wert: { de: '0,72' }, fv: FV.BR.KOMMA-MAL }
+    weiter: uebergang
+    bei: { FV.BR.KOMMA-DIVISION: erklaeren-teilen, FV.BR.KOMMA-MAL: erklaeren-malnehmen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.BR.DEZ-MULT-DIV.MAL, M.ZO.BR.DEZ-MULT-DIV.DURCH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

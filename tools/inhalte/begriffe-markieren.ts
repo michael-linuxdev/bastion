@@ -1,12 +1,19 @@
-// Markiert in allen Vorlagen, Anleitungen und Fehlvorstellungen das erste Vorkommen jedes
-// Fachbegriffs je Text als [[Form]] (LEHRPLAN L-7, INHALTSFORMAT §11.1).
+// Markiert in allen Vorlagen, Anleitungen, Fehlvorstellungen und Erstvermittlungen das erste
+// Vorkommen jedes Fachbegriffs je Text als [[Form]] (LEHRPLAN L-7, INHALTSFORMAT §11.1).
 // Aufruf: pnpm inhalte:begriffe
 // Ändert nur Zeilen „de: …“ und schreibt geänderte Werte in einfachen Anführungszeichen.
 // In Fehlvorstellungen nur die Erklärung und das Gegenbeispiel, nicht Name und Beschreibung.
+// In Erstvermittlungen stehen Antwortoptionen in der Kurzform `wert: { de: … }` und bleiben unberührt.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { begriffskarte, markiere, type Begriff } from '../../src/core/learning/begriffe';
-import { ladeAnleitungen, ladeBegriffe, ladeFehlvorstellungen, ladeVorlagen } from './laden';
+import {
+  ladeAnleitungen,
+  ladeBegriffe,
+  ladeFehlvorstellungen,
+  ladeVermittlungen,
+  ladeVorlagen,
+} from './laden';
 
 const ordner = process.argv[2] ?? 'content';
 const begriffe = (ladeBegriffe(ordner).daten as { begriffe: Begriff[] }).begriffe;
@@ -38,6 +45,7 @@ const dateien = [
     datei: d.datei,
     markieren: markiereFehlvorstellung,
   })),
+  ...ladeVermittlungen(ordner).map((d) => ({ datei: d.datei, markieren: markiereZeilen })),
 ];
 for (const { datei, markieren } of dateien) {
   const pfad = join(ordner, datei);

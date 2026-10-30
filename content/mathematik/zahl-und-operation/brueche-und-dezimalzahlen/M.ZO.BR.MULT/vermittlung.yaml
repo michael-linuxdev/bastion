@@ -1,0 +1,97 @@
+id: M.ZO.BR.MULT
+kompetenz: M.ZO.BR.MULT
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen [[Bruch]] mit einer Zahl und mit einem Bruch malnehmen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Berechne 1/4 von 12.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '48', fv: FV.BR.VERTAUSCHT }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.ANTEIL-VON }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Färbe dreimal ein Sechstel. Wie viel ist 3 · 1/6?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 0 } }
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '3/6'
+        fehler:
+          - { wert: '1/18', fv: FV.BR.ZAEHLER-ODER-NENNER }
+          - { wert: '3/18', fv: FV.BR.ERWEITERT-STATT-GERECHNET }
+    weiter: erklaeren-mal-zahl
+  - id: erklaeren-mal-zahl
+    typ: erklaeren
+    text:
+      de: 'Mal 3 heißt: dreimal so viele Teile. Die Teile bleiben gleich groß. Darum nimmst du nur den [[Zähler]] mal, der [[Nenner]] bleibt: 3 · 1/6 = 3/6.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 3 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2/5 · 3 = 6/5. Das ist mehr als ein Ganzes, nämlich 1 1/5.'
+    weiter: erklaeren-mal-bruch
+  - id: erklaeren-mal-bruch
+    typ: erklaeren
+    text:
+      de: '2/3 · 4/5 heißt: 4/5 von 2/3. Du zerlegst die Drittel in Fünfzehntel und nimmst einen Teil davon. Darum: [[Zähler]] mal Zähler, [[Nenner]] mal Nenner. 2/3 · 4/5 = 8/15.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 15, gefaerbt: 8 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 1/2 · 3/4. [[Zähler]] mal Zähler, [[Nenner]] mal Nenner.'
+    antwort:
+      eingabe: { art: bruch, loesung: '3/8', fehler: [{ wert: '3/6', fv: FV.BR.REGELN-GEMISCHT }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.REGELN-GEMISCHT: erklaeren-mal-bruch }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Nina rechnet 2/7 · 3 = 6/21. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 6/21 ist so groß wie 2/7. Richtig ist 6/7.' }, richtig: true }
+        - {
+            wert: { de: 'Ja, Zähler und Nenner werden malgenommen.' },
+            fv: FV.BR.ERWEITERT-STATT-GERECHNET,
+          }
+    weiter: merksatz
+    bei: { FV.BR.ERWEITERT-STATT-GERECHNET: erklaeren-mal-zahl }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Bruch]] mal Zahl: nur den [[Zähler]] malnehmen. Bruch mal Bruch: Zähler mal Zähler, [[Nenner]] mal Nenner.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 3/8 · 2?'
+    antwort:
+      optionen:
+        - { wert: { de: '6/8' }, richtig: true }
+        - { wert: { de: '3/16' }, fv: FV.BR.ZAEHLER-ODER-NENNER }
+        - { wert: { de: '6/16' }, fv: FV.BR.ERWEITERT-STATT-GERECHNET }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.ZAEHLER-ODER-NENNER: erklaeren-mal-zahl,
+        FV.BR.ERWEITERT-STATT-GERECHNET: erklaeren-mal-zahl,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.BR.MULT.MAL-ZAHL, M.ZO.BR.MULT.MAL-BRUCH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
