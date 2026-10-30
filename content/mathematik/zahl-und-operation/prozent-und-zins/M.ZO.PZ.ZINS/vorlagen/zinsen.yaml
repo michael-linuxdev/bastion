@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   hundert-vergessen:
     de: '[[Prozent]] heißt „von hundert“. Teile noch durch 100.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
   tage-vergessen:
     de: 'Das sind die [[Zinsen]] für ein ganzes Jahr. Das Geld liegt aber nur einige Tage auf dem Konto: · Tage : 360.'
+    fv: FV.PZ.ZEITRAUM
   falsche-grundaufgabe:
     de: 'Überlege zuerst, was gesucht ist: [[Kapital]], [[Zinsen]] oder [[Zinssatz]].'
+    fv: FV.PZ.GRUNDAUFGABE
 herkunft: ki-entwurf
 version: 1

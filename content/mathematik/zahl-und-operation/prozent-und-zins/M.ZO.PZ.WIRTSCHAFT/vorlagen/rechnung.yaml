@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   fehler-uebersehen:
     de: 'Rechne den Endbetrag nach: Zwischensumme plus [[Mehrwertsteuer]].'
+    fv: FV.PZ.NACHRECHNEN
   richtiges-bemaengelt:
     de: 'Diese Zeile stimmt. Rechne jede Zeile mit den Werten darüber nach.'
+    fv: FV.PZ.NACHRECHNEN
 herkunft: ki-entwurf
 version: 1

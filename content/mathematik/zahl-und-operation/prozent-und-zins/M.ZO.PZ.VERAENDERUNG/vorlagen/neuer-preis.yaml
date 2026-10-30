@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   nur-prozentwert:
     de: 'Das ist nur die Änderung. Gefragt ist der neue Preis – zähle die Änderung noch dazu bzw. zieh sie ab.'
+    fv: FV.PZ.NUR-AENDERUNG
   falsche-richtung:
     de: 'Du hast in die falsche Richtung gerechnet. Steigt der Preis, wird es teurer.'
+    fv: FV.PZ.RICHTUNG
   rueckwaerts-falscher-grundwert:
     de: 'Die Prozente beziehen sich auf den alten Preis, nicht auf den neuen. Der neue Preis ist zum Beispiel 115 % des alten: Teile durch 115 und nimm mal 100.'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
 herkunft: ki-entwurf
 version: 1

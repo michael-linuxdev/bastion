@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-grundaufgabe:
     de: 'Diese Rechnung gehört zu einer anderen Grundaufgabe. Überlege zuerst, was gesucht ist.'
+    fv: FV.PZ.GRUNDAUFGABE
   hundert-vergessen:
     de: 'In der Rechnung fehlt die 100. [[Prozent]] heißt „von hundert“.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1

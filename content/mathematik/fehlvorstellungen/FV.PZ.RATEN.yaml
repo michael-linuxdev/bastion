@@ -1,0 +1,26 @@
+id: FV.PZ.RATEN
+name:
+  de: Sieht beim Ratenkauf nur die kleine Rate
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält ein Angebot mit 12 Raten zu 25 € für günstiger als einen Barpreis von 250 €. Die einzelne
+    Rate wirkt klein; dass alle zusammen mehr kosten, wird nicht ausgerechnet.
+kompetenzen: [M.ZO.PZ.ANGEBOTE]
+erklaerung:
+  kurz:
+    de: 'Zähle beim [[Ratenkauf]] alle [[Raten]] und die Anzahlung zusammen. Erst diese [[Summe]] kannst du mit dem Barpreis vergleichen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf die [[Höhe]] einer Rate geschaut.'
+    - teil: warum-nicht
+      de: 'Kleine [[Beträge]] wirken harmlos, genau darauf setzt die Werbung. Aber 12 · 25 € sind 300 €, also 50 € mehr als bar.'
+    - teil: so-stimmt-es
+      de: 'Rechne: Anzahlung + Anzahl der [[Raten]] · Rate. Vergleiche dann diese [[Summe]] mit dem Barpreis.'
+gegenbeispiel:
+  de: '1 € am Tag klingt wenig. Im Jahr sind es 365 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.ANGEBOTE#erklaeren-ratenkauf
+kontrast: [M.ZO.PZ.ANGEBOTE.VERGLEICH, M.ZO.PZ.ANGEBOTE.KOSTEN]
+herkunft: ki-entwurf
+version: 1

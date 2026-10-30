@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   nur-prozentwert:
     de: 'Das ist nur der Nachlass oder die Steuer selbst. Gefragt ist der Preis danach.'
+    fv: FV.PZ.NUR-AENDERUNG
   aufgeschlagen:
     de: 'Ein Nachlass wird abgezogen, nicht dazugerechnet.'
+    fv: FV.PZ.RICHTUNG
   prozente-addiert:
     de: 'Das zweite [[Prozent]] bezieht sich auf den neuen Preis. Rechne nacheinander, nicht beide Prozente zusammen.'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
   mwst-abgezogen:
     de: 'Die [[Mehrwertsteuer]] kommt dazu. Und vom Brutto zurück zum Netto teilst du durch 1,19 – 19 % abziehen ist zu viel.'
+    fv: FV.PZ.RICHTUNG
 herkunft: ki-entwurf
 version: 1

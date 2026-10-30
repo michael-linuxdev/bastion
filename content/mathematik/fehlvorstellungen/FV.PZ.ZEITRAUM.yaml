@@ -1,0 +1,26 @@
+id: FV.PZ.ZEITRAUM
+name:
+  de: Rechnet Jahreszinsen, obwohl das Geld kürzer angelegt ist
+art: lesefehler
+beschreibung:
+  de: >-
+    Berechnet die Zinsen für ein ganzes Jahr, obwohl das Geld nur einige Tage oder Monate angelegt
+    ist. Der Zinssatz gilt aber immer pro Jahr.
+kompetenzen: [M.ZO.PZ.ZINS]
+erklaerung:
+  kurz:
+    de: 'Der [[Zinssatz]] gilt für ein Jahr. Liegt das Geld kürzer, nimmst du nur den passenden Teil: [[Zinsen]] · Tage : 360.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Zinsen]] für ein ganzes Jahr ausgerechnet.'
+    - teil: warum-nicht
+      de: 'Das ist der erste richtige Schritt. Aber für 90 Tage bekommst du nur einen Teil davon, etwa ein Viertel.'
+    - teil: so-stimmt-es
+      de: 'Rechne erst die Jahreszinsen, dann den Teil: Jahreszinsen · Tage : 360. In der Bank zählt ein Jahr dafür 360 Tage.'
+gegenbeispiel:
+  de: 'Wer sein Geld nur einen Monat anlegt, bekommt nicht so viele [[Zinsen]] wie für ein ganzes Jahr.'
+rueckweg:
+  vermittlung: M.ZO.PZ.ZINS#erklaeren-tageszinsen
+kontrast: [M.ZO.PZ.ZINS.ZINSEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+id: FV.PZ.UM-AUF
+name:
+  de: Verwechselt „um wie viel Prozent“ und „auf wie viel Prozent“
+art: verwechslung
+beschreibung:
+  de: >-
+    Antwortet auf „Um wie viel Prozent ist der Preis gestiegen?“ mit 115 % statt 15 % oder
+    umgekehrt. Der Unterschied zwischen der Änderung und dem neuen Anteil am alten Wert ist nicht
+    im Blick.
+kompetenzen: [M.ZO.PZ.VERAENDERUNG]
+erklaerung:
+  kurz:
+    de: '„Auf“ fragt nach dem neuen Wert im Vergleich zum alten (zum Beispiel 115 %). „Um“ fragt nach der Änderung (15 %). Der Unterschied ist immer 100 %.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast „um“ und „auf“ verwechselt.'
+    - teil: warum-nicht
+      de: 'Die beiden Wörter sind klein und leicht zu überlesen. Sie fragen aber nach Verschiedenem: nach dem ganzen neuen Wert oder nur nach der Änderung.'
+    - teil: so-stimmt-es
+      de: 'Rechne erst „auf“: neuer Wert durch alter Wert, etwa 115 %. Für „um“ ziehst du 100 % ab: 15 %.'
+gegenbeispiel:
+  de: 'Wenn der Preis gleich bleibt, ist er „auf 100 %“, aber „um 0 %“ gestiegen.'
+rueckweg:
+  vermittlung: M.ZO.PZ.VERAENDERUNG#erklaeren-um-auf
+kontrast: [M.ZO.PZ.VERAENDERUNG.UM-AUF]
+herkunft: ki-entwurf
+version: 1

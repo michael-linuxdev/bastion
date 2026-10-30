@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet richtig, hört aber einen Schritt zu früh auf: nennt den Preis statt des Rückgelds oder
     das ausgegebene Geld statt des Rests. Die Frage wurde am Ende nicht noch einmal gelesen.
-kompetenzen: [M.ZO.BR.SACH]
+kompetenzen: [M.ZO.BR.SACH, M.ZO.PZ.ANGEBOTE]
 erklaerung:
   kurz:
     de: 'Deine Rechnung stimmt, aber sie beantwortet noch nicht die Frage. Lies die Frage noch einmal: Was ist gesucht?'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: 'Gefragt „Wie viel Geld bleibt übrig?“ kann die Antwort nicht der Preis sein, sonst hättest du ja gar nichts ausgegeben.'
 rueckweg:
   vermittlung: M.ZO.BR.SACH#erklaeren-frage
-kontrast: [M.ZO.BR.SACH.ANTEIL, M.ZO.BR.SACH.PREIS]
+kontrast: [M.ZO.BR.SACH.ANTEIL, M.ZO.BR.SACH.PREIS, M.ZO.PZ.ANGEBOTE.KOSTEN]
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,27 @@
+id: FV.PZ.FALSCH-HERUM-GETEILT
+name:
+  de: Teilt beim Prozentsatz den Grundwert durch den Prozentwert
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet bei „6 von 30 Kindern“ 30 : 6 = 5 statt 6 : 30 = 0,2. Bei der Division wird die größere
+    Zahl nach vorn genommen, weil das „aufgeht“.
+kompetenzen: [M.ZO.PZ.GRUNDAUFGABEN]
+erklaerung:
+  kurz:
+    de: 'Der Teil wird durch das Ganze geteilt: [[Prozentwert]] durch [[Grundwert]]. Mach einen [[Überschlag]]: Ein Teil ist weniger als 100 %.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Ganze durch den Teil geteilt.'
+    - teil: warum-nicht
+      de: 'Große Zahl durch kleine sieht einfacher aus. Aber 6 von 30 ist ein [[Anteil]] wie der [[Bruch]] 6/30: [[Zähler]] durch [[Nenner]], also Teil durch Ganzes.'
+    - teil: so-stimmt-es
+      de: '6 : 30 = 0,2 = 20 %. Prüfe: 20 % von 30 sind 6.'
+gegenbeispiel:
+  de: '6 von 30 Kindern können nicht 500 % der Klasse sein.'
+rueckweg:
+  vermittlung: M.ZO.PZ.GRUNDAUFGABEN#erklaeren-prozentsatz
+  voraussetzung: M.ZO.BR.ANTEILE
+kontrast: [M.ZO.PZ.GRUNDAUFGABEN.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

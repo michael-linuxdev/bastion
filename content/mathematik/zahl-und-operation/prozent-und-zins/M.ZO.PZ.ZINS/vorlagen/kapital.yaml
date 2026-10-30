@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nur-zinsen:
     de: 'Das sind nur die [[Zinsen]]. Gefragt ist, wie viel Geld insgesamt auf dem Konto ist.'
+    fv: FV.PZ.NUR-AENDERUNG
   zinseszins-vergessen:
     de: 'Im zweiten Jahr werden auch die [[Zinsen]] aus dem ersten Jahr verzinst. Rechne das zweite Jahr mit dem neuen [[Kapital]].'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
 herkunft: ki-entwurf
 version: 1

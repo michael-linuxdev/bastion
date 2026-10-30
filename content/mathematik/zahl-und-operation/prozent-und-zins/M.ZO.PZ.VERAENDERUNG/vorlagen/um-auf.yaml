@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   auf-statt-um:
     de: 'Das ist „auf wie viel [[Prozent]]“. Gefragt ist „um wie viel Prozent“ – zieh noch die 100 % ab.'
+    fv: FV.PZ.UM-AUF
   um-statt-auf:
     de: 'Das ist „um wie viel [[Prozent]]“. Gefragt ist „auf wie viel Prozent“ – rechne die 100 % noch dazu bzw. zieh die Änderung von 100 % ab.'
+    fv: FV.PZ.UM-AUF
   falscher-grundwert:
     de: 'Du hast durch den neuen Preis geteilt. Der [[Grundwert]] ist der alte Preis.'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
 herkunft: ki-entwurf
 version: 1

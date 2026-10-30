@@ -1,0 +1,26 @@
+id: FV.PZ.GRUNDAUFGABE
+name:
+  de: Wählt die Rechnung, ohne zu klären, was gesucht ist
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Nimmt eine Rechnung, die zu einer anderen Grundaufgabe gehört, etwa G · p statt W : p. Die
+    gegebenen und die gesuchten Größen werden vorher nicht benannt.
+kompetenzen: [M.ZO.PZ.GRUNDAUFGABEN, M.ZO.PZ.ZINS]
+erklaerung:
+  kurz:
+    de: 'Schreibe zuerst auf, was gegeben und was gesucht ist: [[Grundwert]], [[Prozentwert]] oder [[Prozentsatz]]. Erst dann wählst du die Rechnung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Rechnung gewählt, die zu einer anderen Frage passt.'
+    - teil: warum-nicht
+      de: 'Die [[Formeln]] sehen [[ähnlich]] aus, darum greift man leicht daneben. Jede passt aber nur, wenn genau diese Größe gesucht ist.'
+    - teil: so-stimmt-es
+      de: 'Notiere G, W und p mit den Zahlen aus der Aufgabe und setze ein Fragezeichen an das Gesuchte. Prüfe am Ende mit einem [[Überschlag]].'
+gegenbeispiel:
+  de: 'Wer wissen will, wie viel 20 % von 50 € sind, sucht einen Teil. Das Ergebnis muss kleiner als 50 € sein.'
+rueckweg:
+  vermittlung: M.ZO.PZ.GRUNDAUFGABEN#erklaeren-grundaufgaben
+kontrast: [M.ZO.PZ.GRUNDAUFGABEN.RECHNUNG, M.ZO.PZ.ZINS.ZINSEN]
+herkunft: ki-entwurf
+version: 1

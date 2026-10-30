@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   hundert-vergessen:
     de: '[[Prozent]] heißt „von hundert“. In der Rechnung fehlt das Teilen bzw. Malnehmen mit 100.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
   falsch-herum-geteilt:
     de: 'Du hast falsch herum geteilt. Mach einen [[Überschlag]]: Passt das Ergebnis zur Aufgabe?'
+    fv: FV.PZ.FALSCH-HERUM-GETEILT
   prozentwert-berechnet:
     de: 'Gesucht ist der [[Grundwert]], also das Ganze. Er ist größer als der [[Prozentwert]].'
+    fv: FV.PZ.DREI-GROESSEN
 herkunft: ki-entwurf
 version: 1

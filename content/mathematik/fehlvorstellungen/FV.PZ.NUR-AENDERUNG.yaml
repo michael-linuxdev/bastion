@@ -1,0 +1,26 @@
+id: FV.PZ.NUR-AENDERUNG
+name:
+  de: Gibt nur die Änderung statt des neuen Werts an
+art: lesefehler
+beschreibung:
+  de: >-
+    Nennt bei „Der Preis steigt um 15 %“ nur die 15 % des Preises, nicht den neuen Preis, oder bei
+    Zinsen nur die Zinsen statt des Kontostands.
+kompetenzen: [M.ZO.PZ.VERAENDERUNG, M.ZO.PZ.WIRTSCHAFT, M.ZO.PZ.ZINS]
+erklaerung:
+  kurz:
+    de: 'Das ist nur die Änderung. Gefragt ist der Wert danach: Zähle die Änderung zum alten Wert dazu oder ziehe sie ab.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Änderung richtig ausgerechnet und sie als Antwort genommen.'
+    - teil: warum-nicht
+      de: 'Das war der schwierige Schritt. Die Frage will aber wissen, wie viel es danach ist. Die Änderung ist nur ein Zwischenergebnis.'
+    - teil: so-stimmt-es
+      de: 'Neuer Preis = alter Preis ± Änderung. Oder in einem Schritt: 15 % mehr heißt 115 %, also alter Preis · 1,15.'
+gegenbeispiel:
+  de: 'Wenn eine Jacke für 80 € um 20 % teurer wird, kostet sie danach nicht 16 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.VERAENDERUNG#erklaeren-neuer-wert
+kontrast: [M.ZO.PZ.VERAENDERUNG.NEUER-PREIS, M.ZO.PZ.WIRTSCHAFT.PREIS, M.ZO.PZ.ZINS.KAPITAL]
+herkunft: ki-entwurf
+version: 1
