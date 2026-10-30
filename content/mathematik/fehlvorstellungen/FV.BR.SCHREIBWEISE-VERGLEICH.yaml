@@ -1,0 +1,29 @@
+id: FV.BR.SCHREIBWEISE-VERGLEICH
+name:
+  de: Vergleicht Anteile in verschiedenen Schreibweisen nur nach den Ziffern
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält 30 % für mehr als 2/5, weil 30 größer ist als 2 und 5, oder sieht nicht, dass 1/4 und 25 %
+    gleich groß sind. Bruch, Dezimalzahl und Prozent werden noch nicht als verschiedene Namen für
+    denselben Anteil gesehen.
+kompetenzen: [M.ZO.BR.ANTEILE]
+erklaerung:
+  kurz:
+    de: 'Verschiedene Schreibweisen kannst du nicht direkt vergleichen. Schreibe beide Werte erst in [[Prozent]] um, dann vergleiche.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen verglichen, so wie sie dastehen.'
+    - teil: warum-nicht
+      de: 'Das klappt, solange beide gleich geschrieben sind. Aber 2/5 und 40 % sind derselbe [[Anteil]] in zwei Schreibweisen. Die Zahl 40 ist nur größer, weil sie [[Hundertstel]] zählt.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
+    - teil: so-stimmt-es
+      de: 'Bringe beide in dieselbe Schreibweise: 2/5 = 40/100 = 40 %. Jetzt siehst du: 40 % ist mehr als 30 %.'
+gegenbeispiel:
+  de: '1/2 und 50 % sind beide eine Hälfte, obwohl 50 viel größer aussieht als 1 und 2.'
+rueckweg:
+  vermittlung: M.ZO.BR.ANTEILE#erklaeren-vergleichen
+  voraussetzung: M.ZO.BR.PROZENT
+kontrast: [M.ZO.BR.ANTEILE.VERGLEICHEN]
+herkunft: ki-entwurf
+version: 1

@@ -207,6 +207,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
+  - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
+  - [ ] **U5b** Fehlerbilder zuordnen in den übrigen Feldern (natürliche Zahlen, Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen, Funktionen, Größen, Geometrie, Daten und Zufall), je Feld ein PR
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -226,6 +228,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5a:** Fehlerbilder im Feld Brüche und Dezimalzahlen den Fehlvorstellungen zugeordnet (67 Fehlerbilder, 35 neue Fehlvorstellungen, zusammen 45); Test F2 für zugeordnete Felder; `pnpm inhalte:begriffe` markiert auch Fehlvorstellungen |
 | 30.10.2026 | **U3 und U4a fertig** (PRs #52–#64): Erstvermittlung in der App, Diagnose der Fehlvorstellungen, Zwischenschritte (K-29), Fehlerwerkstatt nach Ursachen, Testprotokoll (K-14); Datenbank-Schemaversion 3; Startseite für das iPhone 13 korrigiert. Nächster Schritt: U4b (Test), Entscheidung zu U5 offen |
 | 29.10.2026 | **Neue Ausrichtung: Unterrichtsersatz ohne KI** (K-23 bis K-28). `VISION.md` v1.0, neues `VERMITTLUNG.md`, Schwelle für Variante A in `STRATEGIE.md` §0, Arbeitsplan §4b; Nicht-Ziele §2.1 mit Hinweisen ergänzt |
 | 29.10.2026 | K-22 umgesetzt: Grafik in Richtung A „Tag, warm“ (`GRAFIK.md` §5); B-11 (Draufsicht) abgelöst; Schrift Nunito mitgeliefert (T-16) |

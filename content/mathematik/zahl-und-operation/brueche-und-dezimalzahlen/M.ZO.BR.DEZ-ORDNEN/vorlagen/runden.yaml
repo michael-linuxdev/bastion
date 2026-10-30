@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   abgeschnitten:
     de: 'Du hast die Stellen nur weggelassen. Ist die nächste [[Ziffer]] 5 oder größer, wird aufgerundet.'
+    fv: FV.NZ.RUNDEN-ABGESCHNITTEN
   falsche-stelle:
     de: Du hast auf eine andere Stelle gerundet. Lies noch einmal, auf welche Stelle gerundet werden soll.
+    fv: FV.NZ.RUNDEN-STELLE
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.NZ.UMKEHRAUFGABE
+name:
+  de: Nutzt beim Lösen nicht die Umkehrrechnung
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst x + 3/4 = 2 mit 2 + 3/4 oder 3 · x = 1/2 mit 3 · 1/2. Die Zahlen aus der Gleichung werden
+    mit derselben Rechenart verrechnet, die dasteht. Die Idee „rückwärts rechnen“ fehlt.
+kompetenzen: [M.SF.BR.GLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: 'Rechne rückwärts mit der [[Umkehraufgabe]]: Aus plus wird minus, aus mal wird geteilt. Mach danach die [[Probe]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit derselben Rechenart gerechnet, die in der [[Gleichung]] steht.'
+    - teil: warum-nicht
+      de: 'Die Zahlen und das Zeichen stehen ja da, darum liegt das nahe. Aber gesucht ist die Zahl **vor** der Rechnung. Um zurückzukommen, musst du die Rechnung rückgängig machen.'
+    - teil: so-stimmt-es
+      de: 'x + 3/4 = 2, also x = 2 − 3/4 = 5/4. [[Probe]]: 5/4 + 3/4 = 8/4 = 2. Es stimmt.'
+gegenbeispiel:
+  de: 'Wenn x + 1 = 5 ist, kann x nicht 6 sein: 6 + 1 ist 7.'
+rueckweg:
+  vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-umkehraufgabe
+kontrast: [M.SF.BR.GLEICHUNGEN.PLUS-MINUS, M.SF.BR.GLEICHUNGEN.MAL]
+herkunft: ki-entwurf
+version: 1

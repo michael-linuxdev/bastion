@@ -1,0 +1,26 @@
+id: FV.BR.REGELN-GEMISCHT
+name:
+  de: Vermischt beim Malnehmen von Brüchen die Regeln für Plus und Mal
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet 2/3 · 4/5 = 8/8: Die Zähler werden malgenommen, die Nenner addiert. Teile der Regeln
+    für Addition und Multiplikation werden zusammengesetzt.
+kompetenzen: [M.ZO.BR.MULT]
+erklaerung:
+  kurz:
+    de: 'Beim Malnehmen von Brüchen gilt eine einfache Regel: [[Zähler]] mal Zähler, [[Nenner]] mal Nenner. Addiert wird nichts.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Zähler]] malgenommen und die [[Nenner]] addiert.'
+    - teil: warum-nicht
+      de: 'Für [[Brüche]] gibt es mehrere Regeln, da passiert so etwas leicht. Aber 2/3 · 4/5 heißt: 4/5 von 2/3. Das Ergebnis ist kleiner als 2/3. Du siehst es, wenn du die Teile weiter zerlegst: Aus Dritteln werden Fünfzehntel, nicht Achtel.'
+    - teil: so-stimmt-es
+      de: '2/3 · 4/5 = (2 · 4)/(3 · 5) = 8/15.'
+gegenbeispiel:
+  de: '1/2 · 1/2 ist die Hälfte einer Hälfte, also ein Viertel. Mit „[[Nenner]] plus Nenner“ käme 1/4 nur zufällig heraus: 1/3 · 1/3 gäbe 1/6 statt 1/9.'
+rueckweg:
+  vermittlung: M.ZO.BR.MULT#erklaeren-mal-bruch
+kontrast: [M.ZO.BR.MULT.MAL-BRUCH]
+herkunft: ki-entwurf
+version: 1

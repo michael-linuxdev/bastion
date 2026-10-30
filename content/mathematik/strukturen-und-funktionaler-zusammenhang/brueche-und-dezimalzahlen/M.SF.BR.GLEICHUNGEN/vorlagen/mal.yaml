@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   mal-statt-durch:
     de: 'Du hast malgenommen statt geteilt. Die [[Umkehraufgabe]] zu „mal“ ist „geteilt“. Mach die [[Probe]]!'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

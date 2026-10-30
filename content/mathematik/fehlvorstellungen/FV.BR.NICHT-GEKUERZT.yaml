@@ -1,0 +1,27 @@
+id: FV.BR.NICHT-GEKUERZT
+name:
+  de: Vergisst am Ende das Kürzen
+art: lesefehler
+beschreibung:
+  de: >-
+    Wandelt richtig um, etwa 0,25 = 25/100, kürzt aber nicht, obwohl die Aufgabe „kürze vollständig“
+    verlangt. Das Kürzen wird als Zusatz gesehen, nicht als Teil der Antwort.
+kompetenzen: [M.ZO.BR.DEZIMAL]
+erklaerung:
+  kurz:
+    de: 'Dein [[Bruch]] ist richtig, aber noch nicht [[gekürzt]]. Suche einen [[gemeinsamen Teiler]] von [[Zähler]] und [[Nenner]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig umgewandelt und dann aufgehört.'
+    - teil: warum-nicht
+      de: 'Der Wert stimmt, das ist schon viel. Die Aufgabe will den [[Bruch]] aber in seiner einfachsten Form. 25/100 und 1/4 sind gleich groß, doch 1/4 sieht man sofort an, wie viel es ist.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    - teil: so-stimmt-es
+      de: 'Prüfe am Ende immer: Haben [[Zähler]] und [[Nenner]] einen [[gemeinsamen Teiler]]? 25/100 = 1/4, denn beide lassen sich durch 25 teilen.'
+gegenbeispiel:
+  de: 'Niemand sagt „fünfzig [[Hundertstel]] einer Pizza“. Man sagt „eine halbe Pizza“.'
+rueckweg:
+  vermittlung: M.ZO.BR.ERWEITERN#erklaeren-kuerzen
+kontrast: [M.ZO.BR.DEZIMAL.DEZIMAL-ZU-BRUCH]
+herkunft: ki-entwurf
+version: 1

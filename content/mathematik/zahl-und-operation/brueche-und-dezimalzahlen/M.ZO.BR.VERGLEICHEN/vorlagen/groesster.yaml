@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   groesster-nenner:
     de: 'Der größte [[Nenner]] macht den [[Bruch]] nicht groß – im Gegenteil, die Teile werden kleiner.'
+    fv: FV.BR.NENNER-GROESSER
   groesster-zaehler:
     de: 'Ein großer [[Zähler]] allein reicht nicht. Es kommt auf das Verhältnis von Zähler und [[Nenner]] an.'
+    fv: FV.BR.NUR-ZAEHLER
 herkunft: ki-entwurf
 version: 1

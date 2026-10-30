@@ -1,0 +1,26 @@
+id: FV.SA.RECHENART
+name:
+  de: Wählt die Rechenart nach den Zahlen statt nach der Sache
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Addiert Menge und Preis je Kilogramm, statt sie malzunehmen. Die Rechenart wird geraten oder
+    nach Gewohnheit gewählt. Was die Zahlen in der Sache bedeuten, wird nicht übersetzt.
+kompetenzen: [M.ZO.BR.SACH]
+erklaerung:
+  kurz:
+    de: 'Frage dich, was die Zahlen bedeuten. Preis je Kilogramm mal Kilogramm ergibt den Gesamtpreis.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden Zahlen addiert.'
+    - teil: warum-nicht
+      de: 'Addieren ist oft richtig, wenn Dinge zusammenkommen. Hier sind es aber verschiedene Dinge: Kilogramm und Euro je Kilogramm. Die kann man nicht zusammenzählen.'
+    - teil: so-stimmt-es
+      de: 'Stell dir eine kleine Zahl vor: 2 kg zu 3 € je kg kosten 3 € + 3 €, also 2 · 3 € = 6 €. Genauso rechnest du mit den Zahlen der Aufgabe.'
+gegenbeispiel:
+  de: '10 kg Kartoffeln zu 1 € je kg kosten 10 €, nicht 11 €.'
+rueckweg:
+  vermittlung: M.ZO.BR.SACH#erklaeren-rechenart
+kontrast: [M.ZO.BR.SACH.PREIS]
+herkunft: ki-entwurf
+version: 1

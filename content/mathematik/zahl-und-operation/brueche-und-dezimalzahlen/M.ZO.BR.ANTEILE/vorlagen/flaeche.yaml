@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   anzahl-statt-prozent:
     de: 'Das ist die Anzahl der gefärbten Kästchen. Gesucht ist ihr [[Anteil]] in [[Prozent]] – vergleiche mit allen Kästchen.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
   ungefaerbt:
     de: 'Das ist der [[Anteil]] der weißen Kästchen. Gesucht ist der gefärbte Anteil.'
+    fv: FV.BR.GEGENTEIL
 herkunft: ki-entwurf
 version: 1

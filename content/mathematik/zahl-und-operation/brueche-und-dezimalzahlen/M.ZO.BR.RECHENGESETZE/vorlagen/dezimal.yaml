@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   links-nach-rechts:
     de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]] – erst das Malnehmen.'
+    fv: FV.NZ.PUNKT-VOR-STRICH
   klammer-uebersehen:
     de: Du hast die Klammer übersehen. Was in der Klammer steht, wird zuerst gerechnet.
+    fv: FV.NZ.KLAMMER
   quadrat-mal-zwei:
     de: 'Du hast mit 2 malgenommen. Hoch 2 heißt: die Zahl mal sich selbst.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
   quadrat-komma:
     de: 'Das Komma steht falsch. Beim Malnehmen zählst du die [[Nachkommastellen]] beider Zahlen zusammen.'
+    fv: FV.BR.KOMMA-MAL
 herkunft: ki-entwurf
 version: 1

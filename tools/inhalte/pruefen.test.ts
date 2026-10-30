@@ -41,11 +41,14 @@ describe('Inhalte in content/', () => {
   it('Bericht', () => {
     const tabelle = abdeckung(bericht);
     const fertig = [...tabelle.values()].filter((z) => Object.values(z).every((n) => n >= 2));
+    const fbs = vorlagen.flatMap((v) => Object.values(v.fehlerbilder));
+    const mitFv = fbs.filter((t) => (t as { fv?: string }).fv).length;
     const begonnen = [...tabelle.entries()].filter(([, z]) => Object.values(z).some((n) => n > 0));
     console.log(
       [
         `Kompetenzen: ${kompetenzen.length} · Vorlagen: ${vorlagen.length}`,
         `Abdeckung (≥ 2 Vorlagen je Niveau): ${fertig.length} von ${tabelle.size} Kompetenzen`,
+        `Fehlerbilder mit Fehlvorstellung (F2): ${mitFv} von ${fbs.length}`,
         ...begonnen.map(
           ([id, z]) =>
             `  ${id}: ${Object.entries(z)
@@ -83,5 +86,31 @@ describe('Inhalte in content/', () => {
         bericht.fehlvorstellungen.filter((f) => f.kompetenzen.includes(k)).length,
         k,
       ).toBeGreaterThanOrEqual(3);
+  });
+
+  // Felder, deren Fehlerbilder schon zugeordnet sind (PLAN U5a): Präfix der Kompetenz-ID
+  const FV_ZUGEORDNET = ['M.ZO.BR.', 'M.SF.BR.'];
+  const zugeordnet = (kompetenz: string) => FV_ZUGEORDNET.some((p) => kompetenz.startsWith(p));
+
+  it('zugeordnete Felder: jedes Fehlerbild verweist auf eine Fehlvorstellung (F2)', () => {
+    const ohne = vorlagen
+      .filter((v) => zugeordnet(v.kompetenz))
+      .flatMap((v) =>
+        Object.entries(v.fehlerbilder)
+          .filter(([, t]) => !(t as { fv?: string }).fv)
+          .map(([fid]) => `${v.id}: ${fid}`),
+      );
+    expect(ohne).toEqual([]);
+  });
+
+  it('eine Fehlvorstellung nennt jede Kompetenz, in deren Vorlagen sie vorkommt', () => {
+    const nachId = new Map(bericht.fehlvorstellungen.map((f) => [f.id, f]));
+    const fehlt = vorlagen.flatMap((v) =>
+      Object.values(v.fehlerbilder).flatMap((t) => {
+        const fv = nachId.get((t as { fv?: string }).fv ?? '');
+        return fv && !fv.kompetenzen.includes(v.kompetenz) ? [`${fv.id}: ${v.kompetenz}`] : [];
+      }),
+    );
+    expect([...new Set(fehlt)]).toEqual([]);
   });
 });

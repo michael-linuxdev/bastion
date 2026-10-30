@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   prozentzahl-groesser:
     de: 'Die Zahl vor dem Prozentzeichen ist größer, aber der [[Anteil]] nicht. Rechne beide in [[Prozent]] um und vergleiche dann.'
+    fv: FV.BR.SCHREIBWEISE-VERGLEICH
   gleich-uebersehen:
     de: 'Rechne beide in [[Prozent]] um: Die Anteile sind genau gleich groß.'
+    fv: FV.BR.SCHREIBWEISE-VERGLEICH
 herkunft: ki-entwurf
 version: 1

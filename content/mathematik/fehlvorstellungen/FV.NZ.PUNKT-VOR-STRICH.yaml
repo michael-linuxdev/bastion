@@ -1,0 +1,26 @@
+id: FV.NZ.PUNKT-VOR-STRICH
+name:
+  de: Rechnet von links nach rechts statt Punkt vor Strich
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 2 + 3 · 4 = 20 statt 14. Die Leserichtung wird zur Rechenrichtung. Die Vorrangregel ist
+    bekannt, wird aber vergessen, sobald die Zahlen Brüche oder Dezimalzahlen sind.
+kompetenzen: [M.ZO.BR.RECHENGESETZE]
+erklaerung:
+  kurz:
+    de: 'Es gilt [[Punkt vor Strich]]: Erst malnehmen und teilen, dann addieren und subtrahieren. Das gilt auch mit Brüchen und [[Dezimalzahlen]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast von links nach rechts gerechnet, so wie man liest.'
+    - teil: warum-nicht
+      de: 'Beim Lesen ist das die richtige Richtung, darum ist es naheliegend. In der Mathematik gibt es aber eine feste Reihenfolge, damit jeder dasselbe Ergebnis bekommt: [[Punkt vor Strich]].'
+    - teil: so-stimmt-es
+      de: 'Suche zuerst die Mal- und Geteilt-Zeichen und rechne sie aus. 2 + 3 · 4 = 2 + 12 = 14.'
+gegenbeispiel:
+  de: '2 € Eintritt plus 3 Getränke zu je 4 € sind 14 €. Mit 20 € würdest du 6 € zu viel bezahlen.'
+rueckweg:
+  vermittlung: M.SF.NZ.TERME#erklaeren-punkt-vor-strich
+kontrast: [M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT, M.ZO.BR.RECHENGESETZE.DEZIMAL]
+herkunft: ki-entwurf
+version: 1

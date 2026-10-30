@@ -1,0 +1,28 @@
+id: FV.BR.ANTEIL-EIN-SCHRITT
+name:
+  de: Rechnet beim „Anteil von“ nur einen der beiden Schritte
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 3/4 von 20 als 20 : 4 = 5 oder als 20 · 3 = 60. Die Vorstellung „erst in gleiche Teile
+    teilen, dann so viele Teile nehmen, wie der Zähler sagt“ fehlt noch; übrig bleibt eine halbe Regel.
+kompetenzen: [M.ZO.BR.ANTEIL-VON]
+erklaerung:
+  kurz:
+    de: 'Zwei Schritte: Teile das Ganze durch den [[Nenner]], dann nimm das Ergebnis mal den [[Zähler]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur einen Schritt gerechnet: entweder nur geteilt oder nur malgenommen.'
+    - teil: warum-nicht
+      de: 'Jeder Schritt für sich ist richtig gedacht. Aber 3/4 heißt: in 4 gleiche Teile teilen **und** 3 davon nehmen. Mit nur einem Schritt hast du entweder nur ein Teil oder viel zu viel.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: '3/4 von 20: Erst 20 : 4 = 5, das ist ein Viertel. Dann 5 · 3 = 15, das sind drei Viertel.'
+gegenbeispiel:
+  de: '3/4 von 20 ist weniger als 20. Herauskommen kann also weder 60 noch nur 5, denn 5 ist erst ein Viertel.'
+rueckweg:
+  vermittlung: M.ZO.BR.ANTEIL-VON#erklaeren-anteil-von
+  voraussetzung: M.ZO.BR.BEGRIFF
+kontrast: [M.ZO.BR.ANTEIL-VON.ALLGEMEIN]
+herkunft: ki-entwurf
+version: 1

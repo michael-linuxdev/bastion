@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   striche-statt-abstaende:
     de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen.
+    fv: FV.BR.STRICHE-GEZAEHLT
   nur-teile-gezaehlt:
     de: Du hast die Anzahl der Abschnitte angegeben. Jeder Abschnitt ist aber nur 0,1 groß.
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
 herkunft: ki-entwurf
 version: 1

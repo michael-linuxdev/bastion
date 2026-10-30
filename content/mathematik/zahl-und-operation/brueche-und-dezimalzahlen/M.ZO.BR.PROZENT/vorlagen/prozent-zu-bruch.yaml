@@ -18,7 +18,9 @@ hilfen:
 fehlerbilder:
   komma-verschoben:
     de: '[[Prozent]] heißt „von Hundert“ – der [[Nenner]] ist zuerst 100.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
   prozent-als-nenner-zehn:
     de: '[[Prozent]] heißt „von Hundert“ – der [[Nenner]] ist 100, nicht 10.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1

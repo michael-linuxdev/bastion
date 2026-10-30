@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   striche-statt-abstaende:
     de: Du hast die Striche gezählt, nicht die Abschnitte dazwischen. Zwischen 0 und 1 liegen so viele Abschnitte wie Teile.
+    fv: FV.BR.STRICHE-GEZAEHLT
   nur-teile-gezaehlt:
     de: 'Gib die Zahl als [[Bruch]] an – nicht nur die Anzahl der Abschnitte.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
 herkunft: ki-entwurf
 version: 1

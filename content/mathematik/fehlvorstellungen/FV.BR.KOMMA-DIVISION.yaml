@@ -1,0 +1,27 @@
+id: FV.BR.KOMMA-DIVISION
+name:
+  de: Verschiebt beim Teilen durch eine Dezimalzahl das Komma nur bei einer Zahl
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 4,8 : 0,4 als 4,8 : 4 = 1,2. Das Komma wird nur beim Teiler entfernt. Dadurch ändert
+    sich der Wert der Aufgabe. Richtig wäre 48 : 4 = 12.
+kompetenzen: [M.ZO.BR.DEZ-MULT-DIV]
+erklaerung:
+  kurz:
+    de: 'Verschiebe das Komma bei **beiden** Zahlen um gleich viele Stellen nach rechts, bis der [[Teiler]] keine [[Nachkommastellen]] mehr hat.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Komma nur bei der zweiten Zahl weggelassen.'
+    - teil: warum-nicht
+      de: 'Das Ziel stimmt: Durch eine Zahl ohne Komma teilt es sich leichter. Aber wenn du nur eine Zahl veränderst, ist es eine andere Aufgabe. Nimmst du beide mit 10 mal, bleibt das Ergebnis gleich.'
+    - teil: so-stimmt-es
+      de: '4,8 : 0,4 = 48 : 4 = 12. Beide Zahlen wurden mit 10 malgenommen.'
+gegenbeispiel:
+  de: 'Wie viele 40-Cent-Stücke passen in 4,80 €? Zwölf. Herauskommen kann also nicht 1,2.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZ-MULT-DIV#erklaeren-teilen
+  voraussetzung: M.ZO.BR.DEZ-RECHNEN
+kontrast: [M.ZO.BR.DEZ-MULT-DIV.DURCH]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,29 @@
+id: FV.BR.KOMMA-ALS-BRUCHSTRICH
+name:
+  de: Schreibt Zähler und Nenner mit Komma hintereinander
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 3/4 als 3,4 oder 7/5 als 7,5. Bruchstrich und Komma werden als zwei Arten gesehen,
+    zwei Zahlen zusammenzuschreiben. Dass hinter dem Komma Zehntel, Hundertstel … stehen, ist noch
+    nicht verankert.
+kompetenzen: [M.ZO.BR.DEZIMAL, M.ZO.BR.PERIODISCH]
+erklaerung:
+  kurz:
+    de: 'Das Komma ersetzt nicht den Bruchstrich. [[Erweitere]] den [[Bruch]] auf 10, 100 oder 1000 oder teile den [[Zähler]] durch den [[Nenner]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast aus dem Bruchstrich ein Komma gemacht.'
+    - teil: warum-nicht
+      de: 'Beide Schreibweisen trennen zwei Zahlen, darum wirkt das [[ähnlich]]. Aber 3,4 heißt 3 Ganze und 4 [[Zehntel]]. 3/4 ist dagegen weniger als ein Ganzes.'
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 4, markiert: 3 } }
+    - teil: so-stimmt-es
+      de: '[[Erweitere]] auf einen [[Nenner]] 10, 100 oder 1000: 3/4 = 75/100 = 0,75.'
+gegenbeispiel:
+  de: '1/2 ist eine Hälfte, also 0,5. Mit Komma geschrieben wäre 1,2 mehr als ein Ganzes.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZIMAL#erklaeren-umwandeln
+  voraussetzung: M.ZO.BR.ERWEITERN
+kontrast: [M.ZO.BR.DEZIMAL.BRUCH-ZU-DEZIMAL, M.ZO.BR.PERIODISCH.UNECHT-ZU-DEZIMAL]
+herkunft: ki-entwurf
+version: 1

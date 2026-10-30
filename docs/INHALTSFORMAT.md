@@ -528,14 +528,19 @@ version: 1
 **Regeln:**
 
 - **ID:** `FV.<FELD>.<NAME>` in Großbuchstaben. Sie ist gleich dem Dateinamen und stabil wie Vorlagen-IDs (I-4).
+  - `<FELD>` ist das Feld, in dem die Fehlvorstellung zuerst gelernt wird, auch wenn sie später woanders auftritt: `FV.NZ.PUNKT-VOR-STRICH` gehört zu den natürlichen Zahlen, tritt aber auch bei Brüchen auf.
+  - `FV.SA.…` steht für Fehler beim Lösen von Sachaufgaben (Frage nicht beantwortet, Angabe übersehen, Rechenart geraten). Sie gehören zu keinem Feld.
+  - Die Erklärung muss zu **allen** Fehlerbildern passen, die auf die Fehlvorstellung verweisen, denn sie erscheint unter jedem davon.
 - `art` ist eine von: `falsche-grundvorstellung`, `falsche-regel`, `uebergeneralisiert`, `verwechslung`, `lesefehler`, `rechenfehler`.
-- `kompetenzen`: mindestens eine, alle vorhanden.
+- `kompetenzen`: mindestens eine, alle vorhanden. Jede Kompetenz, in deren Vorlagen ein Fehlerbild auf die Fehlvorstellung verweist, steht darin (Test in `tools/inhalte/pruefen.test.ts`).
 - `erklaerung.kurz` hat höchstens 35 Wörter. `erklaerung.lang` enthält genau die Teile `so-denkst-du`, `warum-nicht` und `so-stimmt-es`, in dieser Reihenfolge (F3, F4).
 - `gegenbeispiel` ist Pflicht.
 - `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
 - `kontrast`: mindestens eine vorhandene Vorlage (F3).
 
-**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld nachgerüstet ist (F2, PLAN U5).
+**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld zugeordnet ist (F2, PLAN U5). Die zugeordneten Felder stehen in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`).
+
+*Zuordnung U5a (30.10.2026):* Brüche und Dezimalzahlen (`M.ZO.BR.…`, `M.SF.BR.…`) sind zugeordnet, alle 67 übrigen Fehlerbilder der 40 Vorlagen. Dazu kamen 35 neue Fehlvorstellungen (jetzt 45), zwei vorhandene gelten jetzt auch in weiteren Kompetenzen (`FV.BR.VERTAUSCHT` beim Anteil von, `FV.BR.GEGENTEIL` bei Flächenanteilen). Der Rückweg nennt bei Kompetenzen ohne Erstvermittlung schon den Schritt, den sie später haben soll (etwa `M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler`). Bis dahin zeigt die App dort keinen Knopf „Zur Erklärung“.
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 

@@ -1,0 +1,27 @@
+id: FV.BR.PERIODE-UNGERADE
+name:
+  de: Hält jeden Bruch mit ungeradem Nenner für periodisch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Meint, 3/5 oder 7/25 ergeben eine periodische Dezimalzahl, weil der Nenner ungerade ist. Eine
+    selbst gebildete Faustregel ersetzt den Blick auf die Teiler des Nenners.
+kompetenzen: [M.ZO.BR.PERIODISCH]
+erklaerung:
+  kurz:
+    de: 'Entscheidend ist, ob sich der [[Nenner]] auf 10, 100, 1000 … [[erweitern]] lässt. Das geht, wenn er nur die [[Teiler]] 2 und 5 hat, zum Beispiel 5 oder 25.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: Ungerader [[Nenner]], also [[periodisch]].'
+    - teil: warum-nicht
+      de: 'Bei 1/3, 1/7 und 1/9 stimmt das, darum wirkt die Regel richtig. Aber 1/5 = 2/10 = 0,2 endet. Die 5 passt in 10, auch wenn sie ungerade ist.'
+    - teil: so-stimmt-es
+      de: 'Zerlege den [[Nenner]] in [[Primfaktoren]]. Kommen nur 2 und 5 vor, endet die [[Dezimalzahl]]. Kommt eine andere [[Primzahl]] vor, etwa 3 oder 7, ist sie [[periodisch]].'
+gegenbeispiel:
+  de: '3/25 = 12/100 = 0,12. Der [[Nenner]] 25 ist ungerade, die Zahl hört trotzdem auf.'
+rueckweg:
+  vermittlung: M.ZO.BR.PERIODISCH#erklaeren-endlich
+  voraussetzung: M.ZO.TB.PRIM
+kontrast: [M.ZO.BR.PERIODISCH.ERKENNEN]
+herkunft: ki-entwurf
+version: 1

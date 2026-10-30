@@ -1,0 +1,30 @@
+id: FV.BR.LAENGER-GROESSER
+name:
+  de: Hält eine Dezimalzahl mit mehr Nachkommastellen für größer
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint 0,45 > 0,5, weil 45 > 5. Die Ziffern hinter dem Komma werden wie eine natürliche Zahl
+    gelesen („Länger ist größer“). Eine der bekanntesten Fehlvorstellungen bei Dezimalzahlen.
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Mehr Stellen machen eine [[Dezimalzahl]] nicht größer. Vergleiche Stelle für Stelle von links, zuerst die [[Zehntel]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Ziffern]] hinter dem Komma wie eine [[ganze Zahl]] gelesen: 45 ist mehr als 5.'
+    - teil: warum-nicht
+      de: 'Bei [[natürlichen Zahlen]] ist die längere Zahl größer, darum liegt der Gedanke nahe. Hinter dem Komma ist es anders: 0,5 sind 5 [[Zehntel]], 0,45 nur 4 Zehntel und 5 [[Hundertstel]].'
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 5 } }
+    - teil: so-stimmt-es
+      de: 'Hänge Nullen an, bis beide gleich viele [[Nachkommastellen]] haben: 0,50 und 0,45. Jetzt siehst du: 50 [[Hundertstel]] sind mehr als 45 Hundertstel.'
+gegenbeispiel:
+  de: '0,5 € sind 50 Cent. 0,45 € sind 45 Cent. Also ist 0,5 größer.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZ-ORDNEN#erklaeren-vergleichen
+  voraussetzung: M.ZO.BR.DEZIMAL
+kontrast: [M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN]
+quelle:
+  de: Fachdidaktik Dezimalzahlen („Länger ist größer“)
+herkunft: ki-entwurf
+version: 1

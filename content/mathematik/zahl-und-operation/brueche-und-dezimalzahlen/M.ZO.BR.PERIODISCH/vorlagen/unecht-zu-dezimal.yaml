@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   ziffern-hintereinander:
     de: '[[Zähler]] und [[Nenner]] werden nicht einfach mit Komma hintereinander geschrieben. [[Erweitere]] auf 10, 100 oder 1000.'
+    fv: FV.BR.KOMMA-ALS-BRUCHSTRICH
   kehrwert:
     de: 'Du hast den [[Nenner]] durch den [[Zähler]] geteilt. Es ist umgekehrt – der Zähler wird durch den Nenner geteilt.'
+    fv: FV.BR.BRUCHSTRICH-DIVISION
 herkunft: ki-entwurf
 version: 1

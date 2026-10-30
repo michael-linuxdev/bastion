@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   nenner-mal-zahl:
     de: 'Du hast den [[Nenner]] malgenommen. Dadurch werden die Teile kleiner – das Ergebnis müsste aber größer werden. Nimm den [[Zähler]] mal.'
+    fv: FV.BR.ZAEHLER-ODER-NENNER
   beide-mal-zahl:
     de: 'Du hast [[Zähler]] und [[Nenner]] malgenommen. Das ist [[Erweitern]] – der Wert bleibt gleich. Beim Malnehmen wird nur der Zähler malgenommen.'
+    fv: FV.BR.ERWEITERT-STATT-GERECHNET
 herkunft: ki-entwurf
 version: 1

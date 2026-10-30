@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   ausgabe-statt-rest:
     de: Das ist das Geld, das ausgegeben wurde. Gefragt ist, wie viel übrig bleibt.
+    fv: FV.SA.ZWISCHENERGEBNIS
   nur-erste-ausgabe:
     de: Du hast nur die erste Ausgabe abgezogen. Es gibt noch eine zweite.
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1

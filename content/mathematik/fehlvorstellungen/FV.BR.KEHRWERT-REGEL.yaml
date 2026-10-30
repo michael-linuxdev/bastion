@@ -1,0 +1,28 @@
+id: FV.BR.KEHRWERT-REGEL
+name:
+  de: Wendet beim Teilen durch einen Bruch den Kehrwert falsch oder gar nicht an
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 2/3 : 4/5 als 2/3 · 4/5 (ohne Kehrwert) oder als 3/2 · 4/5 (Kehrwert vom ersten Bruch).
+    Die Regel „mal Kehrwert“ ist gehört, aber nicht verstanden: Durch 4/5 teilen heißt fragen,
+    wie oft 4/5 hineinpasst.
+kompetenzen: [M.ZO.BR.DIV]
+erklaerung:
+  kurz:
+    de: 'Teilen durch einen [[Bruch]] heißt: mit dem [[Kehrwert]] des **zweiten** Bruchs malnehmen. Der erste bleibt, wie er ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast malgenommen, aber nicht den richtigen [[Bruch]] umgedreht.'
+    - teil: warum-nicht
+      de: 'Die Regel ist schwer zu merken, wenn man nicht weiß, warum sie gilt. Durch 1/2 teilen fragt: Wie oft passt eine Hälfte hinein? In 3 passt sie 6-mal. Also ist 3 : 1/2 = 3 · 2. Umgedreht wird der [[Bruch]], durch den geteilt wird.'
+    - teil: so-stimmt-es
+      de: '2/3 : 4/5 = 2/3 · 5/4 = 10/12 = 5/6. Der erste [[Bruch]] bleibt, der zweite wird umgedreht.'
+gegenbeispiel:
+  de: '1 : 1/2 ist 2, denn zwei Hälften passen in ein Ganzes. Ohne [[Kehrwert]] käme 1/2 heraus.'
+rueckweg:
+  vermittlung: M.ZO.BR.DIV#erklaeren-kehrwert
+  voraussetzung: M.ZO.BR.MULT
+kontrast: [M.ZO.BR.DIV.DURCH-BRUCH]
+herkunft: ki-entwurf
+version: 1

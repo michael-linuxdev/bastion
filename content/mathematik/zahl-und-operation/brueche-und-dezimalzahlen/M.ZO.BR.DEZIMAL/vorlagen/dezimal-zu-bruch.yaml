@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   immer-zehntel:
     de: 'Bei zwei [[Nachkommastellen]] sind es [[Hundertstel]], nicht [[Zehntel]].'
+    fv: FV.BR.STELLENWERT-DEZIMAL
   nicht-gekuerzt:
     de: 'Richtig umgewandelt – jetzt noch vollständig [[kürzen]].'
+    fv: FV.BR.NICHT-GEKUERZT
 herkunft: ki-entwurf
 version: 1

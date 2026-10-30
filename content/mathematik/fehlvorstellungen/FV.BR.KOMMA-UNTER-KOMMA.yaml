@@ -1,0 +1,27 @@
+id: FV.BR.KOMMA-UNTER-KOMMA
+name:
+  de: Schreibt Dezimalzahlen beim Addieren rechtsbündig statt Komma unter Komma
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Schreibt 3,5 + 1,25 so untereinander, dass die letzten Ziffern übereinander stehen, und rechnet
+    35 + 125. Das ist von den natürlichen Zahlen übertragen, wo Einer unter Einer stehen.
+kompetenzen: [M.ZO.BR.DEZ-RECHNEN]
+erklaerung:
+  kurz:
+    de: 'Schreibe Komma unter Komma. Dann stehen [[Zehntel]] unter Zehnteln und [[Hundertstel]] unter Hundertsteln.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen rechts bündig untereinander geschrieben.'
+    - teil: warum-nicht
+      de: 'Bei [[natürlichen Zahlen]] ist das richtig, denn dort stehen ganz rechts immer die Einer. Bei [[Dezimalzahlen]] steht rechts mal eine [[Zehntel]]-, mal eine Hundertstelstelle. Dann rechnest du verschiedene Stellen zusammen.'
+    - teil: so-stimmt-es
+      de: 'Komma unter Komma, fehlende Stellen mit Nullen füllen: 3,50 + 1,25 = 4,75.'
+gegenbeispiel:
+  de: '3,5 € + 1,25 € sind 4,75 €. Rechtsbündig gerechnet kämen 1,60 € heraus, weniger als 3,5 € allein.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZ-RECHNEN#erklaeren-addieren
+  voraussetzung: M.ZO.BR.DEZIMAL
+kontrast: [M.ZO.BR.DEZ-RECHNEN.ADD-SUB]
+herkunft: ki-entwurf
+version: 1

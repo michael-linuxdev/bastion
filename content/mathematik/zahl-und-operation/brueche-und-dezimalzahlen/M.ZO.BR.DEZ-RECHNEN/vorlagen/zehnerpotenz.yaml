@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   komma-um-eine-stelle-falsch:
     de: Das Komma steht eine Stelle falsch. Zähle die Nullen von {b} – so viele Stellen wandert das Komma.
+    fv: FV.BR.ZEHNERPOTENZ
   komma-falsche-richtung:
     de: Das Komma ist in die falsche Richtung gewandert. Beim Malnehmen wird die Zahl größer, beim Teilen kleiner.
+    fv: FV.BR.ZEHNERPOTENZ
 herkunft: ki-entwurf
 version: 1

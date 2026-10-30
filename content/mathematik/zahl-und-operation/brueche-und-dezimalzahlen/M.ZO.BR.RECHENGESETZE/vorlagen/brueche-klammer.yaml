@@ -19,5 +19,6 @@ hilfen:
 fehlerbilder:
   klammer-uebersehen:
     de: Du hast die Klammer übersehen. Was in der Klammer steht, wird zuerst gerechnet.
+    fv: FV.NZ.KLAMMER
 herkunft: ki-entwurf
 version: 1

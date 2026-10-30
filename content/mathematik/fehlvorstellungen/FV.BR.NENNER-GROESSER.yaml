@@ -1,0 +1,30 @@
+id: FV.BR.NENNER-GROESSER
+name:
+  de: Hält einen Bruch mit größerem Nenner für größer
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint 1/8 > 1/4, weil 8 > 4. Das Wissen über natürliche Zahlen („größere Zahl, mehr“) wird auf
+    den Nenner übertragen. Dabei macht ein größerer Nenner die Teile kleiner.
+kompetenzen: [M.ZO.BR.VERGLEICHEN]
+erklaerung:
+  kurz:
+    de: 'Ein größerer [[Nenner]] heißt: Das Ganze ist in mehr Teile geteilt, also ist jedes Teil **kleiner**.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: Größerer [[Nenner]], größerer [[Bruch]].'
+    - teil: warum-nicht
+      de: 'Bei [[natürlichen Zahlen]] stimmt „größer ist mehr“. Der [[Nenner]] sagt aber, in wie viele Teile du das Ganze schneidest. Je mehr Teile, desto kleiner wird jedes.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 1 } }
+    - teil: so-stimmt-es
+      de: 'Haben zwei [[Brüche]] denselben [[Zähler]], dann ist der mit dem kleineren [[Nenner]] größer: 1/4 > 1/8.'
+gegenbeispiel:
+  de: 'Teilst du eine Pizza mit 8 Freunden statt mit 4, bekommt jeder weniger. 1/8 ist kleiner als 1/4.'
+rueckweg:
+  vermittlung: M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler
+  voraussetzung: M.ZO.BR.BEGRIFF
+kontrast: [M.ZO.BR.VERGLEICHEN.ZEICHEN, M.ZO.BR.VERGLEICHEN.GROESSTER]
+quelle:
+  de: Fachdidaktik Bruchrechnung (Übertragung von den natürlichen Zahlen)
+herkunft: ki-entwurf
+version: 1

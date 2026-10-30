@@ -1,0 +1,28 @@
+id: FV.BR.ERWEITERT-STATT-GERECHNET
+name:
+  de: Erweitert, statt mit der Zahl malzunehmen oder durch sie zu teilen
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet 2/5 · 3 = 6/15 oder 2/5 : 3 = 6/15. Zähler und Nenner werden mit derselben Zahl
+    malgenommen. Das ist Erweitern: Der Wert bleibt gleich, gerechnet wurde also gar nichts.
+kompetenzen: [M.ZO.BR.MULT, M.ZO.BR.DIV]
+erklaerung:
+  kurz:
+    de: 'Nimmst du [[Zähler]] und [[Nenner]] mit derselben Zahl mal, ist das [[Erweitern]]: Der Wert bleibt gleich. Hier nimmst du nur einen Teil des Bruchs mal.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Zähler]] und [[Nenner]] beide mit der Zahl malgenommen.'
+    - teil: warum-nicht
+      de: 'Das kennst du vom [[Erweitern]], und dort ist es richtig. Aber 2/5 und 6/15 sind gleich groß. Nach dem Malnehmen oder Teilen muss etwas anderes herauskommen als vorher.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 15, gefaerbt: 6 } }
+    - teil: so-stimmt-es
+      de: 'Malnehmen: nur den [[Zähler]] malnehmen, 2/5 · 3 = 6/5. Teilen: nur den [[Nenner]] malnehmen, 2/5 : 3 = 2/15.'
+gegenbeispiel:
+  de: '1/2 · 2 ist ein Ganzes. 2/4 ist aber wieder nur die Hälfte.'
+rueckweg:
+  vermittlung: M.ZO.BR.MULT#erklaeren-mal-zahl
+  voraussetzung: M.ZO.BR.ERWEITERN
+kontrast: [M.ZO.BR.MULT.MAL-ZAHL, M.ZO.BR.DIV.DURCH-ZAHL]
+herkunft: ki-entwurf
+version: 1

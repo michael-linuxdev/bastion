@@ -16,9 +16,12 @@ hilfen:
 fehlerbilder:
   nur-geteilt:
     de: 'Du hast nur durch den [[Nenner]] geteilt. Multipliziere noch mit dem [[Zähler]].'
+    fv: FV.BR.ANTEIL-EIN-SCHRITT
   nur-mit-zaehler-mal:
     de: 'Du hast nur mit dem [[Zähler]] multipliziert. Teile zuerst durch den [[Nenner]].'
+    fv: FV.BR.ANTEIL-EIN-SCHRITT
   zaehler-nenner-vertauscht:
     de: 'Du hast mit dem [[Nenner]] multipliziert. Durch den Nenner wird geteilt.'
+    fv: FV.BR.VERTAUSCHT
 herkunft: ki-entwurf
 version: 1

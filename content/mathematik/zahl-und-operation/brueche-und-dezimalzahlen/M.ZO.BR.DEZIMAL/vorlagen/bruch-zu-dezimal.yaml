@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   zaehler-komma-nenner:
     de: '[[Zähler]] und [[Nenner]] werden nicht einfach mit Komma hintereinander geschrieben. [[Erweitere]] zuerst auf 10, 100 oder 1000.'
+    fv: FV.BR.KOMMA-ALS-BRUCHSTRICH
   stelle-verschoben:
     de: 'Das Komma steht an der falschen Stelle. [[Zehntel]] stehen direkt hinter dem Komma, [[Hundertstel]] an der zweiten Stelle.'
+    fv: FV.BR.STELLENWERT-DEZIMAL
 herkunft: ki-entwurf
 version: 1

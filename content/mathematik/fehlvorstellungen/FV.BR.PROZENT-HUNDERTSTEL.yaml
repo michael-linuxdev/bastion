@@ -1,0 +1,28 @@
+id: FV.BR.PROZENT-HUNDERTSTEL
+name:
+  de: Versteht Prozent nicht als Hundertstel
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 0,25 als 2,5 % oder 30 % als 30/10. Dass „Prozent“ „von Hundert“ heißt und 1 % ein
+    Hundertstel ist, ist noch nicht verankert. Das Komma wird dann nach Gefühl verschoben.
+kompetenzen: [M.ZO.BR.PROZENT]
+erklaerung:
+  kurz:
+    de: '[[Prozent]] heißt „von Hundert“: 1 % = 1/100 = 0,01. Der [[Nenner]] ist immer 100.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Prozent]] nicht als [[Hundertstel]] umgewandelt.'
+    - teil: warum-nicht
+      de: 'Das Komma zu verschieben ist der richtige Weg, nur die Zahl der Stellen stimmt nicht. Die Prozentzahl zählt [[Hundertstel]]: 0,25 sind 25 Hundertstel, also 25 %.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    - teil: so-stimmt-es
+      de: 'Von der [[Dezimalzahl]] zu [[Prozent]]: Komma zwei Stellen nach rechts, 0,25 = 25 %. Von Prozent zum [[Bruch]]: die Zahl über 100 schreiben und [[kürzen]], 30 % = 30/100 = 3/10.'
+gegenbeispiel:
+  de: 'Ein Viertel einer Klasse ist nie nur 2,5 % der Klasse. Bei 100 Kindern wären das nicht einmal 3.'
+rueckweg:
+  vermittlung: M.ZO.BR.PROZENT#erklaeren-hundertstel
+  voraussetzung: M.ZO.BR.DEZIMAL
+kontrast: [M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT, M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH]
+herkunft: ki-entwurf
+version: 1
