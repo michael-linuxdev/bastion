@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nullen-vergessen:
     de: 'Es fehlen Nullen. Jede Stelle braucht eine [[Ziffer]] – auch wenn sie nicht gesprochen wird. Die [[Stellenwerttafel]] hilft dir.'
+    fv: FV.NZ.NULL-PLATZHALTER
   zehner-einer-vertauscht:
     de: 'Zehner und Einer sind vertauscht. Im Deutschen sagt man die Einer zuerst: „vierundzwanzig“ heißt 2 Zehner und 4 Einer, also 24.'
+    fv: FV.NZ.ZEHNER-EINER
 herkunft: ki-entwurf
 version: 1

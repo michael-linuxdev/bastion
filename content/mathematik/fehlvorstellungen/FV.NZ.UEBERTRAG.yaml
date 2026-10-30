@@ -1,0 +1,28 @@
+id: FV.NZ.UEBERTRAG
+name:
+  de: Vergisst den Übertrag
+art: rechenfehler
+beschreibung:
+  de: >-
+    Schreibt beim schriftlichen Addieren oder Multiplizieren nur die Einer einer Spaltensumme hin
+    und lässt den Zehner weg, oder rundet 3 960 auf Hunderter zu 3 900 + 100 = 3 000. Der
+    Übertrag ist bekannt, wird aber nicht notiert oder nicht weitergegeben.
+kompetenzen: [M.ZO.NZ.ADD-SUB, M.ZO.NZ.MULT, M.ZO.NZ.RUNDEN]
+erklaerung:
+  kurz:
+    de: 'Wird eine Stelle 10 oder mehr, gibt es einen [[Übertrag]]: Der Zehner wandert als 1 zur Stelle links daneben. Schreibe ihn klein auf, damit du ihn nicht vergisst.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast in einer Spalte nur die Einer aufgeschrieben, der Zehner ist verloren gegangen.'
+    - teil: warum-nicht
+      de: 'In jeder Stelle darf nur eine [[Ziffer]] stehen, darum schreibt man die Einer hin. Die 10 ist aber nicht weg: Zehn Einer sind ein Zehner, zehn Zehner ein Hunderter. Sie gehört in die nächste Stelle.'
+    - teil: so-stimmt-es
+      de: '8 + 7 = 15: Schreibe 5 hin und die kleine 1 über die nächste Spalte. Rechne sie dort mit. Beim Runden genauso: 3 960 auf Hunderter wird 4 000.'
+gegenbeispiel:
+  de: '58 + 7 ist mehr als 60. Ohne [[Übertrag]] käme 55 heraus, weniger als 58.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ADD-SUB#erklaeren-uebertrag
+  voraussetzung: M.ZO.NZ.STELLENWERT
+kontrast: [M.ZO.NZ.ADD-SUB.ADDIEREN, M.ZO.NZ.MULT.SCHRIFTLICH, M.ZO.NZ.RUNDEN.AUF-STELLE]
+herkunft: ki-entwurf
+version: 1

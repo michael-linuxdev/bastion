@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet (2 + 3) · 4 wie 2 + 3 · 4 = 14 statt 20. Die Klammer wird übersehen oder durch
     „Punkt vor Strich“ überstimmt.
-kompetenzen: [M.ZO.BR.RECHENGESETZE]
+kompetenzen: [M.ZO.BR.RECHENGESETZE, M.SF.NZ.TERME]
 erklaerung:
   kurz:
     de: 'Was in der Klammer steht, wird immer zuerst gerechnet, noch vor [[Punkt vor Strich]].'
@@ -21,6 +21,7 @@ gegenbeispiel:
   de: '2 Äpfel und 3 Birnen, und das für 4 Kinder: (2 + 3) · 4 = 20 Stück Obst, nicht 14.'
 rueckweg:
   vermittlung: M.SF.NZ.TERME#erklaeren-klammern
-kontrast: [M.ZO.BR.RECHENGESETZE.BRUECHE-KLAMMER, M.ZO.BR.RECHENGESETZE.DEZIMAL]
+kontrast:
+  [M.ZO.BR.RECHENGESETZE.BRUECHE-KLAMMER, M.ZO.BR.RECHENGESETZE.DEZIMAL, M.SF.NZ.TERME.KLAMMERN]
 herkunft: ki-entwurf
 version: 1

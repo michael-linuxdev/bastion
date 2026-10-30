@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Weiß, welche Zahl größer ist, setzt aber das falsche Zeichen. Kein Verständnisfehler beim
     Vergleichen, sondern beim Lesen und Schreiben der Zeichen.
-kompetenzen: [M.ZO.BR.DEZ-ORDNEN]
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN, M.ZO.NZ.ORDNEN]
 erklaerung:
   kurz:
     de: 'Die Spitze des Zeichens zeigt immer auf die kleinere Zahl, die offene Seite auf die größere: 3 < 5.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: '1 < 100 stimmt. 1 > 100 hieße: 1 ist größer als 100.'
 rueckweg:
   vermittlung: M.ZO.NZ.ORDNEN#erklaeren-zeichen
-kontrast: [M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN]
+kontrast: [M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN, M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN]
 herkunft: ki-entwurf
 version: 1

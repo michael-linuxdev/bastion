@@ -1,0 +1,26 @@
+id: FV.NZ.RUNDEN-RICHTUNG
+name:
+  de: Rundet in die falsche Richtung
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rundet 3 460 auf Hunderter zu 3 400 oder 3 420 zu 3 500. Oft wird auf die falsche Ziffer
+    geschaut (nicht die direkt rechts neben der Rundungsstelle) oder die Grenze 5 verwechselt.
+kompetenzen: [M.ZO.NZ.RUNDEN]
+erklaerung:
+  kurz:
+    de: 'Nur die [[Ziffer]] direkt rechts neben der [[Rundungsstelle]] entscheidet: 0 bis 4 abrunden, 5 bis 9 aufrunden.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast aufgerundet, wo abgerundet wird, oder umgekehrt.'
+    - teil: warum-nicht
+      de: 'Bei vielen [[Ziffern]] schaut man leicht auf die falsche. Runden heißt aber: zur **näheren** Zahl. 3 460 liegt näher an 3 500 als an 3 400.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche die [[Rundungsstelle]] und mache einen Pfeil auf die [[Ziffer]] rechts daneben. Nur sie zählt.'
+gegenbeispiel:
+  de: '1 980 € sind fast 2 000 €. Auf Tausender abgerundet wären es nur 1 000 €.'
+rueckweg:
+  vermittlung: M.ZO.NZ.RUNDEN#erklaeren-runden
+kontrast: [M.ZO.NZ.RUNDEN.AUF-STELLE]
+herkunft: ki-entwurf
+version: 1

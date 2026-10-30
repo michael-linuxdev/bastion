@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   nur-ein-teil-multipliziert:
     de: Du hast nur die glatte Zahl mit {a} multipliziert. Auch der kleine Rest muss mit {a} multipliziert werden.
+    fv: FV.NZ.VERTEILEN-HALB
 herkunft: ki-entwurf
 version: 1

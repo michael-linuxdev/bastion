@@ -1,0 +1,29 @@
+id: FV.NZ.KLEINERE-VON-GROESSERER
+name:
+  de: Zieht in jeder Spalte die kleinere von der größeren Ziffer ab
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 52 − 38 als 26: In der Einerspalte wird 8 − 2 statt 2 − 8 gerechnet. Wer noch nicht
+    entbündeln kann, dreht die Rechnung um. Einer der häufigsten Fehler beim schriftlichen
+    Subtrahieren.
+kompetenzen: [M.ZO.NZ.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Es wird immer unten von oben abgezogen. Reicht die obere [[Ziffer]] nicht, [[entbündelst]] du einen Zehner aus der Stelle links.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast in einer Spalte die obere von der unteren [[Ziffer]] abgezogen, weil oben die kleinere stand.'
+    - teil: warum-nicht
+      de: '2 − 8 geht mit [[natürlichen Zahlen]] nicht, darum ist das Umdrehen verständlich. Aber 52 − 38 heißt: Von 52 nimmst du 38 weg. Die Reihenfolge darf sich nicht ändern.'
+    - teil: so-stimmt-es
+      de: 'Hole einen Zehner: Aus 5 Zehnern und 2 Einern werden 4 Zehner und 12 Einer. 12 − 8 = 4 und 4 − 3 = 1, also 14.'
+gegenbeispiel:
+  de: '[[Probe]]: 26 + 38 = 64, nicht 52. Mit 14 klappt es: 14 + 38 = 52.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ADD-SUB#erklaeren-entbuendeln
+kontrast: [M.ZO.NZ.ADD-SUB.SUBTRAHIEREN]
+quelle:
+  de: Fachdidaktik Arithmetik („smaller from larger“)
+herkunft: ki-entwurf
+version: 1

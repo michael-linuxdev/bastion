@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   kleinere-von-groesserer:
     de: 'Du hast in einer Spalte die obere von der unteren [[Ziffer]] abgezogen. Es wird immer die untere von der oberen abgezogen – reicht es nicht, [[entbündelst]] du.'
+    fv: FV.NZ.KLEINERE-VON-GROESSERER
   entbuendeln-vergessen:
     de: 'Du hast [[entbündelt]], aber die Stelle links daneben nicht um 1 verringert.'
+    fv: FV.NZ.ENTBUENDELN
 herkunft: ki-entwurf
 version: 1

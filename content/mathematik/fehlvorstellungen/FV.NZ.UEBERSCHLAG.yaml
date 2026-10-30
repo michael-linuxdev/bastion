@@ -1,0 +1,26 @@
+id: FV.NZ.UEBERSCHLAG
+name:
+  de: Versteht den Überschlag nicht als Rechnen mit gerundeten Zahlen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet genau, rundet nur eine Zahl oder rundet erst das Ergebnis. Der Überschlag wird als
+    „ungefähres Ergebnis“ verstanden, nicht als schnelles Rechnen mit einfachen Zahlen.
+kompetenzen: [M.ZO.NZ.RUNDEN]
+erklaerung:
+  kurz:
+    de: 'Beim [[Überschlag]] rundest du zuerst **beide** Zahlen und rechnest dann mit den gerundeten Zahlen im Kopf.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast anders gerechnet: genau, nur mit einer gerundeten Zahl oder erst am Ende gerundet.'
+    - teil: warum-nicht
+      de: 'Ein ungefähres Ergebnis wolltest du richtig. Der [[Überschlag]] soll aber schnell gehen und zum Prüfen dienen. Das klappt nur, wenn du mit einfachen Zahlen rechnest.'
+    - teil: so-stimmt-es
+      de: '387 + 512: Erst runden auf 400 und 500, dann rechnen: 400 + 500 = 900.'
+gegenbeispiel:
+  de: 'Wer an der Kasse überschlägt, rechnet nicht 3,87 € + 5,12 € genau aus, sondern 4 € + 5 €.'
+rueckweg:
+  vermittlung: M.ZO.NZ.RUNDEN#erklaeren-ueberschlag
+kontrast: [M.ZO.NZ.RUNDEN.UEBERSCHLAG]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,26 @@
+id: FV.NZ.REST-ZU-GROSS
+name:
+  de: Lässt einen Rest stehen, der noch einmal durch die Zahl teilbar ist
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 29 : 4 = 6 Rest 5. Der Teiler passt noch einmal hinein. Dass der Rest immer kleiner sein
+    muss als die Zahl, durch die geteilt wird, ist noch nicht verankert.
+kompetenzen: [M.ZO.NZ.DIV]
+erklaerung:
+  kurz:
+    de: 'Der Rest muss immer kleiner sein als die Zahl, durch die du teilst. Sonst passt sie noch einmal hinein.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast aufgehört zu teilen, obwohl noch genug übrig war.'
+    - teil: warum-nicht
+      de: 'Im Kopf wählt man leicht eine Zahl zu klein. Aber teilen heißt: so oft wie möglich. Bleiben 5 übrig und du teilst durch 4, bekommt jeder noch einen.'
+    - teil: so-stimmt-es
+      de: 'Prüfe nach jedem Schritt: Ist der Rest kleiner als der [[Teiler]]? 29 : 4 = 7 Rest 1, denn 7 · 4 = 28.'
+gegenbeispiel:
+  de: '29 Bonbons für 4 Kinder: Bleiben 5 übrig, kann jedes Kind noch eins bekommen.'
+rueckweg:
+  vermittlung: M.ZO.NZ.DIV#erklaeren-rest
+kontrast: [M.ZO.NZ.DIV.MIT-REST, M.ZO.NZ.DIV.OHNE-REST]
+herkunft: ki-entwurf
+version: 1

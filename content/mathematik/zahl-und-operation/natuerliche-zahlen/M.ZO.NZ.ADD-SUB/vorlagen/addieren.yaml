@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   uebertrag-vergessen:
     de: 'Du hast einen [[Übertrag]] vergessen. Ist eine Spaltensumme 10 oder mehr, wandert der Zehner in die nächste Spalte links.'
+    fv: FV.NZ.UEBERTRAG
   stellen-verrutscht:
     de: 'Die Zahlen stehen nicht [[stellengerecht]] untereinander. Richte sie rechts aus – Einer unter Einer.'
+    fv: FV.NZ.STELLENGERECHT
 herkunft: ki-entwurf
 version: 1

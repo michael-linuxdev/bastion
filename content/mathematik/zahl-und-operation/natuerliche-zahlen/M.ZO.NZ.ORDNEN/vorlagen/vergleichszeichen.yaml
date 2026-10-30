@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   erste-ziffer-verglichen:
     de: 'Du hast nur die erste [[Ziffer]] verglichen. Die Zahlen haben aber verschieden viele Stellen – die Zahl mit mehr Stellen ist größer.'
+    fv: FV.NZ.ERSTE-ZIFFER
   zeichen-verdreht:
     de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt immer auf die kleinere Zahl: 3 < 5.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
 herkunft: ki-entwurf
 version: 1

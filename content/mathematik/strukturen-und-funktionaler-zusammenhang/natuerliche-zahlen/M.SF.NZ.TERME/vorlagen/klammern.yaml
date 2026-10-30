@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   von-links-gerechnet:
     de: Achte auf die Reihenfolge der Rechenschritte.
+    fv: FV.NZ.PUNKT-VOR-STRICH
   klammer-uebersehen:
     de: Du hast die Klammer übersehen. Was in der Klammer steht, wird immer zuerst gerechnet.
+    fv: FV.NZ.KLAMMER
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.NZ.VERTEILEN-HALB
+name:
+  de: Nimmt beim Zerlegen nur einen Teil mal
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 7 · 23 als 7 · 20 + 3 = 143. Die Zahl wird zerlegt, aber nur die glatte Zahl wird
+    malgenommen. Dass jeder Teil mit dem Faktor malgenommen werden muss, ist noch nicht verankert.
+kompetenzen: [M.ZO.NZ.REGELN]
+erklaerung:
+  kurz:
+    de: 'Wenn du eine Zahl zerlegst, nimmst du **jeden** Teil mal: 7 · 23 = 7 · 20 + 7 · 3.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur die glatte Zahl malgenommen und den Rest einfach dazugezählt.'
+    - teil: warum-nicht
+      de: 'Das Zerlegen ist ein guter Trick. Aber 7 · 23 heißt: 7 Gruppen zu je 23. In jeder Gruppe stecken 20 und 3. Also brauchst du 7-mal die 20 und 7-mal die 3.'
+    - teil: so-stimmt-es
+      de: '7 · 23 = 7 · 20 + 7 · 3 = 140 + 21 = 161.'
+gegenbeispiel:
+  de: '7 Tüten mit je 23 Murmeln: Jede Tüte hat ihre 3 Murmeln extra, also 21 extra, nicht nur 3.'
+rueckweg:
+  vermittlung: M.ZO.NZ.REGELN#erklaeren-verteilen
+kontrast: [M.ZO.NZ.REGELN.VERTEILEN]
+herkunft: ki-entwurf
+version: 1

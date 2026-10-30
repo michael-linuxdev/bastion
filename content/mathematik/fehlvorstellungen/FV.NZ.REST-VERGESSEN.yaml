@@ -1,0 +1,26 @@
+id: FV.NZ.REST-VERGESSEN
+name:
+  de: Gibt den Rest nicht mit an
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet richtig, nennt aber nur das Ergebnis ohne den Rest. Der Rest wird als Nebensache
+    gesehen oder die Aufgabe nicht zu Ende gelesen.
+kompetenzen: [M.ZO.NZ.DIV]
+erklaerung:
+  kurz:
+    de: 'Dein Ergebnis stimmt, aber es bleibt etwas übrig. Der Rest gehört zur Antwort.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig geteilt und den Rest weggelassen.'
+    - teil: warum-nicht
+      de: 'Der Rest wirkt wie ein kleiner Zusatz. Aber ohne ihn stimmt die Rechnung nicht mehr: 7 · 4 ist 28, nicht 29.'
+    - teil: so-stimmt-es
+      de: 'Schreibe den Rest immer mit: 29 : 4 = 7 Rest 1. [[Probe]]: 7 · 4 + 1 = 29.'
+gegenbeispiel:
+  de: 'Wer 29 Bonbons an 4 Kinder verteilt, hat am Ende 1 Bonbon in der Hand.'
+rueckweg:
+  vermittlung: M.ZO.NZ.DIV#erklaeren-rest
+kontrast: [M.ZO.NZ.DIV.MIT-REST]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,28 @@
+id: FV.NZ.STELLENGERECHT
+name:
+  de: Schreibt die Zahlen beim schriftlichen Rechnen nicht stellengerecht untereinander
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 245 + 38 linksbündig oder rückt beim schriftlichen Multiplizieren das zweite
+    Teilprodukt nicht ein. Dann werden Ziffern verschiedener Stellen zusammengerechnet. Die
+    Stellenwerte stehen beim Aufschreiben nicht im Blick.
+kompetenzen: [M.ZO.NZ.ADD-SUB, M.ZO.NZ.MULT]
+erklaerung:
+  kurz:
+    de: 'Jede [[Ziffer]] steht unter der Stelle, zu der sie gehört: Einer unter Einern, Zehner unter Zehnern.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen so untereinander geschrieben, dass verschiedene Stellen übereinander stehen.'
+    - teil: warum-nicht
+      de: 'Beim Lesen fängt man links an, darum liegt das nahe. Rechnen darf man aber nur Einer mit Einern und Zehner mit Zehnern. Beim Malnehmen mit dem Zehner ist das [[Teilprodukt]] zehnmal so groß, darum rückt es eine Stelle nach links.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Zahlen **rechtsbündig**, die Einer ganz rechts. Wer mag, schreibt E, Z, H über die Spalten.'
+gegenbeispiel:
+  de: '245 + 38 ist weniger als 300. Linksbündig gerechnet käme 625 heraus.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ADD-SUB#erklaeren-stellengerecht
+  voraussetzung: M.ZO.NZ.STELLENWERT
+kontrast: [M.ZO.NZ.ADD-SUB.ADDIEREN, M.ZO.NZ.MULT.SCHRIFTLICH]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   wie-woerter-sortiert:
     de: 'Du hast nur auf die erste [[Ziffer]] geschaut – so wie man Wörter im Alphabet ordnet. Bei Zahlen zählt zuerst, wie viele Stellen sie haben.'
+    fv: FV.NZ.ERSTE-ZIFFER
   absteigend:
     de: Die Reihenfolge ist genau umgekehrt. Beginne mit der kleinsten Zahl.
+    fv: FV.NZ.REIHENFOLGE-UMGEKEHRT
 herkunft: ki-entwurf
 version: 1

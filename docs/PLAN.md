@@ -208,7 +208,9 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
-  - [ ] **U5b** Fehlerbilder zuordnen in den übrigen Feldern (natürliche Zahlen, Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen, Funktionen, Größen, Geometrie, Daten und Zufall), je Feld ein PR
+  - [ ] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16):
+    - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
+    - [ ] Teilbarkeit · rationale Zahlen · Prozent · Terme und Gleichungen · Funktionen · Größen · Geometrie · Daten und Zufall
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -228,6 +230,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b natürliche Zahlen:** 43 Fehlerbilder zugeordnet, 18 neue Fehlvorstellungen; vorhandene `FV.NZ.…` mit Beispielen ohne Brüche |
 | 30.10.2026 | **U5a:** Fehlerbilder im Feld Brüche und Dezimalzahlen den Fehlvorstellungen zugeordnet (67 Fehlerbilder, 35 neue Fehlvorstellungen, zusammen 45); Test F2 für zugeordnete Felder; `pnpm inhalte:begriffe` markiert auch Fehlvorstellungen |
 | 30.10.2026 | **U3 und U4a fertig** (PRs #52–#64): Erstvermittlung in der App, Diagnose der Fehlvorstellungen, Zwischenschritte (K-29), Fehlerwerkstatt nach Ursachen, Testprotokoll (K-14); Datenbank-Schemaversion 3; Startseite für das iPhone 13 korrigiert. Nächster Schritt: U4b (Test), Entscheidung zu U5 offen |
 | 29.10.2026 | **Neue Ausrichtung: Unterrichtsersatz ohne KI** (K-23 bis K-28). `VISION.md` v1.0, neues `VERMITTLUNG.md`, Schwelle für Variante A in `STRATEGIE.md` §0, Arbeitsplan §4b; Nicht-Ziele §2.1 mit Hinweisen ergänzt |
