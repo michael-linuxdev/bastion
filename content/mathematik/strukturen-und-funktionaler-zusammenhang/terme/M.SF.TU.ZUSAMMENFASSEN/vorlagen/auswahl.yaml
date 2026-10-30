@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   minusklammer:
     de: 'Vor der Klammer steht ein Minus. Dann wechseln **alle** Glieder in der Klammer ihr [[Vorzeichen]]: −(2·x − 3·y) = −2·x + 3·y.'
+    fv: FV.TU.MINUSKLAMMER
   ungleichartige-zusammengefasst:
     de: 'x-Glieder und Zahlen (oder x und y) kann man nicht zusammenfassen – sie bleiben getrennt stehen.'
+    fv: FV.TU.UNGLEICHARTIG
   vorzeichen-verloren:
     de: 'Achte auf das [[Vorzeichen]] vor jedem Glied. Ein Minus gehört zu dem Glied, das danach kommt.'
+    fv: FV.TU.VORZEICHEN-GLIED
 herkunft: ki-entwurf
 version: 1

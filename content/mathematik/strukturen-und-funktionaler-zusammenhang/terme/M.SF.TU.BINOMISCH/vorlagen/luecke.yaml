@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nicht-verdoppelt:
     de: 'Das Mittelglied ist 2·a·b – du hast das Doppelte vergessen.'
+    fv: FV.TU.MITTELGLIED
   nicht-quadriert:
     de: 'Das letzte Glied ist das Quadrat der Zahl: 5² = 25, nicht 2 · 5.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
   vorzeichen-falsch:
     de: 'Bei (a + b)·(a − b) steht vor b² ein Minus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   grenze-selbst:
     de: 'Die Grenze selbst erfüllt die [[Ungleichung]] nicht – bei < oder > gehört sie nicht dazu.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
   zeichen-nicht-gedreht:
     de: 'Beim Teilen durch eine [[negative Zahl]] dreht sich das Zeichen um. Prüfe deine Zahl durch Einsetzen.'
+    fv: FV.TU.ZEICHEN-DREHEN
 herkunft: ki-entwurf
 version: 1

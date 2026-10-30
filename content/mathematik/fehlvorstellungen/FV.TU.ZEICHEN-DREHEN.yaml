@@ -1,0 +1,27 @@
+id: FV.TU.ZEICHEN-DREHEN
+name:
+  de: Dreht beim Teilen durch eine negative Zahl das Ungleichheitszeichen nicht um
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst −2x < 6 zu x < −3. Die Umformungen werden wie bei einer Gleichung gemacht. Dass Malnehmen
+    oder Teilen mit einer negativen Zahl die Reihenfolge umkehrt, ist nicht im Blick.
+kompetenzen: [M.SF.TU.UNGLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: 'Malnehmen oder Teilen mit einer negativen Zahl dreht das Zeichen um: aus < wird >, aus ≤ wird ≥. Prüfe mit einer eingesetzten Zahl.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast durch eine [[negative Zahl]] geteilt und das Zeichen stehen lassen.'
+    - teil: warum-nicht
+      de: 'Bei Gleichungen ist das richtig, darum liegt es nahe. Aber 2 < 3, und mal −1 gibt −2 und −3. Jetzt ist −2 > −3: Die Reihenfolge hat sich umgedreht.'
+    - teil: so-stimmt-es
+      de: '−2x < 6, beide Seiten durch −2 und Zeichen drehen: x > −3. [[Probe]] mit x = 0: −2 · 0 = 0 < 6. Es stimmt.'
+gegenbeispiel:
+  de: 'Mit x = −5 ist −2x = 10, und 10 < 6 stimmt nicht. Also kann „x < −3“ nicht die Lösung sein.'
+rueckweg:
+  vermittlung: M.SF.TU.UNGLEICHUNGEN#erklaeren-umdrehen
+  voraussetzung: M.ZO.RZ.ORDNEN
+kontrast: [M.SF.TU.UNGLEICHUNGEN.LOESUNG, M.SF.TU.UNGLEICHUNGEN.RAND]
+herkunft: ki-entwurf
+version: 1

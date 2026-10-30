@@ -7,10 +7,10 @@ beschreibung:
     Gibt bei y + 3 < 10 die Zahl 7 als größte Lösung an. Dass „<“ die Gleichheit ausschließt, ist
     noch nicht verankert; < und ≤ werden gleich behandelt. Ebenso bei „das kleinste Vielfache, das
     größer ist als 30“: Die 30 selbst wird genannt.
-kompetenzen: [M.SF.NZ.GLEICHUNGEN, M.ZO.TB.TEILER]
+kompetenzen: [M.SF.NZ.GLEICHUNGEN, M.ZO.TB.TEILER, M.SF.TU.UNGLEICHUNGEN]
 erklaerung:
   kurz:
-    de: '„Kleiner als“ und „größer als“ heißen: wirklich kleiner oder größer, nicht gleich. Die Grenze selbst gehört nicht dazu.'
+    de: '„Kleiner als“ und „größer als“ heißen: wirklich kleiner oder größer, nicht gleich. Die Grenze selbst gehört nicht dazu. Bei ≤ und ≥ gehört sie dagegen dazu.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast genau die Grenze genommen.'
@@ -22,6 +22,12 @@ gegenbeispiel:
   de: 'Wer jünger als 10 sein muss, darf nicht 10 Jahre alt sein.'
 rueckweg:
   vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-ungleichung
-kontrast: [M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG, M.ZO.TB.TEILER.VIELFACHES]
+kontrast:
+  [
+    M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG,
+    M.ZO.TB.TEILER.VIELFACHES,
+    M.SF.TU.UNGLEICHUNGEN.RAND,
+    M.SF.TU.UNGLEICHUNGEN.LOESUNG,
+  ]
 herkunft: ki-entwurf
 version: 1

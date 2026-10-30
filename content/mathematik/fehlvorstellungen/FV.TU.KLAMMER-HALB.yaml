@@ -1,0 +1,28 @@
+id: FV.TU.KLAMMER-HALB
+name:
+  de: Multipliziert beim Ausmultiplizieren nur das erste Glied
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 3 · (x + 2) = 3x + 2. Der Faktor vor der Klammer wird nur mit dem ersten Glied
+    malgenommen. Dahinter steht oft die Vorstellung, die Klammer sei nur eine Markierung.
+kompetenzen: [M.SF.TU.AUSMULTIPLIZIEREN, M.SF.TU.GLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: 'Der [[Faktor]] vor der Klammer wird mit **jedem** Glied in der Klammer malgenommen: 3 · (x + 2) = 3x + 6.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur das erste Glied in der Klammer malgenommen.'
+    - teil: warum-nicht
+      de: 'Das erste Glied steht direkt neben der Zahl, darum liegt das nahe. Aber 3 · (x + 2) heißt dreimal das Ganze: (x + 2) + (x + 2) + (x + 2). Darin steckt die 2 dreimal.'
+    - teil: so-stimmt-es
+      de: 'Zeichne Bögen von der Zahl vor der Klammer zu jedem Glied: 3 · x und 3 · 2. Also 3x + 6.'
+gegenbeispiel:
+  de: 'Setze x = 1 ein: 3 · (1 + 2) = 9. Aber 3 · 1 + 2 = 5.'
+rueckweg:
+  vermittlung: M.SF.TU.AUSMULTIPLIZIEREN#erklaeren-ausmultiplizieren
+  voraussetzung: M.ZO.NZ.REGELN
+kontrast:
+  [M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL, M.SF.TU.AUSMULTIPLIZIEREN.LUECKE, M.SF.TU.GLEICHUNGEN.LOESEN]
+herkunft: ki-entwurf
+version: 1

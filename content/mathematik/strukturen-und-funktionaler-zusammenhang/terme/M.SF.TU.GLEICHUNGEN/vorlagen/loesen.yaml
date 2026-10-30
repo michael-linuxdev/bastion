@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nur-erstes-glied:
     de: 'Beim Auflösen der Klammer wird auch die Zahl in der Klammer malgenommen: 3·(x + 2) = 3·x + 6.'
+    fv: FV.TU.KLAMMER-HALB
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Mach die [[Probe]].'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Weiß, welche Zahl größer ist, setzt aber das falsche Zeichen. Kein Verständnisfehler beim
     Vergleichen, sondern beim Lesen und Schreiben der Zeichen.
-kompetenzen: [M.ZO.BR.DEZ-ORDNEN, M.ZO.NZ.ORDNEN, M.ZO.RZ.ORDNEN]
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN, M.ZO.NZ.ORDNEN, M.ZO.RZ.ORDNEN, M.SF.TU.UNGLEICHUNGEN]
 erklaerung:
   kurz:
     de: 'Die Spitze des Zeichens zeigt immer auf die kleinere Zahl, die offene Seite auf die größere: 3 < 5.'
@@ -26,6 +26,7 @@ kontrast:
     M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN,
     M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN,
     M.ZO.RZ.ORDNEN.VERGLEICHSZEICHEN,
+    M.SF.TU.UNGLEICHUNGEN.LOESUNG,
   ]
 herkunft: ki-entwurf
 version: 1
