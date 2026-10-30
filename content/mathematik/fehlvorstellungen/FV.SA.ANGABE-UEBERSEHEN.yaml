@@ -6,7 +6,15 @@ beschreibung:
   de: >-
     Nutzt nur einen Teil der Angaben, zum Beispiel nur die erste von zwei Ausgaben. Längere Texte
     werden nicht vollständig erfasst.
-kompetenzen: [M.ZO.BR.SACH, M.ZO.PZ.ANGEBOTE, M.GM.GR.SACH, M.GM.GR.ZEIT, M.GM.KP.VERPACKUNG]
+kompetenzen:
+  [
+    M.ZO.BR.SACH,
+    M.ZO.PZ.ANGEBOTE,
+    M.GM.GR.SACH,
+    M.GM.GR.ZEIT,
+    M.GM.KP.VERPACKUNG,
+    M.RF.DV.WINKELSAETZE,
+  ]
 erklaerung:
   kurz:
     de: 'Eine Angabe fehlt in deiner Rechnung. Lies den Text noch einmal und unterstreiche jede Zahl.'
@@ -28,6 +36,7 @@ kontrast:
     M.GM.GR.SACH.WEG,
     M.GM.GR.ZEIT.ENDZEIT,
     M.GM.KP.VERPACKUNG.MATERIAL,
+    M.RF.DV.WINKELSAETZE.INNENWINKEL,
   ]
 herkunft: ki-entwurf
 version: 1

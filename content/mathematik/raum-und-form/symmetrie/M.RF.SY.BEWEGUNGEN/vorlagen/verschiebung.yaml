@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nur-x-verschoben:
     de: 'Du hast nur nach rechts oder links verschoben. Die [[Verschiebung]] nach oben oder unten gehört auch dazu.'
+    fv: FV.SY.VERSCHIEBUNG
   falsche-richtung:
     de: Du hast in die Gegenrichtung verschoben. Schau, wohin P wandert – Q wandert in dieselbe Richtung.
+    fv: FV.SY.VERSCHIEBUNG
   auf-p-bild-gesetzt:
     de: 'Das ist der [[Bildpunkt]] von P. Gesucht ist der Bildpunkt von Q.'
+    fv: FV.SY.VERSCHIEBUNG
 herkunft: ki-entwurf
 version: 1

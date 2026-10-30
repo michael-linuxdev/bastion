@@ -6,7 +6,14 @@ beschreibung:
   de: >-
     Schreibt den Punkt (2|5) als (5|2) oder gibt die Lösung eines Gleichungssystems in der falschen
     Reihenfolge an. Die feste Reihenfolge „erst x, dann y“ ist nicht verankert.
-kompetenzen: [M.SF.GS.GRAFISCH, M.SF.GS.RECHNERISCH, M.SF.FK.LINEAR-GLEICHUNG]
+kompetenzen:
+  [
+    M.SF.GS.GRAFISCH,
+    M.SF.GS.RECHNERISCH,
+    M.SF.FK.LINEAR-GLEICHUNG,
+    M.RF.GF.KOORDINATEN,
+    M.RF.GF.QUADRANTEN,
+  ]
 erklaerung:
   kurz:
     de: 'Erst x, dann y: (x|y). Merke: Erst nach rechts gehen, dann nach oben – erst laufen, dann springen.'
@@ -22,6 +29,12 @@ gegenbeispiel:
 rueckweg:
   vermittlung: M.RF.GF.KOORDINATEN#erklaeren-koordinaten
 kontrast:
-  [M.SF.GS.GRAFISCH.SCHNITTPUNKT, M.SF.GS.RECHNERISCH.LOESEN, M.SF.FK.LINEAR-GLEICHUNG.PUNKT]
+  [
+    M.SF.GS.GRAFISCH.SCHNITTPUNKT,
+    M.SF.GS.RECHNERISCH.LOESEN,
+    M.SF.FK.LINEAR-GLEICHUNG.PUNKT,
+    M.RF.GF.KOORDINATEN.ABLESEN,
+    M.RF.GF.KOORDINATEN.FINDEN,
+  ]
 herkunft: ki-entwurf
 version: 1

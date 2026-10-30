@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   winkel-nicht-eingeschlossen:
     de: 'Der [[Winkel]] liegt nicht zwischen den beiden Seiten – er liegt einer von ihnen gegenüber. Dann ist es nicht sws.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
   ssw-kuerzere-seite:
     de: 'Für SsW muss der [[Winkel]] der **längeren** der beiden Seiten gegenüberliegen. Hier liegt er der kürzeren gegenüber.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
 herkunft: ki-entwurf
 version: 1

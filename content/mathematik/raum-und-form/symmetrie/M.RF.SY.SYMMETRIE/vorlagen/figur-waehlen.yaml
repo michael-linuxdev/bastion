@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   fast-symmetrisch:
     de: Diese Figur ist fast symmetrisch – aber ein Kästchen passt nicht. Vergleiche Kästchen für Kästchen.
+    fv: FV.SY.ACHSENSYMMETRIE
 herkunft: ki-entwurf
 version: 1

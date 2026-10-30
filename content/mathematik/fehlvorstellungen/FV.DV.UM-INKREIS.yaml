@@ -1,0 +1,26 @@
+id: FV.DV.UM-INKREIS
+name:
+  de: Verwechselt Umkreis und Inkreis
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt den Schnittpunkt der Mittelsenkrechten Inkreismittelpunkt oder den der
+    Winkelhalbierenden Umkreismittelpunkt.
+kompetenzen: [M.RF.DV.BESONDERE-LINIEN]
+erklaerung:
+  kurz:
+    de: 'Der [[Umkreis]] geht um das Dreieck herum durch alle Ecken: Mittelpunkt im Schnitt der Mittelsenkrechten. Der [[Inkreis]] liegt innen und berührt die Seiten: Mittelpunkt im Schnitt der Winkelhalbierenden.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Umkreis]] und [[Inkreis]] vertauscht.'
+    - teil: warum-nicht
+      de: 'Die Wörter unterscheiden sich nur in zwei Buchstaben. Aber „um“ heißt außen herum, „in“ heißt innen. Wer außen herum durch die Ecken will, braucht gleichen Abstand zu den Ecken, das liefern die Mittelsenkrechten.'
+    - teil: so-stimmt-es
+      de: 'Merke: [[Mittelsenkrechte]] → gleich weit von den Ecken → [[Umkreis]]. [[Winkelhalbierende]] → gleich weit von den Seiten → [[Inkreis]].'
+gegenbeispiel:
+  de: 'Ein Teller unter einem dreieckigen Stück Kuchen ist der [[Umkreis]]. Eine Münze, die genau in das Stück passt, ist der [[Inkreis]].'
+rueckweg:
+  vermittlung: M.RF.DV.BESONDERE-LINIEN#erklaeren-kreise
+kontrast: [M.RF.DV.BESONDERE-LINIEN.SCHNITTPUNKT]
+herkunft: ki-entwurf
+version: 1

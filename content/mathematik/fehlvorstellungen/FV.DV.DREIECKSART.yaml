@@ -1,0 +1,26 @@
+id: FV.DV.DREIECKSART
+name:
+  de: Bestimmt die Art eines Dreiecks, ohne alle Angaben zu prüfen
+art: rechenfehler
+beschreibung:
+  de: >-
+    Übersieht, dass alle drei Seiten gleich lang sind, oder entscheidet über spitz-, recht- oder
+    stumpfwinklig, ohne den dritten Winkel zu berechnen.
+kompetenzen: [M.RF.DV.DREIECKE]
+erklaerung:
+  kurz:
+    de: 'Prüfe alle Seiten und alle [[Winkel]]. Fehlt ein Winkel, rechne ihn aus 180° aus. Der größte Winkel entscheidet: unter 90° spitz, genau 90° recht, über 90° stumpf.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach einem Teil der Angaben entschieden.'
+    - teil: warum-nicht
+      de: 'Die gegebenen [[Winkel]] sehen oft spitz aus. Der fehlende kann aber der größte sein. Und drei gleiche Seiten machen das Dreieck [[gleichseitig]], das ist mehr als [[gleichschenklig]].'
+    - teil: so-stimmt-es
+      de: 'Rechne den dritten [[Winkel]] aus: α = 40°, β = 45°, also γ = 95°. Das Dreieck ist stumpfwinklig.'
+gegenbeispiel:
+  de: 'Ein Dreieck mit 30° und 50° hat noch einen [[Winkel]] von 100°. Es ist stumpfwinklig, obwohl beide gegebenen Winkel spitz sind.'
+rueckweg:
+  vermittlung: M.RF.DV.DREIECKE#erklaeren-arten
+kontrast: [M.RF.DV.DREIECKE.ART]
+herkunft: ki-entwurf
+version: 1

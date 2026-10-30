@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   gleichseitig-uebersehen:
     de: 'Hier sind alle drei Seiten gleich lang. Das Dreieck ist [[gleichseitig]].'
+    fv: FV.DV.DREIECKSART
   groesster-winkel-uebersehen:
     de: 'Berechne zuerst den dritten [[Winkel]]. Er ist der größte und entscheidet über die Art des Dreiecks.'
+    fv: FV.DV.DREIECKSART
 herkunft: ki-entwurf
 version: 1

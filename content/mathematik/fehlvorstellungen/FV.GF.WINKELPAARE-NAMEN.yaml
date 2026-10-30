@@ -1,0 +1,26 @@
+id: FV.GF.WINKELPAARE-NAMEN
+name:
+  de: Verwechselt die Namen der Winkelpaare
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt Nebenwinkel Scheitelwinkel oder Stufenwinkel Wechselwinkel. Die Lage der Winkel zueinander
+    wird nicht mit dem Namen verbunden.
+kompetenzen: [M.RF.GF.WINKELPAARE]
+erklaerung:
+  kurz:
+    de: '[[Scheitelwinkel]] liegen sich gegenüber, [[Nebenwinkel]] direkt nebeneinander. [[Stufenwinkel]] liegen wie in einem F, [[Wechselwinkel]] wie in einem Z.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Winkelpaar mit einem anderen Namen benannt.'
+    - teil: warum-nicht
+      de: 'Vier Namen für [[ähnliche]] Bilder sind viel. Jeder Name beschreibt aber die Lage: „neben“ heißt nebeneinander, „Scheitel“ heißt am selben Scheitel gegenüber, „wechseln“ heißt die Seite wechseln.'
+    - teil: so-stimmt-es
+      de: 'Zeichne das F oder Z in das Bild: Passen die [[Winkel]] in die Ecken eines F, sind es [[Stufenwinkel]], beim Z [[Wechselwinkel]].'
+gegenbeispiel:
+  de: 'Zwei Nachbarn wohnen nebeneinander, zwei Leute auf gegenüberliegenden Straßenseiten nicht.'
+rueckweg:
+  vermittlung: M.RF.GF.WINKELPAARE#erklaeren-winkelpaare
+kontrast: [M.RF.GF.WINKELPAARE.BENENNEN]
+herkunft: ki-entwurf
+version: 1

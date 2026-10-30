@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   spitz-stumpf-verwechselt:
     de: 'Spitz und stumpf sind vertauscht. Spitz ist kleiner als ein [[rechter Winkel]], stumpf ist größer.'
+    fv: FV.GF.WINKELART
   innen-statt-aussen:
     de: 'Du hast den [[Winkel]] auf der anderen Seite betrachtet. Der Bogen zeigt, welcher Winkel gemeint ist – hier ist er größer als 180°.'
+    fv: FV.GF.WINKELART
 herkunft: ki-entwurf
 version: 1

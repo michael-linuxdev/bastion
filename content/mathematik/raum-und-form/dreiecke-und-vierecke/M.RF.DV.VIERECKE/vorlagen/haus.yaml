@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   richtung-verdreht:
     de: 'Es ist umgekehrt. Prüfe: Hat jedes Viereck der ersten Art alle Eigenschaften der zweiten?'
+    fv: FV.DV.VIERECKE-HAUS
 herkunft: ki-entwurf
 version: 1

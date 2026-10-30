@@ -1,0 +1,26 @@
+id: FV.DV.KONSTRUKTIONSREIHENFOLGE
+name:
+  de: Wählt einen Konstruktionsschritt, der noch nicht möglich ist
+art: falsche-regel
+beschreibung:
+  de: >-
+    Will einen Kreis um einen Punkt zeichnen, den es noch nicht gibt, oder wählt einen Schritt, der zu
+    einem anderen Viereck gehört. Der Plan der Konstruktion fehlt.
+kompetenzen: [M.RF.DV.KONSTRUIEREN, M.RF.DV.VIERECKE-KONSTRUIEREN]
+erklaerung:
+  kurz:
+    de: 'Ein Schritt geht nur mit dem, was schon gezeichnet ist. Frage dich: Welcher Punkt oder welche Linie fehlt mir noch für diesen Schritt?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Schritt gewählt, der später kommt oder nicht zu dieser Figur gehört.'
+    - teil: warum-nicht
+      de: 'Das Ziel vor Augen zu haben ist gut. Aber jede Linie braucht einen Anfangspunkt, und jeder Kreis einen Mittelpunkt. Gibt es den noch nicht, geht der Schritt nicht.'
+    - teil: so-stimmt-es
+      de: 'Mache vorher eine Skizze und markiere die gegebenen Stücke farbig. Beginne mit einer gegebenen Seite und baue von dort aus weiter.'
+gegenbeispiel:
+  de: 'Ein Dach kann man erst bauen, wenn die Wände stehen.'
+rueckweg:
+  vermittlung: M.RF.DV.KONSTRUIEREN#erklaeren-plan
+kontrast: [M.RF.DV.KONSTRUIEREN.SCHRITT, M.RF.DV.VIERECKE-KONSTRUIEREN.SCHRITT]
+herkunft: ki-entwurf
+version: 1

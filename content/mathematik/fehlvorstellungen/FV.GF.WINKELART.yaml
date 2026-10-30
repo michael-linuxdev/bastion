@@ -1,0 +1,26 @@
+id: FV.GF.WINKELART
+name:
+  de: Bestimmt die Winkelart falsch
+art: verwechslung
+beschreibung:
+  de: >-
+    Verwechselt spitz und stumpf oder betrachtet den Winkel auf der anderen Seite der Schenkel. Die
+    Grenzen 90° und 180° und die Bedeutung des Winkelbogens sind nicht sicher.
+kompetenzen: [M.RF.GF.WINKEL]
+erklaerung:
+  kurz:
+    de: 'Spitz: kleiner als 90°. Recht: 90°. Stumpf: zwischen 90° und 180°. Überstumpf: mehr als 180°. Der Bogen zeigt, welcher [[Winkel]] gemeint ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine andere [[Winkelart]] gewählt.'
+    - teil: warum-nicht
+      de: '„Spitz“ und „stumpf“ werden leicht vertauscht. Ein spitzer [[Winkel]] ist aber wie eine Nadelspitze: eng. Und ein Bogen außen herum meint den großen Winkel, nicht den kleinen.'
+    - teil: so-stimmt-es
+      de: 'Vergleiche mit der Ecke eines Blatts, das ist ein [[rechter Winkel]]. Ist der [[Winkel]] enger: spitz. Weiter: stumpf. Geht der Bogen über eine gerade Linie hinaus: überstumpf.'
+gegenbeispiel:
+  de: 'Ein Tortenstück ist spitz. Der Rest der Torte daneben hat einen überstumpfen [[Winkel]].'
+rueckweg:
+  vermittlung: M.RF.GF.WINKEL#erklaeren-winkelarten
+kontrast: [M.RF.GF.WINKEL.ART]
+herkunft: ki-entwurf
+version: 1

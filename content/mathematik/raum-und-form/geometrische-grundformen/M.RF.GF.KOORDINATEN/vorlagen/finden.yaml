@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'Dieser Punkt hat die [[Koordinaten]] ({y}|{x}) – x und y sind vertauscht. Erst nach rechts, dann nach oben.'
+    fv: FV.GF.X-Y-VERTAUSCHT
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.SY.VERSCHIEBUNG
+name:
+  de: Wendet eine Verschiebung nur teilweise oder in der Gegenrichtung an
+art: rechenfehler
+beschreibung:
+  de: >-
+    Verschiebt nur nach rechts oder links, aber nicht nach oben oder unten, verschiebt in die
+    Gegenrichtung oder gibt den Bildpunkt von P statt von Q an.
+kompetenzen: [M.RF.SY.BEWEGUNGEN]
+erklaerung:
+  kurz:
+    de: 'Lies aus P und P′ ab, wie weit es nach rechts oder links **und** nach oben oder unten geht. Genau so wandert jeder andere Punkt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Verschiebung]] nicht vollständig oder nicht für den gefragten Punkt angewendet.'
+    - teil: warum-nicht
+      de: 'Eine Richtung zu sehen ist leicht. Eine [[Verschiebung]] hat aber zwei Teile: waagerecht und [[senkrecht]]. Und alle Punkte wandern gleich weit in dieselbe Richtung.'
+    - teil: so-stimmt-es
+      de: 'Von P(1|2) nach P′(4|1): 3 nach rechts, 1 nach unten. Also wird Q(2|5) zu Q′(5|4).'
+gegenbeispiel:
+  de: 'Schiebt man einen Tisch, wandern alle vier Beine gleich weit, nicht nur eines.'
+rueckweg:
+  vermittlung: M.RF.SY.BEWEGUNGEN#erklaeren-verschiebung
+kontrast: [M.RF.SY.BEWEGUNGEN.VERSCHIEBUNG]
+herkunft: ki-entwurf
+version: 1

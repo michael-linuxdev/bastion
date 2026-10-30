@@ -1,0 +1,26 @@
+id: FV.GF.QUADRANTEN-ZAEHLEN
+name:
+  de: Zählt die Quadranten in der falschen Richtung
+art: lesefehler
+beschreibung:
+  de: >-
+    Nennt den Bereich oben links „IV“ statt „II“. Die Quadranten werden im Uhrzeigersinn gezählt
+    statt dagegen.
+kompetenzen: [M.RF.GF.QUADRANTEN]
+erklaerung:
+  kurz:
+    de: 'Die [[Quadranten]] werden gegen den Uhrzeigersinn gezählt: I oben rechts, II oben links, III unten links, IV unten rechts.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Quadranten]] in der anderen Richtung gezählt.'
+    - teil: warum-nicht
+      de: 'Die Uhr läuft andersherum, darum liegt das nahe. In der Mathematik dreht man aber gegen den Uhrzeigersinn, das gilt auch später bei Winkeln.'
+    - teil: so-stimmt-es
+      de: 'Beginne oben rechts, wo x und y beide positiv sind, mit I. Gehe dann nach links weiter zu II.'
+gegenbeispiel:
+  de: 'Der Punkt (−2|3) liegt oben links. Das ist der II. [[Quadrant]], nicht der IV.'
+rueckweg:
+  vermittlung: M.RF.GF.QUADRANTEN#erklaeren-quadranten
+kontrast: [M.RF.GF.QUADRANTEN.QUADRANT]
+herkunft: ki-entwurf
+version: 1

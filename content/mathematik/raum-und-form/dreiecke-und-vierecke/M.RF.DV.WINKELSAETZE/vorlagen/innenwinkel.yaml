@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   summe-360:
     de: 'Du hast mit 360° gerechnet. Die [[Innenwinkel]] eines Dreiecks ergeben zusammen 180°.'
+    fv: FV.DV.WINKELSUMME
   nur-addiert:
     de: 'Das ist die [[Summe]] der beiden gegebenen [[Winkel]]. Ziehe sie von 180° ab.'
+    fv: FV.SA.ZWISCHENERGEBNIS
   basiswinkel-einmal:
     de: 'Du hast nur einen [[Basiswinkel]] abgezogen. Im [[gleichschenkligen]] Dreieck ist der zweite Basiswinkel genauso groß.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1

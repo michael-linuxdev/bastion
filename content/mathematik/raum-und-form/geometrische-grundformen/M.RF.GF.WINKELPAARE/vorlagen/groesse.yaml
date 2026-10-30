@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   gleich-statt-ergaenzt:
     de: '[[Nebenwinkel]] sind nicht gleich groß – zusammen bilden sie eine gerade Linie, also 180°.'
+    fv: FV.GF.GLEICH-ODER-180
   ergaenzt-statt-gleich:
     de: Du hast von 180° abgezogen. {beziehung} sind aber gleich groß.
+    fv: FV.GF.GLEICH-ODER-180
 herkunft: ki-entwurf
 version: 1

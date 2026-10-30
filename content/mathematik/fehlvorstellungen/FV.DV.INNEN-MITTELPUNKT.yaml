@@ -1,0 +1,26 @@
+id: FV.DV.INNEN-MITTELPUNKT
+name:
+  de: Verwechselt Innenwinkel und Mittelpunktswinkel im regelmäßigen Vieleck
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt beim regelmäßigen n-Eck 360° : n als Innenwinkel an, nennt den Innenwinkel Mittelpunktswinkel
+    oder rechnet den Vollwinkel um den Mittelpunkt mit 180°.
+kompetenzen: [M.RF.DV.REGELMAESSIG]
+erklaerung:
+  kurz:
+    de: 'Der [[Mittelpunktswinkel]] liegt in der Mitte: 360° : n. Der [[Innenwinkel]] liegt an einer Ecke: 180° − Mittelpunktswinkel.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den einen [[Winkel]] mit dem anderen verwechselt.'
+    - teil: warum-nicht
+      de: 'Beide gehören zum selben [[regelmäßigen Vieleck]]. Aber der eine liegt in der Mitte, wo sich alle Dreiecke treffen, der andere außen an einer Ecke.'
+    - teil: so-stimmt-es
+      de: 'Sechseck: [[Mittelpunktswinkel]] 360° : 6 = 60°. [[Innenwinkel]] 180° − 60° = 120°.'
+gegenbeispiel:
+  de: 'Ein Sechseck aus Waben hat an jeder Ecke 120°, nicht 60°. Sonst würden die Waben nicht lückenlos passen.'
+rueckweg:
+  vermittlung: M.RF.DV.REGELMAESSIG#erklaeren-winkel
+kontrast: [M.RF.DV.REGELMAESSIG.INNENWINKEL, M.RF.DV.REGELMAESSIG.SYMMETRIE]
+herkunft: ki-entwurf
+version: 1

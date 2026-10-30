@@ -1,0 +1,26 @@
+id: FV.GF.GLEICH-ODER-180
+name:
+  de: Verwechselt, ob Winkelpaare gleich groß sind oder sich zu 180° ergänzen
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält Nebenwinkel für gleich groß oder rechnet bei Scheitel-, Stufen- oder Wechselwinkeln 180° − α.
+    Welche Paare gleich groß und welche zusammen 180° sind, ist nicht verankert.
+kompetenzen: [M.RF.GF.WINKELPAARE, M.RF.DV.WINKELSAETZE]
+erklaerung:
+  kurz:
+    de: '[[Nebenwinkel]] ergeben zusammen 180°. [[Scheitelwinkel]], [[Stufenwinkel]] und [[Wechselwinkel]] an Parallelen sind gleich groß.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gleich gesetzt, wo ergänzt wird, oder umgekehrt.'
+    - teil: warum-nicht
+      de: 'Beide Regeln kommen ständig vor, das verwirrt. Aber [[Nebenwinkel]] liegen zusammen an einer geraden Linie, also 180°. Die anderen Paare sind Kopien voneinander, nur verschoben oder gedreht.'
+    - teil: so-stimmt-es
+      de: 'Erkenne zuerst das Paar. [[Nebenwinkel]]: β = 180° − α. Sonst: β = α. Prüfe am Bild: Ist der eine [[Winkel]] spitz und der andere stumpf? Dann ergänzen sie sich.'
+gegenbeispiel:
+  de: 'Ist α = 30°, dann ist der [[Nebenwinkel]] 150°. Zwei 30°-[[Winkel]] nebeneinander ergeben keine gerade Linie.'
+rueckweg:
+  vermittlung: M.RF.GF.WINKELPAARE#erklaeren-winkelpaare
+kontrast: [M.RF.GF.WINKELPAARE.GROESSE, M.RF.DV.WINKELSAETZE.PARALLELEN]
+herkunft: ki-entwurf
+version: 1

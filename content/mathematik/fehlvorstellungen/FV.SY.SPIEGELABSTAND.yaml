@@ -1,0 +1,26 @@
+id: FV.SY.SPIEGELABSTAND
+name:
+  de: Spiegelt nicht vollständig auf die andere Seite der Achse
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Lässt den Punkt, wo er ist, oder setzt ihn auf die Achse statt dahinter. Dass der Bildpunkt
+    genauso weit hinter der Achse liegt wie der Punkt davor, ist nicht verankert.
+kompetenzen: [M.RF.SY.SPIEGELN]
+erklaerung:
+  kurz:
+    de: 'Der [[Bildpunkt]] liegt auf der anderen Seite der [[Spiegelachse]], genauso weit von ihr entfernt wie der Punkt. Die Verbindung steht [[senkrecht]] auf der Achse.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du bist nicht oder nur bis zur Achse gegangen.'
+    - teil: warum-nicht
+      de: 'Bis zur Achse zu gehen ist der halbe Weg. Ein Spiegelbild liegt aber hinter dem Spiegel, so weit wie du davor stehst.'
+    - teil: so-stimmt-es
+      de: 'Zähle die Kästchen vom Punkt bis zur Achse und dann genauso viele weiter auf der anderen Seite.'
+gegenbeispiel:
+  de: 'Wer einen Meter vor dem Spiegel steht, sieht sein Bild einen Meter hinter dem Spiegel, nicht im Glas.'
+rueckweg:
+  vermittlung: M.RF.SY.SPIEGELN#erklaeren-spiegeln
+kontrast: [M.RF.SY.SPIEGELN.PUNKT, M.RF.SY.SPIEGELN.DREIECK]
+herkunft: ki-entwurf
+version: 1
