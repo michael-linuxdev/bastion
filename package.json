@@ -23,6 +23,7 @@
     "inhalte:pruefen": "vitest run tools/inhalte --silent=false",
     "inhalte:begriffe": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/inhalte/begriffe-markieren.ts",
     "sim": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/sim/lauf.ts",
+    "pruefbogen": "node --experimental-strip-types --no-warnings tools/pruefbogen/lauf.ts",
     "testnummern": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/testnummern.ts"
   },
   "devDependencies": {

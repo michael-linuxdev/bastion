@@ -369,6 +369,8 @@ Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning
 
 `pnpm inhalte:pruefen` prüft die Form, wenn das Feld da ist: Stufe 1, 2 oder 3, echtes Datum, `pruefer`, 64 Hex-Zeichen, keine anderen Schlüssel. Ein fehlendes Feld ist in Ordnung. Ein Hash, der nicht mehr passt, ist **kein Fehler** der Datei; `wirksameStufe` rechnet dann 0. Die vier Maschinenpunkte und das Werkzeug, das den Block schreibt, gibt es noch nicht. Darum trägt heute keine Inhaltsdatei ein `review`.
 
+Für die menschliche Prüfung gibt es den **Prüfbogen** (`pnpm pruefbogen <Kompetenz-IDs>`, `tools/README.md`). Er zeigt alles, was Stufe 2 verlangt, als druckbare Seite. Dazu gehören je Vorlage und Niveau 20 Aufgaben. Prüfende brauchen kein YAML. Den `review`-Block schreibt er nicht.
+
 ## 9. Herkunft und Lizenz
 
 **Entscheidung I-9:** Jede Vorlage gibt `herkunft` an (`eigen`, `ki-entwurf`, `oer`). Bei `oer` sind `lizenz` (z. B. `CC-BY-4.0`), `quelle` und `urheber` Pflicht.
