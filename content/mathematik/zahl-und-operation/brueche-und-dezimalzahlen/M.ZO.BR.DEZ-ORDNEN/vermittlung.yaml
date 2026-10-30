@@ -1,0 +1,91 @@
+id: M.ZO.BR.DEZ-ORDNEN
+kompetenz: M.ZO.BR.DEZ-ORDNEN
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Dezimalzahlen]] vergleichen und auf [[Zehntel]] runden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viele [[Zehntel]] sind 0,7?'
+    antwort:
+      eingabe: { art: zahl, loesung: '7', fehler: [{ wert: '70', fv: FV.BR.STELLENWERT-DEZIMAL }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZIMAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Am Zahlenstrahl ist 0,5 markiert. Liegt 0,45 links oder rechts davon?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 5 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'links, also ist 0,45 kleiner' }, richtig: true }
+        - { wert: { de: 'rechts, also ist 0,45 größer' }, fv: FV.BR.LAENGER-GROESSER }
+    weiter: erklaeren-vergleichen
+  - id: erklaeren-vergleichen
+    typ: erklaeren
+    text:
+      de: 'Vergleiche Stelle für Stelle von links, zuerst die Einer, dann die [[Zehntel]]. Oder hänge Nullen an, bis beide gleich viele [[Nachkommastellen]] haben: 0,50 und 0,45. 50 [[Hundertstel]] sind mehr als 45.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 5 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2,3 und 2,28: Die Einer sind gleich, 2. Bei den [[Zehntel]] ist 3 größer als 2. Also ist 2,3 > 2,28, obwohl 2,28 mehr [[Ziffern]] hat.'
+    weiter: erklaeren-runden
+  - id: erklaeren-runden
+    typ: erklaeren
+    text:
+      de: 'Auf [[Zehntel]] runden: Schau auf die [[Ziffer]] dahinter, die Hundertstelziffer. Bei 0 bis 4 rundest du ab, bei 5 bis 9 auf. 3,47 liegt näher an 3,5 als an 3,4.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 5 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Runde 6,87 auf [[Zehntel]]. Die Hundertstelziffer ist 7. Wie heißt die gerundete Zahl?'
+    antwort:
+      eingabe:
+        art: zahl
+        loesung: '6,9'
+        fehler:
+          - { wert: '6,8', fv: FV.NZ.RUNDEN-ABGESCHNITTEN }
+          - { wert: '7', fv: FV.NZ.RUNDEN-STELLE }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.RUNDEN-ABGESCHNITTEN: erklaeren-runden, FV.NZ.RUNDEN-STELLE: erklaeren-runden }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia sagt: „0,125 ist größer als 0,3, weil 125 mehr ist als 3.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 0,3 hat 3 Zehntel, 0,125 nur 1 Zehntel.' }, richtig: true }
+        - { wert: { de: 'Ja, mehr Ziffern machen die Zahl größer.' }, fv: FV.BR.LAENGER-GROESSER }
+    weiter: merksatz
+    bei: { FV.BR.LAENGER-GROESSER: erklaeren-vergleichen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Vergleichen: Stelle für Stelle von links. Runden: Die [[Ziffer]] rechts neben der [[Rundungsstelle]] entscheidet, 0 bis 4 ab, 5 bis 9 auf.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welches Zeichen gehört dazwischen: 0,6 ☐ 0,58?'
+    antwort:
+      optionen:
+        - { wert: { de: '>' }, richtig: true }
+        - { wert: { de: '<' }, fv: FV.BR.LAENGER-GROESSER }
+    weiter: uebergang
+    bei: { FV.BR.LAENGER-GROESSER: erklaeren-vergleichen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen: [M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN, M.ZO.BR.DEZ-ORDNEN.RUNDEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

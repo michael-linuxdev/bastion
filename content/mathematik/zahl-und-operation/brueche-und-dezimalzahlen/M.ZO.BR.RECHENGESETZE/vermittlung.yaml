@@ -1,0 +1,88 @@
+id: M.ZO.BR.RECHENGESETZE
+kompetenz: M.ZO.BR.RECHENGESETZE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Terme]] mit Brüchen und [[Dezimalzahlen]] in der richtigen Reihenfolge ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Berechne 2 + 3 · 4.'
+    antwort:
+      eingabe: { art: zahl, loesung: '14', fehler: [{ wert: '20', fv: FV.NZ.PUNKT-VOR-STRICH }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.NZ.TERME }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Was rechnest du bei 1/2 + 1/4 · 2 zuerst?'
+    antwort:
+      optionen:
+        - { wert: { de: '1/4 · 2' }, richtig: true }
+        - { wert: { de: '1/2 + 1/4' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+    weiter: erklaeren-reihenfolge
+  - id: erklaeren-reihenfolge
+    typ: erklaeren
+    text:
+      de: 'Die Regeln gelten für alle Zahlen, auch für [[Brüche]] und [[Dezimalzahlen]]: Erst die Klammern, dann [[Punkt vor Strich]], sonst von links nach rechts.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '1/2 + 1/4 · 2: Erst 1/4 · 2 = 2/4 = 1/2. Dann 1/2 + 1/2 = 1.'
+    weiter: erklaeren-quadrat
+  - id: erklaeren-quadrat
+    typ: erklaeren
+    text:
+      de: 'Hoch 2 heißt: die Zahl mal sich selbst. 0,4² = 0,4 · 0,4 = 0,16. Das Komma setzt du wie beim Malnehmen: zwei [[Nachkommastellen]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne (0,5 + 1,5) · 3. Erst die Klammer.'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '5', fv: FV.NZ.KLAMMER }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.KLAMMER: erklaeren-reihenfolge }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Kai rechnet 0,3² = 0,6. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 0,3 · 0,3 = 0,09.' }, richtig: true }
+        - { wert: { de: 'Ja, hoch 2 heißt mal 2.' }, fv: FV.NZ.QUADRAT-MAL-ZWEI }
+    weiter: merksatz
+    bei: { FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-quadrat }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Klammer vor [[Punkt vor Strich]], für alle Zahlen. Hoch 2 heißt mal sich selbst.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 1,5 + 0,5 · 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '3,5' }, richtig: true }
+        - { wert: { de: '8' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+    weiter: uebergang
+    bei: { FV.NZ.PUNKT-VOR-STRICH: erklaeren-reihenfolge }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen:
+      [
+        M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT,
+        M.ZO.BR.RECHENGESETZE.BRUECHE-KLAMMER,
+        M.ZO.BR.RECHENGESETZE.DEZIMAL,
+      ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

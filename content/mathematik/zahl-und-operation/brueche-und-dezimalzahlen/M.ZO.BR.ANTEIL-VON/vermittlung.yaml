@@ -1,0 +1,93 @@
+id: M.ZO.BR.ANTEIL-VON
+kompetenz: M.ZO.BR.ANTEIL-VON
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du ausrechnen, wie viel zum Beispiel 3/4 von 20 € sind.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Bruch]] zeigt den gefärbten Teil?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    antwort:
+      eingabe:
+        art: bruch
+        loesung: '3/4'
+        fehler:
+          - { wert: '3/1', fv: FV.BR.TEIL-ZU-REST }
+          - { wert: '4/3', fv: FV.BR.VERTAUSCHT }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '12 Bonbons werden gerecht in 4 Teile geteilt. Wie viele Bonbons sind in einem Viertel?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '48', fv: FV.BR.VERTAUSCHT }] }
+    weiter: erklaeren-anteil-von
+  - id: erklaeren-anteil-von
+    typ: erklaeren
+    text:
+      de: 'Für 3/4 von 12 brauchst du zwei Schritte. Erst teilst du durch den [[Nenner]]: 12 : 4 = 3, das ist ein Viertel. Dann nimmst du mal den [[Zähler]]: 3 · 3 = 9, das sind drei Viertel.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2/5 von 30 €: Ein Fünftel ist 30 € : 5 = 6 €. Zwei Fünftel sind 2 · 6 € = 12 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne 3/4 von 20 kg. Ein Viertel ist 20 kg : 4 = 5 kg. Wie viel sind drei Viertel?'
+    antwort:
+      eingabe:
+        art: zahl
+        loesung: '15'
+        fehler:
+          - { wert: '5', fv: FV.BR.ANTEIL-EIN-SCHRITT }
+          - { wert: '60', fv: FV.BR.ANTEIL-EIN-SCHRITT }
+    weiter: gegenbeispiel
+    bei: { FV.BR.ANTEIL-EIN-SCHRITT: erklaeren-anteil-von }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lea rechnet 1/4 von 20 € so: 20 · 4 = 80 €. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, ein Viertel ist weniger als das Ganze: 20 € : 4 = 5 €.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, mit dem Nenner wird malgenommen.' }, fv: FV.BR.VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.BR.VERTAUSCHT: erklaeren-anteil-von }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Anteil]] von einer Größe: erst durch den [[Nenner]] teilen, dann mit dem [[Zähler]] malnehmen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel sind 3/4 von 40 m?'
+    antwort:
+      optionen:
+        - { wert: { de: '30 m' }, richtig: true }
+        - { wert: { de: '10 m' }, fv: FV.BR.ANTEIL-EIN-SCHRITT }
+        - { wert: { de: '120 m' }, fv: FV.BR.ANTEIL-EIN-SCHRITT }
+    weiter: uebergang
+    bei: { FV.BR.ANTEIL-EIN-SCHRITT: erklaeren-anteil-von }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.BR.ANTEIL-VON.STAMMBRUCH, M.ZO.BR.ANTEIL-VON.ALLGEMEIN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,87 @@
+id: M.ZO.BR.ZAHLENSTRAHL
+kompetenz: M.ZO.BR.ZAHLENSTRAHL
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Brüche]] und [[Dezimalzahlen]] am Zahlenstrahl zwischen 0 und 1 ablesen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Bruch]] zeigt den gefärbten Teil?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
+    antwort:
+      eingabe: { art: bruch, loesung: '3/5', fehler: [{ wert: '3/2', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Schau dir den Zahlenstrahl an. In wie viele Abschnitte ist die Strecke von 0 bis 1 geteilt?'
+    werkzeug: { id: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 4 } }
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '5', fv: FV.BR.STRICHE-GEZAEHLT }] }
+    weiter: erklaeren-abschnitte
+  - id: erklaeren-abschnitte
+    typ: erklaeren
+    text:
+      de: 'Zähle die Abschnitte zwischen den Strichen, nicht die Striche. Die Abschnitte von 0 bis 1 ergeben den [[Nenner]]. Die Abschnitte von 0 bis zur Markierung ergeben den [[Zähler]].'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 5, markiert: 2 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ist die Strecke von 0 bis 1 in 10 Abschnitte geteilt, ist jeder 1/10 = 0,1. Sieben Abschnitte sind 7/10 = 0,7.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Bei welchem [[Bruch]] liegt die Markierung?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 6, markiert: 5 } }
+    antwort:
+      eingabe: { art: bruch, loesung: '5/6', fehler: [{ wert: '5/7', fv: FV.BR.STRICHE-GEZAEHLT }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.STRICHE-GEZAEHLT: erklaeren-abschnitte }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ole sieht 3 von 10 Abschnitten bis zur Markierung und schreibt „3“. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Zahl ist 3/10 oder 0,3.' }, richtig: true }
+        - { wert: { de: 'Ja, es sind ja 3 Abschnitte.' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
+    weiter: merksatz
+    bei: { FV.BR.ANZAHL-STATT-ANTEIL: erklaeren-abschnitte }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Abschnitte zählen, nicht Striche. Abschnitte bis 1 sind der [[Nenner]], Abschnitte bis zur Markierung der [[Zähler]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl ist markiert?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 4 } }
+    antwort:
+      optionen:
+        - { wert: { de: '0,4' }, richtig: true }
+        - { wert: { de: '0,5' }, fv: FV.BR.STRICHE-GEZAEHLT }
+        - { wert: { de: '4' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.STRICHE-GEZAEHLT: erklaeren-abschnitte,
+        FV.BR.ANZAHL-STATT-ANTEIL: erklaeren-abschnitte,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt liest du selbst ab.'
+    vorlagen: [M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

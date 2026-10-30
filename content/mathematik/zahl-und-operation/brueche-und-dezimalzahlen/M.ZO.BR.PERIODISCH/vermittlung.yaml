@@ -1,0 +1,90 @@
+id: M.ZO.BR.PERIODISCH
+kompetenz: M.ZO.BR.PERIODISCH
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Brüche]] durch Teilen in [[Dezimalzahlen]] umwandeln und periodische Dezimalzahlen erkennen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Schreibe 3/4 als [[Dezimalzahl]].'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '0,75', fehler: [{ wert: '3,4', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.DEZIMAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Teile 1 durch 3 schriftlich: 1,000 : 3 = 0,333… Welche [[Ziffer]] wiederholt sich immer wieder?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3' }
+    weiter: erklaeren-dividieren
+  - id: erklaeren-dividieren
+    typ: erklaeren
+    text:
+      de: 'Jeder [[Bruch]] ist eine Division: [[Zähler]] durch [[Nenner]]. 7/4 = 7 : 4 = 1,75. So wandelst du jeden Bruch in eine [[Dezimalzahl]] um, auch wenn du nicht auf 10 oder 100 [[erweitern]] kannst.'
+    weiter: erklaeren-endlich
+  - id: erklaeren-endlich
+    typ: erklaeren
+    text:
+      de: 'Hat der [[Nenner]] nur die [[Primfaktoren]] 2 und 5, lässt er sich auf 10, 100 oder 1000 [[erweitern]]. Dann endet die [[Dezimalzahl]]: 3/25 = 12/100 = 0,12. Sonst ist sie [[periodisch]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '1/8 = 125/1000 = 0,125, das endet. 1/6 = 1 : 6 = 0,1666…, hier wiederholt sich die 6 ohne Ende.'
+    weiter: erklaeren-periode
+  - id: erklaeren-periode
+    typ: erklaeren
+    text:
+      de: '[[Ziffern]], die sich ohne Ende wiederholen, bekommen einen [[Periodenstrich]]. Er steht nur über den Ziffern, die sich wiederholen: 1/3 = 0,3̅ und 1/6 = 0,16̅.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Schreibe 9/4 als [[Dezimalzahl]]. Teile 9 durch 4.'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '2,25', fehler: [{ wert: '9,4', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
+    weiter: gegenbeispiel
+    bei: { FV.BR.KOMMA-ALS-BRUCHSTRICH: erklaeren-dividieren }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Emil sagt: „3/5 ist [[periodisch]], weil 5 ungerade ist.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 3/5 = 6/10 = 0,6 endet.' }, richtig: true }
+        - { wert: { de: 'Ja, ungerade Nenner geben eine Periode.' }, fv: FV.BR.PERIODE-UNGERADE }
+    weiter: merksatz
+    bei: { FV.BR.PERIODE-UNGERADE: erklaeren-endlich }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Bruch]] in [[Dezimalzahl]]: [[Zähler]] durch [[Nenner]]. Nur 2 und 5 im Nenner: Die Zahl endet. Sonst wiederholt sich etwas, und das zeigt der [[Periodenstrich]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie schreibt man 2/3 als [[Dezimalzahl]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '0,6̅' }, richtig: true }
+        - { wert: { de: '0,666' }, fv: FV.BR.PERIODENSTRICH }
+        - { wert: { de: '2,3' }, fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }
+    weiter: uebergang
+    bei:
+      { FV.BR.PERIODENSTRICH: erklaeren-periode, FV.BR.KOMMA-ALS-BRUCHSTRICH: erklaeren-dividieren }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Klasse. Jetzt bist du dran.'
+    vorlagen: [M.ZO.BR.PERIODISCH.UNECHT-ZU-DEZIMAL, M.ZO.BR.PERIODISCH.ERKENNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

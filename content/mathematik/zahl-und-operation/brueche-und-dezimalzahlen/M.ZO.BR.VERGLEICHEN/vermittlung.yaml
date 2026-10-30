@@ -1,0 +1,96 @@
+id: M.ZO.BR.VERGLEICHEN
+kompetenz: M.ZO.BR.VERGLEICHEN
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du entscheiden, welcher von zwei Brüchen größer ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welcher [[Bruch]] zeigt den gefärbten Teil?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
+    antwort:
+      eingabe: { art: bruch, loesung: '2/5', fehler: [{ wert: '2/3', fv: FV.BR.TEIL-ZU-REST }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Teile den Streifen in 4 Teile und färbe eins. Stell dir dann denselben Streifen mit 8 Teilen vor. Ist 1/8 größer oder kleiner als 1/4?'
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'kleiner' }, richtig: true }
+        - { wert: { de: 'größer' }, fv: FV.BR.NENNER-GROESSER }
+    weiter: erklaeren-gleichnamig
+  - id: erklaeren-gleichnamig
+    typ: erklaeren
+    text:
+      de: 'Gleicher [[Nenner]]: Alle Teile sind gleich groß. Dann ist der [[Bruch]] mit dem größeren [[Zähler]] größer: 3/5 > 2/5.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
+    weiter: erklaeren-gleicher-zaehler
+  - id: erklaeren-gleicher-zaehler
+    typ: erklaeren
+    text:
+      de: 'Gleicher [[Zähler]]: Gleich viele Teile, aber verschieden groß. Ein größerer [[Nenner]] macht die Teile kleiner: 1/4 > 1/8.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 1 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '2/3 und 2/5 haben denselben [[Zähler]]. Fünftel sind kleiner als Drittel. Also ist 2/3 > 2/5.'
+    weiter: erklaeren-ungleichnamig
+  - id: erklaeren-ungleichnamig
+    typ: erklaeren
+    text:
+      de: 'Sind [[Zähler]] und [[Nenner]] verschieden, vergleiche mit einem Halben: 3/8 ist weniger als die Hälfte, 2/3 mehr. Oder bringe beide auf einen [[gemeinsamen Nenner]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Vergleiche 3/4 mit 5/8. [[Erweitere]] dafür 3/4 auf Achtel.'
+    antwort:
+      eingabe: { art: bruch, loesung: '6/8', fehler: [{ wert: '3/8', fv: FV.BR.NUR-NENNER }] }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jakob sagt: „1/10 ist größer als 1/3, weil 10 größer ist als 3.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Zehntel sind kleiner als Drittel.' }, richtig: true }
+        - { wert: { de: 'Ja, der größere Nenner gewinnt.' }, fv: FV.BR.NENNER-GROESSER }
+    weiter: merksatz
+    bei: { FV.BR.NENNER-GROESSER: erklaeren-gleicher-zaehler }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Gleicher [[Nenner]]: Der größere [[Zähler]] gewinnt. Gleicher Zähler: Der kleinere Nenner gewinnt. Sonst mit einem Halben vergleichen oder gleichnamig machen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher [[Bruch]] ist am größten?'
+    antwort:
+      optionen:
+        - { wert: { de: '2/3' }, richtig: true }
+        - { wert: { de: '3/8' }, fv: FV.BR.NUR-ZAEHLER }
+        - { wert: { de: '1/9' }, fv: FV.BR.NENNER-GROESSER }
+    weiter: uebergang
+    bei:
+      {
+        FV.BR.NUR-ZAEHLER: erklaeren-ungleichnamig,
+        FV.BR.NENNER-GROESSER: erklaeren-gleicher-zaehler,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt vergleichst du selbst.'
+    vorlagen: [M.ZO.BR.VERGLEICHEN.ZEICHEN, M.ZO.BR.VERGLEICHEN.GROESSTER]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
