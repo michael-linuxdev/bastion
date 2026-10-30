@@ -1,0 +1,84 @@
+id: M.ZO.RZ.POTENZEN
+kompetenz: M.ZO.RZ.POTENZEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Potenzen mit [[negativen Zahlen]] berechnen, zum Beispiel (−3)², und Wurzeln aus Quadratzahlen ziehen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ist (−4) · (−4) positiv oder negativ?'
+    antwort:
+      optionen:
+        - { wert: { de: 'positiv' }, richtig: true }
+        - { wert: { de: 'negativ' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.MULT-DIV }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Schreibe (−3)² als Malaufgabe aus und rechne. Wie viel kommt heraus?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '6', fv: FV.NZ.HOCHZAHL-MAL }] }
+    weiter: erklaeren-potenz
+  - id: erklaeren-potenz
+    typ: erklaeren
+    text:
+      de: 'Die [[Hochzahl]] sagt, wie oft die Zahl als [[Faktor]] vorkommt: (−3)² = (−3) · (−3) = 9, (−2)³ = (−2) · (−2) · (−2) = −8. [[Gerade]] Hochzahl: plus. Ungerade: Das Minus bleibt.'
+    weiter: erklaeren-klammer
+  - id: erklaeren-klammer
+    typ: erklaeren
+    text:
+      de: 'Achte auf die Klammer. In (−4)² gehört das Minus zur Zahl: 16. In −4² gehört die [[Hochzahl]] nur zur 4: −(4 · 4) = −16.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '√49 = 7, denn 7 · 7 = 49. Auch (−7) · (−7) ist 49, aber die [[Wurzel]] ist immer die positive Zahl.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne (−5)².'
+    antwort:
+      eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '10', fv: FV.NZ.HOCHZAHL-MAL }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.HOCHZAHL-MAL: erklaeren-potenz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Felix rechnet −2² = 4. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, ohne Klammer gilt die Hochzahl nur für die 2: −4.' }, richtig: true }
+        - { wert: { de: 'Ja, minus mal minus ist plus.' }, fv: FV.RZ.POTENZ-KLAMMER }
+    weiter: merksatz
+    bei: { FV.RZ.POTENZ-KLAMMER: erklaeren-klammer }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Potenz: die Zahl so oft malnehmen, wie die [[Hochzahl]] sagt. Klammer beachten. [[Wurzel]]: Welche positive Zahl mal sich selbst ergibt das?'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist (−2)³?'
+    antwort:
+      optionen:
+        - { wert: { de: '−8' }, richtig: true }
+        - { wert: { de: '8' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+        - { wert: { de: '−6' }, fv: FV.NZ.HOCHZAHL-MAL }
+    weiter: uebergang
+    bei: { FV.RZ.VORZEICHEN-FALSCH: erklaeren-potenz, FV.NZ.HOCHZAHL-MAL: erklaeren-potenz }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.RZ.POTENZEN.POTENZ, M.ZO.RZ.POTENZEN.WURZEL]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
