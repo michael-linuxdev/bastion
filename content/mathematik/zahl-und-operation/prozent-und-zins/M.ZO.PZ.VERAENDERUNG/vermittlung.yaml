@@ -1,0 +1,97 @@
+id: M.ZO.PZ.VERAENDERUNG
+kompetenz: M.ZO.PZ.VERAENDERUNG
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du einen neuen Preis nach einer Erhöhung oder Senkung um einige [[Prozent]] berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel sind 20 % von 50 €?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.PZ.GRUNDAUFGABEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Jacke kostet 50 €. Der Preis steigt um 20 %. Wie viel Euro kostet sie danach?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '60',
+          fehler: [{ wert: '10', fv: FV.PZ.NUR-AENDERUNG }, { wert: '40', fv: FV.PZ.RICHTUNG }],
+        }
+    weiter: erklaeren-neuer-wert
+  - id: erklaeren-neuer-wert
+    typ: erklaeren
+    text:
+      de: 'Erst die Änderung ausrechnen, dann zum alten Wert dazuzählen oder abziehen. Oder in einem Schritt: 20 % mehr sind 120 %, also 50 € · 1,2 = 60 €. 20 % weniger sind 80 %.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Rad kostet 400 € und wird um 25 % billiger. 25 % von 400 € sind 100 €. Neuer Preis: 400 € − 100 € = 300 €.'
+    weiter: erklaeren-um-auf
+  - id: erklaeren-um-auf
+    typ: erklaeren
+    text:
+      de: '„Um wie viel [[Prozent]]?“ fragt nach der Änderung. „Auf wie viel Prozent?“ fragt nach dem neuen Wert im Vergleich zum alten. Von 50 € auf 60 € heißt um 20 %, auf 120 %.'
+    weiter: erklaeren-grundwert
+  - id: erklaeren-grundwert
+    typ: erklaeren
+    text:
+      de: 'Die Prozente beziehen sich auf den alten Wert, den [[Grundwert]]. Rückwärts gilt: Der neue Preis ist zum Beispiel 120 % des alten, also teilst du durch 1,2.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Spiel kostet 40 € und wird um 10 % teurer. Wie viel Euro kostet es jetzt?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '44',
+          fehler: [{ wert: '4', fv: FV.PZ.NUR-AENDERUNG }, { wert: '36', fv: FV.PZ.RICHTUNG }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.NUR-AENDERUNG: erklaeren-neuer-wert, FV.PZ.RICHTUNG: erklaeren-neuer-wert }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Preis steigt von 80 € auf 100 €. Pia sagt: „Er ist um 125 % gestiegen.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auf 125 %, also um 25 %.' }, richtig: true }
+        - { wert: { de: 'Ja, 100 : 80 = 1,25.' }, fv: FV.PZ.UM-AUF }
+    weiter: merksatz
+    bei: { FV.PZ.UM-AUF: erklaeren-um-auf }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Neuer Wert = alter Wert ± Änderung. Die Prozente beziehen sich auf den alten Wert. „Um“ ist die Änderung, „auf“ der neue [[Anteil]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Buch kostet 20 € und wird um 25 % billiger. Was kostet es jetzt?'
+    antwort:
+      optionen:
+        - { wert: { de: '15 €' }, richtig: true }
+        - { wert: { de: '5 €' }, fv: FV.PZ.NUR-AENDERUNG }
+        - { wert: { de: '25 €' }, fv: FV.PZ.RICHTUNG }
+    weiter: uebergang
+    bei: { FV.PZ.NUR-AENDERUNG: erklaeren-neuer-wert, FV.PZ.RICHTUNG: erklaeren-neuer-wert }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.PZ.VERAENDERUNG.NEUER-PREIS, M.ZO.PZ.VERAENDERUNG.UM-AUF]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

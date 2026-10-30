@@ -1,0 +1,97 @@
+id: M.ZO.PZ.WIRTSCHAFT
+kompetenz: M.ZO.PZ.WIRTSCHAFT
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Rabatt]], [[Skonto]] und [[Mehrwertsteuer]] berechnen und eine Rechnung prüfen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Preis von 60 € sinkt um 10 %. Wie viel Euro kostet es danach?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '54',
+          fehler: [{ wert: '6', fv: FV.PZ.NUR-AENDERUNG }, { wert: '66', fv: FV.PZ.RICHTUNG }],
+        }
+    weiter: entdecken
+    bei: { sonst: M.ZO.PZ.VERAENDERUNG }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Auf ein Fahrrad gibt es 20 % [[Rabatt]]. Wird der Preis dadurch höher oder niedriger?'
+    antwort:
+      optionen:
+        - { wert: { de: 'niedriger' }, richtig: true }
+        - { wert: { de: 'höher' }, fv: FV.PZ.RICHTUNG }
+    weiter: erklaeren-begriffe
+  - id: erklaeren-begriffe
+    typ: erklaeren
+    text:
+      de: '[[Rabatt]] und [[Skonto]] sind Nachlässe, sie werden abgezogen. Die [[Mehrwertsteuer]] kommt zum Nettopreis dazu, meist 19 %. Gibt es zwei Änderungen, rechnest du nacheinander, immer vom neuen Preis aus.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Netto 200 €, dazu 19 % [[Mehrwertsteuer]]: 200 € · 1,19 = 238 €. Bei Barzahlung 2 % [[Skonto]]: 238 € · 0,98 = 233,24 €.'
+    weiter: erklaeren-rechnung
+  - id: erklaeren-rechnung
+    typ: erklaeren
+    text:
+      de: 'Eine Rechnung prüfst du Zeile für Zeile: Stimmt die Zwischensumme? Stimmt die Steuer auf diese Zwischensumme? Stimmt der Endbetrag? Hake jede Zeile ab.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Rad kostet 300 €. Es gibt 15 % [[Rabatt]]. Wie viel Euro zahlst du?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '255',
+          fehler: [{ wert: '45', fv: FV.PZ.NUR-AENDERUNG }, { wert: '345', fv: FV.PZ.RICHTUNG }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.NUR-AENDERUNG: erklaeren-begriffe, FV.PZ.RICHTUNG: erklaeren-begriffe }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Erst 10 % [[Rabatt]], dann noch 20 % Rabatt. Ali sagt: „Das sind zusammen 30 %.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die 20 % gelten vom neuen Preis. Zusammen sind es 28 %.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, 10 % + 20 % = 30 %.' }, fv: FV.PZ.FALSCHER-GRUNDWERT }
+    weiter: merksatz
+    bei: { FV.PZ.FALSCHER-GRUNDWERT: erklaeren-begriffe }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Rabatt]] und [[Skonto]] abziehen, [[Mehrwertsteuer]] dazu. Mehrere Änderungen nacheinander rechnen. Rechnungen Zeile für Zeile nachrechnen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Netto 100 €, dazu 19 % [[Mehrwertsteuer]]. Was ist der Endpreis?'
+    antwort:
+      optionen:
+        - { wert: { de: '119 €' }, richtig: true }
+        - { wert: { de: '81 €' }, fv: FV.PZ.RICHTUNG }
+        - { wert: { de: '19 €' }, fv: FV.PZ.NUR-AENDERUNG }
+    weiter: uebergang
+    bei: { FV.PZ.RICHTUNG: erklaeren-begriffe, FV.PZ.NUR-AENDERUNG: erklaeren-begriffe }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.PZ.WIRTSCHAFT.PREIS, M.ZO.PZ.WIRTSCHAFT.RECHNUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

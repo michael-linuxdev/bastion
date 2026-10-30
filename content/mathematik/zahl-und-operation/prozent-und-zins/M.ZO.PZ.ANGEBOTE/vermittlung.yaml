@@ -1,0 +1,86 @@
+id: M.ZO.PZ.ANGEBOTE
+kompetenz: M.ZO.PZ.ANGEBOTE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Angebote vergleichen und herausfinden, welches wirklich günstiger ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Preis von 100 € wird um 20 % gesenkt. Wie viel Euro kostet es jetzt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '80', fehler: [{ wert: '20', fv: FV.PZ.NUR-AENDERUNG }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.PZ.WIRTSCHAFT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Saft A: 1 l für 1,20 €. Saft B: 1,5 l für 1,50 €. Wie viel Euro kostet 1 l von Saft B?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '1,5', fv: FV.PZ.PACKUNGSGROESSE }] }
+    weiter: erklaeren-vergleichen
+  - id: erklaeren-vergleichen
+    typ: erklaeren
+    text:
+      de: 'Preise vergleichst du nur für dieselbe Menge. Rechne für jedes Angebot den Preis für 1 kg, 1 l oder die Menge, die du brauchst. Saft B kostet 1 € je Liter und ist günstiger.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Du brauchst 6 Brötchen. Einzeln 0,40 €, im Sechserpack 2,10 €. Einzeln: 6 · 0,40 € = 2,40 €. Der Pack ist 0,30 € günstiger.'
+    weiter: erklaeren-ratenkauf
+  - id: erklaeren-ratenkauf
+    typ: erklaeren
+    text:
+      de: 'Beim [[Ratenkauf]] zählst du Anzahlung und alle [[Raten]] zusammen: Anzahlung + Anzahl · Rate. Erst diese [[Summe]] kannst du mit dem Barpreis vergleichen.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Handy kostet bar 250 €. Oder 50 € Anzahlung und 10 [[Raten]] zu 22 €. Wie viel Euro zahlst du beim [[Ratenkauf]] insgesamt?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '270',
+          fehler: [{ wert: '220', fv: FV.SA.ANGABE-UEBERSEHEN }, { wert: '72', fv: FV.PZ.RATEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.RATEN: erklaeren-ratenkauf, FV.SA.ANGABE-UEBERSEHEN: erklaeren-ratenkauf }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eine 500-g-Packung kostet 2 €, eine 1-kg-Packung 3 €. Tom nimmt die kleine, weil 2 € weniger ist. Ist sie günstiger?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 1 kg kostet so 4 €, die große Packung nur 3 €.' }, richtig: true }
+        - { wert: { de: 'Ja, der kleinere Preis ist günstiger.' }, fv: FV.PZ.PACKUNGSGROESSE }
+    weiter: merksatz
+    bei: { FV.PZ.PACKUNGSGROESSE: erklaeren-vergleichen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Preise immer für dieselbe Menge vergleichen. Beim [[Ratenkauf]] alles zusammenzählen. Erst dann entscheiden.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Bar 600 € oder 12 [[Raten]] zu 55 €. Was ist günstiger?'
+    antwort:
+      optionen:
+        - { wert: { de: 'bar, denn 12 · 55 € = 660 €' }, richtig: true }
+        - { wert: { de: 'die Raten, denn 55 € ist wenig' }, fv: FV.PZ.RATEN }
+    weiter: uebergang
+    bei: { FV.PZ.RATEN: erklaeren-ratenkauf }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt vergleichst du selbst.'
+    vorlagen: [M.ZO.PZ.ANGEBOTE.VERGLEICH, M.ZO.PZ.ANGEBOTE.KOSTEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
