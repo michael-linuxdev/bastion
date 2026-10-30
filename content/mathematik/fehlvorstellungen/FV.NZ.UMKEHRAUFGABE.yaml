@@ -16,6 +16,7 @@ kompetenzen:
     M.SF.FK.LINEAR-GLEICHUNG,
     M.SF.FK.NULLSTELLE,
     M.GM.FL.RECHTECK,
+    M.GM.KP.VOLUMEN,
   ]
 erklaerung:
   kurz:
@@ -40,6 +41,7 @@ kontrast:
     M.SF.GL.FORMELN.UMSTELLEN,
     M.SF.FK.NULLSTELLE.BERECHNEN,
     M.GM.FL.RECHTECK.SEITE-FEHLT,
+    M.GM.KP.VOLUMEN.KANTE-FEHLT,
   ]
 herkunft: ki-entwurf
 version: 1

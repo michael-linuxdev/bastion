@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   falsche-richtung:
     de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
+    fv: FV.GR.UMRECHNEN-RICHTUNG
   falsche-umrechnungszahl:
     de: 'Die [[Umrechnungszahl]] stimmt nicht. Bei [[Volumen]] und [[Hohlmaßen]] ist sie 1000 je Schritt.'
+    fv: FV.KP.VOLUMEN-1000
 herkunft: ki-entwurf
 version: 1

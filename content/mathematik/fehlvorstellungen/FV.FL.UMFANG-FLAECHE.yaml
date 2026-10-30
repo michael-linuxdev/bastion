@@ -6,7 +6,14 @@ beschreibung:
   de: >-
     Berechnet den Umfang, wenn der Flächeninhalt gefragt ist, oder umgekehrt, oder addiert Länge und
     Breite für die Fläche. Beide Größen gehören zur selben Figur und werden vermischt.
-kompetenzen: [M.GM.FL.RECHTECK, M.GM.FL.VIELECKE, M.GM.FL.ZUSAMMENGESETZT, M.GM.KR.UMFANG-FLAECHE]
+kompetenzen:
+  [
+    M.GM.FL.RECHTECK,
+    M.GM.FL.VIELECKE,
+    M.GM.FL.ZUSAMMENGESETZT,
+    M.GM.KR.UMFANG-FLAECHE,
+    M.GM.KP.ZYLINDER,
+  ]
 erklaerung:
   kurz:
     de: 'Der [[Umfang]] ist die Länge um die Figur herum, du addierst Seiten (cm). Der [[Flächeninhalt]] ist, was innen Platz hat, beim Rechteck Länge mal Breite (cm²).'
@@ -21,6 +28,12 @@ gegenbeispiel:
   de: 'Ein Rechteck 4 cm mal 3 cm hat 14 cm [[Umfang]] und 12 cm² Fläche. Zwei verschiedene Zahlen mit verschiedenen Einheiten.'
 rueckweg:
   vermittlung: M.GM.FL.RECHTECK#erklaeren-umfang-flaeche
-kontrast: [M.GM.FL.RECHTECK.FLAECHE, M.GM.FL.RECHTECK.UMFANG, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
+kontrast:
+  [
+    M.GM.FL.RECHTECK.FLAECHE,
+    M.GM.FL.RECHTECK.UMFANG,
+    M.GM.FL.ZUSAMMENGESETZT.UMFANG,
+    M.GM.KP.ZYLINDER.BERECHNEN,
+  ]
 herkunft: ki-entwurf
 version: 1

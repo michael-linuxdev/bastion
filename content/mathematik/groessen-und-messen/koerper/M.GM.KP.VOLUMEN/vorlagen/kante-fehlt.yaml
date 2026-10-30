@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   nur-durch-eine-kante:
     de: 'Du hast nur durch eine [[Kante]] geteilt. Teile durch die [[Grundfläche]], also durch Breite mal Tiefe.'
+    fv: FV.GL.UMSTELLEN-HALB
   subtrahiert:
     de: 'Beim [[Volumen]] wird multipliziert. Rückwärts musst du deshalb teilen, nicht abziehen.'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

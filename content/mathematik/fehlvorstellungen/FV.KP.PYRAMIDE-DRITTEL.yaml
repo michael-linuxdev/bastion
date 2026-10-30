@@ -1,0 +1,26 @@
+id: FV.KP.PYRAMIDE-DRITTEL
+name:
+  de: Vergisst bei der Pyramide das Drittel oder halbiert stattdessen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet das Volumen einer Pyramide wie das eines Prismas (G · h) oder teilt durch 2 statt durch
+    3. Die Regel vom Dreieck („halbes Rechteck“) wird auf die Pyramide übertragen.
+kompetenzen: [M.GM.KP.PYRAMIDE]
+erklaerung:
+  kurz:
+    de: 'Eine [[Pyramide]] hat ein Drittel des [[Volumens]] eines [[Prismas]] mit gleicher [[Grundfläche]] und [[Höhe]]: V = G · h : 3.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nicht oder durch 2 statt durch 3 geteilt.'
+    - teil: warum-nicht
+      de: 'Beim Dreieck ist es die Hälfte, darum liegt das nahe. Eine [[Pyramide]] wird aber nach oben in zwei Richtungen schmaler. Man kann zeigen: Drei gleiche Pyramiden füllen genau ein [[Prisma]].'
+    - teil: so-stimmt-es
+      de: 'Rechne erst G · h wie beim [[Prisma]], dann teile durch 3: 36 cm² · 10 cm : 3 = 120 cm³.'
+gegenbeispiel:
+  de: 'Füllt man eine [[Pyramide]] aus Pappe mit Sand und schüttet ihn in ein [[Prisma]] mit gleicher [[Grundfläche]] und [[Höhe]], braucht man drei Füllungen.'
+rueckweg:
+  vermittlung: M.GM.KP.PYRAMIDE#erklaeren-volumen
+kontrast: [M.GM.KP.PYRAMIDE.VOLUMEN]
+herkunft: ki-entwurf
+version: 1

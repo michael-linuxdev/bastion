@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   dichte-vergessen:
     de: 'Das ist das [[Volumen]]. Für die Masse nimmst du noch mit der [[Dichte]] mal.'
+    fv: FV.SA.ZWISCHENERGEBNIS
   dreieck-nicht-halbiert:
     de: 'Die [[Grundfläche]] ist ein Dreieck – also ein halbes Rechteck. Teile noch durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
 herkunft: ki-entwurf
 version: 1

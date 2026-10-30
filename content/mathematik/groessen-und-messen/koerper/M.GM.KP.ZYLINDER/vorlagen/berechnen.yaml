@@ -17,13 +17,18 @@ hilfen:
 fehlerbilder:
   radius-durchmesser:
     de: '[[Radius]] und [[Durchmesser]] sind verwechselt – oder du hast mit dem Unterschied der Radien gerechnet. Prüfe, welche Länge in die [[Formel]] gehört.'
+    fv: FV.KR.RADIUS-DURCHMESSER
   umfang-statt-flaeche:
     de: 'Für das [[Volumen]] brauchst du die Kreisfläche ([[π]] · r²), für den [[Mantel]] den [[Umfang]] (2 · π · r). Hier ist es vertauscht.'
+    fv: FV.FL.UMFANG-FLAECHE
   ein-deckel:
     de: 'Ein [[Zylinder]] hat zwei Kreise: unten und oben.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   mantel-statt-oberflaeche:
     de: 'Das ist nur der [[Mantel]]. Zur [[Oberfläche]] gehören auch die beiden Kreise.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
   innen-vergessen:
     de: 'Das Rohr ist innen hohl. Ziehe den inneren [[Zylinder]] ab.'
+    fv: FV.FL.ZERLEGEN
 herkunft: ki-entwurf
 version: 1

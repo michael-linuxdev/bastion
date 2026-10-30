@@ -1,0 +1,26 @@
+id: FV.SA.GEGENTEIL-GEFRAGT
+name:
+  de: Beantwortet das Gegenteil der Frage
+art: lesefehler
+beschreibung:
+  de: >-
+    Wählt das größte statt des kleinsten, das teuerste statt des günstigsten oder das meiste statt
+    des wenigsten. Gerechnet wurde richtig, aber die Frage am Ende nicht noch einmal gelesen.
+kompetenzen: [M.GM.KP.VERPACKUNG]
+erklaerung:
+  kurz:
+    de: 'Deine Rechnung stimmt, aber du hast das Gegenteil gewählt. Lies noch einmal: Ist das Meiste oder das Wenigste gefragt?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig verglichen und dann die falsche Seite gewählt.'
+    - teil: warum-nicht
+      de: 'Nach dem Rechnen ist man froh, fertig zu sein. Aber „am wenigsten“ und „am meisten“ sind genau entgegengesetzt.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche das Fragewort vor dem Rechnen. Markiere am Ende in deiner Rechnung das Ergebnis, das dazu passt.'
+gegenbeispiel:
+  de: 'Wer die günstigste Fahrkarte sucht, kauft nicht die teuerste.'
+rueckweg:
+  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+kontrast: [M.GM.KP.VERPACKUNG.VERGLEICHEN]
+herkunft: ki-entwurf
+version: 1

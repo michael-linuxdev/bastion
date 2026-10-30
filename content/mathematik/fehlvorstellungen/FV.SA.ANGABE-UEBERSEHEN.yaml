@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Nutzt nur einen Teil der Angaben, zum Beispiel nur die erste von zwei Ausgaben. Längere Texte
     werden nicht vollständig erfasst.
-kompetenzen: [M.ZO.BR.SACH, M.ZO.PZ.ANGEBOTE, M.GM.GR.SACH, M.GM.GR.ZEIT]
+kompetenzen: [M.ZO.BR.SACH, M.ZO.PZ.ANGEBOTE, M.GM.GR.SACH, M.GM.GR.ZEIT, M.GM.KP.VERPACKUNG]
 erklaerung:
   kurz:
     de: 'Eine Angabe fehlt in deiner Rechnung. Lies den Text noch einmal und unterstreiche jede Zahl.'
@@ -21,6 +21,13 @@ gegenbeispiel:
   de: 'Wer zweimal einkaufen geht, hat danach weniger Geld als nach dem ersten Einkauf.'
 rueckweg:
   vermittlung: M.ZO.BR.SACH#erklaeren-frage
-kontrast: [M.ZO.BR.SACH.ANTEIL, M.ZO.PZ.ANGEBOTE.KOSTEN, M.GM.GR.SACH.WEG, M.GM.GR.ZEIT.ENDZEIT]
+kontrast:
+  [
+    M.ZO.BR.SACH.ANTEIL,
+    M.ZO.PZ.ANGEBOTE.KOSTEN,
+    M.GM.GR.SACH.WEG,
+    M.GM.GR.ZEIT.ENDZEIT,
+    M.GM.KP.VERPACKUNG.MATERIAL,
+  ]
 herkunft: ki-entwurf
 version: 1
