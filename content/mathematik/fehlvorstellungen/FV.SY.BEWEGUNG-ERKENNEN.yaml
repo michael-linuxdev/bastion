@@ -1,0 +1,26 @@
+id: FV.SY.BEWEGUNG-ERKENNEN
+name:
+  de: Verwechselt Verschiebung, Spiegelung und Drehung
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt eine gespiegelte Figur verschoben oder eine gedrehte gespiegelt. Das Merkmal „umgeklappt,
+    also seitenverkehrt“ wird nicht geprüft.
+kompetenzen: [M.RF.SY.BEWEGUNGEN]
+erklaerung:
+  kurz:
+    de: '[[Verschiebung]]: alles bleibt gleich ausgerichtet. [[Spiegelung]]: Die Figur ist seitenverkehrt. [[Drehung]]: Die Figur ist gekippt, aber nicht seitenverkehrt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Bewegung nach dem ersten Eindruck benannt.'
+    - teil: warum-nicht
+      de: 'Gespiegelte und gedrehte Figuren sehen sich oft [[ähnlich]]. Aber bei einer [[Spiegelung]] wird links zu rechts, wie bei deiner Hand im Spiegel. Bei einer [[Drehung]] bleibt eine rechte Hand eine rechte Hand.'
+    - teil: so-stimmt-es
+      de: 'Markiere eine Ecke und verfolge, wohin sie wandert. Ist die Reihenfolge der Ecken umgekehrt, wurde gespiegelt.'
+gegenbeispiel:
+  de: 'Ein Wort im Spiegel liest sich rückwärts. Auf dem Kopf gedreht liest es sich zwar schwer, aber nicht spiegelverkehrt.'
+rueckweg:
+  vermittlung: M.RF.SY.BEWEGUNGEN#erklaeren-bewegungen
+kontrast: [M.RF.SY.BEWEGUNGEN.ERKENNEN]
+herkunft: ki-entwurf
+version: 1

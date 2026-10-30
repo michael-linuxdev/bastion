@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'x und y sind vertauscht. Merke: Erst nach rechts (x), dann nach oben (y).'
+    fv: FV.GF.X-Y-VERTAUSCHT
   kaestchen-statt-linien:
     de: Du hast Kästchen gezählt. Die Zahlen stehen an den Linien – lies dort ab, wo der Punkt liegt.
+    fv: FV.GF.KAESTCHEN-LINIEN
 herkunft: ki-entwurf
 version: 1

@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   schritt-uebersprungen:
     de: Dieser Schritt kommt später. Dafür brauchst du erst einen Punkt oder eine Linie, die noch fehlt.
+    fv: FV.DV.KONSTRUKTIONSREIHENFOLGE
 herkunft: ki-entwurf
 version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'x und y sind vertauscht. Erst nach rechts oder links (x), dann nach oben oder unten (y).'
+    fv: FV.GF.X-Y-VERTAUSCHT
   vorzeichen-vergessen:
     de: 'Links vom [[Ursprung]] ist x negativ, unterhalb ist y negativ. Achte auf das [[Vorzeichen]].'
+    fv: FV.RZ.MINUS-VERGESSEN
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.GF.WINKELMESSER-SKALA
+name:
+  de: Liest am Winkelmesser auf der falschen Skala ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Liest bei einem spitzen Winkel von 40° den Wert 140° ab. Der Winkelmesser hat zwei Skalen, und
+    die genommene beginnt nicht beim ersten Schenkel mit 0.
+kompetenzen: [M.RF.GF.WINKEL]
+erklaerung:
+  kurz:
+    de: 'Nimm die [[Skala]], die beim ersten [[Schenkel]] bei 0 beginnt. Prüfe dann: Ein spitzer [[Winkel]] ist kleiner als 90°, ein stumpfer größer.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl auf der anderen [[Skala]] abgelesen.'
+    - teil: warum-nicht
+      de: 'Beide [[Skalen]] stehen nebeneinander, darum greift man leicht daneben. Sie zählen aber von verschiedenen Seiten. Nur die Skala, die beim [[Schenkel]] mit 0 anfängt, misst diesen [[Winkel]].'
+    - teil: so-stimmt-es
+      de: 'Lege die Mitte vom [[Winkelmesser]] auf den Scheitel und die 0 auf einen [[Schenkel]]. Zähle auf dieser [[Skala]] bis zum zweiten Schenkel. Schätze vorher: spitz oder stumpf?'
+gegenbeispiel:
+  de: 'Eine Uhr um 1 Uhr zeigt einen kleinen [[Winkel]] zwischen den Zeigern. 150° wären fast eine gerade Linie.'
+rueckweg:
+  vermittlung: M.RF.GF.WINKEL#erklaeren-messen
+kontrast: [M.RF.GF.WINKEL.ABLESEN]
+herkunft: ki-entwurf
+version: 1

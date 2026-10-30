@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Schreibt 3 statt −3 für „3 Grad unter null“ oder liest die Markierung links der 0 als positive
     Zahl. Der Betrag stimmt, die Seite der 0 wird nicht beachtet.
-kompetenzen: [M.ZO.RZ.BEGRIFF]
+kompetenzen: [M.ZO.RZ.BEGRIFF, M.RF.GF.QUADRANTEN]
 erklaerung:
   kurz:
     de: 'Links von der 0, unter null, unter dem Meeresspiegel oder bei Schulden steht ein Minus vor der Zahl.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: '5 € auf dem Konto und 5 € Schulden sind nicht dasselbe.'
 rueckweg:
   vermittlung: M.ZO.RZ.BEGRIFF#erklaeren-zahlengerade
-kontrast: [M.ZO.RZ.BEGRIFF.ALLTAG, M.ZO.RZ.BEGRIFF.ZAHLENGERADE]
+kontrast: [M.ZO.RZ.BEGRIFF.ALLTAG, M.ZO.RZ.BEGRIFF.ZAHLENGERADE, M.RF.GF.QUADRANTEN.ABLESEN]
 herkunft: ki-entwurf
 version: 1

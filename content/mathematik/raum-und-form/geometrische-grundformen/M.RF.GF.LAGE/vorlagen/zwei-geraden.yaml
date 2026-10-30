@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   kreuzung-ausserhalb-uebersehen:
     de: 'Im Bild berühren sich g und h nicht – aber verlängert schneiden sie sich. [[Parallel]] heißt, sie schneiden sich nie.'
+    fv: FV.GF.LAGEBEZIEHUNG
   schief-fuer-senkrecht:
     de: 'Die [[Geraden]] schneiden sich, aber nicht im [[rechten Winkel]]. Prüfe mit dem [[Geodreieck]], ob es wirklich 90° sind.'
+    fv: FV.GF.LAGEBEZIEHUNG
 herkunft: ki-entwurf
 version: 1

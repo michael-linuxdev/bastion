@@ -1,0 +1,26 @@
+id: FV.GF.SPIEGELN-KOORDINATE
+name:
+  de: Ändert beim Spiegeln im Koordinatensystem die falsche Koordinate
+art: verwechslung
+beschreibung:
+  de: >-
+    Spiegelt an der x-Achse und ändert x, oder ändert an einer Achse beide Vorzeichen, oder am
+    Ursprung nur eines. Welche Koordinate sich bei welcher Spiegelung ändert, ist nicht verankert.
+kompetenzen: [M.RF.GF.QUADRANTEN, M.RF.SY.SPIEGELN]
+erklaerung:
+  kurz:
+    de: 'An der x-Achse klappt der Punkt nach oben oder unten, nur y ändert sich. An der y-Achse klappt er nach links oder rechts, nur x ändert sich. Am [[Ursprung]] ändern sich beide.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine andere [[Koordinate]] verändert als die, die sich beim Spiegeln ändert.'
+    - teil: warum-nicht
+      de: 'Der Name „x-Achse“ verleitet, an x zu denken. Aber an der x-Achse bleibt der Punkt gleich weit rechts oder links. Er wechselt nur von oben nach unten.'
+    - teil: so-stimmt-es
+      de: 'Zeichne den Punkt und die Achse und klappe in Gedanken um. P(3|2) an der x-Achse: (3|−2). An der y-Achse: (−3|2). Am [[Ursprung]]: (−3|−2).'
+gegenbeispiel:
+  de: 'Ein Baum spiegelt sich im See: Die Spitze zeigt nach unten, aber der Baum steht noch an derselben Stelle am Ufer.'
+rueckweg:
+  vermittlung: M.RF.GF.QUADRANTEN#erklaeren-spiegeln
+kontrast: [M.RF.GF.QUADRANTEN.SPIEGELN, M.RF.SY.SPIEGELN.PUNKT]
+herkunft: ki-entwurf
+version: 1

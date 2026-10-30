@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   scheitel-neben-verwechselt:
     de: '[[Scheitelwinkel]] liegen sich gegenüber, [[Nebenwinkel]] liegen direkt nebeneinander und teilen sich einen [[Schenkel]].'
+    fv: FV.GF.WINKELPAARE-NAMEN
   stufen-wechsel-verwechselt:
     de: '[[Stufenwinkel]] liegen an beiden [[Schnittpunkten]] an der gleichen Stelle (F-Form), [[Wechselwinkel]] über Kreuz (Z-Form).'
+    fv: FV.GF.WINKELPAARE-NAMEN
 herkunft: ki-entwurf
 version: 1

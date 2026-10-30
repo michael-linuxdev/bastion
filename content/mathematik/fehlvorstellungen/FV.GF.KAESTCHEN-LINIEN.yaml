@@ -1,0 +1,26 @@
+id: FV.GF.KAESTCHEN-LINIEN
+name:
+  de: Zählt im Koordinatensystem Kästchen statt an den Linien abzulesen
+art: lesefehler
+beschreibung:
+  de: >-
+    Liest bei einem Punkt auf der Linie 3 den Wert 4 ab, weil bis dorthin vier Kästchen „angefangen“
+    sind. Die Zahlen gehören zu den Linien, nicht zu den Kästchen.
+kompetenzen: [M.RF.GF.KOORDINATEN]
+erklaerung:
+  kurz:
+    de: 'Die Zahlen stehen an den Linien. Lies ab, auf welcher Linie der Punkt liegt, statt Kästchen zu zählen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Kästchen gezählt.'
+    - teil: warum-nicht
+      de: 'Kästchen sind gut zu sehen, darum zählt man sie gern. Aber ein Punkt liegt auf einer Kreuzung von Linien, und jede Linie hat ihre Zahl. Das erste Kästchen liegt zwischen 0 und 1.'
+    - teil: so-stimmt-es
+      de: 'Fahre vom Punkt [[senkrecht]] nach unten zur x-Achse und lies die Zahl an der Linie ab. Dann waagerecht zur y-Achse.'
+gegenbeispiel:
+  de: 'Ein Lineal zeigt bei 3 cm auf den Strich mit der 3, nicht auf das vierte Feld.'
+rueckweg:
+  vermittlung: M.RF.GF.KOORDINATEN#erklaeren-koordinaten
+kontrast: [M.RF.GF.KOORDINATEN.ABLESEN]
+herkunft: ki-entwurf
+version: 1

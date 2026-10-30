@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   raute-quadrat:
     de: 'Ein Quadrat hätte rechte [[Winkel]] und gleich lange [[Diagonalen]]. Hier fehlt das – es ist eine [[Raute]].'
+    fv: FV.DV.VIERECKE-HAUS
   rechteck-quadrat:
     de: Ein Quadrat hätte vier gleich lange Seiten. Hier fehlt das – es ist ein Rechteck.
+    fv: FV.DV.VIERECKE-HAUS
   parallelogramm-trapez:
     de: 'Beim [[Parallelogramm]] sind beide Paare gegenüberliegender Seiten [[parallel]]. Hier ist es nur eines – es ist ein [[Trapez]].'
+    fv: FV.DV.VIERECKE-HAUS
 herkunft: ki-entwurf
 version: 1

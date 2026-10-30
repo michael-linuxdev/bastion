@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'Du hast x und y vertauscht. Die erste Zahl sagt rechts oder links, die zweite oben oder unten.'
+    fv: FV.GF.X-Y-VERTAUSCHT
   falsch-herum-gezaehlt:
     de: 'Die [[Quadranten]] werden gegen den Uhrzeigersinn gezählt: Auf I oben rechts folgt II oben links.'
+    fv: FV.GF.QUADRANTEN-ZAEHLEN
 herkunft: ki-entwurf
 version: 1

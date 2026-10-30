@@ -1,0 +1,26 @@
+id: FV.DV.EINDEUTIG-KONSTRUIERBAR
+name:
+  de: Beurteilt falsch, ob Angaben eine Figur eindeutig festlegen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Wählt sws, obwohl der Winkel nicht eingeschlossen ist, SsW mit der kürzeren Seite, oder hält
+    zu wenige Angaben für ein Viereck für ausreichend (und umgekehrt).
+kompetenzen: [M.RF.DV.KONSTRUIEREN, M.RF.DV.VIERECKE-KONSTRUIEREN]
+erklaerung:
+  kurz:
+    de: 'Eindeutig heißt: Jeder Schritt der Konstruktion lässt nur eine Möglichkeit. Bei sws liegt der [[Winkel]] zwischen den Seiten, bei SsW gegenüber der längeren Seite.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach der Zahl der Angaben entschieden, nicht nach ihrer Lage.'
+    - teil: warum-nicht
+      de: 'Drei Angaben beim Dreieck klingen nach genug. Aber wenn der [[Winkel]] an der falschen Stelle liegt, kann man zwei verschiedene Dreiecke zeichnen. Dann ist es nicht eindeutig.'
+    - teil: so-stimmt-es
+      de: 'Zeichne eine Skizze und markiere die gegebenen Stücke. Prüfe, welcher [[Kongruenzsatz]] passt. Beim Viereck: Versuche, die Form zu verändern, ohne die Angaben zu verletzen.'
+gegenbeispiel:
+  de: 'Mit zwei Seiten und einem nicht eingeschlossenen [[Winkel]] kann man oft zwei verschiedene Dreiecke zeichnen.'
+rueckweg:
+  vermittlung: M.RF.DV.KONSTRUIEREN#erklaeren-kongruenzsaetze
+kontrast: [M.RF.DV.KONSTRUIEREN.KONGRUENZSATZ, M.RF.DV.VIERECKE-KONSTRUIEREN.EINDEUTIG]
+herkunft: ki-entwurf
+version: 1

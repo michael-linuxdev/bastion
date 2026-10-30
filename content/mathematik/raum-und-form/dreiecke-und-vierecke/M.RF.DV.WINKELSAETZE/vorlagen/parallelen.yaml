@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   gleich-statt-ergaenzt:
     de: 'β ist hier nicht gleich groß wie α. Suche den [[Stufen-]] oder [[Wechselwinkel]] zu α – β ist sein [[Nebenwinkel]].'
+    fv: FV.GF.GLEICH-ODER-180
   ergaenzt-statt-gleich:
     de: β und α liegen an den Parallelen an der gleichen Stelle oder über Kreuz – dann sind sie gleich groß.
+    fv: FV.GF.GLEICH-ODER-180
 herkunft: ki-entwurf
 version: 1

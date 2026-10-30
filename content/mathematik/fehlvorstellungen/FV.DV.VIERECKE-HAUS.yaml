@@ -1,0 +1,27 @@
+id: FV.DV.VIERECKE-HAUS
+name:
+  de: Ordnet Vierecke nach dem Aussehen statt nach ihren Eigenschaften
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Nennt eine Raute Quadrat, ein Trapez Parallelogramm oder meint „Jedes Rechteck ist ein Quadrat“.
+    Dass jedes Viereck durch Eigenschaften bestimmt ist und spezielle Vierecke im „Haus der Vierecke“
+    zu allgemeineren gehören, ist nicht verankert.
+kompetenzen: [M.RF.DV.VIERECKE]
+erklaerung:
+  kurz:
+    de: 'Prüfe die Eigenschaften: [[Parallele]] Seiten? Gleich lange Seiten? Rechte [[Winkel]]? Ein Quadrat hat alles, darum ist es auch eine [[Raute]] und ein Rechteck, aber nicht umgekehrt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach dem Aussehen entschieden oder die Beziehung umgedreht.'
+    - teil: warum-nicht
+      de: 'Im Alltag heißt ein Quadrat nur „Quadrat“. In der Mathematik ist es aber auch ein Rechteck, weil es alle Eigenschaften eines Rechtecks hat. Ein Rechteck mit ungleichen Seiten ist dagegen kein Quadrat.'
+    - teil: so-stimmt-es
+      de: 'Liste die Eigenschaften auf und vergleiche. „Jedes A ist ein B“ stimmt nur, wenn jedes A alle Eigenschaften von B hat.'
+gegenbeispiel:
+  de: 'Jeder Hund ist ein Tier, aber nicht jedes Tier ist ein Hund.'
+rueckweg:
+  vermittlung: M.RF.DV.VIERECKE#erklaeren-haus
+kontrast: [M.RF.DV.VIERECKE.ERKENNEN, M.RF.DV.VIERECKE.HAUS]
+herkunft: ki-entwurf
+version: 1

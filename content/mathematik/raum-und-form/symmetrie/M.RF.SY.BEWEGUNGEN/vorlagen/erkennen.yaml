@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   spiegelung-verschiebung-verwechselt:
     de: 'Bei einer [[Verschiebung]] bleibt alles gleich ausgerichtet. Ist die Figur umgeklappt, wurde gespiegelt.'
+    fv: FV.SY.BEWEGUNG-ERKENNEN
   drehung-spiegelung-verwechselt:
     de: 'Gespiegelt und gedreht sehen fast gleich aus. Bei einer [[Drehung]] steht die Figur auf dem Kopf, bei einer [[Spiegelung]] ist sie seitenverkehrt.'
+    fv: FV.SY.BEWEGUNG-ERKENNEN
 herkunft: ki-entwurf
 version: 1

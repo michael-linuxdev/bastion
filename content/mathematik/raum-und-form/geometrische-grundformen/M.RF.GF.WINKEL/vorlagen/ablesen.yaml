@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   falsche-skala:
     de: 'Du hast auf der falschen [[Skala]] abgelesen. Nimm die Skala, die beim ersten [[Schenkel]] bei 0 anfängt. Spitze [[Winkel]] sind kleiner als 90°.'
+    fv: FV.GF.WINKELMESSER-SKALA
 herkunft: ki-entwurf
 version: 1

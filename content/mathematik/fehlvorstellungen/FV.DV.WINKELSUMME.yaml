@@ -1,0 +1,26 @@
+id: FV.DV.WINKELSUMME
+name:
+  de: Nimmt die falsche Winkelsumme
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet im Dreieck mit 360° oder im n-Eck mit n · 180°. Die Innenwinkelsummen von Dreieck (180°),
+    Viereck (360°) und n-Eck ((n − 2) · 180°) werden vermischt.
+kompetenzen: [M.RF.DV.WINKELSAETZE, M.RF.DV.REGELMAESSIG]
+erklaerung:
+  kurz:
+    de: 'Dreieck: 180°. Viereck: 360°. n-Eck: (n − 2) · 180°, denn es lässt sich in n − 2 Dreiecke zerlegen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit der Winkelsumme einer anderen Figur gerechnet.'
+    - teil: warum-nicht
+      de: '180° und 360° kommen beide oft vor. Aber ein Dreieck ist nur halb so „rund“ wie ein Viereck: Ein Viereck besteht aus zwei Dreiecken. Ein Fünfeck aus drei, nicht aus fünf.'
+    - teil: so-stimmt-es
+      de: 'Zeichne von einer Ecke aus alle [[Diagonalen]] und zähle die Dreiecke: Beim Sechseck sind es 4, also 4 · 180° = 720°.'
+gegenbeispiel:
+  de: 'Reißt man die drei Ecken eines Papierdreiecks ab und legt sie aneinander, ergeben sie eine gerade Linie: 180°.'
+rueckweg:
+  vermittlung: M.RF.DV.WINKELSAETZE#erklaeren-winkelsumme
+kontrast: [M.RF.DV.WINKELSAETZE.INNENWINKEL, M.RF.DV.REGELMAESSIG.INNENWINKEL]
+herkunft: ki-entwurf
+version: 1

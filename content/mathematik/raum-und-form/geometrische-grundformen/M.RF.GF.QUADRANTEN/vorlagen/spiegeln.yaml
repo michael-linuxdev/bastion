@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   achse-verwechselt:
     de: 'Du hast an der anderen Achse gespiegelt. An der x-Achse ändert sich y – der Punkt klappt nach oben oder unten.'
+    fv: FV.GF.SPIEGELN-KOORDINATE
   beide-vorzeichen:
     de: 'Beim Spiegeln an einer Achse ändert sich nur eine [[Koordinate]]. Beide ändern sich nur am [[Ursprung]].'
+    fv: FV.GF.SPIEGELN-KOORDINATE
   nur-ein-vorzeichen:
     de: 'Am [[Ursprung]] gespiegelt wechseln x und y beide das [[Vorzeichen]].'
+    fv: FV.GF.SPIEGELN-KOORDINATE
 herkunft: ki-entwurf
 version: 1

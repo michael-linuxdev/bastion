@@ -16,5 +16,6 @@ hilfen:
 fehlerbilder:
   um-in-verwechselt:
     de: '[[Umkreis]] und [[Inkreis]] sind vertauscht. Der Umkreis geht durch die Ecken, der Inkreis berührt die Seiten.'
+    fv: FV.DV.UM-INKREIS
 herkunft: ki-entwurf
 version: 1

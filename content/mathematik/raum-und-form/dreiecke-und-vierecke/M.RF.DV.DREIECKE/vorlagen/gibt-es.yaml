@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   gleichheit-reicht:
     de: Sind die kurzen Seiten zusammen genau so lang wie die längste, liegen sie flach auf ihr. Ein Dreieck entsteht nicht.
+    fv: FV.DV.DREIECKSUNGLEICHUNG
   nur-zwei-verglichen:
     de: Vergleiche die längste Seite mit den beiden anderen zusammen – nicht einfach die ersten beiden mit der dritten.
+    fv: FV.DV.DREIECKSUNGLEICHUNG
 herkunft: ki-entwurf
 version: 1

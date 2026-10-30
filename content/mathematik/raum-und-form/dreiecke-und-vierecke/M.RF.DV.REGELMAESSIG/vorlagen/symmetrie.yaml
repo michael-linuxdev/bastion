@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nur-durch-ecken:
     de: 'Es gibt auch Achsen durch die Mitten gegenüberliegender Seiten.'
+    fv: FV.SY.ACHSENSYMMETRIE
   innenwinkel-statt-mittelpunktswinkel:
     de: 'Das ist der [[Innenwinkel]] an einer Ecke. Der [[Mittelpunktswinkel]] liegt in der Mitte: 360° : n.'
+    fv: FV.DV.INNEN-MITTELPUNKT
   halber-winkel:
     de: 'Der Vollwinkel um den Mittelpunkt hat 360°, nicht 180°.'
+    fv: FV.DV.INNEN-MITTELPUNKT
 herkunft: ki-entwurf
 version: 1

@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   hoehe-seitenhalbierende:
     de: 'Unterscheide: Die [[Höhe]] steht [[senkrecht]] auf der Seite, die [[Seitenhalbierende]] trifft ihre Mitte.'
+    fv: FV.DV.BESONDERE-LINIEN
   mittelsenkrechte-hoehe:
     de: 'Diese Linie geht nicht durch eine Ecke. Sie steht in der Mitte der Seite [[senkrecht]] – das ist die [[Mittelsenkrechte]].'
+    fv: FV.DV.BESONDERE-LINIEN
 herkunft: ki-entwurf
 version: 1

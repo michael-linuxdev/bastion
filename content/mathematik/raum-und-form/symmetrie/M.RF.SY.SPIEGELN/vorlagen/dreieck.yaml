@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nicht-gespiegelt:
     de: Das ist noch der ursprüngliche Punkt. Gespiegelt liegt er auf der anderen Seite der Achse.
+    fv: FV.SY.SPIEGELABSTAND
   auf-die-achse:
     de: 'Du bist nur bis zur Achse gegangen. Der [[Bildpunkt]] liegt genauso weit **hinter** der Achse.'
+    fv: FV.SY.SPIEGELABSTAND
   falsche-achse:
     de: 'Du hast in die falsche Richtung gespiegelt. Bei {achse} ändert sich nur eine [[Koordinate]].'
+    fv: FV.GF.SPIEGELN-KOORDINATE
 herkunft: ki-entwurf
 version: 1

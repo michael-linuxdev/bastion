@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   senkrechte-gewaehlt:
     de: 'Diese [[Gerade]] steht [[senkrecht]] auf a. [[Parallel]] heißt dieselbe Richtung, nicht quer dazu.'
+    fv: FV.GF.LAGEBEZIEHUNG
 herkunft: ki-entwurf
 version: 1

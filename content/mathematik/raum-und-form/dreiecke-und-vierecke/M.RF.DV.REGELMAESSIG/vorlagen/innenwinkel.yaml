@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   n-mal-180:
     de: 'Es sind nicht n Dreiecke, sondern n − 2.'
+    fv: FV.DV.WINKELSUMME
   mittelpunktswinkel:
     de: 'Das ist der [[Mittelpunktswinkel]] (360° : n). Der [[Innenwinkel]] ist 180° minus Mittelpunktswinkel.'
+    fv: FV.DV.INNEN-MITTELPUNKT
   summe-statt-einzeln:
     de: 'Das ist die [[Summe]] aller [[Innenwinkel]]. Teile noch durch die Zahl der Ecken.'
+    fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1

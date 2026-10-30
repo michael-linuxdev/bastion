@@ -1,0 +1,26 @@
+id: FV.GF.LAGEBEZIEHUNG
+name:
+  de: Verwechselt parallel, senkrecht und schneidend
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Wählt eine senkrechte statt einer parallelen Geraden, hält schräg schneidende Geraden für
+    senkrecht oder Geraden, die sich im Bild nicht berühren, für parallel.
+kompetenzen: [M.RF.GF.LAGE]
+erklaerung:
+  kurz:
+    de: '[[Parallel]]: gleiche Richtung, schneiden sich nie, auch nicht verlängert. Stehen sie [[senkrecht]], schneiden sie sich im [[rechten Winkel]]. Alles andere schneidet sich schräg.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Lage der [[Geraden]] nach dem Bild geschätzt.'
+    - teil: warum-nicht
+      de: 'Im Bild sind [[Geraden]] nur kurze Stücke. Aber eine [[Gerade]] geht in beide Richtungen unendlich weiter. Zwei Stücke, die sich nicht berühren, können sich weiter draußen trotzdem schneiden.'
+    - teil: so-stimmt-es
+      de: 'Verlängere die [[Geraden]] in Gedanken. Prüfe [[senkrecht]] mit dem [[Geodreieck]]: Liegt der rechte [[Winkel]] genau an?'
+gegenbeispiel:
+  de: 'Zwei Straßen, die auf dem Stadtplan nebeneinander beginnen, können sich am Stadtrand kreuzen.'
+rueckweg:
+  vermittlung: M.RF.GF.LAGE#erklaeren-lage
+kontrast: [M.RF.GF.LAGE.PARALLELE-FINDEN, M.RF.GF.LAGE.ZWEI-GERADEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,26 @@
+id: FV.DV.DREIECKSUNGLEICHUNG
+name:
+  de: Prüft nicht richtig, ob es ein Dreieck mit diesen Seiten gibt
+art: falsche-regel
+beschreibung:
+  de: >-
+    Hält 3 cm, 4 cm und 7 cm für ein Dreieck oder vergleicht die falschen Seiten. Dass die beiden
+    kürzeren Seiten zusammen **länger** als die längste sein müssen, ist nicht verankert.
+kompetenzen: [M.RF.DV.DREIECKE]
+erklaerung:
+  kurz:
+    de: 'Die beiden kürzeren Seiten müssen zusammen **länger** sein als die längste. Sind sie genau gleich lang, liegen sie flach auf ihr.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die falschen Seiten verglichen oder „gleich lang“ für genug gehalten.'
+    - teil: warum-nicht
+      de: 'Es fühlt sich an, als müsste es gerade so klappen. Aber zwei Stäbe von 3 cm und 4 cm reichen auf einer Strecke von 7 cm genau bis zum Ende. Für eine Spitze nach oben ist nichts übrig.'
+    - teil: so-stimmt-es
+      de: 'Suche die längste Seite. Addiere die beiden anderen und vergleiche: 3 + 4 = 7, nicht länger als 7. Kein Dreieck. Bei 3, 4 und 6 klappt es.'
+gegenbeispiel:
+  de: 'Wer von A nach B einen Umweg über C macht, läuft immer weiter als direkt, außer C liegt genau auf dem Weg.'
+rueckweg:
+  vermittlung: M.RF.DV.DREIECKE#erklaeren-seiten
+kontrast: [M.RF.DV.DREIECKE.GIBT-ES]
+herkunft: ki-entwurf
+version: 1

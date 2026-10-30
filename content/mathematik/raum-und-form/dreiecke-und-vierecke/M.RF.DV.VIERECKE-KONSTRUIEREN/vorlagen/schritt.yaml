@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   schritt-uebersprungen:
     de: 'Dieser Schritt kommt später. Was brauchst du, bevor du ihn machen kannst?'
+    fv: FV.DV.KONSTRUKTIONSREIHENFOLGE
   anderes-viereck:
     de: 'Dieser Schritt gehört zu einem anderen Viereck. Lies noch einmal, was gegeben ist.'
+    fv: FV.DV.KONSTRUKTIONSREIHENFOLGE
 herkunft: ki-entwurf
 version: 1

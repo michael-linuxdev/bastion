@@ -1,0 +1,27 @@
+id: FV.SY.ACHSENSYMMETRIE
+name:
+  de: Erkennt Symmetrieachsen nur nach dem Aussehen
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Zählt nur waagerechte und senkrechte Achsen, hält jede Diagonale für eine Achse, verwechselt
+    Punktsymmetrie mit Achsensymmetrie oder übersieht ein abweichendes Kästchen. Die Probe durch
+    Falten wird nicht gemacht.
+kompetenzen: [M.RF.SY.SYMMETRIE, M.RF.DV.REGELMAESSIG]
+erklaerung:
+  kurz:
+    de: 'Eine [[Symmetrieachse]] teilt die Figur so, dass beim Falten beide Hälften genau aufeinanderliegen. Prüfe jede mögliche Achse so, auch schräge.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Achsen nach dem Eindruck gezählt.'
+    - teil: warum-nicht
+      de: 'Waagerechte und senkrechte Achsen fallen am meisten auf. Aber auch schräge Linien können Achsen sein, und nicht jede [[Diagonale]] ist eine. Beim Rechteck passen die Hälften entlang der Diagonale nicht aufeinander.'
+    - teil: so-stimmt-es
+      de: 'Falte in Gedanken entlang der Linie. Liegt jede Ecke auf einer Ecke? Dann ist es eine Achse. Sieht die Figur nur nach einer halben [[Drehung]] gleich aus, ist sie [[Punktsymmetrie]].'
+gegenbeispiel:
+  de: 'Ein Quadrat hat vier Achsen, ein Rechteck nur zwei, obwohl beide zwei [[Diagonalen]] haben.'
+rueckweg:
+  vermittlung: M.RF.SY.SYMMETRIE#erklaeren-achsen
+kontrast: [M.RF.SY.SYMMETRIE.ACHSEN-ZAEHLEN, M.RF.SY.SYMMETRIE.FIGUR-WAEHLEN]
+herkunft: ki-entwurf
+version: 1

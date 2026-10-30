@@ -28,9 +28,12 @@ hilfen:
 fehlerbilder:
   nur-waagerecht-senkrecht:
     de: 'Du hast nur waagerechte und senkrechte Achsen gezählt. Auch schräge Achsen können [[Symmetrieachsen]] sein.'
+    fv: FV.SY.ACHSENSYMMETRIE
   diagonalen-als-achsen:
     de: 'Nicht jede [[Diagonale]] ist eine [[Symmetrieachse]]. Falte in Gedanken – liegen die Hälften wirklich aufeinander?'
+    fv: FV.SY.ACHSENSYMMETRIE
   punktsymmetrie-als-achse:
     de: 'Die Figur sieht nach einer halben [[Drehung]] gleich aus – das ist [[Punktsymmetrie]], keine Achse.'
+    fv: FV.SY.ACHSENSYMMETRIE
 herkunft: ki-entwurf
 version: 1
