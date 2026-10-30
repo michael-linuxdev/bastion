@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 29.10.2026 (17) · Neue Ausrichtung beschlossen und dokumentiert (K-23 bis K-28)
+Stand: 30.10.2026 (18) · U3 (Abspieler, Diagnose, Zwischenschritte) und U4a (Testprotokoll) fertig und online
 
 ---
 
@@ -88,25 +88,22 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 ## Aktueller Auftrag
 
-**Erledigt (U0):** Neue Vision (`VISION.md` v1.0), vier Kernaufgaben als Qualitätskriterien (VISION §3, STRATEGIE §0, KONZEPT §0, VERMITTLUNG §2.5 und §3.5), Konzept „Vermitteln und Diagnostizieren ohne KI“ (`VERMITTLUNG.md`).
+**Erledigt:**
 
-**Als Nächstes:**
+- **U0 bis U2:** neue Vision, Format, Musterfeld Brüche.
+- **U3 vollständig** (PLAN §4b): Abspieler der Erstvermittlung und Angebot vor dem ersten Üben (Zustand „erklärt“, Abschluss = Bauschritt), Diagnose der Fehlvorstellungen, Rückmeldung mit kurzer und langer Erklärung, Rückweg, Kontrastaufgaben, Zwischenschritte (K-29) im Musterfeld und Fehlerwerkstatt nach Ursachen.
+- **U4a:** Testprotokoll (K-14, D-18).
 
-1. Mit dem Projektverantwortlichen die offenen Fragen in `VERMITTLUNG.md` §8 klären:
-   - ~~Musterkompetenzen~~ (bestätigt: Bruchbegriff, Erweitern/Kürzen, Addieren/Subtrahieren),
-   - fachliche Prüfung durch eine Lehrkraft,
-   - Abitur-Vorgaben: Muster und Leseproben sind ausgewertet (`PRUEFUNGEN.md`), die amtlichen Vorgaben für 2029 fehlen noch,
-   - ~~PDF-Technik~~ (Druckfunktion des Browsers, T-17),
-   - Werkzeuge (vorerst Bruchstreifen und Zahlenstrahl).
-2. ~~**U1**~~ erledigt:
-   - Format in `INHALTSFORMAT.md` §15 und §16,
-   - Prüfung in `pnpm inhalte:pruefen`,
-   - Datenmodell in `DATENMODELL.md` §4.7.
-3. **Als Nächstes U2**, das Musterfeld Brüche:
-   - Erstvermittlung und Fehlerkatalog für `M.ZO.BR.BEGRIFF`, `M.ZO.BR.ERWEITERN` und `M.ZO.BR.ADD-SUB`,
-   - die Werkzeuge Bruchstreifen und Zahlenstrahl.
+**Als Nächstes** (Entscheidung des Projektverantwortlichen steht aus):
 
-Erst danach an Inhalten oder Code für die neue Ausrichtung arbeiten.
+1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
+   - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
+   - Danach die Testprotokoll-Dateien auswerten: Verständnis, Treffer der Erklärungen, Nutzung der Zwischenschritte und „Weiter ohne Weg“.
+2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
+3. **Bis zum Test möglich**, auf Wunsch:
+   - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
+   - **(b)** nur die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen (`fv`). Das verbessert sofort die Rückmeldung für Klasse 5 bis 8.
+   - Empfehlung: U5 erst nach dem Test, damit Formatfehler sich nicht über 123 Kompetenzen verbreiten.
 
 ### Vom Projektverantwortlichen (nicht delegierbar)
 
@@ -127,32 +124,53 @@ Erst danach an Inhalten oder Code für die neue Ausrichtung arbeiten.
 
 ---
 
-## Übergabe der letzten Sitzung (29.10.2026)
+## Übergabe der letzten Sitzung (29./30.10.2026, Nachtschicht)
 
-**Grafik (K-22), PRs #42 bis #46:**
+**Entscheidungen** (Fragerunden 29.10.2026):
 
-- Richtung A „Tag, warm“: Fassung mit Tokens (`src/ui/grafik/fassungen.ts`), Schrift Nunito mitgeliefert (T-16), Hell/Dunkel/System unter „Über mich“.
-- Startseite mit Leiste unten (Start, Üben, Bastion, Mehr). Sie passt auf das iPhone 13.
-- Üben mit Fortschrittspunkten und Pausenhinweis nach fünf Aufgaben.
-- Bastion als Insel schräg von oben (`iso.ts`, `grafik-buehne.ts`), abends mit Mond und leuchtenden Fenstern.
-- Alles in `GRAFIK.md` §5.
+- **K-29 Zwischenschritte wie bettermarks:** nach falschem Ergebnis, vorgegebene Schrittfelder, zwei Versuche je Schritt, „Weiter ohne Weg“ erlaubt, auch in der Fehlerwerkstatt.
+- **K-14 Testprotokoll:** ausführlich, nur mit Teilnehmer-Nummer (mit Prüfziffer, zugleich Testcode) im Elternbereich, JSON-Datei mit Vorschau. Unbekannte Fehler stehen nur dort, U3k entfällt.
+- **Erstvermittlung:** ein überspringbares Angebot vor dem ersten Üben. Der Abschluss zählt als Lerneinheit (ein Bauschritt je Kompetenz, D-16 ergänzt, BASEBAU §3.4c).
+- **Halbfertiges** geht gleich online, wo es Inhalte gibt.
 
-**Neue Ausrichtung (dieser PR):** VISION v1.0, VERMITTLUNG.md, STRATEGIE §0, K-23 bis K-28, PLAN §4b, KONZEPT §0, CLAUDE.md um „Keine KI in der App“ ergänzt.
+**Umgesetzt** (PRs #52 bis #64, alle auf `main`):
+
+- **Datenbank:** Schemaversion 3 mit den Tabellen `vermittlungen` und `nutzungen`. Altstände `tests/altstaende/schema-1.json` und `schema-2.json` mit Migrationstests.
+- **Ereignisse:**
+  - `vermittlung` (v1),
+  - `aufgabe` v2 mit `schritte` (D-17),
+  - `nutzung` (v1, nicht in Sicherungen).
+- **Kern:**
+  - `abspielen.ts` (Abspieler),
+  - `fv-diagnose.ts` (Zustände der Fehlvorstellungen, ohne eigene Tabelle),
+  - `zwischenschritte.ts`,
+  - `testphase/` (Teilnehmer-Nummer, Nutzung, Protokoll).
+- **Oberfläche:**
+  - `vermittlung/Vermittlung.svelte` und `Angebot.svelte`,
+  - `ueben/Schrittweg.svelte` und `FvRueckmeldung.svelte`,
+  - `eltern/Testphase.svelte`.
+- **Grafik:** Startseite auf dem iPhone 13 korrigiert (`viewport-fit=cover`, `--leiste-hoehe`), Glühbirne für die Fehlerwerkstatt.
+- **Generatoren mit Schritten:** Erweitern auf Zielnenner, Kürzen, Addieren/Subtrahieren. Der ungleichnamige Fall zeigt Schritte, der gleichnamige noch nicht.
 
 **Offene Punkte:**
 
-- Fragen in `VERMITTLUNG.md` §8.
+- Fragen in `VERMITTLUNG.md` §8 (Lehrkraft, amtliche Abitur-Vorgaben 2029, Werkzeuge).
 - PDF- und Formelsatz-Technik für die Prüfungen (neue Abhängigkeit möglich, vorher fragen).
-- Niveau E und Operatoren-Training werden mit Klasse 11/12 nötig (`PLAN.md` §2.1).
-- KONZEPT vollständig überarbeiten, wenn der Pilot steht.
+- Rechenzeilen für Gleichungen (K-29) und Schritte für gleichnamige Brüche kommen mit U5.
+- Die Schwellen der Diagnose (`FV_REGELN`) sind Startwerte und werden im Test geprüft.
+- Alte Branches auf GitHub ließen sich von hier nicht löschen (HTTP 403). Lokal gibt es nur `main`. Löschen über GitHub → Branches, oder dort „Automatically delete head branches“ einschalten.
+- PR #63 wurde per normalem Merge-Commit statt per Squash gemergt. Das ist unschädlich.
 
 **Lehren:**
 
-- Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für Einträge unter „Mehr“ gibt es `mehr(page)`.
-- Auf dem Bauplatz tippen die Tests über `punkt()` aus `iso.ts`.
-- Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
-- Prozesse nie mit `pkill -f "vite preview"` beenden, das Muster trifft die eigene Shell. Stattdessen `pkill -f "[v]ite preview --port 4173"`.
-- `tools/logische-css.test.ts` verbietet auch `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
+- **Svelte und IndexedDB:** Werte aus `$state` sind Proxys. IndexedDB lehnt sie ab (DataCloneError), die Ablage fängt den Fehler ab, und es wird still nichts gespeichert. Vor dem Speichern `$state.snapshot` nutzen, oder `$state.raw` für ganze Datensätze.
+- **Teilschritte auf eigenen Zweigen:** Wer sie aus dem Arbeitsbranch auslagert, merged `main` normal hinein. Bei Konflikten die Zweig-Seite nehmen und vor dem Commit nach `<<<<<<<` suchen.
+- **Laufende `vite preview`-Prozesse** heißen `…/vite.js preview`. Beenden mit `pkill -f "[v]ite.js preview"`, sonst liefert ein alter Server alte Stände aus.
+- **Bildschirmfotos** von Playwright nur mit absoluten Pfaden in den Arbeitsordner speichern, nie ins Repository.
+- **Lint-Fehler von svelte-check** stehen in Großbuchstaben (`ERROR`). Beim Filtern der Ausgabe danach suchen.
+- Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
+- Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
+- `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 
 ## Am Ende der Sitzung aktualisieren
 

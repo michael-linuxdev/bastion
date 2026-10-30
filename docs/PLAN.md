@@ -226,6 +226,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U3 und U4a fertig** (PRs #52–#64): Erstvermittlung in der App, Diagnose der Fehlvorstellungen, Zwischenschritte (K-29), Fehlerwerkstatt nach Ursachen, Testprotokoll (K-14); Datenbank-Schemaversion 3; Startseite für das iPhone 13 korrigiert. Nächster Schritt: U4b (Test), Entscheidung zu U5 offen |
 | 29.10.2026 | **Neue Ausrichtung: Unterrichtsersatz ohne KI** (K-23 bis K-28). `VISION.md` v1.0, neues `VERMITTLUNG.md`, Schwelle für Variante A in `STRATEGIE.md` §0, Arbeitsplan §4b; Nicht-Ziele §2.1 mit Hinweisen ergänzt |
 | 29.10.2026 | K-22 umgesetzt: Grafik in Richtung A „Tag, warm“ (`GRAFIK.md` §5); B-11 (Draufsicht) abgelöst; Schrift Nunito mitgeliefert (T-16) |
 | 28.10.2026 | K-18: Basebau Epoche 1 vollständig mit Grafik vor Klasse 7; Plan in `BASEBAU.md` §11; Draufsicht, schlichter eigener Stil, Schalter Standard an, zuerst Banner und Späherturm (B-11 bis B-14) |
