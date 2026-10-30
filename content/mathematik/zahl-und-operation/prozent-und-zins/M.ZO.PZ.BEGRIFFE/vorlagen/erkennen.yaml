@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   grundwert-prozentwert-vertauscht:
     de: '[[Grundwert]] und [[Prozentwert]] sind vertauscht. Der Grundwert ist das Ganze, der Prozentwert ein Teil davon – meist die kleinere Zahl.'
+    fv: FV.PZ.DREI-GROESSEN
   prozentsatz-verwechselt:
     de: 'Der [[Prozentsatz]] ist die Angabe mit dem Zeichen % – und nur sie.'
+    fv: FV.PZ.DREI-GROESSEN
 herkunft: ki-entwurf
 version: 1

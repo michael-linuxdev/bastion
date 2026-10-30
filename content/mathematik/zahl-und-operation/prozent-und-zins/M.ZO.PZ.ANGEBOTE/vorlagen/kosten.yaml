@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   eine-packung:
     de: 'Das ist der Preis für eine Packung. Du brauchst mehrere.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
   anzahlung-vergessen:
     de: 'Die Anzahlung gehört zum [[Ratenkauf]] dazu.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
   gesamt-statt-mehr:
     de: 'Das ist alles zusammen. Gefragt ist, wie viel mehr als der Barpreis.'
+    fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1

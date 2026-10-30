@@ -1,0 +1,27 @@
+id: FV.PZ.DREI-GROESSEN
+name:
+  de: Verwechselt Grundwert, Prozentwert und Prozentsatz
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält den Teil für das Ganze, rechnet den Prozentwert aus, obwohl der Grundwert gesucht ist,
+    oder nennt eine Zahl ohne % als Prozentsatz. Die drei Begriffe sind noch nicht mit „Ganzes“,
+    „Teil“ und „Anteil in %“ verbunden.
+kompetenzen: [M.ZO.PZ.BEGRIFFE, M.ZO.PZ.GRUNDAUFGABEN]
+erklaerung:
+  kurz:
+    de: '[[Grundwert]]: das Ganze, 100 %. [[Prozentwert]]: ein Teil davon. [[Prozentsatz]]: der [[Anteil]] mit dem Zeichen %.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast zwei der drei Größen verwechselt.'
+    - teil: warum-nicht
+      de: 'Die drei Wörter klingen [[ähnlich]], das verwirrt. Sie haben aber feste Rollen: Der [[Grundwert]] ist das, wovon man ausgeht. Der [[Prozentwert]] ist meist kleiner, ein Teil davon.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Was ist das Ganze? Das ist der [[Grundwert]]. Was ist ein Teil davon? Der [[Prozentwert]]. Wo steht %? Der [[Prozentsatz]]. Bei „20 % von 50 € sind 10 €“: Grundwert 50 €, Prozentwert 10 €, Prozentsatz 20 %.'
+gegenbeispiel:
+  de: 'Von 30 Kindern sind 6 krank. Das Ganze sind die 30 Kinder, nicht die 6.'
+rueckweg:
+  vermittlung: M.ZO.PZ.BEGRIFFE#erklaeren-begriffe
+kontrast: [M.ZO.PZ.BEGRIFFE.ERKENNEN, M.ZO.PZ.GRUNDAUFGABEN.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   packungspreis-verglichen:
     de: 'Die Packungen sind verschieden groß. Vergleiche den Gesamtpreis für die Menge, die du brauchst.'
+    fv: FV.PZ.PACKUNGSGROESSE
   raten-nicht-zusammengezaehlt:
     de: 'Eine Rate ist klein, aber es sind viele. Zähle alle [[Raten]] zusammen.'
+    fv: FV.PZ.RATEN
 herkunft: ki-entwurf
 version: 1

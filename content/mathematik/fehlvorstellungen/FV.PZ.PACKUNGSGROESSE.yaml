@@ -1,0 +1,26 @@
+id: FV.PZ.PACKUNGSGROESSE
+name:
+  de: Vergleicht Preise, ohne auf die Menge zu achten
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält die Packung mit dem niedrigeren Preis für günstiger, auch wenn sie weniger enthält. Der
+    Preis wird nicht auf dieselbe Menge bezogen.
+kompetenzen: [M.ZO.PZ.ANGEBOTE]
+erklaerung:
+  kurz:
+    de: 'Vergleiche Preise immer für dieselbe Menge: Was kostet die Menge, die du brauchst, oder was kostet ein Stück?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Packungspreise direkt verglichen.'
+    - teil: warum-nicht
+      de: 'Der kleinere Preis fällt sofort auf. Aber eine kleine Packung für 2 € kann teurer sein als eine große für 3 €, wenn in der großen doppelt so viel ist.'
+    - teil: so-stimmt-es
+      de: 'Rechne für jedes Angebot den Preis für dieselbe Menge aus. 2 € für 500 g sind 4 € je kg, 3 € für 1 kg sind 3 € je kg.'
+gegenbeispiel:
+  de: 'Ein Brötchen für 50 Cent ist teurer als sechs Brötchen für 2,40 €, obwohl 50 Cent weniger aussieht.'
+rueckweg:
+  vermittlung: M.ZO.PZ.ANGEBOTE#erklaeren-vergleichen
+kontrast: [M.ZO.PZ.ANGEBOTE.VERGLEICH]
+herkunft: ki-entwurf
+version: 1

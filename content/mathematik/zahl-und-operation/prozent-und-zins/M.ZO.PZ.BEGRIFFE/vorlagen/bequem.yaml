@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   geteilt-durch-prozentzahl:
     de: 'Du hast durch die Prozentzahl geteilt. 25 % heißt aber „25 von 100“ – also ein Viertel.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
   hundert-vergessen:
     de: '[[Prozent]] heißt „von hundert“. Teile noch durch 100.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1

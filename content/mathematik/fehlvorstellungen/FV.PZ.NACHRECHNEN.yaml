@@ -1,0 +1,26 @@
+id: FV.PZ.NACHRECHNEN
+name:
+  de: Prüft eine Rechnung nicht Zeile für Zeile
+art: lesefehler
+beschreibung:
+  de: >-
+    Hält eine fehlerhafte Rechnung für richtig oder bemängelt eine richtige Zeile. Die Zeilen werden
+    überflogen statt jede mit den Werten darüber nachzurechnen.
+kompetenzen: [M.ZO.PZ.WIRTSCHAFT]
+erklaerung:
+  kurz:
+    de: 'Rechne jede Zeile mit den Werten darüber nach, auch die, die richtig aussehen. Erst dann entscheidest du.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Rechnung nach dem Eindruck beurteilt, nicht nachgerechnet.'
+    - teil: warum-nicht
+      de: 'Gedruckte Rechnungen wirken zuverlässig, und Zahlen ähneln sich. Ein Fehler steckt aber oft in einer einzigen Zeile.'
+    - teil: so-stimmt-es
+      de: 'Gehe von oben nach unten: Stimmt die Zwischensumme? Stimmt die [[Mehrwertsteuer]] auf die Zwischensumme? Stimmt der Endbetrag? Hake jede Zeile ab.'
+gegenbeispiel:
+  de: 'Wer an der Kasse den Bon nicht prüft, bemerkt einen doppelt berechneten Artikel nicht.'
+rueckweg:
+  vermittlung: M.ZO.PZ.WIRTSCHAFT#erklaeren-rechnung
+kontrast: [M.ZO.PZ.WIRTSCHAFT.RECHNUNG]
+herkunft: ki-entwurf
+version: 1

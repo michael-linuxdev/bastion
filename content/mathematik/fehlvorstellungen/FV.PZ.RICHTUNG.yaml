@@ -1,0 +1,26 @@
+id: FV.PZ.RICHTUNG
+name:
+  de: Rechnet einen Aufschlag als Nachlass oder umgekehrt
+art: lesefehler
+beschreibung:
+  de: >-
+    Zieht die Mehrwertsteuer ab statt sie dazuzurechnen oder rechnet einen Rabatt auf den Preis drauf.
+    Die Bedeutung der Wörter im Text wird nicht in eine Richtung übersetzt.
+kompetenzen: [M.ZO.PZ.VERAENDERUNG, M.ZO.PZ.WIRTSCHAFT]
+erklaerung:
+  kurz:
+    de: '[[Rabatt]], [[Skonto]] und Senkung werden abgezogen. [[Mehrwertsteuer]], Aufschlag und Erhöhung kommen dazu.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast in die falsche Richtung gerechnet.'
+    - teil: warum-nicht
+      de: 'Die Prozentrechnung selbst war richtig. Aber ob etwas dazukommt oder wegfällt, steht im Text, und davon hängt der ganze Preis ab.'
+    - teil: so-stimmt-es
+      de: 'Frage dich vorher: Wird es teurer oder billiger? Prüfe am Ende, ob dein Ergebnis größer oder kleiner als der alte Preis ist.'
+gegenbeispiel:
+  de: 'Mit 20 % [[Rabatt]] muss die Jacke billiger werden. Kostet sie danach mehr, stimmt etwas nicht.'
+rueckweg:
+  vermittlung: M.ZO.PZ.VERAENDERUNG#erklaeren-neuer-wert
+kontrast: [M.ZO.PZ.WIRTSCHAFT.PREIS, M.ZO.PZ.VERAENDERUNG.NEUER-PREIS]
+herkunft: ki-entwurf
+version: 1

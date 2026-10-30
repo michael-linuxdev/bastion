@@ -1,0 +1,28 @@
+id: FV.PZ.FALSCHER-GRUNDWERT
+name:
+  de: Bezieht die Prozente auf den falschen Grundwert
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet bei einer Preissenkung die Prozente vom neuen Preis aus, addiert zwei Rabatte (10 % und
+    20 % = 30 %) oder verzinst im zweiten Jahr nur das Startkapital. Dass sich der Grundwert nach
+    jeder Änderung ändert, ist noch nicht verankert.
+kompetenzen: [M.ZO.PZ.VERAENDERUNG, M.ZO.PZ.WIRTSCHAFT, M.ZO.PZ.ZINS]
+erklaerung:
+  kurz:
+    de: 'Prozente beziehen sich immer auf einen bestimmten [[Grundwert]]. Nach jeder Änderung gibt es einen neuen Grundwert. Rechne Schritt für Schritt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Prozente auf einen anderen Wert bezogen als den, um den es geht.'
+    - teil: warum-nicht
+      de: 'Mit nur einem Wert zu rechnen ist einfacher. Aber 10 % [[Rabatt]] auf 100 € sind 10 €, danach 20 % auf 90 € sind 18 €. Zusammen 28 €, nicht 30 €.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zu jedem Schritt dazu, worauf sich die Prozente beziehen. Rückwärts gilt: Der neue Preis ist zum Beispiel 115 % des alten, also teilst du durch 1,15.'
+gegenbeispiel:
+  de: 'Erst 50 % teurer, dann 50 % billiger: Aus 100 € werden 150 €, dann 75 €. Man landet nicht wieder bei 100 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.VERAENDERUNG#erklaeren-grundwert
+  voraussetzung: M.ZO.PZ.GRUNDAUFGABEN
+kontrast: [M.ZO.PZ.VERAENDERUNG.NEUER-PREIS, M.ZO.PZ.VERAENDERUNG.UM-AUF, M.ZO.PZ.ZINS.KAPITAL]
+herkunft: ki-entwurf
+version: 1
