@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Kompetenz } from '../competence/kompetenz';
+import { reviewHash } from './review';
 import { platzhalterIn, pruefeVorlage } from './vorlage';
 
 const kompetenz = {
@@ -34,6 +35,22 @@ const gueltig = () => ({
 describe('pruefeVorlage', () => {
   it('akzeptiert eine gültige Vorlage', () => {
     expect(pruefeVorlage(gueltig(), kontext)).toEqual([]);
+  });
+
+  it('akzeptiert einen passenden Review-Block und lehnt eine kaputte Stufe ab', () => {
+    const daten = gueltig();
+    expect(
+      pruefeVorlage(
+        {
+          ...daten,
+          review: { stufe: 1, datum: '2026-10-30', pruefer: 'maschine', hash: reviewHash(daten) },
+        },
+        kontext,
+      ),
+    ).toEqual([]);
+    expect(pruefeVorlage({ ...daten, review: { stufe: 4 } }, kontext).join(' | ')).toContain(
+      'review.stufe',
+    );
   });
 
   it.each([

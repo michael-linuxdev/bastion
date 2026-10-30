@@ -52,7 +52,7 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Vergleiche 3/4 mit 5/8. [[Erweitere]] dafür 3/4 auf Achtel.'
+      de: 'Vergleiche 3/4 mit 5/8. [[Erweitere]] 3/4 auf Achtel und gib diesen [[Bruch]] ein.'
     antwort:
       eingabe: { art: bruch, loesung: '6/8', fehler: [{ wert: '3/8', fv: FV.BR.NUR-NENNER }] }
     weiter: gegenbeispiel

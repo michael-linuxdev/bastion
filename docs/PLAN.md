@@ -246,6 +246,9 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **Merge-Reihenfolge:** zuerst PR #85 (Zoom des Bauplatzes wie in Dorfkrieg, für jedes Thema, statt dreier Stufen), dann PR #84 auf den neuen main, dann #82, dann einmal `u5c-dz`. PR #83 (Dorfbilder) ist schon gemergt. `merge-tree` von #84 und #85: keine Konflikte |
+| 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |
+| 30.10.2026 | **Lernkern-Review:** Schatten-Kehrwert rechnet das umgedrehte Verhältnis; Fragen in Erweitern und Vergleichen nennen die erwartete Eingabe; Zinseszins-Fehler führt zur Erklärung, dass sich das Kapital ändert. Test prüft beschriebene Fehlrechnungen |
 | 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |

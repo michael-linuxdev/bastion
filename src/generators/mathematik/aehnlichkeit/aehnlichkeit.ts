@@ -364,7 +364,9 @@ export const schattenFlaeche: Generator<StreckenFlaecheParameter> = {
           de(`Höhe: ${t(stab)} m · ${t(f)} = ${t(hoehe)} m`),
         ],
         fehlerbilder: fehlerbilderAus(richtig, [
-          ['kehrwert', zz((schatten * baumSchatten) / stab)],
+          // Verhältnis umgedreht: Stab · kurzer Schatten : langer Schatten.
+          // Beispiel Stab 2 m, Schatten 3 m, Baumschatten 12 m → 0,5 m (nicht 18 m).
+          ['kehrwert', zz((stab * schatten) / baumSchatten)],
         ]),
       };
     }

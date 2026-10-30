@@ -7,6 +7,7 @@
  */
 import type { Kompetenz, Niveau } from '../competence/kompetenz';
 import type { Sprachobjekt } from './generator';
+import { pruefeReview, type Review } from './review';
 
 export const SCHRITT_TYPEN = [
   'ziel',
@@ -94,6 +95,8 @@ export interface Vermittlung {
   readonly schritte: readonly Schritt[];
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
+  /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
+  readonly review?: Review;
 }
 
 const istObjekt = (x: unknown): x is Record<string, unknown> =>
@@ -189,6 +192,7 @@ export function pruefeVermittlung(
     f.push(`dauer_min muss zwischen 1 und ${DAUER_MAX} liegen (V7)`);
   if (!['eigen', 'ki-entwurf', 'oer'].includes(String(daten['herkunft']))) f.push('herkunft fehlt');
   if (!Number.isInteger(daten['version'])) f.push('version fehlt');
+  f.push(...pruefeReview(daten['review']));
 
   const roh = daten['schritte'];
   if (!Array.isArray(roh) || roh.length === 0) return [...f, 'schritte fehlen'];
