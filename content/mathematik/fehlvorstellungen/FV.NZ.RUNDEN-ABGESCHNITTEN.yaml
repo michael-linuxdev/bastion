@@ -15,7 +15,7 @@ erklaerung:
       de: 'Du hast die Stellen hinter der [[Rundungsstelle]] einfach weggelassen.'
     - teil: warum-nicht
       de: 'Manchmal stimmt das, nämlich wenn abgerundet wird. Runden heißt aber: die **nächste** Zahl finden. 3,47 liegt näher an 3,5 als an 3,4.'
-      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 5 } }
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 35 } }
     - teil: so-stimmt-es
       de: 'Schau auf die [[Ziffer]] rechts daneben. Bei 0 bis 4 rundest du ab, bei 5 bis 9 auf: 3,47 ≈ 3,5.'
 gegenbeispiel:
