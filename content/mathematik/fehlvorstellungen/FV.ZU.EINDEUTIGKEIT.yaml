@@ -1,0 +1,27 @@
+id: FV.ZU.EINDEUTIGKEIT
+name:
+  de: Prüft eine Zuordnung nur in eine Richtung auf Eindeutigkeit
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält eine Zuordnung mit gleichen y-Werten für keine Funktion, übersieht ein x mit zwei y-Werten
+    oder verwechselt eindeutig, eineindeutig und mehrdeutig. Welche Richtung geprüft wird, ist
+    nicht klar.
+kompetenzen: [M.SF.ZU.DARSTELLEN, M.SF.FK.BEGRIFF]
+erklaerung:
+  kurz:
+    de: 'Eindeutig (eine [[Funktion]]): Jedes x hat genau ein y, gleiche y sind erlaubt. Eineindeutig: auch rückwärts, jedes y hat genau ein x. Mehrdeutig: Ein x hat mehrere y.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Zuordnung]] in der falschen Richtung geprüft oder ein doppeltes x übersehen.'
+    - teil: warum-nicht
+      de: 'Die drei Begriffe klingen fast gleich. Für eine [[Funktion]] zählt nur: Von jedem x geht genau ein Pfeil aus. Wie viele Pfeile bei einem y ankommen, ist egal.'
+    - teil: so-stimmt-es
+      de: 'Zeichne Pfeile von links nach rechts. Geht von einem x mehr als ein Pfeil aus: mehrdeutig. Sonst eindeutig. Kommt außerdem bei jedem y nur ein Pfeil an: eineindeutig.'
+gegenbeispiel:
+  de: 'Jedem Kind wird sein Geburtstag zugeordnet. Zwei Kinder können am selben Tag Geburtstag haben, trotzdem hat jedes Kind genau einen.'
+rueckweg:
+  vermittlung: M.SF.ZU.DARSTELLEN#erklaeren-eindeutig
+kontrast: [M.SF.ZU.DARSTELLEN.ART, M.SF.FK.BEGRIFF.FUNKTION]
+herkunft: ki-entwurf
+version: 1

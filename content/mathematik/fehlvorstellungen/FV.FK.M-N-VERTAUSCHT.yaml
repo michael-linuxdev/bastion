@@ -1,0 +1,26 @@
+id: FV.FK.M-N-VERTAUSCHT
+name:
+  de: Vertauscht Anstieg und y-Achsenabschnitt
+art: verwechslung
+beschreibung:
+  de: >-
+    Schreibt zu einer Geraden mit Anstieg 2 und Achsenabschnitt 3 die Gleichung y = 3x + 2, oder bei
+    einem Tarif die Grundgebühr als Preis je Einheit.
+kompetenzen: [M.SF.FK.LINEAR-GRAPH, M.SF.FK.SACH]
+erklaerung:
+  kurz:
+    de: 'In y = m · x + n steht vor dem x der [[Anstieg]] m, also die Änderung je Einheit. Die Zahl allein ist n, der Startwert oder die [[Grundgebühr]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast m und n vertauscht.'
+    - teil: warum-nicht
+      de: 'Beide sind einfach Zahlen in der [[Gleichung]]. Aber nur die Zahl vor dem x wird mit jeder Einheit mehr. Die andere kommt genau einmal dazu.'
+    - teil: so-stimmt-es
+      de: 'Frage dich: Was wächst mit jedem Schritt? Das ist m, es gehört vor das x. Was ist schon bei x = 0 da? Das ist n.'
+gegenbeispiel:
+  de: '5 € [[Grundgebühr]] und 2 € je Stunde: Nach 10 Stunden sind es 25 €. Mit y = 5x + 2 wären es 52 €.'
+rueckweg:
+  vermittlung: M.SF.FK.LINEAR-GRAPH#erklaeren-gleichung
+kontrast: [M.SF.FK.LINEAR-GRAPH.GLEICHUNG, M.SF.FK.SACH.GLEICHUNG]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   m-n-vertauscht:
     de: 'Hier sind m und n vertauscht. Die Zahl vor dem x ist der [[Anstieg]], die Zahl allein ist der [[y-Achsenabschnitt]].'
+    fv: FV.FK.M-N-VERTAUSCHT
   vorzeichen-falsch:
     de: 'Prüfe die [[Vorzeichen]]: Steigt die [[Gerade]] oder fällt sie? Schneidet sie die y-Achse oberhalb oder unterhalb von 0?'
+    fv: FV.FK.VORZEICHEN-GRAPH
 herkunft: ki-entwurf
 version: 1

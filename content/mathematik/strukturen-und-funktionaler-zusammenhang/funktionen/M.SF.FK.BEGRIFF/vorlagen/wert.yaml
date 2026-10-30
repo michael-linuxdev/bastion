@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   minus-vergessen:
     de: 'Prüfe das [[Vorzeichen]] der eingesetzten Zahl. Minus mal Minus ergibt Plus.'
+    fv: FV.GL.EINSETZEN-KLAMMER
   quadrat-vorzeichen:
     de: '(−3)² ist 9, nicht −9. Das Quadrat einer negativen Zahl ist positiv.'
+    fv: FV.RZ.POTENZ-KLAMMER
   wert-statt-argument:
     de: 'Gesucht ist das x, nicht der [[Funktionswert]]. Löse die [[Gleichung]] nach x auf.'
+    fv: FV.FK.X-ODER-Y
 herkunft: ki-entwurf
 version: 1

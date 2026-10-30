@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   eindeutig-eineindeutig-verwechselt:
     de: 'Schau auch von rechts nach links. Kommen bei einem Ziel zwei Pfeile an, ist die [[Zuordnung]] nicht eineindeutig.'
+    fv: FV.ZU.EINDEUTIGKEIT
   mehrdeutig-uebersehen:
     de: 'Einem [[Element]] werden hier mehrere zugeordnet. Dann ist die [[Zuordnung]] mehrdeutig.'
+    fv: FV.ZU.EINDEUTIGKEIT
 herkunft: ki-entwurf
 version: 1

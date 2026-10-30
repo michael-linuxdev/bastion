@@ -1,15 +1,15 @@
 id: FV.RZ.ABSCHNITT-ALS-EINS
 name:
-  de: Liest jeden Abschnitt der Zahlengerade als 1
+  de: Liest jeden Abschnitt einer Zahlengerade oder Achse als 1
 art: lesefehler
 beschreibung:
   de: >-
     Liest an einer Zahlengerade mit Halbschritten die dritte Markierung als 3 statt 1,5. Die
     Beschriftung wird nicht genutzt, um die Größe eines Abschnitts zu bestimmen.
-kompetenzen: [M.ZO.RZ.BEGRIFF]
+kompetenzen: [M.ZO.RZ.BEGRIFF, M.SF.ZU.GRAPH]
 erklaerung:
   kurz:
-    de: 'Prüfe zuerst, wie groß ein Abschnitt ist: Wie viele Abschnitte liegen zwischen 0 und 1? Bei zweien ist jeder 0,5 groß.'
+    de: 'Prüfe zuerst an der Beschriftung, wie groß ein Abschnitt oder Kästchen ist. Liegen zwei Abschnitte zwischen 0 und 1, ist jeder 0,5 groß.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast jeden Abschnitt als 1 gezählt.'
@@ -22,6 +22,6 @@ gegenbeispiel:
   de: 'Auf einem Lineal sind die kleinen Striche Millimeter. Wer sie als Zentimeter zählt, misst alles zehnmal zu lang.'
 rueckweg:
   vermittlung: M.ZO.RZ.BEGRIFF#erklaeren-zahlengerade
-kontrast: [M.ZO.RZ.BEGRIFF.ZAHLENGERADE]
+kontrast: [M.ZO.RZ.BEGRIFF.ZAHLENGERADE, M.SF.ZU.GRAPH.ABLESEN]
 herkunft: ki-entwurf
 version: 1

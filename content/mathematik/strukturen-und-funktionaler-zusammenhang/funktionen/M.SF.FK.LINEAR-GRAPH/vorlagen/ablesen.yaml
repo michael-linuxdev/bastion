@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   nullstelle-statt-n:
     de: 'Das ist der [[Schnittpunkt]] mit der x-Achse. n liest du auf der y-Achse ab.'
+    fv: FV.FK.NULLSTELLE-ACHSE
   kehrwert:
     de: 'Du hast Breite durch [[Höhe]] gerechnet. Der [[Anstieg]] ist Höhe durch Breite.'
+    fv: FV.FK.ANSTIEG
   vorzeichen-falsch:
     de: 'Achte auf das [[Vorzeichen]]: Fällt die [[Gerade]], ist m negativ. Liegt der [[Schnittpunkt]] unter der x-Achse, ist n negativ.'
+    fv: FV.FK.VORZEICHEN-GRAPH
 herkunft: ki-entwurf
 version: 1

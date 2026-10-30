@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   je-mehr-desto-mehr:
     de: '„Je mehr, desto mehr“ reicht nicht. Bei [[proportionalen]] [[Zuordnungen]] sind alle [[Quotienten]] y : x gleich – prüfe nach.'
+    fv: FV.ZU.JE-DESTO
   je-mehr-desto-weniger:
     de: '„Je mehr, desto weniger“ reicht nicht. Bei [[umgekehrt proportionalen]] [[Zuordnungen]] sind alle Produkte x · y gleich – prüfe nach.'
+    fv: FV.ZU.JE-DESTO
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.ZU.ART-VERWECHSELT
+name:
+  de: Rechnet proportional, wo es umgekehrt proportional ist, oder umgekehrt
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet beim Dreisatz mit mehr Helfern auch mehr Zeit, oder bei mehr Stück weniger Preis. Die
+    Art der Zuordnung wird vor dem Rechnen nicht aus der Sache bestimmt.
+kompetenzen: [M.SF.ZU.DREISATZ]
+erklaerung:
+  kurz:
+    de: 'Frage vor dem Rechnen: Wird es mehr oder weniger? Mehr Stück, mehr Preis: [[proportional]]. Mehr Helfer, weniger Zeit: [[umgekehrt proportional]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit der anderen Art von [[Zuordnung]] gerechnet.'
+    - teil: warum-nicht
+      de: 'Der Rechenweg des Dreisatzes sieht bei beiden [[ähnlich]] aus. Aber bei der einen wird über „ein Stück“ geteilt, bei der anderen über „einer allein“ malgenommen.'
+    - teil: so-stimmt-es
+      de: 'Proportional: 3 Hefte 6 €, 1 Heft 2 €, 5 Hefte 10 €. Umgekehrt [[proportional]]: 3 Helfer 6 Stunden, 1 Helfer 18 Stunden, 6 Helfer 3 Stunden.'
+gegenbeispiel:
+  de: 'Wenn mehr Leute beim Aufräumen helfen, dauert es nicht länger.'
+rueckweg:
+  vermittlung: M.SF.ZU.DREISATZ#erklaeren-art
+kontrast: [M.SF.ZU.DREISATZ.PROPORTIONAL, M.SF.ZU.DREISATZ.UMGEKEHRT]
+herkunft: ki-entwurf
+version: 1

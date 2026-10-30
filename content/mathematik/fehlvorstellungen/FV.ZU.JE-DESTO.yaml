@@ -1,0 +1,27 @@
+id: FV.ZU.JE-DESTO
+name:
+  de: Hält jede „je mehr, desto mehr“-Zuordnung für proportional
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Nennt eine Zuordnung proportional, weil beide Größen wachsen, oder umgekehrt proportional, weil
+    eine wächst und die andere sinkt. Die Bedingung „gleicher Quotient“ oder „gleiches Produkt“ wird
+    nicht geprüft.
+kompetenzen: [M.SF.ZU.PROPORTIONAL]
+erklaerung:
+  kurz:
+    de: '„Je mehr, desto mehr“ reicht nicht. Eine [[Zuordnung]] ist nur dann [[proportional]], wenn alle [[Quotienten]] y : x gleich sind, und nur dann [[umgekehrt proportional]], wenn alle Produkte x · y gleich sind.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf die Richtung geschaut: beide mehr oder eins weniger.'
+    - teil: warum-nicht
+      de: 'Bei jeder [[proportionalen]] [[Zuordnung]] wächst beides, das stimmt. Aber nicht jede wachsende ist proportional. Beim Doppelten muss genau das Doppelte herauskommen.'
+    - teil: so-stimmt-es
+      de: 'Rechne für jedes Paar y : x aus. Sind alle gleich, ist es [[proportional]]. Rechne x · y aus. Sind alle gleich, ist es [[umgekehrt proportional]].'
+gegenbeispiel:
+  de: 'Je älter ein Kind, desto größer. Aber mit 10 Jahren ist niemand doppelt so groß wie mit 5.'
+rueckweg:
+  vermittlung: M.SF.ZU.PROPORTIONAL#erklaeren-pruefen
+kontrast: [M.SF.ZU.PROPORTIONAL.JE-DESTO, M.SF.ZU.PROPORTIONAL.TABELLE]
+herkunft: ki-entwurf
+version: 1

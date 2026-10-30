@@ -1,0 +1,26 @@
+id: FV.FK.ANSTIEG
+name:
+  de: Berechnet den Anstieg falsch herum oder mit gemischter Reihenfolge
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet x-Unterschied durch y-Unterschied oder zieht oben P2 − P1 und unten P1 − P2 ab. Die
+    Bedeutung „so viel nach oben je Schritt nach rechts“ ist nicht verankert.
+kompetenzen: [M.SF.FK.LINEAR-GLEICHUNG, M.SF.FK.LINEAR-GRAPH]
+erklaerung:
+  kurz:
+    de: 'Der [[Anstieg]] ist [[Höhe]] durch Breite: y-Unterschied : x-Unterschied. Ziehe oben und unten in derselben Reihenfolge ab.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Unterschiede vertauscht oder in verschiedener Reihenfolge abgezogen.'
+    - teil: warum-nicht
+      de: 'Die [[Formel]] hat viele Teile, das verwirrt leicht. Der [[Anstieg]] sagt aber: Wie viel geht es nach oben, wenn ich 1 nach rechts gehe? Darum steht die [[Höhe]] oben.'
+    - teil: so-stimmt-es
+      de: 'Zeichne ein [[Steigungsdreieck]]. Von (1|2) nach (3|8): 6 nach oben, 2 nach rechts, also m = 6 : 2 = 3.'
+gegenbeispiel:
+  de: 'Eine Straße, die auf 100 m Strecke 10 m ansteigt, hat 10 % Steigung, nicht 1000 %.'
+rueckweg:
+  vermittlung: M.SF.FK.LINEAR-GRAPH#erklaeren-anstieg
+kontrast: [M.SF.FK.LINEAR-GLEICHUNG.BESTIMMEN, M.SF.FK.LINEAR-GRAPH.ABLESEN]
+herkunft: ki-entwurf
+version: 1

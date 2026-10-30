@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   grundgebuehr-vergessen:
     de: 'Die [[Grundgebühr]] zahlt man immer dazu – du hast sie vergessen.'
+    fv: FV.FK.GRUNDGEBUEHR
   grundgebuehr-mal-menge:
     de: 'Die [[Grundgebühr]] zahlt man nur einmal, nicht für jede Einheit.'
+    fv: FV.FK.GRUNDGEBUEHR
   gleichstand-statt-guenstiger:
     de: 'Bei dieser Menge kosten beide Tarife gleich viel. Günstiger wird es erst eine Einheit später.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
 herkunft: ki-entwurf
 version: 1

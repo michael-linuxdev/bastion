@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   letzter-schritt-addiert:
     de: Du bist nur einen Schritt weitergegangen. Prüfe, wie weit {x} vom letzten Wert entfernt ist.
+    fv: FV.ZU.SCHRITTWEITE
   grundwert-vergessen:
     de: 'Bei dieser [[Zuordnung]] kommt zu jedem Wert noch eine feste Zahl dazu. Prüfe deine [[Gleichung]] an einem Wert aus der Tabelle.'
+    fv: FV.FK.GRUNDGEBUEHR
 herkunft: ki-entwurf
 version: 1

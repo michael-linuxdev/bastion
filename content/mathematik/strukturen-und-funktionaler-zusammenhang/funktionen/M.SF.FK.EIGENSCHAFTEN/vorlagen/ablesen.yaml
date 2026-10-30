@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   y-statt-x:
     de: 'Das ist die [[Höhe]] des Punktes (y). Gefragt ist die Stelle x – lies auf der x-Achse ab.'
+    fv: FV.FK.X-ODER-Y
   schnitt-mit-y-achse:
     de: 'Der [[Schnittpunkt]] mit der y-Achse ist keine [[Nullstelle]]. Zähle nur die Stellen auf der x-Achse.'
+    fv: FV.FK.NULLSTELLE-ACHSE
 herkunft: ki-entwurf
 version: 1

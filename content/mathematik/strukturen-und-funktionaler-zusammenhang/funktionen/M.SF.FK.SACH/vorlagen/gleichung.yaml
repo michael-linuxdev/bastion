@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   m-n-vertauscht:
     de: 'Hier sind [[Grundgebühr]] und Preis je Einheit vertauscht. Mit x malgenommen wird der Preis je Einheit.'
+    fv: FV.FK.M-N-VERTAUSCHT
   ohne-grundgebuehr:
     de: 'Die [[Grundgebühr]] fehlt. Sie kommt einmal dazu – als Zahl ohne x.'
+    fv: FV.FK.GRUNDGEBUEHR
 herkunft: ki-entwurf
 version: 1

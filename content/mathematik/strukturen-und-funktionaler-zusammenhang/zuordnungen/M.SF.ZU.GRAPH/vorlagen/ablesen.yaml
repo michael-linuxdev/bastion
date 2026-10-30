@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: Das ist der x-Wert. Gesucht ist der y-Wert – lies an der senkrechten Achse ab.
+    fv: FV.FK.X-ODER-Y
   kaestchen-gezaehlt:
     de: Du hast Kästchen gezählt. Lies die Zahl an der y-Achse ab – ein Kästchen ist hier mehr als 1.
+    fv: FV.RZ.ABSCHNITT-ALS-EINS
 herkunft: ki-entwurf
 version: 1

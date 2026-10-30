@@ -1,0 +1,26 @@
+id: FV.FK.X-ODER-Y
+name:
+  de: Verwechselt die Stelle x mit dem Funktionswert y
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt einen y-Wert an, wo die Stelle x gefragt ist, oder umgekehrt, etwa beim Ablesen am Graphen
+    oder wenn x zu einem gegebenen Funktionswert gesucht ist.
+kompetenzen: [M.SF.FK.BEGRIFF, M.SF.FK.EIGENSCHAFTEN, M.SF.ZU.GRAPH]
+erklaerung:
+  kurz:
+    de: 'x ist die Stelle auf der waagerechten Achse, y der Wert auf der senkrechten. Lies genau, welcher von beiden gefragt ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den anderen Wert des Punktes angegeben.'
+    - teil: warum-nicht
+      de: 'Jeder Punkt hat zwei Zahlen, darum greift man leicht die falsche. Die Frage legt fest, ob die Stelle (x) oder der Wert (y) gesucht ist.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche in der Frage x oder y. Für x lies an der waagerechten Achse ab, für y an der senkrechten. Ist f(x) = 7 gegeben, löse die [[Gleichung]] nach x auf.'
+gegenbeispiel:
+  de: '„Wann war es 20 [[Grad]]?“ fragt nach einer Uhrzeit, nicht nach einer Temperatur.'
+rueckweg:
+  vermittlung: M.SF.FK.BEGRIFF#erklaeren-stelle-wert
+kontrast: [M.SF.FK.BEGRIFF.WERT, M.SF.FK.EIGENSCHAFTEN.ABLESEN, M.SF.ZU.GRAPH.ABLESEN]
+herkunft: ki-entwurf
+version: 1

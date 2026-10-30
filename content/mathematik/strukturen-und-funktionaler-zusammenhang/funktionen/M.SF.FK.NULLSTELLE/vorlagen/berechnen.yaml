@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   n-statt-nullstelle:
     de: 'Das ist der [[y-Achsenabschnitt]]. Die [[Nullstelle]] ist das x, für das f(x) = 0 ist.'
+    fv: FV.FK.NULLSTELLE-ACHSE
   vorzeichen-falsch:
     de: 'Prüfe das [[Vorzeichen]]: Bringe n auf die andere Seite – dabei ändert es sein Vorzeichen.'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

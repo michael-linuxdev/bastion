@@ -1,0 +1,26 @@
+id: FV.FK.GRUNDGEBUEHR
+name:
+  de: Vergisst den festen Anteil oder nimmt ihn mit der Menge mal
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet beim Tarif nur Preis je Einheit · Menge oder nimmt auch die Grundgebühr mit der Menge mal.
+    In Tabellen wird die feste Zahl, die zu jedem Wert dazukommt, übersehen.
+kompetenzen: [M.SF.FK.SACH, M.SF.ZU.DARSTELLEN]
+erklaerung:
+  kurz:
+    de: 'Die [[Grundgebühr]] oder feste Zahl kommt genau **einmal** dazu, egal wie viel du verbrauchst. Nur der Preis je Einheit wird mit der Menge malgenommen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den festen [[Anteil]] weggelassen oder ihn mit der Menge malgenommen.'
+    - teil: warum-nicht
+      de: 'Bei einer [[proportionalen]] [[Zuordnung]] gibt es keinen festen [[Anteil]], darum vergisst man ihn leicht. Hier zahlt man ihn aber immer, auch bei 0 Einheiten, und nur einmal.'
+    - teil: so-stimmt-es
+      de: 'Kosten = [[Grundgebühr]] + Preis je Einheit · Menge. 5 € + 2 € · 10 = 25 €.'
+gegenbeispiel:
+  de: 'Wer im Schwimmbad einmal Eintritt zahlt, zahlt ihn nicht für jede Bahn noch einmal.'
+rueckweg:
+  vermittlung: M.SF.FK.SACH#erklaeren-tarif
+kontrast: [M.SF.FK.SACH.KOSTEN, M.SF.FK.SACH.GLEICHUNG, M.SF.ZU.DARSTELLEN.TABELLE]
+herkunft: ki-entwurf
+version: 1

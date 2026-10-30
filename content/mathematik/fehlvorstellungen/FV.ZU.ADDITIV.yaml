@@ -1,0 +1,28 @@
+id: FV.ZU.ADDITIV
+name:
+  de: Rechnet bei proportionalen Zuordnungen mit Plus statt Mal
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schließt von 3 Heften für 6 € auf 4 Hefte für 7 €: Für jedes Stück mehr kommt 1 € dazu. Die
+    Zunahme wird additiv statt multiplikativ gedacht.
+kompetenzen: [M.SF.ZU.DREISATZ]
+erklaerung:
+  kurz:
+    de: 'Rechne zuerst aus, was **ein** Stück kostet. Jedes weitere Stück kostet genau so viel mehr.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast für jedes Stück mehr einfach 1 dazugezählt.'
+    - teil: warum-nicht
+      de: 'Ein Stück mehr, etwas mehr Geld, das ist richtig gedacht. Aber wie viel mehr, hängt vom Preis je Stück ab. Bei 3 Heften für 6 € kostet ein Heft 2 €.'
+    - teil: so-stimmt-es
+      de: 'Dreisatz: 3 Hefte 6 €, 1 Heft 6 € : 3 = 2 €, 4 Hefte 4 · 2 € = 8 €.'
+gegenbeispiel:
+  de: '1 Heft kostet 2 €. Mit „plus 1 €“ kosteten 10 Hefte nur 11 € statt 20 €.'
+rueckweg:
+  vermittlung: M.SF.ZU.DREISATZ#erklaeren-dreisatz
+kontrast: [M.SF.ZU.DREISATZ.PROPORTIONAL]
+quelle:
+  de: Fachdidaktik proportionales Denken (additive Strategie)
+herkunft: ki-entwurf
+version: 1
