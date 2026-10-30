@@ -67,7 +67,7 @@ schritte:
     typ: bruch-eingabe
     fehlerbilder:
       nicht-vollstaendig:
-        de: 'Du hast gekürzt, aber noch nicht vollständig. [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+        de: 'Du hast [[gekürzt]], aber noch nicht vollständig. [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
         fv: FV.BR.NICHT-VOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1

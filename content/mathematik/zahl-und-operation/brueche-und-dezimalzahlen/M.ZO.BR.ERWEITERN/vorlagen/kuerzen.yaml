@@ -34,7 +34,7 @@ schritte:
     typ: zahl-eingabe
     fehlerbilder:
       kleiner-teiler:
-        de: 'Das ist ein gemeinsamer Teiler, aber nicht der größte. Danach könntest du noch weiter [[kürzen]].'
+        de: 'Das ist ein gemeinsamer [[Teiler]], aber nicht der größte. Danach könntest du noch weiter [[kürzen]].'
         fv: FV.BR.NICHT-VOLLSTAENDIG
   - id: ergebnis
     frage:

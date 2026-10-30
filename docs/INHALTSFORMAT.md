@@ -393,7 +393,7 @@ Das Wörterbuch `content/mathematik/begriffe.yaml` enthält je Fachbegriff eine 
 
 In Aufgabentexten, Hilfen und Fehlerbild-Rückmeldungen steht das **erste Vorkommen** eines Begriffs **je Text** als `[[Form]]`. Die App unterstreicht ihn gepunktet; Antippen zeigt die Erklärung direkt dahinter (L-7). In der Diagnose bleibt die Erklärung aus – dort gibt es keine Hilfen (LEHRPLAN §7).
 
-`pnpm test` prüft: Jede markierte Form steht im Wörterbuch, jedes erste Vorkommen ist markiert, jede Form gehört zu genau einem Begriff, jeder Begriff kommt in einer Vorlage vor. `pnpm inhalte:begriffe` markiert fehlende Stellen in allen Vorlagen automatisch – danach die Änderungen lesen: Ein Wort kann in einem Satz etwas anderes bedeuten als im Wörterbuch (dann den Satz umformulieren).
+`pnpm test` prüft: Jede markierte Form steht im Wörterbuch, jedes erste Vorkommen ist markiert, jede Form gehört zu genau einem Begriff, jeder Begriff kommt in einer Vorlage vor. `pnpm inhalte:begriffe` markiert fehlende Stellen in allen Vorlagen, Anleitungen und Fehlvorstellungen automatisch (dort nur in Erklärung und Gegenbeispiel) – danach die Änderungen lesen: Ein Wort kann in einem Satz etwas anderes bedeuten als im Wörterbuch (dann den Satz umformulieren).
 
 ## 12. Vollständiges Beispiel: `M.ZO.BR.ERWEITERN`
 
