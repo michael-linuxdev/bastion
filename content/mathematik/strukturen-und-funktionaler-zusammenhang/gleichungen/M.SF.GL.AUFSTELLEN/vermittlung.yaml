@@ -1,0 +1,79 @@
+id: M.SF.GL.AUFSTELLEN
+kompetenz: M.SF.GL.AUFSTELLEN
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du zu einem Zahlenrätsel die passende [[Gleichung]] finden und lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse 3 · x + 5 = 20.'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '15', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.GL.LINEAR }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '„Das Dreifache einer Zahl“: Welcher [[Term]] passt?'
+    antwort:
+      optionen:
+        - { wert: { de: '3 · x' }, richtig: true }
+        - { wert: { de: '3 + x' }, fv: FV.GL.TEXT-IN-TERM }
+    weiter: erklaeren-uebersetzen
+  - id: erklaeren-uebersetzen
+    typ: erklaeren
+    text:
+      de: 'Übersetze das Rätsel Stück für Stück. Die gesuchte Zahl heißt x. „Das Dreifache“ ist 3 · x, „vermehrt um 5“ ist + 5, „vermindert um 5“ ist − 5, „ergibt“ ist =.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '„Das Doppelte einer Zahl vermindert um 4 ergibt 10.“ Das ist 2 · x − 4 = 10. Lösen: 2 · x = 14, x = 7. [[Probe]]: 2 · 7 − 4 = 10.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '„Vermehrt man das Vierfache einer Zahl um 3, erhält man 23.“ Wie heißt die Zahl?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '6,5', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-uebersetzen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '„Eine Zahl vermindert um 5 ergibt 12.“ Jan schreibt 5 − x = 12. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, von der Zahl wird 5 abgezogen: x − 5 = 12.' }, richtig: true }
+        - { wert: { de: 'Ja, beides heißt minus.' }, fv: FV.GL.TEXT-IN-TERM }
+    weiter: merksatz
+    bei: { FV.GL.TEXT-IN-TERM: erklaeren-uebersetzen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Das Rätsel Wort für Wort in eine [[Gleichung]] übersetzen, lösen und mit der [[Probe]] im Rätsel prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '„Das Doppelte einer Zahl vermehrt um 7 ergibt 15.“ Welche [[Gleichung]] passt?'
+    antwort:
+      optionen:
+        - { wert: { de: '2 · x + 7 = 15' }, richtig: true }
+        - { wert: { de: '2 + x + 7 = 15' }, fv: FV.GL.TEXT-IN-TERM }
+        - { wert: { de: '2 · (x + 7) = 15' }, fv: FV.GL.TEXT-IN-TERM }
+    weiter: uebergang
+    bei: { FV.GL.TEXT-IN-TERM: erklaeren-uebersetzen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Klasse. Jetzt löst du selbst Rätsel.'
+    vorlagen: [M.SF.GL.AUFSTELLEN.AUSWAHL, M.SF.GL.AUFSTELLEN.LOESEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

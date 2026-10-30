@@ -1,0 +1,88 @@
+id: M.SF.GS.RECHNERISCH
+kompetenz: M.SF.GS.RECHNERISCH
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du ein [[Gleichungssystem]] durch Rechnen lösen, ohne zu zeichnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Löse 2 · x + 3 = 11.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '8', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: entdecken
+    bei: { sonst: M.SF.TU.GLEICHUNGEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'System: y = 2 · x und x + y = 9. Weil y dasselbe ist wie 2 · x, wird die zweite [[Gleichung]] zu x + 2 · x = 9. Was ist x?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '9', fv: FV.GL.NICHT-FERTIG }] }
+    weiter: erklaeren-einsetzen
+  - id: erklaeren-einsetzen
+    typ: erklaeren
+    text:
+      de: '[[Einsetzungsverfahren]]: Eine [[Gleichung]] sagt, was y ist. Diesen [[Term]] setzt du in die andere Gleichung für y ein, mit Klammer. Dann bleibt nur x. Danach rechnest du y aus.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Aus x + 2 · x = 9 wird 3 · x = 9, also x = 3. Dann y = 2 · 3 = 6. Lösung (3|6). [[Probe]]: 3 + 6 = 9.'
+    weiter: erklaeren-addition
+  - id: erklaeren-addition
+    typ: erklaeren
+    text:
+      de: '[[Additionsverfahren]]: Stehen in beiden Gleichungen + y und − y, addierst du die Gleichungen. Linke Seite plus linke Seite, rechte plus rechte. Dann fällt y weg.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'x + y = 10 und x − y = 4. Addiere beide Gleichungen: 2 · x = 14. Was ist x?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '7',
+          fehler:
+            [{ wert: '14', fv: FV.GL.NICHT-FERTIG }, { wert: '3', fv: FV.GS.ADDITIONSVERFAHREN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.GS.ADDITIONSVERFAHREN: erklaeren-addition, FV.GL.NICHT-FERTIG: erklaeren-addition }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'System: y = x + 1 und 2 · x + y = 7. Lina setzt ein: 2 · x + 1 = 7. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, y wird ganz ersetzt: 2 · x + (x + 1) = 7.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.GS.FALSCH-EINGESETZT }
+    weiter: merksatz
+    bei: { FV.GS.FALSCH-EINGESETZT: erklaeren-einsetzen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Einsetzen: den ganzen [[Term]] mit Klammer für y schreiben. Addieren: alle Seiten addieren, bis eine [[Variable]] wegfällt. Dann die zweite Variable ausrechnen und als (x|y) angeben.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Löse y = x + 1 und 2 · x + y = 7.'
+    antwort:
+      optionen:
+        - { wert: { de: '(2|3)' }, richtig: true }
+        - { wert: { de: '(3|2)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: '(3|4)' }, fv: FV.GS.FALSCH-EINGESETZT }
+    weiter: uebergang
+    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-einsetzen, FV.GS.FALSCH-EINGESETZT: erklaeren-einsetzen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.GS.RECHNERISCH.LOESEN, M.SF.GS.RECHNERISCH.SCHRITT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

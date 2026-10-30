@@ -1,0 +1,96 @@
+id: M.SF.TU.AUSMULTIPLIZIEREN
+kompetenz: M.SF.TU.AUSMULTIPLIZIEREN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du 3 · (x + 4) [[ausmultiplizieren]] und 6 · x + 9 [[ausklammern]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 2 · x + 5 · x zusammengefasst?'
+    antwort:
+      optionen:
+        - { wert: { de: '7 · x' }, richtig: true }
+        - { wert: { de: '10 · x' }, fv: FV.TU.UNGLEICHARTIG }
+    weiter: entdecken
+    bei: { sonst: M.SF.TU.ZUSAMMENFASSEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Drei Kinder kaufen je ein Heft für 2 € und einen Stift für 4 €. Das kostet 3 · (2 + 4) €. Wie viel Euro sind es, wenn du 3 · 2 + 3 · 4 rechnest?'
+    antwort:
+      eingabe: { art: zahl, loesung: '18', fehler: [{ wert: '10', fv: FV.TU.KLAMMER-HALB }] }
+    weiter: erklaeren-ausmultiplizieren
+  - id: erklaeren-ausmultiplizieren
+    typ: erklaeren
+    text:
+      de: 'Beim [[Ausmultiplizieren]] multiplizierst du die Zahl vor der Klammer mit jedem Glied in der Klammer, nicht nur mit dem ersten. Die [[Vorzeichen]] rechnest du mit: minus mal minus ergibt plus.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 · (x + 4) = 3 · x + 3 · 4 = 3 · x + 12. Und 2 · (5 − x) = 10 − 2 · x.'
+    weiter: erklaeren-ausklammern
+  - id: erklaeren-ausklammern
+    typ: erklaeren
+    text:
+      de: '[[Ausklammern]] ist der Rückweg. Suche eine Zahl, die in jedem Glied steckt. Teile jedes Glied durch sie und schreibe den Rest in die Klammer: 6 · x + 9 = 3 · (2 · x + 3).'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '4 · (x + 5) = 4 · x + ☐. Welche Zahl gehört ins Kästchen?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '20',
+          fehler: [{ wert: '5', fv: FV.TU.KLAMMER-HALB }, { wert: '9', fv: FV.TU.KLAMMER-HALB }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.TU.KLAMMER-HALB: erklaeren-ausmultiplizieren }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia klammert aus: 10 · x + 15 = 5 · (10 · x + 15). Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, jedes Glied wird durch 5 geteilt: 5 · (2 · x + 3).' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die 5 steht jetzt vorne.' }, fv: FV.TU.AUSKLAMMERN }
+    weiter: merksatz
+    bei: { FV.TU.AUSKLAMMERN: erklaeren-ausklammern }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Ausmultiplizieren]]: die Zahl vor der Klammer mal jedes Glied. [[Ausklammern]]: jedes Glied durch die gemeinsame Zahl teilen. Mit Ausmultiplizieren kannst du dein Ergebnis prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was ergibt −2 · (x − 3) ausmultipliziert?'
+    antwort:
+      optionen:
+        - { wert: { de: '−2 · x + 6' }, richtig: true }
+        - { wert: { de: '−2 · x − 6' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+        - { wert: { de: '−2 · x − 3' }, fv: FV.TU.KLAMMER-HALB }
+    weiter: uebergang
+    bei:
+      {
+        FV.RZ.VORZEICHEN-FALSCH: erklaeren-ausmultiplizieren,
+        FV.TU.KLAMMER-HALB: erklaeren-ausmultiplizieren,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst.'
+    vorlagen: [M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL, M.SF.TU.AUSMULTIPLIZIEREN.LUECKE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

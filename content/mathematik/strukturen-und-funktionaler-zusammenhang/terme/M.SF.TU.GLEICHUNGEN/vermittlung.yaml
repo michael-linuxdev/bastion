@@ -1,0 +1,85 @@
+id: M.SF.TU.GLEICHUNGEN
+kompetenz: M.SF.TU.GLEICHUNGEN
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Gleichungen mit Klammern wie 3 · (x + 2) = 2 · x + 10 lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 3 · (x + 2) ausmultipliziert?'
+    antwort:
+      optionen:
+        - { wert: { de: '3 · x + 6' }, richtig: true }
+        - { wert: { de: '3 · x + 2' }, fv: FV.TU.KLAMMER-HALB }
+    weiter: entdecken
+    bei: { sonst: M.SF.TU.AUSMULTIPLIZIEREN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Löse 2 · x + 1 = 9. Du hast das schon geübt: erst − 1, dann : 2.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler: [{ wert: '8', fv: FV.GL.NICHT-FERTIG }, { wert: '5', fv: FV.NZ.UMKEHRAUFGABE }],
+        }
+    weiter: erklaeren-klammer
+    bei: { FV.GL.NICHT-FERTIG: M.SF.GL.LINEAR, FV.NZ.UMKEHRAUFGABE: M.SF.GL.LINEAR }
+  - id: erklaeren-klammer
+    typ: erklaeren
+    text:
+      de: 'Mit Klammern gehst du in drei Schritten vor. Erstens: Klammern auflösen. Zweitens: alle x auf eine Seite, alle Zahlen auf die andere. Drittens: durch die Zahl vor x teilen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Aus 3 · (x + 2) = 2 · x + 10 wird 3 · x + 6 = 2 · x + 10. Minus 2 · x und minus 6 ergibt x = 4.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse 2 · (x + 3) = 14.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '5,5', fv: FV.TU.KLAMMER-HALB }] }
+    weiter: gegenbeispiel
+    bei: { FV.TU.KLAMMER-HALB: erklaeren-klammer }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali löst 4 · (x − 1) = 2 · x + 6. Er schreibt zuerst 4 · x − 1 = 2 · x + 6. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die 4 gilt auch für die 1: 4 · x − 4.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.TU.KLAMMER-HALB }
+    weiter: merksatz
+    bei: { FV.TU.KLAMMER-HALB: erklaeren-klammer }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst Klammern auflösen, dann x auf eine Seite sortieren, dann teilen. Zum Schluss die [[Probe]] mit der [[Gleichung]] vom Anfang.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl löst 5 · (x − 2) = 3 · x + 4?'
+    antwort:
+      optionen:
+        - { wert: { de: '7' }, richtig: true }
+        - { wert: { de: '3' }, fv: FV.TU.KLAMMER-HALB }
+        - { wert: { de: '−3' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+    weiter: uebergang
+    bei: { FV.TU.KLAMMER-HALB: erklaeren-klammer, FV.RZ.VORZEICHEN-FALSCH: erklaeren-klammer }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt löst du selbst.'
+    vorlagen: [M.SF.TU.GLEICHUNGEN.AUFLOESEN, M.SF.TU.GLEICHUNGEN.LOESEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

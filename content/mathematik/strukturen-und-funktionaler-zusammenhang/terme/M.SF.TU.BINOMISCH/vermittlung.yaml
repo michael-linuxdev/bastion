@@ -1,0 +1,96 @@
+id: M.SF.TU.BINOMISCH
+kompetenz: M.SF.TU.BINOMISCH
+niveau: G
+dauer_min: 13
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du (x + 3)² und (x − 3)² schnell mit einer [[binomischen Formel]] [[ausmultiplizieren]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 3 · (x + 2) ausmultipliziert?'
+    antwort:
+      optionen:
+        - { wert: { de: '3 · x + 6' }, richtig: true }
+        - { wert: { de: '3 · x + 2' }, fv: FV.TU.KLAMMER-HALB }
+    weiter: entdecken
+    bei: { sonst: M.SF.TU.AUSMULTIPLIZIEREN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Quadrat hat die Seite 5 + 2. Seine Fläche ist (5 + 2)². Rechne aus: Wie groß ist sie?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '49',
+          fehler:
+            [{ wert: '29', fv: FV.TU.MITTELGLIED }, { wert: '14', fv: FV.NZ.QUADRAT-MAL-ZWEI }],
+        }
+    weiter: erklaeren-mittelglied
+  - id: erklaeren-mittelglied
+    typ: erklaeren
+    text:
+      de: '5² + 2² = 29 ist zu wenig. Im Quadrat stecken noch zwei Rechtecke 5 · 2. Das ist das Mittelglied: (a + b)² = a² + 2 · a · b + b².'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '(x + 3)² = x² + 2 · x · 3 + 3² = x² + 6 · x + 9. Und (x − 4)² = x² − 8 · x + 16.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '(x + 5)² = x² + ☐ · x + 25. Welche Zahl gehört ins Kästchen?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '10',
+          fehler: [{ wert: '5', fv: FV.TU.MITTELGLIED }, { wert: '0', fv: FV.TU.MITTELGLIED }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.TU.MITTELGLIED: erklaeren-mittelglied }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tom schreibt (x − 2)² = x² − 4. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, es fehlt das Mittelglied: x² − 4 · x + 4.' }, richtig: true }
+        - { wert: { de: 'Ja, man quadriert beide Teile.' }, fv: FV.TU.MITTELGLIED }
+    weiter: merksatz
+    bei: { FV.TU.MITTELGLIED: erklaeren-mittelglied }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '(a + b)² = a² + 2 · a · b + b² und (a − b)² = a² − 2 · a · b + b². Das Mittelglied ist doppelt a mal b. Das letzte Glied ist immer plus.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Was ergibt (x − 3)²?'
+    antwort:
+      optionen:
+        - { wert: { de: 'x² − 6 · x + 9' }, richtig: true }
+        - { wert: { de: 'x² + 9' }, fv: FV.TU.MITTELGLIED }
+        - { wert: { de: 'x² − 6 · x − 9' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+        - { wert: { de: 'x² − 6 · x + 6' }, fv: FV.NZ.QUADRAT-MAL-ZWEI }
+    weiter: uebergang
+    bei:
+      {
+        FV.TU.MITTELGLIED: erklaeren-mittelglied,
+        FV.RZ.VORZEICHEN-FALSCH: erklaeren-mittelglied,
+        FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-mittelglied,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt nutzt du die [[Formeln]] selbst.'
+    vorlagen: [M.SF.TU.BINOMISCH.AUSWAHL, M.SF.TU.BINOMISCH.LUECKE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
