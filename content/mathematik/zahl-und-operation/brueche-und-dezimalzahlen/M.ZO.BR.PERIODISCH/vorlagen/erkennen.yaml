@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   nenner-ungerade-gleich-periodisch:
     de: 'Ein ungerader [[Nenner]] allein macht die Zahl nicht [[periodisch]]. 5 und 25 lassen sich auf 10 und 100 [[erweitern]].'
+    fv: FV.BR.PERIODE-UNGERADE
   periode-zu-frueh:
     de: 'Der Strich steht zu weit vorn. Er gehört nur über die [[Ziffern]], die sich wirklich wiederholen.'
+    fv: FV.BR.PERIODENSTRICH
   ohne-strich:
     de: 'Hier fehlt der [[Periodenstrich]]. Ohne ihn hört die Zahl nach diesen [[Ziffern]] auf – aber sie geht unendlich weiter.'
+    fv: FV.BR.PERIODENSTRICH
   abgebrochen:
     de: 'Das ist nur der Anfang der Zahl. Die [[Ziffern]] wiederholen sich unendlich – das zeigt der [[Periodenstrich]].'
+    fv: FV.BR.PERIODENSTRICH
 herkunft: ki-entwurf
 version: 1

@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   addiert:
     de: Du hast Menge und Preis addiert. Für den Gesamtpreis nimmst du die Menge mal den Preis je Kilogramm.
+    fv: FV.SA.RECHENART
   komma-falsch:
     de: 'Das Komma steht falsch. Prüfe mit einem [[Überschlag]], wie groß der Preis ungefähr sein muss.'
+    fv: FV.BR.KOMMA-MAL
   kein-rueckgeld:
     de: Das ist der Preis. Gefragt ist das Rückgeld – ziehe den Preis vom bezahlten Geld ab.
+    fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,28 @@
+id: FV.BR.STELLENWERT-DEZIMAL
+name:
+  de: Ordnet den Stellen hinter dem Komma die falschen Werte zu
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 7/100 als 0,7 oder 0,25 als 25/10. Dass die erste Stelle hinter dem Komma die Zehntel,
+    die zweite die Hundertstel und die dritte die Tausendstel sind, ist noch nicht sicher.
+kompetenzen: [M.ZO.BR.DEZIMAL]
+erklaerung:
+  kurz:
+    de: 'Hinter dem Komma: erste Stelle [[Zehntel]], zweite Stelle [[Hundertstel]], dritte Stelle [[Tausendstel]]. Zähle die Stellen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine [[Ziffer]] an die falsche Stelle hinter dem Komma gesetzt.'
+    - teil: warum-nicht
+      de: 'Die Stellen hinter dem Komma haben keinen eigenen Namen auf dem Papier, darum verrutscht man leicht. Aber jede Stelle ist zehnmal kleiner als die davor: 0,7 sind 7 [[Zehntel]], 0,07 nur 7 [[Hundertstel]].'
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
+    - teil: so-stimmt-es
+      de: 'Lies den [[Nenner]]: 100 heißt [[Hundertstel]], also zwei Stellen: 7/100 = 0,07. Umgekehrt: Zwei [[Nachkommastellen]] geben den Nenner 100: 0,25 = 25/100.'
+gegenbeispiel:
+  de: '7 Cent sind 0,07 €. 0,7 € wären 70 Cent.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZIMAL#erklaeren-stellenwert
+  voraussetzung: M.ZO.NZ.STELLENWERT
+kontrast: [M.ZO.BR.DEZIMAL.BRUCH-ZU-DEZIMAL, M.ZO.BR.DEZIMAL.DEZIMAL-ZU-BRUCH]
+herkunft: ki-entwurf
+version: 1

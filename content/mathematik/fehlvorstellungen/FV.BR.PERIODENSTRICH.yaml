@@ -1,0 +1,27 @@
+id: FV.BR.PERIODENSTRICH
+name:
+  de: Schreibt den Periodenstrich falsch oder lässt ihn weg
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt 0,333 statt 0,3 mit Strich, lässt den Strich weg oder setzt ihn auch über Ziffern, die
+    sich nicht wiederholen (0,16 mit Strich über beiden statt nur über der 6). Dass der Strich
+    „unendlich oft wiederholt“ bedeutet, ist noch nicht verankert.
+kompetenzen: [M.ZO.BR.PERIODISCH]
+erklaerung:
+  kurz:
+    de: 'Der [[Periodenstrich]] heißt: Diese [[Ziffern]] wiederholen sich ohne Ende. Er steht genau über den Ziffern, die sich wiederholen, und nur über ihnen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl ohne [[Periodenstrich]] geschrieben, nach einigen [[Ziffern]] aufgehört oder den Strich über zu viele Ziffern gesetzt.'
+    - teil: warum-nicht
+      de: 'Eine Zahl, die nie aufhört, kann man nicht ganz hinschreiben. Darum gibt es den Strich. Ohne ihn hört die Zahl auf und ist eine andere: 0,333 ist etwas weniger als 1/3.'
+    - teil: so-stimmt-es
+      de: 'Teile schriftlich, bis sich ein Rest wiederholt. Ab da wiederholen sich die [[Ziffern]]. Nur über sie kommt der Strich. Bei 1/6 = 0,1666… wiederholt sich nur die 6.'
+gegenbeispiel:
+  de: '0,333 · 3 = 0,999, also nicht ganz 1. Aber 1/3 · 3 ist genau 1.'
+rueckweg:
+  vermittlung: M.ZO.BR.PERIODISCH#erklaeren-periode
+kontrast: [M.ZO.BR.PERIODISCH.ERKENNEN]
+herkunft: ki-entwurf
+version: 1

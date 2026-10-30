@@ -1,0 +1,26 @@
+id: FV.SA.ANGABE-UEBERSEHEN
+name:
+  de: Übersieht eine Angabe in der Sachaufgabe
+art: lesefehler
+beschreibung:
+  de: >-
+    Nutzt nur einen Teil der Angaben, zum Beispiel nur die erste von zwei Ausgaben. Längere Texte
+    werden nicht vollständig erfasst.
+kompetenzen: [M.ZO.BR.SACH]
+erklaerung:
+  kurz:
+    de: 'Eine Angabe fehlt in deiner Rechnung. Lies den Text noch einmal und unterstreiche jede Zahl.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit einem Teil der Angaben gerechnet.'
+    - teil: warum-nicht
+      de: 'In langen Texten überliest man leicht etwas. Aber jede Zahl im Text hat meistens eine Aufgabe. Fehlt eine, stimmt das Ergebnis nicht.'
+    - teil: so-stimmt-es
+      de: 'Unterstreiche alle Zahlen und schreibe sie mit ihrer Bedeutung auf. Hake jede ab, sobald du sie benutzt hast.'
+gegenbeispiel:
+  de: 'Wer zweimal einkaufen geht, hat danach weniger Geld als nach dem ersten Einkauf.'
+rueckweg:
+  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+kontrast: [M.ZO.BR.SACH.ANTEIL]
+herkunft: ki-entwurf
+version: 1

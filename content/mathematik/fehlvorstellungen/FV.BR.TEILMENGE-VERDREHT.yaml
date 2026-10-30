@@ -1,0 +1,26 @@
+id: FV.BR.TEILMENGE-VERDREHT
+name:
+  de: Dreht die Beziehung zwischen natürlichen und gebrochenen Zahlen um
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält die gebrochenen Zahlen für einen Teil der natürlichen Zahlen. Weil die natürlichen Zahlen
+    zuerst gelernt wurden, wirken sie wie die „große“ Menge.
+kompetenzen: [M.ZO.BR.MENGEN]
+erklaerung:
+  kurz:
+    de: 'Jede [[natürliche Zahl]] ist auch eine [[gebrochene Zahl]], zum Beispiel 3 = 3/1. Die natürlichen Zahlen sind also eine [[Teilmenge]] der gebrochenen Zahlen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht, die [[gebrochenen Zahlen]] stecken in den [[natürlichen Zahlen]].'
+    - teil: warum-nicht
+      de: 'Die [[natürlichen Zahlen]] kennst du länger, darum wirken sie wie der große Bereich. Aber 1/2 ist keine natürliche Zahl. Jede natürliche Zahl lässt sich dagegen als [[Bruch]] schreiben: 5 = 5/1.'
+    - teil: so-stimmt-es
+      de: 'Die [[gebrochenen Zahlen]] sind der größere Bereich. Die [[natürlichen Zahlen]] sind eine [[Teilmenge]] davon.'
+gegenbeispiel:
+  de: '1/2 ist eine [[gebrochene Zahl]], aber keine natürliche. 2 ist beides.'
+rueckweg:
+  vermittlung: M.ZO.BR.MENGEN#erklaeren-zahlbereiche
+kontrast: [M.ZO.BR.MENGEN.AUSSAGEN]
+herkunft: ki-entwurf
+version: 1

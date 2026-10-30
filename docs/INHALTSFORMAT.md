@@ -393,7 +393,7 @@ Das Wörterbuch `content/mathematik/begriffe.yaml` enthält je Fachbegriff eine 
 
 In Aufgabentexten, Hilfen und Fehlerbild-Rückmeldungen steht das **erste Vorkommen** eines Begriffs **je Text** als `[[Form]]`. Die App unterstreicht ihn gepunktet; Antippen zeigt die Erklärung direkt dahinter (L-7). In der Diagnose bleibt die Erklärung aus – dort gibt es keine Hilfen (LEHRPLAN §7).
 
-`pnpm test` prüft: Jede markierte Form steht im Wörterbuch, jedes erste Vorkommen ist markiert, jede Form gehört zu genau einem Begriff, jeder Begriff kommt in einer Vorlage vor. `pnpm inhalte:begriffe` markiert fehlende Stellen in allen Vorlagen automatisch – danach die Änderungen lesen: Ein Wort kann in einem Satz etwas anderes bedeuten als im Wörterbuch (dann den Satz umformulieren).
+`pnpm test` prüft: Jede markierte Form steht im Wörterbuch, jedes erste Vorkommen ist markiert, jede Form gehört zu genau einem Begriff, jeder Begriff kommt in einer Vorlage vor. `pnpm inhalte:begriffe` markiert fehlende Stellen in allen Vorlagen, Anleitungen und Fehlvorstellungen automatisch (dort nur in Erklärung und Gegenbeispiel) – danach die Änderungen lesen: Ein Wort kann in einem Satz etwas anderes bedeuten als im Wörterbuch (dann den Satz umformulieren).
 
 ## 12. Vollständiges Beispiel: `M.ZO.BR.ERWEITERN`
 
@@ -528,14 +528,19 @@ version: 1
 **Regeln:**
 
 - **ID:** `FV.<FELD>.<NAME>` in Großbuchstaben. Sie ist gleich dem Dateinamen und stabil wie Vorlagen-IDs (I-4).
+  - `<FELD>` ist das Feld, in dem die Fehlvorstellung zuerst gelernt wird, auch wenn sie später woanders auftritt: `FV.NZ.PUNKT-VOR-STRICH` gehört zu den natürlichen Zahlen, tritt aber auch bei Brüchen auf.
+  - `FV.SA.…` steht für Fehler beim Lösen von Sachaufgaben (Frage nicht beantwortet, Angabe übersehen, Rechenart geraten). Sie gehören zu keinem Feld.
+  - Die Erklärung muss zu **allen** Fehlerbildern passen, die auf die Fehlvorstellung verweisen, denn sie erscheint unter jedem davon.
 - `art` ist eine von: `falsche-grundvorstellung`, `falsche-regel`, `uebergeneralisiert`, `verwechslung`, `lesefehler`, `rechenfehler`.
-- `kompetenzen`: mindestens eine, alle vorhanden.
+- `kompetenzen`: mindestens eine, alle vorhanden. Jede Kompetenz, in deren Vorlagen ein Fehlerbild auf die Fehlvorstellung verweist, steht darin (Test in `tools/inhalte/pruefen.test.ts`).
 - `erklaerung.kurz` hat höchstens 35 Wörter. `erklaerung.lang` enthält genau die Teile `so-denkst-du`, `warum-nicht` und `so-stimmt-es`, in dieser Reihenfolge (F3, F4).
 - `gegenbeispiel` ist Pflicht.
 - `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
 - `kontrast`: mindestens eine vorhandene Vorlage (F3).
 
-**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld nachgerüstet ist (F2, PLAN U5).
+**Fehlerbilder in Vorlagen** bekommen die Fehlvorstellung als `fv`: `nur-nenner: { de: …, fv: FV.BR.NUR-NENNER }`. Ist `fv` gesetzt, muss die Fehlvorstellung existieren. Pflicht wird `fv`, sobald ein Feld zugeordnet ist (F2, PLAN U5). Die zugeordneten Felder stehen in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`).
+
+*Zuordnung U5a (30.10.2026):* Brüche und Dezimalzahlen (`M.ZO.BR.…`, `M.SF.BR.…`) sind zugeordnet, alle 67 übrigen Fehlerbilder der 40 Vorlagen. Dazu kamen 35 neue Fehlvorstellungen (jetzt 45), zwei vorhandene gelten jetzt auch in weiteren Kompetenzen (`FV.BR.VERTAUSCHT` beim Anteil von, `FV.BR.GEGENTEIL` bei Flächenanteilen). Der Rückweg nennt bei Kompetenzen ohne Erstvermittlung schon den Schritt, den sie später haben soll (etwa `M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler`). Bis dahin zeigt die App dort keinen Knopf „Zur Erklärung“.
 
 **Werkzeuge** (Stand U2c). Neue Werkzeuge kommen in `WERKZEUGE` (`src/core/learning/vermittlung.ts`) und in `src/ui/vermittlung/werkzeuge/`. Ein Test hält beide Listen gleich.
 

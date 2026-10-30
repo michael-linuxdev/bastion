@@ -1,0 +1,26 @@
+id: FV.NZ.ZEICHEN-VERDREHT
+name:
+  de: Verwechselt die Zeichen < und >
+art: verwechslung
+beschreibung:
+  de: >-
+    Weiß, welche Zahl größer ist, setzt aber das falsche Zeichen. Kein Verständnisfehler beim
+    Vergleichen, sondern beim Lesen und Schreiben der Zeichen.
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Die Spitze des Zeichens zeigt immer auf die kleinere Zahl, die offene Seite auf die größere: 3 < 5.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die größere Zahl richtig erkannt, aber das Zeichen umgedreht.'
+    - teil: warum-nicht
+      de: 'Die beiden Zeichen sehen fast gleich aus, darum verwechselt man sie leicht. Sie sagen aber Gegensätzliches: 3 < 5 heißt „3 ist kleiner als 5“, 3 > 5 wäre falsch.'
+    - teil: so-stimmt-es
+      de: 'Lies von links: < heißt „ist kleiner als“, > heißt „ist größer als“. Die offene Seite zeigt zur größeren Zahl.'
+gegenbeispiel:
+  de: '1 < 100 stimmt. 1 > 100 hieße: 1 ist größer als 100.'
+rueckweg:
+  vermittlung: M.ZO.NZ.ORDNEN#erklaeren-zeichen
+kontrast: [M.ZO.BR.DEZ-ORDNEN.VERGLEICHEN]
+herkunft: ki-entwurf
+version: 1

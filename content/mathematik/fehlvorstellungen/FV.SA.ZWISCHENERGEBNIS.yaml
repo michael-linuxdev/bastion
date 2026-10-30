@@ -1,0 +1,26 @@
+id: FV.SA.ZWISCHENERGEBNIS
+name:
+  de: Gibt ein Zwischenergebnis statt der gesuchten Größe an
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet richtig, hört aber einen Schritt zu früh auf: nennt den Preis statt des Rückgelds oder
+    das ausgegebene Geld statt des Rests. Die Frage wurde am Ende nicht noch einmal gelesen.
+kompetenzen: [M.ZO.BR.SACH]
+erklaerung:
+  kurz:
+    de: 'Deine Rechnung stimmt, aber sie beantwortet noch nicht die Frage. Lies die Frage noch einmal: Was ist gesucht?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast ein Ergebnis ausgerechnet und es gleich als Antwort genommen.'
+    - teil: warum-nicht
+      de: 'Das Rechnen hat geklappt, das ist der schwerere Teil. Viele Sachaufgaben haben aber mehrere Schritte. Dein Ergebnis ist ein Zwischenschritt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe vor dem Rechnen auf, was gesucht ist. Prüfe am Ende: Passt meine Zahl zu dieser Frage? Wer mit 20 € bezahlt und 13,50 € ausgibt, bekommt 6,50 € zurück.'
+gegenbeispiel:
+  de: 'Gefragt „Wie viel Geld bleibt übrig?“ kann die Antwort nicht der Preis sein, sonst hättest du ja gar nichts ausgegeben.'
+rueckweg:
+  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+kontrast: [M.ZO.BR.SACH.ANTEIL, M.ZO.BR.SACH.PREIS]
+herkunft: ki-entwurf
+version: 1

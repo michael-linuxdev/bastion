@@ -5,8 +5,9 @@ art: verwechslung
 beschreibung:
   de: >-
     Färbt so viele Teile, wie der Nenner angibt, oder schreibt die Zahl der gefärbten Teile nach
-    unten. Die Rollen von oben und unten sind noch nicht sicher.
-kompetenzen: [M.ZO.BR.BEGRIFF]
+    unten. Beim „Anteil von“ wird mit dem Nenner malgenommen und durch den Zähler geteilt. Die
+    Rollen von oben und unten sind noch nicht sicher.
+kompetenzen: [M.ZO.BR.BEGRIFF, M.ZO.BR.ANTEIL-VON]
 erklaerung:
   kurz:
     de: 'Unten steht der [[Nenner]]: in wie viele Teile das Ganze geteilt ist. Oben steht der [[Zähler]]: wie viele davon gemeint sind.'
@@ -22,6 +23,6 @@ gegenbeispiel:
   de: '1/4 einer Tafel Schokolade ist ein kleines Stück. 4/1 wären vier ganze Tafeln.'
 rueckweg:
   vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
-kontrast: [M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+kontrast: [M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN, M.ZO.BR.ANTEIL-VON.ALLGEMEIN]
 herkunft: ki-entwurf
 version: 1

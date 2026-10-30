@@ -1,0 +1,27 @@
+id: FV.NZ.RUNDEN-STELLE
+name:
+  de: Rundet auf eine andere Stelle als verlangt
+art: lesefehler
+beschreibung:
+  de: >-
+    Rundet auf Hundertstel statt auf Zehntel oder auf Zehner statt auf Hunderter. Meist werden die
+    Namen der Stellen verwechselt oder die Aufgabe zu schnell gelesen.
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN]
+erklaerung:
+  kurz:
+    de: 'Lies genau, auf welche Stelle gerundet wird. Bei Zehnteln bleibt eine Stelle hinter dem Komma, bei Hundertsteln bleiben zwei.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig gerundet, aber auf eine andere Stelle.'
+    - teil: warum-nicht
+      de: 'Die Namen der Stellen klingen [[ähnlich]], das verwirrt leicht. Doch jede Stelle führt zu einem anderen Ergebnis: 3,476 ist auf [[Zehntel]] 3,5 und auf [[Hundertstel]] 3,48.'
+    - teil: so-stimmt-es
+      de: 'Suche zuerst die [[Rundungsstelle]] und unterstreiche sie. Dann schau auf die [[Ziffer]] rechts daneben.'
+gegenbeispiel:
+  de: 'Wer auf ganze Euro rundet, schreibt keine Cent mehr. 4,63 € werden 5 €, nicht 4,60 €.'
+rueckweg:
+  vermittlung: M.ZO.NZ.RUNDEN#erklaeren-runden
+  voraussetzung: M.ZO.BR.DEZIMAL
+kontrast: [M.ZO.BR.DEZ-ORDNEN.RUNDEN]
+herkunft: ki-entwurf
+version: 1

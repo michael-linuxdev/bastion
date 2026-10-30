@@ -1,0 +1,27 @@
+id: FV.BR.KOMMA-MAL
+name:
+  de: Setzt das Komma beim Malnehmen und Teilen von Dezimalzahlen falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 0,3 · 0,4 = 1,2 oder 2,4 : 3 = 8. Die Ziffern stimmen, das Komma nicht. Oft wird die
+    Regel vom Addieren übertragen („Komma bleibt an seiner Stelle“), oder das Ergebnis wird nicht
+    mit einem Überschlag geprüft.
+kompetenzen: [M.ZO.BR.DEZ-RECHNEN, M.ZO.BR.DEZ-MULT-DIV, M.ZO.BR.RECHENGESETZE, M.ZO.BR.SACH]
+erklaerung:
+  kurz:
+    de: 'Prüfe das Komma mit einem [[Überschlag]]: Wie groß muss das Ergebnis ungefähr sein? Beim Malnehmen hat das Ergebnis so viele [[Nachkommastellen]] wie beide Zahlen zusammen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Die [[Ziffern]] hast du richtig gerechnet, nur das Komma steht an der falschen Stelle.'
+    - teil: warum-nicht
+      de: 'Beim Addieren bleibt das Komma an seiner Stelle, darum liegt das nahe. Beim Malnehmen werden aber auch die Stellen malgenommen: [[Zehntel]] mal Zehntel sind [[Hundertstel]].'
+    - teil: so-stimmt-es
+      de: 'Rechne erst ohne Komma: 3 · 4 = 12. Zähle die [[Nachkommastellen]]: eine plus eine, also zwei. 0,3 · 0,4 = 0,12. Prüfe mit einem [[Überschlag]], ob die Größe passt.'
+gegenbeispiel:
+  de: '0,5 · 0,5 ist die Hälfte von einer Hälfte, also 0,25. Mit dem Komma an der alten Stelle käme 2,5 heraus, mehr als 1.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZ-RECHNEN#erklaeren-komma
+kontrast: [M.ZO.BR.DEZ-MULT-DIV.MAL, M.ZO.BR.DEZ-RECHNEN.EINSTELLIG]
+herkunft: ki-entwurf
+version: 1

@@ -18,7 +18,9 @@ hilfen:
 fehlerbilder:
   teilmenge-verdreht:
     de: 'Es ist umgekehrt: Die [[natürlichen Zahlen]] stecken in den [[gebrochenen Zahlen]], nicht die gebrochenen in den natürlichen.'
+    fv: FV.BR.TEILMENGE-VERDREHT
   bruch-element-natuerlich:
     de: 'Dieser [[Bruch]] liegt zwischen zwei [[natürlichen Zahlen]] – er ist keine natürliche Zahl.'
+    fv: FV.BR.NATUERLICH-BEGRIFF
 herkunft: ki-entwurf
 version: 1

@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   mal-statt-durch:
     de: Du hast malgenommen statt geteilt. Beim Teilen muss das Ergebnis kleiner werden.
+    fv: FV.BR.ZAEHLER-ODER-NENNER
   beide-mal-zahl:
     de: 'Du hast [[Zähler]] und [[Nenner]] malgenommen. Das ist [[Erweitern]] – der Wert bleibt gleich. Beim Teilen wird nur der Nenner malgenommen.'
+    fv: FV.BR.ERWEITERT-STATT-GERECHNET
 herkunft: ki-entwurf
 version: 1

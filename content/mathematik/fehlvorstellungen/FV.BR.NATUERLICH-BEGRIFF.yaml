@@ -1,0 +1,27 @@
+id: FV.BR.NATUERLICH-BEGRIFF
+name:
+  de: Hält auch Zahlen zwischen zwei natürlichen Zahlen für natürlich
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält 2,5 oder 7/3 für eine natürliche Zahl. „Natürliche Zahl“ wird als „ganz normale Zahl“
+    verstanden, nicht als Zahl zum Zählen.
+kompetenzen: [M.ZO.BR.MENGEN]
+erklaerung:
+  kurz:
+    de: 'Natürliche Zahlen sind die Zahlen zum Zählen: 0, 1, 2, 3 … Was dazwischen liegt, ist keine [[natürliche Zahl]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Zahl, die zwischen zwei [[natürlichen Zahlen]] liegt, für natürlich gehalten.'
+    - teil: warum-nicht
+      de: 'Im Alltag ist jede Zahl „ganz normal“. In der Mathematik heißen nur die Zählzahlen natürlich. 2,5 liegt zwischen 2 und 3, man kann nicht „zwei Komma fünf“ Kinder zählen.'
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 3, einteilung: 2, markiert: 5 } }
+    - teil: so-stimmt-es
+      de: 'Prüfe: Liegt die Zahl genau auf 0, 1, 2, 3 …? Dann ist sie natürlich. Liegt sie dazwischen, ist sie eine [[gebrochene Zahl]], aber keine natürliche.'
+gegenbeispiel:
+  de: '7/3 ist mehr als 2 und weniger als 3. Es gibt keine [[natürliche Zahl]], die das ist.'
+rueckweg:
+  vermittlung: M.ZO.BR.MENGEN#erklaeren-zahlbereiche
+kontrast: [M.ZO.BR.MENGEN.NATUERLICH, M.ZO.BR.MENGEN.AUSSAGEN]
+herkunft: ki-entwurf
+version: 1

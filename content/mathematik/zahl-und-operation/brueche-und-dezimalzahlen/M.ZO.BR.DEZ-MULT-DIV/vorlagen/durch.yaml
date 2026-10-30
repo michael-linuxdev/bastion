@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   komma-nicht-verschoben:
     de: Du hast das Komma nur bei der zweiten Zahl weggelassen. Verschiebe es bei **beiden** Zahlen um gleich viele Stellen.
+    fv: FV.BR.KOMMA-DIVISION
 herkunft: ki-entwurf
 version: 1

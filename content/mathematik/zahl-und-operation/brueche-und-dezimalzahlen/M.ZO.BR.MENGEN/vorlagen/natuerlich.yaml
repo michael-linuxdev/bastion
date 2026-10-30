@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   bruch-heisst-nicht-natuerlich:
     de: 'Auch als [[Bruch]] geschrieben kann eine Zahl natürlich sein: 12/4 ist 3.'
+    fv: FV.BR.SCHREIBWEISE-ZAHL
   komma-zahl-natuerlich:
     de: 'Eine Zahl mit [[Ziffern]] hinter dem Komma (außer Nullen) liegt zwischen zwei [[natürlichen Zahlen]] – sie ist keine natürliche Zahl.'
+    fv: FV.BR.NATUERLICH-BEGRIFF
 herkunft: ki-entwurf
 version: 1

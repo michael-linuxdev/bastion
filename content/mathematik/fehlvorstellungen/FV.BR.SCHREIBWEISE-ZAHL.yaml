@@ -1,0 +1,27 @@
+id: FV.BR.SCHREIBWEISE-ZAHL
+name:
+  de: Beurteilt eine Zahl nach ihrer Schreibweise statt nach ihrem Wert
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Meint, 12/4 sei keine natürliche Zahl, weil sie als Bruch geschrieben ist. Die Schreibweise
+    wird mit der Zahl gleichgesetzt; dass 12/4 und 3 dieselbe Zahl sind, ist noch nicht verankert.
+kompetenzen: [M.ZO.BR.MENGEN]
+erklaerung:
+  kurz:
+    de: 'Eine Zahl kann verschieden aussehen. Rechne den [[Bruch]] aus: Kommt eine Zahl ohne Rest heraus, ist es eine [[natürliche Zahl]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: Ein [[Bruch]] ist nie eine [[natürliche Zahl]].'
+    - teil: warum-nicht
+      de: 'Meistens stimmt das, darum ist die Idee naheliegend. Aber 12/4 heißt 12 : 4, und das ist genau 3. Es ist dieselbe Zahl, nur anders geschrieben.'
+      bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 3, einteilung: 4, markiert: 12 } }
+    - teil: so-stimmt-es
+      de: 'Prüfe den Wert, nicht das Aussehen: Geht der [[Zähler]] ohne Rest durch den [[Nenner]], ist der [[Bruch]] eine [[natürliche Zahl]].'
+gegenbeispiel:
+  de: '4/2 Pizzen sind genau 2 ganze Pizzen.'
+rueckweg:
+  vermittlung: M.ZO.BR.MENGEN#erklaeren-zahlbereiche
+kontrast: [M.ZO.BR.MENGEN.NATUERLICH]
+herkunft: ki-entwurf
+version: 1

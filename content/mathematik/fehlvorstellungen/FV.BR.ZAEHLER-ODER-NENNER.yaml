@@ -1,0 +1,28 @@
+id: FV.BR.ZAEHLER-ODER-NENNER
+name:
+  de: Nimmt beim Malnehmen und Teilen durch eine Zahl den falschen Teil des Bruchs
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 2/5 · 3 = 2/15 oder 2/5 : 3 = 6/5. Die Zahl landet im falschen Teil des Bruchs. Dahinter
+    steht oft eine auswendig gelernte Regel ohne Vorstellung: Malnehmen vervielfacht die Zahl der
+    Teile (Zähler), Teilen macht die Teile kleiner (Nenner).
+kompetenzen: [M.ZO.BR.MULT, M.ZO.BR.DIV]
+erklaerung:
+  kurz:
+    de: 'Malnehmen mit einer Zahl: mehr Teile, also den [[Zähler]] malnehmen. Teilen durch eine Zahl: kleinere Teile, also den [[Nenner]] malnehmen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl mit dem falschen Teil des Bruchs verrechnet.'
+    - teil: warum-nicht
+      de: '[[Zähler]] und [[Nenner]] sehen beide wie Stellen aus, an denen man rechnen kann. Aber mal 3 heißt: dreimal so viel. Das geht mit dreimal so vielen Teilen. Ein größerer [[Nenner]] würde die Teile dagegen kleiner machen.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: '1/6 · 3 = 3/6, denn drei Sechstel sind dreimal so viel wie ein Sechstel. 1/6 : 3 = 1/18, denn jedes Sechstel wird in 3 Stücke geteilt.'
+gegenbeispiel:
+  de: 'Mal 3 muss mehr ergeben: 2/5 · 3 = 2/15 wäre weniger als 2/5. Durch 3 muss weniger ergeben: 6/5 wäre mehr.'
+rueckweg:
+  vermittlung: M.ZO.BR.MULT#erklaeren-mal-zahl
+kontrast: [M.ZO.BR.MULT.MAL-ZAHL, M.ZO.BR.DIV.DURCH-ZAHL]
+herkunft: ki-entwurf
+version: 1

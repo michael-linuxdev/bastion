@@ -19,7 +19,9 @@ hilfen:
 fehlerbilder:
   kein-kehrwert:
     de: 'Du hast die [[Brüche]] malgenommen, ohne den zweiten umzudrehen. Teilen heißt malnehmen mit dem [[Kehrwert]].'
+    fv: FV.BR.KEHRWERT-REGEL
   kehrwert-erster:
     de: 'Du hast den ersten [[Bruch]] umgedreht. Der [[Kehrwert]] gehört zum zweiten Bruch – zu dem, durch den geteilt wird.'
+    fv: FV.BR.KEHRWERT-REGEL
 herkunft: ki-entwurf
 version: 1

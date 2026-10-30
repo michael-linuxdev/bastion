@@ -1,0 +1,28 @@
+id: FV.BR.ANZAHL-STATT-ANTEIL
+name:
+  de: Gibt die Anzahl der Teile statt des Anteils an
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Antwortet mit der Zahl der gefärbten Kästchen oder der gezählten Abschnitte, etwa „3“ statt 3/5
+    oder 0,3. Die Anzahl wird nicht auf das Ganze bezogen. Ein Anteil ist aber immer „so viele von
+    so vielen“.
+kompetenzen: [M.ZO.BR.ANTEILE, M.ZO.BR.ZAHLENSTRAHL]
+erklaerung:
+  kurz:
+    de: 'Ein [[Anteil]] sagt, wie viel **vom Ganzen** gemeint ist. Vergleiche die Anzahl mit allen Teilen des Ganzen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig gezählt und die Anzahl als Antwort genommen.'
+    - teil: warum-nicht
+      de: 'Zählen ist der erste Schritt. Doch 3 Teile können viel oder wenig sein: 3 von 4 ist fast alles, 3 von 100 fast nichts. Erst der Vergleich mit dem Ganzen macht daraus einen [[Anteil]].'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
+    - teil: so-stimmt-es
+      de: 'Zähle auch, in wie viele Teile das Ganze geteilt ist. 3 von 5 Teilen sind 3/5. Am Zahlenstrahl sind 3 von 10 Abschnitten bis zur 1 genau 0,3.'
+gegenbeispiel:
+  de: '3 Stücke von einer Pizza mit 4 Stücken sind viel mehr als 3 Stücke von einer Pizza mit 12 Stücken.'
+rueckweg:
+  vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
+kontrast: [M.ZO.BR.ANTEILE.FLAECHE, M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL]
+herkunft: ki-entwurf
+version: 1

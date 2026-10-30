@@ -1,0 +1,28 @@
+id: FV.BR.ZEHNERPOTENZ
+name:
+  de: Verschiebt das Komma bei 10, 100, 1000 falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 3,7 · 100 = 37 oder 3,7 : 10 = 37. Das Komma wandert um die falsche Zahl von Stellen
+    oder in die falsche Richtung. Die Regel ist gelernt, aber nicht mit „größer“ und „kleiner“
+    verbunden.
+kompetenzen: [M.ZO.BR.DEZ-RECHNEN]
+erklaerung:
+  kurz:
+    de: 'Malnehmen mit 10, 100, 1000 macht die Zahl größer: Komma nach rechts. Teilen macht sie kleiner: Komma nach links. So viele Stellen, wie die Zahl Nullen hat.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Komma verschoben, aber in die falsche Richtung oder um zu wenige oder zu viele Stellen.'
+    - teil: warum-nicht
+      de: 'Links und rechts verwechselt man schnell. Denk an die Größe: Mal 100 heißt hundertmal so viel. Aus 3,7 wird also etwas um 370, nicht 37.'
+    - teil: so-stimmt-es
+      de: 'Zähle die Nullen: 100 hat zwei. Mal 100 heißt zwei Stellen nach rechts: 3,7 · 100 = 370. Durch 10 heißt eine Stelle nach links: 3,7 : 10 = 0,37.'
+gegenbeispiel:
+  de: '10 Hefte zu je 1,50 € kosten 15 €, nicht 0,15 €.'
+rueckweg:
+  vermittlung: M.ZO.BR.DEZ-RECHNEN#erklaeren-zehnerpotenz
+  voraussetzung: M.ZO.NZ.STELLENWERT
+kontrast: [M.ZO.BR.DEZ-RECHNEN.ZEHNERPOTENZ]
+herkunft: ki-entwurf
+version: 1

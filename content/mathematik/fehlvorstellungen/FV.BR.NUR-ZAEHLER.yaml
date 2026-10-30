@@ -1,0 +1,29 @@
+id: FV.BR.NUR-ZAEHLER
+name:
+  de: Vergleicht Brüche nur nach dem Zähler
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint 3/8 > 2/3, weil 3 > 2. Bei gleichen Nennern ist das richtig und wird deshalb auf
+    verschiedene Nenner übertragen. Dass der Wert vom Verhältnis von Zähler und Nenner abhängt,
+    ist noch nicht verankert.
+kompetenzen: [M.ZO.BR.VERGLEICHEN]
+erklaerung:
+  kurz:
+    de: 'Nur wenn die [[Nenner]] gleich sind, reicht der Blick auf den [[Zähler]]. Sonst bringe die [[Brüche]] zuerst auf einen [[gemeinsamen Nenner]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur die [[Zähler]] verglichen.'
+    - teil: warum-nicht
+      de: 'Sind die [[Nenner]] gleich, stimmt das, denn dann sind alle Teile gleich groß. Bei verschiedenen Nennern sind die Teile verschieden groß. Dann können wenige große Teile mehr sein als viele kleine.'
+      bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
+    - teil: so-stimmt-es
+      de: '[[Erweitere]] beide auf denselben [[Nenner]]: 3/8 = 9/24 und 2/3 = 16/24. Jetzt sind die Teile gleich groß, und 16/24 ist größer.'
+gegenbeispiel:
+  de: '3/8 ist weniger als die Hälfte, 2/3 ist mehr als die Hälfte. Also ist 2/3 größer, obwohl 2 < 3.'
+rueckweg:
+  vermittlung: M.ZO.BR.VERGLEICHEN#erklaeren-ungleichnamig
+  voraussetzung: M.ZO.BR.ERWEITERN
+kontrast: [M.ZO.BR.VERGLEICHEN.ZEICHEN, M.ZO.BR.VERGLEICHEN.GROESSTER]
+herkunft: ki-entwurf
+version: 1

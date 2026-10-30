@@ -19,5 +19,6 @@ hilfen:
 fehlerbilder:
   nenner-addiert:
     de: 'Du hast die [[Nenner]] addiert. Beim Malnehmen werden auch die Nenner **malgenommen** – [[Zähler]] mal Zähler, Nenner mal Nenner.'
+    fv: FV.BR.REGELN-GEMISCHT
 herkunft: ki-entwurf
 version: 1

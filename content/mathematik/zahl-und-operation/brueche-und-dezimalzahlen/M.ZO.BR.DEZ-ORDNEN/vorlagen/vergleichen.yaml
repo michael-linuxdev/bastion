@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   mehr-stellen-groesser:
     de: 'Mehr [[Nachkommastellen]] machen eine Zahl nicht größer. 0,5 ist dasselbe wie 0,50 – und 0,50 ist größer als 0,45.'
+    fv: FV.BR.LAENGER-GROESSER
   zeichen-verdreht:
     de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt auf die kleinere Zahl.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
 herkunft: ki-entwurf
 version: 1

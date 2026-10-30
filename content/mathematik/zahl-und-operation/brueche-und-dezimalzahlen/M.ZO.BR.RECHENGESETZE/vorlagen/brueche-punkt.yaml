@@ -19,5 +19,6 @@ hilfen:
 fehlerbilder:
   links-nach-rechts:
     de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]] – erst das Malnehmen.'
+    fv: FV.NZ.PUNKT-VOR-STRICH
 herkunft: ki-entwurf
 version: 1

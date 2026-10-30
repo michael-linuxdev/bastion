@@ -1,0 +1,28 @@
+id: FV.BR.BRUCHSTRICH-DIVISION
+name:
+  de: Teilt beim Umwandeln den Nenner durch den Zähler
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet 7/4 als 4 : 7. Dass der Bruchstrich „geteilt durch“ bedeutet und von oben nach unten
+    gelesen wird, ist noch nicht verankert. Oft wird die kleinere Zahl durch die größere geteilt,
+    weil das „einfacher“ aussieht.
+kompetenzen: [M.ZO.BR.PERIODISCH]
+erklaerung:
+  kurz:
+    de: 'Der Bruchstrich heißt „geteilt durch“, von oben nach unten gelesen: [[Zähler]] durch [[Nenner]]. 7/4 = 7 : 4.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Nenner]] durch den [[Zähler]] geteilt.'
+    - teil: warum-nicht
+      de: 'Kleine Zahl durch große sieht manchmal leichter aus. Aber 7/4 heißt: 7 Ganze werden auf 4 verteilt. Jeder bekommt mehr als ein Ganzes, nämlich 1,75.'
+    - teil: so-stimmt-es
+      de: 'Rechne immer [[Zähler]] durch [[Nenner]]: 7 : 4 = 1,75.'
+gegenbeispiel:
+  de: '6/2 sind 3 Ganze, denn 6 : 2 = 3. Andersherum, 2 : 6, käme weniger als 1 heraus.'
+rueckweg:
+  vermittlung: M.ZO.BR.PERIODISCH#erklaeren-dividieren
+  voraussetzung: M.ZO.BR.BEGRIFF
+kontrast: [M.ZO.BR.PERIODISCH.UNECHT-ZU-DEZIMAL]
+herkunft: ki-entwurf
+version: 1

@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (18) · U3 (Abspieler, Diagnose, Zwischenschritte) und U4a (Testprotokoll) fertig und online
+Stand: 30.10.2026 (19) · U3, U4a und U5a (Fehlerbilder Brüche und Dezimalzahlen zugeordnet) fertig
 
 ---
 
@@ -93,8 +93,11 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - **U0 bis U2:** neue Vision, Format, Musterfeld Brüche.
 - **U3 vollständig** (PLAN §4b): Abspieler der Erstvermittlung und Angebot vor dem ersten Üben (Zustand „erklärt“, Abschluss = Bauschritt), Diagnose der Fehlvorstellungen, Rückmeldung mit kurzer und langer Erklärung, Rückweg, Kontrastaufgaben, Zwischenschritte (K-29) im Musterfeld und Fehlerwerkstatt nach Ursachen.
 - **U4a:** Testprotokoll (K-14, D-18).
+- **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 
-**Als Nächstes** (Entscheidung des Projektverantwortlichen steht aus):
+**Als Nächstes:**
+
+0. **U5b:** die übrigen Felder zuordnen, je Feld ein PR. Vorschlag zur Reihenfolge: natürliche Zahlen (dort gibt es schon `FV.NZ.…`), Teilbarkeit, rationale Zahlen, Prozent, Terme und Gleichungen, dann Größen, Geometrie, Daten und Zufall. Fertige Felder in `FV_ZUGEORDNET` (`tools/inhalte/pruefen.test.ts`) eintragen.
 
 1. **U4b, der Test mit den drei Testerinnen** (`TESTS.md` §2–3):
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
@@ -102,7 +105,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
-   - **(b)** nur die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen (`fv`). Das verbessert sofort die Rückmeldung für Klasse 5 bis 8.
+   - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.
    - Empfehlung: U5 erst nach dem Test, damit Formatfehler sich nicht über 123 Kompetenzen verbreiten.
 
 ### Vom Projektverantwortlichen (nicht delegierbar)
@@ -161,6 +164,14 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - Alte Branches auf GitHub ließen sich von hier nicht löschen (HTTP 403). Lokal gibt es nur `main`. Löschen über GitHub → Branches, oder dort „Automatically delete head branches“ einschalten.
 - PR #63 wurde per normalem Merge-Commit statt per Squash gemergt. Das ist unschädlich.
 
+**Übergabe U5a (30.10.2026, Tagschicht):**
+
+- Feldübergreifende Fehlvorstellungen heißen nach dem Feld, in dem sie zuerst gelernt werden (`FV.NZ.PUNKT-VOR-STRICH`), Sachaufgaben-Fehler `FV.SA.…` (INHALTSFORMAT §16).
+- Die kurze Erklärung erscheint **unter** dem Satz des Fehlerbilds. Sie muss zu allen Fehlerbildern passen, die auf sie zeigen, und darf ihnen nicht widersprechen. Darum gibt es `FV.BR.NICHT-GEKUERZT` getrennt von `FV.BR.NICHT-VOLLSTAENDIG`.
+- Rückwege zeigen auf Schritte künftiger Erstvermittlungen (`…#erklaeren-…`). Wer später die Erstvermittlung schreibt, muss diese Schritt-IDs anlegen, sonst meldet die Prüfung einen Fehler.
+- Zur fachlichen Prüfung: Manche kurze Erklärung wiederholt fast den Satz des Fehlerbilds (etwa beim Vergleichszeichen). Beim Review entscheiden, ob der Fehlerbild-Satz dann kürzer werden soll.
+- `pnpm inhalte:begriffe` markiert Fachbegriffe jetzt auch in Fehlvorstellungen. Unbekannte Markierungen (`[[Brüchen]]`) entfernt es nicht; die meldet `pnpm inhalte:pruefen`.
+
 **Lehren:**
 
 - **Svelte und IndexedDB:** Werte aus `$state` sind Proxys. IndexedDB lehnt sie ab (DataCloneError), die Ablage fängt den Fehler ab, und es wird still nichts gespeichert. Vor dem Speichern `$state.snapshot` nutzen, oder `$state.raw` für ganze Datensätze.
@@ -170,6 +181,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 - **Lint-Fehler von svelte-check** stehen in Großbuchstaben (`ERROR`). Beim Filtern der Ausgabe danach suchen.
 - Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
+- Browser-Tests, die neu laden, warten vorher, bis die Antwort in IndexedDB steht (`aufgabenImSpeicher`). Sonst geht sie beim Neuladen verloren, und der Test ist in der CI manchmal rot.
 - `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 
 ## Am Ende der Sitzung aktualisieren

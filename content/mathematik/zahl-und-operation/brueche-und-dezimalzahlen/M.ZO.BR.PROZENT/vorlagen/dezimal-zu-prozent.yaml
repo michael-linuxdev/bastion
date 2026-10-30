@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   komma-verschoben:
     de: 'Das Komma ist verrutscht. 0,25 sind 25 [[Hundertstel]], also 25 %.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
   prozent-als-nenner-zehn:
     de: '[[Prozent]] heißt „von Hundert“, nicht „von Zehn“.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1

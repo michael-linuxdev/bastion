@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Zählt die ungefärbten Teile als Zähler. Meist kein Verständnisfehler, sondern die Frage wurde
     nicht genau gelesen.
-kompetenzen: [M.ZO.BR.BEGRIFF]
+kompetenzen: [M.ZO.BR.BEGRIFF, M.ZO.BR.ANTEILE]
 erklaerung:
   kurz:
     de: 'Das ist der ungefärbte [[Anteil]]. Gefragt ist der gefärbte – lies die Frage noch einmal genau.'
@@ -22,6 +22,6 @@ gegenbeispiel:
   de: 'Sind 2 von 5 Teilen gefärbt, dann sind 3 von 5 ungefärbt. 2/5 und 3/5 sind verschiedene Antworten.'
 rueckweg:
   vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
-kontrast: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN, M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
+kontrast: [M.ZO.BR.BEGRIFF.ANTEIL-ABLESEN, M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN, M.ZO.BR.ANTEILE.FLAECHE]
 herkunft: ki-entwurf
 version: 1

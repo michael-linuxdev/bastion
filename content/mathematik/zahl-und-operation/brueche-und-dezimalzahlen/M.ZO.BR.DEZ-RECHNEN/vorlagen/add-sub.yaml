@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   rechtsbuendig-geschrieben:
     de: 'Die Zahlen standen nicht Komma unter Komma. [[Hundertstel]] gehören unter Hundertstel, [[Zehntel]] unter Zehntel.'
+    fv: FV.BR.KOMMA-UNTER-KOMMA
 herkunft: ki-entwurf
 version: 1

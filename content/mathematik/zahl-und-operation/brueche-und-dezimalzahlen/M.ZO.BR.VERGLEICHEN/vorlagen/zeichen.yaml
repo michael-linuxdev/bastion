@@ -18,7 +18,9 @@ hilfen:
 fehlerbilder:
   groesserer-nenner-groesser:
     de: 'Ein größerer [[Nenner]] bedeutet kleinere Teile. 1/8 einer Pizza ist weniger als 1/4.'
+    fv: FV.BR.NENNER-GROESSER
   nur-zaehler-verglichen:
     de: 'Du hast nur die [[Zähler]] verglichen. Bei verschiedenen Nennern bringst du die [[Brüche]] zuerst auf denselben [[Nenner]].'
+    fv: FV.BR.NUR-ZAEHLER
 herkunft: ki-entwurf
 version: 1

@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   falsche-umkehr:
     de: 'Du hast mit derselben Rechenart weitergerechnet. Die [[Umkehraufgabe]] nutzt die entgegengesetzte Rechenart. Mach die [[Probe]]!'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

@@ -17,5 +17,6 @@ hilfen:
 fehlerbilder:
   komma-stellen-falsch:
     de: 'Das Komma steht falsch. Beim Malnehmen zählst du die [[Nachkommastellen]] **beider** Zahlen zusammen.'
+    fv: FV.BR.KOMMA-MAL
 herkunft: ki-entwurf
 version: 1
