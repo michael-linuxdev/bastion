@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   minus-vergessen:
     de: 'Du hast ohne das Minus von x gerechnet. Setze x mit Klammer ein, dann geht das [[Vorzeichen]] nicht verloren.'
+    fv: FV.GL.EINSETZEN-KLAMMER
   quadrat-vorzeichen:
     de: 'Für x = −3 ist x² = (−3)² = 9, nicht −9. Das Minus gehört mit in die Klammer.'
+    fv: FV.RZ.POTENZ-KLAMMER
   links-nach-rechts:
     de: 'Zuerst wird die Klammer ausgerechnet, dann malgenommen.'
+    fv: FV.NZ.KLAMMER
 herkunft: ki-entwurf
 version: 1

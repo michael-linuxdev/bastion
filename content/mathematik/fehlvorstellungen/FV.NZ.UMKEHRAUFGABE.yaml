@@ -6,7 +6,8 @@ beschreibung:
   de: >-
     Löst x + 7 = 12 mit 12 + 7 oder 3 · x = 1/2 mit 3 · 1/2. Die Zahlen aus der Gleichung werden
     mit derselben Rechenart verrechnet, die dasteht. Die Idee „rückwärts rechnen“ fehlt.
-kompetenzen: [M.SF.BR.GLEICHUNGEN, M.SF.NZ.GLEICHUNGEN]
+kompetenzen:
+  [M.SF.BR.GLEICHUNGEN, M.SF.NZ.GLEICHUNGEN, M.SF.GL.AUFSTELLEN, M.SF.GL.FORMELN, M.SF.GL.LINEAR]
 erklaerung:
   kurz:
     de: 'Rechne rückwärts mit der [[Umkehraufgabe]]: Aus plus wird minus, aus mal wird geteilt. Mach danach die [[Probe]].'
@@ -22,6 +23,12 @@ gegenbeispiel:
 rueckweg:
   vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-umkehraufgabe
 kontrast:
-  [M.SF.BR.GLEICHUNGEN.PLUS-MINUS, M.SF.BR.GLEICHUNGEN.MAL, M.SF.NZ.GLEICHUNGEN.UMKEHRAUFGABE]
+  [
+    M.SF.BR.GLEICHUNGEN.PLUS-MINUS,
+    M.SF.BR.GLEICHUNGEN.MAL,
+    M.SF.NZ.GLEICHUNGEN.UMKEHRAUFGABE,
+    M.SF.GL.LINEAR.LOESEN,
+    M.SF.GL.FORMELN.UMSTELLEN,
+  ]
 herkunft: ki-entwurf
 version: 1

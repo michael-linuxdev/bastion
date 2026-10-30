@@ -214,7 +214,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] rationale Zahlen (42 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 182 von 596)
     - [x] Prozent und Zins (31 Fehlerbilder, 11 neue Fehlvorstellungen; Stand 213 von 596)
     - [x] Terme (26 Fehlerbilder, 7 neue Fehlvorstellungen; Stand 239 von 596)
-    - [ ] Gleichungen und Gleichungssysteme · Funktionen · Größen · Geometrie · Daten und Zufall
+    - [x] Gleichungen und Gleichungssysteme (37 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 276 von 596)
+    - [ ] Funktionen und Zuordnungen · Größen · Geometrie · Daten und Zufall
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -234,6 +235,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b Gleichungen und Gleichungssysteme:** 37 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Terme:** 26 Fehlerbilder zugeordnet, 7 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Prozent und Zins:** 31 Fehlerbilder zugeordnet, 11 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b rationale Zahlen:** 42 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |

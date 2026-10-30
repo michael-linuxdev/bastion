@@ -1,0 +1,27 @@
+id: FV.GS.LOESBARKEIT
+name:
+  de: Erkennt nicht, wie viele Lösungen ein lineares Gleichungssystem hat
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Meint, parallele Geraden schneiden sich, hält zwei gleiche Geraden für parallel oder schaut nur
+    auf den Achsenabschnitt. Die Lösungszahl wird nicht aus dem Anstieg abgeleitet.
+kompetenzen: [M.SF.GS.GRAFISCH]
+erklaerung:
+  kurz:
+    de: 'Verschiedener [[Anstieg]]: genau eine Lösung. Gleicher Anstieg, anderer Achsenabschnitt: [[parallel]], keine Lösung. Alles gleich: dieselbe [[Gerade]], unendlich viele.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl der Lösungen nicht am [[Anstieg]] und am Achsenabschnitt abgelesen.'
+    - teil: warum-nicht
+      de: 'Die meisten [[Gleichungssysteme]] haben genau eine Lösung, darum rechnet man damit. Aber jede Lösung ist ein gemeinsamer Punkt der beiden [[Geraden]]. [[Parallele]] haben keinen, gleiche haben alle gemeinsam.'
+    - teil: so-stimmt-es
+      de: 'Bringe beide Gleichungen in die Form y = m · x + n und vergleiche zuerst m, dann n.'
+gegenbeispiel:
+  de: 'Zwei Schienen eines Gleises laufen nebeneinander und treffen sich nie.'
+rueckweg:
+  vermittlung: M.SF.GS.GRAFISCH#erklaeren-loesbarkeit
+  voraussetzung: M.SF.FK.LINEAR-GRAPH
+kontrast: [M.SF.GS.GRAFISCH.LOESBARKEIT]
+herkunft: ki-entwurf
+version: 1

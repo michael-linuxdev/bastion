@@ -1,0 +1,26 @@
+id: FV.GL.UMSTELLEN-HALB
+name:
+  de: Formt eine Formel nur teilweise um
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet bei V = a · b · c nach c nur V : a statt V : (a · b). Ein Teil der bekannten Größen
+    bleibt auf der falschen Seite.
+kompetenzen: [M.SF.GL.FORMELN]
+erklaerung:
+  kurz:
+    de: 'Rechne **alle** bekannten Größen weg, die bei der gesuchten stehen. Bei V = a · b · c ist c = V : (a · b).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur eine der bekannten Größen weggerechnet.'
+    - teil: warum-nicht
+      de: 'Der erste Schritt war richtig. Aber solange noch etwas bei der gesuchten Größe steht, ist sie nicht allein.'
+    - teil: so-stimmt-es
+      de: 'Prüfe am Ende: Steht die gesuchte Größe ganz allein auf einer Seite? Setze dann Zahlen ein und rechne nach.'
+gegenbeispiel:
+  de: 'Ein [[Quader]] mit V = 24 cm³, a = 2 cm, b = 3 cm hat c = 4 cm. Mit 24 : 2 käme 12 cm heraus.'
+rueckweg:
+  vermittlung: M.SF.GL.FORMELN#erklaeren-umstellen
+kontrast: [M.SF.GL.FORMELN.ANWENDEN]
+herkunft: ki-entwurf
+version: 1

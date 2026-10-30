@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   multipliziert:
     de: 'Du hast malgenommen. Die gesuchte Größe steckt als [[Faktor]] in der [[Formel]] – du musst also teilen.'
+    fv: FV.NZ.UMKEHRAUFGABE
   nur-durch-eine:
     de: 'Du hast nur einen Teil umgekehrt. Teile durch alle bekannten Größen bzw. rechne auch den Rest weg.'
+    fv: FV.GL.UMSTELLEN-HALB
 herkunft: ki-entwurf
 version: 1

@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   parallel-schneiden:
     de: 'Die [[Geraden]] haben den gleichen [[Anstieg]], aber verschiedene Achsenabschnitte. Sie sind [[parallel]] und schneiden sich nie.'
+    fv: FV.GS.LOESBARKEIT
   gleich-statt-parallel:
     de: 'Prüfe, ob beide Gleichungen dieselbe [[Gerade]] beschreiben: Ist (II) ein [[Vielfaches]] von (I) – auch auf der rechten Seite?'
+    fv: FV.GS.LOESBARKEIT
   nur-n-verglichen:
     de: 'Die Anstiege sind verschieden. Dann schneiden sich die [[Geraden]] immer – genau eine Lösung.'
+    fv: FV.GS.LOESBARKEIT
 herkunft: ki-entwurf
 version: 1

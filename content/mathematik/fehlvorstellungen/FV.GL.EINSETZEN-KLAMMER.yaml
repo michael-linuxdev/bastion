@@ -1,0 +1,26 @@
+id: FV.GL.EINSETZEN-KLAMMER
+name:
+  de: Verliert beim Einsetzen einer negativen Zahl das Minus
+art: rechenfehler
+beschreibung:
+  de: >-
+    Berechnet 2x + 5 für x = −3 als 2 · 3 + 5 = 11. Die negative Zahl wird ohne Klammer eingesetzt,
+    und das Minus geht verloren.
+kompetenzen: [M.SF.GL.TERMWERT]
+erklaerung:
+  kurz:
+    de: 'Setze eine [[negative Zahl]] immer mit Klammer ein: 2 · (−3) + 5. Dann geht das [[Vorzeichen]] nicht verloren.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit 3 statt mit −3 gerechnet.'
+    - teil: warum-nicht
+      de: 'Ohne Klammer sieht 2 · −3 seltsam aus, darum lässt man das Minus leicht weg. Aber x ist −3, und genau diese Zahl muss in den [[Term]].'
+    - teil: so-stimmt-es
+      de: 'Ersetze jedes x durch (−3): 2 · (−3) + 5 = −6 + 5 = −1.'
+gegenbeispiel:
+  de: 'Wer bei −3 °C mit 3 °C rechnet, sagt Tauwetter voraus, wo es friert.'
+rueckweg:
+  vermittlung: M.SF.GL.TERMWERT#erklaeren-einsetzen
+kontrast: [M.SF.GL.TERMWERT.EINSETZEN, M.SF.GL.TERMWERT.PROBE]
+herkunft: ki-entwurf
+version: 1

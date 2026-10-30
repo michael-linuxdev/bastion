@@ -1,0 +1,26 @@
+id: FV.RF.X-Y-VERTAUSCHT
+name:
+  de: Vertauscht x- und y-Koordinate
+art: verwechslung
+beschreibung:
+  de: >-
+    Schreibt den Punkt (2|5) als (5|2) oder gibt die Lösung eines Gleichungssystems in der falschen
+    Reihenfolge an. Die feste Reihenfolge „erst x, dann y“ ist nicht verankert.
+kompetenzen: [M.SF.GS.GRAFISCH, M.SF.GS.RECHNERISCH]
+erklaerung:
+  kurz:
+    de: 'Erst x, dann y: (x|y). Merke: Erst nach rechts gehen, dann nach oben – erst laufen, dann springen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast x und y vertauscht.'
+    - teil: warum-nicht
+      de: 'Beide sind einfach Zahlen, darum vertauscht man sie leicht. Aber (2|5) und (5|2) sind zwei verschiedene Punkte.'
+    - teil: so-stimmt-es
+      de: 'Schreibe beim Rechnen dazu, welche Zahl x und welche y ist, und setze sie dann in der Reihenfolge (x|y) ein.'
+gegenbeispiel:
+  de: 'Im Kino ist Reihe 2, Platz 5 ein anderer Sitz als Reihe 5, Platz 2.'
+rueckweg:
+  vermittlung: M.RF.GF.KOORDINATEN#erklaeren-koordinaten
+kontrast: [M.SF.GS.GRAFISCH.SCHNITTPUNKT, M.SF.GS.RECHNERISCH.LOESEN]
+herkunft: ki-entwurf
+version: 1

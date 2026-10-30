@@ -1,0 +1,26 @@
+id: FV.GL.TEXT-IN-TERM
+name:
+  de: Übersetzt einen Text falsch in einen Term
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Schreibt „das Dreifache einer Zahl“ als 3 + x, „vermindert um 5“ als 5 − x oder setzt Klammern
+    an die falsche Stelle. Die Wörter werden nicht Schritt für Schritt in Rechenzeichen übersetzt.
+kompetenzen: [M.SF.GL.AUFSTELLEN]
+erklaerung:
+  kurz:
+    de: 'Übersetze Wort für Wort: „das Dreifache“ = 3 · x, „vermehrt um“ = plus, „vermindert um“ = minus, abgezogen wird **von** der Zahl. Was zuerst passiert, kommt in Klammern.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Teil des Textes anders übersetzt, als er gemeint ist.'
+    - teil: warum-nicht
+      de: 'Die Sprache in Rätseln ist ungewohnt. Aber jedes Wort hat eine feste Bedeutung. „Eine Zahl vermindert um 5“ heißt: Von der Zahl wird 5 weggenommen, also x − 5.'
+    - teil: so-stimmt-es
+      de: 'Lies den Satz in Stücken und schreibe zu jedem Stück das Rechenzeichen. Prüfe dann mit einer Zahl: Für x = 2 ist das Dreifache vermehrt um 5 gleich 3 · 2 + 5 = 11.'
+gegenbeispiel:
+  de: 'Das Dreifache von 10 sind 30, nicht 13.'
+rueckweg:
+  vermittlung: M.SF.GL.AUFSTELLEN#erklaeren-uebersetzen
+kontrast: [M.SF.GL.AUFSTELLEN.AUSWAHL]
+herkunft: ki-entwurf
+version: 1

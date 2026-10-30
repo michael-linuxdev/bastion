@@ -15,6 +15,9 @@ kompetenzen:
     M.SF.TU.AUSMULTIPLIZIEREN,
     M.SF.TU.BINOMISCH,
     M.SF.TU.GLEICHUNGEN,
+    M.SF.GL.AUFSTELLEN,
+    M.SF.GL.LINEAR,
+    M.SF.GS.RECHNERISCH,
   ]
 erklaerung:
   kurz:
@@ -36,6 +39,7 @@ kontrast:
     M.ZO.RZ.MULT-DIV.VORZEICHEN,
     M.ZO.RZ.ADD-SUB.TERM,
     M.SF.TU.AUSMULTIPLIZIEREN.AUSWAHL,
+    M.SF.GL.LINEAR.LOESEN,
   ]
 herkunft: ki-entwurf
 version: 1

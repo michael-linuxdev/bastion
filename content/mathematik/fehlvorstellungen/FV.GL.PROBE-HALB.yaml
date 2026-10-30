@@ -1,0 +1,26 @@
+id: FV.GL.PROBE-HALB
+name:
+  de: Rechnet bei der Probe nur eine Seite aus
+art: falsche-regel
+beschreibung:
+  de: >-
+    Setzt die Zahl ein, rechnet aber nur die linke Seite aus und entscheidet ohne Vergleich. Dass
+    die Probe beide Seiten vergleicht, ist nicht verankert.
+kompetenzen: [M.SF.GL.TERMWERT]
+erklaerung:
+  kurz:
+    de: 'Bei der [[Probe]] rechnest du beide Seiten aus. Nur wenn auf beiden Seiten dasselbe herauskommt, ist die Zahl eine Lösung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Seite ausgerechnet und dann entschieden.'
+    - teil: warum-nicht
+      de: 'Einsetzen war richtig. Aber eine [[Gleichung]] ist eine Waage: Erst der Vergleich beider Seiten zeigt, ob sie im Gleichgewicht ist.'
+    - teil: so-stimmt-es
+      de: 'Schreibe „linke Seite = …“ und „rechte Seite = …“ untereinander und vergleiche. Gleich: Lösung. Verschieden: keine Lösung.'
+gegenbeispiel:
+  de: 'Bei 2x + 1 = 3x mit x = 2: links 5, rechts 6. Die Zahl 2 ist keine Lösung.'
+rueckweg:
+  vermittlung: M.SF.GL.TERMWERT#erklaeren-probe
+kontrast: [M.SF.GL.TERMWERT.PROBE]
+herkunft: ki-entwurf
+version: 1

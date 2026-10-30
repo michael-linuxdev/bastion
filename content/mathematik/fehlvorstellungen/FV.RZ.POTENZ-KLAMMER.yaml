@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet −4² = 16 oder (−4)² = −16. Dass die Hochzahl ohne Klammer nur zur 4 gehört und mit
     Klammer zur ganzen Zahl −4, wird übersehen.
-kompetenzen: [M.ZO.RZ.POTENZEN]
+kompetenzen: [M.ZO.RZ.POTENZEN, M.SF.GL.TERMWERT]
 erklaerung:
   kurz:
     de: 'Mit Klammer gehört das Minus zur Zahl: (−4)² = (−4) · (−4) = 16. Ohne Klammer gilt die [[Hochzahl]] nur für die 4: −4² = −16.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: '(−1)² = 1, denn minus mal minus ist plus. −1² = −1, denn hier wird nur 1 · 1 gerechnet und dann das Minus davor gesetzt.'
 rueckweg:
   vermittlung: M.ZO.RZ.POTENZEN#erklaeren-klammer
-kontrast: [M.ZO.RZ.POTENZEN.POTENZ]
+kontrast: [M.ZO.RZ.POTENZEN.POTENZ, M.SF.GL.TERMWERT.EINSETZEN]
 herkunft: ki-entwurf
 version: 1

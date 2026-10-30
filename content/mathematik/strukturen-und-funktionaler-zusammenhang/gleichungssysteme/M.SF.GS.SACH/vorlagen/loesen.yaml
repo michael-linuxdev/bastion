@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   andere-unbekannte:
     de: 'Das ist die Anzahl der anderen Art. Lies die Frage noch einmal.'
+    fv: FV.SA.ZWISCHENERGEBNIS
   nur-anzahl-geteilt:
     de: 'Halb und halb passt nur, wenn der Gesamtwert stimmt. Prüfe mit der zweiten [[Gleichung]].'
+    fv: FV.GS.HALB-HALB
 herkunft: ki-entwurf
 version: 1

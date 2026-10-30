@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   minus-vergessen:
     de: 'Rechne noch einmal mit dem Minus: Setze x in Klammern ein, zum Beispiel 2 · (−3).'
+    fv: FV.GL.EINSETZEN-KLAMMER
   nur-eine-seite:
     de: 'Rechne beide Seiten aus und vergleiche. Hier kommen verschiedene Zahlen heraus.'
+    fv: FV.GL.PROBE-HALB
 herkunft: ki-entwurf
 version: 1

@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   umkehr-falsch:
     de: 'Hier wurde nicht umgekehrt gerechnet. Aus „mal“ wird beim Umstellen „geteilt“.'
+    fv: FV.NZ.UMKEHRAUFGABE
   kehrwert:
     de: 'Die Reihenfolge beim Teilen ist vertauscht. Prüfe mit Zahlen: Aus 12 = 3 · 4 folgt 4 = 12 : 3, nicht 3 : 12.'
+    fv: FV.GL.TEILEN-VERTAUSCHT
   falsche-rechenart:
     de: 'Malnehmen kehrt man mit Teilen um, nicht mit Abziehen.'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.GS.ADDITIONSVERFAHREN
+name:
+  de: Wendet das Additionsverfahren unvollständig oder falsch an
+art: falsche-regel
+beschreibung:
+  de: >-
+    Addiert nur die linken Seiten oder subtrahiert, obwohl die y-Glieder erst beim Addieren
+    wegfallen. Das Ziel „eine Variable verschwindet“ steht nicht im Blick.
+kompetenzen: [M.SF.GS.RECHNERISCH]
+erklaerung:
+  kurz:
+    de: 'Addiere beide Seiten beider Gleichungen. Wähle Plus oder Minus so, dass eine [[Variable]] wegfällt: + 3y und − 3y heben sich beim Addieren auf.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur eine Seite verrechnet oder die falsche Rechenart gewählt.'
+    - teil: warum-nicht
+      de: 'Gleichungen zu verrechnen ist richtig. Aber was links geschieht, muss auch rechts geschehen, sonst stimmt die neue [[Gleichung]] nicht. Und nur die passende Rechenart lässt eine [[Variable]] verschwinden.'
+    - teil: so-stimmt-es
+      de: 'Schau auf die y-Glieder: + 3y und − 3y? Dann addieren. + 3y und + 3y? Dann subtrahieren. Rechne links mit links und rechts mit rechts.'
+gegenbeispiel:
+  de: 'Bei x + y = 5 und x − y = 1 ergibt Addieren 2x = 6. Ohne die rechten Seiten fehlt die 6.'
+rueckweg:
+  vermittlung: M.SF.GS.RECHNERISCH#erklaeren-addition
+kontrast: [M.SF.GS.RECHNERISCH.SCHRITT]
+herkunft: ki-entwurf
+version: 1

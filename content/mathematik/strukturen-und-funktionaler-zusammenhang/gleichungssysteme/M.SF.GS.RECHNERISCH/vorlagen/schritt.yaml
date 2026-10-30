@@ -17,11 +17,15 @@ hilfen:
 fehlerbilder:
   klammer-vergessen:
     de: 'Die Zahl vor der Klammer muss mit jedem Glied in der Klammer malgenommen werden – auch mit der Zahl allein.'
+    fv: FV.TU.KLAMMER-HALB
   falsch-eingesetzt:
     de: 'Der [[Term]] aus (I) steht für y, nicht für x. Ersetze in (II) nur das y.'
+    fv: FV.GS.FALSCH-EINGESETZT
   rechte-seite-falsch:
     de: 'Auch die rechten Seiten werden addiert.'
+    fv: FV.GS.ADDITIONSVERFAHREN
   subtrahiert:
     de: 'Hier wurde subtrahiert. Addiere beide Gleichungen – dann fallen die y-Glieder weg.'
+    fv: FV.GS.ADDITIONSVERFAHREN
 herkunft: ki-entwurf
 version: 1
