@@ -1,0 +1,26 @@
+id: FV.ZU.GRAPH-FORM
+name:
+  de: Kennt die Form der Graphen proportionaler und umgekehrt proportionaler Zuordnungen nicht
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Wählt für eine proportionale Zuordnung eine Gerade, die nicht durch den Ursprung geht, oder für
+    eine umgekehrt proportionale eine fallende Gerade.
+kompetenzen: [M.SF.ZU.GRAPH]
+erklaerung:
+  kurz:
+    de: 'Bei [[proportionalen]] [[Zuordnungen]] ist der [[Graph]] eine [[Gerade]] durch den [[Ursprung]]. Bei [[umgekehrt proportionalen]] ist er eine Kurve, die sich den Achsen nähert, sie aber nie trifft.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen [[Graphen]] gewählt, der nicht zur Art der [[Zuordnung]] passt.'
+    - teil: warum-nicht
+      de: 'Viele [[Graphen]] sehen [[ähnlich]] aus. Bei [[proportionalen]] [[Zuordnungen]] gehört aber zu 0 immer 0. Bei [[umgekehrt proportionalen]] halbiert sich y, wenn x sich verdoppelt, das ist keine [[Gerade]].'
+    - teil: so-stimmt-es
+      de: 'Prüfe zwei Punkte aus der Tabelle am [[Graphen]]. Prüfe dann: Geht er durch (0|0)? Wird der Abstand zur x-Achse immer kleiner, ohne sie zu erreichen?'
+gegenbeispiel:
+  de: '0 Brötchen kosten 0 €. Ein [[Graph]], der bei 0 Brötchen schon 1 € zeigt, kann nicht [[proportional]] sein.'
+rueckweg:
+  vermittlung: M.SF.ZU.GRAPH#erklaeren-form
+kontrast: [M.SF.ZU.GRAPH.WAEHLEN]
+herkunft: ki-entwurf
+version: 1

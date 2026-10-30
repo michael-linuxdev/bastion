@@ -1,0 +1,26 @@
+id: FV.FK.NULLSTELLE-ACHSE
+name:
+  de: Verwechselt Nullstelle und Schnittpunkt mit der y-Achse
+art: verwechslung
+beschreibung:
+  de: >-
+    Nennt den y-Achsenabschnitt n als Nullstelle oder liest beim Ablesen von n den Schnittpunkt mit
+    der x-Achse ab. Beide sind besondere Punkte an einer Achse und werden vermischt.
+kompetenzen: [M.SF.FK.EIGENSCHAFTEN, M.SF.FK.LINEAR-GRAPH, M.SF.FK.NULLSTELLE]
+erklaerung:
+  kurz:
+    de: 'Die [[Nullstelle]] liegt auf der **x-Achse**, dort ist y = 0. Der [[y-Achsenabschnitt]] n liegt auf der **y-Achse**, dort ist x = 0.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Schnittpunkt]] mit der anderen Achse genommen.'
+    - teil: warum-nicht
+      de: 'Beide Punkte liegen auf einer Achse, das macht sie [[ähnlich]]. Aber „Null“ in [[Nullstelle]] heißt: Der [[Funktionswert]] ist 0. Das passiert dort, wo der [[Graph]] die x-Achse trifft.'
+    - teil: so-stimmt-es
+      de: '[[Nullstelle]]: Setze f(x) = 0 und löse nach x. Bei f(x) = 2x − 6 ist 2x − 6 = 0, also x = 3. Der [[y-Achsenabschnitt]] ist −6.'
+gegenbeispiel:
+  de: 'Ein Wasserstand, der um 6 Uhr bei 4 m liegt und um 9 Uhr bei 0 m, ist um 9 Uhr leer, nicht um 6 Uhr.'
+rueckweg:
+  vermittlung: M.SF.FK.NULLSTELLE#erklaeren-nullstelle
+kontrast: [M.SF.FK.NULLSTELLE.ABLESEN, M.SF.FK.NULLSTELLE.BERECHNEN, M.SF.FK.LINEAR-GRAPH.ABLESEN]
+herkunft: ki-entwurf
+version: 1

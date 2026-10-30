@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   nicht-durch-ursprung:
     de: 'Diese [[Gerade]] geht nicht durch den [[Ursprung]]. Bei x = 0 müsste auch y = 0 sein.'
+    fv: FV.ZU.GRAPH-FORM
   gerade-statt-kurve:
     de: 'Eine fallende [[Gerade]] passt nicht. Bei [[umgekehrt proportionalen]] [[Zuordnungen]] ist der [[Graph]] eine Kurve.'
+    fv: FV.ZU.GRAPH-FORM
 herkunft: ki-entwurf
 version: 1

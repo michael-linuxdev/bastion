@@ -1,0 +1,26 @@
+id: FV.ZU.SCHRITTWEITE
+name:
+  de: Geht in der Tabelle nur einen Schritt weiter, egal wie weit der Abstand ist
+art: rechenfehler
+beschreibung:
+  de: >-
+    Ergänzt den Wert für x = 10, als läge er direkt neben dem letzten Wert x = 6. Der Abstand der
+    x-Werte wird nicht beachtet.
+kompetenzen: [M.SF.ZU.DARSTELLEN]
+erklaerung:
+  kurz:
+    de: 'Prüfe zuerst, wie weit x vom letzten Wert entfernt ist. So viele Schritte musst du auch bei y gehen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur einen Schritt weitergerechnet.'
+    - teil: warum-nicht
+      de: 'In vielen Tabellen kommt der nächste Wert direkt danach. Hier liegt aber eine Lücke dazwischen.'
+    - teil: so-stimmt-es
+      de: 'Von x = 6 nach x = 10 sind es 4 Schritte. Wächst y je Schritt um 3, wächst es also um 4 · 3 = 12.'
+gegenbeispiel:
+  de: 'Wer vom 6. Stock in den 10. fährt, fährt 4 Stockwerke, nicht 1.'
+rueckweg:
+  vermittlung: M.SF.ZU.DARSTELLEN#erklaeren-tabelle
+kontrast: [M.SF.ZU.DARSTELLEN.TABELLE]
+herkunft: ki-entwurf
+version: 1

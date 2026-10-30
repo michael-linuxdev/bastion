@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   kehrwert:
     de: 'Du hast den Unterschied der x-Werte durch den der y-Werte geteilt. Richtig ist y-Unterschied : x-Unterschied.'
+    fv: FV.FK.ANSTIEG
   vorzeichen-falsch:
     de: 'Ziehe in [[Zähler]] und [[Nenner]] in derselben Reihenfolge ab: zuerst den zweiten Punkt, dann den ersten.'
+    fv: FV.FK.ANSTIEG
   n-falsch-umgestellt:
     de: 'Beim Umstellen musst du m·x abziehen, nicht addieren.'
+    fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1

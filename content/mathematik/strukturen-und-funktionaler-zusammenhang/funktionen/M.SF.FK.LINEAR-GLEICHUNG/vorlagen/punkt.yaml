@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   x-y-vertauscht:
     de: 'Im Punkt P(x|y) steht zuerst x, dann y. Setze die erste Zahl für x ein.'
+    fv: FV.RF.X-Y-VERTAUSCHT
   falsch-eingesetzt:
     de: 'Rechne das Einsetzen noch einmal nach – achte auf Minus und auf [[Punkt vor Strich]].'
+    fv: FV.GL.EINSETZEN-KLAMMER
 herkunft: ki-entwurf
 version: 1

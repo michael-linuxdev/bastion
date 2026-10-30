@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Berechnet 2x + 5 für x = −3 als 2 · 3 + 5 = 11. Die negative Zahl wird ohne Klammer eingesetzt,
     und das Minus geht verloren.
-kompetenzen: [M.SF.GL.TERMWERT]
+kompetenzen: [M.SF.GL.TERMWERT, M.SF.FK.BEGRIFF, M.SF.FK.LINEAR-GLEICHUNG]
 erklaerung:
   kurz:
     de: 'Setze eine [[negative Zahl]] immer mit Klammer ein: 2 · (−3) + 5. Dann geht das [[Vorzeichen]] nicht verloren.'
@@ -21,6 +21,6 @@ gegenbeispiel:
   de: 'Wer bei −3 °C mit 3 °C rechnet, sagt Tauwetter voraus, wo es friert.'
 rueckweg:
   vermittlung: M.SF.GL.TERMWERT#erklaeren-einsetzen
-kontrast: [M.SF.GL.TERMWERT.EINSETZEN, M.SF.GL.TERMWERT.PROBE]
+kontrast: [M.SF.GL.TERMWERT.EINSETZEN, M.SF.GL.TERMWERT.PROBE, M.SF.FK.BEGRIFF.WERT]
 herkunft: ki-entwurf
 version: 1

@@ -7,7 +7,7 @@ beschreibung:
     Gibt bei y + 3 < 10 die Zahl 7 als größte Lösung an. Dass „<“ die Gleichheit ausschließt, ist
     noch nicht verankert; < und ≤ werden gleich behandelt. Ebenso bei „das kleinste Vielfache, das
     größer ist als 30“: Die 30 selbst wird genannt.
-kompetenzen: [M.SF.NZ.GLEICHUNGEN, M.ZO.TB.TEILER, M.SF.TU.UNGLEICHUNGEN]
+kompetenzen: [M.SF.NZ.GLEICHUNGEN, M.ZO.TB.TEILER, M.SF.TU.UNGLEICHUNGEN, M.SF.FK.SACH]
 erklaerung:
   kurz:
     de: '„Kleiner als“ und „größer als“ heißen: wirklich kleiner oder größer, nicht gleich. Die Grenze selbst gehört nicht dazu. Bei ≤ und ≥ gehört sie dagegen dazu.'
@@ -28,6 +28,7 @@ kontrast:
     M.ZO.TB.TEILER.VIELFACHES,
     M.SF.TU.UNGLEICHUNGEN.RAND,
     M.SF.TU.UNGLEICHUNGEN.LOESUNG,
+    M.SF.FK.SACH.KOSTEN,
   ]
 herkunft: ki-entwurf
 version: 1

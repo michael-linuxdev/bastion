@@ -1,0 +1,26 @@
+id: FV.FK.STEIGEN-FALLEN
+name:
+  de: Verwechselt Steigen und Fallen eines Graphen
+art: lesefehler
+beschreibung:
+  de: >-
+    Hält einen Graphen für fallend, wo er steigt, oft weil von rechts nach links gelesen wird oder
+    die Höhe statt der Richtung beurteilt wird.
+kompetenzen: [M.SF.FK.EIGENSCHAFTEN]
+erklaerung:
+  kurz:
+    de: 'Lies einen [[Graphen]] immer von links nach rechts. Geht er dabei bergauf, steigt er, auch wenn er unterhalb der x-Achse liegt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Steigen und Fallen verwechselt.'
+    - teil: warum-nicht
+      de: 'Ein [[Graph]] unter der x-Achse wirkt „unten“, also fallend. Aber Steigen heißt: Wenn x größer wird, wird y größer. Das kann auch bei negativen Werten passieren.'
+    - teil: so-stimmt-es
+      de: 'Lege einen Stift auf den [[Graphen]] und fahre von links nach rechts. Geht der Stift nach oben, steigt der Graph.'
+gegenbeispiel:
+  de: 'Wenn es morgens von −8 °C auf −2 °C wärmer wird, steigt die Temperatur, obwohl sie noch unter null ist.'
+rueckweg:
+  vermittlung: M.SF.FK.EIGENSCHAFTEN#erklaeren-verlauf
+kontrast: [M.SF.FK.EIGENSCHAFTEN.VERLAUF]
+herkunft: ki-entwurf
+version: 1

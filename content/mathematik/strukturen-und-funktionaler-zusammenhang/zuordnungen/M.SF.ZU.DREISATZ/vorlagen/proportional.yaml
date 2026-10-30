@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   umgekehrt-gerechnet:
     de: 'Du hast wie bei einer [[umgekehrt proportionalen]] [[Zuordnung]] gerechnet. Mehr Stück kosten aber mehr, nicht weniger.'
+    fv: FV.ZU.ART-VERWECHSELT
   differenz-addiert:
     de: Du hast für jedes Stück mehr einfach 1 € dazugezählt. Rechne zuerst aus, wie viel ein Stück kostet.
+    fv: FV.ZU.ADDITIV
 herkunft: ki-entwurf
 version: 1

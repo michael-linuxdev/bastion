@@ -1,0 +1,26 @@
+id: FV.FK.VORZEICHEN-GRAPH
+name:
+  de: Liest am Graphen das Vorzeichen falsch ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Gibt bei einer fallenden Geraden einen positiven Anstieg an, liest n unterhalb der x-Achse als
+    positiv oder eine Nullstelle links von 0 ohne Minus.
+kompetenzen: [M.SF.FK.LINEAR-GRAPH, M.SF.FK.NULLSTELLE]
+erklaerung:
+  kurz:
+    de: 'Fällt die [[Gerade]], ist m negativ. Unterhalb der x-Achse ist y negativ, links von der y-Achse ist x negativ.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Betrag]] richtig abgelesen, aber das [[Vorzeichen]] nicht.'
+    - teil: warum-nicht
+      de: 'Die Zahlen an den Achsen lassen das Minus oft klein erscheinen. Aber die Lage zeigt es: Was links oder unten liegt, ist negativ.'
+    - teil: so-stimmt-es
+      de: 'Prüfe nach dem Ablesen: Steigt oder fällt die [[Gerade]]? Liegt der Punkt über oder unter, rechts oder links der 0? Setze danach das [[Vorzeichen]].'
+gegenbeispiel:
+  de: 'Ein Konto, das jeden Monat weniger wird, hat eine negative Änderung je Monat.'
+rueckweg:
+  vermittlung: M.SF.FK.LINEAR-GRAPH#erklaeren-anstieg
+kontrast: [M.SF.FK.LINEAR-GRAPH.ABLESEN, M.SF.FK.LINEAR-GRAPH.GLEICHUNG, M.SF.FK.NULLSTELLE.ABLESEN]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   gleiche-y-werte:
     de: 'Gleiche y-Werte für verschiedene x sind erlaubt. Verboten ist nur, dass ein x zwei verschiedene y hat.'
+    fv: FV.ZU.EINDEUTIGKEIT
   doppeltes-x-uebersehen:
     de: 'Schau genau hin: Ein x kommt zweimal vor – mit verschiedenen y. Dann ist es keine [[Funktion]].'
+    fv: FV.ZU.EINDEUTIGKEIT
 herkunft: ki-entwurf
 version: 1

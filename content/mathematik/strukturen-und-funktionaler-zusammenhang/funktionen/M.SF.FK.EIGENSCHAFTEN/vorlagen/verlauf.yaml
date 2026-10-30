@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   steigen-fallen-verwechselt:
     de: 'Hier steigt der [[Graph]]. Von links nach rechts gelesen geht er dort bergauf.'
+    fv: FV.FK.STEIGEN-FALLEN
   bereich-falsch:
     de: 'Der Bereich beginnt an der Stelle x des Hoch- oder Tiefpunkts. Lies sie auf der x-Achse ab.'
+    fv: FV.FK.X-ODER-Y
 herkunft: ki-entwurf
 version: 1

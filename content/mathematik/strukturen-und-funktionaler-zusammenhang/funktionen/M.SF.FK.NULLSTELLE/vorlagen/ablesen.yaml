@@ -16,7 +16,9 @@ hilfen:
 fehlerbilder:
   n-statt-nullstelle:
     de: 'Das ist der [[Schnittpunkt]] mit der y-Achse. Die [[Nullstelle]] liegt auf der x-Achse.'
+    fv: FV.FK.NULLSTELLE-ACHSE
   vorzeichen-falsch:
     de: 'Links von 0 sind die Zahlen negativ. Achte auf das [[Vorzeichen]].'
+    fv: FV.FK.VORZEICHEN-GRAPH
 herkunft: ki-entwurf
 version: 1
