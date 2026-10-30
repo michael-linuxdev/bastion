@@ -1,0 +1,82 @@
+id: M.GM.FL.ZUSAMMENGESETZT
+kompetenz: M.GM.FL.ZUSAMMENGESETZT
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Flächeninhalt]] von Figuren aus mehreren Rechtecken ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Rechteck ist 6 cm lang und 2 cm breit. Wie viele cm² ist sein [[Flächeninhalt]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '16', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.RECHTECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine L-Figur besteht aus einem Rechteck 6 cm mal 2 cm und einem zweiten Rechteck 2 cm mal 3 cm darauf. Wie viele cm² sind es zusammen?'
+    antwort:
+      eingabe: { art: zahl, loesung: '18', fehler: [{ wert: '12', fv: FV.FL.ZERLEGEN }] }
+    weiter: erklaeren-zerlegen
+  - id: erklaeren-zerlegen
+    typ: erklaeren
+    text:
+      de: 'Zerlege die Figur in Rechtecke, die sich nicht überlappen. Rechne jede Teilfläche aus und addiere alle. Oder ergänze zu einem großen Rechteck und ziehe das fehlende Stück ab.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'L-Figur: unten 6 cm mal 2 cm = 12 cm², oben 2 cm mal 3 cm = 6 cm². Zusammen 18 cm². [[Probe]] mit Ergänzen: 6 · 5 = 30, minus 4 · 3 = 12, ergibt 18 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Rechteck 8 m mal 5 m hat in einer Ecke eine Aussparung von 2 m mal 2 m. Wie viele m² bleiben?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '36',
+          fehler: [{ wert: '40', fv: FV.FL.ZERLEGEN }, { wert: '44', fv: FV.FL.ZERLEGEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FL.ZERLEGEN: erklaeren-zerlegen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eine Figur besteht aus drei Rechtecken mit 10 cm², 6 cm² und 4 cm². Ida rechnet 10 + 6 = 16 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, alle Teilflächen zählen: 20 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.ZERLEGEN }
+    weiter: merksatz
+    bei: { FV.FL.ZERLEGEN: erklaeren-zerlegen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Zerlegen und alle Teilflächen addieren. Oder ergänzen und das Fehlende abziehen. Keine Fläche doppelt, keine vergessen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine Figur besteht aus einem Quadrat 4 cm mal 4 cm und einem Rechteck 4 cm mal 1 cm daneben. Wie groß ist sie?'
+    antwort:
+      optionen:
+        - { wert: { de: '20 cm²' }, richtig: true }
+        - { wert: { de: '16 cm²' }, fv: FV.FL.ZERLEGEN }
+        - { wert: { de: '18 cm²' }, fv: FV.FL.UMFANG-FLAECHE }
+    weiter: uebergang
+    bei: { FV.FL.ZERLEGEN: erklaeren-zerlegen, FV.FL.UMFANG-FLAECHE: erklaeren-zerlegen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt zerlegst du selbst.'
+    vorlagen: [M.GM.FL.ZUSAMMENGESETZT.FLAECHE, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

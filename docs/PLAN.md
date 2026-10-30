@@ -215,7 +215,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Prozent und Zins (6 neue)
     - [x] Gleichungen, Terme und Gleichungssysteme (13 neue)
     - [x] Funktionen und Zuordnungen (10 neue)
-    - [ ] Größen · Geometrie · Daten und Zufall
+    - [x] Größen und Messen (20 neue)
+    - [ ] Geometrie · Daten und Zufall
   - [x] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16): alle 596 Fehlerbilder, 200 Fehlvorstellungen; `fv` ist jetzt Pflicht
     - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
     - [x] Teilbarkeit (15 Fehlerbilder, 8 neue Fehlvorstellungen; Stand 140 von 596)
@@ -248,6 +249,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5c Größen und Messen:** 20 Erstvermittlungen; Figuren und Körper in Worten beschrieben, weil es noch kein Geometrie-Werkzeug gibt |
 | 30.10.2026 | **U5c Funktionen und Zuordnungen:** 10 Erstvermittlungen; Graphen nur in Worten und mit Punkten, weil es noch kein Koordinaten-Werkzeug gibt |
 | 30.10.2026 | **U5c Gleichungen, Terme und Gleichungssysteme:** 13 Erstvermittlungen; Gleichungssysteme ohne Bild, weil es noch kein Koordinaten-Werkzeug gibt |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |

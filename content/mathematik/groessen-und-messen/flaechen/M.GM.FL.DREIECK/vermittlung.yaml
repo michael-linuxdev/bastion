@@ -1,0 +1,82 @@
+id: M.GM.FL.DREIECK
+kompetenz: M.GM.FL.DREIECK
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Flächeninhalt]] eines Dreiecks mit Grundseite und [[Höhe]] ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Rechteck ist 8 cm lang und 5 cm breit. Wie viele cm² ist sein [[Flächeninhalt]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '40', fehler: [{ wert: '26', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.FL.RECHTECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du schneidest dieses Rechteck entlang der [[Diagonale]] durch. Es entstehen zwei gleiche Dreiecke. Wie viele cm² hat eines davon?'
+    antwort:
+      eingabe: { art: zahl, loesung: '20', fehler: [{ wert: '40', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: erklaeren-dreieck
+  - id: erklaeren-dreieck
+    typ: erklaeren
+    text:
+      de: 'Jedes Dreieck ist die Hälfte eines Rechtecks oder Parallelogramms. Darum: [[Flächeninhalt]] = Grundseite · [[Höhe]] : 2. Das Halbieren darfst du nie vergessen.'
+    weiter: erklaeren-hoehe
+  - id: erklaeren-hoehe
+    typ: erklaeren
+    text:
+      de: 'Die [[Höhe]] steht [[senkrecht]] auf der Grundseite und geht bis zur gegenüberliegenden Ecke. Die schräge Seite ist meistens länger als die Höhe und gehört nicht in die [[Formel]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Grundseite 6 cm, [[Höhe]] 4 cm, schräge Seite 5 cm. [[Flächeninhalt]]: 6 · 4 : 2 = 12 cm². Die 5 cm brauchst du nicht.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Dreieck hat die Grundseite 10 cm und die [[Höhe]] 3 cm. Wie viele cm² ist sein [[Flächeninhalt]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '15', fehler: [{ wert: '30', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-dreieck }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Dreieck hat die Grundseite 8 cm, die [[Höhe]] 3 cm und eine schräge Seite von 5 cm. Mo rechnet 8 · 5 : 2 = 20 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Höhe ist 3 cm: 8 · 3 : 2 = 12 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.SEITE-STATT-HOEHE }
+    weiter: merksatz
+    bei: { FV.FL.SEITE-STATT-HOEHE: erklaeren-hoehe }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Dreieck: Grundseite mal [[Höhe]] durch 2. Die Höhe steht [[senkrecht]] auf der Grundseite, nicht schräg.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Grundseite 12 cm, [[Höhe]] 5 cm, schräge Seite 7 cm. Wie groß ist das Dreieck?'
+    antwort:
+      optionen:
+        - { wert: { de: '30 cm²' }, richtig: true }
+        - { wert: { de: '60 cm²' }, fv: FV.FL.NICHT-HALBIERT }
+        - { wert: { de: '42 cm²' }, fv: FV.FL.SEITE-STATT-HOEHE }
+    weiter: uebergang
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-dreieck, FV.FL.SEITE-STATT-HOEHE: erklaeren-hoehe }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.FL.DREIECK.FLAECHE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

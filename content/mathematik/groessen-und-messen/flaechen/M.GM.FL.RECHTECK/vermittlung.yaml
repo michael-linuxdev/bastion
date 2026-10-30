@@ -1,0 +1,97 @@
+id: M.GM.FL.RECHTECK
+kompetenz: M.GM.FL.RECHTECK
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Umfang]] und [[Flächeninhalt]] eines Rechtecks ausrechnen und auseinanderhalten.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 6 · 4?'
+    antwort:
+      eingabe: { art: zahl, loesung: '24' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Beet ist 5 m lang und 3 m breit. Du legst Platten von 1 m mal 1 m darauf, Reihe für Reihe. Wie viele Platten brauchst du?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '15',
+          fehler:
+            [{ wert: '16', fv: FV.FL.UMFANG-FLAECHE }, { wert: '8', fv: FV.FL.UMFANG-SEITEN }],
+        }
+    weiter: erklaeren-umfang-flaeche
+  - id: erklaeren-umfang-flaeche
+    typ: erklaeren
+    text:
+      de: 'Der [[Flächeninhalt]] sagt, wie viele [[Einheitsquadrate]] hineinpassen: Länge · Breite, in cm² oder m². Der [[Umfang]] ist der Weg einmal um den Rand: alle vier Seiten addiert, in cm oder m.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Rechteck 5 m lang, 3 m breit. [[Flächeninhalt]]: 5 · 3 = 15 m². [[Umfang]]: 5 + 3 + 5 + 3 = 16 m, also 2 · 5 + 2 · 3.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Rechteck ist 7 cm lang und 2 cm breit. Wie viele Zentimeter ist sein [[Umfang]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '18',
+          fehler:
+            [{ wert: '14', fv: FV.FL.UMFANG-FLAECHE }, { wert: '9', fv: FV.FL.UMFANG-SEITEN }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.FL.UMFANG-FLAECHE: erklaeren-umfang-flaeche,
+        FV.FL.UMFANG-SEITEN: erklaeren-umfang-flaeche,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für einen Zaun um einen Garten, 10 m lang und 6 m breit, rechnet Jan 10 · 6 = 60 m. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Zaun ist der Umfang: 10 + 6 + 10 + 6 = 32 m.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.FL.UMFANG-FLAECHE }
+    weiter: merksatz
+    bei: { FV.FL.UMFANG-FLAECHE: erklaeren-umfang-flaeche }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Flächeninhalt]]: Länge mal Breite, in cm² oder m². [[Umfang]]: alle vier Seiten addieren, in cm oder m.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Zimmer ist 4 m lang und 3 m breit. Wie viel Teppich brauchst du?'
+    antwort:
+      optionen:
+        - { wert: { de: '12 m²' }, richtig: true }
+        - { wert: { de: '14 m²' }, fv: FV.FL.UMFANG-FLAECHE }
+        - { wert: { de: '7 m²' }, fv: FV.FL.UMFANG-SEITEN }
+    weiter: uebergang
+    bei:
+      {
+        FV.FL.UMFANG-FLAECHE: erklaeren-umfang-flaeche,
+        FV.FL.UMFANG-SEITEN: erklaeren-umfang-flaeche,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.FL.RECHTECK.FLAECHE, M.GM.FL.RECHTECK.UMFANG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

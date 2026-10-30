@@ -1,0 +1,83 @@
+id: M.GM.KR.KREISRING
+kompetenz: M.GM.KR.KREISRING
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Flächeninhalt]] eines [[Kreisrings]] und von Figuren mit Kreisteilen ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Kreis hat den [[Radius]] 10 cm. Wie viele cm² ist er groß? Rechne mit [[π]] ≈ 3,14.'
+    antwort:
+      eingabe: { art: zahl, loesung: '314', fehler: [{ wert: '62,8', fv: FV.FL.UMFANG-FLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KR.UMFANG-FLAECHE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Aus einer Scheibe mit 314 cm² wird in der Mitte ein Loch mit 78,5 cm² ausgestanzt. Wie viele cm² bleiben?'
+    antwort:
+      eingabe: { art: zahl, loesung: '235,5', fehler: [{ wert: '392,5', fv: FV.FL.ZERLEGEN }] }
+    weiter: erklaeren-kreisring
+  - id: erklaeren-kreisring
+    typ: erklaeren
+    text:
+      de: 'Ein [[Kreisring]] ist ein großer Kreis ohne den kleinen in der Mitte. Rechne beide Flächen einzeln aus und ziehe sie ab. Die Radien vorher abzuziehen ergibt etwas Falsches.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'R = 10 cm, r = 5 cm. Großer Kreis 3,14 · 100 = 314 cm². Kleiner Kreis 3,14 · 25 = 78,5 cm². Ring: 314 − 78,5 = 235,5 cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Halbkreis hat den [[Radius]] 10 cm. Wie viele cm² ist er groß?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '157',
+          fehler:
+            [{ wert: '314', fv: FV.FL.ZERLEGEN }, { wert: '628', fv: FV.KR.RADIUS-DURCHMESSER }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.FL.ZERLEGEN: erklaeren-kreisring, FV.KR.RADIUS-DURCHMESSER: erklaeren-kreisring }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ring mit R = 10 cm und r = 5 cm. Tom rechnet 10 − 5 = 5 und dann 3,14 · 5 · 5 = 78,5 cm². Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, erst die Flächen, dann abziehen: 235,5 cm².' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KR.KREISRING-RADIEN }
+    weiter: merksatz
+    bei: { FV.KR.KREISRING-RADIEN: erklaeren-kreisring }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Kreisring]]: großer Kreis minus kleiner Kreis, jeweils als Fläche. Bei Figuren: in Kreisteile und Vielecke zerlegen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Ring hat außen R = 4 cm und innen r = 2 cm. Wie groß ist er?'
+    antwort:
+      optionen:
+        - { wert: { de: '37,68 cm²' }, richtig: true }
+        - { wert: { de: '12,56 cm²' }, fv: FV.KR.KREISRING-RADIEN }
+        - { wert: { de: '50,24 cm²' }, fv: FV.FL.ZERLEGEN }
+    weiter: uebergang
+    bei: { FV.KR.KREISRING-RADIEN: erklaeren-kreisring, FV.FL.ZERLEGEN: erklaeren-kreisring }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KR.KREISRING.FIGUR, M.GM.KR.KREISRING.RING]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

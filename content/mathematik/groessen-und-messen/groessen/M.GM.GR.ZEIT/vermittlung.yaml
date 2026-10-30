@@ -1,0 +1,85 @@
+id: M.GM.GR.ZEIT
+kompetenz: M.GM.GR.ZEIT
+niveau: G
+dauer_min: 11
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du ausrechnen, wie lange etwas dauert und wann es endet.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Was ergibt 45 + 30?'
+    antwort:
+      eingabe: { art: zahl, loesung: '75' }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.ADD-SUB }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Stunde hat 60 Minuten. Von 9:40 Uhr bis 10:00 Uhr: Wie viele Minuten sind das?'
+    antwort:
+      eingabe: { art: zahl, loesung: '20', fehler: [{ wert: '60', fv: FV.GR.ZEITRECHNEN }] }
+    weiter: erklaeren-zeitspanne
+  - id: erklaeren-zeitspanne
+    typ: erklaeren
+    text:
+      de: 'Uhrzeiten sind keine Kommazahlen: Nach 59 Minuten kommt die nächste volle Stunde. Rechne darum in Etappen: erst bis zur vollen Stunde, dann volle Stunden, dann die restlichen Minuten.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Von 9:40 Uhr bis 11:15 Uhr: bis 10:00 sind 20 min, bis 11:00 noch 60 min, bis 11:15 noch 15 min. Zusammen 95 min, also 1 h 35 min.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie viele Minuten vergehen von 8:50 Uhr bis 9:30 Uhr?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '40',
+          fehler: [{ wert: '80', fv: FV.GR.ZEITRECHNEN }, { wert: '20', fv: FV.GR.ZEITRECHNEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.GR.ZEITRECHNEN: erklaeren-zeitspanne }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Film beginnt um 18:45 Uhr und dauert 30 min. Max sagt: Er endet um 18:75 Uhr. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, nach 15 min ist es 19:00 Uhr, dann noch 15 min: 19:15 Uhr.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja.' }, fv: FV.GR.ZEITRECHNEN }
+    weiter: merksatz
+    bei: { FV.GR.ZEITRECHNEN: erklaeren-zeitspanne }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '1 h = 60 min. Rechne in Etappen über die volle Stunde. Rechne nie mit der Uhrzeit wie mit einer Kommazahl.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Die Schule beginnt um 7:55 Uhr und endet um 13:10 Uhr. Wie lange dauert sie?'
+    antwort:
+      optionen:
+        - { wert: { de: '5 h 15 min' }, richtig: true }
+        - { wert: { de: '5 h 55 min' }, fv: FV.GR.ZEITRECHNEN }
+        - { wert: { de: '6 h 15 min' }, fv: FV.GR.ZEITRECHNEN }
+    weiter: uebergang
+    bei: { FV.GR.ZEITRECHNEN: erklaeren-zeitspanne }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst mit Zeiten.'
+    vorlagen: [M.GM.GR.ZEIT.ENDZEIT, M.GM.GR.ZEIT.ZEITSPANNE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,83 @@
+id: M.GM.KP.MASSE
+kompetenz: M.GM.KP.MASSE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du aus [[Volumen]] und [[Dichte]] die Masse eines Körpers ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechne um: 2 dm³ = ? cm³'
+    antwort:
+      eingabe: { art: zahl, loesung: '2000', fehler: [{ wert: '200', fv: FV.KP.VOLUMEN-1000 }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.EINHEITEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Würfel]] aus Eisen mit 1 cm³ wiegt etwa 8 g. Wie viel Gramm wiegt ein Eisenstück mit 5 cm³?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '40',
+          fehler:
+            [{ wert: '1,6', fv: FV.KP.DICHTE-FORMEL }, { wert: '13', fv: FV.KP.DICHTE-FORMEL }],
+        }
+    weiter: erklaeren-dichte
+  - id: erklaeren-dichte
+    typ: erklaeren
+    text:
+      de: 'Die [[Dichte]] sagt, wie viel 1 cm³ eines Stoffes wiegt, zum Beispiel 8 g/cm³ bei Eisen. Masse = [[Volumen]] · Dichte. Erst das Volumen ausrechnen, dann malnehmen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Holzbalken 10 cm mal 5 cm mal 4 cm, [[Dichte]] 0,5 g/cm³. [[Volumen]] 200 cm³. Masse 200 · 0,5 = 100 g.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Quader]] aus Aluminium ist 5 cm mal 2 cm mal 2 cm, [[Dichte]] 2,7 g/cm³. Wie viel Gramm wiegt er?'
+    antwort:
+      eingabe: { art: zahl, loesung: '54', fehler: [{ wert: '20', fv: FV.SA.ZWISCHENERGEBNIS }] }
+    weiter: gegenbeispiel
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-dichte }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Stein hat 100 cm³ und die [[Dichte]] 3 g/cm³. Ali rechnet 100 : 3 ≈ 33 g. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, Masse = Volumen mal Dichte: 300 g.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.DICHTE-FORMEL }
+    weiter: merksatz
+    bei: { FV.KP.DICHTE-FORMEL: erklaeren-dichte }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Masse = [[Volumen]] · [[Dichte]]. Die Dichte ist die Masse von 1 cm³. Am Ende die Masse angeben, nicht das Volumen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Goldbarren hat 50 cm³, Gold hat die [[Dichte]] 19 g/cm³. Wie schwer ist er?'
+    antwort:
+      optionen:
+        - { wert: { de: '950 g' }, richtig: true }
+        - { wert: { de: 'etwa 2,6 g' }, fv: FV.KP.DICHTE-FORMEL }
+        - { wert: { de: '50 g' }, fv: FV.SA.ZWISCHENERGEBNIS }
+    weiter: uebergang
+    bei: { FV.KP.DICHTE-FORMEL: erklaeren-dichte, FV.SA.ZWISCHENERGEBNIS: erklaeren-dichte }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.GM.KP.MASSE.DICHTE, M.GM.KP.MASSE.KOERPER]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

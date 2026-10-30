@@ -1,0 +1,101 @@
+id: M.GM.KP.EINHEITEN
+kompetenz: M.GM.KP.EINHEITEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumeneinheiten]] wie cm³ und dm³ umrechnen und weißt, wie Liter dazu passen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein [[Würfel]] hat die [[Kante]] 10 cm. Wie viele cm³ ist sein [[Volumen]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1000', fehler: [{ wert: '100', fv: FV.KP.NUR-GRUNDFLAECHE }] }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.VOLUMEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Dieser [[Würfel]] ist 1 dm lang, 1 dm breit und 1 dm hoch, also 1 dm³. Wie viele cm³ passen hinein?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '1000',
+          fehler: [{ wert: '10', fv: FV.KP.VOLUMEN-1000 }, { wert: '100', fv: FV.KP.VOLUMEN-1000 }],
+        }
+    weiter: erklaeren-volumeneinheiten
+  - id: erklaeren-volumeneinheiten
+    typ: erklaeren
+    text:
+      de: 'Bei [[Volumeneinheiten]] ist die [[Umrechnungszahl]] 1000: 1 cm³ = 1000 mm³, 1 dm³ = 1000 cm³, 1 m³ = 1000 dm³. Denn Länge, Breite und [[Höhe]] werden alle 10-mal so lang.'
+    weiter: erklaeren-liter
+  - id: erklaeren-liter
+    typ: erklaeren
+    text:
+      de: 'Ein Liter ist genau 1 dm³, ein Milliliter genau 1 cm³. Also 1 l = 1000 ml. So kannst du zwischen [[Hohlmaßen]] und [[Volumeneinheiten]] wechseln.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 dm³ = 3000 cm³. 4000 cm³ = 4 dm³ = 4 l. 250 ml = 250 cm³.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne um: 5 m³ = ? dm³'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '5000',
+          fehler:
+            [
+              { wert: '500', fv: FV.KP.VOLUMEN-1000 },
+              { wert: '0,005', fv: FV.GR.UMRECHNEN-RICHTUNG },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei:
+      {
+        FV.KP.VOLUMEN-1000: erklaeren-volumeneinheiten,
+        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-volumeneinheiten,
+      }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Karton hat 6 dm³. Jonas sagt: Da passen 60 l hinein. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, 1 dm³ ist 1 l: 6 l.' }, richtig: true }
+        - { wert: { de: 'Ja.' }, fv: FV.KP.LITER }
+    weiter: merksatz
+    bei: { FV.KP.LITER: erklaeren-liter }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Volumeneinheiten]]: [[Umrechnungszahl]] 1000. 1 l = 1 dm³ und 1 ml = 1 cm³.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viele Liter sind 2500 cm³?'
+    antwort:
+      optionen:
+        - { wert: { de: '2,5 l' }, richtig: true }
+        - { wert: { de: '25 l' }, fv: FV.KP.VOLUMEN-1000 }
+        - { wert: { de: '2500 l' }, fv: FV.KP.LITER }
+    weiter: uebergang
+    bei: { FV.KP.VOLUMEN-1000: erklaeren-volumeneinheiten, FV.KP.LITER: erklaeren-liter }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt rechnest du selbst um.'
+    vorlagen:
+      [M.GM.KP.EINHEITEN.IN-GROESSERE, M.GM.KP.EINHEITEN.IN-KLEINERE, M.GM.KP.EINHEITEN.LITER]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
