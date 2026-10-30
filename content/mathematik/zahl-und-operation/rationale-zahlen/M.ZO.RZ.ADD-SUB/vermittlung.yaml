@@ -1,0 +1,90 @@
+id: M.ZO.RZ.ADD-SUB
+kompetenz: M.ZO.RZ.ADD-SUB
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit [[negativen Zahlen]] addieren und subtrahieren, zum Beispiel −7 + 12 oder 3 − 9.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Zahl ist größer, −4 oder −1?'
+    antwort:
+      optionen:
+        - { wert: { de: '−1' }, richtig: true }
+        - { wert: { de: '−4' }, fv: FV.RZ.NACH-BETRAG }
+    weiter: entdecken
+    bei: { sonst: M.ZO.RZ.ORDNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Morgens ist es −3 °C. Bis mittags steigt die Temperatur um 5 [[Grad]]. Wie warm ist es mittags?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -5, bis: 5, einteilung: 1, markiert: -3 } }
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '8', fv: FV.RZ.VORZEICHEN-FALSCH }] }
+    weiter: erklaeren-zahlengerade
+  - id: erklaeren-zahlengerade
+    typ: erklaeren
+    text:
+      de: 'Plus heißt auf der [[Zahlengerade]] nach rechts gehen, minus nach links. −3 + 5: Von −3 fünf Schritte nach rechts, über die 0 hinweg, bis 2.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -5, bis: 5, einteilung: 1, markiert: 2 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '3 − 9: Von 3 neun Schritte nach links. Drei Schritte bis 0, noch sechs weiter: −6.'
+    weiter: erklaeren-minus-minus
+  - id: erklaeren-minus-minus
+    typ: erklaeren
+    text:
+      de: 'Steht eine [[negative Zahl]] in Klammern, fasse die Zeichen zusammen: plus minus wird minus, minus minus wird plus. 4 + (−6) = 4 − 6 = −2. 4 − (−6) = 4 + 6 = 10.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Rechne 7 − (−5). Minus minus wird plus.'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '2', fv: FV.RZ.RECHEN-VORZEICHEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.RZ.RECHEN-VORZEICHEN: erklaeren-minus-minus }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Der Pegel liegt bei 2 m und sinkt um 3 m. Moritz rechnet 2 + 3 = 5 m. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, sinken heißt minus: 2 − 3 = −1 m.' }, richtig: true }
+        - { wert: { de: 'Ja, es kommen 3 m dazu.' }, fv: FV.RZ.RICHTUNG }
+    weiter: merksatz
+    bei: { FV.RZ.RICHTUNG: erklaeren-zahlengerade }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Plus: nach rechts, minus: nach links, auch über die 0. Zeichen zusammenfassen: + (−) wird −, − (−) wird +.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist −8 + 3?'
+    antwort:
+      optionen:
+        - { wert: { de: '−5' }, richtig: true }
+        - { wert: { de: '5' }, fv: FV.RZ.VORZEICHEN-FALSCH }
+        - { wert: { de: '−11' }, fv: FV.RZ.RECHEN-VORZEICHEN }
+    weiter: uebergang
+    bei:
+      {
+        FV.RZ.VORZEICHEN-FALSCH: erklaeren-zahlengerade,
+        FV.RZ.RECHEN-VORZEICHEN: erklaeren-minus-minus,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt rechnest du selbst.'
+    vorlagen: [M.ZO.RZ.ADD-SUB.TERM, M.ZO.RZ.ADD-SUB.SACH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

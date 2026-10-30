@@ -1,0 +1,91 @@
+id: M.ZO.RZ.ZAHLBEREICHE
+kompetenz: M.ZO.RZ.ZAHLBEREICHE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du eine Zahl allen Zahlbereichen zuordnen, zu denen sie gehört.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ist 8/4 eine [[natürliche Zahl]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 8/4 = 2.' }, richtig: true }
+        - { wert: { de: 'Nein, es ist ein Bruch.' }, fv: FV.BR.SCHREIBWEISE-ZAHL }
+    weiter: entdecken
+    bei: { sonst: M.ZO.BR.MENGEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ist −3 eine [[ganze Zahl]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, ganze Zahlen dürfen ein Minus haben.' }, richtig: true }
+        - { wert: { de: 'Nein, wegen des Minus.' }, fv: FV.RZ.ZAHLBEREICHE }
+    weiter: erklaeren-zahlbereiche
+  - id: erklaeren-zahlbereiche
+    typ: erklaeren
+    text:
+      de: 'Die Bereiche stecken ineinander wie Schachteln. Die [[natürlichen Zahlen]] 0, 1, 2 … sind auch [[ganze Zahlen]]. Ganze Zahlen …, −2, −1, 0, 1 … sind auch [[rationale Zahlen]]. Gebrochene Zahlen haben nie ein Minus.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. 1/2 ist gebrochen und rational. −1/2 ist nur rational.'
+    weiter: erklaeren-mengen
+  - id: erklaeren-mengen
+    typ: erklaeren
+    text:
+      de: 'In der Schnittmenge zweier Bereiche liegt, was in beiden ist. In der Vereinigungsmenge liegt alles aus mindestens einem. Die ganzen und die [[gebrochenen Zahlen]] haben als Schnitt die [[natürlichen Zahlen]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Zu wie vielen der vier Bereiche natürlich, ganz, gebrochen, rational gehört die Zahl 7?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '4',
+          fehler: [{ wert: '1', fv: FV.RZ.ZAHLBEREICHE }, { wert: '3', fv: FV.RZ.ZAHLBEREICHE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.RZ.ZAHLBEREICHE: erklaeren-zahlbereiche }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Sina sagt: „Zwischen −2 und −1 liegt keine Zahl.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, zum Beispiel −1,5.' }, richtig: true }
+        - { wert: { de: 'Ja, das sind Nachbarn.' }, fv: FV.RZ.DICHTE }
+    weiter: merksatz
+    bei: { FV.RZ.DICHTE: erklaeren-zahlbereiche }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Natürlich ⊂ ganz ⊂ rational. Gebrochene Zahlen haben kein Minus. Zwischen zwei Zahlen liegen immer weitere [[rationale Zahlen]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Aussage stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Jede ganze Zahl ist eine rationale Zahl.' }, richtig: true }
+        - { wert: { de: 'Jede ganze Zahl ist eine natürliche Zahl.' }, fv: FV.RZ.ZAHLBEREICHE }
+        - { wert: { de: 'Es gibt eine kleinste rationale Zahl.' }, fv: FV.RZ.DICHTE }
+    weiter: uebergang
+    bei: { FV.RZ.ZAHLBEREICHE: erklaeren-zahlbereiche, FV.RZ.DICHTE: erklaeren-zahlbereiche }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt ordnest du selbst zu.'
+    vorlagen: [M.ZO.RZ.ZAHLBEREICHE.ZUORDNEN, M.ZO.RZ.ZAHLBEREICHE.AUSSAGEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

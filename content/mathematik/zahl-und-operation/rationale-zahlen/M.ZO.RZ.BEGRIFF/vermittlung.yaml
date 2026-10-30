@@ -1,0 +1,93 @@
+id: M.ZO.RZ.BEGRIFF
+kompetenz: M.ZO.RZ.BEGRIFF
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Zahlen unter null schreiben, an der [[Zahlengerade]] ablesen und [[Gegenzahl]] und [[Betrag]] angeben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Zahl ist am Zahlenstrahl markiert?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 5, einteilung: 1, markiert: 3 } }
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '4', fv: FV.BR.STRICHE-GEZAEHLT }] }
+    weiter: entdecken
+    bei: { sonst: M.ZO.NZ.ORDNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Das Thermometer zeigt 3 [[Grad]] unter null. Wo liegt diese Temperatur an der [[Zahlengerade]]?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -5, bis: 5, einteilung: 1, markiert: -3 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'links von 0, bei −3' }, richtig: true }
+        - { wert: { de: 'rechts von 0, bei 3' }, fv: FV.RZ.MINUS-VERGESSEN }
+    weiter: erklaeren-zahlengerade
+  - id: erklaeren-zahlengerade
+    typ: erklaeren
+    text:
+      de: 'Die [[Zahlengerade]] geht über die 0 hinaus nach links. Dort liegen die [[negativen Zahlen]] mit Minus: −1, −2, −3 … Unter null, Schulden oder unter dem Meeresspiegel schreibst du mit Minus.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -5, bis: 5, einteilung: 1, markiert: -3 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Von −4 °C bis 6 °C: 4 [[Grad]] bis zur 0 und noch 6 Grad weiter. Der Unterschied ist 10 Grad.'
+    weiter: erklaeren-gegenzahl-betrag
+  - id: erklaeren-gegenzahl-betrag
+    typ: erklaeren
+    text:
+      de: 'Die [[Gegenzahl]] liegt gleich weit von der 0 auf der anderen Seite: 5 und −5. Der [[Betrag]] ist der Abstand zur 0 und hat nie ein Minus: Der Betrag von −5 ist 5.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Taucher ist 8 m unter dem Wasser, ein Vogel 5 m darüber. Wie viele Meter liegen zwischen beiden?'
+    antwort:
+      eingabe: { art: zahl, loesung: '13', fehler: [{ wert: '3', fv: FV.RZ.ABSTAND-UEBER-NULL }] }
+    weiter: gegenbeispiel
+    bei: { FV.RZ.ABSTAND-UEBER-NULL: erklaeren-zahlengerade }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lu sagt: „Die [[Gegenzahl]] von 7 ist 7, denn der [[Betrag]] ist ja auch 7.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Gegenzahl von 7 ist −7.' }, richtig: true }
+        - { wert: { de: 'Ja, Gegenzahl und Betrag sind dasselbe.' }, fv: FV.RZ.GEGENZAHL-BETRAG }
+    weiter: merksatz
+    bei: { FV.RZ.GEGENZAHL-BETRAG: erklaeren-gegenzahl-betrag }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Links von der 0 liegen [[negative Zahlen]] mit Minus. [[Gegenzahl]]: auf die andere Seite der 0 spiegeln. [[Betrag]]: Abstand zur 0, ohne Minus.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Zahl ist auf der [[Zahlengerade]] markiert?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: -5, bis: 5, einteilung: 1, markiert: -2 } }
+    antwort:
+      optionen:
+        - { wert: { de: '−2' }, richtig: true }
+        - { wert: { de: '2' }, fv: FV.RZ.MINUS-VERGESSEN }
+        - { wert: { de: '−3' }, fv: FV.BR.STRICHE-GEZAEHLT }
+    weiter: uebergang
+    bei:
+      {
+        FV.RZ.MINUS-VERGESSEN: erklaeren-zahlengerade,
+        FV.BR.STRICHE-GEZAEHLT: erklaeren-zahlengerade,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut gemacht. Jetzt übst du selbst.'
+    vorlagen:
+      [M.ZO.RZ.BEGRIFF.ZAHLENGERADE, M.ZO.RZ.BEGRIFF.ALLTAG, M.ZO.RZ.BEGRIFF.GEGENZAHL-BETRAG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
