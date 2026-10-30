@@ -1,0 +1,26 @@
+id: FV.RZ.RECHEN-VORZEICHEN
+name:
+  de: Rechnet mit einer negativen Zahl, als wäre sie positiv
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 3 − (−9) = −6 oder 3 + (−9) = 12. Das Vorzeichen der Zahl in der Klammer wird nicht
+    beachtet; Rechenzeichen und Vorzeichen werden nicht unterschieden.
+kompetenzen: [M.ZO.RZ.ADD-SUB]
+erklaerung:
+  kurz:
+    de: 'Plus eine [[negative Zahl]] heißt nach links gehen: 3 + (−9) = −6. Minus eine negative Zahl heißt nach rechts gehen: 3 − (−9) = 12.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Minus in der Klammer nicht mitgerechnet.'
+    - teil: warum-nicht
+      de: 'Zwei Zeichen hintereinander verwirren leicht. Das erste ist das Rechenzeichen, das zweite gehört zur Zahl. Schulden dazubekommen macht ärmer, Schulden wegnehmen macht reicher.'
+    - teil: so-stimmt-es
+      de: 'Fasse zuerst die Zeichen zusammen: + (−) wird −, − (−) wird +. Dann rechne: 3 − (−9) = 3 + 9 = 12.'
+gegenbeispiel:
+  de: 'Wenn dir jemand 9 € Schulden erlässt, hast du danach mehr Geld, nicht weniger.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ADD-SUB#erklaeren-minus-minus
+kontrast: [M.ZO.RZ.ADD-SUB.TERM]
+herkunft: ki-entwurf
+version: 1

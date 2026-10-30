@@ -1,0 +1,26 @@
+id: FV.RZ.VORZEICHEN-FALSCH
+name:
+  de: Rechnet den Betrag richtig, setzt aber das falsche Vorzeichen
+art: rechenfehler
+beschreibung:
+  de: >-
+    Das Ergebnis stimmt bis auf das Vorzeichen, etwa −3 · 4 = 12 oder −8 + 3 = 5. Das Vorzeichen
+    wird nicht eigens bestimmt oder die Vorzeichenregel verwechselt.
+kompetenzen: [M.ZO.RZ.ADD-SUB, M.ZO.RZ.MULT-DIV, M.ZO.RZ.POTENZEN, M.ZO.RZ.RECHENGESETZE]
+erklaerung:
+  kurz:
+    de: 'Bestimme das [[Vorzeichen]] extra. Beim Malnehmen und Teilen: gleiche Vorzeichen ergeben plus, verschiedene minus. Beim Addieren: Liegt das Ergebnis links oder rechts der 0?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht.'
+    - teil: warum-nicht
+      de: 'Das Rechnen hat geklappt, das ist der größere Teil. Aber −12 und 12 liegen auf verschiedenen Seiten der 0, sie sind sehr verschieden.'
+    - teil: so-stimmt-es
+      de: 'Rechne in zwei Schritten: erst den [[Betrag]], dann das [[Vorzeichen]]. −3 · 4: Betrag 12, Vorzeichen verschieden, also −12. Bei mehreren [[Faktoren]]: Zähle die Minuszeichen. [[Gerade]] Anzahl plus, ungerade minus.'
+gegenbeispiel:
+  de: '3 Tage lang je 4 € Schulden machen ergibt 12 € Schulden, also −12 €, nicht 12 € Guthaben.'
+rueckweg:
+  vermittlung: M.ZO.RZ.MULT-DIV#erklaeren-vorzeichen
+kontrast: [M.ZO.RZ.MULT-DIV.TERM, M.ZO.RZ.MULT-DIV.VORZEICHEN, M.ZO.RZ.ADD-SUB.TERM]
+herkunft: ki-entwurf
+version: 1

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 2 + 3 · 4 = 20 statt 14. Die Leserichtung wird zur Rechenrichtung. Die Vorrangregel ist
     oft bekannt, wird aber vergessen, besonders sobald die Zahlen Brüche oder Dezimalzahlen sind.
-kompetenzen: [M.ZO.BR.RECHENGESETZE, M.SF.NZ.TERME]
+kompetenzen: [M.ZO.BR.RECHENGESETZE, M.SF.NZ.TERME, M.ZO.RZ.RECHENGESETZE]
 erklaerung:
   kurz:
     de: 'Es gilt [[Punkt vor Strich]]: Erst malnehmen und teilen, dann addieren und subtrahieren. Das gilt für alle Zahlen.'
@@ -26,6 +26,7 @@ kontrast:
     M.ZO.BR.RECHENGESETZE.BRUECHE-PUNKT,
     M.ZO.BR.RECHENGESETZE.DEZIMAL,
     M.SF.NZ.TERME.PUNKT-VOR-STRICH,
+    M.ZO.RZ.RECHENGESETZE.TERM,
   ]
 herkunft: ki-entwurf
 version: 1

@@ -1,0 +1,26 @@
+id: FV.RZ.SCHNITT-VEREINIGUNG
+name:
+  de: Verwechselt Schnittmenge und Vereinigungsmenge
+art: verwechslung
+beschreibung:
+  de: >-
+    Beurteilt Aussagen über Schnitt- und Vereinigungsmengen von Zahlbereichen falsch, meist weil
+    „in beiden“ und „in einer von beiden“ verwechselt werden.
+kompetenzen: [M.ZO.RZ.ZAHLBEREICHE]
+erklaerung:
+  kurz:
+    de: 'In der Schnittmenge liegt nur, was in **beiden** Mengen ist. In der Vereinigungsmenge liegt alles, was in **mindestens einer** ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Schnitt und Vereinigung verwechselt oder eine Zahl falsch eingeordnet.'
+    - teil: warum-nicht
+      de: 'Die beiden Wörter sind abstrakt. Ein Bild hilft: Zwei Kreise, die sich überlappen. Der Schnitt ist nur die Überlappung, die Vereinigung sind beide Kreise zusammen.'
+    - teil: so-stimmt-es
+      de: 'Prüfe mit Beispielzahlen wie −2, 0, 3 und 1/2: In welchen Mengen liegt jede? 3 ist ganz und gebrochen, also im Schnitt. −2 ist nur ganz, also nur in der Vereinigung.'
+gegenbeispiel:
+  de: 'Wer Fußball und wer Basketball spielt: Die Schnittmenge sind nur die, die beides spielen.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ZAHLBEREICHE#erklaeren-mengen
+kontrast: [M.ZO.RZ.ZAHLBEREICHE.AUSSAGEN]
+herkunft: ki-entwurf
+version: 1

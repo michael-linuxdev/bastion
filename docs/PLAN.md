@@ -211,7 +211,8 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [ ] **U5b** Fehlerbilder zuordnen in den übrigen Feldern, je Feld ein PR (INHALTSFORMAT §16):
     - [x] natürliche Zahlen (43 Fehlerbilder, 18 neue Fehlvorstellungen; Stand 125 von 596)
     - [x] Teilbarkeit (15 Fehlerbilder, 8 neue Fehlvorstellungen; Stand 140 von 596)
-    - [ ] rationale Zahlen · Prozent · Terme und Gleichungen · Funktionen · Größen · Geometrie · Daten und Zufall
+    - [x] rationale Zahlen (42 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 182 von 596)
+    - [ ] Prozent · Terme und Gleichungen · Funktionen · Größen · Geometrie · Daten und Zufall
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
@@ -231,6 +232,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 30.10.2026 | **U5b rationale Zahlen:** 42 Fehlerbilder zugeordnet, 14 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b Teilbarkeit:** 15 Fehlerbilder zugeordnet, 8 neue Fehlvorstellungen |
 | 30.10.2026 | **U5b natürliche Zahlen:** 43 Fehlerbilder zugeordnet, 18 neue Fehlvorstellungen; vorhandene `FV.NZ.…` mit Beispielen ohne Brüche |
 | 30.10.2026 | **U5a:** Fehlerbilder im Feld Brüche und Dezimalzahlen den Fehlvorstellungen zugeordnet (67 Fehlerbilder, 35 neue Fehlvorstellungen, zusammen 45); Test F2 für zugeordnete Felder; `pnpm inhalte:begriffe` markiert auch Fehlvorstellungen |

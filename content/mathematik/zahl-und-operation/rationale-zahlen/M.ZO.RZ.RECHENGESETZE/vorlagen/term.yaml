@@ -17,9 +17,12 @@ hilfen:
 fehlerbilder:
   links-nach-rechts:
     de: 'Du hast von links nach rechts gerechnet. Es gilt [[Punkt vor Strich]]: Zuerst malnehmen und teilen.'
+    fv: FV.NZ.PUNKT-VOR-STRICH
   klammer-uebersehen:
     de: 'Was in der Klammer steht, wird zuerst berechnet.'
+    fv: FV.NZ.KLAMMER
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Prüfe die Vorzeichen bei jedem Schritt.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

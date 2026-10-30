@@ -1,0 +1,27 @@
+id: FV.RZ.ZAHLBEREICHE
+name:
+  de: Kennt die Verschachtelung der Zahlbereiche nicht sicher
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält −3 für keine ganze Zahl, 5 für keine gebrochene Zahl oder −1/2 für eine gebrochene Zahl,
+    oder dreht die Teilmengen um. Dass ℕ in ℤ und ℚ steckt und die gebrochenen Zahlen kein Minus
+    haben, ist noch nicht verankert.
+kompetenzen: [M.ZO.RZ.ZAHLBEREICHE]
+erklaerung:
+  kurz:
+    de: 'Natürliche Zahlen sind auch ganze und [[rationale Zahlen]]. Ganze Zahlen haben kein Komma und keinen [[Bruch]], dürfen aber ein Minus haben. Gebrochene Zahlen haben nie ein Minus.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Zahl einem Zahlbereich nicht oder falsch zugeordnet.'
+    - teil: warum-nicht
+      de: 'Die Namen sind viele und [[ähnlich]], das ist schwer. Die Bereiche wachsen aber wie Schachteln: Jede [[natürliche Zahl]] ist auch eine [[ganze Zahl]], und jede ganze Zahl ist eine [[rationale Zahl]].'
+    - teil: so-stimmt-es
+      de: 'Prüfe zwei Fragen: Hat die Zahl ein Minus? Ist sie ganz oder liegt sie zwischen [[ganzen Zahlen]]? 5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. −1/2 ist nur rational.'
+gegenbeispiel:
+  de: '−3 ist eine [[ganze Zahl]], aber keine natürliche. Darum stimmt „Jede ganze Zahl ist natürlich“ nicht.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ZAHLBEREICHE#erklaeren-zahlbereiche
+kontrast: [M.ZO.RZ.ZAHLBEREICHE.ZUORDNEN, M.ZO.RZ.ZAHLBEREICHE.AUSSAGEN]
+herkunft: ki-entwurf
+version: 1

@@ -18,9 +18,12 @@ hilfen:
 fehlerbilder:
   minus-minus:
     de: 'Minus und Minus direkt hintereinander ergeben plus: 3 − (−9) = 3 + 9. Wer eine [[negative Zahl]] abzieht, geht auf der [[Zahlengerade]] nach rechts.'
+    fv: FV.RZ.RECHEN-VORZEICHEN
   plus-minus:
     de: 'Plus eine [[negative Zahl]] heißt: auf der [[Zahlengerade]] nach links gehen. 3 + (−9) = 3 − 9 = −6.'
+    fv: FV.RZ.RECHEN-VORZEICHEN
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Überlege, auf welcher Seite der 0 das Ergebnis liegt.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
 herkunft: ki-entwurf
 version: 1

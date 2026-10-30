@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   vorzeichen-falsch:
     de: 'Der [[Betrag]] stimmt, aber das [[Vorzeichen]] nicht. Gleiche Vorzeichen ergeben plus, verschiedene ergeben minus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
   komma-falsch:
     de: 'Die [[Ziffern]] stimmen, aber das Komma sitzt an der falschen Stelle. Mach einen [[Überschlag]].'
+    fv: FV.BR.KOMMA-MAL
 herkunft: ki-entwurf
 version: 1

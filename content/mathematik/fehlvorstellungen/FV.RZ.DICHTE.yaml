@@ -1,0 +1,26 @@
+id: FV.RZ.DICHTE
+name:
+  de: Überträgt Eigenschaften der ganzen Zahlen auf die rationalen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint, es gebe eine kleinste rationale Zahl oder zwischen −2 und −1 liege keine Zahl. Von den
+    natürlichen Zahlen ist bekannt, dass es eine kleinste gibt und jede einen Nachfolger hat.
+kompetenzen: [M.ZO.RZ.ZAHLBEREICHE]
+erklaerung:
+  kurz:
+    de: 'Bei den [[rationalen Zahlen]] gibt es keine kleinste Zahl, und zwischen zwei Zahlen liegen immer unendlich viele weitere.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht, die [[rationalen Zahlen]] haben einen Anfang oder Lücken.'
+    - teil: warum-nicht
+      de: 'Bei den [[natürlichen Zahlen]] stimmt das: 0 ist die kleinste, und zwischen 3 und 4 liegt keine. Aber zu jeder rationalen Zahl findest du eine kleinere, und zwischen −2 und −1 liegt zum Beispiel −1,5.'
+    - teil: so-stimmt-es
+      de: 'Probiere es aus: Zieh 1 ab, dann ist die Zahl kleiner. Nimm die Mitte zwischen zwei Zahlen, dann liegt sie dazwischen.'
+gegenbeispiel:
+  de: 'Zwischen −2 °C und −1 °C kann das Thermometer −1,5 °C zeigen.'
+rueckweg:
+  vermittlung: M.ZO.RZ.ZAHLBEREICHE#erklaeren-zahlbereiche
+kontrast: [M.ZO.RZ.ZAHLBEREICHE.AUSSAGEN]
+herkunft: ki-entwurf
+version: 1

@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   vorzeichen-vergessen:
     de: 'Achte auf das [[Vorzeichen]]: Unter null, unter dem Meeresspiegel oder Schulden schreibt man mit Minus.'
+    fv: FV.RZ.MINUS-VERGESSEN
   abstand-ohne-null:
     de: 'Du hast die beiden Zahlen voneinander abgezogen, als lägen sie auf derselben Seite der 0. Hier musst du über die 0 hinweg: Weg bis zur 0 plus Weg von der 0 weiter.'
+    fv: FV.RZ.ABSTAND-UEBER-NULL
 herkunft: ki-entwurf
 version: 1

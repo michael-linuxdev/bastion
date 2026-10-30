@@ -17,7 +17,9 @@ hilfen:
 fehlerbilder:
   betraege-verglichen:
     de: 'Du hast nur die Zahlen ohne Minus verglichen. Bei [[negativen Zahlen]] ist es umgekehrt: −8 ist kleiner als −3, weil −8 weiter links liegt.'
+    fv: FV.RZ.NACH-BETRAG
   zeichen-verdreht:
     de: 'Das Zeichen zeigt in die falsche Richtung. Die Spitze zeigt immer auf die kleinere Zahl: −5 < 2.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
 herkunft: ki-entwurf
 version: 1

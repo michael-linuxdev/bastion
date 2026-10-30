@@ -18,15 +18,21 @@ hilfen:
 fehlerbilder:
   falsch-geglaubt:
     de: 'Die Aussage stimmt. Suche ein [[Gegenbeispiel]] – du wirst keines finden.'
+    fv: FV.RZ.ZAHLBEREICHE
   teilmenge-verdreht:
     de: 'Es ist umgekehrt: −3 ist eine [[ganze Zahl]], aber keine [[natürliche Zahl]]; 1/2 ist eine [[rationale Zahl]], aber keine ganze. Ein [[Gegenbeispiel]] genügt.'
+    fv: FV.RZ.ZAHLBEREICHE
   negativ-gebrochen:
     de: 'Die [[gebrochenen Zahlen]] haben kein Minus. −1/2 ist eine [[rationale Zahl]], aber keine gebrochene.'
+    fv: FV.RZ.ZAHLBEREICHE
   kleinste-zahl:
     de: 'Zu jeder Zahl gibt es eine noch kleinere: Zieh einfach 1 ab. Eine kleinste [[rationale Zahl]] gibt es nicht.'
+    fv: FV.RZ.DICHTE
   zwischen-ganzen:
     de: 'Zwischen zwei [[ganzen Zahlen]] liegen unendlich viele [[rationale Zahlen]], zum Beispiel −1,5 zwischen −2 und −1.'
+    fv: FV.RZ.DICHTE
   schnitt-vereinigung:
     de: 'In der Schnittmenge liegt nur, was in **beiden** Mengen ist; die Vereinigungsmenge enthält alles aus beiden. Prüfe die Aussage mit Beispielen wie −2, 0, 3 und 1/2.'
+    fv: FV.RZ.SCHNITT-VEREINIGUNG
 herkunft: ki-entwurf
 version: 1
