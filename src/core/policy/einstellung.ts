@@ -93,6 +93,16 @@ export type Modus = (typeof MODI)[number];
 /** Unbekanntes oder nicht Gewähltes folgt dem System. */
 export const modusAus = (wert: unknown): Modus => MODI.find((m) => m === wert) ?? 'system';
 
+/**
+ * Bildschirm-Orientierung (Bastion + Lernen): Einstellung `darstellung.orientierung`.
+ * `auto` = Gerät; `hoch`/`quer` = Wunsch, wenn die Plattform es erlaubt.
+ */
+export const ORIENTIERUNG_SCHLUESSEL = 'darstellung.orientierung';
+export const ORIENTIERUNGEN = ['auto', 'hoch', 'quer'] as const;
+export type Orientierung = (typeof ORIENTIERUNGEN)[number];
+export const orientierungAus = (wert: unknown): Orientierung =>
+  ORIENTIERUNGEN.find((o) => o === wert) ?? 'auto';
+
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 

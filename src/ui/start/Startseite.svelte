@@ -1,6 +1,7 @@
 <script lang="ts" module>
   export type Ziel =
     | 'ueben'
+    | 'themen'
     | 'diagnose'
     | 'stand'
     | 'wiederholen'

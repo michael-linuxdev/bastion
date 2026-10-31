@@ -23,6 +23,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **Thema Dorf** (#83) und **Zoom des Bauplatzes** (#85, alle Themen).
 - **Basebau Epoche 1** vollständig (`PLAN.md` §4a, A bis D).
 - **Lebendige Szenen, G0 bis G11** (B-28, `GRAFIK.md` §4–§10, PRs #93 bis #105): Atmosphäre mit Schaltern „ruhig“ und „leicht“, Jahreszeit und Abend aus dem Datum, Wetter von Open-Meteo nur nach Einschalten (T-15), Lebewesen, Atlas-Lader mit Code-Fallback, eigene Szenen für Garten, Unterwasser und Weltraum, Hinterhof in der Szene, Ton (Standard aus), Katalog und Wechsel für Epochen 2 bis 4, Optik je Epoche, Bewährungsprobe (Belagerung).
+- **UI-Reorg** (#108, `GRAFIK.md` §1, T-19): „Üben“ springt zur nächsten Aufgabe, die Themenwahl liegt unter „Mehr“, die Bastion zeigt nur den Bauplatz mit Zahnrad für die Einstellungen, die Bildschirm-Orientierung ist wählbar.
 - **Sprite-Charge P0 Dorf** (#109, `GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8): Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas, Code bleibt Fallback. Die Boden-Kacheln liegen bereit, die Wiese zeichnet vorerst weiter der Code.
 
 **Als Nächstes:**

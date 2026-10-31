@@ -24,6 +24,7 @@
     zielSetzen,
     zielVorgemerkt,
     bastionLage,
+    bildZeigen,
     type BastionLage,
     type BauAuftrag,
   } from '../plattform/ablage';
@@ -32,6 +33,8 @@
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
+  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
+  import Hinterhof from './Hinterhof.svelte';
   import {
     aktiv,
     gebaeudeName,
@@ -50,6 +53,7 @@
   import { turmJoker, type BewaehrungModus } from '../../core/bastion/bewaehrung';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
   import { soundTipp } from './sound/sound';
+  import { t } from '../texte/texte';
 
   let {
     kompetenzen,
@@ -72,6 +76,8 @@
     onbewaehrung?: (modus: BewaehrungModus, themen: readonly string[], joker: number) => void;
   } = $props();
 
+  /** Bastion-Einstellungen hinter dem Zahnrad (nur Bauplatz auf der Seite) */
+  let einstellungenOffen = $state(false);
   let bewaehrungModus = $state<BewaehrungModus>('ueben');
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
   const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
@@ -90,10 +96,12 @@
   /** Vorgemerktes Ziel (B-20) */
   let ziel = $state<Ziel | undefined>(undefined);
 
-  void Promise.all([bastionLage(), zielVorgemerkt()]).then(([l, z]) => {
+  void Promise.all([bastionLage(), zielVorgemerkt(), bildZeigen()]).then(([l, z, bild]) => {
     lage = l;
     ziel = z;
     geladen = true;
+    // Ohne Bild ist die Liste die Bastion (barrierefrei) → Einstellungen öffnen
+    if (!bild) einstellungenOffen = true;
   });
 
   function merken(z: Ziel | undefined) {
@@ -211,8 +219,21 @@
 </script>
 
 <section class="bastion">
-  <h2>{tt('bastion.ueberschrift')}</h2>
-  <p class="leise">{tt('bastion.einleitung')}</p>
+  <header class="kopf">
+    <h2>{tt('bastion.ueberschrift')}</h2>
+    <button
+      class="zahnrad"
+      aria-expanded={einstellungenOffen}
+      aria-controls="bastion-einstellungen"
+      aria-label={t('bastion.einstellungen')}
+      onclick={() => (einstellungenOffen = !einstellungenOffen)}
+    >
+      <Symbol name="einstellungen" />
+    </button>
+  </header>
+  {#if !einstellungenOffen}
+    <p class="leise">{tt('bastion.einleitung')}</p>
+  {/if}
 
   {#if geladen && !lage}
     <p>{tt('bastion.ohne-speicher')}</p>
@@ -220,342 +241,403 @@
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
-    <Bauplatz
-      bastion={l.bastion}
-      onaktion={ausfuehren}
-      {hinterhofFelder}
-      bauplatz={epoche.bauplatz}
-      epoche={epoche.epoche}
-      {spannung}
-    />
-
-    {#if onbewaehrung}
-      {@const joker = turmJoker(l.bastion.bauwerke)}
-      <section class="bewaehrung" aria-labelledby="bewaehrung-titel">
-        <h3 id="bewaehrung-titel">{tt('bastion.bewaehrung')}</h3>
-        <p class="leise">{tt('bastion.bewaehrung-erklaerung')}</p>
-        <p class="leise">
-          {tt('bastion.bewaehrung-joker')}: {joker}
-        </p>
-        <fieldset class="modus">
-          <legend>{tt('bastion.bewaehrung-modus')}</legend>
-          <label>
-            <input type="radio" bind:group={bewaehrungModus} value="ueben" />
-            {tt('bastion.bewaehrung-ueben')}
-          </label>
-          <label>
-            <input type="radio" bind:group={bewaehrungModus} value="ernstfall" />
-            {tt('bastion.bewaehrung-ernstfall')}
-          </label>
-        </fieldset>
-        <button
-          onclick={() =>
-            onbewaehrung(
-              bewaehrungModus,
-              kompetenzen.filter((k) => k.klassenstufe_typisch.includes(klasse)).map((k) => k.id),
-              bewaehrungModus === 'ueben' ? joker : 0,
-            )}>{tt('bastion.bewaehrung-start')}</button
-        >
-      </section>
+    {#if !einstellungenOffen}
+      <Bauplatz
+        bastion={l.bastion}
+        onaktion={ausfuehren}
+        {hinterhofFelder}
+        bauplatz={epoche.bauplatz}
+        epoche={epoche.epoche}
+        {spannung}
+        onBildAus={() => (einstellungenOffen = true)}
+      />
     {/if}
 
-    <h3>{tt('bastion.vorrat')}</h3>
-    <ul class="vorrat">
-      {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
-        <li><Symbol name={symbol} /><span>{menge(r, l.konto.stand[r])}</span></li>
-      {/each}
-      <li>
-        <Symbol name="bastion" /><span
-          ><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</span
-        >
-      </li>
-    </ul>
-    <p class="leise">{tt('bastion.bauschritte-erklaerung')}</p>
-
-    {#if ziel && zielZustand && !zielZustand.erreicht}
-      {@const z = ziel}
-      {@const fehlend = (['fleiss', 'behalten', 'koennen'] as const)
-        .filter((r) => zielZustand.fehlt[r] > 0)
-        .map((r) => menge(r, zielZustand.fehlt[r]))}
-      {@const k = kosten(z.typ, z.stufe)}
-      {@const gesamt = k ? k.fleiss + k.behalten + k.koennen : 0}
-      {@const offen =
-        zielZustand.fehlt.fleiss + zielZustand.fehlt.behalten + zielZustand.fehlt.koennen}
-      <section class="vorgemerkt" aria-labelledby="ziel-titel">
-        <h3 id="ziel-titel">
-          {tt('bastion.dein-ziel')}
-          {name(z.typ)}{#if z.gebaeude}, {tt('bastion.stufe')} {z.stufe}{/if}
-        </h3>
-        {#if gesamt > 0}
-          <progress
-            max={gesamt}
-            value={Math.max(0, gesamt - offen)}
-            aria-label={tt('bastion.ziel-fortschritt')}
-          ></progress>
+    {#if einstellungenOffen}
+      <div id="bastion-einstellungen" class="einstellungen">
+        <h3>{t('bastion.einstellungen')}</h3>
+        <OrientierungWahl />
+        {#if onbewaehrung}
+          {@const joker = turmJoker(l.bastion.bauwerke)}
+          <section class="bewaehrung" aria-labelledby="bewaehrung-titel">
+            <h3 id="bewaehrung-titel">{tt('bastion.bewaehrung')}</h3>
+            <p class="leise">{tt('bastion.bewaehrung-erklaerung')}</p>
+            <p class="leise">
+              {tt('bastion.bewaehrung-joker')}: {joker}
+            </p>
+            <fieldset class="modus">
+              <legend>{tt('bastion.bewaehrung-modus')}</legend>
+              <label>
+                <input type="radio" bind:group={bewaehrungModus} value="ueben" />
+                {tt('bastion.bewaehrung-ueben')}
+              </label>
+              <label>
+                <input type="radio" bind:group={bewaehrungModus} value="ernstfall" />
+                {tt('bastion.bewaehrung-ernstfall')}
+              </label>
+            </fieldset>
+            <button
+              onclick={() =>
+                onbewaehrung(
+                  bewaehrungModus,
+                  kompetenzen
+                    .filter((k) => k.klassenstufe_typisch.includes(klasse))
+                    .map((k) => k.id),
+                  bewaehrungModus === 'ueben' ? joker : 0,
+                )}>{tt('bastion.bewaehrung-start')}</button
+            >
+          </section>
         {/if}
-        {#if fehlend.length > 0}
-          <p>{tt('bastion.fehlt')} {fehlend.join(', ')}</p>
-        {:else if zielZustand.hindernisse.length === 0}
-          <p>{tt('bastion.alles-da')}</p>
-        {/if}
-        {#each zielZustand.hindernisse as h (h)}
-          <p class="leise">{hindernisText(h, z.typ, z.stufe)}</p>
-        {/each}
-        <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
-      </section>
-    {/if}
 
-    {#if epoche.fertig}
-      <p class="geschafft" role="status">{tt('bastion.geschafft-ende')}</p>
-    {:else}
-      <h3>{tt('bastion.ziel-der-epoche')} {epoche.epoche}: {wort(epoche.nameKey)}</h3>
-      <ul class="ziel">
-        <li>
-          {epoche.kern >= epoche.ziel.kern ? '✓' : '○'}
-          {wort('gebaeude.kern')}
-          {tt('bastion.auf-stufe')}
-          {epoche.ziel.kern}
-          ({tt('bastion.stufe')}
-          {epoche.kern})
-        </li>
-        <li>
-          {epoche.bauplaene >= epoche.ziel.bauplaene ? '✓' : '○'}
-          {Math.min(epoche.bauplaene, epoche.ziel.bauplaene)}
-          {tt('bastion.von')}
-          {epoche.ziel.bauplaene}
-          {tt('bastion.ziel-bauplaene')}
-        </li>
-      </ul>
-      <p class="leise">{tt('bastion.ziel-erklaerung')}</p>
-    {/if}
-
-    {#if meldung.length > 0}
-      <p class="meldung" role="status">
-        {meldung.map((h) => tt(`bastion.hindernis.${h}` as TextSchluessel)).join(' ')}
-      </p>
-    {/if}
-
-    {#if l.bastion.vorhaben.length > 0}
-      <h3>{tt('bastion.im-bau')}</h3>
-      <ul class="liste">
-        {#each l.bastion.vorhaben as v (v.id)}
+        <h3>{tt('bastion.vorrat')}</h3>
+        <ul class="vorrat">
+          {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
+            <li><Symbol name={symbol} /><span>{menge(r, l.konto.stand[r])}</span></li>
+          {/each}
           <li>
-            <span>
-              <strong>{name(v.typ)}</strong>
-              {#if v.stufe > 1}{tt('bastion.auf-stufe')} {v.stufe}{/if}
-              <br />
-              <progress max={v.bedarf} value={v.fortschritt}></progress>
-              {tt('bastion.bauschritten')}: {v.fortschritt}
-              {tt('bastion.von')}
-              {v.bedarf}
-            </span>
-            <button onclick={() => void ausfuehren({ art: 'abbrechen', vorhaben: v.id })}
-              >{tt('bastion.abbrechen')}</button
+            <Symbol name="bastion" /><span
+              ><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</span
             >
           </li>
-        {/each}
-      </ul>
-      <p class="leise">{tt('bastion.abbrechen-erklaerung')}</p>
-    {/if}
+        </ul>
+        <p class="leise">{tt('bastion.bauschritte-erklaerung')}</p>
 
-    {#snippet angebot(a: Angebot)}
-      {@const k = kosten(a.typ, a.stufe)}
-      <li>
-        <span>
-          <strong>{name(a.typ)}</strong>
-          {#if a.ausbau}{tt('bastion.auf-stufe')} {a.stufe}{/if}
-          <br /><small class="leise">{wozu(a.typ)}</small>
-          {#if k}<br /><small>{tt('bastion.kosten')} {kostenText(k)}</small>{/if}
-          {#each einzeln(a.hindernisse) as h (h)}
-            <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
-          {/each}
-          {#if fehlt(a.hindernisse).length > 0}
-            <br /><small class="hindernis"
-              >{tt('bastion.reicht-nicht')} {fehlt(a.hindernisse).join(', ')}</small
-            >
-          {/if}
-        </span>
-        <span class="knoepfe">
-          {#if a.hindernisse.length > 0}
-            {#if ist(a, ziel)}
-              <small class="leise">{tt('bastion.vorgemerkt')}</small>
-            {:else}
-              <button onclick={() => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
-                >{tt('bastion.vormerken')}</button
-              >
+        {#if ziel && zielZustand && !zielZustand.erreicht}
+          {@const z = ziel}
+          {@const fehlend = (['fleiss', 'behalten', 'koennen'] as const)
+            .filter((r) => zielZustand.fehlt[r] > 0)
+            .map((r) => menge(r, zielZustand.fehlt[r]))}
+          {@const k = kosten(z.typ, z.stufe)}
+          {@const gesamt = k ? k.fleiss + k.behalten + k.koennen : 0}
+          {@const offen =
+            zielZustand.fehlt.fleiss + zielZustand.fehlt.behalten + zielZustand.fehlt.koennen}
+          <section class="vorgemerkt" aria-labelledby="ziel-titel">
+            <h3 id="ziel-titel">
+              {tt('bastion.dein-ziel')}
+              {name(z.typ)}{#if z.gebaeude}, {tt('bastion.stufe')} {z.stufe}{/if}
+            </h3>
+            {#if gesamt > 0}
+              <progress
+                max={gesamt}
+                value={Math.max(0, gesamt - offen)}
+                aria-label={tt('bastion.ziel-fortschritt')}
+              ></progress>
             {/if}
-          {/if}
-          <button
-            disabled={a.hindernisse.length > 0}
-            onclick={() =>
-              void ausfuehren({
-                art: 'beginnen',
-                typ: a.typ,
-                ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
-              })}>{a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.knopf-bauen')}</button
-          >
-        </span>
-      </li>
-    {/snippet}
+            {#if fehlend.length > 0}
+              <p>{tt('bastion.fehlt')} {fehlend.join(', ')}</p>
+            {:else if zielZustand.hindernisse.length === 0}
+              <p>{tt('bastion.alles-da')}</p>
+            {/if}
+            {#each zielZustand.hindernisse as h (h)}
+              <p class="leise">{hindernisText(h, z.typ, z.stufe)}</p>
+            {/each}
+            <button onclick={() => merken(undefined)}>{tt('bastion.nicht-vormerken')}</button>
+          </section>
+        {/if}
 
-    <h3>{tt('bastion.bauen')}</h3>
-    {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
-    <ul class="liste">
-      {#each neubauten as a (a.typ)}{@render angebot(a)}{/each}
-    </ul>
+        {#if epoche.fertig}
+          <p class="geschafft" role="status">{tt('bastion.geschafft-ende')}</p>
+        {:else}
+          <h3>{tt('bastion.ziel-der-epoche')} {epoche.epoche}: {wort(epoche.nameKey)}</h3>
+          <ul class="ziel">
+            <li>
+              {epoche.kern >= epoche.ziel.kern ? '✓' : '○'}
+              {wort('gebaeude.kern')}
+              {tt('bastion.auf-stufe')}
+              {epoche.ziel.kern}
+              ({tt('bastion.stufe')}
+              {epoche.kern})
+            </li>
+            <li>
+              {epoche.bauplaene >= epoche.ziel.bauplaene ? '✓' : '○'}
+              {Math.min(epoche.bauplaene, epoche.ziel.bauplaene)}
+              {tt('bastion.von')}
+              {epoche.ziel.bauplaene}
+              {tt('bastion.ziel-bauplaene')}
+            </li>
+          </ul>
+          <p class="leise">{tt('bastion.ziel-erklaerung')}</p>
+        {/if}
 
-    {#if ausbauten.length > 0}
-      <h3>{tt('bastion.ausbauen')}</h3>
-      <ul class="liste">
-        {#each ausbauten as a (a.ausbau?.id)}{@render angebot(a)}{/each}
-      </ul>
-    {/if}
+        {#if meldung.length > 0}
+          <p class="meldung" role="status">
+            {meldung.map((h) => tt(`bastion.hindernis.${h}` as TextSchluessel)).join(' ')}
+          </p>
+        {/if}
 
-    <h3>{tt('bastion.gebaeude')}</h3>
-    <ul class="liste">
-      {#each gebaeude as b (b.id)}
-        <li>
-          <span>
-            <strong>{name(b.typ)}</strong>
-            {#if KATALOG[b.typ].stufen.length > 1}{tt('bastion.stufe')} {b.stufe}{/if}
-            <br /><small class="leise">{tt('bastion.feld')}: {feld(b.pos.x, b.pos.y)}</small>
-          </span>
-          {#if versetzt && versetzt.id === b.id}
-            <span class="versetzen">
-              <label
-                >{tt('bastion.spalte')}
-                <select bind:value={versetzt.x}>
-                  {#each Array.from({ length: epoche.bauplatz.breite }, (_, i) => i) as i (i)}
-                    <option value={i}>{i + 1}</option>
-                  {/each}
-                </select></label
-              >
-              <label
-                >{tt('bastion.reihe')}
-                <select bind:value={versetzt.y}>
-                  {#each Array.from({ length: epoche.bauplatz.tiefe }, (_, i) => i) as i (i)}
-                    <option value={i}>{i + 1}</option>
-                  {/each}
-                </select></label
-              >
-              <button
-                disabled={platzHindernisse(
-                  l.bastion,
-                  b.typ,
-                  { x: versetzt.x, y: versetzt.y },
-                  b.id,
-                  epoche.bauplatz,
-                ).length > 0}
-                onclick={() =>
-                  versetzt &&
-                  void ausfuehren({
-                    art: 'versetzen',
-                    gebaeude: b.id,
-                    pos: { x: versetzt.x, y: versetzt.y },
-                  })}>{tt('bastion.hierhin')}</button
-              >
-            </span>
-          {:else}
-            <span class="knoepfe">
-              <button onclick={() => (versetzt = { id: b.id, x: b.pos.x, y: b.pos.y })}
-                >{tt('bastion.versetzen')}</button
-              >
-              {#if einlagerbar(b.typ)}
-                <button onclick={() => void ausfuehren({ art: 'einlagern', gebaeude: b.id })}
-                  >{tt('bastion.einlagern')}</button
+        {#if l.bastion.vorhaben.length > 0}
+          <h3>{tt('bastion.im-bau')}</h3>
+          <ul class="liste">
+            {#each l.bastion.vorhaben as v (v.id)}
+              <li>
+                <span>
+                  <strong>{name(v.typ)}</strong>
+                  {#if v.stufe > 1}{tt('bastion.auf-stufe')} {v.stufe}{/if}
+                  <br />
+                  <progress max={v.bedarf} value={v.fortschritt}></progress>
+                  {tt('bastion.bauschritten')}: {v.fortschritt}
+                  {tt('bastion.von')}
+                  {v.bedarf}
+                </span>
+                <button onclick={() => void ausfuehren({ art: 'abbrechen', vorhaben: v.id })}
+                  >{tt('bastion.abbrechen')}</button
+                >
+              </li>
+            {/each}
+          </ul>
+          <p class="leise">{tt('bastion.abbrechen-erklaerung')}</p>
+        {/if}
+
+        {#snippet angebot(a: Angebot)}
+          {@const k = kosten(a.typ, a.stufe)}
+          <li>
+            <span>
+              <strong>{name(a.typ)}</strong>
+              {#if a.ausbau}{tt('bastion.auf-stufe')} {a.stufe}{/if}
+              <br /><small class="leise">{wozu(a.typ)}</small>
+              {#if k}<br /><small>{tt('bastion.kosten')} {kostenText(k)}</small>{/if}
+              {#each einzeln(a.hindernisse) as h (h)}
+                <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
+              {/each}
+              {#if fehlt(a.hindernisse).length > 0}
+                <br /><small class="hindernis"
+                  >{tt('bastion.reicht-nicht')} {fehlt(a.hindernisse).join(', ')}</small
                 >
               {/if}
             </span>
+            <span class="knoepfe">
+              {#if a.hindernisse.length > 0}
+                {#if ist(a, ziel)}
+                  <small class="leise">{tt('bastion.vorgemerkt')}</small>
+                {:else}
+                  <button
+                    onclick={() => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
+                    >{tt('bastion.vormerken')}</button
+                  >
+                {/if}
+              {/if}
+              <button
+                disabled={a.hindernisse.length > 0}
+                onclick={() =>
+                  void ausfuehren({
+                    art: 'beginnen',
+                    typ: a.typ,
+                    ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
+                  })}>{a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.knopf-bauen')}</button
+              >
+            </span>
+          </li>
+        {/snippet}
+
+        <h3>{tt('bastion.bauen')}</h3>
+        {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
+        <ul class="liste">
+          {#each neubauten as a (a.typ)}{@render angebot(a)}{/each}
+        </ul>
+
+        {#if ausbauten.length > 0}
+          <h3>{tt('bastion.ausbauen')}</h3>
+          <ul class="liste">
+            {#each ausbauten as a (a.ausbau?.id)}{@render angebot(a)}{/each}
+          </ul>
+        {/if}
+
+        <h3>{tt('bastion.gebaeude')}</h3>
+        <ul class="liste">
+          {#each gebaeude as b (b.id)}
+            <li>
+              <span>
+                <strong>{name(b.typ)}</strong>
+                {#if KATALOG[b.typ].stufen.length > 1}{tt('bastion.stufe')} {b.stufe}{/if}
+                <br /><small class="leise">{tt('bastion.feld')}: {feld(b.pos.x, b.pos.y)}</small>
+              </span>
+              {#if versetzt && versetzt.id === b.id}
+                <span class="versetzen">
+                  <label
+                    >{tt('bastion.spalte')}
+                    <select bind:value={versetzt.x}>
+                      {#each Array.from({ length: epoche.bauplatz.breite }, (_, i) => i) as i (i)}
+                        <option value={i}>{i + 1}</option>
+                      {/each}
+                    </select></label
+                  >
+                  <label
+                    >{tt('bastion.reihe')}
+                    <select bind:value={versetzt.y}>
+                      {#each Array.from({ length: epoche.bauplatz.tiefe }, (_, i) => i) as i (i)}
+                        <option value={i}>{i + 1}</option>
+                      {/each}
+                    </select></label
+                  >
+                  <button
+                    disabled={platzHindernisse(
+                      l.bastion,
+                      b.typ,
+                      { x: versetzt.x, y: versetzt.y },
+                      b.id,
+                      epoche.bauplatz,
+                    ).length > 0}
+                    onclick={() =>
+                      versetzt &&
+                      void ausfuehren({
+                        art: 'versetzen',
+                        gebaeude: b.id,
+                        pos: { x: versetzt.x, y: versetzt.y },
+                      })}>{tt('bastion.hierhin')}</button
+                  >
+                </span>
+              {:else}
+                <span class="knoepfe">
+                  <button onclick={() => (versetzt = { id: b.id, x: b.pos.x, y: b.pos.y })}
+                    >{tt('bastion.versetzen')}</button
+                  >
+                  {#if einlagerbar(b.typ)}
+                    <button onclick={() => void ausfuehren({ art: 'einlagern', gebaeude: b.id })}
+                      >{tt('bastion.einlagern')}</button
+                    >
+                  {/if}
+                </span>
+              {/if}
+              {#if einlagerbar(b.typ) && versetzt?.id !== b.id}
+                <FarbWahl
+                  farbe={b.farbe}
+                  name={`farbe-${b.id}`}
+                  onwahl={(f) => void ausfuehren({ art: 'gestalten', gebaeude: b.id, farbe: f })}
+                />
+              {/if}
+            </li>
+          {/each}
+        </ul>
+        <p class="leise">{tt('bastion.versetzen-erklaerung')}</p>
+
+        {#if l.bastion.lager.length > 0}
+          <h3>{tt('bastion.lager')}</h3>
+          <ul class="liste">
+            {#each l.bastion.lager as b (b.id)}
+              <li>
+                <strong>{name(b.typ)}</strong>
+                <button onclick={() => void ausfuehren({ art: 'aufstellen', gebaeude: b.id })}
+                  >{tt('bastion.aufstellen')}</button
+                >
+              </li>
+            {/each}
+          </ul>
+          <p class="leise">{tt('bastion.lager-erklaerung')}</p>
+        {/if}
+
+        <h3>{tt('bastion.buecher')}</h3>
+        <p class="leise">{tt('bastion.buecher-erklaerung')}</p>
+        {#if l.buecher.length === 0}
+          <p>{tt('bastion.buecher-leer')}</p>
+        {:else}
+          <ul class="regal">
+            {#each l.buecher as buch (`${buch.kompetenz}@${buch.niveau}`)}
+              <li>
+                {wort('wissen-zeichen')}
+                {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
+                <small class="leise"
+                  >({tt(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {tt('bastion.seit')}
+                  {datum(Date.parse(buch.seit))})</small
+                >
+              </li>
+            {/each}
+          </ul>
+          {#if !l.bastion.bauwerke.some((b) => b.typ === 'wissen')}
+            <p class="leise">{tt('bastion.buecher-ohne-stube')}</p>
           {/if}
-          {#if einlagerbar(b.typ) && versetzt?.id !== b.id}
-            <FarbWahl
-              farbe={b.farbe}
-              name={`farbe-${b.id}`}
-              onwahl={(f) => void ausfuehren({ art: 'gestalten', gebaeude: b.id, farbe: f })}
-            />
-          {/if}
-        </li>
-      {/each}
-    </ul>
-    <p class="leise">{tt('bastion.versetzen-erklaerung')}</p>
+        {/if}
 
-    {#if l.bastion.lager.length > 0}
-      <h3>{tt('bastion.lager')}</h3>
-      <ul class="liste">
-        {#each l.bastion.lager as b (b.id)}
-          <li>
-            <strong>{name(b.typ)}</strong>
-            <button onclick={() => void ausfuehren({ art: 'aufstellen', gebaeude: b.id })}
-              >{tt('bastion.aufstellen')}</button
+        {#if l.bastion.fertig.length > 0}
+          <h3>{tt('bastion.geschichte')}</h3>
+          <ul>
+            {#each [...l.bastion.fertig].reverse() as f (f.vorhaben)}
+              <li>
+                {name(f.typ)}{#if KATALOG[f.typ].stufen.length > 1}, {tt('bastion.stufe')}
+                  {f.stufe}{/if}
+                – {tt('bastion.fertig-am')}
+                {datum(f.ts)}
+              </li>
+            {/each}
+          </ul>
+        {/if}
+
+        <fieldset class="themen">
+          <legend>{tt('bastion.thema')}</legend>
+          {#each THEMEN as th (th)}
+            <label
+              ><input
+                type="radio"
+                name="thema"
+                checked={aktiv.thema === th}
+                onchange={() => themaWaehlen(th)}
+              />
+              {wort('name', th)}</label
             >
-          </li>
-        {/each}
-      </ul>
-      <p class="leise">{tt('bastion.lager-erklaerung')}</p>
-    {/if}
+          {/each}
+        </fieldset>
+        <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 
-    <h3>{tt('bastion.buecher')}</h3>
-    <p class="leise">{tt('bastion.buecher-erklaerung')}</p>
-    {#if l.buecher.length === 0}
-      <p>{tt('bastion.buecher-leer')}</p>
-    {:else}
-      <ul class="regal">
-        {#each l.buecher as buch (`${buch.kompetenz}@${buch.niveau}`)}
-          <li>
-            {wort('wissen-zeichen')}
-            {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
-            <small class="leise"
-              >({tt(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {tt('bastion.seit')}
-              {datum(Date.parse(buch.seit))})</small
-            >
-          </li>
-        {/each}
-      </ul>
-      {#if !l.bastion.bauwerke.some((b) => b.typ === 'wissen')}
-        <p class="leise">{tt('bastion.buecher-ohne-stube')}</p>
-      {/if}
-    {/if}
+        {#if wetterEinstellen}
+          <WetterEinstellung durch="jugendlich" />
+        {/if}
 
-    {#if l.bastion.fertig.length > 0}
-      <h3>{tt('bastion.geschichte')}</h3>
-      <ul>
-        {#each [...l.bastion.fertig].reverse() as f (f.vorhaben)}
-          <li>
-            {name(f.typ)}{#if KATALOG[f.typ].stufen.length > 1}, {tt('bastion.stufe')}
-              {f.stufe}{/if}
-            – {tt('bastion.fertig-am')}
-            {datum(f.ts)}
-          </li>
-        {/each}
-      </ul>
+        <Hinterhof {kompetenzen} {staende} {aufgaben} {klasse} />
+
+        <button class="zurueck-einstellungen" onclick={() => (einstellungenOffen = false)}
+          >← {t('bastion.zur-bastion')}</button
+        >
+      </div>
     {/if}
   {/if}
-
-  <fieldset class="themen">
-    <legend>{tt('bastion.thema')}</legend>
-    {#each THEMEN as th (th)}
-      <label
-        ><input
-          type="radio"
-          name="thema"
-          checked={aktiv.thema === th}
-          onchange={() => themaWaehlen(th)}
-        />
-        {wort('name', th)}</label
-      >
-    {/each}
-  </fieldset>
-  <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 </section>
-
-{#if wetterEinstellen}
-  <WetterEinstellung durch="jugendlich" />
-{/if}
 
 <style>
   .bastion {
     display: grid;
     gap: var(--abstand-s);
+  }
+
+  .kopf {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--abstand-s);
+  }
+
+  .kopf h2 {
+    margin-block: 0;
+  }
+
+  .zahnrad {
+    font: inherit;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .einstellungen {
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .zurueck-einstellungen {
+    font: inherit;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
+    padding-inline: 0;
+    min-block-size: 2.75rem;
+    justify-self: start;
   }
 
   h3 {

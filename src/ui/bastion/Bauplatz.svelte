@@ -54,6 +54,7 @@
     bauplatz = BAUPLATZ,
     epoche = 1 as Epoche,
     spannung = false,
+    onBildAus,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -64,6 +65,8 @@
     epoche?: Epoche;
     /** Bewährungsprobe: Spannungs-Himmel (G11) */
     spannung?: boolean;
+    /** Bild aus → Eltern öffnen die Listenansicht (Einstellungen) */
+    onBildAus?: () => void;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -493,6 +496,7 @@
     void bildSetzen(zeigen);
     auswahl = undefined;
     versetzen = false;
+    if (!zeigen) onBildAus?.();
   }
 </script>
 

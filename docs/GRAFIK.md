@@ -43,7 +43,10 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
   - Eingabefelder passend zur Lösungsart (Zähler und Nenner getrennt).
   - Knöpfe „Prüfen“, „Tipp“ und „Lösungsweg“, darunter „Fertig für heute“.
 - **Leiste unten** (aus Richtung B übernommen): Start, Üben, Bastion, Mehr – immer sichtbar, aktueller Bereich hervorgehoben. *Geändert am 29.10.2026 (Projektverantwortlicher): „Mehr“ ersetzt „Mein Stand“.*
-- **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
+- **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Themen wählen, Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
+- **Üben (31.10.2026):** Ein Klick (Leiste oder Start) springt zur nächsten bzw. offenen Aufgabe – nicht in die Themenübersicht. Klasse, Niveau und Themenwahl liegen unter „Mehr“ → „Themen wählen“.
+- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz; Vorrat, Bau, Bewährung, Thema, Wetter, Hinterhof und Orientierung liegen hinter dem Zahnrad oben rechts (Bastion-Einstellungen). In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung.
+- **Bildschirm drehen (31.10.2026):** Einstellung `darstellung.orientierung` (`auto` / `hoch` / `quer`), wählbar in Bastion-Einstellungen, unter „Über mich“ und im Übungs-Zahnrad. Screen-Orientation-API wenn verfügbar; sonst Hinweis zum Drehen des Geräts (kein Layout-Bruch durch CSS-Drehung).
 
 ## 2. Hell, dunkel, System
 
