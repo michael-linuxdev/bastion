@@ -29,6 +29,8 @@ import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
 import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
 import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
+import type { Epoche } from '../../../core/bastion/epochen';
+import { epocheOptik, farbeSkalieren } from './epoche-optik';
 import {
   bauplatzAktiv,
   bauplatzAktivSetzen,
@@ -75,6 +77,8 @@ export interface Ansicht {
   readonly ziel?: { readonly pos: Position; readonly typ: GebaeudeTyp; readonly frei: boolean };
   /** Hinterhof-Felder hinter dem Bauplatz (B-25) */
   readonly hinterhof?: readonly HinterhofFeld[];
+  /** Freigeschaltete Epoche für Optik (GRAFIK §8 / G10) */
+  readonly epoche?: Epoche;
 }
 
 export interface Buehne {
@@ -134,20 +138,22 @@ const hoch = (p: Punkt, h: number): Punkt => ({ x: p.x, y: p.y - h });
 const flach = (...p: Punkt[]) => p.flatMap((q) => [q.x, q.y]);
 
 /** Höhe des Körpers je Rolle in Bildpunkten; Kern und Turm wachsen mit der Stufe. */
-function hoehe(typ: GebaeudeTyp, stufe: number): number {
+function hoehe(typ: GebaeudeTyp, stufe: number, epoche: Epoche = 1): number {
+  const optik = epocheOptik(epoche);
   const grund: Record<GebaeudeTyp, number> = {
     kern: 54,
     turm: 46,
     werkstatt: 26,
     wissen: 28,
     eingang: 32,
-    einfassung: 12,
+    einfassung: 10 + optik.einfassungDicke * 2,
     ursprung: 8,
     zeichen: 6,
     flaeche: 3,
     denkmal: 14,
   };
-  return grund[typ] + (typ === 'kern' || typ === 'turm' ? (stufe - 1) * 8 : 0);
+  const plus = typ === 'einfassung' || typ === 'flaeche' ? 0 : optik.hoehePlus;
+  return grund[typ] + plus + (typ === 'kern' || typ === 'turm' ? (stufe - 1) * 8 : 0);
 }
 
 /** Ecken eines Rechtecks auf dem Boden: hinten, rechts, vorne, links */
@@ -244,7 +250,7 @@ function satteldach(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farb
   }
 }
 
-/** Ein Gebäude je Rolle (B-12) */
+/** Ein Gebäude je Rolle (B-12); Optik je Epoche (G10). */
 function zeichneRolle(
   g: Graphics,
   typ: GebaeudeTyp,
@@ -252,13 +258,16 @@ function zeichneRolle(
   pos: Position,
   farbe: string,
   f: Farben,
+  epoche: Epoche = 1,
 ) {
+  const optik = epocheOptik(epoche);
+  const wand = farbeSkalieren(farbe, optik.wandFaktor);
   const [w, t] = KATALOG[typ].groesse;
-  const h = hoehe(typ, stufe);
+  const h = hoehe(typ, stufe, epoche);
   switch (typ) {
     case 'kern': {
       const e = ecken(pos.x, pos.y, w, t, 0.12);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       // Zinnen an den beiden vorderen Kanten
       for (const [a, b] of [
         [o.links, o.vorne],
@@ -267,39 +276,46 @@ function zeichneRolle(
         for (const s of [0.1, 0.45, 0.8]) {
           const p = { x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s };
           const q = { x: a.x + (b.x - a.x) * (s + 0.12), y: a.y + (b.y - a.y) * (s + 0.12) };
-          g.poly(flach(p, q, hoch(q, 6), hoch(p, 6))).fill(dunkler(farbe, 0.75));
+          g.poly(flach(p, q, hoch(q, 6), hoch(p, 6))).fill(dunkler(wand, 0.75));
         }
       fenster(g, e, h, f);
       // Turm in der Mitte mit Dach
       const innen = ecken(pos.x + w * 0.3, pos.y + t * 0.3, w * 0.4, t * 0.4, 0);
-      const spitze = quader(g, innen, 26, farbe, f.linie, h);
+      const spitze = quader(g, innen, 26, wand, f.linie, h);
       pyramide(g, spitze, 24, f);
+      if (optik.kernAkzent) {
+        const m = {
+          x: (spitze.hinten.x + spitze.vorne.x) / 2,
+          y: (spitze.hinten.y + spitze.vorne.y) / 2,
+        };
+        g.circle(m.x, m.y - 28, 3).fill(optik.kernAkzent);
+      }
       break;
     }
     case 'turm': {
       const e = ecken(pos.x, pos.y, w, t, 0.18);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       pyramide(g, o, 22, f);
       fenster(g, e, h, f);
       break;
     }
     case 'werkstatt': {
       const e = ecken(pos.x, pos.y, w, t, 0.1);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       satteldach(g, o, 16, f);
       fenster(g, e, h, f);
       break;
     }
     case 'wissen': {
       const e = ecken(pos.x, pos.y, w, t, 0.12);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       pyramide(g, o, 16, f);
       fenster(g, e, h, f);
       break;
     }
     case 'eingang': {
       const e = ecken(pos.x, pos.y, w, t, 0.1);
-      quader(g, e, h, farbe, f.linie);
+      quader(g, e, h, wand, f.linie);
       // Torbogen auf der linken Seite
       const m = { x: (e.links.x + e.vorne.x) / 2, y: (e.links.y + e.vorne.y) / 2 };
       g.roundRect(m.x - 6, m.y - 20, 12, 18, 6).fill({ color: f.linie, alpha: 0.7 });
@@ -308,13 +324,13 @@ function zeichneRolle(
     case 'einfassung':
       for (let i = 0; i < 3; i++) {
         const e = ecken(pos.x + (w / 3) * i, pos.y, w / 3, t, 0.08);
-        quader(g, e, h, farbe, f.linie);
+        quader(g, e, h, wand, f.linie);
       }
       break;
     case 'ursprung': {
       // Feuerstelle: flacher Ring, darin eine Flamme
       const e = ecken(pos.x, pos.y, w, t, 0.2);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       const m = { x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 };
       g.poly([m.x, m.y - 14, m.x + 5, m.y, m.x - 5, m.y]).fill(f.licht);
       break;
@@ -333,7 +349,7 @@ function zeichneRolle(
     }
     case 'flaeche': {
       const e = ecken(pos.x, pos.y, w, t, 0.06);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       // Herbst: wärmere Punkte; Winter: hellere „Schnee“-Punkte
       const punktFarbe =
         f.jahreszeit === 'herbst'
@@ -725,6 +741,7 @@ export async function buehneErstellen(
             x.pos,
             x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
             farben,
+            a.epoche ?? 1,
           );
         }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
@@ -738,7 +755,7 @@ export async function buehneErstellen(
                 ? uwHoehe(x.typ, x.stufe)
                 : art === 'weltraum'
                   ? weltraumHoehe(x.typ, x.stufe)
-                  : hoehe(x.typ, x.stufe)) + 20;
+                  : hoehe(x.typ, x.stufe, a.epoche ?? 1)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(
