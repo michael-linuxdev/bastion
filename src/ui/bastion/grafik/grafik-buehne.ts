@@ -24,14 +24,16 @@ import {
   wolkenVersatz,
   type Bewegung,
 } from './atmosphaere';
+import { atlasLaden } from './atlas';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
+import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 
-/** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
-export type Bildart = 'insel' | 'dorf';
+/** Insel, Dorfbilder oder Gartenbilder (GRAFIK §6 / G5). */
+export type Bildart = 'insel' | 'dorf' | 'garten';
 
 export interface Farben {
   readonly boden: string;
@@ -468,8 +470,11 @@ export async function buehneErstellen(
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
   const hintergrund = new Graphics();
   // Bei Nebel/Regen Gestirn abdunkeln – Sonne nur bei klar/leicht bewölkt
+  // Atlas optional vorladen (Fallback bleibt Code)
+  void atlasLaden();
   if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
+  else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
   if (wetterBild === 'nebel') {
     hintergrund.rect(0, 0, BUEHNE_B, BUEHNE_H).fill({ color: '#c8d2dc', alpha: 0.35 });
@@ -639,10 +644,26 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'garten') {
+        gartenSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
       }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
-        if (art !== 'dorf') {
+        if (art === 'insel') {
           if (a.auswahl === x.id)
             raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           zeichneRolle(
@@ -656,7 +677,12 @@ export async function buehneErstellen(
         }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
         const e = ecken(x.pos.x, x.pos.y, w, t, 0);
-        const h = (art === 'dorf' ? dorfHoehe(x.typ, x.stufe) : hoehe(x.typ, x.stufe)) + 20;
+        const h =
+          (art === 'dorf'
+            ? dorfHoehe(x.typ, x.stufe)
+            : art === 'garten'
+              ? gartenHoehe(x.typ, x.stufe)
+              : hoehe(x.typ, x.stufe)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(

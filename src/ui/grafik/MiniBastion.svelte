@@ -12,7 +12,30 @@
 </script>
 
 <div class="mini" class:abend data-jahreszeit={jahreszeit} aria-hidden="true">
-  {#if aktiv.thema === 'dorf'}
+  {#if aktiv.thema === 'garten'}
+    <svg viewBox="0 0 240 120" focusable="false" preserveAspectRatio="xMidYMax slice">
+      <rect width="240" height="120" class="himmel" />
+      <circle cx="206" cy="22" r="11" class="gestirn" />
+      {#if !abend}
+        <ellipse cx="40" cy="28" rx="16" ry="5" class="wolke" />
+      {/if}
+      <path d="M28 102 120 78l92 24-92 16Z" class="wiese" />
+      <path d="M28 102v4l92 16v-4Z" class="wiese-rand" />
+      <path d="M212 102v4l-92 16v-4Z" class="wiese-rand-vorn" />
+      <rect x="108" y="78" width="6" height="22" fill="#5c4030" />
+      <circle cx="111" cy="72" r="14" class="laub" />
+      <circle cx="104" cy="68" r="8" class="laub-hell" />
+      <path d="M98 92V78l16 4v14Z" fill="#8b6a45" />
+      <path d="M130 92V78l-16 4v14Z" fill="#9a7a55" />
+      <path d="M96 79 114 68l18 11-18 5Z" class="dach" />
+      {#if jahreszeit === 'winter'}
+        <path d="M96 79 114 68l18 11-18 5Z" class="schnee" />
+      {/if}
+      <circle cx="160" cy="96" r="3" fill="#e07a9a" />
+      <circle cx="172" cy="98" r="2.5" fill="#e6c35c" />
+      <circle cx="50" cy="94" r="8" class="laub" />
+    </svg>
+  {:else if aktiv.thema === 'dorf'}
     <svg viewBox="0 0 240 120" focusable="false" preserveAspectRatio="xMidYMax slice">
       <rect width="240" height="120" class="himmel" />
       <circle cx="206" cy="22" r="11" class="gestirn" />

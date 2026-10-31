@@ -341,7 +341,7 @@
     void jahreszeit;
     void abend;
     void wetterBild;
-    const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
+    const bildart = aktiv.thema === 'dorf' ? 'dorf' : aktiv.thema === 'garten' ? 'garten' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
