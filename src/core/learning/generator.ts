@@ -6,6 +6,7 @@
  * Die Generatoren selbst liegen in src/generators und importieren von hier.
  */
 import type { Bruch } from './bruch';
+import type { Taste } from './tastatur';
 
 /** Text in mehreren Sprachen; zunächst nur Deutsch (INHALTSFORMAT I-3). */
 export interface Sprachobjekt {
@@ -68,10 +69,12 @@ export interface Instanz {
   readonly bild?: Bild;
   /** Antwortmöglichkeiten (Aufgabentypen `auswahl`, `bild-auswahl`). */
   readonly optionen?: readonly Option[];
-  /** Antworten können negativ sein (ab Klasse 7): Die Eingabe bietet einen Knopf „±“, weil
-   * Handy-Zahlentastaturen oft kein Minus haben. Gilt für jede Instanz des Generators,
-   * damit der Knopf nichts über die Lösung verrät. */
+  /** Antworten können negativ sein (ab Klasse 7): Die eigene Tastatur zeigt die Minustaste
+   * (INHALTSFORMAT §5.2). Gilt für jede Instanz des Generators, damit die Taste nichts über
+   * die Lösung verrät. */
   readonly vorzeichen?: boolean;
+  /** Tasten nur für diese Aufgabe; gewinnt vor der Vorlage (INHALTSFORMAT §5.2) */
+  readonly tastatur?: readonly Taste[];
   readonly loesung: Loesung;
   readonly loesungsweg: readonly Sprachobjekt[];
   /** Erwartbare falsche Antworten; nie gleich der Lösung, untereinander verschieden. */

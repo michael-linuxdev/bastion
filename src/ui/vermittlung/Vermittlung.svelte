@@ -14,9 +14,11 @@
     type Ziel,
   } from '../../core/learning/abspielen';
   import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
+  import { tastenFuerVermittlung } from '../../core/learning/tastatur';
   import { fuelle } from '../../core/learning/text';
   import type { Schritt, Vermittlung } from '../../core/learning/vermittlung';
   import { t, type TextSchluessel } from '../texte/texte';
+  import Tastatur from '../eingabe/Tastatur.svelte';
   import Textteile from '../ueben/Textteile.svelte';
   import { WERKZEUG_KOMPONENTEN } from './werkzeuge';
 
@@ -188,18 +190,36 @@
               <div class="bruch-eingabe">
                 <label
                   >{t('vermittlung.bruch-zaehler')}
-                  <input inputmode="numeric" bind:value={zaehler} disabled={beantwortet} /></label
+                  <input
+                    inputmode="none"
+                    data-tastatur="zaehler"
+                    bind:value={zaehler}
+                    disabled={beantwortet}
+                  /></label
                 >
                 <label
                   >{t('vermittlung.bruch-nenner')}
-                  <input inputmode="numeric" bind:value={nenner} disabled={beantwortet} /></label
+                  <input
+                    inputmode="none"
+                    data-tastatur="nenner"
+                    bind:value={nenner}
+                    disabled={beantwortet}
+                  /></label
                 >
               </div>
             {:else}
               <label class="feld"
                 >{t('vermittlung.antwort')}
-                <input inputmode="decimal" bind:value={feld} disabled={beantwortet} /></label
+                <input
+                  inputmode="none"
+                  data-tastatur="feld"
+                  bind:value={feld}
+                  disabled={beantwortet}
+                /></label
               >
+            {/if}
+            {#if schritt.antwort && 'eingabe' in schritt.antwort && !beantwortet}
+              <Tastatur tasten={tastenFuerVermittlung(schritt.antwort.eingabe)} />
             {/if}
             {#if hinweis}<p class="hinweis" role="alert">{t(hinweis)}</p>{/if}
           </form>

@@ -910,7 +910,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(bild).toHaveCount(0);
 });
 
-test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)', async ({
+test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen (INHALTSFORMAT §5.2)', async ({
   page,
 }) => {
   await page.goto('./');
@@ -918,13 +918,36 @@ test('Klasse 7: negative Zahlen mit dem Knopf ± eingeben (INHALTSFORMAT §5.1)'
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
   await expect(page.getByRole('heading', { name: 'Klasse 7' })).toBeVisible();
   await thema(page, /^Negative Zahlen/);
+  const tastatur = page.getByRole('group', { name: 'Tastatur' });
   const feld = page.getByRole('textbox', { name: 'Deine Antwort' });
-  await feld.fill('5');
-  const pm = page.getByRole('button', { name: 'Minus setzen oder entfernen' });
-  await pm.click();
-  await expect(feld).toHaveValue('−5');
-  await pm.click();
-  await expect(feld).toHaveValue('5');
+  await expect(feld).toHaveAttribute('inputmode', 'none');
+  await tastatur.getByRole('button', { name: 'Minus' }).click();
+  await tastatur.getByRole('button', { name: '1', exact: true }).click();
+  await tastatur.getByRole('button', { name: '2', exact: true }).click();
+  await tastatur.getByRole('button', { name: 'Komma' }).click();
+  await tastatur.getByRole('button', { name: '5', exact: true }).click();
+  await expect(feld).toHaveValue('−12,5');
+  await tastatur.getByRole('button', { name: 'Löschen' }).click();
+  await expect(feld).toHaveValue('−12,');
+  // Mit der echten Tastatur geht es weiter wie bisher
+  await feld.fill('7');
+  await expect(feld).toHaveValue('7');
+  await expect(tastatur.getByRole('button', { name: 'Bruchstrich' })).toHaveCount(0);
+
+  // Brüche in Klasse 6: Bruchstrich springt vom Zähler in den Nenner, kein Minus
+  await page.getByRole('button', { name: '← Zurück' }).click();
+  await page.getByRole('radio', { name: 'Klasse 6' }).check();
+  await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
+  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
+  const aufgabe = page.locator('form#antwort');
+  const tasten = aufgabe.getByRole('group', { name: 'Tastatur' });
+  await expect(tasten.getByRole('button', { name: 'Minus' })).toHaveCount(0);
+  await aufgabe.getByLabel('Zähler').click();
+  await tasten.getByRole('button', { name: '3', exact: true }).click();
+  await tasten.getByRole('button', { name: 'Bruchstrich' }).click();
+  await tasten.getByRole('button', { name: '4', exact: true }).click();
+  await expect(aufgabe.getByLabel('Zähler')).toHaveValue('3');
+  await expect(aufgabe.getByLabel('Nenner')).toHaveValue('4');
 });
 
 test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page }) => {
