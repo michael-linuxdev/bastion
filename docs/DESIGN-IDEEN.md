@@ -51,7 +51,7 @@ Status: siehe PRs / später konsolidieren. Kein Ersatz für die Store-Sammlung; 
 ## Backlog AA–ZZ
 
 Stand: 31.10.2026 · **Nicht sofort umsetzen** — bearbeitbares Backlog für später.
-**AA–AZ** und **BA–BZ** ausformuliert; **CA–ZZ** reserviert (bei Bedarf füllen).
+**AA–AZ**, **BA–BZ** und **CA–DZ** ausformuliert; **EA–ZZ** reserviert (bei Bedarf füllen).
 
 ### AA. Erste Woche mit der App
 
@@ -362,14 +362,324 @@ Ideen 129–202 oben; AZ selbst ohne Extra-Nummern. Nächster Block: **BA–BZ**
 279. Wechsel Welt = harter Cut mit Ortsnamen, kein Crossfade-Chaos
 280. Welten-Freischaltung an echten Fortschritt, sichtbar in Landkarte
 
-### CA–ZZ. Reserviert / später füllen
+### CA. Calm Tech Prinzipien
 
-**BA–BZ** ausgearbeitet (31.10.2026). Platzhalter **CA** bis **ZZ**: bewusst leer halten oder bei Bedarf ergänzen — keine Verpflichtung zur Vollständigkeit.
+281. Keine Badge-Zahlen auf dem Homescreen-Icon
+282. Benachrichtigungen: App hat keine Push — Text in Docs festhalten
+283. Standard: Motion reduziert respektieren, Ambient aus
+
+### CB. Tablet-First Feinschliff
+
+284. Querformat Hub: Türen 2×2 mit Mindestmaß 64px
+285. Split-View Üben: Prompt | Eingabe ohne Überlappung
+286. Bastion Landscape: HUD nicht in Safe-Area der Notch
+
+### CC. Stift / Pointer
+
+287. Hover-States nur wo Maus erkannt, Touch ohne Sticky-Hover
+288. Fokusring immer sichtbar bei Tastatur
+289. Drag-Schwelle höher auf Touch als Maus
+
+### CD. Mehrsprachigkeit vorbereiten
+
+290. Keine zusammengesetzten Sätze im Code
+291. Pluralregeln über i18n-Keys vorsehen
+292. UI bricht bei 30 % längeren Strings nicht
+
+### CE. Druck & PDF-ähnlich
+
+293. Eltern-Bericht `@media print` eine Seite
+294. Keine Hintergrundfarben erzwingen beim Druck
+295. Fußzeile: „Bastion · lokal · ohne Konto“
+
+### CF. Demo- / Messe-Modus
+
+296. Eltern: „Vorführen“ mit Probe-Bastion + Beispiel-Üben
+297. Auto-Reset Vorführdaten klar getrennt vom Kind-Stand
+298. Große Schrift-Option für Beamer
+
+### CG. Lehrkraft-Export (ohne Portal)
+
+299. Ein PDF/Text-Export „Stand kurz“
+300. Keine Klassenliste, kein Ranking
+301. Hinweis: für Gespräch, nicht für Noten
+
+### CH. Accessibility Audit-Liste
+
+302. axe/manuell: Kontrast HUD auf Himmel
+303. aria-live nur für Urteil, nicht für jeden Tipp
+304. Skip-Link „Zur Aufgabe“ in Üben
+
+### CI. Onboarding Varianten
+
+305. Zurückkehrendes Kind: kein First-Run, kurzer Gruß
+306. Neues Geschwisterprofil: Mini-Onboarding 1 Satz
+307. Nach Update: „Was ist neu“ max. 3 Bullets einmalig
+
+### CJ. Fehlerkultur in der UI
+
+308. Crash-Fallback-Seite: speichern versucht, Üben pausiert
+309. Generator-Fehler: freundliche Karte, nicht Stack
+310. Netz nur für Wetter: Fehler = „bleibt beim letzten Wetter“
+
+### CK. Bastion Kamera Pro
+
+311. Pinch-Zoom Grenzen dokumentieren
+312. Doppeltipp zentriert ruhig
+313. Kamera-Reset im Zahnrad
+
+### CL. Bau-Katalog UX
+
+314. Kategorien als ruhige Chips (Wohnen / Weg / Zier)
+315. Zuletzt gebaut oben in der Leiste
+316. Gesperrt: Silhouette + eine Voraussetzung
+
+### CM. Plan-Layer
+
+317. Pläne als eigene Ebene ein/aus
+318. Plan → Bau mit einer Bestätigung
+319. Pläne zählen nicht als „voll“ für Bewohner-Logik
+
+### CN. Bewohner Sozial
+
+320. Zwei Bewohner können dieselbe Tätigkeit nacheinander
+321. Keine Dialogbäume — nur Statuszeile
+322. Namen aus Liste, optional umbenennen Eltern
+
+### CO. Inventory Feel
+
+323. Beutel öffnen/schließen mit kurzer Motion
+324. Material-Tooltips ein Wort + Zahl
+325. Überlauf: „weitere“ Einklapp-Chip
+
+### CP. Session Memory
+
+326. Letzte Route merken (Hub/Bastion/Mehr)
+327. Letztes Üben-Thema merken
+328. Keine Cloud-Session
+
+### CQ. Themen-Freischaltung UI
+
+329. Neue Welt: Siegel bricht ruhig auf (einmal)
+330. Vorschau-Himmel der Welt auf der Landkarte
+331. Erklärung „durch Üben“ unter der Welt
+
+### CR. Klassenarbeit Optik
+
+332. Nüchternes Papier-Layout, Serifen optional nur dort
+333. Timer verboten — auch visuell keine Uhr
+334. Ergebnis: ruhig, zum Üben zurück
+
+### CS. Wiederholen Regal 2
+
+335. Kacheln nach „wie lange her“ sortieren ohne rote Ampel
+336. Leeres Regal: Einladung zum Üben, kein Tadel
+337. Max. 6 Kacheln sichtbar, Rest „mehr“
+
+### CT. Diagnose Tiefe
+
+338. Tippen auf Feld: eine Kompetenz-Erklärung
+339. Vergleich „vor 2 Wochen“ nur wenn Daten da, sonst weglassen
+340. Kein Balkendiagramm-Wald
+
+### CU. Eltern PIN UX
+
+341. PIN vergessen: lokale Schritte, kein Mail-Reset
+342. Zu viele Versuche: Pause-Hinweis, kein Lockout-Drama
+343. Biometrie nicht anbinden (VISION/Komplexität)
+
+### CV. Wetter Open-Meteo UI
+
+344. Schalter + letzte Aktualisierung in Klartext
+345. Manuell Wetter wählen bleibt parallel
+346. Kein Auto-Refresh-Spam
+
+### CW. PWA Install
+
+347. Install-Hinweis einmal, dismissible
+348. „Zum Homebildschirm“ Anleitung iOS/Android kurz
+349. Icon muss mit neuem App-Icon übereinstimmen
+
+### CX. Service Worker Kommunikation
+
+350. Update-Banner: Weiter / Später
+351. Nach Update einmal „Neu geladen“
+352. Keine stillen Reloads mitten in der Aufgabe
+
+### CY. Telemetrie-Verbot sichtbar
+
+353. Architektur-Seite/Über: keine Tracker-Liste nötig — positiver Satz
+354. Netzwerk-Log für Dev nur in Docs, nicht in Kind-UI
+355. Review-Checkliste „keine neuen fetch-Hosts“
+
+### CZ. Design-Token Freeze
+
+356. Farben/Abstände in Tokens finalisieren
+357. Keine Magic Numbers in neuen PRs
+358. Token-Doku in DESIGN-IDEEN verlinken
+
+### DA. Illustration Stil
+
+359. Eine Strichstärke für UI-Illustrationen
+360. Keine Cliparts/Emoji als Ersatz
+361. Leerzustand-Illustrationen aus einem Set
+
+### DB. Empty State Gallery
+
+362. Katalog aller Leerzustände in Docs
+363. Jeder mit Satz + einer Aktion
+364. Visueller Regression-Check vor Release
+
+### DC. Loading & Skeleton
+
+365. Kein Spinner-Overkill — ruhige Fläche
+366. Atlas laden: Platzhalter-Silhouette
+367. Timeout: freundlicher Text
+
+### DD. Fokus-Modus Üben
+
+368. Option „Nur Aufgabe“ blendet Chrome außer Zurück
+369. Tastatur bleibt
+370. Verlassen speichert Eingabe
+
+### DE. Bastion Foto-Modus
+
+371. HUD ausblenden für Screenshot (Eltern)
+372. Kein Share zu Social — nur lokal speichern Hinweis
+373. Wasserzeichen optional „Bastion“ dezent
+
+### DF. Saisonal ohne Zwang
+
+374. Optische Saison nur wenn Nutzer will
+375. Default: neutrale Jahreszeit
+376. Kein Event-FOMO
+
+### DG. Community-frei
+
+377. Keine Freunde-Liste UI-Vorbereitung
+378. Keine Leaderboards-Platzhalter
+379. Teilen nur Export-Datei
+
+### DH. Rechtliches ruhig
+
+380. Impressum/Datenschutz-Links nur Erwachsene
+381. Sprache verständlich, kurz
+382. Keine Cookie-Banner (keine Cookies)
+
+### DI. Content Warnings Lern
+
+383. Keine angstmachenden Fehlerbilder
+384. Belagerung abschaltbar (schon BE)
+385. Dunkle Nacht nicht in Lernflächen
+
+### DJ. Generator UX für Autoren
+
+386. Nicht in Kind-App — Docs-Hinweis wo Generatoren leben
+387. Determinismus-Badge in Dev-Docs
+388. Fehlerkatalog-Verlinkung
+
+### DK. Screenshot-Pipeline
+
+389. Scriptierte Pflicht-Screenshots CI optional später
+390. Bis dahin: PR-Checkliste 6 Flächen
+391. media/ im Store für Agenten
+
+### DL. Branch-Hygiene Design
+
+392. Ein Thema pro PR wo möglich
+393. Nach Großwelle: Konsolidierungs-PR erlaubt
+394. DESIGN-IDEEN Status je Buchstabe aktualisieren
+
+### DM. Performance Budget UI
+
+395. Keine neuen schweren Libs
+396. Canvas-FPS „Darstellung leicht“ messbar machen (Dev)
+397. Bundle-Hinweis bei großen Atlanten
+
+### DN. RTL Round 2
+
+398. Bau-HUD spiegeln testen
+399. Landkarte Spiegel
+400. Screenshots RTL in Docs
+
+### DO. Font Fallback
+
+401. Display-Font lokal, Fallback dokumentiert
+402. Kein CDN
+403. Große Schrift System-Skalierung stichproben
+
+### DP. Color Themes Kind
+
+404. Nur Akzente, kein Dark-App
+405. Hoher Kontrast als Einstellung
+406. Bastion-Nacht ≠ App-Dark
+
+### DQ. Haptic (falls Platform)
+
+407. Nur Prüfen-Ergebnis optional, aus per Default
+408. Keine Haptik bei Tipps
+409. Respect reduce-motion analog
+
+### DR. Offline Packets
+
+410. Fehlendes Paket: Karte „noch nicht geladen“
+411. Retry lokal
+412. Nie Roh-JSON
+
+### DS. Backup Reminders
+
+413. Eltern: „Letzte Sicherung vor X Tagen“ ruhig
+414. Kein Nudge an Kinder
+415. Kein Cloud-Upsell
+
+### DT. Age Appropriate Copy
+
+416. Duzen durchgängig Kind
+417. Eltern klar, nicht kindisch
+418. Keine Memes/Slang
+
+### DU. Celebration Budget
+
+419. Erfolg = Häkchen + Satz, sonst nichts
+420. Session-Ende = Atem, kein Feuerwerk
+421. Stein verdient = Beutel-Impuls einmal
+
+### DV. Build Manifest Transparenz
+
+422. Versionsnummer Für Erwachsene
+423. Inhaltsversion sichtbar
+424. Commit-Hash nur Dev
+
+### DW. Known Issues Panel
+
+425. SESSION bekannte Lücken
+426. Eltern „Bekanntes“ optional kurz
+427. Keine Issue-Tracker-UI für Kinder
+
+### DX. Migration UX
+
+428. Schema-Update: kurzer ruhiger Hinweis
+429. Bei Fehler: Sicherung empfehlen
+430. Tests bleiben Pflicht (Architektur)
+
+### DY. Final Polish Checklist
+
+431. Alle Tokens
+432. Alle Leerzustände
+433. Portrait+Landscape Stichprobe
+
+### DZ. Ready for Families
+
+434. Kriterienliste abhaken
+435. Ehrlich was fehlt
+436. Dann Themen-Welten / nächste Welle
+
+### EA–ZZ. Reserviert / später füllen
+
+**CA–DZ** ausgearbeitet (31.10.2026). Platzhalter **EA** bis **ZZ**: bewusst leer halten oder bei Bedarf ergänzen — keine Verpflichtung zur Vollständigkeit.
 
 | Block | Status |
 |---|---|
-| CA–CZ | reserviert |
-| DA–DZ | reserviert |
 | EA–EZ | reserviert |
 | FA–FZ | reserviert |
 | GA–GZ | reserviert |
