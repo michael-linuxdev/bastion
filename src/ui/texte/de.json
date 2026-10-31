@@ -732,5 +732,13 @@
   "test.art.einstellung": "Einstellungen",
   "bastion.darstellung": "Darstellung der Bastion",
   "bastion.ruhig": "Bastion ruhig (ohne Bewegung)",
-  "bastion.leicht": "Darstellung leicht (weniger Effekte)"
+  "bastion.leicht": "Darstellung leicht (weniger Effekte)",
+  "wetter.titel": "Echtes Wetter",
+  "wetter.erklaerung": "Optional. Die App fragt das Wetter bei Open-Meteo für einen Ort, den du einträgst – ohne Standort des Geräts. Standard ist aus. Das Wetter ändert nur das Bild der Bastion, nichts am Lernen.",
+  "wetter.an": "Echtes Wetter verwenden",
+  "wetter.ort": "Ort (Stadt)",
+  "wetter.ort-beispiel": "z. B. Dresden",
+  "wetter.ort-suchen": "Ort übernehmen",
+  "wetter.ort-ok": "Ort gefunden. Das Wetter gilt bis Mitternacht.",
+  "wetter.ort-unbekannt": "Ort nicht gefunden. Du kannst einen anderen Namen versuchen – ohne Ort bleibt das Wetter aus dem Datum."
 }

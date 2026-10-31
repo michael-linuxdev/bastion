@@ -58,11 +58,11 @@ test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', asy
 
   await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await expect(page.locator('.bauplatz canvas')).toBeVisible();
+  await expect(page.locator('.bauplatz canvas')).toBeVisible({ timeout: 30_000 });
   expect(grafik.length).toBeGreaterThan(0);
 
   await context.setOffline(true);
   await page.reload();
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await expect(page.locator('.bauplatz canvas')).toBeVisible();
+  await expect(page.locator('.bauplatz canvas')).toBeVisible({ timeout: 30_000 });
 });

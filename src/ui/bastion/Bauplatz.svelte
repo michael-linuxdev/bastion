@@ -21,8 +21,10 @@
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
-  import { farbenMitJahreszeit, jahreszeitAusDatum } from './grafik/jahreszeit';
-  import { szeneAbend } from './grafik/sonne';
+  import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
+  import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
+  import type { WetterBild } from './grafik/wetter';
+  import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
     ZOOM_KNOPF,
@@ -62,7 +64,23 @@
     return () => clearInterval(id);
   });
   const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
-  const abend = $derived(szeneAbend(darstellung.modus, jetzt));
+  let wetterBild = $state<WetterBild>('klar');
+  let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
+  $effect(() => {
+    const d = jetzt;
+    let abgebrochen = false;
+    void szeneWetterLaden(d).then((s) => {
+      if (abgebrochen) return;
+      wetterBild = s.bild;
+      wetterSonne = s.sonne;
+    });
+    return () => {
+      abgebrochen = true;
+    };
+  });
+  const abend = $derived(
+    szeneAbend(darstellung.modus, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
+  );
 
   $effect(() => {
     if (typeof matchMedia !== 'function') return;
@@ -281,19 +299,29 @@
   function farben(): Farben {
     const css = getComputedStyle(document.documentElement);
     const v = (name: string) => css.getPropertyValue(name).trim() || '#888888';
+    const himmelRoh = v('--farbe-himmel');
+    const himmel =
+      wetterBild === 'nebel'
+        ? schattieren(himmelRoh, -25)
+        : wetterBild === 'regen' || wetterBild === 'schnee'
+          ? schattieren(himmelRoh, -18)
+          : wetterBild === 'bewoelkt'
+            ? schattieren(himmelRoh, -10)
+            : himmelRoh;
     const basis: Farben = {
       boden: v('--bastion-boden'),
       raster: v('--bastion-raster'),
       linie: v('--bastion-linie'),
       imBau: v('--farbe-akzent'),
       auswahl: v('--farbe-akzent'),
-      himmel: v('--farbe-himmel'),
+      himmel,
       licht: v('--farbe-licht'),
       wolke: v('--farbe-flaeche'),
       dach: v('--farbe-akzent-warm'),
       // Szene-Abend nach Sonne/Modus, nicht nur UI-Tokens (GRAFIK §4.3)
       abend,
       jahreszeit,
+      wetter: wetterBild,
       familie: {
         kern: v('--bastion-kern'),
         wissen: v('--bastion-wissen'),
@@ -308,10 +336,11 @@
   $effect(() => {
     const ort = rahmen;
     if (!ort) return;
-    // Neu zeichnen bei Modus, Jahreszeit, Abend, Thema (GRAFIK §2, §4.3, §6).
+    // Neu zeichnen bei Modus, Jahreszeit, Abend, Wetter, Thema (GRAFIK §2, §4.3, §6).
     void darstellung.modus;
     void jahreszeit;
     void abend;
+    void wetterBild;
     const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
