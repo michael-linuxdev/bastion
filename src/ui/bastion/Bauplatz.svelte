@@ -10,14 +10,17 @@
   import {
     bastionLeicht,
     bastionRuhig,
+    bastionSound,
     bildSetzen,
     bildZeigen,
     leichtSetzen,
     ruhigSetzen,
+    soundSetzen,
     zoomSetzen,
     zoomWahl,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
@@ -62,13 +65,19 @@
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
 
-  /** GRAFIK §4.5: ruhig / leicht / System-Ruhe */
+  /** GRAFIK §4.5: ruhig / leicht / System-Ruhe; §4.6 Sound */
   let ruhig = $state(false);
   let leicht = $state(false);
   let systemRuhe = $state(false);
+  let soundAn = $state(false);
   void bastionRuhig().then((z) => (ruhig = z));
   void bastionLeicht().then((z) => (leicht = z));
+  void bastionSound().then((z) => (soundAn = z));
   const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
+  $effect(() => {
+    soundSteuern({ an: soundAn, ruhig: ruhig || systemRuhe });
+    return () => ambientStoppen();
+  });
 
   /** Lokale Zeit für Jahreszeit und Sonne; jede Minute aktualisieren (GRAFIK §4.3). */
   let jetzt = $state(new Date());
@@ -441,6 +450,7 @@
     const wid = buehne?.wesenBei(e.clientX, e.clientY);
     if (wid && !versetzen) {
       buehne?.tippeWesen(wid);
+      soundTipp('wesen');
       return;
     }
     const pos = buehne?.feldBei(e.clientX, e.clientY);
@@ -456,6 +466,7 @@
       if (await onaktion({ art: 'versetzen', gebaeude: g.id, pos })) {
         versetzen = false;
         ziel = undefined;
+        soundTipp('aufstellen');
       }
       return;
     }
@@ -584,6 +595,17 @@
           }}
         />
         {tt('bastion.leicht')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={soundAn}
+          onchange={() => {
+            soundAn = !soundAn;
+            void soundSetzen(soundAn);
+          }}
+        />
+        {tt('bastion.sound')}
       </label>
     </div>
   {/if}

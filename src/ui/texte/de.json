@@ -762,5 +762,6 @@
   "thema.dorf.epoche-4": "Residenzstadt",
   "thema.unterwasser.epoche-2": "Riffstadt",
   "thema.unterwasser.epoche-3": "Tiefseestation",
-  "thema.unterwasser.epoche-4": "Ozeanfeste"
+  "thema.unterwasser.epoche-4": "Ozeanfeste",
+  "bastion.sound": "Leise Geräusche (Wind, Tippen)"
 }

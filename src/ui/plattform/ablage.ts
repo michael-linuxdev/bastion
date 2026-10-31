@@ -43,6 +43,7 @@ import {
   BILD_SCHLUESSEL,
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
+  SOUND_SCHLUESSEL,
   WETTER_ECHT_SCHLUESSEL,
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
@@ -529,6 +530,15 @@ export async function bastionLeicht(): Promise<boolean> {
 }
 
 export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
+
+/** Bastion-Sound (GRAFIK §4.6)? Standard aus. */
+export async function bastionSound(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const soundSetzen = (an: boolean) => setze(SOUND_SCHLUESSEL, an, 'jugendlich');
 
 /** Echtes Wetter an (T-15)? Standard aus. */
 export async function wetterEcht(): Promise<boolean> {
