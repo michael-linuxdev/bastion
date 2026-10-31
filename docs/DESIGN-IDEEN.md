@@ -51,7 +51,7 @@ Status: siehe PRs / später konsolidieren. Kein Ersatz für die Store-Sammlung; 
 ## Backlog AA–ZZ
 
 Stand: 31.10.2026 · **Nicht sofort umsetzen** — bearbeitbares Backlog für später.
-**AA–AZ** ausformuliert; **BA–ZZ** reserviert (bei Bedarf füllen).
+**AA–AZ** und **BA–BZ** ausformuliert; **CA–ZZ** reserviert (bei Bedarf füllen).
 
 ### AA. Erste Woche mit der App
 
