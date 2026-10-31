@@ -26,7 +26,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Teile jedes Drittel in zwei gleich große Hälften. Ist jetzt mehr gefärbt als vorher? Welcher [[Bruch]] beschreibt den gefärbten [[Anteil]] jetzt?'
+      de: 'Teile jedes Drittel in zwei gleich große Hälften. Jetzt hat der Streifen 6 Teile. Schreibe den gefärbten [[Anteil]] als [[Bruch]] mit dem [[Nenner]] 6.'
     werkzeug: { id: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2, verfeinern: true } }
     antwort:
       eingabe:
@@ -98,8 +98,6 @@ schritte:
           fv: FV.BR.ADDITIV
         - wert: { de: '3/8' }
           fv: FV.BR.NUR-NENNER
-        - wert: { de: '6/4' }
-          fv: FV.BR.NUR-NENNER
     weiter: uebergang
     bei:
       FV.BR.ADDITIV: erklaeren-erweitern
@@ -112,3 +110,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 9a51b405f670c10917a53ecf92ff3f3ffa353718ceac6df8656e7c1ea28389b0

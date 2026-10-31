@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: ff9913721da0ed77ffe133534fe2883131d549fddfaad801a654bf235ce4a1cb

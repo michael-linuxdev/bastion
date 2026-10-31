@@ -9,10 +9,10 @@ beschreibung:
 kompetenzen: [M.ZO.BR.BEGRIFF]
 erklaerung:
   kurz:
-    de: 'Das Ganze muss in so viele **gleich große** Teile geteilt sein, wie der [[Nenner]] angibt. Zähle sie noch einmal.'
+    de: 'Das Ganze muss in **gleich große** Teile geteilt sein, und zwar in so viele, wie der [[Nenner]] angibt.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast ein Bild gewählt, bei dem die Zahl oder die Größe der Teile nicht passt.'
+      de: 'Du hast nicht geprüft, ob die Zahl und die Größe der Teile passen.'
     - teil: warum-nicht
       de: 'Ein [[Bruch]] beschreibt nur dann einen [[Anteil]], wenn alle Teile gleich groß sind. Sonst kann ein „Viertel“ riesig oder winzig sein.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1, ungleich: true } }
@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.ZO.BR.BEGRIFF.BILD-AUSWAEHLEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: f24f6c2696c56e203df87464ca13e30db65df6654c12eb14ead4b43d4f3a96ba

@@ -51,7 +51,7 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Ein Streifen hat 6 gleich große Teile, 2 sind gefärbt. Der [[Nenner]] ist 6. Welcher [[Bruch]] beschreibt den gefärbten [[Anteil]]?'
+      de: 'Ein Streifen hat 6 gleich große Teile, 2 sind gefärbt. Der [[Nenner]] ist 6. Schreibe den gefärbten [[Anteil]] als [[Bruch]] mit dem Nenner 6.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 2 } }
     antwort:
       eingabe:
@@ -64,11 +64,11 @@ schritte:
     weiter: gegenbeispiel
     bei:
       FV.BR.TEIL-ZU-REST: erklaeren-ganzes
-      FV.BR.VERTAUSCHT: erklaeren-gleich
+      FV.BR.VERTAUSCHT: erklaeren-ganzes
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Lea teilt einen Kuchen in 4 Stücke – eins davon ist riesig. Sie sagt: „Jedes Stück ist ein Viertel.“ Hat sie recht?'
+      de: 'Lea teilt ein Blech Kuchen in 4 Stücke – eins davon ist riesig. Sie sagt: „Jedes Stück ist ein Viertel.“ Hat sie recht?'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1, ungleich: true } }
     antwort:
       optionen:
@@ -102,7 +102,7 @@ schritte:
     bei:
       FV.BR.TEIL-ZU-REST: erklaeren-ganzes
       FV.BR.GEGENTEIL: beispiel
-      FV.BR.VERTAUSCHT: erklaeren-gleich
+      FV.BR.VERTAUSCHT: erklaeren-ganzes
   - id: uebergang
     typ: uebergang
     text:
@@ -111,3 +111,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 61ffc4cf2de247d2dc1050a00d84dca3d27f9e7face82826dc67e1de66eb6ca7
