@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 31.10.2026 (27) · Nächster Schritt: Musterfeld prüfen lassen, dann U4b
+Stand: 31.10.2026 (27) · Grafik-Nebenstrang G0–G11 CI grün (B-28); Lernkern: Musterfeld prüfen, dann U4b
 
 ---
 
@@ -51,6 +51,8 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 2. Starke individuelle Lernpfade und Steuerung auf Ebene des einzelnen Schülers.
 3. Üben und Festigen weiter verbessern.
 4. Leistungsnachweise und Portfolio (lokal und exportierbar).
+
+**Nebenstrang Grafik (B-28, 31.10.2026):** parallel in kleinen PRs G0–G11 (`GRAFIK.md` §10). Lebendige Bastion, Sprites (`GRAFIK-SPRITES.md`), Epochen 2–4, Belagerung. Darf den Lernkern nicht blockieren; bei Engpass wartet der Nebenstrang.
 
 Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **ausdrücklich gesperrt**, bis Variante A als „wirklich gut“ gilt.
 
@@ -144,6 +146,10 @@ Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihen
 **PR #83** (Dorf-Grafik, Dorfbilder) ist bereits auf `main`.
 
 ---
+
+## Nebenstrang Grafik (ausdrücklich aufgenommen 31.10.2026, B-28)
+
+Dokumentation G0 in Arbeit/`GRAFIK.md` §4–§10. Sprite-Bestellung: `GRAFIK-SPRITES.md` (Claude/Grok erzeugen Atlas). Nächste Code-PRs: G1 Atmosphäre … bis G11 Belagerung. Epochen 2–4 und Belagerungsmechanik sind freigegeben (`BASEBAU.md` §5.5–§5.7).
 
 ## Geplant für spätere Sitzungen (noch nicht anfangen)
 

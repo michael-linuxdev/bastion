@@ -81,7 +81,7 @@ Erst dann beginnt die Arbeit an Inhalten der nächsten Klassenstufe. *Seit K-17 
 - Der Basebau wird nicht mehr auf das Minimum begrenzt: Ledger, alle Gebäude der Epoche 1, Listenansicht, Balancing-Simulator und die grafische Bastion (PixiJS, T-6, Draufsicht) entstehen jetzt. Umsetzungsplan: `BASEBAU.md` §11.
 - K-10 bleibt: zuerst Mechanik und Listenansicht, danach die Grafik.
 - Danach geht es mit den Inhalten weiter (Klasse 7, K-15/K-17).
-- Nicht enthalten: Epochen 2–4, Belagerungen, QR-Übertragung.
+- Nicht enthalten bis B-28: Epochen 2–4, Belagerungen. **Seit 31.10.2026 (B-28)** spezifiziert und im Grafik-Nebenstrang geplant. Weiter nicht: QR-Übertragung.
 
 *Warum:* Entscheidung des Projektverantwortlichen – die Bastion soll als Ganzes erlebbar sein, nicht nur als Versuchsaufbau.
 *Ehrlich benannt:* Die Schwelle „Lernkern trägt“ (K-12) wird damit nicht mehr abgewartet; ob der Basebau die Lernqualität stört, zeigt sich erst in den Testrunden nach Klasse 12 (K-17). Das Balancing stützt sich bis dahin allein auf den Simulator. Abfederung: Der Basebau-Schalter (R7) und die Regel „Lernkern lädt die Grafik nie“ halten den Lernkern unabhängig.

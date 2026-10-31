@@ -24,9 +24,9 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
 | 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
-| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik in Draufsicht (K-18, `BASEBAU.md` §11) | 🔄 geplant, als Nächstes | ja |
+| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; Grafik-Nebenstrang G0 | ja |
 | 3 | Bastion zeigen (QR-Übertragung, O-9) | ⏳ | nein |
-| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte: Klasse 6, 7 … jeweils erst nach Abschluss der vorigen (K-15); Belagerungen nein |
+| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte weiter klassenweise (K-15); Belagerung seit B-28 im Nebenstrang G11 spezifiziert |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
 | 6 | Zweites Fach + Portfolio | ⏳ | nein |
 | – | Horizont (berufliche Bildung, weitere Fächer …) | ohne Termin | nein |
@@ -46,7 +46,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
 
 **Basebau**
-- Keine Epochen nach Epoche 1, keine Belagerungen, keine QR-Übertragung. *(Grafik, Simulator, Studierstube und Zierde gehören seit K-18 zu Epoche 1.)*
+- ~~Keine Epochen nach Epoche 1, keine Belagerungen~~ – **aufgehoben 31.10.2026 (B-28):** Epochen 2–4 und Belagerung spezifiziert und im Grafik-Nebenstrang geplant (`BASEBAU.md` §5.5–§5.7, `GRAFIK.md` §10). Keine QR-Übertragung.
 - Keine Spezialisierung.
 
 **Sprache und Zielgruppen**
@@ -267,7 +267,8 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 | 30.10.2026 | **Merge-Reihenfolge:** zuerst PR #85 (Zoom des Bauplatzes wie in Dorfkrieg, für jedes Thema, statt dreier Stufen), dann PR #84 auf den neuen main, dann #82, dann einmal `u5c-dz`. PR #83 (Dorfbilder) ist schon gemergt. `merge-tree` von #84 und #85: keine Konflikte |
 | 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |
 | 30.10.2026 | **Lernkern-Review:** Schatten-Kehrwert rechnet das umgedrehte Verhältnis; Fragen in Erweitern und Vergleichen nennen die erwartete Eingabe; Zinseszins-Fehler führt zur Erklärung, dass sich das Kapital ändert. Test prüft beschriebene Fehlrechnungen |
-| 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) |
+| 31.10.2026 | **B-28 Grafik-Nebenstrang:** lebendige Szenen, Sprite-Atlas (`GRAFIK-SPRITES.md`), Wesen, Jahreszeit, Open-Meteo, Schalter ruhig/leicht, Sound optional, Hinterhof in der Szene; Epochen 2–4 und Belagerungsmechanik freigegeben; Dorfkrieg-Platzhalter werden ersetzt (`GRAFIK.md` §4–§10) |
+| 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) – *wird durch B-28 ersetzt* |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |
 | 30.10.2026 | **U5c natürliche Zahlen und Teilbarkeit:** 14 Erstvermittlungen; Zahlenstrahl-Bilder mit `von` > 0 korrigiert (`markiert` zählt ab 0) |
