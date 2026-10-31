@@ -8,6 +8,7 @@
 // Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
+import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
   BAUPLATZ,
@@ -27,6 +28,7 @@ import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
+import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 
 /** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
 export type Bildart = 'insel' | 'dorf';
@@ -65,7 +67,39 @@ export interface Buehne {
   setzeBewegung(b: Bewegung): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
+  /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
+  wesenBei(clientX: number, clientY: number): string | undefined;
+  /** Kurze Reaktion auf Tippen */
+  tippeWesen(id: string): void;
   zerstoere(): void;
+}
+
+/** Silhouette eines Wesens (Code-Fallback bis Sprite-Atlas). */
+function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
+  const s = w.skala * (jetzt < w.reactBis ? 1.12 : 1);
+  const x = w.x;
+  const y = w.y;
+  const r = w.richtung;
+  g.ellipse(x, y, 5 * s, 3.5 * s).fill(w.farbe);
+  g.circle(x + r * 5 * s, y - 3 * s, 2.4 * s).fill(w.farbe);
+  if (w.art === 'huhn') {
+    g.poly([x + r * 7 * s, y - 3 * s, x + r * 10 * s, y - 2 * s, x + r * 7 * s, y - 1 * s]).fill(
+      '#e07a4f',
+    );
+  }
+  if (w.art === 'katze') {
+    g.poly([x + r * 3 * s, y - 5 * s, x + r * 5 * s, y - 8 * s, x + r * 6 * s, y - 4 * s]).fill(
+      w.farbe,
+    );
+  }
+  // Bein-Wippen
+  const wip = Math.sin(w.phase) * 1.5 * s;
+  g.moveTo(x - 2 * s, y + 2 * s)
+    .lineTo(x - 2 * s, y + 5 * s + wip)
+    .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
+  g.moveTo(x + 2 * s, y + 2 * s)
+    .lineTo(x + 2 * s, y + 5 * s - wip)
+    .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
 }
 
 type Punkt = { x: number; y: number };
@@ -411,6 +445,7 @@ export async function buehneErstellen(
   farben: Farben,
   art: Bildart = 'insel',
   bewegungStart: Bewegung = 'voll',
+  thema: Thema = 'bastion',
 ): Promise<Buehne> {
   const app = new Application();
   await app.init({
@@ -451,7 +486,11 @@ export async function buehneErstellen(
   gebaeude.pivot.set(BUEHNE_B / 2, BUEHNE_H / 2);
   gebaeude.position.set(BUEHNE_B / 2, BUEHNE_H / 2);
   const partikelLage = new Graphics();
-  app.stage.addChild(hintergrund, wolkenLage, gebaeude, partikelLage);
+  const wesenLage = new Graphics();
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
+  let wesen: WesenZustand[] = [];
+  let letzteWesenZahl = -1;
+  let tickerZuletzt = performance.now();
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
@@ -498,8 +537,16 @@ export async function buehneErstellen(
     if (f >= 1) aufstellAktiv = false;
   };
 
+  const wesenZeichnen = (jetzt: number) => {
+    wesenLage.clear();
+    if (!tickerAn(bewegung)) return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
+    for (const w of wesen) zeichneWesen(wesenLage, w, jetzt);
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
+    const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
+    tickerZuletzt = jetzt;
     wolkenLage.x = wolkenVersatz(jetzt, bewegung);
     aufstellAnwenden(jetzt);
     if (tickerAn(bewegung) && budget > 0) {
@@ -513,17 +560,24 @@ export async function buehneErstellen(
       }
       partikelZeichnen();
     }
+    if (tickerAn(bewegung) && wesen.length > 0) {
+      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i));
+      wesenZeichnen(jetzt);
+    }
   };
 
   const tickerSync = () => {
     app.ticker.remove(ticker);
-    if (tickerAn(bewegung)) app.ticker.add(ticker);
-    else {
+    if (tickerAn(bewegung)) {
+      app.ticker.add(ticker);
+      wesenZeichnen(performance.now());
+    } else {
       wolkenLage.x = 0;
       gebaeude.scale.set(1);
       gebaeude.alpha = 1;
-      // Standbild der Partikel bei „ruhig“
+      // Standbild der Partikel bei „ruhig“; Wesen aus
       partikelZeichnen();
+      wesenLage.clear();
     }
   };
   tickerSync();
@@ -531,6 +585,12 @@ export async function buehneErstellen(
   return {
     zeichne(b, a) {
       const ids = new Set(b.bauwerke.map((x) => x.id));
+      const anzahl = b.bauwerke.length;
+      if (anzahl !== letzteWesenZahl) {
+        letzteWesenZahl = anzahl;
+        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht');
+        wesenZeichnen(performance.now());
+      }
       if (ersterZug) {
         bekannt = ids;
         ersterZug = false;
@@ -620,6 +680,7 @@ export async function buehneErstellen(
     },
     setzeBewegung(b) {
       bewegung = b;
+      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht');
       tickerSync();
     },
     feldBei(clientX, clientY) {
@@ -629,6 +690,23 @@ export async function buehneErstellen(
       // Erst die Gebäude, von vorn nach hinten – auch ein Tipp aufs Dach trifft
       for (const z of [...treffer].reverse()) if (innen(z.umriss, x, y)) return z.pos;
       return feldUnter(x, y);
+    },
+    wesenBei(clientX, clientY) {
+      if (!tickerAn(bewegung)) return undefined;
+      const r = app.canvas.getBoundingClientRect();
+      const x = ((clientX - r.left) / r.width) * BUEHNE_B;
+      const y = ((clientY - r.top) / r.height) * BUEHNE_H;
+      for (const w of [...wesen].reverse()) {
+        if (Math.hypot(w.x - x, w.y - y) < 14 * w.skala) return w.id;
+      }
+      return undefined;
+    },
+    tippeWesen(id) {
+      const w = wesen.find((x) => x.id === id);
+      if (w) {
+        wesenReagieren(w, performance.now());
+        wesenZeichnen(performance.now());
+      }
     },
     zerstoere() {
       app.ticker.remove(ticker);

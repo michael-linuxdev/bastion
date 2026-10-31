@@ -213,7 +213,7 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G1** | Atmosphäre-Gerüst, Ticker, „ruhig“, „leicht“, reduced-motion, Aufstell-Effekt · *umgesetzt* |
 | **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang · *umgesetzt* |
 | **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) · *umgesetzt* |
-| **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude |
+| **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude · *umgesetzt* |
 | **G5** | Atlas-Anbindung + Thema Garten (neues Niveau); Dorfkrieg-Dorf ersetzen sobald Sprites da |
 | **G6** | Unterwasser, Weltraum, Bastion-Feinschliff |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen |

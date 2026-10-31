@@ -347,7 +347,15 @@
     // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
     const start: Bewegung = untrack(() => bewegung);
     import('./grafik/grafik-buehne')
-      .then((m) => m.buehneErstellen(ort, farben(), bildart, start))
+      .then((m) =>
+        m.buehneErstellen(
+          ort,
+          farben(),
+          bildart,
+          start,
+          untrack(() => aktiv.thema),
+        ),
+      )
       .then((b) => {
         if (abgebrochen) b.zerstoere();
         else buehne = erstellt = b;
@@ -390,6 +398,12 @@
   }
 
   async function angetippt(e: PointerEvent) {
+    // Wesen zuerst (GRAFIK §4.4) – kurze Reaktion, kein Gebäude wählen
+    const wid = buehne?.wesenBei(e.clientX, e.clientY);
+    if (wid && !versetzen) {
+      buehne?.tippeWesen(wid);
+      return;
+    }
     const pos = buehne?.feldBei(e.clientX, e.clientY);
     if (!pos) return;
     hinweis = undefined;
