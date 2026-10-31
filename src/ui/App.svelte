@@ -35,10 +35,12 @@
     vermittelteKompetenzen,
     schulartSetzen,
     sicherungAnstehend,
+    bewaehrungBelohnen,
     zustand as ladeZustand,
     type Antwortdaten,
     type Zustand,
   } from './plattform/ablage';
+  import { bewaehrungBestanden, type BewaehrungModus } from '../core/bastion/bewaehrung';
   import { offline } from './plattform/offline.svelte';
   import { ladeInhalte, type Inhalte } from './plattform/pakete';
   import { t } from './texte/texte';
@@ -169,6 +171,15 @@
   });
   /** Laufende Diagnose ist eine Probe-Klassenarbeit (L-19) */
   let diagnoseProbe = $state(false);
+  /** Laufende Bewährungsprobe (BASEBAU §5.6 / G11); null = keine */
+  let bewaehrung = $state<{
+    readonly modus: BewaehrungModus;
+    readonly bezug: string;
+    readonly joker: number;
+  } | null>(null);
+  /** Spannungsoptik auf dem Bauplatz bis zum nächsten Verlassen der Bastion */
+  let bewaehrungSpannung = $state(false);
+  let bewaehrungHinweis = $state<string | undefined>(undefined);
   /** Schuljahr erst mit der ersten Klassenwahl merken – beim ersten Start wird nichts gespeichert */
   let schuljahrBekannt = false;
   /** Diagnose nur für ausgewählte Kompetenzen (nach einem Schulartwechsel) */
@@ -587,7 +598,14 @@
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
       {#if ansicht === 'bastion'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <button
+          class="zurueck"
+          onclick={() => {
+            bewaehrungSpannung = false;
+            bewaehrungHinweis = undefined;
+            ansicht = 'start';
+          }}>← {t('uebung.zurueck')}</button
+        >
         {#await import('./bastion/Bastion.svelte')}
           <p role="status">{t('uebersicht.laedt')}</p>
         {:then bastionMod}
@@ -598,7 +616,26 @@
             staende={[...zustand.staende.values()]}
             aufgaben={aufgabenListe}
             {klasse}
+            spannung={bewaehrungSpannung}
+            onbewaehrung={(modus, themen, joker) => {
+              const liste = themen.length > 0 ? themen : geladen.kompetenzen.map((k) => k.id);
+              diagnoseAntworten = [];
+              diagnoseAuswahl = liste;
+              diagnoseUebergreifend = false;
+              diagnoseProbe = true;
+              bewaehrung = {
+                modus,
+                bezug: `bewaehrung:${heuteTag}:${liste.slice(0, 3).join('+')}:${Date.now()}`,
+                joker,
+              };
+              bewaehrungSpannung = true;
+              bewaehrungHinweis = undefined;
+              ansicht = 'diagnose';
+            }}
           />
+          {#if bewaehrungHinweis}
+            <p class="geschafft" role="status">{bewaehrungHinweis}</p>
+          {/if}
           {#await import('./bastion/Hinterhof.svelte') then hinterhofMod}
             {@const Hinterhof = hinterhofMod.default}
             <Hinterhof
@@ -711,6 +748,7 @@
           bind:klasse={diagnoseKlasse}
           auswahl={diagnoseAuswahl}
           probe={diagnoseProbe}
+          joker={bewaehrung?.joker ?? 0}
           bind:uebergreifend={diagnoseUebergreifend}
           onklasse={(k) => {
             stillerWechsel = k !== klasse;
@@ -723,7 +761,23 @@
             zumUeben(geladen, k);
           }}
           onende={() => {
-            ansicht = 'start';
+            const lauf = bewaehrung;
+            if (lauf) {
+              const richtig = diagnoseAntworten.filter((a) => a.richtig).length;
+              const gesamt = diagnoseAntworten.length;
+              const ok = bewaehrungBestanden(richtig, gesamt);
+              if (ok && lauf.modus === 'ernstfall') {
+                void bewaehrungBelohnen(lauf.bezug, heuteTag).then((neu) => {
+                  bewaehrungHinweis = neu
+                    ? `${t('bastion.bewaehrung-bestanden')} ${t('bastion.bewaehrung-bauplan')}`
+                    : t('bastion.bewaehrung-bestanden');
+                });
+              } else if (ok) bewaehrungHinweis = t('bastion.bewaehrung-bestanden');
+              else bewaehrungHinweis = t('bastion.bewaehrung-nicht');
+              bewaehrung = null;
+            }
+            diagnoseProbe = false;
+            ansicht = 'bastion';
             void aktualisiere();
           }}
         />

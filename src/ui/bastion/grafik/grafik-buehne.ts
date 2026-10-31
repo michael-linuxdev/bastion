@@ -68,6 +68,8 @@ export interface Farben {
   readonly jahreszeit?: Jahreszeit;
   /** Wetterbild für Himmel und Partikel (GRAFIK §4.3) */
   readonly wetter?: WetterBild;
+  /** Bewährungsprobe aktiv: spannender Himmel, leichter Rauch (GRAFIK §8 / G11) */
+  readonly spannung?: boolean;
 }
 
 export interface Ansicht {
@@ -396,6 +398,19 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
 }
 
+/** Leichter Rauch bei Bewährungsprobe – keine Truppen (GRAFIK §8). */
+function rauch(g: Graphics, f: Farben) {
+  if (!f.spannung) return;
+  for (const [x, y, s] of [
+    [120, 90, 1.2],
+    [280, 70, 1],
+    [420, 100, 0.9],
+  ] as const) {
+    g.ellipse(x, y, 28 * s, 10 * s).fill({ color: f.wolke, alpha: 0.35 });
+    g.ellipse(x + 16 * s, y - 6 * s, 18 * s, 8 * s).fill({ color: f.wolke, alpha: 0.25 });
+  }
+}
+
 /** Sonne bzw. Mond und Sterne – feste Plätze, kein Zufall. Wolken liegen in einer eigenen Schicht. */
 function gestirn(g: Graphics, f: Farben) {
   g.circle(buehneBreite() - 70, 52, f.abend ? 16 : 22).fill(f.licht);
@@ -509,8 +524,12 @@ export async function buehneErstellen(
   else if (art === 'unterwasser') uwBoden(stiftVon(hintergrund), farben.abend);
   else if (art === 'weltraum') weltraumBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
+  rauch(hintergrund, farben);
   if (wetterBild === 'nebel') {
     hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
+  }
+  if (farben.spannung) {
+    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
   }
   const wolkenLage = new Graphics();
   wolken(wolkenLage, farben);

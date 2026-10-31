@@ -220,6 +220,6 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G8** | Sound optional (CC0, Standard aus) · *umgesetzt* (prozedural; Dateien optional) |
 | **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) · *umgesetzt* |
 | **G10** | Optiken aller Epochen (Atlas) · *umgesetzt* (Code-Fallback je Epoche; Atlas-Pfade bereit) |
-| **G11** | Belagerung Mechanik + Optik |
+| **G11** | Belagerung Mechanik + Optik · *umgesetzt* (Bewährungsprobe Üben/Ernstfall, Spannungs-Himmel) |
 
 Sprites können parallel von Claude/Grok nach `GRAFIK-SPRITES.md` erzeugt und in G5+ eingehängt werden. Ohne Atlas bleibt der Code-Fallback.

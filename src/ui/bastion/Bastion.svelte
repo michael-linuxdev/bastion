@@ -47,6 +47,7 @@
   import type { KompetenzStand } from '../../core/learning/fortschritt';
   import { hinterhof } from '../../core/learning/hinterhof';
   import { epochenstand } from '../../core/bastion/epoche';
+  import { turmJoker, type BewaehrungModus } from '../../core/bastion/bewaehrung';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
   import { soundTipp } from './sound/sound';
 
@@ -56,6 +57,8 @@
     staende = [],
     aufgaben = [],
     klasse = 5,
+    spannung = false,
+    onbewaehrung,
   }: {
     kompetenzen: readonly Kompetenz[];
     /** Ab 18 / ausdrücklich erwachsen: Wetter selbst schalten (T-15) */
@@ -63,7 +66,13 @@
     staende?: readonly KompetenzStand[];
     aufgaben?: readonly AufgabeEreignis[];
     klasse?: number;
+    /** Aktive Bewährungsprobe: Spannungsoptik (G11) */
+    spannung?: boolean;
+    /** Start einer Bewährungsprobe mit Modus, Themen und Joker-Zahl */
+    onbewaehrung?: (modus: BewaehrungModus, themen: readonly string[], joker: number) => void;
   } = $props();
+
+  let bewaehrungModus = $state<BewaehrungModus>('ueben');
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
   const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
 
@@ -217,7 +226,38 @@
       {hinterhofFelder}
       bauplatz={epoche.bauplatz}
       epoche={epoche.epoche}
+      {spannung}
     />
+
+    {#if onbewaehrung}
+      {@const joker = turmJoker(l.bastion.bauwerke)}
+      <section class="bewaehrung" aria-labelledby="bewaehrung-titel">
+        <h3 id="bewaehrung-titel">{tt('bastion.bewaehrung')}</h3>
+        <p class="leise">{tt('bastion.bewaehrung-erklaerung')}</p>
+        <p class="leise">
+          {tt('bastion.bewaehrung-joker')}: {joker}
+        </p>
+        <fieldset class="modus">
+          <legend>{tt('bastion.bewaehrung-modus')}</legend>
+          <label>
+            <input type="radio" bind:group={bewaehrungModus} value="ueben" />
+            {tt('bastion.bewaehrung-ueben')}
+          </label>
+          <label>
+            <input type="radio" bind:group={bewaehrungModus} value="ernstfall" />
+            {tt('bastion.bewaehrung-ernstfall')}
+          </label>
+        </fieldset>
+        <button
+          onclick={() =>
+            onbewaehrung(
+              bewaehrungModus,
+              kompetenzen.filter((k) => k.klassenstufe_typisch.includes(klasse)).map((k) => k.id),
+              bewaehrungModus === 'ueben' ? joker : 0,
+            )}>{tt('bastion.bewaehrung-start')}</button
+        >
+      </section>
+    {/if}
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">
@@ -638,6 +678,19 @@
 
   .vorgemerkt button {
     justify-self: start;
+  }
+
+  .bewaehrung {
+    margin-block: var(--abstand-m);
+  }
+
+  .bewaehrung .modus {
+    border: none;
+    padding: 0;
+    margin-block: var(--abstand-s);
+    display: flex;
+    flex-direction: column;
+    gap: var(--abstand-xs);
   }
 
   .knoepfe {

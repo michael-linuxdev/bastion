@@ -274,6 +274,8 @@ Zierde-Kosten bleiben niedrig (Gestaltung). Katalog und Wechsel umgesetzt (G9); 
 
 ### 5.6 Belagerung = Bewährungsprobe (B-28, Mechanik)
 
+*Umsetzung G11:* `src/core/bastion/bewaehrung.ts`, Start in der Bastion-UI, Serie über Diagnose-Probe; Ernstfall-Bauplan als Buchung `grund: belagerung` (DATENMODELL); Spannungsoptik auf dem Bauplatz; Joker in der Üben-Variante.
+
 Aus `KONZEPT.md` §5.4, verbindlich für Umsetzung (PR G11):
 
 1. **Freiwillig.** Niemand wird angegriffen, während die App zu ist. Kein Verfall (R3).

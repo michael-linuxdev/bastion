@@ -85,6 +85,7 @@ import {
   bastion,
   bastionAktualisieren,
   bauSpeichern,
+  bewaehrungBauplanSpeichern,
   buchen,
   buchungen,
   einrichten,
@@ -183,6 +184,13 @@ export async function sitzungBeenden(): Promise<void> {
 export async function alleBuchungen(): Promise<BuchungEreignis[]> {
   const inst = await bereit();
   return inst ? buchungen(db, inst.profil).catch(() => []) : [];
+}
+
+/** Bauplan für bestandene Bewährungsprobe (Ernstfall). */
+export async function bewaehrungBelohnen(bezug: string, tag: string): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return bewaehrungBauplanSpeichern(db, inst, bezug, tag, Date.now()).catch(() => false);
 }
 
 /** Kontostand des Profils (leer, wenn nicht gespeichert werden kann). */

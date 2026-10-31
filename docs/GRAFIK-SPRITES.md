@@ -153,7 +153,7 @@ Damit Technik und Bild parallel laufen:
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
 | **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) | G10 |
-| **P6** | Belagerungs-Himmel / Rauch-Overlays | G11 |
+| **P6** | Belagerungs-Himmel / Rauch-Overlays | G11 · Code-Rauch liegt; Sprite-Overlay optional |
 
 Pro Charge: Ordnerstruktur wie §3, dazu eine `manifest.json` (Liste der Dateien, Pixelgröße, Anker x/y relativ).
 

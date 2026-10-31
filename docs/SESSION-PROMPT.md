@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 31.10.2026 (27) · Grafik-Nebenstrang G0–G11 CI grün (B-28); Lernkern: Musterfeld prüfen, dann U4b
+Stand: 31.10.2026 (29) · Grafik-Nebenstrang G0–G11 gemergt (B-28); Lernkern: Musterfeld prüfen, dann U4b
 
 ---
 

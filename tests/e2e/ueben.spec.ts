@@ -979,6 +979,54 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
   await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
 });
 
+test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
+  await expect(sound).toBeVisible();
+  await expect(sound).not.toBeChecked();
+  await sound.check();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe(true);
+  await page.reload();
+  await bastionOeffnen(page);
+  await expect(
+    page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' }),
+  ).toBeChecked();
+});
+
+test('Bewährungsprobe: startet als Probe ohne Note (G11 / BASEBAU §5.6)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  await expect(page.getByRole('heading', { name: 'Belagerung' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: /Üben \(mit Joker/ })).toBeChecked();
+  await page.getByRole('button', { name: 'Bewährungsprobe starten' }).click();
+  await expect(page.getByRole('heading', { name: 'Probe-Klassenarbeit' })).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByText(/ohne Hilfen und ohne Note|ohne Hilfen/)).toBeVisible();
+});
+
+test('Bewährungsprobe Ernstfall: kein Joker in der Probe (G11)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  await page.getByRole('radio', { name: /Ernstfall/ }).check();
+  await page.getByRole('button', { name: 'Bewährungsprobe starten' }).click();
+  await expect(page.getByRole('heading', { name: 'Probe-Klassenarbeit' })).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByText(/Hinweis-Joker/)).toHaveCount(0);
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  await expect(page.getByRole('button', { name: 'Weiß ich nicht' })).toBeVisible({
+    timeout: 15_000,
+  });
+  await expect(page.getByRole('button', { name: 'Joker nutzen (zählt als richtig)' })).toHaveCount(
+    0,
+  );
+});
+
 test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
