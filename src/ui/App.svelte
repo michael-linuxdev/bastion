@@ -728,7 +728,13 @@
           onstart={() => (ansicht = 'start')}
         />
       {:else if ansicht === 'eltern'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <button
+          class="zurueck"
+          onclick={() => {
+            ansicht = 'start';
+            void aktualisiere();
+          }}>← {t('uebung.zurueck')}</button
+        >
         <Elternbereich
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
