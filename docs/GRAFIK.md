@@ -1,6 +1,6 @@
 # Grafik
 
-Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · Umbau auf Richtung A umgesetzt 29.10.2026 (§5)
+Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · Umbau auf Richtung A umgesetzt 29.10.2026 (§5) · Lebendige Szenen beschlossen 31.10.2026 (§4, §7–§10, B-28)
 
 Wie Bastion aussieht und wie die Grafik gebaut wird. Die Richtung kommt aus sechs Entwürfen (je zwei für Bastion, Startseite und Üben). Gewählt hat der Projektverantwortliche **Richtung A „Tag, warm“** für alle drei Bereiche.
 
@@ -62,25 +62,86 @@ Anpassungen und auch ein vollständiger Austausch der Grafik müssen jederzeit m
 - **Keine Daten im Bild:** Der Lernstand und die Bastion (Gebäude, Stufen, Plätze) kennen keine Grafik. Ein Austausch verändert keine Daten und braucht keine Migration.
 - **Barrierearm in jeder Fassung:** Beschreibung für Screenreader, Ausblenden der Grafik (2.13) und reduzierte Bewegung bleiben Pflicht.
 
-## 4. Später: lebendige Szenen
+## 4. Lebendige Szenen (beschlossen 31.10.2026)
 
-Erst nach dem Umbau auf Richtung A, ohne festen Zeitpunkt:
+Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kleine PRs (§10). Sprite-Atlas und Übergabe: `GRAFIK-SPRITES.md`.
 
-- **Detailliertere Grafik** und **Animationen**: lebendiges Dorf oder lebendiger Garten, Figuren, Rauch, Wasser.
-  - Jede Bewegung lässt sich abschalten und hält sich an „Bewegung reduzieren“ im System.
-- **Jahreszeiten** nach dem Datum (Schnee im Winter, Laub im Herbst).
-- **Wetter**:
-  - Ohne Internet entsteht es aus dem Datum.
-  - Auf Wunsch kommt das echte Wetter von Open-Meteo, nur nach ausdrücklichem Einschalten (T-15).
-- **Skins**: weitere Fassungen der Grafik, zusätzlich zu den Themen (B-17).
-  - Kostenlos und ohne Kauf.
-  - Als Belohnung nur nach festen, sichtbaren Regeln, nie zufällig (R1).
+### 4.1 Stil
 
-**Grenzen (R-Regeln):**
+- **Politur:** klar über dem bisherigen Code-/Dorfkrieg-Platzhalter. Lesbarkeit und knackige isometrische Gebäude wie in Clash of Clans – **ohne** Militär, Truppen, Clash-Erkennung (VISION: kein CoC-Klon; B-15/B-16). Wärme und ruhiges Leben mindestens auf Stardew-Niveau.
+- **Primärquelle Bild:** Sprites/Atlanten (B-28). Code-Zeichnung bleibt Fallback, bis das Atlas da ist.
+- **Dorfkrieg-Dorfbilder** werden ersetzt, nicht behalten.
+- **Lernumfeld** (Üben, Vermittlung, Fehlerwerkstatt, Diagnose): darf **nicht** ablenken – Aufräumen von Abständen und Hierarchie erlaubt, keine Bewegung, kein Wetter, kein Sound dort.
+- **Bastion / Hinterhof:** lebendig (Atmosphäre, Wesen, optional Sound).
 
-- Das Wetter und die Jahreszeiten ändern nur das Bild, nie Baustoffe, Fortschritt oder Belohnungen.
-- Kein Verfall bei schlechtem Wetter oder langer Pause (R3).
-- Keine Uhrzeit-Ereignisse, die zum Öffnen drängen (R2).
+### 4.2 Schichten
+
+| Schicht | Inhalt | Bewegt? |
+|---|---|---|
+| Atmosphäre | Himmel, Sonne/Mond, Wolken, Jahreszeit-Palette, Wetter-Partikel | ja, außer „ruhig“ |
+| Boden / Szene | Insel, Wiese, Plattform, Sand … je Thema und Epoche | nein (Standbild) |
+| Gebäude | Atlas je Thema × Rolle × Epoche × Stufe | Aufstell-Effekt kurz |
+| Wesen | 2–4 Arten je Thema; Anzahl steigt mit gebauten Gebäuden | ja; bei „ruhig“ **aus** |
+| Hinterhof | dieselbe Bühne, Kamera schwenkt „hinter“ den Bauplatz; Plätze = Objekte (Buch/Blume/Stern/…); Denkmal/Wappen für volle Felder | wie Atmosphäre |
+
+### 4.3 Jahreszeit, Tag, Wetter
+
+- **Jahreszeit** nur aus dem lokalen Datum (Frühling/Sommer/Herbst/Winter); ändert Farben und wenige Auflagen (Schnee auf Dächern, Laub). Kein manueller Override in v1.
+- **Abend:** nach Sonnenuntergang. Mit eingetragenem Ort und Wetter an: Sonnenzeiten von Open-Meteo. Ohne Ort: grobe Mitteleuropa-Näherung aus dem Datum. Unabhängig davon bleiben Hell/Dunkel/System unter „Über mich“ wählbar (manuell Hell erzwingt Tagoptik der UI-Tokens; die Bastion-Szene folgt der Sonnenregel, sobald Wetter/Ort greifen – Feinheit in der Umsetzung: bei manuell „Hell“ Tag, bei „Dunkel“ Abend, bei „System“ Sonnenstand).
+- **Wetter offline:** aus Datum abgeleitet (nur Bild).
+- **Wetter echt (T-15):** Freitext Stadt → Geocoding einmalig → Lat/Lon lokal; Forecast bis **Mitternacht** cachen; nur Eltern schalten ein (ab 18 selbst, L-15); bei Fehler **still** letzter Cache oder Datumswetter. Ändert nur das Bild.
+- WMO grob auf: klar, bewölkt, Nebel, Regen, Schnee.
+
+### 4.4 Wesen
+
+| Thema | Arten |
+|---|---|
+| Dorf | Huhn, Katze, Spatz |
+| Garten | Biene, Schnecke, Schmetterling |
+| Bastion | Möwe, Fuchs am Rand, stilisierte Schildwache ohne Waffe |
+| Unterwasser | Fischschwarm, Qualle, Krebs |
+| Weltraum | Drohnen-Glühwürmchen, kleines Wartungsroboter-Silhouette |
+
+- Tippen → kurze Reaktion (aufschauen, weghüpfen), kein Dialog.
+- Erwachsene: dieselben Wesen (vorerst).
+- Max. **5** Wesen bei voller Darstellung (iPhone 13).
+
+### 4.5 Schalter und Leistung
+
+1. Basebau aus → kein Bild (R7).  
+2. „Bild aus – nur die Liste“ → wie heute.  
+3. **„Bastion ruhig“** → keine Loops, keine Wesen, Jahreszeit/Wetter als Standbild.  
+4. **„Darstellung leicht“** → weniger Partikel, höchstens 3 Wesen, Bewegung bleibt.  
+5. `prefers-reduced-motion` → wie „ruhig“.  
+
+Ziel: **60 fps** auf dem iPhone 13; wenn knapp, **30 fps** anpeilen (automatisch drosseln), nicht hängen.
+
+### 4.6 Sound (optional)
+
+- Standard **aus**. Jugendliche schalten selbst ein.
+- Ambient (Wind, Wasser, Regen) und kurze Tip-Geräusche (bauen, Wesen).
+- Dateien **frei lizenziert (CC0 o. Ä.)**, mit der App ausgeliefert, offline (T-18). Kein CDN.
+
+### 4.7 MiniBastion (Startseite)
+
+Standbild der **aktuellen** Atmosphäre (Jahreszeit, Wetter, Abend), **ohne** Bewegung.
+
+### 4.8 Grenzen (R-Regeln)
+
+- Wetter, Jahreszeit, Wesen und Sound ändern nie Baustoffe, Fortschritt oder Belohnungen.
+- Kein Verfall, kein „komm zurück wegen Regen“ (R2, R3).
+- Keine Zufallsbelohnungen (R1).
+
+## 4a. Widersprüche – Auflösung (31.10.2026)
+
+| Konflikt | Auflösung |
+|---|---|
+| K-18 / PLAN: Epochen 2–4 und Belagerungen außen vor | **Aufgehoben** für diesen Nebenstrang (B-28): spezifizieren und einbauen, siehe `BASEBAU.md` §5.5–§5.7 |
+| K-27 Basebau Nebensache | Bleibt: Lernkern und U4b haben Vorrang; Grafik läuft **parallel** in kleinen PRs |
+| VISION „kein CoC-Klon“ vs. Stilreferenz | Nur Politur und isometrische Lesbarkeit; Inhalt ruhig, keine Truppen |
+| B-12 schlichter Code-Stil | Primär Sprites; Code-Fallback bis Atlas fertig; austauschbar (B-27) |
+| 60 fps vs. iPhone 13 | Ziel 60; Fallback 30 + Schalter „leicht“ / „ruhig“ |
+| Abend manuell vs. Sonne | Tokens Hell/Dunkel bleiben; Szene nutzt Sonne, wenn System/Automatik greift (§4.3) |)
 
 ## 5. Umbau auf Richtung A
 
@@ -119,16 +180,46 @@ Vier Schritte, jeder ein eigener PR:
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).
 
-## 6. Thema Dorf – die Dorfbilder
+## 6. Thema Dorf – bisherige Dorfbilder (werden ersetzt)
 
-Unter „Wie soll es aussehen?“ in der Bastion gibt es das Thema **Dorf** (BASEBAU B-17). Die Wörter dafür gab es schon (Gemeindehaus, Zaun, Windmühle …). Seit dem 30.10.2026 wechselt dort auch das Bild.
+Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30.10.2026 zeichnet die Bastion dort die Platzhalter aus [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) (`dorf.ts`): Wiese, Häuser, Zaun, Bäume. Zoom wie in Dorfkrieg (`kamera.ts`).
 
-Wählt man **Dorf**, zeichnet die Bastion die Platzhaltergrafik aus dem Spiel [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) desselben Urhebers: eine Wiese aus Rauten (hell und etwas dunkler im Wechsel), Häuser als Körper mit zwei Wandtönen und Dach, eine Fahne auf dem Gemeindehaus, einen Zaun aus drei Pfählen, Bäume am Rand. Die kleine Ansicht auf der Startseite zeigt dasselbe, nur vereinfacht.
+**Ab dem Grafik-Nebenstrang (31.10.2026):** Diese Platzhalter werden durch das Sprite-Atlas ersetzt (`GRAFIK-SPRITES.md`). Alle fünf Themen bekommen eigene Szenen auf demselben Niveau. Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
 
-Die Bilder stehen im Programm (`src/ui/bastion/grafik/dorf.ts`) und werden von derselben Bühne gezeichnet wie die Insel. Es gibt keine Verbindung zu dorfkrieg.micana.de. Das Raster und das Antippen bleiben gleich. Der Zoom ist für alle Themen der aus Dorfkrieg: stufenlos, zum Zeiger, mit Ziehen und zwei Fingern (`src/ui/bastion/grafik/kamera.ts`). Gebäude, Kosten und der Lernstand ändern sich nicht (B-27).
+## 7. Hinterhof in der Szene (B-25)
 
-Die anderen Themen – Bastion, Garten, Raumstation, Unterwasserstadt – behalten die Insel. Hell, Dunkel und „Wie das Gerät“ gelten weiter: Am Abend wird die Wiese dunkler, und die Fenster der Häuser leuchten.
+- Dieselbe Pixi-Bühne; Kamera schwenkt hinter den Bauplatz (nicht nur Liste).
+- Jedes Lernfeld = Reihe von Plätzen; Füllung als kleines Objekt je Thema (Buch, Blume, Stern, Buch, Perle).
+- G und M unterscheidbar (z. B. Bronze/Silber-Ton).
+- Volle Felder: Denkmal oder Wappen in dieser Welle schon sichtbar.
+- Liste bleibt parallel (reizarm). Privat, verschwindet mit Basebau-Schalter.
 
-Die Kampffiguren aus Dorfkrieg gibt es hier nicht. Die zeigt das Spiel nur im Kampf. Bastion hat keine Truppen, und der Basebau bleibt eine ruhige Nebensache (K-27, R1–R3).
+## 8. Epochen und Belagerung in der Grafik
 
-Was eine Rolle im Bild ist: Gemeindehaus (rotes Dach, Fahne), Schreinerei (Säge), Bücherei (Buch), Windmühle (Flügel), Dorfbrücke, Zaun, Dorfbrunnen, Wappen, Obstwiese, Denkmal. Eine selbst gewählte Farbe der Zierde färbt Wappen, Brunnenwasser, Obst und Denkmal.
+Mechanik und Kosten: `BASEBAU.md` §5.5–§5.7 (B-28). Grafik:
+
+- Je Epoche eigener visueller Stil im Atlas (Außenposten → Burg → Festung → Zitadelle; Namen je Thema).
+- Belagerung / Bewährungsprobe: Optik (Himmel, Rauch, Spannung) **und** Mechanik (Prüfungssimulation); keine Truppen auf dem Bauplatz.
+
+## 9. Lern-UI aufräumen
+
+Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im Lernpfad: Animationen, Partikel, Wesen, Sound, Wetter-Effekte.
+
+## 10. PR-Reihenfolge (Nebenstrang)
+
+| PR | Inhalt |
+|---|---|
+| **G0** | Dieses Dokument, `GRAFIK-SPRITES.md`, BASEBAU §5.5–§5.7, Entscheidungslogs (dieser Stand) |
+| **G1** | Atmosphäre-Gerüst, Ticker, „ruhig“, „leicht“, reduced-motion, Aufstell-Effekt |
+| **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang |
+| **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) |
+| **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude |
+| **G5** | Atlas-Anbindung + Thema Garten (neues Niveau); Dorfkrieg-Dorf ersetzen sobald Sprites da |
+| **G6** | Unterwasser, Weltraum, Bastion-Feinschliff |
+| **G7** | Hinterhof als Szene + Denkmal/Wappen |
+| **G8** | Sound optional (CC0, Standard aus) |
+| **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) |
+| **G10** | Optiken aller Epochen (Atlas) |
+| **G11** | Belagerung Mechanik + Optik |
+
+Sprites können parallel von Claude/Grok nach `GRAFIK-SPRITES.md` erzeugt und in G5+ eingehängt werden. Ohne Atlas bleibt der Code-Fallback.
