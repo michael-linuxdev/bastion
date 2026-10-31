@@ -1,1 +1,1 @@
-# Sprites für garten/e2 – siehe GRAFIK-SPRITES.md
+# Sprites für garten/e2 – P5 (GRAFIK-SPRITES.md §8)

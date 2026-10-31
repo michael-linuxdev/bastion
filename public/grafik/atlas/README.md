@@ -28,4 +28,7 @@ dem Atlas, sonst Code-Fallback.
 `platz_offen`, `wappen_voll`, `denkmal_voll` und `minibat/…/standbild.png`;
 Hinterhof-Szene und Startkarten-MiniBastion nutzen sie, sonst Code/SVG-Fallback.
 
-Als Nächstes: P5 Epoche 2–4 Gebäude; P6 Belagerungs-Himmel optional.
+**P5 Epoche 2–4:** geliefert – Generator `tools/grafik/sprites-p5-epochen.py`.
+Gebäude aller Themen für e2–e4 (Katalog G9, reifere Optik), Abend-Fenster und
+Boden-Kacheln; Runtime fällt bei fehlender Epoche auf niedrigere zurück.
+Als Nächstes: optional P6 Belagerungs-Himmel / Rauch-Overlays.

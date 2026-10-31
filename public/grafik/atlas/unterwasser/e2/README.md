@@ -1,1 +1,1 @@
-# Sprites für unterwasser/e2 – siehe GRAFIK-SPRITES.md
+# Sprites für unterwasser/e2 – P5 (GRAFIK-SPRITES.md §8)

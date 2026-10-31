@@ -44,6 +44,8 @@ describe('atlas', () => {
       ],
     };
     expect(atlasEintrag(m, 'garten', 1, 'wissen', 1)?.datei).toContain('wissen_s1');
+    // P5: höhere Epoche fällt auf e1 zurück, wenn e2+ fehlt
+    expect(atlasEintrag(m, 'garten', 3, 'wissen', 1)?.id).toBe('garten/e1/wissen_s1');
     expect(atlasEintrag(m, 'garten', 1, 'kern', 1)).toBeUndefined();
     expect(atlasEintrag(null, 'dorf', 1, 'kern', 1)).toBeUndefined();
   });

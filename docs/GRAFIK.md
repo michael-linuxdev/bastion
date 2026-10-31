@@ -200,7 +200,11 @@ Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30
 
 **Sprite-Charge P2 Garten (31.10.2026):** Gebäude Epoche 1 (Baumhaus, Schuppen, Gewächshaus, Aussichtsbaum, Tor, Hecke, Bank, Wimpel, Blumenbeet, Zwerg), Rasen-Kacheln und Wesen (Biene, Schnecke, Schmetterling) unter `public/grafik/atlas/`. Die Bastion-Szene zeichnet Garten aus dem Atlas; fehlt ein Eintrag, bleibt der Code-Fallback (`garten.ts`). Generator: `tools/grafik/sprites-p2-garten.py`.
 
-**Sprite-Charge P3 Bastion/Unterwasser/Weltraum (31.10.2026):** Epoche 1 je Thema (Gebäude nach Rollen-Tabelle, Boden-Kacheln, Wesen, Abend-Fenster wo Öffnungen), Generator `tools/grafik/sprites-p3-themen.py`. Die Bühne lädt Atlas für Bildart Insel (`bastion`), Unterwasser und Weltraum; Code-Fallback bleibt (`zeichneRolle`, `unterwasser.ts`, `weltraum.ts`). **Als Nächstes:** P4 Hinterhof + MiniBastion (`GRAFIK-SPRITES.md` §8). Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
+**Sprite-Charge P3 Bastion/Unterwasser/Weltraum (31.10.2026):** Epoche 1 je Thema (Gebäude nach Rollen-Tabelle, Boden-Kacheln, Wesen, Abend-Fenster wo Öffnungen), Generator `tools/grafik/sprites-p3-themen.py`. Die Bühne lädt Atlas für Bildart Insel (`bastion`), Unterwasser und Weltraum; Code-Fallback bleibt (`zeichneRolle`, `unterwasser.ts`, `weltraum.ts`). Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
+
+**Sprite-Charge P4 Hinterhof + MiniBastion (31.10.2026):** Plätze/Wappen/Denkmal je Thema und Standbilder; Generator `tools/grafik/sprites-p4-hinterhof.py` (`GRAFIK-SPRITES.md` §7/§8).
+
+**Sprite-Charge P5 Epoche 2–4 (31.10.2026):** Gebäude aller Themen für Epochen 2–4 nach Katalog G9 (reifere Optik, neue Stufen, Abend-Fenster, Boden-Kacheln), Generator `tools/grafik/sprites-p5-epochen.py`. Runtime: Atlas-Lookup mit Fallback auf niedrigere Epoche; fehlt alles, Code-Fallback (`epoche-optik.ts`). **Als Nächstes:** optional P6 Belagerungs-Himmel / Rauch-Overlays (`GRAFIK-SPRITES.md` §8).
 
 ## 7. Hinterhof in der Szene (B-25)
 
@@ -235,11 +239,14 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **P1** | Wetter-Himmel · *umgesetzt* |
 | **P2** | Sprite-Charge Garten Epoche 1 (Gebäude, Boden, Wesen) · *umgesetzt* |
 | **P3** | Sprite-Charge Bastion/Unterwasser/Weltraum Epoche 1 · *umgesetzt* |
+| **P4** | Hinterhof + MiniBastion · *umgesetzt* |
+| **P5** | Epoche 2–4 Gebäude je Thema (Atlas) · *umgesetzt* |
 | **G6** | Unterwasser, Weltraum, Bastion-Wesen · *umgesetzt* (Code-Szenen; P3-Sprites eingehängt) |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen · *umgesetzt* |
 | **G8** | Sound optional (CC0, Standard aus) · *umgesetzt* (prozedural; Dateien optional) |
 | **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) · *umgesetzt* |
-| **G10** | Optiken aller Epochen (Atlas) · *umgesetzt* (Code-Fallback je Epoche; Atlas-Pfade bereit) |
+| **G10** | Optiken aller Epochen (Atlas) · *umgesetzt* (P5-Sprites + Code-Fallback / Epoche-Lookup) |
 | **G11** | Belagerung Mechanik + Optik · *umgesetzt* (Bewährungsprobe Üben/Ernstfall, Spannungs-Himmel) |
+| **P6** | Belagerungs-Himmel / Rauch-Overlays · *optional* (Code-Rauch liegt) |
 
 Sprites können parallel von Claude/Grok nach `GRAFIK-SPRITES.md` erzeugt und in G5+ eingehängt werden. Ohne Atlas bleibt der Code-Fallback.
