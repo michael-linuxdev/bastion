@@ -151,7 +151,7 @@ Damit Technik und Bild parallel laufen:
 |---|---|---|
 | **P0** | `dorf` Epoche 1: alle 10 Rollen Stufe 1 + kern/wissen/turm höhere Stufen die im Katalog vorkommen; Boden; 3 Wesen komplett · **geliefert** (`public/grafik/atlas/`, Generator `tools/grafik/sprites-p0-dorf.py`) | G5 |
 | **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach · **geliefert** (`himmel/`, `wetter/`, `auflage/`, Generator `tools/grafik/sprites-p1-wetter.py`) | G2/G3 |
-| **P2** | `garten` Epoche 1 komplett + Wesen | G5 |
+| **P2** | `garten` Epoche 1 komplett + Wesen · **geliefert** (`gebaeude/garten/`, `boden/garten/`, `wesen/garten/`, Generator `tools/grafik/sprites-p2-garten.py`) | G5 |
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
 | **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) | G10 |

@@ -49,7 +49,16 @@ import {
   dorfWiese,
   type Stift,
 } from './dorf';
-import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
+import {
+  gartenBoden,
+  gartenBodenKachel,
+  gartenBodenTint,
+  gartenGebaeude,
+  gartenHoehe,
+  gartenStrauch,
+  gartenStrauchLagen,
+  gartenSzene,
+} from './garten';
 import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
 import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
 import type { Epoche } from '../../../core/bastion/epochen';
@@ -707,12 +716,17 @@ async function atlasTexturenLaden(
   return map;
 }
 
-/** Welche Atlas-IDs die Bühne für diese Bildart braucht (P0 Dorf + P1 Himmel/Wetter). */
+/** Welche Atlas-IDs die Bühne für diese Bildart braucht (P0 Dorf, P2 Garten + P1 Himmel/Wetter). */
 function atlasBrauchtId(art: Bildart, id: string): boolean {
   if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
     return true;
-  if (art !== 'dorf') return false;
-  return id.startsWith('dorf/') || id.startsWith('boden/dorf/') || id.startsWith('wesen/dorf/');
+  if (art === 'dorf')
+    return id.startsWith('dorf/') || id.startsWith('boden/dorf/') || id.startsWith('wesen/dorf/');
+  if (art === 'garten')
+    return (
+      id.startsWith('garten/') || id.startsWith('boden/garten/') || id.startsWith('wesen/garten/')
+    );
+  return false;
 }
 
 /** Graphics-Kind in einer Boden-Lage anlegen (Code-Fallback zeichnet darauf). */
@@ -725,20 +739,23 @@ function bodenAlsGraphics(lage: Container): Graphics {
 const BODEN_KACHELN: readonly BodenKachel[] = ['flaeche', 'rand', 'flaeche_b', 'flaeche_hell'];
 
 /**
- * Dorf-Wiese aus Atlas-Kacheln (GRAFIK-SPRITES Boden).
- * true = gezeichnet; false = Aufrufer soll `dorfWiese` (Code) nutzen.
+ * Boden aus Atlas-Kacheln (Dorf-Wiese / Garten-Rasen, GRAFIK-SPRITES).
+ * true = gezeichnet; false = Aufrufer soll Code-Boden nutzen.
  */
-function dorfWieseAusAtlas(
+function bodenAusAtlas(
   lage: Container,
+  thema: 'dorf' | 'garten',
   manifest: AtlasManifest | null,
   texturen: Map<string, Texture>,
   abend: boolean,
+  kachelFn: (x: number, y: number, breite: number, tiefe: number) => BodenKachel,
+  tintFn: (abend: boolean) => number,
 ): boolean {
   if (!manifest) return false;
   const epoche = 1;
   const texProKachel = new Map<BodenKachel, { tex: Texture; w: number; h: number }>();
   for (const k of BODEN_KACHELN) {
-    const id = atlasBodenId('dorf', epoche, k);
+    const id = atlasBodenId(thema, epoche, k);
     const eintrag = atlasEintragPerId(manifest, id);
     const tex = eintrag ? texturen.get(eintrag.id) : undefined;
     if (!eintrag || !tex) {
@@ -750,11 +767,11 @@ function dorfWieseAusAtlas(
   }
   const flaeche = texProKachel.get('flaeche');
   if (!flaeche) return false;
-  const tint = dorfBodenTint(abend);
+  const tint = tintFn(abend);
   const { breite, tiefe } = bauplatzAktiv();
   for (let y = -1; y <= tiefe; y++) {
     for (let x = -1; x <= breite; x++) {
-      const gewaehlt = dorfBodenKachel(x, y, breite, tiefe);
+      const gewaehlt = kachelFn(x, y, breite, tiefe);
       // Varianten optional: fehlende hell/b → flaeche (rand ist Pflicht oben)
       const paket = texProKachel.get(gewaehlt) ?? texProKachel.get('flaeche') ?? flaeche;
       const spr = new Sprite(paket.tex);
@@ -798,13 +815,13 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // P1 Himmel/Wetter für alle Themen; Dorf-Gebäude/Boden/Wesen nur bei Dorf.
+  // P1 Himmel/Wetter für alle Themen; Dorf/Garten-Gebäude/Boden/Wesen aus Atlas (P0/P2).
   // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
   const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
-  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf-Wiese)
+  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf/Garten)
   const hintergrund = new Container();
   const himmelLage = new Container();
   const bodenLage = new Container();
@@ -814,10 +831,28 @@ export async function buehneErstellen(
     gestirnZeichnen(himmelLage, farben, atlas, texturen);
   }
   if (art === 'dorf') {
-    const atlasWiese = dorfWieseAusAtlas(bodenLage, atlas, texturen, farben.abend);
+    const atlasWiese = bodenAusAtlas(
+      bodenLage,
+      'dorf',
+      atlas,
+      texturen,
+      farben.abend,
+      dorfBodenKachel,
+      dorfBodenTint,
+    );
     if (!atlasWiese) dorfWiese(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'garten') gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'garten') {
+    const atlasRasen = bodenAusAtlas(
+      bodenLage,
+      'garten',
+      atlas,
+      texturen,
+      farben.abend,
+      gartenBodenKachel,
+      gartenBodenTint,
+    );
+    if (!atlasRasen) gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
   else if (art === 'weltraum') weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
   else insel(bodenAlsGraphics(bodenLage), farben);
   const rauchGfx = new Graphics();
@@ -1208,6 +1243,65 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'garten' && texturen.size > 0) {
+        // Atlas-Garten: Sträucher + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P2)
+        const lagen: { tiefe: number; zeichne: () => void }[] = gartenStrauchLagen().map((b) => ({
+          tiefe: b.tiefe,
+          zeichne: () => {
+            const stueck = new Graphics();
+            gartenStrauch(stiftVon(stueck), b.x, b.y, b.s);
+            stueck.zIndex = b.tiefe * 10;
+            gebaeude.addChild(stueck);
+          },
+        }));
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'garten', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                gartenGebaeude(
+                  stiftVon(stueck),
+                  {
+                    typ: x.typ,
+                    stufe: x.stufe,
+                    pos: x.pos,
+                    ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+                    auswahl: a.auswahl === x.id,
+                  },
+                  farben.abend,
+                  farben.licht,
+                );
+                if (a.auswahl === x.id) {
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
       } else if (art === 'garten') {
         gartenSzene(
           stiftVon(g),
