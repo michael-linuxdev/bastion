@@ -38,6 +38,7 @@ body {
   /* 1.125rem skaliert mit der System-/Browser-Schriftgröße */
   font-size: 1.125rem;
   line-height: 1.5;
+  font-weight: 500;
 }
 
 html[data-kontrast='stark'] body {
@@ -54,8 +55,38 @@ p {
 h1,
 h2,
 h3 {
+  font-family: var(--schrift-display, var(--schrift, system-ui, sans-serif));
   font-weight: 800;
   line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.ort-name {
+  font-family: var(--schrift-display, var(--schrift, system-ui, sans-serif));
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes bastion-einblenden {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bastion-wolke {
+    from {
+      transform: translateX(-2%);
+    }
+    to {
+      transform: translateX(2%);
+    }
+  }
 }
 
 input,

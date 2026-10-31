@@ -20,7 +20,9 @@ async function angebotUeberspringen(seite: Page) {
 }
 
 async function zurStartseite(seite: Page) {
-  const hallo = seite.getByText('Hallo. Schön, dass du da bist.');
+  const hallo = seite
+    .getByText('Willkommen in Bastion.')
+    .or(seite.getByText('Hallo. Schön, dass du da bist.'));
   if (await hallo.isVisible().catch(() => false)) return;
   const home = seite.getByRole('button', { name: 'Zur Startseite' });
   if (await home.isVisible().catch(() => false)) {
@@ -74,7 +76,9 @@ async function bastionZurStartseite(seite: Page) {
     await expect(seite.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
     await seite.getByRole('button', { name: 'Zur Startseite' }).click();
   }
-  await expect(seite.getByText('Hallo. Schön, dass du da bist.')).toBeVisible();
+  await expect(
+    seite.getByText('Willkommen in Bastion.').or(seite.getByText('Hallo. Schön, dass du da bist.')),
+  ).toBeVisible();
 }
 
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
@@ -257,7 +261,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
 
   await page.getByLabel('Deine Antwort').fill(String(summe));
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig.')).toBeVisible();
+  await expect(page.getByText('Stimmt.')).toBeVisible();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   await expect(page.getByText('Diese Fehler hast du aufgearbeitet.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -817,7 +821,8 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
   // Nach dem Neuladen bleibt das Thema; der Start-Hub-Knopf heißt wie das Thema
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Garten', exact: true }).click();
+  // Hub-Tür heißt immer „Bastion“ (Ortsname); die Vorschau zeigt den Themennamen
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
     timeout: 30_000,
   });
@@ -1329,7 +1334,8 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
-  await expect(page.getByText('Hallo. Schön, dass du da bist.')).toBeVisible();
+  await expect(page.getByText('Willkommen in Bastion.')).toBeVisible();
+  await expect(page.getByRole('group', { name: 'Wohin möchtest du?' })).toBeVisible();
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await expect(
     page

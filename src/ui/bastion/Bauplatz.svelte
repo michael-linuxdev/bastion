@@ -698,6 +698,12 @@
     cursor: grab;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .fenster.sichtbar .bauplatz {
+      animation: bastion-einblenden 0.28s ease-out;
+    }
+  }
+
   .fenster.zieht {
     cursor: grabbing;
   }

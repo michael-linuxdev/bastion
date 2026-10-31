@@ -15,27 +15,34 @@
     onziel: (z: Ziel | 'start') => void;
   } = $props();
 
-  const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
-    { ziel: 'themen', name: t('mehr.themen') },
-    { ziel: 'stand', name: t('stand.knopf') },
-    { ziel: 'klassenarbeit', name: t('ka.knopf') },
-    { ziel: 'profil', name: t('profil.knopf') },
-    { ziel: 'sicherung', name: t('sicherung.knopf') },
-    ...(eltern ? [{ ziel: 'eltern' as const, name: t('eltern.knopf') }] : []),
+  const eintraege = $derived<
+    { ziel: Ziel; name: string; symbol: 'stand' | 'ueben' | 'eltern' | 'mehr' }[]
+  >([
+    { ziel: 'themen', name: t('mehr.themen'), symbol: 'ueben' },
+    { ziel: 'stand', name: t('stand.knopf'), symbol: 'stand' },
+    { ziel: 'klassenarbeit', name: t('ka.knopf'), symbol: 'mehr' },
+    { ziel: 'profil', name: t('profil.knopf'), symbol: 'mehr' },
+    { ziel: 'sicherung', name: t('sicherung.knopf'), symbol: 'mehr' },
+    ...(eltern
+      ? [{ ziel: 'eltern' as const, name: t('eltern.knopf'), symbol: 'eltern' as const }]
+      : []),
   ]);
 </script>
 
 <section class="mehr">
-  <button class="zurueck" onclick={() => onziel('start')}>← {t('uebung.zurueck')}</button>
-  <p class="marke">{t('start.ueberschrift')}</p>
+  <button class="zurueck" onclick={() => onziel('start')}>
+    <Symbol name="zurueck" />
+    {t('uebung.zurueck')}
+  </button>
+  <p class="ort-zeile ort-name"><Symbol name="mehr" /> {t('mehr.ort')}</p>
+  <p class="marke ort-name">{t('start.ueberschrift')}</p>
   <h2>{t('mehr.ueberschrift')}</h2>
   <p class="leise">{t('mehr.info')}</p>
   <ul class="liste">
     {#each eintraege as e (e.ziel)}
       <li>
-        <button onclick={() => onziel(e.ziel)}>
-          {#if e.ziel === 'stand'}<Symbol name="stand" />
-          {:else if e.ziel === 'themen'}<Symbol name="ueben" />{/if}
+        <button onclick={() => onziel(e.ziel)} class:eltern={e.ziel === 'eltern'}>
+          <Symbol name={e.symbol} />
           <span>{e.name}</span>
         </button>
       </li>
@@ -56,16 +63,34 @@
   .zurueck {
     font: inherit;
     justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     border: none;
     background: transparent;
     color: var(--farbe-text);
     cursor: pointer;
     padding-inline: 0;
-    min-block-size: 2.75rem;
+    min-block-size: var(--ziel);
+  }
+  .zurueck :global(svg) {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+  .ort-zeile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+  }
+  .ort-zeile :global(svg) {
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
   }
   .marke {
     font-size: 1.75rem;
-    font-weight: 800;
     color: var(--farbe-akzent);
     margin: 0;
   }
@@ -91,7 +116,7 @@
     align-items: center;
     gap: var(--abstand-s);
     inline-size: 100%;
-    min-block-size: 3.25rem;
+    min-block-size: var(--ziel);
     padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
@@ -100,6 +125,11 @@
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
+  }
+  button.eltern {
+    background: var(--farbe-flaeche-leise);
+    box-shadow: none;
+    border: 1px solid var(--farbe-rand);
   }
   .vertrauen {
     color: var(--farbe-text-leise);

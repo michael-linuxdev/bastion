@@ -3,6 +3,7 @@
   // Fehlerbild, Hilfen, Lösungsweg. Welche Aufgabe als Nächstes kommt, bestimmt
   // `auftrag` – reihum zu einer Kompetenz (Üben) oder aus der Liste fälliger
   // Karten (Wiederholen). Ohne Zeitdruck und ohne Punkte (R1, R2).
+  // Ein-/Ausgabe: ein Arbeitsblatt, zwei Phasen (ueben-io-design P0/P1).
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
   import type { Generator, Instanz, Loesung } from '../../core/learning/generator';
@@ -22,8 +23,8 @@
   import { untrack } from 'svelte';
   import Textteile from './Textteile.svelte';
   import Symbol from '../grafik/Symbol.svelte';
-  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
   import { soundUiErgebnis } from '../bastion/sound/sound';
+  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
 
   let {
     ueberschrift,
@@ -90,9 +91,12 @@
 
   let nummer = $state(0);
   let ergebnis = $state<Ergebnis | undefined>(undefined);
+  let letzteAntwort = $state.raw<Loesung | undefined>(undefined);
   let kommaHinweis = $state(false);
   let hilfen = $state(0);
   let wegOffen = $state(false);
+  let warumOffen = $state(false);
+  let bereit = $state(false);
 
   function erzeuge(n: number): Aufgabe | undefined {
     const a = auftrag(n);
@@ -142,6 +146,7 @@
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
     // W116: optional leiser Cue nur beim Prüfen-Ergebnis, nie bei Tipps
     soundUiErgebnis(ergebnis.richtig);
+    letzteAntwort = antwort;
     kommaHinweis = hinweis === 'punkt-statt-komma';
     const daten: Antwortdaten = {
       modus,
@@ -167,7 +172,9 @@
       ausstehend = daten;
       weg = 'laeuft';
     } else onergebnis(daten);
-    if (!ergebnis.richtig) wegOffen = !mitWeg;
+    // Lösungsweg bleibt zu, bis jemand ihn öffnet (kein Sofort-Spoiler bei Schrittweg)
+    wegOffen = false;
+    warumOffen = false;
     fehlerInFolge = ergebnis.richtig ? 0 : fehlerInFolge + 1;
   }
 
@@ -175,16 +182,19 @@
     weg = 'aus';
     letzteSchritte = [];
     ergebnis = undefined;
+    letzteAntwort = undefined;
     kommaHinweis = false;
     hilfen = 0;
     wegOffen = false;
+    warumOffen = false;
+    bereit = false;
     nummer += 1;
   }
 
   /** Erledigte Aufgaben dieser Runde – nur Menge, keine Zeit und kein Urteil (R1, R2) */
   const erledigt = $derived(nummer + (ergebnis ? 1 : 0));
-  /** Punkte für den Fortschritt: die ganze Runde oder der laufende Fünferblock */
-  const punkte = $derived.by(() => {
+  /** Steine für den Fortschritt: die ganze Runde oder der laufende Fünferblock */
+  const steine = $derived.by(() => {
     if (anzahl !== undefined) return { gesamt: anzahl, voll: Math.min(erledigt, anzahl) };
     const imBlock = erledigt % BLOCK;
     return { gesamt: BLOCK, voll: imBlock === 0 && erledigt > 0 ? BLOCK : imBlock };
@@ -225,6 +235,31 @@
     if (ergebnis.hinweis) return fuelle(t(`uebung.${ergebnis.hinweis}`), {});
     return undefined;
   });
+
+  /** Erwartete Form erst nach Schrittweg / ohne Schrittweg – kein Sofort-Spoiler */
+  const erwarteteFormZeigen = $derived(
+    !!ergebnis && !ergebnis.richtig && weg !== 'laeuft' && !!aufgabe && !!letzteAntwort,
+  );
+
+  const eigeneAntwortText = $derived(
+    letzteAntwort && aufgabe
+      ? antwortText(
+          letzteAntwort,
+          aufgabe.instanz.optionen,
+          aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+        )
+      : '',
+  );
+
+  const erwarteteAntwortText = $derived(
+    aufgabe
+      ? antwortText(
+          aufgabe.instanz.loesung,
+          aufgabe.instanz.optionen,
+          aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+        )
+      : '',
+  );
 </script>
 
 <section class="uebung">
@@ -249,16 +284,16 @@
     <h2>{ueberschrift}</h2>
     {#if stufe}<span class="stufe">{stufe}</span>{/if}
     {#if onerklaerung}
-      <button class="zweit erklaerung" onclick={onerklaerung}>{t('vermittlung.knopf')}</button>
+      <button class="dezent erklaerung" onclick={onerklaerung}>{t('vermittlung.knopf')}</button>
     {/if}
     {#if aufgabe || erledigt > 0}
       <span
-        class="punkte"
+        class="steine"
         role="img"
-        aria-label="{punkte.voll} {t('uebung.von')} {punkte.gesamt} {t('uebung.erledigt')}"
+        aria-label="{steine.voll} {t('uebung.von')} {steine.gesamt} {t('uebung.erledigt')}"
       >
-        {#each Array.from({ length: punkte.gesamt }, (_, i) => i) as i (i)}
-          <span class="punkt" class:voll={i < punkte.voll}></span>
+        {#each Array.from({ length: steine.gesamt }, (_, i) => i) as i (i)}
+          <span class="stein" class:voll={i < steine.voll}></span>
         {/each}
       </span>
     {/if}
@@ -274,9 +309,9 @@
     </p>
   {:else}
     {#key aufgabe}
-      <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil für Screenreader -->
-      <article class="aufgabe">
-        <div class="aufgabe-frage" id="aufgabe-frage">
+      <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil; live nur Urteil -->
+      <article class="arbeitsblatt aufgabe" class:phase-rueckmeldung={ergebnis !== undefined}>
+        <div class="prompt aufgabe-frage" id="aufgabe-frage">
           {#if modus !== 'ueben'}
             <p class="herkunft">
               {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
@@ -308,20 +343,43 @@
               >
             </p>
           {/if}
+
+          {#if hilfen > 0 && ergebnis === undefined}
+            <aside class="tipp-notiz" aria-label={t('uebung.hilfe')}>
+              <p class="tipp-stand">
+                {t('uebung.tipp-stand')}
+                {hilfen}
+                {t('uebung.von')}
+                {aufgabe.vorlage.hilfen.length}
+              </p>
+              <ul class="hilfen">
+                {#each aufgabe.vorlage.hilfen.slice(0, hilfen) as hilfe, i (i)}
+                  <li><Textteile teile={fuelle(hilfe.de, aufgabe.instanz.platzhalter)} /></li>
+                {/each}
+              </ul>
+            </aside>
+          {/if}
         </div>
 
-        <div class="aufgabe-eingabe" id="aufgabe-eingabe" aria-describedby="aufgabe-frage">
-          <Eingabe
-            instanz={aufgabe.instanz}
-            typ={aufgabe.vorlage.typ}
-            tastatur={aufgabe.vorlage.tastatur}
-            gesperrt={ergebnis !== undefined}
-            onantwort={beantwortet}
-          />
+        <div
+          class="arbeitsflaeche aufgabe-eingabe"
+          id="aufgabe-eingabe"
+          aria-describedby="aufgabe-frage"
+        >
+          {#if ergebnis === undefined}
+            <Eingabe
+              instanz={aufgabe.instanz}
+              typ={aufgabe.vorlage.typ}
+              tastatur={aufgabe.vorlage.tastatur}
+              gesperrt={false}
+              onantwort={beantwortet}
+              onbereit={(b) => (bereit = b)}
+            />
 
-          <div class="knoepfe">
-            {#if ergebnis === undefined}
-              <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
+            <div class="knoepfe">
+              <button type="submit" form="antwort" class="haupt pruefen" disabled={!bereit}>
+                {t('uebung.pruefen')}
+              </button>
               {#if hilfen < aufgabe.vorlage.hilfen.length}
                 <button
                   class="zweit"
@@ -333,92 +391,124 @@
                   {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
                 </button>
               {/if}
+            </div>
+            {#if !bereit}
+              <p class="pruefen-hinweis">{t('uebung.pruefen-hinweis')}</p>
             {/if}
-          </div>
+          {:else}
+            <div
+              class="antwort-spiegel"
+              class:richtig={ergebnis.richtig}
+              class:falsch={!ergebnis.richtig}
+            >
+              <p class="spiegel-label">{t('uebung.deine-antwort')}</p>
+              <p class="spiegel-wert"><strong>{eigeneAntwortText}</strong></p>
+              {#if erwarteteFormZeigen}
+                <p class="spiegel-erwartet">
+                  <span class="spiegel-label">{t('uebung.erwartet')}</span>
+                  <strong>{erwarteteAntwortText}</strong>
+                </p>
+              {/if}
+            </div>
 
-          {#if hilfen > 0 && ergebnis === undefined}
-            <ul class="hilfen">
-              {#each aufgabe.vorlage.hilfen.slice(0, hilfen) as hilfe, i (i)}
-                <li><Textteile teile={fuelle(hilfe.de, aufgabe.instanz.platzhalter)} /></li>
-              {/each}
-            </ul>
-          {/if}
-        </div>
+            <div
+              class="rueckmeldung"
+              class:richtig={ergebnis.richtig}
+              class:falsch={!ergebnis.richtig}
+              id="aufgabe-urteil"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <p class="urteil">
+                {ergebnis.richtig ? t('uebung.richtig-kurz') : t('uebung.falsch')}
+              </p>
+              {#if weg !== 'laeuft'}
+                {#if rueckmeldung}<p class="ursache"><Textteile teile={rueckmeldung} /></p>{/if}
+                {#if kommaHinweis}<p class="ursache">{t('uebung.punkt-statt-komma')}</p>{/if}
+              {/if}
+            </div>
 
-        {#if ergebnis}
-          <div
-            class="rueckmeldung"
-            class:richtig={ergebnis.richtig}
-            id="aufgabe-urteil"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <p class="urteil">{ergebnis.richtig ? t('uebung.richtig') : t('uebung.falsch')}</p>
-            {#if weg !== 'laeuft'}
-              {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
-              {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
-            {/if}
-          </div>
-          {#if weg !== 'aus' && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
-            {@const g = aufgabe.generator}
-            {@const a = aufgabe}
-            <Schrittweg
-              schritte={a.vorlage.schritte ?? []}
-              berechne={(id, bisher) =>
-                (g.schritt as NonNullable<typeof g.schritt>)(
-                  a.seed,
-                  a.vorlage.parameter[a.niveau],
-                  id,
-                  bisher,
-                )}
-              platzhalter={a.instanz.platzhalter}
-              vorzeichen={a.instanz.vorzeichen}
-              onfertig={(s) => speichern(s)}
-              onueberspringen={() => {
-                speichern();
-                wegOffen = true;
-                onnutzung?.('weg-uebersprungen', a.vorlage.id);
-              }}
-            />
-          {/if}
-          {#if weg !== 'laeuft'}
-            {#each fvs as fv (fv.id)}
-              {@const zustand = fvStaende?.get(fv.id)?.zustand}
-              {@const art = rueckwegArt?.(fv, zustand)}
-              <FvRueckmeldung
-                {fv}
-                {zustand}
-                rueckweg={art}
-                onrueckweg={() => art && onrueckweg?.(fv, art)}
+            {#if ergebnis.richtig}
+              {#if aufgabe.instanz.loesungsweg.length > 0}
+                <details class="weg" bind:open={warumOffen}>
+                  <summary>{t('uebung.warum')}</summary>
+                  <ol>
+                    {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
+                      <li>{schritt.de}</li>
+                    {/each}
+                  </ol>
+                </details>
+              {/if}
+              {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
+              <div class="knoepfe">
+                <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
+              </div>
+            {:else if weg !== 'aus' && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
+              {@const g = aufgabe.generator}
+              {@const a = aufgabe}
+              <Schrittweg
+                schritte={a.vorlage.schritte ?? []}
+                berechne={(id, bisher) =>
+                  (g.schritt as NonNullable<typeof g.schritt>)(
+                    a.seed,
+                    a.vorlage.parameter[a.niveau],
+                    id,
+                    bisher,
+                  )}
+                platzhalter={a.instanz.platzhalter}
+                vorzeichen={a.instanz.vorzeichen}
+                onfertig={(s) => speichern(s)}
+                onueberspringen={() => {
+                  speichern();
+                  // Nach „ohne Weg“ eine Tür: Lösungsweg als nächster klarer Schritt
+                  wegOffen = true;
+                  onnutzung?.('weg-uebersprungen', a.vorlage.id);
+                }}
               />
-            {/each}
-            <details class="weg" bind:open={wegOffen}>
-              <summary
-                onclick={() => {
-                  // nur das Öffnen von Hand zählt, nicht das automatische nach einem Fehler
-                  if (!wegOffen) onnutzung?.('hilfe', `loesungsweg:${aufgabe?.vorlage.id ?? ''}`);
-                }}>{t('uebung.loesungsweg')}</summary
-              >
-              <ol>
-                {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
-                  <li>{schritt.de}</li>
-                {/each}
-              </ol>
-            </details>
-            {#if rueckwegZu && onwechsel}
-              {@const ziel = rueckwegZu}
-              <div class="rueckweg">
-                <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
-                <button class="zweit" onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
+            {/if}
+
+            {#if !ergebnis.richtig && weg !== 'laeuft'}
+              {#each fvs as fv (fv.id)}
+                {@const zustand = fvStaende?.get(fv.id)?.zustand}
+                {@const art = rueckwegArt?.(fv, zustand)}
+                <FvRueckmeldung
+                  {fv}
+                  {zustand}
+                  rueckweg={art}
+                  onrueckweg={() => art && onrueckweg?.(fv, art)}
+                />
+              {/each}
+
+              <details class="weg" bind:open={wegOffen}>
+                <summary
+                  onclick={() => {
+                    if (!wegOffen) onnutzung?.('hilfe', `loesungsweg:${aufgabe?.vorlage.id ?? ''}`);
+                  }}>{t('uebung.loesungsweg')}</summary
+                >
+                <ol>
+                  {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
+                    <li>{schritt.de}</li>
+                  {/each}
+                </ol>
+              </details>
+
+              {#if rueckwegZu && onwechsel}
+                {@const ziel = rueckwegZu}
+                <div class="rueckweg">
+                  <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
+                  <button class="zweit" onclick={() => onwechsel(ziel)}
+                    >{t('rueckweg.knopf')}</button
+                  >
+                </div>
+              {/if}
+              {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
+              <div class="knoepfe">
+                <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
               </div>
             {/if}
-            {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
-            <div class="knoepfe">
-              <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
-            </div>
           {/if}
-        {/if}
+        </div>
       </article>
     {/key}
   {/if}
@@ -479,31 +569,37 @@
     font-weight: 700;
     padding-block: 0.125rem;
     padding-inline: var(--abstand-s);
-    border-radius: 999px;
+    border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text-leise);
   }
 
-  .punkte {
+  .erklaerung {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .steine {
     display: flex;
-    gap: 0.375rem;
+    gap: 0.35rem;
     margin-inline-start: auto;
+    align-items: center;
   }
 
-  .punkt {
-    inline-size: 0.625rem;
-    block-size: 0.625rem;
-    border-radius: 50%;
+  .stein {
+    inline-size: 0.85rem;
+    block-size: 0.55rem;
+    border-radius: 0.2rem;
     background: var(--farbe-flaeche-leise);
-    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
+    box-shadow: inset 0 0 0 1.5px var(--farbe-rand);
   }
 
-  .punkt.voll {
+  .stein.voll {
     background: var(--farbe-akzent);
     box-shadow: none;
   }
 
-  .aufgabe {
+  .arbeitsblatt {
     display: grid;
     gap: var(--abstand-m);
     background: var(--farbe-flaeche);
@@ -512,14 +608,26 @@
     padding: var(--abstand-m);
   }
 
-  .aufgabe-frage,
-  .aufgabe-eingabe {
+  .prompt {
     display: grid;
     gap: var(--abstand-s);
   }
 
+  .arbeitsflaeche {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+    border: 1px solid var(--farbe-rand);
+  }
+
+  .phase-rueckmeldung .arbeitsflaeche {
+    background: var(--farbe-flaeche);
+  }
+
   .rueckweg {
-    margin-block: var(--abstand-m);
+    margin-block: var(--abstand-s);
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
@@ -528,24 +636,26 @@
 
   .damals {
     color: var(--farbe-text-leise);
+    margin-block: 0;
   }
 
   .herkunft {
     color: var(--farbe-text-leise);
     font-size: 1rem;
-    margin-block-start: 0;
+    margin-block: 0;
   }
 
   .text {
     font-size: 1.375rem;
     font-weight: 600;
     line-height: 1.4;
-    margin-block-start: 0;
+    margin-block: 0;
   }
 
   .bild {
     margin-inline: auto;
-    max-inline-size: 26rem;
+    margin-block: var(--abstand-s);
+    max-inline-size: 28rem;
   }
 
   .bild :global(svg) {
@@ -553,14 +663,48 @@
     block-size: auto;
   }
 
+  .tipp-notiz {
+    margin-block-start: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-inline-start: 3px solid var(--farbe-hinweis-rand);
+    background: var(--farbe-hinweis-flaeche);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--farbe-text-leise);
+  }
+
+  .tipp-stand {
+    margin-block: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .hilfen {
+    margin-block: 0.25rem 0;
+    padding-inline-start: 1.1rem;
+  }
+
   .knoepfe {
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
+    align-items: center;
   }
 
   .knoepfe .haupt {
     padding-inline: var(--abstand-l);
+  }
+
+  .pruefen {
+    font-weight: 700;
+  }
+
+  .pruefen-hinweis {
+    margin-block: 0;
+    font-size: 0.9375rem;
+    color: var(--farbe-text-leise);
   }
 
   .fertig {
@@ -578,16 +722,50 @@
     padding-inline: 0;
   }
 
-  .hilfen {
-    color: var(--farbe-text-leise);
-  }
-
-  .rueckmeldung {
-    margin-block-start: var(--abstand-m);
+  .antwort-spiegel {
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    border-inline-start: 6px solid var(--farbe-akzent-warm);
+    border: 2px solid var(--farbe-rand);
+    background: var(--farbe-flaeche);
+  }
+
+  .antwort-spiegel.richtig {
+    border-color: var(--farbe-erfolg);
+    background: color-mix(in srgb, var(--farbe-erfolg) 8%, var(--farbe-flaeche));
+  }
+
+  .antwort-spiegel.falsch {
+    border-color: var(--farbe-akzent-warm);
+    background: color-mix(in srgb, var(--farbe-akzent-warm) 8%, var(--farbe-flaeche));
+  }
+
+  .spiegel-label {
+    margin-block: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--farbe-text-leise);
+  }
+
+  .spiegel-wert {
+    margin-block: 0.15rem 0;
+    font-size: 1.25rem;
+  }
+
+  .spiegel-erwartet {
+    margin-block: var(--abstand-s) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem var(--abstand-s);
+    align-items: baseline;
+    font-size: 1.0625rem;
+  }
+
+  .rueckmeldung {
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border-inline-start: 4px solid var(--farbe-akzent-warm);
     background: var(--farbe-flaeche-leise);
   }
 
@@ -600,16 +778,22 @@
   }
 
   .urteil {
-    font-weight: 800;
-    font-size: 1.25rem;
+    margin-block: 0;
+    font-weight: 700;
+    font-size: 1.125rem;
   }
 
   .rueckmeldung.richtig .urteil {
     color: var(--farbe-erfolg);
   }
 
+  .ursache {
+    margin-block: 0.35rem 0;
+    color: var(--farbe-text);
+  }
+
   .weg {
-    margin-block: var(--abstand-m);
+    margin-block: var(--abstand-s);
   }
 
   .weg summary {
@@ -622,5 +806,39 @@
 
   .pause {
     color: var(--farbe-text-leise);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .phase-rueckmeldung .rueckmeldung,
+    .phase-rueckmeldung .antwort-spiegel {
+      animation: einblenden 180ms ease-out;
+    }
+  }
+
+  @keyframes einblenden {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Querformat Lernen: Prompt links, Eingabe/Feedback rechts */
+  @media (orientation: landscape) and (width >= 40rem) {
+    .arbeitsblatt {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      align-items: start;
+      gap: var(--abstand-m);
+    }
+
+    .prompt {
+      position: sticky;
+      inset-block-start: var(--abstand-s);
+    }
+
+    .tipp-notiz {
+      max-inline-size: 100%;
+    }
   }
 </style>
