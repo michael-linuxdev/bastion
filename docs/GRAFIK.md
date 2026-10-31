@@ -209,8 +209,8 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 
 | PR | Inhalt |
 |---|---|
-| **G0** | Dieses Dokument, `GRAFIK-SPRITES.md`, BASEBAU §5.5–§5.7, Entscheidungslogs (dieser Stand) |
-| **G1** | Atmosphäre-Gerüst, Ticker, „ruhig“, „leicht“, reduced-motion, Aufstell-Effekt |
+| **G0** | Dieses Dokument, `GRAFIK-SPRITES.md`, BASEBAU §5.5–§5.7, Entscheidungslogs |
+| **G1** | Atmosphäre-Gerüst, Ticker, „ruhig“, „leicht“, reduced-motion, Aufstell-Effekt · *umgesetzt* |
 | **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang |
 | **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) |
 | **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude |

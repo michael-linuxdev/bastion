@@ -16,6 +16,13 @@ import {
   type GebaeudeTyp,
   type Position,
 } from '../../../core/bastion/katalog';
+import {
+  aufstellDauerMs,
+  aufstellFortschritt,
+  tickerAn,
+  wolkenVersatz,
+  type Bewegung,
+} from './atmosphaere';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 
@@ -48,6 +55,8 @@ export interface Ansicht {
 
 export interface Buehne {
   zeichne(b: Bastion, a: Ansicht): void;
+  /** Bewegung umschalten, ohne die Bühne neu zu bauen (GRAFIK §4.5) */
+  setzeBewegung(b: Bewegung): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
   zerstoere(): void;
@@ -297,8 +306,8 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
 }
 
-/** Himmel: Sonne und Wolken am Tag, Mond und Sterne am Abend – feste Plätze, kein Zufall. */
-function himmel(g: Graphics, f: Farben) {
+/** Sonne bzw. Mond und Sterne – feste Plätze, kein Zufall. Wolken liegen in einer eigenen Schicht. */
+function gestirn(g: Graphics, f: Farben) {
   g.circle(BUEHNE_B - 70, 52, f.abend ? 16 : 22).fill(f.licht);
   if (f.abend) {
     g.circle(BUEHNE_B - 62, 46, 14).fill(f.himmel);
@@ -312,14 +321,18 @@ function himmel(g: Graphics, f: Farben) {
       [90, 96],
     ] as const)
       g.circle(x, y, 1.6).fill({ color: f.licht, alpha: 0.8 });
-  } else {
-    for (const [x, y, s] of [
-      [90, 50, 1],
-      [300, 34, 0.8],
-    ] as const) {
-      g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
-      g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
-    }
+  }
+}
+
+/** Wolken am Tag – Verschiebung übernimmt die Atmosphäre (deterministisch). */
+function wolken(g: Graphics, f: Farben) {
+  if (f.abend) return;
+  for (const [x, y, s] of [
+    [90, 50, 1],
+    [300, 34, 0.8],
+  ] as const) {
+    g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
+    g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
   }
 }
 
@@ -373,6 +386,7 @@ export async function buehneErstellen(
   ziel: HTMLElement,
   farben: Farben,
   art: Bildart = 'insel',
+  bewegungStart: Bewegung = 'voll',
 ): Promise<Buehne> {
   const app = new Application();
   await app.init({
@@ -393,17 +407,72 @@ export async function buehneErstellen(
   ziel.append(app.canvas);
 
   const hintergrund = new Graphics();
-  himmel(hintergrund, farben);
+  gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
+  const wolkenLage = new Graphics();
+  wolken(wolkenLage, farben);
   const gebaeude = new Container();
-  app.stage.addChild(hintergrund, gebaeude);
+  // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
+  gebaeude.pivot.set(BUEHNE_B / 2, BUEHNE_H / 2);
+  gebaeude.position.set(BUEHNE_B / 2, BUEHNE_H / 2);
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude);
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
+  let bewegung: Bewegung = bewegungStart;
+  let bekannt = new Set<string>();
+  let ersterZug = true;
+  let aufstellStart = 0;
+  /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
+  let aufstellAktiv = false;
+
+  const aufstellAnwenden = (jetzt: number) => {
+    if (!aufstellAktiv) return;
+    const dauer = aufstellDauerMs(bewegung);
+    const f = aufstellFortschritt(jetzt - aufstellStart, dauer);
+    gebaeude.scale.set(0.92 + 0.08 * f);
+    gebaeude.alpha = f;
+    if (f >= 1) aufstellAktiv = false;
+  };
+
+  const ticker = () => {
+    const jetzt = performance.now();
+    wolkenLage.x = wolkenVersatz(jetzt, bewegung);
+    aufstellAnwenden(jetzt);
+  };
+
+  const tickerSync = () => {
+    app.ticker.remove(ticker);
+    if (tickerAn(bewegung)) app.ticker.add(ticker);
+    else {
+      wolkenLage.x = 0;
+      gebaeude.scale.set(1);
+      gebaeude.alpha = 1;
+    }
+  };
+  tickerSync();
 
   return {
     zeichne(b, a) {
+      const ids = new Set(b.bauwerke.map((x) => x.id));
+      if (ersterZug) {
+        bekannt = ids;
+        ersterZug = false;
+        gebaeude.scale.set(1);
+        gebaeude.alpha = 1;
+        aufstellAktiv = false;
+      } else {
+        const neu = [...ids].some((id) => !bekannt.has(id));
+        bekannt = ids;
+        if (neu && aufstellDauerMs(bewegung) > 0) {
+          aufstellStart = performance.now();
+          aufstellAktiv = true;
+          gebaeude.scale.set(0.92);
+          gebaeude.alpha = 0;
+          tickerSync();
+        }
+      }
       gebaeude.removeChildren().forEach((c) => c.destroy());
       const g = new Graphics();
       // Neubauten im Bau: Umriss auf dem Boden
@@ -474,6 +543,10 @@ export async function buehneErstellen(
       }
       gebaeude.addChild(g);
     },
+    setzeBewegung(b) {
+      bewegung = b;
+      tickerSync();
+    },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
       const x = ((clientX - r.left) / r.width) * BUEHNE_B;
@@ -483,6 +556,7 @@ export async function buehneErstellen(
       return feldUnter(x, y);
     },
     zerstoere() {
+      app.ticker.remove(ticker);
       app.destroy(true, { children: true });
     },
   };
