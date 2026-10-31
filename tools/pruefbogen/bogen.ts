@@ -353,7 +353,12 @@ function wegHtml(v: GeneratorVorlage, g: Generator<unknown>, niveau: Niveau): st
   if (!v.schritte) return '';
   const parameter = v.parameter[niveau];
   const i = g.erzeuge(1, parameter);
-  const weg = musterweg(g, 1, parameter);
+  const weg = musterweg(
+    g,
+    1,
+    parameter,
+    v.schritte.map((x) => x.id),
+  );
   const bisher: Record<string, Wert> = {};
   const zeilen = weg.map(({ id, aufgabe }) => {
     const s = v.schritte?.find((x) => x.id === id);
