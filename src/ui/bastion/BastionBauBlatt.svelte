@@ -22,7 +22,6 @@
     istZiel,
     onbauen,
     onvormerken,
-    onschliessen,
     hindernisText,
   }: {
     neubauten: readonly BauAngebot[];
@@ -31,7 +30,6 @@
     istZiel: (a: BauAngebot) => boolean;
     onbauen: (a: BauAngebot) => void;
     onvormerken: (a: BauAngebot) => void;
-    onschliessen: () => void;
     hindernisText: (h: BauHindernis, typ: GebaeudeTyp, stufe: number) => string;
   } = $props();
 
