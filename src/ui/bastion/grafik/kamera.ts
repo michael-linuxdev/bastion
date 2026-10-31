@@ -36,16 +36,11 @@ export function zoomAn(k: Kamera, sx: number, sy: number, naechstes: number): Ka
   return { zoom, x: sx - wx * zoom, y: sy - wy * zoom };
 }
 
-/** Das ganze Bild in der Mitte, mit etwas Rand. */
+/** Das ganze Bild in der Mitte, ohne Karten-Rand (Vollbild-Bühne). */
 export function einpassen(breite: number, hoehe: number): Kamera {
-  const rand = 28;
   const bb = buehneBreite();
   const bh = buehneHoehe();
-  const zoom = klemmen(
-    Math.min(breite / (bb + rand * 2), hoehe / (bh + rand * 2)),
-    ZOOM_MIN,
-    ZOOM_EINPASSEN_MAX,
-  );
+  const zoom = klemmen(Math.min(breite / bb, hoehe / bh), ZOOM_MIN, ZOOM_EINPASSEN_MAX);
   return {
     zoom,
     x: (breite - bb * zoom) / 2,

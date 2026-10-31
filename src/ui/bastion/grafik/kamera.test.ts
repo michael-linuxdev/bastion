@@ -55,12 +55,10 @@ describe('Kamera wie in Dorfkrieg', () => {
     const rechts = klein.x + BUEHNE_B * klein.zoom;
     const oben = klein.y;
     const unten = klein.y + BUEHNE_H * klein.zoom;
-    expect(links).toBeGreaterThan(0);
-    expect(oben).toBeGreaterThan(0);
-    expect(rechts).toBeLessThan(800);
-    expect(unten).toBeLessThan(600);
+    // Ohne Karten-Rand: eine Achse liegt am Rand, die andere zentriert
     expect(links).toBeCloseTo(800 - rechts);
     expect(oben).toBeCloseTo(600 - unten);
+    expect(Math.min(Math.abs(links), Math.abs(oben))).toBeCloseTo(0);
 
     const gross = einpassen(4000, 3000);
     expect(gross.zoom).toBe(ZOOM_EINPASSEN_MAX);

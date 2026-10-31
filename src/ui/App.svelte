@@ -568,7 +568,7 @@
   }
 </script>
 
-<main class="start">
+<main class="start" class:bastion-szene={ansicht === 'bastion'}>
   <!-- Der Name steht sichtbar unter „Mehr“; hier nur für Screenreader -->
   <h1 class="unsichtbar">{t('start.ueberschrift')}</h1>
 
@@ -641,14 +641,6 @@
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
       {#if ansicht === 'bastion'}
-        <button
-          class="zurueck"
-          onclick={() => {
-            bewaehrungSpannung = false;
-            bewaehrungHinweis = undefined;
-            ansicht = 'start';
-          }}>← {t('uebung.zurueck')}</button
-        >
         {#await import('./bastion/Bastion.svelte')}
           <p role="status">{t('uebersicht.laedt')}</p>
         {:then bastionMod}
@@ -986,6 +978,45 @@
     padding-block: calc(env(safe-area-inset-top) + var(--abstand-l))
       calc(var(--leiste-hoehe, 6rem) + var(--abstand-s));
     padding-inline: var(--abstand-m);
+  }
+
+  /* Bastion-Szene: vollflächig im Inhaltsbereich (außer unterer Leiste).
+     Klassen .bastion/.einstellungen kommen aus dem nachgeladenen Modul → :global. */
+  .start.bastion-szene:global(:has(.bastion.szene)) {
+    max-inline-size: none;
+    margin-inline: 0;
+    padding-block: env(safe-area-inset-top) var(--leiste-hoehe, 6rem);
+    padding-inline: 0;
+    block-size: 100dvh;
+    overflow: hidden;
+  }
+
+  .start.bastion-szene:global(:has(.bastion.szene) .geschafft) {
+    position: absolute;
+    inset-inline: var(--abstand-m);
+    inset-block-start: calc(env(safe-area-inset-top) + 3.5rem);
+    z-index: 4;
+    margin: 0;
+    padding: var(--abstand-s);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+  }
+
+  @media (orientation: landscape) {
+    .start.bastion-szene:global(:has(.bastion.szene)) {
+      padding-block-end: env(safe-area-inset-bottom);
+    }
+  }
+
+  /* Bastion-Einstellungen: wieder normaler Lesebereich */
+  .start.bastion-szene:global(:has(.einstellungen)) {
+    max-inline-size: 40rem;
+    margin-inline: auto;
+    padding-block: calc(env(safe-area-inset-top) + var(--abstand-l))
+      calc(var(--leiste-hoehe, 6rem) + var(--abstand-s));
+    padding-inline: var(--abstand-m);
+    block-size: auto;
+    overflow: visible;
   }
 
   .unsichtbar {

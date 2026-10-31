@@ -19,10 +19,27 @@
     onwahl: (b: Bereich) => void;
   } = $props();
 
-  // Höhe für Seitenränder und Hinweise darüber (grund.css, UpdateHinweis.svelte)
+  // Höhe für Seitenränder und Hinweise darüber (grund.css, UpdateHinweis.svelte).
+  // Bastion-Szene im Querformat: Leiste aus → --leiste-hoehe = 0.
   let hoehe = $state(0);
   $effect(() => {
-    if (hoehe > 0) document.documentElement.style.setProperty('--leiste-hoehe', `${hoehe}px`);
+    const m = typeof matchMedia === 'function' ? matchMedia('(orientation: landscape)') : undefined;
+    const setzen = () => {
+      const bastionQuer =
+        m?.matches === true && document.documentElement.dataset['bastionSzene'] === '1';
+      document.documentElement.style.setProperty('--leiste-hoehe', `${bastionQuer ? 0 : hoehe}px`);
+    };
+    setzen();
+    m?.addEventListener('change', setzen);
+    const beobachter = new MutationObserver(setzen);
+    beobachter.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-bastion-szene'],
+    });
+    return () => {
+      m?.removeEventListener('change', setzen);
+      beobachter.disconnect();
+    };
   });
 
   const bereiche = $derived<Bereich[]>(
@@ -64,6 +81,13 @@
     padding-inline: var(--abstand-s);
     background: var(--farbe-flaeche);
     box-shadow: 0 -2px 12px var(--farbe-schatten);
+  }
+
+  /* Bastion-Szene im Querformat: Leiste weg, Bühne nutzt den Platz */
+  @media (orientation: landscape) {
+    :global(html[data-bastion-szene='1']) .leiste {
+      display: none;
+    }
   }
 
   button {

@@ -10,11 +10,15 @@
     | 'werkstatt'
     | 'diagnose'
     | 'mehr'
-    | 'einstellungen';
+    | 'einstellungen'
+    | 'hinterhof';
 </script>
 
 <script lang="ts">
   let { name }: { name: SymbolName } = $props();
+
+  /** Gefüllte Formen (Zahnrad): Strichpfade sähen sonst wie eine Sonne aus. */
+  const GEFUELLT: ReadonlySet<SymbolName> = new Set(['einstellungen']);
 
   const PFADE: Record<SymbolName, string> = {
     start: 'M3 11.5 12 4l9 7.5M5.5 9.5V20h5v-5.5h3V20h5V9.5',
@@ -27,14 +31,16 @@
       'M9.5 18h5M10.5 21h3M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2v.5h5V16c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3Z',
     mehr: 'M4 7h16M4 12h16M4 17h16',
     diagnose: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm3.5 5.5-2 5-5 2 2-5 5-2Z',
-    // Zahnrad für Bastion-/Session-Einstellungen
+    // Zahnrad gefüllt mit Naben-Loch (evenodd): klare Zähne, keine Strahlen = keine Sonne
     einstellungen:
-      'M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM12 3v2.1M12 18.9V21M4.9 6.3l1.5 1.5M17.6 16.2l1.5 1.5M3 12h2.1M18.9 12H21M4.9 17.7l1.5-1.5M17.6 7.8l1.5-1.5',
+      'M9.5 2.2h5v2.3l1.7.7 1.6-1.6 3.5 3.5-1.6 1.6.7 1.7H22.5v5h-2.3l-.7 1.7 1.6 1.6-3.5 3.5-1.6-1.6-1.7.7V22.5h-5v-2.3l-1.7-.7-1.6 1.6-3.5-3.5 1.6-1.6-.7-1.7H1.5v-5h2.3l.7-1.7-1.6-1.6 3.5-3.5 1.6 1.6 1.7-.7V2.2zm2.5 6.3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z',
+    // Hinterhof: kleiner Zaun / Beet
+    hinterhof: 'M4 18V9l4-3 4 3v9M12 18V9l4-3 4 3v9M4 18h16M8 12v2M8 15v2M16 12v2M16 15v2',
   };
 </script>
 
-<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <path d={PFADE[name]} />
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class:gefuellt={GEFUELLT.has(name)}>
+  <path d={PFADE[name]} fill-rule="evenodd" />
 </svg>
 
 <style>
@@ -47,5 +53,10 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     flex: none;
+  }
+
+  svg.gefuellt {
+    fill: currentColor;
+    stroke: none;
   }
 </style>
