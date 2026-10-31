@@ -3,7 +3,7 @@
   // die Bastion bei eingeschaltetem Basebau öffnet und das Bild zeigt, lädt es (R7, A3).
   // Antippen wählt ein Gebäude; „Versetzen“ und dann ein freies Feld antippen versetzt
   // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
   import { BAUPLATZ, KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
@@ -353,7 +353,6 @@
     himmelCss = farben().himmel;
     const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
-    let erstellt: Buehne | undefined;
     // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
     const start: Bewegung = untrack(() => bewegung);
     const platz = untrack(() => bauplatz);
@@ -369,17 +368,28 @@
         ),
       )
       .then((b) => {
-        if (abgebrochen) b.zerstoere();
-        else buehne = erstellt = b;
+        if (abgebrochen) {
+          b.zerstoere();
+          return;
+        }
+        // Altes Canvas erst weg, wenn das neue fertig ist (kein Detach mitten im Antippen)
+        const alt = buehne;
+        buehne = b;
+        alt?.zerstoere();
+        ort.querySelectorAll(':scope > canvas').forEach((c) => {
+          if (c !== b.view) c.remove();
+        });
       })
       .catch(() => (fehlgeschlagen = true));
     return () => {
+      // Nur abbrechen – Canvas bleibt bis zum Tausch oder onDestroy
       abgebrochen = true;
-      erstellt?.zerstoere();
-      buehne = undefined;
-      // Aufbau kann schon ein Canvas angehängt haben, bevor die Promise fertig ist
-      ort.querySelectorAll(':scope > canvas').forEach((c) => c.remove());
     };
+  });
+
+  onDestroy(() => {
+    buehne?.zerstoere();
+    buehne = undefined;
   });
 
   $effect(() => {

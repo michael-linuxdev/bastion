@@ -109,6 +109,8 @@ export interface Ansicht {
 }
 
 export interface Buehne {
+  /** Pixi-Canvas (für atomaren Tausch in Bauplatz) */
+  readonly view: HTMLCanvasElement;
   zeichne(b: Bastion, a: Ansicht): void;
   /** Bewegung umschalten, ohne die Bühne neu zu bauen (GRAFIK §4.5) */
   setzeBewegung(b: Bewegung): void;
@@ -629,14 +631,25 @@ function stiftVon(g: Graphics): Stift {
 }
 
 /** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
-async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<string, Texture>> {
+async function atlasTexturenLaden(
+  manifest: AtlasManifest | null,
+  braucht: (id: string) => boolean = () => true,
+): Promise<Map<string, Texture>> {
   const map = new Map<string, Texture>();
   if (!manifest || manifest.eintraege.length === 0) return map;
   const basis = atlasBasisUrl();
+  const liste = manifest.eintraege.filter((e) => braucht(e.id));
   await Promise.all(
-    manifest.eintraege.map(async (e) => {
+    liste.map(async (e) => {
       try {
-        const tex = (await Assets.load(basis + e.datei)) as Texture;
+        // Timeout: offline/ohne Cache soll die Bühne nicht hängen (Code-Fallback)
+        const geladen = Assets.load(basis + e.datei) as Promise<Texture>;
+        const tex = await Promise.race([
+          geladen,
+          new Promise<Texture>((_, ablehnen) => {
+            setTimeout(() => ablehnen(new Error('atlas-timeout')), 4_000);
+          }),
+        ]);
         map.set(e.id, tex);
       } catch {
         // einzelner Ausfall: Code-Fallback für diese ID
@@ -644,6 +657,14 @@ async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<s
     }),
   );
   return map;
+}
+
+/** Welche Atlas-IDs die Bühne für diese Bildart braucht (P0 Dorf + P1 Himmel/Wetter). */
+function atlasBrauchtId(art: Bildart, id: string): boolean {
+  if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
+    return true;
+  if (art !== 'dorf') return false;
+  return id.startsWith('dorf/') || id.startsWith('boden/dorf/') || id.startsWith('wesen/dorf/');
 }
 
 /** Graphics-Kind in einer Boden-Lage anlegen (Code-Fallback zeichnet darauf). */
@@ -729,10 +750,10 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // Atlas nach dem Canvas: P1 Himmel/Wetter für alle Themen; Dorf-Gebäude/Boden nur bei Dorf.
-  // Bauplatz.$effect räumt verwaiste Canvas bei Abbruch weg.
+  // P1 Himmel/Wetter für alle Themen; Dorf-Gebäude/Boden/Wesen nur bei Dorf.
+  // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
-  const texturen = await atlasTexturenLaden(atlas);
+  const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
   // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf-Wiese)
@@ -1227,6 +1248,9 @@ export async function buehneErstellen(
         wesenReagieren(w, performance.now());
         wesenZeichnen(performance.now());
       }
+    },
+    get view() {
+      return app.canvas;
     },
     zerstoere() {
       app.ticker.remove(ticker);
