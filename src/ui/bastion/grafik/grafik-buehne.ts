@@ -12,7 +12,6 @@ import type { HinterhofFeld } from '../../../core/learning/hinterhof';
 import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
-  BAUPLATZ,
   KATALOG,
   type Familie,
   type GebaeudeTyp,
@@ -30,7 +29,16 @@ import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
 import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
 import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
-import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
+import {
+  bauplatzAktiv,
+  bauplatzAktivSetzen,
+  buehneBreite,
+  buehneHoehe,
+  INSEL,
+  feldUnter,
+  punkt,
+  type BauplatzMass,
+} from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
 import { hinterhofZeichnen } from './hinterhof-szene';
@@ -374,9 +382,9 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
 
 /** Sonne bzw. Mond und Sterne – feste Plätze, kein Zufall. Wolken liegen in einer eigenen Schicht. */
 function gestirn(g: Graphics, f: Farben) {
-  g.circle(BUEHNE_B - 70, 52, f.abend ? 16 : 22).fill(f.licht);
+  g.circle(buehneBreite() - 70, 52, f.abend ? 16 : 22).fill(f.licht);
   if (f.abend) {
-    g.circle(BUEHNE_B - 62, 46, 14).fill(f.himmel);
+    g.circle(buehneBreite() - 62, 46, 14).fill(f.himmel);
     for (const [x, y] of [
       [60, 30],
       [140, 70],
@@ -404,8 +412,7 @@ function wolken(g: Graphics, f: Farben) {
 
 /** Die Insel: Deckfläche mit Raster, zwei Seitentöne nach vorn */
 function insel(g: Graphics, f: Farben) {
-  const W = BAUPLATZ.breite;
-  const T = BAUPLATZ.tiefe;
+  const { breite: W, tiefe: T } = bauplatzAktiv();
   const [h, r, v, l] = [punkt(0, 0), punkt(W, 0), punkt(W, T), punkt(0, T)];
   const u = (p: Punkt) => ({ x: p.x, y: p.y + INSEL });
   g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
@@ -454,11 +461,13 @@ export async function buehneErstellen(
   art: Bildart = 'insel',
   bewegungStart: Bewegung = 'voll',
   thema: Thema = 'bastion',
+  platz?: BauplatzMass,
 ): Promise<Buehne> {
+  if (platz) bauplatzAktivSetzen(platz);
   const app = new Application();
   await app.init({
-    width: BUEHNE_B,
-    height: BUEHNE_H,
+    width: buehneBreite(),
+    height: buehneHoehe(),
     background: farben.himmel,
     antialias: true,
     // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
@@ -485,7 +494,7 @@ export async function buehneErstellen(
   else if (art === 'weltraum') weltraumBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
   if (wetterBild === 'nebel') {
-    hintergrund.rect(0, 0, BUEHNE_B, BUEHNE_H).fill({ color: '#c8d2dc', alpha: 0.35 });
+    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
   }
   const wolkenLage = new Graphics();
   wolken(wolkenLage, farben);
@@ -496,8 +505,8 @@ export async function buehneErstellen(
   }
   const gebaeude = new Container();
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
-  gebaeude.pivot.set(BUEHNE_B / 2, BUEHNE_H / 2);
-  gebaeude.position.set(BUEHNE_B / 2, BUEHNE_H / 2);
+  gebaeude.pivot.set(buehneBreite() / 2, buehneHoehe() / 2);
+  gebaeude.position.set(buehneBreite() / 2, buehneHoehe() / 2);
   const partikelLage = new Graphics();
   const wesenLage = new Graphics();
   app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
@@ -518,8 +527,8 @@ export async function buehneErstellen(
   const leicht = bewegungStart === 'leicht';
   const budget = partikelBudget(wetterBild, leicht);
   const tropfen: Tropfen[] = Array.from({ length: budget }, (_, i) => ({
-    x: ((i * 97) % BUEHNE_B) + 3,
-    y: ((i * 53) % BUEHNE_H) + 2,
+    x: ((i * 97) % buehneBreite()) + 3,
+    y: ((i * 53) % buehneHoehe()) + 2,
     v: wetterBild === 'schnee' ? 0.4 + (i % 5) * 0.08 : 1.2 + (i % 7) * 0.15,
   }));
 
@@ -566,9 +575,9 @@ export async function buehneErstellen(
       for (const t of tropfen) {
         t.y += t.v;
         if (wetterBild === 'schnee') t.x += Math.sin((jetzt + t.y) / 400) * 0.3;
-        if (t.y > BUEHNE_H) {
+        if (t.y > buehneHoehe()) {
           t.y = -4;
-          t.x = (t.x + 37) % BUEHNE_B;
+          t.x = (t.x + 37) % buehneBreite();
         }
       }
       partikelZeichnen();
@@ -758,8 +767,8 @@ export async function buehneErstellen(
     },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
-      const x = ((clientX - r.left) / r.width) * BUEHNE_B;
-      const y = ((clientY - r.top) / r.height) * BUEHNE_H;
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
       // Erst die Gebäude, von vorn nach hinten – auch ein Tipp aufs Dach trifft
       for (const z of [...treffer].reverse()) if (innen(z.umriss, x, y)) return z.pos;
       return feldUnter(x, y);
@@ -767,8 +776,8 @@ export async function buehneErstellen(
     wesenBei(clientX, clientY) {
       if (!tickerAn(bewegung)) return undefined;
       const r = app.canvas.getBoundingClientRect();
-      const x = ((clientX - r.left) / r.width) * BUEHNE_B;
-      const y = ((clientY - r.top) / r.height) * BUEHNE_H;
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
       for (const w of [...wesen].reverse()) {
         if (Math.hypot(w.x - x, w.y - y) < 14 * w.skala) return w.id;
       }

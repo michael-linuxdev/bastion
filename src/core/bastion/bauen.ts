@@ -19,9 +19,11 @@
  */
 import { BUCHUNG_V, buchungsId, type BuchungEreignis, type Konto } from '../ledger/buchung';
 import type { Ressource } from '../ledger/regeln';
+import { bauplatzFuer, epocheFreigeschaltet, type Epoche } from './epochen';
 import {
   BAUPLATZ,
   hindernisse,
+  hoechstensFuer,
   KATALOG,
   kosten,
   START,
@@ -31,6 +33,12 @@ import {
   type Hindernis,
   type Position,
 } from './katalog';
+
+/** Freigeschaltete Epoche aus Bastion und Konto (für Bauplatz und Katalog). */
+export function bastionEpoche(b: Bastion, konto: Konto): Epoche {
+  const kern = Math.max(0, ...b.bauwerke.filter((x) => x.typ === 'kern').map((x) => x.stufe));
+  return epocheFreigeschaltet(kern, konto.erworben.koennen);
+}
 
 /** Schemaversion der Ereignisart `bau` (DATENMODELL §6.2). */
 export const BAU_V = 1;
@@ -250,8 +258,14 @@ export function bastionAus(
   };
 }
 
-/** Wie viele Vorhaben gleichzeitig: eines, mit fertiger Zimmerei zwei (§4.2). */
-export const plaetze = (b: Bastion) => (b.bauwerke.some((x) => x.typ === 'werkstatt') ? 2 : 1);
+/**
+ * Wie viele Vorhaben gleichzeitig (§4.2, §5.5): ohne Zimmerei 1;
+ * Zimmerei-Stufe 1 → 2, Stufe 2 → 3, Stufe 3 → 4.
+ */
+export const plaetze = (b: Bastion) => {
+  const w = b.bauwerke.find((x) => x.typ === 'werkstatt');
+  return w ? Math.min(4, w.stufe + 1) : 1;
+};
 
 export type BauHindernis =
   | Hindernis
@@ -276,9 +290,11 @@ export function platzHindernisse(
   typ: GebaeudeTyp,
   pos: Position,
   ohne?: string,
+  /** Bauplatzgröße; Standard Epoche 1 */
+  platz: { readonly breite: number; readonly tiefe: number } = BAUPLATZ,
 ): BauHindernis[] {
   const [w, t] = KATALOG[typ].groesse;
-  if (pos.x < 0 || pos.y < 0 || pos.x + w > BAUPLATZ.breite || pos.y + t > BAUPLATZ.tiefe)
+  if (pos.x < 0 || pos.y < 0 || pos.x + w > platz.breite || pos.y + t > platz.tiefe)
     return ['ausserhalb'];
   const belegt = new Set<string>();
   for (const x of b.bauwerke) if (x.id !== ohne) felder(x.typ, x.pos).forEach((f) => belegt.add(f));
@@ -289,10 +305,14 @@ export function platzHindernisse(
 }
 
 /** Erstes freies Feld für ein Gebäude, Reihe für Reihe von oben links – oder undefined. */
-export function freierPlatz(b: Bastion, typ: GebaeudeTyp): Position | undefined {
-  for (let y = 0; y < BAUPLATZ.tiefe; y++)
-    for (let x = 0; x < BAUPLATZ.breite; x++)
-      if (platzHindernisse(b, typ, { x, y }).length === 0) return { x, y };
+export function freierPlatz(
+  b: Bastion,
+  typ: GebaeudeTyp,
+  platz: { readonly breite: number; readonly tiefe: number } = BAUPLATZ,
+): Position | undefined {
+  for (let y = 0; y < platz.tiefe; y++)
+    for (let x = 0; x < platz.breite; x++)
+      if (platzHindernisse(b, typ, { x, y }, undefined, platz).length === 0) return { x, y };
   return undefined;
 }
 
@@ -306,12 +326,14 @@ export function beginnHindernisse(
   typ: GebaeudeTyp,
   ort: { readonly ausbau: string } | { readonly pos: Position },
 ): BauHindernis[] {
+  const epoche = bastionEpoche(b, konto);
+  const platz = bauplatzFuer(epoche);
   const ausbau = 'ausbau' in ort ? b.bauwerke.find((x) => x.id === ort.ausbau) : undefined;
   // Eingelagertes zählt für die Höchstzahl mit
-  const h: BauHindernis[] = [...hindernisse(typ, [...b.bauwerke, ...b.lager], ausbau)];
+  const h: BauHindernis[] = [...hindernisse(typ, [...b.bauwerke, ...b.lager], ausbau, epoche)];
   // Ein Neubau, der schon läuft, zählt für die Höchstzahl mit
   if (!ausbau && !h.includes('hoechstzahl')) {
-    const max = KATALOG[typ].hoechstens;
+    const max = hoechstensFuer(typ, epoche);
     const zahl =
       [...b.bauwerke, ...b.lager].filter((x) => x.typ === typ).length +
       b.vorhaben.filter((v) => v.typ === typ && v.stufe === 1).length;
@@ -319,7 +341,7 @@ export function beginnHindernisse(
   }
   if (b.vorhaben.length >= plaetze(b)) h.push('kein-freier-bauplatz');
   if (ausbau && b.vorhaben.some((v) => v.gebaeude === ausbau.id)) h.push('wird-schon-gebaut');
-  if ('pos' in ort) h.push(...platzHindernisse(b, typ, ort.pos));
+  if ('pos' in ort) h.push(...platzHindernisse(b, typ, ort.pos, undefined, platz));
   const k = kosten(typ, ausbau ? ausbau.stufe + 1 : 1);
   if (k)
     for (const r of ['fleiss', 'behalten', 'koennen'] as const)
@@ -426,11 +448,17 @@ export function abbrechen(b: Bastion, vorhaben: string, a: Bauangaben): Ergebnis
 }
 
 /** Gebäude oder laufenden Neubau kostenlos versetzen (§4.2). */
-export function versetzen(b: Bastion, gebaeude: string, pos: Position, a: Bauangaben): Ergebnis {
+export function versetzen(
+  b: Bastion,
+  gebaeude: string,
+  pos: Position,
+  a: Bauangaben,
+  platz: { readonly breite: number; readonly tiefe: number } = BAUPLATZ,
+): Ergebnis {
   const ziel =
     b.bauwerke.find((x) => x.id === gebaeude) ?? b.vorhaben.find((v) => v.gebaeude === gebaeude);
   if (!ziel) return { ok: false, hindernisse: ['nicht-baubar'] };
-  const h = platzHindernisse(b, ziel.typ, pos, gebaeude);
+  const h = platzHindernisse(b, ziel.typ, pos, gebaeude, platz);
   if (h.length > 0) return { ok: false, hindernisse: h };
   return {
     ok: true,
@@ -482,10 +510,16 @@ export function einlagern(b: Bastion, gebaeude: string, a: Bauangaben): Ergebnis
 }
 
 /** Eingelagerte Zierde kostenlos wieder aufstellen – auf ein freies Feld (B-21). */
-export function aufstellen(b: Bastion, gebaeude: string, pos: Position, a: Bauangaben): Ergebnis {
+export function aufstellen(
+  b: Bastion,
+  gebaeude: string,
+  pos: Position,
+  a: Bauangaben,
+  platz: { readonly breite: number; readonly tiefe: number } = BAUPLATZ,
+): Ergebnis {
   const ziel = b.lager.find((x) => x.id === gebaeude);
   if (!ziel) return { ok: false, hindernisse: ['nicht-baubar'] };
-  const h = platzHindernisse(b, ziel.typ, pos);
+  const h = platzHindernisse(b, ziel.typ, pos, undefined, platz);
   if (h.length > 0) return { ok: false, hindernisse: h };
   return {
     ok: true,

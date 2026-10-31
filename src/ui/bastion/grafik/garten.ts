@@ -3,8 +3,8 @@
  * Boden als Beete/Rasen, Gebäude: Baumhaus, Schuppen, Gewächshaus, Aussichtsbaum …
  * Stift ohne PixiJS-Import (wie dorf.ts).
  */
-import { BAUPLATZ, KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
-import { RAUTE_B, punkt } from './iso';
+import { KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
+import { bauplatzAktiv, RAUTE_B, punkt } from './iso';
 import { hash01, schattieren, type Stift } from './dorf';
 
 const S = RAUTE_B / 64;
@@ -62,7 +62,7 @@ const flach = (p: readonly { x: number; y: number }[]) => p.flatMap((q) => [q.x,
 const hoch = (p: { x: number; y: number }, h: number) => ({ x: p.x, y: p.y - h });
 
 export function gartenBoden(st: Stift, abend: boolean): void {
-  const { breite, tiefe } = BAUPLATZ;
+  const { breite, tiefe } = bauplatzAktiv();
   for (let y = -1; y <= tiefe; y++) {
     for (let x = -1; x <= breite; x++) {
       const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;

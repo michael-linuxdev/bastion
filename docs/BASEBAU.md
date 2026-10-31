@@ -215,7 +215,7 @@ Außenposten → Burg: Bergfried Stufe 3 **und** 15 Baupläne insgesamt erworben
 
 Beim Wechsel wird die Bastion umgebaut: größerer Bauplatz, neuer Baustil, neue Gebäude (z. B. Bibliothek statt Studierstube, Steinmauern statt Palisaden). **Alles Gebaute bleibt erhalten** und wird in den neuen Stil übertragen.
 
-*Umsetzung (2.10):* `src/core/bastion/epoche.ts`. Die Listenansicht zeigt oben „Ziel der Epoche 1: Außenposten“ mit beiden Bedingungen (Bergfried Stufe 3; erworbene Baupläne von 15) und erklärt, dass auch verbaute Baupläne zählen. Ist beides erreicht, steht dort „Epoche 1 geschafft! Dein Außenposten steht. Du kannst weiter gestalten – oder einfach stolz darauf sein.“ Einen Wechsel in Epoche 2 gibt es noch nicht (K-18); fertig sein ist erlaubt (§9 Punkt 3). Die Rückkehr-Begrüßung (§6.3) ergänzt bei eingeschaltetem Basebau „Deine Bastion hat gewartet.“
+*Umsetzung (2.10 / G9):* `src/core/bastion/epoche.ts` und `epochen.ts`. Die Listenansicht zeigt das Ziel der **freigeschalteten** Epoche (Name je Thema). Mit Bergfried 3 und 15 erworbenen Bauplänen öffnet sich Epoche 2 (Bauplatz 16×16, Katalog §5.5); weiter 3 und 4 analog. Epoche 4 mit Kern 9 und 120 Bauplänen ist der Abschluss – fertig sein bleibt erlaubt (§9 Punkt 3). Die Rückkehr-Begrüßung (§6.3) ergänzt bei eingeschaltetem Basebau „Deine Bastion hat gewartet.“
 
 ### 5.5 Epochen 2–4 (B-28, Startwerte 31.10.2026)
 
@@ -270,7 +270,7 @@ Prinzip unverändert: **mehr Baupläne** je Epoche, **nicht** mehr Stein pro Woc
 | wissen | Stufe 5 (Archiv-Optik) | 700 | 200 | 5 | 16 | kern 8 |
 | turm | Höchstzahl 8; Stufe 5 | 700 | 200 | 4 | 16 | kern 8 |
 
-Zierde-Kosten bleiben niedrig (Gestaltung). Summen und Balancing nachziehen, sobald G9 im Simulator läuft. Texte: Epoche-Namen und „wozu“ je Thema in der Textdatei ergänzen.
+Zierde-Kosten bleiben niedrig (Gestaltung). Katalog und Wechsel umgesetzt (G9); Summen und Balancing für Epoche 2–4 im Simulator nachziehen. Texte: Epoche-Namen je Thema in der Textdatei (`epoche`, `epoche-2` …).
 
 ### 5.6 Belagerung = Bewährungsprobe (B-28, Mechanik)
 

@@ -11,7 +11,6 @@
     type BauHindernis,
   } from '../../core/bastion/bauen';
   import {
-    BAUPLATZ,
     GEBAEUDE_TYPEN,
     KATALOG,
     kosten,
@@ -47,7 +46,7 @@
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { KompetenzStand } from '../../core/learning/fortschritt';
   import { hinterhof } from '../../core/learning/hinterhof';
-  import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
+  import { epochenstand } from '../../core/bastion/epoche';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
 
   let {
@@ -164,8 +163,9 @@
   const neubauten = $derived.by((): Angebot[] => {
     const l = lage;
     if (!l) return [];
+    const platz = epochenstand(l.bastion, l.konto).bauplatz;
     return REIHENFOLGE.flatMap((typ) => {
-      const pos = freierPlatz(l.bastion, typ);
+      const pos = freierPlatz(l.bastion, typ, platz);
       const h = beginnHindernisse(l.bastion, l.konto, typ, { pos: pos ?? { x: 0, y: 0 } });
       if (!pos && !h.includes('belegt')) h.push('belegt');
       if (h.includes('nicht-baubar') || h.includes('hoechstzahl')) return [];
@@ -208,7 +208,12 @@
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
-    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} {hinterhofFelder} />
+    <Bauplatz
+      bastion={l.bastion}
+      onaktion={ausfuehren}
+      {hinterhofFelder}
+      bauplatz={epoche.bauplatz}
+    />
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">
@@ -256,21 +261,24 @@
       </section>
     {/if}
 
-    {#if epoche.geschafft}
-      <p class="geschafft" role="status">{tt('bastion.geschafft')}</p>
+    {#if epoche.fertig}
+      <p class="geschafft" role="status">{tt('bastion.geschafft-ende')}</p>
     {:else}
-      <h3>{tt('bastion.ziel')}</h3>
+      <h3>{tt('bastion.ziel-der-epoche')} {epoche.epoche}: {wort(epoche.nameKey)}</h3>
       <ul class="ziel">
         <li>
-          {epoche.kern >= EPOCHE_1_ZIEL.kern ? '✓' : '○'}
-          {tt('bastion.ziel-kern')} ({tt('bastion.stufe')}
+          {epoche.kern >= epoche.ziel.kern ? '✓' : '○'}
+          {wort('gebaeude.kern')}
+          {tt('bastion.auf-stufe')}
+          {epoche.ziel.kern}
+          ({tt('bastion.stufe')}
           {epoche.kern})
         </li>
         <li>
-          {epoche.bauplaene >= EPOCHE_1_ZIEL.bauplaene ? '✓' : '○'}
-          {Math.min(epoche.bauplaene, EPOCHE_1_ZIEL.bauplaene)}
+          {epoche.bauplaene >= epoche.ziel.bauplaene ? '✓' : '○'}
+          {Math.min(epoche.bauplaene, epoche.ziel.bauplaene)}
           {tt('bastion.von')}
-          {EPOCHE_1_ZIEL.bauplaene}
+          {epoche.ziel.bauplaene}
           {tt('bastion.ziel-bauplaene')}
         </li>
       </ul>
@@ -373,7 +381,7 @@
               <label
                 >{tt('bastion.spalte')}
                 <select bind:value={versetzt.x}>
-                  {#each Array.from({ length: BAUPLATZ.breite }, (_, i) => i) as i (i)}
+                  {#each Array.from({ length: epoche.bauplatz.breite }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
                   {/each}
                 </select></label
@@ -381,14 +389,19 @@
               <label
                 >{tt('bastion.reihe')}
                 <select bind:value={versetzt.y}>
-                  {#each Array.from({ length: BAUPLATZ.tiefe }, (_, i) => i) as i (i)}
+                  {#each Array.from({ length: epoche.bauplatz.tiefe }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
                   {/each}
                 </select></label
               >
               <button
-                disabled={platzHindernisse(l.bastion, b.typ, { x: versetzt.x, y: versetzt.y }, b.id)
-                  .length > 0}
+                disabled={platzHindernisse(
+                  l.bastion,
+                  b.typ,
+                  { x: versetzt.x, y: versetzt.y },
+                  b.id,
+                  epoche.bauplatz,
+                ).length > 0}
                 onclick={() =>
                   versetzt &&
                   void ausfuehren({

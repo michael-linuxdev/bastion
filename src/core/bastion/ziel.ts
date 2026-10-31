@@ -5,7 +5,14 @@
  * Einstellung (`basebau.ziel`), nicht als Bau-Ereignis: Vormerken kostet nichts.
  */
 import type { Konto } from '../ledger/buchung';
-import { beginnHindernisse, freierPlatz, type BauHindernis, type Bastion } from './bauen';
+import {
+  bastionEpoche,
+  beginnHindernisse,
+  freierPlatz,
+  type BauHindernis,
+  type Bastion,
+} from './bauen';
+import { bauplatzFuer } from './epochen';
 import { GEBAEUDE_TYPEN, kosten, type GebaeudeTyp } from './katalog';
 
 export interface Ziel {
@@ -62,9 +69,10 @@ export function ziellage(b: Bastion, konto: Konto, z: Ziel): Ziellage {
     behalten: Math.max(0, (k?.behalten ?? 0) - konto.stand.behalten),
     koennen: Math.max(0, (k?.koennen ?? 0) - konto.stand.koennen),
   };
+  const platz = bauplatzFuer(bastionEpoche(b, konto));
   const ort = z.gebaeude
     ? { ausbau: z.gebaeude }
-    : { pos: freierPlatz(b, z.typ) ?? { x: 0, y: 0 } };
+    : { pos: freierPlatz(b, z.typ, platz) ?? { x: 0, y: 0 } };
   const hindernisse = erreicht
     ? []
     : beginnHindernisse(b, konto, z.typ, ort).filter((h) => !h.startsWith('zu-wenig-'));

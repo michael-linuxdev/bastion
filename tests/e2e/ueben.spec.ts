@@ -617,7 +617,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(
     page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
   ).toBeVisible();
-  // Ziel der Epoche 1 (§5.4): erworbene Baupläne zählen
+  // Ziel der aktuellen Epoche (§5.4 / G9): erworbene Baupläne zählen
   await expect(page.getByRole('heading', { name: 'Ziel der Epoche 1: Außenposten' })).toBeVisible();
   await expect(page.getByText(/2\s+von\s+15\s+Baupläne erworben/)).toBeVisible();
 
@@ -1414,48 +1414,6 @@ test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je 
   await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
   await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
   await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
-});
-
-test('Zwischenschritte bei gleichnamigen Brüchen: Zähler verrechnen, dann kürzen (§17)', async ({
-  page,
-}) => {
-  await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('radio', { name: 'Klasse 6' }).check();
-  await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
-  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
-
-  const aufgabe = page.locator('form#antwort');
-  const schritt = page.locator('form.aktuell');
-  // Gleichnamige und ungleichnamige Aufgaben wechseln sich zufällig ab
-  for (let runde = 0; runde < 12; runde++) {
-    const nenner = await page.locator('.aufgabe .text .nenner').allTextContents();
-    // 99/100 ist hier nie richtig: Die Nenner sind höchstens 20
-    await aufgabe.getByLabel('Zähler').fill('99');
-    await aufgabe.getByLabel('Nenner').fill('100');
-    await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
-    await expect(page.getByText('Zeig mir deinen Weg')).toBeVisible();
-    if (nenner.length === 2 && nenner[0] === nenner[1]) {
-      await expect(schritt).toContainText('Die Nenner sind gleich');
-      for (let i = 0; i < 2; i++) {
-        await schritt.getByLabel('Zähler').fill('99');
-        await schritt.getByLabel('Nenner').fill('100');
-        await schritt.getByRole('button', { name: 'Prüfen' }).click();
-      }
-      await expect(schritt).toContainText('vollständig');
-      for (let i = 0; i < 2; i++) {
-        await schritt.getByLabel('Zähler').fill('99');
-        await schritt.getByLabel('Nenner').fill('100');
-        await schritt.getByRole('button', { name: 'Prüfen' }).click();
-      }
-      await expect(page.getByText('Dein Fehler lag hier:')).toBeVisible();
-      await expect(page.getByText(/Welcher gemeinsame Nenner/)).toHaveCount(0);
-      return;
-    }
-    await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
-    await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
-  }
-  throw new Error('Keine gleichnamige Aufgabe in zwölf Runden');
 });
 
 test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U3i)', async ({

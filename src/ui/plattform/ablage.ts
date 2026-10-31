@@ -15,6 +15,7 @@ import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import {
   abbrechen,
   aufstellen,
+  bastionEpoche,
   beginnen,
   einlagern,
   gestalten,
@@ -24,6 +25,7 @@ import {
   type BauHindernis,
   type Ergebnis,
 } from '../../core/bastion/bauen';
+import { bauplatzFuer } from '../../core/bastion/epochen';
 import type { Farbe, GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
 import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
@@ -369,9 +371,10 @@ export async function bauAusfuehren(
     jetzt,
     tag: lerntag(jetzt, versatz(jetzt)),
   };
+  const platz = bauplatzFuer(bastionEpoche(lage.bastion, lage.konto));
   let e: Ergebnis;
   if (auftrag.art === 'beginnen') {
-    const pos = freierPlatz(lage.bastion, auftrag.typ);
+    const pos = freierPlatz(lage.bastion, auftrag.typ, platz);
     const ort = auftrag.ausbau ? { ausbau: auftrag.ausbau } : pos ? { pos } : undefined;
     if (!ort) return { hindernisse: ['belegt'] };
     e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
@@ -381,10 +384,10 @@ export async function bauAusfuehren(
     e = gestalten(lage.bastion, auftrag.gebaeude, auftrag.farbe, a);
   else if (auftrag.art === 'aufstellen') {
     const typ = lage.bastion.lager.find((x) => x.id === auftrag.gebaeude)?.typ;
-    const pos = typ ? freierPlatz(lage.bastion, typ) : undefined;
+    const pos = typ ? freierPlatz(lage.bastion, typ, platz) : undefined;
     if (!pos) return { hindernisse: ['belegt'] };
-    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a);
-  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
+    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a, platz);
+  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a, platz);
   if (!e.ok) return { hindernisse: e.hindernisse };
   const b = await bauSpeichern(db, inst, e, melder);
   return { ...lage, bastion: b, konto: await konto(db, inst.profil) };

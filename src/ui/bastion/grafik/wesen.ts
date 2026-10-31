@@ -3,7 +3,7 @@
  * Anzahl steigt mit gebauten Gebäuden; bei „ruhig“ aus. Kein Zufall.
  */
 import type { Thema } from '../../../core/policy/einstellung';
-import { BUEHNE_B, BUEHNE_H, punkt } from './iso';
+import { buehneBreite, buehneHoehe, punkt } from './iso';
 
 export type WesenArt =
   | 'huhn'
@@ -105,8 +105,8 @@ export function wegPunkt(index: number): { x: number; y: number } {
   const f = WEGE[index % WEGE.length] ?? { x: 2.5, y: 3.5 };
   const p = punkt(f.x, f.y);
   return {
-    x: Math.min(BUEHNE_B - 8, Math.max(8, p.x)),
-    y: Math.min(BUEHNE_H - 8, Math.max(40, p.y)),
+    x: Math.min(buehneBreite() - 8, Math.max(8, p.x)),
+    y: Math.min(buehneHoehe() - 8, Math.max(40, p.y)),
   };
 }
 

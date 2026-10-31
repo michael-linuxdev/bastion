@@ -6,7 +6,7 @@
   import { untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
-  import { KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
+  import { BAUPLATZ, KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
   import {
     bastionLeicht,
     bastionRuhig,
@@ -21,7 +21,7 @@
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
-  import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
+  import { buehneBreite, buehneHoehe } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
   import type { WetterBild } from './grafik/wetter';
@@ -46,10 +46,13 @@
     bastion,
     onaktion,
     hinterhofFelder = [],
+    bauplatz = BAUPLATZ,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
     hinterhofFelder?: readonly HinterhofFeld[];
+    /** Aktive Bauplatzgröße nach Epoche (BASEBAU §5.5) */
+    bauplatz?: { readonly breite: number; readonly tiefe: number };
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -351,11 +354,14 @@
     void jahreszeit;
     void abend;
     void wetterBild;
+    void bauplatz.breite;
+    void bauplatz.tiefe;
     const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
     const start: Bewegung = untrack(() => bewegung);
+    const platz = untrack(() => bauplatz);
     import('./grafik/grafik-buehne')
       .then((m) =>
         m.buehneErstellen(
@@ -364,6 +370,7 @@
           bildart,
           start,
           untrack(() => aktiv.thema),
+          platz,
         ),
       )
       .then((b) => {
@@ -412,7 +419,7 @@
             ziel: {
               pos: ziel,
               typ: g.typ,
-              frei: platzHindernisse(bastion, g.typ, ziel, g.id).length === 0,
+              frei: platzHindernisse(bastion, g.typ, ziel, g.id, bauplatz).length === 0,
             },
           }
         : {}),
@@ -442,7 +449,7 @@
     const g = gewaehlt;
     if (versetzen && g) {
       ziel = pos;
-      if (platzHindernisse(bastion, g.typ, pos, g.id).length > 0) {
+      if (platzHindernisse(bastion, g.typ, pos, g.id, bauplatz).length > 0) {
         hinweis = 'kein-platz';
         return;
       }
@@ -491,7 +498,7 @@
       class:sichtbar={kameraSichtbar}
       class:versetzen
       class:zieht
-      style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
+      style:aspect-ratio={`${buehneBreite()} / ${buehneHoehe()}`}
       aria-hidden="true"
       bind:this={fenster}
       onpointerdown={zeigerRunter}
@@ -502,8 +509,8 @@
     >
       <div
         class="bauplatz"
-        style:inline-size="{BUEHNE_B}px"
-        style:block-size="{BUEHNE_H}px"
+        style:inline-size="{buehneBreite()}px"
+        style:block-size="{buehneHoehe()}px"
         style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
         bind:this={rahmen}
         aria-hidden="true"
