@@ -28,9 +28,8 @@ async function zurStartseite(seite: Page) {
   if (await home.isVisible().catch(() => false)) {
     await home.click();
   } else {
-    const elternZu = seite.getByRole('button', { name: 'Elternbereich schließen' });
-    if (await elternZu.isVisible().catch(() => false)) await elternZu.click();
-    const zurueck = seite.getByRole('button', { name: 'Zurück' }).first();
+    // App-Zurück (Eltern/Mehr/…) zuerst – aktualisiert z. B. den Testphase-Hinweis
+    const zurueck = seite.getByRole('main').getByRole('button', { name: 'Zurück' }).first();
     if (await zurueck.isVisible().catch(() => false)) await zurueck.click();
   }
   if (!(await hallo.isVisible().catch(() => false))) await seite.goto('./');
@@ -319,8 +318,18 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt; Üben springt zur Aufgabe
   await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
-  await angebotUeberspringen(page);
-  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+  await expect(
+    page
+      .getByRole('button', { name: 'Prüfen' })
+      .or(page.getByRole('button', { name: 'Ich kann das schon' }))
+      .or(page.getByRole('heading', { name: 'Was möchtest du üben?' })),
+  ).toBeVisible({ timeout: 30_000 });
+  if (await page.getByRole('heading', { name: 'Was möchtest du üben?' }).isVisible()) {
+    await thema(page, /^Addieren und Subtrahieren/);
+  } else {
+    await angebotUeberspringen(page);
+  }
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible({ timeout: 15_000 });
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
@@ -809,14 +818,16 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
     .click();
   await expect(page.getByText(/^Wimpel – fertig am/)).toBeVisible();
 
-  // Nach dem Neuladen bleibt das Thema; der Knopf heißt wie das Thema
+  // Nach dem Neuladen bleibt das Thema; der Start-Hub-Knopf heißt wie das Thema
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
+  // Hub-Tür heißt immer „Bastion“ (Ortsname); die Vorschau zeigt den Themennamen
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
     timeout: 30_000,
   });
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  await expect(page.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
   await page.getByRole('radio', { name: 'Unterwasserstadt' }).check();
   await expect(page.getByRole('heading', { name: 'Deine Unterwasserstadt' })).toBeVisible();
   // Was gebaut ist, bleibt – es heißt nur anders
@@ -1616,11 +1627,13 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByRole('button', { name: 'Einschalten' }).click();
   await expect(page.getByText('Das Testprotokoll ist eingeschaltet.')).toBeVisible();
 
-  // Hinweis auf der Startseite, dann etwas üben
-  await zurStartseite(page);
+  // Neu laden: Startseite liest den Testphase-Stand frisch (wie nach Leiste-Start früher)
+  await page.goto('./');
+  const skip = page.getByRole('button', { name: 'Überspringen' });
+  if (await skip.isVisible().catch(() => false)) await skip.click();
   await expect(
     page.getByText('Testphase: Die Nutzung wird auf diesem Gerät protokolliert.'),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 15_000 });
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
