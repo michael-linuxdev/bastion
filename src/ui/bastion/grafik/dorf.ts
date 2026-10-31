@@ -5,8 +5,8 @@
 // dorfkrieg.micana.de. Das Raster bleibt das der Bastion (`iso.ts`): Antippen,
 // Zoom und die Daten ändern sich nicht. Kampffiguren gibt es hier nicht –
 // die zeigt Dorfkrieg nur im Kampf, und Bastion hat keine Truppen.
-import { BAUPLATZ, KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
-import { RAUTE_B, punkt } from './iso';
+import { KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
+import { bauplatzAktiv, RAUTE_B, punkt } from './iso';
 
 /** Dorfkrieg rechnet mit Rauten 64×32, die Bühne mit 48×24. Gleiches Verhältnis. */
 const S = RAUTE_B / 64;
@@ -114,7 +114,7 @@ const hoch = (p: { x: number; y: number }, h: number) => ({ x: p.x, y: p.y - h }
 
 /** Die Wiese: eine Raute je Feld, drum herum ein dunkler Rand. Am Abend dunkler. */
 export function dorfWiese(st: Stift, abend: boolean): void {
-  const { breite, tiefe } = BAUPLATZ;
+  const { breite, tiefe } = bauplatzAktiv();
   for (let y = -1; y <= tiefe; y++) {
     for (let x = -1; x <= breite; x++) {
       const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;

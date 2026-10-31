@@ -1,8 +1,8 @@
 /**
  * Thema Weltraum / Raumstation (GRAFIK G6): Plattform statt Insel, Module, Antennen.
  */
-import { BAUPLATZ, KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
-import { RAUTE_B, punkt } from './iso';
+import { KATALOG, type GebaeudeTyp, type Position } from '../../../core/bastion/katalog';
+import { bauplatzAktiv, RAUTE_B, punkt } from './iso';
 import { hash01, schattieren, type Stift } from './dorf';
 
 const S = RAUTE_B / 64;
@@ -43,7 +43,7 @@ const flach = (p: readonly { x: number; y: number }[]) => p.flatMap((q) => [q.x,
 const hoch = (p: { x: number; y: number }, h: number) => ({ x: p.x, y: p.y - h });
 
 export function weltraumBoden(st: Stift, abend: boolean): void {
-  const { breite, tiefe } = BAUPLATZ;
+  const { breite, tiefe } = bauplatzAktiv();
   // Sterne im „Himmel“ der Bühne zeichnet gestirn; hier nur die Plattform
   for (let y = -1; y <= tiefe; y++) {
     for (let x = -1; x <= breite; x++) {
