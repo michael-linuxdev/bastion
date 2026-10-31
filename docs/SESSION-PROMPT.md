@@ -210,9 +210,17 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 
 **Richtung, noch keine Entscheidung:** Die eigene Teilmenge behalten, bis ein konkretes Zeichen fehlt (etwa Vektor, Matrix, Integral). Dann KaTeX gegen diese Teilmenge messen: Ladegröße, Offline, Vorlese-Funktion, ob `$…$` unverändert bleibt. MathJax nur, wenn KaTeX an der Vorlese-Funktion scheitert. Die Eingabe bleibt die Tastatur aus Punkt 2; sie schreibt dieselben Zeichen, die der Text schon versteht. Keine zweite Formelsprache.
 
+**Schritt 1 erledigt (31.10.2026):** Ich habe rund 90 000 Texte ausgewertet: alle Erstvermittlungen, Fehlvorstellungen, Begriffe und Anleitungen, dazu je Vorlage und Niveau 30 erzeugte Aufgaben mit Lösungsweg und Antwortmöglichkeiten. Ergebnis:
+
+- **Gefunden und behoben:** Bei „Welcher Bruch ist am größten?“ zeigten die Antwortmöglichkeiten `$\frac{3}{4}$` als Text. Die Teilmenge kann jetzt `\frac{…}{…}`, und Antwortmöglichkeiten laufen durch sie (Test `darstellung.test.ts`).
+- **Offen, braucht eine neue Generator-Version:** Der Lösungsweg zu Zehnerpotenzen (`potenzen.ts`) zeigt `10^6` statt 10⁶. Der Text gehört zur Ausgabe des Generators (INHALTSFORMAT §6.1, Regel 5).
+- **Schon mit Unicode gelöst und ausreichend:** ², ³, ⁴, ⁶, √ vor einer Zahl, π, ≈, ≤, ≥, °, ⊥/⟂, ∥, Indizes x₁, |−5|, →, Mengen {5, 6}, ⅓. Keine Wurzel über eine Summe, keine Brüche mit Variablen, keine Vektoren, keine Integrale.
+- **Didaktisch auffällig:** Etwa 3 600 Texte aus 94 Quellen schreiben Brüche mit Schrägstrich im Fließtext („1/4 + 2/4 = 3/4“), vor allem die Erstvermittlungen. Mit `$\frac{1}{4}$` erschienen sie als echter Bruch. Das wäre eine Inhaltsänderung über viele Dateien. Darüber entscheidet der Projektverantwortliche, am besten nach der Rückmeldung der Lehrkraft.
+- **Folgerung:** Für Klasse 5 bis 8 fehlt kein Zeichen, das KaTeX nötig machte. Schritt 2 (KaTeX messen) wartet, bis Klasse 9 bis 12 (Vektoren, Integrale) drankommt.
+
 **Schritte, wenn es drankommt**
 
-1. Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.
+1. ~~Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.~~ Erledigt, siehe oben.
 2. Bundle von KaTeX lokal messen, ohne es fest einzubauen. Entscheidungslog nur bei einem Ja.
 3. Wenn ja: Anzeige hinter derselben `$…$`-Schreibweise, Inhalte nicht umschreiben. Ein Test, dass alte Texte gleich aussehen.
 4. Vorlese-Funktion an einem Bruch, einer Hochzahl und einer Wurzel prüfen.

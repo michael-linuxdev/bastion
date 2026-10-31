@@ -13,7 +13,8 @@
   import { tastenFuer, type Taste } from '../../core/learning/tastatur';
   import Tastatur from '../eingabe/Tastatur.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
-  import { zahlText } from '../../core/learning/text';
+  import { fuelle, zahlText } from '../../core/learning/text';
+  import Textteile from './Textteile.svelte';
 
   let {
     instanz,
@@ -115,7 +116,7 @@
               {@html option.bild.svg}
             </span>
           {/if}
-          {#if option.text}<span>{option.text.de}</span>{/if}
+          {#if option.text}<span><Textteile teile={fuelle(option.text.de, {})} /></span>{/if}
           {#if !option.text && !option.bild}{t('eingabe.option')} {i + 1}{/if}
         </label>
       {/each}
