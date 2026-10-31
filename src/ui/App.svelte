@@ -250,6 +250,14 @@
   let vermittlungListe = $state<readonly VermittlungEreignis[]>([]);
   /** Testprotokoll eingeschaltet (K-14): Hinweis auf der Startseite */
   let testphase = $state(false);
+  /** Offene Aufgabe nach „Später weiter“ – sichtbar am Hub (N78) */
+  let offenAufgabe = $state<{ id: string; titel: string } | undefined>(undefined);
+  /** Beutel-Impuls nur beim Übergang aus dem Üben (M72) */
+  let bastionAusUeben = $state(false);
+  /** Erstinstallation: App bleibt auf dem Gerät (M75) */
+  let geraetHinweis = $state(
+    typeof localStorage !== 'undefined' && localStorage.getItem('bastion.geraet-ok') !== '1',
+  );
 
   // Nutzungsprotokoll (D-18): jede Ansicht mit der Verweildauer der vorigen.
   // nutzungMerken schreibt nur, wenn das Testprotokoll eingeschaltet ist.
@@ -445,6 +453,14 @@
       ansicht = 'uebersicht';
       return;
     }
+    const offen = offenAufgabe
+      ? geladen.kompetenzen.find((x) => x.id === offenAufgabe?.id)
+      : undefined;
+    if (offen) {
+      offenAufgabe = undefined;
+      zumUeben(geladen, offen);
+      return;
+    }
     const k = naechsteKompetenz(
       geladen.kompetenzen,
       geladen.vorlagen,
@@ -477,6 +493,8 @@
   function gehe(ziel: Ziel | 'start') {
     if (ziel !== 'start' && ziel !== 'mehr' && ziel !== 'sicherung' && ziel !== 'profil')
       inhalte ??= ladeInhalte();
+    if (ziel === 'bastion' && (ansicht === 'abschluss' || ansicht === 'uebung'))
+      bastionAusUeben = true;
     switch (ziel) {
       case 'ueben':
         void zumNaechstenUeben();
@@ -500,9 +518,15 @@
         ansicht = 'diagnose';
         return;
       default:
-        ansicht = ziel;
+        ansicht = ziel === 'start' ? 'start' : ziel;
         if (ziel === 'start' || ziel === 'stand' || ziel === 'eltern') void aktualisiere();
     }
+  }
+
+  function spaeterWeiter(kompetenzId: string, titel: string) {
+    offenAufgabe = { id: kompetenzId, titel };
+    bastionAusUeben = true;
+    ansicht = 'start';
   }
 
   /** Laufendes Speichern – der Abschluss wartet darauf, damit die letzte Antwort mitzählt. */
@@ -571,6 +595,16 @@
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
       {testphase}
+      offenThema={offenAufgabe?.titel}
+      {geraetHinweis}
+      ongeraetOk={() => {
+        geraetHinweis = false;
+        try {
+          localStorage.setItem('bastion.geraet-ok', '1');
+        } catch {
+          /* private Mode */
+        }
+      }}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -640,9 +674,11 @@
             aufgaben={aufgabenListe}
             {klasse}
             spannung={bewaehrungSpannung}
+            ausUeben={bastionAusUeben}
             onzumStart={() => {
               bewaehrungSpannung = false;
               bewaehrungHinweis = undefined;
+              bastionAusUeben = false;
               gehe('start');
             }}
             onbewaehrung={(modus, themen, joker) => {
@@ -725,7 +761,10 @@
           aufgaben={aufgabenListe}
           buchungen={buchungsListe}
           {basebau}
-          onstart={() => (ansicht = 'start')}
+          onstart={() => {
+            bastionAusUeben = true;
+            ansicht = 'start';
+          }}
         />
       {:else if ansicht === 'eltern'}
         <button
@@ -885,10 +924,11 @@
         {#key gewaehlt}
           <Uebung
             ueberschrift={gewaehlt.titel.de}
-            stufe={t(niveau === 'G' ? 'niveau.G' : 'niveau.M')}
+            stufe={t(niveau === 'G' ? 'niveau.stein-g' : 'niveau.stein-m')}
             auftrag={uebenAuftrag(geladen, gewaehlt)}
             modus="ueben"
             onfertig={() => void fertig()}
+            onspaeter={spaeterWeiter}
             paketVon={geladen.paketVon}
             onzurueck={() => (ansicht = 'uebersicht')}
             onergebnis={(d) => void ergebnis(d)}
@@ -960,7 +1000,20 @@
         />
       {/if}
     {:catch}
-      <p role="alert">{t('uebersicht.fehler')}</p>
+      <section class="paket-fehlt" role="status">
+        <span class="paket-bild" aria-hidden="true"></span>
+        <h2>{t('paket.fehlt')}</h2>
+        <p>{t('paket.fehlt-text')}</p>
+        <div class="paket-knoepfe">
+          <button
+            class="haupt"
+            onclick={() => {
+              inhalte = ladeInhalte();
+            }}>{t('paket.nochmal')}</button
+          >
+          <button class="zweit" onclick={() => (ansicht = 'start')}>{t('paket.zurueck')}</button>
+        </div>
+      </section>
     {/await}
   {/if}
 </main>
@@ -1035,5 +1088,56 @@
     align-items: center;
     column-gap: var(--abstand-m);
     margin-block: 0;
+  }
+
+  .paket-fehlt {
+    display: grid;
+    gap: var(--abstand-m);
+    justify-items: start;
+    padding-block: var(--abstand-l);
+  }
+
+  .paket-bild {
+    inline-size: 4.5rem;
+    block-size: 4.5rem;
+    border-radius: var(--radius-karte);
+    background: linear-gradient(160deg, var(--farbe-flaeche-leise), var(--farbe-hinweis-flaeche));
+    box-shadow: inset 0 0 0 2px var(--farbe-rand);
+  }
+
+  .paket-fehlt h2 {
+    margin: 0;
+  }
+
+  .paket-fehlt p {
+    margin: 0;
+    color: var(--farbe-text-leise);
+  }
+
+  .paket-knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+  }
+
+  .paket-knoepfe .haupt,
+  .paket-knoepfe .zweit {
+    font: inherit;
+    min-block-size: 2.75rem;
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .paket-knoepfe .haupt {
+    border: none;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+  }
+
+  .paket-knoepfe .zweit {
+    border: 2px solid var(--farbe-akzent);
+    background: transparent;
+    color: var(--farbe-text);
   }
 </style>

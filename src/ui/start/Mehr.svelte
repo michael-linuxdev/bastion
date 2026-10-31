@@ -1,5 +1,5 @@
 <script lang="ts">
-  // „Mehr“ vom Start-Hub: alles, was nicht täglich gebraucht wird.
+  // „Mehr“ vom Start-Hub: Kind-Themen klar getrennt von Erwachsenen-Bereich (M69 / T102).
   import Symbol from '../grafik/Symbol.svelte';
   import { t } from '../texte/texte';
   import type { Ziel } from './Startseite.svelte';
@@ -15,10 +15,13 @@
     onziel: (z: Ziel | 'start') => void;
   } = $props();
 
-  const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
+  const fuerDich = $derived<{ ziel: Ziel; name: string }[]>([
     { ziel: 'themen', name: t('mehr.themen') },
     { ziel: 'stand', name: t('stand.knopf') },
     { ziel: 'klassenarbeit', name: t('ka.knopf') },
+  ]);
+
+  const fuerErwachsene = $derived<{ ziel: Ziel; name: string }[]>([
     { ziel: 'profil', name: t('profil.knopf') },
     { ziel: 'sicherung', name: t('sicherung.knopf') },
     ...(eltern ? [{ ziel: 'eltern' as const, name: t('eltern.knopf') }] : []),
@@ -30,8 +33,10 @@
   <p class="marke">{t('start.ueberschrift')}</p>
   <h2>{t('mehr.ueberschrift')}</h2>
   <p class="leise">{t('mehr.info')}</p>
+
+  <h3 class="zone">{t('mehr.fuer-dich')}</h3>
   <ul class="liste">
-    {#each eintraege as e (e.ziel)}
+    {#each fuerDich as e (e.ziel)}
       <li>
         <button onclick={() => onziel(e.ziel)}>
           {#if e.ziel === 'stand'}<Symbol name="stand" />
@@ -41,6 +46,21 @@
       </li>
     {/each}
   </ul>
+
+  <div class="erwachsen">
+    <h3 class="zone">{t('mehr.fuer-erwachsene')}</h3>
+    <p class="leise klein">{t('mehr.fuer-erwachsene-info')}</p>
+    <ul class="liste">
+      {#each fuerErwachsene as e (e.ziel)}
+        <li>
+          <button class="nüchtern" onclick={() => onziel(e.ziel)}>
+            <span>{e.name}</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </div>
+
   <p class="versprechen">{t('start.versprechen')}</p>
   {#if offline}
     <p class="offline" role="status">{t('start.offline')}</p>
@@ -72,9 +92,18 @@
     margin: 0;
     font-size: 1.25rem;
   }
+  .zone {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--farbe-text);
+  }
   .leise {
     color: var(--farbe-text-leise);
     margin: 0;
+  }
+  .klein {
+    font-size: 0.9rem;
   }
   .liste {
     list-style: none;
@@ -99,6 +128,19 @@
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
+  }
+  .erwachsen {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    border: 2px dashed var(--farbe-rand);
+    background: var(--farbe-flaeche-leise);
+  }
+  .erwachsen .nüchtern {
+    box-shadow: none;
+    background: var(--farbe-flaeche);
+    font-weight: 600;
   }
   .versprechen {
     color: var(--farbe-text-leise);

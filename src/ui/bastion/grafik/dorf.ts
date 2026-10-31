@@ -307,6 +307,9 @@ function brunnen(st: Stift, pos: Position, wasser: string): void {
   const c = punkt(pos.x + 0.5, pos.y + 0.5);
   st.ellipse(c.x, c.y + 2 * S, 12 * S, 6 * S, '#6d5848');
   st.ellipse(c.x, c.y, 8 * S, 4 * S, wasser);
+  // Dezente Spiegelung im Wasser (P86) – hellerer Rand, kein Glanzspiel
+  st.ellipse(c.x, c.y - 0.6 * S, 5.5 * S, 1.6 * S, '#ffffff', 0.18);
+  st.ellipse(c.x + 1.2 * S, c.y + 0.8 * S, 3.2 * S, 1.1 * S, '#1a3040', 0.12);
   st.linie(c.x - 10 * S, c.y, c.x - 10 * S, c.y - 16 * S, '#6d4a2e', 2);
   st.linie(c.x + 10 * S, c.y, c.x + 10 * S, c.y - 16 * S, '#6d4a2e', 2);
   st.linie(c.x - 12 * S, c.y - 16 * S, c.x + 12 * S, c.y - 16 * S, '#6d4a2e', 3);

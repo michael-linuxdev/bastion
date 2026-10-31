@@ -85,7 +85,8 @@ export function bewohnerFortschrittKey(f: BewohnerFortschritt): string {
 
 /**
  * Welche Bewohner-Arten sind freigeschaltet?
- * Reihenfolge fest und an Fortschritt gekoppelt; „leicht“ begrenzt auf 2.
+ * Reihenfolge fest und an Fortschritt gekoppelt; kein Spawn-RNG (Q91).
+ * „leicht“ begrenzt auf 2 sichtbare Bewohner.
  */
 export function bewohnerArten(f: BewohnerFortschritt): readonly BewohnerArt[] {
   const max = f.leicht ? 2 : 6;

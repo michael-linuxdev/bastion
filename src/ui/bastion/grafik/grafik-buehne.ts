@@ -13,6 +13,7 @@ import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
   KATALOG,
+  type Bauwerk,
   type Familie,
   type GebaeudeTyp,
   type Position,
@@ -106,6 +107,7 @@ import {
   bewohnerFarbe,
   bewohnerMuetze,
   type BewohnerZustand,
+  type Taetigkeit,
 } from './bewohner';
 import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
@@ -215,12 +217,85 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
     .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
 }
 
+/** Winziges Tätigkeits-Icon über dem Kopf (Q89) – ruhig, kein Spawn-RNG. */
+function taetigkeitIcon(g: Graphics, x: number, y: number, taetigkeit: Taetigkeit, phase: number) {
+  const bob = Math.sin(phase) * 0.6;
+  const iy = y - 14 + bob;
+  if (taetigkeit === 'giessen') {
+    g.circle(x, iy, 2.2).fill({ color: '#5a8aaa', alpha: 0.85 });
+  } else if (
+    taetigkeit === 'kehren' ||
+    taetigkeit === 'gaertnern' ||
+    taetigkeit === 'pflanzen' ||
+    taetigkeit === 'flicken'
+  ) {
+    g.rect(x - 1.5, iy - 3, 3, 6).fill({ color: '#8a6a3a', alpha: 0.85 });
+  } else if (taetigkeit === 'lesen' || taetigkeit === 'ordnen') {
+    g.rect(x - 2.5, iy - 2, 5, 4).fill({ color: '#e8e0c8', alpha: 0.9 });
+  } else if (taetigkeit === 'sammeln') {
+    g.ellipse(x, iy, 3, 2).fill({ color: '#8a5a2a', alpha: 0.85 });
+  } else if (taetigkeit === 'schauen' || taetigkeit === 'wachen') {
+    g.circle(x, iy, 2).stroke({ width: 1.2, color: '#4a4a4a', alpha: 0.8 });
+  } else {
+    // ruhen / warten
+    g.ellipse(x, iy, 2.5, 1.4).fill({ color: '#7a7a7a', alpha: 0.55 });
+  }
+}
+
+/** Holzgerüst über einem Vorhaben (P87) – Code-Fallback ohne Atlas. */
+function geruestZeichnen(g: Graphics, pos: Position, typ: GebaeudeTyp) {
+  const [w, t] = KATALOG[typ].groesse;
+  const e = ecken(pos.x, pos.y, w, t, 0.05);
+  const holz = '#8a6a3a';
+  g.poly(flach(e.hinten, e.rechts, e.vorne, e.links)).stroke({
+    width: 1.5,
+    color: holz,
+    alpha: 0.7,
+  });
+  const mitte = punkt(pos.x + w / 2, pos.y + t / 2);
+  g.moveTo(e.links.x, e.links.y)
+    .lineTo(mitte.x, mitte.y - 18)
+    .lineTo(e.rechts.x, e.rechts.y)
+    .stroke({ width: 1.4, color: holz, alpha: 0.75 });
+  g.moveTo(e.hinten.x, e.hinten.y)
+    .lineTo(mitte.x, mitte.y - 18)
+    .lineTo(e.vorne.x, e.vorne.y)
+    .stroke({ width: 1.2, color: holz, alpha: 0.65 });
+  g.moveTo(e.links.x, e.links.y - 6)
+    .lineTo(e.rechts.x, e.rechts.y - 6)
+    .stroke({ width: 1.1, color: holz, alpha: 0.55 });
+}
+
+/** Trampelpfade zwischen Gebäuden – weich, ohne Grid-Zwang (P85). */
+function trampelpfade(g: Graphics, bauwerke: readonly Bauwerk[], farbe: string) {
+  if (bauwerke.length < 2) return;
+  const sortiert = [...bauwerke].sort(
+    (a, b) => a.pos.x + a.pos.y - (b.pos.x + b.pos.y) || a.id.localeCompare(b.id),
+  );
+  for (let i = 0; i < sortiert.length - 1; i++) {
+    const a = sortiert[i];
+    const b = sortiert[i + 1];
+    if (!a || !b) continue;
+    const [aw, at] = KATALOG[a.typ].groesse;
+    const [bw, bt] = KATALOG[b.typ].groesse;
+    const pa = punkt(a.pos.x + aw / 2, a.pos.y + at / 2);
+    const pb = punkt(b.pos.x + bw / 2, b.pos.y + bt / 2);
+    const mx = (pa.x + pb.x) / 2 + ((i % 2) * 2 - 1) * 6;
+    const my = (pa.y + pb.y) / 2 + 4;
+    g.moveTo(pa.x, pa.y + 2)
+      .lineTo(mx, my)
+      .lineTo(pb.x, pb.y + 2)
+      .stroke({ width: 3.2, color: farbe, alpha: 0.16 });
+  }
+}
+
 /** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
 function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
   const s = jetzt < b.reactBis ? 1.1 : 1;
   const x = b.x;
   const y = b.y;
   const farbe = bewohnerFarbe(b.art);
+  taetigkeitIcon(g, x, y, b.taetigkeit, b.phase);
   // Körper + Mütze (Form je Art leicht unterscheidbar)
   g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
   if (b.art === 'imker') {
@@ -808,17 +883,18 @@ function insel(g: Graphics, f: Farben) {
   g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
   g.poly(flach(v, r, u(r), u(v))).fill(dunkler(f.boden, 0.62));
   g.poly(flach(h, r, v, l)).fill(f.boden);
-  for (let i = 0; i <= W; i++) {
+  // Raster nur noch angedeutet – Trampelpfade tragen die Orientierung (P85)
+  for (let i = 0; i <= W; i += Math.max(2, Math.floor(W / 4))) {
     const a = punkt(i, 0);
     const b = punkt(i, T);
     g.moveTo(a.x, a.y).lineTo(b.x, b.y);
   }
-  for (let j = 0; j <= T; j++) {
+  for (let j = 0; j <= T; j += Math.max(2, Math.floor(T / 4))) {
     const a = punkt(0, j);
     const b = punkt(W, j);
     g.moveTo(a.x, a.y).lineTo(b.x, b.y);
   }
-  g.stroke({ width: 1, color: f.raster });
+  g.stroke({ width: 1, color: f.raster, alpha: 0.28 });
 }
 
 /** PixiJS-Grafik als Stift, nur für die Dorfbilder. */
@@ -1325,11 +1401,12 @@ export async function buehneErstellen(
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
       letzteBauwerke = b.bauwerke;
-      belegt = belegteFelder(b.bauwerke);
+      belegt = belegteFelder(b.bauwerke, b.vorhaben);
       if (anzahl !== letzteWesenZahl) {
         letzteWesenZahl = anzahl;
         wesen = wesenStarten(thema, anzahl, bewegung === 'leicht', {
           bauwerke: b.bauwerke,
+          vorhaben: b.vorhaben,
           platz: bauplatzAktiv(),
         });
         wesenZeichnen(performance.now());
@@ -1372,11 +1449,13 @@ export async function buehneErstellen(
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
-      // Neubauten im Bau: Umriss auf dem Boden
+      trampelpfade(g, b.bauwerke, farben.raster);
+      // Neubauten im Bau: Umriss + Holzgerüst (P87)
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
         raute(g, v.pos, v.typ, 0.1)
           .fill({ color: farben.imBau, alpha: 0.18 })
           .stroke({ width: 2, color: farben.imBau });
+        geruestZeichnen(g, v.pos, v.typ);
       }
       // Von hinten nach vorn zeichnen, damit Vorderes Hinteres verdeckt
       const reihe = [...b.bauwerke].sort((p, q) => {

@@ -41,9 +41,11 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **CC0-Sounddateien (G8 nachgezogen):** Tipps aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit Manifest; Loader bevorzugt Dateien, sonst Web-Audio-Fallback; PWA-Precache `.ogg` (T-18).
 - **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
 
+**Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
+
 **Als Nächstes (alles optional / PV):**
 
-1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie).
+1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie); Design R–Z / parallele Bundel abstimmen.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

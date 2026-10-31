@@ -11,7 +11,9 @@
     | 'diagnose'
     | 'mehr'
     | 'einstellungen'
-    | 'hinterhof';
+    | 'hinterhof'
+    | 'buch'
+    | 'beutel';
 </script>
 
 <script lang="ts">
@@ -36,6 +38,10 @@
       'M9.5 2.2h5v2.3l1.7.7 1.6-1.6 3.5 3.5-1.6 1.6.7 1.7H22.5v5h-2.3l-.7 1.7 1.6 1.6-3.5 3.5-1.6-1.6-1.7.7V22.5h-5v-2.3l-1.7-.7-1.6 1.6-3.5-3.5 1.6-1.6-.7-1.7H1.5v-5h2.3l.7-1.7-1.6-1.6 3.5-3.5 1.6 1.6 1.7-.7V2.2zm2.5 6.3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z',
     // Hinterhof: kleiner Zaun / Beet
     hinterhof: 'M4 18V9l4-3 4 3v9M12 18V9l4-3 4 3v9M4 18h16M8 12v2M8 15v2M16 12v2M16 15v2',
+    // Buch: Erklärung neben dem Titel
+    buch: 'M5 4.5h9.5A2.5 2.5 0 0 1 17 7v13.5H7.5A2.5 2.5 0 0 0 5 23V4.5Zm0 0v15.5M9 8h5M9 11.5h5',
+    // Beutel: Vorrat öffnen
+    beutel: 'M8 8.5V7a4 4 0 0 1 8 0v1.5M6.5 8.5h11l1 12.5H5.5l1-12.5Z',
   };
 </script>
 

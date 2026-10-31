@@ -42,7 +42,7 @@
   import type { Epoche } from '../../core/bastion/epochen';
   import type { Konto } from '../../core/ledger/buchung';
   import type { BewohnerArt, Taetigkeit } from './grafik/bewohner';
-  import type { TextSchluessel } from '../texte/texte';
+  import { t, type TextSchluessel } from '../texte/texte';
 
   let {
     bastion,
@@ -356,8 +356,11 @@
   let versetzen = $state(false);
   let ziel = $state<Position | undefined>(undefined);
   let hinweis = $state<'kein-platz' | undefined>(undefined);
-  /** Kurze Erklärung beim Antippen eines Bewohners (kein Timer-Druck) */
+  /** Eine Zeile Tätigkeit, schließt von selbst (M70 / Q92) */
   let bewohnerHinweis = $state<{ art: BewohnerArt; taetigkeit: Taetigkeit } | undefined>(undefined);
+  /** Bestätigung vor Einlagern (M71) */
+  let entfernenFrage = $state(false);
+  let hinweisTimer: ReturnType<typeof setTimeout> | undefined;
   /** Zeiger ging auf dem gewählten Gebäude nieder → Ziehen versetzt statt Kamera */
   let ziehAufAuswahl = false;
 
@@ -371,6 +374,18 @@
     ziel = undefined;
     hinweis = undefined;
     bewohnerHinweis = undefined;
+    entfernenFrage = false;
+  });
+
+  $effect(() => {
+    if (!bewohnerHinweis) return;
+    if (hinweisTimer) clearTimeout(hinweisTimer);
+    hinweisTimer = setTimeout(() => {
+      bewohnerHinweis = undefined;
+    }, 2200);
+    return () => {
+      if (hinweisTimer) clearTimeout(hinweisTimer);
+    };
   });
 
   function farben(): Farben {
@@ -622,20 +637,30 @@
       </button>
     {/if}
     {#if bewohnerHinweis && !blattOffen && !gewaehlt}
-      <div class="wahl bewohner" role="status">
-        <strong>{tt(`bastion.bewohner.${bewohnerHinweis.art}` as TextSchluessel)}</strong>
-        <span
-          >{tt(`bastion.bewohner.taetigkeit.${bewohnerHinweis.taetigkeit}` as TextSchluessel)}</span
-        >
-        <button onclick={() => (bewohnerHinweis = undefined)}>{tt('bastion.fertig')}</button>
-      </div>
+      <p class="bewohner-zeile" role="status">
+        {tt(`bastion.bewohner.${bewohnerHinweis.art}` as TextSchluessel)}
+        · {tt(`bastion.bewohner.taetigkeit.${bewohnerHinweis.taetigkeit}` as TextSchluessel)}
+      </p>
     {/if}
     {#if gewaehlt && !blattOffen}
       <div class="wahl" role="status">
         <strong>{gebaeudeName(gewaehlt.typ)}</strong>
         {#if KATALOG[gewaehlt.typ].stufen.length > 1}
           {tt('bastion.stufe')} {gewaehlt.stufe}{/if}
-        {#if versetzen}
+        {#if entfernenFrage}
+          <span>{t('bastion.entfernen-frage')}</span>
+          <span class="knoepfe">
+            <button
+              onclick={async () => {
+                const g = gewaehlt;
+                entfernenFrage = false;
+                if (g && (await onaktion({ art: 'einlagern', gebaeude: g.id })))
+                  auswahl = undefined;
+              }}>{t('bastion.entfernen-ja')}</button
+            >
+            <button onclick={() => (entfernenFrage = false)}>{tt('bastion.abbrechen')}</button>
+          </span>
+        {:else if versetzen}
           <span class:hinweis-platz={!!hinweis}
             >{tt(hinweis ? 'bastion.hindernis.belegt' : 'bastion.tippe-feld')}</span
           >
@@ -655,13 +680,7 @@
               }}>{tt('bastion.ziehen-versetzen')}</button
             >
             {#if einlagerbar(gewaehlt.typ)}
-              <button
-                onclick={async () => {
-                  const g = gewaehlt;
-                  if (g && (await onaktion({ art: 'einlagern', gebaeude: g.id })))
-                    auswahl = undefined;
-                }}>{tt('bastion.einlagern')}</button
-              >
+              <button onclick={() => (entfernenFrage = true)}>{tt('bastion.einlagern')}</button>
             {/if}
             <button onclick={() => (auswahl = undefined)}>{tt('bastion.fertig')}</button>
           </span>
@@ -780,5 +799,22 @@
   .wahl .hinweis-platz {
     color: var(--farbe-akzent);
     font-weight: 700;
+  }
+
+  .bewohner-zeile {
+    position: absolute;
+    inset-inline: var(--abstand-s);
+    inset-block-end: max(var(--abstand-s), 0.5rem);
+    z-index: 5;
+    margin: 0;
+    padding: 0.45rem 0.75rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 94%, transparent);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--farbe-text);
+    pointer-events: none;
+    max-inline-size: calc(100% - 2 * var(--abstand-s));
   }
 </style>

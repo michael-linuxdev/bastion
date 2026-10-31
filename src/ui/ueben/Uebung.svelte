@@ -33,6 +33,8 @@
     paketVon,
     onzurueck,
     onfertig,
+    /** Offene Aufgabe merken und zum Hub (N78) */
+    onspaeter,
     onergebnis,
     vorschlag,
     onwechsel,
@@ -55,6 +57,8 @@
     onzurueck: () => void;
     /** „Fertig für heute“ → Abschlussbildschirm */
     onfertig?: () => void;
+    /** „Später weiter“ → Hub mit sichtbarer offener Aufgabe */
+    onspaeter?: (kompetenz: string, titel: string) => void;
     onergebnis: (daten: Antwortdaten) => void;
     /** Rückweg bei Fehlern (LEHRPLAN §7): Vorschlag nach mehreren Fehlern in Folge */
     vorschlag?: (kompetenz: string, fehlerInFolge: number) => Kompetenz | undefined;
@@ -76,7 +80,10 @@
   let fehlerInFolge = $state(0);
   /** Session-Zahnrad: Orientierung, ohne die Übung zu überfrachten */
   let sessionEinstellungen = $state(false);
+  /** Großer Pausenblock (Einladung nach fünf Aufgaben, R5 / N77) */
   const BLOCK = 5;
+  /** Früher ruhiger Atemzug nach wenigen Aufgaben (M65) */
+  const ATEM = 3;
 
   interface Aufgabe extends Auftrag {
     readonly instanz: Instanz;
@@ -186,8 +193,12 @@
     const imBlock = erledigt % BLOCK;
     return { gesamt: BLOCK, voll: imBlock === 0 && erledigt > 0 ? BLOCK : imBlock };
   });
-  /** Nach jedem vollen Block: ein natürlicher Pausenpunkt (R5) */
+  /** Nach jedem vollen Block: Einladung zur Pause, kein Countdown (R5, N77) */
   const pause = $derived(anzahl === undefined && ergebnis !== undefined && erledigt % BLOCK === 0);
+  /** Früher Atemzug nach 2–3 Aufgaben – ruhig, kein Modal (M65) */
+  const atemzug = $derived(
+    anzahl === undefined && ergebnis !== undefined && !pause && erledigt === ATEM,
+  );
 
   const rueckwegZu = $derived(
     ergebnis && !ergebnis.richtig && aufgabe && vorschlag
@@ -244,9 +255,16 @@
   {/if}
   <header class="kopf">
     <h2>{ueberschrift}</h2>
-    {#if stufe}<span class="stufe">{stufe}</span>{/if}
+    {#if stufe}<span class="stufe" aria-label="{t('niveau.stufe')}: {stufe}">{stufe}</span>{/if}
     {#if onerklaerung}
-      <button class="zweit erklaerung" onclick={onerklaerung}>{t('vermittlung.knopf')}</button>
+      <button
+        class="erklaerung"
+        aria-label={t('vermittlung.knopf')}
+        title={t('vermittlung.knopf')}
+        onclick={onerklaerung}
+      >
+        <Symbol name="buch" />
+      </button>
     {/if}
     {#if aufgabe || erledigt > 0}
       <span
@@ -396,9 +414,20 @@
                 <button class="zweit" onclick={() => onwechsel(ziel)}>{t('rueckweg.knopf')}</button>
               </div>
             {/if}
-            {#if pause}<p class="pause">{t('uebung.pause')}</p>{/if}
+            {#if pause}
+              <p class="pause atem" role="status">{t('uebung.pause')}</p>
+            {:else if atemzug}
+              <p class="pause atem" role="status">{t('uebung.pause-kurz')}</p>
+            {/if}
             <div class="knoepfe">
               <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
+              {#if onspaeter && aufgabe}
+                <button
+                  class="zweit"
+                  onclick={() => onspaeter(aufgabe.kompetenz.id, aufgabe.kompetenz.titel.de)}
+                  >{t('uebung.spaeter')}</button
+                >
+              {/if}
             </div>
           {/if}
         {/if}
@@ -462,9 +491,29 @@
     font-weight: 700;
     padding-block: 0.125rem;
     padding-inline: var(--abstand-s);
-    border-radius: 999px;
+    border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text-leise);
+    letter-spacing: 0.02em;
+  }
+
+  .erklaerung {
+    font: inherit;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+    cursor: pointer;
+  }
+
+  .erklaerung :global(svg) {
+    inline-size: 1.35rem;
+    block-size: 1.35rem;
   }
 
   .punkte {
@@ -597,5 +646,41 @@
 
   .pause {
     color: var(--farbe-text-leise);
+  }
+
+  .pause.atem {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+  }
+
+  .pause.atem::before {
+    content: '';
+    inline-size: 0.65rem;
+    block-size: 0.65rem;
+    border-radius: 50%;
+    background: var(--farbe-akzent);
+    opacity: 0.55;
+    animation: atem 2.8s ease-in-out infinite;
+  }
+
+  @keyframes atem {
+    0%,
+    100% {
+      transform: scale(0.85);
+      opacity: 0.35;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.75;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pause.atem::before {
+      animation: none;
+      opacity: 0.55;
+      transform: none;
+    }
   }
 </style>

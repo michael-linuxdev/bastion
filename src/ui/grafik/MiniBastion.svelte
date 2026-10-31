@@ -21,7 +21,8 @@
   });
 </script>
 
-<div class="mini" class:abend data-jahreszeit={jahreszeit} aria-hidden="true">
+<!-- Hub-Wetter nur über Himmel-/Jahreszeit-Farben, keine Emoji (M68) -->
+<div class="mini" class:abend data-jahreszeit={jahreszeit} data-wetter="farbe" aria-hidden="true">
   {#if standbildOk}
     <img
       class="standbild"

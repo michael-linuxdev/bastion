@@ -27,10 +27,13 @@
   } = $props();
 
   let ansicht = $state<'einfach' | 'ausfuehrlich' | 'lehrkraft'>('einfach');
+  /** Kurzer Brief zuerst (M74); Tabellen erst nach „Mehr zeigen“ */
+  let briefOffen = $state(false);
   const jetzt = Date.now();
   const lehrkraft = $derived(lehrkraftBericht(kompetenzen, [...zustand.staende.values()], klasse));
   const feldName = (f: string) => t(`feld.${f}` as TextSchluessel);
-  const namen = (ids: readonly string[]) => ids.map((id) => titel.get(id) ?? id).join(', ');
+  const namen = (ids: readonly string[]) =>
+    ids.map((id) => titel.get(id) ?? t('paket.fehlt')).join(', ');
   /** Der Bericht als einfacher Text – zum Speichern, Ausdrucken oder Zeigen */
   const lehrkraftText = $derived(
     [
@@ -81,6 +84,29 @@
     e.fehlerbild
       ? vorlagen.find((v) => v.id === e.vorlage)?.fehlerbilder[e.fehlerbild]?.de
       : undefined;
+
+  const sitztThemen = $derived(
+    geuebt
+      .filter((k) =>
+        NIVEAUS.some((n) => {
+          const s = statusVon(zustand, k.id, n, jetzt);
+          return s === 'gekonnt' || s === 'gefestigt';
+        }),
+      )
+      .slice(0, 3)
+      .map((k) => k.titel.de),
+  );
+  const uebenThemen = $derived(
+    geuebt
+      .filter((k) =>
+        NIVEAUS.some((n) => {
+          const s = statusVon(zustand, k.id, n, jetzt);
+          return s === 'in-arbeit' || s === 'auffrischen';
+        }),
+      )
+      .slice(0, 3)
+      .map((k) => k.titel.de),
+  );
 </script>
 
 <div class="bericht">
@@ -98,6 +124,24 @@
 
   {#if aufgaben.length === 0}
     <p>{t('bericht.keine-aufgaben')}</p>
+  {:else if ansicht === 'einfach' && !briefOffen}
+    <article class="brief" aria-label={t('bericht.brief')}>
+      <p>{t('bericht.brief')}</p>
+      {#if uebenThemen.length > 0}
+        <p>{t('bericht.ueben-wir').replace('{themen}', uebenThemen.join(', '))}</p>
+      {:else}
+        <p>{t('bericht.nichts-offen')}</p>
+      {/if}
+      {#if sitztThemen.length > 0}
+        <p>{t('bericht.sitzt').replace('{themen}', sitztThemen.join(', '))}</p>
+      {/if}
+      <p class="leise">
+        {woche[0]
+          ? `${t('bericht.wochen')}: ${woche[0].aufgaben} ${t('bericht.aufgaben')}`
+          : t('bericht.keine-aufgaben')}
+      </p>
+      <button class="zweit" onclick={() => (briefOffen = true)}>{t('bericht.mehr-zeigen')}</button>
+    </article>
   {:else if ansicht === 'lehrkraft'}
     <h4>{t('bericht.lehrkraft-titel')} – {t('klasse.name')} {klasse}</h4>
     <p class="leise">{t('bericht.lk-erklaerung')}</p>
@@ -123,6 +167,7 @@
         >{/if}
     </p>
   {:else if ansicht === 'einfach'}
+    <button class="zweit" onclick={() => (briefOffen = false)}>{t('bericht.weniger')}</button>
     <h4>{t('bericht.kompetenzen')}</h4>
     <table>
       <thead>
@@ -183,7 +228,7 @@
             <tr>
               <td>{zeit(e.ts)}</td>
               <td>
-                {titel.get(e.kompetenz) ?? e.kompetenz} ·
+                {titel.get(e.kompetenz) ?? t('paket.fehlt')} ·
                 {t(e.niveau === 'G' ? 'niveau.G' : 'niveau.M')}
                 <small>{t(`modus.${e.modus}` as TextSchluessel)}</small>
               </td>
@@ -205,6 +250,37 @@
   .bericht {
     display: grid;
     gap: var(--abstand-s);
+  }
+
+  .brief {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+    max-inline-size: 36rem;
+  }
+
+  .brief p {
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .leise {
+    color: var(--farbe-text-leise);
+  }
+
+  .zweit {
+    font: inherit;
+    justify-self: start;
+    min-block-size: 2.75rem;
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border: 2px solid var(--farbe-akzent);
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
   }
 
   .umschalter {

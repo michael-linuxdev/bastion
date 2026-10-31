@@ -240,6 +240,7 @@
     font: inherit;
     font-size: 1.25rem;
     inline-size: 9rem;
+    min-block-size: var(--ziel);
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-s);
     border: 2px solid var(--farbe-rand);
@@ -256,6 +257,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--abstand-s);
+    font-size: 1.5rem;
   }
 
   .bruchfelder label:first-child {
@@ -263,9 +265,13 @@
     padding-block-end: var(--abstand-s);
   }
 
+  /* Bruch und Koordinaten so groß wie der Aufgabentext (M67) */
   .bruchfelder input,
   .paar input {
-    inline-size: 5rem;
+    inline-size: 6.5rem;
+    min-block-size: 3rem;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-align: center;
   }
 
@@ -273,7 +279,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--abstand-s);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 
   .optionen {

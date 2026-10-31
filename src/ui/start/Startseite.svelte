@@ -34,6 +34,9 @@
     klassenarbeit,
     sichern,
     testphase = false,
+    offenThema = undefined,
+    geraetHinweis = false,
+    ongeraetOk,
     onziel,
     children,
   }: {
@@ -49,6 +52,11 @@
     sichern: boolean;
     /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
     testphase?: boolean;
+    /** Offene Übung vom „Später weiter“ (N78) */
+    offenThema?: string | undefined;
+    /** Erstinstallation: App bleibt auf dem Gerät (M75) */
+    geraetHinweis?: boolean;
+    ongeraetOk?: () => void;
     onziel: (z: Ziel) => void;
     children?: Snippet;
   } = $props();
@@ -77,6 +85,22 @@
   </header>
 
   {@render children?.()}
+
+  {#if geraetHinweis}
+    <p class="geraet" role="status">
+      <span>{t('start.geraet')}</span>
+      {#if ongeraetOk}
+        <button class="dezent" type="button" onclick={ongeraetOk}>{t('start.geraet-ok')}</button>
+      {/if}
+    </p>
+  {/if}
+
+  {#if offenThema}
+    <button class="offen" onclick={() => onziel('ueben')}>
+      <Symbol name="ueben" />
+      <span>{t('hub.offen-weiter').replace('{thema}', offenThema)}</span>
+    </button>
+  {/if}
 
   {#if basebau}
     <button class="karte bastion" onclick={() => onziel('bastion')}>
@@ -200,6 +224,36 @@
   .test {
     font-size: 0.875rem;
     margin-block-end: var(--abstand-s);
+  }
+
+  .geraet {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--abstand-m);
+    row-gap: var(--abstand-s);
+    margin-block-end: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text-leise);
+  }
+
+  .offen {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    inline-size: 100%;
+    min-block-size: 3rem;
+    margin-block-end: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border: 2px dashed var(--farbe-akzent);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    font-weight: 700;
+    text-align: start;
   }
 
   button {
