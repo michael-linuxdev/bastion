@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { wesenAnzahl, wesenArten, wesenStarten } from './wesen';
 
 describe('wesen', () => {
-  it('Dorf hat drei Arten, Bastion vorerst keine', () => {
+  it('jedes Thema hat Arten', () => {
     expect(wesenArten('dorf')).toHaveLength(3);
-    expect(wesenArten('bastion')).toHaveLength(0);
+    expect(wesenArten('bastion')).toHaveLength(3);
+    expect(wesenArten('weltraum')).toHaveLength(2);
+    expect(wesenArten('unterwasser')).toHaveLength(3);
   });
 
   it('Anzahl steigt mit Gebäuden und ist bei leicht begrenzt', () => {
