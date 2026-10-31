@@ -229,6 +229,8 @@ Mechanik und Kosten: `BASEBAU.md` §5.5–§5.7 (B-28). Grafik:
 
 Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im Lernpfad: Animationen, Partikel, Wesen, Sound, Wetter-Effekte.
 
+**Üben Ein-/Ausgabe (31.10.2026):** Arbeitsblatt mit zwei Phasen (Eingabe / Rückmeldung), ruhiges Urteil + Ursache, Antwortspiegel mit Ergebnisrahmen, Tipps als Randnotiz, Fortschritt als Steine, Schrittweg als Checkliste, Tastatur an die Eingabefläche gebunden, Querformat Prompt|Eingabe. Keine KI, kein Timer, keine Zufallsbelohnung.
+
 ## 10. PR-Reihenfolge (Nebenstrang)
 
 | PR | Inhalt |
