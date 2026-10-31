@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Musterfeld Brüche steht auf Stufe 1 (31.10.2026). Jetzt durch eine Lehrkraft prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 2 setzen; dann U4b, der Test mit drei Lernenden |
-| Nächster Schritt Grafik | G0–G11, P0–P6 Atlas und CC0-Sound erledigt; optional Jahreszeit-Feinheit; Messung iPhone 13 (`docs/session/GRAFIK.md`) |
+| Nächster Schritt Grafik | Spez-Nebenstrang erledigt (G0–G11, P0–P6, CC0-Sound). Optional: Jahreszeit-Feinheit, Ambient Wasser/Regen, Lern-UI §9; Messung iPhone 13; Testerinnen mit U4b (`docs/session/GRAFIK.md`) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -26,9 +26,9 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
 | 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
-| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; G0–G11 ✅; Sprite-P0–P6 ✅ (inkl. Epoche 2–4 + Belagerungs-Overlays); CC0-Sounddateien ✅; Abend-Fenster ✅; Wetter-Cache dauerhaft ✅; Bastion spielbarer ✅; Politur-Pass ✅; Bewohner ausgebaut ✅ | ja |
+| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | ✅ Epoche 1 Mechanik; ✅ G0–G11; ✅ Sprite-P0–P6; ✅ CC0-Sound; ✅ UI-Reorg/Spiel-UX/Politur/Bewohner; optional Feinschliff (Jahreszeit, Lern-UI §9, Messung) | ja |
 | 3 | Bastion zeigen (QR-Übertragung, O-9) | ⏳ | nein |
-| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte weiter klassenweise (K-15); Belagerung seit B-28 im Nebenstrang G11 spezifiziert |
+| 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte weiter klassenweise (K-15); Belagerung seit B-28 im Nebenstrang G11 (+ Atlas P6) umgesetzt |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
 | 6 | Zweites Fach + Portfolio | ⏳ | nein |
 | – | Horizont (berufliche Bildung, weitere Fächer …) | ohne Termin | nein |
@@ -48,7 +48,7 @@ Verbindlich nach K-11/K-12. Wer etwas davon anfangen will, muss zuerst diese Lis
 - Kein anderes Bundesland als Sachsen; keine Bundesland-Abfrage (LEHRPLAN §10, L-9).
 
 **Basebau**
-- ~~Keine Epochen nach Epoche 1, keine Belagerungen~~ – **aufgehoben 31.10.2026 (B-28):** Epochen 2–4 und Belagerung spezifiziert und im Grafik-Nebenstrang geplant (`BASEBAU.md` §5.5–§5.7, `GRAFIK.md` §10). Keine QR-Übertragung.
+- ~~Keine Epochen nach Epoche 1, keine Belagerungen~~ – **aufgehoben 31.10.2026 (B-28):** Epochen 2–4 und Belagerung spezifiziert und im Grafik-Nebenstrang umgesetzt (`BASEBAU.md` §5.5–§5.7, `GRAFIK.md` §10). Keine QR-Übertragung.
 - Keine Spezialisierung.
 
 **Sprache und Zielgruppen**

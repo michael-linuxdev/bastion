@@ -157,9 +157,9 @@ Damit Technik und Bild parallel laufen:
 | **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach · **geliefert** (`himmel/`, `wetter/`, `auflage/`, Generator `tools/grafik/sprites-p1-wetter.py`) | G2/G3 |
 | **P2** | `garten` Epoche 1 komplett + Wesen · **geliefert** (`gebaeude/garten/`, `boden/garten/`, `wesen/garten/`, Generator `tools/grafik/sprites-p2-garten.py`) | G5 |
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 · **geliefert** (Generator `tools/grafik/sprites-p3-themen.py`) | G6 |
-| **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
-| **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) · *umgesetzt* | G10 |
-| **P6** | Belagerungs-Himmel / Rauch-Overlays · *umgesetzt* (`belagerung/`, Generator `tools/grafik/sprites-p6-belagerung.py`) | G11 |
+| **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder · **geliefert** (Generator `tools/grafik/sprites-p4-hinterhof.py`) | G7 |
+| **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) · **geliefert** (Generator `tools/grafik/sprites-p5-epochen.py`) | G10 |
+| **P6** | Belagerungs-Himmel / Rauch-Overlays · **geliefert** (`belagerung/`, Generator `tools/grafik/sprites-p6-belagerung.py`) | G11 |
 
 Pro Charge: Ordnerstruktur wie §3, dazu eine `manifest.json` (Liste der Dateien, Pixelgröße, Anker x/y relativ).
 
@@ -198,8 +198,11 @@ Beispiel `manifest.json`-Eintrag:
 - **P2 (erledigt):** Garten-Gebäude, Rasen, Wesen im Atlas  
 - **Abend-Fenster / Politur (erledigt):** `*_fenster.png` für Dorf (Kern/Werkstatt/Wissen/Turm) und Garten (Kern/Werkstatt/Wissen); Runtime legt sie am Abend deckungsgleich über das Tages-Sprite; Tages-Politur (Rahmen, Sims, Silhouette)  
 - **P3 (erledigt):** Bastion / Unterwasser / Weltraum Epoche 1 (Gebäude, Boden, Wesen, Abend-Fenster wo passend); Runtime mit Code-Fallback  
-- Als Nächstes: **P4** Hinterhof-Objekte + MiniBastion-Standbilder  
-
+- **P4 (erledigt):** Hinterhof-Objekte und MiniBastion-Standbilder; Runtime mit Code/SVG-Fallback  
+- **P5 (erledigt):** Epoche 2–4 Gebäude je Thema; Atlas-Lookup mit Epoche-Fallback  
+- **P6 (erledigt):** Belagerungs-Himmel und Rauch-Overlays; Bühne bei Bewährungsprobe  
+- **CC0-Sound (erledigt):** Tipps + Ambient-Wind unter `public/sound/` (§11)  
+- Optional/offen: Jahreszeit-Auflagen feiner nutzen; Ambient Wasser/Regen; Lern-UI §9; Messung iPhone 13; Testerinnen mit U4b  
 
 ---
 
