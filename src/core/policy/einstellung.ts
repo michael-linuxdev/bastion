@@ -65,6 +65,12 @@ export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert)
 /** Bauplatz als Bild zeigen (BASEBAU 2.13); nur `false` blendet es aus. */
 export const BILD_SCHLUESSEL = 'basebau.bild';
 
+/** Bastion ohne Bewegung (GRAFIK §4.5); nur `true` schaltet ruhig. */
+export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
+
+/** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
+export const LEICHT_SCHLUESSEL = 'basebau.leicht';
+
 /** Zoom des Bauplatzes (BASEBAU 2.13a): stufenlos, 0 heißt eingepasst. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 

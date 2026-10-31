@@ -3,16 +3,22 @@
   // die Bastion bei eingeschaltetem Basebau öffnet und das Bild zeigt, lädt es (R7, A3).
   // Antippen wählt ein Gebäude; „Versetzen“ und dann ein freies Feld antippen versetzt
   // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
+  import { untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
   import { KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
   import {
+    bastionLeicht,
+    bastionRuhig,
     bildSetzen,
     bildZeigen,
+    leichtSetzen,
+    ruhigSetzen,
     zoomSetzen,
     zoomWahl,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
   import {
@@ -38,6 +44,23 @@
   /** Bild zeigen (Einstellung `basebau.bild`); aus = reizarm, PixiJS wird nicht geladen */
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
+
+  /** GRAFIK §4.5: ruhig / leicht / System-Ruhe */
+  let ruhig = $state(false);
+  let leicht = $state(false);
+  let systemRuhe = $state(false);
+  void bastionRuhig().then((z) => (ruhig = z));
+  void bastionLeicht().then((z) => (leicht = z));
+  const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
+
+  $effect(() => {
+    if (typeof matchMedia !== 'function') return;
+    const m = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => (systemRuhe = m.matches);
+    sync();
+    m.addEventListener('change', sync);
+    return () => m.removeEventListener('change', sync);
+  });
 
   /** Kamera wie in Dorfkrieg: stufenlos, zum Zeiger, Ziehen verschiebt.
    * Ein gemerkter Zoom (`basebau.zoom`) wird in die Mitte gelegt, sonst das ganze Bild. */
@@ -277,8 +300,10 @@
     const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
+    // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
+    const start: Bewegung = untrack(() => bewegung);
     import('./grafik/grafik-buehne')
-      .then((m) => m.buehneErstellen(ort, farben(), bildart))
+      .then((m) => m.buehneErstellen(ort, farben(), bildart, start))
       .then((b) => {
         if (abgebrochen) b.zerstoere();
         else buehne = erstellt = b;
@@ -289,6 +314,10 @@
       erstellt?.zerstoere();
       buehne = undefined;
     };
+  });
+
+  $effect(() => {
+    buehne?.setzeBewegung(bewegung);
   });
 
   $effect(() => {
@@ -427,9 +456,52 @@
   <button class="dezent" onclick={umschalten}
     >{zeigen ? tt('bastion.bild-aus') : tt('bastion.bild-an')}</button
   >
+  {#if zeigen && !fehlgeschlagen}
+    <div class="darstellung" role="group" aria-label={tt('bastion.darstellung')}>
+      <label>
+        <input
+          type="checkbox"
+          checked={ruhig}
+          onchange={() => {
+            ruhig = !ruhig;
+            void ruhigSetzen(ruhig);
+          }}
+        />
+        {tt('bastion.ruhig')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={leicht}
+          disabled={ruhig || systemRuhe}
+          onchange={() => {
+            leicht = !leicht;
+            void leichtSetzen(leicht);
+          }}
+        />
+        {tt('bastion.leicht')}
+      </label>
+    </div>
+  {/if}
 {/if}
 
 <style>
+  .darstellung {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-block: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--farbe-text-leise);
+  }
+
+  .darstellung label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-block-size: 44px;
+  }
+
   .fenster {
     position: relative;
     inline-size: 100%;

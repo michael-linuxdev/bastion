@@ -39,6 +39,8 @@ import {
   type Modus,
   ZIEL_SCHLUESSEL,
   BILD_SCHLUESSEL,
+  RUHIG_SCHLUESSEL,
+  LEICHT_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
   KLASSE_SCHLUESSEL,
   klasseAus,
@@ -503,6 +505,24 @@ export async function bildZeigen(): Promise<boolean> {
 }
 
 export const bildSetzen = (an: boolean) => setze(BILD_SCHLUESSEL, an, 'jugendlich');
+
+/** Bastion ruhig (GRAFIK §4.5)? Standard nein. */
+export async function bastionRuhig(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, RUHIG_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const ruhigSetzen = (an: boolean) => setze(RUHIG_SCHLUESSEL, an, 'jugendlich');
+
+/** Darstellung leicht (GRAFIK §4.5)? Standard nein. */
+export async function bastionLeicht(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, LEICHT_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
 
 /** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {

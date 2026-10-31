@@ -149,7 +149,7 @@ Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihen
 
 ## Nebenstrang Grafik (ausdrücklich aufgenommen 31.10.2026, B-28)
 
-Dokumentation G0 in Arbeit/`GRAFIK.md` §4–§10. Sprite-Bestellung: `GRAFIK-SPRITES.md` (Claude/Grok erzeugen Atlas). Nächste Code-PRs: G1 Atmosphäre … bis G11 Belagerung. Epochen 2–4 und Belagerungsmechanik sind freigegeben (`BASEBAU.md` §5.5–§5.7).
+G0 Dokumentation und G1 Atmosphäre (Ticker, Schalter ruhig/leicht, Aufstell-Effekt, Wolkenbewegung) liegen als PRs. Sprite-Bestellung: `GRAFIK-SPRITES.md` Charge P0. Als Nächstes Code: G2 Jahreszeit/Sonne. Epochen 2–4 und Belagerung: `BASEBAU.md` §5.5–§5.7.
 
 ## Geplant für spätere Sitzungen (noch nicht anfangen)
 
