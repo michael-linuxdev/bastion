@@ -184,7 +184,7 @@ Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testeri
 
 Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30.10.2026 zeichnet die Bastion dort die Platzhalter aus [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) (`dorf.ts`): Wiese, Häuser, Zaun, Bäume. Zoom wie in Dorfkrieg (`kamera.ts`).
 
-**Ab dem Grafik-Nebenstrang (31.10.2026):** Diese Platzhalter werden durch das Sprite-Atlas ersetzt (`GRAFIK-SPRITES.md`). Alle fünf Themen bekommen eigene Szenen auf demselben Niveau. Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
+**Ab dem Grafik-Nebenstrang (31.10.2026):** Diese Platzhalter werden durch das Sprite-Atlas ersetzt (`GRAFIK-SPRITES.md`). **Garten** hat seit G5 eine eigene Code-Szene (Beete, Baumhaus, Gewächshaus, Hecken); Atlas unter `public/grafik/atlas/`. Alle fünf Themen sollen dasselbe Niveau erreichen. Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
 
 ## 7. Hinterhof in der Szene (B-25)
 
@@ -214,7 +214,7 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang · *umgesetzt* |
 | **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) · *umgesetzt* |
 | **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude · *umgesetzt* |
-| **G5** | Atlas-Anbindung + Thema Garten (neues Niveau); Dorfkrieg-Dorf ersetzen sobald Sprites da |
+| **G5** | Atlas-Anbindung + Thema Garten (neues Niveau) · *umgesetzt* (Sprites folgen via Manifest) |
 | **G6** | Unterwasser, Weltraum, Bastion-Feinschliff |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen |
 | **G8** | Sound optional (CC0, Standard aus) |
