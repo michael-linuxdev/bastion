@@ -55,6 +55,8 @@ gebaeude/<thema>/e<epoche>/<rolle>_s<stufe>.png
 gebaeude/<thema>/e<epoche>/<rolle>_s<stufe>_fenster.png   # optional Abend-Layer
 boden/<thema>/e<epoche>/flaeche.png
 boden/<thema>/e<epoche>/rand.png
+boden/<thema>/e<epoche>/flaeche_b.png      # optional: Schachbrett-Variante
+boden/<thema>/e<epoche>/flaeche_hell.png   # optional: hellerer Tupfen
 himmel/wolke_<n>.png
 himmel/sonne.png
 himmel/mond.png
@@ -186,8 +188,9 @@ Beispiel `manifest.json`-Eintrag:
 ## 10. Einbau-Stand
 
 - G0–G11 Code: Ticker, Schalter, Jahreszeit, Open-Meteo, Atlas-Loader, Code-Fallback  
-- **P0 (erledigt):** Manifest gefüllt, Dorf-Gebäude und Wesen nutzen Atlas-Texturen; `dorf.ts` bleibt Fallback und zeichnet weiter Bäume/Wiese  
-- Als Nächstes: P1 (Wetter-Auflagen, Wolken/Sonne/Mond) bzw. Qualität der P0-Sprites verfeinern; P2 Garten  
+- **P0 (erledigt):** Manifest gefüllt, Dorf-Gebäude und Wesen nutzen Atlas-Texturen; `dorf.ts` bleibt Fallback (Bäume; Wiese nur wenn Boden-Kacheln fehlen)  
+- **Boden/Wiese Dorf (erledigt):** Atlas-Kacheln `flaeche`/`rand` (+ optional `flaeche_b`/`flaeche_hell`); Runtime legt die Wiese als Sprites, Code-`dorfWiese` nur noch Fallback; Abend per Tint  
+- Als Nächstes: **P1** (Wetter-Auflagen, Wolken/Sonne/Mond) → **P2** Garten-Sprites  
 
 
 ---

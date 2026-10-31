@@ -5,7 +5,8 @@ Pfadschema Gebäude: `{thema}/e{1–4}/{rolle}_s{stufe}` – siehe `atlasId` in
 relativ zu diesem Ordner; `manifest.json` listet id, Datei, Anker, Pixelmaß.
 
 **P0 Dorf (Epoche 1):** geliefert – Generator `tools/grafik/sprites-p0-dorf.py`.
-Die App zeichnet Dorf-Gebäude und Wesen aus dem Atlas; fehlt ein Eintrag, bleibt
-der Code-Fallback (`dorf.ts`, `wesen.ts`).
+Die App zeichnet Dorf-Gebäude, Wesen und die **Wiese** (Boden-Kacheln
+`flaeche`/`rand` sowie Varianten) aus dem Atlas; fehlt ein Eintrag, bleibt der
+Code-Fallback (`dorf.ts`, `wesen.ts`).
 
-Weitere Themen/Epochen: Ordner angelegt; Sprites folgen mit P2–P5.
+Weitere Themen/Epochen: Ordner angelegt; als Nächstes P1 Wetter-Himmel, dann P2 Garten.

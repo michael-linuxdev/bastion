@@ -26,15 +26,19 @@ import {
 } from './atmosphaere';
 import {
   atlasBasisUrl,
+  atlasBodenId,
   atlasEintrag,
   atlasEintragPerId,
   atlasLaden,
   atlasWesenId,
   type AtlasManifest,
+  type BodenKachel,
 } from './atlas';
 import {
   dorfBaum,
   dorfBaumLagen,
+  dorfBodenKachel,
+  dorfBodenTint,
   dorfGebaeude,
   dorfHoehe,
   dorfSzene,
@@ -54,6 +58,8 @@ import {
   INSEL,
   feldUnter,
   punkt,
+  RAUTE_B,
+  RAUTE_H,
   type BauplatzMass,
 } from './iso';
 import type { Jahreszeit } from './jahreszeit';
@@ -533,6 +539,62 @@ async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<s
   return map;
 }
 
+/** Graphics-Kind in einer Boden-Lage anlegen (Code-Fallback zeichnet darauf). */
+function bodenAlsGraphics(lage: Container): Graphics {
+  const g = new Graphics();
+  lage.addChild(g);
+  return g;
+}
+
+const BODEN_KACHELN: readonly BodenKachel[] = ['flaeche', 'rand', 'flaeche_b', 'flaeche_hell'];
+
+/**
+ * Dorf-Wiese aus Atlas-Kacheln (GRAFIK-SPRITES Boden).
+ * true = gezeichnet; false = Aufrufer soll `dorfWiese` (Code) nutzen.
+ */
+function dorfWieseAusAtlas(
+  lage: Container,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+  abend: boolean,
+): boolean {
+  if (!manifest) return false;
+  const epoche = 1;
+  const texProKachel = new Map<BodenKachel, { tex: Texture; w: number; h: number }>();
+  for (const k of BODEN_KACHELN) {
+    const id = atlasBodenId('dorf', epoche, k);
+    const eintrag = atlasEintragPerId(manifest, id);
+    const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+    if (!eintrag || !tex) {
+      // Pflicht: flaeche + rand; Varianten optional → dann auf flaeche zurück
+      if (k === 'flaeche' || k === 'rand') return false;
+      continue;
+    }
+    texProKachel.set(k, { tex, w: eintrag.pixel.w, h: eintrag.pixel.h });
+  }
+  const flaeche = texProKachel.get('flaeche');
+  if (!flaeche) return false;
+  const tint = dorfBodenTint(abend);
+  const { breite, tiefe } = bauplatzAktiv();
+  for (let y = -1; y <= tiefe; y++) {
+    for (let x = -1; x <= breite; x++) {
+      const gewaehlt = dorfBodenKachel(x, y, breite, tiefe);
+      // Varianten optional: fehlende hell/b → flaeche (rand ist Pflicht oben)
+      const paket = texProKachel.get(gewaehlt) ?? texProKachel.get('flaeche') ?? flaeche;
+      const spr = new Sprite(paket.tex);
+      spr.anchor.set(0.5, 1);
+      spr.width = paket.w / 2 || RAUTE_B;
+      spr.height = paket.h / 2 || RAUTE_H;
+      // Südspitze der Feldraute = Fußpunkt (wie Gebäude-Anker)
+      const fuss = punkt(x + 1, y + 1);
+      spr.position.set(fuss.x, fuss.y);
+      spr.tint = tint;
+      lage.addChild(spr);
+    }
+  }
+  return true;
+}
+
 export async function buehneErstellen(
   ziel: HTMLElement,
   farben: Farben,
@@ -566,19 +628,26 @@ export async function buehneErstellen(
   const texturen = art === 'dorf' ? await atlasTexturenLaden(atlas) : new Map<string, Texture>();
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
-  const hintergrund = new Graphics();
-  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
-  if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
-  else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
-  else if (art === 'unterwasser') uwBoden(stiftVon(hintergrund), farben.abend);
-  else if (art === 'weltraum') weltraumBoden(stiftVon(hintergrund), farben.abend);
-  else insel(hintergrund, farben);
-  rauch(hintergrund, farben);
+  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf-Wiese)
+  const hintergrund = new Container();
+  const himmelLage = new Graphics();
+  const bodenLage = new Container();
+  const overlayLage = new Graphics();
+  hintergrund.addChild(himmelLage, bodenLage, overlayLage);
+  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(himmelLage, farben);
+  if (art === 'dorf') {
+    const atlasWiese = dorfWieseAusAtlas(bodenLage, atlas, texturen, farben.abend);
+    if (!atlasWiese) dorfWiese(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'garten') gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  else if (art === 'weltraum') weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  else insel(bodenAlsGraphics(bodenLage), farben);
+  rauch(overlayLage, farben);
   if (wetterBild === 'nebel') {
-    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
+    overlayLage.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
   }
   if (farben.spannung) {
-    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
+    overlayLage.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
   }
   const wolkenLage = new Graphics();
   wolken(wolkenLage, farben);
