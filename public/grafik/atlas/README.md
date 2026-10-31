@@ -32,3 +32,7 @@ Hinterhof-Szene und Startkarten-MiniBastion nutzen sie, sonst Code/SVG-Fallback.
 Gebäude aller Themen für e2–e4 (Katalog G9, reifere Optik), Abend-Fenster und
 Boden-Kacheln; Runtime fällt bei fehlender Epoche auf niedrigere zurück.
 Als Nächstes: optional P6 Belagerungs-Himmel / Rauch-Overlays.
+
+**Service Worker:** Atlas-Dateien stehen **nicht** im Vorab-Speicher (zu viele PNGs,
+A3/R7). Nach dem Öffnen der Bastion speichert Workbox sie per CacheFirst
+(`vite.config.ts`); fehlt etwas, bleibt der Code-Fallback.
