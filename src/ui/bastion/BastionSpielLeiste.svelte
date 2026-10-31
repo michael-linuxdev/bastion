@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
    * Spiel-HUD auf dem Bastion-Reiter: kompakter Vorrat + Knopf zum Bauen/Planen.
-   * Kein Dashboard – eine schmale Leiste über der Vollbild-Szene.
+   * Liegt in der gemeinsamen oberen Chrome (kein eigenes Absolute).
    */
   import Symbol from '../grafik/Symbol.svelte';
   import { menge, tt } from './thema.svelte';
@@ -43,20 +43,12 @@
 
 <style>
   .spiel {
-    position: absolute;
-    inset-block-start: var(--abstand-s);
-    inset-inline: var(--abstand-s);
-    inset-inline-end: calc(var(--abstand-s) + 3.25rem);
-    z-index: 2;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
-    pointer-events: none;
-  }
-
-  .spiel > * {
-    pointer-events: auto;
+    flex: 1 1 12rem;
+    min-inline-size: 0;
   }
 
   .chips {
@@ -69,6 +61,7 @@
     border-radius: var(--radius);
     background: color-mix(in srgb, var(--farbe-flaeche) 90%, transparent);
     box-shadow: 0 1px 4px var(--farbe-schatten);
+    min-inline-size: 0;
   }
 
   .chips li {
@@ -99,5 +92,6 @@
     color: inherit;
     cursor: pointer;
     box-shadow: 0 1px 4px var(--farbe-schatten);
+    flex-shrink: 0;
   }
 </style>

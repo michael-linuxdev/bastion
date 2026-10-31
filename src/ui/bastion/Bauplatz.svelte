@@ -51,6 +51,9 @@
     spannung = false,
     konto = undefined,
     buecher = 0,
+    /** Hinterhof-Knopf in der Bastion-Chrome – hier nicht noch einmal zeichnen */
+    hinterhofKnopf = true,
+    blick = $bindable<'bauplatz' | 'hinterhof'>('bauplatz'),
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -64,6 +67,10 @@
     /** Für Bewohner-Freischaltung */
     konto?: Konto;
     buecher?: number;
+    /** false = Knopf kommt aus der oberen Chrome */
+    hinterhofKnopf?: boolean;
+    /** Kamera-Blick; Chrome oben kann umschalten */
+    blick?: 'bauplatz' | 'hinterhof';
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -444,10 +451,7 @@
     buehne?.setzeBewegung(bewegung);
   });
 
-  let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
-
-  function blickWechseln(zielBlick: 'bauplatz' | 'hinterhof') {
-    blick = zielBlick;
+  function kameraAufBlick(zielBlick: 'bauplatz' | 'hinterhof') {
     const el = fenster;
     if (!el) return;
     eigene = true;
@@ -464,6 +468,24 @@
     }
     kameraSichtbar = true;
   }
+
+  function blickWechseln(zielBlick: 'bauplatz' | 'hinterhof') {
+    blick = zielBlick;
+    kameraAufBlick(zielBlick);
+  }
+
+  // Chrome oben ändert `blick` – Kamera nachziehen (erster Lauf = Startlage)
+  let blickKamera: 'bauplatz' | 'hinterhof' | undefined = undefined;
+  $effect(() => {
+    const ziel = blick;
+    if (blickKamera === undefined) {
+      blickKamera = ziel;
+      return;
+    }
+    if (ziel === blickKamera) return;
+    blickKamera = ziel;
+    kameraAufBlick(ziel);
+  });
 
   $effect(() => {
     const g = gewaehlt;
@@ -564,7 +586,7 @@
         aria-hidden="true"
       ></div>
     </div>
-    {#if hinterhofFelder.length > 0}
+    {#if hinterhofKnopf && hinterhofFelder.length > 0}
       <button
         class="hinterhof"
         aria-label={blick === 'bauplatz' ? tt('hinterhof.zur-szene') : tt('hinterhof.zum-bauplatz')}
