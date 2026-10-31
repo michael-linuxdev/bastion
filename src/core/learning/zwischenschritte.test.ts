@@ -57,6 +57,7 @@ describe('Zwischenschritte (INHALTSFORMAT §17)', () => {
     const weg = musterweg(g, 1, {});
     expect(weg.map((s) => s.id)).toEqual(['nenner', 'summe']);
     expect(weg.at(-1)?.aufgabe.loesung).toEqual(g.erzeuge(1, {}).loesung);
+    expect(musterweg(g, 1, {}, ['summe']).map((s) => s.id)).toEqual(['summe']);
   });
 
   it('Vorlage: Schritte passen zum Generator, Fehlerbilder mit fv, bekannte Platzhalter', () => {
@@ -77,16 +78,22 @@ describe('Zwischenschritte (INHALTSFORMAT §17)', () => {
     expect(pruefeSchritte(gut, g)).toEqual([]);
     expect(pruefeSchritte(undefined, g)).toEqual([]);
     const schlecht = [
-      { ...gut[1], typ: 'text', frage: { de: '{unbekannt}' }, fehlerbilder: { x: { de: 'ohne' } } },
+      { ...gut[0], typ: 'text', frage: { de: '{unbekannt}' }, fehlerbilder: { x: { de: 'ohne' } } },
     ];
     expect(pruefeSchritte(schlecht, g)).toEqual([
-      'schritte: erwartet nenner, summe in dieser Reihenfolge',
+      'schritte: eine Auswahl aus nenner, summe in dieser Reihenfolge, mit dem letzten Schritt',
       'schritte[0]: Platzhalter {unbekannt} ist unbekannt',
       'schritte[0]: typ muss zahl-eingabe oder bruch-eingabe sein',
       'schritte[0]: fehlerbilder.x ohne fv (F6)',
       'schritte[0]: Fehlerbild „x“ kennt der Generator nicht',
       'schritte[0]: Rückmeldung für „summe“ fehlt',
     ]);
+    // Eine Auswahl geht, wenn sie die Reihenfolge hält und mit dem letzten Schritt endet
+    const nurSumme = [{ ...gut[1], frage: { de: 'Addiere mit dem Nenner {hn}.' } }];
+    expect(pruefeSchritte(nurSumme, g)).toEqual([]);
+    expect(pruefeSchritte([gut[1], gut[0]], g)[0]).toMatch(/^schritte: eine Auswahl/);
+    // Wer einen Schritt weglässt, kann seine Eingabe nicht nennen
+    expect(pruefeSchritte([gut[1]], g)).toEqual(['schritte[0]: Platzhalter {nenner} ist unbekannt']);
     expect(pruefeSchritte(gut, { platzhalter: [] })).toContain(
       'schritte: Der Generator kennt keine Zwischenschritte',
     );

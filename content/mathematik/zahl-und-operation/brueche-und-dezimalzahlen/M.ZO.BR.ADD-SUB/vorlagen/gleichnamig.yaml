@@ -23,5 +23,24 @@ fehlerbilder:
   nicht-erweitert:
     de: '[[Erweitern]] musst du hier nicht – die [[Nenner]] sind schon gleich.'
     fv: FV.BR.NUR-NENNER
+# Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17). Gemeinsamer Nenner und
+# Erweitern entfallen: die Nenner sind schon gleich.
+schritte:
+  - id: rechnen
+    frage:
+      de: 'Die [[Nenner]] sind gleich. Rechne {a} {zeichen} {b}, ohne zu [[kürzen]].'
+    typ: bruch-eingabe
+    fehlerbilder:
+      nenner-addiert:
+        de: 'Du hast auch die [[Nenner]] addiert. Der Nenner bleibt gleich, nur die [[Zähler]] werden verrechnet.'
+        fv: FV.BR.NENNER-ADDIERT
+  - id: kuerzen
+    frage:
+      de: '[[Kürze]] {rechnen} vollständig. Geht es nicht, schreibe den [[Bruch]] noch einmal hin.'
+    typ: bruch-eingabe
+    fehlerbilder:
+      nicht-vollstaendig:
+        de: 'Du hast [[gekürzt]], aber noch nicht vollständig. [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+        fv: FV.BR.NICHT-VOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1
