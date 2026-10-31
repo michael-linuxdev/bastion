@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "quellen": {
+    "kenney-interface": {
+      "name": "Kenney Interface Sounds 1.0",
+      "lizenz": "CC0-1.0",
+      "url": "https://kenney.nl/assets/interface-sounds",
+      "lizenzDatei": "KENNEY-LICENSE.txt"
+    },
+    "bastion": {
+      "name": "Bastion Ambient",
+      "lizenz": "CC0-1.0",
+      "notiz": "Eigenes leises Wind-Rauschen für die Bastion; gemeinfrei (CC0)."
+    }
+  },
+  "dateien": {
+    "bauen": {
+      "datei": "tip-bauen.ogg",
+      "quelle": "kenney-interface",
+      "original": "confirmation_001.wav"
+    },
+    "wesen": {
+      "datei": "tip-wesen.ogg",
+      "quelle": "kenney-interface",
+      "original": "pluck_001.wav"
+    },
+    "aufstellen": {
+      "datei": "tip-aufstellen.ogg",
+      "quelle": "kenney-interface",
+      "original": "drop_002.wav"
+    },
+    "ambient": {
+      "datei": "ambient-wind.ogg",
+      "quelle": "bastion",
+      "loop": true
+    }
+  }
+}

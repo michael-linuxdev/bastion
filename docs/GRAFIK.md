@@ -245,7 +245,7 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **P5** | Epoche 2–4 Gebäude je Thema (Atlas) · *umgesetzt* |
 | **G6** | Unterwasser, Weltraum, Bastion-Wesen · *umgesetzt* (Code-Szenen; P3-Sprites eingehängt) |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen · *umgesetzt* |
-| **G8** | Sound optional (CC0, Standard aus) · *umgesetzt* (prozedural; Dateien optional) |
+| **G8** | Sound optional (CC0, Standard aus) · *umgesetzt* (CC0-Dateien in `public/sound/` + prozeduraler Fallback) |
 | **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) · *umgesetzt* |
 | **G10** | Optiken aller Epochen (Atlas) · *umgesetzt* (P5-Sprites + Code-Fallback / Epoche-Lookup) |
 | **G11** | Belagerung Mechanik + Optik · *umgesetzt* (Bewährungsprobe Üben/Ernstfall, Spannungs-Himmel) |

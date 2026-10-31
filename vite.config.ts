@@ -43,7 +43,8 @@ export default defineConfig({
         // App-Hülle vollständig vorab speichern: danach startet sie ohne Netz (A1).
         // Vorerst auch alle Inhaltspakete (Klasse 5 ist klein); Auswahl vor dem
         // Herunterladen folgt mit weiteren Klassenstufen (ARCHITEKTUR §6).
-        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json,woff2}'],
+        // ogg: optionale Bastion-Sounds (T-18), mit App ausgeliefert und offline
+        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json,woff2,ogg}'],
         // Atlas-Sprites (P0–P5): viele PNGs – nicht vorab speichern (R7, A3), sonst
         // dauert die Precache zu lang und „offline bereit“ erscheint nicht rechtzeitig.
         // Nach dem Öffnen der Bastion: CacheFirst (runtimeCaching unten).

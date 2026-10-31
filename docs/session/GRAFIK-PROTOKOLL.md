@@ -23,3 +23,4 @@
 | 31.10.2026 | **P4 Hinterhof + MiniBastion:** Plätze/Wappen/Denkmal je Thema und Standbilder; Hinterhof-Szene und Startkarte nutzen Atlas (`GRAFIK-SPRITES.md` §7/§8) |
 | 31.10.2026 | **P5 Epoche 2–4:** Gebäude aller Themen e2–e4 nach Katalog G9, Boden, Abend-Fenster; Atlas-Lookup mit Epoche-Fallback (`GRAFIK-SPRITES.md` §8) |
 | 31.10.2026 | **P6 Belagerungs-Himmel / Rauch:** Spannungs-Dunst und Rauch-Overlays im Atlas; Bühne bei Bewährungsprobe (`GRAFIK-SPRITES.md` §8) |
+| 31.10.2026 | **CC0-Sounddateien:** Kenney-Tips + eigenes Ambient unter `public/sound/` (Manifest); Loader mit Web-Audio-Fallback; PWA-Precache `.ogg` (T-18, G8) |

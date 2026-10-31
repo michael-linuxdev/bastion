@@ -1,7 +1,7 @@
 /**
  * Optionaler Bastion-Sound (GRAFIK §4.6, T-18): Standard aus, ohne Bibliothek,
- * nur Bastion/Hinterhof. Prozedurale Töne über Web Audio; optional Dateien unter
- * `/sound/` (CC0), wenn vorhanden.
+ * nur Bastion/Hinterhof. Bevorzugt CC0-Dateien unter `/sound/` (Manifest);
+ * sonst prozedurale Web-Audio-Töne. Kein CDN.
  */
 
 export type SoundTipp = 'bauen' | 'wesen' | 'aufstellen';
@@ -13,9 +13,22 @@ export interface SoundSteuerung {
   readonly ruhig: boolean;
 }
 
+interface SoundManifest {
+  readonly format: number;
+  readonly dateien: Readonly<Record<string, { readonly datei: string; readonly loop?: boolean }>>;
+}
+
+const SOUND_BASIS = `${import.meta.env.BASE_URL}sound/`;
+const MANIFEST_URL = `${SOUND_BASIS}manifest.json`;
+
 let ctx: AudioContext | undefined;
 let ambientKnoten: { stop: () => void } | undefined;
 let steuern: SoundSteuerung = { an: false, ruhig: false };
+let manifest: SoundManifest | null | undefined;
+let tipPuffer: Partial<Record<SoundTipp, AudioBuffer>> = {};
+let ambientPuffer: AudioBuffer | undefined;
+let dateienGeladen = false;
+let ladenPromise: Promise<void> | undefined;
 
 function kontext(): AudioContext | undefined {
   if (typeof globalThis.AudioContext === 'undefined') return undefined;
@@ -23,23 +36,90 @@ function kontext(): AudioContext | undefined {
   return ctx;
 }
 
+async function holeManifest(): Promise<SoundManifest | null> {
+  if (manifest !== undefined) return manifest;
+  try {
+    const r = await fetch(MANIFEST_URL);
+    if (!r.ok) {
+      manifest = null;
+      return null;
+    }
+    const roh = (await r.json()) as SoundManifest;
+    if (roh.format !== 1 || !roh.dateien) {
+      manifest = null;
+      return null;
+    }
+    manifest = roh;
+    return roh;
+  } catch {
+    manifest = null;
+    return null;
+  }
+}
+
+async function decodeDatei(c: AudioContext, name: string): Promise<AudioBuffer | undefined> {
+  try {
+    const r = await fetch(`${SOUND_BASIS}${name}`);
+    if (!r.ok) return undefined;
+    const ab = await r.arrayBuffer();
+    // slice: detach für decodeAudioData in älteren Engines
+    return await c.decodeAudioData(ab.slice(0));
+  } catch {
+    return undefined;
+  }
+}
+
+/** CC0-Dateien einmalig laden; bei Fehler bleibt der prozedurale Fallback. */
+export async function soundDateienLaden(): Promise<void> {
+  if (dateienGeladen) return;
+  if (ladenPromise) return ladenPromise;
+  ladenPromise = (async () => {
+    const c = kontext();
+    if (!c) return;
+    const m = await holeManifest();
+    if (!m) {
+      dateienGeladen = true;
+      return;
+    }
+    const tipps: SoundTipp[] = ['bauen', 'wesen', 'aufstellen'];
+    await Promise.all(
+      tipps.map(async (art) => {
+        const eintrag = m.dateien[art];
+        if (!eintrag) return;
+        const puffer = await decodeDatei(c, eintrag.datei);
+        if (puffer) tipPuffer[art] = puffer;
+      }),
+    );
+    const ambient = m.dateien['ambient'];
+    if (ambient) {
+      const puffer = await decodeDatei(c, ambient.datei);
+      if (puffer) ambientPuffer = puffer;
+    }
+    dateienGeladen = true;
+  })();
+  try {
+    await ladenPromise;
+  } finally {
+    ladenPromise = undefined;
+  }
+}
+
 /** Steuerung aktualisieren – Ambient startet/stoppt automatisch. */
 export function soundSteuern(s: SoundSteuerung): void {
   steuern = s;
   if (!s.an || s.ruhig) ambientStoppen();
-  else void ambientStarten();
+  else {
+    void soundDateienLaden().then(() => {
+      if (steuern.an && !steuern.ruhig) void ambientStarten();
+    });
+  }
 }
 
 export function soundIstAn(): boolean {
   return steuern.an && !steuern.ruhig;
 }
 
-/** Kurzer Tipp-Ton (bauen / Wesen / aufstellen). */
-export function soundTipp(art: SoundTipp): void {
-  if (!steuern.an) return;
-  const c = kontext();
-  if (!c) return;
-  void c.resume();
+function tipProzedural(c: AudioContext, art: SoundTipp): void {
   const jetzt = c.currentTime;
   const o = c.createOscillator();
   const g = c.createGain();
@@ -56,12 +136,30 @@ export function soundTipp(art: SoundTipp): void {
   o.stop(jetzt + 0.2);
 }
 
-/** Sanftes Ambient (Wind) – prozedural, kein Netz. */
-export async function ambientStarten(): Promise<void> {
-  if (!steuern.an || steuern.ruhig || ambientKnoten) return;
+function tipAusDatei(c: AudioContext, puffer: AudioBuffer): void {
+  const quelle = c.createBufferSource();
+  quelle.buffer = puffer;
+  const g = c.createGain();
+  // Kenney-WAVs sind lauter als der Oszillator – bewusst leise halten
+  g.gain.value = 0.12;
+  quelle.connect(g);
+  g.connect(c.destination);
+  quelle.start();
+}
+
+/** Kurzer Tipp-Ton (bauen / Wesen / aufstellen). */
+export function soundTipp(art: SoundTipp): void {
+  if (!steuern.an) return;
   const c = kontext();
   if (!c) return;
-  await c.resume();
+  void c.resume();
+  const puffer = tipPuffer[art];
+  if (puffer) tipAusDatei(c, puffer);
+  else tipProzedural(c, art);
+  if (!dateienGeladen) void soundDateienLaden();
+}
+
+function ambientProzedural(c: AudioContext): { stop: () => void } {
   const dauer = 2;
   const puffer = c.createBuffer(1, c.sampleRate * dauer, c.sampleRate);
   const daten = puffer.getChannelData(0);
@@ -86,7 +184,7 @@ export async function ambientStarten(): Promise<void> {
   filter.connect(g);
   g.connect(c.destination);
   quelle.start();
-  ambientKnoten = {
+  return {
     stop: () => {
       try {
         quelle.stop();
@@ -100,6 +198,39 @@ export async function ambientStarten(): Promise<void> {
   };
 }
 
+function ambientAusDatei(c: AudioContext, puffer: AudioBuffer): { stop: () => void } {
+  const quelle = c.createBufferSource();
+  quelle.buffer = puffer;
+  quelle.loop = true;
+  const g = c.createGain();
+  g.gain.value = 0.05;
+  quelle.connect(g);
+  g.connect(c.destination);
+  quelle.start();
+  return {
+    stop: () => {
+      try {
+        quelle.stop();
+      } catch {
+        /* schon gestoppt */
+      }
+      quelle.disconnect();
+      g.disconnect();
+    },
+  };
+}
+
+/** Sanftes Ambient (Wind) – Datei wenn geladen, sonst prozedural, kein Netz. */
+export async function ambientStarten(): Promise<void> {
+  if (!steuern.an || steuern.ruhig || ambientKnoten) return;
+  const c = kontext();
+  if (!c) return;
+  await c.resume();
+  await soundDateienLaden();
+  if (!steuern.an || steuern.ruhig || ambientKnoten) return;
+  ambientKnoten = ambientPuffer ? ambientAusDatei(c, ambientPuffer) : ambientProzedural(c);
+}
+
 export function ambientStoppen(): void {
   ambientKnoten?.stop();
   ambientKnoten = undefined;
@@ -109,6 +240,11 @@ export function ambientStoppen(): void {
 export function soundZuruecksetzen(): void {
   ambientStoppen();
   steuern = { an: false, ruhig: false };
+  tipPuffer = {};
+  ambientPuffer = undefined;
+  dateienGeladen = false;
+  ladenPromise = undefined;
+  manifest = undefined;
   if (ctx) {
     void ctx.close().catch(() => undefined);
     ctx = undefined;

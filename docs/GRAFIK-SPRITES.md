@@ -205,4 +205,4 @@ Beispiel `manifest.json`-Eintrag:
 
 ## 11. Sound (parallel, nicht Sprite)
 
-CC0/CC-BY-Quellen (Beispiele zur Suche, vor Einbau Lizenz prüfen): Kenney Interface/Audio, FreePD, Pixabay (nur CC0). Dateien nach `public/sound/` bzw. `src/ui/bastion/sound/` mit Manifest. Standard aus (`GRAFIK.md` §4.6).
+Standard aus (`GRAFIK.md` §4.6). **Stand:** Tip-Geräusche aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit `manifest.json`; Loader in `src/ui/bastion/sound/` bevorzugt Dateien, sonst Web-Audio-Fallback. Weitere Ambient-Varianten (Wasser, Regen): vor Einbau Lizenz prüfen (CC0 o. Ä.; FreePD, Pixabay nur CC0).
