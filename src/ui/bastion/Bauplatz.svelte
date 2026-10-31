@@ -21,6 +21,8 @@
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
+  import { farbenMitJahreszeit, jahreszeitAusDatum } from './grafik/jahreszeit';
+  import { szeneAbend } from './grafik/sonne';
   import {
     ZIEH_SCHWELLE,
     ZOOM_KNOPF,
@@ -52,6 +54,15 @@
   void bastionRuhig().then((z) => (ruhig = z));
   void bastionLeicht().then((z) => (leicht = z));
   const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
+
+  /** Lokale Zeit für Jahreszeit und Sonne; jede Minute aktualisieren (GRAFIK §4.3). */
+  let jetzt = $state(new Date());
+  $effect(() => {
+    const id = setInterval(() => (jetzt = new Date()), 60_000);
+    return () => clearInterval(id);
+  });
+  const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
+  const abend = $derived(szeneAbend(darstellung.modus, jetzt));
 
   $effect(() => {
     if (typeof matchMedia !== 'function') return;
@@ -270,7 +281,7 @@
   function farben(): Farben {
     const css = getComputedStyle(document.documentElement);
     const v = (name: string) => css.getPropertyValue(name).trim() || '#888888';
-    return {
+    const basis: Farben = {
       boden: v('--bastion-boden'),
       raster: v('--bastion-raster'),
       linie: v('--bastion-linie'),
@@ -280,7 +291,9 @@
       licht: v('--farbe-licht'),
       wolke: v('--farbe-flaeche'),
       dach: v('--farbe-akzent-warm'),
-      abend: darstellung.dunkel,
+      // Szene-Abend nach Sonne/Modus, nicht nur UI-Tokens (GRAFIK §4.3)
+      abend,
+      jahreszeit,
       familie: {
         kern: v('--bastion-kern'),
         wissen: v('--bastion-wissen'),
@@ -289,14 +302,16 @@
         zierde: v('--bastion-zierde'),
       },
     };
+    return farbenMitJahreszeit(basis, jahreszeit);
   }
 
   $effect(() => {
     const ort = rahmen;
     if (!ort) return;
-    // Neu zeichnen, wenn hell oder dunkel wechselt (GRAFIK §2)
-    // oder das Thema auf Dorf (Dorfbilder) bzw. zurück wechselt (GRAFIK §6).
-    void darstellung.dunkel;
+    // Neu zeichnen bei Modus, Jahreszeit, Abend, Thema (GRAFIK §2, §4.3, §6).
+    void darstellung.modus;
+    void jahreszeit;
+    void abend;
     const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
     let abgebrochen = false;
     let erstellt: Buehne | undefined;

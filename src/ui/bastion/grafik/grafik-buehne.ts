@@ -25,6 +25,7 @@ import {
 } from './atmosphaere';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
+import type { Jahreszeit } from './jahreszeit';
 
 /** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
 export type Bildart = 'insel' | 'dorf';
@@ -44,6 +45,8 @@ export interface Farben {
   readonly dach: string;
   /** Abendstimmung: Fenster leuchten, Sterne statt Wolken */
   readonly abend: boolean;
+  /** Jahreszeit für Auflagen (Schnee); ohne Angabe = Sommer */
+  readonly jahreszeit?: Jahreszeit;
 }
 
 export interface Ansicht {
@@ -152,6 +155,13 @@ function fenster(g: Graphics, e: ReturnType<typeof ecken>, h: number, f: Farben)
   }
 }
 
+/** Schneehaube auf einem Dach (Winter, GRAFIK §4.3). */
+function schneeDach(g: Graphics, o: ReturnType<typeof ecken>, h: number) {
+  const spitze = hoch({ x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 }, h + 4);
+  g.poly(flach(o.links, o.vorne, spitze)).fill({ color: '#f4f7fb', alpha: 0.85 });
+  g.poly(flach(o.vorne, o.rechts, spitze)).fill({ color: '#e8eef5', alpha: 0.85 });
+}
+
 /** Dach als Pyramide über der Deckfläche */
 function pyramide(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben) {
   const spitze = hoch({ x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 }, h);
@@ -162,6 +172,7 @@ function pyramide(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben
   g.poly(flach(o.vorne, o.rechts, spitze))
     .fill(dunkler(f.dach, 0.7))
     .stroke(kontur);
+  if (f.jahreszeit === 'winter') schneeDach(g, o, h);
 }
 
 /** Satteldach entlang der Breite */
@@ -175,6 +186,9 @@ function satteldach(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farb
   g.poly(flach(o.vorne, o.rechts, firstR))
     .fill(dunkler(f.dach, 0.7))
     .stroke(kontur);
+  if (f.jahreszeit === 'winter') {
+    g.poly(flach(o.links, o.vorne, firstR, firstL)).fill({ color: '#f4f7fb', alpha: 0.75 });
+  }
 }
 
 /** Ein Gebäude je Rolle (B-12) */
@@ -267,6 +281,13 @@ function zeichneRolle(
     case 'flaeche': {
       const e = ecken(pos.x, pos.y, w, t, 0.06);
       const o = quader(g, e, h, farbe, f.linie);
+      // Herbst: wärmere Punkte; Winter: hellere „Schnee“-Punkte
+      const punktFarbe =
+        f.jahreszeit === 'herbst'
+          ? dunkler(f.dach, 0.9)
+          : f.jahreszeit === 'winter'
+            ? '#eef2f6'
+            : dunkler(farbe, 0.6);
       for (const [sx, sy] of [
         [0.3, 0.3],
         [0.7, 0.35],
@@ -278,7 +299,7 @@ function zeichneRolle(
           x: o.hinten.x + (o.rechts.x - o.hinten.x) * sx + (o.links.x - o.hinten.x) * sy,
           y: o.hinten.y + (o.rechts.y - o.hinten.y) * sx + (o.links.y - o.hinten.y) * sy,
         };
-        g.circle(p.x, p.y, 2.5).fill(dunkler(farbe, 0.6));
+        g.circle(p.x, p.y, 2.5).fill(punktFarbe);
       }
       break;
     }
