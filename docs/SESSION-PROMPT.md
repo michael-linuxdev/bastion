@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (30) · Session-Prompt in Stränge getrennt; Grafik G0–G11 auf `main` (B-28)
+Stand: 31.10.2026 (31) · Session-Prompt in Stränge getrennt; Grafik G0–G11 und P0–P2 (Dorf/Wetter/Garten) auf dem Weg zu `main` (B-28)
 
 ---
 

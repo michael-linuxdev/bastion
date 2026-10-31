@@ -42,6 +42,27 @@ function rasenFarbe(abend: boolean, x: number, y: number, aussen: boolean): stri
   return schach ? '#5faa48' : '#4f9a3e';
 }
 
+/**
+ * Atlas-Boden-Kachel für Feld (x,y) – fest aus Position, kein Zufall.
+ * Spec: `flaeche` / `rand`; Varianten `flaeche_b` / `flaeche_hell`.
+ */
+export function gartenBodenKachel(
+  x: number,
+  y: number,
+  breite: number,
+  tiefe: number,
+): 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell' {
+  const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;
+  if (aussen) return 'rand';
+  if (hash01(x, y) > 0.92) return 'flaeche_hell';
+  return (x + y) % 2 === 0 ? 'flaeche' : 'flaeche_b';
+}
+
+/** Abend-Abdunkeln der Atlas-Rasenfläche (Tint 0xRRGGBB). */
+export function gartenBodenTint(abend: boolean): number {
+  return abend ? 0x6a7a68 : 0xffffff;
+}
+
 export function gartenHoehe(typ: GebaeudeTyp, stufe: number): number {
   const grund: Record<GebaeudeTyp, number> = {
     kern: 62,
@@ -105,6 +126,26 @@ export function gartenSzene(
   }
   teile.sort((a, b) => a.tiefe - b.tiefe);
   for (const teil of teile) teil.mal();
+}
+
+/** Strauch am Feld (Code-Fallback / Dekoration neben Atlas-Sprites). */
+export function gartenStrauch(st: Stift, x: number, y: number, scale: number): void {
+  strauch(st, x, y, scale);
+}
+
+/** Feste Strauchpositionen (Tiefe = x+y für Sortierung). */
+export function gartenStrauchLagen(): readonly {
+  x: number;
+  y: number;
+  s: number;
+  tiefe: number;
+}[] {
+  return STRAEUCHER.map((b) => ({ ...b, tiefe: b.x + b.y }));
+}
+
+/** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */
+export function gartenGebaeude(st: Stift, bau: GartenBau, abend: boolean, licht: string): void {
+  gebaeude(st, bau, abend, licht);
 }
 
 function strauch(st: Stift, x: number, y: number, scale: number): void {
