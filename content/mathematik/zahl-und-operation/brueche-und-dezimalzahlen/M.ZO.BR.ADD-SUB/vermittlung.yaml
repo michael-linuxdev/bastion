@@ -24,7 +24,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Färbe erst 1/4 des Streifens, dann noch 2/4 dazu. Wie viele Viertel sind jetzt gefärbt?'
+      de: 'Färbe erst 1/4 des Streifens, dann noch 2/4 dazu. Welcher [[Anteil]] ist jetzt gefärbt? Gib ihn als [[Bruch]] an.'
     werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 0 } }
     antwort:
       eingabe:
@@ -53,7 +53,7 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Rechne 1/3 + 1/6. [[Erweitere]] zuerst 1/3 auf Sechstel. Wie heißt das Ergebnis?'
+      de: 'Rechne 1/3 + 1/6. [[Erweitere]] zuerst 1/3 auf Sechstel. Gib das Ergebnis in Sechsteln an, noch ohne zu [[kürzen]].'
     antwort:
       eingabe:
         art: bruch
@@ -107,3 +107,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: b96b7d015252cc3efc0abfb6de2c838bd8dd7778309cfb325ff0a33d9c296c2e

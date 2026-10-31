@@ -35,3 +35,8 @@ sachsen:
     klassenstufe: 6
     lernbereich: 'LB 1 Arbeiten mit gebrochenen Zahlen'
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 4649c4492b6c6eb3329384464cec11ab09aaf76623e4d473924287a9e49cd594

@@ -9,7 +9,7 @@ beschreibung:
 kompetenzen: [M.ZO.BR.ERWEITERN]
 erklaerung:
   kurz:
-    de: 'Richtig [[gekürzt]], aber noch nicht vollständig: [[Zähler]] und [[Nenner]] haben noch einen [[gemeinsamen Teiler]].'
+    de: 'Vollständig [[gekürzt]] ist ein [[Bruch]] erst, wenn [[Zähler]] und [[Nenner]] keinen [[gemeinsamen Teiler]] außer 1 mehr haben.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast einmal [[gekürzt]] und dann aufgehört.'
@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.ZO.BR.ERWEITERN.KUERZEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 0b11067d8c169ee882e9b912546f3936e386129d3bfcc22dff9056e84da65986

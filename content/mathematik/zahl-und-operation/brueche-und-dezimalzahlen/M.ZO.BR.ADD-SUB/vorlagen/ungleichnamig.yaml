@@ -63,7 +63,10 @@ schritte:
         de: 'Du hast auch die [[Nenner]] addiert. Der Nenner bleibt gleich, nur die [[Zähler]] werden verrechnet.'
         fv: FV.BR.NENNER-ADDIERT
   - id: kuerzen
-    frage: { de: '[[Kürze]] {rechnen} vollständig.' }
+    frage:
+      {
+        de: '[[Kürze]] {rechnen} vollständig. Geht es nicht, schreibe den [[Bruch]] noch einmal hin.',
+      }
     typ: bruch-eingabe
     fehlerbilder:
       nicht-vollstaendig:
@@ -71,3 +74,8 @@ schritte:
         fv: FV.BR.NICHT-VOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: da0f2b9066a8a03f5acd974fa273708f6ca99e6ffe7dd93655e68a0db3d6c386

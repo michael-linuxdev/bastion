@@ -27,3 +27,8 @@ quelle:
   de: Fachdidaktik Bruchrechnung (Übertragung von Regeln der natürlichen Zahlen)
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 19437bb7a8554ffd8f5aa3c207cb5b660e59320dc397d4c839fa9330b68caae8

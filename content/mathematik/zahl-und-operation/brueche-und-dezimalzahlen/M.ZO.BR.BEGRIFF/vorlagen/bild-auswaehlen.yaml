@@ -25,3 +25,8 @@ fehlerbilder:
     fv: FV.BR.EINTEILUNG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 8d4203f9a67748f5540ffc306a6b12a04965f02a376c6464ae86a847c141b0f9

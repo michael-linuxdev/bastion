@@ -10,10 +10,10 @@ beschreibung:
 kompetenzen: [M.ZO.BR.BEGRIFF, M.DZ.DA.KREISDIAGRAMM, M.DZ.ZF.WAHRSCHEINLICHKEIT]
 erklaerung:
   kurz:
-    de: 'Der [[Nenner]] zählt **alle** Teile des Ganzen – die gefärbten und die ungefärbten zusammen.'
+    de: 'Der [[Nenner]] zählt **alle** Teile des Ganzen – die gemeinten und die übrigen zusammen.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast die gefärbten Teile mit den ungefärbten verglichen: 3 gefärbte, 1 ungefärbter, also 3/1.'
+      de: 'Du hast die gemeinten Teile mit den übrigen verglichen, etwa 3 gefärbte mit 1 ungefärbten: 3/1.'
     - teil: warum-nicht
       de: 'Das ist eine naheliegende Idee. Aber 3/1 wäre dreimal das ganze Ding – viel mehr, als da ist. Der [[Bruch]] sagt, welcher Teil vom **Ganzen** gefärbt ist.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
@@ -33,3 +33,8 @@ quelle:
   de: Fachdidaktik Bruchrechnung (Teil-Ganzes-Vorstellung)
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 82d932e5557713974211c9502cd43f8b43213692c49a3679360decf41fff8257

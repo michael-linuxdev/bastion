@@ -13,7 +13,9 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
-| Nächster Schritt | Musterfeld Brüche fachlich prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 1 und 2 setzen; dann U4b, der Test mit drei Lernenden (§4b, `SESSION-PROMPT.md`) |
+| Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
+| Nächster Schritt Lernkern | Musterfeld Brüche steht auf Stufe 1 (31.10.2026). Jetzt durch eine Lehrkraft prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 2 setzen; dann U4b, der Test mit drei Lernenden |
+| Nächster Schritt Grafik | G0–G11 erledigt (B-28); Sprites einhängen (`GRAFIK-SPRITES.md` P0), Messung auf dem iPhone 13 (`docs/session/GRAFIK.md`) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -249,6 +251,8 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 ## 5. Änderungsprotokoll
 
+**Seit 31.10.2026** führt jeder Strang sein Protokoll in seiner Datei (`docs/session/LERNKERN.md`, `docs/session/GRAFIK.md`). Diese Tabelle bekommt keine neuen Zeilen mehr; so stoßen parallele PRs nicht an derselben Stelle zusammen.
+
 | Datum | Änderung |
 |---|---|
 | 31.10.2026 | **Plan §1 aufgeräumt:** Stand nach U5c, nächster Schritt Prüfung des Musterfelds und U4b; Übergabe im Session-Prompt |
@@ -268,7 +272,6 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 | 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |
 | 30.10.2026 | **Lernkern-Review:** Schatten-Kehrwert rechnet das umgedrehte Verhältnis; Fragen in Erweitern und Vergleichen nennen die erwartete Eingabe; Zinseszins-Fehler führt zur Erklärung, dass sich das Kapital ändert. Test prüft beschriebene Fehlrechnungen |
 | 31.10.2026 | **B-28 Grafik-Nebenstrang:** lebendige Szenen, Sprite-Atlas (`GRAFIK-SPRITES.md`), Wesen, Jahreszeit, Open-Meteo, Schalter ruhig/leicht, Sound optional, Hinterhof in der Szene; Epochen 2–4 und Belagerungsmechanik freigegeben; Dorfkrieg-Platzhalter werden ersetzt (`GRAFIK.md` §4–§10) |
-| 31.10.2026 | **UI-Reorg:** Üben springt zur Aufgabe; Themenwahl unter Mehr; Bastion nur Bauplatz + Zahnrad-Einstellungen; Orientierung `darstellung.orientierung` (T-19, `GRAFIK.md` §1) |
 | 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) – *wird durch B-28 ersetzt* |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |
