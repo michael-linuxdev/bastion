@@ -32,6 +32,7 @@
   import Bauplatz from './Bauplatz.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import WetterEinstellung from './WetterEinstellung.svelte';
   import {
     aktiv,
     gebaeudeName,
@@ -46,7 +47,14 @@
   import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
 
-  let { kompetenzen }: { kompetenzen: readonly Kompetenz[] } = $props();
+  let {
+    kompetenzen,
+    wetterEinstellen = false,
+  }: {
+    kompetenzen: readonly Kompetenz[];
+    /** Ab 18 / selbst erwachsen: Wetter selbst schalten (T-15) */
+    wetterEinstellen?: boolean;
+  } = $props();
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
 
   let lage = $state<BastionLage | undefined>(undefined);
@@ -472,6 +480,10 @@
   </fieldset>
   <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 </section>
+
+{#if wetterEinstellen}
+  <WetterEinstellung durch="jugendlich" />
+{/if}
 
 <style>
   .bastion {

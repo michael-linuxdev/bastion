@@ -590,7 +590,7 @@
     {:then geladen}
       {#if ansicht === 'bastion'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-        <BastionAnsicht kompetenzen={geladen.kompetenzen} />
+        <BastionAnsicht kompetenzen={geladen.kompetenzen} wetterEinstellen={selbst} />
         <Hinterhof
           kompetenzen={geladen.kompetenzen}
           staende={[...zustand.staende.values()]}

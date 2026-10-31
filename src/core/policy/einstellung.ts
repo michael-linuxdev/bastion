@@ -71,6 +71,15 @@ export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
 /** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
 export const LEICHT_SCHLUESSEL = 'basebau.leicht';
 
+/** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
+export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';
+
+/** Freitext-Ort fürs Wetter, z. B. „Dresden“. */
+export const WETTER_ORT_SCHLUESSEL = 'wetter.ort';
+
+/** Geocoding-Ergebnis als „lat,lon,name“ – nur lokal, kein Gerät-Standort. */
+export const WETTER_KOORD_SCHLUESSEL = 'wetter.koord';
+
 /** Zoom des Bauplatzes (BASEBAU 2.13a): stufenlos, 0 heißt eingepasst. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 

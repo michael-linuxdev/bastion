@@ -41,6 +41,9 @@ import {
   BILD_SCHLUESSEL,
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
+  WETTER_ECHT_SCHLUESSEL,
+  WETTER_ORT_SCHLUESSEL,
+  WETTER_KOORD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
   KLASSE_SCHLUESSEL,
   klasseAus,
@@ -523,6 +526,50 @@ export async function bastionLeicht(): Promise<boolean> {
 }
 
 export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
+
+/** Echtes Wetter an (T-15)? Standard aus. */
+export async function wetterEcht(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (
+    (await einstellung(db, inst.profil, WETTER_ECHT_SCHLUESSEL).catch(() => undefined)) === true
+  );
+}
+
+export const wetterEchtSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_ECHT_SCHLUESSEL, an, durch);
+
+export async function wetterOrtText(): Promise<string> {
+  const inst = await bereit();
+  if (!inst) return '';
+  const w = await einstellung(db, inst.profil, WETTER_ORT_SCHLUESSEL).catch(() => undefined);
+  return typeof w === 'string' ? w : '';
+}
+
+export const wetterOrtSetzen = (ort: string, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_ORT_SCHLUESSEL, ort, durch);
+
+export interface WetterKoord {
+  readonly lat: number;
+  readonly lon: number;
+  readonly name: string;
+}
+
+export async function wetterKoord(): Promise<WetterKoord | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const w = await einstellung(db, inst.profil, WETTER_KOORD_SCHLUESSEL).catch(() => undefined);
+  if (typeof w !== 'string') return undefined;
+  const [latS, lonS, ...nameTeile] = w.split(',');
+  const lat = Number(latS);
+  const lon = Number(lonS);
+  const name = nameTeile.join(',');
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) || !name) return undefined;
+  return { lat, lon, name };
+}
+
+export const wetterKoordSetzen = (k: WetterKoord | undefined, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_KOORD_SCHLUESSEL, k ? `${k.lat},${k.lon},${k.name}` : '', durch);
 
 /** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {

@@ -26,6 +26,7 @@
   import Bericht from './Bericht.svelte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import Testphase from './Testphase.svelte';
+  import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
 
   let {
     kompetenzen,
@@ -224,6 +225,7 @@
     <KlassenWahl bind:klasse bind:schulart mitSchulart />
     <h3>{tt('basebau.ueberschrift')}</h3>
     <BasebauSchalter bind:an={basebau} durch="eltern" />
+    <WetterEinstellung durch="eltern" />
     <Testphase />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button

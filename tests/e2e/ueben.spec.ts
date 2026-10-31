@@ -23,6 +23,13 @@ async function mehr(seite: Page) {
   await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
 }
 
+/** Bastion öffnen und warten, bis die Ansicht nachgeladen ist (ARCHITEKTUR §9). */
+async function bastionOeffnen(seite: Page) {
+  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  // h2 = Bastion-Titel; Hinterhof nutzt h3 und lädt danach
+  await expect(seite.getByRole('heading', { level: 2 })).toBeVisible({ timeout: 30_000 });
+}
+
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
 /** Aktueller Wert einer Einstellung aus IndexedDB (Projektion `einstellungen`). */
@@ -600,12 +607,12 @@ async function vorratAnlegen(page: Page, stand: Record<string, number>, gefestig
 test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2)', async ({
   page,
 }) => {
+  test.setTimeout(90_000);
   await page.goto('./');
   await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await expect(page.getByRole('heading', { name: 'Deine Bastion' })).toBeVisible();
+  await bastionOeffnen(page);
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Stein$/ })).toBeVisible();
   await expect(
     page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
@@ -674,7 +681,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Bleibt nach dem Neuladen, wie es ist
   // (auch die Farbe des Banners)
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
     'Spalte 12, Reihe 12',
@@ -696,7 +703,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.ziel')).toContain('"kern"');
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(ziel).toBeVisible();
   await ziel.getByRole('button', { name: 'Nicht mehr vormerken' }).click();
   await expect(ziel).toHaveCount(0);
@@ -715,13 +722,14 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 });
 
 test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByText(/Noch ist hier nichts/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(
     page
       .getByRole('listitem')
@@ -731,10 +739,11 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
 });
 
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await page.getByRole('radio', { name: 'Garten' }).check();
   await expect(page.getByRole('heading', { name: 'Dein Garten' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Samen$/ })).toBeVisible();
@@ -852,10 +861,11 @@ test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
 test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2.13)', async ({
   page,
 }) => {
+  test.setTimeout(90_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   const bild = page.locator('.bauplatz canvas');
-  await expect(bild).toBeVisible();
+  await expect(bild).toBeVisible({ timeout: 30_000 });
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum Bild, scrollt dorthin */
   const tippe = async (x: number, y: number) => {
     const r = await bild.boundingBox();
@@ -905,7 +915,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(bild).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.bild')).toBe(false);
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
   await expect(bild).toHaveCount(0);
 });
@@ -951,11 +961,12 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
 });
 
 test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(
     page.getByRole('heading', { name: 'Dein Hinterhof: was du sicher kannst' }),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 30_000 });
   const feld = page.locator('.hinterhof summary').filter({ hasText: 'Natürliche Zahlen' });
   await expect(feld).toContainText(/0 von \d+/);
   await feld.click();

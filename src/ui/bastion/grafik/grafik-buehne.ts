@@ -26,6 +26,7 @@ import {
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 import type { Jahreszeit } from './jahreszeit';
+import { partikelBudget, type WetterBild } from './wetter';
 
 /** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
 export type Bildart = 'insel' | 'dorf';
@@ -47,6 +48,8 @@ export interface Farben {
   readonly abend: boolean;
   /** Jahreszeit für Auflagen (Schnee); ohne Angabe = Sommer */
   readonly jahreszeit?: Jahreszeit;
+  /** Wetterbild für Himmel und Partikel (GRAFIK §4.3) */
+  readonly wetter?: WetterBild;
 }
 
 export interface Ansicht {
@@ -427,17 +430,28 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
+  const wetterBild: WetterBild = farben.wetter ?? 'klar';
   const hintergrund = new Graphics();
-  gestirn(hintergrund, farben);
+  // Bei Nebel/Regen Gestirn abdunkeln – Sonne nur bei klar/leicht bewölkt
+  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
+  if (wetterBild === 'nebel') {
+    hintergrund.rect(0, 0, BUEHNE_B, BUEHNE_H).fill({ color: '#c8d2dc', alpha: 0.35 });
+  }
   const wolkenLage = new Graphics();
   wolken(wolkenLage, farben);
+  // Bei bewölkt/Regen/Schnee mehr Wolken (feste zweite Lage)
+  if (wetterBild !== 'klar' && !farben.abend) {
+    wolkenLage.ellipse(180, 60, 40, 12).fill({ color: farben.wolke, alpha: 0.75 });
+    wolkenLage.ellipse(400, 40, 36, 11).fill({ color: farben.wolke, alpha: 0.7 });
+  }
   const gebaeude = new Container();
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
   gebaeude.pivot.set(BUEHNE_B / 2, BUEHNE_H / 2);
   gebaeude.position.set(BUEHNE_B / 2, BUEHNE_H / 2);
-  app.stage.addChild(hintergrund, wolkenLage, gebaeude);
+  const partikelLage = new Graphics();
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude, partikelLage);
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
@@ -447,6 +461,33 @@ export async function buehneErstellen(
   let aufstellStart = 0;
   /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
   let aufstellAktiv = false;
+
+  type Tropfen = { x: number; y: number; v: number };
+  const leicht = bewegungStart === 'leicht';
+  const budget = partikelBudget(wetterBild, leicht);
+  const tropfen: Tropfen[] = Array.from({ length: budget }, (_, i) => ({
+    x: ((i * 97) % BUEHNE_B) + 3,
+    y: ((i * 53) % BUEHNE_H) + 2,
+    v: wetterBild === 'schnee' ? 0.4 + (i % 5) * 0.08 : 1.2 + (i % 7) * 0.15,
+  }));
+
+  const partikelZeichnen = () => {
+    partikelLage.clear();
+    if (budget === 0) return;
+    for (const t of tropfen) {
+      if (wetterBild === 'schnee') {
+        partikelLage.circle(t.x, t.y, 1.6).fill({ color: '#f4f7fb', alpha: 0.9 });
+      } else if (wetterBild === 'nebel') {
+        partikelLage.ellipse(t.x, t.y, 18, 6).fill({ color: '#dce4ec', alpha: 0.12 });
+      } else {
+        partikelLage
+          .moveTo(t.x, t.y)
+          .lineTo(t.x - 1, t.y + 6)
+          .stroke({ width: 1.2, color: '#7aa0c0', alpha: 0.55 });
+      }
+    }
+  };
+  partikelZeichnen();
 
   const aufstellAnwenden = (jetzt: number) => {
     if (!aufstellAktiv) return;
@@ -461,6 +502,17 @@ export async function buehneErstellen(
     const jetzt = performance.now();
     wolkenLage.x = wolkenVersatz(jetzt, bewegung);
     aufstellAnwenden(jetzt);
+    if (tickerAn(bewegung) && budget > 0) {
+      for (const t of tropfen) {
+        t.y += t.v;
+        if (wetterBild === 'schnee') t.x += Math.sin((jetzt + t.y) / 400) * 0.3;
+        if (t.y > BUEHNE_H) {
+          t.y = -4;
+          t.x = (t.x + 37) % BUEHNE_B;
+        }
+      }
+      partikelZeichnen();
+    }
   };
 
   const tickerSync = () => {
@@ -470,6 +522,8 @@ export async function buehneErstellen(
       wolkenLage.x = 0;
       gebaeude.scale.set(1);
       gebaeude.alpha = 1;
+      // Standbild der Partikel bei „ruhig“
+      partikelZeichnen();
     }
   };
   tickerSync();
