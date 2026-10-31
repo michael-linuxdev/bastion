@@ -30,6 +30,10 @@ describe('fuelle', () => {
       { art: 'hoch', text: '2' },
     ]);
     expect(alsText(fuelle('${f} \\cdot 10^{ {e} }$', { f: 3, e: 4 }))).toBe('3 · 10^4');
+    expect(fuelle('$\\frac{3}{4}$', {})).toEqual([
+      { art: 'bruch', zaehler: '3', nenner: '4', fett: false },
+    ]);
+    expect(alsText(fuelle('$\\frac{ {z} }{8} + 1$', { z: 5 }))).toBe('5/8 + 1');
   });
 
   it('meldet fehlende Platzhalter', () => {

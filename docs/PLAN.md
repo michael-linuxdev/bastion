@@ -252,6 +252,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 | Datum | Änderung |
 |---|---|
 | 31.10.2026 | **Plan §1 aufgeräumt:** Stand nach U5c, nächster Schritt Prüfung des Musterfelds und U4b; Übergabe im Session-Prompt |
+| 31.10.2026 | **Formeldarstellung, Schritt 1:** Zeichen in Klasse 5–8 ausgewertet; Brüche als Antwortmöglichkeit zeigten `\frac` als Text, die eigene Teilmenge kann jetzt `\frac{…}{…}`; KaTeX bleibt bis Klasse 9 unnötig |
 | 31.10.2026 | **Eigene Tastatur:** Ziffern, Komma, Minus, Bruchstrich, Variablen und Einheiten je Aufgabe; dieselbe in Üben, Zwischenschritten und Erstvermittlung; ±-Knopf entfernt (INHALTSFORMAT §5.2) |
 | 31.10.2026 | **Zwischenschritte gleichnamig:** Addieren und Subtrahieren gleichnamiger Brüche zeigt nach einem Fehler die Schritte „Zähler verrechnen“ und „Kürzen“; Vorlagen dürfen eine Auswahl der Generator-Schritte nehmen (INHALTSFORMAT §17) |
 | 31.10.2026 | **Review-Vermerk:** `pnpm review` zeigt die Stufen, `pnpm review setzen` schreibt den Block; Stufe braucht die vorige; Prüfkatalog für die Maschinenpunkte 3 und 4 (INHALTSFORMAT §8) |
