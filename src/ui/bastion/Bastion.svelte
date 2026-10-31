@@ -324,7 +324,6 @@
           konto={k}
           vorrat={anzeigeVorrat(b.vorrat, testRohstoffe)}
           {testRohstoffe}
-          bind:bauOffen={bauBlattOffen}
         />
         <button
           class="icon zahnrad"
@@ -337,7 +336,7 @@
         </button>
       </div>
       {#if testRohstoffe}
-        <p class="test-hinweis" role="status">{t('bastion.test-rohstoffe-aktiv')}</p>
+        <p class="probe-banner" role="status">{t('bastion.probe-ansicht')}</p>
       {/if}
       <Bauplatz
         bastion={b}
@@ -352,21 +351,29 @@
         blattOffen={bauBlattOffen}
         bind:blick
       />
+      {#if b.bauwerke.every( (x) => x.id.startsWith('start.') ) && b.vorhaben.length === 0 && !bauBlattOffen}
+        <p class="leer-einladung" aria-hidden="true">{t('bastion.leer-einladung')}</p>
+      {/if}
+      {#if !bauBlattOffen}
+        <button
+          class="bauen-werkzeug"
+          aria-expanded={false}
+          aria-controls="bastion-bau-blatt"
+          onclick={() => (bauBlattOffen = true)}
+        >
+          <Symbol name="bauen" />
+          <span>{tt('bastion.bauen-oeffnen')}</span>
+        </button>
+      {/if}
       {#if bauBlattOffen}
         <BastionBauBlatt
           neubauten={neubauten.map((a) => ({
             ...a,
-            kostenText: (() => {
-              const ko = kosten(a.typ, a.stufe);
-              return ko ? kostenText(ko) : '';
-            })(),
+            kosten: kosten(a.typ, a.stufe),
           }))}
           ausbauten={ausbauten.map((a) => ({
             ...a,
-            kostenText: (() => {
-              const ko = kosten(a.typ, a.stufe);
-              return ko ? kostenText(ko) : '';
-            })(),
+            kosten: kosten(a.typ, a.stufe),
           }))}
           {belegt}
           epoche={epoche.epoche}
@@ -753,7 +760,13 @@
     gap: 0;
     block-size: 100%;
     min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    background: var(--farbe-himmel);
+    /* Himmel bis zum Rand, weicher Übergang zum Boden (B5) */
+    background: linear-gradient(
+      180deg,
+      var(--farbe-himmel) 0%,
+      color-mix(in srgb, var(--farbe-himmel) 55%, var(--bastion-boden)) 78%,
+      color-mix(in srgb, var(--bastion-boden) 70%, var(--farbe-himmel)) 100%
+    );
   }
 
   .kopf {
@@ -790,26 +803,82 @@
     gap: 0.35rem;
   }
 
-  .test-hinweis {
+  .probe-banner {
     position: absolute;
-    inset-block-start: 3.5rem;
-    inset-inline: var(--abstand-s);
+    inset-block-start: 3.55rem;
+    inset-inline: 50%;
+    translate: -50% 0;
     z-index: 3;
     margin: 0;
-    padding: 0.35rem 0.6rem;
+    padding: 0.3rem 0.75rem;
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
-    color: var(--farbe-text-leise);
+    background: color-mix(in srgb, var(--farbe-hinweis-flaeche) 92%, transparent);
+    color: var(--farbe-text);
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     pointer-events: none;
     text-align: center;
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+    white-space: nowrap;
+  }
+
+  .leer-einladung {
+    position: absolute;
+    inset-block-end: 5.5rem;
+    inset-inline: 50%;
+    translate: -50% 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 88%, transparent);
+    color: var(--farbe-text-leise);
+    font-size: 0.9rem;
+    font-weight: 700;
+    pointer-events: none;
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+    text-align: center;
+  }
+
+  .bauen-werkzeug {
+    position: absolute;
+    inset-block-end: max(var(--abstand-m), env(safe-area-inset-bottom, 0px));
+    inset-inline-end: var(--abstand-m);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-block-size: var(--ziel);
+    padding-inline: var(--abstand-m);
+    border: none;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 94%, transparent);
+    color: var(--farbe-text);
+    box-shadow:
+      0 2px 10px var(--farbe-schatten),
+      0 0 0 2px color-mix(in srgb, var(--farbe-akzent) 45%, transparent);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+  }
+
+  .bauen-werkzeug :global(svg) {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    color: var(--farbe-akzent);
   }
 
   @media (orientation: landscape) and (height < 30rem) {
     .oben {
       inset-block-start: max(0.35rem, env(safe-area-inset-top, 0px));
       gap: 0.35rem;
+    }
+
+    .bauen-werkzeug {
+      inset-block-end: max(0.5rem, env(safe-area-inset-bottom, 0px));
+      min-block-size: 2.5rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -818,16 +887,18 @@
     font: inherit;
     display: grid;
     place-items: center;
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    min-inline-size: 2.75rem;
-    min-block-size: 2.75rem;
+    inline-size: var(--ziel);
+    block-size: var(--ziel);
+    min-inline-size: var(--ziel);
+    min-block-size: var(--ziel);
     padding: 0;
     border: none;
     border-radius: var(--radius);
-    background: var(--farbe-flaeche);
+    background: color-mix(in srgb, var(--farbe-flaeche) 94%, transparent);
     color: var(--farbe-text);
-    box-shadow: 0 1px 4px var(--farbe-schatten);
+    box-shadow:
+      0 1px 4px var(--farbe-schatten),
+      0 0 0 1px color-mix(in srgb, var(--farbe-flaeche) 70%, transparent);
     cursor: pointer;
     flex-shrink: 0;
   }
@@ -1016,9 +1087,13 @@
     block-size: 0.75rem;
   }
 
-  button {
+  .einstellungen button:not(.zurueck-einstellungen):not(.icon),
+  .vorgemerkt button,
+  .bewaehrung button,
+  .liste button,
+  .versetzen button {
     font: inherit;
-    min-block-size: 2.75rem;
+    min-block-size: var(--ziel);
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
     border: 2px solid var(--farbe-akzent);
@@ -1028,7 +1103,9 @@
     flex-shrink: 0;
   }
 
-  button:disabled {
+  .einstellungen button:disabled,
+  .vorgemerkt button:disabled,
+  .liste button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }

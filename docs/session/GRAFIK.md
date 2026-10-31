@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez erledigt + App-Menü ohne Reiter, Bau-Vorschau, Test-Rohstoffe. Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23). Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
@@ -21,6 +21,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 - **Umbau auf Richtung A** (`GRAFIK.md` §5, Schritte 1 bis 6): Tokens und Fassung „tag-warm“, Start-Hub, Üben, Bastion als Insel schräg von oben, „Mehr“, Korrekturen für das iPhone 13.
 - **App-Menü / Bau / Test-Vorrat (31.10.2026):** Untere Reiterleiste entfernt; Start-Hub mit Mehr-Kachel; Bau-Blatt mit Atlas-Vorschau; Eltern-Schalter Unendlich Rohstoffe (Probe-Bastion im Speicher, Ledger unberührt).
+- **Design-Bündel (31.10.2026):** Hub als Türen+Ort, lebendige MiniBastion, HUD-Beutel/Material-Icons, Bauen am Rand, Mini-Szene-Vorschau, Planen/Bauen-Trennung, Probe-Banner, Eltern-Werkstatt, Display-Schriftrolle, sanfte Motion.
 - **Thema Dorf** (#83) und **Zoom des Bauplatzes** (#85, alle Themen).
 - **Basebau Epoche 1** vollständig (`PLAN.md` §4a, A bis D).
 - **Lebendige Szenen, G0 bis G11** (B-28, `GRAFIK.md` §4–§10, PRs #93 bis #105): Atmosphäre mit Schaltern „ruhig“ und „leicht“, Jahreszeit und Abend aus dem Datum, Wetter von Open-Meteo nur nach Einschalten (T-15), Lebewesen, Atlas-Lader mit Code-Fallback, eigene Szenen für Garten, Unterwasser und Weltraum, Hinterhof in der Szene, Ton (Standard aus), Katalog und Wechsel für Epochen 2 bis 4, Optik je Epoche, Bewährungsprobe (Belagerung).

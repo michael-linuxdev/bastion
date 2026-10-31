@@ -15,9 +15,8 @@
 </script>
 
 <script lang="ts">
-  // Startseite in Richtung A (GRAFIK §1): Datum und Begrüßung, kleine Ansicht der
-  // Bastion, großer Knopf „Üben“, vier Kacheln, Hinweis auf die Klassenarbeit nur
-  // mit Datum (kein Countdown, R2). Rückfragen (Schuljahr, Profil) kommen als `children`.
+  // Hub als ruhige Übersicht (Design A1–A4): Bastion-Ort, drei Türen, Nebenkacheln
+  // erst nach der ersten Rückkehr. Texte aus der Textdatei.
   import type { Snippet } from 'svelte';
   import MiniBastion from '../grafik/MiniBastion.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -53,6 +52,8 @@
     children?: Snippet;
   } = $props();
 
+  let hilfeOffen = $state(false);
+
   const datum = (d: Date, mitTag = true) =>
     d.toLocaleDateString('de-DE', {
       ...(mitTag ? { weekday: 'long' as const } : {}),
@@ -63,15 +64,29 @@
 
 <div class="startseite">
   <header class="kopf">
-    <p class="datum">{datum(heute)}</p>
+    <p class="marke ort-name">{t('start.ueberschrift')}</p>
     {#if rueckkehr}
+      <p class="datum">{datum(heute)}</p>
       <p class="gruss" role="status">
         {t('rueckkehr.gruss')}{#if basebau}
           {tt('rueckkehr.bastion')}{/if}
       </p>
       {#if faellig > 0}<p class="leise">{t('rueckkehr.hinweis')}</p>{/if}
     {:else}
-      <p class="gruss">{t('start.gruss')}</p>
+      <p class="gruss ort-name">{t('start.gruss-kurz')}</p>
+      <button
+        type="button"
+        class="hilfe"
+        aria-expanded={hilfeOffen}
+        aria-controls="hub-hilfe"
+        onclick={() => (hilfeOffen = !hilfeOffen)}
+      >
+        <Symbol name="frage" />
+        <span>{t('start.einstieg-hilfe')}</span>
+      </button>
+      {#if hilfeOffen}
+        <p id="hub-hilfe" class="leise hilfe-text">{t('hub.tueren')}</p>
+      {/if}
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
   </header>
@@ -79,67 +94,92 @@
   {@render children?.()}
 
   {#if basebau}
-    <button class="karte bastion" onclick={() => onziel('bastion')}>
-      <span class="bild"><MiniBastion /></span>
-      <span class="bastion-name">{tt('bastion.knopf')}</span>
-    </button>
+    <div class="ort bastion" aria-hidden="true">
+      <span class="bild"><MiniBastion lebendig /></span>
+      <span class="bastion-name ort-name">
+        <Symbol name="bastion" />
+        {tt('bastion.knopf')}
+      </span>
+    </div>
   {/if}
 
-  <button
-    class="ueben"
-    aria-label={t('start.ueben')}
-    aria-describedby="ueben-dran"
-    onclick={() => onziel('ueben')}
-  >
-    <span class="ueben-titel"><Symbol name="ueben" /> {t('start.ueben')}</span>
-    <span class="ueben-dran" id="ueben-dran"
-      >{geradeDran === 0
-        ? t('start.ueben-frei')
-        : geradeDran === 1
-          ? t('start.gerade-dran-eins')
-          : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+  <div class="tueren" class:ohne-bastion={!basebau} role="group" aria-label={t('hub.tueren')}>
+    <button
+      class="tuer ueben"
+      aria-label={t('start.ueben')}
+      aria-describedby="ueben-dran"
+      onclick={() => onziel('ueben')}
     >
-  </button>
+      <span class="tuer-titel ort-name"><Symbol name="ueben" /> {t('hub.ort-ueben')}</span>
+      <span class="ueben-dran" id="ueben-dran"
+        >{geradeDran === 0
+          ? t('start.ueben-frei')
+          : geradeDran === 1
+            ? t('start.gerade-dran-eins')
+            : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+      >
+    </button>
 
-  <div class="kacheln">
-    <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-      <Symbol name="wiederholen" />
-      <span class="kachel-name">{t('wiederholen.knopf')}</span>
-      <span class="kachel-info"
-        >{faellig === 0
-          ? t('start.nichts-dran')
-          : faellig === 1
-            ? t('wiederholen.eine')
-            : `${faellig} ${t('wiederholen.mehrere')}`}</span
-      >
-    </button>
-    <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-      <Symbol name="werkstatt" />
-      <span class="kachel-name">{t('werkstatt.knopf')}</span>
-      <span class="kachel-info"
-        >{offeneFehler === 0
-          ? t('start.keine-fehler')
-          : offeneFehler === 1
-            ? t('werkstatt.offen-eins')
-            : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
-      >
-    </button>
-    <button class="kachel" onclick={() => onziel('diagnose')}>
-      <Symbol name="diagnose" />
-      <span class="kachel-name">{t('diagnose.knopf')}</span>
-      <span class="kachel-info">{t('start.diagnose-info')}</span>
-    </button>
-    <button class="kachel" onclick={() => onziel('stand')}>
-      <Symbol name="stand" />
-      <span class="kachel-name">{t('stand.knopf')}</span>
-      <span class="kachel-info">{t('start.stand-info')}</span>
-    </button>
-    <button class="kachel mehr" onclick={() => onziel('mehr')}>
-      <Symbol name="mehr" />
-      <span class="kachel-name">{t('hub.mehr')}</span>
-      <span class="kachel-info">{t('hub.mehr-info')}</span>
+    {#if basebau}
+      <button class="tuer neben" onclick={() => onziel('bastion')}>
+        <span class="tuer-titel ort-name"><Symbol name="bastion" /> {t('hub.ort-bastion')}</span>
+      </button>
+    {/if}
+
+    <button class="tuer neben" onclick={() => onziel('mehr')}>
+      <span class="tuer-titel ort-name"><Symbol name="mehr" /> {t('hub.ort-mehr')}</span>
+      <span class="tuer-info">{t('hub.mehr-info')}</span>
     </button>
   </div>
+
+  {#if rueckkehr}
+    <div class="kacheln">
+      <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
+        <Symbol name="wiederholen" />
+        <span class="kachel-name">{t('wiederholen.knopf')}</span>
+        <span class="kachel-info"
+          >{faellig === 0
+            ? t('start.nichts-dran')
+            : faellig === 1
+              ? t('wiederholen.eine')
+              : `${faellig} ${t('wiederholen.mehrere')}`}</span
+        >
+      </button>
+      <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
+        <Symbol name="werkstatt" />
+        <span class="kachel-name">{t('werkstatt.knopf')}</span>
+        <span class="kachel-info"
+          >{offeneFehler === 0
+            ? t('start.keine-fehler')
+            : offeneFehler === 1
+              ? t('werkstatt.offen-eins')
+              : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+        >
+      </button>
+      <button class="kachel" onclick={() => onziel('diagnose')}>
+        <Symbol name="diagnose" />
+        <span class="kachel-name">{t('diagnose.knopf')}</span>
+        <span class="kachel-info">{t('start.diagnose-info')}</span>
+      </button>
+      <button class="kachel" onclick={() => onziel('stand')}>
+        <Symbol name="stand" />
+        <span class="kachel-name">{t('stand.knopf')}</span>
+        <span class="kachel-info">{t('start.stand-info')}</span>
+      </button>
+    </div>
+  {:else}
+    <!-- Erste Minute (A3): Diagnose/Stand erreichbar, aber klein und ohne Textwand -->
+    <div class="kacheln erst">
+      <button class="kachel" onclick={() => onziel('diagnose')}>
+        <Symbol name="diagnose" />
+        <span class="kachel-name">{t('diagnose.knopf')}</span>
+      </button>
+      <button class="kachel" onclick={() => onziel('stand')}>
+        <Symbol name="stand" />
+        <span class="kachel-name">{t('stand.knopf')}</span>
+      </button>
+    </div>
+  {/if}
 
   {#if klassenarbeit}
     <p class="hinweis">
@@ -156,8 +196,6 @@
 </div>
 
 <style>
-  /* Die Startseite füllt den Bildschirm; den freien Platz bekommt
-     das Bild der Bastion (ohne Basebau die Kacheln), statt unten leer zu bleiben. */
   .startseite {
     display: flex;
     flex-direction: column;
@@ -165,23 +203,34 @@
       100dvh - env(safe-area-inset-top) - var(--abstand-l) - env(safe-area-inset-bottom) -
         var(--abstand-s)
     );
+    background:
+      radial-gradient(
+        120% 60% at 50% -10%,
+        color-mix(in srgb, var(--farbe-himmel) 70%, transparent),
+        transparent 70%
+      ),
+      var(--farbe-hintergrund);
   }
   .startseite > :global(*) {
     flex-shrink: 0;
   }
   .startseite > .bastion {
     flex: 1 1 0;
-    min-block-size: 6.75rem;
-    max-block-size: 20rem;
+    min-block-size: 7.5rem;
+    max-block-size: 22rem;
     display: flex;
     flex-direction: column;
   }
-  .startseite:not(:has(> .bastion)) > .kacheln {
+  .startseite:not(:has(> .bastion)) > .tueren {
     flex: 1 1 auto;
-    grid-auto-rows: 1fr;
   }
   .kopf {
     margin-block-end: var(--abstand-s);
+  }
+  .marke {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    color: var(--farbe-akzent);
+    margin-block-end: 0.15rem;
   }
   .datum {
     color: var(--farbe-text-leise);
@@ -189,9 +238,9 @@
     margin-block-end: 0.25rem;
   }
   .gruss {
-    font-size: 1.375rem;
-    font-weight: 800;
-    line-height: 1.25;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
     margin-block-end: var(--abstand-s);
   }
   .leise {
@@ -201,6 +250,25 @@
     font-size: 0.875rem;
     margin-block-end: var(--abstand-s);
   }
+  .hilfe {
+    font: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-block-size: var(--ziel);
+    padding-inline: 0;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text-leise);
+    cursor: pointer;
+  }
+  .hilfe :global(svg) {
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+  }
+  .hilfe-text {
+    margin-block: 0.25rem var(--abstand-s);
+  }
 
   button {
     font: inherit;
@@ -208,20 +276,16 @@
     cursor: pointer;
   }
 
-  .karte {
+  .ort {
     display: block;
     inline-size: 100%;
-    padding: 0;
-    border: none;
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
-    overflow: hidden;
-    text-align: start;
     margin-block-end: var(--abstand-s);
   }
   .bastion {
     position: relative;
+    border-radius: var(--radius-karte);
+    overflow: hidden;
+    box-shadow: 0 4px 18px var(--farbe-schatten);
   }
   .bastion .bild {
     display: block;
@@ -232,36 +296,73 @@
     position: absolute;
     inset-block-start: var(--abstand-s);
     inset-inline-start: var(--abstand-s);
-    padding-block: 0.125rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding-block: 0.2rem;
     padding-inline: var(--abstand-s);
     border-radius: var(--radius);
-    background: var(--farbe-flaeche);
-    font-weight: 800;
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+  }
+  .bastion-name :global(svg) {
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    color: var(--farbe-akzent);
   }
 
-  .ueben {
+  .tueren {
+    display: grid;
+    gap: var(--abstand-s);
+    grid-template-columns: 1fr 1fr;
+    margin-block-end: var(--abstand-s);
+  }
+  .tueren.ohne-bastion {
+    grid-template-columns: 1fr;
+  }
+  .tuer.ueben {
+    grid-column: 1 / -1;
     display: grid;
     gap: 0.25rem;
     inline-size: 100%;
     min-block-size: 4.25rem;
-    padding-block: 0.75rem;
+    padding-block: 0.85rem;
     padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-akzent);
     color: var(--farbe-auf-akzent);
     text-align: start;
-    margin-block-end: var(--abstand-s);
   }
-  .ueben-titel {
+  .tuer.neben {
+    display: grid;
+    gap: 0.2rem;
+    align-content: center;
+    min-block-size: var(--ziel);
+    padding: 0.75rem;
+    border: none;
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    text-align: start;
+  }
+  .tuer-titel {
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 1.15rem;
   }
-  .ueben-dran {
-    font-size: 1rem;
+  .tuer.ueben .tuer-titel {
+    font-size: 1.5rem;
+  }
+  .ueben-dran,
+  .tuer-info {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .tuer-info {
+    color: var(--farbe-text-leise);
+    font-size: 0.85rem;
   }
 
   .kacheln {
@@ -270,25 +371,26 @@
     gap: var(--abstand-s);
     margin-block-end: var(--abstand-s);
   }
+  .kacheln.erst .kachel {
+    min-block-size: var(--ziel);
+    align-content: center;
+  }
   .kachel {
     display: grid;
     align-content: start;
     justify-items: start;
-    gap: 0.25rem;
-    min-block-size: 5.5rem;
-    padding: 0.75rem;
+    gap: 0.2rem;
+    min-block-size: 4.5rem;
+    padding: 0.65rem 0.75rem;
     border: none;
     border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
+    background: color-mix(in srgb, var(--farbe-flaeche) 88%, transparent);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
     text-align: start;
     color: var(--farbe-akzent);
   }
   .kachel.warm {
-    border-block-start: 4px solid var(--farbe-akzent-warm);
-  }
-  .kachel.mehr {
-    grid-column: 1 / -1;
+    border-block-start: 3px solid var(--farbe-akzent-warm);
   }
   .kachel:disabled {
     cursor: default;
@@ -302,9 +404,10 @@
   .kachel-name {
     font-weight: 800;
     color: var(--farbe-text);
+    font-size: 0.95rem;
   }
   .kachel-info {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--farbe-text-leise);
     line-height: 1.35;
   }
