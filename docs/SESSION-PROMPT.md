@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (39) · Session-Prompt in Stränge getrennt; Grafik-Nebenstrang B-28 Spez+Atlas P0–P6+CC0 erledigt; optional Feinschliff
+Stand: 31.10.2026 (40) · Session-Prompt in Stränge getrennt; Grafik-Nebenstrang B-28 Spez+Atlas P0–P6+CC0 + Feinschliff P3–P6
 
 ---
 
@@ -56,7 +56,7 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 3. Üben und Festigen weiter verbessern.
 4. Leistungsnachweise und Portfolio (lokal und exportierbar).
 
-**Strang Grafik (B-28, 31.10.2026):** geplante Reihe **G0–G11** und Atlas-Chargen **P0–P6** sowie CC0-Sound sind auf `main` (Details: `docs/session/GRAFIK.md`, `GRAFIK.md` §6/§10). Optional offen: Jahreszeit-Feinheit, Ambient Wasser/Regen, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b. Der Strang darf den Lernkern nicht blockieren; bei Engpass wartet die Grafik (K-27).
+**Strang Grafik (B-28, 31.10.2026):** geplante Reihe **G0–G11** und Atlas-Chargen **P0–P6** sowie CC0-Sound sind auf `main`; Feinschliff P3–P6 (Laub/Schnee nur Land, Hinterhof-Overlap, Bastion-Firstkappe). Details: `docs/session/GRAFIK.md`, `GRAFIK.md` §6/§10. Optional offen: Jahreszeit-Feinheit, Ambient Wasser/Regen, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b. Der Strang darf den Lernkern nicht blockieren; bei Engpass wartet die Grafik (K-27).
 
 Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **ausdrücklich gesperrt**, bis Variante A als „wirklich gut“ gilt.
 

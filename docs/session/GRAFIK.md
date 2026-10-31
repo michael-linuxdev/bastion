@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez-Nebenstrang erledigt (G0–G11, P0–P6 Atlas, CC0-Sound; UI-Reorg, Spiel-UX, Bewohner, Politur). Optional/offen: Jahreszeit-Feinheit, Ambient Wasser/Regen, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez-Nebenstrang erledigt (G0–G11, P0–P6 Atlas, CC0-Sound; UI-Reorg, Spiel-UX, Bewohner, Politur) + Feinschliff P3–P6. Optional/offen: Jahreszeit-Feinheit, Ambient Wasser/Regen, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
@@ -38,10 +38,11 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **P5 Epoche 2–4:** Gebäude je Thema nach Katalog G9 (reifere Optik, neue Stufen, Fenster, Boden); Runtime mit Epoche-Fallback (`GRAFIK-SPRITES.md` §8, G10).
 - **P6 Belagerungs-Himmel / Rauch:** Atlas-Overlays `belagerung/himmel` und `rauch_1…3`; Bühne bei Bewährungsprobe mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 - **CC0-Sounddateien (G8 nachgezogen):** Tipps aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit Manifest; Loader bevorzugt Dateien, sonst Web-Audio-Fallback; PWA-Precache `.ogg` (T-18).
+- **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
 
 **Als Nächstes (alles optional / PV):**
 
-1. **Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie).
+1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie).
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

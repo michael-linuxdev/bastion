@@ -519,7 +519,10 @@
             },
           }
         : {}),
-      ...(hinterhofFelder.length > 0 ? { hinterhof: hinterhofFelder } : {}),
+      // Hinterhof nur im Hinterhof-Blick zeichnen – sonst überdeckt der Platz-Teppich den Bauplatz-Rand
+      ...(blick === 'hinterhof' && hinterhofFelder.length > 0
+        ? { hinterhof: hinterhofFelder }
+        : {}),
       epoche,
       buecher,
       ...(konto ? { konto } : {}),

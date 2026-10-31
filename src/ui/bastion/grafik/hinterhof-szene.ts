@@ -2,6 +2,7 @@
  * Hinterhof in der Pixi-Szene (B-25, GRAFIK §7): Felder hinter dem Bauplatz
  * (kleinere Feld-Y). Plätze als Objekte; volle Felder mit Wappen/Denkmal.
  * P4: Atlas-Sprites wenn vorhanden, sonst Code-Fallback.
+ * Feinschliff: Umbruch + Dichte-Skala, damit viele offene Plätze nicht überlappen.
  */
 import { Container, Graphics, Sprite, type Texture } from 'pixi.js';
 import type { HinterhofFeld } from '../../../core/learning/hinterhof';
@@ -12,6 +13,7 @@ import {
   type AtlasManifest,
   type HinterhofTeil,
 } from './atlas';
+import { hinterhofPlatzLayout, hinterhofPlatzZelle } from './hinterhof-layout';
 import { punkt } from './iso';
 
 /** Objektfarbe je Thema und Füllung (Code-Fallback). */
@@ -60,7 +62,7 @@ function spriteAn(
 
 /**
  * Zeichnet den Hinterhof oberhalb des Bauplatzes (y negativ).
- * Ein Feld = eine Reihe; Plätze als Atlas-Objekte oder Code-Kreise.
+ * Ein Feld = eine oder mehrere Reihen; Plätze als Atlas-Objekte oder Code-Kreise.
  */
 export function hinterhofZeichnen(
   lage: Container,
@@ -73,34 +75,43 @@ export function hinterhofZeichnen(
   const g = new Graphics();
   lage.addChild(g);
 
-  const startY = -3.2;
-  felder.forEach((feld, fi) => {
-    const y = startY + fi * 0.55;
-    const breite = Math.max(4, Math.min(11, feld.plaetze.length * 0.45 + 1));
-    const x0 = (12 - breite) / 2;
+  let yCursor = -3.2;
+  felder.forEach((feld) => {
+    const layout = hinterhofPlatzLayout(feld.plaetze.length);
+    const reihenHoehe = 0.42;
+    const beetHoehe = layout.reihen * reihenHoehe + 0.08;
+    const x0 = (12 - layout.breite) / 2;
     // Beet / Regal-Boden (weiterhin Code)
-    const a = punkt(x0, y);
-    const b = punkt(x0 + breite, y);
-    const c = punkt(x0 + breite, y + 0.45);
-    const d = punkt(x0, y + 0.45);
+    const a = punkt(x0, yCursor);
+    const b = punkt(x0 + layout.breite, yCursor);
+    const c = punkt(x0 + layout.breite, yCursor + beetHoehe);
+    const d = punkt(x0, yCursor + beetHoehe);
     g.poly([a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y]).fill(abend ? '#2a3428' : '#5a6a48');
     feld.plaetze.forEach((p, pi) => {
-      const px = x0 + 0.35 + pi * (breite / Math.max(1, feld.plaetze.length));
-      const pt = punkt(px, y + 0.22);
+      const { reihe, spalte } = hinterhofPlatzZelle(pi, layout.proReihe);
+      const inReihe = Math.min(layout.proReihe, feld.plaetze.length - reihe * layout.proReihe);
+      const reihenBreite = Math.min(layout.breite, inReihe * layout.abstand);
+      const reihenX0 = x0 + (layout.breite - reihenBreite) / 2;
+      const px = reihenX0 + (spalte + 0.5) * (reihenBreite / inReihe);
+      const py = yCursor + 0.18 + reihe * reihenHoehe;
+      const pt = punkt(px, py);
+      // Offene Mulden kleiner – weniger „weiße Scheiben“-Teppich
+      const skala = p.fuellung === 'offen' ? layout.skala * 0.82 : layout.skala;
       const id = atlasHinterhofId(thema, platzTeil(p.fuellung));
-      const mitSprite = spriteAn(lage, atlas, texturen, id, pt.x, pt.y - 2, 0.85);
+      const mitSprite = spriteAn(lage, atlas, texturen, id, pt.x, pt.y - 2, skala);
       if (!mitSprite) {
+        const r = (p.fuellung === 'offen' ? 2.4 : 3.2) * (skala / 0.55);
         if (p.fuellung === 'offen') {
-          g.circle(pt.x, pt.y - 2, 3.5).fill(abend ? '#3a4438' : '#8a9a78');
+          g.circle(pt.x, pt.y - 2, r).fill(abend ? '#3a4438' : '#8a9a78');
         } else {
-          g.circle(pt.x, pt.y - 4, 4).fill(objektFarbe(thema, p.fuellung));
+          g.circle(pt.x, pt.y - 4, r).fill(objektFarbe(thema, p.fuellung));
         }
       }
-      if (p.vorwissen) g.circle(pt.x, pt.y - 4, 2).fill(abend ? '#88a0ff' : '#4060c0');
+      if (p.vorwissen) g.circle(pt.x, pt.y - 4, 1.6).fill(abend ? '#88a0ff' : '#4060c0');
     });
     // Volle Felder: Wappen + Denkmal am Rand (Atlas oder Raute)
     if (feld.gefuellt > 0 && feld.gefuellt === feld.plaetze.length) {
-      const w = punkt(x0 + breite + 0.3, y + 0.2);
+      const w = punkt(x0 + layout.breite + 0.3, yCursor + beetHoehe / 2);
       const wappenOk = spriteAn(
         lage,
         atlas,
@@ -108,16 +119,16 @@ export function hinterhofZeichnen(
         atlasHinterhofId(thema, 'wappen_voll'),
         w.x,
         w.y,
-        0.7,
+        0.55,
       );
       const denkmalOk = spriteAn(
         lage,
         atlas,
         texturen,
         atlasHinterhofId(thema, 'denkmal_voll'),
-        w.x + 14,
+        w.x + 12,
         w.y,
-        0.65,
+        0.5,
       );
       if (!wappenOk && !denkmalOk) {
         g.poly([w.x, w.y - 14, w.x + 8, w.y - 8, w.x, w.y - 2, w.x - 8, w.y - 8]).fill(
@@ -125,6 +136,7 @@ export function hinterhofZeichnen(
         );
       }
     }
+    yCursor += beetHoehe + 0.18;
   });
 }
 
