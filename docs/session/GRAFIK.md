@@ -28,11 +28,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **Sprite-Charge P0 Dorf** (#109, `GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8): Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas, Code bleibt Fallback.
 - **Boden/Wiese Atlas:** Dorf-Wiese aus Atlas-Kacheln (`flaeche`/`rand` + Varianten); Code-`dorfWiese` nur noch Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §3/§10).
 - **P1 Wetter-Himmel:** Atlas-Sprites für Sonne/Mond/Wolken, Wetter-Partikel, Schnee-Dach und Laub; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §5/§8).
-<<<<<<< HEAD
-- **Bastion-Reiter spielbarer:** Vorrat-HUD und Bauen/Planen auf dem Reiter; Versetzen per Ziehen; Wesen-Pfadfindung um Gebäude; Bewohner (Zwerg/Gärtnerin/Bücherwurm/Torhüter) an Fortschritt gekoppelt (`GRAFIK.md` §1, §4.4).
-=======
 - **P2 Garten:** Gebäude Epoche 1, Rasen-Kacheln und Wesen (Biene, Schnecke, Schmetterling) im Atlas; Runtime mit Code-Fallback (`garten.ts`, `GRAFIK-SPRITES.md` §8).
->>>>>>> origin/main
+- **Bastion-Reiter spielbarer:** Vorrat-HUD und Bauen/Planen auf dem Reiter; Versetzen per Ziehen; Wesen-Pfadfindung um Gebäude; Bewohner (Zwerg/Gärtnerin/Bücherwurm/Torhüter) an Fortschritt gekoppelt (`GRAFIK.md` §1, §4.4).
 
 **Als Nächstes:**
 
