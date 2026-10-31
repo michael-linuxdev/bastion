@@ -46,6 +46,7 @@ import {
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
   SOUND_SCHLUESSEL,
+  OFFLINE_HINWEIS_SCHLUESSEL,
   WETTER_ECHT_SCHLUESSEL,
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
@@ -564,6 +565,17 @@ export async function bastionSound(): Promise<boolean> {
 }
 
 export const soundSetzen = (an: boolean) => setze(SOUND_SCHLUESSEL, an, 'jugendlich');
+
+/** Offline-Hinweis schon gesehen (K47)? Standard nein. */
+export async function offlineHinweisGesehen(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (
+    (await einstellung(db, inst.profil, OFFLINE_HINWEIS_SCHLUESSEL).catch(() => undefined)) === true
+  );
+}
+
+export const offlineHinweisSetzen = () => setze(OFFLINE_HINWEIS_SCHLUESSEL, true, 'jugendlich');
 
 /** Echtes Wetter an (T-15)? Standard aus. */
 export async function wetterEcht(): Promise<boolean> {

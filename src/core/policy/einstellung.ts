@@ -74,6 +74,9 @@ export const LEICHT_SCHLUESSEL = 'basebau.leicht';
 /** Bastion-Sound (GRAFIK §4.6, T-18); nur `true` schaltet ein. Standard aus. */
 export const SOUND_SCHLUESSEL = 'basebau.sound';
 
+/** Offline-Hinweis einmalig gesehen (Design-Ideen K47); nur `true` = schon gezeigt. */
+export const OFFLINE_HINWEIS_SCHLUESSEL = 'ui.offline-hinweis';
+
 /** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
 export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';
 

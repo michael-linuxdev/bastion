@@ -277,9 +277,14 @@
             {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
           </p>
         {/if}
-        <p class="text">
-          <Textteile teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)} />
-        </p>
+        <div class="prompt">
+          <p class="gesucht">{t('uebung.gesucht')}</p>
+          <p class="text">
+            <Textteile
+              teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)}
+            />
+          </p>
+        </div>
         {#if aufgabe.instanz.bild}
           <figure class="bild" role="img" aria-label={aufgabe.instanz.bild.beschreibung.de}>
             <!-- SVG stammt aus unseren Generatoren (Code, kein Paketinhalt);
@@ -511,11 +516,30 @@
     margin-block-start: 0;
   }
 
+  /* K51: Aufgabentext mit Luft + „Was wird gesucht?“ */
+  .prompt {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: var(--abstand-s);
+    padding-inline: 0;
+    margin-block-end: var(--abstand-s);
+  }
+
+  .gesucht {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--farbe-text-leise);
+  }
+
   .text {
     font-size: 1.375rem;
     font-weight: 600;
-    line-height: 1.4;
-    margin-block-start: 0;
+    line-height: 1.55;
+    margin: 0;
+    max-inline-size: 36rem;
   }
 
   .bild {

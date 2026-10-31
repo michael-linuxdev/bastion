@@ -1,6 +1,9 @@
 <script lang="ts">
   // „Mehr“ vom Start-Hub: alles, was nicht täglich gebraucht wird.
+  // Design-Ideen K47: Offline-Hinweis einmalig, kein Dauerbanner.
+  import { onMount } from 'svelte';
   import Symbol from '../grafik/Symbol.svelte';
+  import { offlineHinweisGesehen, offlineHinweisSetzen } from '../plattform/ablage';
   import { t } from '../texte/texte';
   import type { Ziel } from './Startseite.svelte';
 
@@ -14,6 +17,28 @@
     offline: boolean;
     onziel: (z: Ziel | 'start') => void;
   } = $props();
+
+  let offlineZeigen = $state(false);
+
+  onMount(() => {
+    if (!offline) return;
+    void offlineHinweisGesehen().then((gesehen) => {
+      offlineZeigen = !gesehen;
+    });
+  });
+
+  $effect(() => {
+    if (offline) {
+      void offlineHinweisGesehen().then((gesehen) => {
+        offlineZeigen = !gesehen;
+      });
+    } else offlineZeigen = false;
+  });
+
+  function offlineOk() {
+    offlineZeigen = false;
+    void offlineHinweisSetzen();
+  }
 
   const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
     { ziel: 'themen', name: t('mehr.themen') },
@@ -42,8 +67,11 @@
     {/each}
   </ul>
   <p class="versprechen">{t('start.versprechen')}</p>
-  {#if offline}
-    <p class="offline" role="status">{t('start.offline')}</p>
+  {#if offlineZeigen}
+    <p class="offline" role="status">
+      <span>{t('start.offline')}</span>
+      <button type="button" class="haupt" onclick={offlineOk}>{t('start.offline-ok')}</button>
+    </p>
   {/if}
 </section>
 
@@ -83,7 +111,7 @@
     display: grid;
     gap: var(--abstand-s);
   }
-  button:not(.zurueck) {
+  button:not(.zurueck):not(.haupt) {
     font: inherit;
     font-weight: 700;
     display: flex;
@@ -107,8 +135,14 @@
     margin: 0;
   }
   .offline {
-    color: var(--farbe-text-leise);
+    display: grid;
+    gap: var(--abstand-s);
+    justify-items: start;
+    color: var(--farbe-text);
     font-size: 1rem;
     margin: 0;
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
   }
 </style>

@@ -71,9 +71,10 @@
 
   {#if gewaehlt}
     {@const a = gewaehlt}
+    {@const alsPlan = a.hindernisse.length > 0 && istZiel(a)}
     <div class="fokus" aria-live="polite">
-      <p class="label">{tt('bastion.bau-vorschau')}</p>
-      <GebaeudeVorschau typ={a.typ} stufe={a.stufe} {epoche} gross />
+      <p class="label">{alsPlan ? tt('bastion.geist-plan') : tt('bastion.bau-vorschau')}</p>
+      <GebaeudeVorschau typ={a.typ} stufe={a.stufe} {epoche} gross geist={alsPlan} />
       <p class="titel">
         {gebaeudeName(a.typ)}{#if a.ausbau}
           {' ' + tt('bastion.auf-stufe') + ' ' + a.stufe}{/if}

@@ -87,6 +87,7 @@
   import { darstellungSetzen } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
   import OrientierungWahl from './grafik/OrientierungWahl.svelte';
+  import Leerzustand from './grafik/Leerzustand.svelte';
   import ModusWahl from './profil/ModusWahl.svelte';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
@@ -879,7 +880,12 @@
           onergebnis={(d) => void ergebnis(d)}
         />
         {#if wiederholListe.length === 0}
-          <p>{t('wiederholen.keine')}</p>
+          <Leerzustand
+            symbol="wiederholen"
+            text={t('wiederholen.keine')}
+            knopf={t('leer.ueben')}
+            onknopf={() => gehe('ueben')}
+          />
         {/if}
       {:else if ansicht === 'uebung' && gewaehlt}
         {#key gewaehlt}

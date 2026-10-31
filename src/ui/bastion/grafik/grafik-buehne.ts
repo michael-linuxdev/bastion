@@ -556,6 +556,29 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
 }
 
+/** Gestrichelter Boden-Umriss für geplante Bauten (Geister-Silhouette). */
+function geisterUmriss(g: Graphics, pos: Position, typ: GebaeudeTyp, farbe: string | number) {
+  const [w, t] = KATALOG[typ].groesse;
+  const e = ecken(pos.x, pos.y, w, t, 0.1);
+  const eckenListe = [e.hinten, e.rechts, e.vorne, e.links] as const;
+  for (let i = 0; i < eckenListe.length; i++) {
+    const a = eckenListe[i];
+    const b = eckenListe[(i + 1) % eckenListe.length];
+    if (!a || !b) continue;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const schritte = Math.max(2, Math.floor(len / 7));
+    for (let s = 0; s < schritte; s += 2) {
+      const t0 = s / schritte;
+      const t1 = Math.min(1, (s + 1) / schritte);
+      g.moveTo(a.x + dx * t0, a.y + dy * t0)
+        .lineTo(a.x + dx * t1, a.y + dy * t1)
+        .stroke({ width: 2.2, color: farbe, alpha: 0.85, cap: 'round' });
+    }
+  }
+}
+
 /** Rauch-Plätze bei Bewährungsprobe – feste Lagen, kein Zufall (GRAFIK §8 / P6). */
 const RAUCH_PLAETZE = [
   { x: 120, y: 90, s: 1.2, teil: 'rauch_1' as const },
@@ -1372,11 +1395,10 @@ export async function buehneErstellen(
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
-      // Neubauten im Bau: Umriss auf dem Boden
+      // Neubauten im Bau: gestrichelte Geister-Silhouette (Design-Ideen K43)
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
-        raute(g, v.pos, v.typ, 0.1)
-          .fill({ color: farben.imBau, alpha: 0.18 })
-          .stroke({ width: 2, color: farben.imBau });
+        raute(g, v.pos, v.typ, 0.1).fill({ color: farben.imBau, alpha: 0.1 });
+        geisterUmriss(g, v.pos, v.typ, farben.imBau);
       }
       // Von hinten nach vorn zeichnen, damit Vorderes Hinteres verdeckt
       const reihe = [...b.bauwerke].sort((p, q) => {

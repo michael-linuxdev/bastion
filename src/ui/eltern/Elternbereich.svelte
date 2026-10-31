@@ -124,7 +124,7 @@
   }
 </script>
 
-<section class="eltern">
+<section class="eltern" data-eltern>
   <h2>{t('eltern.ueberschrift')}</h2>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
@@ -323,5 +323,18 @@
   .hinweis {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  /* K49: stärkere Fokus-Ringe für Tastatur / Eltern-Tablets */
+  .eltern :focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 4px;
+  }
+
+  .eltern input:focus-visible,
+  .eltern select:focus-visible,
+  .eltern button:focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 3px;
   }
 </style>
