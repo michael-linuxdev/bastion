@@ -12,6 +12,8 @@ import type { GeneratorVorlage } from '../../src/core/learning/vorlage';
 import { musterweg } from '../../src/core/learning/zwischenschritte';
 import { breiten, startzustand } from '../../src/ui/vermittlung/werkzeuge/bruchstreifen';
 import { stelle, striche } from '../../src/ui/vermittlung/werkzeuge/zahlenstrahl';
+import { esc } from './html';
+import { onlineSeite } from './online';
 
 export interface BogenEingabe {
   /** Die zu prüfenden Kompetenzen, in dieser Reihenfolge */
@@ -27,6 +29,15 @@ export interface BogenEingabe {
   readonly stichprobe: number;
   /** Datum auf dem Bogen, JJJJ-MM-TT */
   readonly datum: string;
+}
+
+/** `druck`: Seite zum Ausdrucken. `online`: Artefakt-Seite zum Ausfüllen, speichert die Eingaben. */
+export type Form = 'druck' | 'online';
+
+export interface BogenOptionen {
+  readonly form?: Form;
+  /** Kurzer Name, z. B. „Musterfeld Brüche“; sonst die Titel der Kompetenzen */
+  readonly name?: string;
 }
 
 const SCHRITT_NAMEN: Readonly<Record<string, string>> = {
@@ -71,13 +82,6 @@ const A_FRAGEN = [
   'Passt der Schwierigkeitsgrad zum Niveau?',
   'Passt jede Rückmeldung zu der falschen Antwort, bei der sie erscheint?',
 ];
-
-const esc = (s: string) =>
-  s
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
 
 function teileHtml(teile: readonly Textteil[]): string {
   return teile
@@ -155,13 +159,54 @@ export function werkzeugBild(w: WerkzeugAngabe): string {
   return `<p class="hinweis">Bild: ${esc(w.werkzeug)} ${esc(JSON.stringify(p))}</p>`;
 }
 
-const urteil = (fragen: readonly string[]) =>
-  `<div class="urteil"><ul class="fragen">${fragen.map((f) => `<li>☐ ${esc(f)}</li>`).join('')}</ul>
+const D_FRAGEN = [
+  'Sind die Erklärungen fachlich richtig?',
+  'Versteht ein Kind der passenden Klasse jede Erklärung?',
+];
+
+const URTEILE = [
+  ['passt', 'Passt'],
+  ['aendern', 'Passt mit Änderung'],
+  ['falsch', 'Falsch'],
+] as const;
+
+/** Prüffragen, Urteil und Anmerkungen zu Abschnitt `s`. Online: Felder mit data-s/data-f. */
+function urteil(k: Kontext, s: string, fragen: readonly string[]): string {
+  if (k.form === 'druck')
+    return `<div class="urteil"><ul class="fragen">${fragen.map((f) => `<li>☐ ${esc(f)}</li>`).join('')}</ul>
 <p class="kaesten">Urteil: ☐ passt &nbsp; ☐ passt mit Änderung &nbsp; ☐ falsch</p>
 <p class="linien">Anmerkungen und neuer Wortlaut:</p></div>`;
+  const id = esc(s);
+  const li = fragen
+    .map(
+      (f, i) =>
+        `<li><label><input type="checkbox" id="${id}--f${i}" data-s="${id}" data-f="f${i}"> <span>${esc(f)}</span></label></li>`,
+    )
+    .join('');
+  const wahlen = URTEILE.map(
+    ([w, t]) =>
+      `<label class="wahl wahl-${w}"><input type="radio" name="${id}--urteil" id="${id}--urteil-${w}" data-s="${id}" data-f="urteil" value="${w}"> <span>${t}</span></label>`,
+  ).join('');
+  return `<div class="urteil" data-abschnitt="${id}"><p class="urteil-kopf">Prüffragen</p><ul class="fragen">${li}</ul>
+<fieldset class="wahlen"><legend>Urteil</legend>${wahlen}</fieldset>
+<label class="notiz-label" for="${id}--notiz">Anmerkungen und neuer Wortlaut</label>
+<textarea id="${id}--notiz" data-s="${id}" data-f="notiz" rows="3" placeholder="Was soll anders heißen? Bitte den Schritt oder die Aufgaben-Nr. nennen."></textarea></div>`;
+}
+
+/** Kästchen „Zeile stimmt“ in Tabellen */
+function kasten(k: Kontext, s: string, f: string, nr: number): string {
+  if (k.form === 'druck') return '<td class="kasten">☐</td>';
+  return `<td class="kasten"><input type="checkbox" id="${esc(s)}--${esc(f)}" data-s="${esc(s)}" data-f="${esc(f)}" aria-label="Zeile ${nr} stimmt"></td>`;
+}
+
+const abschnitt = (klasse: string, s: string, titel: string) =>
+  `<section class="${klasse} abschnitt" data-s="${esc(s)}" data-titel="${esc(titel)}"`;
+
+const ohneTags = (html: string) => html.replace(/<[^>]+>/g, '');
 
 interface Kontext {
   readonly e: BogenEingabe;
+  readonly form: Form;
   /** Schritt-Nummern je Erstvermittlung: Kompetenz-ID → Schritt-ID → Nummer */
   readonly nummern: ReadonlyMap<string, ReadonlyMap<string, number>>;
 }
@@ -226,8 +271,8 @@ function vermittlungHtml(k: Kontext, komp: Kompetenz): string {
     return `<tr><td class="nr">${i + 1}</td><td class="typ">${esc(SCHRITT_NAMEN[s.typ] ?? s.typ)}</td><td>${text(s.text.de)}${bild}${werkzeug}${antwortHtml(k, s, komp.id)}${uebergang}</td><td class="notiz"></td></tr>`;
   });
   return `<p class="hinweis">Etwa ${v.dauer_min} Minuten · Niveau ${esc(v.niveau)} · <u>Unterstrichen</u> = Fachbegriff, antippbar (Teil D)</p>
-<table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>Notiz</th></tr></thead><tbody>${zeilen.join('')}</tbody></table>
-${urteil(V_FRAGEN)}`;
+<div class="tabelle"><table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>Notiz</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
+${urteil(k, `A-${komp.id}`, V_FRAGEN)}`;
 }
 
 /** Fehlvorstellungen in der Reihenfolge, in der die Kompetenzen und ihre Dateien sie nennen. */
@@ -270,7 +315,7 @@ function fehlvorstellungHtml(k: Kontext, fv: Fehlvorstellung): string {
     `Erklärung: ${ziel(k, fv.rueckweg.vermittlung)}`,
     ...(fv.rueckweg.voraussetzung ? [`Voraussetzung: ${ziel(k, fv.rueckweg.voraussetzung)}`] : []),
   ].join('<br>');
-  return `<section class="fv" id="${esc(fv.id)}"><h3>${esc(fv.name.de)}</h3>
+  return `${abschnitt('fv', `B-${fv.id}`, fv.name.de)} id="${esc(fv.id)}"><h3>${esc(fv.name.de)}</h3>
 <p class="hinweis">${esc(fv.id)} · Art: ${esc(fv.art)} · gehört zu ${fv.kompetenzen.map((id) => esc(k.e.alleKompetenzen.get(id)?.titel.de ?? id)).join(', ')}</p>
 <p><i>Für Prüfende:</i> ${esc(fv.beschreibung.de)}</p>
 <dl><dt>Kurze Erklärung</dt><dd>${text(fv.erklaerung.kurz.de)}</dd>${lang}
@@ -278,10 +323,16 @@ function fehlvorstellungHtml(k: Kontext, fv: Fehlvorstellung): string {
 <dt>Rückweg</dt><dd>${rueckweg}</dd>
 <dt>Kontrastaufgaben</dt><dd>${fv.kontrast.map(esc).join(', ')}</dd></dl>
 ${fehlerbilder.length > 0 ? `<p><b>Rückmeldungen in Aufgaben, unter denen die kurze Erklärung erscheint:</b></p><ul class="fehlerbilder">${fehlerbilder.join('')}</ul>` : ''}
-${urteil(F_FRAGEN)}</section>`;
+${urteil(k, `B-${fv.id}`, F_FRAGEN)}</section>`;
 }
 
-function instanzZeile(v: GeneratorVorlage, i: Instanz, nr: number): string {
+function instanzZeile(
+  k: Kontext,
+  v: GeneratorVorlage,
+  i: Instanz,
+  niveau: Niveau,
+  nr: number,
+): string {
   const aufgabe = text(v.text.aufgabe.de, i.platzhalter);
   const optionen = i.optionen
     ? `<div class="optionen">${i.optionen
@@ -295,7 +346,7 @@ function instanzZeile(v: GeneratorVorlage, i: Instanz, nr: number): string {
   const falsch = i.fehlerbilder
     .map((f) => `${loesungText(f.antwort, i.optionen)} <span class="quelle">(${esc(f.id)})</span>`)
     .join('<br>');
-  return `<tr><td class="nr">${nr}</td><td>${aufgabe}${bild}${optionen}</td><td>${loesungText(i.loesung, i.optionen)}</td><td>${falsch}</td><td class="kasten">☐</td></tr>`;
+  return `<tr><td class="nr">${nr}</td><td>${aufgabe}${bild}${optionen}</td><td>${loesungText(i.loesung, i.optionen)}</td><td>${falsch}</td>${kasten(k, `C-${v.id}`, `${niveau}${nr}`, nr)}</tr>`;
 }
 
 function wegHtml(v: GeneratorVorlage, g: Generator<unknown>, niveau: Niveau): string {
@@ -319,7 +370,8 @@ function wegHtml(v: GeneratorVorlage, g: Generator<unknown>, niveau: Niveau): st
   return `<p><b>Zwischenschritte</b> (erscheinen nach einem falschen Ergebnis), am Beispiel ${text(v.text.aufgabe.de, i.platzhalter)}:</p><ol class="weg">${zeilen.join('')}</ol>`;
 }
 
-function vorlageHtml(e: BogenEingabe, v: GeneratorVorlage): string {
+function vorlageHtml(k: Kontext, v: GeneratorVorlage): string {
+  const e = k.e;
   const g = e.generatoren.get(v.generator);
   const hilfen = v.hilfen.map((h) => `<li>${text(h.de)}</li>`).join('');
   const rueck = Object.entries(v.fehlerbilder)
@@ -328,18 +380,19 @@ function vorlageHtml(e: BogenEingabe, v: GeneratorVorlage): string {
   const niveaus = v.niveaus.map((n) => {
     if (!g) return `<p class="hinweis">Generator ${esc(v.generator)} fehlt.</p>`;
     const zeilen = Array.from({ length: e.stichprobe }, (_, s) =>
-      instanzZeile(v, g.erzeuge(s + 1, v.parameter[n]), s + 1),
+      instanzZeile(k, v, g.erzeuge(s + 1, v.parameter[n]), n, s + 1),
     );
     return `<h4>Niveau ${esc(n)}: ${e.stichprobe} Beispielaufgaben</h4>
-<table class="stichprobe"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Lösung</th><th>Erkannte falsche Antworten</th><th>ok</th></tr></thead><tbody>${zeilen.join('')}</tbody></table>
+<div class="tabelle"><table class="stichprobe"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Lösung</th><th>Erkannte falsche Antworten</th><th>ok</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
 ${wegHtml(v, g, n)}`;
   });
-  return `<section class="vorlage"><h3>${text(v.text.aufgabe.de.replace(/\{[a-z_]+\}/g, '…'))}</h3>
+  const titel = text(v.text.aufgabe.de.replace(/\{[a-z_]+\}/g, '…'));
+  return `${abschnitt('vorlage', `C-${v.id}`, ohneTags(titel))}><h3>${titel}</h3>
 <p class="hinweis">${esc(v.id)} · Niveaus ${v.niveaus.join(', ')}</p>
 <p><b>Hilfen:</b></p><ol>${hilfen}</ol>
 <p><b>Rückmeldungen bei typischen falschen Antworten:</b></p><ul class="fehlerbilder">${rueck}</ul>
 ${niveaus.join('')}
-${urteil(A_FRAGEN)}</section>`;
+${urteil(k, `C-${v.id}`, A_FRAGEN)}</section>`;
 }
 
 /** Fachbegriffe, die in den Texten der gewählten Kompetenzen markiert sind. */
@@ -353,11 +406,12 @@ export function genannteBegriffe(e: BogenEingabe, fvIds: readonly string[]): Beg
   return e.begriffe.filter((b) => b.formen.some((f) => formen.has(f)));
 }
 
-export function pruefbogen(e: BogenEingabe): string {
+export function pruefbogen(e: BogenEingabe, optionen: BogenOptionen = {}): string {
+  const form = optionen.form ?? 'druck';
   const nummern = new Map(
     [...e.vermittlungen].map(([id, v]) => [id, new Map(v.schritte.map((s, i) => [s.id, i + 1]))]),
   );
-  const k: Kontext = { e, nummern };
+  const k: Kontext = { e, form, nummern };
   const fvIds = genannteFehlvorstellungen(e);
   const begriffe = genannteBegriffe(e, fvIds);
   const titel = e.kompetenzen.map((x) => x.titel.de).join(' · ');
@@ -365,7 +419,7 @@ export function pruefbogen(e: BogenEingabe): string {
   const teilA = e.kompetenzen
     .map(
       (komp, i) =>
-        `<section class="kompetenz"><h3>A${i + 1} ${esc(komp.titel.de)}</h3><p>${esc(komp.kann_satz.de)} <span class="hinweis">(${esc(komp.id)}, Klasse ${komp.klassenstufe_typisch.join('/')})</span></p>${vermittlungHtml(k, komp)}</section>`,
+        `${abschnitt('kompetenz', `A-${komp.id}`, komp.titel.de)}><h3>A${i + 1} ${esc(komp.titel.de)}</h3><p>${esc(komp.kann_satz.de)} <span class="hinweis">(${esc(komp.id)}, Klasse ${komp.klassenstufe_typisch.join('/')})</span></p>${vermittlungHtml(k, komp)}</section>`,
     )
     .join('');
   const teilB = fvIds
@@ -375,18 +429,33 @@ export function pruefbogen(e: BogenEingabe): string {
     .join('');
   const teilC = e.kompetenzen
     .flatMap((komp) => e.vorlagen.filter((v) => v.kompetenz === komp.id))
-    .map((v) => vorlageHtml(e, v))
+    .map((v) => vorlageHtml(k, v))
     .join('');
-  const teilD = `<table class="begriffe"><thead><tr><th>Begriff</th><th>Erklärung für das Kind</th><th>ok</th></tr></thead><tbody>${begriffe
+  const teilD = `${abschnitt('begriffe', 'D-begriffe', 'Fachbegriffe')}><div class="tabelle"><table class="begriffe"><thead><tr><th>Begriff</th><th>Erklärung für das Kind</th><th>ok</th></tr></thead><tbody>${begriffe
     .map(
-      (b) =>
-        `<tr><td><b>${esc(b.wort.de)}</b></td><td>${text(b.erklaerung.de)}</td><td class="kasten">☐</td></tr>`,
+      (b, i) =>
+        `<tr><td><b>${esc(b.wort.de)}</b></td><td>${text(b.erklaerung.de)}</td>${kasten(k, 'D-begriffe', `b${i + 1}`, i + 1)}</tr>`,
     )
-    .join('')}</tbody></table>`;
+    .join('')}</tbody></table></div>${urteil(k, 'D-begriffe', D_FRAGEN)}</section>`;
+  const anzahlVorlagen = e.kompetenzen.flatMap((x) =>
+    e.vorlagen.filter((v) => v.kompetenz === x.id),
+  ).length;
+
+  if (form === 'online')
+    return onlineSeite({
+      name: optionen.name ?? titel,
+      titel,
+      datum: e.datum,
+      stichprobe: e.stichprobe,
+      inhalt: `<h2 class="teil" id="teil-a">Teil A: Erstvermittlungen</h2>${teilA}
+<h2 class="teil" id="teil-b">Teil B: Fehlvorstellungen</h2>${teilB}
+<h2 class="teil" id="teil-c">Teil C: Übungsaufgaben</h2>${teilC}
+<h2 class="teil" id="teil-d">Teil D: Fachbegriffe</h2>${teilD}`,
+    });
 
   return `<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prüfbogen ${esc(titel)}</title>
+<title>Prüfbogen ${esc(optionen.name ?? titel)}</title>
 <style>${STIL}</style></head>
 <body>
 <header><h1>Prüfbogen Bastion</h1><p class="titel">${esc(titel)}</p>
@@ -400,7 +469,7 @@ export function pruefbogen(e: BogenEingabe): string {
 <li><b>Teil D</b> zeigt die Fachbegriffe, die ein Kind antippen kann.</li>
 </ol>
 <p>Bitte unter jedem Abschnitt ein Urteil ankreuzen. Bei „passt mit Änderung“ den neuen Wortlaut direkt danebenschreiben. Zeilen-Nummern und Kennungen in grauer Schrift helfen beim Einarbeiten.</p>
-<p>Inhalt: Teil A ${e.kompetenzen.length} Erstvermittlungen · Teil B ${fvIds.length} Fehlvorstellungen · Teil C ${e.kompetenzen.flatMap((x) => e.vorlagen.filter((v) => v.kompetenz === x.id)).length} Aufgabenvorlagen · Teil D ${begriffe.length} Fachbegriffe</p>
+<p>Inhalt: Teil A ${e.kompetenzen.length} Erstvermittlungen · Teil B ${fvIds.length} Fehlvorstellungen · Teil C ${anzahlVorlagen} Aufgabenvorlagen · Teil D ${begriffe.length} Fachbegriffe</p>
 </header>
 <h2 class="teil">Teil A: Erstvermittlungen</h2>${teilA}
 <h2 class="teil">Teil B: Fehlvorstellungen</h2>${teilB}
