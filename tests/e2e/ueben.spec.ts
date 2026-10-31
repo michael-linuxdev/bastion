@@ -1053,21 +1053,20 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
   await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
 });
 
-test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
+test('Bastion-Sound: Standard aus, Stufen speichern (G8 / W113)', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('./');
-  // Sound liegt in den Bastion-Einstellungen (Chrome #113)
+  // Sound-Stufen in den Bastion-Einstellungen (Design W113)
   await bastionOeffnen(page, true);
-  const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
-  await expect(sound).toBeVisible();
-  await expect(sound).not.toBeChecked();
-  await sound.check();
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe(true);
+  const aus = page.getByRole('radio', { name: 'Aus', exact: true });
+  const bastionUi = page.getByRole('radio', { name: 'Bastion und UI' });
+  await expect(aus).toBeVisible();
+  await expect(aus).toBeChecked();
+  await bastionUi.check();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe('bastion');
   await page.reload();
   await bastionOeffnen(page, true);
-  await expect(
-    page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' }),
-  ).toBeChecked();
+  await expect(page.getByRole('radio', { name: 'Bastion und UI' })).toBeChecked();
 });
 
 test('Bewährungsprobe: startet als Probe ohne Note (G11 / BASEBAU §5.6)', async ({ page }) => {
@@ -1106,13 +1105,13 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 8' }).check();
-  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen.' })).toBeVisible();
   await expect(page.getByText(/Aus Klasse 5: \d+ Themen offen/)).toBeVisible();
   await expect(page.getByText(/Aus Klasse 7: \d+ Themen offen/)).toBeVisible();
   await expect(page.getByRole('button', { name: 'Lücken gezielt prüfen' })).toBeVisible();
   // Zurückstellen ist neutral: kein Hinweis
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
-  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen.' })).toHaveCount(0);
   // Die Wahl bleibt nach dem Neuladen (erst neu laden, wenn gespeichert)
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(7);
   await page.reload();

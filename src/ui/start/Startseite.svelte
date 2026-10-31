@@ -113,8 +113,8 @@
     >
   </button>
 
-  {#if !nieGeuebt}
-    <div class="kacheln">
+  <div class="kacheln">
+    {#if !nieGeuebt}
       <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
         <Symbol name="wiederholen" />
         <span class="kachel-name">{t('wiederholen.knopf')}</span>
@@ -137,33 +137,31 @@
               : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
         >
       </button>
-      <button class="kachel" onclick={() => onziel('diagnose')}>
-        <Symbol name="diagnose" />
-        <span class="kachel-name">{t('diagnose.knopf')}</span>
-        <span class="kachel-info">{t('start.diagnose-info')}</span>
-      </button>
-      <button class="kachel" onclick={() => onziel('stand')}>
-        <Symbol name="stand" />
-        <span class="kachel-name">{t('stand.knopf')}</span>
-        <span class="kachel-info">{t('start.stand-info')}</span>
-      </button>
-      <button class="kachel mehr" onclick={() => onziel('mehr')}>
-        <Symbol name="mehr" />
-        <span class="kachel-name">{t('hub.mehr')}</span>
-        <span class="kachel-info">{t('hub.mehr-info')}</span>
-      </button>
-    </div>
-  {:else}
-    <button class="mehr-link" onclick={() => onziel('mehr')}>{t('hub.mehr')}</button>
-  {/if}
+    {/if}
+    <button class="kachel" onclick={() => onziel('diagnose')}>
+      <Symbol name="diagnose" />
+      <span class="kachel-name">{t('diagnose.knopf')}</span>
+      <span class="kachel-info">{t('start.diagnose-info')}</span>
+    </button>
+    <button class="kachel" onclick={() => onziel('stand')}>
+      <Symbol name="stand" />
+      <span class="kachel-name">{t('stand.knopf')}</span>
+      <span class="kachel-info">{t('start.stand-info')}</span>
+    </button>
+    <button class="kachel mehr" onclick={() => onziel('mehr')}>
+      <Symbol name="mehr" />
+      <span class="kachel-name">{t('hub.mehr')}</span>
+      <span class="kachel-info">{t('hub.mehr-info')}</span>
+    </button>
+  </div>
 
-  {#if !nieGeuebt && klassenarbeit}
+  {#if klassenarbeit}
     <p class="hinweis">
       <span>{t('ka.am')} {datum(new Date(`${klassenarbeit}T12:00:00`))}</span>
       <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button>
     </p>
   {/if}
-  {#if !nieGeuebt && sichern}
+  {#if sichern}
     <p class="hinweis">
       <span>{t('sicherung.erinnerung')}</span>
       <button class="dezent" onclick={() => onziel('sicherung')}>{t('sicherung.erstellen')}</button>
@@ -338,16 +336,6 @@
     font-size: 0.875rem;
     color: var(--farbe-text-leise);
     line-height: 1.35;
-  }
-
-  .mehr-link {
-    justify-self: start;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text-leise);
-    text-decoration: underline;
-    min-block-size: var(--ziel);
-    padding-inline: 0;
   }
 
   .hinweis {
