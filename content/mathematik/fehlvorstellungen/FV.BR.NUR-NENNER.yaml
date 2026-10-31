@@ -12,9 +12,9 @@ erklaerung:
     de: 'Wenn du den [[Nenner]] veränderst, musst du den [[Zähler]] mit derselben Zahl verändern.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast die Teile kleiner gemacht, aber nicht mehr davon genommen.'
+      de: 'Du hast die Größe der Teile verändert, aber nicht ihre Anzahl.'
     - teil: warum-nicht
-      de: 'Kleinere Teile sind richtig gedacht. Doch wenn jedes Teil halb so groß ist, brauchst du doppelt so viele, sonst schrumpft der [[Anteil]].'
+      de: 'Neue Teilgrößen sind richtig gedacht. Doch wenn jedes Teil halb so groß ist, brauchst du doppelt so viele. Werden die Teile größer, brauchst du weniger. Sonst ändert sich der [[Anteil]].'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 3 } }
     - teil: so-stimmt-es
       de: 'Nimm [[Zähler]] und [[Nenner]] mit derselben Zahl mal: 3/4 = 6/8.'
@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER, M.ZO.BR.ERWEITERN.KUERZEN, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 4af3266c5fff61d83469fffe6395d57a981a69f622703fdd2991a6caf9f3e4cc

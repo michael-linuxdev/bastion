@@ -380,7 +380,7 @@ Was ab Tag 1 drin sein muss, weil Nachrüsten teuer ist: RTL-fähiges CSS (Logic
 
 **Testumfang für eine Person:** Einheitentests für den Kern (Ledger, FSRS-Anbindung, Generatoren, Migrationen) sind Pflicht. Ende-zu-Ende-Tests nur für wenige kritische Wege: erster Start offline, Lernsitzung, Export und Import, Update ohne Datenverlust.
 
-**Arbeitsweise mit dem Repository (T-12):** Das GitHub-Repository ist die einzige Quelle der Wahrheit für Code *und* Konzept. Jede Arbeitssitzung – allein oder mit KI-Unterstützung – beginnt mit `docs/SESSION-PROMPT.md` und endet mit dessen Aktualisierung. Dokumentänderungen laufen über Commits wie Code; Entscheidungen werden im selben Commit dokumentiert, in dem sie umgesetzt werden. Roadmap-Phasen werden als GitHub-Milestones, Aufgaben aus `PLAN.md` als Issues geführt.
+**Arbeitsweise mit dem Repository (T-12):** Das GitHub-Repository ist die einzige Quelle der Wahrheit für Code *und* Konzept. Jede Arbeitssitzung – allein oder mit KI-Unterstützung – beginnt mit `docs/SESSION-PROMPT.md` und der Datei ihres Strangs in `docs/session/` und endet mit deren Aktualisierung (seit 31.10.2026 parallele Stränge Lernkern und Grafik). Dokumentänderungen laufen über Commits wie Code; Entscheidungen werden im selben Commit dokumentiert, in dem sie umgesetzt werden. Roadmap-Phasen werden als GitHub-Milestones, Aufgaben aus `PLAN.md` als Issues geführt.
 
 ## 14. Implementierung mit Claude Code
 

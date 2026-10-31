@@ -20,6 +20,8 @@ fehlerbilder:
   nenner-addiert:
     de: 'Du hast auch die [[Nenner]] zusammengerechnet. Bei gleichen Nennern bleibt der Nenner gleich – es ändert sich nur die Anzahl der Teile.'
     fv: FV.BR.NENNER-ADDIERT
+  # Erscheint bei gleichen Nennern nie (br.add-sub@1 erzeugt es nur bei verschiedenen Nennern),
+  # muss aber stehen, weil der Generator das Fehlerbild kennt (INHALTSFORMAT §10.1).
   nicht-erweitert:
     de: '[[Erweitern]] musst du hier nicht – die [[Nenner]] sind schon gleich.'
     fv: FV.BR.NUR-NENNER
@@ -44,3 +46,8 @@ schritte:
         fv: FV.BR.NICHT-VOLLSTAENDIG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 8aaccab3accc6207250a351d4d0666e60ae8395de102d0aa5d1d1311d8e0ac38

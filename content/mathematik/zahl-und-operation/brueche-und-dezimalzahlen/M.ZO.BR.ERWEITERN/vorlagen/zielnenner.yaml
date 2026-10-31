@@ -56,3 +56,8 @@ schritte:
         fv: FV.BR.FAKTOR
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 97465f501c3540f909387bc3fbc947a05993bad6e3f9fb5ba67d7d7e00db768c

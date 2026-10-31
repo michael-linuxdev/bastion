@@ -68,7 +68,7 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [TESTS](docs/TESTS.md) | Realitätstests mit Jugendlichen: Ansprache, Einwilligung, Ablauf |
 | [PLAN](docs/PLAN.md) | Aktueller Stand, Aufgaben, Nicht-Ziele |
 | [ENTSCHEIDUNGEN](docs/ENTSCHEIDUNGEN.md) | Entscheidungs-Review (Checkliste) |
-| [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung |
+| [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung, mit den Strängen [Lernkern](docs/session/LERNKERN.md) und [Grafik](docs/session/GRAFIK.md) |
 
 ## Lizenz
 

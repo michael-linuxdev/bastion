@@ -18,9 +18,14 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Rechne zuerst: neuer [[Nenner]] geteilt durch alter Nenner. Mit diesem Ergebnis nimmst du den [[Zähler]] mal. Bei 2/3 auf Zwölftel: 12 : 3 = 4, also 8/12.'
 gegenbeispiel:
-  de: '2/3 auf Zwölftel: 12 : 3 = 4. 2 · 4 = 8, also 8/12. Mit 3 statt 4 käme 6/12 heraus – das ist nur die Hälfte.'
+  de: '2/3 auf Zwölftel: 12 : 3 = 4. 2 · 4 = 8, also 8/12. Mit 3 statt 4 käme 6/12 heraus. Das ist genau die Hälfte und damit weniger als 2/3.'
 rueckweg:
   vermittlung: M.ZO.BR.ERWEITERN#beispiel
 kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 1ba0e2f8b449ec09bba47a77b54a92ed3aa1a641b030c6e3e56ade0bae8d76f8
