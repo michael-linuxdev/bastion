@@ -551,13 +551,11 @@
         {/if}
 
         {#snippet angebot(a: Angebot)}
-          {@const k = kosten(a.typ, a.stufe)}
           <li>
             <span>
               <strong>{name(a.typ)}</strong>
               {#if a.ausbau}{tt('bastion.auf-stufe')} {a.stufe}{/if}
               <br /><small class="leise">{wozu(a.typ)}</small>
-              {#if k}<br /><small>{tt('bastion.kosten')} {kostenText(k)}</small>{/if}
               {#each einzeln(a.hindernisse) as h (h)}
                 <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
               {/each}

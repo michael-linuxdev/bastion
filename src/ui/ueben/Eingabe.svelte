@@ -282,6 +282,12 @@
     border-block-start: 1px solid var(--farbe-rand);
   }
 
+  @media (orientation: landscape) and (max-block-size: 30rem) {
+    .eingabe {
+      margin-block: var(--abstand-s);
+    }
+  }
+
   input:not([type='radio']) {
     font: inherit;
     font-size: 1.375rem;

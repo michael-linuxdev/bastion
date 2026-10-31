@@ -29,6 +29,7 @@
     faellig,
     offeneFehler,
     basebau,
+    heuteGeuebt = false,
     geradeDran,
     klassenarbeit,
     sichern,
@@ -41,6 +42,8 @@
     faellig: number;
     offeneFehler: number;
     basebau: boolean;
+    /** Heute schon geübt – ruhige Markierung ohne Streak (Design L53) */
+    heuteGeuebt?: boolean;
     /** Anzahl der Themen „Gerade dran“ (L-18) */
     geradeDran: number;
     /** Termin „JJJJ-MM-TT“ */
@@ -87,6 +90,9 @@
       {#if hilfeOffen}
         <p id="hub-hilfe" class="leise hilfe-text">{t('hub.tueren')}</p>
       {/if}
+    {/if}
+    {#if heuteGeuebt}
+      <p class="leise heute" role="status">{t('start.heute-geuebt')}</p>
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
   </header>
@@ -260,6 +266,10 @@
   }
   .hilfe-text {
     margin-block: 0.25rem var(--abstand-s);
+  }
+  .heute {
+    font-size: 0.95rem;
+    margin-block-end: var(--abstand-s);
   }
 
   button {

@@ -50,6 +50,8 @@ import {
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
+  KAMERA_SCHLUESSEL,
+  BEWOHNER_NAMEN_SCHLUESSEL,
   KLASSE_SCHLUESSEL,
   klasseAus,
   SCHULART_SCHLUESSEL,
@@ -611,14 +613,61 @@ export const wetterKoordSetzen = (k: WetterKoord | undefined, durch: 'jugendlich
 
 /** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {
-  const inst = await bereit();
-  if (!inst) return undefined;
-  const w = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
-  // Grenzen wie in Dorfkrieg (kamera.ts): 0,35 bis 2,4. 0 heißt „einpassen“.
-  return typeof w === 'number' && w >= 0.35 && w <= 2.4 ? w : undefined;
+  const k = await kameraWahl();
+  return k?.zoom;
 }
 
 export const zoomSetzen = (zoom: number) => setze(ZOOM_SCHLUESSEL, zoom, 'jugendlich');
+
+/** Letzte Kamera (Zoom + Verschiebung) – oder nur Zoom aus älterer Einstellung. */
+export async function kameraWahl(): Promise<{ zoom: number; x: number; y: number } | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const neu = await einstellung(db, inst.profil, KAMERA_SCHLUESSEL).catch(() => undefined);
+  const ausNeu = kameraWertLesen(neu);
+  if (ausNeu) return ausNeu;
+  const alt = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
+  return kameraWertLesen(alt);
+}
+
+export const kameraSetzen = (k: { zoom: number; x: number; y: number }) =>
+  setze(KAMERA_SCHLUESSEL, `${k.zoom},${k.x},${k.y}`, 'jugendlich');
+
+/** Kamera vergessen – beim nächsten Öffnen wird das ganze Bild eingepasst. */
+export const kameraZuruecksetzen = () => setze(KAMERA_SCHLUESSEL, '', 'jugendlich');
+
+function kameraWertLesen(wert: unknown): { zoom: number; x: number; y: number } | undefined {
+  if (typeof wert === 'number' && wert >= 0.35 && wert <= 2.4) return { zoom: wert, x: 0, y: 0 };
+  if (typeof wert !== 'string' || wert === '') return undefined;
+  const [zs, xs, ys] = wert.split(',');
+  const zoom = Number(zs);
+  const x = Number(xs);
+  const y = Number(ys);
+  if (![zoom, x, y].every(Number.isFinite) || zoom < 0.35 || zoom > 2.4) return undefined;
+  return { zoom, x, y };
+}
+
+/** Rufnamen der Bewohner (art → Namens-Id aus fester Liste). */
+export async function bewohnerNamenWahl(): Promise<ReadonlyMap<string, string>> {
+  const inst = await bereit();
+  if (!inst) return new Map();
+  const w = await einstellung(db, inst.profil, BEWOHNER_NAMEN_SCHLUESSEL).catch(() => undefined);
+  if (typeof w !== 'string' || w === '') return new Map();
+  const map = new Map<string, string>();
+  for (const teil of w.split(',')) {
+    const [art, name] = teil.split(':');
+    if (art && name) map.set(art, name);
+  }
+  return map;
+}
+
+export const bewohnerNamenSetzen = (namen: ReadonlyMap<string, string>) => {
+  const text = [...namen.entries()]
+    .filter(([art, name]) => art && name)
+    .map(([art, name]) => `${art}:${name}`)
+    .join(',');
+  return setze(BEWOHNER_NAMEN_SCHLUESSEL, text, 'jugendlich');
+};
 
 /** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
 export async function zielVorgemerkt(): Promise<Ziel | undefined> {

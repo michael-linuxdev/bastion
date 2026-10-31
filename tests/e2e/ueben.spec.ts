@@ -176,7 +176,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   // Eine sicher falsche Antwort
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   await expect(page.locator('summary', { hasText: 'Lösungsweg' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
@@ -196,7 +196,7 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
   await angebotUeberspringen(page);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
     'in Arbeit',
@@ -219,7 +219,7 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
@@ -231,6 +231,8 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.reload();
   await expect(page.getByText('1 Aufgabe ist zum Wiederholen dran.')).toBeVisible();
   await page.getByRole('button', { name: 'Wiederholen' }).click();
+  // Regal: Thema wählen, dann üben
+  await page.getByRole('button', { name: /Addieren und Subtrahieren/ }).click();
   await expect(page.getByText(/^Addieren und Subtrahieren · grundlegend/)).toBeVisible();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -308,7 +310,7 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
       continue;
     }
     // Während der Diagnose keine Wertung
-    await expect(page.getByText('Das stimmt noch nicht.')).toHaveCount(0);
+    await expect(page.getByText('Noch nicht.')).toHaveCount(0);
     await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
   }
   expect(halbzeit).toBe(1);
@@ -397,12 +399,13 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   // Auch Eltern können die Bastion ein- und ausschalten (B-13)
   await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toBeChecked();
 
-  // Einfache Ansicht ist Standard: Themen und Wochen, keine einzelnen Aufgaben
-  await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
+  // Brief ist Standard: Prosa, keine einzelnen Aufgaben
+  await expect(page.getByText(/Liebe Eltern/)).toBeVisible();
+  await expect(page.getByText(/Addieren und Subtrahieren/)).toBeVisible();
   await expect(page.getByText('Die letzten 100 Aufgaben')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Ausführliche Ansicht' }).click();
+  await page.getByRole('button', { name: 'Details' }).click();
   await expect(page.getByText('Die letzten 100 Aufgaben')).toBeVisible();
-  await expect(page.getByRole('cell', { name: /falsch/ }).first()).toBeVisible();
+  await expect(page.getByRole('cell', { name: /noch nicht/ }).first()).toBeVisible();
 
   await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('0000');
@@ -422,13 +425,14 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('2468');
   await page.getByRole('button', { name: 'Öffnen' }).click();
-  await expect(page.getByRole('button', { name: 'Ausführliche Ansicht' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Details' })).toBeVisible();
 
   // Transparenz: Jugendliche sehen dasselbe unter „Mein Stand“
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByText('Was meine Eltern sehen').click();
-  await expect(page.getByRole('cell', { name: 'Addieren und Subtrahieren' })).toBeVisible();
+  await expect(page.getByText(/Liebe Eltern/)).toBeVisible();
+  await expect(page.getByText(/Noch in Arbeit:.*Addieren und Subtrahieren/)).toBeVisible();
 });
 
 test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (D-15)', async ({
@@ -694,7 +698,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Späherturm: nimmt die übrigen zwei Bauschritte, braucht sechs
   await page
     .getByRole('listitem')
-    .filter({ hasText: /^Späherturm.*Kosten/ })
+    .filter({ hasText: /^Späherturm/ })
     .getByRole('button', { name: 'Bauen' })
     .click();
   await expect(page.getByRole('heading', { name: 'Im Bau' })).toBeVisible();
@@ -969,19 +973,23 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.wheel(0, -120);
   await expect.poll(breite).toBeGreaterThan(vorher * 1.05);
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBeGreaterThan(0.35);
-  const groesser = await einstellungImSpeicher(page, 'basebau.zoom');
+  const kameraZoom = async () => {
+    const w = await einstellungImSpeicher(page, 'basebau.kamera');
+    if (typeof w !== 'string' || w === '') return undefined;
+    const z = Number(w.split(',')[0]);
+    return Number.isFinite(z) ? z : undefined;
+  };
+  await expect.poll(kameraZoom).toBeGreaterThan(0.35);
+  const groesser = await kameraZoom();
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.wheel(0, 120);
-  await expect
-    .poll(() => einstellungImSpeicher(page, 'basebau.zoom'))
-    .toBeLessThan(groesser as number);
-  // „Ganzes Bild“ in den Bastion-Einstellungen setzt den Zoom zurück
+  await expect.poll(kameraZoom).toBeLessThan(groesser as number);
+  // „Ganzes Bild“ in den Bastion-Einstellungen setzt die Kamera zurück
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(0);
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.kamera')).toBe('');
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
@@ -1047,7 +1055,7 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
     page.getByRole('heading', { name: 'Dein Hinterhof: was du sicher kannst' }),
   ).toBeVisible({ timeout: 30_000 });
   const feld = page.locator('.hinterhof summary').filter({ hasText: 'Natürliche Zahlen' });
-  await expect(feld).toContainText(/0 von \d+/);
+  await expect(feld).toContainText(/0\/\d+/);
   await feld.click();
   await expect(
     page
@@ -1312,21 +1320,28 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('./');
   const wurzel = page.locator('html');
-  // Standard: wie das Gerät
-  await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
+  // Lernflächen bleiben hell; Abend nur als Bastion-Flag (Design L61)
+  await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await expect(wurzel).toHaveAttribute('data-bastion-abend', 'ja');
   await page.getByRole('button', { name: 'Überspringen' }).click();
   await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
-  await page.getByLabel('Hell').check();
+  await page.getByLabel('Bastion bei Tag').check();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await expect(wurzel).toHaveAttribute('data-bastion-abend', 'nein');
   await expect.poll(() => einstellungImSpeicher(page, 'darstellung.modus')).toBe('hell');
   await page.reload();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
+  await expect(wurzel).toHaveAttribute('data-bastion-abend', 'nein');
   await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
-  await page.getByRole('group', { name: 'Aussehen' }).getByLabel('Wie das Gerät').check();
-  await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
+  await page
+    .getByRole('group', { name: 'Abend in der Bastion' })
+    .getByLabel('Wie draußen (Sonnenstand)')
+    .check();
+  await expect(wurzel).toHaveAttribute('data-bastion-abend', 'ja');
   await page.emulateMedia({ colorScheme: 'light' });
+  await expect(wurzel).toHaveAttribute('data-bastion-abend', 'nein');
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
 });
 
@@ -1382,13 +1397,13 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
   // Vorwissen: 12 Gummibärchen für 4 Kinder
   await page.getByLabel('Deine Antwort').fill('3');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig!')).toBeVisible();
+  await expect(page.getByText('Stimmt.')).toBeVisible();
   await page.getByRole('button', { name: 'Weiter' }).click();
   // Entdecken: falsche Wahl zeigt die kurze Erklärung der Fehlvorstellung
   await page.getByRole('radio', { name: '3', exact: true }).check();
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await expect(page.getByText('Noch nicht ganz.')).toBeVisible();
-  await expect(page.getByText('Richtig ist: 4')).toBeVisible();
+  await expect(page.getByText('So ist es richtig: 4')).toBeVisible();
   await page.getByRole('button', { name: 'Weiter' }).click();
   await expect(page.getByText('So geht es')).toBeVisible();
 
@@ -1443,7 +1458,7 @@ test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot meh
     if (antwort) {
       await antwort[1]();
       await page.getByRole('button', { name: 'Prüfen' }).click();
-      await expect(page.getByText('Richtig!')).toBeVisible();
+      await expect(page.getByText('Stimmt.')).toBeVisible();
     }
     await page.getByRole('button', { name: 'Weiter' }).click();
   }
