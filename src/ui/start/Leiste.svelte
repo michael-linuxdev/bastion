@@ -22,15 +22,17 @@
   // Höhe für Seitenränder und Hinweise darüber (grund.css, UpdateHinweis.svelte).
   // Bastion-Szene im Querformat: Leiste aus → --leiste-hoehe = 0.
   let hoehe = $state(0);
+  let bastionQuer = $state(false);
   $effect(() => {
     const m = typeof matchMedia === 'function' ? matchMedia('(orientation: landscape)') : undefined;
     const setzen = () => {
-      const bastionQuer =
-        m?.matches === true && document.documentElement.dataset['bastionSzene'] === '1';
+      bastionQuer = m?.matches === true && document.documentElement.dataset['bastionSzene'] === '1';
       document.documentElement.style.setProperty('--leiste-hoehe', `${bastionQuer ? 0 : hoehe}px`);
     };
     setzen();
     m?.addEventListener('change', setzen);
+    // DevTools-Resize ändert oft nur Viewport-Größe, nicht immer orientation-change
+    window.addEventListener('resize', setzen);
     const beobachter = new MutationObserver(setzen);
     beobachter.observe(document.documentElement, {
       attributes: true,
@@ -38,6 +40,7 @@
     });
     return () => {
       m?.removeEventListener('change', setzen);
+      window.removeEventListener('resize', setzen);
       beobachter.disconnect();
     };
   });
@@ -55,11 +58,18 @@
           : t('leiste.mehr');
 </script>
 
-<nav class="leiste" aria-label={t('leiste.name')} bind:offsetHeight={hoehe}>
+<nav
+  class="leiste"
+  class:versteckt={bastionQuer}
+  aria-label={t('leiste.name')}
+  aria-hidden={bastionQuer ? 'true' : undefined}
+  bind:offsetHeight={hoehe}
+>
   {#each bereiche as b (b)}
     <button
       class:aktiv={aktuell === b}
       aria-current={aktuell === b ? 'page' : undefined}
+      tabindex={bastionQuer ? -1 : undefined}
       onclick={() => onwahl(b)}
     >
       <Symbol name={b} />
@@ -83,7 +93,11 @@
     box-shadow: 0 -2px 12px var(--farbe-schatten);
   }
 
-  /* Bastion-Szene im Querformat: Leiste weg, Bühne nutzt den Platz */
+  /* Bastion-Szene im Querformat: Leiste weg (zusätzlich CSS-Klasse für Resize/DevTools) */
+  .leiste.versteckt {
+    display: none;
+  }
+
   @media (orientation: landscape) {
     :global(html[data-bastion-szene='1']) .leiste {
       display: none;

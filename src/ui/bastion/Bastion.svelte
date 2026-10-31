@@ -299,6 +299,7 @@
         konto={l.konto}
         buecher={l.buecher.length}
         hinterhofKnopf={false}
+        blattOffen={bauBlattOffen}
         bind:blick
       />
       {#if bauBlattOffen}
@@ -320,6 +321,7 @@
           {belegt}
           istZiel={(a) => ist(a, ziel)}
           {hindernisText}
+          onschliessen={() => (bauBlattOffen = false)}
           onvormerken={(a) => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
           onbauen={(a) =>
             void ausfuehren({

@@ -16,3 +16,4 @@
 | 31.10.2026 | **Wetter-Cache dauerhaft:** Echtes Wetter bleibt bis Ort/Schalter geändert wird, kein Verfall um Mitternacht (T-15 / Preference PV) |
 | 31.10.2026 | **Bastion spielbarer:** Vorrat-HUD, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen-Pfadfindung, Bewohner an Fortschritt (`GRAFIK.md` §1/§4.4) |
 | 31.10.2026 | **P2 Garten-Sprites:** Gebäude Epoche 1, Rasen, Wesen (Biene/Schnecke/Schmetterling) im Atlas; Garten-Szene nutzt Atlas, Code bleibt Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8) |
+| 31.10.2026 | **Politur-Pass Bastion:** Versetzen ohne DataCloneError (`$state`-Proxy), Bau-Blatt-Schließen/Textumbruch, Auswahl↔Blatt, kompakte Knöpfe, Leiste Quer zuverlässiger |
