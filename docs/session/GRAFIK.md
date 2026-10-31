@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · G0–G11, P0 Dorf, Boden/Wiese und P1 Wetter-Himmel im Atlas; Bastion-Reiter-Vollbild (#113); nächster Schritt: P2 Garten-Sprites, Messung auf dem iPhone 13
+Stand: 31.10.2026 · G0–G11, P0/P1 Atlas; Wetter-Cache dauerhaft; Bastion-Vollbild (#113); nächster Schritt: P2 Garten-Sprites, Messung iPhone 13
 
 ---
 

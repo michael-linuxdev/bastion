@@ -1,7 +1,7 @@
 /**
  * Open-Meteo Abruf (T-15, GRAFIK §4.3): nur nach Einschalten, Ort als Freitext.
- * Cache bis Mitternacht Ortszeit; bei Fehler stiller Fallback (kein Hinweis).
- * Keine Standort-API des Geräts.
+ * Cache gilt dauerhaft, bis Ort/Schalter geändert wird (Preference PV 31.10.2026).
+ * Bei Fehler stiller Fallback (kein Hinweis). Keine Standort-API des Geräts.
  */
 import type { Sonnenzeiten } from './sonne';
 import { wetterAusWmo, type WetterBild } from './wetter';
@@ -21,7 +21,7 @@ export interface WetterStand {
   readonly ort: WetterOrt;
   /** Sonnenzeiten am Ort, Minuten seit Mitternacht Ortszeit der Antwort */
   readonly sonne?: Sonnenzeiten;
-  /** Lerntag (lokal), bis zu dem der Cache gilt */
+  /** Wann der Stand geholt wurde (lokales Datum), nur Meta – kein Verfall */
   readonly tag: string;
   readonly quelle: 'netz' | 'cache';
 }
@@ -39,13 +39,15 @@ function minutenAusIso(iso: string): number | undefined {
   return d.getHours() * 60 + d.getMinutes();
 }
 
-function liesCache(): WetterStand | undefined {
+/** Cache lesen – gilt unabhängig vom Kalendertag, bis geleert. */
+export function liesWetterCache(): WetterStand | undefined {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return undefined;
     const c = JSON.parse(raw) as WetterStand;
-    if (c.tag !== lokalerTag()) return undefined;
-    if (!c.bild || !c.ort) return undefined;
+    if (!c.bild || !c.ort || typeof c.ort.lat !== 'number' || typeof c.ort.lon !== 'number') {
+      return undefined;
+    }
     return { ...c, quelle: 'cache' };
   } catch {
     return undefined;
@@ -75,7 +77,7 @@ export async function ortSuchen(freitext: string): Promise<WetterOrt | undefined
   return { name: treffer.name, lat: treffer.latitude, lon: treffer.longitude };
 }
 
-/** Forecast inkl. Wettercode und Sonnenzeiten; speichert Cache bis Mitternacht. */
+/** Forecast inkl. Wettercode und Sonnenzeiten; speichert dauerhaften Cache. */
 export async function wetterAbrufen(ort: WetterOrt): Promise<WetterStand | undefined> {
   const url =
     `${FORECAST}?latitude=${ort.lat}&longitude=${ort.lon}` +
@@ -104,16 +106,16 @@ export async function wetterAbrufen(ort: WetterOrt): Promise<WetterStand | undef
 }
 
 /**
- * Liefert aktuellen Netz-/Cache-Stand oder undefined (dann offline-Datum nutzen).
- * Bei Netzfehler: Cache von heute, sonst undefined – still.
+ * Liefert Cache für denselben Ort (dauerhaft) oder holt neu.
+ * Bei Netzfehler: letzter Cache zum Ort, sonst undefined – still.
  */
 export async function wetterHolen(ort: WetterOrt): Promise<WetterStand | undefined> {
-  const cache = liesCache();
+  const cache = liesWetterCache();
   if (cache && cache.ort.lat === ort.lat && cache.ort.lon === ort.lon) return cache;
   try {
     return await wetterAbrufen(ort);
   } catch {
-    return cache;
+    return cache && cache.ort.lat === ort.lat && cache.ort.lon === ort.lon ? cache : undefined;
   }
 }
 
