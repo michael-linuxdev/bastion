@@ -154,7 +154,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 1. ~~**Die Merge-Reihenfolge steht oben**~~ – erledigt am 30.10.2026, siehe dort.
 2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
 3. **Öffentliche Seite von `main` trennen.** `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
-4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: gleichnamiges Addieren und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
+4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: ~~gleichnamiges Addieren~~ (erledigt 31.10.2026: Schritte `rechnen` und `kuerzen`, eine Vorlage darf eine Auswahl der Generator-Schritte nehmen) und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
 5. **`docs/PLAN.md` Abschnitt 1** auf denselben nächsten Schritt setzen wie §4b und dieser Prompt. Der Kopf nennt noch U1 und den 29.10.2026. Abschnitt 4b ist der gültige Arbeitsplan.
 6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
 
@@ -261,7 +261,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 
 - Fragen in `VERMITTLUNG.md` §8 (Lehrkraft, amtliche Abitur-Vorgaben 2029, Werkzeuge).
 - PDF- und Formelsatz-Technik für die Prüfungen (neue Abhängigkeit möglich, vorher fragen).
-- Rechenzeilen für Gleichungen (K-29) und Schritte für gleichnamige Brüche kommen mit U5.
+- Rechenzeilen für Gleichungen (K-29) kommen mit U5. Schritte für gleichnamige Brüche gibt es seit 31.10.2026.
 - Die Schwellen der Diagnose (`FV_REGELN`) sind Startwerte und werden im Test geprüft.
 - Alte Branches auf GitHub ließen sich von hier nicht löschen (HTTP 403). Lokal gibt es nur `main`. Löschen über GitHub → Branches, oder dort „Automatically delete head branches“ einschalten.
 - PR #63 wurde per normalem Merge-Commit statt per Squash gemergt. Das ist unschädlich.

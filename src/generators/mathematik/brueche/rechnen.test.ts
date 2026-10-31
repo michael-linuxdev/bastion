@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { istGekuerzt, type Bruch } from '../../../core/learning/bruch';
 import type { Instanz, Loesung, Sprachobjekt } from '../../../core/learning/generator';
+import { musterweg, pruefeSchritt } from '../../../core/learning/zwischenschritte';
 import { pflichttests } from '../../pflichttests';
 import {
   bruchAddSub,
@@ -101,6 +102,23 @@ describe('Brüche addieren und subtrahieren', () => {
         bisher[id] = schritt(seed, p, id, bisher).loesung;
       expect(bisher['kuerzen']).toEqual(bruchAddSub.erzeuge(seed, p).loesung);
       if (bisher['erster']?.typ === 'bruch') expect(bisher['erster'].wert.nenner).toBe(nenner.wert);
+    }
+  });
+
+  it('Zwischenschritte bei gleichen Nennern: nur Zähler verrechnen und kürzen (§17)', () => {
+    for (const niveau of ['G-gleich', 'M-gleich'] as const) {
+      const p = NIVEAUS[niveau];
+      for (let seed = 0; seed < 500; seed++) {
+        const weg = musterweg(bruchAddSub, seed, p, ['rechnen', 'kuerzen']);
+        const i = bruchAddSub.erzeuge(seed, p);
+        expect(weg.at(-1)?.aufgabe.loesung).toEqual(i.loesung);
+        const rechnen = weg[0]?.aufgabe;
+        if (!rechnen || rechnen.loesung.typ !== 'bruch') throw new Error('kein Bruch');
+        // Der Nenner bleibt der gemeinsame Nenner der Aufgabe
+        expect(rechnen.loesung.wert.nenner).toBe(B(i, 'a').nenner);
+        for (const f of rechnen.fehlerbilder)
+          expect(pruefeSchritt(rechnen, f.antwort)).toEqual({ richtig: false, fehlerbild: f.id });
+      }
     }
   });
 });

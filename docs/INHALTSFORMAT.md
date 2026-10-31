@@ -647,7 +647,7 @@ schritte:
 
 **Regeln:**
 
-- `id` ist eindeutig. Die Reihenfolge und die IDs sind genau die des Generators (`schritte` im Generator).
+- `id` ist eindeutig. Die Vorlage nimmt die Schritte des Generators (`schritte` im Generator) in seiner Reihenfolge, alle oder eine Auswahl. Der letzte Schritt des Generators ist immer dabei. Eine Auswahl braucht es, wenn ein Schritt bei den Parametern der Vorlage nichts zu tun hat: Bei gleichnamigen Brüchen entfallen gemeinsamer Nenner und Erweitern (`gleichnamig.yaml`: `rechnen`, `kuerzen`; seit 31.10.2026). Eine Frage darf die Eingabe eines weggelassenen Schritts nicht nennen.
 - Ein Schritt hat **ein** Eingabefeld: `typ` ist `zahl-eingabe` oder `bruch-eingabe`. Wer zwei Brüche erweitert, macht das in zwei Schritten.
 - `frage` darf nutzen:
   - die Platzhalter der Aufgabe,
