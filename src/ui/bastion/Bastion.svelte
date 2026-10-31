@@ -44,18 +44,28 @@
   } from './thema.svelte';
   import { THEMEN, type Thema } from '../../core/policy/einstellung';
   import type { Kompetenz } from '../../core/competence/kompetenz';
+  import type { AufgabeEreignis } from '../../core/learning/ereignis';
+  import type { KompetenzStand } from '../../core/learning/fortschritt';
+  import { hinterhof } from '../../core/learning/hinterhof';
   import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
 
   let {
     kompetenzen,
     wetterEinstellen = false,
+    staende = [],
+    aufgaben = [],
+    klasse = 5,
   }: {
     kompetenzen: readonly Kompetenz[];
-    /** Ab 18 / selbst erwachsen: Wetter selbst schalten (T-15) */
+    /** Ab 18 / ausdrücklich erwachsen: Wetter selbst schalten (T-15) */
     wetterEinstellen?: boolean;
+    staende?: readonly KompetenzStand[];
+    aufgaben?: readonly AufgabeEreignis[];
+    klasse?: number;
   } = $props();
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
+  const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
 
   let lage = $state<BastionLage | undefined>(undefined);
   let geladen = $state(false);
@@ -198,7 +208,7 @@
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
-    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
+    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} {hinterhofFelder} />
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">

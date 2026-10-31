@@ -8,6 +8,7 @@
 // Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
+import type { HinterhofFeld } from '../../../core/learning/hinterhof';
 import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
@@ -32,8 +33,8 @@ import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
+import { hinterhofZeichnen } from './hinterhof-szene';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
-
 import type { Bildart } from './bildart';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
@@ -64,6 +65,8 @@ export interface Ansicht {
   readonly auswahl?: string;
   /** Feld, auf das gerade versetzt werden soll – mit Umriss in der Größe des Gebäudes */
   readonly ziel?: { readonly pos: Position; readonly typ: GebaeudeTyp; readonly frei: boolean };
+  /** Hinterhof-Felder hinter dem Bauplatz (B-25) */
+  readonly hinterhof?: readonly HinterhofFeld[];
 }
 
 export interface Buehne {
@@ -620,6 +623,9 @@ export async function buehneErstellen(
       }
       gebaeude.removeChildren().forEach((c) => c.destroy());
       const g = new Graphics();
+      if (a.hinterhof && a.hinterhof.length > 0) {
+        hinterhofZeichnen(stiftVon(g), a.hinterhof, thema, farben.abend);
+      }
       // Neubauten im Bau: Umriss auf dem Boden
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
         raute(g, v.pos, v.typ, 0.1)
