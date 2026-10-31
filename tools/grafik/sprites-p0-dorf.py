@@ -369,12 +369,48 @@ def gebaeude_denkmal(eintraege: list[dict]) -> None:
     save(img, "gebaeude/dorf/e1/denkmal_s1.png", eintraege, id_="dorf/e1/denkmal_s1", felder=felder)
 
 
-def boden(eintraege: list[dict]) -> None:
-    # flaeche: einzelne Wiesenraute @2x (96×48) mit etwas Rand
+def _in_raute(px: float, py: float, cx: float = 48, cy: float = 24, hw: float = 48, hh: float = 24) -> bool:
+    """Punkt in der Iso-Raute 2∶1 (Mitte cx,cy; Halbbreite/Höhe)."""
+    return abs(px - cx) / hw + abs(py - cy) / hh <= 1.0
+
+
+def _wiesen_raute(
+    farbe: str,
+    farbe_hell: str,
+    *,
+    blumen: bool,
+    seed: int,
+) -> Image.Image:
+    """Eine Boden-Kachel @2x (96×48): Raute mit leichter Struktur, Richtung A „Tag, warm“."""
     img = new_img(96, 48)
     d = ImageDraw.Draw(img)
-    poly(d, [(48, 0), (96, 24), (48, 48), (0, 24)], hex_rgb(WIESEN))
-    poly(d, [(48, 4), (88, 24), (48, 44), (8, 24)], hex_rgb(WIESEN_HELL))
+    raute = [(48, 0), (96, 24), (48, 48), (0, 24)]
+    poly(d, raute, hex_rgb(farbe))
+    # innere hellere Fläche (Lesbarkeit in klein)
+    poly(d, [(48, 5), (88, 24), (48, 43), (8, 24)], hex_rgb(farbe_hell))
+    # feste „Halme“ / Punkte – deterministisch aus seed, kein Zufall
+    for i in range(18):
+        t = (seed * 17 + i * 97) % 1000
+        px = 12 + (t * 13) % 72
+        py = 8 + (t * 7) % 32
+        if not _in_raute(px, py, hw=40, hh=18):
+            continue
+        ton = shade(farbe_hell, 12 if (i + seed) % 2 == 0 else -10)
+        d.point((px, py), fill=ton)
+        if i % 3 == 0:
+            d.line([(px, py), (px, py - 2)], fill=shade(farbe, -20), width=1)
+    if blumen:
+        for i, (bx, by) in enumerate(((30, 18), (62, 22), (44, 30))):
+            if (seed + i) % 2 == 0:
+                d.rectangle([bx, by, bx + 1, by + 1], fill=(255, 255, 255, 180))
+    # weiche Kontur (Alpha), damit Kacheln nicht hart stoßen
+    d.line(raute + [raute[0]], fill=(20, 36, 18, 40), width=1)
+    return img
+
+
+def boden(eintraege: list[dict]) -> None:
+    # Spec GRAFIK-SPRITES.md §3: boden/<thema>/e<epoche>/flaeche.png + rand.png
+    img = _wiesen_raute(WIESEN, WIESEN_HELL, blumen=True, seed=3)
     save(
         img,
         "boden/dorf/e1/flaeche.png",
@@ -382,15 +418,30 @@ def boden(eintraege: list[dict]) -> None:
         id_="boden/dorf/e1/flaeche",
         felder=(1, 1),
     )
-    img2 = new_img(96, 48)
-    d2 = ImageDraw.Draw(img2)
-    poly(d2, [(48, 0), (96, 24), (48, 48), (0, 24)], hex_rgb(RAND))
-    poly(d2, [(48, 6), (84, 24), (48, 42), (12, 24)], shade(RAND, 18))
+    # dunkler Rand um den Bauplatz (wie dorfWiese aussen)
+    img2 = _wiesen_raute(RAND, "#2a4534", blumen=False, seed=11)
     save(
         img2,
         "boden/dorf/e1/rand.png",
         eintraege,
         id_="boden/dorf/e1/rand",
+        felder=(1, 1),
+    )
+    # Varianten für Schachbrett / hellere Tupfen (Runtime wählt fest per Feld)
+    img_b = _wiesen_raute(WIESEN_DUNKEL, WIESEN, blumen=False, seed=5)
+    save(
+        img_b,
+        "boden/dorf/e1/flaeche_b.png",
+        eintraege,
+        id_="boden/dorf/e1/flaeche_b",
+        felder=(1, 1),
+    )
+    img_h = _wiesen_raute("#7ab054", WIESEN_HELL, blumen=True, seed=7)
+    save(
+        img_h,
+        "boden/dorf/e1/flaeche_hell.png",
+        eintraege,
+        id_="boden/dorf/e1/flaeche_hell",
         felder=(1, 1),
     )
 

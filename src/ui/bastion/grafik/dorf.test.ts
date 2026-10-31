@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { GEBAEUDE_TYPEN } from '../../../core/bastion/katalog';
 import { BUEHNE_H } from './iso';
-import { DORF_BILD, dorfHoehe, hash01, schattieren, wiesenFarbe } from './dorf';
+import {
+  DORF_BILD,
+  dorfBodenKachel,
+  dorfBodenTint,
+  dorfHoehe,
+  hash01,
+  schattieren,
+  wiesenFarbe,
+} from './dorf';
 
 describe('Dorfbilder (GRAFIK §6)', () => {
   it('jede Gebäude-Rolle hat ein eigenes Bild', () => {
@@ -34,5 +42,16 @@ describe('Dorfbilder (GRAFIK §6)', () => {
     expect(hash01(2, 5)).toBeGreaterThanOrEqual(0);
     expect(hash01(2, 5)).toBeLessThan(1);
     expect(hash01(2, 5)).not.toBe(hash01(3, 5));
+  });
+
+  it('Atlas-Boden-Kachel: Rand außen, innen Schachbrett/hell, fest', () => {
+    expect(dorfBodenKachel(-1, 0, 12, 12)).toBe('rand');
+    expect(dorfBodenKachel(0, -1, 12, 12)).toBe('rand');
+    expect(dorfBodenKachel(12, 0, 12, 12)).toBe('rand');
+    const a = dorfBodenKachel(2, 3, 12, 12);
+    expect(a === 'flaeche' || a === 'flaeche_b' || a === 'flaeche_hell').toBe(true);
+    expect(dorfBodenKachel(2, 3, 12, 12)).toBe(a);
+    expect(dorfBodenTint(false)).toBe(0xffffff);
+    expect(dorfBodenTint(true)).not.toBe(0xffffff);
   });
 });
