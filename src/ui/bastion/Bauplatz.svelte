@@ -576,13 +576,16 @@
       return;
     }
     const getroffenes = auf(pos);
-    // Zweites Tippen auf dasselbe Gebäude → Versetzen
+    // Eine Geste-Sprache (J36): Tippen = wählen/abwählen, Ziehen = bewegen
     if (getroffenes && auswahl === getroffenes.id) {
-      versetzen = true;
-      ziel = { x: getroffenes.pos.x, y: getroffenes.pos.y };
+      auswahl = undefined;
+      versetzen = false;
+      ziel = undefined;
       return;
     }
     auswahl = getroffenes?.id;
+    versetzen = false;
+    ziel = undefined;
   }
 </script>
 

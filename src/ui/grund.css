@@ -149,6 +149,16 @@ input[type='radio'] {
   outline-offset: 2px;
 }
 
+/* Zwei visuelle Register (Design „Danach“ J38): Kind = Ort, Eltern = Werkstatt */
+.register-ort {
+  --register-radius: var(--radius-karte);
+}
+
+.register-werkstatt {
+  --register-radius: 4px;
+  font-feature-settings: 'tnum' 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

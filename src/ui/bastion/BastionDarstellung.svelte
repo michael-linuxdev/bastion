@@ -97,6 +97,7 @@
   >
     {tt('bastion.zoom-passen')}
   </button>
+  <p class="leise"><strong>{tt('bastion.geste-sprache')}</strong></p>
   <p class="leise">{tt('bastion.bedienung')}</p>
   <p class="leise">{tt('bastion.bewohner.erklaerung')}</p>
   <ul class="bewohner-frei">

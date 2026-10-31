@@ -33,40 +33,50 @@
   }
 </script>
 
-<section class="dran" aria-labelledby="dran-titel">
+<section class="dran landkarte" aria-labelledby="dran-titel">
   {#if dran.length > 0}
     <h3 id="dran-titel">{t('dran.titel')}</h3>
-    <ul class="liste">
+    <ul class="steine">
       {#each dran as k (k.id)}
-        <li><button onclick={() => onwahl(k)}>{k.titel.de}</button></li>
+        <li>
+          <button class="stein" onclick={() => onwahl(k)}>
+            <span class="punkt" aria-hidden="true"></span>
+            {k.titel.de}
+          </button>
+        </li>
       {/each}
     </ul>
   {/if}
   <details>
     <summary>{dran.length > 0 ? t('dran.aendern') : t('dran.waehlen')}</summary>
     {#if !schulart}<p class="leise">{t('dran.ohne-schulart')}</p>{/if}
-    {#each gruppen as g (g.name)}
-      {@const ids = g.kompetenzen.map((k) => k.id)}
-      {@const alle = ids.every((id) => gewaehlt.has(id))}
-      <fieldset>
-        <legend>
-          <label
+    <ul class="felder">
+      {#each gruppen as g (g.name)}
+        {@const ids = g.kompetenzen.map((k) => k.id)}
+        {@const alle = ids.every((id) => gewaehlt.has(id))}
+        <li class="feld">
+          <label class="feld-kopf"
             ><input type="checkbox" checked={alle} onchange={() => setze(ids, !alle)} />
             <strong>{name(g.name, g.art)}</strong></label
           >
-        </legend>
-        {#each g.kompetenzen as k (k.id)}
-          <label class="thema"
-            ><input
-              type="checkbox"
-              checked={gewaehlt.has(k.id)}
-              onchange={() => setze([k.id], !gewaehlt.has(k.id))}
-            />
-            {k.titel.de}</label
-          >
-        {/each}
-      </fieldset>
-    {/each}
+          <ul class="steine">
+            {#each g.kompetenzen as k (k.id)}
+              <li>
+                <label class="stein wahl" class:an={gewaehlt.has(k.id)}
+                  ><input
+                    type="checkbox"
+                    checked={gewaehlt.has(k.id)}
+                    onchange={() => setze([k.id], !gewaehlt.has(k.id))}
+                  />
+                  <span class="punkt" aria-hidden="true"></span>
+                  {k.titel.de}</label
+                >
+              </li>
+            {/each}
+          </ul>
+        </li>
+      {/each}
+    </ul>
   </details>
 </section>
 
@@ -74,32 +84,81 @@
   .dran {
     display: grid;
     gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background:
+      radial-gradient(
+        ellipse at 80% 10%,
+        color-mix(in srgb, var(--farbe-himmel, #d6ecf3) 45%, transparent),
+        transparent 50%
+      ),
+      var(--farbe-flaeche);
+    box-shadow: 0 2px 8px var(--farbe-schatten);
   }
-  fieldset {
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    margin-block: var(--abstand-s);
-    display: grid;
-    gap: 0.25rem;
-  }
-  label {
-    display: flex;
-    align-items: center;
-    gap: var(--abstand-s);
-    min-block-size: 2.75rem;
-  }
-  .thema {
-    padding-inline-start: var(--abstand-m);
-  }
-  .liste {
+  .felder {
     list-style: none;
+    margin: 0;
     padding: 0;
     display: grid;
     gap: var(--abstand-s);
   }
-  .liste button {
-    inline-size: 100%;
-    text-align: start;
+  .feld {
+    padding: var(--abstand-s);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 80%, transparent);
+  }
+  .feld-kopf {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
     min-block-size: 2.75rem;
+    margin-block-end: 0.25rem;
+  }
+  .steine {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .stein {
+    font: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-block-size: 2.75rem;
+    padding-block: 0.35rem;
+    padding-inline: 0.65rem;
+    border: none;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 90%, var(--farbe-akzent));
+    color: var(--farbe-text);
+    cursor: pointer;
+    text-align: start;
+  }
+  .stein.wahl {
+    background: var(--farbe-flaeche);
+    box-shadow: inset 0 0 0 1px var(--farbe-rand);
+  }
+  .stein.wahl.an {
+    background: color-mix(in srgb, var(--farbe-flaeche) 70%, var(--farbe-akzent));
+    box-shadow: inset 0 0 0 2px var(--farbe-akzent);
+  }
+  .stein.wahl input {
+    position: absolute;
+    opacity: 0;
+    inline-size: 1px;
+    block-size: 1px;
+  }
+  .punkt {
+    inline-size: 0.65rem;
+    block-size: 0.65rem;
+    border-radius: 50%;
+    background: var(--farbe-akzent);
+    flex-shrink: 0;
+  }
+  .leise {
+    color: var(--farbe-text-leise);
   }
 </style>
