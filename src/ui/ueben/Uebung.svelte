@@ -21,6 +21,8 @@
   import type { SchrittErgebnis } from '../../core/learning/ereignis';
   import { untrack } from 'svelte';
   import Textteile from './Textteile.svelte';
+  import Symbol from '../grafik/Symbol.svelte';
+  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
 
   let {
     ueberschrift,
@@ -72,6 +74,8 @@
     onnutzung?: (was: 'hilfe' | 'weg-uebersprungen', ziel: string) => void;
   } = $props();
   let fehlerInFolge = $state(0);
+  /** Session-Zahnrad: Orientierung, ohne die Übung zu überfrachten */
+  let sessionEinstellungen = $state(false);
   const BLOCK = 5;
 
   interface Aufgabe extends Auftrag {
@@ -221,7 +225,23 @@
 </script>
 
 <section class="uebung">
-  <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+  <div class="oben">
+    <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+    <button
+      class="zahnrad"
+      aria-expanded={sessionEinstellungen}
+      aria-controls="session-einstellungen"
+      aria-label={t('session.einstellungen')}
+      onclick={() => (sessionEinstellungen = !sessionEinstellungen)}
+    >
+      <Symbol name="einstellungen" />
+    </button>
+  </div>
+  {#if sessionEinstellungen}
+    <div id="session-einstellungen" class="session">
+      <OrientierungWahl kompakt />
+    </div>
+  {/if}
   <header class="kopf">
     <h2>{ueberschrift}</h2>
     {#if stufe}<span class="stufe">{stufe}</span>{/if}
@@ -394,6 +414,35 @@
   .uebung {
     display: grid;
     gap: var(--abstand-m);
+  }
+
+  .oben {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--abstand-s);
+  }
+
+  .zahnrad {
+    font: inherit;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--farbe-text-leise);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .session {
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
   }
 
   .kopf {

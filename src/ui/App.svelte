@@ -36,6 +36,7 @@
     schulartSetzen,
     sicherungAnstehend,
     bewaehrungBelohnen,
+    orientierungWahl,
     zustand as ladeZustand,
     type Antwortdaten,
     type Zustand,
@@ -84,10 +85,13 @@
   import { untrack } from 'svelte';
   import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen } from './grafik/darstellung.svelte';
+  import { orientierungLaden } from './grafik/orientierung.svelte';
+  import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import ModusWahl from './profil/ModusWahl.svelte';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Leiste, { type Bereich } from './start/Leiste.svelte';
   import Mehr from './start/Mehr.svelte';
+  import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
   import Angebot from './vermittlung/Angebot.svelte';
   import {
@@ -359,6 +363,7 @@
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
     darstellungSetzen(await modusWahl());
+    orientierungLaden(await orientierungWahl());
     const pr = await profilWahl();
     profil = { geburtsdatum: pr.geburtsdatum, erwachsen: pr.erwachsen };
     profilGefragt = pr.gefragt;
@@ -420,6 +425,40 @@
     void aktualisiere();
   }
 
+  /**
+   * „Üben“ in der Leiste/Start: direkt zur nächsten bzw. offenen Aufgabe.
+   * Läuft schon eine Runde, bleiben wir dort. Sonst Übersicht nur als Notfall.
+   */
+  async function zumNaechstenUeben() {
+    if (
+      ansicht === 'wiederholen' ||
+      ansicht === 'werkstatt-uebung' ||
+      ansicht === 'angebot' ||
+      ansicht === 'vermittlung' ||
+      ansicht === 'anleitung' ||
+      (ansicht === 'uebung' && gewaehlt)
+    )
+      return;
+    inhalte ??= ladeInhalte();
+    const geladen = await inhalte.catch(() => undefined);
+    await aktualisiere();
+    if (!geladen) {
+      ansicht = 'uebersicht';
+      return;
+    }
+    const k = naechsteKompetenz(
+      geladen.kompetenzen,
+      geladen.vorlagen,
+      geradeDran,
+      niveau,
+      klasse,
+      zustand,
+      Date.now(),
+    );
+    if (k) zumUeben(geladen, k);
+    else ansicht = 'uebersicht';
+  }
+
   async function wiederholen() {
     inhalte ??= ladeInhalte();
     const geladen = await inhalte;
@@ -441,6 +480,9 @@
       inhalte ??= ladeInhalte();
     switch (ziel) {
       case 'ueben':
+        void zumNaechstenUeben();
+        return;
+      case 'themen':
         ueben();
         return;
       case 'wiederholen':
@@ -584,6 +626,7 @@
       }}
     />
     <ModusWahl />
+    <OrientierungWahl />
   {:else if ansicht === 'sicherung'}
     <button
       class="zurueck"
@@ -636,15 +679,6 @@
           {#if bewaehrungHinweis}
             <p class="geschafft" role="status">{bewaehrungHinweis}</p>
           {/if}
-          {#await import('./bastion/Hinterhof.svelte') then hinterhofMod}
-            {@const Hinterhof = hinterhofMod.default}
-            <Hinterhof
-              kompetenzen={geladen.kompetenzen}
-              staende={[...zustand.staende.values()]}
-              aufgaben={aufgabenListe}
-              {klasse}
-            />
-          {/await}
         {/await}
       {:else if ansicht === 'angebot' && gewaehlt}
         {@const k = gewaehlt}
