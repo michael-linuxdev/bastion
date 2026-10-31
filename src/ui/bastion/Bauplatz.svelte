@@ -1,8 +1,8 @@
 <script lang="ts">
   // Bauplatz als Grafik (Schritte 2.12–2.13): lädt PixiJS erst hier nach – nur wer
   // die Bastion bei eingeschaltetem Basebau öffnet und das Bild zeigt, lädt es (R7, A3).
-  // Antippen wählt ein Gebäude; „Versetzen“ und dann ein freies Feld antippen versetzt
-  // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
+  // Antippen wählt ein Gebäude; Versetzen per Ziehen oder Tippen aufs Zielfeld.
+  // Die Liste in den Einstellungen bleibt die barrierefreie Ansicht.
   import { onDestroy, untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
@@ -40,6 +40,7 @@
   import { hinterhofMitte } from './grafik/hinterhof-szene';
   import { epocheOptik, farbeSkalieren } from './grafik/epoche-optik';
   import type { Epoche } from '../../core/bastion/epochen';
+  import type { Konto } from '../../core/ledger/buchung';
 
   let {
     bastion,
@@ -48,6 +49,8 @@
     bauplatz = BAUPLATZ,
     epoche = 1 as Epoche,
     spannung = false,
+    konto = undefined,
+    buecher = 0,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -58,6 +61,9 @@
     epoche?: Epoche;
     /** Bewährungsprobe: Spannungs-Himmel (G11) */
     spannung?: boolean;
+    /** Für Bewohner-Freischaltung */
+    konto?: Konto;
+    buecher?: number;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -225,9 +231,12 @@
     if (zeigerAnzahl() === 1) {
       zieh = { x: event.clientX, y: event.clientY, bewegt: false, taste: event.button };
       kniff = null;
+      const pos = buehne?.feldBei(event.clientX, event.clientY);
+      ziehAufAuswahl = !!(gewaehlt && pos && auf(pos)?.id === gewaehlt.id);
     } else {
       zieh = null;
       kniff = kniffJetzt();
+      ziehAufAuswahl = false;
     }
   }
 
@@ -260,8 +269,26 @@
     if (!zieh) return;
     if (Math.hypot(event.clientX - zieh.x, event.clientY - zieh.y) > ZIEH_SCHWELLE)
       zieh.bewegt = true;
-    // Beim Versetzen verschiebt die linke Taste (und der Finger) nicht – ein Tipp setzt.
-    // Rechte und mittlere Taste verschieben weiter, zwei Finger auch.
+    // Versetzen: Vorschau folgt dem Finger; Kamera nur mit Rechtsklick / Mitte / ohne Auswahlmodus
+    if (versetzen && zieh.taste === 0 && zieh.bewegt) {
+      const pos = buehne?.feldBei(event.clientX, event.clientY);
+      if (pos) {
+        ziel = pos;
+        hinweis =
+          gewaehlt && platzHindernisse(bastion, gewaehlt.typ, pos, gewaehlt.id, bauplatz).length > 0
+            ? 'kein-platz'
+            : undefined;
+      }
+      return;
+    }
+    // Ausgewählt und auf dem Gebäude gezogen → Versetzen starten (weniger Friction)
+    if (!versetzen && gewaehlt && zieh.taste === 0 && zieh.bewegt && ziehAufAuswahl) {
+      versetzen = true;
+      const pos = buehne?.feldBei(event.clientX, event.clientY);
+      if (pos) ziel = pos;
+      return;
+    }
+    // Rechte und mittlere Taste verschieben weiter, zwei Finger auch; links nur ohne Versetzen
     const verschieben = zieh.taste === 1 || zieh.taste === 2 || (zieh.taste === 0 && !versetzen);
     if (verschieben && zieh.bewegt) {
       kamera = {
@@ -282,7 +309,26 @@
       zieh = null;
       zieht = false;
     }
-    if (war && zeigerAnzahl() === 0 && !war.bewegt && war.taste === 0) void angetippt(event);
+    if (!(war && zeigerAnzahl() === 0 && war.taste === 0)) return;
+    if (!war.bewegt) {
+      void angetippt(event);
+      return;
+    }
+    // Loslassen nach Ziehen im Versetzen-Modus → platzieren
+    if (versetzen && gewaehlt && ziel) {
+      void (async () => {
+        if (platzHindernisse(bastion, gewaehlt.typ, ziel, gewaehlt.id, bauplatz).length > 0) {
+          hinweis = 'kein-platz';
+          return;
+        }
+        if (await onaktion({ art: 'versetzen', gebaeude: gewaehlt.id, pos: ziel })) {
+          versetzen = false;
+          ziel = undefined;
+          hinweis = undefined;
+          soundTipp('aufstellen');
+        }
+      })();
+    }
   }
 
   function zeigerAbbruch(event: PointerEvent) {
@@ -296,6 +342,8 @@
   let versetzen = $state(false);
   let ziel = $state<Position | undefined>(undefined);
   let hinweis = $state<'kein-platz' | undefined>(undefined);
+  /** Zeiger ging auf dem gewählten Gebäude nieder → Ziehen versetzt statt Kamera */
+  let ziehAufAuswahl = false;
 
   const gewaehlt = $derived(bastion.bauwerke.find((b) => b.id === auswahl));
 
@@ -432,6 +480,8 @@
         : {}),
       ...(hinterhofFelder.length > 0 ? { hinterhof: hinterhofFelder } : {}),
       epoche,
+      buecher,
+      ...(konto ? { konto } : {}),
     };
     buehne?.zeichne(bastion, a);
   });
@@ -445,12 +495,20 @@
   }
 
   async function angetippt(e: PointerEvent) {
-    // Wesen zuerst (GRAFIK §4.4) – kurze Reaktion, kein Gebäude wählen
-    const wid = buehne?.wesenBei(e.clientX, e.clientY);
-    if (wid && !versetzen) {
-      buehne?.tippeWesen(wid);
-      soundTipp('wesen');
-      return;
+    // Bewohner / Wesen zuerst – kurze Reaktion, kein Gebäude wählen
+    if (!versetzen) {
+      const bid = buehne?.bewohnerBei(e.clientX, e.clientY);
+      if (bid) {
+        buehne?.tippeBewohner(bid);
+        soundTipp('wesen');
+        return;
+      }
+      const wid = buehne?.wesenBei(e.clientX, e.clientY);
+      if (wid) {
+        buehne?.tippeWesen(wid);
+        soundTipp('wesen');
+        return;
+      }
     }
     const pos = buehne?.feldBei(e.clientX, e.clientY);
     if (!pos) return;
@@ -469,7 +527,14 @@
       }
       return;
     }
-    auswahl = auf(pos)?.id;
+    const getroffenes = auf(pos);
+    // Zweites Tippen auf dasselbe Gebäude → Versetzen
+    if (getroffenes && auswahl === getroffenes.id) {
+      versetzen = true;
+      ziel = getroffenes.pos;
+      return;
+    }
+    auswahl = getroffenes?.id;
   }
 </script>
 
@@ -524,7 +589,12 @@
           >
         {:else}
           <span class="knoepfe">
-            <button onclick={() => (versetzen = true)}>{tt('bastion.versetzen')}</button>
+            <button
+              onclick={() => {
+                versetzen = true;
+                ziel = gewaehlt.pos;
+              }}>{tt('bastion.ziehen-versetzen')}</button
+            >
             {#if einlagerbar(gewaehlt.typ)}
               <button
                 onclick={async () => {
@@ -624,6 +694,8 @@
     border-radius: var(--radius);
     background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
     box-shadow: 0 1px 6px var(--farbe-schatten);
+    outline: 2px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent);
+    outline-offset: 0;
   }
 
   .knoepfe {
