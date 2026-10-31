@@ -172,7 +172,7 @@ test('Üben funktioniert offline mit Rückmeldung und Lösungsweg', async ({
   // Eine sicher falsche Antwort
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   await expect(page.locator('summary', { hasText: 'Lösungsweg' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
@@ -192,7 +192,7 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
   await angebotUeberspringen(page);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
     'in Arbeit',
@@ -215,7 +215,7 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Das stimmt noch nicht.')).toBeVisible();
+  await expect(page.getByText('Noch nicht.')).toBeVisible();
   // Erst weiter, wenn die Antwort gespeichert ist (Speichern läuft im Hintergrund)
   await page.getByRole('button', { name: /Zurück/ }).click();
   await expect(page.getByRole('button', { name: /^Addieren und Subtrahieren/ })).toContainText(
@@ -257,7 +257,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
 
   await page.getByLabel('Deine Antwort').fill(String(summe));
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig!')).toBeVisible();
+  await expect(page.getByText('Stimmt.')).toBeVisible();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   await expect(page.getByText('Diese Fehler hast du aufgearbeitet.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -304,7 +304,7 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
       continue;
     }
     // Während der Diagnose keine Wertung
-    await expect(page.getByText('Das stimmt noch nicht.')).toHaveCount(0);
+    await expect(page.getByText('Noch nicht.')).toHaveCount(0);
     await page.getByRole('button', { name: 'Weiß ich nicht' }).click();
   }
   expect(halbzeit).toBe(1);
@@ -1562,6 +1562,8 @@ test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U
     if (runde === 0) await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   }
   await expect(page.getByText('Dieser Denkfehler ist dir schon öfter passiert.')).toBeVisible();
+  // Lange Erklärung steckt hinter „Erklärung lesen“ (§S98)
+  await page.getByRole('main').locator('summary', { hasText: 'Erklärung lesen' }).click();
   await expect(page.getByRole('heading', { name: 'So denkst du gerade' })).toBeVisible();
   await page.getByRole('button', { name: 'Zurück zur Erklärung' }).click();
   // Rückweg: mitten in die Erstvermittlung, nicht an den Anfang

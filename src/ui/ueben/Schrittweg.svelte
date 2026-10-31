@@ -135,6 +135,26 @@
 
 <div class="weg">
   <p class="titel">{t('weg.frage')}</p>
+  <!-- §S99: Fortschritt als 1·2·3-Punkte, aktueller gefüllt -->
+  <ol
+    class="fortschritt"
+    aria-label="{t('weg.schritt')} {Math.min(erledigt.length + 1, schritte.length)} {t(
+      'weg.von',
+    )} {schritte.length}"
+  >
+    {#each schritte as s, i (s.id)}
+      <li
+        class="punkt"
+        class:voll={i < erledigt.length}
+        class:aktuell={i === erledigt.length && !fertig}
+        aria-current={i === erledigt.length && !fertig ? 'step' : undefined}
+      >
+        <span class="unsichtbar">{t('weg.schritt')} {i + 1}</span>
+        {i + 1}
+      </li>
+      {#if i < schritte.length - 1}<span class="trenner" aria-hidden="true">·</span>{/if}
+    {/each}
+  </ol>
   <ol class="schritte">
     {#each erledigt as e, i (e.vorlage.id)}
       <li class="erledigt" class:verbessert={!e.ergebnis.richtig || e.ergebnis.versuche > 1}>
@@ -221,6 +241,46 @@
   }
 
   .titel {
+    font-weight: 800;
+  }
+
+  .fortschritt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fortschritt .punkt {
+    display: grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text-leise);
+    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
+  }
+
+  .fortschritt .punkt.voll {
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    box-shadow: none;
+  }
+
+  .fortschritt .punkt.aktuell {
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    box-shadow: inset 0 0 0 2.5px var(--farbe-akzent);
+  }
+
+  .trenner {
+    color: var(--farbe-text-leise);
     font-weight: 800;
   }
 

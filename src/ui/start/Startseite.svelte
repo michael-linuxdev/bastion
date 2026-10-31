@@ -15,9 +15,7 @@
 </script>
 
 <script lang="ts">
-  // Startseite in Richtung A (GRAFIK §1): Datum und Begrüßung, kleine Ansicht der
-  // Bastion, großer Knopf „Üben“, vier Kacheln, Hinweis auf die Klassenarbeit nur
-  // mit Datum (kein Countdown, R2). Rückfragen (Schuljahr, Profil) kommen als `children`.
+  // Startseite: primäre Türen oben (Üben / Bastion / Mehr), Nebenkacheln darunter (§T101).
   import type { Snippet } from 'svelte';
   import MiniBastion from '../grafik/MiniBastion.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -63,6 +61,7 @@
 
 <div class="startseite">
   <header class="kopf">
+    <p class="marke">{t('start.ueberschrift')}</p>
     <p class="datum">{datum(heute)}</p>
     {#if rueckkehr}
       <p class="gruss" role="status">
@@ -78,30 +77,39 @@
 
   {@render children?.()}
 
-  {#if basebau}
-    <button class="karte bastion" onclick={() => onziel('bastion')}>
-      <span class="bild"><MiniBastion /></span>
-      <span class="bastion-name">{tt('bastion.knopf')}</span>
-    </button>
-  {/if}
-
-  <button
-    class="ueben"
-    aria-label={t('start.ueben')}
-    aria-describedby="ueben-dran"
-    onclick={() => onziel('ueben')}
-  >
-    <span class="ueben-titel"><Symbol name="ueben" /> {t('start.ueben')}</span>
-    <span class="ueben-dran" id="ueben-dran"
-      >{geradeDran === 0
-        ? t('start.ueben-frei')
-        : geradeDran === 1
-          ? t('start.gerade-dran-eins')
-          : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+  <!-- §T101: primäre Türen zuerst above the fold -->
+  <div class="tueren" role="navigation" aria-label={t('hub.tueren')}>
+    <button
+      class="tuer ueben"
+      aria-label={t('start.ueben')}
+      aria-describedby="ueben-dran"
+      onclick={() => onziel('ueben')}
     >
-  </button>
+      <span class="ueben-titel"><Symbol name="ueben" /> {t('start.ueben')}</span>
+      <span class="ueben-dran" id="ueben-dran"
+        >{geradeDran === 0
+          ? t('start.ueben-frei')
+          : geradeDran === 1
+            ? t('start.gerade-dran-eins')
+            : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+      >
+    </button>
 
-  <div class="kacheln">
+    {#if basebau}
+      <button class="tuer bastion" onclick={() => onziel('bastion')}>
+        <span class="bild"><MiniBastion /></span>
+        <span class="bastion-name">{tt('bastion.knopf')}</span>
+      </button>
+    {/if}
+
+    <button class="tuer mehr" onclick={() => onziel('mehr')}>
+      <Symbol name="mehr" />
+      <span class="kachel-name">{t('hub.mehr')}</span>
+      <span class="kachel-info">{t('hub.mehr-info')}</span>
+    </button>
+  </div>
+
+  <div class="neben" aria-label={t('hub.neben')}>
     <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
       <Symbol name="wiederholen" />
       <span class="kachel-name">{t('wiederholen.knopf')}</span>
@@ -134,11 +142,6 @@
       <span class="kachel-name">{t('stand.knopf')}</span>
       <span class="kachel-info">{t('start.stand-info')}</span>
     </button>
-    <button class="kachel mehr" onclick={() => onziel('mehr')}>
-      <Symbol name="mehr" />
-      <span class="kachel-name">{t('hub.mehr')}</span>
-      <span class="kachel-info">{t('hub.mehr-info')}</span>
-    </button>
   </div>
 
   {#if klassenarbeit}
@@ -156,11 +159,10 @@
 </div>
 
 <style>
-  /* Die Startseite füllt den Bildschirm; den freien Platz bekommt
-     das Bild der Bastion (ohne Basebau die Kacheln), statt unten leer zu bleiben. */
   .startseite {
     display: flex;
     flex-direction: column;
+    gap: var(--abstand-s);
     min-block-size: calc(
       100dvh - env(safe-area-inset-top) - var(--abstand-l) - env(safe-area-inset-bottom) -
         var(--abstand-s)
@@ -169,37 +171,35 @@
   .startseite > :global(*) {
     flex-shrink: 0;
   }
-  .startseite > .bastion {
-    flex: 1 1 0;
-    min-block-size: 6.75rem;
-    max-block-size: 20rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .startseite:not(:has(> .bastion)) > .kacheln {
-    flex: 1 1 auto;
-    grid-auto-rows: 1fr;
-  }
   .kopf {
-    margin-block-end: var(--abstand-s);
+    margin-block-end: 0;
+  }
+  .marke {
+    font-family: var(--schrift-display, var(--schrift));
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--farbe-akzent);
+    margin-block: 0 0.15rem;
+    line-height: 1.1;
   }
   .datum {
     color: var(--farbe-text-leise);
     font-weight: 700;
-    margin-block-end: 0.25rem;
+    margin-block: 0 0.15rem;
+    font-size: 0.95rem;
   }
   .gruss {
-    font-size: 1.375rem;
-    font-weight: 800;
-    line-height: 1.25;
-    margin-block-end: var(--abstand-s);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-block: 0;
   }
   .leise {
     color: var(--farbe-text-leise);
+    margin-block: 0.15rem 0;
   }
   .test {
     font-size: 0.875rem;
-    margin-block-end: var(--abstand-s);
   }
 
   button {
@@ -208,25 +208,52 @@
     cursor: pointer;
   }
 
-  .karte {
-    display: block;
+  .tueren {
+    display: grid;
+    gap: var(--abstand-s);
+    grid-template-columns: 1fr;
+  }
+
+  .tuer {
+    display: grid;
+    gap: 0.2rem;
     inline-size: 100%;
-    padding: 0;
+    padding-block: 0.7rem;
+    padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
-    overflow: hidden;
     text-align: start;
-    margin-block-end: var(--abstand-s);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
   }
-  .bastion {
+
+  .tuer.ueben {
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    min-block-size: 4rem;
+  }
+  .ueben-titel {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  .ueben-dran {
+    font-size: 0.95rem;
+  }
+
+  .tuer.bastion {
     position: relative;
+    padding: 0;
+    overflow: hidden;
+    background: var(--farbe-flaeche);
+    min-block-size: 7rem;
+    max-block-size: 11rem;
   }
   .bastion .bild {
     display: block;
-    flex: 1 1 0;
-    min-block-size: 0;
+    block-size: 7rem;
+    max-block-size: 11rem;
   }
   .bastion-name {
     position: absolute;
@@ -239,56 +266,47 @@
     font-weight: 800;
   }
 
-  .ueben {
-    display: grid;
-    gap: 0.25rem;
-    inline-size: 100%;
-    min-block-size: 4.25rem;
-    padding-block: 0.75rem;
-    padding-inline: var(--abstand-m);
-    border: none;
-    border-radius: var(--radius-karte);
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
-    text-align: start;
-    margin-block-end: var(--abstand-s);
-  }
-  .ueben-titel {
+  .tuer.mehr {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
-    font-size: 1.5rem;
-    font-weight: 800;
+    min-block-size: 3.25rem;
+    background: var(--farbe-flaeche);
+    color: var(--farbe-akzent);
   }
-  .ueben-dran {
-    font-size: 1rem;
+  .tuer.mehr .kachel-name {
+    font-weight: 800;
+    color: var(--farbe-text);
+  }
+  .tuer.mehr .kachel-info {
+    flex: 1 1 100%;
+    font-size: 0.875rem;
+    color: var(--farbe-text-leise);
   }
 
-  .kacheln {
+  .neben {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--abstand-s);
-    margin-block-end: var(--abstand-s);
+    margin-block-start: var(--abstand-s);
   }
   .kachel {
     display: grid;
     align-content: start;
     justify-items: start;
-    gap: 0.25rem;
-    min-block-size: 5.5rem;
-    padding: 0.75rem;
+    gap: 0.2rem;
+    min-block-size: 4.5rem;
+    padding: 0.65rem;
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
     text-align: start;
     color: var(--farbe-akzent);
   }
   .kachel.warm {
     border-block-start: 4px solid var(--farbe-akzent-warm);
-  }
-  .kachel.mehr {
-    grid-column: 1 / -1;
   }
   .kachel:disabled {
     cursor: default;
@@ -304,9 +322,9 @@
     color: var(--farbe-text);
   }
   .kachel-info {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--farbe-text-leise);
-    line-height: 1.35;
+    line-height: 1.3;
   }
 
   .hinweis {
@@ -314,7 +332,7 @@
     flex-wrap: wrap;
     align-items: center;
     column-gap: var(--abstand-m);
-    margin-block-end: var(--abstand-s);
+    margin-block: 0;
     padding-block: 0;
     padding-inline: var(--abstand-m);
     border: 2px solid var(--farbe-hinweis-rand);

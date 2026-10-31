@@ -23,7 +23,11 @@
 </script>
 
 <div class="spiel" aria-label={tt('bastion.vorrat-kurz')}>
-  <ul class="chips">
+  <!-- §U105: Probe-Banner und Test-Vorrat gekoppelt -->
+  {#if testRohstoffe}
+    <p class="probe" role="status">{t('bastion.probe-banner-an')}</p>
+  {/if}
+  <ul class="chips" class:probe-chips={testRohstoffe}>
     {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
       <li>
         <Symbol name={symbol} />
@@ -56,6 +60,19 @@
     justify-content: center;
   }
 
+  .probe {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding-block: 0.15rem;
+    padding-inline: 0.45rem;
+    border-radius: var(--radius);
+    border: 1px dashed var(--farbe-akzent-warm);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    color: var(--farbe-text);
+    white-space: nowrap;
+  }
+
   .chips {
     list-style: none;
     margin: 0;
@@ -68,6 +85,10 @@
     box-shadow: 0 1px 4px var(--farbe-schatten);
     min-inline-size: 0;
     max-inline-size: 100%;
+  }
+
+  .chips.probe-chips {
+    border: 1px dashed var(--farbe-akzent-warm);
   }
 
   .chips li {

@@ -21,7 +21,6 @@
   import { istDauerhaft } from '../plattform/speicher';
   import PinVermerke from './PinVermerke.svelte';
   import { pinGueltig } from '../plattform/pin';
-  import { tt } from '../bastion/thema.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
@@ -134,6 +133,8 @@
         <p>{t('eltern.einrichten')}</p>
         {#if ausSicherung}<p class="hinweis">{t('eltern.pin-aus-sicherung')}</p>{/if}
       {:else}
+        <!-- §U106: lokaler Hinweis ohne Cloud-Reset-Mythos -->
+        <p class="hinweis">{t('eltern.vergessen-hinweis')}</p>
         <label
           >{t('eltern.code-eingeben')}
           <input autocomplete="off" bind:value={wiederherstellung} /></label
@@ -194,6 +195,8 @@
         schritt = 'zuruecksetzen';
       }}>{t('eltern.vergessen')}</button
     >
+    <!-- §U106: lokaler Hinweis, kein Cloud-Reset -->
+    <p class="hinweis">{t('eltern.vergessen-hinweis')}</p>
   {:else if schritt === 'offen'}
     <p class="leise">{t('eltern.transparenz')}</p>
     <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
@@ -224,10 +227,20 @@
     >
     <h3>{t('eltern.klasse-titel')}</h3>
     <KlassenWahl bind:klasse bind:schulart mitSchulart />
-    <h3>{tt('basebau.ueberschrift')}</h3>
-    <BasebauSchalter bind:an={basebau} durch="eltern" />
-    <h3>{t('bastion.test-rohstoffe')}</h3>
-    <TestRohstoffe />
+    <!-- §U108: Basebau/Demo klar von Kind-Bastion getrennt -->
+    <section class="werkstatt-block" aria-labelledby="eltern-kind-bastion">
+      <h3 id="eltern-kind-bastion">{t('eltern.kind-bastion-titel')}</h3>
+      <p class="leise">{t('eltern.kind-bastion-text')}</p>
+    </section>
+    <section class="werkstatt-block demo" aria-labelledby="eltern-basebau">
+      <h3 id="eltern-basebau">{t('eltern.basebau-demo-titel')}</h3>
+      <p class="leise">{t('eltern.basebau-demo-text')}</p>
+      <BasebauSchalter bind:an={basebau} durch="eltern" />
+    </section>
+    <section class="werkstatt-block" aria-labelledby="eltern-probe">
+      <h3 id="eltern-probe">{t('eltern.probe-titel')}</h3>
+      <TestRohstoffe />
+    </section>
     <WetterEinstellung durch="eltern" />
     <Testphase />
     <p class="leise">{t('eltern.ehrlich')}</p>
@@ -323,5 +336,21 @@
   .hinweis {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  .werkstatt-block {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+  }
+
+  .werkstatt-block.demo {
+    border: 2px dashed var(--farbe-rand);
+  }
+
+  .werkstatt-block h3 {
+    margin-block: 0;
   }
 </style>

@@ -26,3 +26,4 @@
 | 31.10.2026 | **CC0-Sounddateien:** Kenney-Tips + eigenes Ambient unter `public/sound/` (Manifest); Loader mit Web-Audio-Fallback; PWA-Precache `.ogg` (T-18, G8) |
 | 31.10.2026 | **Docs-Abgleich:** SESSION/PLAN/GRAFIK/SPRITES an Ist-Stand (G0–G11, P0–P6, CC0 erledigt; kein „nächster = G2“); optional Feinschliff klar |
 | 31.10.2026 | **Feinschliff P3–P6:** Laub/Schnee-Dach nur Land; Hinterhof Umbruch+nur im Hinterhof-Blick; Bastion-Kern Firstkappe |
+| 31.10.2026 | **Design §R–§U (93–108):** Eingabe-Karten/Ordnen/Uhr/Rest; Feedback; Hub-Türen+Mehr-Zonen; Eltern Probe/PIN/Druck/Trennung |

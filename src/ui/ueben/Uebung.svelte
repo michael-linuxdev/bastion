@@ -307,6 +307,7 @@
           typ={aufgabe.vorlage.typ}
           tastatur={aufgabe.vorlage.tastatur}
           gesperrt={ergebnis !== undefined}
+          erfolg={ergebnis?.richtig === true}
           onantwort={beantwortet}
         />
 
@@ -338,9 +339,12 @@
         {#if ergebnis}
           <div class="rueckmeldung" class:richtig={ergebnis.richtig} role="status">
             <p class="urteil">{ergebnis.richtig ? t('uebung.richtig') : t('uebung.falsch')}</p>
-            {#if weg !== 'laeuft'}
-              {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
-              {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
+            {#if weg !== 'laeuft' && (rueckmeldung || kommaHinweis)}
+              <details class="urteil-detail">
+                <summary>{t('uebung.urteil-mehr')}</summary>
+                {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
+                {#if kommaHinweis}<p>{t('uebung.punkt-statt-komma')}</p>{/if}
+              </details>
             {/if}
           </div>
           {#if weg !== 'aus' && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
@@ -575,12 +579,35 @@
   }
 
   .urteil {
-    font-weight: 800;
-    font-size: 1.25rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-block: 0;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .rueckmeldung.richtig .urteil {
     color: var(--farbe-erfolg);
+  }
+
+  .urteil-detail {
+    margin-block-start: 0.35rem;
+  }
+
+  .urteil-detail summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--farbe-text-leise);
+    min-block-size: var(--ziel);
+    display: flex;
+    align-items: center;
+  }
+
+  .urteil-detail p {
+    margin-block: 0.35rem 0;
   }
 
   .weg {

@@ -202,9 +202,15 @@
 </div>
 
 <style>
+  /* §U107: druckfreundlich – helle Fläche, wenig Farbe */
   .bericht {
     display: grid;
     gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius);
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid var(--farbe-rand);
   }
 
   .umschalter {
@@ -218,15 +224,16 @@
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    background: transparent;
-    color: var(--farbe-text);
+    border: 2px solid var(--farbe-rand);
+    background: #fff;
+    color: #1a1a1a;
     cursor: pointer;
   }
 
   .umschalter button[aria-pressed='true'] {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
+    background: var(--farbe-flaeche-leise);
+    border-color: var(--farbe-text);
+    color: #1a1a1a;
   }
 
   h4 {
@@ -241,6 +248,7 @@
     border-collapse: collapse;
     inline-size: 100%;
     font-size: 1rem;
+    background: #fff;
   }
 
   th,
@@ -249,7 +257,7 @@
     vertical-align: top;
     padding-block: 0.3rem;
     padding-inline: 0.4rem;
-    border-block-end: 1px solid var(--farbe-rand);
+    border-block-end: 1px solid #ccc;
   }
 
   .lk {
@@ -260,6 +268,29 @@
 
   small {
     display: block;
-    color: var(--farbe-text-leise);
+    color: #555;
+  }
+
+  .leise {
+    color: #555;
+  }
+
+  @media print {
+    .bericht {
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      background: #fff;
+      color: #000;
+    }
+
+    .umschalter {
+      display: none;
+    }
+
+    th,
+    td {
+      border-block-end-color: #999;
+    }
   }
 </style>
