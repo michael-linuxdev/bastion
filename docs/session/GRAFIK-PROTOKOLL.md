@@ -18,3 +18,4 @@
 | 31.10.2026 | **P2 Garten-Sprites:** Gebäude Epoche 1, Rasen, Wesen (Biene/Schnecke/Schmetterling) im Atlas; Garten-Szene nutzt Atlas, Code bleibt Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8) |
 | 31.10.2026 | **Politur-Pass Bastion:** Versetzen ohne DataCloneError (`$state`-Proxy), Bau-Blatt-Schließen/Textumbruch, Auswahl↔Blatt, kompakte Knöpfe, Leiste Quer zuverlässiger |
 | 31.10.2026 | **Abend-Fenster / Dorf-Politur:** `*_fenster.png`-Layer Dorf+Garten; Runtime am Abend; Tages-Sprites mit Rahmen/Sims (`GRAFIK-SPRITES.md` §1/§3) |
+| 31.10.2026 | **Bewohner ausgebaut:** Handwerkerin/Imkerin, mehr Tätigkeiten, Fortschritts-Kopplung, Tippen+Zahnrad-Erklärung (`GRAFIK.md` §4.4) |

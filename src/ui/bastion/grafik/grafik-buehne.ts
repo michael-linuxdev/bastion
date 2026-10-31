@@ -81,10 +81,12 @@ import { partikelBudget, type WetterBild } from './wetter';
 import { hinterhofZeichnen } from './hinterhof-szene';
 import {
   bewohnerFortschritt,
+  bewohnerFortschrittKey,
   bewohnerReagieren,
   bewohnerStarten,
   bewohnerTick,
   bewohnerFarbe,
+  bewohnerMuetze,
   type BewohnerZustand,
 } from './bewohner';
 import { belegteFelder } from './pfad';
@@ -145,7 +147,9 @@ export interface Buehne {
   bewohnerBei(clientX: number, clientY: number): string | undefined;
   /** Kurze Reaktion auf Tippen */
   tippeWesen(id: string): void;
-  tippeBewohner(id: string): void;
+  tippeBewohner(id: string): BewohnerZustand | undefined;
+  /** Bewohner-Zustand zur Anzeige (Name/Tätigkeit) */
+  bewohnerZustand(id: string): BewohnerZustand | undefined;
   zerstoere(): void;
 }
 
@@ -197,29 +201,64 @@ function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
   const x = b.x;
   const y = b.y;
   const farbe = bewohnerFarbe(b.art);
-  // Körper + spitze Mütze
+  // Körper + Mütze (Form je Art leicht unterscheidbar)
   g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
-  g.poly([x - 4 * s, y - 4 * s, x, y - 11 * s, x + 4 * s, y - 4 * s]).fill(
-    b.art === 'gaertner' ? '#3a6a38' : b.art === 'bibliothek' ? '#4a4a88' : '#b03a2e',
-  );
+  if (b.art === 'imker') {
+    // flacher Schleierhut
+    g.ellipse(x, y - 6.5 * s, 5 * s, 2 * s).fill(bewohnerMuetze(b.art));
+    g.rect(x - 4.5 * s, y - 6 * s, 9 * s, 3 * s).fill({ color: '#f5f0c8', alpha: 0.45 });
+  } else if (b.art === 'handwerk') {
+    // flache Kappe
+    g.ellipse(x, y - 5.5 * s, 4.5 * s, 1.8 * s).fill(bewohnerMuetze(b.art));
+  } else if (b.art === 'torhueter') {
+    // runde Wächterkappe
+    g.ellipse(x, y - 6 * s, 4 * s, 2.5 * s).fill(bewohnerMuetze(b.art));
+  } else {
+    g.poly([x - 4 * s, y - 4 * s, x, y - 11 * s, x + 4 * s, y - 4 * s]).fill(bewohnerMuetze(b.art));
+  }
   g.circle(x, y - 3.5 * s, 2.2 * s).fill('#f0d8c0');
-  // Tätigkeit: Gießkanne / Besen / Buch / Blick
+  // Tätigkeit: Gießkanne / Besen / Buch / Blick / Werkzeug / Korb
   if (b.taetigkeit === 'giessen') {
     const wip = Math.sin(b.phase) * 2;
     g.poly([x + 5 * s, y - 2 * s, x + 9 * s, y - 1 * s + wip, x + 7 * s, y + 1 * s]).fill(
       '#5a8aaa',
     );
     g.circle(x + 8 * s, y + 2 * s + wip, 0.8 * s).fill({ color: '#6ab0d0', alpha: 0.7 });
-  } else if (b.taetigkeit === 'kehren' || b.taetigkeit === 'gaertnern') {
+  } else if (
+    b.taetigkeit === 'kehren' ||
+    b.taetigkeit === 'gaertnern' ||
+    b.taetigkeit === 'pflanzen'
+  ) {
     const wip = Math.sin(b.phase) * 3;
     g.moveTo(x - 5 * s, y - 1 * s)
       .lineTo(x - 8 * s + wip, y + 4 * s)
       .stroke({ width: 1.5, color: '#8a6a3a' });
-  } else if (b.taetigkeit === 'lesen') {
+    if (b.taetigkeit === 'pflanzen') {
+      g.circle(x - 7 * s + wip, y + 4.5 * s, 1.2 * s).fill('#4a8a3a');
+    }
+  } else if (b.taetigkeit === 'lesen' || b.taetigkeit === 'ordnen') {
     g.rect(x + 3 * s, y - 5 * s, 5 * s, 4 * s).fill('#e8e0c8');
-  } else if (b.taetigkeit === 'schauen') {
+    if (b.taetigkeit === 'ordnen') {
+      g.rect(x + 4 * s, y - 7 * s, 4 * s, 2 * s).fill('#d0c8a8');
+    }
+  } else if (b.taetigkeit === 'flicken') {
+    const wip = Math.sin(b.phase) * 2;
+    g.moveTo(x + 4 * s, y - 2 * s)
+      .lineTo(x + 8 * s, y - 4 * s + wip)
+      .stroke({ width: 1.6, color: '#5a5a5a' });
+    g.rect(x + 7 * s, y - 5.5 * s + wip, 2.5 * s, 2 * s).fill('#7a7a7a');
+  } else if (b.taetigkeit === 'sammeln') {
+    g.ellipse(x + 6 * s, y + 1 * s, 3 * s, 2 * s).fill('#8a5a2a');
+    g.circle(x + 5 * s, y, 0.9 * s).fill('#6aaa4a');
+    g.circle(x + 7 * s, y - 0.5 * s, 0.8 * s).fill('#c45c4a');
+  } else if (b.taetigkeit === 'schauen' || b.taetigkeit === 'wachen') {
     g.circle(x + 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
     g.circle(x - 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
+    if (b.taetigkeit === 'wachen') {
+      g.moveTo(x - 5 * s, y + 2 * s)
+        .lineTo(x - 5 * s, y - 8 * s)
+        .stroke({ width: 1.4, color: '#6a5a3a' });
+    }
   }
 }
 
@@ -933,6 +972,7 @@ export async function buehneErstellen(
   let bewohner: BewohnerZustand[] = [];
   let letzteWesenZahl = -1;
   let letzteBewohnerKey = '';
+  let bewohnerF: ReturnType<typeof bewohnerFortschritt> | undefined;
   let belegt = belegteFelder([]);
   let letzteBauwerke: Bastion['bauwerke'] = [];
   let tickerZuletzt = performance.now();
@@ -1113,7 +1153,7 @@ export async function buehneErstellen(
       wesenZeichnen(jetzt);
     }
     if (tickerAn(bewegung) && bewohner.length > 0) {
-      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i));
+      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF));
       bewohnerZeichnen(jetzt);
     }
   };
@@ -1154,12 +1194,15 @@ export async function buehneErstellen(
       const konto = a.konto;
       if (konto) {
         const f = bewohnerFortschritt(b, konto, buecher, epocheJetzt, bewegung === 'leicht');
-        const key = `${f.gebaeude}|${f.fertig}|${f.buecher}|${f.epoche}|${f.hatWissen}|${f.hatTurm}|${f.hatFlaeche}|${f.hatZeichen}|${f.leicht}`;
+        bewohnerF = f;
+        const key = bewohnerFortschrittKey(f);
         if (key !== letzteBewohnerKey) {
           letzteBewohnerKey = key;
           bewohner = bewohnerStarten(f, b.bauwerke, bauplatzAktiv());
           bewohnerZeichnen(performance.now());
         }
+      } else {
+        bewohnerF = undefined;
       }
       if (ersterZug) {
         bekannt = ids;
@@ -1505,6 +1548,10 @@ export async function buehneErstellen(
         bewohnerReagieren(b, performance.now());
         bewohnerZeichnen(performance.now());
       }
+      return b;
+    },
+    bewohnerZustand(id) {
+      return bewohner.find((x) => x.id === id);
     },
     get view() {
       return app.canvas;

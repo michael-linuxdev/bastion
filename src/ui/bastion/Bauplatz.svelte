@@ -41,6 +41,8 @@
   import { epocheOptik, farbeSkalieren } from './grafik/epoche-optik';
   import type { Epoche } from '../../core/bastion/epochen';
   import type { Konto } from '../../core/ledger/buchung';
+  import type { BewohnerArt, Taetigkeit } from './grafik/bewohner';
+  import type { TextSchluessel } from '../texte/texte';
 
   let {
     bastion,
@@ -354,6 +356,8 @@
   let versetzen = $state(false);
   let ziel = $state<Position | undefined>(undefined);
   let hinweis = $state<'kein-platz' | undefined>(undefined);
+  /** Kurze Erklärung beim Antippen eines Bewohners (kein Timer-Druck) */
+  let bewohnerHinweis = $state<{ art: BewohnerArt; taetigkeit: Taetigkeit } | undefined>(undefined);
   /** Zeiger ging auf dem gewählten Gebäude nieder → Ziehen versetzt statt Kamera */
   let ziehAufAuswahl = false;
 
@@ -366,6 +370,7 @@
     versetzen = false;
     ziel = undefined;
     hinweis = undefined;
+    bewohnerHinweis = undefined;
   });
 
   function farben(): Farben {
@@ -535,13 +540,16 @@
     if (!versetzen) {
       const bid = buehne?.bewohnerBei(e.clientX, e.clientY);
       if (bid) {
-        buehne?.tippeBewohner(bid);
+        const b = buehne?.tippeBewohner(bid);
+        if (b) bewohnerHinweis = { art: b.art, taetigkeit: b.taetigkeit };
+        auswahl = undefined;
         soundTipp('wesen');
         return;
       }
       const wid = buehne?.wesenBei(e.clientX, e.clientY);
       if (wid) {
         buehne?.tippeWesen(wid);
+        bewohnerHinweis = undefined;
         soundTipp('wesen');
         return;
       }
@@ -549,6 +557,7 @@
     const pos = buehne?.feldBei(e.clientX, e.clientY);
     if (!pos) return;
     hinweis = undefined;
+    bewohnerHinweis = undefined;
     const g = gewaehlt;
     if (versetzen && g) {
       ziel = pos;
@@ -608,6 +617,15 @@
       >
         <Symbol name="hinterhof" />
       </button>
+    {/if}
+    {#if bewohnerHinweis && !blattOffen && !gewaehlt}
+      <div class="wahl bewohner" role="status">
+        <strong>{tt(`bastion.bewohner.${bewohnerHinweis.art}` as TextSchluessel)}</strong>
+        <span
+          >{tt(`bastion.bewohner.taetigkeit.${bewohnerHinweis.taetigkeit}` as TextSchluessel)}</span
+        >
+        <button onclick={() => (bewohnerHinweis = undefined)}>{tt('bastion.fertig')}</button>
+      </div>
     {/if}
     {#if gewaehlt && !blattOffen}
       <div class="wahl" role="status">

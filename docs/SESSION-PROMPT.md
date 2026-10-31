@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (32) · Session-Prompt in Stränge getrennt; Grafik G0–G11, P0–P2 und Abend-Fenster-Politur (B-28)
+Stand: 31.10.2026 (33) · Session-Prompt in Stränge getrennt; Grafik G0–G11, P0–P2, Abend-Fenster, Bewohner ausgebaut (B-28)
 
 ---
 

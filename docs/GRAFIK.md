@@ -110,7 +110,7 @@ Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kle
 - Erwachsene: dieselben Wesen (vorerst).
 - Max. **5** Wesen bei voller Darstellung (iPhone 13).
 - **Pfadfindung (31.10.2026):** Bodenwesen (Huhn, Katze, Schnecke, Fuchs, Wache, Krebs, Roboter) laufen auf freien Feldern um Gebäude herum (Breitensuche). Fliegende/schwimmende Arten dürfen Gebäude überqueren. Deterministisch, ohne Zufall.
-- **Bewohner (31.10.2026):** Ruhige Figuren (Gartenzwerg, Gärtnerin, Bücherwurm, Torhüter) mit kleinen Tätigkeiten (gießen, kehren, lesen, gärtnern, schauen, ruhen). Freischaltung nur über Bau-/Lernfortschritt (Gebäudezahl, fertige Vorhaben, Bücher, Turm/Wissen/Fläche, Epoche). Keine Belohnung, kein Verfall, kein Timer-Druck. Bei „ruhig“ aus; bei „leicht“ höchstens 2.
+- **Bewohner (31.10.2026, ausgebaut):** Ruhige Figuren (Gartenzwerg, Gärtnerin, Bücherwurm, Torhüter, Handwerkerin, Imkerin) mit kleinen Tätigkeiten (gießen, kehren, lesen, gärtnern, pflanzen, ordnen, flicken, wachen, sammeln, schauen, ruhen). Freischaltung nur über Bau-/Lernfortschritt (Gebäudezahl, fertige Vorhaben, Bücher, Turm/Tor/Werkstatt/Wissen/Fläche/Denkmal, Epoche). Antippen zeigt Name und Tätigkeit; kurze Erklärung im Zahnrad. Keine Belohnung, kein Verfall, kein Timer-Druck. Bei „ruhig“ aus; bei „leicht“ höchstens 2.
 
 ### 4.5 Schalter und Leistung
 
