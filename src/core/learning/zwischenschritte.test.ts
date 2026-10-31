@@ -93,7 +93,9 @@ describe('Zwischenschritte (INHALTSFORMAT §17)', () => {
     expect(pruefeSchritte(nurSumme, g)).toEqual([]);
     expect(pruefeSchritte([gut[1], gut[0]], g)[0]).toMatch(/^schritte: eine Auswahl/);
     // Wer einen Schritt weglässt, kann seine Eingabe nicht nennen
-    expect(pruefeSchritte([gut[1]], g)).toEqual(['schritte[0]: Platzhalter {nenner} ist unbekannt']);
+    expect(pruefeSchritte([gut[1]], g)).toEqual([
+      'schritte[0]: Platzhalter {nenner} ist unbekannt',
+    ]);
     expect(pruefeSchritte(gut, { platzhalter: [] })).toContain(
       'schritte: Der Generator kennt keine Zwischenschritte',
     );
