@@ -32,6 +32,8 @@
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
   import BastionDarstellung from './BastionDarstellung.svelte';
+  import BastionSpielLeiste from './BastionSpielLeiste.svelte';
+  import BastionBauBlatt from './BastionBauBlatt.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
@@ -80,6 +82,10 @@
 
   /** Bastion-Einstellungen hinter dem Zahnrad (nur Bauplatz auf der Seite) */
   let einstellungenOffen = $state(false);
+  /** Bauen/Planen-Blatt auf dem Reiter (Preferences Spiel) */
+  let bauBlattOffen = $state(false);
+  /** Kamera: Bauplatz oder Hinterhof (Chrome oben) */
+  let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
   let bewaehrungModus = $state<BewaehrungModus>('ueben');
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
   const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
@@ -254,15 +260,35 @@
 
     {#if !einstellungenOffen}
       <h2 class="unsichtbar">{tt('bastion.ueberschrift')}</h2>
-      <button
-        class="zahnrad schwebe"
-        aria-expanded={false}
-        aria-controls="bastion-einstellungen"
-        aria-label={t('bastion.einstellungen')}
-        onclick={() => (einstellungenOffen = true)}
-      >
-        <Symbol name="einstellungen" />
-      </button>
+      <div class="oben" role="toolbar" aria-label={tt('bastion.ueberschrift')}>
+        <div class="oben-start">
+          {#if hinterhofFelder.length > 0}
+            <button
+              class="icon"
+              aria-label={blick === 'bauplatz'
+                ? tt('hinterhof.zur-szene')
+                : tt('hinterhof.zum-bauplatz')}
+              onclick={() => (blick = blick === 'bauplatz' ? 'hinterhof' : 'bauplatz')}
+            >
+              <Symbol name="hinterhof" />
+            </button>
+          {/if}
+        </div>
+        <BastionSpielLeiste
+          konto={l.konto}
+          vorrat={l.bastion.vorrat}
+          bind:bauOffen={bauBlattOffen}
+        />
+        <button
+          class="icon zahnrad"
+          aria-expanded={false}
+          aria-controls="bastion-einstellungen"
+          aria-label={t('bastion.einstellungen')}
+          onclick={() => (einstellungenOffen = true)}
+        >
+          <Symbol name="einstellungen" />
+        </button>
+      </div>
       <Bauplatz
         bastion={l.bastion}
         onaktion={ausfuehren}
@@ -270,7 +296,41 @@
         bauplatz={epoche.bauplatz}
         epoche={epoche.epoche}
         {spannung}
+        konto={l.konto}
+        buecher={l.buecher.length}
+        hinterhofKnopf={false}
+        bind:blick
       />
+      {#if bauBlattOffen}
+        <BastionBauBlatt
+          neubauten={neubauten.map((a) => ({
+            ...a,
+            kostenText: (() => {
+              const k = kosten(a.typ, a.stufe);
+              return k ? kostenText(k) : '';
+            })(),
+          }))}
+          ausbauten={ausbauten.map((a) => ({
+            ...a,
+            kostenText: (() => {
+              const k = kosten(a.typ, a.stufe);
+              return k ? kostenText(k) : '';
+            })(),
+          }))}
+          {belegt}
+          istZiel={(a) => ist(a, ziel)}
+          {hindernisText}
+          onvormerken={(a) => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
+          onbauen={(a) =>
+            void ausfuehren({
+              art: 'beginnen',
+              typ: a.typ,
+              ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
+            }).then((ok) => {
+              if (ok) bauBlattOffen = false;
+            })}
+        />
+      {/if}
     {/if}
 
     {#if einstellungenOffen}
@@ -647,12 +707,44 @@
     margin-block: 0;
   }
 
+  /* Eine Chrome-Zeile: Hinterhof | Vorrat/Bauen | Zahnrad – Spalten, kein Overlap */
+  .oben {
+    position: absolute;
+    inset-block-start: var(--abstand-s);
+    inset-inline: var(--abstand-s);
+    z-index: 3;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--abstand-s);
+    pointer-events: none;
+  }
+
+  .oben > :global(*) {
+    pointer-events: auto;
+  }
+
+  .oben-start {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  @media (orientation: landscape) and (height < 30rem) {
+    .oben {
+      inset-block-start: max(0.35rem, env(safe-area-inset-top, 0px));
+      gap: 0.35rem;
+    }
+  }
+
+  .icon,
   .zahnrad {
     font: inherit;
     display: grid;
     place-items: center;
     inline-size: 2.75rem;
     block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
     padding: 0;
     border: none;
     border-radius: var(--radius);
@@ -661,13 +753,6 @@
     box-shadow: 0 1px 4px var(--farbe-schatten);
     cursor: pointer;
     flex-shrink: 0;
-  }
-
-  .zahnrad.schwebe {
-    position: absolute;
-    inset-block-start: var(--abstand-s);
-    inset-inline-end: var(--abstand-s);
-    z-index: 3;
   }
 
   .unsichtbar {

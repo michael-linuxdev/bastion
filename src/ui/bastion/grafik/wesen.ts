@@ -1,9 +1,14 @@
 /**
  * Friedliche Wesen in der Bastion-Szene (GRAFIK §4.4).
  * Anzahl steigt mit gebauten Gebäuden; bei „ruhig“ aus. Kein Zufall.
+ * Bodenwesen laufen um Gebäude herum (Pfadfindung).
  */
+import type { Bauwerk, Position } from '../../../core/bastion/katalog';
 import type { Thema } from '../../../core/policy/einstellung';
-import { buehneBreite, buehneHoehe, punkt } from './iso';
+import { bauplatzAktiv, buehneBreite, buehneHoehe, type BauplatzMass } from './iso';
+import { belegteFelder, bildZuFeld, feldMittePunkt, freiesFeld, pfadSuchen } from './pfad';
+
+type Platz = BauplatzMass;
 
 export type WesenArt =
   | 'huhn'
@@ -71,6 +76,19 @@ export function wesenAnzahl(gebaeude: number, leicht: boolean): number {
   return Math.min(max, 1 + Math.floor(gebaeude / 3));
 }
 
+/** Fliegende / schwimmende Arten dürfen Gebäude überqueren. */
+export function wesenFliegt(art: WesenArt): boolean {
+  return (
+    art === 'spatz' ||
+    art === 'biene' ||
+    art === 'schmetterling' ||
+    art === 'fisch' ||
+    art === 'qualle' ||
+    art === 'drohne' ||
+    art === 'moewe'
+  );
+}
+
 export interface WesenZustand {
   readonly id: string;
   readonly art: WesenArt;
@@ -82,6 +100,8 @@ export interface WesenZustand {
   /** Zielpunkt fürs Gehen */
   zx: number;
   zy: number;
+  /** Weitere Wegpunkte (Bildpunkte) nach dem aktuellen Ziel */
+  weg: { x: number; y: number }[];
   /** Blickrichtung: 1 rechts, -1 links */
   richtung: 1 | -1;
   /** Reaktion bis performance.now()-Zeitstempel */
@@ -89,57 +109,129 @@ export interface WesenZustand {
   phase: number;
 }
 
-/** Feste Wege auf dem Bauplatz (Feldmitten), deterministisch. */
-const WEGE: readonly { x: number; y: number }[] = [
-  { x: 2.5, y: 3.5 },
-  { x: 5.5, y: 2.5 },
-  { x: 8.5, y: 4.5 },
-  { x: 4.5, y: 7.5 },
-  { x: 9.5, y: 8.5 },
-  { x: 3.5, y: 10.5 },
-  { x: 7.5, y: 9.5 },
-  { x: 10.5, y: 6.5 },
-];
-
-export function wegPunkt(index: number): { x: number; y: number } {
-  const f = WEGE[index % WEGE.length] ?? { x: 2.5, y: 3.5 };
-  const p = punkt(f.x, f.y);
+function klemmen(p: { x: number; y: number }): { x: number; y: number } {
   return {
     x: Math.min(buehneBreite() - 8, Math.max(8, p.x)),
     y: Math.min(buehneHoehe() - 8, Math.max(40, p.y)),
   };
 }
 
+function zielSetzen(w: WesenZustand, felder: Position[], fliegt: boolean): void {
+  if (felder.length === 0) return;
+  const punkte = felder.map((f) => klemmen(feldMittePunkt(f)));
+  // Flieger: Direktflug zum letzten Punkt; Boden: entlang der Felder
+  if (fliegt) {
+    const ende = punkte[punkte.length - 1];
+    if (!ende) return;
+    w.zx = ende.x;
+    w.zy = ende.y;
+    w.weg = [];
+  } else {
+    const erst = punkte[0];
+    if (!erst) return;
+    w.zx = erst.x;
+    w.zy = erst.y;
+    w.weg = punkte.slice(1);
+  }
+  w.richtung = w.zx >= w.x ? 1 : -1;
+}
+
+function neuesZiel(
+  w: WesenZustand,
+  index: number,
+  jetzt: number,
+  belegt: ReadonlySet<string>,
+  platz: Platz,
+): void {
+  const fliegt = wesenFliegt(w.art);
+  const zielFeld = freiesFeld(index * 3 + Math.floor(jetzt / 5000), belegt, platz);
+  if (fliegt) {
+    zielSetzen(w, [zielFeld], true);
+    return;
+  }
+  const von = bildZuFeld(w.x, w.y);
+  const weg = pfadSuchen(von, zielFeld, belegt, platz);
+  if (weg.length > 0) {
+    zielSetzen(w, weg.slice(1).length > 0 ? weg.slice(1) : [zielFeld], false);
+  } else {
+    // Kein Weg: auf der Stelle warten, nächstes freies Feld versuchen
+    const alt = freiesFeld(index * 7 + Math.floor(jetzt / 3000), belegt, platz);
+    const altWeg = pfadSuchen(von, alt, belegt, platz);
+    if (altWeg.length > 0)
+      zielSetzen(w, altWeg.slice(1).length > 0 ? altWeg.slice(1) : [alt], false);
+    else zielSetzen(w, [alt], false);
+  }
+}
+
+export interface WesenStartOpts {
+  readonly bauwerke?: readonly Bauwerk[];
+  readonly platz?: BauplatzMass;
+}
+
 /** Startliste für n Wesen aus den Arten des Themas. */
-export function wesenStarten(thema: Thema, gebaeude: number, leicht: boolean): WesenZustand[] {
+export function wesenStarten(
+  thema: Thema,
+  gebaeude: number,
+  leicht: boolean,
+  opts: WesenStartOpts = {},
+): WesenZustand[] {
   const arten = wesenArten(thema);
   if (arten.length === 0) return [];
   const n = wesenAnzahl(gebaeude, leicht);
+  const platz = opts.platz ?? bauplatzAktiv();
+  const belegt = belegteFelder(opts.bauwerke ?? []);
   const aus: WesenZustand[] = [];
   for (let i = 0; i < n; i++) {
     const info = arten[i % arten.length];
     if (!info) continue;
-    const start = wegPunkt(i * 2);
-    const ziel = wegPunkt(i * 2 + 1);
-    aus.push({
+    const startFeld = freiesFeld(i * 2, belegt, platz);
+    const zielFeld = freiesFeld(i * 2 + 1, belegt, platz);
+    const start = klemmen(feldMittePunkt(startFeld));
+    const fliegt = wesenFliegt(info.art);
+    const w: WesenZustand = {
       id: `w-${i}-${info.art}`,
       art: info.art,
       farbe: info.farbe,
       skala: info.skala,
       x: start.x,
       y: start.y,
-      zx: ziel.x,
-      zy: ziel.y,
-      richtung: ziel.x >= start.x ? 1 : -1,
+      zx: start.x,
+      zy: start.y,
+      weg: [],
+      richtung: 1,
       reactBis: 0,
       phase: i * 0.7,
-    });
+    };
+    if (fliegt) {
+      zielSetzen(w, [zielFeld], true);
+    } else {
+      const weg = pfadSuchen(startFeld, zielFeld, belegt, platz);
+      zielSetzen(w, weg.length > 1 ? weg.slice(1) : [zielFeld], false);
+    }
+    aus.push(w);
   }
   return aus;
 }
 
-/** Einen Tick weiterbewegen; bei Ankunft neues Wegziel. */
-export function wesenTick(w: WesenZustand, dt: number, jetzt: number, index: number): void {
+/** Hindernisse für den nächsten Tick setzen (nach Gebäudewechsel). */
+export function wesenHindernisse(
+  liste: WesenZustand[],
+  bauwerke: readonly Bauwerk[],
+  platz: Platz = bauplatzAktiv(),
+): { belegt: ReadonlySet<string>; platz: Platz } {
+  void liste;
+  return { belegt: belegteFelder(bauwerke), platz };
+}
+
+/** Einen Tick weiterbewegen; bei Ankunft neues Wegziel (um Gebäude herum). */
+export function wesenTick(
+  w: WesenZustand,
+  dt: number,
+  jetzt: number,
+  index: number,
+  belegt: ReadonlySet<string> = new Set(),
+  platz: Platz = bauplatzAktiv(),
+): void {
   if (jetzt < w.reactBis) {
     // kurze Hopser-Reaktion
     w.y -= Math.sin(((w.reactBis - jetzt) / 400) * Math.PI) * 0.4;
@@ -149,19 +241,17 @@ export function wesenTick(w: WesenZustand, dt: number, jetzt: number, index: num
   const dy = w.zy - w.y;
   const dist = Math.hypot(dx, dy);
   if (dist < 2) {
-    const neu = wegPunkt(index * 3 + Math.floor(jetzt / 5000));
-    w.zx = neu.x;
-    w.zy = neu.y;
-    w.richtung = neu.x >= w.x ? 1 : -1;
+    const naechstes = w.weg.shift();
+    if (naechstes) {
+      w.zx = naechstes.x;
+      w.zy = naechstes.y;
+      w.richtung = w.zx >= w.x ? 1 : -1;
+      return;
+    }
+    neuesZiel(w, index, jetzt, belegt, platz);
     return;
   }
-  const schnell =
-    w.art === 'spatz' ||
-    w.art === 'biene' ||
-    w.art === 'schmetterling' ||
-    w.art === 'fisch' ||
-    w.art === 'drohne' ||
-    w.art === 'moewe';
+  const schnell = wesenFliegt(w.art);
   const speed = (schnell ? 28 : 16) * dt;
   w.x += (dx / dist) * speed;
   w.y += (dy / dist) * speed;

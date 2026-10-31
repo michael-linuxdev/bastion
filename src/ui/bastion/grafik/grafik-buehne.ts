@@ -78,6 +78,15 @@ import {
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
 import { hinterhofZeichnen } from './hinterhof-szene';
+import {
+  bewohnerFortschritt,
+  bewohnerReagieren,
+  bewohnerStarten,
+  bewohnerTick,
+  bewohnerFarbe,
+  type BewohnerZustand,
+} from './bewohner';
+import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import type { Bildart } from './bildart';
 export type { Bildart } from './bildart';
@@ -115,6 +124,10 @@ export interface Ansicht {
   readonly hinterhof?: readonly HinterhofFeld[];
   /** Freigeschaltete Epoche für Optik (GRAFIK §8 / G10) */
   readonly epoche?: Epoche;
+  /** Bücher für Bewohner-Freischaltung (Wissen behalten) */
+  readonly buecher?: number;
+  /** Konto nur für Ableitung – Stand wird nicht gezeichnet */
+  readonly konto?: import('../../../core/ledger/buchung').Konto;
 }
 
 export interface Buehne {
@@ -127,8 +140,11 @@ export interface Buehne {
   feldBei(clientX: number, clientY: number): Position | undefined;
   /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
   wesenBei(clientX: number, clientY: number): string | undefined;
+  /** Bewohner unter dem Punkt */
+  bewohnerBei(clientX: number, clientY: number): string | undefined;
   /** Kurze Reaktion auf Tippen */
   tippeWesen(id: string): void;
+  tippeBewohner(id: string): void;
   zerstoere(): void;
 }
 
@@ -172,6 +188,38 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
   g.moveTo(x + 2 * s, y + 2 * s)
     .lineTo(x + 2 * s, y + 5 * s - wip)
     .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
+}
+
+/** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
+function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
+  const s = jetzt < b.reactBis ? 1.1 : 1;
+  const x = b.x;
+  const y = b.y;
+  const farbe = bewohnerFarbe(b.art);
+  // Körper + spitze Mütze
+  g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
+  g.poly([x - 4 * s, y - 4 * s, x, y - 11 * s, x + 4 * s, y - 4 * s]).fill(
+    b.art === 'gaertner' ? '#3a6a38' : b.art === 'bibliothek' ? '#4a4a88' : '#b03a2e',
+  );
+  g.circle(x, y - 3.5 * s, 2.2 * s).fill('#f0d8c0');
+  // Tätigkeit: Gießkanne / Besen / Buch / Blick
+  if (b.taetigkeit === 'giessen') {
+    const wip = Math.sin(b.phase) * 2;
+    g.poly([x + 5 * s, y - 2 * s, x + 9 * s, y - 1 * s + wip, x + 7 * s, y + 1 * s]).fill(
+      '#5a8aaa',
+    );
+    g.circle(x + 8 * s, y + 2 * s + wip, 0.8 * s).fill({ color: '#6ab0d0', alpha: 0.7 });
+  } else if (b.taetigkeit === 'kehren' || b.taetigkeit === 'gaertnern') {
+    const wip = Math.sin(b.phase) * 3;
+    g.moveTo(x - 5 * s, y - 1 * s)
+      .lineTo(x - 8 * s + wip, y + 4 * s)
+      .stroke({ width: 1.5, color: '#8a6a3a' });
+  } else if (b.taetigkeit === 'lesen') {
+    g.rect(x + 3 * s, y - 5 * s, 5 * s, 4 * s).fill('#e8e0c8');
+  } else if (b.taetigkeit === 'schauen') {
+    g.circle(x + 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
+    g.circle(x - 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
+  }
 }
 
 type Punkt = { x: number; y: number };
@@ -849,9 +897,14 @@ export async function buehneErstellen(
   gebaeude.position.set(buehneBreite() / 2, buehneHoehe() / 2);
   const partikelLage = new Container();
   const wesenLage = new Container();
-  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
+  const bewohnerLage = new Container();
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, bewohnerLage, partikelLage);
   let wesen: WesenZustand[] = [];
+  let bewohner: BewohnerZustand[] = [];
   let letzteWesenZahl = -1;
+  let letzteBewohnerKey = '';
+  let belegt = belegteFelder([]);
+  let letzteBauwerke: Bastion['bauwerke'] = [];
   let tickerZuletzt = performance.now();
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
@@ -993,6 +1046,16 @@ export async function buehneErstellen(
     }
   };
 
+  const bewohnerZeichnen = (jetzt: number) => {
+    bewohnerLage.removeChildren().forEach((c) => c.destroy());
+    if (!tickerAn(bewegung)) return;
+    for (const b of bewohner) {
+      const g = new Graphics();
+      zeichneBewohner(g, b, jetzt);
+      bewohnerLage.addChild(g);
+    }
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
@@ -1015,8 +1078,13 @@ export async function buehneErstellen(
       partikelZeichnen();
     }
     if (tickerAn(bewegung) && wesen.length > 0) {
-      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i));
+      const platz = bauplatzAktiv();
+      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i, belegt, platz));
       wesenZeichnen(jetzt);
+    }
+    if (tickerAn(bewegung) && bewohner.length > 0) {
+      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i));
+      bewohnerZeichnen(jetzt);
     }
   };
 
@@ -1029,9 +1097,10 @@ export async function buehneErstellen(
       wolkenLage.x = 0;
       gebaeude.scale.set(1);
       gebaeude.alpha = 1;
-      // Standbild der Partikel bei „ruhig“; Wesen aus
+      // Standbild der Partikel bei „ruhig“; Wesen und Bewohner aus
       partikelZeichnen();
       wesenLage.removeChildren().forEach((c) => c.destroy());
+      bewohnerLage.removeChildren().forEach((c) => c.destroy());
     }
   };
   tickerSync();
@@ -1040,10 +1109,27 @@ export async function buehneErstellen(
     zeichne(b, a) {
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
+      letzteBauwerke = b.bauwerke;
+      belegt = belegteFelder(b.bauwerke);
       if (anzahl !== letzteWesenZahl) {
         letzteWesenZahl = anzahl;
-        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht');
+        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht', {
+          bauwerke: b.bauwerke,
+          platz: bauplatzAktiv(),
+        });
         wesenZeichnen(performance.now());
+      }
+      const epocheJetzt = a.epoche ?? 1;
+      const buecher = a.buecher ?? 0;
+      const konto = a.konto;
+      if (konto) {
+        const f = bewohnerFortschritt(b, konto, buecher, epocheJetzt, bewegung === 'leicht');
+        const key = `${f.gebaeude}|${f.fertig}|${f.buecher}|${f.epoche}|${f.hatWissen}|${f.hatTurm}|${f.hatFlaeche}|${f.hatZeichen}|${f.leicht}`;
+        if (key !== letzteBewohnerKey) {
+          letzteBewohnerKey = key;
+          bewohner = bewohnerStarten(f, b.bauwerke, bauplatzAktiv());
+          bewohnerZeichnen(performance.now());
+        }
       }
       if (ersterZug) {
         bekannt = ids;
@@ -1081,7 +1167,7 @@ export async function buehneErstellen(
         return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
       });
       treffer = [];
-      const epoche = a.epoche ?? 1;
+      const epoche = epocheJetzt;
       if (art === 'dorf' && texturen.size > 0) {
         // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
         const lagen: { tiefe: number; zeichne: () => void }[] = dorfBaumLagen().map((b) => ({
@@ -1315,7 +1401,11 @@ export async function buehneErstellen(
     },
     setzeBewegung(b) {
       bewegung = b;
-      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht');
+      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht', {
+        bauwerke: letzteBauwerke,
+        platz: bauplatzAktiv(),
+      });
+      letzteBewohnerKey = '';
       tickerSync();
     },
     feldBei(clientX, clientY) {
@@ -1336,11 +1426,28 @@ export async function buehneErstellen(
       }
       return undefined;
     },
+    bewohnerBei(clientX, clientY) {
+      if (!tickerAn(bewegung)) return undefined;
+      const r = app.canvas.getBoundingClientRect();
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
+      for (const b of [...bewohner].reverse()) {
+        if (Math.hypot(b.x - x, b.y - y) < 16) return b.id;
+      }
+      return undefined;
+    },
     tippeWesen(id) {
       const w = wesen.find((x) => x.id === id);
       if (w) {
         wesenReagieren(w, performance.now());
         wesenZeichnen(performance.now());
+      }
+    },
+    tippeBewohner(id) {
+      const b = bewohner.find((x) => x.id === id);
+      if (b) {
+        bewohnerReagieren(b, performance.now());
+        bewohnerZeichnen(performance.now());
       }
     },
     get view() {

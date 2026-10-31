@@ -45,7 +45,7 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
 - **Leiste unten** (aus Richtung B übernommen): Start, Üben, Bastion, Mehr – immer sichtbar, aktueller Bereich hervorgehoben. *Geändert am 29.10.2026 (Projektverantwortlicher): „Mehr“ ersetzt „Mein Stand“.*
 - **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Themen wählen, Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
 - **Üben (31.10.2026):** Ein Klick (Leiste oder Start) springt zur nächsten bzw. offenen Aufgabe – nicht in die Themenübersicht. Klasse, Niveau und Themenwahl liegen unter „Mehr“ → „Themen wählen“.
-- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante); Vorrat, Bau, Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung sowie Darstellung (Bild aus, ruhig, leicht, Sound, Ganzes Bild) und Bedienhilfe liegen hinter dem Zahnrad oben rechts (Bastion-Einstellungen). Zoom nur per Geste (Mausrad / zwei Finger); −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung.
+- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante). Auf dem Reiter: kompakter Vorrat, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen um Gebäude herum, ruhige Bewohner (an Fortschritt gekoppelt). Zahnrad oben rechts: Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung, Darstellung (Bild aus, ruhig, leicht, Sound, Ganzes Bild), Bedienhilfe und die barrierefreie Liste. Zoom nur per Geste; −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung.
 - **Bildschirm drehen (31.10.2026):** Einstellung `darstellung.orientierung` (`auto` / `hoch` / `quer`), wählbar in Bastion-Einstellungen, unter „Über mich“ und im Übungs-Zahnrad. Screen-Orientation-API wenn verfügbar; sonst Hinweis zum Drehen des Geräts (kein Layout-Bruch durch CSS-Drehung). Ist die Bastion-Szene offen und das Gerät quer, ist die untere Reiterleiste ausgeblendet; die Bühne nutzt den Platz (`data-bastion-szene`).
 
 
@@ -109,6 +109,8 @@ Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kle
 - Tippen → kurze Reaktion (aufschauen, weghüpfen), kein Dialog.
 - Erwachsene: dieselben Wesen (vorerst).
 - Max. **5** Wesen bei voller Darstellung (iPhone 13).
+- **Pfadfindung (31.10.2026):** Bodenwesen (Huhn, Katze, Schnecke, Fuchs, Wache, Krebs, Roboter) laufen auf freien Feldern um Gebäude herum (Breitensuche). Fliegende/schwimmende Arten dürfen Gebäude überqueren. Deterministisch, ohne Zufall.
+- **Bewohner (31.10.2026):** Ruhige Figuren (Gartenzwerg, Gärtnerin, Bücherwurm, Torhüter) mit kleinen Tätigkeiten (gießen, kehren, lesen, gärtnern, schauen, ruhen). Freischaltung nur über Bau-/Lernfortschritt (Gebäudezahl, fertige Vorhaben, Bücher, Turm/Wissen/Fläche, Epoche). Keine Belohnung, kein Verfall, kein Timer-Druck. Bei „ruhig“ aus; bei „leicht“ höchstens 2.
 
 ### 4.5 Schalter und Leistung
 
