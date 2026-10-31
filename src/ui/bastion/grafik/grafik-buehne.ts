@@ -110,8 +110,10 @@ import {
 import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import type { Bildart } from './bildart';
+import { istLandBildart } from './thema-partikel';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
+export { istLandBildart } from './thema-partikel';
 
 export interface Farben {
   readonly boden: string;
@@ -1130,8 +1132,10 @@ export async function buehneErstellen(
   type Tropfen = { x: number; y: number; v: number; spr?: Sprite };
   const leicht = bewegungStart === 'leicht';
   const jahreszeit = farben.jahreszeit;
-  // Herbstlaub zusätzlich zu Wetter-Partikeln (Auflage P1), fest und begrenzt
-  const laubBudget = jahreszeit === 'herbst' && bewegungStart !== 'aus' ? (leicht ? 4 : 8) : 0;
+  // Herbstlaub nur über Land (Dorf/Garten/Bastion) – nicht Unterwasser/Weltraum (P3 Feinschliff)
+  const landThema = istLandBildart(art);
+  const laubBudget =
+    jahreszeit === 'herbst' && bewegungStart !== 'aus' && landThema ? (leicht ? 4 : 8) : 0;
   const wetterBudget = partikelBudget(wetterBild, leicht);
   const budget = wetterBudget + laubBudget;
   const partikelArt: 'regen' | 'schnee' | 'nebel' | 'laub' | 'keine' =
@@ -1599,9 +1603,7 @@ export async function buehneErstellen(
                     texturen,
                   );
                 }
-                if (farben.jahreszeit === 'winter') {
-                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
-                }
+                // Kein Schnee-Dach unter Wasser (Jahreszeit gilt für Land-Themen)
                 if (a.auswahl === x.id) {
                   raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
                 }
@@ -1679,9 +1681,7 @@ export async function buehneErstellen(
                     texturen,
                   );
                 }
-                if (farben.jahreszeit === 'winter') {
-                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
-                }
+                // Kein Schnee-Dach im Weltraum
                 if (a.auswahl === x.id) {
                   raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
                 }

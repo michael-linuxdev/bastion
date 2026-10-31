@@ -278,13 +278,12 @@ def bastion_kern(stufe: int, eintraege: list[dict]) -> None:
     d = ImageDraw.Draw(img)
     hoehe = 56 + (stufe - 1) * 12
     top = kasten(d, cx, fuss, bw * 0.72, bh * 0.72, hoehe, WAND, DACH, stufe=stufe)
-    # Zinnen
-    for ox in (-bw * 0.22, 0, bw * 0.22):
-        d.rectangle(
-            [cx + ox - 6, top - 2, cx + ox + 6, top + 10],
-            fill=hex_rgb(STEIN),
-            outline=KONTUR,
-        )
+    # Firstkappe statt schwebender Zinnen-Blöcke auf dem Spitzdach
+    d.ellipse(
+        [cx - 7, top - 2, cx + 7, top + 8],
+        fill=hex_rgb(STEIN),
+        outline=KONTUR,
+    )
     fenster_pts = [
         (cx - bw * 0.12, fuss - bh * 0.2 - hoehe * 0.45),
         (cx + bw * 0.12, fuss - bh * 0.2 - hoehe * 0.45),

@@ -202,6 +202,7 @@ Beispiel `manifest.json`-Eintrag:
 - **P5 (erledigt):** Epoche 2–4 Gebäude je Thema; Atlas-Lookup mit Epoche-Fallback  
 - **P6 (erledigt):** Belagerungs-Himmel und Rauch-Overlays; Bühne bei Bewährungsprobe  
 - **CC0-Sound (erledigt):** Tipps + Ambient-Wind unter `public/sound/` (§11)  
+- **Feinschliff P3–P6 (31.10.2026):** Herbstlaub und Schnee-Dach nur über Land (nicht Unterwasser/Weltraum); Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen  
 - Optional/offen: Jahreszeit-Auflagen feiner nutzen; Ambient Wasser/Regen; Lern-UI §9; Messung iPhone 13; Testerinnen mit U4b  
 
 ---
