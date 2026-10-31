@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · G0–G11, P0–P5 Atlas; Abend-Fenster; Bewohner ausgebaut; Wetter-Cache dauerhaft; Bastion-Vollbild; Bastion spielbarer; Politur-Pass; nächster Schritt: optional P6 / Messung iPhone 13
+Stand: 31.10.2026 · G0–G11, P0–P6 Atlas; Abend-Fenster; Bewohner ausgebaut; Wetter-Cache dauerhaft; Bastion-Vollbild; Bastion spielbarer; Politur-Pass; nächster Schritt: optional CC0-Sound / Messung iPhone 13
 
 ---
 
@@ -36,10 +36,11 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **P3 Bastion/Unterwasser/Weltraum:** Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas; Abend-Fenster wo Öffnungen; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 - **P4 Hinterhof + MiniBastion:** Plätze/Wappen/Denkmal je Thema und Standbilder für die Startkarte; Runtime mit Code/SVG-Fallback (`GRAFIK-SPRITES.md` §7/§8).
 - **P5 Epoche 2–4:** Gebäude je Thema nach Katalog G9 (reifere Optik, neue Stufen, Fenster, Boden); Runtime mit Epoche-Fallback (`GRAFIK-SPRITES.md` §8, G10).
+- **P6 Belagerungs-Himmel / Rauch:** Atlas-Overlays `belagerung/himmel` und `rauch_1…3`; Bühne bei Bewährungsprobe mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 
 **Als Nächstes:**
 
-1. **Sprites:** ~~P0–P5~~ erledigt; optional **P6** Belagerungs-Himmel / Rauch-Overlays. Ohne Atlas bleibt der Code-Fallback.
+1. **Sprites:** ~~P0–P6~~ erledigt (verbindliche Chargen). Optional: CC0-Sounddateien statt nur prozeduralem G8; Jahreszeit-Auflagen feiner nutzen.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4a). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

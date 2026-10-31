@@ -187,6 +187,13 @@ export function atlasMinibatId(thema: Thema): string {
   return `minibat/${thema}/standbild`;
 }
 
+/** Belagerungs-Himmel / Rauch-Overlays (P6, GRAFIK-SPRITES.md §8). */
+export type BelagerungTeil = 'himmel' | 'rauch_1' | 'rauch_2' | 'rauch_3';
+
+export function atlasBelagerungId(teil: BelagerungTeil): string {
+  return `belagerung/${teil}`;
+}
+
 /** Basis-URL der Atlas-Dateien (eigene App-Adresse). */
 export function atlasBasisUrl(): string {
   return `${import.meta.env.BASE_URL}grafik/atlas/`;

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  atlasBelagerungId,
   atlasBodenId,
   atlasEintrag,
   atlasFensterId,
@@ -28,6 +29,8 @@ describe('atlas', () => {
     expect(atlasHinterhofId('dorf', 'platz_g')).toBe('hinterhof/dorf/platz_g');
     expect(atlasHinterhofId('garten', 'denkmal_voll')).toBe('hinterhof/garten/denkmal_voll');
     expect(atlasMinibatId('bastion')).toBe('minibat/bastion/standbild');
+    expect(atlasBelagerungId('himmel')).toBe('belagerung/himmel');
+    expect(atlasBelagerungId('rauch_2')).toBe('belagerung/rauch_2');
   });
 
   it('findet Einträge oder liefert undefined für Fallback', () => {

@@ -204,7 +204,9 @@ Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30
 
 **Sprite-Charge P4 Hinterhof + MiniBastion (31.10.2026):** Plätze/Wappen/Denkmal je Thema und Standbilder; Generator `tools/grafik/sprites-p4-hinterhof.py` (`GRAFIK-SPRITES.md` §7/§8).
 
-**Sprite-Charge P5 Epoche 2–4 (31.10.2026):** Gebäude aller Themen für Epochen 2–4 nach Katalog G9 (reifere Optik, neue Stufen, Abend-Fenster, Boden-Kacheln), Generator `tools/grafik/sprites-p5-epochen.py`. Runtime: Atlas-Lookup mit Fallback auf niedrigere Epoche; fehlt alles, Code-Fallback (`epoche-optik.ts`). **Als Nächstes:** optional P6 Belagerungs-Himmel / Rauch-Overlays (`GRAFIK-SPRITES.md` §8).
+**Sprite-Charge P5 Epoche 2–4 (31.10.2026):** Gebäude aller Themen für Epochen 2–4 nach Katalog G9 (reifere Optik, neue Stufen, Abend-Fenster, Boden-Kacheln), Generator `tools/grafik/sprites-p5-epochen.py`. Runtime: Atlas-Lookup mit Fallback auf niedrigere Epoche; fehlt alles, Code-Fallback (`epoche-optik.ts`).
+
+**Sprite-Charge P6 Belagerungs-Himmel / Rauch (31.10.2026):** Spannungs-Dunst und drei Rauch-Overlays unter `public/grafik/atlas/belagerung/`; Generator `tools/grafik/sprites-p6-belagerung.py`. Die Bühne nutzt sie bei Bewährungsprobe (`spannung`), sonst Code-Fallback (G11). Keine Truppen. Verbindliche Atlas-Chargen P0–P6 sind damit geliefert; optional bleiben CC0-Sounddateien und Feinschliff Jahreszeit/Lern-UI.
 
 ## 7. Hinterhof in der Szene (B-25)
 
@@ -247,6 +249,6 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) · *umgesetzt* |
 | **G10** | Optiken aller Epochen (Atlas) · *umgesetzt* (P5-Sprites + Code-Fallback / Epoche-Lookup) |
 | **G11** | Belagerung Mechanik + Optik · *umgesetzt* (Bewährungsprobe Üben/Ernstfall, Spannungs-Himmel) |
-| **P6** | Belagerungs-Himmel / Rauch-Overlays · *optional* (Code-Rauch liegt) |
+| **P6** | Belagerungs-Himmel / Rauch-Overlays · *umgesetzt* (Atlas `belagerung/` + Code-Fallback) |
 
 Sprites können parallel von Claude/Grok nach `GRAFIK-SPRITES.md` erzeugt und in G5+ eingehängt werden. Ohne Atlas bleibt der Code-Fallback.
