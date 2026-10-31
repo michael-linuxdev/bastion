@@ -48,6 +48,7 @@
   import { hinterhof } from '../../core/learning/hinterhof';
   import { epochenstand } from '../../core/bastion/epoche';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
+  import { soundTipp } from './sound/sound';
 
   let {
     kompetenzen,
@@ -109,6 +110,8 @@
     lage = r;
     meldung = [];
     versetzt = undefined;
+    if (auftrag.art === 'beginnen') soundTipp('bauen');
+    else if (auftrag.art === 'aufstellen' || auftrag.art === 'versetzen') soundTipp('aufstellen');
     return true;
   }
 

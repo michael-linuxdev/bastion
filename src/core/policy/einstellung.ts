@@ -71,6 +71,9 @@ export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
 /** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
 export const LEICHT_SCHLUESSEL = 'basebau.leicht';
 
+/** Bastion-Sound (GRAFIK §4.6, T-18); nur `true` schaltet ein. Standard aus. */
+export const SOUND_SCHLUESSEL = 'basebau.sound';
+
 /** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
 export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';
 
