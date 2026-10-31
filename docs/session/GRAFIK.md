@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · G0–G11, P0 Dorf und Boden/Wiese-Atlas auf dem Weg; nächster Schritt: P1 Wetter-Himmel, Messung auf dem iPhone 13
+Stand: 31.10.2026 · G0–G11, P0 Dorf, Boden/Wiese und P1 Wetter-Himmel im Atlas; nächster Schritt: P2 Garten-Sprites, Messung auf dem iPhone 13
 
 ---
 
@@ -26,10 +26,11 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **UI-Reorg** (#108, `GRAFIK.md` §1, T-19): „Üben“ springt zur nächsten Aufgabe, die Themenwahl liegt unter „Mehr“, die Bastion zeigt nur den Bauplatz mit Zahnrad für die Einstellungen, die Bildschirm-Orientierung ist wählbar.
 - **Sprite-Charge P0 Dorf** (#109, `GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8): Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas, Code bleibt Fallback.
 - **Boden/Wiese Atlas:** Dorf-Wiese aus Atlas-Kacheln (`flaeche`/`rand` + Varianten); Code-`dorfWiese` nur noch Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §3/§10).
+- **P1 Wetter-Himmel:** Atlas-Sprites für Sonne/Mond/Wolken, Wetter-Partikel, Schnee-Dach und Laub; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §5/§8).
 
 **Als Nächstes:**
 
-1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0: Dorf Epoche 1~~ erledigt (#109); ~~Boden/Wiese~~ erledigt; als Nächstes **P1** (Wetter-Auflagen, Wolken/Sonne/Mond), danach **P2** Garten. Ohne Atlas bleibt der Code-Fallback.
+1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0: Dorf Epoche 1~~ erledigt (#109); ~~Boden/Wiese~~ erledigt; ~~P1 Wetter-Himmel~~ erledigt; als Nächstes **P2** Garten. Ohne Atlas bleibt der Code-Fallback.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4a). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

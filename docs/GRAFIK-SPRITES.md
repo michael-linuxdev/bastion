@@ -150,7 +150,7 @@ Damit Technik und Bild parallel laufen:
 | Charge | Inhalt | Blockiert |
 |---|---|---|
 | **P0** | `dorf` Epoche 1: alle 10 Rollen Stufe 1 + kern/wissen/turm höhere Stufen die im Katalog vorkommen; Boden; 3 Wesen komplett · **geliefert** (`public/grafik/atlas/`, Generator `tools/grafik/sprites-p0-dorf.py`) | G5 |
-| **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach | G2/G3 |
+| **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach · **geliefert** (`himmel/`, `wetter/`, `auflage/`, Generator `tools/grafik/sprites-p1-wetter.py`) | G2/G3 |
 | **P2** | `garten` Epoche 1 komplett + Wesen | G5 |
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
@@ -190,7 +190,8 @@ Beispiel `manifest.json`-Eintrag:
 - G0–G11 Code: Ticker, Schalter, Jahreszeit, Open-Meteo, Atlas-Loader, Code-Fallback  
 - **P0 (erledigt):** Manifest gefüllt, Dorf-Gebäude und Wesen nutzen Atlas-Texturen; `dorf.ts` bleibt Fallback (Bäume; Wiese nur wenn Boden-Kacheln fehlen)  
 - **Boden/Wiese Dorf (erledigt):** Atlas-Kacheln `flaeche`/`rand` (+ optional `flaeche_b`/`flaeche_hell`); Runtime legt die Wiese als Sprites, Code-`dorfWiese` nur noch Fallback; Abend per Tint  
-- Als Nächstes: **P1** (Wetter-Auflagen, Wolken/Sonne/Mond) → **P2** Garten-Sprites  
+- **P1 Wetter-Himmel (erledigt):** `himmel/sonne|mond|wolke_*`, `wetter/*`, `auflage/schnee_dach_*` und `laub_*`; Bühne nutzt Atlas für Gestirn, Wolken, Partikel, Nebel und Winter-Dachauflage (Code-Fallback bleibt)  
+- Als Nächstes: **P2** Garten-Sprites  
 
 
 ---

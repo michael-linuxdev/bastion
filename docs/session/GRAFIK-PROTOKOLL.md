@@ -11,3 +11,4 @@
 | 31.10.2026 | **Sprite-Charge P0 (Dorf):** Gebäude Epoche 1, Boden, Wesen unter `public/grafik/atlas/`; Dorf-Szene nutzt Atlas, Code bleibt Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8) |
 | 31.10.2026 | **UI-Reorg:** Üben springt zur Aufgabe; Themenwahl unter Mehr; Bastion nur Bauplatz + Zahnrad-Einstellungen; Orientierung `darstellung.orientierung` (T-19, `GRAFIK.md` §1) |
 | 31.10.2026 | **Boden/Wiese Atlas (Dorf):** Kacheln `flaeche`/`rand` (+ Varianten) erzeugt; Runtime legt Wiese aus Atlas, Code-Fallback bleibt (`GRAFIK.md` §6) |
+| 31.10.2026 | **P1 Wetter-Himmel:** Sonne/Mond/Wolken, Regen/Schnee/Nebel, Schnee-Dach und Laub im Atlas; Bühne nutzt Sprites (`GRAFIK-SPRITES.md` §8) |
