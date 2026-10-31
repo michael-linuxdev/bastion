@@ -916,7 +916,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   const wahl = page.locator('.wahl');
   await expect(wahl).toContainText('Feuerstelle');
   await wahl.getByRole('button', { name: 'Versetzen' }).click();
-  await expect(wahl).toContainText('Tippe auf das Feld');
+  await expect(wahl).toContainText('Ziehe an die neue Stelle oder tippe das Zielfeld an');
   // Auf den Bergfried geht es nicht …
   await tippe(6, 5);
   await expect(wahl).toContainText('Dort ist kein Platz frei');

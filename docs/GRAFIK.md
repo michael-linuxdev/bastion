@@ -93,7 +93,7 @@ Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kle
 - **Jahreszeit** nur aus dem lokalen Datum (Frühling/Sommer/Herbst/Winter); ändert Farben und wenige Auflagen (Schnee auf Dächern, Laub). Kein manueller Override in v1.
 - **Abend:** nach Sonnenuntergang. Mit eingetragenem Ort und Wetter an: Sonnenzeiten von Open-Meteo. Ohne Ort: grobe Mitteleuropa-Näherung aus dem Datum. Unabhängig davon bleiben Hell/Dunkel/System unter „Über mich“ wählbar (manuell Hell erzwingt Tagoptik der UI-Tokens; die Bastion-Szene folgt der Sonnenregel, sobald Wetter/Ort greifen – Feinheit in der Umsetzung: bei manuell „Hell“ Tag, bei „Dunkel“ Abend, bei „System“ Sonnenstand).
 - **Wetter offline:** aus Datum abgeleitet (nur Bild).
-- **Wetter echt (T-15):** Freitext Stadt → Geocoding einmalig → Lat/Lon lokal; Forecast bis **Mitternacht** cachen; nur Eltern schalten ein (ab 18 selbst, L-15); bei Fehler **still** letzter Cache oder Datumswetter. Ändert nur das Bild.
+- **Wetter echt (T-15):** Freitext Stadt → Geocoding einmalig → Lat/Lon lokal; Forecast **dauerhaft** cachen, bis Ort oder Schalter geändert wird (Preference PV 31.10.2026); nur Eltern schalten ein (ab 18 selbst, L-15); bei Fehler **still** letzter Cache oder Datumswetter. Ändert nur das Bild.
 - WMO grob auf: klar, bewölkt, Nebel, Regen, Schnee.
 
 ### 4.4 Wesen
@@ -224,7 +224,7 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G0** | Dieses Dokument, `GRAFIK-SPRITES.md`, BASEBAU §5.5–§5.7, Entscheidungslogs |
 | **G1** | Atmosphäre-Gerüst, Ticker, „ruhig“, „leicht“, reduced-motion, Aufstell-Effekt · *umgesetzt* |
 | **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang · *umgesetzt* |
-| **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) · *umgesetzt* |
+| **G3** | Open-Meteo (Eltern, Ort, dauerhafter Cache, stiller Fallback) · *umgesetzt* |
 | **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude · *umgesetzt* |
 | **G5** | Atlas-Anbindung + Thema Garten (neues Niveau) · *umgesetzt* |
 | **P0** | Sprite-Charge Dorf Epoche 1 (Gebäude, Boden, Wesen) · *umgesetzt* – siehe `GRAFIK-SPRITES.md` §8 |

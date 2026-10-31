@@ -1,6 +1,6 @@
 <script lang="ts">
   // Echtes Wetter (T-15, GRAFIK §4.3): Ort Freitext, nur Eltern bzw. ab 18 selbst.
-  // Standard aus. Bei Fehler still – kein Hinweistext.
+  // Standard aus. Cache dauerhaft bis Ort/Schalter geändert. Bei Fehler still.
   import { t, type TextSchluessel } from '../texte/texte';
   import {
     wetterEcht,
