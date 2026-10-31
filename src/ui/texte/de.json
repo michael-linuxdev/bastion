@@ -740,5 +740,8 @@
   "wetter.ort-beispiel": "z. B. Dresden",
   "wetter.ort-suchen": "Ort übernehmen",
   "wetter.ort-ok": "Ort gefunden. Das Wetter gilt bis Mitternacht.",
-  "wetter.ort-unbekannt": "Ort nicht gefunden. Du kannst einen anderen Namen versuchen – ohne Ort bleibt das Wetter aus dem Datum."
+  "wetter.ort-unbekannt": "Ort nicht gefunden. Du kannst einen anderen Namen versuchen – ohne Ort bleibt das Wetter aus dem Datum.",
+  "hinterhof.zur-szene": "Zum Hinterhof",
+  "hinterhof.zum-bauplatz": "Zum Bauplatz",
+  "eingabe.vorzeichen": "Minus setzen oder entfernen"
 }

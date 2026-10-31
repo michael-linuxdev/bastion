@@ -592,7 +592,13 @@
           <p role="status">{t('uebersicht.laedt')}</p>
         {:then bastionMod}
           {@const BastionAnsicht = bastionMod.default}
-          <BastionAnsicht kompetenzen={geladen.kompetenzen} wetterEinstellen={selbst} />
+          <BastionAnsicht
+            kompetenzen={geladen.kompetenzen}
+            wetterEinstellen={selbst}
+            staende={[...zustand.staende.values()]}
+            aufgaben={aufgabenListe}
+            {klasse}
+          />
           {#await import('./bastion/Hinterhof.svelte') then hinterhofMod}
             {@const Hinterhof = hinterhofMod.default}
             <Hinterhof

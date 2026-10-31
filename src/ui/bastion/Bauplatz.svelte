@@ -39,9 +39,18 @@
   } from './grafik/kamera';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import type { HinterhofFeld } from '../../core/learning/hinterhof';
+  import { hinterhofMitte } from './grafik/hinterhof-szene';
 
-  let { bastion, onaktion }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean> } =
-    $props();
+  let {
+    bastion,
+    onaktion,
+    hinterhofFelder = [],
+  }: {
+    bastion: Bastion;
+    onaktion: (a: BauAuftrag) => Promise<boolean>;
+    hinterhofFelder?: readonly HinterhofFeld[];
+  } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
   let buehne = $state<Buehne | undefined>(undefined);
@@ -373,6 +382,27 @@
     buehne?.setzeBewegung(bewegung);
   });
 
+  let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
+
+  function blickWechseln(zielBlick: 'bauplatz' | 'hinterhof') {
+    blick = zielBlick;
+    const el = fenster;
+    if (!el) return;
+    eigene = true;
+    if (zielBlick === 'hinterhof' && hinterhofFelder.length > 0) {
+      const m = hinterhofMitte(hinterhofFelder.length);
+      // Bildpunkt in die Fenstermitte legen
+      kamera = {
+        x: el.clientWidth / 2 - m.x * kamera.zoom,
+        y: el.clientHeight / 2 - m.y * kamera.zoom,
+        zoom: Math.max(kamera.zoom, 1),
+      };
+    } else {
+      kamera = einpassen(el.clientWidth, el.clientHeight);
+    }
+    kameraSichtbar = true;
+  }
+
   $effect(() => {
     const g = gewaehlt;
     const a: Ansicht = {
@@ -386,6 +416,7 @@
             },
           }
         : {}),
+      ...(hinterhofFelder.length > 0 ? { hinterhof: hinterhofFelder } : {}),
     };
     buehne?.zeichne(bastion, a);
   });
@@ -447,6 +478,13 @@
         onclick={() => zoomen(1)}>+</button
       >
       <button aria-label={tt('bastion.zoom-passen')} onclick={einpassenJetzt}>⌖</button>
+      {#if hinterhofFelder.length > 0}
+        <button
+          class="dezent"
+          onclick={() => blickWechseln(blick === 'bauplatz' ? 'hinterhof' : 'bauplatz')}
+          >{blick === 'bauplatz' ? tt('hinterhof.zur-szene') : tt('hinterhof.zum-bauplatz')}</button
+        >
+      {/if}
     </div>
     <div
       class="fenster"
