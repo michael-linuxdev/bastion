@@ -54,6 +54,8 @@
     /** Hinterhof-Knopf in der Bastion-Chrome – hier nicht noch einmal zeichnen */
     hinterhofKnopf = true,
     blick = $bindable<'bauplatz' | 'hinterhof'>('bauplatz'),
+    /** Bau-Blatt offen → Auswahl leeren, kein Doppel-HUD unten */
+    blattOffen = false,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -71,6 +73,7 @@
     hinterhofKnopf?: boolean;
     /** Kamera-Blick; Chrome oben kann umschalten */
     blick?: 'bauplatz' | 'hinterhof';
+    blattOffen?: boolean;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -280,7 +283,7 @@
     if (versetzen && zieh.taste === 0 && zieh.bewegt) {
       const pos = buehne?.feldBei(event.clientX, event.clientY);
       if (pos) {
-        ziel = pos;
+        ziel = { x: pos.x, y: pos.y };
         hinweis =
           gewaehlt && platzHindernisse(bastion, gewaehlt.typ, pos, gewaehlt.id, bauplatz).length > 0
             ? 'kein-platz'
@@ -292,7 +295,7 @@
     if (!versetzen && gewaehlt && zieh.taste === 0 && zieh.bewegt && ziehAufAuswahl) {
       versetzen = true;
       const pos = buehne?.feldBei(event.clientX, event.clientY);
-      if (pos) ziel = pos;
+      if (pos) ziel = { x: pos.x, y: pos.y };
       return;
     }
     // Rechte und mittlere Taste verschieben weiter, zwei Finger auch; links nur ohne Versetzen
@@ -323,12 +326,14 @@
     }
     // Loslassen nach Ziehen im Versetzen-Modus → platzieren
     if (versetzen && gewaehlt && ziel) {
+      // $state-Proxy nicht in IndexedDB (SESSION-PROMPT: DataCloneError)
+      const pos = { x: ziel.x, y: ziel.y };
       void (async () => {
-        if (platzHindernisse(bastion, gewaehlt.typ, ziel, gewaehlt.id, bauplatz).length > 0) {
+        if (platzHindernisse(bastion, gewaehlt.typ, pos, gewaehlt.id, bauplatz).length > 0) {
           hinweis = 'kein-platz';
           return;
         }
-        if (await onaktion({ art: 'versetzen', gebaeude: gewaehlt.id, pos: ziel })) {
+        if (await onaktion({ art: 'versetzen', gebaeude: gewaehlt.id, pos })) {
           versetzen = false;
           ziel = undefined;
           hinweis = undefined;
@@ -353,6 +358,15 @@
   let ziehAufAuswahl = false;
 
   const gewaehlt = $derived(bastion.bauwerke.find((b) => b.id === auswahl));
+
+  // Bau-Blatt und Auswahl-Leiste konkurrieren um den unteren Rand
+  $effect(() => {
+    if (!blattOffen) return;
+    auswahl = undefined;
+    versetzen = false;
+    ziel = undefined;
+    hinweis = undefined;
+  });
 
   function farben(): Farben {
     const css = getComputedStyle(document.documentElement);
@@ -553,7 +567,7 @@
     // Zweites Tippen auf dasselbe Gebäude → Versetzen
     if (getroffenes && auswahl === getroffenes.id) {
       versetzen = true;
-      ziel = getroffenes.pos;
+      ziel = { x: getroffenes.pos.x, y: getroffenes.pos.y };
       return;
     }
     auswahl = getroffenes?.id;
@@ -595,13 +609,15 @@
         <Symbol name="hinterhof" />
       </button>
     {/if}
-    {#if gewaehlt}
+    {#if gewaehlt && !blattOffen}
       <div class="wahl" role="status">
         <strong>{gebaeudeName(gewaehlt.typ)}</strong>
         {#if KATALOG[gewaehlt.typ].stufen.length > 1}
           {tt('bastion.stufe')} {gewaehlt.stufe}{/if}
         {#if versetzen}
-          <span>{tt(hinweis ? 'bastion.hindernis.belegt' : 'bastion.tippe-feld')}</span>
+          <span class:hinweis-platz={!!hinweis}
+            >{tt(hinweis ? 'bastion.hindernis.belegt' : 'bastion.tippe-feld')}</span
+          >
           <button
             onclick={() => {
               versetzen = false;
@@ -614,7 +630,7 @@
             <button
               onclick={() => {
                 versetzen = true;
-                ziel = gewaehlt.pos;
+                ziel = { x: gewaehlt.pos.x, y: gewaehlt.pos.y };
               }}>{tt('bastion.ziehen-versetzen')}</button
             >
             {#if einlagerbar(gewaehlt.typ)}
@@ -706,18 +722,21 @@
   .wahl {
     position: absolute;
     inset-inline: var(--abstand-s);
-    inset-block-end: var(--abstand-s);
-    z-index: 2;
+    /* Klar über der unteren Leiste; z-index unter Leiste (10), aber im Inhaltsbereich */
+    inset-block-end: max(var(--abstand-s), 0.5rem);
+    z-index: 5;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
     padding: var(--abstand-s);
+    padding-inline-start: max(var(--abstand-s), 0.75rem);
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    background: color-mix(in srgb, var(--farbe-flaeche) 94%, transparent);
     box-shadow: 0 1px 6px var(--farbe-schatten);
     outline: 2px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent);
     outline-offset: 0;
+    max-inline-size: calc(100% - 2 * var(--abstand-s));
   }
 
   .knoepfe {
@@ -735,5 +754,10 @@
     background: var(--farbe-hintergrund);
     color: inherit;
     cursor: pointer;
+  }
+
+  .wahl .hinweis-platz {
+    color: var(--farbe-akzent);
+    font-weight: 700;
   }
 </style>

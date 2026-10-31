@@ -23,6 +23,7 @@
     onbauen,
     onvormerken,
     hindernisText,
+    onschliessen,
   }: {
     neubauten: readonly BauAngebot[];
     ausbauten: readonly BauAngebot[];
@@ -31,6 +32,7 @@
     onbauen: (a: BauAngebot) => void;
     onvormerken: (a: BauAngebot) => void;
     hindernisText: (h: BauHindernis, typ: GebaeudeTyp, stufe: number) => string;
+    onschliessen: () => void;
   } = $props();
 
   const einzeln = (h: readonly BauHindernis[]) =>
@@ -44,15 +46,19 @@
 <div id="bastion-bau-blatt" class="blatt" role="dialog" aria-label={tt('bastion.bauen-oeffnen')}>
   <header>
     <h3>{tt('bastion.bauen')}</h3>
+    <button type="button" class="schliessen" onclick={onschliessen}
+      >{tt('bastion.bauen-schliessen')}</button
+    >
   </header>
   {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
   <ul class="liste">
     {#each neubauten as a (a.typ)}
       <li>
-        <span>
+        <span class="text">
           <strong>{gebaeudeName(a.typ)}</strong>
           <br /><small class="leise">{gebaeudeWozu(a.typ)}</small>
-          {#if a.kostenText}<br /><small>{tt('bastion.kosten')} {a.kostenText}</small>{/if}
+          {#if a.kostenText}<br /><small class="kosten">{tt('bastion.kosten')} {a.kostenText}</small
+            >{/if}
           {#each einzeln(a.hindernisse) as h (h)}
             <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
           {/each}
@@ -83,11 +89,13 @@
     <ul class="liste">
       {#each ausbauten as a (a.ausbau?.id)}
         <li>
-          <span>
+          <span class="text">
             <strong>{gebaeudeName(a.typ)}</strong>
             {tt('bastion.auf-stufe')}
             {a.stufe}
-            {#if a.kostenText}<br /><small>{tt('bastion.kosten')} {a.kostenText}</small>{/if}
+            {#if a.kostenText}<br /><small class="kosten"
+                >{tt('bastion.kosten')} {a.kostenText}</small
+              >{/if}
             {#each einzeln(a.hindernisse) as h (h)}
               <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
             {/each}
@@ -119,6 +127,7 @@
     max-block-size: min(55dvh, 28rem);
     overflow: auto;
     padding: var(--abstand-m);
+    padding-block-end: calc(var(--abstand-m) + 0.5rem);
     border-radius: var(--radius) var(--radius) 0 0;
     background: color-mix(in srgb, var(--farbe-flaeche) 96%, transparent);
     box-shadow: 0 -4px 20px var(--farbe-schatten);
@@ -131,10 +140,22 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--abstand-s);
+    position: sticky;
+    inset-block-start: calc(-1 * var(--abstand-m));
+    margin-block-start: calc(-1 * var(--abstand-m));
+    margin-inline: calc(-1 * var(--abstand-m));
+    padding: var(--abstand-m);
+    padding-block-end: var(--abstand-s);
+    background: color-mix(in srgb, var(--farbe-flaeche) 96%, transparent);
+    z-index: 1;
   }
 
   header h3 {
     margin: 0;
+  }
+
+  .schliessen {
+    flex-shrink: 0;
   }
 
   .leise {
@@ -153,11 +174,22 @@
   .liste li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--abstand-m);
     padding: var(--abstand-s);
     border-radius: var(--radius);
     background: var(--farbe-hintergrund);
+  }
+
+  .text {
+    min-inline-size: 0;
+    flex: 1 1 8rem;
+    overflow-wrap: anywhere;
+  }
+
+  .kosten {
+    display: inline-block;
+    max-inline-size: 100%;
   }
 
   .knoepfe {
@@ -165,6 +197,7 @@
     flex-wrap: wrap;
     gap: var(--abstand-s);
     justify-content: flex-end;
+    flex: 0 0 auto;
   }
 
   .hindernis {
