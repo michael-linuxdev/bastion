@@ -46,7 +46,6 @@
 <div id="bastion-bau-blatt" class="blatt" role="dialog" aria-label={tt('bastion.bauen-oeffnen')}>
   <header>
     <h3>{tt('bastion.bauen')}</h3>
-    <button type="button" onclick={onschliessen}>{tt('bastion.bauen-schliessen')}</button>
   </header>
   {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
   <ul class="liste">
