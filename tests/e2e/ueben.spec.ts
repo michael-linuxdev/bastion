@@ -46,6 +46,17 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
   }
 }
 
+/** Von Bastion zurück zur Startseite (kein Zurück-Knopf mehr auf dem Reiter). */
+async function bastionZurStartseite(seite: Page) {
+  // In den Einstellungen ist die Leiste sichtbar; sonst erst Zahnrad öffnen
+  const leiste = seite.getByRole('navigation', { name: 'Bereiche' });
+  if (!(await leiste.getByRole('button', { name: 'Start' }).isVisible().catch(() => false))) {
+    await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  }
+  await leiste.getByRole('button', { name: 'Start' }).click();
+  await expect(seite.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
+}
+
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
 /** Aktueller Wert einer Einstellung aus IndexedDB (Projektion `einstellungen`). */
@@ -724,7 +735,8 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(ziel).toHaveCount(0);
 
   // Ausgeschaltet: kein Bastion-Knopf auf der Startseite (R7)
-  await page.getByRole('button', { name: /Zurück/ }).click();
+  await bastionZurStartseite(page);
+  await mehr(page);
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
@@ -741,7 +753,7 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
   await page.goto('./');
   await bastionOeffnen(page);
   await expect(page.getByText(/Noch ist hier nichts/)).toBeVisible();
-  await page.getByRole('button', { name: /Zurück/ }).click();
+  await bastionZurStartseite(page);
   await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
   await bastionOeffnen(page);
@@ -1010,14 +1022,15 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
 test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('./');
-  await bastionOeffnen(page, false);
+  // Schalter liegt in den Bastion-Einstellungen, nicht mehr auf dem Reiter
+  await bastionOeffnen(page, true);
   const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
   await expect(sound).toBeVisible();
   await expect(sound).not.toBeChecked();
   await sound.check();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe(true);
   await page.reload();
-  await bastionOeffnen(page, false);
+  await bastionOeffnen(page, true);
   await expect(
     page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' }),
   ).toBeChecked();
@@ -1279,6 +1292,8 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
 });
 
 test('Leiste unten: Start, Üben, Bastion, Mehr (GRAFIK §1)', async ({ page }) => {
+  // Hochkant: Im Querformat blendet die Bastion-Szene die Leiste aus
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();
   const leiste = page.getByRole('navigation', { name: 'Bereiche' });
