@@ -20,7 +20,7 @@ async function angebotUeberspringen(seite: Page) {
 }
 
 async function zurStartseite(seite: Page) {
-  const hallo = seite.getByText('Hallo! Schön, dass du da bist.');
+  const hallo = seite.getByText('Hallo. Schön, dass du da bist.');
   if (await hallo.isVisible().catch(() => false)) return;
   const home = seite.getByRole('button', { name: 'Zur Startseite' });
   if (await home.isVisible().catch(() => false)) {
@@ -74,7 +74,7 @@ async function bastionZurStartseite(seite: Page) {
     await expect(seite.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
     await seite.getByRole('button', { name: 'Zur Startseite' }).click();
   }
-  await expect(seite.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
+  await expect(seite.getByText('Hallo. Schön, dass du da bist.')).toBeVisible();
 }
 
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
@@ -1330,7 +1330,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
-  await expect(page.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
+  await expect(page.getByText('Hallo. Schön, dass du da bist.')).toBeVisible();
   await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
   await expect(
     page

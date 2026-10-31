@@ -86,7 +86,9 @@
 
   {#if nieGeuebt}
     <p class="einladung">{t('start.nie-geuebt')}</p>
-  {:else if basebau}
+  {/if}
+
+  {#if basebau}
     <button class="karte bastion" onclick={() => onziel('bastion')}>
       <span class="bild"><MiniBastion /></span>
       <span class="bastion-name">{tt('bastion.knopf')}</span>
