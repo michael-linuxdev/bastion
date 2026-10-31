@@ -32,6 +32,8 @@
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
   import BastionDarstellung from './BastionDarstellung.svelte';
+  import BastionSpielLeiste from './BastionSpielLeiste.svelte';
+  import BastionBauBlatt from './BastionBauBlatt.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
@@ -80,6 +82,8 @@
 
   /** Bastion-Einstellungen hinter dem Zahnrad (nur Bauplatz auf der Seite) */
   let einstellungenOffen = $state(false);
+  /** Bauen/Planen-Blatt auf dem Reiter (Preferences Spiel) */
+  let bauBlattOffen = $state(false);
   let bewaehrungModus = $state<BewaehrungModus>('ueben');
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
   const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
@@ -263,6 +267,7 @@
       >
         <Symbol name="einstellungen" />
       </button>
+      <BastionSpielLeiste konto={l.konto} vorrat={l.bastion.vorrat} bind:bauOffen={bauBlattOffen} />
       <Bauplatz
         bastion={l.bastion}
         onaktion={ausfuehren}
@@ -270,7 +275,40 @@
         bauplatz={epoche.bauplatz}
         epoche={epoche.epoche}
         {spannung}
+        konto={l.konto}
+        buecher={l.buecher.length}
       />
+      {#if bauBlattOffen}
+        <BastionBauBlatt
+          neubauten={neubauten.map((a) => ({
+            ...a,
+            kostenText: (() => {
+              const k = kosten(a.typ, a.stufe);
+              return k ? kostenText(k) : '';
+            })(),
+          }))}
+          ausbauten={ausbauten.map((a) => ({
+            ...a,
+            kostenText: (() => {
+              const k = kosten(a.typ, a.stufe);
+              return k ? kostenText(k) : '';
+            })(),
+          }))}
+          {belegt}
+          istZiel={(a) => ist(a, ziel)}
+          {hindernisText}
+          onschliessen={() => (bauBlattOffen = false)}
+          onvormerken={(a) => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
+          onbauen={(a) =>
+            void ausfuehren({
+              art: 'beginnen',
+              typ: a.typ,
+              ...(a.ausbau ? { ausbau: a.ausbau.id } : {}),
+            }).then((ok) => {
+              if (ok) bauBlattOffen = false;
+            })}
+        />
+      {/if}
     {/if}
 
     {#if einstellungenOffen}
