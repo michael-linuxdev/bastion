@@ -239,6 +239,7 @@ test('merkt sich den Fortschritt auf dem Gerät, auch nach Neuladen', async ({ p
 test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
+  await hubVoll(page);
   // Die Kachel bleibt sichtbar, ist aber ohne fällige Aufgaben nicht wählbar
   await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
@@ -361,6 +362,7 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible({ timeout: 15_000 });
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
+  await hubVoll(page);
   await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
 });
 
@@ -368,6 +370,7 @@ test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen'
   page,
 }) => {
   await page.goto('./');
+  await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByText(/Du hast noch nichts geübt/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -392,6 +395,7 @@ test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen'
 
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
+  await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(page.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 });
@@ -701,6 +705,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 }) => {
   test.setTimeout(90_000);
   await page.goto('./');
+  await hubVoll(page);
   await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
@@ -852,6 +857,7 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
   // Nach dem Neuladen bleibt das Thema; der Start-Hub-Knopf heißt wie das Thema
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
+  await hubVoll(page);
   // Hub-Tür heißt immer „Bastion“ (Ortsname); die Vorschau zeigt den Themennamen
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
@@ -1335,10 +1341,12 @@ test('Klassenarbeit: Termin und Themen, Probe ohne Note (L-19)', async ({ page }
     .poll(async () => String(await einstellungImSpeicher(page, 'lernen.klassenarbeit')))
     .toContain('2026-11-10');
   await page.reload();
+  await hubVoll(page);
   await expect(page.getByText('Klassenarbeit am Dienstag, 10. November')).toBeVisible();
   // Nach dem Termin ist sie vorbei
   await page.clock.setSystemTime(new Date('2026-11-11T10:00:00'));
   await page.reload();
+  await hubVoll(page);
   await expect(page.getByText(/Klassenarbeit am/)).toHaveCount(0);
 });
 
