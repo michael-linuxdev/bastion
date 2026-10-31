@@ -10,7 +10,8 @@
     | 'klassenarbeit'
     | 'sicherung'
     | 'profil'
-    | 'eltern';
+    | 'eltern'
+    | 'mehr';
 </script>
 
 <script lang="ts">
@@ -133,6 +134,11 @@
       <span class="kachel-name">{t('stand.knopf')}</span>
       <span class="kachel-info">{t('start.stand-info')}</span>
     </button>
+    <button class="kachel mehr" onclick={() => onziel('mehr')}>
+      <Symbol name="mehr" />
+      <span class="kachel-name">{t('hub.mehr')}</span>
+      <span class="kachel-info">{t('hub.mehr-info')}</span>
+    </button>
   </div>
 
   {#if klassenarbeit}
@@ -150,13 +156,13 @@
 </div>
 
 <style>
-  /* Die Startseite füllt den Bildschirm bis zur Leiste; den freien Platz bekommt
+  /* Die Startseite füllt den Bildschirm; den freien Platz bekommt
      das Bild der Bastion (ohne Basebau die Kacheln), statt unten leer zu bleiben. */
   .startseite {
     display: flex;
     flex-direction: column;
     min-block-size: calc(
-      100dvh - env(safe-area-inset-top) - var(--abstand-l) - var(--leiste-hoehe, 6rem) -
+      100dvh - env(safe-area-inset-top) - var(--abstand-l) - env(safe-area-inset-bottom) -
         var(--abstand-s)
     );
   }
@@ -280,6 +286,9 @@
   }
   .kachel.warm {
     border-block-start: 4px solid var(--farbe-akzent-warm);
+  }
+  .kachel.mehr {
+    grid-column: 1 / -1;
   }
   .kachel:disabled {
     cursor: default;

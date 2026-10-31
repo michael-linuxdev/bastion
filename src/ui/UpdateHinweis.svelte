@@ -17,8 +17,7 @@
   .hinweis {
     position: fixed;
     z-index: 20;
-    /* über der Leiste unten, nicht dahinter */
-    inset-block-end: calc(var(--leiste-hoehe, 0px) + var(--abstand-s));
+    inset-block-end: calc(env(safe-area-inset-bottom, 0px) + var(--abstand-s));
     inset-inline: var(--abstand-m);
     max-inline-size: 32rem;
     margin-inline: auto;

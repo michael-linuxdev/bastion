@@ -1,8 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 
-/** „Mehr“ in der Leiste unten öffnen: Sicherung, Über mich, Klassenarbeit, Für Eltern */
+/** „Mehr“ vom Start-Hub öffnen */
 async function mehr(seite: Page) {
-  await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
+  await seite.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
 }
 
 // Kritischer Weg „erster Start offline“ (ARCHITEKTUR §13):
@@ -56,7 +56,7 @@ test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', asy
   // Startseite und Vorab-Speicher laden die Grafik nicht (R7, A3)
   expect(grafik).toEqual([]);
 
-  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  await page.getByRole('button', { name: 'Zurück' }).click();
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.locator('.bauplatz canvas').first()).toBeVisible({ timeout: 30_000 });
   expect(grafik.length).toBeGreaterThan(0);

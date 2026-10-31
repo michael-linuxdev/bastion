@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (40) · Session-Prompt in Stränge getrennt; Grafik-Nebenstrang B-28 Spez+Atlas P0–P6+CC0 + Feinschliff P3–P6
+Stand: 31.10.2026 (41) · App-Menü ohne Reiter, Bau-Vorschau, Test-Rohstoffe; Grafik B-28 Spez+Atlas P0–P6+CC0
 
 ---
 

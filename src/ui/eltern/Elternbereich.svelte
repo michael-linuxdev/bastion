@@ -25,6 +25,7 @@
   import { t, type TextSchluessel } from '../texte/texte';
   import Bericht from './Bericht.svelte';
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
+  import TestRohstoffe from '../bastion/TestRohstoffe.svelte';
   import Testphase from './Testphase.svelte';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
 
@@ -225,6 +226,8 @@
     <KlassenWahl bind:klasse bind:schulart mitSchulart />
     <h3>{tt('basebau.ueberschrift')}</h3>
     <BasebauSchalter bind:an={basebau} durch="eltern" />
+    <h3>{t('bastion.test-rohstoffe')}</h3>
+    <TestRohstoffe />
     <WetterEinstellung durch="eltern" />
     <Testphase />
     <p class="leise">{t('eltern.ehrlich')}</p>
