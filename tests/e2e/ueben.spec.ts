@@ -50,7 +50,12 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
 async function bastionZurStartseite(seite: Page) {
   // In den Einstellungen ist die Leiste sichtbar; sonst erst Zahnrad öffnen
   const leiste = seite.getByRole('navigation', { name: 'Bereiche' });
-  if (!(await leiste.getByRole('button', { name: 'Start' }).isVisible().catch(() => false))) {
+  if (
+    !(await leiste
+      .getByRole('button', { name: 'Start' })
+      .isVisible()
+      .catch(() => false))
+  ) {
     await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
   }
   await leiste.getByRole('button', { name: 'Start' }).click();
