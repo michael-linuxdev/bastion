@@ -36,15 +36,19 @@ export function pruefeSchritt(s: SchrittAufgabe, eingabe: Loesung): SchrittErgeb
   return f ? { richtig: false, fehlerbild: f.id } : { richtig: false };
 }
 
-/** Den Weg mit den gezeigten Lösungen aller Schritte gehen (für Tests und Anzeige). */
+/**
+ * Den Weg mit den gezeigten Lösungen gehen (für Tests und Anzeige): alle Schritte des
+ * Generators oder nur die genannten, wie eine Vorlage sie auswählt.
+ */
 export function musterweg<P>(
   g: Generator<P>,
   seed: number,
   parameter: P,
+  ids?: readonly string[],
 ): { readonly id: string; readonly aufgabe: SchrittAufgabe }[] {
   if (!g.schritt || !g.schritte) return [];
   const bisher: Record<string, Loesung> = {};
-  return g.schritte.map(({ id }) => {
+  return (ids ?? g.schritte.map((s) => s.id)).map((id) => {
     const aufgabe = (g.schritt as NonNullable<typeof g.schritt>)(seed, parameter, id, bisher);
     bisher[id] = aufgabe.loesung;
     return { id, aufgabe };
@@ -57,8 +61,9 @@ const istSprachobjekt = (x: unknown): x is Sprachobjekt =>
   istObjekt(x) && typeof x['de'] === 'string' && x['de'].trim() !== '';
 
 /**
- * `schritte` einer Vorlage prüfen (INHALTSFORMAT §17): passen genau zu den
- * Schritten des Generators, Fragen nutzen nur bekannte Platzhalter, jedes
+ * `schritte` einer Vorlage prüfen (INHALTSFORMAT §17): eine Auswahl der Schritte des
+ * Generators in seiner Reihenfolge, immer mit dem letzten (dessen Lösung das Ergebnis ist).
+ * Fragen nutzen nur bekannte Platzhalter, jedes
  * Fehlerbild ist angemeldet und hat `fv` (F6).
  */
 export function pruefeSchritte(
@@ -82,13 +87,21 @@ export function pruefeSchritte(
   const gs = generator?.schritte;
   if (generator && !gs) f.push('schritte: Der Generator kennt keine Zwischenschritte');
   const ids = roh.map((s: unknown) => (istObjekt(s) ? String(s['id']) : ''));
-  if (gs && ids.join() !== gs.map((s) => s.id).join())
-    f.push(`schritte: erwartet ${gs.map((s) => s.id).join(', ')} in dieser Reihenfolge`);
+  if (gs) {
+    const reihe = gs.map((s) => s.id);
+    const stellen = ids.map((id) => reihe.indexOf(id));
+    const geordnet = stellen.every((st, i) => st >= 0 && (i === 0 || st > (stellen[i - 1] ?? -1)));
+    if (!geordnet || stellen.at(-1) !== reihe.length - 1)
+      f.push(
+        `schritte: eine Auswahl aus ${reihe.join(', ')} in dieser Reihenfolge, mit dem letzten Schritt`,
+      );
+  }
   const bekannt = new Set(generator?.platzhalter ?? []);
   roh.forEach((s: unknown, i) => {
     const wo = `schritte[${i}]`;
     if (!istObjekt(s)) return void f.push(`${wo}: keine Zuordnung`);
-    const eigene = new Set(gs?.[i]?.platzhalter ?? []);
+    const g = gs?.find((x) => x.id === ids[i]);
+    const eigene = new Set(g?.platzhalter ?? []);
     if (!istSprachobjekt(s['frage'])) f.push(`${wo}: frage.de fehlt`);
     else
       for (const p of platzhalterIn(s['frage'].de))
@@ -96,7 +109,7 @@ export function pruefeSchritte(
     if (!SCHRITT_EINGABEN.includes(s['typ'] as SchrittEingabe))
       f.push(`${wo}: typ muss ${SCHRITT_EINGABEN.join(' oder ')} sein`);
     const fb = s['fehlerbilder'];
-    const erwartet = gs?.[i]?.fehlerbildIds ?? [];
+    const erwartet = g?.fehlerbildIds ?? [];
     if (!istObjekt(fb)) f.push(`${wo}: fehlerbilder fehlt`);
     else {
       for (const [id, t] of Object.entries(fb)) {
