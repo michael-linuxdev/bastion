@@ -17,6 +17,7 @@ const WOERTER = [
   'wissen-viele',
   'wissen-zeichen',
   'hinterhof',
+  'bewaehrung',
   ...['fleiss', 'behalten', 'koennen', 'schritt'].flatMap((r) => [`${r}-einer`, `${r}-viele`]),
   ...GEBAEUDE_TYPEN.flatMap((g) => [`gebaeude.${g}`, `gebaeude.${g}.wozu`]),
 ];

@@ -763,5 +763,21 @@
   "thema.unterwasser.epoche-2": "Riffstadt",
   "thema.unterwasser.epoche-3": "Tiefseestation",
   "thema.unterwasser.epoche-4": "Ozeanfeste",
-  "bastion.sound": "Leise Geräusche (Wind, Tippen)"
+  "bastion.sound": "Leise Geräusche (Wind, Tippen)",
+  "bastion.bewaehrung": "{bewaehrung}",
+  "bastion.bewaehrung-erklaerung": "Freiwillig: gemischte Aufgaben zu Themen deiner Klasse. Niemand greift an, während die App zu ist.",
+  "bastion.bewaehrung-joker": "Hinweis-Joker durch Türme (nur Üben)",
+  "bastion.bewaehrung-joker-nutzen": "Joker nutzen (zählt als richtig)",
+  "bastion.bewaehrung-modus": "Modus",
+  "bastion.bewaehrung-ueben": "Üben (mit Joker, zählt nicht fürs Portfolio)",
+  "bastion.bewaehrung-ernstfall": "Ernstfall (ohne Hilfen; bei Bestehen 1 Bauplan)",
+  "bastion.bewaehrung-start": "Bewährungsprobe starten",
+  "bastion.bewaehrung-bestanden": "Bewährungsprobe bestanden!",
+  "bastion.bewaehrung-nicht": "Diesmal nicht bestanden – kein Verlust. In der Fehlerwerkstatt kannst du nacharbeiten.",
+  "bastion.bewaehrung-bauplan": "Für den Ernstfall hast du einen Bauplan bekommen.",
+  "thema.bastion.bewaehrung": "Belagerung",
+  "thema.garten.bewaehrung": "Gartenprüfung",
+  "thema.weltraum.bewaehrung": "Stationsprüfung",
+  "thema.dorf.bewaehrung": "Dorfprüfung",
+  "thema.unterwasser.bewaehrung": "Tauchprüfung"
 }

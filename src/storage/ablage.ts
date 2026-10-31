@@ -10,6 +10,8 @@ import {
 } from '../core/learning/fortschritt';
 import { offeneSitzungen, type SitzungEreignis } from '../core/learning/sitzung';
 import {
+  BUCHUNG_V,
+  buchungsId,
   fehlendeBuchungen,
   kontoAus,
   leeresKonto,
@@ -17,6 +19,8 @@ import {
   type BuchungEreignis,
   type Konto,
 } from '../core/ledger/buchung';
+import { bewaehrungBauplan } from '../core/bastion/bewaehrung';
+import type { Tag } from '../core/policy/lerntag';
 import {
   bastionAus,
   fertigmeldungen,
@@ -331,6 +335,36 @@ export async function bastionAktualisieren(
   return db.transaction('rw', [db.bau, db.buchungen, db.bastion], () =>
     bastionFortschreiben(db, inst, melder),
   );
+}
+
+/**
+ * Bauplan für bestandene Bewährungsprobe (Ernstfall, BASEBAU §5.6).
+ * Idempotent über feste Buchungs-ID. Liefert true, wenn neu gebucht.
+ */
+export async function bewaehrungBauplanSpeichern(
+  db: BastionDatenbank,
+  inst: Installation,
+  bezug: string,
+  tag: Tag,
+  jetzt: number,
+): Promise<boolean> {
+  const inhalt = bewaehrungBauplan(bezug, tag);
+  const id = buchungsId(inst.profil, inhalt);
+  return db.transaction('rw', [db.buchungen, db.konto], async () => {
+    if (await db.buchungen.get(id)) return false;
+    const e: BuchungEreignis = {
+      ...inhalt,
+      id,
+      art: 'buchung',
+      v: BUCHUNG_V,
+      profil: inst.profil,
+      ts: jetzt,
+      geraet: inst.geraet,
+    };
+    await db.buchungen.add(e);
+    await db.konto.put(verbuche(await konto(db, inst.profil), e));
+    return true;
+  });
 }
 
 /**

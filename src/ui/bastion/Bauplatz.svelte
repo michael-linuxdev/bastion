@@ -53,6 +53,7 @@
     hinterhofFelder = [],
     bauplatz = BAUPLATZ,
     epoche = 1 as Epoche,
+    spannung = false,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -61,6 +62,8 @@
     bauplatz?: { readonly breite: number; readonly tiefe: number };
     /** Freigeschaltete Epoche für Optik (G10) */
     epoche?: Epoche;
+    /** Bewährungsprobe: Spannungs-Himmel (G11) */
+    spannung?: boolean;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -350,6 +353,7 @@
       abend,
       jahreszeit,
       wetter: wetterBild,
+      spannung,
       familie: {
         kern: farbeSkalieren(v('--bastion-kern'), optik.wandFaktor),
         wissen: farbeSkalieren(v('--bastion-wissen'), optik.wandFaktor),
@@ -372,6 +376,7 @@
     void bauplatz.breite;
     void bauplatz.tiefe;
     void epoche;
+    void spannung;
     const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;

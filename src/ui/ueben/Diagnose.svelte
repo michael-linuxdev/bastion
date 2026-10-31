@@ -34,6 +34,8 @@
     auswahl,
     uebergreifend = $bindable(false),
     probe = false,
+    /** Hinweis-Joker aus Türmen (Bewährungsprobe Üben, BASEBAU §5.6) */
+    joker = 0,
     onklasse,
     onergebnis,
     onueben,
@@ -52,12 +54,17 @@
     uebergreifend?: boolean;
     /** Probe-Klassenarbeit (L-19): Antworten zählen als Prüfung, nicht als Diagnose */
     probe?: boolean;
+    /** Verbleibende Joker (0 = keine Anzeige / Ernstfall) */
+    joker?: number;
     /** Nach dem Wiedereinstieg: in der Übersicht diese Klasse zeigen */
     onklasse?: (klasse: number) => void;
     onergebnis: (daten: Antwortdaten) => void;
     onueben: (k: Kompetenz) => void;
     onende: () => void;
   } = $props();
+
+  let jokerVerbrauch = $state(0);
+  const jokerRest = $derived(Math.max(0, joker - jokerVerbrauch));
 
   // Nur Kompetenzen der gewählten Klasse mit Aufgaben auf Niveau G, in Graphreihenfolge
   const themen = $derived(
@@ -122,7 +129,19 @@
     weiter(aufgabe.instanz.loesung, { richtig: false }, true);
   }
 
-  function weiter(antwort: Loesung, ergebnis: { richtig: boolean }, unbekannt = false) {
+  /** Einen Joker verbrauchen: Aufgabe gilt als richtig (nur Bewährungsprobe Üben). */
+  function jokerNutzen() {
+    if (!aufgabe || jokerRest <= 0) return;
+    jokerVerbrauch += 1;
+    weiter(aufgabe.instanz.loesung, { richtig: true }, false, true);
+  }
+
+  function weiter(
+    antwort: Loesung,
+    ergebnis: { richtig: boolean },
+    unbekannt = false,
+    mitJoker = false,
+  ) {
     if (!aufgabe) return;
     onergebnis({
       modus: probe ? 'pruefung' : 'diagnose',
@@ -132,7 +151,7 @@
       generator: aufgabe.vorlage.generator,
       seed: aufgabe.seed,
       paket: paketVon.get(aufgabe.vorlage.id) ?? '',
-      hilfen: 0,
+      hilfen: mitJoker ? 1 : 0,
       dauerMs: Date.now() - aufgabe.beginn,
       platzhalter: aufgabe.instanz.platzhalter,
       loesung: aufgabe.instanz.loesung,
@@ -160,6 +179,9 @@
 
 <section class="diagnose">
   <h2>{probe ? t('ka.probe') : t('diagnose.ueberschrift')}</h2>
+  {#if joker > 0}
+    <p class="leise" role="status">{t('bastion.bewaehrung-joker')}: {jokerRest}</p>
+  {/if}
 
   {#if !gestartet && stand.naechste && !pause}
     <p>{probe ? t('ka.probe-einleitung') : t('diagnose.einleitung')}</p>
@@ -215,13 +237,15 @@
           <Eingabe
             instanz={aufgabe.instanz}
             typ={aufgabe.vorlage.typ}
-            tastatur={aufgabe.vorlage.tastatur}
             gesperrt={false}
             onantwort={beantwortet}
           />
           <div class="knoepfe">
             <button type="submit" form="antwort" class="haupt">{t('diagnose.weiter')}</button>
             <button onclick={weissNicht}>{t('diagnose.weiss-nicht')}</button>
+            {#if jokerRest > 0}
+              <button onclick={jokerNutzen}>{t('bastion.bewaehrung-joker-nutzen')}</button>
+            {/if}
           </div>
         </article>
       {/key}
