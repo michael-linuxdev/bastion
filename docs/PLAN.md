@@ -250,6 +250,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 31.10.2026 | **Review-Vermerk:** `pnpm review` zeigt die Stufen, `pnpm review setzen` schreibt den Block; Stufe braucht die vorige; Prüfkatalog für die Maschinenpunkte 3 und 4 (INHALTSFORMAT §8) |
 | 31.10.2026 | **Prüfbogen zum Ausfüllen:** `pnpm pruefbogen --online` erzeugt die Artefakt-Seite, die Eingaben speichert (Sammlung `bewertung`) |
 | 30.10.2026 | **Prüfbogen:** `pnpm pruefbogen` setzt Erstvermittlung, Fehlvorstellungen, Vorlagen mit 20 Aufgaben je Niveau und Fachbegriffe als druckbare Seite für die fachliche Prüfung zusammen (Stufe 2) |
 | 30.10.2026 | **Merge-Reihenfolge abgearbeitet:** #85, #84, #82 auf `main`, danach `u5c-dz` als ein PR (Funktionen, Größen, Raum und Form, Daten und Zufall). In der Ähnlichkeit heißt das Rechteck jetzt „6 cm breit und 4 cm hoch“ |

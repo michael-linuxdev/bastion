@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  neuerReview,
   OEFFENTLICHE_MINDESTSTUFE,
   pruefeReview,
   reviewHash,
@@ -59,5 +60,33 @@ describe('Review-Stufen (INHALTSFORMAT §8)', () => {
 
   it('die öffentliche Seite verlangt mindestens Stufe 2', () => {
     expect(OEFFENTLICHE_MINDESTSTUFE).toBe(2);
+  });
+});
+
+describe('neuen Review-Block bilden', () => {
+  it('setzt Stufe 1 auf neuen Inhalt, mit passendem Hash', () => {
+    const daten = inhalt();
+    const r = neuerReview(daten, 1, 'maschine', '2026-10-31');
+    expect('review' in r && wirksameStufe({ ...daten, review: r.review })).toBe(1);
+  });
+
+  it('verlangt die vorige Stufe', () => {
+    expect(neuerReview(inhalt(), 2, 'Frau Beispiel', '2026-10-31')).toHaveProperty('fehler');
+    const daten = inhalt();
+    const mit = { ...daten, review: block(daten, 1) };
+    expect(neuerReview(mit, 2, 'Frau Beispiel', '2026-10-31')).toHaveProperty('review');
+    expect(neuerReview(mit, 3, 'u4b', '2026-10-31')).toHaveProperty('fehler');
+  });
+
+  it('fängt nach einer Änderung wieder bei Stufe 1 an', () => {
+    const daten = inhalt();
+    const geaendert = { ...daten, review: block(daten, 2), version: 2 };
+    expect(neuerReview(geaendert, 2, 'Frau Beispiel', '2026-10-31')).toHaveProperty('fehler');
+    expect(neuerReview(geaendert, 1, 'maschine', '2026-10-31')).toHaveProperty('review');
+  });
+
+  it('Stufe 1 hat nur den Prüfer maschine, Datum und Name werden geprüft', () => {
+    expect(neuerReview(inhalt(), 1, 'Frau Beispiel', '2026-10-31')).toHaveProperty('fehler');
+    expect(neuerReview(inhalt(), 1, 'maschine', '2026-02-30')).toHaveProperty('fehler');
   });
 });

@@ -14,3 +14,6 @@ Die Datei im Browser öffnen und als PDF drucken (T-17). Sie kommt nicht ins Rep
 
 Mit `--online --name "Musterfeld Brüche"` entsteht stattdessen eine Seite zum Ausfüllen als Artefakt auf claude.ai (`online.ts`). Die prüfende Person kreuzt dort an, wählt je Abschnitt ein Urteil und schreibt Anmerkungen. Die Eingaben landen in der Datenbank der Seite, in der Sammlung `bewertung` mit einem Dokument je Abschnitt (`A-<Kompetenz>`, `B-<Fehlvorstellung>`, `C-<Vorlage>`, `D-begriffe`, `kopf`), und lassen sich von dort einarbeiten. Diese Seite gehört nicht zur App: Sie lädt Schriften von Google Fonts und nutzt die Laufzeit von claude.ai. Die Regeln der App (kein Netz, keine externen Schriften) gelten für sie darum nicht. Das Werkzeug lädt die Generatoren über Vite (`import.meta.glob`), darum startet `lauf.ts` sie mit `runnerImport`.
 
+## Review-Vermerk (`review/`)
+
+`pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.

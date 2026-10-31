@@ -209,3 +209,26 @@ export function wirksameStufe(daten: Record<string, unknown>): 0 | ReviewStufe {
   if (review['hash'] !== reviewHash(daten)) return 0;
   return review['stufe'] as ReviewStufe;
 }
+
+/**
+ * Neuen Review-Block bilden (INHALTSFORMAT §8). Eine Stufe setzt die vorige voraus:
+ * Stufe 1 geht immer, Stufe 2 nur bei wirksamer Stufe 1 oder höher, Stufe 3 nur ab 2.
+ * Stufe 1 trägt immer `maschine` als Prüfer.
+ */
+export function neuerReview(
+  daten: Record<string, unknown>,
+  stufe: ReviewStufe,
+  pruefer: string,
+  datum: string,
+): { readonly review: Review } | { readonly fehler: string } {
+  const jetzt = wirksameStufe(daten);
+  if (stufe > jetzt + 1)
+    return {
+      fehler: `Stufe ${stufe} braucht vorher Stufe ${stufe - 1}, wirksam ist Stufe ${jetzt}`,
+    };
+  if (stufe === 1 && pruefer !== 'maschine')
+    return { fehler: 'Stufe 1 hat immer den Prüfer „maschine“' };
+  const review: Review = { stufe, datum, pruefer, hash: reviewHash(daten) };
+  const f = pruefeReview(review);
+  return f.length > 0 ? { fehler: f.join('; ') } : { review };
+}

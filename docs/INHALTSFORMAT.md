@@ -367,9 +367,31 @@ Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning
 
 ### Was die Prüfung heute tut
 
-`pnpm inhalte:pruefen` prüft die Form, wenn das Feld da ist: Stufe 1, 2 oder 3, echtes Datum, `pruefer`, 64 Hex-Zeichen, keine anderen Schlüssel. Ein fehlendes Feld ist in Ordnung. Ein Hash, der nicht mehr passt, ist **kein Fehler** der Datei; `wirksameStufe` rechnet dann 0. Die vier Maschinenpunkte und das Werkzeug, das den Block schreibt, gibt es noch nicht. Darum trägt heute keine Inhaltsdatei ein `review`.
+`pnpm inhalte:pruefen` prüft die Form, wenn das Feld da ist: Stufe 1, 2 oder 3, echtes Datum, `pruefer`, 64 Hex-Zeichen, keine anderen Schlüssel. Ein fehlendes Feld ist in Ordnung. Ein Hash, der nicht mehr passt, ist **kein Fehler** der Datei; `wirksameStufe` rechnet dann 0.
 
-Für die menschliche Prüfung gibt es den **Prüfbogen** (`pnpm pruefbogen <Kompetenz-IDs>`, `tools/README.md`). Er zeigt alles, was Stufe 2 verlangt, als druckbare Seite. Dazu gehören je Vorlage und Niveau 20 Aufgaben. Prüfende brauchen kein YAML. Den `review`-Block schreibt er nicht.
+Für die menschliche Prüfung gibt es den **Prüfbogen** (`pnpm pruefbogen <Kompetenz-IDs>`, `tools/README.md`). Er zeigt alles, was Stufe 2 verlangt, als druckbare Seite oder mit `--online` als Seite zum Ausfüllen. Dazu gehören je Vorlage und Niveau 20 Aufgaben. Prüfende brauchen kein YAML.
+
+### Den Vermerk setzen (31.10.2026)
+
+`pnpm review` zeigt, wie viele Dateien auf welcher Stufe stehen und welche Vermerke durch eine spätere Änderung veraltet sind. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block. Eine Kompetenz-ID meint `kompetenz.yaml`, `vermittlung.yaml` und alle Vorlagen und Anleitungen in ihrem Ordner. Eine Vorlagen- oder Fehlvorstellungs-ID oder ein Pfad meint genau eine Datei. Das Werkzeug schreibt entweder alle genannten Dateien oder keine.
+
+- Eine Stufe setzt die vorige voraus, gerechnet mit der *wirksamen* Stufe: Stufe 2 nur auf eine Datei mit gültiger Stufe 1, Stufe 3 nur ab 2. Nach einer Änderung beginnt es wieder bei 1.
+- **Stufe 1** trägt immer `pruefer: maschine`. Die Maschinenpunkte 1 und 2 sichert `pnpm test` für alle Dateien, also auch für diese (Pflicht-Tests, Probelauf der Erstvermittlungen, nachgerechnete Fehlerbilder). Die Punkte 3 und 4 prüft ein zweites Modell in einer Claude-Code-Sitzung gegen den Prüfkatalog unten, Datei für Datei. Erst wenn es für eine Datei keinen Widerspruch findet, setzt es Stufe 1. Das Modell ist ein anderes als das, das die Datei entworfen hat, oder es prüft in einer frischen Sitzung ohne den Entwurf im Verlauf. Dafür gibt es keine neue Abhängigkeit und keinen Netzzugriff im Werkzeug.
+- **Stufe 2** setzt der Projektverantwortliche nach dem ausgefüllten Prüfbogen, mit dem Namen der prüfenden Person. Dateien mit dem Urteil „passt mit Änderung“ werden zuerst geändert, dann bekommen sie neu Stufe 1 und erst danach Stufe 2.
+- **Stufe 3** trägt die Testrunde als Prüfer, z. B. `u4b`.
+
+### Prüfkatalog für die Maschinenpunkte 3 und 4
+
+Das prüfende Modell geht jede Datei mit diesen Fragen durch und nennt zu jedem Fund die Stelle (Schritt, Fehlerbild, Option).
+
+1. **Eindeutige Frage:** Weiß ein Kind, das den Stoff sicher kann, genau eine Antwort und in welcher Form (welcher Bruch, gekürzt oder nicht, welche Einheit, welche Seite)? Hat jede Auswahl genau eine richtige Option?
+2. **Satz und Zahl:** Ergibt die Rechnung, die ein Fehlerbild-Satz beschreibt, genau die Zahl, bei der er erscheint? Gilt das für jede Zahl, die der Generator dafür erzeugen kann, nicht nur für ein Beispiel?
+3. **Erklärung und Fehler:** Passt die kurze Erklärung der Fehlvorstellung zu jedem Fehlerbild, das auf sie zeigt, ohne ihm zu widersprechen? Erklärt der Rückweg-Schritt genau diesen Fehler?
+4. **Fachlich richtig:** Stimmen alle Rechnungen, Beispiele und Gegenbeispiele im Text? Sind Fachbegriffe richtig verwendet?
+5. **Lösung und Hilfe:** Führen die Hilfen zur Lösung und verraten sie nichts Falsches (etwa „teilen“, wo malgenommen wird)?
+6. **Sprache:** Kurze Sätze, höchstens etwa 40 Wörter je Bildschirm (V8), Fachbegriffe markiert, keine Wertung des Kindes.
+
+Ein Fund ist ein Widerspruch, wenn eine der Fragen mit Nein beantwortet wird. Geschmack ist kein Fund.
 
 ## 9. Herkunft und Lizenz
 
