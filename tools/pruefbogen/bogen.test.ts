@@ -39,3 +39,33 @@ describe('Prüfbogen', () => {
     expect(bild).not.toContain('<script>');
   });
 });
+
+describe('Prüfbogen zum Ausfüllen', () => {
+  const online = pruefbogen(eingabe, { form: 'online', name: 'Musterfeld Brüche' });
+  const abschnitte = [
+    ...online.matchAll(/<section class="[a-z]+ abschnitt" data-s="([^"]+)"/g),
+  ].map((m) => m[1]);
+
+  it('hat je Kompetenz, Fehlvorstellung und Vorlage einen Abschnitt mit Urteil, dazu die Begriffe', () => {
+    const fvs = genannteFehlvorstellungen(eingabe).length;
+    expect(abschnitte).toHaveLength(MUSTERFELD.length + fvs + eingabe.vorlagen.length + 1);
+    for (const s of abschnitte) expect(online).toContain(`data-abschnitt="${s}"`);
+  });
+
+  it('gibt jedem Feld eine eindeutige ID, und jedes Feld gehört zu einem Abschnitt oder zum Kopf', () => {
+    const ids = [...online.matchAll(/ id="([^"]+--[^"]+)"/g)].map((m) => m[1]);
+    expect(new Set(ids).size).toBe(ids.length);
+    const zu = new Set([...online.matchAll(/data-s="([^"]+)" data-f=/g)].map((m) => m[1]));
+    for (const s of zu) expect(s === 'kopf' || abschnitte.includes(s)).toBe(true);
+  });
+
+  it('hat keine Kästchen zum Ausdrucken mehr und keine eigene Dokument-Hülle', () => {
+    expect(online).not.toContain('☐');
+    expect(online).not.toMatch(/<!doctype|<body/i);
+    expect(online.startsWith('<title>Prüfbogen Musterfeld Brüche</title>')).toBe(true);
+  });
+
+  it('nutzt nur gültige Pfade für die Datenbank', () => {
+    for (const s of abschnitte) expect(s).toMatch(/^[A-Za-z0-9_\-.~:@+]{1,200}$/);
+  });
+});

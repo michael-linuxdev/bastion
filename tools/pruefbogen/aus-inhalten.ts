@@ -13,7 +13,9 @@ import {
   ladeVermittlungen,
   ladeVorlagen,
 } from '../inhalte/laden';
-import { pruefbogen, type BogenEingabe } from './bogen';
+import type { BogenEingabe } from './bogen';
+
+export { pruefbogen } from './bogen';
 
 export function eingabeAusInhalten(
   ordner: string,
@@ -54,6 +56,3 @@ export function eingabeAusInhalten(
     datum,
   };
 }
-
-export const bogenAusInhalten = (...args: Parameters<typeof eingabeAusInhalten>) =>
-  pruefbogen(eingabeAusInhalten(...args));

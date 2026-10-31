@@ -3,7 +3,7 @@
 > Dieser Text ist der verbindliche Einstieg in jede Arbeitssitzung.
 > Am Ende jeder Sitzung wird er aktualisiert und mit committet.
 
-Stand: 30.10.2026 (25) · Merge-Reihenfolge abgearbeitet: #85, #84, #82 und #86 (`u5c-dz`) sind auf `main`
+Stand: 31.10.2026 (26) · Merge-Reihenfolge abgearbeitet: #85, #84, #82 und #86 (`u5c-dz`) sind auf `main`
 
 ---
 
@@ -104,7 +104,7 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
    - Danach die Testprotokoll-Dateien auswerten: Verständnis, Treffer der Erklärungen, Nutzung der Zwischenschritte und „Weiter ohne Weg“.
 2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
-   Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den `review`-Block (Stufe 2) gibt es erst, wenn Stufe 1 und das Werkzeug dafür gebaut sind.
+   Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den `review`-Block (Stufe 2) gibt es erst, wenn Stufe 1 und das Werkzeug dafür gebaut sind. Die Seite zum Ausfüllen liegt als Artefakt unter https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Sie wird mit `pnpm pruefbogen --online --name "Musterfeld Brüche" …` erzeugt und auf derselben Adresse neu veröffentlicht. Die Eingaben stehen in der Sammlung `bewertung` der Seite. Die Lehrkraft braucht Schreibrechte (per E-Mail als Bearbeiterin einladen), sonst speichert die Seite nur in ihrem Browser.
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.

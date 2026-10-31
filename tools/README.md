@@ -10,5 +10,7 @@ Setzt für die fachliche Prüfung (INHALTSFORMAT §8, Stufe 2) alles zu ausgewä
 pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html
 ```
 
-Die Datei im Browser öffnen und als PDF drucken (T-17). Sie kommt nicht ins Repository. Das Werkzeug lädt die Generatoren über Vite (`import.meta.glob`), darum startet `lauf.ts` sie mit `runnerImport`.
+Die Datei im Browser öffnen und als PDF drucken (T-17). Sie kommt nicht ins Repository.
+
+Mit `--online --name "Musterfeld Brüche"` entsteht stattdessen eine Seite zum Ausfüllen als Artefakt auf claude.ai (`online.ts`). Die prüfende Person kreuzt dort an, wählt je Abschnitt ein Urteil und schreibt Anmerkungen. Die Eingaben landen in der Datenbank der Seite, in der Sammlung `bewertung` mit einem Dokument je Abschnitt (`A-<Kompetenz>`, `B-<Fehlvorstellung>`, `C-<Vorlage>`, `D-begriffe`, `kopf`), und lassen sich von dort einarbeiten. Diese Seite gehört nicht zur App: Sie lädt Schriften von Google Fonts und nutzt die Laufzeit von claude.ai. Die Regeln der App (kein Netz, keine externen Schriften) gelten für sie darum nicht. Das Werkzeug lädt die Generatoren über Vite (`import.meta.glob`), darum startet `lauf.ts` sie mit `runnerImport`.
 
