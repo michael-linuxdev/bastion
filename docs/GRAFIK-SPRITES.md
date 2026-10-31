@@ -1,7 +1,7 @@
 # Übergabeprotokoll – Sprites für Bastion
 
-Status: 31.10.2026 · Für Bildagenten (Claude, Grok u. a.) und Einbau in PixiJS  
-Bezug: `GRAFIK.md` §4, B-28, B-27 · Raster: `src/ui/bastion/grafik/iso.ts` (Raute 48×24, Verhältnis 2∶1)
+Status: 31.10.2026 · P0 Dorf eingehängt · Für Bildagenten (Claude, Grok u. a.) und Einbau in PixiJS  
+Bezug: `GRAFIK.md` §4/§6, B-28, B-27 · Raster: `src/ui/bastion/grafik/iso.ts` (Raute 48×24, Verhältnis 2∶1)
 
 Dieses Dokument ist die **verbindliche Bestellung**. Wer Sprites erzeugt, liefert genau diese Dateien, in dieser Benennung, ohne Kampffiguren und ohne erkennbare Übernahme aus Clash of Clans oder anderen Spielen.
 
@@ -147,7 +147,7 @@ Damit Technik und Bild parallel laufen:
 
 | Charge | Inhalt | Blockiert |
 |---|---|---|
-| **P0** | `dorf` Epoche 1: alle 10 Rollen Stufe 1 + kern/wissen/turm höhere Stufen die im Katalog vorkommen; Boden; 3 Wesen komplett | G5 |
+| **P0** | `dorf` Epoche 1: alle 10 Rollen Stufe 1 + kern/wissen/turm höhere Stufen die im Katalog vorkommen; Boden; 3 Wesen komplett · **geliefert** (`public/grafik/atlas/`, Generator `tools/grafik/sprites-p0-dorf.py`) | G5 |
 | **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach | G2/G3 |
 | **P2** | `garten` Epoche 1 komplett + Wesen | G5 |
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 | G6 |
@@ -183,11 +183,12 @@ Beispiel `manifest.json`-Eintrag:
 
 ---
 
-## 10. Was der Einbau-Agent parallel tut (ohne auf P0 zu warten)
+## 10. Einbau-Stand
 
-- Ticker, Schalter, Jahreszeit, Open-Meteo, Code-Fallback-Gebäude  
-- Atlas-Loader hinter dem Katalog (`rolle` → Textur), Fallback = heutige Vektorgrafik  
-- Wenn P0 liegt: Dorf auf Atlas umschalten, Dorfkrieg-`dorf.ts`-Formen entfernen oder nur noch Fallback  
+- G0–G11 Code: Ticker, Schalter, Jahreszeit, Open-Meteo, Atlas-Loader, Code-Fallback  
+- **P0 (erledigt):** Manifest gefüllt, Dorf-Gebäude und Wesen nutzen Atlas-Texturen; `dorf.ts` bleibt Fallback und zeichnet weiter Bäume/Wiese  
+- Als Nächstes: P1 (Wetter-Auflagen, Wolken/Sonne/Mond) bzw. Qualität der P0-Sprites verfeinern; P2 Garten  
+
 
 ---
 

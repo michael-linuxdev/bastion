@@ -180,11 +180,11 @@ Vier Schritte, jeder ein eigener PR:
 
 Der Umbau auf Richtung A ist damit fertig. Als Nächstes sollen die drei Testerinnen ihn ausprobieren (`TESTS.md` §2).
 
-## 6. Thema Dorf – bisherige Dorfbilder (werden ersetzt)
+## 6. Thema Dorf – Atlas P0 (ersetzt Dorfkrieg-Platzhalter)
 
-Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30.10.2026 zeichnet die Bastion dort die Platzhalter aus [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) (`dorf.ts`): Wiese, Häuser, Zaun, Bäume. Zoom wie in Dorfkrieg (`kamera.ts`).
+Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30.10.2026 lagen dort Code-Platzhalter aus [Dorfkrieg](https://github.com/michael-linuxdev/dorfkrieg) (`dorf.ts`). Zoom wie in Dorfkrieg (`kamera.ts`).
 
-**Ab dem Grafik-Nebenstrang (31.10.2026):** Diese Platzhalter werden durch das Sprite-Atlas ersetzt (`GRAFIK-SPRITES.md`). **Garten** hat seit G5 eine eigene Code-Szene (Beete, Baumhaus, Gewächshaus, Hecken); Atlas unter `public/grafik/atlas/`. Alle fünf Themen sollen dasselbe Niveau erreichen. Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
+**Sprite-Charge P0 (31.10.2026):** Gebäude Epoche 1, Boden-Kacheln und Wesen (Huhn, Katze, Spatz) liegen unter `public/grafik/atlas/` mit `manifest.json`. Die Bastion-Szene lädt die Texturen und zeichnet Dorf-Gebäude/Wesen aus dem Atlas; fehlt ein Eintrag, bleibt der Code-Fallback. Generator: `tools/grafik/sprites-p0-dorf.py` (offline, deterministisch). **Garten** und die übrigen Themen bleiben vorerst Code-Szenen; Atlas-Pfade sind vorbereitet. Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
 
 ## 7. Hinterhof in der Szene (B-25)
 
@@ -214,7 +214,8 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G2** | Jahreszeit aus Datum + Abend nach Sonnenuntergang · *umgesetzt* |
 | **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) · *umgesetzt* |
 | **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude · *umgesetzt* |
-| **G5** | Atlas-Anbindung + Thema Garten (neues Niveau) · *umgesetzt* (Sprites folgen via Manifest) |
+| **G5** | Atlas-Anbindung + Thema Garten (neues Niveau) · *umgesetzt* |
+| **P0** | Sprite-Charge Dorf Epoche 1 (Gebäude, Boden, Wesen) · *umgesetzt* – siehe `GRAFIK-SPRITES.md` §8 |
 | **G6** | Unterwasser, Weltraum, Bastion-Wesen · *umgesetzt* (Code-Szenen; Sprites folgen) |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen · *umgesetzt* |
 | **G8** | Sound optional (CC0, Standard aus) · *umgesetzt* (prozedural; Dateien optional) |

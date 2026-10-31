@@ -66,3 +66,27 @@ export function atlasEintrag(
   const id = atlasId(thema, epoche, rolle, stufe);
   return manifest.eintraege.find((e) => e.id === id);
 }
+
+/** Beliebigen Manifest-Eintrag per ID (Gebäude, Boden, Wesen). */
+export function atlasEintragPerId(
+  manifest: AtlasManifest | null,
+  id: string,
+): AtlasEintrag | undefined {
+  if (!manifest) return undefined;
+  return manifest.eintraege.find((e) => e.id === id);
+}
+
+/** Wesen-Frame-ID nach GRAFIK-SPRITES.md §3 / §6. */
+export function atlasWesenId(
+  thema: Thema,
+  art: string,
+  zyklus: 'idle' | 'walk' | 'react',
+  frame: number,
+): string {
+  return `wesen/${thema}/${art}_${zyklus}_${frame}`;
+}
+
+/** Basis-URL der Atlas-Dateien (eigene App-Adresse). */
+export function atlasBasisUrl(): string {
+  return `${import.meta.env.BASE_URL}grafik/atlas/`;
+}

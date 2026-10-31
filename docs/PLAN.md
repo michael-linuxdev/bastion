@@ -24,7 +24,7 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
 | 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
-| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; Grafik-Nebenstrang G0–G11 (CI nach Rebase) | ja |
+| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; G0–G11 ✅; Sprite-P0 Dorf ✅ | ja |
 | 3 | Bastion zeigen (QR-Übertragung, O-9) | ⏳ | nein |
 | 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte weiter klassenweise (K-15); Belagerung seit B-28 im Nebenstrang G11 spezifiziert |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
@@ -268,6 +268,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 | 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |
 | 30.10.2026 | **Lernkern-Review:** Schatten-Kehrwert rechnet das umgedrehte Verhältnis; Fragen in Erweitern und Vergleichen nennen die erwartete Eingabe; Zinseszins-Fehler führt zur Erklärung, dass sich das Kapital ändert. Test prüft beschriebene Fehlrechnungen |
 | 31.10.2026 | **B-28 Grafik-Nebenstrang:** lebendige Szenen, Sprite-Atlas (`GRAFIK-SPRITES.md`), Wesen, Jahreszeit, Open-Meteo, Schalter ruhig/leicht, Sound optional, Hinterhof in der Szene; Epochen 2–4 und Belagerungsmechanik freigegeben; Dorfkrieg-Platzhalter werden ersetzt (`GRAFIK.md` §4–§10) |
+| 31.10.2026 | **Sprite-Charge P0 (Dorf):** Gebäude Epoche 1, Boden, Wesen unter `public/grafik/atlas/`; Dorf-Szene nutzt Atlas, Code bleibt Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8) |
 | 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) – *wird durch B-28 ersetzt* |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |
