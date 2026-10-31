@@ -1,1 +1,4 @@
-# Sprites für dorf/e1 – siehe GRAFIK-SPRITES.md
+# Sprites für dorf/e1
+
+Die PNGs liegen unter `gebaeude/dorf/e1/`, `boden/dorf/e1/` und `wesen/dorf/`
+(siehe `GRAFIK-SPRITES.md` §3). Einträge in `manifest.json`. Charge P0.

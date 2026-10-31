@@ -134,6 +134,21 @@ export function dorfWiese(st: Stift, abend: boolean): void {
   }
 }
 
+/** Ein Baum am Feld (Code-Fallback / Dekoration neben Atlas-Sprites). */
+export function dorfBaum(st: Stift, x: number, y: number, scale: number): void {
+  baum(st, x, y, scale);
+}
+
+/** Feste Baumpositionen (Tiefe = x+y für Sortierung). */
+export function dorfBaumLagen(): readonly { x: number; y: number; s: number; tiefe: number }[] {
+  return BAEUME.map((b) => ({ ...b, tiefe: b.x + b.y }));
+}
+
+/** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */
+export function dorfGebaeude(st: Stift, bau: DorfBau, abend: boolean, licht: string): void {
+  gebaeude(st, bau, abend, licht);
+}
+
 /** Bäume und Häuser von hinten nach vorn, damit Vorderes Hinteres verdeckt. */
 export function dorfSzene(
   st: Stift,

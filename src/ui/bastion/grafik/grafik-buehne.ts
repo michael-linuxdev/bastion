@@ -6,7 +6,7 @@
 // und Skin (B-17, B-18, B-27). Das Thema Dorf zeichnet stattdessen die Dorfbilder
 // (`dorf.ts`). Diese Datei ist der einzige Ort, der PixiJS importiert; die
 // Listenansicht bleibt gleichwertig.
-import { Application, Container, Graphics } from 'pixi.js';
+import { Application, Assets, Container, Graphics, Sprite, Texture } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
 import type { HinterhofFeld } from '../../../core/learning/hinterhof';
 import type { Thema } from '../../../core/policy/einstellung';
@@ -24,8 +24,23 @@ import {
   wolkenVersatz,
   type Bewegung,
 } from './atmosphaere';
-import { atlasLaden } from './atlas';
-import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
+import {
+  atlasBasisUrl,
+  atlasEintrag,
+  atlasEintragPerId,
+  atlasLaden,
+  atlasWesenId,
+  type AtlasManifest,
+} from './atlas';
+import {
+  dorfBaum,
+  dorfBaumLagen,
+  dorfGebaeude,
+  dorfHoehe,
+  dorfSzene,
+  dorfWiese,
+  type Stift,
+} from './dorf';
 import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
 import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
 import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
@@ -94,6 +109,20 @@ export interface Buehne {
   /** Kurze Reaktion auf Tippen */
   tippeWesen(id: string): void;
   zerstoere(): void;
+}
+
+/** Frame aus Zustand (idle / walk / react) – deterministisch. */
+function wesenFrame(
+  w: WesenZustand,
+  jetzt: number,
+): { zyklus: 'idle' | 'walk' | 'react'; frame: number } {
+  if (jetzt < w.reactBis) {
+    const t = 400 - (w.reactBis - jetzt);
+    return { zyklus: 'react', frame: t < 200 ? 0 : 1 };
+  }
+  const bewegt = Math.hypot(w.zx - w.x, w.zy - w.y) > 2;
+  if (bewegt) return { zyklus: 'walk', frame: Math.floor(Math.abs(w.phase)) % 4 };
+  return { zyklus: 'idle', frame: Math.floor(Math.abs(w.phase) / 2) % 3 };
 }
 
 /** Silhouette eines Wesens (Code-Fallback bis Sprite-Atlas). */
@@ -486,6 +515,24 @@ function stiftVon(g: Graphics): Stift {
   };
 }
 
+/** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
+async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<string, Texture>> {
+  const map = new Map<string, Texture>();
+  if (!manifest || manifest.eintraege.length === 0) return map;
+  const basis = atlasBasisUrl();
+  await Promise.all(
+    manifest.eintraege.map(async (e) => {
+      try {
+        const tex = (await Assets.load(basis + e.datei)) as Texture;
+        map.set(e.id, tex);
+      } catch {
+        // einzelner Ausfall: Code-Fallback für diese ID
+      }
+    }),
+  );
+  return map;
+}
+
 export async function buehneErstellen(
   ziel: HTMLElement,
   farben: Farben,
@@ -513,11 +560,13 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
+  // Atlas erst nach dem Canvas, und nur für Dorf (P0). So bleibt der Aufbau anderer
+  // Themen schnell; Bauplatz.$effect räumt verwaiste Canvas bei Abbruch weg.
+  const atlas: AtlasManifest | null = art === 'dorf' ? await atlasLaden() : null;
+  const texturen = art === 'dorf' ? await atlasTexturenLaden(atlas) : new Map<string, Texture>();
+
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
   const hintergrund = new Graphics();
-  // Bei Nebel/Regen Gestirn abdunkeln – Sonne nur bei klar/leicht bewölkt
-  // Atlas optional vorladen (Fallback bleibt Code)
-  void atlasLaden();
   if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
   else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
@@ -539,11 +588,12 @@ export async function buehneErstellen(
     wolkenLage.ellipse(400, 40, 36, 11).fill({ color: farben.wolke, alpha: 0.7 });
   }
   const gebaeude = new Container();
+  gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
   gebaeude.pivot.set(buehneBreite() / 2, buehneHoehe() / 2);
   gebaeude.position.set(buehneBreite() / 2, buehneHoehe() / 2);
   const partikelLage = new Graphics();
-  const wesenLage = new Graphics();
+  const wesenLage = new Container();
   app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
   let wesen: WesenZustand[] = [];
   let letzteWesenZahl = -1;
@@ -595,9 +645,28 @@ export async function buehneErstellen(
   };
 
   const wesenZeichnen = (jetzt: number) => {
-    wesenLage.clear();
+    wesenLage.removeChildren().forEach((c) => c.destroy());
     if (!tickerAn(bewegung)) return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
-    for (const w of wesen) zeichneWesen(wesenLage, w, jetzt);
+    for (const w of wesen) {
+      const { zyklus, frame } = wesenFrame(w, jetzt);
+      const id = atlasWesenId(thema, w.art, zyklus, frame);
+      const eintrag = atlasEintragPerId(atlas, id);
+      const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+      if (eintrag && tex) {
+        const spr = new Sprite(tex);
+        spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+        const skal = (eintrag.pixel.w / 2) * w.skala * (jetzt < w.reactBis ? 1.12 : 1);
+        spr.width = skal;
+        spr.height = (eintrag.pixel.h / eintrag.pixel.w) * skal;
+        spr.position.set(w.x, w.y);
+        spr.scale.x = w.richtung * Math.abs(spr.scale.x);
+        wesenLage.addChild(spr);
+      } else {
+        const g = new Graphics();
+        zeichneWesen(g, w, jetzt);
+        wesenLage.addChild(g);
+      }
+    }
   };
 
   const ticker = () => {
@@ -634,7 +703,7 @@ export async function buehneErstellen(
       gebaeude.alpha = 1;
       // Standbild der Partikel bei „ruhig“; Wesen aus
       partikelZeichnen();
-      wesenLage.clear();
+      wesenLage.removeChildren().forEach((c) => c.destroy());
     }
   };
   tickerSync();
@@ -667,6 +736,7 @@ export async function buehneErstellen(
       }
       gebaeude.removeChildren().forEach((c) => c.destroy());
       const g = new Graphics();
+      g.zIndex = 0;
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(stiftVon(g), a.hinterhof, thema, farben.abend);
       }
@@ -683,7 +753,64 @@ export async function buehneErstellen(
         return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
       });
       treffer = [];
-      if (art === 'dorf') {
+      const epoche = a.epoche ?? 1;
+      if (art === 'dorf' && texturen.size > 0) {
+        // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
+        const lagen: { tiefe: number; zeichne: () => void }[] = dorfBaumLagen().map((b) => ({
+          tiefe: b.tiefe,
+          zeichne: () => {
+            const stueck = new Graphics();
+            dorfBaum(stiftVon(stueck), b.x, b.y, b.s);
+            stueck.zIndex = b.tiefe * 10;
+            gebaeude.addChild(stueck);
+          },
+        }));
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'dorf', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                dorfGebaeude(
+                  stiftVon(stueck),
+                  {
+                    typ: x.typ,
+                    stufe: x.stufe,
+                    pos: x.pos,
+                    ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+                    auswahl: a.auswahl === x.id,
+                  },
+                  farben.abend,
+                  farben.licht,
+                );
+                if (a.auswahl === x.id) {
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
+      } else if (art === 'dorf') {
         dorfSzene(
           stiftVon(g),
           reihe.map((x) => ({
@@ -828,7 +955,10 @@ export async function buehneErstellen(
     },
     zerstoere() {
       app.ticker.remove(ticker);
+      const view = app.canvas;
       app.destroy(true, { children: true });
+      // Pixi entfernt die View nicht zuverlässig, wenn destroy nach Abbruch kommt
+      view.remove();
     },
   };
 }

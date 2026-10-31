@@ -26,7 +26,7 @@ Zeitrahmen der Strategie: bis Monat 12 (Oktober 2027) – als Überprüfungszeit
 |---|---|---|---|
 | 0 | Fundament | 🔄 läuft | ja |
 | 1 | **Lernkern** Mathe (Zielgruppe Sachsen, Kl. 5–12), Niveaus G + M, Inhalte zuerst für **Klasse 5** vollständig (K-15) (Monate 1–5) | ⏳ | ja – Schwerpunkt |
-| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; Grafik-Nebenstrang G0–G11 (CI nach Rebase) | ja |
+| 2 | **Basebau Epoche 1** – Ledger, Bauen, Listenansicht, Simulator, Grafik (K-18); **Nebenstrang** lebendige Grafik + Epochen 2–4 (B-28, `GRAFIK.md` §10) | 🔄 Epoche 1 Mechanik ✅; G0–G11 ✅; Sprite-P0 Dorf ✅ | ja |
 | 3 | Bastion zeigen (QR-Übertragung, O-9) | ⏳ | nein |
 | 4 | Mathe Sek I + Belagerungen | ⏳ | Inhalte weiter klassenweise (K-15); Belagerung seit B-28 im Nebenstrang G11 spezifiziert |
 | 5 | Sprache (Operatoren, DaZ, Hilfesprache) | ⏳ | nein |
