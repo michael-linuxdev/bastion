@@ -196,13 +196,16 @@
     {#if klassenarbeit}
       <p class="hinweis">
         <span>{t('ka.am')} {datum(new Date(`${klassenarbeit}T12:00:00`))}</span>
-        <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button>
+        <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button
+        >
       </p>
     {/if}
     {#if sichern}
       <p class="hinweis">
         <span>{t('sicherung.erinnerung')}</span>
-        <button class="dezent" onclick={() => onziel('sicherung')}>{t('sicherung.erstellen')}</button>
+        <button class="dezent" onclick={() => onziel('sicherung')}
+          >{t('sicherung.erstellen')}</button
+        >
       </p>
     {/if}
   {/if}

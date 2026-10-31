@@ -41,10 +41,7 @@
   <ul class="liste">
     {#each eintraege as e (e.ziel)}
       <li>
-        <button
-          class:werkstatt={e.ziel === 'eltern'}
-          onclick={() => onziel(e.ziel)}
-        >
+        <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
           <Symbol name={e.symbol} />
           <span>{e.name}</span>
         </button>
