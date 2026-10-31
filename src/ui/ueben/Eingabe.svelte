@@ -10,6 +10,8 @@
   import { bruch } from '../../core/learning/bruch';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import type { Aufgabentyp } from '../../core/learning/vorlage';
+  import { tastenFuer, type Taste } from '../../core/learning/tastatur';
+  import Tastatur from '../eingabe/Tastatur.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import { fuelle, zahlText } from '../../core/learning/text';
   import Textteile from './Textteile.svelte';
@@ -18,11 +20,14 @@
     instanz,
     typ,
     gesperrt,
+    tastatur,
     onantwort,
   }: {
     instanz: Instanz;
     typ: Aufgabentyp;
     gesperrt: boolean;
+    /** Tasten aus der Vorlage (INHALTSFORMAT §5.2) */
+    tastatur?: readonly Taste[] | undefined;
     onantwort: (antwort: Loesung, hinweis?: 'punkt-statt-komma') => void;
   } = $props();
 
@@ -34,10 +39,14 @@
   let fehler = $state<TextSchluessel | undefined>(undefined);
 
   const art = $derived(instanz.loesung.typ);
-
-  /** Minus vorn setzen oder entfernen – für Tastaturen ohne Minustaste (Instanz.vorzeichen) */
-  const umgedreht = (s: string) =>
-    /^\s*[-−]/.test(s) ? s.replace(/^\s*[-−]/, '') : `−${s.trim()}`;
+  /** Faktoren und Uhrzeiten brauchen Zeichen, die die Tastatur nicht hat: Systemtastatur */
+  const mitTastatur = $derived(
+    art !== 'auswahl' &&
+      art !== 'reihenfolge' &&
+      typ !== 'faktoren-eingabe' &&
+      typ !== 'uhrzeit-eingabe',
+  );
+  const tasten = $derived(tastenFuer({ loesung: art, vorlage: tastatur, instanz }));
 
   function zahlen(...gelesen: Gelesen<number>[]): number[] | undefined {
     for (const g of gelesen) {
@@ -92,16 +101,6 @@
   }
 </script>
 
-{#snippet plusMinus(nr: 1 | 2)}
-  <button
-    type="button"
-    class="vorzeichen"
-    disabled={gesperrt}
-    aria-label={t('eingabe.vorzeichen')}
-    onclick={() => (nr === 1 ? (feld1 = umgedreht(feld1)) : (feld2 = umgedreht(feld2)))}>±</button
-  >
-{/snippet}
-
 <form onsubmit={pruefen} class="eingabe" id="antwort">
   {#if art === 'auswahl'}
     <fieldset class="optionen" class:bilder={instanz.optionen?.some((o) => o.bild)}>
@@ -147,16 +146,18 @@
       <label
         ><span class="unsichtbar">{t('eingabe.zaehler')}</span>
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="zaehler"
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
-        />{#if instanz.vorzeichen}{@render plusMinus(1)}{/if}</label
+        /></label
       >
       <label
         ><span class="unsichtbar">{t('eingabe.nenner')}</span>
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="nenner"
           autocomplete="off"
           bind:value={feld2}
           disabled={gesperrt}
@@ -168,21 +169,23 @@
       (<label
         ><span class="unsichtbar">{t('eingabe.x')}</span>
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="feld"
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
-        />{#if instanz.vorzeichen}{@render plusMinus(1)}{/if}</label
+        /></label
       >
       |
       <label
         ><span class="unsichtbar">{t('eingabe.y')}</span>
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="feld"
           autocomplete="off"
           bind:value={feld2}
           disabled={gesperrt}
-        />{#if instanz.vorzeichen}{@render plusMinus(2)}{/if}</label
+        /></label
       >)
     </span>
   {:else if art === 'mit-rest'}
@@ -190,7 +193,8 @@
       <label
         >{t('eingabe.ergebnis')}
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="feld"
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
@@ -199,7 +203,8 @@
       <label
         >{t('eingabe.rest')}
         <input
-          inputmode="numeric"
+          inputmode="none"
+          data-tastatur="feld"
           autocomplete="off"
           bind:value={feld2}
           disabled={gesperrt}
@@ -210,18 +215,18 @@
     <label class="einzeln">
       <span class="unsichtbar">{t('eingabe.antwort')}</span>
       <input
-        inputmode={typ === 'faktoren-eingabe' || typ === 'uhrzeit-eingabe' ? 'text' : 'decimal'}
+        inputmode={mitTastatur ? 'none' : 'text'}
+        data-tastatur={mitTastatur ? 'feld' : undefined}
         autocomplete="off"
         bind:value={feld1}
         disabled={gesperrt}
       />
-      {#if instanz.vorzeichen && typ !== 'faktoren-eingabe' && typ !== 'uhrzeit-eingabe'}
-        {@render plusMinus(1)}
-      {/if}
     </label>
     {#if typ === 'faktoren-eingabe'}<p class="hinweis">{t('eingabe.faktoren-hinweis')}</p>{/if}
     {#if typ === 'uhrzeit-eingabe'}<p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>{/if}
   {/if}
+
+  {#if mitTastatur && !gesperrt}<Tastatur {tasten} />{/if}
 
   {#if fehler}<p class="fehler" role="alert">{t(fehler)}</p>{/if}
 </form>
@@ -245,13 +250,6 @@
 
   input:focus-visible {
     outline: 3px solid var(--farbe-akzent);
-  }
-
-  .vorzeichen {
-    min-inline-size: 2.75rem;
-    min-block-size: 2.75rem;
-    margin-inline-start: var(--abstand-s);
-    font-size: 1.25rem;
   }
 
   .bruchfelder {

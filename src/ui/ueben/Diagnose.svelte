@@ -215,6 +215,7 @@
           <Eingabe
             instanz={aufgabe.instanz}
             typ={aufgabe.vorlage.typ}
+            tastatur={aufgabe.vorlage.tastatur}
             gesperrt={false}
             onantwort={beantwortet}
           />

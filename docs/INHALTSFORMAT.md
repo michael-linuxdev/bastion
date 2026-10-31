@@ -218,11 +218,29 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 - Dezimaltrennzeichen ist das **Komma**. Ein **Punkt wird als Dezimaltrennzeichen akzeptiert** – mit dem freundlichen Hinweis, dass man im Deutschen ein Komma schreibt.
 - **Tausendertrennzeichen werden nicht akzeptiert** (weder Punkt noch Leerzeichen innerhalb der Zahl).
 - Leerzeichen am Rand, führende Nullen und ein überflüssiges `+` werden ignoriert.
-- **Negative Zahlen** (ab Klasse 7): `-` und `−` gelten beide als Minus. Weil die Zahlentastaturen auf dem Handy oft kein Minus haben, setzt ein Generator `vorzeichen: true` für **jede** Instanz, deren Antwort negativ sein *kann*. Dann steht neben jedem Zahlenfeld (Ergebnis, Zähler, x und y) ein Knopf „±“, der das Minus vorn setzt oder entfernt. Weil der Knopf bei allen Aufgaben des Generators erscheint, verrät er nichts über die Lösung.
+- **Negative Zahlen** (ab Klasse 7): `-` und `−` gelten beide als Minus. Ein Generator setzt `vorzeichen: true` für **jede** Instanz, deren Antwort negativ sein *kann*. Dann zeigt die eigene Tastatur die Minustaste (§5.2). Weil die Taste bei allen Aufgaben des Generators erscheint, verrät sie nichts über die Lösung. Den früheren Knopf „±“ gibt es seit 31.10.2026 nicht mehr.
 
 *Warum:* Viele Jugendliche mit DaZ kennen den Dezimalpunkt. Sie dafür als falsch zu werten, misst Konvention statt Mathematik. Tausenderpunkte würden dagegen Mehrdeutigkeit erzeugen („3.500“).
 
 *Umsetzung:* `src/core/learning/auswertung.ts` liest Zahlen, Brüche (auch gemischt, „1 3/4“), Primfaktoren und Uhrzeiten und wertet Antworten aus. Ohne `antwort.form` gilt für Brüche `beliebig`. Erkannt wird zuerst die exakt gleiche Fehler-Antwort, dann eine wertgleiche (6/10 bei Fehlerbild 3/5). Wertgleich, aber in falscher Form, ergibt einen eigenen Hinweis (`nicht-gekuerzt`, `andere-schreibweise`). Ein Probelauf mit allen Vorlagen (`tools/inhalte/auswertung.test.ts`) stellt sicher, dass jede echte Lösung als richtig und jede Fehlerbild-Antwort als genau dieses Fehlerbild erkannt wird.
+
+### 5.2 Eigene Tastatur (`tastatur`, 31.10.2026)
+
+Zahlen, Brüche, Punkte und Division mit Rest gibt man über eine eigene Tastatur der App ein. Sie läuft offline, braucht keine Bibliothek und ist in Üben, Wiederholen, Fehlerwerkstatt, Diagnose, Zwischenschritten und Erstvermittlung dieselbe (`src/ui/eingabe/Tastatur.svelte`). Die Felder haben `inputmode="none"`. So öffnet sich auf dem Handy nicht zusätzlich die Systemtastatur, am Rechner tippt man weiter mit der echten Tastatur. Die Systemtastatur bleibt für Namen, Freitext, Primfaktoren und Uhrzeiten.
+
+```yaml
+tastatur:          # in der Vorlage, optional
+  - ziffern
+  - komma
+  - minus          # nur, wenn negative Antworten vorkommen
+  - bruchstrich    # springt vom Zähler in den Nenner, sonst „/“
+  - variable: x    # ein Buchstabe
+  - einheit: cm    # kurz, ohne Leerzeichen
+```
+
+**Welche Tasten gelten** (`tastenFuer` in `src/core/learning/tastatur.ts`): Die Instanz gewinnt, wenn sie `tastatur` setzt (der Generator darf es je Aufgabe enger fassen). Sonst gilt die Vorlage. Sonst gilt die Art der Lösung: Zahl mit Ziffern und Komma, Bruch mit Ziffern und Bruchstrich, alles andere nur Ziffern. `vorzeichen: true` der Instanz schaltet die Minustaste immer zu. Löschen gibt es immer. In der Erstvermittlung gilt die Art der Antwort. Minus erscheint dort nur, wenn die Lösung oder ein bekannter Fehler negativ ist.
+
+`pnpm inhalte:pruefen` prüft die Form: bekannte Tasten, keine doppelten, Variable ein Buchstabe, Einheit kurz. Bestehende Vorlagen ohne Feld bleiben gültig.
 
 ## 6. Generator-Schnittstelle
 
@@ -240,7 +258,8 @@ export interface Instanz {
   loesungsweg: Schritt[];                // für Anzeige nach der Antwort
   fehlerbilder?: Fehlerbild[];           // erwartbare falsche Antworten
   optionen?: Option[];                   // bei auswahl / fehler-finden
-  vorzeichen?: boolean;                  // Antwort kann negativ sein → Knopf „±“ (§5.1)
+  vorzeichen?: boolean;                  // Antwort kann negativ sein → Minustaste (§5.1, §5.2)
+  tastatur?: Taste[];                    // Tasten nur für diese Aufgabe (§5.2)
 }
 
 export interface Fehlerbild {

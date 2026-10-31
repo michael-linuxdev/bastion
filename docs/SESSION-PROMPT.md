@@ -160,6 +160,8 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 
 ### 2. Eigene Tastatur für Zahlen und Terme
 
+**Erledigt am 31.10.2026** (INHALTSFORMAT §5.2): `Tastatur.svelte` in Üben, Diagnose, Zwischenschritten und Erstvermittlung, Regel `tastenFuer` im Kern, Feld `tastatur` in Vorlage und Instanz, ±-Knopf entfernt. Offen: Tasten für Primfaktoren (Malpunkt) und Uhrzeiten (Doppelpunkt). Die Rechenzeilen für Gleichungen nutzen später Variablen-Tasten.
+
 Die Minustaste beim Üben (`src/ui/ueben/Eingabe.svelte`, Knopf ±, nur wenn die Instanz `vorzeichen` setzt) und das Zahlenfeld der Erstvermittlung (`inputmode="decimal"`, ohne Minus) werden eine Tastatur. Sie gehört zur App, läuft offline, und ersetzt den ±-Knopf. Die Systemtastatur bleibt für Namen und Freitext.
 
 **Anforderungen**
@@ -284,7 +286,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 - Browser-Tests suchen Knöpfe im Hauptbereich (`page.getByRole('main')…`). Für „Mehr“ gibt es `mehr(page)`. Das Formular der Aufgabe ist `form#antwort`, das der Schritte `form.aktuell`.
 - Lokal überschreitet `fk.graph-ablesen` im vollen Testlauf manchmal die Zeitgrenze. Das passiert auch auf `main`, in der CI nicht.
 - Browser-Tests, die neu laden, warten vorher, bis die Antwort in IndexedDB steht (`aufgabenImSpeicher`). Sonst geht sie beim Neuladen verloren, und der Test ist in der CI manchmal rot.
-- Erstvermittlungen: Das Zahlenfeld hat `inputmode="decimal"`, auf dem iPhone fehlt dort das Minus. Negative Ergebnisse darum als Auswahl abfragen, nicht als Eingabe.
+- Erstvermittlungen: Seit der eigenen Tastatur (31.10.2026) gibt es in Zahlenfeldern ein Minus, sobald die Lösung oder ein bekannter Fehler negativ ist. Negative Ergebnisse dürfen also wieder als Eingabe abgefragt werden.
 - Werkzeug `zahlenstrahl@1`: `markiert` zählt ab 0 in Schritten der Einteilung, nicht ab `von`. Von 3 bis 4 in Zehnteln liegt 3,5 bei `markiert: 35`. Ganzzahlige Bereiche wie 30 bis 40 lassen sich damit nicht beschriften.
 - `tools/logische-css.test.ts` verbietet `min-width` in Medienabfragen. Stattdessen `@media (width >= 36rem)` schreiben.
 

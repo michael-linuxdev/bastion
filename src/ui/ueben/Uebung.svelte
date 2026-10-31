@@ -285,6 +285,7 @@
         <Eingabe
           instanz={aufgabe.instanz}
           typ={aufgabe.vorlage.typ}
+          tastatur={aufgabe.vorlage.tastatur}
           gesperrt={ergebnis !== undefined}
           onantwort={beantwortet}
         />
@@ -335,6 +336,7 @@
                   bisher,
                 )}
               platzhalter={a.instanz.platzhalter}
+              vorzeichen={a.instanz.vorzeichen}
               onfertig={(s) => speichern(s)}
               onueberspringen={() => {
                 speichern();

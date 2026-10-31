@@ -7,6 +7,7 @@
   import { bruch } from '../../core/learning/bruch';
   import type { SchrittErgebnis } from '../../core/learning/ereignis';
   import type { Loesung, SchrittAufgabe, Wert } from '../../core/learning/generator';
+  import { tastenFuer } from '../../core/learning/tastatur';
   import { fuelle, zahlText } from '../../core/learning/text';
   import {
     pruefeSchritt,
@@ -14,12 +15,14 @@
     type VorlagenSchritt,
   } from '../../core/learning/zwischenschritte';
   import { t, type TextSchluessel } from '../texte/texte';
+  import Tastatur from '../eingabe/Tastatur.svelte';
   import Textteile from './Textteile.svelte';
 
   let {
     schritte,
     berechne,
     platzhalter,
+    vorzeichen = false,
     onfertig,
     onueberspringen,
   }: {
@@ -28,6 +31,8 @@
     berechne: (id: string, bisher: Readonly<Record<string, Loesung>>) => SchrittAufgabe;
     /** Platzhalter der Aufgabe */
     platzhalter: Readonly<Record<string, Wert>>;
+    /** Negative Eingaben möglich: Minustaste (Instanz.vorzeichen) */
+    vorzeichen?: boolean | undefined;
     onfertig: (ergebnisse: SchrittErgebnis[]) => void;
     onueberspringen: () => void;
   } = $props();
@@ -155,14 +160,27 @@
         <p class="frage"><Textteile teile={fuelle(aktuell.frage.de, werte(aufgabe))} /></p>
         {#if aktuell.typ === 'bruch-eingabe'}
           <div class="bruch">
-            <label>{t('weg.zaehler')} <input inputmode="numeric" bind:value={zaehler} /></label>
-            <label>{t('weg.nenner')} <input inputmode="numeric" bind:value={nenner} /></label>
+            <label
+              >{t('weg.zaehler')}
+              <input inputmode="none" data-tastatur="zaehler" bind:value={zaehler} /></label
+            >
+            <label
+              >{t('weg.nenner')}
+              <input inputmode="none" data-tastatur="nenner" bind:value={nenner} /></label
+            >
           </div>
         {:else}
           <label class="feld"
-            >{t('weg.antwort')} <input inputmode="decimal" bind:value={feld} /></label
+            >{t('weg.antwort')}
+            <input inputmode="none" data-tastatur="feld" bind:value={feld} /></label
           >
         {/if}
+        <Tastatur
+          tasten={tastenFuer({
+            loesung: aktuell.typ === 'bruch-eingabe' ? 'bruch' : 'zahl',
+            instanz: { vorzeichen },
+          })}
+        />
         {#if lesefehler}<p class="leise" role="alert">{t(lesefehler)}</p>{/if}
         {#if fehler.length > 0}
           <div class="hinweis" role="status">

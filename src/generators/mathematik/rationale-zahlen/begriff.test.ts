@@ -33,7 +33,7 @@ describe('Zahlengerade', () => {
       const w = i.loesung.typ === 'zahl' ? i.loesung.wert : NaN;
       const f: string[] = [];
       if (!(Math.abs(w) < p.bis && w !== 0)) f.push(`außerhalb: ${w}`);
-      if (!i.vorzeichen) f.push('ohne ±');
+      if (!i.vorzeichen) f.push('ohne Minustaste');
       return f;
     },
     mindestensVerschieden: { G: 12, M: 8 },
