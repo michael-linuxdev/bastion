@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · G0–G11, P0–P2 Atlas; Abend-Fenster; Bewohner ausgebaut (Handwerkerin/Imkerin, mehr Tätigkeiten); Wetter-Cache dauerhaft; Bastion-Vollbild; Bastion spielbarer; Politur-Pass; nächster Schritt: P3 andere Themen, Messung iPhone 13
+Stand: 31.10.2026 · G0–G11, P0–P3 Atlas; Abend-Fenster; Bewohner ausgebaut; Wetter-Cache dauerhaft; Bastion-Vollbild; Bastion spielbarer; Politur-Pass; nächster Schritt: P4 Hinterhof/MiniBastion, Messung iPhone 13
 
 ---
 
@@ -33,10 +33,11 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **Politur-Pass Bastion-Reiter:** Versetzen speichert ohne `$state`-Proxy (DataCloneError); Bau-Blatt mit Schließen und umbrechenden Kosten; Auswahl und Blatt ohne Doppel-HUD; kürzere Knöpfe; Leiste im Querformat zuverlässiger aus.
 - **Abend-Fenster / Dorf-Politur:** Atlas-Layer `*_fenster.png` für Dorf- und Garten-Gebäude mit Fenstern; Bühne zeigt sie am Abend; Tages-Sprites mit Rahmen/Sims/Tür/klarer Kontur.
 - **Bewohner ausgebaut:** Handwerkerin und Imkerin; Tätigkeiten pflanzen/ordnen/flicken/wachen/sammeln; klarere Freischaltung (Tor, Werkstatt, Denkmal, Bücher, fertig, Epoche); Antippen zeigt Name/Tätigkeit; Erklärung im Zahnrad (`GRAFIK.md` §4.4).
+- **P3 Bastion/Unterwasser/Weltraum:** Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas; Abend-Fenster wo Öffnungen; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 
 **Als Nächstes:**
 
-1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0: Dorf Epoche 1~~ erledigt (#109); ~~Boden/Wiese~~ erledigt; ~~P1 Wetter-Himmel~~ erledigt; ~~P2 Garten~~ erledigt; ~~Abend-Fenster~~ erledigt; ~~Bewohner ausgebaut~~; als Nächstes **P3** Bastion/Unterwasser/Weltraum. Ohne Atlas bleibt der Code-Fallback.
+1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0–P3~~ erledigt; ~~Abend-Fenster~~ erledigt; ~~Bewohner ausgebaut~~; als Nächstes **P4** Hinterhof + MiniBastion. Ohne Atlas bleibt der Code-Fallback.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4a). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

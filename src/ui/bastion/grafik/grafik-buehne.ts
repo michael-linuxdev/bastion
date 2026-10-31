@@ -60,8 +60,25 @@ import {
   gartenStrauchLagen,
   gartenSzene,
 } from './garten';
-import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
-import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
+import { bastionBodenKachel, bastionBodenTint } from './bastion-boden';
+import {
+  uwBoden,
+  uwBodenKachel,
+  uwBodenTint,
+  uwGebaeude,
+  uwHoehe,
+  uwKoralle,
+  uwKoralleLagen,
+  uwSzene,
+} from './unterwasser';
+import {
+  weltraumBoden,
+  weltraumBodenKachel,
+  weltraumBodenTint,
+  weltraumGebaeude,
+  weltraumHoehe,
+  weltraumSzene,
+} from './weltraum';
 import type { Epoche } from '../../../core/bastion/epochen';
 import { epocheOptik, farbeSkalieren } from './epoche-optik';
 import {
@@ -785,7 +802,7 @@ async function atlasTexturenLaden(
   return map;
 }
 
-/** Welche Atlas-IDs die Bühne für diese Bildart braucht (P0 Dorf, P2 Garten + P1 Himmel/Wetter). */
+/** Welche Atlas-IDs die Bühne braucht (P0–P3 + P1 Himmel/Wetter). */
 function atlasBrauchtId(art: Bildart, id: string): boolean {
   if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
     return true;
@@ -794,6 +811,24 @@ function atlasBrauchtId(art: Bildart, id: string): boolean {
   if (art === 'garten')
     return (
       id.startsWith('garten/') || id.startsWith('boden/garten/') || id.startsWith('wesen/garten/')
+    );
+  if (art === 'insel')
+    return (
+      id.startsWith('bastion/') ||
+      id.startsWith('boden/bastion/') ||
+      id.startsWith('wesen/bastion/')
+    );
+  if (art === 'unterwasser')
+    return (
+      id.startsWith('unterwasser/') ||
+      id.startsWith('boden/unterwasser/') ||
+      id.startsWith('wesen/unterwasser/')
+    );
+  if (art === 'weltraum')
+    return (
+      id.startsWith('weltraum/') ||
+      id.startsWith('boden/weltraum/') ||
+      id.startsWith('wesen/weltraum/')
     );
   return false;
 }
@@ -808,12 +843,12 @@ function bodenAlsGraphics(lage: Container): Graphics {
 const BODEN_KACHELN: readonly BodenKachel[] = ['flaeche', 'rand', 'flaeche_b', 'flaeche_hell'];
 
 /**
- * Boden aus Atlas-Kacheln (Dorf-Wiese / Garten-Rasen, GRAFIK-SPRITES).
+ * Boden aus Atlas-Kacheln (Dorf/Garten/Bastion/UW/Weltraum, GRAFIK-SPRITES).
  * true = gezeichnet; false = Aufrufer soll Code-Boden nutzen.
  */
 function bodenAusAtlas(
   lage: Container,
-  thema: 'dorf' | 'garten',
+  thema: Thema,
   manifest: AtlasManifest | null,
   texturen: Map<string, Texture>,
   abend: boolean,
@@ -884,13 +919,13 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // P1 Himmel/Wetter für alle Themen; Dorf/Garten-Gebäude/Boden/Wesen aus Atlas (P0/P2).
+  // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen aus Atlas (P0–P3).
   // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
   const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
-  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf/Garten)
+  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein
   const hintergrund = new Container();
   const himmelLage = new Container();
   const bodenLage = new Container();
@@ -921,9 +956,40 @@ export async function buehneErstellen(
       gartenBodenTint,
     );
     if (!atlasRasen) gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  else if (art === 'weltraum') weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  else insel(bodenAlsGraphics(bodenLage), farben);
+  } else if (art === 'unterwasser') {
+    const atlasSand = bodenAusAtlas(
+      bodenLage,
+      'unterwasser',
+      atlas,
+      texturen,
+      farben.abend,
+      uwBodenKachel,
+      uwBodenTint,
+    );
+    if (!atlasSand) uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'weltraum') {
+    const atlasPlatt = bodenAusAtlas(
+      bodenLage,
+      'weltraum',
+      atlas,
+      texturen,
+      farben.abend,
+      weltraumBodenKachel,
+      weltraumBodenTint,
+    );
+    if (!atlasPlatt) weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else {
+    const atlasBastion = bodenAusAtlas(
+      bodenLage,
+      'bastion',
+      atlas,
+      texturen,
+      farben.abend,
+      bastionBodenKachel,
+      bastionBodenTint,
+    );
+    if (!atlasBastion) insel(bodenAlsGraphics(bodenLage), farben);
+  }
   const rauchGfx = new Graphics();
   rauch(rauchGfx, farben);
   overlayLage.addChild(rauchGfx);
@@ -1417,6 +1483,78 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'unterwasser' && texturen.size > 0) {
+        // Atlas-Unterwasser: Korallen + Gebäude-Sprites (P3)
+        const lagen: { tiefe: number; zeichne: () => void }[] = uwKoralleLagen().map((b) => ({
+          tiefe: b.tiefe,
+          zeichne: () => {
+            const stueck = new Graphics();
+            uwKoralle(stiftVon(stueck), b.x, b.y, b.s);
+            stueck.zIndex = b.tiefe * 10;
+            gebaeude.addChild(stueck);
+          },
+        }));
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'unterwasser', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (farben.abend) {
+                  fensterAbendSprite(
+                    gebaeude,
+                    'unterwasser',
+                    epoche,
+                    x.typ,
+                    x.stufe,
+                    x.pos,
+                    tiefe,
+                    atlas,
+                    texturen,
+                  );
+                }
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                uwGebaeude(
+                  stiftVon(stueck),
+                  {
+                    typ: x.typ,
+                    stufe: x.stufe,
+                    pos: x.pos,
+                    ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+                    auswahl: a.auswahl === x.id,
+                  },
+                  farben.abend,
+                  farben.licht,
+                );
+                if (a.auswahl === x.id) {
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
       } else if (art === 'unterwasser') {
         uwSzene(
           stiftVon(g),
@@ -1433,6 +1571,70 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'weltraum' && texturen.size > 0) {
+        // Atlas-Weltraum: Gebäude-Sprites (P3)
+        const lagen: { tiefe: number; zeichne: () => void }[] = [];
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'weltraum', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (farben.abend) {
+                  fensterAbendSprite(
+                    gebaeude,
+                    'weltraum',
+                    epoche,
+                    x.typ,
+                    x.stufe,
+                    x.pos,
+                    tiefe,
+                    atlas,
+                    texturen,
+                  );
+                }
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                weltraumGebaeude(
+                  stiftVon(stueck),
+                  {
+                    typ: x.typ,
+                    stufe: x.stufe,
+                    pos: x.pos,
+                    ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+                    auswahl: a.auswahl === x.id,
+                  },
+                  farben.abend,
+                  farben.licht,
+                );
+                if (a.auswahl === x.id) {
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
       } else if (art === 'weltraum') {
         weltraumSzene(
           stiftVon(g),
@@ -1449,10 +1651,70 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'insel' && texturen.size > 0) {
+        // Atlas-Bastion: Gebäude-Sprites (P3); Code-Fallback je Rolle
+        const lagen: { tiefe: number; zeichne: () => void }[] = [];
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'bastion', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (farben.abend) {
+                  fensterAbendSprite(
+                    gebaeude,
+                    'bastion',
+                    epoche,
+                    x.typ,
+                    x.stufe,
+                    x.pos,
+                    tiefe,
+                    atlas,
+                    texturen,
+                  );
+                }
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                if (a.auswahl === x.id)
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                zeichneRolle(
+                  stueck,
+                  x.typ,
+                  x.stufe,
+                  x.pos,
+                  x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
+                  farben,
+                  a.epoche ?? 1,
+                );
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
       }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
-        if (art === 'insel') {
+        if (art === 'insel' && texturen.size === 0) {
           if (a.auswahl === x.id)
             raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           zeichneRolle(

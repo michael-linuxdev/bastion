@@ -2,6 +2,1904 @@
   "version": 1,
   "eintraege": [
     {
+      "id": "bastion/e1/kern_s1",
+      "datei": "gebaeude/bastion/e1/kern_s1.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "bastion/e1/kern_s1_fenster",
+      "datei": "gebaeude/bastion/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "bastion/e1/kern_s2",
+      "datei": "gebaeude/bastion/e1/kern_s2.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 308
+      }
+    },
+    {
+      "id": "bastion/e1/kern_s2_fenster",
+      "datei": "gebaeude/bastion/e1/kern_s2_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 308
+      }
+    },
+    {
+      "id": "bastion/e1/kern_s3",
+      "datei": "gebaeude/bastion/e1/kern_s3.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 322
+      }
+    },
+    {
+      "id": "bastion/e1/kern_s3_fenster",
+      "datei": "gebaeude/bastion/e1/kern_s3_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 322
+      }
+    },
+    {
+      "id": "bastion/e1/werkstatt_s1",
+      "datei": "gebaeude/bastion/e1/werkstatt_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 192
+      }
+    },
+    {
+      "id": "bastion/e1/werkstatt_s1_fenster",
+      "datei": "gebaeude/bastion/e1/werkstatt_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 192
+      }
+    },
+    {
+      "id": "bastion/e1/wissen_s1",
+      "datei": "gebaeude/bastion/e1/wissen_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 206
+      }
+    },
+    {
+      "id": "bastion/e1/wissen_s1_fenster",
+      "datei": "gebaeude/bastion/e1/wissen_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 206
+      }
+    },
+    {
+      "id": "bastion/e1/wissen_s2",
+      "datei": "gebaeude/bastion/e1/wissen_s2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 214
+      }
+    },
+    {
+      "id": "bastion/e1/wissen_s2_fenster",
+      "datei": "gebaeude/bastion/e1/wissen_s2_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 214
+      }
+    },
+    {
+      "id": "bastion/e1/turm_s1",
+      "datei": "gebaeude/bastion/e1/turm_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 206
+      }
+    },
+    {
+      "id": "bastion/e1/turm_s1_fenster",
+      "datei": "gebaeude/bastion/e1/turm_s1_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 206
+      }
+    },
+    {
+      "id": "bastion/e1/turm_s2",
+      "datei": "gebaeude/bastion/e1/turm_s2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 218
+      }
+    },
+    {
+      "id": "bastion/e1/turm_s2_fenster",
+      "datei": "gebaeude/bastion/e1/turm_s2_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 218
+      }
+    },
+    {
+      "id": "bastion/e1/eingang_s1",
+      "datei": "gebaeude/bastion/e1/eingang_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 134
+      }
+    },
+    {
+      "id": "bastion/e1/einfassung_s1",
+      "datei": "gebaeude/bastion/e1/einfassung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 100
+      }
+    },
+    {
+      "id": "bastion/e1/ursprung_s1",
+      "datei": "gebaeude/bastion/e1/ursprung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 110
+      }
+    },
+    {
+      "id": "bastion/e1/zeichen_s1",
+      "datei": "gebaeude/bastion/e1/zeichen_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 120
+      }
+    },
+    {
+      "id": "bastion/e1/flaeche_s1",
+      "datei": "gebaeude/bastion/e1/flaeche_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 160
+      }
+    },
+    {
+      "id": "bastion/e1/denkmal_s1",
+      "datei": "gebaeude/bastion/e1/denkmal_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 130
+      }
+    },
+    {
+      "id": "boden/bastion/e1/flaeche",
+      "datei": "boden/bastion/e1/flaeche.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/bastion/e1/rand",
+      "datei": "boden/bastion/e1/rand.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/bastion/e1/flaeche_b",
+      "datei": "boden/bastion/e1/flaeche_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/bastion/e1/flaeche_hell",
+      "datei": "boden/bastion/e1/flaeche_hell.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_idle_0",
+      "datei": "wesen/bastion/moewe_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_idle_1",
+      "datei": "wesen/bastion/moewe_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_idle_2",
+      "datei": "wesen/bastion/moewe_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_walk_0",
+      "datei": "wesen/bastion/moewe_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_walk_1",
+      "datei": "wesen/bastion/moewe_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_walk_2",
+      "datei": "wesen/bastion/moewe_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_walk_3",
+      "datei": "wesen/bastion/moewe_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_react_0",
+      "datei": "wesen/bastion/moewe_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/moewe_react_1",
+      "datei": "wesen/bastion/moewe_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_idle_0",
+      "datei": "wesen/bastion/fuchs_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_idle_1",
+      "datei": "wesen/bastion/fuchs_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_idle_2",
+      "datei": "wesen/bastion/fuchs_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_walk_0",
+      "datei": "wesen/bastion/fuchs_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_walk_1",
+      "datei": "wesen/bastion/fuchs_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_walk_2",
+      "datei": "wesen/bastion/fuchs_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_walk_3",
+      "datei": "wesen/bastion/fuchs_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_react_0",
+      "datei": "wesen/bastion/fuchs_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/fuchs_react_1",
+      "datei": "wesen/bastion/fuchs_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_idle_0",
+      "datei": "wesen/bastion/wache_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_idle_1",
+      "datei": "wesen/bastion/wache_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_idle_2",
+      "datei": "wesen/bastion/wache_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_walk_0",
+      "datei": "wesen/bastion/wache_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_walk_1",
+      "datei": "wesen/bastion/wache_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_walk_2",
+      "datei": "wesen/bastion/wache_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_walk_3",
+      "datei": "wesen/bastion/wache_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_react_0",
+      "datei": "wesen/bastion/wache_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/bastion/wache_react_1",
+      "datei": "wesen/bastion/wache_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s1",
+      "datei": "gebaeude/unterwasser/e1/kern_s1.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 282
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 282
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s2",
+      "datei": "gebaeude/unterwasser/e1/kern_s2.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s2_fenster",
+      "datei": "gebaeude/unterwasser/e1/kern_s2_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s3",
+      "datei": "gebaeude/unterwasser/e1/kern_s3.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 306
+      }
+    },
+    {
+      "id": "unterwasser/e1/kern_s3_fenster",
+      "datei": "gebaeude/unterwasser/e1/kern_s3_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 306
+      }
+    },
+    {
+      "id": "unterwasser/e1/werkstatt_s1",
+      "datei": "gebaeude/unterwasser/e1/werkstatt_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 190
+      }
+    },
+    {
+      "id": "unterwasser/e1/werkstatt_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/werkstatt_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 190
+      }
+    },
+    {
+      "id": "unterwasser/e1/wissen_s1",
+      "datei": "gebaeude/unterwasser/e1/wissen_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 204
+      }
+    },
+    {
+      "id": "unterwasser/e1/wissen_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/wissen_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 204
+      }
+    },
+    {
+      "id": "unterwasser/e1/wissen_s2",
+      "datei": "gebaeude/unterwasser/e1/wissen_s2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 212
+      }
+    },
+    {
+      "id": "unterwasser/e1/wissen_s2_fenster",
+      "datei": "gebaeude/unterwasser/e1/wissen_s2_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 212
+      }
+    },
+    {
+      "id": "unterwasser/e1/turm_s1",
+      "datei": "gebaeude/unterwasser/e1/turm_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 206
+      }
+    },
+    {
+      "id": "unterwasser/e1/turm_s2",
+      "datei": "gebaeude/unterwasser/e1/turm_s2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 218
+      }
+    },
+    {
+      "id": "unterwasser/e1/eingang_s1",
+      "datei": "gebaeude/unterwasser/e1/eingang_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 136
+      }
+    },
+    {
+      "id": "unterwasser/e1/einfassung_s1",
+      "datei": "gebaeude/unterwasser/e1/einfassung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 100
+      }
+    },
+    {
+      "id": "unterwasser/e1/ursprung_s1",
+      "datei": "gebaeude/unterwasser/e1/ursprung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 120
+      }
+    },
+    {
+      "id": "unterwasser/e1/zeichen_s1",
+      "datei": "gebaeude/unterwasser/e1/zeichen_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 120
+      }
+    },
+    {
+      "id": "unterwasser/e1/flaeche_s1",
+      "datei": "gebaeude/unterwasser/e1/flaeche_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 160
+      }
+    },
+    {
+      "id": "unterwasser/e1/denkmal_s1",
+      "datei": "gebaeude/unterwasser/e1/denkmal_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 120
+      }
+    },
+    {
+      "id": "boden/unterwasser/e1/flaeche",
+      "datei": "boden/unterwasser/e1/flaeche.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/unterwasser/e1/rand",
+      "datei": "boden/unterwasser/e1/rand.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/unterwasser/e1/flaeche_b",
+      "datei": "boden/unterwasser/e1/flaeche_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/unterwasser/e1/flaeche_hell",
+      "datei": "boden/unterwasser/e1/flaeche_hell.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_idle_0",
+      "datei": "wesen/unterwasser/fisch_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_idle_1",
+      "datei": "wesen/unterwasser/fisch_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_idle_2",
+      "datei": "wesen/unterwasser/fisch_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_walk_0",
+      "datei": "wesen/unterwasser/fisch_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_walk_1",
+      "datei": "wesen/unterwasser/fisch_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_walk_2",
+      "datei": "wesen/unterwasser/fisch_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_walk_3",
+      "datei": "wesen/unterwasser/fisch_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_react_0",
+      "datei": "wesen/unterwasser/fisch_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/fisch_react_1",
+      "datei": "wesen/unterwasser/fisch_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_idle_0",
+      "datei": "wesen/unterwasser/qualle_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_idle_1",
+      "datei": "wesen/unterwasser/qualle_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_idle_2",
+      "datei": "wesen/unterwasser/qualle_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_walk_0",
+      "datei": "wesen/unterwasser/qualle_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_walk_1",
+      "datei": "wesen/unterwasser/qualle_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_walk_2",
+      "datei": "wesen/unterwasser/qualle_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_walk_3",
+      "datei": "wesen/unterwasser/qualle_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_react_0",
+      "datei": "wesen/unterwasser/qualle_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/qualle_react_1",
+      "datei": "wesen/unterwasser/qualle_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_idle_0",
+      "datei": "wesen/unterwasser/krebs_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_idle_1",
+      "datei": "wesen/unterwasser/krebs_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_idle_2",
+      "datei": "wesen/unterwasser/krebs_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_walk_0",
+      "datei": "wesen/unterwasser/krebs_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_walk_1",
+      "datei": "wesen/unterwasser/krebs_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_walk_2",
+      "datei": "wesen/unterwasser/krebs_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_walk_3",
+      "datei": "wesen/unterwasser/krebs_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_react_0",
+      "datei": "wesen/unterwasser/krebs_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/unterwasser/krebs_react_1",
+      "datei": "wesen/unterwasser/krebs_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s1",
+      "datei": "gebaeude/weltraum/e1/kern_s1.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 282
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s1_fenster",
+      "datei": "gebaeude/weltraum/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 282
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s2",
+      "datei": "gebaeude/weltraum/e1/kern_s2.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s2_fenster",
+      "datei": "gebaeude/weltraum/e1/kern_s2_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 294
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s3",
+      "datei": "gebaeude/weltraum/e1/kern_s3.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 306
+      }
+    },
+    {
+      "id": "weltraum/e1/kern_s3_fenster",
+      "datei": "gebaeude/weltraum/e1/kern_s3_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 306
+      }
+    },
+    {
+      "id": "weltraum/e1/werkstatt_s1",
+      "datei": "gebaeude/weltraum/e1/werkstatt_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 188
+      }
+    },
+    {
+      "id": "weltraum/e1/werkstatt_s1_fenster",
+      "datei": "gebaeude/weltraum/e1/werkstatt_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 188
+      }
+    },
+    {
+      "id": "weltraum/e1/wissen_s1",
+      "datei": "gebaeude/weltraum/e1/wissen_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 210
+      }
+    },
+    {
+      "id": "weltraum/e1/wissen_s1_fenster",
+      "datei": "gebaeude/weltraum/e1/wissen_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 210
+      }
+    },
+    {
+      "id": "weltraum/e1/wissen_s2",
+      "datei": "gebaeude/weltraum/e1/wissen_s2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 218
+      }
+    },
+    {
+      "id": "weltraum/e1/wissen_s2_fenster",
+      "datei": "gebaeude/weltraum/e1/wissen_s2_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 218
+      }
+    },
+    {
+      "id": "weltraum/e1/turm_s1",
+      "datei": "gebaeude/weltraum/e1/turm_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 206
+      }
+    },
+    {
+      "id": "weltraum/e1/turm_s2",
+      "datei": "gebaeude/weltraum/e1/turm_s2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 218
+      }
+    },
+    {
+      "id": "weltraum/e1/eingang_s1",
+      "datei": "gebaeude/weltraum/e1/eingang_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 134
+      }
+    },
+    {
+      "id": "weltraum/e1/einfassung_s1",
+      "datei": "gebaeude/weltraum/e1/einfassung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 96
+      }
+    },
+    {
+      "id": "weltraum/e1/ursprung_s1",
+      "datei": "gebaeude/weltraum/e1/ursprung_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 110
+      }
+    },
+    {
+      "id": "weltraum/e1/zeichen_s1",
+      "datei": "gebaeude/weltraum/e1/zeichen_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 120
+      }
+    },
+    {
+      "id": "weltraum/e1/flaeche_s1",
+      "datei": "gebaeude/weltraum/e1/flaeche_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 160
+      }
+    },
+    {
+      "id": "weltraum/e1/denkmal_s1",
+      "datei": "gebaeude/weltraum/e1/denkmal_s1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 130
+      }
+    },
+    {
+      "id": "boden/weltraum/e1/flaeche",
+      "datei": "boden/weltraum/e1/flaeche.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/weltraum/e1/rand",
+      "datei": "boden/weltraum/e1/rand.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/weltraum/e1/flaeche_b",
+      "datei": "boden/weltraum/e1/flaeche_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/weltraum/e1/flaeche_hell",
+      "datei": "boden/weltraum/e1/flaeche_hell.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_idle_0",
+      "datei": "wesen/weltraum/drohne_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_idle_1",
+      "datei": "wesen/weltraum/drohne_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_idle_2",
+      "datei": "wesen/weltraum/drohne_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_walk_0",
+      "datei": "wesen/weltraum/drohne_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_walk_1",
+      "datei": "wesen/weltraum/drohne_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_walk_2",
+      "datei": "wesen/weltraum/drohne_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_walk_3",
+      "datei": "wesen/weltraum/drohne_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_react_0",
+      "datei": "wesen/weltraum/drohne_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/drohne_react_1",
+      "datei": "wesen/weltraum/drohne_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_idle_0",
+      "datei": "wesen/weltraum/roboter_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_idle_1",
+      "datei": "wesen/weltraum/roboter_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_idle_2",
+      "datei": "wesen/weltraum/roboter_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_walk_0",
+      "datei": "wesen/weltraum/roboter_walk_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_walk_1",
+      "datei": "wesen/weltraum/roboter_walk_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_walk_2",
+      "datei": "wesen/weltraum/roboter_walk_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_walk_3",
+      "datei": "wesen/weltraum/roboter_walk_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_react_0",
+      "datei": "wesen/weltraum/roboter_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "wesen/weltraum/roboter_react_1",
+      "datei": "wesen/weltraum/roboter_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
       "id": "garten/e1/kern_s1",
       "datei": "gebaeude/garten/e1/kern_s1.png",
       "felder": [3, 3],

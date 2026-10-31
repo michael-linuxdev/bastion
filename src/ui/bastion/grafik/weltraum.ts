@@ -23,6 +23,27 @@ function plattformFarbe(abend: boolean, x: number, y: number, aussen: boolean): 
   return hell ? '#4a5670' : schach ? '#3a465c' : '#323c50';
 }
 
+/**
+ * Atlas-Boden-Kachel für Feld (x,y) – fest aus Position, kein Zufall.
+ * Spec: `flaeche` / `rand`; Varianten `flaeche_b` / `flaeche_hell`.
+ */
+export function weltraumBodenKachel(
+  x: number,
+  y: number,
+  breite: number,
+  tiefe: number,
+): 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell' {
+  const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;
+  if (aussen) return 'rand';
+  if (hash01(x, y) > 0.9) return 'flaeche_hell';
+  return (x + y) % 2 === 0 ? 'flaeche' : 'flaeche_b';
+}
+
+/** Abend-Abdunkeln der Atlas-Plattform (Tint 0xRRGGBB). */
+export function weltraumBodenTint(abend: boolean): number {
+  return abend ? 0x6a7890 : 0xffffff;
+}
+
 export function weltraumHoehe(typ: GebaeudeTyp, stufe: number): number {
   const grund: Record<GebaeudeTyp, number> = {
     kern: 54,
@@ -74,6 +95,11 @@ export function weltraumSzene(
   });
   teile.sort((a, b) => a.tiefe - b.tiefe);
   for (const t of teile) t.mal();
+}
+
+/** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */
+export function weltraumGebaeude(st: Stift, bau: WeltraumBau, abend: boolean, licht: string): void {
+  gebaeude(st, bau, abend, licht);
 }
 
 function modul(

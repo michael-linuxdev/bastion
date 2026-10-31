@@ -1,6 +1,6 @@
 # Übergabeprotokoll – Sprites für Bastion
 
-Status: 31.10.2026 · P0/P2 eingehängt · Abend-Fenster-Layer Dorf/Garten · Für Bildagenten und Einbau in PixiJS  
+Status: 31.10.2026 · P0–P3 eingehängt · Abend-Fenster-Layer · Für Bildagenten und Einbau in PixiJS  
 Bezug: `GRAFIK.md` §4/§6, B-28, B-27 · Raster: `src/ui/bastion/grafik/iso.ts` (Raute 48×24, Verhältnis 2∶1)
 
 Dieses Dokument ist die **verbindliche Bestellung**. Wer Sprites erzeugt, liefert genau diese Dateien, in dieser Benennung, ohne Kampffiguren und ohne erkennbare Übernahme aus Clash of Clans oder anderen Spielen.
@@ -152,7 +152,7 @@ Damit Technik und Bild parallel laufen:
 | **P0** | `dorf` Epoche 1: alle 10 Rollen Stufe 1 + kern/wissen/turm höhere Stufen die im Katalog vorkommen; Boden; 3 Wesen komplett · **geliefert** (`public/grafik/atlas/`, Generator `tools/grafik/sprites-p0-dorf.py`) | G5 |
 | **P1** | Wetter-Auflagen + Wolken/Sonne/Mond + Schnee-Dach · **geliefert** (`himmel/`, `wetter/`, `auflage/`, Generator `tools/grafik/sprites-p1-wetter.py`) | G2/G3 |
 | **P2** | `garten` Epoche 1 komplett + Wesen · **geliefert** (`gebaeude/garten/`, `boden/garten/`, `wesen/garten/`, Generator `tools/grafik/sprites-p2-garten.py`) | G5 |
-| **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 | G6 |
+| **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 · **geliefert** (Generator `tools/grafik/sprites-p3-themen.py`) | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
 | **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) | G10 |
 | **P6** | Belagerungs-Himmel / Rauch-Overlays | G11 · Code-Rauch liegt; Sprite-Overlay optional |
@@ -193,7 +193,8 @@ Beispiel `manifest.json`-Eintrag:
 - **P1 Wetter-Himmel (erledigt):** `himmel/sonne|mond|wolke_*`, `wetter/*`, `auflage/schnee_dach_*` und `laub_*`; Bühne nutzt Atlas für Gestirn, Wolken, Partikel, Nebel und Winter-Dachauflage (Code-Fallback bleibt)  
 - **P2 (erledigt):** Garten-Gebäude, Rasen, Wesen im Atlas  
 - **Abend-Fenster / Politur (erledigt):** `*_fenster.png` für Dorf (Kern/Werkstatt/Wissen/Turm) und Garten (Kern/Werkstatt/Wissen); Runtime legt sie am Abend deckungsgleich über das Tages-Sprite; Tages-Politur (Rahmen, Sims, Silhouette)  
-- Als Nächstes: **P3** Bastion/Unterwasser/Weltraum  
+- **P3 (erledigt):** Bastion / Unterwasser / Weltraum Epoche 1 (Gebäude, Boden, Wesen, Abend-Fenster wo passend); Runtime mit Code-Fallback  
+- Als Nächstes: **P4** Hinterhof-Objekte + MiniBastion-Standbilder  
 
 
 ---
