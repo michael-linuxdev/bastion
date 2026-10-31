@@ -19,7 +19,7 @@
   "session.einstellungen": "Einstellungen zur Sitzung",
   "orientierung.ueberschrift": "Bildschirm drehen",
   "orientierung.erklaerung": "Für Bastion und zum Üben. Manche Geräte erlauben die Sperre nur im Vollbild – sonst bitte das Gerät selbst drehen.",
-  "orientierung.auto": "Wie das Gerät",
+  "orientierung.auto": "Automatisch",
   "orientierung.hoch": "Hochkant",
   "orientierung.quer": "Quer",
   "orientierung.hinweis": "Bitte das Gerät drehen – diese App kann die Lage hier nicht feststellen.",

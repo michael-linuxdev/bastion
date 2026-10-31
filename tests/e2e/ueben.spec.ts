@@ -282,8 +282,8 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await expect(page.getByText('Hier stehst du – hier geht es weiter')).toBeVisible();
   await expect(page.getByText(/Punkte|%/)).toHaveCount(0);
 
-  // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt
-  await themenWaehlen(page);
+  // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt; Üben springt zur Aufgabe
+  await page.getByRole('navigation').getByRole('button', { name: 'Üben' }).click();
   await angebotUeberspringen(page);
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -1271,7 +1271,7 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
   await mehr(page);
   await page.getByRole('button', { name: 'Über mich' }).click();
-  await page.getByLabel('Wie das Gerät').check();
+  await page.getByRole('group', { name: 'Aussehen' }).getByLabel('Wie das Gerät').check();
   await expect(wurzel).toHaveAttribute('data-modus', 'dunkel');
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
