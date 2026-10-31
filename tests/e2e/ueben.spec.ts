@@ -257,7 +257,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
 
   await page.getByLabel('Deine Antwort').fill(String(summe));
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig!')).toBeVisible();
+  await expect(page.getByText('Stimmt.')).toBeVisible();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   await expect(page.getByText('Diese Fehler hast du aufgearbeitet.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();

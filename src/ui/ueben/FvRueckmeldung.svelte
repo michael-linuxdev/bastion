@@ -50,17 +50,19 @@
     {/if}
   </section>
 {:else}
-  <p class="kurz"><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
+  <aside class="kurz" aria-label={fv.name.de}>
+    <p><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
+  </aside>
 {/if}
 
 <style>
   .lang {
     display: grid;
     gap: var(--abstand-s);
-    margin-block: var(--abstand-m);
+    margin-block: var(--abstand-s);
     padding: var(--abstand-m);
     border-radius: var(--radius);
-    border-inline-start: 6px solid var(--farbe-akzent);
+    border-inline-start: 4px solid var(--farbe-akzent);
     background: var(--farbe-flaeche-leise);
   }
 
@@ -84,7 +86,7 @@
   }
 
   .bild {
-    max-inline-size: 26rem;
+    max-inline-size: 28rem;
   }
 
   .lang button {
@@ -96,6 +98,16 @@
   }
 
   .kurz {
-    color: var(--farbe-text-leise);
+    margin-block: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border-inline-start: 3px solid var(--farbe-akzent);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+  }
+
+  .kurz p {
+    margin-block: 0;
   }
 </style>
