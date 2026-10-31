@@ -204,15 +204,170 @@ Stand: 31.10.2026 · **Nicht sofort umsetzen** — bearbeitbares Backlog für sp
 
 ### AZ. (Abschlussblock AA–AY)
 
-Ideen 129–202 oben; AZ selbst ohne Extra-Nummern — nächster freier Block ist BA.
+Ideen 129–202 oben; AZ selbst ohne Extra-Nummern. Nächster Block: **BA–BZ** (ausgearbeitet).
 
-### BA–ZZ. Reserviert / später füllen
+### BA. Erste echte Woche zu Hause
 
-Platzhalter **BA** bis **ZZ**: bewusst leer halten oder bei Bedarf ergänzen — dieses Dokument ist die Arbeitsdatei, keine Verpflichtung zur Vollständigkeit.
+203. Sonntagabend-Check: ein Satz „Bereit für die Woche?“ ohne Druck
+204. Wochenrückblick für Eltern: 3 Zeilen max., nur lokal
+205. Kind sieht keine Wochenstatistik — nur „heute schon geübt“-Markierung
+
+### BB. Geschwister fair teilen
+
+206. Profil-Farben/Badges unterscheidbar, ohne Wettbewerb
+207. Getrennte Bastionen klar beschriftet („Mias Ort“)
+208. Gemeinsames Gerät: letzter Profilwechsel mit Zeitstempel nur für Eltern
+
+### BC. Schule & Alltag
+
+209. „Morgen Klassenarbeit“-Hinweis nur im Elternbereich
+210. Kurze Übung vor der Schule: 3-Aufgaben-Modus prominent
+211. Nach der Schule: Hub begrüßt ruhig, kein „Du warst weg“-Drama
+
+### BD. Bastion-Epoche 2–4 spürbar
+
+212. Horizont-Silhouette wechselt mit Epoche
+213. Boden-Textur/Akzentfarbe pro Epoche, HUD bleibt gleich
+214. Epoche-Wechsel: einmalige ruhige Entdeckungskarte
+
+### BE. Belagerung & Spannung ohne Stress
+
+215. Belagerungs-Overlay nur als Atmosphäre, kein Countdown
+216. „Sicherheit der Mauer“ als Fortschrittsbild, nicht als HP-Balken
+217. Kinder können Belagerung in Einstellungen ausblenden
+
+### BF. Wasser, Wetter, Licht
+
+218. Regen nur Partikel + Ton optional, Gebäude bleiben trocken-lesbar
+219. Abendlicht gold, Nacht nur Bastion (Lernflächen hell)
+220. Nebel/Dunst dezent, „Darstellung leicht“ schaltet aus
+
+### BG. Tiere & kleine Mitbewohner
+
+221. Igel/Frosch/Katze als ruhige Sprites, Pfad um Gebäude
+222. Keine Sammel-Pets, keine XP für Tiere
+223. Antippen: eine Geste (strecken, blinzeln), dann Ruhe
+
+### BH. Garten vertiefen
+
+224. Beete als nutzbare Bau-Typen mit Atlas
+225. Jahreszeit-Tönung Laub/Schnee ohne Kalender-Zwang
+226. Bienchen nur bei fortgeschrittenem Garten, sehr wenige
+
+### BI. Unterwasser-Welt
+
+227. Lichtstrahlen von oben, Blasen sparsam
+228. Gebäude-Stil Koralle/Wrack, gleiche Bau-Logik
+229. HUD-Akzent kühles Türkis, Touch-Ziele unverändert groß
+
+### BJ. Weltraum-Welt
+
+230. Sternen-Himmel statisch+sanft, kein Parallax-Stress
+231. Module statt Häuser, gleiche Vorschau/Kosten-UI
+232. Akzent kühles Violett sparsam — kein Neon-Glow
+
+### BK. Mini-Bastion / Hinterhof 2.0
+
+233. Eigene kleine Kamera-Defaults merken
+234. Schnellwechsel mit kurzem Ortsnamen-Titel
+235. Keine zweite Rohstoff-Ökonomie
+
+### BL. Bauen als Handwerk
+
+236. Werkzeugleiste: Wählen / Verschieben / Planen — eine Metapher
+237. Magnetisches Einrasten nur optisch angedeutet
+238. „Rückgängig“ für letzten Bau, Bestätigung bei Abriss
+
+### BM. Rohstoffe erzählen
+
+239. Beutel-Innenansicht mit 3 Material-Haufen
+240. Leerer Beutel: Illustration + „Üben bringt Stein“
+241. Probe-Rohstoffe gestrichelt und beschriftet
+
+### BN. Üben-Fluss Feinschliff
+
+242. Zwischen-Atem nach 2–3 Aufgaben als Banner, kein Modal
+243. „Fertig für heute“ führt immer zu Hub oder Bastion-Wahl
+244. Offene Aufgabe am Hub als eine Karte „Weiter geht’s“
+
+### BO. Tipps & Erklärungen
+
+245. Tipps nummeriert 1/n, Text kurz
+246. Erklärung-Buch öffnet Overlay, Aufgabe bleibt dimmed sichtbar
+247. Keine Tipps während Schrittweg (Klarheit der Phase)
+
+### BP. Fehlvorstellungen sichtbar
+
+248. FV-Karte: Titel, ein Schema, „Warum das passiert“ einklappbar
+249. Gegenbeispiel optisch getrennt vom Urteil
+250. Rückweg-Kompetenz als eine ruhige Tür
+
+### BQ. Stand & Diagnose Landkarte
+
+251. Zoom auf ein Themenfeld, Rest ausgegraut
+252. Legende sitzt / wackelt / neu in drei Symbolen
+253. Ein „Als Nächstes“-Stein, nicht drei CTAs
+
+### BR. Mehr-Informationsarchitektur
+
+254. Kind-Zone max. 4 Einträge
+255. Erwachsenen-Zone optisch Werkbank (Raster, weniger Rundung)
+256. Suche unnötig — alles scrollbar mit Ankern
+
+### BS. Sicherung & Vertrauen
+
+257. Export-Erfolg: „Kopie liegt bereit“ + wo
+258. Import-Vorschau: Profilname/Datum vor Überschreiben
+259. Vertrauensleiste unverändert: kein Konto, kein Tracking
+
+### BT. Barriere nächste Stufe
+
+260. Kontrast-Modus kräftiger Text + stärkere Fokusringe
+261. Alle Urteil-Zustände Form+Farbe
+262. Tastatur: Hub-Türen mit Pfeiltasten erreichbar
+
+### BU. Motion & Sound Tokens
+
+263. CSS/Vars: `--bewegung-schnell|mittel|langsam`
+264. Sound-Stufen Labels in Kindersprache testen
+265. Ambient nie in Üben-Phase, auch nicht leise
+
+### BV. Microcopy-Pass 2
+
+266. Glossar „Noch nicht / Stimmt / Schauen wir“ verbindlich
+267. Keine Ausrufezeichen-Ketten
+268. Eltern-Texte Siezen vermeiden, klar aber warm
+
+### BW. Icon-System festziehen
+
+269. Eine Stroke-Width, dokumentiert in DESIGN-IDEEN
+270. Gefüllt = primäre Aktion, Outline = sekundär
+271. Keine Emoji in Buttons/Navigation
+
+### BX. Performance wahrnehmbar
+
+272. „Darstellung leicht“ zeigt sofort weniger Partikel
+273. Atlas-Swap ohne weißes Aufblitzen
+274. Lange Eltern-Listen lazy/abschnittsweise
+
+### BY. Design-QA Ritual
+
+275. Vor Merge: 6 Screenshots Pflicht (Hub, Üben, Bastion, Mehr, Eltern, Landscape)
+276. Leerzustände je Fläche einmal anklicken
+277. Reduced-motion Stichprobe
+
+### BZ. Übergang zu Themen-Welten
+
+278. Pro Welt ein Stimmungsboard (Himmel, Boden, Akzent, 3 Referenz-Sprites)
+279. Wechsel Welt = harter Cut mit Ortsnamen, kein Crossfade-Chaos
+280. Welten-Freischaltung an echten Fortschritt, sichtbar in Landkarte
+
+### CA–ZZ. Reserviert / später füllen
+
+**BA–BZ** ausgearbeitet (31.10.2026). Platzhalter **CA** bis **ZZ**: bewusst leer halten oder bei Bedarf ergänzen — keine Verpflichtung zur Vollständigkeit.
 
 | Block | Status |
 |---|---|
-| BA–BZ | reserviert |
 | CA–CZ | reserviert |
 | DA–DZ | reserviert |
 | EA–EZ | reserviert |

@@ -44,16 +44,10 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Als Nächstes (alles optional / PV):**
 
-<<<<<<< HEAD
 1. **Design-Wellen A–Z** in parallelen PRs fertigstellen und konsolidieren; Backlog danach aus `docs/DESIGN-IDEEN.md` (AA–ZZ). Themen-Welten (H29) erst nach Konsolidierung.
-2. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie).
+2. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
 3. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 4. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
-=======
-1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
-2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
-3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
->>>>>>> origin/main
 
 Kein verbindlicher G-/P-Rest mehr. Weitere Schritte legt der Projektverantwortliche fest. Bei Engpass wartet die Grafik auf den Lernkern (K-27, B-28).
 
