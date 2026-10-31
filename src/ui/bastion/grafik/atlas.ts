@@ -93,6 +93,30 @@ export function atlasBodenId(thema: Thema, epoche: number, kachel: BodenKachel):
   return `boden/${thema}/e${epoche}/${kachel}`;
 }
 
+/** Himmel-ID nach GRAFIK-SPRITES.md §3 (P1). */
+export type HimmelTeil = 'sonne' | 'mond' | 'wolke_1' | 'wolke_2';
+
+export function atlasHimmelId(teil: HimmelTeil): string {
+  return `himmel/${teil}`;
+}
+
+/** Wetter-Partikel-ID (P1). */
+export type WetterTeil = 'regen_tropfen' | 'schnee_flocke' | 'nebel';
+
+export function atlasWetterId(teil: WetterTeil): string {
+  return `wetter/${teil}`;
+}
+
+/** Schnee-Dach-Auflage nach Feldgröße (P1). */
+export function atlasSchneeDachId(felder: readonly [number, number]): string {
+  return `auflage/schnee_dach_${felder[0]}x${felder[1]}`;
+}
+
+/** Laub-Partikel 1…3 (P1). */
+export function atlasLaubId(n: 1 | 2 | 3): string {
+  return `auflage/laub_${n}`;
+}
+
 /** Basis-URL der Atlas-Dateien (eigene App-Adresse). */
 export function atlasBasisUrl(): string {
   return `${import.meta.env.BASE_URL}grafik/atlas/`;

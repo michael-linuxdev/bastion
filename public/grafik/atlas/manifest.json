@@ -585,6 +585,175 @@
         "w": 64,
         "h": 64
       }
+    },
+    {
+      "id": "himmel/sonne",
+      "datei": "himmel/sonne.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 96,
+        "h": 96
+      }
+    },
+    {
+      "id": "himmel/mond",
+      "datei": "himmel/mond.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 72,
+        "h": 72
+      }
+    },
+    {
+      "id": "himmel/wolke_1",
+      "datei": "himmel/wolke_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 168,
+        "h": 72
+      }
+    },
+    {
+      "id": "himmel/wolke_2",
+      "datei": "himmel/wolke_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 200,
+        "h": 80
+      }
+    },
+    {
+      "id": "wetter/regen_tropfen",
+      "datei": "wetter/regen_tropfen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.0
+      },
+      "pixel": {
+        "w": 16,
+        "h": 28
+      }
+    },
+    {
+      "id": "wetter/schnee_flocke",
+      "datei": "wetter/schnee_flocke.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 24,
+        "h": 24
+      }
+    },
+    {
+      "id": "wetter/nebel",
+      "datei": "wetter/nebel.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 160,
+        "h": 64
+      }
+    },
+    {
+      "id": "auflage/schnee_dach_1x1",
+      "datei": "auflage/schnee_dach_1x1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 112,
+        "h": 84
+      }
+    },
+    {
+      "id": "auflage/schnee_dach_2x2",
+      "datei": "auflage/schnee_dach_2x2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 208,
+        "h": 138
+      }
+    },
+    {
+      "id": "auflage/schnee_dach_3x3",
+      "datei": "auflage/schnee_dach_3x3.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 304,
+        "h": 192
+      }
+    },
+    {
+      "id": "auflage/laub_1",
+      "datei": "auflage/laub_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 28,
+        "h": 28
+      }
+    },
+    {
+      "id": "auflage/laub_2",
+      "datei": "auflage/laub_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 28,
+        "h": 28
+      }
+    },
+    {
+      "id": "auflage/laub_3",
+      "datei": "auflage/laub_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 28,
+        "h": 28
+      }
     }
   ]
 }

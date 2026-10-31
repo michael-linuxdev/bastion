@@ -190,7 +190,9 @@ Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30
 
 **Sprite-Charge P0 (31.10.2026):** Gebäude Epoche 1, Boden-Kacheln und Wesen (Huhn, Katze, Spatz) liegen unter `public/grafik/atlas/` mit `manifest.json`. Die Bastion-Szene lädt die Texturen und zeichnet Dorf-Gebäude/Wesen aus dem Atlas; fehlt ein Eintrag, bleibt der Code-Fallback. Generator: `tools/grafik/sprites-p0-dorf.py` (offline, deterministisch).
 
-**Boden/Wiese aus dem Atlas (31.10.2026):** Beim Thema Dorf kommt die Wiese aus den Boden-Kacheln (`boden/dorf/e1/flaeche`, `rand`, optional Schachbrett/`flaeche_hell`). Die Code-Zeichnung `dorfWiese` bleibt Fallback, wenn Kacheln fehlen. Stil bleibt Richtung A „Tag, warm“; am Abend verdunkeln die Kacheln per Tint. **Als Nächstes:** P1 Wetter-Himmel, dann P2 Garten-Sprites (`GRAFIK-SPRITES.md` §8). Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
+**Boden/Wiese aus dem Atlas (31.10.2026):** Beim Thema Dorf kommt die Wiese aus den Boden-Kacheln (`boden/dorf/e1/flaeche`, `rand`, optional Schachbrett/`flaeche_hell`). Die Code-Zeichnung `dorfWiese` bleibt Fallback, wenn Kacheln fehlen. Stil bleibt Richtung A „Tag, warm“; am Abend verdunkeln die Kacheln per Tint.
+
+**Wetter-Himmel P1 (31.10.2026):** Sonne, Mond, Wolken, Regen/Schnee/Nebel und Schnee-Dach/Laub liegen unter `public/grafik/atlas/` (`himmel/`, `wetter/`, `auflage/`). Die Bühne lädt den Atlas für alle Themen und nutzt die Sprites für Gestirn, Wolken und Partikel; fehlt etwas, bleibt der Code-Fallback. Generator: `tools/grafik/sprites-p1-wetter.py`. **Als Nächstes:** P2 Garten-Sprites (`GRAFIK-SPRITES.md` §8). Kampffiguren gibt es weiterhin nicht; Wesen sind friedliche Bewohner (§4.4).
 
 ## 7. Hinterhof in der Szene (B-25)
 

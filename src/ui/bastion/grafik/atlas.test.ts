@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { atlasBodenId, atlasEintrag, atlasId } from './atlas';
+import {
+  atlasBodenId,
+  atlasEintrag,
+  atlasHimmelId,
+  atlasId,
+  atlasLaubId,
+  atlasSchneeDachId,
+  atlasWetterId,
+} from './atlas';
 
 describe('atlas', () => {
   it('bildet stabile IDs nach GRAFIK-SPRITES', () => {
@@ -7,6 +15,11 @@ describe('atlas', () => {
     expect(atlasBodenId('dorf', 1, 'flaeche')).toBe('boden/dorf/e1/flaeche');
     expect(atlasBodenId('dorf', 1, 'rand')).toBe('boden/dorf/e1/rand');
     expect(atlasBodenId('dorf', 1, 'flaeche_hell')).toBe('boden/dorf/e1/flaeche_hell');
+    expect(atlasHimmelId('sonne')).toBe('himmel/sonne');
+    expect(atlasHimmelId('wolke_2')).toBe('himmel/wolke_2');
+    expect(atlasWetterId('regen_tropfen')).toBe('wetter/regen_tropfen');
+    expect(atlasSchneeDachId([2, 2])).toBe('auflage/schnee_dach_2x2');
+    expect(atlasLaubId(3)).toBe('auflage/laub_3');
   });
 
   it('findet Einträge oder liefert undefined für Fallback', () => {

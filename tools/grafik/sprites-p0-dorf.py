@@ -549,12 +549,20 @@ def main() -> None:
             for i in range(n):
                 wesen_frame(art, zyklus, i, eintraege)
 
+    # P1 (himmel/wetter/auflage) und spätere Chargen beim Neuaufbau behalten
+    manifest_pfad = ATLAS / "manifest.json"
+    if manifest_pfad.exists():
+        alt = json.loads(manifest_pfad.read_text(encoding="utf-8"))
+        p0_ids = {e["id"] for e in eintraege}
+        for e in alt.get("eintraege", []):
+            if e.get("id") not in p0_ids:
+                eintraege.append(e)
     manifest = {"version": 1, "eintraege": eintraege}
-    (ATLAS / "manifest.json").write_text(
+    manifest_pfad.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    print(f"P0 Dorf: {len(eintraege)} Einträge → {ATLAS / 'manifest.json'}")
+    print(f"P0 Dorf: {len(eintraege)} Einträge → {manifest_pfad}")
 
 
 if __name__ == "__main__":
