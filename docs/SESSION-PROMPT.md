@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (41) · App-Menü ohne Reiter, Bau-Vorschau, Test-Rohstoffe; Grafik B-28 Spez+Atlas P0–P6+CC0
+Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
 
 ---
 

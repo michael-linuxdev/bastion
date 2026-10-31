@@ -26,4 +26,5 @@
 | 31.10.2026 | **CC0-Sounddateien:** Kenney-Tips + eigenes Ambient unter `public/sound/` (Manifest); Loader mit Web-Audio-Fallback; PWA-Precache `.ogg` (T-18, G8) |
 | 31.10.2026 | **Docs-Abgleich:** SESSION/PLAN/GRAFIK/SPRITES an Ist-Stand (G0–G11, P0–P6, CC0 erledigt; kein „nächster = G2“); optional Feinschliff klar |
 | 31.10.2026 | **Feinschliff P3–P6:** Laub/Schnee-Dach nur Land; Hinterhof Umbruch+nur im Hinterhof-Blick; Bastion-Kern Firstkappe |
+| 31.10.2026 | **Design-Bündel:** Hub-Türen, Bastion-Ort/HUD, Bau-Vorschau-Politur, Eltern/Probe, Typo/Motion (Ideensammlung A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) |
 | 31.10.2026 | **Üben Ein-/Ausgabe:** Feedback-Schichtung, Antwortspiegel, Steine, Tipp-Notiz, Schrittweg-Checkliste, Tastatur angebunden (Lern-UI §9, Spec P0–P1) |
