@@ -25,7 +25,12 @@ const P0_GEBAEUDE = [
   'dorf/e1/denkmal_s1',
 ] as const;
 
-const P0_BODEN = ['boden/dorf/e1/flaeche', 'boden/dorf/e1/rand'] as const;
+const P0_BODEN = [
+  'boden/dorf/e1/flaeche',
+  'boden/dorf/e1/rand',
+  'boden/dorf/e1/flaeche_b',
+  'boden/dorf/e1/flaeche_hell',
+] as const;
 
 describe('atlas P0 Dorf', () => {
   const roh = readFileSync(resolve('public/grafik/atlas/manifest.json'), 'utf8');

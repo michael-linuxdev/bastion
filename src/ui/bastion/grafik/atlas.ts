@@ -86,6 +86,13 @@ export function atlasWesenId(
   return `wesen/${thema}/${art}_${zyklus}_${frame}`;
 }
 
+/** Boden-Kachel-ID: Spec `flaeche`/`rand`, plus Wiesen-Varianten `flaeche_b`/`flaeche_hell`. */
+export type BodenKachel = 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell';
+
+export function atlasBodenId(thema: Thema, epoche: number, kachel: BodenKachel): string {
+  return `boden/${thema}/e${epoche}/${kachel}`;
+}
+
 /** Basis-URL der Atlas-Dateien (eigene App-Adresse). */
 export function atlasBasisUrl(): string {
   return `${import.meta.env.BASE_URL}grafik/atlas/`;

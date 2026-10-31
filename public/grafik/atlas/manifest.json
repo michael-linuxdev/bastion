@@ -210,6 +210,32 @@
       }
     },
     {
+      "id": "boden/dorf/e1/flaeche_b",
+      "datei": "boden/dorf/e1/flaeche_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
+      "id": "boden/dorf/e1/flaeche_hell",
+      "datei": "boden/dorf/e1/flaeche_hell.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 96,
+        "h": 48
+      }
+    },
+    {
       "id": "wesen/dorf/huhn_idle_0",
       "datei": "wesen/dorf/huhn_idle_0.png",
       "felder": [1, 1],

@@ -91,6 +91,27 @@ export function wiesenFarbe(abend: boolean, x: number, y: number, aussen: boolea
   return schach ? '#67a24a' : '#5b9342';
 }
 
+/**
+ * Welche Atlas-Boden-Kachel für Feld (x,y) – fest aus Position, kein Zufall.
+ * Spec: `flaeche` / `rand`; Varianten `flaeche_b` / `flaeche_hell` für Schachbrett/Tupfen.
+ */
+export function dorfBodenKachel(
+  x: number,
+  y: number,
+  breite: number,
+  tiefe: number,
+): 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell' {
+  const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;
+  if (aussen) return 'rand';
+  if (hash01(x, y) > 0.9) return 'flaeche_hell';
+  return (x + y) % 2 === 0 ? 'flaeche' : 'flaeche_b';
+}
+
+/** Abend-Abdunkeln der Atlas-Wiese (Tint als 0xRRGGBB), sonst weiß = unverändert. */
+export function dorfBodenTint(abend: boolean): number {
+  return abend ? 0x6a7a68 : 0xffffff;
+}
+
 /** Höhe des Bildes in Bildpunkten, fürs Antippen (Dach und Zeichen zählen mit). */
 export function dorfHoehe(typ: GebaeudeTyp, stufe: number): number {
   const grund: Record<GebaeudeTyp, number> = {

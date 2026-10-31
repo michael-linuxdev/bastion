@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { atlasEintrag, atlasId } from './atlas';
+import { atlasBodenId, atlasEintrag, atlasId } from './atlas';
 
 describe('atlas', () => {
   it('bildet stabile IDs nach GRAFIK-SPRITES', () => {
     expect(atlasId('dorf', 1, 'kern', 2)).toBe('dorf/e1/kern_s2');
+    expect(atlasBodenId('dorf', 1, 'flaeche')).toBe('boden/dorf/e1/flaeche');
+    expect(atlasBodenId('dorf', 1, 'rand')).toBe('boden/dorf/e1/rand');
+    expect(atlasBodenId('dorf', 1, 'flaeche_hell')).toBe('boden/dorf/e1/flaeche_hell');
   });
 
   it('findet Einträge oder liefert undefined für Fallback', () => {
