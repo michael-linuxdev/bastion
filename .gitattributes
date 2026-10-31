@@ -1,0 +1,3 @@
+# Protokolle der Stränge: beim Mergen beide Seiten behalten (SESSION-PROMPT, Regel 2).
+# Hängen zwei Branches gleichzeitig eine Zeile an, entsteht so kein Konflikt.
+docs/session/*-PROTOKOLL.md merge=union
