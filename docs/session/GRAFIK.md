@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez erledigt + App-Menü ohne Reiter, Bau-Vorschau, Test-Rohstoffe. Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel + Üben Ein-/Ausgabe + Design-Ideen §K (39–52). Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
@@ -21,6 +21,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 - **Umbau auf Richtung A** (`GRAFIK.md` §5, Schritte 1 bis 6): Tokens und Fassung „tag-warm“, Start-Hub, Üben, Bastion als Insel schräg von oben, „Mehr“, Korrekturen für das iPhone 13.
 - **App-Menü / Bau / Test-Vorrat (31.10.2026):** Untere Reiterleiste entfernt; Start-Hub mit Mehr-Kachel; Bau-Blatt mit Atlas-Vorschau; Eltern-Schalter Unendlich Rohstoffe (Probe-Bastion im Speicher, Ledger unberührt).
+- **Design-Bündel (31.10.2026):** Hub als Türen+Ort, lebendige MiniBastion, HUD-Beutel/Material-Icons, Bauen am Rand, Mini-Szene-Vorschau, Planen/Bauen-Trennung, Probe-Banner, Eltern-Werkstatt, Display-Schriftrolle, sanfte Motion.
 - **Thema Dorf** (#83) und **Zoom des Bauplatzes** (#85, alle Themen).
 - **Basebau Epoche 1** vollständig (`PLAN.md` §4a, A bis D).
 - **Lebendige Szenen, G0 bis G11** (B-28, `GRAFIK.md` §4–§10, PRs #93 bis #105): Atmosphäre mit Schaltern „ruhig“ und „leicht“, Jahreszeit und Abend aus dem Datum, Wetter von Open-Meteo nur nach Einschalten (T-15), Lebewesen, Atlas-Lader mit Code-Fallback, eigene Szenen für Garten, Unterwasser und Weltraum, Hinterhof in der Szene, Ton (Standard aus), Katalog und Wechsel für Epochen 2 bis 4, Optik je Epoche, Bewährungsprobe (Belagerung).
@@ -40,12 +41,12 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **P6 Belagerungs-Himmel / Rauch:** Atlas-Overlays `belagerung/himmel` und `rauch_1…3`; Bühne bei Bewährungsprobe mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 - **CC0-Sounddateien (G8 nachgezogen):** Tipps aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit Manifest; Loader bevorzugt Dateien, sonst Web-Audio-Fallback; PWA-Precache `.ogg` (T-18).
 - **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
-
-**Erledigt (nach P3–P6):** Design-Ideen §K (39–52) – Steinkette, Klassenarbeit nüchtern, Abschluss-Ritual, Hub-Wetter, Geister-Bauplan, Vorrat einklappbar, „Alles sicher“, Über mich kindgerecht, Offline-Hinweis einmalig, Motion-Texte, Fokus-Ringe Eltern, weiche Bau-Sounds, Aufgabentext-Luft, einheitliche Leerzustände. K50 Prüfen-Sound im Lernpfad bewusst still (GRAFIK §9).
+- **Üben Ein-/Ausgabe (Lern-UI §9):** Feedback-Schichtung, Antwortspiegel, Steine-Fortschritt, Tipp-Randnotiz, Schrittweg-Checkliste, Tastatur angebunden, Querformat; Spec `ueben-io-design` P0–P1.
+- **Design-Ideen §K (39–52):** Steinkette, Klassenarbeit nüchtern, Abschluss-Ritual, Hub-Wetter, Geister-Bauplan, Vorrat einklappbar, „Alles sicher“, Über mich kindgerecht, Offline-Hinweis einmalig, Motion-Texte, Fokus-Ringe Eltern, weiche Bau-Sounds, Aufgabentext-Luft, einheitliche Leerzustände. K50 Prüfen-Sound im Lernpfad bewusst still (GRAFIK §9).
 
 **Als Nächstes (alles optional / PV):**
 
-1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Lern-UI §9 aufräumen (nur Abstände/Hierarchie); Design §J/§I-Bundel parallel.
+1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0); Design §J/§I-Bundel parallel.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

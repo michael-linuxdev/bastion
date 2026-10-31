@@ -125,7 +125,9 @@
 </script>
 
 <section class="eltern" data-eltern>
+  <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
+  <p class="werkstatt-hinweis">{t('eltern.werkstatt-hinweis')}</p>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
@@ -244,6 +246,30 @@
   .eltern {
     display: grid;
     gap: var(--abstand-s);
+    padding: var(--abstand-s);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+    border: 1px solid var(--farbe-rand);
+  }
+
+  .badge {
+    margin: 0;
+    justify-self: start;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-rand);
+    color: var(--farbe-text-leise);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .werkstatt-hinweis {
+    margin: 0;
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
   }
 
   form {
