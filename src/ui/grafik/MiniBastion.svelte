@@ -1,18 +1,37 @@
 <script lang="ts">
   // Kleine Ansicht der Bastion für die Startseite (GRAFIK §1, §4.7):
   // Standbild der aktuellen Atmosphäre (Jahreszeit, Abend nach Sonne) ohne Bewegung.
+  // P4: Atlas-Standbild je Thema, SVG nur als Fallback.
   import { aktiv } from '../bastion/thema.svelte';
   import { darstellung } from './darstellung.svelte';
   import { jahreszeitAusDatum } from '../bastion/grafik/jahreszeit';
   import { szeneAbend } from '../bastion/grafik/sonne';
+  import { atlasBasisUrl } from '../bastion/grafik/atlas';
 
   const jetzt = new Date();
   const jahreszeit = jahreszeitAusDatum(jetzt);
   const abend = $derived(szeneAbend(darstellung.modus, jetzt));
+  // P4: minibat/<thema>/standbild.png (GRAFIK-SPRITES.md §7)
+  const standbildSrc = $derived(`${atlasBasisUrl()}minibat/${aktiv.thema}/standbild.png`);
+  let standbildOk = $state(true);
+  $effect(() => {
+    // Themawechsel: wieder versuchen, Atlas-Bild zu laden
+    void aktiv.thema;
+    standbildOk = true;
+  });
 </script>
 
 <div class="mini" class:abend data-jahreszeit={jahreszeit} aria-hidden="true">
-  {#if aktiv.thema === 'garten'}
+  {#if standbildOk}
+    <img
+      class="standbild"
+      src={standbildSrc}
+      alt=""
+      width="480"
+      height="240"
+      onerror={() => (standbildOk = false)}
+    />
+  {:else if aktiv.thema === 'garten'}
     <svg viewBox="0 0 240 120" focusable="false" preserveAspectRatio="xMidYMax slice">
       <rect width="240" height="120" class="himmel" />
       <circle cx="206" cy="22" r="11" class="gestirn" />
@@ -96,10 +115,29 @@
 
 <style>
   .mini,
-  svg {
+  svg,
+  .standbild {
     display: block;
     inline-size: 100%;
     block-size: 100%;
+  }
+  .standbild {
+    object-fit: cover;
+    object-position: center bottom;
+  }
+  .mini.abend .standbild {
+    filter: brightness(0.72) saturate(0.9) hue-rotate(-8deg);
+  }
+  .mini[data-jahreszeit='herbst'] .standbild {
+    filter: sepia(0.18) saturate(1.05);
+  }
+  .mini[data-jahreszeit='winter'] .standbild {
+    filter: saturate(0.75) brightness(1.05);
+  }
+  .mini.abend[data-jahreszeit='herbst'] .standbild,
+  .mini.abend[data-jahreszeit='winter'] .standbild,
+  .mini.abend[data-jahreszeit='fruehling'] .standbild {
+    filter: brightness(0.7) saturate(0.85);
   }
   .himmel {
     fill: var(--farbe-himmel);

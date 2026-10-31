@@ -4,8 +4,10 @@ import {
   atlasEintrag,
   atlasFensterId,
   atlasHimmelId,
+  atlasHinterhofId,
   atlasId,
   atlasLaubId,
+  atlasMinibatId,
   atlasSchneeDachId,
   atlasWetterId,
 } from './atlas';
@@ -23,6 +25,9 @@ describe('atlas', () => {
     expect(atlasWetterId('regen_tropfen')).toBe('wetter/regen_tropfen');
     expect(atlasSchneeDachId([2, 2])).toBe('auflage/schnee_dach_2x2');
     expect(atlasLaubId(3)).toBe('auflage/laub_3');
+    expect(atlasHinterhofId('dorf', 'platz_g')).toBe('hinterhof/dorf/platz_g');
+    expect(atlasHinterhofId('garten', 'denkmal_voll')).toBe('hinterhof/garten/denkmal_voll');
+    expect(atlasMinibatId('bastion')).toBe('minibat/bastion/standbild');
   });
 
   it('findet Einträge oder liefert undefined für Fallback', () => {
