@@ -98,6 +98,15 @@
     {tt('bastion.zoom-passen')}
   </button>
   <p class="leise">{tt('bastion.bedienung')}</p>
+  <p class="leise">{tt('bastion.bewohner.erklaerung')}</p>
+  <ul class="bewohner-frei">
+    <li>{tt('bastion.bewohner.frei.zwerg')}</li>
+    <li>{tt('bastion.bewohner.frei.gaertner')}</li>
+    <li>{tt('bastion.bewohner.frei.bibliothek')}</li>
+    <li>{tt('bastion.bewohner.frei.torhueter')}</li>
+    <li>{tt('bastion.bewohner.frei.handwerk')}</li>
+    <li>{tt('bastion.bewohner.frei.imker')}</li>
+  </ul>
 </div>
 
 <style>
@@ -131,5 +140,12 @@
     color: var(--farbe-text-leise);
     margin-block: 0;
     font-size: 0.95rem;
+  }
+
+  .bewohner-frei {
+    margin-block: 0;
+    padding-inline-start: 1.2rem;
+    color: var(--farbe-text-leise);
+    font-size: 0.9rem;
   }
 </style>
