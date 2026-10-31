@@ -55,7 +55,7 @@ describe('Inhalte in content/', () => {
               .map(([n, a]) => `${n} ${a}`)
               .join(', ')}`,
         ),
-        'Reviews: noch kein Prüfwerkzeug – alle Inhalte gelten als ungeprüft (INHALTSFORMAT §8).',
+        'Reviews: Stand je Stufe zeigt `pnpm review` (INHALTSFORMAT §8).',
       ].join('\n'),
     );
     expect(tabelle.size).toBe(kompetenzen.length);

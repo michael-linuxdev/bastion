@@ -51,3 +51,8 @@ schritte:
         fv: FV.BR.ADDITIV
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: 67c1a80ad66320acb5313aba4ac59de644cef8b06360f77266bccb1568e560cd

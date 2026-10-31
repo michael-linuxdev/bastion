@@ -10,10 +10,10 @@ beschreibung:
 kompetenzen: [M.ZO.BR.ADD-SUB]
 erklaerung:
   kurz:
-    de: 'Der [[Nenner]] sagt, wie groß die Teile sind. Beim Addieren zählst du nur die Teile zusammen – der Nenner bleibt.'
+    de: 'Der [[Nenner]] sagt, wie groß die Teile sind. Nenner werden nie addiert oder subtrahiert. Sind die Teile gleich groß, verrechnest du nur die [[Zähler]].'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast [[Zähler]] plus Zähler und [[Nenner]] plus Nenner gerechnet.'
+      de: 'Du hast [[Zähler]] mit Zähler und [[Nenner]] mit Nenner verrechnet.'
     - teil: warum-nicht
       de: 'So sieht es einfach aus. Aber 1/4 + 2/4 sind 3 Viertel. Bei 3/8 wären die Teile plötzlich halb so groß – das Ergebnis wäre kleiner als 2/4 allein.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
@@ -28,3 +28,8 @@ quelle:
   de: Fachdidaktik Bruchrechnung (häufigster Fehler bei der Addition)
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-10-31
+  pruefer: maschine
+  hash: ec265d21afc707eae53aa6efebc871fd73d1806ed99af56e8e1c90ac1a47c4e3
