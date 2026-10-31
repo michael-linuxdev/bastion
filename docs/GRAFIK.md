@@ -1,6 +1,6 @@
 # Grafik
 
-Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · Umbau auf Richtung A umgesetzt 29.10.2026 (§5) · Lebendige Szenen beschlossen 31.10.2026 (§4, §7–§10, B-28)
+Status: Entschieden 29.10.2026 (K-22, B-27, T-15) · Umbau auf Richtung A umgesetzt 29.10.2026 (§5) · Lebendige Szenen B-28: G0–G11 + Atlas P0–P6 + CC0-Sound umgesetzt 31.10.2026 (§4, §6–§10); optional Feinschliff
 
 Wie Bastion aussieht und wie die Grafik gebaut wird. Die Richtung kommt aus sechs Entwürfen (je zwei für Bastion, Startseite und Üben). Gewählt hat der Projektverantwortliche **Richtung A „Tag, warm“** für alle drei Bereiche.
 
@@ -206,7 +206,7 @@ Unter „Wie soll es aussehen?“ gibt es das Thema **Dorf** (B-17). Seit dem 30
 
 **Sprite-Charge P5 Epoche 2–4 (31.10.2026):** Gebäude aller Themen für Epochen 2–4 nach Katalog G9 (reifere Optik, neue Stufen, Abend-Fenster, Boden-Kacheln), Generator `tools/grafik/sprites-p5-epochen.py`. Runtime: Atlas-Lookup mit Fallback auf niedrigere Epoche; fehlt alles, Code-Fallback (`epoche-optik.ts`).
 
-**Sprite-Charge P6 Belagerungs-Himmel / Rauch (31.10.2026):** Spannungs-Dunst und drei Rauch-Overlays unter `public/grafik/atlas/belagerung/`; Generator `tools/grafik/sprites-p6-belagerung.py`. Die Bühne nutzt sie bei Bewährungsprobe (`spannung`), sonst Code-Fallback (G11). Keine Truppen. Verbindliche Atlas-Chargen P0–P6 sind damit geliefert; optional bleiben CC0-Sounddateien und Feinschliff Jahreszeit/Lern-UI.
+**Sprite-Charge P6 Belagerungs-Himmel / Rauch (31.10.2026):** Spannungs-Dunst und drei Rauch-Overlays unter `public/grafik/atlas/belagerung/`; Generator `tools/grafik/sprites-p6-belagerung.py`. Die Bühne nutzt sie bei Bewährungsprobe (`spannung`), sonst Code-Fallback (G11). Keine Truppen. Verbindliche Atlas-Chargen **P0–P6** und optionale **CC0-Sounddateien** (G8, `public/sound/`) sind geliefert. Optional/offen: Feinschliff Jahreszeit-Auflagen, Ambient Wasser/Regen, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b.
 
 ## 7. Hinterhof in der Szene (B-25)
 
