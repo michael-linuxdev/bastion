@@ -215,7 +215,7 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **G3** | Open-Meteo (Eltern, Ort, Cache Mitternacht, stiller Fallback) · *umgesetzt* |
 | **G4** | Lebewesen (Dorf zuerst) + Tippen + Anzahl~Gebäude · *umgesetzt* |
 | **G5** | Atlas-Anbindung + Thema Garten (neues Niveau) · *umgesetzt* (Sprites folgen via Manifest) |
-| **G6** | Unterwasser, Weltraum, Bastion-Feinschliff |
+| **G6** | Unterwasser, Weltraum, Bastion-Wesen · *umgesetzt* (Code-Szenen; Sprites folgen) |
 | **G7** | Hinterhof als Szene + Denkmal/Wappen |
 | **G8** | Sound optional (CC0, Standard aus) |
 | **G9** | Katalog Epoche 2–4 (Kosten, Bauplatz, Wechsel) |

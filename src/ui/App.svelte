@@ -62,8 +62,6 @@
   import Uebung from './ueben/Uebung.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
-  import BastionAnsicht from './bastion/Bastion.svelte';
-  import Hinterhof from './bastion/Hinterhof.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
   import ProfilForm from './profil/Profil.svelte';
   import {
@@ -590,13 +588,21 @@
     {:then geladen}
       {#if ansicht === 'bastion'}
         <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-        <BastionAnsicht kompetenzen={geladen.kompetenzen} wetterEinstellen={selbst} />
-        <Hinterhof
-          kompetenzen={geladen.kompetenzen}
-          staende={[...zustand.staende.values()]}
-          aufgaben={aufgabenListe}
-          {klasse}
-        />
+        {#await import('./bastion/Bastion.svelte')}
+          <p role="status">{t('uebersicht.laedt')}</p>
+        {:then bastionMod}
+          {@const BastionAnsicht = bastionMod.default}
+          <BastionAnsicht kompetenzen={geladen.kompetenzen} wetterEinstellen={selbst} />
+          {#await import('./bastion/Hinterhof.svelte') then hinterhofMod}
+            {@const Hinterhof = hinterhofMod.default}
+            <Hinterhof
+              kompetenzen={geladen.kompetenzen}
+              staende={[...zustand.staende.values()]}
+              aufgaben={aufgabenListe}
+              {klasse}
+            />
+          {/await}
+        {/await}
       {:else if ansicht === 'angebot' && gewaehlt}
         {@const k = gewaehlt}
         <Angebot

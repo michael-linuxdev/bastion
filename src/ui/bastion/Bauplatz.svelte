@@ -19,6 +19,7 @@
     type BauAuftrag,
   } from '../plattform/ablage';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
+  import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
@@ -341,7 +342,7 @@
     void jahreszeit;
     void abend;
     void wetterBild;
-    const bildart = aktiv.thema === 'dorf' ? 'dorf' : aktiv.thema === 'garten' ? 'garten' : 'insel';
+    const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
     // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung

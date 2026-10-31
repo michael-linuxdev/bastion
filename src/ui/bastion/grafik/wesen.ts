@@ -5,7 +5,21 @@
 import type { Thema } from '../../../core/policy/einstellung';
 import { BUEHNE_B, BUEHNE_H, punkt } from './iso';
 
-export type WesenArt = 'huhn' | 'katze' | 'spatz' | 'biene' | 'schnecke' | 'schmetterling';
+export type WesenArt =
+  | 'huhn'
+  | 'katze'
+  | 'spatz'
+  | 'biene'
+  | 'schnecke'
+  | 'schmetterling'
+  | 'fisch'
+  | 'qualle'
+  | 'krebs'
+  | 'drohne'
+  | 'roboter'
+  | 'moewe'
+  | 'fuchs'
+  | 'wache';
 
 export interface WesenArtInfo {
   readonly art: WesenArt;
@@ -28,8 +42,23 @@ export function wesenArten(thema: Thema): readonly WesenArtInfo[] {
         { art: 'schnecke', farbe: '#b89b7a', skala: 0.85 },
         { art: 'schmetterling', farbe: '#d478a0', skala: 0.8 },
       ];
-    default:
-      return [];
+    case 'unterwasser':
+      return [
+        { art: 'fisch', farbe: '#5a9ccc', skala: 0.85 },
+        { art: 'qualle', farbe: '#d4a0e0', skala: 0.9 },
+        { art: 'krebs', farbe: '#d4784a', skala: 0.8 },
+      ];
+    case 'weltraum':
+      return [
+        { art: 'drohne', farbe: '#a0e8d4', skala: 0.7 },
+        { art: 'roboter', farbe: '#8a96a8', skala: 0.9 },
+      ];
+    case 'bastion':
+      return [
+        { art: 'moewe', farbe: '#e8e4dc', skala: 0.8 },
+        { art: 'fuchs', farbe: '#c4783a', skala: 1 },
+        { art: 'wache', farbe: '#6a7a8a', skala: 1 },
+      ];
   }
 }
 
@@ -101,7 +130,7 @@ export function wesenStarten(thema: Thema, gebaeude: number, leicht: boolean): W
       y: start.y,
       zx: ziel.x,
       zy: ziel.y,
-      richtung: (ziel.x >= start.x ? 1 : -1) as 1 | -1,
+      richtung: ziel.x >= start.x ? 1 : -1,
       reactBis: 0,
       phase: i * 0.7,
     });
@@ -126,8 +155,14 @@ export function wesenTick(w: WesenZustand, dt: number, jetzt: number, index: num
     w.richtung = neu.x >= w.x ? 1 : -1;
     return;
   }
-  const speed =
-    (w.art === 'spatz' || w.art === 'biene' || w.art === 'schmetterling' ? 28 : 16) * dt;
+  const schnell =
+    w.art === 'spatz' ||
+    w.art === 'biene' ||
+    w.art === 'schmetterling' ||
+    w.art === 'fisch' ||
+    w.art === 'drohne' ||
+    w.art === 'moewe';
+  const speed = (schnell ? 28 : 16) * dt;
   w.x += (dx / dist) * speed;
   w.y += (dy / dist) * speed;
   w.phase += dt * 6;

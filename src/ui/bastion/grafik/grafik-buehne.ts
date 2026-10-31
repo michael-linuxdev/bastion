@@ -27,13 +27,16 @@ import {
 import { atlasLaden } from './atlas';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
 import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
+import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
+import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
 import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 
-/** Insel, Dorfbilder oder Gartenbilder (GRAFIK §6 / G5). */
-export type Bildart = 'insel' | 'dorf' | 'garten';
+import type { Bildart } from './bildart';
+export type { Bildart } from './bildart';
+export { bildartVonThema } from './bildart';
 
 export interface Farben {
   readonly boden: string;
@@ -475,6 +478,8 @@ export async function buehneErstellen(
   if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
   else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
+  else if (art === 'unterwasser') uwBoden(stiftVon(hintergrund), farben.abend);
+  else if (art === 'weltraum') weltraumBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
   if (wetterBild === 'nebel') {
     hintergrund.rect(0, 0, BUEHNE_B, BUEHNE_H).fill({ color: '#c8d2dc', alpha: 0.35 });
@@ -660,6 +665,38 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'unterwasser') {
+        uwSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
+      } else if (art === 'weltraum') {
+        weltraumSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
       }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
@@ -682,7 +719,11 @@ export async function buehneErstellen(
             ? dorfHoehe(x.typ, x.stufe)
             : art === 'garten'
               ? gartenHoehe(x.typ, x.stufe)
-              : hoehe(x.typ, x.stufe)) + 20;
+              : art === 'unterwasser'
+                ? uwHoehe(x.typ, x.stufe)
+                : art === 'weltraum'
+                  ? weltraumHoehe(x.typ, x.stufe)
+                  : hoehe(x.typ, x.stufe)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(
