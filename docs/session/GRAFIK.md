@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · G0–G11, P0 Dorf und Boden/Wiese-Atlas auf `main`; Bastion-Reiter-Vollbild im Merge; nächster Schritt: P1 Wetter-Himmel, Messung auf dem iPhone 13
+Stand: 31.10.2026 · G0–G11, P0–P2 Atlas; Wetter-Cache dauerhaft; Bastion-Vollbild (#113); Bastion spielbarer (Vorrat/Bauen/Versetzen/Pfad/Bewohner); nächster Schritt: P3 andere Themen, Messung iPhone 13
 
 ---
 
@@ -27,10 +27,13 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **Bastion-Reiter aufräumen / Vollbild:** Chrome (Intro, Bedienhilfe, −/+ / ⌖, Bild-aus, ruhig/leicht/Sound) nur noch in Bastion-Einstellungen; Bühne ohne Karten-Kante; Hinterhof als Piktogramm; echtes Zahnrad; Querformat ohne untere Leiste.
 - **Sprite-Charge P0 Dorf** (#109, `GRAFIK.md` §6, `GRAFIK-SPRITES.md` §8): Gebäude Epoche 1, Boden-Kacheln und Wesen im Atlas, Code bleibt Fallback.
 - **Boden/Wiese Atlas:** Dorf-Wiese aus Atlas-Kacheln (`flaeche`/`rand` + Varianten); Code-`dorfWiese` nur noch Fallback (`GRAFIK.md` §6, `GRAFIK-SPRITES.md` §3/§10).
+- **P1 Wetter-Himmel:** Atlas-Sprites für Sonne/Mond/Wolken, Wetter-Partikel, Schnee-Dach und Laub; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §5/§8).
+- **P2 Garten:** Gebäude Epoche 1, Rasen-Kacheln und Wesen (Biene, Schnecke, Schmetterling) im Atlas; Runtime mit Code-Fallback (`garten.ts`, `GRAFIK-SPRITES.md` §8).
+- **Bastion-Reiter spielbarer:** Vorrat-HUD und Bauen/Planen auf dem Reiter; Versetzen per Ziehen; Wesen-Pfadfindung um Gebäude; Bewohner (Zwerg/Gärtnerin/Bücherwurm/Torhüter) an Fortschritt gekoppelt (`GRAFIK.md` §1, §4.4).
 
 **Als Nächstes:**
 
-1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0: Dorf Epoche 1~~ erledigt (#109); ~~Boden/Wiese~~ erledigt; als Nächstes **P1** (Wetter-Auflagen, Wolken/Sonne/Mond), danach **P2** Garten. Ohne Atlas bleibt der Code-Fallback.
+1. **Sprites einhängen**, sobald Chargen geliefert sind (`GRAFIK-SPRITES.md` §8). ~~P0: Dorf Epoche 1~~ erledigt (#109); ~~Boden/Wiese~~ erledigt; ~~P1 Wetter-Himmel~~ erledigt; ~~P2 Garten~~ erledigt; als Nächstes **P3** Bastion/Unterwasser/Weltraum. Ohne Atlas bleibt der Code-Fallback.
 2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4a). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
 3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 

@@ -29,7 +29,11 @@ import {
   atlasBodenId,
   atlasEintrag,
   atlasEintragPerId,
+  atlasHimmelId,
+  atlasLaubId,
   atlasLaden,
+  atlasSchneeDachId,
+  atlasWetterId,
   atlasWesenId,
   type AtlasManifest,
   type BodenKachel,
@@ -45,7 +49,16 @@ import {
   dorfWiese,
   type Stift,
 } from './dorf';
-import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
+import {
+  gartenBoden,
+  gartenBodenKachel,
+  gartenBodenTint,
+  gartenGebaeude,
+  gartenHoehe,
+  gartenStrauch,
+  gartenStrauchLagen,
+  gartenSzene,
+} from './garten';
 import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
 import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
 import type { Epoche } from '../../../core/bastion/epochen';
@@ -65,6 +78,15 @@ import {
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
 import { hinterhofZeichnen } from './hinterhof-szene';
+import {
+  bewohnerFortschritt,
+  bewohnerReagieren,
+  bewohnerStarten,
+  bewohnerTick,
+  bewohnerFarbe,
+  type BewohnerZustand,
+} from './bewohner';
+import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import type { Bildart } from './bildart';
 export type { Bildart } from './bildart';
@@ -102,9 +124,15 @@ export interface Ansicht {
   readonly hinterhof?: readonly HinterhofFeld[];
   /** Freigeschaltete Epoche für Optik (GRAFIK §8 / G10) */
   readonly epoche?: Epoche;
+  /** Bücher für Bewohner-Freischaltung (Wissen behalten) */
+  readonly buecher?: number;
+  /** Konto nur für Ableitung – Stand wird nicht gezeichnet */
+  readonly konto?: import('../../../core/ledger/buchung').Konto;
 }
 
 export interface Buehne {
+  /** Pixi-Canvas (für atomaren Tausch in Bauplatz) */
+  readonly view: HTMLCanvasElement;
   zeichne(b: Bastion, a: Ansicht): void;
   /** Bewegung umschalten, ohne die Bühne neu zu bauen (GRAFIK §4.5) */
   setzeBewegung(b: Bewegung): void;
@@ -112,8 +140,11 @@ export interface Buehne {
   feldBei(clientX: number, clientY: number): Position | undefined;
   /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
   wesenBei(clientX: number, clientY: number): string | undefined;
+  /** Bewohner unter dem Punkt */
+  bewohnerBei(clientX: number, clientY: number): string | undefined;
   /** Kurze Reaktion auf Tippen */
   tippeWesen(id: string): void;
+  tippeBewohner(id: string): void;
   zerstoere(): void;
 }
 
@@ -157,6 +188,38 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
   g.moveTo(x + 2 * s, y + 2 * s)
     .lineTo(x + 2 * s, y + 5 * s - wip)
     .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
+}
+
+/** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
+function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
+  const s = jetzt < b.reactBis ? 1.1 : 1;
+  const x = b.x;
+  const y = b.y;
+  const farbe = bewohnerFarbe(b.art);
+  // Körper + spitze Mütze
+  g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
+  g.poly([x - 4 * s, y - 4 * s, x, y - 11 * s, x + 4 * s, y - 4 * s]).fill(
+    b.art === 'gaertner' ? '#3a6a38' : b.art === 'bibliothek' ? '#4a4a88' : '#b03a2e',
+  );
+  g.circle(x, y - 3.5 * s, 2.2 * s).fill('#f0d8c0');
+  // Tätigkeit: Gießkanne / Besen / Buch / Blick
+  if (b.taetigkeit === 'giessen') {
+    const wip = Math.sin(b.phase) * 2;
+    g.poly([x + 5 * s, y - 2 * s, x + 9 * s, y - 1 * s + wip, x + 7 * s, y + 1 * s]).fill(
+      '#5a8aaa',
+    );
+    g.circle(x + 8 * s, y + 2 * s + wip, 0.8 * s).fill({ color: '#6ab0d0', alpha: 0.7 });
+  } else if (b.taetigkeit === 'kehren' || b.taetigkeit === 'gaertnern') {
+    const wip = Math.sin(b.phase) * 3;
+    g.moveTo(x - 5 * s, y - 1 * s)
+      .lineTo(x - 8 * s + wip, y + 4 * s)
+      .stroke({ width: 1.5, color: '#8a6a3a' });
+  } else if (b.taetigkeit === 'lesen') {
+    g.rect(x + 3 * s, y - 5 * s, 5 * s, 4 * s).fill('#e8e0c8');
+  } else if (b.taetigkeit === 'schauen') {
+    g.circle(x + 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
+    g.circle(x - 1.2 * s, y - 4 * s, 0.6 * s).fill('#2a2a2a');
+  }
 }
 
 type Punkt = { x: number; y: number };
@@ -446,27 +509,99 @@ function rauch(g: Graphics, f: Farben) {
   }
 }
 
-/** Sonne bzw. Mond und Sterne – feste Plätze, kein Zufall. Wolken liegen in einer eigenen Schicht. */
-function gestirn(g: Graphics, f: Farben) {
-  g.circle(buehneBreite() - 70, 52, f.abend ? 16 : 22).fill(f.licht);
+const GESTIRN_X = () => buehneBreite() - 70;
+const GESTIRN_Y = 52;
+
+/** Sterne am Abend – feste Plätze, kein Zufall (Code, auch neben Atlas-Mond). */
+function sterneZeichnen(g: Graphics, f: Farben) {
+  if (!f.abend) return;
+  for (const [x, y] of [
+    [60, 30],
+    [140, 70],
+    [210, 24],
+    [300, 54],
+    [380, 20],
+    [460, 80],
+    [90, 96],
+  ] as const)
+    g.circle(x, y, 1.6).fill({ color: f.licht, alpha: 0.8 });
+}
+
+/** Sonne/Mond: Atlas-Sprite wenn vorhanden, sonst Code-Kreis (GRAFIK-SPRITES P1). */
+function gestirnZeichnen(
+  lage: Container,
+  f: Farben,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+) {
+  const id = atlasHimmelId(f.abend ? 'mond' : 'sonne');
+  const eintrag = atlasEintragPerId(manifest, id);
+  const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+  if (eintrag && tex) {
+    const spr = new Sprite(tex);
+    spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+    spr.width = eintrag.pixel.w / 2;
+    spr.height = eintrag.pixel.h / 2;
+    spr.position.set(GESTIRN_X(), GESTIRN_Y);
+    lage.addChild(spr);
+  } else {
+    const g = new Graphics();
+    g.circle(GESTIRN_X(), GESTIRN_Y, f.abend ? 16 : 22).fill(f.licht);
+    if (f.abend) g.circle(GESTIRN_X() + 8, GESTIRN_Y - 6, 14).fill(f.himmel);
+    lage.addChild(g);
+  }
   if (f.abend) {
-    g.circle(buehneBreite() - 62, 46, 14).fill(f.himmel);
-    for (const [x, y] of [
-      [60, 30],
-      [140, 70],
-      [210, 24],
-      [300, 54],
-      [380, 20],
-      [460, 80],
-      [90, 96],
-    ] as const)
-      g.circle(x, y, 1.6).fill({ color: f.licht, alpha: 0.8 });
+    const sterne = new Graphics();
+    sterneZeichnen(sterne, f);
+    lage.addChild(sterne);
   }
 }
 
-/** Wolken am Tag – Verschiebung übernimmt die Atmosphäre (deterministisch). */
-function wolken(g: Graphics, f: Farben) {
+/** Wolken am Tag aus Atlas oder Code – Verschiebung übernimmt die Atmosphäre. */
+function wolkenZeichnen(
+  lage: Container,
+  f: Farben,
+  wetter: WetterBild,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+) {
   if (f.abend) return;
+  const plaetze: readonly { x: number; y: number; id: 'wolke_1' | 'wolke_2'; s: number }[] = [
+    { x: 90, y: 50, id: 'wolke_1', s: 1 },
+    { x: 300, y: 34, id: 'wolke_2', s: 0.85 },
+  ];
+  const extra =
+    wetter !== 'klar'
+      ? ([
+          { x: 180, y: 60, id: 'wolke_2' as const, s: 0.95 },
+          { x: 400, y: 40, id: 'wolke_1' as const, s: 0.8 },
+        ] as const)
+      : [];
+  let atlasOk = true;
+  for (const p of [...plaetze, ...extra]) {
+    const eintrag = atlasEintragPerId(manifest, atlasHimmelId(p.id));
+    const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+    if (!eintrag || !tex) {
+      atlasOk = false;
+      break;
+    }
+  }
+  if (atlasOk) {
+    for (const p of [...plaetze, ...extra]) {
+      const eintrag = atlasEintragPerId(manifest, atlasHimmelId(p.id));
+      const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+      if (!eintrag || !tex) continue;
+      const spr = new Sprite(tex);
+      spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+      spr.width = (eintrag.pixel.w / 2) * p.s;
+      spr.height = (eintrag.pixel.h / 2) * p.s;
+      spr.position.set(p.x, p.y);
+      spr.alpha = 0.92;
+      lage.addChild(spr);
+    }
+    return;
+  }
+  const g = new Graphics();
   for (const [x, y, s] of [
     [90, 50, 1],
     [300, 34, 0.8],
@@ -474,6 +609,37 @@ function wolken(g: Graphics, f: Farben) {
     g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
     g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
   }
+  if (wetter !== 'klar') {
+    g.ellipse(180, 60, 40, 12).fill({ color: f.wolke, alpha: 0.75 });
+    g.ellipse(400, 40, 36, 11).fill({ color: f.wolke, alpha: 0.7 });
+  }
+  lage.addChild(g);
+}
+
+/** Schnee-Dach-Auflage aus Atlas auf Gebäude-Fußpunkt (Winter). */
+function schneeDachSprite(
+  gebaeude: Container,
+  pos: Position,
+  typ: GebaeudeTyp,
+  tiefe: number,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+): void {
+  const [bw, bt] = KATALOG[typ].groesse;
+  const seite = Math.max(bw, bt) as 1 | 2 | 3;
+  const felder: readonly [number, number] = seite >= 3 ? [3, 3] : seite >= 2 ? [2, 2] : [1, 1];
+  const eintrag = atlasEintragPerId(manifest, atlasSchneeDachId(felder));
+  const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+  if (!eintrag || !tex) return;
+  const fuss = punkt(pos.x + bw, pos.y + bt);
+  const spr = new Sprite(tex);
+  spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+  spr.width = eintrag.pixel.w / 2;
+  spr.height = eintrag.pixel.h / 2;
+  // leicht über dem Gebäude-Fuß, damit die Kappe auf dem Dach sitzt
+  spr.position.set(fuss.x, fuss.y - 8);
+  spr.zIndex = tiefe * 10 + 1;
+  gebaeude.addChild(spr);
 }
 
 /** Die Insel: Deckfläche mit Raster, zwei Seitentöne nach vorn */
@@ -522,14 +688,25 @@ function stiftVon(g: Graphics): Stift {
 }
 
 /** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
-async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<string, Texture>> {
+async function atlasTexturenLaden(
+  manifest: AtlasManifest | null,
+  braucht: (id: string) => boolean = () => true,
+): Promise<Map<string, Texture>> {
   const map = new Map<string, Texture>();
   if (!manifest || manifest.eintraege.length === 0) return map;
   const basis = atlasBasisUrl();
+  const liste = manifest.eintraege.filter((e) => braucht(e.id));
   await Promise.all(
-    manifest.eintraege.map(async (e) => {
+    liste.map(async (e) => {
       try {
-        const tex = (await Assets.load(basis + e.datei)) as Texture;
+        // Timeout: offline/ohne Cache soll die Bühne nicht hängen (Code-Fallback)
+        const geladen = Assets.load(basis + e.datei) as Promise<Texture>;
+        const tex = await Promise.race([
+          geladen,
+          new Promise<Texture>((_, ablehnen) => {
+            setTimeout(() => ablehnen(new Error('atlas-timeout')), 4_000);
+          }),
+        ]);
         map.set(e.id, tex);
       } catch {
         // einzelner Ausfall: Code-Fallback für diese ID
@@ -537,6 +714,19 @@ async function atlasTexturenLaden(manifest: AtlasManifest | null): Promise<Map<s
     }),
   );
   return map;
+}
+
+/** Welche Atlas-IDs die Bühne für diese Bildart braucht (P0 Dorf, P2 Garten + P1 Himmel/Wetter). */
+function atlasBrauchtId(art: Bildart, id: string): boolean {
+  if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
+    return true;
+  if (art === 'dorf')
+    return id.startsWith('dorf/') || id.startsWith('boden/dorf/') || id.startsWith('wesen/dorf/');
+  if (art === 'garten')
+    return (
+      id.startsWith('garten/') || id.startsWith('boden/garten/') || id.startsWith('wesen/garten/')
+    );
+  return false;
 }
 
 /** Graphics-Kind in einer Boden-Lage anlegen (Code-Fallback zeichnet darauf). */
@@ -549,20 +739,23 @@ function bodenAlsGraphics(lage: Container): Graphics {
 const BODEN_KACHELN: readonly BodenKachel[] = ['flaeche', 'rand', 'flaeche_b', 'flaeche_hell'];
 
 /**
- * Dorf-Wiese aus Atlas-Kacheln (GRAFIK-SPRITES Boden).
- * true = gezeichnet; false = Aufrufer soll `dorfWiese` (Code) nutzen.
+ * Boden aus Atlas-Kacheln (Dorf-Wiese / Garten-Rasen, GRAFIK-SPRITES).
+ * true = gezeichnet; false = Aufrufer soll Code-Boden nutzen.
  */
-function dorfWieseAusAtlas(
+function bodenAusAtlas(
   lage: Container,
+  thema: 'dorf' | 'garten',
   manifest: AtlasManifest | null,
   texturen: Map<string, Texture>,
   abend: boolean,
+  kachelFn: (x: number, y: number, breite: number, tiefe: number) => BodenKachel,
+  tintFn: (abend: boolean) => number,
 ): boolean {
   if (!manifest) return false;
   const epoche = 1;
   const texProKachel = new Map<BodenKachel, { tex: Texture; w: number; h: number }>();
   for (const k of BODEN_KACHELN) {
-    const id = atlasBodenId('dorf', epoche, k);
+    const id = atlasBodenId(thema, epoche, k);
     const eintrag = atlasEintragPerId(manifest, id);
     const tex = eintrag ? texturen.get(eintrag.id) : undefined;
     if (!eintrag || !tex) {
@@ -574,11 +767,11 @@ function dorfWieseAusAtlas(
   }
   const flaeche = texProKachel.get('flaeche');
   if (!flaeche) return false;
-  const tint = dorfBodenTint(abend);
+  const tint = tintFn(abend);
   const { breite, tiefe } = bauplatzAktiv();
   for (let y = -1; y <= tiefe; y++) {
     for (let x = -1; x <= breite; x++) {
-      const gewaehlt = dorfBodenKachel(x, y, breite, tiefe);
+      const gewaehlt = kachelFn(x, y, breite, tiefe);
       // Varianten optional: fehlende hell/b → flaeche (rand ist Pflicht oben)
       const paket = texProKachel.get(gewaehlt) ?? texProKachel.get('flaeche') ?? flaeche;
       const spr = new Sprite(paket.tex);
@@ -622,50 +815,96 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // Atlas erst nach dem Canvas, und nur für Dorf (P0). So bleibt der Aufbau anderer
-  // Themen schnell; Bauplatz.$effect räumt verwaiste Canvas bei Abbruch weg.
-  const atlas: AtlasManifest | null = art === 'dorf' ? await atlasLaden() : null;
-  const texturen = art === 'dorf' ? await atlasTexturenLaden(atlas) : new Map<string, Texture>();
+  // P1 Himmel/Wetter für alle Themen; Dorf/Garten-Gebäude/Boden/Wesen aus Atlas (P0/P2).
+  // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
+  const atlas: AtlasManifest | null = await atlasLaden();
+  const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
-  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf-Wiese)
+  // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein (Dorf/Garten)
   const hintergrund = new Container();
-  const himmelLage = new Graphics();
+  const himmelLage = new Container();
   const bodenLage = new Container();
-  const overlayLage = new Graphics();
+  const overlayLage = new Container();
   hintergrund.addChild(himmelLage, bodenLage, overlayLage);
-  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(himmelLage, farben);
+  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') {
+    gestirnZeichnen(himmelLage, farben, atlas, texturen);
+  }
   if (art === 'dorf') {
-    const atlasWiese = dorfWieseAusAtlas(bodenLage, atlas, texturen, farben.abend);
+    const atlasWiese = bodenAusAtlas(
+      bodenLage,
+      'dorf',
+      atlas,
+      texturen,
+      farben.abend,
+      dorfBodenKachel,
+      dorfBodenTint,
+    );
     if (!atlasWiese) dorfWiese(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'garten') gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'garten') {
+    const atlasRasen = bodenAusAtlas(
+      bodenLage,
+      'garten',
+      atlas,
+      texturen,
+      farben.abend,
+      gartenBodenKachel,
+      gartenBodenTint,
+    );
+    if (!atlasRasen) gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+  } else if (art === 'unterwasser') uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
   else if (art === 'weltraum') weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
   else insel(bodenAlsGraphics(bodenLage), farben);
-  rauch(overlayLage, farben);
+  const rauchGfx = new Graphics();
+  rauch(rauchGfx, farben);
+  overlayLage.addChild(rauchGfx);
   if (wetterBild === 'nebel') {
-    overlayLage.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
+    const nebelId = atlasWetterId('nebel');
+    const nebelEintrag = atlasEintragPerId(atlas, nebelId);
+    const nebelTex = nebelEintrag ? texturen.get(nebelEintrag.id) : undefined;
+    if (nebelEintrag && nebelTex) {
+      // drei weiche Flecken statt Vollflächen-Rechteck
+      for (const [x, y, s] of [
+        [120, 140, 1.4],
+        [300, 200, 1.6],
+        [460, 160, 1.3],
+      ] as const) {
+        const spr = new Sprite(nebelTex);
+        spr.anchor.set(nebelEintrag.anker.x, nebelEintrag.anker.y);
+        spr.width = (nebelEintrag.pixel.w / 2) * s;
+        spr.height = (nebelEintrag.pixel.h / 2) * s;
+        spr.position.set(x, y);
+        spr.alpha = 0.85;
+        overlayLage.addChild(spr);
+      }
+    } else {
+      const g = new Graphics();
+      g.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
+      overlayLage.addChild(g);
+    }
   }
   if (farben.spannung) {
-    overlayLage.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
+    const spannung = new Graphics();
+    spannung.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
+    overlayLage.addChild(spannung);
   }
-  const wolkenLage = new Graphics();
-  wolken(wolkenLage, farben);
-  // Bei bewölkt/Regen/Schnee mehr Wolken (feste zweite Lage)
-  if (wetterBild !== 'klar' && !farben.abend) {
-    wolkenLage.ellipse(180, 60, 40, 12).fill({ color: farben.wolke, alpha: 0.75 });
-    wolkenLage.ellipse(400, 40, 36, 11).fill({ color: farben.wolke, alpha: 0.7 });
-  }
+  const wolkenLage = new Container();
+  wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();
   gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
   gebaeude.pivot.set(buehneBreite() / 2, buehneHoehe() / 2);
   gebaeude.position.set(buehneBreite() / 2, buehneHoehe() / 2);
-  const partikelLage = new Graphics();
+  const partikelLage = new Container();
   const wesenLage = new Container();
-  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
+  const bewohnerLage = new Container();
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, bewohnerLage, partikelLage);
   let wesen: WesenZustand[] = [];
+  let bewohner: BewohnerZustand[] = [];
   let letzteWesenZahl = -1;
+  let letzteBewohnerKey = '';
+  let belegt = belegteFelder([]);
+  let letzteBauwerke: Bastion['bauwerke'] = [];
   let tickerZuletzt = performance.now();
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
@@ -677,25 +916,94 @@ export async function buehneErstellen(
   /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
   let aufstellAktiv = false;
 
-  type Tropfen = { x: number; y: number; v: number };
+  type Tropfen = { x: number; y: number; v: number; spr?: Sprite };
   const leicht = bewegungStart === 'leicht';
-  const budget = partikelBudget(wetterBild, leicht);
-  const tropfen: Tropfen[] = Array.from({ length: budget }, (_, i) => ({
-    x: ((i * 97) % buehneBreite()) + 3,
-    y: ((i * 53) % buehneHoehe()) + 2,
-    v: wetterBild === 'schnee' ? 0.4 + (i % 5) * 0.08 : 1.2 + (i % 7) * 0.15,
-  }));
+  const jahreszeit = farben.jahreszeit;
+  // Herbstlaub zusätzlich zu Wetter-Partikeln (Auflage P1), fest und begrenzt
+  const laubBudget = jahreszeit === 'herbst' && bewegungStart !== 'aus' ? (leicht ? 4 : 8) : 0;
+  const wetterBudget = partikelBudget(wetterBild, leicht);
+  const budget = wetterBudget + laubBudget;
+  const partikelArt: 'regen' | 'schnee' | 'nebel' | 'laub' | 'keine' =
+    wetterBild === 'schnee'
+      ? 'schnee'
+      : wetterBild === 'nebel'
+        ? 'nebel'
+        : wetterBild === 'regen'
+          ? 'regen'
+          : laubBudget > 0
+            ? 'laub'
+            : 'keine';
+
+  const wetterTexId =
+    partikelArt === 'schnee'
+      ? atlasWetterId('schnee_flocke')
+      : partikelArt === 'nebel'
+        ? atlasWetterId('nebel')
+        : partikelArt === 'regen'
+          ? atlasWetterId('regen_tropfen')
+          : undefined;
+  const wetterEintrag = wetterTexId ? atlasEintragPerId(atlas, wetterTexId) : undefined;
+  const wetterTex = wetterEintrag ? texturen.get(wetterEintrag.id) : undefined;
+
+  const tropfen: Tropfen[] = Array.from({ length: budget }, (_, i) => {
+    const istLaub = i >= wetterBudget;
+    const t: Tropfen = {
+      x: ((i * 97) % buehneBreite()) + 3,
+      y: ((i * 53) % buehneHoehe()) + 2,
+      v: istLaub
+        ? 0.35 + (i % 4) * 0.06
+        : wetterBild === 'schnee'
+          ? 0.4 + (i % 5) * 0.08
+          : 1.2 + (i % 7) * 0.15,
+    };
+    if (istLaub) {
+      const n = ((i % 3) + 1) as 1 | 2 | 3;
+      const e = atlasEintragPerId(atlas, atlasLaubId(n));
+      const tex = e ? texturen.get(e.id) : undefined;
+      if (e && tex) {
+        const spr = new Sprite(tex);
+        spr.anchor.set(e.anker.x, e.anker.y);
+        spr.width = e.pixel.w / 2;
+        spr.height = e.pixel.h / 2;
+        spr.alpha = 0.9;
+        t.spr = spr;
+        partikelLage.addChild(spr);
+      }
+    } else if (wetterEintrag && wetterTex) {
+      const spr = new Sprite(wetterTex);
+      spr.anchor.set(wetterEintrag.anker.x, wetterEintrag.anker.y);
+      const skal = partikelArt === 'nebel' ? 0.55 : partikelArt === 'schnee' ? 0.7 : 0.85;
+      spr.width = (wetterEintrag.pixel.w / 2) * skal;
+      spr.height = (wetterEintrag.pixel.h / 2) * skal;
+      spr.alpha = partikelArt === 'nebel' ? 0.35 : 0.85;
+      t.spr = spr;
+      partikelLage.addChild(spr);
+    }
+    return t;
+  });
+
+  // Code-Fallback-Partikel, wenn kein Atlas-Sprite für Wetter (Laub ohne Sprite entfällt)
+  const partikelGfx = new Graphics();
+  partikelLage.addChild(partikelGfx);
+  const nutzeGfx = wetterBudget > 0 && !(wetterEintrag && wetterTex);
 
   const partikelZeichnen = () => {
-    partikelLage.clear();
-    if (budget === 0) return;
     for (const t of tropfen) {
+      if (t.spr) {
+        t.spr.position.set(t.x, t.y);
+      }
+    }
+    partikelGfx.clear();
+    if (!nutzeGfx || wetterBudget === 0) return;
+    for (let i = 0; i < wetterBudget; i++) {
+      const t = tropfen[i];
+      if (!t || t.spr) continue;
       if (wetterBild === 'schnee') {
-        partikelLage.circle(t.x, t.y, 1.6).fill({ color: '#f4f7fb', alpha: 0.9 });
+        partikelGfx.circle(t.x, t.y, 1.6).fill({ color: '#f4f7fb', alpha: 0.9 });
       } else if (wetterBild === 'nebel') {
-        partikelLage.ellipse(t.x, t.y, 18, 6).fill({ color: '#dce4ec', alpha: 0.12 });
+        partikelGfx.ellipse(t.x, t.y, 18, 6).fill({ color: '#dce4ec', alpha: 0.12 });
       } else {
-        partikelLage
+        partikelGfx
           .moveTo(t.x, t.y)
           .lineTo(t.x - 1, t.y + 6)
           .stroke({ width: 1.2, color: '#7aa0c0', alpha: 0.55 });
@@ -738,6 +1046,16 @@ export async function buehneErstellen(
     }
   };
 
+  const bewohnerZeichnen = (jetzt: number) => {
+    bewohnerLage.removeChildren().forEach((c) => c.destroy());
+    if (!tickerAn(bewegung)) return;
+    for (const b of bewohner) {
+      const g = new Graphics();
+      zeichneBewohner(g, b, jetzt);
+      bewohnerLage.addChild(g);
+    }
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
@@ -745,9 +1063,13 @@ export async function buehneErstellen(
     wolkenLage.x = wolkenVersatz(jetzt, bewegung);
     aufstellAnwenden(jetzt);
     if (tickerAn(bewegung) && budget > 0) {
-      for (const t of tropfen) {
+      for (let i = 0; i < tropfen.length; i++) {
+        const t = tropfen[i];
+        if (!t) continue;
         t.y += t.v;
-        if (wetterBild === 'schnee') t.x += Math.sin((jetzt + t.y) / 400) * 0.3;
+        const drift =
+          i >= wetterBudget || wetterBild === 'schnee' ? Math.sin((jetzt + t.y) / 400) * 0.3 : 0;
+        if (drift) t.x += drift;
         if (t.y > buehneHoehe()) {
           t.y = -4;
           t.x = (t.x + 37) % buehneBreite();
@@ -756,8 +1078,13 @@ export async function buehneErstellen(
       partikelZeichnen();
     }
     if (tickerAn(bewegung) && wesen.length > 0) {
-      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i));
+      const platz = bauplatzAktiv();
+      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i, belegt, platz));
       wesenZeichnen(jetzt);
+    }
+    if (tickerAn(bewegung) && bewohner.length > 0) {
+      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i));
+      bewohnerZeichnen(jetzt);
     }
   };
 
@@ -770,9 +1097,10 @@ export async function buehneErstellen(
       wolkenLage.x = 0;
       gebaeude.scale.set(1);
       gebaeude.alpha = 1;
-      // Standbild der Partikel bei „ruhig“; Wesen aus
+      // Standbild der Partikel bei „ruhig“; Wesen und Bewohner aus
       partikelZeichnen();
       wesenLage.removeChildren().forEach((c) => c.destroy());
+      bewohnerLage.removeChildren().forEach((c) => c.destroy());
     }
   };
   tickerSync();
@@ -781,10 +1109,27 @@ export async function buehneErstellen(
     zeichne(b, a) {
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
+      letzteBauwerke = b.bauwerke;
+      belegt = belegteFelder(b.bauwerke);
       if (anzahl !== letzteWesenZahl) {
         letzteWesenZahl = anzahl;
-        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht');
+        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht', {
+          bauwerke: b.bauwerke,
+          platz: bauplatzAktiv(),
+        });
         wesenZeichnen(performance.now());
+      }
+      const epocheJetzt = a.epoche ?? 1;
+      const buecher = a.buecher ?? 0;
+      const konto = a.konto;
+      if (konto) {
+        const f = bewohnerFortschritt(b, konto, buecher, epocheJetzt, bewegung === 'leicht');
+        const key = `${f.gebaeude}|${f.fertig}|${f.buecher}|${f.epoche}|${f.hatWissen}|${f.hatTurm}|${f.hatFlaeche}|${f.hatZeichen}|${f.leicht}`;
+        if (key !== letzteBewohnerKey) {
+          letzteBewohnerKey = key;
+          bewohner = bewohnerStarten(f, b.bauwerke, bauplatzAktiv());
+          bewohnerZeichnen(performance.now());
+        }
       }
       if (ersterZug) {
         bekannt = ids;
@@ -822,7 +1167,7 @@ export async function buehneErstellen(
         return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
       });
       treffer = [];
-      const epoche = a.epoche ?? 1;
+      const epoche = epocheJetzt;
       if (art === 'dorf' && texturen.size > 0) {
         // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
         const lagen: { tiefe: number; zeichne: () => void }[] = dorfBaumLagen().map((b) => ({
@@ -851,6 +1196,9 @@ export async function buehneErstellen(
                 spr.position.set(fuss.x, fuss.y);
                 spr.zIndex = tiefe * 10;
                 gebaeude.addChild(spr);
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
                 if (a.auswahl === x.id) {
                   raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
                 }
@@ -895,6 +1243,65 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'garten' && texturen.size > 0) {
+        // Atlas-Garten: Sträucher + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P2)
+        const lagen: { tiefe: number; zeichne: () => void }[] = gartenStrauchLagen().map((b) => ({
+          tiefe: b.tiefe,
+          zeichne: () => {
+            const stueck = new Graphics();
+            gartenStrauch(stiftVon(stueck), b.x, b.y, b.s);
+            stueck.zIndex = b.tiefe * 10;
+            gebaeude.addChild(stueck);
+          },
+        }));
+        for (const x of reihe) {
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
+          lagen.push({
+            tiefe,
+            zeichne: () => {
+              const eintrag = atlasEintrag(atlas, 'garten', epoche, x.typ, x.stufe);
+              const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+              if (eintrag && tex) {
+                const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+                const spr = new Sprite(tex);
+                spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+                spr.width = eintrag.pixel.w / 2;
+                spr.height = eintrag.pixel.h / 2;
+                spr.position.set(fuss.x, fuss.y);
+                spr.zIndex = tiefe * 10;
+                gebaeude.addChild(spr);
+                if (farben.jahreszeit === 'winter') {
+                  schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
+                }
+                if (a.auswahl === x.id) {
+                  raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+              } else {
+                const stueck = new Graphics();
+                gartenGebaeude(
+                  stiftVon(stueck),
+                  {
+                    typ: x.typ,
+                    stufe: x.stufe,
+                    pos: x.pos,
+                    ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+                    auswahl: a.auswahl === x.id,
+                  },
+                  farben.abend,
+                  farben.licht,
+                );
+                if (a.auswahl === x.id) {
+                  raute(stueck, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+                }
+                stueck.zIndex = tiefe * 10;
+                gebaeude.addChild(stueck);
+              }
+            },
+          });
+        }
+        lagen.sort((p, q) => p.tiefe - q.tiefe);
+        for (const lage of lagen) lage.zeichne();
       } else if (art === 'garten') {
         gartenSzene(
           stiftVon(g),
@@ -994,7 +1401,11 @@ export async function buehneErstellen(
     },
     setzeBewegung(b) {
       bewegung = b;
-      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht');
+      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht', {
+        bauwerke: letzteBauwerke,
+        platz: bauplatzAktiv(),
+      });
+      letzteBewohnerKey = '';
       tickerSync();
     },
     feldBei(clientX, clientY) {
@@ -1015,12 +1426,32 @@ export async function buehneErstellen(
       }
       return undefined;
     },
+    bewohnerBei(clientX, clientY) {
+      if (!tickerAn(bewegung)) return undefined;
+      const r = app.canvas.getBoundingClientRect();
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
+      for (const b of [...bewohner].reverse()) {
+        if (Math.hypot(b.x - x, b.y - y) < 16) return b.id;
+      }
+      return undefined;
+    },
     tippeWesen(id) {
       const w = wesen.find((x) => x.id === id);
       if (w) {
         wesenReagieren(w, performance.now());
         wesenZeichnen(performance.now());
       }
+    },
+    tippeBewohner(id) {
+      const b = bewohner.find((x) => x.id === id);
+      if (b) {
+        bewohnerReagieren(b, performance.now());
+        bewohnerZeichnen(performance.now());
+      }
+    },
+    get view() {
+      return app.canvas;
     },
     zerstoere() {
       app.ticker.remove(ticker);

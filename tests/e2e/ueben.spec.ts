@@ -46,19 +46,19 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
   }
 }
 
-/** Von Bastion zurück zur Startseite (kein Zurück-Knopf mehr auf dem Reiter). */
+/**
+ * Von der Bastion zur Startseite (Chrome #113: kein „Zurück“ mehr auf dem Reiter).
+ * Im Querformat ist die Leiste nur mit offenen Einstellungen sichtbar.
+ */
 async function bastionZurStartseite(seite: Page) {
-  // In den Einstellungen ist die Leiste sichtbar; sonst erst Zahnrad öffnen
   const leiste = seite.getByRole('navigation', { name: 'Bereiche' });
-  if (
-    !(await leiste
-      .getByRole('button', { name: 'Start' })
-      .isVisible()
-      .catch(() => false))
-  ) {
-    await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  const start = leiste.getByRole('button', { name: 'Start' });
+  if (!(await start.isVisible().catch(() => false))) {
+    const zahnrad = seite.getByRole('button', { name: 'Bastion-Einstellungen' });
+    if (await zahnrad.isVisible().catch(() => false)) await zahnrad.click();
+    await expect(seite.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
   }
-  await leiste.getByRole('button', { name: 'Start' }).click();
+  await start.click();
   await expect(seite.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
 }
 
@@ -740,8 +740,8 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(ziel).toHaveCount(0);
 
   // Ausgeschaltet: kein Bastion-Knopf auf der Startseite (R7)
-  await bastionZurStartseite(page);
-  await mehr(page);
+  // Frisch laden: nach langer Bastion-Sitzung ist die Start-Kachel sonst hinter der Leiste
+  await page.goto('./');
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
@@ -898,11 +898,13 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.goto('./');
   await bastionOeffnen(page, false);
   const bild = page.locator('.bauplatz canvas');
-  await expect(bild).toBeVisible({ timeout: 30_000 });
-  /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum Bild, scrollt dorthin */
+  // Warten bis Atlas-Tausch fertig ist (kurzzeitig 2 Canvas möglich)
+  await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
+  /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum aktuellen Canvas */
   const tippe = async (x: number, y: number) => {
+    await expect.poll(() => bild.count()).toBe(1);
     const r = await bild.boundingBox();
-    if (!r) throw new Error('kein Bild');
+    if (!r || r.width < 10) throw new Error('kein Bild');
     // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
     const p = punkt(x + 0.5, y + 0.5);
     await bild.click({
@@ -914,7 +916,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   const wahl = page.locator('.wahl');
   await expect(wahl).toContainText('Feuerstelle');
   await wahl.getByRole('button', { name: 'Versetzen' }).click();
-  await expect(wahl).toContainText('Tippe auf das Feld');
+  await expect(wahl).toContainText('Ziehe an die neue Stelle oder tippe das Zielfeld an');
   // Auf den Bergfried geht es nicht …
   await tippe(6, 5);
   await expect(wahl).toContainText('Dort ist kein Platz frei');
@@ -1027,7 +1029,7 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
 test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('./');
-  // Schalter liegt in den Bastion-Einstellungen, nicht mehr auf dem Reiter
+  // Sound liegt in den Bastion-Einstellungen (Chrome #113)
   await bastionOeffnen(page, true);
   const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
   await expect(sound).toBeVisible();
@@ -1297,7 +1299,7 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
 });
 
 test('Leiste unten: Start, Üben, Bastion, Mehr (GRAFIK §1)', async ({ page }) => {
-  // Hochkant: Im Querformat blendet die Bastion-Szene die Leiste aus
+  // Hochformat: im Querformat blendet die Bastion-Szene die Leiste aus (#113)
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();

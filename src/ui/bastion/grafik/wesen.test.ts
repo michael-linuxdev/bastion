@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { wesenAnzahl, wesenArten, wesenStarten } from './wesen';
+import { bauplatzAktivSetzen } from './iso';
+import { wesenAnzahl, wesenArten, wesenFliegt, wesenStarten } from './wesen';
 
 describe('wesen', () => {
   it('jedes Thema hat Arten', () => {
@@ -17,9 +18,15 @@ describe('wesen', () => {
   });
 
   it('Startliste ist deterministisch', () => {
+    bauplatzAktivSetzen({ breite: 12, tiefe: 12 });
     const a = wesenStarten('dorf', 6, false);
     const b = wesenStarten('dorf', 6, false);
     expect(a.map((w) => w.id)).toEqual(b.map((w) => w.id));
     expect(a.length).toBe(wesenAnzahl(6, false));
+  });
+
+  it('Bodenwesen starten neben Gebäuden, Flieger dürfen überqueren', () => {
+    expect(wesenFliegt('huhn')).toBe(false);
+    expect(wesenFliegt('spatz')).toBe(true);
   });
 });
