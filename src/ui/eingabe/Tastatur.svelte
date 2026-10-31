@@ -136,7 +136,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
-    margin-block: var(--abstand-s);
+    margin-block: 0;
     max-inline-size: 20rem;
   }
 

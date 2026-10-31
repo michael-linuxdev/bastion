@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Musterfeld Brüche steht auf Stufe 1 (31.10.2026). Jetzt durch eine Lehrkraft prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 2 setzen; dann U4b, der Test mit drei Lernenden |
-| Nächster Schritt Grafik | Spez-Nebenstrang erledigt (G0–G11, P0–P6, CC0-Sound) + Feinschliff + App-Menü ohne Reiter / Bau-Vorschau / Test-Rohstoffe. Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9; Messung iPhone 13; Testerinnen mit U4b |
+| Nächster Schritt Grafik | Spez-Nebenstrang erledigt (G0–G11, P0–P6, CC0-Sound) + Feinschliff + App-Menü + Üben Ein-/Ausgabe (Lern-UI §9). Optional: Jahreszeit-Feinheit, Ambient; Messung iPhone 13; Testerinnen mit U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
