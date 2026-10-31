@@ -17,6 +17,7 @@
   } = $props();
 
   const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
+    { ziel: 'themen', name: t('mehr.themen') },
     { ziel: 'stand', name: t('stand.knopf') },
     { ziel: 'klassenarbeit', name: t('ka.knopf') },
     { ziel: 'profil', name: t('profil.knopf') },

@@ -268,6 +268,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 | 30.10.2026 | **Review-Stufen (INHALTSFORMAT §8):** 0 Entwurf, 1 Maschine, 2 Stichprobe, 3 mit Lernenden. Öffentlich ab Stufe 2, noch nicht erzwungen. Feld optional, bestehende Dateien unverändert |
 | 30.10.2026 | **Lernkern-Review:** Schatten-Kehrwert rechnet das umgedrehte Verhältnis; Fragen in Erweitern und Vergleichen nennen die erwartete Eingabe; Zinseszins-Fehler führt zur Erklärung, dass sich das Kapital ändert. Test prüft beschriebene Fehlrechnungen |
 | 31.10.2026 | **B-28 Grafik-Nebenstrang:** lebendige Szenen, Sprite-Atlas (`GRAFIK-SPRITES.md`), Wesen, Jahreszeit, Open-Meteo, Schalter ruhig/leicht, Sound optional, Hinterhof in der Szene; Epochen 2–4 und Belagerungsmechanik freigegeben; Dorfkrieg-Platzhalter werden ersetzt (`GRAFIK.md` §4–§10) |
+| 31.10.2026 | **UI-Reorg:** Üben springt zur Aufgabe; Themenwahl unter Mehr; Bastion nur Bauplatz + Zahnrad-Einstellungen; Orientierung `darstellung.orientierung` (T-19, `GRAFIK.md` §1) |
 | 30.10.2026 | **Thema Dorf:** Unter „Wie soll es aussehen?“ zeigt Dorf die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume). Die anderen Themen behalten die Insel. Keine neue Abhängigkeit, kein Netz (`GRAFIK.md` §6) – *wird durch B-28 ersetzt* |
 | 30.10.2026 | **U5c Prozent und Zins:** 6 Erstvermittlungen |
 | 30.10.2026 | **U5c rationale Zahlen:** 7 Erstvermittlungen; negative Ergebnisse als Auswahl, weil das Eingabefeld auf dem iPhone kein Minus anbietet |

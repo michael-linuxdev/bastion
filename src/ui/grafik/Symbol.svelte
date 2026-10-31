@@ -2,7 +2,15 @@
   // Kleine Symbole für Leiste und Kacheln (GRAFIK §1). Strich in der Textfarbe,
   // rein schmückend: Der Name steht immer daneben.
   export type SymbolName =
-    'start' | 'ueben' | 'bastion' | 'stand' | 'wiederholen' | 'werkstatt' | 'diagnose' | 'mehr';
+    | 'start'
+    | 'ueben'
+    | 'bastion'
+    | 'stand'
+    | 'wiederholen'
+    | 'werkstatt'
+    | 'diagnose'
+    | 'mehr'
+    | 'einstellungen';
 </script>
 
 <script lang="ts">
@@ -19,6 +27,9 @@
       'M9.5 18h5M10.5 21h3M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2v.5h5V16c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3Z',
     mehr: 'M4 7h16M4 12h16M4 17h16',
     diagnose: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm3.5 5.5-2 5-5 2 2-5 5-2Z',
+    // Zahnrad für Bastion-/Session-Einstellungen
+    einstellungen:
+      'M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM12 3v2.1M12 18.9V21M4.9 6.3l1.5 1.5M17.6 16.2l1.5 1.5M3 12h2.1M18.9 12H21M4.9 17.7l1.5-1.5M17.6 7.8l1.5-1.5',
   };
 </script>
 

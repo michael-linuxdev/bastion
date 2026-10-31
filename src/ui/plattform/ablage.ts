@@ -58,6 +58,9 @@ import {
   SCHULJAHR_SCHLUESSEL,
   GERADE_DRAN_SCHLUESSEL,
   KLASSENARBEIT_SCHLUESSEL,
+  ORIENTIERUNG_SCHLUESSEL,
+  orientierungAus,
+  type Orientierung,
   type Thema,
   einstellungEreignis,
   JE_GERAET,
@@ -429,6 +432,18 @@ export async function modusWahl(): Promise<Modus> {
 }
 
 export const modusSetzen = (modus: Modus) => setze(MODUS_SCHLUESSEL, modus, 'jugendlich');
+
+/** Bildschirm-Orientierung; ohne Speicher: auto. */
+export async function orientierungWahl(): Promise<Orientierung> {
+  const inst = await bereit();
+  if (!inst) return orientierungAus(undefined);
+  return orientierungAus(
+    await einstellung(db, inst.profil, ORIENTIERUNG_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+export const orientierungMerken = (o: Orientierung) =>
+  setze(ORIENTIERUNG_SCHLUESSEL, o, 'jugendlich');
 
 /** Gewählte Klassenstufe und Schulart (L-12); ohne Speicher: Klasse 5, keine Schulart. */
 export async function lernWahl(): Promise<{

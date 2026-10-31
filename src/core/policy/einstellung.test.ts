@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   modusAus,
   MODUS_SCHLUESSEL,
+  orientierungAus,
+  ORIENTIERUNG_SCHLUESSEL,
   BASEBAU_SCHLUESSEL,
   basebauAktiv,
   aktuelleEinstellungen,
@@ -74,5 +76,15 @@ describe('Hell, dunkel, System (GRAFIK §2)', () => {
     expect(modusAus('dunkel')).toBe('dunkel');
     expect(modusAus('lila')).toBe('system');
     expect(MODUS_SCHLUESSEL).toBe('darstellung.modus');
+  });
+});
+
+describe('Orientierung (Bildschirm drehen)', () => {
+  it('Standard ist auto; nur bekannte Werte gelten', () => {
+    expect(orientierungAus(undefined)).toBe('auto');
+    expect(orientierungAus('hoch')).toBe('hoch');
+    expect(orientierungAus('quer')).toBe('quer');
+    expect(orientierungAus('schraeg')).toBe('auto');
+    expect(ORIENTIERUNG_SCHLUESSEL).toBe('darstellung.orientierung');
   });
 });

@@ -149,7 +149,7 @@ Nicht durcheinander mergen. Je Schritt erst grüne CI, dann Squash. Diese Reihen
 
 ## Nebenstrang Grafik (ausdrücklich aufgenommen 31.10.2026, B-28)
 
-G0 Dokumentation und G1 Atmosphäre (Ticker, Schalter ruhig/leicht, Aufstell-Effekt, Wolkenbewegung) liegen als PRs. Sprite-Bestellung: `GRAFIK-SPRITES.md` Charge P0. Als Nächstes Code: G2 Jahreszeit/Sonne. Epochen 2–4 und Belagerung: `BASEBAU.md` §5.5–§5.7.
+G0–G11 gemergt. Sprite-Bestellung: `GRAFIK-SPRITES.md` Charge P0 (anderer Strang). **UI-Reorg (31.10.2026):** Üben → nächste Aufgabe; Themen unter Mehr; Bastion nur Bauplatz + Zahnrad; Orientierung wählbar (`GRAFIK.md` §1, T-19). Epochen 2–4 und Belagerung: `BASEBAU.md` §5.5–§5.7.
 
 ## Geplant für spätere Sitzungen (noch nicht anfangen)
 
