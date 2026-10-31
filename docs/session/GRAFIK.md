@@ -46,12 +46,7 @@ Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer
 
 ## Protokoll
 
-Neue Einträge oben. Bis 31.10.2026 stehen die Einträge in `docs/PLAN.md` §5.
-
-| Datum | Änderung |
-|---|---|
-| 31.10.2026 | **Session-Prompt getrennt:** gemeinsamer Teil, Strang Lernkern, Strang Grafik |
-| 31.10.2026 | **G0–G11** (B-28): lebendige Szenen, Epochen 2–4, Belagerung; Einträge davor in `PLAN.md` §5 |
+Steht in `docs/session/GRAFIK-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, nicht hier.
 
 ---
 

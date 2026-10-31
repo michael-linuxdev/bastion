@@ -87,7 +87,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 **Regeln:**
 
 1. **Nur den eigenen Strang ändern.** Braucht ein Strang eine Änderung im Bereich des anderen, beschreibt er sie in der Datei des anderen Strangs unter „Wünsche aus dem anderen Strang“ und baut sie nicht selbst. Ausnahmen: ein Fehler, der die CI für alle rot macht; und das Aufräumen der Lern-Oberfläche nach `GRAFIK.md` §9 (nur Abstände, Hierarchie, Tokens; im Lernpfad keine Animationen, Wesen, Sound oder Wetter), dann in einem eigenen Commit mit Hinweis im Protokoll beider Stränge.
-2. **Eigenes Protokoll.** Jeder Strang führt sein Änderungsprotokoll in seiner eigenen Datei. `docs/PLAN.md` §5 bekommt keine neuen Zeilen mehr; das war die häufigste Konfliktstelle.
+2. **Eigenes Protokoll.** Jeder Strang hängt je PR eine Zeile **unten** an seine Protokolldatei an: `docs/session/LERNKERN-PROTOKOLL.md` oder `docs/session/GRAFIK-PROTOKOLL.md`. Git führt diese Dateien beim Mergen selbst zusammen (`merge=union` in `.gitattributes`). `docs/PLAN.md` §5 bekommt keine neuen Zeilen mehr; das war die häufigste Konfliktstelle. Den Stand eines Strangs nicht in diese Datei schreiben, sondern in die Strang-Datei. `pnpm test` prüft beides (`tools/dokumente.test.ts`). Für andere Agenten (Cursor) steht das in `AGENTS.md`.
 3. **Kurze Branches, oft mergen.** Jeder fertige Schritt kommt gleich per PR auf `main` (Ablauf unten). Vor dem Merge `main` normal hineinmergen und `pnpm lint`, `pnpm test`, `pnpm build` laufen lassen.
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.
 5. **Rote CI durch den anderen Strang:** Ist `main` selbst rot, ist das nicht der eigene Fehler. Den Fehler nennen, nicht im fremden Bereich reparieren, außer er ist eine Zeile und eindeutig.
@@ -166,6 +166,6 @@ Steht in der Datei des Strangs. Für beide gilt:
 
 ## Am Ende der Sitzung aktualisieren
 
-- [ ] In der Datei des eigenen Strangs: „Aktueller Auftrag“, Protokoll, Übergabe und Lehren
+- [ ] In der Datei des eigenen Strangs: „Aktueller Auftrag“, Übergabe und Lehren; im Protokoll des Strangs eine Zeile unten anhängen
 - [ ] Im eigenen Abschnitt von `PLAN.md` den Stand
 - [ ] Diese Datei nur, wenn sich etwas für alle Stränge ändert (Grundentscheidungen, Regeln, gemeinsame Lehren)

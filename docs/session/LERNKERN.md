@@ -138,12 +138,7 @@ Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer
 
 ## Protokoll
 
-Neue Einträge oben. Bis 31.10.2026 stehen die Einträge in `docs/PLAN.md` §5.
-
-| Datum | Änderung |
-|---|---|
-| 31.10.2026 | **Stufe 1 Musterfeld Brüche:** 22 Dateien gegen den Prüfkatalog (INHALTSFORMAT §8) gelesen, 14 Funde in 11 Dateien behoben, Vermerk gesetzt |
-| 31.10.2026 | **Session-Prompt getrennt:** gemeinsamer Teil, Strang Lernkern, Strang Grafik |
+Steht in `docs/session/LERNKERN-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, nicht hier.
 
 ---
 
