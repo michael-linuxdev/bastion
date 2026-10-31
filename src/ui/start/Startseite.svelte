@@ -132,11 +132,13 @@
     </button>
   </div>
 
-  {#if rueckkehr}
-    <div class="kacheln">
-      <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-        <Symbol name="wiederholen" />
-        <span class="kachel-name">{t('wiederholen.knopf')}</span>
+  <!-- Nebenkacheln immer erreichbar (Fehlerwerkstatt auch in der ersten Sitzung);
+       beim Erstbesuch ohne Infozeilen (A3), sonst kleiner als die Türen (A1). -->
+  <div class="kacheln" class:erst={!rueckkehr}>
+    <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
+      <Symbol name="wiederholen" />
+      <span class="kachel-name">{t('wiederholen.knopf')}</span>
+      {#if rueckkehr || faellig > 0}
         <span class="kachel-info"
           >{faellig === 0
             ? t('start.nichts-dran')
@@ -144,10 +146,12 @@
               ? t('wiederholen.eine')
               : `${faellig} ${t('wiederholen.mehrere')}`}</span
         >
-      </button>
-      <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-        <Symbol name="werkstatt" />
-        <span class="kachel-name">{t('werkstatt.knopf')}</span>
+      {/if}
+    </button>
+    <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
+      <Symbol name="werkstatt" />
+      <span class="kachel-name">{t('werkstatt.knopf')}</span>
+      {#if rueckkehr || offeneFehler > 0}
         <span class="kachel-info"
           >{offeneFehler === 0
             ? t('start.keine-fehler')
@@ -155,31 +159,19 @@
               ? t('werkstatt.offen-eins')
               : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
         >
-      </button>
-      <button class="kachel" onclick={() => onziel('diagnose')}>
-        <Symbol name="diagnose" />
-        <span class="kachel-name">{t('diagnose.knopf')}</span>
-        <span class="kachel-info">{t('start.diagnose-info')}</span>
-      </button>
-      <button class="kachel" onclick={() => onziel('stand')}>
-        <Symbol name="stand" />
-        <span class="kachel-name">{t('stand.knopf')}</span>
-        <span class="kachel-info">{t('start.stand-info')}</span>
-      </button>
-    </div>
-  {:else}
-    <!-- Erste Minute (A3): Diagnose/Stand erreichbar, aber klein und ohne Textwand -->
-    <div class="kacheln erst">
-      <button class="kachel" onclick={() => onziel('diagnose')}>
-        <Symbol name="diagnose" />
-        <span class="kachel-name">{t('diagnose.knopf')}</span>
-      </button>
-      <button class="kachel" onclick={() => onziel('stand')}>
-        <Symbol name="stand" />
-        <span class="kachel-name">{t('stand.knopf')}</span>
-      </button>
-    </div>
-  {/if}
+      {/if}
+    </button>
+    <button class="kachel" onclick={() => onziel('diagnose')}>
+      <Symbol name="diagnose" />
+      <span class="kachel-name">{t('diagnose.knopf')}</span>
+      {#if rueckkehr}<span class="kachel-info">{t('start.diagnose-info')}</span>{/if}
+    </button>
+    <button class="kachel" onclick={() => onziel('stand')}>
+      <Symbol name="stand" />
+      <span class="kachel-name">{t('stand.knopf')}</span>
+      {#if rueckkehr}<span class="kachel-info">{t('start.stand-info')}</span>{/if}
+    </button>
+  </div>
 
   {#if klassenarbeit}
     <p class="hinweis">
