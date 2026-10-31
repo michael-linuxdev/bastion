@@ -73,7 +73,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 | Session-Prompt | `docs/session/LERNKERN.md` | `docs/session/GRAFIK.md` |
 | Branch-Namen | `lernkern/…` | `grafik/…` |
 | Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) |
-| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md` |
+| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` |
 | PLAN.md | §4b (Unterrichtsersatz), §4 | §4a (Basebau) |
 
 **Gemeinsame Dateien** (beide Stränge dürfen sie ändern, aber nur klein und in einem eigenen Commit):
@@ -120,7 +120,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 5. `docs/KONZEPT.md` – §0 fasst die neue Ausrichtung zusammen; die vollständige Überarbeitung folgt mit dem Pilot
 6. `docs/PLAN.md` §4b (Arbeitsplan U0 bis U8), §2.1 (Nicht-Ziele)
 7. `docs/LEHRPLAN.md`, `docs/INHALTSFORMAT.md`, `docs/DATENMODELL.md`
-8. Je nach Aufgabe: `docs/GRAFIK.md`, `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/TESTS.md`
+8. Je nach Aufgabe: `docs/GRAFIK.md`, `docs/DESIGN-IDEEN.md` (Design-Backlog AA–ZZ), `docs/ARCHITEKTUR.md`, `docs/BASEBAU.md`, `docs/TESTS.md`
 
 ---
 
