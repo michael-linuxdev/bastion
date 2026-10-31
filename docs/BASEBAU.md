@@ -3,7 +3,8 @@
 Status: Entwurf v0.2 · Stand: 28.10.2026 · Bezug: `VISION.md` (R1–R7), `KONZEPT.md` §5, `ARCHITEKTUR.md` (T-7, T-9)
 Alle Zahlen sind **Startwerte für den Balancing-Simulator** (Phase 2), keine endgültigen Werte.
 
-> **Seit K-18 (`STRATEGIE.md` §3, 28.10.2026):** Epoche 1 wird **vollständig und mit Grafik** gebaut, jetzt und vor Klasse 7. Die Grenze „nur Basebau-Minimum“ aus K-12 ist aufgehoben. Epochen 2–4 und Belagerungen bleiben außen vor. Der Umsetzungsplan steht in §11.
+> **Seit K-18 (`STRATEGIE.md` §3, 28.10.2026):** Epoche 1 wird **vollständig und mit Grafik** gebaut. Die Grenze „nur Basebau-Minimum“ aus K-12 ist aufgehoben.  
+> **Seit B-28 (31.10.2026):** Epochen 2–4 und Belagerungen sind **nicht mehr gesperrt**. Spezifikation §5.5–§5.7; Umsetzung im Grafik-Nebenstrang (`GRAFIK.md` §10, PRs G9–G11). Lernkern behält Vorrang (K-27).
 
 ---
 
@@ -214,9 +215,83 @@ Außenposten → Burg: Bergfried Stufe 3 **und** 15 Baupläne insgesamt erworben
 
 Beim Wechsel wird die Bastion umgebaut: größerer Bauplatz, neuer Baustil, neue Gebäude (z. B. Bibliothek statt Studierstube, Steinmauern statt Palisaden). **Alles Gebaute bleibt erhalten** und wird in den neuen Stil übertragen.
 
-*Umsetzung (2.10):* `src/core/bastion/epoche.ts`. Die Listenansicht zeigt oben „Ziel der Epoche 1: Außenposten“ mit beiden Bedingungen (Bergfried Stufe 3; erworbene Baupläne von 15) und erklärt, dass auch verbaute Baupläne zählen. Ist beides erreicht, steht dort „Epoche 1 geschafft! Dein Außenposten steht. Du kannst weiter gestalten – oder einfach stolz darauf sein.“ Einen Wechsel in Epoche 2 gibt es noch nicht (K-18); fertig sein ist erlaubt (§9 Punkt 3). Die Rückkehr-Begrüßung (§6.3) ergänzt bei eingeschaltetem Basebau „Deine Bastion hat gewartet.“
+*Umsetzung (2.10 / G9):* `src/core/bastion/epoche.ts` und `epochen.ts`. Die Listenansicht zeigt das Ziel der **freigeschalteten** Epoche (Name je Thema). Mit Bergfried 3 und 15 erworbenen Bauplänen öffnet sich Epoche 2 (Bauplatz 16×16, Katalog §5.5); weiter 3 und 4 analog. Epoche 4 mit Kern 9 und 120 Bauplänen ist der Abschluss – fertig sein bleibt erlaubt (§9 Punkt 3). Die Rückkehr-Begrüßung (§6.3) ergänzt bei eingeschaltetem Basebau „Deine Bastion hat gewartet.“
 
-Epochen 2–4 werden ausgearbeitet, wenn Epoche 1 getestet ist (Phase 3). Nur so viel wird festgelegt: Jede Epoche braucht deutlich mehr Baupläne als die vorige, aber nicht mehr Stein pro Woche. Höhere Epochen spiegeln mehr Können, nicht mehr Fleiß.
+### 5.5 Epochen 2–4 (B-28, Startwerte 31.10.2026)
+
+Prinzip unverändert: **mehr Baupläne** je Epoche, **nicht** mehr Stein pro Woche. Optik und Bauplatz wachsen; alles Gebaute bleibt und wird in den neuen Stil übertragen (§5.4). Rollen bleiben (B-17); höhere Stufen und Limits erweitern den Katalog. Namen der Epochen je Thema:
+
+| Epoche | Bastion | Garten | Weltraum | Dorf | Unterwasser |
+|---|---|---|---|---|---|
+| 1 | Außenposten | Wildgarten | Forschungsstation | Weiler | Tauchstation |
+| 2 | Burg | Obstgarten | Außenbasis | Dorf | Riffstadt |
+| 3 | Festung | Landschaftspark | Orbitalstation | Marktstadt | Tiefseestation |
+| 4 | Zitadelle | Botanischer Garten | Sternenfestung | Residenzstadt | Ozeanfeste |
+
+**Wechselbedingungen** (erworbene Baupläne insgesamt, auch verbaute):
+
+| Von → nach | Kern-Stufe mind. | Baupläne erworben |
+|---|---|---|
+| 1 → 2 | 3 | 15 (wie §5.4) |
+| 2 → 3 | 5 | 40 |
+| 3 → 4 | 7 | 80 |
+| 4 geschafft | 9 | 120 |
+
+**Bauplatz:** Epoche 1: 12×12 · 2: 16×16 · 3: 20×20 · 4: 24×24. Beim Wechsel: Gebäude behalten Relative Position zur Mitte; fehlen Felder am Rand, nur Erweiterung nach außen.
+
+**Katalog-Erweiterungen (Startwerte, Simulator prüft später):**
+
+*Epoche 2 – zusätzlich / höher*
+
+| Rolle | Neu | Fleiß | Behalten | Können | Schritte | Voraussetzung |
+|---|---|---|---|---|---|---|
+| kern | Stufe 4 | 800 | 250 | 6 | 20 | – |
+| kern | Stufe 5 | 1200 | 400 | 8 | 24 | – |
+| wissen | Stufe 3 (Bibliothek-Optik) | 350 | 100 | 3 | 12 | kern 4 |
+| werkstatt | Stufe 2 (3 Vorhaben parallel) | 300 | 80 | 2 | 10 | kern 4 |
+| turm | Höchstzahl 4; Stufe 3 | 350 | 100 | 2 | 12 | kern 4 |
+| eingang | Stufe 2 | 200 | 60 | 2 | 8 | kern 4 |
+| einfassung | „Mauer“-Optik; Kosten je 25 Fleiß, 1 Schritt (Höchstzahl 60) | | | | | |
+
+*Epoche 3 – zusätzlich*
+
+| Rolle | Neu | Fleiß | Behalten | Können | Schritte | Voraussetzung |
+|---|---|---|---|---|---|---|
+| kern | Stufe 6 / 7 | 1600 / 2200 | 500 / 700 | 10 / 12 | 28 / 32 | – |
+| wissen | Stufe 4 (Observatorium-Optik) | 500 | 150 | 4 | 14 | kern 6 |
+| turm | Höchstzahl 6; Stufe 4 | 500 | 150 | 3 | 14 | kern 6 |
+| werkstatt | Stufe 3 (4 Vorhaben) | 450 | 120 | 3 | 12 | kern 6 |
+
+*Epoche 4 – zusätzlich*
+
+| Rolle | Neu | Fleiß | Behalten | Können | Schritte | Voraussetzung |
+|---|---|---|---|---|---|---|
+| kern | Stufe 8 / 9 | 3000 / 4000 | 900 / 1200 | 14 / 16 | 36 / 40 | – |
+| wissen | Stufe 5 (Archiv-Optik) | 700 | 200 | 5 | 16 | kern 8 |
+| turm | Höchstzahl 8; Stufe 5 | 700 | 200 | 4 | 16 | kern 8 |
+
+Zierde-Kosten bleiben niedrig (Gestaltung). Katalog und Wechsel umgesetzt (G9); Summen und Balancing für Epoche 2–4 im Simulator nachziehen. Texte: Epoche-Namen je Thema in der Textdatei (`epoche`, `epoche-2` …).
+
+### 5.6 Belagerung = Bewährungsprobe (B-28, Mechanik)
+
+*Umsetzung G11:* `src/core/bastion/bewaehrung.ts`, Start in der Bastion-UI, Serie über Diagnose-Probe; Ernstfall-Bauplan als Buchung `grund: belagerung` (DATENMODELL); Spannungsoptik auf dem Bauplatz; Joker in der Üben-Variante.
+
+Aus `KONZEPT.md` §5.4, verbindlich für Umsetzung (PR G11):
+
+1. **Freiwillig.** Niemand wird angegriffen, während die App zu ist. Kein Verfall (R3).
+2. **Inhalt:** gemischte Aufgabenserie zu einem Themenpaket (wie Probe-Klassenarbeit, L-19), wählbares Paket.
+3. **Zwei Modi:**
+   - **Üben:** Verteidigung hilft – je Turm-Stufe **ein Hinweis-Joker** für die Serie (Summe über alle Türme, gedeckelt z. B. bei 5). Nicht portfolio-wirksam.
+   - **Ernstfall:** ohne Hilfen und ohne Joker; zählt fürs Portfolio; bei Bestehen **1 Bauplan** (wie §3.3, zusätzlich).
+4. **Nicht bestanden:** kein Ressourcenverlust; Fehlerwerkstatt-Paket + Hinweis, was fehlt (R6).
+5. **Zeit:** optionale Bearbeitungszeit anzeigen wie bei Prüfungen (R2-Ausnahme analog K-25), ohne Strafe für die Bastion wenn sie abläuft – Serie endet, Auswertung wie „nicht bestanden“.
+6. **Name thema-neutral in der Mechanik:** „Bewährungsprobe“; Darstellungswörter je Thema in der Textdatei.
+7. **Grafik:** Spannungs-Himmel, leichter Rauch – **keine** Truppen, kein Kampf auf dem Raster (`GRAFIK.md` §8).
+8. **Abschaltbar** mit dem Basebau (R7); Lernen und Probe-Klassenarbeit bleiben.
+
+### 5.7 Reihenfolge Umsetzung Epochen / Belagerung
+
+Erst Katalog und Wechsel (G9), dann Optiken (G10), dann Belagerungsmechanik inkl. Optik (G11). Kein Epoche-2-Spielstand ohne Migrationstest.
 
 ## 6. Verzahnung mit dem Lernen
 
@@ -354,6 +429,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-25 | **Hinterhof – Können sichtbar:** ein eigener Bereich hinter der Bastion (Name je Thema). Jeder Lernbereich ist ein Feld, das sich mit jeder gefestigten Kompetenz füllt; G und M sind unterscheidbar (z. B. Bronze und Silber). Volle Felder zeigen Stärken, leere „noch offen“ (nicht rot). Vorwissen aus früheren Klassen und vorausgearbeitete Themen bekommen eine eigene Markierung. Der Hinterhof hat keine eigenen Daten, er wird aus dem Lernstand berechnet und ist deshalb jederzeit umbaubar. Er ist **der Ort zum Angeben** und später stufenweise ausbaubar (Denkmal oder Wappen für volle Lernbereiche, Verzierungen). Schutz nach Prinzip 6: privat, beim Zeigen nur dabei, wenn das Kind es selbst einschaltet, nur von Gerät zu Gerät, keine Rangliste; verschwindet mit dem Basebau-Schalter (R7) | Entschieden (28.10.2026, Projektverantwortlicher); Stufe 1 umgesetzt: `src/core/learning/hinterhof.ts` (rein, aus Lernstand und Diagnose-Nachweisen), Ansicht `src/ui/bastion/Hinterhof.svelte` unter der Bastion – je Lernfeld eine Reihe Plätze, aufklappbar mit Titel und Zustand; Vorwissen gepunktet, Vorausgearbeitetes blau umrandet; Name je Thema (Hinterhof, Gewächshaus, Sternenkarte, Scheune, Schatzkammer). Denkmal/Wappen und Zeigen folgen |
 | B-26 | **Eigene Studien-Epoche** für Mathe im Studium (Erwachsene, Stufe „selbstverwaltet“, kein Elternbereich) | Entschieden (28.10.2026, Projektverantwortlicher), Ausarbeitung mit den Studieninhalten |
 | B-27 | **Grafikschicht austauschbar (erweitert B-12):** Alles Aussehen hängt an Tokens und am Bildkatalog. Neue Fassungen lassen sich neben alten einführen und umschalten. Ein Austausch ändert keine Daten. Später möglich: lebendige Szenen mit Animationen, Jahreszeiten, Wetter und Skins. Sie ändern nur das Bild, nie Baustoffe oder Fortschritt (R1–R3). Siehe `GRAFIK.md` | Entschieden (29.10.2026, Projektverantwortlicher) |
+| B-28 | **Lebendige Grafik + Epochen 2–4 + Belagerung freigegeben** (hebt die Sperre aus K-18/PLAN §2.1 für diesen Nebenstrang auf). Stil: Sprite-Atlas, Politur über Dorfkrieg, CoC-Lesbarkeit ohne Militär; Wesen; Jahreszeit aus Datum; Abend nach Sonne; Open-Meteo jetzt (T-15); Schalter „ruhig“ und „leicht“; Sound optional Standard aus; Hinterhof in der Szene; MiniBastion = Atmosphäre-Standbild. Lern-UI ohne Ablenkung. Details `GRAFIK.md` §4–§10, Sprites `GRAFIK-SPRITES.md`, Epochen/Belagerung §5.5–§5.7. Lernkern bleibt vorrangig (K-27) | Entschieden (31.10.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
@@ -437,9 +513,11 @@ Die Grafik (Stufe D) zeichnet die Insel für alle Themen gleich. Einzige Ausnahm
 
 *Umsetzung 2.14:* Zierde (Zeichen, Fläche, Denkmal, Ursprung) bekommt eine selbst gewählte Farbe aus acht (Rot, Orange, Gelb, Grün, Blau, Lila, Weiß, Schwarz) – in der Liste bei jedem Zierstück und im Feld unter dem Bild, wenn es angetippt ist. Kostenlos, jederzeit änderbar, bleibt beim Einlagern erhalten. Bau-Aktion `gestalten` mit `gestaltung.farbe` (DATENMODELL §4.4); das Bild zeigt die gewählte Farbe statt der Farbe der Familie.
 
-### Ausdrücklich nicht in diesem Plan
+### Ausdrücklich nicht in diesem Plan (Epoche-1-Plan §11)
 
-Epochen 2–4, Belagerungen (Phase 4), QR-Übertragung und Zeigen (Phase 3), Zeitsystem „15 Minuten Lernen → 5 Minuten Bastion“ (§6.2, kommt mit den Elternstufen), Testrunden (K-17).
+QR-Übertragung und Zeigen (Phase 3), Zeitsystem „15 Minuten Lernen → 5 Minuten Bastion“ (§6.2, kommt mit den Elternstufen), Testrunden (K-17).
+
+*Epochen 2–4 und Belagerungen:* seit B-28 spezifiziert (§5.5–§5.7); Bau im Grafik-Nebenstrang G9–G11 (`GRAFIK.md` §10), nicht mehr gesperrt.
 
 ### Offene Startwerte, die der Plan festlegt (Simulator prüft sie)
 

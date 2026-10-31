@@ -15,6 +15,7 @@ import type { BuchungEreignis, Konto } from '../../core/ledger/buchung';
 import {
   abbrechen,
   aufstellen,
+  bastionEpoche,
   beginnen,
   einlagern,
   gestalten,
@@ -24,6 +25,7 @@ import {
   type BauHindernis,
   type Ergebnis,
 } from '../../core/bastion/bauen';
+import { bauplatzFuer } from '../../core/bastion/epochen';
 import type { Farbe, GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
 import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
@@ -39,6 +41,12 @@ import {
   type Modus,
   ZIEL_SCHLUESSEL,
   BILD_SCHLUESSEL,
+  RUHIG_SCHLUESSEL,
+  LEICHT_SCHLUESSEL,
+  SOUND_SCHLUESSEL,
+  WETTER_ECHT_SCHLUESSEL,
+  WETTER_ORT_SCHLUESSEL,
+  WETTER_KOORD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
   KLASSE_SCHLUESSEL,
   klasseAus,
@@ -77,6 +85,7 @@ import {
   bastion,
   bastionAktualisieren,
   bauSpeichern,
+  bewaehrungBauplanSpeichern,
   buchen,
   buchungen,
   einrichten,
@@ -175,6 +184,13 @@ export async function sitzungBeenden(): Promise<void> {
 export async function alleBuchungen(): Promise<BuchungEreignis[]> {
   const inst = await bereit();
   return inst ? buchungen(db, inst.profil).catch(() => []) : [];
+}
+
+/** Bauplan für bestandene Bewährungsprobe (Ernstfall). */
+export async function bewaehrungBelohnen(bezug: string, tag: string): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return bewaehrungBauplanSpeichern(db, inst, bezug, tag, Date.now()).catch(() => false);
 }
 
 /** Kontostand des Profils (leer, wenn nicht gespeichert werden kann). */
@@ -364,9 +380,10 @@ export async function bauAusfuehren(
     jetzt,
     tag: lerntag(jetzt, versatz(jetzt)),
   };
+  const platz = bauplatzFuer(bastionEpoche(lage.bastion, lage.konto));
   let e: Ergebnis;
   if (auftrag.art === 'beginnen') {
-    const pos = freierPlatz(lage.bastion, auftrag.typ);
+    const pos = freierPlatz(lage.bastion, auftrag.typ, platz);
     const ort = auftrag.ausbau ? { ausbau: auftrag.ausbau } : pos ? { pos } : undefined;
     if (!ort) return { hindernisse: ['belegt'] };
     e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
@@ -376,10 +393,10 @@ export async function bauAusfuehren(
     e = gestalten(lage.bastion, auftrag.gebaeude, auftrag.farbe, a);
   else if (auftrag.art === 'aufstellen') {
     const typ = lage.bastion.lager.find((x) => x.id === auftrag.gebaeude)?.typ;
-    const pos = typ ? freierPlatz(lage.bastion, typ) : undefined;
+    const pos = typ ? freierPlatz(lage.bastion, typ, platz) : undefined;
     if (!pos) return { hindernisse: ['belegt'] };
-    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a);
-  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a);
+    e = aufstellen(lage.bastion, auftrag.gebaeude, pos, a, platz);
+  } else e = versetzen(lage.bastion, auftrag.gebaeude, auftrag.pos, a, platz);
   if (!e.ok) return { hindernisse: e.hindernisse };
   const b = await bauSpeichern(db, inst, e, melder);
   return { ...lage, bastion: b, konto: await konto(db, inst.profil) };
@@ -503,6 +520,77 @@ export async function bildZeigen(): Promise<boolean> {
 }
 
 export const bildSetzen = (an: boolean) => setze(BILD_SCHLUESSEL, an, 'jugendlich');
+
+/** Bastion ruhig (GRAFIK §4.5)? Standard nein. */
+export async function bastionRuhig(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, RUHIG_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const ruhigSetzen = (an: boolean) => setze(RUHIG_SCHLUESSEL, an, 'jugendlich');
+
+/** Darstellung leicht (GRAFIK §4.5)? Standard nein. */
+export async function bastionLeicht(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, LEICHT_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
+
+/** Bastion-Sound (GRAFIK §4.6)? Standard aus. */
+export async function bastionSound(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined)) === true;
+}
+
+export const soundSetzen = (an: boolean) => setze(SOUND_SCHLUESSEL, an, 'jugendlich');
+
+/** Echtes Wetter an (T-15)? Standard aus. */
+export async function wetterEcht(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (
+    (await einstellung(db, inst.profil, WETTER_ECHT_SCHLUESSEL).catch(() => undefined)) === true
+  );
+}
+
+export const wetterEchtSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_ECHT_SCHLUESSEL, an, durch);
+
+export async function wetterOrtText(): Promise<string> {
+  const inst = await bereit();
+  if (!inst) return '';
+  const w = await einstellung(db, inst.profil, WETTER_ORT_SCHLUESSEL).catch(() => undefined);
+  return typeof w === 'string' ? w : '';
+}
+
+export const wetterOrtSetzen = (ort: string, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_ORT_SCHLUESSEL, ort, durch);
+
+export interface WetterKoord {
+  readonly lat: number;
+  readonly lon: number;
+  readonly name: string;
+}
+
+export async function wetterKoord(): Promise<WetterKoord | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const w = await einstellung(db, inst.profil, WETTER_KOORD_SCHLUESSEL).catch(() => undefined);
+  if (typeof w !== 'string') return undefined;
+  const [latS, lonS, ...nameTeile] = w.split(',');
+  const lat = Number(latS);
+  const lon = Number(lonS);
+  const name = nameTeile.join(',');
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) || !name) return undefined;
+  return { lat, lon, name };
+}
+
+export const wetterKoordSetzen = (k: WetterKoord | undefined, durch: 'jugendlich' | 'eltern') =>
+  setze(WETTER_KOORD_SCHLUESSEL, k ? `${k.lat},${k.lon},${k.name}` : '', durch);
 
 /** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {

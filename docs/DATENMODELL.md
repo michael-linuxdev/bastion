@@ -190,7 +190,7 @@ interface BuchungEreignis extends Ereignis {
     | 'kompetenz-gefestigt'          // Bauplan
     | 'startpaket'                   // Stein und Bauschritt für Vorwissen aus der Diagnose (B-24)
     | 'vermittlung'                  // Bauschritt für eine abgeschlossene Erstvermittlung (§4.7, einmal je Kompetenz)
-    | 'belagerung'                   // Bauplan (ab Phase 4)
+    | 'belagerung'                   // Bauplan aus bestandener Bewährungsprobe Ernstfall (G11)
     | 'bau-beginn'                   // Abbuchung
     | 'bau-abbruch'                  // Erstattung
     | 'zusammenfuehrung';            // Korrektur nach Import (s. 7.3)

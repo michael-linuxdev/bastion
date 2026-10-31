@@ -8,19 +8,46 @@
 // Listenansicht bleibt gleichwertig.
 import { Application, Container, Graphics } from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
+import type { HinterhofFeld } from '../../../core/learning/hinterhof';
+import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
-  BAUPLATZ,
   KATALOG,
   type Familie,
   type GebaeudeTyp,
   type Position,
 } from '../../../core/bastion/katalog';
+import {
+  aufstellDauerMs,
+  aufstellFortschritt,
+  tickerAn,
+  wolkenVersatz,
+  type Bewegung,
+} from './atmosphaere';
+import { atlasLaden } from './atlas';
 import { dorfHoehe, dorfSzene, dorfWiese, type Stift } from './dorf';
-import { BUEHNE_B, BUEHNE_H, INSEL, feldUnter, punkt } from './iso';
-
-/** Insel (alle Themen außer Dorf) oder die Dorfbilder. */
-export type Bildart = 'insel' | 'dorf';
+import { gartenBoden, gartenHoehe, gartenSzene } from './garten';
+import { uwBoden, uwHoehe, uwSzene } from './unterwasser';
+import { weltraumBoden, weltraumHoehe, weltraumSzene } from './weltraum';
+import type { Epoche } from '../../../core/bastion/epochen';
+import { epocheOptik, farbeSkalieren } from './epoche-optik';
+import {
+  bauplatzAktiv,
+  bauplatzAktivSetzen,
+  buehneBreite,
+  buehneHoehe,
+  INSEL,
+  feldUnter,
+  punkt,
+  type BauplatzMass,
+} from './iso';
+import type { Jahreszeit } from './jahreszeit';
+import { partikelBudget, type WetterBild } from './wetter';
+import { hinterhofZeichnen } from './hinterhof-szene';
+import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
+import type { Bildart } from './bildart';
+export type { Bildart } from './bildart';
+export { bildartVonThema } from './bildart';
 
 export interface Farben {
   readonly boden: string;
@@ -37,6 +64,12 @@ export interface Farben {
   readonly dach: string;
   /** Abendstimmung: Fenster leuchten, Sterne statt Wolken */
   readonly abend: boolean;
+  /** Jahreszeit für Auflagen (Schnee); ohne Angabe = Sommer */
+  readonly jahreszeit?: Jahreszeit;
+  /** Wetterbild für Himmel und Partikel (GRAFIK §4.3) */
+  readonly wetter?: WetterBild;
+  /** Bewährungsprobe aktiv: spannender Himmel, leichter Rauch (GRAFIK §8 / G11) */
+  readonly spannung?: boolean;
 }
 
 export interface Ansicht {
@@ -44,13 +77,51 @@ export interface Ansicht {
   readonly auswahl?: string;
   /** Feld, auf das gerade versetzt werden soll – mit Umriss in der Größe des Gebäudes */
   readonly ziel?: { readonly pos: Position; readonly typ: GebaeudeTyp; readonly frei: boolean };
+  /** Hinterhof-Felder hinter dem Bauplatz (B-25) */
+  readonly hinterhof?: readonly HinterhofFeld[];
+  /** Freigeschaltete Epoche für Optik (GRAFIK §8 / G10) */
+  readonly epoche?: Epoche;
 }
 
 export interface Buehne {
   zeichne(b: Bastion, a: Ansicht): void;
+  /** Bewegung umschalten, ohne die Bühne neu zu bauen (GRAFIK §4.5) */
+  setzeBewegung(b: Bewegung): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
+  /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
+  wesenBei(clientX: number, clientY: number): string | undefined;
+  /** Kurze Reaktion auf Tippen */
+  tippeWesen(id: string): void;
   zerstoere(): void;
+}
+
+/** Silhouette eines Wesens (Code-Fallback bis Sprite-Atlas). */
+function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
+  const s = w.skala * (jetzt < w.reactBis ? 1.12 : 1);
+  const x = w.x;
+  const y = w.y;
+  const r = w.richtung;
+  g.ellipse(x, y, 5 * s, 3.5 * s).fill(w.farbe);
+  g.circle(x + r * 5 * s, y - 3 * s, 2.4 * s).fill(w.farbe);
+  if (w.art === 'huhn') {
+    g.poly([x + r * 7 * s, y - 3 * s, x + r * 10 * s, y - 2 * s, x + r * 7 * s, y - 1 * s]).fill(
+      '#e07a4f',
+    );
+  }
+  if (w.art === 'katze') {
+    g.poly([x + r * 3 * s, y - 5 * s, x + r * 5 * s, y - 8 * s, x + r * 6 * s, y - 4 * s]).fill(
+      w.farbe,
+    );
+  }
+  // Bein-Wippen
+  const wip = Math.sin(w.phase) * 1.5 * s;
+  g.moveTo(x - 2 * s, y + 2 * s)
+    .lineTo(x - 2 * s, y + 5 * s + wip)
+    .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
+  g.moveTo(x + 2 * s, y + 2 * s)
+    .lineTo(x + 2 * s, y + 5 * s - wip)
+    .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
 }
 
 type Punkt = { x: number; y: number };
@@ -69,20 +140,22 @@ const hoch = (p: Punkt, h: number): Punkt => ({ x: p.x, y: p.y - h });
 const flach = (...p: Punkt[]) => p.flatMap((q) => [q.x, q.y]);
 
 /** Höhe des Körpers je Rolle in Bildpunkten; Kern und Turm wachsen mit der Stufe. */
-function hoehe(typ: GebaeudeTyp, stufe: number): number {
+function hoehe(typ: GebaeudeTyp, stufe: number, epoche: Epoche = 1): number {
+  const optik = epocheOptik(epoche);
   const grund: Record<GebaeudeTyp, number> = {
     kern: 54,
     turm: 46,
     werkstatt: 26,
     wissen: 28,
     eingang: 32,
-    einfassung: 12,
+    einfassung: 10 + optik.einfassungDicke * 2,
     ursprung: 8,
     zeichen: 6,
     flaeche: 3,
     denkmal: 14,
   };
-  return grund[typ] + (typ === 'kern' || typ === 'turm' ? (stufe - 1) * 8 : 0);
+  const plus = typ === 'einfassung' || typ === 'flaeche' ? 0 : optik.hoehePlus;
+  return grund[typ] + plus + (typ === 'kern' || typ === 'turm' ? (stufe - 1) * 8 : 0);
 }
 
 /** Ecken eines Rechtecks auf dem Boden: hinten, rechts, vorne, links */
@@ -143,6 +216,13 @@ function fenster(g: Graphics, e: ReturnType<typeof ecken>, h: number, f: Farben)
   }
 }
 
+/** Schneehaube auf einem Dach (Winter, GRAFIK §4.3). */
+function schneeDach(g: Graphics, o: ReturnType<typeof ecken>, h: number) {
+  const spitze = hoch({ x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 }, h + 4);
+  g.poly(flach(o.links, o.vorne, spitze)).fill({ color: '#f4f7fb', alpha: 0.85 });
+  g.poly(flach(o.vorne, o.rechts, spitze)).fill({ color: '#e8eef5', alpha: 0.85 });
+}
+
 /** Dach als Pyramide über der Deckfläche */
 function pyramide(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben) {
   const spitze = hoch({ x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 }, h);
@@ -153,6 +233,7 @@ function pyramide(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farben
   g.poly(flach(o.vorne, o.rechts, spitze))
     .fill(dunkler(f.dach, 0.7))
     .stroke(kontur);
+  if (f.jahreszeit === 'winter') schneeDach(g, o, h);
 }
 
 /** Satteldach entlang der Breite */
@@ -166,9 +247,12 @@ function satteldach(g: Graphics, o: ReturnType<typeof ecken>, h: number, f: Farb
   g.poly(flach(o.vorne, o.rechts, firstR))
     .fill(dunkler(f.dach, 0.7))
     .stroke(kontur);
+  if (f.jahreszeit === 'winter') {
+    g.poly(flach(o.links, o.vorne, firstR, firstL)).fill({ color: '#f4f7fb', alpha: 0.75 });
+  }
 }
 
-/** Ein Gebäude je Rolle (B-12) */
+/** Ein Gebäude je Rolle (B-12); Optik je Epoche (G10). */
 function zeichneRolle(
   g: Graphics,
   typ: GebaeudeTyp,
@@ -176,13 +260,16 @@ function zeichneRolle(
   pos: Position,
   farbe: string,
   f: Farben,
+  epoche: Epoche = 1,
 ) {
+  const optik = epocheOptik(epoche);
+  const wand = farbeSkalieren(farbe, optik.wandFaktor);
   const [w, t] = KATALOG[typ].groesse;
-  const h = hoehe(typ, stufe);
+  const h = hoehe(typ, stufe, epoche);
   switch (typ) {
     case 'kern': {
       const e = ecken(pos.x, pos.y, w, t, 0.12);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       // Zinnen an den beiden vorderen Kanten
       for (const [a, b] of [
         [o.links, o.vorne],
@@ -191,39 +278,46 @@ function zeichneRolle(
         for (const s of [0.1, 0.45, 0.8]) {
           const p = { x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s };
           const q = { x: a.x + (b.x - a.x) * (s + 0.12), y: a.y + (b.y - a.y) * (s + 0.12) };
-          g.poly(flach(p, q, hoch(q, 6), hoch(p, 6))).fill(dunkler(farbe, 0.75));
+          g.poly(flach(p, q, hoch(q, 6), hoch(p, 6))).fill(dunkler(wand, 0.75));
         }
       fenster(g, e, h, f);
       // Turm in der Mitte mit Dach
       const innen = ecken(pos.x + w * 0.3, pos.y + t * 0.3, w * 0.4, t * 0.4, 0);
-      const spitze = quader(g, innen, 26, farbe, f.linie, h);
+      const spitze = quader(g, innen, 26, wand, f.linie, h);
       pyramide(g, spitze, 24, f);
+      if (optik.kernAkzent) {
+        const m = {
+          x: (spitze.hinten.x + spitze.vorne.x) / 2,
+          y: (spitze.hinten.y + spitze.vorne.y) / 2,
+        };
+        g.circle(m.x, m.y - 28, 3).fill(optik.kernAkzent);
+      }
       break;
     }
     case 'turm': {
       const e = ecken(pos.x, pos.y, w, t, 0.18);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       pyramide(g, o, 22, f);
       fenster(g, e, h, f);
       break;
     }
     case 'werkstatt': {
       const e = ecken(pos.x, pos.y, w, t, 0.1);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       satteldach(g, o, 16, f);
       fenster(g, e, h, f);
       break;
     }
     case 'wissen': {
       const e = ecken(pos.x, pos.y, w, t, 0.12);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       pyramide(g, o, 16, f);
       fenster(g, e, h, f);
       break;
     }
     case 'eingang': {
       const e = ecken(pos.x, pos.y, w, t, 0.1);
-      quader(g, e, h, farbe, f.linie);
+      quader(g, e, h, wand, f.linie);
       // Torbogen auf der linken Seite
       const m = { x: (e.links.x + e.vorne.x) / 2, y: (e.links.y + e.vorne.y) / 2 };
       g.roundRect(m.x - 6, m.y - 20, 12, 18, 6).fill({ color: f.linie, alpha: 0.7 });
@@ -232,13 +326,13 @@ function zeichneRolle(
     case 'einfassung':
       for (let i = 0; i < 3; i++) {
         const e = ecken(pos.x + (w / 3) * i, pos.y, w / 3, t, 0.08);
-        quader(g, e, h, farbe, f.linie);
+        quader(g, e, h, wand, f.linie);
       }
       break;
     case 'ursprung': {
       // Feuerstelle: flacher Ring, darin eine Flamme
       const e = ecken(pos.x, pos.y, w, t, 0.2);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
       const m = { x: (o.hinten.x + o.vorne.x) / 2, y: (o.hinten.y + o.vorne.y) / 2 };
       g.poly([m.x, m.y - 14, m.x + 5, m.y, m.x - 5, m.y]).fill(f.licht);
       break;
@@ -257,7 +351,14 @@ function zeichneRolle(
     }
     case 'flaeche': {
       const e = ecken(pos.x, pos.y, w, t, 0.06);
-      const o = quader(g, e, h, farbe, f.linie);
+      const o = quader(g, e, h, wand, f.linie);
+      // Herbst: wärmere Punkte; Winter: hellere „Schnee“-Punkte
+      const punktFarbe =
+        f.jahreszeit === 'herbst'
+          ? dunkler(f.dach, 0.9)
+          : f.jahreszeit === 'winter'
+            ? '#eef2f6'
+            : dunkler(farbe, 0.6);
       for (const [sx, sy] of [
         [0.3, 0.3],
         [0.7, 0.35],
@@ -269,7 +370,7 @@ function zeichneRolle(
           x: o.hinten.x + (o.rechts.x - o.hinten.x) * sx + (o.links.x - o.hinten.x) * sy,
           y: o.hinten.y + (o.rechts.y - o.hinten.y) * sx + (o.links.y - o.hinten.y) * sy,
         };
-        g.circle(p.x, p.y, 2.5).fill(dunkler(farbe, 0.6));
+        g.circle(p.x, p.y, 2.5).fill(punktFarbe);
       }
       break;
     }
@@ -297,11 +398,24 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
 }
 
-/** Himmel: Sonne und Wolken am Tag, Mond und Sterne am Abend – feste Plätze, kein Zufall. */
-function himmel(g: Graphics, f: Farben) {
-  g.circle(BUEHNE_B - 70, 52, f.abend ? 16 : 22).fill(f.licht);
+/** Leichter Rauch bei Bewährungsprobe – keine Truppen (GRAFIK §8). */
+function rauch(g: Graphics, f: Farben) {
+  if (!f.spannung) return;
+  for (const [x, y, s] of [
+    [120, 90, 1.2],
+    [280, 70, 1],
+    [420, 100, 0.9],
+  ] as const) {
+    g.ellipse(x, y, 28 * s, 10 * s).fill({ color: f.wolke, alpha: 0.35 });
+    g.ellipse(x + 16 * s, y - 6 * s, 18 * s, 8 * s).fill({ color: f.wolke, alpha: 0.25 });
+  }
+}
+
+/** Sonne bzw. Mond und Sterne – feste Plätze, kein Zufall. Wolken liegen in einer eigenen Schicht. */
+function gestirn(g: Graphics, f: Farben) {
+  g.circle(buehneBreite() - 70, 52, f.abend ? 16 : 22).fill(f.licht);
   if (f.abend) {
-    g.circle(BUEHNE_B - 62, 46, 14).fill(f.himmel);
+    g.circle(buehneBreite() - 62, 46, 14).fill(f.himmel);
     for (const [x, y] of [
       [60, 30],
       [140, 70],
@@ -312,21 +426,24 @@ function himmel(g: Graphics, f: Farben) {
       [90, 96],
     ] as const)
       g.circle(x, y, 1.6).fill({ color: f.licht, alpha: 0.8 });
-  } else {
-    for (const [x, y, s] of [
-      [90, 50, 1],
-      [300, 34, 0.8],
-    ] as const) {
-      g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
-      g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
-    }
+  }
+}
+
+/** Wolken am Tag – Verschiebung übernimmt die Atmosphäre (deterministisch). */
+function wolken(g: Graphics, f: Farben) {
+  if (f.abend) return;
+  for (const [x, y, s] of [
+    [90, 50, 1],
+    [300, 34, 0.8],
+  ] as const) {
+    g.ellipse(x, y, 34 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
+    g.ellipse(x + 22 * s, y - 7 * s, 22 * s, 11 * s).fill({ color: f.wolke, alpha: 0.9 });
   }
 }
 
 /** Die Insel: Deckfläche mit Raster, zwei Seitentöne nach vorn */
 function insel(g: Graphics, f: Farben) {
-  const W = BAUPLATZ.breite;
-  const T = BAUPLATZ.tiefe;
+  const { breite: W, tiefe: T } = bauplatzAktiv();
   const [h, r, v, l] = [punkt(0, 0), punkt(W, 0), punkt(W, T), punkt(0, T)];
   const u = (p: Punkt) => ({ x: p.x, y: p.y + INSEL });
   g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
@@ -373,11 +490,15 @@ export async function buehneErstellen(
   ziel: HTMLElement,
   farben: Farben,
   art: Bildart = 'insel',
+  bewegungStart: Bewegung = 'voll',
+  thema: Thema = 'bastion',
+  platz?: BauplatzMass,
 ): Promise<Buehne> {
+  if (platz) bauplatzAktivSetzen(platz);
   const app = new Application();
   await app.init({
-    width: BUEHNE_B,
-    height: BUEHNE_H,
+    width: buehneBreite(),
+    height: buehneHoehe(),
     background: farben.himmel,
     antialias: true,
     // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
@@ -392,20 +513,163 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
+  const wetterBild: WetterBild = farben.wetter ?? 'klar';
   const hintergrund = new Graphics();
-  himmel(hintergrund, farben);
+  // Bei Nebel/Regen Gestirn abdunkeln – Sonne nur bei klar/leicht bewölkt
+  // Atlas optional vorladen (Fallback bleibt Code)
+  void atlasLaden();
+  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
+  else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
+  else if (art === 'unterwasser') uwBoden(stiftVon(hintergrund), farben.abend);
+  else if (art === 'weltraum') weltraumBoden(stiftVon(hintergrund), farben.abend);
   else insel(hintergrund, farben);
+  rauch(hintergrund, farben);
+  if (wetterBild === 'nebel') {
+    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#c8d2dc', alpha: 0.35 });
+  }
+  if (farben.spannung) {
+    hintergrund.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
+  }
+  const wolkenLage = new Graphics();
+  wolken(wolkenLage, farben);
+  // Bei bewölkt/Regen/Schnee mehr Wolken (feste zweite Lage)
+  if (wetterBild !== 'klar' && !farben.abend) {
+    wolkenLage.ellipse(180, 60, 40, 12).fill({ color: farben.wolke, alpha: 0.75 });
+    wolkenLage.ellipse(400, 40, 36, 11).fill({ color: farben.wolke, alpha: 0.7 });
+  }
   const gebaeude = new Container();
-  app.stage.addChild(hintergrund, gebaeude);
+  // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
+  gebaeude.pivot.set(buehneBreite() / 2, buehneHoehe() / 2);
+  gebaeude.position.set(buehneBreite() / 2, buehneHoehe() / 2);
+  const partikelLage = new Graphics();
+  const wesenLage = new Graphics();
+  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, partikelLage);
+  let wesen: WesenZustand[] = [];
+  let letzteWesenZahl = -1;
+  let tickerZuletzt = performance.now();
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
+  let bewegung: Bewegung = bewegungStart;
+  let bekannt = new Set<string>();
+  let ersterZug = true;
+  let aufstellStart = 0;
+  /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
+  let aufstellAktiv = false;
+
+  type Tropfen = { x: number; y: number; v: number };
+  const leicht = bewegungStart === 'leicht';
+  const budget = partikelBudget(wetterBild, leicht);
+  const tropfen: Tropfen[] = Array.from({ length: budget }, (_, i) => ({
+    x: ((i * 97) % buehneBreite()) + 3,
+    y: ((i * 53) % buehneHoehe()) + 2,
+    v: wetterBild === 'schnee' ? 0.4 + (i % 5) * 0.08 : 1.2 + (i % 7) * 0.15,
+  }));
+
+  const partikelZeichnen = () => {
+    partikelLage.clear();
+    if (budget === 0) return;
+    for (const t of tropfen) {
+      if (wetterBild === 'schnee') {
+        partikelLage.circle(t.x, t.y, 1.6).fill({ color: '#f4f7fb', alpha: 0.9 });
+      } else if (wetterBild === 'nebel') {
+        partikelLage.ellipse(t.x, t.y, 18, 6).fill({ color: '#dce4ec', alpha: 0.12 });
+      } else {
+        partikelLage
+          .moveTo(t.x, t.y)
+          .lineTo(t.x - 1, t.y + 6)
+          .stroke({ width: 1.2, color: '#7aa0c0', alpha: 0.55 });
+      }
+    }
+  };
+  partikelZeichnen();
+
+  const aufstellAnwenden = (jetzt: number) => {
+    if (!aufstellAktiv) return;
+    const dauer = aufstellDauerMs(bewegung);
+    const f = aufstellFortschritt(jetzt - aufstellStart, dauer);
+    gebaeude.scale.set(0.92 + 0.08 * f);
+    gebaeude.alpha = f;
+    if (f >= 1) aufstellAktiv = false;
+  };
+
+  const wesenZeichnen = (jetzt: number) => {
+    wesenLage.clear();
+    if (!tickerAn(bewegung)) return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
+    for (const w of wesen) zeichneWesen(wesenLage, w, jetzt);
+  };
+
+  const ticker = () => {
+    const jetzt = performance.now();
+    const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
+    tickerZuletzt = jetzt;
+    wolkenLage.x = wolkenVersatz(jetzt, bewegung);
+    aufstellAnwenden(jetzt);
+    if (tickerAn(bewegung) && budget > 0) {
+      for (const t of tropfen) {
+        t.y += t.v;
+        if (wetterBild === 'schnee') t.x += Math.sin((jetzt + t.y) / 400) * 0.3;
+        if (t.y > buehneHoehe()) {
+          t.y = -4;
+          t.x = (t.x + 37) % buehneBreite();
+        }
+      }
+      partikelZeichnen();
+    }
+    if (tickerAn(bewegung) && wesen.length > 0) {
+      wesen.forEach((w, i) => wesenTick(w, dt, jetzt, i));
+      wesenZeichnen(jetzt);
+    }
+  };
+
+  const tickerSync = () => {
+    app.ticker.remove(ticker);
+    if (tickerAn(bewegung)) {
+      app.ticker.add(ticker);
+      wesenZeichnen(performance.now());
+    } else {
+      wolkenLage.x = 0;
+      gebaeude.scale.set(1);
+      gebaeude.alpha = 1;
+      // Standbild der Partikel bei „ruhig“; Wesen aus
+      partikelZeichnen();
+      wesenLage.clear();
+    }
+  };
+  tickerSync();
 
   return {
     zeichne(b, a) {
+      const ids = new Set(b.bauwerke.map((x) => x.id));
+      const anzahl = b.bauwerke.length;
+      if (anzahl !== letzteWesenZahl) {
+        letzteWesenZahl = anzahl;
+        wesen = wesenStarten(thema, anzahl, bewegung === 'leicht');
+        wesenZeichnen(performance.now());
+      }
+      if (ersterZug) {
+        bekannt = ids;
+        ersterZug = false;
+        gebaeude.scale.set(1);
+        gebaeude.alpha = 1;
+        aufstellAktiv = false;
+      } else {
+        const neu = [...ids].some((id) => !bekannt.has(id));
+        bekannt = ids;
+        if (neu && aufstellDauerMs(bewegung) > 0) {
+          aufstellStart = performance.now();
+          aufstellAktiv = true;
+          gebaeude.scale.set(0.92);
+          gebaeude.alpha = 0;
+          tickerSync();
+        }
+      }
       gebaeude.removeChildren().forEach((c) => c.destroy());
       const g = new Graphics();
+      if (a.hinterhof && a.hinterhof.length > 0) {
+        hinterhofZeichnen(stiftVon(g), a.hinterhof, thema, farben.abend);
+      }
       // Neubauten im Bau: Umriss auf dem Boden
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
         raute(g, v.pos, v.typ, 0.1)
@@ -435,10 +699,58 @@ export async function buehneErstellen(
             raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           },
         );
+      } else if (art === 'garten') {
+        gartenSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
+      } else if (art === 'unterwasser') {
+        uwSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
+      } else if (art === 'weltraum') {
+        weltraumSzene(
+          stiftVon(g),
+          reihe.map((x) => ({
+            typ: x.typ,
+            stufe: x.stufe,
+            pos: x.pos,
+            ...(x.farbe ? { akzent: FARBWERT[x.farbe] } : {}),
+            auswahl: a.auswahl === x.id,
+          })),
+          farben.abend,
+          farben.licht,
+          (pos, typ) => {
+            raute(g, pos, typ, -0.05).stroke({ width: 3, color: farben.auswahl });
+          },
+        );
       }
       for (const x of reihe) {
         const [w, t] = KATALOG[x.typ].groesse;
-        if (art !== 'dorf') {
+        if (art === 'insel') {
           if (a.auswahl === x.id)
             raute(g, x.pos, x.typ, -0.05).stroke({ width: 3, color: farben.auswahl });
           zeichneRolle(
@@ -448,11 +760,21 @@ export async function buehneErstellen(
             x.pos,
             x.farbe ? FARBWERT[x.farbe] : farben.familie[KATALOG[x.typ].familie],
             farben,
+            a.epoche ?? 1,
           );
         }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
         const e = ecken(x.pos.x, x.pos.y, w, t, 0);
-        const h = (art === 'dorf' ? dorfHoehe(x.typ, x.stufe) : hoehe(x.typ, x.stufe)) + 20;
+        const h =
+          (art === 'dorf'
+            ? dorfHoehe(x.typ, x.stufe)
+            : art === 'garten'
+              ? gartenHoehe(x.typ, x.stufe)
+              : art === 'unterwasser'
+                ? uwHoehe(x.typ, x.stufe)
+                : art === 'weltraum'
+                  ? weltraumHoehe(x.typ, x.stufe)
+                  : hoehe(x.typ, x.stufe, a.epoche ?? 1)) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(
@@ -474,15 +796,38 @@ export async function buehneErstellen(
       }
       gebaeude.addChild(g);
     },
+    setzeBewegung(b) {
+      bewegung = b;
+      wesen = wesenStarten(thema, letzteWesenZahl < 0 ? 0 : letzteWesenZahl, b === 'leicht');
+      tickerSync();
+    },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
-      const x = ((clientX - r.left) / r.width) * BUEHNE_B;
-      const y = ((clientY - r.top) / r.height) * BUEHNE_H;
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
       // Erst die Gebäude, von vorn nach hinten – auch ein Tipp aufs Dach trifft
       for (const z of [...treffer].reverse()) if (innen(z.umriss, x, y)) return z.pos;
       return feldUnter(x, y);
     },
+    wesenBei(clientX, clientY) {
+      if (!tickerAn(bewegung)) return undefined;
+      const r = app.canvas.getBoundingClientRect();
+      const x = ((clientX - r.left) / r.width) * buehneBreite();
+      const y = ((clientY - r.top) / r.height) * buehneHoehe();
+      for (const w of [...wesen].reverse()) {
+        if (Math.hypot(w.x - x, w.y - y) < 14 * w.skala) return w.id;
+      }
+      return undefined;
+    },
+    tippeWesen(id) {
+      const w = wesen.find((x) => x.id === id);
+      if (w) {
+        wesenReagieren(w, performance.now());
+        wesenZeichnen(performance.now());
+      }
+    },
     zerstoere() {
+      app.ticker.remove(ticker);
       app.destroy(true, { children: true });
     },
   };

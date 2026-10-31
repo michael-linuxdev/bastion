@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (28) · Session-Prompt in Stränge getrennt
+Stand: 31.10.2026 (30) · Session-Prompt in Stränge getrennt; Grafik G0–G11 auf `main` (B-28)
 
 ---
 
@@ -56,6 +56,8 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 3. Üben und Festigen weiter verbessern.
 4. Leistungsnachweise und Portfolio (lokal und exportierbar).
 
+**Strang Grafik (B-28, 31.10.2026):** läuft parallel in kleinen PRs (`GRAFIK.md` §10): lebendige Bastion, Sprites (`GRAFIK-SPRITES.md`), Epochen 2–4, Belagerung. Er darf den Lernkern nicht blockieren; bei Engpass wartet die Grafik (K-27).
+
 Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **ausdrücklich gesperrt**, bis Variante A als „wirklich gut“ gilt.
 
 ---
@@ -70,8 +72,8 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 |---|---|---|
 | Session-Prompt | `docs/session/LERNKERN.md` | `docs/session/GRAFIK.md` |
 | Branch-Namen | `lernkern/…` | `grafik/…` |
-| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/` | `src/ui/grafik/`, `src/ui/bastion/`, `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` |
-| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `BASEBAU.md` |
+| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) |
+| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md` |
 | PLAN.md | §4b (Unterrichtsersatz), §4 | §4a (Basebau) |
 
 **Gemeinsame Dateien** (beide Stränge dürfen sie ändern, aber nur klein und in einem eigenen Commit):
@@ -84,7 +86,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 
 **Regeln:**
 
-1. **Nur den eigenen Strang ändern.** Braucht ein Strang eine Änderung im Bereich des anderen, beschreibt er sie in der Datei des anderen Strangs unter „Wünsche aus dem anderen Strang“ und baut sie nicht selbst. Ausnahme: ein Fehler, der die CI für alle rot macht.
+1. **Nur den eigenen Strang ändern.** Braucht ein Strang eine Änderung im Bereich des anderen, beschreibt er sie in der Datei des anderen Strangs unter „Wünsche aus dem anderen Strang“ und baut sie nicht selbst. Ausnahmen: ein Fehler, der die CI für alle rot macht; und das Aufräumen der Lern-Oberfläche nach `GRAFIK.md` §9 (nur Abstände, Hierarchie, Tokens; im Lernpfad keine Animationen, Wesen, Sound oder Wetter), dann in einem eigenen Commit mit Hinweis im Protokoll beider Stränge.
 2. **Eigenes Protokoll.** Jeder Strang führt sein Änderungsprotokoll in seiner eigenen Datei. `docs/PLAN.md` §5 bekommt keine neuen Zeilen mehr; das war die häufigste Konfliktstelle.
 3. **Kurze Branches, oft mergen.** Jeder fertige Schritt kommt gleich per PR auf `main` (Ablauf unten). Vor dem Merge `main` normal hineinmergen und `pnpm lint`, `pnpm test`, `pnpm build` laufen lassen.
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.

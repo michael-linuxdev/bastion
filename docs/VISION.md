@@ -116,7 +116,7 @@ Diese Prinzipien gelten in Variante A so streng wie möglich. Prinzipien, die mi
 
 ### Die Bastion
 
-Der Basebau bleibt, wie er gebaut ist: eine ruhige, abschaltbare Schicht, in der sichtbar wird, was jemand kann. Er ist **Nebensache** (K-27). Neue Arbeit daran gibt es erst, wenn Vermitteln und Diagnostizieren für Klasse 5 bis 8 stehen.
+Der Basebau bleibt eine ruhige, abschaltbare Schicht, in der sichtbar wird, was jemand kann. Er ist **Nebensache** gegenüber dem Lernkern (K-27). Seit B-28 (31.10.2026) läuft ein **Grafik-Nebenstrang** parallel (`GRAFIK.md`), ohne den Lernkern zu blockieren.
 
 ## 10. Erfolgskriterien
 

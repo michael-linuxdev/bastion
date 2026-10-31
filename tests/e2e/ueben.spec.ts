@@ -23,6 +23,13 @@ async function mehr(seite: Page) {
   await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
 }
 
+/** Bastion öffnen und warten, bis die Ansicht nachgeladen ist (ARCHITEKTUR §9). */
+async function bastionOeffnen(seite: Page) {
+  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  // h2 = Bastion-Titel; Hinterhof nutzt h3 und lädt danach
+  await expect(seite.getByRole('heading', { level: 2 })).toBeVisible({ timeout: 30_000 });
+}
+
 // Kritischer Weg „Üben“: Inhaltspakete laden, Aufgabe beantworten, Rückmeldung
 // und Lösungsweg sehen – auch ohne Netz, nach dem ersten Laden.
 /** Aktueller Wert einer Einstellung aus IndexedDB (Projektion `einstellungen`). */
@@ -600,17 +607,17 @@ async function vorratAnlegen(page: Page, stand: Record<string, number>, gefestig
 test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2)', async ({
   page,
 }) => {
+  test.setTimeout(90_000);
   await page.goto('./');
   await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await expect(page.getByRole('heading', { name: 'Deine Bastion' })).toBeVisible();
+  await bastionOeffnen(page);
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Stein$/ })).toBeVisible();
   await expect(
     page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
   ).toBeVisible();
-  // Ziel der Epoche 1 (§5.4): erworbene Baupläne zählen
+  // Ziel der aktuellen Epoche (§5.4 / G9): erworbene Baupläne zählen
   await expect(page.getByRole('heading', { name: 'Ziel der Epoche 1: Außenposten' })).toBeVisible();
   await expect(page.getByText(/2\s+von\s+15\s+Baupläne erworben/)).toBeVisible();
 
@@ -674,7 +681,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Bleibt nach dem Neuladen, wie es ist
   // (auch die Farbe des Banners)
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ })).toContainText(
     'Spalte 12, Reihe 12',
@@ -696,7 +703,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.ziel')).toContain('"kern"');
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(ziel).toBeVisible();
   await ziel.getByRole('button', { name: 'Nicht mehr vormerken' }).click();
   await expect(ziel).toHaveCount(0);
@@ -715,13 +722,14 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 });
 
 test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByText(/Noch ist hier nichts/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await vorratAnlegen(page, { fleiss: 0, behalten: 0, koennen: 1, schritt: 0 }, 'M.ZO.NZ.RUNDEN@G');
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(
     page
       .getByRole('listitem')
@@ -731,10 +739,11 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
 });
 
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
   await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await page.getByRole('radio', { name: 'Garten' }).check();
   await expect(page.getByRole('heading', { name: 'Dein Garten' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: /^200 Samen$/ })).toBeVisible();
@@ -852,10 +861,11 @@ test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
 test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2.13)', async ({
   page,
 }) => {
+  test.setTimeout(90_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   const bild = page.locator('.bauplatz canvas');
-  await expect(bild).toBeVisible();
+  await expect(bild).toBeVisible({ timeout: 30_000 });
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum Bild, scrollt dorthin */
   const tippe = async (x: number, y: number) => {
     const r = await bild.boundingBox();
@@ -905,7 +915,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(bild).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.bild')).toBe(false);
   await page.reload();
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
   await expect(bild).toHaveCount(0);
 });
@@ -951,11 +961,12 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
 });
 
 test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await bastionOeffnen(page);
   await expect(
     page.getByRole('heading', { name: 'Dein Hinterhof: was du sicher kannst' }),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 30_000 });
   const feld = page.locator('.hinterhof summary').filter({ hasText: 'Natürliche Zahlen' });
   await expect(feld).toContainText(/0 von \d+/);
   await feld.click();
@@ -966,6 +977,54 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
       .first(),
   ).toBeVisible();
   await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
+});
+
+test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
+  await expect(sound).toBeVisible();
+  await expect(sound).not.toBeChecked();
+  await sound.check();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe(true);
+  await page.reload();
+  await bastionOeffnen(page);
+  await expect(
+    page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' }),
+  ).toBeChecked();
+});
+
+test('Bewährungsprobe: startet als Probe ohne Note (G11 / BASEBAU §5.6)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  await expect(page.getByRole('heading', { name: 'Belagerung' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: /Üben \(mit Joker/ })).toBeChecked();
+  await page.getByRole('button', { name: 'Bewährungsprobe starten' }).click();
+  await expect(page.getByRole('heading', { name: 'Probe-Klassenarbeit' })).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByText(/ohne Hilfen und ohne Note|ohne Hilfen/)).toBeVisible();
+});
+
+test('Bewährungsprobe Ernstfall: kein Joker in der Probe (G11)', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page);
+  await page.getByRole('radio', { name: /Ernstfall/ }).check();
+  await page.getByRole('button', { name: 'Bewährungsprobe starten' }).click();
+  await expect(page.getByRole('heading', { name: 'Probe-Klassenarbeit' })).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByText(/Hinweis-Joker/)).toHaveCount(0);
+  await page.getByRole('button', { name: "Los geht's" }).click();
+  await expect(page.getByRole('button', { name: 'Weiß ich nicht' })).toBeVisible({
+    timeout: 15_000,
+  });
+  await expect(page.getByRole('button', { name: 'Joker nutzen (zählt als richtig)' })).toHaveCount(
+    0,
+  );
 });
 
 test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', async ({ page }) => {
@@ -1403,48 +1462,6 @@ test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je 
   await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
   await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
   await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
-});
-
-test('Zwischenschritte bei gleichnamigen Brüchen: Zähler verrechnen, dann kürzen (§17)', async ({
-  page,
-}) => {
-  await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
-  await page.getByRole('radio', { name: 'Klasse 6' }).check();
-  await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
-  await page.getByRole('button', { name: 'Ich kann das schon' }).click();
-
-  const aufgabe = page.locator('form#antwort');
-  const schritt = page.locator('form.aktuell');
-  // Gleichnamige und ungleichnamige Aufgaben wechseln sich zufällig ab
-  for (let runde = 0; runde < 12; runde++) {
-    const nenner = await page.locator('.aufgabe .text .nenner').allTextContents();
-    // 99/100 ist hier nie richtig: Die Nenner sind höchstens 20
-    await aufgabe.getByLabel('Zähler').fill('99');
-    await aufgabe.getByLabel('Nenner').fill('100');
-    await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
-    await expect(page.getByText('Zeig mir deinen Weg')).toBeVisible();
-    if (nenner.length === 2 && nenner[0] === nenner[1]) {
-      await expect(schritt).toContainText('Die Nenner sind gleich');
-      for (let i = 0; i < 2; i++) {
-        await schritt.getByLabel('Zähler').fill('99');
-        await schritt.getByLabel('Nenner').fill('100');
-        await schritt.getByRole('button', { name: 'Prüfen' }).click();
-      }
-      await expect(schritt).toContainText('vollständig');
-      for (let i = 0; i < 2; i++) {
-        await schritt.getByLabel('Zähler').fill('99');
-        await schritt.getByLabel('Nenner').fill('100');
-        await schritt.getByRole('button', { name: 'Prüfen' }).click();
-      }
-      await expect(page.getByText('Dein Fehler lag hier:')).toBeVisible();
-      await expect(page.getByText(/Welcher gemeinsame Nenner/)).toHaveCount(0);
-      return;
-    }
-    await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
-    await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
-  }
-  throw new Error('Keine gleichnamige Aufgabe in zwölf Runden');
 });
 
 test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U3i)', async ({

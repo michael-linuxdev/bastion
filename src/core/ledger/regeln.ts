@@ -39,8 +39,15 @@ export interface Buchung {
   readonly menge: number;
   /** Erträge aus dem Lernen; Abbuchung und Erstattung beim Bauen (BASEBAU §4.2) */
   readonly grund:
-    'sitzung' | 'kompetenz-gefestigt' | 'startpaket' | 'vermittlung' | 'bau-beginn' | 'bau-abbruch';
-  /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:Kompetenz", "vermittlung:Kompetenz" oder Bauvorhaben-ID */
+    | 'sitzung'
+    | 'kompetenz-gefestigt'
+    | 'startpaket'
+    | 'vermittlung'
+    | 'bau-beginn'
+    | 'bau-abbruch'
+    /** Bestandene Bewährungsprobe Ernstfall (BASEBAU §5.6, DATENMODELL `belagerung`) */
+    | 'belagerung';
+  /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:…", "vermittlung:…", "bewaehrung:…" oder Bauvorhaben-ID */
   readonly bezug: string;
   readonly tag: Tag;
   readonly aufschluesselung: Readonly<Record<string, number>>;

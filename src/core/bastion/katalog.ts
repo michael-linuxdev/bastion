@@ -1,9 +1,9 @@
 /**
- * Gebäudekatalog der Epoche 1 „Außenposten“ (BASEBAU §4, §5). Reine Daten und
+ * Gebäudekatalog Epoche 1–4 (BASEBAU §4, §5.2, §5.5). Reine Daten und
  * Regeln: Stufen, Kosten, Voraussetzungen, Bergfried-Grenze, Startzustand.
- * Darf nur aus `src/core/ledger/` importieren (K-1).
+ * Darf nur aus `src/core/ledger/` und `./epochen` importieren (K-1).
  *
- * Alle Zahlen sind Startwerte; der Simulator prüft sie (Schritt 2.11).
+ * Alle Zahlen sind Startwerte; der Simulator prüft sie (Schritt 2.11 / G9).
  *
  * Kennungen sind Rollen, keine Burg-Wörter (B-17): Was eine Rolle ist – Bergfried,
  * Baumhaus, Kommandomodul … –, bestimmt das Thema in der Textdatei. Kommentare und
@@ -11,6 +11,7 @@
  * Namen und Beschreibungen stehen in der Textdatei (`gebaeude.<typ>`).
  */
 import type { Ressource } from '../ledger/regeln';
+import { einfassungHoechstens, kernMaxStufe, turmHoechstens, type Epoche } from './epochen';
 
 export type GebaeudeTyp =
   | 'kern'
@@ -32,6 +33,8 @@ export interface Stufe {
   readonly kosten: Kosten;
   /** Weitere Voraussetzung neben der Bergfried-Grenze */
   readonly braucht?: { readonly typ: GebaeudeTyp; readonly stufe: number };
+  /** Ab welcher Epoche baubar (BASEBAU §5.5); fehlt = ab Epoche 1 */
+  readonly ab?: Epoche;
 }
 
 export interface Gebaeude {
@@ -39,7 +42,10 @@ export interface Gebaeude {
   readonly familie: Familie;
   /** Fläche auf dem Bauplatz in Feldern (Breite × Tiefe), Draufsicht (B-11) */
   readonly groesse: readonly [number, number];
-  /** Höchstzahl in Epoche 1; undefined = so viele, wie Platz ist */
+  /**
+   * Höchstzahl in der höchsten Epoche; für Turm/Einfassung gilt
+   * `hoechstensFuer` (epochenabhängig). undefined = so viele, wie Platz ist
+   */
   readonly hoechstens?: number;
   /** Stufen ab 1; `stufen[0]` ist Stufe 1. Leer = nicht baubar (nur im Startzustand) */
   readonly stufen: readonly Stufe[];
@@ -53,8 +59,11 @@ const k = (fleiss: number, behalten = 0, koennen = 0, schritt = 1): Kosten => ({
 });
 const NICHTS = k(0, 0, 0, 0);
 const KERN_2 = { typ: 'kern', stufe: 2 } as const;
+const KERN_4 = { typ: 'kern', stufe: 4 } as const;
+const KERN_6 = { typ: 'kern', stufe: 6 } as const;
+const KERN_8 = { typ: 'kern', stufe: 8 } as const;
 
-/** Tabelle BASEBAU §5.2 */
+/** Tabelle BASEBAU §5.2 und §5.5 */
 export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
   kern: {
     typ: 'kern',
@@ -62,42 +71,70 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     groesse: [3, 3],
     hoechstens: 1,
     // Stufe 1 steht von Anfang an (§5.1)
-    stufen: [{ kosten: NICHTS }, { kosten: k(250, 80, 2, 10) }, { kosten: k(500, 160, 4, 16) }],
+    stufen: [
+      { kosten: NICHTS },
+      { kosten: k(250, 80, 2, 10) },
+      { kosten: k(500, 160, 4, 16) },
+      { kosten: k(800, 250, 6, 20), ab: 2 },
+      { kosten: k(1200, 400, 8, 24), ab: 2 },
+      { kosten: k(1600, 500, 10, 28), ab: 3 },
+      { kosten: k(2200, 700, 12, 32), ab: 3 },
+      { kosten: k(3000, 900, 14, 36), ab: 4 },
+      { kosten: k(4000, 1200, 16, 40), ab: 4 },
+    ],
   },
   werkstatt: {
     typ: 'werkstatt',
     familie: 'bau',
     groesse: [2, 2],
     hoechstens: 1,
-    stufen: [{ kosten: k(150, 40, 1, 6), braucht: KERN_2 }],
+    stufen: [
+      { kosten: k(150, 40, 1, 6), braucht: KERN_2 },
+      { kosten: k(300, 80, 2, 10), braucht: KERN_4, ab: 2 },
+      { kosten: k(450, 120, 3, 12), braucht: KERN_6, ab: 3 },
+    ],
   },
   wissen: {
     typ: 'wissen',
     familie: 'wissen',
     groesse: [2, 2],
     hoechstens: 1,
-    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: KERN_2 }],
+    stufen: [
+      { kosten: k(100, 30, 1, 6) },
+      { kosten: k(200, 60, 2, 10), braucht: KERN_2 },
+      { kosten: k(350, 100, 3, 12), braucht: KERN_4, ab: 2 },
+      { kosten: k(500, 150, 4, 14), braucht: KERN_6, ab: 3 },
+      { kosten: k(700, 200, 5, 16), braucht: KERN_8, ab: 4 },
+    ],
   },
   turm: {
     typ: 'turm',
     familie: 'verteidigung',
     groesse: [1, 1],
-    hoechstens: 2,
-    stufen: [{ kosten: k(100, 30, 1, 6) }, { kosten: k(200, 60, 2, 10), braucht: KERN_2 }],
+    // Höchstzahl je Epoche: 2 / 4 / 6 / 8 – siehe hoechstensFuer
+    hoechstens: 8,
+    stufen: [
+      { kosten: k(100, 30, 1, 6) },
+      { kosten: k(200, 60, 2, 10), braucht: KERN_2 },
+      { kosten: k(350, 100, 2, 12), braucht: KERN_4, ab: 2 },
+      { kosten: k(500, 150, 3, 14), braucht: KERN_6, ab: 3 },
+      { kosten: k(700, 200, 4, 16), braucht: KERN_8, ab: 4 },
+    ],
   },
   eingang: {
     typ: 'eingang',
     familie: 'verteidigung',
     groesse: [1, 1],
     hoechstens: 1,
-    stufen: [{ kosten: k(80, 20, 1, 5) }],
+    stufen: [{ kosten: k(80, 20, 1, 5) }, { kosten: k(200, 60, 2, 8), braucht: KERN_4, ab: 2 }],
   },
   einfassung: {
     typ: 'einfassung',
     familie: 'verteidigung',
     groesse: [1, 1],
-    // 4 von Anfang an, 36 weitere baubar – genug, um einen Teil des Platzes zu umschließen (B-22)
-    hoechstens: 40,
+    // 4 von Anfang an; Höchstzahl je Epoche 40 / 60 / 80 / 100 (B-22, §5.5)
+    hoechstens: 100,
+    // Kosten bleiben 15 Fleiß (Mauer-Optik in G10); Balancing später
     stufen: [{ kosten: k(15) }],
   },
   ursprung: {
@@ -115,7 +152,7 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
 
 export const GEBAEUDE_TYPEN = Object.keys(KATALOG) as readonly GebaeudeTyp[];
 
-/** Bauplatz der Epoche 1 (§5.1) */
+/** Bauplatz der Epoche 1 (§5.1) – für Startzustand und als Untergrenze */
 export const BAUPLATZ = { breite: 12, tiefe: 12 } as const;
 
 export interface Position {
@@ -164,6 +201,13 @@ export function kosten(typ: GebaeudeTyp, stufe: number): Kosten | undefined {
   return KATALOG[typ].stufen[stufe - 1]?.kosten;
 }
 
+/** Höchstzahl eines Typs in der gegebenen Epoche. */
+export function hoechstensFuer(typ: GebaeudeTyp, epoche: Epoche = 1): number | undefined {
+  if (typ === 'turm') return turmHoechstens(epoche);
+  if (typ === 'einfassung') return einfassungHoechstens(epoche);
+  return KATALOG[typ].hoechstens;
+}
+
 export type Hindernis =
   'nicht-baubar' | 'hoechststufe' | 'hoechstzahl' | 'kern-zu-niedrig' | 'voraussetzung';
 
@@ -174,25 +218,36 @@ const kernStufe = (bestand: readonly Bauwerk[]) =>
  * Was spricht gegen ein Bauvorhaben – ohne Blick auf die Ressourcen (die prüft
  * das Bauen, Schritt 2.6)? `ausbau` ist das Bauwerk, das eine Stufe höher soll;
  * ohne `ausbau` ist ein Neubau gemeint. Leere Liste = möglich.
+ * `epoche` begrenzt Stufen und Höchstzahlen (BASEBAU §5.5).
  */
 export function hindernisse(
   typ: GebaeudeTyp,
   bestand: readonly Bauwerk[],
   ausbau?: Bauwerk,
+  epoche: Epoche = 1,
 ): Hindernis[] {
   const g = KATALOG[typ];
   const ziel = ausbau ? ausbau.stufe + 1 : 1;
   const stufe = g.stufen[ziel - 1];
   if (g.stufen.length === 0) return ['nicht-baubar'];
   const h: Hindernis[] = [];
-  if (!stufe) h.push('hoechststufe');
-  if (!ausbau && g.hoechstens !== undefined) {
-    if (bestand.filter((b) => b.typ === typ).length >= g.hoechstens) h.push('hoechstzahl');
+  const zuHoch =
+    !stufe ||
+    (stufe.ab !== undefined && stufe.ab > epoche) ||
+    (typ === 'kern' && ziel > kernMaxStufe(epoche));
+  if (zuHoch) h.push('hoechststufe');
+  if (!ausbau) {
+    const max = hoechstensFuer(typ, epoche);
+    if (max !== undefined && bestand.filter((b) => b.typ === typ).length >= max)
+      h.push('hoechstzahl');
   }
   // Kein Gebäude über der Stufe des Bergfrieds (§4.2)
   if (typ !== 'kern' && ziel > kernStufe(bestand)) h.push('kern-zu-niedrig');
-  const braucht = stufe?.braucht;
-  if (braucht && !bestand.some((b) => b.typ === braucht.typ && b.stufe >= braucht.stufe))
-    h.push('voraussetzung');
+  // Voraussetzungen nur prüfen, wenn die Zielstufe in dieser Epoche existiert
+  if (!zuHoch) {
+    const braucht = stufe?.braucht;
+    if (braucht && !bestand.some((b) => b.typ === braucht.typ && b.stufe >= braucht.stufe))
+      h.push('voraussetzung');
+  }
   return h;
 }

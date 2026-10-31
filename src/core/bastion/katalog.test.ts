@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { fleissBis } from '../ledger/regeln';
+import { einfassungHoechstens, turmHoechstens } from './epochen';
 import {
   BAUPLATZ,
   hindernisse,
+  hoechstensFuer,
   KATALOG,
   kosten,
   START,
@@ -22,11 +24,14 @@ describe('Katalog Epoche 1 (BASEBAU §5.2)', () => {
     const summe = { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 };
     for (const g of Object.values(KATALOG)) {
       if (g.familie === 'zierde') continue;
-      // Anzahl baubarer Exemplare: Palisaden 8 weitere, Späherturm 2, sonst 1
-      const stueck = g.typ === 'einfassung' ? 36 : (g.hoechstens ?? 1);
-      for (const s of g.stufen)
+      // Nur Stufen der Epoche 1; Höchstzahlen der Epoche 1
+      const max = hoechstensFuer(g.typ, 1) ?? 1;
+      const stueck = g.typ === 'einfassung' ? max - 4 : max;
+      for (const s of g.stufen) {
+        if (s.ab !== undefined && s.ab > 1) continue;
         for (const r of ['fleiss', 'behalten', 'koennen', 'schritt'] as const)
           summe[r] += s.kosten[r] * stueck;
+      }
     }
     // §5.2 mit 36 statt 8 Einfassungs-Stücken (B-22): 2 000 + 28 · 15 Fleiß, 93 + 28 Bauschritte
     expect(summe).toEqual({ fleiss: 2420, behalten: 570, koennen: 17, schritt: 121 });
@@ -89,14 +94,25 @@ describe('Hindernisse (§4.2)', () => {
   it('Höchstzahl und Höchststufe', () => {
     const zwei = [...START, bau('turm', 1, 'a'), bau('turm', 1, 'b')];
     expect(hindernisse('turm', zwei)).toEqual(['hoechstzahl']);
+    expect(hindernisse('turm', zwei, undefined, 2)).toEqual([]);
+    expect(turmHoechstens(2)).toBe(4);
     const kern = bau('kern', 3);
     expect(hindernisse('kern', [kern], kern)).toEqual(['hoechststufe']);
+    // Epoche 2: Kern Stufe 4 erlaubt
+    expect(hindernisse('kern', [kern], kern, 2)).toEqual([]);
     const tor = bau('eingang');
     expect(hindernisse('eingang', [bau('kern', 3), tor], tor)).toEqual(['hoechststufe']);
     const palisaden = Array.from({ length: 40 }, (_, i) => bau('einfassung', 1, `p${i}`));
     expect(
       hindernisse('einfassung', [...START.filter((b) => b.typ !== 'einfassung'), ...palisaden]),
     ).toEqual(['hoechstzahl']);
+    expect(einfassungHoechstens(2)).toBe(60);
+  });
+
+  it('Stufen ab Epoche 2 brauchen freigeschaltete Epoche', () => {
+    const kern4 = bau('kern', 4);
+    expect(hindernisse('wissen', [kern4], bau('wissen', 2), 1)).toContain('hoechststufe');
+    expect(hindernisse('wissen', [kern4], bau('wissen', 2), 2)).toEqual([]);
   });
 
   it('Zierde ohne Höchstzahl', () => {

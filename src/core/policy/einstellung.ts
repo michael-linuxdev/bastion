@@ -65,6 +65,24 @@ export const themaAus = (wert: unknown): Thema => THEMEN.find((x) => x === wert)
 /** Bauplatz als Bild zeigen (BASEBAU 2.13); nur `false` blendet es aus. */
 export const BILD_SCHLUESSEL = 'basebau.bild';
 
+/** Bastion ohne Bewegung (GRAFIK §4.5); nur `true` schaltet ruhig. */
+export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
+
+/** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
+export const LEICHT_SCHLUESSEL = 'basebau.leicht';
+
+/** Bastion-Sound (GRAFIK §4.6, T-18); nur `true` schaltet ein. Standard aus. */
+export const SOUND_SCHLUESSEL = 'basebau.sound';
+
+/** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
+export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';
+
+/** Freitext-Ort fürs Wetter, z. B. „Dresden“. */
+export const WETTER_ORT_SCHLUESSEL = 'wetter.ort';
+
+/** Geocoding-Ergebnis als „lat,lon,name“ – nur lokal, kein Gerät-Standort. */
+export const WETTER_KOORD_SCHLUESSEL = 'wetter.koord';
+
 /** Zoom des Bauplatzes (BASEBAU 2.13a): stufenlos, 0 heißt eingepasst. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 

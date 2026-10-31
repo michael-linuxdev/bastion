@@ -11,7 +11,6 @@
     type BauHindernis,
   } from '../../core/bastion/bauen';
   import {
-    BAUPLATZ,
     GEBAEUDE_TYPEN,
     KATALOG,
     kosten,
@@ -32,6 +31,7 @@
   import Bauplatz from './Bauplatz.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import WetterEinstellung from './WetterEinstellung.svelte';
   import {
     aktiv,
     gebaeudeName,
@@ -43,11 +43,38 @@
   } from './thema.svelte';
   import { THEMEN, type Thema } from '../../core/policy/einstellung';
   import type { Kompetenz } from '../../core/competence/kompetenz';
-  import { EPOCHE_1_ZIEL, epochenstand } from '../../core/bastion/epoche';
+  import type { AufgabeEreignis } from '../../core/learning/ereignis';
+  import type { KompetenzStand } from '../../core/learning/fortschritt';
+  import { hinterhof } from '../../core/learning/hinterhof';
+  import { epochenstand } from '../../core/bastion/epoche';
+  import { turmJoker, type BewaehrungModus } from '../../core/bastion/bewaehrung';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
+  import { soundTipp } from './sound/sound';
 
-  let { kompetenzen }: { kompetenzen: readonly Kompetenz[] } = $props();
+  let {
+    kompetenzen,
+    wetterEinstellen = false,
+    staende = [],
+    aufgaben = [],
+    klasse = 5,
+    spannung = false,
+    onbewaehrung,
+  }: {
+    kompetenzen: readonly Kompetenz[];
+    /** Ab 18 / ausdrücklich erwachsen: Wetter selbst schalten (T-15) */
+    wetterEinstellen?: boolean;
+    staende?: readonly KompetenzStand[];
+    aufgaben?: readonly AufgabeEreignis[];
+    klasse?: number;
+    /** Aktive Bewährungsprobe: Spannungsoptik (G11) */
+    spannung?: boolean;
+    /** Start einer Bewährungsprobe mit Modus, Themen und Joker-Zahl */
+    onbewaehrung?: (modus: BewaehrungModus, themen: readonly string[], joker: number) => void;
+  } = $props();
+
+  let bewaehrungModus = $state<BewaehrungModus>('ueben');
   const kannSatz = $derived(new Map(kompetenzen.map((k) => [k.id, k.kann_satz.de])));
+  const hinterhofFelder = $derived(hinterhof(kompetenzen, staende, aufgaben, klasse));
 
   let lage = $state<BastionLage | undefined>(undefined);
   let geladen = $state(false);
@@ -92,6 +119,8 @@
     lage = r;
     meldung = [];
     versetzt = undefined;
+    if (auftrag.art === 'beginnen') soundTipp('bauen');
+    else if (auftrag.art === 'aufstellen' || auftrag.art === 'versetzen') soundTipp('aufstellen');
     return true;
   }
 
@@ -146,8 +175,9 @@
   const neubauten = $derived.by((): Angebot[] => {
     const l = lage;
     if (!l) return [];
+    const platz = epochenstand(l.bastion, l.konto).bauplatz;
     return REIHENFOLGE.flatMap((typ) => {
-      const pos = freierPlatz(l.bastion, typ);
+      const pos = freierPlatz(l.bastion, typ, platz);
       const h = beginnHindernisse(l.bastion, l.konto, typ, { pos: pos ?? { x: 0, y: 0 } });
       if (!pos && !h.includes('belegt')) h.push('belegt');
       if (h.includes('nicht-baubar') || h.includes('hoechstzahl')) return [];
@@ -190,7 +220,44 @@
     {@const l = lage}
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
-    <Bauplatz bastion={l.bastion} onaktion={ausfuehren} />
+    <Bauplatz
+      bastion={l.bastion}
+      onaktion={ausfuehren}
+      {hinterhofFelder}
+      bauplatz={epoche.bauplatz}
+      epoche={epoche.epoche}
+      {spannung}
+    />
+
+    {#if onbewaehrung}
+      {@const joker = turmJoker(l.bastion.bauwerke)}
+      <section class="bewaehrung" aria-labelledby="bewaehrung-titel">
+        <h3 id="bewaehrung-titel">{tt('bastion.bewaehrung')}</h3>
+        <p class="leise">{tt('bastion.bewaehrung-erklaerung')}</p>
+        <p class="leise">
+          {tt('bastion.bewaehrung-joker')}: {joker}
+        </p>
+        <fieldset class="modus">
+          <legend>{tt('bastion.bewaehrung-modus')}</legend>
+          <label>
+            <input type="radio" bind:group={bewaehrungModus} value="ueben" />
+            {tt('bastion.bewaehrung-ueben')}
+          </label>
+          <label>
+            <input type="radio" bind:group={bewaehrungModus} value="ernstfall" />
+            {tt('bastion.bewaehrung-ernstfall')}
+          </label>
+        </fieldset>
+        <button
+          onclick={() =>
+            onbewaehrung(
+              bewaehrungModus,
+              kompetenzen.filter((k) => k.klassenstufe_typisch.includes(klasse)).map((k) => k.id),
+              bewaehrungModus === 'ueben' ? joker : 0,
+            )}>{tt('bastion.bewaehrung-start')}</button
+        >
+      </section>
+    {/if}
 
     <h3>{tt('bastion.vorrat')}</h3>
     <ul class="vorrat">
@@ -238,21 +305,24 @@
       </section>
     {/if}
 
-    {#if epoche.geschafft}
-      <p class="geschafft" role="status">{tt('bastion.geschafft')}</p>
+    {#if epoche.fertig}
+      <p class="geschafft" role="status">{tt('bastion.geschafft-ende')}</p>
     {:else}
-      <h3>{tt('bastion.ziel')}</h3>
+      <h3>{tt('bastion.ziel-der-epoche')} {epoche.epoche}: {wort(epoche.nameKey)}</h3>
       <ul class="ziel">
         <li>
-          {epoche.kern >= EPOCHE_1_ZIEL.kern ? '✓' : '○'}
-          {tt('bastion.ziel-kern')} ({tt('bastion.stufe')}
+          {epoche.kern >= epoche.ziel.kern ? '✓' : '○'}
+          {wort('gebaeude.kern')}
+          {tt('bastion.auf-stufe')}
+          {epoche.ziel.kern}
+          ({tt('bastion.stufe')}
           {epoche.kern})
         </li>
         <li>
-          {epoche.bauplaene >= EPOCHE_1_ZIEL.bauplaene ? '✓' : '○'}
-          {Math.min(epoche.bauplaene, EPOCHE_1_ZIEL.bauplaene)}
+          {epoche.bauplaene >= epoche.ziel.bauplaene ? '✓' : '○'}
+          {Math.min(epoche.bauplaene, epoche.ziel.bauplaene)}
           {tt('bastion.von')}
-          {EPOCHE_1_ZIEL.bauplaene}
+          {epoche.ziel.bauplaene}
           {tt('bastion.ziel-bauplaene')}
         </li>
       </ul>
@@ -355,7 +425,7 @@
               <label
                 >{tt('bastion.spalte')}
                 <select bind:value={versetzt.x}>
-                  {#each Array.from({ length: BAUPLATZ.breite }, (_, i) => i) as i (i)}
+                  {#each Array.from({ length: epoche.bauplatz.breite }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
                   {/each}
                 </select></label
@@ -363,14 +433,19 @@
               <label
                 >{tt('bastion.reihe')}
                 <select bind:value={versetzt.y}>
-                  {#each Array.from({ length: BAUPLATZ.tiefe }, (_, i) => i) as i (i)}
+                  {#each Array.from({ length: epoche.bauplatz.tiefe }, (_, i) => i) as i (i)}
                     <option value={i}>{i + 1}</option>
                   {/each}
                 </select></label
               >
               <button
-                disabled={platzHindernisse(l.bastion, b.typ, { x: versetzt.x, y: versetzt.y }, b.id)
-                  .length > 0}
+                disabled={platzHindernisse(
+                  l.bastion,
+                  b.typ,
+                  { x: versetzt.x, y: versetzt.y },
+                  b.id,
+                  epoche.bauplatz,
+                ).length > 0}
                 onclick={() =>
                   versetzt &&
                   void ausfuehren({
@@ -472,6 +547,10 @@
   </fieldset>
   <p class="leise">{tt('bastion.thema-erklaerung')}</p>
 </section>
+
+{#if wetterEinstellen}
+  <WetterEinstellung durch="jugendlich" />
+{/if}
 
 <style>
   .bastion {
@@ -599,6 +678,19 @@
 
   .vorgemerkt button {
     justify-self: start;
+  }
+
+  .bewaehrung {
+    margin-block: var(--abstand-m);
+  }
+
+  .bewaehrung .modus {
+    border: none;
+    padding: 0;
+    margin-block: var(--abstand-s);
+    display: flex;
+    flex-direction: column;
+    gap: var(--abstand-xs);
   }
 
   .knoepfe {

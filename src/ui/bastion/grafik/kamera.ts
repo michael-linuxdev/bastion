@@ -2,7 +2,7 @@
 // liegen, Ziehen verschiebt, zwei Finger zoomen und verschieben zugleich.
 // Grenzen: 0,35 bis 2,4; beim Einpassen höchstens 1,8. Ohne PixiJS, damit der
 // Test dieselbe Rechnung prüft wie die Oberfläche.
-import { BUEHNE_B, BUEHNE_H } from './iso';
+import { buehneBreite, buehneHoehe } from './iso';
 
 /** Wie weit man herauszoomen kann (Dorfkrieg). */
 export const ZOOM_MIN = 0.35;
@@ -39,20 +39,24 @@ export function zoomAn(k: Kamera, sx: number, sy: number, naechstes: number): Ka
 /** Das ganze Bild in der Mitte, mit etwas Rand. */
 export function einpassen(breite: number, hoehe: number): Kamera {
   const rand = 28;
+  const bb = buehneBreite();
+  const bh = buehneHoehe();
   const zoom = klemmen(
-    Math.min(breite / (BUEHNE_B + rand * 2), hoehe / (BUEHNE_H + rand * 2)),
+    Math.min(breite / (bb + rand * 2), hoehe / (bh + rand * 2)),
     ZOOM_MIN,
     ZOOM_EINPASSEN_MAX,
   );
   return {
     zoom,
-    x: (breite - BUEHNE_B * zoom) / 2,
-    y: (hoehe - BUEHNE_H * zoom) / 2,
+    x: (breite - bb * zoom) / 2,
+    y: (hoehe - bh * zoom) / 2,
   };
 }
 
 /** Gewählter Zoom, Bild in der Mitte des Fensters. */
 export function zentriert(breite: number, hoehe: number, zoom: number): Kamera {
   const z = klemmen(zoom, ZOOM_MIN, ZOOM_MAX);
-  return { zoom: z, x: (breite - BUEHNE_B * z) / 2, y: (hoehe - BUEHNE_H * z) / 2 };
+  const bb = buehneBreite();
+  const bh = buehneHoehe();
+  return { zoom: z, x: (breite - bb * z) / 2, y: (hoehe - bh * z) / 2 };
 }

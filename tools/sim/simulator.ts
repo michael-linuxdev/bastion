@@ -373,7 +373,8 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
         fertig.push({ tag: t, typ: f.typ });
         wochen.set(woche, { gelernt: wochen.get(woche)?.gelernt ?? false, fortschritt: true });
       }
-    if (epocheTag === undefined && epochenstand(b, kontoAus(PROFIL, buchungen)).geschafft)
+    // Epoche 1 geschafft = freigeschaltete Epoche ≥ 2 (BASEBAU §5.4 / G9)
+    if (epocheTag === undefined && epochenstand(b, kontoAus(PROFIL, buchungen)).epoche >= 2)
       epocheTag = t;
     if (t === 365) belegung12 = belegt(b);
   }

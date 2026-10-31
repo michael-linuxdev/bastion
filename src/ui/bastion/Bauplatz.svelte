@@ -3,18 +3,32 @@
   // die Bastion bei eingeschaltetem Basebau öffnet und das Bild zeigt, lädt es (R7, A3).
   // Antippen wählt ein Gebäude; „Versetzen“ und dann ein freies Feld antippen versetzt
   // es. Die Liste darunter zeigt dasselbe und ist die gleichwertige, barrierefreie Ansicht.
+  import { untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
-  import { KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
+  import { BAUPLATZ, KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
   import {
+    bastionLeicht,
+    bastionRuhig,
+    bastionSound,
     bildSetzen,
     bildZeigen,
+    leichtSetzen,
+    ruhigSetzen,
+    soundSetzen,
     zoomSetzen,
     zoomWahl,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
+  import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
+  import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
-  import { BUEHNE_B, BUEHNE_H } from './grafik/iso';
+  import { buehneBreite, buehneHoehe } from './grafik/iso';
+  import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
+  import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
+  import type { WetterBild } from './grafik/wetter';
+  import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
     ZOOM_KNOPF,
@@ -28,9 +42,29 @@
   } from './grafik/kamera';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import type { HinterhofFeld } from '../../core/learning/hinterhof';
+  import { hinterhofMitte } from './grafik/hinterhof-szene';
+  import { epocheOptik, farbeSkalieren } from './grafik/epoche-optik';
+  import type { Epoche } from '../../core/bastion/epochen';
 
-  let { bastion, onaktion }: { bastion: Bastion; onaktion: (a: BauAuftrag) => Promise<boolean> } =
-    $props();
+  let {
+    bastion,
+    onaktion,
+    hinterhofFelder = [],
+    bauplatz = BAUPLATZ,
+    epoche = 1 as Epoche,
+    spannung = false,
+  }: {
+    bastion: Bastion;
+    onaktion: (a: BauAuftrag) => Promise<boolean>;
+    hinterhofFelder?: readonly HinterhofFeld[];
+    /** Aktive Bauplatzgröße nach Epoche (BASEBAU §5.5) */
+    bauplatz?: { readonly breite: number; readonly tiefe: number };
+    /** Freigeschaltete Epoche für Optik (G10) */
+    epoche?: Epoche;
+    /** Bewährungsprobe: Spannungs-Himmel (G11) */
+    spannung?: boolean;
+  } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
   let buehne = $state<Buehne | undefined>(undefined);
@@ -38,6 +72,54 @@
   /** Bild zeigen (Einstellung `basebau.bild`); aus = reizarm, PixiJS wird nicht geladen */
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
+
+  /** GRAFIK §4.5: ruhig / leicht / System-Ruhe; §4.6 Sound */
+  let ruhig = $state(false);
+  let leicht = $state(false);
+  let systemRuhe = $state(false);
+  let soundAn = $state(false);
+  void bastionRuhig().then((z) => (ruhig = z));
+  void bastionLeicht().then((z) => (leicht = z));
+  void bastionSound().then((z) => (soundAn = z));
+  const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
+  $effect(() => {
+    soundSteuern({ an: soundAn, ruhig: ruhig || systemRuhe });
+    return () => ambientStoppen();
+  });
+
+  /** Lokale Zeit für Jahreszeit und Sonne; jede Minute aktualisieren (GRAFIK §4.3). */
+  let jetzt = $state(new Date());
+  $effect(() => {
+    const id = setInterval(() => (jetzt = new Date()), 60_000);
+    return () => clearInterval(id);
+  });
+  const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
+  let wetterBild = $state<WetterBild>('klar');
+  let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
+  $effect(() => {
+    const d = jetzt;
+    let abgebrochen = false;
+    void szeneWetterLaden(d).then((s) => {
+      if (abgebrochen) return;
+      wetterBild = s.bild;
+      wetterSonne = s.sonne;
+    });
+    return () => {
+      abgebrochen = true;
+    };
+  });
+  const abend = $derived(
+    szeneAbend(darstellung.modus, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
+  );
+
+  $effect(() => {
+    if (typeof matchMedia !== 'function') return;
+    const m = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => (systemRuhe = m.matches);
+    sync();
+    m.addEventListener('change', sync);
+    return () => m.removeEventListener('change', sync);
+  });
 
   /** Kamera wie in Dorfkrieg: stufenlos, zum Zeiger, Ziehen verschiebt.
    * Ein gemerkter Zoom (`basebau.zoom`) wird in die Mitte gelegt, sonst das ganze Bild. */
@@ -247,38 +329,71 @@
   function farben(): Farben {
     const css = getComputedStyle(document.documentElement);
     const v = (name: string) => css.getPropertyValue(name).trim() || '#888888';
-    return {
-      boden: v('--bastion-boden'),
+    const himmelRoh = v('--farbe-himmel');
+    const himmel =
+      wetterBild === 'nebel'
+        ? schattieren(himmelRoh, -25)
+        : wetterBild === 'regen' || wetterBild === 'schnee'
+          ? schattieren(himmelRoh, -18)
+          : wetterBild === 'bewoelkt'
+            ? schattieren(himmelRoh, -10)
+            : himmelRoh;
+    const optik = epocheOptik(epoche);
+    const basis: Farben = {
+      boden: farbeSkalieren(v('--bastion-boden'), optik.bodenFaktor),
       raster: v('--bastion-raster'),
       linie: v('--bastion-linie'),
       imBau: v('--farbe-akzent'),
       auswahl: v('--farbe-akzent'),
-      himmel: v('--farbe-himmel'),
+      himmel,
       licht: v('--farbe-licht'),
       wolke: v('--farbe-flaeche'),
       dach: v('--farbe-akzent-warm'),
-      abend: darstellung.dunkel,
+      // Szene-Abend nach Sonne/Modus, nicht nur UI-Tokens (GRAFIK §4.3)
+      abend,
+      jahreszeit,
+      wetter: wetterBild,
+      spannung,
       familie: {
-        kern: v('--bastion-kern'),
-        wissen: v('--bastion-wissen'),
-        verteidigung: v('--bastion-verteidigung'),
-        bau: v('--bastion-bau'),
+        kern: farbeSkalieren(v('--bastion-kern'), optik.wandFaktor),
+        wissen: farbeSkalieren(v('--bastion-wissen'), optik.wandFaktor),
+        verteidigung: farbeSkalieren(v('--bastion-verteidigung'), optik.wandFaktor),
+        bau: farbeSkalieren(v('--bastion-bau'), optik.wandFaktor),
         zierde: v('--bastion-zierde'),
       },
     };
+    return farbenMitJahreszeit(basis, jahreszeit);
   }
 
   $effect(() => {
     const ort = rahmen;
     if (!ort) return;
-    // Neu zeichnen, wenn hell oder dunkel wechselt (GRAFIK §2)
-    // oder das Thema auf Dorf (Dorfbilder) bzw. zurück wechselt (GRAFIK §6).
-    void darstellung.dunkel;
-    const bildart = aktiv.thema === 'dorf' ? 'dorf' : 'insel';
+    // Neu zeichnen bei Modus, Jahreszeit, Abend, Wetter, Thema (GRAFIK §2, §4.3, §6).
+    void darstellung.modus;
+    void jahreszeit;
+    void abend;
+    void wetterBild;
+    void bauplatz.breite;
+    void bauplatz.tiefe;
+    void epoche;
+    void spannung;
+    const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
+    // Bewegung nur als Startwert (ohne Tracking); Wechsel über setzeBewegung
+    const start: Bewegung = untrack(() => bewegung);
+    const platz = untrack(() => bauplatz);
     import('./grafik/grafik-buehne')
-      .then((m) => m.buehneErstellen(ort, farben(), bildart))
+      .then((m) =>
+        m.buehneErstellen(
+          ort,
+          farben(),
+          bildart,
+          start,
+          untrack(() => aktiv.thema),
+          platz,
+        ),
+      )
       .then((b) => {
         if (abgebrochen) b.zerstoere();
         else buehne = erstellt = b;
@@ -292,6 +407,31 @@
   });
 
   $effect(() => {
+    buehne?.setzeBewegung(bewegung);
+  });
+
+  let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
+
+  function blickWechseln(zielBlick: 'bauplatz' | 'hinterhof') {
+    blick = zielBlick;
+    const el = fenster;
+    if (!el) return;
+    eigene = true;
+    if (zielBlick === 'hinterhof' && hinterhofFelder.length > 0) {
+      const m = hinterhofMitte(hinterhofFelder.length);
+      // Bildpunkt in die Fenstermitte legen
+      kamera = {
+        x: el.clientWidth / 2 - m.x * kamera.zoom,
+        y: el.clientHeight / 2 - m.y * kamera.zoom,
+        zoom: Math.max(kamera.zoom, 1),
+      };
+    } else {
+      kamera = einpassen(el.clientWidth, el.clientHeight);
+    }
+    kameraSichtbar = true;
+  }
+
+  $effect(() => {
     const g = gewaehlt;
     const a: Ansicht = {
       ...(g ? { auswahl: g.id } : {}),
@@ -300,10 +440,12 @@
             ziel: {
               pos: ziel,
               typ: g.typ,
-              frei: platzHindernisse(bastion, g.typ, ziel, g.id).length === 0,
+              frei: platzHindernisse(bastion, g.typ, ziel, g.id, bauplatz).length === 0,
             },
           }
         : {}),
+      ...(hinterhofFelder.length > 0 ? { hinterhof: hinterhofFelder } : {}),
+      epoche,
     };
     buehne?.zeichne(bastion, a);
   });
@@ -317,19 +459,27 @@
   }
 
   async function angetippt(e: PointerEvent) {
+    // Wesen zuerst (GRAFIK §4.4) – kurze Reaktion, kein Gebäude wählen
+    const wid = buehne?.wesenBei(e.clientX, e.clientY);
+    if (wid && !versetzen) {
+      buehne?.tippeWesen(wid);
+      soundTipp('wesen');
+      return;
+    }
     const pos = buehne?.feldBei(e.clientX, e.clientY);
     if (!pos) return;
     hinweis = undefined;
     const g = gewaehlt;
     if (versetzen && g) {
       ziel = pos;
-      if (platzHindernisse(bastion, g.typ, pos, g.id).length > 0) {
+      if (platzHindernisse(bastion, g.typ, pos, g.id, bauplatz).length > 0) {
         hinweis = 'kein-platz';
         return;
       }
       if (await onaktion({ art: 'versetzen', gebaeude: g.id, pos })) {
         versetzen = false;
         ziel = undefined;
+        soundTipp('aufstellen');
       }
       return;
     }
@@ -359,13 +509,20 @@
         onclick={() => zoomen(1)}>+</button
       >
       <button aria-label={tt('bastion.zoom-passen')} onclick={einpassenJetzt}>⌖</button>
+      {#if hinterhofFelder.length > 0}
+        <button
+          class="dezent"
+          onclick={() => blickWechseln(blick === 'bauplatz' ? 'hinterhof' : 'bauplatz')}
+          >{blick === 'bauplatz' ? tt('hinterhof.zur-szene') : tt('hinterhof.zum-bauplatz')}</button
+        >
+      {/if}
     </div>
     <div
       class="fenster"
       class:sichtbar={kameraSichtbar}
       class:versetzen
       class:zieht
-      style:aspect-ratio={`${BUEHNE_B} / ${BUEHNE_H}`}
+      style:aspect-ratio={`${buehneBreite()} / ${buehneHoehe()}`}
       aria-hidden="true"
       bind:this={fenster}
       onpointerdown={zeigerRunter}
@@ -376,8 +533,8 @@
     >
       <div
         class="bauplatz"
-        style:inline-size="{BUEHNE_B}px"
-        style:block-size="{BUEHNE_H}px"
+        style:inline-size="{buehneBreite()}px"
+        style:block-size="{buehneHoehe()}px"
         style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
         bind:this={rahmen}
         aria-hidden="true"
@@ -427,9 +584,63 @@
   <button class="dezent" onclick={umschalten}
     >{zeigen ? tt('bastion.bild-aus') : tt('bastion.bild-an')}</button
   >
+  {#if zeigen && !fehlgeschlagen}
+    <div class="darstellung" role="group" aria-label={tt('bastion.darstellung')}>
+      <label>
+        <input
+          type="checkbox"
+          checked={ruhig}
+          onchange={() => {
+            ruhig = !ruhig;
+            void ruhigSetzen(ruhig);
+          }}
+        />
+        {tt('bastion.ruhig')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={leicht}
+          disabled={ruhig || systemRuhe}
+          onchange={() => {
+            leicht = !leicht;
+            void leichtSetzen(leicht);
+          }}
+        />
+        {tt('bastion.leicht')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={soundAn}
+          onchange={() => {
+            soundAn = !soundAn;
+            void soundSetzen(soundAn);
+          }}
+        />
+        {tt('bastion.sound')}
+      </label>
+    </div>
+  {/if}
 {/if}
 
 <style>
+  .darstellung {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-block: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--farbe-text-leise);
+  }
+
+  .darstellung label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-block-size: 44px;
+  }
+
   .fenster {
     position: relative;
     inline-size: 100%;
