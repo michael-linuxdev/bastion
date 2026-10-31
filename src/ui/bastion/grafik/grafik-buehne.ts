@@ -560,11 +560,13 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
+  // Atlas erst nach dem Canvas, und nur für Dorf (P0). So bleibt der Aufbau anderer
+  // Themen schnell; Bauplatz.$effect räumt verwaiste Canvas bei Abbruch weg.
+  const atlas: AtlasManifest | null = art === 'dorf' ? await atlasLaden() : null;
+  const texturen = art === 'dorf' ? await atlasTexturenLaden(atlas) : new Map<string, Texture>();
+
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
   const hintergrund = new Graphics();
-  // Atlas laden; ohne Einträge bleibt der Code-Fallback (GRAFIK-SPRITES §10)
-  const atlas: AtlasManifest | null = await atlasLaden();
-  const texturen = await atlasTexturenLaden(atlas);
   if (wetterBild === 'klar' || wetterBild === 'bewoelkt') gestirn(hintergrund, farben);
   if (art === 'dorf') dorfWiese(stiftVon(hintergrund), farben.abend);
   else if (art === 'garten') gartenBoden(stiftVon(hintergrund), farben.abend);
@@ -953,7 +955,10 @@ export async function buehneErstellen(
     },
     zerstoere() {
       app.ticker.remove(ticker);
+      const view = app.canvas;
       app.destroy(true, { children: true });
+      // Pixi entfernt die View nicht zuverlässig, wenn destroy nach Abbruch kommt
+      view.remove();
     },
   };
 }

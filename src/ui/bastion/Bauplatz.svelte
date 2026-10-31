@@ -403,6 +403,8 @@
       abgebrochen = true;
       erstellt?.zerstoere();
       buehne = undefined;
+      // Aufbau kann schon ein Canvas angehängt haben, bevor die Promise fertig ist
+      ort.querySelectorAll(':scope > canvas').forEach((c) => c.remove());
     };
   });
 
