@@ -32,6 +32,16 @@ const P2_BODEN = [
   'boden/garten/e1/flaeche_hell',
 ] as const;
 
+/** Abend-Fenster für Baumhaus, Schuppen, Gewächshaus (GRAFIK-SPRITES.md §3). */
+const P2_FENSTER = [
+  'garten/e1/kern_s1_fenster',
+  'garten/e1/kern_s2_fenster',
+  'garten/e1/kern_s3_fenster',
+  'garten/e1/werkstatt_s1_fenster',
+  'garten/e1/wissen_s1_fenster',
+  'garten/e1/wissen_s2_fenster',
+] as const;
+
 describe('atlas P2 Garten', () => {
   const roh = readFileSync(resolve('public/grafik/atlas/manifest.json'), 'utf8');
   const manifest = JSON.parse(roh) as AtlasManifest;
@@ -53,6 +63,18 @@ describe('atlas P2 Garten', () => {
       expect(e?.pixel.h).toBeGreaterThan(0);
     }
     expect(atlasEintrag(manifest, 'garten', 1, 'kern', 1)?.datei).toContain('kern_s1');
+  });
+
+  it('enthält Abend-Fenster-Layer deckungsgleich zu den Gebäude-Sprites', () => {
+    for (const id of P2_FENSTER) {
+      expect(ids.has(id), id).toBe(true);
+      const fenster = manifest.eintraege.find((x) => x.id === id);
+      const basis = manifest.eintraege.find((x) => x.id === id.replace(/_fenster$/, ''));
+      expect(fenster?.datei.endsWith('_fenster.png')).toBe(true);
+      expect(fenster?.pixel.w).toBe(basis?.pixel.w);
+      expect(fenster?.pixel.h).toBe(basis?.pixel.h);
+      expect(fenster?.anker).toEqual(basis?.anker);
+    }
   });
 
   it('enthält Boden-Kacheln', () => {

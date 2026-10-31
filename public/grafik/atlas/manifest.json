@@ -15,8 +15,34 @@
       }
     },
     {
+      "id": "garten/e1/kern_s1_fenster",
+      "datei": "gebaeude/garten/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 316
+      }
+    },
+    {
       "id": "garten/e1/kern_s2",
       "datei": "gebaeude/garten/e1/kern_s2.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 332
+      }
+    },
+    {
+      "id": "garten/e1/kern_s2_fenster",
+      "datei": "gebaeude/garten/e1/kern_s2_fenster.png",
       "felder": [3, 3],
       "anker": {
         "x": 0.5,
@@ -41,8 +67,34 @@
       }
     },
     {
+      "id": "garten/e1/kern_s3_fenster",
+      "datei": "gebaeude/garten/e1/kern_s3_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 348
+      }
+    },
+    {
       "id": "garten/e1/werkstatt_s1",
       "datei": "gebaeude/garten/e1/werkstatt_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 198
+      }
+    },
+    {
+      "id": "garten/e1/werkstatt_s1_fenster",
+      "datei": "gebaeude/garten/e1/werkstatt_s1_fenster.png",
       "felder": [2, 2],
       "anker": {
         "x": 0.5,
@@ -67,8 +119,34 @@
       }
     },
     {
+      "id": "garten/e1/wissen_s1_fenster",
+      "datei": "gebaeude/garten/e1/wissen_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 212
+      }
+    },
+    {
       "id": "garten/e1/wissen_s2",
       "datei": "gebaeude/garten/e1/wissen_s2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 222
+      }
+    },
+    {
+      "id": "garten/e1/wissen_s2_fenster",
+      "datei": "gebaeude/garten/e1/wissen_s2_fenster.png",
       "felder": [2, 2],
       "anker": {
         "x": 0.5,
@@ -600,8 +678,34 @@
       }
     },
     {
+      "id": "dorf/e1/kern_s1_fenster",
+      "datei": "gebaeude/dorf/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 296
+      }
+    },
+    {
       "id": "dorf/e1/kern_s2",
       "datei": "gebaeude/dorf/e1/kern_s2.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 312
+      }
+    },
+    {
+      "id": "dorf/e1/kern_s2_fenster",
+      "datei": "gebaeude/dorf/e1/kern_s2_fenster.png",
       "felder": [3, 3],
       "anker": {
         "x": 0.5,
@@ -626,8 +730,34 @@
       }
     },
     {
+      "id": "dorf/e1/kern_s3_fenster",
+      "datei": "gebaeude/dorf/e1/kern_s3_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 328
+      }
+    },
+    {
       "id": "dorf/e1/werkstatt_s1",
       "datei": "gebaeude/dorf/e1/werkstatt_s1.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 202
+      }
+    },
+    {
+      "id": "dorf/e1/werkstatt_s1_fenster",
+      "datei": "gebaeude/dorf/e1/werkstatt_s1_fenster.png",
       "felder": [2, 2],
       "anker": {
         "x": 0.5,
@@ -652,8 +782,34 @@
       }
     },
     {
+      "id": "dorf/e1/wissen_s1_fenster",
+      "datei": "gebaeude/dorf/e1/wissen_s1_fenster.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 210
+      }
+    },
+    {
       "id": "dorf/e1/wissen_s2",
       "datei": "gebaeude/dorf/e1/wissen_s2.png",
+      "felder": [2, 2],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 200,
+        "h": 220
+      }
+    },
+    {
+      "id": "dorf/e1/wissen_s2_fenster",
+      "datei": "gebaeude/dorf/e1/wissen_s2_fenster.png",
       "felder": [2, 2],
       "anker": {
         "x": 0.5,
@@ -678,8 +834,34 @@
       }
     },
     {
+      "id": "dorf/e1/turm_s1_fenster",
+      "datei": "gebaeude/dorf/e1/turm_s1_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 210
+      }
+    },
+    {
       "id": "dorf/e1/turm_s2",
       "datei": "gebaeude/dorf/e1/turm_s2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 226
+      }
+    },
+    {
+      "id": "dorf/e1/turm_s2_fenster",
+      "datei": "gebaeude/dorf/e1/turm_s2_fenster.png",
       "felder": [1, 1],
       "anker": {
         "x": 0.5,

@@ -29,6 +29,7 @@ import {
   atlasBodenId,
   atlasEintrag,
   atlasEintragPerId,
+  atlasFensterId,
   atlasHimmelId,
   atlasLaubId,
   atlasLaden,
@@ -642,6 +643,35 @@ function schneeDachSprite(
   gebaeude.addChild(spr);
 }
 
+/**
+ * Abend-Fenster-Layer deckungsgleich auf dem Gebäude-Sprite
+ * (GRAFIK-SPRITES.md §3 `*_fenster.png`, GRAFIK.md §2 erleuchtete Fenster).
+ */
+function fensterAbendSprite(
+  gebaeude: Container,
+  thema: Thema,
+  epoche: number,
+  typ: GebaeudeTyp,
+  stufe: number,
+  pos: Position,
+  tiefe: number,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+): void {
+  const eintrag = atlasEintragPerId(manifest, atlasFensterId(thema, epoche, typ, stufe));
+  const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+  if (!eintrag || !tex) return;
+  const [bw, bt] = KATALOG[typ].groesse;
+  const fuss = punkt(pos.x + bw, pos.y + bt);
+  const spr = new Sprite(tex);
+  spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+  spr.width = eintrag.pixel.w / 2;
+  spr.height = eintrag.pixel.h / 2;
+  spr.position.set(fuss.x, fuss.y);
+  spr.zIndex = tiefe * 10 + 2;
+  gebaeude.addChild(spr);
+}
+
 /** Die Insel: Deckfläche mit Raster, zwei Seitentöne nach vorn */
 function insel(g: Graphics, f: Farben) {
   const { breite: W, tiefe: T } = bauplatzAktiv();
@@ -1196,6 +1226,19 @@ export async function buehneErstellen(
                 spr.position.set(fuss.x, fuss.y);
                 spr.zIndex = tiefe * 10;
                 gebaeude.addChild(spr);
+                if (farben.abend) {
+                  fensterAbendSprite(
+                    gebaeude,
+                    'dorf',
+                    epoche,
+                    x.typ,
+                    x.stufe,
+                    x.pos,
+                    tiefe,
+                    atlas,
+                    texturen,
+                  );
+                }
                 if (farben.jahreszeit === 'winter') {
                   schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
                 }
@@ -1271,6 +1314,19 @@ export async function buehneErstellen(
                 spr.position.set(fuss.x, fuss.y);
                 spr.zIndex = tiefe * 10;
                 gebaeude.addChild(spr);
+                if (farben.abend) {
+                  fensterAbendSprite(
+                    gebaeude,
+                    'garten',
+                    epoche,
+                    x.typ,
+                    x.stufe,
+                    x.pos,
+                    tiefe,
+                    atlas,
+                    texturen,
+                  );
+                }
                 if (farben.jahreszeit === 'winter') {
                   schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
                 }

@@ -2,3 +2,4 @@
 
 Dateien unter `gebaeude/garten/e1/`, `boden/garten/e1/`, `wesen/garten/`.
 Generator: `tools/grafik/sprites-p2-garten.py`. Siehe `GRAFIK-SPRITES.md` §8.
+Abend-Fenster: `*_fenster.png` für Kern, Werkstatt, Wissen.

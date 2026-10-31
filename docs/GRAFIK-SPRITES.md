@@ -1,6 +1,6 @@
 # Übergabeprotokoll – Sprites für Bastion
 
-Status: 31.10.2026 · P0 Dorf eingehängt · Für Bildagenten (Claude, Grok u. a.) und Einbau in PixiJS  
+Status: 31.10.2026 · P0/P2 eingehängt · Abend-Fenster-Layer Dorf/Garten · Für Bildagenten und Einbau in PixiJS  
 Bezug: `GRAFIK.md` §4/§6, B-28, B-27 · Raster: `src/ui/bastion/grafik/iso.ts` (Raute 48×24, Verhältnis 2∶1)
 
 Dieses Dokument ist die **verbindliche Bestellung**. Wer Sprites erzeugt, liefert genau diese Dateien, in dieser Benennung, ohne Kampffiguren und ohne erkennbare Übernahme aus Clash of Clans oder anderen Spielen.
@@ -191,7 +191,9 @@ Beispiel `manifest.json`-Eintrag:
 - **P0 (erledigt):** Manifest gefüllt, Dorf-Gebäude und Wesen nutzen Atlas-Texturen; `dorf.ts` bleibt Fallback (Bäume; Wiese nur wenn Boden-Kacheln fehlen)  
 - **Boden/Wiese Dorf (erledigt):** Atlas-Kacheln `flaeche`/`rand` (+ optional `flaeche_b`/`flaeche_hell`); Runtime legt die Wiese als Sprites, Code-`dorfWiese` nur noch Fallback; Abend per Tint  
 - **P1 Wetter-Himmel (erledigt):** `himmel/sonne|mond|wolke_*`, `wetter/*`, `auflage/schnee_dach_*` und `laub_*`; Bühne nutzt Atlas für Gestirn, Wolken, Partikel, Nebel und Winter-Dachauflage (Code-Fallback bleibt)  
-- Als Nächstes: **P2** Garten-Sprites  
+- **P2 (erledigt):** Garten-Gebäude, Rasen, Wesen im Atlas  
+- **Abend-Fenster / Politur (erledigt):** `*_fenster.png` für Dorf (Kern/Werkstatt/Wissen/Turm) und Garten (Kern/Werkstatt/Wissen); Runtime legt sie am Abend deckungsgleich über das Tages-Sprite; Tages-Politur (Rahmen, Sims, Silhouette)  
+- Als Nächstes: **P3** Bastion/Unterwasser/Weltraum  
 
 
 ---

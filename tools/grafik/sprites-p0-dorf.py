@@ -2,6 +2,7 @@
 """
 Deterministischer Generator für Sprite-Charge P0 (Dorf, Epoche 1).
 Ausgabe unter public/grafik/atlas/ nach GRAFIK-SPRITES.md.
+Inkl. Politur und Abend-Fenster-Layer (*_fenster.png) für Gebäude mit Fenstern.
 Keine Laufzeitabhängigkeit der App – nur Offline-Erzeugung (Pillow).
 Aufruf: python3 tools/grafik/sprites-p0-dorf.py
 """
@@ -106,12 +107,14 @@ def kasten(
     mid = ((oben_n[0] + oben_s[0]) / 2, (oben_n[1] + oben_s[1]) / 2)
     poly(draw, [oben_n, oben_e, mid], shade(dach, 28))
     poly(draw, [oben_n, oben_w, mid], shade(dach, 10))
-    # Kontur
+    # Kontur Dach + Wandkanten (Politur: knackige Silhouette)
     draw.line(
         [tuple(map(round, p)) for p in dach_pts + [dach_pts[0]]],
         fill=KONTUR,
-        width=1,
+        width=2,
     )
+    draw.line([tuple(map(round, p)) for p in (w, s, oben_s, oben_w, w)], fill=KONTUR, width=1)
+    draw.line([tuple(map(round, p)) for p in (s, e, oben_e, oben_s, s)], fill=KONTUR, width=1)
     # Stufen-Punkte (wie Code-Fallback)
     if stufe > 1:
         for i in range(stufe):
@@ -127,9 +130,75 @@ def kasten(
     return oben_n[1]
 
 
-def fenster(draw: ImageDraw.ImageDraw, x: float, y: float, *, abend: bool = False) -> None:
-    fill = hex_rgb("#FFC85A") if abend else hex_rgb("#3a2a16")
-    draw.rectangle([x - 4, y - 5, x + 4, y + 5], fill=fill, outline=KONTUR)
+# Tagesfenster (dunkel) und Abendlicht (warm) – GRAFIK.md §2 / GRAFIK-SPRITES.md §1
+FENSTER_TAG = "#3a2a16"
+FENSTER_ABEND = "#FFC85A"
+FENSTER_ABEND_KERN = "#FFF0B8"
+FENSTER_RAHMEN = "#6d5438"
+
+
+def fenster(
+    draw: ImageDraw.ImageDraw,
+    x: float,
+    y: float,
+    *,
+    abend: bool = False,
+    glow: bool = False,
+) -> None:
+    """Ein Fenster mit Rahmen und Sims; am Abend warm leuchtend (ggf. weicher Schein)."""
+    if abend and glow:
+        # weicher Schein hinter dem Glas (nur Overlay)
+        draw.ellipse(
+            [x - 9, y - 10, x + 9, y + 10],
+            fill=(255, 200, 90, 55),
+        )
+    fill = hex_rgb(FENSTER_ABEND if abend else FENSTER_TAG)
+    # Rahmen
+    draw.rectangle(
+        [x - 5, y - 6, x + 5, y + 6],
+        fill=hex_rgb(FENSTER_RAHMEN),
+        outline=KONTUR,
+    )
+    # Glas
+    draw.rectangle([x - 3, y - 4, x + 3, y + 4], fill=fill)
+    if abend:
+        # heller Kern oben links
+        draw.rectangle(
+            [x - 2, y - 3, x, y - 1],
+            fill=hex_rgb(FENSTER_ABEND_KERN),
+        )
+    # Kreuzsprosse
+    draw.line([(x, y - 4), (x, y + 4)], fill=hex_rgb(FENSTER_RAHMEN), width=1)
+    draw.line([(x - 3, y), (x + 3, y)], fill=hex_rgb(FENSTER_RAHMEN), width=1)
+    # Sims
+    draw.line([(x - 6, y + 7), (x + 6, y + 7)], fill=hex_rgb(FENSTER_RAHMEN), width=2)
+
+
+def fenster_layer(
+    w: int,
+    h: int,
+    punkte: list[tuple[float, float]],
+) -> Image.Image:
+    """Deckungsgleicher Abend-Overlay: nur leuchtende Fenster (GRAFIK-SPRITES.md §3)."""
+    img = new_img(w, h)
+    d = ImageDraw.Draw(img)
+    for x, y in punkte:
+        fenster(d, x, y, abend=True, glow=True)
+    return img
+
+
+def tuer(draw: ImageDraw.ImageDraw, x: float, y: float, *, breite: float = 10, hoehe: float = 18) -> None:
+    """Einfache Holztür an der Südwand – Politur, Lesbarkeit in klein."""
+    draw.rectangle(
+        [x - breite / 2, y - hoehe, x + breite / 2, y],
+        fill=hex_rgb(HOLZ_DUNKEL),
+        outline=KONTUR,
+    )
+    draw.rectangle(
+        [x - breite / 2 + 2, y - hoehe + 2, x + breite / 2 - 2, y - 2],
+        fill=hex_rgb(HOLZ),
+    )
+    draw.ellipse([x + breite / 2 - 4, y - hoehe / 2 - 1, x + breite / 2 - 1, y - hoehe / 2 + 2], fill=hex_rgb("#f0c14a"))
 
 
 def fahne(draw: ImageDraw.ImageDraw, x: float, y: float) -> None:
@@ -210,6 +279,23 @@ def canvas_for(felder: tuple[int, int], extra_h: int) -> tuple[int, int, float, 
     return w, h, cx, fuss, bw, bh
 
 
+def save_fenster(
+    w: int,
+    h: int,
+    punkte: list[tuple[float, float]],
+    rel_basis: str,
+    id_basis: str,
+    felder: tuple[int, int],
+    eintraege: list[dict],
+) -> None:
+    """Abend-Layer neben dem Tages-Sprite speichern (gleiche Pixelgröße)."""
+    if not punkte:
+        return
+    layer = fenster_layer(w, h, punkte)
+    rel = rel_basis.replace(".png", "_fenster.png")
+    save(layer, rel, eintraege, id_=f"{id_basis}_fenster", felder=felder)
+
+
 def gebaeude_kern(stufe: int, eintraege: list[dict]) -> None:
     felder = (3, 3)
     w, h, cx, fuss, bw, bh = canvas_for(felder, 120 + stufe * 16)
@@ -218,11 +304,19 @@ def gebaeude_kern(stufe: int, eintraege: list[dict]) -> None:
     hoehe = 70 + (stufe - 1) * 16
     top = kasten(d, cx, fuss, bw, bh, hoehe, WAND, DACH_DUNKEL, stufe=stufe)
     # Fenster an den sichtbaren Seiten
-    fenster(d, cx - bw * 0.18, fuss - bh * 0.35 - hoehe * 0.4)
-    fenster(d, cx + bw * 0.18, fuss - bh * 0.35 - hoehe * 0.4)
+    fenster_pts: list[tuple[float, float]] = [
+        (cx - bw * 0.18, fuss - bh * 0.35 - hoehe * 0.4),
+        (cx + bw * 0.18, fuss - bh * 0.35 - hoehe * 0.4),
+    ]
     if stufe >= 2:
-        fenster(d, cx - bw * 0.12, fuss - bh * 0.28 - hoehe * 0.65)
-        fenster(d, cx + bw * 0.12, fuss - bh * 0.28 - hoehe * 0.65)
+        fenster_pts += [
+            (cx - bw * 0.12, fuss - bh * 0.28 - hoehe * 0.65),
+            (cx + bw * 0.12, fuss - bh * 0.28 - hoehe * 0.65),
+        ]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
+    # Tür zur Südwand (Politur)
+    tuer(d, cx, fuss - bh * 0.22, breite=14, hoehe=22)
     fahne(d, cx, top + 8)
     # kleine Anbauten ab Stufe 3
     if stufe >= 3:
@@ -231,7 +325,10 @@ def gebaeude_kern(stufe: int, eintraege: list[dict]) -> None:
             diamond(cx + bw * 0.28, fuss - 8, bw * 0.35, bh * 0.35),
             shade(WAND, -20),
         )
-    save(img, f"gebaeude/dorf/e1/kern_s{stufe}.png", eintraege, id_=f"dorf/e1/kern_s{stufe}", felder=felder)
+    id_ = f"dorf/e1/kern_s{stufe}"
+    rel = f"gebaeude/dorf/e1/kern_s{stufe}.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_werkstatt(eintraege: list[dict]) -> None:
@@ -240,10 +337,18 @@ def gebaeude_werkstatt(eintraege: list[dict]) -> None:
     img = new_img(w, h)
     d = ImageDraw.Draw(img)
     top = kasten(d, cx, fuss, bw, bh, 52, HOLZ, HOLZ_HELL)
-    fenster(d, cx - bw * 0.15, fuss - bh * 0.3 - 28)
-    fenster(d, cx + bw * 0.15, fuss - bh * 0.3 - 28)
+    fenster_pts = [
+        (cx - bw * 0.15, fuss - bh * 0.3 - 28),
+        (cx + bw * 0.15, fuss - bh * 0.3 - 28),
+    ]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
+    tuer(d, cx, fuss - bh * 0.18, breite=12, hoehe=18)
     saege(d, cx, top + 10)
-    save(img, "gebaeude/dorf/e1/werkstatt_s1.png", eintraege, id_="dorf/e1/werkstatt_s1", felder=felder)
+    id_ = "dorf/e1/werkstatt_s1"
+    rel = "gebaeude/dorf/e1/werkstatt_s1.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_wissen(stufe: int, eintraege: list[dict]) -> None:
@@ -253,10 +358,18 @@ def gebaeude_wissen(stufe: int, eintraege: list[dict]) -> None:
     d = ImageDraw.Draw(img)
     hoehe = 48 + (stufe - 1) * 10
     top = kasten(d, cx, fuss, bw, bh, hoehe, "#efe6d4", WISSEN_DACH, stufe=stufe)
-    fenster(d, cx - bw * 0.14, fuss - bh * 0.3 - hoehe * 0.45)
-    fenster(d, cx + bw * 0.14, fuss - bh * 0.3 - hoehe * 0.45)
+    fenster_pts = [
+        (cx - bw * 0.14, fuss - bh * 0.3 - hoehe * 0.45),
+        (cx + bw * 0.14, fuss - bh * 0.3 - hoehe * 0.45),
+    ]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
+    tuer(d, cx, fuss - bh * 0.18, breite=11, hoehe=16)
     buch(d, cx, top + 12)
-    save(img, f"gebaeude/dorf/e1/wissen_s{stufe}.png", eintraege, id_=f"dorf/e1/wissen_s{stufe}", felder=felder)
+    id_ = f"dorf/e1/wissen_s{stufe}"
+    rel = f"gebaeude/dorf/e1/wissen_s{stufe}.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_turm(stufe: int, eintraege: list[dict]) -> None:
@@ -267,10 +380,17 @@ def gebaeude_turm(stufe: int, eintraege: list[dict]) -> None:
     hoehe = 78 + (stufe - 1) * 16
     # schmaler Turmkörper
     top = kasten(d, cx, fuss, bw * 0.85, bh * 0.85, hoehe, "#e4d2a8", DACH_DUNKEL, stufe=stufe)
-    fenster(d, cx - 8, fuss - bh * 0.25 - hoehe * 0.35)
-    fenster(d, cx + 8, fuss - bh * 0.25 - hoehe * 0.55)
+    fenster_pts = [
+        (cx - 8, fuss - bh * 0.25 - hoehe * 0.35),
+        (cx + 8, fuss - bh * 0.25 - hoehe * 0.55),
+    ]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
     fluegel(d, cx, top + 6)
-    save(img, f"gebaeude/dorf/e1/turm_s{stufe}.png", eintraege, id_=f"dorf/e1/turm_s{stufe}", felder=felder)
+    id_ = f"dorf/e1/turm_s{stufe}"
+    rel = f"gebaeude/dorf/e1/turm_s{stufe}.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_eingang(eintraege: list[dict]) -> None:
@@ -363,9 +483,14 @@ def gebaeude_denkmal(eintraege: list[dict]) -> None:
     d = ImageDraw.Draw(img)
     cx, fuss = w / 2, h - 6
     kasten(d, cx, fuss, 70, 35, 18, STEIN, STEIN)
+    # Sockel-Rand (Politur)
+    poly(d, diamond(cx, fuss - 20, 54, 24), shade(STEIN, 18))
     # Figur
-    d.rectangle([cx - 8, fuss - 70, cx + 8, fuss - 28], fill=hex_rgb(WAND))
-    d.ellipse([cx - 12, fuss - 92, cx + 12, fuss - 68], fill=hex_rgb(WAND_HELL))
+    d.rectangle([cx - 8, fuss - 70, cx + 8, fuss - 28], fill=hex_rgb(WAND), outline=KONTUR)
+    d.ellipse([cx - 12, fuss - 92, cx + 12, fuss - 68], fill=hex_rgb(WAND_HELL), outline=KONTUR)
+    # Schultern
+    d.ellipse([cx - 16, fuss - 62, cx - 4, fuss - 50], fill=hex_rgb(WAND))
+    d.ellipse([cx + 4, fuss - 62, cx + 16, fuss - 50], fill=hex_rgb(WAND))
     save(img, "gebaeude/dorf/e1/denkmal_s1.png", eintraege, id_="dorf/e1/denkmal_s1", felder=felder)
 
 
