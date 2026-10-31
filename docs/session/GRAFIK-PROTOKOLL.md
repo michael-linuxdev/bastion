@@ -27,3 +27,4 @@
 | 31.10.2026 | **Docs-Abgleich:** SESSION/PLAN/GRAFIK/SPRITES an Ist-Stand (G0–G11, P0–P6, CC0 erledigt; kein „nächster = G2“); optional Feinschliff klar |
 | 31.10.2026 | **Feinschliff P3–P6:** Laub/Schnee-Dach nur Land; Hinterhof Umbruch+nur im Hinterhof-Blick; Bastion-Kern Firstkappe |
 | 31.10.2026 | **Üben Ein-/Ausgabe:** Feedback-Schichtung, Antwortspiegel, Steine, Tipp-Notiz, Schrittweg-Checkliste, Tastatur angebunden (Lern-UI §9, Spec P0–P1) |
+| 31.10.2026 | **App-Icon:** Bastion-Silhouette Favicon/PWA (`icon.svg`, 192/512/maskable/apple/favicon-32); Generator `tools/grafik/icons-erzeugen.py` |
