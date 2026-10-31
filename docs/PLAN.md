@@ -1,6 +1,6 @@
 # Bastion – Plan
 
-Status: v0.3 · Stand: 29.10.2026
+Status: v0.3 · Stand: 31.10.2026
 Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12: `STRATEGIE.md`.** Dieses Dokument enthält nur **Stand und Aufgaben**.
 
 ---
@@ -9,11 +9,12 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 
 | | |
 |---|---|
-| Aktuelle Phase | **0 – Fundament** |
+| Aktuelle Phase | **Variante A, Unterrichtsersatz** (Arbeitsplan §4b; die Phasen in §2 gelten weiter für Basebau und Inhalte) |
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
-| Nächster Schritt | Fragen in `VERMITTLUNG.md` §8 klären, dann Format für Erstvermittlung und Fehlerkatalog festlegen (§4b, Schritt U1) |
-| Blocker | keine |
+| Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
+| Nächster Schritt | Musterfeld Brüche fachlich prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 1 und 2 setzen; dann U4b, der Test mit drei Lernenden (§4b, `SESSION-PROMPT.md`) |
+| Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
 
@@ -250,6 +251,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 31.10.2026 | **Plan §1 aufgeräumt:** Stand nach U5c, nächster Schritt Prüfung des Musterfelds und U4b; Übergabe im Session-Prompt |
 | 31.10.2026 | **Formeldarstellung, Schritt 1:** Zeichen in Klasse 5–8 ausgewertet; Brüche als Antwortmöglichkeit zeigten `\frac` als Text, die eigene Teilmenge kann jetzt `\frac{…}{…}`; KaTeX bleibt bis Klasse 9 unnötig |
 | 31.10.2026 | **Eigene Tastatur:** Ziffern, Komma, Minus, Bruchstrich, Variablen und Einheiten je Aufgabe; dieselbe in Üben, Zwischenschritten und Erstvermittlung; ±-Knopf entfernt (INHALTSFORMAT §5.2) |
 | 31.10.2026 | **Zwischenschritte gleichnamig:** Addieren und Subtrahieren gleichnamiger Brüche zeigt nach einem Fehler die Schritte „Zähler verrechnen“ und „Kürzen“; Vorlagen dürfen eine Auswahl der Generator-Schritte nehmen (INHALTSFORMAT §17) |
