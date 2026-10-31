@@ -13,7 +13,9 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Erledigt | `VISION.md`, `KONZEPT.md` v0.2, `ARCHITEKTUR.md` v0.2, `BASEBAU.md` v0.1, `LEHRPLAN.md` v0.1, `INHALTSFORMAT.md` v0.1, `DATENMODELL.md` v0.2 (Entwürfe; DATENMODELL bestätigt), `PLAN.md`, `SESSION-PROMPT.md`; Repository angelegt; `LICENSE`; technisches Gerüst 0.7–0.9; Scope-Entscheidung K-11 bis K-13 (`STRATEGIE.md`) |
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
-| Nächster Schritt | Musterfeld Brüche fachlich prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 1 und 2 setzen; dann U4b, der Test mit drei Lernenden (§4b, `SESSION-PROMPT.md`) |
+| Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
+| Nächster Schritt Lernkern | Musterfeld Brüche fachlich prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 1 und 2 setzen; dann U4b, der Test mit drei Lernenden |
+| Nächster Schritt Grafik | G0–G11 erledigt (B-28); Sprites einhängen (`GRAFIK-SPRITES.md` P0), Messung auf dem iPhone 13 (`docs/session/GRAFIK.md`) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -248,6 +250,8 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
 ## 5. Änderungsprotokoll
+
+**Seit 31.10.2026** führt jeder Strang sein Protokoll in seiner Datei (`docs/session/LERNKERN.md`, `docs/session/GRAFIK.md`). Diese Tabelle bekommt keine neuen Zeilen mehr; so stoßen parallele PRs nicht an derselben Stelle zusammen.
 
 | Datum | Änderung |
 |---|---|

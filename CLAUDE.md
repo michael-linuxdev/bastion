@@ -1,7 +1,8 @@
 # CLAUDE.md – Arbeitsregeln für Claude Code in Bastion
 
 ## Zuerst lesen
-1. `docs/SESSION-PROMPT.md` – aktueller Auftrag und letzter Stand
+1. `docs/SESSION-PROMPT.md` – gemeinsamer Teil, Regeln für parallele Stränge
+   und danach die Datei des eigenen Strangs: `docs/session/LERNKERN.md` oder `docs/session/GRAFIK.md` – aktueller Auftrag und letzter Stand
 2. `docs/VISION.md` §3 und §9 – die vier Kernaufgaben (Qualitätskriterien), Grundprinzipien und Design-Regeln R1–R7
 3. Die im Auftrag genannten Dokumente in `docs/`
 
@@ -27,5 +28,6 @@ Bei Widerspruch zwischen Code und Dokumenten: nachfragen, nicht raten.
 - **Vor dem Commit:** `pnpm lint`, `pnpm test`, `pnpm build` müssen grün sein.
 - **Erkläre jede Änderung in einfachem Deutsch:** Was wurde geändert, warum, wie kann ich es selbst ausprobieren? Der Projektverantwortliche ist kein Framework-Experte.
 - **Dokumente im selben Commit aktualisieren**, wenn sich Verhalten, Struktur oder Entscheidungen ändern.
-- **Am Ende jeder Sitzung:** `docs/SESSION-PROMPT.md` und `docs/PLAN.md` aktualisieren.
+- **Am Ende jeder Sitzung:** die Datei des eigenen Strangs (`docs/session/…`) und den eigenen Abschnitt von `docs/PLAN.md` aktualisieren. `docs/SESSION-PROMPT.md` nur bei Änderungen für alle Stränge.
+- **Parallele Stränge:** nur im eigenen Bereich ändern (Tabelle in `docs/SESSION-PROMPT.md`), Branch-Namen `lernkern/…` oder `grafik/…`.
 - Commit-Nachrichten auf Deutsch, im Präsens, mit Aufgaben-Nummer: `0.7: Projektgerüst mit Vite und Svelte 5 anlegen`.
