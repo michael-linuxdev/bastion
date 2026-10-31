@@ -54,6 +54,16 @@ export function atlasId(thema: Thema, epoche: number, rolle: GebaeudeTyp, stufe:
   return `${thema}/e${epoche}/${rolle}_s${stufe}`;
 }
 
+/** Abend-Fenster-Overlay nach GRAFIK-SPRITES.md §3 (`*_fenster.png`). */
+export function atlasFensterId(
+  thema: Thema,
+  epoche: number,
+  rolle: GebaeudeTyp,
+  stufe: number,
+): string {
+  return `${atlasId(thema, epoche, rolle, stufe)}_fenster`;
+}
+
 /** Eintrag suchen oder undefined → Code zeichnen. */
 export function atlasEintrag(
   manifest: AtlasManifest | null,

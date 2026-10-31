@@ -2,6 +2,7 @@
 """
 Deterministischer Generator für Sprite-Charge P2 (Garten, Epoche 1).
 Ausgabe unter public/grafik/atlas/ nach GRAFIK-SPRITES.md.
+Inkl. Politur und Abend-Fenster-Layer (*_fenster.png) für Hütte/Schuppen/Gewächshaus.
 Keine Laufzeitabhängigkeit der App – nur Offline-Erzeugung (Pillow).
 Aufruf: python3 tools/grafik/sprites-p2-garten.py
 Stil: Richtung A „Tag, warm“, fortgesetzt vom Dorf (P0) – grüner, blumiger.
@@ -148,9 +149,65 @@ def stamm(draw: ImageDraw.ImageDraw, x: float, y: float, h: float, s: float = 1.
     )
 
 
-def fenster(draw: ImageDraw.ImageDraw, x: float, y: float, *, glas: bool = False) -> None:
-    fill = hex_rgb(GLAS) if glas else hex_rgb("#3a2a16")
-    draw.rectangle([x - 4, y - 5, x + 4, y + 5], fill=fill, outline=KONTUR)
+FENSTER_TAG = "#3a2a16"
+FENSTER_ABEND = "#FFC85A"
+FENSTER_ABEND_KERN = "#FFF0B8"
+FENSTER_RAHMEN = "#5c4030"
+
+
+def fenster(
+    draw: ImageDraw.ImageDraw,
+    x: float,
+    y: float,
+    *,
+    glas: bool = False,
+    abend: bool = False,
+    glow: bool = False,
+) -> None:
+    """Fenster mit Rahmen; am Abend warm (Overlay) – GRAFIK-SPRITES.md §1/§3."""
+    if abend and glow:
+        draw.ellipse([x - 9, y - 10, x + 9, y + 10], fill=(255, 200, 90, 55))
+    if abend:
+        fill = hex_rgb(FENSTER_ABEND)
+    elif glas:
+        fill = hex_rgb(GLAS)
+    else:
+        fill = hex_rgb(FENSTER_TAG)
+    draw.rectangle(
+        [x - 5, y - 6, x + 5, y + 6],
+        fill=hex_rgb(FENSTER_RAHMEN),
+        outline=KONTUR,
+    )
+    draw.rectangle([x - 3, y - 4, x + 3, y + 4], fill=fill)
+    if abend:
+        draw.rectangle([x - 2, y - 3, x, y - 1], fill=hex_rgb(FENSTER_ABEND_KERN))
+    draw.line([(x, y - 4), (x, y + 4)], fill=hex_rgb(FENSTER_RAHMEN), width=1)
+    draw.line([(x - 3, y), (x + 3, y)], fill=hex_rgb(FENSTER_RAHMEN), width=1)
+    draw.line([(x - 6, y + 7), (x + 6, y + 7)], fill=hex_rgb(FENSTER_RAHMEN), width=2)
+
+
+def fenster_layer(w: int, h: int, punkte: list[tuple[float, float]]) -> Image.Image:
+    img = new_img(w, h)
+    d = ImageDraw.Draw(img)
+    for x, y in punkte:
+        fenster(d, x, y, abend=True, glow=True)
+    return img
+
+
+def save_fenster(
+    w: int,
+    h: int,
+    punkte: list[tuple[float, float]],
+    rel_basis: str,
+    id_basis: str,
+    felder: tuple[int, int],
+    eintraege: list[dict],
+) -> None:
+    if not punkte:
+        return
+    layer = fenster_layer(w, h, punkte)
+    rel = rel_basis.replace(".png", "_fenster.png")
+    save(layer, rel, eintraege, id_=f"{id_basis}_fenster", felder=felder)
 
 
 def wimpel(draw: ImageDraw.ImageDraw, x: float, y: float) -> None:
@@ -213,14 +270,21 @@ def gebaeude_kern(stufe: int, eintraege: list[dict]) -> None:
     laubkrone(d, cx - bw * 0.12, fuss - 90 - stufe * 6, 1.4 + stufe * 0.1)
     laubkrone(d, cx + bw * 0.18, fuss - 95 - stufe * 6, 1.15)
     top = kasten(d, cx, fuss - 28, bw * 0.55, bh * 0.55, hoehe, HOLZ, DACH_GRUEN, stufe=stufe)
-    fenster(d, cx - bw * 0.08, fuss - 28 - bh * 0.2 - hoehe * 0.4)
-    fenster(d, cx + bw * 0.08, fuss - 28 - bh * 0.2 - hoehe * 0.4)
+    fenster_pts = [
+        (cx - bw * 0.08, fuss - 28 - bh * 0.2 - hoehe * 0.4),
+        (cx + bw * 0.08, fuss - 28 - bh * 0.2 - hoehe * 0.4),
+    ]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
     if stufe >= 2:
         # Seil / Leiter
         d.line([(cx - 20, fuss - 10), (cx - 8, top + 20)], fill=hex_rgb(HOLZ_HELL), width=2)
     if stufe >= 3:
         wimpel(d, cx + 6, top + 4)
-    save(img, f"gebaeude/garten/e1/kern_s{stufe}.png", eintraege, id_=f"garten/e1/kern_s{stufe}", felder=felder)
+    id_ = f"garten/e1/kern_s{stufe}"
+    rel = f"gebaeude/garten/e1/kern_s{stufe}.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_werkstatt(eintraege: list[dict]) -> None:
@@ -230,13 +294,18 @@ def gebaeude_werkstatt(eintraege: list[dict]) -> None:
     img = new_img(w, h)
     d = ImageDraw.Draw(img)
     top = kasten(d, cx, fuss, bw, bh, 48, HOLZ_HELL, "#6b5340")
-    fenster(d, cx - bw * 0.14, fuss - bh * 0.3 - 26)
+    fenster_pts = [(cx - bw * 0.14, fuss - bh * 0.3 - 26)]
+    for px, py in fenster_pts:
+        fenster(d, px, py)
     # Rechen an der Wand
     d.line([(cx + bw * 0.22, top + 8), (cx + bw * 0.22, fuss - 12)], fill=hex_rgb("#f4efe4"), width=2)
     for i in range(4):
         yy = top + 14 + i * 6
         d.line([(cx + bw * 0.16, yy), (cx + bw * 0.28, yy)], fill=hex_rgb("#c4b29a"), width=1)
-    save(img, "gebaeude/garten/e1/werkstatt_s1.png", eintraege, id_="garten/e1/werkstatt_s1", felder=felder)
+    id_ = "garten/e1/werkstatt_s1"
+    rel = "gebaeude/garten/e1/werkstatt_s1.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_wissen(stufe: int, eintraege: list[dict]) -> None:
@@ -253,9 +322,21 @@ def gebaeude_wissen(stufe: int, eintraege: list[dict]) -> None:
     # Pflanzen innen (Punkte)
     for ox, oy, f in ((-12, -18, BLUME_ROSA), (10, -22, BLUME_GELB), (0, -14, BLATT_HELL)):
         d.ellipse([cx + ox - 3, fuss - bh * 0.25 + oy - 3, cx + ox + 3, fuss - bh * 0.25 + oy + 3], fill=hex_rgb(f))
+    # Seitenfenster + ab Stufe 2 Dachluke (Abend-Overlay deckungsgleich)
+    fenster_pts: list[tuple[float, float]] = [
+        (cx - bw * 0.16, fuss - bh * 0.28 - hoehe * 0.4),
+        (cx + bw * 0.16, fuss - bh * 0.28 - hoehe * 0.4),
+    ]
+    for px, py in fenster_pts:
+        fenster(d, px, py, glas=True)
     if stufe >= 2:
-        fenster(d, cx, top + 18, glas=True)
-    save(img, f"gebaeude/garten/e1/wissen_s{stufe}.png", eintraege, id_=f"garten/e1/wissen_s{stufe}", felder=felder)
+        luke = (cx, top + 18)
+        fenster_pts.append(luke)
+        fenster(d, luke[0], luke[1], glas=True)
+    id_ = f"garten/e1/wissen_s{stufe}"
+    rel = f"gebaeude/garten/e1/wissen_s{stufe}.png"
+    save(img, rel, eintraege, id_=id_, felder=felder)
+    save_fenster(w, h, fenster_pts, rel, id_, felder, eintraege)
 
 
 def gebaeude_turm(stufe: int, eintraege: list[dict]) -> None:

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   atlasBodenId,
   atlasEintrag,
+  atlasFensterId,
   atlasHimmelId,
   atlasId,
   atlasLaubId,
@@ -12,6 +13,8 @@ import {
 describe('atlas', () => {
   it('bildet stabile IDs nach GRAFIK-SPRITES', () => {
     expect(atlasId('dorf', 1, 'kern', 2)).toBe('dorf/e1/kern_s2');
+    expect(atlasFensterId('dorf', 1, 'kern', 2)).toBe('dorf/e1/kern_s2_fenster');
+    expect(atlasFensterId('garten', 1, 'wissen', 1)).toBe('garten/e1/wissen_s1_fenster');
     expect(atlasBodenId('dorf', 1, 'flaeche')).toBe('boden/dorf/e1/flaeche');
     expect(atlasBodenId('dorf', 1, 'rand')).toBe('boden/dorf/e1/rand');
     expect(atlasBodenId('dorf', 1, 'flaeche_hell')).toBe('boden/dorf/e1/flaeche_hell');

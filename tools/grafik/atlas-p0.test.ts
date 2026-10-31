@@ -32,6 +32,18 @@ const P0_BODEN = [
   'boden/dorf/e1/flaeche_hell',
 ] as const;
 
+/** Abend-Fenster-Layer für Gebäude mit Fenstern (GRAFIK-SPRITES.md §3). */
+const P0_FENSTER = [
+  'dorf/e1/kern_s1_fenster',
+  'dorf/e1/kern_s2_fenster',
+  'dorf/e1/kern_s3_fenster',
+  'dorf/e1/werkstatt_s1_fenster',
+  'dorf/e1/wissen_s1_fenster',
+  'dorf/e1/wissen_s2_fenster',
+  'dorf/e1/turm_s1_fenster',
+  'dorf/e1/turm_s2_fenster',
+] as const;
+
 describe('atlas P0 Dorf', () => {
   const roh = readFileSync(resolve('public/grafik/atlas/manifest.json'), 'utf8');
   const manifest = JSON.parse(roh) as AtlasManifest;
@@ -52,6 +64,19 @@ describe('atlas P0 Dorf', () => {
       expect(e?.pixel.h).toBeGreaterThan(0);
     }
     expect(atlasEintrag(manifest, 'dorf', 1, 'kern', 1)?.datei).toContain('kern_s1');
+  });
+
+  it('enthält Abend-Fenster-Layer deckungsgleich zu den Gebäude-Sprites', () => {
+    for (const id of P0_FENSTER) {
+      expect(ids.has(id), id).toBe(true);
+      const fenster = manifest.eintraege.find((x) => x.id === id);
+      const basisId = id.replace(/_fenster$/, '');
+      const basis = manifest.eintraege.find((x) => x.id === basisId);
+      expect(fenster?.datei.endsWith('_fenster.png')).toBe(true);
+      expect(fenster?.pixel.w).toBe(basis?.pixel.w);
+      expect(fenster?.pixel.h).toBe(basis?.pixel.h);
+      expect(fenster?.anker).toEqual(basis?.anker);
+    }
   });
 
   it('enthält Boden-Kacheln', () => {
