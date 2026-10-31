@@ -127,6 +127,18 @@ export function atlasLaubId(n: 1 | 2 | 3): string {
   return `auflage/laub_${n}`;
 }
 
+/** Hinterhof-Platz/Wappen/Denkmal (P4, GRAFIK-SPRITES.md §7). */
+export type HinterhofTeil = 'platz_g' | 'platz_m' | 'platz_offen' | 'wappen_voll' | 'denkmal_voll';
+
+export function atlasHinterhofId(thema: Thema, teil: HinterhofTeil): string {
+  return `hinterhof/${thema}/${teil}`;
+}
+
+/** MiniBastion-Standbild (P4). */
+export function atlasMinibatId(thema: Thema): string {
+  return `minibat/${thema}/standbild`;
+}
+
 /** Basis-URL der Atlas-Dateien (eigene App-Adresse). */
 export function atlasBasisUrl(): string {
   return `${import.meta.env.BASE_URL}grafik/atlas/`;

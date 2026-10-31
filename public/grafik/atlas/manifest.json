@@ -2,6 +2,396 @@
   "version": 1,
   "eintraege": [
     {
+      "id": "hinterhof/bastion/platz_offen",
+      "datei": "hinterhof/bastion/platz_offen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/bastion/platz_g",
+      "datei": "hinterhof/bastion/platz_g.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/bastion/platz_m",
+      "datei": "hinterhof/bastion/platz_m.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/bastion/wappen_voll",
+      "datei": "hinterhof/bastion/wappen_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 96
+      }
+    },
+    {
+      "id": "hinterhof/bastion/denkmal_voll",
+      "datei": "hinterhof/bastion/denkmal_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 100
+      }
+    },
+    {
+      "id": "minibat/bastion/standbild",
+      "datei": "minibat/bastion/standbild.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 960,
+        "h": 480
+      }
+    },
+    {
+      "id": "hinterhof/garten/platz_offen",
+      "datei": "hinterhof/garten/platz_offen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/garten/platz_g",
+      "datei": "hinterhof/garten/platz_g.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/garten/platz_m",
+      "datei": "hinterhof/garten/platz_m.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/garten/wappen_voll",
+      "datei": "hinterhof/garten/wappen_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 96
+      }
+    },
+    {
+      "id": "hinterhof/garten/denkmal_voll",
+      "datei": "hinterhof/garten/denkmal_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 100
+      }
+    },
+    {
+      "id": "minibat/garten/standbild",
+      "datei": "minibat/garten/standbild.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 960,
+        "h": 480
+      }
+    },
+    {
+      "id": "hinterhof/weltraum/platz_offen",
+      "datei": "hinterhof/weltraum/platz_offen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/weltraum/platz_g",
+      "datei": "hinterhof/weltraum/platz_g.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/weltraum/platz_m",
+      "datei": "hinterhof/weltraum/platz_m.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/weltraum/wappen_voll",
+      "datei": "hinterhof/weltraum/wappen_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 96
+      }
+    },
+    {
+      "id": "hinterhof/weltraum/denkmal_voll",
+      "datei": "hinterhof/weltraum/denkmal_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 100
+      }
+    },
+    {
+      "id": "minibat/weltraum/standbild",
+      "datei": "minibat/weltraum/standbild.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 960,
+        "h": 480
+      }
+    },
+    {
+      "id": "hinterhof/dorf/platz_offen",
+      "datei": "hinterhof/dorf/platz_offen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/dorf/platz_g",
+      "datei": "hinterhof/dorf/platz_g.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/dorf/platz_m",
+      "datei": "hinterhof/dorf/platz_m.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/dorf/wappen_voll",
+      "datei": "hinterhof/dorf/wappen_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 96
+      }
+    },
+    {
+      "id": "hinterhof/dorf/denkmal_voll",
+      "datei": "hinterhof/dorf/denkmal_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 100
+      }
+    },
+    {
+      "id": "minibat/dorf/standbild",
+      "datei": "minibat/dorf/standbild.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 960,
+        "h": 480
+      }
+    },
+    {
+      "id": "hinterhof/unterwasser/platz_offen",
+      "datei": "hinterhof/unterwasser/platz_offen.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/unterwasser/platz_g",
+      "datei": "hinterhof/unterwasser/platz_g.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/unterwasser/platz_m",
+      "datei": "hinterhof/unterwasser/platz_m.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "hinterhof/unterwasser/wappen_voll",
+      "datei": "hinterhof/unterwasser/wappen_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 96
+      }
+    },
+    {
+      "id": "hinterhof/unterwasser/denkmal_voll",
+      "datei": "hinterhof/unterwasser/denkmal_voll.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 80,
+        "h": 100
+      }
+    },
+    {
+      "id": "minibat/unterwasser/standbild",
+      "datei": "minibat/unterwasser/standbild.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 960,
+        "h": 480
+      }
+    },
+    {
       "id": "bastion/e1/kern_s1",
       "datei": "gebaeude/bastion/e1/kern_s1.png",
       "felder": [3, 3],

@@ -802,10 +802,16 @@ async function atlasTexturenLaden(
   return map;
 }
 
-/** Welche Atlas-IDs die Bühne braucht (P0–P3 + P1 Himmel/Wetter). */
+/** Welche Atlas-IDs die Bühne braucht (P0–P4 + P1 Himmel/Wetter). */
 function atlasBrauchtId(art: Bildart, id: string): boolean {
   if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
     return true;
+  // Hinterhof-Objekte (P4) für das jeweilige Thema
+  if (art === 'dorf' && id.startsWith('hinterhof/dorf/')) return true;
+  if (art === 'garten' && id.startsWith('hinterhof/garten/')) return true;
+  if (art === 'insel' && id.startsWith('hinterhof/bastion/')) return true;
+  if (art === 'unterwasser' && id.startsWith('hinterhof/unterwasser/')) return true;
+  if (art === 'weltraum' && id.startsWith('hinterhof/weltraum/')) return true;
   if (art === 'dorf')
     return id.startsWith('dorf/') || id.startsWith('boden/dorf/') || id.startsWith('wesen/dorf/');
   if (art === 'garten')
@@ -919,7 +925,7 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen aus Atlas (P0–P3).
+  // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen/Hinterhof aus Atlas (P0–P4).
   // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
   const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
@@ -1291,7 +1297,7 @@ export async function buehneErstellen(
       const g = new Graphics();
       g.zIndex = 0;
       if (a.hinterhof && a.hinterhof.length > 0) {
-        hinterhofZeichnen(stiftVon(g), a.hinterhof, thema, farben.abend);
+        hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
       // Neubauten im Bau: Umriss auf dem Boden
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {

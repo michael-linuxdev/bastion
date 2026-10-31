@@ -23,4 +23,9 @@ zeichnet Garten aus dem Atlas, sonst Code-Fallback (`garten.ts`).
 Abend-Fenster wo Öffnungen; die App zeichnet Insel/Unterwasser/Weltraum aus
 dem Atlas, sonst Code-Fallback.
 
-Als Nächstes: P4 Hinterhof-Objekte + MiniBastion-Standbilder.
+**P4 Hinterhof + MiniBastion:** geliefert – Generator
+`tools/grafik/sprites-p4-hinterhof.py`. Je Thema `platz_g`/`platz_m`/
+`platz_offen`, `wappen_voll`, `denkmal_voll` und `minibat/…/standbild.png`;
+Hinterhof-Szene und Startkarten-MiniBastion nutzen sie, sonst Code/SVG-Fallback.
+
+Als Nächstes: P5 Epoche 2–4 Gebäude; P6 Belagerungs-Himmel optional.
