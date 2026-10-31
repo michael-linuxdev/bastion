@@ -624,9 +624,6 @@
   "bastion.fertig": "Fertig",
   "bastion.bild-aus": "Bild ausblenden – nur die Liste",
   "bastion.bild-an": "Bild zeigen",
-  "bastion.darstellung": "Darstellung der Bastion",
-  "bastion.ruhig": "Bastion ruhig (ohne Bewegung)",
-  "bastion.leicht": "Darstellung leicht (weniger Effekte)",
   "bastion.farbe": "Farbe",
   "farbe.rot": "Rot",
   "farbe.orange": "Orange",
@@ -732,5 +729,8 @@
   "test.art.sitzung": "Sitzungen",
   "test.art.vermittlung": "Erklärungen",
   "test.art.nutzung": "Nutzung",
-  "test.art.einstellung": "Einstellungen"
+  "test.art.einstellung": "Einstellungen",
+  "bastion.darstellung": "Darstellung der Bastion",
+  "bastion.ruhig": "Bastion ruhig (ohne Bewegung)",
+  "bastion.leicht": "Darstellung leicht (weniger Effekte)"
 }
