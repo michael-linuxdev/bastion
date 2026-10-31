@@ -11,11 +11,7 @@
     bastionLeicht,
     bastionRuhig,
     bastionSound,
-    bildSetzen,
     bildZeigen,
-    leichtSetzen,
-    ruhigSetzen,
-    soundSetzen,
     zoomSetzen,
     zoomWahl,
     type BauAuftrag,
@@ -31,9 +27,6 @@
   import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
-    ZOOM_KNOPF,
-    ZOOM_MAX,
-    ZOOM_MIN,
     ZOOM_RAD,
     einpassen,
     zentriert,
@@ -42,6 +35,7 @@
   } from './grafik/kamera';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import Symbol from '../grafik/Symbol.svelte';
   import type { HinterhofFeld } from '../../core/learning/hinterhof';
   import { hinterhofMitte } from './grafik/hinterhof-szene';
   import { epocheOptik, farbeSkalieren } from './grafik/epoche-optik';
@@ -54,7 +48,6 @@
     bauplatz = BAUPLATZ,
     epoche = 1 as Epoche,
     spannung = false,
-    onBildAus,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -65,8 +58,6 @@
     epoche?: Epoche;
     /** Bewährungsprobe: Spannungs-Himmel (G11) */
     spannung?: boolean;
-    /** Bild aus → Eltern öffnen die Listenansicht (Einstellungen) */
-    onBildAus?: () => void;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -75,6 +66,8 @@
   /** Bild zeigen (Einstellung `basebau.bild`); aus = reizarm, PixiJS wird nicht geladen */
   let zeigen = $state<boolean | undefined>(undefined);
   void bildZeigen().then((z) => (zeigen = z));
+  /** Fenster-Hintergrund = Pixi-Himmel, damit kein Karten-Rand aus Farbdifferenz entsteht */
+  let himmelCss = $state('var(--farbe-himmel)');
 
   /** GRAFIK §4.5: ruhig / leicht / System-Ruhe; §4.6 Sound */
   let ruhig = $state(false);
@@ -140,9 +133,6 @@
     zoomGeladen = true;
   });
 
-  const amAnschlag = (richtung: -1 | 1) =>
-    richtung < 0 ? kamera.zoom <= ZOOM_MIN + 0.001 : kamera.zoom >= ZOOM_MAX - 0.001;
-
   function imFenster(clientX: number, clientY: number) {
     const el = fenster;
     if (!el) return { x: 0, y: 0 };
@@ -154,26 +144,6 @@
   function merken() {
     clearTimeout(merkenTimer);
     merkenTimer = setTimeout(() => void zoomSetzen(kamera.zoom), 200);
-  }
-
-  function zoomen(richtung: -1 | 1) {
-    const el = fenster;
-    if (!el || amAnschlag(richtung)) return;
-    eigene = true;
-    const faktor = richtung > 0 ? ZOOM_KNOPF : 1 / ZOOM_KNOPF;
-    kamera = zoomAn(kamera, el.clientWidth / 2, el.clientHeight / 2, kamera.zoom * faktor);
-    merken();
-  }
-
-  function einpassenJetzt() {
-    const el = fenster;
-    if (!el) return;
-    eigene = false;
-    kamera = einpassen(el.clientWidth, el.clientHeight);
-    kameraSichtbar = true;
-    // 0 heißt: kein eigener Zoom, beim nächsten Öffnen wieder einpassen
-    clearTimeout(merkenTimer);
-    void zoomSetzen(0);
   }
 
   $effect(() => {
@@ -380,6 +350,7 @@
     void bauplatz.tiefe;
     void epoche;
     void spannung;
+    himmelCss = farben().himmel;
     const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
@@ -490,45 +461,17 @@
     }
     auswahl = auf(pos)?.id;
   }
-
-  function umschalten() {
-    zeigen = !zeigen;
-    void bildSetzen(zeigen);
-    auswahl = undefined;
-    versetzen = false;
-    if (!zeigen) onBildAus?.();
-  }
 </script>
 
-{#if zeigen !== undefined}
-  {#if zeigen && !fehlgeschlagen}
-    <!-- Die Grafik ist für Screenreader ausgeblendet: Die Liste darunter zeigt alles. -->
-    <div class="zoom" role="group" aria-label={tt('bastion.zoom')}>
-      <button
-        aria-label={tt('bastion.zoom-kleiner')}
-        disabled={amAnschlag(-1)}
-        onclick={() => zoomen(-1)}>−</button
-      >
-      <button
-        aria-label={tt('bastion.zoom-groesser')}
-        disabled={amAnschlag(1)}
-        onclick={() => zoomen(1)}>+</button
-      >
-      <button aria-label={tt('bastion.zoom-passen')} onclick={einpassenJetzt}>⌖</button>
-      {#if hinterhofFelder.length > 0}
-        <button
-          class="dezent"
-          onclick={() => blickWechseln(blick === 'bauplatz' ? 'hinterhof' : 'bauplatz')}
-          >{blick === 'bauplatz' ? tt('hinterhof.zur-szene') : tt('hinterhof.zum-bauplatz')}</button
-        >
-      {/if}
-    </div>
+{#if zeigen !== undefined && zeigen && !fehlgeschlagen}
+  <!-- Die Grafik ist für Screenreader ausgeblendet: Die Liste in den Einstellungen zeigt alles. -->
+  <div class="buehne">
     <div
       class="fenster"
       class:sichtbar={kameraSichtbar}
       class:versetzen
       class:zieht
-      style:aspect-ratio={`${buehneBreite()} / ${buehneHoehe()}`}
+      style:background={himmelCss}
       aria-hidden="true"
       bind:this={fenster}
       onpointerdown={zeigerRunter}
@@ -546,6 +489,15 @@
         aria-hidden="true"
       ></div>
     </div>
+    {#if hinterhofFelder.length > 0}
+      <button
+        class="hinterhof"
+        aria-label={blick === 'bauplatz' ? tt('hinterhof.zur-szene') : tt('hinterhof.zum-bauplatz')}
+        onclick={() => blickWechseln(blick === 'bauplatz' ? 'hinterhof' : 'bauplatz')}
+      >
+        <Symbol name="hinterhof" />
+      </button>
+    {/if}
     {#if gewaehlt}
       <div class="wahl" role="status">
         <strong>{gebaeudeName(gewaehlt.typ)}</strong>
@@ -583,80 +535,25 @@
           {/if}
         {/if}
       </div>
-    {:else}
-      <p class="leise">{tt('bastion.bild-hinweis')}</p>
     {/if}
-  {/if}
-  <button class="dezent" onclick={umschalten}
-    >{zeigen ? tt('bastion.bild-aus') : tt('bastion.bild-an')}</button
-  >
-  {#if zeigen && !fehlgeschlagen}
-    <div class="darstellung" role="group" aria-label={tt('bastion.darstellung')}>
-      <label>
-        <input
-          type="checkbox"
-          checked={ruhig}
-          onchange={() => {
-            ruhig = !ruhig;
-            void ruhigSetzen(ruhig);
-          }}
-        />
-        {tt('bastion.ruhig')}
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={leicht}
-          disabled={ruhig || systemRuhe}
-          onchange={() => {
-            leicht = !leicht;
-            void leichtSetzen(leicht);
-          }}
-        />
-        {tt('bastion.leicht')}
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={soundAn}
-          onchange={() => {
-            soundAn = !soundAn;
-            void soundSetzen(soundAn);
-          }}
-        />
-        {tt('bastion.sound')}
-      </label>
-    </div>
-  {/if}
+  </div>
 {/if}
 
 <style>
-  .darstellung {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.25rem;
-    margin-block: 0.5rem 0;
-    font-size: 0.95rem;
-    color: var(--farbe-text-leise);
-  }
-
-  .darstellung label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-block-size: 44px;
+  .buehne {
+    position: relative;
+    inline-size: 100%;
+    block-size: 100%;
+    min-block-size: 12rem;
+    display: grid;
   }
 
   .fenster {
-    position: relative;
-    inline-size: 100%;
-    max-inline-size: 36rem;
+    position: absolute;
+    inset: 0;
     overflow: hidden;
     overscroll-behavior: none;
     touch-action: none;
-    border-radius: var(--radius-karte);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
-    background: var(--farbe-himmel);
     cursor: grab;
   }
 
@@ -686,22 +583,37 @@
     visibility: visible;
   }
 
-  .zoom {
-    display: flex;
-    align-items: center;
-    gap: var(--abstand-s);
-  }
-
-  .zoom button {
-    min-inline-size: 2.75rem;
-    font-size: 1.25rem;
+  .hinterhof {
+    position: absolute;
+    inset-block-start: var(--abstand-s);
+    inset-inline-start: var(--abstand-s);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
+    cursor: pointer;
   }
 
   .wahl {
+    position: absolute;
+    inset-inline: var(--abstand-s);
+    inset-block-end: var(--abstand-s);
+    z-index: 2;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
+    padding: var(--abstand-s);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
   }
 
   .knoepfe {
@@ -710,12 +622,7 @@
     gap: var(--abstand-s);
   }
 
-  .leise {
-    color: var(--farbe-text-leise);
-    margin-block: 0;
-  }
-
-  button {
+  .wahl button {
     font: inherit;
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
@@ -724,14 +631,5 @@
     background: var(--farbe-hintergrund);
     color: inherit;
     cursor: pointer;
-  }
-
-  .dezent {
-    justify-self: start;
-    border: none;
-    background: none;
-    text-decoration: underline;
-    padding-inline: 0;
-    color: var(--farbe-text-leise);
   }
 </style>
