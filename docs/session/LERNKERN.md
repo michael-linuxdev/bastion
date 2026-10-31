@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Nächster Schritt: Musterfeld prüfen lassen, dann U4b
+Stand: 31.10.2026 · Musterfeld auf Stufe 1 · Nächster Schritt: Musterfeld durch eine Lehrkraft prüfen lassen (Stufe 2), dann U4b
 
 ---
 
@@ -24,7 +24,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 - **U4a:** Testprotokoll (K-14, D-18).
 - **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 - **U5b und U5c:** alle 596 Fehlerbilder zugeordnet, alle 123 Kompetenzen mit Erstvermittlung.
-- **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102).
+- **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102), **Stufe 1 für das Musterfeld** (22 Dateien, Funde unten in der Übergabe).
 
 **Als Nächstes:**
 
@@ -35,7 +35,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
    - Nummern mit `pnpm testnummern` ausgeben, Einwilligungen einholen.
    - Danach die Testprotokoll-Dateien auswerten: Verständnis, Treffer der Erklärungen, Nutzung der Zwischenschritte und „Weiter ohne Weg“.
 2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
-   Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den Vermerk schreibt `pnpm review setzen` (INHALTSFORMAT §8, seit 31.10.2026). Vor Stufe 2 braucht jede Datei Stufe 1: ein zweites Modell prüft sie gegen den Prüfkatalog in §8, in einer frischen Sitzung. Die Seite zum Ausfüllen liegt als Artefakt unter https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Sie wird mit `pnpm pruefbogen --online --name "Musterfeld Brüche" …` erzeugt und auf derselben Adresse neu veröffentlicht. Die Eingaben stehen in der Sammlung `bewertung` der Seite. Die Lehrkraft braucht Schreibrechte (per E-Mail als Bearbeiterin einladen), sonst speichert die Seite nur in ihrem Browser.
+   Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den Vermerk schreibt `pnpm review setzen` (INHALTSFORMAT §8, seit 31.10.2026). Vor Stufe 2 braucht jede Datei Stufe 1: ein zweites Modell prüft sie gegen den Prüfkatalog in §8, in einer frischen Sitzung. *Erledigt am 31.10.2026* für alle 22 Dateien des Musterfelds; die Texte haben sich dabei geändert, darum den Prüfbogen vor dem Versand neu erzeugen. Die Seite zum Ausfüllen liegt als Artefakt unter https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Sie wird mit `pnpm pruefbogen --online --name "Musterfeld Brüche" …` erzeugt und auf derselben Adresse neu veröffentlicht. Die Eingaben stehen in der Sammlung `bewertung` der Seite. Die Lehrkraft braucht Schreibrechte (per E-Mail als Bearbeiterin einladen), sonst speichert die Seite nur in ihrem Browser.
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.
@@ -142,9 +142,44 @@ Neue Einträge oben. Bis 31.10.2026 stehen die Einträge in `docs/PLAN.md` §5.
 
 | Datum | Änderung |
 |---|---|
+| 31.10.2026 | **Stufe 1 Musterfeld Brüche:** 22 Dateien gegen den Prüfkatalog (INHALTSFORMAT §8) gelesen, 14 Funde in 11 Dateien behoben, Vermerk gesetzt |
 | 31.10.2026 | **Session-Prompt getrennt:** gemeinsamer Teil, Strang Lernkern, Strang Grafik |
 
 ---
+
+## Übergabe der Sitzung 31.10.2026 (Stufe 1 Musterfeld)
+
+**Geprüft:** die Kompetenzen `M.ZO.BR.BEGRIFF`, `…ERWEITERN`, `…ADD-SUB` mit `kompetenz.yaml`, `vermittlung.yaml` und je zwei Vorlagen (samt Generator-Code), dazu die zehn Fehlvorstellungen. Bei den Fehlvorstellungen auch jede Stelle außerhalb des Musterfelds, die auf sie zeigt (Frage 3 des Prüfkatalogs). Danach `pnpm review setzen --stufe 1 --pruefer maschine` für alle 22 Dateien.
+
+**Funde und Änderungen:**
+
+- *Frage nicht eindeutig (Frage 1).* Die Erstvermittlung vergleicht Brüche genau so, wie sie geschrieben sind. Wer richtig kürzt, war falsch:
+  - BEGRIFF `ergaenzen`: 1/3 statt 2/6. Die Frage verlangt jetzt den Nenner 6.
+  - ERWEITERN `entdecken`: 2/3 statt 4/6. Die Doppelfrage „Ist jetzt mehr gefärbt?“ lud genau dazu ein. Die Frage verlangt jetzt den Nenner 6.
+  - ADD-SUB `ergaenzen`: 1/2 statt 3/6. Jetzt: „in Sechsteln, noch ohne zu kürzen“.
+  - ADD-SUB `entdecken`: „Wie viele Viertel?“ lädt zur Zahl 3 ein, erwartet war ein Bruch. Jetzt: „Gib ihn als Bruch an.“
+  - Zwischenschritt `kuerzen` in UNGLEICHNAMIG: Bei 5/6 gab es nichts zu kürzen und keine Anweisung. Jetzt wie bei GLEICHNAMIG: „Geht es nicht, schreibe den Bruch noch einmal hin.“
+- *Falsche Zuordnung (Frage 3).*
+  - ERWEITERN `pruefen`: Die Option 6/4 zeigte auf „nur den Nenner verändert“. Verändert ist aber nur der Zähler. Dafür gibt es keine Fehlvorstellung, darum ist die Option weg.
+  - BEGRIFF `ergaenzen` und `pruefen`: Bei vertauschtem Zähler und Nenner ging der Rückweg zu `erklaeren-gleich` (gleich große Teile). Jetzt geht er wie in der Fehlvorstellung zu `erklaeren-ganzes` (oben/unten).
+- *Kurze Erklärung passt nicht zu jedem Fehlerbild (Frage 3).*
+  - TEIL-ZU-REST: „gefärbt und ungefärbt“ passt nicht zu Kugeln und Würfen (Wahrscheinlichkeit, Häufigkeit). Jetzt: „die gemeinten und die übrigen“.
+  - NENNER-ADDIERT: „Der Nenner bleibt“ passt nicht zu ungleichen Nennern und nicht zum Subtrahieren. Jetzt: „Nenner werden nie addiert oder subtrahiert.“
+  - EINTEILUNG: „Zähle sie noch einmal“ passt nicht zu Lea, die richtig 4 zählt, aber ungleich teilt.
+  - NICHT-VOLLSTAENDIG: „Richtig gekürzt“ passt nicht zum Schritt „größter gemeinsamer Teiler“, in dem noch nichts gekürzt ist.
+  - NUR-NENNER (lange Erklärung): sprach nur von kleineren Teilen. Beim Kürzen werden die Teile größer.
+- *Fachlich unklar (Frage 4).*
+  - FAKTOR, Gegenbeispiel: „6/12, das ist nur die Hälfte“ ließ sich als Hälfte von 8/12 lesen.
+  - BEGRIFF `gegenbeispiel`: Im Text stand ein Kuchen, das Bild zeigt einen Streifen. Jetzt „ein Blech Kuchen“.
+
+**Kein Fund, aber für die Lehrkraft notiert:**
+
+- Das Fehlerbild `nicht-erweitert` in GLEICHNAMIG erzeugt `br.add-sub@1` nie. Der Text muss trotzdem dastehen; ein Kommentar sagt das jetzt.
+- Bei G (`vielfaches`) fragt ein Zwischenschritt „Erweitere 1/4 auf den Nenner 4“, also mit dem Faktor 1. Das ist eindeutig, wirkt aber seltsam. Ob der Schritt dann entfällt, wäre eine Änderung am Kern.
+- Die Kompetenzen versprechen mehr, als die Vorlagen üben: BEGRIFF M „echte und unechte Brüche unterscheiden“ (alle Aufgaben sind echte Brüche), ADD-SUB M „gemischte Zahlen“.
+- `uebergang` lobt („Gut gemacht“, „Prima“, „Sehr gut“). Er kommt nur nach einem richtigen `pruefen`, darum steht das so.
+
+**Offen, braucht den Projektverantwortlichen:** Prüfbogen neu erzeugen und auf https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy neu veröffentlichen (die Texte haben sich geändert), dann die Lehrkraft einladen.
 
 ## Übergabe der Sitzung 30./31.10.2026
 
