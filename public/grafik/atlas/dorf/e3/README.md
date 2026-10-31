@@ -1,1 +1,1 @@
-# Sprites für dorf/e3 – siehe GRAFIK-SPRITES.md
+# Sprites für dorf/e3 – P5 (GRAFIK-SPRITES.md §8)

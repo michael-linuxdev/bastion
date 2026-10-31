@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 
-Stand: 31.10.2026 (35) · Session-Prompt in Stränge getrennt; Grafik G0–G11, P0–P4 Atlas (B-28)
+Stand: 31.10.2026 (36) · Session-Prompt in Stränge getrennt; Grafik G0–G11, P0–P5 Atlas (B-28)
 
 ---
 

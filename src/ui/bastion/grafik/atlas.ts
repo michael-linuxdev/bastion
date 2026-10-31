@@ -50,8 +50,15 @@ export function atlasZuruecksetzen(): void {
   geladen = undefined;
 }
 
+/** Boden-Kachel-ID: Spec `flaeche`/`rand`, plus Wiesen-Varianten `flaeche_b`/`flaeche_hell`. */
+export type BodenKachel = 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell';
+
 export function atlasId(thema: Thema, epoche: number, rolle: GebaeudeTyp, stufe: number): string {
   return `${thema}/e${epoche}/${rolle}_s${stufe}`;
+}
+
+export function atlasBodenId(thema: Thema, epoche: number, kachel: BodenKachel): string {
+  return `boden/${thema}/e${epoche}/${kachel}`;
 }
 
 /** Abend-Fenster-Overlay nach GRAFIK-SPRITES.md §3 (`*_fenster.png`). */
@@ -64,7 +71,10 @@ export function atlasFensterId(
   return `${atlasId(thema, epoche, rolle, stufe)}_fenster`;
 }
 
-/** Eintrag suchen oder undefined → Code zeichnen. */
+/**
+ * Eintrag suchen oder undefined → Code zeichnen.
+ * P5: fehlt die aktuelle Epoche, nächstniedrigere (bis e1) – gleiche Stufe/Rolle.
+ */
 export function atlasEintrag(
   manifest: AtlasManifest | null,
   thema: Thema,
@@ -73,8 +83,53 @@ export function atlasEintrag(
   stufe: number,
 ): AtlasEintrag | undefined {
   if (!manifest) return undefined;
-  const id = atlasId(thema, epoche, rolle, stufe);
-  return manifest.eintraege.find((e) => e.id === id);
+  const eMax = Math.max(1, Math.min(4, Math.floor(epoche)));
+  for (let e = eMax; e >= 1; e--) {
+    const id = atlasId(thema, e, rolle, stufe);
+    const gefunden = manifest.eintraege.find((x) => x.id === id);
+    if (gefunden) return gefunden;
+  }
+  return undefined;
+}
+
+/**
+ * Abend-Fenster mit Epoche-Fallback (wie atlasEintrag).
+ * Fehlt der Layer ganz, liefert undefined – kein Abend-Overlay.
+ */
+export function atlasFensterEintrag(
+  manifest: AtlasManifest | null,
+  thema: Thema,
+  epoche: number,
+  rolle: GebaeudeTyp,
+  stufe: number,
+): AtlasEintrag | undefined {
+  if (!manifest) return undefined;
+  const eMax = Math.max(1, Math.min(4, Math.floor(epoche)));
+  for (let e = eMax; e >= 1; e--) {
+    const id = atlasFensterId(thema, e, rolle, stufe);
+    const gefunden = manifest.eintraege.find((x) => x.id === id);
+    if (gefunden) return gefunden;
+  }
+  return undefined;
+}
+
+/**
+ * Boden-Kachel mit Epoche-Fallback (P5: e2–e4, sonst e1).
+ */
+export function atlasBodenEintrag(
+  manifest: AtlasManifest | null,
+  thema: Thema,
+  epoche: number,
+  kachel: BodenKachel,
+): AtlasEintrag | undefined {
+  if (!manifest) return undefined;
+  const eMax = Math.max(1, Math.min(4, Math.floor(epoche)));
+  for (let e = eMax; e >= 1; e--) {
+    const id = atlasBodenId(thema, e, kachel);
+    const gefunden = manifest.eintraege.find((x) => x.id === id);
+    if (gefunden) return gefunden;
+  }
+  return undefined;
 }
 
 /** Beliebigen Manifest-Eintrag per ID (Gebäude, Boden, Wesen). */
@@ -94,13 +149,6 @@ export function atlasWesenId(
   frame: number,
 ): string {
   return `wesen/${thema}/${art}_${zyklus}_${frame}`;
-}
-
-/** Boden-Kachel-ID: Spec `flaeche`/`rand`, plus Wiesen-Varianten `flaeche_b`/`flaeche_hell`. */
-export type BodenKachel = 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell';
-
-export function atlasBodenId(thema: Thema, epoche: number, kachel: BodenKachel): string {
-  return `boden/${thema}/e${epoche}/${kachel}`;
 }
 
 /** Himmel-ID nach GRAFIK-SPRITES.md §3 (P1). */

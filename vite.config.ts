@@ -44,6 +44,10 @@ export default defineConfig({
         // Vorerst auch alle Inhaltspakete (Klasse 5 ist klein); Auswahl vor dem
         // Herunterladen folgt mit weiteren Klassenstufen (ARCHITEKTUR §6).
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,json,woff2}'],
+        // Atlas-Sprites (P0–P5): viele PNGs – nicht vorab speichern (R7, A3), sonst
+        // dauert die Precache zu lang und „offline bereit“ erscheint nicht rechtzeitig.
+        // Nach dem Öffnen der Bastion: CacheFirst (runtimeCaching unten).
+        globIgnores: ['**/grafik/atlas/**'],
         // Nur bei Bedarf Nachgeladenes (die Grafik der Bastion, PixiJS) nicht vorab:
         // Wer den Basebau nie öffnet, lädt es nie (R7, A3). Beim ersten Öffnen wird es
         // gespeichert und geht danach auch ohne Netz.
@@ -58,6 +62,14 @@ export default defineConfig({
             urlPattern: /\/assets\/[^/]+\.js$/,
             handler: 'CacheFirst',
             options: { cacheName: 'bastion-nachgeladen', expiration: { maxEntries: 40 } },
+          },
+          {
+            urlPattern: /\/grafik\/atlas\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'bastion-atlas',
+              expiration: { maxEntries: 1500 },
+            },
           },
         ],
         navigateFallback: 'index.html',

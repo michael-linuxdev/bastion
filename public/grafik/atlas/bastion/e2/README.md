@@ -1,1 +1,1 @@
-# Sprites für bastion/e2 – siehe GRAFIK-SPRITES.md
+# Sprites für bastion/e2 – P5 (GRAFIK-SPRITES.md §8)

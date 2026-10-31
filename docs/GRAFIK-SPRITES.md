@@ -154,7 +154,7 @@ Damit Technik und Bild parallel laufen:
 | **P2** | `garten` Epoche 1 komplett + Wesen · **geliefert** (`gebaeude/garten/`, `boden/garten/`, `wesen/garten/`, Generator `tools/grafik/sprites-p2-garten.py`) | G5 |
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 · **geliefert** (Generator `tools/grafik/sprites-p3-themen.py`) | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
-| **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) | G10 |
+| **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) · *umgesetzt* | G10 |
 | **P6** | Belagerungs-Himmel / Rauch-Overlays | G11 · Code-Rauch liegt; Sprite-Overlay optional |
 
 Pro Charge: Ordnerstruktur wie §3, dazu eine `manifest.json` (Liste der Dateien, Pixelgröße, Anker x/y relativ).

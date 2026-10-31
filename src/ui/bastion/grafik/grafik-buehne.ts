@@ -26,10 +26,10 @@ import {
 } from './atmosphaere';
 import {
   atlasBasisUrl,
-  atlasBodenId,
+  atlasBodenEintrag,
   atlasEintrag,
   atlasEintragPerId,
-  atlasFensterId,
+  atlasFensterEintrag,
   atlasHimmelId,
   atlasLaubId,
   atlasLaden,
@@ -714,7 +714,7 @@ function fensterAbendSprite(
   manifest: AtlasManifest | null,
   texturen: Map<string, Texture>,
 ): void {
-  const eintrag = atlasEintragPerId(manifest, atlasFensterId(thema, epoche, typ, stufe));
+  const eintrag = atlasFensterEintrag(manifest, thema, epoche, typ, stufe);
   const tex = eintrag ? texturen.get(eintrag.id) : undefined;
   if (!eintrag || !tex) return;
   const [bw, bt] = KATALOG[typ].groesse;
@@ -860,13 +860,13 @@ function bodenAusAtlas(
   abend: boolean,
   kachelFn: (x: number, y: number, breite: number, tiefe: number) => BodenKachel,
   tintFn: (abend: boolean) => number,
+  /** P5: Epoche für Boden-Atlas; Fallback auf niedrigere (atlasBodenEintrag) */
+  epoche: number = 1,
 ): boolean {
   if (!manifest) return false;
-  const epoche = 1;
   const texProKachel = new Map<BodenKachel, { tex: Texture; w: number; h: number }>();
   for (const k of BODEN_KACHELN) {
-    const id = atlasBodenId(thema, epoche, k);
-    const eintrag = atlasEintragPerId(manifest, id);
+    const eintrag = atlasBodenEintrag(manifest, thema, epoche, k);
     const tex = eintrag ? texturen.get(eintrag.id) : undefined;
     if (!eintrag || !tex) {
       // Pflicht: flaeche + rand; Varianten optional → dann auf flaeche zurück
@@ -925,7 +925,7 @@ export async function buehneErstellen(
   app.canvas.style.display = 'block';
   ziel.append(app.canvas);
 
-  // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen/Hinterhof aus Atlas (P0–P4).
+  // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen/Hinterhof aus Atlas (P0–P5).
   // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
   const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
