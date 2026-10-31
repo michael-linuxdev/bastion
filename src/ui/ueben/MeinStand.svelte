@@ -63,6 +63,10 @@
       .filter((k): k is Kompetenz => k !== undefined),
   );
   const angefangen = $derived(themen.some((k) => status.get(k.id) !== 'neu'));
+  /** Y123: alle Themen sitzen – ruhiger Satz, kein Scoreboard */
+  const allesSitzt = $derived(
+    angefangen && themen.length > 0 && themen.every((k) => sitzt(status.get(k.id) ?? 'neu')),
+  );
   const datum = (ms: number) =>
     new Date(ms).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' });
 
@@ -80,16 +84,20 @@
   </fieldset>
   <KlassenWahl bind:klasse />
 
-  <p class="zahlen">
-    {themen.length}
-    {t('stand.zusammenfassung')} ·
-    {gruppe('gefestigt').length}
-    {t('status.gefestigt')} ·
-    {gruppe('gekonnt').length + gruppe('auffrischen').length}
-    {t('status.gekonnt')} ·
-    {gruppe('in-arbeit').length}
-    {t('status.in-arbeit')}
-  </p>
+  {#if allesSitzt}
+    <p class="feier" role="status">{t('stand.alles-sitzt')}</p>
+  {:else}
+    <p class="zahlen">
+      {themen.length}
+      {t('stand.zusammenfassung')} ·
+      {gruppe('gefestigt').length}
+      {t('status.gefestigt')} ·
+      {gruppe('gekonnt').length + gruppe('auffrischen').length}
+      {t('status.gekonnt')} ·
+      {gruppe('in-arbeit').length}
+      {t('status.in-arbeit')}
+    </p>
+  {/if}
 
   {#if !angefangen}
     <p>{t('stand.leer')}</p>
@@ -157,6 +165,14 @@
 
   .zahlen {
     font-weight: bold;
+  }
+
+  .feier {
+    margin-block: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-inline-start: 4px solid var(--farbe-erfolg);
+    color: var(--farbe-text);
   }
 
   .niveau {

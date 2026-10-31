@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez erledigt + App-Menü ohne Reiter, Bau-Vorschau, Test-Rohstoffe. Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez + App-Menü + Design V–Z (Barriere, Sound-Stufen, Vertrauen, Leerzustände). Optional: Jahreszeit-Feinheit, Ambient, Lern-UI §9, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
@@ -40,6 +40,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **P6 Belagerungs-Himmel / Rauch:** Atlas-Overlays `belagerung/himmel` und `rauch_1…3`; Bühne bei Bewährungsprobe mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 - **CC0-Sounddateien (G8 nachgezogen):** Tipps aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit Manifest; Loader bevorzugt Dateien, sonst Web-Audio-Fallback; PWA-Precache `.ogg` (T-18).
 - **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
+- **Design V–Z (109–128):** Systemschrift/Kontrast, SR-Reihenfolge Üben, Sound-Stufen aus/UI/Bastion, Hub-Vertrauen & nie-geübt, Bau ohne Rohstoffe, Stand „alles sitzt“, Sicherungshilfe, Tokens/Microcopy.
 
 **Als Nächstes (alles optional / PV):**
 

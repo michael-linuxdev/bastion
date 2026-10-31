@@ -257,7 +257,7 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
 
   await page.getByLabel('Deine Antwort').fill(String(summe));
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig!')).toBeVisible();
+  await expect(page.getByText('Richtig.')).toBeVisible();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   await expect(page.getByText('Diese Fehler hast du aufgearbeitet.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -1376,7 +1376,7 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
   // Vorwissen: 12 Gummibärchen für 4 Kinder
   await page.getByLabel('Deine Antwort').fill('3');
   await page.getByRole('button', { name: 'Prüfen' }).click();
-  await expect(page.getByText('Richtig!')).toBeVisible();
+  await expect(page.getByText('Richtig.')).toBeVisible();
   await page.getByRole('button', { name: 'Weiter' }).click();
   // Entdecken: falsche Wahl zeigt die kurze Erklärung der Fehlvorstellung
   await page.getByRole('radio', { name: '3', exact: true }).check();
@@ -1437,7 +1437,7 @@ test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot meh
     if (antwort) {
       await antwort[1]();
       await page.getByRole('button', { name: 'Prüfen' }).click();
-      await expect(page.getByText('Richtig!')).toBeVisible();
+      await expect(page.getByText('Richtig.')).toBeVisible();
     }
     await page.getByRole('button', { name: 'Weiter' }).click();
   }

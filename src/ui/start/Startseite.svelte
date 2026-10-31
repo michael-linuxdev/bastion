@@ -18,6 +18,7 @@
   // Startseite in Richtung A (GRAFIK §1): Datum und Begrüßung, kleine Ansicht der
   // Bastion, großer Knopf „Üben“, vier Kacheln, Hinweis auf die Klassenarbeit nur
   // mit Datum (kein Countdown, R2). Rückfragen (Schuljahr, Profil) kommen als `children`.
+  // Design V–Z: nie geübt → nur Üben + Satz; Vertrauen dauerhaft; Landscape-Türen.
   import type { Snippet } from 'svelte';
   import MiniBastion from '../grafik/MiniBastion.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -34,6 +35,7 @@
     klassenarbeit,
     sichern,
     testphase = false,
+    nieGeuebt = false,
     onziel,
     children,
   }: {
@@ -49,6 +51,8 @@
     sichern: boolean;
     /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
     testphase?: boolean;
+    /** Noch nie geübt (Y121): Hub nur Üben + kurzer Satz */
+    nieGeuebt?: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
   } = $props();
@@ -61,8 +65,9 @@
     });
 </script>
 
-<div class="startseite">
+<div class="startseite" class:knapp={nieGeuebt}>
   <header class="kopf">
+    <p class="marke">{t('start.ueberschrift')}</p>
     <p class="datum">{datum(heute)}</p>
     {#if rueckkehr}
       <p class="gruss" role="status">
@@ -74,11 +79,14 @@
       <p class="gruss">{t('start.gruss')}</p>
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
+    <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   </header>
 
   {@render children?.()}
 
-  {#if basebau}
+  {#if nieGeuebt}
+    <p class="einladung">{t('start.nie-geuebt')}</p>
+  {:else if basebau}
     <button class="karte bastion" onclick={() => onziel('bastion')}>
       <span class="bild"><MiniBastion /></span>
       <span class="bastion-name">{tt('bastion.knopf')}</span>
@@ -93,61 +101,67 @@
   >
     <span class="ueben-titel"><Symbol name="ueben" /> {t('start.ueben')}</span>
     <span class="ueben-dran" id="ueben-dran"
-      >{geradeDran === 0
-        ? t('start.ueben-frei')
-        : geradeDran === 1
-          ? t('start.gerade-dran-eins')
-          : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+      >{nieGeuebt
+        ? t('start.nie-geuebt-ueben')
+        : geradeDran === 0
+          ? t('start.ueben-frei')
+          : geradeDran === 1
+            ? t('start.gerade-dran-eins')
+            : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
     >
   </button>
 
-  <div class="kacheln">
-    <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-      <Symbol name="wiederholen" />
-      <span class="kachel-name">{t('wiederholen.knopf')}</span>
-      <span class="kachel-info"
-        >{faellig === 0
-          ? t('start.nichts-dran')
-          : faellig === 1
-            ? t('wiederholen.eine')
-            : `${faellig} ${t('wiederholen.mehrere')}`}</span
-      >
-    </button>
-    <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-      <Symbol name="werkstatt" />
-      <span class="kachel-name">{t('werkstatt.knopf')}</span>
-      <span class="kachel-info"
-        >{offeneFehler === 0
-          ? t('start.keine-fehler')
-          : offeneFehler === 1
-            ? t('werkstatt.offen-eins')
-            : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
-      >
-    </button>
-    <button class="kachel" onclick={() => onziel('diagnose')}>
-      <Symbol name="diagnose" />
-      <span class="kachel-name">{t('diagnose.knopf')}</span>
-      <span class="kachel-info">{t('start.diagnose-info')}</span>
-    </button>
-    <button class="kachel" onclick={() => onziel('stand')}>
-      <Symbol name="stand" />
-      <span class="kachel-name">{t('stand.knopf')}</span>
-      <span class="kachel-info">{t('start.stand-info')}</span>
-    </button>
-    <button class="kachel mehr" onclick={() => onziel('mehr')}>
-      <Symbol name="mehr" />
-      <span class="kachel-name">{t('hub.mehr')}</span>
-      <span class="kachel-info">{t('hub.mehr-info')}</span>
-    </button>
-  </div>
+  {#if !nieGeuebt}
+    <div class="kacheln">
+      <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
+        <Symbol name="wiederholen" />
+        <span class="kachel-name">{t('wiederholen.knopf')}</span>
+        <span class="kachel-info"
+          >{faellig === 0
+            ? t('start.nichts-dran')
+            : faellig === 1
+              ? t('wiederholen.eine')
+              : `${faellig} ${t('wiederholen.mehrere')}`}</span
+        >
+      </button>
+      <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
+        <Symbol name="werkstatt" />
+        <span class="kachel-name">{t('werkstatt.knopf')}</span>
+        <span class="kachel-info"
+          >{offeneFehler === 0
+            ? t('start.keine-fehler')
+            : offeneFehler === 1
+              ? t('werkstatt.offen-eins')
+              : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+        >
+      </button>
+      <button class="kachel" onclick={() => onziel('diagnose')}>
+        <Symbol name="diagnose" />
+        <span class="kachel-name">{t('diagnose.knopf')}</span>
+        <span class="kachel-info">{t('start.diagnose-info')}</span>
+      </button>
+      <button class="kachel" onclick={() => onziel('stand')}>
+        <Symbol name="stand" />
+        <span class="kachel-name">{t('stand.knopf')}</span>
+        <span class="kachel-info">{t('start.stand-info')}</span>
+      </button>
+      <button class="kachel mehr" onclick={() => onziel('mehr')}>
+        <Symbol name="mehr" />
+        <span class="kachel-name">{t('hub.mehr')}</span>
+        <span class="kachel-info">{t('hub.mehr-info')}</span>
+      </button>
+    </div>
+  {:else}
+    <button class="mehr-link" onclick={() => onziel('mehr')}>{t('hub.mehr')}</button>
+  {/if}
 
-  {#if klassenarbeit}
+  {#if !nieGeuebt && klassenarbeit}
     <p class="hinweis">
       <span>{t('ka.am')} {datum(new Date(`${klassenarbeit}T12:00:00`))}</span>
       <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button>
     </p>
   {/if}
-  {#if sichern}
+  {#if !nieGeuebt && sichern}
     <p class="hinweis">
       <span>{t('sicherung.erinnerung')}</span>
       <button class="dezent" onclick={() => onziel('sicherung')}>{t('sicherung.erstellen')}</button>
@@ -156,8 +170,6 @@
 </div>
 
 <style>
-  /* Die Startseite füllt den Bildschirm; den freien Platz bekommt
-     das Bild der Bastion (ohne Basebau die Kacheln), statt unten leer zu bleiben. */
   .startseite {
     display: flex;
     flex-direction: column;
@@ -176,12 +188,19 @@
     display: flex;
     flex-direction: column;
   }
-  .startseite:not(:has(> .bastion)) > .kacheln {
+  .startseite:not(:has(> .bastion)):not(.knapp) > .kacheln {
     flex: 1 1 auto;
     grid-auto-rows: 1fr;
   }
   .kopf {
     margin-block-end: var(--abstand-s);
+  }
+  .marke {
+    font-family: var(--schrift-display, var(--schrift));
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--farbe-akzent);
+    margin-block-end: 0.25rem;
   }
   .datum {
     color: var(--farbe-text-leise);
@@ -196,6 +215,16 @@
   }
   .leise {
     color: var(--farbe-text-leise);
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+    margin-block: 0 var(--abstand-s);
+  }
+  .einladung {
+    margin-block: var(--abstand-m);
+    font-size: 1.125rem;
+    line-height: 1.4;
   }
   .test {
     font-size: 0.875rem;
@@ -275,7 +304,7 @@
     align-content: start;
     justify-items: start;
     gap: 0.25rem;
-    min-block-size: 5.5rem;
+    min-block-size: max(5.5rem, var(--ziel));
     padding: 0.75rem;
     border: none;
     border-radius: var(--radius-karte);
@@ -309,6 +338,16 @@
     line-height: 1.35;
   }
 
+  .mehr-link {
+    justify-self: start;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text-leise);
+    text-decoration: underline;
+    min-block-size: var(--ziel);
+    padding-inline: 0;
+  }
+
   .hinweis {
     display: flex;
     flex-wrap: wrap;
@@ -324,5 +363,21 @@
   .hinweis .dezent {
     color: var(--farbe-text);
     font-weight: 700;
+  }
+
+  /* V112: Querformat – Türen in 2×2, Tap-Ziele bleiben groß */
+  @media (orientation: landscape) {
+    .kacheln {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .kachel {
+      min-block-size: max(4.5rem, var(--ziel));
+    }
+    .kachel.mehr {
+      grid-column: auto;
+    }
+    .startseite > .bastion {
+      max-block-size: 12rem;
+    }
   }
 </style>

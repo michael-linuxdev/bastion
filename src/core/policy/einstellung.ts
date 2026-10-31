@@ -71,8 +71,22 @@ export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
 /** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
 export const LEICHT_SCHLUESSEL = 'basebau.leicht';
 
-/** Bastion-Sound (GRAFIK §4.6, T-18); nur `true` schaltet ein. Standard aus. */
+/**
+ * Sound-Stufen (Design V–Z W113): aus / nur UI / Bastion+UI.
+ * Schlüssel `basebau.sound` – früher boolean (`true` = Bastion+UI).
+ */
 export const SOUND_SCHLUESSEL = 'basebau.sound';
+export const SOUND_STUFEN = ['aus', 'ui', 'bastion'] as const;
+export type SoundStufe = (typeof SOUND_STUFEN)[number];
+/** Unbekanntes, fehlendes oder altes `false` → aus; altes `true` → bastion. */
+export const soundStufeAus = (wert: unknown): SoundStufe => {
+  if (wert === true) return 'bastion';
+  return SOUND_STUFEN.find((s) => s === wert) ?? 'aus';
+};
+
+/** Kräftigerer Text (Design V110); nur `true` schaltet ein. */
+export const KONTRAST_SCHLUESSEL = 'darstellung.kontrast';
+export const kontrastAn = (wert: unknown): boolean => wert === true;
 
 /** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
 export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';

@@ -44,12 +44,13 @@
 </svg>
 
 <style>
+  /* Z126: einheitliche Strichstärke Hub/Üben/Bastion/Mehr */
   svg {
     inline-size: 1.5rem;
     block-size: 1.5rem;
     fill: none;
     stroke: currentColor;
-    stroke-width: 2;
+    stroke-width: 1.75;
     stroke-linecap: round;
     stroke-linejoin: round;
     flex: none;

@@ -19,6 +19,8 @@
 }
 
 html {
+  /* System-Schriftgröße respektieren (V109): Basis 100 %, alles in rem. */
+  font-size: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   /* Die Leiste unten verdeckt nichts, wenn zu einem Feld gescrollt wird.
@@ -33,8 +35,13 @@ body {
   background: var(--farbe-hintergrund, Canvas);
   color: var(--farbe-text, CanvasText);
   font-family: var(--schrift, system-ui, sans-serif);
+  /* 1.125rem skaliert mit der System-/Browser-Schriftgröße */
   font-size: 1.125rem;
   line-height: 1.5;
+}
+
+html[data-kontrast='stark'] body {
+  font-weight: 500;
 }
 
 h1,
@@ -123,6 +130,8 @@ input[type='radio'] {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

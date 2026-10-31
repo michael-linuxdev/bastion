@@ -45,7 +45,8 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
 - **Navigation (31.10.2026):** Keine untere Reiterleiste mehr. Startseite ist der Hub (Üben, Bastion-Karte, Kacheln, Mehr). Bastion hat ein Home-Piktogramm zur Startseite.
 - **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Themen wählen, Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
 - **Üben (31.10.2026):** Ein Klick (Leiste oder Start) springt zur nächsten bzw. offenen Aufgabe – nicht in die Themenübersicht. Klasse, Niveau und Themenwahl liegen unter „Mehr“ → „Themen wählen“.
-- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante). Auf dem Reiter: kompakter Vorrat, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen um Gebäude herum, ruhige Bewohner (an Fortschritt gekoppelt). Zahnrad oben rechts: Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung, Darstellung (Bild aus, ruhig, leicht, Sound, Ganzes Bild), Bedienhilfe und die barrierefreie Liste. Zoom nur per Geste; −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung.
+- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante). Auf dem Reiter: kompakter Vorrat, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen um Gebäude herum, ruhige Bewohner (an Fortschritt gekoppelt). Zahnrad oben rechts: Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung, Darstellung (Bild aus, ruhig, leicht, Sound-Stufen aus/UI/Bastion+UI, Ganzes Bild), Bedienhilfe und die barrierefreie Liste. Zoom nur per Geste; −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung. Kräftiger Text und Sound-Stufen auch unter Über mich (Design V–Z).
+- **Hub / Vertrauen (31.10.2026, Design V–Z):** „Kein Konto. Kein Tracking.“ dauerhaft auf Start und Mehr; bei noch nie geübt nur Üben + kurzer Satz; Landscape-Türen mit großen Tap-Zielen.
 - **Bildschirm drehen (31.10.2026):** Einstellung `darstellung.orientierung` (`auto` / `hoch` / `quer`), wählbar in Bastion-Einstellungen, unter „Über mich“ und im Übungs-Zahnrad. Screen-Orientation-API wenn verfügbar; sonst Hinweis zum Drehen des Geräts (kein Layout-Bruch durch CSS-Drehung).
 - **Bau-Blatt (31.10.2026):** Spielerische Karten mit Atlas-Vorschau (Fallback-Silhouette) vor dem Bauen/Planen.
 - **Test-Rohstoffe (31.10.2026):** Eltern-Schalter `bastion.test-rohstoffe` – virtueller Vorrat und Probe-Bastion nur im Speicher; Ledger und Lernfortschritt unberührt.
@@ -77,7 +78,7 @@ Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kle
 - **Politur:** klar über dem bisherigen Code-/Dorfkrieg-Platzhalter. Lesbarkeit und knackige isometrische Gebäude wie in Clash of Clans – **ohne** Militär, Truppen, Clash-Erkennung (VISION: kein CoC-Klon; B-15/B-16). Wärme und ruhiges Leben mindestens auf Stardew-Niveau.
 - **Primärquelle Bild:** Sprites/Atlanten (B-28). Code-Zeichnung bleibt Fallback, bis das Atlas da ist.
 - **Dorfkrieg-Dorfbilder** werden ersetzt, nicht behalten.
-- **Lernumfeld** (Üben, Vermittlung, Fehlerwerkstatt, Diagnose): darf **nicht** ablenken – Aufräumen von Abständen und Hierarchie erlaubt, keine Bewegung, kein Wetter, kein Sound dort.
+- **Lernumfeld** (Üben, Vermittlung, Fehlerwerkstatt, Diagnose): darf **nicht** ablenken – Aufräumen von Abständen und Hierarchie erlaubt, keine Bewegung, kein Wetter; optional sehr leiser UI-Cue nur beim Prüfen-Ergebnis (Stufe UI/Bastion, Standard aus).
 - **Bastion / Hinterhof:** lebendig (Atmosphäre, Wesen, optional Sound).
 
 ### 4.2 Schichten
@@ -127,7 +128,8 @@ Ziel: **60 fps** auf dem iPhone 13; wenn knapp, **30 fps** anpeilen (automatisch
 ### 4.6 Sound (optional)
 
 - Standard **aus**. Jugendliche schalten selbst ein.
-- Ambient (Wind, Wasser, Regen) und kurze Tip-Geräusche (bauen, Wesen).
+- **Drei Stufen:** aus / nur UI (sehr leiser Cue beim Prüfen-Ergebnis) / Bastion+UI (Ambient + Bau-Tipps). Ambient nur in der Bastion, nie im Aufgaben-Fokus.
+- Ambient (Wind) und kurze Tip-Geräusche (bauen, Wesen) nur bei Stufe Bastion+UI.
 - Dateien **frei lizenziert (CC0 o. Ä.)**, mit der App ausgeliefert, offline (T-18). Kein CDN.
 
 ### 4.7 MiniBastion (Startseite)

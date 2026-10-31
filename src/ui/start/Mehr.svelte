@@ -41,6 +41,7 @@
       </li>
     {/each}
   </ul>
+  <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   <p class="versprechen">{t('start.versprechen')}</p>
   {#if offline}
     <p class="offline" role="status">{t('start.offline')}</p>
@@ -99,6 +100,11 @@
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    margin: 0;
+    font-size: 0.95rem;
   }
   .versprechen {
     color: var(--farbe-text-leise);

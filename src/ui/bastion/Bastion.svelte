@@ -369,6 +369,11 @@
             })(),
           }))}
           {belegt}
+          vorratLeer={!testRohstoffe &&
+            anzeigeVorrat(b.vorrat, false) === 0 &&
+            k.stand.fleiss === 0 &&
+            k.stand.behalten === 0 &&
+            k.stand.koennen === 0}
           epoche={epoche.epoche}
           istZiel={(a) => ist(a, ziel)}
           {hindernisText}

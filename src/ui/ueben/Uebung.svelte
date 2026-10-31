@@ -23,6 +23,7 @@
   import Textteile from './Textteile.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
+  import { soundUiErgebnis } from '../bastion/sound/sound';
 
   let {
     ueberschrift,
@@ -139,6 +140,8 @@
     if (!aufgabe) return;
     const form = (aufgabe.vorlage.antwort?.['form'] ?? 'beliebig') as Bruchform;
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
+    // W116: optional leiser Cue nur beim Prüfen-Ergebnis, nie bei Tipps
+    soundUiErgebnis(ergebnis.richtig);
     kommaHinweis = hinweis === 'punkt-statt-komma';
     const daten: Antwortdaten = {
       modus,
@@ -271,72 +274,86 @@
     </p>
   {:else}
     {#key aufgabe}
-      <article class="aufgabe" aria-live="polite">
-        {#if modus !== 'ueben'}
-          <p class="herkunft">
-            {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
+      <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil für Screenreader -->
+      <article class="aufgabe">
+        <div class="aufgabe-frage" id="aufgabe-frage">
+          {#if modus !== 'ueben'}
+            <p class="herkunft">
+              {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
+            </p>
+          {/if}
+          <p class="text">
+            <Textteile
+              teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)}
+            />
           </p>
-        {/if}
-        <p class="text">
-          <Textteile teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)} />
-        </p>
-        {#if aufgabe.instanz.bild}
-          <figure class="bild" role="img" aria-label={aufgabe.instanz.bild.beschreibung.de}>
-            <!-- SVG stammt aus unseren Generatoren (Code, kein Paketinhalt);
-                 die Pflicht-Tests schließen Skripte und Verweise aus. -->
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html aufgabe.instanz.bild.svg}
-          </figure>
-        {/if}
+          {#if aufgabe.instanz.bild}
+            <figure class="bild" role="img" aria-label={aufgabe.instanz.bild.beschreibung.de}>
+              <!-- SVG stammt aus unseren Generatoren (Code, kein Paketinhalt);
+                   die Pflicht-Tests schließen Skripte und Verweise aus. -->
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              {@html aufgabe.instanz.bild.svg}
+            </figure>
+          {/if}
 
-        {#if aufgabe.frueher}
-          <p class="damals">
-            {t('werkstatt.damals')}
-            <strong
-              >{antwortText(
-                aufgabe.frueher,
-                aufgabe.instanz.optionen,
-                aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-              )}</strong
-            >
-          </p>
-        {/if}
-
-        <Eingabe
-          instanz={aufgabe.instanz}
-          typ={aufgabe.vorlage.typ}
-          tastatur={aufgabe.vorlage.tastatur}
-          gesperrt={ergebnis !== undefined}
-          onantwort={beantwortet}
-        />
-
-        <div class="knoepfe">
-          {#if ergebnis === undefined}
-            <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
-            {#if hilfen < aufgabe.vorlage.hilfen.length}
-              <button
-                class="zweit"
-                onclick={() => {
-                  hilfen += 1;
-                  onnutzung?.('hilfe', `tipp:${aufgabe?.vorlage.id ?? ''}`);
-                }}
+          {#if aufgabe.frueher}
+            <p class="damals">
+              {t('werkstatt.damals')}
+              <strong
+                >{antwortText(
+                  aufgabe.frueher,
+                  aufgabe.instanz.optionen,
+                  aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                )}</strong
               >
-                {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
-              </button>
-            {/if}
+            </p>
           {/if}
         </div>
 
-        {#if hilfen > 0 && ergebnis === undefined}
-          <ul class="hilfen">
-            {#each aufgabe.vorlage.hilfen.slice(0, hilfen) as hilfe, i (i)}
-              <li><Textteile teile={fuelle(hilfe.de, aufgabe.instanz.platzhalter)} /></li>
-            {/each}
-          </ul>
-        {/if}
+        <div class="aufgabe-eingabe" id="aufgabe-eingabe" aria-describedby="aufgabe-frage">
+          <Eingabe
+            instanz={aufgabe.instanz}
+            typ={aufgabe.vorlage.typ}
+            tastatur={aufgabe.vorlage.tastatur}
+            gesperrt={ergebnis !== undefined}
+            onantwort={beantwortet}
+          />
+
+          <div class="knoepfe">
+            {#if ergebnis === undefined}
+              <button type="submit" form="antwort" class="haupt">{t('uebung.pruefen')}</button>
+              {#if hilfen < aufgabe.vorlage.hilfen.length}
+                <button
+                  class="zweit"
+                  onclick={() => {
+                    hilfen += 1;
+                    onnutzung?.('hilfe', `tipp:${aufgabe?.vorlage.id ?? ''}`);
+                  }}
+                >
+                  {hilfen === 0 ? t('uebung.hilfe') : t('uebung.weitere-hilfe')}
+                </button>
+              {/if}
+            {/if}
+          </div>
+
+          {#if hilfen > 0 && ergebnis === undefined}
+            <ul class="hilfen">
+              {#each aufgabe.vorlage.hilfen.slice(0, hilfen) as hilfe, i (i)}
+                <li><Textteile teile={fuelle(hilfe.de, aufgabe.instanz.platzhalter)} /></li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
 
         {#if ergebnis}
-          <div class="rueckmeldung" class:richtig={ergebnis.richtig} role="status">
+          <div
+            class="rueckmeldung"
+            class:richtig={ergebnis.richtig}
+            id="aufgabe-urteil"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             <p class="urteil">{ergebnis.richtig ? t('uebung.richtig') : t('uebung.falsch')}</p>
             {#if weg !== 'laeuft'}
               {#if rueckmeldung}<p><Textteile teile={rueckmeldung} /></p>{/if}
@@ -487,10 +504,18 @@
   }
 
   .aufgabe {
+    display: grid;
+    gap: var(--abstand-m);
     background: var(--farbe-flaeche);
     border-radius: var(--radius-karte);
     box-shadow: 0 2px 10px var(--farbe-schatten);
     padding: var(--abstand-m);
+  }
+
+  .aufgabe-frage,
+  .aufgabe-eingabe {
+    display: grid;
+    gap: var(--abstand-s);
   }
 
   .rueckweg {

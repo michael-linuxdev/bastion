@@ -9,6 +9,10 @@ import {
   aktuelleEinstellungen,
   aufDiesemGeraet,
   vonAnderemGeraet,
+  soundStufeAus,
+  SOUND_SCHLUESSEL,
+  kontrastAn,
+  KONTRAST_SCHLUESSEL,
   type EinstellungEreignis,
 } from './einstellung';
 
@@ -96,5 +100,27 @@ describe('Orientierung (Bildschirm drehen)', () => {
     expect(orientierungAus('quer')).toBe('quer');
     expect(orientierungAus('schraeg')).toBe('auto');
     expect(ORIENTIERUNG_SCHLUESSEL).toBe('darstellung.orientierung');
+  });
+});
+
+describe('Sound-Stufen (W113)', () => {
+  it('Standard aus; boolean-Altwerte und Stufen', () => {
+    expect(soundStufeAus(undefined)).toBe('aus');
+    expect(soundStufeAus(false)).toBe('aus');
+    expect(soundStufeAus(true)).toBe('bastion');
+    expect(soundStufeAus('ui')).toBe('ui');
+    expect(soundStufeAus('bastion')).toBe('bastion');
+    expect(soundStufeAus('aus')).toBe('aus');
+    expect(soundStufeAus('laut')).toBe('aus');
+    expect(SOUND_SCHLUESSEL).toBe('basebau.sound');
+  });
+});
+
+describe('Kontrast (V110)', () => {
+  it('nur ausdrückliches true schaltet ein', () => {
+    expect(kontrastAn(undefined)).toBe(false);
+    expect(kontrastAn(false)).toBe(false);
+    expect(kontrastAn(true)).toBe(true);
+    expect(KONTRAST_SCHLUESSEL).toBe('darstellung.kontrast');
   });
 });

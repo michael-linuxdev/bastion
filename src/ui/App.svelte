@@ -37,6 +37,8 @@
     sicherungAnstehend,
     bewaehrungBelohnen,
     orientierungWahl,
+    kontrastWahl,
+    soundStufe,
     zustand as ladeZustand,
     type Antwortdaten,
     type Zustand,
@@ -84,10 +86,11 @@
   } from '../core/learning/klassenarbeit';
   import { untrack } from 'svelte';
   import { aktiv } from './bastion/thema.svelte';
-  import { darstellungSetzen } from './grafik/darstellung.svelte';
+  import { darstellungSetzen, kontrastAnwenden } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
   import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import ModusWahl from './profil/ModusWahl.svelte';
+  import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
@@ -362,6 +365,9 @@
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
     darstellungSetzen(await modusWahl());
+    kontrastAnwenden(await kontrastWahl());
+    const cue = await soundStufe();
+    soundSteuern({ stufe: cue, ruhig: false });
     orientierungLaden(await orientierungWahl());
     const pr = await profilWahl();
     profil = { geburtsdatum: pr.geburtsdatum, erwachsen: pr.erwachsen };
@@ -571,6 +577,7 @@
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
       {testphase}
+      nieGeuebt={aufgabenListe.length === 0 && zustand.staende.size === 0}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
