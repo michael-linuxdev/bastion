@@ -14,4 +14,8 @@ Code-Fallback (`dorf.ts`, `wesen.ts`).
 (merged in Manifest). Sonne/Mond/Wolken, Regen/Schnee/Nebel, Schnee-Dach und
 Laub; die Bühne nutzt sie für alle Themen, sonst Code-Fallback.
 
-Als Nächstes: P2 Garten.
+**P2 Garten (Epoche 1):** geliefert – Generator `tools/grafik/sprites-p2-garten.py`.
+Gebäude, Rasen-Kacheln und Wesen (Biene, Schnecke, Schmetterling); die App
+zeichnet Garten aus dem Atlas, sonst Code-Fallback (`garten.ts`).
+
+Als Nächstes: P3 Bastion / Unterwasser / Weltraum.
