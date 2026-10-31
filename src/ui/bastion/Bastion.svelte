@@ -216,6 +216,7 @@
       onaktion={ausfuehren}
       {hinterhofFelder}
       bauplatz={epoche.bauplatz}
+      epoche={epoche.epoche}
     />
 
     <h3>{tt('bastion.vorrat')}</h3>

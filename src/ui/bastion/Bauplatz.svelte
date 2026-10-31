@@ -44,18 +44,23 @@
   import FarbWahl from './FarbWahl.svelte';
   import type { HinterhofFeld } from '../../core/learning/hinterhof';
   import { hinterhofMitte } from './grafik/hinterhof-szene';
+  import { epocheOptik, farbeSkalieren } from './grafik/epoche-optik';
+  import type { Epoche } from '../../core/bastion/epochen';
 
   let {
     bastion,
     onaktion,
     hinterhofFelder = [],
     bauplatz = BAUPLATZ,
+    epoche = 1 as Epoche,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
     hinterhofFelder?: readonly HinterhofFeld[];
     /** Aktive Bauplatzgröße nach Epoche (BASEBAU §5.5) */
     bauplatz?: { readonly breite: number; readonly tiefe: number };
+    /** Freigeschaltete Epoche für Optik (G10) */
+    epoche?: Epoche;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -330,8 +335,9 @@
           : wetterBild === 'bewoelkt'
             ? schattieren(himmelRoh, -10)
             : himmelRoh;
+    const optik = epocheOptik(epoche);
     const basis: Farben = {
-      boden: v('--bastion-boden'),
+      boden: farbeSkalieren(v('--bastion-boden'), optik.bodenFaktor),
       raster: v('--bastion-raster'),
       linie: v('--bastion-linie'),
       imBau: v('--farbe-akzent'),
@@ -345,10 +351,10 @@
       jahreszeit,
       wetter: wetterBild,
       familie: {
-        kern: v('--bastion-kern'),
-        wissen: v('--bastion-wissen'),
-        verteidigung: v('--bastion-verteidigung'),
-        bau: v('--bastion-bau'),
+        kern: farbeSkalieren(v('--bastion-kern'), optik.wandFaktor),
+        wissen: farbeSkalieren(v('--bastion-wissen'), optik.wandFaktor),
+        verteidigung: farbeSkalieren(v('--bastion-verteidigung'), optik.wandFaktor),
+        bau: farbeSkalieren(v('--bastion-bau'), optik.wandFaktor),
         zierde: v('--bastion-zierde'),
       },
     };
@@ -365,6 +371,7 @@
     void wetterBild;
     void bauplatz.breite;
     void bauplatz.tiefe;
+    void epoche;
     const bildart = bildartVonThema(aktiv.thema);
     let abgebrochen = false;
     let erstellt: Buehne | undefined;
@@ -433,6 +440,7 @@
           }
         : {}),
       ...(hinterhofFelder.length > 0 ? { hinterhof: hinterhofFelder } : {}),
+      epoche,
     };
     buehne?.zeichne(bastion, a);
   });
