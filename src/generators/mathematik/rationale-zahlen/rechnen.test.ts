@@ -44,7 +44,7 @@ describe('Addieren und Subtrahieren', () => {
       if (zahlen.some((z) => Number(z.replace(',', '.')) > p.max)) f.push('zu groß');
       if (!p.dezimal && zahlen.some((z) => z.includes(','))) f.push('Komma auf G');
       if (!T(i, 'term').includes('−')) f.push('keine negative Zahl');
-      if (!i.vorzeichen) f.push('ohne ±');
+      if (!i.vorzeichen) f.push('ohne Minustaste');
       return f;
     },
     mindestensVerschieden: { G: 80, M: 95 },

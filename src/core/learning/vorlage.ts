@@ -7,6 +7,7 @@
 import type { Kompetenz, Niveau } from '../competence/kompetenz';
 import type { Generator, Sprachobjekt } from './generator';
 import { pruefeReview, type Review } from './review';
+import { pruefeTastatur, type Taste } from './tastatur';
 import { platzhalterIn } from './text';
 import { pruefeSchritte, type VorlagenSchritt } from './zwischenschritte';
 
@@ -48,6 +49,8 @@ export interface GeneratorVorlage {
   readonly fehlerbilder: Readonly<Record<string, Sprachobjekt & { readonly fv?: string }>>;
   /** Zwischenschritte nach einem falschen Ergebnis (INHALTSFORMAT §17) */
   readonly schritte?: readonly VorlagenSchritt[];
+  /** Tasten der eigenen Tastatur (INHALTSFORMAT §5.2); ohne Angabe nach Art der Lösung */
+  readonly tastatur?: readonly Taste[];
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
   /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
@@ -118,6 +121,7 @@ export function pruefeVorlage(
   if (!Number.isInteger(d['version']) || (d['version'] as number) < 1)
     f.push('version muss ≥ 1 sein');
   f.push(...pruefeReview(d['review']));
+  f.push(...pruefeTastatur(d['tastatur']));
 
   const generatorName = typeof d['generator'] === 'string' ? d['generator'] : '';
   const generator = kontext.generatoren.get(generatorName);
