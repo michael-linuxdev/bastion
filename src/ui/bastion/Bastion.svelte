@@ -20,6 +20,7 @@
   } from '../../core/bastion/katalog';
   import {
     bauAusfuehren,
+    bildSetzen,
     themaSetzen,
     zielSetzen,
     zielVorgemerkt,
@@ -30,6 +31,7 @@
   } from '../plattform/ablage';
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
+  import BastionDarstellung from './BastionDarstellung.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
@@ -102,6 +104,16 @@
     geladen = true;
     // Ohne Bild ist die Liste die Bastion (barrierefrei) → Einstellungen öffnen
     if (!bild) einstellungenOffen = true;
+  });
+
+  // Marker für Leiste/Vollbild: nur die Szene im Querformat blendet die Reiter aus
+  const szeneAn = $derived(geladen && lage !== undefined && !einstellungenOffen);
+  $effect(() => {
+    if (szeneAn) document.documentElement.dataset['bastionSzene'] = '1';
+    else delete document.documentElement.dataset['bastionSzene'];
+    return () => {
+      delete document.documentElement.dataset['bastionSzene'];
+    };
   });
 
   function merken(z: Ziel | undefined) {
@@ -218,21 +230,20 @@
     `${tt('bastion.spalte')} ${x + 1}, ${tt('bastion.reihe')} ${y + 1}`;
 </script>
 
-<section class="bastion">
-  <header class="kopf">
-    <h2>{tt('bastion.ueberschrift')}</h2>
-    <button
-      class="zahnrad"
-      aria-expanded={einstellungenOffen}
-      aria-controls="bastion-einstellungen"
-      aria-label={t('bastion.einstellungen')}
-      onclick={() => (einstellungenOffen = !einstellungenOffen)}
-    >
-      <Symbol name="einstellungen" />
-    </button>
-  </header>
-  {#if !einstellungenOffen}
-    <p class="leise">{tt('bastion.einleitung')}</p>
+<section class="bastion" class:szene={geladen && !!lage && !einstellungenOffen}>
+  {#if !(geladen && lage && !einstellungenOffen)}
+    <header class="kopf">
+      <h2>{tt('bastion.ueberschrift')}</h2>
+      <button
+        class="zahnrad"
+        aria-expanded={einstellungenOffen}
+        aria-controls="bastion-einstellungen"
+        aria-label={t('bastion.einstellungen')}
+        onclick={() => (einstellungenOffen = !einstellungenOffen)}
+      >
+        <Symbol name="einstellungen" />
+      </button>
+    </header>
   {/if}
 
   {#if geladen && !lage}
@@ -242,6 +253,16 @@
     {@const epoche = epochenstand(l.bastion, l.konto)}
 
     {#if !einstellungenOffen}
+      <h2 class="unsichtbar">{tt('bastion.ueberschrift')}</h2>
+      <button
+        class="zahnrad schwebe"
+        aria-expanded={false}
+        aria-controls="bastion-einstellungen"
+        aria-label={t('bastion.einstellungen')}
+        onclick={() => (einstellungenOffen = true)}
+      >
+        <Symbol name="einstellungen" />
+      </button>
       <Bauplatz
         bastion={l.bastion}
         onaktion={ausfuehren}
@@ -249,13 +270,21 @@
         bauplatz={epoche.bauplatz}
         epoche={epoche.epoche}
         {spannung}
-        onBildAus={() => (einstellungenOffen = true)}
       />
     {/if}
 
     {#if einstellungenOffen}
       <div id="bastion-einstellungen" class="einstellungen">
         <h3>{t('bastion.einstellungen')}</h3>
+        <button class="zurueck-einstellungen" onclick={() => (einstellungenOffen = false)}
+          >← {t('bastion.zur-bastion')}</button
+        >
+        <BastionDarstellung
+          onBildAus={() => {
+            void bildSetzen(false);
+            einstellungenOffen = true;
+          }}
+        />
         <OrientierungWahl />
         {#if onbewaehrung}
           {@const joker = turmJoker(l.bastion.bauwerke)}
@@ -582,10 +611,6 @@
         {/if}
 
         <Hinterhof {kompetenzen} {staende} {aufgaben} {klasse} />
-
-        <button class="zurueck-einstellungen" onclick={() => (einstellungenOffen = false)}
-          >← {t('bastion.zur-bastion')}</button
-        >
       </div>
     {/if}
   {/if}
@@ -595,6 +620,20 @@
   .bastion {
     display: grid;
     gap: var(--abstand-s);
+  }
+
+  .bastion.szene {
+    position: relative;
+    gap: 0;
+    block-size: 100%;
+    min-block-size: calc(100dvh - env(safe-area-inset-top) - var(--leiste-hoehe, 6rem));
+    background: var(--farbe-himmel);
+  }
+
+  @media (orientation: landscape) {
+    .bastion.szene {
+      min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    }
   }
 
   .kopf {
@@ -622,6 +661,22 @@
     box-shadow: 0 1px 4px var(--farbe-schatten);
     cursor: pointer;
     flex-shrink: 0;
+  }
+
+  .zahnrad.schwebe {
+    position: absolute;
+    inset-block-start: var(--abstand-s);
+    inset-inline-end: var(--abstand-s);
+    z-index: 3;
+  }
+
+  .unsichtbar {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .einstellungen {

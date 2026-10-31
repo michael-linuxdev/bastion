@@ -32,15 +32,13 @@ async function themenWaehlen(seite: Page) {
 
 /** Bastion öffnen; standardmäßig Einstellungen (Listen/Vorrat/Bau). */
 async function bastionOeffnen(seite: Page, einstellungen = true) {
+  // Startseite-Knopf (nicht Leiste): Profil-Dialog und Desktop-Querformat stören die Leiste nicht
   await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await expect(seite.getByRole('heading', { level: 2 }).first()).toBeVisible({ timeout: 30_000 });
+  await expect(seite.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
+    timeout: 30_000,
+  });
   if (einstellungen) {
     // Lage/Bild geladen: entweder Bauplatz oder (ohne Bild) schon Einstellungen
-    await expect(
-      seite
-        .getByRole('heading', { name: 'Bastion-Einstellungen' })
-        .or(seite.locator('.bauplatz, .fenster, button').filter({ hasText: /Bild/ })),
-    ).toBeVisible({ timeout: 30_000 });
     if (!(await seite.getByRole('heading', { name: 'Bastion-Einstellungen' }).isVisible())) {
       await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
     }
@@ -911,39 +909,42 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   );
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
 
-  // Zoom wie in Dorfkrieg: + vergrößert zum Mittelpunkt, der Tipp trifft weiter das Feld
+  // Zoom per Mausrad auf den Zeiger (Knöpfe −/+ sind vom Reiter weg)
   const breite = async () => (await bild.boundingBox())?.width ?? 0;
   const vorher = await breite();
-  await page.getByRole('button', { name: 'Vergrößern' }).click();
-  await expect.poll(breite).toBeGreaterThan(vorher * 1.08);
+  const fenster = page.locator('.fenster');
+  const box = await fenster.boundingBox();
+  if (!box) throw new Error('kein Fenster');
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.wheel(0, -120);
+  await expect.poll(breite).toBeGreaterThan(vorher * 1.05);
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBeGreaterThan(0.35);
   const groesser = await einstellungImSpeicher(page, 'basebau.zoom');
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
-  await page.getByRole('button', { name: 'Verkleinern' }).click();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.wheel(0, 120);
   await expect
     .poll(() => einstellungImSpeicher(page, 'basebau.zoom'))
     .toBeLessThan(groesser as number);
-  // Fadenkreuz: wieder das ganze Bild, kein eigener Zoom mehr
+  // „Ganzes Bild“ in den Bastion-Einstellungen setzt den Zoom zurück
+  await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.zoom')).toBe(0);
+  await page.getByRole('button', { name: '← Zur Bastion' }).click();
   await tippe(0, 11);
   await expect(wahl).toContainText('Feuerstelle');
 
-  // Bild ausblenden: Liste in den Einstellungen – auch nach dem Neuladen
-  await page.getByRole('button', { name: /Bild ausblenden/ }).click();
+  // Bild ausblenden: nur noch in den Einstellungen – auch nach dem Neuladen
+  await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  await page.getByRole('checkbox', { name: /Bild ausblenden/ }).click();
   await expect(bild).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.bild')).toBe(false);
   await expect(page.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
   await page.reload();
-  // Ohne Bild öffnen die Einstellungen (Liste); zurück zur Bastion für „Bild zeigen“
-  await bastionOeffnen(page, false);
-  // auto: Einstellungen wegen bild=false – schließen falls offen
-  const zahn = page.getByRole('button', { name: 'Bastion-Einstellungen' });
-  if ((await zahn.getAttribute('aria-expanded')) === 'true') {
-    await page.getByRole('button', { name: '← Zur Bastion' }).click();
-  }
-  await expect(page.getByRole('button', { name: 'Bild zeigen' })).toBeVisible();
+  // Ohne Bild öffnen die Einstellungen (Liste)
+  await bastionOeffnen(page, true);
+  await expect(page.getByRole('checkbox', { name: /Bild zeigen/ })).toBeVisible();
   await expect(bild).toHaveCount(0);
 });
 
