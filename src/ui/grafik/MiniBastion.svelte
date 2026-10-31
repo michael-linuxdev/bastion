@@ -8,6 +8,11 @@
   import { szeneAbend } from '../bastion/grafik/sonne';
   import { atlasBasisUrl } from '../bastion/grafik/atlas';
 
+  let {
+    /** Sanfte Wolkenbewegung auf dem Hub (Design A4 / F23); aus bei reduced-motion */
+    lebendig = false,
+  }: { lebendig?: boolean } = $props();
+
   const jetzt = new Date();
   const jahreszeit = jahreszeitAusDatum(jetzt);
   const abend = $derived(szeneAbend(darstellung.modus, jetzt));
@@ -21,7 +26,7 @@
   });
 </script>
 
-<div class="mini" class:abend data-jahreszeit={jahreszeit} aria-hidden="true">
+<div class="mini" class:abend class:lebendig data-jahreszeit={jahreszeit} aria-hidden="true">
   {#if standbildOk}
     <img
       class="standbild"
@@ -241,5 +246,14 @@
   }
   .mini.abend .wolke {
     opacity: 0.15;
+  }
+  /* Lebendige Hub-Karte: weiches Wolkenziehen (F23), nie bei reduced-motion */
+  @media (prefers-reduced-motion: no-preference) {
+    .mini.lebendig .wolke {
+      animation: bastion-wolke 12s ease-in-out infinite alternate;
+    }
+    .mini.lebendig .standbild {
+      animation: bastion-wolke 18s ease-in-out infinite alternate;
+    }
   }
 </style>

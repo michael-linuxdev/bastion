@@ -28,4 +28,5 @@
 | 31.10.2026 | **Feinschliff P3–P6:** Laub/Schnee-Dach nur Land; Hinterhof Umbruch+nur im Hinterhof-Blick; Bastion-Kern Firstkappe |
 | 31.10.2026 | **Design-Ideen Repo:** `docs/DESIGN-IDEEN.md` mit Zweck, A–Z-Spiegel und Backlog AA–ZZ (BA–ZZ reserviert); Hinweis in SESSION/PLAN |
 | 31.10.2026 | **Design-Ideen BA–BZ:** Abschnitte BA–BZ in `docs/DESIGN-IDEEN.md` ausgearbeitet; CA–ZZ weiter reserviert |
+| 31.10.2026 | **Design-Bündel:** Hub-Türen, Bastion-Ort/HUD, Bau-Vorschau-Politur, Eltern/Probe, Typo/Motion (Ideensammlung A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) |
 | 31.10.2026 | **Üben Ein-/Ausgabe:** Feedback-Schichtung, Antwortspiegel, Steine, Tipp-Notiz, Schrittweg-Checkliste, Tastatur angebunden (Lern-UI §9, Spec P0–P1) |

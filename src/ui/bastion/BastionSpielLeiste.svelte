@@ -1,9 +1,9 @@
 <script lang="ts">
   /**
-   * Spiel-HUD auf dem Bastion-Reiter: kompakter Vorrat + Knopf zum Bauen/Planen.
-   * Liegt in der gemeinsamen oberen Chrome (kein eigenes Absolute).
+   * Spiel-HUD: Vorrat wie Beutel/Truhe mit Material-Icons (Design B6).
+   * Der Bauen-Knopf liegt als Werkzeug am Szenenrand (B7), nicht hier.
    */
-  import Symbol from '../grafik/Symbol.svelte';
+  import Symbol, { type SymbolName } from '../grafik/Symbol.svelte';
   import { menge, tt } from './thema.svelte';
   import type { Konto } from '../../core/ledger/buchung';
   import { t } from '../texte/texte';
@@ -12,19 +12,24 @@
     konto,
     vorrat,
     testRohstoffe = false,
-    bauOffen = $bindable(false),
   }: {
     konto: Konto;
     vorrat: number;
     /** Eltern/Test: ∞ statt Zahlen */
     testRohstoffe?: boolean;
-    bauOffen?: boolean;
   } = $props();
+
+  const chips: readonly { r: 'fleiss' | 'behalten' | 'koennen'; symbol: SymbolName }[] = [
+    { r: 'fleiss', symbol: 'stein' },
+    { r: 'behalten', symbol: 'erz' },
+    { r: 'koennen', symbol: 'bauplan' },
+  ];
 </script>
 
 <div class="spiel" aria-label={tt('bastion.vorrat-kurz')}>
-  <ul class="chips">
-    {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
+  <ul class="chips" class:probe={testRohstoffe}>
+    <li class="beutel" aria-hidden="true"><Symbol name="beutel" /></li>
+    {#each chips as { r, symbol } (r)}
       <li>
         <Symbol name={symbol} />
         <span>{testRohstoffe ? t('bastion.test-unendlich') : menge(r, konto.stand[r])}</span>
@@ -35,14 +40,6 @@
       <span><strong>{testRohstoffe ? t('bastion.test-unendlich') : vorrat}</strong></span>
     </li>
   </ul>
-  <button
-    class="bauen"
-    aria-expanded={bauOffen}
-    aria-controls="bastion-bau-blatt"
-    onclick={() => (bauOffen = !bauOffen)}
-  >
-    {bauOffen ? tt('bastion.bauen-schliessen') : tt('bastion.bauen-oeffnen')}
-  </button>
 </div>
 
 <style>
@@ -59,15 +56,23 @@
   .chips {
     list-style: none;
     margin: 0;
-    padding: 0.3rem 0.45rem;
+    padding: 0.35rem 0.55rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 0.5rem;
+    gap: 0.3rem 0.55rem;
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--farbe-flaeche) 90%, transparent);
-    box-shadow: 0 1px 4px var(--farbe-schatten);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    box-shadow:
+      0 1px 4px var(--farbe-schatten),
+      0 0 0 1px color-mix(in srgb, var(--farbe-flaeche) 60%, transparent);
+    backdrop-filter: blur(6px);
     min-inline-size: 0;
     max-inline-size: 100%;
+  }
+
+  .chips.probe {
+    outline: 2px dashed color-mix(in srgb, var(--farbe-hinweis-rand) 70%, transparent);
+    outline-offset: 1px;
   }
 
   .chips li {
@@ -78,6 +83,11 @@
     font-size: 0.8rem;
     font-weight: 700;
     white-space: nowrap;
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--farbe-flaeche) 80%, transparent);
+  }
+
+  .chips .beutel {
+    color: var(--farbe-akzent-warm);
   }
 
   .chips span {
@@ -90,20 +100,6 @@
     flex-shrink: 0;
   }
 
-  .bauen {
-    font: inherit;
-    font-size: 0.9rem;
-    min-block-size: 2.5rem;
-    padding-inline: var(--abstand-s);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
-    color: inherit;
-    cursor: pointer;
-    box-shadow: 0 1px 4px var(--farbe-schatten);
-    flex-shrink: 0;
-  }
-
   @media (orientation: landscape) and (height < 30rem) {
     .chips {
       padding: 0.2rem 0.35rem;
@@ -112,11 +108,6 @@
 
     .chips li {
       font-size: 0.75rem;
-    }
-
-    .bauen {
-      min-block-size: 2.25rem;
-      font-size: 0.85rem;
     }
   }
 </style>
