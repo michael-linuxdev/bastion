@@ -18,4 +18,9 @@ Laub; die Bühne nutzt sie für alle Themen, sonst Code-Fallback.
 Gebäude, Rasen-Kacheln und Wesen (Biene, Schnecke, Schmetterling); die App
 zeichnet Garten aus dem Atlas, sonst Code-Fallback (`garten.ts`).
 
-Als Nächstes: P3 Bastion / Unterwasser / Weltraum.
+**P3 Bastion / Unterwasser / Weltraum (Epoche 1):** geliefert – Generator
+`tools/grafik/sprites-p3-themen.py`. Gebäude, Boden und Wesen je Thema;
+Abend-Fenster wo Öffnungen; die App zeichnet Insel/Unterwasser/Weltraum aus
+dem Atlas, sonst Code-Fallback.
+
+Als Nächstes: P4 Hinterhof-Objekte + MiniBastion-Standbilder.

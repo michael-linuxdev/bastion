@@ -35,6 +35,27 @@ function sandFarbe(abend: boolean, x: number, y: number, aussen: boolean): strin
   return hell ? '#c4b896' : schach ? '#b8a878' : '#a89868';
 }
 
+/**
+ * Atlas-Boden-Kachel für Feld (x,y) – fest aus Position, kein Zufall.
+ * Spec: `flaeche` / `rand`; Varianten `flaeche_b` / `flaeche_hell`.
+ */
+export function uwBodenKachel(
+  x: number,
+  y: number,
+  breite: number,
+  tiefe: number,
+): 'flaeche' | 'rand' | 'flaeche_b' | 'flaeche_hell' {
+  const aussen = x < 0 || y < 0 || x >= breite || y >= tiefe;
+  if (aussen) return 'rand';
+  if (hash01(x, y) > 0.85) return 'flaeche_hell';
+  return (x + y) % 2 === 0 ? 'flaeche' : 'flaeche_b';
+}
+
+/** Abend-Abdunkeln der Atlas-Sandfläche (Tint 0xRRGGBB). */
+export function uwBodenTint(abend: boolean): number {
+  return abend ? 0x5a7088 : 0xffffff;
+}
+
 export function uwHoehe(typ: GebaeudeTyp, stufe: number): number {
   const grund: Record<GebaeudeTyp, number> = {
     kern: 56,
@@ -92,6 +113,26 @@ export function uwSzene(
   }
   teile.sort((a, b) => a.tiefe - b.tiefe);
   for (const t of teile) t.mal();
+}
+
+/** Koralle am Feld (Code-Fallback / Dekoration neben Atlas-Sprites). */
+export function uwKoralle(st: Stift, x: number, y: number, scale: number): void {
+  koralle(st, x, y, scale);
+}
+
+/** Feste Korallenpositionen (Tiefe = x+y für Sortierung). */
+export function uwKoralleLagen(): readonly {
+  x: number;
+  y: number;
+  s: number;
+  tiefe: number;
+}[] {
+  return KORALLEN.map((k) => ({ ...k, tiefe: k.x + k.y }));
+}
+
+/** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */
+export function uwGebaeude(st: Stift, bau: UwBau, abend: boolean, licht: string): void {
+  gebaeude(st, bau, abend, licht);
 }
 
 function koralle(st: Stift, x: number, y: number, scale: number): void {

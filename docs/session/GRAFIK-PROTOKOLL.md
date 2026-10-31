@@ -19,3 +19,4 @@
 | 31.10.2026 | **Politur-Pass Bastion:** Versetzen ohne DataCloneError (`$state`-Proxy), Bau-Blatt-Schließen/Textumbruch, Auswahl↔Blatt, kompakte Knöpfe, Leiste Quer zuverlässiger |
 | 31.10.2026 | **Abend-Fenster / Dorf-Politur:** `*_fenster.png`-Layer Dorf+Garten; Runtime am Abend; Tages-Sprites mit Rahmen/Sims (`GRAFIK-SPRITES.md` §1/§3) |
 | 31.10.2026 | **Bewohner ausgebaut:** Handwerkerin/Imkerin, mehr Tätigkeiten, Fortschritts-Kopplung, Tippen+Zahnrad-Erklärung (`GRAFIK.md` §4.4) |
+| 31.10.2026 | **P3 Bastion/Unterwasser/Weltraum:** Gebäude Epoche 1, Boden, Wesen (+ Abend-Fenster) im Atlas; Runtime mit Code-Fallback (`GRAFIK-SPRITES.md` §8) |
