@@ -11,7 +11,8 @@
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import type { Aufgabentyp } from '../../core/learning/vorlage';
   import { t, type TextSchluessel } from '../texte/texte';
-  import { zahlText } from '../../core/learning/text';
+  import { fuelle, zahlText } from '../../core/learning/text';
+  import Textteile from './Textteile.svelte';
 
   let {
     instanz,
@@ -116,7 +117,7 @@
               {@html option.bild.svg}
             </span>
           {/if}
-          {#if option.text}<span>{option.text.de}</span>{/if}
+          {#if option.text}<span><Textteile teile={fuelle(option.text.de, {})} /></span>{/if}
           {#if !option.text && !option.bild}{t('eingabe.option')} {i + 1}{/if}
         </label>
       {/each}

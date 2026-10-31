@@ -250,6 +250,7 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 | Datum | Änderung |
 |---|---|
+| 31.10.2026 | **Formeldarstellung, Schritt 1:** Zeichen in Klasse 5–8 ausgewertet; Brüche als Antwortmöglichkeit zeigten `\frac` als Text, die eigene Teilmenge kann jetzt `\frac{…}{…}`; KaTeX bleibt bis Klasse 9 unnötig |
 | 31.10.2026 | **Review-Vermerk:** `pnpm review` zeigt die Stufen, `pnpm review setzen` schreibt den Block; Stufe braucht die vorige; Prüfkatalog für die Maschinenpunkte 3 und 4 (INHALTSFORMAT §8) |
 | 31.10.2026 | **Prüfbogen zum Ausfüllen:** `pnpm pruefbogen --online` erzeugt die Artefakt-Seite, die Eingaben speichert (Sammlung `bewertung`) |
 | 30.10.2026 | **Prüfbogen:** `pnpm pruefbogen` setzt Erstvermittlung, Fehlvorstellungen, Vorlagen mit 20 Aufgaben je Niveau und Fachbegriffe als druckbare Seite für die fachliche Prüfung zusammen (Stufe 2) |

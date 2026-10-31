@@ -68,17 +68,19 @@ function fliesstext(
   }
 }
 
-/** Formel: Platzhalter einsetzen, dann \sqrt{…}, ^{…}, ^x und \cdot erkennen. */
+/** Formel: Platzhalter einsetzen, dann \frac{…}{…}, \sqrt{…}, ^{…}, ^x und \cdot erkennen. */
 function formel(text: string, platzhalter: Readonly<Record<string, Wert>>, teile: Textteil[]) {
   const eingesetzt = text.replace(/\{([a-z_]+)\}/g, (_, n: string) =>
     wertText(holeWert(n, platzhalter)),
   );
   for (const m of eingesetzt.matchAll(
-    /\\sqrt\{\s*([^}]*?)\s*\}|\^\{\s*([^}]*?)\s*\}|\^(\w)|\\cdot|[^\\^]+|[\\^]/g,
+    /\\frac\{\s*([^}]*?)\s*\}\{\s*([^}]*?)\s*\}|\\sqrt\{\s*([^}]*?)\s*\}|\^\{\s*([^}]*?)\s*\}|\^(\w)|\\cdot|[^\\^]+|[\\^]/g,
   )) {
-    if (m[1] !== undefined) teile.push({ art: 'wurzel', text: m[1] });
-    else if (m[2] !== undefined) teile.push({ art: 'hoch', text: m[2] });
-    else if (m[3] !== undefined) teile.push({ art: 'hoch', text: m[3] });
+    if (m[1] !== undefined && m[2] !== undefined)
+      teile.push({ art: 'bruch', zaehler: m[1], nenner: m[2], fett: false });
+    else if (m[3] !== undefined) teile.push({ art: 'wurzel', text: m[3] });
+    else if (m[4] !== undefined) teile.push({ art: 'hoch', text: m[4] });
+    else if (m[5] !== undefined) teile.push({ art: 'hoch', text: m[5] });
     else if (m[0] === '\\cdot') teile.push({ art: 'text', text: '·', fett: false });
     else teile.push({ art: 'text', text: m[0], fett: false });
   }
