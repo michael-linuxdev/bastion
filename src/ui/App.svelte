@@ -89,7 +89,6 @@
   import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import ModusWahl from './profil/ModusWahl.svelte';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
-  import Leiste, { type Bereich } from './start/Leiste.svelte';
   import Mehr from './start/Mehr.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
@@ -426,7 +425,7 @@
   }
 
   /**
-   * „Üben“ in der Leiste/Start: direkt zur nächsten bzw. offenen Aufgabe.
+   * „Üben“ vom Start-Hub: direkt zur nächsten bzw. offenen Aufgabe.
    * Läuft schon eine Runde, bleiben wir dort. Sonst Übersicht nur als Notfall.
    */
   async function zumNaechstenUeben() {
@@ -474,8 +473,8 @@
     ansicht = 'wiederholen';
   }
 
-  /** Ein Bereich der App öffnen – von der Startseite oder aus der Leiste unten. */
-  function gehe(ziel: Ziel | 'start' | 'mehr') {
+  /** Ein Bereich der App öffnen – vom Start-Hub oder aus Unterseiten. */
+  function gehe(ziel: Ziel | 'start') {
     if (ziel !== 'start' && ziel !== 'mehr' && ziel !== 'sicherung' && ziel !== 'profil')
       inhalte ??= ladeInhalte();
     switch (ziel) {
@@ -505,17 +504,6 @@
         if (ziel === 'start' || ziel === 'stand' || ziel === 'eltern') void aktualisiere();
     }
   }
-
-  /** Hervorgehobener Bereich in der Leiste unten */
-  const bereich = $derived<Bereich | undefined>(
-    ansicht === 'start' || ansicht === 'bastion'
-      ? ansicht
-      : ansicht === 'abschluss'
-        ? undefined
-        : ['mehr', 'stand', 'profil', 'sicherung', 'eltern', 'klassenarbeit'].includes(ansicht)
-          ? 'mehr'
-          : 'ueben',
-  );
 
   /** Laufendes Speichern – der Abschluss wartet darauf, damit die letzte Antwort mitzählt. */
   let speichern: Promise<void> = Promise.resolve();
@@ -652,6 +640,11 @@
             aufgaben={aufgabenListe}
             {klasse}
             spannung={bewaehrungSpannung}
+            onzumStart={() => {
+              bewaehrungSpannung = false;
+              bewaehrungHinweis = undefined;
+              gehe('start');
+            }}
             onbewaehrung={(modus, themen, joker) => {
               const liste = themen.length > 0 ? themen : geladen.kompetenzen.map((k) => k.id);
               diagnoseAntworten = [];
@@ -735,7 +728,13 @@
           onstart={() => (ansicht = 'start')}
         />
       {:else if ansicht === 'eltern'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <button
+          class="zurueck"
+          onclick={() => {
+            ansicht = 'start';
+            void aktualisiere();
+          }}>← {t('uebung.zurueck')}</button
+        >
         <Elternbereich
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -966,26 +965,24 @@
   {/if}
 </main>
 
-<Leiste aktuell={bereich} {basebau} onwahl={gehe} />
-
 <UpdateHinweis />
 
 <style>
   .start {
     max-inline-size: 40rem;
     margin-inline: auto;
-    /* oben Abstand zur Statusleiste des iPhones (viewport-fit=cover), unten Platz für die Leiste */
+    /* oben Abstand zur Statusleiste des iPhones (viewport-fit=cover) */
     padding-block: calc(env(safe-area-inset-top) + var(--abstand-l))
-      calc(var(--leiste-hoehe, 6rem) + var(--abstand-s));
+      calc(env(safe-area-inset-bottom) + var(--abstand-s));
     padding-inline: var(--abstand-m);
   }
 
-  /* Bastion-Szene: vollflächig im Inhaltsbereich (außer unterer Leiste).
+  /* Bastion-Szene: vollflächig.
      Klassen .bastion/.einstellungen kommen aus dem nachgeladenen Modul → :global. */
   .start.bastion-szene:global(:has(.bastion.szene)) {
     max-inline-size: none;
     margin-inline: 0;
-    padding-block: env(safe-area-inset-top) var(--leiste-hoehe, 6rem);
+    padding-block: env(safe-area-inset-top) env(safe-area-inset-bottom);
     padding-inline: 0;
     block-size: 100dvh;
     overflow: hidden;
@@ -1002,18 +999,12 @@
     background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
   }
 
-  @media (orientation: landscape) {
-    .start.bastion-szene:global(:has(.bastion.szene)) {
-      padding-block-end: env(safe-area-inset-bottom);
-    }
-  }
-
   /* Bastion-Einstellungen: wieder normaler Lesebereich */
   .start.bastion-szene:global(:has(.einstellungen)) {
     max-inline-size: 40rem;
     margin-inline: auto;
     padding-block: calc(env(safe-area-inset-top) + var(--abstand-l))
-      calc(var(--leiste-hoehe, 6rem) + var(--abstand-s));
+      calc(env(safe-area-inset-bottom) + var(--abstand-s));
     padding-inline: var(--abstand-m);
     block-size: auto;
     overflow: visible;

@@ -69,6 +69,16 @@ describe('Basebau-Schalter (R7, B-13)', () => {
   });
 });
 
+describe('Test-Rohstoffe (Eltern)', () => {
+  it('nur ausdrückliches true schaltet ein', async () => {
+    const { TEST_ROHSTOFFE_SCHLUESSEL, testRohstoffeAn } = await import('./einstellung');
+    expect(testRohstoffeAn(undefined)).toBe(false);
+    expect(testRohstoffeAn(false)).toBe(false);
+    expect(testRohstoffeAn(true)).toBe(true);
+    expect(TEST_ROHSTOFFE_SCHLUESSEL).toBe('bastion.test-rohstoffe');
+  });
+});
+
 describe('Hell, dunkel, System (GRAFIK §2)', () => {
   it('Standard ist System; nur bekannte Werte gelten', () => {
     expect(modusAus(undefined)).toBe('system');

@@ -106,6 +106,14 @@ export const orientierungAus = (wert: unknown): Orientierung =>
 /** Vorgemerktes Bauvorhaben (BASEBAU B-20), als Text; leer = keins. */
 export const ZIEL_SCHLUESSEL = 'basebau.ziel';
 
+/**
+ * Eltern/Test: Unendlich Rohstoffe nur zum Ansehen des Baus.
+ * Virtueller Vorrat – Ledger und Lernfortschritt bleiben unberührt.
+ * Einstellung `bastion.test-rohstoffe`; nur `true` schaltet ein.
+ */
+export const TEST_ROHSTOFFE_SCHLUESSEL = 'bastion.test-rohstoffe';
+export const testRohstoffeAn = (wert: unknown): boolean => wert === true;
+
 /** Gewählte Klassenstufe (L-12): Einstellung `lernen.klasse`, 5 bis 12; sonst 5. */
 export const KLASSE_SCHLUESSEL = 'lernen.klasse';
 export const klasseAus = (wert: unknown): number =>

@@ -1,6 +1,5 @@
 <script lang="ts">
-  // „Mehr“ (Leiste unten): alles, was nicht täglich gebraucht wird – damit die
-  // Startseite auf einen Bildschirm passt. Dazu der Name der App und das Versprechen.
+  // „Mehr“ vom Start-Hub: alles, was nicht täglich gebraucht wird.
   import Symbol from '../grafik/Symbol.svelte';
   import { t } from '../texte/texte';
   import type { Ziel } from './Startseite.svelte';
@@ -13,7 +12,7 @@
     /** Elternbereich anbieten (nicht bei Erwachsenen, L-15) */
     eltern: boolean;
     offline: boolean;
-    onziel: (z: Ziel) => void;
+    onziel: (z: Ziel | 'start') => void;
   } = $props();
 
   const eintraege = $derived<{ ziel: Ziel; name: string }[]>([
@@ -27,12 +26,16 @@
 </script>
 
 <section class="mehr">
+  <button class="zurueck" onclick={() => onziel('start')}>← {t('uebung.zurueck')}</button>
   <p class="marke">{t('start.ueberschrift')}</p>
+  <h2>{t('mehr.ueberschrift')}</h2>
+  <p class="leise">{t('mehr.info')}</p>
   <ul class="liste">
     {#each eintraege as e (e.ziel)}
       <li>
         <button onclick={() => onziel(e.ziel)}>
-          {#if e.ziel === 'stand'}<Symbol name="stand" />{/if}
+          {#if e.ziel === 'stand'}<Symbol name="stand" />
+          {:else if e.ziel === 'themen'}<Symbol name="ueben" />{/if}
           <span>{e.name}</span>
         </button>
       </li>
@@ -49,10 +52,28 @@
     display: grid;
     gap: var(--abstand-m);
   }
+  .zurueck {
+    font: inherit;
+    justify-self: start;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text);
+    cursor: pointer;
+    padding-inline: 0;
+    min-block-size: 2.75rem;
+  }
   .marke {
     font-size: 1.75rem;
     font-weight: 800;
     color: var(--farbe-akzent);
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  .leise {
+    color: var(--farbe-text-leise);
     margin: 0;
   }
   .liste {
@@ -62,7 +83,7 @@
     display: grid;
     gap: var(--abstand-s);
   }
-  button {
+  button:not(.zurueck) {
     font: inherit;
     font-weight: 700;
     display: flex;

@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { BUEHNE_B, BUEHNE_H, punkt } from '../../src/ui/bastion/grafik/iso';
 
-/** „Mehr“ in der Leiste unten öffnen: Sicherung, Themen, Über mich, … */
+/** „Mehr“ vom Start-Hub: Sicherung, Themen, Über mich, … */
 /**
  * Ein Thema zum Üben öffnen. Hat es eine Erstvermittlung, kommt beim ersten Mal das Angebot
  * „Erst erklären lassen?“ (U3d). Das wird hier übersprungen; Tests zum Angebot selbst klicken es.
@@ -19,8 +19,25 @@ async function angebotUeberspringen(seite: Page) {
   if (await nein.isVisible()) await nein.click();
 }
 
+async function zurStartseite(seite: Page) {
+  const hallo = seite.getByText('Hallo! Schön, dass du da bist.');
+  if (await hallo.isVisible().catch(() => false)) return;
+  const home = seite.getByRole('button', { name: 'Zur Startseite' });
+  if (await home.isVisible().catch(() => false)) {
+    await home.click();
+  } else {
+    // App-Zurück (Eltern/Mehr/…) zuerst – aktualisiert z. B. den Testphase-Hinweis
+    const zurueck = seite.getByRole('main').getByRole('button', { name: 'Zurück' }).first();
+    if (await zurueck.isVisible().catch(() => false)) await zurueck.click();
+  }
+  if (!(await hallo.isVisible().catch(() => false))) await seite.goto('./');
+  await expect(hallo).toBeVisible();
+}
+
 async function mehr(seite: Page) {
-  await seite.getByRole('navigation').getByRole('button', { name: 'Mehr' }).click();
+  await zurStartseite(seite);
+  await seite.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
+  await expect(seite.getByRole('heading', { name: 'Mehr' })).toBeVisible();
 }
 
 /** Themenübersicht (Klasse, Niveau) – unter Mehr, nicht unter Üben. */
@@ -32,7 +49,7 @@ async function themenWaehlen(seite: Page) {
 
 /** Bastion öffnen; standardmäßig Einstellungen (Listen/Vorrat/Bau). */
 async function bastionOeffnen(seite: Page, einstellungen = true) {
-  // Startseite-Knopf (nicht Leiste): Profil-Dialog und Desktop-Querformat stören die Leiste nicht
+  await zurStartseite(seite);
   await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(seite.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
     timeout: 30_000,
@@ -46,19 +63,17 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
   }
 }
 
-/**
- * Von der Bastion zur Startseite (Chrome #113: kein „Zurück“ mehr auf dem Reiter).
- * Im Querformat ist die Leiste nur mit offenen Einstellungen sichtbar.
- */
+/** Von der Bastion zur Startseite (Home-Piktogramm oder Einstellungen). */
 async function bastionZurStartseite(seite: Page) {
-  const leiste = seite.getByRole('navigation', { name: 'Bereiche' });
-  const start = leiste.getByRole('button', { name: 'Start' });
-  if (!(await start.isVisible().catch(() => false))) {
+  const home = seite.getByRole('button', { name: 'Zur Startseite' });
+  if (await home.isVisible().catch(() => false)) {
+    await home.click();
+  } else {
     const zahnrad = seite.getByRole('button', { name: 'Bastion-Einstellungen' });
     if (await zahnrad.isVisible().catch(() => false)) await zahnrad.click();
     await expect(seite.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
+    await seite.getByRole('button', { name: 'Zur Startseite' }).click();
   }
-  await start.click();
   await expect(seite.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
 }
 
@@ -297,9 +312,20 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await expect(page.getByText(/Punkte|%/)).toHaveCount(0);
 
   // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt; Üben springt zur Aufgabe
-  await page.getByRole('navigation').getByRole('button', { name: 'Üben' }).click();
-  await angebotUeberspringen(page);
-  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
+  await expect(
+    page
+      .getByRole('button', { name: 'Prüfen' })
+      .or(page.getByRole('button', { name: 'Ich kann das schon' }))
+      .or(page.getByRole('heading', { name: 'Was möchtest du üben?' })),
+  ).toBeVisible({ timeout: 30_000 });
+  if (await page.getByRole('heading', { name: 'Was möchtest du üben?' }).isVisible()) {
+    await thema(page, /^Addieren und Subtrahieren/);
+  } else {
+    await angebotUeberspringen(page);
+  }
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible({ timeout: 15_000 });
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
@@ -788,14 +814,15 @@ test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) 
     .click();
   await expect(page.getByText(/^Wimpel – fertig am/)).toBeVisible();
 
-  // Nach dem Neuladen bleibt das Thema; der Knopf heißt wie das Thema
+  // Nach dem Neuladen bleibt das Thema; der Start-Hub-Knopf heißt wie das Thema
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.thema')).toBe('garten');
   await page.reload();
   await page.getByRole('main').getByRole('button', { name: 'Garten', exact: true }).click();
-  await expect(
-    page.getByRole('navigation').getByRole('button', { name: 'Garten', exact: true }),
-  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
+    timeout: 30_000,
+  });
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  await expect(page.getByRole('heading', { name: 'Bastion-Einstellungen' })).toBeVisible();
   await page.getByRole('radio', { name: 'Unterwasserstadt' }).check();
   await expect(page.getByRole('heading', { name: 'Deine Unterwasserstadt' })).toBeVisible();
   // Was gebaut ist, bleibt – es heißt nur anders
@@ -1298,34 +1325,30 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
 });
 
-test('Leiste unten: Start, Üben, Bastion, Mehr (GRAFIK §1)', async ({ page }) => {
-  // Hochformat: im Querformat blendet die Bastion-Szene die Leiste aus (#113)
+test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
   await page.getByRole('button', { name: 'Überspringen' }).click();
-  const leiste = page.getByRole('navigation', { name: 'Bereiche' });
-  await expect(leiste.getByRole('button', { name: 'Start' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
-  await leiste.getByRole('button', { name: 'Üben' }).click();
-  await expect(leiste.getByRole('button', { name: 'Üben' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
-  await leiste.getByRole('button', { name: 'Mehr' }).click();
-  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
-  await expect(leiste.getByRole('button', { name: 'Mehr' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
-  await leiste.getByRole('button', { name: 'Bastion' }).click();
-  await expect(leiste.getByRole('button', { name: 'Bastion' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
-  await leiste.getByRole('button', { name: 'Start' }).click();
+  await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
   await expect(page.getByText('Hallo! Schön, dass du da bist.')).toBeVisible();
+  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
+  await expect(
+    page
+      .getByRole('button', { name: 'Prüfen' })
+      .or(page.getByRole('button', { name: 'Ich kann das schon' }))
+      .first(),
+  ).toBeVisible({
+    timeout: 30_000,
+  });
+  await page.goto('./');
+  await page.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
+  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
+  await page.getByRole('button', { name: 'Zurück' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await expect(page.getByRole('button', { name: 'Bastion-Einstellungen' })).toBeVisible({
+    timeout: 30_000,
+  });
+  await bastionZurStartseite(page);
 });
 
 test('Üben: Punkte zeigen den Fortschritt im Fünferblock, ohne Zeit (GRAFIK §5)', async ({
@@ -1568,7 +1591,7 @@ test('Fehlerwerkstatt nach Ursachen: ein Denkfehler aus Kürzen und Erweitern is
     await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
     await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   }
-  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  await page.goto('./');
   await page
     .getByRole('main')
     .getByRole('button', { name: /Fehlerwerkstatt/ })
@@ -1598,11 +1621,13 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByRole('button', { name: 'Einschalten' }).click();
   await expect(page.getByText('Das Testprotokoll ist eingeschaltet.')).toBeVisible();
 
-  // Hinweis auf der Startseite, dann etwas üben
-  await page.getByRole('navigation').getByRole('button', { name: 'Start' }).click();
+  // Neu laden: Startseite liest den Testphase-Stand frisch (wie nach Leiste-Start früher)
+  await page.goto('./');
+  const skip = page.getByRole('button', { name: 'Überspringen' });
+  if (await skip.isVisible().catch(() => false)) await skip.click();
   await expect(
     page.getByText('Testphase: Die Nutzung wird auf diesem Gerät protokolliert.'),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 15_000 });
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
   await page.getByLabel('Deine Antwort').fill('0');

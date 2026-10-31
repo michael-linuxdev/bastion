@@ -6,14 +6,18 @@
   import Symbol from '../grafik/Symbol.svelte';
   import { menge, tt } from './thema.svelte';
   import type { Konto } from '../../core/ledger/buchung';
+  import { t } from '../texte/texte';
 
   let {
     konto,
     vorrat,
+    testRohstoffe = false,
     bauOffen = $bindable(false),
   }: {
     konto: Konto;
     vorrat: number;
+    /** Eltern/Test: ∞ statt Zahlen */
+    testRohstoffe?: boolean;
     bauOffen?: boolean;
   } = $props();
 </script>
@@ -23,12 +27,12 @@
     {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
       <li>
         <Symbol name={symbol} />
-        <span>{menge(r, konto.stand[r])}</span>
+        <span>{testRohstoffe ? t('bastion.test-unendlich') : menge(r, konto.stand[r])}</span>
       </li>
     {/each}
     <li>
       <Symbol name="bastion" />
-      <span><strong>{vorrat}</strong></span>
+      <span><strong>{testRohstoffe ? t('bastion.test-unendlich') : vorrat}</strong></span>
     </li>
   </ul>
   <button

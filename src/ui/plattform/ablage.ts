@@ -40,6 +40,8 @@ import {
   modusAus,
   type Modus,
   ZIEL_SCHLUESSEL,
+  TEST_ROHSTOFFE_SCHLUESSEL,
+  testRohstoffeAn as testRohstoffeAusWert,
   BILD_SCHLUESSEL,
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
@@ -632,6 +634,17 @@ export const zielSetzen = (z: Ziel | undefined) =>
 /** Basebau ein- oder ausschalten – Jugendliche und Eltern dürfen das (B-13). Das Ledger bucht weiter (B-10). */
 export const basebauSetzen = (an: boolean, durch: 'jugendlich' | 'eltern') =>
   setze(BASEBAU_SCHLUESSEL, an, durch);
+
+/** Eltern/Test: Unendlich Rohstoffe (virtuell, ohne Ledger). */
+export async function testRohstoffeWahl(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return testRohstoffeAusWert(
+    await einstellung(db, inst.profil, TEST_ROHSTOFFE_SCHLUESSEL).catch(() => undefined),
+  );
+}
+
+export const testRohstoffeSetzen = (an: boolean) => setze(TEST_ROHSTOFFE_SCHLUESSEL, an, 'eltern');
 
 export const pinGesetzt = async () => (await lies('eltern.pin')) !== undefined;
 

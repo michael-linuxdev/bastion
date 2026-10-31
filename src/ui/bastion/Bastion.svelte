@@ -26,9 +26,17 @@
     zielVorgemerkt,
     bastionLage,
     bildZeigen,
+    testRohstoffeWahl,
     type BastionLage,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import {
+    anzeigeKonto,
+    anzeigeVorrat,
+    probeBeginnen,
+    testKonto,
+  } from '../../core/bastion/test-vorrat';
+  import type { Bastion as BastionStand } from '../../core/bastion/bauen';
   import { type TextSchluessel } from '../texte/texte';
   import Bauplatz from './Bauplatz.svelte';
   import BastionDarstellung from './BastionDarstellung.svelte';
@@ -67,6 +75,7 @@
     klasse = 5,
     spannung = false,
     onbewaehrung,
+    onzumStart,
   }: {
     kompetenzen: readonly Kompetenz[];
     /** Ab 18 / ausdrücklich erwachsen: Wetter selbst schalten (T-15) */
@@ -78,11 +87,13 @@
     spannung?: boolean;
     /** Start einer Bewährungsprobe mit Modus, Themen und Joker-Zahl */
     onbewaehrung?: (modus: BewaehrungModus, themen: readonly string[], joker: number) => void;
+    /** Zurück zum Start-Hub (ohne Reiterleiste) */
+    onzumStart?: () => void;
   } = $props();
 
   /** Bastion-Einstellungen hinter dem Zahnrad (nur Bauplatz auf der Seite) */
   let einstellungenOffen = $state(false);
-  /** Bauen/Planen-Blatt auf dem Reiter (Preferences Spiel) */
+  /** Bauen/Planen-Blatt auf dem Bastion-Bildschirm */
   let bauBlattOffen = $state(false);
   /** Kamera: Bauplatz oder Hinterhof (Chrome oben) */
   let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
@@ -95,6 +106,10 @@
   let meldung = $state<readonly BauHindernis[]>([]);
   /** Gebäude, das gerade versetzt wird, mit gewähltem Feld */
   let versetzt = $state<{ id: string; x: number; y: number } | undefined>(undefined);
+  /** Eltern/Test: virtueller Vorrat (Ledger unberührt) */
+  let testRohstoffe = $state(false);
+  /** Probe-Bastion nur im Speicher – beim Ausschalten verworfen */
+  let probeBastion = $state<BastionStand | undefined>(undefined);
 
   function themaWaehlen(th: Thema) {
     aktiv.thema = th;
@@ -104,22 +119,20 @@
   /** Vorgemerktes Ziel (B-20) */
   let ziel = $state<Ziel | undefined>(undefined);
 
-  void Promise.all([bastionLage(), zielVorgemerkt(), bildZeigen()]).then(([l, z, bild]) => {
-    lage = l;
-    ziel = z;
-    geladen = true;
-    // Ohne Bild ist die Liste die Bastion (barrierefrei) → Einstellungen öffnen
-    if (!bild) einstellungenOffen = true;
-  });
+  void Promise.all([bastionLage(), zielVorgemerkt(), bildZeigen(), testRohstoffeWahl()]).then(
+    ([l, z, bild, test]) => {
+      lage = l;
+      ziel = z;
+      testRohstoffe = test;
+      if (!test) probeBastion = undefined;
+      geladen = true;
+      // Ohne Bild ist die Liste die Bastion (barrierefrei) → Einstellungen öffnen
+      if (!bild) einstellungenOffen = true;
+    },
+  );
 
-  // Marker für Leiste/Vollbild: nur die Szene im Querformat blendet die Reiter aus
-  const szeneAn = $derived(geladen && lage !== undefined && !einstellungenOffen);
   $effect(() => {
-    if (szeneAn) document.documentElement.dataset['bastionSzene'] = '1';
-    else delete document.documentElement.dataset['bastionSzene'];
-    return () => {
-      delete document.documentElement.dataset['bastionSzene'];
-    };
+    if (!testRohstoffe) probeBastion = undefined;
   });
 
   function merken(z: Ziel | undefined) {
@@ -137,12 +150,32 @@
   });
 
   async function ausfuehren(auftrag: BauAuftrag): Promise<boolean> {
+    // Test-Vorrat: Neubau/Ausbau nur in der Probe-Ansicht – Ledger bleibt echt
+    if (testRohstoffe && auftrag.art === 'beginnen' && lage) {
+      const basis = probeBastion ?? lage.bastion;
+      const konto = testKonto(lage.konto.profil);
+      const r = probeBeginnen(
+        basis,
+        konto,
+        auftrag.typ,
+        auftrag.ausbau ? { ausbau: auftrag.ausbau } : {},
+      );
+      if (!r.ok) {
+        meldung = r.hindernisse;
+        return false;
+      }
+      probeBastion = r.bastion;
+      meldung = [];
+      soundTipp('bauen');
+      return true;
+    }
     const r = await bauAusfuehren(auftrag);
     if ('hindernisse' in r) {
       meldung = r.hindernisse;
       return false;
     }
     lage = r;
+    if (testRohstoffe) probeBastion = r.bastion;
     meldung = [];
     versetzt = undefined;
     if (auftrag.art === 'beginnen') soundTipp('bauen');
@@ -179,10 +212,6 @@
     (['fleiss', 'behalten', 'koennen'] as const)
       .filter((r) => h.includes(`zu-wenig-${r}`))
       .map(ressourceName);
-  const belegt = $derived(
-    lage !== undefined && lage.bastion.vorhaben.length >= plaetze(lage.bastion),
-  );
-
   /** B-14: zuerst Banner und Späherturm, dann der übrige Katalog */
   const REIHENFOLGE: readonly GebaeudeTyp[] = [
     'zeichen',
@@ -197,14 +226,23 @@
     readonly hindernisse: readonly BauHindernis[];
   }
 
+  const sichtBastion = $derived(
+    lage ? (testRohstoffe && probeBastion ? probeBastion : lage.bastion) : undefined,
+  );
+  const sichtKonto = $derived(lage ? anzeigeKonto(lage.konto, testRohstoffe) : undefined);
+  const belegt = $derived(
+    sichtBastion !== undefined && sichtBastion.vorhaben.length >= plaetze(sichtBastion),
+  );
+
   // Neubauten: alles, was in dieser Epoche noch dazukommen kann
   const neubauten = $derived.by((): Angebot[] => {
-    const l = lage;
-    if (!l) return [];
-    const platz = epochenstand(l.bastion, l.konto).bauplatz;
+    const b = sichtBastion;
+    const k = sichtKonto;
+    if (!b || !k) return [];
+    const platz = epochenstand(b, k).bauplatz;
     return REIHENFOLGE.flatMap((typ) => {
-      const pos = freierPlatz(l.bastion, typ, platz);
-      const h = beginnHindernisse(l.bastion, l.konto, typ, { pos: pos ?? { x: 0, y: 0 } });
+      const pos = freierPlatz(b, typ, platz);
+      const h = beginnHindernisse(b, k, typ, { pos: pos ?? { x: 0, y: 0 } });
       if (!pos && !h.includes('belegt')) h.push('belegt');
       if (h.includes('nicht-baubar') || h.includes('hoechstzahl')) return [];
       return [{ typ, stufe: 1, hindernisse: h }];
@@ -213,17 +251,18 @@
 
   // Ausbau: jedes Gebäude, das noch eine Stufe höher kann
   const ausbauten = $derived.by((): Angebot[] => {
-    const l = lage;
-    if (!l) return [];
-    return l.bastion.bauwerke.flatMap((b) => {
-      const h = beginnHindernisse(l.bastion, l.konto, b.typ, { ausbau: b.id });
+    const b = sichtBastion;
+    const k = sichtKonto;
+    if (!b || !k) return [];
+    return b.bauwerke.flatMap((bw) => {
+      const h = beginnHindernisse(b, k, bw.typ, { ausbau: bw.id });
       if (h.includes('nicht-baubar') || h.includes('hoechststufe')) return [];
-      return [{ typ: b.typ, stufe: b.stufe + 1, ausbau: b, hindernisse: h }];
+      return [{ typ: bw.typ, stufe: bw.stufe + 1, ausbau: bw, hindernisse: h }];
     });
   });
 
   const gebaeude = $derived(
-    [...(lage?.bastion.bauwerke ?? [])].sort(
+    [...(sichtBastion?.bauwerke ?? [])].sort(
       (a, b) =>
         REIHENFOLGE.indexOf(a.typ) - REIHENFOLGE.indexOf(b.typ) ||
         a.pos.y - b.pos.y ||
@@ -254,14 +293,21 @@
 
   {#if geladen && !lage}
     <p>{tt('bastion.ohne-speicher')}</p>
-  {:else if lage}
+  {:else if lage && sichtBastion && sichtKonto}
     {@const l = lage}
-    {@const epoche = epochenstand(l.bastion, l.konto)}
+    {@const b = sichtBastion}
+    {@const k = sichtKonto}
+    {@const epoche = epochenstand(b, k)}
 
     {#if !einstellungenOffen}
       <h2 class="unsichtbar">{tt('bastion.ueberschrift')}</h2>
       <div class="oben" role="toolbar" aria-label={tt('bastion.ueberschrift')}>
         <div class="oben-start">
+          {#if onzumStart}
+            <button class="icon" aria-label={t('bastion.zur-startseite')} onclick={onzumStart}>
+              <Symbol name="start" />
+            </button>
+          {/if}
           {#if hinterhofFelder.length > 0}
             <button
               class="icon"
@@ -275,8 +321,9 @@
           {/if}
         </div>
         <BastionSpielLeiste
-          konto={l.konto}
-          vorrat={l.bastion.vorrat}
+          konto={k}
+          vorrat={anzeigeVorrat(b.vorrat, testRohstoffe)}
+          {testRohstoffe}
           bind:bauOffen={bauBlattOffen}
         />
         <button
@@ -289,14 +336,17 @@
           <Symbol name="einstellungen" />
         </button>
       </div>
+      {#if testRohstoffe}
+        <p class="test-hinweis" role="status">{t('bastion.test-rohstoffe-aktiv')}</p>
+      {/if}
       <Bauplatz
-        bastion={l.bastion}
+        bastion={b}
         onaktion={ausfuehren}
         {hinterhofFelder}
         bauplatz={epoche.bauplatz}
         epoche={epoche.epoche}
         {spannung}
-        konto={l.konto}
+        konto={k}
         buecher={l.buecher.length}
         hinterhofKnopf={false}
         blattOffen={bauBlattOffen}
@@ -307,22 +357,23 @@
           neubauten={neubauten.map((a) => ({
             ...a,
             kostenText: (() => {
-              const k = kosten(a.typ, a.stufe);
-              return k ? kostenText(k) : '';
+              const ko = kosten(a.typ, a.stufe);
+              return ko ? kostenText(ko) : '';
             })(),
           }))}
           ausbauten={ausbauten.map((a) => ({
             ...a,
             kostenText: (() => {
-              const k = kosten(a.typ, a.stufe);
-              return k ? kostenText(k) : '';
+              const ko = kosten(a.typ, a.stufe);
+              return ko ? kostenText(ko) : '';
             })(),
           }))}
           {belegt}
+          epoche={epoche.epoche}
           istZiel={(a) => ist(a, ziel)}
           {hindernisText}
           onschliessen={() => (bauBlattOffen = false)}
-          onvormerken={(a) => lage && merken(vormerken(lage.bastion, a.typ, a.ausbau?.id))}
+          onvormerken={(a) => merken(vormerken(b, a.typ, a.ausbau?.id))}
           onbauen={(a) =>
             void ausfuehren({
               art: 'beginnen',
@@ -338,6 +389,11 @@
     {#if einstellungenOffen}
       <div id="bastion-einstellungen" class="einstellungen">
         <h3>{t('bastion.einstellungen')}</h3>
+        {#if onzumStart}
+          <button class="zurueck-einstellungen" onclick={onzumStart}
+            >← {t('bastion.zur-startseite')}</button
+          >
+        {/if}
         <button class="zurueck-einstellungen" onclick={() => (einstellungenOffen = false)}
           >← {t('bastion.zur-bastion')}</button
         >
@@ -349,7 +405,7 @@
         />
         <OrientierungWahl />
         {#if onbewaehrung}
-          {@const joker = turmJoker(l.bastion.bauwerke)}
+          {@const joker = turmJoker(b.bauwerke)}
           <section class="bewaehrung" aria-labelledby="bewaehrung-titel">
             <h3 id="bewaehrung-titel">{tt('bastion.bewaehrung')}</h3>
             <p class="leise">{tt('bastion.bewaehrung-erklaerung')}</p>
@@ -381,13 +437,21 @@
         {/if}
 
         <h3>{tt('bastion.vorrat')}</h3>
+        {#if testRohstoffe}
+          <p class="leise" role="status">{t('bastion.test-rohstoffe-aktiv')}</p>
+        {/if}
         <ul class="vorrat">
           {#each [['fleiss', 'ueben'], ['behalten', 'wiederholen'], ['koennen', 'diagnose']] as const as [r, symbol] (r)}
-            <li><Symbol name={symbol} /><span>{menge(r, l.konto.stand[r])}</span></li>
+            <li>
+              <Symbol name={symbol} /><span
+                >{testRohstoffe ? t('bastion.test-unendlich') : menge(r, l.konto.stand[r])}</span
+              >
+            </li>
           {/each}
           <li>
             <Symbol name="bastion" /><span
-              ><strong>{l.bastion.vorrat}</strong> {tt('bastion.bauschritte-vorrat')}</span
+              ><strong>{testRohstoffe ? t('bastion.test-unendlich') : l.bastion.vorrat}</strong>
+              {tt('bastion.bauschritte-vorrat')}</span
             >
           </li>
         </ul>
@@ -688,14 +752,8 @@
     position: relative;
     gap: 0;
     block-size: 100%;
-    min-block-size: calc(100dvh - env(safe-area-inset-top) - var(--leiste-hoehe, 6rem));
+    min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     background: var(--farbe-himmel);
-  }
-
-  @media (orientation: landscape) {
-    .bastion.szene {
-      min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    }
   }
 
   .kopf {
@@ -729,6 +787,23 @@
   .oben-start {
     display: flex;
     flex-shrink: 0;
+    gap: 0.35rem;
+  }
+
+  .test-hinweis {
+    position: absolute;
+    inset-block-start: 3.5rem;
+    inset-inline: var(--abstand-s);
+    z-index: 3;
+    margin: 0;
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    color: var(--farbe-text-leise);
+    font-size: 0.8rem;
+    font-weight: 700;
+    pointer-events: none;
+    text-align: center;
   }
 
   @media (orientation: landscape) and (height < 30rem) {
