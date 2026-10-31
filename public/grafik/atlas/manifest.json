@@ -12844,6 +12844,58 @@
         "w": 28,
         "h": 28
       }
+    },
+    {
+      "id": "belagerung/himmel",
+      "datei": "belagerung/himmel.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pixel": {
+        "w": 320,
+        "h": 200
+      }
+    },
+    {
+      "id": "belagerung/rauch_1",
+      "datei": "belagerung/rauch_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "pixel": {
+        "w": 120,
+        "h": 56
+      }
+    },
+    {
+      "id": "belagerung/rauch_2",
+      "datei": "belagerung/rauch_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "pixel": {
+        "w": 100,
+        "h": 48
+      }
+    },
+    {
+      "id": "belagerung/rauch_3",
+      "datei": "belagerung/rauch_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "pixel": {
+        "w": 88,
+        "h": 44
+      }
     }
   ]
 }

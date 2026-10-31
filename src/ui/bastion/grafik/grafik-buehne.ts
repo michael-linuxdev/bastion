@@ -26,6 +26,7 @@ import {
 } from './atmosphaere';
 import {
   atlasBasisUrl,
+  atlasBelagerungId,
   atlasBodenEintrag,
   atlasEintrag,
   atlasEintragPerId,
@@ -553,17 +554,86 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
 }
 
-/** Leichter Rauch bei Bewährungsprobe – keine Truppen (GRAFIK §8). */
-function rauch(g: Graphics, f: Farben) {
+/** Rauch-Plätze bei Bewährungsprobe – feste Lagen, kein Zufall (GRAFIK §8 / P6). */
+const RAUCH_PLAETZE = [
+  { x: 120, y: 90, s: 1.2, teil: 'rauch_1' as const },
+  { x: 280, y: 70, s: 1, teil: 'rauch_2' as const },
+  { x: 420, y: 100, s: 0.9, teil: 'rauch_3' as const },
+] as const;
+
+/** Leichter Rauch: Atlas-Sprites (P6) oder Code-Ellipsen – keine Truppen. */
+function rauchZeichnen(
+  lage: Container,
+  f: Farben,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+) {
   if (!f.spannung) return;
-  for (const [x, y, s] of [
-    [120, 90, 1.2],
-    [280, 70, 1],
-    [420, 100, 0.9],
-  ] as const) {
-    g.ellipse(x, y, 28 * s, 10 * s).fill({ color: f.wolke, alpha: 0.35 });
-    g.ellipse(x + 16 * s, y - 6 * s, 18 * s, 8 * s).fill({ color: f.wolke, alpha: 0.25 });
+  let atlasOk = true;
+  for (const p of RAUCH_PLAETZE) {
+    const eintrag = atlasEintragPerId(manifest, atlasBelagerungId(p.teil));
+    const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+    if (!eintrag || !tex) {
+      atlasOk = false;
+      break;
+    }
   }
+  if (atlasOk) {
+    for (const p of RAUCH_PLAETZE) {
+      const eintrag = atlasEintragPerId(manifest, atlasBelagerungId(p.teil));
+      const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+      if (!eintrag || !tex) continue;
+      const spr = new Sprite(tex);
+      spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+      spr.width = (eintrag.pixel.w / 2) * p.s;
+      spr.height = (eintrag.pixel.h / 2) * p.s;
+      spr.position.set(p.x, p.y);
+      spr.alpha = 0.85;
+      lage.addChild(spr);
+    }
+    return;
+  }
+  const g = new Graphics();
+  for (const p of RAUCH_PLAETZE) {
+    g.ellipse(p.x, p.y, 28 * p.s, 10 * p.s).fill({ color: f.wolke, alpha: 0.35 });
+    g.ellipse(p.x + 16 * p.s, p.y - 6 * p.s, 18 * p.s, 8 * p.s).fill({
+      color: f.wolke,
+      alpha: 0.25,
+    });
+  }
+  lage.addChild(g);
+}
+
+/** Spannungs-Himmel: Atlas-Dunst (P6) oder Code-Rechteck (G11). */
+function spannungHimmelZeichnen(
+  lage: Container,
+  f: Farben,
+  manifest: AtlasManifest | null,
+  texturen: Map<string, Texture>,
+) {
+  if (!f.spannung) return;
+  const eintrag = atlasEintragPerId(manifest, atlasBelagerungId('himmel'));
+  const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+  if (eintrag && tex) {
+    // drei weiche Flecken über die Bühne statt einer harten Vollfläche
+    for (const [x, y, s] of [
+      [buehneBreite() * 0.25, 80, 1.5],
+      [buehneBreite() * 0.55, 120, 1.7],
+      [buehneBreite() * 0.8, 70, 1.3],
+    ] as const) {
+      const spr = new Sprite(tex);
+      spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+      spr.width = (eintrag.pixel.w / 2) * s;
+      spr.height = (eintrag.pixel.h / 2) * s;
+      spr.position.set(x, y);
+      spr.alpha = 0.9;
+      lage.addChild(spr);
+    }
+    return;
+  }
+  const spannung = new Graphics();
+  spannung.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
+  lage.addChild(spannung);
 }
 
 const GESTIRN_X = () => buehneBreite() - 70;
@@ -802,9 +872,14 @@ async function atlasTexturenLaden(
   return map;
 }
 
-/** Welche Atlas-IDs die Bühne braucht (P0–P4 + P1 Himmel/Wetter). */
+/** Welche Atlas-IDs die Bühne braucht (P0–P6: Himmel/Wetter/Belagerung + Themen). */
 function atlasBrauchtId(art: Bildart, id: string): boolean {
-  if (id.startsWith('himmel/') || id.startsWith('wetter/') || id.startsWith('auflage/'))
+  if (
+    id.startsWith('himmel/') ||
+    id.startsWith('wetter/') ||
+    id.startsWith('auflage/') ||
+    id.startsWith('belagerung/')
+  )
     return true;
   // Hinterhof-Objekte (P4) für das jeweilige Thema
   if (art === 'dorf' && id.startsWith('hinterhof/dorf/')) return true;
@@ -996,9 +1071,7 @@ export async function buehneErstellen(
     );
     if (!atlasBastion) insel(bodenAlsGraphics(bodenLage), farben);
   }
-  const rauchGfx = new Graphics();
-  rauch(rauchGfx, farben);
-  overlayLage.addChild(rauchGfx);
+  rauchZeichnen(overlayLage, farben, atlas, texturen);
   if (wetterBild === 'nebel') {
     const nebelId = atlasWetterId('nebel');
     const nebelEintrag = atlasEintragPerId(atlas, nebelId);
@@ -1024,11 +1097,7 @@ export async function buehneErstellen(
       overlayLage.addChild(g);
     }
   }
-  if (farben.spannung) {
-    const spannung = new Graphics();
-    spannung.rect(0, 0, buehneBreite(), buehneHoehe()).fill({ color: '#4a3a38', alpha: 0.18 });
-    overlayLage.addChild(spannung);
-  }
+  spannungHimmelZeichnen(overlayLage, farben, atlas, texturen);
   const wolkenLage = new Container();
   wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();

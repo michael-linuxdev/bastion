@@ -67,6 +67,8 @@ auflage/schnee_dach_1x1.png
 auflage/schnee_dach_2x2.png
 auflage/schnee_dach_3x3.png
 auflage/laub_<n>.png
+belagerung/himmel.png                  # Spannungs-Dunst (Bewährungsprobe)
+belagerung/rauch_<n>.png               # Rauch-Overlay 1…3, keine Truppen
 wesen/<thema>/<art>_idle_<frame>.png
 wesen/<thema>/<art>_walk_<frame>.png
 wesen/<thema>/<art>_react_<frame>.png
@@ -118,6 +120,8 @@ Höhere Epochen: dieselbe Rolle, **reiferer** Baustil (Stein statt Holz, Metall 
 | Schneeflocke | Einfach, lesbar in 8–12 px Logik |
 | Nebel | Weiches Rechteck/Ellipse mit Alpha-Verlauf |
 | Wolke 1…2 | Weiche Ellipsen-Gruppe, hell und eine dunklere |
+| Belagerungs-Himmel | Weicher Spannungs-Dunst (kein Militär), nur bei Bewährungsprobe |
+| Rauch 1…3 | Weiche Rauchwolken als Overlay; keine Truppen, keine Waffen |
 
 ---
 
@@ -155,7 +159,7 @@ Damit Technik und Bild parallel laufen:
 | **P3** | `bastion`, `unterwasser`, `weltraum` Epoche 1 · **geliefert** (Generator `tools/grafik/sprites-p3-themen.py`) | G6 |
 | **P4** | Hinterhof-Objekte alle Themen + MiniBastion-Standbilder | G7 |
 | **P5** | Epoche 2–4 Gebäude je Thema (nach Katalog G9) · *umgesetzt* | G10 |
-| **P6** | Belagerungs-Himmel / Rauch-Overlays | G11 · Code-Rauch liegt; Sprite-Overlay optional |
+| **P6** | Belagerungs-Himmel / Rauch-Overlays · *umgesetzt* (`belagerung/`, Generator `tools/grafik/sprites-p6-belagerung.py`) | G11 |
 
 Pro Charge: Ordnerstruktur wie §3, dazu eine `manifest.json` (Liste der Dateien, Pixelgröße, Anker x/y relativ).
 
