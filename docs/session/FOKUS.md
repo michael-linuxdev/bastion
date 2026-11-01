@@ -176,6 +176,8 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 2. **Mängelliste** mit Bildschirmfotos (Scratchpad, nicht ins Repository) an den PV. Bekannt schon jetzt: Tastatur ohne Malpunkt (Primfaktoren) und Doppelpunkt (Uhrzeiten), `LERNKERN.md` §2.
 3. **Der PV wählt**, was vor U4b behoben sein muss. Nur das wird gebaut, in kleinen PRs. Keine neuen Funktionen.
 4. **Grenzen:** Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9); R1–R7. Funde auf der Startseite (`src/ui/start/`, Bereich Grafik) kommen als Wunsch in `GRAFIK.md`, der Grafik-Strang erledigt sie neben G.
+**Stand 01.11.2026:** Schritte 1 und 2 erledigt. Mängelliste L1–L19 an den PV geschickt: A Fehler (L1–L6), B Verständlichkeit (L7–L11), C Bedienung am Handy (L12–L15), D Startseite und Themenwahl (L16–L19, Bereich Grafik). Kein JS-Fehler, kein seitlicher Überlauf. Wartet auf die Auswahl des PV (Schritt 3).
+
 5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
