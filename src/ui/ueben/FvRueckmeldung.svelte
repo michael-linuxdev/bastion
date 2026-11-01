@@ -60,7 +60,7 @@
     {/if}
   </section>
 {:else}
-  <section class="kurz-block" aria-label={fv.name.de}>
+  <aside class="kurz" aria-label={fv.name.de}>
     <h3 class="titel">{fv.name.de}</h3>
     {#if schema}
       {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
@@ -68,27 +68,25 @@
         <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
       {/if}
     {/if}
-    <p class="kurz"><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
-  </section>
+    <p><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
+  </aside>
 {/if}
 
 <style>
-  .lang,
-  .kurz-block {
+  .lang {
     display: grid;
     gap: var(--abstand-s);
-    margin-block: var(--abstand-m);
+    margin-block: var(--abstand-s);
     padding: var(--abstand-m);
     border-radius: var(--radius);
-    border-inline-start: 6px solid var(--farbe-akzent);
+    border-inline-start: 4px solid var(--farbe-akzent);
     background: var(--farbe-flaeche-leise);
   }
 
   .lang p,
   .lang h3,
   .lang h4,
-  .kurz-block p,
-  .kurz-block h3 {
+  .kurz h3 {
     margin-block: 0;
   }
 
@@ -113,7 +111,7 @@
   }
 
   .bild {
-    max-inline-size: 26rem;
+    max-inline-size: 28rem;
   }
 
   .mehr summary {
@@ -139,6 +137,18 @@
   }
 
   .kurz {
-    color: var(--farbe-text-leise);
+    display: grid;
+    gap: var(--abstand-s);
+    margin-block: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border-inline-start: 3px solid var(--farbe-akzent);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+  }
+
+  .kurz p {
+    margin-block: 0;
   }
 </style>

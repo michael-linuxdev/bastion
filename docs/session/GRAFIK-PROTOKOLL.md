@@ -27,3 +27,13 @@
 | 31.10.2026 | **Docs-Abgleich:** SESSION/PLAN/GRAFIK/SPRITES an Ist-Stand (G0–G11, P0–P6, CC0 erledigt; kein „nächster = G2“); optional Feinschliff klar |
 | 31.10.2026 | **Feinschliff P3–P6:** Laub/Schnee-Dach nur Land; Hinterhof Umbruch+nur im Hinterhof-Blick; Bastion-Kern Firstkappe |
 | 31.10.2026 | **Design §R–§U (93–108):** Eingabe-Karten/Ordnen/Uhr/Rest; Feedback; Hub-Türen+Mehr-Zonen; Eltern Probe/PIN/Druck/Trennung |
+| 31.10.2026 | **Design-Ideen §K (39–52):** Steinkette, KA nüchtern, Abschluss-Ritual, Hub-Wetter, Geister-Bauplan, Vorrat einklappbar, Alles-sicher, Über-mich kindgerecht, Offline einmalig, Motion-Texte, Fokus-Ringe, weiche Bau-Sounds, Aufgabentext-Luft, Leerzustände |
+| 31.10.2026 | **Design V–Z (109–128):** Barriere (Schrift/Kontrast/SR/Landscape), Sound-Stufen, Vertrauen, Leerzustände, Tokens/Microcopy |
+| 31.10.2026 | **Design-Ideen Repo:** `docs/DESIGN-IDEEN.md` mit Zweck, A–Z-Spiegel und Backlog AA–ZZ (BA–ZZ reserviert); Hinweis in SESSION/PLAN |
+| 31.10.2026 | **Design-Ideen BA–BZ:** Abschnitte BA–BZ in `docs/DESIGN-IDEEN.md` ausgearbeitet; CA–ZZ weiter reserviert |
+| 31.10.2026 | **Design-Bündel:** Hub-Türen, Bastion-Ort/HUD, Bau-Vorschau-Politur, Eltern/Probe, Typo/Motion (Ideensammlung A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) |
+| 31.10.2026 | **Üben Ein-/Ausgabe:** Feedback-Schichtung, Antwortspiegel, Steine, Tipp-Notiz, Schrittweg-Checkliste, Tastatur angebunden (Lern-UI §9, Spec P0–P1) |
+| 31.10.2026 | **Design „Danach“:** Landkarte, stiller Übergang, Fehlerwerkstatt-Paar, Bewohner-Gesten, Geste-Sprache, Onboarding, Eltern-Werkstatt |
+| 31.10.2026 | **Design L53–L64:** Hub/Wiederholen/Diagnose/Bastion-Kamera/Bau/Bewohner/Hinterhof/PIN/Nacht/Brief/Microcopy/Querformat Üben |
+| 31.10.2026 | **App-Icon:** Bastion-Silhouette Favicon/PWA (`icon.svg`, 192/512/maskable/apple/favicon-32); Generator `tools/grafik/icons-erzeugen.py` |
+| 31.10.2026 | **Design-Ideen CA–DZ:** Abschnitte CA–DZ in `docs/DESIGN-IDEEN.md` ausgearbeitet; EA–ZZ weiter reserviert |

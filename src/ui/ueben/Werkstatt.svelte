@@ -7,6 +7,7 @@
   import type { Fehlergruppe } from '../../core/learning/werkstatt';
   import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
   import type { FvStand } from '../../core/learning/fv-diagnose';
+  import Leerzustand from '../grafik/Leerzustand.svelte';
   import { t } from '../texte/texte';
   import Textteile from './Textteile.svelte';
 
@@ -52,7 +53,7 @@
   <p class="einleitung">{t('werkstatt.einleitung')}</p>
 
   {#if gruppen.length === 0}
-    <p>{t('werkstatt.leer')}</p>
+    <Leerzustand symbol="werkstatt" text={t('werkstatt.leer')} />
   {:else}
     <ul class="liste">
       {#each gruppen as g (g.fv ?? `${g.vorlage}|${g.niveau}|${g.fehlerbild ?? ''}`)}

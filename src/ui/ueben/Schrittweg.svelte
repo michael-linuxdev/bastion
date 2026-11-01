@@ -135,35 +135,33 @@
 
 <div class="weg">
   <p class="titel">{t('weg.frage')}</p>
-  <!-- §S99: Fortschritt als 1·2·3-Punkte, aktueller gefüllt -->
-  <ol
-    class="fortschritt"
-    aria-label="{t('weg.schritt')} {Math.min(erledigt.length + 1, schritte.length)} {t(
-      'weg.von',
-    )} {schritte.length}"
-  >
+
+  <ol class="checkliste" aria-label={t('weg.frage')}>
     {#each schritte as s, i (s.id)}
+      {@const e = erledigt[i]}
+      {@const istAktuell = !fertig && i === erledigt.length}
       <li
-        class="punkt"
-        class:voll={i < erledigt.length}
-        class:aktuell={i === erledigt.length && !fertig}
-        aria-current={i === erledigt.length && !fertig ? 'step' : undefined}
+        class="check"
+        class:erledigt={!!e}
+        class:aktuell={istAktuell}
+        class:verbessert={e && (!e.ergebnis.richtig || e.ergebnis.versuche > 1)}
+        aria-current={istAktuell ? 'step' : undefined}
       >
-        <span class="unsichtbar">{t('weg.schritt')} {i + 1}</span>
-        {i + 1}
-      </li>
-      {#if i < schritte.length - 1}<span class="trenner" aria-hidden="true">·</span>{/if}
-    {/each}
-  </ol>
-  <ol class="schritte">
-    {#each erledigt as e, i (e.vorlage.id)}
-      <li class="erledigt" class:verbessert={!e.ergebnis.richtig || e.ergebnis.versuche > 1}>
-        <span><Textteile teile={fuelle(e.frage, werte(undefined))} /></span>
-        <strong>
-          {#if !e.ergebnis.richtig}{t('weg.richtig-ist')}{:else}✓{/if}
-          {alsText(e.eingabe)}
-        </strong>
-        <span class="unsichtbar">{t('weg.schritt')} {i + 1}</span>
+        <span class="marke" aria-hidden="true">
+          {#if e}{#if e.ergebnis.richtig && e.ergebnis.versuche === 1}✓{:else}·{/if}{:else}{i +
+              1}{/if}
+        </span>
+        {#if e}
+          <span class="check-text"><Textteile teile={fuelle(e.frage, werte(undefined))} /></span>
+          <strong class="check-wert">
+            {#if !e.ergebnis.richtig}{t('weg.richtig-ist')}{/if}
+            {alsText(e.eingabe)}
+          </strong>
+        {:else if istAktuell}
+          <span class="check-text leise">{t('weg.schritt')} {i + 1}</span>
+        {:else}
+          <span class="check-text leise">{t('weg.schritt')} {i + 1}</span>
+        {/if}
       </li>
     {/each}
   </ol>
@@ -178,29 +176,33 @@
           {schritte.length}
         </p>
         <p class="frage"><Textteile teile={fuelle(aktuell.frage.de, werte(aufgabe))} /></p>
-        {#if aktuell.typ === 'bruch-eingabe'}
-          <div class="bruch">
-            <label
-              >{t('weg.zaehler')}
-              <input inputmode="none" data-tastatur="zaehler" bind:value={zaehler} /></label
+        <div class="feld-karte">
+          {#if aktuell.typ === 'bruch-eingabe'}
+            <div class="bruch">
+              <label
+                >{t('weg.zaehler')}
+                <input inputmode="none" data-tastatur="zaehler" bind:value={zaehler} /></label
+              >
+              <label
+                >{t('weg.nenner')}
+                <input inputmode="none" data-tastatur="nenner" bind:value={nenner} /></label
+              >
+            </div>
+          {:else}
+            <label class="feld"
+              >{t('weg.antwort')}
+              <input inputmode="none" data-tastatur="feld" bind:value={feld} /></label
             >
-            <label
-              >{t('weg.nenner')}
-              <input inputmode="none" data-tastatur="nenner" bind:value={nenner} /></label
-            >
+          {/if}
+          <div class="tastatur-anbindung">
+            <Tastatur
+              tasten={tastenFuer({
+                loesung: aktuell.typ === 'bruch-eingabe' ? 'bruch' : 'zahl',
+                instanz: { vorzeichen },
+              })}
+            />
           </div>
-        {:else}
-          <label class="feld"
-            >{t('weg.antwort')}
-            <input inputmode="none" data-tastatur="feld" bind:value={feld} /></label
-          >
-        {/if}
-        <Tastatur
-          tasten={tastenFuer({
-            loesung: aktuell.typ === 'bruch-eingabe' ? 'bruch' : 'zahl',
-            instanz: { vorzeichen },
-          })}
-        />
+        </div>
         {#if lesefehler}<p class="leise" role="alert">{t(lesefehler)}</p>{/if}
         {#if fehler.length > 0}
           <div class="hinweis" role="status">
@@ -233,7 +235,7 @@
   .weg {
     display: grid;
     gap: var(--abstand-s);
-    margin-block-start: var(--abstand-m);
+    margin-block-start: var(--abstand-s);
   }
 
   .weg p {
@@ -241,68 +243,66 @@
   }
 
   .titel {
-    font-weight: 800;
+    font-weight: 700;
+    font-size: 1.0625rem;
   }
 
-  .fortschritt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+  .checkliste {
+    display: grid;
     gap: 0.35rem;
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 
-  .fortschritt .punkt {
+  .check {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    gap: var(--abstand-s);
+    align-items: center;
+    padding-block: 0.35rem;
+    padding-inline: var(--abstand-s);
+    border-radius: var(--radius);
+    color: var(--farbe-text-leise);
+  }
+
+  .check.erledigt {
+    background: transparent;
+  }
+
+  .check.aktuell {
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+    font-weight: 600;
+    box-shadow: inset 0 0 0 2px var(--farbe-akzent);
+  }
+
+  .marke {
     display: grid;
     place-items: center;
-    inline-size: 1.75rem;
-    block-size: 1.75rem;
-    border-radius: 50%;
-    font-size: 0.8rem;
-    font-weight: 800;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    border-radius: 999px;
     background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text-leise);
-    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
+    font-size: 0.8125rem;
+    font-weight: 700;
   }
 
-  .fortschritt .punkt.voll {
-    background: var(--farbe-akzent);
+  .check.erledigt .marke {
+    background: var(--farbe-erfolg);
     color: var(--farbe-auf-akzent);
-    box-shadow: none;
   }
 
-  .fortschritt .punkt.aktuell {
-    background: var(--farbe-flaeche);
-    color: var(--farbe-text);
-    box-shadow: inset 0 0 0 2.5px var(--farbe-akzent);
+  .check.verbessert .marke {
+    background: var(--farbe-akzent-warm);
   }
 
-  .trenner {
-    color: var(--farbe-text-leise);
-    font-weight: 800;
-  }
-
-  .schritte {
-    display: grid;
-    gap: 0.25rem;
-    margin: 0;
-    padding-inline-start: var(--abstand-m);
-  }
-
-  .erledigt {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-s);
-    color: var(--farbe-text-leise);
-  }
-
-  .erledigt strong {
+  .check-wert {
     color: var(--farbe-erfolg);
+    font-size: 0.9375rem;
   }
 
-  .erledigt.verbessert strong {
+  .check.verbessert .check-wert {
     color: var(--farbe-akzent-warm);
   }
 
@@ -311,17 +311,31 @@
     gap: var(--abstand-s);
     padding: var(--abstand-m);
     border-radius: var(--radius);
-    background: var(--farbe-flaeche-leise);
+    background: var(--farbe-flaeche);
+    border: 2px solid var(--farbe-akzent);
   }
 
   .nummer {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: var(--farbe-text-leise);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   .frage {
     font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  .feld-karte {
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .tastatur-anbindung {
+    padding-block-start: var(--abstand-s);
+    border-block-start: 1px solid var(--farbe-rand);
   }
 
   .bruch {
@@ -336,8 +350,23 @@
     gap: 0.25rem;
   }
 
+  .bruch input,
+  .feld input {
+    font: inherit;
+    font-size: 1.375rem;
+    font-variant-numeric: tabular-nums;
+    min-block-size: var(--ziel);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-s);
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+  }
+
   .bruch input {
-    inline-size: 6rem;
+    inline-size: 6.5rem;
+    text-align: center;
   }
 
   .feld input {
@@ -355,6 +384,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
+    align-items: center;
   }
 
   .leise {
@@ -363,14 +393,5 @@
 
   .fazit {
     font-weight: 700;
-  }
-
-  .unsichtbar {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 </style>

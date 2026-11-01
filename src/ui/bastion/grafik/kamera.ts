@@ -55,3 +55,34 @@ export function zentriert(breite: number, hoehe: number, zoom: number): Kamera {
   const bh = buehneHoehe();
   return { zoom: z, x: (breite - bb * z) / 2, y: (hoehe - bh * z) / 2 };
 }
+
+/** Speichern: „zoom,x,y“ (Einstellung `basebau.kamera`). */
+export function kameraText(k: Kamera): string {
+  const z = klemmen(k.zoom, ZOOM_MIN, ZOOM_MAX);
+  return `${z},${k.x},${k.y}`;
+}
+
+/**
+ * Lesen aus Einstellungswert. Zahl = alter Zoom-only-Wert.
+ * Unbrauchbares → undefined (dann einpassen/zentrieren).
+ */
+export function kameraAus(wert: unknown): Kamera | undefined {
+  if (typeof wert === 'number' && wert >= ZOOM_MIN && wert <= ZOOM_MAX) {
+    return { zoom: wert, x: 0, y: 0 };
+  }
+  if (typeof wert !== 'string' || wert === '') return undefined;
+  const [zs, xs, ys] = wert.split(',');
+  const zoom = Number(zs);
+  const x = Number(xs);
+  const y = Number(ys);
+  if (![zoom, x, y].every(Number.isFinite)) return undefined;
+  if (zoom < ZOOM_MIN || zoom > ZOOM_MAX) return undefined;
+  return { zoom, x, y };
+}
+
+/** Gemerkte Kamera wiederherstellen; Zoom immer, x/y nur wenn gesetzt (nicht 0/0-Platzhalter vom alten Zoom). */
+export function kameraWiederherstellen(breite: number, hoehe: number, gemerkt: Kamera): Kamera {
+  const z = klemmen(gemerkt.zoom, ZOOM_MIN, ZOOM_MAX);
+  if (gemerkt.x === 0 && gemerkt.y === 0) return zentriert(breite, hoehe, z);
+  return { zoom: z, x: gemerkt.x, y: gemerkt.y };
+}

@@ -21,17 +21,20 @@
     typ,
     gesperrt,
     tastatur,
-    erfolg = false,
+    ergebnis,
     onantwort,
+    onbereit,
   }: {
     instanz: Instanz;
     typ: Aufgabentyp;
     gesperrt: boolean;
     /** Tasten aus der Vorlage (INHALTSFORMAT §5.2) */
     tastatur?: readonly Taste[] | undefined;
-    /** Nach richtigem Prüfen: dezente Häkchen-Welle am Feld (§S100) */
-    erfolg?: boolean;
+    /** Nach dem Prüfen: Rahmen an Ergebnis koppeln */
+    ergebnis?: 'richtig' | 'falsch' | undefined;
     onantwort: (antwort: Loesung, hinweis?: 'punkt-statt-komma') => void;
+    /** Ob Prüfen sinnvoll ist (nicht leer) */
+    onbereit?: ((bereit: boolean) => void) | undefined;
   } = $props();
 
   let feld1 = $state('');
@@ -50,6 +53,18 @@
       typ !== 'uhrzeit-eingabe',
   );
   const tasten = $derived(tastenFuer({ loesung: art, vorlage: tastatur, instanz }));
+
+  const bereit = $derived.by(() => {
+    if (art === 'auswahl') return gewaehlt !== undefined;
+    if (art === 'reihenfolge' && typ === 'ordnen') return reihe.length > 0;
+    if (art === 'bruch' || art === 'punkt' || art === 'mit-rest')
+      return feld1.trim() !== '' && feld2.trim() !== '';
+    return feld1.trim() !== '';
+  });
+
+  $effect(() => {
+    onbereit?.(bereit);
+  });
 
   /** Uhrzeit-Vorschau für das Zifferblatt (§R95) */
   const uhrVorschau = $derived.by(() => {
@@ -71,7 +86,7 @@
 
   function pruefen(ereignis: SubmitEvent) {
     ereignis.preventDefault();
-    if (gesperrt) return;
+    if (gesperrt || !bereit) return;
     fehler = undefined;
     if (art === 'auswahl') {
       if (gewaehlt === undefined) fehler = 'eingabe.auswahl';
@@ -112,14 +127,20 @@
   }
 </script>
 
-<form onsubmit={pruefen} class="eingabe" class:erfolg id="antwort">
-  {#if art === 'auswahl'}
-    <fieldset class="optionen" class:bilder={instanz.optionen?.some((o) => o.bild)}>
-      <legend class="unsichtbar">{t('eingabe.antwort')}</legend>
-      {#each instanz.optionen ?? [] as option, i (i)}
-        <label class="option karte" class:gewaehlt={gewaehlt === i}>
-          <input type="radio" name="option" value={i} bind:group={gewaehlt} disabled={gesperrt} />
-          <span class="karte-koerper">
+<form
+  onsubmit={pruefen}
+  class="eingabe"
+  class:richtig={ergebnis === 'richtig'}
+  class:falsch={ergebnis === 'falsch'}
+  id="antwort"
+>
+  <div class="feld-karte">
+    {#if art === 'auswahl'}
+      <fieldset class="optionen" class:bilder={instanz.optionen?.some((o) => o.bild)}>
+        <legend class="unsichtbar">{t('eingabe.antwort')}</legend>
+        {#each instanz.optionen ?? [] as option, i (i)}
+          <label class="option" class:gewaehlt={gewaehlt === i}>
+            <input type="radio" name="option" value={i} bind:group={gewaehlt} disabled={gesperrt} />
             {#if option.bild}
               <span class="bild" role="img" aria-label={option.bild.beschreibung.de}>
                 <!-- SVG stammt aus unseren Generatoren (Code, kein Paketinhalt);
@@ -128,183 +149,211 @@
                 {@html option.bild.svg}
               </span>
             {/if}
-            {#if option.text}<span class="karte-text"
-                ><Textteile teile={fuelle(option.text.de, {})} /></span
-              >{/if}
-            {#if !option.text && !option.bild}
-              <span class="karte-text">{t('eingabe.option')} {i + 1}</span>
-            {/if}
-          </span>
+            {#if option.text}<span><Textteile teile={fuelle(option.text.de, {})} /></span>{/if}
+            {#if !option.text && !option.bild}{t('eingabe.option')} {i + 1}{/if}
+          </label>
+        {/each}
+      </fieldset>
+    {:else if art === 'reihenfolge' && typ === 'ordnen'}
+      <ol class="reihe">
+        {#each reihe as wert, i (wert)}
+          <li>
+            <span class="platz" aria-hidden="true">{i + 1}</span>
+            <span class="wert">{zahlText(wert)}</span>
+            <span class="griffe">
+              <button
+                type="button"
+                class="griff"
+                onclick={() => verschiebe(i, -1)}
+                disabled={gesperrt || i === 0}
+                aria-label="{zahlText(wert)} {t('eingabe.nach-vorn')}">↑</button
+              >
+              <button
+                type="button"
+                class="griff"
+                onclick={() => verschiebe(i, 1)}
+                disabled={gesperrt || i === reihe.length - 1}
+                aria-label="{zahlText(wert)} {t('eingabe.nach-hinten')}">↓</button
+              >
+            </span>
+          </li>
+        {/each}
+      </ol>
+    {:else if art === 'bruch'}
+      <span class="bruchfelder">
+        <label
+          ><span class="unsichtbar">{t('eingabe.zaehler')}</span>
+          <input
+            inputmode="none"
+            data-tastatur="zaehler"
+            autocomplete="off"
+            bind:value={feld1}
+            disabled={gesperrt}
+          /></label
+        >
+        <label
+          ><span class="unsichtbar">{t('eingabe.nenner')}</span>
+          <input
+            inputmode="none"
+            data-tastatur="nenner"
+            autocomplete="off"
+            bind:value={feld2}
+            disabled={gesperrt}
+          /></label
+        >
+      </span>
+    {:else if art === 'punkt'}
+      <span class="paar">
+        (<label
+          ><span class="unsichtbar">{t('eingabe.x')}</span>
+          <input
+            inputmode="none"
+            data-tastatur="feld"
+            autocomplete="off"
+            bind:value={feld1}
+            disabled={gesperrt}
+          /></label
+        >
+        |
+        <label
+          ><span class="unsichtbar">{t('eingabe.y')}</span>
+          <input
+            inputmode="none"
+            data-tastatur="feld"
+            autocomplete="off"
+            bind:value={feld2}
+            disabled={gesperrt}
+          /></label
+        >)
+      </span>
+    {:else if art === 'mit-rest'}
+      <span class="mit-rest">
+        <label class="hauptfeld"
+          >{t('eingabe.ergebnis')}
+          <input
+            inputmode="none"
+            data-tastatur="feld"
+            autocomplete="off"
+            bind:value={feld1}
+            disabled={gesperrt}
+          /></label
+        >
+        <label class="restfeld"
+          ><span class="rest-label">{t('eingabe.rest')}</span>
+          <input
+            inputmode="none"
+            data-tastatur="feld"
+            autocomplete="off"
+            bind:value={feld2}
+            disabled={gesperrt}
+          /></label
+        >
+      </span>
+    {:else if typ === 'uhrzeit-eingabe'}
+      <div class="uhr">
+        <div
+          class="zifferblatt"
+          role="img"
+          aria-label={uhrVorschau
+            ? `${String(Math.floor(uhrVorschau.roh / 60)).padStart(2, '0')}:${String(uhrVorschau.minuten).padStart(2, '0')}`
+            : t('eingabe.uhrzeit-blatt')}
+        >
+          <span class="marke m12">12</span>
+          <span class="marke m3">3</span>
+          <span class="marke m6">6</span>
+          <span class="marke m9">9</span>
+          {#if uhrVorschau}
+            <span
+              class="zeiger stunde"
+              style="--winkel: {uhrVorschau.stunden * 30 + uhrVorschau.minuten * 0.5}deg"
+            ></span>
+            <span class="zeiger minute" style="--winkel: {uhrVorschau.minuten * 6}deg"></span>
+          {/if}
+          <span class="mitte"></span>
+        </div>
+        <label class="einzeln uhr-feld">
+          <span class="unsichtbar">{t('eingabe.antwort')}</span>
+          <input
+            inputmode={mitTastatur ? 'none' : 'text'}
+            data-tastatur={mitTastatur ? 'feld' : undefined}
+            autocomplete="off"
+            bind:value={feld1}
+            disabled={gesperrt}
+            placeholder={t('eingabe.uhrzeit-platzhalter')}
+          />
         </label>
-      {/each}
-    </fieldset>
-  {:else if art === 'reihenfolge' && typ === 'ordnen'}
-    <ol class="reihe">
-      {#each reihe as wert, i (wert)}
-        <li>
-          <span class="badge" aria-hidden="true">{i + 1}</span>
-          <span class="wert">{zahlText(wert)}</span>
-          <span class="griffe">
-            <button
-              type="button"
-              class="griff"
-              onclick={() => verschiebe(i, -1)}
-              disabled={gesperrt || i === 0}
-              aria-label="{zahlText(wert)} {t('eingabe.nach-vorn')}"
-              >▴ {t('eingabe.griff-hoch')}</button
-            >
-            <button
-              type="button"
-              class="griff"
-              onclick={() => verschiebe(i, 1)}
-              disabled={gesperrt || i === reihe.length - 1}
-              aria-label="{zahlText(wert)} {t('eingabe.nach-hinten')}"
-              >▾ {t('eingabe.griff-runter')}</button
-            >
-          </span>
-        </li>
-      {/each}
-    </ol>
-  {:else if art === 'bruch'}
-    <span class="bruchfelder">
-      <label
-        ><span class="unsichtbar">{t('eingabe.zaehler')}</span>
-        <input
-          inputmode="none"
-          data-tastatur="zaehler"
-          autocomplete="off"
-          bind:value={feld1}
-          disabled={gesperrt}
-        /></label
-      >
-      <label
-        ><span class="unsichtbar">{t('eingabe.nenner')}</span>
-        <input
-          inputmode="none"
-          data-tastatur="nenner"
-          autocomplete="off"
-          bind:value={feld2}
-          disabled={gesperrt}
-        /></label
-      >
-    </span>
-  {:else if art === 'punkt'}
-    <span class="paar">
-      (<label
-        ><span class="unsichtbar">{t('eingabe.x')}</span>
-        <input
-          inputmode="none"
-          data-tastatur="feld"
-          autocomplete="off"
-          bind:value={feld1}
-          disabled={gesperrt}
-        /></label
-      >
-      |
-      <label
-        ><span class="unsichtbar">{t('eingabe.y')}</span>
-        <input
-          inputmode="none"
-          data-tastatur="feld"
-          autocomplete="off"
-          bind:value={feld2}
-          disabled={gesperrt}
-        /></label
-      >)
-    </span>
-  {:else if art === 'mit-rest'}
-    <span class="mit-rest">
-      <label class="hauptfeld"
-        >{t('eingabe.ergebnis')}
-        <input
-          inputmode="none"
-          data-tastatur="feld"
-          autocomplete="off"
-          bind:value={feld1}
-          disabled={gesperrt}
-        /></label
-      >
-      <label class="restfeld"
-        ><span class="rest-label">{t('eingabe.rest')}</span>
-        <input
-          inputmode="none"
-          data-tastatur="feld"
-          autocomplete="off"
-          bind:value={feld2}
-          disabled={gesperrt}
-        /></label
-      >
-    </span>
-  {:else if typ === 'uhrzeit-eingabe'}
-    <div class="uhr">
-      <div
-        class="zifferblatt"
-        role="img"
-        aria-label={uhrVorschau
-          ? `${String(Math.floor(uhrVorschau.roh / 60)).padStart(2, '0')}:${String(uhrVorschau.minuten).padStart(2, '0')}`
-          : t('eingabe.uhrzeit-blatt')}
-      >
-        <span class="marke m12">12</span>
-        <span class="marke m3">3</span>
-        <span class="marke m6">6</span>
-        <span class="marke m9">9</span>
-        {#if uhrVorschau}
-          <span
-            class="zeiger stunde"
-            style="--winkel: {uhrVorschau.stunden * 30 + uhrVorschau.minuten * 0.5}deg"
-          ></span>
-          <span class="zeiger minute" style="--winkel: {uhrVorschau.minuten * 6}deg"></span>
-        {/if}
-        <span class="mitte"></span>
+        <p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>
       </div>
-      <label class="einzeln uhr-feld">
+    {:else}
+      <label class="einzeln">
         <span class="unsichtbar">{t('eingabe.antwort')}</span>
         <input
-          inputmode="text"
+          inputmode={mitTastatur ? 'none' : 'text'}
+          data-tastatur={mitTastatur ? 'feld' : undefined}
           autocomplete="off"
           bind:value={feld1}
           disabled={gesperrt}
-          placeholder={t('eingabe.uhrzeit-platzhalter')}
         />
       </label>
-      <p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>
-    </div>
-  {:else}
-    <label class="einzeln">
-      <span class="unsichtbar">{t('eingabe.antwort')}</span>
-      <input
-        inputmode={mitTastatur ? 'none' : 'text'}
-        data-tastatur={mitTastatur ? 'feld' : undefined}
-        autocomplete="off"
-        bind:value={feld1}
-        disabled={gesperrt}
-      />
-    </label>
-    {#if typ === 'faktoren-eingabe'}<p class="hinweis">{t('eingabe.faktoren-hinweis')}</p>{/if}
-  {/if}
+      {#if typ === 'faktoren-eingabe'}<p class="hinweis">{t('eingabe.faktoren-hinweis')}</p>{/if}
+    {/if}
 
-  {#if mitTastatur && !gesperrt}<Tastatur {tasten} />{/if}
+    {#if mitTastatur && !gesperrt}
+      <div class="tastatur-anbindung">
+        <Tastatur {tasten} />
+      </div>
+    {/if}
+  </div>
 
   {#if fehler}<p class="fehler" role="alert">{t(fehler)}</p>{/if}
-  {#if erfolg}<span class="haekchen" aria-hidden="true">✓</span>{/if}
 </form>
 
 <style>
   .eingabe {
-    position: relative;
-    margin-block: var(--abstand-m);
+    margin-block: 0;
+  }
+
+  .feld-karte {
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  .tastatur-anbindung {
+    margin-block-start: var(--abstand-s);
+    padding-block-start: var(--abstand-s);
+    border-block-start: 1px solid var(--farbe-rand);
+  }
+
+  @media (orientation: landscape) and (max-block-size: 30rem) {
+    .eingabe {
+      margin-block: var(--abstand-s);
+    }
   }
 
   input:not([type='radio']) {
     font: inherit;
-    font-size: 1.25rem;
-    inline-size: 9rem;
+    font-size: 1.375rem;
+    font-variant-numeric: tabular-nums;
+    inline-size: 10rem;
+    min-block-size: var(--ziel);
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-s);
     border: 2px solid var(--farbe-rand);
     border-radius: var(--radius);
     background: var(--farbe-flaeche);
     color: var(--farbe-text);
+  }
+
+  .richtig input:not([type='radio']),
+  .richtig .option {
+    border-color: var(--farbe-erfolg);
+    background: color-mix(in srgb, var(--farbe-erfolg) 8%, var(--farbe-flaeche));
+  }
+
+  .falsch input:not([type='radio']),
+  .falsch .option.gewaehlt {
+    border-color: var(--farbe-akzent-warm);
+    background: color-mix(in srgb, var(--farbe-akzent-warm) 8%, var(--farbe-flaeche));
   }
 
   input:focus-visible {
@@ -315,6 +364,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--abstand-s);
+    align-items: center;
   }
 
   .bruchfelder label:first-child {
@@ -323,17 +373,17 @@
   }
 
   .bruchfelder input,
-  .paar input,
-  .mit-rest input {
-    inline-size: 5rem;
+  .paar input {
+    inline-size: 6.5rem;
     text-align: center;
+    font-size: 1.5rem;
   }
 
   .paar {
     display: inline-flex;
     align-items: center;
     gap: var(--abstand-s);
-    font-size: 1.25rem;
+    font-size: 1.375rem;
   }
 
   /* §R96: Rest nachgeordnet, nicht gleichwertig */
@@ -376,77 +426,43 @@
     font-size: 0.875rem;
   }
 
-  /* §R93: große Antwortkarten statt Radio-Zeilen */
+  .mit-rest input {
+    text-align: center;
+  }
+
   .optionen {
     border: none;
     padding: 0;
     margin: 0;
     display: grid;
     gap: var(--abstand-s);
-    grid-template-columns: 1fr;
-  }
-
-  @media (width >= 28rem) {
-    .optionen {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 
   .optionen.bilder {
     grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
   }
 
-  .option.karte {
-    position: relative;
-    display: block;
-    min-block-size: 4.5rem;
-    padding: 0;
+  .option {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    min-block-size: var(--ziel);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
     border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius-karte);
+    border-radius: var(--radius);
     background: var(--farbe-flaeche);
     cursor: pointer;
-    box-shadow: 0 1px 4px var(--farbe-schatten);
+    font-size: 1.125rem;
   }
 
-  .option.karte input {
-    position: absolute;
-    inset-inline-start: var(--abstand-s);
-    inset-block-start: var(--abstand-s);
-    opacity: 0;
-    inline-size: 1px;
-    block-size: 1px;
-  }
-
-  .karte-koerper {
-    display: flex;
+  .bilder .option {
     flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: var(--abstand-s);
-    min-block-size: 4.5rem;
-    padding-block: var(--abstand-m);
-    padding-inline: var(--abstand-m);
-  }
-
-  .karte-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.3;
-    text-align: center;
-  }
-
-  .bilder .karte-koerper {
-    align-items: center;
   }
 
   .option.gewaehlt {
     border-color: var(--farbe-akzent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--farbe-akzent) 35%, transparent);
-  }
-
-  .option.karte:focus-within {
-    outline: 3px solid var(--farbe-akzent);
-    outline-offset: 2px;
+    background: color-mix(in srgb, var(--farbe-akzent) 10%, var(--farbe-flaeche));
   }
 
   .bild {
@@ -459,63 +475,59 @@
     block-size: auto;
   }
 
-  /* §R94: Nummer-Badges + lange Touch-Griffe */
   .reihe {
     display: grid;
     gap: var(--abstand-s);
-    list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .reihe li {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
     align-items: center;
     gap: var(--abstand-s);
-    padding: var(--abstand-s);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
     font-size: 1.25rem;
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-s);
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
   }
 
-  .badge {
+  .platz {
     display: grid;
     place-items: center;
-    inline-size: 2rem;
-    block-size: 2rem;
-    border-radius: 50%;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-    font-weight: 800;
+    font-size: 0.875rem;
+    font-weight: 700;
   }
 
   .reihe .wert {
-    font-weight: 700;
-    min-inline-size: 4rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
   }
 
   .griffe {
     display: flex;
-    flex-direction: column;
     gap: 0.25rem;
   }
 
   .griff {
     font: inherit;
-    font-size: 0.85rem;
-    font-weight: 700;
-    min-inline-size: 6.5rem;
+    font-size: 1.125rem;
+    min-inline-size: 2.75rem;
     min-block-size: 2.75rem;
-    padding-inline: var(--abstand-s);
     border: 2px solid var(--farbe-rand);
     border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text);
     cursor: pointer;
-    touch-action: manipulation;
   }
 
   .griff:disabled {
@@ -618,48 +630,11 @@
   .hinweis {
     color: var(--farbe-text-leise);
     font-size: 1rem;
-    margin-block: 0;
   }
 
   .fehler {
-    color: var(--farbe-akzent);
-  }
-
-  /* §S100: dezente Häkchen-Welle */
-  .haekchen {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-end: 0;
-    color: var(--farbe-erfolg);
-    font-size: 1.5rem;
-    font-weight: 800;
-    animation: haekchen-welle 0.7s ease-out both;
-  }
-
-  .erfolg input:not([type='radio']),
-  .erfolg .option.gewaehlt {
-    border-color: var(--farbe-erfolg);
-  }
-
-  @keyframes haekchen-welle {
-    0% {
-      opacity: 0;
-      scale: 0.6;
-    }
-    40% {
-      opacity: 1;
-      scale: 1.15;
-    }
-    100% {
-      opacity: 1;
-      scale: 1;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .haekchen {
-      animation: none;
-    }
+    color: var(--farbe-text-leise);
+    margin-block: var(--abstand-s) 0;
   }
 
   .unsichtbar {

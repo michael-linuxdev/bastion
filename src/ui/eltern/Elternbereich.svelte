@@ -123,13 +123,16 @@
   }
 </script>
 
-<section class="eltern">
+<section class="eltern register-werkstatt" data-eltern>
+  <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
+  <p class="werkstatt-hinweis">{t('eltern.werkstatt-hinweis')}</p>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
     <form onsubmit={schritt === 'einrichten' ? festlegen : zuruecksetzen}>
       {#if schritt === 'einrichten'}
+        <p class="schutz">{t('eltern.schutz')}</p>
         <p>{t('eltern.einrichten')}</p>
         {#if ausSicherung}<p class="hinweis">{t('eltern.pin-aus-sicherung')}</p>{/if}
       {:else}
@@ -175,6 +178,7 @@
       }}>{t('eltern.code-notiert')}</button
     >
   {:else if schritt === 'gesperrt'}
+    <p class="schutz">{t('eltern.schutz')}</p>
     <form onsubmit={entsperren}>
       <label
         >{t('eltern.pin')}
@@ -257,6 +261,40 @@
   .eltern {
     display: grid;
     gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 85%, var(--farbe-text) 4%);
+    border: 1px solid var(--farbe-rand);
+  }
+
+  .badge {
+    margin: 0;
+    justify-self: start;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-rand);
+    color: var(--farbe-text-leise);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .werkstatt-hinweis {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--farbe-text-leise);
+    border-block-end: 1px solid var(--farbe-rand);
+    padding-block-end: var(--abstand-s);
+  }
+
+  h2 {
+    margin-block: 0 var(--abstand-s);
+    font-size: 1.25rem;
   }
 
   form {
@@ -275,8 +313,8 @@
     font-size: 1.25rem;
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-s);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius);
+    border: 1px solid var(--farbe-rand);
+    border-radius: 2px;
     background: var(--farbe-flaeche);
     color: var(--farbe-text);
   }
@@ -285,8 +323,8 @@
     font: inherit;
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
+    border-radius: 2px;
+    border: 1px solid var(--farbe-akzent);
     background: transparent;
     color: var(--farbe-text);
     cursor: pointer;
@@ -294,8 +332,9 @@
   }
 
   .haupt {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
+    background: var(--farbe-text);
+    color: var(--farbe-flaeche);
+    border-color: var(--farbe-text);
   }
 
   .leise-knopf {
@@ -352,5 +391,23 @@
 
   .werkstatt-block h3 {
     margin-block: 0;
+  }
+
+  /* K49: stärkere Fokus-Ringe für Tastatur / Eltern-Tablets */
+  .eltern :focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 4px;
+  }
+
+  .eltern input:focus-visible,
+  .eltern select:focus-visible,
+  .eltern button:focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 3px;
+  }
+
+  .schutz {
+    color: var(--farbe-text-leise);
+    margin-block-end: 0;
   }
 </style>

@@ -106,6 +106,7 @@ import {
   bewohnerFarbe,
   bewohnerMuetze,
   type BewohnerZustand,
+  type Taetigkeit,
 } from './bewohner';
 import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
@@ -216,11 +217,63 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
 }
 
 /** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
+/** Statusgeste über dem Kopf – Tätigkeit ohne Popup lesbar (Design „Danach“ J35). */
+function zeichneStatusgeste(g: Graphics, x: number, y: number, s: number, taetigkeit: Taetigkeit) {
+  const kx = x;
+  const ky = y - 14 * s;
+  g.circle(kx, ky, 3.4 * s).fill({ color: '#fff8ef', alpha: 0.92 });
+  g.circle(kx, ky, 3.4 * s).stroke({ width: 0.7, color: '#6a5a4a', alpha: 0.45 });
+  if (taetigkeit === 'giessen') {
+    g.poly([kx - 1.5 * s, ky - 0.5 * s, kx + 2 * s, ky - 1.5 * s, kx + 1 * s, ky + 1.5 * s]).fill(
+      '#3a7a9a',
+    );
+    g.circle(kx + 1.6 * s, ky + 2 * s, 0.7 * s).fill({ color: '#5ab0d0', alpha: 0.85 });
+  } else if (taetigkeit === 'kehren' || taetigkeit === 'gaertnern') {
+    g.moveTo(kx, ky - 2 * s)
+      .lineTo(kx, ky + 2.2 * s)
+      .stroke({ width: 1.2, color: '#6a4a2a' });
+    g.poly([kx - 2 * s, ky + 2.2 * s, kx + 2 * s, ky + 2.2 * s, kx, ky + 0.4 * s]).fill('#8a6a3a');
+  } else if (taetigkeit === 'pflanzen') {
+    g.moveTo(kx, ky + 2 * s)
+      .lineTo(kx, ky - 0.5 * s)
+      .stroke({ width: 1.1, color: '#3a6a2a' });
+    g.ellipse(kx - 1.4 * s, ky - 1 * s, 1.3 * s, 0.8 * s).fill('#4a8a3a');
+    g.ellipse(kx + 1.4 * s, ky - 1.2 * s, 1.3 * s, 0.8 * s).fill('#4a8a3a');
+  } else if (taetigkeit === 'lesen' || taetigkeit === 'ordnen') {
+    g.rect(kx - 2.2 * s, ky - 1.6 * s, 4.4 * s, 3.2 * s).fill('#e8e0c8');
+    g.moveTo(kx, ky - 1.6 * s)
+      .lineTo(kx, ky + 1.6 * s)
+      .stroke({ width: 0.7, color: '#b0a888' });
+  } else if (taetigkeit === 'flicken') {
+    g.moveTo(kx - 1.8 * s, ky + 1.5 * s)
+      .lineTo(kx + 1.8 * s, ky - 1.8 * s)
+      .stroke({ width: 1.3, color: '#4a4a4a' });
+    g.rect(kx + 0.8 * s, ky - 2.4 * s, 1.8 * s, 1.5 * s).fill('#6a6a6a');
+  } else if (taetigkeit === 'sammeln') {
+    g.ellipse(kx, ky + 0.6 * s, 2.4 * s, 1.6 * s).fill('#8a5a2a');
+    g.circle(kx - 0.8 * s, ky - 0.4 * s, 0.7 * s).fill('#6aaa4a');
+    g.circle(kx + 0.9 * s, ky - 0.8 * s, 0.65 * s).fill('#c45c4a');
+  } else if (taetigkeit === 'wachen') {
+    g.moveTo(kx, ky + 2.2 * s)
+      .lineTo(kx, ky - 2.2 * s)
+      .stroke({ width: 1.2, color: '#5a4a2a' });
+    g.poly([kx, ky - 2.2 * s, kx + 2.2 * s, ky - 0.8 * s, kx, ky - 0.2 * s]).fill('#a03a2a');
+  } else if (taetigkeit === 'schauen') {
+    g.circle(kx - 1.1 * s, ky, 0.85 * s).fill('#2a2a2a');
+    g.circle(kx + 1.1 * s, ky, 0.85 * s).fill('#2a2a2a');
+  } else {
+    // ruhen: kleiner Mond
+    g.circle(kx, ky, 1.6 * s).fill('#c9b88a');
+    g.circle(kx + 0.7 * s, ky - 0.4 * s, 1.3 * s).fill('#fff8ef');
+  }
+}
+
 function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
   const s = jetzt < b.reactBis ? 1.1 : 1;
   const x = b.x;
   const y = b.y;
   const farbe = bewohnerFarbe(b.art);
+  zeichneStatusgeste(g, x, y, s, b.taetigkeit);
   // Körper + Mütze (Form je Art leicht unterscheidbar)
   g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
   if (b.art === 'imker') {
@@ -237,7 +290,7 @@ function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
     g.poly([x - 4 * s, y - 4 * s, x, y - 11 * s, x + 4 * s, y - 4 * s]).fill(bewohnerMuetze(b.art));
   }
   g.circle(x, y - 3.5 * s, 2.2 * s).fill('#f0d8c0');
-  // Tätigkeit: Gießkanne / Besen / Buch / Blick / Werkzeug / Korb
+  // Tätigkeit am Körper: Gießkanne / Besen / Buch / Blick / Werkzeug / Korb
   if (b.taetigkeit === 'giessen') {
     const wip = Math.sin(b.phase) * 2;
     g.poly([x + 5 * s, y - 2 * s, x + 9 * s, y - 1 * s + wip, x + 7 * s, y + 1 * s]).fill(
@@ -554,6 +607,29 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
   const [w, t] = KATALOG[typ].groesse;
   const e = ecken(pos.x, pos.y, w, t, abstand);
   return g.poly(flach(e.hinten, e.rechts, e.vorne, e.links));
+}
+
+/** Gestrichelter Boden-Umriss für geplante Bauten (Geister-Silhouette). */
+function geisterUmriss(g: Graphics, pos: Position, typ: GebaeudeTyp, farbe: string | number) {
+  const [w, t] = KATALOG[typ].groesse;
+  const e = ecken(pos.x, pos.y, w, t, 0.1);
+  const eckenListe = [e.hinten, e.rechts, e.vorne, e.links] as const;
+  for (let i = 0; i < eckenListe.length; i++) {
+    const a = eckenListe[i];
+    const b = eckenListe[(i + 1) % eckenListe.length];
+    if (!a || !b) continue;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const schritte = Math.max(2, Math.floor(len / 7));
+    for (let s = 0; s < schritte; s += 2) {
+      const t0 = s / schritte;
+      const t1 = Math.min(1, (s + 1) / schritte);
+      g.moveTo(a.x + dx * t0, a.y + dy * t0)
+        .lineTo(a.x + dx * t1, a.y + dy * t1)
+        .stroke({ width: 2.2, color: farbe, alpha: 0.85, cap: 'round' });
+    }
+  }
 }
 
 /** Rauch-Plätze bei Bewährungsprobe – feste Lagen, kein Zufall (GRAFIK §8 / P6). */
@@ -1372,11 +1448,10 @@ export async function buehneErstellen(
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
-      // Neubauten im Bau: Umriss auf dem Boden
+      // Neubauten im Bau: gestrichelte Geister-Silhouette (Design-Ideen K43)
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
-        raute(g, v.pos, v.typ, 0.1)
-          .fill({ color: farben.imBau, alpha: 0.18 })
-          .stroke({ width: 2, color: farben.imBau });
+        raute(g, v.pos, v.typ, 0.1).fill({ color: farben.imBau, alpha: 0.1 });
+        geisterUmriss(g, v.pos, v.typ, farben.imBau);
       }
       // Von hinten nach vorn zeichnen, damit Vorderes Hinteres verdeckt
       const reihe = [...b.bauwerke].sort((p, q) => {
