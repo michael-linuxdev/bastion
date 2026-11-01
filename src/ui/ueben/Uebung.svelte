@@ -809,6 +809,12 @@
     max-block-size: max(8rem, 22dvh);
   }
 
+  /* L19: gefärbte Teile in derselben warmen Farbe wie der Bruchstreifen der Erklärung */
+  .bild :global([fill-opacity='0.35']) {
+    fill: var(--farbe-akzent-warm);
+    fill-opacity: 1;
+  }
+
   .tipp-notiz {
     margin-block-start: var(--abstand-s);
     padding-block: var(--abstand-s);
