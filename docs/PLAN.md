@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L fast fertig (offen: L18, Abnahme), dann F2. Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
+| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L fast fertig (offen: L18, Abnahme), dann F2. F4 (Auswertung U4b) fertig, F5 läuft, beide parallel zu L (PV, 01.11.2026, #146). Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
 | Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). G5 Teil 1 (Ausbauen beim Antippen) umgesetzt. Probestück Bergfried (a) Generator / (b) Kenney liegt dem PV zur Wahl vor; danach G2 Stufen-Sprache und G3 Bilder für alle Themen in Epoche 1 |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
@@ -208,7 +208,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3l** Browser-Tests (je Schritt einer) und Dokumente (LEHRPLAN §6 „erklärt“, KONZEPT §0, VERMITTLUNG §7)
 - [ ] **U4** Testphase, in zwei Schritten:
   - [x] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
-  - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
+  - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2). Auswertung vorbereitet (F4, 01.11.2026): `pnpm auswertung` beantwortet Kriterium 1 und F5 aus `STRATEGIE.md` §0 (`TESTS.md` §4.5)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
   - [x] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
