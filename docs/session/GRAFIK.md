@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52). Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52) + Design §R–§U. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
@@ -41,6 +41,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **P6 Belagerungs-Himmel / Rauch:** Atlas-Overlays `belagerung/himmel` und `rauch_1…3`; Bühne bei Bewährungsprobe mit Code-Fallback (`GRAFIK-SPRITES.md` §8).
 - **CC0-Sounddateien (G8 nachgezogen):** Tipps aus Kenney Interface Sounds (CC0) und eigenes Ambient-Wind (CC0) unter `public/sound/` mit Manifest; Loader bevorzugt Dateien, sonst Web-Audio-Fallback; PWA-Precache `.ogg` (T-18).
 - **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
+- **Design-Ideen §R–§U (93–108):** Eingabe Uhr-Zifferblatt/Rest nachgeordnet; Fehlvorstellung mit Titel + Schema (Urteil, Karten, Ordnen, Schrittweg aus Lern-UI §9); Hub-Türen + Mehr-Zonen; Eltern Probe/PIN/Druck/Basebau-Trennung.
 - **Üben Ein-/Ausgabe (Lern-UI §9):** Feedback-Schichtung, Antwortspiegel, Steine-Fortschritt, Tipp-Randnotiz, Schrittweg-Checkliste, Tastatur angebunden, Querformat; Spec `ueben-io-design` P0–P1.
 - **Design-Ideen §K (39–52):** Steinkette, Klassenarbeit nüchtern, Abschluss-Ritual, Hub-Wetter, Geister-Bauplan, Vorrat einklappbar, „Alles sicher“, Über mich kindgerecht, Offline-Hinweis einmalig, Motion-Texte, Fokus-Ringe Eltern, weiche Bau-Sounds, Aufgabentext-Luft, einheitliche Leerzustände. K50 Prüfen-Sound im Lernpfad bewusst still (GRAFIK §9).
 - **Design V–Z (109–128):** Systemschrift/Kontrast, SR-Reihenfolge Üben, Sound-Stufen aus/UI/Bastion, Hub-Vertrauen & nie-geübt, Bau ohne Rohstoffe, Stand „alles sitzt“, Sicherungshilfe, Tokens/Microcopy.

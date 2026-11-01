@@ -1,5 +1,5 @@
 <script lang="ts">
-  // „Mehr“ vom Start-Hub: alles, was nicht täglich gebraucht wird.
+  // „Mehr“: zwei Zonen – Für dich / Für Erwachsene (§T102–§T104). Keine Suche.
   // Design-Ideen K47: Offline-Hinweis einmalig, kein Dauerbanner.
   import { onMount } from 'svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -40,18 +40,18 @@
     void offlineHinweisSetzen();
   }
 
-  const eintraege = $derived<
-    { ziel: Ziel; name: string; symbol: 'stand' | 'ueben' | 'eltern' | 'mehr' }[]
-  >([
+  type MehrSymbol = 'stand' | 'ueben' | 'eltern' | 'mehr';
+  const fuerDich = $derived<{ ziel: Ziel; name: string; symbol: MehrSymbol }[]>([
     { ziel: 'themen', name: t('mehr.themen'), symbol: 'ueben' },
     { ziel: 'stand', name: t('stand.knopf'), symbol: 'stand' },
     { ziel: 'klassenarbeit', name: t('ka.knopf'), symbol: 'mehr' },
     { ziel: 'profil', name: t('profil.knopf'), symbol: 'mehr' },
     { ziel: 'sicherung', name: t('sicherung.knopf'), symbol: 'mehr' },
-    ...(eltern
-      ? [{ ziel: 'eltern' as const, name: t('eltern.knopf'), symbol: 'eltern' as const }]
-      : []),
   ]);
+
+  const fuerErwachsene = $derived<{ ziel: Ziel; name: string }[]>(
+    eltern ? [{ ziel: 'eltern', name: t('eltern.knopf') }] : [],
+  );
 </script>
 
 <section class="mehr">
@@ -63,16 +63,41 @@
   <p class="marke ort-name">{t('start.ueberschrift')}</p>
   <h2>{t('mehr.ueberschrift')}</h2>
   <p class="leise">{t('mehr.info')}</p>
-  <ul class="liste">
-    {#each eintraege as e (e.ziel)}
-      <li>
-        <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
-          <Symbol name={e.symbol} />
-          <span>{e.name}</span>
-        </button>
-      </li>
-    {/each}
-  </ul>
+
+  <section class="zone" aria-labelledby="mehr-dich">
+    <h3 id="mehr-dich">{t('mehr.fuer-dich')}</h3>
+    <ul class="liste">
+      {#each fuerDich as e (e.ziel)}
+        <li>
+          <button onclick={() => onziel(e.ziel)}>
+            <Symbol name={e.symbol} />
+            <span>{e.name}</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </section>
+
+  <section class="zone erwachsene" aria-labelledby="mehr-erwachsene">
+    <h3 id="mehr-erwachsene">{t('mehr.fuer-erwachsene')}</h3>
+    {#if fuerErwachsene.length > 0}
+      <ul class="liste">
+        {#each fuerErwachsene as e (e.ziel)}
+          <li>
+            <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
+              <Symbol name="eltern" />
+              <span>{e.name}</span>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p class="leise">{t('mehr.erwachsene-leer')}</p>
+    {/if}
+    <!-- §T104: Versions-/Build-Info nur hier -->
+    <p class="version" role="note">{t('mehr.version')}</p>
+  </section>
+
   <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   <p class="versprechen">{t('start.versprechen')}</p>
   {#if offlineZeigen}
@@ -126,9 +151,27 @@
     margin: 0;
     font-size: 1.25rem;
   }
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+  }
   .leise {
     color: var(--farbe-text-leise);
     margin: 0;
+  }
+  .zone {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+  }
+  .zone.erwachsene {
+    background: var(--farbe-flaeche-leise);
+    box-shadow: none;
+    border: 1px dashed var(--farbe-rand);
   }
   .liste {
     list-style: none;
@@ -149,10 +192,18 @@
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
-    box-shadow: 0 2px 8px var(--farbe-schatten);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
+  }
+  .erwachsene button:not(.zurueck) {
+    background: var(--farbe-flaeche);
+  }
+  .version {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--farbe-text-leise);
   }
   button.werkstatt {
     border-radius: 4px;

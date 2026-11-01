@@ -1631,6 +1631,8 @@ test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U
     if (runde === 0) await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   }
   await expect(page.getByText('Dieser Denkfehler ist dir schon öfter passiert.')).toBeVisible();
+  // Lange Erklärung steckt hinter „Erklärung lesen“ (§S98)
+  await page.getByRole('main').locator('summary', { hasText: 'Erklärung lesen' }).click();
   await expect(page.getByRole('heading', { name: 'So denkst du gerade' })).toBeVisible();
   await page.getByRole('button', { name: 'Zurück zur Erklärung' }).click();
   // Rückweg: mitten in die Erstvermittlung, nicht an den Anfang

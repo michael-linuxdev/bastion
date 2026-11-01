@@ -66,6 +66,14 @@
     onbereit?.(bereit);
   });
 
+  /** Uhrzeit-Vorschau für das Zifferblatt (§R95) */
+  const uhrVorschau = $derived.by(() => {
+    if (typ !== 'uhrzeit-eingabe') return undefined;
+    const g = leseUhrzeit(feld1);
+    if (!g.ok) return undefined;
+    return { stunden: Math.floor(g.wert / 60) % 12, minuten: g.wert % 60, roh: g.wert };
+  });
+
   function zahlen(...gelesen: Gelesen<number>[]): number[] | undefined {
     for (const g of gelesen) {
       if (!g.ok) {
@@ -219,8 +227,8 @@
         >)
       </span>
     {:else if art === 'mit-rest'}
-      <span class="paar">
-        <label
+      <span class="mit-rest">
+        <label class="hauptfeld"
           >{t('eingabe.ergebnis')}
           <input
             inputmode="none"
@@ -230,8 +238,8 @@
             disabled={gesperrt}
           /></label
         >
-        <label
-          >{t('eingabe.rest')}
+        <label class="restfeld"
+          ><span class="rest-label">{t('eingabe.rest')}</span>
           <input
             inputmode="none"
             data-tastatur="feld"
@@ -241,6 +249,41 @@
           /></label
         >
       </span>
+    {:else if typ === 'uhrzeit-eingabe'}
+      <div class="uhr">
+        <div
+          class="zifferblatt"
+          role="img"
+          aria-label={uhrVorschau
+            ? `${String(Math.floor(uhrVorschau.roh / 60)).padStart(2, '0')}:${String(uhrVorschau.minuten).padStart(2, '0')}`
+            : t('eingabe.uhrzeit-blatt')}
+        >
+          <span class="marke m12">12</span>
+          <span class="marke m3">3</span>
+          <span class="marke m6">6</span>
+          <span class="marke m9">9</span>
+          {#if uhrVorschau}
+            <span
+              class="zeiger stunde"
+              style="--winkel: {uhrVorschau.stunden * 30 + uhrVorschau.minuten * 0.5}deg"
+            ></span>
+            <span class="zeiger minute" style="--winkel: {uhrVorschau.minuten * 6}deg"></span>
+          {/if}
+          <span class="mitte"></span>
+        </div>
+        <label class="einzeln uhr-feld">
+          <span class="unsichtbar">{t('eingabe.antwort')}</span>
+          <input
+            inputmode={mitTastatur ? 'none' : 'text'}
+            data-tastatur={mitTastatur ? 'feld' : undefined}
+            autocomplete="off"
+            bind:value={feld1}
+            disabled={gesperrt}
+            placeholder={t('eingabe.uhrzeit-platzhalter')}
+          />
+        </label>
+        <p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>
+      </div>
     {:else}
       <label class="einzeln">
         <span class="unsichtbar">{t('eingabe.antwort')}</span>
@@ -253,7 +296,6 @@
         />
       </label>
       {#if typ === 'faktoren-eingabe'}<p class="hinweis">{t('eingabe.faktoren-hinweis')}</p>{/if}
-      {#if typ === 'uhrzeit-eingabe'}<p class="hinweis">{t('eingabe.uhrzeit-hinweis')}</p>{/if}
     {/if}
 
     {#if mitTastatur && !gesperrt}
@@ -342,6 +384,50 @@
     align-items: center;
     gap: var(--abstand-s);
     font-size: 1.375rem;
+  }
+
+  /* §R96: Rest nachgeordnet, nicht gleichwertig */
+  .mit-rest {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--abstand-m);
+    font-size: 1.25rem;
+  }
+
+  .hauptfeld {
+    display: grid;
+    gap: 0.25rem;
+    font-weight: 700;
+  }
+
+  .hauptfeld input {
+    inline-size: 7rem;
+    font-size: 1.5rem;
+    border-color: var(--farbe-akzent);
+  }
+
+  .restfeld {
+    display: grid;
+    gap: 0.25rem;
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .restfeld input {
+    inline-size: 4.5rem;
+    font-size: 1.1rem;
+    border-style: dashed;
+    background: var(--farbe-flaeche-leise);
+  }
+
+  .rest-label {
+    font-size: 0.875rem;
+  }
+
+  .mit-rest input {
+    text-align: center;
   }
 
   .optionen {
@@ -447,6 +533,98 @@
   .griff:disabled {
     opacity: 0.4;
     cursor: default;
+  }
+
+  /* §R95: Zifferblatt-Metapher */
+  .uhr {
+    display: grid;
+    justify-items: start;
+    gap: var(--abstand-s);
+  }
+
+  .zifferblatt {
+    position: relative;
+    inline-size: 8.5rem;
+    block-size: 8.5rem;
+    border-radius: 50%;
+    border: 3px solid var(--farbe-rand);
+    background: radial-gradient(
+      circle at 50% 45%,
+      var(--farbe-flaeche) 0%,
+      var(--farbe-flaeche-leise) 100%
+    );
+    box-shadow: inset 0 0 0 1px var(--farbe-schatten);
+  }
+
+  .marke {
+    position: absolute;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--farbe-text-leise);
+  }
+
+  .m12 {
+    inset-block-start: 0.35rem;
+    inset-inline-start: 50%;
+    translate: -50% 0;
+  }
+
+  .m6 {
+    inset-block-end: 0.35rem;
+    inset-inline-start: 50%;
+    translate: -50% 0;
+  }
+
+  .m3 {
+    inset-inline-end: 0.45rem;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+  }
+
+  .m9 {
+    inset-inline-start: 0.45rem;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+  }
+
+  .zeiger {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    transform-origin: 50% 100%;
+    translate: -50% -100%;
+    rotate: var(--winkel);
+    border-radius: 999px;
+    background: var(--farbe-text);
+  }
+
+  .zeiger.stunde {
+    inline-size: 0.22rem;
+    block-size: 2.1rem;
+  }
+
+  .zeiger.minute {
+    inline-size: 0.16rem;
+    block-size: 2.9rem;
+    background: var(--farbe-akzent);
+  }
+
+  .mitte {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    border-radius: 50%;
+    background: var(--farbe-text);
+    translate: -50% -50%;
+  }
+
+  .uhr-feld input {
+    inline-size: 8.5rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
   }
 
   .hinweis {

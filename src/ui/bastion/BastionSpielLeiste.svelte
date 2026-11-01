@@ -30,6 +30,10 @@
 </script>
 
 <div class="spiel" aria-label={tt('bastion.vorrat-kurz')}>
+  <!-- §U105: Probe-Banner und Test-Vorrat gekoppelt -->
+  {#if testRohstoffe}
+    <p class="probe-banner" role="status">{t('bastion.probe-banner-an')}</p>
+  {/if}
   <div class="vorrat">
     <ul class="chips" class:probe={testRohstoffe} class:kurz={!aufgeklappt}>
       <li class="beutel" aria-hidden="true"><Symbol name="beutel" /></li>
@@ -64,6 +68,19 @@
     flex: 1 1 10rem;
     min-inline-size: 0;
     justify-content: center;
+  }
+
+  .probe-banner {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding-block: 0.15rem;
+    padding-inline: 0.45rem;
+    border-radius: var(--radius);
+    border: 1px dashed var(--farbe-akzent-warm);
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    color: var(--farbe-text);
+    white-space: nowrap;
   }
 
   .vorrat {
