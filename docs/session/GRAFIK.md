@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts.
+**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts. G2 Stil-Regel liegt als Entwurf in `GRAFIK-SPRITES.md` §12 und wartet auf die Abnahme des PV; erst danach G3 (Bilder Thema `bastion`, Epoche 1).
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 

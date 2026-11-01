@@ -334,6 +334,10 @@ E2E: `Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)`
 
 Noch offen in G5: ~~Bauplatz-Vorschlag mit Geister-Vorschau und „Hier bauen“ beim Neubau~~ (Teil 2, 11.7); Planen und Bauen zusammenlegen (Kern, B-29): Vorschlag in 11.7, Entscheidung beim PV.
 
+### 11.6 G2 – Stil-Regel für die ganze Bastion (01.11.2026, Entwurf)
+
+Nach der Wahl des PV (eigener Generator für alles, aus einem Guss) steht die Regel in `GRAFIK-SPRITES.md` §12: Raster und Maßstab, Licht von rechts oben, Kontur, Palette mit Materialleiter Holz → Fachwerk → Stein, Stufen-Sprache mit Schwellwerten (Umriss 25 %, Höhe 15 %) und die Tabelle Rolle × Stufe für das Thema `bastion`, Epoche 1 (14 Gebäudebilder). Vorbild ist das Probestück (a). **Wartet auf die Abnahme des PV;** erst danach erzeugt G3 Bilder.
+
 ### 11.7 G5 – Bauplatz-Vorschlag beim Neubau (Teil 2, 01.11.2026)
 
 Ohne Änderung am Kern; nur `src/ui/bastion/` (mit `grafik/grafik-buehne.ts`) und Texte.
