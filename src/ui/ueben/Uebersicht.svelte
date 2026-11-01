@@ -129,7 +129,10 @@
     >
       <summary>
         <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
-        <span class="anzahl">{b.kompetenzen.length} {t('uebersicht.themen')}</span>
+        <span class="anzahl"
+          >{b.kompetenzen.length}
+          {t(b.kompetenzen.length === 1 ? 'uebersicht.thema' : 'uebersicht.themen')}</span
+        >
       </summary>
       <ul class="orte">
         {#each b.kompetenzen as k (k.id)}
@@ -278,7 +281,7 @@
     align-items: baseline;
     gap: var(--abstand-s);
     min-block-size: var(--ziel);
-    margin-block-start: var(--abstand-m);
+    margin-block-start: var(--abstand-s);
     padding-block: var(--abstand-s);
     border-block-end: 1px solid var(--farbe-rand);
     cursor: pointer;
