@@ -19,6 +19,7 @@
     "test": "vitest run --passWithNoTests",
     "test:e2e": "playwright test",
     "budget": "node tools/groessenbudget.ts",
+    "grafik:stufen": "python3 tools/grafik/stufen-vergleich.py",
     "messen": "node tools/messung.ts",
     "inhalte:pruefen": "vitest run tools/inhalte --silent=false",
     "inhalte:begriffe": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/inhalte/begriffe-markieren.ts",

@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52) + Design §R–§U + Design M–Q. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
+Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11.4).
 
 ---
 

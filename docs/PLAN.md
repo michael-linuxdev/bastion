@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Musterfeld Brüche steht auf Stufe 1 (31.10.2026). Jetzt durch eine Lehrkraft prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 2 setzen; dann U4b, der Test mit drei Lernenden |
-| Nächster Schritt Grafik | Spez + App-Menü + Design-Bündel (Hub/Bau/Eltern/Typo) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design L53–L64 + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52) + Design §R–§U + Design M–Q. Design-Wellen A–Z in PRs; Backlog AA–ZZ (BA–BZ) in `docs/DESIGN-IDEEN.md`. Optional: Jahreszeit-Feinheit, Ambient; Messung iPhone 13; Testerinnen mit U4b |
+| Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). Probestück Bergfried (a) Generator / (b) Kenney liegt dem PV zur Wahl vor; danach G2 Stufen-Sprache und G3 Bilder für alle Themen in Epoche 1 |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht

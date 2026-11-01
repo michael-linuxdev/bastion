@@ -56,7 +56,12 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
-_(von der ersten Sitzung auszufüllen)_
+**Paket G, Rückfragen G0 (PV, 01.11.2026):**
+
+- **G0.1 Bildquelle:** Probestück wie empfohlen. Der Bergfried (Epoche 1, Stufen 1–3) wird zweimal gebaut: (a) mit stark ausgebautem eigenem Generator und (b) auf Grundlage eines CC0-Bausatzes. Der PV wählt anhand des Vergleichsbilds. Erst danach geht es in die Breite. Hinweis: kenney.nl ist aus der Cloud-Sitzung gesperrt. Das „Castle Kit 1.0“ (CC0, isometrische Turmteile zum Stapeln) liegt in einem öffentlichen Spiegel auf GitHub (`ETdoFresh/kenney.nl`). Der Lizenztext ist dort enthalten.
+- **G0.2 Bau-Regel:** Der Kern darf sich ändern (`src/core/bastion/`, `src/core/ledger/`, z. B. Kosten, Planen und Bauen in einem Schritt). Bedingung für jeden solchen PR: `pnpm sim` vorher und nachher, ein Eintrag in `BASEBAU.md` und eine eigene Zustimmung des PV im PR. Schemaänderungen nur nach Rückfrage und mit Migrationstest (B-29).
+- **G0.3 Reihenfolge:** **Alle fünf Themen in Epoche 1** werden erneuert, bevor die Testerinnen kommen. Erst danach folgen die Epochen 2–4. Innerhalb eines Themas gilt die Reihenfolge aus G3: Bergfried, Studierstube, Späherturm, Werkstatt, Tor. Das Standard-Thema im Code ist `bastion`. Es kommt zuerst, weil daran das Probestück entsteht.
+- Die Fragen 1, 2, 4 und 5 oben (F2, F7, alte Branches, `potenzen.ts`) gehören zum Lernkern und sind noch offen.
 
 ---
 
@@ -287,4 +292,4 @@ Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `
 
 ### Übergaben
 
-_(noch keine)_
+- **01.11.2026, Strang Grafik, Paket G** (Branch `grafik/paket-g-g0-g1`): ~~G0 Rückfragen~~ (siehe „Entscheidungen“) · ~~G1 Bestandsaufnahme~~ (`pnpm grafik:stufen`, Bau-Wege gemessen, `GRAFIK.md` §11.2–11.3) · G0.1 Probestück gebaut (`GRAFIK.md` §11.4, Skripte `tools/grafik/probe/`). **Rückfrage an den PV:** Variante (a) Generator oder (b) Kenney-Bausatz, oder eine Mischung, z. B. (b) für Stein und Burg und (a) für Holz, Garten und Unterwasser? Außerdem: Schwellwert für den Umriss-Test 25 % statt 12 %? Danach folgen G2 (Stufen-Sprache) und G5 (Ausbauen beim Antippen des Gebäudes), unabhängig von der Bildwahl.
