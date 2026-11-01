@@ -74,7 +74,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 |---|---|---|
 | Session-Prompt | `docs/session/LERNKERN.md` | `docs/session/GRAFIK.md` |
 | Branch-Namen | `lernkern/…` | `grafik/…` |
-| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) |
+| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) |
 | Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` |
 | PLAN.md | §4b (Unterrichtsersatz), §4 | §4a (Basebau) |
 
