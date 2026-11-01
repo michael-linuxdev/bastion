@@ -316,3 +316,20 @@ Der Bergfried, Thema Bastion, Epoche 1, Stufen 1–3, wird zweimal gebaut: (a) m
 | (b) Kenney | Turmstumpf mit flachem Dach | 3 Geschosse, offener Holz-Wehrgang, hohes Dach, Fahne | 5 Geschosse, runder Seitenturm, Fahne | 99 % / 23 % | 51 % / 34 % | 24 / 53 / 65 KB (noch nicht verkleinert) |
 
 Beobachtungen: (a) zeigt den Materialwechsel Holz → Fachwerk → Stein und passt genau ins 2∶1-Raster. Jedes weitere Gebäude muss aber selbst entworfen werden. (b) wirkt plastischer und „fertiger“. Der Bausatz ist mit einem flacheren Blickwinkel gerendert (Raute etwa 1,46∶1) und wird für das 2∶1-Raster in der Breite gestreckt. Material und Stil sind auf Stein mit Blau festgelegt; die Dächer werden umgefärbt. Holz und Fachwerk fehlen im Bausatz. Für Garten, Unterwasser und Weltraum braucht (b) andere Bausätze, z. B. Nature Kit, Space Kit oder Pirate Kit, sofern es sie in passender Isometrie gibt; sonst bleiben diese Themen bei (a). Beide Varianten erfüllen Höhe und Umriss deutlich. Daraus ergibt sich der Vorschlag für den Schwellwert im Test: Umriss mindestens 25 %, Höhe mindestens 15 %.
+
+### 11.5 G5 – Bauen vereinfachen, erster Schritt (01.11.2026)
+
+Ohne Änderung am Kern (`src/core/` unverändert); nur `src/ui/bastion/` und Texte.
+
+| Vorher (11.3) | Jetzt |
+|---|---|
+| Ausbauen nur über „Bauen“ → ganz unten → „Ausbauen“ (3 Tipper + Wischen) | **Gebäude antippen → „Ausbauen auf Stufe 2“** (2 Tipper). Reicht alles, wird sofort ausgebaut |
+| Reicht etwas nicht: „Ausbauen“ blass, „Dafür reicht es noch nicht: Stein, Erz“ | Der Knopf heißt dann „Ausbauen – was fehlt?“ und öffnet das Bau-Blatt mit dem Gebäude. Dort steht je Rohstoff „Noch 130 Stein. Jede geübte Aufgabe bringt Stein.“ (Texte `bastion.woher.*`, je Thema) |
+| Hauptaktion bei Mangel: „Als Skizze planen“ | Skizze und Vormerken liegen unter „Mehr“. Es gibt nur eine Hauptaktion |
+| „Stein setzen“ | „Bauen“, dazu „Steht sofort.“ oder „Fertig nach 4 weiteren Lerneinheiten (höchstens zwei am Tag).“ |
+| Titel des Blatts immer „Neu bauen“; Ausbau-Karten unten | Titel „Ausbauen“ beim Ausbau; Ausbau-Karten stehen vor „Neu bauen“. Neue Auswahl springt nach oben, nichts liegt mehr unter der Kopfzeile |
+| „Hier kann etwas stehen.“ ein Wort je Zeile | mittig in voller Breite; tritt wie „Bauen“ zurück, solange ein Gebäude gewählt ist |
+
+E2E: `Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)`. Die Listenansicht in den Einstellungen bleibt unverändert und voll bedienbar.
+
+Noch offen in G5: Bauplatz-Vorschlag mit Geister-Vorschau und „Hier bauen“ beim Neubau; Planen und Bauen zusammenlegen (Kern, B-29, eigener PR mit `pnpm sim`).

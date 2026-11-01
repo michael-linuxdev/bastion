@@ -3,7 +3,7 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11.4).
+Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11).
 
 ---
 
