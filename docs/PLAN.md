@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L fast fertig (offen: L18, Abnahme), dann F2. Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
+| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L umgesetzt (offen: Abnahme durch den PV), dann F2. Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
 | Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). G5 Teil 1 (Ausbauen beim Antippen) umgesetzt. PV wählt eigenen Generator für alles, aus einem Guss; als Nächstes G2 Stil- und Stufen-Regeln, G5 Teil 2, dann G3 für Thema `bastion` Epoche 1 (vor U4b) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 

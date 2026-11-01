@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2
 
 ---
 
