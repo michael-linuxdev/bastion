@@ -15,6 +15,11 @@
     ...(huelle?.closest('form')?.querySelectorAll<HTMLInputElement>('input[data-tastatur]') ?? []),
   ];
 
+  /** L13: Hat das Formular eigene Felder für Zähler und Nenner, braucht es keinen „/“ */
+  const getrennt = $derived(
+    !!huelle?.closest('form')?.querySelector('input[data-tastatur="nenner"]'),
+  );
+
   $effect(() => {
     const form = huelle?.closest('form');
     if (!form) return;
@@ -70,7 +75,8 @@
   const ZIFFERN = ['7', '8', '9', '4', '5', '6', '1', '2', '3'];
 </script>
 
-<!-- Knöpfe nehmen dem Feld den Fokus nicht weg: pointerdown ohne Standardverhalten -->
+<!-- Knöpfe nehmen dem Feld den Fokus nicht weg: pointerdown ohne Standardverhalten.
+     L20: ein Raster über die ganze Breite – drei Spalten Ziffern, rechts die Zusatztasten. -->
 <div
   class="tastatur"
   role="group"
@@ -88,6 +94,7 @@
       {#if tasten.komma}
         <button
           type="button"
+          class="spalte-1"
           disabled={gesperrt}
           aria-label={t('tastatur.komma')}
           onclick={() => einfuegen(',')}>,</button
@@ -110,12 +117,28 @@
         onclick={() => einfuegen('−')}>−</button
       >
     {/if}
-    {#if tasten.bruchstrich}
+    {#if tasten.bruchstrich && !getrennt}
       <button
         type="button"
         disabled={gesperrt}
         aria-label={t('tastatur.bruchstrich')}
         onclick={bruchstrich}>/</button
+      >
+    {/if}
+    {#if tasten.mal}
+      <button
+        type="button"
+        disabled={gesperrt}
+        aria-label={t('tastatur.mal')}
+        onclick={() => einfuegen(' · ')}>·</button
+      >
+    {/if}
+    {#if tasten.doppelpunkt}
+      <button
+        type="button"
+        disabled={gesperrt}
+        aria-label={t('tastatur.doppelpunkt')}
+        onclick={() => einfuegen(':')}>:</button
       >
     {/if}
     {#each tasten.variablen as v (v)}
@@ -133,38 +156,47 @@
 
 <style>
   .tastatur {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
     gap: var(--abstand-s);
     margin-block: 0;
-    max-inline-size: 20rem;
+    inline-size: 100%;
+    max-inline-size: 26rem;
   }
 
   .ziffern {
     display: grid;
-    grid-template-columns: repeat(3, 3rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--abstand-s);
+  }
+
+  .spalte-1 {
+    grid-column: 1;
   }
 
   .null {
     grid-column: 2;
   }
 
+  /* Zusatztasten stehen rechts untereinander */
   .zusatz {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 3rem);
-    grid-auto-flow: row;
-    align-content: start;
+    grid-auto-rows: min-content;
     gap: var(--abstand-s);
-    inline-size: 3rem;
+  }
+
+  /* Ohne Ziffern (nur Wörter) nimmt die Spalte die ganze Breite */
+  .zusatz:only-child {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
   }
 
   button {
     font: inherit;
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-variant-numeric: tabular-nums;
     min-block-size: 3rem;
-    min-inline-size: 3rem;
+    min-inline-size: 0;
     border: 2px solid var(--farbe-rand);
     border-radius: var(--radius);
     background: var(--farbe-flaeche);
@@ -188,38 +220,31 @@
   }
 
   @media (pointer: fine) {
-    button {
-      min-block-size: 2.5rem;
-      min-inline-size: 2.5rem;
+    .tastatur {
+      max-inline-size: 16rem;
     }
 
-    .ziffern {
-      grid-template-columns: repeat(3, 2.5rem);
+    button {
+      min-block-size: 2.5rem;
+      font-size: 1.25rem;
     }
   }
 
   /* Querformat Üben: kompakte Tastatur, ohne unter den Prüfen-Knopf zu rutschen */
   @media (orientation: landscape) and (max-block-size: 30rem) {
+    .tastatur,
+    .ziffern,
+    .zusatz {
+      gap: 0.35rem;
+    }
+
     .tastatur {
       margin-block: 0.25rem;
-      gap: 0.35rem;
-      max-inline-size: none;
-    }
-
-    .ziffern {
-      grid-template-columns: repeat(3, 2.5rem);
-      gap: 0.35rem;
-    }
-
-    .zusatz {
-      grid-template-columns: repeat(auto-fill, 2.5rem);
-      inline-size: 2.5rem;
-      gap: 0.35rem;
+      max-inline-size: 16rem;
     }
 
     button {
       min-block-size: var(--ziel);
-      min-inline-size: var(--ziel);
       font-size: 1.1rem;
     }
   }

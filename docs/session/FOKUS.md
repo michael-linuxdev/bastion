@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · nichts davon begonnen · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 01.11.2026 · Rückfragen beantwortet, F1 erledigt, als Nächstes Paket L (Lern-Oberfläche abschließen) · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -25,7 +25,9 @@ Das Review vom 01.11.2026 hat ergeben:
 - Bauen und Ausbauen müssen **einfacher** werden.
 - Die Stufen eines Gebäudes müssen sich **viel stärker unterscheiden**. Ein Ausbau muss sich wie ein Upgrade anfühlen.
 
-Darum gibt es das **Paket G**. Es hat Vorrang vor F2 bis F10. Der Grafik-Strang pausiert nicht, sondern arbeitet nur an G. Der Lernkern kann F1 bis F10 parallel bearbeiten, weil sich die Bereiche nicht überschneiden. **Der Test U4b findet erst statt, wenn G abgenommen ist**, damit die Testerinnen die Bastion nur einmal und dann in guter Form sehen.
+Darum gibt es das **Paket G**. Es hat Vorrang vor F2 bis F10. Der Grafik-Strang pausiert nicht, sondern arbeitet nur an G. Der Lernkern kann F1 bis F10 parallel bearbeiten, weil sich die Bereiche nicht überschneiden. **Der Test U4b findet erst statt, wenn G und L abgenommen sind**, damit die Testerinnen Bastion und Lern-Oberfläche nur einmal und dann in guter Form sehen.
+
+**Ergänzung des PV (01.11.2026):** Eingefroren wird nur eine fertige Lern-Oberfläche. Darum kommt vor F2 das **Paket L** (Lern-Oberfläche abschließen). Das Einfrieren aus F1 beginnt erst mit der Abnahme von L. Reihenfolge vor dem Test: L und G abgenommen → U4b.
 
 **Befund vom 01.11.2026 (Vergleichsbild aller Stufen):**
 
@@ -56,12 +58,29 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
+**Fragerunde des Strangs Lernkern mit dem PV (01.11.2026, Branch `claude/fokus-ruckfragen-f1-d1j8g1`):**
+
+Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
+
+1. **Öffentliche Seite (F2):** Filter im Build über `BASTION_MINDESTSTUFE`, kein Release-Branch. `main` bleibt die Werkstatt. Festgehalten als T-20 in `ARCHITEKTUR.md`.
+2. **Solange keine Kompetenz Stufe 2 hat:** Option (b). Die Seite zeigt alles, mit dem dezenten Vermerk „Entwurf“ für Eltern (Elternbereich und Startseite, nicht im Lernpfad). Sobald das Musterfeld Stufe 2 hat, stellt der PV die Repository-Variable auf 2 (Option (c) mit Stufe 2).
+3. **Grafik (G0):**
+   - **G0.1 Bilder:** Probestück in **allen drei** Wegen (a) Generator ausbauen, (b) CC0-Bausätze, (c) von Hand oder mit Bildwerkzeug entworfen. Bergfried, Standard-Thema, Epoche 1, Stufen 1–3, nebeneinander zeigen. Der PV wählt danach.
+   - **G0.2 Bau-Regel im Kern:** darf sich ändern, aber **jeder Vorschlag einzeln** mit Zustimmung des PV, als eigener PR, mit `pnpm sim` vorher/nachher und Eintrag in `BASEBAU.md`. Schemaänderungen weiter nur mit Rückfrage und Migrationstest.
+   - **G0.3 Themen:** zuerst das Standard-Thema, Epoche 1 vollständig, alle Rollen. Andere Themen und Epochen 2–4 danach.
+4. **Meilenstein (F7):** Klasse 5 ist die erste Klassenstufe, die vollständig Stufe 2 und den Test bestehen soll.
+5. **Offen aus früheren Sitzungen:**
+   - `potenzen.ts` bekommt eine **neue Generator-Version** (10⁶ statt `10^6`). Eigener kleiner Lernkern-PR; nicht Teil von F1–F10 und ohne Vorrang davor.
+   - Die alten Branches `u5b-*`, `u2-*`, `u3*` **löscht der PV selbst** über GitHub → Branches. Nicht mergen.
+
 **Paket G, Rückfragen G0 (PV, 01.11.2026):**
 
 - **G0.1 Bildquelle:** Probestück wie empfohlen. Der Bergfried (Epoche 1, Stufen 1–3) wird zweimal gebaut: (a) mit stark ausgebautem eigenem Generator und (b) auf Grundlage eines CC0-Bausatzes. Der PV wählt anhand des Vergleichsbilds. Erst danach geht es in die Breite. Hinweis: kenney.nl ist aus der Cloud-Sitzung gesperrt. Das „Castle Kit 1.0“ (CC0, isometrische Turmteile zum Stapeln) liegt in einem öffentlichen Spiegel auf GitHub (`ETdoFresh/kenney.nl`). Der Lizenztext ist dort enthalten.
 - **G0.2 Bau-Regel:** Der Kern darf sich ändern (`src/core/bastion/`, `src/core/ledger/`, z. B. Kosten, Planen und Bauen in einem Schritt). Bedingung für jeden solchen PR: `pnpm sim` vorher und nachher, ein Eintrag in `BASEBAU.md` und eine eigene Zustimmung des PV im PR. Schemaänderungen nur nach Rückfrage und mit Migrationstest (B-29).
 - **G0.3 Reihenfolge:** **Alle fünf Themen in Epoche 1** werden erneuert, bevor die Testerinnen kommen. Erst danach folgen die Epochen 2–4. Innerhalb eines Themas gilt die Reihenfolge aus G3: Bergfried, Studierstube, Späherturm, Werkstatt, Tor. Das Standard-Thema im Code ist `bastion`. Es kommt zuerst, weil daran das Probestück entsteht.
 - Die Fragen 1, 2, 4 und 5 oben (F2, F7, alte Branches, `potenzen.ts`) gehören zum Lernkern und sind noch offen.
+
+> **Widerspruch, PV klärt:** Die beiden Fragerunden vom 01.11.2026 haben bei G0 verschiedene Antworten festgehalten. Lernkern-Runde: Probestück in (a), (b) **und (c)**; zuerst nur das Standard-Thema. Grafik-Runde: Probestück in (a) und (b); **alle fünf Themen** in Epoche 1 vor den Testerinnen. Bis der PV entscheidet, gilt für den Grafik-Strang die Grafik-Runde (sie ist schon umgesetzt); (c) bleibt als Frage offen. Die Fragen 1, 2, 4 und 5 sind in der Lernkern-Runde beantwortet.
 
 ---
 
@@ -71,7 +90,7 @@ Ein Paket ist ein PR (oder mehrere kleine PRs). Reihenfolge wie unten, außer de
 
 ### G – Bauen und Ausbau: einfacher, und jede Stufe ein sichtbares Upgrade (Vorrang)
 
-**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche ändert der Grafik-Strang nicht; sie gehört dem Lernkern (F1).
+**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche ändert der Grafik-Strang nicht; sie gehört dem Lernkern (F1, L).
 
 **Ziel:** Eine Jugendliche oder ein Jugendlicher öffnet die Bastion, baut ohne Erklärung ein Gebäude, baut es aus und sagt sinngemäß: „Krass, das sieht jetzt richtig anders aus.“
 
@@ -151,7 +170,7 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 ---
 
-### F1 – Grafik auf G beschränken; Lern-Oberfläche erst vor U4b einfrieren
+### ~~F1 – Grafik auf G beschränken; Lern-Oberfläche erst vor U4b einfrieren~~ (erledigt 01.11.2026; eingefroren wird erst mit der Abnahme von Paket L, siehe dort)
 
 **Entscheidung PV (01.11.2026):** Die Lern-Oberfläche wird **jetzt nicht** eingefroren. In der Woche ab 01.11.2026 arbeitet der PV ohne Cursor und will die Lern-Oberfläche gezielt verbessern. Verbesserungen an Üben, Erstvermittlung, Eingabe, Eltern und Start sind darum ausdrücklich erwünscht, in Sitzungen des Strangs Lernkern (Branch `lernkern/…`), klein und je ein PR. Grenzen: `GRAFIK.md` §9 (im Lernpfad keine Animationen, Wesen, Sound oder Wetter) und R1–R7.
 
@@ -162,6 +181,22 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 - `docs/session/GRAFIK.md`: Oben einen Kasten „Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026)“ einfügen. „Als Nächstes“ ersetzen durch einen Verweis auf G in `FOKUS.md`. Die Design-Wellen und der Backlog AA–ZZ ruhen bis nach U4b. Der Grafik-Strang ändert die Lern-Oberfläche in dieser Zeit nicht; die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht, Verbesserungen dort macht der Lernkern. Das ist eine Änderung im Grafik-Bereich auf Wunsch des PV, darum eine Protokollzeile in **beiden** Strang-Protokollen.
 - `docs/SESSION-PROMPT.md` und `AGENTS.md`: je ein Satz, dass der Grafik-Strang nur an G arbeitet und die Lern-Oberfläche dem Lernkern gehört. Cursor ruht ab 01.11.2026 eine Woche, der Satz gilt trotzdem für danach.
 - `docs/PLAN.md` §1: Zeile „Nächster Schritt Grafik“ auf „Paket G: Bauen und Ausbau (FOKUS.md)“ kürzen.
+
+### L – Lern-Oberfläche abschließen (vor F2, Entscheidung PV 01.11.2026)
+
+**Strang Lernkern.** **Ziel:** Die Testpersonen sehen in U4b eine fertige Lern-Oberfläche. Fertig heißt: Jeder Bildschirm sieht gut aus, ist verständlich und lässt sich ohne Stocken bedienen. Erst danach wird eingefroren (Regel 7 in `SESSION-PROMPT.md`).
+
+1. **Bestandsaufnahme:** mit Playwright auf 390 Pixeln Breite (iPhone 13) jeden Weg einmal durchgehen: erste Erklärung (Erstvermittlung), Üben, falsche Antwort mit Diagnose und Rückweg, Zwischenschritte, Fehlerwerkstatt, Wiederholen, Elternbereich (mit Testprotokoll). Jede Stelle festhalten, an der man stockt, raten oder lange lesen muss, oder die schlecht aussieht.
+2. **Mängelliste** mit Bildschirmfotos (Scratchpad, nicht ins Repository) an den PV. Bekannt schon jetzt: Tastatur ohne Malpunkt (Primfaktoren) und Doppelpunkt (Uhrzeiten), `LERNKERN.md` §2.
+3. **Der PV wählt**, was vor U4b behoben sein muss. Nur das wird gebaut, in kleinen PRs. Keine neuen Funktionen.
+4. **Grenzen:** Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9); R1–R7. Funde auf der Startseite (`src/ui/start/`, Bereich Grafik) kommen als Wunsch in `GRAFIK.md`, der Grafik-Strang erledigt sie neben G.
+**Stand 01.11.2026:** Schritte 1 und 2 erledigt. Mängelliste L1–L19 an den PV geschickt: A Fehler (L1–L6), B Verständlichkeit (L7–L11), C Bedienung am Handy (L12–L15), D Startseite und Themenwahl (L16–L19, Bereich Grafik). Kein JS-Fehler, kein seitlicher Überlauf. **Auswahl des PV (01.11.2026, Schritt 3):** alle Punkte L1–L19 vor dem Test, dazu **L20: Die Tastatur nutzt die ganze Breite des Bildschirms** (heute nur die linke Hälfte). Gruppe D (Startseite, Themenwahl) macht ausnahmsweise der Lernkern, je ein eigener Commit mit Protokollzeile in beiden Strängen.
+
+**Stand 01.11.2026 abends (Schritt 4, Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Erledigt L1–L17, L19, L20 (L3 war schon richtig). Offen:
+- **L18 Themenwahl kürzen:** Nur der Teil „Neues Thema freigeschaltet erst nach dem ersten Üben“ ist erledigt. Das Einklappen der Bereiche war gebaut, ließ aber den Browser-Test „Zeichen-Anleitung“ scheitern und ist zurückgenommen. Nächster Versuch: Bereiche einklappen, Test mit Aufklappen des Bereichs anpassen.
+- Danach: Rundgang wiederholen, Bildschirmfotos an den PV, Abnahme (Schritt 5).
+
+5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
 
@@ -291,9 +326,10 @@ Jede Sitzung, die hier arbeitet, trägt am Ende ein:
 - eine Zeile im Protokoll des eigenen Strangs (bei F1 und F8 in beiden),
 - `docs/PLAN.md` §1, Zeile des eigenen Strangs.
 
-Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Das Einfrieren der Lern-Oberfläche (ab Termin U4b) und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
+Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Das Einfrieren der Lern-Oberfläche (ab Abnahme von L, spätestens ab Termin U4b) und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
 
 ### Übergaben
 
+- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Danach auf Wunsch des PV: Paket L vor F2 eingefügt, Einfrieren beginnt erst mit der Abnahme von L. Paket L: Bestandsaufnahme, Auswahl des PV, L1–L17, L19, L20 umgesetzt. Als Nächstes: L18 fertig, Rundgang, Abnahme L; dann F2.
 - **01.11.2026, Strang Grafik, Paket G** (Branch `grafik/paket-g-g0-g1`): ~~G0 Rückfragen~~ (siehe „Entscheidungen“) · ~~G1 Bestandsaufnahme~~ (`pnpm grafik:stufen`, Bau-Wege gemessen, `GRAFIK.md` §11.2–11.3) · G0.1 Probestück gebaut (`GRAFIK.md` §11.4, Skripte `tools/grafik/probe/`). **Rückfrage an den PV:** Variante (a) Generator oder (b) Kenney-Bausatz, oder eine Mischung, z. B. (b) für Stein und Burg und (a) für Holz, Garten und Unterwasser? Außerdem: Schwellwert für den Umriss-Test 25 % statt 12 %? Danach folgen G2 (Stufen-Sprache) und G5 (Ausbauen beim Antippen des Gebäudes), unabhängig von der Bildwahl.
 - **01.11.2026, Strang Grafik, G5 Teil 1** (Branch `grafik/g5-bauen-einfacher`, baut auf #143 auf): Ausbauen beim Antippen in 2 Tippern, „was fehlt“ mit Menge und Herkunft, Skizze und Vormerken unter „Mehr“ (`GRAFIK.md` §11.5). Offen in G5: Bauplatz-Vorschlag mit „Hier bauen“ und Planen und Bauen zusammenlegen (Kern, B-29).

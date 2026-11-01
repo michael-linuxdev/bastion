@@ -68,14 +68,22 @@
               {#if zustand}<span class="zustand">{t(`werkstatt.fv.${zustand}`)}</span>{/if}
             </p>
           {/if}
-          <p class="ursache">
-            {#if u}<Textteile teile={u} />{:else}{t('werkstatt.ohne-muster')}{/if}
-          </p>
-          <p class="herkunft">
-            {fv ? themen(g) : (kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz)}
-            {#if !fv}· {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')}{/if} · {g.fehler.length}
-            {t('werkstatt.mal')}
-          </p>
+          {#if u}
+            <p class="ursache"><Textteile teile={u} /></p>
+            <p class="herkunft">
+              {fv ? themen(g) : (kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz)}
+              {#if !fv}· {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')}{/if} · {g.fehler.length}
+              {t('werkstatt.mal')}
+            </p>
+          {:else}
+            <!-- L10: ohne bekanntes Muster steht das Thema oben, damit Gruppen unterscheidbar sind -->
+            <p class="ursache">{kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz}</p>
+            <p class="herkunft">
+              {t('werkstatt.ohne-muster')} · {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')} · {g
+                .fehler.length}
+              {t('werkstatt.mal')}
+            </p>
+          {/if}
           <button onclick={() => onaufarbeiten(g)}>{t('werkstatt.aufarbeiten')}</button>
         </li>
       {/each}

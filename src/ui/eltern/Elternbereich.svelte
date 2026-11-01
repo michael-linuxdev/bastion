@@ -126,7 +126,6 @@
 <section class="eltern register-werkstatt" data-eltern>
   <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
-  <p class="werkstatt-hinweis">{t('eltern.werkstatt-hinweis')}</p>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
@@ -279,17 +278,6 @@
     font-weight: 800;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-  }
-
-  .werkstatt-hinweis {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: var(--farbe-text-leise);
-    border-block-end: 1px solid var(--farbe-rand);
-    padding-block-end: var(--abstand-s);
   }
 
   h2 {

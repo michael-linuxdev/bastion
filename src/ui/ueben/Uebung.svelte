@@ -127,7 +127,7 @@
    * wenn die Vorlage Schritte hat. Das Ereignis wird erst danach gespeichert, damit
    * die Schritte darin stehen (D-17).
    */
-  let weg = $state<'aus' | 'laeuft' | 'fertig'>('aus');
+  let weg = $state<'aus' | 'laeuft' | 'fertig' | 'ohne'>('aus');
   // raw: das Ereignis muss sich in IndexedDB speichern lassen (kein Proxy)
   let ausstehend = $state.raw<Antwortdaten | undefined>(undefined);
   /** Schritte der letzten Antwort – ihre Fehlvorstellungen zählen für die Rückmeldung */
@@ -183,6 +183,18 @@
     wegOffen = false;
     warumOffen = false;
     fehlerInFolge = ergebnis.richtig ? 0 : fehlerInFolge + 1;
+  }
+
+  /**
+   * L12: Tippt man in ein Antwortfeld und liegen Tastatur oder „Prüfen“ unter dem
+   * Bildschirmrand, rückt die Arbeitsfläche ganz ins Bild – ohne selbst zu scrollen.
+   */
+  function sichtbarMachen(flaeche: HTMLElement) {
+    if (typeof window === 'undefined') return;
+    const unten = flaeche.getBoundingClientRect().bottom;
+    if (unten <= window.innerHeight) return;
+    const ruhig = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    flaeche.scrollIntoView({ block: 'end', behavior: ruhig ? 'auto' : 'smooth' });
   }
 
   function weiter() {
@@ -352,8 +364,10 @@
 
           {#if aufgabe.frueher}
             <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
+              <!-- L10: Beschriftung vor dem Wert; „heute“ sagt, was zu tun ist -->
               <div class="seite damals">
                 <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
+                <p class="seite-leise">{t('werkstatt.damals')}</p>
                 <p class="seite-wert">
                   <strong
                     >{antwortText(
@@ -363,11 +377,10 @@
                     )}</strong
                   >
                 </p>
-                <p class="seite-leise">{t('werkstatt.damals')}</p>
               </div>
               <div class="seite heute">
                 <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
-                <p class="seite-leise">{t('uebung.deine-antwort')}</p>
+                <p class="seite-leise">{t('werkstatt.paar-heute-text')}</p>
               </div>
             </div>
           {/if}
@@ -393,6 +406,7 @@
           class="arbeitsflaeche aufgabe-eingabe"
           id="aufgabe-eingabe"
           aria-describedby="aufgabe-frage"
+          onfocusin={(e) => sichtbarMachen(e.currentTarget)}
         >
           {#if ergebnis === undefined}
             <Eingabe
@@ -483,7 +497,7 @@
                   >
                 {/if}
               </div>
-            {:else if weg !== 'aus' && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
+            {:else if (weg === 'laeuft' || weg === 'fertig') && aufgabe.vorlage.schritte && aufgabe.generator?.schritt}
               {@const g = aufgabe.generator}
               {@const a = aufgabe}
               <Schrittweg
@@ -500,6 +514,8 @@
                 onfertig={(s) => speichern(s)}
                 onueberspringen={() => {
                   speichern();
+                  // L4: ohne Weg verschwinden Schrittfelder und Tastatur
+                  weg = 'ohne';
                   // Nach „ohne Weg“ eine Tür: Lösungsweg als nächster klarer Schritt
                   wegOffen = true;
                   onnutzung?.('weg-uebersprungen', a.vorlage.id);
@@ -532,7 +548,8 @@
                 </ol>
               </details>
 
-              {#if rueckwegZu && onwechsel}
+              <!-- L7: Rückweg zur Grundlage nur, wenn keine Denkfehler-Karte schon einen Weg zeigt -->
+              {#if rueckwegZu && onwechsel && fvs.length === 0}
                 {@const ziel = rueckwegZu}
                 <div class="rueckweg">
                   <p>{t('rueckweg.text')} <strong>{ziel.titel.de}</strong></p>
@@ -541,10 +558,9 @@
                   >
                 </div>
               {/if}
+              <!-- L7: nach einem Fehler nur die große Pause, kein Atemzug-Satz -->
               {#if pause}
                 <p class="pause atem" role="status">{t('uebung.pause')}</p>
-              {:else if atemzug}
-                <p class="pause atem" role="status">{t('uebung.pause-kurz')}</p>
               {/if}
               <div class="knoepfe">
                 <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
@@ -784,9 +800,19 @@
     max-inline-size: 28rem;
   }
 
+  /* L12: Bild höchstens ein knappes Viertel der Bildschirmhöhe, damit Eingabe und Prüfen
+     auf dem Handy ohne Scrollen erreichbar bleiben */
   .bild :global(svg) {
+    display: block;
     inline-size: 100%;
     block-size: auto;
+    max-block-size: max(8rem, 22dvh);
+  }
+
+  /* L19: gefärbte Teile in derselben warmen Farbe wie der Bruchstreifen der Erklärung */
+  .bild :global([fill-opacity='0.35']) {
+    fill: var(--farbe-akzent-warm);
+    fill-opacity: 1;
   }
 
   .tipp-notiz {
@@ -922,12 +948,39 @@
     margin-block: var(--abstand-s);
   }
 
+  /* L2: als Knopf erkennbar – Pfeil zeigt, dass sich etwas aufklappen lässt */
   .weg summary {
     cursor: pointer;
     font-weight: 700;
     min-block-size: var(--ziel);
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    list-style: none;
+  }
+
+  .weg summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .weg summary::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+
+  .weg[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .weg summary::before {
+      transition: none;
+    }
   }
 
   /* Querformat: Prüfen/Tastatur ohne Scroll-Kampf (Design L64) */

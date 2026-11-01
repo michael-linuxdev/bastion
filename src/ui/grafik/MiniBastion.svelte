@@ -343,8 +343,17 @@
     .mini.lebendig .wolke {
       animation: bastion-wolke 12s ease-in-out infinite alternate;
     }
+    /* L17: leicht vergrößert, damit beim Schweben keine Kante frei wird */
     .mini.lebendig .standbild {
-      animation: bastion-wolke 18s ease-in-out infinite alternate;
+      animation: mini-schweben 18s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes mini-schweben {
+    from {
+      transform: scale(1.05) translateX(-1.5%);
+    }
+    to {
+      transform: scale(1.05) translateX(1.5%);
     }
   }
 </style>

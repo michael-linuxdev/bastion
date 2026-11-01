@@ -226,19 +226,21 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 
 ### 5.2 Eigene Tastatur (`tastatur`, 31.10.2026)
 
-Zahlen, Brüche, Punkte und Division mit Rest gibt man über eine eigene Tastatur der App ein. Sie läuft offline, braucht keine Bibliothek und ist in Üben, Wiederholen, Fehlerwerkstatt, Diagnose, Zwischenschritten und Erstvermittlung dieselbe (`src/ui/eingabe/Tastatur.svelte`). Die Felder haben `inputmode="none"`. So öffnet sich auf dem Handy nicht zusätzlich die Systemtastatur, am Rechner tippt man weiter mit der echten Tastatur. Die Systemtastatur bleibt für Namen, Freitext, Primfaktoren und Uhrzeiten.
+Zahlen, Brüche, Punkte und Division mit Rest gibt man über eine eigene Tastatur der App ein. Sie läuft offline, braucht keine Bibliothek und ist in Üben, Wiederholen, Fehlerwerkstatt, Diagnose, Zwischenschritten und Erstvermittlung dieselbe (`src/ui/eingabe/Tastatur.svelte`). Die Felder haben `inputmode="none"`. So öffnet sich auf dem Handy nicht zusätzlich die Systemtastatur, am Rechner tippt man weiter mit der echten Tastatur. Die Systemtastatur bleibt für Namen und Freitext. Primfaktoren (Malpunkt) und Uhrzeiten (Doppelpunkt) haben seit L13 (01.11.2026) eigene Tasten.
 
 ```yaml
 tastatur:          # in der Vorlage, optional
   - ziffern
   - komma
   - minus          # nur, wenn negative Antworten vorkommen
-  - bruchstrich    # springt vom Zähler in den Nenner, sonst „/“
+  - bruchstrich    # nur bei einem Feld; mit eigenen Feldern für Zähler und Nenner entfällt die Taste
+  - mal            # Malpunkt „·“, Vorgabe bei faktoren-eingabe
+  - doppelpunkt    # „:“, Vorgabe bei uhrzeit-eingabe
   - variable: x    # ein Buchstabe
   - einheit: cm    # kurz, ohne Leerzeichen
 ```
 
-**Welche Tasten gelten** (`tastenFuer` in `src/core/learning/tastatur.ts`): Die Instanz gewinnt, wenn sie `tastatur` setzt (der Generator darf es je Aufgabe enger fassen). Sonst gilt die Vorlage. Sonst gilt die Art der Lösung: Zahl mit Ziffern und Komma, Bruch mit Ziffern und Bruchstrich, alles andere nur Ziffern. `vorzeichen: true` der Instanz schaltet die Minustaste immer zu. Löschen gibt es immer. In der Erstvermittlung gilt die Art der Antwort. Minus erscheint dort nur, wenn die Lösung oder ein bekannter Fehler negativ ist.
+**Welche Tasten gelten** (`tastenFuer` in `src/core/learning/tastatur.ts`): Die Instanz gewinnt, wenn sie `tastatur` setzt (der Generator darf es je Aufgabe enger fassen). Sonst gilt die Vorlage. Sonst gilt der Aufgabentyp (Faktoren: Ziffern und Malpunkt; Uhrzeit: Ziffern und Doppelpunkt), dann die Art der Lösung: Zahl mit Ziffern und Komma, Bruch mit Ziffern und Bruchstrich, alles andere nur Ziffern. Das Komma entfällt, wenn weder die Lösung noch eine Zahl der Aufgabe eine Dezimalzahl ist (`ohneDezimalzahlen`); so verrät es nichts über die Lösung. `vorzeichen: true` der Instanz schaltet die Minustaste immer zu. Löschen gibt es immer. In der Erstvermittlung gilt die Art der Antwort. Minus erscheint dort nur, wenn die Lösung oder ein bekannter Fehler negativ ist.
 
 `pnpm inhalte:pruefen` prüft die Form: bekannte Tasten, keine doppelten, Variable ein Buchstabe, Einheit kurz. Bestehende Vorlagen ohne Feld bleiben gültig.
 

@@ -638,21 +638,23 @@
           }}
         />
       {/if}
-      {#if !profilGefragt}
-        <ProfilForm
-          {profil}
-          erstesMal
-          onspeichern={(p) => {
-            profil = p;
-            profilGefragt = true;
-            void profilSetzen(p);
-          }}
-          onueberspringen={() => {
-            profilGefragt = true;
-            void profilUebersprungen();
-          }}
-        />
-      {/if}
+      {#snippet unten()}
+        {#if !profilGefragt}
+          <ProfilForm
+            {profil}
+            erstesMal
+            onspeichern={(p) => {
+              profil = p;
+              profilGefragt = true;
+              void profilSetzen(p);
+            }}
+            onueberspringen={() => {
+              profilGefragt = true;
+              void profilUebersprungen();
+            }}
+          />
+        {/if}
+      {/snippet}
     </Startseite>
   {:else if ansicht === 'mehr'}
     <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />

@@ -7,7 +7,7 @@
   import { bruch } from '../../core/learning/bruch';
   import type { SchrittErgebnis } from '../../core/learning/ereignis';
   import type { Loesung, SchrittAufgabe, Wert } from '../../core/learning/generator';
-  import { tastenFuer } from '../../core/learning/tastatur';
+  import { ohneDezimalzahlen, tastenFuer } from '../../core/learning/tastatur';
   import { fuelle, zahlText } from '../../core/learning/text';
   import {
     pruefeSchritt,
@@ -136,35 +136,24 @@
 <div class="weg">
   <p class="titel">{t('weg.frage')}</p>
 
-  <ol class="checkliste" aria-label={t('weg.frage')}>
-    {#each schritte as s, i (s.id)}
-      {@const e = erledigt[i]}
-      {@const istAktuell = !fertig && i === erledigt.length}
-      <li
-        class="check"
-        class:erledigt={!!e}
-        class:aktuell={istAktuell}
-        class:verbessert={e && (!e.ergebnis.richtig || e.ergebnis.versuche > 1)}
-        aria-current={istAktuell ? 'step' : undefined}
-      >
-        <span class="marke" aria-hidden="true">
-          {#if e}{#if e.ergebnis.richtig && e.ergebnis.versuche === 1}✓{:else}·{/if}{:else}{i +
-              1}{/if}
-        </span>
-        {#if e}
+  {#if erledigt.length > 0}<ol class="checkliste" aria-label={t('weg.frage')}>
+      <!-- L9: nur erledigte Schritte; der aktuelle steht darunter als „Schritt x von y“ -->
+      {#each erledigt as e, i (e.vorlage.id)}
+        <li
+          class="check erledigt"
+          class:verbessert={!e.ergebnis.richtig || e.ergebnis.versuche > 1}
+        >
+          <span class="marke" aria-hidden="true">
+            {#if e.ergebnis.richtig && e.ergebnis.versuche === 1}✓{:else}{i + 1}{/if}
+          </span>
           <span class="check-text"><Textteile teile={fuelle(e.frage, werte(undefined))} /></span>
           <strong class="check-wert">
             {#if !e.ergebnis.richtig}{t('weg.richtig-ist')}{/if}
             {alsText(e.eingabe)}
           </strong>
-        {:else if istAktuell}
-          <span class="check-text leise">{t('weg.schritt')} {i + 1}</span>
-        {:else}
-          <span class="check-text leise">{t('weg.schritt')} {i + 1}</span>
-        {/if}
-      </li>
-    {/each}
-  </ol>
+        </li>
+      {/each}
+    </ol>{/if}
 
   {#if aktuell && aufgabe}
     {#key erledigt.length}
@@ -198,6 +187,7 @@
             <Tastatur
               tasten={tastenFuer({
                 loesung: aktuell.typ === 'bruch-eingabe' ? 'bruch' : 'zahl',
+                ganzzahlig: ohneDezimalzahlen(aufgabe.loesung, werte(aufgabe)),
                 instanz: { vorzeichen },
               })}
             />
@@ -255,26 +245,16 @@
     list-style: none;
   }
 
+  /* L5: Wert unter dem Text, damit die Frage die ganze Breite hat */
   .check {
     display: grid;
-    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
     gap: var(--abstand-s);
     align-items: center;
     padding-block: 0.35rem;
     padding-inline: var(--abstand-s);
     border-radius: var(--radius);
     color: var(--farbe-text-leise);
-  }
-
-  .check.erledigt {
-    background: transparent;
-  }
-
-  .check.aktuell {
-    background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text);
-    font-weight: 600;
-    box-shadow: inset 0 0 0 2px var(--farbe-akzent);
   }
 
   .marke {
@@ -298,6 +278,7 @@
   }
 
   .check-wert {
+    grid-column: 2;
     color: var(--farbe-erfolg);
     font-size: 0.9375rem;
   }

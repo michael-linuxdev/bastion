@@ -3,6 +3,10 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
+> **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche schließt der Lernkern mit Paket L ab und friert sie danach ein (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls. Funde aus L für die Startseite kommen unten unter „Wünsche aus dem anderen Strang“.
+>
+> **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
+
 Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11).
 
 ---
@@ -52,14 +56,9 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes (alles optional / PV):**
+**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts.
 
-1. **Design-Wellen A–Z** in parallelen PRs fertigstellen und konsolidieren; Backlog danach aus `docs/DESIGN-IDEEN.md` (AA–ZZ). Themen-Welten (H29) erst nach Konsolidierung.
-2. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
-3. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
-4. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
-
-Kein verbindlicher G-/P-Rest mehr. Weitere Schritte legt der Projektverantwortliche fest. Bei Engpass wartet die Grafik auf den Lernkern (K-27, B-28).
+**Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 
 **Offen (PV):** Die drei Referenzgeräte festlegen und darauf messen (0.10).
 
@@ -69,7 +68,7 @@ Kein verbindlicher G-/P-Rest mehr. Weitere Schritte legt der Projektverantwortli
 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
-- (noch keine)
+- ~~Startseite aus Paket L (L16, L17)~~ – erledigt 01.11.2026 vom Lernkern auf Wunsch des PV: „Über mich“ unter den Türen, kein Schild im Bastion-Bild, Bild schwebt ohne freie Kante (`MiniBastion.svelte`), Gruß nach dem ersten Üben ohne „Willkommen“.
 
 ---
 
@@ -86,7 +85,7 @@ Steht in `docs/session/GRAFIK-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, n
 
 **Lehren (Grafik):**
 
-- Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9). Die Lern-Oberfläche gehört dem Lernkern; nur Aufräumen nach §9 ist erlaubt.
+- Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9). Die Lern-Oberfläche gehört dem Lernkern; nur Aufräumen nach §9 ist erlaubt. *Seit 01.11.2026 ruht auch das, solange die Lern-Oberfläche eingefroren ist.*
 
 - Das Bild der Bastion zeichnet PixiJS. Es wird nachgeladen und nicht vorab gespeichert (ARCHITEKTUR T-6). Tests für Rechnungen (Raster, Kamera) stehen neben dem Code (`iso.test.ts`, `kamera.test.ts`, `dorf.test.ts`); das Zeichnen selbst prüft der Browser-Test „Bauplatz als Bild“.
 - Vor einer Änderung am Aussehen den Kontrast-Test der Fassungen laufen lassen (`src/ui/grafik/fassungen.test.ts`), Text 4,5 : 1, Bilder 3 : 1.

@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Musterfeld auf Stufe 1 · Nächster Schritt: Musterfeld durch eine Lehrkraft prüfen lassen (Stufe 2), dann U4b
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2
 
 ---
 
@@ -51,8 +51,8 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 ### 1. Aus dem Lernkern-Review
 
 1. ~~**Die Merge-Reihenfolge steht oben**~~ – erledigt am 30.10.2026, siehe dort.
-2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
-3. **Öffentliche Seite von `main` trennen.** *Wartet auf Entscheidung (31.10.2026):* Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
+2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. *PV löscht sie selbst (01.11.2026).* Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
+3. **Öffentliche Seite von `main` trennen.** *Entschieden 01.11.2026: Filter im Build (ARCHITEKTUR T-20), Umsetzung F2 in `FOKUS.md`.* Bisher: Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: ~~gleichnamiges Addieren~~ (erledigt 31.10.2026: Schritte `rechnen` und `kuerzen`, eine Vorlage darf eine Auswahl der Generator-Schritte nehmen) und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
 5. ~~**`docs/PLAN.md` Abschnitt 1**~~ – erledigt am 31.10.2026: gleicher nächster Schritt wie hier.
 6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
@@ -190,9 +190,9 @@ Steht in `docs/session/LERNKERN-PROTOKOLL.md`. Neue Zeilen dort unten anhängen,
 **Offen, braucht den Projektverantwortlichen:**
 
 - Lehrkraft für den Prüfbogen gewinnen und als Bearbeiterin einladen.
-- Öffentliche Seite trennen: Release-Branch oder Filter im Build (Punkt 1.3).
+- ~~Öffentliche Seite trennen: Release-Branch oder Filter im Build (Punkt 1.3).~~ Entschieden 01.11.2026: Filter im Build (T-20), Umsetzung F2.
 - Ob die Brüche mit Schrägstrich in den Erstvermittlungen auf `$\frac{…}{…}$` umgestellt werden (etwa 3 600 Stellen, Punkt 3).
-- Ob `potenzen.ts` eine neue Version bekommt, damit der Lösungsweg 10⁶ statt `10^6` zeigt.
+- ~~Ob `potenzen.ts` eine neue Version bekommt~~ Entschieden 01.11.2026: ja, neue Generator-Version (10⁶ statt `10^6`), eigener kleiner PR.
 
 ## Übergabe der letzten Sitzung (29./30.10.2026, Nachtschicht)
 

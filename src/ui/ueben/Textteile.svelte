@@ -15,12 +15,18 @@
   } = $props();
 
   const begriffe = begriffeHolen();
+
+  /**
+   * L15: Rechenzeichen nicht vom Nachbarn trennen. Die Leerzeichen um + − · × : = < >
+   * werden geschützt, damit „3/4 + 1/4“ oder „900 + 6171“ nicht mitten im Term umbricht.
+   */
+  const gebunden = (text: string) => text.replace(/ ([+−·×:=<>≈]) /g, '\u00a0$1\u00a0');
   let offen = $state<number | undefined>(undefined);
 </script>
 
 {#each teile as teil, i (i)}
   {#if teil.art === 'text'}
-    {#if teil.fett}<strong>{teil.text}</strong>{:else}{teil.text}{/if}
+    {#if teil.fett}<strong>{gebunden(teil.text)}</strong>{:else}{gebunden(teil.text)}{/if}
   {:else if teil.art === 'begriff'}
     {@const b = erklaeren ? begriffe?.karte?.get(teil.text) : undefined}
     {#if b}
@@ -48,7 +54,9 @@
 {/each}
 
 <style>
+  /* L14: größere Antippfläche (etwa 44 Pixel hoch), ohne dass der Text springt */
   .begriff {
+    position: relative;
     font: inherit;
     color: inherit;
     background: none;
@@ -58,6 +66,12 @@
     text-decoration: underline dotted;
     text-decoration-thickness: 0.1em;
     text-underline-offset: 0.2em;
+  }
+
+  .begriff::after {
+    content: '';
+    position: absolute;
+    inset: -0.5rem -0.25rem;
   }
 
   .begriff.fett {

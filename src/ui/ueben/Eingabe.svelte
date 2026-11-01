@@ -10,7 +10,7 @@
   import { bruch } from '../../core/learning/bruch';
   import type { Instanz, Loesung } from '../../core/learning/generator';
   import type { Aufgabentyp } from '../../core/learning/vorlage';
-  import { tastenFuer, type Taste } from '../../core/learning/tastatur';
+  import { ohneDezimalzahlen, tastenFuer, type Taste } from '../../core/learning/tastatur';
   import Tastatur from '../eingabe/Tastatur.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import { fuelle, zahlText } from '../../core/learning/text';
@@ -45,14 +45,19 @@
   let fehler = $state<TextSchluessel | undefined>(undefined);
 
   const art = $derived(instanz.loesung.typ);
-  /** Faktoren und Uhrzeiten brauchen Zeichen, die die Tastatur nicht hat: Systemtastatur */
+  /** L13: Faktoren (Malpunkt) und Uhrzeiten (Doppelpunkt) bekommen jetzt auch die eigene Tastatur */
   const mitTastatur = $derived(
-    art !== 'auswahl' &&
-      art !== 'reihenfolge' &&
-      typ !== 'faktoren-eingabe' &&
-      typ !== 'uhrzeit-eingabe',
+    art !== 'auswahl' && (art !== 'reihenfolge' || typ === 'faktoren-eingabe'),
   );
-  const tasten = $derived(tastenFuer({ loesung: art, vorlage: tastatur, instanz }));
+  const tasten = $derived(
+    tastenFuer({
+      loesung: art,
+      typ,
+      ganzzahlig: ohneDezimalzahlen(instanz.loesung, instanz.platzhalter),
+      vorlage: tastatur,
+      instanz,
+    }),
+  );
 
   const bereit = $derived.by(() => {
     if (art === 'auswahl') return gewaehlt !== undefined;
@@ -473,6 +478,12 @@
   .bild :global(svg) {
     inline-size: 100%;
     block-size: auto;
+  }
+
+  /* L19: gefärbte Teile in derselben warmen Farbe wie der Bruchstreifen der Erklärung */
+  .bild :global([fill-opacity='0.35']) {
+    fill: var(--farbe-akzent-warm);
+    fill-opacity: 1;
   }
 
   .reihe {

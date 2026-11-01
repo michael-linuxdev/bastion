@@ -84,7 +84,8 @@
     </label>
   </fieldset>
 
-  {#if empfehlungen.size > 0 && !entdeckungWeg}
+  <!-- L18: „Neues Thema“ erst, wenn schon etwas geübt wurde – beim ersten Besuch ist alles neu -->
+  {#if empfehlungen.size > 0 && !entdeckungWeg && zustand.staende.size > 0}
     {@const neu = [...empfehlungen][0]}
     {@const k = kompetenzen.find((x) => x.id === neu)}
     {#if k}

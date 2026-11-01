@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 >
-> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern bearbeitet parallel F1–F10 und darf die Lern-Oberfläche bis zum Termin von U4b verbessern (PV, 01.11.2026); eingefroren wird erst dann. U4b erst nach Abnahme von G.
+> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern schließt zuerst die Lern-Oberfläche ab (Paket L, vom PV ausgewählte Punkte) und bearbeitet dann F2–F10; eingefroren wird mit der Abnahme von L (Regel 7). U4b erst nach Abnahme von L und G.
 
 Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
 
@@ -94,6 +94,10 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.
 5. **Rote CI durch den anderen Strang:** Ist `main` selbst rot, ist das nicht der eigene Fehler. Den Fehler nennen, nicht im fremden Bereich reparieren, außer er ist eine Zeile und eindeutig.
 6. **Gemeinsame Entscheidungen** (neue Abhängigkeit, Schema, Datenschutz, R-Regeln) stehen im passenden Entscheidungslog und werden in beiden Strang-Dateien kurz erwähnt.
+7. **Lern-Oberfläche: erst abschließen, dann einfrieren (PV, 01.11.2026).** Betroffen sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`.
+   - **Bis zur Abnahme von Paket L** (`docs/session/FOKUS.md`): Änderungen nur für Fehlerbehebungen und für die Punkte aus L, die der PV ausgewählt hat. Keine neuen Funktionen.
+   - **Ab der Abnahme von L bis zur Auswertung von U4b:** eingefroren. Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
+   - Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht in beiden Zeiten. Der Strang Grafik arbeitet nur an Paket G.
 
 ---
 

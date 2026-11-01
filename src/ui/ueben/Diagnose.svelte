@@ -412,6 +412,12 @@
     block-size: auto;
   }
 
+  /* L19: gefärbte Teile in derselben warmen Farbe wie der Bruchstreifen der Erklärung */
+  .bild :global([fill-opacity='0.35']) {
+    fill: var(--farbe-akzent-warm);
+    fill-opacity: 1;
+  }
+
   .knoepfe {
     display: flex;
     flex-wrap: wrap;

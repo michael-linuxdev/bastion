@@ -1108,17 +1108,16 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
   await tastatur.getByRole('button', { name: 'Minus' }).click();
   await tastatur.getByRole('button', { name: '1', exact: true }).click();
   await tastatur.getByRole('button', { name: '2', exact: true }).click();
-  await tastatur.getByRole('button', { name: 'Komma' }).click();
   await tastatur.getByRole('button', { name: '5', exact: true }).click();
-  await expect(feld).toHaveValue('−12,5');
+  await expect(feld).toHaveValue('−125');
   await tastatur.getByRole('button', { name: 'Löschen' }).click();
-  await expect(feld).toHaveValue('−12,');
+  await expect(feld).toHaveValue('−12');
   // Mit der echten Tastatur geht es weiter wie bisher
   await feld.fill('7');
   await expect(feld).toHaveValue('7');
   await expect(tastatur.getByRole('button', { name: 'Bruchstrich' })).toHaveCount(0);
 
-  // Brüche in Klasse 6: Bruchstrich springt vom Zähler in den Nenner, kein Minus
+  // Brüche in Klasse 6: eigene Felder für Zähler und Nenner, darum kein „/“ und kein Minus (L13)
   await page.getByRole('button', { name: '← Zurück' }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
@@ -1128,7 +1127,8 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
   await expect(tasten.getByRole('button', { name: 'Minus' })).toHaveCount(0);
   await aufgabe.getByLabel('Zähler').click();
   await tasten.getByRole('button', { name: '3', exact: true }).click();
-  await tasten.getByRole('button', { name: 'Bruchstrich' }).click();
+  await expect(tasten.getByRole('button', { name: 'Bruchstrich' })).toHaveCount(0);
+  await aufgabe.getByLabel('Nenner').click();
   await tasten.getByRole('button', { name: '4', exact: true }).click();
   await expect(aufgabe.getByLabel('Zähler')).toHaveValue('3');
   await expect(aufgabe.getByLabel('Nenner')).toHaveValue('4');
@@ -1484,7 +1484,10 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
   await page.getByRole('button', { name: 'Erklär es mir' }).click();
 
   await expect(page.getByText('Dein Ziel')).toBeVisible();
+  // L6: die Fortschrittsleiste zählt die Schritte mit
+  await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
   await page.getByRole('button', { name: 'Weiter' }).click();
+  await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '2');
   // Vorwissen: 12 Gummibärchen für 4 Kinder
   await page.getByLabel('Deine Antwort').fill('3');
   await page.getByRole('button', { name: 'Prüfen' }).click();
@@ -1647,6 +1650,8 @@ test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je 
   await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
   await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
   await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
+  // L4: ohne Weg verschwinden Schrittfelder und Tastatur
+  await expect(page.locator('form.aktuell')).toHaveCount(0);
 });
 
 test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U3i)', async ({
