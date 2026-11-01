@@ -15,8 +15,8 @@
 </script>
 
 <script lang="ts">
-  // Hub als ruhige Übersicht (Design A1–A4): Bastion-Ort, drei Türen, Nebenkacheln
-  // erst nach der ersten Rückkehr. Texte aus der Textdatei.
+  // Hub als ruhige Übersicht (Design A1–A4 + Danach J37 + V–Z): Bastion-Ort, drei Türen,
+  // Vertrauen, nie-geübt; erste Minute = ein Satz + Üben; Nebenkacheln nach „Mehr entdecken“ / Rückkehr.
   import type { Snippet } from 'svelte';
   import MiniBastion from '../grafik/MiniBastion.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -29,10 +29,14 @@
     faellig,
     offeneFehler,
     basebau,
+    heuteGeuebt = false,
     geradeDran,
     klassenarbeit,
     sichern,
     testphase = false,
+    nieGeuebt = false,
+    /** Noch keine Aufgabe bearbeitet: erste Minute = ein Satz + ein Einstieg (J37) */
+    erstesMal = false,
     onziel,
     children,
   }: {
@@ -41,6 +45,8 @@
     faellig: number;
     offeneFehler: number;
     basebau: boolean;
+    /** Heute schon geübt – ruhige Markierung ohne Streak (Design L53) */
+    heuteGeuebt?: boolean;
     /** Anzahl der Themen „Gerade dran“ (L-18) */
     geradeDran: number;
     /** Termin „JJJJ-MM-TT“ */
@@ -48,11 +54,17 @@
     sichern: boolean;
     /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
     testphase?: boolean;
+    /** Noch nie geübt (Y121): Satz + Wiederholen/Werkstatt ausgeblendet */
+    nieGeuebt?: boolean;
+    erstesMal?: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
   } = $props();
 
   let hilfeOffen = $state(false);
+  let mehrSichtbar = $state(false);
+
+  const ersteMinute = $derived(erstesMal && !mehrSichtbar);
 
   const datum = (d: Date, mitTag = true) =>
     d.toLocaleDateString('de-DE', {
@@ -62,10 +74,12 @@
     });
 </script>
 
-<div class="startseite">
+<div class="startseite register-ort" class:erste-minute={ersteMinute} class:knapp={nieGeuebt}>
   <header class="kopf">
     <p class="marke ort-name">{t('start.ueberschrift')}</p>
-    {#if rueckkehr}
+    {#if ersteMinute}
+      <p class="gruss erste">{t('start.erste-minute')}</p>
+    {:else if rueckkehr}
       <p class="datum">{datum(heute)}</p>
       <p class="gruss" role="status">
         {t('rueckkehr.gruss')}{#if basebau}
@@ -88,10 +102,18 @@
         <p id="hub-hilfe" class="leise hilfe-text">{t('hub.tueren')}</p>
       {/if}
     {/if}
+    {#if heuteGeuebt}
+      <p class="leise heute" role="status">{t('start.heute-geuebt')}</p>
+    {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
+    <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   </header>
 
   {@render children?.()}
+
+  {#if nieGeuebt && !ersteMinute}
+    <p class="einladung">{t('start.nie-geuebt')}</p>
+  {/if}
 
   {#if basebau}
     <div class="ort bastion" aria-hidden="true">
@@ -106,18 +128,25 @@
   <div class="tueren" class:ohne-bastion={!basebau} role="group" aria-label={t('hub.tueren')}>
     <button
       class="tuer ueben"
-      aria-label={t('start.ueben')}
-      aria-describedby="ueben-dran"
+      aria-label={ersteMinute ? t('start.erste-minute-ueben') : t('start.ueben')}
+      aria-describedby={ersteMinute ? undefined : 'ueben-dran'}
       onclick={() => onziel('ueben')}
     >
-      <span class="tuer-titel ort-name"><Symbol name="ueben" /> {t('hub.ort-ueben')}</span>
-      <span class="ueben-dran" id="ueben-dran"
-        >{geradeDran === 0
-          ? t('start.ueben-frei')
-          : geradeDran === 1
-            ? t('start.gerade-dran-eins')
-            : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+      <span class="tuer-titel ort-name"
+        ><Symbol name="ueben" />
+        {ersteMinute ? t('start.erste-minute-ueben') : t('hub.ort-ueben')}</span
       >
+      {#if !ersteMinute}
+        <span class="ueben-dran" id="ueben-dran"
+          >{nieGeuebt
+            ? t('start.nie-geuebt-ueben')
+            : geradeDran === 0
+              ? t('start.ueben-frei')
+              : geradeDran === 1
+                ? t('start.gerade-dran-eins')
+                : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+        >
+      {/if}
     </button>
 
     {#if basebau}
@@ -126,64 +155,82 @@
       </button>
     {/if}
 
-    <button class="tuer neben" onclick={() => onziel('mehr')}>
-      <span class="tuer-titel ort-name"><Symbol name="mehr" /> {t('hub.ort-mehr')}</span>
-      <span class="tuer-info">{t('hub.mehr-info')}</span>
-    </button>
+    {#if !ersteMinute}
+      <button class="tuer neben" onclick={() => onziel('mehr')}>
+        <span class="tuer-titel ort-name"><Symbol name="mehr" /> {t('hub.ort-mehr')}</span>
+        <span class="tuer-info">{t('hub.mehr-info')}</span>
+      </button>
+    {/if}
   </div>
 
-  <!-- Nebenkacheln immer erreichbar (Fehlerwerkstatt auch in der ersten Sitzung);
-       beim Erstbesuch ohne Infozeilen (A3), sonst kleiner als die Türen (A1). -->
-  <div class="kacheln" class:erst={!rueckkehr}>
-    <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-      <Symbol name="wiederholen" />
-      <span class="kachel-name">{t('wiederholen.knopf')}</span>
-      {#if rueckkehr || faellig > 0}
-        <span class="kachel-info"
-          >{faellig === 0
-            ? t('start.nichts-dran')
-            : faellig === 1
-              ? t('wiederholen.eine')
-              : `${faellig} ${t('wiederholen.mehrere')}`}</span
+  {#if ersteMinute}
+    <button class="dezent mehr-auf" onclick={() => (mehrSichtbar = true)}
+      >{t('start.mehr-entdecken')}</button
+    >
+  {:else}
+    <!-- Nebenkacheln immer erreichbar (Fehlerwerkstatt auch in der ersten Sitzung);
+         beim Erstbesuch ohne Infozeilen (A3), sonst kleiner als die Türen (A1);
+         nie geübt ohne Wiederholen/Werkstatt (Y121). -->
+    <div class="kacheln" class:erst={!rueckkehr}>
+      {#if !nieGeuebt}
+        <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
+          <Symbol name="wiederholen" />
+          <span class="kachel-name">{t('wiederholen.knopf')}</span>
+          {#if rueckkehr || faellig > 0}
+            <span class="kachel-info"
+              >{faellig === 0
+                ? t('start.nichts-dran')
+                : faellig === 1
+                  ? t('wiederholen.eine')
+                  : `${faellig} ${t('wiederholen.mehrere')}`}</span
+            >
+          {/if}
+        </button>
+        <button
+          class="kachel warm"
+          disabled={offeneFehler === 0}
+          onclick={() => onziel('werkstatt')}
         >
+          <Symbol name="werkstatt" />
+          <span class="kachel-name">{t('werkstatt.knopf')}</span>
+          {#if rueckkehr || offeneFehler > 0}
+            <span class="kachel-info"
+              >{offeneFehler === 0
+                ? t('start.keine-fehler')
+                : offeneFehler === 1
+                  ? t('werkstatt.offen-eins')
+                  : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+            >
+          {/if}
+        </button>
       {/if}
-    </button>
-    <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-      <Symbol name="werkstatt" />
-      <span class="kachel-name">{t('werkstatt.knopf')}</span>
-      {#if rueckkehr || offeneFehler > 0}
-        <span class="kachel-info"
-          >{offeneFehler === 0
-            ? t('start.keine-fehler')
-            : offeneFehler === 1
-              ? t('werkstatt.offen-eins')
-              : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
-        >
-      {/if}
-    </button>
-    <button class="kachel" onclick={() => onziel('diagnose')}>
-      <Symbol name="diagnose" />
-      <span class="kachel-name">{t('diagnose.knopf')}</span>
-      {#if rueckkehr}<span class="kachel-info">{t('start.diagnose-info')}</span>{/if}
-    </button>
-    <button class="kachel" onclick={() => onziel('stand')}>
-      <Symbol name="stand" />
-      <span class="kachel-name">{t('stand.knopf')}</span>
-      {#if rueckkehr}<span class="kachel-info">{t('start.stand-info')}</span>{/if}
-    </button>
-  </div>
+      <button class="kachel" onclick={() => onziel('diagnose')}>
+        <Symbol name="diagnose" />
+        <span class="kachel-name">{t('diagnose.knopf')}</span>
+        {#if rueckkehr}<span class="kachel-info">{t('start.diagnose-info')}</span>{/if}
+      </button>
+      <button class="kachel" onclick={() => onziel('stand')}>
+        <Symbol name="stand" />
+        <span class="kachel-name">{t('stand.knopf')}</span>
+        {#if rueckkehr}<span class="kachel-info">{t('start.stand-info')}</span>{/if}
+      </button>
+    </div>
 
-  {#if klassenarbeit}
-    <p class="hinweis">
-      <span>{t('ka.am')} {datum(new Date(`${klassenarbeit}T12:00:00`))}</span>
-      <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button>
-    </p>
-  {/if}
-  {#if sichern}
-    <p class="hinweis">
-      <span>{t('sicherung.erinnerung')}</span>
-      <button class="dezent" onclick={() => onziel('sicherung')}>{t('sicherung.erstellen')}</button>
-    </p>
+    {#if klassenarbeit}
+      <p class="hinweis">
+        <span>{t('ka.am')} {datum(new Date(`${klassenarbeit}T12:00:00`))}</span>
+        <button class="dezent" onclick={() => onziel('klassenarbeit')}>{t('ka.vorbereiten')}</button
+        >
+      </p>
+    {/if}
+    {#if sichern}
+      <p class="hinweis">
+        <span>{t('sicherung.erinnerung')}</span>
+        <button class="dezent" onclick={() => onziel('sicherung')}
+          >{t('sicherung.erstellen')}</button
+        >
+      </p>
+    {/if}
   {/if}
 </div>
 
@@ -235,8 +282,31 @@
     line-height: 1.3;
     margin-block-end: var(--abstand-s);
   }
+  .gruss.erste {
+    font-size: 1.25rem;
+    font-weight: 700;
+    max-inline-size: 22rem;
+  }
+  .mehr-auf {
+    justify-self: start;
+    margin-block-end: var(--abstand-m);
+    font-weight: 700;
+  }
+  .erste-minute .tuer.ueben {
+    min-block-size: 5rem;
+  }
   .leise {
     color: var(--farbe-text-leise);
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+    margin-block: 0 var(--abstand-s);
+  }
+  .einladung {
+    margin-block: var(--abstand-s) var(--abstand-m);
+    font-size: 1.125rem;
+    line-height: 1.4;
   }
   .test {
     font-size: 0.875rem;
@@ -260,6 +330,10 @@
   }
   .hilfe-text {
     margin-block: 0.25rem var(--abstand-s);
+  }
+  .heute {
+    font-size: 0.95rem;
+    margin-block-end: var(--abstand-s);
   }
 
   button {
@@ -419,5 +493,19 @@
   .hinweis .dezent {
     color: var(--farbe-text);
     font-weight: 700;
+  }
+
+  /* V112: Querformat – Türen ohne winzige Tap-Ziele */
+  @media (orientation: landscape) {
+    .tueren {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .tuer,
+    .kachel {
+      min-block-size: max(3.25rem, var(--ziel));
+    }
+    .startseite > .bastion {
+      max-block-size: 12rem;
+    }
   }
 </style>

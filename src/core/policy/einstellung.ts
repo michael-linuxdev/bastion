@@ -71,8 +71,22 @@ export const RUHIG_SCHLUESSEL = 'basebau.ruhig';
 /** Weniger Effekte, Wesen bleiben erlaubt (GRAFIK §4.5); nur `true` = leicht. */
 export const LEICHT_SCHLUESSEL = 'basebau.leicht';
 
-/** Bastion-Sound (GRAFIK §4.6, T-18); nur `true` schaltet ein. Standard aus. */
+/**
+ * Sound-Stufen (Design V–Z W113): aus / nur UI / Bastion+UI.
+ * Schlüssel `basebau.sound` – früher boolean (`true` = Bastion+UI).
+ */
 export const SOUND_SCHLUESSEL = 'basebau.sound';
+export const SOUND_STUFEN = ['aus', 'ui', 'bastion'] as const;
+export type SoundStufe = (typeof SOUND_STUFEN)[number];
+/** Unbekanntes, fehlendes oder altes `false` → aus; altes `true` → bastion. */
+export const soundStufeAus = (wert: unknown): SoundStufe => {
+  if (wert === true) return 'bastion';
+  return SOUND_STUFEN.find((s) => s === wert) ?? 'aus';
+};
+
+/** Kräftigerer Text (Design V110); nur `true` schaltet ein. */
+export const KONTRAST_SCHLUESSEL = 'darstellung.kontrast';
+export const kontrastAn = (wert: unknown): boolean => wert === true;
 
 /** Offline-Hinweis einmalig gesehen (Design-Ideen K47); nur `true` = schon gezeigt. */
 export const OFFLINE_HINWEIS_SCHLUESSEL = 'ui.offline-hinweis';
@@ -88,6 +102,18 @@ export const WETTER_KOORD_SCHLUESSEL = 'wetter.koord';
 
 /** Zoom des Bauplatzes (BASEBAU 2.13a): stufenlos, 0 heißt eingepasst. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
+
+/**
+ * Kamera des Bauplatzes (Zoom + Verschiebung) als „zoom,x,y“.
+ * Ergänzt `basebau.zoom` (ältere Werte bleiben lesbar).
+ */
+export const KAMERA_SCHLUESSEL = 'basebau.kamera';
+
+/**
+ * Gewählte Rufnamen der Bewohner als „art:nameId,art:nameId,…“.
+ * Nur feste Namens-IDs aus der Textdatei – kein Freitext.
+ */
+export const BEWOHNER_NAMEN_SCHLUESSEL = 'basebau.bewohner-namen';
 
 /** Hell, dunkel oder wie das System (GRAFIK §2): Einstellung `darstellung.modus`. */
 export const MODUS_SCHLUESSEL = 'darstellung.modus';

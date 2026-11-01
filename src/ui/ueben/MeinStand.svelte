@@ -16,6 +16,7 @@
   import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholung, sitzt, statusVon } from './stand';
+  import ThemenLandkarte from './ThemenLandkarte.svelte';
 
   let {
     kompetenzen,
@@ -64,15 +65,19 @@
       .filter((k): k is Kompetenz => k !== undefined),
   );
   const angefangen = $derived(themen.some((k) => status.get(k.id) !== 'neu'));
+  /** Y123: alle Themen sitzen – ruhiger Satz, kein Scoreboard */
+  const allesSitzt = $derived(
+    angefangen && themen.length > 0 && themen.every((k) => sitzt(status.get(k.id) ?? 'neu')),
+  );
   const datum = (ms: number) =>
     new Date(ms).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' });
 
   const ABSCHNITTE: readonly AnzeigeStatus[] = ['auffrischen', 'in-arbeit', 'gekonnt', 'gefestigt'];
 </script>
 
-<section class="stand">
+<section class="stand register-ort">
   <h2>{t('stand.ueberschrift')}</h2>
-  <p class="leise">{t('stand.einleitung')}</p>
+  <p class="leise">{t('stand.landkarte-hinweis')}</p>
 
   <fieldset class="niveau">
     <legend>{t('niveau.ueberschrift')}</legend>
@@ -81,16 +86,22 @@
   </fieldset>
   <KlassenWahl bind:klasse />
 
-  <p class="zahlen">
-    {themen.length}
-    {t('stand.zusammenfassung')} ·
-    {gruppe('gefestigt').length}
-    {t('status.gefestigt')} ·
-    {gruppe('gekonnt').length + gruppe('auffrischen').length}
-    {t('status.gekonnt')} ·
-    {gruppe('in-arbeit').length}
-    {t('status.in-arbeit')}
-  </p>
+  {#if allesSitzt}
+    <p class="feier" role="status">{t('stand.alles-sitzt')}</p>
+  {:else}
+    <p class="zahlen">
+      {themen.length}
+      {t('stand.zusammenfassung')} ·
+      {gruppe('gefestigt').length}
+      {t('status.gefestigt')} ·
+      {gruppe('gekonnt').length + gruppe('auffrischen').length}
+      {t('status.gekonnt')} ·
+      {gruppe('in-arbeit').length}
+      {t('status.in-arbeit')}
+    </p>
+  {/if}
+
+  <ThemenLandkarte {themen} {status} {onueben} />
 
   {#if !angefangen}
     {@const erstes = themen[0]}
@@ -168,6 +179,14 @@
 
   .zahlen {
     font-weight: bold;
+  }
+
+  .feier {
+    margin-block: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-inline-start: 4px solid var(--farbe-erfolg);
+    color: var(--farbe-text);
   }
 
   .niveau {

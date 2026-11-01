@@ -1,18 +1,20 @@
 <script lang="ts">
   // Darstellungsschalter der Bastion (GRAFIK §4.5–§4.6, 2.13): Bild, ruhig, leicht, Sound,
   // Ganzes Bild – nur in den Bastion-Einstellungen, nicht auf dem Reiter.
+  import { SOUND_STUFEN, type SoundStufe } from '../../core/policy/einstellung';
   import {
     bastionLeicht,
     bastionRuhig,
-    bastionSound,
+    soundStufe,
     bildSetzen,
     bildZeigen,
     leichtSetzen,
     ruhigSetzen,
     soundSetzen,
-    zoomSetzen,
+    kameraZuruecksetzen,
   } from '../plattform/ablage';
   import { tt } from './thema.svelte';
+  import { t } from '../texte/texte';
 
   let {
     onBildAus,
@@ -25,12 +27,12 @@
   let ruhig = $state(false);
   let leicht = $state(false);
   let systemRuhe = $state(false);
-  let soundAn = $state(false);
+  let cue = $state<SoundStufe>('aus');
 
   void bildZeigen().then((z) => (zeigen = z));
   void bastionRuhig().then((z) => (ruhig = z));
   void bastionLeicht().then((z) => (leicht = z));
-  void bastionSound().then((z) => (soundAn = z));
+  void soundStufe().then((z) => (cue = z));
 
   $effect(() => {
     if (typeof matchMedia !== 'function') return;
@@ -78,25 +80,34 @@
     />
     {tt('bastion.leicht')}
   </label>
-  <label>
-    <input
-      type="checkbox"
-      checked={soundAn}
-      onchange={() => {
-        soundAn = !soundAn;
-        void soundSetzen(soundAn);
-      }}
-    />
-    {tt('bastion.sound')}
-  </label>
+  <fieldset class="sound">
+    <legend>{t('sound.ueberschrift')}</legend>
+    <p class="leise">{t('sound.erklaerung')}</p>
+    {#each SOUND_STUFEN as s (s)}
+      <label>
+        <input
+          type="radio"
+          name="sound-stufe"
+          value={s}
+          checked={cue === s}
+          onchange={() => {
+            cue = s;
+            void soundSetzen(s);
+          }}
+        />
+        {t(`sound.${s}`)}
+      </label>
+    {/each}
+  </fieldset>
   <button
     type="button"
     class="passen"
-    onclick={() => void zoomSetzen(0)}
+    onclick={() => void kameraZuruecksetzen()}
     aria-label={tt('bastion.zoom-passen')}
   >
     {tt('bastion.zoom-passen')}
   </button>
+  <p class="leise"><strong>{tt('bastion.geste-sprache')}</strong></p>
   <p class="leise">{tt('bastion.bedienung')}</p>
   <p class="leise">{tt('bastion.bewohner.erklaerung')}</p>
   <ul class="bewohner-frei">
@@ -124,10 +135,23 @@
     color: var(--farbe-text);
   }
 
+  .sound {
+    display: grid;
+    gap: var(--abstand-s);
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sound legend {
+    font-weight: 700;
+    margin-block-end: var(--abstand-s);
+  }
+
   .passen {
     font: inherit;
     justify-self: start;
-    min-block-size: 2.75rem;
+    min-block-size: var(--ziel);
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
     border: 2px solid var(--farbe-akzent);

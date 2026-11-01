@@ -66,13 +66,14 @@
   <ul class="liste">
     {#each eintraege as e (e.ziel)}
       <li>
-        <button onclick={() => onziel(e.ziel)} class:eltern={e.ziel === 'eltern'}>
+        <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
           <Symbol name={e.symbol} />
           <span>{e.name}</span>
         </button>
       </li>
     {/each}
   </ul>
+  <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   <p class="versprechen">{t('start.versprechen')}</p>
   {#if offlineZeigen}
     <p class="offline" role="status">
@@ -153,10 +154,17 @@
     text-align: start;
     cursor: pointer;
   }
-  button.eltern {
-    background: var(--farbe-flaeche-leise);
+  button.werkstatt {
+    border-radius: 4px;
     box-shadow: none;
     border: 1px solid var(--farbe-rand);
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 90%, var(--farbe-text) 5%);
+    font-weight: 600;
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    margin: 0;
+    font-size: 0.95rem;
   }
   .versprechen {
     color: var(--farbe-text-leise);

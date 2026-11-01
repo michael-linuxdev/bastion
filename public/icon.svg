@@ -1,7 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#8a4b14"/>
-  <g fill="#f7f4ee">
-    <path d="M136 400V200h40v-40h40v40h32v-40h40v40h32v-40h40v40h40v200H296v-72a40 40 0 0 0-80 0v72z"/>
-    <rect x="112" y="400" width="288" height="24" rx="6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bastion">
+  <!-- Richtung A „tag-warm“: Akzent-Kachel, cremefarbene Bastion-Silhouette -->
+  <rect width="512" height="512" rx="96" fill="#1f7a72"/>
+  <g fill="#f6f1e7">
+    <!-- Sockel -->
+    <rect x="80" y="400" width="352" height="32" rx="8"/>
+    <!-- Verbindungsmauer -->
+    <rect x="112" y="268" width="288" height="140"/>
+    <!-- Linke Zinne -->
+    <rect x="96" y="168" width="96" height="240"/>
+    <rect x="96" y="136" width="24" height="40"/>
+    <rect x="132" y="136" width="24" height="40"/>
+    <rect x="168" y="136" width="24" height="40"/>
+    <!-- Rechte Zinne -->
+    <rect x="320" y="168" width="96" height="240"/>
+    <rect x="320" y="136" width="24" height="40"/>
+    <rect x="356" y="136" width="24" height="40"/>
+    <rect x="392" y="136" width="24" height="40"/>
+    <!-- Bergfried in der Mitte -->
+    <rect x="200" y="112" width="112" height="296"/>
+    <rect x="200" y="72" width="28" height="48"/>
+    <rect x="242" y="72" width="28" height="48"/>
+    <rect x="284" y="72" width="28" height="48"/>
   </g>
+  <!-- Tor und Fenster (dunkleres Teal, keine Glow-Effekte) -->
+  <path fill="#155e57" d="M236 408v-88c0-28 14-44 20-44s20 16 20 44v88z"/>
+  <rect x="220" y="148" width="22" height="30" rx="4" fill="#155e57"/>
+  <rect x="270" y="148" width="22" height="30" rx="4" fill="#155e57"/>
+  <rect x="124" y="220" width="28" height="28" rx="4" fill="#155e57"/>
+  <rect x="360" y="220" width="28" height="28" rx="4" fill="#155e57"/>
 </svg>

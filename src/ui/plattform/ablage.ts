@@ -47,10 +47,16 @@ import {
   LEICHT_SCHLUESSEL,
   SOUND_SCHLUESSEL,
   OFFLINE_HINWEIS_SCHLUESSEL,
+  soundStufeAus,
+  type SoundStufe,
+  KONTRAST_SCHLUESSEL,
+  kontrastAn,
   WETTER_ECHT_SCHLUESSEL,
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
   ZOOM_SCHLUESSEL,
+  KAMERA_SCHLUESSEL,
+  BEWOHNER_NAMEN_SCHLUESSEL,
   KLASSE_SCHLUESSEL,
   klasseAus,
   SCHULART_SCHLUESSEL,
@@ -557,14 +563,33 @@ export async function bastionLeicht(): Promise<boolean> {
 
 export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
 
-/** Bastion-Sound (GRAFIK §4.6)? Standard aus. */
-export async function bastionSound(): Promise<boolean> {
+/** Sound-Stufe (W113): aus / ui / bastion. Standard aus. */
+export async function soundStufe(): Promise<SoundStufe> {
   const inst = await bereit();
-  if (!inst) return false;
-  return (await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined)) === true;
+  if (!inst) return 'aus';
+  return soundStufeAus(await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined));
 }
 
-export const soundSetzen = (an: boolean) => setze(SOUND_SCHLUESSEL, an, 'jugendlich');
+/** @deprecated Nutze soundStufe(); true = Bastion+UI. */
+export async function bastionSound(): Promise<boolean> {
+  return (await soundStufe()) === 'bastion';
+}
+
+export const soundSetzen = (stufe: SoundStufe | boolean) =>
+  setze(
+    SOUND_SCHLUESSEL,
+    typeof stufe === 'boolean' ? (stufe ? 'bastion' : 'aus') : stufe,
+    'jugendlich',
+  );
+
+/** Kräftiger Text (V110)? Standard nein. */
+export async function kontrastWahl(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return kontrastAn(await einstellung(db, inst.profil, KONTRAST_SCHLUESSEL).catch(() => undefined));
+}
+
+export const kontrastSetzen = (an: boolean) => setze(KONTRAST_SCHLUESSEL, an, 'jugendlich');
 
 /** Offline-Hinweis schon gesehen (K47)? Standard nein. */
 export async function offlineHinweisGesehen(): Promise<boolean> {
@@ -623,14 +648,61 @@ export const wetterKoordSetzen = (k: WetterKoord | undefined, durch: 'jugendlich
 
 /** Gewählter Zoom des Bauplatzes – oder keiner (0 oder leer: das Bild wird eingepasst). */
 export async function zoomWahl(): Promise<number | undefined> {
-  const inst = await bereit();
-  if (!inst) return undefined;
-  const w = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
-  // Grenzen wie in Dorfkrieg (kamera.ts): 0,35 bis 2,4. 0 heißt „einpassen“.
-  return typeof w === 'number' && w >= 0.35 && w <= 2.4 ? w : undefined;
+  const k = await kameraWahl();
+  return k?.zoom;
 }
 
 export const zoomSetzen = (zoom: number) => setze(ZOOM_SCHLUESSEL, zoom, 'jugendlich');
+
+/** Letzte Kamera (Zoom + Verschiebung) – oder nur Zoom aus älterer Einstellung. */
+export async function kameraWahl(): Promise<{ zoom: number; x: number; y: number } | undefined> {
+  const inst = await bereit();
+  if (!inst) return undefined;
+  const neu = await einstellung(db, inst.profil, KAMERA_SCHLUESSEL).catch(() => undefined);
+  const ausNeu = kameraWertLesen(neu);
+  if (ausNeu) return ausNeu;
+  const alt = await einstellung(db, inst.profil, ZOOM_SCHLUESSEL).catch(() => undefined);
+  return kameraWertLesen(alt);
+}
+
+export const kameraSetzen = (k: { zoom: number; x: number; y: number }) =>
+  setze(KAMERA_SCHLUESSEL, `${k.zoom},${k.x},${k.y}`, 'jugendlich');
+
+/** Kamera vergessen – beim nächsten Öffnen wird das ganze Bild eingepasst. */
+export const kameraZuruecksetzen = () => setze(KAMERA_SCHLUESSEL, '', 'jugendlich');
+
+function kameraWertLesen(wert: unknown): { zoom: number; x: number; y: number } | undefined {
+  if (typeof wert === 'number' && wert >= 0.35 && wert <= 2.4) return { zoom: wert, x: 0, y: 0 };
+  if (typeof wert !== 'string' || wert === '') return undefined;
+  const [zs, xs, ys] = wert.split(',');
+  const zoom = Number(zs);
+  const x = Number(xs);
+  const y = Number(ys);
+  if (![zoom, x, y].every(Number.isFinite) || zoom < 0.35 || zoom > 2.4) return undefined;
+  return { zoom, x, y };
+}
+
+/** Rufnamen der Bewohner (art → Namens-Id aus fester Liste). */
+export async function bewohnerNamenWahl(): Promise<ReadonlyMap<string, string>> {
+  const inst = await bereit();
+  if (!inst) return new Map();
+  const w = await einstellung(db, inst.profil, BEWOHNER_NAMEN_SCHLUESSEL).catch(() => undefined);
+  if (typeof w !== 'string' || w === '') return new Map();
+  const map = new Map<string, string>();
+  for (const teil of w.split(',')) {
+    const [art, name] = teil.split(':');
+    if (art && name) map.set(art, name);
+  }
+  return map;
+}
+
+export const bewohnerNamenSetzen = (namen: ReadonlyMap<string, string>) => {
+  const text = [...namen.entries()]
+    .filter(([art, name]) => art && name)
+    .map(([art, name]) => `${art}:${name}`)
+    .join(',');
+  return setze(BEWOHNER_NAMEN_SCHLUESSEL, text, 'jugendlich');
+};
 
 /** Vorgemerktes Bauvorhaben (B-20) – oder keins. */
 export async function zielVorgemerkt(): Promise<Ziel | undefined> {

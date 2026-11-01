@@ -89,6 +89,7 @@
     <p class="status offen" role="status">{t('sicherung.status-offen')}</p>
   {/if}
   <p>{t('sicherung.warum')}</p>
+  <p class="leise">{t('sicherung.kopie-hinweis')}</p>
 
   <h3>{t('sicherung.erstellen-titel')}</h3>
   {#if !neu}
@@ -124,6 +125,12 @@
   {#if beschaeftigt}<p role="status">{t('sicherung.arbeitet')}</p>{/if}
   {#if meldung}
     <p class:fehler={meldung.fehler} role={meldung.fehler ? 'alert' : 'status'}>{meldung.text}</p>
+    {#if meldung.fehler}
+      <ol class="hilfe-schritte">
+        <li>{t('sicherung.hilfe-1')}</li>
+        <li>{t('sicherung.hilfe-2')}</li>
+      </ol>
+    {/if}
   {/if}
 </section>
 
@@ -178,5 +185,11 @@
 
   .fehler {
     color: var(--farbe-akzent-warm);
+  }
+
+  .hilfe-schritte {
+    margin-block: 0;
+    padding-inline-start: 1.25rem;
+    color: var(--farbe-text);
   }
 </style>

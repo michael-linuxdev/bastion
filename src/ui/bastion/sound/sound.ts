@@ -1,15 +1,18 @@
 /**
- * Optionaler Bastion-Sound (GRAFIK §4.6, T-18): Standard aus, ohne Bibliothek,
- * nur Bastion/Hinterhof. Bevorzugt CC0-Dateien unter `/sound/` (Manifest);
- * sonst prozedurale Web-Audio-Töne. Kein CDN.
+ * Optionaler Bastion-/UI-Sound (GRAFIK §4.6, T-18, Design W113–W116):
+ * Stufen aus / nur UI / Bastion+UI. Standard aus, ohne Bibliothek.
+ * Ambient und Bau-Tipps nur in der Bastion; UI-Cue nur beim Prüfen-Ergebnis.
+ * Bevorzugt CC0-Dateien unter `/sound/` (Manifest); sonst prozedural. Kein CDN.
  */
+
+import type { SoundStufe } from '../../../core/policy/einstellung';
 
 export type SoundTipp = 'bauen' | 'wesen' | 'aufstellen';
 
 export interface SoundSteuerung {
-  /** Ob der Nutzer Sound eingeschaltet hat (Einstellung) */
-  readonly an: boolean;
-  /** Ruhig / System-Ruhe: Ambient aus, Tipps bleiben wenn `an` */
+  /** Cue-Stufe (W113) */
+  readonly stufe: SoundStufe;
+  /** Ruhig / System-Ruhe: Ambient aus; UI-Cue bleibt bei ui/bastion */
   readonly ruhig: boolean;
 }
 
@@ -23,7 +26,7 @@ const MANIFEST_URL = `${SOUND_BASIS}manifest.json`;
 
 let ctx: AudioContext | undefined;
 let ambientKnoten: { stop: () => void } | undefined;
-let steuern: SoundSteuerung = { an: false, ruhig: false };
+let steuern: SoundSteuerung = { stufe: 'aus', ruhig: false };
 let manifest: SoundManifest | null | undefined;
 let tipPuffer: Partial<Record<SoundTipp, AudioBuffer>> = {};
 let ambientPuffer: AudioBuffer | undefined;
@@ -47,10 +50,10 @@ async function holeManifest(): Promise<SoundManifest | null> {
     const roh = (await r.json()) as SoundManifest;
     if (roh.format !== 1 || !roh.dateien) {
       manifest = null;
-      return null;
+    } else {
+      manifest = roh;
     }
-    manifest = roh;
-    return roh;
+    return manifest;
   } catch {
     manifest = null;
     return null;
@@ -62,7 +65,6 @@ async function decodeDatei(c: AudioContext, name: string): Promise<AudioBuffer |
     const r = await fetch(`${SOUND_BASIS}${name}`);
     if (!r.ok) return undefined;
     const ab = await r.arrayBuffer();
-    // slice: detach für decodeAudioData in älteren Engines
     return await c.decodeAudioData(ab.slice(0));
   } catch {
     return undefined;
@@ -104,19 +106,28 @@ export async function soundDateienLaden(): Promise<void> {
   }
 }
 
+function ambientErlaubt(): boolean {
+  return steuern.stufe === 'bastion' && !steuern.ruhig;
+}
+
 /** Steuerung aktualisieren – Ambient startet/stoppt automatisch. */
 export function soundSteuern(s: SoundSteuerung): void {
   steuern = s;
-  if (!s.an || s.ruhig) ambientStoppen();
+  if (!ambientErlaubt()) ambientStoppen();
   else {
     void soundDateienLaden().then(() => {
-      if (steuern.an && !steuern.ruhig) void ambientStarten();
+      if (ambientErlaubt()) void ambientStarten();
     });
   }
 }
 
+/** Bastion-Tipps und Ambient aktiv (Stufe bastion, nicht ruhig). */
 export function soundIstAn(): boolean {
-  return steuern.an && !steuern.ruhig;
+  return ambientErlaubt();
+}
+
+export function soundStufeAktuell(): SoundStufe {
+  return steuern.stufe;
 }
 
 function tipProzedural(c: AudioContext, art: SoundTipp): void {
@@ -148,9 +159,9 @@ function tipAusDatei(c: AudioContext, puffer: AudioBuffer): void {
   quelle.start();
 }
 
-/** Kurzer Tipp-Ton (bauen / Wesen / aufstellen). */
+/** Kurzer Tipp-Ton (bauen / Wesen / aufstellen) – nur Stufe bastion. */
 export function soundTipp(art: SoundTipp): void {
-  if (!steuern.an) return;
+  if (steuern.stufe !== 'bastion') return;
   const c = kontext();
   if (!c) return;
   void c.resume();
@@ -160,11 +171,35 @@ export function soundTipp(art: SoundTipp): void {
   if (!dateienGeladen) void soundDateienLaden();
 }
 
+/**
+ * Sehr leiser UI-Cue nur beim Prüfen-Ergebnis (W116).
+ * Nie bei Tipps/Hilfen/Fehlertext. Stufen ui und bastion.
+ */
+export function soundUiErgebnis(richtig: boolean): void {
+  if (steuern.stufe !== 'ui' && steuern.stufe !== 'bastion') return;
+  const c = kontext();
+  if (!c) return;
+  void c.resume();
+  const jetzt = c.currentTime;
+  const o = c.createOscillator();
+  const g = c.createGain();
+  o.type = 'sine';
+  const f = richtig ? 520 : 280;
+  o.frequency.setValueAtTime(f, jetzt);
+  o.frequency.exponentialRampToValueAtTime(richtig ? f * 1.15 : f * 0.85, jetzt + 0.08);
+  g.gain.setValueAtTime(0.0001, jetzt);
+  g.gain.exponentialRampToValueAtTime(0.035, jetzt + 0.015);
+  g.gain.exponentialRampToValueAtTime(0.0001, jetzt + 0.14);
+  o.connect(g);
+  g.connect(c.destination);
+  o.start(jetzt);
+  o.stop(jetzt + 0.16);
+}
+
 function ambientProzedural(c: AudioContext): { stop: () => void } {
   const dauer = 2;
   const puffer = c.createBuffer(1, c.sampleRate * dauer, c.sampleRate);
   const daten = puffer.getChannelData(0);
-  // Deterministisches Rauschen (kein Math.random) – reine Textur, kein Spielzustand
   let samen = 0xba57_10;
   let vor = 0;
   for (let i = 0; i < daten.length; i++) {
@@ -221,14 +256,14 @@ function ambientAusDatei(c: AudioContext, puffer: AudioBuffer): { stop: () => vo
   };
 }
 
-/** Sanftes Ambient (Wind) – Datei wenn geladen, sonst prozedural, kein Netz. */
+/** Sanftes Ambient (Wind) – nur Bastion-Stufe, nie während Aufgaben-Fokus (W114). */
 export async function ambientStarten(): Promise<void> {
-  if (!steuern.an || steuern.ruhig || ambientKnoten) return;
+  if (!ambientErlaubt() || ambientKnoten) return;
   const c = kontext();
   if (!c) return;
   await c.resume();
   await soundDateienLaden();
-  if (!steuern.an || steuern.ruhig || ambientKnoten) return;
+  if (!ambientErlaubt() || ambientKnoten) return;
   ambientKnoten = ambientPuffer ? ambientAusDatei(c, ambientPuffer) : ambientProzedural(c);
 }
 
@@ -240,7 +275,7 @@ export function ambientStoppen(): void {
 /** Nur für Tests: internen Zustand zurücksetzen. */
 export function soundZuruecksetzen(): void {
   ambientStoppen();
-  steuern = { an: false, ruhig: false };
+  steuern = { stufe: 'aus', ruhig: false };
   tipPuffer = {};
   ambientPuffer = undefined;
   dateienGeladen = false;

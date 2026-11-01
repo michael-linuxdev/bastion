@@ -25,6 +25,7 @@
     ausbauten,
     belegt,
     epoche = 1,
+    vorratLeer = false,
     istZiel,
     onbauen,
     onvormerken,
@@ -35,6 +36,8 @@
     ausbauten: readonly BauAngebot[];
     belegt: boolean;
     epoche?: number;
+    /** Keine Rohstoffe – Hinweis „durch Üben kommt Stein“ (Y122) */
+    vorratLeer?: boolean;
     istZiel: (a: BauAngebot) => boolean;
     onbauen: (a: BauAngebot) => void;
     onvormerken: (a: BauAngebot) => void;
@@ -42,6 +45,7 @@
     onschliessen: () => void;
   } = $props();
 
+  /** Kosten und Details erst nach bewusster Auswahl (Design L57). */
   let gewaehlt = $state<BauAngebot | undefined>(undefined);
   let vorschauFarbe = $state<Farbe | undefined>(undefined);
 
@@ -49,8 +53,7 @@
 
   $effect(() => {
     const g = gewaehlt;
-    if (g && !alle.some((a) => gleich(a, g))) gewaehlt = alle[0];
-    else if (!g && alle.length > 0) gewaehlt = alle[0];
+    if (g && !alle.some((a) => gleich(a, g))) gewaehlt = undefined;
   });
 
   $effect(() => {
@@ -85,6 +88,9 @@
   </header>
 
   {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
+  {#if vorratLeer}
+    <p class="leise" role="status">{tt('bastion.bauen-durch-ueben')}</p>
+  {/if}
 
   {#if gewaehlt}
     {@const a = gewaehlt}
