@@ -3,13 +3,13 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 und F6 (`pnpm arbeitsblatt`) erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 und F6 (`pnpm arbeitsblatt`) erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2 · Parallel zu L (PV, #146): F4 erledigt (`pnpm auswertung`), dann F5
 
 ---
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
+Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
 
 **Besonders kritisch prüfen:** die didaktische Qualität der Erstvermittlung und der Fehlererklärungen.
 
@@ -24,6 +24,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 - **U4a:** Testprotokoll (K-14, D-18).
 - **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 - **U5b und U5c:** alle 596 Fehlerbilder zugeordnet, alle 123 Kompetenzen mit Erstvermittlung.
+- **01.11.2026, F4:** `pnpm auswertung` beantwortet nach U4b Kriterium 1 und F5 aus `STRATEGIE.md` §0 mit ja oder nein. Einstiegsaufgaben: die ersten 3 Aufgaben auf Niveau G nach der Erstvermittlung, ohne Tipp (`TESTS.md` §4.5). Der PV hat entschieden, dass F4 bis F6 parallel zu Paket L laufen, ohne die Lern-Oberfläche zu ändern (#146).
 - **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102), **Stufe 1 für das Musterfeld** (22 Dateien, Funde unten in der Übergabe).
 
 **Als Nächstes:**

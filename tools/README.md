@@ -14,6 +14,16 @@ Die Datei im Browser öffnen und als PDF drucken (T-17). Sie kommt nicht ins Rep
 
 Mit `--online --name "Musterfeld Brüche"` entsteht stattdessen eine Seite zum Ausfüllen als Artefakt auf claude.ai (`online.ts`). Die prüfende Person kreuzt dort an, wählt je Abschnitt ein Urteil und schreibt Anmerkungen. Die Eingaben landen in der Datenbank der Seite, in der Sammlung `bewertung` mit einem Dokument je Abschnitt (`A-<Kompetenz>`, `B-<Fehlvorstellung>`, `C-<Vorlage>`, `D-begriffe`, `kopf`), und lassen sich von dort einarbeiten. Diese Seite gehört nicht zur App: Sie lädt Schriften von Google Fonts und nutzt die Laufzeit von claude.ai. Die Regeln der App (kein Netz, keine externen Schriften) gelten für sie darum nicht. Das Werkzeug lädt die Generatoren über Vite (`import.meta.glob`), darum startet `lauf.ts` sie mit `runnerImport`.
 
+## Auswertung der Testprotokolle (`auswertung/`)
+
+Wertet die Testprotokoll-Dateien aus U4b aus (`TESTS.md` §4.5) und schreibt einen Bericht in Markdown: Kriterium 1 (Einstiegsaufgaben nach der Erstvermittlung) und F5 (falsche Antworten mit Fehlerbild) aus `STRATEGIE.md` §0 mit ja, nein oder „noch offen“, die unbekannten Fehler je Vorlage und je Person Zwischenschritte, „Weiter ohne Weg“ und abgebrochene Erstvermittlungen.
+
+```sh
+pnpm auswertung protokoll-1.json protokoll-2.json > bericht.md
+```
+
+Personen heißen im Bericht „Person 1 …“; `--nummern` setzt die Teilnehmer-Nummern dazu. Protokolle und Bericht kommen nicht ins Repository. Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`.
+
 ## Arbeitsblatt (`pruefbogen/arbeitsblatt.ts`)
 
 Druckbares Arbeitsblatt für Lehrkräfte (FOKUS F6): neue Aufgaben zu einer oder mehreren Kompetenzen auf einem Niveau.

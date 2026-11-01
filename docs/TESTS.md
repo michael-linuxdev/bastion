@@ -58,7 +58,7 @@ Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten z
 3. Welche Daten entstehen:
    - In der App: alles bleibt auf dem Gerät. Die App sendet nichts.
    - Gesprächsnotizen: handschriftlich bzw. lokal, nur mit **Teilnehmer-Nummer**, ohne Namen. Gültige Nummern (mit Prüfziffer, z. B. T-01-8) gibt `pnpm testnummern` aus.
-   - Ein **Testprotokoll** (K-14), nur wenn Sie es im Elternbereich mit dem Testcode einschalten. Es enthält, welche Aufgaben bearbeitet wurden, Antworten bei Fehlern, welche Seiten geöffnet wurden und wie lange. Es enthält keinen Namen und keinen Spitznamen, nur die Teilnehmer-Nummer. Die App zeigt es Ihnen und Ihrem Kind vorher lesbar an. Sie geben die Datei selbst weiter. Ausschalten und Löschen geht jederzeit.
+   - Ein **Testprotokoll** (K-14), nur wenn Sie es im Elternbereich mit dem Testcode einschalten. Es enthält, welche Aufgaben bearbeitet wurden, Antworten bei Fehlern, welche Seiten geöffnet wurden und wie lange. Es enthält keinen Namen und keinen Spitznamen, nur die Teilnehmer-Nummer. Die App zeigt es Ihnen und Ihrem Kind vorher lesbar an. Sie geben die Datei selbst weiter. Ausschalten und Löschen geht jederzeit. Ausgewertet wird sie mit `pnpm auswertung` (§4.5).
    - Keine Fotos, keine Ton- oder Videoaufnahmen.
 4. Wer sieht die Daten: nur der Projektverantwortliche. Veröffentlicht werden nur zusammengefasste Ergebnisse ohne Personenbezug (z. B. „5 von 9 sagten …“) und einzelne Zitate ohne Namen, Alter in Klassenstufe, ohne Schule.
 5. Widerruf: jederzeit ohne Begründung; Notizen werden dann gelöscht.
@@ -115,6 +115,30 @@ Mein Eindruck (getrennt von den Zitaten!): …
 ```
 
 Ins Repository kommt pro Runde nur eine **Zusammenfassung** in §7 – ohne Nummern, die sich über Runden verfolgen lassen, wenn die Gruppe so klein ist, dass das jemanden erkennbar machen könnte.
+
+### 4.5 Testprotokolle auswerten (U4b, FOKUS F4)
+
+**Ablauf:**
+
+1. **Dateien einsammeln.** Eltern speichern das Testprotokoll im Elternbereich (Testphase → Export) und geben die JSON-Datei von Hand weiter. Die Dateien liegen nur lokal beim Projektverantwortlichen, nie im Repository.
+2. **Auswerten:** `pnpm auswertung protokoll-1.json protokoll-2.json … > bericht.md`. Mehrere Dateien derselben Person (zweimal exportiert) werden zusammengeführt, doppelte Ereignisse zählen einmal.
+3. **Bericht lesen.** Er beantwortet die messbaren Kriterien aus `STRATEGIE.md` §0 mit ja, nein oder „noch offen“. Personen heißen „Person 1 …“ in der Reihenfolge der Dateien. Mit `--nummern` stehen die Teilnehmer-Nummern daneben; so einen Bericht nicht weitergeben.
+4. **Mit den Notizen abgleichen.** Wer das Thema laut Gespräch schon vorher konnte, zählt für Kriterium 1 nicht (die App weiß das nur, wenn vorher in ihr geübt wurde). Solche Personen beim Lesen der Tabelle von Hand herausnehmen.
+5. Die Zusammenfassung ohne Nummern kommt in §7.
+
+**Festlegung „Einstiegsaufgaben“ (Kriterium 1, Vermitteln; 01.11.2026):**
+
+- Die Einstiegsaufgaben einer Kompetenz sind die **ersten 3 Aufgaben auf Niveau G** dieser Kompetenz, die nach dem **ersten Abschluss ihrer Erstvermittlung** im Üben oder Wiederholen bearbeitet werden. Diagnose, Fehlerwerkstatt und Prüfung zählen nicht.
+- **Ohne Hilfe gelöst** heißt: alle drei richtig, ohne Tipp. Lösungsweg, Erklärung der Fehlvorstellung und „Weiter ohne Weg“ gibt es erst nach einer falschen Antwort, sie sind darin also schon enthalten.
+- Ist eine der Aufgaben falsch oder mit Tipp gelöst, gilt die Kompetenz für diese Person als **nicht gelöst**, auch wenn die dritte noch fehlt.
+- **Nicht gezählt** wird eine Person für eine Kompetenz, wenn sie (a) noch keine 3 Aufgaben bearbeitet hat oder (b) vor der Erstvermittlung schon Aufgaben dieser Kompetenz bearbeitet hat. Ausnahme zu (b): falsche Aufgaben aus der Diagnose; sie zeigen gerade, dass das Thema neu war.
+- **Erfüllt** ist Kriterium 1 für eine Kompetenz, wenn mindestens zwei Drittel der gezählten Personen gelöst haben, und es mindestens 3 sind. Bei weniger Personen heißt es „noch offen“.
+
+**F5 (Diagnostizieren):** Gezählt werden alle falschen Antworten außer in der Diagnose. Erfüllt bei mindestens 80 % mit Fehlerbild. Die übrigen stehen im Bericht als „unbekannte Fehler“, nach Vorlage gruppiert, mit Aufgabe, Lösung und Antwort. Sie sind Stoff für den Fehlerkatalog (`VERMITTLUNG.md` §3.4).
+
+**Außerdem im Bericht, je Person:** Tipps und Lösungswege, Zwischenschritte (im ersten oder zweiten Versuch richtig, gezeigt), „Weiter ohne Weg“ und abgebrochene Erstvermittlungen mit dem zuletzt beantworteten Schritt. Schritte zum reinen Lesen erzeugen kein Ereignis; „vor der ersten Antwort“ heißt also, beim Lesen oder bei der ersten Frage aufgehört.
+
+Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`, das Werkzeug in `tools/auswertung/`.
 
 ## 5. Behaltenstest (E2)
 
