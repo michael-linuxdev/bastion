@@ -292,4 +292,4 @@ Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `
 
 ### Übergaben
 
-_(noch keine)_
+- **01.11.2026, Strang Grafik, Paket G** (Branch `grafik/paket-g-g0-g1`): ~~G0 Rückfragen~~ (siehe „Entscheidungen“) · ~~G1 Bestandsaufnahme~~ (`pnpm grafik:stufen`, Bau-Wege gemessen, `GRAFIK.md` §11.2–11.3) · G0.1 Probestück gebaut (`GRAFIK.md` §11.4, Skripte `tools/grafik/probe/`). **Rückfrage an den PV:** Variante (a) Generator oder (b) Kenney-Bausatz, oder eine Mischung, z. B. (b) für Stein und Burg und (a) für Holz, Garten und Unterwasser? Außerdem: Schwellwert für den Umriss-Test 25 % statt 12 %? Danach folgen G2 (Stufen-Sprache) und G5 (Ausbauen beim Antippen des Gebäudes), unabhängig von der Bildwahl.
