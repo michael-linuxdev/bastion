@@ -121,35 +121,47 @@
   />
 
   <h3>{t('klasse.name')} {klasse}</h3>
-  {#each bereiche as b (b.bereich)}
-    <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
-    <ul class="orte">
-      {#each b.kompetenzen as k (k.id)}
-        <li>
-          <button class="ort" onclick={() => onwahl(k)}>
-            <span class="ort-bild" aria-hidden="true" data-feld={k.feld ?? b.bereich}></span>
-            <span class="ort-text">
-              <span class="titel">
-                {k.titel.de}
-                {#if status(k) !== 'neu'}
-                  <span class="status {status(k)}">
-                    {status(k) === 'gekonnt' || status(k) === 'gefestigt' ? '✓ ' : ''}{t(
-                      `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
-                    )}
-                  </span>
-                {:else if vermittelt.has(k.id)}
-                  <span class="status">{t('vermittlung.erklaert')}</span>
-                {:else if empfehlungen.has(k.id)}
-                  <span class="status empfohlen">{t('status.empfohlen')}</span>
-                {/if}
+  <!-- L18: Bereiche eingeklappt; offen sind der erste Bereich und jeder, in dem schon geübt oder erklärt wurde -->
+  {#each bereiche as b, i (b.bereich)}
+    <details
+      class="bereich"
+      open={i === 0 || b.kompetenzen.some((k) => status(k) !== 'neu' || vermittelt.has(k.id))}
+    >
+      <summary>
+        <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
+        <span class="anzahl"
+          >{b.kompetenzen.length}
+          {t(b.kompetenzen.length === 1 ? 'uebersicht.thema' : 'uebersicht.themen')}</span
+        >
+      </summary>
+      <ul class="orte">
+        {#each b.kompetenzen as k (k.id)}
+          <li>
+            <button class="ort" onclick={() => onwahl(k)}>
+              <span class="ort-bild" aria-hidden="true" data-feld={k.feld ?? b.bereich}></span>
+              <span class="ort-text">
+                <span class="titel">
+                  {k.titel.de}
+                  {#if status(k) !== 'neu'}
+                    <span class="status {status(k)}">
+                      {status(k) === 'gekonnt' || status(k) === 'gefestigt' ? '✓ ' : ''}{t(
+                        `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
+                      )}
+                    </span>
+                  {:else if vermittelt.has(k.id)}
+                    <span class="status">{t('vermittlung.erklaert')}</span>
+                  {:else if empfehlungen.has(k.id)}
+                    <span class="status empfohlen">{t('status.empfohlen')}</span>
+                  {/if}
+                </span>
+                <span class="kann">{k.kann_satz.de}</span>
+                <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
               </span>
-              <span class="kann">{k.kann_satz.de}</span>
-              <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
-            </span>
-          </button>
-        </li>
-      {/each}
-    </ul>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    </details>
   {/each}
 </section>
 
@@ -258,9 +270,45 @@
     color: var(--farbe-text);
   }
 
-  h4 {
-    margin-block: var(--abstand-m) 0;
+  .bereich {
+    display: grid;
+    gap: var(--abstand-s);
+  }
+
+  summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--abstand-s);
+    min-block-size: var(--ziel);
+    margin-block-start: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    border-block-end: 1px solid var(--farbe-rand);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::before {
+    content: '▸';
     color: var(--farbe-akzent);
+  }
+
+  .bereich[open] > summary::before {
+    content: '▾';
+  }
+
+  h4 {
+    margin: 0;
+    color: var(--farbe-akzent);
+  }
+
+  .anzahl {
+    color: var(--farbe-text-leise);
+    font-size: 1rem;
   }
 
   .orte {
