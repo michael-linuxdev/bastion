@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · Rückfragen beantwortet, F1 erledigt · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 01.11.2026 · Rückfragen beantwortet, F1 erledigt, als Nächstes Paket L (Lern-Oberfläche abschließen) · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -25,7 +25,9 @@ Das Review vom 01.11.2026 hat ergeben:
 - Bauen und Ausbauen müssen **einfacher** werden.
 - Die Stufen eines Gebäudes müssen sich **viel stärker unterscheiden**. Ein Ausbau muss sich wie ein Upgrade anfühlen.
 
-Darum gibt es das **Paket G**. Es hat Vorrang vor F2 bis F10. Der Grafik-Strang pausiert nicht, sondern arbeitet nur an G. Der Lernkern kann F1 bis F10 parallel bearbeiten, weil sich die Bereiche nicht überschneiden. **Der Test U4b findet erst statt, wenn G abgenommen ist**, damit die Testerinnen die Bastion nur einmal und dann in guter Form sehen.
+Darum gibt es das **Paket G**. Es hat Vorrang vor F2 bis F10. Der Grafik-Strang pausiert nicht, sondern arbeitet nur an G. Der Lernkern kann F1 bis F10 parallel bearbeiten, weil sich die Bereiche nicht überschneiden. **Der Test U4b findet erst statt, wenn G und L abgenommen sind**, damit die Testerinnen Bastion und Lern-Oberfläche nur einmal und dann in guter Form sehen.
+
+**Ergänzung des PV (01.11.2026):** Eingefroren wird nur eine fertige Lern-Oberfläche. Darum kommt vor F2 das **Paket L** (Lern-Oberfläche abschließen). Das Einfrieren aus F1 beginnt erst mit der Abnahme von L. Reihenfolge vor dem Test: L und G abgenommen → U4b.
 
 **Befund vom 01.11.2026 (Vergleichsbild aller Stufen):**
 
@@ -77,7 +79,7 @@ Ein Paket ist ein PR (oder mehrere kleine PRs). Reihenfolge wie unten, außer de
 
 ### G – Bauen und Ausbau: einfacher, und jede Stufe ein sichtbares Upgrade (Vorrang)
 
-**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche bleibt tabu (F1).
+**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche gehört nicht zu G (F1, L).
 
 **Ziel:** Eine Jugendliche oder ein Jugendlicher öffnet die Bastion, baut ohne Erklärung ein Gebäude, baut es aus und sagt sinngemäß: „Krass, das sieht jetzt richtig anders aus.“
 
@@ -157,7 +159,7 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 ---
 
-### ~~F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken~~ (erledigt 01.11.2026)
+### ~~F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken~~ (erledigt 01.11.2026; Einfrieren beginnt erst mit der Abnahme von L)
 
 **Ziel:** Während G und U4b soll sich die Lern-Oberfläche nicht ändern, sonst lässt sich das Ergebnis des Tests nicht auswerten. Die Grafik arbeitet nur noch an G.
 
@@ -165,6 +167,16 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 - `docs/SESSION-PROMPT.md`: Die eingefrorene Lern-Oberfläche als Regel für alle Stränge eintragen. Gemeint sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`. Erlaubt sind nur Fehlerbehebungen und Änderungen aus diesem Auftrag. Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht in dieser Zeit.
 - `AGENTS.md`: ein Satz dazu, damit Cursor und andere Agenten es sehen.
 - `docs/PLAN.md` §1: Zeile „Nächster Schritt Grafik“ auf „Paket G: Bauen und Ausbau (FOKUS.md)“ kürzen.
+
+### L – Lern-Oberfläche abschließen (vor F2, Entscheidung PV 01.11.2026)
+
+**Strang Lernkern.** **Ziel:** Die Testpersonen sehen in U4b eine fertige Lern-Oberfläche. Fertig heißt: Jeder Bildschirm sieht gut aus, ist verständlich und lässt sich ohne Stocken bedienen. Erst danach wird eingefroren (Regel 7 in `SESSION-PROMPT.md`).
+
+1. **Bestandsaufnahme:** mit Playwright auf 390 Pixeln Breite (iPhone 13) jeden Weg einmal durchgehen: erste Erklärung (Erstvermittlung), Üben, falsche Antwort mit Diagnose und Rückweg, Zwischenschritte, Fehlerwerkstatt, Wiederholen, Elternbereich (mit Testprotokoll). Jede Stelle festhalten, an der man stockt, raten oder lange lesen muss, oder die schlecht aussieht.
+2. **Mängelliste** mit Bildschirmfotos (Scratchpad, nicht ins Repository) an den PV. Bekannt schon jetzt: Tastatur ohne Malpunkt (Primfaktoren) und Doppelpunkt (Uhrzeiten), `LERNKERN.md` §2.
+3. **Der PV wählt**, was vor U4b behoben sein muss. Nur das wird gebaut, in kleinen PRs. Keine neuen Funktionen.
+4. **Grenzen:** Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9); R1–R7. Funde auf der Startseite (`src/ui/start/`, Bereich Grafik) kommen als Wunsch in `GRAFIK.md`, der Grafik-Strang erledigt sie neben G.
+5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
 
@@ -294,8 +306,8 @@ Jede Sitzung, die hier arbeitet, trägt am Ende ein:
 - eine Zeile im Protokoll des eigenen Strangs (bei F1 und F8 in beiden),
 - `docs/PLAN.md` §1, Zeile des eigenen Strangs.
 
-Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Die eingefrorene Lern-Oberfläche und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
+Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Die eingefrorene Lern-Oberfläche (ab Abnahme von L) und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
 
 ### Übergaben
 
-- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Als Nächstes: F2.
+- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Danach auf Wunsch des PV: Paket L vor F2 eingefügt, Einfrieren beginnt erst mit der Abnahme von L. Als Nächstes: L, dann F2.

@@ -94,7 +94,10 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.
 5. **Rote CI durch den anderen Strang:** Ist `main` selbst rot, ist das nicht der eigene Fehler. Den Fehler nennen, nicht im fremden Bereich reparieren, außer er ist eine Zeile und eindeutig.
 6. **Gemeinsame Entscheidungen** (neue Abhängigkeit, Schema, Datenschutz, R-Regeln) stehen im passenden Entscheidungslog und werden in beiden Strang-Dateien kurz erwähnt.
-7. **Lern-Oberfläche eingefroren (PV, 01.11.2026, bis zur Auswertung von U4b):** `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/` ändern sich nur noch für Fehlerbehebungen und für Pakete aus `docs/session/FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten. Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht so lange. Der Strang Grafik arbeitet nur an Paket G.
+7. **Lern-Oberfläche: erst abschließen, dann einfrieren (PV, 01.11.2026).** Betroffen sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`.
+   - **Bis zur Abnahme von Paket L** (`docs/session/FOKUS.md`): Änderungen nur für Fehlerbehebungen und für die Punkte aus L, die der PV ausgewählt hat. Keine neuen Funktionen.
+   - **Ab der Abnahme von L bis zur Auswertung von U4b:** eingefroren. Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
+   - Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht in beiden Zeiten. Der Strang Grafik arbeitet nur an Paket G.
 
 ---
 
