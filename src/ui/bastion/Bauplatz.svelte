@@ -6,7 +6,13 @@
   import { onDestroy, untrack } from 'svelte';
   import { darstellung } from '../grafik/darstellung.svelte';
   import { einlagerbar, platzHindernisse, type Bastion } from '../../core/bastion/bauen';
-  import { BAUPLATZ, KATALOG, type Bauwerk, type Position } from '../../core/bastion/katalog';
+  import {
+    BAUPLATZ,
+    KATALOG,
+    type Bauwerk,
+    type GebaeudeTyp,
+    type Position,
+  } from '../../core/bastion/katalog';
   import {
     bastionLeicht,
     bastionRuhig,
@@ -23,13 +29,14 @@
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
-  import { buehneBreite, buehneHoehe } from './grafik/iso';
+  import { buehneBreite, buehneHoehe, punkt as feldPunkt } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
   import type { WetterBild } from './grafik/wetter';
   import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
+    ZOOM_MAX,
     ZOOM_RAD,
     einpassen,
     kameraWiederherstellen,
@@ -74,6 +81,7 @@
     onauswahl = undefined,
     ausbauFuer = undefined,
     onausbauen = undefined,
+    vorschlag = undefined,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -98,6 +106,8 @@
     ausbauFuer?: ((gebaeude: string) => AusbauKurz | undefined) | undefined;
     /** „Ausbauen“ auf dem Bauplatz: baut sofort oder öffnet das Bau-Blatt mit dem, was fehlt */
     onausbauen?: ((gebaeude: string) => void) | undefined;
+    /** Neubau-Vorschlag (G5): Geist auf einem freien Feld, die Kamera schwenkt dorthin */
+    vorschlag?: { readonly pos: Position; readonly typ: GebaeudeTyp } | undefined;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -524,6 +534,31 @@
     kameraAufBlick(zielBlick);
   }
 
+  const ZOOM_VORSCHLAG = 1.2;
+  /** Neubau-Vorschlag ins Bild holen: Mitte des Felds etwas über die Fenstermitte (unten liegt die Leiste) */
+  $effect(() => {
+    const v = vorschlag;
+    const el = untrack(() => fenster);
+    if (!v || !el) return;
+    const [w, t] = KATALOG[v.typ].groesse;
+    const m = feldPunkt(v.pos.x + w / 2, v.pos.y + t / 2);
+    // Etwas heranholen, damit der Geist gut zu sehen ist; wer schon näher ist, bleibt dort
+    const zoom = Math.min(
+      ZOOM_MAX,
+      Math.max(
+        untrack(() => kamera.zoom),
+        ZOOM_VORSCHLAG,
+      ),
+    );
+    eigene = true;
+    kamera = {
+      x: el.clientWidth / 2 - m.x * zoom,
+      y: el.clientHeight * 0.4 - m.y * zoom,
+      zoom,
+    };
+    kameraSichtbar = true;
+  });
+
   // Chrome oben ändert `blick` – Kamera nachziehen (erster Lauf = Startlage)
   let blickKamera: 'bauplatz' | 'hinterhof' | undefined = undefined;
   $effect(() => {
@@ -541,6 +576,7 @@
     const g = gewaehlt;
     const a: Ansicht = {
       ...(g ? { auswahl: g.id } : {}),
+      ...(vorschlag ? { vorschlag } : {}),
       ...(g && versetzen && ziel
         ? {
             ziel: {
