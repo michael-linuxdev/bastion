@@ -9,3 +9,4 @@
 | 31.10.2026 | **Session-Prompt getrennt:** gemeinsamer Teil, Strang Lernkern, Strang Grafik |
 | 31.10.2026 | **Stufe 1 Musterfeld Brüche:** 22 Dateien gegen den Prüfkatalog (INHALTSFORMAT §8) gelesen, 14 Funde in 11 Dateien behoben, Vermerk gesetzt |
 | 31.10.2026 | **Konflikte vermeiden:** Protokolle in eigenen Dateien mit `merge=union`, `AGENTS.md` für Cursor, Test `tools/dokumente.test.ts` |
+| 01.11.2026 | **Fokus-Auftrag „Prüfen statt Bauen“:** `docs/session/FOKUS.md` mit Paketen F1–F10 aus dem Review; Verweis im Session-Prompt |

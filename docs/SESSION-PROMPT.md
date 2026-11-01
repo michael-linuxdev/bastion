@@ -6,6 +6,8 @@
 > - **Grafik:** `docs/session/GRAFIK.md`
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
+>
+> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews; Pakete F1–F10, zuerst Rückfragen an den Projektverantwortlichen).
 
 Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
 
