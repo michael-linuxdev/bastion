@@ -212,7 +212,7 @@ Einheitentests liegen als `*.test.ts` direkt neben dem Code; `tests/` enthält d
 - **Precaching:** Beim ersten Laden speichert der Service Worker die komplette App-Hülle (HTML, JS, CSS, Icons, Manifest). Danach startet die App ohne Netz.
 - **Updates:** `registerType: 'prompt'`. Eine neue Version wird im Hintergrund geladen, aber erst aktiviert, wenn die Person im Hinweis „Jetzt aktualisieren“ wählt. „Später“ blendet den Hinweis aus; beim nächsten Start wird erneut gefragt. So wechselt die Version nie mitten in einer Sitzung.
 - **Dauerhafter Speicher:** Beim Start wird `navigator.storage.persist()` angefragt (T-1). Das Ergebnis zeigt der Elternbereich zusammen mit dem Datum der letzten Sicherung (seit 1c). Die Erinnerung an eine Sicherung erscheint monatlich auf der Startseite (`sicherungFaellig` in `src/core/sicherung/sicherung.ts`).
-- **Icons:** `public/icon.svg` ist die Vorlage; die PNG-Icons sind daraus abgeleitet (Platzhalter bis zur Gestaltung).
+- **Icons:** `public/icon.svg` ist die Vorlage (Bastion-Silhouette auf Akzent-Kachel). PNG (`icon-192`, `icon-512`, `icon-maskable-512`, `apple-touch-icon`, `favicon-32`) werden deterministisch mit `python3 tools/grafik/icons-erzeugen.py` erzeugt (Pillow nur zum Erzeugen, keine Laufzeitabhängigkeit).
 - Code: `vite.config.ts` (Manifest, Workbox), `src/ui/plattform/offline.svelte.ts`, `src/ui/plattform/speicher.ts`, `src/ui/UpdateHinweis.svelte`.
 
 ### 4.10 Tests und CI (umgesetzt in 0.9)

@@ -100,6 +100,18 @@ export const WETTER_KOORD_SCHLUESSEL = 'wetter.koord';
 /** Zoom des Bauplatzes (BASEBAU 2.13a): stufenlos, 0 heißt eingepasst. */
 export const ZOOM_SCHLUESSEL = 'basebau.zoom';
 
+/**
+ * Kamera des Bauplatzes (Zoom + Verschiebung) als „zoom,x,y“.
+ * Ergänzt `basebau.zoom` (ältere Werte bleiben lesbar).
+ */
+export const KAMERA_SCHLUESSEL = 'basebau.kamera';
+
+/**
+ * Gewählte Rufnamen der Bewohner als „art:nameId,art:nameId,…“.
+ * Nur feste Namens-IDs aus der Textdatei – kein Freitext.
+ */
+export const BEWOHNER_NAMEN_SCHLUESSEL = 'basebau.bewohner-namen';
+
 /** Hell, dunkel oder wie das System (GRAFIK §2): Einstellung `darstellung.modus`. */
 export const MODUS_SCHLUESSEL = 'darstellung.modus';
 export const MODI = ['system', 'hell', 'dunkel'] as const;

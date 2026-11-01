@@ -124,3 +124,11 @@ describe('Kontrast (V110)', () => {
     expect(KONTRAST_SCHLUESSEL).toBe('darstellung.kontrast');
   });
 });
+
+describe('Bastion-Kamera und Bewohner-Namen (Design L)', () => {
+  it('Schlüssel stehen fest', async () => {
+    const { KAMERA_SCHLUESSEL, BEWOHNER_NAMEN_SCHLUESSEL } = await import('./einstellung');
+    expect(KAMERA_SCHLUESSEL).toBe('basebau.kamera');
+    expect(BEWOHNER_NAMEN_SCHLUESSEL).toBe('basebau.bewohner-namen');
+  });
+});

@@ -65,6 +65,7 @@
   import type { Begriffskarte } from '../core/learning/begriffe';
   import Uebersicht from './ueben/Uebersicht.svelte';
   import Uebung from './ueben/Uebung.svelte';
+  import WiederholenRegal, { type RegalFach } from './ueben/WiederholenRegal.svelte';
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
@@ -111,6 +112,7 @@
     | 'uebersicht'
     | 'uebung'
     | 'wiederholen'
+    | 'wiederholen-regal'
     | 'werkstatt'
     | 'werkstatt-uebung'
     | 'diagnose'
@@ -237,6 +239,9 @@
   });
   /** Fällige Karten, festgehalten beim Start einer Wiederholungsrunde. */
   let wiederholListe = $state<readonly Auftrag[]>([]);
+  let wiederholFaecher = $state<readonly RegalFach[]>([]);
+  /** Heute schon geübt (Design L53) – ruhige Markierung, kein Streak. */
+  let heuteGeuebt = $state(false);
   /** Geöffnete Zeichen-Anleitung (L-10) */
   let anleitung = $state<Anleitung | undefined>(undefined);
 
@@ -361,6 +366,7 @@
     faellig = wiederholRunde(zustand.karten, jetzt).length;
     gruppen = await fehlergruppen();
     aufgabenListe = await alleAufgaben();
+    heuteGeuebt = aufgabenListe.some((e) => e.tag === heuteTag && e.ergebnis !== 'uebersprungen');
     sichern = await sicherungAnstehend();
     basebau = await basebauAn();
     aktiv.thema = await themaWahl();
@@ -437,6 +443,7 @@
   async function zumNaechstenUeben() {
     if (
       ansicht === 'wiederholen' ||
+      ansicht === 'wiederholen-regal' ||
       ansicht === 'werkstatt-uebung' ||
       ansicht === 'angebot' ||
       ansicht === 'vermittlung' ||
@@ -471,12 +478,33 @@
     const jetzt = Date.now();
     const vorlage = new Map(geladen.vorlagen.map((v) => [v.id, v]));
     const kompetenz = new Map(geladen.kompetenzen.map((k) => [k.id, k]));
-    wiederholListe = wiederholRunde(zustand.karten, jetzt).flatMap((k) => {
+    const liste = wiederholRunde(zustand.karten, jetzt).flatMap((k) => {
       const v = vorlage.get(k.vorlage);
       const komp = kompetenz.get(k.kompetenz);
       return v && komp ? [{ kompetenz: komp, vorlage: v, niveau: k.niveau }] : [];
     });
-    ansicht = 'wiederholen';
+    wiederholListe = liste;
+    // Lokal in der Funktion – bewusst kein SvelteMap
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- einmalige Gruppierung
+    const gruppenMap = new Map<string, RegalFach>();
+    for (const a of liste) {
+      const alt = gruppenMap.get(a.kompetenz.id);
+      if (alt) {
+        gruppenMap.set(a.kompetenz.id, {
+          kompetenz: a.kompetenz,
+          anzahl: alt.anzahl + 1,
+          auftraege: [...alt.auftraege, a],
+        });
+      } else {
+        gruppenMap.set(a.kompetenz.id, {
+          kompetenz: a.kompetenz,
+          anzahl: 1,
+          auftraege: [a],
+        });
+      }
+    }
+    wiederholFaecher = [...gruppenMap.values()];
+    ansicht = 'wiederholen-regal';
   }
 
   /** Ein Bereich der App öffnen – vom Start-Hub oder aus Unterseiten. */
@@ -573,11 +601,13 @@
       {faellig}
       {offeneFehler}
       {basebau}
+      {heuteGeuebt}
       geradeDran={geradeDran.length}
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
       {testphase}
       nieGeuebt={aufgabenListe.length === 0 && zustand.staende.size === 0}
+      erstesMal={aufgabenListe.length === 0}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -733,6 +763,7 @@
           buchungen={buchungsListe}
           {basebau}
           onstart={() => (ansicht = 'start')}
+          onbastion={() => gehe('bastion')}
         />
       {:else if ansicht === 'eltern'}
         <button
@@ -866,6 +897,22 @@
           }}
           onergebnis={(d) => void ergebnis(d)}
         />
+      {:else if ansicht === 'wiederholen-regal'}
+        <WiederholenRegal
+          faecher={wiederholFaecher}
+          onfach={(f) => {
+            wiederholListe = f.auftraege;
+            ansicht = 'wiederholen';
+          }}
+          onalle={() => {
+            wiederholListe = wiederholFaecher.flatMap((f) => f.auftraege);
+            ansicht = 'wiederholen';
+          }}
+          onzurueck={() => {
+            ansicht = 'start';
+            void aktualisiere();
+          }}
+        />
       {:else if ansicht === 'wiederholen'}
         <Uebung
           ueberschrift={t('wiederholen.ueberschrift')}
@@ -880,7 +927,7 @@
           onrueckweg={(fv, art) => rueckwegGehen(geladen, fv, art)}
           paketVon={geladen.paketVon}
           onzurueck={() => {
-            ansicht = 'start';
+            ansicht = wiederholFaecher.length > 0 ? 'wiederholen-regal' : 'start';
             void aktualisiere();
           }}
           onergebnis={(d) => void ergebnis(d)}

@@ -197,4 +197,30 @@
       grid-template-columns: repeat(3, 2.5rem);
     }
   }
+
+  /* Querformat Üben: kompakte Tastatur, ohne unter den Prüfen-Knopf zu rutschen */
+  @media (orientation: landscape) and (max-block-size: 30rem) {
+    .tastatur {
+      margin-block: 0.25rem;
+      gap: 0.35rem;
+      max-inline-size: none;
+    }
+
+    .ziffern {
+      grid-template-columns: repeat(3, 2.5rem);
+      gap: 0.35rem;
+    }
+
+    .zusatz {
+      grid-template-columns: repeat(auto-fill, 2.5rem);
+      inline-size: 2.5rem;
+      gap: 0.35rem;
+    }
+
+    button {
+      min-block-size: var(--ziel);
+      min-inline-size: var(--ziel);
+      font-size: 1.1rem;
+    }
+  }
 </style>

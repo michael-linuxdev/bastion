@@ -1,6 +1,8 @@
 // Darstellung anwenden (GRAFIK §2, §3): schreibt die Tokens der gewählten Fassung
 // als CSS-Variablen an <html>. „System“ folgt der Einstellung des Geräts, auch
 // wenn sie sich ändert, während die App offen ist. Kontrast (V110) verstärkt Text.
+// Design L61: Lernflächen bleiben hell; Abend/Nacht nur in der Bastion-Szene
+// (`szeneAbend` liest weiter `darstellung.modus` / `darstellung.dunkel`).
 import type { Modus } from '../../core/policy/einstellung';
 import { FASSUNGEN, STANDARD_FASSUNG, type FassungName } from './fassungen';
 
@@ -24,30 +26,24 @@ function anwenden() {
   const dunkel =
     darstellung.modus === 'dunkel' || (darstellung.modus === 'system' && systemDunkel());
   const wurzel = document.documentElement;
-  for (const [rolle, wert] of Object.entries(dunkel ? fassung.dunkel : fassung.hell)) {
+  for (const [rolle, wert] of Object.entries(fassung.hell)) {
     wurzel.style.setProperty(`--${rolle}`, wert);
   }
   for (const [rolle, wert] of Object.entries(fassung.form)) {
     wurzel.style.setProperty(`--${rolle}`, wert);
   }
-  // Kräftiger Text (V110): dunklere/hellere Textfarben, etwas stärkerer Kontrast
+  // Kräftiger Text (V110): dunklere Textfarben, etwas stärkerer Kontrast.
+  // Lernflächen sind immer hell (Design L61), daher nur die Hell-Werte.
   if (darstellung.kontrast) {
-    if (dunkel) {
-      wurzel.style.setProperty('--farbe-text', '#fffaf2');
-      wurzel.style.setProperty('--farbe-text-leise', '#e8dfd0');
-      wurzel.style.setProperty('--farbe-rand', '#6a5f52');
-    } else {
-      wurzel.style.setProperty('--farbe-text', '#14110e');
-      wurzel.style.setProperty('--farbe-text-leise', '#3a342c');
-      wurzel.style.setProperty('--farbe-rand', '#b8ab97');
-    }
+    wurzel.style.setProperty('--farbe-text', '#14110e');
+    wurzel.style.setProperty('--farbe-text-leise', '#3a342c');
+    wurzel.style.setProperty('--farbe-rand', '#b8ab97');
   }
-  wurzel.style.colorScheme = dunkel ? 'dark' : 'light';
-  wurzel.dataset['modus'] = dunkel ? 'dunkel' : 'hell';
+  wurzel.style.colorScheme = 'light';
+  wurzel.dataset['modus'] = 'hell';
+  wurzel.dataset['bastionAbend'] = dunkel ? 'ja' : 'nein';
   wurzel.dataset['kontrast'] = darstellung.kontrast ? 'stark' : 'normal';
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute('content', dunkel ? fassung.leiste.dunkel : fassung.leiste.hell);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', fassung.leiste.hell);
   darstellung.dunkel = dunkel;
 }
 

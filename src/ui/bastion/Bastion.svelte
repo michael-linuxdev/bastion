@@ -16,7 +16,6 @@
     kosten,
     type Bauwerk,
     type GebaeudeTyp,
-    type Kosten,
   } from '../../core/bastion/katalog';
   import {
     bauAusfuehren,
@@ -185,17 +184,6 @@
 
   const name = gebaeudeName;
   const wozu = gebaeudeWozu;
-
-  function kostenText(k: Kosten): string {
-    return [
-      k.fleiss > 0 ? menge('fleiss', k.fleiss) : '',
-      k.behalten > 0 ? menge('behalten', k.behalten) : '',
-      k.koennen > 0 ? menge('koennen', k.koennen) : '',
-      k.schritt > 0 ? menge('schritt', k.schritt) : '',
-    ]
-      .filter(Boolean)
-      .join(' · ');
-  }
 
   function hindernisText(h: BauHindernis, typ: GebaeudeTyp, stufe: number): string {
     if (h === 'voraussetzung') {
@@ -556,13 +544,11 @@
         {/if}
 
         {#snippet angebot(a: Angebot)}
-          {@const k = kosten(a.typ, a.stufe)}
           <li>
             <span>
               <strong>{name(a.typ)}</strong>
               {#if a.ausbau}{tt('bastion.auf-stufe')} {a.stufe}{/if}
               <br /><small class="leise">{wozu(a.typ)}</small>
-              {#if k}<br /><small>{tt('bastion.kosten')} {kostenText(k)}</small>{/if}
               {#each einzeln(a.hindernisse) as h (h)}
                 <br /><small class="hindernis">{hindernisText(h, a.typ, a.stufe)}</small>
               {/each}

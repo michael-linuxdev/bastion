@@ -332,16 +332,25 @@
           {/if}
 
           {#if aufgabe.frueher}
-            <p class="damals">
-              {t('werkstatt.damals')}
-              <strong
-                >{antwortText(
-                  aufgabe.frueher,
-                  aufgabe.instanz.optionen,
-                  aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-                )}</strong
-              >
-            </p>
+            <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
+              <div class="seite damals">
+                <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
+                <p class="seite-wert">
+                  <strong
+                    >{antwortText(
+                      aufgabe.frueher,
+                      aufgabe.instanz.optionen,
+                      aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                    )}</strong
+                  >
+                </p>
+                <p class="seite-leise">{t('werkstatt.damals')}</p>
+              </div>
+              <div class="seite heute">
+                <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
+                <p class="seite-leise">{t('uebung.deine-antwort')}</p>
+              </div>
+            </div>
           {/if}
 
           {#if hilfen > 0 && ergebnis === undefined}
@@ -634,6 +643,49 @@
     background: var(--farbe-hinweis-flaeche);
   }
 
+  .paar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+    align-items: stretch;
+  }
+
+  .seite {
+    border-radius: var(--radius);
+    padding: var(--abstand-s);
+    flex: 1 1 8rem;
+  }
+
+  .seite.damals {
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text-leise);
+  }
+
+  .seite.heute {
+    flex: 2 1 14rem;
+    background: color-mix(in srgb, var(--farbe-flaeche) 70%, var(--farbe-akzent));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 25%, transparent);
+  }
+
+  .seite-titel {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .seite-wert {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--farbe-text);
+  }
+
+  .seite-leise {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+  }
+
   .damals {
     color: var(--farbe-text-leise);
     margin-block: 0;
@@ -802,6 +854,62 @@
     min-block-size: var(--ziel);
     display: flex;
     align-items: center;
+  }
+
+  /* Querformat: Prüfen/Tastatur ohne Scroll-Kampf (Design L64) */
+  @media (orientation: landscape) and (max-block-size: 30rem) {
+    .uebung {
+      gap: var(--abstand-s);
+      min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 1rem);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+    }
+
+    .kopf {
+      gap: 0.25rem var(--abstand-s);
+    }
+
+    h2 {
+      font-size: 1.125rem;
+    }
+
+    .session {
+      padding-block: 0.25rem;
+      padding-inline: var(--abstand-s);
+      font-size: 0.875rem;
+    }
+
+    .aufgabe {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto auto;
+      gap: var(--abstand-s);
+      min-block-size: 0;
+      overflow: hidden;
+      padding: var(--abstand-s);
+    }
+
+    .text {
+      font-size: 1.125rem;
+      overflow: auto;
+      min-block-size: 0;
+      max-block-size: 30dvh;
+    }
+
+    .bild {
+      max-block-size: 18dvh;
+      overflow: auto;
+    }
+
+    .knoepfe {
+      position: sticky;
+      inset-block-end: 0;
+      padding-block: 0.25rem;
+      background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+      z-index: 1;
+    }
+
+    .fertig {
+      margin-block-start: 0;
+    }
   }
 
   .pause {

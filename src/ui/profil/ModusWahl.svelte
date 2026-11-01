@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Hell, dunkel oder wie das Gerät (GRAFIK §2). Gilt sofort und wird gemerkt.
+  // Abend in der Bastion (GRAFIK §2, Design L61): Lernflächen bleiben hell.
   // Plus kräftiger Text (V110) und Sound-Stufen (W113).
   import { MODI, SOUND_STUFEN, type SoundStufe } from '../../core/policy/einstellung';
   import { darstellung, darstellungSetzen, kontrastAnwenden } from '../grafik/darstellung.svelte';

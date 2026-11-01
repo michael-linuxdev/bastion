@@ -45,6 +45,7 @@
     onschliessen: () => void;
   } = $props();
 
+  /** Kosten und Details erst nach bewusster Auswahl (Design L57). */
   let gewaehlt = $state<BauAngebot | undefined>(undefined);
   let vorschauFarbe = $state<Farbe | undefined>(undefined);
 
@@ -52,8 +53,7 @@
 
   $effect(() => {
     const g = gewaehlt;
-    if (g && !alle.some((a) => gleich(a, g))) gewaehlt = alle[0];
-    else if (!g && alle.length > 0) gewaehlt = alle[0];
+    if (g && !alle.some((a) => gleich(a, g))) gewaehlt = undefined;
   });
 
   $effect(() => {

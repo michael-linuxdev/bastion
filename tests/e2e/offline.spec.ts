@@ -1,7 +1,14 @@
 import { expect, test, type Page } from '@playwright/test';
 
+/** Erste Minute öffnen: Kacheln wieder zeigen. */
+async function hubVoll(seite: Page) {
+  const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
+  if (await entdecken.isVisible().catch(() => false)) await entdecken.click();
+}
+
 /** „Mehr“ vom Start-Hub öffnen */
 async function mehr(seite: Page) {
+  await hubVoll(seite);
   await seite.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
 }
 
@@ -57,12 +64,14 @@ test('Grafik der Bastion: erst beim Öffnen geladen, danach auch ohne Netz', asy
   expect(grafik).toEqual([]);
 
   await page.getByRole('button', { name: 'Zurück' }).click();
+  await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await expect(page.locator('.bauplatz canvas').first()).toBeVisible({ timeout: 30_000 });
   expect(grafik.length).toBeGreaterThan(0);
 
   await context.setOffline(true);
   await page.reload();
+  await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   // .first(): kurzzeitig können zwei Canvas existieren, bis der Effekt aufräumt
   await expect(page.locator('.bauplatz canvas').first()).toBeVisible({ timeout: 30_000 });
