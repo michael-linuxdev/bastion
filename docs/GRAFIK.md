@@ -307,7 +307,7 @@ Nebenbefund: Die Sprechblase „Hier kann etwas stehen.“ unter dem Bauplatz is
 
 Der Bergfried, Thema Bastion, Epoche 1, Stufen 1–3, wird zweimal gebaut: (a) mit dem eigenen Generator, stark ausgebaut, und (b) aus dem CC0-Bausatz „Castle Kit 1.0“ von Kenney (isometrische Turmteile zum Stapeln). Der PV wählt anhand eines Vergleichsbilds. Bis dahin entsteht nichts davon im Atlas.
 
-**Stand 01.11.2026, beide Varianten gebaut, Wahl des PV offen.** Skripte: `tools/grafik/probe/bergfried-a-generator.py <ausgabe>` und `tools/grafik/probe/bergfried-b-kenney.py <castle-kit-1.0/Isometric> <ausgabe>`. Beide schreiben nur in einen Ordner außerhalb des Repositorys. Der Bausatz für (b) stammt aus dem Spiegel `github.com/ETdoFresh/kenney.nl`, weil kenney.nl aus der Cloud-Sitzung gesperrt ist; `License.txt` (CC0) liegt dort bei.
+**Stand 01.11.2026, beide Varianten gebaut. Wahl des PV (01.11.2026 abends): (a) eigener Generator, und zwar für alles in der Bastion (Gebäude, Boden, Umgebung, Wesen, Himmel), einheitlich für jedes Thema. Schwellwert Umriss 25 %, Höhe 15 %. Vor U4b nur Thema `bastion` (`FOKUS.md` „Entscheidungen“).** Skripte: `tools/grafik/probe/bergfried-a-generator.py <ausgabe>` und `tools/grafik/probe/bergfried-b-kenney.py <castle-kit-1.0/Isometric> <ausgabe>`. Beide schreiben nur in einen Ordner außerhalb des Repositorys. Der Bausatz für (b) stammt aus dem Spiegel `github.com/ETdoFresh/kenney.nl`, weil kenney.nl aus der Cloud-Sitzung gesperrt ist; `License.txt` (CC0) liegt dort bei.
 
 | | Stufe 1 | Stufe 2 | Stufe 3 | Höhe + (1→2 / 2→3) | Umriss anders (1→2 / 2→3) | Dateigröße s1–s3 |
 |---|---|---|---|---|---|---|
