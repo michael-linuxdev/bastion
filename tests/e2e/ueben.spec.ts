@@ -1044,8 +1044,12 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.kamera')).toBe('');
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  // Nach der Rückkehr baut sich das Bild neu auf (Kamera, Atlas). Ein Tipper in dieser Zeit
+  // geht ins Leere; darum antippen, bis die Wahl erscheint (CI war hier manchmal rot).
+  await expect(async () => {
+    await tippe(0, 11);
+    await expect(wahl).toContainText('Feuerstelle', { timeout: 1500 });
+  }).toPass({ timeout: 15_000 });
 
   // Bild ausblenden: nur noch in den Einstellungen – auch nach dem Neuladen
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
