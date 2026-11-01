@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Musterfeld Brüche steht auf Stufe 1 (31.10.2026). Jetzt durch eine Lehrkraft prüfen lassen (Prüfbogen), Ergebnisse einarbeiten, Stufe 2 setzen; dann U4b, der Test mit drei Lernenden |
-| Nächster Schritt Grafik | Spez + App-Menü + Design-Bündel (Hub/Bau/Eltern/Typo) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design L53–L64. Design-Wellen A–Z in PRs; Backlog AA–ZZ (BA–BZ) in `docs/DESIGN-IDEEN.md`. Optional: Jahreszeit-Feinheit, Ambient; Messung iPhone 13; Testerinnen mit U4b |
+| Nächster Schritt Grafik | Spez + App-Menü + Design-Bündel (Hub/Bau/Eltern/Typo) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design L53–L64 + Design „Danach“. Design-Wellen A–Z in PRs; Backlog AA–ZZ (BA–BZ) in `docs/DESIGN-IDEEN.md`. Optional: Jahreszeit-Feinheit, Ambient; Messung iPhone 13; Testerinnen mit U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -246,6 +246,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **Zwischenschritt Themen (B-17):** 2.10a Rollen statt Burg-Wörter ✅ · 2.10b Themen und Wahl (Bastion, Garten, Weltraum, Dorf, Unterwasser) ✅ · Dorfbilder zum Thema Dorf ✅ (`GRAFIK.md` §6, 30.10.2026)
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
+- **Design „Danach“ (31.10.2026):** Themen-Landkarte, stiller Abschluss→Bastion, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern-Werkstatt / Kind-Ort ✅
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 

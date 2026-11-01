@@ -600,6 +600,7 @@
       klassenarbeit={klassenarbeit?.termin}
       {sichern}
       {testphase}
+      erstesMal={aufgabenListe.length === 0}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -755,6 +756,7 @@
           buchungen={buchungsListe}
           {basebau}
           onstart={() => (ansicht = 'start')}
+          onbastion={() => gehe('bastion')}
         />
       {:else if ansicht === 'eltern'}
         <button

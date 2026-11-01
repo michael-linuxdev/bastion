@@ -15,6 +15,7 @@
   import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholung, sitzt, statusVon } from './stand';
+  import ThemenLandkarte from './ThemenLandkarte.svelte';
 
   let {
     kompetenzen,
@@ -69,9 +70,9 @@
   const ABSCHNITTE: readonly AnzeigeStatus[] = ['auffrischen', 'in-arbeit', 'gekonnt', 'gefestigt'];
 </script>
 
-<section class="stand">
+<section class="stand register-ort">
   <h2>{t('stand.ueberschrift')}</h2>
-  <p class="leise">{t('stand.einleitung')}</p>
+  <p class="leise">{t('stand.landkarte-hinweis')}</p>
 
   <fieldset class="niveau">
     <legend>{t('niveau.ueberschrift')}</legend>
@@ -90,6 +91,8 @@
     {gruppe('in-arbeit').length}
     {t('status.in-arbeit')}
   </p>
+
+  <ThemenLandkarte {themen} {status} {onueben} />
 
   {#if !angefangen}
     <p>{t('stand.leer')}</p>

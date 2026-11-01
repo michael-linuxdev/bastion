@@ -332,16 +332,25 @@
           {/if}
 
           {#if aufgabe.frueher}
-            <p class="damals">
-              {t('werkstatt.damals')}
-              <strong
-                >{antwortText(
-                  aufgabe.frueher,
-                  aufgabe.instanz.optionen,
-                  aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-                )}</strong
-              >
-            </p>
+            <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
+              <div class="seite damals">
+                <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
+                <p class="seite-wert">
+                  <strong
+                    >{antwortText(
+                      aufgabe.frueher,
+                      aufgabe.instanz.optionen,
+                      aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                    )}</strong
+                  >
+                </p>
+                <p class="seite-leise">{t('werkstatt.damals')}</p>
+              </div>
+              <div class="seite heute">
+                <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
+                <p class="seite-leise">{t('uebung.deine-antwort')}</p>
+              </div>
+            </div>
           {/if}
 
           {#if hilfen > 0 && ergebnis === undefined}
@@ -625,6 +634,49 @@
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
     background: var(--farbe-hinweis-flaeche);
+  }
+
+  .paar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+    align-items: stretch;
+  }
+
+  .seite {
+    border-radius: var(--radius);
+    padding: var(--abstand-s);
+    flex: 1 1 8rem;
+  }
+
+  .seite.damals {
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text-leise);
+  }
+
+  .seite.heute {
+    flex: 2 1 14rem;
+    background: color-mix(in srgb, var(--farbe-flaeche) 70%, var(--farbe-akzent));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 25%, transparent);
+  }
+
+  .seite-titel {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .seite-wert {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--farbe-text);
+  }
+
+  .seite-leise {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
   }
 
   .damals {

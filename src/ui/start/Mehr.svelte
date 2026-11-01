@@ -41,7 +41,7 @@
   <ul class="liste">
     {#each eintraege as e (e.ziel)}
       <li>
-        <button onclick={() => onziel(e.ziel)} class:eltern={e.ziel === 'eltern'}>
+        <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
           <Symbol name={e.symbol} />
           <span>{e.name}</span>
         </button>
@@ -125,10 +125,12 @@
     text-align: start;
     cursor: pointer;
   }
-  button.eltern {
-    background: var(--farbe-flaeche-leise);
+  button.werkstatt {
+    border-radius: 4px;
     box-shadow: none;
     border: 1px solid var(--farbe-rand);
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 90%, var(--farbe-text) 5%);
+    font-weight: 600;
   }
   .versprechen {
     color: var(--farbe-text-leise);

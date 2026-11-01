@@ -124,7 +124,7 @@
   }
 </script>
 
-<section class="eltern">
+<section class="eltern register-werkstatt">
   <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
   <p class="werkstatt-hinweis">{t('eltern.werkstatt-hinweis')}</p>
@@ -248,9 +248,9 @@
   .eltern {
     display: grid;
     gap: var(--abstand-s);
-    padding: var(--abstand-s);
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche-leise);
+    padding: var(--abstand-m);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 85%, var(--farbe-text) 4%);
     border: 1px solid var(--farbe-rand);
   }
 
@@ -270,8 +270,18 @@
 
   .werkstatt-hinweis {
     margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
     color: var(--farbe-text-leise);
-    font-size: 0.95rem;
+    border-block-end: 1px solid var(--farbe-rand);
+    padding-block-end: var(--abstand-s);
+  }
+
+  h2 {
+    margin-block: 0 var(--abstand-s);
+    font-size: 1.25rem;
   }
 
   form {
@@ -290,8 +300,8 @@
     font-size: 1.25rem;
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-s);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius);
+    border: 1px solid var(--farbe-rand);
+    border-radius: 2px;
     background: var(--farbe-flaeche);
     color: var(--farbe-text);
   }
@@ -300,8 +310,8 @@
     font: inherit;
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
+    border-radius: 2px;
+    border: 1px solid var(--farbe-akzent);
     background: transparent;
     color: var(--farbe-text);
     cursor: pointer;
@@ -309,8 +319,9 @@
   }
 
   .haupt {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
+    background: var(--farbe-text);
+    color: var(--farbe-flaeche);
+    border-color: var(--farbe-text);
   }
 
   .leise-knopf {

@@ -56,7 +56,7 @@
   );
 </script>
 
-<section class="uebersicht">
+<section class="uebersicht register-ort">
   <h2>{t('uebersicht.ueberschrift')}</h2>
   <p class="entwurf">{t('uebersicht.entwurf')}</p>
   <p class="leise">{t('uebersicht.gespeichert')}</p>

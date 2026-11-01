@@ -50,6 +50,7 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
 - **Bau-Blatt (31.10.2026):** Mini-Szene-Vorschau, Kostenstapel, Planen (Skizze) vs. Bauen (Stein setzen), Farbe am Banner, gesperrte Gebäude als Silhouette „Noch nicht“.
 - **Test-Rohstoffe (31.10.2026):** Eltern-Schalter `bastion.test-rohstoffe` – virtueller Vorrat und Probe-Bastion nur im Speicher; Ledger und Lernfortschritt unberührt. Banner „Probe-Ansicht“ auf der Bastion.
 - **Design-Bündel (31.10.2026):** Hub-Türen/Ortsnamen, HUD als Beutel mit Material-Icons, Bauen-Werkzeug am Szenenrand, leere Bastion mit Einladung, Eltern-Werkstatt-Optik, Display-/Text-Schriftrollen (Nunito), 2–3 bewusste Bewegungen (Wolken, Einblenden).
+- **Design „Danach“ (31.10.2026):** Themen-Landkarte in Mein Stand / Gerade-dran; stiller Abschluss-Übergang (Stein/Beutel → Bastion); Fehlerwerkstatt als Damals/Heute-Paar; Bewohner-Statusgesten über dem Kopf; Geste-Sprache Tippen=wählen / Ziehen=bewegen; Onboarding erste Minute (ein Satz + Üben); Eltern-Werkstatt vs. Kind-Ort als zwei visuelle Register.
 
 
 ## 2. Hell, dunkel, System
