@@ -68,7 +68,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
-- (noch keine)
+- ~~Startseite aus Paket L (L16, L17)~~ – erledigt 01.11.2026 vom Lernkern auf Wunsch des PV: „Über mich“ unter den Türen, kein Schild im Bastion-Bild, Bild schwebt ohne freie Kante (`MiniBastion.svelte`), Gruß nach dem ersten Üben ohne „Willkommen“.
 
 ---
 

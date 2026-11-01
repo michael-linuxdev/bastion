@@ -178,6 +178,10 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 4. **Grenzen:** Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9); R1–R7. Funde auf der Startseite (`src/ui/start/`, Bereich Grafik) kommen als Wunsch in `GRAFIK.md`, der Grafik-Strang erledigt sie neben G.
 **Stand 01.11.2026:** Schritte 1 und 2 erledigt. Mängelliste L1–L19 an den PV geschickt: A Fehler (L1–L6), B Verständlichkeit (L7–L11), C Bedienung am Handy (L12–L15), D Startseite und Themenwahl (L16–L19, Bereich Grafik). Kein JS-Fehler, kein seitlicher Überlauf. **Auswahl des PV (01.11.2026, Schritt 3):** alle Punkte L1–L19 vor dem Test, dazu **L20: Die Tastatur nutzt die ganze Breite des Bildschirms** (heute nur die linke Hälfte). Gruppe D (Startseite, Themenwahl) macht ausnahmsweise der Lernkern, je ein eigener Commit mit Protokollzeile in beiden Strängen.
 
+**Stand 01.11.2026 abends (Schritt 4, Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Erledigt L1–L17, L19, L20 (L3 war schon richtig). Offen:
+- **L18 Themenwahl kürzen:** Nur der Teil „Neues Thema freigeschaltet erst nach dem ersten Üben“ ist erledigt. Das Einklappen der Bereiche war gebaut, ließ aber den Browser-Test „Zeichen-Anleitung“ scheitern und ist zurückgenommen. Nächster Versuch: Bereiche einklappen, Test mit Aufklappen des Bereichs anpassen.
+- Danach: Rundgang wiederholen, Bildschirmfotos an den PV, Abnahme (Schritt 5).
+
 5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
@@ -312,4 +316,4 @@ Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `
 
 ### Übergaben
 
-- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Danach auf Wunsch des PV: Paket L vor F2 eingefügt, Einfrieren beginnt erst mit der Abnahme von L. Als Nächstes: L, dann F2.
+- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Danach auf Wunsch des PV: Paket L vor F2 eingefügt, Einfrieren beginnt erst mit der Abnahme von L. Paket L: Bestandsaufnahme, Auswahl des PV, L1–L17, L19, L20 umgesetzt. Als Nächstes: L18 fertig, Rundgang, Abnahme L; dann F2.

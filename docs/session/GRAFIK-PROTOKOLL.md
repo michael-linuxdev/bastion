@@ -41,3 +41,4 @@
 | 01.11.2026 | **Fokus Paket G:** Bauen und Ausbau einfacher, Stufen sichtbar unterschiedlich (PV); Vorrang vor F2–F10, U4b erst nach Abnahme (`docs/session/FOKUS.md`) |
 | 01.11.2026 | **F1 Fokus:** Rückfragen beantwortet (FOKUS.md „Entscheidungen“, T-20); Lern-Oberfläche eingefroren (SESSION-PROMPT Regel 7, AGENTS.md), Grafik nur Paket G, Design-Wellen und Backlog AA–ZZ ruhen bis nach U4b |
 | 01.11.2026 | **Fokus Paket L:** Lern-Oberfläche erst abschließen, dann einfrieren (PV); L vor F2, U4b erst nach Abnahme von L und G (FOKUS.md, SESSION-PROMPT Regel 7, AGENTS.md) |
+| 01.11.2026 | **Paket L (Lern-Oberfläche):** Mängelliste L1–L20, umgesetzt L1–L17, L19, L20; Startseite (L16, L17) und `MiniBastion` vom Lernkern auf Wunsch des PV; offen L18 und Abnahme |
