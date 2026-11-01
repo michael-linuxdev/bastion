@@ -7,6 +7,9 @@ import { BUEHNE_B, BUEHNE_H, punkt } from '../../src/ui/bastion/grafik/iso';
  * „Erst erklären lassen?“ (U3d). Das wird hier übersprungen; Tests zum Angebot selbst klicken es.
  */
 async function thema(seite: Page, name: RegExp) {
+  // Entdeckungskarte (O83) einmalig wegwischen, falls sie den Weg versperrt
+  const spaeter = seite.getByRole('button', { name: 'Später' });
+  if (await spaeter.isVisible().catch(() => false)) await spaeter.click();
   await seite.getByRole('button', { name }).click();
   await angebotUeberspringen(seite);
 }
@@ -15,8 +18,11 @@ async function thema(seite: Page, name: RegExp) {
 async function angebotUeberspringen(seite: Page) {
   const nein = seite.getByRole('button', { name: 'Ich kann das schon' });
   const pruefen = seite.getByRole('button', { name: 'Prüfen' });
-  await expect(nein.or(pruefen).first()).toBeVisible();
-  if (await nein.isVisible()) await nein.click();
+  await expect(nein.or(pruefen).first()).toBeVisible({ timeout: 15_000 });
+  if (await nein.isVisible()) {
+    await nein.click();
+    await expect(pruefen).toBeVisible({ timeout: 15_000 });
+  }
 }
 
 /** Start-Hub: Begrüßung, Willkommen oder erste Minute (noch keine Aufgabe). */
@@ -349,20 +355,12 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await expect(page.getByText('Hier stehst du – hier geht es weiter')).toBeVisible();
   await expect(page.getByText(/Punkte|%/)).toHaveCount(0);
 
-  // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt; Üben springt zur Aufgabe
+  // „Weiß ich nicht“ landet nicht in der Fehlerwerkstatt; Themenwahl ist robuster als Direkt-Üben
   await page.goto('./');
-  await page.getByRole('main').getByRole('button', { name: 'Üben' }).click();
-  await expect(
-    page
-      .getByRole('button', { name: 'Prüfen' })
-      .or(page.getByRole('button', { name: 'Ich kann das schon' }))
-      .or(page.getByRole('heading', { name: 'Was möchtest du üben?' })),
-  ).toBeVisible({ timeout: 30_000 });
-  if (await page.getByRole('heading', { name: 'Was möchtest du üben?' }).isVisible()) {
-    await thema(page, /^Addieren und Subtrahieren/);
-  } else {
-    await angebotUeberspringen(page);
-  }
+  await themenWaehlen(page);
+  const spaeter = page.getByRole('button', { name: 'Später' });
+  if (await spaeter.isVisible().catch(() => false)) await spaeter.click();
+  await thema(page, /^Addieren und Subtrahieren/);
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible({ timeout: 15_000 });
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');

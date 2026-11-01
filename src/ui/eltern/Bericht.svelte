@@ -30,7 +30,8 @@
   const jetzt = Date.now();
   const lehrkraft = $derived(lehrkraftBericht(kompetenzen, [...zustand.staende.values()], klasse));
   const feldName = (f: string) => t(`feld.${f}` as TextSchluessel);
-  const namen = (ids: readonly string[]) => ids.map((id) => titel.get(id) ?? id).join(', ');
+  const namen = (ids: readonly string[]) =>
+    ids.map((id) => titel.get(id) ?? t('paket.fehlt')).join(', ');
   /** Der Bericht als einfacher Text – zum Speichern, Ausdrucken oder Zeigen */
   const lehrkraftText = $derived(
     [
@@ -233,7 +234,7 @@
             <tr>
               <td>{zeit(e.ts)}</td>
               <td>
-                {titel.get(e.kompetenz) ?? e.kompetenz} ·
+                {titel.get(e.kompetenz) ?? t('paket.fehlt')} ·
                 {t(e.niveau === 'G' ? 'niveau.G' : 'niveau.M')}
                 <small>{t(`modus.${e.modus}` as TextSchluessel)}</small>
               </td>

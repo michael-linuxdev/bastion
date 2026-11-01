@@ -263,7 +263,12 @@
     `${tt('bastion.spalte')} ${x + 1}, ${tt('bastion.reihe')} ${y + 1}`;
 </script>
 
-<section class="bastion" class:szene={geladen && !!lage && !einstellungenOffen}>
+<section
+  class="bastion"
+  class:szene={geladen && !!lage && !einstellungenOffen}
+  class:probe={testRohstoffe && !einstellungenOffen}
+  aria-label={testRohstoffe ? t('bastion.probe-rand') : undefined}
+>
   {#if !(geladen && lage && !einstellungenOffen)}
     <header class="kopf">
       <h2>{tt('bastion.ueberschrift')}</h2>
@@ -858,6 +863,25 @@
     inline-size: 1.25rem;
     block-size: 1.25rem;
     color: var(--farbe-akzent);
+  }
+
+  /* Probe-Bastion: Skizzenpapier-Rand (M73) */
+  .bastion.probe.szene {
+    outline: 3px dashed color-mix(in srgb, var(--farbe-akzent-warm) 70%, var(--farbe-rand));
+    outline-offset: -6px;
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--farbe-flaeche) 35%, transparent),
+        color-mix(in srgb, var(--farbe-flaeche) 35%, transparent)
+      ),
+      repeating-linear-gradient(
+        -12deg,
+        transparent,
+        transparent 11px,
+        color-mix(in srgb, var(--farbe-rand) 18%, transparent) 11px,
+        color-mix(in srgb, var(--farbe-rand) 18%, transparent) 12px
+      );
+    background-blend-mode: multiply;
   }
 
   @media (orientation: landscape) and (height < 30rem) {

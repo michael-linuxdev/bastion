@@ -39,4 +39,23 @@ describe('pfad', () => {
     expect(a).toEqual(b);
     expect(feldFrei(a.x, a.y, belegt, PLATZ)).toBe(true);
   });
+
+  it('Vorhaben-Geister belegen Felder wie fertige Gebäude', () => {
+    const vorhaben = [
+      {
+        id: 'v1',
+        gebaeude: 'g1',
+        typ: 'turm' as const,
+        stufe: 1,
+        pos: { x: 4, y: 4 },
+        bedarf: 3,
+        fortschritt: 1,
+        erstattbar: 1,
+        begonnen: 0,
+      },
+    ];
+    const belegt = belegteFelder([], vorhaben);
+    expect(belegt.has('4,4')).toBe(true);
+    expect(belegt.has('5,5')).toBe(false);
+  });
 });

@@ -43,6 +43,8 @@
   const empfehlungen = $derived(
     new Set(empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)))),
   );
+  /** Ruhige Entdeckungskarte einmalig pro Sitzung (O83) */
+  let entdeckungWeg = $state(false);
 
   const bereiche = $derived(
     BEREICHE.map((bereich) => ({
@@ -64,11 +66,46 @@
   <p class="entwurf">{t('uebersicht.entwurf')}</p>
   <p class="leise">{t('uebersicht.gespeichert')}</p>
 
-  <fieldset class="niveau">
-    <legend>{t('niveau.ueberschrift')}</legend>
-    <label><input type="radio" value="G" bind:group={niveau} /> {t('niveau.G')}</label>
-    <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
+  <fieldset class="niveau steine">
+    <legend>{t('niveau.stufe')}</legend>
+    <label class="stein" class:aktiv={niveau === 'G'}>
+      <input type="radio" value="G" bind:group={niveau} />
+      <span class="kette" aria-hidden="true"
+        ><span class="kiesel voll"></span><span class="kiesel"></span></span
+      >
+      <span>{t('niveau.stein-g')}</span>
+    </label>
+    <label class="stein" class:aktiv={niveau === 'M'}>
+      <input type="radio" value="M" bind:group={niveau} />
+      <span class="kette" aria-hidden="true"
+        ><span class="kiesel voll"></span><span class="kiesel voll"></span></span
+      >
+      <span>{t('niveau.stein-m')}</span>
+    </label>
   </fieldset>
+
+  {#if empfehlungen.size > 0 && !entdeckungWeg}
+    {@const neu = [...empfehlungen][0]}
+    {@const k = kompetenzen.find((x) => x.id === neu)}
+    {#if k}
+      <aside class="entdeckung" role="status">
+        <p class="entdeckung-titel">{t('entdeckung.neu')}</p>
+        <p>{k.titel.de}</p>
+        <div class="entdeckung-knoepfe">
+          <button
+            class="haupt"
+            onclick={() => {
+              entdeckungWeg = true;
+              onwahl(k);
+            }}>{t('entdeckung.weiter')}</button
+          >
+          <button class="zweit" onclick={() => (entdeckungWeg = true)}
+            >{t('entdeckung.spaeter')}</button
+          >
+        </div>
+      </aside>
+    {/if}
+  {/if}
 
   <KlassenWahl bind:klasse bind:schulart mitSchulart />
 
@@ -85,26 +122,29 @@
   <h3>{t('klasse.name')} {klasse}</h3>
   {#each bereiche as b (b.bereich)}
     <h4>{t(`bereich.${b.bereich}` as TextSchluessel)}</h4>
-    <ul class="liste">
+    <ul class="orte">
       {#each b.kompetenzen as k (k.id)}
         <li>
-          <button onclick={() => onwahl(k)}>
-            <span class="titel">
-              {k.titel.de}
-              {#if status(k) !== 'neu'}
-                <span class="status {status(k)}">
-                  {status(k) === 'gekonnt' || status(k) === 'gefestigt' ? '✓ ' : ''}{t(
-                    `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
-                  )}
-                </span>
-              {:else if vermittelt.has(k.id)}
-                <span class="status">{t('vermittlung.erklaert')}</span>
-              {:else if empfehlungen.has(k.id)}
-                <span class="status empfohlen">{t('status.empfohlen')}</span>
-              {/if}
+          <button class="ort" onclick={() => onwahl(k)}>
+            <span class="ort-bild" aria-hidden="true" data-feld={k.feld ?? b.bereich}></span>
+            <span class="ort-text">
+              <span class="titel">
+                {k.titel.de}
+                {#if status(k) !== 'neu'}
+                  <span class="status {status(k)}">
+                    {status(k) === 'gekonnt' || status(k) === 'gefestigt' ? '✓ ' : ''}{t(
+                      `status.${status(k) as 'in-arbeit' | 'gekonnt' | 'gefestigt' | 'auffrischen'}`,
+                    )}
+                  </span>
+                {:else if vermittelt.has(k.id)}
+                  <span class="status">{t('vermittlung.erklaert')}</span>
+                {:else if empfehlungen.has(k.id)}
+                  <span class="status empfohlen">{t('status.empfohlen')}</span>
+                {/if}
+              </span>
+              <span class="kann">{k.kann_satz.de}</span>
+              <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
             </span>
-            <span class="kann">{k.kann_satz.de}</span>
-            <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
           </button>
         </li>
       {/each}
@@ -127,16 +167,94 @@
 
   .niveau {
     display: flex;
-    gap: var(--abstand-m);
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
     border: 1px solid var(--farbe-rand);
     border-radius: var(--radius);
+    padding: var(--abstand-s);
   }
 
-  .niveau label {
+  .niveau.steine {
+    gap: var(--abstand-m);
+  }
+
+  .stein {
     min-block-size: 2.75rem;
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
+    padding-inline: var(--abstand-s);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .stein.aktiv {
+    background: var(--farbe-flaeche-leise);
+  }
+
+  .stein input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .kette {
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+
+  .kiesel {
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+    border-radius: 50%;
+    background: var(--farbe-flaeche);
+    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
+  }
+
+  .kiesel.voll {
+    background: var(--farbe-akzent);
+    box-shadow: none;
+  }
+
+  .entdeckung {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-hinweis-flaeche);
+    border: 2px solid var(--farbe-hinweis-rand);
+  }
+
+  .entdeckung-titel {
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .entdeckung-knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+  }
+
+  .entdeckung .haupt,
+  .entdeckung .zweit {
+    font: inherit;
+    min-block-size: 2.75rem;
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .entdeckung .haupt {
+    border: none;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+  }
+
+  .entdeckung .zweit {
+    border: 2px solid var(--farbe-akzent);
+    background: transparent;
+    color: var(--farbe-text);
   }
 
   h4 {
@@ -144,7 +262,7 @@
     color: var(--farbe-akzent);
   }
 
-  .liste {
+  .orte {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -152,15 +270,17 @@
     gap: var(--abstand-s);
   }
 
-  .liste button {
+  .ort {
     font: inherit;
     inline-size: 100%;
     text-align: start;
     display: grid;
-    gap: 0.2rem;
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--abstand-s);
+    align-items: center;
     min-block-size: var(--ziel);
     padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
+    padding-inline: var(--abstand-s);
     border: 2px solid transparent;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
@@ -169,9 +289,27 @@
     cursor: pointer;
   }
 
-  .liste button:hover,
-  .liste button:focus-visible {
+  .ort:hover,
+  .ort:focus-visible {
     border-color: var(--farbe-akzent);
+  }
+
+  .ort-bild {
+    inline-size: 3.25rem;
+    block-size: 3.25rem;
+    border-radius: var(--radius);
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--farbe-akzent) 35%, var(--farbe-himmel, #cfe7f5)),
+      var(--farbe-akzent-warm)
+    );
+    box-shadow: inset 0 -0.55rem 0 color-mix(in srgb, var(--farbe-boden, #6b8f4e) 70%, transparent);
+  }
+
+  .ort-text {
+    display: grid;
+    gap: 0.2rem;
+    min-inline-size: 0;
   }
 
   .titel {

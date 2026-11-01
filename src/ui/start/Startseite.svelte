@@ -34,6 +34,7 @@
     klassenarbeit,
     sichern,
     testphase = false,
+    offenThema = undefined,
     nieGeuebt = false,
     /** Noch keine Aufgabe bearbeitet: erste Minute = ein Satz + ein Einstieg (J37) */
     erstesMal = false,
@@ -54,6 +55,8 @@
     sichern: boolean;
     /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
     testphase?: boolean;
+    /** Offene Übung vom „Später weiter“ (N78) */
+    offenThema?: string | undefined;
     /** Noch nie geübt (Y121): Satz + Wiederholen/Werkstatt ausgeblendet */
     nieGeuebt?: boolean;
     erstesMal?: boolean;
@@ -110,6 +113,13 @@
   </header>
 
   {@render children?.()}
+
+  {#if offenThema}
+    <button class="offen" onclick={() => onziel('ueben')}>
+      <Symbol name="ueben" />
+      <span>{t('hub.offen-weiter').replace('{thema}', offenThema)}</span>
+    </button>
+  {/if}
 
   {#if nieGeuebt && !ersteMinute}
     <p class="einladung">{t('start.nie-geuebt')}</p>
@@ -334,6 +344,22 @@
   .heute {
     font-size: 0.95rem;
     margin-block-end: var(--abstand-s);
+  }
+
+  .offen {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    inline-size: 100%;
+    min-block-size: 3rem;
+    margin-block-end: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border: 2px dashed var(--farbe-akzent);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    font-weight: 700;
+    text-align: start;
   }
 
   button {

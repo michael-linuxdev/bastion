@@ -46,7 +46,7 @@
   import type { Epoche } from '../../core/bastion/epochen';
   import type { Konto } from '../../core/ledger/buchung';
   import type { BewohnerArt, Taetigkeit } from './grafik/bewohner';
-  import type { TextSchluessel } from '../texte/texte';
+  import { t, type TextSchluessel } from '../texte/texte';
 
   let {
     bastion,
@@ -365,6 +365,8 @@
   let hinweis = $state<'kein-platz' | undefined>(undefined);
   /** Kurze Erklärung beim Antippen eines Bewohners (kein Timer-Druck) */
   let bewohnerHinweis = $state<{ art: BewohnerArt; taetigkeit: Taetigkeit } | undefined>(undefined);
+  /** Bestätigung vor Einlagern (M71) */
+  let entfernenFrage = $state(false);
   /** Zeiger ging auf dem gewählten Gebäude nieder → Ziehen versetzt statt Kamera */
   let ziehAufAuswahl = false;
 
@@ -378,6 +380,7 @@
     ziel = undefined;
     hinweis = undefined;
     bewohnerHinweis = undefined;
+    entfernenFrage = false;
   });
 
   function farben(): Farben {
@@ -674,7 +677,20 @@
         <strong>{gebaeudeName(gewaehlt.typ)}</strong>
         {#if KATALOG[gewaehlt.typ].stufen.length > 1}
           {tt('bastion.stufe')} {gewaehlt.stufe}{/if}
-        {#if versetzen}
+        {#if entfernenFrage}
+          <span>{t('bastion.entfernen-frage')}</span>
+          <span class="knoepfe">
+            <button
+              onclick={async () => {
+                const g = gewaehlt;
+                entfernenFrage = false;
+                if (g && (await onaktion({ art: 'einlagern', gebaeude: g.id })))
+                  auswahl = undefined;
+              }}>{t('bastion.entfernen-ja')}</button
+            >
+            <button onclick={() => (entfernenFrage = false)}>{tt('bastion.abbrechen')}</button>
+          </span>
+        {:else if versetzen}
           <span class:hinweis-platz={!!hinweis}
             >{tt(hinweis ? 'bastion.hindernis.belegt' : 'bastion.tippe-feld')}</span
           >
@@ -694,13 +710,7 @@
               }}>{tt('bastion.ziehen-versetzen')}</button
             >
             {#if einlagerbar(gewaehlt.typ)}
-              <button
-                onclick={async () => {
-                  const g = gewaehlt;
-                  if (g && (await onaktion({ art: 'einlagern', gebaeude: g.id })))
-                    auswahl = undefined;
-                }}>{tt('bastion.einlagern')}</button
-              >
+              <button onclick={() => (entfernenFrage = true)}>{tt('bastion.einlagern')}</button>
             {/if}
             <button onclick={() => (auswahl = undefined)}>{tt('bastion.fertig')}</button>
           </span>

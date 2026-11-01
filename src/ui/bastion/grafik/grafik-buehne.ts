@@ -13,6 +13,7 @@ import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
   KATALOG,
+  type Bauwerk,
   type Familie,
   type GebaeudeTyp,
   type Position,
@@ -214,6 +215,29 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
   g.moveTo(x + 2 * s, y + 2 * s)
     .lineTo(x + 2 * s, y + 5 * s - wip)
     .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
+}
+
+/** Trampelpfade zwischen Gebäuden – weich, ohne Grid-Zwang (P85). */
+function trampelpfade(g: Graphics, bauwerke: readonly Bauwerk[], farbe: string) {
+  if (bauwerke.length < 2) return;
+  const sortiert = [...bauwerke].sort(
+    (a, b) => a.pos.x + a.pos.y - (b.pos.x + b.pos.y) || a.id.localeCompare(b.id),
+  );
+  for (let i = 0; i < sortiert.length - 1; i++) {
+    const a = sortiert[i];
+    const b = sortiert[i + 1];
+    if (!a || !b) continue;
+    const [aw, at] = KATALOG[a.typ].groesse;
+    const [bw, bt] = KATALOG[b.typ].groesse;
+    const pa = punkt(a.pos.x + aw / 2, a.pos.y + at / 2);
+    const pb = punkt(b.pos.x + bw / 2, b.pos.y + bt / 2);
+    const mx = (pa.x + pb.x) / 2 + ((i % 2) * 2 - 1) * 6;
+    const my = (pa.y + pb.y) / 2 + 4;
+    g.moveTo(pa.x, pa.y + 2)
+      .lineTo(mx, my)
+      .lineTo(pb.x, pb.y + 2)
+      .stroke({ width: 3.2, color: farbe, alpha: 0.16 });
+  }
 }
 
 /** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
@@ -884,17 +908,18 @@ function insel(g: Graphics, f: Farben) {
   g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
   g.poly(flach(v, r, u(r), u(v))).fill(dunkler(f.boden, 0.62));
   g.poly(flach(h, r, v, l)).fill(f.boden);
-  for (let i = 0; i <= W; i++) {
+  // Raster nur noch angedeutet – Trampelpfade tragen die Orientierung (P85)
+  for (let i = 0; i <= W; i += Math.max(2, Math.floor(W / 4))) {
     const a = punkt(i, 0);
     const b = punkt(i, T);
     g.moveTo(a.x, a.y).lineTo(b.x, b.y);
   }
-  for (let j = 0; j <= T; j++) {
+  for (let j = 0; j <= T; j += Math.max(2, Math.floor(T / 4))) {
     const a = punkt(0, j);
     const b = punkt(W, j);
     g.moveTo(a.x, a.y).lineTo(b.x, b.y);
   }
-  g.stroke({ width: 1, color: f.raster });
+  g.stroke({ width: 1, color: f.raster, alpha: 0.28 });
 }
 
 /** PixiJS-Grafik als Stift, nur für die Dorfbilder. */
@@ -1401,11 +1426,12 @@ export async function buehneErstellen(
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
       letzteBauwerke = b.bauwerke;
-      belegt = belegteFelder(b.bauwerke);
+      belegt = belegteFelder(b.bauwerke, b.vorhaben);
       if (anzahl !== letzteWesenZahl) {
         letzteWesenZahl = anzahl;
         wesen = wesenStarten(thema, anzahl, bewegung === 'leicht', {
           bauwerke: b.bauwerke,
+          vorhaben: b.vorhaben,
           platz: bauplatzAktiv(),
         });
         wesenZeichnen(performance.now());
@@ -1448,6 +1474,7 @@ export async function buehneErstellen(
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
+      trampelpfade(g, b.bauwerke, farben.raster);
       // Neubauten im Bau: gestrichelte Geister-Silhouette (Design-Ideen K43)
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
         raute(g, v.pos, v.typ, 0.1).fill({ color: farben.imBau, alpha: 0.1 });

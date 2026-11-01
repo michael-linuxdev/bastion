@@ -1,7 +1,9 @@
 /**
  * Pfadfindung auf dem Bauplatz-Raster: Wesen laufen um Gebäude herum
  * (Preferences Bastion-Interaktion). Deterministisch, ohne Zufall.
+ * Bau-Geister (Vorhaben) zählen wie fertige Bauten (Q90).
  */
+import type { Vorhaben } from '../../../core/bastion/bauen';
 import { KATALOG, type Bauwerk, type Position } from '../../../core/bastion/katalog';
 import { bauplatzAktiv, feldUnter, punkt, type BauplatzMass } from './iso';
 
@@ -9,10 +11,19 @@ export function feldSchluessel(x: number, y: number): string {
   return `${x},${y}`;
 }
 
-/** Alle belegten Felder der Bauwerke (Grundfläche). */
-export function belegteFelder(bauwerke: readonly Bauwerk[]): ReadonlySet<string> {
+type Belegung = {
+  readonly typ: Bauwerk['typ'] | Vorhaben['typ'];
+  readonly pos: Position;
+};
+
+/** Alle belegten Felder der Bauwerke und optionaler Vorhaben (Grundfläche). */
+export function belegteFelder(
+  bauwerke: readonly Bauwerk[],
+  vorhaben: readonly Vorhaben[] = [],
+): ReadonlySet<string> {
   const aus = new Set<string>();
-  for (const b of bauwerke) {
+  const eintraege: readonly Belegung[] = [...bauwerke, ...vorhaben];
+  for (const b of eintraege) {
     const [w, t] = KATALOG[b.typ].groesse;
     for (let dx = 0; dx < w; dx++) {
       for (let dy = 0; dy < t; dy++) {

@@ -20,7 +20,8 @@
     | 'planen'
     | 'eltern'
     | 'frage'
-    | 'zurueck';
+    | 'zurueck'
+    | 'buch';
 </script>
 
 <script lang="ts">
@@ -57,6 +58,8 @@
     frage:
       'M12 17.5h.01M9.1 9a3 3 0 1 1 4.7 2.5c-.8.6-1.3 1.1-1.3 2v.5M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z',
     zurueck: 'M11 5 4 12l7 7M4 12h16',
+    // Buch: Erklärung neben dem Titel
+    buch: 'M5 4.5h9.5A2.5 2.5 0 0 1 17 7v13.5H7.5A2.5 2.5 0 0 0 5 23V4.5Zm0 0v15.5M9 8h5M9 11.5h5',
   };
 </script>
 

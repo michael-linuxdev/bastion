@@ -3,6 +3,7 @@
  * Anzahl steigt mit gebauten Gebäuden; bei „ruhig“ aus. Kein Zufall.
  * Bodenwesen laufen um Gebäude herum (Pfadfindung).
  */
+import type { Vorhaben } from '../../../core/bastion/bauen';
 import type { Bauwerk, Position } from '../../../core/bastion/katalog';
 import type { Thema } from '../../../core/policy/einstellung';
 import { bauplatzAktiv, buehneBreite, buehneHoehe, type BauplatzMass } from './iso';
@@ -165,6 +166,8 @@ function neuesZiel(
 
 export interface WesenStartOpts {
   readonly bauwerke?: readonly Bauwerk[];
+  /** Geplante/unfertige Bauten – Wesen weichen aus wie bei fertigen (Q90) */
+  readonly vorhaben?: readonly Vorhaben[];
   readonly platz?: BauplatzMass;
 }
 
@@ -179,7 +182,7 @@ export function wesenStarten(
   if (arten.length === 0) return [];
   const n = wesenAnzahl(gebaeude, leicht);
   const platz = opts.platz ?? bauplatzAktiv();
-  const belegt = belegteFelder(opts.bauwerke ?? []);
+  const belegt = belegteFelder(opts.bauwerke ?? [], opts.vorhaben ?? []);
   const aus: WesenZustand[] = [];
   for (let i = 0; i < n; i++) {
     const info = arten[i % arten.length];
@@ -218,9 +221,10 @@ export function wesenHindernisse(
   liste: WesenZustand[],
   bauwerke: readonly Bauwerk[],
   platz: Platz = bauplatzAktiv(),
+  vorhaben: readonly Vorhaben[] = [],
 ): { belegt: ReadonlySet<string>; platz: Platz } {
   void liste;
-  return { belegt: belegteFelder(bauwerke), platz };
+  return { belegt: belegteFelder(bauwerke, vorhaben), platz };
 }
 
 /** Einen Tick weiterbewegen; bei Ankunft neues Wegziel (um Gebäude herum). */
