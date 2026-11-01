@@ -66,7 +66,7 @@ Ein Paket ist ein PR (oder mehrere kleine PRs). Reihenfolge wie unten, außer de
 
 ### G – Bauen und Ausbau: einfacher, und jede Stufe ein sichtbares Upgrade (Vorrang)
 
-**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche bleibt tabu (F1).
+**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche ändert der Grafik-Strang nicht; sie gehört dem Lernkern (F1).
 
 **Ziel:** Eine Jugendliche oder ein Jugendlicher öffnet die Bastion, baut ohne Erklärung ein Gebäude, baut es aus und sagt sinngemäß: „Krass, das sieht jetzt richtig anders aus.“
 
@@ -146,13 +146,16 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 ---
 
-### F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken
+### F1 – Grafik auf G beschränken; Lern-Oberfläche erst vor U4b einfrieren
 
-**Ziel:** Während G und U4b soll sich die Lern-Oberfläche nicht ändern, sonst lässt sich das Ergebnis des Tests nicht auswerten. Die Grafik arbeitet nur noch an G.
+**Entscheidung PV (01.11.2026):** Die Lern-Oberfläche wird **jetzt nicht** eingefroren. In der Woche ab 01.11.2026 arbeitet der PV ohne Cursor und will die Lern-Oberfläche gezielt verbessern. Verbesserungen an Üben, Erstvermittlung, Eingabe, Eltern und Start sind darum ausdrücklich erwünscht, in Sitzungen des Strangs Lernkern (Branch `lernkern/…`), klein und je ein PR. Grenzen: `GRAFIK.md` §9 (im Lernpfad keine Animationen, Wesen, Sound oder Wetter) und R1–R7.
 
-- `docs/session/GRAFIK.md`: Oben einen Kasten „Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026)“ einfügen. „Als Nächstes“ ersetzen durch einen Verweis auf G in `FOKUS.md`. Die Design-Wellen und der Backlog AA–ZZ ruhen bis nach U4b. Das ist eine Änderung im Grafik-Bereich auf Wunsch des PV, darum eine Protokollzeile in **beiden** Strang-Protokollen.
-- `docs/SESSION-PROMPT.md`: Die eingefrorene Lern-Oberfläche als Regel für alle Stränge eintragen. Gemeint sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`. Erlaubt sind nur Fehlerbehebungen und Änderungen aus diesem Auftrag. Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht in dieser Zeit.
-- `AGENTS.md`: ein Satz dazu, damit Cursor und andere Agenten es sehen.
+**Einfrieren erst später:** Sobald G abgenommen ist und ein Termin für U4b feststeht, wird die Lern-Oberfläche bis zur Auswertung von U4b eingefroren, sonst lässt sich das Ergebnis des Tests nicht auswerten. Gemeint sind dann `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`; erlaubt sind dann nur Fehlerbehebungen. Die Sitzung, die den Termin einträgt, schreibt die Regel in `docs/SESSION-PROMPT.md` und `AGENTS.md`.
+
+**Jetzt umsetzen:**
+
+- `docs/session/GRAFIK.md`: Oben einen Kasten „Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026)“ einfügen. „Als Nächstes“ ersetzen durch einen Verweis auf G in `FOKUS.md`. Die Design-Wellen und der Backlog AA–ZZ ruhen bis nach U4b. Der Grafik-Strang ändert die Lern-Oberfläche in dieser Zeit nicht; die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht, Verbesserungen dort macht der Lernkern. Das ist eine Änderung im Grafik-Bereich auf Wunsch des PV, darum eine Protokollzeile in **beiden** Strang-Protokollen.
+- `docs/SESSION-PROMPT.md` und `AGENTS.md`: je ein Satz, dass der Grafik-Strang nur an G arbeitet und die Lern-Oberfläche dem Lernkern gehört. Cursor ruht ab 01.11.2026 eine Woche, der Satz gilt trotzdem für danach.
 - `docs/PLAN.md` §1: Zeile „Nächster Schritt Grafik“ auf „Paket G: Bauen und Ausbau (FOKUS.md)“ kürzen.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
@@ -216,7 +219,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 
 **Ziel:** Lehrkräfte bekommen sofort etwas Nützliches: druckbare Arbeitsblätter mit neuen Aufgaben. Das hilft beim Gewinnen der prüfenden Lehrkraft und ist ein erster Schritt zu Kriterium 4 („eine Klassenarbeit wird als einsetzbar beurteilt“).
 
-- **Als Werkzeug, nicht in der App**, wegen F1: `pnpm arbeitsblatt <Kompetenz…> --niveau G --anzahl 12 --seed 7 > blatt.html`, im Browser als PDF drucken. Den HTML- und Druck-Teil von `tools/pruefbogen/` wiederverwenden. **Keine neue Abhängigkeit**, kein PDF-Paket.
+- **Als Werkzeug, nicht in der App**, damit es unabhängig von der Lern-Oberfläche bleibt: `pnpm arbeitsblatt <Kompetenz…> --niveau G --anzahl 12 --seed 7 > blatt.html`, im Browser als PDF drucken. Den HTML- und Druck-Teil von `tools/pruefbogen/` wiederverwenden. **Keine neue Abhängigkeit**, kein PDF-Paket.
 - Inhalt: Kopf mit Name, Datum und Thema; Aufgaben mit Platz zum Rechnen; zweite Seite mit Lösungen und Lösungsweg. Fußzeile mit Review-Stufe der Vorlagen („Entwurf, nicht fachlich geprüft“ bei Stufe 0).
 - Derselbe Seed ergibt dasselbe Blatt (Test). Brüche und Hochzahlen sehen aus wie in der App (Teilmenge aus `src/core/learning/text.ts`).
 - Danach dem PV vorschlagen, wie er das Blatt der Lehrkraft zusammen mit dem Prüfbogen anbietet.
@@ -283,7 +286,7 @@ Jede Sitzung, die hier arbeitet, trägt am Ende ein:
 - eine Zeile im Protokoll des eigenen Strangs (bei F1 und F8 in beiden),
 - `docs/PLAN.md` §1, Zeile des eigenen Strangs.
 
-Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Die eingefrorene Lern-Oberfläche und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
+Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Das Einfrieren der Lern-Oberfläche (ab Termin U4b) und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
 
 ### Übergaben
 
