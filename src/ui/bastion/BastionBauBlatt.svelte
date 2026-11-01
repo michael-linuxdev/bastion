@@ -1,16 +1,20 @@
 <script lang="ts">
   /**
    * Bau-/Planen-Blatt: Mini-Szene, Kostenstapel, Planen vs. Bauen (Design C10–C14).
+   * Paket G5: eine Hauptaktion; fehlt etwas, steht dort, wie viel und woher es kommt.
+   * Vormerken und Skizze liegen unter „Mehr“.
    */
+  import { untrack } from 'svelte';
   import type { BauHindernis } from '../../core/bastion/bauen';
   import { einlagerbar } from '../../core/bastion/bauen';
   import type { Bauwerk, Farbe, GebaeudeTyp, Kosten } from '../../core/bastion/katalog';
   import type { Ressource } from '../../core/ledger/regeln';
   import Symbol, { type SymbolName } from '../grafik/Symbol.svelte';
-  import { t } from '../texte/texte';
+  import { t, type TextSchluessel } from '../texte/texte';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
-  import { gebaeudeName, gebaeudeWozu, ressourceName, tt } from './thema.svelte';
+  import { fehlbetraege, restLerneinheiten, type Rohstoff } from './fehlt';
+  import { gebaeudeName, gebaeudeWozu, menge, ressourceName, tt } from './thema.svelte';
 
   export interface BauAngebot {
     readonly typ: GebaeudeTyp;
@@ -31,6 +35,9 @@
     onvormerken,
     hindernisText,
     onschliessen,
+    start = undefined,
+    stand = undefined,
+    vorratSchritte = 0,
   }: {
     neubauten: readonly BauAngebot[];
     ausbauten: readonly BauAngebot[];
@@ -43,10 +50,21 @@
     onvormerken: (a: BauAngebot) => void;
     hindernisText: (h: BauHindernis, typ: GebaeudeTyp, stufe: number) => string;
     onschliessen: () => void;
+    /** Vorausgewählt, z. B. nach „Ausbauen – was fehlt?“ auf dem Bauplatz (G5) */
+    start?: BauAngebot | undefined;
+    /** Aktueller Stand, um „noch 130 Stein“ zu zeigen */
+    stand?: Readonly<Record<Rohstoff, number>> | undefined;
+    /** Bauschritte im Vorrat – für „Fertig nach … Lerneinheiten“ */
+    vorratSchritte?: number;
   } = $props();
 
   /** Kosten und Details erst nach bewusster Auswahl (Design L57). */
-  let gewaehlt = $state<BauAngebot | undefined>(undefined);
+  let gewaehlt = $state<BauAngebot | undefined>(untrack(() => start));
+  let blatt = $state<HTMLDivElement | undefined>(undefined);
+  /** Neue Auswahl → nach oben, damit die Vorschau nicht unter der Kopfzeile liegt */
+  $effect(() => {
+    if (gewaehlt && blatt) blatt.scrollTo?.({ top: 0 });
+  });
   let vorschauFarbe = $state<Farbe | undefined>(undefined);
 
   const alle = $derived([...neubauten, ...ausbauten]);
@@ -79,9 +97,15 @@
   ];
 </script>
 
-<div id="bastion-bau-blatt" class="blatt" role="dialog" aria-label={tt('bastion.bauen-oeffnen')}>
+<div
+  id="bastion-bau-blatt"
+  class="blatt"
+  bind:this={blatt}
+  role="dialog"
+  aria-label={tt('bastion.bauen-oeffnen')}
+>
   <header>
-    <h3 class="ort-name">{tt('bastion.bauen')}</h3>
+    <h3 class="ort-name">{gewaehlt?.ausbau ? tt('bastion.ausbauen') : tt('bastion.bauen')}</h3>
     <button type="button" class="schliessen" onclick={onschliessen}
       >{tt('bastion.bauen-schliessen')}</button
     >
@@ -141,59 +165,50 @@
       {#each einzeln(a.hindernisse) as h (h)}
         <p class="hindernis">{hindernisText(h, a.typ, a.stufe)}</p>
       {/each}
-      {#if mangel.length > 0}
+      {#if mangel.length > 0 && a.kosten && stand}
+        <ul class="fehlt-liste" aria-label={tt('bastion.reicht-nicht')}>
+          {#each fehlbetraege(a.kosten, stand) as f (f.ressource)}
+            <li>
+              <strong>{tt('bastion.noch')} {menge(f.ressource, f.fehlt)}.</strong>
+              {tt(`bastion.woher.${f.ressource}` as TextSchluessel)}
+            </li>
+          {/each}
+        </ul>
+      {:else if mangel.length > 0}
         <p class="hindernis">
           {tt('bastion.reicht-nicht')}
           {mangel.map(ressourceName).join(', ')}
         </p>
       {/if}
-      <div class="aktionen">
-        {#if a.hindernisse.length > 0}
-          {#if istZiel(a)}
-            <span class="leise">{tt('bastion.vorgemerkt')}</span>
-          {:else}
-            <button type="button" class="zweit planen" onclick={() => onvormerken(a)}>
-              <Symbol name="planen" />
-              {a.ausbau ? tt('bastion.planen-skizze') : tt('bastion.vormerken')}
-            </button>
-          {/if}
-        {/if}
-        <button
-          type="button"
-          class="haupt bauen"
-          disabled={a.hindernisse.length > 0}
-          onclick={() => onbauen(a)}
-        >
-          <Symbol name="bauen" />
-          {a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.bauen-stein')}
-        </button>
-      </div>
+      {#if a.hindernisse.length === 0 && a.kosten}
+        {@const rest = restLerneinheiten(a.kosten, vorratSchritte)}
+        <p class="dauer">
+          {#if rest === 0}{tt('bastion.dauer-sofort')}{:else}{tt('bastion.dauer-vor')}
+            {rest}
+            {rest === 1 ? tt('bastion.dauer-einer') : tt('bastion.dauer-viele')}{/if}
+        </p>
+      {/if}
+      {#if a.hindernisse.length === 0}
+        <div class="aktionen">
+          <button type="button" class="haupt bauen" onclick={() => onbauen(a)}>
+            <Symbol name="bauen" />
+            {a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.bauen-stein')}
+          </button>
+        </div>
+      {:else if istZiel(a)}
+        <p class="leise">{tt('bastion.vorgemerkt')}</p>
+      {:else}
+        <details class="mehr">
+          <summary>{tt('bastion.mehr-optionen')}</summary>
+          <button type="button" class="zweit planen" onclick={() => onvormerken(a)}>
+            <Symbol name="planen" />
+            {a.ausbau ? tt('bastion.planen-skizze') : tt('bastion.vormerken')}
+          </button>
+        </details>
+      {/if}
     </div>
   {:else}
     <p class="leise">{tt('bastion.bau-waehlen')}</p>
-  {/if}
-
-  {#if neubauten.length > 0}
-    <h4>{tt('bastion.bauen')}</h4>
-    <ul class="karten">
-      {#each neubauten as a (a.typ)}
-        {@const lock = gesperrt(a.hindernisse)}
-        <li>
-          <button
-            type="button"
-            class="karte"
-            class:aktiv={gewaehlt && gleich(a, gewaehlt)}
-            class:gesperrt={lock}
-            aria-pressed={gewaehlt ? gleich(a, gewaehlt) : false}
-            onclick={() => (gewaehlt = a)}
-          >
-            <GebaeudeVorschau typ={a.typ} stufe={a.stufe} {epoche} gesperrt={lock} />
-            <span class="name">{gebaeudeName(a.typ)}</span>
-            {#if lock}<span class="badge">{t('bastion.noch-nicht')}</span>{/if}
-          </button>
-        </li>
-      {/each}
-    </ul>
   {/if}
 
   {#if ausbauten.length > 0}
@@ -216,6 +231,28 @@
               {tt('bastion.stufe')}
               {a.stufe}</span
             >
+            {#if lock}<span class="badge">{t('bastion.noch-nicht')}</span>{/if}
+          </button>
+        </li>
+      {/each}
+    </ul>
+  {/if}
+  {#if neubauten.length > 0}
+    <h4>{tt('bastion.bauen')}</h4>
+    <ul class="karten">
+      {#each neubauten as a (a.typ)}
+        {@const lock = gesperrt(a.hindernisse)}
+        <li>
+          <button
+            type="button"
+            class="karte"
+            class:aktiv={gewaehlt && gleich(a, gewaehlt)}
+            class:gesperrt={lock}
+            aria-pressed={gewaehlt ? gleich(a, gewaehlt) : false}
+            onclick={() => (gewaehlt = a)}
+          >
+            <GebaeudeVorschau typ={a.typ} stufe={a.stufe} {epoche} gesperrt={lock} />
+            <span class="name">{gebaeudeName(a.typ)}</span>
             {#if lock}<span class="badge">{t('bastion.noch-nicht')}</span>{/if}
           </button>
         </li>
@@ -316,6 +353,42 @@
 
   .hindernis {
     color: var(--farbe-akzent-warm, var(--farbe-akzent));
+  }
+
+  .fehlt-liste {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: var(--abstand-s);
+    display: grid;
+    gap: 0.35rem;
+    text-align: start;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-hinweis-flaeche) 70%, transparent);
+  }
+
+  .dauer {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--farbe-text-leise);
+  }
+
+  .mehr {
+    justify-self: center;
+    margin-block-start: 0.25rem;
+  }
+
+  .mehr summary {
+    cursor: pointer;
+    min-block-size: var(--ziel);
+    display: inline-flex;
+    align-items: center;
+    color: var(--farbe-text-leise);
+    font-weight: 700;
+  }
+
+  .mehr[open] summary {
+    margin-block-end: var(--abstand-s);
   }
 
   .noch-nicht {
