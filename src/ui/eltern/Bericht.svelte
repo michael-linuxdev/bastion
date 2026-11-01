@@ -1,6 +1,6 @@
 <script lang="ts">
-  // Elternbericht (DATENMODELL §5.2, D-14): einfache Ansicht (Themen und Wochen)
-  // als Standard, ausführliche Ansicht mit einzelnen Aufgaben auf Wunsch.
+  // Elternbericht (DATENMODELL §5.2, D-14): einfache Ansicht als Brief (Design L62),
+  // ausführliche Ansicht mit einzelnen Aufgaben auf Wunsch.
   // Dieselbe Komponente sehen Jugendliche unter „Was meine Eltern sehen“.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
   import { einzelne, lehrkraftBericht, wochen } from '../../core/learning/bericht';
@@ -63,6 +63,18 @@
   );
   const woche = $derived(wochen(aufgaben).slice(0, 8));
   const liste = $derived(einzelne(aufgaben).slice(0, 100));
+  const gekonntThemen = $derived(
+    geuebt.filter((k) =>
+      NIVEAUS.some((n) => {
+        const s = statusVon(zustand, k.id, n, jetzt);
+        return s === 'gekonnt' || s === 'gefestigt';
+      }),
+    ),
+  );
+  const inArbeitThemen = $derived(
+    geuebt.filter((k) => NIVEAUS.some((n) => statusVon(zustand, k.id, n, jetzt) === 'in-arbeit')),
+  );
+  const letzteWoche = $derived(woche[0]);
 
   const datum = (tag: string) =>
     new Date(`${tag}T12:00:00`).toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
@@ -123,6 +135,44 @@
         >{/if}
     </p>
   {:else if ansicht === 'einfach'}
+    <article class="brief">
+      <p class="anrede">{t('bericht.brief-anrede')}</p>
+      <p>
+        {t('bericht.brief-einleitung')}
+        {geuebt.length}
+        {t('bericht.brief-themen')}.
+      </p>
+      {#if gekonntThemen.length > 0}
+        <p>
+          <strong>{t('bericht.brief-gekonnt')}</strong>
+          {gekonntThemen
+            .slice(0, 5)
+            .map((k) => k.titel.de)
+            .join(', ')}{#if gekonntThemen.length > 5}{t('bericht.brief-und-mehr')}{/if}.
+        </p>
+      {/if}
+      {#if inArbeitThemen.length > 0}
+        <p>
+          <strong>{t('bericht.brief-arbeit')}</strong>
+          {inArbeitThemen
+            .slice(0, 5)
+            .map((k) => k.titel.de)
+            .join(', ')}{#if inArbeitThemen.length > 5}{t('bericht.brief-und-mehr')}{/if}.
+        </p>
+      {/if}
+      {#if letzteWoche}
+        <p>
+          {t('bericht.brief-woche')}
+          {datum(letzteWoche.montag)}:
+          {letzteWoche.lerntage}
+          {t('bericht.lerntage')},
+          {letzteWoche.aufgaben}
+          {t('bericht.aufgaben')}.
+        </p>
+      {/if}
+      <p class="gruss">{t('bericht.brief-gruss')}</p>
+    </article>
+  {:else}
     <h4>{t('bericht.kompetenzen')}</h4>
     <table>
       <thead>
@@ -164,7 +214,7 @@
         {/each}
       </tbody>
     </table>
-  {:else}
+
     <h4>{t('bericht.letzte')}</h4>
     <div class="breit">
       <table>
@@ -233,6 +283,25 @@
     margin-block: var(--abstand-m) 0;
   }
 
+  .brief {
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    display: grid;
+    gap: var(--abstand-s);
+    line-height: 1.55;
+  }
+
+  .brief p {
+    margin-block: 0;
+  }
+
+  .anrede,
+  .gruss {
+    font-weight: 700;
+  }
+
   .breit {
     overflow-x: auto;
   }
@@ -260,6 +329,10 @@
 
   small {
     display: block;
+    color: var(--farbe-text-leise);
+  }
+
+  .leise {
     color: var(--farbe-text-leise);
   }
 </style>

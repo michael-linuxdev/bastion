@@ -10,7 +10,7 @@
     leichtSetzen,
     ruhigSetzen,
     soundSetzen,
-    zoomSetzen,
+    kameraZuruecksetzen,
   } from '../plattform/ablage';
   import { tt } from './thema.svelte';
 
@@ -92,7 +92,7 @@
   <button
     type="button"
     class="passen"
-    onclick={() => void zoomSetzen(0)}
+    onclick={() => void kameraZuruecksetzen()}
     aria-label={tt('bastion.zoom-passen')}
   >
     {tt('bastion.zoom-passen')}

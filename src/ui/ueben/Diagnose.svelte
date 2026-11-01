@@ -264,31 +264,42 @@
         </p>
       {/if}
     {/if}
-    {#if weiterMit.length > 0}
-      <p>
-        {probe ? t('ka.probe-noch') : auswahl ? t('diagnose.luecken') : t('diagnose.empfehlung')}
-      </p>
-      <ul class="liste">
-        {#each weiterMit as k (k.id)}
-          <li>
-            <span>{k.titel.de}</span>
-            <button class="haupt" onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <p>
-        {probe ? t('ka.probe-alles') : auswahl ? t('diagnose.keine-luecken') : t('diagnose.alles')}
-      </p>
-    {/if}
-    {#if sitzt.length > 0}
-      <details>
-        <summary>{t('diagnose.sitzt')} ({sitzt.length})</summary>
-        <ul>
-          {#each sitzt as k (k.id)}<li>{k.titel.de}</li>{/each}
-        </ul>
-      </details>
-    {/if}
+    <div class="landkarte" aria-label={t('diagnose.landkarte')}>
+      {#if sitzt.length > 0}
+        <section class="feld sitzt">
+          <h4>{t('diagnose.sitzt')}</h4>
+          <ul class="steine">
+            {#each sitzt as k (k.id)}
+              <li class="stein sitzt">{k.titel.de}</li>
+            {/each}
+          </ul>
+        </section>
+      {/if}
+      {#if weiterMit.length > 0}
+        <section class="feld wackelt">
+          <h4>
+            {probe ? t('ka.probe-noch') : auswahl ? t('diagnose.luecken') : t('diagnose.wackelt')}
+          </h4>
+          <ul class="steine">
+            {#each weiterMit as k, i (k.id)}
+              <li class="stein wackelt" class:naechster={i === 0}>
+                <span>{k.titel.de}</span>
+                {#if i === 0}<span class="naechster-label">{t('diagnose.naechster')}</span>{/if}
+                <button class="haupt" onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
+              </li>
+            {/each}
+          </ul>
+        </section>
+      {:else}
+        <p>
+          {probe
+            ? t('ka.probe-alles')
+            : auswahl
+              ? t('diagnose.keine-luecken')
+              : t('diagnose.alles')}
+        </p>
+      {/if}
+    </div>
     {#if stand.getestet.size + stand.gefolgert.size < themen.length}
       <p class="leise">{t('diagnose.noch-offen')}</p>
     {/if}
@@ -312,6 +323,61 @@
 
   .stand {
     font-weight: 600;
+  }
+
+  .landkarte {
+    display: grid;
+    gap: var(--abstand-m);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
+    border: 1px solid var(--farbe-rand);
+  }
+
+  .feld h4 {
+    margin-block: 0 var(--abstand-s);
+    font-size: 1rem;
+  }
+
+  .steine {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+  }
+
+  .stein {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem var(--abstand-s);
+    padding-block: 0.45rem;
+    padding-inline: 0.75rem;
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
+    font-size: 0.95rem;
+  }
+
+  .stein.sitzt {
+    border-inline-start: 4px solid var(--farbe-erfolg);
+  }
+
+  .stein.wackelt {
+    border-inline-start: 4px solid var(--farbe-akzent-warm);
+  }
+
+  .stein.naechster {
+    outline: 2px solid var(--farbe-akzent);
+    outline-offset: 1px;
+  }
+
+  .naechster-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--farbe-akzent);
   }
 
   .diagnose {
@@ -366,24 +432,5 @@
   .haupt {
     background: var(--farbe-akzent);
     color: var(--farbe-auf-akzent);
-  }
-
-  .liste {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--abstand-s);
-  }
-
-  .liste li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--abstand-s);
-    background: var(--farbe-flaeche);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
   }
 </style>
