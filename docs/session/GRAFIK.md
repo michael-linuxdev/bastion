@@ -3,13 +3,13 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel + Üben-IO + Design „Danach“. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
+Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
 
 ---
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`.
+Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` (Backlog AA–ZZ).
 
 **Grenzen:** Der Basebau bleibt Nebensache (K-27). Design-Regeln R1–R7 (`VISION.md` §9) gelten für jedes Bild: keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall, „Bewegung reduzieren“ wird beachtet. Grafik ändert nie Daten (B-27): Lernstand und Bastion kennen keine Bilder.
 
@@ -43,12 +43,16 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 - **Feinschliff P3–P6:** Herbstlaub und Schnee-Dach nur über Land; Hinterhof-Plätze mit Umbruch/Dichte-Skala und nur im Hinterhof-Blick; Bastion-Kern Firstkappe statt schwebender Zinnen.
 - **Üben Ein-/Ausgabe (Lern-UI §9):** Feedback-Schichtung, Antwortspiegel, Steine-Fortschritt, Tipp-Randnotiz, Schrittweg-Checkliste, Tastatur angebunden, Querformat; Spec `ueben-io-design` P0–P1.
 - **Design „Danach“:** Landkarte, stiller Üben→Bastion-Übergang, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern=Werkstatt / Kind=Ort.
+- **App-Icon / Favicon:** Bastion-Silhouette auf Akzent-Kachel (`public/icon.svg` + PNGs/maskable/apple/favicon-32); Generator `tools/grafik/icons-erzeugen.py`.
+
+**Design L53–L64 (31.10.2026):** Tagesziel-Markierung, Wiederholen-Regal, Diagnose-Landkarte, Kamera-Gedächtnis, Bau-Kosten nach Auswahl, Bewohner-Namen, Hinterhof-HUD, PIN-Ton, Nacht nur Bastion, Eltern-Brief, Microcopy „Noch nicht“, Querformat Üben.
 
 **Als Nächstes (alles optional / PV):**
 
-1. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
-2. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
-3. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
+1. **Design-Wellen A–Z** in parallelen PRs fertigstellen und konsolidieren; Backlog danach aus `docs/DESIGN-IDEEN.md` (AA–ZZ). Themen-Welten (H29) erst nach Konsolidierung.
+2. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
+3. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
+4. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
 
 Kein verbindlicher G-/P-Rest mehr. Weitere Schritte legt der Projektverantwortliche fest. Bei Engpass wartet die Grafik auf den Lernkern (K-27, B-28).
 

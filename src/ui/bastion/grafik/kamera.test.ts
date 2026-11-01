@@ -7,6 +7,9 @@ import {
   ZOOM_MIN,
   ZOOM_RAD,
   einpassen,
+  kameraAus,
+  kameraText,
+  kameraWiederherstellen,
   zentriert,
   zoomAn,
   type Kamera,
@@ -63,5 +66,16 @@ describe('Kamera wie in Dorfkrieg', () => {
     const gross = einpassen(4000, 3000);
     expect(gross.zoom).toBe(ZOOM_EINPASSEN_MAX);
     expect(zentriert(400, 300, 1.5).zoom).toBe(1.5);
+  });
+
+  it('merkt Zoom und Verschiebung als Text und stellt sie wieder her', () => {
+    const k: Kamera = { zoom: 1.2, x: -40, y: 15 };
+    expect(kameraAus(kameraText(k))).toEqual(k);
+    expect(kameraAus(1.5)).toEqual({ zoom: 1.5, x: 0, y: 0 });
+    expect(kameraAus(' Quatsch')).toBeUndefined();
+    const wieder = kameraWiederherstellen(800, 600, k);
+    expect(wieder).toEqual(k);
+    const nurZoom = kameraWiederherstellen(800, 600, { zoom: 1.5, x: 0, y: 0 });
+    expect(nurZoom).toEqual(zentriert(800, 600, 1.5));
   });
 });

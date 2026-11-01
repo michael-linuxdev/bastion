@@ -55,11 +55,12 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
 
 ## 2. Hell, dunkel, System
 
-- Drei Einstellungen: **System** (Standard), **Hell**, **Dunkel**. Gespeichert als Einstellung, wählbar unter „Über mich“.
-- **Dunkel = Abendstimmung von Richtung A:** gleiche Formen und Schrift, dunkle warme Flächen.
+- Drei Einstellungen: **System** (Standard), **Hell** (Tag), **Dunkel** (Abend). Gespeichert als Einstellung, wählbar unter „Über mich“ als „Abend in der Bastion“.
+- **Lernflächen bleiben hell** (Design L61): CSS-Tokens an `<html>` sind immer die Hell-Fassung. Die Wahl steuert nur die Bastion-Szene (`szeneAbend`).
+- **Dunkel = Abendstimmung von Richtung A** in der Bastion: gleiche Formen und Schrift in der Szene.
   - Die Bastion steht unter Abendhimmel mit erleuchteten Fenstern.
   - Die Farben aus Richtung B sind dafür ein Anhaltspunkt: Himmel `#1A2342`, Licht `#FFC85A`.
-- Beide Modi erfüllen den Kontrast von 4,5 : 1.
+- Beide Fassungen (Hell-Tokens und Szene-Abend) erfüllen den Kontrast von 4,5 : 1.
 
 ## 3. Austauschbar bleiben (B-27)
 
@@ -159,8 +160,7 @@ Vier Schritte, jeder ein eigener PR:
 
 1. ✅ **Grundlage:**
    - Tokens als Fassung „tag-warm“ in `src/ui/grafik/fassungen.ts`, hell und dunkel. Ein Test prüft, dass jede Rolle gefüllt ist und der Kontrast reicht (Text 4,5 : 1, Bilder 3 : 1).
-   - `src/ui/grafik/darstellung.svelte.ts` schreibt die Tokens an `<html>` und setzt `data-modus` auf `hell` oder `dunkel`. Das Bild der Bastion zeichnet sich beim Wechsel neu.
-   - Wahl „Aussehen“ unter „Über mich“: Wie das Gerät, Hell, Dunkel (Abend). Einstellung `darstellung.modus`.
+   - `src/ui/grafik/darstellung.svelte.ts` schreibt die **Hell-Tokens** an `<html>` (Lernflächen); `darstellung.dunkel` steuert weiter die Bastion-Szene. Wahl unter „Über mich“: Abend in der Bastion (System/Tag/Abend). Einstellung `darstellung.modus`.
    - Schrift Nunito mitgeliefert (T-16). Knöpfe `haupt`, `zweit`, `dezent` und Eingabefelder einheitlich in `grund.css`.
 2. ✅ **Start-Hub ohne Reiter** (`src/ui/start/`):
    - Datum und Begrüßung, kleine Ansicht der Bastion (`src/ui/grafik/MiniBastion.svelte`, nur Bild), großer Knopf „Üben“ mit „Gerade dran“.

@@ -133,6 +133,7 @@
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
     <form onsubmit={schritt === 'einrichten' ? festlegen : zuruecksetzen}>
       {#if schritt === 'einrichten'}
+        <p class="schutz">{t('eltern.schutz')}</p>
         <p>{t('eltern.einrichten')}</p>
         {#if ausSicherung}<p class="hinweis">{t('eltern.pin-aus-sicherung')}</p>{/if}
       {:else}
@@ -176,6 +177,7 @@
       }}>{t('eltern.code-notiert')}</button
     >
   {:else if schritt === 'gesperrt'}
+    <p class="schutz">{t('eltern.schutz')}</p>
     <form onsubmit={entsperren}>
       <label
         >{t('eltern.pin')}
@@ -360,5 +362,10 @@
   .hinweis {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  .schutz {
+    color: var(--farbe-text-leise);
+    margin-block-end: 0;
   }
 </style>

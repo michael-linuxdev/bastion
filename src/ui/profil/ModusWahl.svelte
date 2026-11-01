@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Hell, dunkel oder wie das Gerät (GRAFIK §2). Gilt sofort und wird gemerkt.
+  // Abend in der Bastion (GRAFIK §2, Design L61): Lernflächen bleiben hell.
   import { MODI } from '../../core/policy/einstellung';
   import { darstellung, darstellungSetzen } from '../grafik/darstellung.svelte';
   import { modusSetzen } from '../plattform/ablage';

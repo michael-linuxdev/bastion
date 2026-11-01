@@ -849,6 +849,62 @@
     align-items: center;
   }
 
+  /* Querformat: Prüfen/Tastatur ohne Scroll-Kampf (Design L64) */
+  @media (orientation: landscape) and (max-block-size: 30rem) {
+    .uebung {
+      gap: var(--abstand-s);
+      min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 1rem);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+    }
+
+    .kopf {
+      gap: 0.25rem var(--abstand-s);
+    }
+
+    h2 {
+      font-size: 1.125rem;
+    }
+
+    .session {
+      padding-block: 0.25rem;
+      padding-inline: var(--abstand-s);
+      font-size: 0.875rem;
+    }
+
+    .aufgabe {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto auto;
+      gap: var(--abstand-s);
+      min-block-size: 0;
+      overflow: hidden;
+      padding: var(--abstand-s);
+    }
+
+    .text {
+      font-size: 1.125rem;
+      overflow: auto;
+      min-block-size: 0;
+      max-block-size: 30dvh;
+    }
+
+    .bild {
+      max-block-size: 18dvh;
+      overflow: auto;
+    }
+
+    .knoepfe {
+      position: sticky;
+      inset-block-end: 0;
+      padding-block: 0.25rem;
+      background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+      z-index: 1;
+    }
+
+    .fertig {
+      margin-block-start: 0;
+    }
+  }
+
   .pause {
     color: var(--farbe-text-leise);
   }
