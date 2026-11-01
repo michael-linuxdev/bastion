@@ -7,7 +7,7 @@
   import { bruch } from '../../core/learning/bruch';
   import type { SchrittErgebnis } from '../../core/learning/ereignis';
   import type { Loesung, SchrittAufgabe, Wert } from '../../core/learning/generator';
-  import { tastenFuer } from '../../core/learning/tastatur';
+  import { ohneDezimalzahlen, tastenFuer } from '../../core/learning/tastatur';
   import { fuelle, zahlText } from '../../core/learning/text';
   import {
     pruefeSchritt,
@@ -187,6 +187,7 @@
             <Tastatur
               tasten={tastenFuer({
                 loesung: aktuell.typ === 'bruch-eingabe' ? 'bruch' : 'zahl',
+                ganzzahlig: ohneDezimalzahlen(aufgabe.loesung, werte(aufgabe)),
                 instanz: { vorzeichen },
               })}
             />

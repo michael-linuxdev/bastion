@@ -5,6 +5,7 @@
  *
  * Rein: Die Oberfläche zeichnet nur noch den Tastensatz.
  */
+import type { Loesung, Wert } from './generator';
 
 /** Eine Angabe in `tastatur:` der Vorlage oder der Instanz */
 export type Taste =
@@ -12,6 +13,8 @@ export type Taste =
   | 'komma'
   | 'minus'
   | 'bruchstrich'
+  | 'mal'
+  | 'doppelpunkt'
   | { readonly variable: string }
   | { readonly einheit: string };
 
@@ -20,11 +23,15 @@ export interface Tastensatz {
   readonly komma: boolean;
   readonly minus: boolean;
   readonly bruchstrich: boolean;
+  /** Malpunkt „·“, z. B. für Primfaktoren */
+  readonly mal: boolean;
+  /** Doppelpunkt „:“, z. B. für Uhrzeiten */
+  readonly doppelpunkt: boolean;
   readonly variablen: readonly string[];
   readonly einheiten: readonly string[];
 }
 
-const EINFACH = ['ziffern', 'komma', 'minus', 'bruchstrich'] as const;
+const EINFACH = ['ziffern', 'komma', 'minus', 'bruchstrich', 'mal', 'doppelpunkt'] as const;
 
 const istObjekt = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -62,16 +69,25 @@ export function pruefeTastatur(roh: unknown): string[] {
   return f;
 }
 
-/** Was ohne Angabe gilt, nach Art der Lösung */
-function nachTyp(loesung: string): readonly Taste[] {
+/**
+ * Was ohne Angabe gilt, nach Aufgabentyp und Art der Lösung. Das Komma kommt nur,
+ * wenn die Aufgabe Dezimalzahlen enthält oder die Lösung eine ist (L13).
+ */
+function nachTyp(loesung: string, typ: string | undefined, ganzzahlig: boolean): readonly Taste[] {
+  if (typ === 'faktoren-eingabe') return ['ziffern', 'mal'];
+  if (typ === 'uhrzeit-eingabe') return ['ziffern', 'doppelpunkt'];
   if (loesung === 'bruch') return ['ziffern', 'bruchstrich'];
-  if (loesung === 'zahl') return ['ziffern', 'komma'];
+  if (loesung === 'zahl') return ganzzahlig ? ['ziffern'] : ['ziffern', 'komma'];
   return ['ziffern'];
 }
 
 export function tastenFuer(a: {
   /** Art der Lösung: zahl, bruch, punkt, mit-rest … */
   readonly loesung: string;
+  /** Aufgabentyp der Vorlage (z. B. faktoren-eingabe, uhrzeit-eingabe) */
+  readonly typ?: string | undefined;
+  /** Lösung und alle Zahlen der Aufgabe sind ganze Zahlen: dann ohne Komma */
+  readonly ganzzahlig?: boolean | undefined;
   readonly vorlage?: readonly Taste[] | undefined;
   readonly instanz?:
     | {
@@ -80,13 +96,16 @@ export function tastenFuer(a: {
       }
     | undefined;
 }): Tastensatz {
-  const liste = a.instanz?.tastatur ?? a.vorlage ?? nachTyp(a.loesung);
+  const liste =
+    a.instanz?.tastatur ?? a.vorlage ?? nachTyp(a.loesung, a.typ, a.ganzzahlig === true);
   const hat = (t: (typeof EINFACH)[number]) => liste.includes(t);
   return {
     ziffern: hat('ziffern'),
     komma: hat('komma'),
     minus: hat('minus') || a.instanz?.vorzeichen === true,
     bruchstrich: hat('bruchstrich'),
+    mal: hat('mal'),
+    doppelpunkt: hat('doppelpunkt'),
     variablen: liste.flatMap((t) => (typeof t === 'object' && 'variable' in t ? [t.variable] : [])),
     einheiten: liste.flatMap((t) => (typeof t === 'object' && 'einheit' in t ? [t.einheit] : [])),
   };
@@ -104,5 +123,28 @@ export function tastenFuerVermittlung(eingabe: {
   const negativ = [eingabe.loesung, ...(eingabe.fehler ?? []).map((f) => f.wert)].some((w) =>
     /^\s*[-−]/.test(w),
   );
-  return tastenFuer({ loesung: eingabe.art, instanz: { vorzeichen: negativ } });
+  const ganzzahlig =
+    eingabe.art === 'zahl' &&
+    [eingabe.loesung, ...(eingabe.fehler ?? []).map((f) => f.wert)].every((w) => !/[,.]/.test(w));
+  return tastenFuer({ loesung: eingabe.art, ganzzahlig, instanz: { vorzeichen: negativ } });
+}
+
+/** Steht in einem Wert eine Dezimalzahl? Auch in Texten wie „3,5 kg“. */
+function dezimal(w: Wert | undefined): boolean {
+  if (w === undefined) return false;
+  if (typeof w === 'number') return !Number.isInteger(w);
+  if ('zaehler' in w) return false;
+  return /\d[,.]\d/.test(w.de);
+}
+
+/**
+ * L13: Ist eine Zahl-Aufgabe ganz ohne Dezimalzahlen? Lösung und alle Platzhalter
+ * werden geprüft, damit das fehlende Komma nichts über die Lösung verrät.
+ */
+export function ohneDezimalzahlen(
+  loesung: Loesung,
+  platzhalter: Readonly<Record<string, Wert>> = {},
+): boolean {
+  if (loesung.typ !== 'zahl' || !Number.isInteger(loesung.wert)) return false;
+  return !Object.values(platzhalter).some(dezimal);
 }
