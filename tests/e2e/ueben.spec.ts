@@ -1128,7 +1128,8 @@ test('Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G
   await expect(page.getByRole('dialog')).toHaveCount(0);
   const leiste = page.getByRole('region', { name: 'Hier bauen' });
   await expect(leiste).toContainText('Studierstube');
-  await expect(leiste).toContainText('Spalte 1, Reihe 1');
+  // Vorschlag neben dem Bergfried (Feld 5/4, 3×3), nicht mehr oben links
+  await expect(leiste).toContainText('Spalte 4, Reihe 6');
   await expect(leiste).toContainText('Steht sofort.');
   // „Anderes Gebäude“ führt zurück ins Blatt, ohne zu bauen
   await leiste.getByRole('button', { name: 'Anderes Gebäude' }).click();
