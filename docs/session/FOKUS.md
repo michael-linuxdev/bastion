@@ -229,7 +229,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 4. Eine kurze Anleitung für die Lehrkraft (eine Seite, `docs/` oder im Prüfbogen selbst): Was wird geprüft, wie lange dauert es, was passiert mit den Antworten.
 5. Dem PV sagen, was er tun muss: die Lehrkraft als Bearbeiterin der Seite einladen.
 
-### F4 – Auswertung für U4b vorbereiten
+### ~~F4 – Auswertung für U4b vorbereiten~~ (erledigt 01.11.2026: `pnpm auswertung`, `TESTS.md` §4.5)
 
 **Ziel:** Nach dem Test gibt es sofort eine Ja/Nein-Antwort zu den Kriterien in `STRATEGIE.md` §0, nicht nur Rohdaten.
 
