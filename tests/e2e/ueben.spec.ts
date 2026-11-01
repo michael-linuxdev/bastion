@@ -1049,6 +1049,51 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await expect(bild).toHaveCount(0);
 });
 
+test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  await page.goto('./');
+  await hubVoll(page);
+  await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
+  await vorratAnlegen(page, { fleiss: 120, behalten: 20, koennen: 2, schritt: 1 });
+  await page.reload();
+  await bastionOeffnen(page, false);
+  const bild = page.locator('.bauplatz canvas');
+  await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
+  const tippe = async (x: number, y: number) => {
+    await expect.poll(() => bild.count()).toBe(1);
+    const r = await bild.boundingBox();
+    if (!r || r.width < 10) throw new Error('kein Bild');
+    const p = punkt(x + 0.5, y + 0.5);
+    await bild.click({
+      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
+    });
+  };
+  const wahl = page.locator('.wahl');
+  // Zu wenig: Der Knopf ist nicht grau, er erklärt, was fehlt und woher es kommt
+  await tippe(6, 5);
+  await expect(wahl).toContainText('Bergfried');
+  await wahl.getByRole('button', { name: /Ausbauen – was fehlt\?/ }).click();
+  const blatt = page.getByRole('dialog');
+  await expect(blatt.getByRole('heading', { name: 'Ausbauen', level: 3 })).toBeVisible();
+  await expect(blatt).toContainText('Noch 130 Stein.');
+  await expect(blatt).toContainText('Jede geübte Aufgabe bringt Stein.');
+  await expect(blatt).toContainText('Noch 60 Erz.');
+  await expect(blatt.getByRole('button', { name: 'Ausbauen' })).toHaveCount(0);
+  await blatt.getByRole('button', { name: 'Schließen' }).click();
+
+  // Genug da: Gebäude antippen, „Ausbauen“ – fertig
+  await vorratAnlegen(page, { fleiss: 2000, behalten: 500, koennen: 6, schritt: 20 });
+  await page.reload();
+  await bastionOeffnen(page, false);
+  await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
+  await tippe(6, 5);
+  await wahl.getByRole('button', { name: /^Ausbauen auf Stufe 2$/ }).click();
+  await expect(wahl).toContainText('Stufe 2');
+  await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
+});
+
 test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen (INHALTSFORMAT §5.2)', async ({
   page,
 }) => {

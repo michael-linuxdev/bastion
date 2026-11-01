@@ -94,6 +94,10 @@
   let einstellungenOffen = $state(false);
   /** Bauen/Planen-Blatt auf dem Bastion-Bildschirm */
   let bauBlattOffen = $state(false);
+  /** Vorauswahl im Bau-Blatt, wenn es aus der Auswahl auf dem Bauplatz kommt (G5) */
+  let bauStart = $state<Angebot | undefined>(undefined);
+  /** Gebäude auf dem Bauplatz gewählt → „Bauen“ und Einladung treten zurück (G5) */
+  let auswahlOffen = $state(false);
   /** Kamera: Bauplatz oder Hinterhof (Chrome oben) */
   let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
   let bewaehrungModus = $state<BewaehrungModus>('ueben');
@@ -249,6 +253,28 @@
     });
   });
 
+  /** G5: Ausbau direkt aus der Auswahl auf dem Bauplatz */
+  const ausbauVon = (id: string) => ausbauten.find((a) => a.ausbau?.id === id);
+  function ausbauKurz(id: string) {
+    const a = ausbauVon(id);
+    if (!a) return undefined;
+    return {
+      stufe: a.stufe,
+      bereit: a.hindernisse.length === 0,
+      imBau: a.hindernisse.includes('wird-schon-gebaut'),
+    };
+  }
+  function ausbauenAufBauplatz(id: string) {
+    const a = ausbauVon(id);
+    if (!a) return;
+    if (a.hindernisse.length === 0) {
+      void ausfuehren({ art: 'beginnen', typ: a.typ, ausbau: id });
+      return;
+    }
+    bauStart = a;
+    bauBlattOffen = true;
+  }
+
   const gebaeude = $derived(
     [...(sichtBastion?.bauwerke ?? [])].sort(
       (a, b) =>
@@ -342,17 +368,23 @@
         buecher={l.buecher.length}
         hinterhofKnopf={false}
         blattOffen={bauBlattOffen}
+        onauswahl={(o) => (auswahlOffen = o)}
+        ausbauFuer={ausbauKurz}
+        onausbauen={ausbauenAufBauplatz}
         bind:blick
       />
-      {#if b.bauwerke.every( (x) => x.id.startsWith('start.') ) && b.vorhaben.length === 0 && !bauBlattOffen}
+      {#if b.bauwerke.every( (x) => x.id.startsWith('start.') ) && b.vorhaben.length === 0 && !bauBlattOffen && !auswahlOffen}
         <p class="leer-einladung" aria-hidden="true">{t('bastion.leer-einladung')}</p>
       {/if}
-      {#if !bauBlattOffen}
+      {#if !bauBlattOffen && !auswahlOffen}
         <button
           class="bauen-werkzeug"
           aria-expanded={false}
           aria-controls="bastion-bau-blatt"
-          onclick={() => (bauBlattOffen = true)}
+          onclick={() => {
+            bauStart = undefined;
+            bauBlattOffen = true;
+          }}
         >
           <Symbol name="bauen" />
           <span>{tt('bastion.bauen-oeffnen')}</span>
@@ -377,7 +409,15 @@
           epoche={epoche.epoche}
           istZiel={(a) => ist(a, ziel)}
           {hindernisText}
-          onschliessen={() => (bauBlattOffen = false)}
+          start={bauStart
+            ? { ...bauStart, kosten: kosten(bauStart.typ, bauStart.stufe) }
+            : undefined}
+          stand={k.stand}
+          vorratSchritte={anzeigeVorrat(b.vorrat, testRohstoffe)}
+          onschliessen={() => {
+            bauBlattOffen = false;
+            bauStart = undefined;
+          }}
           onvormerken={(a) => merken(vormerken(b, a.typ, a.ausbau?.id))}
           onbauen={(a) =>
             void ausfuehren({
@@ -822,8 +862,11 @@
   .leer-einladung {
     position: absolute;
     inset-block-end: 5.5rem;
-    inset-inline: 50%;
-    translate: -50% 0;
+    /* Mittig ohne Quetschen: beide Ränder + feste Breite nach Inhalt (auch RTL) */
+    inset-inline: var(--abstand-m);
+    margin-inline: auto;
+    inline-size: fit-content;
+    max-inline-size: calc(100% - 2 * var(--abstand-m));
     z-index: 2;
     margin: 0;
     padding: 0.45rem 0.85rem;

@@ -5,9 +5,9 @@
 
 > **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche schließt der Lernkern mit Paket L ab und friert sie danach ein (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls. Funde aus L für die Startseite kommen unten unter „Wünsche aus dem anderen Strang“.
 >
-> **Antworten zu G0 (01.11.2026):** Probestück Bergfried (Standard-Thema, Epoche 1, Stufen 1–3) in allen drei Wegen (a) Generator, (b) CC0-Bausätze, (c) von Hand oder mit Bildwerkzeug; der PV wählt. Kern-Änderungen an der Bau-Regel nur je Vorschlag mit Zustimmung, eigener PR, `pnpm sim` vorher/nachher, Eintrag in `BASEBAU.md`. Zuerst Standard-Thema, Epoche 1, alle Rollen. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
+> **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52) + Design §R–§U + Design M–Q. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
+Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11).
 
 ---
 
@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (G0 beantwortet, weiter mit G1). Sonst nichts.
+**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts.
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 

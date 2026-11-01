@@ -48,6 +48,15 @@
   import type { BewohnerArt, Taetigkeit } from './grafik/bewohner';
   import { t, type TextSchluessel } from '../texte/texte';
 
+  /** Was die Auswahl auf dem Bauplatz über den nächsten Ausbau wissen muss */
+  export interface AusbauKurz {
+    readonly stufe: number;
+    /** true = alles da, ein Tipp baut aus */
+    readonly bereit: boolean;
+    /** Wird gerade ausgebaut */
+    readonly imBau: boolean;
+  }
+
   let {
     bastion,
     onaktion,
@@ -62,6 +71,9 @@
     blick = $bindable<'bauplatz' | 'hinterhof'>('bauplatz'),
     /** Bau-Blatt offen → Auswahl leeren, kein Doppel-HUD unten */
     blattOffen = false,
+    onauswahl = undefined,
+    ausbauFuer = undefined,
+    onausbauen = undefined,
   }: {
     bastion: Bastion;
     onaktion: (a: BauAuftrag) => Promise<boolean>;
@@ -80,6 +92,12 @@
     /** Kamera-Blick; Chrome oben kann umschalten */
     blick?: 'bauplatz' | 'hinterhof';
     blattOffen?: boolean;
+    /** Ein Gebäude ist gewählt und sein Feld unten offen – Bastion blendet dann „Bauen“ aus */
+    onauswahl?: ((offen: boolean) => void) | undefined;
+    /** Nächste Stufe eines Gebäudes, falls es eine gibt (G5: Ausbauen beim Antippen) */
+    ausbauFuer?: ((gebaeude: string) => AusbauKurz | undefined) | undefined;
+    /** „Ausbauen“ auf dem Bauplatz: baut sofort oder öffnet das Bau-Blatt mit dem, was fehlt */
+    onausbauen?: ((gebaeude: string) => void) | undefined;
   } = $props();
 
   let rahmen = $state<HTMLDivElement | undefined>(undefined);
@@ -371,6 +389,9 @@
   let ziehAufAuswahl = false;
 
   const gewaehlt = $derived(bastion.bauwerke.find((b) => b.id === auswahl));
+  $effect(() => {
+    onauswahl?.(!!gewaehlt && !blattOffen);
+  });
 
   // Bau-Blatt und Auswahl-Leiste konkurrieren um den unteren Rand
   $effect(() => {
@@ -702,6 +723,22 @@
             }}>{tt('bastion.abbrechen')}</button
           >
         {:else}
+          {@const aus = ausbauFuer?.(gewaehlt.id)}
+          {#if aus?.imBau}
+            <span class="leise">{tt('bastion.hindernis.wird-schon-gebaut')}</span>
+          {:else if aus && onausbauen}
+            <button
+              class="ausbauen"
+              class:bereit={aus.bereit}
+              onclick={() => onausbauen(gewaehlt.id)}
+            >
+              <Symbol name="bauen" />
+              <span
+                >{aus.bereit ? tt('bastion.knopf-ausbauen') : tt('bastion.was-fehlt')}
+                <small>{tt('bastion.auf-stufe')} {aus.stufe}</small></span
+              >
+            </button>
+          {/if}
           <span class="knoepfe">
             <button
               onclick={() => {
@@ -830,6 +867,33 @@
     background: var(--farbe-hintergrund);
     color: inherit;
     cursor: pointer;
+  }
+
+  .wahl button.ausbauen {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    inline-size: 100%;
+    justify-content: center;
+    font-weight: 800;
+    border-style: dashed;
+  }
+
+  .wahl button.ausbauen.bereit {
+    border-style: solid;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+  }
+
+  .wahl button.ausbauen small {
+    font-weight: 600;
+    opacity: 0.85;
+    margin-inline-start: 0.25rem;
+  }
+
+  .wahl button.ausbauen :global(svg) {
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
   }
 
   .wahl .hinweis-platz {

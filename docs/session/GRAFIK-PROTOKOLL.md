@@ -42,3 +42,7 @@
 | 01.11.2026 | **F1 Fokus:** Rückfragen beantwortet (FOKUS.md „Entscheidungen“, T-20); Lern-Oberfläche eingefroren (SESSION-PROMPT Regel 7, AGENTS.md), Grafik nur Paket G, Design-Wellen und Backlog AA–ZZ ruhen bis nach U4b |
 | 01.11.2026 | **Fokus Paket L:** Lern-Oberfläche erst abschließen, dann einfrieren (PV); L vor F2, U4b erst nach Abnahme von L und G (FOKUS.md, SESSION-PROMPT Regel 7, AGENTS.md) |
 | 01.11.2026 | **Paket L (Lern-Oberfläche):** Mängelliste L1–L20, umgesetzt L1–L17, L19, L20; Startseite (L16, L17) und `MiniBastion` vom Lernkern auf Wunsch des PV; offen L18 und Abnahme |
+| 01.11.2026 | **G0:** Rückfragen beantwortet: Probestück (a)+(b) für den Bergfried, Kern darf sich mit `pnpm sim`-Vergleich ändern (B-29), alle Themen Epoche 1 zuerst (`FOKUS.md` „Entscheidungen“) |
+| 01.11.2026 | **G1:** `pnpm grafik:stufen` (Stufen-Vergleich mit Höhe und Umriss) und Bau-Wege mit Playwright gemessen; Befund in `GRAFIK.md` §11 |
+| 01.11.2026 | **G0.1 Probestück:** Bergfried Bastion E1 Stufen 1–3 als (a) Generator und (b) Kenney Castle Kit; Skripte `tools/grafik/probe/`, Messwerte `GRAFIK.md` §11.4, Wahl beim PV |
+| 01.11.2026 | **G5 (Teil 1):** Ausbauen beim Antippen (2 Tipper), „was fehlt“ mit Menge und Herkunft, Skizze/Vormerken unter „Mehr“, Einladung nicht mehr gequetscht; E2E neu |
