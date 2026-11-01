@@ -33,6 +33,7 @@
     istZiel,
     onbauen,
     onvormerken,
+    onplatz = undefined,
     hindernisText,
     onschliessen,
     start = undefined,
@@ -48,6 +49,8 @@
     istZiel: (a: BauAngebot) => boolean;
     onbauen: (a: BauAngebot) => void;
     onvormerken: (a: BauAngebot) => void;
+    /** G5 Teil 2: Neubau, der gebaut werden kann → Blatt zu, Geist auf freiem Platz, „Hier bauen“ */
+    onplatz?: ((a: BauAngebot) => void) | undefined;
     hindernisText: (h: BauHindernis, typ: GebaeudeTyp, stufe: number) => string;
     onschliessen: () => void;
     /** Vorausgewählt, z. B. nach „Ausbauen – was fehlt?“ auf dem Bauplatz (G5) */
@@ -190,7 +193,11 @@
       {/if}
       {#if a.hindernisse.length === 0}
         <div class="aktionen">
-          <button type="button" class="haupt bauen" onclick={() => onbauen(a)}>
+          <button
+            type="button"
+            class="haupt bauen"
+            onclick={() => (onplatz && !a.ausbau ? onplatz(a) : onbauen(a))}
+          >
             <Symbol name="bauen" />
             {a.ausbau ? tt('bastion.knopf-ausbauen') : tt('bastion.bauen-stein')}
           </button>
@@ -249,7 +256,7 @@
             class:aktiv={gewaehlt && gleich(a, gewaehlt)}
             class:gesperrt={lock}
             aria-pressed={gewaehlt ? gleich(a, gewaehlt) : false}
-            onclick={() => (gewaehlt = a)}
+            onclick={() => (onplatz && a.hindernisse.length === 0 ? onplatz(a) : (gewaehlt = a))}
           >
             <GebaeudeVorschau typ={a.typ} stufe={a.stufe} {epoche} gesperrt={lock} />
             <span class="name">{gebaeudeName(a.typ)}</span>
