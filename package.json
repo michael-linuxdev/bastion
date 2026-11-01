@@ -25,6 +25,7 @@
     "inhalte:begriffe": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/inhalte/begriffe-markieren.ts",
     "review": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/review/lauf.ts",
     "sim": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/sim/lauf.ts",
+    "arbeitsblatt": "node --experimental-strip-types --no-warnings tools/pruefbogen/arbeitsblatt-lauf.ts",
     "pruefbogen": "node --experimental-strip-types --no-warnings tools/pruefbogen/lauf.ts",
     "testnummern": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/testnummern.ts"
   },
