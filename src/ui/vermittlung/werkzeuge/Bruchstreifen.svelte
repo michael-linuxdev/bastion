@@ -40,6 +40,14 @@
 
 <div class="streifen-werkzeug">
   {#if interaktiv}
+    <!-- L11: kurze Bedienhilfe, damit das Werkzeug ohne Erklärung verständlich ist -->
+    <p class="anleitung">
+      {t(
+        parameter.verfeinern
+          ? 'werkzeug.streifen.anleitung-halbieren'
+          : 'werkzeug.streifen.anleitung',
+      )}
+    </p>
     <div class="streifen" role="group" aria-label={t('werkzeug.streifen.name')}>
       {#each zustand.gefaerbt as g, i (i)}
         <button
@@ -132,6 +140,12 @@
     align-items: center;
     gap: var(--abstand-s);
     margin: 0;
+  }
+
+  .anleitung {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--farbe-text-leise);
   }
 
   .stand {

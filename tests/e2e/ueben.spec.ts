@@ -1439,7 +1439,10 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
   await page.getByRole('button', { name: 'Erklär es mir' }).click();
 
   await expect(page.getByText('Dein Ziel')).toBeVisible();
+  // L6: die Fortschrittsleiste zählt die Schritte mit
+  await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
   await page.getByRole('button', { name: 'Weiter' }).click();
+  await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '2');
   // Vorwissen: 12 Gummibärchen für 4 Kinder
   await page.getByLabel('Deine Antwort').fill('3');
   await page.getByRole('button', { name: 'Prüfen' }).click();

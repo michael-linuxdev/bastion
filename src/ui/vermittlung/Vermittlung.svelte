@@ -62,7 +62,10 @@
   /** Kurzfassung zum Nachschlagen: nur Beispiele und Merksätze (VERMITTLUNG §2.4) */
   let kurz = $state(false);
 
-  const nummer = $derived(schritt ? vermittlung.schritte.indexOf(schritt) + 1 : 0);
+  // L6: über die ID suchen – `schritt` ist ein $state-Proxy, indexOf fand ihn nie (immer 0)
+  const nummer = $derived(
+    schritt ? vermittlung.schritte.findIndex((s) => s.id === schritt?.id) + 1 : 0,
+  );
   const beantwortet = $derived(bewertung !== undefined && !('ungueltig' in bewertung));
   const fv = $derived(
     bewertung && 'richtig' in bewertung && !bewertung.richtig && bewertung.fv
@@ -115,11 +118,17 @@
   <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
   <header class="kopf">
     <h2>{titel}</h2>
-    <progress
-      max={vermittlung.schritte.length}
-      value={nummer}
+    <!-- L6: eigene Leiste, gleich in allen Browsern -->
+    <div
+      class="fortschritt"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax={vermittlung.schritte.length}
+      aria-valuenow={nummer}
       aria-label={t('vermittlung.fortschritt')}
-    ></progress>
+    >
+      <span style:inline-size="{(100 * nummer) / Math.max(1, vermittlung.schritte.length)}%"></span>
+    </div>
     <button class="dezent umschalten" aria-pressed={kurz} onclick={() => (kurz = !kurz)}
       >{kurz ? t('vermittlung.ganz') : t('vermittlung.kurzfassung')}</button
     >
@@ -278,10 +287,20 @@
     justify-self: start;
   }
 
-  progress {
+  .fortschritt {
     inline-size: 100%;
     block-size: 0.5rem;
-    accent-color: var(--farbe-akzent);
+    border-radius: 999px;
+    background: var(--farbe-flaeche-leise);
+    box-shadow: inset 0 0 0 1px var(--farbe-rand);
+    overflow: hidden;
+  }
+
+  .fortschritt span {
+    display: block;
+    block-size: 100%;
+    background: var(--farbe-akzent);
+    border-radius: inherit;
   }
 
   .zurueck {

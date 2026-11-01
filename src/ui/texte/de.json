@@ -86,6 +86,8 @@
   "werkzeug.streifen.mehr": "Mehr Teile",
   "werkzeug.streifen.weniger": "Weniger Teile",
   "werkzeug.streifen.halbieren": "Jedes Teil halbieren",
+  "werkzeug.streifen.anleitung": "So geht es: Mit − und + teilst du den Streifen ein. Tippe ein Teil an, um es zu färben.",
+  "werkzeug.streifen.anleitung-halbieren": "So geht es: Mit dem Knopf halbierst du jedes Teil. Tippe ein Teil an, um es zu färben.",
   "werkzeug.zahlenstrahl.name": "Zahlenstrahl",
   "werkzeug.zahlenstrahl.von": "von",
   "werkzeug.zahlenstrahl.bis": "bis",
