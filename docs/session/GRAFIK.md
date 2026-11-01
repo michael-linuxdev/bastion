@@ -7,7 +7,7 @@
 >
 > **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; Probestück Bergfried (a)/(b) wartet auf die Wahl des PV (`GRAFIK.md` §11).
+Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; PV hat gewählt: eigener Generator für alles in der Bastion, aus einem Guss; vor U4b nur Thema `bastion` (`FOKUS.md` „Entscheidungen“).
 
 ---
 
