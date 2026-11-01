@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L fast fertig (offen: L18, Abnahme), dann F2. Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
-| Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). G5 Teil 1 (Ausbauen beim Antippen) umgesetzt. Probestück Bergfried (a) Generator / (b) Kenney liegt dem PV zur Wahl vor; danach G2 Stufen-Sprache und G3 Bilder für alle Themen in Epoche 1 |
+| Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). G5 Teil 1 (Ausbauen beim Antippen) umgesetzt. PV wählt eigenen Generator für alles, aus einem Guss; als Nächstes G2 Stil- und Stufen-Regeln, G5 Teil 2, dann G3 für Thema `bastion` Epoche 1 (vor U4b) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -236,6 +236,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
+  - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). **Die PDF-Technik für U7 ist damit nicht entschieden**; das Werkzeug legt nichts für Prüfungen fest.
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
 
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
