@@ -31,7 +31,9 @@ function startGruss(seite: Page) {
 /** Erste Minute öffnen: Kacheln/Bastion/Mehr wieder zeigen. */
 async function hubVoll(seite: Page) {
   const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
-  if (await entdecken.isVisible().catch(() => false)) await entdecken.click();
+  // Der Knopf kann zwischen Prüfung und Klick verschwinden (Hub lädt nach) – dann ist nichts zu tun.
+  if (await entdecken.isVisible().catch(() => false))
+    await entdecken.click({ timeout: 2000 }).catch(() => {});
 }
 
 async function zurStartseite(seite: Page) {
@@ -754,7 +756,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
 
   // Versetzen kostet nichts
   const feuer = page.getByRole('listitem').filter({ hasText: /^Feuerstelle/ });
-  await feuer.getByRole('button', { name: 'Ziehen zum Versetzen' }).click();
+  await feuer.getByRole('button', { name: 'Versetzen' }).click();
   await feuer.getByLabel('Spalte').selectOption({ label: '12' });
   await feuer.getByLabel('Reihe').selectOption({ label: '12' });
   await feuer.getByRole('button', { name: 'Hierhin' }).click();
