@@ -348,6 +348,7 @@ interface NutzungEreignis extends Ereignis {
   - Im Elternbereich gibt es den Abschnitt „Testphase“ (`src/ui/eltern/Testphase.svelte`).
   - Der Hinweis steht auf der Startseite.
   - Protokolliert werden Ansichten, App im Hintergrund oder vorn, Abbruch einer Erklärung, Tipp, von Hand geöffneter Lösungsweg und „Weiter ohne Weg“.
+- Ausgewertet wird die Datei mit `pnpm auswertung` (`TESTS.md` §4.5, `src/core/testphase/auswertung.ts`, F4 am 01.11.2026). Die Liste `unbekannteFehler` der Datei nutzt das Werkzeug nicht, es rechnet sie aus den Ereignissen neu; so lassen sich zwei Exporte derselben Person zusammenführen.
 - Die App-Version steht nicht in der Datei. Die Ereignisse tragen ihr Inhaltspaket und die Generator-Version, das reicht für die Auswertung.
 
 **Entscheidung D-18:** Das Nutzungsprotokoll ist eine eigene Ereignisart, die nur mit Testcode entsteht, nicht in Sicherungen reist und sich vollständig löschen lässt.

@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts.
+**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts. G2 Stil-Regel liegt als Entwurf in `GRAFIK-SPRITES.md` §12 und wartet auf die Abnahme des PV; erst danach G3 (Bilder Thema `bastion`, Epoche 1).
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 
@@ -82,6 +82,8 @@ Steht in `docs/session/GRAFIK-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, n
 
 - **29.10.2026:** Startseite auf dem iPhone 13 korrigiert (`viewport-fit=cover`, `--leiste-hoehe`), Glühbirne für die Fehlerwerkstatt.
 - **30.10.2026:** **PR #83** (Dorf-Grafik) ist auf `main`. Das Thema Dorf unter „Wie soll es aussehen?“ zeigt die Dorfbilder aus Dorfkrieg (Wiese, Häuser, Zaun, Bäume, `GRAFIK.md` §6). Die anderen Themen bleiben die Insel. Kampffiguren gibt es nicht. **PR #85** (Zoom des Bauplatzes wie in Dorfkrieg) ist seit dem 30.10.2026 auf `main`. Der Zoom gilt für jedes Thema: nicht mehr 100 %, 150 % und 200 % mit Rollbalken, sondern + und − um etwa 12 % auf die Mitte, Mausrad und zwei Finger auf den Zeiger, Ziehen verschiebt, ⌖ zeigt das ganze Bild. Grenze 35 % bis 240 %.
+
+- **01.11.2026 (G5 Teil 2):** Neubau mit Platz-Vorschlag und „Hier bauen“ (`GRAFIK.md` §11.7). Offen beim PV: Kern-Vorschlag „Planen und Bauen zusammenlegen“ (Empfehlung: nein, G4 statt dessen) und schönerer Platz über `ablage.ts`.
 
 **Lehren (Grafik):**
 

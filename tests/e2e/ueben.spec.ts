@@ -1105,6 +1105,39 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
 });
 
+test('Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G5)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  await page.goto('./');
+  await hubVoll(page);
+  await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
+  await vorratAnlegen(page, { fleiss: 500, behalten: 100, koennen: 4, schritt: 20 });
+  await page.reload();
+  await bastionOeffnen(page, false);
+  const bild = page.locator('.bauplatz canvas');
+  await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
+  // Tipp 1 und 2: „Bauen“ → Studierstube; das Blatt geht zu, der Platz ist markiert
+  await page.getByRole('main').getByRole('button', { name: 'Bauen', exact: true }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Studierstube', exact: true }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  const leiste = page.getByRole('region', { name: 'Hier bauen' });
+  await expect(leiste).toContainText('Studierstube');
+  await expect(leiste).toContainText('Spalte 1, Reihe 1');
+  await expect(leiste).toContainText('Steht sofort.');
+  // „Anderes Gebäude“ führt zurück ins Blatt, ohne zu bauen
+  await leiste.getByRole('button', { name: 'Anderes Gebäude' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Studierstube', exact: true }).click();
+  // Tipp 3: „Hier bauen“ – das Gebäude steht auf dem vorgeschlagenen Feld
+  await leiste.getByRole('button', { name: 'Hier bauen' }).click();
+  await expect(leiste).toHaveCount(0);
+  // Gebaut: Als Neubau gibt es keine zweite Studierstube mehr, nur ihren Ausbau
+  await page.getByRole('main').getByRole('button', { name: 'Bauen', exact: true }).click();
+  const blatt = page.getByRole('dialog');
+  await expect(blatt.getByRole('button', { name: 'Studierstube', exact: true })).toHaveCount(0);
+  await expect(blatt.getByRole('button', { name: 'Studierstube Stufe 2' })).toBeVisible();
+});
+
 test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen (INHALTSFORMAT §5.2)', async ({
   page,
 }) => {

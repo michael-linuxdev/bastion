@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L umgesetzt (offen: Abnahme durch den PV), dann F2. Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
+| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L umgesetzt (offen: Abnahme durch den PV), dann F2. F4 (Auswertung U4b) und F6 fertig, F5 läuft, parallel zu L (PV, 01.11.2026, #146). Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
 | Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G0 entschieden, G1 gemessen (`GRAFIK.md` §11). G5 Teil 1 (Ausbauen beim Antippen) umgesetzt. PV wählt eigenen Generator für alles, aus einem Guss; als Nächstes G2 Stil- und Stufen-Regeln, G5 Teil 2, dann G3 für Thema `bastion` Epoche 1 (vor U4b) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
@@ -208,7 +208,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U3l** Browser-Tests (je Schritt einer) und Dokumente (LEHRPLAN §6 „erklärt“, KONZEPT §0, VERMITTLUNG §7)
 - [ ] **U4** Testphase, in zwei Schritten:
   - [x] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
-  - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2)
+  - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2). Auswertung vorbereitet (F4, 01.11.2026): `pnpm auswertung` beantwortet Kriterium 1 und F5 aus `STRATEGIE.md` §0 (`TESTS.md` §4.5)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
   - [x] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
@@ -236,6 +236,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
+  - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). **Die PDF-Technik für U7 ist damit nicht entschieden**; das Werkzeug legt nichts für Prüfungen fest.
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
 
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
@@ -247,6 +248,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
 - **Design „Danach“ (31.10.2026):** Themen-Landkarte, stiller Abschluss→Bastion, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern-Werkstatt / Kind-Ort ✅
+- **Paket G (Fokus, 01.11.2026, `docs/session/FOKUS.md`):** G0 entschieden ✅ · G1 gemessen ✅ · G5 Teil 1 Ausbauen beim Antippen ✅ · G2 Stil-Regel für die ganze Bastion als Entwurf (`GRAFIK-SPRITES.md` §12), Abnahme PV offen · danach G3 Bilder Thema `bastion` Epoche 1, G5 Teil 2 Bauplatz-Vorschlag
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 

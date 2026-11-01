@@ -3,13 +3,13 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2 · F5 parallel
 
 ---
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
+Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
 
 **Besonders kritisch prüfen:** die didaktische Qualität der Erstvermittlung und der Fehlererklärungen.
 
@@ -24,6 +24,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 - **U4a:** Testprotokoll (K-14, D-18).
 - **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 - **U5b und U5c:** alle 596 Fehlerbilder zugeordnet, alle 123 Kompetenzen mit Erstvermittlung.
+- **01.11.2026, F4:** `pnpm auswertung` beantwortet nach U4b Kriterium 1 und F5 aus `STRATEGIE.md` §0 mit ja oder nein. Einstiegsaufgaben: die ersten 3 Aufgaben auf Niveau G nach der Erstvermittlung, ohne Tipp (`TESTS.md` §4.5). Der PV hat entschieden, dass F4 bis F6 parallel zu Paket L laufen, ohne die Lern-Oberfläche zu ändern (#146).
 - **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102), **Stufe 1 für das Musterfeld** (22 Dateien, Funde unten in der Übergabe).
 
 **Als Nächstes:**
@@ -36,6 +37,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
    - Danach die Testprotokoll-Dateien auswerten: Verständnis, Treffer der Erklärungen, Nutzung der Zwischenschritte und „Weiter ohne Weg“.
 2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
    Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den Vermerk schreibt `pnpm review setzen` (INHALTSFORMAT §8, seit 31.10.2026). Vor Stufe 2 braucht jede Datei Stufe 1: ein zweites Modell prüft sie gegen den Prüfkatalog in §8, in einer frischen Sitzung. *Erledigt am 31.10.2026* für alle 22 Dateien des Musterfelds; die Texte haben sich dabei geändert, darum den Prüfbogen vor dem Versand neu erzeugen. Die Seite zum Ausfüllen liegt als Artefakt unter https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Sie wird mit `pnpm pruefbogen --online --name "Musterfeld Brüche" …` erzeugt und auf derselben Adresse neu veröffentlicht. Die Eingaben stehen in der Sammlung `bewertung` der Seite. Die Lehrkraft braucht Schreibrechte (per E-Mail als Bearbeiterin einladen), sonst speichert die Seite nur in ihrem Browser.
+   **Arbeitsblatt dazu (F6, 01.11.2026):** `pnpm arbeitsblatt M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB --niveau G --anzahl 12 --seed 7 > blatt.html` – drei Seiten, als Dankeschön und Probe für den Unterricht zusammen mit dem Prüfbogen anbieten (Vorschlag an den PV in der Übergabe von `FOKUS.md`).
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.

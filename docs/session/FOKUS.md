@@ -238,7 +238,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 4. Eine kurze Anleitung für die Lehrkraft (eine Seite, `docs/` oder im Prüfbogen selbst): Was wird geprüft, wie lange dauert es, was passiert mit den Antworten.
 5. Dem PV sagen, was er tun muss: die Lehrkraft als Bearbeiterin der Seite einladen.
 
-### F4 – Auswertung für U4b vorbereiten
+### ~~F4 – Auswertung für U4b vorbereiten~~ (erledigt 01.11.2026: `pnpm auswertung`, `TESTS.md` §4.5)
 
 **Ziel:** Nach dem Test gibt es sofort eine Ja/Nein-Antwort zu den Kriterien in `STRATEGIE.md` §0, nicht nur Rohdaten.
 
@@ -264,7 +264,10 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 3. Ausgabe: eine Liste der Verdachtsfälle je Feld. Funde nicht automatisch korrigieren. Inhalte ändern sich nur in eigenen PRs mit Begründung, und geänderte Dateien verlieren ihren Review-Vermerk. Das muss im PR stehen.
 4. Neue Prüfungen, die für alle Inhalte gelten und grün sind, werden Pflichttests (`INHALTSFORMAT.md` §6.3).
 
-### F6 – Arbeitsblätter für Lehrkräfte (kleiner Vorläufer von U7)
+### ~~F6 – Arbeitsblätter für Lehrkräfte (kleiner Vorläufer von U7)~~
+
+*Erledigt am 01.11.2026 (Branch `lernkern/f6-arbeitsblatt`, parallel zu Paket L nach Entscheidung des PV in #146):* `pnpm arbeitsblatt`, Beschreibung in `tools/README.md`. Die Lern-Oberfläche ist unverändert.
+
 
 **Ziel:** Lehrkräfte bekommen sofort etwas Nützliches: druckbare Arbeitsblätter mit neuen Aufgaben. Das hilft beim Gewinnen der prüfenden Lehrkraft und ist ein erster Schritt zu Kriterium 4 („eine Klassenarbeit wird als einsetzbar beurteilt“).
 
@@ -343,3 +346,6 @@ Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `
 - **01.11.2026 spät, Lernkern (Branch `lernkern/l18-themenwahl`):** L18 fertig (Bereiche einklappen), Rundgang auf 390 px wiederholt, Fotos an den PV. Als Nächstes: Abnahme L durch den PV, dann F2.
 - **01.11.2026, Strang Grafik, Paket G** (Branch `grafik/paket-g-g0-g1`): ~~G0 Rückfragen~~ (siehe „Entscheidungen“) · ~~G1 Bestandsaufnahme~~ (`pnpm grafik:stufen`, Bau-Wege gemessen, `GRAFIK.md` §11.2–11.3) · G0.1 Probestück gebaut (`GRAFIK.md` §11.4, Skripte `tools/grafik/probe/`). **Rückfrage an den PV:** Variante (a) Generator oder (b) Kenney-Bausatz, oder eine Mischung, z. B. (b) für Stein und Burg und (a) für Holz, Garten und Unterwasser? Außerdem: Schwellwert für den Umriss-Test 25 % statt 12 %? Danach folgen G2 (Stufen-Sprache) und G5 (Ausbauen beim Antippen des Gebäudes), unabhängig von der Bildwahl.
 - **01.11.2026, Strang Grafik, G5 Teil 1** (Branch `grafik/g5-bauen-einfacher`, baut auf #143 auf): Ausbauen beim Antippen in 2 Tippern, „was fehlt“ mit Menge und Herkunft, Skizze und Vormerken unter „Mehr“ (`GRAFIK.md` §11.5). Offen in G5: Bauplatz-Vorschlag mit „Hier bauen“ und Planen und Bauen zusammenlegen (Kern, B-29).
+- **01.11.2026, Strang Grafik, G2** (Branch `grafik/g2-stilregel`): Stil-Regel für die ganze Bastion als Entwurf in `GRAFIK-SPRITES.md` §12 (Raster, Maßstab, Licht, Kontur, Palette, Materialleiter, Stufen-Sprache, Tabelle Rolle × Stufe Thema `bastion` E1). **Rückfrage an den PV:** Regel abnehmen (Checkliste §12.9), dann G3.
+- **01.11.2026, Strang Grafik, G5 Teil 2** (Branch `grafik/g5-bauplatz-vorschlag`): Neubau mit Platz-Vorschlag (Geist, Kamera, „Hier bauen“), 3 Tipper (`GRAFIK.md` §11.7). **Rückfragen an den PV:** (1) Planen und Bauen im Kern zusammenlegen? Vorschlag mit `pnpm sim` vorher/nachher in §11.7, Empfehlung: nein, stattdessen G4 (Gerüst wächst). (2) Soll der Vorschlag einen schöneren Platz wählen (neben dem Bergfried)? Dafür braucht es eine kleine Änderung in der gemeinsamen Datei `src/ui/plattform/ablage.ts`.
+- **01.11.2026, Lernkern, F6** (Branch `lernkern/f6-arbeitsblatt`): ~~F6~~ `pnpm arbeitsblatt <Kompetenz…> --niveau G --anzahl 12 --seed 7 > blatt.html`: Kopf, Aufgaben mit Rechenkasten, Lösungsseite mit Lösungsweg, Fußzeile mit der schwächsten Review-Stufe; gleicher Seed, gleiches Blatt (Test). Gemeinsamer Satz von Prüfbogen und Blatt in `tools/pruefbogen/satz.ts`. PLAN §4b: PDF-Technik für U7 nicht entschieden. Vorschlag für die Lehrkraft an den PV geschickt. Neue Rückfragen: keine.
