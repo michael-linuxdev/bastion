@@ -64,6 +64,7 @@
   import { turmJoker, type BewaehrungModus } from '../../core/bastion/bewaehrung';
   import { vormerken, ziellage, type Ziel } from '../../core/bastion/ziel';
   import { soundTipp } from './sound/sound';
+  import { restLerneinheiten } from './fehlt';
   import { t } from '../texte/texte';
 
   let {
@@ -98,6 +99,8 @@
   let bauStart = $state<Angebot | undefined>(undefined);
   /** Gebäude auf dem Bauplatz gewählt → „Bauen“ und Einladung treten zurück (G5) */
   let auswahlOffen = $state(false);
+  /** G5 Teil 2: gewählter Neubau, für den die App einen freien Platz vorschlägt */
+  let vorschlagTyp = $state<GebaeudeTyp | undefined>(undefined);
   /** Kamera: Bauplatz oder Hinterhof (Chrome oben) */
   let blick = $state<'bauplatz' | 'hinterhof'>('bauplatz');
   let bewaehrungModus = $state<BewaehrungModus>('ueben');
@@ -241,6 +244,26 @@
     });
   });
 
+  /** Der vorgeschlagene Platz ist genau der, auf den „Hier bauen“ baut (erstes freies Feld, wie in der Ablage) */
+  const vorschlag = $derived.by(() => {
+    const typ = vorschlagTyp;
+    const b = sichtBastion;
+    const k = sichtKonto;
+    if (!typ || !b || !k) return undefined;
+    const angebot = neubauten.find((a) => a.typ === typ);
+    if (!angebot || angebot.hindernisse.length > 0) return undefined;
+    const pos = freierPlatz(b, typ, epochenstand(b, k).bauplatz);
+    return pos ? { typ, pos, kosten: kosten(typ, 1) } : undefined;
+  });
+  // Fällt der Vorschlag weg (gebaut, Platz belegt, Rohstoffe weg), endet die Vorschau
+  $effect(() => {
+    if (vorschlagTyp && !vorschlag) vorschlagTyp = undefined;
+  });
+
+  async function hierBauen(typ: GebaeudeTyp) {
+    if (await ausfuehren({ art: 'beginnen', typ })) vorschlagTyp = undefined;
+  }
+
   // Ausbau: jedes Gebäude, das noch eine Stufe höher kann
   const ausbauten = $derived.by((): Angebot[] => {
     const b = sichtBastion;
@@ -368,15 +391,56 @@
         buecher={l.buecher.length}
         hinterhofKnopf={false}
         blattOffen={bauBlattOffen}
-        onauswahl={(o) => (auswahlOffen = o)}
+        onauswahl={(o) => {
+          auswahlOffen = o;
+          if (o) vorschlagTyp = undefined;
+        }}
         ausbauFuer={ausbauKurz}
         onausbauen={ausbauenAufBauplatz}
+        vorschlag={vorschlag && !bauBlattOffen
+          ? { pos: vorschlag.pos, typ: vorschlag.typ }
+          : undefined}
         bind:blick
       />
-      {#if b.bauwerke.every( (x) => x.id.startsWith('start.') ) && b.vorhaben.length === 0 && !bauBlattOffen && !auswahlOffen}
+      {#if b.bauwerke.every( (x) => x.id.startsWith('start.') ) && b.vorhaben.length === 0 && !bauBlattOffen && !auswahlOffen && !vorschlag}
         <p class="leer-einladung" aria-hidden="true">{t('bastion.leer-einladung')}</p>
       {/if}
-      {#if !bauBlattOffen && !auswahlOffen}
+      {#if vorschlag && !bauBlattOffen}
+        {@const v = vorschlag}
+        {@const rest = v.kosten
+          ? restLerneinheiten(v.kosten, anzeigeVorrat(b.vorrat, testRohstoffe))
+          : 0}
+        <div class="vorschlag-leiste" role="region" aria-label={tt('bastion.hier-bauen')}>
+          <p class="vorschlag-titel ort-name">{name(v.typ)}</p>
+          <p class="leise" aria-live="polite">
+            {tt('bastion.vorschlag-platz')}
+            <span class="unsichtbar">{feld(v.pos.x, v.pos.y)}.</span>
+            {#if rest === 0}{tt('bastion.dauer-sofort')}{:else}{tt('bastion.dauer-vor')}
+              {rest}
+              {rest === 1 ? tt('bastion.dauer-einer') : tt('bastion.dauer-viele')}{/if}
+          </p>
+          <p class="leise">{tt('bastion.vorschlag-versetzen')}</p>
+          <div class="vorschlag-knoepfe">
+            <button type="button" class="haupt" onclick={() => void hierBauen(v.typ)}>
+              <Symbol name="bauen" />
+              {tt('bastion.hier-bauen')}
+            </button>
+            <button
+              type="button"
+              class="zweit"
+              onclick={() => {
+                vorschlagTyp = undefined;
+                bauStart = undefined;
+                bauBlattOffen = true;
+              }}>{tt('bastion.anderes-gebaeude')}</button
+            >
+            <button type="button" class="zweit" onclick={() => (vorschlagTyp = undefined)}
+              >{tt('bastion.vorschlag-abbrechen')}</button
+            >
+          </div>
+        </div>
+      {/if}
+      {#if !bauBlattOffen && !auswahlOffen && !vorschlag}
         <button
           class="bauen-werkzeug"
           aria-expanded={false}
@@ -419,6 +483,11 @@
             bauStart = undefined;
           }}
           onvormerken={(a) => merken(vormerken(b, a.typ, a.ausbau?.id))}
+          onplatz={(a) => {
+            vorschlagTyp = a.typ;
+            bauBlattOffen = false;
+            bauStart = undefined;
+          }}
           onbauen={(a) =>
             void ausfuehren({
               art: 'beginnen',
@@ -878,6 +947,69 @@
     pointer-events: none;
     box-shadow: 0 1px 6px var(--farbe-schatten);
     text-align: center;
+  }
+
+  .vorschlag-leiste {
+    position: absolute;
+    inset-inline: var(--abstand-m);
+    inset-block-end: max(var(--abstand-m), env(safe-area-inset-bottom, 0px));
+    z-index: 3;
+    display: grid;
+    gap: 0.35rem;
+    padding: var(--abstand-m);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--farbe-flaeche) 96%, transparent);
+    box-shadow:
+      0 2px 12px var(--farbe-schatten),
+      0 0 0 2px color-mix(in srgb, var(--farbe-akzent) 45%, transparent);
+  }
+
+  .vorschlag-leiste p {
+    margin: 0;
+  }
+
+  .vorschlag-titel {
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  .vorschlag-knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+    margin-block-start: 0.25rem;
+  }
+
+  .vorschlag-knoepfe button {
+    min-block-size: var(--ziel);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .vorschlag-knoepfe .haupt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex: 1 1 auto;
+    justify-content: center;
+    border: none;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    font-weight: 800;
+  }
+
+  .vorschlag-knoepfe .haupt :global(svg) {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .vorschlag-knoepfe .zweit {
+    border: 1px solid var(--farbe-rand);
+    background: transparent;
+    color: var(--farbe-text);
   }
 
   .bauen-werkzeug {

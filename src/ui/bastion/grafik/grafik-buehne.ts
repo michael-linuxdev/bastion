@@ -145,6 +145,8 @@ export interface Ansicht {
   readonly auswahl?: string;
   /** Feld, auf das gerade versetzt werden soll – mit Umriss in der Größe des Gebäudes */
   readonly ziel?: { readonly pos: Position; readonly typ: GebaeudeTyp; readonly frei: boolean };
+  /** Neubau-Vorschlag (G5): freies Feld als Geist – Umriss und blasses Bild, noch nichts gebaut */
+  readonly vorschlag?: { readonly pos: Position; readonly typ: GebaeudeTyp };
   /** Hinterhof-Felder hinter dem Bauplatz (B-25) */
   readonly hinterhof?: readonly HinterhofFeld[];
   /** Freigeschaltete Epoche für Optik (GRAFIK §8 / G10) */
@@ -1927,6 +1929,25 @@ export async function buehneErstellen(
             hoch(e.links, h),
           ),
         });
+      }
+      if (a.vorschlag) {
+        const v = a.vorschlag;
+        raute(g, v.pos, v.typ, 0.05).fill({ color: farben.auswahl, alpha: 0.16 });
+        geisterUmriss(g, v.pos, v.typ, farben.auswahl);
+        const eintrag = atlasEintrag(atlas, thema, epocheJetzt, v.typ, 1);
+        const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+        if (eintrag && tex) {
+          const [vw, vt] = KATALOG[v.typ].groesse;
+          const fuss = punkt(v.pos.x + vw, v.pos.y + vt);
+          const spr = new Sprite(tex);
+          spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+          spr.width = eintrag.pixel.w / 2;
+          spr.height = eintrag.pixel.h / 2;
+          spr.position.set(fuss.x, fuss.y);
+          spr.alpha = 0.5;
+          spr.zIndex = (v.pos.x + v.pos.y + (vw + vt) / 2) * 10 + 1;
+          gebaeude.addChild(spr);
+        }
       }
       if (a.ziel) {
         raute(g, a.ziel.pos, a.ziel.typ, 0).stroke({

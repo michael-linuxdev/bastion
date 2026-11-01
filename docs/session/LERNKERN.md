@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2 · Parallel zu L (PV, #146): F4 (`pnpm auswertung`) und F5 (`pnpm fehlerschueler`) erledigt, dann F6
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 und F6 (`pnpm arbeitsblatt`) erledigt · Paket L zum größten Teil umgesetzt (L1–L17, L19, L20) · Nächster Schritt: L18, Rundgang, Abnahme L durch den PV, dann F2 · Parallel zu L (PV, #146): F4 (`pnpm auswertung`) und F5 (`pnpm fehlerschueler`) erledigt
 
 ---
 
@@ -38,6 +38,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
    - Danach die Testprotokoll-Dateien auswerten: Verständnis, Treffer der Erklärungen, Nutzung der Zwischenschritte und „Weiter ohne Weg“.
 2. **Vorher:** Das Musterfeld fachlich prüfen lassen (drei Erstvermittlungen, zehn Fehlvorstellungen, Schritte), am besten durch eine Lehrkraft.
    Dafür gibt es den Prüfbogen (30.10.2026): `pnpm pruefbogen M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB > pruefbogen.html`, im Browser als PDF drucken. Das sind etwa 46 Seiten. Er enthält die drei Erstvermittlungen, die zehn Fehlvorstellungen, sechs Vorlagen mit je 20 Aufgaben pro Niveau und zwölf Fachbegriffe, zu jedem Abschnitt Ankreuzfelder. Die Ergebnisse arbeitet die nächste Sitzung ein. Den Vermerk schreibt `pnpm review setzen` (INHALTSFORMAT §8, seit 31.10.2026). Vor Stufe 2 braucht jede Datei Stufe 1: ein zweites Modell prüft sie gegen den Prüfkatalog in §8, in einer frischen Sitzung. *Erledigt am 31.10.2026* für alle 22 Dateien des Musterfelds; die Texte haben sich dabei geändert, darum den Prüfbogen vor dem Versand neu erzeugen. Die Seite zum Ausfüllen liegt als Artefakt unter https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Sie wird mit `pnpm pruefbogen --online --name "Musterfeld Brüche" …` erzeugt und auf derselben Adresse neu veröffentlicht. Die Eingaben stehen in der Sammlung `bewertung` der Seite. Die Lehrkraft braucht Schreibrechte (per E-Mail als Bearbeiterin einladen), sonst speichert die Seite nur in ihrem Browser.
+   **Arbeitsblatt dazu (F6, 01.11.2026):** `pnpm arbeitsblatt M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB --niveau G --anzahl 12 --seed 7 > blatt.html` – drei Seiten, als Dankeschön und Probe für den Unterricht zusammen mit dem Prüfbogen anbieten (Vorschlag an den PV in der Übergabe von `FOKUS.md`).
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.

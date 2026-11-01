@@ -236,6 +236,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
+  - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). **Die PDF-Technik für U7 ist damit nicht entschieden**; das Werkzeug legt nichts für Prüfungen fest.
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
 
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
@@ -247,6 +248,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
 - **Design „Danach“ (31.10.2026):** Themen-Landkarte, stiller Abschluss→Bastion, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern-Werkstatt / Kind-Ort ✅
+- **Paket G (Fokus, 01.11.2026, `docs/session/FOKUS.md`):** G0 entschieden ✅ · G1 gemessen ✅ · G5 Teil 1 Ausbauen beim Antippen ✅ · G2 Stil-Regel für die ganze Bastion als Entwurf (`GRAFIK-SPRITES.md` §12), Abnahme PV offen · danach G3 Bilder Thema `bastion` Epoche 1, G5 Teil 2 Bauplatz-Vorschlag
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 

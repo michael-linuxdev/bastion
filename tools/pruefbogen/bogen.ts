@@ -5,14 +5,14 @@
 import type { Kompetenz, Niveau } from '../../src/core/competence/kompetenz';
 import type { Begriff } from '../../src/core/learning/begriffe';
 import type { Fehlvorstellung } from '../../src/core/learning/fehlvorstellung';
-import type { Generator, Instanz, Loesung, Wert } from '../../src/core/learning/generator';
-import { fuelle, zahlText, type Textteil } from '../../src/core/learning/text';
+import type { Generator, Instanz, Wert } from '../../src/core/learning/generator';
 import type { Schritt, Vermittlung, WerkzeugAngabe } from '../../src/core/learning/vermittlung';
 import type { GeneratorVorlage } from '../../src/core/learning/vorlage';
 import { musterweg } from '../../src/core/learning/zwischenschritte';
 import { breiten, startzustand } from '../../src/ui/vermittlung/werkzeuge/bruchstreifen';
 import { stelle, striche } from '../../src/ui/vermittlung/werkzeuge/zahlenstrahl';
 import { esc } from './html';
+import { GRUND_STIL, loesungText, text } from './satz';
 import { onlineSeite } from './online';
 
 export interface BogenEingabe {
@@ -82,47 +82,6 @@ const A_FRAGEN = [
   'Passt der Schwierigkeitsgrad zum Niveau?',
   'Passt jede Rückmeldung zu der falschen Antwort, bei der sie erscheint?',
 ];
-
-function teileHtml(teile: readonly Textteil[]): string {
-  return teile
-    .map((t) => {
-      if (t.art === 'bruch')
-        return `<span class="br"><span>${esc(t.zaehler)}</span><span>${esc(t.nenner)}</span></span>`;
-      if (t.art === 'hoch') return `<sup>${esc(t.text)}</sup>`;
-      if (t.art === 'wurzel') return `√<span class="ueber">${esc(t.text)}</span>`;
-      const inhalt = t.art === 'begriff' ? `<u>${esc(t.text)}</u>` : esc(t.text);
-      return t.fett ? `<b>${inhalt}</b>` : inhalt;
-    })
-    .join('');
-}
-
-/** Text füllen; Platzhalter ohne Wert (Rückmeldungen ohne konkrete Aufgabe) bleiben als ‹name›. */
-const text = (s: string, platzhalter: Readonly<Record<string, Wert>> = {}) =>
-  teileHtml(
-    fuelle(
-      s.replace(/\{([a-z_]+)\}/g, (m, name: string) => (name in platzhalter ? m : `‹${name}›`)),
-      platzhalter,
-    ),
-  );
-
-function loesungText(l: Loesung, optionen?: Instanz['optionen']): string {
-  switch (l.typ) {
-    case 'bruch':
-      return `${zahlText(l.wert.zaehler)}/${zahlText(l.wert.nenner)}`;
-    case 'zahl':
-      return zahlText(l.wert);
-    case 'auswahl': {
-      const o = optionen?.[l.wert];
-      return `${String.fromCharCode(65 + l.wert)}${o?.text ? ` (${esc(o.text.de)})` : ''}`;
-    }
-    case 'reihenfolge':
-      return l.wert.map(zahlText).join(' < ');
-    case 'punkt':
-      return `(${zahlText(l.wert.x)} | ${zahlText(l.wert.y)})`;
-    case 'mit-rest':
-      return `${zahlText(l.wert.quotient)} Rest ${zahlText(l.wert.rest)}`;
-  }
-}
 
 /** Kleines SVG für die Werkzeuge der Erstvermittlung (Bruchstreifen, Zahlenstrahl). */
 export function werkzeugBild(w: WerkzeugAngabe): string {
@@ -485,9 +444,7 @@ export function pruefbogen(e: BogenEingabe, optionen: BogenOptionen = {}): strin
 `;
 }
 
-const STIL = `
-:root { color-scheme: light; }
-body { font: 11pt/1.4 system-ui, sans-serif; color: #111; background: #fff; max-inline-size: 48rem; margin-inline: auto; padding: 1rem; }
+const STIL = `${GRUND_STIL}
 h1 { margin-block: 0; }
 h2.teil { break-before: page; border-block-end: 2px solid #333; }
 h3 { margin-block: 1.2rem .3rem; }
@@ -506,9 +463,6 @@ ul.antworten { margin: .3rem 0 0; padding-inline-start: 1rem; list-style: none; 
 li.richtig { color: #060; }
 figure { margin: .3rem 0; }
 figcaption { color: #666; font-size: 9pt; }
-.br { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 9pt; line-height: 1.1; }
-.br > span:first-child { border-block-end: 1px solid currentcolor; }
-.ueber { text-decoration: overline; }
 dl dt { font-weight: bold; margin-block-start: .4rem; }
 dl dd { margin-inline-start: 1rem; }
 .urteil { border: 1px solid #333; padding: .4rem .6rem; margin-block: .6rem 1.2rem; break-inside: avoid; }

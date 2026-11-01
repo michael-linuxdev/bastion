@@ -24,6 +24,16 @@ pnpm auswertung protokoll-1.json protokoll-2.json > bericht.md
 
 Personen heißen im Bericht „Person 1 …“; `--nummern` setzt die Teilnehmer-Nummern dazu. Protokolle und Bericht kommen nicht ins Repository. Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`.
 
+## Arbeitsblatt (`pruefbogen/arbeitsblatt.ts`)
+
+Druckbares Arbeitsblatt für Lehrkräfte (FOKUS F6): neue Aufgaben zu einer oder mehreren Kompetenzen auf einem Niveau.
+
+```sh
+pnpm arbeitsblatt M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB --niveau G --anzahl 12 --seed 7 > blatt.html
+```
+
+Seite 1 hat einen Kopf mit Name, Datum und Thema und die Aufgaben mit kariertem Rechenkasten. Danach folgt eine eigene Seite mit Lösungen und Lösungsweg für die Lehrkraft. Die Fußzeile nennt die Review-Stufe der schwächsten benutzten Vorlage („Entwurf, nicht fachlich geprüft“ bei Stufe 0). Die Vorlagen kommen der Reihe nach dran, jede gleich oft; doppelte Aufgaben werden neu gezogen. Gleiche Angaben und gleicher Seed ergeben dasselbe Blatt. Ohne `--seed` wird eine Nummer gewürfelt; sie steht als „Arbeitsblatt Nr.“ auf dem Blatt. Brüche und Hochzahlen setzt derselbe Teil wie im Prüfbogen (`satz.ts`, aus `src/core/learning/text.ts`). Im Browser öffnen und als PDF drucken. Das Werkzeug legt die PDF-Technik für U7 nicht fest.
+
 ## Fehler-Schüler (`inhalte/fehlerschueler.ts`)
 
 `pnpm fehlerschueler [--seeds 200] > verdacht.md` spielt die Diagnose regelbasiert durch und listet Verdachtsfälle je Feld (Arten A–E, INHALTSFORMAT §8). Er korrigiert nichts. Der Lauf über alle Inhalte dauert wenige Sekunden. Er ist nicht Teil von `pnpm test`, dort läuft nur ein kleiner Test mit erfundenen Inhalten. Er startet die Generatoren wie der Prüfbogen über `runnerImport`.

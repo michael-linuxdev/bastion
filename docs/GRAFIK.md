@@ -332,4 +332,33 @@ Ohne Änderung am Kern (`src/core/` unverändert); nur `src/ui/bastion/` und Tex
 
 E2E: `Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)`. Die Listenansicht in den Einstellungen bleibt unverändert und voll bedienbar.
 
-Noch offen in G5: Bauplatz-Vorschlag mit Geister-Vorschau und „Hier bauen“ beim Neubau; Planen und Bauen zusammenlegen (Kern, B-29, eigener PR mit `pnpm sim`).
+Noch offen in G5: ~~Bauplatz-Vorschlag mit Geister-Vorschau und „Hier bauen“ beim Neubau~~ (Teil 2, 11.7); Planen und Bauen zusammenlegen (Kern, B-29): Vorschlag in 11.7, Entscheidung beim PV.
+
+### 11.6 G2 – Stil-Regel für die ganze Bastion (01.11.2026, Entwurf)
+
+Nach der Wahl des PV (eigener Generator für alles, aus einem Guss) steht die Regel in `GRAFIK-SPRITES.md` §12: Raster und Maßstab, Licht von rechts oben, Kontur, Palette mit Materialleiter Holz → Fachwerk → Stein, Stufen-Sprache mit Schwellwerten (Umriss 25 %, Höhe 15 %) und die Tabelle Rolle × Stufe für das Thema `bastion`, Epoche 1 (14 Gebäudebilder). Vorbild ist das Probestück (a). **Wartet auf die Abnahme des PV;** erst danach erzeugt G3 Bilder.
+
+### 11.7 G5 – Bauplatz-Vorschlag beim Neubau (Teil 2, 01.11.2026)
+
+Ohne Änderung am Kern; nur `src/ui/bastion/` (mit `grafik/grafik-buehne.ts`) und Texte.
+
+| Vorher (11.3) | Jetzt |
+|---|---|
+| „Bauen“ → Gebäude → „Bauen“; der Platz wird still gewählt (hinten am Rand), man sieht ihn nicht | **„Bauen“ → Gebäude antippen → „Hier bauen“** (3 Tipper). Nach dem Antippen geht das Blatt zu. Auf dem Bauplatz liegt ein Geist: Fläche und gestrichelter Umriss in Akzentfarbe, dazu das Gebäudebild blass. Die Kamera schwenkt dorthin und holt etwas heran (mindestens 120 %) |
+| – | Unten steht eine Leiste mit Name, „Der freie Platz ist auf dem Bauplatz markiert.“, Dauer („Steht sofort.“ oder „Fertig nach …“), „Sobald es steht, kannst du es kostenlos versetzen.“ und den Knöpfen **„Hier bauen“**, „Anderes Gebäude“ und „Abbrechen“. Für Screenreader nennt sie das Feld („Spalte 1, Reihe 1“) |
+| Gebäude, das gerade nicht geht | wie bisher: Das Blatt bleibt offen und sagt, was fehlt (11.5) |
+
+Der vorgeschlagene Platz ist **genau der, auf den gebaut wird**: das erste freie Feld, wie es die Ablage beim Beginnen wählt (`freierPlatz`). Ein schönerer Platz, z. B. neben dem Bergfried, bräuchte eine kleine Änderung in der gemeinsamen Datei `src/ui/plattform/ablage.ts`: Der Bau-Auftrag müsste den Platz mitnehmen. Der Kern bleibt dabei unverändert. Das ist eine Rückfrage an den PV. Die Listenansicht in den Einstellungen bleibt unverändert. E2E: `Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G5)`.
+
+**Vorschlag an den PV (B-29, nicht gebaut): Planen und Bauen in einem Schritt.** Im Kern ist „Planen“ kein eigener Schritt. Getrennt ist nur die Bauzeit: Reicht der Vorrat an Bauschritten nicht, wartet das Gebäude als Vorhaben über mehrere Lerneinheiten (B-7). Für „Gebäude steht nach 3 Tippern“ wäre die kleinste Kernänderung: Bauen geht erst, wenn genug Bauschritte im Vorrat sind, und dann steht das Gebäude sofort (ein neues Hindernis `zu-wenig-schritt` in `beginnHindernisse`). Ereignisse und Schema bleiben gleich; alte Vorhaben laufen weiter wie bisher. Zum Vergleich wurde `pnpm sim` in einer Probe-Kopie gerechnet und nicht übernommen:
+
+| Profil | vorher | nachher (Kind spart keine Bauschritte) | nachher (Kind hebt Bauschritte für das nächste Ziel auf) |
+|---|---|---|---|
+| P1, P2, P5, P6, P7 | – | unverändert | unverändert |
+| P3 Wochenende: Epoche 1 nach | 10,5 Monaten | **19,7 Monaten** | 10,7 Monaten |
+| P3: Gebäude fertig im Jahr 1 | 77 | 85 | **29** |
+| P3: größte Lücke | 35 Tage | 35 Tage | **56 Tage** |
+| P4 Farmer: größte Lücke | 3 Tage | 3 Tage | 7 Tage |
+
+Rot würden 9 Kern-Tests, die das alte Verhalten festhalten (ein Bauschritt wirkt auf alle Vorhaben, Abbruch gibt Bauschritte zurück, Zimmerei mit zwei Vorhaben). Diese Regeln hätten für neue Bauten keine Wirkung mehr. **Empfehlung: den Kern nicht ändern.** Die Wochenend-Lernerin verliert entweder viel Zeit oder sieht im ersten Jahr weniger als die Hälfte der Gebäude. Stattdessen macht G4 das Warten sichtbar: Das Gerüst wächst mit jeder Lerneinheit in Abschnitten. Mit dem Platz-Vorschlag oben ist das Planen für das Kind schon ein Schritt.
+
