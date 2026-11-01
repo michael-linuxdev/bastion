@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · nichts davon begonnen · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 01.11.2026 · Rückfragen beantwortet · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -56,7 +56,18 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
-_(von der ersten Sitzung auszufüllen)_
+Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
+
+1. **Öffentliche Seite (F2):** Filter im Build über `BASTION_MINDESTSTUFE`, kein Release-Branch. `main` bleibt die Werkstatt. Festgehalten als T-20 in `ARCHITEKTUR.md`.
+2. **Solange keine Kompetenz Stufe 2 hat:** Option (b). Die Seite zeigt alles, mit dem dezenten Vermerk „Entwurf“ für Eltern (Elternbereich und Startseite, nicht im Lernpfad). Sobald das Musterfeld Stufe 2 hat, stellt der PV die Repository-Variable auf 2 (Option (c) mit Stufe 2).
+3. **Grafik (G0):**
+   - **G0.1 Bilder:** Probestück in **allen drei** Wegen (a) Generator ausbauen, (b) CC0-Bausätze, (c) von Hand oder mit Bildwerkzeug entworfen. Bergfried, Standard-Thema, Epoche 1, Stufen 1–3, nebeneinander zeigen. Der PV wählt danach.
+   - **G0.2 Bau-Regel im Kern:** darf sich ändern, aber **jeder Vorschlag einzeln** mit Zustimmung des PV, als eigener PR, mit `pnpm sim` vorher/nachher und Eintrag in `BASEBAU.md`. Schemaänderungen weiter nur mit Rückfrage und Migrationstest.
+   - **G0.3 Themen:** zuerst das Standard-Thema, Epoche 1 vollständig, alle Rollen. Andere Themen und Epochen 2–4 danach.
+4. **Meilenstein (F7):** Klasse 5 ist die erste Klassenstufe, die vollständig Stufe 2 und den Test bestehen soll.
+5. **Offen aus früheren Sitzungen:**
+   - `potenzen.ts` bekommt eine **neue Generator-Version** (10⁶ statt `10^6`). Eigener kleiner Lernkern-PR; nicht Teil von F1–F10 und ohne Vorrang davor.
+   - Die alten Branches `u5b-*`, `u2-*`, `u3*` **löscht der PV selbst** über GitHub → Branches. Nicht mergen.
 
 ---
 
