@@ -44,8 +44,9 @@ export type Farben = Readonly<Record<FarbRolle, string>>;
 export const FORM_ROLLEN = [
   /** Ruhige Text-Schrift (Aufgaben, Fließtext) */
   'schrift',
-  /** Display für Ortsnamen und Marke (gleiche Familie, andere Optik) */
+  /** Display für Ortsnamen und Marke (gleiche Familie, andere Optik; Z125/F21) */
   'schrift-display',
+  'abstand-xs',
   'abstand-s',
   'abstand-m',
   'abstand-l',
@@ -125,10 +126,11 @@ const TAG_WARM: Fassung = {
     'hinterhof-m': '#c9d0d8',
   },
   form: {
-    // Mitgeliefert (schrift.css), nie aus dem Netz; sonst die Systemschrift.
-    // Display und Text teilen Nunito (T-16); zweite Display-Datei bräuchte ARCHITEKTUR.
+    // Mitgeliefert (schrift.css), nie aus dem Netz; sonst die Systemschrift (X119 / T-16).
+    // Display und Text teilen Nunito; zweite Display-Datei bräuchte ARCHITEKTUR.
     schrift: "'Nunito Variable', system-ui, sans-serif",
     'schrift-display': "'Nunito Variable', system-ui, sans-serif",
+    'abstand-xs': '0.25rem',
     'abstand-s': '0.5rem',
     'abstand-m': '1rem',
     'abstand-l': '2rem',

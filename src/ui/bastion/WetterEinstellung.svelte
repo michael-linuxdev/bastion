@@ -63,6 +63,7 @@
 <section class="wetter" aria-labelledby="wetter-titel">
   <h3 id="wetter-titel">{t('wetter.titel')}</h3>
   <p class="leise">{t('wetter.erklaerung')}</p>
+  <p class="leise">{t('wetter.open-meteo')}</p>
   <label>
     <input
       type="checkbox"
@@ -102,7 +103,7 @@
   label:has(input[type='checkbox']) {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    min-block-size: 44px;
+    gap: var(--abstand-s);
+    min-block-size: var(--ziel);
   }
 </style>

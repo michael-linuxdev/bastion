@@ -23,6 +23,7 @@
   import { untrack } from 'svelte';
   import Textteile from './Textteile.svelte';
   import Symbol from '../grafik/Symbol.svelte';
+  import { soundUiErgebnis } from '../bastion/sound/sound';
   import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
 
   let {
@@ -143,6 +144,8 @@
     if (!aufgabe) return;
     const form = (aufgabe.vorlage.antwort?.['form'] ?? 'beliebig') as Bruchform;
     ergebnis = auswerten(aufgabe.instanz, antwort, form);
+    // W116: optional leiser Cue nur beim Prüfen-Ergebnis, nie bei Tipps
+    soundUiErgebnis(ergebnis.richtig);
     letzteAntwort = antwort;
     kommaHinweis = hinweis === 'punkt-statt-komma';
     const daten: Antwortdaten = {
@@ -306,12 +309,9 @@
     </p>
   {:else}
     {#key aufgabe}
-      <article
-        class="arbeitsblatt aufgabe"
-        class:phase-rueckmeldung={ergebnis !== undefined}
-        aria-live="polite"
-      >
-        <div class="prompt">
+      <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil; live nur Urteil -->
+      <article class="arbeitsblatt aufgabe" class:phase-rueckmeldung={ergebnis !== undefined}>
+        <div class="prompt aufgabe-frage" id="aufgabe-frage">
           {#if modus !== 'ueben'}
             <p class="herkunft">
               {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
@@ -370,7 +370,11 @@
           {/if}
         </div>
 
-        <div class="arbeitsflaeche">
+        <div
+          class="arbeitsflaeche aufgabe-eingabe"
+          id="aufgabe-eingabe"
+          aria-describedby="aufgabe-frage"
+        >
           {#if ergebnis === undefined}
             <Eingabe
               instanz={aufgabe.instanz}
@@ -420,7 +424,10 @@
               class="rueckmeldung"
               class:richtig={ergebnis.richtig}
               class:falsch={!ergebnis.richtig}
+              id="aufgabe-urteil"
               role="status"
+              aria-live="polite"
+              aria-atomic="true"
             >
               <p class="urteil">
                 {ergebnis.richtig ? t('uebung.richtig-kurz') : t('uebung.falsch')}

@@ -46,6 +46,10 @@ import {
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
   SOUND_SCHLUESSEL,
+  soundStufeAus,
+  type SoundStufe,
+  KONTRAST_SCHLUESSEL,
+  kontrastAn,
   WETTER_ECHT_SCHLUESSEL,
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
@@ -558,14 +562,33 @@ export async function bastionLeicht(): Promise<boolean> {
 
 export const leichtSetzen = (an: boolean) => setze(LEICHT_SCHLUESSEL, an, 'jugendlich');
 
-/** Bastion-Sound (GRAFIK §4.6)? Standard aus. */
-export async function bastionSound(): Promise<boolean> {
+/** Sound-Stufe (W113): aus / ui / bastion. Standard aus. */
+export async function soundStufe(): Promise<SoundStufe> {
   const inst = await bereit();
-  if (!inst) return false;
-  return (await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined)) === true;
+  if (!inst) return 'aus';
+  return soundStufeAus(await einstellung(db, inst.profil, SOUND_SCHLUESSEL).catch(() => undefined));
 }
 
-export const soundSetzen = (an: boolean) => setze(SOUND_SCHLUESSEL, an, 'jugendlich');
+/** @deprecated Nutze soundStufe(); true = Bastion+UI. */
+export async function bastionSound(): Promise<boolean> {
+  return (await soundStufe()) === 'bastion';
+}
+
+export const soundSetzen = (stufe: SoundStufe | boolean) =>
+  setze(
+    SOUND_SCHLUESSEL,
+    typeof stufe === 'boolean' ? (stufe ? 'bastion' : 'aus') : stufe,
+    'jugendlich',
+  );
+
+/** Kräftiger Text (V110)? Standard nein. */
+export async function kontrastWahl(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return kontrastAn(await einstellung(db, inst.profil, KONTRAST_SCHLUESSEL).catch(() => undefined));
+}
+
+export const kontrastSetzen = (an: boolean) => setze(KONTRAST_SCHLUESSEL, an, 'jugendlich');
 
 /** Echtes Wetter an (T-15)? Standard aus. */
 export async function wetterEcht(): Promise<boolean> {

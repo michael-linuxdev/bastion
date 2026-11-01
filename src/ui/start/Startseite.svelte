@@ -15,8 +15,8 @@
 </script>
 
 <script lang="ts">
-  // Hub als ruhige Übersicht (Design A1–A4 + Danach J37): Bastion-Ort, drei Türen,
-  // erste Minute = ein Satz + Üben; Nebenkacheln nach „Mehr entdecken“ / Rückkehr.
+  // Hub als ruhige Übersicht (Design A1–A4 + Danach J37 + V–Z): Bastion-Ort, drei Türen,
+  // Vertrauen, nie-geübt; erste Minute = ein Satz + Üben; Nebenkacheln nach „Mehr entdecken“ / Rückkehr.
   import type { Snippet } from 'svelte';
   import MiniBastion from '../grafik/MiniBastion.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -34,6 +34,7 @@
     klassenarbeit,
     sichern,
     testphase = false,
+    nieGeuebt = false,
     /** Noch keine Aufgabe bearbeitet: erste Minute = ein Satz + ein Einstieg (J37) */
     erstesMal = false,
     onziel,
@@ -53,6 +54,8 @@
     sichern: boolean;
     /** Testprotokoll eingeschaltet: sichtbarer Hinweis (K-14, D-18) */
     testphase?: boolean;
+    /** Noch nie geübt (Y121): Satz + Wiederholen/Werkstatt ausgeblendet */
+    nieGeuebt?: boolean;
     erstesMal?: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
@@ -71,7 +74,7 @@
     });
 </script>
 
-<div class="startseite register-ort" class:erste-minute={ersteMinute}>
+<div class="startseite register-ort" class:erste-minute={ersteMinute} class:knapp={nieGeuebt}>
   <header class="kopf">
     <p class="marke ort-name">{t('start.ueberschrift')}</p>
     {#if ersteMinute}
@@ -103,9 +106,14 @@
       <p class="leise heute" role="status">{t('start.heute-geuebt')}</p>
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
+    <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   </header>
 
   {@render children?.()}
+
+  {#if nieGeuebt && !ersteMinute}
+    <p class="einladung">{t('start.nie-geuebt')}</p>
+  {/if}
 
   {#if basebau}
     <div class="ort bastion" aria-hidden="true">
@@ -130,11 +138,13 @@
       >
       {#if !ersteMinute}
         <span class="ueben-dran" id="ueben-dran"
-          >{geradeDran === 0
-            ? t('start.ueben-frei')
-            : geradeDran === 1
-              ? t('start.gerade-dran-eins')
-              : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
+          >{nieGeuebt
+            ? t('start.nie-geuebt-ueben')
+            : geradeDran === 0
+              ? t('start.ueben-frei')
+              : geradeDran === 1
+                ? t('start.gerade-dran-eins')
+                : `${t('start.gerade-dran')}: ${geradeDran} ${t('start.themen')}`}</span
         >
       {/if}
     </button>
@@ -159,34 +169,41 @@
     >
   {:else}
     <!-- Nebenkacheln immer erreichbar (Fehlerwerkstatt auch in der ersten Sitzung);
-         beim Erstbesuch ohne Infozeilen (A3), sonst kleiner als die Türen (A1). -->
+         beim Erstbesuch ohne Infozeilen (A3), sonst kleiner als die Türen (A1);
+         nie geübt ohne Wiederholen/Werkstatt (Y121). -->
     <div class="kacheln" class:erst={!rueckkehr}>
-      <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-        <Symbol name="wiederholen" />
-        <span class="kachel-name">{t('wiederholen.knopf')}</span>
-        {#if rueckkehr || faellig > 0}
-          <span class="kachel-info"
-            >{faellig === 0
-              ? t('start.nichts-dran')
-              : faellig === 1
-                ? t('wiederholen.eine')
-                : `${faellig} ${t('wiederholen.mehrere')}`}</span
-          >
-        {/if}
-      </button>
-      <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-        <Symbol name="werkstatt" />
-        <span class="kachel-name">{t('werkstatt.knopf')}</span>
-        {#if rueckkehr || offeneFehler > 0}
-          <span class="kachel-info"
-            >{offeneFehler === 0
-              ? t('start.keine-fehler')
-              : offeneFehler === 1
-                ? t('werkstatt.offen-eins')
-                : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
-          >
-        {/if}
-      </button>
+      {#if !nieGeuebt}
+        <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
+          <Symbol name="wiederholen" />
+          <span class="kachel-name">{t('wiederholen.knopf')}</span>
+          {#if rueckkehr || faellig > 0}
+            <span class="kachel-info"
+              >{faellig === 0
+                ? t('start.nichts-dran')
+                : faellig === 1
+                  ? t('wiederholen.eine')
+                  : `${faellig} ${t('wiederholen.mehrere')}`}</span
+            >
+          {/if}
+        </button>
+        <button
+          class="kachel warm"
+          disabled={offeneFehler === 0}
+          onclick={() => onziel('werkstatt')}
+        >
+          <Symbol name="werkstatt" />
+          <span class="kachel-name">{t('werkstatt.knopf')}</span>
+          {#if rueckkehr || offeneFehler > 0}
+            <span class="kachel-info"
+              >{offeneFehler === 0
+                ? t('start.keine-fehler')
+                : offeneFehler === 1
+                  ? t('werkstatt.offen-eins')
+                  : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+            >
+          {/if}
+        </button>
+      {/if}
       <button class="kachel" onclick={() => onziel('diagnose')}>
         <Symbol name="diagnose" />
         <span class="kachel-name">{t('diagnose.knopf')}</span>
@@ -280,6 +297,16 @@
   }
   .leise {
     color: var(--farbe-text-leise);
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+    margin-block: 0 var(--abstand-s);
+  }
+  .einladung {
+    margin-block: var(--abstand-s) var(--abstand-m);
+    font-size: 1.125rem;
+    line-height: 1.4;
   }
   .test {
     font-size: 0.875rem;
@@ -466,5 +493,19 @@
   .hinweis .dezent {
     color: var(--farbe-text);
     font-weight: 700;
+  }
+
+  /* V112: Querformat – Türen ohne winzige Tap-Ziele */
+  @media (orientation: landscape) {
+    .tueren {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .tuer,
+    .kachel {
+      min-block-size: max(3.25rem, var(--ziel));
+    }
+    .startseite > .bastion {
+      max-block-size: 12rem;
+    }
   }
 </style>

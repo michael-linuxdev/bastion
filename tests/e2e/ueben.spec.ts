@@ -23,7 +23,7 @@ async function angebotUeberspringen(seite: Page) {
 function startGruss(seite: Page) {
   return seite
     .getByText('Willkommen in Bastion.')
-    .or(seite.getByText('Hallo! Schön, dass du da bist.'))
+    .or(seite.getByText('Hallo. Schön, dass du da bist.'))
     .or(seite.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.'))
     .or(seite.getByText('Willkommen zurück'));
 }
@@ -242,8 +242,8 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
   await hubVoll(page);
-  // Die Kachel bleibt sichtbar, ist aber ohne fällige Aufgaben nicht wählbar
-  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
+  // Noch nie geübt (Y121): die Kachel Wiederholen ist noch ausgeblendet
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
 
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
@@ -336,7 +336,7 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   let halbzeit = 0;
   for (let i = 0; i < 40; i++) {
     if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
-    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+    if (await page.getByText(/^Halbzeit\./).isVisible()) {
       halbzeit += 1;
       await page.getByRole('button', { name: 'Weiter', exact: true }).click();
       continue;
@@ -367,7 +367,8 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await hubVoll(page);
-  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
+  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgeblendet
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
 });
 
 test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
@@ -1107,21 +1108,20 @@ test('Hinterhof: Lernfelder mit offenen Plätzen, privat (B-25)', async ({ page 
   await expect(page.getByText(/Das gehört nur dir/)).toBeVisible();
 });
 
-test('Bastion-Sound: Standard aus, Schalter speichert (G8)', async ({ page }) => {
+test('Bastion-Sound: Standard aus, Stufen speichern (G8 / W113)', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('./');
-  // Sound liegt in den Bastion-Einstellungen (Chrome #113)
+  // Sound-Stufen in den Bastion-Einstellungen (Design W113)
   await bastionOeffnen(page, true);
-  const sound = page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' });
-  await expect(sound).toBeVisible();
-  await expect(sound).not.toBeChecked();
-  await sound.check();
-  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe(true);
+  const aus = page.getByRole('radio', { name: 'Aus', exact: true });
+  const bastionUi = page.getByRole('radio', { name: 'Bastion und UI' });
+  await expect(aus).toBeVisible();
+  await expect(aus).toBeChecked();
+  await bastionUi.check();
+  await expect.poll(() => einstellungImSpeicher(page, 'basebau.sound')).toBe('bastion');
   await page.reload();
   await bastionOeffnen(page, true);
-  await expect(
-    page.getByRole('checkbox', { name: 'Leise Geräusche (Wind, Tippen)' }),
-  ).toBeChecked();
+  await expect(page.getByRole('radio', { name: 'Bastion und UI' })).toBeChecked();
 });
 
 test('Bewährungsprobe: startet als Probe ohne Note (G11 / BASEBAU §5.6)', async ({ page }) => {
@@ -1160,13 +1160,13 @@ test('Wechsel begleiten: übersprungene Klassen und Schulartwechsel (L-12)', asy
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 8' }).check();
-  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen.' })).toBeVisible();
   await expect(page.getByText(/Aus Klasse 5: \d+ Themen offen/)).toBeVisible();
   await expect(page.getByText(/Aus Klasse 7: \d+ Themen offen/)).toBeVisible();
   await expect(page.getByRole('button', { name: 'Lücken gezielt prüfen' })).toBeVisible();
   // Zurückstellen ist neutral: kein Hinweis
   await page.getByRole('radio', { name: 'Klasse 7' }).check();
-  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen!' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Neue Klasse – willkommen.' })).toHaveCount(0);
   // Die Wahl bleibt nach dem Neuladen (erst neu laden, wenn gespeichert)
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.klasse')).toBe(7);
   await page.reload();
@@ -1199,7 +1199,7 @@ test('Übersprungene Klasse: gezielte Diagnose der Lücken daraus (L-12)', async
   await page.getByRole('button', { name: "Los geht's" }).click();
   for (let i = 0; i < 40; i++) {
     if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
-    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+    if (await page.getByText(/^Halbzeit\./).isVisible()) {
       await page.getByRole('button', { name: 'Weiter', exact: true }).click();
       continue;
     }
@@ -1264,18 +1264,18 @@ test('Schuljahreswechsel: einmal nach der Klasse fragen (L-17)', async ({ page }
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2025);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr' })).toHaveCount(0);
   await page.clock.setSystemTime(new Date('2026-08-03T10:00:00'));
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr' })).toBeVisible();
   await expect(page.getByRole('radio', { name: 'Klasse 7' })).toBeChecked();
   // Sitzenbleiben: dieselbe Klasse, ohne Kommentar
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await page.getByRole('button', { name: 'Passt so' }).click();
-  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr' })).toHaveCount(0);
   await expect.poll(() => einstellungImSpeicher(page, 'lernen.schuljahr')).toBe(2026);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Neues Schuljahr!' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Neues Schuljahr' })).toHaveCount(0);
   await themenWaehlen(page);
   await expect(page.getByRole('radio', { name: 'Klasse 6' })).toBeChecked();
 });
@@ -1312,7 +1312,7 @@ test('Wiedereinstieg: Diagnose über alle Klassen mit Stand als Klasse (L-16)', 
   await page.getByRole('button', { name: "Los geht's" }).click();
   for (let i = 0; i < 40; i++) {
     if (await page.getByText('Hier stehst du – hier geht es weiter').isVisible()) break;
-    if (await page.getByText(/^Halbzeit!/).isVisible()) {
+    if (await page.getByText(/^Halbzeit\./).isVisible()) {
       await page.getByRole('button', { name: 'Weiter', exact: true }).click();
       continue;
     }

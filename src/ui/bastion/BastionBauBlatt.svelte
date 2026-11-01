@@ -25,6 +25,7 @@
     ausbauten,
     belegt,
     epoche = 1,
+    vorratLeer = false,
     istZiel,
     onbauen,
     onvormerken,
@@ -35,6 +36,8 @@
     ausbauten: readonly BauAngebot[];
     belegt: boolean;
     epoche?: number;
+    /** Keine Rohstoffe – Hinweis „durch Üben kommt Stein“ (Y122) */
+    vorratLeer?: boolean;
     istZiel: (a: BauAngebot) => boolean;
     onbauen: (a: BauAngebot) => void;
     onvormerken: (a: BauAngebot) => void;
@@ -85,6 +88,9 @@
   </header>
 
   {#if belegt}<p class="leise">{tt('bastion.hindernis.kein-freier-bauplatz')}</p>{/if}
+  {#if vorratLeer}
+    <p class="leise" role="status">{tt('bastion.bauen-durch-ueben')}</p>
+  {/if}
 
   {#if gewaehlt}
     {@const a = gewaehlt}

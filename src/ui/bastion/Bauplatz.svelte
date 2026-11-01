@@ -10,7 +10,7 @@
   import {
     bastionLeicht,
     bastionRuhig,
-    bastionSound,
+    soundStufe,
     bildZeigen,
     kameraSetzen,
     kameraWahl,
@@ -18,6 +18,7 @@
     bewohnerNamenSetzen,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import type { SoundStufe } from '../../core/policy/einstellung';
   import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
@@ -94,13 +95,14 @@
   let ruhig = $state(false);
   let leicht = $state(false);
   let systemRuhe = $state(false);
-  let soundAn = $state(false);
+  let cueStufe = $state<SoundStufe>('aus');
   void bastionRuhig().then((z) => (ruhig = z));
   void bastionLeicht().then((z) => (leicht = z));
-  void bastionSound().then((z) => (soundAn = z));
+  void soundStufe().then((z) => (cueStufe = z));
   const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
   $effect(() => {
-    soundSteuern({ an: soundAn, ruhig: ruhig || systemRuhe });
+    // Ambient nur bei Stufe bastion (W114); cleanup stoppt Wind beim Verlassen
+    soundSteuern({ stufe: cueStufe, ruhig: ruhig || systemRuhe });
     return () => ambientStoppen();
   });
 
