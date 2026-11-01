@@ -1,6 +1,9 @@
 <script lang="ts">
-  // „Mehr“ vom Start-Hub: Kind-Themen klar getrennt von Erwachsenen-Bereich (M69 / T102).
+  // „Mehr“: zwei Zonen – Für dich / Für Erwachsene (§T102–§T104). Keine Suche.
+  // Design-Ideen K47: Offline-Hinweis einmalig, kein Dauerbanner.
+  import { onMount } from 'svelte';
   import Symbol from '../grafik/Symbol.svelte';
+  import { offlineHinweisGesehen, offlineHinweisSetzen } from '../plattform/ablage';
   import { t } from '../texte/texte';
   import type { Ziel } from './Startseite.svelte';
 
@@ -15,55 +18,93 @@
     onziel: (z: Ziel | 'start') => void;
   } = $props();
 
-  const fuerDich = $derived<{ ziel: Ziel; name: string }[]>([
-    { ziel: 'themen', name: t('mehr.themen') },
-    { ziel: 'stand', name: t('stand.knopf') },
-    { ziel: 'klassenarbeit', name: t('ka.knopf') },
+  let offlineZeigen = $state(false);
+
+  onMount(() => {
+    if (!offline) return;
+    void offlineHinweisGesehen().then((gesehen) => {
+      offlineZeigen = !gesehen;
+    });
+  });
+
+  $effect(() => {
+    if (offline) {
+      void offlineHinweisGesehen().then((gesehen) => {
+        offlineZeigen = !gesehen;
+      });
+    } else offlineZeigen = false;
+  });
+
+  function offlineOk() {
+    offlineZeigen = false;
+    void offlineHinweisSetzen();
+  }
+
+  type MehrSymbol = 'stand' | 'ueben' | 'eltern' | 'mehr';
+  const fuerDich = $derived<{ ziel: Ziel; name: string; symbol: MehrSymbol }[]>([
+    { ziel: 'themen', name: t('mehr.themen'), symbol: 'ueben' },
+    { ziel: 'stand', name: t('stand.knopf'), symbol: 'stand' },
+    { ziel: 'klassenarbeit', name: t('ka.knopf'), symbol: 'mehr' },
+    { ziel: 'profil', name: t('profil.knopf'), symbol: 'mehr' },
+    { ziel: 'sicherung', name: t('sicherung.knopf'), symbol: 'mehr' },
   ]);
 
-  const fuerErwachsene = $derived<{ ziel: Ziel; name: string }[]>([
-    { ziel: 'profil', name: t('profil.knopf') },
-    { ziel: 'sicherung', name: t('sicherung.knopf') },
-    ...(eltern ? [{ ziel: 'eltern' as const, name: t('eltern.knopf') }] : []),
-  ]);
+  const fuerErwachsene = $derived<{ ziel: Ziel; name: string }[]>(
+    eltern ? [{ ziel: 'eltern', name: t('eltern.knopf') }] : [],
+  );
 </script>
 
 <section class="mehr">
-  <button class="zurueck" onclick={() => onziel('start')}>← {t('uebung.zurueck')}</button>
-  <p class="marke">{t('start.ueberschrift')}</p>
+  <button class="zurueck" onclick={() => onziel('start')}>
+    <Symbol name="zurueck" />
+    {t('uebung.zurueck')}
+  </button>
+  <p class="ort-zeile ort-name"><Symbol name="mehr" /> {t('mehr.ort')}</p>
+  <p class="marke ort-name">{t('start.ueberschrift')}</p>
   <h2>{t('mehr.ueberschrift')}</h2>
   <p class="leise">{t('mehr.info')}</p>
 
-  <h3 class="zone">{t('mehr.fuer-dich')}</h3>
-  <ul class="liste">
-    {#each fuerDich as e (e.ziel)}
-      <li>
-        <button onclick={() => onziel(e.ziel)}>
-          {#if e.ziel === 'stand'}<Symbol name="stand" />
-          {:else if e.ziel === 'themen'}<Symbol name="ueben" />{/if}
-          <span>{e.name}</span>
-        </button>
-      </li>
-    {/each}
-  </ul>
-
-  <div class="erwachsen">
-    <h3 class="zone">{t('mehr.fuer-erwachsene')}</h3>
-    <p class="leise klein">{t('mehr.fuer-erwachsene-info')}</p>
+  <section class="zone" aria-labelledby="mehr-dich">
+    <h3 id="mehr-dich">{t('mehr.fuer-dich')}</h3>
     <ul class="liste">
-      {#each fuerErwachsene as e (e.ziel)}
+      {#each fuerDich as e (e.ziel)}
         <li>
-          <button class="nüchtern" onclick={() => onziel(e.ziel)}>
+          <button onclick={() => onziel(e.ziel)}>
+            <Symbol name={e.symbol} />
             <span>{e.name}</span>
           </button>
         </li>
       {/each}
     </ul>
-  </div>
+  </section>
 
+  <section class="zone erwachsene" aria-labelledby="mehr-erwachsene">
+    <h3 id="mehr-erwachsene">{t('mehr.fuer-erwachsene')}</h3>
+    {#if fuerErwachsene.length > 0}
+      <ul class="liste">
+        {#each fuerErwachsene as e (e.ziel)}
+          <li>
+            <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
+              <Symbol name="eltern" />
+              <span>{e.name}</span>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p class="leise">{t('mehr.erwachsene-leer')}</p>
+    {/if}
+    <!-- §T104: Versions-/Build-Info nur hier -->
+    <p class="version" role="note">{t('mehr.version')}</p>
+  </section>
+
+  <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
   <p class="versprechen">{t('start.versprechen')}</p>
-  {#if offline}
-    <p class="offline" role="status">{t('start.offline')}</p>
+  {#if offlineZeigen}
+    <p class="offline" role="status">
+      <span>{t('start.offline')}</span>
+      <button type="button" class="haupt" onclick={offlineOk}>{t('start.offline-ok')}</button>
+    </p>
   {/if}
 </section>
 
@@ -75,16 +116,34 @@
   .zurueck {
     font: inherit;
     justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     border: none;
     background: transparent;
     color: var(--farbe-text);
     cursor: pointer;
     padding-inline: 0;
-    min-block-size: 2.75rem;
+    min-block-size: var(--ziel);
+  }
+  .zurueck :global(svg) {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+  .ort-zeile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+  }
+  .ort-zeile :global(svg) {
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
   }
   .marke {
     font-size: 1.75rem;
-    font-weight: 800;
     color: var(--farbe-akzent);
     margin: 0;
   }
@@ -92,18 +151,27 @@
     margin: 0;
     font-size: 1.25rem;
   }
-  .zone {
+  h3 {
     margin: 0;
     font-size: 1rem;
     font-weight: 800;
-    color: var(--farbe-text);
   }
   .leise {
     color: var(--farbe-text-leise);
     margin: 0;
   }
-  .klein {
-    font-size: 0.9rem;
+  .zone {
+    display: grid;
+    gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+  }
+  .zone.erwachsene {
+    background: var(--farbe-flaeche-leise);
+    box-shadow: none;
+    border: 1px dashed var(--farbe-rand);
   }
   .liste {
     list-style: none;
@@ -112,35 +180,42 @@
     display: grid;
     gap: var(--abstand-s);
   }
-  button:not(.zurueck) {
+  button:not(.zurueck):not(.haupt) {
     font: inherit;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
     inline-size: 100%;
-    min-block-size: 3.25rem;
+    min-block-size: var(--ziel);
     padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
-    box-shadow: 0 2px 8px var(--farbe-schatten);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
   }
-  .erwachsen {
-    display: grid;
-    gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    border: 2px dashed var(--farbe-rand);
-    background: var(--farbe-flaeche-leise);
-  }
-  .erwachsen .nüchtern {
-    box-shadow: none;
+  .erwachsene button:not(.zurueck) {
     background: var(--farbe-flaeche);
+  }
+  .version {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--farbe-text-leise);
+  }
+  button.werkstatt {
+    border-radius: 4px;
+    box-shadow: none;
+    border: 1px solid var(--farbe-rand);
+    background: color-mix(in srgb, var(--farbe-flaeche-leise) 90%, var(--farbe-text) 5%);
     font-weight: 600;
+  }
+  .vertrauen {
+    color: var(--farbe-text-leise);
+    margin: 0;
+    font-size: 0.95rem;
   }
   .versprechen {
     color: var(--farbe-text-leise);
@@ -149,8 +224,14 @@
     margin: 0;
   }
   .offline {
-    color: var(--farbe-text-leise);
+    display: grid;
+    gap: var(--abstand-s);
+    justify-items: start;
+    color: var(--farbe-text);
     font-size: 1rem;
     margin: 0;
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
   }
 </style>

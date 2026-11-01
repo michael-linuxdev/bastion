@@ -1,6 +1,6 @@
 <script lang="ts">
-  // Elternbericht (DATENMODELL §5.2, D-14): einfache Ansicht (Themen und Wochen)
-  // als Standard, ausführliche Ansicht mit einzelnen Aufgaben auf Wunsch.
+  // Elternbericht (DATENMODELL §5.2, D-14): einfache Ansicht als Brief (Design L62),
+  // ausführliche Ansicht mit einzelnen Aufgaben auf Wunsch.
   // Dieselbe Komponente sehen Jugendliche unter „Was meine Eltern sehen“.
   import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
   import { einzelne, lehrkraftBericht, wochen } from '../../core/learning/bericht';
@@ -27,8 +27,6 @@
   } = $props();
 
   let ansicht = $state<'einfach' | 'ausfuehrlich' | 'lehrkraft'>('einfach');
-  /** Kurzer Brief zuerst (M74); Tabellen erst nach „Mehr zeigen“ */
-  let briefOffen = $state(false);
   const jetzt = Date.now();
   const lehrkraft = $derived(lehrkraftBericht(kompetenzen, [...zustand.staende.values()], klasse));
   const feldName = (f: string) => t(`feld.${f}` as TextSchluessel);
@@ -66,6 +64,18 @@
   );
   const woche = $derived(wochen(aufgaben).slice(0, 8));
   const liste = $derived(einzelne(aufgaben).slice(0, 100));
+  const gekonntThemen = $derived(
+    geuebt.filter((k) =>
+      NIVEAUS.some((n) => {
+        const s = statusVon(zustand, k.id, n, jetzt);
+        return s === 'gekonnt' || s === 'gefestigt';
+      }),
+    ),
+  );
+  const inArbeitThemen = $derived(
+    geuebt.filter((k) => NIVEAUS.some((n) => statusVon(zustand, k.id, n, jetzt) === 'in-arbeit')),
+  );
+  const letzteWoche = $derived(woche[0]);
 
   const datum = (tag: string) =>
     new Date(`${tag}T12:00:00`).toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
@@ -84,29 +94,6 @@
     e.fehlerbild
       ? vorlagen.find((v) => v.id === e.vorlage)?.fehlerbilder[e.fehlerbild]?.de
       : undefined;
-
-  const sitztThemen = $derived(
-    geuebt
-      .filter((k) =>
-        NIVEAUS.some((n) => {
-          const s = statusVon(zustand, k.id, n, jetzt);
-          return s === 'gekonnt' || s === 'gefestigt';
-        }),
-      )
-      .slice(0, 3)
-      .map((k) => k.titel.de),
-  );
-  const uebenThemen = $derived(
-    geuebt
-      .filter((k) =>
-        NIVEAUS.some((n) => {
-          const s = statusVon(zustand, k.id, n, jetzt);
-          return s === 'in-arbeit' || s === 'auffrischen';
-        }),
-      )
-      .slice(0, 3)
-      .map((k) => k.titel.de),
-  );
 </script>
 
 <div class="bericht">
@@ -124,24 +111,6 @@
 
   {#if aufgaben.length === 0}
     <p>{t('bericht.keine-aufgaben')}</p>
-  {:else if ansicht === 'einfach' && !briefOffen}
-    <article class="brief" aria-label={t('bericht.brief')}>
-      <p>{t('bericht.brief')}</p>
-      {#if uebenThemen.length > 0}
-        <p>{t('bericht.ueben-wir').replace('{themen}', uebenThemen.join(', '))}</p>
-      {:else}
-        <p>{t('bericht.nichts-offen')}</p>
-      {/if}
-      {#if sitztThemen.length > 0}
-        <p>{t('bericht.sitzt').replace('{themen}', sitztThemen.join(', '))}</p>
-      {/if}
-      <p class="leise">
-        {woche[0]
-          ? `${t('bericht.wochen')}: ${woche[0].aufgaben} ${t('bericht.aufgaben')}`
-          : t('bericht.keine-aufgaben')}
-      </p>
-      <button class="zweit" onclick={() => (briefOffen = true)}>{t('bericht.mehr-zeigen')}</button>
-    </article>
   {:else if ansicht === 'lehrkraft'}
     <h4>{t('bericht.lehrkraft-titel')} – {t('klasse.name')} {klasse}</h4>
     <p class="leise">{t('bericht.lk-erklaerung')}</p>
@@ -167,7 +136,44 @@
         >{/if}
     </p>
   {:else if ansicht === 'einfach'}
-    <button class="zweit" onclick={() => (briefOffen = false)}>{t('bericht.weniger')}</button>
+    <article class="brief">
+      <p class="anrede">{t('bericht.brief-anrede')}</p>
+      <p>
+        {t('bericht.brief-einleitung')}
+        {geuebt.length}
+        {t('bericht.brief-themen')}.
+      </p>
+      {#if gekonntThemen.length > 0}
+        <p>
+          <strong>{t('bericht.brief-gekonnt')}</strong>
+          {gekonntThemen
+            .slice(0, 5)
+            .map((k) => k.titel.de)
+            .join(', ')}{#if gekonntThemen.length > 5}{t('bericht.brief-und-mehr')}{/if}.
+        </p>
+      {/if}
+      {#if inArbeitThemen.length > 0}
+        <p>
+          <strong>{t('bericht.brief-arbeit')}</strong>
+          {inArbeitThemen
+            .slice(0, 5)
+            .map((k) => k.titel.de)
+            .join(', ')}{#if inArbeitThemen.length > 5}{t('bericht.brief-und-mehr')}{/if}.
+        </p>
+      {/if}
+      {#if letzteWoche}
+        <p>
+          {t('bericht.brief-woche')}
+          {datum(letzteWoche.montag)}:
+          {letzteWoche.lerntage}
+          {t('bericht.lerntage')},
+          {letzteWoche.aufgaben}
+          {t('bericht.aufgaben')}.
+        </p>
+      {/if}
+      <p class="gruss">{t('bericht.brief-gruss')}</p>
+    </article>
+  {:else}
     <h4>{t('bericht.kompetenzen')}</h4>
     <table>
       <thead>
@@ -209,7 +215,7 @@
         {/each}
       </tbody>
     </table>
-  {:else}
+
     <h4>{t('bericht.letzte')}</h4>
     <div class="breit">
       <table>
@@ -247,40 +253,15 @@
 </div>
 
 <style>
+  /* §U107: druckfreundlich – helle Fläche, wenig Farbe */
   .bericht {
     display: grid;
     gap: var(--abstand-s);
-  }
-
-  .brief {
-    display: grid;
-    gap: var(--abstand-s);
     padding: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 1px 6px var(--farbe-schatten);
-    max-inline-size: 36rem;
-  }
-
-  .brief p {
-    margin: 0;
-    line-height: 1.45;
-  }
-
-  .leise {
-    color: var(--farbe-text-leise);
-  }
-
-  .zweit {
-    font: inherit;
-    justify-self: start;
-    min-block-size: 2.75rem;
-    padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid var(--farbe-rand);
   }
 
   .umschalter {
@@ -294,19 +275,39 @@
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    background: transparent;
-    color: var(--farbe-text);
+    border: 2px solid var(--farbe-rand);
+    background: #fff;
+    color: #1a1a1a;
     cursor: pointer;
   }
 
   .umschalter button[aria-pressed='true'] {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
+    background: var(--farbe-flaeche-leise);
+    border-color: var(--farbe-text);
+    color: #1a1a1a;
   }
 
   h4 {
     margin-block: var(--abstand-m) 0;
+  }
+
+  .brief {
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    display: grid;
+    gap: var(--abstand-s);
+    line-height: 1.55;
+  }
+
+  .brief p {
+    margin-block: 0;
+  }
+
+  .anrede,
+  .gruss {
+    font-weight: 700;
   }
 
   .breit {
@@ -317,6 +318,7 @@
     border-collapse: collapse;
     inline-size: 100%;
     font-size: 1rem;
+    background: #fff;
   }
 
   th,
@@ -325,7 +327,7 @@
     vertical-align: top;
     padding-block: 0.3rem;
     padding-inline: 0.4rem;
-    border-block-end: 1px solid var(--farbe-rand);
+    border-block-end: 1px solid #ccc;
   }
 
   .lk {
@@ -336,6 +338,33 @@
 
   small {
     display: block;
+    color: #555;
+  }
+
+  .leise {
+    color: #555;
+  }
+
+  @media print {
+    .bericht {
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      background: #fff;
+      color: #000;
+    }
+
+    .umschalter {
+      display: none;
+    }
+
+    th,
+    td {
+      border-block-end-color: #999;
+    }
+  }
+
+  .leise {
     color: var(--farbe-text-leise);
   }
 </style>

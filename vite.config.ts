@@ -15,7 +15,7 @@ export default defineConfig({
       // Update nur nach Zustimmung – nie mitten in einer Sitzung (PLAN 0.8).
       registerType: 'prompt',
       injectRegister: false,
-      includeAssets: ['icon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['icon.svg', 'favicon-32.png', 'apple-touch-icon.png'],
       manifest: {
         id: './',
         name: 'Bastion',

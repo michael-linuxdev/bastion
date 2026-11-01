@@ -10,12 +10,15 @@
   import {
     bastionLeicht,
     bastionRuhig,
-    bastionSound,
+    soundStufe,
     bildZeigen,
-    zoomSetzen,
-    zoomWahl,
+    kameraSetzen,
+    kameraWahl,
+    bewohnerNamenWahl,
+    bewohnerNamenSetzen,
     type BauAuftrag,
   } from '../plattform/ablage';
+  import type { SoundStufe } from '../../core/policy/einstellung';
   import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
@@ -29,10 +32,11 @@
     ZIEH_SCHWELLE,
     ZOOM_RAD,
     einpassen,
-    zentriert,
+    kameraWiederherstellen,
     zoomAn,
     type Kamera,
   } from './grafik/kamera';
+  import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import Symbol from '../grafik/Symbol.svelte';
@@ -91,13 +95,14 @@
   let ruhig = $state(false);
   let leicht = $state(false);
   let systemRuhe = $state(false);
-  let soundAn = $state(false);
+  let cueStufe = $state<SoundStufe>('aus');
   void bastionRuhig().then((z) => (ruhig = z));
   void bastionLeicht().then((z) => (leicht = z));
-  void bastionSound().then((z) => (soundAn = z));
+  void soundStufe().then((z) => (cueStufe = z));
   const bewegung = $derived(bewegungAus({ ruhig, leicht, systemRuhe }));
   $effect(() => {
-    soundSteuern({ an: soundAn, ruhig: ruhig || systemRuhe });
+    // Ambient nur bei Stufe bastion (W114); cleanup stoppt Wind beim Verlassen
+    soundSteuern({ stufe: cueStufe, ruhig: ruhig || systemRuhe });
     return () => ambientStoppen();
   });
 
@@ -141,13 +146,15 @@
   let fenster = $state<HTMLDivElement | undefined>(undefined);
   let kameraSichtbar = $state(false);
   let zieht = $state(false);
-  let gewaehlterZoom = $state<number | undefined>(undefined);
+  let gemerkteKamera = $state<Kamera | undefined>(undefined);
   let zoomGeladen = $state(false);
   /** Der Nutzer hat selbst gezoomt oder gezogen – dann nicht beim Größenwechsel neu einpassen. */
   let eigene = false;
   let kameraGestartet = false;
-  void zoomWahl().then((z) => {
-    gewaehlterZoom = z;
+  let bewohnerNamen = $state<Record<string, string>>({});
+  void Promise.all([kameraWahl(), bewohnerNamenWahl()]).then(([k, n]) => {
+    gemerkteKamera = k;
+    bewohnerNamen = Object.fromEntries(n);
     zoomGeladen = true;
   });
 
@@ -161,7 +168,7 @@
   let merkenTimer: ReturnType<typeof setTimeout> | undefined;
   function merken() {
     clearTimeout(merkenTimer);
-    merkenTimer = setTimeout(() => void zoomSetzen(kamera.zoom), 200);
+    merkenTimer = setTimeout(() => void kameraSetzen(kamera), 200);
   }
 
   $effect(() => {
@@ -171,10 +178,10 @@
       const breite = el.clientWidth;
       const hoehe = el.clientHeight;
       if (breite === 0 || hoehe === 0) return false;
-      const gewaehlt = gewaehlterZoom;
+      const gewaehlt = gemerkteKamera;
       if (!kameraGestartet && gewaehlt !== undefined) {
         eigene = true;
-        kamera = zentriert(breite, hoehe, gewaehlt);
+        kamera = kameraWiederherstellen(breite, hoehe, gewaehlt);
       } else if (!eigene) {
         kamera = einpassen(breite, hoehe);
       }
@@ -356,11 +363,10 @@
   let versetzen = $state(false);
   let ziel = $state<Position | undefined>(undefined);
   let hinweis = $state<'kein-platz' | undefined>(undefined);
-  /** Eine Zeile Tätigkeit, schließt von selbst (M70 / Q92) */
+  /** Kurze Erklärung beim Antippen eines Bewohners (kein Timer-Druck) */
   let bewohnerHinweis = $state<{ art: BewohnerArt; taetigkeit: Taetigkeit } | undefined>(undefined);
   /** Bestätigung vor Einlagern (M71) */
   let entfernenFrage = $state(false);
-  let hinweisTimer: ReturnType<typeof setTimeout> | undefined;
   /** Zeiger ging auf dem gewählten Gebäude nieder → Ziehen versetzt statt Kamera */
   let ziehAufAuswahl = false;
 
@@ -375,17 +381,6 @@
     hinweis = undefined;
     bewohnerHinweis = undefined;
     entfernenFrage = false;
-  });
-
-  $effect(() => {
-    if (!bewohnerHinweis) return;
-    if (hinweisTimer) clearTimeout(hinweisTimer);
-    hinweisTimer = setTimeout(() => {
-      bewohnerHinweis = undefined;
-    }, 2200);
-    return () => {
-      if (hinweisTimer) clearTimeout(hinweisTimer);
-    };
   });
 
   function farben(): Farben {
@@ -591,13 +586,16 @@
       return;
     }
     const getroffenes = auf(pos);
-    // Zweites Tippen auf dasselbe Gebäude → Versetzen
+    // Eine Geste-Sprache (J36): Tippen = wählen/abwählen, Ziehen = bewegen
     if (getroffenes && auswahl === getroffenes.id) {
-      versetzen = true;
-      ziel = { x: getroffenes.pos.x, y: getroffenes.pos.y };
+      auswahl = undefined;
+      versetzen = false;
+      ziel = undefined;
       return;
     }
     auswahl = getroffenes?.id;
+    versetzen = false;
+    ziel = undefined;
   }
 </script>
 
@@ -637,10 +635,42 @@
       </button>
     {/if}
     {#if bewohnerHinweis && !blattOffen && !gewaehlt}
-      <p class="bewohner-zeile" role="status">
-        {tt(`bastion.bewohner.${bewohnerHinweis.art}` as TextSchluessel)}
-        · {tt(`bastion.bewohner.taetigkeit.${bewohnerHinweis.taetigkeit}` as TextSchluessel)}
-      </p>
+      {@const art = bewohnerHinweis.art}
+      {@const nameId = bewohnerNamen[art]}
+      <div class="wahl bewohner" role="status">
+        <strong
+          >{nameId
+            ? tt(`bastion.bewohner.name.${nameId}` as TextSchluessel)
+            : tt(`bastion.bewohner.${art}` as TextSchluessel)}</strong
+        >
+        <span class="leise">{tt(`bastion.bewohner.${art}` as TextSchluessel)}</span>
+        <span
+          >{tt(`bastion.bewohner.taetigkeit.${bewohnerHinweis.taetigkeit}` as TextSchluessel)}</span
+        >
+        <label class="name-wahl">
+          <span>{tt('bastion.bewohner.name-wahl')}</span>
+          <select
+            value={nameId ?? ''}
+            onchange={(e) => {
+              const v = e.currentTarget.value;
+              const neu: Record<string, string> = { ...bewohnerNamen };
+              if (v === '' || !istBewohnerName(v)) {
+                bewohnerNamen = Object.fromEntries(Object.entries(neu).filter(([k]) => k !== art));
+              } else {
+                neu[art] = v;
+                bewohnerNamen = neu;
+              }
+              void bewohnerNamenSetzen(new Map(Object.entries(bewohnerNamen)));
+            }}
+          >
+            <option value="">{tt('bastion.bewohner.name-ohne')}</option>
+            {#each BEWOHNER_NAMEN as id (id)}
+              <option value={id}>{tt(`bastion.bewohner.name.${id}` as TextSchluessel)}</option>
+            {/each}
+          </select>
+        </label>
+        <button onclick={() => (bewohnerHinweis = undefined)}>{tt('bastion.fertig')}</button>
+      </div>
     {/if}
     {#if gewaehlt && !blattOffen}
       <div class="wahl" role="status">
@@ -713,6 +743,12 @@
     overscroll-behavior: none;
     touch-action: none;
     cursor: grab;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fenster.sichtbar .bauplatz {
+      animation: bastion-einblenden 0.28s ease-out;
+    }
   }
 
   .fenster.zieht {
@@ -801,20 +837,26 @@
     font-weight: 700;
   }
 
-  .bewohner-zeile {
-    position: absolute;
-    inset-inline: var(--abstand-s);
-    inset-block-end: max(var(--abstand-s), 0.5rem);
-    z-index: 5;
-    margin: 0;
-    padding: 0.45rem 0.75rem;
+  .wahl .leise {
+    color: var(--farbe-text-leise);
+    font-size: 0.875rem;
+  }
+
+  .name-wahl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+  }
+
+  .name-wahl select {
+    font: inherit;
+    min-block-size: var(--ziel);
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--farbe-flaeche) 94%, transparent);
-    box-shadow: 0 1px 4px var(--farbe-schatten);
-    font-size: 0.95rem;
-    font-weight: 600;
+    border: 1px solid var(--farbe-rand);
+    background: var(--farbe-flaeche);
     color: var(--farbe-text);
-    pointer-events: none;
-    max-inline-size: calc(100% - 2 * var(--abstand-s));
+    padding-inline: var(--abstand-s);
   }
 </style>

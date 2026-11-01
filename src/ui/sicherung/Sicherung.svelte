@@ -1,7 +1,9 @@
 <script lang="ts">
   // Sicherung erstellen und einspielen (DATENMODELL §7, D-9): Datei mit
   // Sechs-Wörter-Code, Einspielen führt zusammen – es geht nichts verloren.
+  // Design-Ideen K45: „Alles sicher“ statt Technikjargon.
   import {
+    letzteSicherungAm,
     sicherungEinspielen,
     sicherungErstellen,
     sicherungGespeichert,
@@ -17,6 +19,16 @@
   let code = $state('');
   let beschaeftigt = $state(false);
   let meldung = $state<{ text: string; fehler: boolean } | undefined>(undefined);
+  let letzte = $state<number | undefined>(undefined);
+
+  void letzteSicherungAm().then((ts) => (letzte = ts));
+
+  const datum = (ms: number) =>
+    new Date(ms).toLocaleDateString('de-DE', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
 
   async function erstellen() {
     beschaeftigt = true;
@@ -38,6 +50,7 @@
     setTimeout(() => URL.revokeObjectURL(url), 10_000);
     await sicherungGespeichert();
     gespeichert = true;
+    letzte = Date.now();
   }
 
   async function einspielen(ereignis: SubmitEvent) {
@@ -66,7 +79,17 @@
 
 <section class="sicherung">
   <h2>{t('sicherung.ueberschrift')}</h2>
+  {#if letzte !== undefined && !neu}
+    <p class="status" role="status">
+      <strong>{t('sicherung.alles-sicher')}</strong>
+      {t('sicherung.alles-sicher-text')}
+      <span class="leise">({datum(letzte)})</span>
+    </p>
+  {:else if letzte === undefined && !neu}
+    <p class="status offen" role="status">{t('sicherung.status-offen')}</p>
+  {/if}
   <p>{t('sicherung.warum')}</p>
+  <p class="leise">{t('sicherung.kopie-hinweis')}</p>
 
   <h3>{t('sicherung.erstellen-titel')}</h3>
   {#if !neu}
@@ -102,6 +125,12 @@
   {#if beschaeftigt}<p role="status">{t('sicherung.arbeitet')}</p>{/if}
   {#if meldung}
     <p class:fehler={meldung.fehler} role={meldung.fehler ? 'alert' : 'status'}>{meldung.text}</p>
+    {#if meldung.fehler}
+      <ol class="hilfe-schritte">
+        <li>{t('sicherung.hilfe-1')}</li>
+        <li>{t('sicherung.hilfe-2')}</li>
+      </ol>
+    {/if}
   {/if}
 </section>
 
@@ -115,61 +144,52 @@
     margin-block: var(--abstand-m) 0;
   }
 
+  .status {
+    margin: 0;
+    padding: var(--abstand-s) var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: color-mix(in srgb, var(--farbe-erfolg) 14%, var(--farbe-flaeche));
+    border-inline-start: 4px solid var(--farbe-erfolg);
+  }
+
+  .status.offen {
+    background: var(--farbe-hinweis-flaeche);
+    border-inline-start-color: var(--farbe-hinweis-rand);
+  }
+
   form {
     display: grid;
     gap: var(--abstand-s);
-    max-inline-size: 26rem;
   }
 
   label {
     display: grid;
-    gap: 0.2rem;
-  }
-
-  input {
-    font: inherit;
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-s);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche);
-    color: var(--farbe-text);
-  }
-
-  button {
-    font: inherit;
-    min-block-size: 2.75rem;
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-akzent);
-    cursor: pointer;
-    justify-self: start;
-  }
-
-  .haupt {
-    background: var(--farbe-akzent);
-    color: var(--farbe-auf-akzent);
-  }
-
-  .haupt:disabled {
-    opacity: 0.5;
-    cursor: default;
+    gap: 0.25rem;
   }
 
   .code {
-    font-size: 1.375rem;
-    font-weight: bold;
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border: 2px dashed var(--farbe-akzent);
+    font-family: ui-monospace, monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: var(--abstand-s) var(--abstand-m);
     border-radius: var(--radius);
+    border: 2px dashed var(--farbe-akzent);
+    background: var(--farbe-flaeche);
   }
 
   .leise {
     color: var(--farbe-text-leise);
+    margin-block: 0;
   }
 
   .fehler {
-    color: var(--farbe-akzent);
+    color: var(--farbe-akzent-warm);
+  }
+
+  .hilfe-schritte {
+    margin-block: 0;
+    padding-inline-start: 1.25rem;
+    color: var(--farbe-text);
   }
 </style>

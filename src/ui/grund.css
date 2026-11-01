@@ -19,6 +19,8 @@
 }
 
 html {
+  /* System-Schriftgröße respektieren (V109): Basis 100 %, alles in rem. */
+  font-size: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   /* Die Leiste unten verdeckt nichts, wenn zu einem Feld gescrollt wird.
@@ -33,8 +35,14 @@ body {
   background: var(--farbe-hintergrund, Canvas);
   color: var(--farbe-text, CanvasText);
   font-family: var(--schrift, system-ui, sans-serif);
+  /* 1.125rem skaliert mit der System-/Browser-Schriftgröße */
   font-size: 1.125rem;
   line-height: 1.5;
+  font-weight: 500;
+}
+
+html[data-kontrast='stark'] body {
+  font-weight: 500;
 }
 
 h1,
@@ -47,8 +55,38 @@ p {
 h1,
 h2,
 h3 {
+  font-family: var(--schrift-display, var(--schrift, system-ui, sans-serif));
   font-weight: 800;
   line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.ort-name {
+  font-family: var(--schrift-display, var(--schrift, system-ui, sans-serif));
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes bastion-einblenden {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bastion-wolke {
+    from {
+      transform: translateX(-2%);
+    }
+    to {
+      transform: translateX(2%);
+    }
+  }
 }
 
 input,
@@ -113,9 +151,27 @@ input[type='radio'] {
   min-block-size: var(--ziel);
 }
 
+/* K49: klare Fokus-Ringe für Tastatur und Eltern-Tablets */
 :focus-visible {
   outline: 3px solid var(--farbe-akzent);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: var(--radius, 0.35rem);
+}
+
+.elternbereich :focus-visible,
+[data-eltern] :focus-visible {
+  outline-width: 4px;
+  outline-offset: 4px;
+}
+
+/* Zwei visuelle Register (Design „Danach“ J38): Kind = Ort, Eltern = Werkstatt */
+.register-ort {
+  --register-radius: var(--radius-karte);
+}
+
+.register-werkstatt {
+  --register-radius: 4px;
+  font-feature-settings: 'tnum' 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -123,6 +179,8 @@ input[type='radio'] {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

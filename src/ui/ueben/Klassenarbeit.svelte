@@ -65,6 +65,7 @@
 
 <section class="klassenarbeit">
   <h2>{t('ka.ueberschrift')}</h2>
+  <p class="nüchtern">{t('ka.nüchtern-hinweis')}</p>
   {#if klassenarbeit && !formular}
     <p class="termin">{t('ka.am')} {datum(klassenarbeit.termin)}</p>
     {#if ueben.length > 0}
@@ -130,9 +131,22 @@
 </section>
 
 <style>
+  /* K40: nüchterner als Üben – weniger Schatten, ruhigere Flächen */
   .klassenarbeit {
     display: grid;
     gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius);
+    background: var(--farbe-hintergrund);
+    border: 1px solid var(--farbe-rand);
+    box-shadow: none;
+  }
+  .nüchtern {
+    margin: 0;
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+    border-inline-start: 3px solid var(--farbe-rand);
+    padding-inline-start: var(--abstand-s);
   }
   .termin {
     font-weight: 600;
@@ -146,6 +160,7 @@
     border-radius: var(--radius);
     display: grid;
     gap: 0.25rem;
+    background: transparent;
   }
   label {
     display: flex;
@@ -168,10 +183,18 @@
     inline-size: 100%;
     text-align: start;
     min-block-size: 2.75rem;
+    border: 1px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    box-shadow: none;
   }
   .knoepfe {
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
+  }
+  .klassenarbeit :global(.haupt) {
+    background: var(--farbe-text);
+    color: var(--farbe-flaeche);
   }
 </style>

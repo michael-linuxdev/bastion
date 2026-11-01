@@ -42,22 +42,26 @@ Farben nur als Tokens (CSS-Variablen), nie direkt in Komponenten. Kontrast minde
   - Die Aufgabe steht groß auf einer Karte, mit Bild (zum Beispiel einem Bruchstreifen).
   - Eingabefelder passend zur Lösungsart (Zähler und Nenner getrennt).
   - Knöpfe „Prüfen“, „Tipp“ und „Lösungsweg“, darunter „Fertig für heute“.
-- **Navigation (31.10.2026):** Keine untere Reiterleiste mehr. Startseite ist der Hub (Üben, Bastion-Karte, Kacheln, Mehr). Bastion hat ein Home-Piktogramm zur Startseite.
+- **Navigation (31.10.2026):** Keine untere Reiterleiste mehr. Startseite ist der Hub: Marke, lebendige Bastion-Vorschau, drei Türen (Üben, Bastion, Mehr), Nebenkacheln. Bastion hat ein Home-Piktogramm zur Startseite.
 - **Startseite passt auf einen Bildschirm**, auch auf dem iPhone 13 in Safari (390 × 664 Punkte sichtbar). Was nicht täglich gebraucht wird, steht unter „Mehr“: Themen wählen, Mein Stand, Klassenarbeit, Über mich, Sicherung, Für Eltern, dazu der Name „Bastion“, das Versprechen „Keine Werbung …“ und der Hinweis „funktioniert ohne Internet“.
 - **Üben (31.10.2026):** Ein Klick (Leiste oder Start) springt zur nächsten bzw. offenen Aufgabe – nicht in die Themenübersicht. Klasse, Niveau und Themenwahl liegen unter „Mehr“ → „Themen wählen“.
-- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante). Auf dem Reiter: kompakter Vorrat, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen um Gebäude herum, ruhige Bewohner (an Fortschritt gekoppelt). Zahnrad oben rechts: Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung, Darstellung (Bild aus, ruhig, leicht, Sound, Ganzes Bild), Bedienhilfe und die barrierefreie Liste. Zoom nur per Geste; −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung.
+- **Bastion (31.10.2026):** Die Seite zeigt den Bauplatz vollflächig (keine Karten-Kante). Auf dem Reiter: kompakter Vorrat, Bauen/Planen-Blatt, Versetzen per Ziehen, Wesen um Gebäude herum, ruhige Bewohner (an Fortschritt gekoppelt). Zahnrad oben rechts: Bewährung, Thema, Wetter, Hinterhof-Liste, Orientierung, Darstellung (Bild aus, ruhig, leicht, Sound-Stufen aus/UI/Bastion+UI, Ganzes Bild), Bedienhilfe und die barrierefreie Liste. Zoom nur per Geste; −/+ / Fadenkreuz gibt es auf dem Reiter nicht. „Zum Hinterhof“ ist ein Piktogramm. In der laufenden Übung gibt es ein kleines Zahnrad nur für die Orientierung. Kräftiger Text und Sound-Stufen auch unter Über mich (Design V–Z).
+- **Hub / Vertrauen (31.10.2026, Design V–Z):** „Kein Konto. Kein Tracking.“ dauerhaft auf Start und Mehr; bei noch nie geübt nur Üben + kurzer Satz; Landscape-Türen mit großen Tap-Zielen.
 - **Bildschirm drehen (31.10.2026):** Einstellung `darstellung.orientierung` (`auto` / `hoch` / `quer`), wählbar in Bastion-Einstellungen, unter „Über mich“ und im Übungs-Zahnrad. Screen-Orientation-API wenn verfügbar; sonst Hinweis zum Drehen des Geräts (kein Layout-Bruch durch CSS-Drehung).
-- **Bau-Blatt (31.10.2026):** Spielerische Karten mit Atlas-Vorschau (Fallback-Silhouette) vor dem Bauen/Planen.
-- **Test-Rohstoffe (31.10.2026):** Eltern-Schalter `bastion.test-rohstoffe` – virtueller Vorrat und Probe-Bastion nur im Speicher; Ledger und Lernfortschritt unberührt.
+- **Bau-Blatt (31.10.2026):** Mini-Szene-Vorschau, Kostenstapel, Planen (Skizze) vs. Bauen (Stein setzen), Farbe am Banner, gesperrte Gebäude als Silhouette „Noch nicht“.
+- **Test-Rohstoffe (31.10.2026):** Eltern-Schalter `bastion.test-rohstoffe` – virtueller Vorrat und Probe-Bastion nur im Speicher; Ledger und Lernfortschritt unberührt. Banner „Probe-Ansicht“ auf der Bastion.
+- **Design-Bündel (31.10.2026):** Hub-Türen/Ortsnamen, HUD als Beutel mit Material-Icons, Bauen-Werkzeug am Szenenrand, leere Bastion mit Einladung, Eltern-Werkstatt-Optik, Display-/Text-Schriftrollen (Nunito), 2–3 bewusste Bewegungen (Wolken, Einblenden).
+- **Design „Danach“ (31.10.2026):** Themen-Landkarte in Mein Stand / Gerade-dran; stiller Abschluss-Übergang (Stein/Beutel → Bastion); Fehlerwerkstatt als Damals/Heute-Paar; Bewohner-Statusgesten über dem Kopf; Geste-Sprache Tippen=wählen / Ziehen=bewegen; Onboarding erste Minute (ein Satz + Üben); Eltern-Werkstatt vs. Kind-Ort als zwei visuelle Register.
 
 
 ## 2. Hell, dunkel, System
 
-- Drei Einstellungen: **System** (Standard), **Hell**, **Dunkel**. Gespeichert als Einstellung, wählbar unter „Über mich“.
-- **Dunkel = Abendstimmung von Richtung A:** gleiche Formen und Schrift, dunkle warme Flächen.
+- Drei Einstellungen: **System** (Standard), **Hell** (Tag), **Dunkel** (Abend). Gespeichert als Einstellung, wählbar unter „Über mich“ als „Abend in der Bastion“.
+- **Lernflächen bleiben hell** (Design L61): CSS-Tokens an `<html>` sind immer die Hell-Fassung. Die Wahl steuert nur die Bastion-Szene (`szeneAbend`).
+- **Dunkel = Abendstimmung von Richtung A** in der Bastion: gleiche Formen und Schrift in der Szene.
   - Die Bastion steht unter Abendhimmel mit erleuchteten Fenstern.
   - Die Farben aus Richtung B sind dafür ein Anhaltspunkt: Himmel `#1A2342`, Licht `#FFC85A`.
-- Beide Modi erfüllen den Kontrast von 4,5 : 1.
+- Beide Fassungen (Hell-Tokens und Szene-Abend) erfüllen den Kontrast von 4,5 : 1.
 
 ## 3. Austauschbar bleiben (B-27)
 
@@ -77,7 +81,7 @@ Nebenstrang parallel zum Lernkern (K-27 bleibt: Lernen hat Vorrang). Mehrere kle
 - **Politur:** klar über dem bisherigen Code-/Dorfkrieg-Platzhalter. Lesbarkeit und knackige isometrische Gebäude wie in Clash of Clans – **ohne** Militär, Truppen, Clash-Erkennung (VISION: kein CoC-Klon; B-15/B-16). Wärme und ruhiges Leben mindestens auf Stardew-Niveau.
 - **Primärquelle Bild:** Sprites/Atlanten (B-28). Code-Zeichnung bleibt Fallback, bis das Atlas da ist.
 - **Dorfkrieg-Dorfbilder** werden ersetzt, nicht behalten.
-- **Lernumfeld** (Üben, Vermittlung, Fehlerwerkstatt, Diagnose): darf **nicht** ablenken – Aufräumen von Abständen und Hierarchie erlaubt, keine Bewegung, kein Wetter, kein Sound dort.
+- **Lernumfeld** (Üben, Vermittlung, Fehlerwerkstatt, Diagnose): darf **nicht** ablenken – Aufräumen von Abständen und Hierarchie erlaubt, keine Bewegung, kein Wetter; optional sehr leiser UI-Cue nur beim Prüfen-Ergebnis (Stufe UI/Bastion, Standard aus).
 - **Bastion / Hinterhof:** lebendig (Atmosphäre, Wesen, optional Sound).
 
 ### 4.2 Schichten
@@ -127,7 +131,8 @@ Ziel: **60 fps** auf dem iPhone 13; wenn knapp, **30 fps** anpeilen (automatisch
 ### 4.6 Sound (optional)
 
 - Standard **aus**. Jugendliche schalten selbst ein.
-- Ambient (Wind, Wasser, Regen) und kurze Tip-Geräusche (bauen, Wesen).
+- **Drei Stufen:** aus / nur UI (sehr leiser Cue beim Prüfen-Ergebnis) / Bastion+UI (Ambient + Bau-Tipps). Ambient nur in der Bastion, nie im Aufgaben-Fokus.
+- Ambient (Wind) und kurze Tip-Geräusche (bauen, Wesen) nur bei Stufe Bastion+UI.
 - Dateien **frei lizenziert (CC0 o. Ä.)**, mit der App ausgeliefert, offline (T-18). Kein CDN.
 
 ### 4.7 MiniBastion (Startseite)
@@ -157,8 +162,7 @@ Vier Schritte, jeder ein eigener PR:
 
 1. ✅ **Grundlage:**
    - Tokens als Fassung „tag-warm“ in `src/ui/grafik/fassungen.ts`, hell und dunkel. Ein Test prüft, dass jede Rolle gefüllt ist und der Kontrast reicht (Text 4,5 : 1, Bilder 3 : 1).
-   - `src/ui/grafik/darstellung.svelte.ts` schreibt die Tokens an `<html>` und setzt `data-modus` auf `hell` oder `dunkel`. Das Bild der Bastion zeichnet sich beim Wechsel neu.
-   - Wahl „Aussehen“ unter „Über mich“: Wie das Gerät, Hell, Dunkel (Abend). Einstellung `darstellung.modus`.
+   - `src/ui/grafik/darstellung.svelte.ts` schreibt die **Hell-Tokens** an `<html>` (Lernflächen); `darstellung.dunkel` steuert weiter die Bastion-Szene. Wahl unter „Über mich“: Abend in der Bastion (System/Tag/Abend). Einstellung `darstellung.modus`.
    - Schrift Nunito mitgeliefert (T-16). Knöpfe `haupt`, `zweit`, `dezent` und Eingabefelder einheitlich in `grund.css`.
 2. ✅ **Start-Hub ohne Reiter** (`src/ui/start/`):
    - Datum und Begrüßung, kleine Ansicht der Bastion (`src/ui/grafik/MiniBastion.svelte`, nur Bild), großer Knopf „Üben“ mit „Gerade dran“.
@@ -227,6 +231,8 @@ Mechanik und Kosten: `BASEBAU.md` §5.5–§5.7 (B-28). Grafik:
 ## 9. Lern-UI aufräumen
 
 Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im Lernpfad: Animationen, Partikel, Wesen, Sound, Wetter-Effekte.
+
+**Üben Ein-/Ausgabe (31.10.2026):** Arbeitsblatt mit zwei Phasen (Eingabe / Rückmeldung), ruhiges Urteil + Ursache, Antwortspiegel mit Ergebnisrahmen, Tipps als Randnotiz, Fortschritt als Steine, Schrittweg als Checkliste, Tastatur an die Eingabefläche gebunden, Querformat Prompt|Eingabe. Keine KI, kein Timer, keine Zufallsbelohnung.
 
 ## 10. PR-Reihenfolge (Nebenstrang)
 

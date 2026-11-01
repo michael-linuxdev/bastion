@@ -1,7 +1,6 @@
 <script lang="ts">
-  // Rückmeldung zur erkannten Fehlvorstellung (VERMITTLUNG §3.3): beim ersten Mal
-  // die kurze Erklärung; bei „vermutet“ und „wieder da“ die lange in drei Teilen,
-  // ein Gegenbeispiel und der Rückweg.
+  // Rückmeldung zur erkannten Fehlvorstellung (VERMITTLUNG §3.3): Titel + Schema
+  // zuerst; langer Text einklappbar (§S98). Kurzform beim ersten Treffer.
   import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
   import type { FvZustand } from '../../core/learning/fv-diagnose';
   import { fuelle } from '../../core/learning/text';
@@ -23,26 +22,37 @@
   } = $props();
 
   const lang = $derived(zustand === 'vermutet' || zustand === 'wieder-da');
+  const schema = $derived(fv.erklaerung.lang.find((teil) => teil.bild)?.bild);
 </script>
 
 {#if lang}
   <section class="lang" aria-label={fv.name.de}>
+    <h3 class="titel">{fv.name.de}</h3>
     <p class="einstieg">{t(zustand === 'wieder-da' ? 'fv.wieder-da' : 'fv.vermutet')}</p>
-    {#each fv.erklaerung.lang as teil (teil.teil)}
-      <div class="teil">
-        <h3>{t(`fv.${teil.teil}`)}</h3>
-        <p><Textteile teile={fuelle(teil.de, {})} /></p>
-        {#if teil.bild}
-          {@const Bild = WERKZEUG_KOMPONENTEN[teil.bild.werkzeug]}
-          {#if Bild}<div class="bild"><Bild parameter={teil.bild.parameter ?? {}} /></div>{/if}
-        {/if}
-      </div>
-    {/each}
-    <p>
-      <strong>{t('fv.gegenbeispiel')}</strong>
-      <Textteile teile={fuelle(fv.gegenbeispiel.de, {})} />
-    </p>
-    {#if fv.kontrast.length > 0}<p class="leise">{t('fv.kontrast')}</p>{/if}
+    {#if schema}
+      {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
+      {#if Bild}
+        <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
+      {/if}
+    {/if}
+    <details class="mehr">
+      <summary>{t('fv.mehr-lesen')}</summary>
+      {#each fv.erklaerung.lang as teil (teil.teil)}
+        <div class="teil">
+          <h4>{t(`fv.${teil.teil}`)}</h4>
+          <p><Textteile teile={fuelle(teil.de, {})} /></p>
+          {#if teil.bild && teil.bild !== schema}
+            {@const Bild = WERKZEUG_KOMPONENTEN[teil.bild.werkzeug]}
+            {#if Bild}<div class="bild"><Bild parameter={teil.bild.parameter ?? {}} /></div>{/if}
+          {/if}
+        </div>
+      {/each}
+      <p>
+        <strong>{t('fv.gegenbeispiel')}</strong>
+        <Textteile teile={fuelle(fv.gegenbeispiel.de, {})} />
+      </p>
+      {#if fv.kontrast.length > 0}<p class="leise">{t('fv.kontrast')}</p>{/if}
+    </details>
     {#if rueckweg}
       <button class="zweit" onclick={onrueckweg}
         >{t(rueckweg === 'grundlage' ? 'fv.grundlage' : 'fv.zur-erklaerung')}</button
@@ -50,26 +60,43 @@
     {/if}
   </section>
 {:else}
-  <p class="kurz"><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
+  <aside class="kurz" aria-label={fv.name.de}>
+    <h3 class="titel">{fv.name.de}</h3>
+    {#if schema}
+      {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
+      {#if Bild}
+        <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
+      {/if}
+    {/if}
+    <p><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
+  </aside>
 {/if}
 
 <style>
   .lang {
     display: grid;
     gap: var(--abstand-s);
-    margin-block: var(--abstand-m);
+    margin-block: var(--abstand-s);
     padding: var(--abstand-m);
     border-radius: var(--radius);
-    border-inline-start: 6px solid var(--farbe-akzent);
+    border-inline-start: 4px solid var(--farbe-akzent);
     background: var(--farbe-flaeche-leise);
   }
 
   .lang p,
-  .lang h3 {
+  .lang h3,
+  .lang h4,
+  .kurz h3 {
     margin-block: 0;
   }
 
-  h3 {
+  .titel {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--farbe-text);
+  }
+
+  h4 {
     font-size: 1rem;
     color: var(--farbe-akzent);
   }
@@ -84,7 +111,21 @@
   }
 
   .bild {
-    max-inline-size: 26rem;
+    max-inline-size: 28rem;
+  }
+
+  .mehr summary {
+    cursor: pointer;
+    font-weight: 700;
+    min-block-size: var(--ziel);
+    display: flex;
+    align-items: center;
+    color: var(--farbe-text-leise);
+  }
+
+  .mehr[open] {
+    display: grid;
+    gap: var(--abstand-s);
   }
 
   .lang button {
@@ -96,6 +137,18 @@
   }
 
   .kurz {
-    color: var(--farbe-text-leise);
+    display: grid;
+    gap: var(--abstand-s);
+    margin-block: var(--abstand-s);
+    padding-block: var(--abstand-s);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    border-inline-start: 3px solid var(--farbe-akzent);
+    background: var(--farbe-flaeche-leise);
+    color: var(--farbe-text);
+  }
+
+  .kurz p {
+    margin-block: 0;
   }
 </style>
