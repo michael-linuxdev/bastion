@@ -8,6 +8,7 @@
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import Bericht from '../eltern/Bericht.svelte';
   import PinVermerke from '../eltern/PinVermerke.svelte';
+  import Leerzustand from '../grafik/Leerzustand.svelte';
   import { pinVermerke, type Zustand } from '../plattform/ablage';
   import { tt } from '../bastion/thema.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
@@ -103,7 +104,17 @@
   <ThemenLandkarte {themen} {status} {onueben} />
 
   {#if !angefangen}
-    <p>{t('stand.leer')}</p>
+    {@const erstes = themen[0]}
+    {#if erstes}
+      <Leerzustand
+        symbol="stand"
+        text={t('stand.leer')}
+        knopf={t('leer.ueben')}
+        onknopf={() => onueben(erstes)}
+      />
+    {:else}
+      <Leerzustand symbol="stand" text={t('stand.leer')} />
+    {/if}
   {/if}
 
   {#if weiter.length > 0}

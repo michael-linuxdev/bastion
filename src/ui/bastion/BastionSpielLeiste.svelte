@@ -2,6 +2,7 @@
   /**
    * Spiel-HUD: Vorrat wie Beutel/Truhe mit Material-Icons (Design B6).
    * Der Bauen-Knopf liegt als Werkzeug am Szenenrand (B7), nicht hier.
+   * Design-Ideen K44: Vorrat-Chips einklappbar bei Überlauf / schmalem Platz.
    */
   import Symbol, { type SymbolName } from '../grafik/Symbol.svelte';
   import { menge, tt } from './thema.svelte';
@@ -19,6 +20,8 @@
     testRohstoffe?: boolean;
   } = $props();
 
+  let aufgeklappt = $state(false);
+
   const chips: readonly { r: 'fleiss' | 'behalten' | 'koennen'; symbol: SymbolName }[] = [
     { r: 'fleiss', symbol: 'stein' },
     { r: 'behalten', symbol: 'erz' },
@@ -27,19 +30,29 @@
 </script>
 
 <div class="spiel" aria-label={tt('bastion.vorrat-kurz')}>
-  <ul class="chips" class:probe={testRohstoffe}>
-    <li class="beutel" aria-hidden="true"><Symbol name="beutel" /></li>
-    {#each chips as { r, symbol } (r)}
+  <div class="vorrat">
+    <ul class="chips" class:probe={testRohstoffe} class:kurz={!aufgeklappt}>
+      <li class="beutel" aria-hidden="true"><Symbol name="beutel" /></li>
+      {#each chips as { r, symbol } (r)}
+        <li class:extra={r !== 'fleiss'}>
+          <Symbol name={symbol} />
+          <span>{testRohstoffe ? t('bastion.test-unendlich') : menge(r, konto.stand[r])}</span>
+        </li>
+      {/each}
       <li>
-        <Symbol name={symbol} />
-        <span>{testRohstoffe ? t('bastion.test-unendlich') : menge(r, konto.stand[r])}</span>
+        <Symbol name="bastion" />
+        <span><strong>{testRohstoffe ? t('bastion.test-unendlich') : vorrat}</strong></span>
       </li>
-    {/each}
-    <li>
-      <Symbol name="bastion" />
-      <span><strong>{testRohstoffe ? t('bastion.test-unendlich') : vorrat}</strong></span>
-    </li>
-  </ul>
+    </ul>
+    <button
+      type="button"
+      class="klappen"
+      aria-expanded={aufgeklappt}
+      onclick={() => (aufgeklappt = !aufgeklappt)}
+    >
+      {aufgeklappt ? t('bastion.vorrat-weniger') : t('bastion.vorrat-mehr')}
+    </button>
+  </div>
 </div>
 
 <style>
@@ -51,6 +64,15 @@
     flex: 1 1 10rem;
     min-inline-size: 0;
     justify-content: center;
+  }
+
+  .vorrat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    min-inline-size: 0;
+    max-inline-size: 100%;
   }
 
   .chips {
@@ -68,6 +90,10 @@
     backdrop-filter: blur(6px);
     min-inline-size: 0;
     max-inline-size: 100%;
+  }
+
+  .chips.kurz .extra {
+    display: none;
   }
 
   .chips.probe {
@@ -100,6 +126,19 @@
     flex-shrink: 0;
   }
 
+  .klappen {
+    font: inherit;
+    font-size: 0.75rem;
+    min-block-size: 2rem;
+    padding-inline: 0.45rem;
+    border: none;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--farbe-text-leise);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   @media (orientation: landscape) and (height < 30rem) {
     .chips {
       padding: 0.2rem 0.35rem;
@@ -108,6 +147,16 @@
 
     .chips li {
       font-size: 0.75rem;
+    }
+  }
+
+  @media (width >= 40rem) {
+    .chips.kurz .extra {
+      display: flex;
+    }
+
+    .klappen {
+      display: none;
     }
   }
 </style>

@@ -96,14 +96,16 @@
     {@const a = gewaehlt}
     {@const lock = gesperrt(a.hindernisse)}
     {@const mangel = fehlt(a.hindernisse)}
+    {@const alsPlan = a.hindernisse.length > 0 && istZiel(a)}
     <div class="fokus" aria-live="polite">
-      <p class="label">{tt('bastion.bau-vorschau')}</p>
+      <p class="label">{alsPlan ? tt('bastion.geist-plan') : tt('bastion.bau-vorschau')}</p>
       <GebaeudeVorschau
         typ={a.typ}
         stufe={a.stufe}
         {epoche}
         gross
         gesperrt={lock}
+        geist={alsPlan}
         {...vorschauFarbe ? { farbe: vorschauFarbe } : {}}
       />
       {#if lock}

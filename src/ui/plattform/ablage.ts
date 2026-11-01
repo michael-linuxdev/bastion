@@ -46,6 +46,7 @@ import {
   RUHIG_SCHLUESSEL,
   LEICHT_SCHLUESSEL,
   SOUND_SCHLUESSEL,
+  OFFLINE_HINWEIS_SCHLUESSEL,
   soundStufeAus,
   type SoundStufe,
   KONTRAST_SCHLUESSEL,
@@ -589,6 +590,17 @@ export async function kontrastWahl(): Promise<boolean> {
 }
 
 export const kontrastSetzen = (an: boolean) => setze(KONTRAST_SCHLUESSEL, an, 'jugendlich');
+
+/** Offline-Hinweis schon gesehen (K47)? Standard nein. */
+export async function offlineHinweisGesehen(): Promise<boolean> {
+  const inst = await bereit();
+  if (!inst) return false;
+  return (
+    (await einstellung(db, inst.profil, OFFLINE_HINWEIS_SCHLUESSEL).catch(() => undefined)) === true
+  );
+}
+
+export const offlineHinweisSetzen = () => setze(OFFLINE_HINWEIS_SCHLUESSEL, true, 'jugendlich');
 
 /** Echtes Wetter an (T-15)? Standard aus. */
 export async function wetterEcht(): Promise<boolean> {

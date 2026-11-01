@@ -88,6 +88,9 @@ export const soundStufeAus = (wert: unknown): SoundStufe => {
 export const KONTRAST_SCHLUESSEL = 'darstellung.kontrast';
 export const kontrastAn = (wert: unknown): boolean => wert === true;
 
+/** Offline-Hinweis einmalig gesehen (Design-Ideen K47); nur `true` = schon gezeigt. */
+export const OFFLINE_HINWEIS_SCHLUESSEL = 'ui.offline-hinweis';
+
 /** Echtes Wetter von Open-Meteo (T-15); nur `true` schaltet ein. Standard aus. */
 export const WETTER_ECHT_SCHLUESSEL = 'wetter.echt';
 

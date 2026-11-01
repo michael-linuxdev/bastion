@@ -79,6 +79,7 @@
 </script>
 
 <section class="abschluss register-ort">
+  <p class="ritual">{tt('abschluss.ritual')}</p>
   <h2>{tt('abschluss.ueberschrift')}</h2>
 
   {#if bilanz.aufgaben === 0}
@@ -216,9 +217,9 @@
   <div class="wege">
     {#if basebau && onbastion && beutel.length > 0}
       <button class="haupt" onclick={onbastion}>{t('abschluss.zur-bastion')}</button>
-      <button class="zweit" onclick={onstart}>{tt('abschluss.startseite')}</button>
+      <button class="zweit" onclick={onstart}>{tt('abschluss.schliessen')}</button>
     {:else}
-      <button class="haupt" onclick={onstart}>{tt('abschluss.startseite')}</button>
+      <button class="haupt schliessen" onclick={onstart}>{tt('abschluss.schliessen')}</button>
     {/if}
   </div>
 </section>
@@ -227,6 +228,15 @@
   .abschluss {
     display: grid;
     gap: var(--abstand-s);
+    padding-block: var(--abstand-m);
+  }
+
+  .ritual {
+    margin: 0;
+    color: var(--farbe-text-leise);
+    font-size: 1.05rem;
+    border-inline-start: 4px solid var(--farbe-akzent);
+    padding-inline-start: var(--abstand-m);
   }
 
   h3 {
@@ -331,6 +341,10 @@
   .haupt {
     background: var(--farbe-akzent);
     color: var(--farbe-auf-akzent);
+  }
+
+  .schliessen {
+    margin-block-start: var(--abstand-s);
   }
 
   .zweit {

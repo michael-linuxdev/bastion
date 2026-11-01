@@ -7,6 +7,7 @@
   import { t, type TextSchluessel } from '../texte/texte';
   import GeradeDran from './GeradeDran.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
+  import Steinkette from './Steinkette.svelte';
   import { BEREICHE } from './reihenfolge';
   import { sitzt, statusVon } from './stand';
 
@@ -54,6 +55,8 @@
       ),
     })).filter((b) => b.kompetenzen.length > 0),
   );
+  const nachId = $derived(new Map(kompetenzen.map((k) => [k.id, k])));
+  const sitztId = (id: string) => sitzt(statusVon(zustand, id, niveau, jetzt));
 </script>
 
 <section class="uebersicht register-ort">
@@ -101,6 +104,7 @@
               {/if}
             </span>
             <span class="kann">{k.kann_satz.de}</span>
+            <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
           </button>
         </li>
       {/each}

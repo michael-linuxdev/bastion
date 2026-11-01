@@ -2,6 +2,7 @@
   /**
    * Gebäudevorschau als Mini-Szene (Design C10): Iso-Boden/Himmel + Atlas/Silhouette.
    * Optional Farbe für Zierde (C13). Gesperrte Gebäude als Silhouette (C12).
+   * Design-Ideen K43: Bauplan als gestrichelte Geister-Silhouette (`geist`).
    */
   import { onMount } from 'svelte';
   import type { Farbe, GebaeudeTyp } from '../../core/bastion/katalog';
@@ -15,6 +16,7 @@
     epoche = 1,
     gross = false,
     gesperrt = false,
+    geist = false,
     farbe,
   }: {
     typ: GebaeudeTyp;
@@ -24,6 +26,8 @@
     gross?: boolean;
     /** Noch nicht freigeschaltet: Silhouette */
     gesperrt?: boolean;
+    /** Gestrichelte Geister-Silhouette (Bauplan/Skizze, K43) */
+    geist?: boolean;
     /** Zierde-Farbe für Live-Vorschau */
     farbe?: Farbe | undefined;
   } = $props();
@@ -39,7 +43,9 @@
 
   const eintrag = $derived(atlasEintrag(manifest, aktiv.thema, epoche, typ, stufe));
   const src = $derived(
-    !gesperrt && eintrag && !bildFehler ? `${atlasBasisUrl()}${eintrag.datei}` : undefined,
+    !gesperrt && !geist && eintrag && !bildFehler
+      ? `${atlasBasisUrl()}${eintrag.datei}`
+      : undefined,
   );
   const tint = $derived(farbe ? FARBWERT[farbe] : undefined);
 </script>
@@ -48,6 +54,7 @@
   class="vorschau"
   class:gross
   class:gesperrt
+  class:geist
   class:einblenden={gross}
   aria-hidden="true"
   style:--vorschau-farbe={tint}
@@ -59,13 +66,21 @@
       <img {src} alt="" class="sprite" onerror={() => (bildFehler = true)} />
     {:else}
       <svg class="fallback" viewBox="0 0 48 48" focusable="false">
-        <path d="M8 40V18l8-6 8 6v4h8V18l8-6 8 6v22H8Z" fill="currentColor" opacity="0.35" />
+        <path
+          d="M8 40V18l8-6 8 6v4h8V18l8-6 8 6v22H8Z"
+          fill={geist ? 'none' : 'currentColor'}
+          opacity={geist ? 1 : 0.35}
+          stroke={geist ? 'currentColor' : 'none'}
+          stroke-width={geist ? 1.8 : 0}
+          stroke-dasharray={geist ? '3 2.5' : undefined}
+        />
         <path
           d="M16 40v-8h8v8M28 40v-10h8v10"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
-          opacity="0.55"
+          opacity={geist ? 0.7 : 0.55}
+          stroke-dasharray={geist ? '2.5 2' : undefined}
         />
       </svg>
     {/if}
@@ -89,6 +104,21 @@
     block-size: 8rem;
     margin-inline: auto;
     border-radius: var(--radius-karte);
+  }
+
+  .vorschau.geist {
+    color: var(--farbe-text-leise);
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--farbe-text-leise) 45%, transparent);
+  }
+
+  .vorschau.gross.geist .himmel {
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--farbe-text-leise) 8%, var(--farbe-flaeche)),
+      color-mix(in srgb, var(--farbe-text-leise) 8%, var(--farbe-flaeche)) 6px,
+      var(--farbe-hintergrund) 6px,
+      var(--farbe-hintergrund) 12px
+    );
   }
 
   @media (prefers-reduced-motion: no-preference) {

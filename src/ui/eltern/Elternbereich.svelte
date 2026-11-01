@@ -124,7 +124,7 @@
   }
 </script>
 
-<section class="eltern register-werkstatt">
+<section class="eltern register-werkstatt" data-eltern>
   <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
   <p class="werkstatt-hinweis">{t('eltern.werkstatt-hinweis')}</p>
@@ -362,6 +362,19 @@
   .hinweis {
     border-inline-start: 4px solid var(--farbe-akzent);
     padding-inline-start: var(--abstand-m);
+  }
+
+  /* K49: stärkere Fokus-Ringe für Tastatur / Eltern-Tablets */
+  .eltern :focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 4px;
+  }
+
+  .eltern input:focus-visible,
+  .eltern select:focus-visible,
+  .eltern button:focus-visible {
+    outline: 4px solid var(--farbe-akzent);
+    outline-offset: 3px;
   }
 
   .schutz {

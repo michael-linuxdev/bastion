@@ -138,9 +138,10 @@ function tipProzedural(c: AudioContext, art: SoundTipp): void {
   const f = art === 'wesen' ? 660 : art === 'aufstellen' ? 520 : 440;
   o.frequency.setValueAtTime(f, jetzt);
   o.frequency.exponentialRampToValueAtTime(f * 0.7, jetzt + 0.12);
+  // K50: weichere Cues – leiser und kürzer
   g.gain.setValueAtTime(0.0001, jetzt);
-  g.gain.exponentialRampToValueAtTime(0.08, jetzt + 0.02);
-  g.gain.exponentialRampToValueAtTime(0.0001, jetzt + 0.18);
+  g.gain.exponentialRampToValueAtTime(0.045, jetzt + 0.025);
+  g.gain.exponentialRampToValueAtTime(0.0001, jetzt + 0.16);
   o.connect(g);
   g.connect(c.destination);
   o.start(jetzt);
@@ -151,7 +152,8 @@ function tipAusDatei(c: AudioContext, puffer: AudioBuffer): void {
   const quelle = c.createBufferSource();
   quelle.buffer = puffer;
   const g = c.createGain();
-  g.gain.value = 0.12;
+  // Kenney-WAVs sind lauter als der Oszillator – bewusst leise halten (K50)
+  g.gain.value = 0.07;
   quelle.connect(g);
   g.connect(c.destination);
   quelle.start();
