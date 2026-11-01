@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { AufgabeEreignis, SchrittErgebnis } from '../learning/ereignis';
+import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
+import type { NutzungEreignis } from './nutzung';
 import {
   bericht,
   f5Urteil,
@@ -14,17 +16,23 @@ import { PROTOKOLL_FORMAT, type ProtokollEreignis, type Testprotokoll } from './
 // Synthetische Protokolle: keine echten Teilnehmer-Nummern (die Form „X-…“ ist keine gültige)
 const K = 'M.ZO.BR.BEGRIFF';
 
+type Ohne<E> = Omit<E, 'profil' | 'geraet'>;
+
 class Bau {
   private ts = 1_000;
   private n = 0;
   readonly ereignisse: ProtokollEreignis[] = [];
+  /** ProtokollEreignis kennt nur die gemeinsamen Felder; hier mit Prüfung je Art */
+  private rein(e: Ohne<AufgabeEreignis> | Ohne<VermittlungEreignis> | Ohne<NutzungEreignis>) {
+    this.ereignisse.push(e);
+  }
   private naechst() {
     this.ts += 1_000;
     this.n += 1;
     return { id: `E${String(this.n).padStart(5, '0')}`, ts: this.ts, tag: '2026-11-01' as const };
   }
   vermittlung(schritt: string, typ: 'antwort' | 'abgeschlossen' = 'abgeschlossen', k = K) {
-    this.ereignisse.push({
+    this.rein({
       ...this.naechst(),
       art: 'vermittlung',
       v: 1,
@@ -49,7 +57,7 @@ class Bau {
     } = {},
   ) {
     const ergebnis = a.ergebnis ?? 'richtig';
-    this.ereignisse.push({
+    this.rein({
       ...this.naechst(),
       art: 'aufgabe',
       v: 2,
@@ -68,13 +76,19 @@ class Bau {
       ...(a.fehlerbild ? { fehlerbild: a.fehlerbild } : {}),
       ...(a.schritte ? { schritte: a.schritte } : {}),
       ...(ergebnis === 'falsch'
-        ? { schnappschuss: { platzhalter: { z: 1 }, loesung: '1/4', antwort: '4/1' } }
+        ? {
+            schnappschuss: {
+              platzhalter: { z: 1 },
+              loesung: { typ: 'zahl' as const, wert: 4 },
+              antwort: { typ: 'zahl' as const, wert: 1 },
+            },
+          }
         : {}),
     });
     return this;
   }
   nutzung(was: 'abbruch' | 'weg-uebersprungen' | 'hilfe', ziel: string) {
-    this.ereignisse.push({ ...this.naechst(), art: 'nutzung', v: 1, was, ziel });
+    this.rein({ ...this.naechst(), art: 'nutzung', v: 1, was, ziel });
     return this;
   }
   protokoll(teilnehmer: string): Testprotokoll {
