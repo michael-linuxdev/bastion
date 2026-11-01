@@ -24,6 +24,10 @@ pnpm auswertung protokoll-1.json protokoll-2.json > bericht.md
 
 Personen heißen im Bericht „Person 1 …“; `--nummern` setzt die Teilnehmer-Nummern dazu. Protokolle und Bericht kommen nicht ins Repository. Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`.
 
+## Fehler-Schüler (`inhalte/fehlerschueler.ts`)
+
+`pnpm fehlerschueler [--seeds 200] > verdacht.md` spielt die Diagnose regelbasiert durch und listet Verdachtsfälle je Feld (Arten A–E, INHALTSFORMAT §8). Er korrigiert nichts. Der Lauf über alle Inhalte dauert wenige Sekunden. Er ist nicht Teil von `pnpm test`, dort läuft nur ein kleiner Test mit erfundenen Inhalten. Er startet die Generatoren wie der Prüfbogen über `runnerImport`.
+
 ## Review-Vermerk (`review/`)
 
 `pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.
