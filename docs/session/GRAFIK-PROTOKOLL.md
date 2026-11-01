@@ -40,3 +40,4 @@
 | 31.10.2026 | **Design-Ideen CA–DZ:** Abschnitte CA–DZ in `docs/DESIGN-IDEEN.md` ausgearbeitet; EA–ZZ weiter reserviert |
 | 01.11.2026 | **Fokus Paket G:** Bauen und Ausbau einfacher, Stufen sichtbar unterschiedlich (PV); Vorrang vor F2–F10, U4b erst nach Abnahme (`docs/session/FOKUS.md`) |
 | 01.11.2026 | **G0:** Rückfragen beantwortet: Probestück (a)+(b) für den Bergfried, Kern darf sich mit `pnpm sim`-Vergleich ändern (B-29), alle Themen Epoche 1 zuerst (`FOKUS.md` „Entscheidungen“) |
+| 01.11.2026 | **G1:** `pnpm grafik:stufen` (Stufen-Vergleich mit Höhe und Umriss) und Bau-Wege mit Playwright gemessen; Befund in `GRAFIK.md` §11 |

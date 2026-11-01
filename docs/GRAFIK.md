@@ -259,3 +259,50 @@ Tokens und Richtung A bleiben. Erlaubt: Abstände, Hierarchie, Ruhe. Verboten im
 | **P6** | Belagerungs-Himmel / Rauch-Overlays · *umgesetzt* (Atlas `belagerung/` + Code-Fallback) |
 
 Sprites können parallel von Claude/Grok nach `GRAFIK-SPRITES.md` erzeugt und in G5+ eingehängt werden. Ohne Atlas bleibt der Code-Fallback.
+
+---
+
+## 11. Paket G – Bauen und Ausbau (Fokus 01.11.2026)
+
+Auftrag und Abnahme: `docs/session/FOKUS.md`, Paket G. Hinweis: Die Nummern G0 bis G6 dort sind **Paket-Schritte**. Sie haben nichts mit den Szenen-PRs G0 bis G11 in §10 zu tun.
+
+### 11.1 Abnahme (Messgrößen)
+
+| Prüfung | Ziel | Wie gemessen |
+|---|---|---|
+| Silhouetten-Test | Jede Stufe hat einen anderen Umriss als die vorige | `pnpm grafik:stufen`, Spalte „Umriss anders“. Der Schwellwert wird am Probestück geeicht (siehe 11.2) und dann in `tools/grafik/atlas-stufen.test.ts` festgeschrieben |
+| Höhe | mindestens 15–20 % mehr je Stufe | `pnpm grafik:stufen`, Spalte „Höhe +“ (sichtbare Höhe des Bilds, ohne transparenten Rand) |
+| Handy-Test | Auf 390 px Breite die Stufe ohne Antippen erkennen | Bildschirmfoto mit iPhone-13-Größe, Blick des PV |
+| Bauen | höchstens 3 Tipper vom Bastion-Bildschirm bis „Gebäude steht“ | Playwright mit iPhone-13-Größe (11.3) |
+| Ausbauen | höchstens 2 Tipper: Gebäude antippen, „Ausbauen“ | wie oben |
+| Gefühl | 2 von 2–3 Jugendlichen erkennen ohne Hilfe die höhere Stufe und finden den Ausbau lohnend | formlos, Ergebnis hier eintragen |
+
+### 11.2 Befund vorher: Stufen (G1, 01.11.2026)
+
+Werkzeug: `pnpm grafik:stufen -- --aus <ordner> [--thema bastion] [--epoche 1] [--json]` (`tools/grafik/stufen-vergleich.py`). Es legt je Thema und Epoche ein Blatt an: links die Stufen als Bild, rechts als schwarzen Umriss. Dazu gibt es eine Tabelle mit Höhe und Umriss-Unterschied. Der Unterschied ist die Fläche, die nur in einer der beiden Stufen belegt ist, geteilt durch die Fläche beider zusammen. Beide Bilder sind dabei am Fußpunkt ausgerichtet. Die Bilder gehören nicht ins Repository; das Werkzeug verweigert einen Ordner darin.
+
+Epoche 1, alle Themen (Atlas-Stand vor Paket G):
+
+| Rolle | Stufen | Höhe + | Umriss anders |
+|---|---|---|---|
+| kern (5 Themen) | 1→2, 2→3 | 5–8 %, einmal 19–22 % (nur durch ein Fähnchen) | 8–12 % |
+| wissen (5 Themen) | 1→2 | 5–7 % | 8–10 % |
+| turm (5 Themen) | 1→2 | 12–19 % | 13–14 %, Garten 46 % |
+
+In Epoche 4 (Bastion) wachsen die Stufen des Bergfrieds um je 4–6 %, und die Umrisse unterscheiden sich um 7–9 %. Ergebnis: Ohne echte Formänderung liegt der Umriss-Unterschied bei rund 10 %. Der Startwert von 12 % aus `FOKUS.md` G3 ist darum zu niedrig. Er wird am Probestück neu festgelegt (Vorschlag: mindestens 25 %). Auffällig: Der „Bergfried“ der Bastion ist in Epoche 1 ein flaches Haus mit Walmdach und kein Turm.
+
+### 11.3 Befund vorher: Bau-Wege (G1, 01.11.2026)
+
+Gemessen mit Playwright, iPhone 13 (390 × 844), Bauplatz mit Bild, Thema Bastion, Epoche 1. Gezählt wird vom Bastion-Bildschirm aus.
+
+| Weg | Tipper | Schritte | Wo man nachdenken oder lesen muss |
+|---|---|---|---|
+| (1) Erstes Gebäude bauen (genug Rohstoffe und Bauschritte) | **3** ✓ | „Bauen“ → Studierstube → „Stein setzen“ | „Stein setzen“ heißt nicht „Bauen“. Der Platz wird selbst gewählt (hinten am Rand), ohne Vorschau und ohne Blick auf das neue Gebäude. Die Kachel „Späherturm“ ist abgeschnitten; nur das Dach ist zu sehen |
+| (2) Bergfried auf Stufe 2 ausbauen | **3** ✗ (Ziel 2) | „Bauen“ → nach unten zur Karte „Bergfried Stufe 2“ wischen → „Ausbauen“ | **Antippen des Bergfrieds bietet kein „Ausbauen“**, nur „Ziehen zum Versetzen“ und „Fertig“. Der Ausbau steckt unter „Neu bauen“, ganz unten. In der Vorschau verdeckt die Kopfzeile den Titel „Bergfried auf Stufe 2“. Es gibt kein Vorher/Nachher |
+| (3) Ausbauen mit zu wenig Rohstoffen | 3, dann Sackgasse | wie (2) | Rote Zeile „Dafür reicht es noch nicht: Stein, Erz“, „Ausbauen“ ist blass. Es steht nicht da, **wie viel** fehlt und **wie** man es bekommt. Die Hauptaktion ist dann „Als Skizze planen“; das Wort „Skizze“ wird nicht erklärt. Der Vorrat oben zeigt nur Stein und Bauschritte, nicht das fehlende Erz |
+
+Nebenbefund: Die Sprechblase „Hier kann etwas stehen.“ unter dem Bauplatz ist auf eine schmale Spalte gequetscht (ein Wort je Zeile) und liegt über dem Auswahl-Feld. Das kommt in G5.
+
+### 11.4 Probestück (G0.1)
+
+Der Bergfried, Thema Bastion, Epoche 1, Stufen 1–3, wird zweimal gebaut: (a) mit dem eigenen Generator, stark ausgebaut, und (b) aus dem CC0-Bausatz „Castle Kit 1.0“ von Kenney (isometrische Turmteile zum Stapeln). Der PV wählt anhand eines Vergleichsbilds. Bis dahin entsteht nichts davon im Atlas.
