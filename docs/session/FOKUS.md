@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · Rückfragen beantwortet, F1 erledigt, als Nächstes Paket L (Lern-Oberfläche abschließen) · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 01.11.2026 abends · Widerspruch G0 entschieden (eigener Generator für alles, vor U4b nur Thema `bastion`) · L fast fertig · parallel G2/G5, F4, F5, F6 · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -80,7 +80,14 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 - **G0.3 Reihenfolge:** **Alle fünf Themen in Epoche 1** werden erneuert, bevor die Testerinnen kommen. Erst danach folgen die Epochen 2–4. Innerhalb eines Themas gilt die Reihenfolge aus G3: Bergfried, Studierstube, Späherturm, Werkstatt, Tor. Das Standard-Thema im Code ist `bastion`. Es kommt zuerst, weil daran das Probestück entsteht.
 - Die Fragen 1, 2, 4 und 5 oben (F2, F7, alte Branches, `potenzen.ts`) gehören zum Lernkern und sind noch offen.
 
-> **Widerspruch, PV klärt:** Die beiden Fragerunden vom 01.11.2026 haben bei G0 verschiedene Antworten festgehalten. Lernkern-Runde: Probestück in (a), (b) **und (c)**; zuerst nur das Standard-Thema. Grafik-Runde: Probestück in (a) und (b); **alle fünf Themen** in Epoche 1 vor den Testerinnen. Bis der PV entscheidet, gilt für den Grafik-Strang die Grafik-Runde (sie ist schon umgesetzt); (c) bleibt als Frage offen. Die Fragen 1, 2, 4 und 5 sind in der Lernkern-Runde beantwortet.
+**Entscheidungen des PV, zweite Runde (01.11.2026 abends), lösen den Widerspruch beider Fragerunden auf und gehen vor:**
+
+- **G0.1 Bildquelle: eigener Generator (a), für alles.** Nicht nur Gebäude: auch Umgebung, Boden, Wesen, Himmel, einfach alles in der Bastion, einheitlich für jedes Thema, „aus einem Guss“. Kein Kenney-Bausatz (b) und kein Weg (c) für Bilder. Die Kenney-Sounds (CC0) bleiben. Das Probestück (b) und die Skripte in `tools/grafik/probe/` dienen nur noch als Beleg.
+- **Schwellwert Umriss-Test (G3):** 25 % der Fläche und 15 % Höhe je Stufe, wie im Probestück vorgeschlagen.
+- **G0.3 Reihenfolge, gilt statt „alle fünf Themen“:** **Vor U4b nur das Standard-Thema `bastion`**, Epoche 1, alle Rollen, mit Boden, Wesen und Himmel aus dem neuen Generator. Die anderen vier Themen und die Epochen 2–4 folgen nach U4b, im selben Stil.
+- **G2 erweitert:** Die Stufen-Sprache wird zu einer Stil-Regel für die ganze Bastion (Farbpalette, Licht, Kontur, Materialien, Maßstab, Raster). Gebäude, Boden, Wesen und Himmel richten sich danach.
+- **PR #145 (Paket L)** wird gemergt, L18 und der Rundgang folgen in einem eigenen PR.
+- **Parallel und abweichend von der Reihenfolge der Pakete:** Neben L dürfen **F4** (Auswertung U4b), **F5** („Fehler-Schüler“) und **F6** (Arbeitsblätter) laufen, je eine eigene Sitzung im Strang Lernkern. Sie ändern die Lern-Oberfläche nicht. F2 folgt nach der Abnahme von L.
 
 ---
 
