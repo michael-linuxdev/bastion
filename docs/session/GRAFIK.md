@@ -3,6 +3,10 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
+> **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche ist eingefroren (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls.
+>
+> **Antworten zu G0 (01.11.2026):** Probestück Bergfried (Standard-Thema, Epoche 1, Stufen 1–3) in allen drei Wegen (a) Generator, (b) CC0-Bausätze, (c) von Hand oder mit Bildwerkzeug; der PV wählt. Kern-Änderungen an der Bau-Regel nur je Vorschlag mit Zustimmung, eigener PR, `pnpm sim` vorher/nachher, Eintrag in `BASEBAU.md`. Zuerst Standard-Thema, Epoche 1, alle Rollen. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
+
 Stand: 31.10.2026 · Spez + App-Menü + Design-Bündel (A1–A4, B5–B8, C10–C14, E18–E19, F21–F23) + Üben Ein-/Ausgabe (Lern-UI §9) + App-Icon + Design „Danach“ + Design V–Z + Design-Ideen §K (39–52) + Design §R–§U + Design M–Q. Optional: Jahreszeit-Feinheit, Ambient, Messung iPhone 13, Testerinnen mit U4b
 
 ---
@@ -52,14 +56,9 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes (alles optional / PV):**
+**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (G0 beantwortet, weiter mit G1). Sonst nichts.
 
-1. **Design-Wellen A–Z** in parallelen PRs fertigstellen und konsolidieren; Backlog danach aus `docs/DESIGN-IDEEN.md` (AA–ZZ). Themen-Welten (H29) erst nach Konsolidierung.
-2. **Weiterer Feinschliff:** Jahreszeit-Auflagen (Schnee/Laub) stärker nutzen; Ambient Wasser/Regen (CC0).
-3. **Auf dem iPhone 13 messen:** Ziel 60 Bilder je Sekunde, sonst „leicht“ (`GRAFIK.md` §4.5). Hängt an den Referenzgeräten (0.10, Projektverantwortlicher).
-4. **Die Testerinnen probieren die Grafik aus**, zusammen mit dem Test U4b des Lernkerns, damit sie nur einmal kommen (`TESTS.md` §2).
-
-Kein verbindlicher G-/P-Rest mehr. Weitere Schritte legt der Projektverantwortliche fest. Bei Engpass wartet die Grafik auf den Lernkern (K-27, B-28).
+**Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 
 **Offen (PV):** Die drei Referenzgeräte festlegen und darauf messen (0.10).
 
@@ -86,7 +85,7 @@ Steht in `docs/session/GRAFIK-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, n
 
 **Lehren (Grafik):**
 
-- Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9). Die Lern-Oberfläche gehört dem Lernkern; nur Aufräumen nach §9 ist erlaubt.
+- Im Lernpfad keine Animationen, Wesen, Sound oder Wetter (`GRAFIK.md` §9). Die Lern-Oberfläche gehört dem Lernkern; nur Aufräumen nach §9 ist erlaubt. *Seit 01.11.2026 ruht auch das, solange die Lern-Oberfläche eingefroren ist.*
 
 - Das Bild der Bastion zeichnet PixiJS. Es wird nachgeladen und nicht vorab gespeichert (ARCHITEKTUR T-6). Tests für Rechnungen (Raster, Kamera) stehen neben dem Code (`iso.test.ts`, `kamera.test.ts`, `dorf.test.ts`); das Zeichnen selbst prüft der Browser-Test „Bauplatz als Bild“.
 - Vor einer Änderung am Aussehen den Kontrast-Test der Fassungen laufen lassen (`src/ui/grafik/fassungen.test.ts`), Text 4,5 : 1, Bilder 3 : 1.

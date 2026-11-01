@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 31.10.2026 · Musterfeld auf Stufe 1 · Nächster Schritt: Musterfeld durch eine Lehrkraft prüfen lassen (Stufe 2), dann U4b
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1 erledigt · Nächster Schritt: F2 (öffentliche Seite nur mit geprüften Inhalten)
 
 ---
 

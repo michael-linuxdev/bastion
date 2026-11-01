@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · Rückfragen beantwortet · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 01.11.2026 · Rückfragen beantwortet, F1 erledigt · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -157,7 +157,7 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 ---
 
-### F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken
+### ~~F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken~~ (erledigt 01.11.2026)
 
 **Ziel:** Während G und U4b soll sich die Lern-Oberfläche nicht ändern, sonst lässt sich das Ergebnis des Tests nicht auswerten. Die Grafik arbeitet nur noch an G.
 
@@ -298,4 +298,4 @@ Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `
 
 ### Übergaben
 
-_(noch keine)_
+- **01.11.2026, Lernkern (Branch `claude/fokus-ruckfragen-f1-d1j8g1`):** Rückfragen gestellt und unter „Entscheidungen“ eingetragen (T-20 im Entscheidungslog). ~~F1~~ erledigt: Kasten und neues „Als Nächstes“ in `GRAFIK.md`, Regel 7 in `SESSION-PROMPT.md`, Punkt 4 in `AGENTS.md`, `PLAN.md` §1. Neue Rückfragen: keine. Als Nächstes: F2.
