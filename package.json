@@ -22,6 +22,7 @@
     "grafik:stufen": "python3 tools/grafik/stufen-vergleich.py",
     "messen": "node tools/messung.ts",
     "inhalte:pruefen": "vitest run tools/inhalte --silent=false",
+    "fehlerschueler": "node --experimental-strip-types --no-warnings tools/inhalte/fehlerschueler-lauf.ts",
     "inhalte:begriffe": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/inhalte/begriffe-markieren.ts",
     "review": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/review/lauf.ts",
     "sim": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/sim/lauf.ts",
