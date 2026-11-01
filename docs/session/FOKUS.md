@@ -56,7 +56,12 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
-_(von der ersten Sitzung auszufüllen)_
+**Paket G, Rückfragen G0 (PV, 01.11.2026):**
+
+- **G0.1 Bildquelle:** Probestück wie empfohlen. Der Bergfried (Epoche 1, Stufen 1–3) wird zweimal gebaut: (a) mit stark ausgebautem eigenem Generator und (b) auf Grundlage eines CC0-Bausatzes. Der PV wählt anhand des Vergleichsbilds. Erst danach geht es in die Breite. Hinweis: kenney.nl ist aus der Cloud-Sitzung gesperrt. Das „Castle Kit 1.0“ (CC0, isometrische Turmteile zum Stapeln) liegt in einem öffentlichen Spiegel auf GitHub (`ETdoFresh/kenney.nl`). Der Lizenztext ist dort enthalten.
+- **G0.2 Bau-Regel:** Der Kern darf sich ändern (`src/core/bastion/`, `src/core/ledger/`, z. B. Kosten, Planen und Bauen in einem Schritt). Bedingung für jeden solchen PR: `pnpm sim` vorher und nachher, ein Eintrag in `BASEBAU.md` und eine eigene Zustimmung des PV im PR. Schemaänderungen nur nach Rückfrage und mit Migrationstest (B-29).
+- **G0.3 Reihenfolge:** **Alle fünf Themen in Epoche 1** werden erneuert, bevor die Testerinnen kommen. Erst danach folgen die Epochen 2–4. Innerhalb eines Themas gilt die Reihenfolge aus G3: Bergfried, Studierstube, Späherturm, Werkstatt, Tor. Das Standard-Thema im Code ist `bastion`. Es kommt zuerst, weil daran das Probestück entsteht.
+- Die Fragen 1, 2, 4 und 5 oben (F2, F7, alte Branches, `potenzen.ts`) gehören zum Lernkern und sind noch offen.
 
 ---
 
