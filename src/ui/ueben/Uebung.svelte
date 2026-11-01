@@ -185,6 +185,18 @@
     fehlerInFolge = ergebnis.richtig ? 0 : fehlerInFolge + 1;
   }
 
+  /**
+   * L12: Tippt man in ein Antwortfeld und liegen Tastatur oder „Prüfen“ unter dem
+   * Bildschirmrand, rückt die Arbeitsfläche ganz ins Bild – ohne selbst zu scrollen.
+   */
+  function sichtbarMachen(flaeche: HTMLElement) {
+    if (typeof window === 'undefined') return;
+    const unten = flaeche.getBoundingClientRect().bottom;
+    if (unten <= window.innerHeight) return;
+    const ruhig = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    flaeche.scrollIntoView({ block: 'end', behavior: ruhig ? 'auto' : 'smooth' });
+  }
+
   function weiter() {
     weg = 'aus';
     letzteSchritte = [];
@@ -394,6 +406,7 @@
           class="arbeitsflaeche aufgabe-eingabe"
           id="aufgabe-eingabe"
           aria-describedby="aufgabe-frage"
+          onfocusin={(e) => sichtbarMachen(e.currentTarget)}
         >
           {#if ergebnis === undefined}
             <Eingabe
@@ -787,9 +800,13 @@
     max-inline-size: 28rem;
   }
 
+  /* L12: Bild höchstens ein knappes Viertel der Bildschirmhöhe, damit Eingabe und Prüfen
+     auf dem Handy ohne Scrollen erreichbar bleiben */
   .bild :global(svg) {
+    display: block;
     inline-size: 100%;
     block-size: auto;
+    max-block-size: max(8rem, 22dvh);
   }
 
   .tipp-notiz {
