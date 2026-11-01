@@ -101,6 +101,39 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
   }
 }
 
+/**
+ * Ein Feld des Bauplatz-Bilds antippen (Spalte x, Reihe y ab 0).
+ * Wartet, bis das Bild ruhig steht: Nach dem Öffnen der Bastion passt die Kamera
+ * das Bild erst ein, wenn die gemerkte Kamera geladen ist, und der Atlas tauscht
+ * das Canvas kurz aus. Wer davor misst, tippt daneben (wackeliger Test, 01.11.2026).
+ */
+async function feldTippen(seite: Page, x: number, y: number) {
+  const bild = seite.locator('.bauplatz canvas');
+  await expect(seite.locator('.fenster.sichtbar')).toHaveCount(1);
+  let letzte = '';
+  await expect
+    .poll(
+      async () => {
+        if ((await bild.count()) !== 1) return false;
+        const r = await bild.boundingBox();
+        if (!r || r.width < 10) return false;
+        const jetzt = [r.x, r.y, r.width, r.height].map((w) => w.toFixed(1)).join(',');
+        const ruhig = jetzt === letzte;
+        letzte = jetzt;
+        return ruhig;
+      },
+      { intervals: [100], timeout: 15_000 },
+    )
+    .toBe(true);
+  const r = await bild.boundingBox();
+  if (!r) throw new Error('kein Bild');
+  // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
+  const p = punkt(x + 0.5, y + 0.5);
+  await bild.click({
+    position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
+  });
+}
+
 /** Von der Bastion zur Startseite (Home-Piktogramm oder Einstellungen). */
 async function bastionZurStartseite(seite: Page) {
   const home = seite.getByRole('button', { name: 'Zur Startseite' });
@@ -979,16 +1012,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   // Warten bis Atlas-Tausch fertig ist (kurzzeitig 2 Canvas möglich)
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum aktuellen Canvas */
-  const tippe = async (x: number, y: number) => {
-    await expect.poll(() => bild.count()).toBe(1);
-    const r = await bild.boundingBox();
-    if (!r || r.width < 10) throw new Error('kein Bild');
-    // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
-    const p = punkt(x + 0.5, y + 0.5);
-    await bild.click({
-      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
-    });
-  };
+  const tippe = (x: number, y: number) => feldTippen(page, x, y);
   // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
   await tippe(6, 8);
   const wahl = page.locator('.wahl');
@@ -1061,15 +1085,7 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await bastionOeffnen(page, false);
   const bild = page.locator('.bauplatz canvas');
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  const tippe = async (x: number, y: number) => {
-    await expect.poll(() => bild.count()).toBe(1);
-    const r = await bild.boundingBox();
-    if (!r || r.width < 10) throw new Error('kein Bild');
-    const p = punkt(x + 0.5, y + 0.5);
-    await bild.click({
-      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
-    });
-  };
+  const tippe = (x: number, y: number) => feldTippen(page, x, y);
   const wahl = page.locator('.wahl');
   // Zu wenig: Der Knopf ist nicht grau, er erklärt, was fehlt und woher es kommt
   await tippe(6, 5);
