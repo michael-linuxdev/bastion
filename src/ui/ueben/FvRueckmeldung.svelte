@@ -114,13 +114,28 @@
     max-inline-size: 28rem;
   }
 
+  /* L2: Aufklappen mit Pfeil erkennbar */
   .mehr summary {
     cursor: pointer;
     font-weight: 700;
     min-block-size: var(--ziel);
     display: flex;
     align-items: center;
-    color: var(--farbe-text-leise);
+    gap: var(--abstand-s);
+    color: var(--farbe-text);
+    list-style: none;
+  }
+
+  .mehr summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mehr summary::before {
+    content: '▸';
+  }
+
+  .mehr[open] summary::before {
+    content: '▾';
   }
 
   .mehr[open] {

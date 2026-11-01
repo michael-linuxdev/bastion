@@ -1602,6 +1602,8 @@ test('Zwischenschritte: nach falschem Ergebnis den Weg zeigen, zwei Versuche je 
   await page.getByRole('button', { name: 'Prüfen', exact: true }).click();
   await page.getByRole('button', { name: 'Weiter ohne Weg' }).click();
   await expect(page.getByRole('button', { name: 'Nächste Aufgabe' })).toBeVisible();
+  // L4: ohne Weg verschwinden Schrittfelder und Tastatur
+  await expect(page.locator('form.aktuell')).toHaveCount(0);
 });
 
 test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U3i)', async ({
