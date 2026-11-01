@@ -196,7 +196,7 @@
   "werkstatt.mal": "mal",
   "werkstatt.aufarbeiten": "Aufarbeiten",
   "werkstatt.leer": "Keine offenen Fehler. Alles, was schiefging, hast du schon aufgearbeitet.",
-  "werkstatt.damals": "Deine Antwort damals:",
+  "werkstatt.damals": "Deine Antwort:",
   "werkstatt.fertig": "Diese Fehler hast du aufgearbeitet. Gut gemacht.",
   "werkstatt.offen-eins": "1 Fehler wartet in der Fehlerwerkstatt.",
   "werkstatt.offen-mehrere": "Fehler warten in der Fehlerwerkstatt.",
@@ -960,6 +960,7 @@
   "abschluss.zur-bastion": "Zur Bastion schauen",
   "werkstatt.paar-damals": "Damals",
   "werkstatt.paar-heute": "Heute deine Chance",
+  "werkstatt.paar-heute-text": "Rechne die Aufgabe noch einmal.",
   "bastion.geste-sprache": "Tippen = wählen. Ziehen = bewegen. Zoomen mit Mausrad oder zwei Fingern.",
   "stand.landkarte-hinweis": "Wo stehst du? Die Karte zeigt deine Themen als ruhige Felder."
 }

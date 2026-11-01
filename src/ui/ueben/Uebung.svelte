@@ -352,8 +352,10 @@
 
           {#if aufgabe.frueher}
             <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
+              <!-- L10: Beschriftung vor dem Wert; „heute“ sagt, was zu tun ist -->
               <div class="seite damals">
                 <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
+                <p class="seite-leise">{t('werkstatt.damals')}</p>
                 <p class="seite-wert">
                   <strong
                     >{antwortText(
@@ -363,11 +365,10 @@
                     )}</strong
                   >
                 </p>
-                <p class="seite-leise">{t('werkstatt.damals')}</p>
               </div>
               <div class="seite heute">
                 <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
-                <p class="seite-leise">{t('uebung.deine-antwort')}</p>
+                <p class="seite-leise">{t('werkstatt.paar-heute-text')}</p>
               </div>
             </div>
           {/if}
