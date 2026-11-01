@@ -40,6 +40,7 @@
     erstesMal = false,
     onziel,
     children,
+    unten,
   }: {
     heute: Date;
     rueckkehr: boolean;
@@ -62,6 +63,8 @@
     erstesMal?: boolean;
     onziel: (z: Ziel) => void;
     children?: Snippet;
+    /** L16: Freiwilliges (z. B. „Über mich“) unter den Türen, nicht davor */
+    unten?: Snippet;
   } = $props();
 
   let hilfeOffen = $state(false);
@@ -90,7 +93,8 @@
       </p>
       {#if faellig > 0}<p class="leise">{t('rueckkehr.hinweis')}</p>{/if}
     {:else}
-      <p class="gruss ort-name">{t('start.gruss-kurz')}</p>
+      <!-- L17: nach dem ersten Üben kein „Willkommen“ mehr, sondern ein ruhiger Gruß -->
+      <p class="gruss ort-name">{nieGeuebt ? t('start.gruss-kurz') : t('start.gruss')}</p>
       <button
         type="button"
         class="hilfe"
@@ -127,11 +131,8 @@
 
   {#if basebau}
     <div class="ort bastion" aria-hidden="true">
+      <!-- L17: ohne eigenes Schild – die Tür „Bastion“ darunter benennt den Ort -->
       <span class="bild"><MiniBastion lebendig /></span>
-      <span class="bastion-name ort-name">
-        <Symbol name="bastion" />
-        {tt('bastion.knopf')}
-      </span>
     </div>
   {/if}
 
@@ -242,6 +243,8 @@
       </p>
     {/if}
   {/if}
+
+  {@render unten?.()}
 </div>
 
 <style>
@@ -383,24 +386,6 @@
     display: block;
     flex: 1 1 0;
     min-block-size: 0;
-  }
-  .bastion-name {
-    position: absolute;
-    inset-block-start: var(--abstand-s);
-    inset-inline-start: var(--abstand-s);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding-block: 0.2rem;
-    padding-inline: var(--abstand-s);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
-    box-shadow: 0 1px 6px var(--farbe-schatten);
-  }
-  .bastion-name :global(svg) {
-    inline-size: 1.1rem;
-    block-size: 1.1rem;
-    color: var(--farbe-akzent);
   }
 
   .tueren {
