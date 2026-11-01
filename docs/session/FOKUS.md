@@ -1,10 +1,10 @@
 # Fokus-Sitzung „Prüfen statt Bauen“ – Session-Prompt
 
-> Ein Auftrag aus dem Review vom 01.11.2026, der beide Stränge betrifft. Er gilt, bis alle Pakete F1 bis F10 erledigt oder vom Projektverantwortlichen gestrichen sind.
+> Ein Auftrag aus dem Review vom 01.11.2026, der beide Stränge betrifft. Er gilt, bis Paket G und alle Pakete F1 bis F10 erledigt oder vom Projektverantwortlichen gestrichen sind.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
-> Die Sitzung arbeitet als **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
+> **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 · nichts davon begonnen
+Stand: 01.11.2026 · nichts davon begonnen · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
 
 ---
 
@@ -18,7 +18,22 @@ Das Review vom 01.11.2026 hat ergeben:
 - **Arbeitsverteilung:** Der Grafik-Strang hat am 31.10. rund 130 Design-Ideen umgesetzt und dabei etwa 2 400 Zeilen in `src/ui/ueben/` und `src/ui/eltern/` geändert. Der Lernkern hatte 3 Protokollzeilen. Nach K-27 ist der Basebau Nebensache.
 - **Öffentliche Seite:** bastion.micana.de folgt `main` und zeigt nur Entwürfe.
 
-**Der Engpass ist menschliche Prüfung, nicht Code.** Jedes Paket unten macht entweder die Prüfung leichter, macht den Test U4b aussagekräftiger oder schützt Lernende vor ungeprüften Inhalten. Neue Funktionen für Lernende oder die Bastion gehören **nicht** dazu.
+**Der Engpass ist menschliche Prüfung, nicht Code.** Die Pakete F1 bis F10 machen entweder die Prüfung leichter, machen den Test U4b aussagekräftiger oder schützen Lernende vor ungeprüften Inhalten. Neue Funktionen für Lernende gehören **nicht** dazu.
+
+**Ergänzung des Projektverantwortlichen (01.11.2026):** Die Grafik ist entscheidend, weil jugendliche Testerinnen und Tester sie sehr stark beurteilen. Bevor „echte“ Verbesserungen kommen, muss sich die Bastion richtig anfühlen:
+
+- Bauen und Ausbauen müssen **einfacher** werden.
+- Die Stufen eines Gebäudes müssen sich **viel stärker unterscheiden**. Ein Ausbau muss sich wie ein Upgrade anfühlen.
+
+Darum gibt es das **Paket G**. Es hat Vorrang vor F2 bis F10. Der Grafik-Strang pausiert nicht, sondern arbeitet nur an G. Der Lernkern kann F1 bis F10 parallel bearbeiten, weil sich die Bereiche nicht überschneiden. **Der Test U4b findet erst statt, wenn G abgenommen ist**, damit die Testerinnen die Bastion nur einmal und dann in guter Form sehen.
+
+**Befund vom 01.11.2026 (Vergleichsbild aller Stufen):**
+
+- Alle Gebäudebilder erzeugt ein Python-Skript aus einfachen Formen (`tools/grafik/sprites-p*.py`). Jede Stufe ist dieselbe Kiste mit Dach.
+- Beim Bergfried der Epoche 1 wachsen die Stufen 1 → 2 → 3 nur um 294 → 308 → 322 Pixel Höhe, also je etwa 5 %. Dazu kommen ein, zwei Fenster mehr, ein Fähnchen und winzige Punkte unten als Stufenanzeige.
+- In Epoche 4 sehen die neun Stufen des Bergfrieds fast gleich aus.
+- Beim Späherturm unterscheiden sich Stufe 1 und 2 nur um 12 Pixel Höhe.
+- Kein Umriss, kein Stockwerk, kein Material, keine Dachform ändert sich zwischen den Stufen.
 
 ---
 
@@ -33,7 +48,7 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
    - (c) Mindeststufe 1, also vorerst nur das Musterfeld.
 
    Empfehlung: Den Mechanismus jetzt bauen, die Stufe über eine Repository-Variable steuern (siehe F2) und mit (b) starten, bis das Musterfeld Stufe 2 hat. Danach (c) mit Stufe 2.
-3. **Grafik-Pause (F1):** bestätigen, dass der Grafik-Strang bis zur Auswertung von U4b ruht, ausgenommen Fehlerbehebungen.
+3. **Grafik (Paket G):** Die Richtung steht fest (PV, 01.11.2026). Offen sind nur die Fragen in G0: Woher kommen die neuen Bilder? Darf sich die Bau-Regel im Kern ändern?
 4. **Klasse 5 als Meilenstein (F7):** bestätigen, dass Klasse 5 die erste Klassenstufe ist, die vollständig Stufe 2 und den Test bestehen soll. Oder soll es Klasse 6 sein, weil das Musterfeld Brüche dort liegt?
 5. **Offen aus früheren Sitzungen**, nur abfragen und nicht selbst entscheiden:
    - `potenzen.ts` neue Version (10⁶ statt `10^6`)?
@@ -49,14 +64,96 @@ _(von der ersten Sitzung auszufüllen)_
 
 Ein Paket ist ein PR (oder mehrere kleine PRs). Reihenfolge wie unten, außer der Projektverantwortliche entscheidet anders. Jedes Paket endet mit `pnpm lint`, `pnpm test`, `pnpm build`, bei Oberflächen-Änderungen zusätzlich `pnpm test:e2e`, dazu einer Protokollzeile und einer Erklärung in einfachem Deutsch: was, warum, wie ausprobieren.
 
-### F1 – Grafik-Pause und Lern-Oberfläche einfrieren
+### G – Bauen und Ausbau: einfacher, und jede Stufe ein sichtbares Upgrade (Vorrang)
 
-**Ziel:** Während U4b soll sich die Lern-Oberfläche nicht ändern, sonst lässt sich das Ergebnis nicht auswerten. Die Arbeit fließt in die Prüfung.
+**Strang Grafik** (Branch `grafik/…`, Protokoll `GRAFIK-PROTOKOLL.md`). Bereich: `src/ui/bastion/`, `src/core/bastion/`, `src/core/ledger/` (nur nach G0), `tools/grafik/`, `tools/sim/`, `public/grafik/`. Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`. Die Lern-Oberfläche bleibt tabu (F1).
 
-- `docs/session/GRAFIK.md`: Oben einen Kasten „Pause bis Auswertung U4b (Entscheidung PV, Datum)“ einfügen. Erlaubt sind nur Fehlerbehebungen und die Wünsche aus F8. Das ist eine Änderung im Grafik-Bereich auf Wunsch des PV, darum Protokollzeile in **beiden** Strang-Protokollen.
-- `docs/SESSION-PROMPT.md`: Die Pause und die eingefrorene Lern-Oberfläche als Regel für alle Stränge eintragen. Gemeint sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`. Erlaubt sind nur Fehlerbehebungen und Änderungen aus diesem Auftrag. Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht in dieser Zeit.
+**Ziel:** Eine Jugendliche oder ein Jugendlicher öffnet die Bastion, baut ohne Erklärung ein Gebäude, baut es aus und sagt sinngemäß: „Krass, das sieht jetzt richtig anders aus.“
+
+**Abnahme (Messgrößen, in `GRAFIK.md` festhalten):**
+
+- **Silhouetten-Test:** Jede Stufe eines Gebäudes ist als schwarzer Umriss von der vorigen zu unterscheiden. Automatisch prüfbar, siehe G3.
+- **Handy-Test:** Auf 390 Pixeln Breite (iPhone 13) und bei normalem Zoom erkennt man auf dem Bauplatz ohne Antippen, welche Stufe ein Gebäude hat.
+- **Bauen:** Vom Bastion-Bildschirm bis „Gebäude steht“ höchstens 3 Tipper, wenn genug Rohstoffe da sind. Ausbauen höchstens 2 Tipper: Gebäude antippen, „Ausbauen“.
+- **Gefühl:** 2 bis 3 Jugendliche aus dem Umfeld (formlos, nicht U4b) sehen Vorher und Nachher. Mindestens 2 erkennen ohne Hilfe, welches Gebäude weiter ausgebaut ist, und finden den Ausbau „lohnend“.
+
+**Grenzen, die bleiben:**
+
+- R1–R7, vor allem: keine Zufallsbelohnung, kein Timer, kein Verfall.
+- „Bewegung reduzieren“ wird beachtet: Animationen haben eine ruhige Fassung.
+- Grafik ändert nie Daten (B-27).
+- Größenbudget Grafik 300 KB gzip (heute 203 KB). Atlas-Bilder zählen gesondert: Gesamtgröße vor und nach jedem PR nennen, offline und im PWA-Zwischenspeicher.
+- Keine neue Laufzeitabhängigkeit ohne Rückfrage.
+
+#### G0 – Rückfragen an den PV (vor dem ersten Code)
+
+1. **Woher kommen die Bilder?** Das Python-Skript zeichnet aus Formen. Mehr Details allein lösen das Problem wahrscheinlich nicht. Möglichkeiten:
+   - (a) Generator stark ausbauen: Stockwerke, Anbauten, Dachformen, Materialwechsel je Stufe.
+   - (b) CC0-Bausätze als Grundlage, z. B. isometrische Kenney-Pakete (CC0, mit AGPL vereinbar, lokal gebündelt, keine Netzlast zur Laufzeit), dann im eigenen Stil einfärben.
+   - (c) Von Hand gezeichnet oder mit Bildwerkzeugen entworfen, dann vom PV abgenommen. Wie bei Inhalten gilt: KI-Hilfe beim Entwurf ist erlaubt, in der App läuft keine KI (K-23).
+
+   **Empfehlung:** Zuerst ein Probestück. Ein Gebäude (Bergfried, Thema Bastion, Epoche 1, Stufen 1–3) in (a) und in (b) bauen, nebeneinander zeigen, der PV wählt. Erst danach in die Breite gehen.
+2. **Darf sich die Bau-Regel im Kern ändern?** Heute gilt: vier Rohstoffarten, Bauschritte über mehrere Lerneinheiten (höchstens zwei am Tag), Planen und Bauen getrennt, Skizze, Einlagern, Ziel vormerken, Bergfried-Grenzen je Epoche. G5 schlägt Vereinfachungen vor. Wenn eine davon `src/core/bastion/` oder `src/core/ledger/` ändert (Kosten, Rohstoffarten, Bauschritte), braucht sie die Zustimmung des PV, einen Lauf von `pnpm sim` mit Vergleich vorher und nachher und einen Eintrag in `BASEBAU.md`. Schemaänderungen nur mit Rückfrage und Migrationstest.
+3. **Welche Themen zuerst?** Empfehlung: das Thema, das die Testerinnen sehen werden (Standard-Thema prüfen), Epoche 1 vollständig, alle Rollen. Die anderen Themen und Epochen 2–4 danach. Die Testerinnen erreichen nur Epoche 1.
+
+#### G1 – Bestandsaufnahme mit Belegen
+
+- **Werkzeug `pnpm grafik:stufen`** (`tools/grafik/`): legt alle Stufen je Thema, Epoche und Rolle nebeneinander, als Bild und als Umriss. Die Bilder kommen in den Scratchpad, nie ins Repository. Dient vorher und nachher als Vergleich.
+- **Bau-Wege zählen:** mit Playwright die Tipper und Bildschirme für (1) erstes Gebäude bauen, (2) Bergfried auf Stufe 2 ausbauen, (3) mit zu wenig Rohstoffen ausbauen wollen. Jeden Schritt festhalten, an dem man nachdenken oder lesen muss.
+- Ergebnis als kurzer Abschnitt in `GRAFIK.md`. Bildschirmfotos für den PV über den Scratchpad schicken.
+
+#### G2 – Stufen-Sprache festlegen (`GRAFIK-SPRITES.md`, neuer Abschnitt „Stufen“)
+
+Regeln, die für jede Rolle und jedes Thema gelten:
+
+- **Jede Stufe ändert den Umriss**, nicht nur Details. Mindestens eines davon: ein Stockwerk mehr, ein Anbau oder Seitenturm, eine andere Dachform, ein Turmaufsatz oder eine Kuppel.
+- **Höhe:** spürbar mehr je Stufe, Richtwert mindestens 15–20 %. Bilder dürfen über den Fußabdruck nach oben wachsen; die Felder (`felder`) bleiben gleich. Prüfen, dass Antippen und Überdeckung auf dem Bauplatz weiter stimmen.
+- **Material** zeigt den Reifegrad: z. B. Holz → Fachwerk → Stein. Die Epoche ändert den Baustil zusätzlich (G10 bleibt).
+- **Belohnende Details** ab höheren Stufen: Banner, Fenster mit Licht, Zinnen, Gerüst-Reste weg, Pflanzen. Keine Glitzer- oder Kisten-Optik (R1).
+- **Die Stufe ist ohne Ziffer erkennbar.** Die Punkte unten am Gebäude sind zu klein; sie entfallen oder werden zu einer gut sichtbaren, ruhigen Plakette, nur in der Auswahl.
+- Für jedes Thema eine Tabelle: Rolle × Stufe → was ändert sich (wie §4 für die Rollen).
+
+#### G3 – Neue Gebäudebilder, in Chargen
+
+- Reihenfolge: **Bergfried** (er hat die meisten Stufen und ist das Ziel der Epoche 1), dann Studierstube, Späherturm, Werkstatt, Tor. Zuerst das Thema aus G0.3, Epoche 1. Die anderen Themen folgen als eigene PRs, Epochen 2–4 danach.
+- Je Charge ein PR mit Vergleichsbild vorher/nachher in der Beschreibung (aus G1).
+- **Automatischer Test** (`tools/grafik/atlas-stufen.test.ts`): Für jedes Paar aufeinanderfolgender Stufen unterscheiden sich die Umrisse (Alpha-Maske) um mindestens einen festgelegten Anteil. Startwert z. B. 12 % der Fläche, am Probestück eichen. Dazu die Höhe nach G2. Der Test gilt erst für die erneuerten Chargen und wird Charge für Charge erweitert, bis er für alle gilt.
+- Abend-Fenster (`*_fenster.png`) für jede neue Stufe mitliefern.
+
+#### G4 – Der Ausbau-Moment
+
+- **Vorher/Nachher im Bau-Blatt:** aktuelle Stufe und nächste Stufe groß nebeneinander, mit einem Satz, was neu ist („bekommt ein zweites Stockwerk und einen Wehrgang“). Texte in `de.json`.
+- **Kurzer Ausbau-Moment auf dem Bauplatz** (etwa 1–2 Sekunden): Gerüst, Staub, das neue Bild erscheint, dazu der vorhandene weiche Bau-Klang (Sound-Stufen beachten). Bei „Bewegung reduzieren“: einfaches Überblenden. Kein Konfetti-Regen und keine Belohnungstruhe (R1). Gilt nur in der Bastion, nie im Lernpfad.
+- Danach bleibt die Kamera kurz auf dem Gebäude. Ein Bewohner kann darauf reagieren (vorhandene Statusgesten).
+- Ein Bauvorhaben über mehrere Lerneinheiten soll sichtbar wachsen: Gerüst in Abschnitten statt eines Fortschrittsbalkens, wenn die Bau-Regel aus G0.2 bleibt.
+
+#### G5 – Bauen vereinfachen
+
+Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter „Mehr“.**
+
+- **Ausbauen:** Gebäude antippen → großer Knopf „Ausbauen“ mit Kosten → fertig (oder: Bauvorhaben gestartet). Fehlt etwas, sagt der Knopf, was fehlt und wie man es bekommt („noch 2 Lerneinheiten“), statt grau zu sein.
+- **Neu bauen:** „Bauen“ → Gebäude wählen → die App schlägt einen freien Platz vor (Geister-Vorschau gibt es schon) → „Hier bauen“. Verschieben geht danach jederzeit kostenlos.
+- **Planen, Skizze, Einlagern, Ziel vormerken:** prüfen, ob sie für Einsteiger nötig sind. Sie bleiben möglich, aber hinter „Mehr“, oder Planen und Bauen werden zu einem Schritt zusammengelegt.
+- **Rohstoffe:** im Bau-Blatt nur zeigen, was dieses Gebäude braucht und was fehlt, nicht immer alle vier.
+- Vorschläge, die den Kern ändern (G0.2), getrennt als eigener PR, nach Zustimmung.
+- E2E-Tests für die Bastion (`Bastion als Liste…`, `Bauplatz als Bild…`) anpassen; die Listenansicht (Barrierefreiheit) bleibt voll bedienbar.
+
+#### G6 – Abnahme
+
+- Vergleichsbilder und eine kurze Bildschirmaufnahme (Scratchpad) für den PV.
+- Formloser Blick von 2–3 Jugendlichen (siehe Abnahme oben). Ergebnis in `GRAFIK.md`.
+- Erst danach: „G abgenommen“ hier eintragen. Damit ist der Weg frei für U4b.
+
+---
+
+### F1 – Lern-Oberfläche einfrieren, Grafik auf G beschränken
+
+**Ziel:** Während G und U4b soll sich die Lern-Oberfläche nicht ändern, sonst lässt sich das Ergebnis des Tests nicht auswerten. Die Grafik arbeitet nur noch an G.
+
+- `docs/session/GRAFIK.md`: Oben einen Kasten „Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026)“ einfügen. „Als Nächstes“ ersetzen durch einen Verweis auf G in `FOKUS.md`. Die Design-Wellen und der Backlog AA–ZZ ruhen bis nach U4b. Das ist eine Änderung im Grafik-Bereich auf Wunsch des PV, darum eine Protokollzeile in **beiden** Strang-Protokollen.
+- `docs/SESSION-PROMPT.md`: Die eingefrorene Lern-Oberfläche als Regel für alle Stränge eintragen. Gemeint sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`. Erlaubt sind nur Fehlerbehebungen und Änderungen aus diesem Auftrag. Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ ruht in dieser Zeit.
 - `AGENTS.md`: ein Satz dazu, damit Cursor und andere Agenten es sehen.
-- `docs/PLAN.md` §1: Zeile „Nächster Schritt Grafik“ auf „Pause bis U4b“ kürzen.
+- `docs/PLAN.md` §1: Zeile „Nächster Schritt Grafik“ auf „Paket G: Bauen und Ausbau (FOKUS.md)“ kürzen.
 
 ### F2 – Öffentliche Seite nur mit geprüften Inhalten
 
@@ -165,7 +262,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 
 ## Nicht in diesem Auftrag
 
-- Neue Funktionen in Lernpfad, Bastion, Grafik oder Sound.
+- Neue Funktionen in Lernpfad, Grafik oder Sound, außer Paket G. Auch in G keine neuen Themen, Epochen, Wesen oder Wetter.
 - Neue Inhalte, Kompetenzen oder Klasse 9 bis 12 (bleibt gesperrt, `LERNKERN.md` 1.6).
 - Review-Stufe 2 setzen ohne menschliche Prüfung.
 - Neue Laufzeitabhängigkeiten; für F2 bis F9 ist keine nötig.
@@ -183,10 +280,10 @@ Jede Sitzung, die hier arbeitet, trägt am Ende ein:
 
 - Paket, Stand, PR-Nummer; Erledigtes mit Datum durchstreichen,
 - neue Rückfragen an den PV,
-- eine Zeile in `LERNKERN-PROTOKOLL.md` (bei F1 und F8 auch in `GRAFIK-PROTOKOLL.md`),
-- `docs/PLAN.md` §1 „Nächster Schritt Lernkern“.
+- eine Zeile im Protokoll des eigenen Strangs (bei F1 und F8 in beiden),
+- `docs/PLAN.md` §1, Zeile des eigenen Strangs.
 
-Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt, und `GRAFIK.md` bekommt die Pause erst nach der Auswertung von U4b wieder aufgehoben.
+Sind alle Pakete erledigt: Diese Datei bleibt als Beleg stehen. Der Verweis in `SESSION-PROMPT.md` wird entfernt. Die eingefrorene Lern-Oberfläche und die Ruhe der Design-Wellen enden erst nach der Auswertung von U4b.
 
 ### Übergaben
 

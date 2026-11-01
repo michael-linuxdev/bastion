@@ -38,3 +38,4 @@
 | 31.10.2026 | **Design L53–L64:** Hub/Wiederholen/Diagnose/Bastion-Kamera/Bau/Bewohner/Hinterhof/PIN/Nacht/Brief/Microcopy/Querformat Üben |
 | 31.10.2026 | **App-Icon:** Bastion-Silhouette Favicon/PWA (`icon.svg`, 192/512/maskable/apple/favicon-32); Generator `tools/grafik/icons-erzeugen.py` |
 | 31.10.2026 | **Design-Ideen CA–DZ:** Abschnitte CA–DZ in `docs/DESIGN-IDEEN.md` ausgearbeitet; EA–ZZ weiter reserviert |
+| 01.11.2026 | **Fokus Paket G:** Bauen und Ausbau einfacher, Stufen sichtbar unterschiedlich (PV); Vorrang vor F2–F10, U4b erst nach Abnahme (`docs/session/FOKUS.md`) |

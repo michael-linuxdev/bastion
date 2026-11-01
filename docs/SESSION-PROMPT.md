@@ -7,7 +7,7 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 >
-> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews; Pakete F1–F10, zuerst Rückfragen an den Projektverantwortlichen).
+> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern bearbeitet parallel F1–F10. U4b erst nach Abnahme von G.
 
 Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
 
