@@ -1000,10 +1000,21 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
       position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
     });
   };
-  // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
-  await tippe(6, 8);
   const wahl = page.locator('.wahl');
-  await expect(wahl).toContainText('Feuerstelle');
+  /**
+   * Antippen, bis die Wahl erscheint. Kurz nach dem Öffnen baut sich das Bild noch auf
+   * (Kamera, Atlas); ein Tipper in dieser Zeit geht ins Leere. Bei Regen oder Wolken baut
+   * sich das Bild ein zweites Mal auf und der Test wartet ohnehin – an Tagen mit Wetter
+   * „klar“ nicht, dann war der Test rot (z. B. am 2.11.2026).
+   */
+  const waehle = async (x: number, y: number, text: string) => {
+    await expect(async () => {
+      await tippe(x, y);
+      await expect(wahl).toContainText(text, { timeout: 1500 });
+    }).toPass({ timeout: 15_000 });
+  };
+  // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
+  await waehle(6, 8, 'Feuerstelle');
   await wahl.getByRole('button', { name: 'Ziehen zum Versetzen' }).click();
   await expect(wahl).toContainText('Ziehe das Gebäude an die neue Stelle');
   // Auf den Bergfried geht es nicht …
@@ -1044,8 +1055,8 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.kamera')).toBe('');
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  // Nach der Rückkehr baut sich das Bild neu auf
+  await waehle(0, 11, 'Feuerstelle');
 
   // Bild ausblenden: nur noch in den Einstellungen – auch nach dem Neuladen
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
