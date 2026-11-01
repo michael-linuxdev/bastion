@@ -306,3 +306,13 @@ Nebenbefund: Die Sprechblase „Hier kann etwas stehen.“ unter dem Bauplatz is
 ### 11.4 Probestück (G0.1)
 
 Der Bergfried, Thema Bastion, Epoche 1, Stufen 1–3, wird zweimal gebaut: (a) mit dem eigenen Generator, stark ausgebaut, und (b) aus dem CC0-Bausatz „Castle Kit 1.0“ von Kenney (isometrische Turmteile zum Stapeln). Der PV wählt anhand eines Vergleichsbilds. Bis dahin entsteht nichts davon im Atlas.
+
+**Stand 01.11.2026, beide Varianten gebaut, Wahl des PV offen.** Skripte: `tools/grafik/probe/bergfried-a-generator.py <ausgabe>` und `tools/grafik/probe/bergfried-b-kenney.py <castle-kit-1.0/Isometric> <ausgabe>`. Beide schreiben nur in einen Ordner außerhalb des Repositorys. Der Bausatz für (b) stammt aus dem Spiegel `github.com/ETdoFresh/kenney.nl`, weil kenney.nl aus der Cloud-Sitzung gesperrt ist; `License.txt` (CC0) liegt dort bei.
+
+| | Stufe 1 | Stufe 2 | Stufe 3 | Höhe + (1→2 / 2→3) | Umriss anders (1→2 / 2→3) | Dateigröße s1–s3 |
+|---|---|---|---|---|---|---|
+| vorher | Kiste mit Walmdach | dieselbe Kiste, +1 Fenster | dieselbe Kiste, + Fähnchen | 7 % / 22 % | 10 % / 10 % | 2 KB je Bild |
+| (a) Generator | Holzturm auf Steinsockel, Schindeldach | Steingeschoss + vorkragendes Fachwerk, Ziegeldach, Holzanbau, Banner, Fahne | hoher Steinturm, Zinnenkranz, Turmaufsatz mit Helm, runder Seitenturm, Mauerstück | 70 % / 30 % | 53 % / 31 % | 3 / 7 / 12 KB |
+| (b) Kenney | Turmstumpf mit flachem Dach | 3 Geschosse, offener Holz-Wehrgang, hohes Dach, Fahne | 5 Geschosse, runder Seitenturm, Fahne | 99 % / 23 % | 51 % / 34 % | 24 / 53 / 65 KB (noch nicht verkleinert) |
+
+Beobachtungen: (a) zeigt den Materialwechsel Holz → Fachwerk → Stein und passt genau ins 2∶1-Raster. Jedes weitere Gebäude muss aber selbst entworfen werden. (b) wirkt plastischer und „fertiger“. Der Bausatz ist mit einem flacheren Blickwinkel gerendert (Raute etwa 1,46∶1) und wird für das 2∶1-Raster in der Breite gestreckt. Material und Stil sind auf Stein mit Blau festgelegt; die Dächer werden umgefärbt. Holz und Fachwerk fehlen im Bausatz. Für Garten, Unterwasser und Weltraum braucht (b) andere Bausätze, z. B. Nature Kit, Space Kit oder Pirate Kit, sofern es sie in passender Isometrie gibt; sonst bleiben diese Themen bei (a). Beide Varianten erfüllen Höhe und Umriss deutlich. Daraus ergibt sich der Vorschlag für den Schwellwert im Test: Umriss mindestens 25 %, Höhe mindestens 15 %.
