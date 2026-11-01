@@ -15,6 +15,7 @@ import {
 } from '../inhalte/laden';
 import type { BogenEingabe } from './bogen';
 
+export { arbeitsblatt } from './arbeitsblatt';
 export { pruefbogen } from './bogen';
 
 export function eingabeAusInhalten(
