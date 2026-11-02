@@ -7,7 +7,7 @@
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 Thema `dorf` komplett erneuert: Gebäude, Bäume, Wesen (`GRAFIK.md` §11.8). Offen: Garten, Unterwasser, Weltraum (Klärung PV 02.11.2026), dann G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 Themen `dorf` und `garten` komplett erneuert: Gebäude, Bäume/Sträucher, Wesen (`GRAFIK.md` §11.8). Offen: Unterwasser, Weltraum (Klärung PV 02.11.2026), dann G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** G3 für die übrigen Themen der Epoche 1, je Thema ein Skript `tools/grafik/sprites-g3-<thema>.py` auf Basis von `g3_stil.py` (Materialleiter in `GRAFIK-SPRITES.md` §12.10 ergänzen): Garten, dann Unterwasser, Weltraum. Danach **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
+**Als Nächstes:** G3 für die übrigen Themen der Epoche 1, je Thema ein Skript `tools/grafik/sprites-g3-<thema>.py` auf Basis von `g3_stil.py` (Materialleiter in `GRAFIK-SPRITES.md` §12.10 ergänzen): Unterwasser, dann Weltraum. Danach **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 

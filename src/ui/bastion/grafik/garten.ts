@@ -133,14 +133,25 @@ export function gartenStrauch(st: Stift, x: number, y: number, scale: number): v
   strauch(st, x, y, scale);
 }
 
-/** Feste Strauchpositionen (Tiefe = x+y für Sortierung). */
+/**
+ * Feste Strauchpositionen (Tiefe = x+y für Sortierung) und welches Atlas-Bild dort steht:
+ * jeder zweite Strauch blüht (`strauch_b`), sonst `strauch_a`. Kein Zufall.
+ * `bild` ist die Größe des Atlas-Bilds (der Code-Strauch nutzt `s`).
+ */
 export function gartenStrauchLagen(): readonly {
   x: number;
   y: number;
   s: number;
   tiefe: number;
+  art: 'strauch_a' | 'strauch_b';
+  bild: number;
 }[] {
-  return STRAEUCHER.map((b) => ({ ...b, tiefe: b.x + b.y }));
+  return STRAEUCHER.map((b, i) => ({
+    ...b,
+    tiefe: b.x + b.y,
+    art: i % 2 === 1 ? 'strauch_b' : 'strauch_a',
+    bild: b.s * 0.85,
+  }));
 }
 
 /** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */

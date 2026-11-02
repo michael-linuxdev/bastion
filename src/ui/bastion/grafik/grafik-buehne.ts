@@ -1656,9 +1656,25 @@ export async function buehneErstellen(
         );
       } else if (art === 'garten' && texturen.size > 0) {
         // Atlas-Garten: Sträucher + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P2)
+        // Sträucher aus dem Atlas (G3, GRAFIK-SPRITES §12.10), sonst Code-Strauch
         const lagen: { tiefe: number; zeichne: () => void }[] = gartenStrauchLagen().map((b) => ({
           tiefe: b.tiefe,
           zeichne: () => {
+            const eintrag = atlasEintragPerId(atlas, `garten/umgebung/${b.art}`);
+            const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+            if (eintrag && tex) {
+              // Der Code-Strauch steht auf punkt(x, y); das Bild hat seinen Fußpunkt an der
+              // unteren Ecke eines Felds, dessen Mitte dort liegt.
+              const fuss = punkt(b.x + 0.5, b.y + 0.5);
+              const spr = new Sprite(tex);
+              spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+              spr.width = (eintrag.pixel.w / 2) * b.bild;
+              spr.height = (eintrag.pixel.h / 2) * b.bild;
+              spr.position.set(fuss.x, fuss.y);
+              spr.zIndex = b.tiefe * 10;
+              gebaeude.addChild(spr);
+              return;
+            }
             const stueck = new Graphics();
             gartenStrauch(stiftVon(stueck), b.x, b.y, b.s);
             stueck.zIndex = b.tiefe * 10;

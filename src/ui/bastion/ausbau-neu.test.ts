@@ -3,7 +3,7 @@ import { KATALOG } from '../../core/bastion/katalog';
 import { ausbauNeu } from './ausbau-neu';
 
 describe('Satz zum Ausbau (G4)', () => {
-  for (const thema of ['bastion', 'dorf'] as const) {
+  for (const thema of ['bastion', 'dorf', 'garten'] as const) {
     it(`hat für jede Ausbau-Stufe der Epoche 1 im Thema ${thema} einen Satz`, () => {
       for (const typ of ['kern', 'wissen', 'turm'] as const) {
         const stufen = KATALOG[typ].stufen.length;

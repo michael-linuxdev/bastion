@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { GEBAEUDE_TYPEN } from '../../../core/bastion/katalog';
 import { BUEHNE_H } from './iso';
-import { gartenBodenKachel, gartenBodenTint, gartenHoehe } from './garten';
+import { gartenBodenKachel, gartenBodenTint, gartenHoehe, gartenStrauchLagen } from './garten';
 
 describe('Gartenbilder (GRAFIK P2)', () => {
   it('Höhen bleiben im Bild und wachsen bei Kern und Aussichtsbaum', () => {
@@ -23,5 +23,14 @@ describe('Gartenbilder (GRAFIK P2)', () => {
     expect(gartenBodenKachel(2, 3, 12, 12)).toBe(a);
     expect(gartenBodenTint(false)).toBe(0xffffff);
     expect(gartenBodenTint(true)).not.toBe(0xffffff);
+  });
+});
+
+describe('Garten-Sträucher aus dem Atlas (G3)', () => {
+  it('feste Plätze, abwechselnd grün und blühend (kein Zufall)', () => {
+    const lagen = gartenStrauchLagen();
+    expect(lagen).toEqual(gartenStrauchLagen());
+    expect(lagen.filter((b) => b.art === 'strauch_b').length).toBe(Math.floor(lagen.length / 2));
+    for (const b of lagen) expect(b.bild).toBeLessThan(b.s);
   });
 });

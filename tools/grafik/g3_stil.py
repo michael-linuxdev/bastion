@@ -308,6 +308,7 @@ def schreibe_atlas(thema: str, gebaeude, umgebung=(), wesen=None, *, epoche: int
     manifest_pfad = ATLAS / "manifest.json"
     manifest = json.loads(manifest_pfad.read_text(encoding="utf-8"))
     neu: dict[str, dict] = {}
+    weg: set[str] = set()
 
     def speichere(rel: str, id_: str, n: int, b: Image.Image) -> None:
         pfad = ATLAS / rel
@@ -320,6 +321,10 @@ def schreibe_atlas(thema: str, gebaeude, umgebung=(), wesen=None, *, epoche: int
         bilder = [(f"{rolle}_s{stufe}", bild)]
         if abend.getbbox():  # Abend-Ebene nur, wo etwas leuchtet
             bilder.append((f"{rolle}_s{stufe}_fenster", abend))
+        else:  # eine alte Abend-Ebene passt nicht mehr zum neuen Bild
+            alt = f"{thema}/e{epoche}/{rolle}_s{stufe}_fenster"
+            weg.add(alt)
+            (ATLAS / f"gebaeude/{thema}/e{epoche}/{rolle}_s{stufe}_fenster.png").unlink(missing_ok=True)
         for name, b in bilder:
             speichere(f"gebaeude/{thema}/e{epoche}/{name}.png", f"{thema}/e{epoche}/{name}", n, b)
     for name, zeichne in umgebung:
@@ -333,6 +338,8 @@ def schreibe_atlas(thema: str, gebaeude, umgebung=(), wesen=None, *, epoche: int
     gesehen = set()
     eintraege = []
     for e in manifest["eintraege"]:
+        if e["id"] in weg:
+            continue
         if e["id"] in neu:
             eintraege.append(neu[e["id"]])
             gesehen.add(e["id"])
