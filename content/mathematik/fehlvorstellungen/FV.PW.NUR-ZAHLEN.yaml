@@ -1,0 +1,28 @@
+id: FV.PW.NUR-ZAHLEN
+name:
+  de: Meint, eine Rechenregel gilt nur für Zahlen oder nur für Variablen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Hält a² · a³ = a⁶ für falsch, aber 2² · 2³ = 2⁶ für richtig, oder umgekehrt. Dass eine
+    Variable für jede Zahl steht und eine Regel darum für Zahlen und Variablen gleich gilt, ist
+    noch nicht verankert.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: 'Eine [[Variable]] steht für eine Zahl. Was für jede Zahl gilt, gilt auch für die Variable. Setze eine Zahl ein und prüfe.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht, mit Buchstaben gelten andere Regeln als mit Zahlen.'
+    - teil: warum-nicht
+      de: 'Für a kann jede Zahl stehen. Stimmt eine Rechnung für a = 2 nicht, dann stimmt sie für a allgemein auch nicht.'
+    - teil: so-stimmt-es
+      de: 'Prüfe mit einer kleinen Zahl, zum Beispiel a = 2. Rechne beide Seiten aus und vergleiche.'
+gegenbeispiel:
+  de: 'Mit a = 2: $2^2 \cdot 2^3 = 4 \cdot 8 = 32$, aber $2^6 = 64$. Also stimmt $a^2 \cdot a^3 = a^6$ auch mit Buchstaben nicht.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-mal
+  voraussetzung: M.RF.KR.BEGRUENDEN
+kontrast: [M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1

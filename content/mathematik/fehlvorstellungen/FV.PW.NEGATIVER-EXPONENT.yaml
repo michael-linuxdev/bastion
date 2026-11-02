@@ -1,0 +1,26 @@
+id: FV.PW.NEGATIVER-EXPONENT
+name:
+  de: Hält eine Potenz mit negativer Hochzahl für eine negative Zahl
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 2⁻³ = −8 oder lässt das Minus weg: 2⁻³ = 8. Das Minus der Hochzahl wird wie ein
+    Vorzeichen der Zahl gelesen. Dass a⁻ⁿ der Kehrwert von aⁿ ist, ist noch nicht verankert.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: '$2^{-3} = \frac{1}{2^3} = \frac{1}{8}$. Eine negative [[Hochzahl]] macht einen [[Bruch]], keine [[negative Zahl]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Minus der [[Hochzahl]] vor die Zahl geschrieben oder weggelassen.'
+    - teil: warum-nicht
+      de: '$2^0 : 2^3 = 2^{0-3} = 2^{-3}$. Und $2^0 : 2^3 = 1 : 8$. Also ist $2^{-3}$ ein Achtel, positiv und klein.'
+    - teil: so-stimmt-es
+      de: 'Schreibe den [[Kehrwert]]: $a^{-n} = \frac{1}{a^n}$.'
+gegenbeispiel:
+  de: '$2^2 = 4$, $2^1 = 2$, $2^0 = 1$, $2^{-1} = \frac{1}{2}$. Jedes Mal wird halbiert, nie wird es negativ.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-negativ
+kontrast: [M.ZO.PW.GESETZE.EXPONENT, M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1
