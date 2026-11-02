@@ -12,7 +12,7 @@
     type BlattAufgabe,
   } from '../../core/learning/arbeitsblatt';
   import type { Loesung } from '../../core/learning/generator';
-  import { fuelle, zahlText } from '../../core/learning/text';
+  import { fuelle, texZahl, zahlText } from '../../core/learning/text';
   import Textteile from '../ueben/Textteile.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
 
@@ -130,10 +130,8 @@
                 >{#if bruch}<Textteile
                     teile={[
                       {
-                        art: 'bruch',
-                        zaehler: zahlText(bruch.zaehler),
-                        nenner: zahlText(bruch.nenner),
-                        fett: false,
+                        art: 'formel',
+                        tex: `\\frac{${texZahl(bruch.zaehler)}}{${texZahl(bruch.nenner)}}`,
                       },
                     ]}
                     erklaeren={false}

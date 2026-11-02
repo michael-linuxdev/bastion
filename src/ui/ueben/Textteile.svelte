@@ -43,9 +43,8 @@
         >{/if}
     {:else if teil.fett}<strong>{teil.text}</strong>{:else}{teil.text}{/if}
   {:else if teil.art === 'bruch'}
-    <span class="bruch" role="math" aria-label="{teil.zaehler}/{teil.nenner}">
-      <span class="zaehler">{teil.zaehler}</span><span class="nenner">{teil.nenner}</span>
-    </span>
+    <!-- Brüche einheitlich mit KaTeX (PV, 02.11.2026) -->
+    <Formel tex={`\\frac{${teil.zaehler}}{${teil.nenner}}`} />
   {:else if teil.art === 'hoch'}
     <sup>{teil.text}</sup>
   {:else if teil.art === 'formel'}
@@ -96,20 +95,6 @@
     background: var(--farbe-flaeche);
     font-size: 1rem;
     font-weight: normal;
-  }
-
-  .bruch {
-    display: inline-flex;
-    flex-direction: column;
-    vertical-align: middle;
-    text-align: center;
-    margin-inline: 0.15em;
-    line-height: 1.1;
-  }
-
-  .zaehler {
-    border-block-end: 0.1em solid currentColor;
-    padding-inline: 0.15em;
   }
 
   .radikand {

@@ -3,19 +3,19 @@
 import type { Instanz, Loesung, Wert } from '../../src/core/learning/generator';
 import { loesungAlsText } from '../../src/core/learning/arbeitsblatt';
 import katex from 'katex';
-import { fuelle, KATEX_OPTIONEN, type Textteil } from '../../src/core/learning/text';
+import { fuelle, KATEX_OPTIONEN, texAnzeige, type Textteil } from '../../src/core/learning/text';
 import { esc } from './html';
 
 export function teileHtml(teile: readonly Textteil[]): string {
   return teile
     .map((t) => {
-      if (t.art === 'bruch')
-        return `<span class="br"><span>${esc(t.zaehler)}</span><span>${esc(t.nenner)}</span></span>`;
+      const mathml = (tex: string) =>
+        katex.renderToString(texAnzeige(tex), { ...KATEX_OPTIONEN, output: 'mathml' });
+      if (t.art === 'bruch') return mathml(`\\frac{${t.zaehler}}{${t.nenner}}`);
       if (t.art === 'hoch') return `<sup>${esc(t.text)}</sup>`;
       if (t.art === 'wurzel') return `√<span class="ueber">${esc(t.text)}</span>`;
-      // Formeln ab Klasse 9 (T-22): als MathML, das der Browser selbst setzt – ohne CSS und Schriften
-      if (t.art === 'formel')
-        return katex.renderToString(t.tex, { ...KATEX_OPTIONEN, output: 'mathml' });
+      // Formeln (T-22): als MathML, das der Browser selbst setzt – ohne CSS und Schriften
+      if (t.art === 'formel') return mathml(t.tex);
       const inhalt = t.art === 'begriff' ? `<u>${esc(t.text)}</u>` : esc(t.text);
       return t.fett ? `<b>${inhalt}</b>` : inhalt;
     })
