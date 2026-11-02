@@ -1,0 +1,25 @@
+id: FV.QF.NULLPRODUKT
+name:
+  de: Nutzt die Produktform nicht zum Ablesen der Lösungen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Multipliziert (x − 3)·(x + 5) = 0 erst aus und sucht dann eine Formel. Dass ein Produkt genau dann null ist, wenn ein Faktor null ist, ist nicht verankert.
+kompetenzen: [M.SF.QF.INHALTLICH]
+erklaerung:
+  kurz:
+    de: 'Ein [[Produkt]] ist null, wenn ein [[Faktor]] null ist. Bei $(x - 3) \cdot (x + 5) = 0$ siehst du die Lösungen 3 und $-5$ sofort.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Klammern ausmultipliziert, bevor du nach Lösungen gesucht hast.'
+    - teil: warum-nicht
+      de: '[[Ausmultiplizieren]] macht aus einer leichten Aufgabe eine schwere. Die Produktform zeigt die Lösungen schon.'
+    - teil: so-stimmt-es
+      de: 'Setze jeden [[Faktor]] gleich null.'
+gegenbeispiel:
+  de: '$3 \cdot 0 = 0$ und $0 \cdot 7 = 0$: Sobald ein [[Faktor]] null ist, ist das [[Produkt]] null.'
+rueckweg:
+  vermittlung: M.SF.QF.INHALTLICH#erklaeren-produkt
+kontrast: [M.SF.QF.INHALTLICH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

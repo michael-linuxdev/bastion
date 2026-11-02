@@ -6,7 +6,16 @@ beschreibung:
   de: >-
     Sucht ein Gegenbeispiel und wählt ein Beispiel, für das die Aussage stimmt. Dass ein Gegenbeispiel
     die Voraussetzung erfüllen, die Behauptung aber verletzen muss, ist nicht verankert.
-kompetenzen: [M.RF.KR.BEGRUENDEN, M.ZO.PW.WURZEL, M.ZO.PW.REELL, M.ZO.PW.RATIONAL, M.SF.QF.GRAPH]
+kompetenzen:
+  [
+    M.RF.KR.BEGRUENDEN,
+    M.ZO.PW.WURZEL,
+    M.ZO.PW.REELL,
+    M.ZO.PW.RATIONAL,
+    M.SF.QF.GRAPH,
+    M.SF.QF.INHALTLICH,
+    M.SF.QF.FORMEL,
+  ]
 erklaerung:
   kurz:
     de: 'Ein [[Gegenbeispiel]] erfüllt die [[Voraussetzung]], aber nicht die [[Behauptung]]. Ein Beispiel, für das die Aussage stimmt, widerlegt nichts.'

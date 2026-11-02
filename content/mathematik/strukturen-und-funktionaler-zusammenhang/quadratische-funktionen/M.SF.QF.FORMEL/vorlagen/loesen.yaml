@@ -1,0 +1,31 @@
+# „Löse: x² − 2x − 15 = 0“, „2x² − 4x − 30 = 0“. Entwurf: noch nicht geprüft.
+id: M.SF.QF.FORMEL.LOESEN
+kompetenz: M.SF.QF.FORMEL
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: qf.formel@1
+parameter:
+  G: { normieren: false }
+  M: { normieren: true }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] ${gleichung}$.'
+hilfen:
+  - de: 'Steht vor $x^2$ eine andere Zahl als 1, teile zuerst die ganze [[Gleichung]] durch sie.'
+  - de: 'Lösungsformel: $x_{1,2} = -\frac{p}{2} \pm \sqrt{\left(\frac{p}{2}\right)^2 - q}$.'
+fehlerbilder:
+  vorzeichen-p:
+    de: 'Achte auf das Minus vor $\frac{p}{2}$: Bei $x^2 - 2x - 15$ ist $p = -2$, also $-\frac{p}{2} = 1$.'
+    fv: FV.QF.FORMEL-VORZEICHEN
+  q-vorzeichen:
+    de: 'Unter der [[Wurzel]] steht $\left(\frac{p}{2}\right)^2 - q$. Mit q negativ wird daraus ein Plus.'
+    fv: FV.QF.DISKRIMINANTE
+  nicht-normiert:
+    de: 'Teile zuerst durch die Zahl vor $x^2$. Die [[Formel]] braucht die Form $x^2 + px + q = 0$.'
+    fv: FV.QF.NICHT-NORMIERT
+  keine-statt-zwei:
+    de: 'Berechne die [[Diskriminante]]: Sie ist positiv, also gibt es zwei Lösungen.'
+    fv: FV.QF.DISKRIMINANTE
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.QF.NUR-POSITIV
+name:
+  de: Findet bei x² = a nur die positive Lösung
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst x² = 9 zu x = 3 und übersieht x = −3. Die Wurzel liefert nur die positive Zahl; dass die Gleichung zwei Lösungen hat, ist nicht im Blick.
+kompetenzen: [M.SF.QF.INHALTLICH, M.SF.QF.FORMEL]
+erklaerung:
+  kurz:
+    de: 'Gesucht sind alle Zahlen, die quadriert 9 ergeben: 3 und $-3$. Die [[Wurzel]] $\sqrt{9} = 3$ ist nur eine davon.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Wurzel]] gezogen und warst fertig.'
+    - teil: warum-nicht
+      de: 'Auch $(-3) \cdot (-3) = 9$. Die [[Gleichung]] fragt nach allen Zahlen, nicht nur nach der [[Wurzel]].'
+    - teil: so-stimmt-es
+      de: 'Schreibe beide Lösungen: $x = \sqrt{9}$ oder $x = -\sqrt{9}$.'
+gegenbeispiel:
+  de: '[[Probe]] mit $-3$: $(-3)^2 = 9$. Also ist $-3$ eine Lösung.'
+rueckweg:
+  vermittlung: M.SF.QF.INHALTLICH#erklaeren-quadrat
+kontrast: [M.SF.QF.INHALTLICH.AUSSAGE, M.SF.QF.INHALTLICH.LOESEN]
+herkunft: ki-entwurf
+version: 1

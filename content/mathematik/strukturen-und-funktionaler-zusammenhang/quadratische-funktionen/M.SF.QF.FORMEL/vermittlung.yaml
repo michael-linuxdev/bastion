@@ -1,0 +1,88 @@
+id: M.SF.QF.FORMEL
+kompetenz: M.SF.QF.FORMEL
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du jede [[Gleichung]] $x^2 + px + q = 0$ mit der Lösungsformel lösen und vorher sehen, wie viele Lösungen es gibt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welchen [[Scheitelpunkt]] hat $y = (x - 1)^2 - 16$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$S(1|-16)$' }, richtig: true }
+        - { wert: { de: '$S(-1|-16)$' }, fv: FV.QF.SCHEITEL-VORZEICHEN }
+    weiter: entdecken
+    bei: { FV.QF.SCHEITEL-VORZEICHEN: M.SF.QF.SCHEITEL, sonst: M.SF.QF.SCHEITEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '$(x - 1)^2 - 16 = 0$ heißt $(x - 1)^2 = 16$. Die Klammer ist 4 oder $-4$. Wie heißt die größere Lösung?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '4', fv: FV.QF.NUR-POSITIV }] }
+    weiter: erklaeren-formel
+  - id: erklaeren-formel
+    typ: erklaeren
+    text:
+      de: 'Die Lösungsformel macht das für jede [[Gleichung]] $x^2 + px + q = 0$: $x_{1,2} = -\frac{p}{2} \pm \sqrt{\left(\frac{p}{2}\right)^2 - q}$. Vor $x^2$ muss eine 1 stehen, sonst erst teilen.'
+    weiter: erklaeren-diskriminante
+  - id: erklaeren-diskriminante
+    typ: erklaeren
+    text:
+      de: 'Der [[Term]] unter der [[Wurzel]] heißt [[Diskriminante]]: $D = \left(\frac{p}{2}\right)^2 - q$. D positiv: zwei Lösungen. D gleich 0: eine. D negativ: keine.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$x^2 - 2x - 15 = 0$: $p = -2$, $q = -15$. $D = 1 + 15 = 16$. $x = 1 \pm 4$, also $x_1 = -3$ und $x_2 = 5$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne die [[Diskriminante]] von $x^2 + 6x + 5 = 0$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '14', fv: FV.QF.DISKRIMINANTE }] }
+    weiter: gegenbeispiel
+    bei: { FV.QF.DISKRIMINANTE: erklaeren-diskriminante }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eva löst $x^2 - 2x - 15 = 0$ und erhält $-5$ und 3. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. $-\frac{p}{2} = 1$, also $1 \pm 4$: 5 und $-3$.' }, richtig: true }
+        - { wert: { de: 'Ja, $\frac{p}{2} = -1$ und $-1 \pm 4$.' }, fv: FV.QF.FORMEL-VORZEICHEN }
+    weiter: merksatz
+    bei: { FV.QF.FORMEL-VORZEICHEN: erklaeren-formel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst auf die Form $x^2 + px + q = 0$ bringen. Dann $D = \left(\frac{p}{2}\right)^2 - q$ berechnen. Ist D nicht negativ: $x_{1,2} = -\frac{p}{2} \pm \sqrt{D}$.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viele Lösungen hat $x^2 + 4x + 4 = 0$?'
+    antwort:
+      optionen:
+        - { wert: { de: 'genau eine' }, richtig: true }
+        - { wert: { de: 'zwei' }, fv: FV.QF.IMMER-ZWEI-NULLSTELLEN }
+        - { wert: { de: 'keine' }, fv: FV.QF.DISKRIMINANTE }
+    weiter: uebergang
+    bei:
+      {
+        FV.QF.IMMER-ZWEI-NULLSTELLEN: erklaeren-diskriminante,
+        FV.QF.DISKRIMINANTE: erklaeren-diskriminante,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt löst du selbst mit der [[Formel]].'
+    vorlagen: [M.SF.QF.FORMEL.ANZAHL, M.SF.QF.FORMEL.LOESEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

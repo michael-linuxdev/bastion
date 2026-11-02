@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Hält zwei Nullstellen für selbstverständlich, weil die bekannten Beispiele so aussehen.
     Parabeln, die die x-Achse nur berühren oder gar nicht erreichen, sind nicht im Blick.
-kompetenzen: [M.SF.QF.GRAPH]
+kompetenzen: [M.SF.QF.GRAPH, M.SF.QF.INHALTLICH, M.SF.QF.FORMEL]
 erklaerung:
   kurz:
     de: 'Eine [[Parabel]] kann die x-Achse zweimal schneiden, sie einmal berühren oder sie gar nicht erreichen: $y = x^2 + 1$ hat keine [[Nullstelle]].'

@@ -1,0 +1,42 @@
+# „Stimmt das? Aus x² = 9 folgt x = 3.“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.INHALTLICH.AUSSAGE
+kompetenz: M.SF.QF.INHALTLICH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.inhaltlich-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** {aussage} **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Mach die [[Probe]] mit allen Zahlen, die in Frage kommen, auch mit negativen und mit 0.'
+  - de: 'Ein [[Gegenbeispiel]] widerlegt eine Aussage.'
+fehlerbilder:
+  nur-positiv:
+    de: 'Auch die [[negative Zahl]] ist eine Lösung: $(-3)^2 = 9$.'
+    fv: FV.QF.NUR-POSITIV
+  wurzel-negativ:
+    de: 'Ein Quadrat ist nie negativ. $x^2 = -9$ hat keine Lösung.'
+    fv: FV.QF.QUADRAT-NEGATIV
+  beispiel:
+    de: 'Eine [[Probe]] mit einer Zahl zeigt nicht, dass es keine weiteren Lösungen gibt.'
+    fv: FV.KR.GEGENBEISPIEL
+  durch-x:
+    de: 'Wer durch x teilt, verliert die Lösung $x = 0$. Klammere x lieber aus.'
+    fv: FV.QF.DURCH-X
+  vorzeichen-ausklammern:
+    de: 'Prüfe deine Zahlen durch Einsetzen: Welche Werte machen einen [[Faktor]] null?'
+    fv: FV.QF.PRODUKT-VORZEICHEN
+  vorzeichen-produkt:
+    de: 'Bei $(x - 3)$ wird der [[Faktor]] null für $x = 3$, nicht für $x = -3$.'
+    fv: FV.QF.PRODUKT-VORZEICHEN
+  ausmultiplizieren:
+    de: 'In der Produktform siehst du die Lösungen direkt: Ein [[Produkt]] ist null, wenn ein [[Faktor]] null ist.'
+    fv: FV.QF.NULLPRODUKT
+  immer-zwei:
+    de: 'Nicht jede quadratische [[Gleichung]] hat zwei Lösungen. Hier stimmt die Aussage aus einem anderen Grund.'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+herkunft: ki-entwurf
+version: 1
