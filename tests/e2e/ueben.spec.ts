@@ -491,6 +491,8 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   const code = (await page.locator('.code').innerText()).trim();
   expect(code.split(' ')).toHaveLength(4);
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  // F2 (T-20): Die Werkstatt liefert Entwürfe aus, darum steht der Vermerk da
+  await expect(page.locator('[data-entwurf]')).toContainText('noch nicht fachlich geprüft');
   // Auch Eltern können die Bastion ein- und ausschalten (B-13)
   await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toBeChecked();
 
@@ -1855,4 +1857,48 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByRole('button', { name: /Wirklich löschen/ }).click();
   await expect(page.getByText('Das Nutzungsprotokoll ist gelöscht.')).toBeVisible();
   await expect(page.getByText(/Aufgaben: 1/)).toBeVisible();
+});
+
+test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = gleiche Aufgaben (B2)', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+
+  await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
+  await expect(page.getByText('Wähle oben mindestens ein Thema.')).toBeVisible();
+  await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
+  await page.getByLabel('Anzahl der Aufgaben').fill('6');
+  await page.getByLabel('Blatt-Nr.').fill('7');
+
+  const blatt = page.locator('[data-druckblatt]');
+  await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
+  await expect(blatt.locator('[data-loesungen]')).toBeVisible();
+  await expect(blatt.locator('[data-stufe]')).toContainText('Review-Stufe');
+  await expect(page.getByRole('button', { name: 'Drucken / als PDF speichern' })).toBeVisible();
+  const erstes = await blatt.locator('[data-aufgabe]').allInnerTexts();
+
+  // Neues Blatt → andere Aufgaben; zurück zur Nr. 7 → wieder dieselben
+  await page.getByRole('button', { name: 'Neues Blatt' }).click();
+  await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
+  expect(await blatt.locator('[data-aufgabe]').allInnerTexts()).not.toEqual(erstes);
+  await page.getByLabel('Blatt-Nr.').fill('7');
+  await expect.poll(() => blatt.locator('[data-aufgabe]').allInnerTexts()).toEqual(erstes);
+
+  // Probe-Klassenarbeit: Punkte je Aufgabe und Summe; ohne Lösungsseite
+  await page.getByRole('checkbox', { name: /Punkte-Spalte/ }).check();
+  await expect(blatt.locator('[data-aufgabe]').first()).toContainText('P.)');
+  await page.getByRole('checkbox', { name: 'Lösungsseite' }).uncheck();
+  await expect(blatt.locator('[data-loesungen]')).toHaveCount(0);
+
+  // 390 px: kein seitlicher Überlauf der Seite
+  const breit = await page.evaluate(() => document.documentElement.scrollWidth);
+  expect(breit).toBeLessThanOrEqual(390);
 });
