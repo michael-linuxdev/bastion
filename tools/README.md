@@ -32,7 +32,9 @@ Druckbares Arbeitsblatt für Lehrkräfte (FOKUS F6): neue Aufgaben zu einer oder
 pnpm arbeitsblatt M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB --niveau G --anzahl 12 --seed 7 > blatt.html
 ```
 
-Seite 1 hat einen Kopf mit Name, Datum und Thema und die Aufgaben mit kariertem Rechenkasten. Danach folgt eine eigene Seite mit Lösungen und Lösungsweg für die Lehrkraft. Die Fußzeile nennt die Review-Stufe der schwächsten benutzten Vorlage („Entwurf, nicht fachlich geprüft“ bei Stufe 0). Die Vorlagen kommen der Reihe nach dran, jede gleich oft; doppelte Aufgaben werden neu gezogen. Gleiche Angaben und gleicher Seed ergeben dasselbe Blatt. Ohne `--seed` wird eine Nummer gewürfelt; sie steht als „Arbeitsblatt Nr.“ auf dem Blatt. Brüche und Hochzahlen setzt derselbe Teil wie im Prüfbogen (`satz.ts`, aus `src/core/learning/text.ts`). Im Browser öffnen und als PDF drucken. Das Werkzeug legt die PDF-Technik für U7 nicht fest.
+Seite 1 hat einen Kopf mit Name, Datum und Thema und die Aufgaben mit kariertem Rechenkasten. Danach folgt eine eigene Seite mit Lösungen und Lösungsweg für die Lehrkraft. Die Fußzeile nennt die Review-Stufe der schwächsten benutzten Vorlage („Entwurf, nicht fachlich geprüft“ bei Stufe 0). Die Vorlagen kommen der Reihe nach dran, jede gleich oft; doppelte Aufgaben werden neu gezogen. Gleiche Angaben und gleicher Seed ergeben dasselbe Blatt. Ohne `--seed` wird eine Nummer gewürfelt; sie steht als „Arbeitsblatt Nr.“ auf dem Blatt. Brüche und Hochzahlen setzt derselbe Teil wie im Prüfbogen (`satz.ts`, aus `src/core/learning/text.ts`). Im Browser öffnen und als PDF drucken.
+
+Die Blatt-Logik (Ziehen, Review-Stufe, Punkte, Lösung als Text) liegt seit 02.11.2026 im Kern, `src/core/learning/arbeitsblatt.ts`. Dieselbe Logik nutzt der Elternbereich der App („Für Lehrkräfte: Aufgabenblatt drucken“). Hier steht nur der HTML-Satz. Die PDF-Technik ist vorläufig entschieden: Druckdialog des Browsers, keine Abhängigkeit (ARCHITEKTUR T-21).
 
 ## Fehler-Schüler (`inhalte/fehlerschueler.ts`)
 

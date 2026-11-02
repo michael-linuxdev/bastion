@@ -15,6 +15,7 @@
 </script>
 
 <script lang="ts">
+  import { entwurfAusgeliefert } from '../plattform/paketstand';
   // Hub als ruhige Übersicht (Design A1–A4 + Danach J37 + V–Z): Bastion-Ort, drei Türen,
   // Vertrauen, nie-geübt; erste Minute = ein Satz + Üben; Nebenkacheln nach „Mehr entdecken“ / Rückkehr.
   import type { Snippet } from 'svelte';
@@ -114,6 +115,10 @@
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
     <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
+    <!-- F2 (ARCHITEKTUR T-20): dezenter Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
+    {#if entwurfAusgeliefert}<p class="leise entwurf" role="note" data-entwurf>
+        {t('entwurf.vermerk')}
+      </p>{/if}
   </header>
 
   {@render children?.()}
@@ -310,6 +315,10 @@
   }
   .leise {
     color: var(--farbe-text-leise);
+  }
+  .entwurf {
+    font-size: 0.9rem;
+    margin-block: 0 var(--abstand-s);
   }
   .vertrauen {
     color: var(--farbe-text-leise);

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""G3, Charge 1: Bergfried Thema `bastion`, Epoche 1, Stufen 1–3 (FOKUS.md Paket G).
+"""G3: Gebäude Thema `bastion`, Epoche 1 (FOKUS.md Paket G).
+Charge 1: Bergfried (Stufen 1–3). Charge 2: Studierstube und Späherturm (Stufen 1–2).
+Charge 3: Werkstatt, Tor, Palisade, Feuerstelle, Banner, Gartenbeet, Statue.
 
 Eigener Generator nach der Stil-Regel GRAFIK-SPRITES.md §12 (Entscheidung PV
 01.11.2026: eigener Generator für alles, aus einem Guss). Grundlage ist das
@@ -10,7 +12,7 @@ Stufen-Sprache (§12.6, Tabelle §12.8):
   2 Fachwerk   – Steinsockel-Geschoss, vorkragendes Fachwerk, Ziegeldach, Anbau, Banner
   3 Stein      – hoher Steinturm, Zinnenkranz, Turmaufsatz mit Helm, runder Seitenturm, Fahne
 
-Schreibt `gebaeude/bastion/e1/kern_s{1,2,3}.png` und `*_fenster.png` in den Atlas
+Schreibt die Bilder aus `GEBAEUDE` und ihre `*_fenster.png` in den Atlas
 und ersetzt die passenden Einträge in `manifest.json` (andere bleiben unverändert).
 Aufruf: python3 tools/grafik/sprites-g3-bastion.py
 Deterministisch, ohne Zufall. Raster wie iso.ts (Raute 48×24 logisch, hier 2× gezeichnet);
@@ -49,10 +51,10 @@ def hell(c: tuple[int, int, int], d: int) -> tuple[int, int, int]:
 
 
 class Iso:
-    def __init__(self, bild: Image.Image) -> None:
+    def __init__(self, bild: Image.Image, n: int = 3) -> None:
         self.d = ImageDraw.Draw(bild)
-        self.cx = BREITE / 2
-        self.cy0 = ROH_H - 4 - 3 * HH  # Mitte des 3×3-Fußabdrucks
+        self.cx = bild.width / 2
+        self.cy0 = bild.height - 4 - n * HH  # Mitte des n×n-Fußabdrucks
 
     def p(self, x: float, y: float, z: float) -> tuple[float, float]:
         return (self.cx + (x - y) * HW, self.cy0 + (x + y) * HH - z)
@@ -118,6 +120,23 @@ class Iso:
             self.linie(a(p(x0, y1, z)), a(p(x1, y1, z)), hell(farbe, -40))
             self.linie(a(p(x1, y1, z)), a(p(x1, y0, z)), hell(farbe, -6))
         return spitze
+
+    def satteldach(self, x0, x1, y0, y1, z, h, farbe, giebel, *, ueber=0.12) -> tuple[float, float]:
+        """Satteldach, First parallel zur x-Achse. Sichtbar: vordere Dachfläche (+y) und der
+        Giebel rechts (x1). Gibt die Mitte des Firsts zurück."""
+        p = self.p
+        ym = (y0 + y1) / 2
+        a, b = x0 - ueber, x1 + ueber
+        # hintere Dachfläche zuerst: von ihr bleibt rechts nur die Kante über dem Giebel sichtbar
+        self.poly([p(a, ym, z + h), p(b, ym, z + h), p(b, y0 - ueber, z - 4), p(a, y0 - ueber, z - 4)], hell(farbe, 8), KONTUR)
+        # Giebel rechts in Wandfarbe (rechte Fläche, heller)
+        self.poly([p(x1, y1, z), p(x1, y0, z), p(x1, ym, z + h)], hell(giebel, -12), KONTUR)
+        vorne = [p(a, y1 + ueber, z - 4), p(b, y1 + ueber, z - 4), p(b, ym, z + h), p(a, ym, z + h)]
+        self.poly(vorne, hell(farbe, -18), KONTUR)
+        for t in (0.25, 0.5, 0.75):
+            yy = y1 + ueber + (ym - y1 - ueber) * t
+            self.linie(p(a, yy, z - 4 + (h + 4) * t), p(b, yy, z - 4 + (h + 4) * t), hell(farbe, -40))
+        return p((x0 + x1) / 2, ym, z + h)
 
     def zylinder(self, x, y, r, z0, z1, wand, *, stein=True) -> None:
         cxs, cys = self.p(x, y, 0)
@@ -290,11 +309,267 @@ def stufe3(iso: Iso, fenster: list) -> None:
         fenster.append(pts)
 
 
-def erzeuge(stufe: int) -> tuple[Image.Image, Image.Image]:
-    bild = Image.new("RGBA", (BREITE, ROH_H), (0, 0, 0, 0))
-    iso = Iso(bild)
+# —— Studierstube (wissen, 2×2) ————————————————————————————
+
+
+def wissen1(iso: Iso, fenster: list) -> None:
+    """Holzhaus, ein Geschoss, Satteldach aus Schindeln, Tür, breites Lesefenster."""
+    schatten(iso, 0.95)
+    iso.quader(-0.8, 0.8, -0.68, 0.68, 0, 8, SOCKEL)
+    iso.quader(-0.74, 0.74, -0.6, 0.6, 8, 64, HOLZ, links=-40, rechts=-8)
+    iso.textur_holz(-0.74, 0.74, -0.6, 0.6, 8, 64, 6)
+    iso.fenster_l(-0.38, 0.6, 8, b=0.26, h=30, farbe=(70, 46, 28))
+    fenster.append(iso.fenster_l(0.3, 0.6, 28, b=0.5, h=18, bogen=False))
+    fenster.append(iso.fenster_r(0.74, 0.0, 30, b=0.24, h=16, bogen=False))
+    iso.satteldach(-0.74, 0.74, -0.6, 0.6, 64, 44, SCHINDEL, HOLZ, ueber=0.12)
+
+
+def wissen2(iso: Iso, fenster: list) -> None:
+    """Fachwerk über Steinsockel, zwei Geschosse, Ziegeldach mit Gaube und Dachreiter,
+    rundes Fenster im Giebel, Banner."""
+    schatten(iso, 1.0)
+    iso.quader(-0.84, 0.84, -0.68, 0.68, 0, 48, STEIN)
+    iso.textur_stein(-0.84, 0.84, -0.68, 0.68, 0, 48, 12)
+    iso.fenster_l(-0.4, 0.68, 0, b=0.28, h=32, farbe=(70, 46, 28))
+    fenster.append(iso.fenster_l(0.32, 0.68, 14, b=0.22, h=18))
+    iso.quader(-0.92, 0.92, -0.76, 0.76, 48, 112, PUTZ, links=-30, rechts=-6)
+    iso.textur_fachwerk(-0.92, 0.92, -0.76, 0.76, 48, 112)
+    fenster.append(iso.fenster_l(-0.46, 0.76, 64, b=0.2, h=24, bogen=False))
+    fenster.append(iso.fenster_l(0.46, 0.76, 64, b=0.2, h=24, bogen=False))
+    fenster.append(iso.fenster_r(0.92, -0.3, 64, b=0.2, h=24, bogen=False))
+    iso.banner_r(0.92, 0.42, 104, 40, PETROL)
+    iso.satteldach(-0.92, 0.92, -0.76, 0.76, 112, 60, ZIEGEL, PUTZ, ueber=0.14)
+    # rundes Fenster im Giebel (rechte Fläche)
+    m = iso.p(0.92, 0.0, 134)
+    rund = [(m[0] + 7 * math.cos(a / 8 * math.pi), m[1] + 9 * math.sin(a / 8 * math.pi)) for a in range(16)]
+    iso.poly(rund, FENSTER_TAG, KONTUR)
+    fenster.append(rund)
+    # Dachgaube auf der vorderen Dachfläche
+    iso.quader(0.12, 0.5, 0.28, 0.52, 120, 146, PUTZ, links=-24, rechts=-4)
+    fenster.append(iso.fenster_l(0.31, 0.52, 124, b=0.18, h=14, bogen=False))
+    iso.pyramide(0.12, 0.5, 0.28, 0.52, 146, 18, ZIEGEL, ueber=0.05)
+    # Dachreiter: kleines Türmchen mit Spitze auf dem First
+    iso.quader(-0.52, -0.22, -0.15, 0.15, 160, 190, PUTZ, links=-24, rechts=-4)
+    iso.textur_fachwerk(-0.52, -0.22, -0.15, 0.15, 160, 190)
+    spitze = iso.pyramide(-0.52, -0.22, -0.15, 0.15, 190, 44, ZIEGEL, ueber=0.06)
+    iso.fahne(spitze, 26, PETROL_HELL)
+
+
+# —— Späherturm (turm, 1×1) ——————————————————————————————
+
+
+def turm1(iso: Iso, fenster: list) -> None:
+    """Offener Holzturm: vier Pfosten mit Kreuzstreben, Plattform mit Geländer,
+    kleines Schindeldach, Leiter, Laterne."""
+    schatten(iso, 0.52)
+    p = iso.p
+    e = 0.36
+    pfosten = [(-e, -e), (e, -e), (-e, e), (e, e)]
+    for px, py in pfosten:  # hintere zuerst (Reihenfolge nach x + y)
+        iso.quader(px - 0.05, px + 0.05, py - 0.05, py + 0.05, 0, 112, HOLZ, links=-40, rechts=-8)
+    for z0, z1 in ((8, 58), (58, 108)):  # Kreuzstreben vorne links und rechts
+        iso.linie(p(-e, e, z0), p(e, e, z1), BALKEN, 3)
+        iso.linie(p(e, e, z0), p(-e, e, z1), BALKEN, 3)
+        iso.linie(p(e, e, z0), p(e, -e, z1), hell(BALKEN, 14), 3)
+        iso.linie(p(e, -e, z0), p(e, e, z1), hell(BALKEN, 14), 3)
+    # Leiter vorne links
+    for yy in (0.43, 0.43):
+        iso.linie(p(-0.16, yy + 0.06, 0), p(-0.16, yy, 112), BALKEN, 2)
+        iso.linie(p(0.04, yy + 0.06, 0), p(0.04, yy, 112), BALKEN, 2)
+    for z in range(12, 112, 14):
+        iso.linie(p(-0.16, 0.47, z), p(0.04, 0.47, z), HOLZ_FUGE, 2)
+    # Plattform
+    iso.quader(-0.5, 0.5, -0.5, 0.5, 112, 120, hell(HOLZ, -10))
+    # Laterne auf der Plattform
+    m = p(0.05, 0.05, 120)
+    lat = [(m[0] - 4, m[1]), (m[0] + 4, m[1]), (m[0] + 4, m[1] - 10), (m[0] - 4, m[1] - 10)]
+    iso.poly(lat, (230, 180, 80), KONTUR)
+    fenster.append(lat)
+    # Dachpfosten und Geländer
+    for px, py in pfosten:
+        iso.quader(px - 0.03, px + 0.03, py - 0.03, py + 0.03, 120, 156, HOLZ)
+    for z in (134, 146):
+        iso.linie(p(-0.48, 0.48, z), p(0.48, 0.48, z), BALKEN, 2)
+        iso.linie(p(0.48, 0.48, z), p(0.48, -0.48, z), hell(BALKEN, 14), 2)
+    iso.pyramide(-0.42, 0.42, -0.42, 0.42, 156, 40, SCHINDEL, ueber=0.08)
+
+
+def turm2(iso: Iso, fenster: list) -> None:
+    """Geschlossene Turmstube aus Fachwerk auf Steinfuß, vorkragend, Ziegel-Spitzhelm, Fahne."""
+    schatten(iso, 0.56)
+    iso.quader(-0.4, 0.4, -0.4, 0.4, 0, 96, STEIN)
+    iso.textur_stein(-0.4, 0.4, -0.4, 0.4, 0, 96, 12)
+    iso.fenster_l(0.0, 0.4, 0, b=0.24, h=30, farbe=(70, 46, 28))
+    fenster.append(iso.fenster_r(0.4, 0.0, 52, b=0.14, h=18))
+    iso.quader(-0.5, 0.5, -0.5, 0.5, 96, 168, PUTZ, links=-30, rechts=-6)
+    iso.textur_fachwerk(-0.5, 0.5, -0.5, 0.5, 96, 168)
+    fenster.append(iso.fenster_l(0.0, 0.5, 116, b=0.2, h=24, bogen=False))
+    fenster.append(iso.fenster_r(0.5, 0.0, 116, b=0.2, h=24, bogen=False))
+    spitze = iso.pyramide(-0.5, 0.5, -0.5, 0.5, 168, 92, ZIEGEL, ueber=0.08)
+    iso.fahne(spitze, 34, PETROL_HELL)
+
+
+# —— Charge 3: Werkstatt, Tor, Einfassung und Zierde ——————————————
+
+GRUEN = (92, 140, 64)
+ERDE = (96, 70, 48)
+GRAU = (168, 166, 160)
+
+
+def werkstatt1(iso: Iso, fenster: list) -> None:
+    """Offener Holzschuppen mit Pultdach aus Schindeln, Werkbank, Bretterstapel, Sägebock."""
+    schatten(iso, 0.95)
+    p = iso.p
+    # Rückwände (hinten und links), durch die offene Front sichtbar
+    iso.quader(-0.8, 0.8, -0.72, -0.62, 0, 66, HOLZ, links=-40, rechts=-8)
+    iso.textur_holz(-0.8, 0.8, -0.72, -0.62, 0, 66, 7)
+    iso.quader(-0.8, -0.7, -0.72, 0.7, 0, 66, HOLZ, links=-40, rechts=-8)
+    iso.textur_holz(-0.8, -0.7, -0.72, 0.7, 0, 66, 6)
+    # Werkbank
+    iso.quader(-0.35, 0.35, -0.5, -0.2, 0, 22, hell(HOLZ, 24))
+    iso.linie(p(-0.2, -0.2, 22), p(0.15, -0.2, 26), (200, 200, 196), 2)  # Säge auf der Bank
+    # Bretterstapel vorne rechts
+    for k in range(4):
+        iso.quader(0.3, 0.78, 0.3, 0.6, k * 5, k * 5 + 5, hell(HOLZ, 30 - k * 6))
+    # Sägebock vorne links
+    iso.linie(p(-0.55, 0.45, 0), p(-0.35, 0.45, 20), BALKEN, 3)
+    iso.linie(p(-0.35, 0.45, 0), p(-0.55, 0.45, 20), BALKEN, 3)
+    iso.linie(p(-0.45, 0.2, 18), p(-0.45, 0.65, 18), hell(HOLZ, 20), 4)
+    # vordere Pfosten
+    for px, py in ((0.74, -0.66), (-0.74, 0.64), (0.74, 0.64)):
+        iso.quader(px - 0.05, px + 0.05, py - 0.05, py + 0.05, 0, 58, HOLZ, links=-40, rechts=-8)
+    # Laterne unter dem Dach
+    m = p(0.2, 0.3, 50)
+    lat = [(m[0] - 4, m[1]), (m[0] + 4, m[1]), (m[0] + 4, m[1] - 10), (m[0] - 4, m[1] - 10)]
+    iso.poly(lat, (230, 180, 80), KONTUR)
+    fenster.append(lat)
+    # Pultdach: hinten hoch, vorne tief
+    a, b, c, d = -0.92, 0.92, -0.84, 0.82
+    iso.poly([p(a, d, 58), p(b, d, 58), p(b, d, 52), p(a, d, 52)], hell(SCHINDEL, -40), KONTUR)
+    iso.poly([p(b, c, 76), p(b, d, 58), p(b, d, 52), p(b, c, 70)], hell(SCHINDEL, -20), KONTUR)
+    iso.poly([p(a, c, 76), p(b, c, 76), p(b, d, 58), p(a, d, 58)], hell(SCHINDEL, 6), KONTUR)
+    for t in (0.25, 0.5, 0.75):
+        y = c + (d - c) * t
+        iso.linie(p(a, y, 76 - 18 * t), p(b, y, 76 - 18 * t), hell(SCHINDEL, -30))
+
+
+def eingang1(iso: Iso, fenster: list) -> None:
+    """Holztor zwischen zwei Pfosten mit Querbalken und kleinem Schindeldach."""
+    schatten(iso, 0.5)
+    p = iso.p
+    iso.quader(-0.46, -0.34, -0.07, 0.07, 0, 78, HOLZ, links=-40, rechts=-8)
+    # Torflügel (Bretter mit Strebe), Vorderseite y = 0.04
+    y = 0.04
+    iso.poly([p(-0.34, y, 0), p(0.34, y, 0), p(0.34, y, 58), p(-0.34, y, 58)], hell(HOLZ, -30), KONTUR)
+    for k in range(1, 6):
+        u = -0.34 + 0.68 * k / 6
+        iso.linie(p(u, y, 0), p(u, y, 58), HOLZ_FUGE)
+    iso.linie(p(0, y, 0), p(0, y, 58), BALKEN, 2)
+    for z in (12, 46):
+        iso.linie(p(-0.34, y, z), p(0.34, y, z), BALKEN, 3)
+    iso.linie(p(-0.32, y, 14), p(-0.02, y, 44), BALKEN, 2)
+    iso.linie(p(0.32, y, 14), p(0.02, y, 44), BALKEN, 2)
+    iso.quader(0.34, 0.46, -0.07, 0.07, 0, 78, HOLZ, links=-40, rechts=-8)
+    iso.quader(-0.54, 0.54, -0.09, 0.09, 78, 86, hell(HOLZ, -12))
+    iso.satteldach(-0.54, 0.54, -0.2, 0.2, 86, 22, SCHINDEL, HOLZ, ueber=0.06)
+
+
+def einfassung1(iso: Iso, fenster: list) -> None:
+    """Palisade: angespitzte Holzpfähle mit Querriegel, an beiden Enden anschlussfähig."""
+    p = iso.p
+    n = 5
+    for k in range(n):  # von hinten (kleines x) nach vorne
+        x0 = -0.5 + k / n
+        x1 = x0 + 1 / n - 0.02
+        h = 48 + (k % 2) * 6
+        iso.quader(x0, x1, -0.06, 0.06, 0, h, HOLZ, links=-40, rechts=-8)
+        m = (x0 + x1) / 2
+        iso.poly([p(x0, 0.06, h), p(x1, 0.06, h), p(m, 0.0, h + 12)], hell(HOLZ, -30), KONTUR)
+        iso.poly([p(x1, 0.06, h), p(x1, -0.06, h), p(m, 0.0, h + 12)], hell(HOLZ, -6), KONTUR)
+    iso.quader(-0.5, 0.5, 0.06, 0.1, 30, 36, hell(HOLZ, -20))
+
+
+def ursprung1(iso: Iso, fenster: list) -> None:
+    """Feuerstelle: Steinkreis mit Scheiten, Glut (Abend-Ebene), Sitzstamm."""
+    schatten(iso, 0.45)
+    p = iso.p
+    cx, cy = p(-0.05, -0.05, 0)
+    r = 0.26
+    steine = []
+    for k in range(10):
+        a = 2 * math.pi * k / 10
+        sx, sy = p(-0.05 + r * math.cos(a), -0.05 + r * math.sin(a), 0)
+        steine.append((sy, sx))
+    for sy, sx in sorted(steine):
+        iso.d.ellipse([sx - 6, sy - 6, sx + 6, sy + 2], fill=hell(STEIN, -10), outline=KONTUR)
+    glut = [(cx - 12, cy - 2), (cx + 12, cy - 2), (cx + 8, cy + 4), (cx - 8, cy + 4)]
+    iso.poly(glut, (150, 60, 30))
+    fenster.append(glut)
+    # Scheite als kleines Zelt
+    for dx in (-8, 0, 8):
+        iso.linie((cx + dx, cy), (cx, cy - 22), BALKEN, 3)
+    flamme = [(cx - 6, cy - 4), (cx, cy - 26), (cx + 6, cy - 4)]
+    iso.poly(flamme, (240, 150, 50))
+    fenster.append(flamme)
+    # Sitzstamm vorne rechts
+    iso.quader(0.12, 0.42, 0.22, 0.36, 0, 10, HOLZ, links=-40, rechts=-8)
+    sx, sy = p(0.42, 0.29, 5)
+    iso.d.ellipse([sx - 4, sy - 6, sx + 4, sy + 5], fill=hell(HOLZ, 40), outline=KONTUR)
+
+
+def zeichen1(iso: Iso, fenster: list) -> None:
+    """Holzmast mit Petrol-Banner und Emblem."""
+    schatten(iso, 0.3)
+    p = iso.p
+    iso.quader(-0.2, 0.2, -0.2, 0.2, 0, 8, SOCKEL)
+    iso.quader(-0.04, 0.04, -0.04, 0.04, 8, 124, HOLZ, links=-40, rechts=-8)
+    iso.linie(p(-0.04, 0.0, 116), p(0.34, 0.0, 116), BALKEN, 3)
+    # Banner hängt am Querholz, Fläche y = 0
+    b = [p(0.02, 0.0, 114), p(0.32, 0.0, 114), p(0.32, 0.0, 62), p(0.17, 0.0, 72), p(0.02, 0.0, 62)]
+    iso.poly(b, PETROL, KONTUR)
+    m = p(0.17, 0.0, 96)
+    iso.d.ellipse([m[0] - 6, m[1] - 7, m[0] + 6, m[1] + 5], fill=(244, 222, 140), outline=KONTUR)
+    kopf = p(0.0, 0.0, 124)
+    iso.d.ellipse([kopf[0] - 4, kopf[1] - 6, kopf[0] + 4, kopf[1] + 2], fill=(244, 222, 140), outline=KONTUR)
+
+
+def flaeche1(iso: Iso, fenster: list) -> None:
+    """Gartenbeet: Holzrahmen mit drei Reihen Pflanzen, Weg aus Trittsteinen."""
+    p = iso.p
+    iso.quader(-0.9, 0.9, -0.9, 0.5, 0, 10, HOLZ, ERDE, links=-40, rechts=-8)
+    farben = [(214, 92, 92), (236, 200, 90), (150, 120, 210)]
+    for r, yy in enumerate((-0.62, -0.2, 0.22)):
+        for k in range(6):
+            xx = -0.72 + k * 0.29
+            m = p(xx, yy, 10)
+            iso.d.ellipse([m[0] - 9, m[1] - 12, m[0] + 9, m[1] + 2], fill=hell(GRUEN, (k % 2) * 14 - 6), outline=KONTUR)
+            if (k + r) % 2 == 0:
+                iso.d.ellipse([m[0] - 3, m[1] - 12, m[0] + 3, m[1] - 6], fill=farben[r])
+    for xx in (-0.6, -0.1, 0.4, 0.8):
+        m = p(xx, 0.72, 0)
+        iso.d.ellipse([m[0] - 9, m[1] - 4, m[0] + 9, m[1] + 4], fill=GRAU, outline=KONTUR)
+
+
+def denkmal1(iso: Iso, fenster: list) -> None:
+    """Steinsockel mit Figur in neutralem Grau (Gestalten färbt später, §3)."""
+    schatten(iso, 0.4)
+    p = iso.p
+    iso.quader(-0.32, 0.32, -0.32, 0.32, 0, 10, hell(STEIN, -14))
+    iso.quader(-0.24, 0.24, -0.24, 0.24, 10, 40, STEIN)
+    iso.textur_stein(-0.24, 0.24, -0.24, 0.24, 10, 40, 10)
+    iso.quader(-0.11, 0.11, -0.08, 0.08, 40, 92, GRAU, links=-30, rechts=-6)
+    kopf = p(0.0, 0.0, 104)
+    iso.d.ellipse([kopf[0] - 9, kopf[1] - 11, kopf[0] + 9, kopf[1] + 7], fill=hell(GRAU, 10), outline=KONTUR)
+    iso.linie(p(0.11, 0.0, 84), p(0.2, 0.0, 120), hell(GRAU, -20), 5)  # erhobener Arm
+    iso.linie(p(-0.11, 0.0, 84), p(-0.16, 0.0, 58), hell(GRAU, -30), 5)
+
+
+def erzeuge_mit(zeichne, n: int, breite: int) -> tuple[Image.Image, Image.Image]:
+    """Zeichnet ein Gebäude mit n×n Feldern; schneidet oben den leeren Rand ab."""
+    bild = Image.new("RGBA", (breite, ROH_H), (0, 0, 0, 0))
+    iso = Iso(bild, n)
     fenster: list = []
-    {1: stufe1, 2: stufe2, 3: stufe3}[stufe](iso, fenster)
+    zeichne(iso, fenster)
     abend = Image.new("RGBA", bild.size, (0, 0, 0, 0))
     da = ImageDraw.Draw(abend)
     for pts in fenster:
@@ -303,20 +578,46 @@ def erzeuge(stufe: int) -> tuple[Image.Image, Image.Image]:
     box = bild.getbbox()
     assert box
     oben = max(0, box[1] - 4)
-    return bild.crop((0, oben, BREITE, ROH_H)), abend.crop((0, oben, BREITE, ROH_H))
+    return bild.crop((0, oben, breite, ROH_H)), abend.crop((0, oben, breite, ROH_H))
+
+
+def erzeuge(stufe: int) -> tuple[Image.Image, Image.Image]:
+    return erzeuge_mit({1: stufe1, 2: stufe2, 3: stufe3}[stufe], 3, BREITE)
 
 
 WURZEL = Path(__file__).resolve().parents[2]
 ATLAS = WURZEL / "public" / "grafik" / "atlas"
 
 
+# Erneuerte Gebäude: Rolle, Stufe, Zeichnung, Felder (n×n), Bildbreite (wie P3: n·96 + 8)
+GEBAEUDE = [
+    ("kern", 1, stufe1, 3, BREITE),
+    ("kern", 2, stufe2, 3, BREITE),
+    ("kern", 3, stufe3, 3, BREITE),
+    ("wissen", 1, wissen1, 2, 200),
+    ("wissen", 2, wissen2, 2, 200),
+    ("turm", 1, turm1, 1, 104),
+    ("turm", 2, turm2, 1, 104),
+    ("werkstatt", 1, werkstatt1, 2, 200),
+    ("eingang", 1, eingang1, 1, 104),
+    ("einfassung", 1, einfassung1, 1, 104),
+    ("ursprung", 1, ursprung1, 1, 104),
+    ("zeichen", 1, zeichen1, 1, 104),
+    ("flaeche", 1, flaeche1, 2, 200),
+    ("denkmal", 1, denkmal1, 1, 104),
+]
+
+
 def main() -> int:
     manifest_pfad = ATLAS / "manifest.json"
     manifest = json.loads(manifest_pfad.read_text(encoding="utf-8"))
     neu: dict[str, dict] = {}
-    for s in (1, 2, 3):
-        bild, abend = erzeuge(s)
-        for name, b in ((f"kern_s{s}", bild), (f"kern_s{s}_fenster", abend)):
+    for rolle, stufe, zeichne, n, breite in GEBAEUDE:
+        bild, abend = erzeuge_mit(zeichne, n, breite)
+        bilder = [(f"{rolle}_s{stufe}", bild)]
+        if abend.getbbox():  # Abend-Ebene nur, wo etwas leuchtet
+            bilder.append((f"{rolle}_s{stufe}_fenster", abend))
+        for name, b in bilder:
             rel = f"gebaeude/bastion/e1/{name}.png"
             pfad = ATLAS / rel
             pfad.parent.mkdir(parents=True, exist_ok=True)
@@ -324,7 +625,7 @@ def main() -> int:
             neu[f"bastion/e1/{name}"] = {
                 "id": f"bastion/e1/{name}",
                 "datei": rel,
-                "felder": [3, 3],
+                "felder": [n, n],
                 "anker": {"x": 0.5, "y": 1.0},
                 "pixel": {"w": b.width, "h": b.height},
             }

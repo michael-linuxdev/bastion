@@ -19,6 +19,8 @@ import { describe, expect, it } from 'vitest';
 /** Erneuerte Gebäude: [Atlas-Ordner, Rolle, Zahl der Stufen] */
 const ERNEUERT: readonly (readonly [string, string, number])[] = [
   ['gebaeude/bastion/e1', 'kern', 3], // G3 Charge 1, 02.11.2026
+  ['gebaeude/bastion/e1', 'wissen', 2], // G3 Charge 2, 02.11.2026
+  ['gebaeude/bastion/e1', 'turm', 2], // G3 Charge 2, 02.11.2026
 ];
 
 const MIN_UMRISS = 0.25;
