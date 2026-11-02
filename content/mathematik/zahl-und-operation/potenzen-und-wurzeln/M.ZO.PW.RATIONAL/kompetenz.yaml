@@ -1,0 +1,38 @@
+# Potenzen mit rationalen Hochzahlen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PW.RATIONAL
+fach: mathematik
+bereich: zahl-und-operation
+feld: potenzen-und-wurzeln
+titel:
+  de: 'Potenzen mit Bruch-Hochzahlen'
+kann_satz:
+  de: 'Ich kann Potenzen mit rationalen Exponenten als Wurzeln schreiben und damit rechnen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.ZO.PW.GESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Hochzahlen wie ½ und ⅓ als Wurzel lesen und ausrechnen; Wurzeln als Potenz schreiben.'
+  M:
+    beschreibung:
+      de: 'Hochzahlen wie ⅔ in zwei Schritten ausrechnen; Kehrwerte mit negativer Bruch-Hochzahl schreiben.'
+  E:
+    beschreibung:
+      de: 'Aussagen über Bruch-Hochzahlen prüfen, zum Beispiel ob hoch ein Halb dasselbe ist wie halbieren.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

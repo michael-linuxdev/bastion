@@ -1,0 +1,26 @@
+id: FV.PW.TEIL-VERGESSEN
+name:
+  de: Rechnet bei einer Bruch-Hochzahl nur die Wurzel oder nur die Potenz
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet 8^(2/3) = 2 (nur Wurzel) oder 8^(2/3) = 64 (nur hoch 2). Dass eine Hochzahl wie ⅔ zwei
+    Schritte verlangt, Wurzel und Potenz, wird übersehen.
+kompetenzen: [M.ZO.PW.RATIONAL]
+erklaerung:
+  kurz:
+    de: '$8^{\frac{2}{3}}$ hat zwei Teile: die dritte [[Wurzel]] ([[Nenner]] 3) und hoch 2 ([[Zähler]] 2). $\sqrt[3]{8} = 2$ und $2^2 = 4$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur einen Teil der [[Hochzahl]] beachtet.'
+    - teil: warum-nicht
+      de: '[[Zähler]] und [[Nenner]] tragen beide etwas bei. Lässt du einen weg, rechnest du eine andere Aufgabe.'
+    - teil: so-stimmt-es
+      de: 'Erst die [[Wurzel]] aus dem [[Nenner]], dann hoch den [[Zähler]]: $a^{\frac{m}{n}} = \left(\sqrt[n]{a}\right)^m$.'
+gegenbeispiel:
+  de: '$8^{\frac{2}{3}} \cdot 8^{\frac{2}{3}} \cdot 8^{\frac{2}{3}} = 8^2 = 64$. Mit 2 käme 8 heraus, mit 64 viel zu viel.'
+rueckweg:
+  vermittlung: M.ZO.PW.RATIONAL#erklaeren-zaehler
+kontrast: [M.ZO.PW.RATIONAL.WERT]
+herkunft: ki-entwurf
+version: 1

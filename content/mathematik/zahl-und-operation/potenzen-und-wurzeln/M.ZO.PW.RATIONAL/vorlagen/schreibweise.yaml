@@ -1,0 +1,31 @@
+# „Welcher Term ist gleich ³√x²?“. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.RATIONAL.SCHREIBWEISE
+kompetenz: M.ZO.PW.RATIONAL
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pw.rational-schreibweise@1
+parameter:
+  G: { negativ: false }
+  M: { negativ: true }
+text:
+  aufgabe:
+    de: '**Welcher** [[Term]] ist gleich ${term}$?'
+hilfen:
+  - de: 'Die [[Wurzel]] steht im [[Nenner]] der [[Hochzahl]], die Hochzahl unter der Wurzel im [[Zähler]]: $\sqrt[3]{x^2} = x^{\frac{2}{3}}$.'
+  - de: 'Ein [[Kehrwert]] wie $\frac{1}{x^2}$ bekommt ein Minus in der [[Hochzahl]]: $x^{-2}$.'
+fehlerbilder:
+  vertauscht:
+    de: '[[Zähler]] und [[Nenner]] der [[Hochzahl]] sind vertauscht. Die [[Wurzel]] gehört in den Nenner.'
+    fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT
+  geteilt:
+    de: 'Eine [[Wurzel]] ist kein Teilen. $\sqrt[3]{x}$ ist die Zahl, die dreimal malgenommen x ergibt, nicht ein Drittel von x.'
+    fv: FV.PW.BRUCH-HOCHZAHL-GETEILT
+  minus-vergessen:
+    de: 'Es fehlt das Minus. Der [[Kehrwert]] $\frac{1}{a^k}$ ist $a^{-k}$.'
+    fv: FV.PW.NEGATIVER-EXPONENT
+  hochzahl-mal:
+    de: 'Die [[Wurzel]] ist kein Malnehmen der [[Hochzahl]]. Sie teilt die Hochzahl: $\sqrt[3]{x^2} = x^{\frac{2}{3}}$.'
+    fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1

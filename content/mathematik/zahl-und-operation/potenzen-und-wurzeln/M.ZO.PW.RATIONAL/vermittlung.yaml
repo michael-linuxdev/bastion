@@ -1,0 +1,93 @@
+id: M.ZO.PW.RATIONAL
+kompetenz: M.ZO.PW.RATIONAL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Potenzen wie $27^{\frac{1}{3}}$ und $8^{\frac{2}{3}}$ als [[Wurzel]] lesen und ausrechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $a^{3} \cdot a^{4}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$a^7$' }, richtig: true }
+        - { wert: { de: '$a^{12}$' }, fv: FV.PW.EXPONENTEN-MAL }
+    weiter: entdecken
+    bei: { FV.PW.EXPONENTEN-MAL: M.ZO.PW.GESETZE, sonst: M.ZO.PW.GESETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Nach dem [[Potenzgesetz]] ist $9^{\frac{1}{2}} \cdot 9^{\frac{1}{2}} = 9^1 = 9$. Welche Zahl mal sich selbst ergibt 9?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '3', fehler: [{ wert: '4,5', fv: FV.PW.BRUCH-HOCHZAHL-GETEILT }] }
+    weiter: erklaeren-wurzel
+  - id: erklaeren-wurzel
+    typ: erklaeren
+    text:
+      de: 'Also ist $9^{\frac{1}{2}} = \sqrt{9} = 3$. Allgemein: $a^{\frac{1}{n}} = \sqrt[n]{a}$. Der [[Nenner]] der [[Hochzahl]] sagt, welche [[Wurzel]] du ziehst.'
+    weiter: erklaeren-zaehler
+  - id: erklaeren-zaehler
+    typ: erklaeren
+    text:
+      de: 'Steht oben mehr als 1, kommt eine Potenz dazu: $a^{\frac{m}{n}} = \left(\sqrt[n]{a}\right)^m = \sqrt[n]{a^m}$. [[Wurzel]] und [[Nenner]] stehen beide unten.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$8^{\frac{2}{3}} = \left(\sqrt[3]{8}\right)^2 = 2^2 = 4$. Erst die [[Wurzel]], dann hoch 2: So bleiben die Zahlen klein.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne $27^{\frac{1}{3}}$.'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '3', fehler: [{ wert: '9', fv: FV.PW.BRUCH-HOCHZAHL-GETEILT }] }
+    weiter: gegenbeispiel
+    bei: { FV.PW.BRUCH-HOCHZAHL-GETEILT: erklaeren-wurzel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jonas schreibt: $\sqrt[3]{x^2} = x^{\frac{3}{2}}$. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die Wurzel gehört in den Nenner: $x^{\frac{2}{3}}$.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die Wurzel kommt nach oben.' }, fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT }
+    weiter: merksatz
+    bei: { FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT: erklaeren-zaehler }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$a^{\frac{1}{n}} = \sqrt[n]{a}$ und $a^{\frac{m}{n}} = \sqrt[n]{a^m}$ für a ≥ 0. [[Nenner]]: [[Wurzel]]. [[Zähler]]: [[Hochzahl]]. Eine negative Hochzahl macht den [[Kehrwert]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist $16^{\frac{1}{2}}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '8' }, fv: FV.PW.BRUCH-HOCHZAHL-GETEILT }
+        - { wert: { de: '256' }, fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT }
+    weiter: uebergang
+    bei:
+      {
+        FV.PW.BRUCH-HOCHZAHL-GETEILT: erklaeren-wurzel,
+        FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT: erklaeren-zaehler,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit [[Bruch]]-Hochzahlen.'
+    vorlagen: [M.ZO.PW.RATIONAL.WERT, M.ZO.PW.RATIONAL.SCHREIBWEISE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

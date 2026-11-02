@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 2⁻³ = −8 oder lässt das Minus weg: 2⁻³ = 8. Das Minus der Hochzahl wird wie ein
     Vorzeichen der Zahl gelesen. Dass a⁻ⁿ der Kehrwert von aⁿ ist, ist noch nicht verankert.
-kompetenzen: [M.ZO.PW.GESETZE]
+kompetenzen: [M.ZO.PW.GESETZE, M.ZO.PW.RATIONAL]
 erklaerung:
   kurz:
     de: '$2^{-3} = \frac{1}{2^3} = \frac{1}{8}$. Eine negative [[Hochzahl]] macht einen [[Bruch]], keine [[negative Zahl]].'

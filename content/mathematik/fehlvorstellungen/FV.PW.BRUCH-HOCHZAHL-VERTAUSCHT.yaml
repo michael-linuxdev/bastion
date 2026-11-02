@@ -1,0 +1,26 @@
+id: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT
+name:
+  de: Vertauscht bei einer Bruch-Hochzahl Wurzel und Hochzahl
+art: verwechslung
+beschreibung:
+  de: >-
+    Schreibt ³√x² als x^(3/2) oder liest a^(2/3) als Quadratwurzel aus a³. Welche Zahl die Wurzel
+    und welche die Hochzahl angibt, wird verwechselt.
+kompetenzen: [M.ZO.PW.RATIONAL]
+erklaerung:
+  kurz:
+    de: 'Die [[Wurzel]] steht unten, im [[Nenner]]: $\sqrt[3]{x^2} = x^{\frac{2}{3}}$. Merke: Wurzel – Nenner, beide „unten“.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Zähler]] und [[Nenner]] der [[Hochzahl]] vertauscht.'
+    - teil: warum-nicht
+      de: '$x^{\frac{1}{3}}$ ist die Kubikwurzel, denn dreimal malgenommen gibt es $x^1$. Also gehört die 3 der [[Wurzel]] in den [[Nenner]].'
+    - teil: so-stimmt-es
+      de: '$\sqrt[n]{a^m} = a^{\frac{m}{n}}$: Die [[Wurzel]] kommt in den [[Nenner]], die [[Hochzahl]] unter der Wurzel in den [[Zähler]].'
+gegenbeispiel:
+  de: '$\sqrt{9^1} = 3$. Mit vertauschter [[Hochzahl]] wäre es $9^{\frac{2}{1}} = 81$.'
+rueckweg:
+  vermittlung: M.ZO.PW.RATIONAL#erklaeren-zaehler
+kontrast: [M.ZO.PW.RATIONAL.SCHREIBWEISE, M.ZO.PW.RATIONAL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

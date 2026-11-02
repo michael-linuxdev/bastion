@@ -7,7 +7,7 @@ beschreibung:
     Rechnet a² · a³ = a⁶ oder 2³ · 2⁴ = 2¹². Weil malgenommen wird, werden auch die Hochzahlen
     malgenommen. Dass die Hochzahlen Faktoren zählen und sich beim Malnehmen addieren, ist noch
     nicht verankert.
-kompetenzen: [M.ZO.PW.GESETZE]
+kompetenzen: [M.ZO.PW.GESETZE, M.ZO.PW.RATIONAL]
 erklaerung:
   kurz:
     de: 'Zähle die [[Faktoren]]: $a^2 \cdot a^3 = a \cdot a \cdot a \cdot a \cdot a = a^5$. Beim Malnehmen werden die Hochzahlen addiert.'

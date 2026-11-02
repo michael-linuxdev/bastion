@@ -1,0 +1,39 @@
+# „Stimmt das? a^(1/2) = a/2“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.RATIONAL.AUSSAGE
+kompetenz: M.ZO.PW.RATIONAL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pw.rational-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** ${aussage}$ **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Setze für a eine Quadratzahl ein, zum Beispiel 9 oder 16, und rechne beide Seiten aus.'
+  - de: 'Die [[Potenzgesetze]] gelten auch für [[Bruch]]-Hochzahlen.'
+fehlerbilder:
+  geteilt:
+    de: 'Hoch ein Halb heißt Quadratwurzel, nicht halbieren: $16^{\frac{1}{2}} = 4$, aber die Hälfte von 16 ist 8.'
+    fv: FV.PW.BRUCH-HOCHZAHL-GETEILT
+  nur-beispiel:
+    de: 'Ein Beispiel, bei dem es stimmt, reicht nicht. Ein einziges [[Gegenbeispiel]] widerlegt die Aussage.'
+    fv: FV.KR.GEGENBEISPIEL
+  vertauscht:
+    de: 'Der [[Nenner]] der [[Hochzahl]] gibt die [[Wurzel]] an, der [[Zähler]] die Hochzahl unter der Wurzel.'
+    fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT
+  mal-statt-plus:
+    de: 'Gleiche [[Basis]], malnehmen: Die Hochzahlen werden addiert, $\frac{1}{2} + \frac{1}{2} = 1$.'
+    fv: FV.PW.EXPONENTEN-MAL
+  plus-statt-mal:
+    de: 'Potenz einer Potenz: Die Hochzahlen werden malgenommen.'
+    fv: FV.PW.EXPONENTEN-ADDIERT
+  negativ-minus:
+    de: 'Eine negative [[Hochzahl]] bedeutet [[Kehrwert]], keine [[negative Zahl]]: $4^{-\frac{1}{2}} = \frac{1}{2}$.'
+    fv: FV.PW.NEGATIVER-EXPONENT
+  negativ-ignoriert:
+    de: 'Das Minus in der [[Hochzahl]] zählt: Es macht den [[Kehrwert]].'
+    fv: FV.PW.NEGATIVER-EXPONENT
+herkunft: ki-entwurf
+version: 1

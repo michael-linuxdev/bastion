@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet (a²)³ = a⁵. Das Gesetz für das Malnehmen von Potenzen wird auf die Potenz einer
     Potenz übertragen. Dass (a²)³ dreimal a² malnimmt, wird nicht gesehen.
-kompetenzen: [M.ZO.PW.GESETZE]
+kompetenzen: [M.ZO.PW.GESETZE, M.ZO.PW.RATIONAL]
 erklaerung:
   kurz:
     de: '$(a^2)^3$ heißt dreimal $a^2$: $a^2 \cdot a^2 \cdot a^2 = a^6$. Die Hochzahlen werden malgenommen.'
