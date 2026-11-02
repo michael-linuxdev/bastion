@@ -120,7 +120,15 @@
     };
   }
 
-  let aufgabe = $derived(erzeuge(nummer));
+  /**
+   * Die Aufgabe hängt nur an ihrer Nummer. Ohne untrack entstünde sie neu (mit neuem Seed),
+   * sobald ein gespeichertes Ergebnis den Lernstand ändert – nach den Zwischenschritten stand
+   * dann plötzlich eine andere Aufgabe da.
+   */
+  let aufgabe = $derived.by(() => {
+    const n = nummer;
+    return untrack(() => erzeuge(n));
+  });
 
   /**
    * Zwischenschritte (K-29): Nach einem falschen Ergebnis fragt Bastion nach dem Weg,
