@@ -1,0 +1,26 @@
+id: FV.QF.FAKTOR
+name:
+  de: Deutet den Faktor vor x² falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Vergisst bei f(x) = 2 · x² − 1 den Faktor 2 oder hält bei f(x) = −2 · (x − 1)² + 5 die −2 für den
+    größten Wert. Dass der Faktor die Parabel streckt und ihre Öffnung bestimmt, ist nicht verankert.
+kompetenzen: [M.SF.QF.GRAPH, M.SF.QF.SCHEITEL]
+erklaerung:
+  kurz:
+    de: 'Der [[Faktor]] vor $x^2$ streckt die [[Parabel]] und bestimmt, ob sie nach oben oder unten geöffnet ist. Beim Rechnen nimmst du das Quadrat mit ihm mal.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Faktor]] vor $x^2$ übergangen oder als [[Funktionswert]] gelesen.'
+    - teil: warum-nicht
+      de: '$2x^2$ heißt $2 \cdot x^2$. Bei $x = 3$ ist das $2 \cdot 9 = 18$, nicht 9. Der Extremwert ist die y-[[Koordinate]] des [[Scheitelpunkt]]s, nicht der [[Faktor]].'
+    - teil: so-stimmt-es
+      de: 'Erst quadrieren, dann mit dem [[Faktor]] malnehmen. Den Extremwert liest du aus der Scheitelform hinten ab.'
+gegenbeispiel:
+  de: '$f(x) = 2x^2$: $f(3) = 18$. Ohne [[Faktor]] käme 9 heraus, der Punkt (3|9) liegt nicht auf dem [[Graphen]].'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-faktor
+kontrast: [M.SF.QF.GRAPH.WERTETABELLE, M.SF.QF.SCHEITEL.EXTREMUM]
+herkunft: ki-entwurf
+version: 1

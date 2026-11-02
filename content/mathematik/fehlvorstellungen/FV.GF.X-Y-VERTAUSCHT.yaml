@@ -14,6 +14,8 @@ kompetenzen:
     M.RF.GF.KOORDINATEN,
     M.RF.GF.QUADRANTEN,
     M.RF.AE.STRECKUNG,
+    M.SF.QF.GRAPH,
+    M.SF.QF.SCHEITEL,
   ]
 erklaerung:
   kurz:

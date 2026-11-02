@@ -1,0 +1,21 @@
+# „Lies den Wertebereich ab: y ≥ □“ – mit Graph. Entwurf: noch nicht geprüft.
+id: M.SF.QF.GRAPH.WERTEBEREICH
+kompetenz: M.SF.QF.GRAPH
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: qf.wertebereich@1
+parameter:
+  M: { unten: true }
+text:
+  aufgabe:
+    de: '**Lies** den [[Wertebereich]] **ab**. Er hat die Form $y {zeichen} \square$. Welche Zahl gehört in das Kästchen?'
+hilfen:
+  - de: 'Der [[Scheitelpunkt]] ist der tiefste oder höchste Punkt. Seine y-[[Koordinate]] begrenzt den [[Wertebereich]].'
+  - de: 'Nach oben geöffnet: alle y ab dem [[Scheitelpunkt]]. Nach unten geöffnet: alle y bis zum Scheitelpunkt.'
+fehlerbilder:
+  x-statt-y:
+    de: 'Das ist die x-[[Koordinate]] des [[Scheitelpunkts]]. Der [[Wertebereich]] spricht über die y-Werte.'
+    fv: FV.GF.X-Y-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1

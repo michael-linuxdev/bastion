@@ -1,0 +1,26 @@
+id: FV.QF.DEFINITION-WERTEBEREICH
+name:
+  de: Verwechselt Definitions- und Wertebereich
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt bei y = x² − 4 als Definitionsbereich x ≥ 2 oder als Wertebereich alle reellen Zahlen an.
+    Welcher Bereich zu x und welcher zu y gehört, ist nicht sicher.
+kompetenzen: [M.SF.QF.GRAPH]
+erklaerung:
+  kurz:
+    de: 'Der [[Definitionsbereich]] sagt, welche x man einsetzen darf. Der [[Wertebereich]] sagt, welche y herauskommen können.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden Bereiche vertauscht oder beim [[Definitionsbereich]] auf die y-Werte geschaut.'
+    - teil: warum-nicht
+      de: 'In $x^2 - 4$ kann man jede Zahl einsetzen. Herauskommen aber nur Zahlen ab $-4$, denn $x^2$ ist nie negativ.'
+    - teil: so-stimmt-es
+      de: '[[Definitionsbereich]]: Welche x sind erlaubt? [[Wertebereich]]: Welche y erreicht der [[Graph]]? Lies ihn dafür an der y-Achse ab.'
+gegenbeispiel:
+  de: 'Bei $y = x^2 - 4$ darf man $x = 0$ einsetzen, obwohl $y = -4$ herauskommt.'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-ablesen
+kontrast: [M.SF.QF.GRAPH.AUSSAGE, M.SF.QF.GRAPH.WERTEBEREICH]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+id: FV.QF.NULLSTELLE-SCHEITEL
+name:
+  de: Verwechselt Nullstellen und Scheitelpunkt
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt als Nullstellen die Koordinaten des Scheitelpunkts an. Der auffälligste Punkt der Parabel
+    wird genommen, statt die Schnittstellen mit der x-Achse zu suchen.
+kompetenzen: [M.SF.QF.GRAPH]
+erklaerung:
+  kurz:
+    de: '[[Nullstellen]] sind die Stellen, an denen die [[Parabel]] die x-Achse schneidet. Dort ist $y = 0$. Der [[Scheitelpunkt]] ist der tiefste oder höchste Punkt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Scheitelpunkt]] abgelesen, weil er auffällt.'
+    - teil: warum-nicht
+      de: 'An einer [[Nullstelle]] ist der [[Funktionswert]] 0. Der [[Scheitelpunkt]] liegt meist über oder unter der x-Achse.'
+    - teil: so-stimmt-es
+      de: 'Fahre die x-Achse entlang und suche die Stellen, an denen der [[Graph]] sie kreuzt. Meist sind es zwei, manchmal eine oder keine.'
+gegenbeispiel:
+  de: '$y = (x - 1)^2 - 4$ hat den [[Scheitelpunkt]] $(1|-4)$, aber die [[Nullstellen]] $-1$ und 3.'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-ablesen
+  voraussetzung: M.SF.FK.NULLSTELLE
+kontrast: [M.SF.QF.GRAPH.NULLSTELLEN]
+herkunft: ki-entwurf
+version: 1

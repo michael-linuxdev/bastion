@@ -1,0 +1,25 @@
+# „Lies die Nullstellen ab.“ – mit Graph. Entwurf: noch nicht geprüft.
+id: M.SF.QF.GRAPH.NULLSTELLEN
+kompetenz: M.SF.QF.GRAPH
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: qf.nullstellen@1
+parameter:
+  G: { unten: false }
+  M: { unten: true }
+text:
+  aufgabe:
+    de: '**Lies** die [[Nullstellen]] der [[Parabel]] **ab**.'
+hilfen:
+  - de: '[[Nullstellen]] sind die Stellen, an denen der [[Graph]] die x-Achse schneidet. Berührt er sie nie, gibt es keine.'
+  - de: 'Schau, wo der [[Scheitelpunkt]] liegt und wohin die [[Parabel]] geöffnet ist. Daran siehst du, ob sie die x-Achse überhaupt erreicht.'
+fehlerbilder:
+  scheitel-statt-nullstellen:
+    de: 'Das ist der [[Scheitelpunkt]]. Gesucht sind die Stellen, an denen der [[Graph]] die x-Achse schneidet.'
+    fv: FV.QF.NULLSTELLE-SCHEITEL
+  vorzeichen:
+    de: 'Schau genau hin: Liegt der [[Schnittpunkt]] links von 0, ist die Zahl negativ.'
+    fv: FV.FK.VORZEICHEN-GRAPH
+herkunft: ki-entwurf
+version: 1

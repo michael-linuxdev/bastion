@@ -1,0 +1,27 @@
+# „f(x) = −2(x − 1)² + 5: Maximum oder Minimum?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.SCHEITEL.EXTREMUM
+kompetenz: M.SF.QF.SCHEITEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.extremum@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Was** stimmt für ${funktion}$? **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Lies den [[Scheitelpunkt]] aus der Scheitelform ab.'
+  - de: 'Ist die Zahl vor der Klammer positiv, ist die [[Parabel]] nach oben geöffnet: Minimum. Ist sie negativ: Maximum.'
+fehlerbilder:
+  oeffnung-verdreht:
+    de: 'Prüfe die Öffnung: Ein Minus vor der Klammer öffnet die [[Parabel]] nach unten, dann ist der [[Scheitelpunkt]] der höchste Punkt.'
+    fv: FV.QF.OEFFNUNG
+  x-statt-y:
+    de: 'Der Extremwert ist die y-[[Koordinate]] des [[Scheitelpunkts]]. Die x-Koordinate sagt, wo er angenommen wird.'
+    fv: FV.GF.X-Y-VERTAUSCHT
+  faktor-als-wert:
+    de: 'Die Zahl vor der Klammer bestimmt Öffnung und Streckung, nicht den Extremwert.'
+    fv: FV.QF.FAKTOR
+herkunft: ki-entwurf
+version: 1

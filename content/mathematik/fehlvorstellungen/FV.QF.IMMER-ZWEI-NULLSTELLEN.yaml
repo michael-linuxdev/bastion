@@ -1,0 +1,26 @@
+id: FV.QF.IMMER-ZWEI-NULLSTELLEN
+name:
+  de: Meint, jede Parabel habe zwei Nullstellen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält zwei Nullstellen für selbstverständlich, weil die bekannten Beispiele so aussehen.
+    Parabeln, die die x-Achse nur berühren oder gar nicht erreichen, sind nicht im Blick.
+kompetenzen: [M.SF.QF.GRAPH]
+erklaerung:
+  kurz:
+    de: 'Eine [[Parabel]] kann die x-Achse zweimal schneiden, sie einmal berühren oder sie gar nicht erreichen: $y = x^2 + 1$ hat keine [[Nullstelle]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du kennst vor allem [[Parabeln]] mit zwei [[Nullstellen]] und hast daraus eine Regel gemacht.'
+    - teil: warum-nicht
+      de: 'Liegt der [[Scheitelpunkt]] über der x-Achse und ist die [[Parabel]] nach oben geöffnet, kommt sie nie bis zur x-Achse.'
+    - teil: so-stimmt-es
+      de: 'Schau auf [[Scheitelpunkt]] und Öffnung. Dann weißt du, ob es zwei, eine oder keine [[Nullstelle]] gibt.'
+gegenbeispiel:
+  de: '$x^2 \geq 0$, also ist $x^2 + 1 \geq 1$. Der Wert 0 wird nie erreicht.'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-ablesen
+kontrast: [M.SF.QF.GRAPH.NULLSTELLEN, M.SF.QF.GRAPH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

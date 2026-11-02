@@ -1,0 +1,28 @@
+# „Gib den Scheitelpunkt von f(x) = (x − 2)² + 3 an.“ Entwurf: noch nicht geprüft.
+id: M.SF.QF.SCHEITEL.BESTIMMEN
+kompetenz: M.SF.QF.SCHEITEL
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: qf.scheitel@1
+parameter:
+  G: { formen: [scheitelform] }
+  M: { formen: [scheitelform, normalform] }
+text:
+  aufgabe:
+    de: '**Gib** den [[Scheitelpunkt]] von ${funktion}$ **an**.'
+hilfen:
+  - de: 'Scheitelform: $f(x) = (x - d)^2 + e$ hat den [[Scheitelpunkt]] $S(d|e)$. Achte auf das [[Vorzeichen]]: $(x + 3)^2$ gehört zu $d = -3$.'
+  - de: 'Normalform: Ergänze quadratisch. Die Hälfte der Zahl vor x, ins Quadrat genommen, wird addiert und wieder abgezogen.'
+fehlerbilder:
+  vorzeichen-d:
+    de: 'Das [[Vorzeichen]] in der Klammer ist umgekehrt: $(x - 2)^2$ wird bei $x = 2$ null, also liegt der [[Scheitelpunkt]] bei $x = 2$.'
+    fv: FV.QF.SCHEITEL-VORZEICHEN
+  q-statt-e:
+    de: 'Die Zahl am Ende der Normalform ist nicht die y-[[Koordinate]]. Ergänze quadratisch oder setze den x-Wert ein.'
+    fv: FV.QF.ERGAENZEN
+  p-nicht-halbiert:
+    de: 'Halbiere die Zahl vor x: Bei $x^2 - 6x$ liegt der [[Scheitelpunkt]] bei $x = 3$, nicht bei 6.'
+    fv: FV.QF.ERGAENZEN
+herkunft: ki-entwurf
+version: 1

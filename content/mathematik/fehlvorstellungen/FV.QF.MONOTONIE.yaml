@@ -1,0 +1,27 @@
+id: FV.QF.MONOTONIE
+name:
+  de: Liest steigend und fallend an der Parabel falsch
+art: lesefehler
+beschreibung:
+  de: >-
+    Meint, die Normalparabel steige links vom Scheitelpunkt, oder sie steige überall, weil x² nie
+    negativ ist. Dass man den Graphen von links nach rechts liest, ist nicht verankert.
+kompetenzen: [M.SF.QF.GRAPH]
+erklaerung:
+  kurz:
+    de: 'Lies von links nach rechts. Bei $y = x^2$ werden die Werte bis $x = 0$ kleiner (fallend), danach größer (steigend).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Graphen]] von der Mitte aus nach außen gelesen oder nur auf das [[Vorzeichen]] geachtet.'
+    - teil: warum-nicht
+      de: 'Steigend heißt: Wird x größer, wird auch y größer. Von $x = -3$ nach $x = -1$ sinkt y von 9 auf 1.'
+    - teil: so-stimmt-es
+      de: 'Gehe mit dem Finger von links nach rechts über den [[Graphen]]. Abwärts heißt fallend, aufwärts heißt steigend.'
+gegenbeispiel:
+  de: '$(-3)^2 = 9$ und $(-1)^2 = 1$: Links vom [[Scheitelpunkt]] wird y kleiner, obwohl x größer wird.'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-ablesen
+  voraussetzung: M.SF.FK.EIGENSCHAFTEN
+kontrast: [M.SF.QF.GRAPH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1
