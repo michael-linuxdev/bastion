@@ -15,7 +15,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 HW, HH = 48, 24  # halbe Rautenbreite/-höhe je Feld (2×)
-BREITE, ROH_H = 296, 560
+BREITE, ROH_H = 296, 1000  # Höhe nur Arbeitsfläche, oben wird beschnitten
 
 KONTUR = (43, 38, 32, 120)
 STEIN = (176, 164, 146)
@@ -374,4 +374,70 @@ def schreibe_atlas(thema: str, gebaeude, umgebung=(), wesen=None, *, epoche: int
     manifest_pfad.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for k, v in neu.items():
         print(k, v["pixel"])
+    return 0
+
+
+def raeume_epochen(thema: str) -> int:
+    """Eine Stufe hat in jeder Epoche dasselbe Bild (Entscheidung PV, 02.11.2026).
+    Entfernt in e2–e4 jedes Gebäudebild (und jede Abend-Ebene), dessen Stufe es schon
+    in einer früheren Epoche gibt; die App nimmt dann über den Epoche-Rückfall
+    (`atlasEintrag`) das frühere Bild. Gibt die Zahl der entfernten Einträge zurück."""
+    manifest_pfad = ATLAS / "manifest.json"
+    manifest = json.loads(manifest_pfad.read_text(encoding="utf-8"))
+    ids = {e["id"] for e in manifest["eintraege"]}
+
+    def frueher(epoche: int, name: str) -> bool:
+        basis = name.removesuffix("_fenster")
+        return any(f"{thema}/e{e}/{basis}" in ids for e in range(1, epoche))
+
+    weg = []
+    for e in manifest["eintraege"]:
+        teile = e["id"].split("/")
+        if len(teile) == 3 and teile[0] == thema and teile[1] in ("e2", "e3", "e4"):
+            if frueher(int(teile[1][1]), teile[2]):
+                weg.append(e)
+    for e in weg:
+        (ATLAS / e["datei"]).unlink(missing_ok=True)
+    manifest["eintraege"] = [e for e in manifest["eintraege"] if e not in weg]
+    manifest_pfad.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return len(weg)
+
+
+# —— Epochen 2–4 (§12.11): gemeinsame Bauteile und Schreiben ————————————————
+
+SCHIEFER = (96, 104, 118)
+KUPFER = (92, 156, 138)  # Grünspan, Metalldach ab Epoche 4
+GOLD_MATT = (214, 182, 104)  # Knauf und Spitze, matt (kein Glitzern, R1)
+
+
+def rundturm(iso: Iso, fenster: list, x, y, r, h, dach, *, wand=STEIN, kegel_h=None, reihen=(), fahne=None, zinnen=False) -> tuple[float, float]:
+    """Runder Turm mit Kegeldach (oder Zinnenkranz), Fenster auf der Vorderseite.
+    Gibt die Spitze zurück."""
+    iso.zylinder(x, y, r, 0, h, wand)
+    cx, cy = iso.p(x, y, 0)
+    vorne = r * HH * math.sqrt(2)
+    for fz in reihen:
+        pts = [(cx - 5, cy + vorne - fz), (cx + 5, cy + vorne - fz), (cx + 5, cy + vorne - fz - 18), (cx, cy + vorne - fz - 23), (cx - 5, cy + vorne - fz - 18)]
+        iso.poly(pts, FENSTER_TAG, KONTUR)
+        fenster.append(pts)
+    if zinnen:
+        rx = r * HW * math.sqrt(2) * 1.08
+        for k in range(5):
+            a = math.pi * (0.1 + 0.8 * k / 4)
+            zx, zy = cx - rx * math.cos(a), cy + vorne * 1.08 * math.sin(a) - h
+            iso.poly([(zx - 6, zy), (zx + 6, zy), (zx + 6, zy - 12), (zx - 6, zy - 12)], hell(wand, -6 + k * 4), KONTUR)
+        spitze = (cx, cy - h - 12)
+    else:
+        spitze = iso.kegel(x, y, r * 1.22, h, kegel_h or r * 190, dach)
+    if fahne:
+        iso.fahne(spitze, 34, fahne)
+    return spitze
+
+
+def schreibe_epochen(thema: str, epochen: dict[int, list]) -> int:
+    """Schreibt die neuen Stufen der Epochen 2–4 (je in die Epoche, in der sie zuerst
+    baubar sind) und räumt danach doppelte Stufen aus (eine Stufe, ein Bild)."""
+    for epoche, gebaeude in sorted(epochen.items()):
+        schreibe_atlas(thema, gebaeude, epoche=epoche)
+    print(thema, raeume_epochen(thema), "doppelte Einträge entfernt")
     return 0
