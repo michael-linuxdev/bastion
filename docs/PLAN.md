@@ -250,6 +250,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
 - **Design „Danach“ (31.10.2026):** Themen-Landkarte, stiller Abschluss→Bastion, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern-Werkstatt / Kind-Ort ✅
 - **Paket G (Fokus, 01.11.2026, `docs/session/FOKUS.md`):** G0 entschieden ✅ · G1 gemessen ✅ · G5 Teil 1 Ausbauen beim Antippen ✅ · G2 Stil-Regel für die ganze Bastion als Entwurf (`GRAFIK-SPRITES.md` §12), Abnahme PV offen · danach G3 Bilder Thema `bastion` Epoche 1, G5 Teil 2 Bauplatz-Vorschlag · G3 Thema `dorf` Epoche 1 ✅ (Gebäude, Bäume, Wesen, 02.11.2026, `tools/grafik/sprites-g3-dorf.py`) · G3 Thema `garten` Epoche 1 ✅ (`sprites-g3-garten.py`) · G3 Thema `unterwasser` Epoche 1 ✅ (`sprites-g3-unterwasser.py`) · G3 Thema `weltraum` Epoche 1 ✅ (`sprites-g3-weltraum.py`) – alle fünf Themen erneuert
+- **G3 Epochen 2–4 (vorgezogen, PV 02.11.2026):** eine Stufe, ein Bild ✅ · alle fünf Themen je 15 neue Stufen aus dem Generator ✅ (`GRAFIK-SPRITES.md` §12.11, `sprites-g3e-<thema>.py`) · Umriss-Test über alle Epochen ✅
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 

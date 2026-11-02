@@ -9,7 +9,7 @@
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 02.11.2026 (abends) · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -57,6 +57,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 **Design L53–L64 (31.10.2026):** Tagesziel-Markierung, Wiederholen-Regal, Diagnose-Landkarte, Kamera-Gedächtnis, Bau-Kosten nach Auswahl, Bewohner-Namen, Hinterhof-HUD, PIN-Ton, Nacht nur Bastion, Eltern-Brief, Microcopy „Noch nicht“, Querformat Üben.
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
+
+**Zuletzt (02.11.2026 abends):** Epochen 2–4 für alle Themen (je 15 Bilder, `sprites-g3e-<thema>.py`). Ab Stufe 4 gilt Umriss 10 %, Höhe 8 %. Offen: PR von `grafik/g3-epochen` nach `main` (nur auf Wunsch des PV); Boden der Epochen 2–4 ist noch der alte P5-Boden.
 
 **Als Nächstes:** **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
 
