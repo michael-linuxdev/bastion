@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Klasse 9 bis 12 (K-30, U6, `docs/session/KLASSE-9-12.md`): Phase A fertig; PV wählt die Formeldarstellung (Bedarfsliste B1), dann Phase B mit Klasse 9. F3, F7–F10 und Lehrkraft gewinnen ruhen (PV, 02.11.2026) |
+| Nächster Schritt Lernkern | Klasse 9 bis 12 (K-30, U6, `docs/session/KLASSE-9-12.md`): Phase A fertig; Formelsatz KaTeX entschieden (T-22); als Nächstes Phase B, zuerst Baustein B1 (KaTeX), dann Klasse 9. F3, F7–F10 und Lehrkraft gewinnen ruhen (PV, 02.11.2026) |
 | Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt, G3 für alle fünf Themen in Epoche 1 erledigt (02.11.2026); offen: G6 (2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
