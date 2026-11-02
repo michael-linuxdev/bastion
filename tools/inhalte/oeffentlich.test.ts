@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { reviewHash } from '../../src/core/learning/review';
+import { reviewHash, wirksameStufe } from '../../src/core/learning/review';
 import {
   genannteFehlvorstellungen,
   mindeststufeAus,
@@ -112,24 +112,31 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     expect(stand.entwurf).toBe(true);
   });
 
-  it('Mindeststufe 1: genau das Musterfeld Brüche, ohne Lücke im Lernpfad', () => {
+  it('Mindeststufe 1: nur Kompetenzen, deren Dateien alle Stufe 1 haben, ohne Lücke', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
-    const kompetenzen = grund['kompetenzen'] as { id: string }[];
-    expect(kompetenzen.map((k) => k.id).sort()).toEqual([
-      'M.ZO.BR.ADD-SUB',
-      'M.ZO.BR.BEGRIFF',
-      'M.ZO.BR.ERWEITERN',
-    ]);
-    expect(stand).toMatchObject({ mindeststufe: 1, entwurf: true, kompetenzen: 3 });
-    // Jede Vorlage und jede Fehlvorstellung, auf die sie zeigt, ist mit dabei
-    const vorlagen = lies(dateien, 'mathematik.zahl-und-operation')['vorlagen'] as Daten[];
-    expect(vorlagen.length).toBe(6);
-    const fv = new Set((grund['fehlvorstellungen'] as { id: string }[]).map((f) => f.id));
-    for (const id of genannteFehlvorstellungen(vorlagen)) expect(fv.has(id), id).toBe(true);
-    // Nur Bereiche mit Vorlagen bekommen ein Paket
-    const m = JSON.parse(dateien.get('manifest.json') ?? '{}') as { pakete: unknown[] };
-    expect(m.pakete).toHaveLength(2);
+    const kompetenzen = grund['kompetenzen'] as Daten[];
+    // Stand 02.11.2026: höchstens das Musterfeld Brüche (nach B3 vorerst keine)
+    for (const k of kompetenzen)
+      expect(['M.ZO.BR.ADD-SUB', 'M.ZO.BR.BEGRIFF', 'M.ZO.BR.ERWEITERN']).toContain(k['id']);
+    for (const k of kompetenzen)
+      expect(wirksameStufe(k), String(k['id'])).toBeGreaterThanOrEqual(1);
+    expect(stand).toMatchObject({ mindeststufe: 1, kompetenzen: kompetenzen.length });
+    // Jede Vorlage und jede Fehlvorstellung, auf die sie zeigt, ist mit dabei und hat Stufe 1
+    const m = JSON.parse(dateien.get('manifest.json') ?? '{}') as {
+      pakete: { name: string; bereich?: string }[];
+    };
+    const fv = new Map(
+      (grund['fehlvorstellungen'] as Daten[]).map((f) => [String(f['id']), f] as const),
+    );
+    for (const p of m.pakete.filter((x) => x.bereich)) {
+      const vorlagen = lies(dateien, p.name)['vorlagen'] as Daten[];
+      for (const v of vorlagen) expect(wirksameStufe(v)).toBeGreaterThanOrEqual(1);
+      for (const id of genannteFehlvorstellungen(vorlagen)) {
+        expect(fv.has(id), id).toBe(true);
+        expect(wirksameStufe(fv.get(id) ?? {})).toBeGreaterThanOrEqual(1);
+      }
+    }
   });
 
   it('Mindeststufe 2: heute ein leeres, aber gültiges Paket', () => {
