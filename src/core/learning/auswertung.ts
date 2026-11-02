@@ -32,6 +32,26 @@ export function leseZahl(eingabe: string): Gelesen<number> {
   return trenner === '.' ? { ok: true, wert, hinweis: 'punkt-statt-komma' } : { ok: true, wert };
 }
 
+/**
+ * Mehrere Felder (Aufgabentyp `felder-eingabe`, B2): jedes Feld eine Zahl nach I-5.
+ * `keine` = „keine Lösung“ angekreuzt, dann zählen die Felder nicht (leere Liste).
+ * Ein Punkt statt Komma in irgendeinem Feld ergibt den freundlichen Hinweis.
+ */
+export function leseFelder(eingaben: readonly string[], keine = false): Gelesen<number[]> {
+  if (keine) return { ok: true, wert: [] };
+  const werte: number[] = [];
+  let punkt = false;
+  for (const e of eingaben) {
+    const g = leseZahl(e);
+    if (!g.ok) return g;
+    werte.push(g.wert);
+    if (g.hinweis) punkt = true;
+  }
+  return punkt
+    ? { ok: true, wert: werte, hinweis: 'punkt-statt-komma' }
+    : { ok: true, wert: werte };
+}
+
 /** Bruch „3/4“ oder gemischte Zahl „1 3/4“; eine ganze Zahl gilt als Bruch mit Nenner 1. */
 export function leseBruch(eingabe: string): Gelesen<Bruch> {
   const t = eingabe.trim();
@@ -82,7 +102,7 @@ export type Ergebnis =
       /** ID des erkannten Fehlerbilds, falls die Antwort zu einem passt. */
       readonly fehlerbild?: string;
       /** Wertgleich, aber nicht in der verlangten Form. */
-      readonly hinweis?: 'nicht-gekuerzt' | 'andere-schreibweise';
+      readonly hinweis?: 'nicht-gekuerzt' | 'andere-schreibweise' | 'anders-gerundet';
     };
 
 const nah = (a: number, b: number) => Math.abs(a - b) < 1e-9;
@@ -90,8 +110,25 @@ const nah = (a: number, b: number) => Math.abs(a - b) < 1e-9;
 /** Gleicher Wert – bei Zahlen ohne Gleitkomma-Rauschen, bei Brüchen wertgleich. */
 function gleicherWert(a: Loesung, b: Loesung): boolean {
   if (a.typ === 'zahl' && b.typ === 'zahl') return nah(a.wert, b.wert);
+  if (a.typ === 'felder' && b.typ === 'felder')
+    return a.wert.length === b.wert.length && a.wert.every((x, i) => nah(x, b.wert[i] ?? NaN));
   if (a.typ === 'bruch' && b.typ === 'bruch') return wertgleich(a.wert, b.wert);
   return gleicheLoesung(a, b);
+}
+
+/** Auf `stellen` Nachkommastellen runden (kaufmännisch, wie in der Schule). */
+export function rundeAuf(wert: number, stellen: number): number {
+  // Über die Dezimalschreibweise verschieben, sonst wird 2,675 · 100 zu 267,4999… (Gleitkomma)
+  const vz = wert < 0 ? -1 : 1;
+  const betrag = Math.abs(wert);
+  const text = String(betrag);
+  if (text.includes('e')) return (vz * Math.round(betrag * 10 ** stellen)) / 10 ** stellen;
+  return vz * Number(`${Math.round(Number(`${text}e${stellen}`))}e-${stellen}`);
+}
+
+/** Nah am genauen Wert (Abweichung unter einer Einheit der letzten Stelle), aber nicht genau so gerundet. */
+function andersGerundet(r: { readonly stellen: number; readonly genau: number }, wert: number) {
+  return Math.abs(wert - r.genau) < 10 ** -r.stellen && !nah(wert, rundeAuf(r.genau, r.stellen));
 }
 
 /** Vergleicht eine Antwort mit Lösung und Fehlerbildern der Instanz. */
@@ -100,6 +137,9 @@ export function auswerten(
   antwort: Loesung,
   form: Bruchform = 'beliebig',
 ): Ergebnis {
+  // Felder ohne feste Reihenfolge (z. B. x₁, x₂): aufsteigend vergleichen
+  if (antwort.typ === 'felder' && instanz.felder?.ungeordnet)
+    antwort = { typ: 'felder', wert: [...antwort.wert].sort((a, b) => a - b) };
   const l = instanz.loesung;
   if (l.typ === 'bruch' && antwort.typ === 'bruch') {
     if (wertgleich(l.wert, antwort.wert)) {
@@ -121,5 +161,9 @@ export function auswerten(
   const fehler =
     instanz.fehlerbilder.find((f) => gleicheLoesung(f.antwort, antwort)) ??
     instanz.fehlerbilder.find((f) => gleicherWert(f.antwort, antwort));
-  return fehler ? { richtig: false, fehlerbild: fehler.id } : { richtig: false };
+  if (fehler) return { richtig: false, fehlerbild: fehler.id };
+  // Gerundetes Ergebnis: nah am genauen Wert, aber anders gerundet (B3)
+  if (instanz.runden && antwort.typ === 'zahl' && andersGerundet(instanz.runden, antwort.wert))
+    return { richtig: false, hinweis: 'anders-gerundet' };
+  return { richtig: false };
 }

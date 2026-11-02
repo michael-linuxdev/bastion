@@ -37,7 +37,13 @@ export type Loesung =
   | {
       readonly typ: 'mit-rest';
       readonly wert: { readonly quotient: number; readonly rest: number };
-    };
+    }
+  /**
+   * Aufgabentyp `felder-eingabe` (B2): mehrere Zahlen, z. B. Scheitelpunkt, zwei Lösungen,
+   * Vektor. Leere Liste = „keine Lösung“. Ist die Reihenfolge egal (`Instanz.felder.ungeordnet`),
+   * steht die Lösung aufsteigend sortiert.
+   */
+  | { readonly typ: 'felder'; readonly wert: readonly number[] };
 
 /**
  * Vom Generator erzeugtes Bild (INHALTSFORMAT I-11): SVG als Text, ohne
@@ -76,6 +82,22 @@ export interface Instanz {
   /** Tasten nur für diese Aufgabe; gewinnt vor der Vorlage (INHALTSFORMAT §5.2) */
   readonly tastatur?: readonly Taste[];
   readonly loesung: Loesung;
+  /**
+   * Gerundetes Ergebnis (ab Klasse 9, Bedarfsliste B3): `loesung` ist der auf `stellen`
+   * Nachkommastellen gerundete Wert, `genau` der ungerundete. Eine Antwort nah an `genau`,
+   * aber anders gerundet, bekommt den Hinweis „anders gerundet“ statt „falsch“.
+   */
+  readonly runden?: { readonly stellen: number; readonly genau: number };
+  /**
+   * Felder für den Aufgabentyp `felder-eingabe` (B2): Beschriftung je Feld (z. B. „x₁ =“),
+   * ob die Reihenfolge egal ist und ob „keine Lösung“ angeboten wird. Das Angebot gilt für
+   * jede Instanz des Generators, damit es nichts über die Lösung verrät.
+   */
+  readonly felder?: {
+    readonly namen: readonly Sprachobjekt[];
+    readonly ungeordnet?: boolean;
+    readonly keineLoesung?: boolean;
+  };
   readonly loesungsweg: readonly Sprachobjekt[];
   /** Erwartbare falsche Antworten; nie gleich der Lösung, untereinander verschieden. */
   readonly fehlerbilder: readonly Fehlerbild[];

@@ -30,6 +30,8 @@ export const AUFGABENTYPEN = [
   'faktoren-eingabe',
   // Uhrzeit hh:mm; Lösung als Minuten nach Mitternacht
   'uhrzeit-eingabe',
+  // Mehrere Zahlen (B2): Scheitelpunkt, zwei Lösungen, Vektor; „keine Lösung“ möglich
+  'felder-eingabe',
 ] as const;
 export type Aufgabentyp = (typeof AUFGABENTYPEN)[number];
 
