@@ -143,6 +143,25 @@ async function feldTippen(seite: Page, x: number, y: number) {
   });
 }
 
+/**
+ * Ein Gebäude auf dem Bauplatz-Bild auswählen: antippen, bis die Auswahl es nennt.
+ * Die Bühne wird neu aufgebaut, wenn sich Abend, Wetter oder Thema nachträglich
+ * ändern; ein Tipper genau in diesem Moment geht ins Leere. Darum bis zu vier Versuche.
+ * Nur für Auswahl-Tipper – beim Versetzen würde ein zweiter Tipper das Gebäude bewegen.
+ */
+async function gebaeudeWaehlen(seite: Page, x: number, y: number, name: string) {
+  const wahl = seite.locator('.wahl');
+  for (let versuch = 1; ; versuch++) {
+    await feldTippen(seite, x, y);
+    try {
+      await expect(wahl).toContainText(name, { timeout: 3_000 });
+      return;
+    } catch (fehler) {
+      if (versuch >= 4) throw fehler;
+    }
+  }
+}
+
 /** Von der Bastion zur Startseite (Home-Piktogramm oder Einstellungen). */
 async function bastionZurStartseite(seite: Page) {
   const home = seite.getByRole('button', { name: 'Zur Startseite' });
@@ -1025,9 +1044,8 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum aktuellen Canvas */
   const tippe = (x: number, y: number) => feldTippen(page, x, y);
   // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
-  await tippe(6, 8);
   const wahl = page.locator('.wahl');
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 6, 8, 'Feuerstelle');
   await wahl.getByRole('button', { name: 'Ziehen zum Versetzen' }).click();
   await expect(wahl).toContainText('Ziehe das Gebäude an die neue Stelle');
   // Auf den Bergfried geht es nicht …
@@ -1058,8 +1076,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   };
   await expect.poll(kameraZoom).toBeGreaterThan(0.35);
   const groesser = await kameraZoom();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 0, 11, 'Feuerstelle');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.wheel(0, 120);
   await expect.poll(kameraZoom).toBeLessThan(groesser as number);
@@ -1068,8 +1085,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.kamera')).toBe('');
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 0, 11, 'Feuerstelle');
 
   // Bild ausblenden: nur noch in den Einstellungen – auch nach dem Neuladen
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
@@ -1096,11 +1112,9 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await bastionOeffnen(page, false);
   const bild = page.locator('.bauplatz canvas');
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  const tippe = (x: number, y: number) => feldTippen(page, x, y);
   const wahl = page.locator('.wahl');
   // Zu wenig: Der Knopf ist nicht grau, er erklärt, was fehlt und woher es kommt
-  await tippe(6, 5);
-  await expect(wahl).toContainText('Bergfried');
+  await gebaeudeWaehlen(page, 6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /Ausbauen – was fehlt\?/ }).click();
   const blatt = page.getByRole('dialog');
   await expect(blatt.getByRole('heading', { name: 'Ausbauen', level: 3 })).toBeVisible();
@@ -1115,7 +1129,7 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await page.reload();
   await bastionOeffnen(page, false);
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  await tippe(6, 5);
+  await gebaeudeWaehlen(page, 6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /^Ausbauen auf Stufe 2$/ }).click();
   await expect(wahl).toContainText('Stufe 2');
   await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
