@@ -236,6 +236,32 @@ describe('Hindernisse beim Beginnen', () => {
   });
 });
 
+describe('Epochenwechsel: alles rückt zur Mitte (§5.5)', () => {
+  it('Bauplatz 12 → 16: jedes Gebäude rückt um 2 Felder; Neubauten danach bleiben, wo sie stehen', () => {
+    const w = new Welt();
+    w.reich();
+    w.kern2();
+    const vorher = w.bastion.bauwerke.find((x) => x.id === 'start.ursprung')?.pos;
+    expect(vorher).toEqual({ x: 6, y: 8 });
+    w.hoeher('start.kern');
+    for (let i = 0; i < 40; i++) w.gutschrift('schritt', 1);
+    // Bergfried 3 und genug erworbene Baupläne (reich): Epoche 2, Platz 16 × 16
+    const b = w.bastion;
+    expect(b.bauwerke.find((x) => x.id === 'start.kern')).toMatchObject({
+      stufe: 3,
+      pos: { x: 7, y: 6 },
+    });
+    expect(b.bauwerke.find((x) => x.id === 'start.ursprung')?.pos).toEqual({ x: 8, y: 10 });
+    expect(b.bauwerke.find((x) => x.id === 'start.einfassung.4')?.pos).toEqual({ x: 6, y: 12 });
+    // Ein Neubau in Epoche 2 trägt schon die Lage im großen Platz
+    w.neu('zeichen', { x: 15, y: 15 });
+    expect(w.bastion.bauwerke.find((x) => x.typ === 'zeichen')?.pos).toEqual({ x: 15, y: 15 });
+    // Weitere Baupläne lösen keinen zweiten Umzug aus
+    w.gutschrift('koennen', 5);
+    expect(w.bastion.bauwerke.find((x) => x.id === 'start.kern')?.pos).toEqual({ x: 7, y: 6 });
+  });
+});
+
 describe('Versetzen (§4.2)', () => {
   it('kostenlos, nur auf freie Felder im Bauplatz', () => {
     const w = new Welt();

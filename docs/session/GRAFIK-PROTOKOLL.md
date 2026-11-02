@@ -66,3 +66,4 @@
 | 02.11.2026 | **G3 Epochen 2–4, Thema `weltraum`** (Branch `grafik/g3-epochen`): 15 neue Stufen (`sprites-g3e-weltraum.py`), Station mit Ringen, Kuppeln und Rakete; Umriss-Test über alle Epochen |
 | 02.11.2026 | **G3 Epochen 2–4, Themen `dorf`, `garten`, `unterwasser`** (Branch `grafik/g3-epochen`): je 15 neue Stufen (`sprites-g3e-<thema>.py`); damit alle fünf Themen in allen Epochen im neuen Stil; Umriss-Test über alle Epochen für alle Themen |
 | 02.11.2026 | **Zusammenführung G3** (Branch `grafik/g3-epochen`): Boden (80 Kacheln), Himmel/Wetter/Auflagen/Belagerung, Hinterhof und Startbild, Bewohner als Atlas-Bilder; Boden folgt jetzt der Epoche (`bodenBauen` in der Bühne); Fotos aus der echten App für Epoche 1 und 4 geprüft |
+| 02.11.2026 | **B-32 Umzug zur Mitte** (Branch `grafik/epoche-mitte`, Zustimmung PV): beim Epochenwechsel rückt alles Gebaute um 2 Felder je Wechsel zur neuen Mitte (`bastionAus`), Test in `bauen.test.ts` |
