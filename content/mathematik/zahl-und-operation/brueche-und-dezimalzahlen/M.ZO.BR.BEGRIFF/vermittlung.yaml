@@ -64,6 +64,7 @@ schritte:
     weiter: gegenbeispiel
     bei:
       FV.BR.TEIL-ZU-REST: erklaeren-ganzes
+      FV.BR.GEGENTEIL: erklaeren-ganzes
       FV.BR.VERTAUSCHT: erklaeren-ganzes
   - id: gegenbeispiel
     typ: gegenbeispiel
@@ -101,7 +102,7 @@ schritte:
     weiter: uebergang
     bei:
       FV.BR.TEIL-ZU-REST: erklaeren-ganzes
-      FV.BR.GEGENTEIL: beispiel
+      FV.BR.GEGENTEIL: erklaeren-ganzes
       FV.BR.VERTAUSCHT: erklaeren-ganzes
   - id: uebergang
     typ: uebergang
