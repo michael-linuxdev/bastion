@@ -14,8 +14,8 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Fokus-Auftrag F2–F10 (`docs/session/FOKUS.md`), Paket L umgesetzt (offen: Abnahme durch den PV), dann F2. F4 (Auswertung U4b), F5 (`pnpm fehlerschueler`, 100 Verdachtsfälle) und F6 fertig, parallel zu L (PV, 01.11.2026, #146). Parallel: Musterfeld durch eine Lehrkraft prüfen lassen; U4b erst nach Abnahme von L und G |
-| Nächster Schritt Grafik | **Paket G** (`docs/session/FOKUS.md`): G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt (02.11.2026). Offen: Abnahme G2 (Stil-Regel) und G6 (PV, 2–3 Jugendliche), dann U4b |
+| Nächster Schritt Lernkern | Abnahme L durch den PV, dann neue Prüfseite für das Musterfeld und Lehrkraft gewinnen (Paket liegt bereit). Danach F7–F10 (`FOKUS.md` „Nächste Sitzungen“) |
+| Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 umgesetzt; offen nur G6 (PV, 2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht

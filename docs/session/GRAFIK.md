@@ -7,7 +7,7 @@
 >
 > **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 · Paket G: G3 (Thema `bastion`, Epoche 1: alle Gebäude, Umgebung, Wesen) und G4 (Gerüst, Vorher/Nachher, Ausbau-Moment) umgesetzt; offen: Abnahme G2 und G6 durch den PV.
+Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; offen nur G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** **G6 Abnahme** (PV, 2–3 Jugendliche; Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K) und Abnahme der Stil-Regel G2 (`GRAFIK-SPRITES.md` §12.9). Danach nur Fehlerbehebungen bis U4b. Offene Kleinigkeiten in `GRAFIK.md` §11.9: Staub beim Fertigwerden, Statusgeste eines Bewohners; ein Tipper in der ersten Sekunde nach dem Öffnen der Bastion geht verloren (Bühne nimmt Tipper erst nach dem ersten Zeichnen an, Befund des Lernkerns in #160).
+**Als Nächstes:** **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 

@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 02.11.2026 · Nachtschicht: F2 (#153), Aufgabenblatt drucken (#156), F5-Funde Musterfeld (#158) gemergt; Sperrklinke (#165) und Prüfbogen einlesen (#159) grün, offen zur Entscheidung des PV · Als Nächstes: #165/#159 mergen, Stufe 1 der vier geänderten Musterfeld-Dateien neu, Prüfbogen neu, Abnahme L
+Stand: 02.11.2026 · Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Als Nächstes: Auftrag in `FOKUS.md` „Nächste Sitzungen“ (Entscheidung FV.BR.NICHT-VOLLSTAENDIG, neue Prüfseite, Abnahme L).
 
 ---
 
