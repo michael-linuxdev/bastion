@@ -105,7 +105,9 @@ import {
   bewohnerStarten,
   bewohnerTick,
   bewohnerFarbe,
+  bewohnerFrame,
   bewohnerMuetze,
+  atlasBewohnerId,
   type BewohnerZustand,
   type Taetigkeit,
 } from './bewohner';
@@ -1039,7 +1041,8 @@ function atlasBrauchtId(art: Bildart, id: string): boolean {
     id.startsWith('himmel/') ||
     id.startsWith('wetter/') ||
     id.startsWith('auflage/') ||
-    id.startsWith('belagerung/')
+    id.startsWith('belagerung/') ||
+    id.startsWith('bewohner/')
   )
     return true;
   // Hinterhof-Objekte (P4) für das jeweilige Thema
@@ -1426,9 +1429,26 @@ export async function buehneErstellen(
     bewohnerLage.removeChildren().forEach((c) => c.destroy());
     if (!tickerAn(bewegung)) return;
     for (const b of bewohner) {
-      const g = new Graphics();
-      zeichneBewohner(g, b, jetzt);
-      bewohnerLage.addChild(g);
+      const { zyklus, frame } = bewohnerFrame(b, jetzt);
+      const eintrag = atlasEintragPerId(atlas, atlasBewohnerId(b.art, zyklus, frame));
+      const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+      if (eintrag && tex) {
+        // Bild aus dem Generator (G3); die Statusgeste bleibt darüber (Design „Danach“ J35)
+        const spr = new Sprite(tex);
+        spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+        const breite = (eintrag.pixel.w / 2) * (jetzt < b.reactBis ? 1.1 : 1);
+        spr.width = breite;
+        spr.height = (eintrag.pixel.h / eintrag.pixel.w) * breite;
+        spr.position.set(b.x, b.y + 4);
+        bewohnerLage.addChild(spr);
+        const g = new Graphics();
+        zeichneStatusgeste(g, b.x, b.y - 12, 1, b.taetigkeit);
+        bewohnerLage.addChild(g);
+      } else {
+        const g = new Graphics();
+        zeichneBewohner(g, b, jetzt);
+        bewohnerLage.addChild(g);
+      }
     }
   };
 

@@ -273,3 +273,39 @@ export function bewohnerTick(
 export function bewohnerReagieren(b: BewohnerZustand, jetzt: number): void {
   b.reactBis = jetzt + 400;
 }
+
+/** Tätigkeiten, bei denen der Bewohner sein Werkzeug benutzt (Bild-Zyklus „arbeit“). */
+const ARBEITEN: ReadonlySet<Taetigkeit> = new Set<Taetigkeit>([
+  'giessen',
+  'kehren',
+  'gaertnern',
+  'pflanzen',
+  'ordnen',
+  'flicken',
+  'sammeln',
+]);
+
+export type BewohnerZyklus = 'idle' | 'arbeit' | 'react';
+
+/**
+ * Bild aus dem Atlas (G3, `tools/grafik/sprites-g3-bewohner.py`): winken nach dem Antippen,
+ * „arbeit“ bei tätigen Tätigkeiten, sonst ruhig stehen. Deterministisch aus Zustand und Zeit.
+ */
+export function bewohnerFrame(
+  b: Pick<BewohnerZustand, 'taetigkeit' | 'phase' | 'reactBis'>,
+  jetzt: number,
+): { zyklus: BewohnerZyklus; frame: number } {
+  if (jetzt < b.reactBis) {
+    const t = 400 - (b.reactBis - jetzt);
+    return { zyklus: 'react', frame: t < 200 ? 0 : 1 };
+  }
+  if (ARBEITEN.has(b.taetigkeit)) {
+    return { zyklus: 'arbeit', frame: Math.floor(Math.abs(b.phase)) % 4 };
+  }
+  return { zyklus: 'idle', frame: Math.floor(Math.abs(b.phase) / 2) % 3 };
+}
+
+/** Atlas-ID eines Bewohner-Bildes (für alle Themen gleich). */
+export function atlasBewohnerId(art: BewohnerArt, zyklus: BewohnerZyklus, frame: number): string {
+  return `bewohner/${art}_${zyklus}_${frame}`;
+}
