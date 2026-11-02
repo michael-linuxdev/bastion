@@ -50,3 +50,4 @@
 | 01.11.2026 | **G2 Stil-Regel (Entwurf):** eine Regel für die ganze Bastion in `GRAFIK-SPRITES.md` §12 (Raster, Maßstab, Licht, Kontur, Palette, Holz → Fachwerk → Stein, Stufen-Sprache 25 %/15 %, Tabelle Rolle × Stufe Thema `bastion` E1); wartet auf Abnahme des PV |
 | 01.11.2026 | **PV-Entscheidung G0.1/G0.3:** eigener Generator für alles in der Bastion (Gebäude, Boden, Wesen, Himmel), aus einem Guss; Umriss 25 %/Höhe 15 %; vor U4b nur Thema `bastion` (`FOKUS.md`) |
 | 02.11.2026 | **Lernkern F2 in `src/ui/start/Startseite.svelte`:** dezenter Vermerk „Entwurf“ unter „Vertrauen“, nur wenn Inhalte unter Stufe 2 ausgeliefert werden (FOKUS F2, Ausnahme nach Regel 7) |
+| 01.11.2026 | **L18 Themenwahl:** Bereiche eingeklappt (offen: erster Bereich und Bereiche mit Fortschritt), Test „Zeichen-Anleitung“ klappt vorher auf; Rundgang 390 px wiederholt, Fotos an den PV; offen nur die Abnahme von L |

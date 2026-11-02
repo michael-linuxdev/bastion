@@ -18,3 +18,4 @@
 | 01.11.2026 | **F6 Arbeitsblätter:** `pnpm arbeitsblatt` (Werkzeug außerhalb der App, HTML zum Drucken, Lösungsseite, Review-Stufe in der Fußzeile, gleicher Seed = gleiches Blatt); Satz-Hilfen aus dem Prüfbogen in `satz.ts`; PDF-Technik für U7 bleibt offen |
 | 01.11.2026 | **PV-Entscheidung Reihenfolge:** #145 mergen, L18 eigener PR; F4, F5, F6 parallel zu L (`FOKUS.md` „Entscheidungen“) |
 | 02.11.2026 | **F2 Öffentliche Seite:** `BASTION_MINDESTSTUFE` filtert ganze Kompetenzen (`tools/inhalte/oeffentlich.ts`), Rückweg zu fehlender Voraussetzung geht weiter, Hinweisseite bei leerem Paket, Vermerk „Entwurf“ auf Startseite und im Elternbereich, Deploy-Build mit `vars.BASTION_MINDESTSTUFE \|\| 0` (T-20) |
+| 01.11.2026 | **L18 Themenwahl:** Bereiche eingeklappt (offen: erster Bereich und Bereiche mit Fortschritt), Test „Zeichen-Anleitung“ klappt vorher auf; Rundgang 390 px wiederholt, Fotos an den PV; offen nur die Abnahme von L |
