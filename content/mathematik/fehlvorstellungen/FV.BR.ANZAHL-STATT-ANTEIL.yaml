@@ -19,7 +19,7 @@ erklaerung:
       de: 'Zählen ist der erste Schritt. Doch 3 Teile können viel oder wenig sein: 3 von 4 ist fast alles, 3 von 100 fast nichts. Erst der Vergleich mit dem Ganzen macht daraus einen [[Anteil]].'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
     - teil: so-stimmt-es
-      de: 'Zähle auch, in wie viele Teile das Ganze geteilt ist. 3 von 5 Teilen sind 3/5. Am Zahlenstrahl sind 3 von 10 Abschnitten bis zur 1 genau 0,3.'
+      de: 'Zähle auch, in wie viele Teile das Ganze geteilt ist. 3 von 5 Teilen sind $\frac{3}{5}$. Am Zahlenstrahl sind 3 von 10 Abschnitten bis zur 1 genau 0,3.'
 gegenbeispiel:
   de: '3 Stücke von einer Pizza mit 4 Stücken sind viel mehr als 3 Stücke von einer Pizza mit 12 Stücken.'
 rueckweg:

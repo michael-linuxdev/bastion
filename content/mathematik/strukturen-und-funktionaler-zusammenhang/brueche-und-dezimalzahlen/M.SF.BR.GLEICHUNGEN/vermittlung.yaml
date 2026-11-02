@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du Gleichungen wie x + 3/4 = 2 oder 3 · x = 1/2 mit der [[Umkehraufgabe]] lösen.'
+      de: 'Danach kannst du Gleichungen wie x + $\frac{3}{4} = 2$ oder 3 · x = $\frac{1}{2}$ mit der [[Umkehraufgabe]] lösen.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -19,7 +19,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'x + 1/4 = 3/4. Welcher [[Bruch]] fehlt bis 3/4?'
+      de: 'x + $\frac{1}{4} = \frac{3}{4}$. Welcher [[Bruch]] fehlt bis $\frac{3}{4}$?'
     antwort:
       eingabe: { art: bruch, loesung: '2/4', fehler: [{ wert: '4/4', fv: FV.NZ.UMKEHRAUFGABE }] }
     weiter: erklaeren-umkehraufgabe
@@ -31,12 +31,12 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: '3 · x = 1/2, also x = 1/2 : 3 = 1/6. [[Probe]]: 3 · 1/6 = 3/6 = 1/2.'
+      de: '3 · x = $\frac{1}{2}$, also x = $\frac{1}{2} : 3 = \frac{1}{6}$. [[Probe]]: $3 \cdot \frac{1}{6} = \frac{3}{6} = \frac{1}{2}$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Löse x − 1/3 = 1/3. Gib x als [[Bruch]] an.'
+      de: 'Löse x − $\frac{1}{3} = \frac{1}{3}$. Gib x als [[Bruch]] an.'
     antwort:
       eingabe: { art: bruch, loesung: '2/3', fehler: [{ wert: '0/3', fv: FV.NZ.UMKEHRAUFGABE }] }
     weiter: gegenbeispiel
@@ -44,10 +44,10 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Zu 2 · x = 4/5 sagt Ole: „x = 8/5, ich nehme mal 2.“ Stimmt das?'
+      de: 'Zu 2 · x = $\frac{4}{5}$ sagt Ole: „x = $\frac{8}{5}$, ich nehme mal 2.“ Stimmt das?'
     antwort:
       optionen:
-        - { wert: { de: 'Nein, rückwärts wird geteilt: x = 2/5.' }, richtig: true }
+        - { wert: { de: 'Nein, rückwärts wird geteilt: x = $\frac{2}{5}$.' }, richtig: true }
         - { wert: { de: 'Ja, da steht mal 2.' }, fv: FV.NZ.UMKEHRAUFGABE }
     weiter: merksatz
     bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
@@ -59,11 +59,11 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Welche Zahl löst x + 1/2 = 5/4?'
+      de: 'Welche Zahl löst x + $\frac{1}{2} = \frac{5}{4}$?'
     antwort:
       optionen:
-        - { wert: { de: '3/4' }, richtig: true }
-        - { wert: { de: '7/4' }, fv: FV.NZ.UMKEHRAUFGABE }
+        - { wert: { de: '$\frac{3}{4}$' }, richtig: true }
+        - { wert: { de: '$\frac{7}{4}$' }, fv: FV.NZ.UMKEHRAUFGABE }
     weiter: uebergang
     bei: { FV.NZ.UMKEHRAUFGABE: erklaeren-umkehraufgabe }
   - id: uebergang

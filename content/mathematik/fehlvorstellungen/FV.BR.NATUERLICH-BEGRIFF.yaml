@@ -19,7 +19,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Prüfe: Liegt die Zahl genau auf 0, 1, 2, 3 …? Dann ist sie natürlich. Liegt sie dazwischen, ist sie eine [[gebrochene Zahl]], aber keine natürliche.'
 gegenbeispiel:
-  de: '7/3 ist mehr als 2 und weniger als 3. Es gibt keine [[natürliche Zahl]], die das ist.'
+  de: '$\frac{7}{3}$ ist mehr als 2 und weniger als 3. Es gibt keine [[natürliche Zahl]], die das ist.'
 rueckweg:
   vermittlung: M.ZO.BR.MENGEN#erklaeren-zahlbereiche
 kontrast: [M.ZO.BR.MENGEN.NATUERLICH, M.ZO.BR.MENGEN.AUSSAGEN]

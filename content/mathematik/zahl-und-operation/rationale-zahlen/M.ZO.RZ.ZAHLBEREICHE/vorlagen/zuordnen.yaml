@@ -14,7 +14,7 @@ text:
 hilfen:
   - de: 'Die [[ganzen Zahlen]] haben kein Komma und keinen [[Bruch]], dürfen aber negativ sein: −3, 0, 7.'
   - de: 'Die [[gebrochenen Zahlen]] sind alle [[Brüche]] ohne Minus. Die [[rationalen Zahlen]] sind alle Brüche, auch mit Minus.'
-  - de: 'Manche [[Brüche]] sind eigentlich [[ganze Zahlen]]: −12/4 = −3.'
+  - de: 'Manche [[Brüche]] sind eigentlich [[ganze Zahlen]]: −$\frac{12}{4}$ = −3.'
 fehlerbilder:
   ganze-zahl-vergessen:
     de: 'Diese Zahl hat kein Komma und keinen [[Bruch]] – sie ist eine [[ganze Zahl]], auch mit Minus.'
@@ -23,7 +23,7 @@ fehlerbilder:
     de: 'Achte auf das Minus. Eine [[negative Zahl]] ist keine [[natürliche Zahl]] und keine [[gebrochene Zahl]].'
     fv: FV.RZ.ZAHLBEREICHE
   natuerlich-nicht-gebrochen:
-    de: 'Jede [[natürliche Zahl]] kann man als [[Bruch]] schreiben, zum Beispiel 5 = 5/1. Sie gehört also zu allen vier Zahlbereichen.'
+    de: 'Jede [[natürliche Zahl]] kann man als [[Bruch]] schreiben, zum Beispiel $5 = \frac{5}{1}$. Sie gehört also zu allen vier Zahlbereichen.'
     fv: FV.RZ.ZAHLBEREICHE
   verkleidet-uebersehen:
     de: 'Rechne den [[Bruch]] aus: Er ergibt eine Zahl ohne Rest. Damit ist er eine [[ganze Zahl]].'

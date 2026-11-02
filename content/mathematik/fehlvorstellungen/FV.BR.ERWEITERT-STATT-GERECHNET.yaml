@@ -14,12 +14,12 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast [[Zähler]] und [[Nenner]] beide mit der Zahl malgenommen.'
     - teil: warum-nicht
-      de: 'Das kennst du vom [[Erweitern]], und dort ist es richtig. Aber 2/5 und 6/15 sind gleich groß. Nach dem Malnehmen oder Teilen muss etwas anderes herauskommen als vorher.'
+      de: 'Das kennst du vom [[Erweitern]], und dort ist es richtig. Aber $\frac{2}{5}$ und $\frac{6}{15}$ sind gleich groß. Nach dem Malnehmen oder Teilen muss etwas anderes herauskommen als vorher.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 15, gefaerbt: 6 } }
     - teil: so-stimmt-es
-      de: 'Malnehmen: nur den [[Zähler]] malnehmen, 2/5 · 3 = 6/5. Teilen: nur den [[Nenner]] malnehmen, 2/5 : 3 = 2/15.'
+      de: 'Malnehmen: nur den [[Zähler]] malnehmen, $\frac{2}{5} \cdot 3 = \frac{6}{5}$. Teilen: nur den [[Nenner]] malnehmen, $\frac{2}{5} : 3 = \frac{2}{15}$.'
 gegenbeispiel:
-  de: '1/2 · 2 ist ein Ganzes. 2/4 ist aber wieder nur die Hälfte.'
+  de: '$\frac{1}{2} \cdot 2$ ist ein Ganzes. $\frac{2}{4}$ ist aber wieder nur die Hälfte.'
 rueckweg:
   vermittlung: M.ZO.BR.MULT#erklaeren-mal-zahl
   voraussetzung: M.ZO.BR.ERWEITERN

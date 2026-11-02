@@ -19,7 +19,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Zähle die Teile, nach denen gefragt ist – hier die gefärbten. Das ist der [[Zähler]].'
 gegenbeispiel:
-  de: 'Sind 2 von 5 Teilen gefärbt, dann sind 3 von 5 ungefärbt. 2/5 und 3/5 sind verschiedene Antworten.'
+  de: 'Sind 2 von 5 Teilen gefärbt, dann sind 3 von 5 ungefärbt. $\frac{2}{5}$ und $\frac{3}{5}$ sind verschiedene Antworten.'
 rueckweg:
   vermittlung: M.ZO.BR.BEGRIFF#erklaeren-ganzes
 kontrast:

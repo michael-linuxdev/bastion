@@ -11,7 +11,7 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: '[[Erweitere]] 1/2 auf Viertel. Wie heißt der [[Bruch]]?'
+      de: '[[Erweitere]] $\frac{1}{2}$ auf Viertel. Wie heißt der [[Bruch]]?'
     antwort:
       eingabe:
         art: bruch
@@ -24,7 +24,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Färbe erst 1/4 des Streifens, dann noch 2/4 dazu. Welcher [[Anteil]] ist jetzt gefärbt? Gib ihn als [[Bruch]] an.'
+      de: 'Färbe erst $\frac{1}{4}$ des Streifens, dann noch $\frac{2}{4}$ dazu. Welcher [[Anteil]] ist jetzt gefärbt? Gib ihn als [[Bruch]] an.'
     werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 0 } }
     antwort:
       eingabe:
@@ -36,24 +36,24 @@ schritte:
   - id: erklaeren-gleichnamig
     typ: erklaeren
     text:
-      de: 'Ein Viertel und zwei Viertel sind drei Viertel. Die Teile bleiben gleich groß, nur ihre Anzahl ändert sich. Darum addierst du nur die [[Zähler]]. Der [[Nenner]] bleibt: 1/4 + 2/4 = 3/4.'
+      de: 'Ein Viertel und zwei Viertel sind drei Viertel. Die Teile bleiben gleich groß, nur ihre Anzahl ändert sich. Darum addierst du nur die [[Zähler]]. Der [[Nenner]] bleibt: $\frac{1}{4} + \frac{2}{4} = \frac{3}{4}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Subtrahieren geht genauso: 5/6 − 2/6 = 3/6. Von 5 Sechsteln nimmst du 2 weg, es bleiben 3 Sechstel. Der [[Nenner]] bleibt 6.'
+      de: 'Subtrahieren geht genauso: $\frac{5}{6} - \frac{2}{6} = \frac{3}{6}$. Von 5 Sechsteln nimmst du 2 weg, es bleiben 3 Sechstel. Der [[Nenner]] bleibt 6.'
     weiter: erklaeren-ungleichnamig
   - id: erklaeren-ungleichnamig
     typ: erklaeren
     text:
-      de: 'Bei 1/2 + 1/4 sind die Teile verschieden groß. Du kannst sie erst zusammenzählen, wenn sie gleich groß sind. Darum [[erweitern]]: 1/2 = 2/4. Dann gilt 2/4 + 1/4 = 3/4.'
+      de: 'Bei $\frac{1}{2} + \frac{1}{4}$ sind die Teile verschieden groß. Du kannst sie erst zusammenzählen, wenn sie gleich groß sind. Darum [[erweitern]]: $\frac{1}{2} = \frac{2}{4}$. Dann gilt $\frac{2}{4} + \frac{1}{4} = \frac{3}{4}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Rechne 1/3 + 1/6. [[Erweitere]] zuerst 1/3 auf Sechstel. Gib das Ergebnis in Sechsteln an, noch ohne zu [[kürzen]].'
+      de: 'Rechne $\frac{1}{3} + \frac{1}{6}$. [[Erweitere]] zuerst $\frac{1}{3}$ auf Sechstel. Gib das Ergebnis in Sechsteln an, noch ohne zu [[kürzen]].'
     antwort:
       eingabe:
         art: bruch
@@ -68,11 +68,11 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Tim rechnet: „1/2 + 1/2 = 2/4, oben plus oben, unten plus unten.“ Stimmt das?'
+      de: 'Tim rechnet: „$\frac{1}{2} + \frac{1}{2} = \frac{2}{4}$, oben plus oben, unten plus unten.“ Stimmt das?'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 2 } }
     antwort:
       optionen:
-        - wert: { de: 'Nein, zwei Hälften sind ein Ganzes, nicht 2/4.' }
+        - wert: { de: 'Nein, zwei Hälften sind ein Ganzes, nicht $\frac{2}{4}$.' }
           richtig: true
         - wert: { de: 'Ja, so rechnet man mit Brüchen.' }
           fv: FV.BR.NENNER-ADDIERT
@@ -86,14 +86,14 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Wie viel ist 1/2 + 1/4?'
+      de: 'Wie viel ist $\frac{1}{2} + \frac{1}{4}$?'
     antwort:
       optionen:
-        - wert: { de: '3/4' }
+        - wert: { de: '$\frac{3}{4}$' }
           richtig: true
-        - wert: { de: '2/6' }
+        - wert: { de: '$\frac{2}{6}$' }
           fv: FV.BR.NENNER-ADDIERT
-        - wert: { de: '2/4' }
+        - wert: { de: '$\frac{2}{4}$' }
           fv: FV.BR.EINEN-NENNER
     weiter: uebergang
     bei:

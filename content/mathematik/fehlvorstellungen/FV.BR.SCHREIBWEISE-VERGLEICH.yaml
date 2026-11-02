@@ -15,12 +15,12 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast die Zahlen verglichen, so wie sie dastehen.'
     - teil: warum-nicht
-      de: 'Das klappt, solange beide gleich geschrieben sind. Aber 2/5 und 40 % sind derselbe [[Anteil]] in zwei Schreibweisen. Die Zahl 40 ist nur größer, weil sie [[Hundertstel]] zählt.'
+      de: 'Das klappt, solange beide gleich geschrieben sind. Aber $\frac{2}{5}$ und 40 % sind derselbe [[Anteil]] in zwei Schreibweisen. Die Zahl 40 ist nur größer, weil sie [[Hundertstel]] zählt.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
     - teil: so-stimmt-es
-      de: 'Bringe beide in dieselbe Schreibweise: 2/5 = 40/100 = 40 %. Jetzt siehst du: 40 % ist mehr als 30 %.'
+      de: 'Bringe beide in dieselbe Schreibweise: $\frac{2}{5} = \frac{40}{100} = 40$ %. Jetzt siehst du: 40 % ist mehr als 30 %.'
 gegenbeispiel:
-  de: '1/2 und 50 % sind beide eine Hälfte, obwohl 50 viel größer aussieht als 1 und 2.'
+  de: '$\frac{1}{2}$ und 50 % sind beide eine Hälfte, obwohl 50 viel größer aussieht als 1 und 2.'
 rueckweg:
   vermittlung: M.ZO.BR.ANTEILE#erklaeren-vergleichen
   voraussetzung: M.ZO.BR.PROZENT

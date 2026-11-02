@@ -15,11 +15,11 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast malgenommen, aber nicht den richtigen [[Bruch]] umgedreht.'
     - teil: warum-nicht
-      de: 'Die Regel ist schwer zu merken, wenn man nicht weiß, warum sie gilt. Durch 1/2 teilen fragt: Wie oft passt eine Hälfte hinein? In 3 passt sie 6-mal. Also ist 3 : 1/2 = 3 · 2. Umgedreht wird der [[Bruch]], durch den geteilt wird.'
+      de: 'Die Regel ist schwer zu merken, wenn man nicht weiß, warum sie gilt. Durch $\frac{1}{2}$ teilen fragt: Wie oft passt eine Hälfte hinein? In 3 passt sie 6-mal. Also ist $3 : \frac{1}{2} = 3 \cdot 2$. Umgedreht wird der [[Bruch]], durch den geteilt wird.'
     - teil: so-stimmt-es
-      de: '2/3 : 4/5 = 2/3 · 5/4 = 10/12 = 5/6. Der erste [[Bruch]] bleibt, der zweite wird umgedreht.'
+      de: '$\frac{2}{3} : \frac{4}{5} = \frac{2}{3} \cdot \frac{5}{4} = \frac{10}{12} = \frac{5}{6}$. Der erste [[Bruch]] bleibt, der zweite wird umgedreht.'
 gegenbeispiel:
-  de: '1 : 1/2 ist 2, denn zwei Hälften passen in ein Ganzes. Ohne [[Kehrwert]] käme 1/2 heraus.'
+  de: '$1 : \frac{1}{2}$ ist 2, denn zwei Hälften passen in ein Ganzes. Ohne [[Kehrwert]] käme $\frac{1}{2}$ heraus.'
 rueckweg:
   vermittlung: M.ZO.BR.DIV#erklaeren-kehrwert
   voraussetzung: M.ZO.BR.MULT

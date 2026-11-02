@@ -36,12 +36,12 @@ schritte:
   - id: erklaeren-relativ
     typ: erklaeren
     text:
-      de: 'Die [[relative Häufigkeit]] ist ein [[Anteil]]: wie oft es vorkam, geteilt durch alle Versuche. Kam die 6 bei 20 Würfen 4-mal, ist ihre relative Häufigkeit 4/20 = 1/5 = 20 %.'
+      de: 'Die [[relative Häufigkeit]] ist ein [[Anteil]]: wie oft es vorkam, geteilt durch alle Versuche. Kam die 6 bei 20 Würfen 4-mal, ist ihre relative Häufigkeit $\frac{4}{20} = \frac{1}{5} = 20$ %.'
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '[[Strichliste]] für „Kopf“: drei Bündel und 1 Strich, also 16. Bei 40 Würfen ist die [[relative Häufigkeit]] 16/40 = 2/5.'
+      de: '[[Strichliste]] für „Kopf“: drei Bündel und 1 Strich, also 16. Bei 40 Würfen ist die [[relative Häufigkeit]] $\frac{16}{40} = \frac{2}{5}$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -64,7 +64,10 @@ schritte:
     antwort:
       optionen:
         - {
-            wert: { de: 'Nein, 10 ist die absolute Häufigkeit. Relativ: 10/50 = 1/5.' },
+            wert:
+              {
+                de: 'Nein, 10 ist die absolute Häufigkeit. Relativ: $\frac{10}{50} = \frac{1}{5}$.',
+              },
             richtig: true,
           }
         - { wert: { de: 'Ja.' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }

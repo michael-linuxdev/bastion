@@ -14,7 +14,7 @@ schritte:
       de: 'Ist 0,333… ein [[Bruch]]?'
     antwort:
       optionen:
-        - { wert: { de: 'Ja, 0,333… = 1/3.' }, richtig: true }
+        - { wert: { de: 'Ja, 0,333… = $\frac{1}{3}$.' }, richtig: true }
         - { wert: { de: 'Nein, sie hört nie auf.' }, fv: FV.PW.PERIODISCH-IRRATIONAL }
     weiter: entdecken
     bei: { FV.PW.PERIODISCH-IRRATIONAL: erklaeren-irrational, sonst: M.ZO.BR.PERIODISCH }
@@ -40,7 +40,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: '√49 = 7 liegt in ℕ. −√9 = −3 liegt in ℤ. 0,333… = 1/3 liegt in ℚ. √5 liegt nur in ℝ.'
+      de: '√49 = 7 liegt in ℕ. −√9 = −3 liegt in ℤ. 0,333… = $\frac{1}{3}$ liegt in ℚ. √5 liegt nur in ℝ.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

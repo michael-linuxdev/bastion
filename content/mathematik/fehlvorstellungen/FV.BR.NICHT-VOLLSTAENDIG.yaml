@@ -18,7 +18,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Prüfe nach jedem Schritt: Lassen sich [[Zähler]] und [[Nenner]] noch durch dieselbe Zahl teilen? Oder [[kürze]] gleich durch den größten [[gemeinsamen Teiler]].'
 gegenbeispiel:
-  de: '12/18 → 6/9 ist richtig [[gekürzt]]. Aber 6 und 9 lassen sich noch durch 3 teilen: 6/9 = 2/3.'
+  de: '$\frac{12}{18}$ → $\frac{6}{9}$ ist richtig [[gekürzt]]. Aber 6 und 9 lassen sich noch durch 3 teilen: $\frac{6}{9} = \frac{2}{3}$.'
 rueckweg:
   vermittlung: M.ZO.BR.ERWEITERN#erklaeren-kuerzen
   voraussetzung: M.ZO.TB.TEILER

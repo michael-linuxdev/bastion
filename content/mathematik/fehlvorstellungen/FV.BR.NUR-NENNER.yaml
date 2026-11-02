@@ -17,9 +17,9 @@ erklaerung:
       de: 'Neue Teilgrößen sind richtig gedacht. Doch wenn jedes Teil halb so groß ist, brauchst du doppelt so viele. Werden die Teile größer, brauchst du weniger. Sonst ändert sich der [[Anteil]].'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 3 } }
     - teil: so-stimmt-es
-      de: 'Nimm [[Zähler]] und [[Nenner]] mit derselben Zahl mal: 3/4 = 6/8.'
+      de: 'Nimm [[Zähler]] und [[Nenner]] mit derselben Zahl mal: $\frac{3}{4} = \frac{6}{8}$.'
 gegenbeispiel:
-  de: '3/4 einer Pizza sind fast alles. 3/8 sind weniger als die Hälfte – das kann nicht dasselbe sein.'
+  de: '$\frac{3}{4}$ einer Pizza sind fast alles. $\frac{3}{8}$ sind weniger als die Hälfte – das kann nicht dasselbe sein.'
 rueckweg:
   vermittlung: M.ZO.BR.ERWEITERN#erklaeren-erweitern
 kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER, M.ZO.BR.ERWEITERN.KUERZEN, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]

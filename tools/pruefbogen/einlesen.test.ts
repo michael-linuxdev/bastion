@@ -17,7 +17,7 @@ describe('Prüfbogen einlesen (F3)', () => {
     expect(b.abschnitte.map((a) => a.id)).toEqual([
       'A-M.ZO.BR.ADD-SUB',
       'A-M.ZO.BR.ERWEITERN',
-      'B-FV.BR.VERTAUSCHT',
+      'B-FV.BR.EINTEILUNG',
       'C-M.ZO.BR.ERWEITERN.KUERZEN',
       'D-begriffe',
     ]);
@@ -27,7 +27,7 @@ describe('Prüfbogen einlesen (F3)', () => {
   });
 
   it('versteht auch die Formen { documents: [...] } und { id: daten }', () => {
-    const dok = { doc_id: 'B-FV.BR.VERTAUSCHT', data: { werte: { urteil: 'passt' } } };
+    const dok = { doc_id: 'B-FV.BR.EINTEILUNG', data: { werte: { urteil: 'passt' } } };
     expect(leseExport({ documents: [dok] }).abschnitte[0]?.urteil).toBe('passt');
     expect(leseExport({ 'B-FV.X': { werte: { urteil: 'falsch' } } }).abschnitte[0]?.urteil).toBe(
       'falsch',
@@ -38,7 +38,7 @@ describe('Prüfbogen einlesen (F3)', () => {
   it('ordnet Abschnitte ihren Dateien zu', () => {
     const a = dateienVon('A-M.ZO.BR.ADD-SUB', alle).map((d) => d.art);
     expect(a.sort()).toEqual(['kompetenz', 'vermittlung']);
-    expect(dateienVon('B-FV.BR.VERTAUSCHT', alle)).toHaveLength(1);
+    expect(dateienVon('B-FV.BR.EINTEILUNG', alle)).toHaveLength(1);
     expect(dateienVon('C-M.ZO.BR.ERWEITERN.KUERZEN', alle)).toHaveLength(1);
     expect(dateienVon('D-begriffe', alle)).toEqual([]);
   });
@@ -47,7 +47,7 @@ describe('Prüfbogen einlesen (F3)', () => {
     const md = arbeitsliste(b, alle);
     expect(md).toContain('pnpm review setzen --stufe 2 --pruefer "Erika Muster"');
     // Die Fehlvorstellung VERTAUSCHT hat Stufe 1 und passt
-    expect(md).toMatch(/content\/mathematik\/fehlvorstellungen\/FV\.BR\.VERTAUSCHT\.yaml/);
+    expect(md).toMatch(/content\/mathematik\/fehlvorstellungen\/FV\.BR\.EINTEILUNG\.yaml/);
     // „falsch“ und „passt mit Änderung“ landen unter „Zu ändern“, nicht im Vorschlag
     const vorschlag = md.split('## Vorschlag für Stufe 2')[1]?.split('## ')[0] ?? '';
     expect(vorschlag).not.toContain('kuerzen.yaml');
@@ -79,7 +79,7 @@ describe('Prüfbogen einlesen (F3)', () => {
       {
         pruefer: 'Eve"; rm -rf /',
         abschnitte: [
-          { id: 'B-FV.BR.VERTAUSCHT', urteil: 'passt', fragenAbgehakt: 0, zeilenAbgehakt: 0 },
+          { id: 'B-FV.BR.EINTEILUNG', urteil: 'passt', fragenAbgehakt: 0, zeilenAbgehakt: 0 },
         ],
       },
       alle,

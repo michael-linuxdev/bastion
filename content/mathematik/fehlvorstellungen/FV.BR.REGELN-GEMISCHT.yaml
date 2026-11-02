@@ -14,11 +14,11 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast die [[Zähler]] malgenommen und die [[Nenner]] addiert.'
     - teil: warum-nicht
-      de: 'Für [[Brüche]] gibt es mehrere Regeln, da passiert so etwas leicht. Aber 2/3 · 4/5 heißt: 4/5 von 2/3. Das Ergebnis ist kleiner als 2/3. Du siehst es, wenn du die Teile weiter zerlegst: Aus Dritteln werden Fünfzehntel, nicht Achtel.'
+      de: 'Für [[Brüche]] gibt es mehrere Regeln, da passiert so etwas leicht. Aber $\frac{2}{3} \cdot \frac{4}{5}$ heißt: $\frac{4}{5}$ von $\frac{2}{3}$. Das Ergebnis ist kleiner als $\frac{2}{3}$. Du siehst es, wenn du die Teile weiter zerlegst: Aus Dritteln werden Fünfzehntel, nicht Achtel.'
     - teil: so-stimmt-es
-      de: '2/3 · 4/5 = (2 · 4)/(3 · 5) = 8/15.'
+      de: '$\frac{2}{3} \cdot \frac{4}{5}$ = (2 · 4)/(3 · 5) = $\frac{8}{15}$.'
 gegenbeispiel:
-  de: '1/2 · 1/2 ist die Hälfte einer Hälfte, also ein Viertel. Mit „[[Nenner]] plus Nenner“ käme 1/4 nur zufällig heraus: 1/3 · 1/3 gäbe 1/6 statt 1/9.'
+  de: '$\frac{1}{2} \cdot \frac{1}{2}$ ist die Hälfte einer Hälfte, also ein Viertel. Mit „[[Nenner]] plus Nenner“ käme $\frac{1}{4}$ nur zufällig heraus: $\frac{1}{3} \cdot \frac{1}{3}$ gäbe $\frac{1}{6}$ statt $\frac{1}{9}$.'
 rueckweg:
   vermittlung: M.ZO.BR.MULT#erklaeren-mal-bruch
 kontrast: [M.ZO.BR.MULT.MAL-BRUCH]

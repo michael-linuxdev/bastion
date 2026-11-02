@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast das Ganze durch den Teil geteilt.'
     - teil: warum-nicht
-      de: 'Große Zahl durch kleine sieht einfacher aus. Aber 6 von 30 ist ein [[Anteil]] wie der [[Bruch]] 6/30: [[Zähler]] durch [[Nenner]], also Teil durch Ganzes.'
+      de: 'Große Zahl durch kleine sieht einfacher aus. Aber 6 von 30 ist ein [[Anteil]] wie der [[Bruch]] $\frac{6}{30}$: [[Zähler]] durch [[Nenner]], also Teil durch Ganzes.'
     - teil: so-stimmt-es
       de: '6 : 30 = 0,2 = 20 %. Prüfe: 20 % von 30 sind 6.'
 gegenbeispiel:

@@ -14,10 +14,10 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast richtig umgewandelt und dann aufgehört.'
     - teil: warum-nicht
-      de: 'Der Wert stimmt, das ist schon viel. Die Aufgabe will den [[Bruch]] aber in seiner einfachsten Form. 25/100 und 1/4 sind gleich groß, doch 1/4 sieht man sofort an, wie viel es ist.'
+      de: 'Der Wert stimmt, das ist schon viel. Die Aufgabe will den [[Bruch]] aber in seiner einfachsten Form. $\frac{25}{100}$ und $\frac{1}{4}$ sind gleich groß, doch $\frac{1}{4}$ sieht man sofort an, wie viel es ist.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
     - teil: so-stimmt-es
-      de: 'Prüfe am Ende immer: Haben [[Zähler]] und [[Nenner]] einen [[gemeinsamen Teiler]]? 25/100 = 1/4, denn beide lassen sich durch 25 teilen.'
+      de: 'Prüfe am Ende immer: Haben [[Zähler]] und [[Nenner]] einen [[gemeinsamen Teiler]]? $\frac{25}{100} = \frac{1}{4}$, denn beide lassen sich durch 25 teilen.'
 gegenbeispiel:
   de: 'Niemand sagt „fünfzig [[Hundertstel]] einer Pizza“. Man sagt „eine halbe Pizza“.'
 rueckweg:

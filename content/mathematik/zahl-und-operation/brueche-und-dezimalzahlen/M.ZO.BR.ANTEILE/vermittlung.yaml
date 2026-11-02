@@ -11,7 +11,7 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Wie viel [[Prozent]] sind 1/4?'
+      de: 'Wie viel [[Prozent]] sind $\frac{1}{4}$?'
     antwort:
       eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '4', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
     weiter: entdecken
@@ -32,13 +32,13 @@ schritte:
   - id: erklaeren-vergleichen
     typ: erklaeren
     text:
-      de: '[[Bruch]], [[Dezimalzahl]] und [[Prozent]] sind drei Namen für denselben [[Anteil]]: 2/5 = 0,4 = 40 %. Zum Vergleichen bringst du alle in dieselbe Schreibweise, am einfachsten in Prozent.'
+      de: '[[Bruch]], [[Dezimalzahl]] und [[Prozent]] sind drei Namen für denselben [[Anteil]]: $\frac{2}{5} = 0{,}4 = 40$ %. Zum Vergleichen bringst du alle in dieselbe Schreibweise, am einfachsten in Prozent.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 2 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Was ist mehr, 3/4 oder 70 %? 3/4 = 75/100 = 75 %. 75 % ist mehr als 70 %, also ist 3/4 größer.'
+      de: 'Was ist mehr, $\frac{3}{4}$ oder 70 %? $\frac{3}{4} = \frac{75}{100} = 75$ %. 75 % ist mehr als 70 %, also ist $\frac{3}{4}$ größer.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -50,10 +50,10 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Max sagt: „30 % sind mehr als 2/5, weil 30 größer ist als 2 und 5.“ Stimmt das?'
+      de: 'Max sagt: „30 % sind mehr als $\frac{2}{5}$, weil 30 größer ist als 2 und 5.“ Stimmt das?'
     antwort:
       optionen:
-        - { wert: { de: 'Nein, 2/5 sind 40 %, also mehr als 30 %.' }, richtig: true }
+        - { wert: { de: 'Nein, $\frac{2}{5}$ sind 40 %, also mehr als 30 %.' }, richtig: true }
         - { wert: { de: 'Ja, die größere Zahl ist mehr.' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
     weiter: merksatz
     bei: { FV.BR.SCHREIBWEISE-VERGLEICH: erklaeren-vergleichen }
@@ -68,7 +68,7 @@ schritte:
       de: 'Welcher [[Anteil]] ist am größten?'
     antwort:
       optionen:
-        - { wert: { de: '3/5' }, richtig: true }
+        - { wert: { de: '$\frac{3}{5}$' }, richtig: true }
         - { wert: { de: '55 %' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
         - { wert: { de: '0,58' }, fv: FV.BR.SCHREIBWEISE-VERGLEICH }
     weiter: uebergang

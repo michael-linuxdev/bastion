@@ -12,9 +12,9 @@ text:
   aufgabe:
     de: '**Entscheide**: Welche Aussage stimmt?'
 hilfen:
-  - de: 'Jede [[natürliche Zahl]] kann man auch als [[Bruch]] schreiben, zum Beispiel 3 = 3/1.'
+  - de: 'Jede [[natürliche Zahl]] kann man auch als [[Bruch]] schreiben, zum Beispiel $3 = \frac{3}{1}$.'
   - de: 'Eine [[Teilmenge]] ist in einer anderen Menge ganz enthalten.'
-  - de: 'Ein [[Element]] gehört zu einer Menge. Ist 3/4 ein Element der [[natürlichen Zahlen]]?'
+  - de: 'Ein [[Element]] gehört zu einer Menge. Ist $\frac{3}{4}$ ein Element der [[natürlichen Zahlen]]?'
 fehlerbilder:
   teilmenge-verdreht:
     de: 'Es ist umgekehrt: Die [[natürlichen Zahlen]] stecken in den [[gebrochenen Zahlen]], nicht die gebrochenen in den natürlichen.'

@@ -14,12 +14,12 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast gedacht: Ein [[Bruch]] ist nie eine [[natürliche Zahl]].'
     - teil: warum-nicht
-      de: 'Meistens stimmt das, darum ist die Idee naheliegend. Aber 12/4 heißt 12 : 4, und das ist genau 3. Es ist dieselbe Zahl, nur anders geschrieben.'
+      de: 'Meistens stimmt das, darum ist die Idee naheliegend. Aber $\frac{12}{4}$ heißt 12 : 4, und das ist genau 3. Es ist dieselbe Zahl, nur anders geschrieben.'
       bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 3, einteilung: 4, markiert: 12 } }
     - teil: so-stimmt-es
-      de: 'Prüfe den Wert, nicht das Aussehen: Geht der [[Zähler]] ohne Rest durch den [[Nenner]], ist der [[Bruch]] eine [[natürliche Zahl]]. Mit Minus, etwa −12/4 = −3, ist er eine [[ganze Zahl]].'
+      de: 'Prüfe den Wert, nicht das Aussehen: Geht der [[Zähler]] ohne Rest durch den [[Nenner]], ist der [[Bruch]] eine [[natürliche Zahl]]. Mit Minus, etwa −$\frac{12}{4}$ = −3, ist er eine [[ganze Zahl]].'
 gegenbeispiel:
-  de: '4/2 Pizzen sind genau 2 ganze Pizzen.'
+  de: '$\frac{4}{2}$ Pizzen sind genau 2 ganze Pizzen.'
 rueckweg:
   vermittlung: M.ZO.BR.MENGEN#erklaeren-zahlbereiche
 kontrast: [M.ZO.BR.MENGEN.NATUERLICH, M.ZO.RZ.ZAHLBEREICHE.ZUORDNEN]

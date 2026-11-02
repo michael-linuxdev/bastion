@@ -18,7 +18,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: '[[Teiler]] von 12: 1, 2, 3, 4, 6, 12. Teiler von 18: 1, 2, 3, 6, 9, 18. Der größte gemeinsame ist 6. [[Vielfache]] von 4 und 6: Das erste gemeinsame ist 12, nicht 24.'
 gegenbeispiel:
-  de: '6/8 lässt sich durch 2 [[kürzen]]. Mit dem ggT 1 könntest du gar nicht kürzen.'
+  de: '$\frac{6}{8}$ lässt sich durch 2 [[kürzen]]. Mit dem ggT 1 könntest du gar nicht kürzen.'
 rueckweg:
   vermittlung: M.ZO.TB.GGT-KGV#erklaeren-listen
 kontrast: [M.ZO.TB.GGT-KGV.GGT, M.ZO.TB.GGT-KGV.KGV]

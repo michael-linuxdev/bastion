@@ -15,11 +15,11 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast die Zahl ohne [[Periodenstrich]] geschrieben, nach einigen [[Ziffern]] aufgehört oder den Strich über zu viele Ziffern gesetzt.'
     - teil: warum-nicht
-      de: 'Eine Zahl, die nie aufhört, kann man nicht ganz hinschreiben. Darum gibt es den Strich. Ohne ihn hört die Zahl auf und ist eine andere: 0,333 ist etwas weniger als 1/3.'
+      de: 'Eine Zahl, die nie aufhört, kann man nicht ganz hinschreiben. Darum gibt es den Strich. Ohne ihn hört die Zahl auf und ist eine andere: 0,333 ist etwas weniger als $\frac{1}{3}$.'
     - teil: so-stimmt-es
-      de: 'Teile schriftlich, bis sich ein Rest wiederholt. Ab da wiederholen sich die [[Ziffern]]. Nur über sie kommt der Strich. Bei 1/6 = 0,1666… wiederholt sich nur die 6.'
+      de: 'Teile schriftlich, bis sich ein Rest wiederholt. Ab da wiederholen sich die [[Ziffern]]. Nur über sie kommt der Strich. Bei $\frac{1}{6} = 0{,}1666$… wiederholt sich nur die 6.'
 gegenbeispiel:
-  de: '0,333 · 3 = 0,999, also nicht ganz 1. Aber 1/3 · 3 ist genau 1.'
+  de: '0,333 · 3 = 0,999, also nicht ganz 1. Aber $\frac{1}{3} \cdot 3$ ist genau 1.'
 rueckweg:
   vermittlung: M.ZO.BR.PERIODISCH#erklaeren-periode
 kontrast: [M.ZO.BR.PERIODISCH.ERKENNEN]

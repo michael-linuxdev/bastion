@@ -11,7 +11,7 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Berechne 1/4 von 12.'
+      de: 'Berechne $\frac{1}{4}$ von 12.'
     antwort:
       eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '48', fv: FV.BR.VERTAUSCHT }] }
     weiter: entdecken
@@ -19,7 +19,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Färbe dreimal ein Sechstel. Wie viel ist 3 · 1/6?'
+      de: 'Färbe dreimal ein Sechstel. Wie viel ist $3 \cdot \frac{1}{6}$?'
     werkzeug: { id: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 0 } }
     antwort:
       eingabe:
@@ -32,24 +32,24 @@ schritte:
   - id: erklaeren-mal-zahl
     typ: erklaeren
     text:
-      de: 'Mal 3 heißt: dreimal so viele Teile. Die Teile bleiben gleich groß. Darum nimmst du nur den [[Zähler]] mal, der [[Nenner]] bleibt: 3 · 1/6 = 3/6.'
+      de: 'Mal 3 heißt: dreimal so viele Teile. Die Teile bleiben gleich groß. Darum nimmst du nur den [[Zähler]] mal, der [[Nenner]] bleibt: $3 \cdot \frac{1}{6} = \frac{3}{6}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 3 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '2/5 · 3 = 6/5. Das ist mehr als ein Ganzes, nämlich 1 1/5.'
+      de: '$\frac{2}{5} \cdot 3 = \frac{6}{5}$. Das ist mehr als ein Ganzes, nämlich 1 $\frac{1}{5}$.'
     weiter: erklaeren-mal-bruch
   - id: erklaeren-mal-bruch
     typ: erklaeren
     text:
-      de: '2/3 · 4/5 heißt: 4/5 von 2/3. Du zerlegst die Drittel in Fünfzehntel und nimmst einen Teil davon. Darum: [[Zähler]] mal Zähler, [[Nenner]] mal Nenner. 2/3 · 4/5 = 8/15.'
+      de: '$\frac{2}{3} \cdot \frac{4}{5}$ heißt: $\frac{4}{5}$ von $\frac{2}{3}$. Du zerlegst die Drittel in Fünfzehntel und nimmst einen Teil davon. Darum: [[Zähler]] mal Zähler, [[Nenner]] mal Nenner. $\frac{2}{3} \cdot \frac{4}{5} = \frac{8}{15}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 15, gefaerbt: 8 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Rechne 1/2 · 3/4. [[Zähler]] mal Zähler, [[Nenner]] mal Nenner.'
+      de: 'Rechne $\frac{1}{2} \cdot \frac{3}{4}$. [[Zähler]] mal Zähler, [[Nenner]] mal Nenner.'
     antwort:
       eingabe: { art: bruch, loesung: '3/8', fehler: [{ wert: '3/6', fv: FV.BR.REGELN-GEMISCHT }] }
     weiter: gegenbeispiel
@@ -57,10 +57,16 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Nina rechnet 2/7 · 3 = 6/21. Stimmt das?'
+      de: 'Nina rechnet $\frac{2}{7} \cdot 3 = \frac{6}{21}$. Stimmt das?'
     antwort:
       optionen:
-        - { wert: { de: 'Nein, 6/21 ist so groß wie 2/7. Richtig ist 6/7.' }, richtig: true }
+        - {
+            wert:
+              {
+                de: 'Nein, $\frac{6}{21}$ ist so groß wie $\frac{2}{7}$. Richtig ist $\frac{6}{7}$.',
+              },
+            richtig: true,
+          }
         - {
             wert: { de: 'Ja, Zähler und Nenner werden malgenommen.' },
             fv: FV.BR.ERWEITERT-STATT-GERECHNET,
@@ -75,12 +81,12 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Wie viel ist 3/8 · 2?'
+      de: 'Wie viel ist $\frac{3}{8} \cdot 2$?'
     antwort:
       optionen:
-        - { wert: { de: '6/8' }, richtig: true }
-        - { wert: { de: '3/16' }, fv: FV.BR.ZAEHLER-ODER-NENNER }
-        - { wert: { de: '6/16' }, fv: FV.BR.ERWEITERT-STATT-GERECHNET }
+        - { wert: { de: '$\frac{6}{8}$' }, richtig: true }
+        - { wert: { de: '$\frac{3}{16}$' }, fv: FV.BR.ZAEHLER-ODER-NENNER }
+        - { wert: { de: '$\frac{6}{16}$' }, fv: FV.BR.ERWEITERT-STATT-GERECHNET }
     weiter: uebergang
     bei:
       {

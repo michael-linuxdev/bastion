@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du ausrechnen, wie viel zum Beispiel 3/4 von 20 € sind.'
+      de: 'Danach kannst du ausrechnen, wie viel zum Beispiel $\frac{3}{4}$ von 20 € sind.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -33,18 +33,18 @@ schritte:
   - id: erklaeren-anteil-von
     typ: erklaeren
     text:
-      de: 'Für 3/4 von 12 brauchst du zwei Schritte. Erst teilst du durch den [[Nenner]]: 12 : 4 = 3, das ist ein Viertel. Dann nimmst du mal den [[Zähler]]: 3 · 3 = 9, das sind drei Viertel.'
+      de: 'Für $\frac{3}{4}$ von 12 brauchst du zwei Schritte. Erst teilst du durch den [[Nenner]]: 12 : 4 = 3, das ist ein Viertel. Dann nimmst du mal den [[Zähler]]: 3 · 3 = 9, das sind drei Viertel.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '2/5 von 30 €: Ein Fünftel ist 30 € : 5 = 6 €. Zwei Fünftel sind 2 · 6 € = 12 €.'
+      de: '$\frac{2}{5}$ von 30 €: Ein Fünftel ist 30 € : 5 = 6 €. Zwei Fünftel sind 2 · 6 € = 12 €.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Berechne 3/4 von 20 kg. Ein Viertel ist 20 kg : 4 = 5 kg. Wie viel sind drei Viertel?'
+      de: 'Berechne $\frac{3}{4}$ von 20 kg. Ein Viertel ist 20 kg : 4 = 5 kg. Wie viel sind drei Viertel?'
     antwort:
       eingabe:
         art: zahl
@@ -57,7 +57,7 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Lea rechnet 1/4 von 20 € so: 20 · 4 = 80 €. Stimmt das?'
+      de: 'Lea rechnet $\frac{1}{4}$ von 20 € so: 20 · 4 = 80 €. Stimmt das?'
     antwort:
       optionen:
         - {
@@ -75,7 +75,7 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Wie viel sind 3/4 von 40 m?'
+      de: 'Wie viel sind $\frac{3}{4}$ von 40 m?'
     antwort:
       optionen:
         - { wert: { de: '30 m' }, richtig: true }

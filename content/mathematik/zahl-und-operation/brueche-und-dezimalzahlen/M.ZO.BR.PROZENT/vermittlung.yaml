@@ -11,7 +11,7 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Schreibe 25/100 als [[Dezimalzahl]].'
+      de: 'Schreibe $\frac{25}{100}$ als [[Dezimalzahl]].'
     antwort:
       eingabe:
         { art: zahl, loesung: '0,25', fehler: [{ wert: '2,5', fv: FV.BR.STELLENWERT-DEZIMAL }] }
@@ -28,13 +28,13 @@ schritte:
   - id: erklaeren-hundertstel
     typ: erklaeren
     text:
-      de: '[[Prozent]] heißt „von Hundert“. 1 % ist ein [[Hundertstel]]. 50 % sind 50/100, also 1/2 oder 0,5. 100 % sind das Ganze.'
+      de: '[[Prozent]] heißt „von Hundert“. 1 % ist ein [[Hundertstel]]. 50 % sind $\frac{50}{100}$, also $\frac{1}{2}$ oder 0,5. 100 % sind das Ganze.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '25 % = 25/100. Gekürzt ist das 1/4. Als [[Dezimalzahl]]: 0,25.'
+      de: '25 % = $\frac{25}{100}$. Gekürzt ist das $\frac{1}{4}$. Als [[Dezimalzahl]]: 0,25.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -51,14 +51,14 @@ schritte:
       de: 'Lena sagt: „0,5 sind 5 %.“ Stimmt das?'
     antwort:
       optionen:
-        - { wert: { de: 'Nein, 0,5 = 50/100 = 50 %.' }, richtig: true }
+        - { wert: { de: 'Nein, $0{,}5 = \frac{50}{100} = 50$ %.' }, richtig: true }
         - { wert: { de: 'Ja, die 5 bleibt die 5.' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
     weiter: merksatz
     bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Prozent]] zählt [[Hundertstel]]: 50 % = 1/2 = 0,5, 25 % = 1/4 = 0,25, 100 % = 1.'
+      de: '[[Prozent]] zählt [[Hundertstel]]: 50 % = $\frac{1}{2} = 0{,}5$, 25 % = $\frac{1}{4} = 0{,}25$, 100 % = 1.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
@@ -66,8 +66,8 @@ schritte:
       de: 'Welcher [[Bruch]] ist 25 %?'
     antwort:
       optionen:
-        - { wert: { de: '1/4' }, richtig: true }
-        - { wert: { de: '25/10' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+        - { wert: { de: '$\frac{1}{4}$' }, richtig: true }
+        - { wert: { de: '$\frac{25}{10}$' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
     weiter: uebergang
     bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
   - id: uebergang

@@ -36,7 +36,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: '[[Würfel]], [[Ereignis]] „gerade Zahl“: 3 passende von 6. [[Wahrscheinlichkeit]] 3/6 = 1/2.'
+      de: '[[Würfel]], [[Ereignis]] „gerade Zahl“: 3 passende von 6. [[Wahrscheinlichkeit]] $\frac{3}{6} = \frac{1}{2}$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -62,7 +62,10 @@ schritte:
     antwort:
       optionen:
         - {
-            wert: { de: 'Nein, entscheidend ist der Anteil: 3/10 ist kleiner als 2/4.' },
+            wert:
+              {
+                de: 'Nein, entscheidend ist der Anteil: $\frac{3}{10}$ ist kleiner als $\frac{2}{4}$.',
+              },
             richtig: true,
           }
         - { wert: { de: 'Ja.' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
@@ -79,8 +82,8 @@ schritte:
       de: 'Wie groß ist beim Würfeln die [[Wahrscheinlichkeit]] für eine Zahl größer als 4?'
     antwort:
       optionen:
-        - { wert: { de: '1/3' }, richtig: true }
-        - { wert: { de: '1/2' }, fv: FV.BR.TEIL-ZU-REST }
+        - { wert: { de: '$\frac{1}{3}$' }, richtig: true }
+        - { wert: { de: '$\frac{1}{2}$' }, fv: FV.BR.TEIL-ZU-REST }
         - { wert: { de: '2' }, fv: FV.BR.ANZAHL-STATT-ANTEIL }
     weiter: uebergang
     bei:

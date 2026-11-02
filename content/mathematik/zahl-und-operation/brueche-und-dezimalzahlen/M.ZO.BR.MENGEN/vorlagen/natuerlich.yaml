@@ -16,7 +16,7 @@ hilfen:
   - de: 'Manche [[Brüche]] sind in Wirklichkeit natürliche Zahlen. Rechne nach, ob der [[Zähler]] durch den [[Nenner]] [[teilbar]] ist.'
 fehlerbilder:
   bruch-heisst-nicht-natuerlich:
-    de: 'Auch als [[Bruch]] geschrieben kann eine Zahl natürlich sein: 12/4 ist 3.'
+    de: 'Auch als [[Bruch]] geschrieben kann eine Zahl natürlich sein: $\frac{12}{4}$ ist 3.'
     fv: FV.BR.SCHREIBWEISE-ZAHL
   komma-zahl-natuerlich:
     de: 'Eine Zahl mit [[Ziffern]] hinter dem Komma (außer Nullen) liegt zwischen zwei [[natürlichen Zahlen]] – sie ist keine natürliche Zahl.'
