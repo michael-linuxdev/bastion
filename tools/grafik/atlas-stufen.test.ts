@@ -24,6 +24,9 @@ const ERNEUERT: readonly (readonly [string, string, number])[] = [
   ['gebaeude/garten/e1', 'kern', 3], // G3 Thema garten, 02.11.2026
   ['gebaeude/garten/e1', 'wissen', 2],
   ['gebaeude/garten/e1', 'turm', 2],
+  ['gebaeude/unterwasser/e1', 'kern', 3], // G3 Thema unterwasser, 02.11.2026
+  ['gebaeude/unterwasser/e1', 'wissen', 2],
+  ['gebaeude/unterwasser/e1', 'turm', 2],
   ['gebaeude/dorf/e1', 'kern', 3], // G3 Thema dorf, 02.11.2026
   ['gebaeude/dorf/e1', 'wissen', 2],
   ['gebaeude/dorf/e1', 'turm', 2],
