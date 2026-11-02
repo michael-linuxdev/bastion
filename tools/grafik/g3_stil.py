@@ -250,6 +250,30 @@ W_S = 4  # intern vierfach zeichnen, dann weich auf 64 × 64 verkleinern
 W_KONTUR = (43, 38, 32, 255)
 
 
+def kuppel(iso: Iso, x, y, r: float, z: float, h: float, farbe, *, rippen: int = 0, rippe=None) -> tuple[float, float]:
+    """Halbkugel (Kuppel) auf Höhe z, Radius r in Feldern, Höhe h in Pixeln. Gibt die Spitze zurück."""
+    cx, cy = iso.p(x, y, z)
+    rx, ry = r * HW * math.sqrt(2), r * HH * math.sqrt(2)
+    n = 28
+    umriss = [(cx - rx * math.cos(math.pi * i / n), cy - h * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    umriss += [(cx + rx * math.cos(math.pi * i / n), cy + ry * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    iso.poly(umriss, hell(farbe, -30), KONTUR)
+    for k, (f, d) in enumerate(((0.82, -12), (0.6, 4), (0.32, 16))):
+        ox, oy = rx * (1 - f) * 0.55, h * (1 - f) * 0.5
+        pts = [(cx + ox - rx * f * math.cos(math.pi * i / n), cy - oy - h * f * math.sin(math.pi * i / n) + ry * (1 - f) * 0.4) for i in range(n + 1)]
+        pts += [(cx + ox + rx * f * math.cos(math.pi * i / n), cy - oy + ry * f * math.sin(math.pi * i / n) * 0.6) for i in range(n + 1)]
+        iso.poly(pts, hell(farbe, d))
+    if rippen:
+        for k in range(1, rippen):
+            t = math.pi * k / rippen
+            fx = -math.cos(t)
+            pts = [(cx + rx * fx * math.cos(a), cy - h * math.sin(a) + ry * math.sin(t) * math.cos(a) * 0.9) for a in [math.pi / 2 * j / 10 for j in range(11)]]
+            for a, b in zip(pts, pts[1:]):
+                iso.linie(a, b, rippe or hell(farbe, -50), 2)
+        iso.d.arc([cx - rx, cy - ry, cx + rx, cy + ry], 0, 180, fill=rippe or hell(farbe, -50), width=2)
+    return (cx, cy - h)
+
+
 class Wesen:
     def __init__(self) -> None:
         self.bild = Image.new("RGBA", (64 * W_S, 64 * W_S), (0, 0, 0, 0))
