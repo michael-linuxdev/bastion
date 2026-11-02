@@ -388,4 +388,21 @@ Umgebung: Linde (`baum_a`) und Apfelbaum (`baum_b`) an den festen Baumplätzen d
 | flaeche (Blumenbeet) | 2×2 | Erde mit Steinrand, vier Blumenbänder, Sonnenblume | – | – | |
 | denkmal (Gartenzwerg) | 1×1 | Gartenzwerg aus Ton auf rundem Steinsockel | – | – | |
 
-Umgebung: Strauch grün (`strauch_a`) und blühend (`strauch_b`) im Wechsel auf den festen Strauchplätzen der Garten-Szene. Wesen: Biene, Schnecke, Schmetterling. Als Nächstes Unterwasser, Weltraum.
+Umgebung: Strauch grün (`strauch_a`) und blühend (`strauch_b`) im Wechsel auf den festen Strauchplätzen der Garten-Szene. Wesen: Biene, Schnecke, Schmetterling.
+
+**Unterwasser** (`sprites-g3-unterwasser.py`, 02.11.2026). Materialleiter: **Treibholz und Muscheln → Korallenstein mit Bullaugen → Messing, Perlmutt und Glaskuppel.** Neue Farben: Treibholz `#9C8668`, Muschel `#E8D0B8`, Korallenstein `#CE9C84`, Messing `#C8A454`, Perlmutt `#E2DEEA`, Glas `#A4D6E2`, Sand `#D6C496`, Seegras `#4E8C60`, Rot `#D05446`, Licht `#FFD678`.
+
+| Rolle (Name) | Felder | Stufe 1 | Stufe 2 | Stufe 3 | Höhe s1 / s2 / s3 |
+|---|---|---|---|---|---|
+| kern (Hauptkuppel) | 3×3 | **kleine Kuppel** aus Muschelplatten mit Treibholzrippen auf einem Steinring, Tür, Bullauge | **große Kuppel aus Korallenstein** auf Steinsockel, vier Bullaugen, Aufsatz mit Glas-Oberlicht, Röhre zu einer Nebenkuppel, Banner | **runder Turm** aus Korallenstein mit Messingring und **hoher Glaskuppel**, Laternenspitze, zwei Nebenkuppeln mit Röhren, Banner, Fahne | 109 / 205 / 325 |
+| wissen (Perlenkammer) | 2×2 | **offene Riesenmuschel** mit leuchtender Perle | **Perlmutt-Kuppel** mit hohem **Schneckenturm** (Spiralkegel, Laterne), Bullaugen, Banner | – | 142 / 235 |
+| turm (Leuchtturm) | 1×1 | **Treibholzpfahl** mit Querholz und Laterne | **gestreifter Steinturm** (weiß-rot), Rundgang, Glaskanzel mit Licht, Messinghaube, Fahne | – | 152 / 287 |
+| werkstatt (Werft) | 2×2 | Holzgerüst mit Kran, kleines U-Boot im Bau, Bretter | – | – | |
+| eingang (Tauchschleuse) | 1×1 | runde Luke mit Handrad im Messingrahmen, zwei Lampen | – | – | |
+| einfassung (Korallenriff) | 1×1 | Ast- und Fächerkorallen, Hirnkoralle auf Steinstreifen, anschlussfähig | – | – | |
+| ursprung (Anker) | 1×1 | schräger Anker im Sand mit Kette | – | – | |
+| zeichen (Boje) | 1×1 | Petrol-Boje mit hellem Band, Fahne, Licht, Kette | – | – | |
+| flaeche (Seegraswiese) | 2×2 | Sand mit Seegras-Büscheln, Muscheln, Seestern | – | – | |
+| denkmal (Muschelskulptur) | 1×1 | graue Muschel auf Steinsockel | – | – | |
+
+Umgebung: Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`) im Wechsel auf den festen Korallenplätzen. Wesen: Fisch, Krebs, Qualle. Als Nächstes Weltraum.
