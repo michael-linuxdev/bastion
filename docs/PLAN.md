@@ -236,7 +236,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
-  - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). **Die PDF-Technik für U7 ist damit nicht entschieden**; das Werkzeug legt nichts für Prüfungen fest.
+  - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). ~~Die PDF-Technik für U7 ist damit nicht entschieden.~~ **Vorläufig entschieden (PV, 01.11.2026, ARCHITEKTUR T-21):** PDF über den Druckdialog des Browsers, ohne neue Abhängigkeit. Seit 02.11.2026 auch in der App: Elternbereich → „Für Lehrkräfte: Aufgabenblatt drucken“ (Logik im Kern, `src/core/learning/arbeitsblatt.ts`).
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar
 
 ## 4a. Phase 2 – Basebau Epoche 1 (K-18)
