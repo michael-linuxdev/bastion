@@ -1921,7 +1921,7 @@ test('Niveaus sind für Lernende unsichtbar, nur das Aufgabenblatt wählt G oder
   await expect(page.getByRole('group', { name: 'Niveau' })).toHaveCount(0);
 });
 
-test('Aufgabenblatt in der iPhone-App: eigene Druckseite im Browser mit genau demselben Blatt', async ({
+test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mit genau demselben Blatt', async ({
   page,
   context,
 }) => {
@@ -1947,10 +1947,15 @@ test('Aufgabenblatt in der iPhone-App: eigene Druckseite im Browser mit genau de
   await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
   const erstes = await blatt.locator('[data-aufgabe]').allInnerTexts();
   await expect(page.getByRole('button', { name: 'Drucken / als PDF speichern' })).toHaveCount(0);
-  const link = page.getByRole('link', { name: 'Im Browser öffnen und drucken' });
-  await expect(link).toHaveAttribute('target', '_blank');
-  const href = await link.getAttribute('href');
+  // iOS hält Links auf dieselbe Adresse in der App fest: Safari-Link und Link zum Kopieren
+  const href = await page.getByLabel('Link zum Blatt').inputValue();
   expect(href).toContain('?blatt=1&');
+  await expect(page.getByRole('link', { name: 'In Safari öffnen' })).toHaveAttribute(
+    'href',
+    `x-safari-${href}`,
+  );
+  await page.getByRole('button', { name: 'Link kopieren' }).click();
+  await expect(page.getByText(/^Link kopiert\.|^Kopieren ging nicht\./)).toBeVisible();
 
   // Die Druckseite: ohne PIN, ohne App-Rahmen, dieselben Aufgaben
   const druck = await context.newPage();

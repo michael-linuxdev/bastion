@@ -17,6 +17,7 @@
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { generatoren } from '../../generators';
   import Druckblatt from './Druckblatt.svelte';
+  import SafariWeg from './SafariWeg.svelte';
   import { KLASSEN } from '../ueben/klassen';
   import { t, type TextSchluessel } from '../texte/texte';
 
@@ -84,12 +85,11 @@
 
   const kompetenzName = (id: string) => kompetenzen.find((k) => k.id === id)?.titel.de ?? id;
   const niveauName = (n: Niveau) => t(`blatt.niveau-${n}` as TextSchluessel);
-  // iPhone/iPad, vom Home-Bildschirm gestartet: window.print() wirkt dort nicht, und es gibt
-  // keinen Teilen-Knopf. Darum öffnet der Knopf das Blatt als eigene Druckseite im Browser
-  // (src/ui/eltern/DruckSeite.svelte); dieselben Angaben ergeben dasselbe Blatt.
+  // iPhone/iPad, vom Home-Bildschirm gestartet: Drucken wirkt dort nicht. Dann führt SafariWeg
+  // das Blatt als eigene Druckseite nach Safari (src/ui/eltern/DruckSeite.svelte).
   const iosApp = (navigator as Navigator & { standalone?: boolean }).standalone === true;
   const druckAdresse = $derived(
-    `${import.meta.env.BASE_URL}?${blattAbfrage({
+    `${location.origin}${import.meta.env.BASE_URL}?${blattAbfrage({
       kompetenzen: eingabe.kompetenzen.map((k) => k.id),
       niveau,
       anzahl,
@@ -224,10 +224,7 @@
       <p role="status">{t('blatt.ungueltig')}</p>
     {:else}
       {#if iosApp}
-        <a class="haupt drucken" href={druckAdresse} target="_blank" rel="noopener"
-          >{t('blatt.im-browser')}</a
-        >
-        <p class="leise">{t('blatt.im-browser-hinweis')}</p>
+        <SafariWeg adresse={druckAdresse} />
       {:else}
         <button type="button" class="haupt drucken" onclick={() => window.print()}
           >{t('blatt.drucken')}</button
@@ -241,12 +238,6 @@
 </section>
 
 <style>
-  a.drucken {
-    display: grid;
-    place-items: center;
-    text-align: center;
-    text-decoration: none;
-  }
   .lehrkraft {
     display: grid;
     gap: var(--abstand-s);

@@ -10,6 +10,10 @@
   import { ladeInhalte } from '../plattform/pakete';
   import { t } from '../texte/texte';
   import Druckblatt from './Druckblatt.svelte';
+  import SafariWeg from './SafariWeg.svelte';
+
+  // Doch in der installierten iPhone-App aufgegangen: dort wirkt Drucken nicht
+  const iosApp = (navigator as Navigator & { standalone?: boolean }).standalone === true;
 
   let { abfrage }: { abfrage: string } = $props();
 
@@ -43,10 +47,14 @@
     <p role="status">{t('uebersicht.laedt')}</p>
   {:then blatt}
     {#if blatt}
-      <button type="button" class="haupt drucken" onclick={() => window.print()}
-        >{t('blatt.drucken')}</button
-      >
-      <p class="leise">{t('blatt.druckseite-hinweis')}</p>
+      {#if iosApp}
+        <SafariWeg adresse={location.href} />
+      {:else}
+        <button type="button" class="haupt drucken" onclick={() => window.print()}
+          >{t('blatt.drucken')}</button
+        >
+        <p class="leise">{t('blatt.druckseite-hinweis')}</p>
+      {/if}
       <Druckblatt
         aufgaben={blatt.aufgaben}
         thema={blatt.thema}
