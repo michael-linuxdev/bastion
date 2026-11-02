@@ -390,7 +390,9 @@ Der Späherturm bleibt unter dem Bergfried Stufe 2 (379 px), wie §12.8 verlangt
 
 **Charge 3 (02.11.2026): alle übrigen Gebäude der Epoche 1** nach Tabelle §12.8: Werkstatt (offener Holzschuppen mit Pultdach, Werkbank, Bretterstapel, Sägebock, Laterne als Abend-Ebene), Tor (Holztor zwischen Pfosten mit Querbalken und Schindeldach), Palisade (angespitzte Pfähle mit Querriegel, an beiden Enden anschlussfähig), Feuerstelle (Steinkreis, Scheite, Sitzstamm; Glut und Flamme als neue Abend-Ebene), Banner (Holzmast mit Petrol-Banner und Emblem), Gartenbeet (Holzrahmen, drei Reihen Pflanzen, Trittsteine), Statue (Steinsockel, Figur in neutralem Grau). Damit stammen alle 14 Gebäudebilder des Themas `bastion`, Epoche 1, aus dem neuen Generator. **Umgebung (02.11.2026):** Bäume (zwei Größen), Busch und Stein aus demselben Generator (Laubkrone als Kugel aus drei Tönen, Kontur nur am Rand, §12.7), Atlas `umgebung/bastion/`. Die Bühne stellt zwölf davon an feste Plätze auf den Inselrand, knapp außerhalb der Felder (`src/ui/bastion/grafik/insel-umgebung.ts`, Test: nie auf einem Feld, kein Zufall); vorne nur Niedriges, damit nichts den Bauplatz verdeckt. Sie sind nicht antippbar.
 
-Offen für G3: die drei Wesen (Möwe, Fuchs, Wache) im neuen Stil; der Boden bleibt nach §12.5 wie P3. Eine `_maske.png` für die Statue erst, wenn die Bühne Masken nutzt.
+**Wesen (02.11.2026):** Möwe, Fuchs und Wache neu aus demselben Generator, gleiche Bildnamen und Frames wie P3 (3 Ruhe-, 4 Geh-, 2 Reaktionsbilder, 64 × 64): Licht von rechts oben, Kontur am Rand, Petrol-Akzent. Reaktion: Möwe schlägt die Flügel, Fuchs setzt sich auf, Wache winkt (keine Waffe). Intern vierfach gezeichnet und weich verkleinert.
+
+Damit stammen Gebäude, Umgebung und Wesen des Themas `bastion`, Epoche 1, aus dem neuen Generator. Der Boden bleibt nach §12.5 wie P3. **Nächster Schritt: G6 Abnahme** (PV, 2–3 Jugendliche). Eine `_maske.png` für die Statue erst, wenn die Bühne Masken nutzt.
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 
