@@ -343,6 +343,8 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 
 ### F9 – Schrägstrich-Brüche: Vorschau statt Entscheidung
 
+> *Entschieden am 02.11.2026 (PV, `KLASSE-9-12.md` Entscheidung 11):* Brüche im Fließtext werden in den Inhalten zu KaTeX-Formeln umgeschrieben; alle Formeln setzt KaTeX, Text bleibt Nunito, Brüche groß.
+
 **Ziel:** Die offene Frage (etwa 3 600 Stellen `1/4` statt `$\frac{1}{4}$`) wird zu einer Ja/Nein-Entscheidung mit Vorschau.
 
 - **Werkzeug `pnpm inhalte:brueche`:** Es findet Brüche mit Schrägstrich in Texten und schreibt einen Bericht mit vorher/nachher je Datei (Markdown oder HTML zum Durchblättern). Ausnahmen erkennen und auflisten statt umschreiben: Einheiten (`km/h`, `m/s`), Datumsangaben, Verhältnisse, Texte innerhalb von `$…$`.

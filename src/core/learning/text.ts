@@ -60,13 +60,8 @@ function fliesstext(
       teile.push({ art: 'begriff', text: m[2], fett: fett.an });
     } else if (m[1]) {
       const w = holeWert(m[1], platzhalter);
-      if (typeof w === 'object' && istBruch(w))
-        teile.push({
-          art: 'bruch',
-          zaehler: zahlText(w.zaehler),
-          nenner: zahlText(w.nenner),
-          fett: fett.an,
-        });
+      // Brüche aus Platzhaltern setzt ebenfalls KaTeX (PV, 02.11.2026: jede Formel einheitlich)
+      if (typeof w === 'object' && istBruch(w)) teile.push({ art: 'formel', tex: texWert(w) });
       else teile.push({ art: 'text', text: wertText(w), fett: fett.an });
     } else {
       teile.push({ art: 'text', text: m[0], fett: fett.an });
@@ -75,21 +70,31 @@ function fliesstext(
 }
 
 /**
- * Kann die eigene Teilmenge diese Formel? Ja, wenn sie nur aus Zahlen, einzelnen Buchstaben,
- * Rechenzeichen und \frac{…}{…}, \sqrt{…} und Hochzahlen ^{…} bzw. ^x besteht, deren Inhalt
- * eine Zahl oder ein einzelner Buchstabe ist, dazu \cdot. Alles andere (Wurzel über einem Term,
- * Brüche mit Termen, Indizes, weitere Befehle) setzt KaTeX.
+ * Zahl in LaTeX-Schreibweise für KaTeX: Dezimalkomma als `{,}` (sonst setzt KaTeX ein
+ * Leerzeichen dahinter), Tausendergliederung als `\,`, Minus als `-`.
  */
-export function einfacheFormel(tex: string): boolean {
-  const atom = String.raw`\s*(?:-?[\d.,\s]+|[a-zA-Z])\s*`;
-  const rest = tex
-    .replace(new RegExp(String.raw`\\frac\{${atom}\}\{${atom}\}`, 'g'), '')
-    .replace(new RegExp(String.raw`\\sqrt\{${atom}\}`, 'g'), '')
-    .replace(new RegExp(String.raw`\^\{${atom}\}`, 'g'), '')
-    .replace(/\^\w/g, '')
-    .replace(/\\cdot/g, '');
-  return !/[\\{}_^]/.test(rest);
+export function texZahl(n: number): string {
+  return zahlText(n)
+    .replace(/,(?=\d)/g, '{,}')
+    .replace(/\u202f/g, '\\,')
+    .replace(/−/g, '-');
 }
+
+/** Wert eines Platzhalters in einer Formel: Zahl und Bruch als LaTeX, Text unverändert. */
+function texWert(w: Wert): string {
+  if (typeof w === 'number') return texZahl(w);
+  if (istBruch(w)) {
+    const minus = w.zaehler < 0 !== w.nenner < 0 ? '-' : '';
+    return `${minus}\\frac{${texZahl(Math.abs(w.zaehler))}}{${texZahl(Math.abs(w.nenner))}}`;
+  }
+  return wertText(w);
+}
+
+/**
+ * Jede Formel wird mit `\displaystyle` gesetzt: Brüche erscheinen groß wie in einer eigenen
+ * Zeile, in Hochzahlen werden sie trotzdem klein (PV, 02.11.2026: große Brüche).
+ */
+export const texAnzeige = (tex: string) => `\\displaystyle ${tex}`;
 
 /**
  * Einstellungen für KaTeX, gleich in App, Werkzeugen und Tests (ARCHITEKTUR T-22):
@@ -110,26 +115,15 @@ export const KATEX_OPTIONEN = {
  */
 const PLATZHALTER_IN_FORMEL = /(?<![\\a-zA-Z}^_])\{([a-z_]+)\}/g;
 
-/** Formel: Platzhalter einsetzen, dann \frac{…}{…}, \sqrt{…}, ^{…}, ^x und \cdot erkennen. */
+/**
+ * Formel: Platzhalter einsetzen; gesetzt wird sie mit KaTeX (ARCHITEKTUR T-22). Seit 02.11.2026
+ * gilt das für jede Formel, auch die einfachen der Klassen 5–8 (Entscheidung des PV).
+ */
 function formel(text: string, platzhalter: Readonly<Record<string, Wert>>, teile: Textteil[]) {
-  const eingesetzt = text.replace(PLATZHALTER_IN_FORMEL, (_, n: string) =>
-    wertText(holeWert(n, platzhalter)),
-  );
-  if (!einfacheFormel(eingesetzt)) {
-    teile.push({ art: 'formel', tex: eingesetzt.trim() });
-    return;
-  }
-  for (const m of eingesetzt.matchAll(
-    /\\frac\{\s*([^}]*?)\s*\}\{\s*([^}]*?)\s*\}|\\sqrt\{\s*([^}]*?)\s*\}|\^\{\s*([^}]*?)\s*\}|\^(\w)|\\cdot|[^\\^]+|[\\^]/g,
-  )) {
-    if (m[1] !== undefined && m[2] !== undefined)
-      teile.push({ art: 'bruch', zaehler: m[1], nenner: m[2], fett: false });
-    else if (m[3] !== undefined) teile.push({ art: 'wurzel', text: m[3] });
-    else if (m[4] !== undefined) teile.push({ art: 'hoch', text: m[4] });
-    else if (m[5] !== undefined) teile.push({ art: 'hoch', text: m[5] });
-    else if (m[0] === '\\cdot') teile.push({ art: 'text', text: '·', fett: false });
-    else teile.push({ art: 'text', text: m[0], fett: false });
-  }
+  const tex = text
+    .replace(PLATZHALTER_IN_FORMEL, (_, n: string) => texWert(holeWert(n, platzhalter)))
+    .trim();
+  if (tex !== '') teile.push({ art: 'formel', tex });
 }
 
 export function fuelle(text: string, platzhalter: Readonly<Record<string, Wert>>): Textteil[] {

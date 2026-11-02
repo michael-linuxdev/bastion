@@ -14,6 +14,17 @@ async function thema(seite: Page, name: RegExp) {
   await angebotUeberspringen(seite);
 }
 
+/** Erster Bruch im Aufgabentext, gelesen aus der LaTeX-Angabe, die KaTeX in die Formel schreibt. */
+async function bruchInAufgabe(seite: Page): Promise<[number, number]> {
+  const tex =
+    (await seite
+      .locator('.aufgabe .text annotation[encoding="application/x-tex"]')
+      .first()
+      .textContent()) ?? '';
+  const m = /\\frac\{(\d+)\}\{(\d+)\}/.exec(tex);
+  return [Number(m?.[1]), Number(m?.[2])];
+}
+
 /** Kommt das Angebot zur Erstvermittlung, „Ich kann das schon“ wählen; sonst nichts tun. */
 async function angebotUeberspringen(seite: Page) {
   const nein = seite.getByRole('button', { name: 'Ich kann das schon' });
@@ -1749,8 +1760,7 @@ test('Diagnose: derselbe Denkfehler zweimal → lange Erklärung und Rückweg (U
   // Zweimal „nur den Nenner verändert“ (FV.BR.NUR-NENNER) – bei Kürzen und bei Erweitern
   for (let runde = 0; runde < 2; runde++) {
     const text = (await page.locator('.aufgabe .text').textContent()) ?? '';
-    const z = Number(await page.locator('.aufgabe .text .zaehler').first().textContent());
-    const n = Number(await page.locator('.aufgabe .text .nenner').first().textContent());
+    const [z, n] = await bruchInAufgabe(page);
     const ziel = /Nenner\s*(\d+)\s*ist/.exec(text);
     const falsch = ziel ? [z, Number(ziel[1])] : [z, n / ggt(z, n)];
     const form = page.locator('form#antwort');
@@ -1781,8 +1791,7 @@ test('Fehlerwerkstatt nach Ursachen: ein Denkfehler aus Kürzen und Erweitern is
   const ggt = (a: number, b: number): number => (b === 0 ? a : ggt(b, a % b));
   for (let runde = 0; runde < 2; runde++) {
     const text = (await page.locator('.aufgabe .text').textContent()) ?? '';
-    const z = Number(await page.locator('.aufgabe .text .zaehler').first().textContent());
-    const n = Number(await page.locator('.aufgabe .text .nenner').first().textContent());
+    const [z, n] = await bruchInAufgabe(page);
     const ziel = /Nenner\s*(\d+)\s*ist/.exec(text);
     const falsch = ziel ? [z, Number(ziel[1])] : [z, n / ggt(z, n)];
     const form = page.locator('form#antwort');

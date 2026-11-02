@@ -100,6 +100,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 8. **Formeldarstellung (B1):** **KaTeX** (abweichend von der Empfehlung, „das sieht besser aus“), nach Vorschaubildern KaTeX gegen MathML. Bedingungen und Eintrag im Entscheidungslog: `ARCHITEKTUR.md` T-22. Die Inhalte schreiben Formeln weiter in LaTeX-Schreibweise zwischen `$…$`.
 9. **Niveaus unsichtbar** (PV, 02.11.2026): Lernende sehen keine Niveaus; die App wählt sie still je Kompetenz und bewertet dauernd neu (LEHRPLAN L-22, ersetzt L-3). Eltern und Lehrkraft-Bericht sehen sie, beim Aufgabenblatt und bei Prüfungen wählt man sie. **Jetzt, vor Klasse 9** gebaut. Für 9–12 heißt das: Jede Kompetenz braucht Vorlagen auf G, M und E, damit die Anpassung greift.
 10. **Drucken in der iPhone-App** (Fehler vom PV gemeldet): eigene Druckseite im Browser (ARCHITEKTUR T-21, Ergänzung).
+11. **Formeln einheitlich mit KaTeX** (PV, 02.11.2026, nach Vorschaubildern): jede Formel und jeder Bruch mit KaTeX, auch Klasse 5–8; der Text bleibt in Nunito (Variante B, nicht der ganze Text in der KaTeX-Schrift); Brüche groß (`\displaystyle`); Brüche im Fließtext („1/4 + 2/4“) werden in den Inhalten zu Formeln umgeschrieben (damit ist F9 entschieden). Geänderte Dateien verlieren ihre Prüfstufe.
 
 ---
 
