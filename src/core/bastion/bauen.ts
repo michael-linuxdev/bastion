@@ -111,6 +111,7 @@ export interface Bastion {
 /** Ereignisse für die Projektion: Bau-Ereignisse und Bauschritt-Gutschriften */
 type Eintrag =
   | { readonly art: 'gutschrift'; readonly ts: number; readonly id: string; readonly menge: number }
+  | { readonly art: 'plan'; readonly ts: number; readonly id: string; readonly menge: number }
   | BauEreignis;
 
 const reihenfolge = (a: Eintrag, b: Eintrag) =>
@@ -134,6 +135,10 @@ export function bastionAus(
     ...buchungen
       .filter((b) => b.ressource === 'schritt' && b.menge > 0)
       .map((b) => ({ art: 'gutschrift' as const, ts: b.ts, id: b.id, menge: b.menge })),
+    // Erworbene Baupläne zählen für den Epochenwechsel (Umzug zur Mitte, §5.5)
+    ...buchungen
+      .filter((b) => b.ressource === 'koennen' && b.menge > 0)
+      .map((b) => ({ art: 'plan' as const, ts: b.ts, id: b.id, menge: b.menge })),
   ].sort(reihenfolge);
 
   const bauwerke = new Map<string, Bauwerk>(START.map((b) => [b.id, b]));
@@ -142,6 +147,30 @@ export function bastionAus(
   const fertig = new Map<string, Fertig>();
   const gemeldet = new Set<string>();
   let vorrat = 0;
+  let plaene = 0;
+  let epoche: Epoche = 1;
+
+  /**
+   * Wächst der Bauplatz mit der Epoche, rückt alles Gebaute zur neuen Mitte (§5.5):
+   * je Seite um die Hälfte des Zuwachses. Spätere Ereignisse tragen schon Lagen im
+   * größeren Platz, so wie die Oberfläche sie anbietet.
+   */
+  const epocheNachziehen = () => {
+    const kern = Math.max(
+      0,
+      ...[...bauwerke.values()].filter((x) => x.typ === 'kern').map((x) => x.stufe),
+    );
+    const neu = epocheFreigeschaltet(kern, plaene);
+    if (neu <= epoche) return;
+    const alt = bauplatzFuer(epoche);
+    const jetzt = bauplatzFuer(neu);
+    const dx = Math.floor((jetzt.breite - alt.breite) / 2);
+    const dy = Math.floor((jetzt.tiefe - alt.tiefe) / 2);
+    const rueck = (p: Position): Position => ({ x: p.x + dx, y: p.y + dy });
+    for (const [id, w] of bauwerke) bauwerke.set(id, { ...w, pos: rueck(w.pos) });
+    vorhaben = vorhaben.map((v) => ({ ...v, pos: rueck(v.pos) }));
+    epoche = neu;
+  };
 
   const abschliessen = (v: Vorhaben, ts: number) => {
     vorhaben = vorhaben.filter((x) => x.id !== v.id);
@@ -163,6 +192,11 @@ export function bastionAus(
   };
 
   for (const e of eintraege) {
+    if (e.art === 'plan') {
+      plaene += e.menge;
+      epocheNachziehen();
+      continue;
+    }
     if (e.art === 'gutschrift') {
       for (let i = 0; i < e.menge; i++) {
         if (vorhaben.length === 0) {
@@ -179,6 +213,7 @@ export function bastionAus(
         }));
         for (const v of vorhaben.filter((x) => x.fortschritt >= x.bedarf)) abschliessen(v, e.ts);
       }
+      epocheNachziehen();
       continue;
     }
     switch (e.aktion) {
@@ -200,6 +235,7 @@ export function bastionAus(
         };
         vorhaben.push(v);
         if (v.fortschritt >= v.bedarf) abschliessen(v, e.ts);
+        epocheNachziehen();
         break;
       }
       case 'abbrechen': {

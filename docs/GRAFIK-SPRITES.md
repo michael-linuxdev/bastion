@@ -228,7 +228,7 @@ Standard aus (`GRAFIK.md` §4.6). **Stand:** Tip-Geräusche aus Kenney Interface
 | Umgebung (Bäume, Büsche, Steine, Wasserrand) | Raster, Licht, Kontur, Palette, Maßstab | Thema `bastion` |
 | Wesen und Bewohner | Licht, Kontur, Palette, Maßstab | Wesen des Themas `bastion` (Fuchs, Möwe, Wache) |
 | Himmel, Wetter, Auflagen | Palette, weiche Kontur | gemeinsam für alle Themen (§5) |
-| Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5, 12.10) | erst nach U4b |
+| Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5, 12.10), eine Stufe ein Bild (12.11) | **vorgezogen vor U4b** (PV, 02.11.2026): alle fünf Themen, je 15 Bilder – **erledigt 02.11.2026** |
 
 Ein Generator heißt: ein gemeinsames Python-Modul mit Raster, Licht, Kontur, Palette und den Grundkörpern (Quader, Pyramide, Zylinder, Kegel, Zinnen, Fenster, Fahne, Banner) aus dem Probestück. Jedes Bild wird daraus zusammengesetzt. So sehen alle Bilder gleich gezeichnet aus, auch wenn sie zu verschiedenen Zeiten entstehen. Gleiche Eingabe ergibt das gleiche Bild (§2, „Kein Zufall“). Wo Abwechslung nötig ist (Grashalme, Steine im Mauerwerk), kommt sie aus einer festen Zahl im Code, nicht aus dem Zufall zur Laufzeit.
 
@@ -423,3 +423,85 @@ Umgebung: Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`) im Wechsel auf den
 | denkmal (Satellit) | 1×1 | grauer Satellit mit Flügeln und Schüssel auf Ständer | – | – | |
 
 Solarflügel dürfen als einzige Teile weiter als 0,2 Feld über den Fußabdruck hinausragen, bleiben aber im Bild. Wesen: Drohne, Roboter. Damit sind alle fünf Themen der Epoche 1 erneuert.
+
+### 12.11 Epochen 2–4 (Entscheidungen PV, 02.11.2026)
+
+- **Vorgezogen:** Die Stufen der Epochen 2–4 (je Thema 15 Bilder: Bergfried 4–9, Studierstube 3–5, Späherturm 3–5, Werkstatt 2–3, Tor 2) werden jetzt im Stil dieser Regel erneuert, alle fünf Themen, Thema für Thema ein PR (bastion, dorf, garten, unterwasser, weltraum).
+- **Eine Stufe, ein Bild:** Eine Stufe sieht in jeder Epoche gleich aus. Ihr Bild liegt in der Epoche, in der sie zuerst baubar ist (`kern_s1` in `e1`, `kern_s4` in `e2` …); spätere Epochen nehmen es über den Epoche-Rückfall (`atlasEintrag`). Die alten P5-Fassungen der Stufen 1–3 in `e2`–`e4` sind entfernt (`tools/grafik/epochen-aufraeumen.py`). Grund: Die Stufe bleibt ohne Ziffer erkennbar (12.6 Nr. 5); ein nicht ausgebauter Holzturm bleibt ein Holzturm.
+- **Messung ab Stufe 4:** Höhe mindestens **8 %** je Stufe (PV), Umriss mindestens **10 %** (statt 25 %). Grund: Ab Stufe 4 ist der Fußabdruck gefüllt; 25 % Umriss ginge nur mit etwa 30 % Höhe je Stufe. Darum trägt jede Stufe ein neues Merkmal, das man ohne Ziffer sieht (Festlegung Grafik-Strang im Auftrag des PV, 02.11.2026). Test: `tools/grafik/atlas-stufen.test.ts`, Kette über alle Epochen.
+- **Wachstum ab Stufe 4:** vor allem im Umriss innerhalb des Fußabdrucks (Mauerring, Ecktürme, Torhaus, zweiter Turm, Kuppel oder Schieferhelm), weniger in der Höhe. Offen beim PV: Epoche 1 bleibt wie abgenommen (Empfehlung) oder heutige Stufe 2 → 4 und 3 → 7.
+
+**Thema `bastion`** (`tools/grafik/sprites-g3e-bastion.py`, 02.11.2026). Materialleiter ab Epoche 2: Stein mit Schieferdach, ab Stufe 8 Kupfer (Grünspan). Neue Farben: Schiefer `#606876`, Kupfer `#5C9C8A`, Knauf `#D6B668` (matt).
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | Mauerring mit Zinnen, drei Ecktürme mit Schieferkegel, Schieferhelm |
+| kern | 5 (2) | Torhaus mit zwei Türmchen, höhere Ecktürme mit Fahnen, höherer Helm |
+| kern | 6 (3) | Erkertürmchen am Zinnenkranz, gestufter Aufsatz, höhere Mauern |
+| kern | 7 (3) | hinterer Eckturm, Palas, hoher Doppelhelm |
+| kern | 8 (4) | Kupferdächer, Kuppel mit Laterne und Spitze |
+| kern | 9 (4) | hohe Turmspitze, breitere Ecktürme |
+| wissen | 3 / 4 / 5 | Bibliothek mit Treppenturm / Sternturm mit Kuppel und Fernrohr / Archiv mit Kupferkuppel |
+| turm | 3 / 4 / 5 | Steinturm mit Zinnen / Rundturm mit Wehrgang / Leuchtturm mit Laternenstube und Kupferspitze |
+| werkstatt | 2 / 3 | Fachwerk-Zimmerei mit Holzkran / steinerne Bauhütte mit Tretradkran |
+| eingang | 2 | steinernes Torhaus mit Fallgitter und Schieferhelm |
+
+**Thema `weltraum`** (`tools/grafik/sprites-g3e-weltraum.py`, 02.11.2026). Leiter weiter: Paneele → Ringmodule, Andockbuchten, Glaskuppeln. Neue Farbe: Warnstreifen `#ECC43C`.
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | Plattform mit Warnstreifen, vier Module, Seitenmodule mit Schüssel, ein Paar Solarflügel |
+| kern | 5 (2) | Andockbucht mit Fähre, zweistöckige Seitenmodule, zweites Paar Solarflügel |
+| kern | 6 (3) | fünftes Modul, großer Wohnring mit Speichen |
+| kern | 7 (3) | Seitenmodule als Rundtürme mit Glaskuppel, hohe Spitze |
+| kern | 8 (4) | sechstes Modul, große Glaskuppel, drittes Paar Solarflügel |
+| kern | 9 (4) | siebtes Modul, zweiter Ring oben, Spitze mit Fahne |
+| wissen | 3 / 4 / 5 | Radioteleskop / Observatorium mit Kuppel und Schüssel auf Mast / großes Observatorium mit Ring und Glaskuppel |
+| turm | 3 / 4 / 5 | Funkturm mit zwei Schüsseln / hoher Funkturm mit Ringplattform / Sendeturm mit zwei Ringen und Glaskanzel |
+| werkstatt | 2 / 3 | Montagehalle mit Portalkran und kleiner Rakete / Startrampe mit hoher Rakete im Gitterturm |
+| eingang | 2 | große Schleuse mit Doppeltür, Glaskanzel und Andockarm |
+
+**Thema `dorf`** (`tools/grafik/sprites-g3e-dorf.py`, 02.11.2026). Bruchstein mit Schiefer, ab Stufe 8 Kupfer. Neue Farben: Zifferblatt `#F4EFE4`, Segeltuch `#F0E8D6`, Laterne `#3C3C40`.
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | Rathaus aus Bruchstein mit Laubengang, frei stehender Uhrturm mit Schieferhelm |
+| kern | 5 (2) | Treppengiebel, welsche Haube mit Laterne, erstes Bürgerhaus |
+| kern | 6 (3) | Uhrturm mit Umgang und Glockenstube, zweites Bürgerhaus |
+| kern | 7 (3) | Kirchturm hinten links, hoher Schieferhelm am Uhrturm |
+| kern | 8 (4) | Residenz: Kupfer-Mansarddach, Kupferkuppel, Pavillon |
+| kern | 9 (4) | hohe Kupferspitzen auf Uhr- und Kirchturm |
+| wissen | 3 / 4 / 5 | Bücherei mit Treppengiebel und Treppenturm / Stadtbibliothek mit Uhr-Eckturm / Residenz-Bibliothek mit Säulenportal und Kupferkuppel |
+| turm | 3 / 4 / 5 | Holländer mit Galerie / Galerieholländer aus Ziegel / Prunkmühle mit Kupferhaube |
+| werkstatt | 2 / 3 | Fachwerk-Schreinerei mit Bretterlager / Sägemühle mit Wasserrad |
+| eingang | 2 | Steinbrücke mit Bogen, Laternen und Banner |
+
+**Thema `garten`** (`tools/grafik/sprites-g3e-garten.py`, 02.11.2026). Weiter mit Stein, Glas und Schmiedeeisen, ab Stufe 8 Kupfer. Neue Farbe: Schmiedeeisen `#3A3E42`.
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | zweiter Baum mit Hütte und Hängebrücke |
+| kern | 5 (2) | dritter Baum mit bemalter Hütte, Wendeltreppe |
+| kern | 6 (3) | Steinterrasse mit Blumen, Pavillon auf der Krone |
+| kern | 7 (3) | hoher Doppelturm auf der oberen Hütte |
+| kern | 8 (4) | Glaskuppel mit Laterne, Kupferdächer |
+| kern | 9 (4) | hohe Kupferspitze, Nebenbäume mit Glaskuppeln |
+| wissen | 3 / 4 / 5 | Orangerie aus Stein / großes Glashaus mit Seitenschiffen / Palmenhaus mit Glaskuppel |
+| turm | 3 / 4 / 5 | bemalte Aussichtsstube / Pagode mit fünf Dächern / hohe Pagode mit Kupferdächern |
+| werkstatt | 2 / 3 | Gärtnerei mit Wasserturm / Gartenmeisterei aus Stein mit Windpumpe |
+| eingang | 2 | Steinpfeiler mit Schmiedeeisentor und Rosen-Pergola |
+
+**Thema `unterwasser`** (`tools/grafik/sprites-g3e-unterwasser.py`, 02.11.2026). Weiter mit Perlmutt-Türmen, Messing und Glas. Neue Farben: Glasglocke `#BEE4EC` (durchscheinend), Turmweiß `#ECE8E0`.
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | höherer Korallenturm, vier Nebenkuppeln mit Röhren |
+| kern | 5 (2) | zwei Perlmutt-Türme mit Glaskuppeln |
+| kern | 6 (3) | zweites Geschoss mit Messingring |
+| kern | 7 (3) | Messing-Ringgalerie auf Stützen |
+| kern | 8 (4) | große Glasglocke über der unteren Stadt |
+| kern | 9 (4) | hohe Messingspitze mit Laternenstube und Perle |
+| wissen | 3 / 4 / 5 | Perlmutt-Kuppel mit zwei Schneckentürmen / Archiv mit Glas-Oberlicht / großes Archiv mit drei Schneckentürmen |
+| turm | 3 / 4 / 5 | Leuchtturm mit zwei Galerien / Korallensockel und Glaskuppel / sehr hoher Turm mit Glaskugel |
+| werkstatt | 2 / 3 | Dock mit U-Boot und Kran / Werfthalle mit Glasdach und Portalkran |
+| eingang | 2 | große Schleuse mit Glaskuppel und Lampenmasten |

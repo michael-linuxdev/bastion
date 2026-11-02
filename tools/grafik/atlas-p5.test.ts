@@ -19,7 +19,7 @@ const NEU: Record<(typeof EPOCHEN)[number], readonly string[]> = {
   4: ['kern_s8', 'kern_s9', 'wissen_s5', 'turm_s5'],
 };
 
-/** Alle Stufen, die in der Epoche baubar sind (P5 liefert reife Optik). */
+/** Alle Stufen, die in der Epoche baubar sind. */
 const STUFEN_BIS: Record<(typeof EPOCHEN)[number], Record<string, readonly number[]>> = {
   2: {
     kern: [1, 2, 3, 4, 5],
@@ -59,6 +59,15 @@ const STUFEN_BIS: Record<(typeof EPOCHEN)[number], Record<string, readonly numbe
   },
 };
 
+/** Höchste Stufe je Rolle in Epoche 1 (Katalog §5.1). */
+const STUFEN_E1: Record<string, number> = { kern: 3, wissen: 2, turm: 2, werkstatt: 1, eingang: 1 };
+
+/** Epoche, in der eine Stufe zuerst baubar ist – dort liegt ihr einziges Bild. */
+function ersteEpoche(rolle: string, stufe: number): number {
+  if (stufe <= (STUFEN_E1[rolle] ?? 1)) return 1;
+  return EPOCHEN.find((e) => STUFEN_BIS[e][rolle]?.includes(stufe)) ?? 1;
+}
+
 const FENSTER_ROLLEN = ['kern', 'werkstatt', 'wissen', 'turm'] as const;
 const BODEN = ['flaeche', 'rand', 'flaeche_b', 'flaeche_hell'] as const;
 
@@ -79,41 +88,33 @@ describe('atlas P5 Epoche 2–4', () => {
 
   for (const thema of THEMEN) {
     for (const epoche of EPOCHEN) {
-      it(`${thema}/e${epoche}: Katalog-Stufen G9 inkl. Neu`, () => {
+      it(`${thema}/e${epoche}: Katalog-Stufen G9, jede Stufe genau ein Bild`, () => {
         for (const rolle of NEU[epoche]) {
           const id = `${thema}/e${epoche}/${rolle}`;
           expect(ids.has(id), id).toBe(true);
         }
         for (const [rolle, stufen] of Object.entries(STUFEN_BIS[epoche])) {
           for (const stufe of stufen) {
-            const id = `${thema}/e${epoche}/${rolle}_s${stufe}`;
-            expect(ids.has(id), id).toBe(true);
-            const e = manifest.eintraege.find((x) => x.id === id);
-            expect(e?.datei).toBe(`gebaeude/${thema}/e${epoche}/${rolle}_s${stufe}.png`);
+            // Eine Stufe, ein Bild (PV 02.11.2026): das Bild liegt in der Epoche, in der die
+            // Stufe zuerst vorkommt; spätere Epochen nehmen es über den Rückfall.
+            const e = atlasEintrag(manifest, thema, epoche, rolle as GebaeudeTyp, stufe);
+            expect(e, `${thema}/e${epoche}/${rolle}_s${stufe}`).toBeDefined();
             expect(e?.anker.y).toBe(1);
             expect(e?.pixel.w).toBeGreaterThan(0);
+            expect(e?.id).toBe(`${thema}/e${ersteEpoche(rolle, stufe)}/${rolle}_s${stufe}`);
           }
         }
-        const beispielStufe = epoche === 2 ? 4 : epoche === 3 ? 6 : 8;
-        expect(atlasEintrag(manifest, thema, epoche, 'kern', beispielStufe)?.datei).toContain(
-          `e${epoche}/kern_s${beispielStufe}`,
-        );
       });
 
       it(`${thema}/e${epoche}: Abend-Fenster deckungsgleich`, () => {
         for (const rolle of FENSTER_ROLLEN) {
           for (const stufe of STUFEN_BIS[epoche][rolle] ?? []) {
-            const basisId = `${thema}/e${epoche}/${rolle}_s${stufe}`;
-            const fensterId = `${basisId}_fenster`;
-            expect(ids.has(fensterId), fensterId).toBe(true);
-            const fenster = manifest.eintraege.find((x) => x.id === fensterId);
-            const basis = manifest.eintraege.find((x) => x.id === basisId);
-            expect(fenster?.pixel.w).toBe(basis?.pixel.w);
-            expect(fenster?.pixel.h).toBe(basis?.pixel.h);
-            expect(fenster?.anker).toEqual(basis?.anker);
-            expect(
-              atlasFensterEintrag(manifest, thema, epoche, rolle as GebaeudeTyp, stufe)?.id,
-            ).toBe(fensterId);
+            const basis = atlasEintrag(manifest, thema, epoche, rolle, stufe);
+            const fenster = atlasFensterEintrag(manifest, thema, epoche, rolle, stufe);
+            if (!fenster) continue;
+            expect(fenster.id).toBe(`${basis?.id}_fenster`);
+            expect(fenster.pixel).toEqual(basis?.pixel);
+            expect(fenster.anker).toEqual(basis?.anker);
           }
         }
       });

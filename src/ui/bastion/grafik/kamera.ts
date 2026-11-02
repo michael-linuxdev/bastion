@@ -2,7 +2,7 @@
 // liegen, Ziehen verschiebt, zwei Finger zoomen und verschieben zugleich.
 // Grenzen: 0,35 bis 2,4; beim Einpassen höchstens 1,8. Ohne PixiJS, damit der
 // Test dieselbe Rechnung prüft wie die Oberfläche.
-import { buehneBreite, buehneHoehe } from './iso';
+import { buehneFuer, type BauplatzMass } from './iso';
 
 /** Wie weit man herauszoomen kann (Dorfkrieg). */
 export const ZOOM_MIN = 0.35;
@@ -37,9 +37,8 @@ export function zoomAn(k: Kamera, sx: number, sy: number, naechstes: number): Ka
 }
 
 /** Das ganze Bild in der Mitte, ohne Karten-Rand (Vollbild-Bühne). */
-export function einpassen(breite: number, hoehe: number): Kamera {
-  const bb = buehneBreite();
-  const bh = buehneHoehe();
+export function einpassen(breite: number, hoehe: number, platz?: BauplatzMass): Kamera {
+  const { breite: bb, hoehe: bh } = buehneFuer(platz);
   const zoom = klemmen(Math.min(breite / bb, hoehe / bh), ZOOM_MIN, ZOOM_EINPASSEN_MAX);
   return {
     zoom,
@@ -49,10 +48,14 @@ export function einpassen(breite: number, hoehe: number): Kamera {
 }
 
 /** Gewählter Zoom, Bild in der Mitte des Fensters. */
-export function zentriert(breite: number, hoehe: number, zoom: number): Kamera {
+export function zentriert(
+  breite: number,
+  hoehe: number,
+  zoom: number,
+  platz?: BauplatzMass,
+): Kamera {
   const z = klemmen(zoom, ZOOM_MIN, ZOOM_MAX);
-  const bb = buehneBreite();
-  const bh = buehneHoehe();
+  const { breite: bb, hoehe: bh } = buehneFuer(platz);
   return { zoom: z, x: (breite - bb * z) / 2, y: (hoehe - bh * z) / 2 };
 }
 
@@ -81,8 +84,13 @@ export function kameraAus(wert: unknown): Kamera | undefined {
 }
 
 /** Gemerkte Kamera wiederherstellen; Zoom immer, x/y nur wenn gesetzt (nicht 0/0-Platzhalter vom alten Zoom). */
-export function kameraWiederherstellen(breite: number, hoehe: number, gemerkt: Kamera): Kamera {
+export function kameraWiederherstellen(
+  breite: number,
+  hoehe: number,
+  gemerkt: Kamera,
+  platz?: BauplatzMass,
+): Kamera {
   const z = klemmen(gemerkt.zoom, ZOOM_MIN, ZOOM_MAX);
-  if (gemerkt.x === 0 && gemerkt.y === 0) return zentriert(breite, hoehe, z);
+  if (gemerkt.x === 0 && gemerkt.y === 0) return zentriert(breite, hoehe, z, platz);
   return { zoom: z, x: gemerkt.x, y: gemerkt.y };
 }
