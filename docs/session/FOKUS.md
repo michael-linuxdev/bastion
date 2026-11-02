@@ -89,6 +89,16 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 - **PR #145 (Paket L)** wird gemergt, L18 und der Rundgang folgen in einem eigenen PR.
 - **Parallel und abweichend von der Reihenfolge der Pakete:** Neben L dürfen **F4** (Auswertung U4b), **F5** („Fehler-Schüler“) und **F6** (Arbeitsblätter) laufen, je eine eigene Sitzung im Strang Lernkern. Sie ändern die Lern-Oberfläche nicht. F2 folgt nach der Abnahme von L.
 
+
+**Entscheidungen des PV, dritte Runde (01.11.2026 spät abends, Sitzung „Projektverantwortlicher“), gelten für die Nachtschicht 02.11.2026 und danach:**
+
+- **Mergen:** Die offenen PRs (#147–#152) und die neuen PRs der Nachtschicht werden ohne den PV gemergt, sobald lint, test, build (und E2E bei Oberfläche) grün sind. „Stilregel abgenommen“ (G2) und „L abgenommen“ trägt weiter nur der PV ein.
+- **B-29 nicht nutzen für „Planen und Bauen zusammenlegen“:** Die Bau-Regel im Kern bleibt (`BASEBAU.md` B-30). G4 macht das Warten sichtbar.
+- **Platz-Vorschlag neben dem Bergfried:** ja, nur in der Oberfläche (`GRAFIK.md` §11.7).
+- **Fehler-Schüler als CI-Sperrklinke:** ja, die Zahl der Funde darf nicht steigen.
+- **F5-Funde im Musterfeld vor der Lehrkraft beheben:** ja, auch wenn geänderte Dateien ihre Stufe 1 verlieren.
+- **Drucken für Lehrkräfte in der App:** Der Prüfungs- und Arbeitsblatt-Generator kommt in den Elternbereich („beliebige PDFs drucken“). PDF entsteht über den Druckdialog des Browsers, ohne neue Abhängigkeit (vorläufige Entscheidung zur PDF-Technik für U7, Entscheidungslog `ARCHITEKTUR.md`).
+
 ---
 
 ## Arbeitspakete
