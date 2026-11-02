@@ -32,6 +32,12 @@ Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahr
 
 **Wichtig:** Alle Aufgaben und Erklärungen sind ein Entwurf. Eine Lehrkraft hat sie noch nicht geprüft. Hinweise auf Fehler sind sehr willkommen.
 
+### Was ist öffentlich?
+
+Auf `main` liegen alle Inhalte, auch Entwürfe. Die öffentliche Seite zeigt nur Themen ab einer Review-Stufe (`docs/INHALTSFORMAT.md` §8, Entscheidung T-20). Die Stufe steht in der Repository-Variable `BASTION_MINDESTSTUFE` (GitHub → Settings → Secrets and variables → Actions → Variables). Ohne Variable gilt 0: Die Seite zeigt alles und sagt Eltern auf der Startseite und im Elternbereich, dass es ein Entwurf ist. Mit 2 zeigt sie nur Themen, die eine Lehrkraft geprüft hat. Ein Thema kommt nur ganz hinein, mit Erklärung, allen Aufgaben und allen Fehlvorstellungen.
+
+Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur die drei Bruch-Themen des Musterfelds.
+
 ## Für Entwickler: selbst bauen
 
 Voraussetzungen: Node.js ab Version 22 und pnpm (`corepack enable` aktiviert die passende Version).

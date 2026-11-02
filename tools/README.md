@@ -36,6 +36,10 @@ Seite 1 hat einen Kopf mit Name, Datum und Thema und die Aufgaben mit kariertem 
 
 Die Blatt-Logik (Ziehen, Review-Stufe, Punkte, Lösung als Text) liegt seit 02.11.2026 im Kern, `src/core/learning/arbeitsblatt.ts`. Dieselbe Logik nutzt der Elternbereich der App („Für Lehrkräfte: Aufgabenblatt drucken“). Hier steht nur der HTML-Satz. Die PDF-Technik ist vorläufig entschieden: Druckdialog des Browsers, keine Abhängigkeit (ARCHITEKTUR T-21).
 
+## Fehler-Schüler (`inhalte/fehlerschueler.ts`)
+
+`pnpm fehlerschueler [--seeds 200] > verdacht.md` spielt die Diagnose regelbasiert durch und listet Verdachtsfälle je Feld (Arten A–E, INHALTSFORMAT §8). Er korrigiert nichts. Der Lauf über alle Inhalte dauert wenige Sekunden. Er ist nicht Teil von `pnpm test`, dort läuft nur ein kleiner Test mit erfundenen Inhalten. Er startet die Generatoren wie der Prüfbogen über `runnerImport`.
+
 ## Review-Vermerk (`review/`)
 
 `pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.

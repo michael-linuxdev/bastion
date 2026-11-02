@@ -217,7 +217,7 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
-### F2 – Öffentliche Seite nur mit geprüften Inhalten
+### ~~F2 – Öffentliche Seite nur mit geprüften Inhalten~~ (erledigt 02.11.2026, INHALTSFORMAT §8, README „Was ist öffentlich?“)
 
 **Ziel:** Lernende sehen nur Inhalte ab einer festgelegten Review-Stufe. `main` bleibt die Werkstatt.
 
@@ -261,7 +261,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 3. Tests mit synthetischen Protokollen: ein Fall, der alles erfüllt, und einer, der knapp scheitert.
 4. `TESTS.md` §2–3: Ablauf ergänzen (Dateien einsammeln → `pnpm auswertung` → Bericht).
 
-### F5 – „Fehler-Schüler“: Diagnose regelbasiert durchspielen
+### ~~F5 – „Fehler-Schüler“: Diagnose regelbasiert durchspielen~~ (erledigt 01.11.2026: `pnpm fehlerschueler`, INHALTSFORMAT §8; 100 Verdachtsfälle gemeldet, nicht korrigiert. Offen: Rückfrage, ob die CI ihn ausführt)
 
 **Ziel:** Fehler finden, wie Stufe 1 sie gefunden hat (falsche Zuordnung, Rückweg zum falschen Schritt, kurze Erklärung passt nicht), bevor ein Mensch Zeit darauf verwendet. Ohne KI.
 

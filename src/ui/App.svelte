@@ -684,7 +684,17 @@
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
     {:then geladen}
-      {#if ansicht === 'bastion'}
+      {#if geladen.kompetenzen.length === 0 && ansicht !== 'bastion' && ansicht !== 'eltern'}
+        <!-- F2 (ARCHITEKTUR T-20): Nach dem Filter der öffentlichen Seite ist nichts übrig -->
+        <section class="paket-fehlt" role="status" data-leer>
+          <span class="paket-bild" aria-hidden="true"></span>
+          <h2>{t('paket.leer')}</h2>
+          <p>{t('paket.leer-text')}</p>
+          <div class="paket-knoepfe">
+            <button class="zweit" onclick={() => (ansicht = 'start')}>{t('paket.zurueck')}</button>
+          </div>
+        </section>
+      {:else if ansicht === 'bastion'}
         {#await import('./bastion/Bastion.svelte')}
           <p role="status">{t('uebersicht.laedt')}</p>
         {:then bastionMod}

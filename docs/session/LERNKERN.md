@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2 · F5 parallel
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`), F5 (`pnpm fehlerschueler`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2
 
 ---
 
@@ -25,6 +25,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 - **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 - **U5b und U5c:** alle 596 Fehlerbilder zugeordnet, alle 123 Kompetenzen mit Erstvermittlung.
 - **01.11.2026, F4:** `pnpm auswertung` beantwortet nach U4b Kriterium 1 und F5 aus `STRATEGIE.md` §0 mit ja oder nein. Einstiegsaufgaben: die ersten 3 Aufgaben auf Niveau G nach der Erstvermittlung, ohne Tipp (`TESTS.md` §4.5). Der PV hat entschieden, dass F4 bis F6 parallel zu Paket L laufen, ohne die Lern-Oberfläche zu ändern (#146).
+- **01.11.2026, F5:** `pnpm fehlerschueler` meldet Verdachtsfälle im Fehlerkatalog, ohne KI (Arten A–E, INHALTSFORMAT §8). Erster Lauf: 100 Fälle, keiner korrigiert. Die Liste steht im PR. Auffällig sind vor allem Rückwege in spätere Kompetenzen (B), zum Beispiel `FV.RZ.VORZEICHEN-FALSCH` aus RZ.ADD-SUB zur Erklärung in RZ.MULT-DIV, und die zwei Schritt-Fehlerbilder in ADD-SUB (C), deren Fehlvorstellung ADD-SUB nicht nennt. **Rückfrage an den PV:** Soll die CI den Fehler-Schüler ausführen? Empfehlung: ja, als Sperrklinke, damit die Zahl der Funde nicht steigt; er braucht nur wenige Sekunden. Welche Funde zuerst bearbeitet werden, entscheidet der PV. Jede Korrektur kommt in einen eigenen PR, die geänderten Dateien verlieren dabei ihren Review-Vermerk.
 - **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102), **Stufe 1 für das Musterfeld** (22 Dateien, Funde unten in der Übergabe).
 
 **Als Nächstes:**
@@ -54,7 +55,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 
 1. ~~**Die Merge-Reihenfolge steht oben**~~ – erledigt am 30.10.2026, siehe dort.
 2. **Alte Branches schließen, nicht mergen:** `u5b-*`, `u2-*`, `u3*`. *PV löscht sie selbst (01.11.2026).* Ein Merge setzt Fehlvorstellungen und Vermittlungstexte auf einen älteren Stand zurück. Schließen oder löschen. `u5c-fz`, `u5c-gm` und `u5c-rf` danach nicht noch einmal öffnen.
-3. **Öffentliche Seite von `main` trennen.** *Entschieden 01.11.2026: Filter im Build (ARCHITEKTUR T-20), Umsetzung F2 in `FOKUS.md`.* Bisher: Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
+3. ~~**Öffentliche Seite von `main` trennen.**~~ *Erledigt 02.11.2026 (F2): `BASTION_MINDESTSTUFE`, INHALTSFORMAT §8, README „Was ist öffentlich?“.* *Entschieden 01.11.2026: Filter im Build (ARCHITEKTUR T-20), Umsetzung F2 in `FOKUS.md`.* Bisher: Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: ~~gleichnamiges Addieren~~ (erledigt 31.10.2026: Schritte `rechnen` und `kuerzen`, eine Vorlage darf eine Auswahl der Generator-Schritte nehmen) und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
 5. ~~**`docs/PLAN.md` Abschnitt 1**~~ – erledigt am 31.10.2026: gleicher nächster Schritt wie hier.
 6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.

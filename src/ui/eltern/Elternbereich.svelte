@@ -27,6 +27,7 @@
   import TestRohstoffe from '../bastion/TestRohstoffe.svelte';
   import Testphase from './Testphase.svelte';
   import Aufgabenblatt from './Aufgabenblatt.svelte';
+  import { entwurfAusgeliefert } from '../plattform/paketstand';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
 
   let {
@@ -127,6 +128,10 @@
 <section class="eltern register-werkstatt" data-eltern>
   <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
   <h2>{t('eltern.ueberschrift')}</h2>
+  <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
+  {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
+      {t('entwurf.vermerk')}
+    </p>{/if}
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
@@ -259,6 +264,14 @@
 </section>
 
 <style>
+  .entwurf {
+    margin: 0;
+    padding-block: 0.25rem;
+    padding-inline: var(--abstand-s);
+    border-inline-start: 3px solid var(--farbe-rand);
+    color: var(--farbe-text-leise);
+    font-size: 0.95rem;
+  }
   .eltern {
     display: grid;
     gap: var(--abstand-s);
