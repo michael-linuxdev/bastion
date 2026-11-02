@@ -5,7 +5,6 @@
   import {
     beginnHindernisse,
     einlagerbar,
-    freierPlatz,
     plaetze,
     platzHindernisse,
     type BauHindernis,
@@ -37,6 +36,7 @@
   } from '../../core/bastion/test-vorrat';
   import type { Bastion as BastionStand } from '../../core/bastion/bauen';
   import { type TextSchluessel } from '../texte/texte';
+  import { vorgeschlagenerPlatz } from '../plattform/platz-vorschlag';
   import Bauplatz from './Bauplatz.svelte';
   import BastionDarstellung from './BastionDarstellung.svelte';
   import BastionSpielLeiste from './BastionSpielLeiste.svelte';
@@ -236,7 +236,7 @@
     if (!b || !k) return [];
     const platz = epochenstand(b, k).bauplatz;
     return REIHENFOLGE.flatMap((typ) => {
-      const pos = freierPlatz(b, typ, platz);
+      const pos = vorgeschlagenerPlatz(b, typ, platz);
       const h = beginnHindernisse(b, k, typ, { pos: pos ?? { x: 0, y: 0 } });
       if (!pos && !h.includes('belegt')) h.push('belegt');
       if (h.includes('nicht-baubar') || h.includes('hoechstzahl')) return [];
@@ -244,7 +244,7 @@
     });
   });
 
-  /** Der vorgeschlagene Platz ist genau der, auf den „Hier bauen“ baut (erstes freies Feld, wie in der Ablage) */
+  /** Der vorgeschlagene Platz ist genau der, auf den „Hier bauen“ baut (freies Feld nah am Bergfried, wie in der Ablage) */
   const vorschlag = $derived.by(() => {
     const typ = vorschlagTyp;
     const b = sichtBastion;
@@ -252,7 +252,7 @@
     if (!typ || !b || !k) return undefined;
     const angebot = neubauten.find((a) => a.typ === typ);
     if (!angebot || angebot.hindernisse.length > 0) return undefined;
-    const pos = freierPlatz(b, typ, epochenstand(b, k).bauplatz);
+    const pos = vorgeschlagenerPlatz(b, typ, epochenstand(b, k).bauplatz);
     return pos ? { typ, pos, kosten: kosten(typ, 1) } : undefined;
   });
   // Fällt der Vorschlag weg (gebaut, Platz belegt, Rohstoffe weg), endet die Vorschau
