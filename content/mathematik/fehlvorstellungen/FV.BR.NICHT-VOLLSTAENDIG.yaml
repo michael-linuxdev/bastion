@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Kürzt einmal richtig, prüft aber nicht, ob Zähler und Nenner noch einen gemeinsamen Teiler
     haben. „Vollständig kürzen“ ist als Ziel noch nicht verankert.
-kompetenzen: [M.ZO.BR.ERWEITERN]
+kompetenzen: [M.ZO.BR.ERWEITERN, M.ZO.BR.ADD-SUB]
 erklaerung:
   kurz:
     de: 'Vollständig [[gekürzt]] ist ein [[Bruch]] erst, wenn [[Zähler]] und [[Nenner]] keinen [[gemeinsamen Teiler]] außer 1 mehr haben.'

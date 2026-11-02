@@ -13,3 +13,8 @@ export function bildartVonThema(thema: Thema): Bildart {
   if (thema === 'weltraum') return 'weltraum';
   return 'insel';
 }
+
+/** Umkehrung für den Atlas: Bildart → Thema der Atlas-IDs (`insel` heißt dort `bastion`). */
+export function atlasThema(art: Bildart): Thema {
+  return art === 'insel' ? 'bastion' : art;
+}

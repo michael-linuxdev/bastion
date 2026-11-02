@@ -14,7 +14,8 @@
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
   import { fehlbetraege, restLerneinheiten, type Rohstoff } from './fehlt';
-  import { gebaeudeName, gebaeudeWozu, menge, ressourceName, tt } from './thema.svelte';
+  import { aktiv, gebaeudeName, gebaeudeWozu, menge, ressourceName, tt } from './thema.svelte';
+  import { ausbauNeu } from './ausbau-neu';
 
   export interface BauAngebot {
     readonly typ: GebaeudeTyp;
@@ -126,6 +127,13 @@
     {@const alsPlan = a.hindernisse.length > 0 && istZiel(a)}
     <div class="fokus" aria-live="polite">
       <p class="label">{alsPlan ? tt('bastion.geist-plan') : tt('bastion.bau-vorschau')}</p>
+      {#if a.ausbau}
+        <!-- Vorher/Nachher: heutige Stufe klein, die neue groß daneben (G4) -->
+        <span class="vorher" title={tt('bastion.ausbau-vorher-nachher')}>
+          <GebaeudeVorschau typ={a.typ} stufe={a.ausbau.stufe} {epoche} />
+          <span class="pfeil" aria-hidden="true">→</span>
+        </span>
+      {/if}
       <GebaeudeVorschau
         typ={a.typ}
         stufe={a.stufe}
@@ -142,6 +150,9 @@
         {gebaeudeName(a.typ)}{#if a.ausbau}
           {' ' + tt('bastion.auf-stufe') + ' ' + a.stufe}{/if}
       </p>
+      {#if a.ausbau && ausbauNeu(aktiv.thema, epoche, a.typ, a.stufe)}
+        <p class="neu">{ausbauNeu(aktiv.thema, epoche, a.typ, a.stufe)}</p>
+      {/if}
       <p class="wozu">{gebaeudeWozu(a.typ)}</p>
       {#if a.kosten && (a.kosten.fleiss > 0 || a.kosten.behalten > 0 || a.kosten.koennen > 0)}
         <ul class="stapel" aria-label={tt('bastion.kosten')}>
@@ -332,6 +343,21 @@
     border-radius: var(--radius-karte);
     background: var(--farbe-hintergrund);
     text-align: center;
+  }
+
+  .vorher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--abstand-s);
+  }
+  .vorher .pfeil {
+    color: var(--farbe-akzent);
+    font-weight: 700;
+  }
+  .neu {
+    margin: 0;
+    font-weight: 600;
   }
 
   .label {
