@@ -429,7 +429,18 @@ Das Baumhaus Stufe 1 bekommt eine Laterne an der Plattform, damit es abends leuc
 
 In der App geprüft (390 px, Thema Unterwasserstadt).
 
-**Nächste Schritte:** Weltraum (Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
+**Thema `weltraum`, Epoche 1 (02.11.2026).** Skript `tools/grafik/sprites-g3-weltraum.py`, Materialleiter Blech und Landekapsel → helle Paneele mit Nieten → Glas, Solarflügel und Leuchtband (`GRAFIK-SPRITES.md` §12.10). Die Kuppel-Grundform liegt jetzt im gemeinsamen Modul `g3_stil.py` (Unterwasser-Bilder unverändert). Alle 14 Gebäude, dazu Drohne und Roboter. Die Weltraum-Szene hat keine Umgebung (auch vorher nicht); es kommt keine dazu.
+
+| Gebäude | vorher (Höhe + / Umriss) | jetzt Höhe | Höhe + | Umriss anders |
+|---|---|---|---|---|
+| Kommandomodul 1→2 | 6 % / 9 % | 186 → 271 px | 46 % | 53 % |
+| Kommandomodul 2→3 | 5 % / 8 % | 271 → 409 px | 51 % | 53 % |
+| Sternwarte 1→2 | 5 % / 8 % | 108 → 228 px | 111 % | 60 % |
+| Antennenmast 1→2 | 19 % / 14 % | 154 → 277 px | 80 % | 74 % |
+
+**Damit sind alle fünf Themen der Epoche 1 aus dem eigenen Generator** (Gebäude, Umgebung, Wesen; Boden wie bisher). Umriss-Test und Sätze zum Ausbau gelten für alle fünf.
+
+**Nächster Schritt:** G6 Abnahme (PV, 2–3 Jugendliche).
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 
