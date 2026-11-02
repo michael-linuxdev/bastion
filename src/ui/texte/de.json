@@ -179,6 +179,7 @@
   "eingabe.x": "x-Koordinate",
   "eingabe.y": "y-Koordinate",
   "eingabe.ergebnis": "Ergebnis",
+  "eingabe.keine-loesung": "Es gibt keine Lösung.",
   "eingabe.rest": "Rest",
   "eingabe.nach-vorn": "nach vorn",
   "eingabe.nach-hinten": "nach hinten",
