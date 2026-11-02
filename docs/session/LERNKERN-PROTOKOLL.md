@@ -18,3 +18,4 @@
 | 01.11.2026 | **F6 Arbeitsblätter:** `pnpm arbeitsblatt` (Werkzeug außerhalb der App, HTML zum Drucken, Lösungsseite, Review-Stufe in der Fußzeile, gleicher Seed = gleiches Blatt); Satz-Hilfen aus dem Prüfbogen in `satz.ts`; PDF-Technik für U7 bleibt offen |
 | 01.11.2026 | **PV-Entscheidung Reihenfolge:** #145 mergen, L18 eigener PR; F4, F5, F6 parallel zu L (`FOKUS.md` „Entscheidungen“) |
 | 01.11.2026 | **L18 Themenwahl:** Bereiche eingeklappt (offen: erster Bereich und Bereiche mit Fortschritt), Test „Zeichen-Anleitung“ klappt vorher auf; Rundgang 390 px wiederholt, Fotos an den PV; offen nur die Abnahme von L |
+| 02.11.2026 | **E2E „Bauplatz als Bild“ robust:** an Tagen mit Wetter „klar“ ging der erste Tipper ins Leere (CI rot); Test tippt jetzt, bis die Wahl erscheint |
