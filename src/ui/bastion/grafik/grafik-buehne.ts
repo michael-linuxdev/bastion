@@ -1760,9 +1760,24 @@ export async function buehneErstellen(
         );
       } else if (art === 'unterwasser' && texturen.size > 0) {
         // Atlas-Unterwasser: Korallen + Gebäude-Sprites (P3)
+        // Korallen aus dem Atlas (G3, GRAFIK-SPRITES §12.10), sonst Code-Koralle
         const lagen: { tiefe: number; zeichne: () => void }[] = uwKoralleLagen().map((b) => ({
           tiefe: b.tiefe,
           zeichne: () => {
+            const eintrag = atlasEintragPerId(atlas, `unterwasser/umgebung/${b.art}`);
+            const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+            if (eintrag && tex) {
+              // Fußpunkt an der unteren Ecke des Felds, dessen Mitte punkt(x, y) ist
+              const fuss = punkt(b.x + 0.5, b.y + 0.5);
+              const spr = new Sprite(tex);
+              spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+              spr.width = (eintrag.pixel.w / 2) * b.bild;
+              spr.height = (eintrag.pixel.h / 2) * b.bild;
+              spr.position.set(fuss.x, fuss.y);
+              spr.zIndex = b.tiefe * 10;
+              gebaeude.addChild(spr);
+              return;
+            }
             const stueck = new Graphics();
             uwKoralle(stiftVon(stueck), b.x, b.y, b.s);
             stueck.zIndex = b.tiefe * 10;

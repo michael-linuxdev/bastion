@@ -418,7 +418,18 @@ Atlas-Bilder `gebaeude/dorf/e1`: 25 KB → 55 KB; ganzer Atlas 1 374 KB → 1 40
 
 Das Baumhaus Stufe 1 bekommt eine Laterne an der Plattform, damit es abends leuchtet wie die anderen Stufen. Neu im gemeinsamen Modul: Hat ein neues Bild keine Fenster, entfernt der Generator die alte Abend-Ebene (sonst läge ein altes Fenster über dem neuen Bild). Atlas gesamt etwa +74 KB. In der App geprüft (390 px, Thema Garten).
 
-**Nächste Schritte:** Unterwasser, Weltraum (je Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
+**Thema `unterwasser`, Epoche 1 (02.11.2026).** Skript `tools/grafik/sprites-g3-unterwasser.py`, Materialleiter Treibholz und Muscheln → Korallenstein mit Bullaugen → Messing, Perlmutt und Glaskuppel (`GRAFIK-SPRITES.md` §12.10). Neu im Skript: eine Kuppel als Grundkörper (Halbkugel mit Licht von rechts oben, wahlweise mit Rippen). Alle 14 Gebäude, dazu Korallen (Ast und Fächer) auf den festen Plätzen der Unterwasser-Szene (`uwKoralleLagen`, Code-Koralle bleibt Rückfall) und Fisch, Krebs, Qualle.
+
+| Gebäude | vorher (Höhe + / Umriss) | jetzt Höhe | Höhe + | Umriss anders |
+|---|---|---|---|---|
+| Hauptkuppel 1→2 | 6 % / 9 % | 109 → 205 px | 88 % | 56 % |
+| Hauptkuppel 2→3 | 6 % / 8 % | 205 → 325 px | 59 % | 40 % |
+| Perlenkammer 1→2 | 6 % / 8 % | 142 → 235 px | 65 % | 40 % |
+| Leuchtturm 1→2 | 12 % / 13 % | 152 → 287 px | 89 % | 74 % |
+
+In der App geprüft (390 px, Thema Unterwasserstadt).
+
+**Nächste Schritte:** Weltraum (Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 

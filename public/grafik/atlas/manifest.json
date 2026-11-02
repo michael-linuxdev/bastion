@@ -10125,7 +10125,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 282
+        "h": 145
       }
     },
     {
@@ -10138,7 +10138,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 282
+        "h": 145
       }
     },
     {
@@ -10151,7 +10151,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 294
+        "h": 226
       }
     },
     {
@@ -10164,7 +10164,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 294
+        "h": 226
       }
     },
     {
@@ -10177,7 +10177,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 306
+        "h": 336
       }
     },
     {
@@ -10190,7 +10190,7 @@
       },
       "pixel": {
         "w": 296,
-        "h": 306
+        "h": 336
       }
     },
     {
@@ -10203,7 +10203,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 190
+        "h": 179
       }
     },
     {
@@ -10216,7 +10216,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 190
+        "h": 179
       }
     },
     {
@@ -10229,7 +10229,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 204
+        "h": 156
       }
     },
     {
@@ -10242,7 +10242,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 204
+        "h": 156
       }
     },
     {
@@ -10255,7 +10255,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 212
+        "h": 242
       }
     },
     {
@@ -10268,7 +10268,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 212
+        "h": 242
       }
     },
     {
@@ -10281,7 +10281,7 @@
       },
       "pixel": {
         "w": 104,
-        "h": 206
+        "h": 163
       }
     },
     {
@@ -10294,7 +10294,7 @@
       },
       "pixel": {
         "w": 104,
-        "h": 218
+        "h": 294
       }
     },
     {
@@ -10307,7 +10307,7 @@
       },
       "pixel": {
         "w": 104,
-        "h": 136
+        "h": 138
       }
     },
     {
@@ -10319,8 +10319,8 @@
         "y": 1.0
       },
       "pixel": {
-        "w": 96,
-        "h": 100
+        "w": 104,
+        "h": 95
       }
     },
     {
@@ -10332,8 +10332,8 @@
         "y": 1.0
       },
       "pixel": {
-        "w": 96,
-        "h": 120
+        "w": 104,
+        "h": 112
       }
     },
     {
@@ -10345,8 +10345,8 @@
         "y": 1.0
       },
       "pixel": {
-        "w": 96,
-        "h": 120
+        "w": 104,
+        "h": 152
       }
     },
     {
@@ -10359,7 +10359,7 @@
       },
       "pixel": {
         "w": 200,
-        "h": 160
+        "h": 125
       }
     },
     {
@@ -10371,8 +10371,8 @@
         "y": 1.0
       },
       "pixel": {
-        "w": 96,
-        "h": 120
+        "w": 104,
+        "h": 130
       }
     },
     {
@@ -13025,6 +13025,84 @@
       "pixel": {
         "w": 104,
         "h": 70
+      }
+    },
+    {
+      "id": "unterwasser/e1/turm_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/turm_s1_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 163
+      }
+    },
+    {
+      "id": "unterwasser/e1/turm_s2_fenster",
+      "datei": "gebaeude/unterwasser/e1/turm_s2_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 294
+      }
+    },
+    {
+      "id": "unterwasser/e1/eingang_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/eingang_s1_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 138
+      }
+    },
+    {
+      "id": "unterwasser/e1/zeichen_s1_fenster",
+      "datei": "gebaeude/unterwasser/e1/zeichen_s1_fenster.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 152
+      }
+    },
+    {
+      "id": "unterwasser/umgebung/koralle_a",
+      "datei": "umgebung/unterwasser/koralle_a.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 79
+      }
+    },
+    {
+      "id": "unterwasser/umgebung/koralle_b",
+      "datei": "umgebung/unterwasser/koralle_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 78
       }
     }
   ]
