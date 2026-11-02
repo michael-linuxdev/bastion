@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 02.11.2026 · G2 abgenommen, G3/G4/G5 umgesetzt, offen G6 · **L abgenommen (02.11.2026)**, Lern-Oberfläche eingefroren bis zur Auswertung von U4b · F2, F4, F5, F6 erledigt, F3 zum Teil · nächste Sitzungen unten vorbereitet
+Stand: 02.11.2026 · G2 abgenommen, G3/G4/G5 umgesetzt, offen G6 · **L abgenommen (02.11.2026)**, Lern-Oberfläche eingefroren bis zur Auswertung von U4b · F2, F4, F5, F6 erledigt, F3 zum Teil · **F3, F7–F10 und Lehrkraft gewinnen ruhen** bis Klasse 9–12 gebaut ist (PV, 02.11.2026, `KLASSE-9-12.md` Entscheidung 5) · nächste Sitzungen unten vorbereitet
 
 ---
 

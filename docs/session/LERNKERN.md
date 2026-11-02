@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 02.11.2026 · Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
+Stand: 02.11.2026 · **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/session/KLASSE-9-12.md`).** Rückfragen beantwortet; Phase A wartet auf die Lehrplan-PDFs; F3, F7–F10 und Lehrkraft gewinnen ruhen (PV) · Zuvor: Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
 
 ---
 
@@ -16,6 +16,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 ---
 
 ## Aktueller Auftrag
+
+> **Seit 02.11.2026: Klasse 9 bis 12 nach `docs/session/KLASSE-9-12.md`** (K-30). Entscheidungen der Fragerunde stehen dort. Alles Übrige in diesem Abschnitt ruht, bis Klasse 9–12 gebaut ist (Entscheidung 5).
 
 **Erledigt:**
 
@@ -58,7 +60,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 3. ~~**Öffentliche Seite von `main` trennen.**~~ *Erledigt 02.11.2026 (F2): `BASTION_MINDESTSTUFE`, INHALTSFORMAT §8, README „Was ist öffentlich?“.* *Entschieden 01.11.2026: Filter im Build (ARCHITEKTUR T-20), Umsetzung F2 in `FOKUS.md`.* Bisher: Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: ~~gleichnamiges Addieren~~ (erledigt 31.10.2026: Schritte `rechnen` und `kuerzen`, eine Vorlage darf eine Auswahl der Generator-Schritte nehmen) und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
 5. ~~**`docs/PLAN.md` Abschnitt 1**~~ – erledigt am 31.10.2026: gleicher nächster Schritt wie hier.
-6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
+6. ~~**Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.~~ *Aufgehoben für den Stoff durch K-30 (02.11.2026); die PDF-Prüfungen (U7) folgen nach Klasse 9–12.*
 
 ### 2. Eigene Tastatur für Zahlen und Terme
 
@@ -136,10 +138,10 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
 - **Entscheidung des PV vom 02.11.2026 (K-30, `STRATEGIE.md`), festgehalten im Strang Grafik, Session-Prompt `docs/session/KLASSE-9-12.md`:** Klasse 9 bis 12 **jetzt komplett** im neuen Format bauen (Erstvermittlung, Fehlerkatalog, Niveau E, K-28), **danach alles gesammelt prüfen**, erst mehrfach durch KI, dann durch einen Menschen. Bitte in diesem Strang umsetzen:
-  1. Punkt 1.6 oben („erst, wenn eine Klassenstufe der 5 bis 8 Stufe 2 und U4b bestanden hat“) als aufgehoben markieren; `PLAN.md` §4 Punkt 17b und §4b U6 anpassen.
+  1. ~~Punkt 1.6 oben („erst, wenn eine Klassenstufe der 5 bis 8 Stufe 2 und U4b bestanden hat“) als aufgehoben markieren; `PLAN.md` §4 Punkt 17b und §4b U6 anpassen.~~ *Erledigt 02.11.2026.*
   2. Kompetenzlisten für Klasse 9, 10 und Jahrgang 11/12 (GK und LK) in `LEHRPLAN.md` anlegen, Grundlage Lehrplan Gymnasium (K-16, `docs/quellen/README.md`), dann Klasse für Klasse Vorlagen, Erstvermittlung und Fehlerkatalog. KaTeX-Messung (Schritt 2 der Formeldarstellung) jetzt fällig.
   3. Die mehrfache KI-Prüfung als festen Ablauf beschreiben (mehrere unabhängige Durchgänge, Befunde im Prüfbogen), bevor der Mensch prüft. Stufe 2 bleibt menschliche Prüfung (INHALTSFORMAT §8).
-  4. Laufende Pakete (F3, F7–F10, Lehrkraft gewinnen) mit dem PV neu ordnen. Die Lern-Oberfläche bleibt nach Regel 7 eingefroren; neuer Stoff läuft über Inhalte und Generatoren.
+  4. ~~Laufende Pakete (F3, F7–F10, Lehrkraft gewinnen) mit dem PV neu ordnen.~~ *Geklärt 02.11.2026: alles ruht (`KLASSE-9-12.md`, Entscheidung 5).* Die Lern-Oberfläche bleibt nach Regel 7 eingefroren; neuer Stoff läuft über Inhalte und Generatoren.
 
 ---
 

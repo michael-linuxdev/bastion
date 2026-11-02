@@ -4,7 +4,7 @@
 > Strang **Lernkern** (Branch `lernkern/…`, Protokollzeile in `docs/session/LERNKERN-PROTOKOLL.md`). Diese Datei gilt, bis Klasse 9 bis 12 gebaut und die gesammelte KI-Prüfung abgeschlossen ist.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` (vor allem „Wünsche aus dem anderen Strang“), `docs/STRATEGIE.md` K-23, K-25, K-28, K-30, dann `docs/INHALTSFORMAT.md` (ganz), `docs/VERMITTLUNG.md` §2–§3.6, `docs/LEHRPLAN.md` §1–§8d, `docs/PRUEFUNGEN.md`.
 
-Stand: 02.11.2026 · noch nicht begonnen
+Stand: 02.11.2026 · Rückfragen beantwortet (unten „Entscheidungen“) · **Phase A wartet auf die Lehrplan-PDFs** vom PV (Entscheidung 6)
 
 ---
 
@@ -28,7 +28,7 @@ Danach folgen die **Prüfungen auf Knopfdruck** (K-25, PLAN U7). Sie sind nicht 
 - **Keine KI in der App** (K-23). KI hilft beim Entwurf und bei der Prüfung; in der App läuft nur vorab geschriebener Inhalt.
 - **Stufe 2 bleibt menschliche Prüfung** (INHALTSFORMAT §8). Keine KI setzt Stufe 2 oder 3.
 - **Öffentliche Seite:** Der Filter im Build (T-20, `BASTION_MINDESTSTUFE`) hält alles unter Stufe 2 fern. Neuer Stoff braucht dafür nichts Zusätzliches; prüfen, dass der Filter auch die neuen Ordner erfasst.
-- **Lern-Oberfläche eingefroren** (`SESSION-PROMPT.md` Regel 7): `src/ui/ueben/`, `vermittlung/`, `eingabe/`, `eltern/`, `start/` bekommen bis zur Auswertung von U4b nur Fehlerbehebungen. Neuer Stoff läuft über Inhalte, Generatoren und vorhandene Aufgabentypen. Braucht eine Aufgabe einen neuen Aufgabentyp, eine neue Taste oder eine neue Darstellung (etwa Graph zeichnen, Vektor, Integral), wird das **gesammelt** und dem PV vorgelegt (siehe Rückfragen), nicht still gebaut.
+- ~~**Lern-Oberfläche eingefroren** (`SESSION-PROMPT.md` Regel 7): … nur Fehlerbehebungen … gesammelt und dem PV vorgelegt, nicht still gebaut.~~ *Gelockert durch Entscheidung 4 (02.11.2026):* Neue Aufgabentypen, Tasten und Darstellungen, die Klasse 9–12 braucht, dürfen gebaut werden. Bedingungen: erst die Bedarfsliste aus Phase A, je Typ oder Darstellung ein eigener PR, vorhandene Aufgaben sehen gleich aus (Test), sonst bleibt die Lern-Oberfläche eingefroren.
 - **Keine neue Laufzeitabhängigkeit** ohne Rückfrage und Eintrag im Entscheidungslog (`CLAUDE.md`). Das gilt auch für KaTeX.
 - **Generatoren rein und deterministisch**, Zufall nur über `src/core/rng`.
 - Kleine Schritte: ein Kompetenzfeld oder wenige Kompetenzen je PR, jeder PR nach grüner CI per Squash auf `main` (Ablauf im `SESSION-PROMPT.md`).
@@ -37,7 +37,7 @@ Danach folgen die **Prüfungen auf Knopfdruck** (K-25, PLAN U7). Sie sind nicht 
 
 ## Rückfragen an den PV (gesammelt, vor dem ersten Inhalt)
 
-Eine Fragerunde mit Empfehlung, Antworten unten unter „Entscheidungen“ festhalten.
+Eine Fragerunde mit Empfehlung, Antworten unten unter „Entscheidungen“ festhalten. *Gestellt und beantwortet am 02.11.2026.*
 
 1. **Schularten:** Klasse 9/10 für **Gymnasium und Oberschule** (wie bei 5–8, Realschulabschluss `PRUEFUNGEN.md` §4) oder nur Gymnasium? *Empfehlung:* beide, Oberschule als Teilmenge kennzeichnen wie in §8–§8d.
 2. **Kurse 11/12:** GK und LK getrennt als Niveaus oder als eigene Kompetenzen? *Empfehlung:* gemeinsame Kompetenz, LK-Anteile als Niveau E bzw. eigene Kompetenz nur dort, wo der LK-Stoff im GK gar nicht vorkommt.
@@ -50,6 +50,8 @@ Eine Fragerunde mit Empfehlung, Antworten unten unter „Entscheidungen“ festh
 ## Phasen
 
 ### Phase A – Listen und Bedarf (ein PR)
+
+> *Wartet auf die Lehrplan-PDFs (Entscheidung 6).* Die PDFs nicht ins Repository legen (`docs/quellen/README.md`), sondern in die Sitzung hochladen.
 
 - Lehrplan Gymnasium Mathematik Sachsen, Klassen 9, 10 und Jahrgangsstufen 11/12 (Fundstellen `docs/quellen/README.md`; die PDF-Dateien liegen nicht im Repository, der PV stellt sie bereit, wenn nötig). Bei Bedarf Lehrplan Oberschule Klasse 9/10.
 - Kompetenzlisten als neue Abschnitte in `LEHRPLAN.md` (Auswahl, Kompetenzen, Graph), wie §8–§8d. Voraussetzungen zeigen auch auf Kompetenzen aus Klasse 5–8.
@@ -86,7 +88,14 @@ Gesammelt für Klasse 5 bis 12: Prüfbögen (`pnpm pruefbogen`, mit `--online` a
 
 ## Entscheidungen
 
-*(noch keine – Antworten auf die Rückfragen hier eintragen)*
+Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
+
+1. **Schularten:** beide. Gymnasium ist die Grundlage, Oberschul-Stoff Klasse 9/10 wird als Teilmenge gekennzeichnet wie in `LEHRPLAN.md` §8–§8d (Realschulabschluss, `PRUEFUNGEN.md` §4).
+2. **Kurse 11/12:** eine gemeinsame Kompetenz für GK und LK; LK-Anteile als Niveau E. Eine eigene LK-Kompetenz nur dort, wo der Stoff im GK gar nicht vorkommt.
+3. **Reihenfolge:** Klasse 9 → 10 → 11/12; innerhalb einer Klasse Leitidee für Leitidee, zuerst die Felder, die das Abitur trägt (Funktionen, Analysis, Stochastik, Analytische Geometrie).
+4. **Neue Darstellung und Eingabe:** **jetzt bauen erlaubt** (abweichend von der Empfehlung). Die Lern-Oberfläche darf für Klasse 9–12 neue Aufgabentypen, Tasten und Darstellungen bekommen (Ausnahme von `SESSION-PROMPT.md` Regel 7). KaTeX erst messen; bei einem Ja Eintrag im Entscheidungslog (`ARCHITEKTUR.md`), wie für jede neue Abhängigkeit (`CLAUDE.md`). Grundlage bleibt die Bedarfsliste aus Phase A.
+5. **Laufende Pakete:** **alles ruht** (abweichend von der Empfehlung). F3 (Prüfseite Musterfeld), F7 bis F10 und das Gewinnen einer Lehrkraft warten, bis Klasse 9–12 gebaut ist. Der Strang Lernkern arbeitet nur an diesem Auftrag. U4b selbst war nicht Teil der Frage; sein Termin bleibt beim PV.
+6. **Quellen (Zusatzfrage):** Die Lehrplandatenbank ist aus der Arbeitsumgebung gesperrt (HTTP 403 am Proxy). **Phase A beginnt erst, wenn der PV die Lehrplan-PDFs bereitstellt:** Gymnasium Klasse 9, 10 und Jahrgangsstufen 11/12 sowie Oberschule Klasse 9/10 (Fassungen in `docs/quellen/README.md`). Keine Kompetenzlisten aus dem Gedächtnis.
 
 ---
 

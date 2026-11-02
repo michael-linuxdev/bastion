@@ -11,6 +11,8 @@ Die PDF-Dateien liegen **nicht** im Repository: Das Repository soll öffentlich 
 
 **Ausgewertet:** Klasse 5 (0.18, `LEHRPLAN.md` §8), Klasse 6 (28.10.2026, `LEHRPLAN.md` §8b) Klasse 7 (28.10.2026, `LEHRPLAN.md` §8c) und Klasse 8 (28.10.2026, `LEHRPLAN.md` §8d) aus denselben Fassungen. Die PDF-Dateien für Klasse 6 hat der Projektverantwortliche bereitgestellt, weil die Lehrplandatenbank aus der Arbeitsumgebung nicht erreichbar war.
 
+**Für Klasse 9 bis 12 benötigt (K-30, 02.11.2026):** Lehrplan Gymnasium Klasse 9, 10 und Jahrgangsstufen 11/12, Lehrplan Oberschule Klasse 9/10. Die Lehrplandatenbank ist aus der Arbeitsumgebung nicht erreichbar (HTTP 403); der PV stellt die PDFs bereit.
+
 **Vor jeder neuen Klassenstufe:** in der Lehrplandatenbank prüfen, ob es eine neuere Fassung gibt, und die Fassung hier nachtragen.
 
 Noch nicht ausgewertet: Lehrpläne der Gemeinschaftsschule/Oberschule+ und der Förderschulen (Mathematik). Sie folgen für die Inhalte voraussichtlich den Lehrplänen von OS und GY – zu prüfen.
