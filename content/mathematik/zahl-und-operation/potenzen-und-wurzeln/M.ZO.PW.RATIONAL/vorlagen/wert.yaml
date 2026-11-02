@@ -1,0 +1,46 @@
+# „Berechne 27^(1/3)“ und „8^(2/3)“, mit Zwischenschritten. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.RATIONAL.WERT
+kompetenz: M.ZO.PW.RATIONAL
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pw.rational-wert@1
+parameter:
+  G: { zaehler: false }
+  M: { zaehler: true }
+text:
+  aufgabe:
+    de: '**Berechne**: ${term}$'
+hilfen:
+  - de: 'Der [[Nenner]] der [[Hochzahl]] sagt, welche [[Wurzel]] du ziehst: $a^{\frac{1}{3}} = \sqrt[3]{a}$.'
+  - de: 'Steht oben mehr als 1, ziehe erst die [[Wurzel]] und nimm das Ergebnis dann hoch den [[Zähler]]: $8^{\frac{2}{3}} = (\sqrt[3]{8})^2 = 2^2$.'
+fehlerbilder:
+  geteilt:
+    de: 'Du hast durch {n} geteilt. Hoch $\frac{1}{ {n} }$ heißt: die {n}. [[Wurzel]] ziehen.'
+    fv: FV.PW.BRUCH-HOCHZAHL-GETEILT
+  mal-bruch:
+    de: 'Du hast mit dem [[Bruch]] malgenommen. Die [[Hochzahl]] $\frac{ {m} }{ {n} }$ heißt: {n}. [[Wurzel]] ziehen, dann hoch {m}.'
+    fv: FV.PW.BRUCH-HOCHZAHL-GETEILT
+  nur-wurzel:
+    de: 'Die [[Wurzel]] stimmt. Nimm sie jetzt noch hoch {m}.'
+    fv: FV.PW.TEIL-VERGESSEN
+  nur-potenz:
+    de: 'Du hast nur hoch {m} gerechnet. Der [[Nenner]] {n} sagt, dass du auch die {n}. [[Wurzel]] ziehen musst.'
+    fv: FV.PW.TEIL-VERGESSEN
+schritte:
+  - id: wurzel
+    frage: { de: 'Ziehe zuerst die [[Wurzel]]: Wie viel ist $\sqrt[ {n} ]{ {basis} }$?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      geteilt:
+        de: 'Du hast geteilt. Gesucht ist die Zahl, die {n}-mal mit sich selbst malgenommen {basis} ergibt.'
+        fv: FV.PW.BRUCH-HOCHZAHL-GETEILT
+  - id: potenz
+    frage: { de: 'Jetzt hoch den Zähler: Wie viel ist ${w}^{ {m} }$?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      mal-statt-hoch:
+        de: 'Du hast {w} mit {m} malgenommen. Die [[Hochzahl]] sagt, wie oft {w} als [[Faktor]] vorkommt.'
+        fv: FV.NZ.HOCHZAHL-MAL
+herkunft: ki-entwurf
+version: 1
