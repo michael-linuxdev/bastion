@@ -1,0 +1,25 @@
+id: FV.KP.HOCHZAHL-FORMEL
+name:
+  de: Nimmt bei der Kugel die falsche Hochzahl
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet das Kugelvolumen mit r² oder meint, beim Verdoppeln des Radius verdopple sich das Volumen. Dass Längen, Flächen und Volumina mit verschiedenen Hochzahlen wachsen, ist nicht verankert.
+kompetenzen: [M.GM.KP.KUGEL]
+erklaerung:
+  kurz:
+    de: '[[Volumen]]: $r^3$, [[Oberfläche]]: $r^2$. Wird r verdoppelt, wird die Oberfläche 4-mal, das Volumen 8-mal so groß.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Hochzahl]] verwechselt oder linear gedacht.'
+    - teil: warum-nicht
+      de: 'Ein [[Volumen]] hat drei Richtungen, eine Fläche zwei. Jede Richtung wird mit dem [[Faktor]] gestreckt.'
+    - teil: so-stimmt-es
+      de: 'Prüfe die Einheit: cm³ beim [[Volumen]], also hoch 3.'
+gegenbeispiel:
+  de: 'Ein [[Würfel]] mit doppelter [[Kante]] enthält 8 kleine Würfel, nicht 2.'
+rueckweg:
+  vermittlung: M.GM.KP.KUGEL#erklaeren-kugel
+kontrast: [M.GM.KP.KUGEL.BERECHNEN, M.GM.KP.KUGEL.VERDOPPELN]
+herkunft: ki-entwurf
+version: 1

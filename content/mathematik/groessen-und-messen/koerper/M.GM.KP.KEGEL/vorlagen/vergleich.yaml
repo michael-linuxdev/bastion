@@ -1,0 +1,27 @@
+# Kegel und Zylinder vergleichen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KP.KEGEL.VERGLEICH
+kompetenz: M.GM.KP.KEGEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.kegel-zylinder@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Ein Kegel fasst {volumen} cm³. Ein [[Zylinder]] hat dieselbe [[Grundfläche]] und dieselbe [[Höhe]]. **Wie viel** fasst der Zylinder?'
+hilfen:
+  - de: 'Vergleiche die [[Formeln]]: [[Zylinder]] $G \cdot h$, Kegel $\frac{1}{3} \cdot G \cdot h$.'
+  - de: 'Man braucht drei Kegelfüllungen, um den [[Zylinder]] zu füllen.'
+fehlerbilder:
+  umgekehrt:
+    de: 'Der Kegel ist der kleinere Körper. Der [[Zylinder]] fasst mehr, nicht weniger.'
+    fv: FV.KP.DRITTEL
+  halb:
+    de: 'Der Kegel ist ein Drittel, nicht die Hälfte des [[Zylinders]].'
+    fv: FV.KP.DRITTEL
+  gleich:
+    de: 'Gleiche [[Grundfläche]] und [[Höhe]] heißt nicht gleiches [[Volumen]]. Der Kegel läuft spitz zu.'
+    fv: FV.KP.DRITTEL
+herkunft: ki-entwurf
+version: 1

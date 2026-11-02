@@ -5,7 +5,7 @@ art: uebergeneralisiert
 beschreibung:
   de: >-
     Rechnet a² + b² = c² auch dann, wenn der rechte Winkel bei A liegt. Die Formel wird mit festen Buchstaben gelernt, nicht mit der Lage des rechten Winkels.
-kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.UMKEHRUNG, M.RF.TR.BEGRIFFE]
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.UMKEHRUNG, M.RF.TR.BEGRIFFE, M.GM.KP.PYRAMIDE-HOEHEN]
 erklaerung:
   kurz:
     de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber, egal wie sie heißt. Liegt der rechte [[Winkel]] bei A, ist a die Hypotenuse: $b^2 + c^2 = a^2$.'

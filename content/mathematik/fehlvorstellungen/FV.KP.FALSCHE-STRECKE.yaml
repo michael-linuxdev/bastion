@@ -1,0 +1,25 @@
+id: FV.KP.FALSCHE-STRECKE
+name:
+  de: Wählt im Körper das falsche Teildreieck
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet die Seitenkante einer Pyramide mit der halben Grundkante statt der halben Diagonale oder nimmt eine Strecke, die nicht zum betrachteten Dreieck gehört.
+kompetenzen: [M.GM.KP.PYRAMIDE-HOEHEN]
+erklaerung:
+  kurz:
+    de: 'Jede Strecke gehört zu einem eigenen rechtwinkligen Dreieck. Zur Seitenkante passen Körperhöhe und halbe [[Diagonale]], zur Seitenhöhe Körperhöhe und halbe Grundkante.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Strecke aus einem anderen Dreieck genommen.'
+    - teil: warum-nicht
+      de: 'Die Körperhöhe trifft die [[Grundfläche]] in der Mitte. Zur Ecke ist es die halbe [[Diagonale]], zur Kantenmitte die halbe Grundkante.'
+    - teil: so-stimmt-es
+      de: 'Skizziere die [[Pyramide]] und färbe das Dreieck, in dem die gesuchte Strecke liegt.'
+gegenbeispiel:
+  de: 'Grundkante 6 cm: zur Kantenmitte 3 cm, zur Ecke $3 \cdot \sqrt{2} \approx 4{,}2$ cm.'
+rueckweg:
+  vermittlung: M.GM.KP.PYRAMIDE-HOEHEN#erklaeren-dreiecke
+kontrast: [M.GM.KP.PYRAMIDE-HOEHEN.BERECHNEN, M.GM.KP.PYRAMIDE-HOEHEN.HYPOTENUSE]
+herkunft: ki-entwurf
+version: 1

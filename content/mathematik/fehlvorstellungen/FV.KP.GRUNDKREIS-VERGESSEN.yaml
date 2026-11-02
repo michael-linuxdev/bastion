@@ -1,0 +1,25 @@
+id: FV.KP.GRUNDKREIS-VERGESSEN
+name:
+  de: Vergisst bei der Kegeloberfläche den Grundkreis
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet als Oberfläche eines Kegels nur den Mantel π · r · s. Dass die Oberfläche aus Mantel und Grundkreis besteht, wird übersehen.
+kompetenzen: [M.GM.KP.KEGEL]
+erklaerung:
+  kurz:
+    de: 'Die [[Oberfläche]] ist alles, was man von außen anfassen kann: [[Mantel]] und Grundkreis. $O = \pi r s + \pi r^2$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur den [[Mantel]] gerechnet.'
+    - teil: warum-nicht
+      de: 'Ein Kegel ohne Boden wäre eine offene Tüte. Die [[Oberfläche]] schließt den Boden ein.'
+    - teil: so-stimmt-es
+      de: 'Zähle die Flächen im [[Netz]]: Kreisausschnitt und Kreis.'
+gegenbeispiel:
+  de: '[[Netz]] eines Kegels: zwei Teile. Beide gehören zur [[Oberfläche]].'
+rueckweg:
+  vermittlung: M.GM.KP.KEGEL#erklaeren-mantel
+kontrast: [M.GM.KP.KEGEL.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

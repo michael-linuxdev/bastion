@@ -1,0 +1,27 @@
+# „Welcher Plan liefert das Volumen?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KP.ZUSAMMENGESETZT.PLAN
+kompetenz: M.GM.KP.ZUSAMMENGESETZT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.plan@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{koerper}. **Welcher** Lösungsplan liefert das [[Volumen]] des Werkstücks?'
+hilfen:
+  - de: 'Ergänze das Werkstück gedanklich zum vollständigen Körper. Was fehlt?'
+  - de: 'Vom [[Volumen]] kann man nur ein Volumen abziehen, keine Fläche.'
+fehlerbilder:
+  addiert:
+    de: 'Die Bohrung fehlt im Werkstück. Ihr [[Volumen]] wird abgezogen, nicht addiert.'
+    fv: FV.KP.ERGAENZEN
+  flaeche-statt-volumen:
+    de: 'Von einem [[Volumen]] zieht man ein Volumen ab, keine Fläche.'
+    fv: FV.KP.ERGAENZEN
+  teil-vergessen:
+    de: 'Das Loch fehlt im Werkstück. Ohne Abziehen rechnest du zu viel Material.'
+    fv: FV.KP.ERGAENZEN
+herkunft: ki-entwurf
+version: 1

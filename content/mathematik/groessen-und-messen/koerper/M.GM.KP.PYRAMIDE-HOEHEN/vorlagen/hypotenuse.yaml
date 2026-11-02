@@ -1,0 +1,27 @@
+# „Welche Strecke ist die Hypotenuse?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PYRAMIDE-HOEHEN.HYPOTENUSE
+kompetenz: M.GM.KP.PYRAMIDE-HOEHEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.hypotenuse@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'In einer quadratischen [[Pyramide]] bilden sich rechtwinklige Dreiecke. Betrachte das Dreieck aus {dreieck}. **Welche** Strecke ist die [[Hypotenuse]]?'
+hilfen:
+  - de: 'Wo liegt in diesem Dreieck der rechte [[Winkel]]? Die Körperhöhe steht [[senkrecht]] auf der [[Grundfläche]].'
+  - de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber.'
+fehlerbilder:
+  laengste-gegeben:
+    de: 'Diese Strecke gehört gar nicht zu diesem Dreieck.'
+    fv: FV.KP.FALSCHE-STRECKE
+  senkrecht:
+    de: 'Eine senkrechte Strecke bildet mit der [[Grundfläche]] den [[rechten Winkel]]. Sie ist eine [[Kathete]].'
+    fv: FV.PY.HYPOTENUSE-C
+  grundkante:
+    de: 'Die Strecke in der [[Grundfläche]] bildet mit der [[Höhe]] den [[rechten Winkel]]. Sie ist eine [[Kathete]].'
+    fv: FV.PY.HYPOTENUSE-C
+herkunft: ki-entwurf
+version: 1

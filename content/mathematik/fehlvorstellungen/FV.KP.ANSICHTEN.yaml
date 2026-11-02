@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Wählt die Seitenansicht statt der Vorderansicht oder schließt aus dem Aufriss allein auf den Körper.
     Dass erst Aufriss und Grundriss zusammen den Körper festlegen, ist nicht verankert.
-kompetenzen: [M.RF.KP.ZWEITAFEL]
+kompetenzen: [M.RF.KP.ZWEITAFEL, M.RF.KP.KEGEL]
 erklaerung:
   kurz:
     de: 'Der [[Aufriss]] zeigt den Körper von vorne, der [[Grundriss]] von oben. Erst beide zusammen verraten den Körper. Prüfe jede Ansicht einzeln.'

@@ -1,0 +1,42 @@
+# Kugel berechnen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.KP.KUGEL
+fach: mathematik
+bereich: groessen-und-messen
+feld: koerper
+titel:
+  de: 'Kugel berechnen'
+kann_satz:
+  de: 'Ich kann Oberfläche, Volumen und Masse von Kugeln berechnen, auch den Radius aus dem Volumen (Kubikwurzel).'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.GM.KR.UMFANG-FLAECHE
+  - M.ZO.PW.WURZEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Volumen und Oberfläche einer Kugel berechnen.'
+  M:
+    beschreibung:
+      de: 'Auch den Radius aus dem Volumen, mit der dritten Wurzel.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie sich Volumen und Oberfläche ändern, wenn der Radius verdoppelt oder verdreifacht wird.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 2 Pyramide, Kreiskegel, Kugel'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 2 Kreise, Kreiszylinder und Kugeln'
+version: 1

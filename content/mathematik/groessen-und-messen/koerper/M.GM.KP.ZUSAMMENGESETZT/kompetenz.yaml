@@ -1,0 +1,40 @@
+# Zusammengesetzte Körper – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.KP.ZUSAMMENGESETZT
+fach: mathematik
+bereich: groessen-und-messen
+feld: koerper
+titel:
+  de: 'Zusammengesetzte Körper'
+kann_satz:
+  de: 'Ich kann Oberfläche, Volumen und Materialbedarf zusammengesetzter Körper aus Prisma, Zylinder, Pyramide, Kegel und Kugel berechnen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.GM.KP.KEGEL
+  - M.GM.KP.KUGEL
+  - M.GM.KP.PYRAMIDE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Volumen aus zwei Teilkörpern zusammensetzen: Rakete, Haus.'
+  M:
+    beschreibung:
+      de: 'Auch mit Halbkugel, zum Beispiel eine Eistüte.'
+  E:
+    beschreibung:
+      de: 'Den passenden Lösungsplan wählen: zerlegen, ergänzen und abziehen.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 2 Pyramide, Kreiskegel, Kugel'
+version: 1

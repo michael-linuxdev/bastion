@@ -1,0 +1,28 @@
+# Rakete, Eistüte, Modellhaus. Entwurf: noch nicht geprüft.
+id: M.GM.KP.ZUSAMMENGESETZT.BERECHNEN
+kompetenz: M.GM.KP.ZUSAMMENGESETZT
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.zusammengesetzt@1
+parameter:
+  G: { arten: [rakete, haus] }
+  M: { arten: [rakete, eistuete, haus] }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {situation} Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Zerlege den Körper in Teile, berechne jedes Teil und addiere.'
+  - de: 'Eine Halbkugel hat die Hälfte des Kugelvolumens.'
+fehlerbilder:
+  teil-vergessen:
+    de: 'Ein Teil fehlt. Berechne jeden Teilkörper und addiere alle.'
+    fv: FV.KP.TEIL-VERGESSEN
+  halbkugel-ganz:
+    de: 'Oben liegt nur eine Halbkugel. Nimm die Hälfte des Kugelvolumens.'
+    fv: FV.KP.TEIL-VERGESSEN
+  drittel-vergessen:
+    de: 'Kegel und [[Pyramide]] haben nur ein Drittel des [[Volumens]] von [[Zylinder]] und [[Prisma]].'
+    fv: FV.KP.DRITTEL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,78 @@
+id: M.GM.KP.PYRAMIDE-HOEHEN
+kompetenz: M.GM.KP.PYRAMIDE-HOEHEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach findest du in einer [[Pyramide]] rechtwinklige Dreiecke und berechnest damit Seitenhöhe, Körperhöhe und Kanten.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Die [[Katheten]] sind 3 cm und 4 cm. Wie lang ist die [[Hypotenuse]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '5 cm' }, richtig: true }
+        - { wert: { de: '7 cm' }, fv: FV.PY.OHNE-QUADRATE }
+    weiter: entdecken
+    bei: { FV.PY.OHNE-QUADRATE: M.RF.PY.SACH, sonst: M.RF.PY.SACH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine quadratische [[Pyramide]] hat die Grundkante 6 cm. Die Körperhöhe trifft die [[Grundfläche]] genau in der Mitte. Wie weit ist es von dort bis zur Mitte einer Grundkante (in cm)?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '6', fv: FV.PY.TEILDREIECK }] }
+    weiter: erklaeren-dreiecke
+  - id: erklaeren-dreiecke
+    typ: erklaeren
+    text:
+      de: 'Körperhöhe h, halbe Grundkante und Seitenhöhe $h_s$ bilden ein rechtwinkliges Dreieck mit $h_s$ als [[Hypotenuse]]. Körperhöhe, halbe [[Diagonale]] und Seitenkante s bilden ein zweites, mit s als Hypotenuse.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Grundkante 6 cm, Körperhöhe 4 cm: $h_s^2 = 4^2 + 3^2 = 25$, also $h_s = 5$ cm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Grundkante 10 cm, Körperhöhe 12 cm. Wie lang ist die Seitenhöhe in cm?'
+    antwort:
+      eingabe: { art: zahl, loesung: '13', fehler: [{ wert: '15,6', fv: FV.PY.TEILDREIECK }] }
+    weiter: gegenbeispiel
+    bei: { FV.PY.TEILDREIECK: erklaeren-dreiecke }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eva berechnet die Seitenkante mit Körperhöhe und halber Grundkante. Passt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, zur Seitenkante gehört die halbe Diagonale.' }, richtig: true }
+        - { wert: { de: 'Ja, so bekommt man jede schräge Strecke.' }, fv: FV.KP.FALSCHE-STRECKE }
+    weiter: merksatz
+    bei: { FV.KP.FALSCHE-STRECKE: erklaeren-dreiecke }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst das passende rechtwinklige Dreieck suchen, dann Pythagoras. Seitenhöhe: h und halbe Grundkante. Seitenkante: h und halbe [[Diagonale]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Im Dreieck aus Körperhöhe, halber Grundkante und Seitenhöhe: Welche Strecke ist die [[Hypotenuse]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'die Seitenhöhe' }, richtig: true }
+        - { wert: { de: 'die Körperhöhe' }, fv: FV.PY.HYPOTENUSE-C }
+    weiter: uebergang
+    bei: { FV.PY.HYPOTENUSE-C: erklaeren-dreiecke }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Höhen und Kanten.'
+    vorlagen: [M.GM.KP.PYRAMIDE-HOEHEN.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

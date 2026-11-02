@@ -5,7 +5,7 @@ art: falsche-regel
 beschreibung:
   de: >-
     Rechnet bei Hypotenuse 13 cm und Kathete 5 cm die andere Kathete als √(13² + 5²). Die Formel a² + b² = c² wird nicht nach der gesuchten Seite umgestellt.
-kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH]
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH, M.GM.KP.PYRAMIDE-HOEHEN]
 erklaerung:
   kurz:
     de: 'Gesucht ist eine [[Kathete]], also eine kürzere Seite. Darum wird subtrahiert: $b^2 = 13^2 - 5^2 = 144$, $b = 12$ cm.'

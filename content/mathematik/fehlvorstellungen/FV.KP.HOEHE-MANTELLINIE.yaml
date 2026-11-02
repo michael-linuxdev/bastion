@@ -1,0 +1,25 @@
+id: FV.KP.HOEHE-MANTELLINIE
+name:
+  de: Verwechselt Höhe und Mantellinie beim Kegel
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet den Mantel eines Kegels mit der Höhe h statt der Mantellinie s. Dass s schräg auf dem Mantel liegt und h innen senkrecht steht, ist nicht verankert.
+kompetenzen: [M.GM.KP.KEGEL]
+erklaerung:
+  kurz:
+    de: 'Die [[Höhe]] h steht innen [[senkrecht]]. Die Mantellinie s liegt außen schräg. Für den [[Mantel]] brauchst du s: $s^2 = r^2 + h^2$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die gegebene [[Höhe]] direkt eingesetzt.'
+    - teil: warum-nicht
+      de: 'Der [[Mantel]] ist aufgerollt ein Kreisausschnitt mit dem [[Radius]] s. Mit der [[Höhe]] wäre er zu klein.'
+    - teil: so-stimmt-es
+      de: 'Berechne zuerst s mit dem Satz des Pythagoras, dann $M = \pi \cdot r \cdot s$.'
+gegenbeispiel:
+  de: 'Kegel mit $r = 3$, $h = 4$: $s = 5$. Mit h statt s fehlt ein Fünftel des [[Mantels]].'
+rueckweg:
+  vermittlung: M.GM.KP.KEGEL#erklaeren-mantel
+kontrast: [M.GM.KP.KEGEL.BERECHNEN]
+herkunft: ki-entwurf
+version: 1
