@@ -113,6 +113,7 @@ import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import { atlasThema, type Bildart } from './bildart';
 import { geruestEbenen } from './geruest';
+import { inselUmgebung } from './insel-umgebung';
 import { istLandBildart } from './thema-partikel';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
@@ -1892,6 +1893,26 @@ export async function buehneErstellen(
       } else if (art === 'insel' && texturen.size > 0) {
         // Atlas-Bastion: Gebäude-Sprites (P3); Code-Fallback je Rolle
         const lagen: { tiefe: number; zeichne: () => void }[] = [];
+        // Umgebung am Inselrand (G3, GRAFIK-SPRITES §12.7): feste Plätze, kein Zufall
+        const { breite: pw, tiefe: pt } = bauplatzAktiv();
+        for (const u of inselUmgebung(pw, pt)) {
+          const eintrag = atlasEintragPerId(atlas, `bastion/umgebung/${u.art}`);
+          const tex = eintrag ? texturen.get(eintrag.id) : undefined;
+          if (!eintrag || !tex) continue;
+          lagen.push({
+            tiefe: u.x + u.y + 1,
+            zeichne: () => {
+              const fuss = punkt(u.x + 1, u.y + 1);
+              const spr = new Sprite(tex);
+              spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
+              spr.width = (eintrag.pixel.w / 2) * u.s;
+              spr.height = (eintrag.pixel.h / 2) * u.s;
+              spr.position.set(fuss.x, fuss.y);
+              spr.zIndex = (u.x + u.y + 1) * 10;
+              gebaeude.addChild(spr);
+            },
+          });
+        }
         for (const x of reihe) {
           const [bw, bt] = KATALOG[x.typ].groesse;
           const tiefe = x.pos.x + x.pos.y + (bw + bt) / 2;
