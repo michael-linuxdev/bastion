@@ -1,15 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import type { Kompetenz } from '../competence/kompetenz';
 import {
+  blattAbfrage,
   blattStufe,
   loesungAlsText,
   neueBlattNummer,
   ohneAufgaben,
+  leseBlattAbfrage,
   ohneBegriffe,
   optionenGueltig,
   punkteFuer,
   punkteSumme,
   ziehe,
+  type BlattAngaben,
   type BlattEingabe,
 } from './arbeitsblatt';
 import type { Generator, Instanz } from './generator';
@@ -100,5 +103,56 @@ describe('Aufgabenblatt im Kern', () => {
       loesungAlsText({ typ: 'auswahl', wert: 1 }, [{ text: { de: 'x' } }, { text: { de: '12' } }]),
     ).toBe('B (12)');
     expect(loesungAlsText({ typ: 'reihenfolge', wert: [2, 5] })).toBe('2 < 5');
+  });
+});
+
+describe('Adresse der Druckseite (iPhone-App druckt nicht selbst)', () => {
+  const angaben: BlattAngaben = {
+    kompetenzen: ['M.ZO.BR.ERWEITERN', 'M.ZO.BR.ADD-SUB'],
+    niveau: 'M',
+    anzahl: 12,
+    nr: 7,
+    loesungen: true,
+    punkte: false,
+    titel: 'Probe & Übung: 3/4 = ?',
+    datum: '2026-11-02',
+  };
+
+  it('liest genau die Angaben zurück, die sie schreibt', () => {
+    expect(leseBlattAbfrage(blattAbfrage(angaben))).toEqual(angaben);
+    const ohne = { ...angaben, titel: '', datum: '', loesungen: false, punkte: true };
+    expect(leseBlattAbfrage(blattAbfrage(ohne))).toEqual(ohne);
+  });
+
+  it('nimmt auch ein führendes Fragezeichen und „+“ für Leerzeichen', () => {
+    expect(leseBlattAbfrage('?blatt=1&k=M.ZO.BR.ERWEITERN&n=G&a=6&nr=7&t=Mein+Blatt')).toEqual({
+      kompetenzen: ['M.ZO.BR.ERWEITERN'],
+      niveau: 'G',
+      anzahl: 6,
+      nr: 7,
+      loesungen: true,
+      punkte: false,
+      titel: 'Mein Blatt',
+      datum: '',
+    });
+  });
+
+  it('lehnt fehlende und ungültige Angaben ab', () => {
+    const gut = 'blatt=1&k=M.ZO.BR.ERWEITERN&n=G&a=6&nr=7';
+    expect(leseBlattAbfrage(gut)).toBeDefined();
+    for (const schlecht of [
+      '',
+      'k=M.ZO.BR.ERWEITERN&n=G&a=6&nr=7',
+      gut.replace('n=G', 'n=X'),
+      gut.replace('a=6', 'a=0'),
+      gut.replace('a=6', 'a=61'),
+      gut.replace('nr=7', 'nr=-1'),
+      gut.replace('nr=7', 'nr=100000'),
+      gut.replace('k=M.ZO.BR.ERWEITERN', 'k=<script>'),
+      gut.replace('k=M.ZO.BR.ERWEITERN', 'k='),
+      `${gut}&d=morgen`,
+      `${gut}&t=%E0%A4%A`,
+    ])
+      expect(leseBlattAbfrage(schlecht), schlecht).toBeUndefined();
   });
 });
