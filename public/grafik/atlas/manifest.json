@@ -12961,6 +12961,32 @@
         "w": 104,
         "h": 60
       }
+    },
+    {
+      "id": "dorf/umgebung/baum_a",
+      "datei": "umgebung/dorf/baum_a.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 130
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_b",
+      "datei": "umgebung/dorf/baum_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 104
+      }
     }
   ]
 }
