@@ -1,0 +1,8 @@
+{
+  "$kommentar": "Sperrklinke (B4): höchstens so viele Funde von pnpm fehlerschueler je Art. Nur senken, nie erhöhen. Prüfung: pnpm fehlerschueler --grenze",
+  "A": 18,
+  "B": 58,
+  "C": 2,
+  "D": 5,
+  "E": 17
+}
