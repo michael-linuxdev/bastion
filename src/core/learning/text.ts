@@ -110,10 +110,10 @@ export const KATEX_OPTIONEN = {
 
 /**
  * Platzhalter in einer Formel: `{name}`, aber nicht direkt hinter einem LaTeX-Befehl, einer
- * schließenden Klammer, `^` oder `_` – dort ist es eine LaTeX-Gruppe (`\vec{a}`,
+ * schließenden Klammer (auch `]` wie in `\sqrt[3]{x}`), `^` oder `_` – dort ist es eine LaTeX-Gruppe (`\vec{a}`,
  * `\binom{n}{k}`, `x^{n}`). Platzhalter in Gruppen mit Leerzeichen: `\sqrt{ {radikand} }`.
  */
-const PLATZHALTER_IN_FORMEL = /(?<![\\a-zA-Z}^_])\{([a-z_]+)\}/g;
+const PLATZHALTER_IN_FORMEL = /(?<![\\a-zA-Z}\]^_])\{([a-z_]+)\}/g;
 
 /**
  * Formel: Platzhalter einsetzen; gesetzt wird sie mit KaTeX (ARCHITEKTUR T-22). Seit 02.11.2026

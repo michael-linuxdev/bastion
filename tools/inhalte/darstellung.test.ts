@@ -1,8 +1,8 @@
 // Probelauf für die Anzeige: Was ein Kind liest, enthält keine Formelzeichen mehr.
-// Aufgabentext und Antwortmöglichkeiten laufen durch `fuelle` (Formel-Teilmenge,
-// INHALTSFORMAT §11); der Lösungsweg wird als reiner Text gezeigt und darf darum keine
-// Formel enthalten. Seit KaTeX (ARCHITEKTUR T-22) und der Entscheidung des PV vom 02.11.2026
-// setzt KaTeX jede Formel, auch in Klasse 5–8; jede muss streng fehlerfrei setzbar sein.
+// Aufgabentext, Antwortmöglichkeiten und Lösungsweg laufen durch `fuelle` (INHALTSFORMAT §11),
+// Texte aus Generatoren vorher durch `alsFormeln` (Rechenausdrücke werden Formeln). Seit KaTeX
+// (ARCHITEKTUR T-22) und der Entscheidung des PV vom 02.11.2026 setzt KaTeX jede Formel, auch in
+// Klasse 5–8; jede muss streng fehlerfrei setzbar sein.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import katex from 'katex';
@@ -15,10 +15,15 @@ import {
   texAnzeige,
   type Textteil,
 } from '../../src/core/learning/text';
+import { alsFormeln } from '../../src/core/learning/rechenausdruck';
+import { antwortText } from '../../src/core/learning/werkstatt';
 import { pruefeInhalte } from './pruefen';
 
 const { vorlagen } = pruefeInhalte('content', generatoren);
 const ROH = /\$|\\(frac|sqrt|cdot)/;
+/** Dazu Rechenausdrücke aus Generatoren, die keine Formel geworden sind (Einheiten wie m³ erlaubt) */
+const ROH_GENERATOR =
+  /\$|\\(frac|sqrt|cdot)|\d\/\d|√|[\d)][⁰¹²³⁴⁵⁶⁷⁸⁹]|(?<![\p{L}])(?<![\d)] +)[a-z][⁰¹²³⁴⁵⁶⁷⁸⁹]|\u0305/u;
 
 /** KaTeX setzt die Formel ohne Fehler (streng, wie in der App). */
 function setzbar(tex: string) {
@@ -28,9 +33,9 @@ function setzbar(tex: string) {
   ).not.toThrow();
 }
 
-function pruefeTeile(teile: readonly Textteil[], wo: string) {
+function pruefeTeile(teile: readonly Textteil[], wo: string, roh = ROH) {
   const ohneFormel = teile.filter((t) => t.art !== 'formel');
-  expect(alsText(ohneFormel), wo).not.toMatch(ROH);
+  expect(alsText(ohneFormel), wo).not.toMatch(roh);
   for (const t of teile) if (t.art === 'formel') setzbar(t.tex);
 }
 
@@ -44,8 +49,13 @@ describe('Anzeige mit allen Vorlagen', () => {
           if (!i) continue;
           const wo = `${niveau} Seed ${seed}`;
           pruefeTeile(fuelle(v.text.aufgabe.de, i.platzhalter), wo);
-          for (const o of i.optionen ?? []) if (o.text) pruefeTeile(fuelle(o.text.de, {}), wo);
-          for (const s of i.loesungsweg) expect(s.de, `${wo} Lösungsweg`).not.toMatch(ROH);
+          for (const o of i.optionen ?? [])
+            if (o.text)
+              pruefeTeile(fuelle(alsFormeln(o.text.de), {}), `${wo} Option`, ROH_GENERATOR);
+          for (const s of i.loesungsweg)
+            pruefeTeile(fuelle(alsFormeln(s.de), i.platzhalter), `${wo} Lösungsweg`, ROH_GENERATOR);
+          const antwort = antwortText(i.loesung, i.optionen);
+          pruefeTeile(fuelle(alsFormeln(antwort), {}), `${wo} Antwort`, ROH_GENERATOR);
         }
       }
     });
