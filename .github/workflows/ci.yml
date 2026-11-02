@@ -43,6 +43,10 @@ jobs:
       - name: Einheitentests
         run: pnpm test
 
+      # Sperrklinke (B4): Die Zahl der Funde des Fehler-Schülers darf nicht steigen.
+      - name: Fehler-Schüler (Grenze aus tools/inhalte/fehlerschueler-grenze.json)
+        run: pnpm fehlerschueler --grenze
+
       - name: Build
         run: pnpm build
 
