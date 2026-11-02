@@ -56,3 +56,4 @@
 | 02.11.2026 | **Klärung PV G0:** Bilder nur eigener Generator (a); vor U4b alle fünf Themen in Epoche 1, nicht nur `bastion` (`FOKUS.md` „Entscheidungen“) |
 | 02.11.2026 | **G3 Thema `dorf`, Gebäude Epoche 1** (Branch `grafik/g3-dorf`): Generator aufgeteilt in `g3_stil.py` + je Thema ein Skript (Bastion-Bilder unverändert); 14 Dorf-Bilder neu (Lehm/Stroh → Fachwerk/Ziegel → Bruchstein/Schiefer, `GRAFIK-SPRITES.md` §12.10); Umriss-Test und Ausbau-Sätze auch für `dorf` |
 | 02.11.2026 | **L abgenommen (PV):** Lern-Oberfläche (`ueben`, `vermittlung`, `eingabe`, `eltern`, `start`) eingefroren bis zur Auswertung von U4b; nur Fehlerbehebungen (SESSION-PROMPT Regel 7, AGENTS.md) |
+| 02.11.2026 | **G3 Dorf: Bäume und Wesen** (Branch `grafik/g3-dorf-umgebung`): Linde und Apfelbaum aus dem Generator auf den festen Baumplätzen der Dorf-Szene (Code-Baum bleibt Rückfall), Huhn, Katze, Spatz neu; Dorf damit außer Boden komplett erneuert |

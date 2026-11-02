@@ -160,9 +160,29 @@ export function dorfBaum(st: Stift, x: number, y: number, scale: number): void {
   baum(st, x, y, scale);
 }
 
-/** Feste Baumpositionen (Tiefe = x+y für Sortierung). */
-export function dorfBaumLagen(): readonly { x: number; y: number; s: number; tiefe: number }[] {
-  return BAEUME.map((b) => ({ ...b, tiefe: b.x + b.y }));
+/**
+ * Feste Baumpositionen (Tiefe = x+y für Sortierung) und welches Atlas-Bild dort steht:
+ * vorne (Spalte oder Reihe über 12) nur der kleine Apfelbaum (`baum_b`), damit nichts den
+ * Bauplatz verdeckt; hinten Linden (`baum_a`) mit jedem dritten als Apfelbaum. Kein Zufall.
+ * `bild` ist die Größe des Atlas-Bilds (der Code-Baum nutzt `s`).
+ */
+export function dorfBaumLagen(): readonly {
+  x: number;
+  y: number;
+  s: number;
+  tiefe: number;
+  art: 'baum_a' | 'baum_b';
+  bild: number;
+}[] {
+  return BAEUME.map((b, i) => {
+    const vorne = b.x > 12 || b.y > 12;
+    return {
+      ...b,
+      tiefe: b.x + b.y,
+      art: vorne || i % 3 === 1 ? 'baum_b' : 'baum_a',
+      bild: b.s * (vorne ? 0.6 : 0.75),
+    };
+  });
 }
 
 /** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */

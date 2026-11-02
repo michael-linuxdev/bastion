@@ -405,7 +405,9 @@ Damit stammen Gebäude, Umgebung und Wesen des Themas `bastion`, Epoche 1, aus d
 
 Atlas-Bilder `gebaeude/dorf/e1`: 25 KB → 55 KB; ganzer Atlas 1 374 KB → 1 405 KB (+31 KB, zählt gesondert vom Grafik-Budget). In der App geprüft (390 px, Thema Dorf, Bildschirmfotos an den PV): alle Gebäude stehen stimmig auf der Wiese, Abend-Fenster deckungsgleich. Der Ausbau des Gemeindehauses auf Stufe 3 schließt die Epoche ab; danach zeigt die App wie bei `bastion` die alten Bilder der Epoche 2 (kommen nach U4b). Umriss-Test und Sätze zum Ausbau (`bastion.ausbau-neu.dorf.*`) gelten jetzt auch für das Dorf.
 
-**Nächste Schritte:** Umgebung und Wesen (Huhn, Katze, Spatz) des Dorfs, dann Garten, Unterwasser, Weltraum; danach G6 Abnahme (PV, 2–3 Jugendliche).
+**Dorf: Umgebung und Wesen (02.11.2026).** Linde (`baum_a`) und Apfelbaum (`baum_b`) aus demselben Generator, Atlas `umgebung/dorf/`. Die Dorf-Bühne stellt sie auf die festen Baumplätze aus `dorf.ts` (`dorfBaumLagen`), etwas kleiner als den Code-Baum, vorne nur Apfelbäume, damit nichts den Bauplatz verdeckt; fehlt das Bild, zeichnet der Code wie bisher. Huhn (pickt, flattert), Katze (Streifen, setzt sich mit Schwanz hoch) und Spatz (hüpft, fliegt auf) neu im Stil der Bastion-Wesen, gleiche Namen und Frames wie P0. Atlas gesamt 1 405 KB → 1 463 KB (+58 KB). Damit stammt alles im Dorf außer dem Boden aus dem neuen Generator; der Boden bleibt wie bei `bastion` (§12.5).
+
+**Nächste Schritte:** Garten, Unterwasser, Weltraum (je Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 

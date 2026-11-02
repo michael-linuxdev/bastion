@@ -371,4 +371,4 @@ Gleiche Regel wie 12.2 bis 12.7, gleicher Generator: Die gemeinsamen Teile (Rast
 | flaeche (Obstwiese) | 2×2 | Wiese mit drei Obstbäumen (Äpfel, Birnen) und Blumen | – | – | |
 | denkmal (Denkmal) | 1×1 | gestufter Bruchsteinsockel, Figur in Grau: Bäuerin mit Garbe | – | – | |
 
-Umgebung und Wesen des Dorfs folgen in eigenen Chargen, danach Garten, Unterwasser, Weltraum.
+Umgebung: Linde (`baum_a`) und Apfelbaum (`baum_b`) an den festen Baumplätzen der Dorf-Szene, vorne nur Apfelbäume. Wesen: Huhn, Katze, Spatz (Frames wie §6). Der Boden bleibt wie P0. Als Nächstes Garten, Unterwasser, Weltraum.

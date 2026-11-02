@@ -11338,6 +11338,19 @@
       }
     },
     {
+      "id": "garten/e1/kern_s1_fenster",
+      "datei": "gebaeude/garten/e1/kern_s1_fenster.png",
+      "felder": [3, 3],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 296,
+        "h": 320
+      }
+    },
+    {
       "id": "garten/e1/kern_s2",
       "datei": "gebaeude/garten/e1/kern_s2.png",
       "felder": [3, 3],
@@ -12950,6 +12963,32 @@
       }
     },
     {
+      "id": "dorf/umgebung/baum_a",
+      "datei": "umgebung/dorf/baum_a.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 130
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_b",
+      "datei": "umgebung/dorf/baum_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 104
+      }
+    },
+    {
       "id": "garten/e1/turm_s2_fenster",
       "datei": "gebaeude/garten/e1/turm_s2_fenster.png",
       "felder": [1, 1],
@@ -12986,19 +13025,6 @@
       "pixel": {
         "w": 104,
         "h": 70
-      }
-    },
-    {
-      "id": "garten/e1/kern_s1_fenster",
-      "datei": "gebaeude/garten/e1/kern_s1_fenster.png",
-      "felder": [3, 3],
-      "anker": {
-        "x": 0.5,
-        "y": 1.0
-      },
-      "pixel": {
-        "w": 296,
-        "h": 320
       }
     }
   ]
