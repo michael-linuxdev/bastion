@@ -46,6 +46,8 @@
   import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import FarbWahl from './FarbWahl.svelte';
+  import GebaeudeVorschau from './GebaeudeVorschau.svelte';
+  import { ausbauNeu } from './ausbau-neu';
   import Symbol from '../grafik/Symbol.svelte';
   import type { HinterhofFeld } from '../../core/learning/hinterhof';
   import { hinterhofMitte } from './grafik/hinterhof-szene';
@@ -774,6 +776,14 @@
                 <small>{tt('bastion.auf-stufe')} {aus.stufe}</small></span
               >
             </button>
+            {@const neu = ausbauNeu(aktiv.thema, epoche, gewaehlt.typ, aus.stufe)}
+            <!-- Vorher/Nachher: jede Stufe ein sichtbares Upgrade (G4) -->
+            <span class="upgrade" title={tt('bastion.ausbau-vorher-nachher')}>
+              <GebaeudeVorschau typ={gewaehlt.typ} stufe={gewaehlt.stufe} {epoche} />
+              <span class="pfeil" aria-hidden="true">→</span>
+              <GebaeudeVorschau typ={gewaehlt.typ} stufe={aus.stufe} {epoche} />
+              {#if neu}<span class="neu">{neu}</span>{/if}
+            </span>
           {/if}
           <span class="knoepfe">
             <button
@@ -868,6 +878,21 @@
     cursor: pointer;
   }
 
+  .upgrade {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+    flex-basis: 100%;
+  }
+  .upgrade .pfeil {
+    color: var(--farbe-akzent);
+    font-weight: 700;
+  }
+  .upgrade .neu {
+    flex: 1;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
   .wahl {
     position: absolute;
     inset-inline: var(--abstand-s);

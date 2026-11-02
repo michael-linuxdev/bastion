@@ -396,4 +396,6 @@ Ein laufendes Bauvorhaben (Neubau oder Ausbau über mehrere Lerneinheiten, Bau-R
 
 Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höheren Bilder (vorher galt die Höhe der alten Code-Formen).
 
-Offen in G4: Vorher/Nachher im Bau-Blatt mit einem Satz, was neu ist; kurzer Ausbau-Moment (Staub, Überblenden) mit Bau-Klang; Kamera bleibt kurz auf dem Gebäude.
+**Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Epoche, Rolle und Stufe (`bastion.ausbau-neu.<thema>.e<epoche>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`); fehlt einer (noch nicht erneuerte Themen), zeigt die App nur die Bilder.
+
+Offen in G4: kurzer Ausbau-Moment (Staub, Überblenden) mit Bau-Klang; Kamera bleibt kurz auf dem Gebäude.
