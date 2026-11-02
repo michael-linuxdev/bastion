@@ -1,0 +1,89 @@
+id: M.RF.KP.KEGEL
+kompetenz: M.RF.KP.KEGEL
+niveau: G
+dauer_min: 8
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach erkennst du einen Kreiskegel an seinen Ansichten und an seinem [[Netz]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Vorderansicht hat ein stehender [[Zylinder]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Rechteck' }, richtig: true }
+        - { wert: { de: 'ein Kreis' }, fv: FV.KP.ANSICHTEN }
+    weiter: entdecken
+    bei: { FV.KP.ANSICHTEN: M.RF.KP.ZWEITAFEL, sonst: M.RF.KP.ZWEITAFEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Schultüte ist ein Kegel. Schneidet man sie entlang einer Linie auf und legt sie flach, welche Form hat das Papier?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Kreisausschnitt' }, richtig: true }
+        - { wert: { de: 'ein Dreieck' }, fv: FV.KP.KEGELNETZ }
+    weiter: erklaeren-netz
+  - id: erklaeren-netz
+    typ: erklaeren
+    text:
+      de: 'Das [[Netz]] eines Kegels besteht aus dem Grundkreis und einem Kreisausschnitt für den [[Mantel]]. Der [[Radius]] des Ausschnitts ist die Mantellinie.'
+    weiter: erklaeren-ansichten
+  - id: erklaeren-ansichten
+    typ: erklaeren
+    text:
+      de: 'Ein stehender Kegel: von vorne ein Dreieck, von oben ein Kreis mit der Spitze als Punkt in der Mitte. Erst beide Ansichten zusammen zeigen, dass es kein [[Zylinder]] und keine [[Pyramide]] ist.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Vorne Dreieck und oben Quadrat: [[Pyramide]]. Vorne Dreieck und oben Kreis: Kegel. Liegt der Kegel, sieht man von vorne und von oben je ein Dreieck.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Aus wie vielen Teilen besteht das [[Netz]] eines Kegels?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '3', fv: FV.KP.KEGELNETZ }] }
+    weiter: gegenbeispiel
+    bei: { FV.KP.KEGELNETZ: erklaeren-netz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben sieht von vorne ein Dreieck und sagt: „Das ist eine [[Pyramide]].“ Reicht das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              { de: 'Nein, erst die Draufsicht zeigt, ob es eine Pyramide oder ein Kegel ist.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, ein Dreieck vorne heißt immer Pyramide.' }, fv: FV.KP.ANSICHTEN }
+    weiter: merksatz
+    bei: { FV.KP.ANSICHTEN: erklaeren-ansichten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Kegel: vorne Dreieck, oben Kreis mit Mittelpunkt. [[Netz]]: Grundkreis und Kreisausschnitt. Immer beide Ansichten zusammen lesen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher Körper zeigt vorne ein Rechteck und oben einen Kreis?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Zylinder' }, richtig: true }
+        - { wert: { de: 'ein Kegel' }, fv: FV.KP.ANSICHTEN }
+    weiter: uebergang
+    bei: { FV.KP.ANSICHTEN: erklaeren-ansichten }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt erkennst du selbst Körper.'
+    vorlagen: [M.RF.KP.KEGEL.ERKENNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

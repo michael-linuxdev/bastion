@@ -1,0 +1,38 @@
+# Kegel am Zweitafelbild und am Netz erkennen. Entwurf: noch nicht geprüft.
+id: M.RF.KP.KEGEL.ERKENNEN
+kompetenz: M.RF.KP.KEGEL
+niveaus: [G, M, E]
+typ: auswahl
+quelle: generator
+generator: kp.kegel-erkennen@1
+parameter:
+  G: { art: zweitafel }
+  M: { art: netz }
+  E: { art: liegend }
+text:
+  aufgabe:
+    de: '**{frage}**'
+hilfen:
+  - de: 'Kegel: vorne ein Dreieck, oben ein Kreis mit Spitze in der Mitte. [[Zylinder]]: Rechteck und Kreis. [[Pyramide]]: Dreieck und Quadrat.'
+  - de: 'Liegt der Körper, zeigen Vorder- und Draufsicht etwas anderes. Stell ihn dir in der Hand vor und dreh ihn.'
+fehlerbilder:
+  dreieck-kegel:
+    de: 'Ein Kegel hat oben einen Kreis mit Spitze in der Mitte. Prüfe die Draufsicht.'
+    fv: FV.KP.ANSICHTEN
+  dreieck-pyramide:
+    de: 'Eine [[Pyramide]] hat oben ein Vieleck mit Kanten zur Spitze. Prüfe die Draufsicht.'
+    fv: FV.KP.ANSICHTEN
+  rechteck-zylinder:
+    de: 'Ein [[Zylinder]] zeigt von vorne ein Rechteck. Hier ist es ein Dreieck oder Kreis.'
+    fv: FV.KP.ANSICHTEN
+  kreis-kugel:
+    de: 'Eine Kugel zeigt aus jeder Richtung einen Kreis.'
+    fv: FV.KP.ANSICHTEN
+  netz-dreieck:
+    de: 'Der [[Mantel]] eines Kegels ist gebogen. Abgewickelt wird er ein Kreisausschnitt, kein Dreieck.'
+    fv: FV.KP.KEGELNETZ
+  netz-zylinder:
+    de: 'Zwei Kreise und ein Rechteck sind das [[Netz]] eines [[Zylinders]].'
+    fv: FV.KP.KEGELNETZ
+herkunft: ki-entwurf
+version: 1

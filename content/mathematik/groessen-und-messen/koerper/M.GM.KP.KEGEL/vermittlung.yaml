@@ -1,0 +1,83 @@
+id: M.GM.KP.KEGEL
+kompetenz: M.GM.KP.KEGEL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]], [[Mantel]] und [[Oberfläche]] eines Kreiskegels berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie berechnet man das [[Volumen]] eines [[Zylinders]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\pi \cdot r^2 \cdot h$' }, richtig: true }
+        - { wert: { de: '$2 \cdot \pi \cdot r \cdot h$' } }
+    weiter: entdecken
+    bei: { sonst: M.GM.KP.ZYLINDER }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Kegel und ein [[Zylinder]] haben dieselbe [[Grundfläche]] und [[Höhe]]. Mit drei Kegelfüllungen Wasser wird der Zylinder voll. Welcher Bruchteil des Zylinders ist der Kegel? Gib ihn als [[Dezimalzahl]] auf zwei Stellen an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '0,33', fehler: [{ wert: '0,5', fv: FV.KP.DRITTEL }] }
+    weiter: erklaeren-volumen
+  - id: erklaeren-volumen
+    typ: erklaeren
+    text:
+      de: 'Kegelvolumen: $V = \frac{1}{3} \cdot \pi \cdot r^2 \cdot h$, ein Drittel des passenden [[Zylinders]].'
+    weiter: erklaeren-mantel
+  - id: erklaeren-mantel
+    typ: erklaeren
+    text:
+      de: 'Die Mantellinie s läuft außen von der Spitze zum Rand: $s^2 = r^2 + h^2$. Der [[Mantel]] ist $M = \pi \cdot r \cdot s$, die [[Oberfläche]] $O = \pi r^2 + \pi r s$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$r = 3$ cm, $h = 4$ cm: $s = 5$ cm. $V = \frac{1}{3} \cdot 3{,}14 \cdot 9 \cdot 4 \approx 37{,}7$ cm³. $M = 3{,}14 \cdot 3 \cdot 5 = 47{,}1$ cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Zylinder]] fasst 90 cm³. Wie viel fasst ein Kegel mit gleicher [[Grundfläche]] und [[Höhe]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '30', fehler: [{ wert: '270', fv: FV.KP.DRITTEL }] }
+    weiter: gegenbeispiel
+    bei: { FV.KP.DRITTEL: erklaeren-volumen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim rechnet den [[Mantel]] mit der [[Höhe]]: $M = \pi \cdot r \cdot h$. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, der Mantel braucht die Mantellinie s.' }, richtig: true }
+        - { wert: { de: 'Ja, die Höhe ist die Länge des Kegels.' }, fv: FV.KP.HOEHE-MANTELLINIE }
+    weiter: merksatz
+    bei: { FV.KP.HOEHE-MANTELLINIE: erklaeren-mantel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Kegel: $V = \frac{1}{3} \pi r^2 h$, $s^2 = r^2 + h^2$, $M = \pi r s$, $O = \pi r^2 + \pi r s$. [[Höhe]] innen [[senkrecht]], Mantellinie außen schräg.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Kegel hat $r = 6$ cm und $h = 8$ cm. Wie lang ist die Mantellinie?'
+    antwort:
+      optionen:
+        - { wert: { de: '10 cm' }, richtig: true }
+        - { wert: { de: '14 cm' }, fv: FV.PY.OHNE-QUADRATE }
+    weiter: uebergang
+    bei: { FV.PY.OHNE-QUADRATE: erklaeren-mantel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Kegel.'
+    vorlagen: [M.GM.KP.KEGEL.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

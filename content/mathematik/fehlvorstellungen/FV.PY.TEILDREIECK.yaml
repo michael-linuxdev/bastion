@@ -5,7 +5,7 @@ art: lesefehler
 beschreibung:
   de: >-
     Rechnet beim Dach mit der ganzen Breite statt der halben oder nennt bei der Raumdiagonale schon die Diagonale der Grundfläche. Das rechtwinklige Dreieck in der Figur wird nicht vollständig erkannt.
-kompetenzen: [M.RF.PY.SACH]
+kompetenzen: [M.RF.PY.SACH, M.GM.KP.PYRAMIDE-HOEHEN]
 erklaerung:
   kurz:
     de: 'Zeichne das rechtwinklige Dreieck ein. Beim Dach geht die [[Höhe]] bis zur Mitte: halbe Breite. Bei der Raumdiagonale brauchst du zwei Dreiecke nacheinander.'

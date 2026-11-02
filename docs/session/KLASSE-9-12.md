@@ -109,6 +109,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 1. **Bilder in Erstvermittlungen zu Parabeln:** Ein Schritt der Erstvermittlung zeigt Bilder nur über ein Werkzeug (`bruchstreifen@1` …). Für Parabeln gibt es noch keins; QF.GRAPH und QF.SCHEITEL erklären darum vorerst nur mit Text. Vorschlag: ein einfaches Werkzeug `parabel@1` (statisches Bild aus `kurve`) vor dem interaktiven „Parameter am Graphen“ (B8). Bis zur Antwort: Text.
 3. **Werkzeug „Parameter am Graphen“ (B8)** ist in der Nachtarbeit nicht gebaut: Es ist neue Oberfläche mit Bedienung, die eine Vorschau beim PV braucht. Die Inhalte PF und QF sind fertig; das Werkzeug kann später in die Erstvermittlungen eingehängt werden.
+4. **Zeichenanleitung Kegel (L-10):** RF.KP.KEGEL hat noch keine Schritt-für-Schritt-Anleitung mit Bildern (wie `anleitung.schraegbild-zylinder@1`); dafür braucht es neue Bilder in der Oberfläche. Bis dahin ohne `zeichnen_erklaert`.
 2. **`pnpm inhalte:begriffe`** verdoppelt Anführungszeichen in mehrzeiligen Flow-Optionen (DZ.ZF.HAEUFIGKEIT, DZ.ZF.WAHRSCHEINLICHKEIT); nach jedem Lauf zurückgesetzt. Reparatur des Werkzeugs steht aus.
 
 ---

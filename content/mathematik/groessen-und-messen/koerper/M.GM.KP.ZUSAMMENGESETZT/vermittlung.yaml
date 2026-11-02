@@ -1,0 +1,83 @@
+id: M.GM.KP.ZUSAMMENGESETZT
+kompetenz: M.GM.KP.ZUSAMMENGESETZT
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]] von Körpern berechnen, die aus [[Zylinder]], Kegel, [[Pyramide]] und Kugel zusammengesetzt sind.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel [[Volumen]] hat ein Kegel im Vergleich zum [[Zylinder]] mit gleicher [[Grundfläche]] und [[Höhe]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'ein Drittel' }, richtig: true }
+        - { wert: { de: 'die Hälfte' }, fv: FV.KP.DRITTEL }
+    weiter: entdecken
+    bei: { FV.KP.DRITTEL: M.GM.KP.KEGEL, sonst: M.GM.KP.KEGEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Turm besteht aus einem [[Würfel]] mit 100 cm³ und einer [[Pyramide]] mit 30 cm³ als Dach. Wie viel [[Volumen]] hat der Turm?'
+    antwort:
+      eingabe: { art: zahl, loesung: '130', fehler: [{ wert: '100', fv: FV.KP.TEIL-VERGESSEN }] }
+    weiter: erklaeren-zerlegen
+  - id: erklaeren-zerlegen
+    typ: erklaeren
+    text:
+      de: 'Zerlegen: Teile den Körper in bekannte Körper, berechne jeden Teil und addiere. Prüfe, ob eine Kugel ganz oder halb ist.'
+    weiter: erklaeren-ergaenzen
+  - id: erklaeren-ergaenzen
+    typ: erklaeren
+    text:
+      de: 'Ergänzen: Fehlt etwas, etwa eine Bohrung, rechne den vollen Körper und ziehe das [[Volumen]] des fehlenden Teils ab.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Eistüte: Kegel $\frac{1}{3} \cdot 3{,}14 \cdot 3^2 \cdot 10 = 94{,}2$ cm³, Halbkugel $\frac{1}{2} \cdot \frac{4}{3} \cdot 3{,}14 \cdot 27 \approx 56{,}5$ cm³. Zusammen etwa 150,7 cm³.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Würfel]] hat 1000 cm³. Eine Bohrung nimmt 150 cm³ weg. Wie viel Material bleibt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '850', fehler: [{ wert: '1150', fv: FV.KP.ERGAENZEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.KP.ERGAENZEN: erklaeren-ergaenzen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan rechnet bei der Eistüte eine ganze Kugel Eis. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, oben liegt nur eine Halbkugel.' }, richtig: true }
+        - { wert: { de: 'Ja, Eis ist immer eine Kugel.' }, fv: FV.KP.TEIL-VERGESSEN }
+    weiter: merksatz
+    bei: { FV.KP.TEIL-VERGESSEN: erklaeren-zerlegen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Zerlegen und addieren oder ergänzen und abziehen. Jeden Teilkörper mit seiner [[Formel]], ein Drittel bei spitzen Körpern, die Hälfte bei Halbkugeln.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Würfel]] mit zylindrischer Bohrung. Welcher Plan stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'V(Würfel) minus V(Zylinder)' }, richtig: true }
+        - { wert: { de: 'V(Würfel) plus V(Zylinder)' }, fv: FV.KP.ERGAENZEN }
+    weiter: uebergang
+    bei: { FV.KP.ERGAENZEN: erklaeren-ergaenzen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst zusammengesetzte Körper.'
+    vorlagen: [M.GM.KP.ZUSAMMENGESETZT.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

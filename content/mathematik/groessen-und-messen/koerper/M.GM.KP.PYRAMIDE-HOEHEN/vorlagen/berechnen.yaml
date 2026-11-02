@@ -1,0 +1,28 @@
+# Seitenhöhe, Körperhöhe, Seitenkante einer quadratischen Pyramide. Entwurf: noch nicht geprüft.
+id: M.GM.KP.PYRAMIDE-HOEHEN.BERECHNEN
+kompetenz: M.GM.KP.PYRAMIDE-HOEHEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.pyramide-hoehe@1
+parameter:
+  G: { kante: false }
+  M: { kante: true }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** {gesucht} in cm. Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Suche ein rechtwinkliges Dreieck in der [[Pyramide]]: Körperhöhe, halbe Grundkante und Seitenhöhe bilden eins.'
+  - de: 'Für die Seitenkante brauchst du die halbe [[Diagonale]] der [[Grundfläche]] oder das Seitendreieck.'
+fehlerbilder:
+  ganze-kante:
+    de: 'Die [[Höhe]] trifft die [[Grundfläche]] in der Mitte. Rechne mit der halben Grundkante.'
+    fv: FV.PY.TEILDREIECK
+  kathete-addiert:
+    de: 'Gesucht ist eine [[Kathete]]. Subtrahiere die Quadrate.'
+    fv: FV.PY.KATHETE-ADDIERT
+  diagonale-falsch:
+    de: 'Das ist die Seitenhöhe. Zur Seitenkante gehört die halbe [[Diagonale]], nicht die halbe Grundkante.'
+    fv: FV.KP.FALSCHE-STRECKE
+herkunft: ki-entwurf
+version: 1

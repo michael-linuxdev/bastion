@@ -5,7 +5,8 @@ art: falsche-regel
 beschreibung:
   de: >-
     Rechnet bei den Katheten 3 cm und 4 cm die Hypotenuse als 7 cm. Dass der Satz von den Quadraten über den Seiten spricht, ist nicht verankert.
-kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH, M.RF.PY.UMKEHRUNG]
+kompetenzen:
+  [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH, M.RF.PY.UMKEHRUNG, M.GM.KP.PYRAMIDE-HOEHEN, M.GM.KP.KEGEL]
 erklaerung:
   kurz:
     de: 'Der Satz spricht von Quadraten: $3^2 + 4^2 = 25$, also ist die [[Hypotenuse]] $\sqrt{25} = 5$ cm, nicht 7 cm.'

@@ -1,0 +1,25 @@
+id: FV.KP.ERGAENZEN
+name:
+  de: Zieht beim Ergänzen falsch ab
+art: falsche-regel
+beschreibung:
+  de: >-
+    Addiert das Volumen einer Bohrung, zieht eine Fläche statt eines Volumens ab oder vergisst das Abziehen ganz.
+kompetenzen: [M.GM.KP.ZUSAMMENGESETZT]
+erklaerung:
+  kurz:
+    de: 'Ergänze das Werkstück zum vollen Körper und ziehe das [[Volumen]] der Bohrung ab: V(Körper) − V(Bohrung).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den fehlenden Teil nicht als [[Volumen]] abgezogen.'
+    - teil: warum-nicht
+      de: 'Die Bohrung ist leer. Ihr [[Volumen]] ist im vollen Körper enthalten, gehört aber nicht zum Werkstück.'
+    - teil: so-stimmt-es
+      de: 'Schreibe den Plan in Worten auf, bevor du rechnest: voller Körper minus Loch.'
+gegenbeispiel:
+  de: 'Ein [[Würfel]] mit 1000 cm³ und einer Bohrung von 100 cm³ hat 900 cm³ Material, nicht 1100.'
+rueckweg:
+  vermittlung: M.GM.KP.ZUSAMMENGESETZT#erklaeren-ergaenzen
+kontrast: [M.GM.KP.ZUSAMMENGESETZT.PLAN]
+herkunft: ki-entwurf
+version: 1

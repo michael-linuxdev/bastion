@@ -1,0 +1,25 @@
+id: FV.KP.KEGELNETZ
+name:
+  de: Hält den abgewickelten Kegelmantel für ein Dreieck oder Rechteck
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Beschreibt das Netz eines Kegels als Kreis und Dreieck oder als zwei Kreise und Rechteck. Dass der gebogene Mantel abgewickelt ein Kreisausschnitt ist, ist nicht verankert.
+kompetenzen: [M.RF.KP.KEGEL]
+erklaerung:
+  kurz:
+    de: 'Wickelt man den Kegelmantel ab, entsteht ein Kreisausschnitt. Sein [[Radius]] ist die Mantellinie, sein Bogen so lang wie der Grundkreis.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dir die Seitenansicht (ein Dreieck) als [[Netz]] vorgestellt.'
+    - teil: warum-nicht
+      de: 'Ein Dreieck hat einen geraden Rand. Der [[Mantel]] muss aber um den runden Grundkreis passen.'
+    - teil: so-stimmt-es
+      de: 'Denk an eine Schultüte: Aufgeschnitten liegt sie als Kreisausschnitt flach.'
+gegenbeispiel:
+  de: 'Rollt man ein Dreieck zusammen, entsteht keine Spitze mit rundem Rand.'
+rueckweg:
+  vermittlung: M.RF.KP.KEGEL#erklaeren-netz
+kontrast: [M.RF.KP.KEGEL.ERKENNEN]
+herkunft: ki-entwurf
+version: 1
