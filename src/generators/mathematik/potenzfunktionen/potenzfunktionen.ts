@@ -11,13 +11,24 @@ import { bild, koordinatensystemBereich, kurve } from '../../svg';
 const potenz = (n: number) => (n === 1 ? 'x' : `x^{${n}}`);
 const pm = (r: Rng, max: number) => r.int(1, max) * (r.int(0, 1) === 0 ? -1 : 1);
 
+/** Fertige Bilder je Hochzahl: Das Bild hängt nur von n ab, darum einmal rechnen (schneller). */
+const BILDER = new Map<number, Bild>();
+
 /** Graph von y = xⁿ im Ausschnitt −3 … 3 */
 export function potenzBild(n: number): Bild {
+  const fertig = BILDER.get(n);
+  if (fertig) return fertig;
+  const b = potenzBildRechnen(n);
+  BILDER.set(n, b);
+  return b;
+}
+
+function potenzBildRechnen(n: number): Bild {
   const ks = koordinatensystemBereich(-3, 3, -4, 4, 34);
   return bild(
     ks.breite,
     ks.hoehe,
-    [...ks.teile, kurve(ks, (x) => x ** n, -3, 3, { ymin: -4, ymax: 4 }, 600)],
+    [...ks.teile, kurve(ks, (x) => x ** n, -3, 3, { ymin: -4, ymax: 4 }, 300)],
     de(
       `Ein Koordinatensystem mit dem Graphen einer Potenzfunktion. Er ist ${n % 2 === 0 ? 'achsensymmetrisch zur y-Achse' : 'punktsymmetrisch zum Ursprung'}${n < 0 ? ' und hat bei x = 0 eine Polstelle' : ' und verläuft durch den Ursprung'}.`,
     ),

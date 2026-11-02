@@ -46,7 +46,7 @@ export function parabelBild(
   return bild(
     ks.breite,
     ks.hoehe,
-    [...ks.teile, kurve(ks, (x) => wert(p, x), -6, 6, { ymin, ymax }), ...extra(ks)],
+    [...ks.teile, kurve(ks, (x) => wert(p, x), -6, 6, { ymin, ymax }, 200), ...extra(ks)],
     de(
       `Ein Koordinatensystem mit einer Parabel. Sie ist nach ${p.a > 0 ? 'oben' : 'unten'} geöffnet, ihr Scheitelpunkt liegt bei (${zahlText(p.d)}|${zahlText(p.e)}).`,
     ),
