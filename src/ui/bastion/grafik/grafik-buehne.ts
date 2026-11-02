@@ -1976,7 +1976,11 @@ export async function buehneErstellen(
           texturen.size > 0
             ? atlasEintrag(atlas, atlasThema(art), epocheJetzt, x.typ, x.stufe)
             : undefined;
-        const h = Math.max(codeHoehe, bildEintrag ? bildEintrag.pixel.h / 2 : 0) + 20;
+        // Die Fläche wächst von den hinteren Ecken der Grundfläche nach oben, das Bild vom
+        // vorderen Fußpunkt aus: Höhe der Grundfläche abziehen, damit die Fläche genau an der
+        // Bildspitze endet (sonst überdeckt z. B. die Palisade die Feuerstelle dahinter).
+        const bildHoehe = bildEintrag ? bildEintrag.pixel.h / 2 - ((w + t) / 2) * RAUTE_H : 0;
+        const h = Math.max(codeHoehe + 20, bildHoehe);
         treffer.push({
           pos: x.pos,
           umriss: flach(
