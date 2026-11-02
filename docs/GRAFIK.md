@@ -362,3 +362,19 @@ Der vorgeschlagene Platz ist **genau der, auf den gebaut wird**. **Seit 02.11.20
 
 Rot würden 9 Kern-Tests, die das alte Verhalten festhalten (ein Bauschritt wirkt auf alle Vorhaben, Abbruch gibt Bauschritte zurück, Zimmerei mit zwei Vorhaben). Diese Regeln hätten für neue Bauten keine Wirkung mehr. **Empfehlung: den Kern nicht ändern.** **Entscheidung PV (01.11.2026 abends): so umgesetzt, B-29 wird für „Planen und Bauen zusammenlegen“ nicht genutzt.** Die Wochenend-Lernerin verliert entweder viel Zeit oder sieht im ersten Jahr weniger als die Hälfte der Gebäude. Stattdessen macht G4 das Warten sichtbar: Das Gerüst wächst mit jeder Lerneinheit in Abschnitten. Mit dem Platz-Vorschlag oben ist das Planen für das Kind schon ein Schritt.
 
+
+### 11.8 G3 – Charge 1: Bergfried, Thema `bastion`, Epoche 1 (02.11.2026)
+
+Erzeugt mit dem eigenen Generator `tools/grafik/sprites-g3-bastion.py` nach der Stil-Regel `GRAFIK-SPRITES.md` §12 (Grundlage: Probestück (a), das unter `tools/grafik/probe/` als Beleg bleibt). Der Generator ersetzt nur `bastion/e1/kern_s1…s3` und die Abend-Ebenen im Atlas, alle anderen Einträge bleiben.
+
+| Stufe | Bild | Höhe (sichtbar) | Umriss anders als vorige Stufe |
+|---|---|---|---|
+| 1 | Holzturm auf Steinsockel, Schindeldach | 223 px (vorher 294 px Kiste) | – |
+| 2 | Steingeschoss, vorkragendes Fachwerk, Ziegeldach, Anbau, Banner, Fahne | 379 px (+70 %) | 53 % |
+| 3 | hoher Steinturm, Zinnenkranz, Turmaufsatz mit Helm, runder Seitenturm, Mauerstück | 491 px (+30 %) | 31 % |
+
+Vorher: +5 % Höhe je Stufe, kaum Umriss-Unterschied (§11.2). Atlas-Bilder des Bergfrieds: 7,6 KB → 22,0 KB (+14 KB, Grafik-Budget unberührt, der Atlas zählt gesondert).
+
+**Automatischer Test** `tools/grafik/atlas-stufen.test.ts`: Für jedes erneuerte Gebäude muss jede Stufe mindestens 25 % anderen Umriss und 15 % mehr Höhe haben (Schwellen des PV, G0). Die Liste `ERNEUERT` wächst mit jeder Charge. PNGs liest der Test ohne Zusatzpaket.
+
+**In der App geprüft** (390 px, Bildschirmfotos an den PV): Stufe 1 und 2 stehen stimmig auf dem Bauplatz, Antippen trifft weiter. Ein laufender Ausbau auf Stufe 3 zeigt noch die alte Baustellen-Kiste aus dem Code – das löst G4 (Gerüst in Abschnitten). Nächste Chargen: Studierstube, Späherturm, Werkstatt, Tor (Tabelle §12.8).
