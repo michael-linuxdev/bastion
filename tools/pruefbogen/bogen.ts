@@ -2,7 +2,6 @@
 // Fehlvorstellungen, Aufgabenvorlagen mit Stichprobe und Fachbegriffe ausgewählter Kompetenzen
 // als druckbare HTML-Seite zusammen. Prüfende brauchen weder YAML noch Git.
 // Rein: alle Inhalte und Generatoren werden hereingereicht; gleiche Eingabe, gleiche Seite.
-import type { Niveau } from '../../src/core/competence/kompetenz';
 import type { Fehlvorstellung } from '../../src/core/learning/fehlvorstellung';
 import type { Instanz } from '../../src/core/learning/generator';
 import {
@@ -24,7 +23,6 @@ import { stelle, striche } from '../../src/ui/vermittlung/werkzeuge/zahlenstrahl
 import { t, type TextSchluessel } from '../../src/ui/texte/texte';
 import { esc } from './html';
 import { GRUND_STIL, loesungText, text } from './satz';
-import { onlineSeite } from './online';
 
 /** Eingabe des Bogens: wie im Kern, mit Datum für den Kopf und fester Stichprobe. */
 export interface BogenEingabe extends PruefEingabe {
@@ -36,11 +34,7 @@ export interface BogenEingabe extends PruefEingabe {
 
 export { genannteBegriffe, genannteFehlvorstellungen } from '../../src/core/learning/pruefbogen';
 
-/** `druck`: Seite zum Ausdrucken. `online`: Artefakt-Seite zum Ausfüllen, speichert die Eingaben. */
-export type Form = 'druck' | 'online';
-
 export interface BogenOptionen {
-  readonly form?: Form;
   /** Kurzer Name, z. B. „Musterfeld Brüche“; sonst die Titel der Kompetenzen */
   readonly name?: string;
 }
@@ -105,52 +99,11 @@ export function werkzeugBild(w: WerkzeugAngabe): string {
   return `<p class="hinweis">Bild: ${esc(w.werkzeug)} ${esc(JSON.stringify(p))}</p>`;
 }
 
-const URTEILE = [
-  ['passt', 'Passt'],
-  ['aendern', 'Passt mit Änderung'],
-  ['falsch', 'Falsch'],
-] as const;
-
-/** Prüffragen, Urteil und Anmerkungen zu Abschnitt `s`. Online: Felder mit data-s/data-f. */
-function urteil(k: Kontext, s: string, fragen: readonly string[]): string {
-  if (k.form === 'druck')
-    return `<div class="urteil"><ul class="fragen">${fragen.map((f) => `<li>☐ ${esc(f)}</li>`).join('')}</ul>
+/** Prüffragen, Urteil und Anmerkungen zum Ankreuzen. Ausfüllen am Bildschirm: App (T-22). */
+function urteil(fragen: readonly string[]): string {
+  return `<div class="urteil"><ul class="fragen">${fragen.map((f) => `<li>☐ ${esc(f)}</li>`).join('')}</ul>
 <p class="kaesten">Urteil: ☐ passt &nbsp; ☐ passt mit Änderung &nbsp; ☐ falsch</p>
 <p class="linien">Anmerkungen und neuer Wortlaut:</p></div>`;
-  const id = esc(s);
-  const li = fragen
-    .map(
-      (f, i) =>
-        `<li><label><input type="checkbox" id="${id}--f${i}" data-s="${id}" data-f="f${i}"> <span>${esc(f)}</span></label></li>`,
-    )
-    .join('');
-  const wahlen = URTEILE.map(
-    ([w, t]) =>
-      `<label class="wahl wahl-${w}"><input type="radio" name="${id}--urteil" id="${id}--urteil-${w}" data-s="${id}" data-f="urteil" value="${w}"> <span>${t}</span></label>`,
-  ).join('');
-  return `<div class="urteil" data-abschnitt="${id}"><p class="urteil-kopf">Prüffragen</p><ul class="fragen">${li}</ul>
-<fieldset class="wahlen"><legend>Urteil</legend>${wahlen}</fieldset>
-<label class="notiz-label" for="${id}--notiz">Anmerkungen und neuer Wortlaut</label>
-<textarea id="${id}--notiz" data-s="${id}" data-f="notiz" rows="3" placeholder="Was soll anders heißen? Bitte den Schritt oder die Aufgaben-Nr. nennen."></textarea></div>`;
-}
-
-/**
- * Urteil zu einem Schritt der Erstvermittlung (nur online, FOKUS F3 Punkt 2): „passt“ oder
- * „passt nicht“ (Feld `s<nr>`) und ein aufklappbarer Kommentar (Feld `k<nr>`).
- * Gedruckt bleibt die leere Spalte „Notiz“.
- */
-function schrittUrteil(k: Kontext, s: string, nr: number): string {
-  if (k.form === 'druck') return '<td class="notiz"></td>';
-  const id = `${esc(s)}--s${nr}`;
-  const wahl = (w: string, t: string) =>
-    `<label class="wahl wahl-${w === 'passt' ? 'passt' : 'falsch'}"><input type="radio" name="${id}" id="${id}-${w}" data-s="${esc(s)}" data-f="s${nr}" value="${w}"> <span>${t}</span></label>`;
-  return `<td class="notiz"><div class="schritt-urteil" role="group" aria-label="Schritt ${nr}">${wahl('passt', 'passt')}${wahl('nicht', 'passt nicht')}</div><details class="kommentar"><summary>Kommentar</summary><textarea id="${esc(s)}--k${nr}" data-s="${esc(s)}" data-f="k${nr}" rows="2" aria-label="Kommentar zu Schritt ${nr}" placeholder="Was stimmt nicht, was soll dort stehen?"></textarea></details></td>`;
-}
-
-/** Kästchen „Zeile stimmt“ in Tabellen */
-function kasten(k: Kontext, s: string, f: string, nr: number): string {
-  if (k.form === 'druck') return '<td class="kasten">☐</td>';
-  return `<td class="kasten"><input type="checkbox" id="${esc(s)}--${esc(f)}" data-s="${esc(s)}" data-f="${esc(f)}" aria-label="Zeile ${nr} stimmt"></td>`;
 }
 
 const abschnitt = (klasse: string, s: string, titel: string) =>
@@ -160,7 +113,6 @@ const ohneTags = (html: string) => html.replace(/<[^>]+>/g, '');
 
 interface Kontext {
   readonly e: BogenEingabe;
-  readonly form: Form;
 }
 
 /** Verweis als Text, wie ihn die Prüfenden lesen */
@@ -206,11 +158,11 @@ function vermittlungHtml(k: Kontext, a: AbschnittA): string {
     const uebergang = s.vorlagen
       ? `<p class="hinweis">Danach ${s.anzahl ?? ''} Aufgaben aus: ${s.vorlagen.map(esc).join(', ')}</p>`
       : '';
-    return `<tr><td class="nr">${nr}</td><td class="typ">${esc(SCHRITT_NAMEN[s.typ] ?? s.typ)}</td><td>${text(s.text.de)}${bild}${werkzeug}${s.antwort ? antwortHtml(k, antworten, sonst) : ''}${uebergang}</td>${schrittUrteil(k, a.id, nr)}</tr>`;
+    return `<tr><td class="nr">${nr}</td><td class="typ">${esc(SCHRITT_NAMEN[s.typ] ?? s.typ)}</td><td>${text(s.text.de)}${bild}${werkzeug}${s.antwort ? antwortHtml(k, antworten, sonst) : ''}${uebergang}</td><td class="notiz"></td></tr>`;
   });
   return `<p class="hinweis">Etwa ${v.dauer_min} Minuten · Niveau ${esc(v.niveau)} · <u>Unterstrichen</u> = Fachbegriff, antippbar (Teil D)</p>
-<div class="tabelle"><table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>${k.form === 'online' ? 'Ihr Urteil' : 'Notiz'}</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
-${urteil(k, a.id, fragen('A'))}`;
+<div class="tabelle"><table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>Notiz</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
+${urteil(fragen('A'))}`;
 }
 
 function fehlvorstellungHtml(k: Kontext, b: AbschnittB): string {
@@ -237,16 +189,10 @@ function fehlvorstellungHtml(k: Kontext, b: AbschnittB): string {
 <dt>Rückweg</dt><dd>${rueckweg}</dd>
 <dt>Kontrastaufgaben</dt><dd>${fv.kontrast.map(esc).join(', ')}</dd></dl>
 ${fehlerbilder.length > 0 ? `<p><b>Rückmeldungen in Aufgaben, unter denen die kurze Erklärung erscheint:</b></p><ul class="fehlerbilder">${fehlerbilder.join('')}</ul>` : ''}
-${urteil(k, b.id, fragen('B'))}</section>`;
+${urteil(fragen('B'))}</section>`;
 }
 
-function instanzZeile(
-  k: Kontext,
-  v: GeneratorVorlage,
-  i: Instanz,
-  niveau: Niveau,
-  nr: number,
-): string {
+function instanzZeile(k: Kontext, v: GeneratorVorlage, i: Instanz, nr: number): string {
   const aufgabe = text(v.text.aufgabe.de, i.platzhalter);
   const optionen = i.optionen
     ? `<div class="optionen">${i.optionen
@@ -260,7 +206,7 @@ function instanzZeile(
   const falsch = i.fehlerbilder
     .map((f) => `${loesungText(f.antwort, i.optionen)} <span class="quelle">(${esc(f.id)})</span>`)
     .join('<br>');
-  return `<tr><td class="nr">${nr}</td><td>${aufgabe}${bild}${optionen}</td><td>${loesungText(i.loesung, i.optionen)}</td><td>${falsch}</td>${kasten(k, `C-${v.id}`, `${niveau}${nr}`, nr)}</tr>`;
+  return `<tr><td class="nr">${nr}</td><td>${aufgabe}${bild}${optionen}</td><td>${loesungText(i.loesung, i.optionen)}</td><td>${falsch}</td><td class="kasten">☐</td></tr>`;
 }
 
 function wegHtml(v: GeneratorVorlage, weg: NiveauStichprobe['weg']): string {
@@ -285,7 +231,7 @@ function vorlageHtml(k: Kontext, c: AbschnittC): string {
     ? v.niveaus.map(() => `<p class="hinweis">Generator ${esc(v.generator)} fehlt.</p>`)
     : c.niveaus.map(
         (n) => `<h4>Niveau ${esc(n.niveau)}: ${n.aufgaben.length} Beispielaufgaben</h4>
-<div class="tabelle"><table class="stichprobe"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Lösung</th><th>Erkannte falsche Antworten</th><th>ok</th></tr></thead><tbody>${n.aufgaben.map((i, s) => instanzZeile(k, v, i, n.niveau, s + 1)).join('')}</tbody></table></div>
+<div class="tabelle"><table class="stichprobe"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Lösung</th><th>Erkannte falsche Antworten</th><th>ok</th></tr></thead><tbody>${n.aufgaben.map((i, s) => instanzZeile(k, v, i, s + 1)).join('')}</tbody></table></div>
 ${wegHtml(v, n.weg)}`,
       );
   const titel = text(v.text.aufgabe.de.replace(/\{[a-z_]+\}/g, '…'));
@@ -294,12 +240,11 @@ ${wegHtml(v, n.weg)}`,
 <p><b>Hilfen:</b></p><ol>${hilfen}</ol>
 <p><b>Rückmeldungen bei typischen falschen Antworten:</b></p><ul class="fehlerbilder">${rueck}</ul>
 ${niveaus.join('')}
-${urteil(k, c.id, fragen('C'))}</section>`;
+${urteil(fragen('C'))}</section>`;
 }
 
 export function pruefbogen(e: BogenEingabe, optionen: BogenOptionen = {}): string {
-  const form = optionen.form ?? 'druck';
-  const k: Kontext = { e, form };
+  const k: Kontext = { e };
   const modell = pruefbogenModell(e);
   const begriffe = modell.d.begriffe;
   const titel = e.kompetenzen.map((x) => x.titel.de).join(' · ');
@@ -314,24 +259,12 @@ export function pruefbogen(e: BogenEingabe, optionen: BogenOptionen = {}): strin
   const teilC = modell.c.map((c) => vorlageHtml(k, c)).join('');
   const teilD = `${abschnitt('begriffe', 'D-begriffe', 'Fachbegriffe')}><div class="tabelle"><table class="begriffe"><thead><tr><th>Begriff</th><th>Erklärung für das Kind</th><th>ok</th></tr></thead><tbody>${begriffe
     .map(
-      (b, i) =>
-        `<tr><td><b>${esc(b.wort.de)}</b></td><td>${text(b.erklaerung.de)}</td>${kasten(k, 'D-begriffe', `b${i + 1}`, i + 1)}</tr>`,
+      (b) =>
+        `<tr><td><b>${esc(b.wort.de)}</b></td><td>${text(b.erklaerung.de)}</td><td class="kasten">☐</td></tr>`,
     )
-    .join('')}</tbody></table></div>${urteil(k, 'D-begriffe', fragen('D'))}</section>`;
+    .join('')}</tbody></table></div>${urteil(fragen('D'))}</section>`;
   const fvIds = modell.b;
   const anzahlVorlagen = modell.c.length;
-
-  if (form === 'online')
-    return onlineSeite({
-      name: optionen.name ?? titel,
-      titel,
-      datum: e.datum,
-      stichprobe: e.stichprobe,
-      inhalt: `<h2 class="teil" id="teil-a">Teil A: Erstvermittlungen</h2>${teilA}
-<h2 class="teil" id="teil-b">Teil B: Fehlvorstellungen</h2>${teilB}
-<h2 class="teil" id="teil-c">Teil C: Übungsaufgaben</h2>${teilC}
-<h2 class="teil" id="teil-d">Teil D: Fachbegriffe</h2>${teilD}`,
-    });
 
   return `<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

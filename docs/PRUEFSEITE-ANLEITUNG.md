@@ -1,29 +1,34 @@
 # Anleitung: Die Prüfseite für das Thema Brüche
 
-> Für die prüfende Lehrkraft (FOKUS F3 Punkt 4, 02.11.2026). Gilt für die Seite aus `pnpm pruefbogen --online` (`tools/pruefbogen/online.ts`). Als PDF zum Anhängen erzeugen: im Browser drucken. Ein passendes Anschreiben und ein Beispiel-Arbeitsblatt hat der PV am 02.11.2026 bekommen.
+> Für die prüfende Lehrkraft (FOKUS F3 Punkt 4, 02.11.2026; seit 02.11.2026 in der App, ARCHITEKTUR T-22). Als PDF zum Anhängen erzeugen: im Browser drucken. Ein passendes Anschreiben und ein Beispiel-Arbeitsblatt hat der PV am 02.11.2026 bekommen.
 
 ## Was wird geprüft?
-Drei Kapitel aus Klasse 6: **Was ist ein Bruch**, **Erweitern und Kürzen**, **Addieren und Subtrahieren**. Die Seite hat vier Teile:
+Drei Kapitel aus Klasse 6: **Was ist ein Bruch**, **Erweitern und Kürzen**, **Addieren und Subtrahieren**. Die Prüfseite hat vier Teile:
 
 | Teil | Inhalt | Ihre Frage dabei |
 |---|---|---|
-| **A Erstvermittlungen** | die Erklärung Schritt für Schritt, wie das Kind sie sieht; bei Fragen stehen die richtigen Antworten und wohin eine falsche Antwort führt | Ist das fachlich richtig, verständlich und im richtigen Tempo? |
-| **B Fehlvorstellungen** | typische Denkfehler (z. B. „Zähler plus Zähler, Nenner plus Nenner“) mit kurzer und langer Erklärung | Trifft die Erklärung den Fehler? Hilft sie dem Kind weiter? |
-| **C Übungsaufgaben** | je Aufgabentyp 20 erzeugte Beispiele pro Niveau, mit Lösung | Stimmt jede Zeile? Bitte jede richtige Zeile abhaken. |
+| **A Erklärungen** | die Erklärung Schritt für Schritt, wie das Kind sie sieht; bei Fragen stehen die richtigen Antworten und wohin eine falsche Antwort führt | Ist das fachlich richtig, verständlich und im richtigen Tempo? |
+| **B Typische Fehler** | Denkfehler (z. B. „Zähler plus Zähler, Nenner plus Nenner“) mit kurzer und langer Erklärung | Trifft die Erklärung den Fehler? Hilft sie dem Kind weiter? |
+| **C Übungsaufgaben** | je Aufgabentyp 20 erzeugte Beispiele pro Niveau, mit Lösung | Stimmen die Aufgaben? Eine Stichprobe reicht. |
 | **D Fachbegriffe** | die kurzen Erklärungen, die ein Kind antippen kann | Richtig und kindgerecht? |
 
+## So öffnen Sie die Prüfseite
+1. Bastion im Browser öffnen (Handy, Tablet oder Computer). Den Link bekommen Sie von mir.
+2. Unten **„Mehr“** → **„Für Eltern“**. Beim ersten Mal legen Sie eine PIN fest (4 bis 8 Ziffern) und notieren den angezeigten Code.
+3. Im Elternbereich unten **„Für Lehrkräfte: Inhalte prüfen“** → **„Prüfung öffnen“**.
+4. Oben **Ihren Namen** eintragen und bei „Themen zum Prüfen“ die drei Kapitel ankreuzen (Bereich „Zahlen und Rechnen“).
+
 ## So bedienen Sie die Seite
-1. Oben **Ihren Namen** eintragen.
-2. In Teil A steht neben jedem Schritt **„passt“** und **„passt nicht“**. Unter **„Kommentar“** schreiben Sie, was dort stattdessen stehen soll. So wissen wir genau, welcher Schritt gemeint ist.
-3. Unter jedem Abschnitt stehen **Prüffragen** zum Abhaken und ein **Urteil**:
+1. In Teil A steht unter jedem Schritt **„passt“** und **„passt nicht“**. Unter **„Kommentar“** schreiben Sie, was dort stattdessen stehen soll. So wissen wir genau, welcher Schritt gemeint ist.
+2. Unter jedem Abschnitt stehen **Prüffragen** zum Abhaken und ein **Urteil**:
    - **Passt:** Sie würden es so verwenden.
-   - **Passt mit Änderung:** Schreiben Sie ins Feld darunter, was anders heißen soll. Nennen Sie dabei bitte den Schritt oder die Aufgaben-Nummer.
+   - **Passt mit Änderung:** Schreiben Sie ins Feld darunter, was anders heißen soll.
    - **Falsch:** Hier stimmt etwas fachlich nicht. Ein Satz zur Begründung genügt.
-4. **Alles wird beim Tippen gespeichert.** Sie können jederzeit aufhören und später auf demselben Link weitermachen.
-5. Oben zeigt die Seite, wohin gespeichert wird. Steht dort **„Nur auf diesem Gerät gespeichert“**, dann kopieren Sie am Ende bitte die Zusammenfassung unten auf der Seite und schicken sie mir per E-Mail.
+3. **Alles wird auf diesem Gerät gespeichert,** sobald Sie tippen. Sie können jederzeit aufhören und später auf demselben Gerät im selben Browser weitermachen.
+4. **Am Ende:** ganz unten **„Ergebnis herunterladen“**. Schicken Sie mir die Datei (`bastion-pruefung-….json`) bitte per E-Mail. Die App selbst sendet nichts ins Internet.
 
 ## Wie lange dauert das?
-Etwa 20 bis 30 Minuten je Kapitel, mit den Beispielaufgaben zusammen 1 bis 1,5 Stunden. Teil C dürfen Sie stichprobenartig prüfen: Wenn die ersten Zeilen eines Aufgabentyps stimmen, reicht das.
+Etwa 20 bis 30 Minuten je Kapitel, zusammen 1 bis 1,5 Stunden. Teil C dürfen Sie stichprobenartig prüfen: Wenn die ersten Zeilen eines Aufgabentyps stimmen, reicht das.
 
 ## Was passiert mit Ihren Antworten?
 - Ich lese jede Anmerkung und ändere die Texte entsprechend.

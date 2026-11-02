@@ -1,7 +1,8 @@
-// Eingaben des Online-Prüfbogens einlesen (FOKUS F3, Punkt 3):
+// Eingaben der Prüfseite einlesen (FOKUS F3, Punkt 3):
 //   pnpm pruefbogen einlesen <datei.json> > arbeitsliste.md
-// Die Datei ist der Export der Sammlung `bewertung` der Prüfseite (ein Dokument je Abschnitt,
-// `{ werte, stand }`). Daraus entsteht eine Arbeitsliste in Markdown: je Abschnitt Urteil,
+// Die Datei kommt aus der App (Elternbereich → „Inhalte prüfen“ → „Ergebnis herunterladen“,
+// `exportDokumente` in src/core/learning/pruefbogen.ts): ein Dokument je Abschnitt,
+// `{ werte, stand }`. Daraus entsteht eine Arbeitsliste in Markdown: je Abschnitt Urteil,
 // Prüffragen und Anmerkung, dazu die betroffenen Dateien. Für Dateien, deren Abschnitt
 // „passt“, schlägt sie `pnpm review setzen --stufe 2` vor. Sie setzt nichts selbst
 // (INHALTSFORMAT §8: Stufe 2 bleibt eine bewusste Handlung des PV).

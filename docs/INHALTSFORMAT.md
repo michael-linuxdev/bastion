@@ -396,7 +396,7 @@ Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning
 
 `pnpm inhalte:pruefen` prüft die Form, wenn das Feld da ist: Stufe 1, 2 oder 3, echtes Datum, `pruefer`, 64 Hex-Zeichen, keine anderen Schlüssel. Ein fehlendes Feld ist in Ordnung. Ein Hash, der nicht mehr passt, ist **kein Fehler** der Datei; `wirksameStufe` rechnet dann 0.
 
-Für die menschliche Prüfung gibt es den **Prüfbogen** (`pnpm pruefbogen <Kompetenz-IDs>`, `tools/README.md`). Er zeigt alles, was Stufe 2 verlangt, als druckbare Seite oder mit `--online` als Seite zum Ausfüllen. Dazu gehören je Vorlage und Niveau 20 Aufgaben. Prüfende brauchen kein YAML.
+Für die menschliche Prüfung gibt es den **Prüfbogen**: in der App im Elternbereich („Für Lehrkräfte: Inhalte prüfen“, ARCHITEKTUR T-22, Ergebnis als Datei für `pnpm pruefbogen einlesen`) und zum Drucken mit `pnpm pruefbogen <Kompetenz-IDs>` (`tools/README.md`). Beide setzen dasselbe Modell aus `src/core/learning/pruefbogen.ts`. Er zeigt alles, was Stufe 2 verlangt. Dazu gehören je Vorlage und Niveau 20 Aufgaben. Prüfende brauchen kein YAML.
 
 ### Den Vermerk setzen (31.10.2026)
 

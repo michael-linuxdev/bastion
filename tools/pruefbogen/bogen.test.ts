@@ -40,47 +40,16 @@ describe('Prüfbogen', () => {
   });
 });
 
-describe('Prüfbogen zum Ausfüllen', () => {
-  const online = pruefbogen(eingabe, { form: 'online', name: 'Musterfeld Brüche' });
-  const abschnitte = [
-    ...online.matchAll(/<section class="[a-z]+ abschnitt" data-s="([^"]+)"/g),
-  ].map((m) => m[1]);
-
-  it('hat je Kompetenz, Fehlvorstellung und Vorlage einen Abschnitt mit Urteil, dazu die Begriffe', () => {
+describe('Prüfbogen: Abschnitte wie in der App', () => {
+  it('hat je Kompetenz, Fehlvorstellung und Vorlage einen Abschnitt, dazu die Begriffe', () => {
+    const abschnitte = [
+      ...html.matchAll(/<section class="[a-z]+ abschnitt" data-s="([^"]+)"/g),
+    ].map((m) => m[1]);
     const fvs = genannteFehlvorstellungen(eingabe).length;
     expect(abschnitte).toHaveLength(MUSTERFELD.length + fvs + eingabe.vorlagen.length + 1);
-    for (const s of abschnitte) expect(online).toContain(`data-abschnitt="${s}"`);
   });
 
-  it('gibt jedem Feld eine eindeutige ID, und jedes Feld gehört zu einem Abschnitt oder zum Kopf', () => {
-    const ids = [...online.matchAll(/ id="([^"]+--[^"]+)"/g)].map((m) => m[1]);
-    expect(new Set(ids).size).toBe(ids.length);
-    const zu = new Set([...online.matchAll(/data-s="([^"]+)" data-f=/g)].map((m) => m[1]));
-    for (const s of zu) expect(s === 'kopf' || abschnitte.includes(s)).toBe(true);
-  });
-
-  it('hat keine Kästchen zum Ausdrucken mehr und keine eigene Dokument-Hülle', () => {
-    expect(online).not.toContain('☐');
-    expect(online).not.toMatch(/<!doctype|<body/i);
-    expect(online.startsWith('<title>Prüfbogen Musterfeld Brüche</title>')).toBe(true);
-  });
-
-  it('hat in Teil A je Schritt „passt“, „passt nicht“ und einen Kommentar', () => {
-    for (const id of MUSTERFELD) {
-      const n = eingabe.vermittlungen.get(id)?.schritte.length ?? 0;
-      for (let nr = 1; nr <= n; nr++) {
-        for (const w of ['passt', 'nicht'])
-          expect(online).toContain(
-            `id="A-${id}--s${nr}-${w}" data-s="A-${id}" data-f="s${nr}" value="${w}"`,
-          );
-        expect(online).toContain(`id="A-${id}--k${nr}" data-s="A-${id}" data-f="k${nr}"`);
-      }
-    }
-    // Gedruckt bleibt die leere Spalte „Notiz“
-    expect(html).not.toContain('data-f="s1"');
-  });
-
-  it('nutzt nur gültige Pfade für die Datenbank', () => {
-    for (const s of abschnitte) expect(s).toMatch(/^[A-Za-z0-9_\-.~:@+]{1,200}$/);
+  it('ist nur zum Ausdrucken: keine Eingabefelder', () => {
+    expect(html).not.toMatch(/<input|<textarea|data-f=/);
   });
 });
