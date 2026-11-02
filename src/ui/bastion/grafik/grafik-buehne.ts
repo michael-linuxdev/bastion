@@ -1179,62 +1179,75 @@ export async function buehneErstellen(
   if (wetterBild === 'klar' || wetterBild === 'bewoelkt') {
     gestirnZeichnen(himmelLage, farben, atlas, texturen);
   }
-  if (art === 'dorf') {
-    const atlasWiese = bodenAusAtlas(
-      bodenLage,
-      'dorf',
-      atlas,
-      texturen,
-      farben.abend,
-      dorfBodenKachel,
-      dorfBodenTint,
-    );
-    if (!atlasWiese) dorfWiese(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'garten') {
-    const atlasRasen = bodenAusAtlas(
-      bodenLage,
-      'garten',
-      atlas,
-      texturen,
-      farben.abend,
-      gartenBodenKachel,
-      gartenBodenTint,
-    );
-    if (!atlasRasen) gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'unterwasser') {
-    const atlasSand = bodenAusAtlas(
-      bodenLage,
-      'unterwasser',
-      atlas,
-      texturen,
-      farben.abend,
-      uwBodenKachel,
-      uwBodenTint,
-    );
-    if (!atlasSand) uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else if (art === 'weltraum') {
-    const atlasPlatt = bodenAusAtlas(
-      bodenLage,
-      'weltraum',
-      atlas,
-      texturen,
-      farben.abend,
-      weltraumBodenKachel,
-      weltraumBodenTint,
-    );
-    if (!atlasPlatt) weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
-  } else {
-    const atlasBastion = bodenAusAtlas(
-      bodenLage,
-      'bastion',
-      atlas,
-      texturen,
-      farben.abend,
-      bastionBodenKachel,
-      bastionBodenTint,
-    );
-    if (!atlasBastion) insel(bodenAlsGraphics(bodenLage), farben);
-  }
+  // Boden je Epoche (P5/G3): neu bauen, sobald die Bühne eine andere Epoche zeichnet
+  let bodenEpoche = 0;
+  const bodenBauen = (epoche: number) => {
+    if (epoche === bodenEpoche) return;
+    bodenEpoche = epoche;
+    for (const k of bodenLage.removeChildren()) k.destroy();
+    if (art === 'dorf') {
+      const atlasWiese = bodenAusAtlas(
+        bodenLage,
+        'dorf',
+        atlas,
+        texturen,
+        farben.abend,
+        dorfBodenKachel,
+        dorfBodenTint,
+        epoche,
+      );
+      if (!atlasWiese) dorfWiese(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+    } else if (art === 'garten') {
+      const atlasRasen = bodenAusAtlas(
+        bodenLage,
+        'garten',
+        atlas,
+        texturen,
+        farben.abend,
+        gartenBodenKachel,
+        gartenBodenTint,
+        epoche,
+      );
+      if (!atlasRasen) gartenBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+    } else if (art === 'unterwasser') {
+      const atlasSand = bodenAusAtlas(
+        bodenLage,
+        'unterwasser',
+        atlas,
+        texturen,
+        farben.abend,
+        uwBodenKachel,
+        uwBodenTint,
+        epoche,
+      );
+      if (!atlasSand) uwBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+    } else if (art === 'weltraum') {
+      const atlasPlatt = bodenAusAtlas(
+        bodenLage,
+        'weltraum',
+        atlas,
+        texturen,
+        farben.abend,
+        weltraumBodenKachel,
+        weltraumBodenTint,
+        epoche,
+      );
+      if (!atlasPlatt) weltraumBoden(stiftVon(bodenAlsGraphics(bodenLage)), farben.abend);
+    } else {
+      const atlasBastion = bodenAusAtlas(
+        bodenLage,
+        'bastion',
+        atlas,
+        texturen,
+        farben.abend,
+        bastionBodenKachel,
+        bastionBodenTint,
+        epoche,
+      );
+      if (!atlasBastion) insel(bodenAlsGraphics(bodenLage), farben);
+    }
+  };
+  bodenBauen(1);
   rauchZeichnen(overlayLage, farben, atlas, texturen);
   if (wetterBild === 'nebel') {
     const nebelId = atlasWetterId('nebel');
@@ -1517,6 +1530,7 @@ export async function buehneErstellen(
         wesenZeichnen(performance.now());
       }
       const epocheJetzt = a.epoche ?? 1;
+      bodenBauen(epocheJetzt);
       const buecher = a.buecher ?? 0;
       const konto = a.konto;
       if (konto) {

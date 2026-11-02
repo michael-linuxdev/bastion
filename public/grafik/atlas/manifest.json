@@ -6877,6 +6877,708 @@
         "w": 104,
         "h": 230
       }
+    },
+    {
+      "id": "bewohner/zwerg_idle_0",
+      "datei": "bewohner/zwerg_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_idle_1",
+      "datei": "bewohner/zwerg_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_idle_2",
+      "datei": "bewohner/zwerg_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_arbeit_0",
+      "datei": "bewohner/zwerg_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_arbeit_1",
+      "datei": "bewohner/zwerg_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_arbeit_2",
+      "datei": "bewohner/zwerg_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_arbeit_3",
+      "datei": "bewohner/zwerg_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_react_0",
+      "datei": "bewohner/zwerg_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/zwerg_react_1",
+      "datei": "bewohner/zwerg_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_idle_0",
+      "datei": "bewohner/gaertner_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_idle_1",
+      "datei": "bewohner/gaertner_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_idle_2",
+      "datei": "bewohner/gaertner_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_arbeit_0",
+      "datei": "bewohner/gaertner_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_arbeit_1",
+      "datei": "bewohner/gaertner_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_arbeit_2",
+      "datei": "bewohner/gaertner_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_arbeit_3",
+      "datei": "bewohner/gaertner_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_react_0",
+      "datei": "bewohner/gaertner_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/gaertner_react_1",
+      "datei": "bewohner/gaertner_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_idle_0",
+      "datei": "bewohner/bibliothek_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_idle_1",
+      "datei": "bewohner/bibliothek_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_idle_2",
+      "datei": "bewohner/bibliothek_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_arbeit_0",
+      "datei": "bewohner/bibliothek_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_arbeit_1",
+      "datei": "bewohner/bibliothek_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_arbeit_2",
+      "datei": "bewohner/bibliothek_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_arbeit_3",
+      "datei": "bewohner/bibliothek_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_react_0",
+      "datei": "bewohner/bibliothek_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/bibliothek_react_1",
+      "datei": "bewohner/bibliothek_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_idle_0",
+      "datei": "bewohner/torhueter_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_idle_1",
+      "datei": "bewohner/torhueter_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_idle_2",
+      "datei": "bewohner/torhueter_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_arbeit_0",
+      "datei": "bewohner/torhueter_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_arbeit_1",
+      "datei": "bewohner/torhueter_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_arbeit_2",
+      "datei": "bewohner/torhueter_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_arbeit_3",
+      "datei": "bewohner/torhueter_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_react_0",
+      "datei": "bewohner/torhueter_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/torhueter_react_1",
+      "datei": "bewohner/torhueter_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_idle_0",
+      "datei": "bewohner/handwerk_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_idle_1",
+      "datei": "bewohner/handwerk_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_idle_2",
+      "datei": "bewohner/handwerk_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_arbeit_0",
+      "datei": "bewohner/handwerk_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_arbeit_1",
+      "datei": "bewohner/handwerk_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_arbeit_2",
+      "datei": "bewohner/handwerk_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_arbeit_3",
+      "datei": "bewohner/handwerk_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_react_0",
+      "datei": "bewohner/handwerk_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/handwerk_react_1",
+      "datei": "bewohner/handwerk_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_idle_0",
+      "datei": "bewohner/imker_idle_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_idle_1",
+      "datei": "bewohner/imker_idle_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_idle_2",
+      "datei": "bewohner/imker_idle_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_arbeit_0",
+      "datei": "bewohner/imker_arbeit_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_arbeit_1",
+      "datei": "bewohner/imker_arbeit_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_arbeit_2",
+      "datei": "bewohner/imker_arbeit_2.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_arbeit_3",
+      "datei": "bewohner/imker_arbeit_3.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_react_0",
+      "datei": "bewohner/imker_react_0.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "id": "bewohner/imker_react_1",
+      "datei": "bewohner/imker_react_1.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 64,
+        "h": 64
+      }
     }
   ]
 }
