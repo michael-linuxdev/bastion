@@ -101,7 +101,7 @@ schritte:
     weiter: uebergang
     bei:
       FV.BR.ADDITIV: erklaeren-erweitern
-      FV.BR.NUR-NENNER: beispiel
+      FV.BR.NUR-NENNER: erklaeren-erweitern
   - id: uebergang
     typ: uebergang
     text:
