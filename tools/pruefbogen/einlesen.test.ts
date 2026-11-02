@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { inhaltsdateien } from '../review/dateien';
+import { exportDokumente, setze } from '../../src/core/learning/pruefbogen';
 import { arbeitsliste, dateienVon, leseExport } from './einlesen';
 
 // Erfundene Bewertung (keine echte Lehrkraft): tools/pruefbogen/beispiel/bewertung.json
@@ -39,6 +40,24 @@ describe('Prüfbogen einlesen (F3)', () => {
     expect(md).toContain('Schritt 7 (`erklaeren-kuerzen`): **passt nicht**');
     expect(md).toContain('Schritt 9 (`merksatz`): ohne Urteil · Erfunden: Kommentar ohne Urteil.');
     expect(md).not.toContain('Schritt 1 (');
+  });
+
+  it('liest den Export der App (exportDokumente) ohne Verlust', () => {
+    let bew = setze({}, 'kopf', 'name', 'Erika Muster');
+    bew = setze(bew, 'A-M.ZO.BR.ERWEITERN', 'urteil', 'aendern');
+    bew = setze(bew, 'A-M.ZO.BR.ERWEITERN', 's7', 'nicht');
+    bew = setze(bew, 'A-M.ZO.BR.ERWEITERN', 'k7', 'Bild fehlt');
+    bew = setze(bew, 'C-M.ZO.BR.ERWEITERN.KUERZEN', 'G1', true);
+    const gelesen = leseExport(JSON.parse(JSON.stringify(exportDokumente(bew, {}))) as unknown);
+    expect(gelesen.pruefer).toBe('Erika Muster');
+    expect(gelesen.abschnitte).toEqual([
+      expect.objectContaining({
+        id: 'A-M.ZO.BR.ERWEITERN',
+        urteil: 'aendern',
+        schritte: [{ nr: 7, urteil: 'nicht', kommentar: 'Bild fehlt' }],
+      }),
+      expect.objectContaining({ id: 'C-M.ZO.BR.ERWEITERN.KUERZEN', zeilenAbgehakt: 1 }),
+    ]);
   });
 
   it('versteht auch die Formen { documents: [...] } und { id: daten }', () => {
