@@ -12909,6 +12909,58 @@
         "w": 104,
         "h": 60
       }
+    },
+    {
+      "id": "bastion/umgebung/baum_a",
+      "datei": "umgebung/bastion/baum_a.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 134
+      }
+    },
+    {
+      "id": "bastion/umgebung/baum_b",
+      "datei": "umgebung/bastion/baum_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 107
+      }
+    },
+    {
+      "id": "bastion/umgebung/busch",
+      "datei": "umgebung/bastion/busch.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 66
+      }
+    },
+    {
+      "id": "bastion/umgebung/stein",
+      "datei": "umgebung/bastion/stein.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 60
+      }
     }
   ]
 }

@@ -2,6 +2,7 @@
 """G3: Gebäude Thema `bastion`, Epoche 1 (FOKUS.md Paket G).
 Charge 1: Bergfried (Stufen 1–3). Charge 2: Studierstube und Späherturm (Stufen 1–2).
 Charge 3: Werkstatt, Tor, Palisade, Feuerstelle, Banner, Gartenbeet, Statue.
+Umgebung: Bäume, Busch und Stein für den Inselrand (`umgebung/bastion/`).
 
 Eigener Generator nach der Stil-Regel GRAFIK-SPRITES.md §12 (Entscheidung PV
 01.11.2026: eigener Generator für alles, aus einem Guss). Grundlage ist das
@@ -564,6 +565,61 @@ def denkmal1(iso: Iso, fenster: list) -> None:
     iso.linie(p(-0.11, 0.0, 84), p(-0.16, 0.0, 58), hell(GRAU, -30), 5)
 
 
+# —— Umgebung am Inselrand (§12.7): Bäume, Busch, Stein ——————————————
+
+LAUB = (92, 140, 64)
+
+
+def krone(iso: Iso, mx: float, my: float, r: float) -> None:
+    """Laubkrone als Kugel aus drei Tönen (links dunkel, rechts hell), Kontur nur am Rand."""
+    d = iso.d
+    teile = [(-0.55, 0.15, 0.75), (0.5, 0.2, 0.7), (0.0, -0.35, 0.85), (0.0, 0.25, 0.9)]
+    for dx, dy, f in teile:  # Umriss: alle Teile etwas größer in Konturfarbe
+        rr = r * f + 1.5
+        d.ellipse([mx + dx * r - rr, my + dy * r - rr, mx + dx * r + rr, my + dy * r + rr], fill=KONTUR)
+    for dx, dy, f in teile:
+        rr = r * f
+        d.ellipse([mx + dx * r - rr, my + dy * r - rr, mx + dx * r + rr, my + dy * r + rr], fill=hell(LAUB, -26))
+    for dx, dy, f in teile:  # mittlerer Ton nach rechts oben versetzt
+        rr = r * f * 0.72
+        cx, cy = mx + dx * r + r * 0.16, my + dy * r - r * 0.14
+        d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=LAUB)
+    for dx, dy, f in teile[1:3]:  # Licht von rechts oben
+        rr = r * f * 0.38
+        cx, cy = mx + dx * r + r * 0.3, my + dy * r - r * 0.3
+        d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=hell(LAUB, 26))
+
+
+def baum(iso: Iso, fenster: list, hoehe: int, r: float) -> None:
+    schatten(iso, 0.42)
+    iso.quader(-0.07, 0.07, -0.07, 0.07, 0, hoehe, HOLZ, links=-40, rechts=-8)
+    m = iso.p(0, 0, hoehe + r * 0.6)
+    krone(iso, m[0], m[1], r)
+
+
+def baum_a(iso: Iso, fenster: list) -> None:
+    baum(iso, fenster, 46, 30)
+
+
+def baum_b(iso: Iso, fenster: list) -> None:
+    baum(iso, fenster, 32, 23)
+
+
+def busch(iso: Iso, fenster: list) -> None:
+    schatten(iso, 0.38)
+    m = iso.p(0, 0, 14)
+    krone(iso, m[0], m[1], 15)
+
+
+def stein(iso: Iso, fenster: list) -> None:
+    schatten(iso, 0.36)
+    iso.quader(-0.26, 0.22, -0.2, 0.24, 0, 12, SOCKEL)
+    iso.quader(-0.1, 0.18, -0.16, 0.12, 12, 22, hell(SOCKEL, 10))
+
+
+UMGEBUNG = [("baum_a", baum_a), ("baum_b", baum_b), ("busch", busch), ("stein", stein)]
+
+
 def erzeuge_mit(zeichne, n: int, breite: int) -> tuple[Image.Image, Image.Image]:
     """Zeichnet ein Gebäude mit n×n Feldern; schneidet oben den leeren Rand ab."""
     bild = Image.new("RGBA", (breite, ROH_H), (0, 0, 0, 0))
@@ -629,6 +685,19 @@ def main() -> int:
                 "anker": {"x": 0.5, "y": 1.0},
                 "pixel": {"w": b.width, "h": b.height},
             }
+    for name, zeichne in UMGEBUNG:
+        bild, _ = erzeuge_mit(zeichne, 1, 104)
+        rel = f"umgebung/bastion/{name}.png"
+        pfad = ATLAS / rel
+        pfad.parent.mkdir(parents=True, exist_ok=True)
+        bild.save(pfad, "PNG", optimize=True)
+        neu[f"bastion/umgebung/{name}"] = {
+            "id": f"bastion/umgebung/{name}",
+            "datei": rel,
+            "felder": [1, 1],
+            "anker": {"x": 0.5, "y": 1.0},
+            "pixel": {"w": bild.width, "h": bild.height},
+        }
     gesehen = set()
     eintraege = []
     for e in manifest["eintraege"]:
