@@ -21,6 +21,9 @@ const ERNEUERT: readonly (readonly [string, string, number])[] = [
   ['gebaeude/bastion/e1', 'kern', 3], // G3 Charge 1, 02.11.2026
   ['gebaeude/bastion/e1', 'wissen', 2], // G3 Charge 2, 02.11.2026
   ['gebaeude/bastion/e1', 'turm', 2], // G3 Charge 2, 02.11.2026
+  ['gebaeude/dorf/e1', 'kern', 3], // G3 Thema dorf, 02.11.2026
+  ['gebaeude/dorf/e1', 'wissen', 2],
+  ['gebaeude/dorf/e1', 'turm', 2],
 ];
 
 const MIN_UMRISS = 0.25;

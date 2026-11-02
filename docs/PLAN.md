@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | L abgenommen (02.11.2026), Lern-Oberfläche eingefroren. Jetzt neue Prüfseite für das Musterfeld und Lehrkraft gewinnen (Paket liegt bereit). Danach F7–F10 (`FOKUS.md` „Nächste Sitzungen“) |
-| Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt; offen: G3 für die anderen vier Themen in Epoche 1 (PV, 02.11.2026), dann G6 (2–3 Jugendliche), dann U4b |
+| Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt, Gebäude `dorf` E1 erneuert; offen: G3 für Dorf-Umgebung/-Wesen, Garten, Unterwasser, Weltraum in Epoche 1 (PV, 02.11.2026), dann G6 (2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
@@ -248,7 +248,7 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 - **C – Balancing:** 2.11 Simulator mit den Profilen P1–P7 ✅ (`pnpm sim`, Ergebnisse BASEBAU §8a) · 2.11a Einfassung 40 ✅ · 2.11b Einlagern ✅ · 2.11c Ziel vormerken ✅ (B-19 bis B-22; alle Erwartungen aus §8 erfüllt)
 - **D – Grafik:** 2.12 PixiJS einbinden ✅ (8.22.0, nachgeladen, offline) · 2.13 Bauplatz in Draufsicht ✅ (2.13a Zoom ✅) · 2.14 Gestalten ✅
 - **Design „Danach“ (31.10.2026):** Themen-Landkarte, stiller Abschluss→Bastion, Fehlerwerkstatt-Paar, Bewohner-Statusgesten, Geste-Sprache, Onboarding erste Minute, Eltern-Werkstatt / Kind-Ort ✅
-- **Paket G (Fokus, 01.11.2026, `docs/session/FOKUS.md`):** G0 entschieden ✅ · G1 gemessen ✅ · G5 Teil 1 Ausbauen beim Antippen ✅ · G2 Stil-Regel für die ganze Bastion als Entwurf (`GRAFIK-SPRITES.md` §12), Abnahme PV offen · danach G3 Bilder Thema `bastion` Epoche 1, G5 Teil 2 Bauplatz-Vorschlag
+- **Paket G (Fokus, 01.11.2026, `docs/session/FOKUS.md`):** G0 entschieden ✅ · G1 gemessen ✅ · G5 Teil 1 Ausbauen beim Antippen ✅ · G2 Stil-Regel für die ganze Bastion als Entwurf (`GRAFIK-SPRITES.md` §12), Abnahme PV offen · danach G3 Bilder Thema `bastion` Epoche 1, G5 Teil 2 Bauplatz-Vorschlag · G3 Thema `dorf` Gebäude Epoche 1 ✅ (02.11.2026, `tools/grafik/sprites-g3-dorf.py`)
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
