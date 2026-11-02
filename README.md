@@ -36,7 +36,7 @@ Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahr
 
 Auf `main` liegen alle Inhalte, auch Entwürfe. Die öffentliche Seite zeigt nur Themen ab einer Review-Stufe (`docs/INHALTSFORMAT.md` §8, Entscheidung T-20). Die Stufe steht in der Repository-Variable `BASTION_MINDESTSTUFE` (GitHub → Settings → Secrets and variables → Actions → Variables). Ohne Variable gilt 0: Die Seite zeigt alles und sagt Eltern auf der Startseite und im Elternbereich, dass es ein Entwurf ist. Mit 2 zeigt sie nur Themen, die eine Lehrkraft geprüft hat. Ein Thema kommt nur ganz hinein, mit Erklärung, allen Aufgaben und allen Fehlvorstellungen.
 
-Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur die drei Bruch-Themen des Musterfelds.
+Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur Themen, deren Dateien alle mindestens Stufe 1 haben. Seit B3 (02.11.2026) sind das vorerst keine: Vier Dateien des Musterfelds wurden geändert und brauchen Stufe 1 neu. Bis dahin zeigt die Seite die Hinweisseite.
 
 ## Für Entwickler: selbst bauen
 
