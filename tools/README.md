@@ -40,6 +40,8 @@ Die Blatt-Logik (Ziehen, Review-Stufe, Punkte, Lösung als Text) liegt seit 02.1
 
 `pnpm fehlerschueler [--seeds 200] > verdacht.md` spielt die Diagnose regelbasiert durch und listet Verdachtsfälle je Feld (Arten A–E, INHALTSFORMAT §8). Er korrigiert nichts. Der Lauf über alle Inhalte dauert wenige Sekunden. Er ist nicht Teil von `pnpm test`, dort läuft nur ein kleiner Test mit erfundenen Inhalten. Er startet die Generatoren wie der Prüfbogen über `runnerImport`.
 
+**Sperrklinke (B4, Entscheidung PV 01.11.2026):** `pnpm fehlerschueler --grenze` vergleicht die Zahl der Funde je Art mit `inhalte/fehlerschueler-grenze.json` und endet mit Fehler, wenn eine Art mehr Funde hat. Die CI führt das bei jedem Push aus. Wer Funde behebt, senkt die Zahl in der Datei im selben PR; das Werkzeug sagt, auf welchen Wert. Erhöhen ist nicht vorgesehen.
+
 ## Review-Vermerk (`review/`)
 
 `pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.
