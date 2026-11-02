@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast nach der Schreibweise entschieden: Wurzelzeichen heißt irrational, Bruchstrich heißt [[Bruch]].'
     - teil: warum-nicht
-      de: 'Dieselbe Zahl hat viele Schreibweisen: 7 = √$49 = \frac{14}{2} = 7{,}0$. Der Zahlbereich hängt vom Wert ab, nicht von der Schreibweise.'
+      de: 'Dieselbe Zahl hat viele Schreibweisen: $7 = \sqrt{49} = \frac{14}{2} = 7{,}0$. Der Zahlbereich hängt vom Wert ab, nicht von der Schreibweise.'
     - teil: so-stimmt-es
       de: 'Rechne so weit wie möglich aus. Dann frage der Reihe nach: natürlich? ganz? [[Bruch]]? Erst wenn nichts davon passt, ist die Zahl irrational.'
 gegenbeispiel:

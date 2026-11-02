@@ -34,7 +34,7 @@ schritte:
   - id: erklaeren-ungerade
     typ: erklaeren
     text:
-      de: 'Bei ³√, ⁵√ … geht es auch mit [[negativen Zahlen]]: ³√−8 = −2, denn (−2) · (−2) · (−2) = −8. Aus negativen Zahlen gibt es keine Quadratwurzel.'
+      de: 'Bei ungeraden Wurzeln wie $\sqrt[3]{\phantom{a}}$ oder $\sqrt[5]{\phantom{a}}$ geht es auch mit [[negativen Zahlen]]: ³√−8 = −2, denn (−2) · (−2) · (−2) = −8. Aus negativen Zahlen gibt es keine Quadratwurzel.'
     weiter: erklaeren-schaetzen
   - id: erklaeren-schaetzen
     typ: erklaeren
@@ -66,7 +66,7 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: 'ⁿ√a ist die Zahl, die n-mal mit sich selbst malgenommen a ergibt. Quadratwurzeln sind nie negativ. Erst unter der [[Wurzel]] ausrechnen, dann die Wurzel ziehen.'
+      de: '$\sqrt[n]{a}$ ist die Zahl, die n-mal mit sich selbst malgenommen a ergibt. Quadratwurzeln sind nie negativ. Erst unter der [[Wurzel]] ausrechnen, dann die Wurzel ziehen.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen

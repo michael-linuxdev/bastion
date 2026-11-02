@@ -6,6 +6,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import katex from 'katex';
+import { parse } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { generatoren } from '../../src/generators/alle';
 import {
@@ -76,6 +77,40 @@ describe('Formeln in Inhaltsdateien (Erstvermittlung, Fehlerkatalog, Begriffe)',
       for (const m of readFileSync(datei, 'utf8').matchAll(/\$([^$\n]+)\$/g)) {
         setzbar((m[1] ?? '').replace(/(?<![\\a-zA-Z}^_])\{([a-z_]+)\}/g, '1'));
       }
+  });
+});
+
+/** Alle `de`-Texte einer YAML-Datei (rekursiv) */
+function* deTexte(wert: unknown): Generator<string> {
+  if (Array.isArray(wert)) for (const w of wert) yield* deTexte(w);
+  else if (wert && typeof wert === 'object')
+    for (const [k, w] of Object.entries(wert)) {
+      if (k === 'de' && typeof w === 'string') yield w;
+      else yield* deTexte(w);
+    }
+}
+
+describe('Texte in Inhaltsdateien (Hilfen, Rückmeldungen, Erstvermittlung, Fehlerkatalog)', () => {
+  it('Rechenausdrücke erscheinen als Formel, nie als roher Text', () => {
+    const funde: string[] = [];
+    for (const datei of yamlDateien('content')) {
+      if (/(kompetenz|begriffe)\.yaml$/.test(datei)) continue;
+      for (const text of deTexte(parse(readFileSync(datei, 'utf8')))) {
+        // Platzhalter durch eine Zahl ersetzen: geprüft wird nur, was der Text selbst schreibt
+        const ohne = text
+          .split('$')
+          .map((t, i) =>
+            t.replace(i % 2 === 1 ? /(?<![\\a-zA-Z}\]^_])\{([a-z_]+)\}/g : /\{([a-z_]+)\}/g, '1'),
+          )
+          .join('$');
+        const teile = fuelle(ohne, {});
+        for (const t of teile) if (t.art === 'formel') setzbar(t.tex);
+        const rest = alsText(teile.filter((t) => t.art !== 'formel'));
+        const m = ROH_GENERATOR.exec(rest);
+        if (m) funde.push(`${datei}: …${rest.slice(Math.max(0, m.index - 30), m.index + 20)}…`);
+      }
+    }
+    expect(funde).toEqual([]);
   });
 });
 
