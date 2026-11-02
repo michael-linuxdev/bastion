@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Gibt bei 3x + 4 = 16 die 12 als Lösung an. Die Gleichung ist bis 3x = 12 umgeformt, das Teilen
     durch die Zahl vor x fehlt.
-kompetenzen: [M.SF.GL.LINEAR, M.GM.KR.UMFANG-FLAECHE]
+kompetenzen: [M.SF.GL.LINEAR, M.GM.KR.UMFANG-FLAECHE, M.SF.GL.WURZEL]
 erklaerung:
   kurz:
     de: 'Fertig bist du erst, wenn die gesuchte Größe allein dasteht. Bei 3x = 12 teilst du noch durch 3, bei r² = 16 ziehst du noch die [[Wurzel]].'

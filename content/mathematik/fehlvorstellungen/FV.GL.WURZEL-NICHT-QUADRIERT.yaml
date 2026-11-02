@@ -1,0 +1,27 @@
+id: FV.GL.WURZEL-NICHT-QUADRIERT
+name:
+  de: Lässt bei einer Wurzelgleichung die Wurzel einfach weg
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst √(x + 5) = 4 zu x + 5 = 4, also x = −1. Das Wurzelzeichen wird gestrichen wie eine
+    Klammer. Dass dabei auch die andere Seite quadriert werden muss, ist nicht verankert.
+kompetenzen: [M.SF.GL.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Die [[Wurzel]] verschwindet nur durch Quadrieren, und zwar auf beiden Seiten: Aus $\sqrt{x + 5} = 4$ wird $x + 5 = 16$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Wurzelzeichen gestrichen und mit der rechten Seite weitergerechnet.'
+    - teil: warum-nicht
+      de: 'Eine [[Gleichung]] bleibt nur richtig, wenn du auf beiden Seiten dasselbe machst. Links hebt das Quadrieren die [[Wurzel]] auf, rechts wird die 4 zur 16.'
+    - teil: so-stimmt-es
+      de: 'Quadriere beide Seiten. Mach danach die [[Probe]]: $\sqrt{11 + 5} = 4$ stimmt.'
+gegenbeispiel:
+  de: 'Mit x = −1 wäre $\sqrt{-1 + 5} = \sqrt{4} = 2$, nicht 4.'
+rueckweg:
+  vermittlung: M.SF.GL.WURZEL#erklaeren-quadrieren
+  voraussetzung: M.ZO.PW.WURZEL
+kontrast: [M.SF.GL.WURZEL.LOESEN, M.SF.GL.WURZEL.PROBE]
+herkunft: ki-entwurf
+version: 1

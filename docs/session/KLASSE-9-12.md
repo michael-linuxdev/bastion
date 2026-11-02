@@ -103,6 +103,8 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 11. **Formeln einheitlich mit KaTeX** (PV, 02.11.2026, nach Vorschaubildern): jede Formel und jeder Bruch mit KaTeX, auch Klasse 5–8; der Text bleibt in Nunito (Variante B, nicht der ganze Text in der KaTeX-Schrift); Brüche groß (`\displaystyle`); Brüche im Fließtext („1/4 + 2/4“) werden in den Inhalten zu Formeln umgeschrieben (damit ist F9 entschieden). Geänderte Dateien verlieren ihre Prüfstufe.
 12. **Nachtarbeit bis 03.11.2026, 5 Uhr** (PV, 02.11.2026): Klasse 9 weiter, im Zweifel danach 10 bis 12. **Voll je Kompetenz** (G/M/E-Vorlagen, Erstvermittlung, Fehlvorstellungen, Zwischenschritte) statt Breite zuerst. **Selbst mergen** nach grüner Prüfung. **Graphen und Werkzeug „Parameter am Graphen“ bauen**, Bildschirmfotos ablegen, Aussehen morgen mit dem PV. **Unklare Fragen notieren**, vorsichtigere Lösung wählen oder zum nächsten Feld springen, gesammelt fragen (Abschnitt „Offene Fragen der Nachtarbeit“).
 
+*Ergänzung (PV, 02.11.2026, 21:15):* Nach Fertigstellung von Klasse 9 **stoppen, Klasse 10 nicht beginnen**.
+
 ### Offene Fragen der Nachtarbeit
 
 *(noch keine)*

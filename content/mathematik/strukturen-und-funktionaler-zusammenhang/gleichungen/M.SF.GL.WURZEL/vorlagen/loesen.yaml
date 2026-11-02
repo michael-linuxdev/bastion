@@ -1,0 +1,55 @@
+# „Löse: √(x + 5) = 4“, „√(3x − 2) = 5“, „√(x + 3) + 2 = 6“. Entwurf: noch nicht geprüft.
+id: M.SF.GL.WURZEL.LOESEN
+kompetenz: M.SF.GL.WURZEL
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: gl.wurzel-loesen@1
+parameter:
+  G: { formen: [einfach, summe] }
+  M: { formen: [summe, linear, isolieren] }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]]: ${gleichung}$'
+hilfen:
+  - de: 'Stelle die [[Wurzel]] allein auf eine Seite. Dann quadriere beide Seiten: Aus $\sqrt{x + 5} = 4$ wird $x + 5 = 16$.'
+  - de: 'Mach am Ende die [[Probe]]: Setze deine Zahl ein und ziehe die [[Wurzel]].'
+fehlerbilder:
+  nicht-quadriert:
+    de: 'Du hast die [[Wurzel]] einfach weggelassen. Quadriere beide Seiten: Rechts steht dann das Quadrat der Zahl.'
+    fv: FV.GL.WURZEL-NICHT-QUADRIERT
+  falsche-richtung:
+    de: 'Du hast in die falsche Richtung gerechnet. Was unter der [[Wurzel]] addiert wird, ziehst du auf beiden Seiten ab.'
+    fv: FV.NZ.UMKEHRAUFGABE
+  nicht-geteilt:
+    de: 'Fast fertig. Teile noch durch die Zahl vor x.'
+    fv: FV.GL.NICHT-FERTIG
+  isolieren-vergessen:
+    de: 'Stelle zuerst die [[Wurzel]] allein. Erst dann quadrieren, sonst quadrierst du die Zahl daneben nicht mit.'
+    fv: FV.GL.ISOLIEREN-VERGESSEN
+schritte:
+  - id: quadrat
+    frage:
+      {
+        de: 'Stelle die [[Wurzel]] allein und quadriere beide Seiten. Welche Zahl steht dann rechts vom $=$?',
+      }
+    typ: zahl-eingabe
+    fehlerbilder:
+      nicht-quadriert:
+        de: 'Das ist die Zahl vor dem Quadrieren. Nimm sie mit sich selbst mal.'
+        fv: FV.GL.WURZEL-NICHT-QUADRIERT
+      isolieren-vergessen:
+        de: 'Bringe zuerst die Zahl neben der [[Wurzel]] auf die andere Seite. Dann quadrieren.'
+        fv: FV.GL.ISOLIEREN-VERGESSEN
+  - id: x
+    frage: { de: 'Jetzt steht ${wurzelterm} = {quadrat}$ da. Wie groß ist x?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      falsche-richtung:
+        de: 'Rechne die Gegenrechnung: Was zu x addiert wird, ziehst du ab.'
+        fv: FV.NZ.UMKEHRAUFGABE
+      nicht-geteilt:
+        de: 'Teile noch durch die Zahl vor x.'
+        fv: FV.GL.NICHT-FERTIG
+herkunft: ki-entwurf
+version: 1

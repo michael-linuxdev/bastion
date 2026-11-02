@@ -1,0 +1,26 @@
+id: FV.GL.ISOLIEREN-VERGESSEN
+name:
+  de: Quadriert, bevor die Wurzel allein steht
+art: rechenfehler
+beschreibung:
+  de: >-
+    Löst √(x + 3) + 2 = 6 zu x + 3 + 4 = 36 oder quadriert nur die 6. Dass das Quadrieren eine
+    Summe nicht Glied für Glied verändert, wird übersehen.
+kompetenzen: [M.SF.GL.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Stelle zuerst die [[Wurzel]] allein: $\sqrt{x + 3} = 4$. Erst dann quadrieren: $x + 3 = 16$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast quadriert, als die 2 noch neben der [[Wurzel]] stand.'
+    - teil: warum-nicht
+      de: 'Quadriert wird die ganze Seite: $(\sqrt{x + 3} + 2)^2$ ist nicht $x + 3 + 4$. Das macht die Rechnung falsch.'
+    - teil: so-stimmt-es
+      de: 'Bringe alles außer der [[Wurzel]] auf die andere Seite. Dann steht links nur die Wurzel, und das Quadrieren hebt sie auf.'
+gegenbeispiel:
+  de: 'Mit x = 33 aus $x + 3 = 36$ wäre $\sqrt{36} + 2 = 8$, nicht 6.'
+rueckweg:
+  vermittlung: M.SF.GL.WURZEL#erklaeren-allein
+kontrast: [M.SF.GL.WURZEL.LOESEN]
+herkunft: ki-entwurf
+version: 1
