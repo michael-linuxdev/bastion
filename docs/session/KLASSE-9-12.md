@@ -96,6 +96,8 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 4. **Neue Darstellung und Eingabe:** **jetzt bauen erlaubt** (abweichend von der Empfehlung). Die Lern-Oberfläche darf für Klasse 9–12 neue Aufgabentypen, Tasten und Darstellungen bekommen (Ausnahme von `SESSION-PROMPT.md` Regel 7). KaTeX erst messen; bei einem Ja Eintrag im Entscheidungslog (`ARCHITEKTUR.md`), wie für jede neue Abhängigkeit (`CLAUDE.md`). Grundlage bleibt die Bedarfsliste aus Phase A.
 5. **Laufende Pakete:** **alles ruht** (abweichend von der Empfehlung). F3 (Prüfseite Musterfeld), F7 bis F10 und das Gewinnen einer Lehrkraft warten, bis Klasse 9–12 gebaut ist. Der Strang Lernkern arbeitet nur an diesem Auftrag. U4b selbst war nicht Teil der Frage; sein Termin bleibt beim PV.
 6. **Quellen (Zusatzfrage):** Die Lehrplandatenbank ist aus der Arbeitsumgebung gesperrt (HTTP 403 am Proxy). **Phase A beginnt erst, wenn der PV die Lehrplan-PDFs bereitstellt:** Gymnasium Klasse 9, 10 und Jahrgangsstufen 11/12 sowie Oberschule Klasse 9/10 (Fassungen in `docs/quellen/README.md`). Keine Kompetenzlisten aus dem Gedächtnis.
+7. **Reihenfolge der Bausteine** (zweite Fragerunde, 02.11.2026): wie in der Bedarfsliste vorgeschlagen (`LERNKERN.md`): B1 Formeln und B5 Kurven → B2 mehrere Felder und B3 Runden → B9 Klasse 9 wählbar → Inhalte Klasse 9 → Werkzeug „Parameter am Graphen“ → Klasse 10 → B6, B7, B10 und die übrigen Werkzeuge für 11/12. Phase A geht per PR auf `main`.
+8. **Formeldarstellung (B1):** offen. Der PV wollte eine Entscheidungshilfe mit Vorschaubildern; sie ist geliefert (Befund und Empfehlung in `LERNKERN.md`, Bedarfsliste B1).
 
 ---
 

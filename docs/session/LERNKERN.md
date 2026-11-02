@@ -79,7 +79,9 @@ Wichtig für die Wahl: Die Generatoren laufen **in der App**. Formeln in Aufgabe
 | Vorlese-Funktion | MathML | MathML | MathML |
 | Aufwand | klein | klein, deckt aber nur feste Texte ab | mittel: Parser für die gebrauchte Teilmenge (Wurzel, Bruch mit Termen, Hoch/Tief, lim, ∫, Vektor, Matrix, Binomialkoeffizient, Σ) |
 
-**Empfehlung: (c).** `$…$` bleibt die Schreibweise, alte Texte sehen gleich aus (Test), keine neue Abhängigkeit, kein HTML. Der Browser übernimmt den Satz über MathML, so wie es KaTeX mit `output: "mathml"` auch täte. Wenn der Parser zu groß wird, bleibt (a) als Ausweg.
+**Vorschaubilder (02.11.2026, für den PV):** zehn Formeln aus Klasse 9–12 im Browser gesetzt, einmal mit KaTeX, einmal als MathML. Befund: **MathML allein reicht nicht.** Ohne Mathe-Schrift auf dem Gerät wachsen Klammern bei Vektor, Matrix und Binomialkoeffizient nicht mit, und Wurzeln über Brüchen sehen schief aus. Mit der mitgelieferten Schrift **STIX Two Math** (Lizenz OFL-1.1, nur die gebrauchten Zeichen, **62 KB** woff2; ganz 403 KB) ist das Ergebnis fast gleich wie bei KaTeX. Darum gehört zu (c) eine eigene Schriftdatei, die wie Nunito mit der App kommt und erst mit den Paketen ab Klasse 9 geladen wird. Sie braucht wie jede neue Datei von außen einen Eintrag im Entscheidungslog.
+
+**Empfehlung: (c) mit STIX Two Math.** `$…$` bleibt die Schreibweise, alte Texte sehen gleich aus (Test), keine neue Abhängigkeit, kein HTML. Der Browser übernimmt den Satz über MathML, so wie es KaTeX mit `output: "mathml"` auch täte. Wenn der Parser zu groß wird, bleibt (a) als Ausweg. **Entscheidung des PV steht aus.**
 
 **Empfohlene Reihenfolge für den Bau** (passt zu Entscheidung 3, Klasse 9 zuerst): B1 (Formeln) und B5 (Kurven) → B2 (mehrere Felder) und B3 (Runden) → B9 (Klasse 9 wählbar) → Inhalte Klasse 9 → B8 Werkzeug „Parameter am Graphen“ → Klasse 10 mit Einheitskreis → B6, B7, B10 und die übrigen Werkzeuge für 11/12.
 
