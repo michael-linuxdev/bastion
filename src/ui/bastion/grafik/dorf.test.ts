@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { GEBAEUDE_TYPEN } from '../../../core/bastion/katalog';
 import { BUEHNE_H } from './iso';
 import {
+  dorfBaumLagen,
   DORF_BILD,
   dorfBodenKachel,
   dorfBodenTint,
@@ -53,5 +54,17 @@ describe('Dorfbilder (GRAFIK §6)', () => {
     expect(dorfBodenKachel(2, 3, 12, 12)).toBe(a);
     expect(dorfBodenTint(false)).toBe(0xffffff);
     expect(dorfBodenTint(true)).not.toBe(0xffffff);
+  });
+});
+
+describe('Dorf-Bäume aus dem Atlas (G3)', () => {
+  it('vorne nur der kleine Apfelbaum, immer gleich (kein Zufall)', () => {
+    const lagen = dorfBaumLagen();
+    expect(lagen).toEqual(dorfBaumLagen());
+    for (const b of lagen) {
+      if (b.x > 12 || b.y > 12) expect(b.art).toBe('baum_b');
+      expect(b.bild).toBeLessThan(b.s);
+    }
+    expect(lagen.some((b) => b.art === 'baum_a')).toBe(true);
   });
 });

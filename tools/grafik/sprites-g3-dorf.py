@@ -21,6 +21,8 @@ import math
 import sys
 from pathlib import Path
 
+from PIL import Image
+
 sys.dont_write_bytecode = True  # kein __pycache__ im Repository
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from g3_stil import (  # noqa: E402
@@ -44,7 +46,9 @@ from g3_stil import (  # noqa: E402
     STEIN_FUGE,
     ZIEGEL,
     Iso,
+    Wesen,
     hell,
+    wesen_bodenschatten,
     krone,
     schatten,
     schreibe_atlas,
@@ -433,6 +437,134 @@ def denkmal1(iso: Iso, fenster: list) -> None:
     iso.linie((g[0] - 2, g[1] + 2), (g[0] + 5, g[1] + 2), hell(GRAU, -50), 3)
 
 
+# —— Umgebung (§12.7): Bäume an den festen Plätzen der Dorf-Szene ——————————
+
+
+def dorfbaum(iso: Iso, fenster: list, hoehe: int, r: float, frucht=None) -> None:
+    schatten(iso, 0.42)
+    iso.quader(-0.07, 0.07, -0.07, 0.07, 0, hoehe, HOLZ, links=-40, rechts=-8)
+    m = iso.p(0, 0, hoehe + r * 0.6)
+    krone(iso, m[0], m[1], r)
+    if frucht:
+        for dx, dy in ((-0.5, 0.2), (0.3, -0.35), (0.55, 0.3), (-0.1, -0.6), (0.05, 0.45)):
+            x, y = m[0] + dx * r, m[1] + dy * r
+            iso.d.ellipse([x - 2.5, y - 2.5, x + 2.5, y + 2.5], fill=frucht)
+
+
+def baum_a(iso: Iso, fenster: list) -> None:
+    """Linde: hoher Laubbaum."""
+    dorfbaum(iso, fenster, 44, 29)
+
+
+def baum_b(iso: Iso, fenster: list) -> None:
+    """Apfelbaum: kleiner, mit roten Äpfeln."""
+    dorfbaum(iso, fenster, 30, 22, (204, 64, 52))
+
+
+UMGEBUNG = [("baum_a", baum_a), ("baum_b", baum_b)]
+
+
+# —— Wesen (§12.7): Huhn, Katze, Spatz, je 3 Ruhe-, 4 Geh-, 2 Reaktionsbilder ——
+
+
+def huhn(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    weiss, braun, rot, gelb = (244, 238, 226), (196, 140, 84), (210, 60, 48), (236, 176, 64)
+    pick = zyklus == "idle" and frame == 1  # pickt
+    y = 0.0
+    wesen_bodenschatten(w, 10)
+    if zyklus != "react":
+        schritt = [(-2, 2), (0, 0), (2, -2), (0, 0)][frame % 4] if zyklus == "walk" else (0, 0)
+        for bx, sv in ((29, schritt[0]), (34, schritt[1])):
+            w.strich((bx, 47), (bx + sv, 55), gelb, 1.4)
+    else:
+        y = -3 - frame * 2
+        w.strich((29, 47 + y), (28, 52 + y), gelb, 1.4)
+        w.strich((34, 47 + y), (35, 52 + y), gelb, 1.4)
+    # Schwanzfedern
+    w.form([(18, 38 + y), (14, 28 + y), (20, 30 + y), (24, 36 + y)], hell(braun, -20))
+    # Körper
+    w.form([(18, 40 + y), (22, 33 + y), (34, 32 + y), (42, 37 + y), (40, 46 + y), (28, 50 + y), (20, 47 + y)], braun)
+    w.form([(23, 34 + y), (34, 33 + y), (40, 37 + y), (30, 39 + y)], hell(braun, 24), kontur=False)
+    # Flügel
+    if zyklus == "react":
+        w.form([(24, 38 + y), (16, 26 + y - frame * 3), (26, 30 + y), (34, 37 + y)], hell(braun, -16))
+    else:
+        w.oval(22, 37 + y, 35, 45 + y, hell(braun, -16))
+        w.strich((25, 42 + y), (32, 42 + y), hell(braun, -40), 0.8)
+    # Kopf (beim Picken tiefer)
+    ky = 26 + y + (8 if pick else 0)
+    kx = 40 + (3 if pick else 0)
+    w.oval(kx - 4, ky - 1, kx + 5, ky + 8, weiss)
+    w.form([(kx - 2, ky), (kx, ky - 4), (kx + 2, ky - 2), (kx + 4, ky - 4), (kx + 4, ky + 1)], rot)
+    w.form([(kx + 5, ky + 3), (kx + 9, ky + 4.5), (kx + 5, ky + 6)], gelb)
+    w.oval(kx + 6 - 3.5, ky + 6, kx + 6 - 1.5, ky + 9, rot, kontur=False)
+    w.oval(kx + 1.5, ky + 2, kx + 3.2, ky + 3.7, (30, 26, 22), kontur=False)
+    return w.fertig()
+
+
+def katze(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    grau, hellgrau, dunkel, rosa = (150, 140, 130), (190, 180, 168), (96, 88, 80), (220, 150, 150)
+    bob = [0, -0.5, 0][frame % 3] if zyklus == "idle" else 0.0
+    y = bob
+    wesen_bodenschatten(w, 12)
+    if zyklus == "react":
+        # sitzt aufrecht, Schwanz hoch
+        w.strich((22, 52), (16, 36 - frame * 2), grau, 3)
+        w.form([(22, 54), (21, 42), (26, 32), (34, 32), (37, 42), (36, 54)], grau)
+        w.form([(27, 36), (33, 35), (35, 46), (29, 50)], hellgrau, kontur=False)
+        w.strich((28, 50), (28, 55), dunkel, 2.2)
+        w.strich((33, 50), (33, 55), dunkel, 2.2)
+        kx, ky = 31, 25
+    else:
+        schritt = [(-2.5, 2.5), (0, 0), (2.5, -2.5), (0, 0)][frame % 4] if zyklus == "walk" else (0, 0)
+        w.strich((18, 40 + y), (10, 30 + y - (frame % 2 if zyklus == "walk" else 0)), grau, 3)
+        for bx, sv, ton in ((21, schritt[1], dunkel), (25, schritt[0], grau), (36, schritt[0], dunkel), (40, schritt[1], grau)):
+            w.strich((bx, 44 + y), (bx + sv, 55), ton, 2.4)
+        w.form([(17, 40 + y), (22, 35 + y), (38, 35 + y), (43, 39 + y), (41, 46 + y), (20, 46 + y)], grau)
+        for sx in (25, 30, 35):  # Streifen
+            w.strich((sx, 35.5 + y), (sx - 1, 40 + y), dunkel, 1.2)
+        kx, ky = 43, 31 + y
+    w.oval(kx - 6, ky - 5, kx + 6, ky + 6, grau)
+    w.form([(kx - 6, ky - 2), (kx - 5, ky - 10), (kx - 1, ky - 5)], grau)
+    w.form([(kx + 1, ky - 5), (kx + 5, ky - 10), (kx + 6, ky - 2)], grau)
+    w.form([(kx - 4.6, ky - 4), (kx - 4.5, ky - 7.5), (kx - 2.5, ky - 5)], rosa, kontur=False)
+    w.oval(kx - 3.5, ky - 1, kx - 1.5, ky + 1.5, (60, 120, 70), kontur=False)
+    w.oval(kx + 1.5, ky - 1, kx + 3.5, ky + 1.5, (60, 120, 70), kontur=False)
+    w.oval(kx - 1, ky + 2, kx + 1, ky + 3.5, rosa, kontur=False)
+    return w.fertig()
+
+
+def spatz(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    braun, hell_b, grau, dunkel = (150, 108, 70), (214, 190, 156), (130, 126, 120), (70, 50, 34)
+    hop = [0, -2, 0, -1][frame % 4] if zyklus == "walk" else 0.0
+    y = hop + (-6 - frame * 3 if zyklus == "react" else 0)
+    wesen_bodenschatten(w, 6)
+    if zyklus != "react":
+        w.strich((29, 48 + y), (29, 54), dunkel, 1.2)
+        w.strich((32, 48 + y), (32, 54), dunkel, 1.2)
+    w.form([(20, 44 + y), (16, 41 + y), (23, 40 + y)], dunkel)  # Schwanz
+    w.oval(21, 38 + y, 37, 50 + y, braun)
+    w.oval(26, 43 + y, 36, 50 + y, hell_b, kontur=False)
+    if zyklus == "react":
+        w.form([(24, 42 + y), (18, 30 + y - frame * 2), (28, 34 + y), (32, 41 + y)], hell(braun, -20))
+    else:
+        w.form([(22, 42 + y), (30, 40 + y), (32, 45 + y), (24, 47 + y)], hell(braun, -24))
+        for k in (24, 27):
+            w.strich((k, 42.5 + y), (k + 2, 44.5 + y), hell_b, 0.8)
+    w.oval(31, 33 + y, 40, 42 + y, grau)
+    w.oval(33, 33 + y, 40, 37 + y, braun, kontur=False)
+    w.form([(39.5, 37 + y), (43, 38.5 + y), (39.5, 40 + y)], dunkel)
+    w.oval(36, 36 + y, 37.6, 37.6 + y, (30, 26, 22), kontur=False)
+    w.oval(35, 39 + y, 38, 41.5 + y, (40, 34, 30), kontur=False)  # Kehlfleck
+    return w.fertig()
+
+
+WESEN = {"huhn": huhn, "katze": katze, "spatz": spatz}
+
+
 GEBAEUDE = [
     ("kern", 1, kern1, 3, BREITE),
     ("kern", 2, kern2, 3, BREITE),
@@ -452,7 +584,7 @@ GEBAEUDE = [
 
 
 def main() -> int:
-    return schreibe_atlas("dorf", GEBAEUDE)
+    return schreibe_atlas("dorf", GEBAEUDE, UMGEBUNG, WESEN)
 
 
 if __name__ == "__main__":
