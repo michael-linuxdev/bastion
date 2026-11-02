@@ -1,0 +1,31 @@
+# „Löse: x² = 49“, „(x − 2)² = 9“, „(x − 3)·(x + 5) = 0“, „x² − 6x = 0“. Entwurf: noch nicht geprüft.
+id: M.SF.QF.INHALTLICH.LOESEN
+kompetenz: M.SF.QF.INHALTLICH
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: qf.inhaltlich@1
+parameter:
+  G: { formen: [quadrat] }
+  M: { formen: [verschoben, produkt, ausklammern] }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] ${gleichung}$.'
+hilfen:
+  - de: 'Welche Zahlen ergeben quadriert die Zahl rechts? Denk an die positive und die negative.'
+  - de: 'Ein [[Produkt]] ist null, wenn einer der [[Faktoren]] null ist. Bei $x^2 - 6x$ klammerst du zuerst x aus.'
+fehlerbilder:
+  halbiert:
+    de: 'Du hast halbiert. Gesucht sind die Zahlen, die mit sich selbst malgenommen die Zahl rechts ergeben.'
+    fv: FV.NZ.WURZEL-HALBIERT
+  wurzel-negativ:
+    de: 'Ein Quadrat ist nie negativ. Ist die Zahl rechts negativ, gibt es keine Lösung.'
+    fv: FV.QF.QUADRAT-NEGATIV
+  vorzeichen-produkt:
+    de: 'Setze deine Zahlen ein: Wird dann ein [[Faktor]] null? Bei $(x - 3)$ ist das für $x = 3$ der Fall, nicht für $x = -3$.'
+    fv: FV.QF.PRODUKT-VORZEICHEN
+  vorzeichen-ausklammern:
+    de: 'Prüfe: $x \cdot (x - 6) = 0$ wird null für $x = 0$ und für $x = 6$.'
+    fv: FV.QF.PRODUKT-VORZEICHEN
+herkunft: ki-entwurf
+version: 1

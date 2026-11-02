@@ -1,0 +1,25 @@
+id: FV.QF.PRODUKT-VORZEICHEN
+name:
+  de: Liest die Lösungen der Produktform mit falschem Vorzeichen ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Löst (x − 3)·(x + 5) = 0 zu x = −3 und x = 5 oder x² − 6x = 0 zu x = −6. Die Zahl in der Klammer wird mit ihrem sichtbaren Vorzeichen übernommen.
+kompetenzen: [M.SF.QF.INHALTLICH]
+erklaerung:
+  kurz:
+    de: 'Frage: Für welches x wird der [[Faktor]] null? $(x - 3) = 0$ für $x = 3$. Das [[Vorzeichen]] dreht sich um.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl aus der Klammer abgeschrieben.'
+    - teil: warum-nicht
+      de: 'Setze $x = -3$ ein: $(-3 - 3) = -6$, nicht 0. Der [[Faktor]] ist nur für $x = 3$ null.'
+    - teil: so-stimmt-es
+      de: 'Setze jede Klammer gleich null und löse: $x - 3 = 0$, also $x = 3$.'
+gegenbeispiel:
+  de: '$(x - 3) \cdot (x + 5)$ bei $x = 3$: $0 \cdot 8 = 0$. Bei $x = -3$: $(-6) \cdot 2 = -12$.'
+rueckweg:
+  vermittlung: M.SF.QF.INHALTLICH#erklaeren-produkt
+kontrast: [M.SF.QF.INHALTLICH.LOESEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+# „Wie viele Lösungen hat x² + 6x + 9 = 0?“ Entwurf: noch nicht geprüft.
+id: M.SF.QF.FORMEL.ANZAHL
+kompetenz: M.SF.QF.FORMEL
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: qf.anzahl@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '**Wie viele** Lösungen hat ${gleichung}$?'
+hilfen:
+  - de: 'Berechne die [[Diskriminante]] $D = \left(\frac{p}{2}\right)^2 - q$.'
+  - de: 'D negativ: keine Lösung. D gleich 0: genau eine. D positiv: zwei.'
+fehlerbilder:
+  q-vorzeichen:
+    de: 'Achte auf das Minus: $D = \left(\frac{p}{2}\right)^2 - q$. Ist q negativ, wird D größer.'
+    fv: FV.QF.DISKRIMINANTE
+  p-nicht-halbiert:
+    de: 'Halbiere p, bevor du quadrierst.'
+    fv: FV.QF.DISKRIMINANTE
+  immer-zwei:
+    de: 'Nicht jede quadratische [[Gleichung]] hat zwei Lösungen. Die [[Diskriminante]] entscheidet.'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+herkunft: ki-entwurf
+version: 1

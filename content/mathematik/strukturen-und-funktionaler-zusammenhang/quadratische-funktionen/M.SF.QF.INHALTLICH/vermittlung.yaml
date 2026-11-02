@@ -1,0 +1,89 @@
+id: M.SF.QF.INHALTLICH
+kompetenz: M.SF.QF.INHALTLICH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Gleichungen wie $x^2 = 49$, $(x - 3) \cdot (x + 5) = 0$ und $x^2 - 6x = 0$ ohne [[Formel]] lösen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $(-7)^2$?'
+    antwort:
+      optionen:
+        - { wert: { de: '49' }, richtig: true }
+        - { wert: { de: '$-49$' }, fv: FV.RZ.POTENZ-KLAMMER }
+    weiter: entdecken
+    bei: { FV.RZ.POTENZ-KLAMMER: M.SF.QF.GRAPH, sonst: M.SF.QF.GRAPH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Gesucht sind alle x mit $x^2 = 49$. Eine Lösung ist 7. Welche Zahl ist die andere?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-7', fehler: [{ wert: '7', fv: FV.QF.NUR-POSITIV }] }
+    weiter: erklaeren-quadrat
+  - id: erklaeren-quadrat
+    typ: erklaeren
+    text:
+      de: '$x^2 = a$ hat für positives a zwei Lösungen: $\sqrt{a}$ und $-\sqrt{a}$. Für $a = 0$ nur 0. Für negatives a keine, denn ein Quadrat ist nie negativ.'
+    weiter: erklaeren-produkt
+  - id: erklaeren-produkt
+    typ: erklaeren
+    text:
+      de: 'Ein [[Produkt]] ist null, wenn ein [[Faktor]] null ist. $(x - 3) \cdot (x + 5) = 0$ heißt $x - 3 = 0$ oder $x + 5 = 0$, also $x = 3$ oder $x = -5$.'
+    weiter: erklaeren-ausklammern
+  - id: erklaeren-ausklammern
+    typ: erklaeren
+    text:
+      de: 'Fehlt die Zahl ohne x, klammere x aus: $x^2 - 6x = x \cdot (x - 6) = 0$. Lösungen: $x = 0$ und $x = 6$. Nicht durch x teilen, sonst geht die 0 verloren.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$(x - 2)^2 = 9$: Die Klammer ist 3 oder $-3$. Also $x = 5$ oder $x = -1$. [[Probe]]: $(5 - 2)^2 = 9$ und $(-1 - 2)^2 = 9$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Für welches x wird der [[Faktor]] $(x + 4)$ null?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-4', fehler: [{ wert: '4', fv: FV.QF.PRODUKT-VORZEICHEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.QF.PRODUKT-VORZEICHEN: erklaeren-produkt }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben teilt $x^2 = 4x$ durch x und erhält $x = 4$. Hat er alle Lösungen?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auch $x = 0$ ist eine Lösung.' }, richtig: true }
+        - { wert: { de: 'Ja, 4 ist die einzige Lösung.' }, fv: FV.QF.DURCH-X }
+    weiter: merksatz
+    bei: { FV.QF.DURCH-X: erklaeren-ausklammern }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$x^2 = a$: zwei, eine oder keine Lösung. [[Produkt]] gleich null: jeden [[Faktor]] null setzen. Fehlt die Zahl ohne x: x [[ausklammern]], nie durch x teilen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Lösungen hat $x^2 = -16$?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Keine' }, richtig: true }
+        - { wert: { de: '4 und $-4$' }, fv: FV.QF.QUADRAT-NEGATIV }
+        - { wert: { de: 'Nur $-4$' }, fv: FV.QF.NUR-POSITIV }
+    weiter: uebergang
+    bei: { FV.QF.QUADRAT-NEGATIV: erklaeren-quadrat, FV.QF.NUR-POSITIV: erklaeren-quadrat }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt löst du selbst Gleichungen ohne [[Formel]].'
+    vorlagen: [M.SF.QF.INHALTLICH.LOESEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

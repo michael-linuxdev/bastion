@@ -1,0 +1,33 @@
+# „Stimmt das? Ist q negativ, gibt es immer zwei Lösungen.“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.FORMEL.AUSSAGE
+kompetenz: M.SF.QF.FORMEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.formel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** {aussage} **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Schreibe die [[Diskriminante]] auf und überlege, wann sie negativ, null oder positiv ist.'
+  - de: 'Ein [[Gegenbeispiel]] widerlegt eine Aussage, die immer gelten soll.'
+fehlerbilder:
+  immer-zwei:
+    de: 'Die [[Formel]] liefert nur dann zwei Lösungen, wenn die [[Diskriminante]] positiv ist.'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+  q-vorzeichen:
+    de: 'Achte auf das Minus: $D = \left(\frac{p}{2}\right)^2 - q$.'
+    fv: FV.QF.DISKRIMINANTE
+  beispiel:
+    de: 'Ein einzelnes Beispiel entscheidet nicht, ob etwas immer gilt.'
+    fv: FV.KR.GEGENBEISPIEL
+  p-entscheidet:
+    de: 'In der [[Diskriminante]] stehen p und q. Beide zählen.'
+    fv: FV.QF.DISKRIMINANTE
+  wurzel-negativ:
+    de: 'Ein Quadrat ist nie negativ. Aus $x^2 = -9$ kann man keine [[Wurzel]] ziehen.'
+    fv: FV.QF.QUADRAT-NEGATIV
+herkunft: ki-entwurf
+version: 1

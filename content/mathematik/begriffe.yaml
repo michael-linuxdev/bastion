@@ -1045,3 +1045,8 @@ begriffe:
     formen: [Definitionsbereich]
     erklaerung:
       de: 'Alle x-Werte, die man in eine Funktion einsetzen darf.'
+  - id: diskriminante
+    wort: { de: Diskriminante }
+    formen: [Diskriminante]
+    erklaerung:
+      de: 'Der Term unter der Wurzel in der Lösungsformel. Ihr Vorzeichen zeigt, ob eine quadratische Gleichung zwei, eine oder keine Lösung hat.'

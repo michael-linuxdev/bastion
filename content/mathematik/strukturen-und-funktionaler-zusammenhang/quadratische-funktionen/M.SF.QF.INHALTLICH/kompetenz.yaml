@@ -1,0 +1,43 @@
+# Quadratische Gleichungen ohne Formel – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.QF.INHALTLICH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: quadratische-funktionen
+titel:
+  de: 'Quadratische Gleichungen ohne Formel'
+kann_satz:
+  de: 'Ich kann einfache quadratische Gleichungen ohne Formel lösen: x² = a, Produktform (x − 3)·(x + 2) = 0 und durch Ausklammern.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Gegenbeispiel, für Niveau E
+  - M.SF.QF.GRAPH
+  - M.SF.TU.AUSMULTIPLIZIEREN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichungen x² = a lösen, mit zwei, einer oder keiner Lösung.'
+  M:
+    beschreibung:
+      de: 'Gleichungen (x − d)² = a, in Produktform und durch Ausklammern lösen.'
+  E:
+    beschreibung:
+      de: 'Aussagen prüfen, zum Beispiel warum aus x² = 9 nicht nur x = 3 folgt oder warum man nicht durch x teilen darf.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Quadratische Funktionen und Gleichungen'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

@@ -1,0 +1,25 @@
+id: FV.QF.FORMEL-VORZEICHEN
+name:
+  de: Übernimmt p in der Lösungsformel ohne das Minus
+art: rechenfehler
+beschreibung:
+  de: >-
+    Löst x² − 2x − 15 = 0 zu x = −5 und x = 3. Das Minus vor p/2 in der Formel wird vergessen; beide Lösungen kommen mit falschem Vorzeichen heraus.
+kompetenzen: [M.SF.QF.FORMEL]
+erklaerung:
+  kurz:
+    de: 'Die [[Formel]] beginnt mit $-\frac{p}{2}$. Bei $p = -2$ ist das $+1$. Also $x = 1 \pm 4$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast $\frac{p}{2}$ statt $-\frac{p}{2}$ genommen.'
+    - teil: warum-nicht
+      de: 'Mach die [[Probe]]: $(-5)^2 - 2 \cdot (-5) - 15 = 20$, nicht 0.'
+    - teil: so-stimmt-es
+      de: 'Schreibe p mit [[Vorzeichen]] auf und setze es in Klammern ein: $-\frac{(-2)}{2} = 1$.'
+gegenbeispiel:
+  de: '[[Probe]] mit $x = 5$: $25 - 10 - 15 = 0$. Also ist 5 eine Lösung, nicht $-5$.'
+rueckweg:
+  vermittlung: M.SF.QF.FORMEL#erklaeren-formel
+kontrast: [M.SF.QF.FORMEL.LOESEN]
+herkunft: ki-entwurf
+version: 1

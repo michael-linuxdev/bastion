@@ -1,0 +1,25 @@
+id: FV.QF.DURCH-X
+name:
+  de: Teilt eine Gleichung durch x und verliert die Lösung 0
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst x² = 5x durch Teilen durch x zu x = 5. Dass Teilen durch x nur für x ≠ 0 erlaubt ist und dabei x = 0 verloren geht, wird übersehen.
+kompetenzen: [M.SF.QF.INHALTLICH]
+erklaerung:
+  kurz:
+    de: 'Durch x darf man nur teilen, wenn x nicht 0 ist. [[Klammere aus]]: $x^2 - 5x = x \cdot (x - 5) = 0$, also $x = 0$ oder $x = 5$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast durch x geteilt, wie durch eine Zahl.'
+    - teil: warum-nicht
+      de: 'Für $x = 0$ wäre das Teilen durch 0. [[Gerade]] diese Lösung fällt dabei weg: $0^2 = 5 \cdot 0$ stimmt.'
+    - teil: so-stimmt-es
+      de: 'Bringe alles auf eine Seite und klammere x aus.'
+gegenbeispiel:
+  de: '[[Probe]] mit $x = 0$: $0^2 = 0$ und $5 \cdot 0 = 0$. Also ist 0 eine Lösung.'
+rueckweg:
+  vermittlung: M.SF.QF.INHALTLICH#erklaeren-ausklammern
+kontrast: [M.SF.QF.INHALTLICH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

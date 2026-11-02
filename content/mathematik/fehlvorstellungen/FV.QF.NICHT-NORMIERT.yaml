@@ -1,0 +1,25 @@
+id: FV.QF.NICHT-NORMIERT
+name:
+  de: Setzt in die Lösungsformel ein, ohne vorher durch a zu teilen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst 2 · x² − 4 · x − 30 = 0 mit p = −4 und q = −30. Dass die Formel nur für x² + p·x + q = 0 gilt, wird übersehen.
+kompetenzen: [M.SF.QF.FORMEL]
+erklaerung:
+  kurz:
+    de: 'Die Lösungsformel braucht 1 vor $x^2$. Teile zuerst: $2x^2 - 4x - 30 = 0$ wird $x^2 - 2x - 15 = 0$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast p und q direkt abgelesen.'
+    - teil: warum-nicht
+      de: 'Mit der 2 vor $x^2$ passen p und q nicht zur [[Formel]]. Die Lösungen werden falsch.'
+    - teil: so-stimmt-es
+      de: 'Teile die ganze [[Gleichung]] durch die Zahl vor $x^2$, dann lies p und q ab.'
+gegenbeispiel:
+  de: '[[Probe]]: $x = 5$ löst $2x^2 - 4x - 30 = 0$, denn $50 - 20 - 30 = 0$.'
+rueckweg:
+  vermittlung: M.SF.QF.FORMEL#erklaeren-formel
+kontrast: [M.SF.QF.FORMEL.LOESEN]
+herkunft: ki-entwurf
+version: 1

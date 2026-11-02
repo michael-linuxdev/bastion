@@ -1,0 +1,25 @@
+id: FV.QF.QUADRAT-NEGATIV
+name:
+  de: Zieht die Wurzel aus einer negativen Zahl
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst x² = −9 zu x = ±3. Das Verfahren „Wurzel ziehen, ± davor“ wird angewendet, ohne zu prüfen, ob die rechte Seite negativ ist.
+kompetenzen: [M.SF.QF.INHALTLICH, M.SF.QF.FORMEL]
+erklaerung:
+  kurz:
+    de: 'Ein Quadrat ist nie negativ: $3^2 = 9$ und $(-3)^2 = 9$. Darum hat $x^2 = -9$ keine Lösung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Wurzel]] gezogen und ± davorgesetzt, ohne auf das Minus rechts zu achten.'
+    - teil: warum-nicht
+      de: 'Jede Zahl mit sich selbst malgenommen ergibt null oder etwas Positives. Keine Zahl kann quadriert $-9$ ergeben.'
+    - teil: so-stimmt-es
+      de: 'Schau vor dem Wurzelziehen auf die rechte Seite: negativ heißt keine Lösung.'
+gegenbeispiel:
+  de: '[[Probe]]: $3^2 = 9$ und $(-3)^2 = 9$, beides nicht $-9$.'
+rueckweg:
+  vermittlung: M.SF.QF.INHALTLICH#erklaeren-quadrat
+kontrast: [M.SF.QF.INHALTLICH.LOESEN, M.SF.QF.INHALTLICH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1
