@@ -1,6 +1,7 @@
 <script lang="ts">
-  // Übersicht der Kompetenzen einer Klassenstufe, nach Bereich und Feld, mit Wahl des Niveaus.
-  import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
+  // Übersicht der Kompetenzen einer Klassenstufe, nach Bereich und Feld. Ohne Niveau: das wählt
+  // die App still je Thema (L-22, src/core/learning/niveau-wahl.ts).
+  import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
@@ -9,13 +10,12 @@
   import KlassenWahl from './KlassenWahl.svelte';
   import Steinkette from './Steinkette.svelte';
   import { BEREICHE } from './reihenfolge';
-  import { sitzt, statusVon } from './stand';
+  import { sitzt, statusGesamt } from './stand';
 
   let {
     kompetenzen,
     vorlagen,
     zustand,
-    niveau = $bindable(),
     klasse = $bindable(5),
     schulart = $bindable(undefined),
     geradeDran = $bindable([]),
@@ -25,7 +25,6 @@
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
-    niveau: Niveau;
     /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
     klasse?: number;
     schulart?: 'oberschule' | 'gymnasium' | undefined;
@@ -38,10 +37,10 @@
 
   // Status zur Anzeige, einmal beim Öffnen berechnet (kein laufender Timer, R2)
   const jetzt = Date.now();
-  const status = (k: Kompetenz) => statusVon(zustand, k.id, niveau, jetzt);
+  const status = (k: Kompetenz) => statusGesamt(zustand, k.id, jetzt);
   // Empfohlen (L-5): alle Voraussetzungen sitzen, die Kompetenz selbst noch nicht – gesperrt wird nichts
   const empfehlungen = $derived(
-    new Set(empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)))),
+    new Set(empfohlen(kompetenzen, (id) => sitzt(statusGesamt(zustand, id, jetzt)))),
   );
   /** Ruhige Entdeckungskarte einmalig pro Sitzung (O83) */
   let entdeckungWeg = $state(false);
@@ -53,36 +52,18 @@
         (k) =>
           k.bereich === bereich &&
           k.klassenstufe_typisch.includes(klasse) &&
-          vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
+          vorlagen.some((v) => v.kompetenz === k.id),
       ),
     })).filter((b) => b.kompetenzen.length > 0),
   );
   const nachId = $derived(new Map(kompetenzen.map((k) => [k.id, k])));
-  const sitztId = (id: string) => sitzt(statusVon(zustand, id, niveau, jetzt));
+  const sitztId = (id: string) => sitzt(statusGesamt(zustand, id, jetzt));
 </script>
 
 <section class="uebersicht register-ort">
   <h2>{t('uebersicht.ueberschrift')}</h2>
   <p class="entwurf">{t('uebersicht.entwurf')}</p>
   <p class="leise">{t('uebersicht.gespeichert')}</p>
-
-  <fieldset class="niveau steine">
-    <legend>{t('niveau.stufe')}</legend>
-    <label class="stein" class:aktiv={niveau === 'G'}>
-      <input type="radio" value="G" bind:group={niveau} />
-      <span class="kette" aria-hidden="true"
-        ><span class="kiesel voll"></span><span class="kiesel"></span></span
-      >
-      <span>{t('niveau.stein-g')}</span>
-    </label>
-    <label class="stein" class:aktiv={niveau === 'M'}>
-      <input type="radio" value="M" bind:group={niveau} />
-      <span class="kette" aria-hidden="true"
-        ><span class="kiesel voll"></span><span class="kiesel voll"></span></span
-      >
-      <span>{t('niveau.stein-m')}</span>
-    </label>
-  </fieldset>
 
   <!-- L18: „Neues Thema“ erst, wenn schon etwas geübt wurde – beim ersten Besuch ist alles neu -->
   {#if empfehlungen.size > 0 && !entdeckungWeg && zustand.staende.size > 0}
@@ -111,9 +92,7 @@
   <KlassenWahl bind:klasse bind:schulart mitSchulart />
 
   <GeradeDran
-    kompetenzen={kompetenzen.filter((k) =>
-      vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
-    )}
+    kompetenzen={kompetenzen.filter((k) => vorlagen.some((v) => v.kompetenz === k.id))}
     {klasse}
     {schulart}
     bind:auswahl={geradeDran}
@@ -176,57 +155,6 @@
     font-size: 1rem;
     border-inline-start: 4px solid var(--farbe-rand);
     padding-inline-start: var(--abstand-m);
-  }
-
-  .niveau {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-s);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    padding: var(--abstand-s);
-  }
-
-  .niveau.steine {
-    gap: var(--abstand-m);
-  }
-
-  .stein {
-    min-block-size: 2.75rem;
-    display: flex;
-    align-items: center;
-    gap: var(--abstand-s);
-    padding-inline: var(--abstand-s);
-    border-radius: var(--radius);
-    cursor: pointer;
-  }
-
-  .stein.aktiv {
-    background: var(--farbe-flaeche-leise);
-  }
-
-  .stein input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .kette {
-    display: inline-flex;
-    gap: 0.25rem;
-  }
-
-  .kiesel {
-    inline-size: 0.85rem;
-    block-size: 0.85rem;
-    border-radius: 50%;
-    background: var(--farbe-flaeche);
-    box-shadow: inset 0 0 0 1.5px var(--farbe-text-leise);
-  }
-
-  .kiesel.voll {
-    background: var(--farbe-akzent);
-    box-shadow: none;
   }
 
   .entdeckung {

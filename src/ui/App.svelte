@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Kompetenz, Niveau } from '../core/competence/kompetenz';
   import { naechsteVorlage, vorlagenFuer } from '../core/learning/uebung';
+  import { niveauFuer } from '../core/learning/niveau-wahl';
   import { istRueckkehr, wiederholRunde } from '../core/srs/rueckkehr';
   import type { Antwort } from '../core/learning/diagnose';
   import {
@@ -56,7 +57,7 @@
   import Sicherung from './sicherung/Sicherung.svelte';
   import type { AufgabeEreignis } from '../core/learning/ereignis';
   import type { BuchungEreignis } from '../core/ledger/buchung';
-  import { sitzt, statusVon } from './ueben/stand';
+  import { sitzt, statusGesamt } from './ueben/stand';
   import { rueckweg } from '../core/learning/empfehlung';
   import Abschluss from './ueben/Abschluss.svelte';
   import AnleitungAnsicht from './ueben/Anleitung.svelte';
@@ -141,7 +142,6 @@
   /** Aufträge der gerade aufgearbeiteten Fehlergruppe. */
   let werkstattListe = $state<readonly Auftrag[]>([]);
   let inhalte = $state<Promise<Inhalte> | undefined>(undefined);
-  let niveau = $state<Niveau>('G');
   let klasse = $state(5);
   /** Freiwillige Schulart (L-9) */
   let schulart = $state<'oberschule' | 'gymnasium' | undefined>(undefined);
@@ -473,7 +473,6 @@
       geladen.kompetenzen,
       geladen.vorlagen,
       geradeDran,
-      niveau,
       klasse,
       zustand,
       Date.now(),
@@ -589,15 +588,28 @@
     ansicht = 'abschluss';
   }
 
+  /**
+   * Niveau der nächsten Aufgabe (L-22): still je Thema aus den bisherigen Aufgaben gewählt,
+   * Lernende sehen es nicht. Nur Niveaus mit Aufgaben kommen in Frage.
+   */
+  const NIVEAUS_ALLE: readonly Niveau[] = ['G', 'M', 'E'];
+
+  function niveauJetzt(geladen: Inhalte, kompetenz: string): Niveau {
+    const verfuegbar = NIVEAUS_ALLE.filter(
+      (n) => vorlagenFuer(geladen.vorlagen, kompetenz, n).length > 0,
+    );
+    return niveauFuer(aufgabenListe, kompetenz, verfuegbar);
+  }
+
   function uebenAuftrag(geladen: Inhalte, k: Kompetenz) {
-    const auswahl = vorlagenFuer(geladen.vorlagen, k.id, niveau);
-    const n = niveau;
     // Jede Nummer bekommt ihren Auftrag genau einmal – auch wenn neu berechnet wird
     // eslint-disable-next-line svelte/prefer-svelte-reactivity -- bewusst nicht reaktiv
     const vergeben = new Map<number, Auftrag | undefined>();
     return (i: number): Auftrag | undefined => {
       if (vergeben.has(i)) return vergeben.get(i);
-      const v = naechsteVorlage(auswahl, i);
+      // Jede Aufgabe neu bewertet: Das Niveau folgt dem Stand nach der letzten Antwort
+      const n = niveauJetzt(geladen, k.id);
+      const v = naechsteVorlage(vorlagenFuer(geladen.vorlagen, k.id, n), i);
       const a =
         kontrastSchlange.shift() ?? (v ? { kompetenz: k, vorlage: v, niveau: n } : undefined);
       vergeben.set(i, a);
@@ -819,7 +831,6 @@
           {zustand}
           aufgaben={aufgabenListe}
           bind:basebau
-          bind:niveau
           bind:klasse
           {selbst}
           onueben={(k) => zumUeben(geladen, k)}
@@ -848,10 +859,7 @@
             ansicht = 'uebersicht';
           }}
           onergebnis={(d) => void ergebnis(d)}
-          onueben={(k) => {
-            niveau = 'G';
-            zumUeben(geladen, k);
-          }}
+          onueben={(k) => zumUeben(geladen, k)}
           onende={() => {
             const lauf = bewaehrung;
             if (lauf) {
@@ -885,10 +893,7 @@
           {geradeDran}
           heute={heuteTag}
           bind:klassenarbeit
-          onueben={(k) => {
-            niveau = 'G';
-            zumUeben(geladen, k);
-          }}
+          onueben={(k) => zumUeben(geladen, k)}
           onprobe={(themen) => {
             diagnoseAntworten = [];
             diagnoseAuswahl = themen;
@@ -973,7 +978,6 @@
         {#key gewaehlt}
           <Uebung
             ueberschrift={gewaehlt.titel.de}
-            stufe={t(niveau === 'G' ? 'niveau.stein-g' : 'niveau.stein-m')}
             auftrag={uebenAuftrag(geladen, gewaehlt)}
             modus="ueben"
             onfertig={() => void fertig()}
@@ -986,7 +990,7 @@
               const ziel = rueckweg(
                 id,
                 geladen.kompetenzen,
-                (x) => sitzt(statusVon(zustand, x, niveau, jetzt)),
+                (x) => sitzt(statusGesamt(zustand, x, jetzt)),
                 fehler,
               );
               return geladen.kompetenzen.find((k) => k.id === ziel);
@@ -1040,7 +1044,6 @@
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}
-          bind:niveau
           bind:klasse
           bind:schulart
           bind:geradeDran

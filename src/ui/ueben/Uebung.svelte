@@ -343,9 +343,8 @@
       <article class="arbeitsblatt aufgabe" class:phase-rueckmeldung={ergebnis !== undefined}>
         <div class="prompt aufgabe-frage" id="aufgabe-frage">
           {#if modus !== 'ueben'}
-            <p class="herkunft">
-              {aufgabe.kompetenz.titel.de} · {t(`niveau.${aufgabe.niveau === 'G' ? 'G' : 'M'}`)}
-            </p>
+            <!-- Ohne Niveau (L-22): Lernende sehen es nicht -->
+            <p class="herkunft">{aufgabe.kompetenz.titel.de}</p>
           {/if}
           <p class="gesucht">{t('uebung.gesucht')}</p>
           <p class="text">
