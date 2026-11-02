@@ -5,7 +5,7 @@
 
 > **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche schließt der Lernkern mit Paket L ab und friert sie danach ein (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls. Funde aus L für die Startseite kommen unten unter „Wünsche aus dem anderen Strang“.
 >
-> **Gemeinsame Entscheidung aus dem Lernkern (PV, 02.11.2026):** KaTeX kommt als neue Abhängigkeit für Formeln ab Klasse 9 (ARCHITEKTUR T-22), nachgeladen mit den Inhalten, nicht in der App-Hülle. Für die Grafik ändert sich nichts. Außerdem darf der Lernkern für Klasse 9–12 neue Aufgabentypen in der Lern-Oberfläche bauen (`SESSION-PROMPT.md` Regel 7, Ausnahme); `src/ui/start/` bleibt unberührt.
+> **Gemeinsame Entscheidung aus dem Lernkern (PV, 02.11.2026):** KaTeX kommt als neue Abhängigkeit für Formeln ab Klasse 9 (ARCHITEKTUR T-22), nachgeladen mit den Inhalten, nicht in der App-Hülle. Ebenso neu: `html2canvas-pro` für „Als PDF speichern“ beim Aufgabenblatt (T-23), nachgeladen nur bei diesem Knopf. Für die Grafik ändert sich nichts. Außerdem darf der Lernkern für Klasse 9–12 neue Aufgabentypen in der Lern-Oberfläche bauen (`SESSION-PROMPT.md` Regel 7, Ausnahme); `src/ui/start/` bleibt unberührt.
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 

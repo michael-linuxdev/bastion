@@ -10,7 +10,11 @@
   import { ladeInhalte } from '../plattform/pakete';
   import { t } from '../texte/texte';
   import Druckblatt from './Druckblatt.svelte';
+  import PdfKnopf from './PdfKnopf.svelte';
   import SafariWeg from './SafariWeg.svelte';
+
+  let blattBereich = $state<HTMLElement>();
+  const blattElement = () => blattBereich?.querySelector<HTMLElement>('[data-druckblatt]');
 
   // Doch in der installierten iPhone-App aufgegangen: dort wirkt Drucken nicht
   const iosApp = (navigator as Navigator & { standalone?: boolean }).standalone === true;
@@ -48,22 +52,30 @@
   {:then blatt}
     {#if blatt}
       {#if iosApp}
+        <PdfKnopf
+          blatt={blattElement}
+          dateiname={`bastion-aufgabenblatt-nr-${blatt.a.nr}.pdf`}
+          haupt
+        />
         <SafariWeg adresse={location.href} />
       {:else}
         <button type="button" class="haupt drucken" onclick={() => window.print()}
           >{t('blatt.drucken')}</button
         >
+        <PdfKnopf blatt={blattElement} dateiname={`bastion-aufgabenblatt-nr-${blatt.a.nr}.pdf`} />
         <p class="leise">{t('blatt.druckseite-hinweis')}</p>
       {/if}
-      <Druckblatt
-        aufgaben={blatt.aufgaben}
-        thema={blatt.thema}
-        niveau={blatt.a.niveau}
-        blattNr={blatt.a.nr}
-        loesungen={blatt.a.loesungen}
-        punkte={blatt.a.punkte}
-        datumText={blatt.datumText}
-      />
+      <div bind:this={blattBereich}>
+        <Druckblatt
+          aufgaben={blatt.aufgaben}
+          thema={blatt.thema}
+          niveau={blatt.a.niveau}
+          blattNr={blatt.a.nr}
+          loesungen={blatt.a.loesungen}
+          punkte={blatt.a.punkte}
+          datumText={blatt.datumText}
+        />
+      </div>
     {:else}
       <p role="alert">{t('blatt.druckseite-fehlt')}</p>
     {/if}

@@ -1890,6 +1890,18 @@ test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = glei
   await expect(page.getByRole('button', { name: 'Drucken / als PDF speichern' })).toBeVisible();
   const erstes = await blatt.locator('[data-aufgabe]').allInnerTexts();
 
+  // Als PDF speichern (T-23): Datei auf dem Gerät erzeugt, A4-Seiten mit Bildern
+  const laden = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Als PDF speichern', exact: true }).click();
+  const download = await laden;
+  expect(download.suggestedFilename()).toBe('bastion-aufgabenblatt-nr-7.pdf');
+  const pdf = Buffer.concat(await (await download.createReadStream()).toArray()).toString('latin1');
+  expect(pdf.startsWith('%PDF-1.4')).toBe(true);
+  // Aufgabenseite und Lösungsseite, je mindestens eine A4-Seite
+  expect(Number(/\/Count (\d+)/.exec(pdf)?.[1])).toBeGreaterThanOrEqual(2);
+  expect(pdf).toContain('/Filter /DCTDecode');
+  await expect(page.getByText('Die PDF-Datei ist heruntergeladen.')).toBeVisible();
+
   // Neues Blatt → andere Aufgaben; zurück zur Nr. 7 → wieder dieselben
   await page.getByRole('button', { name: 'Neues Blatt' }).click();
   await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
@@ -1947,6 +1959,11 @@ test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mi
   await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
   const erstes = await blatt.locator('[data-aufgabe]').allInnerTexts();
   await expect(page.getByRole('button', { name: 'Drucken / als PDF speichern' })).toHaveCount(0);
+  // In der iPhone-App zuerst „Als PDF speichern“ (T-23), darunter der Weg über Safari
+  await expect(page.getByRole('button', { name: 'Als PDF speichern', exact: true })).toHaveClass(
+    /haupt/,
+  );
+  await page.getByText('Oder über Safari drucken:').click();
   // iOS hält Links auf dieselbe Adresse in der App fest: Safari-Link und Link zum Kopieren
   const href = await page.getByLabel('Link zum Blatt').inputValue();
   expect(href).toContain('?blatt=1&');

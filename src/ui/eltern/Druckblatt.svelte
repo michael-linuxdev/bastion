@@ -284,6 +284,20 @@
    * Druck (A4): nur das Blatt, keine App-Leisten. Alles, was das Blatt nicht enthält oder
    * selbst das Blatt ist, wird ausgeblendet; die Vorfahren verlieren Rahmen und Abstände.
    */
+  /* PDF aus der App (T-23): dasselbe Aussehen wie im Druck, in einem Behälter mit 180 mm Breite */
+  :global(.pdf-modus) .druckblatt {
+    gap: 0;
+  }
+  :global(.pdf-modus) .seite {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  :global(.pdf-modus) .aufgaben,
+  :global(.pdf-modus) .liste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   @media print {
     @page {
       size: A4;
