@@ -1,37 +1,32 @@
 // Arbeitsblatt für Lehrkräfte (FOKUS F6, kleiner Vorläufer von U7): neue Aufgaben zu
 // ausgewählten Kompetenzen auf einem Niveau, mit Platz zum Rechnen, dahinter eine Seite mit
 // Lösungen und Lösungsweg. Druck im Browser als PDF, wie beim Prüfbogen.
-// Rein: gleiche Eingabe und gleicher Seed ergeben dasselbe Blatt. Zufall nur über src/core/rng.
-import type { Kompetenz, Niveau } from '../../src/core/competence/kompetenz';
-import type { Generator, Instanz, Loesung } from '../../src/core/learning/generator';
-import { wirksameStufe } from '../../src/core/learning/review';
+// Die Blatt-Logik (Ziehen, Review-Stufe, Punkte) liegt im Kern (src/core/learning/arbeitsblatt.ts)
+// und gilt genauso für das Aufgabenblatt im Elternbereich der App. Hier nur der HTML-Satz.
+import type { Instanz, Loesung } from '../../src/core/learning/generator';
+import {
+  blattStufe,
+  ohneBegriffe,
+  optionsBuchstabe,
+  ziehe,
+  type BlattAufgabe,
+  type BlattEingabe,
+  type BlattOptionen,
+} from '../../src/core/learning/arbeitsblatt';
 import { zahlText } from '../../src/core/learning/text';
-import type { GeneratorVorlage } from '../../src/core/learning/vorlage';
-import { rng } from '../../src/core/rng/rng';
 import { esc } from './html';
 import { GRUND_STIL, loesungText, text } from './satz';
 
-export interface BlattEingabe {
-  /** Kompetenzen in der gewünschten Reihenfolge */
-  readonly kompetenzen: readonly Kompetenz[];
-  readonly vorlagen: readonly GeneratorVorlage[];
-  readonly generatoren: ReadonlyMap<string, Generator<unknown>>;
-}
+export {
+  blattStufe,
+  passendeVorlagen,
+  ziehe,
+  type BlattAufgabe,
+  type BlattEingabe,
+  type BlattOptionen,
+} from '../../src/core/learning/arbeitsblatt';
 
-export interface BlattOptionen {
-  readonly niveau: Niveau;
-  readonly anzahl: number;
-  readonly seed: number;
-}
-
-export interface BlattAufgabe {
-  readonly nr: number;
-  readonly vorlage: GeneratorVorlage;
-  readonly seed: number;
-  readonly instanz: Instanz;
-}
-
-/** Wortlaut der Fußzeile je Review-Stufe (INHALTSFORMAT §8) */
+/** Wortlaut der Fußzeile je Review-Stufe (INHALTSFORMAT §8); die App hat ihn in de.json */
 export const STUFEN_TEXT: Readonly<Record<0 | 1 | 2 | 3, string>> = {
   0: 'Entwurf, nicht fachlich geprüft',
   1: 'Maschinell geprüft, noch nicht fachlich geprüft',
@@ -39,67 +34,7 @@ export const STUFEN_TEXT: Readonly<Record<0 | 1 | 2 | 3, string>> = {
   3: 'Fachlich geprüft und mit Lernenden bewährt',
 };
 
-const OHNE_BEGRIFFE = (s: string) => s.replace(/\[\[([^\]]+)\]\]/g, '$1');
-const blattText = (s: string, i: Instanz) => text(OHNE_BEGRIFFE(s), i.platzhalter);
-
-/** Vorlagen, die Aufgaben auf diesem Niveau erzeugen können, in der Reihenfolge der Kompetenzen. */
-export function passendeVorlagen(e: BlattEingabe, niveau: Niveau): GeneratorVorlage[] {
-  return e.kompetenzen.flatMap((k) =>
-    e.vorlagen.filter(
-      (v) =>
-        v.kompetenz === k.id &&
-        v.niveaus.includes(niveau) &&
-        v.parameter[niveau] !== undefined &&
-        e.generatoren.has(v.generator),
-    ),
-  );
-}
-
-/**
- * Aufgaben ziehen: die Vorlagen der Reihe nach, damit jede gleich oft vorkommt; der Seed je
- * Aufgabe kommt aus dem Blatt-Seed. Doppelte Aufgaben werden neu gezogen. Danach nach Vorlage
- * geordnet, damit Gleichartiges zusammensteht.
- */
-export function ziehe(e: BlattEingabe, o: BlattOptionen): BlattAufgabe[] {
-  const vorlagen = passendeVorlagen(e, o.niveau);
-  const fehlend = e.kompetenzen.filter((k) => !vorlagen.some((v) => v.kompetenz === k.id));
-  if (fehlend.length > 0)
-    throw new Error(
-      `Keine Aufgaben auf Niveau ${o.niveau} für: ${fehlend.map((k) => k.id).join(', ')}`,
-    );
-  const r = rng(o.seed);
-  const gesehen = new Set<string>();
-  const gezogen: Omit<BlattAufgabe, 'nr'>[] = [];
-  for (let i = 0; i < o.anzahl; i++) {
-    const vorlage = vorlagen[i % vorlagen.length] as GeneratorVorlage;
-    const g = e.generatoren.get(vorlage.generator) as Generator<unknown>;
-    let seed = 0;
-    let instanz: Instanz | undefined;
-    for (let versuch = 0; versuch < 20; versuch++) {
-      seed = r.int(1, 0x7fffffff);
-      instanz = g.erzeuge(seed, vorlage.parameter[o.niveau]);
-      const schluessel = `${vorlage.id}|${blattText(vorlage.text.aufgabe.de, instanz)}|${JSON.stringify(instanz.optionen ?? instanz.elemente ?? '')}`;
-      if (!gesehen.has(schluessel)) {
-        gesehen.add(schluessel);
-        break;
-      }
-    }
-    gezogen.push({ vorlage, seed, instanz: instanz as Instanz });
-  }
-  const rang = (v: GeneratorVorlage) => vorlagen.indexOf(v);
-  return gezogen
-    .map((a, i) => ({ a, i }))
-    .sort((x, y) => rang(x.a.vorlage) - rang(y.a.vorlage) || x.i - y.i)
-    .map(({ a }, i) => ({ ...a, nr: i + 1 }));
-}
-
-/** Niedrigste wirksame Review-Stufe der benutzten Vorlagen: Das Blatt ist so gut geprüft wie sein schwächster Teil. */
-export function blattStufe(aufgaben: readonly BlattAufgabe[]): 0 | 1 | 2 | 3 {
-  const stufen = aufgaben.map((a) =>
-    wirksameStufe(a.vorlage as unknown as Record<string, unknown>),
-  );
-  return stufen.length === 0 ? 0 : (Math.min(...stufen) as 0 | 1 | 2 | 3);
-}
+const blattText = (s: string, i: Instanz) => text(ohneBegriffe(s), i.platzhalter);
 
 function loesungHtml(l: Loesung, i: Instanz): string {
   if (l.typ === 'bruch')
@@ -119,7 +54,7 @@ function aufgabeHtml(a: BlattAufgabe): string {
     ? `<div class="optionen">${i.optionen
         .map(
           (o, n) =>
-            `<span class="option"><b>${String.fromCharCode(65 + n)}</b> ${o.text ? esc(o.text.de) : ''}${o.bild ? o.bild.svg : ''}</span>`,
+            `<span class="option"><b>${optionsBuchstabe(n)}</b> ${o.text ? esc(o.text.de) : ''}${o.bild ? o.bild.svg : ''}</span>`,
         )
         .join('')}</div>`
     : '';
@@ -133,7 +68,7 @@ function loesungZeile(a: BlattAufgabe): string {
   const i = a.instanz;
   const weg =
     i.loesungsweg.length > 0
-      ? `<ol class="weg">${i.loesungsweg.map((s) => `<li>${text(OHNE_BEGRIFFE(s.de), i.platzhalter)}</li>`).join('')}</ol>`
+      ? `<ol class="weg">${i.loesungsweg.map((s) => `<li>${text(ohneBegriffe(s.de), i.platzhalter)}</li>`).join('')}</ol>`
       : '';
   return `<div class="loesung"><p><b class="nr">${a.nr}</b> <b>${loesungHtml(i.loesung, i)}</b></p>${weg}</div>`;
 }

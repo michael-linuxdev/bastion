@@ -140,6 +140,10 @@ Ins Repository kommt pro Runde nur eine **Zusammenfassung** in §7 – ohne Numm
 
 Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`, das Werkzeug in `tools/auswertung/`.
 
+### 4.6 Aufgabenblatt für die prüfende Lehrkraft (B2, 02.11.2026)
+
+Als Dankeschön zum Prüfbogen kann die Lehrkraft eigene Blätter drucken: App → Mehr → Für Eltern → „Für Lehrkräfte: Aufgabenblatt drucken“. Themen wählen, Niveau, Anzahl, Blatt-Nr.; „Drucken / als PDF speichern“. Die Fußzeile nennt die Review-Stufe; bei Stufe 0 steht „Entwurf, nicht fachlich geprüft“ darauf. Der Browser-Test „Für Lehrkräfte: Aufgabenblatt …“ prüft Aufgaben, Lösungsseite, gleiche Blatt-Nr. = gleiche Aufgaben und 390 Pixel Breite.
+
 ## 5. Behaltenstest (E2)
 
 Frage: Behalten Jugendliche Bruch-Kompetenzen besser, wenn Bastion sie über Wochen wiederholt, als ohne?
