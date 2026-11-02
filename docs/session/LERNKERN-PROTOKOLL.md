@@ -29,3 +29,4 @@
 | 02.11.2026 | **Rückweg FV.BR.NICHT-VOLLSTAENDIG (PV: jetzt):** ERWEITERN `erklaeren-kuerzen` ergänzt um „Kürze weiter, bis beide keinen gemeinsamen Teiler außer 1 mehr haben: 12/18 = 6/9 = 2/3“ (36 Wörter). `ERWEITERN/vermittlung.yaml` verliert Stufe 1; frische Sitzung für Stufe 1 beider Dateien offen. `pnpm fehlerschueler` bleibt 95 |
 | 02.11.2026 | **Klärung PV G0:** Bilder nur eigener Generator (a); vor U4b alle fünf Themen in Epoche 1, nicht nur `bastion` (`FOKUS.md` „Entscheidungen“) |
 | 02.11.2026 | **L abgenommen (PV):** Lern-Oberfläche (`ueben`, `vermittlung`, `eingabe`, `eltern`, `start`) eingefroren bis zur Auswertung von U4b; nur Fehlerbehebungen (SESSION-PROMPT Regel 7, AGENTS.md) |
+| 02.11.2026 | **K-30 (aus dem Strang Grafik eingetragen):** Klasse 9 bis 12 jetzt komplett bauen, danach gesammelt prüfen; Auftrag unter „Wünsche aus dem anderen Strang“ in `LERNKERN.md` |

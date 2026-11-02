@@ -7,6 +7,8 @@
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 >
+> **Klasse 9 bis 12 (K-30, 02.11.2026):** Der Bau läuft im Strang Lernkern nach `docs/session/KLASSE-9-12.md`.
+>
 > **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern schließt zuerst die Lern-Oberfläche ab (Paket L, vom PV ausgewählte Punkte) und bearbeitet dann F2–F10; eingefroren wird mit der Abnahme von L (Regel 7). U4b erst nach Abnahme von L und G.
 
 Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
@@ -43,7 +45,7 @@ Weiter verbindlich: Design-Regeln R1–R7 (`VISION.md` §9), `CLAUDE.md`.
 
 - Noten gibt es nur auf Wunsch, Standard ist aus (K-26).
 - Der Basebau bleibt als Nebensache (K-27).
-- Erst Klasse 5 bis 8 mit Vermittlung und Fehlerkatalog nachrüsten, dann Klasse 9 bis 12 (K-28).
+- Erst Klasse 5 bis 8 mit Vermittlung und Fehlerkatalog nachrüsten, dann Klasse 9 bis 12 (K-28). *Geändert am 02.11.2026 (K-30):* Klasse 9 bis 12 wird jetzt komplett gebaut, ohne auf Stufe 2 und U4b zu warten; danach wird alles gesammelt geprüft, erst mehrfach durch KI, dann durch einen Menschen.
 - Zwischenschritte werden geprüft wie bei bettermarks: nach einem falschen Ergebnis, mit Schrittfeldern, zwei Versuche je Schritt (K-29, `VERMITTLUNG.md` §3.6).
 - Für die Testphase gibt es ein Testprotokoll: Lernereignisse und Nutzungsprotokoll, nur mit Testcode im Elternbereich, Export als JSON-Datei mit Vorschau (K-14, D-18).
 

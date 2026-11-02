@@ -58,6 +58,8 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
+**Entscheidung des PV (02.11.2026, im Strang Grafik festgehalten): K-30.** Klasse 9 bis 12 jetzt komplett im neuen Format bauen, danach alles gesammelt prüfen, erst mehrfach durch KI, dann durch einen Menschen. Die Sperre aus `LERNKERN.md` 1.6 ist aufgehoben; der Auftrag steht in `LERNKERN.md` unter „Wünsche aus dem anderen Strang“.
+
 **Klärung des PV (02.11.2026, Strang Lernkern), geht allen Runden unten vor:**
 
 - **G0.1 Bildquelle:** bleibt wie in der zweiten Runde: **nur der eigene Generator (a)**, für alles in der Bastion. Kein Kenney-Bausatz (b), kein Weg (c).
@@ -361,7 +363,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 ## Nicht in diesem Auftrag
 
 - Neue Funktionen in Lernpfad, Grafik oder Sound, außer Paket G. Auch in G keine neuen Themen, Epochen, Wesen oder Wetter.
-- Neue Inhalte, Kompetenzen oder Klasse 9 bis 12 (bleibt gesperrt, `LERNKERN.md` 1.6).
+- Neue Inhalte oder Kompetenzen für Klasse 5 bis 8. ~~Klasse 9 bis 12 (bleibt gesperrt, `LERNKERN.md` 1.6)~~ *Aufgehoben am 02.11.2026 (K-30): Klasse 9 bis 12 wird jetzt komplett gebaut, danach gesammelt geprüft.*
 - Review-Stufe 2 setzen ohne menschliche Prüfung.
 - Neue Laufzeitabhängigkeiten; für F2 bis F9 ist keine nötig.
 
