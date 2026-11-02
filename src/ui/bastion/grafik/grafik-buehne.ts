@@ -900,7 +900,11 @@ function wolkenZeichnen(
   lage.addChild(g);
 }
 
-/** Schnee-Dach-Auflage aus Atlas auf Gebäude-Fußpunkt (Winter). */
+/**
+ * Schnee-Auflage aus Atlas auf Gebäude-Fußpunkt (Winter). Seit G3 eine Verwehung an den
+ * Vorderkanten des Fußabdrucks (`auflage/schnee_dach_*`): Die Dächer sind je Stufe
+ * verschieden, der Fuß nicht. Darum genau auf dem Fußpunkt, ohne Versatz.
+ */
 function schneeDachSprite(
   gebaeude: Container,
   pos: Position,
@@ -920,8 +924,7 @@ function schneeDachSprite(
   spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
   spr.width = eintrag.pixel.w / 2;
   spr.height = eintrag.pixel.h / 2;
-  // leicht über dem Gebäude-Fuß, damit die Kappe auf dem Dach sitzt
-  spr.position.set(fuss.x, fuss.y - 8);
+  spr.position.set(fuss.x, fuss.y);
   spr.zIndex = tiefe * 10 + 1;
   gebaeude.addChild(spr);
 }
