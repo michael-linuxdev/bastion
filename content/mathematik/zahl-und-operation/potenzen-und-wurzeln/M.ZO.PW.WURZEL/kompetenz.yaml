@@ -1,0 +1,42 @@
+# Quadrat-, Kubik- und n-te Wurzeln – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PW.WURZEL
+fach: mathematik
+bereich: zahl-und-operation
+feld: potenzen-und-wurzeln
+titel:
+  de: 'Wurzeln ziehen'
+kann_satz:
+  de: 'Ich kann Quadrat-, Kubik- und n-te Wurzeln bestimmen und abschätzen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Gegenbeispiel, für Niveau E
+  - M.ZO.RZ.POTENZEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Quadrat- und Kubikwurzeln aus Quadrat- und Kubikzahlen; abschätzen, zwischen welchen ganzen Zahlen eine Quadratwurzel liegt.'
+  M:
+    beschreibung:
+      de: 'Vierte und fünfte Wurzeln, ungerade Wurzeln aus negativen Zahlen; Kubikwurzeln abschätzen.'
+  E:
+    beschreibung:
+      de: 'Aussagen über Wurzeln prüfen, zum Beispiel √(a + b) = √a + √b oder √(x²) = x, mit Gegenbeispiel.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 2 Pyramide, Kreiskegel, Kugel'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

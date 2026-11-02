@@ -1,0 +1,26 @@
+id: FV.PW.IRRATIONAL-SUMME
+name:
+  de: Meint, mit irrationalen Zahlen bleibe jedes Ergebnis irrational
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält die Summe zweier irrationaler Zahlen immer für irrational. Dass sich irrationale Anteile
+    gegenseitig aufheben können (√2 + (−√2) = 0), wird nicht bedacht.
+kompetenzen: [M.ZO.PW.REELL]
+erklaerung:
+  kurz:
+    de: 'Irrationale Teile können sich aufheben: √2 + (−√2) = 0, und 0 ist rational.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast angenommen: Wenn beide Zahlen irrational sind, ist es das Ergebnis auch.'
+    - teil: warum-nicht
+      de: 'Ein [[Gegenbeispiel]] genügt: √2 und −√2 sind beide irrational. Zusammen ergeben sie 0.'
+    - teil: so-stimmt-es
+      de: 'Bei „immer“ nach einem [[Gegenbeispiel]] suchen. Summen, Differenzen und Produkte irrationaler Zahlen können rational sein: √2 · √2 = 2.'
+gegenbeispiel:
+  de: '(3 + √5) + (3 − √5) = 6.'
+rueckweg:
+  vermittlung: M.ZO.PW.REELL#erklaeren-irrational
+kontrast: [M.ZO.PW.REELL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

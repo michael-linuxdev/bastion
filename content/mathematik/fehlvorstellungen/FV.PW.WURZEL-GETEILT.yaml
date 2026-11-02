@@ -1,0 +1,28 @@
+id: FV.PW.WURZEL-GETEILT
+name:
+  de: Hält die n-te Wurzel für „durch n teilen“
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet ³√27 = 9 oder ⁴√16 = 4. Die kleine Zahl an der Wurzel wird als Teiler gelesen, so wie
+    bei der Quadratwurzel oft „halbieren“ gedacht wird. Dass die Wurzel nach einer Zahl fragt, die
+    mehrfach mit sich selbst malgenommen wird, ist noch nicht verankert.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: '³√27 fragt: Welche Zahl dreimal mit sich selbst malgenommen ergibt 27? Das ist 3, denn 3 · 3 · 3 = 27.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl unter der [[Wurzel]] durch die kleine Zahl an der Wurzel geteilt.'
+    - teil: warum-nicht
+      de: 'Mach die [[Probe]]: 9 · 9 · 9 = 729, nicht 27. Die kleine Zahl sagt nicht „teilen durch“, sondern „so oft malnehmen“.'
+    - teil: so-stimmt-es
+      de: 'Suche die Zahl, die so oft mit sich selbst malgenommen wird, wie die kleine Zahl sagt. Probiere 2, 3, 4 …: 3 · 3 · 3 = 27.'
+gegenbeispiel:
+  de: 'Ein [[Würfel]] mit 27 kleinen Würfeln ist 3 Würfel breit, nicht 9.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#erklaeren-wurzel
+  voraussetzung: M.ZO.RZ.POTENZEN
+kontrast: [M.ZO.PW.WURZEL.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

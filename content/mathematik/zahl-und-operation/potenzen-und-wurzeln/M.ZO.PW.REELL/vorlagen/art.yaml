@@ -1,0 +1,27 @@
+# „Ist √20 rational oder irrational?“ Entwurf: noch nicht geprüft.
+id: M.ZO.PW.REELL.ART
+kompetenz: M.ZO.PW.REELL
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: pw.rational-irrational@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '**Entscheide**: Ist ${zahl}$ rational oder irrational?'
+hilfen:
+  - de: 'Rational heißt: Man kann die Zahl als [[Bruch]] aus [[ganzen Zahlen]] schreiben. Dazu gehören auch alle [[periodisch]]en [[Dezimalzahlen]].'
+  - de: 'Rechne zuerst aus, was geht: √49 ist 7. Eine [[Wurzel]] aus einer Zahl, die keine Quadratzahl ist, ist irrational. [[π]] ist irrational.'
+fehlerbilder:
+  nach-aussehen:
+    de: 'Rechne erst aus und entscheide dann. Die Zahl lässt sich als [[Bruch]] schreiben, also ist sie rational.'
+    fv: FV.PW.NACH-AUSSEHEN
+  anzeige-endlich:
+    de: 'Der Taschenrechner zeigt nur die ersten Stellen. Diese Zahl hat unendlich viele Stellen ohne Periode, sie ist irrational.'
+    fv: FV.PW.ANZEIGE-ENDLICH
+  periodisch-irrational:
+    de: 'Eine [[periodisch]]e [[Dezimalzahl]] ist ein [[Bruch]]: 0,333… = 1/3. Sie ist rational.'
+    fv: FV.PW.PERIODISCH-IRRATIONAL
+herkunft: ki-entwurf
+version: 1

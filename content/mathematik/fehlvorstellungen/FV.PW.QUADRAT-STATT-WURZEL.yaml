@@ -1,0 +1,26 @@
+id: FV.PW.QUADRAT-STATT-WURZEL
+name:
+  de: Nennt beim Abschätzen die Quadratzahlen statt ihrer Wurzeln
+art: lesefehler
+beschreibung:
+  de: >-
+    Antwortet auf „Zwischen welchen ganzen Zahlen liegt √50?“ mit 49 und 64. Der Zwischenschritt
+    (die benachbarten Quadratzahlen) wird für das Ergebnis gehalten.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: '49 und 64 sind der Zwischenschritt. Gefragt ist, wo √50 liegt: zwischen √49 = 7 und √64 = 8.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen genannt, zwischen denen 50 liegt.'
+    - teil: warum-nicht
+      de: 'Gefragt ist nicht, wo 50 liegt, sondern wo √50 liegt. √50 ist ungefähr 7,1 – also nicht zwischen 49 und 64.'
+    - teil: so-stimmt-es
+      de: 'Nach dem Zwischenschritt kommt noch ein Schritt: Ziehe aus beiden Nachbarn die [[Wurzel]]. √49 = 7 und √64 = 8.'
+gegenbeispiel:
+  de: '√50 · √50 = 50. Wäre √50 größer als 49, wäre √50 · √50 viel größer als 50.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#erklaeren-schaetzen
+kontrast: [M.ZO.PW.WURZEL.ZWISCHEN]
+herkunft: ki-entwurf
+version: 1

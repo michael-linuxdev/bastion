@@ -1,0 +1,30 @@
+# „Stimmt das? Die Summe zweier irrationaler Zahlen ist immer irrational.“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.REELL.AUSSAGE
+kompetenz: M.ZO.PW.REELL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pw.reell-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** {aussage} **Wähle** die passende Begründung.'
+hilfen:
+  - de: 'Eine Aussage mit „immer“ widerlegt ein einziges [[Gegenbeispiel]].'
+  - de: 'Denke an √2 und −√2, an den Mittelwert zweier Zahlen und daran, dass der Taschenrechner rundet.'
+fehlerbilder:
+  summe-immer:
+    de: '√2 und −√2 sind beide irrational. Ihre [[Summe]] ist 0, und 0 ist rational.'
+    fv: FV.PW.IRRATIONAL-SUMME
+  anzeige-endlich:
+    de: 'Der Taschenrechner rundet. Dass er nur endlich viele Stellen zeigt, sagt nichts darüber, ob die Zahl rational ist.'
+    fv: FV.PW.ANZEIGE-ENDLICH
+  naechste-zahl:
+    de: 'Zwischen zwei [[rationalen Zahlen]] liegt immer noch eine, zum Beispiel ihr Mittelwert.'
+    fv: FV.PW.NAECHSTE-ZAHL
+  bestaetigendes-beispiel:
+    de: 'Dein Beispiel widerlegt die Aussage nicht. Ein [[Gegenbeispiel]] muss zeigen, dass sie nicht stimmt.'
+    fv: FV.KR.GEGENBEISPIEL
+herkunft: ki-entwurf
+version: 1

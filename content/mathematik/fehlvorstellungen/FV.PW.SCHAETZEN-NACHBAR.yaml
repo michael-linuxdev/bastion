@@ -1,0 +1,26 @@
+id: FV.PW.SCHAETZEN-NACHBAR
+name:
+  de: Wählt beim Abschätzen einer Wurzel die falschen Nachbarn
+art: rechenfehler
+beschreibung:
+  de: >-
+    Sagt, √50 liege zwischen 8 und 9. Die benachbarten Quadratzahlen werden nicht geprüft, oder es
+    wird die Quadratzahl über der Zahl als untere Grenze genommen.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Prüfe beide Grenzen: 8 · 8 = 64 ist schon größer als 50. Also liegt √50 unter 8, nämlich zwischen 7 und 8.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Grenze genommen, die zu groß ist.'
+    - teil: warum-nicht
+      de: 'Für die kleinere Zahl muss gelten: Ihr Quadrat ist kleiner als die Zahl unter der [[Wurzel]]. 8 · 8 = 64 ist aber größer als 50.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Quadratzahlen der Reihe nach auf: 36, 49, 64. 50 liegt zwischen 49 und 64, also √50 zwischen 7 und 8.'
+gegenbeispiel:
+  de: 'Läge √50 zwischen 8 und 9, wäre √50 · √50 mindestens 64.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#erklaeren-schaetzen
+kontrast: [M.ZO.PW.WURZEL.ZWISCHEN]
+herkunft: ki-entwurf
+version: 1

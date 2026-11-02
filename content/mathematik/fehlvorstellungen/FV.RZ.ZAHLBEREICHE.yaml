@@ -7,7 +7,7 @@ beschreibung:
     Hält −3 für keine ganze Zahl, 5 für keine gebrochene Zahl oder −1/2 für eine gebrochene Zahl,
     oder dreht die Teilmengen um. Dass ℕ in ℤ und ℚ steckt und die gebrochenen Zahlen kein Minus
     haben, ist noch nicht verankert.
-kompetenzen: [M.ZO.RZ.ZAHLBEREICHE]
+kompetenzen: [M.ZO.RZ.ZAHLBEREICHE, M.ZO.PW.REELL]
 erklaerung:
   kurz:
     de: 'Natürliche Zahlen sind auch ganze und [[rationale Zahlen]]. Ganze Zahlen haben kein Komma und keinen [[Bruch]], dürfen aber ein Minus haben. Gebrochene Zahlen haben nie ein Minus.'

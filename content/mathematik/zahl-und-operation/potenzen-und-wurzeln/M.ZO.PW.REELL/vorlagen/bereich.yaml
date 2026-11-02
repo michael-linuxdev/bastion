@@ -1,0 +1,24 @@
+# „Welcher ist der kleinste Zahlbereich, zu dem −√9 gehört?“ Entwurf: noch nicht geprüft.
+id: M.ZO.PW.REELL.BEREICH
+kompetenz: M.ZO.PW.REELL
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: pw.zahlbereich@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '**Gib an**, welcher der kleinste Zahlbereich ist, zu dem ${zahl}$ gehört.'
+hilfen:
+  - de: 'Rechne zuerst aus, so weit es geht. Dann frage: natürlich? ganz? [[Bruch]]? Oder nur als unendliche [[Dezimalzahl]] ohne Periode?'
+  - de: 'ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ: Jede [[natürliche Zahl]] ist auch ganz, jede [[ganze Zahl]] auch rational, jede rationale auch reell.'
+fehlerbilder:
+  zu-gross:
+    de: 'Die Zahl liegt auch dort, aber es gibt einen kleineren Zahlbereich. Rechne zuerst aus.'
+    fv: FV.PW.NACH-AUSSEHEN
+  zu-klein:
+    de: 'Dort liegt die Zahl nicht. Achte auf Minus und auf [[Brüche]], die nicht aufgehen.'
+    fv: FV.RZ.ZAHLBEREICHE
+herkunft: ki-entwurf
+version: 1

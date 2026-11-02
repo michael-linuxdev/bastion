@@ -1,0 +1,84 @@
+id: M.ZO.PW.REELL
+kompetenz: M.ZO.PW.REELL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach weißt du, welche Zahlen rational sind und welche nicht, und wie die Zahlbereiche ℕ, ℤ, ℚ und ℝ ineinander stecken.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ist 0,333… ein [[Bruch]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, 0,333… = 1/3.' }, richtig: true }
+        - { wert: { de: 'Nein, sie hört nie auf.' }, fv: FV.PW.PERIODISCH-IRRATIONAL }
+    weiter: entdecken
+    bei: { FV.PW.PERIODISCH-IRRATIONAL: erklaeren-irrational, sonst: M.ZO.BR.PERIODISCH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Der Taschenrechner zeigt √2 = 1,4142136. Rechne 1,4142136 · 1,4142136 im Kopf ungefähr. Kommt genau 2 heraus?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, nur ungefähr 2.' }, richtig: true }
+        - { wert: { de: 'Ja, genau 2.' }, fv: FV.PW.ANZEIGE-ENDLICH }
+    weiter: erklaeren-irrational
+  - id: erklaeren-irrational
+    typ: erklaeren
+    text:
+      de: '√2 lässt sich als [[Dezimalzahl]] nie genau aufschreiben: unendlich viele Stellen, keine Periode. Solche Zahlen heißen irrational. Auch [[π]] ist irrational. Der Taschenrechner zeigt nur gerundete Werte.'
+    weiter: erklaeren-bereiche
+  - id: erklaeren-bereiche
+    typ: erklaeren
+    text:
+      de: 'ℕ: 0, 1, 2 … ℤ: dazu die negativen [[ganzen Zahlen]]. ℚ: alle [[Brüche]]. ℝ: dazu die irrationalen Zahlen. Jeder Bereich steckt im nächsten. Rechne erst aus, dann ordne ein.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '√49 = 7 liegt in ℕ. −√9 = −3 liegt in ℤ. 0,333… = 1/3 liegt in ℚ. √5 liegt nur in ℝ.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welche Zahl steckt hinter √144?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '72', fv: FV.NZ.WURZEL-HALBIERT }] }
+    weiter: gegenbeispiel
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben sagt: Zwei irrationale Zahlen ergeben zusammen immer eine irrationale Zahl. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein: √2 + (−√2) = 0.' }, richtig: true }
+        - { wert: { de: 'Ja, das bleibt irrational.' }, fv: FV.PW.IRRATIONAL-SUMME }
+    weiter: merksatz
+    bei: { FV.PW.IRRATIONAL-SUMME: erklaeren-irrational }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Rational: als [[Bruch]] schreibbar, auch periodische [[Dezimalzahlen]]. Irrational: unendlich viele Stellen ohne Periode, zum Beispiel √2 und [[π]]. ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ist √81 rational oder irrational?'
+    antwort:
+      optionen:
+        - { wert: { de: 'rational, denn √81 = 9' }, richtig: true }
+        - { wert: { de: 'irrational, wegen der Wurzel' }, fv: FV.PW.NACH-AUSSEHEN }
+    weiter: uebergang
+    bei: { FV.PW.NACH-AUSSEHEN: erklaeren-bereiche }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Prima. Jetzt ordnest du selbst Zahlen ein.'
+    vorlagen: [M.ZO.PW.REELL.ART]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

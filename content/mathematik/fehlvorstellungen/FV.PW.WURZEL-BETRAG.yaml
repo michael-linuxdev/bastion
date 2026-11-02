@@ -1,0 +1,26 @@
+id: FV.PW.WURZEL-BETRAG
+name:
+  de: Meint, Wurzel und Quadrat heben sich immer auf
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält √(x²) = x für alle Zahlen x. Dass die Wurzel nie negativ ist und darum für negative x
+    der Betrag herauskommt, ist nicht verankert.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Die [[Wurzel]] ist nie negativ. Für x = −3 ist √((−3)²) = √9 = 3, nicht −3. √(x²) = x gilt nur für x ≥ 0.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast angenommen, dass Quadrieren und Wurzelziehen sich immer gegenseitig aufheben.'
+    - teil: warum-nicht
+      de: 'Beim Quadrieren geht das Minus verloren: (−3)² = 9. Die [[Wurzel]] aus 9 ist 3. Das Minus kommt nicht zurück.'
+    - teil: so-stimmt-es
+      de: 'Für x ≥ 0 gilt √(x²) = x. Für negative x kommt die [[Gegenzahl]] heraus, also immer der [[Betrag]] von x.'
+gegenbeispiel:
+  de: '√((−5)²) = √25 = 5, nicht −5.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#erklaeren-wurzel
+kontrast: [M.ZO.PW.WURZEL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

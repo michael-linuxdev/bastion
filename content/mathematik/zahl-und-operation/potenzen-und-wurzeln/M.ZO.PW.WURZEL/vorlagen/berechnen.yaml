@@ -1,0 +1,28 @@
+# „Berechne ³√27“, „⁴√81“, „³√−8“. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.WURZEL.BERECHNEN
+kompetenz: M.ZO.PW.WURZEL
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pw.wurzel@1
+parameter:
+  G: { exponenten: [2, 3], negativ: false }
+  M: { exponenten: [2, 3, 4, 5], negativ: true }
+text:
+  aufgabe:
+    de: '**Berechne**: ${term}$'
+hilfen:
+  - de: 'Die kleine Zahl an der [[Wurzel]] sagt, wie oft die gesuchte Zahl mit sich selbst malgenommen wird: ³√27 fragt nach x · x · x = 27.'
+  - de: 'Probiere kleine Zahlen: 2 · 2 · 2 = 8, 3 · 3 · 3 = 27.'
+fehlerbilder:
+  halbiert:
+    de: 'Du hast halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst malgenommen {radikand} ergibt.'
+    fv: FV.NZ.WURZEL-HALBIERT
+  durch-n:
+    de: 'Du hast {radikand} durch {n} geteilt. Gesucht ist die Zahl, die {n}-mal mit sich selbst malgenommen {radikand} ergibt.'
+    fv: FV.PW.WURZEL-GETEILT
+  vorzeichen-vergessen:
+    de: 'Mach die [[Probe]] mit deinem Ergebnis: Dreimal eine positive Zahl malgenommen ist positiv. Unter der [[Wurzel]] steht aber eine [[negative Zahl]].'
+    fv: FV.PW.WURZEL-VORZEICHEN
+herkunft: ki-entwurf
+version: 1

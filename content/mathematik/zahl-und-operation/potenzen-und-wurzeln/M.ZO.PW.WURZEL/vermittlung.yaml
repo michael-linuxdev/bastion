@@ -1,0 +1,90 @@
+id: M.ZO.PW.WURZEL
+kompetenz: M.ZO.PW.WURZEL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Kubikwurzeln und andere Wurzeln ziehen, zum Beispiel ³√27, und abschätzen, wie groß eine [[Wurzel]] ungefähr ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist √64?'
+    antwort:
+      optionen:
+        - { wert: { de: '8' }, richtig: true }
+        - { wert: { de: '32' }, fv: FV.NZ.WURZEL-HALBIERT }
+        - { wert: { de: '4' }, fv: FV.PW.WURZEL-GETEILT }
+    weiter: entdecken
+    bei: { FV.PW.WURZEL-GETEILT: erklaeren-wurzel, sonst: M.ZO.RZ.POTENZEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Würfel]] ist aus 27 kleinen Würfeln gebaut. Wie viele kleine Würfel liegen an einer [[Kante]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '9', fv: FV.PW.WURZEL-GETEILT }] }
+    weiter: erklaeren-wurzel
+  - id: erklaeren-wurzel
+    typ: erklaeren
+    text:
+      de: 'Die Zahl an der [[Wurzel]] sagt, wie oft gesucht wird. ³√27 fragt: Welche Zahl dreimal mit sich selbst malgenommen ergibt 27? Antwort: 3. Die Quadratwurzel ist nie negativ.'
+    weiter: erklaeren-ungerade
+  - id: erklaeren-ungerade
+    typ: erklaeren
+    text:
+      de: 'Bei ³√, ⁵√ … geht es auch mit [[negativen Zahlen]]: ³√−8 = −2, denn (−2) · (−2) · (−2) = −8. Aus negativen Zahlen gibt es keine Quadratwurzel.'
+    weiter: erklaeren-schaetzen
+  - id: erklaeren-schaetzen
+    typ: erklaeren
+    text:
+      de: 'Nicht jede [[Wurzel]] geht auf. √50 liegt zwischen √49 = 7 und √64 = 8. Suche die Quadratzahlen links und rechts und ziehe dann aus beiden die Wurzel.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '⁴√81 = 3, denn 3 · 3 · 3 · 3 = 81. ³√125 = 5, denn 5 · 5 · 5 = 125.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne ³√64.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '8', fv: FV.NZ.WURZEL-HALBIERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.WURZEL-HALBIERT: erklaeren-wurzel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia sagt: √(9 + 16) = √9 + √16 = 7. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein: 9 + 16 = 25 und √25 = 5.' }, richtig: true }
+        - { wert: { de: 'Ja, man zieht die Wurzel aus jedem Teil.' }, fv: FV.PW.WURZEL-SUMME }
+    weiter: merksatz
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'ⁿ√a ist die Zahl, die n-mal mit sich selbst malgenommen a ergibt. Quadratwurzeln sind nie negativ. Erst unter der [[Wurzel]] ausrechnen, dann die Wurzel ziehen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Zwischen welchen [[ganzen Zahlen]] liegt √30?'
+    antwort:
+      optionen:
+        - { wert: { de: 'zwischen 5 und 6' }, richtig: true }
+        - { wert: { de: 'zwischen 25 und 36' }, fv: FV.PW.QUADRAT-STATT-WURZEL }
+        - { wert: { de: 'zwischen 15 und 16' }, fv: FV.NZ.WURZEL-HALBIERT }
+    weiter: uebergang
+    bei:
+      { FV.PW.QUADRAT-STATT-WURZEL: erklaeren-schaetzen, FV.NZ.WURZEL-HALBIERT: erklaeren-wurzel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ziehst du selbst Wurzeln.'
+    vorlagen: [M.ZO.PW.WURZEL.BERECHNEN, M.ZO.PW.WURZEL.ZWISCHEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
