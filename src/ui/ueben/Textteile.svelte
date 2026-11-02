@@ -1,9 +1,11 @@
 <script lang="ts">
-  // Setzt gefüllte Vorlagentexte zusammen – nur Textknoten, nie HTML aus Inhalten.
+  // Setzt gefüllte Vorlagentexte zusammen – nur Textknoten, nie HTML aus Inhalten. Ausnahme:
+  // Formeln ab Klasse 9 setzt KaTeX (Formel.svelte, T-22).
   // Fachbegriffe sind antippbar und zeigen ihre Erklärung direkt dahinter (L-7).
   import type { Textteil } from '../../core/learning/text';
   import { t } from '../texte/texte';
   import { begriffeHolen } from './begriffe';
+  import Formel from './Formel.svelte';
 
   let {
     teile,
@@ -46,6 +48,8 @@
     </span>
   {:else if teil.art === 'hoch'}
     <sup>{teil.text}</sup>
+  {:else if teil.art === 'formel'}
+    <Formel tex={teil.tex} />
   {:else}
     <span class="wurzel" aria-label="{t('text.wurzel-aus')} {teil.text}"
       >√<span class="radikand">{teil.text}</span></span

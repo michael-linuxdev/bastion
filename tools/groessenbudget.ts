@@ -1,20 +1,25 @@
 // Prüft das Leistungsbudget aus ARCHITEKTUR §9: App-Hülle + Lernkern
 // höchstens 250 KB JavaScript, die nachgeladenen, aber vorab gespeicherten
-// Aufgaben-Generatoren (T-14) höchstens 400 KB, was nur bei Bedarf geladen wird
+// Aufgaben-Generatoren (T-14) höchstens 400 KB, die ebenso behandelten Werkzeuge KaTeX und
+// html2canvas-pro (T-22, T-23) höchstens 200 KB, was nur bei Bedarf geladen wird
 // (die Grafik der Bastion, PixiJS, tools/nachgeladen.ts) höchstens 300 KB – alles
 // gzip-komprimiert. Läuft nach `pnpm build`.
 // Aufruf: pnpm budget
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { gzipSync } from 'node:zlib';
-import { generatorDateien, nachgeladeneDateien } from './nachgeladen.ts';
+import { generatorDateien, nachgeladeneDateien, werkzeugDateien } from './nachgeladen.ts';
 
 const BUDGET_KB = 250;
 const GRAFIK_BUDGET_KB = 300;
 /** Aufgaben-Generatoren aller Klassen (T-14): nachgeladen, vorab gespeichert */
 const GENERATOR_BUDGET_KB = 400;
+/** KaTeX (T-22) und html2canvas-pro (T-23): nachgeladen, vorab gespeichert */
+const WERKZEUG_BUDGET_KB = 200;
 const nachgeladen = nachgeladeneDateien('dist');
 const generatoren = generatorDateien('dist');
+const werkzeuge = werkzeugDateien('dist');
+const istWerkzeug = (pfad: string) => werkzeuge.has(pfad.replaceAll('\\', '/'));
 const istGrafik = (pfad: string) => nachgeladen.has(pfad.replaceAll('\\', '/'));
 const istGenerator = (pfad: string) => generatoren.has(pfad.replaceAll('\\', '/'));
 const ORDNER = 'dist';
@@ -45,12 +50,17 @@ for (const [name, budget, liste] of [
   [
     'App-Hülle und Lernkern',
     BUDGET_KB,
-    dateien.filter((d) => !istGrafik(d.pfad) && !istGenerator(d.pfad)),
+    dateien.filter((d) => !istGrafik(d.pfad) && !istGenerator(d.pfad) && !istWerkzeug(d.pfad)),
   ],
   [
     'Aufgaben-Generatoren (nachgeladen, vorab gespeichert)',
     GENERATOR_BUDGET_KB,
     dateien.filter((d) => istGenerator(d.pfad)),
+  ],
+  [
+    'Werkzeuge KaTeX und PDF (nachgeladen, vorab gespeichert)',
+    WERKZEUG_BUDGET_KB,
+    dateien.filter((d) => istWerkzeug(d.pfad)),
   ],
   ['Grafik der Bastion (nachgeladen)', GRAFIK_BUDGET_KB, dateien.filter((d) => istGrafik(d.pfad))],
 ] as const) {
