@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 02.11.2026 · **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/session/KLASSE-9-12.md`).** Rückfragen beantwortet; Phase A wartet auf die Lehrplan-PDFs; F3, F7–F10 und Lehrkraft gewinnen ruhen (PV) · Zuvor: Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
+Stand: 02.11.2026 · **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/session/KLASSE-9-12.md`).** Rückfragen beantwortet; **Phase A fertig** (Listen `LEHRPLAN.md` §8e–§8g, 107 Kompetenzen; Bedarfsliste unten; KaTeX gemessen), offen: Wahl der Formeldarstellung durch den PV; F3, F7–F10 und Lehrkraft gewinnen ruhen (PV) · Zuvor: Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
 
 ---
 
@@ -44,6 +44,44 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 3. **Bis zum Test möglich**, auf Wunsch:
    - **(a)** ein zweites Musterfeld, z. B. Dezimalzahlen,
    - ~~**(b)** die 596 vorhandenen Fehlerbilder den Fehlvorstellungen zuordnen~~ – gewählt, läuft als U5a/U5b.
+
+---
+
+## Bedarfsliste Klasse 9 bis 12 (Phase A, 02.11.2026)
+
+Grundlage: die 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g. Frage je Bedarf: Was braucht der Stoff, was gibt es heute, was fehlt? Nach Entscheidung 4 (`KLASSE-9-12.md`) darf das Fehlende gebaut werden, je Typ ein PR. **Die Reihenfolge und die Wahl bei der Formeldarstellung entscheidet der PV (Rückfrage unten).**
+
+| # | Bedarf | Wofür (Beispiele) | Heute | Fehlt | Vorschlag | Bereich |
+|---|---|---|---|---|---|---|
+| B1 | **Formeln im Text** | Wurzel über einem Term √(x + 1), Hochzahl als Bruch x^(2/3), Brüche mit Variablen, lim, ∫ mit Grenzen, Spaltenvektor, Matrix, Binomialkoeffizient, Summenzeichen, Betrag | `text.ts`: Hochzahl, Wurzel vor einer Zahl, Malpunkt, `\frac` mit Zahlen; Unicode (², π, ≤ …) | alles Zweidimensionale außer dem Zahlenbruch | siehe Messung unten; Empfehlung **(c)** | Kern `src/core/learning/text.ts`, Anzeige `src/ui/ueben/Textteile.svelte` |
+| B2 | **Mehrere Zahlfelder in einer Aufgabe** (`felder-eingabe`) | Scheitelpunkt (x, y), zwei Lösungen einer quadratischen Gleichung (Reihenfolge egal) oder „keine Lösung“, Vektor mit 3 Komponenten, Koeffizienten von f′(x) = □·x^□, Gerade, Vierfeldertafel, Baumdiagramm beschriften | `koordinaten-eingabe` (2 Felder), `rest-eingabe` (2 Felder) | beliebig viele benannte Felder, ungeordnet, Knopf „keine Lösung“, Felder in einem Raster oder an Stellen im Bild | **ein** neuer Typ mit Feldliste und Auswertung je Feld; deckt die meisten Fälle ab | Kern (Auswertung, Vorlage), `src/ui/ueben/Eingabe.svelte` |
+| B3 | **Gerundete Ergebnisse** | Trigonometrie, Kugel, Exponentialfunktionen, Wahrscheinlichkeiten: „auf zwei Stellen nach dem Komma“ | Zahl wird wertgleich verglichen; Toleranz nur bei Messwerten im Bild | Antwortregel `runden: 2` oder Toleranz; Hinweis „richtig, aber anders gerundet“ | Feld `antwort.runden` im Kern, eigener Hinweis wie `andere-schreibweise` | Kern `auswertung.ts` |
+| B4 | **Exakte Werte** | √2, π/2, ln 3, e² als Lösung | – | Eingabe exakter Terme | **nicht** als Eingabe; exakte Werte über `auswahl`, sonst gerundet (B3). Tasten √, π, e erst, wenn eine Kompetenz sie wirklich braucht | – |
+| B5 | **Kurven im Koordinatensystem** | Parabeln, Potenz-, Exponential-, Sinus-, Logarithmusfunktion, f und f′, Flächen unter Kurven, Dichte der Normalverteilung | `src/generators/svg.ts`: Koordinatensystem, Linien, Kreise, Vielecke | Kurve aus Stützpunkten, Asymptote gestrichelt, Fläche schraffiert | Bausteine `kurve`, `flaeche` in `svg.ts`; **keine** Änderung der Oberfläche | Generatoren |
+| B6 | **Räumliches Koordinatensystem** | Punkte, Vektoren, Geraden, Ebenen (Spurdreieck), Pyramiden im Raum | Schrägbilder von Körpern in einzelnen Generatoren | Achsen x, y, z im Schrägbild, Punkte mit Koordinaten | Baustein `raum3d` in `svg.ts` (feste Ansicht, kein Drehen) | Generatoren |
+| B7 | **Tabellen in Aufgaben** | Wertetabellen, Verteilungen, kumulierte Binomialtabelle (Teil A ohne Rechner), Stichproben, Häufigkeiten | Tabellen nur als Text oder Bild in einzelnen Generatoren | einheitliche Tabelle mit Beschreibung für die Vorlese-Funktion | Baustein `tabelle` in `svg.ts` mit Textbeschreibung | Generatoren |
+| B8 | **Werkzeuge der Erstvermittlung** | Parameter am Graphen verschieben (Kl. 9–12), Einheitskreis (Kl. 10), Sekante wird Tangente (11/12), Vierfeldertafel ↔ Baum (11/12), Streifen unter der Kurve (Integral) | Bruchstreifen, Zahlenstrahl | die fünf genannten | je Werkzeug ein PR, ohne Ziehen bedienbar (wie U2c); Reihenfolge nach Bau: zuerst Parameter am Graphen | `src/ui/vermittlung/werkzeuge/` |
+| B9 | **Klassen 9–12 und Kurs wählen** | Klassenwahl, „Gerade dran“, Diagnose, Schuljahreswechsel | `KLASSEN = [5, 6, 7, 8]` (`src/ui/ueben/klassen.ts`) | Klassen 9, 10, 11/12; Kurs GK oder LK; Lehrplan-Zuordnung mit Kurs | Feld `sachsen.gymnasium.kurs: [gk, lk]` in `kompetenz.yaml` (INHALTSFORMAT §3), Kurs als freiwillige Einstellung neben der Schulart; LK-Kompetenzen nur bei LK | Kern, `src/ui/ueben/`; **Einstellung, kein Schema der Datenbank** |
+| B10 | **Teil A hilfsmittelfrei** | Abitur Teil A, Realschulabschluss Teil A | Generatoren erzeugen „runde“ Zahlen je nach Vorlage | Kennzeichen „ohne Rechner lösbar“ je Vorlage und Niveau | Feld `hilfsmittelfrei: true` in der Vorlage, Pflicht-Test „Ergebnis ohne Rechner erreichbar“ für diese Vorlagen | Kern, Generatoren |
+| B11 | **Begründen und Nachweisen** | E-Niveaus, Teil A Gruppe 2 | `auswahl`, `ordnen`, `fehler-finden` | – | reicht; offene Beweise bleiben ungeprüft (ehrliche Grenze, LEHRPLAN §5.3) | – |
+| B12 | **Termeingabe mit Umformungsprüfung** (Ableitung, Stammfunktion als Term) | AB, IN | – | Gleichwertigkeit beliebiger Terme prüfen | **nicht bauen**: braucht ein Computeralgebra-System; stattdessen Koeffizienten-Felder (B2) und `auswahl` | – |
+
+**Messung KaTeX (Schritt 2 der Formeldarstellung, 02.11.2026, nur gemessen, nicht eingebaut):** KaTeX 0.16.11, Lizenz MIT. `katex.min.js` 275 KB, **75 KB mit gzip**; CSS 3 KB mit gzip; Schriften 260 KB (20 Dateien woff2). Mit `output: "mathml"` braucht KaTeX weder CSS noch Schriften; der Browser setzt die Formel selbst (MathML Core in Chrome/Edge ab 109, Firefox, Safari). Integral, Spaltenvektor, Binomialkoeffizient, lim und Kubikwurzel gelingen. Zum Vergleich: Die App-Hülle hat ein Budget von 120 KB (ARCHITEKTUR T-14).
+
+Wichtig für die Wahl: Die Generatoren laufen **in der App**. Formeln in Aufgaben entstehen also zur Laufzeit, nicht beim Build. Darum hilft KaTeX nur zur Laufzeit; nur im Build reicht nicht.
+
+| | (a) KaTeX zur Laufzeit | (b) KaTeX nur im Build | (c) eigene Teilmenge, Ausgabe als MathML |
+|---|---|---|---|
+| neue Abhängigkeit | ja (Laufzeit) | ja (nur Werkzeug) | nein |
+| Größe | +75 KB gzip, nachladbar mit den Paketen ab Klasse 9 | 0 in der App | wenige KB |
+| Aufgaben aus Generatoren | ja | **nein** | ja |
+| Sicherheit | Ausgabe ist HTML, braucht `{@html}` – widerspricht „kein HTML aus Inhalten“ | wie (a) für die Texte | Baum aus Textteilen, Svelte baut die Elemente, kein HTML |
+| Vorlese-Funktion | MathML | MathML | MathML |
+| Aufwand | klein | klein, deckt aber nur feste Texte ab | mittel: Parser für die gebrauchte Teilmenge (Wurzel, Bruch mit Termen, Hoch/Tief, lim, ∫, Vektor, Matrix, Binomialkoeffizient, Σ) |
+
+**Empfehlung: (c).** `$…$` bleibt die Schreibweise, alte Texte sehen gleich aus (Test), keine neue Abhängigkeit, kein HTML. Der Browser übernimmt den Satz über MathML, so wie es KaTeX mit `output: "mathml"` auch täte. Wenn der Parser zu groß wird, bleibt (a) als Ausweg.
+
+**Empfohlene Reihenfolge für den Bau** (passt zu Entscheidung 3, Klasse 9 zuerst): B1 (Formeln) und B5 (Kurven) → B2 (mehrere Felder) und B3 (Runden) → B9 (Klasse 9 wählbar) → Inhalte Klasse 9 → B8 Werkzeug „Parameter am Graphen“ → Klasse 10 mit Einheitskreis → B6, B7, B10 und die übrigen Werkzeuge für 11/12.
 
 ---
 
@@ -125,7 +163,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 **Schritte, wenn es drankommt**
 
 1. ~~Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.~~ Erledigt, siehe oben.
-2. Bundle von KaTeX lokal messen, ohne es fest einzubauen. Entscheidungslog nur bei einem Ja.
+2. ~~Bundle von KaTeX lokal messen, ohne es fest einzubauen.~~ *Gemessen am 02.11.2026, Ergebnis in der Bedarfsliste oben (B1).* Entscheidungslog nur bei einem Ja.
 3. Wenn ja: Anzeige hinter derselben `$…$`-Schreibweise, Inhalte nicht umschreiben. Ein Test, dass alte Texte gleich aussehen.
 4. Vorlese-Funktion an einem Bruch, einer Hochzahl und einer Wurzel prüfen.
 

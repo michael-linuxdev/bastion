@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | Klasse 9 bis 12 (K-30, U6, `docs/session/KLASSE-9-12.md`): Phase A, sobald der PV die Lehrplan-PDFs bereitstellt. F3, F7–F10 und Lehrkraft gewinnen ruhen (PV, 02.11.2026) |
+| Nächster Schritt Lernkern | Klasse 9 bis 12 (K-30, U6, `docs/session/KLASSE-9-12.md`): Phase A fertig; PV wählt die Formeldarstellung (Bedarfsliste B1), dann Phase B mit Klasse 9. F3, F7–F10 und Lehrkraft gewinnen ruhen (PV, 02.11.2026) |
 | Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt, G3 für alle fünf Themen in Epoche 1 erledigt (02.11.2026); offen: G6 (2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
@@ -234,7 +234,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Grundformen, Symmetrie, Dreiecke und Vierecke (64 Fehlerbilder, 21 neue Fehlvorstellungen; Stand 492 von 596)
     - [x] Körper, Kreis und Ähnlichkeit in der Geometrie (54 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 546 von 596)
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
-- [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E – *K-30 (02.11.2026): jetzt komplett bauen, danach gesammelt prüfen (`docs/session/KLASSE-9-12.md`). Rückfragen beantwortet (GY und OS, GK/LK gemeinsam mit LK als E, Reihenfolge 9 → 10 → 11/12, neue Typen und Darstellungen erlaubt); Phase A wartet auf die Lehrplan-PDFs*
+- [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E – *K-30 (02.11.2026): jetzt komplett bauen, danach gesammelt prüfen (`docs/session/KLASSE-9-12.md`). Rückfragen beantwortet (GY und OS, GK/LK gemeinsam mit LK als E, Reihenfolge 9 → 10 → 11/12, neue Typen und Darstellungen erlaubt); Phase A fertig (02.11.2026): 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g, Bedarfsliste in `LERNKERN.md`*
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
   - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). ~~Die PDF-Technik für U7 ist damit nicht entschieden.~~ **Vorläufig entschieden (PV, 01.11.2026, ARCHITEKTUR T-21):** PDF über den Druckdialog des Browsers, ohne neue Abhängigkeit. Seit 02.11.2026 auch in der App: Elternbereich → „Für Lehrkräfte: Aufgabenblatt drucken“ (Logik im Kern, `src/core/learning/arbeitsblatt.ts`).
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar

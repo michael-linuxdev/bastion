@@ -4,7 +4,7 @@
 > Strang **Lernkern** (Branch `lernkern/…`, Protokollzeile in `docs/session/LERNKERN-PROTOKOLL.md`). Diese Datei gilt, bis Klasse 9 bis 12 gebaut und die gesammelte KI-Prüfung abgeschlossen ist.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` (vor allem „Wünsche aus dem anderen Strang“), `docs/STRATEGIE.md` K-23, K-25, K-28, K-30, dann `docs/INHALTSFORMAT.md` (ganz), `docs/VERMITTLUNG.md` §2–§3.6, `docs/LEHRPLAN.md` §1–§8d, `docs/PRUEFUNGEN.md`.
 
-Stand: 02.11.2026 · Rückfragen beantwortet (unten „Entscheidungen“) · **Phase A wartet auf die Lehrplan-PDFs** vom PV (Entscheidung 6)
+Stand: 02.11.2026 · Rückfragen beantwortet (unten „Entscheidungen“) · **Phase A fertig:** Listen in `LEHRPLAN.md` §8e (Kl. 9, 30), §8f (Kl. 10, 22), §8g (11/12, 55, davon 7 nur LK), Abgleich mit den Prüfungen §8g.4, Bedarfsliste in `LERNKERN.md` · offen vor Phase B: Wahl der Formeldarstellung (B1) und Reihenfolge der Bausteine durch den PV
 
 ---
 
@@ -51,7 +51,7 @@ Eine Fragerunde mit Empfehlung, Antworten unten unter „Entscheidungen“ festh
 
 ### Phase A – Listen und Bedarf (ein PR)
 
-> *Wartet auf die Lehrplan-PDFs (Entscheidung 6).* Die PDFs nicht ins Repository legen (`docs/quellen/README.md`), sondern in die Sitzung hochladen.
+> *Erledigt am 02.11.2026* mit den PDF-Dateien des PV (Lehrplan GY 2021, Lehrplan OS 2019, Muster LK Teil A, STARK-Leseproben GK, LK, RS). Die PDFs liegen nicht im Repository (`docs/quellen/README.md`).
 
 - Lehrplan Gymnasium Mathematik Sachsen, Klassen 9, 10 und Jahrgangsstufen 11/12 (Fundstellen `docs/quellen/README.md`; die PDF-Dateien liegen nicht im Repository, der PV stellt sie bereit, wenn nötig). Bei Bedarf Lehrplan Oberschule Klasse 9/10.
 - Kompetenzlisten als neue Abschnitte in `LEHRPLAN.md` (Auswahl, Kompetenzen, Graph), wie §8–§8d. Voraussetzungen zeigen auch auf Kompetenzen aus Klasse 5–8.
