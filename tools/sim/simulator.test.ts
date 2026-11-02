@@ -28,14 +28,14 @@ describe('Simulator (T-9)', () => {
   });
 
   // Erwartungen aus BASEBAU §8 (mit B-19) – Schutz vor Rückschritten beim Balancing.
-  it('BASEBAU §8: P1 in 9–12 Monaten, P2 höchstens doppelt so schnell, P3 ≤ 18 Monate, P4 nie', () => {
+  it('BASEBAU §8 (B-31): P1 in 4–8 Monaten, P2 höchstens doppelt so schnell, P3 ≤ 9 Monate, P4 nie', () => {
     const tag = (id: string) => simuliere(profil(id)).epocheTag;
     const p1 = tag('P1');
     expect(p1).toBeDefined();
-    expect((p1 ?? 0) / 30.4).toBeGreaterThanOrEqual(9);
-    expect((p1 ?? 0) / 30.4).toBeLessThanOrEqual(12);
+    expect((p1 ?? 0) / 30.4).toBeGreaterThanOrEqual(4);
+    expect((p1 ?? 0) / 30.4).toBeLessThanOrEqual(8);
     expect(tag('P2') ?? 0).toBeGreaterThanOrEqual((p1 ?? 0) / 2);
-    expect((tag('P3') ?? Infinity) / 30.4).toBeLessThanOrEqual(18);
+    expect((tag('P3') ?? Infinity) / 30.4).toBeLessThanOrEqual(9);
     expect(tag('P4')).toBeUndefined();
   }, 60_000);
 
@@ -45,7 +45,8 @@ describe('Simulator (T-9)', () => {
     const p7 = simuliere(profil('P7')).epocheTag ?? Infinity;
     // drei Wochen Pause kosten höchstens etwa diese drei Wochen und ein paar Tage Anlauf
     expect(p5 - p1).toBeLessThanOrEqual(21 + 21);
-    expect(p1 - p7).toBeLessThanOrEqual(14);
+    // B-31: bei halben Kosten zählt jede Woche mehr; drei Wochen Vorsprung sind die Grenze
+    expect(p1 - p7).toBeLessThanOrEqual(21);
     expect(auswerten(simuliere(profil('P3'))).wochenOhneFortschritt).toBe(0);
   }, 60_000);
 

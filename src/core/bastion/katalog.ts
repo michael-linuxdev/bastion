@@ -73,14 +73,14 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     // Stufe 1 steht von Anfang an (§5.1)
     stufen: [
       { kosten: NICHTS },
-      { kosten: k(250, 80, 2, 10) },
-      { kosten: k(500, 160, 4, 16) },
-      { kosten: k(800, 250, 6, 20), ab: 2 },
-      { kosten: k(1200, 400, 8, 24), ab: 2 },
-      { kosten: k(1600, 500, 10, 28), ab: 3 },
-      { kosten: k(2200, 700, 12, 32), ab: 3 },
-      { kosten: k(3000, 900, 14, 36), ab: 4 },
-      { kosten: k(4000, 1200, 16, 40), ab: 4 },
+      { kosten: k(125, 40, 1, 5) },
+      { kosten: k(250, 80, 2, 8) },
+      { kosten: k(400, 125, 3, 10), ab: 2 },
+      { kosten: k(600, 200, 4, 12), ab: 2 },
+      { kosten: k(800, 250, 5, 14), ab: 3 },
+      { kosten: k(1100, 350, 6, 16), ab: 3 },
+      { kosten: k(1500, 450, 7, 18), ab: 4 },
+      { kosten: k(2000, 600, 8, 20), ab: 4 },
     ],
   },
   werkstatt: {
@@ -89,9 +89,9 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     groesse: [2, 2],
     hoechstens: 1,
     stufen: [
-      { kosten: k(150, 40, 1, 6), braucht: KERN_2 },
-      { kosten: k(300, 80, 2, 10), braucht: KERN_4, ab: 2 },
-      { kosten: k(450, 120, 3, 12), braucht: KERN_6, ab: 3 },
+      { kosten: k(75, 20, 1, 3), braucht: KERN_2 },
+      { kosten: k(150, 40, 1, 5), braucht: KERN_4, ab: 2 },
+      { kosten: k(225, 60, 2, 6), braucht: KERN_6, ab: 3 },
     ],
   },
   wissen: {
@@ -100,11 +100,11 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     groesse: [2, 2],
     hoechstens: 1,
     stufen: [
-      { kosten: k(100, 30, 1, 6) },
-      { kosten: k(200, 60, 2, 10), braucht: KERN_2 },
-      { kosten: k(350, 100, 3, 12), braucht: KERN_4, ab: 2 },
-      { kosten: k(500, 150, 4, 14), braucht: KERN_6, ab: 3 },
-      { kosten: k(700, 200, 5, 16), braucht: KERN_8, ab: 4 },
+      { kosten: k(50, 15, 1, 3) },
+      { kosten: k(100, 30, 1, 5), braucht: KERN_2 },
+      { kosten: k(175, 50, 2, 6), braucht: KERN_4, ab: 2 },
+      { kosten: k(250, 75, 2, 7), braucht: KERN_6, ab: 3 },
+      { kosten: k(350, 100, 3, 8), braucht: KERN_8, ab: 4 },
     ],
   },
   turm: {
@@ -114,11 +114,11 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     // Höchstzahl je Epoche: 2 / 4 / 6 / 8 – siehe hoechstensFuer
     hoechstens: 8,
     stufen: [
-      { kosten: k(100, 30, 1, 6) },
-      { kosten: k(200, 60, 2, 10), braucht: KERN_2 },
-      { kosten: k(350, 100, 2, 12), braucht: KERN_4, ab: 2 },
-      { kosten: k(500, 150, 3, 14), braucht: KERN_6, ab: 3 },
-      { kosten: k(700, 200, 4, 16), braucht: KERN_8, ab: 4 },
+      { kosten: k(50, 15, 1, 3) },
+      { kosten: k(100, 30, 1, 5), braucht: KERN_2 },
+      { kosten: k(175, 50, 1, 6), braucht: KERN_4, ab: 2 },
+      { kosten: k(250, 75, 2, 7), braucht: KERN_6, ab: 3 },
+      { kosten: k(350, 100, 2, 8), braucht: KERN_8, ab: 4 },
     ],
   },
   eingang: {
@@ -126,7 +126,7 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
     familie: 'verteidigung',
     groesse: [1, 1],
     hoechstens: 1,
-    stufen: [{ kosten: k(80, 20, 1, 5) }, { kosten: k(200, 60, 2, 8), braucht: KERN_4, ab: 2 }],
+    stufen: [{ kosten: k(40, 10, 1, 3) }, { kosten: k(100, 30, 1, 4), braucht: KERN_4, ab: 2 }],
   },
   einfassung: {
     typ: 'einfassung',

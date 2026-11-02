@@ -20,7 +20,7 @@ export interface Epochenstand {
   readonly nameKey: string;
   /** Aktuelles Epochenziel erreicht – nächste Epoche ist offen bzw. alles fertig */
   readonly geschafft: boolean;
-  /** Epoche 4 vollständig (Kern 9 und 120 Baupläne) */
+  /** Epoche 4 vollständig (Kern 9 und 60 Baupläne, B-31) */
   readonly fertig: boolean;
   readonly bauplatz: { readonly breite: number; readonly tiefe: number };
 }

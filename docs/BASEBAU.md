@@ -174,6 +174,8 @@ Die erste Lerneinheit liefert genug für ein Banner, das sofort steht. *Warum:* 
 
 ### 5.2 Gebäude und Kosten
 
+> **Seit B-31 (02.11.2026):** Die Kosten der Stufen in dieser Tabelle und in §5.5 sind halbiert (Können und Bauschritte aufgerundet), die Bauplan-Schwellen in §5.4/§5.5 ebenso (8/20/40/60). Maßgeblich sind die Werte in `src/core/bastion/katalog.ts` und `epochen.ts`; die Tabellen zeigen die Startwerte vom 28./31.10.2026.
+
 | Gebäude | Stufe | Stein | Erz | Baupläne | Bauschritte | Voraussetzung |
 |---|---|---|---|---|---|---|
 | Bergfried | 2 | 250 | 80 | 2 | 10 | – |
@@ -387,6 +389,22 @@ Jahr 1 bei P1: rund 3 100 Fleiß, 880 Behalten, 22 Können, 210 Schritte – nah
 
 Alle Erwartungen aus §8 sind damit erfüllt und werden in `tools/sim/simulator.test.ts` bei jedem Testlauf geprüft. *Ohne* Einlagern erreichte P2 die Epoche nicht: Der Platz war zerstückelt voll – B-21 ist also nötig, nicht nur bequem.
 
+### 8b. Simulator vorher/nachher B-31 (02.11.2026, doppeltes Tempo)
+
+Epoche 1 geschafft nach … Monaten (`pnpm sim`, 730 Tage):
+
+| Profil | vorher | nachher |
+|---|---|---|
+| P1 regelmäßig | 9.8 | 6.6 |
+| P2 eifrig | 8.3 | 6.0 |
+| P3 Wochenende | 10.5 | 6.6 |
+| P4 Farmer | – | – |
+| P5 Pause | 11.1 | 5.7 |
+| P6 schwach | 12.8 | 5.1 |
+| P7 Prüfungsphase | 9.7 | 6.1 |
+
+Epoche 1 wird für regelmäßig Lernende etwa 1,5-mal so schnell erreicht, nicht doppelt: Die 8 Baupläne hängen am Festigen (Wiederholungen über Wochen), das bleibt gleich schnell. Auffällig: P5 und P6 sind jetzt etwas schneller als P1. Grund im Simulator: Wer weniger Fleiß sammelt, baut weniger Zierde und Einfassung, die ebenfalls Bauschritte brauchen; der Weg zum Bergfried bekommt die Schritte früher. In der App entscheidet das Kind selbst, was es baut. Kein Handlungsbedarf, aber beim Test U4b beobachten. Für Epochen 2–4 (Simulator rechnet sie noch nicht) überschlagen: bis Bergfried 9 bei P1 etwa 2½–3 statt 5½ Jahre (Baupläne 60 statt 120 bei etwa 22 je Jahr).
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:
@@ -432,6 +450,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-28 | **Lebendige Grafik + Epochen 2–4 + Belagerung freigegeben** (hebt die Sperre aus K-18/PLAN §2.1 für diesen Nebenstrang auf). Stil: Sprite-Atlas, Politur über Dorfkrieg, CoC-Lesbarkeit ohne Militär; Wesen; Jahreszeit aus Datum; Abend nach Sonne; Open-Meteo jetzt (T-15); Schalter „ruhig“ und „leicht“; Sound optional Standard aus; Hinterhof in der Szene; MiniBastion = Atmosphäre-Standbild. Lern-UI ohne Ablenkung. Details `GRAFIK.md` §4–§10, Sprites `GRAFIK-SPRITES.md`, Epochen/Belagerung §5.5–§5.7. Lernkern bleibt vorrangig (K-27) | Entschieden (31.10.2026, Projektverantwortlicher) |
 | B-29 | **Bau-Regel darf für Paket G einfacher werden** (`FOKUS.md` G0.2). Zulässig sind Änderungen an Kosten, Bauschritten und am Ablauf Planen/Bauen in `src/core/bastion/` und `src/core/ledger/`. Jede Änderung kommt als eigener PR mit `pnpm sim` vorher und nachher, einem Eintrag hier und der Zustimmung des PV im PR. Schemaänderungen nur nach Rückfrage und mit Migrationstest. R1–R7 bleiben unberührt | Entschieden (01.11.2026, Projektverantwortlicher) |
 | B-30 | **Planen und Bauen werden nicht zusammengelegt** (Vorschlag aus G5, `GRAFIK.md` §11.7). `pnpm sim` zeigte für Wochenend-Lernende (P3) Epoche 1 nach 19,7 statt 10,5 Monaten oder 29 statt 77 Gebäude im Jahr 1. Die Bau-Regel im Kern bleibt; das Warten macht G4 sichtbar (Gerüst in Abschnitten). Neubauten schlägt die Oberfläche neben dem Bergfried vor (`vorgeschlagenerPlatz`), ohne Kernänderung | Entschieden (01.11.2026 abends, Projektverantwortlicher) |
+| B-31 | **Doppeltes Tempo für alle Stufen** (Wunsch PV, 02.11.2026: „Die Stufen sollen doppelt so schnell erreicht werden“, für alle Epochen). Alle Kosten der Stufen-Gebäude (Bergfried, Studierstube, Späherturm, Werkstatt, Tor) halbiert: Fleiß und Behalten genau, Können und Bauschritte aufgerundet (mindestens 1). Bauplan-Schwellen der Epochenwechsel 15/40/80/120 → **8/20/40/60**. Einfassung und Zierde bleiben (keine Stufen; Banner 10 Fleiß bleibt der Erfolg der ersten Einheit, §5.1). Einnahmen unverändert. `pnpm sim` vorher/nachher in §8a. Gesamtdauer bis Bergfried 9 bei P1 von etwa 5½ auf etwa 2½–3 Jahre | Entschieden (02.11.2026, Projektverantwortlicher) |
 | B-32 | **Beim Epochenwechsel rückt alles Gebaute zur Mitte** (§5.5, bisher nicht umgesetzt; Fund aus der echten App: in Epoche 4 stand alles in der hinteren Ecke). Umsetzung nur in der Projektion `bastionAus`: Sobald Bergfried und erworbene Baupläne die nächste Epoche freischalten, verschiebt sie alle Bauwerke und Vorhaben um die Hälfte des Zuwachses (je Wechsel 2 Felder). Ereignisse danach tragen schon Lagen im größeren Platz. Keine Schemaänderung, keine Migration; gespeicherte Bastionen in Epoche 2+ (bisher nur Proben) liegen danach anders | Entschieden (02.11.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)

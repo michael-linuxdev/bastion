@@ -20,7 +20,7 @@ const bau = (typ: GebaeudeTyp, stufe = 1, id: string = typ): Bauwerk => ({
 });
 
 describe('Katalog Epoche 1 (BASEBAU §5.2)', () => {
-  it('Summe ohne Zierde: 2 000 Stein, 570 Erz, 17 Baupläne, etwa 100 Bauschritte', () => {
+  it('Summe ohne Zierde (B-31): 1 000 Stein, 285 Erz, 11 Baupläne, etwa 50 Bauschritte', () => {
     const summe = { fleiss: 0, behalten: 0, koennen: 0, schritt: 0 };
     for (const g of Object.values(KATALOG)) {
       if (g.familie === 'zierde') continue;
@@ -33,8 +33,9 @@ describe('Katalog Epoche 1 (BASEBAU §5.2)', () => {
           summe[r] += s.kosten[r] * stueck;
       }
     }
-    // §5.2 mit 36 statt 8 Einfassungs-Stücken (B-22): 2 000 + 28 · 15 Fleiß, 93 + 28 Bauschritte
-    expect(summe).toEqual({ fleiss: 2420, behalten: 570, koennen: 17, schritt: 121 });
+    // §5.2 halbiert (B-31: Können und Bauschritte aufgerundet), 36 Einfassungs-Stücke (B-22):
+    // 1 000 + 36 · 15 Fleiß; Einfassung und Zierde unverändert
+    expect(summe).toEqual({ fleiss: 1480, behalten: 285, koennen: 11, schritt: 79 });
   });
 
   it('die erste Lerneinheit reicht für ein Banner (§5.1)', () => {

@@ -9,10 +9,10 @@ export type Epoche = (typeof EPOCHEN)[number];
 export const EPOCHE_ZIEL: Readonly<
   Record<Epoche, { readonly kern: number; readonly bauplaene: number; readonly nameKey: string }>
 > = {
-  1: { kern: 3, bauplaene: 15, nameKey: 'epoche' }, // Außenposten → Burg
-  2: { kern: 5, bauplaene: 40, nameKey: 'epoche-2' },
-  3: { kern: 7, bauplaene: 80, nameKey: 'epoche-3' },
-  4: { kern: 9, bauplaene: 120, nameKey: 'epoche-4' },
+  1: { kern: 3, bauplaene: 8, nameKey: 'epoche' }, // Außenposten → Burg
+  2: { kern: 5, bauplaene: 20, nameKey: 'epoche-2' },
+  3: { kern: 7, bauplaene: 40, nameKey: 'epoche-3' },
+  4: { kern: 9, bauplaene: 60, nameKey: 'epoche-4' },
 };
 
 export const BAUPLATZ_NACH_EPOCHE: Readonly<

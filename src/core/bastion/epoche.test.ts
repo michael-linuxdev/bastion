@@ -18,7 +18,7 @@ const konto = (erworben: number, ausgegeben = 0) =>
   ].reduce(verbuche, leeresKonto('P'));
 
 describe('Epochenstand (§5.4–§5.5)', () => {
-  it('Epoche 1: Bergfried 3 und 15 Baupläne schalten Epoche 2 frei', () => {
+  it('Epoche 1: Bergfried 3 und 8 Baupläne (B-31) schalten Epoche 2 frei', () => {
     expect(epochenstand(bastion(1), konto(0))).toMatchObject({
       epoche: 1,
       kern: 1,
@@ -27,12 +27,12 @@ describe('Epochenstand (§5.4–§5.5)', () => {
       fertig: false,
       bauplatz: { breite: 12, tiefe: 12 },
     });
-    expect(epochenstand(bastion(3), konto(14)).epoche).toBe(1);
+    expect(epochenstand(bastion(3), konto(7)).epoche).toBe(1);
     expect(epochenstand(bastion(2), konto(20)).epoche).toBe(1);
-    const e2 = epochenstand(bastion(3), konto(15));
+    const e2 = epochenstand(bastion(3), konto(8));
     expect(e2.epoche).toBe(2);
     expect(e2.bauplatz).toEqual({ breite: 16, tiefe: 16 });
-    expect(e2.ziel).toEqual({ kern: 5, bauplaene: 40 });
+    expect(e2.ziel).toEqual({ kern: 5, bauplaene: 20 });
     expect(e2.nameKey).toBe('epoche-2');
   });
 
