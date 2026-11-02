@@ -1,0 +1,28 @@
+# „Zwischen welchen ganzen Zahlen liegt √50?“ – zwei Felder. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.WURZEL.ZWISCHEN
+kompetenz: M.ZO.PW.WURZEL
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: pw.wurzel-zwischen@1
+parameter:
+  G: { n: 2, max: 150 }
+  M: { n: 3, max: 500 }
+text:
+  aufgabe:
+    de: '**Gib an**, zwischen welchen zwei aufeinanderfolgenden [[ganzen Zahlen]] ${term}$ liegt.'
+hilfen:
+  - de: 'Suche die nächste kleinere und die nächste größere Quadratzahl bzw. Kubikzahl.'
+  - de: 'Beispiel: 49 < 50 < 64, also liegt √50 zwischen √49 = 7 und √64 = 8.'
+fehlerbilder:
+  halbiert:
+    de: 'Du hast {radikand} halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst malgenommen {radikand} ergibt.'
+    fv: FV.NZ.WURZEL-HALBIERT
+  potenzen-statt-wurzeln:
+    de: 'Das sind die Zahlen links und rechts von {radikand}. Gefragt sind aber ihre Wurzeln.'
+    fv: FV.PW.QUADRAT-STATT-WURZEL
+  eins-zu-gross:
+    de: 'Rechne nach: Deine kleinere Zahl hoch drei bzw. zum Quadrat ist schon größer als {radikand}.'
+    fv: FV.PW.SCHAETZEN-NACHBAR
+herkunft: ki-entwurf
+version: 1

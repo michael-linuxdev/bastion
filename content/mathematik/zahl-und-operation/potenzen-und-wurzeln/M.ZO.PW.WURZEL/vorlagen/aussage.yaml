@@ -1,0 +1,39 @@
+# „Stimmt das immer? √(a + b) = √a + √b“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.WURZEL.AUSSAGE
+kompetenz: M.ZO.PW.WURZEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pw.wurzel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das immer?** ${aussage}$ **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Eine Aussage, die „immer“ gelten soll, widerlegt ein einziges [[Gegenbeispiel]].'
+  - de: 'Probiere Zahlen aus, bei denen man die [[Wurzel]] leicht ziehen kann: 9, 16, 25 – und [[negative Zahlen]] oder Zahlen zwischen 0 und 1.'
+fehlerbilder:
+  summe-auseinander:
+    de: 'Probiere es aus: √(9 + 16) = √25 = 5, aber √9 + √16 = 3 + 4 = 7.'
+    fv: FV.PW.WURZEL-SUMME
+  nur-positiv:
+    de: 'Auch für positive Zahlen stimmt es nicht: √(9 + 16) = 5, aber √9 + √16 = 7.'
+    fv: FV.PW.WURZEL-SUMME
+  betrag-vergessen:
+    de: 'Probiere x = −3: (−3)² = 9 und √9 = 3, nicht −3. Die [[Wurzel]] ist nie negativ.'
+    fv: FV.PW.WURZEL-BETRAG
+  vorzeichen-verdreht:
+    de: 'Für x = 3 stimmt es: √9 = 3. Für x = −3 nicht: √9 = 3, nicht −3.'
+    fv: FV.PW.WURZEL-BETRAG
+  macht-kleiner:
+    de: 'Probiere eine Zahl zwischen 0 und 1: √0,25 = 0,5, und 0,5 ist größer als 0,25.'
+    fv: FV.PW.WURZEL-KLEINER
+  nur-ganze:
+    de: 'x > 0 heißt nicht nur [[ganze Zahlen]]. Für x = 0,25 ist √x = 0,5 größer als x.'
+    fv: FV.PW.WURZEL-KLEINER
+  bestaetigendes-beispiel:
+    de: 'Für dein Beispiel stimmt die Aussage. Ein [[Gegenbeispiel]] muss zeigen, dass sie nicht stimmt.'
+    fv: FV.KR.GEGENBEISPIEL
+herkunft: ki-entwurf
+version: 1

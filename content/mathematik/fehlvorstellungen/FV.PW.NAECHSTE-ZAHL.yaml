@@ -1,0 +1,26 @@
+id: FV.PW.NAECHSTE-ZAHL
+name:
+  de: Meint, rationale Zahlen hätten einen direkten Nachbarn
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint, zwischen 0,1 und 0,2 liege keine Zahl, weil das bei 1 und 2 so ist. Die Vorstellung vom
+    Nachfolger bei natürlichen Zahlen wird auf Brüche und Dezimalzahlen übertragen.
+kompetenzen: [M.ZO.PW.REELL]
+erklaerung:
+  kurz:
+    de: 'Zwischen zwei verschiedenen Brüchen liegt immer noch einer, zum Beispiel ihr Mittelwert: Zwischen 0,1 und 0,2 liegt 0,15.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast an natürliche Zahlen gedacht: Zwischen 1 und 2 liegt keine [[natürliche Zahl]].'
+    - teil: warum-nicht
+      de: 'Bei [[Dezimalzahlen]] kann man immer eine Stelle anhängen: 0,15 liegt zwischen 0,1 und 0,2, 0,125 zwischen 0,1 und 0,15 – ohne Ende.'
+    - teil: so-stimmt-es
+      de: 'Nimm den Mittelwert der beiden Zahlen. Er liegt genau dazwischen und ist wieder rational.'
+gegenbeispiel:
+  de: '(0,1 + 0,2) : 2 = 0,15.'
+rueckweg:
+  vermittlung: M.ZO.PW.REELL#erklaeren-bereiche
+kontrast: [M.ZO.PW.REELL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+id: FV.PW.WURZEL-VORZEICHEN
+name:
+  de: Lässt das Minus bei ungeraden Wurzeln weg
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet ³√−8 = 2 oder hält ³√−8 für unmöglich. Die Regel „aus negativen Zahlen gibt es keine
+    Wurzel“ von der Quadratwurzel wird auf alle Wurzeln übertragen.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Bei ungeraden Wurzeln bleibt das Minus: ³√−8 = −2, denn (−2) · (−2) · (−2) = −8.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Wurzel]] aus der Zahl ohne Minus gezogen.'
+    - teil: warum-nicht
+      de: 'Mach die [[Probe]]: 2 · 2 · 2 = 8, nicht −8. Ein [[Produkt]] aus drei positiven Zahlen ist nie negativ.'
+    - teil: so-stimmt-es
+      de: 'Dreimal eine [[negative Zahl]] malgenommen ist negativ. Darum ist ³√−8 = −2. Nur bei Quadratwurzeln gibt es aus negativen Zahlen keine [[Wurzel]].'
+gegenbeispiel:
+  de: '2 · 2 · 2 = 8. Für −8 braucht man (−2) · (−2) · (−2).'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#erklaeren-ungerade
+  voraussetzung: M.ZO.RZ.POTENZEN
+kontrast: [M.ZO.PW.WURZEL.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

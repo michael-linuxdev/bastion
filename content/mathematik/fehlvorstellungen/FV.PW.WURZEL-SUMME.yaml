@@ -1,0 +1,26 @@
+id: FV.PW.WURZEL-SUMME
+name:
+  de: Zieht die Wurzel aus einer Summe gliedweise
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält √(a + b) = √a + √b für richtig. Das Muster vom Ausmultiplizieren oder von √(a · b) = √a · √b
+    wird auf Summen übertragen.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Aus einer [[Summe]] darf man die [[Wurzel]] nicht gliedweise ziehen: √(9 + 16) = √25 = 5, aber √9 + √16 = 7.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast angenommen, dass man die [[Wurzel]] auf jeden Summanden einzeln ziehen darf.'
+    - teil: warum-nicht
+      de: 'Ein Beispiel genügt: √(9 + 16) = √25 = 5. Gliedweise kommt 3 + 4 = 7 heraus. 5 ist nicht 7.'
+    - teil: so-stimmt-es
+      de: 'Rechne zuerst die [[Summe]] unter der [[Wurzel]] aus, dann ziehe die Wurzel. Nur bei Produkten darf man aufteilen: √(9 · 16) = 3 · 4 = 12.'
+gegenbeispiel:
+  de: 'Ein Rechteck 3 m mal 4 m hat eine [[Diagonale]] von 5 m, nicht 7 m.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#merksatz
+kontrast: [M.ZO.PW.WURZEL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

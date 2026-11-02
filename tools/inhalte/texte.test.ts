@@ -17,7 +17,8 @@ describe('Texte aller Vorlagen', () => {
           if (!i) continue;
           const texte = [v.text.aufgabe, ...v.hilfen, ...Object.values(v.fehlerbilder)];
           for (const t of texte) {
-            const fertig = alsText(fuelle(t.de, i.platzhalter));
+            // Formeln für KaTeX (T-22) bleiben LaTeX; ob sie setzbar sind, prüft darstellung.test.ts
+            const fertig = alsText(fuelle(t.de, i.platzhalter).filter((x) => x.art !== 'formel'));
             expect(fertig, `${niveau} ${seed}: ${t.de}`).not.toMatch(/[{}$]|\*\*/);
           }
         }

@@ -1,0 +1,26 @@
+id: FV.PW.NACH-AUSSEHEN
+name:
+  de: Ordnet Zahlen nach dem Aussehen statt nach dem Wert ein
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält √49 für irrational, weil ein Wurzelzeichen davorsteht, oder 12/4 nur für rational, weil
+    es ein Bruch ist. Die Schreibweise wird mit der Zahl verwechselt; ausgerechnet wird nicht.
+kompetenzen: [M.ZO.PW.REELL]
+erklaerung:
+  kurz:
+    de: 'Rechne erst aus, dann ordne ein. √49 = 7 ist eine [[natürliche Zahl]], 12/4 = 3 auch – egal, wie sie geschrieben sind.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach der Schreibweise entschieden: Wurzelzeichen heißt irrational, Bruchstrich heißt [[Bruch]].'
+    - teil: warum-nicht
+      de: 'Dieselbe Zahl hat viele Schreibweisen: 7 = √49 = 14/2 = 7,0. Der Zahlbereich hängt vom Wert ab, nicht von der Schreibweise.'
+    - teil: so-stimmt-es
+      de: 'Rechne so weit wie möglich aus. Dann frage der Reihe nach: natürlich? ganz? [[Bruch]]? Erst wenn nichts davon passt, ist die Zahl irrational.'
+gegenbeispiel:
+  de: '√49 und 7 sind dieselbe Zahl. Sie können nicht in verschiedenen Zahlbereichen liegen.'
+rueckweg:
+  vermittlung: M.ZO.PW.REELL#erklaeren-bereiche
+kontrast: [M.ZO.PW.REELL.ART, M.ZO.PW.REELL.BEREICH]
+herkunft: ki-entwurf
+version: 1

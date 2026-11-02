@@ -1,0 +1,26 @@
+id: FV.PW.WURZEL-KLEINER
+name:
+  de: Meint, Wurzelziehen mache Zahlen immer kleiner
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält √x < x für alle positiven x. Die Erfahrung mit Zahlen über 1 (√9 = 3) wird auf alle Zahlen
+    übertragen; Zahlen zwischen 0 und 1 werden nicht bedacht.
+kompetenzen: [M.ZO.PW.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Zwischen 0 und 1 ist die [[Wurzel]] größer als die Zahl: √0,25 = 0,5, denn 0,5 · 0,5 = 0,25.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du denkst an Zahlen wie 9 oder 100. Dort ist die [[Wurzel]] kleiner.'
+    - teil: warum-nicht
+      de: 'Bei Zahlen zwischen 0 und 1 macht Malnehmen kleiner: 0,5 · 0,5 = 0,25. Also ist die [[Wurzel]] aus 0,25 die größere Zahl 0,5.'
+    - teil: so-stimmt-es
+      de: 'Für x > 1 ist √x kleiner als x, für x zwischen 0 und 1 größer. Bei 0 und 1 sind beide gleich.'
+gegenbeispiel:
+  de: '√0,01 = 0,1, und 0,1 ist zehnmal so groß wie 0,01.'
+rueckweg:
+  vermittlung: M.ZO.PW.WURZEL#gegenbeispiel
+kontrast: [M.ZO.PW.WURZEL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

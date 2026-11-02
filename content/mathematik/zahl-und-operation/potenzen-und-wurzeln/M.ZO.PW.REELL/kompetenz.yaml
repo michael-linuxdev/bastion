@@ -1,0 +1,41 @@
+# Rationale und irrationale Zahlen, reelle Zahlen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PW.REELL
+fach: mathematik
+bereich: zahl-und-operation
+feld: potenzen-und-wurzeln
+titel:
+  de: 'Rationale und irrationale Zahlen'
+kann_satz:
+  de: 'Ich kann rationale und irrationale Zahlen unterscheiden und die Zahlbereiche ℕ, ℤ, ℚ und ℝ ordnen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Gegenbeispiel, für Niveau E
+  - M.ZO.PW.WURZEL
+  - M.ZO.RZ.ZAHLBEREICHE
+  - M.ZO.BR.PERIODISCH
+niveaus:
+  G:
+    beschreibung:
+      de: 'Entscheiden, ob eine Zahl rational oder irrational ist: Wurzeln, periodische Dezimalzahlen, Brüche, Vielfache von π.'
+  M:
+    beschreibung:
+      de: 'Den kleinsten Zahlbereich angeben, zu dem eine Zahl gehört, auch nach dem Ausrechnen (−√9 liegt in ℤ).'
+  E:
+    beschreibung:
+      de: 'Aussagen über rationale und irrationale Zahlen prüfen und begründen, zum Beispiel über Summen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K1
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

@@ -1,0 +1,27 @@
+id: FV.PW.PERIODISCH-IRRATIONAL
+name:
+  de: Hält unendliche periodische Dezimalzahlen für irrational
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält 0,333… für irrational, weil sie unendlich viele Stellen hat. Unendlich viele Stellen und
+    keine Periode werden nicht unterschieden.
+kompetenzen: [M.ZO.PW.REELL]
+erklaerung:
+  kurz:
+    de: 'Irrational heißt: unendlich viele Stellen **ohne** Periode. 0,333… hat eine Periode und ist 1/3, also rational.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: unendlich viele Stellen, also irrational.'
+    - teil: warum-nicht
+      de: 'Jede [[periodisch]]e [[Dezimalzahl]] ist ein [[Bruch]]: 0,333… = 1/3, 0,777… = 7/9. Brüche sind rational.'
+    - teil: so-stimmt-es
+      de: 'Achte auf die Periode. Wiederholt sich ein Block von [[Ziffern]] immer wieder, ist die Zahl rational. Nur ohne Periode ist sie irrational.'
+gegenbeispiel:
+  de: '1 : 3 = 0,333… – die Zahl ist das Ergebnis einer Division zweier ganzer Zahlen.'
+rueckweg:
+  vermittlung: M.ZO.PW.REELL#erklaeren-irrational
+  voraussetzung: M.ZO.BR.PERIODISCH
+kontrast: [M.ZO.PW.REELL.ART]
+herkunft: ki-entwurf
+version: 1

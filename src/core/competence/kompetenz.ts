@@ -68,6 +68,8 @@ export const FELDER: Readonly<Record<string, string>> = {
   FK: 'funktionen',
   GS: 'gleichungssysteme',
   AE: 'aehnlichkeit',
+  // Klasse 9 bis 12 (LEHRPLAN §8e–§8g)
+  PW: 'potenzen-und-wurzeln',
 };
 
 const ID_MUSTER = /^M\.([A-Z]{2})\.([A-Z]{2})\.[A-Z0-9]+(?:-[A-Z0-9]+)*$/;

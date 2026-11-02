@@ -29,8 +29,11 @@ describe('Inhalte in content/', () => {
     expect(ab(8)).toHaveLength(27);
   });
 
-  it('haben für Klasse 5 die Niveaus G und M, aber noch kein E (K-11)', () => {
-    for (const k of kompetenzen) expect(Object.keys(k.niveaus).sort(), k.id).toEqual(['G', 'M']);
+  it('haben bis Klasse 8 die Niveaus G und M (K-11), ab Klasse 9 G, M und E (K-28, K-30)', () => {
+    for (const k of kompetenzen)
+      expect(Object.keys(k.niveaus).sort(), k.id).toEqual(
+        Math.min(...k.klassenstufe_typisch) >= 9 ? ['E', 'G', 'M'] : ['G', 'M'],
+      );
   });
 
   it('jeder registrierte Generator wird von einer Vorlage genutzt', () => {
