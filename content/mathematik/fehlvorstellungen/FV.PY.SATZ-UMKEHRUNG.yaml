@@ -1,0 +1,25 @@
+id: FV.PY.SATZ-UMKEHRUNG
+name:
+  de: Unterscheidet Satz und Umkehrung nicht
+art: verwechslung
+beschreibung:
+  de: >-
+    Begründet „das Dreieck ist rechtwinklig, weil a² + b² = c² gilt“ mit dem Satz des Pythagoras. Dass dafür die Umkehrung nötig ist, ist nicht verankert.
+kompetenzen: [M.RF.PY.UMKEHRUNG]
+erklaerung:
+  kurz:
+    de: 'Satz: Wenn rechtwinklig, dann $a^2 + b^2 = c^2$. [[Umkehrung]]: Wenn $a^2 + b^2 = c^2$, dann rechtwinklig. Es kommt darauf an, was bekannt ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast „wenn“ und „dann“ vertauscht.'
+    - teil: warum-nicht
+      de: 'Aus „Wenn es regnet, ist die Straße nass“ folgt nicht „Wenn die Straße nass ist, regnet es“. Darum braucht die [[Umkehrung]] einen eigenen Beweis.'
+    - teil: so-stimmt-es
+      de: 'Frage: Was ist gegeben? Der rechte [[Winkel]] oder die [[Gleichung]]?'
+gegenbeispiel:
+  de: 'Gegeben 3, 4, 5 und gefolgert „rechtwinklig“: Das ist die [[Umkehrung]].'
+rueckweg:
+  vermittlung: M.RF.PY.UMKEHRUNG#erklaeren-umkehrung
+kontrast: [M.RF.PY.UMKEHRUNG.SATZ]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.PY.TEILDREIECK
+name:
+  de: Findet das passende rechtwinklige Teildreieck nicht
+art: lesefehler
+beschreibung:
+  de: >-
+    Rechnet beim Dach mit der ganzen Breite statt der halben oder nennt bei der Raumdiagonale schon die Diagonale der Grundfläche. Das rechtwinklige Dreieck in der Figur wird nicht vollständig erkannt.
+kompetenzen: [M.RF.PY.SACH]
+erklaerung:
+  kurz:
+    de: 'Zeichne das rechtwinklige Dreieck ein. Beim Dach geht die [[Höhe]] bis zur Mitte: halbe Breite. Bei der Raumdiagonale brauchst du zwei Dreiecke nacheinander.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast mit einer Strecke gerechnet, die nicht zum rechtwinkligen Dreieck gehört.'
+    - teil: warum-nicht
+      de: 'Der Satz gilt nur im rechtwinkligen Dreieck. Die ganze Dachbreite ist keine Seite davon.'
+    - teil: so-stimmt-es
+      de: 'Markiere den [[rechten Winkel]] und die drei Seiten des Dreiecks in einer Skizze.'
+gegenbeispiel:
+  de: 'Dach 12 m breit, Sparren 10 m: Mit der halben Breite 6 m ist die [[Höhe]] 8 m. Mit 12 m ginge es gar nicht.'
+rueckweg:
+  vermittlung: M.RF.PY.SACH#erklaeren-teildreieck
+kontrast: [M.RF.PY.SACH.BERECHNEN, M.RF.PY.SACH.ANSATZ]
+herkunft: ki-entwurf
+version: 1

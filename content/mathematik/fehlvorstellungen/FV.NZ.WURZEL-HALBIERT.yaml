@@ -7,7 +7,15 @@ beschreibung:
     Rechnet √36 = 18. Weil Quadrieren mit „mal 2“ verwechselt wird, gilt das Wurzelziehen als
     „durch 2“. Die Umkehrung von „mal sich selbst“ ist noch nicht verankert.
 kompetenzen:
-  [M.ZO.NZ.POTENZEN, M.ZO.RZ.POTENZEN, M.ZO.PW.WURZEL, M.SF.QF.INHALTLICH, M.SF.PF.WURZELFUNKTION]
+  [
+    M.ZO.NZ.POTENZEN,
+    M.ZO.RZ.POTENZEN,
+    M.ZO.PW.WURZEL,
+    M.SF.QF.INHALTLICH,
+    M.SF.PF.WURZELFUNKTION,
+    M.RF.PY.PYTHAGORAS,
+    M.RF.PY.HOEHENSATZ,
+  ]
 erklaerung:
   kurz:
     de: 'Die [[Wurzel]] ist die Zahl, die mal sich selbst die Zahl unter der Wurzel ergibt: √36 = 6, denn 6 · 6 = 36.'

@@ -1,0 +1,81 @@
+id: M.RF.PY.SACH
+kompetenz: M.RF.PY.SACH
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach findest du in Leitern, Dächern und Kisten das rechtwinklige Dreieck und berechnest damit Längen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '[[Hypotenuse]] 5 m, [[Kathete]] 3 m. Wie lang ist die andere Kathete?'
+    antwort:
+      optionen:
+        - { wert: { de: '4 m' }, richtig: true }
+        - { wert: { de: 'etwa 5,8 m' }, fv: FV.PY.KATHETE-ADDIERT }
+    weiter: entdecken
+    bei: { FV.PY.KATHETE-ADDIERT: M.RF.PY.PYTHAGORAS, sonst: M.RF.PY.PYTHAGORAS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Satteldach ist 12 m breit, die Sparren sind 10 m lang. Die [[Höhe]] geht bis zur Mitte. Wie lang ist die [[Kathete]] am Boden?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '12', fv: FV.PY.TEILDREIECK }] }
+    weiter: erklaeren-teildreieck
+  - id: erklaeren-teildreieck
+    typ: erklaeren
+    text:
+      de: 'Suche das rechtwinklige Dreieck und markiere die [[Hypotenuse]]. Beim Dach ist es die halbe Breite, die [[Höhe]] und der Sparren. Bei einer Kiste brauchst du zwei Dreiecke nacheinander.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Kiste 3 dm, 4 dm, 12 dm hoch. [[Grundfläche]]: $e = \sqrt{9 + 16} = 5$. Raumdiagonale: $d = \sqrt{25 + 144} = 13$ dm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie hoch ist das Dach aus der Frage oben (in m)?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '14', fv: FV.PY.KATHETE-ADDIERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.PY.KATHETE-ADDIERT: erklaeren-teildreieck }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lia sagt: „Die Raumdiagonale der Kiste ist $\sqrt{3^2 + 4^2} = 5$ dm.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, das ist nur die Diagonale der Grundfläche. Die Höhe fehlt.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, das ist die Diagonale.' }, fv: FV.PY.TEILDREIECK }
+    weiter: merksatz
+    bei: { FV.PY.TEILDREIECK: erklaeren-teildreieck }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst das rechtwinklige Dreieck finden und skizzieren, dann rechnen. Bei Körpern zwei Dreiecke nacheinander. Mit Einheit und sinnvoll gerundet antworten.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine 5 m lange Leiter steht 3 m von der Wand entfernt. In welcher [[Höhe]] berührt sie die Wand?'
+    antwort:
+      optionen:
+        - { wert: { de: '4 m' }, richtig: true }
+        - { wert: { de: '2 m' }, fv: FV.PY.OHNE-QUADRATE }
+    weiter: uebergang
+    bei: { FV.PY.OHNE-QUADRATE: erklaeren-teildreieck }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt löst du selbst Sachaufgaben.'
+    vorlagen: [M.RF.PY.SACH.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

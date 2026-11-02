@@ -13,7 +13,7 @@ text:
     de: '{aufgabe}'
 hilfen:
   - de: 'Berechne zuerst das [[Volumen]] des Körpers, dann die Masse: m = [[Dichte]] · V.'
-  - de: '[[Volumen]] eines [[Prismas]]: [[Grundfläche]] · Länge. Ein rechtwinkliges Dreieck hat den [[Flächeninhalt]] Kathete · Kathete : 2.'
+  - de: '[[Volumen]] eines [[Prismas]]: [[Grundfläche]] · Länge. Ein rechtwinkliges Dreieck hat den [[Flächeninhalt]] [[Kathete]] · Kathete : 2.'
 fehlerbilder:
   dichte-vergessen:
     de: 'Das ist das [[Volumen]]. Für die Masse nimmst du noch mit der [[Dichte]] mal.'

@@ -1,0 +1,42 @@
+# Pythagoras im Alltag – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.PY.SACH
+fach: mathematik
+bereich: raum-und-form
+feld: pythagoras
+titel:
+  de: 'Pythagoras im Alltag'
+kann_satz:
+  de: 'Ich kann den Satz des Pythagoras in Figuren, Körpern und Sachaufgaben anwenden (Diagonalen, Leiter, Dachstuhl, Raumdiagonale).'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.PY.PYTHAGORAS
+  - M.GM.FL.VIELECKE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Leiter, Diagonale eines Rechtecks und Dachhöhe berechnen.'
+  M:
+    beschreibung:
+      de: 'Auch die Raumdiagonale eines Quaders, mit zwei rechtwinkligen Dreiecken nacheinander.'
+  E:
+    beschreibung:
+      de: 'Die richtige Rechnung für eine Raumdiagonale auswählen und die Teildreiecke erkennen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Satz des Pythagoras'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Satzgruppe des Pythagoras'
+version: 1

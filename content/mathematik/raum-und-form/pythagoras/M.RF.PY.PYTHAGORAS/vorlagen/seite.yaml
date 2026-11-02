@@ -1,0 +1,31 @@
+# „Berechne die Länge der Seite c.“ – mit Skizze. Entwurf: noch nicht geprüft.
+id: M.RF.PY.PYTHAGORAS.SEITE
+kompetenz: M.RF.PY.PYTHAGORAS
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: py.seite@1
+parameter:
+  G: { gerundet: false }
+  M: { gerundet: true }
+text:
+  aufgabe:
+    de: '**Berechne** die Länge der Seite {gesucht} in {einheit}. Runde, wenn nötig, auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber. Sie ist die längste Seite.'
+  - de: '[[Hypotenuse]] gesucht: Quadrate der [[Katheten]] addieren, dann die [[Wurzel]]. Kathete gesucht: Quadrat der Hypotenuse minus Quadrat der anderen Kathete, dann die Wurzel.'
+fehlerbilder:
+  summe:
+    de: 'Die Seiten werden nicht einfach addiert. Erst quadrieren, dann addieren, dann die [[Wurzel]] ziehen.'
+    fv: FV.PY.OHNE-QUADRATE
+  wurzel-vergessen:
+    de: 'Das ist das Quadrat der Seite. Ziehe noch die [[Wurzel]].'
+    fv: FV.PY.WURZEL-VERGESSEN
+  kathete-addiert:
+    de: 'Gesucht ist eine [[Kathete]]. Sie ist kürzer als die [[Hypotenuse]], darum wird subtrahiert: $b^2 = c^2 - a^2$.'
+    fv: FV.PY.KATHETE-ADDIERT
+  hypotenuse-falsch:
+    de: 'Schau, wo der rechte [[Winkel]] liegt. Die Seite gegenüber ist die [[Hypotenuse]], auch wenn sie nicht c heißt.'
+    fv: FV.PY.HYPOTENUSE-C
+herkunft: ki-entwurf
+version: 1

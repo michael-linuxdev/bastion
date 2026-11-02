@@ -1,0 +1,25 @@
+id: FV.PY.HYPOTENUSE-C
+name:
+  de: Hält immer c für die Hypotenuse
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet a² + b² = c² auch dann, wenn der rechte Winkel bei A liegt. Die Formel wird mit festen Buchstaben gelernt, nicht mit der Lage des rechten Winkels.
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.UMKEHRUNG, M.RF.TR.BEGRIFFE]
+erklaerung:
+  kurz:
+    de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber, egal wie sie heißt. Liegt der rechte [[Winkel]] bei A, ist a die Hypotenuse: $b^2 + c^2 = a^2$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast $a^2 + b^2 = c^2$ als feste [[Formel]] benutzt.'
+    - teil: warum-nicht
+      de: 'Die Buchstaben hängen davon ab, wie das Dreieck beschriftet ist. Entscheidend ist der rechte [[Winkel]].'
+    - teil: so-stimmt-es
+      de: 'Suche zuerst den [[rechten Winkel]] und markiere die gegenüberliegende Seite.'
+gegenbeispiel:
+  de: 'Rechter [[Winkel]] bei A, $b = 6$, $c = 8$: Dann ist $a = 10$, nicht $c$.'
+rueckweg:
+  vermittlung: M.RF.PY.PYTHAGORAS#erklaeren-hypotenuse
+kontrast: [M.RF.PY.PYTHAGORAS.SEITE, M.RF.PY.PYTHAGORAS.FEHLER]
+herkunft: ki-entwurf
+version: 1

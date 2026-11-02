@@ -1,0 +1,25 @@
+id: FV.PY.OHNE-QUADRATE
+name:
+  de: Addiert Seitenlängen statt ihrer Quadrate
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet bei den Katheten 3 cm und 4 cm die Hypotenuse als 7 cm. Dass der Satz von den Quadraten über den Seiten spricht, ist nicht verankert.
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH, M.RF.PY.UMKEHRUNG]
+erklaerung:
+  kurz:
+    de: 'Der Satz spricht von Quadraten: $3^2 + 4^2 = 25$, also ist die [[Hypotenuse]] $\sqrt{25} = 5$ cm, nicht 7 cm.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Längen der Seiten addiert.'
+    - teil: warum-nicht
+      de: 'Im Dreieck ist eine Seite immer kürzer als die beiden anderen zusammen. 7 cm wäre genau so lang wie beide [[Katheten]] zusammen.'
+    - teil: so-stimmt-es
+      de: 'Quadriere die Seiten, addiere oder subtrahiere die Quadrate, ziehe dann die [[Wurzel]].'
+gegenbeispiel:
+  de: 'Mit 3 cm und 4 cm als [[Katheten]] misst die [[Hypotenuse]] 5 cm. Mit 7 cm läge das Dreieck flach.'
+rueckweg:
+  vermittlung: M.RF.PY.PYTHAGORAS#erklaeren-satz
+kontrast: [M.RF.PY.PYTHAGORAS.SEITE, M.RF.PY.SACH.ANSATZ]
+herkunft: ki-entwurf
+version: 1

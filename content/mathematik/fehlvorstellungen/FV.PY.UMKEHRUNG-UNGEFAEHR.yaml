@@ -1,0 +1,25 @@
+id: FV.PY.UMKEHRUNG-UNGEFAEHR
+name:
+  de: Hält ein Dreieck für rechtwinklig, wenn die Quadrate fast gleich sind
+art: falsche-regel
+beschreibung:
+  de: >-
+    Entscheidet bei den Seiten 5, 12 und 14 auf „rechtwinklig“, weil 169 und 196 nah beieinander liegen. Dass die Umkehrung genaue Gleichheit verlangt, wird übersehen.
+kompetenzen: [M.RF.PY.UMKEHRUNG]
+erklaerung:
+  kurz:
+    de: 'Nur wenn $a^2 + b^2$ genau gleich $c^2$ ist, ist der [[Winkel]] genau 90°. Fast gleich heißt: fast, aber nicht rechtwinklig.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen ungefähr verglichen.'
+    - teil: warum-nicht
+      de: 'Schon ein kleiner Unterschied in den Quadraten bedeutet einen [[Winkel]], der etwas größer oder kleiner als 90° ist.'
+    - teil: so-stimmt-es
+      de: 'Rechne beide Seiten genau aus und vergleiche Zahl für Zahl.'
+gegenbeispiel:
+  de: '$5^2 + 12^2 = 169$, aber $14^2 = 196$. Bei 13 statt 14 wäre es rechtwinklig.'
+rueckweg:
+  vermittlung: M.RF.PY.UMKEHRUNG#erklaeren-umkehrung
+kontrast: [M.RF.PY.UMKEHRUNG.PRUEFEN]
+herkunft: ki-entwurf
+version: 1

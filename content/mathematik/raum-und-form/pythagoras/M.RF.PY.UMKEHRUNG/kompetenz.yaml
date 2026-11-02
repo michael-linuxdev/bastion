@@ -1,0 +1,42 @@
+# Umkehrung des Pythagoras – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.PY.UMKEHRUNG
+fach: mathematik
+bereich: raum-und-form
+feld: pythagoras
+titel:
+  de: 'Umkehrung des Pythagoras'
+kann_satz:
+  de: 'Ich kann mit der Umkehrung des Satzes des Pythagoras prüfen, ob ein Dreieck rechtwinklig ist, und Satz und Umkehrung unterscheiden.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.PY.PYTHAGORAS
+  - M.RF.KR.BEGRUENDEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Prüfen, ob ein Dreieck mit drei gegebenen Seiten rechtwinklig ist.'
+  M:
+    beschreibung:
+      de: 'Angeben, an welcher Ecke der rechte Winkel liegt.'
+  E:
+    beschreibung:
+      de: 'Unterscheiden, ob eine Begründung den Satz oder seine Umkehrung benutzt.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K1
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Satz des Pythagoras'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Satzgruppe des Pythagoras'
+version: 1
