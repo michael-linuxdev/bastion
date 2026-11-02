@@ -7,7 +7,7 @@
 >
 > **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 01.11.2026 · Fokus Paket G (`FOKUS.md`): G0 entschieden, G1 gemessen, G5 Teil 1 (Ausbauen beim Antippen) umgesetzt; PV hat gewählt: eigener Generator für alles in der Bastion, aus einem Guss; vor U4b nur Thema `bastion` (`FOKUS.md` „Entscheidungen“).
+Stand: 02.11.2026 · Paket G: G3 (Thema `bastion`, Epoche 1: alle Gebäude, Umgebung, Wesen) und G4 (Gerüst, Vorher/Nachher, Ausbau-Moment) umgesetzt; offen: Abnahme G2 und G6 durch den PV.
 
 ---
 
@@ -56,7 +56,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt:** Design-Ideen **§M–§Q** (65–92) auf `cursor/design-mq-da8f` – Feinschliff Lernen/Bastion, Pausen, Themenkarten, Bastion-Tiefe, Bewohner/Wesen.
 
-**Als Nächstes:** Paket G in `docs/session/FOKUS.md` (Stand oben und `GRAFIK.md` §11). Sonst nichts. G2 Stil-Regel liegt als Entwurf in `GRAFIK-SPRITES.md` §12 und wartet auf die Abnahme des PV; erst danach G3 (Bilder Thema `bastion`, Epoche 1).
+**Als Nächstes:** **G6 Abnahme** (PV, 2–3 Jugendliche; Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K) und Abnahme der Stil-Regel G2 (`GRAFIK-SPRITES.md` §12.9). Danach nur Fehlerbehebungen bis U4b. Offene Kleinigkeiten in `GRAFIK.md` §11.9: Staub beim Fertigwerden, Statusgeste eines Bewohners; ein Tipper in der ersten Sekunde nach dem Öffnen der Bastion geht verloren (Bühne nimmt Tipper erst nach dem ersten Zeichnen an, Befund des Lernkerns in #160).
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 
