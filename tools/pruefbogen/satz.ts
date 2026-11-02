@@ -1,7 +1,8 @@
 // Gemeinsamer Satz für Prüfbogen und Arbeitsblatt: Texte wie in der App (Brüche, Hochzahlen,
 // Wurzeln aus src/core/learning/text.ts) als HTML, Lösungen als Text und die Grund-Stile.
 import type { Instanz, Loesung, Wert } from '../../src/core/learning/generator';
-import { fuelle, zahlText, type Textteil } from '../../src/core/learning/text';
+import { loesungAlsText } from '../../src/core/learning/arbeitsblatt';
+import { fuelle, type Textteil } from '../../src/core/learning/text';
 import { esc } from './html';
 
 export function teileHtml(teile: readonly Textteil[]): string {
@@ -26,24 +27,9 @@ export const text = (s: string, platzhalter: Readonly<Record<string, Wert>> = {}
     ),
   );
 
-export function loesungText(l: Loesung, optionen?: Instanz['optionen']): string {
-  switch (l.typ) {
-    case 'bruch':
-      return `${zahlText(l.wert.zaehler)}/${zahlText(l.wert.nenner)}`;
-    case 'zahl':
-      return zahlText(l.wert);
-    case 'auswahl': {
-      const o = optionen?.[l.wert];
-      return `${String.fromCharCode(65 + l.wert)}${o?.text ? ` (${esc(o.text.de)})` : ''}`;
-    }
-    case 'reihenfolge':
-      return l.wert.map(zahlText).join(' < ');
-    case 'punkt':
-      return `(${zahlText(l.wert.x)} | ${zahlText(l.wert.y)})`;
-    case 'mit-rest':
-      return `${zahlText(l.wert.quotient)} Rest ${zahlText(l.wert.rest)}`;
-  }
-}
+/** Lösung als Text für HTML; die Regel steht im Kern (`loesungAlsText`). */
+export const loesungText = (l: Loesung, optionen?: Instanz['optionen']): string =>
+  esc(loesungAlsText(l, optionen));
 
 /** Seite, Schrift und Brüche; beide Werkzeuge setzen ihre eigenen Stile dahinter. */
 export const GRUND_STIL = `

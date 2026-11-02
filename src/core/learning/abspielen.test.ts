@@ -100,6 +100,14 @@ describe('Abspielen einer Erstvermittlung', () => {
     expect(ziel('uebergang')).toEqual({ art: 'ende' });
   });
 
+  it('Rückweg zu einer nicht ausgelieferten Voraussetzung führt zum nächsten Schritt (T-20)', () => {
+    const nichtDa = (id: string) => id !== 'M.VORHER';
+    expect(naechstes(v, schritt('vorwissen'), { richtig: false }, nichtDa)).toEqual({
+      art: 'schritt',
+      schritt: schritt('erklaeren'),
+    });
+  });
+
   it('richtige Antwort und Kurzfassung', () => {
     expect(richtigeAntwort(schritt('pruefen'))).toBe('3/5');
     expect(richtigeAntwort(schritt('ergaenzen'))).toBe('2/6');
