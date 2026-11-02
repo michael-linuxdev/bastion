@@ -120,14 +120,25 @@ export function uwKoralle(st: Stift, x: number, y: number, scale: number): void 
   koralle(st, x, y, scale);
 }
 
-/** Feste Korallenpositionen (Tiefe = x+y für Sortierung). */
+/**
+ * Feste Korallenpositionen (Tiefe = x+y für Sortierung) und welches Atlas-Bild dort steht:
+ * abwechselnd Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`). Kein Zufall.
+ * `bild` ist die Größe des Atlas-Bilds (die Code-Koralle nutzt `s`).
+ */
 export function uwKoralleLagen(): readonly {
   x: number;
   y: number;
   s: number;
   tiefe: number;
+  art: 'koralle_a' | 'koralle_b';
+  bild: number;
 }[] {
-  return KORALLEN.map((k) => ({ ...k, tiefe: k.x + k.y }));
+  return KORALLEN.map((k, i) => ({
+    ...k,
+    tiefe: k.x + k.y,
+    art: i % 2 === 1 ? 'koralle_b' : 'koralle_a',
+    bild: k.s * 0.85,
+  }));
 }
 
 /** Ein Gebäude (Code-Fallback, wenn kein Atlas-Eintrag). */
