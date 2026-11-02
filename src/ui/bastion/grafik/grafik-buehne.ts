@@ -111,7 +111,7 @@ import {
 } from './bewohner';
 import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
-import type { Bildart } from './bildart';
+import { atlasThema, type Bildart } from './bildart';
 import { istLandBildart } from './thema-partikel';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
@@ -1908,8 +1908,8 @@ export async function buehneErstellen(
         }
         // Umriss des ganzen Gebäudes (Boden bis Dach) zum Antippen
         const e = ecken(x.pos.x, x.pos.y, w, t, 0);
-        const h =
-          (art === 'dorf'
+        const codeHoehe =
+          art === 'dorf'
             ? dorfHoehe(x.typ, x.stufe)
             : art === 'garten'
               ? gartenHoehe(x.typ, x.stufe)
@@ -1917,7 +1917,14 @@ export async function buehneErstellen(
                 ? uwHoehe(x.typ, x.stufe)
                 : art === 'weltraum'
                   ? weltraumHoehe(x.typ, x.stufe)
-                  : hoehe(x.typ, x.stufe, a.epoche ?? 1)) + 20;
+                  : hoehe(x.typ, x.stufe, a.epoche ?? 1);
+        // Steht ein Atlas-Bild da, zählt seine Höhe: Die neuen Gebäude (G3) sind viel
+        // höher als die Code-Formen, sonst trifft ein Tipper auf die Turmspitze nicht.
+        const bildEintrag =
+          texturen.size > 0
+            ? atlasEintrag(atlas, atlasThema(art), epocheJetzt, x.typ, x.stufe)
+            : undefined;
+        const h = Math.max(codeHoehe, bildEintrag ? bildEintrag.pixel.h / 2 : 0) + 20;
         treffer.push({
           pos: x.pos,
           umriss: flach(
