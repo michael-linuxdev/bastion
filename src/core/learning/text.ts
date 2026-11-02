@@ -7,6 +7,7 @@
 import type { Bruch } from './bruch';
 import type { Sprachobjekt, Wert } from './generator';
 import { dezimalDeutsch, zahlDeutsch } from './format';
+import { alsFormeln } from './rechenausdruck';
 
 export type Textteil =
   | { readonly art: 'text'; readonly text: string; readonly fett: boolean }
@@ -62,6 +63,17 @@ function fliesstext(
       const w = holeWert(m[1], platzhalter);
       // Brüche aus Platzhaltern setzt ebenfalls KaTeX (PV, 02.11.2026: jede Formel einheitlich)
       if (typeof w === 'object' && istBruch(w)) teile.push({ art: 'formel', tex: texWert(w) });
+      // Text aus Generatoren („(x + 1)²“, „−1/2“): Rechenausdrücke werden Formeln (PV, 02.11.2026)
+      else if (istSprache(w))
+        alsFormeln(w.de)
+          .split('$')
+          .forEach((stueck, i) =>
+            teile.push(
+              i % 2 === 1
+                ? { art: 'formel', tex: stueck }
+                : { art: 'text', text: stueck, fett: fett.an },
+            ),
+          );
       else teile.push({ art: 'text', text: wertText(w), fett: fett.an });
     } else {
       teile.push({ art: 'text', text: m[0], fett: fett.an });

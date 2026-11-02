@@ -23,7 +23,7 @@ const { vorlagen } = pruefeInhalte('content', generatoren);
 const ROH = /\$|\\(frac|sqrt|cdot)/;
 /** Dazu Rechenausdrücke aus Generatoren, die keine Formel geworden sind (Einheiten wie m³ erlaubt) */
 const ROH_GENERATOR =
-  /\$|\\(frac|sqrt|cdot)|\d\/\d|√|[\d)][⁰¹²³⁴⁵⁶⁷⁸⁹]|(?<![\p{L}])(?<![\d)] +)[a-z][⁰¹²³⁴⁵⁶⁷⁸⁹]|\u0305/u;
+  /\$|\\(frac|sqrt|cdot)|\d\/\d|√|[\d)][⁰¹²³⁴⁵⁶⁷⁸⁹]|(?<![\p{L}])(?<![\d)] +)(?!m[²³])[a-z][⁰¹²³⁴⁵⁶⁷⁸⁹]|\u0305/u;
 
 /** KaTeX setzt die Formel ohne Fehler (streng, wie in der App). */
 function setzbar(tex: string) {
@@ -48,7 +48,7 @@ describe('Anzeige mit allen Vorlagen', () => {
           const i = g?.erzeuge(seed, v.parameter[niveau]);
           if (!i) continue;
           const wo = `${niveau} Seed ${seed}`;
-          pruefeTeile(fuelle(v.text.aufgabe.de, i.platzhalter), wo);
+          pruefeTeile(fuelle(v.text.aufgabe.de, i.platzhalter), wo, ROH_GENERATOR);
           for (const o of i.optionen ?? [])
             if (o.text)
               pruefeTeile(fuelle(alsFormeln(o.text.de), {}), `${wo} Option`, ROH_GENERATOR);
