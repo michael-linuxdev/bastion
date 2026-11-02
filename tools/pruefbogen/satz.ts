@@ -1,8 +1,9 @@
 // Gemeinsamer Satz für Prüfbogen und Arbeitsblatt: Texte wie in der App (Brüche, Hochzahlen,
-// Wurzeln aus src/core/learning/text.ts) als HTML, Lösungen als Text und die Grund-Stile.
+// Wurzeln aus src/core/learning/text.ts, Formeln mit KaTeX) als HTML, Lösungen als Text und die Grund-Stile.
 import type { Instanz, Loesung, Wert } from '../../src/core/learning/generator';
 import { loesungAlsText } from '../../src/core/learning/arbeitsblatt';
-import { fuelle, type Textteil } from '../../src/core/learning/text';
+import katex from 'katex';
+import { fuelle, KATEX_OPTIONEN, type Textteil } from '../../src/core/learning/text';
 import { esc } from './html';
 
 export function teileHtml(teile: readonly Textteil[]): string {
@@ -12,6 +13,9 @@ export function teileHtml(teile: readonly Textteil[]): string {
         return `<span class="br"><span>${esc(t.zaehler)}</span><span>${esc(t.nenner)}</span></span>`;
       if (t.art === 'hoch') return `<sup>${esc(t.text)}</sup>`;
       if (t.art === 'wurzel') return `√<span class="ueber">${esc(t.text)}</span>`;
+      // Formeln ab Klasse 9 (T-22): als MathML, das der Browser selbst setzt – ohne CSS und Schriften
+      if (t.art === 'formel')
+        return katex.renderToString(t.tex, { ...KATEX_OPTIONEN, output: 'mathml' });
       const inhalt = t.art === 'begriff' ? `<u>${esc(t.text)}</u>` : esc(t.text);
       return t.fett ? `<b>${inhalt}</b>` : inhalt;
     })
