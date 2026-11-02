@@ -30,6 +30,7 @@ import type { Farbe, GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
 import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
 import { ulid } from '../../core/rng/ulid';
+import { vorgeschlagenerPlatz } from './platz-vorschlag';
 import {
   aufDiesemGeraet,
   BASEBAU_SCHLUESSEL,
@@ -395,7 +396,8 @@ export async function bauAusfuehren(
   const platz = bauplatzFuer(bastionEpoche(lage.bastion, lage.konto));
   let e: Ergebnis;
   if (auftrag.art === 'beginnen') {
-    const pos = freierPlatz(lage.bastion, auftrag.typ, platz);
+    // Neubau: freies Feld nah am Bergfried, derselbe Vorschlag wie in der Vorschau (G5)
+    const pos = vorgeschlagenerPlatz(lage.bastion, auftrag.typ, platz);
     const ort = auftrag.ausbau ? { ausbau: auftrag.ausbau } : pos ? { pos } : undefined;
     if (!ort) return { hindernisse: ['belegt'] };
     e = beginnen(lage.bastion, lage.konto, auftrag.typ, ort, a);
