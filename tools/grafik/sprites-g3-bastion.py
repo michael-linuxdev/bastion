@@ -3,6 +3,7 @@
 Charge 1: Bergfried (Stufen 1–3). Charge 2: Studierstube und Späherturm (Stufen 1–2).
 Charge 3: Werkstatt, Tor, Palisade, Feuerstelle, Banner, Gartenbeet, Statue.
 Umgebung: Bäume, Busch und Stein für den Inselrand (`umgebung/bastion/`).
+Wesen: Möwe, Fuchs und Wache (`wesen/bastion/`, je 3 Ruhe-, 4 Geh- und 2 Reaktionsbilder).
 
 Eigener Generator nach der Stil-Regel GRAFIK-SPRITES.md §12 (Entscheidung PV
 01.11.2026: eigener Generator für alles, aus einem Guss). Grundlage ist das
@@ -620,6 +621,144 @@ def stein(iso: Iso, fenster: list) -> None:
 UMGEBUNG = [("baum_a", baum_a), ("baum_b", baum_b), ("busch", busch), ("stein", stein)]
 
 
+# —— Wesen des Themas bastion (§12.7): Möwe, Fuchs, Wache, je 3 Ruhe-, 4 Geh-, 2 Reaktionsbilder ——
+
+WESEN_FRAMES = {"idle": 3, "walk": 4, "react": 2}
+W_S = 4  # intern vierfach zeichnen, dann weich auf 64 × 64 verkleinern
+W_KONTUR = (43, 38, 32, 255)
+
+
+class Wesen:
+    def __init__(self) -> None:
+        self.bild = Image.new("RGBA", (64 * W_S, 64 * W_S), (0, 0, 0, 0))
+        self.d = ImageDraw.Draw(self.bild)
+
+    def q(self, pts):
+        return [(round(x * W_S), round(y * W_S)) for x, y in pts]
+
+    def form(self, pts, farbe, kontur=True) -> None:
+        self.d.polygon(self.q(pts), fill=farbe, outline=W_KONTUR if kontur else None, width=W_S if kontur else 0)
+
+    def oval(self, x0, y0, x1, y1, farbe, kontur=True) -> None:
+        self.d.ellipse([x0 * W_S, y0 * W_S, x1 * W_S, y1 * W_S], fill=farbe, outline=W_KONTUR if kontur else None, width=W_S if kontur else 0)
+
+    def strich(self, a, b, farbe, breite=1.0) -> None:
+        self.d.line(self.q([a, b]), fill=farbe, width=max(1, round(breite * W_S)))
+
+    def fertig(self) -> Image.Image:
+        return self.bild.resize((64, 64), Image.LANCZOS)
+
+
+def wesen_bodenschatten(w: Wesen, breite: float) -> None:
+    w.oval(32 - breite, 54, 32 + breite, 59, (0, 0, 0, 46), kontur=False)
+
+
+def moewe(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    weiss, grau, gelb = (244, 242, 236), (150, 160, 170), (236, 176, 64)
+    bob = [0, -0.6, 0][frame % 3] if zyklus == "idle" else 0.0
+    hoch = -5 - frame * 2 if zyklus == "react" else 0.0
+    y = bob + hoch
+    wesen_bodenschatten(w, 9 if zyklus != "react" else 6)
+    # Beine
+    if zyklus != "react":
+        schritt = [(-2, 2), (0, 0), (2, -2), (0, 0)][frame % 4] if zyklus == "walk" else (0, 0)
+        w.strich((29 + schritt[0], 48 + y), (29 + schritt[0] * 1.5, 55), gelb, 1.4)
+        w.strich((34 + schritt[1], 48 + y), (34 + schritt[1] * 1.5, 55), gelb, 1.4)
+    # Körper (Licht von rechts oben: oben heller)
+    w.form([(18, 42 + y), (24, 37 + y), (36, 36 + y), (42, 40 + y), (40, 47 + y), (30, 50 + y), (22, 47 + y)], hell(weiss, -18))
+    w.form([(24, 38 + y), (36, 37 + y), (40, 40 + y), (34, 43 + y), (25, 42 + y)], weiss, kontur=False)
+    # Kopf und Schnabel
+    w.oval(36, 29 + y, 46, 39 + y, weiss)
+    w.form([(45, 33 + y), (52, 34.5 + y), (45, 36 + y)], gelb)
+    w.oval(41.5, 32 + y, 43.5, 34 + y, (30, 26, 22), kontur=False)
+    # Flügel: in Ruhe angelegt, bei Reaktion hochgeschlagen
+    if zyklus == "react":
+        w.form([(24, 40 + y), (14, 24 + y - frame * 3), (22, 26 + y), (34, 38 + y)], grau)
+    else:
+        auf = 1.5 if zyklus == "walk" and frame % 2 else 0
+        w.form([(20, 41 + y), (30, 38 + y - auf), (38, 41 + y), (30, 45 + y), (16, 44 + y)], grau)
+        w.form([(16, 44 + y), (11, 46 + y), (18, 46 + y)], hell(grau, -40))
+    return w.fertig()
+
+
+def fuchs(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    rot, hellrot, creme, dunkel = (204, 112, 52), (226, 146, 84), (244, 232, 210), (70, 48, 34)
+    bob = [0, -0.5, 0][frame % 3] if zyklus == "idle" else 0.0
+    y = bob
+    wesen_bodenschatten(w, 13)
+    sitzt = zyklus == "react"
+    if sitzt:
+        # sitzt aufrecht, Schwanz um die Pfoten, Ohren gespitzt
+        w.form([(16, 54), (10, 48), (12, 42), (22, 44), (30, 54)], rot)
+        w.form([(10, 48), (8, 45), (12, 43)], creme)
+        w.form([(24, 54), (22, 40), (28, 30), (36, 31), (38, 42), (36, 54)], rot)
+        w.form([(30, 34), (35, 33), (36, 44), (31, 50)], creme, kontur=False)
+        w.strich((28, 50), (28, 55), dunkel, 2.2)
+        w.strich((34, 50), (34, 55), dunkel, 2.2)
+        kx, ky = 33, 22 - frame
+    else:
+        schritt = [(-2.5, 2.5), (0, 0), (2.5, -2.5), (0, 0)][frame % 4] if zyklus == "walk" else (0, 0)
+        # Schwanz buschig nach hinten oben, weiße Spitze
+        wedel = (frame % 2) * 1.5 if zyklus == "walk" else 0
+        w.form([(17, 41 + y), (8, 36 + y - wedel), (4, 30 + y - wedel), (9, 31 + y - wedel), (15, 36 + y), (20, 38 + y)], rot)
+        w.form([(4, 30 + y - wedel), (6, 28 + y - wedel), (9, 31 + y - wedel)], creme)
+        # Beine (hinten dunkler)
+        for bx, sv, ton in ((20, schritt[1], hell(dunkel, -10)), (24, schritt[0], dunkel), (36, schritt[0], hell(dunkel, -10)), (40, schritt[1], dunkel)):
+            w.strich((bx, 45 + y), (bx + sv, 55), ton, 2.2)
+        # Körper
+        w.form([(16, 40 + y), (22, 35 + y), (38, 35 + y), (44, 39 + y), (42, 46 + y), (20, 47 + y)], rot)
+        w.form([(22, 36 + y), (38, 36 + y), (42, 39 + y), (24, 40 + y)], hellrot, kontur=False)
+        w.form([(34, 44 + y), (42, 42 + y), (43, 46 + y), (36, 47 + y)], creme, kontur=False)
+        kx, ky = 44, 30 + y
+    # Kopf mit spitzer Schnauze, Ohren mit dunklen Spitzen
+    w.form([(kx - 6, ky + 2), (kx - 4, ky - 4), (kx + 3, ky - 5), (kx + 6, ky), (kx + 12, ky + 4), (kx + 6, ky + 7), (kx - 3, ky + 7)], rot)
+    w.form([(kx + 1, ky + 3), (kx + 12, ky + 4), (kx + 6, ky + 7), (kx, ky + 7)], creme, kontur=False)
+    w.oval(kx + 11, ky + 2.8, kx + 13.4, ky + 5.2, dunkel, kontur=False)
+    w.oval(kx + 3, ky - 1, kx + 5, ky + 1, (30, 26, 22), kontur=False)
+    for ox in (-4, 1):
+        w.form([(kx + ox, ky - 3), (kx + ox + 2, ky - 11), (kx + ox + 5, ky - 3)], rot)
+        w.form([(kx + ox + 1.2, ky - 8), (kx + ox + 2, ky - 11), (kx + ox + 3, ky - 8)], dunkel, kontur=False)
+    return w.fertig()
+
+
+def wache(zyklus: str, frame: int) -> Image.Image:
+    w = Wesen()
+    haut, stahl, tunika, gurt, hose = (230, 200, 168), (150, 160, 172), PETROL, (92, 62, 40), (96, 74, 56)
+    bob = [0, -0.6, 0][frame % 3] if zyklus == "idle" else 0.0
+    y = bob
+    wesen_bodenschatten(w, 8)
+    schritt = [(-3, 3), (0, 0), (3, -3), (0, 0)][frame % 4] if zyklus == "walk" else (0, 0)
+    # Beine und Stiefel
+    for bx, sv in ((28, schritt[0]), (35, schritt[1])):
+        w.strich((bx, 42 + y), (bx + sv, 53), hose, 3.2)
+        w.oval(bx + sv - 2.5, 51.5, bx + sv + 3, 55.5, (60, 42, 30), kontur=False)
+    # Tunika mit Gürtel
+    w.form([(24, 44 + y), (25, 27 + y), (38, 27 + y), (40, 44 + y)], tunika)
+    w.form([(32, 28 + y), (38, 27 + y), (40, 44 + y), (34, 44 + y)], hell(tunika, 22), kontur=False)
+    w.strich((25, 36 + y), (39, 36 + y), gurt, 2.2)
+    # Arm: winkt bei Reaktion, sonst am Körper
+    if zyklus == "react":
+        w.strich((26, 29 + y), (20, 18 + y - frame * 2), tunika, 3.2)
+        w.oval(17.5, 14 + y - frame * 2, 22.5, 19 + y - frame * 2, haut)
+    else:
+        w.strich((26, 29 + y), (24, 39 + y), hell(tunika, -20), 3.2)
+    # Kopf mit Helm
+    w.oval(26.5, 15 + y, 37.5, 27 + y, haut)
+    w.form([(25.5, 21 + y), (26.5, 15 + y), (31.5, 12 + y), (37, 15 + y), (38.5, 21 + y)], stahl)
+    w.form([(31.5, 12 + y), (37, 15 + y), (38.5, 21 + y), (33, 21 + y)], hell(stahl, 26), kontur=False)
+    w.oval(34, 21.5 + y, 35.6, 23.1 + y, (30, 26, 22), kontur=False)
+    # rundes Schild vorne, dekorativ, keine Waffe
+    w.oval(35, 28 + y, 47, 42 + y, tunika)
+    w.oval(37.5, 30.5 + y, 44.5, 39.5 + y, PETROL_HELL, kontur=False)
+    w.oval(40, 33.5 + y, 42.5, 36.5 + y, (244, 222, 140), kontur=False)
+    return w.fertig()
+
+
+WESEN = {"moewe": moewe, "fuchs": fuchs, "wache": wache}
+
+
 def erzeuge_mit(zeichne, n: int, breite: int) -> tuple[Image.Image, Image.Image]:
     """Zeichnet ein Gebäude mit n×n Feldern; schneidet oben den leeren Rand ab."""
     bild = Image.new("RGBA", (breite, ROH_H), (0, 0, 0, 0))
@@ -698,6 +837,20 @@ def main() -> int:
             "anker": {"x": 0.5, "y": 1.0},
             "pixel": {"w": bild.width, "h": bild.height},
         }
+    for art, zeichne_wesen in WESEN.items():
+        for zyklus, n in WESEN_FRAMES.items():
+            for i in range(n):
+                bild = zeichne_wesen(zyklus, i)
+                rel = f"wesen/bastion/{art}_{zyklus}_{i}.png"
+                pfad = ATLAS / rel
+                bild.save(pfad, "PNG", optimize=True)
+                neu[f"wesen/bastion/{art}_{zyklus}_{i}"] = {
+                    "id": f"wesen/bastion/{art}_{zyklus}_{i}",
+                    "datei": rel,
+                    "felder": [1, 1],
+                    "anker": {"x": 0.5, "y": 1.0},
+                    "pixel": {"w": 64, "h": 64},
+                }
     gesehen = set()
     eintraege = []
     for e in manifest["eintraege"]:
