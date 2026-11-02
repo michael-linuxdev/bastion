@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`), F5 (`pnpm fehlerschueler`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2
+Stand: 02.11.2026 · Nachtschicht: F2 (#153), Aufgabenblatt drucken (#156), F5-Funde Musterfeld (#158) gemergt; Sperrklinke (#165) und Prüfbogen einlesen (#159) grün, offen zur Entscheidung des PV · Als Nächstes: #165/#159 mergen, Stufe 1 der vier geänderten Musterfeld-Dateien neu, Prüfbogen neu, Abnahme L
 
 ---
 
@@ -144,6 +144,37 @@ Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer
 Steht in `docs/session/LERNKERN-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, nicht hier.
 
 ---
+
+## Übergabe der Sitzung 02.11.2026 (Nachtschicht, B1–B5)
+
+Freigabe des PV vom 01.11.2026 abends: ohne Rückfragen arbeiten und selbst mergen. #153, #156 und #158 per Squash nach grüner CI gemergt. Ein Neustart der Sitzung hat etwa 3,5 Stunden gekostet; danach war das Zeitfenster vorbei. Auf Bitte der koordinierenden Sitzung bleiben #165 und #159 offen (beide fertig, CI grün auf dem vorigen Stand, `main` am 02.11. um 04:43 Uhr UTC hineingemergt).
+
+**Erledigt:**
+
+- **B1 – F2 öffentliche Seite (#153):** `BASTION_MINDESTSTUFE` (0–3) filtert ganze Kompetenzen (`tools/inhalte/oeffentlich.ts`, INHALTSFORMAT §8). Fehlende Voraussetzungen gelten als „nicht verfügbar“; ein Rückweg der Erstvermittlung zu ihnen geht ohne Umweg weiter. Leeres Paket → Hinweisseite. Vermerk „Entwurf“ auf Startseite und im Elternbereich. Der Deploy-Build liest `vars.BASTION_MINDESTSTUFE || 0`.
+- **B2 – Aufgabenblatt drucken (#156):** Blatt-Logik im Kern (`src/core/learning/arbeitsblatt.ts`), `pnpm arbeitsblatt` nutzt sie. Elternbereich → „Für Lehrkräfte: Aufgabenblatt drucken“. PDF über den Druckdialog (T-21, bestätigt T-17).
+- **B3 – F5-Funde im Musterfeld (#158):** Arten C und E behoben (100 → 95 Funde). **Stufe 1 verloren:** `M.ZO.BR.BEGRIFF/vermittlung.yaml`, `M.ZO.BR.ERWEITERN/vermittlung.yaml`, `FV.BR.ADDITIV.yaml`, `FV.BR.NICHT-VOLLSTAENDIG.yaml`.
+- **B4 – Sperrklinke (#165, offen):** `pnpm fehlerschueler --grenze` gegen `tools/inhalte/fehlerschueler-grenze.json` (je Art), eigener CI-Schritt.
+- **B5 – F3 Punkt 3 (#159, offen):** `pnpm pruefbogen einlesen <datei.json>` → Arbeitsliste, Vorschlag für Stufe 2, setzt nichts selbst. Die Prüfseite ist nicht neu veröffentlicht.
+
+**Ausprobieren (PV):** App → Mehr → Für Eltern (PIN) → unten „Aufgabenblatt zusammenstellen“ → Bereich und Themen wählen → „Drucken / als PDF speichern“, im Druckdialog „Als PDF speichern“.
+
+**Nebenbei:** Seit 02.11. 00:00 Uhr (UTC) scheiterten „Bauplatz als Bild“ und „Ausbauen beim Antippen“ jedes Mal, abhängig vom Datum (mit `page.clock` eingegrenzt). Der Strang Grafik hat das mit #154 behoben.
+
+**Entscheidungen ohne Rückfrage (konservativ, auch in den PRs):**
+
+- F2: Zeichen-Anleitungen zählen zur Kompetenz. Fachbegriffe kommen immer mit. Bei Mindeststufe > 0 nur Fehlvorstellungen, auf die eine ausgelieferte Kompetenz zeigt.
+- B2: Punkte je Aufgabe: Auswahl 1, sonst Schritte im Lösungsweg (2 bis 4). Niveau E fehlt in der Auswahl, weil es keine E-Vorlagen gibt.
+- B4: Die CI erzwingt das Senken der Grenze nicht, sie meldet es nur.
+
+**Offen, braucht den PV oder die nächste Sitzung:**
+
+- #165 (B4) und #159 (B5) mergen; vorher `main` hineinmergen und CI abwarten. Bei #165 mit `pnpm fehlerschueler --grenze` prüfen, ob die Grenze noch stimmt.
+
+- Die vier geänderten Musterfeld-Dateien brauchen neu Stufe 1 (zweites Modell, frische Sitzung, Prüfkatalog §8). Bis dahin zeigt `BASTION_MINDESTSTUFE=1` die Hinweisseite.
+- Danach Prüfbogen neu erzeugen und auf https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy neu veröffentlichen (F3 Punkt 1, vorher Eingaben sichern), F3 Punkt 2 und 4.
+- „L abgenommen“ trägt der PV ein.
+- Rest der Fehler-Schüler-Funde: A 18, B 58, D 5, E 14 (außerhalb des Musterfelds).
 
 ## Übergabe der Sitzung 31.10.2026 (Stufe 1 Musterfeld)
 
