@@ -24,14 +24,14 @@ describe('naechsteKompetenz', () => {
   it('nimmt zuerst ein offenes Thema aus Gerade-dran', () => {
     const a = k('A');
     const b = k('B');
-    expect(naechsteKompetenz([a, b], [v('A'), v('B')], ['B', 'A'], 'G', 5, leer, 0)?.id).toBe('B');
+    expect(naechsteKompetenz([a, b], [v('A'), v('B')], ['B', 'A'], 5, leer, 0)?.id).toBe('B');
   });
 
   it('fällt auf empfohlen bzw. erstes Klassenthema zurück', () => {
     const grund = k('GRUND');
     const darauf = k('DARAUF', 5, ['GRUND']);
-    expect(
-      naechsteKompetenz([grund, darauf], [v('GRUND'), v('DARAUF')], [], 'G', 5, leer, 0)?.id,
-    ).toBe('GRUND');
+    expect(naechsteKompetenz([grund, darauf], [v('GRUND'), v('DARAUF')], [], 5, leer, 0)?.id).toBe(
+      'GRUND',
+    );
   });
 });

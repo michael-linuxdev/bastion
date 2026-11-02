@@ -31,3 +31,24 @@ export function naechsteWiederholung(
     .map((k) => k.faellig);
   return f.length ? Math.min(...f) : undefined;
 }
+
+const RANG: readonly AnzeigeStatus[] = ['neu', 'in-arbeit', 'auffrischen', 'gekonnt', 'gefestigt'];
+const NIVEAUS: readonly Niveau[] = ['G', 'M', 'E'];
+
+/**
+ * Status für Lernende, ohne Niveau (L-22): der beste Stand über alle Niveaus.
+ * Das Niveau wählt die App still (src/core/learning/niveau-wahl.ts); Lernende sehen es nicht.
+ */
+export function statusGesamt(z: Zustand, kompetenz: string, jetzt: number): AnzeigeStatus {
+  return NIVEAUS.map((n) => statusVon(z, kompetenz, n, jetzt)).reduce((a, b) =>
+    RANG.indexOf(b) > RANG.indexOf(a) ? b : a,
+  );
+}
+
+/** Nächste Wiederholung über alle Niveaus (früheste Fälligkeit). */
+export function naechsteWiederholungGesamt(z: Zustand, kompetenz: string): number | undefined {
+  const f = NIVEAUS.map((n) => naechsteWiederholung(z, kompetenz, n)).filter(
+    (x): x is number => x !== undefined,
+  );
+  return f.length ? Math.min(...f) : undefined;
+}

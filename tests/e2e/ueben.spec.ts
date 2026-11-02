@@ -331,7 +331,7 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.getByRole('button', { name: 'Wiederholen' }).click();
   // Regal: Thema wählen, dann üben
   await page.getByRole('button', { name: /Addieren und Subtrahieren/ }).click();
-  await expect(page.getByText(/^Addieren und Subtrahieren · grundlegend/)).toBeVisible();
+  await expect(page.getByText(/^Addieren und Subtrahieren$/)).toBeVisible();
   await page.getByLabel('Deine Antwort').fill('0');
   await page.getByRole('button', { name: 'Prüfen' }).click();
   await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
@@ -632,7 +632,7 @@ test('Fertig für heute: Abschluss zeigt, was heute geübt wurde', async ({ page
   await page.getByRole('button', { name: 'Fertig für heute' }).click();
   await expect(page.getByRole('heading', { name: 'Was du heute gekonnt hast' })).toBeVisible();
   await expect(
-    page.getByRole('listitem').filter({ hasText: /^Addieren und Subtrahieren · / }),
+    page.getByRole('listitem').filter({ hasText: /^Addieren und Subtrahieren$/ }),
   ).toHaveCount(1);
   await expect(page.getByText('1 Aufgabe bearbeitet')).toBeVisible();
   // Die schnelle falsche Antwort gilt als geraten: keine Ressourcen, ein freundlicher Hinweis
@@ -1906,6 +1906,19 @@ test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = glei
   // 390 px: kein seitlicher Überlauf der Seite
   const breit = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(breit).toBeLessThanOrEqual(390);
+});
+
+test('Niveaus sind für Lernende unsichtbar, nur das Aufgabenblatt wählt G oder M (L-22)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await expect(page.getByText('Stufe 1 · grundlegend')).toHaveCount(0);
+  await expect(page.getByRole('group', { name: 'Stufe' })).toHaveCount(0);
+  await zurStartseite(page);
+  await mehr(page);
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
+  await expect(page.getByRole('group', { name: 'Niveau' })).toHaveCount(0);
 });
 
 test('Aufgabenblatt in der iPhone-App: eigene Druckseite im Browser mit genau demselben Blatt', async ({

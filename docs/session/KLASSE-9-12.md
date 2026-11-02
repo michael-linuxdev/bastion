@@ -98,6 +98,8 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 6. **Quellen (Zusatzfrage):** Die Lehrplandatenbank ist aus der Arbeitsumgebung gesperrt (HTTP 403 am Proxy). **Phase A beginnt erst, wenn der PV die Lehrplan-PDFs bereitstellt:** Gymnasium Klasse 9, 10 und Jahrgangsstufen 11/12 sowie Oberschule Klasse 9/10 (Fassungen in `docs/quellen/README.md`). Keine Kompetenzlisten aus dem Gedächtnis.
 7. **Reihenfolge der Bausteine** (zweite Fragerunde, 02.11.2026): wie in der Bedarfsliste vorgeschlagen (`LERNKERN.md`): B1 Formeln und B5 Kurven → B2 mehrere Felder und B3 Runden → B9 Klasse 9 wählbar → Inhalte Klasse 9 → Werkzeug „Parameter am Graphen“ → Klasse 10 → B6, B7, B10 und die übrigen Werkzeuge für 11/12. Phase A geht per PR auf `main`.
 8. **Formeldarstellung (B1):** **KaTeX** (abweichend von der Empfehlung, „das sieht besser aus“), nach Vorschaubildern KaTeX gegen MathML. Bedingungen und Eintrag im Entscheidungslog: `ARCHITEKTUR.md` T-22. Die Inhalte schreiben Formeln weiter in LaTeX-Schreibweise zwischen `$…$`.
+9. **Niveaus unsichtbar** (PV, 02.11.2026): Lernende sehen keine Niveaus; die App wählt sie still je Kompetenz und bewertet dauernd neu (LEHRPLAN L-22, ersetzt L-3). Eltern und Lehrkraft-Bericht sehen sie, beim Aufgabenblatt und bei Prüfungen wählt man sie. **Jetzt, vor Klasse 9** gebaut. Für 9–12 heißt das: Jede Kompetenz braucht Vorlagen auf G, M und E, damit die Anpassung greift.
+10. **Drucken in der iPhone-App** (Fehler vom PV gemeldet): eigene Druckseite im Browser (ARCHITEKTUR T-21, Ergänzung).
 
 ---
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   // Kompetenzansicht (PLAN 1c, Punkt 8): was gefestigt ist, was wackelt – ohne
   // Bastion verständlich, ohne Noten und Prozente, mit Erklärung jeder Stufe.
-  import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
+  import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { AnzeigeStatus } from '../../core/learning/fortschritt';
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
@@ -15,7 +15,7 @@
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
-  import { naechsteWiederholung, sitzt, statusVon } from './stand';
+  import { naechsteWiederholungGesamt, sitzt, statusGesamt } from './stand';
   import ThemenLandkarte from './ThemenLandkarte.svelte';
 
   let {
@@ -23,7 +23,6 @@
     vorlagen,
     zustand,
     aufgaben,
-    niveau = $bindable(),
     klasse = $bindable(5),
     basebau = $bindable(true),
     selbst = false,
@@ -33,7 +32,6 @@
     vorlagen: readonly GeneratorVorlage[];
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
-    niveau: Niveau;
     klasse?: number;
     /** Basebau-Schalter (R7) */
     basebau?: boolean;
@@ -49,14 +47,10 @@
   const jetzt = Date.now();
   const themen = $derived(
     nachGraph(nachBereich(kompetenzen)).filter(
-      (k) =>
-        k.klassenstufe_typisch.includes(klasse) &&
-        vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau)),
+      (k) => k.klassenstufe_typisch.includes(klasse) && vorlagen.some((v) => v.kompetenz === k.id),
     ),
   );
-  const status = $derived(
-    new Map(themen.map((k) => [k.id, statusVon(zustand, k.id, niveau, jetzt)])),
-  );
+  const status = $derived(new Map(themen.map((k) => [k.id, statusGesamt(zustand, k.id, jetzt)])));
   const gruppe = (s: AnzeigeStatus) => themen.filter((k) => status.get(k.id) === s);
   const weiter = $derived(
     empfohlen(themen, (id) => sitzt(status.get(id) ?? 'neu'))
@@ -79,11 +73,6 @@
   <h2>{t('stand.ueberschrift')}</h2>
   <p class="leise">{t('stand.landkarte-hinweis')}</p>
 
-  <fieldset class="niveau">
-    <legend>{t('niveau.ueberschrift')}</legend>
-    <label><input type="radio" value="G" bind:group={niveau} /> {t('niveau.G')}</label>
-    <label><input type="radio" value="M" bind:group={niveau} /> {t('niveau.M')}</label>
-  </fieldset>
   <KlassenWahl bind:klasse />
 
   {#if allesSitzt}
@@ -136,7 +125,7 @@
       <p class="leise">{t(`stand.${s}-erklaerung` as TextSchluessel)}</p>
       <ul class="liste">
         {#each liste as k (k.id)}
-          {@const wann = naechsteWiederholung(zustand, k.id, niveau)}
+          {@const wann = naechsteWiederholungGesamt(zustand, k.id)}
           <li>
             <span>
               {k.titel.de}
@@ -187,20 +176,6 @@
     padding-inline: var(--abstand-m);
     border-inline-start: 4px solid var(--farbe-erfolg);
     color: var(--farbe-text);
-  }
-
-  .niveau {
-    display: flex;
-    gap: var(--abstand-m);
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
-  }
-
-  .niveau label {
-    min-block-size: 2.75rem;
-    display: flex;
-    align-items: center;
-    gap: var(--abstand-s);
   }
 
   .abschnitt {

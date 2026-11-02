@@ -8,7 +8,7 @@
   import { nochUeben, type Klassenarbeit } from '../../core/learning/klassenarbeit';
   import type { Zustand } from '../plattform/ablage';
   import { t, type TextSchluessel } from '../texte/texte';
-  import { statusVon } from './stand';
+  import { statusGesamt } from './stand';
 
   let {
     kompetenzen,
@@ -45,7 +45,7 @@
   const nachId = $derived(new Map(kompetenzen.map((k) => [k.id, k])));
   const ueben = $derived(
     klassenarbeit
-      ? nochUeben(klassenarbeit, (id) => statusVon(zustand, id, 'G', jetzt))
+      ? nochUeben(klassenarbeit, (id) => statusGesamt(zustand, id, jetzt))
           .map((id) => nachId.get(id))
           .filter((k): k is Kompetenz => k !== undefined)
       : [],

@@ -39,8 +39,8 @@
   const tag = lerntag(jetzt, -new Date(jetzt).getTimezoneOffset());
   const bilanz = $derived(tagesbilanz(aufgaben, [...zustand.staende.values()], tag));
   const titel = $derived(new Map(kompetenzen.map((k) => [k.id, k.titel.de])));
-  const name = (th: Thema) =>
-    `${titel.get(th.kompetenz) ?? th.kompetenz} · ${tt(th.niveau === 'G' ? 'niveau.G' : 'niveau.M')}`;
+  // Ohne Niveau (L-22): Lernende sehen es nicht
+  const name = (th: Thema) => titel.get(th.kompetenz) ?? th.kompetenz;
   const anzahl = (n: number, eins: string, mehrere: string) => (n === 1 ? eins : `${n} ${mehrere}`);
   const ertrag = $derived(tagesertrag(buchungen, aufgaben, tag));
   /** „1 Lerneinheit“, „2 Lerneinheiten“ */

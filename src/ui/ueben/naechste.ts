@@ -1,17 +1,13 @@
 // Nächste Übungs-Kompetenz für den direkten Sprung von „Üben“ (ohne Übersicht).
-import { nachGraph, type Kompetenz, type Niveau } from '../../core/competence/kompetenz';
+import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
 import { empfohlen } from '../../core/learning/empfehlung';
 import type { GeneratorVorlage } from '../../core/learning/vorlage';
 import type { Zustand } from '../plattform/ablage';
-import { sitzt, statusVon } from './stand';
+import { sitzt, statusGesamt } from './stand';
 
-/** Ob für Niveau und Klasse Vorlagen existieren. */
-export function hatAufgaben(
-  k: Kompetenz,
-  vorlagen: readonly GeneratorVorlage[],
-  niveau: Niveau,
-): boolean {
-  return vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes(niveau));
+/** Ob es Vorlagen gibt (auf irgendeinem Niveau – das Niveau wählt die App, L-22). */
+export function hatAufgaben(k: Kompetenz, vorlagen: readonly GeneratorVorlage[]): boolean {
+  return vorlagen.some((v) => v.kompetenz === k.id);
 }
 
 /**
@@ -22,12 +18,11 @@ export function naechsteKompetenz(
   kompetenzen: readonly Kompetenz[],
   vorlagen: readonly GeneratorVorlage[],
   geradeDran: readonly string[],
-  niveau: Niveau,
   klasse: number,
   zustand: Zustand,
   jetzt: number,
 ): Kompetenz | undefined {
-  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen, niveau);
+  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen);
 
   const ausIds = (ids: readonly string[]) =>
     ids.flatMap((id) => {
@@ -36,11 +31,11 @@ export function naechsteKompetenz(
     });
 
   const dran = ausIds(geradeDran);
-  const offen = dran.find((k) => !sitzt(statusVon(zustand, k.id, niveau, jetzt)));
+  const offen = dran.find((k) => !sitzt(statusGesamt(zustand, k.id, jetzt)));
   if (offen) return offen;
   if (dran[0]) return dran[0];
 
-  const empfehlungen = empfohlen(kompetenzen, (id) => sitzt(statusVon(zustand, id, niveau, jetzt)));
+  const empfehlungen = empfohlen(kompetenzen, (id) => sitzt(statusGesamt(zustand, id, jetzt)));
   const empfohlenMitAufgabe = empfehlungen
     .map((id) => kompetenzen.find((k) => k.id === id))
     .find(

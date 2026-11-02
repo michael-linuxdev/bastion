@@ -72,15 +72,14 @@
             <p class="ursache"><Textteile teile={u} /></p>
             <p class="herkunft">
               {fv ? themen(g) : (kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz)}
-              {#if !fv}· {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')}{/if} · {g.fehler.length}
+              · {g.fehler.length}
               {t('werkstatt.mal')}
             </p>
           {:else}
             <!-- L10: ohne bekanntes Muster steht das Thema oben, damit Gruppen unterscheidbar sind -->
             <p class="ursache">{kompetenzen.get(g.kompetenz)?.titel.de ?? g.kompetenz}</p>
             <p class="herkunft">
-              {t('werkstatt.ohne-muster')} · {t(g.niveau === 'G' ? 'niveau.G' : 'niveau.M')} · {g
-                .fehler.length}
+              {t('werkstatt.ohne-muster')} · {g.fehler.length}
               {t('werkstatt.mal')}
             </p>
           {/if}
