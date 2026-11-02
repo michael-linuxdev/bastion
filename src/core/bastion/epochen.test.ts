@@ -18,10 +18,10 @@ describe('Epochen-Hilfen (BASEBAU §5.5)', () => {
   });
 
   it('Freischaltung braucht Kern und Baupläne', () => {
-    expect(epocheFreigeschaltet(3, 14)).toBe(1);
-    expect(epocheFreigeschaltet(3, 15)).toBe(2);
-    expect(epocheFreigeschaltet(5, 40)).toBe(3);
-    expect(epocheFreigeschaltet(7, 80)).toBe(4);
+    expect(epocheFreigeschaltet(3, 7)).toBe(1);
+    expect(epocheFreigeschaltet(3, 8)).toBe(2);
+    expect(epocheFreigeschaltet(5, 20)).toBe(3);
+    expect(epocheFreigeschaltet(7, 40)).toBe(4);
   });
 
   it('Höchstzahlen und Kern-Grenze je Epoche', () => {
