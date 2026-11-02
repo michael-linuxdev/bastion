@@ -345,7 +345,9 @@ Zusammen 14 Gebäudebilder plus Abend-Ebenen, dazu Boden (4 Kacheln), Umgebung u
 
 ### 12.9 Abnahme dieser Regel (PV)
 
-- [ ] Palette, Licht, Kontur und Maßstab so übernehmen
-- [ ] Materialleiter Holz → Fachwerk → Stein für das Thema `bastion`
-- [ ] Tabelle 12.8 (was sich je Rolle und Stufe ändert)
-- [ ] Danach erzeugt G3 die Bilder in Chargen, jede mit Vergleichsbild vorher und nachher
+**Abgenommen vom PV am 02.11.2026** anhand der Bilder aus G3 und G4 (alle vier Punkte „ja“).
+
+- [x] Palette, Licht, Kontur und Maßstab so übernehmen
+- [x] Materialleiter Holz → Fachwerk → Stein für das Thema `bastion`
+- [x] Tabelle 12.8 (was sich je Rolle und Stufe ändert)
+- [x] Danach erzeugt G3 die Bilder in Chargen, jede mit Vergleichsbild vorher und nachher (erledigt, `GRAFIK.md` §11.8; dazu Gerüst und Vorher/Nachher aus G4, §11.9)

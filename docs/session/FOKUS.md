@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 01.11.2026 abends · Widerspruch G0 entschieden (eigener Generator für alles, vor U4b nur Thema `bastion`) · L fast fertig · parallel G2/G5, F4, F5, F6 · **Vorrang: Paket G (Bauen und Ausbau), Entscheidung PV 01.11.2026**
+Stand: 02.11.2026 · G2 abgenommen, G3/G4/G5 umgesetzt, offen G6 · L umgesetzt, Abnahme offen · F2, F4, F5, F6 erledigt, F3 zum Teil · nächste Sitzungen unten vorbereitet
 
 ---
 
@@ -98,6 +98,30 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 - **Fehler-Schüler als CI-Sperrklinke:** ja, die Zahl der Funde darf nicht steigen.
 - **F5-Funde im Musterfeld vor der Lehrkraft beheben:** ja, auch wenn geänderte Dateien ihre Stufe 1 verlieren.
 - **Drucken für Lehrkräfte in der App:** Der Prüfungs- und Arbeitsblatt-Generator kommt in den Elternbereich („beliebige PDFs drucken“). PDF entsteht über den Druckdialog des Browsers, ohne neue Abhängigkeit (vorläufige Entscheidung zur PDF-Technik für U7, Entscheidungslog `ARCHITEKTUR.md`).
+
+
+**Entscheidungen des PV, vierte Runde (02.11.2026 morgens):**
+
+- **G2 Stil-Regel abgenommen** (alle vier Punkte der Checkliste, `GRAFIK-SPRITES.md` §12.9).
+- Die PRs der Nachtschicht werden gemergt, auch die Lernkern-PRs #165, #159, #169 und #170.
+- **Offen beim PV:** G6, Abnahme L, Korrektur von `FV.BR.NICHT-VOLLSTAENDIG` (siehe „Nächste Sitzungen“), was mit der alten Prüfseite `NKSgnmWBsS1TpZ6uLLLgwy` ist (mit dem Konto der Sitzung nicht mehr erreichbar).
+
+## Nächste Sitzungen (vorbereitet 02.11.2026)
+
+**Was der PV vorher tut:** G6 mit 2–3 Jugendlichen (https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), Abnahme L (ausprobieren; Wünsche jetzt, danach ist eingefroren), eine Lehrkraft anschreiben (Anschreiben, Beispiel-Arbeitsblatt und `docs/PRUEFSEITE-ANLEITUNG.md` liegen bereit).
+
+**Strang Lernkern, in dieser Reihenfolge:**
+
+1. **Zuerst den PV fragen:** Wird `FV.BR.NICHT-VOLLSTAENDIG` jetzt korrigiert? Befund der Stufe-1-Prüfung (#170): Der Rückweg `M.ZO.BR.ERWEITERN#erklaeren-kuerzen` erklärt Kürzen allgemein, aber nicht „weiterkürzen, bis kein gemeinsamer Teiler bleibt“. Empfehlung: jetzt, vor der Lehrkraft. Dann verliert `M.ZO.BR.ERWEITERN/vermittlung.yaml` Stufe 1 und braucht danach eine frische Sitzung für Stufe 1 (beide Dateien).
+2. **Abnahme L:** Gibt der PV sie frei, „L abgenommen“ mit Datum und Commit eintragen und das Einfrieren nach Regel 7 in `SESSION-PROMPT.md` und `AGENTS.md` in Kraft setzen (`src/ui/ueben/`, `vermittlung/`, `eingabe/`, `eltern/`, `start/`: nur Fehlerbehebungen bis zur Auswertung von U4b).
+3. **F3 abschließen:** neue Prüfseite mit `pnpm pruefbogen --online --name "Musterfeld Brüche" M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB` als Artefakt veröffentlichen (Fähigkeit `db`, Sammlung `bewertung`), Link an den PV. Punkt 2 prüfen (geht eine Kompetenz in 20–30 Minuten am Tablet?). Danach `pnpm pruefbogen einlesen` an einer erfundenen Bewertung vorführen.
+4. **F7** Meilenstein Klasse 5 planen, **F9** Vorschau Schrägstrich-Brüche (nur Bericht), **F8** `App.svelte` aufteilen, **F10** Stand-Dokumente straffen – je ein PR.
+
+**Strang Grafik:** nach G6 „G abgenommen“ eintragen. Bis U4b nur Fehlerbehebungen. Kandidaten: ein Tipper in der ersten Sekunde nach dem Öffnen der Bastion geht verloren (Bühne nimmt Tipper erst nach dem ersten Zeichnen an, #160); Staub beim Fertigwerden und eine Statusgeste eines Bewohners (`GRAFIK.md` §11.9) nur nach Rückfrage.
+
+**Danach: U4b** (`TESTS.md` §2–3), sobald L und G abgenommen sind. Auswertung mit `pnpm auswertung`.
+
+**Startsatz für eine neue Sitzung:** „Lies CLAUDE.md und `docs/session/FOKUS.md`, Abschnitt ‚Nächste Sitzungen‘. Arbeite im Strang Lernkern die Punkte der Reihe nach ab. Frage zuerst, was Punkt 1 verlangt.“
 
 ---
 
