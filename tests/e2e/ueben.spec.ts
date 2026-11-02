@@ -430,6 +430,8 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   const code = (await page.locator('.code').innerText()).trim();
   expect(code.split(' ')).toHaveLength(4);
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  // F2 (T-20): Die Werkstatt liefert Entwürfe aus, darum steht der Vermerk da
+  await expect(page.locator('[data-entwurf]')).toContainText('noch nicht fachlich geprüft');
   // Auch Eltern können die Bastion ein- und ausschalten (B-13)
   await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toBeChecked();
 

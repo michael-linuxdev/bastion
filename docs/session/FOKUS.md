@@ -205,7 +205,7 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
-### F2 – Öffentliche Seite nur mit geprüften Inhalten
+### ~~F2 – Öffentliche Seite nur mit geprüften Inhalten~~ (erledigt 02.11.2026, INHALTSFORMAT §8, README „Was ist öffentlich?“)
 
 **Ziel:** Lernende sehen nur Inhalte ab einer festgelegten Review-Stufe. `main` bleibt die Werkstatt.
 
