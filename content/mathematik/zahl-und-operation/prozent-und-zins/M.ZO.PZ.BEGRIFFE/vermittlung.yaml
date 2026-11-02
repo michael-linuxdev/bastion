@@ -14,8 +14,8 @@ schritte:
       de: 'Welcher [[Bruch]] ist 25 %?'
     antwort:
       optionen:
-        - { wert: { de: '1/4' }, richtig: true }
-        - { wert: { de: '25/10' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+        - { wert: { de: '$\frac{1}{4}$' }, richtig: true }
+        - { wert: { de: '$\frac{25}{10}$' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
     weiter: entdecken
     bei: { sonst: M.ZO.BR.PROZENT }
   - id: entdecken

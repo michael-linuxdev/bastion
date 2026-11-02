@@ -18,9 +18,9 @@ erklaerung:
       de: 'Sind die [[Nenner]] gleich, stimmt das, denn dann sind alle Teile gleich groß. Bei verschiedenen Nennern sind die Teile verschieden groß. Dann können wenige große Teile mehr sein als viele kleine.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
     - teil: so-stimmt-es
-      de: '[[Erweitere]] beide auf denselben [[Nenner]]: 3/8 = 9/24 und 2/3 = 16/24. Jetzt sind die Teile gleich groß, und 16/24 ist größer.'
+      de: '[[Erweitere]] beide auf denselben [[Nenner]]: $\frac{3}{8} = \frac{9}{24}$ und $\frac{2}{3} = \frac{16}{24}$. Jetzt sind die Teile gleich groß, und $\frac{16}{24}$ ist größer.'
 gegenbeispiel:
-  de: '3/8 ist weniger als die Hälfte, 2/3 ist mehr als die Hälfte. Also ist 2/3 größer, obwohl 2 < 3.'
+  de: '$\frac{3}{8}$ ist weniger als die Hälfte, $\frac{2}{3}$ ist mehr als die Hälfte. Also ist $\frac{2}{3}$ größer, obwohl 2 < 3.'
 rueckweg:
   vermittlung: M.ZO.BR.VERGLEICHEN#erklaeren-ungleichnamig
   voraussetzung: M.ZO.BR.ERWEITERN

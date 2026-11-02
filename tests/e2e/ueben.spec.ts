@@ -1636,7 +1636,13 @@ test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot meh
       await page.getByLabel('Nenner').fill('6');
     },
     'Stimmt das?': () => page.getByRole('radio', { name: /^Nein/ }).check(),
-    'Prüfe dich': () => page.getByRole('radio', { name: '3/5', exact: true }).check(),
+    // Die Antworten sind Formeln (KaTeX): die Option über ihre LaTeX-Quelle finden
+    'Prüfe dich': () =>
+      page
+        .locator('label')
+        .filter({ has: page.locator('annotation', { hasText: '\\frac{3}{5}' }) })
+        .getByRole('radio')
+        .check(),
   };
   for (let i = 0; i < 20; i++) {
     if (await page.getByRole('button', { name: 'Jetzt üben' }).isVisible()) break;

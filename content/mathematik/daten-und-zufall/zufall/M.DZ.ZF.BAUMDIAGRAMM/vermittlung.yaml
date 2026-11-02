@@ -19,7 +19,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Du wirfst zweimal eine Münze. Bei jedem Wurf ist Kopf 1/2. In wie vielen von 4 gleich wahrscheinlichen Fällen kommt zweimal Kopf?'
+      de: 'Du wirfst zweimal eine Münze. Bei jedem Wurf ist Kopf $\frac{1}{2}$. In wie vielen von 4 gleich wahrscheinlichen Fällen kommt zweimal Kopf?'
     antwort:
       eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '2', fv: FV.ZF.PFADREGELN }] }
     weiter: erklaeren-pfadregeln
@@ -31,7 +31,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Zweimal Münze: Kopf, Kopf ist 1/2 · 1/2 = 1/4. Genau einmal Kopf hat zwei [[Pfade]], KZ und ZK: 1/4 + 1/4 = 1/2.'
+      de: 'Zweimal Münze: Kopf, Kopf ist $\frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}$. Genau einmal Kopf hat zwei [[Pfade]], KZ und ZK: $\frac{1}{4} + \frac{1}{4} = \frac{1}{2}$.'
     weiter: erklaeren-urne
   - id: erklaeren-urne
     typ: erklaeren
@@ -55,10 +55,13 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Für zweimal Kopf rechnet Ben 1/2 + 1/2 = 1. Stimmt das?'
+      de: 'Für zweimal Kopf rechnet Ben $\frac{1}{2} + \frac{1}{2} = 1$. Stimmt das?'
     antwort:
       optionen:
-        - { wert: { de: 'Nein, entlang eines Pfades wird multipliziert: 1/4.' }, richtig: true }
+        - {
+            wert: { de: 'Nein, entlang eines Pfades wird multipliziert: $\frac{1}{4}$.' },
+            richtig: true,
+          }
         - { wert: { de: 'Ja.' }, fv: FV.ZF.PFADREGELN }
     weiter: merksatz
     bei: { FV.ZF.PFADREGELN: erklaeren-pfadregeln }
@@ -73,9 +76,9 @@ schritte:
       de: 'Ein Beutel hat 3 rote und 1 blaue Kugel. Du ziehst zweimal mit Zurücklegen. Wie groß ist die [[Wahrscheinlichkeit]] für zweimal Rot?'
     antwort:
       optionen:
-        - { wert: { de: '9/16' }, richtig: true }
-        - { wert: { de: '6/4' }, fv: FV.ZF.PFADREGELN }
-        - { wert: { de: '1/2' }, fv: FV.ZF.OHNE-ZURUECKLEGEN }
+        - { wert: { de: '$\frac{9}{16}$' }, richtig: true }
+        - { wert: { de: '$\frac{6}{4}$' }, fv: FV.ZF.PFADREGELN }
+        - { wert: { de: '$\frac{1}{2}$' }, fv: FV.ZF.OHNE-ZURUECKLEGEN }
     weiter: uebergang
     bei: { FV.ZF.PFADREGELN: erklaeren-pfadregeln, FV.ZF.OHNE-ZURUECKLEGEN: erklaeren-urne }
   - id: uebergang

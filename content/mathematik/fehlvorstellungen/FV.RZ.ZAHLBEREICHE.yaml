@@ -17,7 +17,7 @@ erklaerung:
     - teil: warum-nicht
       de: 'Die Namen sind viele und [[ähnlich]], das ist schwer. Die Bereiche wachsen aber wie Schachteln: Jede [[natürliche Zahl]] ist auch eine [[ganze Zahl]], und jede ganze Zahl ist eine [[rationale Zahl]].'
     - teil: so-stimmt-es
-      de: 'Prüfe zwei Fragen: Hat die Zahl ein Minus? Ist sie ganz oder liegt sie zwischen [[ganzen Zahlen]]? 5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. −1/2 ist nur rational.'
+      de: 'Prüfe zwei Fragen: Hat die Zahl ein Minus? Ist sie ganz oder liegt sie zwischen [[ganzen Zahlen]]? 5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. −$\frac{1}{2}$ ist nur rational.'
 gegenbeispiel:
   de: '−3 ist eine [[ganze Zahl]], aber keine natürliche. Darum stimmt „Jede ganze Zahl ist natürlich“ nicht.'
 rueckweg:

@@ -15,12 +15,12 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast aus dem Bruchstrich ein Komma gemacht.'
     - teil: warum-nicht
-      de: 'Beide Schreibweisen trennen zwei Zahlen, darum wirkt das [[ähnlich]]. Aber 3,4 heißt 3 Ganze und 4 [[Zehntel]]. 3/4 ist dagegen weniger als ein Ganzes.'
+      de: 'Beide Schreibweisen trennen zwei Zahlen, darum wirkt das [[ähnlich]]. Aber 3,4 heißt 3 Ganze und 4 [[Zehntel]]. $\frac{3}{4}$ ist dagegen weniger als ein Ganzes.'
       bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 4, markiert: 3 } }
     - teil: so-stimmt-es
-      de: '[[Erweitere]] auf einen [[Nenner]] 10, 100 oder 1000: 3/4 = 75/100 = 0,75.'
+      de: '[[Erweitere]] auf einen [[Nenner]] 10, 100 oder 1000: $\frac{3}{4} = \frac{75}{100} = 0{,}75$.'
 gegenbeispiel:
-  de: '1/2 ist eine Hälfte, also 0,5. Mit Komma geschrieben wäre 1,2 mehr als ein Ganzes.'
+  de: '$\frac{1}{2}$ ist eine Hälfte, also 0,5. Mit Komma geschrieben wäre 1,2 mehr als ein Ganzes.'
 rueckweg:
   vermittlung: M.ZO.BR.DEZIMAL#erklaeren-umwandeln
   voraussetzung: M.ZO.BR.ERWEITERN

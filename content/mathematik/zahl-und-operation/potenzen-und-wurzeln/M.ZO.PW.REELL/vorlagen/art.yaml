@@ -21,7 +21,7 @@ fehlerbilder:
     de: 'Der Taschenrechner zeigt nur die ersten Stellen. Diese Zahl hat unendlich viele Stellen ohne Periode, sie ist irrational.'
     fv: FV.PW.ANZEIGE-ENDLICH
   periodisch-irrational:
-    de: 'Eine [[periodisch]]e [[Dezimalzahl]] ist ein [[Bruch]]: 0,333… = 1/3. Sie ist rational.'
+    de: 'Eine [[periodisch]]e [[Dezimalzahl]] ist ein [[Bruch]]: 0,333… = $\frac{1}{3}$. Sie ist rational.'
     fv: FV.PW.PERIODISCH-IRRATIONAL
 herkunft: ki-entwurf
 version: 1

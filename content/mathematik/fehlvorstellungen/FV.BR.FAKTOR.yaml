@@ -16,9 +16,9 @@ erklaerung:
     - teil: warum-nicht
       de: 'Das Vorgehen stimmt schon fast. Nur wenn beide mit **derselben** Zahl malgenommen werden, bleibt der [[Anteil]] gleich.'
     - teil: so-stimmt-es
-      de: 'Rechne zuerst: neuer [[Nenner]] geteilt durch alter Nenner. Mit diesem Ergebnis nimmst du den [[Zähler]] mal. Bei 2/3 auf Zwölftel: 12 : 3 = 4, also 8/12.'
+      de: 'Rechne zuerst: neuer [[Nenner]] geteilt durch alter Nenner. Mit diesem Ergebnis nimmst du den [[Zähler]] mal. Bei $\frac{2}{3}$ auf Zwölftel: 12 : 3 = 4, also $\frac{8}{12}$.'
 gegenbeispiel:
-  de: '2/3 auf Zwölftel: 12 : 3 = 4. 2 · 4 = 8, also 8/12. Mit 3 statt 4 käme 6/12 heraus. Das ist genau die Hälfte und damit weniger als 2/3.'
+  de: '$\frac{2}{3}$ auf Zwölftel: 12 : 3 = 4. 2 · 4 = 8, also $\frac{8}{12}$. Mit 3 statt 4 käme $\frac{6}{12}$ heraus. Das ist genau die Hälfte und damit weniger als $\frac{2}{3}$.'
 rueckweg:
   vermittlung: M.ZO.BR.ERWEITERN#beispiel
 kontrast: [M.ZO.BR.ERWEITERN.ZIELNENNER]

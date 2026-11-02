@@ -18,9 +18,9 @@ erklaerung:
       de: '[[Zähler]] und [[Nenner]] sehen beide wie Stellen aus, an denen man rechnen kann. Aber mal 3 heißt: dreimal so viel. Das geht mit dreimal so vielen Teilen. Ein größerer [[Nenner]] würde die Teile dagegen kleiner machen.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 3 } }
     - teil: so-stimmt-es
-      de: '1/6 · 3 = 3/6, denn drei Sechstel sind dreimal so viel wie ein Sechstel. 1/6 : 3 = 1/18, denn jedes Sechstel wird in 3 Stücke geteilt.'
+      de: '$\frac{1}{6} \cdot 3 = \frac{3}{6}$, denn drei Sechstel sind dreimal so viel wie ein Sechstel. $\frac{1}{6} : 3 = \frac{1}{18}$, denn jedes Sechstel wird in 3 Stücke geteilt.'
 gegenbeispiel:
-  de: 'Mal 3 muss mehr ergeben: 2/5 · 3 = 2/15 wäre weniger als 2/5. Durch 3 muss weniger ergeben: 6/5 wäre mehr.'
+  de: 'Mal 3 muss mehr ergeben: $\frac{2}{5} \cdot 3 = \frac{2}{15}$ wäre weniger als $\frac{2}{5}$. Durch 3 muss weniger ergeben: $\frac{6}{5}$ wäre mehr.'
 rueckweg:
   vermittlung: M.ZO.BR.MULT#erklaeren-mal-zahl
 kontrast: [M.ZO.BR.MULT.MAL-ZAHL, M.ZO.BR.DIV.DURCH-ZAHL]

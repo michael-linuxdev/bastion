@@ -19,11 +19,11 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Was rechnest du bei 1/2 + 1/4 · 2 zuerst?'
+      de: 'Was rechnest du bei $\frac{1}{2} + \frac{1}{4} \cdot 2$ zuerst?'
     antwort:
       optionen:
-        - { wert: { de: '1/4 · 2' }, richtig: true }
-        - { wert: { de: '1/2 + 1/4' }, fv: FV.NZ.PUNKT-VOR-STRICH }
+        - { wert: { de: '$\frac{1}{4} \cdot 2$' }, richtig: true }
+        - { wert: { de: '$\frac{1}{2} + \frac{1}{4}$' }, fv: FV.NZ.PUNKT-VOR-STRICH }
     weiter: erklaeren-reihenfolge
   - id: erklaeren-reihenfolge
     typ: erklaeren
@@ -33,7 +33,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: '1/2 + 1/4 · 2: Erst 1/4 · 2 = 2/4 = 1/2. Dann 1/2 + 1/2 = 1.'
+      de: '$\frac{1}{2} + \frac{1}{4} \cdot 2$: Erst $\frac{1}{4} \cdot 2 = \frac{2}{4} = \frac{1}{2}$. Dann $\frac{1}{2} + \frac{1}{2} = 1$.'
     weiter: erklaeren-quadrat
   - id: erklaeren-quadrat
     typ: erklaeren

@@ -10,7 +10,13 @@ describe('Prüfbogen', () => {
   it('enthält jeden Schritt jeder Erstvermittlung', () => {
     for (const id of MUSTERFELD)
       for (const s of eingabe.vermittlungen.get(id)?.schritte ?? [])
-        expect(html).toContain(s.text.de.replace(/\[\[([^\]]+)\]\]/g, '<u>$1</u>').split('**')[0]);
+        // bis zur ersten Hervorhebung oder Formel (Formeln stehen als MathML im Bogen)
+        expect(html).toContain(
+          s.text.de
+            .replace(/\[\[([^\]]+)\]\]/g, '<u>$1</u>')
+            .split('**')[0]
+            ?.split('$')[0],
+        );
   });
 
   it('nennt die zehn Fehlvorstellungen des Musterfelds mit Abschnitt', () => {

@@ -16,7 +16,7 @@ erklaerung:
     - teil: warum-nicht
       de: 'Mit Zurücklegen wäre das richtig. Aber die erste Kugel liegt jetzt in deiner Hand. In der Urne sind weniger Kugeln, und vielleicht eine rote weniger.'
     - teil: so-stimmt-es
-      de: '3 rote und 2 blaue: erst Rot 3/5, dann noch 2 rote von 4 Kugeln, also 2/4. Zweimal Rot: 3/5 · 2/4 = 6/20 = 3/10.'
+      de: '3 rote und 2 blaue: erst Rot $\frac{3}{5}$, dann noch 2 rote von 4 Kugeln, also $\frac{2}{4}$. Zweimal Rot: $\frac{3}{5} \cdot \frac{2}{4} = \frac{6}{20} = \frac{3}{10}$.'
 gegenbeispiel:
   de: 'Liegt nur eine rote Kugel in der Urne, kann man ohne Zurücklegen nicht zweimal Rot ziehen.'
 rueckweg:

@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du [[Brüche]] wie 7/10 oder 23/100 als [[Dezimalzahl]] schreiben und umgekehrt.'
+      de: 'Danach kannst du [[Brüche]] wie $\frac{7}{10}$ oder $\frac{23}{100}$ als [[Dezimalzahl]] schreiben und umgekehrt.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -20,7 +20,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Der Zahlenstrahl ist in [[Zehntel]] geteilt. 3/10 schreibt man auch 0,3. Wie schreibt man 7 Zehntel?'
+      de: 'Der Zahlenstrahl ist in [[Zehntel]] geteilt. $\frac{3}{10}$ schreibt man auch 0,3. Wie schreibt man 7 Zehntel?'
     bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
     antwort:
       eingabe:
@@ -29,24 +29,26 @@ schritte:
   - id: erklaeren-stellenwert
     typ: erklaeren
     text:
-      de: 'Hinter dem Komma: Die erste Stelle zählt [[Zehntel]], die zweite [[Hundertstel]], die dritte [[Tausendstel]]. 0,7 = 7/10, 0,07 = 7/100.'
+      de: 'Hinter dem Komma: Die erste Stelle zählt [[Zehntel]], die zweite [[Hundertstel]], die dritte [[Tausendstel]]. $0{,}7 = \frac{7}{10}$, $0{,}07 = \frac{7}{100}$.'
     bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '23/100 = 0,23, das sind 2 [[Zehntel]] und 3 [[Hundertstel]]. Umgekehrt: 0,4 = 4/10, [[gekürzt]] 2/5.'
+      de: '$\frac{23}{100} = 0{,}23$, das sind 2 [[Zehntel]] und 3 [[Hundertstel]]. Umgekehrt: $0{,}4 = \frac{4}{10}$, [[gekürzt]] $\frac{2}{5}$.'
     weiter: erklaeren-umwandeln
   - id: erklaeren-umwandeln
     typ: erklaeren
     text:
-      de: 'Andere [[Nenner]] erweiterst du zuerst auf 10, 100 oder 1000: 3/4 = 75/100 = 0,75. Das Komma ersetzt nicht den Bruchstrich: 3/4 ist nicht 3,4.'
+      de: 'Andere [[Nenner]] erweiterst du zuerst auf 10, 100 oder 1000: $\frac{3}{4} = \frac{75}{100} = 0{,}75$. Das Komma ersetzt nicht den Bruchstrich: $\frac{3}{4}$ ist nicht 3,4.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      { de: 'Schreibe 2/5 als [[Dezimalzahl]]. [[Erweitere]] zuerst auf [[Zehntel]]: 2/5 = 4/10.' }
+      {
+        de: 'Schreibe $\frac{2}{5}$ als [[Dezimalzahl]]. [[Erweitere]] zuerst auf [[Zehntel]]: $\frac{2}{5} = \frac{4}{10}$.',
+      }
     antwort:
       eingabe:
         { art: zahl, loesung: '0,4', fehler: [{ wert: '2,5', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
@@ -55,7 +57,7 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Jana schreibt 7/100 = 0,7. Stimmt das?'
+      de: 'Jana schreibt $\frac{7}{100} = 0{,}7$. Stimmt das?'
     antwort:
       optionen:
         - { wert: { de: 'Nein, Hundertstel stehen an der zweiten Stelle: 0,07.' }, richtig: true }
@@ -73,9 +75,9 @@ schritte:
       de: 'Welcher vollständig gekürzte [[Bruch]] ist 0,25?'
     antwort:
       optionen:
-        - { wert: { de: '1/4' }, richtig: true }
-        - { wert: { de: '25/10' }, fv: FV.BR.STELLENWERT-DEZIMAL }
-        - { wert: { de: '25/100' }, fv: FV.BR.NICHT-GEKUERZT }
+        - { wert: { de: '$\frac{1}{4}$' }, richtig: true }
+        - { wert: { de: '$\frac{25}{10}$' }, fv: FV.BR.STELLENWERT-DEZIMAL }
+        - { wert: { de: '$\frac{25}{100}$' }, fv: FV.BR.NICHT-GEKUERZT }
     weiter: uebergang
     bei: { FV.BR.STELLENWERT-DEZIMAL: erklaeren-stellenwert }
   - id: uebergang

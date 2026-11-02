@@ -34,7 +34,7 @@ schritte:
   - id: erklaeren-ganzes
     typ: erklaeren
     text:
-      de: 'Ein [[Bruch]] beschreibt einen [[Anteil]] am Ganzen. Unten steht der [[Nenner]]: in wie viele Teile das Ganze geteilt ist. Oben steht der [[Zähler]]: wie viele Teile gemeint sind. Hier also 3/4.'
+      de: 'Ein [[Bruch]] beschreibt einen [[Anteil]] am Ganzen. Unten steht der [[Nenner]]: in wie viele Teile das Ganze geteilt ist. Oben steht der [[Zähler]]: wie viele Teile gemeint sind. Hier also $\frac{3}{4}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: erklaeren-gleich
   - id: erklaeren-gleich
@@ -46,7 +46,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Ein Kreis ist in 8 gleich große Stücke geteilt, 5 sind gefärbt. Alle Teile: 8, das ist der [[Nenner]]. Gefärbte Teile: 5, das ist der [[Zähler]]. Der [[Anteil]] ist 5/8.'
+      de: 'Ein Kreis ist in 8 gleich große Stücke geteilt, 5 sind gefärbt. Alle Teile: 8, das ist der [[Nenner]]. Gefärbte Teile: 5, das ist der [[Zähler]]. Der [[Anteil]] ist $\frac{5}{8}$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -91,13 +91,13 @@ schritte:
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
     antwort:
       optionen:
-        - wert: { de: '3/5' }
+        - wert: { de: '$\frac{3}{5}$' }
           richtig: true
-        - wert: { de: '3/2' }
+        - wert: { de: '$\frac{3}{2}$' }
           fv: FV.BR.TEIL-ZU-REST
-        - wert: { de: '2/5' }
+        - wert: { de: '$\frac{2}{5}$' }
           fv: FV.BR.GEGENTEIL
-        - wert: { de: '5/3' }
+        - wert: { de: '$\frac{5}{3}$' }
           fv: FV.BR.VERTAUSCHT
     weiter: uebergang
     bei:

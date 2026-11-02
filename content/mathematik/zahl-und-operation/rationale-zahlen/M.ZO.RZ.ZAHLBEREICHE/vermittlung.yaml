@@ -11,10 +11,10 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Ist 8/4 eine [[natürliche Zahl]]?'
+      de: 'Ist $\frac{8}{4}$ eine [[natürliche Zahl]]?'
     antwort:
       optionen:
-        - { wert: { de: 'Ja, 8/4 = 2.' }, richtig: true }
+        - { wert: { de: 'Ja, $\frac{8}{4} = 2$.' }, richtig: true }
         - { wert: { de: 'Nein, es ist ein Bruch.' }, fv: FV.BR.SCHREIBWEISE-ZAHL }
     weiter: entdecken
     bei: { sonst: M.ZO.BR.MENGEN }
@@ -35,7 +35,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: '5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. 1/2 ist gebrochen und rational. −1/2 ist nur rational.'
+      de: '5 ist natürlich, ganz, gebrochen und rational. −3 ist ganz und rational. $\frac{1}{2}$ ist gebrochen und rational. −$\frac{1}{2}$ ist nur rational.'
     weiter: erklaeren-mengen
   - id: erklaeren-mengen
     typ: erklaeren

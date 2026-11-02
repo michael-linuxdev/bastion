@@ -15,11 +15,11 @@ schritte:
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
     antwort:
       optionen:
-        - wert: { de: '2/3' }
+        - wert: { de: '$\frac{2}{3}$' }
           richtig: true
-        - wert: { de: '2/1' }
+        - wert: { de: '$\frac{2}{1}$' }
           fv: FV.BR.TEIL-ZU-REST
-        - wert: { de: '3/2' }
+        - wert: { de: '$\frac{3}{2}$' }
           fv: FV.BR.VERTAUSCHT
     weiter: entdecken
     bei: { sonst: M.ZO.BR.BEGRIFF }
@@ -39,18 +39,18 @@ schritte:
   - id: erklaeren-erweitern
     typ: erklaeren
     text:
-      de: 'Gefärbt ist genauso viel wie vorher. Jedes Teil ist halb so groß, dafür sind es doppelt so viele. Darum gilt 2/3 = 4/6. Das heißt [[Erweitern]]: [[Zähler]] und [[Nenner]] mit derselben Zahl malnehmen.'
+      de: 'Gefärbt ist genauso viel wie vorher. Jedes Teil ist halb so groß, dafür sind es doppelt so viele. Darum gilt $\frac{2}{3} = \frac{4}{6}$. Das heißt [[Erweitern]]: [[Zähler]] und [[Nenner]] mit derselben Zahl malnehmen.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 6, gefaerbt: 4 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '3/4 soll Zwölftel bekommen. Rechne 12 : 4 = 3. Nimm [[Zähler]] und [[Nenner]] mal 3: 3 · 3 = 9 und 4 · 3 = 12. Also ist 3/4 = 9/12.'
+      de: '$\frac{3}{4}$ soll Zwölftel bekommen. Rechne 12 : 4 = 3. Nimm [[Zähler]] und [[Nenner]] mal 3: 3 · 3 = 9 und 4 · 3 = 12. Also ist $\frac{3}{4} = \frac{9}{12}$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: '[[Erweitere]] 2/5 auf [[Zehntel]]. Welchen [[Bruch]] schreibst du auf?'
+      de: '[[Erweitere]] $\frac{2}{5}$ auf [[Zehntel]]. Welchen [[Bruch]] schreibst du auf?'
     antwort:
       eingabe:
         art: bruch
@@ -65,17 +65,17 @@ schritte:
   - id: erklaeren-kuerzen
     typ: erklaeren
     text:
-      de: 'Es geht auch rückwärts: [[Zähler]] und [[Nenner]] durch dieselbe Zahl teilen. Das heißt [[Kürzen]]: 6/8 = 3/4. Der [[Anteil]] bleibt. Kürze weiter, bis beide keinen [[gemeinsamen Teiler]] außer 1 mehr haben: 12/18 = 6/9 = 2/3.'
+      de: 'Es geht auch rückwärts: [[Zähler]] und [[Nenner]] durch dieselbe Zahl teilen. Das heißt [[Kürzen]]: $\frac{6}{8} = \frac{3}{4}$. Der [[Anteil]] bleibt. Kürze weiter, bis beide keinen [[gemeinsamen Teiler]] außer 1 mehr haben: $\frac{12}{18} = \frac{6}{9} = \frac{2}{3}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     weiter: gegenbeispiel
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Tim rechnet: „Ich zähle oben und unten 1 dazu. Aus 1/2 wird 2/3.“ Ist 2/3 gleich groß wie 1/2?'
+      de: 'Tim rechnet: „Ich zähle oben und unten 1 dazu. Aus $\frac{1}{2}$ wird $\frac{2}{3}$.“ Ist $\frac{2}{3}$ gleich groß wie $\frac{1}{2}$?'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
     antwort:
       optionen:
-        - wert: { de: 'Nein, 2/3 ist mehr als die Hälfte.' }
+        - wert: { de: 'Nein, $\frac{2}{3}$ ist mehr als die Hälfte.' }
           richtig: true
         - wert: { de: 'Ja, oben und unten wurde dasselbe gemacht.' }
           fv: FV.BR.ADDITIV
@@ -89,14 +89,14 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Welcher [[Bruch]] ist genauso groß wie 3/4?'
+      de: 'Welcher [[Bruch]] ist genauso groß wie $\frac{3}{4}$?'
     antwort:
       optionen:
-        - wert: { de: '6/8' }
+        - wert: { de: '$\frac{6}{8}$' }
           richtig: true
-        - wert: { de: '4/5' }
+        - wert: { de: '$\frac{4}{5}$' }
           fv: FV.BR.ADDITIV
-        - wert: { de: '3/8' }
+        - wert: { de: '$\frac{3}{8}$' }
           fv: FV.BR.NUR-NENNER
     weiter: uebergang
     bei:

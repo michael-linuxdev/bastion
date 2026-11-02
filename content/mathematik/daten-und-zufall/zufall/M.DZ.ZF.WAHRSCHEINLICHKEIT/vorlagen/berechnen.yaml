@@ -15,7 +15,7 @@ text:
     de: '{versuch} **Gib** die [[Wahrscheinlichkeit]] für „{ereignis}“ als [[Bruch]] **an**.'
 hilfen:
   - de: 'Zähle alle möglichen Ergebnisse. Zähle dann die Ergebnisse, die passen.'
-  - de: '[[Wahrscheinlichkeit]] = passende Ergebnisse : alle Ergebnisse. Bei 3 von 6 also 3/6 = 1/2.'
+  - de: '[[Wahrscheinlichkeit]] = passende Ergebnisse : alle Ergebnisse. Bei 3 von 6 also $\frac{3}{6} = \frac{1}{2}$.'
 fehlerbilder:
   guenstig-durch-unguenstig:
     de: 'Du hast die passenden durch die nicht passenden Ergebnisse geteilt. In den [[Nenner]] gehören **alle** Ergebnisse.'

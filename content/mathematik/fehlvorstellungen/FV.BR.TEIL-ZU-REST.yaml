@@ -13,12 +13,12 @@ erklaerung:
     de: 'Der [[Nenner]] zählt **alle** Teile des Ganzen – die gemeinten und die übrigen zusammen.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast die gemeinten Teile mit den übrigen verglichen, etwa 3 gefärbte mit 1 ungefärbten: 3/1.'
+      de: 'Du hast die gemeinten Teile mit den übrigen verglichen, etwa 3 gefärbte mit 1 ungefärbten: $\frac{3}{1}$.'
     - teil: warum-nicht
-      de: 'Das ist eine naheliegende Idee. Aber 3/1 wäre dreimal das ganze Ding – viel mehr, als da ist. Der [[Bruch]] sagt, welcher Teil vom **Ganzen** gefärbt ist.'
+      de: 'Das ist eine naheliegende Idee. Aber $\frac{3}{1}$ wäre dreimal das ganze Ding – viel mehr, als da ist. Der [[Bruch]] sagt, welcher Teil vom **Ganzen** gefärbt ist.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     - teil: so-stimmt-es
-      de: 'Zähle zuerst alle Teile: Das ist der [[Nenner]]. Dann zähle die gefärbten: Das ist der [[Zähler]]. Hier also 3/4.'
+      de: 'Zähle zuerst alle Teile: Das ist der [[Nenner]]. Dann zähle die gefärbten: Das ist der [[Zähler]]. Hier also $\frac{3}{4}$.'
 gegenbeispiel:
   de: 'Bei einer Pizza mit 4 Stücken isst du 3. Du hast nicht „3 von 1“ gegessen, sondern 3 von 4.'
 rueckweg:

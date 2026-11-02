@@ -15,12 +15,12 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast [[Zähler]] mit Zähler und [[Nenner]] mit Nenner verrechnet.'
     - teil: warum-nicht
-      de: 'So sieht es einfach aus. Aber 1/4 + 2/4 sind 3 Viertel. Bei 3/8 wären die Teile plötzlich halb so groß – das Ergebnis wäre kleiner als 2/4 allein.'
+      de: 'So sieht es einfach aus. Aber $\frac{1}{4} + \frac{2}{4}$ sind 3 Viertel. Bei $\frac{3}{8}$ wären die Teile plötzlich halb so groß – das Ergebnis wäre kleiner als $\frac{2}{4}$ allein.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 3 } }
     - teil: so-stimmt-es
       de: 'Bei gleichen Nennern addierst du nur die [[Zähler]]. Bei verschiedenen bringst du die [[Brüche]] zuerst auf einen [[gemeinsamen Nenner]].'
 gegenbeispiel:
-  de: '1/2 + 1/2 ist ein Ganzes. Mit „oben plus oben, unten plus unten“ käme 2/4 heraus – wieder nur die Hälfte.'
+  de: '$\frac{1}{2} + \frac{1}{2}$ ist ein Ganzes. Mit „oben plus oben, unten plus unten“ käme $\frac{2}{4}$ heraus – wieder nur die Hälfte.'
 rueckweg:
   vermittlung: M.ZO.BR.ADD-SUB#erklaeren-gleichnamig
 kontrast: [M.ZO.BR.ADD-SUB.GLEICHNAMIG, M.ZO.BR.ADD-SUB.UNGLEICHNAMIG]

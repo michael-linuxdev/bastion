@@ -18,7 +18,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Die [[Wurzel]] aus einer natürlichen Zahl, die keine Quadratzahl ist, ist irrational. [[π]] ist irrational. Das sieht man nicht an der Anzeige, das weiß man.'
 gegenbeispiel:
-  de: '1/3 zeigt der Taschenrechner als 0,3333333 – trotzdem hat 1/3 unendlich viele Stellen.'
+  de: '$\frac{1}{3}$ zeigt der Taschenrechner als 0,3333333 – trotzdem hat $\frac{1}{3}$ unendlich viele Stellen.'
 rueckweg:
   vermittlung: M.ZO.PW.REELL#erklaeren-irrational
 kontrast: [M.ZO.PW.REELL.ART]
