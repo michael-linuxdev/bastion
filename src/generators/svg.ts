@@ -159,3 +159,142 @@ export function raster(
     t.push(linie(x0, y0 + z * groesse, x0 + spalten * groesse, y0 + z * groesse, 0.5));
   return t;
 }
+
+/** Umrechnung Koordinaten → Bild, wie sie die Koordinatensysteme liefern. */
+export interface Achsen {
+  readonly px: (x: number) => number;
+  readonly py: (y: number) => number;
+}
+
+const zahlBeschriftung = (t: number) => (t < 0 ? `−${-t}` : String(t));
+
+/**
+ * Koordinatensystem für einen beliebigen Ausschnitt xmin … xmax, ymin … ymax (ganze Zahlen,
+ * 0 jeweils enthalten) – für Funktionsgraphen ab Klasse 9 (Bedarfsliste B5). Gitter je Einheit,
+ * Achsen kräftig, Beschriftung alle `alle` Einheiten.
+ */
+export function koordinatensystemBereich(
+  xmin: number,
+  xmax: number,
+  ymin: number,
+  ymax: number,
+  raster = 26,
+  alle = 1,
+) {
+  const rand = 22;
+  const breite = 2 * rand + (xmax - xmin) * raster;
+  const hoehe = 2 * rand + (ymax - ymin) * raster;
+  const px = (x: number) => rand + (x - xmin) * raster;
+  const py = (y: number) => rand + (ymax - y) * raster;
+  const teile: string[] = [];
+  for (let x = xmin; x <= xmax; x++) teile.push(linie(px(x), py(ymin), px(x), py(ymax), 0.5));
+  for (let y = ymin; y <= ymax; y++) teile.push(linie(px(xmin), py(y), px(xmax), py(y), 0.5));
+  teile.push(
+    linie(px(xmin), py(0), px(xmax), py(0), 2),
+    linie(px(0), py(ymin), px(0), py(ymax), 2),
+  );
+  for (let x = xmin; x <= xmax; x++)
+    if (x !== 0 && x % alle === 0) teile.push(text(px(x), py(0) + 16, zahlBeschriftung(x), 11));
+  for (let y = ymin; y <= ymax; y++)
+    if (y !== 0 && y % alle === 0) teile.push(text(px(0) - 14, py(y) + 4, zahlBeschriftung(y), 11));
+  teile.push(text(px(0) - 10, py(0) + 16, '0', 11));
+  return { breite, hoehe, px, py, teile, xmin, xmax, ymin, ymax };
+}
+
+/**
+ * Graph einer Funktion als ein Pfad von x = von bis x = bis, genau am Rand ymin … ymax
+ * abgeschnitten. Wo f nicht endlich ist oder zwischen zwei Stützstellen um mehr als den ganzen
+ * Ausschnitt springt (Polstelle), wird der Linienzug unterbrochen – so verbindet die Kurve von
+ * 1/x nicht die beiden Äste.
+ */
+export function kurve(
+  achsen: Achsen,
+  f: (x: number) => number,
+  von: number,
+  bis: number,
+  bereich: { readonly ymin: number; readonly ymax: number },
+  schritte = 400,
+  breite = 3,
+): string {
+  const { ymin, ymax } = bereich;
+  const spanne = ymax - ymin;
+  /** Strecke auf ymin … ymax kürzen (Liang-Barsky, nur in y); undefined = ganz außerhalb */
+  const schneide = (x0: number, y0: number, x1: number, y1: number) => {
+    let t0 = 0;
+    let t1 = 1;
+    const dy = y1 - y0;
+    for (const [p, q] of [
+      [-dy, y0 - ymin],
+      [dy, ymax - y0],
+    ] as const) {
+      if (p === 0) {
+        if (q < 0) return undefined;
+      } else {
+        const r = q / p;
+        if (p < 0) {
+          if (r > t1) return undefined;
+          t0 = Math.max(t0, r);
+        } else {
+          if (r < t0) return undefined;
+          t1 = Math.min(t1, r);
+        }
+      }
+    }
+    return {
+      t0,
+      t1,
+      a: [x0 + (x1 - x0) * t0, y0 + dy * t0],
+      b: [x0 + (x1 - x0) * t1, y0 + dy * t1],
+    };
+  };
+  const befehle: string[] = [];
+  let offen = false;
+  const pt = (x: number, y: number) => `${r2(achsen.px(x))} ${r2(achsen.py(y))}`;
+  let x0 = von;
+  let y0 = f(von);
+  for (let i = 1; i <= schritte; i++) {
+    const x1 = von + ((bis - von) * i) / schritte;
+    const y1 = f(x1);
+    const gueltig = Number.isFinite(y0) && Number.isFinite(y1) && Math.abs(y1 - y0) <= spanne;
+    const s = gueltig ? schneide(x0, y0, x1, y1) : undefined;
+    if (s) {
+      if (!offen || s.t0 > 0) befehle.push(`M${pt(s.a[0] as number, s.a[1] as number)}`);
+      befehle.push(`L${pt(s.b[0] as number, s.b[1] as number)}`);
+      offen = s.t1 === 1;
+    } else offen = false;
+    x0 = x1;
+    y0 = y1;
+  }
+  return befehle.length > 1
+    ? `<path d="${befehle.join(' ')}" stroke-width="${breite}" stroke-linejoin="round"/>`
+    : '';
+}
+
+/** Gestrichelte Linie, z. B. eine Asymptote. */
+export const gestrichelt = (x1: number, y1: number, x2: number, y2: number, breite = 1.5) =>
+  `<line x1="${r2(x1)}" y1="${r2(y1)}" x2="${r2(x2)}" y2="${r2(y2)}" stroke-width="${breite}" stroke-dasharray="6 5"/>`;
+
+/** Fläche zwischen den Graphen von f und g von x = von bis x = bis (z. B. für Integrale). */
+export function flaeche(
+  achsen: Achsen,
+  f: (x: number) => number,
+  g: (x: number) => number,
+  von: number,
+  bis: number,
+  schritte = 120,
+): string {
+  const oben: [number, number][] = [];
+  const unten: [number, number][] = [];
+  for (let i = 0; i <= schritte; i++) {
+    const x = von + ((bis - von) * i) / schritte;
+    oben.push([achsen.px(x), achsen.py(f(x))]);
+    unten.push([achsen.px(x), achsen.py(g(x))]);
+  }
+  const punkte = [...oben, ...unten.reverse()].filter(
+    ([x, y]) => Number.isFinite(x) && Number.isFinite(y),
+  );
+  return (
+    `<polygon points="${punkte.map(([x, y]) => `${r2(x)},${r2(y)}`).join(' ')}"` +
+    ' fill="currentColor" fill-opacity="0.2" stroke="none"/>'
+  );
+}
