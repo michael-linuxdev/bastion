@@ -407,7 +407,18 @@ Atlas-Bilder `gebaeude/dorf/e1`: 25 KB → 55 KB; ganzer Atlas 1 374 KB → 1 40
 
 **Dorf: Umgebung und Wesen (02.11.2026).** Linde (`baum_a`) und Apfelbaum (`baum_b`) aus demselben Generator, Atlas `umgebung/dorf/`. Die Dorf-Bühne stellt sie auf die festen Baumplätze aus `dorf.ts` (`dorfBaumLagen`), etwas kleiner als den Code-Baum, vorne nur Apfelbäume, damit nichts den Bauplatz verdeckt; fehlt das Bild, zeichnet der Code wie bisher. Huhn (pickt, flattert), Katze (Streifen, setzt sich mit Schwanz hoch) und Spatz (hüpft, fliegt auf) neu im Stil der Bastion-Wesen, gleiche Namen und Frames wie P0. Atlas gesamt 1 405 KB → 1 463 KB (+58 KB). Damit stammt alles im Dorf außer dem Boden aus dem neuen Generator; der Boden bleibt wie bei `bastion` (§12.5).
 
-**Nächste Schritte:** Garten, Unterwasser, Weltraum (je Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
+**Thema `garten`, Epoche 1 (02.11.2026).** Skript `tools/grafik/sprites-g3-garten.py`, Materialleiter rohes Holz und Rinde → Bretter mit Schindeln → bemaltes Holz mit Glas und Moosdach (`GRAFIK-SPRITES.md` §12.10). Alle 14 Gebäude, dazu Sträucher (grün und blühend) auf den festen Plätzen der Garten-Szene (`gartenStrauchLagen`, Code-Strauch bleibt Rückfall) und Biene, Schnecke, Schmetterling.
+
+| Gebäude | vorher (Höhe + / Umriss) | jetzt Höhe | Höhe + | Umriss anders |
+|---|---|---|---|---|
+| Baumhaus 1→2 | 8 % / 11 % | 284 → 344 px | 21 % | 40 % |
+| Baumhaus 2→3 | 19 % / 11 % | 344 → 446 px | 30 % | 44 % |
+| Gewächshaus 1→2 | 7 % / 10 % | 127 → 311 px | 145 % | 63 % |
+| Aussichtsbaum 1→2 | 12 % / 46 % | 211 → 307 px | 45 % | 58 % |
+
+Das Baumhaus Stufe 1 bekommt eine Laterne an der Plattform, damit es abends leuchtet wie die anderen Stufen. Neu im gemeinsamen Modul: Hat ein neues Bild keine Fenster, entfernt der Generator die alte Abend-Ebene (sonst läge ein altes Fenster über dem neuen Bild). Atlas gesamt etwa +74 KB. In der App geprüft (390 px, Thema Garten).
+
+**Nächste Schritte:** Unterwasser, Weltraum (je Gebäude, Umgebung, Wesen); danach G6 Abnahme (PV, 2–3 Jugendliche).
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 

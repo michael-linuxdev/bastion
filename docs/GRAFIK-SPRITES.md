@@ -371,4 +371,21 @@ Gleiche Regel wie 12.2 bis 12.7, gleicher Generator: Die gemeinsamen Teile (Rast
 | flaeche (Obstwiese) | 2×2 | Wiese mit drei Obstbäumen (Äpfel, Birnen) und Blumen | – | – | |
 | denkmal (Denkmal) | 1×1 | gestufter Bruchsteinsockel, Figur in Grau: Bäuerin mit Garbe | – | – | |
 
-Umgebung: Linde (`baum_a`) und Apfelbaum (`baum_b`) an den festen Baumplätzen der Dorf-Szene, vorne nur Apfelbäume. Wesen: Huhn, Katze, Spatz (Frames wie §6). Der Boden bleibt wie P0. Als Nächstes Garten, Unterwasser, Weltraum.
+Umgebung: Linde (`baum_a`) und Apfelbaum (`baum_b`) an den festen Baumplätzen der Dorf-Szene, vorne nur Apfelbäume. Wesen: Huhn, Katze, Spatz (Frames wie §6). Der Boden bleibt wie P0.
+
+**Garten** (`sprites-g3-garten.py`, 02.11.2026). Materialleiter: **rohes Holz und Rinde → gehobelte Bretter mit Schindeln → bemaltes Holz mit Glas und Moosdach.** Neue Farben: Rinde `#6E543C`, Rundholz `#A07850`, Brett `#B28A5C`, bemalt (Salbei) `#7EA88C`, Rahmen `#F4EFE4`, Glas `#BEE2E8`, Moos `#70964A`, Seil `#C4AA78`.
+
+| Rolle (Name) | Felder | Stufe 1 | Stufe 2 | Stufe 3 | Höhe s1 / s2 / s3 |
+|---|---|---|---|---|---|
+| kern (Baumhaus) | 3×3 | **Baum mit Plattform** aus Rundholz, Geländer, Strickleiter, Laterne | **Bretterhütte** mit Schindeldach auf größerer Plattform, Leiter, Blumenkasten, Wimpel | **zweite, bemalte Hütte** hoch in der Krone mit Glas und Moosdach, Türmchen mit Spitzdach, Rutsche, Nebenbaum mit Brücke, Banner, Fahne | 284 / 344 / 446 |
+| wissen (Gewächshaus) | 2×2 | **Frühbeet**: niedriger Holzrahmen mit schrägem Glasdeckel | **Glashaus** auf Steinsockel, Glas-Satteldach, Glaslaterne, Pflanzen hinter Glas, Banner | – | 127 / 311 |
+| turm (Aussichtsbaum) | 1×1 | **schlanker Baum** mit Leiter und kleinem Ausguck | **hoher Baum**, Ausguck mit Schindel-Spitzdach, Geländer, Fernrohr, Laterne, Wimpel | – | 211 / 307 |
+| werkstatt (Geräteschuppen) | 2×2 | Bretterschuppen mit Satteldach, offene Tür, Rechen und Spaten, Schubkarre, Gießkanne | – | – | |
+| eingang (Gartentor) | 1×1 | weißer Rosenbogen über einem Lattentor | – | – | |
+| einfassung (Hecke) | 1×1 | geschnittener Laubblock, anschlussfähig | – | – | |
+| ursprung (Gartenbank) | 1×1 | Holzbank mit Lehne, Blumentopf | – | – | |
+| zeichen (Wimpel) | 1×1 | weiße Stange mit Wimpelkette zu einem Pfosten | – | – | |
+| flaeche (Blumenbeet) | 2×2 | Erde mit Steinrand, vier Blumenbänder, Sonnenblume | – | – | |
+| denkmal (Gartenzwerg) | 1×1 | Gartenzwerg aus Ton auf rundem Steinsockel | – | – | |
+
+Umgebung: Strauch grün (`strauch_a`) und blühend (`strauch_b`) im Wechsel auf den festen Strauchplätzen der Garten-Szene. Wesen: Biene, Schnecke, Schmetterling. Als Nächstes Unterwasser, Weltraum.
