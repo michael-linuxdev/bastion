@@ -116,7 +116,7 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
  * das Bild erst ein, wenn die gemerkte Kamera geladen ist, und der Atlas tauscht
  * das Canvas kurz aus. Wer davor misst, tippt daneben (wackeliger Test, 01.11.2026).
  */
-async function feldTippen(seite: Page, x: number, y: number) {
+async function feldTippen(seite: Page, x: number, y: number, hoehe = 0) {
   const bild = seite.locator('.bauplatz canvas');
   await expect(seite.locator('.fenster.sichtbar')).toHaveCount(1);
   let letzte = '';
@@ -137,9 +137,10 @@ async function feldTippen(seite: Page, x: number, y: number) {
   const r = await bild.boundingBox();
   if (!r) throw new Error('kein Bild');
   // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
+  // `hoehe`: so viele Bildpunkte (Bühne) über der Feldmitte, z. B. auf eine Turmspitze
   const p = punkt(x + 0.5, y + 0.5);
   await bild.click({
-    position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
+    position: { x: (p.x * r.width) / BUEHNE_B, y: ((p.y - hoehe) * r.height) / BUEHNE_H },
   });
 }
 
@@ -149,10 +150,10 @@ async function feldTippen(seite: Page, x: number, y: number) {
  * ändern; ein Tipper genau in diesem Moment geht ins Leere. Darum bis zu vier Versuche.
  * Nur für Auswahl-Tipper – beim Versetzen würde ein zweiter Tipper das Gebäude bewegen.
  */
-async function gebaeudeWaehlen(seite: Page, x: number, y: number, name: string) {
+async function gebaeudeWaehlen(seite: Page, x: number, y: number, name: string, hoehe = 0) {
   const wahl = seite.locator('.wahl');
   for (let versuch = 1; ; versuch++) {
-    await feldTippen(seite, x, y);
+    await feldTippen(seite, x, y, hoehe);
     try {
       await expect(wahl).toContainText(name, { timeout: 3_000 });
       return;
@@ -1133,6 +1134,10 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await wahl.getByRole('button', { name: /^Ausbauen auf Stufe 2$/ }).click();
   await expect(wahl).toContainText('Stufe 2');
   await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
+  // Das neue, hohe Bild (G3) lässt sich auch oben antippen – über der alten Code-Höhe
+  await wahl.getByRole('button', { name: 'Fertig' }).click();
+  await expect(wahl).toHaveCount(0);
+  await gebaeudeWaehlen(page, 6, 5, 'Bergfried', 140);
 });
 
 test('Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G5)', async ({
