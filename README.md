@@ -27,9 +27,16 @@ Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahr
 - **Schulalltag:** Was ist gerade in der Schule dran? Wann ist die nächste Klassenarbeit, mit welchen Themen? Dazu gibt es eine Probe-Klassenarbeit ohne Note. Das Datum steht da, ohne Countdown.
 - **Wechsel begleiten:** Wer eine Klasse überspringt, bekommt gezielt die Lücken daraus geprüft. Ein Schulartwechsel zeigt die Themen, die nun früher drankommen. Wer eine Klasse wiederholt, bekommt keine Meldung, und nichts geht verloren.
 - **Bastion bauen** (abschaltbar): Für geübte und gefestigte Themen gibt es Baustoffe. Es gibt keine Zufallsbelohnungen, keine Zeitdruck-Timer und keinen Verfall.
+- **Für Lehrkräfte:** Im Elternbereich lässt sich ein Aufgabenblatt zusammenstellen: Themen nach Klasse und Bereich, Niveau, Anzahl, Blatt-Nr., Lösungsseite und Punkte für eine Probe-Klassenarbeit. „Drucken / als PDF speichern“ öffnet den Druckdialog des Browsers. Gleiche Blatt-Nr., gleiche Aufgaben.
 - **Sicherung:** Eine verschlüsselte Datei mit Code aus sechs Wörtern. So kommt man zum Beispiel auf ein neues Gerät.
 
 **Wichtig:** Alle Aufgaben und Erklärungen sind ein Entwurf. Eine Lehrkraft hat sie noch nicht geprüft. Hinweise auf Fehler sind sehr willkommen.
+
+### Was ist öffentlich?
+
+Auf `main` liegen alle Inhalte, auch Entwürfe. Die öffentliche Seite zeigt nur Themen ab einer Review-Stufe (`docs/INHALTSFORMAT.md` §8, Entscheidung T-20). Die Stufe steht in der Repository-Variable `BASTION_MINDESTSTUFE` (GitHub → Settings → Secrets and variables → Actions → Variables). Ohne Variable gilt 0: Die Seite zeigt alles und sagt Eltern auf der Startseite und im Elternbereich, dass es ein Entwurf ist. Mit 2 zeigt sie nur Themen, die eine Lehrkraft geprüft hat. Ein Thema kommt nur ganz hinein, mit Erklärung, allen Aufgaben und allen Fehlvorstellungen.
+
+Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur die drei Bruch-Themen des Musterfelds.
 
 ## Für Entwickler: selbst bauen
 
