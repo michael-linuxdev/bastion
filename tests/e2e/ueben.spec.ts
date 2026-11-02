@@ -1907,3 +1907,55 @@ test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = glei
   const breit = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(breit).toBeLessThanOrEqual(390);
 });
+
+test('Aufgabenblatt in der iPhone-App: eigene Druckseite im Browser mit genau demselben Blatt', async ({
+  page,
+  context,
+}) => {
+  // Vom Home-Bildschirm gestartet: iOS setzt navigator.standalone, window.print() wirkt dort nicht
+  await page.addInitScript(() =>
+    Object.defineProperty(Navigator.prototype, 'standalone', { get: () => true }),
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
+  await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
+  await page.getByLabel('Anzahl der Aufgaben').fill('6');
+  await page.getByLabel('Blatt-Nr.').fill('7');
+
+  const blatt = page.locator('[data-druckblatt]');
+  await expect(blatt.locator('[data-aufgabe]')).toHaveCount(6);
+  const erstes = await blatt.locator('[data-aufgabe]').allInnerTexts();
+  await expect(page.getByRole('button', { name: 'Drucken / als PDF speichern' })).toHaveCount(0);
+  const link = page.getByRole('link', { name: 'Im Browser öffnen und drucken' });
+  await expect(link).toHaveAttribute('target', '_blank');
+  const href = await link.getAttribute('href');
+  expect(href).toContain('?blatt=1&');
+
+  // Die Druckseite: ohne PIN, ohne App-Rahmen, dieselben Aufgaben
+  const druck = await context.newPage();
+  await druck.goto(new URL(href ?? '', page.url()).toString());
+  const zweites = druck.locator('[data-druckblatt] [data-aufgabe]');
+  await expect(zweites).toHaveCount(6);
+  expect(await zweites.allInnerTexts()).toEqual(erstes);
+  await expect(druck.locator('[data-loesungen]')).toBeVisible();
+  await expect(druck.getByRole('button', { name: 'Drucken / als PDF speichern' })).toBeVisible();
+  await expect(druck.getByRole('button', { name: 'Mehr' })).toHaveCount(0);
+
+  // Im Druck nur das Blatt
+  await druck.emulateMedia({ media: 'print' });
+  await expect(druck.getByRole('button', { name: 'Drucken / als PDF speichern' })).toBeHidden();
+  await expect(druck.locator('[data-druckblatt]')).toBeVisible();
+
+  // Kaputte Adresse: freundlicher Hinweis statt leerer Seite
+  await druck.emulateMedia({ media: 'screen' });
+  await druck.goto(new URL('./?blatt=1&k=M.XX.YY.ZZ&n=G&a=6&nr=7', page.url()).toString());
+  await expect(druck.getByRole('alert')).toContainText('lässt sich nicht erzeugen');
+});

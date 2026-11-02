@@ -162,3 +162,83 @@ export function loesungAlsText(l: Loesung, optionen?: Instanz['optionen']): stri
       return `${zahlText(l.wert.quotient)} Rest ${zahlText(l.wert.rest)}`;
   }
 }
+
+/**
+ * Alle Angaben eines Aufgabenblatts, damit es sich an anderer Stelle (eigene Druckseite im
+ * Browser) genau gleich wieder erzeugen lässt. Dieselben Angaben ergeben dasselbe Blatt.
+ */
+export interface BlattAngaben {
+  readonly kompetenzen: readonly string[];
+  readonly niveau: Niveau;
+  readonly anzahl: number;
+  readonly nr: number;
+  readonly loesungen: boolean;
+  readonly punkte: boolean;
+  readonly titel: string;
+  /** JJJJ-MM-TT oder leer */
+  readonly datum: string;
+}
+
+const KOMPETENZ_ID = /^M(\.[A-Z0-9-]+){3}$/;
+const DATUM = /^\d{4}-\d{2}-\d{2}$/;
+const NIVEAUS: readonly Niveau[] = ['G', 'M', 'E'];
+
+/**
+ * Abfrage-Teil einer Adresse (ohne „?“) für die Druckseite. Nur Text, keine Browser-API:
+ * Der Aufruf `leseBlattAbfrage(blattAbfrage(a))` ergibt wieder `a`.
+ */
+export function blattAbfrage(a: BlattAngaben): string {
+  const teile: [string, string][] = [
+    ['blatt', '1'],
+    ['k', a.kompetenzen.join(',')],
+    ['n', a.niveau],
+    ['a', String(a.anzahl)],
+    ['nr', String(a.nr)],
+    ['l', a.loesungen ? '1' : '0'],
+    ['p', a.punkte ? '1' : '0'],
+  ];
+  if (a.titel) teile.push(['t', a.titel]);
+  if (a.datum) teile.push(['d', a.datum]);
+  return teile.map(([s, w]) => `${s}=${encodeURIComponent(w)}`).join('&');
+}
+
+/** Liest die Angaben aus dem Abfrage-Teil; bei fehlenden oder ungültigen Angaben `undefined`. */
+export function leseBlattAbfrage(abfrage: string): BlattAngaben | undefined {
+  const werte = new Map<string, string>();
+  for (const teil of abfrage.replace(/^\?/, '').split('&')) {
+    const i = teil.indexOf('=');
+    if (i <= 0) continue;
+    try {
+      werte.set(teil.slice(0, i), decodeURIComponent(teil.slice(i + 1).replace(/\+/g, ' ')));
+    } catch {
+      return undefined;
+    }
+  }
+  if (werte.get('blatt') !== '1') return undefined;
+  const kompetenzen = (werte.get('k') ?? '').split(',').filter((k) => k !== '');
+  const niveau = werte.get('n') as Niveau;
+  const anzahl = Number(werte.get('a'));
+  const nr = Number(werte.get('nr'));
+  const titel = (werte.get('t') ?? '').slice(0, 80);
+  const datum = werte.get('d') ?? '';
+  if (
+    kompetenzen.length === 0 ||
+    kompetenzen.length > 50 ||
+    !kompetenzen.every((k) => KOMPETENZ_ID.test(k)) ||
+    !NIVEAUS.includes(niveau) ||
+    !optionenGueltig({ niveau, anzahl, seed: nr }) ||
+    nr > 99_999 ||
+    (datum !== '' && !DATUM.test(datum))
+  )
+    return undefined;
+  return {
+    kompetenzen,
+    niveau,
+    anzahl,
+    nr,
+    loesungen: werte.get('l') !== '0',
+    punkte: werte.get('p') === '1',
+    titel,
+    datum,
+  };
+}
