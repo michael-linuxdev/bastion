@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
 
-Stand: 02.11.2026 · G2 abgenommen, G3/G4/G5 umgesetzt, offen G6 · L umgesetzt, Abnahme offen · F2, F4, F5, F6 erledigt, F3 zum Teil · nächste Sitzungen unten vorbereitet
+Stand: 02.11.2026 · G2 abgenommen, G3/G4/G5 umgesetzt, offen G6 · **L abgenommen (02.11.2026)**, Lern-Oberfläche eingefroren bis zur Auswertung von U4b · F2, F4, F5, F6 erledigt, F3 zum Teil · nächste Sitzungen unten vorbereitet
 
 ---
 
@@ -119,7 +119,7 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 
 1. **Zuerst den PV fragen:** Wird `FV.BR.NICHT-VOLLSTAENDIG` jetzt korrigiert? Befund der Stufe-1-Prüfung (#170): Der Rückweg `M.ZO.BR.ERWEITERN#erklaeren-kuerzen` erklärt Kürzen allgemein, aber nicht „weiterkürzen, bis kein gemeinsamer Teiler bleibt“. Empfehlung: jetzt, vor der Lehrkraft. Dann verliert `M.ZO.BR.ERWEITERN/vermittlung.yaml` Stufe 1 und braucht danach eine frische Sitzung für Stufe 1 (beide Dateien).
    **Erledigt 02.11.2026 (PV: jetzt korrigieren):** `erklaeren-kuerzen` sagt jetzt „Kürze weiter, bis beide keinen gemeinsamen Teiler außer 1 mehr haben: 12/18 = 6/9 = 2/3.“ Offen: frische Sitzung für Stufe 1 von `M.ZO.BR.ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml`, möglichst vor der neuen Prüfseite (Punkt 3).
-2. **Abnahme L:** Gibt der PV sie frei, „L abgenommen“ mit Datum und Commit eintragen und das Einfrieren nach Regel 7 in `SESSION-PROMPT.md` und `AGENTS.md` in Kraft setzen (`src/ui/ueben/`, `vermittlung/`, `eingabe/`, `eltern/`, `start/`: nur Fehlerbehebungen bis zur Auswertung von U4b).
+2. ~~**Abnahme L:**~~ *Erledigt 02.11.2026: L abgenommen (Stand `main` 96c5855), Einfrieren in Kraft.* Gibt der PV sie frei, „L abgenommen“ mit Datum und Commit eintragen und das Einfrieren nach Regel 7 in `SESSION-PROMPT.md` und `AGENTS.md` in Kraft setzen (`src/ui/ueben/`, `vermittlung/`, `eingabe/`, `eltern/`, `start/`: nur Fehlerbehebungen bis zur Auswertung von U4b).
 3. **F3 abschließen:** neue Prüfseite mit `pnpm pruefbogen --online --name "Musterfeld Brüche" M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB` als Artefakt veröffentlichen (Fähigkeit `db`, Sammlung `bewertung`), Link an den PV. Punkt 2 prüfen (geht eine Kompetenz in 20–30 Minuten am Tablet?). Danach `pnpm pruefbogen einlesen` an einer erfundenen Bewertung vorführen.
 4. **F7** Meilenstein Klasse 5 planen, **F9** Vorschau Schrägstrich-Brüche (nur Bericht), **F8** `App.svelte` aufteilen, **F10** Stand-Dokumente straffen – je ein PR.
 
@@ -245,7 +245,10 @@ Aus G1 ableiten. Leitlinie: **eine Hauptaktion je Bildschirm, alles andere unter
 
 **Stand 01.11.2026 spät (Branch `lernkern/l18-themenwahl`):** ~~L18~~ erledigt. Jeder Bereich der Themenwahl ist aufklappbar und zeigt die Anzahl der Themen. Offen sind der erste Bereich und jeder Bereich, in dem schon geübt oder erklärt wurde. Der Browser-Test „Zeichen-Anleitung“ klappt „Raum und Form“ vorher auf (gewollte Änderung). Rundgang auf 390 px wiederholt (Erstvermittlung, Üben, Zwischenschritte, Diagnose mit langer Erklärung und Rückweg, Fehlerwerkstatt, Elternbereich mit Testprotokoll): kein JS-Fehler, kein seitlicher Überlauf, Fund „1 Themen“ gleich behoben. 22 Bildschirmfotos an den PV. **Offen: Abnahme durch den PV (Schritt 5).**
 
-5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit. **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
+5. **Abnahme durch den PV:** „L abgenommen“ hier eintragen, mit Datum und Commit.
+
+   **L abgenommen** – PV, 02.11.2026, Stand `main` 96c5855 (Rundgang auf 390 px, 41 Bildschirme, kein JS-Fehler, kein seitlicher Überlauf). Die Lern-Oberfläche ist ab jetzt eingefroren (`SESSION-PROMPT.md` Regel 7).
+ **Ab dann gilt das Einfrieren**, bis U4b ausgewertet ist. Der Vermerk „Entwurf“ aus F2 ist danach als Änderung aus diesem Auftrag weiter erlaubt.
 
 ### ~~F2 – Öffentliche Seite nur mit geprüften Inhalten~~ (erledigt 02.11.2026, INHALTSFORMAT §8, README „Was ist öffentlich?“)
 

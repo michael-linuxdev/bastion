@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 02.11.2026 · Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · Als Nächstes: `FOKUS.md` „Nächste Sitzungen“ Punkt 2 (Abnahme L), dann neue Prüfseite.
+Stand: 02.11.2026 · Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
 
 ---
 
