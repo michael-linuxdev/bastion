@@ -1,5 +1,6 @@
 import { mount } from 'svelte';
 import App from './ui/App.svelte';
+import DruckSeite from './ui/eltern/DruckSeite.svelte';
 import { offlineStarten } from './ui/plattform/offline.svelte';
 import { dauerhaftenSpeicherAnfragen } from './ui/plattform/speicher';
 import { sprache, t } from './ui/texte/texte';
@@ -18,7 +19,12 @@ if (!ziel) {
   throw new Error('Element #app fehlt in index.html');
 }
 
-const app = mount(App, { target: ziel });
+// Eigene Druckseite für ein Aufgabenblatt (?blatt=…): ohne App-Rahmen, ohne PIN, ohne Daten.
+// Nötig, weil die auf dem iPhone installierte App nicht drucken kann (Elternbereich, B2).
+const druck = new URLSearchParams(location.search).get('blatt') === '1';
+const app = druck
+  ? mount(DruckSeite, { target: ziel, props: { abfrage: location.search } })
+  : mount(App, { target: ziel });
 
 offlineStarten();
 void dauerhaftenSpeicherAnfragen();
