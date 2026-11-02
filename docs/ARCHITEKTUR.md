@@ -286,13 +286,14 @@ Zielwerte, in der Build-Pipeline geprüft:
 | App-Hülle + Lernkern (komprimiert) | ≤ 250 KB JavaScript |
 | Bastion-Modul (zusätzlich, nachgeladen) | ≤ 300 KB + Grafiken |
 | Aufgaben-Generatoren (nachgeladen, vorab gespeichert, T-14) | ≤ 400 KB JavaScript |
+| Werkzeuge KaTeX und PDF (nachgeladen, vorab gespeichert, T-22, T-23) | ≤ 200 KB JavaScript |
 | Erste Nutzbarkeit auf Referenz-Altgerät | ≤ 3 s |
 | Referenzgeräte | ein günstiges Android-Handy (ca. 4 Jahre alt), ein Schul-Chromebook, ein älteres iPad |
 
 Die Zahlen sind Startwerte und werden in Phase 1 an Messungen angepasst.
 
 
-*Seit 2.12 prüft `pnpm budget` beides getrennt:* App-Hülle und Lernkern ≤ 250 KB, Nachgeladenes (Grafik der Bastion) ≤ 300 KB, jeweils gzip. Stand 28.10.2026: 156 KB und 147 KB. *Seit T-14 (28.10.2026) dazu die Aufgaben-Generatoren getrennt:* ≤ 400 KB. Stand nach dem Umbau mit Klasse 5 bis 8: App-Hülle 120 KB (vorher 212 KB), Generatoren 93 KB, Grafik 148 KB.
+*Seit 2.12 prüft `pnpm budget` beides getrennt:* App-Hülle und Lernkern ≤ 250 KB, Nachgeladenes (Grafik der Bastion) ≤ 300 KB, jeweils gzip. Stand 28.10.2026: 156 KB und 147 KB. *Seit T-14 (28.10.2026) dazu die Aufgaben-Generatoren getrennt:* ≤ 400 KB. Stand nach dem Umbau mit Klasse 5 bis 8: App-Hülle 120 KB (vorher 212 KB), Generatoren 93 KB, Grafik 148 KB. *Seit 02.11.2026 die Werkzeuge KaTeX und html2canvas-pro getrennt (`tools/nachgeladen.ts`):* ≤ 200 KB, nachgeladen, aber wie die Generatoren **vorab gespeichert**, damit Formeln und PDF auch ohne Netz gehen. Vorher zählten sie zur Grafik, wurden nicht vorab gespeichert und sprengten deren Budget. Stand: Werkzeuge 140 KB, Grafik 206 KB.
 ### 9.1 Referenzgeräte (Aufgabe 0.10)
 
 | Rolle | Kriterium | Gerät |
