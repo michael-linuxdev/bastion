@@ -16,6 +16,7 @@
   } from '../../core/learning/zwischenschritte';
   import { t, type TextSchluessel } from '../texte/texte';
   import Tastatur from '../eingabe/Tastatur.svelte';
+  import Rechentext from './Rechentext.svelte';
   import Textteile from './Textteile.svelte';
 
   let {
@@ -149,7 +150,7 @@
           <span class="check-text"><Textteile teile={fuelle(e.frage, werte(undefined))} /></span>
           <strong class="check-wert">
             {#if !e.ergebnis.richtig}{t('weg.richtig-ist')}{/if}
-            {alsText(e.eingabe)}
+            <Rechentext text={alsText(e.eingabe)} erklaeren={false} />
           </strong>
         </li>
       {/each}

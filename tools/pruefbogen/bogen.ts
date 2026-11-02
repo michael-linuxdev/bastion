@@ -12,6 +12,7 @@ import { musterweg } from '../../src/core/learning/zwischenschritte';
 import { breiten, startzustand } from '../../src/ui/vermittlung/werkzeuge/bruchstreifen';
 import { stelle, striche } from '../../src/ui/vermittlung/werkzeuge/zahlenstrahl';
 import { esc } from './html';
+import { alsFormeln } from '../../src/core/learning/rechenausdruck';
 import { GRUND_STIL, loesungText, text } from './satz';
 import { onlineSeite } from './online';
 
@@ -297,7 +298,7 @@ function instanzZeile(
     ? `<div class="optionen">${i.optionen
         .map(
           (o, n) =>
-            `<span class="option"><b>${String.fromCharCode(65 + n)}</b> ${o.text ? esc(o.text.de) : ''}${o.bild ? o.bild.svg : ''}</span>`,
+            `<span class="option"><b>${String.fromCharCode(65 + n)}</b> ${o.text ? text(alsFormeln(o.text.de)) : ''}${o.bild ? o.bild.svg : ''}</span>`,
         )
         .join('')}</div>`
     : '';

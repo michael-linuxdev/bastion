@@ -4,6 +4,7 @@ import type { Instanz, Loesung, Wert } from '../../src/core/learning/generator';
 import { loesungAlsText } from '../../src/core/learning/arbeitsblatt';
 import katex from 'katex';
 import { fuelle, KATEX_OPTIONEN, texAnzeige, type Textteil } from '../../src/core/learning/text';
+import { alsFormeln } from '../../src/core/learning/rechenausdruck';
 import { esc } from './html';
 
 export function teileHtml(teile: readonly Textteil[]): string {
@@ -22,18 +23,26 @@ export function teileHtml(teile: readonly Textteil[]): string {
     .join('');
 }
 
+/** Platzhalter ohne Wert als ‹name› schreiben – nur außerhalb von Formeln (dort ist `{…}` LaTeX). */
+const platzhalterOhneWert = (s: string, platzhalter: Readonly<Record<string, Wert>>) =>
+  s
+    .split('$')
+    .map((stueck, i) =>
+      i % 2 === 1
+        ? stueck
+        : stueck.replace(/\{([a-z_]+)\}/g, (m, name: string) =>
+            name in platzhalter ? m : `‹${name}›`,
+          ),
+    )
+    .join('$');
+
 /** Text füllen; Platzhalter ohne Wert (Rückmeldungen ohne konkrete Aufgabe) bleiben als ‹name›. */
 export const text = (s: string, platzhalter: Readonly<Record<string, Wert>> = {}) =>
-  teileHtml(
-    fuelle(
-      s.replace(/\{([a-z_]+)\}/g, (m, name: string) => (name in platzhalter ? m : `‹${name}›`)),
-      platzhalter,
-    ),
-  );
+  teileHtml(fuelle(platzhalterOhneWert(s, platzhalter), platzhalter));
 
-/** Lösung als Text für HTML; die Regel steht im Kern (`loesungAlsText`). */
+/** Lösung für HTML; die Regel steht im Kern (`loesungAlsText`), Rechenausdrücke als Formel. */
 export const loesungText = (l: Loesung, optionen?: Instanz['optionen']): string =>
-  esc(loesungAlsText(l, optionen));
+  text(alsFormeln(loesungAlsText(l, optionen)));
 
 /** Seite, Schrift und Brüche; beide Werkzeuge setzen ihre eigenen Stile dahinter. */
 export const GRUND_STIL = `

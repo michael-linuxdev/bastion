@@ -13,6 +13,7 @@ import {
   type BlattEingabe,
   type BlattOptionen,
 } from '../../src/core/learning/arbeitsblatt';
+import { alsFormeln } from '../../src/core/learning/rechenausdruck';
 import { zahlText } from '../../src/core/learning/text';
 import { esc } from './html';
 import { GRUND_STIL, loesungText, text } from './satz';
@@ -54,7 +55,7 @@ function aufgabeHtml(a: BlattAufgabe): string {
     ? `<div class="optionen">${i.optionen
         .map(
           (o, n) =>
-            `<span class="option"><b>${optionsBuchstabe(n)}</b> ${o.text ? esc(o.text.de) : ''}${o.bild ? o.bild.svg : ''}</span>`,
+            `<span class="option"><b>${optionsBuchstabe(n)}</b> ${o.text ? text(alsFormeln(ohneBegriffe(o.text.de)), {}) : ''}${o.bild ? o.bild.svg : ''}</span>`,
         )
         .join('')}</div>`
     : '';
@@ -68,7 +69,7 @@ function loesungZeile(a: BlattAufgabe): string {
   const i = a.instanz;
   const weg =
     i.loesungsweg.length > 0
-      ? `<ol class="weg">${i.loesungsweg.map((s) => `<li>${text(ohneBegriffe(s.de), i.platzhalter)}</li>`).join('')}</ol>`
+      ? `<ol class="weg">${i.loesungsweg.map((s) => `<li>${text(alsFormeln(ohneBegriffe(s.de)), i.platzhalter)}</li>`).join('')}</ol>`
       : '';
   return `<div class="loesung"><p><b class="nr">${a.nr}</b> <b>${loesungHtml(i.loesung, i)}</b></p>${weg}</div>`;
 }

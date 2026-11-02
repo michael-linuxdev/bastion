@@ -15,6 +15,7 @@
   import { t } from '../texte/texte';
   import type { Auftrag } from './auftrag';
   import Eingabe from './Eingabe.svelte';
+  import Rechentext from './Rechentext.svelte';
   import Schrittweg from './Schrittweg.svelte';
   import FvRueckmeldung from './FvRueckmeldung.svelte';
   import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
@@ -377,11 +378,14 @@
                 <p class="seite-leise">{t('werkstatt.damals')}</p>
                 <p class="seite-wert">
                   <strong
-                    >{antwortText(
-                      aufgabe.frueher,
-                      aufgabe.instanz.optionen,
-                      aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-                    )}</strong
+                    ><Rechentext
+                      text={antwortText(
+                        aufgabe.frueher,
+                        aufgabe.instanz.optionen,
+                        aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                      )}
+                      erklaeren={false}
+                    /></strong
                   >
                 </p>
               </div>
@@ -451,11 +455,13 @@
               class:falsch={!ergebnis.richtig}
             >
               <p class="spiegel-label">{t('uebung.deine-antwort')}</p>
-              <p class="spiegel-wert"><strong>{eigeneAntwortText}</strong></p>
+              <p class="spiegel-wert">
+                <strong><Rechentext text={eigeneAntwortText} erklaeren={false} /></strong>
+              </p>
               {#if erwarteteFormZeigen}
                 <p class="spiegel-erwartet">
                   <span class="spiegel-label">{t('uebung.erwartet')}</span>
-                  <strong>{erwarteteAntwortText}</strong>
+                  <strong><Rechentext text={erwarteteAntwortText} erklaeren={false} /></strong>
                 </p>
               {/if}
             </div>
@@ -484,7 +490,9 @@
                   <summary>{t('uebung.warum')}</summary>
                   <ol>
                     {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
-                      <li>{schritt.de}</li>
+                      <li>
+                        <Rechentext text={schritt.de} platzhalter={aufgabe.instanz.platzhalter} />
+                      </li>
                     {/each}
                   </ol>
                 </details>
@@ -550,7 +558,9 @@
                 >
                 <ol>
                   {#each aufgabe.instanz.loesungsweg as schritt, i (i)}
-                    <li>{schritt.de}</li>
+                    <li>
+                      <Rechentext text={schritt.de} platzhalter={aufgabe.instanz.platzhalter} />
+                    </li>
                   {/each}
                 </ol>
               </details>

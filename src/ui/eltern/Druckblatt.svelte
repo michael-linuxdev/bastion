@@ -13,6 +13,7 @@
   } from '../../core/learning/arbeitsblatt';
   import type { Loesung } from '../../core/learning/generator';
   import { fuelle, texZahl, zahlText } from '../../core/learning/text';
+  import Rechentext from '../ueben/Rechentext.svelte';
   import Textteile from '../ueben/Textteile.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
 
@@ -89,7 +90,7 @@
               {#each a.instanz.optionen as o, n (n)}
                 <span class="option"
                   ><b>{optionsBuchstabe(n)}</b>
-                  {#if o.text}<Textteile teile={teile(o.text.de, {})} erklaeren={false} />{/if}
+                  {#if o.text}<Rechentext text={ohneBegriffe(o.text.de)} erklaeren={false} />{/if}
                   {#if o.bild}
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html o.bild.svg}
@@ -135,7 +136,7 @@
                       },
                     ]}
                     erklaeren={false}
-                  />{:else}{loesungAlsTextOhneHtml(a)}{/if}</b
+                  />{:else}<Rechentext text={loesungAlsTextOhneHtml(a)} erklaeren={false} />{/if}</b
               >
               {#if punkte}<span class="punkte">({a.punkte} {t('blatt.punkte-kurz')})</span>{/if}
             </p>
@@ -143,7 +144,11 @@
               <ol class="weg">
                 {#each a.instanz.loesungsweg as s, n (n)}
                   <li>
-                    <Textteile teile={teile(s.de, a.instanz.platzhalter)} erklaeren={false} />
+                    <Rechentext
+                      text={ohneBegriffe(s.de)}
+                      platzhalter={a.instanz.platzhalter}
+                      erklaeren={false}
+                    />
                   </li>
                 {/each}
               </ol>
