@@ -1,0 +1,42 @@
+# Parabel und Gerade – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.QF.SCHNITTPUNKTE
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: quadratische-funktionen
+titel:
+  de: 'Parabel und Gerade'
+kann_satz:
+  de: 'Ich kann Nullstellen und Schnittpunkte von Parabeln und Geraden zeichnerisch und rechnerisch bestimmen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.SF.QF.FORMEL
+  - M.SF.FK.LINEAR-GLEICHUNG
+niveaus:
+  G:
+    beschreibung:
+      de: 'Schnittstellen einer Parabel mit einer waagerechten Geraden am Graphen ablesen.'
+  M:
+    beschreibung:
+      de: 'Schnittstellen von Parabel und Gerade rechnerisch bestimmen: gleichsetzen, auf eine Seite bringen, lösen.'
+  E:
+    beschreibung:
+      de: 'Die Zahl der Schnittpunkte begründen, mit der Diskriminante.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Quadratische Funktionen und Gleichungen'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

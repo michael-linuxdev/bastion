@@ -1,0 +1,86 @@
+id: M.SF.QF.SCHNITTPUNKTE
+kompetenz: M.SF.QF.SCHNITTPUNKTE
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du ausrechnen, wo eine [[Parabel]] und eine [[Gerade]] sich schneiden, und vorher sagen, wie oft.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Lösungen hat $x^2 = 9$?'
+    antwort:
+      optionen:
+        - { wert: { de: '3 und $-3$' }, richtig: true }
+        - { wert: { de: 'nur 3' }, fv: FV.QF.NUR-POSITIV }
+    weiter: entdecken
+    bei: { FV.QF.NUR-POSITIV: M.SF.QF.FORMEL, sonst: M.SF.QF.FORMEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die [[Parabel]] $y = x^2$ und die [[Gerade]] $y = 9$ schneiden sich. Welchen y-Wert haben beide an den [[Schnittpunkten]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '0', fv: FV.QF.SCHNITT-NULLSTELLEN }] }
+    weiter: erklaeren-gleichsetzen
+  - id: erklaeren-gleichsetzen
+    typ: erklaeren
+    text:
+      de: 'An einem [[Schnittpunkt]] sind die y-Werte gleich. Darum setzt du die [[Terme]] gleich: $x^2 = 9$. Die Lösungen $\pm 3$ sind die x-[[Koordinaten]] der Schnittpunkte.'
+    weiter: erklaeren-anzahl
+  - id: erklaeren-anzahl
+    typ: erklaeren
+    text:
+      de: 'Bringe alles auf eine Seite, sodass rechts 0 steht. Hat die [[Gleichung]] zwei Lösungen, gibt es zwei Schnittpunkte; eine Lösung heißt berühren; keine heißt vorbei.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = x^2 - 1$ und $y = 2x + 2$: $x^2 - 1 = 2x + 2$, also $x^2 - 2x - 3 = 0$. Lösungen $-1$ und 3: zwei Schnittpunkte, $(-1|0)$ und $(3|8)$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Bringe $x^2 + 3 = 4x$ auf die Form $x^2 + px + q = 0$. Welche Zahl ist p?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-4', fehler: [{ wert: '4', fv: FV.QF.GLEICHSETZEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.QF.GLEICHSETZEN: erklaeren-gleichsetzen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia sagt: „Eine [[Gerade]] schneidet eine [[Parabel]] immer zweimal.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $y = -1$ liegt unter $y = x^2$ und trifft sie nie.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die Parabel hat zwei Äste.' }, fv: FV.QF.IMMER-ZWEI-NULLSTELLEN }
+    weiter: merksatz
+    bei: { FV.QF.IMMER-ZWEI-NULLSTELLEN: erklaeren-anzahl }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Schnittpunkte: [[Terme]] gleichsetzen, alles auf eine Seite bringen, lösen. Zwei, eine oder keine Lösung bedeutet zwei Schnittpunkte, Berühren oder keinen [[Schnittpunkt]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wo schneiden sich $y = x^2 - 4$ und $y = 5$?'
+    antwort:
+      optionen:
+        - { wert: { de: 'bei $x = -3$ und $x = 3$' }, richtig: true }
+        - { wert: { de: 'bei $x = -2$ und $x = 2$' }, fv: FV.QF.SCHNITT-NULLSTELLEN }
+    weiter: uebergang
+    bei: { FV.QF.SCHNITT-NULLSTELLEN: erklaeren-gleichsetzen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst Schnittpunkte.'
+    vorlagen: [M.SF.QF.SCHNITTPUNKTE.BESTIMMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

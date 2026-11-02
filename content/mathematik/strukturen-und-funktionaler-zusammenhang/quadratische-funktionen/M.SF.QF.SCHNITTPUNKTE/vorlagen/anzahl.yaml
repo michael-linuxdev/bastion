@@ -1,0 +1,27 @@
+# „Wie viele Schnittpunkte haben Parabel und Gerade?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.SCHNITTPUNKTE.ANZAHL
+kompetenz: M.SF.QF.SCHNITTPUNKTE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.schnitt-anzahl@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Wie viele** Schnittpunkte haben ${parabel}$ und ${gerade}$? **Wähle** die passende Begründung.'
+hilfen:
+  - de: 'Setze gleich und bringe alles auf eine Seite. Die Zahl der Lösungen ist die Zahl der Schnittpunkte.'
+  - de: 'Die [[Diskriminante]] sagt, wie viele Lösungen es gibt.'
+fehlerbilder:
+  immer-zwei:
+    de: 'Eine [[Gerade]] kann eine [[Parabel]] zweimal schneiden, sie berühren oder an ihr vorbeigehen.'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+  parabel-nullstellen:
+    de: 'Die [[Nullstellen]] der [[Parabel]] gehören zur x-Achse, nicht zu dieser [[Geraden]].'
+    fv: FV.QF.SCHNITT-NULLSTELLEN
+  vorzeichen-n:
+    de: 'Beim Hinüberbringen der [[Geraden]] ändern sich die [[Vorzeichen]]. Prüfe die [[Gleichung]] noch einmal.'
+    fv: FV.QF.GLEICHSETZEN
+herkunft: ki-entwurf
+version: 1

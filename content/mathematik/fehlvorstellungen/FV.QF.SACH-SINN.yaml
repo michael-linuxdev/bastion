@@ -1,0 +1,25 @@
+id: FV.QF.SACH-SINN
+name:
+  de: Übernimmt Lösungen, die im Sachzusammenhang keinen Sinn ergeben
+art: falsche-regel
+beschreibung:
+  de: >-
+    Nimmt beide Lösungen einer Gleichung als Antwort, auch eine negative Zeit, oder macht sie positiv. Dass eine Lösung zur Situation passen muss, ist nicht verankert.
+kompetenzen: [M.SF.QF.SACH]
+erklaerung:
+  kurz:
+    de: 'Prüfe jede Lösung an der Situation: Eine Zeit vor dem Wurf oder eine negative Länge passt nicht und fällt weg.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast alle Lösungen der [[Gleichung]] übernommen.'
+    - teil: warum-nicht
+      de: 'Die [[Gleichung]] weiß nichts von der Situation. Sie liefert auch Zahlen, die es in der Wirklichkeit nicht gibt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zu jeder Lösung, was sie bedeutet, und streiche, was nicht passt.'
+gegenbeispiel:
+  de: 'Eine negative Seitenlänge eines Beets gibt es nicht, auch wenn die [[Gleichung]] sie liefert.'
+rueckweg:
+  vermittlung: M.SF.QF.SACH#erklaeren-sinn
+kontrast: [M.SF.QF.SACH.SINN]
+herkunft: ki-entwurf
+version: 1

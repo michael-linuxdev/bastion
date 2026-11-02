@@ -7,7 +7,7 @@ beschreibung:
     Liest aus y = (x − 2)² + 3 den Scheitelpunkt (−2|3) ab. Die Zahl in der Klammer wird mit ihrem
     sichtbaren Vorzeichen genommen. Dass der Scheitelpunkt dort liegt, wo die Klammer null wird,
     ist nicht verankert.
-kompetenzen: [M.SF.QF.SCHEITEL, M.SF.QF.FORMEL]
+kompetenzen: [M.SF.QF.SCHEITEL, M.SF.QF.FORMEL, M.SF.QF.SACH]
 erklaerung:
   kurz:
     de: '$(x - 2)^2$ wird null bei $x = 2$. Dort liegt der [[Scheitelpunkt]]: $S(2|3)$. Das [[Vorzeichen]] in der Klammer ist umgekehrt.'
