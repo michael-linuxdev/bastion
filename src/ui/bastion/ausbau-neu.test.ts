@@ -3,7 +3,7 @@ import { KATALOG } from '../../core/bastion/katalog';
 import { ausbauNeu } from './ausbau-neu';
 
 describe('Satz zum Ausbau (G4)', () => {
-  for (const thema of ['bastion', 'dorf', 'garten', 'unterwasser'] as const) {
+  for (const thema of ['bastion', 'dorf', 'garten', 'unterwasser', 'weltraum'] as const) {
     it(`hat für jede Ausbau-Stufe der Epoche 1 im Thema ${thema} einen Satz`, () => {
       for (const typ of ['kern', 'wissen', 'turm'] as const) {
         const stufen = KATALOG[typ].stufen.length;
@@ -13,7 +13,7 @@ describe('Satz zum Ausbau (G4)', () => {
     });
   }
 
-  it('ohne Satz (anderes Thema) gibt es nichts', () => {
-    expect(ausbauNeu('weltraum', 1, 'kern', 2)).toBeUndefined();
+  it('ohne Satz (Epoche noch nicht erneuert) gibt es nichts', () => {
+    expect(ausbauNeu('weltraum', 2, 'kern', 2)).toBeUndefined();
   });
 });

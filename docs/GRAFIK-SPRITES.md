@@ -223,7 +223,7 @@ Standard aus (`GRAFIK.md` §4.6). **Stand:** Tip-Geräusche aus Kenney Interface
 
 | Bereich | Gilt | Vor U4b erneuert |
 |---|---|---|
-| Gebäude (alle Rollen, §4) | 12.2 bis 12.7 ganz | alle fünf Themen, Epoche 1, alle Rollen (je 14 Bilder; `bastion` 12.8, die anderen 12.10, Klärung PV 02.11.2026) |
+| Gebäude (alle Rollen, §4) | 12.2 bis 12.7 ganz | alle fünf Themen, Epoche 1, alle Rollen (je 14 Bilder; `bastion` 12.8, die anderen 12.10, Klärung PV 02.11.2026) – **erledigt 02.11.2026** |
 | Boden (Fläche, Rand, Varianten) | Raster, Licht, Palette | Thema `bastion` |
 | Umgebung (Bäume, Büsche, Steine, Wasserrand) | Raster, Licht, Kontur, Palette, Maßstab | Thema `bastion` |
 | Wesen und Bewohner | Licht, Kontur, Palette, Maßstab | Wesen des Themas `bastion` (Fuchs, Möwe, Wache) |
@@ -405,4 +405,21 @@ Umgebung: Strauch grün (`strauch_a`) und blühend (`strauch_b`) im Wechsel auf 
 | flaeche (Seegraswiese) | 2×2 | Sand mit Seegras-Büscheln, Muscheln, Seestern | – | – | |
 | denkmal (Muschelskulptur) | 1×1 | graue Muschel auf Steinsockel | – | – | |
 
-Umgebung: Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`) im Wechsel auf den festen Korallenplätzen. Wesen: Fisch, Krebs, Qualle. Als Nächstes Weltraum.
+Umgebung: Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`) im Wechsel auf den festen Korallenplätzen. Wesen: Fisch, Krebs, Qualle.
+
+**Weltraum** (`sprites-g3-weltraum.py`, 02.11.2026). Materialleiter: **Blech und Landekapsel → helle Paneele mit Nieten → Glas, Solarflügel und Leuchtband.** Neue Farben: Blech `#969CA4`, Paneel `#DEE2E8`, Solar `#344880`, Glas `#96CEE2`, Orange `#E88C3C`, Leuchtband `#6EDCDC`, Fels `#707080`.
+
+| Rolle (Name) | Felder | Stufe 1 | Stufe 2 | Stufe 3 | Höhe s1 / s2 / s3 |
+|---|---|---|---|---|---|
+| kern (Kommandomodul) | 3×3 | **Landekapsel** auf drei Beinen, Luke, Bullauge, Antenne | **Paneelmodul** auf Sockel mit Bullaugen und Tür, Kapsel obenauf, Solarflügel, Banner | **Turm aus drei Modulen** mit Leuchtbändern, **Glaskuppel**, zwei Solarflügel, Andockring, Seitenmodul, Fahne | 186 / 271 / 409 |
+| wissen (Sternwarte) | 2×2 | **Teleskop** auf Dreibein neben einer Gerätekiste | **Rundbau mit Kuppel**, offener Spalt, großes Teleskop, Leuchtband, Banner | – | 108 / 228 |
+| turm (Antennenmast) | 1×1 | **Gittermast** mit kleiner Schüssel und Lämpchen | **hoher Mast** auf Gerätekasten, große Schüssel, zwei Stabantennen, Blinklicht, Fahne | – | 154 / 277 |
+| werkstatt (Montagehalle) | 2×2 | Paneelhalle mit offenem Rolltor, Roboterarm, Kisten, Leuchtband | – | – | |
+| eingang (Luftschleuse) | 1×1 | Rahmen mit Schiebetür, Warnstreifen, Lampe | – | – | |
+| einfassung (Schutzwand) | 1×1 | Paneele auf Stützen mit Leuchtband, anschlussfähig | – | – | |
+| ursprung (Landeplatz) | 1×1 | runde Platte mit Markierung und Randlichtern | – | – | |
+| zeichen (Flagge) | 1×1 | Mast mit Petrol-Flagge und Stern | – | – | |
+| flaeche (Kristallfeld) | 2×2 | Felsboden mit leuchtenden Kristallgruppen | – | – | |
+| denkmal (Satellit) | 1×1 | grauer Satellit mit Flügeln und Schüssel auf Ständer | – | – | |
+
+Solarflügel dürfen als einzige Teile weiter als 0,2 Feld über den Fußabdruck hinausragen, bleiben aber im Bild. Wesen: Drohne, Roboter. Damit sind alle fünf Themen der Epoche 1 erneuert.
