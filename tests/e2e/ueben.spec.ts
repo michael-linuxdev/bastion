@@ -1951,7 +1951,8 @@ test('Klasse 9: Wurzeln ziehen mit KaTeX-Formel und zwei Eingabefeldern (U6, B1,
       await page.getByLabel('Deine Antwort').fill('0');
     }
     await page.getByRole('button', { name: 'Prüfen' }).click();
-    await expect(page.getByText(/Noch nicht\.|Richtig/).first()).toBeVisible();
+    // Rückmeldung „Stimmt.“ oder „Noch nicht.“ – je nach Aufgabe kann „1 und 2“ richtig sein
+    await expect(page.getByText(/^(Stimmt|Noch nicht)\.$/).first()).toBeVisible();
     await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
   }
   // Kubikwurzeln setzt KaTeX; spätestens nach ein paar Aufgaben erscheint eine
