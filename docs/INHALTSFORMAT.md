@@ -430,6 +430,8 @@ Ein Fund ist ein Widerspruch, wenn eine der Fragen mit Nein beantwortet wird. Ge
 
 Was `pnpm test` schon sichert, wiederholt er nicht. Dazu gehört: Jedes Fehlerbild wird genau erkannt, jede Antwort mit `fv` ergibt ihre Fehlvorstellung, und jeder Rückweg zeigt auf einen vorhandenen Schritt. Ein Verdacht ist kein Fehler, er heißt nur: Ein Mensch schaut nach. Korrigiert wird nicht automatisch, sondern in eigenen PRs mit Begründung. Dabei verlieren geänderte Dateien ihren Review-Vermerk. Ob „die kurze Erklärung passt zu jedem Fehlerbild“ (Frage 3) stimmt, kann eine Regel nicht beurteilen; das bleibt beim prüfenden Modell und bei der Lehrkraft.
 
+**Sperrklinke in der CI (B4, PV 01.11.2026):** Die Zahl der Funde je Art darf nicht steigen. Der Grenzwert steht in `tools/inhalte/fehlerschueler-grenze.json`, geprüft mit `pnpm fehlerschueler --grenze`. Wer Funde behebt, senkt ihn im selben PR.
+
 ## 9. Herkunft und Lizenz
 
 **Entscheidung I-9:** Jede Vorlage gibt `herkunft` an (`eigen`, `ki-entwurf`, `oer`). Bei `oer` sind `lizenz` (z. B. `CC-BY-4.0`), `quelle` und `urheber` Pflicht.
