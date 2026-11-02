@@ -170,6 +170,7 @@
   "uebung.richtige-antwort": "Schau dir den Lösungsweg an:",
   "uebung.nicht-gekuerzt": "Der Wert stimmt, aber der Bruch ist noch nicht vollständig gekürzt.",
   "uebung.andere-schreibweise": "Der Wert stimmt, aber hier ist eine bestimmte Schreibweise verlangt. Lies die Aufgabe noch einmal genau.",
+  "uebung.anders-gerundet": "Fast. Der Wert liegt ganz nah dran, ist aber anders gerundet. Lies noch einmal, auf wie viele Stellen gerundet werden soll.",
   "uebung.punkt-statt-komma": "Tipp: Im Deutschen schreibt man ein Komma statt eines Punktes.",
   "uebung.keine-aufgaben": "Für dieses Niveau gibt es hier noch keine Aufgaben.",
   "eingabe.antwort": "Deine Antwort",
