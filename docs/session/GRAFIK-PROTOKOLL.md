@@ -55,3 +55,4 @@
 | 02.11.2026 | **G2 abgenommen** (PV, alle vier Punkte §12.9); nächste Sitzungen in `FOKUS.md` vorbereitet; Anleitung für die prüfende Lehrkraft `docs/PRUEFSEITE-ANLEITUNG.md` (F3 Punkt 4) |
 | 02.11.2026 | **Klärung PV G0:** Bilder nur eigener Generator (a); vor U4b alle fünf Themen in Epoche 1, nicht nur `bastion` (`FOKUS.md` „Entscheidungen“) |
 | 02.11.2026 | **G3 Thema `dorf`, Gebäude Epoche 1** (Branch `grafik/g3-dorf`): Generator aufgeteilt in `g3_stil.py` + je Thema ein Skript (Bastion-Bilder unverändert); 14 Dorf-Bilder neu (Lehm/Stroh → Fachwerk/Ziegel → Bruchstein/Schiefer, `GRAFIK-SPRITES.md` §12.10); Umriss-Test und Ausbau-Sätze auch für `dorf` |
+| 02.11.2026 | **L abgenommen (PV):** Lern-Oberfläche (`ueben`, `vermittlung`, `eingabe`, `eltern`, `start`) eingefroren bis zur Auswertung von U4b; nur Fehlerbehebungen (SESSION-PROMPT Regel 7, AGENTS.md) |
