@@ -398,4 +398,6 @@ Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höher
 
 **Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Epoche, Rolle und Stufe (`bastion.ausbau-neu.<thema>.e<epoche>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`); fehlt einer (noch nicht erneuerte Themen), zeigt die App nur die Bilder.
 
-Offen in G4: kurzer Ausbau-Moment (Staub, Überblenden) mit Bau-Klang; Kamera bleibt kurz auf dem Gebäude.
+**Ausbau-Moment (02.11.2026):** Wird eine Stufe fertig, erscheint das neue Bild sanft (dieselbe ruhige Einblendung wie bei einem Neubau, kein Konfetti, keine Truhe, R1). Bei „Bewegung reduzieren“ wechselt das Bild ohne Einblendung. Der weiche Bau-Klang beim Ausbauen gab es schon (Sound-Stufen beachtet). Die Kamera bleibt, wo sie ist – man schaut beim Ausbauen per Antippen ohnehin auf das Gebäude.
+
+Offen in G4: Staub-Wölkchen beim Fertigwerden (nur bei „leicht“); eine Statusgeste eines Bewohners.

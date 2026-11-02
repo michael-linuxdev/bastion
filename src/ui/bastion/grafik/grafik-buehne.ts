@@ -1279,6 +1279,8 @@ export async function buehneErstellen(
   let treffer: { pos: Position; umriss: number[] }[] = [];
   let bewegung: Bewegung = bewegungStart;
   let bekannt = new Set<string>();
+  /** Stufe je Gebäude beim letzten Zeichnen: Ein Ausbau soll wie ein Neubau sanft erscheinen (G4) */
+  let bekannteStufen = new Map<string, number>();
   let ersterZug = true;
   let aufstellStart = 0;
   /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
@@ -1505,16 +1507,21 @@ export async function buehneErstellen(
       } else {
         bewohnerF = undefined;
       }
+      const stufen = new Map(b.bauwerke.map((x) => [x.id, x.stufe] as const));
       if (ersterZug) {
         bekannt = ids;
+        bekannteStufen = stufen;
         ersterZug = false;
         gebaeude.scale.set(1);
         gebaeude.alpha = 1;
         aufstellAktiv = false;
       } else {
         const neu = [...ids].some((id) => !bekannt.has(id));
+        // Ausbau-Moment (G4): eine Stufe höher zählt wie ein neues Gebäude
+        const ausgebaut = [...stufen].some(([id, st]) => (bekannteStufen.get(id) ?? st) < st);
         bekannt = ids;
-        if (neu && aufstellDauerMs(bewegung) > 0) {
+        bekannteStufen = stufen;
+        if ((neu || ausgebaut) && aufstellDauerMs(bewegung) > 0) {
           aufstellStart = performance.now();
           aufstellAktiv = true;
           gebaeude.scale.set(0.92);
