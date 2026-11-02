@@ -789,16 +789,16 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   await page.goto('./');
   await hubVoll(page);
   await expect(page.getByRole('main').getByRole('button', { name: 'Bastion' })).toBeVisible();
-  await vorratAnlegen(page, { fleiss: 200, behalten: 50, koennen: 2, schritt: 3 });
+  await vorratAnlegen(page, { fleiss: 100, behalten: 30, koennen: 2, schritt: 3 });
   await page.reload();
   await bastionOeffnen(page);
-  await expect(page.getByRole('listitem').filter({ hasText: /^200 Stein$/ })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^100 Stein$/ })).toBeVisible();
   await expect(
     page.getByRole('listitem').filter({ hasText: /^3 Bauschritte im Vorrat$/ }),
   ).toBeVisible();
   // Ziel der aktuellen Epoche (§5.4 / G9): erworbene Baupläne zählen
   await expect(page.getByRole('heading', { name: 'Ziel der Epoche 1: Außenposten' })).toBeVisible();
-  await expect(page.getByText(/2\s+von\s+15\s+Baupläne erworben/)).toBeVisible();
+  await expect(page.getByText(/2\s+von\s+8\s+Baupläne erworben/)).toBeVisible();
 
   // Banner: kostet einen Bauschritt aus dem Vorrat und steht sofort (B-14)
   await page
@@ -806,17 +806,17 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     .filter({ hasText: /^Banner/ })
     .getByRole('button', { name: 'Bauen' })
     .click();
-  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^90 Stein$/ })).toBeVisible();
   await expect(page.getByText(/^Banner – fertig am/)).toBeVisible();
 
-  // Späherturm: nimmt die übrigen zwei Bauschritte, braucht sechs
+  // Späherturm: nimmt die übrigen zwei Bauschritte, braucht drei (B-31)
   await page
     .getByRole('listitem')
     .filter({ hasText: /^Späherturm/ })
     .getByRole('button', { name: 'Bauen' })
     .click();
   await expect(page.getByRole('heading', { name: 'Im Bau' })).toBeVisible();
-  await expect(page.getByText(/Bauschritte:\s+2\s+von\s+6/)).toBeVisible();
+  await expect(page.getByText(/Bauschritte:\s+2\s+von\s+3/)).toBeVisible();
   // Nur ein Vorhaben gleichzeitig: Tor geht gerade nicht
   await expect(
     page.getByRole('listitem').filter({ hasText: /^Tor/ }).getByRole('button', { name: 'Bauen' }),
@@ -825,7 +825,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Abbrechen gibt alles zurück
   await page.getByRole('button', { name: 'Abbrechen' }).click();
   await expect(page.getByRole('heading', { name: 'Im Bau' })).toHaveCount(0);
-  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^90 Stein$/ })).toBeVisible();
   await expect(
     page.getByRole('listitem').filter({ hasText: /^2 Bauschritte im Vorrat$/ }),
   ).toBeVisible();
@@ -842,7 +842,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   const bannerZeile = page.getByRole('listitem').filter({ hasText: /^Banner\s+Feld/ });
   await bannerZeile.getByRole('radio', { name: 'Blau' }).check();
   await expect(bannerZeile.getByRole('radio', { name: 'Blau' })).toBeChecked();
-  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^90 Stein$/ })).toBeVisible();
 
   // Zierde einlagern und wieder aufstellen (B-21)
   const banner = page.getByRole('listitem').filter({ hasText: /^Banner\s+Feld/ });
@@ -855,7 +855,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     .click();
   await expect(page.getByRole('heading', { name: 'Im Lager' })).toHaveCount(0);
   await expect(banner).toContainText('Spalte 1, Reihe 1');
-  await expect(page.getByRole('listitem').filter({ hasText: /^190 Stein$/ })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: /^90 Stein$/ })).toBeVisible();
 
   // Bleibt nach dem Neuladen, wie es ist
   // (auch die Farbe des Banners)
@@ -879,7 +879,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
     .getByRole('button', { name: 'Vormerken' })
     .click();
   const ziel = page.getByRole('region', { name: /Dein Ziel: Bergfried, Stufe 2/ });
-  await expect(ziel).toContainText('Dafür fehlt noch: 60 Stein, 30 Erz');
+  await expect(ziel).toContainText('Dafür fehlt noch: 35 Stein, 10 Erz');
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.ziel')).toContain('"kern"');
   await page.reload();
   await bastionOeffnen(page);
@@ -1132,9 +1132,9 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await wahl.getByRole('button', { name: /Ausbauen – was fehlt\?/ }).click();
   const blatt = page.getByRole('dialog');
   await expect(blatt.getByRole('heading', { name: 'Ausbauen', level: 3 })).toBeVisible();
-  await expect(blatt).toContainText('Noch 130 Stein.');
+  await expect(blatt).toContainText('Noch 5 Stein.');
   await expect(blatt).toContainText('Jede geübte Aufgabe bringt Stein.');
-  await expect(blatt).toContainText('Noch 60 Erz.');
+  await expect(blatt).toContainText('Noch 20 Erz.');
   await expect(blatt.getByRole('button', { name: 'Ausbauen' })).toHaveCount(0);
   await blatt.getByRole('button', { name: 'Schließen' }).click();
 

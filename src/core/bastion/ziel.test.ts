@@ -15,9 +15,9 @@ describe('Ziel vormerken (B-20)', () => {
   it('zeigt, was noch fehlt, und was sonst im Weg steht', () => {
     const z = vormerken(leer, 'kern', 'start.kern');
     expect(z).toEqual({ typ: 'kern', stufe: 2, gebaeude: 'start.kern' });
-    expect(ziellage(leer, konto(100, 90, 1), z)).toEqual({
+    expect(ziellage(leer, konto(100, 30, 0), z)).toEqual({
       erreicht: false,
-      fehlt: { fleiss: 150, behalten: 0, koennen: 1 },
+      fehlt: { fleiss: 25, behalten: 10, koennen: 1 },
       hindernisse: [],
     });
     // Werkstatt braucht Kern 2 – das steht im Weg, nicht nur die Ressourcen

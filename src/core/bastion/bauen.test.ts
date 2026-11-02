@@ -21,6 +21,10 @@ import {
 } from './bauen';
 import { BAUPLATZ, KATALOG, START, type GebaeudeTyp, type Position } from './katalog';
 
+/** Bauschritte einer Stufe laut Katalog (Tests bleiben beim Balancing gültig, B-31) */
+const schritte = (typ: GebaeudeTyp, stufe: number) =>
+  KATALOG[typ].stufen[stufe - 1]?.kosten.schritt ?? 0;
+
 /** Kleine Welt: Ereignisse sammeln, Bastion und Konto daraus ableiten. */
 class Welt {
   bau: BauEreignis[] = [];
@@ -86,7 +90,7 @@ class Welt {
   /** Bergfried direkt auf Stufe 2 bringen */
   kern2() {
     const v = this.hoeher('start.kern');
-    for (let i = 0; i < 10; i++) this.gutschrift('schritt', 1);
+    for (let i = 0; i < schritte('kern', 2); i++) this.gutschrift('schritt', 1);
     expect(this.bastion.bauwerke.find((x) => x.id === 'start.kern')?.stufe).toBe(2);
     return v;
   }
@@ -119,11 +123,12 @@ describe('Bauen mit Bauschritten (B-7)', () => {
   it('ein Vorhaben nimmt den Vorrat und wächst mit jedem neuen Bauschritt', () => {
     const w = new Welt();
     w.reich();
-    w.gutschrift('schritt', 2);
+    const bedarf = schritte('turm', 1);
+    w.gutschrift('schritt', 1);
     w.neu('turm', { x: 0, y: 0 });
-    expect(w.bastion.vorhaben[0]).toMatchObject({ fortschritt: 2, bedarf: 6 });
-    for (let i = 0; i < 3; i++) w.gutschrift('schritt', 1);
-    expect(w.bastion.vorhaben[0]?.fortschritt).toBe(5);
+    expect(w.bastion.vorhaben[0]).toMatchObject({ fortschritt: 1, bedarf });
+    for (let i = 0; i < bedarf - 2; i++) w.gutschrift('schritt', 1);
+    expect(w.bastion.vorhaben[0]?.fortschritt).toBe(bedarf - 1);
     w.gutschrift('schritt', 1);
     expect(w.bastion.vorhaben).toEqual([]);
     expect(w.bastion.fertig).toMatchObject([{ typ: 'turm', stufe: 1, gemeldet: false }]);
@@ -134,7 +139,7 @@ describe('Bauen mit Bauschritten (B-7)', () => {
     w.reich();
     w.kern2();
     w.neu('werkstatt', { x: 0, y: 0 });
-    for (let i = 0; i < 6; i++) w.gutschrift('schritt', 1);
+    for (let i = 0; i < schritte('werkstatt', 1); i++) w.gutschrift('schritt', 1);
     expect(plaetze(w.bastion)).toBe(2);
     w.neu('turm', { x: 0, y: 3 });
     w.neu('eingang', { x: 6, y: 10 });
@@ -157,13 +162,14 @@ describe('Abbrechen (B-8)', () => {
   it('gibt Stein, Erz, Baupläne und die Bauschritte vollständig zurück', () => {
     const w = new Welt();
     w.reich();
-    w.gutschrift('schritt', 2);
+    w.gutschrift('schritt', 1);
     const vorher = w.konto.stand;
     const v = w.neu('turm', { x: 0, y: 0 });
     w.gutschrift('schritt', 1);
+    const preis = KATALOG.turm.stufen[0]?.kosten;
     expect(w.konto.stand).toMatchObject({
-      fleiss: vorher.fleiss - 100,
-      behalten: vorher.behalten - 30,
+      fleiss: vorher.fleiss - (preis?.fleiss ?? 0),
+      behalten: vorher.behalten - (preis?.behalten ?? 0),
     });
     w.uebernimm(abbrechen(w.bastion, v.id, w.angaben()));
     expect(w.konto.stand).toMatchObject({
@@ -171,7 +177,7 @@ describe('Abbrechen (B-8)', () => {
       behalten: vorher.behalten,
       koennen: vorher.koennen,
     });
-    expect(w.bastion).toMatchObject({ vorhaben: [], vorrat: 3 });
+    expect(w.bastion).toMatchObject({ vorhaben: [], vorrat: 2 });
     // Der Platz ist wieder frei
     expect(beginnHindernisse(w.bastion, w.konto, 'turm', { pos: { x: 0, y: 0 } })).toEqual([]);
   });
@@ -181,7 +187,7 @@ describe('Abbrechen (B-8)', () => {
     w.reich();
     w.kern2();
     w.neu('werkstatt', { x: 0, y: 0 });
-    for (let i = 0; i < 6; i++) w.gutschrift('schritt', 1);
+    for (let i = 0; i < schritte('werkstatt', 1); i++) w.gutschrift('schritt', 1);
     const a = w.neu('turm', { x: 0, y: 3 });
     w.neu('eingang', { x: 6, y: 10 });
     w.gutschrift('schritt', 2);
@@ -212,7 +218,7 @@ describe('Hindernisse beim Beginnen', () => {
       'kein-freier-bauplatz',
       'belegt',
     ]);
-    w.gutschrift('schritt', 6);
+    w.gutschrift('schritt', schritte('turm', 1));
     w.neu('turm', { x: 1, y: 0 });
     expect(beginnHindernisse(w.bastion, w.konto, 'turm', { pos: { x: 2, y: 0 } })).toEqual([
       'hoechstzahl',
@@ -228,7 +234,7 @@ describe('Hindernisse beim Beginnen', () => {
     w.reich();
     w.kern2();
     w.neu('werkstatt', { x: 0, y: 0 });
-    w.gutschrift('schritt', 6);
+    w.gutschrift('schritt', schritte('werkstatt', 1));
     w.hoeher('start.kern');
     expect(beginnHindernisse(w.bastion, w.konto, 'kern', { ausbau: 'start.kern' })).toContain(
       'wird-schon-gebaut',
