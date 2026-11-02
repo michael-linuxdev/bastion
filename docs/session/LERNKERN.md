@@ -135,7 +135,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
-- **Entscheidung des PV vom 02.11.2026 (K-30, `STRATEGIE.md`), festgehalten im Strang Grafik:** Klasse 9 bis 12 **jetzt komplett** im neuen Format bauen (Erstvermittlung, Fehlerkatalog, Niveau E, K-28), **danach alles gesammelt prüfen**, erst mehrfach durch KI, dann durch einen Menschen. Bitte in diesem Strang umsetzen:
+- **Entscheidung des PV vom 02.11.2026 (K-30, `STRATEGIE.md`), festgehalten im Strang Grafik, Session-Prompt `docs/session/KLASSE-9-12.md`:** Klasse 9 bis 12 **jetzt komplett** im neuen Format bauen (Erstvermittlung, Fehlerkatalog, Niveau E, K-28), **danach alles gesammelt prüfen**, erst mehrfach durch KI, dann durch einen Menschen. Bitte in diesem Strang umsetzen:
   1. Punkt 1.6 oben („erst, wenn eine Klassenstufe der 5 bis 8 Stufe 2 und U4b bestanden hat“) als aufgehoben markieren; `PLAN.md` §4 Punkt 17b und §4b U6 anpassen.
   2. Kompetenzlisten für Klasse 9, 10 und Jahrgang 11/12 (GK und LK) in `LEHRPLAN.md` anlegen, Grundlage Lehrplan Gymnasium (K-16, `docs/quellen/README.md`), dann Klasse für Klasse Vorlagen, Erstvermittlung und Fehlerkatalog. KaTeX-Messung (Schritt 2 der Formeldarstellung) jetzt fällig.
   3. Die mehrfache KI-Prüfung als festen Ablauf beschreiben (mehrere unabhängige Durchgänge, Befunde im Prüfbogen), bevor der Mensch prüft. Stufe 2 bleibt menschliche Prüfung (INHALTSFORMAT §8).
