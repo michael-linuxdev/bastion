@@ -67,8 +67,15 @@ export const erster = (v: Vermittlung): Schritt | undefined => v.schritte[0];
  * Wohin nach diesem Schritt? Richtig oder ohne Antwort: `weiter`. Falsch: der Eintrag
  * in `bei` zur erkannten Fehlvorstellung, sonst `bei.sonst`, sonst `weiter`.
  * Ein Ziel, das kein Schritt ist, ist eine Kompetenz-ID (Rückweg zur Voraussetzung).
+ * Ist diese Kompetenz nicht ausgeliefert (`verfuegbar` sagt nein, öffentliche Seite
+ * ARCHITEKTUR T-20), geht es ohne Umweg bei `weiter` weiter: kein Rückweg ins Leere.
  */
-export function naechstes(v: Vermittlung, schritt: Schritt, b?: Bewertung): Ziel {
+export function naechstes(
+  v: Vermittlung,
+  schritt: Schritt,
+  b?: Bewertung,
+  verfuegbar: (kompetenz: string) => boolean = () => true,
+): Ziel {
   if (schritt.typ === 'uebergang') return { art: 'ende' };
   const falsch = b !== undefined && 'richtig' in b && !b.richtig;
   const ziel = falsch
@@ -78,6 +85,7 @@ export function naechstes(v: Vermittlung, schritt: Schritt, b?: Bewertung): Ziel
   if (s) return { art: 'schritt', schritt: s };
   if (ziel === undefined) return { art: 'ende' };
   const danach = schrittMit(v, schritt.weiter);
+  if (!verfuegbar(ziel)) return danach ? { art: 'schritt', schritt: danach } : { art: 'ende' };
   return danach
     ? { art: 'voraussetzung', kompetenz: ziel, danach }
     : { art: 'voraussetzung', kompetenz: ziel };
