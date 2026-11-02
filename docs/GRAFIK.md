@@ -392,7 +392,20 @@ Der Späherturm bleibt unter dem Bergfried Stufe 2 (379 px), wie §12.8 verlangt
 
 **Wesen (02.11.2026):** Möwe, Fuchs und Wache neu aus demselben Generator, gleiche Bildnamen und Frames wie P3 (3 Ruhe-, 4 Geh-, 2 Reaktionsbilder, 64 × 64): Licht von rechts oben, Kontur am Rand, Petrol-Akzent. Reaktion: Möwe schlägt die Flügel, Fuchs setzt sich auf, Wache winkt (keine Waffe). Intern vierfach gezeichnet und weich verkleinert.
 
-Damit stammen Gebäude, Umgebung und Wesen des Themas `bastion`, Epoche 1, aus dem neuen Generator. Der Boden bleibt nach §12.5 wie P3. **Nächster Schritt: G6 Abnahme** (PV, 2–3 Jugendliche). Eine `_maske.png` für die Statue erst, wenn die Bühne Masken nutzt.
+Damit stammen Gebäude, Umgebung und Wesen des Themas `bastion`, Epoche 1, aus dem neuen Generator. Der Boden bleibt nach §12.5 wie P3.  Eine `_maske.png` für die Statue erst, wenn die Bühne Masken nutzt.
+
+**Thema `dorf`, Gebäude der Epoche 1 (02.11.2026, Klärung PV: alle fünf Themen vor U4b).** Der Generator ist jetzt aufgeteilt: gemeinsames Modul `tools/grafik/g3_stil.py` (die Bilder des Themas `bastion` sind danach Byte für Byte gleich) und je Thema ein Skript, hier `tools/grafik/sprites-g3-dorf.py`. Materialleiter Lehm/Stroh → Fachwerk/Ziegel → Bruchstein/Schiefer, Tabelle `GRAFIK-SPRITES.md` §12.10.
+
+| Gebäude | vorher (Höhe + / Umriss) | jetzt Höhe | Höhe + | Umriss anders |
+|---|---|---|---|---|
+| Gemeindehaus 1→2 | 7 % / 10 % | 200 → 313 px | 56 % | 55 % |
+| Gemeindehaus 2→3 | 7 % / 12 % | 313 → 492 px | 57 % | 28 % |
+| Bücherei 1→2 | 7 % / 9 % | 172 → 289 px | 68 % | 54 % |
+| Windmühle 1→2 | 12 % / 14 % | 186 → 250 px | 34 % | 36 % |
+
+Atlas-Bilder `gebaeude/dorf/e1`: 25 KB → 55 KB; ganzer Atlas 1 374 KB → 1 405 KB (+31 KB, zählt gesondert vom Grafik-Budget). In der App geprüft (390 px, Thema Dorf, Bildschirmfotos an den PV): alle Gebäude stehen stimmig auf der Wiese, Abend-Fenster deckungsgleich. Der Ausbau des Gemeindehauses auf Stufe 3 schließt die Epoche ab; danach zeigt die App wie bei `bastion` die alten Bilder der Epoche 2 (kommen nach U4b). Umriss-Test und Sätze zum Ausbau (`bastion.ausbau-neu.dorf.*`) gelten jetzt auch für das Dorf.
+
+**Nächste Schritte:** Umgebung und Wesen (Huhn, Katze, Spatz) des Dorfs, dann Garten, Unterwasser, Weltraum; danach G6 Abnahme (PV, 2–3 Jugendliche).
 
 ### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
 

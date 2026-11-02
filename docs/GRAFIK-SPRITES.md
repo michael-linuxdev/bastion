@@ -223,12 +223,12 @@ Standard aus (`GRAFIK.md` §4.6). **Stand:** Tip-Geräusche aus Kenney Interface
 
 | Bereich | Gilt | Vor U4b erneuert |
 |---|---|---|
-| Gebäude (alle Rollen, §4) | 12.2 bis 12.7 ganz | Thema `bastion`, Epoche 1, alle Rollen (14 Bilder, 12.8) |
+| Gebäude (alle Rollen, §4) | 12.2 bis 12.7 ganz | alle fünf Themen, Epoche 1, alle Rollen (je 14 Bilder; `bastion` 12.8, die anderen 12.10, Klärung PV 02.11.2026) |
 | Boden (Fläche, Rand, Varianten) | Raster, Licht, Palette | Thema `bastion` |
 | Umgebung (Bäume, Büsche, Steine, Wasserrand) | Raster, Licht, Kontur, Palette, Maßstab | Thema `bastion` |
 | Wesen und Bewohner | Licht, Kontur, Palette, Maßstab | Wesen des Themas `bastion` (Fuchs, Möwe, Wache) |
 | Himmel, Wetter, Auflagen | Palette, weiche Kontur | gemeinsam für alle Themen (§5) |
-| andere Themen, Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5) | erst nach U4b |
+| Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5, 12.10) | erst nach U4b |
 
 Ein Generator heißt: ein gemeinsames Python-Modul mit Raster, Licht, Kontur, Palette und den Grundkörpern (Quader, Pyramide, Zylinder, Kegel, Zinnen, Fenster, Fahne, Banner) aus dem Probestück. Jedes Bild wird daraus zusammengesetzt. So sehen alle Bilder gleich gezeichnet aus, auch wenn sie zu verschiedenen Zeiten entstehen. Gleiche Eingabe ergibt das gleiche Bild (§2, „Kein Zufall“). Wo Abwechslung nötig ist (Grashalme, Steine im Mauerwerk), kommt sie aus einer festen Zahl im Code, nicht aus dem Zufall zur Laufzeit.
 
@@ -351,3 +351,24 @@ Zusammen 14 Gebäudebilder plus Abend-Ebenen, dazu Boden (4 Kacheln), Umgebung u
 - [x] Materialleiter Holz → Fachwerk → Stein für das Thema `bastion`
 - [x] Tabelle 12.8 (was sich je Rolle und Stufe ändert)
 - [x] Danach erzeugt G3 die Bilder in Chargen, jede mit Vergleichsbild vorher und nachher (erledigt, `GRAFIK.md` §11.8; dazu Gerüst und Vorher/Nachher aus G4, §11.9)
+
+### 12.10 Andere Themen, Epoche 1 (Klärung PV 02.11.2026: alle fünf Themen vor U4b)
+
+Gleiche Regel wie 12.2 bis 12.7, gleicher Generator: Die gemeinsamen Teile (Raster, Licht, Kontur, Palette, Grundkörper, Wesen-Zeichnung, Schreiben in den Atlas) stehen in `tools/grafik/g3_stil.py`; jedes Thema hat ein eigenes Skript `tools/grafik/sprites-g3-<thema>.py` mit seinen Formen und seiner Materialleiter. Petrol bleibt der Akzent für „gewachsen“ (12.6 Nr. 6) in jedem Thema.
+
+**Dorf** (`sprites-g3-dorf.py`, 02.11.2026). Materialleiter: **Lehm mit Strohdach → Fachwerk mit Ziegeldach → Bruchstein mit Schieferdach.** Neue Farben: Lehm `#CEB284`, Lehmfleck `#B89A6C`, Stroh `#D0AC58`, Strohfuge `#A07C34`, Schiefer `#606876`, Wasser `#62A0C4`, Zaunlatte `#CCB896`.
+
+| Rolle (Name) | Felder | Stufe 1 | Stufe 2 | Stufe 3 | Höhe s1 / s2 / s3 |
+|---|---|---|---|---|---|
+| kern (Gemeindehaus) | 3×3 | **Lehmhaus** mit dickem Strohdach, Tür, zwei Fenster | **Fachwerkhaus**, zwei Geschosse auf Steinsockel, Ziegeldach mit Gaube, Schornstein, Lehm-Anbau mit Strohdach, Banner | **Rathaus aus Bruchstein**, Gesims, Portal mit Stufe, Schieferdach, **Uhrturm** mit Uhr, Glockenstube und Schieferhelm, Fachwerk-Seitenflügel, Fahne | 200 / 313 / 492 |
+| wissen (Bücherei) | 2×2 | **Lehmhäuschen** mit Strohdach, breites Lesefenster | **Fachwerk** über Steinsockel, zwei Geschosse, Ziegeldach, Schornstein, Erker, Schild mit Buch, Banner | – | 172 / 289 |
+| turm (Windmühle) | 1×1 | **Bockwindmühle**: Holzkasten auf einem Bock, Gitterflügel, Treppe | **Turmmühle**: Steinsockel, heller Turm, hölzerner Rundgang, Haube, Flügel mit Segeltuch, Fahne | – | 186 / 250 |
+| werkstatt (Schreinerei) | 2×2 | offener Schuppen mit Lehm-Rückwand und Stroh-Pultdach, Werkbank mit Hobel, Stammstapel, Hackklotz, Laterne | – | – | |
+| eingang (Dorfbrücke) | 1×1 | Holzsteg mit Geländer über einen kleinen Bach | – | – | |
+| einfassung (Zaun) | 1×1 | helle Latten mit spitzem Kopf an zwei Riegeln, anschlussfähig | – | – | |
+| ursprung (Dorfbrunnen) | 1×1 | runder Steinkranz mit Wasser, Welle mit Seil und Eimer, Kurbel, Schindeldach | – | – | |
+| zeichen (Wappen) | 1×1 | Pfosten mit Wappenschild in Petrol und gelbem Zeichen | – | – | |
+| flaeche (Obstwiese) | 2×2 | Wiese mit drei Obstbäumen (Äpfel, Birnen) und Blumen | – | – | |
+| denkmal (Denkmal) | 1×1 | gestufter Bruchsteinsockel, Figur in Grau: Bäuerin mit Garbe | – | – | |
+
+Umgebung und Wesen des Dorfs folgen in eigenen Chargen, danach Garten, Unterwasser, Weltraum.
