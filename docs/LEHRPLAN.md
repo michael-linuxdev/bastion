@@ -683,8 +683,8 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 9 (bei der OS meist der RS), sonst a
 
 | ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
 |---|---|---|---|---|---|
-| M.ZO.PW.WURZEL | Ich kann Quadrat-, Kubik- und n-te Wurzeln bestimmen und zwischen Wurzel- und Potenzschreibweise wechseln. | RZ.POTENZEN | OS LB 2 (Kubikwurzel), GY LB 1 | Gen | Warum √(a²) = \|a\| und nicht a ist |
-| M.ZO.PW.REELL | Ich kann rationale und irrationale Zahlen unterscheiden und die Zahlbereiche N, Z, Q und R ordnen. | PW.WURZEL, RZ.ZAHLBEREICHE, BR.PERIODISCH | OS –, GY LB 1 | Gen | „Stimmt das immer?“ zu Summen und Produkten irrationaler Zahlen |
+| M.ZO.PW.WURZEL | Ich kann Quadrat-, Kubik- und n-te Wurzeln bestimmen und abschätzen. | RZ.POTENZEN, KR.BEGRUENDEN (E) | OS LB 2 (Kubikwurzel), GY LB 1 | Gen | Warum √(a²) = \|a\| und nicht a ist |
+| M.ZO.PW.REELL | Ich kann rationale und irrationale Zahlen unterscheiden und die Zahlbereiche N, Z, Q und R ordnen. | PW.WURZEL, RZ.ZAHLBEREICHE, BR.PERIODISCH, KR.BEGRUENDEN (E) | OS –, GY LB 1 | Gen | „Stimmt das immer?“ zu Summen und Produkten irrationaler Zahlen |
 | M.ZO.PW.GESETZE | Ich kann Potenzen mit ganzzahligen Exponenten mit den Potenzgesetzen vereinfachen. | PW.WURZEL, NZ.POTENZEN | OS –, GY LB 1 | Gen | Fehler finden, z. B. a²·a³ = a⁶ |
 | M.ZO.PW.RATIONAL | Ich kann Potenzen mit rationalen Exponenten als Wurzeln schreiben und damit rechnen. | PW.GESETZE | OS –, GY LB 1 | Gen | Permanenzprinzip: warum a⁰ = 1 und a⁻ⁿ = 1/aⁿ |
 | M.SF.GL.WURZEL | Ich kann einfache Wurzelgleichungen lösen und die Probe machen. | PW.WURZEL, TU.GLEICHUNGEN | OS –, GY LB 1 | Gen | Scheinlösung durch Quadrieren erkennen |
@@ -743,6 +743,8 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 9 (bei der OS meist der RS), sonst a
 | M.DZ.ST.STREUUNG | Ich kann Minimum, Maximum, Spannweite, Varianz und Standardabweichung bestimmen und die Streuung deuten. | ST.MITTELWERTE, PW.WURZEL | OS LB 4 (nur Spannweite), GY LB 4 | Gen | Gleiches Mittel, andere Streuung vergleichen |
 | M.DZ.ST.HISTOGRAMM | Ich kann Daten in Klassen einteilen und als Histogramm darstellen und lesen. | ST.MITTELWERTE | OS –, GY LB 4 | Gen | Wirkung einer anderen Klasseneinteilung |
 | M.DZ.ST.MANIPULATION | Ich kann typische Fehler und Täuschungen in Statistiken erkennen: abgeschnittene Achsen, andere Bezugsgrößen, Prozent falsch verwendet, überzogene Genauigkeit. | ST.MITTELWERTE, PZ.GRUNDAUFGABEN, DA.DIAGRAMME | OS LB 4, GY LB 4 | Mix | Begründung zur irreführenden Darstellung auswählen |
+
+*Stand 02.11.2026:* **PW.WURZEL und PW.REELL als Entwurf** mit G, M und E: Wurzeln berechnen (G Quadrat- und Kubikwurzeln, M bis ⁵√ und negative Radikanden), Wurzeln abschätzen (zwei Felder, G √, M ∛), „Stimmt das immer?“ zu Wurzeln (E); rational oder irrational (G), kleinster Zahlbereich (M), Aussagen über rationale und irrationale Zahlen (E) – 6 Vorlagen (`src/generators/mathematik/potenzen-wurzeln/`), 2 Erstvermittlungen, 12 neue Fehlvorstellungen (`FV.PW.…`). Für Niveau E kam M.RF.KR.BEGRUENDEN (Gegenbeispiel) als Voraussetzung dazu. Klasse 9 ist in der App wählbar.
 
 **Summe Klasse 9:** 30 Kompetenzen × 3 Niveaus (G, M, E), davon 28 überwiegend generatorbasiert, 2 gemischt; bei 1 wird Zeichnen erklärt (Kegel, L-10). Neue Felder: PW (potenzen-wurzeln), PF (potenzfunktionen), QF (quadratische-funktionen), PY (pythagoras), TR (trigonometrie), ST (statistik); KP und GL werden fortgesetzt.
 

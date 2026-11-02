@@ -1933,6 +1933,48 @@ test('Niveaus sind für Lernende unsichtbar, nur das Aufgabenblatt wählt G oder
   await expect(page.getByRole('group', { name: 'Niveau' })).toHaveCount(0);
 });
 
+test('Klasse 9: Wurzeln ziehen mit KaTeX-Formel und zwei Eingabefeldern (U6, B1, B2)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 9' }).check();
+  await thema(page, /^Wurzeln ziehen/);
+  // Erste Aufgabe: Wurzel berechnen, zweite: abschätzen (Vorlagen im Wechsel, Niveau G)
+  for (let i = 0; i < 2; i++) {
+    const felder = page.getByLabel('kleinere Zahl:');
+    if (await felder.isVisible().catch(() => false)) {
+      await expect(page.getByLabel('größere Zahl:')).toBeVisible();
+      await felder.fill('1');
+      await page.getByLabel('größere Zahl:').fill('2');
+    } else {
+      await page.getByLabel('Deine Antwort').fill('0');
+    }
+    await page.getByRole('button', { name: 'Prüfen' }).click();
+    await expect(page.getByText(/Noch nicht\.|Richtig/).first()).toBeVisible();
+    await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+  }
+  // Kubikwurzeln setzt KaTeX; spätestens nach ein paar Aufgaben erscheint eine
+  await expect
+    .poll(
+      async () => {
+        if ((await page.locator('.katex').count()) > 0) return true;
+        const feld = page.getByLabel('Deine Antwort');
+        if (await feld.isVisible().catch(() => false)) await feld.fill('0');
+        else {
+          await page.getByLabel('kleinere Zahl:').fill('1');
+          await page.getByLabel('größere Zahl:').fill('2');
+        }
+        await page.getByRole('button', { name: 'Prüfen' }).click();
+        await page.getByRole('button', { name: 'Nächste Aufgabe' }).click();
+        return false;
+      },
+      { timeout: 30_000 },
+    )
+    .toBe(true);
+  await expect(page.locator('.katex math').first()).toBeAttached();
+});
+
 test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mit genau demselben Blatt', async ({
   page,
   context,
