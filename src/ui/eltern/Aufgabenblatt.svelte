@@ -17,6 +17,7 @@
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import { generatoren } from '../../generators';
   import Druckblatt from './Druckblatt.svelte';
+  import PdfKnopf from './PdfKnopf.svelte';
   import SafariWeg from './SafariWeg.svelte';
   import { KLASSEN } from '../ueben/klassen';
   import { t, type TextSchluessel } from '../texte/texte';
@@ -88,6 +89,9 @@
   // iPhone/iPad, vom Home-Bildschirm gestartet: Drucken wirkt dort nicht. Dann führt SafariWeg
   // das Blatt als eigene Druckseite nach Safari (src/ui/eltern/DruckSeite.svelte).
   const iosApp = (navigator as Navigator & { standalone?: boolean }).standalone === true;
+  let blattBereich = $state<HTMLElement>();
+  const blattElement = () => blattBereich?.querySelector<HTMLElement>('[data-druckblatt]');
+  const pdfName = $derived(`bastion-aufgabenblatt-nr-${blattNr}.pdf`);
   const druckAdresse = $derived(
     `${location.origin}${import.meta.env.BASE_URL}?${blattAbfrage({
       kompetenzen: eingabe.kompetenzen.map((k) => k.id),
@@ -224,15 +228,22 @@
       <p role="status">{t('blatt.ungueltig')}</p>
     {:else}
       {#if iosApp}
-        <SafariWeg adresse={druckAdresse} />
+        <PdfKnopf blatt={blattElement} dateiname={pdfName} haupt />
+        <details class="safari-weg">
+          <summary>{t('blatt.pdf-oder')}</summary>
+          <SafariWeg adresse={druckAdresse} />
+        </details>
       {:else}
         <button type="button" class="haupt drucken" onclick={() => window.print()}
           >{t('blatt.drucken')}</button
         >
+        <PdfKnopf blatt={blattElement} dateiname={pdfName} />
         <p class="leise">{t('blatt.drucken-hinweis')}</p>
       {/if}
 
-      <Druckblatt {aufgaben} {thema} {niveau} {blattNr} {loesungen} {punkte} {datumText} />
+      <div bind:this={blattBereich}>
+        <Druckblatt {aufgaben} {thema} {niveau} {blattNr} {loesungen} {punkte} {datumText} />
+      </div>
     {/if}
   {/if}
 </section>
