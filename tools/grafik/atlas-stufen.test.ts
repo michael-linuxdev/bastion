@@ -5,13 +5,19 @@
  * - Umriss: XOR der Alpha-Masken geteilt durch ihre Vereinigung, ausgerichtet am Anker
  *   unten Mitte – mindestens 25 % (Entscheidung PV, 01.11.2026).
  * - Höhe: sichtbare Höhe (Alpha) mindestens 15 % über der vorigen Stufe.
+ * - Ab Stufe 4 (Epochen 2–4, GRAFIK-SPRITES.md §12.11): Umriss mindestens 10 %, Höhe
+ *   mindestens 8 %. Der Fußabdruck wächst nicht mit; ab Stufe 4 ist er gefüllt, und
+ *   25 % Umriss ginge nur mit 30 % Höhe je Stufe. Die Stufe zeigt sich dann an je einem
+ *   neuen Merkmal (Torhaus, Erker, Kuppel, Spitze, Kupferdach).
+ * Die Kette läuft über die Epochen: jede Stufe hat ein Bild, in der Epoche, in der sie
+ * zuerst baubar ist (Rückfall wie `atlasEintrag`).
  *
  * Gleiche Messung wie `pnpm grafik:stufen` (tools/grafik/stufen-vergleich.py).
  * Der Test gilt nur für erneuerte Chargen und wächst Charge für Charge (G3).
  * PNGs werden ohne Zusatzpaket gelesen: nur 8 Bit RGBA ohne Zeilensprung,
  * so wie die Generatoren (Pillow) sie schreiben.
  */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { inflateSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
@@ -37,6 +43,25 @@ const ERNEUERT: readonly (readonly [string, string, number])[] = [
 
 const MIN_UMRISS = 0.25;
 const MIN_HOEHE = 0.15;
+const MIN_UMRISS_AB_4 = 0.1;
+const MIN_HOEHE_AB_4 = 0.08;
+
+/** Erneuert über alle Epochen (G3 Epochen 2–4): [Thema, Rolle, höchste Stufe] */
+const ERNEUERT_EPOCHEN: readonly (readonly [string, string, number])[] = [
+  ['bastion', 'kern', 9],
+  ['bastion', 'wissen', 5],
+  ['bastion', 'turm', 5],
+  ['bastion', 'werkstatt', 3],
+  ['bastion', 'eingang', 2],
+];
+
+function stufenBild(thema: string, rolle: string, stufe: number): string {
+  for (let e = 1; e <= 4; e++) {
+    const pfad = resolve('public/grafik/atlas/gebaeude', thema, `e${e}`, `${rolle}_s${stufe}.png`);
+    if (existsSync(pfad)) return pfad;
+  }
+  throw new Error(`kein Bild: ${thema} ${rolle} Stufe ${stufe}`);
+}
 /** Ab dieser Deckkraft zählt ein Pixel zum Umriss (weiche Schatten nicht) */
 const ALPHA_GRENZE = 128;
 
@@ -136,6 +161,19 @@ describe('G3: jede Stufe ein sichtbares Upgrade (Umriss und Höhe)', () => {
         const nachher = pngMaske(resolve('public/grafik/atlas', ordner, `${rolle}_s${s}.png`));
         expect(umrissAnders(vorher, nachher)).toBeGreaterThanOrEqual(MIN_UMRISS);
         expect(hoehe(nachher)).toBeGreaterThanOrEqual(hoehe(vorher) * (1 + MIN_HOEHE));
+      });
+    }
+  }
+
+  for (const [thema, rolle, hoechste] of ERNEUERT_EPOCHEN) {
+    for (let s = 2; s <= hoechste; s++) {
+      it(`${thema}/${rolle} über Epochen: Stufe ${s - 1} → ${s}`, () => {
+        const vorher = pngMaske(stufenBild(thema, rolle, s - 1));
+        const nachher = pngMaske(stufenBild(thema, rolle, s));
+        const umriss = s >= 4 ? MIN_UMRISS_AB_4 : MIN_UMRISS;
+        const hoch = s >= 4 ? MIN_HOEHE_AB_4 : MIN_HOEHE;
+        expect(umrissAnders(vorher, nachher)).toBeGreaterThanOrEqual(umriss);
+        expect(hoehe(nachher)).toBeGreaterThanOrEqual(hoehe(vorher) * (1 + hoch));
       });
     }
   }

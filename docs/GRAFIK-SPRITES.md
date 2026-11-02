@@ -428,5 +428,20 @@ Solarflügel dürfen als einzige Teile weiter als 0,2 Feld über den Fußabdruck
 
 - **Vorgezogen:** Die Stufen der Epochen 2–4 (je Thema 15 Bilder: Bergfried 4–9, Studierstube 3–5, Späherturm 3–5, Werkstatt 2–3, Tor 2) werden jetzt im Stil dieser Regel erneuert, alle fünf Themen, Thema für Thema ein PR (bastion, dorf, garten, unterwasser, weltraum).
 - **Eine Stufe, ein Bild:** Eine Stufe sieht in jeder Epoche gleich aus. Ihr Bild liegt in der Epoche, in der sie zuerst baubar ist (`kern_s1` in `e1`, `kern_s4` in `e2` …); spätere Epochen nehmen es über den Epoche-Rückfall (`atlasEintrag`). Die alten P5-Fassungen der Stufen 1–3 in `e2`–`e4` sind entfernt (`tools/grafik/epochen-aufraeumen.py`). Grund: Die Stufe bleibt ohne Ziffer erkennbar (12.6 Nr. 5); ein nicht ausgebauter Holzturm bleibt ein Holzturm.
-- **Messung ab Stufe 4:** Umriss weiter mindestens 25 %, Höhe nur mindestens **8 %** je Stufe (statt 15 %), damit der Bergfried auf Stufe 9 nicht den Bauplatz verdeckt. Offen beim PV, an der Probe Bergfried 4–9: 8 % oder ohne Höhenregel ab Stufe 4.
+- **Messung ab Stufe 4:** Höhe mindestens **8 %** je Stufe (PV), Umriss mindestens **10 %** (statt 25 %). Grund: Ab Stufe 4 ist der Fußabdruck gefüllt; 25 % Umriss ginge nur mit etwa 30 % Höhe je Stufe. Darum trägt jede Stufe ein neues Merkmal, das man ohne Ziffer sieht (Festlegung Grafik-Strang im Auftrag des PV, 02.11.2026). Test: `tools/grafik/atlas-stufen.test.ts`, Kette über alle Epochen.
 - **Wachstum ab Stufe 4:** vor allem im Umriss innerhalb des Fußabdrucks (Mauerring, Ecktürme, Torhaus, zweiter Turm, Kuppel oder Schieferhelm), weniger in der Höhe. Offen beim PV: Epoche 1 bleibt wie abgenommen (Empfehlung) oder heutige Stufe 2 → 4 und 3 → 7.
+
+**Thema `bastion`** (`tools/grafik/sprites-g3e-bastion.py`, 02.11.2026). Materialleiter ab Epoche 2: Stein mit Schieferdach, ab Stufe 8 Kupfer (Grünspan). Neue Farben: Schiefer `#606876`, Kupfer `#5C9C8A`, Knauf `#D6B668` (matt).
+
+| Rolle | Stufe (Epoche) | Neues Merkmal |
+|---|---|---|
+| kern | 4 (2) | Mauerring mit Zinnen, drei Ecktürme mit Schieferkegel, Schieferhelm |
+| kern | 5 (2) | Torhaus mit zwei Türmchen, höhere Ecktürme mit Fahnen, höherer Helm |
+| kern | 6 (3) | Erkertürmchen am Zinnenkranz, gestufter Aufsatz, höhere Mauern |
+| kern | 7 (3) | hinterer Eckturm, Palas, hoher Doppelhelm |
+| kern | 8 (4) | Kupferdächer, Kuppel mit Laterne und Spitze |
+| kern | 9 (4) | hohe Turmspitze, breitere Ecktürme |
+| wissen | 3 / 4 / 5 | Bibliothek mit Treppenturm / Sternturm mit Kuppel und Fernrohr / Archiv mit Kupferkuppel |
+| turm | 3 / 4 / 5 | Steinturm mit Zinnen / Rundturm mit Wehrgang / Leuchtturm mit Laternenstube und Kupferspitze |
+| werkstatt | 2 / 3 | Fachwerk-Zimmerei mit Holzkran / steinerne Bauhütte mit Tretradkran |
+| eingang | 2 | steinernes Torhaus mit Fallgitter und Schieferhelm |

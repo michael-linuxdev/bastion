@@ -117,8 +117,8 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 
 - **Epochen 2–4 werden vorgezogen** (vor U4b), alle fünf Themen, Thema für Thema. Anlass: Stufen 4–9 hatten noch den alten Stil.
 - **Eine Stufe, ein Bild:** Stufe 1–3 zeigen in Epoche 2–4 das Bild aus Epoche 1; die alten Fassungen entfallen (`GRAFIK-SPRITES.md` §12.11).
-- **Umriss-Test ab Stufe 4:** Umriss 25 %, Höhe 8 %.
-- **Offen beim PV:** Bleibt Epoche 1 wie abgenommen (Empfehlung), oder werden die heutigen Stufen 2 und 3 zu Stufe 4 und 7 (Vorschlag PV)? Entscheidung an der Probe Bergfried 4–9.
+- **Umriss-Test ab Stufe 4:** Höhe 8 % (PV); Umriss 10 % statt 25 %, weil der Fußabdruck ab Stufe 4 gefüllt ist (Grafik-Strang, vom PV freigegeben: „wie du es für richtig hältst“).
+- **Epoche 1 bleibt wie abgenommen**; Stufen 4–9 wachsen um den Steinturm (PV: „wie du es für richtig hältst“, Empfehlung des Grafik-Strangs).
 
 ## Nächste Sitzungen (vorbereitet 02.11.2026)
 
