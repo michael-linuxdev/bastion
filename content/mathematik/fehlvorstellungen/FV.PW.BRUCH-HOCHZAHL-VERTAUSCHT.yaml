@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Schreibt ³√x² als x^(3/2) oder liest a^(2/3) als Quadratwurzel aus a³. Welche Zahl die Wurzel
     und welche die Hochzahl angibt, wird verwechselt.
-kompetenzen: [M.ZO.PW.RATIONAL]
+kompetenzen: [M.ZO.PW.RATIONAL, M.SF.PF.WURZELFUNKTION]
 erklaerung:
   kurz:
     de: 'Die [[Wurzel]] steht unten, im [[Nenner]]: $\sqrt[3]{x^2} = x^{\frac{2}{3}}$. Merke: Wurzel – Nenner, beide „unten“.'

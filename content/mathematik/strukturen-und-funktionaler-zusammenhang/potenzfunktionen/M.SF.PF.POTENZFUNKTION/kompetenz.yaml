@@ -1,0 +1,44 @@
+# Potenzfunktionen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.PF.POTENZFUNKTION
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: potenzfunktionen
+titel:
+  de: 'Potenzfunktionen'
+kann_satz:
+  de: 'Ich kann Graphen und Eigenschaften von Potenzfunktionen y = xⁿ mit ganzzahligem n angeben: Definitions- und Wertebereich, Symmetrie, Polstellen, Asymptoten.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Begründen, für Niveau E
+  - M.SF.FK.EIGENSCHAFTEN
+  - M.SF.QF.GRAPH
+  - M.ZO.PW.GESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Graph und Term von y = x², x³, x⁻¹ und x⁻² zuordnen.'
+  M:
+    beschreibung:
+      de: 'Symmetrie, Definitions- und Wertebereich und Polstellen von y = xⁿ angeben.'
+  E:
+    beschreibung:
+      de: 'Graph und Term zuordnen und die Zuordnung begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Potenzfunktionen (vorgezogen)'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

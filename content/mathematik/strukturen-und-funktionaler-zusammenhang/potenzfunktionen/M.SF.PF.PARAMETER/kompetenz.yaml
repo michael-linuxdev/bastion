@@ -1,0 +1,40 @@
+# Graphen verschieben und strecken – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.PF.PARAMETER
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: potenzfunktionen
+titel:
+  de: 'Graphen verschieben und strecken'
+kann_satz:
+  de: 'Ich kann beschreiben, wie sich der Graph von y = c·f(x), y = f(x) + c und y = f(x + c) aus dem Graphen von f ergibt.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Gegenbeispiel, für Niveau E
+  - M.SF.PF.POTENZFUNKTION
+  - M.SF.QF.SCHEITEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Verschiebungen nach oben, unten, links und rechts beschreiben.'
+  M:
+    beschreibung:
+      de: 'Auch Streckungen in y-Richtung beschreiben, bei x² und x³.'
+  E:
+    beschreibung:
+      de: 'Erkennen, dass die Reihenfolge von Strecken und Verschieben zählt.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

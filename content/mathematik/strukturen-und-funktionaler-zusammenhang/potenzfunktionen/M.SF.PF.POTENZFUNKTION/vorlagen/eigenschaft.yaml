@@ -1,0 +1,30 @@
+# „Welche Aussage über y = x⁻³ stimmt?“ Entwurf: noch nicht geprüft.
+id: M.SF.PF.POTENZFUNKTION.EIGENSCHAFT
+kompetenz: M.SF.PF.POTENZFUNKTION
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: pf.eigenschaft@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '**Welche** Aussage über ${funktion}$ stimmt?'
+hilfen:
+  - de: '[[Gerade]] oder ungerade [[Hochzahl]] entscheidet die Symmetrie. Positiv oder negativ entscheidet, ob es eine Polstelle gibt.'
+  - de: 'Setze Zahlen ein: $x = 2$, $x = -2$ und, wenn es geht, $x = 0$.'
+fehlerbilder:
+  symmetrie:
+    de: 'Setze $x = 2$ und $x = -2$ ein und vergleiche: gleich heißt [[achsensymmetrisch]], entgegengesetzt heißt punktsymmetrisch.'
+    fv: FV.PF.SYMMETRIE
+  definitionsbereich:
+    de: 'Bei negativer [[Hochzahl]] steht x im [[Nenner]]: $x^{-2} = \frac{1}{x^2}$. Durch 0 darf man nicht teilen.'
+    fv: FV.PF.NEGATIVE-HOCHZAHL
+  wertebereich:
+    de: '[[Gerade]] [[Hochzahl]]: keine negativen Werte. Ungerade Hochzahl: auch negative Werte.'
+    fv: FV.PF.WERTEBEREICH
+  polstelle:
+    de: 'Eine Polstelle gibt es nur bei negativer [[Hochzahl]]. Bei positiver geht der [[Graph]] durch $(0|0)$.'
+    fv: FV.PF.NEGATIVE-HOCHZAHL
+herkunft: ki-entwurf
+version: 1

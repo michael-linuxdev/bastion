@@ -1,0 +1,98 @@
+id: M.SF.PF.PARAMETER
+kompetenz: M.SF.PF.PARAMETER
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach siehst du einem [[Term]] wie $(x - 2)^2 + 1$ oder $3x^2$ an, wie sein [[Graph]] aus $y = x^2$ entsteht.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welchen [[Scheitelpunkt]] hat $y = (x - 2)^2 + 1$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$S(2|1)$' }, richtig: true }
+        - { wert: { de: '$S(-2|1)$' }, fv: FV.QF.SCHEITEL-VORZEICHEN }
+    weiter: entdecken
+    bei: { FV.QF.SCHEITEL-VORZEICHEN: M.SF.QF.SCHEITEL, sonst: M.SF.QF.SCHEITEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Der Scheitel von $y = x^2$ liegt bei $(0|0)$, der von $y = (x - 2)^2 + 1$ bei $(2|1)$. Um wie viel ist der [[Graph]] nach rechts gerückt?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '2', fehler: [{ wert: '-2', fv: FV.PF.VERSCHIEBUNG-RICHTUNG }] }
+    weiter: erklaeren-verschieben
+  - id: erklaeren-verschieben
+    typ: erklaeren
+    text:
+      de: '$f(x) + e$ verschiebt um e nach oben (negativ: nach unten). $f(x - d)$ verschiebt um d nach rechts, $f(x + d)$ nach links. In der Klammer ist die Richtung umgekehrt.'
+    weiter: erklaeren-strecken
+  - id: erklaeren-strecken
+    typ: erklaeren
+    text:
+      de: '$c \cdot f(x)$ streckt den [[Graphen]] in y-Richtung: Jeder [[Funktionswert]] wird mit c malgenommen. Für $c > 1$ wird er steiler, für c zwischen 0 und 1 flacher. Punkte auf der x-Achse bleiben.'
+    weiter: erklaeren-reihenfolge
+  - id: erklaeren-reihenfolge
+    typ: erklaeren
+    text:
+      de: 'Die Reihenfolge zählt: Erst strecken, dann verschieben ergibt $2x^2 + 3$. Erst verschieben, dann strecken ergibt $2 \cdot (x^2 + 3) = 2x^2 + 6$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = 3(x + 1)^2 - 2$: um 1 nach links verschieben, mit 3 strecken, um 2 nach unten verschieben. Der Scheitel liegt bei $(-1|-2)$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Um wie viel wird $y = x^3$ verschoben, wenn daraus $y = x^3 - 4$ wird? Gib die Zahl mit [[Vorzeichen]] an (oben positiv).'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '-4', fehler: [{ wert: '4', fv: FV.PF.VERSCHIEBUNG-RICHTUNG }] }
+    weiter: gegenbeispiel
+    bei: { FV.PF.VERSCHIEBUNG-RICHTUNG: erklaeren-verschieben }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ole sagt: „$y = 3x^2$ ist um 3 nach oben verschoben.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Bei $x = 0$ ist $y = 0$ geblieben. Der Graph ist gestreckt.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die 3 hebt alles an.' }, fv: FV.PF.STRECKUNG }
+    weiter: merksatz
+    bei: { FV.PF.STRECKUNG: erklaeren-strecken }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Plus außerhalb: hoch oder runter. Zahl in der Klammer bei x: seitlich, mit umgekehrtem [[Vorzeichen]]. Mal außerhalb: strecken. Reihenfolge beachten.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie entsteht $y = (x + 3)^2$ aus $y = x^2$?'
+    antwort:
+      optionen:
+        - { wert: { de: 'um 3 nach links verschoben' }, richtig: true }
+        - { wert: { de: 'um 3 nach rechts verschoben' }, fv: FV.PF.VERSCHIEBUNG-RICHTUNG }
+        - { wert: { de: 'um 3 nach oben verschoben' }, fv: FV.PF.VERSCHIEBUNG-ACHSE }
+    weiter: uebergang
+    bei:
+      {
+        FV.PF.VERSCHIEBUNG-RICHTUNG: erklaeren-verschieben,
+        FV.PF.VERSCHIEBUNG-ACHSE: erklaeren-verschieben,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt beschreibst du selbst, wie [[Graphen]] entstehen.'
+    vorlagen: [M.SF.PF.PARAMETER.BESCHREIBEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

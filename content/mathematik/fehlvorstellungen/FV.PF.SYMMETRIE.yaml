@@ -1,0 +1,25 @@
+id: FV.PF.SYMMETRIE
+name:
+  de: Verbindet gerade und ungerade Hochzahlen nicht mit der Symmetrie
+art: verwechslung
+beschreibung:
+  de: >-
+    Ordnet y = x³ einen Graphen zu, der zur y-Achse symmetrisch ist, oder hält jede Potenzfunktion für achsensymmetrisch wie die Parabel.
+kompetenzen: [M.SF.PF.POTENZFUNKTION, M.SF.PF.WURZELFUNKTION]
+erklaerung:
+  kurz:
+    de: '[[Gerade]] [[Hochzahl]]: $(-2)^2 = 2^2$, der [[Graph]] ist symmetrisch zur y-Achse. Ungerade Hochzahl: $(-2)^3 = -2^3$, der Graph ist symmetrisch zum [[Ursprung]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dir alle Potenzfunktionen wie die [[Parabel]] vorgestellt.'
+    - teil: warum-nicht
+      de: 'Bei ungerader [[Hochzahl]] bleibt das Minus erhalten: Links von der y-Achse sind die Werte negativ, rechts positiv.'
+    - teil: so-stimmt-es
+      de: 'Setze $x = 2$ und $x = -2$ ein und vergleiche die Werte.'
+gegenbeispiel:
+  de: '$(-1)^3 = -1$, aber $1^3 = 1$. Ein zur y-Achse symmetrischer [[Graph]] hätte bei beiden denselben Wert.'
+rueckweg:
+  vermittlung: M.SF.PF.POTENZFUNKTION#erklaeren-symmetrie
+kontrast: [M.SF.PF.POTENZFUNKTION.ZUORDNEN, M.SF.PF.POTENZFUNKTION.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

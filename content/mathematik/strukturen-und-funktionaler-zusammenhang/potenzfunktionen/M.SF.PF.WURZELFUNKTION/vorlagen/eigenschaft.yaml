@@ -1,0 +1,30 @@
+# „Welche Aussage über f(x) = √x stimmt?“ Entwurf: noch nicht geprüft.
+id: M.SF.PF.WURZELFUNKTION.EIGENSCHAFT
+kompetenz: M.SF.PF.WURZELFUNKTION
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: pf.wurzel-eigenschaft@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '**Welche** Aussage über ${funktion}$ stimmt?'
+hilfen:
+  - de: 'Unter einer [[Wurzel]] darf keine [[negative Zahl]] stehen.'
+  - de: 'Setze 0, 1, 4 und 9 ein und sieh dir an, wie die Werte wachsen.'
+fehlerbilder:
+  definitionsbereich:
+    de: 'Unter der [[Wurzel]] darf keine [[negative Zahl]] stehen. Man darf nur $x \geq 0$ einsetzen.'
+    fv: FV.PF.WURZEL-DEFINITION
+  wertebereich:
+    de: 'Eine [[Wurzel]] ist nie negativ, also sind alle [[Funktionswerte]] mindestens 0.'
+    fv: FV.PF.WERTEBEREICH
+  monotonie:
+    de: 'Je größer x, desto größer die [[Wurzel]]. Der [[Graph]] wird flacher, fällt aber nie.'
+    fv: FV.QF.MONOTONIE
+  symmetrie:
+    de: 'Links der y-Achse gibt es keinen [[Graphen]]. Er kann also nicht zur y-Achse symmetrisch sein.'
+    fv: FV.PF.SYMMETRIE
+herkunft: ki-entwurf
+version: 1

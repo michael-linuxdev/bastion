@@ -1,0 +1,25 @@
+id: FV.PF.WURZEL-DEFINITION
+name:
+  de: Bestimmt den Definitionsbereich einer Wurzelfunktion falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Gibt bei f(x) = √(x − 3) alle reellen Zahlen oder x ≥ −3 an. Dass der Term unter der Wurzel nicht negativ sein darf, wird nicht als Ungleichung aufgeschrieben.
+kompetenzen: [M.SF.PF.WURZELFUNKTION]
+erklaerung:
+  kurz:
+    de: 'Unter der [[Wurzel]] muss mindestens 0 stehen: $x - 3 \geq 0$, also $x \geq 3$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl aus der [[Wurzel]] abgelesen oder gar keine Grenze gesehen.'
+    - teil: warum-nicht
+      de: 'Für $x = 0$ stünde $\sqrt{-3}$ da. Das gibt es nicht. Erst ab $x = 3$ steht unter der [[Wurzel]] 0 oder mehr.'
+    - teil: so-stimmt-es
+      de: 'Schreibe „[[Term]] unter der [[Wurzel]] $\geq 0$“ und löse nach x auf.'
+gegenbeispiel:
+  de: 'Bei $f(x) = \sqrt{x - 3}$ ist $f(2) = \sqrt{-1}$ nicht erklärt.'
+rueckweg:
+  vermittlung: M.SF.PF.WURZELFUNKTION#erklaeren-definition
+kontrast: [M.SF.PF.WURZELFUNKTION.DEFINITION, M.SF.PF.WURZELFUNKTION.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

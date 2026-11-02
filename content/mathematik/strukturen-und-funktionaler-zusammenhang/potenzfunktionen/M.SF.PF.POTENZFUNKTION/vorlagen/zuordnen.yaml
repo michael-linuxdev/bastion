@@ -1,0 +1,27 @@
+# „Welcher Term gehört zum Graphen?“ Entwurf: noch nicht geprüft.
+id: M.SF.PF.POTENZFUNKTION.ZUORDNEN
+kompetenz: M.SF.PF.POTENZFUNKTION
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: pf.zuordnen@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '**Welcher** [[Term]] gehört zum [[Graphen]]?'
+hilfen:
+  - de: 'Symmetrisch zur y-Achse: gerade [[Hochzahl]]. Symmetrisch zum [[Ursprung]]: ungerade Hochzahl.'
+  - de: 'Hat der [[Graph]] bei $x = 0$ eine Lücke und schmiegt sich an die Achsen, ist die [[Hochzahl]] negativ.'
+fehlerbilder:
+  symmetrie:
+    de: 'Prüfe die Symmetrie: [[Gerade]] Hochzahlen geben einen [[Graphen]], der zur y-Achse symmetrisch ist.'
+    fv: FV.PF.SYMMETRIE
+  vorzeichen-hochzahl:
+    de: 'Prüfe, ob der [[Graph]] durch den [[Ursprung]] geht. Eine negative [[Hochzahl]] macht bei $x = 0$ eine Polstelle.'
+    fv: FV.PF.NEGATIVE-HOCHZAHL
+  beides:
+    de: 'Prüfe beides: die Symmetrie und ob der [[Graph]] bei $x = 0$ eine Polstelle hat.'
+    fv: FV.PF.NEGATIVE-HOCHZAHL
+herkunft: ki-entwurf
+version: 1

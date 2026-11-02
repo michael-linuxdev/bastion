@@ -1,0 +1,40 @@
+# Wurzelfunktionen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.PF.WURZELFUNKTION
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: potenzfunktionen
+titel:
+  de: 'Wurzelfunktionen'
+kann_satz:
+  de: 'Ich kann Graphen und Eigenschaften von Potenzfunktionen mit rationalen Exponenten wie y = √x angeben.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.SF.PF.POTENZFUNKTION
+  - M.ZO.PW.RATIONAL
+  - M.SF.GL.WURZEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Funktionswerte von y = √x und y = x hoch ein Drittel berechnen.'
+  M:
+    beschreibung:
+      de: 'Eigenschaften der Wurzelfunktion angeben; zu einem Funktionswert das x bestimmen.'
+  E:
+    beschreibung:
+      de: 'Den Definitionsbereich von y = √(x − a) angeben und begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

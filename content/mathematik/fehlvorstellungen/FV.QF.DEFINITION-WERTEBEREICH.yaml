@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Gibt bei y = x² − 4 als Definitionsbereich x ≥ 2 oder als Wertebereich alle reellen Zahlen an.
     Welcher Bereich zu x und welcher zu y gehört, ist nicht sicher.
-kompetenzen: [M.SF.QF.GRAPH]
+kompetenzen: [M.SF.QF.GRAPH, M.SF.PF.WURZELFUNKTION]
 erklaerung:
   kurz:
     de: 'Der [[Definitionsbereich]] sagt, welche x man einsetzen darf. Der [[Wertebereich]] sagt, welche y herauskommen können.'

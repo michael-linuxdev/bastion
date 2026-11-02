@@ -1,0 +1,25 @@
+id: FV.PF.NEGATIVE-HOCHZAHL
+name:
+  de: Übersieht, was eine negative Hochzahl am Graphen bewirkt
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Erwartet bei y = x⁻² einen Graphen durch den Ursprung oder setzt x = 0 ein. Dass x⁻² = 1/x² bei 0 nicht erklärt ist und eine Polstelle hat, ist nicht verankert.
+kompetenzen: [M.SF.PF.POTENZFUNKTION]
+erklaerung:
+  kurz:
+    de: '$x^{-2} = \frac{1}{x^2}$. Für $x = 0$ müsste man durch 0 teilen: Dort hat der [[Graph]] eine Polstelle und nähert sich den Achsen an.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die negative [[Hochzahl]] wie eine positive behandelt.'
+    - teil: warum-nicht
+      de: 'Eine negative [[Hochzahl]] bedeutet [[Kehrwert]]. Je näher x an 0 rückt, desto größer wird der Kehrwert, ohne Ende.'
+    - teil: so-stimmt-es
+      de: 'Schreibe $x^{-n}$ als [[Bruch]] $\frac{1}{x^n}$ und prüfe, was bei $x = 0$ passiert.'
+gegenbeispiel:
+  de: '$x = 0{,}1$: $\frac{1}{0{,}01} = 100$. Nahe 0 wird der Wert riesig, bei 0 selbst gibt es keinen.'
+rueckweg:
+  vermittlung: M.SF.PF.POTENZFUNKTION#erklaeren-negativ
+kontrast: [M.SF.PF.POTENZFUNKTION.ZUORDNEN, M.SF.PF.POTENZFUNKTION.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Meint, die Normalparabel steige links vom Scheitelpunkt, oder sie steige überall, weil x² nie
     negativ ist. Dass man den Graphen von links nach rechts liest, ist nicht verankert.
-kompetenzen: [M.SF.QF.GRAPH]
+kompetenzen: [M.SF.QF.GRAPH, M.SF.PF.WURZELFUNKTION]
 erklaerung:
   kurz:
     de: 'Lies von links nach rechts. Bei $y = x^2$ werden die Werte bis $x = 0$ kleiner (fallend), danach größer (steigend).'

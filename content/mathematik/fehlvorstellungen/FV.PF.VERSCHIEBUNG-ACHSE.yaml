@@ -1,0 +1,25 @@
+id: FV.PF.VERSCHIEBUNG-ACHSE
+name:
+  de: Verwechselt waagerechte und senkrechte Verschiebung
+art: verwechslung
+beschreibung:
+  de: >-
+    Verschiebt y = x² + 3 nach rechts oder y = (x + 3)² nach oben. Ob eine Zahl beim x oder beim Funktionswert steht, wird nicht unterschieden.
+kompetenzen: [M.SF.PF.PARAMETER]
+erklaerung:
+  kurz:
+    de: 'Eine Zahl beim x, in der Klammer, wirkt waagerecht. Eine Zahl außerhalb, beim [[Funktionswert]], wirkt [[senkrecht]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf die Zahl geschaut, nicht darauf, wo sie steht.'
+    - teil: warum-nicht
+      de: 'Bei $x^2 + 3$ wird zum Ergebnis 3 addiert: höher. Bei $(x + 3)^2$ wird x verändert, bevor quadriert wird: seitlich.'
+    - teil: so-stimmt-es
+      de: 'Lies, wo die Zahl steht: in der Klammer bei x oder hinter der [[Funktion]].'
+gegenbeispiel:
+  de: '$y = x^2 + 3$ hat bei $x = 0$ den Wert 3. Ein [[Graph]], der nur seitlich verschoben ist, hätte dort einen anderen Scheitel, aber auf der x-Achse.'
+rueckweg:
+  vermittlung: M.SF.PF.PARAMETER#erklaeren-verschieben
+kontrast: [M.SF.PF.PARAMETER.BESCHREIBEN]
+herkunft: ki-entwurf
+version: 1

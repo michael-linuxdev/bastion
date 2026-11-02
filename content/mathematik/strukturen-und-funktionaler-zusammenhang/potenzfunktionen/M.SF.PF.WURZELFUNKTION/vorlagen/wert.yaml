@@ -1,0 +1,28 @@
+# „Berechne f(49) für f(x) = √x“, „Für welches x ist f(x) = 6?“. Entwurf: noch nicht geprüft.
+id: M.SF.PF.WURZELFUNKTION.WERT
+kompetenz: M.SF.PF.WURZELFUNKTION
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pf.wurzel-wert@1
+parameter:
+  G: { umkehren: false }
+  M: { umkehren: true }
+text:
+  aufgabe:
+    de: 'Gegeben ist ${funktion}$. **{frage}**'
+hilfen:
+  - de: '$x^{\frac{1}{3}}$ ist die dritte [[Wurzel]]: die Zahl, die dreimal malgenommen x ergibt.'
+  - de: 'Ist der [[Funktionswert]] gegeben, rechne rückwärts: quadrieren oder hoch 3 nehmen.'
+fehlerbilder:
+  halbiert:
+    de: 'Wurzelziehen ist nicht teilen. Gesucht ist die Zahl, die mit sich selbst malgenommen x ergibt.'
+    fv: FV.NZ.WURZEL-HALBIERT
+  nicht-quadriert:
+    de: 'Rechne rückwärts mit der [[Umkehrung]] der [[Wurzel]]: quadrieren bzw. hoch 3, nicht malnehmen.'
+    fv: FV.GL.WURZEL-NICHT-QUADRIERT
+  kubik-quadrat:
+    de: 'Hoch ein Drittel ist die dritte [[Wurzel]]. Rückwärts heißt das: hoch 3, nicht hoch 2.'
+    fv: FV.PW.BRUCH-HOCHZAHL-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1
