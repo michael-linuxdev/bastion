@@ -234,6 +234,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Grundformen, Symmetrie, Dreiecke und Vierecke (64 Fehlerbilder, 21 neue Fehlvorstellungen; Stand 492 von 596)
     - [x] Körper, Kreis und Ähnlichkeit in der Geometrie (54 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 546 von 596)
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
+- [x] **L-22** Niveaus für Lernende unsichtbar, automatische Wahl je Kompetenz (PV, 02.11.2026; `src/core/learning/niveau-wahl.ts`)
 - [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E – *K-30 (02.11.2026): jetzt komplett bauen, danach gesammelt prüfen (`docs/session/KLASSE-9-12.md`). Rückfragen beantwortet (GY und OS, GK/LK gemeinsam mit LK als E, Reihenfolge 9 → 10 → 11/12, neue Typen und Darstellungen erlaubt); Phase A fertig (02.11.2026): 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g, Bedarfsliste in `LERNKERN.md`*
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
   - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). ~~Die PDF-Technik für U7 ist damit nicht entschieden.~~ **Vorläufig entschieden (PV, 01.11.2026, ARCHITEKTUR T-21):** PDF über den Druckdialog des Browsers, ohne neue Abhängigkeit. Seit 02.11.2026 auch in der App: Elternbereich → „Für Lehrkräfte: Aufgabenblatt drucken“ (Logik im Kern, `src/core/learning/arbeitsblatt.ts`).
