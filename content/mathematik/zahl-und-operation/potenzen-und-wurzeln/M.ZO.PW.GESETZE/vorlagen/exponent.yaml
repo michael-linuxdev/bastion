@@ -1,0 +1,31 @@
+# „Schreibe als eine Potenz: a³ · a⁴ = a^□“. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.GESETZE.EXPONENT
+kompetenz: M.ZO.PW.GESETZE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pw.gesetz-exponent@1
+parameter:
+  G: { gesetze: [mal, durch, hoch], negativ: false }
+  M: { gesetze: [mal, durch, hoch], negativ: true }
+text:
+  aufgabe:
+    de: '**Schreibe** als eine Potenz: ${term}$. **Gib** die [[Hochzahl]] **an**.'
+hilfen:
+  - de: 'Schreibe die Potenzen als Malaufgabe aus und zähle die [[Faktoren]]: $a^2 \cdot a^3 = a \cdot a \cdot a \cdot a \cdot a$.'
+  - de: 'Malnehmen: Hochzahlen addieren. Teilen: Hochzahlen subtrahieren. Potenz einer Potenz: Hochzahlen malnehmen.'
+fehlerbilder:
+  mal-statt-plus:
+    de: 'Du hast die Hochzahlen malgenommen. Beim Malnehmen von Potenzen mit gleicher [[Basis]] werden die Hochzahlen addiert: $a^2 \cdot a^3 = a^5$.'
+    fv: FV.PW.EXPONENTEN-MAL
+  plus-statt-mal:
+    de: 'Du hast die Hochzahlen addiert. Bei der Potenz einer Potenz werden sie malgenommen: $(a^2)^3 = a^2 \cdot a^2 \cdot a^2 = a^6$.'
+    fv: FV.PW.EXPONENTEN-ADDIERT
+  geteilt:
+    de: 'Du hast die Hochzahlen geteilt. Beim Teilen von Potenzen mit gleicher [[Basis]] werden sie subtrahiert: $a^6 : a^2 = a^4$.'
+    fv: FV.PW.EXPONENTEN-GETEILT
+  vorzeichen:
+    de: 'Achte auf das Minus bei der [[Hochzahl]]. Rechne mit den [[Vorzeichen]]: $3 + (-5) = -2$ und $3 - (-5) = 8$.'
+    fv: FV.RZ.RECHEN-VORZEICHEN
+herkunft: ki-entwurf
+version: 1

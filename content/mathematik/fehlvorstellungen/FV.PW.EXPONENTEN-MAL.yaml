@@ -1,0 +1,28 @@
+id: FV.PW.EXPONENTEN-MAL
+name:
+  de: Nimmt beim Malnehmen von Potenzen die Hochzahlen mal
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet a² · a³ = a⁶ oder 2³ · 2⁴ = 2¹². Weil malgenommen wird, werden auch die Hochzahlen
+    malgenommen. Dass die Hochzahlen Faktoren zählen und sich beim Malnehmen addieren, ist noch
+    nicht verankert.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: 'Zähle die [[Faktoren]]: $a^2 \cdot a^3 = a \cdot a \cdot a \cdot a \cdot a = a^5$. Beim Malnehmen werden die Hochzahlen addiert.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: Malnehmen, also auch die [[Hochzahl]] malnehmen.'
+    - teil: warum-nicht
+      de: 'Die [[Hochzahl]] zählt, wie oft a als [[Faktor]] vorkommt. Zwei Faktoren und drei Faktoren sind zusammen fünf Faktoren, nicht sechs.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Potenzen als Malaufgabe aus und zähle: $a^m \cdot a^n = a^{m+n}$.'
+gegenbeispiel:
+  de: '$2^2 \cdot 2^3 = 4 \cdot 8 = 32 = 2^5$. Aber $2^6 = 64$.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-mal
+  voraussetzung: M.ZO.NZ.POTENZEN
+kontrast: [M.ZO.PW.GESETZE.EXPONENT, M.ZO.PW.GESETZE.WERT]
+herkunft: ki-entwurf
+version: 1

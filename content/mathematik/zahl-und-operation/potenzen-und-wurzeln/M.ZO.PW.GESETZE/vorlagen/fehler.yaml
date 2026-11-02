@@ -1,0 +1,51 @@
+# „Stimmt die Rechnung a² · a³ = a⁶?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.GESETZE.FEHLER
+kompetenz: M.ZO.PW.GESETZE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pw.gesetz-fehler@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt die Rechnung?** ${rechnung}$ **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Setze für die [[Variable]] eine kleine Zahl ein, zum Beispiel 2, und rechne beide Seiten aus.'
+  - de: 'Schreibe die Potenzen als Malaufgabe aus und zähle die [[Faktoren]].'
+fehlerbilder:
+  mal-statt-plus:
+    de: 'Zähle die [[Faktoren]]: $a^2 \cdot a^3 = a \cdot a \cdot a \cdot a \cdot a = a^5$. Die Hochzahlen werden addiert.'
+    fv: FV.PW.EXPONENTEN-MAL
+  plus-statt-mal:
+    de: 'Zähle die [[Faktoren]]: $(a^2)^3 = a^2 \cdot a^2 \cdot a^2 = a^6$. Die Hochzahlen werden malgenommen.'
+    fv: FV.PW.EXPONENTEN-ADDIERT
+  basen-mal:
+    de: 'Die [[Basis]] bleibt gleich: $2^3 \cdot 2^4 = 2^7$. Nur bei gleicher [[Hochzahl]] werden Basen malgenommen.'
+    fv: FV.PW.BASEN-MAL
+  nur-zahlen:
+    de: 'Ein [[Potenzgesetz]] gilt für Zahlen und [[Variablen]] gleich. Setze eine Zahl ein und prüfe.'
+    fv: FV.PW.NUR-ZAHLEN
+  hoch-hoch:
+    de: 'Die Klammer zählt: $(a^2)^3$ heißt dreimal $a^2$, also $a^6$. Das ist nicht dasselbe wie a hoch 8.'
+    fv: FV.PW.EXPONENTEN-ADDIERT
+  hoch-null:
+    de: 'Rechne $a^3 : a^3$: Das ist $a^0$, und eine Zahl durch sich selbst ist 1, nicht 0.'
+    fv: FV.PW.HOCH-NULL
+  hoch-null-basis:
+    de: 'Rechne $a^3 : a^3$: Das ist $a^0$, und eine Zahl durch sich selbst ist 1.'
+    fv: FV.PW.HOCH-NULL
+  negativ-minus:
+    de: 'Eine negative [[Hochzahl]] macht keine [[negative Zahl]]: $2^{-3} = \frac{1}{8}$.'
+    fv: FV.PW.NEGATIVER-EXPONENT
+  negativ-ignoriert:
+    de: 'Das Minus in der [[Hochzahl]] zählt: $2^{-3} = \frac{1}{8}$, aber $2^3 = 8$.'
+    fv: FV.PW.NEGATIVER-EXPONENT
+  nur-gleiche-basis:
+    de: 'Bei gleicher [[Hochzahl]] darf man die [[Basen]] malnehmen: $2^3 \cdot 5^3 = (2 \cdot 5)^3 = 10^3$. Prüfe: 8 · 125 = 1000.'
+    fv: FV.PW.GLEICHE-HOCHZAHL
+  basen-addiert:
+    de: 'Bei gleicher [[Hochzahl]] werden die [[Basen]] malgenommen, nicht addiert: $2^3 \cdot 5^3 = 10^3$, denn 8 · 125 = 1000.'
+    fv: FV.PW.GLEICHE-HOCHZAHL
+herkunft: ki-entwurf
+version: 1

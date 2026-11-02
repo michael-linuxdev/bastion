@@ -1015,3 +1015,13 @@ begriffe:
     formen: [Innenwinkelsumme]
     erklaerung:
       de: 'Alle Innenwinkel eines Vielecks zusammen. Beim n-Eck sind es (n − 2) · 180°.'
+  - id: basis
+    wort: { de: Basis }
+    formen: [Basis, Basen]
+    erklaerung:
+      de: 'Die große Zahl einer Potenz, die mit sich selbst malgenommen wird. In $2^5$ ist 2 die Basis, 5 die Hochzahl.'
+  - id: potenzgesetz
+    wort: { de: Potenzgesetz }
+    formen: [Potenzgesetz, Potenzgesetze, Potenzgesetzen]
+    erklaerung:
+      de: 'Eine Regel zum Zusammenfassen von Potenzen, zum Beispiel: Bei gleicher Basis werden beim Malnehmen die Hochzahlen addiert.'

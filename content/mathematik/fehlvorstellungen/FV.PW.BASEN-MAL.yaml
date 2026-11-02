@@ -1,0 +1,26 @@
+id: FV.PW.BASEN-MAL
+name:
+  de: Nimmt beim Zusammenfassen auch die Basen mal
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet 2³ · 2⁴ = 4⁷. Basen und Hochzahlen werden beide „verrechnet“. Dass die Basis gleich
+    bleibt und nur die Anzahl der Faktoren wächst, wird übersehen.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: '$2^3 \cdot 2^4$ sind sieben [[Faktoren]] 2, also $2^7$. Die [[Basis]] bleibt 2.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Hochzahlen addiert, das ist richtig. Dazu hast du die [[Basen]] malgenommen.'
+    - teil: warum-nicht
+      de: 'Jeder [[Faktor]] ist eine 2. Aus vielen Zweien wird keine 4, es werden nur mehr Zweien.'
+    - teil: so-stimmt-es
+      de: 'Gleiche [[Basis]]: Basis abschreiben, Hochzahlen addieren. $a^m \cdot a^n = a^{m+n}$.'
+gegenbeispiel:
+  de: '$2^1 \cdot 2^1 = 2 \cdot 2 = 4 = 2^2$. Mit [[Basen]] malnehmen käme $4^2 = 16$ heraus.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-mal
+kontrast: [M.ZO.PW.GESETZE.WERT, M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1

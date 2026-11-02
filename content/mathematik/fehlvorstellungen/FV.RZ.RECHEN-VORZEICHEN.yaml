@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 3 − (−9) = −6 oder 3 + (−9) = 12. Das Vorzeichen der Zahl in der Klammer wird nicht
     beachtet; Rechenzeichen und Vorzeichen werden nicht unterschieden.
-kompetenzen: [M.ZO.RZ.ADD-SUB]
+kompetenzen: [M.ZO.RZ.ADD-SUB, M.ZO.PW.GESETZE]
 erklaerung:
   kurz:
     de: 'Plus eine [[negative Zahl]] heißt nach links gehen: 3 + (−9) = −6. Minus eine negative Zahl heißt nach rechts gehen: 3 − (−9) = 12.'

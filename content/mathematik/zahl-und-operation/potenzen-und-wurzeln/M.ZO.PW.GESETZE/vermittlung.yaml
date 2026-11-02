@@ -1,0 +1,90 @@
+id: M.ZO.PW.GESETZE
+kompetenz: M.ZO.PW.GESETZE
+niveau: G
+dauer_min: 14
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Potenzen mit gleicher [[Basis]] schnell zusammenfassen, zum Beispiel $2^3 \cdot 2^4 = 2^7$, und weißt, was $2^0$ und $2^{-3}$ bedeuten.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $2^3$?'
+    antwort:
+      optionen:
+        - { wert: { de: '8' }, richtig: true }
+        - { wert: { de: '6' }, fv: FV.NZ.HOCHZAHL-MAL }
+        - { wert: { de: '5' } }
+    weiter: entdecken
+    bei: { FV.NZ.HOCHZAHL-MAL: M.ZO.NZ.POTENZEN, sonst: M.ZO.NZ.POTENZEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Schreibe $a^2 \cdot a^3$ als Malaufgabe aus: $a \cdot a$ mal $a \cdot a \cdot a$. Wie viele [[Faktoren]] a sind es?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '6', fv: FV.PW.EXPONENTEN-MAL }] }
+    weiter: erklaeren-mal
+  - id: erklaeren-mal
+    typ: erklaeren
+    text:
+      de: 'Gleiche [[Basis]], malnehmen: Die Hochzahlen werden addiert, $a^m \cdot a^n = a^{m+n}$. Teilen kürzt [[Faktoren]] weg: $a^m : a^n = a^{m-n}$. Die Basis bleibt immer gleich.'
+    weiter: erklaeren-hoch
+  - id: erklaeren-hoch
+    typ: erklaeren
+    text:
+      de: '$(a^2)^3$ heißt: dreimal $a^2$. Das sind $2 \cdot 3 = 6$ [[Faktoren]], also $a^6$. Bei der Potenz einer Potenz werden die Hochzahlen malgenommen: $(a^m)^n = a^{m \cdot n}$.'
+    weiter: erklaeren-negativ
+  - id: erklaeren-negativ
+    typ: erklaeren
+    text:
+      de: '$2^3 = 8$, $2^2 = 4$, $2^1 = 2$: Jedes Mal wird halbiert. Weiter so: $2^0 = 1$ und $2^{-1} = \frac{1}{2}$. Also $a^0 = 1$ und $a^{-n} = \frac{1}{a^n}$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$2^7 : 2^4 = 2^{7-4} = 2^3 = 8$. Statt 128 durch 16 zu teilen, rechnest du nur $7 - 4$ und dann $2^3$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Schreibe $a^4 \cdot a^5$ als eine Potenz. Welche [[Hochzahl]] hat sie?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '20', fv: FV.PW.EXPONENTEN-MAL }] }
+    weiter: gegenbeispiel
+    bei: { FV.PW.EXPONENTEN-MAL: erklaeren-mal }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lena rechnet: $2^3 \cdot 2^2 = 4^5$. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Basis bleibt 2: $2^5 = 32$.' }, richtig: true }
+        - { wert: { de: 'Ja, Basen malnehmen und Hochzahlen addieren.' }, fv: FV.PW.BASEN-MAL }
+    weiter: merksatz
+    bei: { FV.PW.BASEN-MAL: erklaeren-mal }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Gleiche [[Basis]]: $a^m \cdot a^n = a^{m+n}$ und $a^m : a^n = a^{m-n}$. Potenz einer Potenz: $(a^m)^n = a^{m \cdot n}$. Außerdem $a^0 = 1$ und $a^{-n} = \frac{1}{a^n}$.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist $5^{-2}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{1}{25}$' }, richtig: true }
+        - { wert: { de: '$-25$' }, fv: FV.PW.NEGATIVER-EXPONENT }
+        - { wert: { de: '$-10$' }, fv: FV.NZ.HOCHZAHL-MAL }
+    weiter: uebergang
+    bei: { FV.PW.NEGATIVER-EXPONENT: erklaeren-negativ, FV.NZ.HOCHZAHL-MAL: erklaeren-mal }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt fasst du selbst Potenzen zusammen.'
+    vorlagen: [M.ZO.PW.GESETZE.EXPONENT, M.ZO.PW.GESETZE.WERT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1
