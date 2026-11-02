@@ -1,0 +1,25 @@
+id: FV.PF.WERTEBEREICH
+name:
+  de: Gibt den Wertebereich einer Potenz- oder Wurzelfunktion falsch an
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Überträgt den Wertebereich der Parabel (y ≥ 0) auf y = x³ oder hält bei y = √x alle Zahlen für möglich. Welche Werte wirklich vorkommen, wird nicht am Graphen geprüft.
+kompetenzen: [M.SF.PF.POTENZFUNKTION, M.SF.PF.WURZELFUNKTION]
+erklaerung:
+  kurz:
+    de: 'Lies den [[Wertebereich]] an der y-Achse ab: Welche Höhen erreicht der [[Graph]]? $y = x^3$ erreicht alle, $y = \sqrt{x}$ nur Werte ab 0.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Wertebereich]] einer anderen [[Funktion]] übertragen.'
+    - teil: warum-nicht
+      de: 'Jede [[Funktion]] hat ihren eigenen [[Wertebereich]]. Ungerade Hochzahlen liefern auch negative Werte, eine [[Wurzel]] nie.'
+    - teil: so-stimmt-es
+      de: 'Setze positive und negative x ein und schau, welche Werte herauskommen.'
+gegenbeispiel:
+  de: '$(-2)^3 = -8$. Bei $y = x^3$ gibt es also negative Werte.'
+rueckweg:
+  vermittlung: M.SF.PF.POTENZFUNKTION#erklaeren-wertebereich
+kontrast: [M.SF.PF.POTENZFUNKTION.EIGENSCHAFT, M.SF.PF.WURZELFUNKTION.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

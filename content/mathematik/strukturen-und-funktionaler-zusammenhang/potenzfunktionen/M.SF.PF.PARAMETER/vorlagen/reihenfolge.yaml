@@ -1,0 +1,27 @@
+# „Stimmt das? Erst verschieben, dann strecken gibt 2x² + 3.“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.PF.PARAMETER.REIHENFOLGE
+kompetenz: M.SF.PF.PARAMETER
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pf.reihenfolge@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** {aussage} **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Schreibe nach jedem Schritt den neuen [[Term]] auf.'
+  - de: 'Strecken nimmt den ganzen [[Funktionswert]] mal, auch eine schon addierte Zahl.'
+fehlerbilder:
+  reihenfolge-egal:
+    de: 'Rechne beide Reihenfolgen durch: Die Ergebnisse unterscheiden sich, wenn erst verschoben wird.'
+    fv: FV.PF.REIHENFOLGE
+  nur-streckung:
+    de: 'Prüfe, welche Zahl beim Strecken mitgestreckt wird. Was vorher addiert wurde, wird mitgenommen.'
+    fv: FV.PF.REIHENFOLGE
+  beispiel:
+    de: 'Setze den Wert selbst ein und vergleiche mit beiden Reihenfolgen.'
+    fv: FV.KR.GEGENBEISPIEL
+herkunft: ki-entwurf
+version: 1

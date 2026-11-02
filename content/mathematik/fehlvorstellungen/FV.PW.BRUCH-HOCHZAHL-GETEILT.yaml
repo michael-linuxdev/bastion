@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 16^(1/2) = 8 oder 8^(2/3) = 16/3. Die Hochzahl wird wie ein Faktor behandelt. Dass
     der Nenner einer Hochzahl eine Wurzel bedeutet, ist noch nicht verankert.
-kompetenzen: [M.ZO.PW.RATIONAL]
+kompetenzen: [M.ZO.PW.RATIONAL, M.SF.PF.WURZELFUNKTION]
 erklaerung:
   kurz:
     de: '$16^{\frac{1}{2}} = \sqrt{16} = 4$. Der [[Nenner]] der [[Hochzahl]] sagt, welche [[Wurzel]] du ziehst. Halbieren wäre 8.'

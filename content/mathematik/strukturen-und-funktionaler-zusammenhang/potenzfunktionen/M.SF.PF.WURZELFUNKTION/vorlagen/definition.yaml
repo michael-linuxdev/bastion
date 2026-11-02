@@ -1,0 +1,27 @@
+# „Welchen Definitionsbereich hat f(x) = √(x − 3), und warum?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.PF.WURZELFUNKTION.DEFINITION
+kompetenz: M.SF.PF.WURZELFUNKTION
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pf.definition@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Welchen** [[Definitionsbereich]] hat ${funktion}$? **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was unter der [[Wurzel]] steht, muss mindestens 0 sein. Schreibe das als [[Ungleichung]].'
+  - de: 'Der [[Definitionsbereich]] spricht über x, nicht über die [[Funktionswerte]].'
+fehlerbilder:
+  vorzeichen:
+    de: 'Setze die Grenze ein: Unter der [[Wurzel]] muss dann genau 0 stehen. Prüfe das [[Vorzeichen]].'
+    fv: FV.PF.WURZEL-DEFINITION
+  alle:
+    de: 'Setze ein kleines x ein: Dann steht unter der [[Wurzel]] eine [[negative Zahl]]. Das ist nicht erlaubt.'
+    fv: FV.PF.WURZEL-DEFINITION
+  wertebereich:
+    de: 'Das ist der [[Wertebereich]]. Gefragt sind die erlaubten x.'
+    fv: FV.QF.DEFINITION-WERTEBEREICH
+herkunft: ki-entwurf
+version: 1

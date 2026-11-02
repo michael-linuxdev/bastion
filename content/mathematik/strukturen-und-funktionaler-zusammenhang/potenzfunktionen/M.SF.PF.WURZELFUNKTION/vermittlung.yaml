@@ -1,0 +1,85 @@
+id: M.SF.PF.WURZELFUNKTION
+kompetenz: M.SF.PF.WURZELFUNKTION
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du den [[Graphen]] von $y = \sqrt{x}$, weißt, welche x erlaubt sind, und kannst rückwärts rechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $16^{\frac{1}{2}}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '8' }, fv: FV.PW.BRUCH-HOCHZAHL-GETEILT }
+    weiter: entdecken
+    bei: { FV.PW.BRUCH-HOCHZAHL-GETEILT: M.ZO.PW.RATIONAL, sonst: M.ZO.PW.RATIONAL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Für $f(x) = \sqrt{x}$ ist $f(9) = 3$. Für welches x ist $f(x) = 5$?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '25', fehler: [{ wert: '10', fv: FV.GL.WURZEL-NICHT-QUADRIERT }] }
+    weiter: erklaeren-umkehr
+  - id: erklaeren-umkehr
+    typ: erklaeren
+    text:
+      de: '$\sqrt{x} = x^{\frac{1}{2}}$ ist eine Potenzfunktion. Rückwärts rechnest du mit Quadrieren: $\sqrt{x} = 5$ heißt $x = 25$. Bei $x^{\frac{1}{3}}$ nimmst du hoch 3.'
+    weiter: erklaeren-definition
+  - id: erklaeren-definition
+    typ: erklaeren
+    text:
+      de: 'Unter der [[Wurzel]] darf keine [[negative Zahl]] stehen. Darum gilt der [[Graph]] nur für $x \geq 0$. Er beginnt bei $(0|0)$, geht durch $(1|1)$ und $(4|2)$ und steigt immer flacher.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$f(x) = \sqrt{x - 3}$: Unter der [[Wurzel]] muss $x - 3 \geq 0$ sein, also $x \geq 3$. Der [[Graph]] beginnt bei $(3|0)$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ab welchem x ist $f(x) = \sqrt{x + 2}$ erklärt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-2', fehler: [{ wert: '2', fv: FV.PF.WURZEL-DEFINITION }] }
+    weiter: gegenbeispiel
+    bei: { FV.PF.WURZEL-DEFINITION: erklaeren-definition }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lea sagt: „$f(x) = \sqrt{x}$ ist wie die [[Parabel]] symmetrisch zur y-Achse.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. Links der y-Achse gibt es gar keinen Graphen.' }, richtig: true }
+        - { wert: { de: 'Ja, $\sqrt{-4} = \sqrt{4}$.' }, fv: FV.PF.WURZEL-DEFINITION }
+    weiter: merksatz
+    bei: { FV.PF.WURZEL-DEFINITION: erklaeren-definition }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$y = \sqrt{x}$: nur für $x \geq 0$, Werte nie negativ, steigend und immer flacher. Rückwärts: quadrieren. Bei einer [[Wurzel]] aus einem [[Term]]: Term $\geq 0$.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher Punkt liegt auf dem [[Graphen]] von $y = \sqrt{x}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$(9|3)$' }, richtig: true }
+        - { wert: { de: '$(9|4{,}5)$' }, fv: FV.NZ.WURZEL-HALBIERT }
+        - { wert: { de: '$(-9|3)$' }, fv: FV.PF.WURZEL-DEFINITION }
+    weiter: uebergang
+    bei: { FV.NZ.WURZEL-HALBIERT: erklaeren-umkehr, FV.PF.WURZEL-DEFINITION: erklaeren-definition }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit Wurzelfunktionen.'
+    vorlagen: [M.SF.PF.WURZELFUNKTION.WERT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

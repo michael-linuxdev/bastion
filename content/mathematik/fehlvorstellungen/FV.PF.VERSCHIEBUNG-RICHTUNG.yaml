@@ -1,0 +1,25 @@
+id: FV.PF.VERSCHIEBUNG-RICHTUNG
+name:
+  de: Verschiebt in die falsche Richtung
+art: falsche-regel
+beschreibung:
+  de: >-
+    Verschiebt y = (x − 2)² nach links, weil ein Minus dasteht, oder y = x² − 3 nach oben. Dass das Vorzeichen in der Klammer umgekehrt wirkt, ist nicht verankert.
+kompetenzen: [M.SF.PF.PARAMETER]
+erklaerung:
+  kurz:
+    de: '$(x - 2)^2$ ist null bei $x = 2$: Der Scheitel liegt rechts. $x^2 - 3$ ist überall 3 kleiner: Der [[Graph]] liegt tiefer.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das [[Vorzeichen]] als Richtung gelesen.'
+    - teil: warum-nicht
+      de: 'Was f vorher bei 0 hatte, hat $f(x - 2)$ erst bei $x = 2$. Der ganze [[Graph]] rückt nach rechts.'
+    - teil: so-stimmt-es
+      de: 'Frage: Wo ist die Klammer null? Dorthin rückt der Punkt, der vorher bei 0 war.'
+gegenbeispiel:
+  de: '$y = (x - 2)^2$ hat bei $x = -2$ den Wert 16, bei $x = 2$ den Wert 0. Der Scheitel liegt rechts.'
+rueckweg:
+  vermittlung: M.SF.PF.PARAMETER#erklaeren-verschieben
+kontrast: [M.SF.PF.PARAMETER.BESCHREIBEN]
+herkunft: ki-entwurf
+version: 1

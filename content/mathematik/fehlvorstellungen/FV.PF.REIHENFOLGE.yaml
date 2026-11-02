@@ -1,0 +1,25 @@
+id: FV.PF.REIHENFOLGE
+name:
+  de: Meint, beim Strecken und Verschieben sei die Reihenfolge egal
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält „erst um 3 nach oben, dann mit 2 strecken“ für dasselbe wie „erst strecken, dann verschieben“. Dass die Streckung eine schon addierte Zahl mitstreckt, wird übersehen.
+kompetenzen: [M.SF.PF.PARAMETER]
+erklaerung:
+  kurz:
+    de: 'Erst verschieben, dann strecken: $2 \cdot (x^2 + 3) = 2x^2 + 6$. Erst strecken, dann verschieben: $2x^2 + 3$. Das ist nicht dasselbe.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast angenommen, dass sich die Schritte wie beim Addieren vertauschen lassen.'
+    - teil: warum-nicht
+      de: 'Strecken nimmt den ganzen [[Funktionswert]] mal. Ist die 3 schon addiert, wird sie mitgestreckt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe nach jedem Schritt den neuen [[Term]] auf.'
+gegenbeispiel:
+  de: 'Bei $x = 0$: $2 \cdot (0 + 3) = 6$, aber $2 \cdot 0 + 3 = 3$.'
+rueckweg:
+  vermittlung: M.SF.PF.PARAMETER#erklaeren-reihenfolge
+kontrast: [M.SF.PF.PARAMETER.REIHENFOLGE]
+herkunft: ki-entwurf
+version: 1

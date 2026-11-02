@@ -15,6 +15,7 @@ kompetenzen:
     M.SF.QF.GRAPH,
     M.SF.QF.INHALTLICH,
     M.SF.QF.FORMEL,
+    M.SF.PF.PARAMETER,
   ]
 erklaerung:
   kurz:

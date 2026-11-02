@@ -1,0 +1,25 @@
+id: FV.PF.STRECKUNG
+name:
+  de: Verwechselt Strecken und Verschieben
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält y = 3 · x² für um 3 nach oben verschoben oder y = x² + 3 für gestreckt. Dass Malnehmen streckt und Addieren verschiebt, ist nicht sicher.
+kompetenzen: [M.SF.PF.PARAMETER]
+erklaerung:
+  kurz:
+    de: 'Malnehmen streckt: $3x^2$ ist überall dreimal so hoch, der Scheitel bleibt bei $(0|0)$. Addieren verschiebt: $x^2 + 3$ ist überall 3 höher.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur die Zahl gesehen, nicht die Rechenart.'
+    - teil: warum-nicht
+      de: 'Bei $3x^2$ bleibt $(0|0)$ auf dem [[Graphen]]. Eine [[Verschiebung]] nach oben würde auch diesen Punkt anheben.'
+    - teil: so-stimmt-es
+      de: 'Frage: Wird zum [[Funktionswert]] addiert oder wird er malgenommen?'
+gegenbeispiel:
+  de: '$y = 3x^2$ bei $x = 0$: 0. Bei $y = x^2 + 3$: 3.'
+rueckweg:
+  vermittlung: M.SF.PF.PARAMETER#erklaeren-strecken
+kontrast: [M.SF.PF.PARAMETER.BESCHREIBEN]
+herkunft: ki-entwurf
+version: 1

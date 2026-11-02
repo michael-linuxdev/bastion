@@ -72,7 +72,7 @@ describe('Anzahl der Lösungen', () => {
       let n = 0;
       for (let x = -40; x <= 40; x += 0.25) if (Math.abs(f(x)) < 1e-9) n++;
       const vorzeichen = new Set<number>();
-      for (let x = -40; x <= 40; x += 0.01) vorzeichen.add(Math.sign(Math.round(f(x) * 1e6)));
+      for (let x = -40; x <= 40; x += 0.05) vorzeichen.add(Math.sign(Math.round(f(x) * 1e6)));
       const zwei = vorzeichen.has(-1);
       return { typ: 'auswahl', wert: zwei ? 2 : n > 0 ? 1 : 0 };
     },

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Löst √(x + 5) = 4 zu x + 5 = 4, also x = −1. Das Wurzelzeichen wird gestrichen wie eine
     Klammer. Dass dabei auch die andere Seite quadriert werden muss, ist nicht verankert.
-kompetenzen: [M.SF.GL.WURZEL]
+kompetenzen: [M.SF.GL.WURZEL, M.SF.PF.WURZELFUNKTION]
 erklaerung:
   kurz:
     de: 'Die [[Wurzel]] verschwindet nur durch Quadrieren, und zwar auf beiden Seiten: Aus $\sqrt{x + 5} = 4$ wird $x + 5 = 16$.'

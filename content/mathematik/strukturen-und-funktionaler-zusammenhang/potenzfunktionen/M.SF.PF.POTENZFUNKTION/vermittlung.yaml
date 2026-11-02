@@ -1,0 +1,92 @@
+id: M.SF.PF.POTENZFUNKTION
+kompetenz: M.SF.PF.POTENZFUNKTION
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Graphen]] von $y = x^2$, $y = x^3$, $y = x^{-1}$ und $y = x^{-2}$ unterscheiden und ihre Eigenschaften angeben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $2^{-2}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{1}{4}$' }, richtig: true }
+        - { wert: { de: '$-4$' }, fv: FV.PW.NEGATIVER-EXPONENT }
+    weiter: entdecken
+    bei: { FV.PW.NEGATIVER-EXPONENT: M.ZO.PW.GESETZE, sonst: M.ZO.PW.GESETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Für $y = x^3$ ist bei $x = 2$ der Wert 8. Welchen Wert hat y bei $x = -2$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-8', fehler: [{ wert: '8', fv: FV.PF.SYMMETRIE }] }
+    weiter: erklaeren-symmetrie
+  - id: erklaeren-symmetrie
+    typ: erklaeren
+    text:
+      de: '[[Gerade]] [[Hochzahl]]: $(-x)^n = x^n$, der [[Graph]] ist symmetrisch zur y-Achse wie die [[Parabel]]. Ungerade Hochzahl: $(-x)^n = -x^n$, der Graph ist symmetrisch zum [[Ursprung]].'
+    weiter: erklaeren-negativ
+  - id: erklaeren-negativ
+    typ: erklaeren
+    text:
+      de: 'Negative [[Hochzahl]] heißt [[Kehrwert]]: $x^{-2} = \frac{1}{x^2}$. Bei $x = 0$ ist das nicht erklärt. Dort hat der [[Graph]] eine Polstelle, und er nähert sich den Achsen an.'
+    weiter: erklaeren-wertebereich
+  - id: erklaeren-wertebereich
+    typ: erklaeren
+    text:
+      de: 'Den [[Wertebereich]] liest du an der y-Achse ab. $y = x^2$: $y \geq 0$. $y = x^3$: alle Zahlen. $y = x^{-2}$: $y > 0$. $y = x^{-1}$: alle außer 0.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = x^{-1}$: ungerade [[Hochzahl]], also punktsymmetrisch zum [[Ursprung]]; negativ, also Polstelle bei 0. Links liegt der [[Graph]] unten, rechts oben.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welchen Wert hat $y = x^{-2}$ bei $x = 2$? Gib ihn als [[Dezimalzahl]] an.'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '0,25', fehler: [{ wert: '-4', fv: FV.PW.NEGATIVER-EXPONENT }] }
+    weiter: gegenbeispiel
+    bei: { FV.PW.NEGATIVER-EXPONENT: erklaeren-negativ }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan sagt: „Jede Potenzfunktion ist symmetrisch zur y-Achse.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $y = x^3$ hat bei $-2$ den Wert $-8$ und bei 2 den Wert 8.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, wie die Normalparabel.' }, fv: FV.PF.SYMMETRIE }
+    weiter: merksatz
+    bei: { FV.PF.SYMMETRIE: erklaeren-symmetrie }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Gerade]] [[Hochzahl]]: symmetrisch zur y-Achse. Ungerade: symmetrisch zum [[Ursprung]]. Negative Hochzahl: Polstelle bei 0, alle x außer 0 erlaubt.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Funktion]] hat eine Polstelle bei $x = 0$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$y = x^{-3}$' }, richtig: true }
+        - { wert: { de: '$y = x^3$' }, fv: FV.PF.NEGATIVE-HOCHZAHL }
+    weiter: uebergang
+    bei: { FV.PF.NEGATIVE-HOCHZAHL: erklaeren-negativ }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ordnest du selbst [[Graphen]] und [[Terme]] zu.'
+    vorlagen: [M.SF.PF.POTENZFUNKTION.ZUORDNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

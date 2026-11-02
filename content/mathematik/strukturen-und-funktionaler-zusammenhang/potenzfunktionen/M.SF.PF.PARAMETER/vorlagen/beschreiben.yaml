@@ -1,0 +1,28 @@
+# „Wie entsteht der Graph von g aus dem von f?“ Entwurf: noch nicht geprüft.
+id: M.SF.PF.PARAMETER.BESCHREIBEN
+kompetenz: M.SF.PF.PARAMETER
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: pf.verschiebung@1
+parameter:
+  G: { strecken: false }
+  M: { strecken: true }
+text:
+  aufgabe:
+    de: '**Wie** entsteht der [[Graph]] von ${g}$ aus dem Graphen von ${f}$?'
+hilfen:
+  - de: 'Eine Zahl außerhalb der [[Funktion]] (plus oder mal) wirkt in y-Richtung, eine Zahl in der Klammer bei x in x-Richtung.'
+  - de: 'In der Klammer ist die Richtung umgekehrt: $(x - 2)$ verschiebt nach rechts.'
+fehlerbilder:
+  richtung-x:
+    de: 'Die Richtung ist umgekehrt. Bei $(x - 2)$ wird der Wert, der vorher bei 0 war, erst bei $x = 2$ erreicht: nach rechts.'
+    fv: FV.PF.VERSCHIEBUNG-RICHTUNG
+  achse-vertauscht:
+    de: 'Eine Zahl in der Klammer bei x verschiebt waagerecht, eine Zahl außerhalb [[senkrecht]].'
+    fv: FV.PF.VERSCHIEBUNG-ACHSE
+  streckung-verschiebung:
+    de: 'Addieren verschiebt, Malnehmen streckt. Hier wird addiert bzw. malgenommen, prüfe welches.'
+    fv: FV.PF.STRECKUNG
+herkunft: ki-entwurf
+version: 1

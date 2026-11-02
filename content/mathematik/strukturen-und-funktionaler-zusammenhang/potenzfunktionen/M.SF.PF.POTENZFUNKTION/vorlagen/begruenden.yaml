@@ -1,0 +1,27 @@
+# Graph zeigen: Term und Begründung wählen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.PF.POTENZFUNKTION.BEGRUENDEN
+kompetenz: M.SF.PF.POTENZFUNKTION
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pf.begruenden@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Welcher** [[Term]] gehört zum [[Graphen]]? **Wähle** die Antwort, bei der auch die Begründung stimmt.'
+hilfen:
+  - de: 'Prüfe zuerst die Symmetrie, dann den Punkt $x = 0$.'
+  - de: 'Ein richtiger [[Term]] mit falscher Begründung ist keine richtige Antwort.'
+fehlerbilder:
+  begruendung-falsch:
+    de: 'Der [[Term]] stimmt, aber die Begründung nicht. Prüfe die Symmetrie des [[Graphen]] noch einmal.'
+    fv: FV.PF.SYMMETRIE
+  symmetrie:
+    de: 'Die Symmetrie passt nicht zu dieser [[Hochzahl]].'
+    fv: FV.PF.SYMMETRIE
+  vorzeichen-hochzahl:
+    de: 'Das [[Vorzeichen]] der [[Hochzahl]] passt nicht: Geht der [[Graph]] durch den [[Ursprung]] oder hat er dort eine Polstelle?'
+    fv: FV.PF.NEGATIVE-HOCHZAHL
+herkunft: ki-entwurf
+version: 1

@@ -82,7 +82,7 @@ export const qfSchnitt: Generator<SchnittParameter> = {
         ks.hoehe,
         [
           ...ks.teile,
-          kurve(ks, (x) => x * x + pp * x + q, -6, 6, { ymin, ymax }),
+          kurve(ks, (x) => x * x + pp * x + q, -6, 6, { ymin, ymax }, 200),
           kurve(ks, () => n, -6, 6, { ymin, ymax }, 2, 2),
         ],
         de(
