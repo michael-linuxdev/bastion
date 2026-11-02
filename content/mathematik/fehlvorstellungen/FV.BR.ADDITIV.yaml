@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 2/3 → 3/4 (beide plus 1) oder 6/8 → 4/6 (beide minus 2). Die Regel „mit Zähler und
     Nenner das Gleiche tun“ wurde behalten, aber mit Plus und Minus statt Mal und Geteilt.
-kompetenzen: [M.ZO.BR.ERWEITERN]
+kompetenzen: [M.ZO.BR.ERWEITERN, M.ZO.BR.ADD-SUB]
 erklaerung:
   kurz:
     de: 'Beim [[Erweitern]] wird **multipliziert**, beim [[Kürzen]] **geteilt** – nie addiert oder subtrahiert.'
