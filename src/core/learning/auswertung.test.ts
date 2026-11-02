@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { auswerten, leseBruch, leseFaktoren, leseUhrzeit, leseZahl, rundeAuf } from './auswertung';
+import {
+  auswerten,
+  leseFelder,
+  leseBruch,
+  leseFaktoren,
+  leseUhrzeit,
+  leseZahl,
+  rundeAuf,
+} from './auswertung';
 import { bruch } from './bruch';
 import type { Instanz } from './generator';
 
@@ -195,5 +203,25 @@ describe('mehrere Felder (B2)', () => {
     expect(auswerten(scheitel, felder(1, -2))).toEqual({ richtig: true });
     expect(auswerten(scheitel, felder(-2, 1))).toEqual({ richtig: false });
     expect(auswerten(scheitel, felder(1))).toEqual({ richtig: false });
+  });
+});
+
+describe('leseFelder (B2)', () => {
+  it('liest jedes Feld wie eine Zahl', () => {
+    expect(leseFelder(['2', '−3,5'])).toEqual({ ok: true, wert: [2, -3.5] });
+  });
+  it('Punkt statt Komma: Hinweis', () => {
+    expect(leseFelder(['1.5', '2'])).toEqual({
+      ok: true,
+      wert: [1.5, 2],
+      hinweis: 'punkt-statt-komma',
+    });
+  });
+  it('leeres oder falsches Feld: Lesefehler', () => {
+    expect(leseFelder(['2', ''])).toEqual({ ok: false, grund: 'leer' });
+    expect(leseFelder(['x', '2'])).toEqual({ ok: false, grund: 'keine-zahl' });
+  });
+  it('„keine Lösung“ ergibt die leere Liste, die Felder zählen nicht', () => {
+    expect(leseFelder(['', 'x'], true)).toEqual({ ok: true, wert: [] });
   });
 });

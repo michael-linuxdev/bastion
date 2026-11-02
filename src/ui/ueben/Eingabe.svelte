@@ -2,6 +2,7 @@
   // Antwortfeld passend zur Art der Lösung. Liest die Eingabe mit dem Kern
   // (INHALTSFORMAT §5.1) und meldet entweder eine Antwort oder einen Lesefehler.
   import {
+    leseFelder,
     leseFaktoren,
     leseUhrzeit,
     leseZahl,
@@ -39,6 +40,10 @@
 
   let feld1 = $state('');
   let feld2 = $state('');
+  /** Mehrere Felder (B2): ein Eintrag je Beschriftung aus instanz.felder */
+  // svelte-ignore state_referenced_locally
+  let felder = $state<string[]>((instanz.felder?.namen ?? []).map(() => ''));
+  let keine = $state(false);
   let gewaehlt = $state<number | undefined>(undefined);
   // Beschreibbares $derived: startet mit den gemischten Elementen, Verschieben überschreibt es.
   let reihe = $derived<number[]>([...(instanz.elemente ?? [])]);
@@ -64,6 +69,8 @@
     if (art === 'reihenfolge' && typ === 'ordnen') return reihe.length > 0;
     if (art === 'bruch' || art === 'punkt' || art === 'mit-rest')
       return feld1.trim() !== '' && feld2.trim() !== '';
+    if (art === 'felder')
+      return keine || (felder.length > 0 && felder.every((f) => f.trim() !== ''));
     return feld1.trim() !== '';
   });
 
@@ -114,6 +121,10 @@
       else if (!Number.isInteger(zaehler) || !Number.isInteger(nenner) || nenner < 0)
         fehler = 'eingabe.keine-zahl';
       else onantwort({ typ: 'bruch', wert: bruch(zaehler, nenner) });
+    } else if (art === 'felder') {
+      const g = leseFelder(felder, keine);
+      if (g.ok) onantwort({ typ: 'felder', wert: g.wert }, g.hinweis);
+      else fehler = `eingabe.${g.grund}`;
     } else if (art === 'punkt') {
       const z = zahlen(leseZahl(feld1), leseZahl(feld2));
       if (z) onantwort({ typ: 'punkt', wert: { x: z[0] ?? NaN, y: z[1] ?? NaN } });
@@ -231,6 +242,27 @@
           /></label
         >)
       </span>
+    {:else if art === 'felder'}
+      <div class="felder">
+        {#each instanz.felder?.namen ?? [] as name, i (i)}
+          <label class="feld"
+            ><span class="feldname">{name.de}</span>
+            <input
+              inputmode="none"
+              data-tastatur="feld"
+              autocomplete="off"
+              bind:value={felder[i]}
+              disabled={gesperrt || keine}
+            /></label
+          >
+        {/each}
+        {#if instanz.felder?.keineLoesung}
+          <label class="keine"
+            ><input type="checkbox" bind:checked={keine} disabled={gesperrt} />
+            {t('eingabe.keine-loesung')}</label
+          >
+        {/if}
+      </div>
     {:else if art === 'mit-rest'}
       <span class="mit-rest">
         <label class="hauptfeld"
@@ -314,6 +346,29 @@
 </form>
 
 <style>
+  .felder {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--abstand-s) var(--abstand-m);
+  }
+  .feld {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--abstand-xs, 0.25rem);
+  }
+  .feld input {
+    inline-size: 6rem;
+  }
+  .feldname {
+    white-space: nowrap;
+  }
+  .keine {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--abstand-xs, 0.25rem);
+    min-block-size: 2.75rem;
+  }
   .eingabe {
     margin-block: 0;
   }

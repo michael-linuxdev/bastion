@@ -32,6 +32,26 @@ export function leseZahl(eingabe: string): Gelesen<number> {
   return trenner === '.' ? { ok: true, wert, hinweis: 'punkt-statt-komma' } : { ok: true, wert };
 }
 
+/**
+ * Mehrere Felder (Aufgabentyp `felder-eingabe`, B2): jedes Feld eine Zahl nach I-5.
+ * `keine` = „keine Lösung“ angekreuzt, dann zählen die Felder nicht (leere Liste).
+ * Ein Punkt statt Komma in irgendeinem Feld ergibt den freundlichen Hinweis.
+ */
+export function leseFelder(eingaben: readonly string[], keine = false): Gelesen<number[]> {
+  if (keine) return { ok: true, wert: [] };
+  const werte: number[] = [];
+  let punkt = false;
+  for (const e of eingaben) {
+    const g = leseZahl(e);
+    if (!g.ok) return g;
+    werte.push(g.wert);
+    if (g.hinweis) punkt = true;
+  }
+  return punkt
+    ? { ok: true, wert: werte, hinweis: 'punkt-statt-komma' }
+    : { ok: true, wert: werte };
+}
+
 /** Bruch „3/4“ oder gemischte Zahl „1 3/4“; eine ganze Zahl gilt als Bruch mit Nenner 1. */
 export function leseBruch(eingabe: string): Gelesen<Bruch> {
   const t = eingabe.trim();

@@ -4,7 +4,7 @@
 > Strang **Lernkern** (Branch `lernkern/…`, Protokollzeile in `docs/session/LERNKERN-PROTOKOLL.md`). Diese Datei gilt, bis Klasse 9 bis 12 gebaut und die gesammelte KI-Prüfung abgeschlossen ist.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` (vor allem „Wünsche aus dem anderen Strang“), `docs/STRATEGIE.md` K-23, K-25, K-28, K-30, dann `docs/INHALTSFORMAT.md` (ganz), `docs/VERMITTLUNG.md` §2–§3.6, `docs/LEHRPLAN.md` §1–§8d, `docs/PRUEFUNGEN.md`.
 
-Stand: 02.11.2026 · Rückfragen beantwortet (unten „Entscheidungen“) · **Phase A fertig:** Listen in `LEHRPLAN.md` §8e (Kl. 9, 30), §8f (Kl. 10, 22), §8g (11/12, 55, davon 7 nur LK), Abgleich mit den Prüfungen §8g.4, Bedarfsliste in `LERNKERN.md` · Formeldarstellung KaTeX (T-22), Reihenfolge der Bausteine bestätigt · Phase B: **B1 KaTeX eingebaut** (02.11.2026) · **B5 Kurven im Bild** (02.11.2026) · als Nächstes B2 mehrere Eingabefelder und B3 Runden
+Stand: 02.11.2026 · Rückfragen beantwortet (unten „Entscheidungen“) · **Phase A fertig:** Listen in `LEHRPLAN.md` §8e (Kl. 9, 30), §8f (Kl. 10, 22), §8g (11/12, 55, davon 7 nur LK), Abgleich mit den Prüfungen §8g.4, Bedarfsliste in `LERNKERN.md` · Formeldarstellung KaTeX (T-22), Reihenfolge der Bausteine bestätigt · Phase B: **B1 KaTeX eingebaut** (02.11.2026) · **B5 Kurven im Bild** (02.11.2026) · **B2 mehrere Felder und B3 Runden** (02.11.2026) · als Nächstes B9 Klasse 9 wählbar, dann Inhalte Klasse 9
 
 ---
 

@@ -206,6 +206,14 @@ Die Bilder sind wie Generatoren App-Code (I-1): SVG ohne Verweise, mit Beschreib
 | `bild-auswahl` | mehrere Bilder, eines oder mehrere wählen (Netz, Schrägbild, Symmetrieachse) | exakte Übereinstimmung | KP.DARSTELLEN, SY |
 | `anleitung` | Schritt-für-Schritt-Erklärung zum Zeichnen/Konstruieren auf Papier, mit Bildern; am Ende optional Selbsteinschätzung | **nicht bewertet**; zählt nicht für „gekonnt“ (L-10) | GF.WINKEL, SY.SPIEGELN, KP.DARSTELLEN |
 
+**Ergänzung für Klasse 9 bis 12 (U6, Bedarfsliste B2 und B3, 02.11.2026):**
+
+| Typ | Eingabe | Auswertung | Einsatz |
+|---|---|---|---|
+| `felder-eingabe` | mehrere Zahlfelder mit Beschriftung aus `instanz.felder.namen` (z. B. „x₁ =“, „x₂ =“; „x =“, „y =“ beim Scheitelpunkt; drei Komponenten eines Vektors), optional Häkchen „Es gibt keine Lösung.“ (`keineLoesung`, für alle Instanzen des Generators gleich) | Lösung `{ typ: 'felder', wert: [...] }`, leere Liste = keine Lösung; mit `ungeordnet` zählt die Reihenfolge nicht (die Lösung steht dann aufsteigend) | QF, GE, VK, MA, WS.VIERFELDER |
+
+**Gerundete Ergebnisse (`instanz.runden`):** Bei Zahlen, die nicht aufgehen (√13, Sinus, Kugelvolumen …), setzt der Generator `runden: { stellen, genau }` und als `loesung` den auf `stellen` Nachkommastellen gerundeten Wert (`rundeAuf`, kaufmännisch). Die Vorlage nennt die Stellen im Text („Runde auf zwei Stellen nach dem Komma.“). Eine Antwort, die weniger als eine Einheit der letzten Stelle vom genauen Wert abweicht, aber anders gerundet ist, gilt nicht als richtig; die App zeigt dann den Hinweis „anders gerundet“. Der Pflicht-Test prüft, dass `loesung` der gerundete genaue Wert ist.
+
 Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz) und haben eine Textbeschreibung.
 
 **Barrierefreiheit:** Jeder Typ ist vollständig per Tastatur bedienbar. `bruch-bild` hat zusätzlich eine Textbeschreibung („Ein Rechteck aus 8 gleich großen Feldern, 3 davon sind gefärbt“) und eine Alternative ohne Bild.
