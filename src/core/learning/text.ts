@@ -19,7 +19,13 @@ export type Textteil =
   /** Fachbegriff [[…]] – die Oberfläche zeigt auf Antippen die Erklärung (L-7) */
   | { readonly art: 'begriff'; readonly text: string; readonly fett: boolean }
   | { readonly art: 'hoch'; readonly text: string }
-  | { readonly art: 'wurzel'; readonly text: string };
+  | { readonly art: 'wurzel'; readonly text: string }
+  /**
+   * Formel in LaTeX-Schreibweise, die die eigene Teilmenge nicht kann (Klasse 9–12: Wurzel über
+   * einem Term, Brüche mit Variablen, Vektoren, Integrale …). Die Oberfläche setzt sie mit KaTeX
+   * (ARCHITEKTUR T-22); einfache Formeln der Klassen 5–8 bleiben bei der eigenen Teilmenge.
+   */
+  | { readonly art: 'formel'; readonly tex: string };
 
 const istBruch = (w: Wert): w is Bruch => typeof w === 'object' && 'nenner' in w;
 const istSprache = (w: Wert): w is Sprachobjekt => typeof w === 'object' && 'de' in w;
@@ -68,11 +74,51 @@ function fliesstext(
   }
 }
 
+/**
+ * Kann die eigene Teilmenge diese Formel? Ja, wenn sie nur aus Zahlen, einzelnen Buchstaben,
+ * Rechenzeichen und \frac{…}{…}, \sqrt{…} und Hochzahlen ^{…} bzw. ^x besteht, deren Inhalt
+ * eine Zahl oder ein einzelner Buchstabe ist, dazu \cdot. Alles andere (Wurzel über einem Term,
+ * Brüche mit Termen, Indizes, weitere Befehle) setzt KaTeX.
+ */
+export function einfacheFormel(tex: string): boolean {
+  const atom = String.raw`\s*(?:-?[\d.,\s]+|[a-zA-Z])\s*`;
+  const rest = tex
+    .replace(new RegExp(String.raw`\\frac\{${atom}\}\{${atom}\}`, 'g'), '')
+    .replace(new RegExp(String.raw`\\sqrt\{${atom}\}`, 'g'), '')
+    .replace(new RegExp(String.raw`\^\{${atom}\}`, 'g'), '')
+    .replace(/\^\w/g, '')
+    .replace(/\\cdot/g, '');
+  return !/[\\{}_^]/.test(rest);
+}
+
+/**
+ * Einstellungen für KaTeX, gleich in App, Werkzeugen und Tests (ARCHITEKTUR T-22):
+ * keine Befehle mit Außenwirkung (`trust: false`), strenge Prüfung, begrenzte Makros.
+ */
+export const KATEX_OPTIONEN = {
+  throwOnError: false,
+  trust: false,
+  strict: 'error',
+  maxExpand: 100,
+  maxSize: 10,
+} as const;
+
+/**
+ * Platzhalter in einer Formel: `{name}`, aber nicht direkt hinter einem LaTeX-Befehl, einer
+ * schließenden Klammer, `^` oder `_` – dort ist es eine LaTeX-Gruppe (`\vec{a}`,
+ * `\binom{n}{k}`, `x^{n}`). Platzhalter in Gruppen mit Leerzeichen: `\sqrt{ {radikand} }`.
+ */
+const PLATZHALTER_IN_FORMEL = /(?<![\\a-zA-Z}^_])\{([a-z_]+)\}/g;
+
 /** Formel: Platzhalter einsetzen, dann \frac{…}{…}, \sqrt{…}, ^{…}, ^x und \cdot erkennen. */
 function formel(text: string, platzhalter: Readonly<Record<string, Wert>>, teile: Textteil[]) {
-  const eingesetzt = text.replace(/\{([a-z_]+)\}/g, (_, n: string) =>
+  const eingesetzt = text.replace(PLATZHALTER_IN_FORMEL, (_, n: string) =>
     wertText(holeWert(n, platzhalter)),
   );
+  if (!einfacheFormel(eingesetzt)) {
+    teile.push({ art: 'formel', tex: eingesetzt.trim() });
+    return;
+  }
   for (const m of eingesetzt.matchAll(
     /\\frac\{\s*([^}]*?)\s*\}\{\s*([^}]*?)\s*\}|\\sqrt\{\s*([^}]*?)\s*\}|\^\{\s*([^}]*?)\s*\}|\^(\w)|\\cdot|[^\\^]+|[\\^]/g,
   )) {
@@ -114,12 +160,19 @@ export function alsText(teile: readonly Textteil[]): string {
           ? `^${t.text}`
           : t.art === 'wurzel'
             ? `√${t.text}`
-            : t.text,
+            : t.art === 'formel'
+              ? t.tex
+              : t.text,
     )
     .join('');
 }
 
 /** Namen aller {platzhalter} in einem Text. */
 export function platzhalterIn(text: string): string[] {
-  return [...text.matchAll(/\{([a-z_]+)\}/g)].map((m) => m[1] ?? '');
+  return text
+    .split('$')
+    .flatMap((stueck, i) => [
+      ...stueck.matchAll(i % 2 === 1 ? PLATZHALTER_IN_FORMEL : /\{([a-z_]+)\}/g),
+    ])
+    .map((m) => m[1] ?? '');
 }
