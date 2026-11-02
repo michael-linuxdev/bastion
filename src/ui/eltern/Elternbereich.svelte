@@ -26,6 +26,7 @@
   import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import TestRohstoffe from '../bastion/TestRohstoffe.svelte';
   import Testphase from './Testphase.svelte';
+  import Aufgabenblatt from './Aufgabenblatt.svelte';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
 
   let {
@@ -246,6 +247,7 @@
     </section>
     <WetterEinstellung durch="eltern" />
     <Testphase />
+    <Aufgabenblatt {kompetenzen} {vorlagen} {klasse} />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button
       onclick={() => {
