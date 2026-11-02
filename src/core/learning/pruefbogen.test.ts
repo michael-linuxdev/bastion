@@ -6,6 +6,7 @@ import type { Generator } from './generator';
 import {
   abschnitte,
   beurteilt,
+  bewertungAus,
   exportDokumente,
   genannteFehlvorstellungen,
   pruefbogenModell,
@@ -183,5 +184,16 @@ describe('Bewertung', () => {
       { id: 'kopf', data: { werte: { name: 'Erika' }, stand: '2026-11-02T08:00:00.000Z' } },
       { id: 'C-X', data: { werte: { G1: true }, stand: '' } },
     ]);
+  });
+
+  it('liest die jüngste Einstellung je Abschnitt und übergeht Fremdes', () => {
+    const { bewertung, stand } = bewertungAus([
+      { schluessel: 'pruefen.A-X', wert: '{"urteil":"passt"}', ts: 1000 },
+      { schluessel: 'pruefen.A-X', wert: '{"urteil":"falsch"}', ts: 2000 },
+      { schluessel: 'pruefen.B-Y', wert: 'kein json', ts: 1000 },
+      { schluessel: 'basebau.thema', wert: 'garten', ts: 1000 },
+    ]);
+    expect(bewertung).toEqual({ 'A-X': { urteil: 'falsch' } });
+    expect(stand).toEqual({ 'A-X': '1970-01-01T00:00:02.000Z' });
   });
 });

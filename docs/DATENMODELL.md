@@ -269,6 +269,8 @@ interface EinstellungEreignis extends Ereignis {
 
 Geräteweite Einstellungen (Sprache der Oberfläche, Farbschema) verwenden `profil: '*'`.
 
+Die Prüfseite für Lehrkräfte (ARCHITEKTUR T-22) speichert ihre Urteile je Abschnitt unter `pruefen.<Abschnitt>`, z. B. `pruefen.A-M.ZO.BR.ERWEITERN` oder `pruefen.kopf`, `durch: 'eltern'`. Der Wert ist ein JSON-Text mit den Feldern des Prüfbogens (`src/core/learning/pruefbogen.ts`). Text wird nach einer kurzen Pause gespeichert, nicht bei jeder Taste.
+
 Die Eltern-PIN wird als PBKDF2-Hash mit Salz unter `eltern.pin` gespeichert. Im Protokoll erscheint nur „PIN geändert“.
 
 *Umsetzung (1c):* PBKDF2-SHA256 mit 150 000 Durchläufen über WebCrypto (`src/ui/plattform/pin.ts`), Format `pbkdf2-sha256$<Durchläufe>$<Salz>$<Hash>`; der Vergleich läuft in konstanter Zeit. Der Wiederherstellungscode (D-12) liegt ebenso gehasht unter `eltern.wiederherstellung`. Beide Schlüssel sind geheim (`GEHEIM` in `src/core/policy/einstellung.ts`). Die PIN hat 4 bis 8 Ziffern.

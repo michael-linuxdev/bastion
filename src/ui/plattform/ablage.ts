@@ -30,6 +30,12 @@ import type { Farbe, GebaeudeTyp, Position } from '../../core/bastion/katalog';
 import { buecher, type Buch } from '../../core/bastion/wissen';
 import { zielAus, zielText, type Ziel } from '../../core/bastion/ziel';
 import { ulid } from '../../core/rng/ulid';
+import {
+  bewertungAus,
+  gueltigerAbschnitt,
+  PRUEF_PRAEFIX,
+  type Werte,
+} from '../../core/learning/pruefbogen';
 import { vorgeschlagenerPlatz } from './platz-vorschlag';
 import {
   aufDiesemGeraet,
@@ -345,6 +351,21 @@ async function lies(schluessel: string): Promise<string | undefined> {
       )?.wert
     : await einstellung(db, inst.profil, schluessel).catch(() => undefined);
   return typeof w === 'string' ? w : undefined;
+}
+
+/**
+ * Prüfseite für Lehrkräfte (FOKUS F3, PV 02.11.2026): Urteile je Abschnitt als Einstellung
+ * `pruefen.<Abschnitt>` mit den Werten als JSON-Text. Append-only wie jede Einstellung.
+ */
+export async function pruefBewertungLaden(): Promise<ReturnType<typeof bewertungAus>> {
+  const inst = await bereit();
+  if (!inst) return { bewertung: {}, stand: {} };
+  return bewertungAus(await einstellungsEreignisse(db, inst.profil).catch(() => []));
+}
+
+export async function pruefAbschnittSpeichern(abschnitt: string, werte: Werte): Promise<void> {
+  if (!gueltigerAbschnitt(abschnitt)) return;
+  await setze(`${PRUEF_PRAEFIX}${abschnitt}`, JSON.stringify(werte));
 }
 
 export interface BastionLage {

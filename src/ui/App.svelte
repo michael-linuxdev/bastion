@@ -805,6 +805,9 @@
         <Elternbereich
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
+          vermittlungen={geladen.vermittlungen}
+          fehlvorstellungen={geladen.fehlvorstellungen}
+          begriffe={geladen.begriffe}
           {zustand}
           aufgaben={aufgabenListe}
           bind:basebau

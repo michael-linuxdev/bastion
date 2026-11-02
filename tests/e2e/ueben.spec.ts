@@ -1864,6 +1864,80 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await expect(page.getByText(/Aufgaben: 1/)).toBeVisible();
 });
 
+test('Für Lehrkräfte: Inhalte prüfen im Elternbereich, Urteile bleiben, Ergebnis als Datei (F3)', async ({
+  page,
+}) => {
+  const fehler: string[] = [];
+  page.on('pageerror', (e) => fehler.push(e.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+
+  await page.getByRole('button', { name: 'Prüfung öffnen' }).click();
+  await expect(page.getByText('Wählen Sie oben mindestens ein Thema.')).toBeVisible();
+  await page.getByLabel('Name der prüfenden Person').fill('Erika Muster');
+  await page
+    .getByRole('combobox', { name: 'Bereich' })
+    .last()
+    .selectOption({ label: 'Zahlen und Rechnen' });
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).last().check();
+
+  const a = page.locator('[data-abschnitt="A-M.ZO.BR.ERWEITERN"]');
+  await expect(a.locator('[data-schritt]')).toHaveCount(11);
+  await expect(a.locator('[data-schritt="7"]')).toContainText('Kürze weiter');
+  // Urteil je Schritt und Kommentar
+  await a.getByRole('group', { name: 'Urteil zu Schritt 7' }).getByLabel('passt nicht').check();
+  await a.locator('[data-schritt="7"] summary').click();
+  await a.getByLabel('Kommentar zu Schritt 7').fill('Bild fehlt');
+  await a.getByRole('radio', { name: 'Passt mit Änderung' }).check();
+  await expect(page.locator('[data-fortschritt]')).toContainText('1 von');
+  // Übungsaufgaben: Zeilen abhaken; Fehlvorstellungen sind da
+  await page.getByRole('checkbox', { name: 'stimmt: Zeile G1' }).first().check();
+  await expect(page.locator('[data-abschnitt="B-FV.BR.NICHT-VOLLSTAENDIG"]')).toBeVisible();
+  await expect(page.locator('[data-speicher]')).toHaveText('Auf diesem Gerät gespeichert');
+
+  // 390 px: kein seitlicher Überlauf der Seite
+  const breit = await page.evaluate(() => document.documentElement.scrollWidth);
+  expect(breit).toBeLessThanOrEqual(390);
+
+  // Neu laden: Auswahl und Urteile sind noch da
+  await page.reload();
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByRole('button', { name: 'Öffnen' }).click();
+  await page.getByRole('button', { name: 'Prüfung öffnen' }).click();
+  await expect(page.getByLabel('Name der prüfenden Person')).toHaveValue('Erika Muster');
+  await expect(
+    a.getByRole('group', { name: 'Urteil zu Schritt 7' }).getByLabel('passt nicht'),
+  ).toBeChecked();
+  await expect(a.getByLabel('Kommentar zu Schritt 7')).toHaveValue('Bild fehlt');
+
+  // Ergebnis herunterladen: die Form, die `pnpm pruefbogen einlesen` liest
+  const [laden] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Ergebnis herunterladen' }).click(),
+  ]);
+  const pfad = await laden.path();
+  const { readFileSync } = await import('node:fs');
+  const dokumente = JSON.parse(readFileSync(pfad, 'utf8')) as {
+    id: string;
+    data: { werte: Record<string, unknown>; stand: string };
+  }[];
+  expect(dokumente[0]?.id).toBe('kopf');
+  expect(dokumente.find((d) => d.id === 'A-M.ZO.BR.ERWEITERN')?.data.werte).toMatchObject({
+    s7: 'nicht',
+    k7: 'Bild fehlt',
+    urteil: 'aendern',
+  });
+  expect(fehler).toEqual([]);
+});
+
 test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = gleiche Aufgaben (B2)', async ({
   page,
 }) => {

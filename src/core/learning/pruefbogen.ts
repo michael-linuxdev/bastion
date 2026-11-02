@@ -396,3 +396,39 @@ export function exportDokumente(
     .sort((x, y) => (x === KOPF ? -1 : y === KOPF ? 1 : x < y ? -1 : x > y ? 1 : 0))
     .map((id) => ({ id, data: { werte: b[id] ?? {}, stand: stand[id] ?? '' } }));
 }
+
+/** Einstellung `pruefen.<Abschnitt>`: Werte eines Abschnitts als JSON-Text (Ereignis `einstellung`). */
+export const PRUEF_PRAEFIX = 'pruefen.';
+
+/**
+ * Bewertung aus den Einstellungs-Ereignissen: je Abschnitt gilt das jüngste Ereignis
+ * (DATENMODELL §7.3), `stand` ist sein Zeitpunkt. Unlesbares wird übergangen.
+ */
+export function bewertungAus(
+  ereignisse: readonly {
+    readonly schluessel: string;
+    readonly wert: unknown;
+    readonly ts: number;
+  }[],
+): { readonly bewertung: Bewertung; readonly stand: Readonly<Record<string, string>> } {
+  const juengste = new Map<string, { wert: unknown; ts: number }>();
+  for (const e of ereignisse) {
+    if (!e.schluessel.startsWith(PRUEF_PRAEFIX)) continue;
+    const id = e.schluessel.slice(PRUEF_PRAEFIX.length);
+    const alt = juengste.get(id);
+    if (gueltigerAbschnitt(id) && (!alt || e.ts >= alt.ts)) juengste.set(id, e);
+  }
+  const bewertung: Record<string, Werte> = {};
+  const stand: Record<string, string> = {};
+  for (const [id, { wert, ts }] of juengste) {
+    let roh: unknown;
+    try {
+      roh = typeof wert === 'string' ? JSON.parse(wert) : undefined;
+    } catch {
+      continue;
+    }
+    bewertung[id] = werteAus(roh);
+    stand[id] = new Date(ts).toISOString();
+  }
+  return { bewertung, stand };
+}

@@ -5,6 +5,9 @@
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
+  import type { Begriffskarte } from '../../core/learning/begriffe';
+  import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
+  import type { Vermittlung } from '../../core/learning/vermittlung';
   import { ERINNERUNG_WAHL } from '../../core/sicherung/sicherung';
   import {
     erinnerungAlle,
@@ -27,12 +30,16 @@
   import TestRohstoffe from '../bastion/TestRohstoffe.svelte';
   import Testphase from './Testphase.svelte';
   import Aufgabenblatt from './Aufgabenblatt.svelte';
+  import Pruefen from './Pruefen.svelte';
   import { entwurfAusgeliefert } from '../plattform/paketstand';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
 
   let {
     kompetenzen,
     vorlagen,
+    vermittlungen,
+    fehlvorstellungen,
+    begriffe,
     zustand,
     aufgaben,
     basebau = $bindable(true),
@@ -41,6 +48,10 @@
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
+    /** für die Prüfseite (FOKUS F3) */
+    vermittlungen: ReadonlyMap<string, Vermittlung>;
+    fehlvorstellungen: ReadonlyMap<string, Fehlvorstellung>;
+    begriffe: Begriffskarte;
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
     /** Basebau-Schalter (R7) – auch Eltern dürfen ihn umlegen (B-13) */
@@ -253,6 +264,14 @@
     <WetterEinstellung durch="eltern" />
     <Testphase />
     <Aufgabenblatt {kompetenzen} {vorlagen} {klasse} />
+    <Pruefen
+      {kompetenzen}
+      {vorlagen}
+      {vermittlungen}
+      {fehlvorstellungen}
+      begriffe={[...new Map([...begriffe.values()].map((b) => [b.id, b])).values()]}
+      {klasse}
+    />
     <p class="leise">{t('eltern.ehrlich')}</p>
     <button
       onclick={() => {
