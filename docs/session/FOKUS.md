@@ -104,7 +104,7 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 
 - **G2 Stil-Regel abgenommen** (alle vier Punkte der Checkliste, `GRAFIK-SPRITES.md` §12.9).
 - Die PRs der Nachtschicht werden gemergt, auch die Lernkern-PRs #165, #159, #169 und #170.
-- **Offen beim PV:** G6, Abnahme L, Korrektur von `FV.BR.NICHT-VOLLSTAENDIG` (siehe „Nächste Sitzungen“), was mit der alten Prüfseite `NKSgnmWBsS1TpZ6uLLLgwy` ist (mit dem Konto der Sitzung nicht mehr erreichbar).
+- **Offen beim PV:** G6, Abnahme L, ~~Korrektur von `FV.BR.NICHT-VOLLSTAENDIG`~~ (02.11.: jetzt korrigieren), was mit der alten Prüfseite `NKSgnmWBsS1TpZ6uLLLgwy` ist (mit dem Konto der Sitzung nicht mehr erreichbar).
 
 ## Nächste Sitzungen (vorbereitet 02.11.2026)
 
@@ -113,6 +113,7 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 **Strang Lernkern, in dieser Reihenfolge:**
 
 1. **Zuerst den PV fragen:** Wird `FV.BR.NICHT-VOLLSTAENDIG` jetzt korrigiert? Befund der Stufe-1-Prüfung (#170): Der Rückweg `M.ZO.BR.ERWEITERN#erklaeren-kuerzen` erklärt Kürzen allgemein, aber nicht „weiterkürzen, bis kein gemeinsamer Teiler bleibt“. Empfehlung: jetzt, vor der Lehrkraft. Dann verliert `M.ZO.BR.ERWEITERN/vermittlung.yaml` Stufe 1 und braucht danach eine frische Sitzung für Stufe 1 (beide Dateien).
+   **Erledigt 02.11.2026 (PV: jetzt korrigieren):** `erklaeren-kuerzen` sagt jetzt „Kürze weiter, bis beide keinen gemeinsamen Teiler außer 1 mehr haben: 12/18 = 6/9 = 2/3.“ Offen: frische Sitzung für Stufe 1 von `M.ZO.BR.ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml`, möglichst vor der neuen Prüfseite (Punkt 3).
 2. **Abnahme L:** Gibt der PV sie frei, „L abgenommen“ mit Datum und Commit eintragen und das Einfrieren nach Regel 7 in `SESSION-PROMPT.md` und `AGENTS.md` in Kraft setzen (`src/ui/ueben/`, `vermittlung/`, `eingabe/`, `eltern/`, `start/`: nur Fehlerbehebungen bis zur Auswertung von U4b).
 3. **F3 abschließen:** neue Prüfseite mit `pnpm pruefbogen --online --name "Musterfeld Brüche" M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB` als Artefakt veröffentlichen (Fähigkeit `db`, Sammlung `bewertung`), Link an den PV. Punkt 2 prüfen (geht eine Kompetenz in 20–30 Minuten am Tablet?). Danach `pnpm pruefbogen einlesen` an einer erfundenen Bewertung vorführen.
 4. **F7** Meilenstein Klasse 5 planen, **F9** Vorschau Schrägstrich-Brüche (nur Bericht), **F8** `App.svelte` aufteilen, **F10** Stand-Dokumente straffen – je ein PR.
