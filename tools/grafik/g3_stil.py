@@ -375,3 +375,29 @@ def schreibe_atlas(thema: str, gebaeude, umgebung=(), wesen=None, *, epoche: int
     for k, v in neu.items():
         print(k, v["pixel"])
     return 0
+
+
+def raeume_epochen(thema: str) -> int:
+    """Eine Stufe hat in jeder Epoche dasselbe Bild (Entscheidung PV, 02.11.2026).
+    Entfernt in e2–e4 jedes Gebäudebild (und jede Abend-Ebene), dessen Stufe es schon
+    in einer früheren Epoche gibt; die App nimmt dann über den Epoche-Rückfall
+    (`atlasEintrag`) das frühere Bild. Gibt die Zahl der entfernten Einträge zurück."""
+    manifest_pfad = ATLAS / "manifest.json"
+    manifest = json.loads(manifest_pfad.read_text(encoding="utf-8"))
+    ids = {e["id"] for e in manifest["eintraege"]}
+
+    def frueher(epoche: int, name: str) -> bool:
+        basis = name.removesuffix("_fenster")
+        return any(f"{thema}/e{e}/{basis}" in ids for e in range(1, epoche))
+
+    weg = []
+    for e in manifest["eintraege"]:
+        teile = e["id"].split("/")
+        if len(teile) == 3 and teile[0] == thema and teile[1] in ("e2", "e3", "e4"):
+            if frueher(int(teile[1][1]), teile[2]):
+                weg.append(e)
+    for e in weg:
+        (ATLAS / e["datei"]).unlink(missing_ok=True)
+    manifest["eintraege"] = [e for e in manifest["eintraege"] if e not in weg]
+    manifest_pfad.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return len(weg)

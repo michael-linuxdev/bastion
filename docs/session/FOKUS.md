@@ -113,6 +113,13 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 - Die PRs der Nachtschicht werden gemergt, auch die Lernkern-PRs #165, #159, #169 und #170.
 - **Offen beim PV:** G6, Abnahme L, ~~Korrektur von `FV.BR.NICHT-VOLLSTAENDIG`~~ (02.11.: jetzt korrigieren), was mit der alten Prüfseite `NKSgnmWBsS1TpZ6uLLLgwy` ist (mit dem Konto der Sitzung nicht mehr erreichbar).
 
+**Entscheidungen des PV, fünfte Runde (02.11.2026 abends, Strang Grafik):**
+
+- **Epochen 2–4 werden vorgezogen** (vor U4b), alle fünf Themen, Thema für Thema. Anlass: Stufen 4–9 hatten noch den alten Stil.
+- **Eine Stufe, ein Bild:** Stufe 1–3 zeigen in Epoche 2–4 das Bild aus Epoche 1; die alten Fassungen entfallen (`GRAFIK-SPRITES.md` §12.11).
+- **Umriss-Test ab Stufe 4:** Umriss 25 %, Höhe 8 %.
+- **Offen beim PV:** Bleibt Epoche 1 wie abgenommen (Empfehlung), oder werden die heutigen Stufen 2 und 3 zu Stufe 4 und 7 (Vorschlag PV)? Entscheidung an der Probe Bergfried 4–9.
+
 ## Nächste Sitzungen (vorbereitet 02.11.2026)
 
 **Was der PV vorher tut:** G6 mit 2–3 Jugendlichen (https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), Abnahme L (ausprobieren; Wünsche jetzt, danach ist eingefroren), eine Lehrkraft anschreiben (Anschreiben, Beispiel-Arbeitsblatt und `docs/PRUEFSEITE-ANLEITUNG.md` liegen bereit).

@@ -228,7 +228,7 @@ Standard aus (`GRAFIK.md` §4.6). **Stand:** Tip-Geräusche aus Kenney Interface
 | Umgebung (Bäume, Büsche, Steine, Wasserrand) | Raster, Licht, Kontur, Palette, Maßstab | Thema `bastion` |
 | Wesen und Bewohner | Licht, Kontur, Palette, Maßstab | Wesen des Themas `bastion` (Fuchs, Möwe, Wache) |
 | Himmel, Wetter, Auflagen | Palette, weiche Kontur | gemeinsam für alle Themen (§5) |
-| Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5, 12.10) | erst nach U4b |
+| Epochen 2–4 | dieselbe Regel, eigene Materialleiter (12.5, 12.10), eine Stufe ein Bild (12.11) | **vorgezogen vor U4b** (PV, 02.11.2026), Thema für Thema |
 
 Ein Generator heißt: ein gemeinsames Python-Modul mit Raster, Licht, Kontur, Palette und den Grundkörpern (Quader, Pyramide, Zylinder, Kegel, Zinnen, Fenster, Fahne, Banner) aus dem Probestück. Jedes Bild wird daraus zusammengesetzt. So sehen alle Bilder gleich gezeichnet aus, auch wenn sie zu verschiedenen Zeiten entstehen. Gleiche Eingabe ergibt das gleiche Bild (§2, „Kein Zufall“). Wo Abwechslung nötig ist (Grashalme, Steine im Mauerwerk), kommt sie aus einer festen Zahl im Code, nicht aus dem Zufall zur Laufzeit.
 
@@ -423,3 +423,10 @@ Umgebung: Ast-Koralle (`koralle_a`) und Fächer (`koralle_b`) im Wechsel auf den
 | denkmal (Satellit) | 1×1 | grauer Satellit mit Flügeln und Schüssel auf Ständer | – | – | |
 
 Solarflügel dürfen als einzige Teile weiter als 0,2 Feld über den Fußabdruck hinausragen, bleiben aber im Bild. Wesen: Drohne, Roboter. Damit sind alle fünf Themen der Epoche 1 erneuert.
+
+### 12.11 Epochen 2–4 (Entscheidungen PV, 02.11.2026)
+
+- **Vorgezogen:** Die Stufen der Epochen 2–4 (je Thema 15 Bilder: Bergfried 4–9, Studierstube 3–5, Späherturm 3–5, Werkstatt 2–3, Tor 2) werden jetzt im Stil dieser Regel erneuert, alle fünf Themen, Thema für Thema ein PR (bastion, dorf, garten, unterwasser, weltraum).
+- **Eine Stufe, ein Bild:** Eine Stufe sieht in jeder Epoche gleich aus. Ihr Bild liegt in der Epoche, in der sie zuerst baubar ist (`kern_s1` in `e1`, `kern_s4` in `e2` …); spätere Epochen nehmen es über den Epoche-Rückfall (`atlasEintrag`). Die alten P5-Fassungen der Stufen 1–3 in `e2`–`e4` sind entfernt (`tools/grafik/epochen-aufraeumen.py`). Grund: Die Stufe bleibt ohne Ziffer erkennbar (12.6 Nr. 5); ein nicht ausgebauter Holzturm bleibt ein Holzturm.
+- **Messung ab Stufe 4:** Umriss weiter mindestens 25 %, Höhe nur mindestens **8 %** je Stufe (statt 15 %), damit der Bergfried auf Stufe 9 nicht den Bauplatz verdeckt. Offen beim PV, an der Probe Bergfried 4–9: 8 % oder ohne Höhenregel ab Stufe 4.
+- **Wachstum ab Stufe 4:** vor allem im Umriss innerhalb des Fußabdrucks (Mauerring, Ecktürme, Torhaus, zweiter Turm, Kuppel oder Schieferhelm), weniger in der Höhe. Offen beim PV: Epoche 1 bleibt wie abgenommen (Empfehlung) oder heutige Stufe 2 → 4 und 3 → 7.
