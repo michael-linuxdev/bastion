@@ -1,0 +1,27 @@
+# Wirkung einer anderen Klasseneinteilung – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.HISTOGRAMM.EINTEILUNG
+kompetenz: M.DZ.ST.HISTOGRAMM
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: st.einteilung@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Ein Histogramm hat Klassen der Breite {breite}. Man nimmt nun doppelt so breite Klassen. **Was** ändert sich?'
+hilfen:
+  - de: 'Je zwei alte Klassen werden zu einer neuen zusammengelegt.'
+  - de: 'Die Daten bleiben gleich, nur ihre Darstellung ändert sich.'
+fehlerbilder:
+  daten-aendern:
+    de: 'Die Daten bleiben dieselben. Nur die Einteilung ändert sich.'
+    fv: FV.ST.EINTEILUNG
+  gleich:
+    de: 'Zwei Klassen werden zu einer: Die Säulen ändern sich.'
+    fv: FV.ST.EINTEILUNG
+  mehr-saeulen:
+    de: 'Breitere Klassen heißt weniger Klassen, also weniger Säulen.'
+    fv: FV.ST.EINTEILUNG
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,21 @@
+# „Um wie viel Prozent ist der Anteil gestiegen?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ST.MANIPULATION.PROZENTPUNKTE
+kompetenz: M.DZ.ST.MANIPULATION
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: st.prozentpunkte@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{situation} **{frage}**'
+hilfen:
+  - de: 'Der Unterschied der beiden [[Prozentsätze]] ist in Prozentpunkten gemessen.'
+  - de: 'In [[Prozent]]: Unterschied geteilt durch den alten [[Anteil]], mal 100.'
+fehlerbilder:
+  prozentpunkte:
+    de: 'Das ist der Unterschied in Prozentpunkten. Gefragt ist die Änderung in [[Prozent]], bezogen auf den alten [[Anteil]].'
+    fv: FV.ST.PROZENTPUNKTE
+herkunft: ki-entwurf
+version: 1

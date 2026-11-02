@@ -1,0 +1,38 @@
+# Klassen und Histogramm – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ST.HISTOGRAMM
+fach: mathematik
+bereich: daten-und-zufall
+feld: statistik
+titel:
+  de: 'Klassen und Histogramm'
+kann_satz:
+  de: 'Ich kann Daten in Klassen einteilen und als Histogramm darstellen und lesen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.DZ.ST.MITTELWERTE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Werte einer Klasse „von … bis unter …“ zählen.'
+  M:
+    beschreibung:
+      de: 'Ein Histogramm ablesen und Häufigkeiten addieren.'
+  E:
+    beschreibung:
+      de: 'Beschreiben, wie eine andere Klasseneinteilung das Histogramm verändert.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K6
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 4 Auswerten von Daten'
+version: 1

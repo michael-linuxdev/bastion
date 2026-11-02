@@ -1,0 +1,25 @@
+id: FV.ST.EINTEILUNG
+name:
+  de: Erwartet, dass eine andere Klasseneinteilung die Daten ändert oder nichts ändert
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Meint, breitere Klassen änderten den Mittelwert, oder das Histogramm bleibe gleich. Dass nur die Darstellung gröber oder feiner wird, ist nicht verankert.
+kompetenzen: [M.DZ.ST.HISTOGRAMM]
+erklaerung:
+  kurz:
+    de: 'Die Daten bleiben gleich. Breitere Klassen fassen Werte zusammen: weniger, höhere Säulen, gröberes Bild.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Daten und Darstellung vermischt.'
+    - teil: warum-nicht
+      de: 'Beim Zusammenlegen werden Häufigkeiten addiert. Kein Wert kommt hinzu oder fällt weg.'
+    - teil: so-stimmt-es
+      de: 'Lege zwei Nachbarklassen zusammen und addiere ihre Säulen.'
+gegenbeispiel:
+  de: 'Klassen 0–10 mit 3 und 10–20 mit 5 Werten werden zu 0–20 mit 8 Werten.'
+rueckweg:
+  vermittlung: M.DZ.ST.HISTOGRAMM#erklaeren-einteilung
+kontrast: [M.DZ.ST.HISTOGRAMM.EINTEILUNG]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,43 @@
+# Irreführende Statistik – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ST.MANIPULATION
+fach: mathematik
+bereich: daten-und-zufall
+feld: statistik
+titel:
+  de: 'Irreführende Statistik'
+kann_satz:
+  de: 'Ich kann typische Fehler und Täuschungen in Statistiken erkennen: abgeschnittene Achsen, andere Bezugsgrößen, Prozent falsch verwendet, überzogene Genauigkeit.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.DZ.ST.MITTELWERTE
+  - M.ZO.PZ.GRUNDAUFGABEN
+  - M.DZ.DA.DIAGRAMME
+niveaus:
+  G:
+    beschreibung:
+      de: 'Erkennen, was an einer Darstellung oder Aussage irreführend ist.'
+  M:
+    beschreibung:
+      de: 'Prozent und Prozentpunkte unterscheiden und richtig rechnen.'
+  E:
+    beschreibung:
+      de: 'Zu einer irreführenden Darstellung die passende Begründung auswählen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K6
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 4 Beschreibende Statistik'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 4 Auswerten von Daten'
+version: 1

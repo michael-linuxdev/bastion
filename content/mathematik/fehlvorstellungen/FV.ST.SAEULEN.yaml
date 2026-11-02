@@ -1,0 +1,25 @@
+id: FV.ST.SAEULEN
+name:
+  de: Liest ein Histogramm falsch ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Zählt die Säulen statt ihre Höhen zu addieren oder nimmt bei „mindestens“ nur eine Klasse. Dass die Säulenhöhe die Häufigkeit ist, wird nicht genutzt.
+kompetenzen: [M.DZ.ST.HISTOGRAMM]
+erklaerung:
+  kurz:
+    de: 'Jede Säule steht für eine Klasse, ihre [[Höhe]] für die Anzahl der Werte darin. Für eine Gesamtzahl addierst du die Höhen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Säulen gezählt oder nur eine betrachtet.'
+    - teil: warum-nicht
+      de: 'Vier Säulen heißt vier Klassen, nicht vier Werte.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die [[Höhe]] jeder Säule auf und addiere die passenden.'
+gegenbeispiel:
+  de: 'Säulen der [[Höhe]] 3, 5 und 2: zehn Werte, nicht drei.'
+rueckweg:
+  vermittlung: M.DZ.ST.HISTOGRAMM#erklaeren-klassen
+kontrast: [M.DZ.ST.HISTOGRAMM.ABLESEN]
+herkunft: ki-entwurf
+version: 1

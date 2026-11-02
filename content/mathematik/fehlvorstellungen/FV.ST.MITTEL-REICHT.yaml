@@ -1,0 +1,25 @@
+id: FV.ST.MITTEL-REICHT
+name:
+  de: Meint, gleiches Mittel bedeute gleiche Daten
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält zwei Datenreihen mit gleichem Mittelwert für gleichwertig. Dass sie sehr verschieden streuen können, wird übersehen.
+kompetenzen: [M.DZ.ST.STREUUNG]
+erklaerung:
+  kurz:
+    de: 'Das Mittel sagt, wo die Daten im Schnitt liegen. Die Streuung sagt, wie weit sie auseinander liegen. Beides gehört zur Beschreibung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf das Mittel geschaut.'
+    - teil: warum-nicht
+      de: 'Die Reihen 5; 5; 5 und 0; 5; 10 haben beide das Mittel 5, sind aber ganz verschieden.'
+    - teil: so-stimmt-es
+      de: 'Vergleiche zusätzlich ein Streumaß, zum Beispiel die Spannweite.'
+gegenbeispiel:
+  de: 'Zwei Klassen mit Durchschnittsnote 3: In einer haben alle eine 3, in der anderen nur Einsen und Fünfen.'
+rueckweg:
+  vermittlung: M.DZ.ST.STREUUNG#erklaeren-vergleich
+kontrast: [M.DZ.ST.STREUUNG.VERGLEICH]
+herkunft: ki-entwurf
+version: 1

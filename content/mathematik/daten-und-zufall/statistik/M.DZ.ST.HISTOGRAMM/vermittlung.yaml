@@ -1,0 +1,86 @@
+id: M.DZ.ST.HISTOGRAMM
+kompetenz: M.DZ.ST.HISTOGRAMM
+niveau: G
+dauer_min: 8
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du viele Daten in Klassen einteilen und ein Histogramm lesen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Zahlen gehören zu „10 bis unter 20“?'
+    antwort:
+      optionen:
+        - { wert: { de: '10 bis 19' }, richtig: true }
+        - { wert: { de: '11 bis 20' }, fv: FV.ST.KLASSENGRENZE }
+    weiter: entdecken
+    bei: { FV.ST.KLASSENGRENZE: erklaeren-klassen, sonst: M.DZ.ST.MITTELWERTE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Daten: 12; 18; 20; 25; 15. Wie viele liegen in der Klasse „10 bis unter 20“?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '4', fv: FV.ST.KLASSENGRENZE }] }
+    weiter: erklaeren-klassen
+  - id: erklaeren-klassen
+    typ: erklaeren
+    text:
+      de: 'Bei vielen Daten fasst man Werte in Klassen zusammen: „10 bis unter 20“ enthält 10, aber nicht 20. Im Histogramm ist jede Klasse eine Säule, ihre [[Höhe]] die Anzahl der Werte.'
+    weiter: erklaeren-einteilung
+  - id: erklaeren-einteilung
+    typ: erklaeren
+    text:
+      de: 'Breitere Klassen fassen mehr zusammen: weniger, höhere Säulen, gröberes Bild. Schmalere Klassen zeigen mehr Einzelheiten. Die Daten bleiben gleich.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Säulen der [[Höhe]] 2, 5, 3 für die Klassen 0–10, 10–20, 20–30: insgesamt 10 Werte, davon 8 mindestens 10.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Histogramm hat Säulen der [[Höhe]] 4, 6 und 1. Wie viele Werte sind es insgesamt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '11', fehler: [{ wert: '3', fv: FV.ST.SAEULEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.ST.SAEULEN: erklaeren-klassen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Nina sagt: „Mit breiteren Klassen ändert sich der Mittelwert der Daten.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, die Daten bleiben gleich. Nur die Darstellung wird gröber.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, die Werte werden anders verteilt.' }, fv: FV.ST.EINTEILUNG }
+    weiter: merksatz
+    bei: { FV.ST.EINTEILUNG: erklaeren-einteilung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '„von … bis unter …“: untere Grenze dazu, obere nicht. Säulenhöhe ist Anzahl. Breitere Klassen: weniger, höhere Säulen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Zu welcher Klasse gehört der Wert 30?'
+    antwort:
+      optionen:
+        - { wert: { de: '30 bis unter 40' }, richtig: true }
+        - { wert: { de: '20 bis unter 30' }, fv: FV.ST.KLASSENGRENZE }
+    weiter: uebergang
+    bei: { FV.ST.KLASSENGRENZE: erklaeren-klassen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt arbeitest du selbst mit Klassen.'
+    vorlagen: [M.DZ.ST.HISTOGRAMM.KLASSE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

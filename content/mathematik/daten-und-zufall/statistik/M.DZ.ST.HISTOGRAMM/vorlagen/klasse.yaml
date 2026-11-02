@@ -1,0 +1,24 @@
+# „Wie viele Werte liegen in der Klasse 20 bis unter 30?“ Entwurf: noch nicht geprüft.
+id: M.DZ.ST.HISTOGRAMM.KLASSE
+kompetenz: M.DZ.ST.HISTOGRAMM
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: st.klasse@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Daten: {werte}. **Wie viele** Werte liegen in der Klasse „{von} bis unter {bis}“?'
+hilfen:
+  - de: '„Bis unter“ heißt: Die untere Grenze gehört dazu, die obere nicht.'
+  - de: 'Ordne die Werte oder gehe sie einzeln durch und mache Striche.'
+fehlerbilder:
+  grenze-doppelt:
+    de: 'Die obere Grenze gehört nicht zur Klasse, sondern zur nächsten. Sonst würde sie doppelt gezählt.'
+    fv: FV.ST.KLASSENGRENZE
+  grenze-vergessen:
+    de: 'Die untere Grenze gehört zur Klasse dazu.'
+    fv: FV.ST.KLASSENGRENZE
+herkunft: ki-entwurf
+version: 1

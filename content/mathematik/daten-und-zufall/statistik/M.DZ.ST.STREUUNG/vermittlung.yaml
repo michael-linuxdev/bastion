@@ -1,0 +1,83 @@
+id: M.DZ.ST.STREUUNG
+kompetenz: M.DZ.ST.STREUUNG
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du messen, wie weit Daten auseinander liegen: mit Spannweite und Standardabweichung.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie groß ist das [[arithmetische Mittel]] von 4; 6; 8?'
+    antwort:
+      optionen:
+        - { wert: { de: '6' }, richtig: true }
+        - { wert: { de: '18' }, fv: FV.ST.MITTELWERT-ART }
+    weiter: entdecken
+    bei: { FV.ST.MITTELWERT-ART: M.DZ.ST.MITTELWERTE, sonst: M.DZ.ST.MITTELWERTE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Gruppe A: 5; 5; 5. Gruppe B: 0; 5; 10. Beide haben das Mittel 5. Wie groß ist in Gruppe B der Abstand zwischen größtem und kleinstem Wert?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '0', fv: FV.ST.MITTEL-REICHT }] }
+    weiter: erklaeren-vergleich
+  - id: erklaeren-vergleich
+    typ: erklaeren
+    text:
+      de: 'Gleiches Mittel heißt nicht gleiche Daten. Die Streuung sagt, wie weit die Werte auseinander liegen. Einfachstes Streumaß: die Spannweite, größter minus kleinster Wert.'
+    weiter: erklaeren-streuung
+  - id: erklaeren-streuung
+    typ: erklaeren
+    text:
+      de: 'Genauer misst die Standardabweichung: Abweichungen vom Mittel quadrieren, davon das Mittel nehmen (Varianz), dann die [[Wurzel]] ziehen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Daten 2; 4; 6: Mittel 4, Abweichungen $-2$, 0, 2, Quadrate 4, 0, 4. Varianz $\frac{8}{3} \approx 2{,}7$, Standardabweichung $\approx 1{,}6$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Bestimme die Spannweite von 12; 3; 8; 15.'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '15', fv: FV.ST.STREUMASS }] }
+    weiter: gegenbeispiel
+    bei: { FV.ST.STREUMASS: erklaeren-streuung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ella sagt: „Die Varianz 9 ist die Standardabweichung.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Standardabweichung ist die Wurzel daraus: 3.' }, richtig: true }
+        - { wert: { de: 'Ja, beide sind dasselbe.' }, fv: FV.ST.STREUMASS }
+    weiter: merksatz
+    bei: { FV.ST.STREUMASS: erklaeren-streuung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Spannweite: Maximum minus Minimum. Standardabweichung: [[Wurzel]] aus dem Mittel der quadrierten Abweichungen. Zum Vergleich von Daten gehören Mittel und Streuung.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Zwei Reihen haben das Mittel 10. Reihe A streut wenig, Reihe B stark. Was folgt daraus?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Die Werte von A liegen enger beieinander.' }, richtig: true }
+        - { wert: { de: 'A und B sind gleich, das Mittel ist gleich.' }, fv: FV.ST.MITTEL-REICHT }
+    weiter: uebergang
+    bei: { FV.ST.MITTEL-REICHT: erklaeren-vergleich }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst Streumaße.'
+    vorlagen: [M.DZ.ST.STREUUNG.BESTIMMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

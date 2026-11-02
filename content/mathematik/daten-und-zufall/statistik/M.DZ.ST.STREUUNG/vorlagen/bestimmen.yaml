@@ -1,0 +1,28 @@
+# Spannweite, Standardabweichung. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.STREUUNG.BESTIMMEN
+kompetenz: M.DZ.ST.STREUUNG
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: st.streuung@1
+parameter:
+  G: { sigma: false }
+  M: { sigma: true }
+text:
+  aufgabe:
+    de: 'Daten: {werte}. **Bestimme** {gesucht}. Runde, wenn nötig, auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Spannweite: größter minus kleinster Wert.'
+  - de: 'Standardabweichung: Abweichungen vom Mittelwert quadrieren, Mittelwert davon bilden (Varianz), dann die [[Wurzel]].'
+fehlerbilder:
+  maximum:
+    de: 'Das ist der größte Wert. Ziehe noch den kleinsten ab.'
+    fv: FV.ST.STREUMASS
+  varianz-statt-sigma:
+    de: 'Das ist die Varianz. Die Standardabweichung ist ihre [[Wurzel]].'
+    fv: FV.ST.STREUMASS
+  ohne-quadrat:
+    de: 'Die Abweichungen werden quadriert, nicht nur ohne [[Vorzeichen]] gemittelt.'
+    fv: FV.ST.STREUMASS
+herkunft: ki-entwurf
+version: 1

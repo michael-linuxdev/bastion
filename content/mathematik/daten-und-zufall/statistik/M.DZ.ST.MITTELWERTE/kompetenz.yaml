@@ -1,0 +1,42 @@
+# Mittelwerte – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ST.MITTELWERTE
+fach: mathematik
+bereich: daten-und-zufall
+feld: statistik
+titel:
+  de: 'Mittelwerte'
+kann_satz:
+  de: 'Ich kann Modalwert, Median (Zentralwert) und arithmetisches Mittel bestimmen und entscheiden, welcher Mittelwert zu den Daten passt.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.DZ.DA.MITTELWERT
+  - M.DZ.DA.DIAGRAMME
+niveaus:
+  G:
+    beschreibung:
+      de: 'Modalwert und Median einer ungeraden Anzahl von Werten bestimmen.'
+  M:
+    beschreibung:
+      de: 'Median auch bei gerader Anzahl; arithmetisches Mittel, gerundet.'
+  E:
+    beschreibung:
+      de: 'Bei Ausreißern entscheiden, welcher Mittelwert die Daten gut beschreibt.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K6
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 4 Beschreibende Statistik'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 4 Auswerten von Daten'
+version: 1

@@ -1,0 +1,27 @@
+# Gleiches Mittel, andere Streuung – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.STREUUNG.VERGLEICH
+kompetenz: M.DZ.ST.STREUUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: st.streuung-vergleich@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Zwei Gruppen haben dieselbe durchschnittliche Punktzahl. Gruppe A: {a}. Gruppe B: {b}. **Welche** Gruppe hat gleichmäßigere Ergebnisse?'
+hilfen:
+  - de: 'Das Mittel ist gleich. Vergleiche, wie weit die Werte um das Mittel streuen.'
+  - de: 'Ein einfaches Streumaß ist die Spannweite.'
+fehlerbilder:
+  mittel-reicht:
+    de: 'Gleiches Mittel heißt nicht gleiche Streuung. Schau, wie weit die Werte auseinander liegen.'
+    fv: FV.ST.MITTEL-REICHT
+  groesser-besser:
+    de: 'Gefragt ist nicht, wo es große Werte gibt, sondern wo die Werte eng beieinander liegen.'
+    fv: FV.ST.MITTEL-REICHT
+  anzahl:
+    de: 'Die Werte stehen da: In beiden Gruppen sind es fünf. Man kann die Streuung direkt vergleichen.'
+    fv: FV.ST.MITTEL-REICHT
+herkunft: ki-entwurf
+version: 1
