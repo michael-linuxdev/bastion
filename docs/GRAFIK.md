@@ -454,3 +454,8 @@ Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höher
 **Ausbau-Moment (02.11.2026):** Wird eine Stufe fertig, erscheint das neue Bild sanft (dieselbe ruhige Einblendung wie bei einem Neubau, kein Konfetti, keine Truhe, R1). Bei „Bewegung reduzieren“ wechselt das Bild ohne Einblendung. Der weiche Bau-Klang beim Ausbauen gab es schon (Sound-Stufen beachtet). Die Kamera bleibt, wo sie ist – man schaut beim Ausbauen per Antippen ohnehin auf das Gebäude.
 
 Offen in G4: Staub-Wölkchen beim Fertigwerden (nur bei „leicht“); eine Statusgeste eines Bewohners.
+
+
+### Himmel über dem Bauplatz wächst mit der Epoche (02.11.2026)
+
+Die Bühne lässt über dem Bauplatz so viel Himmel, wie der höchste Turm an der hinteren Ecke braucht: 160 / 210 / 250 / 310 Bildpunkte für 12×12 / 16×16 / 20×20 / 24×24 (`himmelFuer` in `src/ui/bastion/grafik/iso.ts`). Vorher waren es fest 120, und hohe Stufen wurden oben abgeschnitten. Der Bergfried steht seit B-32 in der Mitte und braucht weniger.
