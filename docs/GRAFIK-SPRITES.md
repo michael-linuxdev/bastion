@@ -505,3 +505,14 @@ Solarflügel dürfen als einzige Teile weiter als 0,2 Feld über den Fußabdruck
 | turm | 3 / 4 / 5 | Leuchtturm mit zwei Galerien / Korallensockel und Glaskuppel / sehr hoher Turm mit Glaskugel |
 | werkstatt | 2 / 3 | Dock mit U-Boot und Kran / Werfthalle mit Glasdach und Portalkran |
 | eingang | 2 | große Schleuse mit Glaskuppel und Lampenmasten |
+
+### 12.12 Qualität: vierfach gezeichnet, feinere Materialien (Wunsch PV, 02.11.2026)
+
+Gilt für alle Bilder des G3-Generators (`tools/grafik/g3_stil.py`). Maße, Fußpunkte und IDs bleiben; die App lädt unverändert.
+
+- **Vierfach zeichnen:** Gebäude, Umgebung, Kulisse-Dinge, Boden-Kacheln und der Horizont der Kulisse werden intern vierfach gezeichnet (`S = 4`) und weich verkleinert, wie schon die Wesen (`W_S`), der Himmel und der Hinterhof. Die Skripte rechnen weiter in einfachen Bildpunkten; `Zeichner` vergrößert jede Form und jede Linienbreite. Beim Boden bleibt die Kante der Raute hart, damit zwischen den Kacheln keine Fugen entstehen.
+- **Kontur mischt:** Konturen und Linien mit Deckkraft unter 255 dunkeln die Fläche ab (vorher stanzten sie durchsichtige Linien in das Bild, durch die der Boden schien).
+- **Materialien** (feste Zahlenfolge `zahl(…)`, kein Zufall): Steinquader je Stein ein leicht anderer Ton mit Lichtsaum oben und Schattensaum unten; Holz mit feiner, welliger Maserung und Astlöchern; Ziegel- und Schieferdächer in Reihen mit Schatten unter jeder Reihe und versetzten Stoßfugen, Grat und First im Licht; Fenster mit Laibung, Sprossen, mattem Glanz und Sims (Sprossen auch auf der Abend-Ebene); Türen mit Brettern, zwei Eisenbändern, Ring und Schwelle.
+- **Weiche Eigenschatten** (`Iso.abdunkeln`, dunkelt nur schon Gezeichnetes ab, nie die Luft): Dachüberstand auf der Wand (Pyramide, Satteldach, Kegel auf dem Rundturm), Körper auf dem, worauf er steht (Turm auf Mauer, Aufsatz auf Kranz), Wandfuß etwas dunkler.
+- **Dateigröße:** Gebäude, Umgebung und Kulisse-Dinge werden als Palette-PNG mit 256 Farben gespeichert (fein gestreut). So bleibt der Atlas trotz der feineren Bilder etwa so groß wie vorher. `atlas-stufen.test.ts` liest dafür auch Palette-PNGs.
+- **Umriss-Test:** Die alten Bilder hatten durch die gestanzten Konturen Löcher im Umriss; das hob den gemessenen Unterschied zwischen zwei Stufen künstlich an. Mit geschlossenen Konturen liegen neun Übergänge knapp unter der Grenze (siehe `GRAFIK.md` §14). Sie lagen auch vorher schon darunter, wenn man die Löcher füllt.

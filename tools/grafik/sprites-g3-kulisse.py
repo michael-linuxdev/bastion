@@ -57,8 +57,8 @@ STIMMUNGEN = {
 
 
 def horizont(s: dict) -> Image.Image:
-    bild = Image.new("RGBA", (B, H_HORIZONT), (0, 0, 0, 0))
-    d = ImageDraw.Draw(bild)
+    gross = Image.new("RGBA", (B * S, H_HORIZONT * S), (0, 0, 0, 0))
+    d = Zeichner(gross, S)  # vierfach zeichnen (§12.12)
     grund = 236  # hier beginnt das Meer
     # ferne Hügel, im Dunst
     pts = [(x, 128 + welle(x, ((3, 26, 0.4), (7, 13, 1.9), (17, 5, 0.2)))) for x in range(0, B + 1, 4)]
@@ -80,6 +80,11 @@ def horizont(s: dict) -> Image.Image:
             d.rectangle([x - 2, y + 6, x + 2, y + 10], fill=s["licht"])
     # Ufer: das Meer beginnt
     d.rectangle([0, grund, B, H_HORIZONT], fill=s["meer"])
+    # nahtlos verkleinern: dreifach nebeneinander, die Mitte bleibt
+    dreifach = Image.new("RGBA", (3 * gross.width, gross.height))
+    for k in range(3):
+        dreifach.paste(gross, (k * gross.width, 0))
+    bild = dreifach.resize((3 * B, H_HORIZONT), Image.LANCZOS).crop((B, 0, 2 * B, H_HORIZONT))
     # Dunst-Saum über der Wasserlinie
     dunst = Image.new("RGBA", bild.size, (0, 0, 0, 0))
     dd = ImageDraw.Draw(dunst)
@@ -119,7 +124,7 @@ def sterne() -> Image.Image:
 # —— Dinge im Meer (gleiche Grundkörper wie die Gebäude, g3_stil) ————————————
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from g3_stil import GRAU, HOLZ, HOLZ_FUGE, KONTUR, SOCKEL, STEIN, Iso, erzeuge_mit, hell, krone  # noqa: E402
+from g3_stil import GRAU, HOLZ, HOLZ_FUGE, KONTUR, S, SOCKEL, STEIN, Iso, Zeichner, erzeuge_mit, hell, krone, speichere_palette  # noqa: E402
 
 GISCHT = (236, 246, 248, 200)
 SAND = (214, 196, 150)
@@ -194,7 +199,7 @@ def main() -> int:
     (ZIEL / thema / "dinge").mkdir(parents=True, exist_ok=True)
     for name, zeichne in DINGE.items():
         bild, _ = erzeuge_mit(zeichne, 1, 160)
-        bild.save(ZIEL / thema / "dinge" / f"{name}.png", optimize=True)
+        speichere_palette(bild, ZIEL / thema / "dinge" / f"{name}.png")
         print(name, bild.size)
     return 0
 

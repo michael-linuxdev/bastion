@@ -14,8 +14,9 @@
  *
  * Gleiche Messung wie `pnpm grafik:stufen` (tools/grafik/stufen-vergleich.py).
  * Der Test gilt nur für erneuerte Chargen und wächst Charge für Charge (G3).
- * PNGs werden ohne Zusatzpaket gelesen: nur 8 Bit RGBA ohne Zeilensprung,
- * so wie die Generatoren (Pillow) sie schreiben.
+ * PNGs werden ohne Zusatzpaket gelesen: nur 8 Bit RGBA oder 8 Bit Palette mit
+ * Deckkraft-Tabelle (tRNS), ohne Zeilensprung, so wie die Generatoren (Pillow) sie
+ * schreiben (Gebäude seit §12.12 als Palette).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -96,6 +97,8 @@ function pngMaske(pfad: string): Maske {
   let pos = 8;
   let w = 0;
   let h = 0;
+  let farbtyp = 6;
+  let deckkraft: Uint8Array = new Uint8Array(0);
   const idat: Buffer[] = [];
   while (pos < roh.length) {
     const laenge = roh.readUInt32BE(pos);
@@ -107,14 +110,16 @@ function pngMaske(pfad: string): Maske {
       const tiefe = daten[8];
       const farbe = daten[9];
       const zeilensprung = daten[12];
-      if (tiefe !== 8 || farbe !== 6 || zeilensprung !== 0)
-        throw new Error(`${pfad}: nur 8 Bit RGBA ohne Zeilensprung`);
-    } else if (typ === 'IDAT') idat.push(daten);
+      if (tiefe !== 8 || (farbe !== 6 && farbe !== 3) || zeilensprung !== 0)
+        throw new Error(`${pfad}: nur 8 Bit RGBA oder Palette ohne Zeilensprung`);
+      farbtyp = farbe ?? 6;
+    } else if (typ === 'tRNS') deckkraft = new Uint8Array(daten);
+    else if (typ === 'IDAT') idat.push(daten);
     else if (typ === 'IEND') break;
     pos += 12 + laenge;
   }
   const daten = inflateSync(Buffer.concat(idat));
-  const bpp = 4;
+  const bpp = farbtyp === 3 ? 1 : 4;
   const zeile = w * bpp;
   const px = new Uint8Array(h * zeile);
   for (let y = 0; y < h; y++) {
@@ -141,7 +146,11 @@ function pngMaske(pfad: string): Maske {
     }
   }
   const an = new Uint8Array(w * h);
-  for (let i = 0; i < w * h; i++) an[i] = (px[i * 4 + 3] ?? 0) >= ALPHA_GRENZE ? 1 : 0;
+  for (let i = 0; i < w * h; i++) {
+    // Palette: Deckkraft aus tRNS (fehlt ein Eintrag, ist die Farbe deckend)
+    const alpha = farbtyp === 3 ? (deckkraft[px[i] ?? 0] ?? 255) : (px[i * 4 + 3] ?? 0);
+    an[i] = alpha >= ALPHA_GRENZE ? 1 : 0;
+  }
   return { w, h, an };
 }
 

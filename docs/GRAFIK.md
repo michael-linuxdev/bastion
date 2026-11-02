@@ -472,3 +472,10 @@ Statt der leeren Himmelsfläche liegt hinter dem Bauplatz eine Kulisse, die das 
 - **Bilder:** `tools/grafik/sprites-g3-kulisse.py` → `public/grafik/atlas/kulisse/<thema>/…` (Stimmungen, `dinge/`).
 - **Nebenbei behoben:** Der Rahmen des Bauplatz-Bilds und das Einpassen der Kamera nahmen bisher immer die Größe 12×12 (`buehneBreite()` ohne Neuberechnung). In Epoche 2–4 wurde das Bild darum gestaucht. Jetzt rechnen Rahmen, Kamera und Kulisse mit dem Bauplatz der Epoche (`buehneFuer(bauplatz)`).
 - **Stand:** nur Thema `bastion`. Die anderen Themen folgen mit eigenen Dingen (Felder und Hecken, Riff, Planet).
+
+## 14. Sprites in höherer Qualität (Wunsch PV, 02.11.2026, Auftrag Punkt 1)
+
+Regeln und Technik: `GRAFIK-SPRITES.md` §12.12. Stand 03.11.2026: **Generator fertig, wartet auf die Freigabe des PV** (Vorher/Nachher-Blatt je Thema und Fotos aus der App). Erst danach werden die Bilder des Atlas neu geschrieben („in die Breite“).
+
+- **Größe:** ganzer Atlas etwa 4,7 MB → etwa 5,4 MB (Gebäude als Palette-PNG; ohne Palette wären es 11 MB).
+- **Offen beim PV – Umriss-Test:** Mit geschlossenen Konturen liegen neun Stufen-Übergänge knapp unter der Grenze aus §12.6/§12.11: `kern` 7→8 und 8→9 (`bastion`, `dorf`), `kern` 5→6 (`dorf`, `unterwasser`), `kern` 8→9 (`unterwasser`), `wissen` 2→3 (`bastion`, `dorf`). Gemessen 0,079–0,097 statt 0,10 bzw. 0,20–0,21 statt 0,25. Sie lagen auch vorher darunter; nur die durchsichtigen Konturlinien hoben die Messung über die Grenze.
