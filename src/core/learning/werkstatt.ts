@@ -106,5 +106,7 @@ export function antwortText(
       return `(${zahlText(antwort.wert.x)} | ${zahlText(antwort.wert.y)})`;
     case 'mit-rest':
       return `${zahlText(antwort.wert.quotient)} Rest ${zahlText(antwort.wert.rest)}`;
+    case 'felder':
+      return antwort.wert.length === 0 ? 'keine Lösung' : antwort.wert.map(zahlText).join('; ');
   }
 }

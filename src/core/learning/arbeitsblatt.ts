@@ -160,6 +160,8 @@ export function loesungAlsText(l: Loesung, optionen?: Instanz['optionen']): stri
       return `(${zahlText(l.wert.x)} | ${zahlText(l.wert.y)})`;
     case 'mit-rest':
       return `${zahlText(l.wert.quotient)} Rest ${zahlText(l.wert.rest)}`;
+    case 'felder':
+      return l.wert.length === 0 ? 'keine Lösung' : l.wert.map(zahlText).join('; ');
   }
 }
 

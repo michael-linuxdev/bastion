@@ -3,6 +3,7 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import type { Bild, Generator, Instanz, Loesung } from '../core/learning/generator';
+import { rundeAuf } from '../core/learning/auswertung';
 import { gleicheLoesung } from '../core/learning/loesung';
 import { musterweg, pruefeSchritt } from '../core/learning/zwischenschritte';
 
@@ -93,6 +94,15 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
                 }
                 for (const f of instanz.fehlerbilder) {
                   expect(generator.fehlerbildIds).toContain(f.id);
+                }
+                // Gerundetes Ergebnis (B3): Lösung ist der gerundete genaue Wert
+                if (instanz.runden) {
+                  expect(instanz.loesung.typ).toBe('zahl');
+                  if (instanz.loesung.typ === 'zahl')
+                    expect(instanz.loesung.wert).toBeCloseTo(
+                      rundeAuf(instanz.runden.genau, instanz.runden.stellen),
+                      9,
+                    );
                 }
               }),
               { numRuns: laeufe },

@@ -21,6 +21,12 @@ export function gleicheLoesung(a: Loesung, b: Loesung): boolean {
       return (
         b.typ === 'mit-rest' && a.wert.quotient === b.wert.quotient && a.wert.rest === b.wert.rest
       );
+    case 'felder':
+      return (
+        b.typ === 'felder' &&
+        a.wert.length === b.wert.length &&
+        a.wert.every((x, i) => x === b.wert[i])
+      );
   }
 }
 

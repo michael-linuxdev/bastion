@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { auswerten, leseBruch, leseFaktoren, leseUhrzeit, leseZahl } from './auswertung';
+import { auswerten, leseBruch, leseFaktoren, leseUhrzeit, leseZahl, rundeAuf } from './auswertung';
 import { bruch } from './bruch';
 import type { Instanz } from './generator';
 
@@ -109,5 +109,91 @@ describe('auswerten', () => {
     expect(auswerten(a, { typ: 'auswahl', wert: 1 })).toEqual({ richtig: false });
     const p: Instanz = { ...a, loesung: { typ: 'punkt', wert: { x: 2, y: 5 } } };
     expect(auswerten(p, { typ: 'punkt', wert: { x: 5, y: 2 } })).toEqual({ richtig: false });
+  });
+});
+
+describe('gerundete Ergebnisse (B3)', () => {
+  // √13 ≈ 3,6056 – verlangt: auf zwei Stellen
+  const instanz: Instanz = {
+    platzhalter: {},
+    loesung: { typ: 'zahl', wert: 3.61 },
+    runden: { stellen: 2, genau: Math.sqrt(13) },
+    loesungsweg: [],
+    fehlerbilder: [{ id: 'quadrat-vergessen', antwort: { typ: 'zahl', wert: 13 } }],
+  };
+  const zahl = (wert: number) => ({ typ: 'zahl', wert }) as const;
+
+  it('richtig gerundet ist richtig', () => {
+    expect(auswerten(instanz, zahl(3.61))).toEqual({ richtig: true });
+  });
+
+  it('abgeschnitten oder genauer: Hinweis „anders gerundet“', () => {
+    expect(auswerten(instanz, zahl(3.6))).toEqual({ richtig: false, hinweis: 'anders-gerundet' });
+    expect(auswerten(instanz, zahl(3.606))).toEqual({
+      richtig: false,
+      hinweis: 'anders-gerundet',
+    });
+  });
+
+  it('weit weg bleibt falsch, Fehlerbilder werden weiter erkannt', () => {
+    expect(auswerten(instanz, zahl(3.5))).toEqual({ richtig: false });
+    expect(auswerten(instanz, zahl(13))).toEqual({
+      richtig: false,
+      fehlerbild: 'quadrat-vergessen',
+    });
+  });
+
+  it('ohne Angabe zum Runden kein Hinweis', () => {
+    const ohne: Instanz = {
+      platzhalter: {},
+      loesung: instanz.loesung,
+      loesungsweg: [],
+      fehlerbilder: instanz.fehlerbilder,
+    };
+    expect(auswerten(ohne, zahl(3.6))).toEqual({ richtig: false });
+  });
+
+  it('rundeAuf rundet wie in der Schule, auch bei x,xx5', () => {
+    expect(rundeAuf(2.675, 2)).toBe(2.68);
+    expect(rundeAuf(1.005, 2)).toBe(1.01);
+    expect(rundeAuf(-2.5, 0)).toBe(-3);
+    expect(rundeAuf(Math.PI, 3)).toBe(3.142);
+  });
+});
+
+describe('mehrere Felder (B2)', () => {
+  const zwei: Instanz = {
+    platzhalter: {},
+    loesung: { typ: 'felder', wert: [-3, 2] },
+    felder: { namen: [{ de: 'x₁ =' }, { de: 'x₂ =' }], ungeordnet: true, keineLoesung: true },
+    loesungsweg: [],
+    fehlerbilder: [
+      { id: 'vorzeichen', antwort: { typ: 'felder', wert: [-2, 3] } },
+      { id: 'keine', antwort: { typ: 'felder', wert: [] } },
+    ],
+  };
+  const felder = (...wert: number[]) => ({ typ: 'felder', wert }) as const;
+
+  it('Reihenfolge egal, wenn ungeordnet', () => {
+    expect(auswerten(zwei, felder(2, -3))).toEqual({ richtig: true });
+    expect(auswerten(zwei, felder(-3, 2))).toEqual({ richtig: true });
+  });
+
+  it('Fehlerbilder auch in anderer Reihenfolge, „keine Lösung“ als leere Liste', () => {
+    expect(auswerten(zwei, felder(3, -2))).toEqual({ richtig: false, fehlerbild: 'vorzeichen' });
+    expect(auswerten(zwei, felder())).toEqual({ richtig: false, fehlerbild: 'keine' });
+  });
+
+  it('mit fester Reihenfolge (Scheitelpunkt) zählt die Reihenfolge', () => {
+    const scheitel: Instanz = {
+      platzhalter: {},
+      loesung: { typ: 'felder', wert: [1, -2] },
+      felder: { namen: [{ de: 'x =' }, { de: 'y =' }] },
+      loesungsweg: [],
+      fehlerbilder: [],
+    };
+    expect(auswerten(scheitel, felder(1, -2))).toEqual({ richtig: true });
+    expect(auswerten(scheitel, felder(-2, 1))).toEqual({ richtig: false });
+    expect(auswerten(scheitel, felder(1))).toEqual({ richtig: false });
   });
 });
