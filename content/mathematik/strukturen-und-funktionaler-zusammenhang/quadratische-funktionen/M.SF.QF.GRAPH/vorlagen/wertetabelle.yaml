@@ -1,0 +1,28 @@
+# „Berechne f(−3) für f(x) = x² − 4.“ Entwurf: noch nicht geprüft.
+id: M.SF.QF.GRAPH.WERTETABELLE
+kompetenz: M.SF.QF.GRAPH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: qf.wertetabelle@1
+parameter:
+  G: { faktoren: [1] }
+  M: { faktoren: [-2, -1, 0.5, 2] }
+text:
+  aufgabe:
+    de: '**Berechne** $f({x})$ für ${funktion}$.'
+hilfen:
+  - de: 'Setze die Zahl für x ein, mit Klammer: $f(-3) = (-3)^2 - 4$.'
+  - de: 'Erst quadrieren, dann mit der Zahl vor $x^2$ malnehmen, zuletzt addieren.'
+fehlerbilder:
+  minus-quadrat:
+    de: 'Ein Quadrat ist nie negativ: $(-3)^2 = (-3) \cdot (-3) = 9$. Setze die [[negative Zahl]] mit Klammer ein.'
+    fv: FV.RZ.POTENZ-KLAMMER
+  mal-zwei:
+    de: 'Du hast mit 2 malgenommen. Quadrieren heißt: die Zahl mit sich selbst malnehmen.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
+  faktor-vergessen:
+    de: 'Nimm das Quadrat noch mit der Zahl vor $x^2$ mal.'
+    fv: FV.QF.FAKTOR
+herkunft: ki-entwurf
+version: 1

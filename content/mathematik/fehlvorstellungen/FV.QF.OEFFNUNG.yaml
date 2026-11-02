@@ -1,0 +1,26 @@
+id: FV.QF.OEFFNUNG
+name:
+  de: Übersieht, wohin die Parabel geöffnet ist
+art: falsche-regel
+beschreibung:
+  de: >-
+    Hält den Scheitelpunkt immer für den tiefsten Punkt, auch bei y = −x² + 3. Dass ein negativer
+    Faktor vor x² die Parabel nach unten öffnet, ist nicht im Blick.
+kompetenzen: [M.SF.QF.GRAPH, M.SF.QF.SCHEITEL]
+erklaerung:
+  kurz:
+    de: 'Ein Minus vor $x^2$ öffnet die [[Parabel]] nach unten. Dann ist der [[Scheitelpunkt]] der höchste Punkt: ein Maximum.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dir die Normalparabel vorgestellt, die nach oben geöffnet ist.'
+    - teil: warum-nicht
+      de: '$-x^2$ ist nie positiv. Für $y = -x^2 + 3$ ist 3 also der größte Wert, alle anderen sind kleiner.'
+    - teil: so-stimmt-es
+      de: 'Schau zuerst auf das [[Vorzeichen]] vor $x^2$: plus heißt nach oben (Minimum), minus heißt nach unten (Maximum).'
+gegenbeispiel:
+  de: '$y = -x^2 + 3$: Bei $x = 1$ ist $y = 2$, also kleiner als 3. Der [[Scheitelpunkt]] $(0|3)$ ist oben.'
+rueckweg:
+  vermittlung: M.SF.QF.GRAPH#erklaeren-faktor
+kontrast: [M.SF.QF.SCHEITEL.EXTREMUM, M.SF.QF.GRAPH.AUSSAGE]
+herkunft: ki-entwurf
+version: 1

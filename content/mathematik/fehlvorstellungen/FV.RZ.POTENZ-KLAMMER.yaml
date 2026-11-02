@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet −4² = 16 oder (−4)² = −16. Dass die Hochzahl ohne Klammer nur zur 4 gehört und mit
     Klammer zur ganzen Zahl −4, wird übersehen.
-kompetenzen: [M.ZO.RZ.POTENZEN, M.SF.GL.TERMWERT, M.SF.FK.BEGRIFF]
+kompetenzen: [M.ZO.RZ.POTENZEN, M.SF.GL.TERMWERT, M.SF.FK.BEGRIFF, M.SF.QF.GRAPH]
 erklaerung:
   kurz:
     de: 'Mit Klammer gehört das Minus zur Zahl: (−4)² = (−4) · (−4) = 16. Ohne Klammer gilt die [[Hochzahl]] nur für die 4: −4² = −16.'

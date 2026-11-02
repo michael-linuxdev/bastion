@@ -1,0 +1,27 @@
+id: FV.QF.SCHEITEL-VORZEICHEN
+name:
+  de: Liest das Vorzeichen in der Scheitelform falsch
+art: lesefehler
+beschreibung:
+  de: >-
+    Liest aus y = (x − 2)² + 3 den Scheitelpunkt (−2|3) ab. Die Zahl in der Klammer wird mit ihrem
+    sichtbaren Vorzeichen genommen. Dass der Scheitelpunkt dort liegt, wo die Klammer null wird,
+    ist nicht verankert.
+kompetenzen: [M.SF.QF.SCHEITEL]
+erklaerung:
+  kurz:
+    de: '$(x - 2)^2$ wird null bei $x = 2$. Dort liegt der [[Scheitelpunkt]]: $S(2|3)$. Das [[Vorzeichen]] in der Klammer ist umgekehrt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahl mit dem Minus aus der Klammer übernommen.'
+    - teil: warum-nicht
+      de: 'Das Quadrat ist am kleinsten, wenn die Klammer null ist. Bei $(x - 2)$ passiert das für $x = 2$, nicht für $x = -2$.'
+    - teil: so-stimmt-es
+      de: 'Frage: Für welches x wird die Klammer null? Das ist die x-[[Koordinate]] des [[Scheitelpunkts]].'
+gegenbeispiel:
+  de: 'Setze $x = -2$ ein: $(-2 - 2)^2 + 3 = 19$. Bei $x = 2$ kommt 3 heraus, der kleinste Wert.'
+rueckweg:
+  vermittlung: M.SF.QF.SCHEITEL#erklaeren-scheitelform
+kontrast: [M.SF.QF.SCHEITEL.BESTIMMEN]
+herkunft: ki-entwurf
+version: 1

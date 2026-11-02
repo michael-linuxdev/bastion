@@ -1,0 +1,27 @@
+id: FV.QF.ERGAENZEN
+name:
+  de: Ergänzt quadratisch falsch
+art: rechenfehler
+beschreibung:
+  de: >-
+    Nimmt bei y = x² − 6x + 5 den Scheitelpunkt bei x = 6 oder liest q = 5 als y-Koordinate.
+    Halbieren der Zahl vor x und Abziehen des Quadrats werden ausgelassen.
+kompetenzen: [M.SF.QF.SCHEITEL]
+erklaerung:
+  kurz:
+    de: '$x^2 - 6x + 5 = (x - 3)^2 - 9 + 5 = (x - 3)^2 - 4$. Die Zahl vor x wird halbiert, ihr Quadrat abgezogen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Zahlen der Normalform direkt als [[Scheitelpunkt]] genommen.'
+    - teil: warum-nicht
+      de: '$(x - 3)^2 = x^2 - 6x + 9$. Darin steckt $-6x$, aber auch eine 9 zu viel. Die muss wieder weg.'
+    - teil: so-stimmt-es
+      de: 'Halbiere die Zahl vor x, quadriere sie, addiere und subtrahiere sie. Dann fasse zur Scheitelform zusammen.'
+gegenbeispiel:
+  de: 'Bei $x = 3$ ist $3^2 - 18 + 5 = -4$. Der Punkt $(3|5)$ liegt also nicht auf dem [[Graphen]].'
+rueckweg:
+  vermittlung: M.SF.QF.SCHEITEL#erklaeren-ergaenzen
+  voraussetzung: M.SF.TU.BINOMISCH
+kontrast: [M.SF.QF.SCHEITEL.BESTIMMEN]
+herkunft: ki-entwurf
+version: 1

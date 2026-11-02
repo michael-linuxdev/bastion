@@ -107,7 +107,8 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 ### Offene Fragen der Nachtarbeit
 
-*(noch keine)*
+1. **Bilder in Erstvermittlungen zu Parabeln:** Ein Schritt der Erstvermittlung zeigt Bilder nur über ein Werkzeug (`bruchstreifen@1` …). Für Parabeln gibt es noch keins; QF.GRAPH und QF.SCHEITEL erklären darum vorerst nur mit Text. Vorschlag: ein einfaches Werkzeug `parabel@1` (statisches Bild aus `kurve`) vor dem interaktiven „Parameter am Graphen“ (B8). Bis zur Antwort: Text.
+2. **`pnpm inhalte:begriffe`** verdoppelt Anführungszeichen in mehrzeiligen Flow-Optionen (DZ.ZF.HAEUFIGKEIT, DZ.ZF.WAHRSCHEINLICHKEIT); nach jedem Lauf zurückgesetzt. Reparatur des Werkzeugs steht aus.
 
 ---
 

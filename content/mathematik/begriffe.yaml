@@ -1025,3 +1025,23 @@ begriffe:
     formen: [Potenzgesetz, Potenzgesetze, Potenzgesetzen]
     erklaerung:
       de: 'Eine Regel zum Zusammenfassen von Potenzen, zum Beispiel: Bei gleicher Basis werden beim Malnehmen die Hochzahlen addiert.'
+  - id: parabel
+    wort: { de: Parabel }
+    formen: [Parabel, Parabeln]
+    erklaerung:
+      de: 'Der Graph einer quadratischen Funktion. Er ist nach oben oder unten geöffnet und spiegelsymmetrisch.'
+  - id: scheitelpunkt
+    wort: { de: Scheitelpunkt }
+    formen: [Scheitelpunkt, Scheitelpunkts]
+    erklaerung:
+      de: 'Der tiefste oder höchste Punkt einer Parabel. Durch ihn geht ihre Symmetrieachse.'
+  - id: wertebereich
+    wort: { de: Wertebereich }
+    formen: [Wertebereich]
+    erklaerung:
+      de: 'Alle y-Werte, die eine Funktion annimmt.'
+  - id: definitionsbereich
+    wort: { de: Definitionsbereich }
+    formen: [Definitionsbereich]
+    erklaerung:
+      de: 'Alle x-Werte, die man in eine Funktion einsetzen darf.'

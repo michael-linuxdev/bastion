@@ -1,0 +1,94 @@
+id: M.SF.QF.GRAPH
+kompetenz: M.SF.QF.GRAPH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Funktionswerte]] von $f(x) = x^2 - 4$ berechnen und an einer [[Parabel]] [[Nullstellen]] und [[Wertebereich]] ablesen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $(-3)^2$?'
+    antwort:
+      optionen:
+        - { wert: { de: '9' }, richtig: true }
+        - { wert: { de: '$-9$' }, fv: FV.RZ.POTENZ-KLAMMER }
+        - { wert: { de: '$-6$' }, fv: FV.NZ.QUADRAT-MAL-ZWEI }
+    weiter: entdecken
+    bei: { FV.RZ.POTENZ-KLAMMER: M.ZO.RZ.POTENZEN, sonst: M.ZO.RZ.POTENZEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Für $f(x) = x^2$ ist $f(-2) = 4$ und $f(2) = 4$. Wie groß ist $f(-3)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '-9', fv: FV.RZ.POTENZ-KLAMMER }] }
+    weiter: erklaeren-form
+  - id: erklaeren-form
+    typ: erklaeren
+    text:
+      de: 'Gegenüberliegende x haben denselben [[Funktionswert]]. Darum ist der [[Graph]] von $y = x^2$ eine [[Parabel]], spiegelsymmetrisch zur y-Achse. Ihr tiefster Punkt ist der [[Scheitelpunkt]] $(0|0)$.'
+    weiter: erklaeren-faktor
+  - id: erklaeren-faktor
+    typ: erklaeren
+    text:
+      de: 'Bei $y = 2x^2$ werden alle Werte verdoppelt: Die [[Parabel]] wird schmaler. Ein Minus wie bei $y = -x^2$ klappt sie nach unten, der [[Scheitelpunkt]] ist dann der höchste Punkt.'
+    weiter: erklaeren-ablesen
+  - id: erklaeren-ablesen
+    typ: erklaeren
+    text:
+      de: '[[Nullstellen]]: Wo schneidet der [[Graph]] die x-Achse? Es können zwei, eine oder keine sein. [[Wertebereich]]: Alle y ab dem tiefsten Punkt, bei $y = x^2 - 4$ also $y \geq -4$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = x^2 - 4$ hat den [[Scheitelpunkt]] $(0|-4)$ und die [[Nullstellen]] $-2$ und 2, denn $(-2)^2 - 4 = 0$ und $2^2 - 4 = 0$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne $f(-4)$ für $f(x) = x^2 - 4$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '-20', fv: FV.RZ.POTENZ-KLAMMER }] }
+    weiter: gegenbeispiel
+    bei: { FV.RZ.POTENZ-KLAMMER: erklaeren-form }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tom sagt: „Jede [[Parabel]] schneidet die x-Achse zweimal.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. $y = x^2 + 1$ liegt ganz über der x-Achse.' }, richtig: true }
+        - { wert: { de: 'Ja, jeder Ast schneidet sie einmal.' }, fv: FV.QF.IMMER-ZWEI-NULLSTELLEN }
+    weiter: merksatz
+    bei: { FV.QF.IMMER-ZWEI-NULLSTELLEN: erklaeren-ablesen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Der [[Graph]] einer quadratischen [[Funktion]] ist eine [[Parabel]]. Sie hat einen [[Scheitelpunkt]], ist nach oben oder unten geöffnet und hat zwei, eine oder keine [[Nullstelle]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Nullstellen]] hat $y = x^2 - 9$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$-3$ und 3' }, richtig: true }
+        - { wert: { de: '$(0|-9)$' }, fv: FV.QF.NULLSTELLE-SCHEITEL }
+        - { wert: { de: 'Keine' }, fv: FV.QF.IMMER-ZWEI-NULLSTELLEN }
+    weiter: uebergang
+    bei:
+      {
+        FV.QF.NULLSTELLE-SCHEITEL: erklaeren-ablesen,
+        FV.QF.IMMER-ZWEI-NULLSTELLEN: erklaeren-ablesen,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du [[Funktionswerte]] aus und liest an [[Parabeln]] ab.'
+    vorlagen: [M.SF.QF.GRAPH.WERTETABELLE, M.SF.QF.GRAPH.NULLSTELLEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

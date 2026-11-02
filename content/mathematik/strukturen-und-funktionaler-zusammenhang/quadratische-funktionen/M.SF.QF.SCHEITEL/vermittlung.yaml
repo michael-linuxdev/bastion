@@ -1,0 +1,91 @@
+id: M.SF.QF.SCHEITEL
+kompetenz: M.SF.QF.SCHEITEL
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du den [[Scheitelpunkt]] einer [[Parabel]] aus $y = (x - 2)^2 + 3$ ablesen und aus $y = x^2 - 6x + 5$ berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie lautet $(x - 3)^2$ ausmultipliziert?'
+    antwort:
+      optionen:
+        - { wert: { de: '$x^2 - 6x + 9$' }, richtig: true }
+        - { wert: { de: '$x^2 - 9$' }, fv: FV.TU.MITTELGLIED }
+    weiter: entdecken
+    bei: { FV.TU.MITTELGLIED: M.SF.TU.BINOMISCH, sonst: M.SF.TU.BINOMISCH }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Für $y = (x - 2)^2 + 3$: Bei welchem x wird die Klammer null?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '-2', fv: FV.QF.SCHEITEL-VORZEICHEN }] }
+    weiter: erklaeren-scheitelform
+  - id: erklaeren-scheitelform
+    typ: erklaeren
+    text:
+      de: 'Ein Quadrat ist nie negativ und am kleinsten, wenn es null ist. Bei $y = (x - 2)^2 + 3$ also für $x = 2$, und dann ist $y = 3$. Der [[Scheitelpunkt]] ist $S(2|3)$.'
+    weiter: erklaeren-ergaenzen
+  - id: erklaeren-ergaenzen
+    typ: erklaeren
+    text:
+      de: 'Aus der Normalform machst du die Scheitelform: Halbiere die Zahl vor x, quadriere, addiere und ziehe wieder ab. $x^2 - 6x + 5 = (x - 3)^2 - 9 + 5 = (x - 3)^2 - 4$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = x^2 + 4x + 1 = (x + 2)^2 - 4 + 1 = (x + 2)^2 - 3$. Der [[Scheitelpunkt]] ist $S(-2|-3)$, ein Minimum.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Bei welchem x liegt der [[Scheitelpunkt]] von $y = (x + 5)^2 - 1$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-5', fehler: [{ wert: '5', fv: FV.QF.SCHEITEL-VORZEICHEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.QF.SCHEITEL-VORZEICHEN: erklaeren-scheitelform }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali sagt: „Bei $y = -(x - 1)^2 + 4$ ist 4 der kleinste Wert.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Das Minus öffnet die Parabel nach unten, 4 ist der größte Wert.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, der Scheitelpunkt ist immer der tiefste Punkt.' }, fv: FV.QF.OEFFNUNG }
+    weiter: merksatz
+    bei: { FV.QF.OEFFNUNG: erklaeren-scheitelform }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$y = a(x - d)^2 + e$ hat den [[Scheitelpunkt]] $S(d|e)$. Ist a positiv, ist e der kleinste Wert (Minimum), ist a negativ, der größte (Maximum).'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welchen [[Scheitelpunkt]] hat $y = (x - 4)^2 + 1$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$S(4|1)$' }, richtig: true }
+        - { wert: { de: '$S(-4|1)$' }, fv: FV.QF.SCHEITEL-VORZEICHEN }
+        - { wert: { de: '$S(1|4)$' }, fv: FV.GF.X-Y-VERTAUSCHT }
+    weiter: uebergang
+    bei:
+      {
+        FV.QF.SCHEITEL-VORZEICHEN: erklaeren-scheitelform,
+        FV.GF.X-Y-VERTAUSCHT: erklaeren-scheitelform,
+      }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst Scheitelpunkte.'
+    vorlagen: [M.SF.QF.SCHEITEL.BESTIMMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

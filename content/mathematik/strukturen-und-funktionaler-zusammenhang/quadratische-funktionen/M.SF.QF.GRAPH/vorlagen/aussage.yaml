@@ -1,0 +1,45 @@
+# „Stimmt das? Jede Parabel hat zwei Nullstellen.“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.GRAPH.AUSSAGE
+kompetenz: M.SF.QF.GRAPH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.graph-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Stimmt das?** {aussage} **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Eine Aussage über alle [[Parabeln]] widerlegt ein einziges [[Gegenbeispiel]].'
+  - de: 'Skizziere die [[Parabel]]: Wo liegt der [[Scheitelpunkt]], wohin ist sie geöffnet?'
+fehlerbilder:
+  immer-zwei:
+    de: '$y = x^2 + 1$ liegt ganz über der x-Achse und hat keine [[Nullstelle]].'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+  nur-unten:
+    de: 'Auch nach oben geöffnete [[Parabeln]] können über der x-Achse liegen, zum Beispiel $y = x^2 + 1$.'
+    fv: FV.QF.IMMER-ZWEI-NULLSTELLEN
+  beispiel:
+    de: 'Ein Beispiel, bei dem es stimmt, beweist nichts. Prüfe, ob es ein [[Gegenbeispiel]] gibt.'
+    fv: FV.KR.GEGENBEISPIEL
+  monotonie-verdreht:
+    de: 'Lies den [[Graphen]] von links nach rechts: Bis zum [[Scheitelpunkt]] geht es abwärts, danach aufwärts.'
+    fv: FV.QF.MONOTONIE
+  immer-steigend:
+    de: 'Dass $x^2$ nie negativ ist, heißt nicht, dass die Werte immer wachsen: $(-3)^2 = 9$ ist mehr als $(-1)^2 = 1$.'
+    fv: FV.QF.MONOTONIE
+  oeffnung-ignoriert:
+    de: 'Das Minus vor $x^2$ öffnet die [[Parabel]] nach unten. Dann ist der [[Scheitelpunkt]] der höchste Punkt.'
+    fv: FV.QF.OEFFNUNG
+  x-statt-y:
+    de: 'Der [[Wertebereich]] spricht über die y-Werte, der [[Definitionsbereich]] über die x-Werte.'
+    fv: FV.QF.DEFINITION-WERTEBEREICH
+  alle-zahlen:
+    de: 'Die [[Parabel]] hat einen höchsten oder tiefsten Punkt. Darüber oder darunter gibt es keine [[Funktionswerte]].'
+    fv: FV.QF.DEFINITION-WERTEBEREICH
+  definition-wertebereich:
+    de: 'Der [[Definitionsbereich]] sagt, welche x man einsetzen darf. Bei $x^2 - 4$ darf man jede Zahl einsetzen.'
+    fv: FV.QF.DEFINITION-WERTEBEREICH
+herkunft: ki-entwurf
+version: 1
