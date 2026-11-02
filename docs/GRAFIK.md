@@ -459,3 +459,16 @@ Offen in G4: Staub-Wölkchen beim Fertigwerden (nur bei „leicht“); eine Stat
 ### Himmel über dem Bauplatz wächst mit der Epoche (02.11.2026)
 
 Die Bühne lässt über dem Bauplatz so viel Himmel, wie der höchste Turm an der hinteren Ecke braucht: 160 / 210 / 250 / 310 Bildpunkte für 12×12 / 16×16 / 20×20 / 24×24 (`himmelFuer` in `src/ui/bastion/grafik/iso.ts`). Vorher waren es fest 120, und hohe Stufen wurden oben abgeschnitten. Der Bergfried steht seit B-32 in der Mitte und braucht weniger.
+
+## 13. Kulisse hinter dem Bauplatz (Wunsch PV, 02.11.2026, Variante C)
+
+Statt der leeren Himmelsfläche liegt hinter dem Bauplatz eine Kulisse, die das ganze Fenster füllt, im Hoch- und Querformat. Entwurf 1 (Horizont direkt an der Inselspitze) hat der PV verworfen; gewählt ist **Variante C**: Meer rundherum, der Horizont weit weg.
+
+- **Meer:** füllt das Fenster und geht mit der Insel mit (Kachel `meer.png`, gleicher Zoom und Weg wie der Bauplatz). Schaumring am Inselrand, Felsen und Inselchen an festen Plätzen um den Bauplatz (`dingeUmBauplatz`, kein Zufall), ein Segelboot quert langsam.
+- **Horizont:** 520 Bühnen-Bildpunkte über der Inselspitze, kleiner gezeichnet und kaum verschoben (`kulissenLage`). Herausgezoomt erscheint er oben mit Himmel, Hügeln und Waldsaum; hineingezoomt liegt er über dem Fenster, dann ist nur Meer zu sehen. Nachts Sterne über dem Horizont.
+- **Stimmung:** `tag`, `daemmerung` (eine Stunde nach Untergang, 45 Minuten vor Aufgang), `nacht` (`stimmungAus`). Kein Timer; die Oberfläche fragt einmal je Minute die Uhr, wie bisher. Felsen, Boot und Schaum werden abends und nachts abgedunkelt.
+- **Bewegung:** Wellen (eine Kachel in 40 Sekunden) und Boot (3 Minuten) nur bei „voll“/„leicht“ und ohne „Bewegung reduzieren“ (R5).
+- **Bühne:** Mit Kulisse ist das Pixi-Bild durchsichtig (`Farben.kulisse`, Schwarz mit Deckkraft 0) und zeichnet kein Gestirn.
+- **Bilder:** `tools/grafik/sprites-g3-kulisse.py` → `public/grafik/atlas/kulisse/<thema>/…` (Stimmungen, `dinge/`).
+- **Nebenbei behoben:** Der Rahmen des Bauplatz-Bilds und das Einpassen der Kamera nahmen bisher immer die Größe 12×12 (`buehneBreite()` ohne Neuberechnung). In Epoche 2–4 wurde das Bild darum gestaucht. Jetzt rechnen Rahmen, Kamera und Kulisse mit dem Bauplatz der Epoche (`buehneFuer(bauplatz)`).
+- **Stand:** nur Thema `bastion`. Die anderen Themen folgen mit eigenen Dingen (Felder und Hecken, Riff, Planet).

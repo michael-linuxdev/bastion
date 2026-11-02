@@ -9,7 +9,7 @@
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 (abends) · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -60,7 +60,30 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Zuletzt (02.11.2026 abends):** Epochen 2–4 für alle Themen (je 15 Bilder, `sprites-g3e-<thema>.py`). Ab Stufe 4 gilt Umriss 10 %, Höhe 8 %. Offen: PR von `grafik/g3-epochen` nach `main` (nur auf Wunsch des PV); Boden der Epochen 2–4 ist noch der alte P5-Boden.
 
-**Als Nächstes:** **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
+**Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
+
+### Auftrag für die nächste Grafik-Sitzung (vorbereitet 02.11.2026)
+
+Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.md`, Abschnitt ‚Auftrag für die nächste Grafik-Sitzung‘. Arbeite die Punkte der Reihe nach ab, je Punkt ein PR, Fotos aus der echten App vor dem Commit.“
+
+1. **Sprites in höherer Qualität (Wunsch PV).** Alle Bilder des G3-Generators (`tools/grafik/g3_stil.py`, `sprites-g3-*.py`, `sprites-g3e-*.py`, Boden, Himmel, Hinterhof, Bewohner, Kulisse) in besserer Qualität:
+   - intern vierfach zeichnen und weich verkleinern (wie schon die Wesen, `W_S = 4`), damit Kanten glatt sind;
+   - feinere Materialien: Steinquader mit leichtem Tonwechsel je Stein (feste Zahlenfolge, kein Zufall), Holzmaserung, Ziegel- und Schieferreihen mit Schatten, Fensterrahmen und Sprossen, Türbeschläge;
+   - weiche Eigenschatten (Dachüberstand auf der Wand, Turm auf Mauer) statt nur flacher Töne;
+   - Maße, Fußpunkte und IDs bleiben, damit die App unverändert lädt; Umriss-Test (`atlas-stufen.test.ts`) bleibt grün;
+   - Vorher/Nachher-Blatt je Thema an den PV, erst dann in die Breite. Dateigröße des Atlas im Blick (Budget-Test).
+2. **Mehr Wetter (Wunsch PV).** Bisher: klar, bewölkt, Regen, Schnee, Nebel. Ergänzen, ruhig und ohne Blitzen (R1–R7, „Bewegung reduzieren“ beachten):
+   - Regen: Tropfenringe auf dem Meer der Kulisse, nasse, dunklere Dächer, Pfützen-Glanz auf dem Boden;
+   - Schnee: liegender Schnee auf Boden und Kulisse (Hügel weiß), Eisschollen am Ufer;
+   - Wind/Sturm: höhere Wellen, wehende Fahnen und Banner (Frames), ziehende Wolkenschatten über Insel und Meer;
+   - Nebel: Bänke über dem Meer, Horizont verschwindet;
+   - nach Regen manchmal ein Regenbogen (aus dem Datum bestimmt, kein Zufall zur Laufzeit);
+   - alles auch aus echtem Wetter (Open-Meteo nur nach Einschalten, T-15) und im Zahnrad zum Ausprobieren.
+3. **Kulisse für die anderen Themen** (Variante C wie `bastion`): Dorf (Felder, Hecken, Bach, ferne Dächer), Garten (Wiese, Teich, Hecken), Unterwasser (Riff in Schichten, Lichtstrahlen, Tiefe), Weltraum (Krater, Planet am Horizont, Sterne). Eigene `dinge` je Thema.
+4. **Fehlerbehebungen:** Dorf-Szene lädt langsam, die Kamera sitzt in den ersten Sekunden falsch; ein Tipper in der ersten Sekunde geht verloren (#160).
+5. **Simulator für Epoche 2–4** (`tools/sim/`): echte Zahlen statt Überschlag (BASEBAU §8b).
+
+**Als Nächstes (vorher):** **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
 
 **Ruht bis nach U4b** (bisher „Als Nächstes“, nur zur Erinnerung): Design-Wellen A–Z und Backlog AA–ZZ (`DESIGN-IDEEN.md`), Themen-Welten (H29), Jahreszeit-Auflagen und Ambient Wasser/Regen. Weiter offen: Messung auf dem iPhone 13 (`GRAFIK.md` §4.5, hängt an 0.10) und die Testerinnen zusammen mit U4b, erst nach Abnahme von G.
 

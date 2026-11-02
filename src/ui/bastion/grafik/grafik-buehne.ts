@@ -13,7 +13,6 @@ import type { Thema } from '../../../core/policy/einstellung';
 import { FARBWERT } from '../farben';
 import {
   KATALOG,
-  type Bauwerk,
   type Familie,
   type GebaeudeTyp,
   type Position,
@@ -129,6 +128,8 @@ export interface Farben {
   readonly imBau: string;
   readonly auswahl: string;
   readonly himmel: string;
+  /** Kulisse dahinter (GRAFIK §13): Bühne ohne eigenen Himmel, durchsichtig */
+  readonly kulisse?: boolean;
   /** Sonne bei Tag, Mond und Fenster am Abend */
   readonly licht: string;
   readonly wolke: string;
@@ -221,29 +222,6 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
   g.moveTo(x + 2 * s, y + 2 * s)
     .lineTo(x + 2 * s, y + 5 * s - wip)
     .stroke({ width: 1.2, color: '#3a2a16', alpha: 0.7 });
-}
-
-/** Trampelpfade zwischen Gebäuden – weich, ohne Grid-Zwang (P85). */
-function trampelpfade(g: Graphics, bauwerke: readonly Bauwerk[], farbe: string) {
-  if (bauwerke.length < 2) return;
-  const sortiert = [...bauwerke].sort(
-    (a, b) => a.pos.x + a.pos.y - (b.pos.x + b.pos.y) || a.id.localeCompare(b.id),
-  );
-  for (let i = 0; i < sortiert.length - 1; i++) {
-    const a = sortiert[i];
-    const b = sortiert[i + 1];
-    if (!a || !b) continue;
-    const [aw, at] = KATALOG[a.typ].groesse;
-    const [bw, bt] = KATALOG[b.typ].groesse;
-    const pa = punkt(a.pos.x + aw / 2, a.pos.y + at / 2);
-    const pb = punkt(b.pos.x + bw / 2, b.pos.y + bt / 2);
-    const mx = (pa.x + pb.x) / 2 + ((i % 2) * 2 - 1) * 6;
-    const my = (pa.y + pb.y) / 2 + 4;
-    g.moveTo(pa.x, pa.y + 2)
-      .lineTo(mx, my)
-      .lineTo(pb.x, pb.y + 2)
-      .stroke({ width: 3.2, color: farbe, alpha: 0.16 });
-  }
 }
 
 /** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
@@ -968,7 +946,7 @@ function insel(g: Graphics, f: Farben) {
   g.poly(flach(l, v, u(v), u(l))).fill(dunkler(f.boden, 0.78));
   g.poly(flach(v, r, u(r), u(v))).fill(dunkler(f.boden, 0.62));
   g.poly(flach(h, r, v, l)).fill(f.boden);
-  // Raster nur noch angedeutet – Trampelpfade tragen die Orientierung (P85)
+  // Raster nur noch angedeutet (P85); die Trampelpfade sind entfallen (PV 02.11.2026: Linien zwischen den Gebäuden)
   for (let i = 0; i <= W; i += Math.max(2, Math.floor(W / 4))) {
     const a = punkt(i, 0);
     const b = punkt(i, T);
@@ -1150,7 +1128,10 @@ export async function buehneErstellen(
   await app.init({
     width: buehneBreite(),
     height: buehneHoehe(),
-    background: farben.himmel,
+    // Mit Kulisse durchsichtig: Schwarz mit Deckkraft 0, sonst mischt der Browser
+    // die Himmelfarbe aufhellend hinein (vormultiplizierte Deckkraft)
+    background: farben.kulisse ? '#000000' : farben.himmel,
+    backgroundAlpha: farben.kulisse ? 0 : 1,
     antialias: true,
     // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
     resolution: Math.min(4, (globalThis.devicePixelRatio || 1) * 2),
@@ -1176,7 +1157,8 @@ export async function buehneErstellen(
   const bodenLage = new Container();
   const overlayLage = new Container();
   hintergrund.addChild(himmelLage, bodenLage, overlayLage);
-  if (wetterBild === 'klar' || wetterBild === 'bewoelkt') {
+  // Mit Kulisse kein Gestirn über dem Meer: Tageszeit zeigt die Kulisse (GRAFIK §13)
+  if (!farben.kulisse && (wetterBild === 'klar' || wetterBild === 'bewoelkt')) {
     gestirnZeichnen(himmelLage, farben, atlas, texturen);
   }
   // Boden je Epoche (P5/G3): neu bauen, sobald die Bühne eine andere Epoche zeichnet
@@ -1573,7 +1555,6 @@ export async function buehneErstellen(
       if (a.hinterhof && a.hinterhof.length > 0) {
         hinterhofZeichnen(gebaeude, a.hinterhof, thema, farben.abend, atlas, texturen);
       }
-      trampelpfade(g, b.bauwerke, farben.raster);
       // Neubauten im Bau: gestrichelte Geister-Silhouette (Design-Ideen K43)
       for (const v of b.vorhaben.filter((x) => x.stufe === 1)) {
         raute(g, v.pos, v.typ, 0.1).fill({ color: farben.imBau, alpha: 0.1 });

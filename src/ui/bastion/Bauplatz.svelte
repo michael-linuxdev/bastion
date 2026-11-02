@@ -29,7 +29,7 @@
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
-  import { buehneBreite, buehneHoehe, punkt as feldPunkt } from './grafik/iso';
+  import { buehneFuer, himmelFuer, punkt as feldPunkt } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
   import type { WetterBild } from './grafik/wetter';
@@ -45,6 +45,8 @@
   } from './grafik/kamera';
   import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
+  import Kulisse from './Kulisse.svelte';
+  import { kulisseFuer, stimmungAus } from './grafik/kulisse';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
   import { ausbauNeu } from './ausbau-neu';
@@ -160,6 +162,13 @@
   const abend = $derived(
     szeneAbend(darstellung.modus, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
   );
+  /** Kulisse hinter dem Bauplatz (GRAFIK §13): nur für Themen mit Bildern, nur im Bild */
+  const kulisse = $derived(
+    bildartVonThema(aktiv.thema) === 'insel' ? kulisseFuer(aktiv.thema) : undefined,
+  );
+  const stimmung = $derived(
+    stimmungAus(abend, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
+  );
 
   $effect(() => {
     if (typeof matchMedia !== 'function') return;
@@ -211,9 +220,9 @@
       const gewaehlt = gemerkteKamera;
       if (!kameraGestartet && gewaehlt !== undefined) {
         eigene = true;
-        kamera = kameraWiederherstellen(breite, hoehe, gewaehlt);
+        kamera = kameraWiederherstellen(breite, hoehe, gewaehlt, bauplatz);
       } else if (!eigene) {
-        kamera = einpassen(breite, hoehe);
+        kamera = einpassen(breite, hoehe, bauplatz);
       }
       kameraSichtbar = true;
       return true;
@@ -436,6 +445,7 @@
       imBau: v('--farbe-akzent'),
       auswahl: v('--farbe-akzent'),
       himmel,
+      kulisse: kulisse !== undefined,
       licht: v('--farbe-licht'),
       wolke: v('--farbe-flaeche'),
       dach: v('--farbe-akzent-warm'),
@@ -526,7 +536,7 @@
         zoom: Math.max(kamera.zoom, 1),
       };
     } else {
-      kamera = einpassen(el.clientWidth, el.clientHeight);
+      kamera = einpassen(el.clientWidth, el.clientHeight, bauplatz);
     }
     kameraSichtbar = true;
   }
@@ -543,7 +553,7 @@
     const el = untrack(() => fenster);
     if (!v || !el) return;
     const [w, t] = KATALOG[v.typ].groesse;
-    const m = feldPunkt(v.pos.x + w / 2, v.pos.y + t / 2);
+    const m = feldPunkt(v.pos.x + w / 2, v.pos.y + t / 2, bauplatz);
     // Etwas heranholen, damit der Geist gut zu sehen ist; wer schon näher ist, bleibt dort
     const zoom = Math.min(
       ZOOM_MAX,
@@ -666,7 +676,7 @@
       class:sichtbar={kameraSichtbar}
       class:versetzen
       class:zieht
-      style:background={himmelCss}
+      style:background={kulisse ? 'transparent' : himmelCss}
       aria-hidden="true"
       bind:this={fenster}
       onpointerdown={zeigerRunter}
@@ -675,10 +685,21 @@
       onpointercancel={zeigerAbbruch}
       oncontextmenu={(event) => event.preventDefault()}
     >
+      {#if kulisse}
+        <Kulisse
+          thema={kulisse}
+          themaName={aktiv.thema}
+          {stimmung}
+          {kamera}
+          inselOben={himmelFuer(bauplatz)}
+          platz={bauplatz}
+          {bewegung}
+        />
+      {/if}
       <div
         class="bauplatz"
-        style:inline-size="{buehneBreite()}px"
-        style:block-size="{buehneHoehe()}px"
+        style:inline-size="{buehneFuer(bauplatz).breite}px"
+        style:block-size="{buehneFuer(bauplatz).hoehe}px"
         style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
         bind:this={rahmen}
         aria-hidden="true"

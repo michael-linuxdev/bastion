@@ -71,11 +71,15 @@ export const BUEHNE_B = buehneFuer(BAUPLATZ).breite;
 export const BUEHNE_H = buehneFuer(BAUPLATZ).hoehe;
 
 /** Bildpunkt einer Feldecke (gx, gy dürfen gebrochen sein; 0.5/0.5 = Feldmitte) */
-export function punkt(gx: number, gy: number): { x: number; y: number } {
-  const { mitteX } = buehneFuer();
+export function punkt(
+  gx: number,
+  gy: number,
+  platz: BauplatzMass = aktiv,
+): { x: number; y: number } {
+  const { mitteX } = buehneFuer(platz);
   return {
     x: mitteX + ((gx - gy) * RAUTE_B) / 2,
-    y: himmelFuer() + ((gx + gy) * RAUTE_H) / 2,
+    y: himmelFuer(platz) + ((gx + gy) * RAUTE_H) / 2,
   };
 }
 
