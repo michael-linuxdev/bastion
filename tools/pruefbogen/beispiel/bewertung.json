@@ -1,0 +1,57 @@
+[
+  {
+    "id": "kopf",
+    "data": {
+      "werte": {
+        "name": "Erika Muster",
+        "schule": "Erfundene Oberschule, Mathe",
+        "gesamt": "Erfunden für den Test: Die Erklärungen sind gut, beim Kürzen bitte ein Bild mehr."
+      },
+      "stand": "2026-11-02T08:00:00.000Z"
+    }
+  },
+  {
+    "id": "A-M.ZO.BR.ADD-SUB",
+    "data": {
+      "werte": { "f0": true, "f1": true, "f2": true, "urteil": "passt" },
+      "stand": "2026-11-02T08:10:00.000Z"
+    }
+  },
+  {
+    "id": "A-M.ZO.BR.ERWEITERN",
+    "data": {
+      "werte": {
+        "f0": true,
+        "f1": false,
+        "urteil": "aendern",
+        "notiz": "Schritt erklaeren-kuerzen: ein Bild mit größeren Teilen ergänzen."
+      },
+      "stand": "2026-11-02T08:20:00.000Z"
+    }
+  },
+  {
+    "id": "B-FV.BR.VERTAUSCHT",
+    "data": { "werte": { "f0": true, "urteil": "passt" }, "stand": "2026-11-02T08:30:00.000Z" }
+  },
+  {
+    "id": "C-M.ZO.BR.ERWEITERN.KUERZEN",
+    "data": {
+      "werte": {
+        "f0": true,
+        "G1": true,
+        "G2": true,
+        "M1": false,
+        "urteil": "falsch",
+        "notiz": "Aufgabe M1: 18/24 ist zu schwer für G."
+      },
+      "stand": "2026-11-02T08:40:00.000Z"
+    }
+  },
+  {
+    "id": "D-begriffe",
+    "data": {
+      "werte": { "b1": true, "b2": true, "urteil": "passt" },
+      "stand": "2026-11-02T08:50:00.000Z"
+    }
+  }
+]

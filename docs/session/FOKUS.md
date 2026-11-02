@@ -231,7 +231,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 
 1. Den Prüfbogen für das Musterfeld neu erzeugen (`pnpm pruefbogen --online --name "Musterfeld Brüche" M.ZO.BR.BEGRIFF M.ZO.BR.ERWEITERN M.ZO.BR.ADD-SUB`). Dann auf derselben Adresse neu veröffentlichen: https://claude.ai/artifact/NKSgnmWBsS1TpZ6uLLLgwy. Vorher die Seite lesen (`action: read`). Liegen schon Eingaben in der Sammlung `bewertung`, diese **nicht** verwerfen. Sie vorher sichern und dem PV melden.
 2. Prüfen, wie die Seite heute je Abschnitt bewertet (Ankreuzfelder). Wenn nötig, je Schritt drei Knöpfe ergänzen: „passt“, „passt nicht“, „Kommentar“. Ziel: Eine Lehrkraft schafft eine Kompetenz in 20 bis 30 Minuten am Handy oder Tablet. Nicht nur ausdrucken.
-3. **Neues Werkzeug `pnpm pruefbogen einlesen <datei.json>`:** Es liest die exportierten Eingaben der Sammlung `bewertung`.
+3. ~~**Neues Werkzeug `pnpm pruefbogen einlesen <datei.json>`:**~~ *Erledigt 02.11.2026 (B5): `tools/pruefbogen/einlesen.ts`, Beispiel mit erfundenen Werten, `tools/README.md`.* Es liest die exportierten Eingaben der Sammlung `bewertung`.
    - Es erzeugt eine Arbeitsliste in Markdown: je Datei und Schritt der Befund und der Kommentar.
    - Für Dateien, bei denen alles „passt“, schlägt es den Befehl `pnpm review setzen --stufe 2 --pruefer <Name>` vor. Es setzt die Stufe **nicht** selbst; das bleibt eine bewusste Handlung.
    - Tests mit einer erfundenen Bewertungsdatei.

@@ -3,8 +3,25 @@
 // Die Seite im Browser öffnen und als PDF drucken (T-17). Nicht ins Repository legen.
 //   pnpm pruefbogen --online --name "Musterfeld Brüche" … > pruefbogen.html
 // gibt die Seite zum Ausfüllen auf claude.ai aus (online.ts).
+//   pnpm pruefbogen einlesen bewertung.json > arbeitsliste.md
+// liest die exportierten Eingaben der Sammlung `bewertung` (einlesen.ts, FOKUS F3).
+import { readFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { runnerImport } from 'vite';
+
+if (process.argv[2] === 'einlesen') {
+  const datei = process.argv[3];
+  if (!datei) {
+    console.error('Aufruf: pnpm pruefbogen einlesen <datei.json>');
+    process.exit(1);
+  }
+  const { module } = await runnerImport<typeof import('./einlesen-laden.ts')>(
+    './tools/pruefbogen/einlesen-laden.ts',
+    { configFile: false, logLevel: 'error' },
+  );
+  process.stdout.write(module.arbeitslisteAus(readFileSync(datei, 'utf8'), 'content'));
+  process.exit(0);
+}
 
 const { values, positionals: ids } = parseArgs({
   allowPositionals: true,
