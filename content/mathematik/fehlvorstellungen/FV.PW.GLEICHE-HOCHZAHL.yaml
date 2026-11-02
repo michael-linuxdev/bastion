@@ -1,0 +1,26 @@
+id: FV.PW.GLEICHE-HOCHZAHL
+name:
+  de: Fasst Potenzen mit gleicher Hochzahl nicht oder falsch zusammen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Meint, 2³ · 5³ lasse sich gar nicht zusammenfassen, oder rechnet 2³ · 5³ = 7³. Bekannt ist nur
+    das Gesetz für gleiche Basen. Dass bei gleicher Hochzahl die Basen malgenommen werden, ist neu.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: '$2^3 \cdot 5^3 = (2 \cdot 2 \cdot 2) \cdot (5 \cdot 5 \cdot 5) = (2 \cdot 5)^3 = 10^3$. Bei gleicher [[Hochzahl]] werden die [[Basen]] malgenommen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du kennst die Regel für gleiche [[Basis]]. Bei verschiedenen Basen hast du nicht zusammengefasst oder addiert.'
+    - teil: warum-nicht
+      de: 'Ordne die [[Faktoren]] in Paare: jede 2 mit einer 5. Jedes Paar ist 10. Es gibt so viele Paare, wie die [[Hochzahl]] sagt.'
+    - teil: so-stimmt-es
+      de: 'Gleiche [[Hochzahl]]: $a^m \cdot b^m = (a \cdot b)^m$. Prüfe mit Zahlen: $8 \cdot 125 = 1000$.'
+gegenbeispiel:
+  de: '$2^2 \cdot 5^2 = 4 \cdot 25 = 100 = 10^2$. Mit Plus käme $7^2 = 49$ heraus.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-mal
+kontrast: [M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1

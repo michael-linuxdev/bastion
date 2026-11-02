@@ -47,8 +47,16 @@ describe('alsFormeln', () => {
       '360° : 5 · 1 = 72°',
       'Die Uhr zeigt 7:30.',
       'rot/blau',
+      'Berechne den Flächeninhalt in m².',
     ])
       expect(alsFormeln(s)).toBe(s);
+  });
+
+  it('Lücke und Funktionswert', () => {
+    expect(alsFormeln('(x + 1)² = x² + 2·x + ☐')).toBe(
+      '$(x + 1)^{2} = x^{2} + 2 \\cdot x + \\square$',
+    );
+    expect(alsFormeln('f(x) = x² + 3.')).toBe('f(x) = $x^{2} + 3$.');
   });
 
   it('vorhandene Formeln bleiben unverändert', () => {

@@ -1,0 +1,27 @@
+id: FV.PW.EXPONENTEN-GETEILT
+name:
+  de: Teilt beim Teilen von Potenzen die Hochzahlen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet a⁶ : a² = a³. Weil geteilt wird, werden auch die Hochzahlen geteilt. Dass beim
+    Teilen Faktoren weggekürzt werden und sich die Hochzahlen subtrahieren, ist noch nicht
+    verankert.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: '$a^6 : a^2$: Zwei der sechs [[Faktoren]] [[kürzen]] sich weg, vier bleiben. Also $a^4$. Die Hochzahlen werden subtrahiert.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: Teilen, also auch die [[Hochzahl]] teilen.'
+    - teil: warum-nicht
+      de: 'Schreibe $a^6 : a^2$ als [[Bruch]]. Oben stehen sechs [[Faktoren]] a, unten zwei. Zwei Paare [[kürzen]] sich, vier Faktoren bleiben.'
+    - teil: so-stimmt-es
+      de: 'Ziehe die Hochzahlen ab: $a^m : a^n = a^{m-n}$.'
+gegenbeispiel:
+  de: '$2^6 : 2^2 = 64 : 4 = 16 = 2^4$. Aber $2^3 = 8$.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-mal
+kontrast: [M.ZO.PW.GESETZE.EXPONENT, M.ZO.PW.GESETZE.WERT]
+herkunft: ki-entwurf
+version: 1

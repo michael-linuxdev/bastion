@@ -1,0 +1,26 @@
+id: FV.PW.EXPONENTEN-ADDIERT
+name:
+  de: Addiert bei der Potenz einer Potenz die Hochzahlen
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet (a²)³ = a⁵. Das Gesetz für das Malnehmen von Potenzen wird auf die Potenz einer
+    Potenz übertragen. Dass (a²)³ dreimal a² malnimmt, wird nicht gesehen.
+kompetenzen: [M.ZO.PW.GESETZE, M.ZO.PW.RATIONAL]
+erklaerung:
+  kurz:
+    de: '$(a^2)^3$ heißt dreimal $a^2$: $a^2 \cdot a^2 \cdot a^2 = a^6$. Die Hochzahlen werden malgenommen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das [[Potenzgesetz]] für das Malnehmen benutzt: Hochzahlen addieren.'
+    - teil: warum-nicht
+      de: 'Hier wird keine Potenz mit einer anderen malgenommen. Die äußere [[Hochzahl]] sagt, wie oft die ganze Klammer als [[Faktor]] vorkommt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Klammer so oft hin, wie die äußere [[Hochzahl]] sagt, und zähle die [[Faktoren]]: $(a^m)^n = a^{m \cdot n}$.'
+gegenbeispiel:
+  de: '$(2^2)^3 = 4^3 = 64 = 2^6$. Aber $2^5 = 32$.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-hoch
+kontrast: [M.ZO.PW.GESETZE.EXPONENT, M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1

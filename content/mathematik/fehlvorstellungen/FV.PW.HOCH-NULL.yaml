@@ -1,0 +1,26 @@
+id: FV.PW.HOCH-NULL
+name:
+  de: Hält eine Potenz mit Hochzahl 0 für 0
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet 5⁰ = 0 oder a⁰ = a. Die Hochzahl wird als „so oft malnehmen“ verstanden, und null
+    Faktoren ergeben scheinbar null. Dass a⁰ aus dem Teilen a³ : a³ = 1 folgt, ist neu.
+kompetenzen: [M.ZO.PW.GESETZE]
+erklaerung:
+  kurz:
+    de: '$a^3 : a^3 = a^{3-3} = a^0$. Eine Zahl durch sich selbst ist 1. Also $a^0 = 1$ (für a ≠ 0).'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: null [[Faktoren]], also null.'
+    - teil: warum-nicht
+      de: 'Die [[Potenzgesetze]] sollen auch für die [[Hochzahl]] 0 gelten. $a^3 : a^3$ ist 1, und nach dem [[Potenzgesetz]] ist es $a^0$.'
+    - teil: so-stimmt-es
+      de: 'Merke: Jede Zahl außer 0 hoch 0 ist 1. Bei $10^0 = 1$ siehst du es an der Stellentafel: Einer.'
+gegenbeispiel:
+  de: '$2^3 = 8$, $2^2 = 4$, $2^1 = 2$. Jedes Mal wird halbiert. Der nächste Schritt ist $2^0 = 1$.'
+rueckweg:
+  vermittlung: M.ZO.PW.GESETZE#erklaeren-negativ
+kontrast: [M.ZO.PW.GESETZE.FEHLER]
+herkunft: ki-entwurf
+version: 1

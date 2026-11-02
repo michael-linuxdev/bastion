@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet 10³ = 30 oder 2 · 10³ = 60. Die Hochzahl wird wie ein Faktor behandelt. Dass sie zählt,
     wie oft die 10 mit sich selbst malgenommen wird, ist noch nicht verankert.
-kompetenzen: [M.ZO.NZ.POTENZEN, M.ZO.RZ.POTENZEN]
+kompetenzen: [M.ZO.NZ.POTENZEN, M.ZO.RZ.POTENZEN, M.ZO.PW.GESETZE, M.ZO.PW.RATIONAL]
 erklaerung:
   kurz:
     de: 'Die [[Hochzahl]] sagt, wie oft die Zahl als [[Faktor]] vorkommt: 10³ = 10 · 10 · 10 = 1 000.'

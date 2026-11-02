@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  atlasBewohnerId,
   bewohnerArten,
+  bewohnerFrame,
   bewohnerFortschritt,
   bewohnerFortschrittKey,
   bewohnerStarten,
@@ -148,5 +150,23 @@ describe('bewohner', () => {
     expect(bewohnerFortschrittKey(f)).toBe(bewohnerFortschrittKey(f));
     // fertig → Zwerg; Bücher → Bücherwurm; Epoche 2 → Torhüter, aber leicht → max. 2
     expect(bewohnerArten(f)).toEqual(['zwerg', 'bibliothek']);
+  });
+
+  it('Bild-Zyklus: winken nach Antippen, Werkzeug bei Arbeit, sonst ruhig (G3)', () => {
+    expect(bewohnerFrame({ taetigkeit: 'giessen', phase: 0, reactBis: 1000 }, 700)).toEqual({
+      zyklus: 'react',
+      frame: 0,
+    });
+    expect(bewohnerFrame({ taetigkeit: 'giessen', phase: 0, reactBis: 1000 }, 900).frame).toBe(1);
+    expect(bewohnerFrame({ taetigkeit: 'flicken', phase: 5.2, reactBis: 0 }, 1)).toEqual({
+      zyklus: 'arbeit',
+      frame: 1,
+    });
+    expect(bewohnerFrame({ taetigkeit: 'lesen', phase: 4.5, reactBis: 0 }, 1)).toEqual({
+      zyklus: 'idle',
+      frame: 2,
+    });
+    expect(bewohnerFrame({ taetigkeit: 'wachen', phase: 0, reactBis: 0 }, 1).zyklus).toBe('idle');
+    expect(atlasBewohnerId('imker', 'arbeit', 3)).toBe('bewohner/imker_arbeit_3');
   });
 });

@@ -19,11 +19,13 @@ const PERIODE = '̅';
 const ZAHL = `\\d+(?:\\u202f\\d{3})*(?:,(?:\\d${PERIODE}?)+)?`;
 /**
  * Einzelner Buchstabe als Variable: nicht Teil eines Wortes, keine Funktion wie f(x) und keine
- * Einheit hinter einer Zahl („15 m³“ bleibt Text).
+ * Einheit: weder hinter einer Zahl („15 m³“) noch m² oder m³ („Berechne in m²“).
  */
-const VARIABLE = `(?<![\\p{L}\\d'’])(?<![\\d)] +)[a-z](?![\\p{L}'’(])`;
+const VARIABLE = `(?<![\\p{L}\\d'’])(?<![\\d)] +)(?!m[²³])[a-z](?![\\p{L}'’(])`;
+/** Lücke in einer Aufgabe wie „(x + 1)² = x² + 2·x + ☐“ */
+const LUECKE = '☐';
 const KLAMMER = `\\((?:[^()]|\\([^()]*\\))*\\)`;
-const EINHEIT = `(?:[${HOCH}]*√−?)?(?:${ZAHL}|${VARIABLE}|${KLAMMER})[${HOCH}]*`;
+const EINHEIT = `(?:[${HOCH}]*√−?)?(?:${ZAHL}|${VARIABLE}|${KLAMMER}|${LUECKE})[${HOCH}]*`;
 const TERM = `−?${EINHEIT}(?:\\/${EINHEIT})?(?: ?%|°)?`;
 const ZEICHEN = '[+−·:=<>≈≤≥≠]';
 const VERBINDUNG = `(?: ${ZEICHEN} |·)`;
@@ -63,7 +65,11 @@ function texZahl(zahl: string): string {
 function texEinheit(e: string): string {
   const m = new RegExp(`^(?:([${HOCH}]*)√(−?))?(.*?)([${HOCH}]*)$`, 'u').exec(e);
   const [, wurzel, minus = '', kern = '', exponent = ''] = m ?? [];
-  const innen = kern.startsWith('(') ? `(${texAusdruck(kern.slice(1, -1))})` : texZahl(kern);
+  const innen = kern.startsWith('(')
+    ? `(${texAusdruck(kern.slice(1, -1))})`
+    : kern === LUECKE
+      ? '\\square'
+      : texZahl(kern);
   let tex = innen;
   if (wurzel !== undefined) {
     const index = hoch(wurzel);

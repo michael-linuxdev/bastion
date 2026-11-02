@@ -239,7 +239,7 @@ Prinzip unverändert: **mehr Baupläne** je Epoche, **nicht** mehr Stein pro Woc
 | 3 → 4 | 7 | 80 |
 | 4 geschafft | 9 | 120 |
 
-**Bauplatz:** Epoche 1: 12×12 · 2: 16×16 · 3: 20×20 · 4: 24×24. Beim Wechsel: Gebäude behalten Relative Position zur Mitte; fehlen Felder am Rand, nur Erweiterung nach außen.
+**Bauplatz:** Epoche 1: 12×12 · 2: 16×16 · 3: 20×20 · 4: 24×24. Beim Wechsel: Gebäude behalten Relative Position zur Mitte; fehlen Felder am Rand, nur Erweiterung nach außen. *Umgesetzt seit B-32 (02.11.2026) in `bastionAus`.*
 
 **Katalog-Erweiterungen (Startwerte, Simulator prüft später):**
 
@@ -451,6 +451,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-29 | **Bau-Regel darf für Paket G einfacher werden** (`FOKUS.md` G0.2). Zulässig sind Änderungen an Kosten, Bauschritten und am Ablauf Planen/Bauen in `src/core/bastion/` und `src/core/ledger/`. Jede Änderung kommt als eigener PR mit `pnpm sim` vorher und nachher, einem Eintrag hier und der Zustimmung des PV im PR. Schemaänderungen nur nach Rückfrage und mit Migrationstest. R1–R7 bleiben unberührt | Entschieden (01.11.2026, Projektverantwortlicher) |
 | B-30 | **Planen und Bauen werden nicht zusammengelegt** (Vorschlag aus G5, `GRAFIK.md` §11.7). `pnpm sim` zeigte für Wochenend-Lernende (P3) Epoche 1 nach 19,7 statt 10,5 Monaten oder 29 statt 77 Gebäude im Jahr 1. Die Bau-Regel im Kern bleibt; das Warten macht G4 sichtbar (Gerüst in Abschnitten). Neubauten schlägt die Oberfläche neben dem Bergfried vor (`vorgeschlagenerPlatz`), ohne Kernänderung | Entschieden (01.11.2026 abends, Projektverantwortlicher) |
 | B-31 | **Doppeltes Tempo für alle Stufen** (Wunsch PV, 02.11.2026: „Die Stufen sollen doppelt so schnell erreicht werden“, für alle Epochen). Alle Kosten der Stufen-Gebäude (Bergfried, Studierstube, Späherturm, Werkstatt, Tor) halbiert: Fleiß und Behalten genau, Können und Bauschritte aufgerundet (mindestens 1). Bauplan-Schwellen der Epochenwechsel 15/40/80/120 → **8/20/40/60**. Einfassung und Zierde bleiben (keine Stufen; Banner 10 Fleiß bleibt der Erfolg der ersten Einheit, §5.1). Einnahmen unverändert. `pnpm sim` vorher/nachher in §8a. Gesamtdauer bis Bergfried 9 bei P1 von etwa 5½ auf etwa 2½–3 Jahre | Entschieden (02.11.2026, Projektverantwortlicher) |
+| B-32 | **Beim Epochenwechsel rückt alles Gebaute zur Mitte** (§5.5, bisher nicht umgesetzt; Fund aus der echten App: in Epoche 4 stand alles in der hinteren Ecke). Umsetzung nur in der Projektion `bastionAus`: Sobald Bergfried und erworbene Baupläne die nächste Epoche freischalten, verschiebt sie alle Bauwerke und Vorhaben um die Hälfte des Zuwachses (je Wechsel 2 Felder). Ereignisse danach tragen schon Lagen im größeren Platz. Keine Schemaänderung, keine Migration; gespeicherte Bastionen in Epoche 2+ (bisher nur Proben) liegen danach anders | Entschieden (02.11.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 

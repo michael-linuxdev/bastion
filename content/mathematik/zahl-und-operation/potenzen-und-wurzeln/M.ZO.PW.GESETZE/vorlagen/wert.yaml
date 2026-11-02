@@ -1,0 +1,61 @@
+# „Berechne geschickt: 2⁷ : 2⁴“, mit Zwischenschritten. Entwurf: noch nicht geprüft.
+id: M.ZO.PW.GESETZE.WERT
+kompetenz: M.ZO.PW.GESETZE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: pw.gesetz-wert@1
+parameter:
+  G: { gesetze: [mal, durch], negativ: false }
+  M: { gesetze: [mal, durch, hoch], negativ: true }
+text:
+  aufgabe:
+    de: '**Berechne** geschickt: ${term}$'
+hilfen:
+  - de: 'Fasse zuerst mit einem [[Potenzgesetz]] zu einer einzigen Potenz zusammen. Dann rechnest du nur noch eine kleine Potenz aus.'
+  - de: 'Gleiche [[Basis]]: Beim Malnehmen werden die Hochzahlen addiert, beim Teilen subtrahiert.'
+fehlerbilder:
+  mal-statt-plus:
+    de: 'Du hast die Hochzahlen malgenommen. Beim Malnehmen werden sie addiert, beim Teilen subtrahiert.'
+    fv: FV.PW.EXPONENTEN-MAL
+  plus-statt-mal:
+    de: 'Du hast die Hochzahlen addiert. Bei der Potenz einer Potenz werden sie malgenommen.'
+    fv: FV.PW.EXPONENTEN-ADDIERT
+  geteilt:
+    de: 'Du hast die Hochzahlen geteilt. Beim Teilen von Potenzen mit gleicher [[Basis]] werden sie subtrahiert.'
+    fv: FV.PW.EXPONENTEN-GETEILT
+  vorzeichen:
+    de: 'Achte auf das Minus bei der [[Hochzahl]]. Addiere und subtrahiere mit [[Vorzeichen]].'
+    fv: FV.RZ.RECHEN-VORZEICHEN
+  basen-mal:
+    de: 'Du hast auch die [[Basen]] malgenommen. Die [[Basis]] bleibt gleich, nur die Hochzahlen werden addiert.'
+    fv: FV.PW.BASEN-MAL
+schritte:
+  - id: potenz
+    frage:
+      {
+        de: 'Schreibe ${term}$ als eine Potenz mit der [[Basis]] {basis}. Welche [[Hochzahl]] hat sie?',
+      }
+    typ: zahl-eingabe
+    fehlerbilder:
+      mal-statt-plus:
+        de: 'Beim Malnehmen werden die Hochzahlen addiert, nicht malgenommen.'
+        fv: FV.PW.EXPONENTEN-MAL
+      plus-statt-mal:
+        de: 'Bei der Potenz einer Potenz werden die Hochzahlen malgenommen.'
+        fv: FV.PW.EXPONENTEN-ADDIERT
+      geteilt:
+        de: 'Beim Teilen werden die Hochzahlen subtrahiert, nicht geteilt.'
+        fv: FV.PW.EXPONENTEN-GETEILT
+      vorzeichen:
+        de: 'Achte auf das Minus bei der [[Hochzahl]].'
+        fv: FV.RZ.RECHEN-VORZEICHEN
+  - id: wert
+    frage: { de: 'Berechne ${basis}^{ {potenz} }$.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      hochzahl-mal:
+        de: 'Du hast {basis} mit der [[Hochzahl]] malgenommen. Die Hochzahl sagt, wie oft {basis} als [[Faktor]] vorkommt.'
+        fv: FV.NZ.HOCHZAHL-MAL
+herkunft: ki-entwurf
+version: 1

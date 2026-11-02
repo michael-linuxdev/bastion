@@ -39,6 +39,17 @@ describe('fuelle', () => {
     expect(texZahl(-7)).toBe('-7');
   });
 
+  it('Rechenausdrücke in Text-Platzhaltern werden Formeln', () => {
+    expect(fuelle('**Berechne**: {term}', { term: { de: '(−3)³' } })).toEqual([
+      { art: 'text', text: 'Berechne', fett: true },
+      { art: 'text', text: ': ', fett: false },
+      { art: 'formel', tex: '(-3)^{3}' },
+    ]);
+    expect(fuelle('in {einheit}.', { einheit: { de: 'm²' } })).toEqual([
+      { art: 'text', text: 'in m².', fett: false },
+    ]);
+  });
+
   it('meldet fehlende Platzhalter', () => {
     expect(() => fuelle('{fehlt}', {})).toThrow('fehlt');
   });

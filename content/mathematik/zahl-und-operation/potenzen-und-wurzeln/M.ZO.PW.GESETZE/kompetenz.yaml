@@ -1,0 +1,40 @@
+# Potenzgesetze – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PW.GESETZE
+fach: mathematik
+bereich: zahl-und-operation
+feld: potenzen-und-wurzeln
+titel:
+  de: 'Potenzgesetze'
+kann_satz:
+  de: 'Ich kann Potenzen mit ganzzahligen Exponenten mit den Potenzgesetzen vereinfachen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KR.BEGRUENDEN # Gegenbeispiel, für Niveau E
+  - M.ZO.NZ.POTENZEN
+  - M.ZO.PW.WURZEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Potenzen mit gleicher Basis und positiven Hochzahlen malnehmen und teilen; einfache Potenzen von Potenzen.'
+  M:
+    beschreibung:
+      de: 'Negative Hochzahlen und Hochzahl 0; geschickt rechnen mit Zweier-, Dreier-, Fünfer- und Zehnerpotenzen.'
+  E:
+    beschreibung:
+      de: 'Rechnungen mit Potenzgesetzen prüfen und den Fehler benennen, zum Beispiel a² · a³ = a⁶ oder a⁰ = 0.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

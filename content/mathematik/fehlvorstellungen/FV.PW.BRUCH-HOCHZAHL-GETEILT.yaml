@@ -1,0 +1,27 @@
+id: FV.PW.BRUCH-HOCHZAHL-GETEILT
+name:
+  de: Liest eine Bruch-Hochzahl als Teilen oder Malnehmen mit dem Bruch
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet 16^(1/2) = 8 oder 8^(2/3) = 16/3. Die Hochzahl wird wie ein Faktor behandelt. Dass
+    der Nenner einer Hochzahl eine Wurzel bedeutet, ist noch nicht verankert.
+kompetenzen: [M.ZO.PW.RATIONAL]
+erklaerung:
+  kurz:
+    de: '$16^{\frac{1}{2}} = \sqrt{16} = 4$. Der [[Nenner]] der [[Hochzahl]] sagt, welche [[Wurzel]] du ziehst. Halbieren wäre 8.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gedacht: hoch ein Halb heißt mal ein Halb, also halbieren.'
+    - teil: warum-nicht
+      de: '$16^{\frac{1}{2}} \cdot 16^{\frac{1}{2}} = 16^1 = 16$. Gesucht ist also eine Zahl, die mal sich selbst 16 ergibt: 4. Mit 8 käme 64 heraus.'
+    - teil: so-stimmt-es
+      de: '[[Nenner]]: [[Wurzel]] ziehen. [[Zähler]]: hoch nehmen. $a^{\frac{m}{n}} = \left(\sqrt[n]{a}\right)^m$.'
+gegenbeispiel:
+  de: '$9^{\frac{1}{2}} = 3$, denn $3 \cdot 3 = 9$. Die Hälfte von 9 wäre 4,5.'
+rueckweg:
+  vermittlung: M.ZO.PW.RATIONAL#erklaeren-wurzel
+  voraussetzung: M.ZO.PW.WURZEL
+kontrast: [M.ZO.PW.RATIONAL.WERT, M.ZO.PW.RATIONAL.AUSSAGE]
+herkunft: ki-entwurf
+version: 1
