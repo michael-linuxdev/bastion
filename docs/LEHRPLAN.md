@@ -1,6 +1,6 @@
 # Bastion – Kompetenzmodell (Lehrplan)
 
-Status: Entwurf v0.2 · Stand: 27.10.2026 · Aufgaben 0.4, 0.18
+Status: Entwurf v0.3 · Stand: 02.11.2026 · Aufgaben 0.4, 0.18, U6 (Klasse 9 bis 12, §8e–§8g)
 Bezug: `KONZEPT.md` §4 (K-2), `BASEBAU.md` §3.3, `ARCHITEKTUR.md` §6
 
 > **Quellenhinweis:** Die Bezüge zu den KMK-Bildungsstandards (Mathematik, Sekundarstufe I, Fassung von 2022) sind aus dem Gedächtnis erstellt. Bezeichnungen und Zuordnungen sind vor der Festlegung am Originaldokument der KMK zu prüfen (Aufgabe in `PLAN.md`).
@@ -642,6 +642,434 @@ Legende wie §8.2. *Sachsen:* LB der Klasse 8 (bei der OS meist der RS), sonst a
 
 *Stand 28.10.2026:* Kompetenzen und Graph stehen; Vorlagen folgen Feld für Feld. **Feld TU vollständig als Entwurf:** Zusammenfassen (Auswahl, Lücke), Ausmultiplizieren und Ausklammern (Lücke, Auswahl), binomische Formeln (Lücke, Auswahl), Gleichungen mit Klammern (lösen, Klammern auflösen), Ungleichungen (Lösungsmenge, größte/kleinste ganze Zahl) – 10 Vorlagen (`src/generators/mathematik/terme/umformen.ts`). Ganze Terme werden als Auswahl oder als Lücke mit einer Zahl abgefragt. Die Klassenwahl hat „Klasse 8“. **Feld FK vollständig als Entwurf:** Funktion ja/nein und Funktionswerte (auf M auch x gesucht), Nullstellen zählen und Hoch-/Tiefpunkt ablesen, Steigen und Fallen, y-Achsenabschnitt und Anstieg (mit Steigungsdreieck) ablesen, Gleichung zur Geraden wählen, Punktprobe, n aus einem Punkt und m aus zwei Punkten, Nullstellen berechnen und ablesen, Tarife (Kosten, Vergleich, Gleichung) – 12 Vorlagen für 6 Kompetenzen (`src/generators/mathematik/funktionen/funktionen.ts`); neue Fachbegriffe Funktion, Funktionswert, Nullstelle, lineare Funktion, Anstieg, y-Achsenabschnitt, Steigungsdreieck, Hochpunkt, Grundgebühr. **Feld GS vollständig als Entwurf:** Lösung am Schnittpunkt ablesen, Zahl der Lösungen (auf G nach y aufgelöst, auf M allgemeine Form), Gleichungssysteme lösen (G Einsetzen und Gleichsetzen, M Additionsverfahren) und den nächsten Schritt wählen, Gleichungssystem zur Sachaufgabe wählen und lösen – 6 Vorlagen für 3 Kompetenzen (`src/generators/mathematik/gleichungssysteme/lgs.ts`); neue Fachbegriffe Gleichungssystem, Einsetzungsverfahren, Additionsverfahren. **KR (Klasse 8) vollständig als Entwurf:** Umfang und Flächeninhalt (auf M rückwärts: Radius oder Durchmesser), rollendes Rad, Kreisring (auf M Unterlegscheibe mit Durchmessern), Halb- und Viertelkreis, Rechteck mit Halbkreisen – 4 Vorlagen (`src/generators/mathematik/kreis/berechnen.ts`). **Zylinder vollständig als Entwurf:** Netz erkennen, Länge des Mantelrechtecks (auf M Radius aus der Länge), Volumen und Mantel (auf M Oberfläche, Hohlzylinder, Höhe aus dem Volumen), Inhalt von Dosen und Masse von Stäben – 4 Vorlagen (`src/generators/mathematik/koerper/zylinder.ts`) und die Anleitung „Das Schrägbild eines Zylinders zeichnen“ (L-10). Gerechnet wird mit π ≈ 3,14, so sind alle Lösungen genau; die Aufgaben sagen das. Neue Fachbegriffe Durchmesser, π, Kreisring, Zylinder, Mantel. **Feld AE vollständig als Entwurf:** Bildstrecke und Streckfaktor, Bildpunkt im Koordinatensystem (auf M mit Streckzentrum außerhalb des Ursprungs), Ähnlichkeit prüfen (G Rechtecke über Seitenverhältnisse, M Dreiecke über Winkel) und ähnliche Figur wählen, fehlende Seiten, Schattenaufgaben, Flächen (k²) und Volumen (k³) – 6 Vorlagen für 3 Kompetenzen (`src/generators/mathematik/aehnlichkeit/aehnlichkeit.ts`) und die Anleitung „Ein Dreieck zentrisch strecken“ (L-10); neue Fachbegriffe zentrische Streckung, Streckfaktor, Streckzentrum, ähnlich, Hauptähnlichkeitssatz. **ZF (Klasse 8) als Entwurf:** Gegenereignis, „und“, „oder“, „aber nicht“ als Menge und als Anzahl, Pfade in der Urne (G mit Zurücklegen, M ohne und mit Summenregel), Baumdiagramm lesen, Möglichkeiten zählen und passende Rechnung wählen (G Produktregel, M auch n! und mit/ohne Wiederholung) – 6 Vorlagen (`src/generators/mathematik/daten/zufall8.ts`). **PZ (Klasse 8) als Entwurf:** Rabatt, Skonto, Mehrwertsteuer (M nacheinander und Netto aus Brutto), Rechnung prüfen, Angebote vergleichen (G Packungen, M Bar gegen Raten) und Kosten berechnen – 4 Vorlagen (`src/generators/mathematik/prozent/wirtschaft.ts`). **DV.REGELMAESSIG:** Symmetrieachsen und Mittelpunktswinkel, Innenwinkelsumme und Innenwinkel – 2 Vorlagen (`src/generators/mathematik/dreiecke/regelmaessig.ts`) und die Anleitung „Ein regelmäßiges Sechseck konstruieren“. **Damit haben alle 27 Kompetenzen der Klasse 8 Vorlagen (54, Entwurf) und alle 3 mit Zeichnen eine Anleitung (L-10).**
 
+## 8e. Klasse 9 (Sachsen) – Kompetenzen für den fünften Bauabschnitt
+
+Grundlage wie §8 (K-16): Lehrplan Oberschule Mathematik 2019 (Haupt- und Realschulbildungsgang, Kl. 9), Lehrplan Gymnasium Mathematik (Kl. 9 in Kraft seit 1. August 2022). Ausgewertet am 02.11.2026 aus den PDF-Dateien, die der PV bereitgestellt hat (`docs/quellen/README.md`). Nach K-30 entstehen alle Kompetenzen gleich im neuen Format (K-28) mit den Niveaus **G, M und E** und bleiben **Entwurf**, bis die gesammelte Prüfung folgt (`docs/session/KLASSE-9-12.md`).
+
+### 8e.1 Auswahl
+
+| | OS Klasse 9 – RS | OS Klasse 9 – HS | GY Klasse 9 |
+|---|---|---|---|
+| LB 1 | Rechtwinklige Dreiecke (28 Ustd.) | Rechtwinklige Dreiecke (28 Ustd.) | Funktionen und Potenzen (48 Ustd.) |
+| LB 2 | Pyramide, Kreiskegel, Kugel (28 Ustd.) | Körperdarstellung und Körperberechnung (28 Ustd.) | Kreise, Kreiszylinder und Kugeln (8 Ustd.) |
+| LB 3 | Quadratische Funktionen und quadratische Gleichungen (28 Ustd.) | Funktionale Zusammenhänge (24 Ustd.) | Rechtwinklige Dreiecke (32 Ustd.) |
+| LB 4 | Beschreibende Statistik (16 Ustd.) | Mathematik im Alltag (20 Ustd.) | Auswerten von Daten (12 Ustd.) |
+| LB 5 | – | – | Vernetzung: Mathematik und moderne Rechentechnik (4 Ustd.) |
+
+**Wahlbereiche** (RS: Goldener Schnitt, Wahre Größe und Gestalt, Sportfest; HS: Statistische Erhebungen, Optimierung, Technisches Zeichnen; GY: Der goldene Schnitt, Rund um den Pythagoras, Baupläne und Bauzeichnungen) zählen nicht (L-11).
+
+**Regel wie bei Klasse 5 bis 8 (L-6):** Was eine Schulart in Klasse 9 hat und eine andere erst später, steht hier und ist für die andere „vorgezogen“:
+- **Potenzfunktionen** (GY Kl. 9 LB 1; RS Kl. 10 LB 2, dort nur y = a·xⁿ für n = −2, −1, 1, 2, 3),
+- **Streuungsmaße Varianz und Standardabweichung** (GY Kl. 9 LB 4; an der OS nur die Spannweite).
+Schon früher stehen der Kreis und der Kreiszylinder (§8d, für das GY vorgezogen) und die Pyramide (§8c, für die OS vorgezogen). Der HS hat die **linearen Funktionen** erst in Kl. 9 LB 3; sie stehen schon in §8d (FK, GS) und bekommen in Phase B die Zuordnung „OS HS Kl. 9 LB 3“.
+
+**Wichtige Unterschiede in Klasse 9:**
+- **Trigonometrie:** HS nur den Sinus (Kosinus und Tangens als Differenzierungshinweis), RS und GY Sinus, Kosinus und Tangens.
+- **Höhensatz und Kathetensatz**, der **indirekte Beweis** und „genau dann, wenn“ stehen nur im GY-Lehrplan; der Satz des Pythagoras wird im GY bewiesen, an der OS anschaulich gewonnen.
+- **Quadratische Gleichungen:** Der HS hat sie nur als Differenzierungshinweis; die RS bekommt eine Lösungsformel „mitgeteilt“; das GY interpretiert die Lösungsformel mit vollständiger Fallunterscheidung und löst ohne Hilfsmittel mit überschaubaren Zahlen.
+- **Potenzen und Wurzeln:** Potenzgesetze mit rationalen Exponenten, Wurzelgleichungen und reelle Zahlen nur im GY; an der RS die Kubikwurzel beim Kugelvolumen.
+- **Kugel:** RS und GY; im HS nur als Differenzierungshinweis.
+
+**Nicht in der App abbildbar:** Arbeit mit CAS, DGS und Tabellenkalkulation (auch das „experimentelle Ermitteln“ von Eigenschaften), Projekte („Landvermessung“, „Statistische Manipulationen“, eigene statistische Erhebung), Dokumentieren und Präsentieren, LB 5 des GY (Rechentechnik als Hilfsmittel). Die Würdigungen (Archimedes, Pythagoras) können in der Erstvermittlung vorkommen, werden aber nicht geprüft. Der Beweis des Satzes des Pythagoras wird erklärt; geprüft wird nur das Ordnen von Beweisschritten (Niveau E, §5.3).
+
+### 8e.2 Kompetenzen
+
+Legende wie §8.2. *Sachsen:* LB der Klasse 9 (bei der OS meist der RS), sonst angegeben. Neu ab Klasse 9: Spalte **E** – was Niveau E über M hinaus verlangt (K-28, §5.3: geschlossene Formate mit AB-II/III-Charakter).
+
+**Feld PW – Potenzen und Wurzeln** (KMK L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.ZO.PW.WURZEL | Ich kann Quadrat-, Kubik- und n-te Wurzeln bestimmen und zwischen Wurzel- und Potenzschreibweise wechseln. | RZ.POTENZEN | OS LB 2 (Kubikwurzel), GY LB 1 | Gen | Warum √(a²) = \|a\| und nicht a ist |
+| M.ZO.PW.REELL | Ich kann rationale und irrationale Zahlen unterscheiden und die Zahlbereiche N, Z, Q und R ordnen. | PW.WURZEL, RZ.ZAHLBEREICHE, BR.PERIODISCH | OS –, GY LB 1 | Gen | „Stimmt das immer?“ zu Summen und Produkten irrationaler Zahlen |
+| M.ZO.PW.GESETZE | Ich kann Potenzen mit ganzzahligen Exponenten mit den Potenzgesetzen vereinfachen. | PW.WURZEL, NZ.POTENZEN | OS –, GY LB 1 | Gen | Fehler finden, z. B. a²·a³ = a⁶ |
+| M.ZO.PW.RATIONAL | Ich kann Potenzen mit rationalen Exponenten als Wurzeln schreiben und damit rechnen. | PW.GESETZE | OS –, GY LB 1 | Gen | Permanenzprinzip: warum a⁰ = 1 und a⁻ⁿ = 1/aⁿ |
+| M.SF.GL.WURZEL | Ich kann einfache Wurzelgleichungen lösen und die Probe machen. | PW.WURZEL, TU.GLEICHUNGEN | OS –, GY LB 1 | Gen | Scheinlösung durch Quadrieren erkennen |
+
+**Feld PF – Potenzfunktionen** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.PF.POTENZFUNKTION | Ich kann Graphen und Eigenschaften von Potenzfunktionen y = xⁿ mit ganzzahligem n angeben: Definitions- und Wertebereich, Symmetrie, Polstellen, Asymptoten. | FK.EIGENSCHAFTEN, PW.GESETZE | OS Kl. 10 LB 2 – vorgez., GY LB 1 | Gen | Graph und Term zuordnen und begründen |
+| M.SF.PF.WURZELFUNKTION | Ich kann Graphen und Eigenschaften von Potenzfunktionen mit rationalen Exponenten wie y = √x angeben. | PF.POTENZFUNKTION, PW.RATIONAL | OS –, GY LB 1 | Gen | Definitionsbereich begründen |
+| M.SF.PF.PARAMETER | Ich kann beschreiben, wie sich der Graph von y = c·f(x), y = f(x) + c und y = f(x + c) aus dem Graphen von f ergibt. | PF.POTENZFUNKTION | OS –, GY LB 1 | Gen | Verschiebung und Streckung in falscher Reihenfolge erkennen |
+
+**Feld QF – Quadratische Funktionen und Gleichungen** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.QF.GRAPH | Ich kann quadratische Funktionen mit Wertetabelle und Graph darstellen und Definitions- und Wertebereich, Monotonie und Nullstellen ablesen. | FK.EIGENSCHAFTEN, RZ.POTENZEN | OS LB 3 (HS LB 3 Einblick), GY LB 1 | Gen | Parabel und Term ohne Rechnen zuordnen |
+| M.SF.QF.SCHEITEL | Ich kann den Scheitelpunkt einer Parabel aus y = (x + d)² + e, y = x² + p·x + q und y = a·x² + c bestimmen und als Minimum oder Maximum deuten. | QF.GRAPH, TU.BINOMISCH | OS LB 3, GY LB 1 | Gen | Quadratische Ergänzung: Fehler im Schritt finden |
+| M.SF.QF.INHALTLICH | Ich kann einfache quadratische Gleichungen ohne Formel lösen: x² = a, Produktform (x − 3)·(x + 2) = 0 und durch Ausklammern. | QF.GRAPH, TU.AUSMULTIPLIZIEREN | OS LB 3, GY LB 1 | Gen | Warum aus x² = 9 zwei Lösungen folgen |
+| M.SF.QF.FORMEL | Ich kann quadratische Gleichungen mit der Lösungsformel lösen und an der Diskriminante sehen, ob es keine, genau eine oder zwei Lösungen gibt. | QF.INHALTLICH, QF.SCHEITEL | OS LB 3, GY LB 1 | Gen | „ein“ und „genau ein“ unterscheiden; vollständige Fallunterscheidung |
+| M.SF.QF.SCHNITTPUNKTE | Ich kann Nullstellen und Schnittpunkte von Parabeln und Geraden zeichnerisch und rechnerisch bestimmen. | QF.FORMEL, FK.LINEAR-GLEICHUNG | OS LB 3, GY LB 1 | Gen | Zahl der Schnittpunkte begründen |
+| M.SF.QF.SACH | Ich kann Sachaufgaben mit quadratischen Funktionen lösen, auch größte und kleinste Werte (Wurf, Brückenbogen, größte Fläche). | QF.SCHEITEL, QF.FORMEL | OS LB 3, GY LB 1 | Gen | Lösung im Sachzusammenhang prüfen (negative Länge verwerfen) |
+
+**Feld PY – Satzgruppe des Pythagoras** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.PY.PYTHAGORAS | Ich kann mit dem Satz des Pythagoras fehlende Seiten im rechtwinkligen Dreieck berechnen. | DV.DREIECKE, PW.WURZEL | OS LB 1 (HS und RS), GY LB 3 | Gen | Hypotenuse falsch zugeordnet: Fehler finden |
+| M.RF.PY.UMKEHRUNG | Ich kann mit der Umkehrung des Satzes des Pythagoras prüfen, ob ein Dreieck rechtwinklig ist, und Satz und Umkehrung unterscheiden. | PY.PYTHAGORAS, KR.BEGRUENDEN | OS LB 1, GY LB 3 | Gen | Indirekter Beweis und „genau dann, wenn“ (GY) |
+| M.RF.PY.HOEHENSATZ | Ich kann Höhensatz und Kathetensatz anwenden. | PY.PYTHAGORAS | OS –, GY LB 3 | Gen | Satzgruppe: welcher Satz passt zur gegebenen Größe |
+| M.RF.PY.SACH | Ich kann den Satz des Pythagoras in Figuren, Körpern und Sachaufgaben anwenden (Diagonalen, Leiter, Dachstuhl, Raumdiagonale). | PY.PYTHAGORAS, FL.VIELECKE | OS LB 1, GY LB 3 | Gen | Rechtwinkliges Teildreieck im Körper finden |
+
+**Feld TR – Trigonometrie im rechtwinkligen Dreieck** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.TR.BEGRIFFE | Ich kann Sinus, Kosinus und Tangens als Seitenverhältnisse im rechtwinkligen Dreieck angeben. | PY.PYTHAGORAS, AE.AEHNLICH | OS LB 1 (HS nur Sinus), GY LB 3 | Gen | Warum das Verhältnis nur vom Winkel abhängt (Ähnlichkeit) |
+| M.RF.TR.BERECHNEN | Ich kann mit Sinus, Kosinus und Tangens Seitenlängen und Winkel im rechtwinkligen Dreieck berechnen. | TR.BEGRIFFE | OS LB 1, GY LB 3 | Gen | Gegen- und Ankathete vom anderen Winkel aus |
+| M.RF.TR.SACH | Ich kann Sachaufgaben mit Winkeln und Längen lösen: Steigung, Höhe, Vermessung, gleichschenklige Dreiecke und regelmäßige Vielecke. | TR.BERECHNEN, PY.SACH, DV.REGELMAESSIG | OS LB 1, GY LB 3 | Gen | π über regelmäßige n-Ecke annähern (GY) |
+
+**Feld KP – Pyramide, Kegel und Kugel** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.KP.KEGEL | Ich kann Netze, Schrägbilder und Ansichten von Kreiskegeln erkennen und skizzieren. | KP.ZYLINDER, KP.PYRAMIDEN | OS LB 2, GY – | Mix · Erkl | Zweitafelbild und Körper zuordnen |
+| M.GM.KP.PYRAMIDE-HOEHEN | Ich kann Körperhöhe, Seitenhöhe und Kantenlänge einer Pyramide mit dem Satz des Pythagoras berechnen. | KP.PYRAMIDE, PY.SACH | OS LB 2, GY LB 3 | Gen | Welche Strecke ist die Hypotenuse? |
+| M.GM.KP.KEGEL | Ich kann Mantellinie, Mantel, Oberfläche, Volumen und Masse von Kreiskegeln berechnen. | KP.ZYLINDER, PY.PYTHAGORAS | OS LB 2, GY LB 3 | Gen | Volumen von Kegel und Zylinder vergleichen (Faktor 1/3) |
+| M.GM.KP.KUGEL | Ich kann Oberfläche, Volumen und Masse von Kugeln berechnen, auch den Radius aus dem Volumen (Kubikwurzel). | KR.UMFANG-FLAECHE, PW.WURZEL | OS LB 2 (HS Differenzierung), GY LB 2 | Gen | Wie sich das Volumen beim Verdoppeln des Radius ändert |
+| M.GM.KP.ZUSAMMENGESETZT | Ich kann Oberfläche, Volumen und Materialbedarf zusammengesetzter Körper aus Prisma, Zylinder, Pyramide, Kegel und Kugel berechnen. | KP.KEGEL (GM), KP.KUGEL, KP.PYRAMIDE | OS LB 2, GY – | Gen | Zerlegen oder ergänzen: Lösungsplan wählen |
+
+**Feld ST – Beschreibende Statistik** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.ST.MITTELWERTE | Ich kann Modalwert, Median (Zentralwert) und arithmetisches Mittel bestimmen und entscheiden, welcher Mittelwert zu den Daten passt. | DA.MITTELWERT, DA.DIAGRAMME | OS LB 4, GY LB 4 | Gen | Ausreißer: welcher Mittelwert ist aussagekräftig? |
+| M.DZ.ST.STREUUNG | Ich kann Minimum, Maximum, Spannweite, Varianz und Standardabweichung bestimmen und die Streuung deuten. | ST.MITTELWERTE, PW.WURZEL | OS LB 4 (nur Spannweite), GY LB 4 | Gen | Gleiches Mittel, andere Streuung vergleichen |
+| M.DZ.ST.HISTOGRAMM | Ich kann Daten in Klassen einteilen und als Histogramm darstellen und lesen. | ST.MITTELWERTE | OS –, GY LB 4 | Gen | Wirkung einer anderen Klasseneinteilung |
+| M.DZ.ST.MANIPULATION | Ich kann typische Fehler und Täuschungen in Statistiken erkennen: abgeschnittene Achsen, andere Bezugsgrößen, Prozent falsch verwendet, überzogene Genauigkeit. | ST.MITTELWERTE, PZ.GRUNDAUFGABEN, DA.DIAGRAMME | OS LB 4, GY LB 4 | Mix | Begründung zur irreführenden Darstellung auswählen |
+
+**Summe Klasse 9:** 30 Kompetenzen × 3 Niveaus (G, M, E), davon 28 überwiegend generatorbasiert, 2 gemischt; bei 1 wird Zeichnen erklärt (Kegel, L-10). Neue Felder: PW (potenzen-wurzeln), PF (potenzfunktionen), QF (quadratische-funktionen), PY (pythagoras), TR (trigonometrie), ST (statistik); KP und GL werden fortgesetzt.
+
+### 8e.3 Graph Klasse 9 (vereinfacht)
+
+```
+RZ.POTENZEN ─ PW.WURZEL ─┬─ PW.REELL (+ RZ.ZAHLBEREICHE, BR.PERIODISCH)
+                         ├─ PW.GESETZE ─ PW.RATIONAL ─ PF.WURZELFUNKTION
+                         ├─ GL.WURZEL (+ TU.GLEICHUNGEN)
+                         ├─ PY.PYTHAGORAS (+ DV.DREIECKE) ─┬─ PY.UMKEHRUNG (+ KR.BEGRUENDEN)
+                         │                                 ├─ PY.HOEHENSATZ
+                         │                                 ├─ PY.SACH ─ KP.PYRAMIDE-HOEHEN
+                         │                                 └─ TR.BEGRIFFE (+ AE.AEHNLICH) ─ TR.BERECHNEN ─ TR.SACH
+                         └─ KP.KUGEL (+ KR.UMFANG-FLAECHE) ─┐
+FK.EIGENSCHAFTEN ─┬─ PF.POTENZFUNKTION ─ PF.PARAMETER      ├─ KP.ZUSAMMENGESETZT
+                  └─ QF.GRAPH ─┬─ QF.SCHEITEL (+ TU.BINOMISCH) ─┐
+                               └─ QF.INHALTLICH ────────────────┴─ QF.FORMEL ─┬─ QF.SCHNITTPUNKTE
+                                                                              └─ QF.SACH
+KP.ZYLINDER ─┬─ KP.KEGEL (GM, + PY.PYTHAGORAS) ──────────────────┘
+             └─ KP.KEGEL (RF, + KP.PYRAMIDEN)
+DA.MITTELWERT ─ ST.MITTELWERTE ─┬─ ST.STREUUNG ─ ST.HISTOGRAMM
+                                └─ ST.MANIPULATION
+```
+
+## 8f. Klasse 10 (Sachsen) – Kompetenzen für den sechsten Bauabschnitt
+
+Grundlage wie §8e: Lehrplan Oberschule Mathematik 2019 (Realschulbildungsgang, Kl. 10), Lehrplan Gymnasium Mathematik (Kl. 10 in Kraft seit 1. August 2023), ausgewertet am 02.11.2026. Klasse 10 der OS schließt mit dem **Realschulabschluss** ab (`PRUEFUNGEN.md` §4). Der Hauptschulbildungsgang endet mit Klasse 9.
+
+### 8f.1 Auswahl
+
+| | OS Klasse 10 – RS | GY Klasse 10 |
+|---|---|---|
+| LB 1 | Dreiecke und Vielecke (20 Ustd.) | Wachstumsvorgänge und periodische Vorgänge (22 Ustd.) |
+| LB 2 | Funktionale Zusammenhänge (20 Ustd.) | Diskrete Zufallsgrößen (16 Ustd.) |
+| LB 3 | Zufallsgrößen (12 Ustd.) | Algebraisches Lösen geometrischer Probleme (20 Ustd.) |
+| LB 4 | Mathematik im Alltag (28 Ustd.) | Funktionale Zusammenhänge (42 Ustd.) |
+| LB 5 | – | Vernetzung: Zinsrechnung (4 Ustd.) |
+
+**Wahlbereiche** (RS: Dynamisieren geometrischer Objekte, Optimierung, Vermessungsprobleme; GY: Komplexe Zahlen, Logistisches Wachstum, Kurven in Parameterdarstellung und in Polarkoordinaten) zählen nicht (L-11).
+
+**Hinweis zu §8d:** Die linearen Ungleichungen stehen an der OS nicht in Kl. 10 LB 2, sondern im **Wahlbereich 2 „Optimierung“** der Kl. 10. `M.SF.TU.UNGLEICHUNGEN` ist damit für die OS keine Pflicht. Die Zuordnung in §8d und in der `kompetenz.yaml` wird in Phase B berichtigt.
+
+**Wichtige Unterschiede in Klasse 10:**
+- **Exponentialfunktionen:** RS y = c·aˣ im Sachbezug; GY dazu rekursive und explizite Beschreibung, e als Basis, Parameter in allen vier Fällen, Logarithmus, Umkehrfunktionen und Exponentialgleichungen.
+- **Sinusfunktion:** RS y = a·sin(b·x) mit Grad- und Bogenmaß; GY alle vier Parameter c·f(x), f(x) + c, f(x + c), f(c·x).
+- **Zufallsgrößen:** RS nur der Erwartungswert, anschaulich und ohne Begriffsdefinition; GY Wahrscheinlichkeitsverteilung, „genau, mindestens, höchstens k“, Varianz und Standardabweichung, faire Spiele.
+- **Stümpfe:** Pyramiden- und Kegelstumpf berechnen nur an der RS (LB 4).
+- **Zahlenfolgen, Verknüpfen und Verketten von Funktionen, Systematik der Funktionen ohne Hilfsmittel** nur im GY (LB 4, Grundlage der Analysis).
+- **Zinsen:** Zinseszins steht schon in §8c (`M.ZO.PZ.ZINS`); neu sind Kredit und Tilgung (GY LB 5, RS LB 4).
+
+**Nicht in der App abbildbar:** exponentielle Regression mit Hilfsmitteln, Gewinnen der Umkehrfunktion mit CAS, Nachweis von Folgeneigenschaften mit CAS, Simulation von Zufallsversuchen (RS LB 3), Sich-Positionieren und Diskussionen (RS LB 4, GY LB 2). Die Parameterdarstellung des Kreises (GY LB 4, „Einblick“) und das logistische Wachstum (Einblick) kommen höchstens in der Erstvermittlung vor.
+
+### 8f.2 Kompetenzen
+
+Legende wie §8e.2. *Sachsen:* LB der Klasse 10.
+
+**Feld EX – Exponentielles Wachstum** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.EX.WACHSTUM | Ich kann lineares und exponentielles Wachstum unterscheiden und rekursiv und explizit beschreiben. | FK.LINEAR-GLEICHUNG, PZ.ZINS, PW.GESETZE | OS LB 2, GY LB 1 | Gen | Aus einer Tabelle begründen, welches Modell passt |
+| M.SF.EX.FUNKTION | Ich kann Exponentialfunktionen y = c·aˣ (auch mit Basis e) zeichnen, ihre Eigenschaften angeben und den Einfluss der Parameter beschreiben. | EX.WACHSTUM, PF.PARAMETER | OS LB 2, GY LB 1 | Gen | Graph und Term zuordnen, Asymptote begründen |
+| M.SF.EX.SACH | Ich kann Wachstums- und Zerfallsaufgaben lösen, auch mit Verdopplungs- und Halbwertszeit. | EX.FUNKTION | OS LB 2, GY LB 1 | Gen | Grenzen des Modells erkennen |
+
+**Feld LG – Logarithmus und Umkehrfunktionen** (KMK L3, L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.LG.UMKEHRFUNKTION | Ich kann zu einer umkehrbaren Funktion die Umkehrfunktion bilden und ihren Graphen durch Spiegeln an y = x erhalten. | FK.BEGRIFF, PF.WURZELFUNKTION | OS –, GY LB 4 | Gen | Warum y = x² nur eingeschränkt umkehrbar ist |
+| M.ZO.LG.LOGARITHMUS | Ich kann Logarithmen als Umkehrung des Potenzierens bestimmen und die Logarithmengesetze anwenden. | PW.GESETZE, LG.UMKEHRFUNKTION | OS –, GY LB 4 | Gen | Fehler finden, z. B. log(a + b) = log a + log b |
+| M.SF.LG.GLEICHUNGEN | Ich kann Exponentialgleichungen aˣ = b lösen und die Logarithmusfunktion y = ln x als Umkehrung von y = eˣ beschreiben. | LG.LOGARITHMUS, EX.FUNKTION | OS –, GY LB 4 | Gen | Eigenschaften von ln aus eˣ begründen |
+
+**Feld TF – Periodische Vorgänge und Sinusfunktion** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.TF.BOGENMASS | Ich kann Winkel zwischen Grad- und Bogenmaß umrechnen und Sinus und Kosinus am Einheitskreis ablesen. | TR.BEGRIFFE, KR.UMFANG-FLAECHE | OS LB 2, GY LB 1 | Gen | Werte über 90° am Einheitskreis begründen |
+| M.SF.TF.SINUS | Ich kann Graph und Eigenschaften der Sinus- und Kosinusfunktion angeben: Periode, Nullstellen, Extrema, Wertebereich. | TF.BOGENMASS, FK.EIGENSCHAFTEN | OS LB 2, GY LB 1 | Gen | Symmetrie und Periodizität begründen |
+| M.SF.TF.PARAMETER | Ich kann den Einfluss der Parameter in y = a·sin(b·(x + c)) + d beschreiben und periodische Vorgänge damit modellieren. | TF.SINUS, PF.PARAMETER | OS LB 2 (nur a und b), GY LB 1 | Gen | Periode aus b richtig bestimmen (2π/b statt b) |
+
+**Feld FS – Funktionen systematisch** (KMK L3)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.FS.SYSTEMATIK | Ich kann die Graphen und Eigenschaften von y = x, x², √x, 1/x, eˣ, ln x und sin x ohne Hilfsmittel angeben und zuordnen. | PF.WURZELFUNKTION, EX.FUNKTION, LG.GLEICHUNGEN, TF.SINUS | OS LB 2 (ohne ln), GY LB 4 | Gen | Aussagen über Funktionsklassen prüfen („Jede … hat …“) |
+| M.SF.FS.TRANSFORMATION | Ich kann für beliebige bekannte Funktionen den Einfluss von c·f(x), f(x) + c, f(x + c) und f(c·x) auf Graph und Eigenschaften angeben. | FS.SYSTEMATIK, TF.PARAMETER | OS –, GY LB 1 und LB 4 | Gen | Mehrere Parameter: Reihenfolge der Abbildungen |
+| M.SF.FS.VERKNUEPFEN | Ich kann Summen, Produkte, Quotienten und Verkettungen einfacher Funktionen bilden und innere und äußere Funktion angeben, auch tan x = sin x / cos x. | FS.SYSTEMATIK | OS –, GY LB 4 | Gen | Definitionslücken der Verknüpfung begründen |
+| M.SF.FS.FOLGEN | Ich kann Zahlenfolgen explizit und rekursiv beschreiben und Schranken und Grenzwerte anschaulich bestimmen. | EX.WACHSTUM, FK.BEGRIFF | OS –, GY LB 4 | Gen | „Beschränkt, also konvergent?“ – Gegenbeispiel wählen |
+
+**Feld ZG – Zufallsgrößen** (KMK L5)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.ZG.VERTEILUNG | Ich kann zu einer Zufallsgröße die Wahrscheinlichkeitsverteilung aufstellen, als Stabdiagramm darstellen und Wahrscheinlichkeiten für „genau“, „mindestens“ und „höchstens k“ berechnen. | ZF.BAUMDIAGRAMM, ZF.ZAEHLEN | OS LB 3 (Einblick), GY LB 2 | Gen | Gegenereignis bei „mindestens eins“ nutzen |
+| M.DZ.ZG.ERWARTUNG | Ich kann den Erwartungswert einer Zufallsgröße berechnen, mit dem Mittelwert vergleichen und Spiele als fair oder unfair beurteilen. | ZG.VERTEILUNG, ST.MITTELWERTE | OS LB 3, GY LB 2 | Gen | Gewinnchance und Gewinnerwartung unterscheiden |
+| M.DZ.ZG.STREUUNG | Ich kann Varianz und Standardabweichung einer Zufallsgröße berechnen und als Maß für das Risiko deuten. | ZG.ERWARTUNG, ST.STREUUNG | OS –, GY LB 2 | Gen | Zwei Spiele mit gleichem Erwartungswert vergleichen |
+
+**Feld AD – Allgemeine Dreiecke** (KMK L4, L2)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.AD.SINUSSATZ | Ich kann mit dem Sinussatz Seiten und Winkel in beliebigen Dreiecken berechnen. | TR.BERECHNEN, TF.BOGENMASS | OS LB 1, GY LB 3 | Gen | Zwei mögliche Dreiecke (Fall SsW) erkennen |
+| M.RF.AD.KOSINUSSATZ | Ich kann mit dem Kosinussatz Seiten und Winkel in beliebigen Dreiecken berechnen. | TR.BERECHNEN, PY.PYTHAGORAS | OS LB 1, GY LB 3 | Gen | Pythagoras als Sonderfall begründen |
+| M.GM.AD.FLAECHE | Ich kann den Flächeninhalt beliebiger Dreiecke und Vielecke mit A = ½·a·b·sin γ berechnen. | AD.SINUSSATZ, FL.DREIECK | OS LB 1, GY LB 3 | Gen | Formel aus A = ½·g·h herleiten (Schritte ordnen) |
+| M.RF.AD.SACH | Ich kann Berechnungen an Dreiecken, Vielecken, Pyramiden und Kegeln mit einem Lösungsplan durchführen (Vermessung, Bauwerke). | AD.SINUSSATZ, AD.KOSINUSSATZ, KP.PYRAMIDE-HOEHEN | OS LB 1, GY LB 3 | Gen | Lösungsplan wählen: welcher Satz zuerst? |
+
+**Felder KP und PZ – Mathematik im Alltag** (KMK L2, L1)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.GM.KP.STUMPF | Ich kann Oberfläche, Volumen und Masse von Pyramiden- und Kegelstümpfen berechnen. | KP.ZUSAMMENGESETZT, AE.BERECHNEN | OS LB 4, GY – | Gen | Stumpf als Differenz zweier Körper begründen |
+| M.ZO.PZ.KREDIT | Ich kann Sparpläne, Kredite und Tilgung berechnen und vergleichen. | PZ.ZINS, EX.SACH | OS LB 4, GY LB 5 | Gen | Effektiver Zins: Angebot mit versteckten Kosten erkennen |
+
+**Summe Klasse 10:** 22 Kompetenzen × 3 Niveaus, alle überwiegend generatorbasiert. Neue Felder: EX (exponentialfunktionen), LG (logarithmus), TF (trigonometrische-funktionen), FS (funktionen-systematisch), ZG (zufallsgroessen), AD (allgemeine-dreiecke).
+
+### 8f.3 Graph Klasse 10 (vereinfacht)
+
+```
+PZ.ZINS ─ EX.WACHSTUM (+ FK.LINEAR-GLEICHUNG, PW.GESETZE) ─┬─ EX.FUNKTION (+ PF.PARAMETER) ─┬─ EX.SACH ─ PZ.KREDIT
+                                                           │                               └─ LG.GLEICHUNGEN ─┐
+                                                           └─ FS.FOLGEN                                       │
+PF.WURZELFUNKTION ─ LG.UMKEHRFUNKTION ─ LG.LOGARITHMUS (+ PW.GESETZE) ─ LG.GLEICHUNGEN ───────────────────────┤
+TR.BEGRIFFE ─ TF.BOGENMASS ─ TF.SINUS ─ TF.PARAMETER ─────────────────────────────────────────────────────────┴─ FS.SYSTEMATIK ─┬─ FS.TRANSFORMATION
+                                                                                                                             └─ FS.VERKNUEPFEN
+TR.BERECHNEN ─┬─ AD.SINUSSATZ (+ TF.BOGENMASS) ─┬─ AD.FLAECHE
+              └─ AD.KOSINUSSATZ ────────────────┴─ AD.SACH (+ KP.PYRAMIDE-HOEHEN)
+ZF.BAUMDIAGRAMM ─ ZG.VERTEILUNG ─ ZG.ERWARTUNG (+ ST.MITTELWERTE) ─ ZG.STREUUNG (+ ST.STREUUNG)
+KP.ZUSAMMENGESETZT ─ KP.STUMPF (+ AE.BERECHNEN)
+```
+
+## 8g. Jahrgangsstufen 11/12 (Sachsen) – Grundkurs und Leistungskurs
+
+Grundlage: Lehrplan Gymnasium Mathematik (Jgst. 11 in Kraft seit 1. August 2024, Jgst. 12 seit 1. August 2025), Teile „Grundkurs“ und „Leistungskurs“, ausgewertet am 02.11.2026. Die Oberstufe gibt es nur am Gymnasium. Ziel ist das Abitur GK und LK (`PRUEFUNGEN.md` §1–§3, K-25).
+
+### 8g.1 Auswahl
+
+| LB | Grundkurs | Leistungskurs |
+|---|---|---|
+| Differentialrechnung | LB 1 (52 Ustd.) | LB 1 (66 Ustd.) |
+| Matrizen | LB 2 (6 Ustd.) | LB 2 (6 Ustd.) |
+| Vektoren, Geraden und Ebenen | LB 3 (32 Ustd.) | LB 3 (32 Ustd.) |
+| Binomialverteilte Zufallsgrößen | LB 4 (18 Ustd.) | LB 4 (32 Ustd.) |
+| Integralrechnung | LB 5 (28 Ustd.) | LB 5 (33 Ustd.) |
+| Normalverteilte Zufallsgrößen | – | LB 6 (12 Ustd.) |
+| Beurteilende Statistik | LB 6 (12 Ustd.) | LB 7 (12 Ustd.) |
+| Abstände und Winkel | LB 7 (24 Ustd.) | LB 8 (26 Ustd.) |
+| Weitere Anwendungen | LB 8 (20 Ustd.) | LB 9 (21 Ustd.) |
+
+**Wahlbereiche** (GK: Kegelschnitte, Numerische Verfahren zum Lösen von Gleichungen, Dynamische Systeme und fraktale Strukturen, Bedingte Wahrscheinlichkeiten, Numerische Integrationsverfahren, Differentialgleichungen; LK: dieselben ohne „Bedingte Wahrscheinlichkeiten“, dafür Funktionen mit zwei Veränderlichen) zählen nicht (L-11). Bedingte Wahrscheinlichkeit und der Satz von Bayes sind im **LK Pflicht** (LB 4), im GK nur Wahlbereich.
+
+**Entscheidung des PV (02.11.2026, `KLASSE-9-12.md` Entscheidung 2): GK und LK teilen sich die Kompetenzen.** Was der LK über den GK hinaus verlangt, steht auf **Niveau E**. Eine eigene Kompetenz mit der Kennzeichnung **(LK)** gibt es nur, wo der Stoff im GK gar nicht vorkommt. „Weitere Anwendungen“ (GK LB 8, LK LB 9) ist kein eigenes Feld; die Inhalte (Spiegeln, extremale Abstände, Flächen, Scharen) stehen bei den Feldern, zu denen sie gehören. Die Lernbereiche 1–9 gelten für die Jahrgangsstufen 11 und 12 zusammen; der Lehrplan teilt sie nicht auf die Jahre auf.
+
+**Wichtige Unterschiede GK und LK** (nach Lernbereich):
+- **Differentialrechnung:** LK beherrscht Grenzwerte und Stetigkeit (GK: Einblick in Stetigkeit), auch abschnittsweise definierte Funktionen; Ableitung nach Definition auch für f(x) = aˣ; Approximation durch lineare Funktionen; Polynomdivision (mit CAS) und alle Asymptoten.
+- **Vektoren:** LK beherrscht lineare Abhängigkeit (GK: geometrische Veranschaulichung) und die Lage Ebene–Ebene mit Schnittgerade.
+- **Stochastik:** LK zusätzlich Zugänge zum Wahrscheinlichkeitsbegriff (Einblick), Abzählverfahren, bedingte Wahrscheinlichkeit und Bayes; Normalverteilung (LB 6).
+- **Integralrechnung:** LK zusätzlich lineare Substitution ohne Hilfsmittel, Integralfunktion, Integral als physikalische Größe, Volumen von Rotationskörpern.
+- **Abstände:** LK zusätzlich Hesse'sche Normalenform und die Abstände Punkt–Gerade, Gerade–Ebene, Gerade–Gerade und Ebene–Ebene.
+- **Weitere Anwendungen:** LK zusätzlich extremale Winkel, unbegrenzte Flächen, Volumina, Dichtefunktion und Fläche, Ortskurven und Ebenenscharen.
+
+**Nicht in der App abbildbar:** Bestimmen von Funktionsgleichungen mit **Regression**, Ableiten und Integrieren „mit Hilfsmitteln: beliebige Funktionen“, Gleichungssysteme mit mehr als drei Unbekannten, Simulation, Lösen mit dem MMS. Bastion bietet kein modulares Mathematiksystem an (`PRUEFUNGEN.md` §5.3). Aufgaben im Stil von Teil B geben Rechnerergebnisse vor oder fragen nach Ansatz, Deutung und Begründung. Würdigungen (Newton, Leibniz, Riemann, Moivre, Laplace) nur in der Erstvermittlung.
+
+### 8g.2 Kompetenzen
+
+Legende wie §8e.2. *Sachsen:* LB nach Grundkurs/Leistungskurs, z. B. „GK 1, LK 1“. **(LK)** = nur Leistungskurs. `klassenstufe_typisch: [11, 12]`. Spalte **E** nennt zuerst den LK-Anteil, sonst den Transfer.
+
+**Feld GW – Grenzwerte und Stetigkeit** (KMK SII: funktionaler Zusammenhang)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.GW.UNENDLICH | Ich kann das Verhalten von Funktionen für x → ±∞ bestimmen und waagerechte Asymptoten angeben. | FS.SYSTEMATIK, FS.FOLGEN | GK 1, LK 1 | Gen | LK: schiefe Asymptoten (Polynomdivision) |
+| M.SF.GW.STELLE | Ich kann Grenzwerte an einer Stelle mit den Grenzwertsätzen bestimmen und Polstellen und Lücken unterscheiden. | GW.UNENDLICH, FS.VERKNUEPFEN | GK 1, LK 1 | Gen | Links- und rechtsseitigen Grenzwert vergleichen |
+| M.SF.GW.STETIGKEIT | Ich kann entscheiden, ob eine Funktion an einer Stelle stetig ist, und Unstetigkeitsstellen angeben. | GW.STELLE | GK 1 (Einblick), LK 1 | Gen | LK: abschnittsweise Funktionen stetig machen (Parameter) |
+
+**Feld AB – Ableitungen** (KMK SII: funktionaler Zusammenhang)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.AB.AENDERUNGSRATE | Ich kann mittlere und lokale Änderungsraten bestimmen und als Anstieg von Sekante und Tangente deuten. | FK.LINEAR-GLEICHUNG, GW.STELLE | GK 1, LK 1 | Gen | LK: Approximation durch eine lineare Funktion |
+| M.SF.AB.DEFINITION | Ich kann die Ableitung mit dem Differentialquotienten nach Definition bestimmen. | AB.AENDERUNGSRATE, TU.BINOMISCH | GK 1, LK 1 | Mix | LK: f(x) = aˣ; Schritte der h-Methode ordnen |
+| M.SF.AB.REGELN | Ich kann ganzrationale Funktionen und Potenzfunktionen mit rationalen Exponenten mit Potenz-, Faktor- und Summenregel ableiten. | AB.DEFINITION, PW.RATIONAL | GK 1, LK 1 | Gen | Eine Regel begründen (Schritte auswählen) |
+| M.SF.AB.SPEZIELL | Ich kann eˣ, ln x, sin x und cos x ableiten. | AB.REGELN, FS.SYSTEMATIK | GK 1, LK 1 | Gen | Ableitung am Graphen bestätigen |
+| M.SF.AB.KETTE-PRODUKT | Ich kann einfache Verkettungen und Produkte mit Ketten- und Produktregel ableiten. | AB.SPEZIELL, FS.VERKNUEPFEN | GK 1, LK 1 | Gen | Fehler finden: innere Ableitung vergessen |
+| M.SF.AB.TANGENTE | Ich kann Gleichungen von Tangenten und Normalen bestimmen und Berührpunkte zu gegebenem Anstieg finden. | AB.REGELN, FK.LINEAR-GLEICHUNG | GK 1, LK 1 | Gen | Tangente von einem Punkt außerhalb (Parameter) |
+| M.SF.AB.GRAPH | Ich kann zum Graphen einer Funktion den Graphen der Ableitung skizzieren und zuordnen und umgekehrt. | AB.AENDERUNGSRATE, FK.EIGENSCHAFTEN | GK 1, LK 1 | Mix | Aus f′ auf f schließen, Aussagen begründen |
+
+**Feld KD – Funktionen untersuchen** (KMK SII: funktionaler Zusammenhang)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.KD.EIGENSCHAFTEN | Ich kann Definitions- und Wertebereich in Intervall- und Mengenschreibweise angeben und Nullstellen, Polstellen, Symmetrie und Asymptoten bestimmen. | GW.STELLE, QF.FORMEL | GK 1, LK 1 | Gen | LK: alle Asymptoten; Symmetrie allgemein nachweisen |
+| M.SF.KD.MONOTONIE | Ich kann mit der ersten Ableitung Monotoniebereiche bestimmen. | AB.REGELN, KD.EIGENSCHAFTEN | GK 1, LK 1 | Gen | „f′(x) > 0 ⇒ steigend“ – Umkehrung prüfen |
+| M.SF.KD.EXTREMA | Ich kann lokale und globale Extrempunkte mit notwendiger und hinreichender Bedingung bestimmen. | KD.MONOTONIE | GK 1, LK 1 | Gen | Notwendig und hinreichend unterscheiden (f′(0) = 0 bei x³) |
+| M.SF.KD.WENDEPUNKT | Ich kann Wendepunkte und Krümmungsverhalten mit der zweiten Ableitung bestimmen. | KD.EXTREMA | GK 1, LK 1 | Gen | Wendetangente; Sattelpunkt erkennen |
+| M.SF.KD.REKONSTRUKTION | Ich kann die Gleichung einer ganzrationalen Funktion aus gegebenen Eigenschaften mit einem Gleichungssystem bestimmen (bis zu drei Unbekannte). | KD.WENDEPUNKT, MA.LGS | GK 1, LK 1 | Gen | Bedingungen aus einem Sachtext aufstellen |
+| M.SF.KD.EXTREMWERT | Ich kann Extremwertprobleme mit Haupt- und Nebenbedingung lösen und Randwerte prüfen. | KD.EXTREMA, QF.SACH | GK 1, LK 1 | Gen | LK: mehrere Verfahren vergleichen; extremale Abstände und Winkel |
+| M.SF.KD.SCHAREN | Ich kann Funktionsscharen mit einem Parameter untersuchen und Eigenschaften in Abhängigkeit vom Parameter angeben. | KD.EXTREMA, FS.TRANSFORMATION | GK 8, LK 9 | Gen | LK: Ortskurven der Extrem- und Wendepunkte |
+
+**Feld IN – Integralrechnung** (KMK SII: Messen, funktionaler Zusammenhang)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.SF.IN.STAMMFUNKTION | Ich kann Stammfunktionen von ganzrationalen Funktionen, Potenzfunktionen, eˣ, 1/x und sin x angeben. | AB.SPEZIELL | GK 5, LK 5 | Gen | LK: lineare Substitution (z. B. e^(2x+1)) |
+| M.SF.IN.BESTAND | Ich kann aus einer Änderungsrate den Bestand rekonstruieren und das Integral als Bilanz deuten. | AB.AENDERUNGSRATE, IN.STAMMFUNKTION | GK 5, LK 5 | Mix | LK: Integral als physikalische Größe (Weg, Arbeit) |
+| M.SF.IN.BESTIMMT | Ich kann bestimmte Integrale mit dem Hauptsatz berechnen und die Eigenschaften des Integrals nutzen. | IN.STAMMFUNKTION | GK 5, LK 5 | Gen | Wert am Graphen von F ablesen; Vorzeichen deuten |
+| M.SF.IN.FLAECHE | Ich kann Flächen zwischen einem Graphen und der x-Achse und zwischen zwei Graphen berechnen. | IN.BESTIMMT, QF.SCHNITTPUNKTE | GK 5 und 8, LK 5 und 9 | Gen | LK: unbegrenzte Flächen (uneigentliche Integrale) |
+| M.SF.IN.INTEGRALFUNKTION (LK) | Ich kann Integralfunktionen untersuchen und ihren Zusammenhang mit der Ausgangsfunktion beschreiben. | IN.BESTIMMT, AB.GRAPH | LK 5 | Gen | Eigenschaften der Integralfunktion am Graphen von f begründen |
+| M.SF.IN.ROTATION (LK) | Ich kann das Volumen von Rotationskörpern bei Rotation um die x-Achse berechnen. | IN.BESTIMMT, KP.KEGEL (GM) | LK 5 | Gen | Volumenformel des Kegels herleiten (Schritte ordnen) |
+
+**Feld MA – Matrizen und Gleichungssysteme** (KMK SII: Algorithmus und Zahl)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.ZO.MA.LGS | Ich kann lineare Gleichungssysteme mit drei Unbekannten in Matrixform schreiben und mit dem Gauß-Verfahren lösen. | GS.RECHNERISCH | GK 2, LK 2 | Gen | LK: Lösbarkeitsfälle (keine, eine, unendlich viele Lösungen) |
+| M.ZO.MA.MULTIPLIZIEREN | Ich kann verkettete Matrizen multiplizieren und zeigen, dass A·B ≠ B·A sein kann. | MA.LGS | GK 2, LK 2 | Gen | Anwendung: Drehung oder Verflechtung (Einblick) |
+
+**Feld VK – Vektoren** (KMK SII: Raum und Form)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.VK.RAUM | Ich kann Punkte und Körper im räumlichen Koordinatensystem darstellen und Koordinaten ablesen. | GF.QUADRANTEN, KP.ZWEITAFEL | GK 3, LK 3 | Mix · Erkl | Koordinaten verdeckter Ecken begründen |
+| M.RF.VK.RECHNEN | Ich kann Vektoren addieren, subtrahieren, vervielfachen, ihren Betrag berechnen und damit Mittelpunkte und Parallelogramme nachweisen. | VK.RAUM, PY.SACH | GK 3, LK 3 | Gen | Rechengesetze geometrisch begründen |
+| M.RF.VK.ABHAENGIG | Ich kann entscheiden, ob Vektoren linear abhängig sind, und das geometrisch deuten (parallel, in einer Ebene). | VK.RECHNEN, MA.LGS | GK 3 (Veranschaulichung), LK 3 | Gen | LK: rechnerischer Nachweis für drei Vektoren |
+
+**Feld GE – Geraden und Ebenen** (KMK SII: Raum und Form)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.GE.GERADE | Ich kann Geradengleichungen in Parameterform aufstellen und prüfen, ob ein Punkt auf der Geraden liegt. | VK.RECHNEN | GK 3, LK 3 | Gen | Besondere Lage (parallel zu einer Koordinatenebene) |
+| M.RF.GE.EBENE | Ich kann Ebenengleichungen in Parameter- und Koordinatenform aufstellen und ineinander umwandeln. | GE.GERADE, MA.LGS | GK 3, LK 3 | Gen | Spurpunkte und Lage im Raum deuten |
+| M.RF.GE.LAGE-GG | Ich kann die Lage zweier Geraden bestimmen (identisch, parallel, schneidend, windschief) und den Schnittpunkt berechnen. | GE.GERADE, MA.LGS | GK 3, LK 3 | Gen | Entscheidungsweg in die richtige Reihenfolge bringen |
+| M.RF.GE.LAGE-GE | Ich kann die Lage von Gerade und Ebene bestimmen und den Durchstoßpunkt berechnen. | GE.EBENE, GE.LAGE-GG | GK 3, LK 3 | Gen | Lage am Skalarprodukt mit dem Normalenvektor erkennen |
+| M.RF.GE.LAGE-EE (LK) | Ich kann die Lage zweier Ebenen bestimmen und die Schnittgerade berechnen. | GE.LAGE-GE | LK 3 | Gen | Parallele Ebenen an den Normalenvektoren begründen |
+| M.RF.GE.SCHAREN | Ich kann Geradenscharen untersuchen und besondere Geraden einer Schar bestimmen. | GE.LAGE-GG | GK 8, LK 9 | Gen | LK: Ebenenscharen |
+
+**Feld AW – Abstände und Winkel** (KMK SII: Raum und Form, Messen)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.RF.AW.SKALARPRODUKT | Ich kann das Skalarprodukt berechnen, damit Orthogonalität prüfen und Winkel zwischen Vektoren bestimmen. | VK.RECHNEN, TR.BERECHNEN | GK 7, LK 8 | Gen | Geometrische Bedeutung (Projektion) |
+| M.RF.AW.VEKTORPRODUKT | Ich kann das Vektorprodukt berechnen, als Normalenvektor nutzen und Flächen von Parallelogramm und Dreieck bestimmen. | AW.SKALARPRODUKT | GK 7 und 8, LK 8 und 9 | Gen | Richtung und Betrag geometrisch deuten |
+| M.RF.AW.SCHNITTWINKEL | Ich kann Schnittwinkel zwischen Geraden, zwischen Gerade und Ebene und zwischen zwei Ebenen berechnen. | AW.SKALARPRODUKT, GE.EBENE | GK 7, LK 8 | Gen | Sinus statt Kosinus bei Gerade–Ebene begründen |
+| M.RF.AW.ABSTAND | Ich kann Abstände Punkt–Punkt und Punkt–Ebene berechnen, auch über den Lotfußpunkt. | AW.SCHNITTWINKEL, GE.LAGE-GE | GK 7, LK 8 | Gen | LK: Hesse'sche Normalenform |
+| M.RF.AW.ABSTAND-WEITERE (LK) | Ich kann Abstände Punkt–Gerade, Gerade–Ebene, Gerade–Gerade (auch windschief) und Ebene–Ebene berechnen. | AW.ABSTAND, GE.LAGE-EE | LK 8 | Gen | Verfahren wählen und begründen |
+| M.RF.AW.ANWENDUNG | Ich kann Punkte an Ebenen spiegeln und kleinste und größte Entfernungen in Ebene und Raum bestimmen. | AW.ABSTAND, KD.EXTREMWERT | GK 8, LK 9 | Gen | LK: extremale Winkel |
+
+**Feld WS – Mehrstufige Zufallsversuche** (KMK SII: Daten und Zufall)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.WS.MEHRSTUFIG | Ich kann Wahrscheinlichkeiten mehrstufiger Versuche mit Urnenmodell und Baumdiagramm berechnen und abschätzen. | ZF.BAUMDIAGRAMM, ZG.VERTEILUNG | GK 4, LK 4 | Gen | Verschiedene Lösungswege vergleichen |
+| M.DZ.WS.ABZAEHLEN | Ich kann mit Fakultät und Binomialkoeffizient zählen. | ZF.ZAEHLEN | GK 4, LK 4 | Gen | LK: Abzählverfahren beim Lotto und Ziehen ohne Zurücklegen |
+| M.DZ.WS.VIERFELDER | Ich kann Vierfeldertafeln aufstellen, ergänzen und lesen. | WS.MEHRSTUFIG, ZF.EREIGNISSE | GK 4, LK 4 | Gen | Zwischen Baum und Tafel wechseln |
+| M.DZ.WS.UNABHAENGIG | Ich kann prüfen, ob zwei Ereignisse stochastisch unabhängig sind. | WS.VIERFELDER | GK 4, LK 4 | Gen | Unabhängig und unvereinbar unterscheiden |
+| M.DZ.WS.BEDINGT (LK) | Ich kann bedingte Wahrscheinlichkeiten berechnen und den Satz von Bayes anwenden. | WS.VIERFELDER | LK 4 (GK Wahlbereich 4) | Gen | P(A\|B) und P(B\|A) verwechseln: Fehler finden (Testbeispiel) |
+
+**Feld BV – Binomialverteilung** (KMK SII: Daten und Zufall)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.BV.BERNOULLI | Ich kann Bernoulli-Ketten erkennen und Länge n und Trefferwahrscheinlichkeit p angeben. | WS.MEHRSTUFIG | GK 4, LK 4 | Gen | Prüfen, ob das Modell passt (Ziehen ohne Zurücklegen) |
+| M.DZ.BV.EINZEL | Ich kann Einzelwahrscheinlichkeiten P(X = k) mit der Bernoulli-Formel berechnen. | BV.BERNOULLI, WS.ABZAEHLEN | GK 4, LK 4 | Gen | Formel herleiten (Pfade zählen) |
+| M.DZ.BV.KUMULIERT | Ich kann kumulierte Wahrscheinlichkeiten für „höchstens“, „mindestens“ und „zwischen“ bestimmen, auch mit dem Summenzeichen. | BV.EINZEL, ZG.VERTEILUNG | GK 4, LK 4 | Gen | Grenzen richtig setzen (P(X ≥ k) = 1 − P(X ≤ k − 1)) |
+| M.DZ.BV.KENNGROESSEN | Ich kann Erwartungswert, Varianz und Standardabweichung binomialverteilter Zufallsgrößen berechnen und deuten. | BV.BERNOULLI, ZG.STREUUNG | GK 4, LK 4 | Gen | Aus μ und σ auf n und p schließen |
+| M.DZ.BV.SACH | Ich kann Sachaufgaben mit der Binomialverteilung lösen, auch „Wie oft muss man mindestens …?“. | BV.KUMULIERT, LG.GLEICHUNGEN | GK 4, LK 4 | Gen | LK: Modellierung kritisch beurteilen |
+
+**Feld NV – Normalverteilung (LK)** (KMK SII: Daten und Zufall)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.NV.DICHTE (LK) | Ich kann Dichte- und Verteilungsfunktion der Normalverteilung mit μ und σ beschreiben und den Graphen deuten. | BV.KENNGROESSEN, IN.BESTIMMT | LK 6 und 9 | Gen | Wahrscheinlichkeit als Fläche unter der Dichte |
+| M.DZ.NV.BERECHNEN (LK) | Ich kann Wahrscheinlichkeiten normalverteilter Zufallsgrößen bestimmen und die Binomialverteilung durch die Normalverteilung annähern. | NV.DICHTE | LK 6 | Gen | Wann die Näherung zulässig ist (Faustregel) |
+
+**Feld BS – Beurteilende Statistik** (KMK SII: Daten und Zufall)
+
+| ID | Kann-Satz | Voraussetzungen | Sachsen | Abd. | E |
+|---|---|---|---|---|---|
+| M.DZ.BS.SCHAETZEN | Ich kann aus einer Stichprobe Mittelwert und Varianz schätzen und auf die Grundgesamtheit hochrechnen. | ST.STREUUNG, BV.KENNGROESSEN | GK 6, LK 7 | Gen | Aussagekraft einer Prognose beurteilen |
+| M.DZ.BS.TEST | Ich kann einen ein- oder zweiseitigen Signifikanztest für binomialverteilte Zufallsgrößen durchführen: Nullhypothese, Ablehnungsbereich, Entscheidungsregel. | BV.KUMULIERT | GK 6, LK 7 | Gen | Links- oder rechtsseitig: aus dem Sachtext begründen |
+| M.DZ.BS.IRRTUM | Ich kann das Signifikanzniveau und die statistische Sicherheit deuten und die Wahrscheinlichkeit einer Fehlentscheidung berechnen. | BS.TEST | GK 6, LK 7 | Gen | „Die Nullhypothese ist zu 95 % wahr“ – Fehlvorstellung finden |
+
+**Summe Jahrgangsstufen 11/12:** 55 Kompetenzen × 3 Niveaus, davon **7 nur im LK** (IN.INTEGRALFUNKTION, IN.ROTATION, GE.LAGE-EE, AW.ABSTAND-WEITERE, WS.BEDINGT, NV.DICHTE, NV.BERECHNEN); 51 überwiegend generatorbasiert, 4 gemischt; bei 1 wird Zeichnen erklärt (räumliches Koordinatensystem). Neue Felder: GW, AB, KD, IN (Analysis), MA (Matrizen), VK, GE, AW (Analytische Geometrie), WS, BV, NV, BS (Stochastik).
+
+**Summe Klasse 9 bis 12:** 107 Kompetenzen (30 + 22 + 55). Mit den 123 Kompetenzen der Klassen 5 bis 8 sind es 230.
+
+### 8g.3 Graph Jahrgangsstufen 11/12 (vereinfacht)
+
+```
+Analysis
+FS.SYSTEMATIK ─ GW.UNENDLICH (+ FS.FOLGEN) ─ GW.STELLE (+ FS.VERKNUEPFEN) ─┬─ GW.STETIGKEIT
+                                                                           └─ AB.AENDERUNGSRATE ─┬─ AB.DEFINITION ─ AB.REGELN ─┬─ AB.SPEZIELL ─┬─ AB.KETTE-PRODUKT
+                                                                                                 │                             │               └─ IN.STAMMFUNKTION ─┬─ IN.BESTAND
+                                                                                                 │                             │                                    └─ IN.BESTIMMT ─┬─ IN.FLAECHE
+                                                                                                 │                             │                                                    ├─ IN.INTEGRALFUNKTION (LK)
+                                                                                                 │                             │                                                    └─ IN.ROTATION (LK)
+                                                                                                 │                             ├─ AB.TANGENTE
+                                                                                                 │                             └─ KD.MONOTONIE (+ KD.EIGENSCHAFTEN) ─ KD.EXTREMA ─┬─ KD.WENDEPUNKT ─ KD.REKONSTRUKTION (+ MA.LGS)
+                                                                                                 │                                                                                ├─ KD.EXTREMWERT
+                                                                                                 │                                                                                └─ KD.SCHAREN
+                                                                                                 └─ AB.GRAPH
+Lineare Algebra und Analytische Geometrie
+GS.RECHNERISCH ─ MA.LGS ─ MA.MULTIPLIZIEREN
+VK.RAUM ─ VK.RECHNEN ─┬─ VK.ABHAENGIG (+ MA.LGS)
+                      ├─ GE.GERADE ─┬─ GE.LAGE-GG ─ GE.SCHAREN
+                      │             └─ GE.EBENE (+ MA.LGS) ─ GE.LAGE-GE (+ GE.LAGE-GG) ─ GE.LAGE-EE (LK)
+                      └─ AW.SKALARPRODUKT ─┬─ AW.VEKTORPRODUKT
+                                           └─ AW.SCHNITTWINKEL (+ GE.EBENE) ─ AW.ABSTAND (+ GE.LAGE-GE) ─┬─ AW.ABSTAND-WEITERE (LK, + GE.LAGE-EE)
+                                                                                                         └─ AW.ANWENDUNG (+ KD.EXTREMWERT)
+Stochastik
+ZF.BAUMDIAGRAMM ─ WS.MEHRSTUFIG (+ ZG.VERTEILUNG) ─┬─ WS.VIERFELDER ─┬─ WS.UNABHAENGIG
+                                                   │                 └─ WS.BEDINGT (LK)
+                                                   └─ BV.BERNOULLI ─┬─ BV.EINZEL (+ WS.ABZAEHLEN) ─ BV.KUMULIERT ─┬─ BV.SACH
+                                                                    │                                             └─ BS.TEST ─ BS.IRRTUM
+                                                                    └─ BV.KENNGROESSEN (+ ZG.STREUUNG) ─┬─ BS.SCHAETZEN (+ ST.STREUUNG)
+                                                                                                        └─ NV.DICHTE (LK, + IN.BESTIMMT) ─ NV.BERECHNEN (LK)
+```
+
+### 8g.4 Abgleich mit den Prüfungen (`PRUEFUNGEN.md`)
+
+**Abitur GK und LK** (§1–§3): Alle drei Sachgebiete sind abgedeckt – Analysis (GW, AB, KD, IN), Analytische Geometrie/Lineare Algebra (MA, VK, GE, AW), Stochastik (WS, BV, NV, BS). Die im Muster [SMK-M] beobachteten Formen von Teil A passen zu den Kompetenzen: Ableitung und Anstieg (AB.REGELN, AB.SPEZIELL), Grenzwerte (GW.UNENDLICH), Definitionsbereich und Asymptoten (KD.EIGENSCHAFTEN), Integral aus dem Graphen einer Stammfunktion (IN.BESTIMMT, E), Funktionenscharen (KD.SCHAREN), Mittelpunkt und Geraden im Raum (VK.RECHNEN, GE.GERADE), Parallelogramm nachweisen (VK.RECHNEN), Geradenscharen und Ebene (GE.SCHAREN), Standardabweichung der Binomialverteilung (BV.KENNGROESSEN). Teil A ist hilfsmittelfrei; die Generatoren der Klasse 11/12 brauchen deshalb einen Modus mit „schönen“ Zahlen (§5.3).
+
+**Lücken beim Abitur, ehrlich benannt:**
+- **Teil B mit MMS** (Regression, numerisches Lösen, beliebige Funktionen ableiten und integrieren) lässt sich nicht nachbilden. Bastion übt Ansatz, Deutung und Begründung; Rechnerergebnisse stehen in der Aufgabe.
+- **Nachweis- und Begründungsaufgaben** („Zeigen Sie …“, „Begründen Sie …“) gibt es nur geschlossen: Begründung auswählen, Schritte ordnen, Fehler finden (§5.3). Offene Beweise bleiben ungeprüft.
+- **IQB-Pool-Aufgaben** (§1) werden im Stil nachgebildet, nicht ersetzt.
+
+**Realschulabschluss** (§4): Teil A prüft Basiswissen der Klassen 5 bis 10 ohne Taschenrechner (vorhanden). Die sachbezogenen Themen von Teil B sind abgedeckt: Körper einschließlich Stümpfe (KP.KEGEL, KP.KUGEL, KP.ZUSAMMENGESETZT, KP.STUMPF), Prozent und Kosten (PZ, PZ.KREDIT), Statistik (ST.MITTELWERTE), Trigonometrie (TR, AD), Funktionen (QF, EX, TF), Erwartungswert (ZG.ERWARTUNG). **Lücken:** Rechenkästchen, Zweitafelbild und Schrägbild zeichnen (nur erklärt, L-10) und Baumdiagramm beschriften (braucht ein Eingabefeld im Bild, siehe Bedarfsliste in `docs/session/LERNKERN.md`).
+
+**Hauptschulabschluss (Kl. 9):** Die Inhalte des HS-Lehrplans Kl. 9 sind abgedeckt (PY, TR.BEGRIFFE mit Sinus, KP.KEGEL, KP.ZUSAMMENGESETZT, lineare Funktionen aus §8d). Den Aufbau der Prüfung kennen wir noch nicht (`PRUEFUNGEN.md` §6).
+
 ## 9. Sprache in Aufgaben
 
 **Entscheidung L-7:** Alle Aufgabentexte folgen ab Phase 1 Regeln für einfache, klare Sprache: kurze Sätze, eine Information pro Satz, Operatoren fett und einheitlich, keine unnötigen Nebensätze, Fachbegriffe mit Erklärung beim ersten Auftreten.
@@ -705,3 +1133,4 @@ sachsen:
 | L-18 | **Gerade in der Schule dran:** Lernbereiche aus dem Lehrplan der eigenen Klasse und Schulart wählen und darin einzelne Themen ab- oder zuwählen; diese Themen stehen in der Übersicht oben und kommen beim Üben öfter dran | Entschieden (28.10.2026, Projektverantwortlicher). *Umgesetzt:* `src/core/learning/gerade-dran.ts` und `src/ui/ueben/GeradeDran.svelte` in der Übersicht (mit Schulart nach Lernbereichen des Lehrplans, auch Vorgezogenes in der richtigen Klasse; ohne Schulart nach Lernfeldern), Einstellung `lernen.gerade-dran`, beim Schuljahreswechsel geleert. *Offen:* „öfter dran“ beim Wiederholen |
 | L-19 | **Klassenarbeit vorbereiten:** Termin und Themen eintragen (die App plant passende Wiederholungen, ohne Countdown-Druck) und eine Probe-Klassenarbeit (gemischt, ohne Hilfen, danach „Das sitzt / Das noch üben“). Die Belagerung (Phase 4) baut später darauf auf | Entschieden (28.10.2026, Projektverantwortlicher). *Umgesetzt:* `src/core/learning/klassenarbeit.ts` und `src/ui/ueben/Klassenarbeit.svelte` (Knopf „Klassenarbeit“ auf der Startseite). Termin und Themen werden in der Einstellung `lernen.klassenarbeit` gespeichert. Die Themen sind mit „Gerade dran“ vorbelegt. Nach dem Termin ist die Klassenarbeit vorbei. Die Startseite zeigt nur das Datum, ohne Countdown. „Das solltest du noch üben“ listet zuerst neue Themen und Themen in Arbeit, dann „auffrischen“, dann gekonnte. Die Probe-Klassenarbeit ist eine Diagnose genau dieser Themen im Modus `pruefung` (ohne Hilfen und ohne Note). Ihr Ergebnis heißt „Das noch üben“. Falsche Antworten kommen in die Fehlerwerkstatt. *Offen:* Wiederholungen bis zum Termin planen |
 | L-20 | **Idee (gemerkt, noch nicht entschieden): Prüfungen entwerfen.** Auf Knopfdruck realistische Übungen, Kurzkontrollen, Leistungskontrollen, Klassenarbeiten, Klausuren und Prüfungen erstellen. Das soll für alle Klassenstufen und Kurse gehen (Grund- und Leistungskurs) und für Lehrkräfte wie für Schülerinnen und Schüler. Ziel ist zum Beispiel „Abiturprüfung Mathematik LK Sachsen 2028“: im Aufbau und Stil der echten Prüfung, aus den Generatoren, mit Lösungen, Lösungswegen, Hilfen und Erklärungen. Alles soll sich auch drucken lassen (Aufgabenblatt und Lösungsblatt getrennt). Ein Timer ist optional. | Idee des Projektverantwortlichen (29.10.2026). **Seit 29.10.2026 Ziel (K-25):** Maßstab Abitur 2029 GK und LK; Anforderungen in `VERMITTLUNG.md` §6. Punkt (5) ist durch K-26 ersetzt (Noten nur auf Wunsch). Baut auf L-19 (Probe-Klassenarbeit) und der Belagerung (Phase 4) auf; braucht die Inhalte bis Klasse 12 (K-20). Vor der Umsetzung klären: (1) Der Timer widerspricht R2 (keine Echtzeit-Timer). Es braucht eine Ausnahme nur für den Prüfungsmodus, freiwillig und ohne Folgen für die Bastion – sonst entfällt er. (2) Die echte Prüfung eines künftigen Jahrgangs ist unbekannt. Es entsteht ein Entwurf im Stil der veröffentlichten Prüfungen und Vorgaben (Aufbau, Teile, Hilfsmittel, Bewertungseinheiten), keine Kopie geschützter Aufgaben. (3) Druckansicht ohne Netz (CSS für den Druck, keine externe PDF-Bibliothek ohne Eintrag in ARCHITEKTUR). (4) Lehrkräfte ohne Konto: Erstellen und Drucken geht lokal; Weitergabe nur als Datei. (5) Bewertung: Punkte oder Notenschlüssel nur im Prüfungsmodus und nur auf Papier oder für Lehrkräfte – nicht in der Bastion (kein Druck, R-Regeln). |
+| L-21 | **Grundkurs und Leistungskurs teilen sich die Kompetenzen** (§8g): LK-Anteile stehen auf Niveau E; eine eigene Kompetenz mit „(LK)“ nur, wo der Stoff im GK gar nicht vorkommt. Klasse 9/10 gilt für Gymnasium und Oberschule, der Oberschul-Stoff ist in der Spalte *Sachsen* gekennzeichnet | Entschieden (02.11.2026, Projektverantwortlicher, `KLASSE-9-12.md` Entscheidungen 1 und 2) |

@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 02.11.2026 · Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
+Stand: 02.11.2026 · **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/session/KLASSE-9-12.md`).** Rückfragen beantwortet; **Phase A fertig** (Listen `LEHRPLAN.md` §8e–§8g, 107 Kompetenzen; Bedarfsliste unten; KaTeX gemessen), Formeldarstellung entschieden: KaTeX (T-22); F3, F7–F10 und Lehrkraft gewinnen ruhen (PV) · Zuvor: Nachtschicht gemergt: F2 (#153), Drucken im Elternbereich (#156), F5-Funde (#158), Sperrklinke (#165), Prüfbogen einlesen (#159), Stufe 1 neu für 3 Dateien (#170) · Rückweg FV.BR.NICHT-VOLLSTAENDIG korrigiert (PV: jetzt), `ERWEITERN/vermittlung.yaml` und `FV.BR.NICHT-VOLLSTAENDIG.yaml` brauchen eine frische Sitzung für Stufe 1 · **L abgenommen (02.11.2026), Lern-Oberfläche eingefroren.** Als Nächstes: neue Prüfseite (`FOKUS.md` „Nächste Sitzungen“ Punkt 3).
 
 ---
 
@@ -16,6 +16,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 ---
 
 ## Aktueller Auftrag
+
+> **Seit 02.11.2026: Klasse 9 bis 12 nach `docs/session/KLASSE-9-12.md`** (K-30). Entscheidungen der Fragerunde stehen dort. Alles Übrige in diesem Abschnitt ruht, bis Klasse 9–12 gebaut ist (Entscheidung 5).
 
 **Erledigt:**
 
@@ -45,6 +47,46 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 
 ---
 
+## Bedarfsliste Klasse 9 bis 12 (Phase A, 02.11.2026)
+
+Grundlage: die 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g. Frage je Bedarf: Was braucht der Stoff, was gibt es heute, was fehlt? Nach Entscheidung 4 (`KLASSE-9-12.md`) darf das Fehlende gebaut werden, je Typ ein PR. **Die Reihenfolge und die Wahl bei der Formeldarstellung entscheidet der PV (Rückfrage unten).**
+
+| # | Bedarf | Wofür (Beispiele) | Heute | Fehlt | Vorschlag | Bereich |
+|---|---|---|---|---|---|---|
+| B1 | **Formeln im Text** | Wurzel über einem Term √(x + 1), Hochzahl als Bruch x^(2/3), Brüche mit Variablen, lim, ∫ mit Grenzen, Spaltenvektor, Matrix, Binomialkoeffizient, Summenzeichen, Betrag | `text.ts`: Hochzahl, Wurzel vor einer Zahl, Malpunkt, `\frac` mit Zahlen; Unicode (², π, ≤ …) | alles Zweidimensionale außer dem Zahlenbruch | siehe Messung unten; Empfehlung **(c)** | Kern `src/core/learning/text.ts`, Anzeige `src/ui/ueben/Textteile.svelte` |
+| B2 | **Mehrere Zahlfelder in einer Aufgabe** (`felder-eingabe`) | Scheitelpunkt (x, y), zwei Lösungen einer quadratischen Gleichung (Reihenfolge egal) oder „keine Lösung“, Vektor mit 3 Komponenten, Koeffizienten von f′(x) = □·x^□, Gerade, Vierfeldertafel, Baumdiagramm beschriften | `koordinaten-eingabe` (2 Felder), `rest-eingabe` (2 Felder) | beliebig viele benannte Felder, ungeordnet, Knopf „keine Lösung“, Felder in einem Raster oder an Stellen im Bild | **ein** neuer Typ mit Feldliste und Auswertung je Feld; deckt die meisten Fälle ab | Kern (Auswertung, Vorlage), `src/ui/ueben/Eingabe.svelte` |
+| B3 | **Gerundete Ergebnisse** | Trigonometrie, Kugel, Exponentialfunktionen, Wahrscheinlichkeiten: „auf zwei Stellen nach dem Komma“ | Zahl wird wertgleich verglichen; Toleranz nur bei Messwerten im Bild | Antwortregel `runden: 2` oder Toleranz; Hinweis „richtig, aber anders gerundet“ | Feld `antwort.runden` im Kern, eigener Hinweis wie `andere-schreibweise` | Kern `auswertung.ts` |
+| B4 | **Exakte Werte** | √2, π/2, ln 3, e² als Lösung | – | Eingabe exakter Terme | **nicht** als Eingabe; exakte Werte über `auswahl`, sonst gerundet (B3). Tasten √, π, e erst, wenn eine Kompetenz sie wirklich braucht | – |
+| B5 | **Kurven im Koordinatensystem** | Parabeln, Potenz-, Exponential-, Sinus-, Logarithmusfunktion, f und f′, Flächen unter Kurven, Dichte der Normalverteilung | `src/generators/svg.ts`: Koordinatensystem, Linien, Kreise, Vielecke | Kurve aus Stützpunkten, Asymptote gestrichelt, Fläche schraffiert | Bausteine `kurve`, `flaeche` in `svg.ts`; **keine** Änderung der Oberfläche | Generatoren |
+| B6 | **Räumliches Koordinatensystem** | Punkte, Vektoren, Geraden, Ebenen (Spurdreieck), Pyramiden im Raum | Schrägbilder von Körpern in einzelnen Generatoren | Achsen x, y, z im Schrägbild, Punkte mit Koordinaten | Baustein `raum3d` in `svg.ts` (feste Ansicht, kein Drehen) | Generatoren |
+| B7 | **Tabellen in Aufgaben** | Wertetabellen, Verteilungen, kumulierte Binomialtabelle (Teil A ohne Rechner), Stichproben, Häufigkeiten | Tabellen nur als Text oder Bild in einzelnen Generatoren | einheitliche Tabelle mit Beschreibung für die Vorlese-Funktion | Baustein `tabelle` in `svg.ts` mit Textbeschreibung | Generatoren |
+| B8 | **Werkzeuge der Erstvermittlung** | Parameter am Graphen verschieben (Kl. 9–12), Einheitskreis (Kl. 10), Sekante wird Tangente (11/12), Vierfeldertafel ↔ Baum (11/12), Streifen unter der Kurve (Integral) | Bruchstreifen, Zahlenstrahl | die fünf genannten | je Werkzeug ein PR, ohne Ziehen bedienbar (wie U2c); Reihenfolge nach Bau: zuerst Parameter am Graphen | `src/ui/vermittlung/werkzeuge/` |
+| B9 | **Klassen 9–12 und Kurs wählen** | Klassenwahl, „Gerade dran“, Diagnose, Schuljahreswechsel | `KLASSEN = [5, 6, 7, 8]` (`src/ui/ueben/klassen.ts`) | Klassen 9, 10, 11/12; Kurs GK oder LK; Lehrplan-Zuordnung mit Kurs | Feld `sachsen.gymnasium.kurs: [gk, lk]` in `kompetenz.yaml` (INHALTSFORMAT §3), Kurs als freiwillige Einstellung neben der Schulart; LK-Kompetenzen nur bei LK | Kern, `src/ui/ueben/`; **Einstellung, kein Schema der Datenbank** |
+| B10 | **Teil A hilfsmittelfrei** | Abitur Teil A, Realschulabschluss Teil A | Generatoren erzeugen „runde“ Zahlen je nach Vorlage | Kennzeichen „ohne Rechner lösbar“ je Vorlage und Niveau | Feld `hilfsmittelfrei: true` in der Vorlage, Pflicht-Test „Ergebnis ohne Rechner erreichbar“ für diese Vorlagen | Kern, Generatoren |
+| B11 | **Begründen und Nachweisen** | E-Niveaus, Teil A Gruppe 2 | `auswahl`, `ordnen`, `fehler-finden` | – | reicht; offene Beweise bleiben ungeprüft (ehrliche Grenze, LEHRPLAN §5.3) | – |
+| B12 | **Termeingabe mit Umformungsprüfung** (Ableitung, Stammfunktion als Term) | AB, IN | – | Gleichwertigkeit beliebiger Terme prüfen | **nicht bauen**: braucht ein Computeralgebra-System; stattdessen Koeffizienten-Felder (B2) und `auswahl` | – |
+
+**Messung KaTeX (Schritt 2 der Formeldarstellung, 02.11.2026, nur gemessen, nicht eingebaut):** KaTeX 0.16.11, Lizenz MIT. `katex.min.js` 275 KB, **75 KB mit gzip**; CSS 3 KB mit gzip; Schriften 260 KB (20 Dateien woff2). Mit `output: "mathml"` braucht KaTeX weder CSS noch Schriften; der Browser setzt die Formel selbst (MathML Core in Chrome/Edge ab 109, Firefox, Safari). Integral, Spaltenvektor, Binomialkoeffizient, lim und Kubikwurzel gelingen. Zum Vergleich: Die App-Hülle hat ein Budget von 120 KB (ARCHITEKTUR T-14).
+
+Wichtig für die Wahl: Die Generatoren laufen **in der App**. Formeln in Aufgaben entstehen also zur Laufzeit, nicht beim Build. Darum hilft KaTeX nur zur Laufzeit; nur im Build reicht nicht.
+
+| | (a) KaTeX zur Laufzeit | (b) KaTeX nur im Build | (c) eigene Teilmenge, Ausgabe als MathML |
+|---|---|---|---|
+| neue Abhängigkeit | ja (Laufzeit) | ja (nur Werkzeug) | nein |
+| Größe | +75 KB gzip, nachladbar mit den Paketen ab Klasse 9 | 0 in der App | wenige KB |
+| Aufgaben aus Generatoren | ja | **nein** | ja |
+| Sicherheit | Ausgabe ist HTML, braucht `{@html}` – widerspricht „kein HTML aus Inhalten“ | wie (a) für die Texte | Baum aus Textteilen, Svelte baut die Elemente, kein HTML |
+| Vorlese-Funktion | MathML | MathML | MathML |
+| Aufwand | klein | klein, deckt aber nur feste Texte ab | mittel: Parser für die gebrauchte Teilmenge (Wurzel, Bruch mit Termen, Hoch/Tief, lim, ∫, Vektor, Matrix, Binomialkoeffizient, Σ) |
+
+**Vorschaubilder (02.11.2026, für den PV):** zehn Formeln aus Klasse 9–12 im Browser gesetzt, einmal mit KaTeX, einmal als MathML. Befund: **MathML allein reicht nicht.** Ohne Mathe-Schrift auf dem Gerät wachsen Klammern bei Vektor, Matrix und Binomialkoeffizient nicht mit, und Wurzeln über Brüchen sehen schief aus. Mit der mitgelieferten Schrift **STIX Two Math** (Lizenz OFL-1.1, nur die gebrauchten Zeichen, **62 KB** woff2; ganz 403 KB) ist das Ergebnis fast gleich wie bei KaTeX. Darum gehört zu (c) eine eigene Schriftdatei, die wie Nunito mit der App kommt und erst mit den Paketen ab Klasse 9 geladen wird. Sie braucht wie jede neue Datei von außen einen Eintrag im Entscheidungslog.
+
+**Empfehlung: (c) mit STIX Two Math.** `$…$` bleibt die Schreibweise, alte Texte sehen gleich aus (Test), keine neue Abhängigkeit, kein HTML. Der Browser übernimmt den Satz über MathML, so wie es KaTeX mit `output: "mathml"` auch täte. Wenn der Parser zu groß wird, bleibt (a) als Ausweg. **Entschieden (PV, 02.11.2026): (a) KaTeX**, „das sieht besser aus“. Bedingungen in ARCHITEKTUR T-22.
+
+**Empfohlene Reihenfolge für den Bau** (passt zu Entscheidung 3, Klasse 9 zuerst): B1 (Formeln) und B5 (Kurven) → B2 (mehrere Felder) und B3 (Runden) → B9 (Klasse 9 wählbar) → Inhalte Klasse 9 → B8 Werkzeug „Parameter am Graphen“ → Klasse 10 mit Einheitskreis → B6, B7, B10 und die übrigen Werkzeuge für 11/12.
+
+---
+
 ## Geplant für spätere Sitzungen (noch nicht anfangen)
 
 Dieser Abschnitt ist ein Arbeitsauftrag. Er wird erst umgesetzt, wenn eine Sitzung ihn ausdrücklich aufnimmt. Vorher kein Code, keine neuen Abhängigkeiten, keine Branches dafür.
@@ -58,7 +100,7 @@ Die Review-Stufen stehen schon fest (`INHALTSFORMAT.md` §8): 0 Entwurf, 1 Masch
 3. ~~**Öffentliche Seite von `main` trennen.**~~ *Erledigt 02.11.2026 (F2): `BASTION_MINDESTSTUFE`, INHALTSFORMAT §8, README „Was ist öffentlich?“.* *Entschieden 01.11.2026: Filter im Build (ARCHITEKTUR T-20), Umsetzung F2 in `FOKUS.md`.* Bisher: Release-Branch oder Filter im Build. Empfehlung: Filter im Build mit `wirksameStufe` (`pnpm review` zeigt den Stand), kein zweiter Branch. `main` bleibt die Werkstatt, auch mit Stufe 0. Die öffentliche Seite bekommt nur Inhalte ab Stufe 2, oder einen eigenen Release-Branch, der nur solche Stände enthält. Die Vorschau zeigt den Rest und kennzeichnet die Stufe für den Eigentümer, nicht für Lernende. Solange das nicht steht, folgt bastion.micana.de weiter `main`; das README sagt, dass alles Entwurf ist.
 4. **Zwischenschritte** über die drei Bruchvorlagen hinaus: ~~gleichnamiges Addieren~~ (erledigt 31.10.2026: Schritte `rechnen` und `kuerzen`, eine Vorlage darf eine Auswahl der Generator-Schritte nehmen) und die Rechenzeilen für Gleichungen (K-29). Weitere mehrschrittige Vorlagen danach, nicht alles auf einmal.
 5. ~~**`docs/PLAN.md` Abschnitt 1**~~ – erledigt am 31.10.2026: gleicher nächster Schritt wie hier.
-6. **Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.
+6. ~~**Klasse 9 bis 12 und PDF-Prüfungen** erst, wenn eine Klassenstufe der 5 bis 8 einmal Stufe 2 und den Test U4b bestanden hat (mindestens 2 von 3 Unkundigen lösen danach die Einstiegsaufgaben). Bis dahin kein neuer Stoff oberhalb von Klasse 8.~~ *Aufgehoben für den Stoff durch K-30 (02.11.2026); die PDF-Prüfungen (U7) folgen nach Klasse 9–12.*
 
 ### 2. Eigene Tastatur für Zahlen und Terme
 
@@ -123,7 +165,7 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 **Schritte, wenn es drankommt**
 
 1. ~~Liste der Zeichen, die Klasse 5 bis 8 wirklich brauchen und die die eigene Teilmenge nicht kann.~~ Erledigt, siehe oben.
-2. Bundle von KaTeX lokal messen, ohne es fest einzubauen. Entscheidungslog nur bei einem Ja.
+2. ~~Bundle von KaTeX lokal messen, ohne es fest einzubauen.~~ *Gemessen am 02.11.2026, Ergebnis in der Bedarfsliste oben (B1).* Entscheidungslog nur bei einem Ja.
 3. Wenn ja: Anzeige hinter derselben `$…$`-Schreibweise, Inhalte nicht umschreiben. Ein Test, dass alte Texte gleich aussehen.
 4. Vorlese-Funktion an einem Bruch, einer Hochzahl und einer Wurzel prüfen.
 
@@ -136,10 +178,10 @@ Heute setzt `src/core/learning/text.ts` eine kleine eigene Teilmenge: Bruch aus 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
 - **Entscheidung des PV vom 02.11.2026 (K-30, `STRATEGIE.md`), festgehalten im Strang Grafik, Session-Prompt `docs/session/KLASSE-9-12.md`:** Klasse 9 bis 12 **jetzt komplett** im neuen Format bauen (Erstvermittlung, Fehlerkatalog, Niveau E, K-28), **danach alles gesammelt prüfen**, erst mehrfach durch KI, dann durch einen Menschen. Bitte in diesem Strang umsetzen:
-  1. Punkt 1.6 oben („erst, wenn eine Klassenstufe der 5 bis 8 Stufe 2 und U4b bestanden hat“) als aufgehoben markieren; `PLAN.md` §4 Punkt 17b und §4b U6 anpassen.
+  1. ~~Punkt 1.6 oben („erst, wenn eine Klassenstufe der 5 bis 8 Stufe 2 und U4b bestanden hat“) als aufgehoben markieren; `PLAN.md` §4 Punkt 17b und §4b U6 anpassen.~~ *Erledigt 02.11.2026.*
   2. Kompetenzlisten für Klasse 9, 10 und Jahrgang 11/12 (GK und LK) in `LEHRPLAN.md` anlegen, Grundlage Lehrplan Gymnasium (K-16, `docs/quellen/README.md`), dann Klasse für Klasse Vorlagen, Erstvermittlung und Fehlerkatalog. KaTeX-Messung (Schritt 2 der Formeldarstellung) jetzt fällig.
   3. Die mehrfache KI-Prüfung als festen Ablauf beschreiben (mehrere unabhängige Durchgänge, Befunde im Prüfbogen), bevor der Mensch prüft. Stufe 2 bleibt menschliche Prüfung (INHALTSFORMAT §8).
-  4. Laufende Pakete (F3, F7–F10, Lehrkraft gewinnen) mit dem PV neu ordnen. Die Lern-Oberfläche bleibt nach Regel 7 eingefroren; neuer Stoff läuft über Inhalte und Generatoren.
+  4. ~~Laufende Pakete (F3, F7–F10, Lehrkraft gewinnen) mit dem PV neu ordnen.~~ *Geklärt 02.11.2026: alles ruht (`KLASSE-9-12.md`, Entscheidung 5).* Die Lern-Oberfläche bleibt nach Regel 7 eingefroren; neuer Stoff läuft über Inhalte und Generatoren.
 
 ---
 

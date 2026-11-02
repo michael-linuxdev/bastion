@@ -14,7 +14,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Neue Ausrichtung | **Unterrichtsersatz ohne KI** (29.10.2026, K-23 bis K-28, `VISION.md` v1.0). Arbeitsplan in §4b |
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
-| Nächster Schritt Lernkern | L abgenommen (02.11.2026), Lern-Oberfläche eingefroren. Jetzt neue Prüfseite für das Musterfeld und Lehrkraft gewinnen (Paket liegt bereit). Danach F7–F10 (`FOKUS.md` „Nächste Sitzungen“) |
+| Nächster Schritt Lernkern | Klasse 9 bis 12 (K-30, U6, `docs/session/KLASSE-9-12.md`): Phase A fertig; Formelsatz KaTeX entschieden (T-22); als Nächstes Phase B, zuerst Baustein B1 (KaTeX), dann Klasse 9. F3, F7–F10 und Lehrkraft gewinnen ruhen (PV, 02.11.2026) |
 | Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt, G3 für alle fünf Themen in Epoche 1 erledigt (02.11.2026); offen: G6 (2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
@@ -177,7 +177,7 @@ Wird zu Beginn von Phase 1 in Aufgaben zerlegt. Reihenfolge nach K-12 – jede S
 16. Nach Klasse 8 (K-20): Startpaket für Späteinsteiger (B-24) – *steht (BASEBAU §3.4b)*, Hinterhof (B-25) – *Stufe 1 steht*, Wechsel begleiten (L-12) – *steht, beim Überspringen mit gezielter Lücken-Diagnose*, Bericht für die Lehrkraft im Elternbereich (L-13) – *steht*
 17. Vor Klasse 9 (K-20, ergänzt): Profil mit Geburtsdatum und Ansprache (L-15) – *Profil steht, „Sie“ offen*, Schuljahreswechsel und Klasse pflegen (L-17) – *steht*, „Gerade dran“ (L-18) – *steht*, Diagnose zum Wiedereinstieg (L-16) – *steht*, Klassenarbeit (L-19) – *steht (Termin, Themen, Probe-Klassenarbeit); offen: Wiederholungen bis zum Termin planen*
 17a. **Vorher: Grafik deutlich ansprechender (K-22)** – drei Testerinnen (12–16 Jahre) stehen bereit (`TESTS.md` §2). *Entschieden: Richtung A „Tag, warm“, Leiste unten, hell/dunkel/System, austauschbar (`GRAFIK.md`, B-27). Reihenfolge des Umbaus: Grundlage (Tokens, Schrift, Modi), Startseite, Üben, Bastion – je ein PR. Später: lebendige Szenen, Jahreszeiten, Wetter (T-15), Skins* – *umgesetzt am 29.10.2026 in vier PRs (#42 bis #45): Grundlage mit Fassung „tag-warm“, Nunito und Modi; Startseite mit Leiste unten; Üben mit Fortschrittspunkten; Bastion als Insel schräg von oben (`GRAFIK.md` §5). Offen: Test mit den drei Testerinnen*
-17b. Klasse 9 bis 12, danach Mathe im Studium (K-19) – *erst nach 17a; Beginn nach Rückfrage beim Projektverantwortlichen, siehe `SESSION-PROMPT.md`*
+17b. Klasse 9 bis 12, danach Mathe im Studium (K-19) – *~~erst nach 17a; Beginn nach Rückfrage beim Projektverantwortlichen~~ seit K-30 (02.11.2026) jetzt komplett, als U6 in §4b nach `docs/session/KLASSE-9-12.md`*
 17c. *Später, nur gemerkt:* Prüfungen entwerfen – Übungen bis Abiturprüfung je Klasse und Kurs, mit Lösungen, zum Drucken, Timer optional (`LEHRPLAN.md` L-20). Erst nach Klasse 12; offene Fragen stehen bei L-20.
 18. Budget der App-Hülle: Generatoren nachladen (vom Projektverantwortlichen freigegeben, 28.10.2026) – *steht: ARCHITEKTUR T-14, App-Hülle 120 KB statt 212 KB*
 
@@ -234,7 +234,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
     - [x] Grundformen, Symmetrie, Dreiecke und Vierecke (64 Fehlerbilder, 21 neue Fehlvorstellungen; Stand 492 von 596)
     - [x] Körper, Kreis und Ähnlichkeit in der Geometrie (54 Fehlerbilder, 14 neue Fehlvorstellungen; Stand 546 von 596)
     - [x] Daten und Zufall (50 Fehlerbilder, 13 neue Fehlvorstellungen; Stand 596 von 596)
-- [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E
+- [ ] **U6** Klasse 9 bis 12 im neuen Format, mit Niveau E – *K-30 (02.11.2026): jetzt komplett bauen, danach gesammelt prüfen (`docs/session/KLASSE-9-12.md`). Rückfragen beantwortet (GY und OS, GK/LK gemeinsam mit LK als E, Reihenfolge 9 → 10 → 11/12, neue Typen und Darstellungen erlaubt); Phase A fertig (02.11.2026): 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g, Bedarfsliste in `LERNKERN.md`*
 - [ ] **U7** Prüfungen auf Knopfdruck bis zum Abitur (K-25); vorher PDF-Technik entscheiden
   - Vorläufer F6 (01.11.2026): `pnpm arbeitsblatt` gibt Arbeitsblätter als HTML zum Drucken aus (Browser → PDF, Teile aus `tools/pruefbogen/`). ~~Die PDF-Technik für U7 ist damit nicht entschieden.~~ **Vorläufig entschieden (PV, 01.11.2026, ARCHITEKTUR T-21):** PDF über den Druckdialog des Browsers, ohne neue Abhängigkeit. Seit 02.11.2026 auch in der App: Elternbereich → „Für Lehrkräfte: Aufgabenblatt drucken“ (Logik im Kern, `src/core/learning/arbeitsblatt.ts`).
 - [ ] **U8** Leistungsnachweise und Portfolio, lokal und exportierbar

@@ -140,6 +140,7 @@ Teil B ist sachbezogen, zum Beispiel Körper, Prozent und Kosten, Statistik mit 
 6. **Formelsatz für den Druck** ist Pflicht: Brüche, Wurzeln, Grenzwerte, Integrale, Vektoren, Matrizen, Binomialkoeffizienten. Dazu kommen Graphen und Raumskizzen.
 7. **Operatoren** (Bestimmen, Berechnen, Zeigen, Begründen, Ermitteln, Untersuchen …) brauchen eine eigene Liste nach den amtlichen Vorgaben. Damit endet das Nicht-Ziel „Operatoren-Training“ (`PLAN.md` §2.1), sobald die Prüfungen drankommen.
 8. **Pool-Aufgaben:** klären, wie Bastion mit dem IQB-Pool umgeht (§1).
+9. **Abgleich mit den Kompetenzen** der Klassen 9 bis 12 (02.11.2026): `LEHRPLAN.md` §8g.4. Alle drei Sachgebiete des Abiturs und die Themen von Teil B des Realschulabschlusses sind als Kompetenzen angelegt; die Lücken stehen dort.
 
 ## 6. Offen
 
