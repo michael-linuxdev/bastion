@@ -389,3 +389,11 @@ Vorher: +5 % Höhe je Stufe, kaum Umriss-Unterschied (§11.2). Atlas-Bilder des 
 Der Späherturm bleibt unter dem Bergfried Stufe 2 (379 px), wie §12.8 verlangt. Vorher: Studierstube +7 % / 9 %, Späherturm +13 % / 14 % (§11.2).
 
 **Charge 3 (02.11.2026): alle übrigen Gebäude der Epoche 1** nach Tabelle §12.8: Werkstatt (offener Holzschuppen mit Pultdach, Werkbank, Bretterstapel, Sägebock, Laterne als Abend-Ebene), Tor (Holztor zwischen Pfosten mit Querbalken und Schindeldach), Palisade (angespitzte Pfähle mit Querriegel, an beiden Enden anschlussfähig), Feuerstelle (Steinkreis, Scheite, Sitzstamm; Glut und Flamme als neue Abend-Ebene), Banner (Holzmast mit Petrol-Banner und Emblem), Gartenbeet (Holzrahmen, drei Reihen Pflanzen, Trittsteine), Statue (Steinsockel, Figur in neutralem Grau). Damit stammen alle 14 Gebäudebilder des Themas `bastion`, Epoche 1, aus dem neuen Generator. Offen für G3: Boden, Umgebung und Wesen im selben Stil; eine `_maske.png` für die Statue erst, wenn die Bühne Masken nutzt.
+
+### 11.9 G4 – Gerüst in Abschnitten (02.11.2026, erster Schritt)
+
+Ein laufendes Bauvorhaben (Neubau oder Ausbau über mehrere Lerneinheiten, Bau-Regel unverändert nach B-30) zeigt auf dem Bauplatz ein **Gerüst statt eines Fortschrittsbalkens**: Stangen an den drei sichtbaren Ecken und Laufbretter in 2 bis 6 Ebenen, eine je Bauschritt (`src/ui/bastion/grafik/geruest.ts`, Test `geruest.test.ts`). Fertige Ebenen sind kräftig, offene blass. Ab dem ersten Bauschritt steht mindestens eine Ebene. Das Gerüst reicht bis 80 % der Höhe des **künftigen** Bildes, so sieht man schon, wie viel höher das Gebäude wird. Bei großen Grundflächen (Bergfried 3×3) rückt es an den Körper heran. Ruhiges Bild ohne Bewegung (R1–R7, „Bewegung reduzieren“ braucht keine eigene Fassung).
+
+Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höheren Bilder (vorher galt die Höhe der alten Code-Formen).
+
+Offen in G4: Vorher/Nachher im Bau-Blatt mit einem Satz, was neu ist; kurzer Ausbau-Moment (Staub, Überblenden) mit Bau-Klang; Kamera bleibt kurz auf dem Gebäude.
