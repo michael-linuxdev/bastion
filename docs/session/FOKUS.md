@@ -261,7 +261,7 @@ Ausgangspunkt: `src/core/learning/review.ts` hat schon `wirksameStufe` und `OEFF
 3. Tests mit synthetischen Protokollen: ein Fall, der alles erfüllt, und einer, der knapp scheitert.
 4. `TESTS.md` §2–3: Ablauf ergänzen (Dateien einsammeln → `pnpm auswertung` → Bericht).
 
-### ~~F5 – „Fehler-Schüler“: Diagnose regelbasiert durchspielen~~ (erledigt 01.11.2026: `pnpm fehlerschueler`, INHALTSFORMAT §8; 100 Verdachtsfälle gemeldet, nicht korrigiert. Offen: Rückfrage, ob die CI ihn ausführt)
+### ~~F5 – „Fehler-Schüler“: Diagnose regelbasiert durchspielen~~ (erledigt 01.11.2026: `pnpm fehlerschueler`, INHALTSFORMAT §8; 100 Verdachtsfälle gemeldet, nicht korrigiert. Entschieden vom PV: als CI-Sperrklinke, umgesetzt 02.11.2026 mit `pnpm fehlerschueler --grenze` und `tools/inhalte/fehlerschueler-grenze.json`)
 
 **Ziel:** Fehler finden, wie Stufe 1 sie gefunden hat (falsche Zuordnung, Rückweg zum falschen Schritt, kurze Erklärung passt nicht), bevor ein Mensch Zeit darauf verwendet. Ohne KI.
 
