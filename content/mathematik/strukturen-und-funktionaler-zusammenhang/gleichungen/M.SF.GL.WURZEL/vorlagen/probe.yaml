@@ -1,0 +1,30 @@
+# „Welche Lösung hat √(x + 5) = −2?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.GL.WURZEL.PROBE
+kompetenz: M.SF.GL.WURZEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.wurzel-probe@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '**Welche** Lösung hat die [[Gleichung]] ${gleichung}$?'
+hilfen:
+  - de: 'Stelle die [[Wurzel]] allein. Steht dann rechts eine [[negative Zahl]], kann es keine Lösung geben.'
+  - de: 'Prüfe jede Zahl mit der [[Probe]]: einsetzen und die [[Wurzel]] ziehen.'
+fehlerbilder:
+  scheinloesung:
+    de: 'Mach die [[Probe]]: Die [[Wurzel]] ist nie negativ. Quadrieren macht aus einer falschen [[Gleichung]] manchmal eine richtige. So entsteht eine Scheinlösung.'
+    fv: FV.GL.WURZEL-PROBE
+  keine-loesung-falsch:
+    de: 'Rechts steht eine positive Zahl, also gibt es eine Lösung. Quadriere und mach die [[Probe]].'
+    fv: FV.GL.WURZEL-PROBE
+  nicht-quadriert:
+    de: 'Du hast die [[Wurzel]] weggelassen, ohne zu quadrieren.'
+    fv: FV.GL.WURZEL-NICHT-QUADRIERT
+  falsche-richtung:
+    de: 'Was unter der [[Wurzel]] addiert wird, ziehst du beim [[Umformen]] ab.'
+    fv: FV.NZ.UMKEHRAUFGABE
+herkunft: ki-entwurf
+version: 1

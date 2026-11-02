@@ -1,0 +1,39 @@
+# Wurzelgleichungen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.GL.WURZEL
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: gleichungen
+titel:
+  de: 'Wurzelgleichungen'
+kann_satz:
+  de: 'Ich kann einfache Wurzelgleichungen lösen und die Probe machen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.ZO.PW.WURZEL
+  - M.SF.TU.GLEICHUNGEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichungen wie √x = 7 oder √(x + 5) = 4 durch Quadrieren lösen.'
+  M:
+    beschreibung:
+      de: 'Gleichungen wie √(3x − 2) = 5 oder √(x + 3) + 2 = 6: erst die Wurzel allein stellen, dann quadrieren und umformen.'
+  E:
+    beschreibung:
+      de: 'Mit der Probe entscheiden, ob eine Wurzelgleichung eine Lösung hat; Scheinlösungen erkennen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Funktionen und Potenzen'
+version: 1

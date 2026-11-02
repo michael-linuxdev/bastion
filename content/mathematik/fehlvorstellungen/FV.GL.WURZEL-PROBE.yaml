@@ -1,0 +1,28 @@
+id: FV.GL.WURZEL-PROBE
+name:
+  de: Entscheidet ohne Probe, ob eine Wurzelgleichung lösbar ist
+art: falsche-regel
+beschreibung:
+  de: >-
+    Löst √(x + 5) = −2 durch Quadrieren zu x = −1 und hält das für die Lösung. Oder meint, eine
+    Wurzelgleichung habe keine Lösung, obwohl rechts eine positive Zahl steht. Dass Quadrieren
+    Scheinlösungen erzeugen kann und nur die Probe entscheidet, ist neu.
+kompetenzen: [M.SF.GL.WURZEL]
+erklaerung:
+  kurz:
+    de: 'Eine [[Wurzel]] ist nie negativ. $\sqrt{x + 5} = -2$ hat keine Lösung. Die [[Probe]] zeigt es: $\sqrt{4} = 2$, nicht $-2$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast quadriert und das Ergebnis genommen, ohne es zu prüfen.'
+    - teil: warum-nicht
+      de: 'Quadrieren macht aus $-2$ und $2$ dieselbe Zahl 4. Darum kann eine Zahl herauskommen, die die ursprüngliche [[Gleichung]] gar nicht erfüllt.'
+    - teil: so-stimmt-es
+      de: 'Schau vor dem Quadrieren auf die rechte Seite: negativ heißt keine Lösung. Mach nach dem Rechnen immer die [[Probe]].'
+gegenbeispiel:
+  de: '$\sqrt{x} = -3$ würde quadriert $x = 9$ geben. Aber $\sqrt{9} = 3$, nie $-3$.'
+rueckweg:
+  vermittlung: M.SF.GL.WURZEL#erklaeren-probe
+  voraussetzung: M.ZO.PW.WURZEL
+kontrast: [M.SF.GL.WURZEL.PROBE]
+herkunft: ki-entwurf
+version: 1
