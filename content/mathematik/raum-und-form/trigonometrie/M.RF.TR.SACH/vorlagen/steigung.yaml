@@ -1,0 +1,27 @@
+# „12 % Steigung: Wie groß ist der Winkel?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.TR.SACH.STEIGUNG
+kompetenz: M.RF.TR.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tr.steigung@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Ein Verkehrsschild zeigt {prozent} % Steigung. **Wie** groß ist der Steigungswinkel? **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: '[[Prozent]] heißt: so viele Meter [[Höhe]] auf 100 m waagerechte Strecke.'
+  - de: '[[Höhe]] und waagerechte Strecke sind die beiden [[Katheten]].'
+fehlerbilder:
+  prozent-als-grad:
+    de: '[[Prozent]] und [[Grad]] messen Verschiedenes. 100 % Steigung sind 45°, nicht 100°.'
+    fv: FV.TR.PROZENT-GRAD
+  sinus:
+    de: 'Die 100 m sind waagerecht gemessen, also die [[Ankathete]], nicht die [[Hypotenuse]]. Darum Tangens.'
+    fv: FV.TR.FUNKTION-VERWECHSELT
+  prozent-mal-90:
+    de: '100 % Steigung heißt [[Höhe]] gleich waagerechte Strecke: Das sind 45°, nicht 90°.'
+    fv: FV.TR.PROZENT-GRAD
+herkunft: ki-entwurf
+version: 1

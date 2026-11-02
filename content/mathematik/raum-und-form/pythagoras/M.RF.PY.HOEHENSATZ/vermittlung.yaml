@@ -1,0 +1,81 @@
+id: M.RF.PY.HOEHENSATZ
+kompetenz: M.RF.PY.HOEHENSATZ
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du im rechtwinkligen Dreieck die [[Höhe]] und die [[Katheten]] aus den Abschnitten der [[Hypotenuse]] berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $\sqrt{36}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '6' }, richtig: true }
+        - { wert: { de: '18' }, fv: FV.NZ.WURZEL-HALBIERT }
+    weiter: entdecken
+    bei: { FV.NZ.WURZEL-HALBIERT: M.RF.PY.PYTHAGORAS, sonst: M.RF.PY.PYTHAGORAS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die [[Höhe]] h auf die [[Hypotenuse]] teilt sie in die Abschnitte $p = 4$ und $q = 9$. Es gilt $h^2 = p \cdot q$. Wie groß ist $h^2$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '36', fehler: [{ wert: '13', fv: FV.PY.SATZ-WAHL }] }
+    weiter: erklaeren-saetze
+  - id: erklaeren-saetze
+    typ: erklaeren
+    text:
+      de: 'Höhensatz: $h^2 = p \cdot q$. Kathetensatz: $a^2 = c \cdot p$ und $b^2 = c \cdot q$, jeweils mit dem Abschnitt, der an der [[Kathete]] anliegt. Am Ende die [[Wurzel]] ziehen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$p = 4$, $q = 9$: $h = \sqrt{36} = 6$. Die [[Hypotenuse]] ist $c = 13$, also $a = \sqrt{13 \cdot 4} = \sqrt{52} \approx 7{,}2$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Die Abschnitte sind $p = 2$ und $q = 8$. Wie groß ist h?'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '16', fv: FV.PY.WURZEL-VERGESSEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.PY.WURZEL-VERGESSEN: erklaeren-saetze }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Gegeben sind p und q, gesucht ist h. Nils will den Satz des Pythagoras nehmen. Geht das direkt?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, p und q kommen darin nicht vor. Der Höhensatz passt.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, mit $h^2 = p^2 + q^2$.' }, fv: FV.PY.SATZ-WAHL }
+    weiter: merksatz
+    bei: { FV.PY.SATZ-WAHL: erklaeren-saetze }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Höhensatz $h^2 = p \cdot q$, Kathetensatz $a^2 = c \cdot p$. Wähle den Satz, in dem genau die gegebenen und die gesuchte Größe vorkommen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '$c = 9$ und $p = 4$. Wie lang ist die [[Kathete]] a am Abschnitt p?'
+    antwort:
+      optionen:
+        - { wert: { de: '6' }, richtig: true }
+        - { wert: { de: '36' }, fv: FV.PY.WURZEL-VERGESSEN }
+    weiter: uebergang
+    bei: { FV.PY.WURZEL-VERGESSEN: erklaeren-saetze }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit Höhen- und Kathetensatz.'
+    vorlagen: [M.RF.PY.HOEHENSATZ.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,89 @@
+id: M.RF.TR.BEGRIFFE
+kompetenz: M.RF.TR.BEGRIFFE
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Sinus, Kosinus und Tangens eines Winkels als Verhältnis zweier Seiten aufschreiben.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche Seite ist im rechtwinkligen Dreieck die [[Hypotenuse]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'die Seite gegenüber dem rechten Winkel' }, richtig: true }
+        - { wert: { de: 'immer die Seite c' }, fv: FV.PY.HYPOTENUSE-C }
+    weiter: entdecken
+    bei: { FV.PY.HYPOTENUSE-C: M.RF.PY.PYTHAGORAS, sonst: M.RF.PY.PYTHAGORAS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Zwei rechtwinklige Dreiecke haben den [[Winkel]] 30°. Im kleinen ist die gegenüberliegende [[Kathete]] 3 cm, die [[Hypotenuse]] 6 cm. Im großen ist die Hypotenuse 10 cm. Wie lang ist dort die gegenüberliegende Kathete?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '7', fv: FV.TR.GROESSE }] }
+    weiter: erklaeren-aehnlich
+  - id: erklaeren-aehnlich
+    typ: erklaeren
+    text:
+      de: 'Rechtwinklige Dreiecke mit gleichem [[Winkel]] sind [[ähnlich]]. Ihre Seitenverhältnisse sind gleich: $\frac{3}{6} = \frac{5}{10} = 0{,}5$. Dieses Verhältnis hängt nur vom Winkel ab.'
+    weiter: erklaeren-seiten
+  - id: erklaeren-seiten
+    typ: erklaeren
+    text:
+      de: 'Vom [[Winkel]] aus gesehen: Die [[Gegenkathete]] liegt gegenüber, die [[Ankathete]] liegt am Winkel an, die [[Hypotenuse]] gegenüber dem [[rechten Winkel]].'
+    weiter: erklaeren-funktionen
+  - id: erklaeren-funktionen
+    typ: erklaeren
+    text:
+      de: '$\sin \alpha = \frac{\text{Gegenkathete}}{\text{Hypotenuse}}$, $\cos \alpha = \frac{\text{Ankathete}}{\text{Hypotenuse}}$, $\tan \alpha = \frac{\text{Gegenkathete}}{\text{Ankathete}}$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Rechter [[Winkel]] bei C: Für α ist a die [[Gegenkathete]], b die [[Ankathete]], c die [[Hypotenuse]]. Also $\sin \alpha = \frac{a}{c}$ und $\tan \alpha = \frac{a}{b}$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '[[Gegenkathete]] 4 cm, [[Hypotenuse]] 5 cm. Wie groß ist der Sinus? Gib ihn als [[Dezimalzahl]] an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '0,8', fehler: [{ wert: '1,25', fv: FV.TR.KEHRWERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.TR.KEHRWERT: erklaeren-funktionen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Paul sagt: „Für β ist a die [[Gegenkathete]], wie bei α.“ Stimmt das ([[rechter Winkel]] bei C)?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, von β aus liegt a am Winkel an: Ankathete.' }, richtig: true }
+        - { wert: { de: 'Ja, a bleibt immer die Gegenkathete.' }, fv: FV.TR.AN-GEGEN }
+    weiter: merksatz
+    bei: { FV.TR.AN-GEGEN: erklaeren-seiten }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst den [[Winkel]] markieren, dann [[Gegenkathete]], [[Ankathete]] und [[Hypotenuse]] benennen. Sinus und Kosinus haben die Hypotenuse unten und sind höchstens 1.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Rechter [[Winkel]] bei C. Welches Verhältnis ist $\cos \alpha$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{b}{c}$' }, richtig: true }
+        - { wert: { de: '$\frac{a}{c}$' }, fv: FV.TR.AN-GEGEN }
+        - { wert: { de: '$\frac{c}{b}$' }, fv: FV.TR.KEHRWERT }
+    weiter: uebergang
+    bei: { FV.TR.AN-GEGEN: erklaeren-seiten, FV.TR.KEHRWERT: erklaeren-funktionen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ordnest du selbst Verhältnisse zu.'
+    vorlagen: [M.RF.TR.BEGRIFFE.VERHAELTNIS]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

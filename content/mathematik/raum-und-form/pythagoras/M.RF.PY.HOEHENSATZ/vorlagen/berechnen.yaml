@@ -1,0 +1,28 @@
+# Höhensatz und Kathetensatz. Entwurf: noch nicht geprüft.
+id: M.RF.PY.HOEHENSATZ.BERECHNEN
+kompetenz: M.RF.PY.HOEHENSATZ
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: py.hoehensatz@1
+parameter:
+  G: { saetze: [hoehe] }
+  M: { saetze: [hoehe, kathete] }
+text:
+  aufgabe:
+    de: '{angabe} **Berechne** {gesucht} in cm.'
+hilfen:
+  - de: 'Höhensatz: $h^2 = p \cdot q$. Kathetensatz: $a^2 = c \cdot p$, wobei p der Abschnitt an a ist.'
+  - de: 'Ziehe am Ende die [[Wurzel]].'
+fehlerbilder:
+  wurzel-vergessen:
+    de: 'Das ist das Quadrat. Ziehe noch die [[Wurzel]].'
+    fv: FV.PY.WURZEL-VERGESSEN
+  summe:
+    de: 'Der Höhensatz nimmt die Abschnitte mal, nicht addiert: $h^2 = p \cdot q$.'
+    fv: FV.PY.SATZ-WAHL
+  falscher-abschnitt:
+    de: 'Nimm den Abschnitt, der an der gesuchten [[Kathete]] anliegt.'
+    fv: FV.PY.SATZ-WAHL
+herkunft: ki-entwurf
+version: 1

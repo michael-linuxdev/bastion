@@ -1,0 +1,25 @@
+id: FV.TR.GROESSE
+name:
+  de: Meint, der Sinus hänge von der Größe des Dreiecks ab
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Erwartet bei einem größeren Dreieck mit gleichem Winkel einen größeren Sinus. Dass Seitenverhältnisse in ähnlichen Dreiecken gleich bleiben, ist nicht verankert.
+kompetenzen: [M.RF.TR.BEGRIFFE]
+erklaerung:
+  kurz:
+    de: 'Alle rechtwinkligen Dreiecke mit demselben [[Winkel]] sind [[ähnlich]]. Vergrößert man eins, wachsen alle Seiten mit demselben [[Faktor]], das Verhältnis bleibt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast an Längen gedacht, nicht an Verhältnisse.'
+    - teil: warum-nicht
+      de: 'Doppelt so große [[Gegenkathete]] und doppelt so große [[Hypotenuse]]: $\frac{2 \cdot 3}{2 \cdot 5} = \frac{3}{5}$.'
+    - teil: so-stimmt-es
+      de: 'Vergleiche Verhältnisse, nicht Längen.'
+gegenbeispiel:
+  de: 'Ein Dreieck mit 3, 4, 5 und eins mit 6, 8, 10 haben gleiche [[Winkel]] und dasselbe $\frac{3}{5} = \frac{6}{10}$.'
+rueckweg:
+  vermittlung: M.RF.TR.BEGRIFFE#erklaeren-aehnlich
+kontrast: [M.RF.TR.BEGRIFFE.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

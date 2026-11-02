@@ -1,0 +1,27 @@
+# „Tim rechnet … Wo liegt der Fehler?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.PY.PYTHAGORAS.FEHLER
+kompetenz: M.RF.PY.PYTHAGORAS
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: py.fehler@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{rechnung} **Wo** liegt der Fehler?'
+hilfen:
+  - de: 'Welche Seite liegt dem [[rechten Winkel]] gegenüber?'
+  - de: 'Die [[Hypotenuse]] ist die längste Seite. Kann eine [[Kathete]] länger sein?'
+fehlerbilder:
+  kein-fehler:
+    de: 'Die [[Formel]] $a^2 + b^2 = c^2$ gilt nur, wenn c dem [[rechten Winkel]] gegenüberliegt.'
+    fv: FV.PY.HYPOTENUSE-C
+  wurzel:
+    de: 'Die fehlende [[Wurzel]] ist nicht der Hauptfehler. Schon der Ansatz stimmt nicht: Welche Seite ist die [[Hypotenuse]]?'
+    fv: FV.PY.HYPOTENUSE-C
+  einheit:
+    de: 'Prüfe zuerst den Ansatz. Welche Seite liegt dem [[rechten Winkel]] gegenüber?'
+    fv: FV.PY.HYPOTENUSE-C
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,31 @@
+# Leiter, Diagonale, Dach, Raumdiagonale. Entwurf: noch nicht geprüft.
+id: M.RF.PY.SACH.BERECHNEN
+kompetenz: M.RF.PY.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: py.sach@1
+parameter:
+  G: { arten: [leiter, diagonale, dach] }
+  M: { arten: [leiter, diagonale, dach, raumdiagonale] }
+text:
+  aufgabe:
+    de: '{situation} **{frage}** Runde, wenn nötig, auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Suche das rechtwinklige Dreieck und seine [[Hypotenuse]]. Eine Skizze hilft.'
+  - de: 'Bei einem Körper brauchst du manchmal zwei Dreiecke nacheinander.'
+fehlerbilder:
+  summe:
+    de: 'Seitenlängen werden nicht einfach addiert oder subtrahiert. Rechne mit den Quadraten.'
+    fv: FV.PY.OHNE-QUADRATE
+  kathete-addiert:
+    de: 'Gesucht ist eine [[Kathete]], die Leiter oder der Sparren ist die [[Hypotenuse]]. Also subtrahieren.'
+    fv: FV.PY.KATHETE-ADDIERT
+  halbe-vergessen:
+    de: 'Die [[Höhe]] teilt das Dach in der Mitte. Rechne mit der halben Breite.'
+    fv: FV.PY.TEILDREIECK
+  flaechendiagonale:
+    de: 'Das ist die [[Diagonale]] der [[Grundfläche]]. Mit der [[Höhe]] kommt noch ein zweites Dreieck dazu.'
+    fv: FV.PY.TEILDREIECK
+herkunft: ki-entwurf
+version: 1

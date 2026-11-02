@@ -1,0 +1,28 @@
+# „Ist das Dreieck mit a = 7, b = 24, c = 25 rechtwinklig?“ Entwurf: noch nicht geprüft.
+id: M.RF.PY.UMKEHRUNG.PRUEFEN
+kompetenz: M.RF.PY.UMKEHRUNG
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: py.umkehrung@1
+parameter:
+  G: { wo: false }
+  M: { wo: true }
+text:
+  aufgabe:
+    de: 'Ein Dreieck hat die Seiten {seiten} (in cm). **Prüfe** mit der [[Umkehrung]] des Satzes von Pythagoras: Ist es rechtwinklig, und wo liegt der rechte [[Winkel]]?'
+hilfen:
+  - de: 'Nur die längste Seite kann die [[Hypotenuse]] sein.'
+  - de: 'Vergleiche die [[Summe]] der Quadrate der beiden kürzeren Seiten mit dem Quadrat der längsten.'
+fehlerbilder:
+  falsche-seite:
+    de: 'Prüfe mit der längsten Seite als [[Hypotenuse]]. Nur sie liegt einem [[rechten Winkel]] gegenüber.'
+    fv: FV.PY.HYPOTENUSE-C
+  beinahe:
+    de: 'Die Quadrate müssen genau gleich sein. Fast gleich reicht nicht für einen [[rechten Winkel]].'
+    fv: FV.PY.UMKEHRUNG-UNGEFAEHR
+  kleinste-seite:
+    de: 'Der rechte [[Winkel]] liegt der längsten Seite gegenüber, nicht der kürzesten.'
+    fv: FV.PY.HYPOTENUSE-C
+herkunft: ki-entwurf
+version: 1

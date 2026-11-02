@@ -1,0 +1,95 @@
+id: M.RF.PY.PYTHAGORAS
+kompetenz: M.RF.PY.PYTHAGORAS
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du in jedem rechtwinkligen Dreieck aus zwei Seiten die dritte berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $\sqrt{25}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '5' }, richtig: true }
+        - { wert: { de: '12,5' }, fv: FV.NZ.WURZEL-HALBIERT }
+    weiter: entdecken
+    bei: { FV.NZ.WURZEL-HALBIERT: M.ZO.PW.WURZEL, sonst: M.ZO.PW.WURZEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein rechtwinkliges Dreieck hat die [[Katheten]] 3 cm und 4 cm. Über jeder Seite steht ein Quadrat. Die beiden kleinen Quadrate haben 9 und 16 Kästchen. Wie viele hat das große?'
+    antwort:
+      eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '49', fv: FV.PY.OHNE-QUADRATE }] }
+    weiter: erklaeren-satz
+  - id: erklaeren-satz
+    typ: erklaeren
+    text:
+      de: 'Im rechtwinkligen Dreieck gilt: Die Quadrate über den beiden [[Katheten]] sind zusammen so groß wie das Quadrat über der [[Hypotenuse]]: $a^2 + b^2 = c^2$. Die Seite ist dann die [[Wurzel]].'
+    weiter: erklaeren-hypotenuse
+  - id: erklaeren-hypotenuse
+    typ: erklaeren
+    text:
+      de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber und ist die längste Seite. Sie heißt nicht immer c. Liegt der rechte [[Winkel]] bei A, gilt $b^2 + c^2 = a^2$.'
+    weiter: erklaeren-kathete
+  - id: erklaeren-kathete
+    typ: erklaeren
+    text:
+      de: 'Ist eine [[Kathete]] gesucht, wird subtrahiert: $b^2 = c^2 - a^2$. Denn die Kathete ist kürzer als die [[Hypotenuse]].'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Hypotenuse]] 13 cm, [[Kathete]] 5 cm: $b^2 = 13^2 - 5^2 = 169 - 25 = 144$, also $b = 12$ cm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Die [[Katheten]] sind 6 cm und 8 cm lang. Wie lang ist die [[Hypotenuse]] in cm?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '10',
+          fehler:
+            [{ wert: '14', fv: FV.PY.OHNE-QUADRATE }, { wert: '100', fv: FV.PY.WURZEL-VERGESSEN }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.PY.OHNE-QUADRATE: erklaeren-satz, FV.PY.WURZEL-VERGESSEN: erklaeren-satz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Der rechte [[Winkel]] liegt bei A, gegeben sind $b = 6$ und $c = 8$. Sara rechnet $c^2 = a^2 + b^2$. Passt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. Die Hypotenuse ist a, also $a^2 = b^2 + c^2$.' }, richtig: true }
+        - { wert: { de: 'Ja, c ist immer die Hypotenuse.' }, fv: FV.PY.HYPOTENUSE-C }
+    weiter: merksatz
+    bei: { FV.PY.HYPOTENUSE-C: erklaeren-hypotenuse }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Rechtwinkliges Dreieck: [[Kathete]]² + Kathete² = [[Hypotenuse]]². Die Hypotenuse liegt dem [[rechten Winkel]] gegenüber. Zum Schluss die [[Wurzel]] ziehen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '[[Hypotenuse]] 10 cm, [[Kathete]] 6 cm. Wie lang ist die andere Kathete?'
+    antwort:
+      optionen:
+        - { wert: { de: '8 cm' }, richtig: true }
+        - { wert: { de: 'etwa 11,7 cm' }, fv: FV.PY.KATHETE-ADDIERT }
+        - { wert: { de: '64 cm' }, fv: FV.PY.WURZEL-VERGESSEN }
+    weiter: uebergang
+    bei: { FV.PY.KATHETE-ADDIERT: erklaeren-kathete, FV.PY.WURZEL-VERGESSEN: erklaeren-satz }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Seiten.'
+    vorlagen: [M.RF.PY.PYTHAGORAS.SEITE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

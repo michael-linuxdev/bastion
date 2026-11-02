@@ -1,0 +1,27 @@
+# „Welcher Satz hilft direkt?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.PY.HOEHENSATZ.WAHL
+kompetenz: M.RF.PY.HOEHENSATZ
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: py.satz-wahl@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'In einem rechtwinkligen Dreieck kennst du {gegeben}. Gesucht ist {gesucht}. **Welcher** Satz führt direkt zum Ziel?'
+hilfen:
+  - de: 'Schreibe zu jedem Satz die Größen auf, die darin vorkommen.'
+  - de: 'Der passende Satz enthält genau die gegebenen und die gesuchte Größe.'
+fehlerbilder:
+  pythagoras:
+    de: 'Der Satz des Pythagoras verbindet nur die drei Seiten. Hier kommen Abschnitte oder die [[Höhe]] vor.'
+    fv: FV.PY.SATZ-WAHL
+  hoehensatz:
+    de: 'Der Höhensatz verbindet h, p und q. Prüfe, ob diese Größen vorkommen.'
+    fv: FV.PY.SATZ-WAHL
+  kathetensatz:
+    de: 'Der Kathetensatz verbindet eine [[Kathete]], die [[Hypotenuse]] und den anliegenden Abschnitt.'
+    fv: FV.PY.SATZ-WAHL
+herkunft: ki-entwurf
+version: 1

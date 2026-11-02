@@ -1,0 +1,25 @@
+id: FV.TR.AN-GEGEN
+name:
+  de: Bestimmt Gegen- und Ankathete nicht vom richtigen Winkel aus
+art: lesefehler
+beschreibung:
+  de: >-
+    Nennt a immer Gegenkathete, auch vom Winkel β aus, oder vertauscht die Kathetenrollen. Dass die Rollen vom betrachteten Winkel abhängen, ist nicht verankert.
+kompetenzen: [M.RF.TR.BEGRIFFE, M.RF.TR.BERECHNEN, M.RF.TR.SACH]
+erklaerung:
+  kurz:
+    de: 'Stell dich in den [[Winkel]]. Die [[Kathete]], die du gegenüber siehst, ist die [[Gegenkathete]]. Die Kathete, auf der du stehst, ist die [[Ankathete]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Rollen fest an die Buchstaben gebunden.'
+    - teil: warum-nicht
+      de: 'Von α aus liegt a gegenüber, von β aus liegt a am [[Winkel]] an. Dieselbe Seite hat zwei Rollen.'
+    - teil: so-stimmt-es
+      de: 'Markiere vor jeder Rechnung den [[Winkel]] und schreibe G und A an die [[Katheten]].'
+gegenbeispiel:
+  de: 'Rechter [[Winkel]] bei C: $\sin \alpha = \frac{a}{c}$, aber $\sin \beta = \frac{b}{c}$.'
+rueckweg:
+  vermittlung: M.RF.TR.BEGRIFFE#erklaeren-seiten
+kontrast: [M.RF.TR.BEGRIFFE.VERHAELTNIS, M.RF.TR.BERECHNEN.WECHSEL]
+herkunft: ki-entwurf
+version: 1

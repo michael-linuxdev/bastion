@@ -1,0 +1,25 @@
+id: FV.TR.BOGENMASS
+name:
+  de: Rechnet mit dem Taschenrechner im Bogenmaß
+art: rechenfehler
+beschreibung:
+  de: >-
+    Erhält für 10 · sin 30° den Wert −9,9 statt 5, weil der Taschenrechner auf RAD steht. Dass Winkel in Grad eine Einstellung DEG brauchen, ist nicht bekannt oder wird nicht geprüft.
+kompetenzen: [M.RF.TR.BERECHNEN, M.RF.TR.SACH]
+erklaerung:
+  kurz:
+    de: 'Stelle den Taschenrechner auf [[Grad]] (DEG). Prüfe mit $\sin 30° = 0{,}5$: Kommt etwas anderes heraus, stimmt die Einstellung nicht.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast richtig gerechnet, aber der Taschenrechner hat 30 als Bogenmaß genommen.'
+    - teil: warum-nicht
+      de: 'Im Bogenmaß ist 30 fast fünf ganze Umdrehungen, nicht 30°. Darum kommt ein ganz anderer Wert heraus.'
+    - teil: so-stimmt-es
+      de: 'Vor jeder Aufgabe kurz testen: $\sin 30°$ muss 0,5 ergeben.'
+gegenbeispiel:
+  de: 'Eine [[Kathete]] von $-9{,}9$ cm gibt es nicht. Das Minus zeigt sofort, dass etwas nicht stimmt.'
+rueckweg:
+  vermittlung: M.RF.TR.BERECHNEN#erklaeren-rechnen
+kontrast: [M.RF.TR.BERECHNEN.RECHNEN, M.RF.TR.SACH.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

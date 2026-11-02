@@ -1,0 +1,30 @@
+# „Welcher Satz begründet das?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.PY.UMKEHRUNG.SATZ
+kompetenz: M.RF.PY.UMKEHRUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: py.satz-oder-umkehrung@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Welcher** Satz begründet diese Folgerung?'
+hilfen:
+  - de: 'Was ist bekannt, was wird gefolgert? Ein Satz schließt von „rechtwinklig“ auf die [[Gleichung]], die [[Umkehrung]] andersherum.'
+  - de: 'Satz: Wenn rechtwinklig, dann $a^2 + b^2 = c^2$. [[Umkehrung]]: Wenn $a^2 + b^2 = c^2$, dann rechtwinklig.'
+fehlerbilder:
+  satz-statt-umkehrung:
+    de: 'Hier wird aus der [[Gleichung]] auf den [[rechten Winkel]] geschlossen. Das leistet die [[Umkehrung]].'
+    fv: FV.PY.SATZ-UMKEHRUNG
+  umkehrung-statt-satz:
+    de: 'Hier ist der rechte [[Winkel]] bekannt, und es wird gerechnet. Das leistet der Satz selbst.'
+    fv: FV.PY.SATZ-UMKEHRUNG
+  hoehensatz:
+    de: 'Der Höhensatz verbindet die [[Höhe]] mit den Hypotenusenabschnitten. Hier geht es um die drei Seiten.'
+    fv: FV.PY.SATZ-UMKEHRUNG
+  thales:
+    de: 'Der [[Satz des Thales]] handelt von Dreiecken im Halbkreis. Hier geht es um die Seitenlängen.'
+    fv: FV.PY.SATZ-UMKEHRUNG
+herkunft: ki-entwurf
+version: 1

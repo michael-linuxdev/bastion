@@ -1050,3 +1050,23 @@ begriffe:
     formen: [Diskriminante]
     erklaerung:
       de: 'Der Term unter der Wurzel in der Lösungsformel. Ihr Vorzeichen zeigt, ob eine quadratische Gleichung zwei, eine oder keine Lösung hat.'
+  - id: hypotenuse
+    wort: { de: Hypotenuse }
+    formen: [Hypotenuse]
+    erklaerung:
+      de: 'Die längste Seite im rechtwinkligen Dreieck. Sie liegt dem rechten Winkel gegenüber.'
+  - id: kathete
+    wort: { de: Kathete }
+    formen: [Kathete, Katheten]
+    erklaerung:
+      de: 'Eine der beiden Seiten im rechtwinkligen Dreieck, die den rechten Winkel bilden.'
+  - id: gegenkathete
+    wort: { de: Gegenkathete }
+    formen: [Gegenkathete]
+    erklaerung:
+      de: 'Die Kathete, die einem Winkel gegenüberliegt.'
+  - id: ankathete
+    wort: { de: Ankathete }
+    formen: [Ankathete]
+    erklaerung:
+      de: 'Die Kathete, die an einem Winkel anliegt (nicht die Hypotenuse).'

@@ -1,0 +1,78 @@
+id: M.RF.PY.UMKEHRUNG
+kompetenz: M.RF.PY.UMKEHRUNG
+niveau: G
+dauer_min: 8
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du an drei Seitenlängen ablesen, ob ein Dreieck rechtwinklig ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Die [[Katheten]] sind 3 cm und 4 cm. Wie lang ist die [[Hypotenuse]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '5 cm' }, richtig: true }
+        - { wert: { de: '7 cm' }, fv: FV.PY.OHNE-QUADRATE }
+    weiter: entdecken
+    bei: { FV.PY.OHNE-QUADRATE: M.RF.PY.PYTHAGORAS, sonst: M.RF.PY.PYTHAGORAS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Dreieck hat die Seiten 6, 8 und 10. Ist $6^2 + 8^2$ gleich $10^2$? Gib $6^2 + 8^2$ an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '100', fehler: [{ wert: '14', fv: FV.PY.OHNE-QUADRATE }] }
+    weiter: erklaeren-umkehrung
+  - id: erklaeren-umkehrung
+    typ: erklaeren
+    text:
+      de: '[[Umkehrung]]: Gilt für die Seiten $a^2 + b^2 = c^2$ genau, dann ist das Dreieck rechtwinklig. Der rechte [[Winkel]] liegt der längsten Seite gegenüber. Fast gleich reicht nicht.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Seiten 5, 12, 13: $25 + 144 = 169 = 13^2$, also rechtwinklig. Seiten 5, 12, 14: $169 \neq 196$, also nicht rechtwinklig.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Seiten 8, 15, 17. Berechne $8^2 + 15^2$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '289', fehler: [{ wert: '23', fv: FV.PY.OHNE-QUADRATE }] }
+    weiter: gegenbeispiel
+    bei: { FV.PY.OHNE-QUADRATE: erklaeren-umkehrung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Seiten 7, 24, 26: $49 + 576 = 625$ und $26^2 = 676$. Max sagt: „Fast gleich, also rechtwinklig.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, die Quadrate müssen genau gleich sein.' }, richtig: true }
+        - { wert: { de: 'Ja, ungefähr reicht.' }, fv: FV.PY.UMKEHRUNG-UNGEFAEHR }
+    weiter: merksatz
+    bei: { FV.PY.UMKEHRUNG-UNGEFAEHR: erklaeren-umkehrung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Satz: rechtwinklig, also $a^2 + b^2 = c^2$. [[Umkehrung]]: $a^2 + b^2 = c^2$ genau, also rechtwinklig. Immer mit der längsten Seite als [[Hypotenuse]] prüfen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ist das Dreieck mit den Seiten 9, 12 und 15 rechtwinklig?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, $81 + 144 = 225$.' }, richtig: true }
+        - { wert: { de: 'Nein, $9 + 12 \neq 15$ ist falsch gerechnet.' }, fv: FV.PY.OHNE-QUADRATE }
+    weiter: uebergang
+    bei: { FV.PY.OHNE-QUADRATE: erklaeren-umkehrung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt prüfst du selbst Dreiecke.'
+    vorlagen: [M.RF.PY.UMKEHRUNG.PRUEFEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

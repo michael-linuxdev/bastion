@@ -1,0 +1,25 @@
+id: FV.PY.WURZEL-VERGESSEN
+name:
+  de: Vergisst am Ende die Wurzel
+art: rechenfehler
+beschreibung:
+  de: >-
+    Gibt bei c² = 25 die Länge c = 25 an. Das Quadrat der Seite wird mit der Seite verwechselt.
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.HOEHENSATZ]
+erklaerung:
+  kurz:
+    de: 'Die Rechnung liefert erst das Quadrat: $c^2 = 25$. Die Seite selbst ist $c = \sqrt{25} = 5$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach dem Addieren aufgehört.'
+    - teil: warum-nicht
+      de: 'Die [[Formel]] sagt etwas über $c^2$. Eine Seite von 25 cm wäre viel länger als die [[Katheten]] 3 cm und 4 cm.'
+    - teil: so-stimmt-es
+      de: 'Schreibe $c^2 = \dots$ und dann eine zweite Zeile $c = \sqrt{\dots}$.'
+gegenbeispiel:
+  de: '[[Katheten]] 3 cm und 4 cm, [[Hypotenuse]] 25 cm? Das kann kein Dreieck sein.'
+rueckweg:
+  vermittlung: M.RF.PY.PYTHAGORAS#erklaeren-satz
+kontrast: [M.RF.PY.PYTHAGORAS.SEITE, M.RF.PY.HOEHENSATZ.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

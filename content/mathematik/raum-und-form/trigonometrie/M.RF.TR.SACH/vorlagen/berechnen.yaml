@@ -1,0 +1,25 @@
+# Turmhöhe, Rampe, Leiterwinkel. Entwurf: noch nicht geprüft.
+id: M.RF.TR.SACH.BERECHNEN
+kompetenz: M.RF.TR.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tr.sach@1
+parameter:
+  G: { arten: [turm, rampe] }
+  M: { arten: [turm, rampe, leiter] }
+text:
+  aufgabe:
+    de: '{situation} **{frage}** Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Skizziere das rechtwinklige Dreieck und markiere den gegebenen [[Winkel]].'
+  - de: 'Wähle sin, cos oder tan nach den Seiten, die bekannt oder gesucht sind.'
+fehlerbilder:
+  falsche-funktion:
+    de: 'Prüfe, welche Seiten vom [[Winkel]] aus Gegen- und [[Ankathete]] sind, und wähle danach die [[Funktion]].'
+    fv: FV.TR.FUNKTION-VERWECHSELT
+  bogenmass:
+    de: 'Dein Taschenrechner rechnet im Bogenmaß (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
+    fv: FV.TR.BOGENMASS
+herkunft: ki-entwurf
+version: 1

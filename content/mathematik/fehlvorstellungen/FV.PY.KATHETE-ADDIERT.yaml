@@ -1,0 +1,25 @@
+id: FV.PY.KATHETE-ADDIERT
+name:
+  de: Addiert auch dann, wenn eine Kathete gesucht ist
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet bei Hypotenuse 13 cm und Kathete 5 cm die andere Kathete als √(13² + 5²). Die Formel a² + b² = c² wird nicht nach der gesuchten Seite umgestellt.
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.SACH]
+erklaerung:
+  kurz:
+    de: 'Gesucht ist eine [[Kathete]], also eine kürzere Seite. Darum wird subtrahiert: $b^2 = 13^2 - 5^2 = 144$, $b = 12$ cm.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast wie bei der [[Hypotenuse]] addiert.'
+    - teil: warum-nicht
+      de: 'Eine [[Kathete]] ist kürzer als die [[Hypotenuse]]. Durch Addieren käme eine Zahl größer als 13 heraus.'
+    - teil: so-stimmt-es
+      de: 'Stelle $a^2 + b^2 = c^2$ nach der gesuchten Seite um.'
+gegenbeispiel:
+  de: '$\sqrt{13^2 + 5^2} \approx 13{,}9$. Eine [[Kathete]] kann nicht länger sein als die [[Hypotenuse]].'
+rueckweg:
+  vermittlung: M.RF.PY.PYTHAGORAS#erklaeren-kathete
+kontrast: [M.RF.PY.PYTHAGORAS.SEITE, M.RF.PY.SACH.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

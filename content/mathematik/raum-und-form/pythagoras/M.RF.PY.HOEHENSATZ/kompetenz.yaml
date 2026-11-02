@@ -1,0 +1,38 @@
+# Höhensatz und Kathetensatz – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.PY.HOEHENSATZ
+fach: mathematik
+bereich: raum-und-form
+feld: pythagoras
+titel:
+  de: 'Höhensatz und Kathetensatz'
+kann_satz:
+  de: 'Ich kann Höhensatz und Kathetensatz anwenden.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.PY.PYTHAGORAS
+niveaus:
+  G:
+    beschreibung:
+      de: 'Mit dem Höhensatz die Höhe aus den Hypotenusenabschnitten berechnen.'
+  M:
+    beschreibung:
+      de: 'Auch mit dem Kathetensatz eine Kathete berechnen.'
+  E:
+    beschreibung:
+      de: 'Entscheiden, welcher Satz der Satzgruppe zu den gegebenen und gesuchten Größen passt.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K5
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Satzgruppe des Pythagoras'
+version: 1

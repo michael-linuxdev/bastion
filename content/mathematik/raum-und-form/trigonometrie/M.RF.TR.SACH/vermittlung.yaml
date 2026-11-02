@@ -1,0 +1,78 @@
+id: M.RF.TR.SACH
+kompetenz: M.RF.TR.SACH
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Höhen von Türmen, Rampen und Steigungen mit Winkeln berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche [[Funktion]] verbindet [[Gegenkathete]] und [[Ankathete]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Tangens' }, richtig: true }
+        - { wert: { de: 'Sinus' }, fv: FV.TR.FUNKTION-VERWECHSELT }
+    weiter: entdecken
+    bei: { FV.TR.FUNKTION-VERWECHSELT: M.RF.TR.BERECHNEN, sonst: M.RF.TR.BERECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Du stehst 40 m vor einem Turm und siehst die Spitze unter 45°. Bei 45° sind Gegen- und [[Ankathete]] gleich lang. Wie hoch ist der Turm in m?'
+    antwort:
+      eingabe: { art: zahl, loesung: '40', fehler: [{ wert: '45', fv: FV.TR.PROZENT-GRAD }] }
+    weiter: erklaeren-steigung
+  - id: erklaeren-steigung
+    typ: erklaeren
+    text:
+      de: 'Skizziere das rechtwinklige Dreieck: Boden, [[Höhe]], Sichtlinie oder Rampe. Höhe und waagerechte Strecke sind die [[Katheten]]. Steigung in [[Prozent]] ist Höhe durch Strecke, also ein Tangens.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Turm 50 m entfernt, Höhenwinkel 30°: $h = 50 \cdot \tan 30° \approx 28{,}9$ m. 10 % Steigung: $\tan \alpha = 0{,}1$, $\alpha \approx 5{,}7°$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Eine Straße hat 100 % Steigung. Wie viel [[Grad]] sind das?'
+    antwort:
+      eingabe: { art: zahl, loesung: '45', fehler: [{ wert: '90', fv: FV.TR.PROZENT-GRAD }] }
+    weiter: gegenbeispiel
+    bei: { FV.TR.PROZENT-GRAD: erklaeren-steigung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia sagt: „12 % Steigung sind 12°.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, $\tan \alpha = 0{,}12$ ergibt etwa 6,8°.' }, richtig: true }
+        - { wert: { de: 'Ja, Prozent und Grad sind dasselbe.' }, fv: FV.TR.PROZENT-GRAD }
+    weiter: merksatz
+    bei: { FV.TR.PROZENT-GRAD: erklaeren-steigung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Skizze, rechtwinkliges Dreieck, [[Winkel]] markieren, passende [[Funktion]]. Steigung in [[Prozent]] ist ein Tangens, keine Gradzahl.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine 4 m lange Rampe steigt unter 5° an. Welche Rechnung liefert die [[Höhe]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '$4 \cdot \sin 5°$' }, richtig: true }
+        - { wert: { de: '$4 \cdot \cos 5°$' }, fv: FV.TR.FUNKTION-VERWECHSELT }
+    weiter: uebergang
+    bei: { FV.TR.FUNKTION-VERWECHSELT: erklaeren-steigung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt löst du selbst Sachaufgaben mit Winkeln.'
+    vorlagen: [M.RF.TR.SACH.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

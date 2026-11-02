@@ -1,0 +1,25 @@
+id: FV.PY.SATZ-WAHL
+name:
+  de: Wählt aus der Satzgruppe den falschen Satz
+art: verwechslung
+beschreibung:
+  de: >-
+    Will die Höhe mit dem Satz des Pythagoras aus den Hypotenusenabschnitten berechnen oder nimmt beim Kathetensatz den falschen Abschnitt. Welche Größen in welchem Satz stehen, ist nicht sicher.
+kompetenzen: [M.RF.PY.HOEHENSATZ]
+erklaerung:
+  kurz:
+    de: 'Pythagoras: drei Seiten. Höhensatz: $h^2 = p \cdot q$. Kathetensatz: $a^2 = c \cdot p$ mit dem Abschnitt an a.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Satz gewählt, der die gegebenen Größen nicht enthält.'
+    - teil: warum-nicht
+      de: 'Jeder Satz verbindet bestimmte Größen. Fehlt eine davon, hilft er nicht direkt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die gegebenen und gesuchten Größen auf und suche den Satz, der genau diese enthält.'
+gegenbeispiel:
+  de: 'Gegeben p und q, gesucht h: Im Satz des Pythagoras kommen p und q gar nicht vor.'
+rueckweg:
+  vermittlung: M.RF.PY.HOEHENSATZ#erklaeren-saetze
+kontrast: [M.RF.PY.HOEHENSATZ.WAHL, M.RF.PY.HOEHENSATZ.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

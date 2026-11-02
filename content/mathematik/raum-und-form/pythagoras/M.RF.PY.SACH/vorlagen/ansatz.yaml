@@ -1,0 +1,27 @@
+# „Welche Rechnung liefert die Raumdiagonale?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.PY.SACH.ANSATZ
+kompetenz: M.RF.PY.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: py.ansatz@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Welche** Rechnung liefert die Länge d der Raumdiagonale?'
+hilfen:
+  - de: 'Die Raumdiagonale ist die [[Hypotenuse]] eines Dreiecks, dessen eine [[Kathete]] die [[Diagonale]] der [[Grundfläche]] ist.'
+  - de: 'Setze die beiden Rechnungen zusammen.'
+fehlerbilder:
+  flaechendiagonale:
+    de: 'Das ist nur die [[Diagonale]] der [[Grundfläche]]. Die [[Höhe]] fehlt noch.'
+    fv: FV.PY.TEILDREIECK
+  summe:
+    de: 'Längen werden nicht einfach addiert. Rechne mit den Quadraten.'
+    fv: FV.PY.OHNE-QUADRATE
+  klammer:
+    de: 'Länge und Breite sind die [[Katheten]] der Grundflächendiagonale. Sie werden einzeln quadriert, nicht erst addiert.'
+    fv: FV.PY.OHNE-QUADRATE
+herkunft: ki-entwurf
+version: 1
