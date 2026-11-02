@@ -112,6 +112,7 @@ import {
 import { belegteFelder } from './pfad';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import { atlasThema, type Bildart } from './bildart';
+import { geruestEbenen } from './geruest';
 import { istLandBildart } from './thema-partikel';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
@@ -636,6 +637,57 @@ function raute(g: Graphics, pos: Position, typ: GebaeudeTyp, abstand: number) {
 }
 
 /** Gestrichelter Boden-Umriss für geplante Bauten (Geister-Silhouette). */
+/**
+ * Gerüst für ein laufendes Bauvorhaben (G4, FOKUS.md): Es wächst in Abschnitten statt
+ * eines Fortschrittsbalkens. Ein Abschnitt je Bauschritt (2 bis 6 Ebenen); fertige
+ * Ebenen sind kräftig, offene nur angedeutet. Ruhiges Bild ohne Bewegung (R1–R7).
+ */
+function geruest(
+  g: Graphics,
+  pos: Position,
+  typ: GebaeudeTyp,
+  hoeheZiel: number,
+  bedarf: number,
+  fortschritt: number,
+) {
+  const [w, t] = KATALOG[typ].groesse;
+  // Eng am Gebäude: Große Grundflächen (Bergfried 3×3) sind breiter als der Körper darauf
+  const einzug = Math.max(0, Math.min(w, t) / 2 - 1) - 0.06;
+  const e = ecken(pos.x, pos.y, w, t, einzug);
+  const { ebenen, fertig } = geruestEbenen(bedarf, fortschritt);
+  const holz = '#966840';
+  const dunkel = '#5c3e28';
+  const stark = (k: number) => (k <= fertig ? 1 : 0.38);
+  const stangen = [e.links, e.vorne, e.rechts];
+  // Stangen: fertiger Teil kräftig, der Rest angedeutet
+  const hFertig = (hoeheZiel * fertig) / ebenen;
+  for (const p of stangen) {
+    if (hFertig > 0)
+      g.moveTo(p.x, p.y)
+        .lineTo(p.x, p.y - hFertig)
+        .stroke({ width: 2.4, color: dunkel, alpha: 1, cap: 'round' });
+    g.moveTo(p.x, p.y - hFertig)
+      .lineTo(p.x, p.y - hoeheZiel)
+      .stroke({ width: 2, color: dunkel, alpha: 0.38, cap: 'round' });
+  }
+  for (let k = 1; k <= ebenen; k++) {
+    const z = (hoeheZiel * k) / ebenen;
+    const a = stark(k);
+    // Laufbretter vorne links und vorne rechts
+    g.moveTo(e.links.x, e.links.y - z)
+      .lineTo(e.vorne.x, e.vorne.y - z)
+      .lineTo(e.rechts.x, e.rechts.y - z)
+      .stroke({ width: 3, color: holz, alpha: a, cap: 'round', join: 'round' });
+    // Strebe je fertiger Ebene auf der linken Seite
+    if (k <= fertig) {
+      const z0 = (hoeheZiel * (k - 1)) / ebenen;
+      g.moveTo(e.links.x, e.links.y - z0)
+        .lineTo(e.vorne.x, e.vorne.y - z)
+        .stroke({ width: 1.6, color: dunkel, alpha: 0.9 });
+    }
+  }
+}
+
 function geisterUmriss(g: Graphics, pos: Position, typ: GebaeudeTyp, farbe: string | number) {
   const [w, t] = KATALOG[typ].groesse;
   const e = ecken(pos.x, pos.y, w, t, 0.1);
@@ -1936,6 +1988,19 @@ export async function buehneErstellen(
             hoch(e.links, h),
           ),
         });
+      }
+      // Laufende Bauvorhaben: Gerüst in Abschnitten vor dem Gebäude (G4)
+      for (const v of b.vorhaben) {
+        const [vw, vt] = KATALOG[v.typ].groesse;
+        const ziel =
+          texturen.size > 0
+            ? atlasEintrag(atlas, atlasThema(art), epocheJetzt, v.typ, v.stufe)
+            : undefined;
+        const hoeheZiel = ziel ? (ziel.pixel.h / 2) * 0.8 : hoehe(v.typ, v.stufe, epocheJetzt) + 12;
+        const stueck = new Graphics();
+        geruest(stueck, v.pos, v.typ, hoeheZiel, v.bedarf, v.fortschritt);
+        stueck.zIndex = (v.pos.x + v.pos.y + (vw + vt) / 2) * 10 + 5;
+        gebaeude.addChild(stueck);
       }
       if (a.vorschlag) {
         const v = a.vorschlag;
