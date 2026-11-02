@@ -1,0 +1,28 @@
+# „Berechne die Seite a.“ / „Berechne den Winkel α.“ – mit Skizze. Entwurf: noch nicht geprüft.
+id: M.RF.TR.BERECHNEN.RECHNEN
+kompetenz: M.RF.TR.BERECHNEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: tr.berechnen@1
+parameter:
+  G: { gemischt: false }
+  M: { gemischt: true }
+text:
+  aufgabe:
+    de: '**Berechne** {gesucht} in {einheit}. Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Markiere vom [[Winkel]] aus [[Gegenkathete]], [[Ankathete]] und [[Hypotenuse]]. Wähle die [[Funktion]], in der die gegebenen und die gesuchte Größe vorkommen.'
+  - de: 'Achte darauf, dass der Taschenrechner auf [[Grad]] (DEG) eingestellt ist.'
+fehlerbilder:
+  falsche-funktion:
+    de: 'Du hast die falsche Winkelfunktion benutzt. Prüfe, ob die gesuchte Seite Gegen- oder [[Ankathete]] ist.'
+    fv: FV.TR.FUNKTION-VERWECHSELT
+  kehrwert:
+    de: 'Die [[Kathete]] ist kürzer als die [[Hypotenuse]]. Nimm mit sin oder cos mal, statt zu teilen.'
+    fv: FV.TR.KEHRWERT
+  bogenmass:
+    de: 'Dein Taschenrechner rechnet im Bogenmaß (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
+    fv: FV.TR.BOGENMASS
+herkunft: ki-entwurf
+version: 1

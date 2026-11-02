@@ -1,0 +1,25 @@
+id: FV.TR.KEHRWERT
+name:
+  de: Vertauscht Zähler und Nenner bei sin, cos oder tan
+art: rechenfehler
+beschreibung:
+  de: >-
+    Schreibt sin α = c/a oder rechnet a = c : sin α. Das Verhältnis wird umgedreht, sodass Werte größer als 1 herauskommen.
+kompetenzen: [M.RF.TR.BEGRIFFE, M.RF.TR.BERECHNEN]
+erklaerung:
+  kurz:
+    de: 'Bei sin und cos steht die [[Hypotenuse]] im [[Nenner]]. Da sie die längste Seite ist, sind sin und cos höchstens 1.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Bruch]] umgedreht.'
+    - teil: warum-nicht
+      de: 'Eine [[Kathete]] ist kürzer als die [[Hypotenuse]]. $\frac{c}{a}$ wäre größer als 1, das kann kein Sinus sein.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Merkregel: [[Gegenkathete]] durch [[Hypotenuse]]. Prüfe, ob das Ergebnis kleiner als 1 bzw. kleiner als die Hypotenuse ist.'
+gegenbeispiel:
+  de: '[[Hypotenuse]] 10 cm, $\alpha = 30°$: $10 \cdot \sin 30° = 5$ cm. Mit $10 : \sin 30°$ käme 20 cm heraus, länger als die Hypotenuse.'
+rueckweg:
+  vermittlung: M.RF.TR.BEGRIFFE#erklaeren-funktionen
+kontrast: [M.RF.TR.BEGRIFFE.VERHAELTNIS, M.RF.TR.BERECHNEN.RECHNEN]
+herkunft: ki-entwurf
+version: 1

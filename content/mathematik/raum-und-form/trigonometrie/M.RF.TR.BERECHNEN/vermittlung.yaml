@@ -1,0 +1,84 @@
+id: M.RF.TR.BERECHNEN
+kompetenz: M.RF.TR.BERECHNEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit sin, cos und tan fehlende Seiten und [[Winkel]] im rechtwinkligen Dreieck berechnen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Rechter [[Winkel]] bei C. Was ist $\sin \alpha$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{a}{c}$' }, richtig: true }
+        - { wert: { de: '$\frac{b}{c}$' }, fv: FV.TR.AN-GEGEN }
+    weiter: entdecken
+    bei: { FV.TR.AN-GEGEN: M.RF.TR.BEGRIFFE, sonst: M.RF.TR.BEGRIFFE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: '$\sin 30° = 0{,}5$. Die [[Hypotenuse]] ist 12 cm. Wie lang ist die [[Gegenkathete]] von 30°?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '24', fv: FV.TR.KEHRWERT }] }
+    weiter: erklaeren-rechnen
+  - id: erklaeren-rechnen
+    typ: erklaeren
+    text:
+      de: 'Aus $\sin \alpha = \frac{a}{c}$ wird $a = c \cdot \sin \alpha$. Den Wert von $\sin \alpha$ liefert der Taschenrechner. Er muss auf [[Grad]] (DEG) stehen: Test $\sin 30° = 0{,}5$.'
+    weiter: erklaeren-winkel
+  - id: erklaeren-winkel
+    typ: erklaeren
+    text:
+      de: 'Für einen [[Winkel]] rechnest du rückwärts: $\sin \alpha = 0{,}6$ ergibt mit der Taste $\sin^{-1}$ den Winkel $\alpha \approx 36{,}9°$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '[[Hypotenuse]] 8 cm, $\alpha = 40°$, gesucht die [[Ankathete]] b: $b = 8 \cdot \cos 40° \approx 6{,}1$ cm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '$\cos 60° = 0{,}5$. [[Hypotenuse]] 10 cm. Wie lang ist die [[Ankathete]] von 60°?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '20', fv: FV.TR.KEHRWERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.TR.KEHRWERT: erklaeren-rechnen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali tippt $10 \cdot \sin 30$ und erhält $-9{,}9$. Was ist passiert?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Der Taschenrechner steht auf Bogenmaß (RAD) statt Grad.' }, richtig: true }
+        - { wert: { de: 'Das Ergebnis stimmt, Seiten können negativ sein.' }, fv: FV.TR.BOGENMASS }
+    weiter: merksatz
+    bei: { FV.TR.BOGENMASS: erklaeren-rechnen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Seiten markieren, [[Funktion]] wählen, nach der gesuchten Größe umstellen. Seite: mal sin, cos oder tan. [[Winkel]]: Umkehrtaste. Taschenrechner auf DEG.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '[[Hypotenuse]] 20 cm, $\alpha = 30°$. Wie lang ist die [[Gegenkathete]] von α?'
+    antwort:
+      optionen:
+        - { wert: { de: '10 cm' }, richtig: true }
+        - { wert: { de: 'etwa 17,3 cm' }, fv: FV.TR.FUNKTION-VERWECHSELT }
+        - { wert: { de: '40 cm' }, fv: FV.TR.KEHRWERT }
+    weiter: uebergang
+    bei: { FV.TR.FUNKTION-VERWECHSELT: erklaeren-rechnen, FV.TR.KEHRWERT: erklaeren-rechnen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Seiten und [[Winkel]].'
+    vorlagen: [M.RF.TR.BERECHNEN.RECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

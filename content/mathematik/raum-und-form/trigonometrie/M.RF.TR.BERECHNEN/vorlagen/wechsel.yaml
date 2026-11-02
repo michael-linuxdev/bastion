@@ -1,0 +1,27 @@
+# „Welche Aussage über Gegen- und Ankathete stimmt?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.TR.BERECHNEN.WECHSEL
+kompetenz: M.RF.TR.BERECHNEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tr.wechsel@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Im Dreieck ABC liegt der rechte [[Winkel]] bei C. **Welche** Aussage stimmt?'
+hilfen:
+  - de: 'Schau einmal von α und einmal von β auf die Seite a.'
+  - de: 'Die [[Winkel]] α und β ergänzen sich zu 90°.'
+fehlerbilder:
+  rolle-fest:
+    de: 'Ob eine Seite Gegen- oder [[Ankathete]] ist, hängt vom [[Winkel]] ab, von dem aus man schaut.'
+    fv: FV.TR.AN-GEGEN
+  hypotenuse:
+    de: 'Die [[Hypotenuse]] ist immer die Seite gegenüber dem [[rechten Winkel]], hier c.'
+    fv: FV.TR.AN-GEGEN
+  gleich:
+    de: 'Die Winkelsumme ist 180°. Mit dem [[rechten Winkel]] bleiben 90° für α und β zusammen.'
+    fv: FV.TR.AN-GEGEN
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.TR.PROZENT-GRAD
+name:
+  de: Setzt Steigung in Prozent mit Grad gleich
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält 12 % Steigung für 12° oder 100 % für 90°. Dass Prozent das Verhältnis Höhe zu waagerechter Strecke angibt, ist nicht verankert.
+kompetenzen: [M.RF.TR.SACH]
+erklaerung:
+  kurz:
+    de: '[[Prozent]] heißt [[Höhe]] durch waagerechte Strecke, also Tangens: $\tan \alpha = \frac{12}{100}$, $\alpha \approx 6{,}8°$. 100 % sind 45°.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Prozentzahl als [[Winkel]] gelesen.'
+    - teil: warum-nicht
+      de: 'Bei 100 % sind [[Höhe]] und Strecke gleich lang: Das ist der halbe rechte [[Winkel]], 45°.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Steigung als [[Bruch]] und nimm den Tangens.'
+gegenbeispiel:
+  de: 'Eine Straße mit 90° Steigung wäre eine senkrechte Wand. 100 % Steigung gibt es aber auf steilen Wegen.'
+rueckweg:
+  vermittlung: M.RF.TR.SACH#erklaeren-steigung
+kontrast: [M.RF.TR.SACH.STEIGUNG]
+herkunft: ki-entwurf
+version: 1

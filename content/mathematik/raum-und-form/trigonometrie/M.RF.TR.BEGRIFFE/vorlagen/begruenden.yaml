@@ -1,0 +1,27 @@
+# „Warum ist sin 30° in jedem rechtwinkligen Dreieck gleich?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.TR.BEGRIFFE.BEGRUENDEN
+kompetenz: M.RF.TR.BEGRIFFE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tr.begruenden@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'In jedem rechtwinkligen Dreieck mit einem [[Winkel]] von {winkel}° hat ${funktion}$ dieses Winkels denselben Wert. **Warum?**'
+hilfen:
+  - de: 'Vergleiche zwei rechtwinklige Dreiecke mit demselben [[Winkel]]: Was haben sie gemeinsam?'
+  - de: 'Denk an [[ähnliche]] Dreiecke und an die Seitenverhältnisse darin.'
+fehlerbilder:
+  groesse:
+    de: 'In einem doppelt so großen Dreieck sind alle Seiten doppelt so lang. Das Verhältnis zweier Seiten bleibt gleich.'
+    fv: FV.TR.GROESSE
+  zufall:
+    de: 'Der Taschenrechner rechnet nur aus, was auch geometrisch gilt. Die Begründung liegt in den Dreiecken.'
+    fv: FV.TR.GROESSE
+  hypotenuse-eins:
+    de: 'Die [[Hypotenuse]] kann jede Länge haben. Gleich bleibt das Verhältnis, nicht die Länge.'
+    fv: FV.TR.GROESSE
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,41 @@
+# Seiten und Winkel berechnen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.TR.BERECHNEN
+fach: mathematik
+bereich: raum-und-form
+feld: trigonometrie
+titel:
+  de: 'Seiten und Winkel berechnen'
+kann_satz:
+  de: 'Ich kann mit Sinus, Kosinus und Tangens Seitenlängen und Winkel im rechtwinkligen Dreieck berechnen.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.TR.BEGRIFFE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Eine Kathete aus Hypotenuse und Winkel berechnen.'
+  M:
+    beschreibung:
+      de: 'Auch Winkel aus zwei Seiten berechnen; rechter Winkel an wechselnder Ecke.'
+  E:
+    beschreibung:
+      de: 'Gegen- und Ankathete vom anderen Winkel aus erkennen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K5
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 1 Satz des Pythagoras, Sinus, Kosinus, Tangens'
+  gymnasium:
+    klassenstufe: 9
+    lernbereich: 'LB 3 Satzgruppe des Pythagoras und Trigonometrie'
+version: 1

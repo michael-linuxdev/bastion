@@ -1,0 +1,25 @@
+id: FV.TR.FUNKTION-VERWECHSELT
+name:
+  de: Verwechselt Sinus, Kosinus und Tangens
+art: verwechslung
+beschreibung:
+  de: >-
+    Nimmt cos statt sin, obwohl die Gegenkathete gesucht ist, oder rechnet Steigungen mit dem Sinus. Welche Seiten zu welcher Funktion gehören, ist nicht sicher.
+kompetenzen: [M.RF.TR.BEGRIFFE, M.RF.TR.BERECHNEN, M.RF.TR.SACH]
+erklaerung:
+  kurz:
+    de: 'sin: [[Gegenkathete]] durch [[Hypotenuse]]. cos: [[Ankathete]] durch Hypotenuse. tan: Gegenkathete durch Ankathete. Wähle die [[Funktion]], in der gegebene und gesuchte Seite vorkommen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine [[Funktion]] gewählt, ohne die Seiten zu prüfen.'
+    - teil: warum-nicht
+      de: 'Jede [[Funktion]] verbindet genau zwei bestimmte Seiten. Mit der falschen kommt eine andere Länge heraus.'
+    - teil: so-stimmt-es
+      de: 'Schreibe G, A und H an die Seiten, kreise gegeben und gesucht ein, dann wähle.'
+gegenbeispiel:
+  de: 'Turm 50 m entfernt, [[Winkel]] 40°: [[Höhe]] und Abstand sind Gegen- und [[Ankathete]], also $50 \cdot \tan 40° \approx 42$ m, nicht $50 \cdot \sin 40° \approx 32$ m.'
+rueckweg:
+  vermittlung: M.RF.TR.BEGRIFFE#erklaeren-funktionen
+kontrast: [M.RF.TR.BERECHNEN.RECHNEN, M.RF.TR.SACH.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

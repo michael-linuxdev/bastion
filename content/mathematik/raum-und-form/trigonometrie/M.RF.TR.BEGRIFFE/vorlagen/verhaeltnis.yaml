@@ -1,0 +1,28 @@
+# „Welches Seitenverhältnis ist sin α?“ – mit Skizze. Entwurf: noch nicht geprüft.
+id: M.RF.TR.BEGRIFFE.VERHAELTNIS
+kompetenz: M.RF.TR.BEGRIFFE
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: tr.verhaeltnis@1
+parameter:
+  G: { gemischt: false }
+  M: { gemischt: true }
+text:
+  aufgabe:
+    de: '**Welches** Seitenverhältnis ist ${funktion} {winkel}$?'
+hilfen:
+  - de: 'sin: [[Gegenkathete]] durch [[Hypotenuse]]. cos: [[Ankathete]] durch Hypotenuse. tan: Gegenkathete durch Ankathete.'
+  - de: 'Die [[Gegenkathete]] liegt dem [[Winkel]] gegenüber, die [[Ankathete]] liegt am Winkel an.'
+fehlerbilder:
+  an-gegen:
+    de: '[[Gegenkathete]] und [[Ankathete]] sind vertauscht. Schau vom [[Winkel]] aus: Welche [[Kathete]] liegt gegenüber?'
+    fv: FV.TR.AN-GEGEN
+  kehrwert:
+    de: '[[Zähler]] und [[Nenner]] sind vertauscht. Beim Sinus steht die [[Hypotenuse]] unten.'
+    fv: FV.TR.KEHRWERT
+  andere-funktion:
+    de: 'Das ist das Verhältnis einer anderen Winkelfunktion. Prüfe: sin und cos haben die [[Hypotenuse]] im [[Nenner]], tan nicht.'
+    fv: FV.TR.FUNKTION-VERWECHSELT
+herkunft: ki-entwurf
+version: 1
