@@ -58,6 +58,11 @@ Vor dem ersten Code gesammelt fragen (eine Fragerunde, mit Empfehlung). Antworte
 
 ## Entscheidungen
 
+**Klärung des PV (02.11.2026, Strang Lernkern), geht allen Runden unten vor:**
+
+- **G0.1 Bildquelle:** bleibt wie in der zweiten Runde: **nur der eigene Generator (a)**, für alles in der Bastion. Kein Kenney-Bausatz (b), kein Weg (c).
+- **G0.3 Themen:** **Alle fünf Themen in Epoche 1** werden vor U4b erneuert (wie im Eintrag des Grafik-Strangs), nicht nur `bastion`. Die Epochen 2–4 folgen nach U4b. Damit ist der Widerspruch der Fragerunden vom 01.11.2026 aufgelöst.
+
 **Fragerunde des Strangs Lernkern mit dem PV (01.11.2026, Branch `claude/fokus-ruckfragen-f1-d1j8g1`):**
 
 Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
@@ -84,7 +89,7 @@ Fragerunde mit dem Projektverantwortlichen am 01.11.2026:
 
 - **G0.1 Bildquelle: eigener Generator (a), für alles.** Nicht nur Gebäude: auch Umgebung, Boden, Wesen, Himmel, einfach alles in der Bastion, einheitlich für jedes Thema, „aus einem Guss“. Kein Kenney-Bausatz (b) und kein Weg (c) für Bilder. Die Kenney-Sounds (CC0) bleiben. Das Probestück (b) und die Skripte in `tools/grafik/probe/` dienen nur noch als Beleg.
 - **Schwellwert Umriss-Test (G3):** 25 % der Fläche und 15 % Höhe je Stufe, wie im Probestück vorgeschlagen.
-- **G0.3 Reihenfolge, gilt statt „alle fünf Themen“:** **Vor U4b nur das Standard-Thema `bastion`**, Epoche 1, alle Rollen, mit Boden, Wesen und Himmel aus dem neuen Generator. Die anderen vier Themen und die Epochen 2–4 folgen nach U4b, im selben Stil.
+- ~~**G0.3 Reihenfolge, gilt statt „alle fünf Themen“:**~~ *(ersetzt durch die Klärung vom 02.11.2026: alle fünf Themen vor U4b)* **Vor U4b nur das Standard-Thema `bastion`**, Epoche 1, alle Rollen, mit Boden, Wesen und Himmel aus dem neuen Generator. Die anderen vier Themen und die Epochen 2–4 folgen nach U4b, im selben Stil.
 - **G2 erweitert:** Die Stufen-Sprache wird zu einer Stil-Regel für die ganze Bastion (Farbpalette, Licht, Kontur, Materialien, Maßstab, Raster). Gebäude, Boden, Wesen und Himmel richten sich danach.
 - **PR #145 (Paket L)** wird gemergt, L18 und der Rundgang folgen in einem eigenen PR.
 - **Parallel und abweichend von der Reihenfolge der Pakete:** Neben L dürfen **F4** (Auswertung U4b), **F5** („Fehler-Schüler“) und **F6** (Arbeitsblätter) laufen, je eine eigene Sitzung im Strang Lernkern. Sie ändern die Lern-Oberfläche nicht. F2 folgt nach der Abnahme von L.

@@ -5,9 +5,9 @@
 
 > **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche schließt der Lernkern mit Paket L ab und friert sie danach ein (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls. Funde aus L für die Startseite kommen unten unter „Wünsche aus dem anderen Strang“.
 >
-> **G0:** Antworten in `FOKUS.md` unter „Entscheidungen“. Achtung: Zwei Fragerunden vom 01.11.2026 widersprechen sich bei G0.1 (Weg (c)?) und G0.3 (alle Themen oder erst das Standard-Thema); der PV klärt. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
+> **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; offen nur G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 02.11.2026 · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; offen: G3 für die anderen vier Themen in Epoche 1 (Klärung PV 02.11.2026), dann G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
