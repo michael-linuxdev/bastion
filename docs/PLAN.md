@@ -15,7 +15,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stand §4b | U0 bis U3, U4a und U5a bis U5c fertig: alle 123 Kompetenzen der Klassen 5 bis 8 haben Erstvermittlung und Fehlerkatalog (KI-Entwurf). Dazu Prüfbogen (`pnpm pruefbogen`), Review-Vermerk (`pnpm review`), eigene Tastatur und Zwischenschritte auch bei gleichnamigen Brüchen (31.10.2026) |
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Nächster Schritt Lernkern | Abnahme L durch den PV, dann neue Prüfseite für das Musterfeld und Lehrkraft gewinnen (Paket liegt bereit). Danach F7–F10 (`FOKUS.md` „Nächste Sitzungen“) |
-| Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 umgesetzt; offen nur G6 (PV, 2–3 Jugendliche), dann U4b |
+| Nächster Schritt Grafik | Paket G: G2 abgenommen (02.11.2026), G3/G4 für `bastion` umgesetzt; offen: G3 für die anderen vier Themen in Epoche 1 (PV, 02.11.2026), dann G6 (2–3 Jugendliche), dann U4b |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
