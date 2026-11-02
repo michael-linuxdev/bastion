@@ -24,6 +24,14 @@ pnpm auswertung protokoll-1.json protokoll-2.json > bericht.md
 
 Personen heißen im Bericht „Person 1 …“; `--nummern` setzt die Teilnehmer-Nummern dazu. Protokolle und Bericht kommen nicht ins Repository. Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`.
 
+### Eingaben einlesen (`pruefbogen/einlesen.ts`, FOKUS F3)
+
+```sh
+pnpm pruefbogen einlesen bewertung.json > arbeitsliste.md
+```
+
+`bewertung.json` ist der Export der Sammlung `bewertung` der Prüfseite (ein Dokument je Abschnitt mit `werte` und `stand`; angenommen werden eine Liste mit `id` oder `doc_id` und `data`, `{ documents: [...] }` oder `{ "<id>": … }`). Den Export holt die Sitzung mit `ArtifactData` (Aktion `list`, Sammlung `bewertung`) und legt ihn als Datei ab, nicht ins Repository. Die Arbeitsliste nennt je Abschnitt Urteil, abgehakte Prüffragen und Zeilen, die Anmerkung und die Dateien: Teil A `kompetenz.yaml` und `vermittlung.yaml`, Teil B die Fehlvorstellung, Teil C die Vorlage, Teil D (Fachbegriffe) keine. Für Dateien, deren Abschnitt „passt“ und die gültige Stufe 1 haben, schlägt sie `pnpm review setzen --stufe 2 --pruefer "<Name>" …` vor. Sie setzt nichts selbst. „Passt mit Änderung“ und „falsch“ landen unter „Zu ändern“. Beispiel mit erfundenen Werten: `pruefbogen/beispiel/bewertung.json`.
+
 ## Arbeitsblatt (`pruefbogen/arbeitsblatt.ts`)
 
 Druckbares Arbeitsblatt für Lehrkräfte (FOKUS F6): neue Aufgaben zu einer oder mehreren Kompetenzen auf einem Niveau.
@@ -39,6 +47,8 @@ Die Blatt-Logik (Ziehen, Review-Stufe, Punkte, Lösung als Text) liegt seit 02.1
 ## Fehler-Schüler (`inhalte/fehlerschueler.ts`)
 
 `pnpm fehlerschueler [--seeds 200] > verdacht.md` spielt die Diagnose regelbasiert durch und listet Verdachtsfälle je Feld (Arten A–E, INHALTSFORMAT §8). Er korrigiert nichts. Der Lauf über alle Inhalte dauert wenige Sekunden. Er ist nicht Teil von `pnpm test`, dort läuft nur ein kleiner Test mit erfundenen Inhalten. Er startet die Generatoren wie der Prüfbogen über `runnerImport`.
+
+**Sperrklinke (B4, Entscheidung PV 01.11.2026):** `pnpm fehlerschueler --grenze` vergleicht die Zahl der Funde je Art mit `inhalte/fehlerschueler-grenze.json` und endet mit Fehler, wenn eine Art mehr Funde hat. Die CI führt das bei jedem Push aus. Wer Funde behebt, senkt die Zahl in der Datei im selben PR; das Werkzeug sagt, auf welchen Wert. Erhöhen ist nicht vorgesehen.
 
 ## Review-Vermerk (`review/`)
 
