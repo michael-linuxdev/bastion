@@ -5,7 +5,7 @@ art: falsche-regel
 beschreibung:
   de: >-
     Löst x² = 9 zu x = 3 und übersieht x = −3. Die Wurzel liefert nur die positive Zahl; dass die Gleichung zwei Lösungen hat, ist nicht im Blick.
-kompetenzen: [M.SF.QF.INHALTLICH, M.SF.QF.FORMEL]
+kompetenzen: [M.SF.QF.INHALTLICH, M.SF.QF.FORMEL, M.SF.QF.SCHNITTPUNKTE]
 erklaerung:
   kurz:
     de: 'Gesucht sind alle Zahlen, die quadriert 9 ergeben: 3 und $-3$. Die [[Wurzel]] $\sqrt{9} = 3$ ist nur eine davon.'

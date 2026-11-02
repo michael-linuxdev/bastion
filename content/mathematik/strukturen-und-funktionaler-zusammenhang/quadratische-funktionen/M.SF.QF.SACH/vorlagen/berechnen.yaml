@@ -1,0 +1,34 @@
+# Bogen, Wurf, größte Fläche. Entwurf: noch nicht geprüft.
+id: M.SF.QF.SACH.BERECHNEN
+kompetenz: M.SF.QF.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: qf.sach@1
+parameter:
+  G: { arten: [bogen] }
+  M: { arten: [bogen, wurf, flaeche] }
+text:
+  aufgabe:
+    de: '{situation} **{frage}** Gib das Ergebnis in {einheit} an.'
+hilfen:
+  - de: 'Überlege, welcher Punkt der [[Parabel]] gefragt ist: die [[Nullstellen]] (Boden) oder der [[Scheitelpunkt]] (höchster oder größter Wert).'
+  - de: 'Der [[Scheitelpunkt]] liegt genau in der Mitte zwischen den [[Nullstellen]].'
+fehlerbilder:
+  halbe-breite:
+    de: 'Das ist die halbe Breite, von der Mitte bis zu einer Seite. Der Bogen reicht nach links und nach rechts.'
+    fv: FV.QF.SACH-GROESSE
+  hoehe-statt-breite:
+    de: 'Das ist die [[Höhe]] des Bogens. Gefragt ist die Breite am Boden, also der Abstand der [[Nullstellen]].'
+    fv: FV.QF.SACH-GROESSE
+  zeit-statt-hoehe:
+    de: 'Das ist der Zeitpunkt des höchsten Punkts. Gefragt ist die [[Höhe]]: Setze diese Zeit in $h(t)$ ein.'
+    fv: FV.QF.SACH-GROESSE
+  umfang-halbe:
+    de: 'Die Hälfte des Zauns bildet zwei Seiten. Die größte Fläche hat das Quadrat mit einem Viertel des Zauns als Seite.'
+    fv: FV.QF.SACH-GROESSE
+  seite-statt-flaeche:
+    de: 'Das ist die Seitenlänge. Gefragt ist der [[Flächeninhalt]]: Seite mal Seite.'
+    fv: FV.QF.SACH-GROESSE
+herkunft: ki-entwurf
+version: 1

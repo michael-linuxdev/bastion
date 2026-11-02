@@ -1,0 +1,27 @@
+# „Wann landet der Ball?“ – Lösung im Sachzusammenhang, Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.QF.SACH.SINN
+kompetenz: M.SF.QF.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: qf.sach-sinn@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wann** landet der Ball? **Wähle** die passende Antwort.'
+hilfen:
+  - de: 'Überlege, was eine negative Zeit hier bedeuten würde.'
+  - de: 'Der Ball wird bei $t = 0$ geworfen. Nur Zeiten danach kommen in Frage.'
+fehlerbilder:
+  beide:
+    de: 'Rechnerisch hat die [[Gleichung]] zwei Lösungen. Im Sachzusammenhang passt nur eine: Vor dem Wurf fliegt der Ball nicht.'
+    fv: FV.QF.SACH-SINN
+  betrag:
+    de: 'Eine negative Lösung wird nicht positiv gemacht. Sie passt nicht zur Situation und fällt weg.'
+    fv: FV.QF.SACH-SINN
+  mittelwert:
+    de: 'Die Mitte zwischen den Lösungen ist der Zeitpunkt des höchsten Punkts, nicht der Landung.'
+    fv: FV.QF.SACH-SINN
+herkunft: ki-entwurf
+version: 1

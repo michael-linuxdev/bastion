@@ -1,0 +1,25 @@
+# „Bestimme die x-Koordinaten der Schnittpunkte von Parabel und Gerade.“ Entwurf: noch nicht geprüft.
+id: M.SF.QF.SCHNITTPUNKTE.BESTIMMEN
+kompetenz: M.SF.QF.SCHNITTPUNKTE
+niveaus: [G, M]
+typ: felder-eingabe
+quelle: generator
+generator: qf.schnitt@1
+parameter:
+  G: { rechnerisch: false }
+  M: { rechnerisch: true }
+text:
+  aufgabe:
+    de: '**Bestimme** die x-[[Koordinaten]] der Schnittpunkte der [[Parabel]] ${parabel}$ mit der [[Geraden]] ${gerade}$.'
+hilfen:
+  - de: 'An einem [[Schnittpunkt]] haben [[Parabel]] und [[Gerade]] denselben y-Wert. Setze die beiden [[Terme]] gleich.'
+  - de: 'Bringe alles auf eine Seite, sodass rechts 0 steht. Dann löse die quadratische [[Gleichung]].'
+fehlerbilder:
+  parabel-nullstellen:
+    de: 'Das sind die [[Nullstellen]] der [[Parabel]], also ihre Schnittpunkte mit der x-Achse. Gesucht sind die Schnittpunkte mit der [[Geraden]].'
+    fv: FV.QF.SCHNITT-NULLSTELLEN
+  vorzeichen-n:
+    de: 'Beim Hinüberbringen der [[Geraden]] ändern sich die [[Vorzeichen]]: Aus $= 2x + 3$ wird $- 2x - 3$.'
+    fv: FV.QF.GLEICHSETZEN
+herkunft: ki-entwurf
+version: 1

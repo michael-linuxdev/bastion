@@ -1,0 +1,25 @@
+id: FV.QF.GLEICHSETZEN
+name:
+  de: Bringt die Gerade mit falschem Vorzeichen auf die andere Seite
+art: rechenfehler
+beschreibung:
+  de: >-
+    Formt x² + 1 = 2x + 3 zu x² + 2x + 4 = 0 um. Beim Hinüberbringen bleiben die Vorzeichen der Geraden stehen.
+kompetenzen: [M.SF.QF.SCHNITTPUNKTE]
+erklaerung:
+  kurz:
+    de: 'Was auf die andere Seite kommt, wird abgezogen: $x^2 + 1 = 2x + 3$ wird $x^2 - 2x - 2 = 0$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Glieder der [[Geraden]] mit ihrem [[Vorzeichen]] auf die linke Seite geschrieben.'
+    - teil: warum-nicht
+      de: 'Auf beiden Seiten wird dasselbe gerechnet: $- 2x$ und $- 3$. Damit drehen sich die [[Vorzeichen]].'
+    - teil: so-stimmt-es
+      de: 'Ziehe die ganze rechte Seite ab, Glied für Glied.'
+gegenbeispiel:
+  de: '[[Probe]]: Mit $x^2 + 2x + 4 = 0$ gäbe es keine Lösung, aber $x = 1 + \sqrt{3}$ löst die ursprüngliche [[Gleichung]].'
+rueckweg:
+  vermittlung: M.SF.QF.SCHNITTPUNKTE#erklaeren-gleichsetzen
+kontrast: [M.SF.QF.SCHNITTPUNKTE.BESTIMMEN]
+herkunft: ki-entwurf
+version: 1

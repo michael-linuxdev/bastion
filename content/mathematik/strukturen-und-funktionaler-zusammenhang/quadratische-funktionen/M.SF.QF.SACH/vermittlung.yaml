@@ -1,0 +1,89 @@
+id: M.SF.QF.SACH
+kompetenz: M.SF.QF.SACH
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du mit [[Parabel]]n Fragen aus dem Alltag beantworten: Wie breit ist ein Bogen, wie hoch fliegt ein Ball, welches Beet ist am größten?'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welchen [[Scheitelpunkt]] hat $y = -(x - 2)^2 + 20$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$S(2|20)$' }, richtig: true }
+        - { wert: { de: '$S(-2|20)$' }, fv: FV.QF.SCHEITEL-VORZEICHEN }
+    weiter: entdecken
+    bei: { FV.QF.SCHEITEL-VORZEICHEN: M.SF.QF.SCHEITEL, sonst: M.SF.QF.SCHEITEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Ball fliegt nach $h(t) = -5t^2 + 20t$. Bei $t = 0$ und $t = 4$ ist er am Boden. Zu welcher Zeit ist er am höchsten?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '4', fv: FV.QF.SACH-GROESSE }] }
+    weiter: erklaeren-sach
+  - id: erklaeren-sach
+    typ: erklaeren
+    text:
+      de: 'Der höchste oder größte Wert ist der [[Scheitelpunkt]]. Er liegt in der Mitte zwischen den [[Nullstellen]]. Bodenpunkte und Breiten gehören zu den Nullstellen.'
+    weiter: erklaeren-sinn
+  - id: erklaeren-sinn
+    typ: erklaeren
+    text:
+      de: 'Prüfe jede Lösung an der Situation. Eine negative Zeit oder Länge passt nicht und fällt weg. Gib das Ergebnis mit Einheit an.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Beim Ball ist $h(2) = -20 + 40 = 20$. Er fliegt also höchstens 20 m hoch, und das nach 2 Sekunden.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Bogen hat am Boden die [[Nullstellen]] $-5$ und 5. Wie breit ist er in Metern?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '5', fv: FV.QF.SACH-GROESSE }] }
+    weiter: gegenbeispiel
+    bei: { FV.QF.SACH-GROESSE: erklaeren-sach }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eine [[Gleichung]] zur Landezeit hat die Lösungen $t = -1$ und $t = 3$. Lara sagt: „Der Ball landet zweimal.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $t = -1$ läge vor dem Wurf. Der Ball landet nach 3 Sekunden.' },
+            richtig: true,
+          }
+        - {
+            wert: { de: 'Ja, eine quadratische Gleichung hat zwei Lösungen.' },
+            fv: FV.QF.SACH-SINN,
+          }
+    weiter: merksatz
+    bei: { FV.QF.SACH-SINN: erklaeren-sinn }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Größter oder kleinster Wert: [[Scheitelpunkt]]. Boden, Breite, Landung: [[Nullstellen]]. Jede Lösung an der Situation prüfen und mit Einheit angeben.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Ball fliegt nach $h(t) = -5t^2 + 30t$. Wie hoch fliegt er höchstens?'
+    antwort:
+      optionen:
+        - { wert: { de: '45 m' }, richtig: true }
+        - { wert: { de: '3 m' }, fv: FV.QF.SACH-GROESSE }
+    weiter: uebergang
+    bei: { FV.QF.SACH-GROESSE: erklaeren-sach }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst Sachaufgaben.'
+    vorlagen: [M.SF.QF.SACH.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

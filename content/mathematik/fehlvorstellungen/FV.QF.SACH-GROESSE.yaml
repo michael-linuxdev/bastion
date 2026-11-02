@@ -1,0 +1,25 @@
+id: FV.QF.SACH-GROESSE
+name:
+  de: Gibt im Sachzusammenhang die falsche Größe an
+art: lesefehler
+beschreibung:
+  de: >-
+    Nennt bei einem Bogen die halbe Breite oder die Höhe, bei einem Wurf die Zeit statt der Höhe, bei der größten Fläche die Seite. Was gefragt ist, wird nicht mit dem berechneten Wert verglichen.
+kompetenzen: [M.SF.QF.SACH]
+erklaerung:
+  kurz:
+    de: 'Lies die Frage noch einmal: Breite, [[Höhe]], Zeit oder Fläche? Der [[Scheitelpunkt]] hat zwei [[Koordinaten]], die [[Nullstellen]] zwei Stellen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine richtige Zwischenrechnung als Ergebnis genommen.'
+    - teil: warum-nicht
+      de: 'Der [[Scheitelpunkt]] $(2|20)$ sagt: Nach 2 Sekunden ist der Ball 20 m hoch. Gefragt war die [[Höhe]], also 20.'
+    - teil: so-stimmt-es
+      de: 'Schreibe zum Ergebnis die Einheit und frage dich: Passt das zur Frage?'
+gegenbeispiel:
+  de: 'Ein Bogen mit [[Nullstellen]] $-4$ und 4 ist 8 m breit, nicht 4 m.'
+rueckweg:
+  vermittlung: M.SF.QF.SACH#erklaeren-sach
+kontrast: [M.SF.QF.SACH.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

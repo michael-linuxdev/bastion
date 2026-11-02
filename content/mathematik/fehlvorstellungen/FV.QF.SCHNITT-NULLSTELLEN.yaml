@@ -1,0 +1,25 @@
+id: FV.QF.SCHNITT-NULLSTELLEN
+name:
+  de: Sucht Nullstellen statt Schnittpunkte mit der Geraden
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt bei Parabel und Gerade die Nullstellen der Parabel an. Dass Schnittpunkte mit einer Geraden andere Stellen sind als die mit der x-Achse, wird übersehen.
+kompetenzen: [M.SF.QF.SCHNITTPUNKTE]
+erklaerung:
+  kurz:
+    de: '[[Nullstellen]] sind Schnittpunkte mit der x-Achse, also mit der [[Geraden]] $y = 0$. Bei einer anderen Geraden setzt du [[Parabel]] und Gerade gleich.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach den Stellen gesucht, an denen die [[Parabel]] null ist.'
+    - teil: warum-nicht
+      de: 'Die [[Gerade]] liegt meist nicht auf der x-Achse. Dort, wo sie die [[Parabel]] trifft, haben beide denselben y-Wert, nicht den Wert 0.'
+    - teil: so-stimmt-es
+      de: 'Setze die [[Terme]] gleich: [[Parabel]] = [[Gerade]]. Bringe alles auf eine Seite und löse.'
+gegenbeispiel:
+  de: 'Bei $y = x^2 - 4$ und $y = 5$: [[Nullstellen]] sind $\pm 2$, Schnittstellen aber $\pm 3$.'
+rueckweg:
+  vermittlung: M.SF.QF.SCHNITTPUNKTE#erklaeren-gleichsetzen
+kontrast: [M.SF.QF.SCHNITTPUNKTE.BESTIMMEN, M.SF.QF.SCHNITTPUNKTE.ANZAHL]
+herkunft: ki-entwurf
+version: 1
