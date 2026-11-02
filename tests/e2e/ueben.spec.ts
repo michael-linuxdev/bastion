@@ -1093,9 +1093,15 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
     });
   };
   const wahl = page.locator('.wahl');
+  /** Antippen, bis die Wahl erscheint (das Bild baut sich nach dem Öffnen noch auf, siehe oben) */
+  const waehle = async (x: number, y: number, text: string) => {
+    await expect(async () => {
+      await tippe(x, y);
+      await expect(wahl).toContainText(text, { timeout: 1500 });
+    }).toPass({ timeout: 15_000 });
+  };
   // Zu wenig: Der Knopf ist nicht grau, er erklärt, was fehlt und woher es kommt
-  await tippe(6, 5);
-  await expect(wahl).toContainText('Bergfried');
+  await waehle(6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /Ausbauen – was fehlt\?/ }).click();
   const blatt = page.getByRole('dialog');
   await expect(blatt.getByRole('heading', { name: 'Ausbauen', level: 3 })).toBeVisible();
@@ -1110,7 +1116,7 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await page.reload();
   await bastionOeffnen(page, false);
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  await tippe(6, 5);
+  await waehle(6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /^Ausbauen auf Stufe 2$/ }).click();
   await expect(wahl).toContainText('Stufe 2');
   await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
