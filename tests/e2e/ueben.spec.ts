@@ -85,6 +85,15 @@ async function themenWaehlen(seite: Page) {
   await expect(seite.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
 }
 
+/** Einen eingeklappten Bereich der Themenwahl aufklappen (L18). */
+async function bereichOeffnen(seite: Page, name: string) {
+  const bereich = seite.locator('details.bereich', {
+    has: seite.getByRole('heading', { name, exact: true }),
+  });
+  if ((await bereich.getAttribute('open')) === null) await bereich.locator('summary').click();
+  await expect(bereich).toHaveAttribute('open', '');
+}
+
 /** Bastion öffnen; standardmäßig Einstellungen (Listen/Vorrat/Bau). */
 async function bastionOeffnen(seite: Page, einstellungen = true) {
   await zurStartseite(seite);
@@ -918,6 +927,8 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
 }) => {
   await page.goto('./');
   await themenWaehlen(page);
+  // Seit L18 ist der Bereich eingeklappt: erst aufklappen
+  await bereichOeffnen(page, 'Raum und Form');
   await page
     .getByRole('button', { name: /^Winkel\b/ })
     .first()
