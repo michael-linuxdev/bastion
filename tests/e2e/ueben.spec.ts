@@ -110,6 +110,58 @@ async function bastionOeffnen(seite: Page, einstellungen = true) {
   }
 }
 
+/**
+ * Ein Feld des Bauplatz-Bilds antippen (Spalte x, Reihe y ab 0).
+ * Wartet, bis das Bild ruhig steht: Nach dem Öffnen der Bastion passt die Kamera
+ * das Bild erst ein, wenn die gemerkte Kamera geladen ist, und der Atlas tauscht
+ * das Canvas kurz aus. Wer davor misst, tippt daneben (wackeliger Test, 01.11.2026).
+ */
+async function feldTippen(seite: Page, x: number, y: number) {
+  const bild = seite.locator('.bauplatz canvas');
+  await expect(seite.locator('.fenster.sichtbar')).toHaveCount(1);
+  let letzte = '';
+  await expect
+    .poll(
+      async () => {
+        if ((await bild.count()) !== 1) return false;
+        const r = await bild.boundingBox();
+        if (!r || r.width < 10) return false;
+        const jetzt = [r.x, r.y, r.width, r.height].map((w) => w.toFixed(1)).join(',');
+        const ruhig = jetzt === letzte;
+        letzte = jetzt;
+        return ruhig;
+      },
+      { intervals: [100], timeout: 15_000 },
+    )
+    .toBe(true);
+  const r = await bild.boundingBox();
+  if (!r) throw new Error('kein Bild');
+  // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
+  const p = punkt(x + 0.5, y + 0.5);
+  await bild.click({
+    position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
+  });
+}
+
+/**
+ * Ein Gebäude auf dem Bauplatz-Bild auswählen: antippen, bis die Auswahl es nennt.
+ * Die Bühne wird neu aufgebaut, wenn sich Abend, Wetter oder Thema nachträglich
+ * ändern; ein Tipper genau in diesem Moment geht ins Leere. Darum bis zu vier Versuche.
+ * Nur für Auswahl-Tipper – beim Versetzen würde ein zweiter Tipper das Gebäude bewegen.
+ */
+async function gebaeudeWaehlen(seite: Page, x: number, y: number, name: string) {
+  const wahl = seite.locator('.wahl');
+  for (let versuch = 1; ; versuch++) {
+    await feldTippen(seite, x, y);
+    try {
+      await expect(wahl).toContainText(name, { timeout: 3_000 });
+      return;
+    } catch (fehler) {
+      if (versuch >= 4) throw fehler;
+    }
+  }
+}
+
 /** Von der Bastion zur Startseite (Home-Piktogramm oder Einstellungen). */
 async function bastionZurStartseite(seite: Page) {
   const home = seite.getByRole('button', { name: 'Zur Startseite' });
@@ -992,20 +1044,10 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   // Warten bis Atlas-Tausch fertig ist (kurzzeitig 2 Canvas möglich)
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
   /** Feld antippen (Spalte x, Reihe y ab 0) – relativ zum aktuellen Canvas */
-  const tippe = async (x: number, y: number) => {
-    await expect.poll(() => bild.count()).toBe(1);
-    const r = await bild.boundingBox();
-    if (!r || r.width < 10) throw new Error('kein Bild');
-    // Schräg von oben (GRAFIK §1): dieselbe Umrechnung wie in der App
-    const p = punkt(x + 0.5, y + 0.5);
-    await bild.click({
-      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
-    });
-  };
+  const tippe = (x: number, y: number) => feldTippen(page, x, y);
   // Die Feuerstelle steht am Start auf Spalte 7, Reihe 9 (Feld 6/8)
-  await tippe(6, 8);
   const wahl = page.locator('.wahl');
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 6, 8, 'Feuerstelle');
   await wahl.getByRole('button', { name: 'Ziehen zum Versetzen' }).click();
   await expect(wahl).toContainText('Ziehe das Gebäude an die neue Stelle');
   // Auf den Bergfried geht es nicht …
@@ -1036,8 +1078,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   };
   await expect.poll(kameraZoom).toBeGreaterThan(0.35);
   const groesser = await kameraZoom();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 0, 11, 'Feuerstelle');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.wheel(0, 120);
   await expect.poll(kameraZoom).toBeLessThan(groesser as number);
@@ -1046,8 +1087,7 @@ test('Bauplatz als Bild: antippen, versetzen, zoomen, Bild ausblenden (BASEBAU 2
   await page.getByRole('button', { name: 'Ganzes Bild' }).click();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.kamera')).toBe('');
   await page.getByRole('button', { name: '← Zur Bastion' }).click();
-  await tippe(0, 11);
-  await expect(wahl).toContainText('Feuerstelle');
+  await gebaeudeWaehlen(page, 0, 11, 'Feuerstelle');
 
   // Bild ausblenden: nur noch in den Einstellungen – auch nach dem Neuladen
   await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
@@ -1074,19 +1114,9 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await bastionOeffnen(page, false);
   const bild = page.locator('.bauplatz canvas');
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  const tippe = async (x: number, y: number) => {
-    await expect.poll(() => bild.count()).toBe(1);
-    const r = await bild.boundingBox();
-    if (!r || r.width < 10) throw new Error('kein Bild');
-    const p = punkt(x + 0.5, y + 0.5);
-    await bild.click({
-      position: { x: (p.x * r.width) / BUEHNE_B, y: (p.y * r.height) / BUEHNE_H },
-    });
-  };
   const wahl = page.locator('.wahl');
   // Zu wenig: Der Knopf ist nicht grau, er erklärt, was fehlt und woher es kommt
-  await tippe(6, 5);
-  await expect(wahl).toContainText('Bergfried');
+  await gebaeudeWaehlen(page, 6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /Ausbauen – was fehlt\?/ }).click();
   const blatt = page.getByRole('dialog');
   await expect(blatt.getByRole('heading', { name: 'Ausbauen', level: 3 })).toBeVisible();
@@ -1101,7 +1131,7 @@ test('Ausbauen beim Antippen: zwei Tipper, sonst steht da, was fehlt (FOKUS G5)'
   await page.reload();
   await bastionOeffnen(page, false);
   await expect.poll(() => bild.count(), { timeout: 30_000 }).toBe(1);
-  await tippe(6, 5);
+  await gebaeudeWaehlen(page, 6, 5, 'Bergfried');
   await wahl.getByRole('button', { name: /^Ausbauen auf Stufe 2$/ }).click();
   await expect(wahl).toContainText('Stufe 2');
   await expect(wahl.getByRole('button', { name: /^Ausbauen auf Stufe 3$/ })).toBeVisible();
@@ -1125,7 +1155,8 @@ test('Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G
   await expect(page.getByRole('dialog')).toHaveCount(0);
   const leiste = page.getByRole('region', { name: 'Hier bauen' });
   await expect(leiste).toContainText('Studierstube');
-  await expect(leiste).toContainText('Spalte 1, Reihe 1');
+  // Vorschlag neben dem Bergfried (Feld 5/4, 3×3), nicht mehr oben links
+  await expect(leiste).toContainText('Spalte 4, Reihe 6');
   await expect(leiste).toContainText('Steht sofort.');
   // „Anderes Gebäude“ führt zurück ins Blatt, ohne zu bauen
   await leiste.getByRole('button', { name: 'Anderes Gebäude' }).click();
