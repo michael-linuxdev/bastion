@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2 · F5 parallel
+Stand: 01.11.2026 · Fokus-Auftrag `FOKUS.md`: Rückfragen beantwortet, F1, F4 (`pnpm auswertung`), F5 (`pnpm fehlerschueler`) und F6 (`pnpm arbeitsblatt`) erledigt · Paket L umgesetzt (L1–L20), Rundgang wiederholt · Nächster Schritt: Abnahme L durch den PV, dann F2
 
 ---
 
@@ -25,6 +25,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 - **U5a** (Entscheidung 30.10.2026: Variante (b) vor dem Test): alle Fehlerbilder im Feld Brüche und Dezimalzahlen zugeordnet, 35 neue Fehlvorstellungen (zusammen 45), Stand 82 von 596 Fehlerbildern.
 - **U5b und U5c:** alle 596 Fehlerbilder zugeordnet, alle 123 Kompetenzen mit Erstvermittlung.
 - **01.11.2026, F4:** `pnpm auswertung` beantwortet nach U4b Kriterium 1 und F5 aus `STRATEGIE.md` §0 mit ja oder nein. Einstiegsaufgaben: die ersten 3 Aufgaben auf Niveau G nach der Erstvermittlung, ohne Tipp (`TESTS.md` §4.5). Der PV hat entschieden, dass F4 bis F6 parallel zu Paket L laufen, ohne die Lern-Oberfläche zu ändern (#146).
+- **01.11.2026, F5:** `pnpm fehlerschueler` meldet Verdachtsfälle im Fehlerkatalog, ohne KI (Arten A–E, INHALTSFORMAT §8). Erster Lauf: 100 Fälle, keiner korrigiert. Die Liste steht im PR. Auffällig sind vor allem Rückwege in spätere Kompetenzen (B), zum Beispiel `FV.RZ.VORZEICHEN-FALSCH` aus RZ.ADD-SUB zur Erklärung in RZ.MULT-DIV, und die zwei Schritt-Fehlerbilder in ADD-SUB (C), deren Fehlvorstellung ADD-SUB nicht nennt. **Rückfrage an den PV:** Soll die CI den Fehler-Schüler ausführen? Empfehlung: ja, als Sperrklinke, damit die Zahl der Funde nicht steigt; er braucht nur wenige Sekunden. Welche Funde zuerst bearbeitet werden, entscheidet der PV. Jede Korrektur kommt in einen eigenen PR, die geänderten Dateien verlieren dabei ihren Review-Vermerk.
 - **31.10.2026:** Prüfbogen (#88, #91), Review-Vermerk (#92), Zwischenschritte gleichnamig (#97), eigene Tastatur (#100), Brüche als Antwortmöglichkeit (#102), **Stufe 1 für das Musterfeld** (22 Dateien, Funde unten in der Übergabe).
 
 **Als Nächstes:**

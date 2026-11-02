@@ -414,6 +414,16 @@ Das prüfende Modell geht jede Datei mit diesen Fragen durch und nennt zu jedem 
 
 Ein Fund ist ein Widerspruch, wenn eine der Fragen mit Nein beantwortet wird. Geschmack ist kein Fund.
 
+**Vorher `pnpm fehlerschueler` (FOKUS F5, 01.11.2026):** Der „Fehler-Schüler“ geht die Fehlerbilder aller Vorlagen und Schritte und die Antworten mit `fv` der Erstvermittlungen regelbasiert durch, ohne KI. Er meldet Verdachtsfälle je Feld:
+
+- **A** Ein Fehlerbild wird in 200 Seeds je Niveau nie erzeugt, sein Text erscheint also nie.
+- **B** Der Rückweg einer Fehlvorstellung (oder ihre Grundlage) liegt weder in der Kompetenz noch in einer ihrer Voraussetzungen, etwa in einer späteren Kompetenz.
+- **C** Ein Schritt-Fehlerbild verweist auf eine Fehlvorstellung, die es nicht gibt oder die die Kompetenz nicht nennt.
+- **D** Eine Antwort einer Erstvermittlung verweist auf eine Fehlvorstellung, die weder zu dieser Kompetenz noch zu einer Voraussetzung gehört.
+- **E** Der Rückweg im Schritt (`bei`) führt woanders hin als der Rückweg der Fehlvorstellung in derselben Erstvermittlung.
+
+Was `pnpm test` schon sichert, wiederholt er nicht. Dazu gehört: Jedes Fehlerbild wird genau erkannt, jede Antwort mit `fv` ergibt ihre Fehlvorstellung, und jeder Rückweg zeigt auf einen vorhandenen Schritt. Ein Verdacht ist kein Fehler, er heißt nur: Ein Mensch schaut nach. Korrigiert wird nicht automatisch, sondern in eigenen PRs mit Begründung. Dabei verlieren geänderte Dateien ihren Review-Vermerk. Ob „die kurze Erklärung passt zu jedem Fehlerbild“ (Frage 3) stimmt, kann eine Regel nicht beurteilen; das bleibt beim prüfenden Modell und bei der Lehrkraft.
+
 ## 9. Herkunft und Lizenz
 
 **Entscheidung I-9:** Jede Vorlage gibt `herkunft` an (`eigen`, `ki-entwurf`, `oer`). Bei `oer` sind `lizenz` (z. B. `CC-BY-4.0`), `quelle` und `urheber` Pflicht.
