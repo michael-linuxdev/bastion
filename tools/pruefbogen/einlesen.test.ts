@@ -26,6 +26,21 @@ describe('Prüfbogen einlesen (F3)', () => {
     expect(c?.notiz).toContain('M1');
   });
 
+  it('liest Urteil und Kommentar je Schritt und nennt die Schritt-ID', () => {
+    const a = b.abschnitte.find((x) => x.id === 'A-M.ZO.BR.ERWEITERN');
+    expect(a?.schritte).toEqual([
+      { nr: 1, urteil: 'passt' },
+      { nr: 2, urteil: 'passt' },
+      { nr: 7, urteil: 'nicht', kommentar: expect.stringContaining('Bild') as unknown as string },
+      { nr: 9, kommentar: 'Erfunden: Kommentar ohne Urteil.' },
+    ]);
+    const md = arbeitsliste(b, alle);
+    expect(md).toContain('- Schritte: 2 passt, 1 passt nicht');
+    expect(md).toContain('Schritt 7 (`erklaeren-kuerzen`): **passt nicht**');
+    expect(md).toContain('Schritt 9 (`merksatz`): ohne Urteil · Erfunden: Kommentar ohne Urteil.');
+    expect(md).not.toContain('Schritt 1 (');
+  });
+
   it('versteht auch die Formen { documents: [...] } und { id: daten }', () => {
     const dok = { doc_id: 'B-FV.BR.VERTAUSCHT', data: { werte: { urteil: 'passt' } } };
     expect(leseExport({ documents: [dok] }).abschnitte[0]?.urteil).toBe('passt');

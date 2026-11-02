@@ -152,6 +152,19 @@ function urteil(k: Kontext, s: string, fragen: readonly string[]): string {
 <textarea id="${id}--notiz" data-s="${id}" data-f="notiz" rows="3" placeholder="Was soll anders heißen? Bitte den Schritt oder die Aufgaben-Nr. nennen."></textarea></div>`;
 }
 
+/**
+ * Urteil zu einem Schritt der Erstvermittlung (nur online, FOKUS F3 Punkt 2): „passt“ oder
+ * „passt nicht“ (Feld `s<nr>`) und ein aufklappbarer Kommentar (Feld `k<nr>`).
+ * Gedruckt bleibt die leere Spalte „Notiz“.
+ */
+function schrittUrteil(k: Kontext, s: string, nr: number): string {
+  if (k.form === 'druck') return '<td class="notiz"></td>';
+  const id = `${esc(s)}--s${nr}`;
+  const wahl = (w: string, t: string) =>
+    `<label class="wahl wahl-${w === 'passt' ? 'passt' : 'falsch'}"><input type="radio" name="${id}" id="${id}-${w}" data-s="${esc(s)}" data-f="s${nr}" value="${w}"> <span>${t}</span></label>`;
+  return `<td class="notiz"><div class="schritt-urteil" role="group" aria-label="Schritt ${nr}">${wahl('passt', 'passt')}${wahl('nicht', 'passt nicht')}</div><details class="kommentar"><summary>Kommentar</summary><textarea id="${esc(s)}--k${nr}" data-s="${esc(s)}" data-f="k${nr}" rows="2" aria-label="Kommentar zu Schritt ${nr}" placeholder="Was stimmt nicht, was soll dort stehen?"></textarea></details></td>`;
+}
+
 /** Kästchen „Zeile stimmt“ in Tabellen */
 function kasten(k: Kontext, s: string, f: string, nr: number): string {
   if (k.form === 'druck') return '<td class="kasten">☐</td>';
@@ -227,10 +240,10 @@ function vermittlungHtml(k: Kontext, komp: Kompetenz): string {
     const uebergang = s.vorlagen
       ? `<p class="hinweis">Danach ${s.anzahl ?? ''} Aufgaben aus: ${s.vorlagen.map(esc).join(', ')}</p>`
       : '';
-    return `<tr><td class="nr">${i + 1}</td><td class="typ">${esc(SCHRITT_NAMEN[s.typ] ?? s.typ)}</td><td>${text(s.text.de)}${bild}${werkzeug}${antwortHtml(k, s, komp.id)}${uebergang}</td><td class="notiz"></td></tr>`;
+    return `<tr><td class="nr">${i + 1}</td><td class="typ">${esc(SCHRITT_NAMEN[s.typ] ?? s.typ)}</td><td>${text(s.text.de)}${bild}${werkzeug}${antwortHtml(k, s, komp.id)}${uebergang}</td>${schrittUrteil(k, `A-${komp.id}`, i + 1)}</tr>`;
   });
   return `<p class="hinweis">Etwa ${v.dauer_min} Minuten · Niveau ${esc(v.niveau)} · <u>Unterstrichen</u> = Fachbegriff, antippbar (Teil D)</p>
-<div class="tabelle"><table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>Notiz</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
+<div class="tabelle"><table class="schritte"><thead><tr><th>Nr.</th><th>Art</th><th>Was das Kind sieht und antworten kann</th><th>${k.form === 'online' ? 'Ihr Urteil' : 'Notiz'}</th></tr></thead><tbody>${zeilen.join('')}</tbody></table></div>
 ${urteil(k, `A-${komp.id}`, V_FRAGEN)}`;
 }
 

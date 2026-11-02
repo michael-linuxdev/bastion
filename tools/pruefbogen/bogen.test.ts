@@ -65,6 +65,21 @@ describe('Prüfbogen zum Ausfüllen', () => {
     expect(online.startsWith('<title>Prüfbogen Musterfeld Brüche</title>')).toBe(true);
   });
 
+  it('hat in Teil A je Schritt „passt“, „passt nicht“ und einen Kommentar', () => {
+    for (const id of MUSTERFELD) {
+      const n = eingabe.vermittlungen.get(id)?.schritte.length ?? 0;
+      for (let nr = 1; nr <= n; nr++) {
+        for (const w of ['passt', 'nicht'])
+          expect(online).toContain(
+            `id="A-${id}--s${nr}-${w}" data-s="A-${id}" data-f="s${nr}" value="${w}"`,
+          );
+        expect(online).toContain(`id="A-${id}--k${nr}" data-s="A-${id}" data-f="k${nr}"`);
+      }
+    }
+    // Gedruckt bleibt die leere Spalte „Notiz“
+    expect(html).not.toContain('data-f="s1"');
+  });
+
   it('nutzt nur gültige Pfade für die Datenbank', () => {
     for (const s of abschnitte) expect(s).toMatch(/^[A-Za-z0-9_\-.~:@+]{1,200}$/);
   });

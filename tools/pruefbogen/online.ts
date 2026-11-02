@@ -37,13 +37,13 @@ ${STIL}</style>
   <p class="unterzeile">${esc(o.name)}: <b>${esc(o.titel)}</b></p>
   <p>Bastion soll Kindern Mathe ohne Lehrkraft beibringen, ganz ohne KI in der App. Alle Texte hier sind mit KI-Hilfe entworfen und noch von keiner Lehrkraft geprüft. Ihre Prüfung entscheidet, ob sie so bleiben dürfen.</p>
   <ol class="anleitung">
-    <li><span><b>Teil A</b> zeigt jede Erklärung Schritt für Schritt, so wie das Kind sie sieht. Bei Fragen steht, welche Antwort richtig ist und wohin eine falsche führt.</span></li>
+    <li><span><b>Teil A</b> zeigt jede Erklärung Schritt für Schritt, so wie das Kind sie sieht. Bei Fragen steht, welche Antwort richtig ist und wohin eine falsche führt. Neben jedem Schritt tippen Sie „passt“ oder „passt nicht“; unter „Kommentar“ schreiben Sie, was dort stehen soll.</span></li>
     <li><span><b>Teil B</b> zeigt die typischen Denkfehler mit den Erklärungen, die ein Kind nach einer falschen Antwort bekommt.</span></li>
     <li><span><b>Teil C</b> zeigt die Übungsaufgaben mit je ${o.stichprobe} Beispielen pro Niveau. Haken Sie jede Zeile ab, die stimmt.</span></li>
     <li><span><b>Teil D</b> zeigt die Fachbegriffe, die ein Kind antippen kann.</span></li>
   </ol>
   <p class="hinweis">Stand der Inhalte: ${esc(o.datum)}</p>
-  <p class="hinweis-box">Unter jedem Abschnitt wählen Sie ein Urteil. Bei „Passt mit Änderung“ schreiben Sie den neuen Wortlaut ins Feld. Alles wird beim Tippen gespeichert. Sie können jederzeit aufhören und später weitermachen.</p>
+  <p class="hinweis-box">Unter jedem Abschnitt wählen Sie ein Urteil, in Teil A zusätzlich je Schritt. Bei „Passt mit Änderung“ schreiben Sie den neuen Wortlaut ins Feld. Alles wird beim Tippen gespeichert. Sie können jederzeit aufhören und später weitermachen.</p>
   <div class="felder">
     <label for="kopf--name">Name der prüfenden Person<input type="text" id="kopf--name" data-s="kopf" data-f="name" autocomplete="name"></label>
     <label for="kopf--schule">Schule und Fächer<input type="text" id="kopf--schule" data-s="kopf" data-f="schule"></label>
@@ -92,6 +92,8 @@ const skript = (o: OnlineSeite) => `(() => {
       if (el.type === 'checkbox') el.checked = v === true;
       else if (el.type === 'radio') el.checked = v === el.value;
       else if (typeof v === 'string' && el.value !== v) el.value = v;
+      const auf = el.closest('details');
+      if (auf && el.value) auf.open = true;
     }
   }
 
@@ -173,6 +175,13 @@ const skript = (o: OnlineSeite) => `(() => {
       if (zeilenHaken.length) {
         const ok = [...zeilenHaken].filter((i) => i.checked).length;
         zeilen.push(\`  Zeilen abgehakt: \${ok}/\${zeilenHaken.length}\`);
+      }
+      const schritte = new Set(Object.keys(w).filter((f) => /^[sk]\\d+$/.test(f)).map((f) => Number(f.slice(1))));
+      for (const nr of [...schritte].sort((a, b) => a - b)) {
+        const u = w['s' + nr] === 'nicht' ? 'passt nicht' : w['s' + nr] === 'passt' ? 'passt' : 'ohne Urteil';
+        const kom = (w['k' + nr] ?? '').trim();
+        if (u === 'passt' && !kom) continue;
+        zeilen.push(\`  Schritt \${nr}: \${u}\${kom ? ' · ' + kom.replace(/\\n/g, ' / ') : ''}\`);
       }
       if (w.notiz) zeilen.push(\`  Anmerkung: \${w.notiz.replace(/\\n/g, '\\n    ')}\`);
     }
@@ -264,8 +273,12 @@ th, td { border: 1px solid var(--linie); padding: .35rem .45rem; vertical-align:
 th { background: var(--flaeche); font-size: .85rem; }
 td.nr { inline-size: 2rem; font-variant-numeric: tabular-nums; color: var(--leise); }
 td.typ { inline-size: 6.5rem; font-weight: 700; }
-td.notiz { display: none; }
-table.schritte th:last-child { display: none; }
+td.notiz { inline-size: 8.5rem; }
+.schritt-urteil { display: flex; flex-direction: column; gap: .35rem; }
+.schritt-urteil .wahl { padding: .3rem .6rem; font-size: .85rem; min-block-size: 2.25rem; box-sizing: border-box; }
+details.kommentar { margin-block-start: .35rem; }
+details.kommentar summary { cursor: pointer; color: var(--tinte); font-size: .85rem; font-weight: 700; padding-block: .3rem; }
+details.kommentar textarea { margin-block-start: .25rem; font-size: .9rem; }
 td.kasten { inline-size: 2.2rem; text-align: center; vertical-align: middle; }
 ul.antworten { margin: .4rem 0 0; padding: 0; list-style: none; display: grid; gap: .15rem; }
 li.richtig { color: var(--gut); font-weight: 700; }
@@ -301,6 +314,15 @@ ul.fehlerbilder { display: grid; gap: .4rem; }
 .schluss h2 { margin: 0; font-size: 1.4rem; }
 button { font: inherit; font-weight: 700; color: var(--papier); background: var(--tinte); border: 0; border-radius: .4rem; padding: .6rem 1rem; cursor: pointer; justify-self: start; }
 #zusammenfassung { font-family: var(--schrift-code); font-size: .8rem; min-block-size: 10rem; }
-@media (width < 36rem) { td.typ { inline-size: auto; } .fortschritt { margin-inline-start: 0; } }
+@media (width < 36rem) {
+  td.typ { inline-size: auto; } .fortschritt { margin-inline-start: 0; }
+  /* Schritte untereinander statt als breite Tabelle: Nummer und Art, Text, Urteil */
+  table.schritte thead { display: none; }
+  table.schritte tr { display: grid; grid-template-columns: 2rem 1fr; border: 1px solid var(--linie); border-radius: .4rem; margin-block-end: .6rem; }
+  table.schritte td { border: 0; }
+  table.schritte td:nth-child(3), table.schritte td.notiz { grid-column: 1 / -1; inline-size: auto; }
+  table.schritte td.notiz { border-block-start: 1px dashed var(--linie); }
+  .schritt-urteil { flex-direction: row; flex-wrap: wrap; }
+}
 @media (prefers-reduced-motion: reduce) { .balken i { transition: none; } }
 `;

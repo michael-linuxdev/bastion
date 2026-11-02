@@ -24,7 +24,12 @@
         "f0": true,
         "f1": false,
         "urteil": "aendern",
-        "notiz": "Schritt erklaeren-kuerzen: ein Bild mit größeren Teilen ergänzen."
+        "notiz": "Schritt erklaeren-kuerzen: ein Bild mit größeren Teilen ergänzen.",
+        "s1": "passt",
+        "s2": "passt",
+        "s7": "nicht",
+        "k7": "Erfunden: Hier fehlt ein Bild, auf dem die Teile größer werden.",
+        "k9": "Erfunden: Kommentar ohne Urteil."
       },
       "stand": "2026-11-02T08:20:00.000Z"
     }

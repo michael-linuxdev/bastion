@@ -14,12 +14,13 @@ Drei Kapitel aus Klasse 6: **Was ist ein Bruch**, **Erweitern und Kürzen**, **A
 
 ## So bedienen Sie die Seite
 1. Oben **Ihren Namen** eintragen.
-2. Unter jedem Abschnitt stehen **Prüffragen** zum Abhaken und ein **Urteil**:
+2. In Teil A steht neben jedem Schritt **„passt“** und **„passt nicht“**. Unter **„Kommentar“** schreiben Sie, was dort stattdessen stehen soll. So wissen wir genau, welcher Schritt gemeint ist.
+3. Unter jedem Abschnitt stehen **Prüffragen** zum Abhaken und ein **Urteil**:
    - **Passt:** Sie würden es so verwenden.
    - **Passt mit Änderung:** Schreiben Sie ins Feld darunter, was anders heißen soll. Nennen Sie dabei bitte den Schritt oder die Aufgaben-Nummer.
    - **Falsch:** Hier stimmt etwas fachlich nicht. Ein Satz zur Begründung genügt.
-3. **Alles wird beim Tippen gespeichert.** Sie können jederzeit aufhören und später auf demselben Link weitermachen.
-4. Oben zeigt die Seite, wohin gespeichert wird. Steht dort **„Nur auf diesem Gerät gespeichert“**, dann kopieren Sie am Ende bitte die Zusammenfassung unten auf der Seite und schicken sie mir per E-Mail.
+4. **Alles wird beim Tippen gespeichert.** Sie können jederzeit aufhören und später auf demselben Link weitermachen.
+5. Oben zeigt die Seite, wohin gespeichert wird. Steht dort **„Nur auf diesem Gerät gespeichert“**, dann kopieren Sie am Ende bitte die Zusammenfassung unten auf der Seite und schicken sie mir per E-Mail.
 
 ## Wie lange dauert das?
 Etwa 20 bis 30 Minuten je Kapitel, mit den Beispielaufgaben zusammen 1 bis 1,5 Stunden. Teil C dürfen Sie stichprobenartig prüfen: Wenn die ersten Zeilen eines Aufgabentyps stimmen, reicht das.

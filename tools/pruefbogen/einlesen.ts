@@ -19,7 +19,33 @@ export interface Abschnitt {
   readonly fragenAbgehakt: number;
   /** Zeilen-Häkchen (Aufgaben G1 …, Begriffe b1 …), die gesetzt sind */
   readonly zeilenAbgehakt: number;
+  /** Teil A: Urteil und Kommentar je Schritt (Felder `s<nr>` und `k<nr>`), nur Schritte mit Eingabe */
+  readonly schritte?: readonly SchrittUrteil[];
   readonly stand?: string;
+}
+
+export interface SchrittUrteil {
+  /** Nummer im Bogen, ab 1 */
+  readonly nr: number;
+  readonly urteil?: 'passt' | 'nicht';
+  readonly kommentar?: string;
+}
+
+function schrittUrteile(werte: Record<string, unknown>): SchrittUrteil[] {
+  const nummern = new Set(
+    Object.keys(werte)
+      .filter((k) => /^[sk]\d+$/.test(k))
+      .map((k) => Number(k.slice(1))),
+  );
+  const liste: SchrittUrteil[] = [];
+  for (const nr of [...nummern].sort((a, b) => a - b)) {
+    const u = werte[`s${nr}`];
+    const kommentar = text(werte[`k${nr}`]);
+    const urteil = u === 'passt' || u === 'nicht' ? u : undefined;
+    if (!urteil && !kommentar) continue;
+    liste.push({ nr, ...(urteil ? { urteil } : {}), ...(kommentar ? { kommentar } : {}) });
+  }
+  return liste;
 }
 
 export interface Bewertung {
@@ -78,6 +104,7 @@ export function leseExport(json: unknown): Bewertung {
       zeilenAbgehakt: Object.entries(werte).filter(
         ([k, v]) => /^([GME]\d+|b\d+)$/.test(k) && v === true,
       ).length,
+      schritte: schrittUrteile(werte),
     });
   }
   // Reihenfolge wie im Bogen: Teil A, B, C, D, darin nach Kennung
@@ -104,6 +131,12 @@ export function dateienVon(abschnitt: string, alle: readonly Inhaltsdatei[]): In
   if (teil === 'B') return alle.filter((d) => d.art === 'fehlvorstellung' && d.id === id);
   if (teil === 'C') return alle.filter((d) => d.art === 'vorlage' && d.id === id);
   return [];
+}
+
+/** Schritt-IDs der Erstvermittlung unter den Dateien eines Abschnitts, in Bogen-Reihenfolge. */
+function schrittIds(dateien: readonly Inhaltsdatei[]): string[] {
+  const v = dateien.find((d) => d.art === 'vermittlung')?.daten['schritte'];
+  return Array.isArray(v) ? v.map((x) => (istObjekt(x) ? String(x['id'] ?? '') : '')) : [];
 }
 
 const URTEIL_TEXT: Readonly<Record<Urteil, string>> = {
@@ -136,6 +169,17 @@ export function arbeitsliste(b: Bewertung, alle: readonly Inhaltsdatei[]): strin
       `- Urteil: **${a.urteil ? URTEIL_TEXT[a.urteil] : 'offen'}** · Prüffragen abgehakt: ${a.fragenAbgehakt}${a.zeilenAbgehakt ? ` · Zeilen abgehakt: ${a.zeilenAbgehakt}` : ''}`,
     );
     if (a.notiz) z.push(`- Anmerkung: ${a.notiz.replace(/\n/g, ' / ')}`);
+    const schritte = a.schritte ?? [];
+    const nicht = schritte.filter((x) => x.urteil === 'nicht' || x.kommentar);
+    if (schritte.length > 0)
+      z.push(
+        `- Schritte: ${schritte.filter((x) => x.urteil === 'passt').length} passt, ${schritte.filter((x) => x.urteil === 'nicht').length} passt nicht`,
+      );
+    const ids = schrittIds(dateien);
+    for (const x of nicht)
+      z.push(
+        `  - Schritt ${x.nr}${ids[x.nr - 1] ? ` (\`${ids[x.nr - 1]}\`)` : ''}: ${x.urteil === 'nicht' ? '**passt nicht**' : x.urteil === 'passt' ? 'passt' : 'ohne Urteil'}${x.kommentar ? ` · ${x.kommentar.replace(/\n/g, ' / ')}` : ''}`,
+      );
     if (dateien.length > 0) z.push(`- Dateien: ${dateien.map((d) => `\`${d.datei}\``).join(', ')}`);
     else if (!a.id.startsWith('D-')) z.push('- Dateien: keine gefunden (Kennung veraltet?)');
     z.push('');
