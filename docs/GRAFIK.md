@@ -348,7 +348,7 @@ Ohne Änderung am Kern; nur `src/ui/bastion/` (mit `grafik/grafik-buehne.ts`) un
 | – | Unten steht eine Leiste mit Name, „Der freie Platz ist auf dem Bauplatz markiert.“, Dauer („Steht sofort.“ oder „Fertig nach …“), „Sobald es steht, kannst du es kostenlos versetzen.“ und den Knöpfen **„Hier bauen“**, „Anderes Gebäude“ und „Abbrechen“. Für Screenreader nennt sie das Feld („Spalte 1, Reihe 1“) |
 | Gebäude, das gerade nicht geht | wie bisher: Das Blatt bleibt offen und sagt, was fehlt (11.5) |
 
-Der vorgeschlagene Platz ist **genau der, auf den gebaut wird**: das erste freie Feld, wie es die Ablage beim Beginnen wählt (`freierPlatz`). Ein schönerer Platz, z. B. neben dem Bergfried, bräuchte eine kleine Änderung in der gemeinsamen Datei `src/ui/plattform/ablage.ts`: Der Bau-Auftrag müsste den Platz mitnehmen. Der Kern bleibt dabei unverändert. Das ist eine Rückfrage an den PV. Die Listenansicht in den Einstellungen bleibt unverändert. E2E: `Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G5)`.
+Der vorgeschlagene Platz ist **genau der, auf den gebaut wird**. **Seit 02.11.2026 (Entscheidung PV) liegt er neben dem Bergfried:** `vorgeschlagenerPlatz` (`src/ui/plattform/platz-vorschlag.ts`) nimmt das freie Feld, dessen Mitte der Mitte des Bergfrieds am nächsten liegt; Plätze dahinter zählen doppelt so weit, weil der hohe Bergfried sie in der Schrägansicht verdecken würde. Ohne Bergfried zählt die Bauplatz-Mitte, bei Gleichstand das Feld, das `freierPlatz` zuerst fände. Vorschau (`Bastion.svelte`) und Ablage beim Beginnen nutzen dieselbe Funktion. Der Kern bleibt unverändert, Aufstellen aus dem Lager nimmt weiter das erste freie Feld. Beispiel Startzustand: Die Studierstube kommt links neben den Bergfried (Spalte 4, Reihe 6). Die Listenansicht in den Einstellungen bleibt unverändert. E2E: `Neubau: die App schlägt einen freien Platz vor, „Hier bauen“ (FOKUS G5)`.
 
 **Vorschlag an den PV (B-29, nicht gebaut): Planen und Bauen in einem Schritt.** Im Kern ist „Planen“ kein eigener Schritt. Getrennt ist nur die Bauzeit: Reicht der Vorrat an Bauschritten nicht, wartet das Gebäude als Vorhaben über mehrere Lerneinheiten (B-7). Für „Gebäude steht nach 3 Tippern“ wäre die kleinste Kernänderung: Bauen geht erst, wenn genug Bauschritte im Vorrat sind, und dann steht das Gebäude sofort (ein neues Hindernis `zu-wenig-schritt` in `beginnHindernisse`). Ereignisse und Schema bleiben gleich; alte Vorhaben laufen weiter wie bisher. Zum Vergleich wurde `pnpm sim` in einer Probe-Kopie gerechnet und nicht übernommen:
 
@@ -360,5 +360,21 @@ Der vorgeschlagene Platz ist **genau der, auf den gebaut wird**: das erste freie
 | P3: größte Lücke | 35 Tage | 35 Tage | **56 Tage** |
 | P4 Farmer: größte Lücke | 3 Tage | 3 Tage | 7 Tage |
 
-Rot würden 9 Kern-Tests, die das alte Verhalten festhalten (ein Bauschritt wirkt auf alle Vorhaben, Abbruch gibt Bauschritte zurück, Zimmerei mit zwei Vorhaben). Diese Regeln hätten für neue Bauten keine Wirkung mehr. **Empfehlung: den Kern nicht ändern.** Die Wochenend-Lernerin verliert entweder viel Zeit oder sieht im ersten Jahr weniger als die Hälfte der Gebäude. Stattdessen macht G4 das Warten sichtbar: Das Gerüst wächst mit jeder Lerneinheit in Abschnitten. Mit dem Platz-Vorschlag oben ist das Planen für das Kind schon ein Schritt.
+Rot würden 9 Kern-Tests, die das alte Verhalten festhalten (ein Bauschritt wirkt auf alle Vorhaben, Abbruch gibt Bauschritte zurück, Zimmerei mit zwei Vorhaben). Diese Regeln hätten für neue Bauten keine Wirkung mehr. **Empfehlung: den Kern nicht ändern.** **Entscheidung PV (01.11.2026 abends): so umgesetzt, B-29 wird für „Planen und Bauen zusammenlegen“ nicht genutzt.** Die Wochenend-Lernerin verliert entweder viel Zeit oder sieht im ersten Jahr weniger als die Hälfte der Gebäude. Stattdessen macht G4 das Warten sichtbar: Das Gerüst wächst mit jeder Lerneinheit in Abschnitten. Mit dem Platz-Vorschlag oben ist das Planen für das Kind schon ein Schritt.
 
+
+### 11.8 G3 – Charge 1: Bergfried, Thema `bastion`, Epoche 1 (02.11.2026)
+
+Erzeugt mit dem eigenen Generator `tools/grafik/sprites-g3-bastion.py` nach der Stil-Regel `GRAFIK-SPRITES.md` §12 (Grundlage: Probestück (a), das unter `tools/grafik/probe/` als Beleg bleibt). Der Generator ersetzt nur `bastion/e1/kern_s1…s3` und die Abend-Ebenen im Atlas, alle anderen Einträge bleiben.
+
+| Stufe | Bild | Höhe (sichtbar) | Umriss anders als vorige Stufe |
+|---|---|---|---|
+| 1 | Holzturm auf Steinsockel, Schindeldach | 223 px (vorher 294 px Kiste) | – |
+| 2 | Steingeschoss, vorkragendes Fachwerk, Ziegeldach, Anbau, Banner, Fahne | 379 px (+70 %) | 53 % |
+| 3 | hoher Steinturm, Zinnenkranz, Turmaufsatz mit Helm, runder Seitenturm, Mauerstück | 491 px (+30 %) | 31 % |
+
+Vorher: +5 % Höhe je Stufe, kaum Umriss-Unterschied (§11.2). Atlas-Bilder des Bergfrieds: 7,6 KB → 22,0 KB (+14 KB, Grafik-Budget unberührt, der Atlas zählt gesondert).
+
+**Automatischer Test** `tools/grafik/atlas-stufen.test.ts`: Für jedes erneuerte Gebäude muss jede Stufe mindestens 25 % anderen Umriss und 15 % mehr Höhe haben (Schwellen des PV, G0). Die Liste `ERNEUERT` wächst mit jeder Charge. PNGs liest der Test ohne Zusatzpaket.
+
+**In der App geprüft** (390 px, Bildschirmfotos an den PV): Stufe 1 und 2 stehen stimmig auf dem Bauplatz, Antippen trifft weiter. Ein laufender Ausbau auf Stufe 3 zeigt noch die alte Baustellen-Kiste aus dem Code – das löst G4 (Gerüst in Abschnitten). Nächste Chargen: Studierstube, Späherturm, Werkstatt, Tor (Tabelle §12.8).

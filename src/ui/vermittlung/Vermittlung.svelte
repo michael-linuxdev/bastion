@@ -110,7 +110,15 @@
   }
 
   function weiter() {
-    if (schritt) zeige(naechstes(vermittlung, schritt, beantwortet ? bewertung : undefined));
+    if (schritt)
+      zeige(
+        naechstes(
+          vermittlung,
+          schritt,
+          beantwortet ? bewertung : undefined,
+          (id) => kompetenzName(id) !== undefined,
+        ),
+      );
   }
 </script>
 

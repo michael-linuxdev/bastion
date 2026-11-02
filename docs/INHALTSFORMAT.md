@@ -384,7 +384,13 @@ Der Hash deckt alle Felder außer `review` ab. Objekt-Schlüssel werden alphabet
 
 Auf der öffentlichen Seite stehen nur Inhalte ab **Stufe 2**. Stufe 1 bleibt in der Vorschau. Lernende sehen die Stufe nicht. Der Hinweis, dass etwas ein Entwurf ist, bleibt, solange die Seite noch `main` folgt.
 
-Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning/review.ts`) und **noch nicht erzwungen**. Die Seite folgt vorerst `main`. Das Trennen von Vorschau und öffentlicher Seite ist ein eigener, noch nicht begonnener Schritt.
+Diese Schwelle ist festgelegt (`OEFFENTLICHE_MINDESTSTUFE` in `src/core/learning/review.ts`). **Seit 01.11.2026 filtert der Build** (ARCHITEKTUR T-20, FOKUS F2): `tools/inhalte/pakete.ts` liest die Umgebungsvariable `BASTION_MINDESTSTUFE` (0 bis 3, leer = 0 = Werkstatt). Der Deploy-Build nimmt die Repository-Variable `vars.BASTION_MINDESTSTUFE`, Prüf-Build und Browser-Tests bleiben bei 0.
+
+**Regel (`tools/inhalte/oeffentlich.ts`):** Eine Kompetenz ist öffentlich, wenn `kompetenz.yaml`, `vermittlung.yaml`, alle Vorlagen und Zeichen-Anleitungen in ihrem Ordner und alle Fehlvorstellungen, auf die diese zeigen (`fv` und Schlüssel von `bei`), mindestens die Mindeststufe haben. Sonst fällt die **ganze** Kompetenz heraus. Ausgeliefert werden nur Fehlvorstellungen ab der Mindeststufe, bei einer Mindeststufe über 0 nur die, auf die eine ausgelieferte Kompetenz zeigt. Die Fachbegriffe (`begriffe.yaml`) haben keinen eigenen Vermerk und kommen immer mit.
+
+**Nichts zeigt ins Leere:** Fehlt eine Voraussetzung nach dem Filter, gilt sie als „nicht verfügbar“, nicht als Lücke. Lernpfad, Empfehlung, Diagnose und Steinkette übergehen fehlende IDs schon. Ein Rückweg der Erstvermittlung zu einer fehlenden Voraussetzung geht ohne Umweg zum nächsten Schritt (`naechstes` in `abspielen.ts`). Der Rückweg einer Fehlvorstellung erscheint nur, wenn sein Ziel da ist. Bleibt gar keine Kompetenz übrig, zeigt die App eine ruhige Hinweisseite (`paket.leer`).
+
+**Vermerk „Entwurf“:** Liefert der Build mindestens einen Inhalt unter Stufe 2 aus, steht auf der Startseite und im Elternbereich ein dezenter Hinweis (`entwurf.vermerk`), im Lernpfad nicht. Der Build gibt diesen Stand über das virtuelle Modul `virtual:bastion-paketstand` und im Manifest (`mindeststufe`, `entwurf`, `kompetenzen`) mit.
 
 ### Was die Prüfung heute tut
 
@@ -413,6 +419,16 @@ Das prüfende Modell geht jede Datei mit diesen Fragen durch und nennt zu jedem 
 6. **Sprache:** Kurze Sätze, höchstens etwa 40 Wörter je Bildschirm (V8), Fachbegriffe markiert, keine Wertung des Kindes.
 
 Ein Fund ist ein Widerspruch, wenn eine der Fragen mit Nein beantwortet wird. Geschmack ist kein Fund.
+
+**Vorher `pnpm fehlerschueler` (FOKUS F5, 01.11.2026):** Der „Fehler-Schüler“ geht die Fehlerbilder aller Vorlagen und Schritte und die Antworten mit `fv` der Erstvermittlungen regelbasiert durch, ohne KI. Er meldet Verdachtsfälle je Feld:
+
+- **A** Ein Fehlerbild wird in 200 Seeds je Niveau nie erzeugt, sein Text erscheint also nie.
+- **B** Der Rückweg einer Fehlvorstellung (oder ihre Grundlage) liegt weder in der Kompetenz noch in einer ihrer Voraussetzungen, etwa in einer späteren Kompetenz.
+- **C** Ein Schritt-Fehlerbild verweist auf eine Fehlvorstellung, die es nicht gibt oder die die Kompetenz nicht nennt.
+- **D** Eine Antwort einer Erstvermittlung verweist auf eine Fehlvorstellung, die weder zu dieser Kompetenz noch zu einer Voraussetzung gehört.
+- **E** Der Rückweg im Schritt (`bei`) führt woanders hin als der Rückweg der Fehlvorstellung in derselben Erstvermittlung.
+
+Was `pnpm test` schon sichert, wiederholt er nicht. Dazu gehört: Jedes Fehlerbild wird genau erkannt, jede Antwort mit `fv` ergibt ihre Fehlvorstellung, und jeder Rückweg zeigt auf einen vorhandenen Schritt. Ein Verdacht ist kein Fehler, er heißt nur: Ein Mensch schaut nach. Korrigiert wird nicht automatisch, sondern in eigenen PRs mit Begründung. Dabei verlieren geänderte Dateien ihren Review-Vermerk. Ob „die kurze Erklärung passt zu jedem Fehlerbild“ (Frage 3) stimmt, kann eine Regel nicht beurteilen; das bleibt beim prüfenden Modell und bei der Lehrkraft.
 
 ## 9. Herkunft und Lizenz
 
