@@ -44,6 +44,7 @@
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
+  import { WETTER_PROBEN, wetterProbe } from './wetter-probe.svelte';
   import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
   import Hinterhof from './Hinterhof.svelte';
   import {
@@ -841,6 +842,16 @@
           {/each}
         </fieldset>
         <p class="leise">{tt('bastion.thema-erklaerung')}</p>
+
+        <label class="wetter-probe">
+          {tt('bastion.wetter-probe')}
+          <select bind:value={wetterProbe.wahl}>
+            {#each WETTER_PROBEN as w (w)}
+              <option value={w}>{tt(`bastion.wetter-probe.${w}` as TextSchluessel)}</option>
+            {/each}
+          </select>
+        </label>
+        <p class="leise">{tt('bastion.wetter-probe-erklaerung')}</p>
 
         {#if wetterEinstellen}
           <WetterEinstellung durch="jugendlich" />
