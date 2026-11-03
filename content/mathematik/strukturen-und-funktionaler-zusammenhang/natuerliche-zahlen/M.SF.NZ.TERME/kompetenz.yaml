@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: Terme mit mehreren Klammern und Rechenarten berechnen; einfache Terme zu Texten aufstellen.
+  E:
+    beschreibung:
+      de: 'Begründen, in welcher Reihenfolge ein Term mit Klammern und Punktrechnung berechnet wird.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
