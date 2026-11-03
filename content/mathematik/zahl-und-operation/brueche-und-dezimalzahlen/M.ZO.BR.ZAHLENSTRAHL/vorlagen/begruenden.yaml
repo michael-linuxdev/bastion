@@ -1,0 +1,24 @@
+# Zahlenstrahl ablesen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ZAHLENSTRAHL.BEGRUENDEN
+kompetenz: M.ZO.BR.ZAHLENSTRAHL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.strahl-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zähle die Abschnitte zwischen 0 und 1, nicht die Striche.'
+  - de: 'Wie viele Abschnitte sind es bis zur Marke?'
+fehlerbilder:
+  striche-gezaehlt:
+    de: 'Es gibt einen Strich mehr als Abschnitte. Der [[Nenner]] zählt die Abschnitte.'
+    fv: FV.BR.STRICHE-GEZAEHLT
+  anzahl-statt-anteil:
+    de: 'Die Marke zeigt einen [[Anteil]] von 1, nicht die Zahl der Striche.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
+herkunft: ki-entwurf
+version: 1

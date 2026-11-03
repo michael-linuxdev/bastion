@@ -1,0 +1,24 @@
+# Liter und Kubikdezimeter begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.EINHEITEN.BEGRUENDEN
+kompetenz: M.GM.KP.EINHEITEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.liter-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viel passt in einen [[Würfel]] mit 1 dm [[Kantenlänge]]?'
+  - de: 'Wie viele cm³ hat 1 dm³?'
+fehlerbilder:
+  liter:
+    de: '1 l ist genau 1 dm³.'
+    fv: FV.KP.LITER
+  volumen-1000:
+    de: 'Bei [[Volumen]] ist die [[Umrechnungszahl]] 10 · 10 · 10 = 1000.'
+    fv: FV.KP.VOLUMEN-1000
+herkunft: ki-entwurf
+version: 1

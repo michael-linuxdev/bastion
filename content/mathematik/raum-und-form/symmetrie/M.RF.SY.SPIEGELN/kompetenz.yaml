@@ -21,6 +21,9 @@ niveaus:
       de:
         Bildfiguren bestimmen, Original und Bild zuordnen, maßgleiche Seiten und Winkel erkennen; Zeichenschritte
         werden erklärt.
+  E:
+    beschreibung:
+      de: 'Begründen, wo der Bildpunkt bei einer Achsenspiegelung liegt.'
 kmk:
   leitidee: L4
   prozesse:
@@ -29,6 +32,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 zeichnen_erklaert: true
 sachsen:

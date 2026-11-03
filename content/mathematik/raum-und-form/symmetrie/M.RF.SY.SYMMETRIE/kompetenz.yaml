@@ -17,12 +17,16 @@ niveaus:
   M:
     beschreibung:
       de: Auch punktsymmetrische Figuren und Muster erkennen; Anzahl der Symmetrieachsen bestimmen.
+  E:
+    beschreibung:
+      de: 'Die Anzahl der Symmetrieachsen einer Figur begründen.'
 kmk:
   leitidee: L4
   prozesse:
     - K4
 anforderungsbereiche:
   - I
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:

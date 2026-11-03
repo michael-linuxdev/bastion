@@ -20,12 +20,16 @@ niveaus:
   M:
     beschreibung:
       de: Über mehrere Einheiten umrechnen, auch ml und l mit Dezimalzahlen.
+  E:
+    beschreibung:
+      de: 'Begründen, wie Liter und Kubikdezimeter zusammenhängen.'
 kmk:
   leitidee: L2
   prozesse:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

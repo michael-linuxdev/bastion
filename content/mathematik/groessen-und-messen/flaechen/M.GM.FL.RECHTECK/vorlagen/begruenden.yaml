@@ -1,0 +1,24 @@
+# Breite aus dem Umfang begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.RECHTECK.BEGRUENDEN
+kompetenz: M.GM.FL.RECHTECK
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.rechteck-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie oft kommt jede Seite im [[Umfang]] vor?'
+  - de: 'Halbiere zuerst den [[Umfang]].'
+fehlerbilder:
+  umfang-seiten:
+    de: 'Im [[Umfang]] stecken zwei Längen und zwei Breiten. Halbiere den Umfang zuerst.'
+    fv: FV.FL.UMFANG-SEITEN
+  umfang-flaeche:
+    de: 'Durch die Länge teilt man beim [[Flächeninhalt]], nicht beim [[Umfang]].'
+    fv: FV.FL.UMFANG-FLAECHE
+herkunft: ki-entwurf
+version: 1

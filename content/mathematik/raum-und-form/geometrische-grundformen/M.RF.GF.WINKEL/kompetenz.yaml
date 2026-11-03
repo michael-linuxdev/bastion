@@ -21,6 +21,9 @@ niveaus:
       de:
         Winkelgrößen schätzen und am Bild bestimmen, überstumpfe Winkel; Bezeichnung mit griechischen
         Buchstaben; Zeichnen wird erklärt.
+  E:
+    beschreibung:
+      de: 'Begründen, zu welcher Winkelart ein Winkel gehört, auch bei überstumpfen Winkeln.'
 kmk:
   leitidee: L4
   prozesse:
@@ -28,6 +31,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 zeichnen_erklaert: true
 sachsen:

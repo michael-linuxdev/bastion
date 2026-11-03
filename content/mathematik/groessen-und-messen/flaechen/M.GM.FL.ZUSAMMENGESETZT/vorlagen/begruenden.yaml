@@ -1,0 +1,24 @@
+# Umfang einer zusammengesetzten Figur begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.ZUSAMMENGESETZT.BEGRUENDEN
+kompetenz: M.GM.FL.ZUSAMMENGESETZT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.l-umfang-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Fahre den Rand der Figur nach.'
+  - de: 'Welche Seiten kommen am Einschnitt dazu?'
+fehlerbilder:
+  umfang-seiten:
+    de: 'Am Einschnitt kommen zwei neue Seiten dazu. Sie ersetzen die weggeschnittenen Randstücke.'
+    fv: FV.FL.UMFANG-SEITEN
+  umfang-flaeche:
+    de: 'Das ist der [[Flächeninhalt]]. Der [[Umfang]] ist die Länge des Randes.'
+    fv: FV.FL.UMFANG-FLAECHE
+herkunft: ki-entwurf
+version: 1

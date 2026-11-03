@@ -18,12 +18,16 @@ niveaus:
   M:
     beschreibung:
       de: Auch Koordinaten mit Brüchen und Dezimalzahlen; Strecken und Figuren über ihre Eckpunkte angeben.
+  E:
+    beschreibung:
+      de: 'Begründen, in welcher Reihenfolge man Koordinaten abträgt.'
 kmk:
   leitidee: L4
   prozesse:
     - K4
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

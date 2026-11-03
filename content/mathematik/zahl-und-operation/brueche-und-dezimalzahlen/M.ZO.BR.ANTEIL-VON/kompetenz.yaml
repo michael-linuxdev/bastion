@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Beliebige Anteile von Größen und Anzahlen berechnen, z. B. 2/3 von 24 Schülern.
+  E:
+    beschreibung:
+      de: 'Begründen, warum man für einen Anteil erst teilt und dann malnimmt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

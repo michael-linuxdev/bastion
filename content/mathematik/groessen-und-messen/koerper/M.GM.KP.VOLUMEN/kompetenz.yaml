@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Auch fehlende Kantenlängen bestimmen; Volumen zusammengesetzter Körper.
+  E:
+    beschreibung:
+      de: 'Das Volumen eines Quaders über Schichten von Einheitswürfeln begründen.'
 kmk:
   leitidee: L2
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

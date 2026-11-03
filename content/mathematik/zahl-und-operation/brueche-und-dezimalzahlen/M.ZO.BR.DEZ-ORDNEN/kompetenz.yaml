@@ -20,12 +20,16 @@ niveaus:
   M:
     beschreibung:
       de: Dezimalzahlen mit verschieden vielen Nachkommastellen ordnen; auf eine gegebene Stelle runden.
+  E:
+    beschreibung:
+      de: 'Begründen, warum mehr Nachkommastellen keine größere Zahl bedeuten.'
 kmk:
   leitidee: L1
   prozesse:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

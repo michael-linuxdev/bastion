@@ -1,0 +1,24 @@
+# Oberfläche des Quaders begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.OBERFLAECHE.BEGRUENDEN
+kompetenz: M.GM.KP.OBERFLAECHE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.oberflaeche-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele Flächen hat ein [[Quader]]?'
+  - de: 'Stell dir das [[Netz]] vor.'
+fehlerbilder:
+  flaechen-vergessen:
+    de: 'Ein [[Quader]] hat sechs Flächen, je zwei sind gleich.'
+    fv: FV.KP.FLAECHEN-VERGESSEN
+  volumen-oberflaeche:
+    de: 'a · b · c ist das [[Volumen]], nicht die [[Oberfläche]].'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
+herkunft: ki-entwurf
+version: 1

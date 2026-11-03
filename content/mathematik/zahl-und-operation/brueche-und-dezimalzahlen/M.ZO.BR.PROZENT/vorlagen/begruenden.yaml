@@ -1,0 +1,24 @@
+# Prozent als Hundertstel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PROZENT.BEGRUENDEN
+kompetenz: M.ZO.BR.PROZENT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.prozent-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele [[Hundertstel]] sind das?'
+  - de: '1 % = 0,01.'
+fehlerbilder:
+  prozent-hundertstel:
+    de: '[[Prozent]] heißt „von Hundert“. Schreibe die Zahl erst in Hundertsteln.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
+  komma-verschoben:
+    de: 'Für [[Prozent]] wird mit 100 malgenommen, nicht mit 1000.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
+herkunft: ki-entwurf
+version: 1
