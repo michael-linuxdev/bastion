@@ -494,7 +494,7 @@ Ruhig und ohne Blitze (R1–R7); bei „ruhig“ und „Bewegung reduzieren“ s
 - **Regenbogen:** nach Regen, wenn es aufklart. Offline aus dem Datum (gestern Regen, heute klar oder bewölkt, an zwei von drei solchen Tagen; `regenbogenAusDatum`), mit echtem Wetter aus dem Niederschlag des Tages (`regenbogenAusEcht`). Kein Zufall zur Laufzeit.
 - **Regen:** dunkleres Meer und Tropfenringe in der Kulisse, nasse, dunklere Dächer (Tönung der Gebäude), Pfützen mit Glanz auf festen Feldern (`wetter-optik.ts`).
 - **Schnee:** liegender Schnee auf Boden und Dächern, weiße Hügel am Horizont, Eisschollen am Ufer.
-- **Sturm:** schnellere Wellen und kräftigerer Schaum, dreimal so schnelle Wolken, ziehende Wolkenschatten über Insel und Meer, Windstriche.
+- **Sturm:** schnellere Wellen und kräftigerer Schaum, dreimal so schnelle Wolken, Wolkenschatten über Insel und Meer, Windstriche.
 - **Nebel:** Nebelbänke über dem Meer, Horizont und Dinge im Meer verschwinden fast.
 - **Zahnrad:** „Wetter ausprobieren“ (Wie draußen, Sonne, Wolken, Regen, Schnee, Sturm, Nebel, Regenbogen); gilt nur für die Ansicht bis zum Neuladen und wird nicht gespeichert (`wetter-probe.svelte.ts`).
 - **Offen:** wehende Fahnen und Banner bei Sturm. Die Fahnen sind Teil der Gebäudebilder; dafür bräuchte jedes Gebäude mit Fahne eigene Bilder für die Bewegung.
@@ -504,7 +504,7 @@ Ruhig und ohne Blitze (R1–R7); bei „ruhig“ und „Bewegung reduzieren“ s
 
 PV: „Wetter ist schon unterschiedlich, aber nicht viel davon auf dem Bildschirm zu sehen.“ Bisher regnete und schneite es nur über der Insel.
 
-- **Wetterschicht** (`Wetterschicht.svelte`, `grafik/wetter-schicht.ts`) über Kulisse und Bauplatz, über den ganzen Bildschirm; fängt keine Tipper ab. Regen und Schnee sind feste Kacheln (kleine SVG-Bilder im Code, kein Netz, Tropfen und Flocken an festen Stellen) in drei Ebenen, die verschieden schnell fallen. Sturm: schräger Regen, dunkler Schleier, schnelle Wolkenschatten. Nebel: vier Nebelbänke über allem. Wolken: Wolkenschatten ziehen über Insel und Kulisse. Nur Bastion, Dorf und Garten (unter Wasser und im Weltraum regnet es nicht).
+- **Wetterschicht** (`Wetterschicht.svelte`, `grafik/wetter-schicht.ts`) über Kulisse und Bauplatz, über den ganzen Bildschirm; fängt keine Tipper ab. Regen und Schnee sind feste Kacheln (kleine SVG-Bilder im Code, kein Netz, Tropfen und Flocken an festen Stellen) in drei Ebenen, die verschieden schnell fallen. Sturm: schräger Regen, dunkler Schleier, mehr Wolkenschatten. Nebel: vier Nebelbänke über allem. Wolken: Wolkenschatten liegen über Insel und Kulisse (fest, seit §24). Nur Bastion, Dorf und Garten (unter Wasser und im Weltraum regnet es nicht).
 - **Stärke** leicht / mittel / stark (`WetterStaerke`): aus dem Wettercode (Niesel und Schauer leicht, Starkregen und starker Schnee stark; `staerkeAusWmo`) oder offline fest aus dem Datum (`staerkeAusDatum`). Stark: mehr Tropfen, grauer Schleier, beim Gestöber Schneedunst.
 - **Zahnrad:** neu Nieselregen, Starkregen, Leichter Schnee, Schneegestöber.
 - **Nichts mehr direkt über der Insel** (Wunsch PV): Mit Kulisse zeichnet die Bühne keine kleinen Wolken, Tropfen, Flocken, Nebelteilchen und Sturmschatten mehr über der Insel; das übernimmt die Wetterschicht. Was auf der Insel liegt, bleibt: Pfützen, Schnee auf Boden und Dächern, nasse Dächer, Herbstlaub.
@@ -539,7 +539,7 @@ PV: „Die Kulissen sind noch zu viel freie Fläche, die mit Leben gefüllt werd
 ### 18.1 Nachbesserung nach den iPhone-Fotos des PV (03.11.2026)
 
 - **Regen ruhiger:** zwei statt drei Ebenen, weniger, kürzere und blassere Striche; Schleier bei Regen kaum noch (mittel 3 %, stark 7 %, Sturm 10 %). Schnee etwas zurückgenommen. Insel und Gebäude bleiben bei jedem Wetter gut zu erkennen.
-- **Wolken und Nebel wandern mit:** Wolkenschatten und Nebelbänke hängen an der Welt (gleiche Verschiebung und gleicher Zoom wie der Bauplatz), über einem Stück Welt dreimal so groß wie die Bühne; beim Neubeginn blenden sie weich ein und aus. Nur Regen und Schnee fallen weiter in Blickrichtung über den Bildschirm.
+- **Wolken und Nebel wandern mit:** Wolkenschatten und Nebelbänke hängen an der Welt (gleiche Verschiebung und gleicher Zoom wie der Bauplatz), über einem Stück Welt dreimal so groß wie die Bühne; seit §24 ziehen sie nicht mehr selbst. Nur Regen und Schnee fallen weiter in Blickrichtung über den Bildschirm.
 - **Szenerie bis weit hinaus:** keine Sperre mehr an den Seiten (beim Verschieben sah man sonst leere Fläche), Verteilung bis 44 Felder; oben (bis zum Horizont) etwas dichter als unten, damit beide Hälften gleich voll wirken. Gezeichnet wird nur, was im Bild oder knapp daneben liegt.
 - **Himmel:** ruhige Wolken über dem Horizont (Land und Meer), die beim Verschieben nur wenig mitwandern; bei Regen und Sturm grauer, nachts kaum zu sehen. Vor der Bastion ferne Segel auf der Horizontlinie.
 
@@ -589,10 +589,20 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 
 ## 22. Tiefe in der Ferne (Wunsch PV, 03.11.2026, Schritt 6)
 
-- **Luftperspektive:** Dinge der Kulisse ab 8 Feldern Abstand vom Bauplatz werden mit wachsendem Abstand blasser, etwas heller und bläulicher und ganz weit draußen minimal unscharf (CSS-Variable `--dunst` 0 … 1, auch in Dämmerung und Nacht).
+- **Luftperspektive:** Dinge der Kulisse ab 8 Feldern Abstand vom Bauplatz werden mit wachsendem Abstand blasser (CSS-Variable `--dunst` 0 … 1, nur Deckkraft – seit §24 kein Filter mehr je Bild).
 - **Dunst am Horizont:** Vom Horizont abwärts liegt ein weicher Schleier in der unteren Himmelsfarbe (`.ferne`), nachts schwächer.
 
 ## 23. Boden mit Leben (Wunsch PV, 03.11.2026, Schritt 7)
 
 - Auf jedem freien Feld der Insel 1 bis 4 kleine Einzelheiten (`grafik/boden-leben.ts`), fest aus der Lage des Feldes: Grasbüschel; im Frühling viele Blüten (rosa, weiß, gelb, lila), im Sommer einzelne Blumen, im Herbst Laub am Boden, im Winter vereiste Büschel und Spuren im Schnee. Bebaute Felder (auch im Bau) bleiben frei; abends gedämpft. Nur über Land (Bastion, Dorf, Garten).
 
+## 24. Kein Absturz beim Zoomen (Meldung PV, 03.11.2026)
+
+- **Meldung:** Auf dem iPhone (Safari, Home-Bildschirm) stürzte die App nach ein paarmal Herein- und Herauszoomen ab.
+- **Ursache:** Browser legen für animierte Teile eigene Grafikebenen an, und für alles, was darüber liegt, Sammelebenen. Liegen diese Ebenen in der Welt, die mit der Kamera vergrößert wird, rechnet der Browser sie in Zoom × Pixeldichte (bis 2,4 × 3). Zwölf ziehende Wolkenschatten, die schwellende Brandung und die Sammelebenen darüber brauchten herangezoomt rund **710 MB** Grafikspeicher. Dazu kamen alle Gebäude aller Stufen in HD (rund 76 MB statt 21 MB Texturen).
+- **Lösung:**
+  - Wolkenschatten und Nebelbänke liegen fest in der Welt und wandern nur mit der Kamera, sie ziehen nicht mehr selbst.
+  - Die Brandung schwillt über die Strichdeckkraft in zehn Stufen je Durchlauf statt über eine Verschiebung. Das braucht keine eigene Ebene.
+  - Kein Filter mehr an einzelnen Kulisse-Bildern. Abend und Nacht färbt eine einzige Tönung in Fenstergröße (`.abendton`), die Luftperspektive wirkt nur über die Deckkraft.
+  - Die Bühne lädt alle Bilder zuerst in einfacher Größe. Scharfe @2x-Bilder lädt sie nur für die Einträge nach, die beim Zeichnen wirklich gebraucht werden (`TexturVorrat` merkt sich die IDs), und zeichnet dann einmal neu.
+- **Messung** (Chromium, 390 × 844, Pixeldichte 3, ganz herangezoomt, Ebenenfläche × Zoom²): vorher 178 MPx ≈ 710 MB in 52 Ebenen, nachher 60 MPx ≈ 238 MB in 38 Ebenen. Messwerkzeug: CDP `LayerTree` mit Playwright.

@@ -1002,12 +1002,25 @@ function stiftVon(g: Graphics): Stift {
   };
 }
 
+/**
+ * Texturen-Vorrat, der sich merkt, welche IDs die Bühne beim Zeichnen tatsächlich abfragt.
+ * Nur diese bekommen später ein scharfes @2x-Bild (Absturz beim Zoomen auf dem iPhone,
+ * PV 03.11.2026: alle Gebäude aller Stufen in HD waren rund 76 MB Grafikspeicher).
+ */
+class TexturVorrat extends Map<string, Texture> {
+  readonly gebraucht = new Set<string>();
+  override get(id: string): Texture | undefined {
+    this.gebraucht.add(id);
+    return super.get(id);
+  }
+}
+
 /** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
 async function atlasTexturenLaden(
   manifest: AtlasManifest | null,
   braucht: (id: string) => boolean = () => true,
-): Promise<Map<string, Texture>> {
-  const map = new Map<string, Texture>();
+): Promise<TexturVorrat> {
+  const map = new TexturVorrat();
   if (!manifest || manifest.eintraege.length === 0) return map;
   const basis = atlasBasisUrl();
   const liste = manifest.eintraege.filter((e) => braucht(e.id));
@@ -1015,7 +1028,8 @@ async function atlasTexturenLaden(
     liste.map(async (e) => {
       try {
         // Timeout: offline/ohne Cache soll die Bühne nicht hängen (Code-Fallback)
-        const datei = atlasDatei(e, globalThis.devicePixelRatio || 1);
+        // Erst alles in einfacher Größe; scharfe Bilder zieht hdNachziehen nur für Sichtbares nach
+        const datei = atlasDatei(e, 1);
         const geladen = Assets.load(basis + datei) as Promise<Texture>;
         const tex = await Promise.race([
           geladen,
@@ -1748,8 +1762,54 @@ export async function buehneErstellen(
   };
   tickerSync();
 
-  return {
+  /**
+   * Scharfe Bilder nachladen: nur für die Einträge, die die letzte Zeichnung wirklich
+   * abgefragt hat (stehende Gebäude, Umgebung, Fenster). Danach einmal neu zeichnen.
+   * Läuft nur bei hoher Pixeldichte.
+   */
+  const pixeldichte = globalThis.devicePixelRatio || 1;
+  const hdFertig = new Set<string>();
+  let hdLaeuft = false;
+  let zerstoert = false;
+  let letzteZeichnung: [Bastion, Ansicht] | undefined;
+  const hdNachziehen = () => {
+    if (hdLaeuft || zerstoert || pixeldichte < 1.5) return;
+    const basis = atlasBasisUrl();
+    const offen = [...texturen.gebraucht]
+      .filter((id) => !hdFertig.has(id))
+      .map((id) => atlasEintragPerId(atlas, id))
+      .filter((e): e is NonNullable<typeof e> => !!e && !!e.hd && texturen.has(e.id));
+    for (const e of offen) hdFertig.add(e.id);
+    if (offen.length === 0) return;
+    hdLaeuft = true;
+    void Promise.all(
+      offen.map(async (e) => {
+        try {
+          const tex = (await Assets.load(basis + atlasDatei(e, pixeldichte))) as Texture;
+          return { e, tex };
+        } catch {
+          return undefined;
+        }
+      }),
+    ).then((liste) => {
+      hdLaeuft = false;
+      if (zerstoert) return;
+      let neu = 0;
+      for (const x of liste) {
+        if (!x) continue;
+        texturen.set(x.e.id, x.tex);
+        neu++;
+      }
+      // Die einfachen Bilder bleiben im Vorrat (manche Sprites entstehen außerhalb von
+      // zeichne); ungenutzt räumt PixiJS sie nach einer Weile aus dem Grafikspeicher.
+      if (neu > 0 && letzteZeichnung) buehne.zeichne(...letzteZeichnung);
+    });
+  };
+
+  const buehne: Buehne = {
     zeichne(b, a) {
+      letzteZeichnung = [b, a];
+      queueMicrotask(hdNachziehen);
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
       letzteBauwerke = b.bauwerke;
@@ -2520,6 +2580,7 @@ export async function buehneErstellen(
       return app.canvas;
     },
     zerstoere() {
+      zerstoert = true;
       app.ticker.remove(ticker);
       const view = app.canvas;
       // Nicht `destroy(true)`: das gäbe auch die globalen Ressourcen von PixiJS frei (Vorrat
@@ -2530,6 +2591,7 @@ export async function buehneErstellen(
       view.remove();
     },
   };
+  return buehne;
 }
 
 /** Liegt (x, y) im Vieleck? (Strahlverfahren) */

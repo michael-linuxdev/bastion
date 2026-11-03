@@ -414,6 +414,9 @@
       />
     {/if}
   </div>
+  {#if stimmung !== 'tag'}
+    <div class="abendton" style:inset-block-start="{Math.max(0, wasserFern)}px"></div>
+  {/if}
 </div>
 
 <style>
@@ -499,10 +502,10 @@
     block-size: auto;
     /* Fuß unten Mitte auf dem Platz */
     translate: -50% -100%;
-    /* Luftperspektive: weit weg blasser, heller, etwas blau, kaum unscharf */
-    filter: saturate(calc(1 - var(--dunst) * 0.5)) brightness(calc(1 + var(--dunst) * 0.14))
-      hue-rotate(calc(var(--dunst) * 8deg)) blur(calc(var(--dunst) * 0.7px));
-    opacity: calc(1 - var(--dunst) * 0.25);
+    /* Luftperspektive: weit weg blasser – nur über die Deckkraft, ohne Filter. Ein Filter
+       je Bild gab jedem der bis zu 270 Dinge eine eigene Grafikebene; beim Zoomen lief
+       der Speicher auf dem iPhone über und die App stürzte ab (PV 03.11.2026). */
+    opacity: calc(1 - var(--dunst) * 0.35);
   }
 
   .himmelwolke {
@@ -593,22 +596,21 @@
     display: none;
   }
 
-  .daemmerung .schaum {
-    filter: brightness(0.8) sepia(0.15);
+  /* Abend und Nacht: eine Tönung in Fenstergröße über Meer, Inselrand und Dingen statt
+     eines Filters an jedem Bild (Speicher, siehe .ding) */
+  .abendton {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    pointer-events: none;
   }
 
-  .daemmerung .ding {
-    filter: brightness(calc(0.8 + var(--dunst) * 0.1)) sepia(0.15)
-      saturate(calc(1 - var(--dunst) * 0.5)) blur(calc(var(--dunst) * 0.7px));
+  .daemmerung .abendton {
+    background: rgb(70 36 20 / 0.2);
   }
 
-  .nacht .schaum {
-    filter: brightness(0.45) saturate(0.7);
-  }
-
-  .nacht .ding {
-    filter: brightness(calc(0.45 - var(--dunst) * 0.1)) saturate(0.7)
-      blur(calc(var(--dunst) * 0.7px));
+  .nacht .abendton {
+    background: rgb(6 12 30 / 0.52);
   }
 
   /* —— Jahreszeiten (Wunsch PV 03.11.2026): Felder und Hügel folgen dem Kalender —— */
@@ -754,8 +756,9 @@
     }
 
     /* Wellen laufen ans Ufer: der Schaum schwillt langsam an und ab */
+    /* In Stufen: der Browser malt die Küste nur ein paar Mal je Sekunde neu */
     .kulisse.bewegt .ufer.welle {
-      animation: brandung 5s ease-in-out infinite;
+      animation: brandung 5s steps(10) infinite;
     }
 
     .kulisse.bewegt.wetter-sturm .ufer.welle {
@@ -910,15 +913,15 @@
     }
   }
 
+  /* Nur die Strichdeckkraft, keine Verschiebung: eine Verschiebung bekäme eine eigene
+     Grafikebene, die beim Zoomen mitwächst (Absturz auf dem iPhone, PV 03.11.2026) */
   @keyframes brandung {
     0%,
     100% {
-      opacity: 0.15;
-      transform: translateY(0);
+      stroke-opacity: 0.25;
     }
     50% {
-      opacity: 0.75;
-      transform: translateY(3px);
+      stroke-opacity: 1;
     }
   }
 
