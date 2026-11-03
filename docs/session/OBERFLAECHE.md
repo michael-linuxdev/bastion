@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3)
+Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4)
 
 ---
 
@@ -40,6 +40,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 2. ~~Startseite aufräumen.~~ Erledigt (O1): Kopf mit Name, Gruß und höchstens einem leisen Satz; „Was bedeuten die Türen?“ entfällt; „Kein Konto“ und Entwurf-Vermerk ruhig am Seitenende; Startbild in festem Seitenverhältnis (16 : 10 am Handy, 2 : 1 ab 36rem), nicht mehr abgeschnitten; Bastion-Tür mit Infozeile, alle Nebenkacheln im selben Stil; beim ersten Start nur die kleine Karte „Über mich“ (`ProfilEinladung.svelte`) statt des Formulars.
 2a. ~~Wunsch PV: „Bastion“ als Banner wie ein Spieltitel, Farbverlauf raus, immer alle Kacheln.~~ Erledigt (O3): Bild und Name „BASTION“ in einem Banner (gold mit Kontur, leicht schräg, Schleier unten); kein Verlauf hinter dem Kopf; keine „erste Minute“ mehr, kein „Mehr entdecken“: Üben, Bastion, Mehr, Wiederholen, Fehlerwerkstatt, Wo stehe ich?, Mein Stand immer sichtbar, leere sind ausgegraut.
 3. ~~„Mehr“ aufräumen.~~ Erledigt (O2): nur noch Zurück und eine Überschrift „Mehr“ (ohne „Werkstatt“, „Bastion“, „Wenige Einträge“); jeder Eintrag mit Symbol und einer Infozeile wie die Kacheln der Startseite; Zone „Für Erwachsene“ nur, wenn es den Elternbereich gibt, ohne Versionszeile; Vertrauen in einem Satz am Ende; Offline-Hinweis oben als Hinweiskarte. Symbole `person`, `sicherung`, `kalender` als Wunsch an den Strang Grafik.
+3a. ~~Wunsch PV: Symbole in den Menüs neu und aus einem Guss.~~ Erledigt (O4): `src/ui/grafik/Symbol.svelte` neu (24er-Raster, nur Striche, runde Enden); neue Symbole `person`, `sicherung`, `kalender` für „Mehr“; Symbole auf hellen Kacheln einheitlich in der Akzentfarbe. Ausnahme vom eigenen Bereich, weil der PV es ausdrücklich verlangt hat; Hinweis im Protokoll Grafik.
 4. Elternbereich gliedern und angleichen.
 
 ## Wünsche aus dem anderen Strang
@@ -48,7 +49,7 @@ _(noch keine)_
 
 ## Wünsche an andere Stränge
 
-- An Grafik (03.11.2026): Symbole `person`, `sicherung`, `kalender` (`GRAFIK.md`, Wünsche).
+- ~~An Grafik (03.11.2026): Symbole `person`, `sicherung`, `kalender`.~~ Selbst erledigt in O4 (Wunsch PV).
 
 ## Übergabe und Lehren
 

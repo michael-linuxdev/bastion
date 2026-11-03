@@ -382,6 +382,10 @@
     font-size: 1.05rem;
     font-weight: 800;
   }
+  /* O4: alle Symbole auf hellen Kacheln in der Akzentfarbe */
+  .tuer.neben .tuer-titel :global(svg) {
+    color: var(--farbe-akzent);
+  }
   .tuer.ueben .tuer-titel {
     font-size: 1.5rem;
   }

@@ -46,18 +46,18 @@
   const fuerDich = $derived<Eintrag[]>([
     { ziel: 'themen', name: t('mehr.themen'), info: t('mehr.themen-info'), symbol: 'ueben' },
     { ziel: 'stand', name: t('stand.knopf'), info: t('start.stand-info'), symbol: 'stand' },
-    { ziel: 'klassenarbeit', name: t('ka.knopf'), info: t('mehr.ka-info'), symbol: 'planen' },
+    { ziel: 'klassenarbeit', name: t('ka.knopf'), info: t('mehr.ka-info'), symbol: 'kalender' },
     {
       ziel: 'profil',
       name: t('profil.knopf'),
       info: t('mehr.profil-info'),
-      symbol: 'einstellungen',
+      symbol: 'person',
     },
     {
       ziel: 'sicherung',
       name: t('sicherung.knopf'),
       info: t('mehr.sicherung-info'),
-      symbol: 'bauplan',
+      symbol: 'sicherung',
     },
   ]);
 </script>

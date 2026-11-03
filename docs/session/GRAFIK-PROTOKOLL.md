@@ -87,3 +87,4 @@
 | 03.11.2026 | **Regen ruhiger, Wolken wandern mit, Szenerie bis weit hinaus** (Branch `grafik/wetter-ruhiger`, iPhone-Fotos des PV): Wetterschicht zurückgenommen, Wolkenschatten/Nebel an der Welt, Verteilung bis 44 Felder ohne Seitensperre, oben dichter, Wolken am Himmel, ferne Segel; GRAFIK §18.1 |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `src/ui/start/` gehört jetzt dem Strang Oberfläche (PV); Bastion-Bild und `src/ui/bastion/` bleiben hier |
 | 03.11.2026 | **Wunsch aus dem Strang Oberfläche:** Symbole `person`, `sicherung`, `kalender` (Wünsche in `GRAFIK.md`) |
+| 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `Symbol.svelte` auf Wunsch des PV neu gezeichnet (nur Striche, Regler statt Zahnrad, Beutel als Umriss); Bastion-Symbole stein, erz, bauplan, bauen, planen, hinterhof unverändert |
