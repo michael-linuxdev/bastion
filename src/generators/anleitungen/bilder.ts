@@ -626,6 +626,45 @@ export const schraegbildZylinder: AnleitungsBilder = {
   },
 };
 
+/** Schrägbild eines Kreiskegels */
+export const schraegbildKegel: AnleitungsBilder = {
+  id: 'anleitung.schraegbild-kegel',
+  version: 1,
+  bilder: () => {
+    const cx = 140;
+    const rx = 70;
+    const ry = 20;
+    const unten = 200;
+    const oben = 40;
+    const vorne = `<path d="M ${cx - rx} ${unten} A ${rx} ${ry} 0 0 0 ${cx + rx} ${unten}" stroke-width="3"/>`;
+    const hinten = `<path d="M ${cx - rx} ${unten} A ${rx} ${ry} 0 0 1 ${cx + rx} ${unten}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    const grund = [vorne, hinten, linie(cx - rx, unten, cx + rx, unten, 1), punkt(cx, unten, 'M')];
+    const hoehe = [gestrichelt(cx, unten, cx, oben), punkt(cx, oben, 'S')];
+    // Berührpunkte der Mantellinien: dort, wo die Linie von S die Ellipse nur streift
+    const sin = -ry / (unten - oben);
+    const cos = Math.sqrt(1 - sin * sin);
+    const tx = Math.round(rx * cos * 100) / 100;
+    const ty = Math.round((unten + ry * sin) * 100) / 100;
+    const mantel = [dick(cx - tx, ty, cx, oben), dick(cx + tx, ty, cx, oben)];
+    const vorneGanz = `<path d="M ${cx - tx} ${ty} A ${rx} ${ry} 0 1 0 ${cx + tx} ${ty}" stroke-width="3"/>`;
+    const hintenRest = `<path d="M ${cx - tx} ${ty} A ${rx} ${ry} 0 0 1 ${cx + tx} ${ty}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    return [
+      bild(280, 240, grund, {
+        de: 'Die Grundfläche als flache Ellipse: so breit wie der Durchmesser, nach hinten halb so tief. Die hintere Hälfte ist gestrichelt, der Mittelpunkt M ist markiert.',
+      }),
+      bild(280, 240, [...grund, ...hoehe], {
+        de: 'Von M aus ist die Höhe senkrecht nach oben abgetragen. Dort liegt die Spitze S.',
+      }),
+      bild(280, 240, [...grund, ...hoehe, ...mantel], {
+        de: 'Von S aus gehen zwei Linien zum linken und rechten Rand der Ellipse. Sie berühren die Ellipse nur.',
+      }),
+      bild(280, 240, [vorneGanz, hintenRest, ...mantel], {
+        de: 'Fertig: Hilfslinien sind weg. Sichtbar sind die beiden Mantellinien und der vordere Bogen der Grundfläche, der hintere Bogen ist gestrichelt.',
+      }),
+    ];
+  },
+};
+
 /** Zentrische Streckung eines Dreiecks mit k = 2 */
 export const zentrischeStreckung: AnleitungsBilder = {
   id: 'anleitung.zentrische-streckung',

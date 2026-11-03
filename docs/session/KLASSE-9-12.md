@@ -111,7 +111,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.
 3. ~~**Werkzeug „Parameter am Graphen“ (B8)**~~ *gebaut 03.11.2026 als `graph@1` mit Reglern für a, d, e (Schieberegler, per Tastatur bedienbar), Vergleichskurve gestrichelt. Aussehen: Vorschau beim PV steht aus (Bildschirmfoto im Bericht).*
-4. **Zeichenanleitung Kegel (L-10):** RF.KP.KEGEL hat noch keine Schritt-für-Schritt-Anleitung mit Bildern (wie `anleitung.schraegbild-zylinder@1`); dafür braucht es neue Bilder in der Oberfläche. Bis dahin ohne `zeichnen_erklaert`.
+4. ~~**Zeichenanleitung Kegel (L-10)**~~ *erledigt 03.11.2026:* „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`), RF.KP.KEGEL hat jetzt `zeichnen_erklaert`.
 2. ~~**`pnpm inhalte:begriffe`** verdoppelte Anführungszeichen~~ *behoben 03.11.2026:* Das Komma hinter dem Wert in der mehrzeiligen Kurzform bleibt stehen (`tools/inhalte/begriffe-zeilen.ts` mit Test); DZ.ZF.HAEUFIGKEIT und DZ.ZF.WAHRSCHEINLICHKEIT sind jetzt markiert.
 
 ---
