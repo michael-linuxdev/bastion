@@ -1,0 +1,27 @@
+# Minusklammer begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.TU.ZUSAMMENFASSEN.BEGRUENDEN
+kompetenz: M.SF.TU.ZUSAMMENFASSEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tu.minusklammer-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was passiert mit den [[Vorzeichen]], wenn vor der Klammer ein Minus steht?'
+  - de: 'Nur gleichartige Glieder darf man zusammenfassen.'
+fehlerbilder:
+  minusklammer:
+    de: 'Ein Minus vor der Klammer wirkt auf jedes Glied in der Klammer.'
+    fv: FV.TU.MINUSKLAMMER
+  vorzeichen-glied:
+    de: 'Das [[Vorzeichen]] gehört zu seinem Glied. Gedreht werden nur die Glieder in der Klammer.'
+    fv: FV.TU.VORZEICHEN-GLIED
+  ungleichartig:
+    de: 'Eine Zahl und ein x-Glied sind ungleichartig, man kann sie nicht zusammenfassen.'
+    fv: FV.TU.UNGLEICHARTIG
+herkunft: ki-entwurf
+version: 1

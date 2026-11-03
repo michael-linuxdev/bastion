@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Minusklammern auflösen und Terme mit mehreren Variablen vereinfachen, z. B. 19·a − (17·a − b).'
+  E:
+    beschreibung:
+      de: 'Umformungen mit Minusklammern prüfen und die richtige Begründung wählen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

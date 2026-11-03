@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Beim Multiplizieren oder Dividieren mit einer negativen Zahl das Zeichen umdrehen; Lösungsmenge angeben.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann sich beim Lösen einer Ungleichung das Zeichen umdreht.'
 kmk:
   leitidee: L3
   prozesse:
@@ -25,6 +28,7 @@ kmk:
     - K2
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

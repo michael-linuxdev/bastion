@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Gleichungen mit Klammern auf beiden Seiten und Dezimalzahlen lösen, z. B. 3·x + 45 = 1,5·(2·x + 16) − x.'
+  E:
+    beschreibung:
+      de: 'Den richtigen ersten Umformungsschritt bei Gleichungen mit Klammern begründet wählen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K2
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

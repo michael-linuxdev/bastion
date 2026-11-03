@@ -1,0 +1,24 @@
+# Ausmultiplizieren begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.TU.AUSMULTIPLIZIEREN.BEGRUENDEN
+kompetenz: M.SF.TU.AUSMULTIPLIZIEREN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tu.ausmultiplizieren-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Der [[Faktor]] vor der Klammer wird mit jedem Glied in der Klammer malgenommen.'
+  - de: 'Minus mal Minus ergibt Plus.'
+fehlerbilder:
+  klammer-halb:
+    de: 'Der [[Faktor]] gehört zu jedem Glied der Klammer, nicht nur zum ersten.'
+    fv: FV.TU.KLAMMER-HALB
+  vorzeichen-falsch:
+    de: 'Achte auf die [[Vorzeichen]]: Plus mal Minus ist Minus, Minus mal Minus ist Plus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
+herkunft: ki-entwurf
+version: 1

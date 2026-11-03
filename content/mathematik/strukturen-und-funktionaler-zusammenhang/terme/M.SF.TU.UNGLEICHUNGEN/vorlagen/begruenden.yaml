@@ -1,0 +1,27 @@
+# Ungleichung begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.TU.UNGLEICHUNGEN.BEGRUENDEN
+kompetenz: M.SF.TU.UNGLEICHUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tu.ungleichung-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was passiert mit dem Zeichen, wenn du durch eine [[negative Zahl]] teilst?'
+  - de: 'Mache die [[Probe]] mit x = 0.'
+fehlerbilder:
+  zeichen-drehen:
+    de: 'Teilt man durch eine [[negative Zahl]], dreht sich das Ungleichheitszeichen um.'
+    fv: FV.TU.ZEICHEN-DREHEN
+  grenze:
+    de: 'Bei < und > gehört die Grenze nicht dazu.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
+  zeichen-verdreht:
+    de: 'Das [[Vorzeichen]] der Zahl bleibt: Geteilt wird durch −a, also wird aus a · k die Zahl −k.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
+herkunft: ki-entwurf
+version: 1
