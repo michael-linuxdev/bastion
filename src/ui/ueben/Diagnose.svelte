@@ -2,7 +2,12 @@
   // Diagnose (LEHRPLAN §7): adaptiver Gang durch den Graphen, ohne Hilfen und
   // ohne Richtig/Falsch-Anzeige während des Tests, Pausenpunkt nach der ersten
   // Etappe, Ergebnis als „Hier stehst du – hier geht es weiter“ statt Punktzahl.
-  import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
+  import {
+    nachGraph,
+    passtZurSchulart,
+    type Kompetenz,
+    type Schulart,
+  } from '../../core/competence/kompetenz';
   import { auswerten, type Bruchform } from '../../core/learning/auswertung';
   import {
     diagnose,
@@ -29,6 +34,7 @@
     kompetenzen,
     vorlagen,
     paketVon,
+    schulart,
     antworten = $bindable(),
     klasse = $bindable(5),
     auswahl,
@@ -44,6 +50,8 @@
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
     paketVon: ReadonlyMap<string, string>;
+    /** Schulart: Themen, die es dort nicht gibt, kommen nicht dran (PV, 03.11.2026) */
+    schulart?: Schulart | undefined;
     /** Antworten dieses Diagnosegangs – beim Elternteil gehalten, damit „Später“ weitergeht */
     antworten: Antwort[];
     /** Klassenstufe der Diagnose; wählbar, solange noch nichts beantwortet ist */
@@ -75,6 +83,7 @@
           : uebergreifend
             ? Math.min(...k.klassenstufe_typisch) <= (KLASSEN[KLASSEN.length - 1] ?? 5)
             : k.klassenstufe_typisch.includes(klasse)) &&
+        passtZurSchulart(k, schulart) &&
         vorlagenFuer(vorlagen, k.id, 'G').length > 0,
     ),
   );

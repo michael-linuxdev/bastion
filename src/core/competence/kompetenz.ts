@@ -246,6 +246,19 @@ export function pruefeGraph(
  * dann nach Länge der längsten Voraussetzungskette; bei Gleichstand bleibt die
  * gegebene Reihenfolge. Setzt einen kreisfreien Graphen voraus (pruefeGraph).
  */
+/**
+ * Gehört die Kompetenz zur gewählten Schulart? Ohne Schulart oder ohne Lehrplanbezug: ja.
+ * Mit Schulart nur, wenn der Lehrplan dieser Schulart sie enthält (PV, 03.11.2026:
+ * Themen, die es an der Oberschule nicht gibt, sind bei Oberschule ausgeblendet).
+ */
+export function passtZurSchulart(
+  k: Pick<Kompetenz, 'sachsen'>,
+  schulart: Schulart | undefined,
+): boolean {
+  if (!schulart || Object.keys(k.sachsen).length === 0) return true;
+  return k.sachsen[schulart] !== undefined;
+}
+
 export function nachGraph<K extends Pick<Kompetenz, 'id' | 'voraussetzungen'>>(
   kompetenzen: readonly K[],
 ): K[] {

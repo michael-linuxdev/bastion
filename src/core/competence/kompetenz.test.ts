@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { nachGraph, pruefeGraph, pruefeKompetenz } from './kompetenz';
+import { nachGraph, passtZurSchulart, pruefeGraph, pruefeKompetenz } from './kompetenz';
 
 const gueltig = () => ({
   id: 'M.ZO.BR.ERWEITERN',
@@ -91,5 +91,26 @@ describe('nachGraph', () => {
     const k = (id: string, voraussetzungen: string[] = []) => ({ id, voraussetzungen });
     const sortiert = nachGraph([k('C', ['B']), k('B', ['A']), k('D'), k('A')]).map((x) => x.id);
     expect(sortiert).toEqual(['D', 'A', 'B', 'C']);
+  });
+});
+
+describe('passtZurSchulart', () => {
+  const beide = {
+    sachsen: {
+      oberschule: { klassenstufe: 9, lernbereich: 'LB 1' },
+      gymnasium: { klassenstufe: 9, lernbereich: 'LB 2' },
+    },
+  };
+  const nurGy = { sachsen: { gymnasium: { klassenstufe: 9, lernbereich: 'LB 2' } } };
+  it('zeigt ohne Schulart alles', () => {
+    expect(passtZurSchulart(nurGy, undefined)).toBe(true);
+  });
+  it('blendet bei Oberschule Gymnasial-Themen aus und umgekehrt', () => {
+    expect(passtZurSchulart(nurGy, 'oberschule')).toBe(false);
+    expect(passtZurSchulart(nurGy, 'gymnasium')).toBe(true);
+    expect(passtZurSchulart(beide, 'oberschule')).toBe(true);
+  });
+  it('zeigt Kompetenzen ohne Lehrplanbezug immer', () => {
+    expect(passtZurSchulart({ sachsen: {} }, 'oberschule')).toBe(true);
   });
 });
