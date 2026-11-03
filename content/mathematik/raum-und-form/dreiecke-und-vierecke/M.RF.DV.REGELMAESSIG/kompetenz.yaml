@@ -21,6 +21,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Innenwinkel und Innenwinkelsumme regelmäßiger n-Ecke berechnen.'
+  E:
+    beschreibung:
+      de: 'Innenwinkel und Mittelpunktswinkel unterscheiden und die Innenwinkel begründet berechnen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -29,6 +32,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

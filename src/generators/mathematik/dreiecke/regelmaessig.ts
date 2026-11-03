@@ -1,5 +1,6 @@
 // Regelmäßige Vielecke – Klasse 8 (LEHRPLAN §8d, M.RF.DV.REGELMAESSIG): Symmetrieachsen,
 // Mittelpunktswinkel, Innenwinkel und Innenwinkelsumme regelmäßiger n-Ecke.
+import { aussagenGenerator } from '../../aussagen';
 import { zahlText } from '../../../core/learning/text';
 import type { Generator } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
@@ -160,3 +161,37 @@ export const innenwinkel: Generator<InnenwinkelParameter> = {
     };
   },
 };
+
+// ---------------------------------------------------------------------------
+// Niveau E (K-31): Begründung auswählen
+
+/** „Im regelmäßigen n-Eck ist jeder Innenwinkel 360° : n.“ Stimmt das? (M.RF.DV.REGELMAESSIG.BEGRUENDEN) */
+export const dvInnenwinkelAussage = aussagenGenerator(
+  'dv.innenwinkel-aussage',
+  ['mittelpunktswinkel', 'winkelsumme', 'durch-n'],
+  ['ecken'],
+  (r) => {
+    const n = r.pick([5, 6, 8, 9, 10, 12]);
+    const innen = ((n - 2) * 180) / n;
+    return {
+      situation: `Tim sagt: „Im regelmäßigen ${n}-Eck ist jeder Innenwinkel 360° : ${n} = ${360 / n}°.“ Stimmt das?`,
+      werte: { ecken: n },
+      richtig: `Nein. ${360 / n}° ist der Mittelpunktswinkel. Die Innenwinkelsumme ist (${n} − 2) · 180°, jeder Innenwinkel also ${innen}°.`,
+      falsch: [
+        [
+          'mittelpunktswinkel',
+          `Ja. Die Winkel um den Mittelpunkt ergeben 360°, also ist jeder Innenwinkel ${360 / n}°.`,
+        ],
+        [
+          'winkelsumme',
+          `Nein. Die Innenwinkel ergeben wie im Dreieck 180°, also ist jeder ${String(Math.round((180 / n) * 10) / 10).replace('.', ',')}°.`,
+        ],
+        ['durch-n', `Nein. Jeder Innenwinkel ist ${n} · 180° : ${n} = 180°.`],
+      ],
+      weg: [
+        `Zerlege das ${n}-Eck von einer Ecke aus in ${n - 2} Dreiecke: Innenwinkelsumme (${n} − 2) · 180° = ${(n - 2) * 180}°.`,
+        `${(n - 2) * 180}° : ${n} = ${innen}°. Der Mittelpunktswinkel ${360 / n}° liegt in der Mitte, nicht an den Ecken.`,
+      ],
+    };
+  },
+);

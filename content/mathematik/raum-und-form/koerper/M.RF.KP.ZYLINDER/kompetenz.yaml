@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Maße im Netz bestimmen: Die Länge des Mantelrechtecks ist der Kreisumfang.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum die Länge des Mantelrechtecks der Kreisumfang ist.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

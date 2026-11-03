@@ -1,0 +1,24 @@
+# Volumen des Zylinders bei geändertem Radius oder geänderter Höhe – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.ZYLINDER.BEGRUENDEN
+kompetenz: M.GM.KP.ZYLINDER
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.zylinder-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Setze den geänderten Wert in V = [[π]] · r² · h ein.'
+  - de: 'Zähle, wie oft r und wie oft h in der [[Formel]] als [[Faktor]] stehen.'
+fehlerbilder:
+  gleicher-faktor:
+    de: '[[Radius]] und [[Höhe]] wirken verschieden: r steht zweimal in der [[Formel]], h nur einmal.'
+    fv: FV.KR.FAKTOR-HOCHZAHL
+  falsche-hochzahl:
+    de: 'Hoch 3 gilt, wenn alle drei Längen wachsen. Hier ändert sich nur eine Größe.'
+    fv: FV.KR.FAKTOR-HOCHZAHL
+herkunft: ki-entwurf
+version: 1

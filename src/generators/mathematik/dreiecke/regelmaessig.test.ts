@@ -1,4 +1,6 @@
+import { describe } from 'vitest';
 import type { Instanz, Loesung, Sprachobjekt } from '../../../core/learning/generator';
+import { dvInnenwinkelAussage } from './regelmaessig';
 import { pflichttests } from '../../pflichttests';
 import { innenwinkel, vieleckSymmetrie } from './regelmaessig';
 
@@ -45,4 +47,18 @@ pflichttests(innenwinkel, {
   },
   grenzverletzungen: () => [],
   mindestensVerschieden: { G: 7, M: 12 },
+});
+
+describe('Innenwinkel begründen (E)', () => {
+  pflichttests(dvInnenwinkelAussage, {
+    niveaus: { E: {} },
+    unabhaengigeLoesung(i) {
+      const n = Number(i.platzhalter['ecken']);
+      const innen = ((n - 2) * 180) / n;
+      const t = (i.optionen ?? []).map((o) => o.text?.de ?? '');
+      return { typ: 'auswahl', wert: t.findIndex((x) => x.endsWith(`also ${innen}°.`)) };
+    },
+    grenzverletzungen: () => [],
+    mindestensVerschieden: { E: 6 },
+  });
 });
