@@ -63,3 +63,4 @@
 | 03.11.2026 | **Begriffe-Werkzeug repariert:** `pnpm inhalte:begriffe` lässt das Komma hinter Werten der mehrzeiligen Kurzform stehen (Test `begriffe-zeilen.test.ts`); zwei Antworten in DZ.ZF markiert |
 | 03.11.2026 | **L-10 Kegel:** Anleitung „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`, Mantellinien berühren die Ellipse), RF.KP.KEGEL mit `zeichnen_erklaert` |
 | 03.11.2026 | **Inhaltsdurchsicht Klasse 9:** sechs Generatoren in Fassung 2 (doppelte Möglichkeit, Grammatik, ungekürzte Hochzahl, Lösungsweg), alte Fassungen bleiben registriert; Prüfung „Vorlage nutzt neueste Fassung“; PY.UMKEHRUNG.PRUEFEN umformuliert |
+| 03.11.2026 | **Fehler-Schüler-Funde gesenkt:** 24 fachlich klare Voraussetzungen ergänzt (gleiche oder frühere Klasse, ohne Kreis); B 58 → 28, D 5 → 2, Grenze gesenkt; Frage zu FV.SA.* notiert |

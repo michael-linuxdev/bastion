@@ -12,6 +12,8 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.SF.ZU.DARSTELLEN
   - M.SF.GL.TERMWERT
+  - M.ZO.NZ.POTENZEN
+  - M.ZO.RZ.POTENZEN
 niveaus:
   G:
     beschreibung:

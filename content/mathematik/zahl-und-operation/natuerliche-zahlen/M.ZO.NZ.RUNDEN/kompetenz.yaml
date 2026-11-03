@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 5
 voraussetzungen:
   - M.ZO.NZ.STELLENWERT
+  - M.ZO.NZ.ADD-SUB
 niveaus:
   G:
     beschreibung:

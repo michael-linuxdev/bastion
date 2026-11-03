@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.GM.FL.DREIECK
   - M.RF.DV.VIERECKE
+  - M.GM.FL.ZUSAMMENGESETZT
 niveaus:
   G:
     beschreibung:

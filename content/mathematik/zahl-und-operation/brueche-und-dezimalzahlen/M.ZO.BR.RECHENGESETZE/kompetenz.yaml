@@ -14,6 +14,7 @@ voraussetzungen:
   - M.ZO.BR.MULT
   - M.ZO.BR.DEZ-MULT-DIV
   - M.SF.NZ.TERME
+  - M.ZO.NZ.POTENZEN
 niveaus:
   G:
     beschreibung:

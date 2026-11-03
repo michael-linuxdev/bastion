@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.RF.KP.ZWEITAFEL
   - M.RF.KR.LAGE
+  - M.GM.KR.UMFANG-FLAECHE
 niveaus:
   G:
     beschreibung:

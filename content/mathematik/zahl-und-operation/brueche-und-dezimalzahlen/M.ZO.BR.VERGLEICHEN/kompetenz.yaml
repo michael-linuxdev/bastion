@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 5
 voraussetzungen:
   - M.ZO.BR.BEGRIFF
+  - M.ZO.BR.ERWEITERN
 niveaus:
   G:
     beschreibung:

@@ -12,6 +12,8 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.SF.NZ.TERME
   - M.ZO.RZ.MULT-DIV
+  - M.ZO.NZ.POTENZEN
+  - M.ZO.RZ.POTENZEN
 niveaus:
   G:
     beschreibung:
