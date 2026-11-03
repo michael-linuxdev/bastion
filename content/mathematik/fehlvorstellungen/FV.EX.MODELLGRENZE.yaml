@@ -1,0 +1,25 @@
+id: FV.EX.MODELLGRENZE
+name:
+  de: Modell ohne Grenzen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet exponentielles Wachstum beliebig weit fort, auch wenn das Ergebnis in der Wirklichkeit unmöglich ist. Die Grenzen eines Modells werden nicht geprüft.
+kompetenzen: [M.SF.EX.SACH]
+erklaerung:
+  kurz:
+    de: 'Ein Modell gilt nur in Grenzen. Wenn Platz oder Nahrung fehlen, wächst kein Bestand mehr exponentiell.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die [[Formel]] weitergerechnet, ohne zu prüfen, ob das Ergebnis möglich ist.'
+    - teil: warum-nicht
+      de: 'Ein Teich mit 100 m² kann nicht mit 60 000 m² Seerosen bedeckt sein.'
+    - teil: so-stimmt-es
+      de: 'Prüfe am Ende: Passt das Ergebnis zur Sache? Wenn nicht, gilt das Modell dort nicht mehr.'
+gegenbeispiel:
+  de: 'Nach 20 Verdopplungen wären es über eine Million m² – mehr als jeder Teich.'
+rueckweg:
+  vermittlung: M.SF.EX.SACH#erklaeren-grenze
+kontrast: [M.SF.EX.SACH.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

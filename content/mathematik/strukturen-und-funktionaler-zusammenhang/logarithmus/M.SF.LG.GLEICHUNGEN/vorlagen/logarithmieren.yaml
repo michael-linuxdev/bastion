@@ -1,0 +1,24 @@
+# „Löse 1,5ˣ = 20 auf zwei Stellen.“. Entwurf: noch nicht geprüft.
+id: M.SF.LG.GLEICHUNGEN.LOGARITHMIEREN
+kompetenz: M.SF.LG.GLEICHUNGEN
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: lg.gleichung@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] ${gleichung}$. Runde auf zwei Stellen nach dem Komma.'
+hilfen:
+  - de: 'Teile zuerst durch den [[Faktor]] vor der Potenz.'
+  - de: 'Logarithmiere: aus $a^x = b$ wird $x = \frac{\ln b}{\ln a}$.'
+fehlerbilder:
+  teilen-statt-log:
+    de: 'Durch die [[Basis]] teilen löst die [[Gleichung]] nicht. Logarithmiere beide Seiten.'
+    fv: FV.LG.TEILEN-STATT-LOG
+  faktor-zuerst:
+    de: 'Der [[Faktor]] vor der Potenz gehört nicht in die [[Basis]]. Teile zuerst durch ihn.'
+    fv: FV.EX.FAKTOR-IN-POTENZ
+herkunft: ki-entwurf
+version: 1

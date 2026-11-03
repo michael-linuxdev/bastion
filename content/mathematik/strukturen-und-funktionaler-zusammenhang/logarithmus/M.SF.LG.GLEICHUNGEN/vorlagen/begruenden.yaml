@@ -1,0 +1,24 @@
+# Definitionsbereich von ln – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.LG.GLEICHUNGEN.BEGRUENDEN
+kompetenz: M.SF.LG.GLEICHUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: lg.ln-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Werte nimmt $e^x$ an?'
+  - de: '$\ln x$ macht $e^x$ rückgängig.'
+fehlerbilder:
+  definition:
+    de: '$\ln x$ gibt es nur für positive x, denn $e^y$ ist immer positiv.'
+    fv: FV.LG.DEFINITION
+  basis-argument:
+    de: '$\ln x$ ist die [[Hochzahl]] zur [[Basis]] e, nicht $e^x$.'
+    fv: FV.LG.BASIS-ARGUMENT
+herkunft: ki-entwurf
+version: 1

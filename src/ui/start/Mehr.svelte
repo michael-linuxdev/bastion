@@ -1,8 +1,9 @@
 <script lang="ts">
   // „Mehr“: zwei Zonen – Für dich / Für Erwachsene (§T102–§T104). Keine Suche.
+  // O2: ohne doppelte Überschriften und Versionszeile; Vertrauen in einer Zeile am Ende.
   // Design-Ideen K47: Offline-Hinweis einmalig, kein Dauerbanner.
   import { onMount } from 'svelte';
-  import Symbol from '../grafik/Symbol.svelte';
+  import Symbol, { type SymbolName } from '../grafik/Symbol.svelte';
   import { offlineHinweisGesehen, offlineHinweisSetzen } from '../plattform/ablage';
   import { t } from '../texte/texte';
   import type { Ziel } from './Startseite.svelte';
@@ -40,18 +41,25 @@
     void offlineHinweisSetzen();
   }
 
-  type MehrSymbol = 'stand' | 'ueben' | 'eltern' | 'mehr';
-  const fuerDich = $derived<{ ziel: Ziel; name: string; symbol: MehrSymbol }[]>([
-    { ziel: 'themen', name: t('mehr.themen'), symbol: 'ueben' },
-    { ziel: 'stand', name: t('stand.knopf'), symbol: 'stand' },
-    { ziel: 'klassenarbeit', name: t('ka.knopf'), symbol: 'mehr' },
-    { ziel: 'profil', name: t('profil.knopf'), symbol: 'mehr' },
-    { ziel: 'sicherung', name: t('sicherung.knopf'), symbol: 'mehr' },
+  type Eintrag = { ziel: Ziel; name: string; info: string; symbol: SymbolName };
+  // O2: jeder Eintrag mit eigenem Symbol und einer Zeile, was dort wartet
+  const fuerDich = $derived<Eintrag[]>([
+    { ziel: 'themen', name: t('mehr.themen'), info: t('mehr.themen-info'), symbol: 'ueben' },
+    { ziel: 'stand', name: t('stand.knopf'), info: t('start.stand-info'), symbol: 'stand' },
+    { ziel: 'klassenarbeit', name: t('ka.knopf'), info: t('mehr.ka-info'), symbol: 'kalender' },
+    {
+      ziel: 'profil',
+      name: t('profil.knopf'),
+      info: t('mehr.profil-info'),
+      symbol: 'person',
+    },
+    {
+      ziel: 'sicherung',
+      name: t('sicherung.knopf'),
+      info: t('mehr.sicherung-info'),
+      symbol: 'sicherung',
+    },
   ]);
-
-  const fuerErwachsene = $derived<{ ziel: Ziel; name: string }[]>(
-    eltern ? [{ ziel: 'eltern', name: t('eltern.knopf') }] : [],
-  );
 </script>
 
 <section class="mehr">
@@ -59,53 +67,57 @@
     <Symbol name="zurueck" />
     {t('uebung.zurueck')}
   </button>
-  <p class="ort-zeile ort-name"><Symbol name="mehr" /> {t('mehr.ort')}</p>
-  <p class="marke ort-name">{t('start.ueberschrift')}</p>
   <h2>{t('mehr.ueberschrift')}</h2>
-  <p class="leise">{t('mehr.info')}</p>
 
-  <section class="zone" aria-labelledby="mehr-dich">
-    <h3 id="mehr-dich">{t('mehr.fuer-dich')}</h3>
-    <ul class="liste">
-      {#each fuerDich as e (e.ziel)}
-        <li>
-          <button onclick={() => onziel(e.ziel)}>
-            <Symbol name={e.symbol} />
-            <span>{e.name}</span>
-          </button>
-        </li>
-      {/each}
-    </ul>
-  </section>
-
-  <section class="zone erwachsene" aria-labelledby="mehr-erwachsene">
-    <h3 id="mehr-erwachsene">{t('mehr.fuer-erwachsene')}</h3>
-    {#if fuerErwachsene.length > 0}
-      <ul class="liste">
-        {#each fuerErwachsene as e (e.ziel)}
-          <li>
-            <button class:werkstatt={e.ziel === 'eltern'} onclick={() => onziel(e.ziel)}>
-              <Symbol name="eltern" />
-              <span>{e.name}</span>
-            </button>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <p class="leise">{t('mehr.erwachsene-leer')}</p>
-    {/if}
-    <!-- §T104: Versions-/Build-Info nur hier -->
-    <p class="version" role="note">{t('mehr.version')}</p>
-  </section>
-
-  <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
-  <p class="versprechen">{t('start.versprechen')}</p>
   {#if offlineZeigen}
     <p class="offline" role="status">
       <span>{t('start.offline')}</span>
       <button type="button" class="haupt" onclick={offlineOk}>{t('start.offline-ok')}</button>
     </p>
   {/if}
+
+  <section class="zone" aria-labelledby="mehr-dich">
+    <h3 id="mehr-dich">{t('mehr.fuer-dich')}</h3>
+    <ul class="liste">
+      {#each fuerDich as e (e.ziel)}
+        <li>
+          <!-- Name als Beschriftung, Info als Beschreibung: Screenreader hören „Sicherung“ zuerst -->
+          <button
+            class="eintrag"
+            aria-label={e.name}
+            aria-describedby="mehr-info-{e.ziel}"
+            onclick={() => onziel(e.ziel)}
+          >
+            <Symbol name={e.symbol} />
+            <span class="name">{e.name}</span>
+            <span class="info" id="mehr-info-{e.ziel}">{e.info}</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </section>
+
+  {#if eltern}
+    <section class="zone" aria-labelledby="mehr-erwachsene">
+      <h3 id="mehr-erwachsene">{t('mehr.fuer-erwachsene')}</h3>
+      <ul class="liste">
+        <li>
+          <button
+            class="eintrag"
+            aria-label={t('eltern.knopf')}
+            aria-describedby="mehr-info-eltern"
+            onclick={() => onziel('eltern')}
+          >
+            <Symbol name="eltern" />
+            <span class="name">{t('eltern.knopf')}</span>
+            <span class="info" id="mehr-info-eltern">{t('mehr.eltern-info')}</span>
+          </button>
+        </li>
+      </ul>
+    </section>
+  {/if}
+
+  <p class="fuss" role="note">{t('mehr.versprechen')}</p>
 </section>
 
 <style>
@@ -130,48 +142,22 @@
     inline-size: 1.25rem;
     block-size: 1.25rem;
   }
-  .ort-zeile {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin: 0;
-    color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-  }
-  .ort-zeile :global(svg) {
-    inline-size: 1.1rem;
-    block-size: 1.1rem;
-  }
-  .marke {
-    font-size: 1.75rem;
-    color: var(--farbe-akzent);
-    margin: 0;
-  }
   h2 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    color: var(--farbe-akzent);
   }
   h3 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 800;
-  }
-  .leise {
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--farbe-text-leise);
-    margin: 0;
   }
   .zone {
     display: grid;
     gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 1px 6px var(--farbe-schatten);
-  }
-  .zone.erwachsene {
-    background: var(--farbe-flaeche-leise);
-    box-shadow: none;
-    border: 1px dashed var(--farbe-rand);
   }
   .liste {
     list-style: none;
@@ -180,58 +166,56 @@
     display: grid;
     gap: var(--abstand-s);
   }
-  button:not(.zurueck):not(.haupt) {
+  /* O2: Einträge wie die Kacheln der Startseite – Symbol, Name, eine Zeile Info */
+  .eintrag {
     font: inherit;
-    font-weight: 700;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--abstand-s);
+    row-gap: 0.1rem;
     align-items: center;
-    gap: var(--abstand-s);
     inline-size: 100%;
-    min-block-size: var(--ziel);
-    padding-inline: var(--abstand-m);
+    min-block-size: 4rem;
+    padding: 0.7rem var(--abstand-m);
     border: none;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
-    box-shadow: 0 1px 4px var(--farbe-schatten);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
     color: var(--farbe-text);
     text-align: start;
     cursor: pointer;
   }
-  .erwachsene button:not(.zurueck) {
-    background: var(--farbe-flaeche);
+  .eintrag :global(svg) {
+    grid-row: 1 / span 2;
+    color: var(--farbe-akzent);
   }
-  .version {
-    margin: 0;
+  .name {
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .info {
+    grid-column: 2;
     font-size: 0.85rem;
-    color: var(--farbe-text-leise);
-  }
-  button.werkstatt {
-    border-radius: 4px;
-    box-shadow: none;
-    border: 1px solid var(--farbe-rand);
-    background: color-mix(in srgb, var(--farbe-flaeche-leise) 90%, var(--farbe-text) 5%);
     font-weight: 600;
-  }
-  .vertrauen {
     color: var(--farbe-text-leise);
-    margin: 0;
-    font-size: 0.95rem;
   }
-  .versprechen {
-    color: var(--farbe-text-leise);
-    border-inline-start: 4px solid var(--farbe-akzent);
-    padding-inline-start: var(--abstand-m);
+  .fuss {
     margin: 0;
+    padding-block: var(--abstand-s);
+    color: var(--farbe-text-leise);
+    font-size: 0.85rem;
+    text-align: center;
   }
   .offline {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     gap: var(--abstand-s);
-    justify-items: start;
-    color: var(--farbe-text);
-    font-size: 1rem;
     margin: 0;
-    padding: var(--abstand-m);
+    padding: var(--abstand-s) var(--abstand-m);
+    border: 2px solid var(--farbe-hinweis-rand);
     border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche-leise);
+    background: var(--farbe-hinweis-flaeche);
   }
 </style>

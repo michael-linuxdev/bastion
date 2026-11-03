@@ -1,0 +1,85 @@
+id: M.SF.LG.UMKEHRFUNKTION
+kompetenz: M.SF.LG.UMKEHRFUNKTION
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach weißt du, was eine [[Umkehrfunktion]] ist und wie man ihren [[Graphen]] bekommt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Für $f(x) = 2x + 1$: Wie groß ist $f(3)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '7', fehler: [{ wert: '6', fv: FV.FK.X-ODER-Y }] }
+    weiter: entdecken
+    bei: { FV.FK.X-ODER-Y: M.SF.FK.BEGRIFF, sonst: M.SF.FK.BEGRIFF }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Jetzt umgekehrt: Für welches x ist $2x + 1 = 11$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '23', fv: FV.LG.UMKEHR-EINGESETZT }] }
+    weiter: erklaeren-tauschen
+  - id: erklaeren-tauschen
+    typ: erklaeren
+    text:
+      de: 'Die **[[Umkehrfunktion]]** $f^{-1}$ macht f rückgängig: Was f liefert, steckt man in $f^{-1}$ und bekommt das x zurück. x und y tauschen die Plätze. Im Bild ist das die [[Spiegelung]] an der [[Geraden]] $y = x$.'
+    weiter: erklaeren-umkehrbar
+  - id: erklaeren-umkehrbar
+    typ: erklaeren
+    text:
+      de: 'Das geht nur, wenn jeder y-Wert zu genau einem x gehört. Bei $f(x) = x^2$ gehören 3 und −3 zum y-Wert 9. Erst für $x \geq 0$ ist $x^2$ umkehrbar, mit der [[Umkehrfunktion]] $\sqrt{x}$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$f(x) = 2x + 1$. Aus $y = 2x + 1$ wird nach dem Tauschen $x = 2y + 1$, also $y = \frac{x - 1}{2}$. [[Probe]]: $f(5) = 11$ und $f^{-1}(11) = 5$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Der Punkt (3|8) liegt auf dem [[Graphen]] von f. Welche x-[[Koordinate]] hat der zugehörige Punkt auf dem Graphen von $f^{-1}$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '3', fv: FV.LG.SPIEGELACHSE }] }
+    weiter: gegenbeispiel
+    bei: { FV.LG.SPIEGELACHSE: erklaeren-tauschen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ali sagt: „Für $f(x) = 2x$ ist $f^{-1}(x) = \frac{1}{2x}$.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $f^{-1}(x) = \frac{x}{2}$: Halbieren macht Verdoppeln rückgängig.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, $f^{-1}$ heißt hoch −1, also Kehrwert.' }, fv: FV.LG.UMKEHR-KEHRWERT }
+    weiter: merksatz
+    bei: { FV.LG.UMKEHR-KEHRWERT: erklaeren-tauschen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Die [[Umkehrfunktion]] tauscht x und y. Ihr [[Graph]] ist der an $y = x$ gespiegelte Graph von f. Umkehrbar ist f nur, wenn jeder y-Wert zu genau einem x gehört.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '(2|5) liegt auf dem [[Graphen]] von f. Welcher Punkt liegt auf dem Graphen von $f^{-1}$?'
+    antwort:
+      optionen:
+        - { wert: { de: '(5|2)' }, richtig: true }
+        - { wert: { de: '(2|−5)' }, fv: FV.LG.SPIEGELACHSE }
+        - { wert: { de: '(2|0,2)' }, fv: FV.LG.UMKEHR-KEHRWERT }
+    weiter: uebergang
+    bei: { FV.LG.SPIEGELACHSE: erklaeren-tauschen, FV.LG.UMKEHR-KEHRWERT: erklaeren-tauschen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst Punkte der [[Umkehrfunktion]].'
+    vorlagen: [M.SF.LG.UMKEHRFUNKTION.SPIEGELN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

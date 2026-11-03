@@ -1,0 +1,25 @@
+# „500 Bakterien, Verdopplung jede Stunde: Wie viele nach 4 Stunden?“. Entwurf: noch nicht geprüft.
+id: M.SF.EX.SACH.BESTAND
+kompetenz: M.SF.EX.SACH
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: ex.bestand@1
+parameter:
+  G: { zerfall: false }
+  M: { zerfall: true }
+text:
+  aufgabe:
+    de: '{satz}'
+hilfen:
+  - de: 'Verdoppeln heißt mal 2, halbieren heißt mal ½. Das passiert bei jedem Schritt.'
+  - de: 'Nach n Schritten: Anfangsbestand mal $2^n$ oder mal $\left(\frac{1}{2}\right)^n$.'
+fehlerbilder:
+  linear:
+    de: 'Du hast jedes Mal denselben [[Betrag]] dazugezählt oder abgezogen. Verdoppelt oder halbiert wird aber der neue Bestand.'
+    fv: FV.EX.MODELL
+  hochzahl-mal:
+    de: 'n-mal verdoppeln heißt mal $2^n$, nicht mal $2 \cdot n$.'
+    fv: FV.NZ.HOCHZAHL-MAL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+# „Berechne log₂ 32.“. Entwurf: noch nicht geprüft.
+id: M.ZO.LG.LOGARITHMUS.WERT
+kompetenz: M.ZO.LG.LOGARITHMUS
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: lg.wert@1
+parameter:
+  G: { negativ: false }
+  M: { negativ: true }
+text:
+  aufgabe:
+    de: '**Berechne** ${term}$.'
+hilfen:
+  - de: '$\log_b x$ fragt: b hoch wie viel ergibt x?'
+  - de: 'Schreibe die Zahl als Potenz der [[Basis]], z. B. $32 = 2^5$.'
+fehlerbilder:
+  basis-argument:
+    de: '[[Basis]] und Zahl sind vertauscht. Gefragt ist, welche [[Hochzahl]] die Basis zur Zahl macht.'
+    fv: FV.LG.BASIS-ARGUMENT
+  teilen-statt-log:
+    de: 'Der [[Logarithmus]] ist keine Division. Gesucht ist die [[Hochzahl]].'
+    fv: FV.LG.TEILEN-STATT-LOG
+herkunft: ki-entwurf
+version: 1

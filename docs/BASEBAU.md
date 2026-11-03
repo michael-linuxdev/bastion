@@ -442,6 +442,27 @@ Keine Regel geändert (B-29). Mögliche Hebel, falls der PV etwas ändern möcht
 
 Epoche 1 und 2 unverändert. Bergfried 9 bei P1 nach etwa 3,2 statt 3,8 Jahren. P2 bremsen jetzt die Baupläne (60), nicht mehr der Fleiß – schneller geht es dort nur über mehr gefestigte Themen, und das ist gewollt (R4). P6 ändert sich nicht: Es fehlen Baupläne, nicht Fleiß (offen, §9 Punkt 5).
 
+### 8d. Schwache Lernende: Lernkurve und Bauplan-Skizzen (03.11.2026, B-34)
+
+**Erst geprüft (E):** neues Profil **P8** – wie P1, aber 50 % richtig zu Beginn und 70 % nach zwei Jahren (echte Schwache werden besser). Ohne neue Regel: Epoche 2 nach 21,3 Monaten, dann Stillstand bei Bergfried 6 (Baupläne nach Jahr 1–5: 20 / 28 / 36 / 39 / 41, Fleiß reichlich übrig). Es fehlen Baupläne, nicht Fleiß.
+
+**Dann umgesetzt (A, B-34):** **Bauplan-Skizzen.** Wer einen Fehler in der Fehlerwerkstatt an einem späteren Lerntag ohne Hilfe richtig löst, bekommt eine Skizze – höchstens eine je Kompetenz und Niveau (absichtliche Fehler bringen nichts). Zwei Skizzen ergeben einen Bauplan (Buchung `skizzen:n`, Grund `fehler-aufgearbeitet`). „Gekonnt“ und „gefestigt“ bleiben unverändert (B-19), „Mein Stand“ bleibt ehrlich.
+
+`pnpm sim` mit B-33 und B-34, Epoche geschafft nach … Monaten:
+
+| Profil | Epoche 1 | Epoche 2 | Epoche 3 | Epoche 4 | Bergfried am Ende |
+|---|---|---|---|---|---|
+| P1 regelmäßig | 5.7 | 12.9 | 21.1 | 33.3 | 9 |
+| P2 eifrig | 5.1 | 9.5 | 17.9 | 26.8 | 9 |
+| P3 Wochenende | 6.6 | 12.4 | 20.4 | 30.8 | 9 |
+| P4 Farmer | – | – | – | – | 1 |
+| P5 Pause | 5.7 | 12.9 | 21.4 | 33.5 | 9 |
+| P6 schwach (bleibt 50 %) | 4.7 | 26.0 | – | – | 5 |
+| P7 Prüfungsphase | 5.3 | 12.4 | 20.7 | 32.8 | 9 |
+| P8 schwach, wird besser | 4.7 | 12.4 | 37.9 | – | 8 |
+
+Befunde: P8 kommt jetzt durch Epoche 2 und 3 (Bergfried 8), P6 immerhin in Epoche 2. Alle werden etwas schneller, weil auch gute Lernende Fehler aufarbeiten; P1 erreicht Bergfried 9 nach 2,8 Jahren – das ist das Ziel aus B-31 (etwa 2½–3 Jahre). P4 (Farmer) bleibt bei null: ohne Fehler keine Skizzen, ohne Festigen keine Baupläne. Erwartungen aus §8 bleiben erfüllt (`simulator.test.ts`, neu: P8 schafft Epoche 3 in 5 Jahren).
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:
@@ -490,6 +511,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-31 | **Doppeltes Tempo für alle Stufen** (Wunsch PV, 02.11.2026: „Die Stufen sollen doppelt so schnell erreicht werden“, für alle Epochen). Alle Kosten der Stufen-Gebäude (Bergfried, Studierstube, Späherturm, Werkstatt, Tor) halbiert: Fleiß und Behalten genau, Können und Bauschritte aufgerundet (mindestens 1). Bauplan-Schwellen der Epochenwechsel 15/40/80/120 → **8/20/40/60**. Einfassung und Zierde bleiben (keine Stufen; Banner 10 Fleiß bleibt der Erfolg der ersten Einheit, §5.1). Einnahmen unverändert. `pnpm sim` vorher/nachher in §8a. Gesamtdauer bis Bergfried 9 bei P1 von etwa 5½ auf etwa 2½–3 Jahre | Entschieden (02.11.2026, Projektverantwortlicher) |
 | B-32 | **Beim Epochenwechsel rückt alles Gebaute zur Mitte** (§5.5, bisher nicht umgesetzt; Fund aus der echten App: in Epoche 4 stand alles in der hinteren Ecke). Umsetzung nur in der Projektion `bastionAus`: Sobald Bergfried und erworbene Baupläne die nächste Epoche freischalten, verschiebt sie alle Bauwerke und Vorhaben um die Hälfte des Zuwachses (je Wechsel 2 Felder). Ereignisse danach tragen schon Lagen im größeren Platz. Keine Schemaänderung, keine Migration; gespeicherte Bastionen in Epoche 2+ (bisher nur Proben) liegen danach anders | Entschieden (02.11.2026, Projektverantwortlicher) |
 | B-33 | **Fleiß der Bergfried-Stufen 6–9 halbiert** (Wunsch PV 03.11.2026 nach dem Simulator für Epoche 2–4, §8c: „ja, Fleißkosten senken“): 800 / 1100 / 1500 / 2000 → 400 / 550 / 750 / 1000. Behalten, Können, Schritte und alle anderen Gebäude bleiben. `pnpm sim` vorher/nachher in §8c: P1 Bergfried 9 nach 37,9 statt 45,7 Monaten. Die Tabellen in §5.5 sind ältere Startwerte; maßgeblich ist `src/core/bastion/katalog.ts` | Entschieden (03.11.2026, Projektverantwortlicher) |
+| B-34 | **Bauplan-Skizzen aus der Fehlerwerkstatt** (Wunsch PV 03.11.2026: „Wenn P6 dann immer noch hängt, A einbauen … OK!“): Ein Fehler, der an einem späteren Lerntag in der Fehlerwerkstatt ohne Hilfe richtig gelöst wird, ergibt eine Skizze (höchstens eine je Kompetenz und Niveau); zwei Skizzen ergeben einen Bauplan. Ergänzt R4 und B-5: Baupläne entstehen durch Festigen **und** durch aufgearbeitete Fehler; „gekonnt“/„gefestigt“ unverändert (B-19). Nur Ledger (`skizzenBuchungen`), keine Schemaänderung (neuer Wert für `grund`, gleiche Felder). `pnpm sim` in §8d | Entschieden (03.11.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 

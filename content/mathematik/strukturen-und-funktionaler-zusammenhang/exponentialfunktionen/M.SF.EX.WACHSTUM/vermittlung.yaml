@@ -1,0 +1,97 @@
+id: M.SF.EX.WACHSTUM
+kompetenz: M.SF.EX.WACHSTUM
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach erkennst du, ob etwas linear oder exponentiell wächst, und rechnest mit dem [[Wachstumsfaktor]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: '200 € werden ein Jahr zu 5 % verzinst. Wie viel Geld ist danach auf dem Konto?'
+    antwort:
+      eingabe: { art: zahl, loesung: '210', fehler: [{ wert: '10', fv: FV.PZ.NUR-AENDERUNG }] }
+    weiter: entdecken
+    bei: { FV.PZ.NUR-AENDERUNG: M.ZO.PZ.ZINS, sonst: M.ZO.PZ.ZINS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Lea bekommt jeden Monat 5 € mehr Taschengeld: 10, 15, 20, 25. Ben bekommt jeden Monat das Doppelte: 10, 20, 40, 80. Wie viel bekommt Ben im fünften Monat?'
+    antwort:
+      eingabe: { art: zahl, loesung: '160', fehler: [{ wert: '120', fv: FV.EX.MODELL }] }
+    weiter: erklaeren-modell
+  - id: erklaeren-modell
+    typ: erklaeren
+    text:
+      de: 'Bei Lea kommt immer dieselbe Zahl dazu: **lineares Wachstum**, die Unterschiede sind gleich. Bei Ben wird immer mit derselben Zahl malgenommen: **exponentielles Wachstum**, die [[Quotienten]] sind gleich.'
+    weiter: erklaeren-faktor
+  - id: erklaeren-faktor
+    typ: erklaeren
+    text:
+      de: 'Wächst ein Bestand um 10 %, bleiben 100 % und 10 % kommen dazu: mal 1,1. Das ist der [[Wachstumsfaktor]] $q = 1 + \frac{p}{100}$. Bei 10 % Abnahme ist $q = 0{,}9$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Bestand von 500 wächst jährlich um 20 %. Rekursiv: Jeder Wert ist der vorige mal 1,2: 500, 600, 720, 864. Explizit: nach n Jahren $500 \cdot 1{,}2^n$, also nach 3 Jahren $500 \cdot 1{,}2^3 = 864$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Bestand nimmt jedes Jahr um 25 % ab. Wie groß ist der [[Wachstumsfaktor]] q?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '0,75',
+          fehler:
+            [
+              { wert: '1,25', fv: FV.EX.ABNAHME-FAKTOR },
+              { wert: '0,25', fv: FV.EX.FAKTOR-PROZENT },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.EX.ABNAHME-FAKTOR: erklaeren-faktor, FV.EX.FAKTOR-PROZENT: erklaeren-faktor }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim sagt: „1000 € wachsen 2 Jahre lang um je 10 %. Das sind 1000 + 100 + 100 = 1200 €.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. Im zweiten Jahr gibt es 10 % von 1100 €: $1000 \cdot 1{,}1^2 = 1210$ €.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, jedes Jahr kommen 10 % von 1000 € dazu.' }, fv: FV.EX.MODELL }
+    weiter: merksatz
+    bei: { FV.EX.MODELL: erklaeren-modell }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Linear: immer plus d, gleiche Unterschiede. Exponentiell: immer mal q, gleiche [[Quotienten]]. Nach n Schritten ist der Bestand $B_0 \cdot q^n$.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Tabelle zeigt exponentielles Wachstum?'
+    antwort:
+      optionen:
+        - { wert: { de: '3, 6, 12, 24' }, richtig: true }
+        - { wert: { de: '3, 6, 9, 12' }, fv: FV.EX.MODELL }
+        - { wert: { de: '3, 4, 7, 12' }, fv: FV.EX.MODELL }
+    weiter: uebergang
+    bei: { FV.EX.MODELL: erklaeren-modell }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt erkennst du selbst, wie etwas wächst.'
+    vorlagen: [M.SF.EX.WACHSTUM.ART]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

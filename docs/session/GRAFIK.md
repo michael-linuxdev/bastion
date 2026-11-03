@@ -15,7 +15,9 @@ Stand: 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alle
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` (Backlog AA–ZZ).
+> **Seit 03.11.2026 (PV):** Start, Mehr und Elternbereich (`src/ui/start/`, `src/ui/eltern/`) gehören dem neuen Strang Oberfläche (`docs/session/OBERFLAECHE.md`). Das Bastion-Bild auf der Startseite und alles in `src/ui/bastion/` bleiben hier.
+
+Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` (Backlog AA–ZZ).
 
 **Grenzen:** Der Basebau bleibt Nebensache (K-27). Design-Regeln R1–R7 (`VISION.md` §9) gelten für jedes Bild: keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall, „Bewegung reduzieren“ wird beachtet. Grafik ändert nie Daten (B-27): Lernstand und Bastion kennen keine Bilder.
 
@@ -111,6 +113,7 @@ Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
 - ~~**Aus dem Lernkern (02.11.2026, LEHRPLAN L-22):** Lernende sehen keine Niveaus mehr. Im Bauplan-Buch der Bastion steht noch „(grundlegend, seit …)“ bzw. „(mittel, seit …)“ (`src/ui/bastion/Bastion.svelte`, Zeile mit `buch.niveau`). Bitte das Niveau dort weglassen, nur „seit …“ zeigen; der Browser-Test „Studierstube“ (`grundlegend,\s+seit`) muss dann mit.~~ – erledigt 03.11.2026 (Branch `grafik/bauplanbuch-ohne-niveau`).
+- ~~**Aus dem Strang Oberfläche (03.11.2026):** Symbole `person`, `sicherung`, `kalender`.~~ – erledigt 03.11.2026 vom Strang Oberfläche auf ausdrücklichen Wunsch des PV („Symbole neu und aus einem Guss“, Branch `oberflaeche/symbole`): ganzer Satz in `Symbol.svelte` neu, nur Striche, keine gefüllten Formen mehr. `einstellungen` ist jetzt ein Regler statt Zahnrad, `beutel` ein Umriss, `mehr` vier Felder. Die Bastion-Symbole `stein`, `erz`, `bauplan`, `bauen`, `planen`, `hinterhof` sind unverändert.
 - ~~Startseite aus Paket L (L16, L17)~~ – erledigt 01.11.2026 vom Lernkern auf Wunsch des PV: „Über mich“ unter den Türen, kein Schild im Bastion-Bild, Bild schwebt ohne freie Kante (`MiniBastion.svelte`), Gruß nach dem ersten Üben ohne „Willkommen“.
 
 ---

@@ -1,0 +1,52 @@
+# „Ein Bestand wächst jedes Jahr um 20 %. Wie groß ist er nach 3 Jahren?“. Entwurf: noch nicht geprüft.
+id: M.SF.EX.WACHSTUM.FAKTOR
+kompetenz: M.SF.EX.WACHSTUM
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: ex.faktor@1
+parameter:
+  G: { abnahme: false }
+  M: { abnahme: true }
+text:
+  aufgabe:
+    de: '{satz} **Berechne**.'
+hilfen:
+  - de: 'Plus 20 % heißt mal 1,2. Minus 20 % heißt mal 0,8.'
+  - de: 'Für jedes Jahr wird einmal mit dem [[Wachstumsfaktor]] malgenommen.'
+fehlerbilder:
+  faktor-prozent:
+    de: 'Der [[Wachstumsfaktor]] ist nicht 0,2, sondern 1 + 0,2 = 1,2. Der alte Bestand bleibt ja erhalten.'
+    fv: FV.EX.FAKTOR-PROZENT
+  linear:
+    de: 'Du hast jedes Jahr denselben [[Betrag]] dazugezählt. Die Prozente beziehen sich aber jedes Jahr auf den neuen Bestand.'
+    fv: FV.EX.MODELL
+  abnahme-faktor:
+    de: 'Bei einer Abnahme um p % ist der [[Faktor]] 1 − p/100, also kleiner als 1.'
+    fv: FV.EX.ABNAHME-FAKTOR
+  hochzahl-mal:
+    de: 'Nach n Jahren wird n-mal mit dem [[Faktor]] malgenommen: Faktor hoch n, nicht Faktor mal n.'
+    fv: FV.NZ.HOCHZAHL-MAL
+schritte:
+  - id: faktor
+    frage: { de: 'Wie groß ist der Wachstumsfaktor q?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      faktor-prozent:
+        de: 'Zum [[Prozentsatz]] gehört noch der alte Bestand: q = 1 + p/100.'
+        fv: FV.EX.FAKTOR-PROZENT
+      abnahme-faktor:
+        de: 'Der Bestand nimmt ab, also ist q kleiner als 1: q = 1 − p/100.'
+        fv: FV.EX.ABNAHME-FAKTOR
+  - id: wert
+    frage: { de: 'Mit $q = {faktor}$: Wie groß ist der Bestand am Ende?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      linear:
+        de: 'Nimm jedes Jahr mit q mal, statt denselben [[Betrag]] dazuzuzählen.'
+        fv: FV.EX.MODELL
+      hochzahl-mal:
+        de: '[[Faktor]] hoch Anzahl der Jahre, nicht mal.'
+        fv: FV.NZ.HOCHZAHL-MAL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,27 @@
+# „Welcher Term gehört zum Graphen?“. Entwurf: noch nicht geprüft.
+id: M.SF.EX.FUNKTION.GRAPH
+kompetenz: M.SF.EX.FUNKTION
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: ex.graph-waehlen@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Der [[Graph]] gehört zu einer [[Exponentialfunktion]]. **Wähle** den passenden [[Term]].'
+hilfen:
+  - de: 'Lies bei $x = 0$ ab: Das ist der Startwert c.'
+  - de: 'Mit welcher Zahl wird von $x = 0$ zu $x = 1$ malgenommen? Das ist a.'
+fehlerbilder:
+  c-a-vertauscht:
+    de: 'Startwert und [[Faktor]] sind vertauscht. Der Startwert steht vorn, der Faktor in der Potenz.'
+    fv: FV.EX.STARTWERT
+  abnahme-faktor:
+    de: 'Der [[Graph]] steigt, also muss die [[Basis]] größer als 1 sein. Mit einer Basis kleiner als 1 fällt er.'
+    fv: FV.EX.ABNAHME-FAKTOR
+  modell:
+    de: 'Das ist ein linearer [[Term]], sein [[Graph]] ist eine [[Gerade]]. Hier wird von Schritt zu Schritt malgenommen.'
+    fv: FV.EX.MODELL
+herkunft: ki-entwurf
+version: 1

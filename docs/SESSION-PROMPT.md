@@ -4,6 +4,7 @@
 > Danach liest jede Sitzung die Datei ihres Strangs:
 > - **Lernkern:** `docs/session/LERNKERN.md`
 > - **Grafik:** `docs/session/GRAFIK.md`
+> - **Oberfläche:** `docs/session/OBERFLAECHE.md` (seit 03.11.2026: UI/UX außerhalb der Bastion)
 >
 > Gehört eine Aufgabe zu keinem Strang, fragt die Sitzung nach, bevor sie anfängt.
 >
@@ -70,15 +71,15 @@ Klassen-Funktionen, Lehrkräfte-Konten und zentrale Daten (Variante B) sind **au
 
 ## Stränge und parallele Arbeit
 
-Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich nicht gegenseitig blockieren.
+Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang (Lernkern, Grafik, Oberfläche). Sie dürfen sich nicht gegenseitig blockieren.
 
-| | Lernkern | Grafik |
-|---|---|---|
-| Session-Prompt | `docs/session/LERNKERN.md` | `docs/session/GRAFIK.md` |
-| Branch-Namen | `lernkern/…` | `grafik/…` |
-| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) |
-| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` |
-| PLAN.md | §4b (Unterrichtsersatz), §4 | §4a (Basebau) |
+| | Lernkern | Grafik | Oberfläche |
+|---|---|---|---|
+| Session-Prompt | `docs/session/LERNKERN.md` | `docs/session/GRAFIK.md` | `docs/session/OBERFLAECHE.md` |
+| Branch-Namen | `lernkern/…` | `grafik/…` | `oberflaeche/…` |
+| Code | `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, Fach-Bausteine in `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/` | `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound) | `src/ui/start/` (ohne das Bastion-Bild selbst), `src/ui/eltern/Elternbereich.svelte` und die Hülle des Elternbereichs (Fach-Bausteine wie Aufgabenblatt, Druck, Testphase, Bericht bleiben beim Lernkern, ihr Aussehen darf die Oberfläche angleichen), `src/ui/profil/`, `src/ui/sicherung/`, `src/ui/UpdateHinweis.svelte` |
+| Dokumente | `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` | `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` | `docs/session/OBERFLAECHE.md` |
+| PLAN.md | §4b (Unterrichtsersatz), §4 | §4a (Basebau) | §4c (Oberfläche) |
 
 **Gemeinsame Dateien** (beide Stränge dürfen sie ändern, aber nur klein und in einem eigenen Commit):
 
@@ -96,12 +97,11 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang. Sie dürfen sich ni
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.
 5. **Rote CI durch den anderen Strang:** Ist `main` selbst rot, ist das nicht der eigene Fehler. Den Fehler nennen, nicht im fremden Bereich reparieren, außer er ist eine Zeile und eindeutig.
 6. **Gemeinsame Entscheidungen** (neue Abhängigkeit, Schema, Datenschutz, R-Regeln) stehen im passenden Entscheidungslog und werden in beiden Strang-Dateien kurz erwähnt.
-7. **Lern-Oberfläche: eingefroren seit der Abnahme von L am 02.11.2026, bis zur Auswertung von U4b** (zuvor: erst abschließen, dann einfrieren; PV, 01.11.2026). Betroffen sind `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/` und `src/ui/start/`.
-   - **Bis zur Abnahme von Paket L** (`docs/session/FOKUS.md`): Änderungen nur für Fehlerbehebungen und für die Punkte aus L, die der PV ausgewählt hat. Keine neuen Funktionen.
-   - **Ab der Abnahme von L bis zur Auswertung von U4b:** eingefroren. Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
-   - **Ausnahme Klasse 9 bis 12 (PV, 02.11.2026):** Der Strang Lernkern darf neue Aufgabentypen, Tasten und Darstellungen bauen, die der Stoff der Klassen 9–12 braucht (`docs/session/KLASSE-9-12.md`, Entscheidung 4). Je Typ ein eigener PR; vorhandene Aufgaben der Klassen 5–8 sehen danach gleich aus. `src/ui/start/` bleibt davon unberührt. Ebenso erlaubt (PV, 02.11.2026): Niveaus für Lernende ausblenden und automatisch wählen (LEHRPLAN L-22).
-   - Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht in beiden Zeiten. Der Strang Grafik arbeitet nur an Paket G.
-
+7. **Lern-Oberfläche: eingefroren seit der Abnahme von L am 02.11.2026, bis zur Auswertung von U4b.** Betroffen sind `src/ui/ueben/`, `src/ui/vermittlung/` und `src/ui/eingabe/`.
+   - Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
+   - **Ausnahme Klasse 9 bis 12 (PV, 02.11.2026):** Der Strang Lernkern darf neue Aufgabentypen, Tasten und Darstellungen bauen, die der Stoff der Klassen 9–12 braucht (`docs/session/KLASSE-9-12.md`, Entscheidung 4). Je Typ ein eigener PR; vorhandene Aufgaben der Klassen 5–8 sehen danach gleich aus. Ebenso erlaubt (PV, 02.11.2026): Niveaus für Lernende ausblenden und automatisch wählen (LEHRPLAN L-22).
+   - **Aufgehoben für Start, Mehr und Elternbereich (PV, 03.11.2026):** `src/ui/start/` und `src/ui/eltern/` sind nicht mehr eingefroren. Sie gehören jetzt dem Strang Oberfläche, der sie aufräumt und auch umbauen darf (`docs/session/OBERFLAECHE.md`).
+   - Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht. Der Strang Grafik arbeitet nur an Paket G und der Bastion.
 ---
 
 ## Arbeitsweise

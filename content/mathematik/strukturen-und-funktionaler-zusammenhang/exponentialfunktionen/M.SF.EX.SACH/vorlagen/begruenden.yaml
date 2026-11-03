@@ -1,0 +1,24 @@
+# Grenzen des Modells – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.EX.SACH.BEGRUENDEN
+kompetenz: M.SF.EX.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ex.modellgrenze-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie groß ist der Teich?'
+  - de: 'Kann eine Fläche größer werden als der Platz, den es gibt?'
+fehlerbilder:
+  modellgrenze:
+    de: 'In der Wirklichkeit fehlt irgendwann Platz oder Nahrung. Dann gilt das Modell nicht mehr.'
+    fv: FV.EX.MODELLGRENZE
+  modell:
+    de: 'Die Fläche verdoppelt sich, es kommt nicht jedes Mal 1 m² dazu.'
+    fv: FV.EX.MODELL
+herkunft: ki-entwurf
+version: 1

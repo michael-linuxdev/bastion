@@ -1,0 +1,25 @@
+id: FV.LG.UMKEHR-KEHRWERT
+name:
+  de: Umkehrfunktion als Kehrwert
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält $f^{-1}(x)$ für $\frac{1}{f(x)}$ oder $\lg \frac{1}{a}$ für $\frac{1}{\lg a}$. Die Hochzahl −1 bei $f^{-1}$ wird wie bei Potenzen gelesen.
+kompetenzen: [M.SF.LG.UMKEHRFUNKTION, M.ZO.LG.LOGARITHMUS]
+erklaerung:
+  kurz:
+    de: '$f^{-1}$ ist die [[Umkehrfunktion]], nicht der [[Kehrwert]] $\frac{1}{f}$. Sie macht f rückgängig.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die −1 bei $f^{-1}$ als [[Kehrwert]] gelesen.'
+    - teil: warum-nicht
+      de: 'Bei [[Funktionen]] bedeutet $f^{-1}$ etwas anderes als bei Zahlen: die Funktion, die f rückgängig macht.'
+    - teil: so-stimmt-es
+      de: 'Bei $f^{-1}(y)$ fragst du: Welches x hat $f(x) = y$?'
+gegenbeispiel:
+  de: 'Für $f(x) = 2x$ ist $f^{-1}(6) = 3$, aber $\frac{1}{f(6)} = \frac{1}{12}$.'
+rueckweg:
+  vermittlung: M.SF.LG.UMKEHRFUNKTION#erklaeren-tauschen
+kontrast: [M.SF.LG.UMKEHRFUNKTION.SPIEGELN, M.SF.LG.UMKEHRFUNKTION.WERT]
+herkunft: ki-entwurf
+version: 1

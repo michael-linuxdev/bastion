@@ -1,0 +1,99 @@
+id: M.SF.EX.SACH
+kompetenz: M.SF.EX.SACH
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach löst du Aufgaben zu Wachstum und Zerfall, auch mit Verdopplungs- und [[Halbwertszeit]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Für $f(x) = 5 \cdot 2^x$: Wie groß ist $f(3)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '40', fehler: [{ wert: '1000', fv: FV.EX.FAKTOR-IN-POTENZ }] }
+    weiter: entdecken
+    bei: { FV.EX.FAKTOR-IN-POTENZ: M.SF.EX.FUNKTION, sonst: M.SF.EX.FUNKTION }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine [[Probe]] enthält 80 mg eines radioaktiven Stoffes. Jeden Tag zerfällt die Hälfte. Wie viel mg sind nach 3 Tagen übrig?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '0', fv: FV.EX.MODELL }] }
+    weiter: erklaeren-halbwert
+  - id: erklaeren-halbwert
+    typ: erklaeren
+    text:
+      de: 'Die **[[Halbwertszeit]]** ist die Zeit, in der sich ein Bestand halbiert, die **[[Verdopplungszeit]]** die Zeit, in der er sich verdoppelt. Rechne Jahr für Jahr $q^1, q^2, q^3 \dots$, bis der [[Faktor]] erstmals mindestens 2 ist.'
+    weiter: erklaeren-grenze
+  - id: erklaeren-grenze
+    typ: erklaeren
+    text:
+      de: 'Exponentielles Wachstum beschreibt die Wirklichkeit nur eine Zeit lang. Wenn Platz, Nahrung oder Geld fehlen, wächst kein Bestand mehr exponentiell. Prüfe deshalb, ob das Ergebnis zur Sache passt.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein Bestand wächst jährlich um 25 %, also mal 1,25: $1{,}25^2 \approx 1{,}56$, $1{,}25^3 \approx 1{,}95$, $1{,}25^4 \approx 2{,}44$. Erstmals verdoppelt nach 4 Jahren.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '60 Bakterien verdoppeln sich jede Stunde. Wie viele sind es nach 4 Stunden?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '960',
+          fehler: [{ wert: '480', fv: FV.NZ.HOCHZAHL-MAL }, { wert: '300', fv: FV.EX.MODELL }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.NZ.HOCHZAHL-MAL: erklaeren-halbwert, FV.EX.MODELL: erklaeren-halbwert }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Bestand wächst jährlich um 20 %. Nach 3 Jahren ist der [[Faktor]] $1{,}2^3 \approx 1{,}73$, nach 4 Jahren $1{,}2^4 \approx 2{,}07$. Mia sagt: „Er hat sich nach 3 Jahren verdoppelt.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. Nach 3 Jahren ist er noch kleiner als das Doppelte. Erstmals verdoppelt nach 4 Jahren.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. 1,73 ist schon fast 2.' }, fv: FV.EX.ERSTMALS }
+    weiter: merksatz
+    bei: { FV.EX.ERSTMALS: erklaeren-halbwert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Bestand nach n Schritten: $B_0 \cdot q^n$. Verdopplungs- oder [[Halbwertszeit]]: das erste n mit $q^n \geq 2$ bzw. $q^n \leq \frac{1}{2}$. Am Ende prüfen, ob das Modell noch passt.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: '1 m² Seerosen verdoppelt sich wöchentlich in einem Teich mit 100 m². Wie viel m² sind es nach 10 Wochen?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Höchstens 100 m². Nach 7 Wochen ist der Teich voll, danach wächst nichts mehr.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: '$2^{10} = 1024$ m²' }, fv: FV.EX.MODELLGRENZE }
+        - { wert: { de: '1 + 10 = 11 m²' }, fv: FV.EX.MODELL }
+    weiter: uebergang
+    bei: { FV.EX.MODELLGRENZE: erklaeren-grenze, FV.EX.MODELL: erklaeren-halbwert }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit Wachstum und Zerfall.'
+    vorlagen: [M.SF.EX.SACH.BESTAND]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

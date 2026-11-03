@@ -255,6 +255,14 @@ Ausgearbeitet in `BASEBAU.md` §11. Reihenfolge nach K-10, jeder Schritt ein Com
 
 Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 1 Punkt 14. Testfragen für die späteren Testrunden: Wird „Lernen → Ressource → Bauen“ verstanden? Sinkt die Lernqualität? Fühlt es sich nach „meins“ an?
 
+## 4c. Oberfläche (UI/UX außerhalb der Bastion)
+
+Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
+- [x] Strang angelegt, Start und Elternbereich nicht mehr eingefroren
+- [x] Startseite aufräumen (O1)
+- [x] „Mehr“ aufräumen (O2)
+- [x] Elternbereich gliedern und angleichen (O5)
+
 ## 5. Änderungsprotokoll
 
 **Seit 31.10.2026** führt jeder Strang sein Protokoll in seiner Datei (`docs/session/LERNKERN.md`, `docs/session/GRAFIK.md`). Diese Tabelle bekommt keine neuen Zeilen mehr; so stoßen parallele PRs nicht an derselben Stelle zusammen.
