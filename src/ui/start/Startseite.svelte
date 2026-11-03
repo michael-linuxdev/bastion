@@ -80,9 +80,14 @@
   <!-- O3 (Wunsch PV): Bastion als Banner wie der Titel eines Spiels – Bild und Name in einem -->
   <header class="banner" class:ohne-bild={!basebau}>
     {#if basebau}
-      <span class="bild" aria-hidden="true"><MiniBastion lebendig /></span>
+      <!-- O7: Antippen des Bilds öffnet die Bastion – nur Abkürzung für Finger und Maus;
+           Tastatur und Screenreader nutzen die Tür „Bastion“ darunter (gleiches Ziel). -->
+      <span class="bild antippbar" aria-hidden="true" onclick={() => onziel('bastion')}
+        ><MiniBastion lebendig /></span
+      >
     {/if}
-    <p class="titel ort-name">{t('start.ueberschrift')}</p>
+    <!-- O10: Der Name steht schon in der unsichtbaren h1; Screenreader hören ihn nicht doppelt -->
+    <p class="titel ort-name" aria-hidden="true">{t('start.ueberschrift')}</p>
   </header>
 
   <div class="kopf">
@@ -138,22 +143,45 @@
     </button>
 
     {#if basebau}
-      <button class="tuer neben" onclick={() => onziel('bastion')}>
+      <button
+        class="tuer neben"
+        aria-label={t('hub.ort-bastion')}
+        aria-describedby="info-bastion"
+        onclick={() => onziel('bastion')}
+      >
         <span class="tuer-titel ort-name"><Symbol name="bastion" /> {t('hub.ort-bastion')}</span>
-        <span class="tuer-info">{t('hub.bastion-info')}</span>
+        <span class="tuer-info" id="info-bastion">{t('hub.bastion-info')}</span>
       </button>
     {/if}
 
-    <button class="tuer neben" onclick={() => onziel('mehr')}>
+    <button
+      class="tuer neben"
+      aria-label={t('hub.ort-mehr')}
+      aria-describedby="info-mehr"
+      onclick={() => onziel('mehr')}
+    >
       <span class="tuer-titel ort-name"><Symbol name="mehr" /> {t('hub.ort-mehr')}</span>
-      <span class="tuer-info">{t('hub.mehr-info')}</span>
+      <span class="tuer-info" id="info-mehr">{t('hub.mehr-info')}</span>
     </button>
   </div>
 
   <div class="kacheln">
-    <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-      <span class="kachel-name"><Symbol name="wiederholen" /> {t('wiederholen.knopf')}</span>
-      <span class="kachel-info"
+    <!-- O10: „aria-disabled“ statt „disabled“ – ausgegraute Kacheln bleiben mit der Tastatur
+         erreichbar, damit ihre Erklärung („Gerade ist nichts dran“) vorgelesen werden kann -->
+    <button
+      class="kachel"
+      aria-label={t('wiederholen.knopf')}
+      aria-describedby="info-wiederholen"
+      aria-disabled={faellig === 0}
+      onclick={() => faellig > 0 && onziel('wiederholen')}
+    >
+      <span class="kachel-name"
+        ><Symbol name="wiederholen" />
+        {t('wiederholen.knopf')}{#if faellig > 0}<span class="zahl" aria-hidden="true"
+            >{faellig}</span
+          >{/if}</span
+      >
+      <span class="kachel-info" id="info-wiederholen"
         >{faellig === 0
           ? t('start.nichts-dran')
           : faellig === 1
@@ -161,9 +189,20 @@
             : `${faellig} ${t('wiederholen.mehrere')}`}</span
       >
     </button>
-    <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-      <span class="kachel-name"><Symbol name="werkstatt" /> {t('werkstatt.knopf')}</span>
-      <span class="kachel-info"
+    <button
+      class="kachel warm"
+      aria-label={t('werkstatt.knopf')}
+      aria-describedby="info-werkstatt"
+      aria-disabled={offeneFehler === 0}
+      onclick={() => offeneFehler > 0 && onziel('werkstatt')}
+    >
+      <span class="kachel-name"
+        ><Symbol name="werkstatt" />
+        {t('werkstatt.knopf')}{#if offeneFehler > 0}<span class="zahl" aria-hidden="true"
+            >{offeneFehler}</span
+          >{/if}</span
+      >
+      <span class="kachel-info" id="info-werkstatt"
         >{offeneFehler === 0
           ? t('start.keine-fehler')
           : offeneFehler === 1
@@ -171,13 +210,23 @@
             : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
       >
     </button>
-    <button class="kachel" onclick={() => onziel('diagnose')}>
+    <button
+      class="kachel"
+      aria-label={t('diagnose.knopf')}
+      aria-describedby="info-diagnose"
+      onclick={() => onziel('diagnose')}
+    >
       <span class="kachel-name"><Symbol name="diagnose" /> {t('diagnose.knopf')}</span>
-      <span class="kachel-info">{t('start.diagnose-info')}</span>
+      <span class="kachel-info" id="info-diagnose">{t('start.diagnose-info')}</span>
     </button>
-    <button class="kachel" onclick={() => onziel('stand')}>
+    <button
+      class="kachel"
+      aria-label={t('stand.knopf')}
+      aria-describedby="info-stand"
+      onclick={() => onziel('stand')}
+    >
       <span class="kachel-name"><Symbol name="stand" /> {t('stand.knopf')}</span>
-      <span class="kachel-info">{t('start.stand-info')}</span>
+      <span class="kachel-info" id="info-stand">{t('start.stand-info')}</span>
     </button>
   </div>
 
@@ -247,6 +296,15 @@
     );
     opacity: 0.75;
     pointer-events: none;
+  }
+  /* O9: Abend in der Bastion (GRAFIK §2): Schleier dunkler, Titel leuchtet warm wie Laternenlicht */
+  :global(html[data-bastion-abend='ja']) .banner::after {
+    opacity: 0.95;
+  }
+  :global(html[data-bastion-abend='ja']) .titel {
+    text-shadow:
+      0 0.06em 0 color-mix(in srgb, var(--farbe-akzent) 35%, black),
+      0 0 0.5em color-mix(in srgb, #ffe08a 55%, transparent);
   }
   .banner.ohne-bild {
     aspect-ratio: auto;
@@ -417,14 +475,37 @@
   .kachel.warm {
     border-block-start: 3px solid var(--farbe-akzent-warm);
   }
-  .kachel:disabled {
+  .kachel[aria-disabled='true'] {
     cursor: default;
     box-shadow: none;
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text-leise);
   }
-  .kachel.warm:disabled {
+  .kachel.warm[aria-disabled='true'] {
     border-block-start-color: transparent;
+  }
+  /* O7: Zahl-Plakette wie in Spielen – ruhig, ohne Rot, ohne Blinken (R1) */
+  .kachel .kachel-name {
+    justify-self: stretch;
+  }
+  .zahl {
+    margin-inline-start: auto;
+    min-inline-size: 1.6rem;
+    block-size: 1.6rem;
+    padding-inline: 0.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .kachel.warm .zahl {
+    background: var(--farbe-akzent-warm);
+  }
+  .antippbar {
+    cursor: pointer;
   }
   .kachel-name {
     display: flex;
@@ -438,8 +519,8 @@
     color: var(--farbe-akzent);
     flex-shrink: 0;
   }
-  .kachel:disabled .kachel-name,
-  .kachel:disabled .kachel-name :global(svg) {
+  .kachel[aria-disabled='true'] .kachel-name,
+  .kachel[aria-disabled='true'] .kachel-name :global(svg) {
     color: var(--farbe-text-leise);
   }
   .tuer-info,

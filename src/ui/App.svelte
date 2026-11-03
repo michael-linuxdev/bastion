@@ -70,7 +70,7 @@
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
-  import ProfilForm from './profil/Profil.svelte';
+  import UeberMich from './profil/UeberMich.svelte';
   import {
     schuljahrFragen,
     schuljahrVon,
@@ -90,9 +90,7 @@
   import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen, kontrastAnwenden } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
-  import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import Leerzustand from './grafik/Leerzustand.svelte';
-  import ModusWahl from './profil/ModusWahl.svelte';
   import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
@@ -667,9 +665,9 @@
   {:else if ansicht === 'mehr'}
     <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
   {:else if ansicht === 'profil'}
-    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-    <ProfilForm
+    <UeberMich
       {profil}
+      onzurueck={() => (ansicht = 'mehr')}
       onspeichern={(p) => {
         profil = p;
         profilGefragt = true;
@@ -677,17 +675,14 @@
         ansicht = 'start';
       }}
     />
-    <ModusWahl />
-    <OrientierungWahl />
   {:else if ansicht === 'sicherung'}
-    <button
-      class="zurueck"
-      onclick={() => {
-        ansicht = 'start';
+    <Sicherung
+      onzurueck={() => {
+        ansicht = 'mehr';
         void aktualisiere();
-      }}>← {t('uebung.zurueck')}</button
-    >
-    <Sicherung oneingespielt={() => void aktualisiere()} />
+      }}
+      oneingespielt={() => void aktualisiere()}
+    />
   {:else if inhalte}
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
@@ -803,14 +798,11 @@
           onbastion={() => gehe('bastion')}
         />
       {:else if ansicht === 'eltern'}
-        <button
-          class="zurueck"
-          onclick={() => {
-            ansicht = 'start';
-            void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
         <Elternbereich
+          onzurueck={() => {
+            ansicht = 'mehr';
+            void aktualisiere();
+          }}
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}

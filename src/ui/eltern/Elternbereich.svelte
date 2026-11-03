@@ -29,6 +29,7 @@
   import Aufgabenblatt from './Aufgabenblatt.svelte';
   import { entwurfAusgeliefert } from '../plattform/paketstand';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
+  import Seitenkopf from '../start/Seitenkopf.svelte';
 
   let {
     kompetenzen,
@@ -38,6 +39,7 @@
     basebau = $bindable(true),
     klasse = $bindable(5),
     schulart = $bindable(undefined),
+    onzurueck,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
@@ -49,6 +51,8 @@
     klasse?: number;
     /** Klasse und Schulart pflegen auch Eltern (L-17) */
     schulart?: 'oberschule' | 'gymnasium' | undefined;
+    /** O6: Zurück im gemeinsamen Seitenkopf */
+    onzurueck: () => void;
   } = $props();
 
   /** O5: Abschnitte des offenen Elternbereichs, in dieser Reihenfolge */
@@ -60,6 +64,9 @@
     { id: 'blatt', titel: 'eltern.abschnitt-blatt' },
     { id: 'test', titel: 'eltern.abschnitt-test' },
   ];
+
+  /** O8: Nur der Bericht ist zu Beginn aufgeklappt */
+  let offen = $state<Record<string, boolean>>({ bericht: true });
 
   type Schritt = 'laden' | 'einrichten' | 'code' | 'gesperrt' | 'zuruecksetzen' | 'offen';
   let schritt = $state<Schritt>('laden');
@@ -135,15 +142,13 @@
   }
 </script>
 
-<section class="eltern register-werkstatt" data-eltern>
-  <header class="kopf">
-    <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
-    <h2>{t('eltern.ueberschrift')}</h2>
-  </header>
-  <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
-  {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
-      {t('entwurf.vermerk')}
-    </p>{/if}
+<section class="eltern register-werkstatt" id="eltern-oben" data-eltern>
+  <Seitenkopf titel={t('eltern.ueberschrift')} marke={t('eltern.nur-erwachsene')} {onzurueck}>
+    <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
+    {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
+        {t('entwurf.vermerk')}
+      </p>{/if}
+  </Seitenkopf>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
@@ -165,15 +170,21 @@
         <input
           type="password"
           inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="8"
           autocomplete="new-password"
+          aria-describedby="pin-regel"
           bind:value={pin}
         /></label
       >
+      <p class="regel" id="pin-regel">{t('eltern.pin-regel')}</p>
       <label
         >{t('eltern.pin-wiederholen')}
         <input
           type="password"
           inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="8"
           autocomplete="new-password"
           bind:value={pin2}
         /></label
@@ -204,6 +215,8 @@
         <input
           type="password"
           inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="8"
           autocomplete="current-password"
           bind:value={pin}
         /></label
@@ -224,24 +237,25 @@
     <p class="leise">{t('eltern.transparenz')}</p>
 
     <!-- O5: eine Seite, aber gegliedert – Sprungleiste zu den Abschnitten -->
+    <!-- O8: bleibt beim Scrollen oben; ein Tipp klappt den Abschnitt auf -->
     <nav class="sprung" aria-label={t('eltern.inhalt')}>
       {#each ABSCHNITTE as a (a.id)}
-        <a href="#abschnitt-{a.id}">{t(a.titel)}</a>
+        <a href="#abschnitt-{a.id}" onclick={() => (offen[a.id] = true)}>{t(a.titel)}</a>
       {/each}
     </nav>
 
-    <section class="abschnitt" id="abschnitt-bericht" aria-labelledby="eltern-bericht-titel">
-      <h3 id="eltern-bericht-titel">{t('eltern.abschnitt-bericht')}</h3>
+    <details class="abschnitt" id="abschnitt-bericht" bind:open={offen.bericht}>
+      <summary><h3>{t('eltern.abschnitt-bericht')}</h3></summary>
       <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
-    </section>
+    </details>
 
-    <section class="abschnitt" id="abschnitt-klasse" aria-labelledby="eltern-klasse-titel">
-      <h3 id="eltern-klasse-titel">{t('eltern.klasse-titel')}</h3>
+    <details class="abschnitt" id="abschnitt-klasse" bind:open={offen.klasse}>
+      <summary><h3>{t('eltern.klasse-titel')}</h3></summary>
       <KlassenWahl bind:klasse bind:schulart mitSchulart />
-    </section>
+    </details>
 
-    <section class="abschnitt" id="abschnitt-sicherung" aria-labelledby="eltern-sicherung-titel">
-      <h3 id="eltern-sicherung-titel">{t('eltern.abschnitt-sicherung')}</h3>
+    <details class="abschnitt" id="abschnitt-sicherung" bind:open={offen.sicherung}>
+      <summary><h3>{t('eltern.abschnitt-sicherung')}</h3></summary>
       <p>
         {#if letzte === undefined}{t('eltern.sicherung-keine')}{:else}{t('eltern.sicherung-letzte')}
           {new Date(letzte).toLocaleDateString('de-DE', {
@@ -267,11 +281,11 @@
           {/each}
         </select></label
       >
-    </section>
+    </details>
 
     <!-- §U108: echte Bastion und Probe klar getrennt -->
-    <section class="abschnitt" id="abschnitt-bastion" aria-labelledby="eltern-bastion-titel">
-      <h3 id="eltern-bastion-titel">{t('eltern.abschnitt-bastion')}</h3>
+    <details class="abschnitt" id="abschnitt-bastion" bind:open={offen.bastion}>
+      <summary><h3>{t('eltern.abschnitt-bastion')}</h3></summary>
       <p class="leise">{t('eltern.kind-bastion-text')}</p>
       <div class="teil">
         <h4>{t('eltern.basebau-demo-titel')}</h4>
@@ -284,17 +298,20 @@
       <div class="teil">
         <WetterEinstellung durch="eltern" />
       </div>
-    </section>
+    </details>
 
-    <section class="abschnitt" id="abschnitt-blatt">
+    <details class="abschnitt" id="abschnitt-blatt" bind:open={offen.blatt}>
+      <summary><h3>{t('eltern.abschnitt-blatt')}</h3></summary>
       <Aufgabenblatt {kompetenzen} {vorlagen} {klasse} />
-    </section>
+    </details>
 
-    <section class="abschnitt" id="abschnitt-test">
+    <details class="abschnitt" id="abschnitt-test" bind:open={offen.test}>
+      <summary><h3>{t('eltern.abschnitt-test')}</h3></summary>
       <Testphase />
-    </section>
+    </details>
 
     <footer class="fuss">
+      <a class="nach-oben" href="#eltern-oben">{t('eltern.nach-oben')}</a>
       <p class="leise">{t('eltern.ehrlich')}</p>
       <button
         class="zweit"
@@ -312,27 +329,6 @@
   .eltern {
     display: grid;
     gap: var(--abstand-m);
-  }
-  .kopf {
-    display: grid;
-    gap: 0.35rem;
-  }
-  .badge {
-    margin: 0;
-    justify-self: start;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text-leise);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  h2 {
-    margin: 0;
-    font-size: clamp(1.75rem, 6vw, 2.25rem);
-    color: var(--farbe-akzent);
   }
   h3 {
     margin: 0;
@@ -355,9 +351,19 @@
   }
 
   .sprung {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
     display: flex;
-    flex-wrap: wrap;
     gap: var(--abstand-s);
+    margin-inline: calc(-1 * var(--abstand-s));
+    padding: var(--abstand-s);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--farbe-hintergrund);
+  }
+  .sprung a {
+    flex: none;
   }
   .sprung a {
     display: inline-flex;
@@ -382,7 +388,59 @@
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
     box-shadow: 0 2px 10px var(--farbe-schatten);
-    scroll-margin-block-start: var(--abstand-m);
+    scroll-margin-block-start: 4rem;
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-block-size: var(--ziel);
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '';
+    inline-size: 0.6rem;
+    block-size: 0.6rem;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.15s;
+  }
+  details[open] > summary::after {
+    transform: rotate(-135deg);
+  }
+  details:not([open]) {
+    padding-block: 0.25rem;
+  }
+  /* Die Bausteine Aufgabenblatt und Testphase bringen eine eigene Überschrift mit.
+     Die Karte nennt den Abschnitt schon; die innere bleibt nur für Screenreader (Name der Region). */
+  #abschnitt-blatt :global(h3#eltern-blatt),
+  #abschnitt-test :global(:not(summary) > h3) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Bericht sitzt schon in einer Karte: kein zweiter Rahmen */
+  #abschnitt-bericht :global(.bericht) {
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+  .nach-oben {
+    justify-self: start;
+    color: var(--farbe-text);
+    font-weight: 700;
+  }
+  .regel {
+    font-size: 0.9rem;
+    color: var(--farbe-text-leise);
   }
   form {
     max-inline-size: 28rem;
@@ -411,14 +469,17 @@
     background: var(--farbe-flaeche);
     color: var(--farbe-text);
   }
+  /* O8: PIN groß und mit Abstand zwischen den Ziffern, gut zu treffen und zu zählen */
   input[type='password'] {
-    font-size: 1.25rem;
-    letter-spacing: 0.2em;
+    font-size: 1.75rem;
+    letter-spacing: 0.5em;
+    max-inline-size: 16rem;
+    min-block-size: 3.5rem;
   }
   .wahl select {
     justify-self: start;
   }
-  .eltern :global(button:not(.haupt):not(.zweit):not(.leise-knopf)) {
+  .eltern :global(button:not(.haupt):not(.zweit):not(.leise-knopf):not([aria-pressed])) {
     font: inherit;
     font-weight: 700;
     justify-self: start;

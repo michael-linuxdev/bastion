@@ -9,9 +9,10 @@
     sicherungGespeichert,
     type NeueSicherung,
   } from '../plattform/ablage';
+  import Seitenkopf from '../start/Seitenkopf.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
 
-  let { oneingespielt }: { oneingespielt: () => void } = $props();
+  let { oneingespielt, onzurueck }: { oneingespielt: () => void; onzurueck: () => void } = $props();
 
   let neu = $state<NeueSicherung | undefined>(undefined);
   let gespeichert = $state(false);
@@ -78,7 +79,9 @@
 </script>
 
 <section class="sicherung">
-  <h2>{t('sicherung.ueberschrift')}</h2>
+  <Seitenkopf titel={t('sicherung.ueberschrift')} {onzurueck}>
+    <p>{t('sicherung.warum')}</p>
+  </Seitenkopf>
   {#if letzte !== undefined && !neu}
     <p class="status" role="status">
       <strong>{t('sicherung.alles-sicher')}</strong>
@@ -88,60 +91,93 @@
   {:else if letzte === undefined && !neu}
     <p class="status offen" role="status">{t('sicherung.status-offen')}</p>
   {/if}
-  <p>{t('sicherung.warum')}</p>
-  <p class="leise">{t('sicherung.kopie-hinweis')}</p>
 
-  <h3>{t('sicherung.erstellen-titel')}</h3>
-  {#if !neu}
-    <button class="haupt" disabled={beschaeftigt} onclick={() => void erstellen()}>
-      {t('sicherung.erstellen')}
-    </button>
-  {:else}
-    <p>{t('sicherung.code-text')}</p>
-    <p class="code" data-testid="sicherungscode">{neu.code}</p>
-    <p class="leise">{t('sicherung.ehrlich')}</p>
-    <button class="haupt" onclick={() => void speichern()}>{t('sicherung.speichern')}</button>
-    {#if gespeichert}
-      <p role="status">{t('sicherung.gespeichert')} <strong>{neu.name}</strong></p>
-      <p class="leise">{t('sicherung.aufbewahren')}</p>
+  <!-- O6: zwei Karten – erstellen und einspielen -->
+  <div class="karte">
+    <h3>{t('sicherung.erstellen-titel')}</h3>
+    <p class="leise">{t('sicherung.kopie-hinweis')}</p>
+    {#if !neu}
+      <button class="haupt" disabled={beschaeftigt} onclick={() => void erstellen()}>
+        {t('sicherung.erstellen')}
+      </button>
+    {:else}
+      <p>{t('sicherung.code-text')}</p>
+      <p class="code" data-testid="sicherungscode">{neu.code}</p>
+      <p class="leise">{t('sicherung.ehrlich')}</p>
+      <button class="haupt" onclick={() => void speichern()}>{t('sicherung.speichern')}</button>
+      {#if gespeichert}
+        <p role="status">{t('sicherung.gespeichert')} <strong>{neu.name}</strong></p>
+        <p class="leise">{t('sicherung.aufbewahren')}</p>
+      {/if}
     {/if}
-  {/if}
+  </div>
 
-  <h3>{t('sicherung.einspielen-titel')}</h3>
-  <form onsubmit={einspielen}>
-    <p class="leise">{t('sicherung.einspielen-text')}</p>
-    <label>
-      {t('sicherung.datei')}
-      <input type="file" accept=".bastion" bind:files={datei} />
-    </label>
-    <label>
-      {t('sicherung.code')}
-      <input autocomplete="off" autocapitalize="none" spellcheck="false" bind:value={code} />
-    </label>
-    <button class="haupt" disabled={beschaeftigt || !datei?.length || !code.trim()}>
-      {t('sicherung.einspielen')}
-    </button>
-  </form>
-  {#if beschaeftigt}<p role="status">{t('sicherung.arbeitet')}</p>{/if}
-  {#if meldung}
-    <p class:fehler={meldung.fehler} role={meldung.fehler ? 'alert' : 'status'}>{meldung.text}</p>
-    {#if meldung.fehler}
-      <ol class="hilfe-schritte">
-        <li>{t('sicherung.hilfe-1')}</li>
-        <li>{t('sicherung.hilfe-2')}</li>
-      </ol>
+  <div class="karte">
+    <h3>{t('sicherung.einspielen-titel')}</h3>
+    <form onsubmit={einspielen}>
+      <p class="leise">{t('sicherung.einspielen-text')}</p>
+      <label>
+        {t('sicherung.datei')}
+        <input type="file" accept=".bastion" bind:files={datei} />
+      </label>
+      <label>
+        {t('sicherung.code')}
+        <input autocomplete="off" autocapitalize="none" spellcheck="false" bind:value={code} />
+      </label>
+      <button class="haupt" disabled={beschaeftigt || !datei?.length || !code.trim()}>
+        {t('sicherung.einspielen')}
+      </button>
+    </form>
+    {#if beschaeftigt}<p role="status">{t('sicherung.arbeitet')}</p>{/if}
+    {#if meldung}
+      <p class:fehler={meldung.fehler} role={meldung.fehler ? 'alert' : 'status'}>{meldung.text}</p>
+      {#if meldung.fehler}
+        <ol class="hilfe-schritte">
+          <li>{t('sicherung.hilfe-1')}</li>
+          <li>{t('sicherung.hilfe-2')}</li>
+        </ol>
+      {/if}
     {/if}
-  {/if}
+  </div>
 </section>
 
 <style>
   .sicherung {
     display: grid;
+    gap: var(--abstand-m);
+  }
+
+  .karte {
+    display: grid;
+    min-inline-size: 0;
     gap: var(--abstand-s);
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+  }
+
+  .karte > :global(*) {
+    margin-block: 0;
   }
 
   h3 {
-    margin-block: var(--abstand-m) 0;
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .karte :global(input:not([type='file'])) {
+    font: inherit;
+    min-block-size: 2.75rem;
+    padding-inline: 0.75rem;
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+  }
+
+  .haupt {
+    justify-self: start;
   }
 
   .status {
@@ -165,6 +201,13 @@
   label {
     display: grid;
     gap: 0.25rem;
+    min-inline-size: 0;
+  }
+
+  /* O6: Das Datei-Feld darf die Karte am Handy nicht verbreitern */
+  input[type='file'] {
+    font: inherit;
+    max-inline-size: 100%;
   }
 
   .code {
