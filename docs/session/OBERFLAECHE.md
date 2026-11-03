@@ -58,4 +58,10 @@ _(noch keine)_
 
 ## Übergabe und Lehren
 
-_(folgt am Ende der ersten Sitzung)_
+**Übergabe (03.11.2026):** O0 ist auf `main` (#239). O1 bis O5 kommen gemeinsam in einem PR (Branch `oberflaeche/eltern`), weil die Schritte aufeinander aufbauen; die Commits bleiben einzeln lesbar. Offen sind die Vorschläge oben unter „Nächste Schritte“.
+
+**Lehren:**
+
+- Infozeilen in Knöpfen werden Teil des Namens, den Screenreader und Browser-Tests sehen („Sicherung Deinen Stand …“). Dann `aria-label` mit dem Namen und `aria-describedby` für die Infozeile setzen. Sonst greifen `exact: true` und Suchen wie „Zurück“ daneben.
+- IDs im Elternbereich nicht mit `eltern-…` beginnen: Die Bausteine darunter nutzen selbst solche IDs (`eltern-blatt`). Die Hülle nimmt `abschnitt-…`.
+- GitHub beachtet `merge=union` nicht. Wenn `main` weiterläuft, meldet der PR einen Konflikt in den Protokollen. Dann `origin/main` lokal hineinmergen; git führt sie zusammen.
