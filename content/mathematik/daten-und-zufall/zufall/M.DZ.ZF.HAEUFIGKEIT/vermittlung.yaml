@@ -66,7 +66,7 @@ schritte:
         - {
             wert:
               {
-                de: 'Nein, 10 ist die absolute Häufigkeit. Relativ: $\frac{10}{50} = \frac{1}{5}$.',
+                de: 'Nein, 10 ist die [[absolute Häufigkeit]]. Relativ: $\frac{10}{50} = \frac{1}{5}$.',
               },
             richtig: true,
           }

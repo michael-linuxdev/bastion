@@ -6,7 +6,8 @@
 // In Erstvermittlungen stehen Antwortoptionen in der Kurzform `wert: { de: … }` und bleiben unberührt.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { begriffskarte, markiere, type Begriff } from '../../src/core/learning/begriffe';
+import { begriffskarte, type Begriff } from '../../src/core/learning/begriffe';
+import { markiereDeZeilen } from './begriffe-zeilen';
 import {
   ladeAnleitungen,
   ladeBegriffe,
@@ -19,13 +20,7 @@ const ordner = process.argv[2] ?? 'content';
 const begriffe = (ladeBegriffe(ordner).daten as { begriffe: Begriff[] }).begriffe;
 const karte = begriffskarte(begriffe);
 
-const markiereZeilen = (inhalt: string) =>
-  inhalt.replace(/^(\s*(?:- )?de: )(.*)$/gm, (zeile, anfang: string, wert: string) => {
-    const zitiert = wert.startsWith("'") && wert.endsWith("'");
-    const text = zitiert ? wert.slice(1, -1).replaceAll("''", "'") : wert;
-    const markiert = markiere(text, karte);
-    return markiert === text ? zeile : `${anfang}'${markiert.replaceAll("'", "''")}'`;
-  });
+const markiereZeilen = (inhalt: string) => markiereDeZeilen(inhalt, karte);
 
 /** Nur der Teil von „erklaerung:“ bis vor „rueckweg:“ wird geprüft und markiert. */
 const markiereFehlvorstellung = (inhalt: string) => {
