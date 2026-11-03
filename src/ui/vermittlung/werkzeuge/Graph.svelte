@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Graph (graph@1): Funktionsgraphen als Bild; interaktiv mit Reglern für a, d und e
+  // Graph (graph@1): Funktionsgraphen als Bild; interaktiv mit Reglern für a, b, d und e
   // der ersten Kurve (Bedarfsliste B8 „Parameter am Graphen“).
   import { untrack } from 'svelte';
   import { t } from '../../texte/texte';
@@ -18,7 +18,7 @@
 
   const start = untrack(() => kurvenAus(parameter));
   const erste = start[0] ?? kurvenAus({})[0];
-  let werte = $state({ a: erste?.a ?? 1, d: erste?.d ?? 0, e: erste?.e ?? 0 });
+  let werte = $state({ a: erste?.a ?? 1, b: erste?.b ?? 1, d: erste?.d ?? 0, e: erste?.e ?? 0 });
   const regler = $derived(interaktiv ? reglerAus(parameter) : []);
   const kurven = $derived(
     interaktiv && erste ? [{ ...erste, ...werte }, ...start.slice(1)] : kurvenAus(parameter),
