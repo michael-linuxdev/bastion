@@ -1096,3 +1096,24 @@ begriffe:
     formen: [Verdopplungszeit]
     erklaerung:
       de: 'Die Zeit, nach der sich ein Bestand verdoppelt hat.'
+  # Klasse 10: Logarithmus
+  - id: umkehrfunktion
+    wort: { de: Umkehrfunktion }
+    formen: [Umkehrfunktion, Umkehrfunktionen]
+    erklaerung:
+      de: 'Die Funktion, die eine andere rückgängig macht: Sie tauscht x und y. Ihr Graph ist an der Geraden $y = x$ gespiegelt.'
+  - id: logarithmus
+    wort: { de: Logarithmus }
+    formen: [Logarithmus, Logarithmen]
+    erklaerung:
+      de: 'Die Hochzahl, mit der man eine Basis potenzieren muss, um eine Zahl zu bekommen: $\log_2 8 = 3$, denn $2^3 = 8$.'
+  - id: logarithmengesetz
+    wort: { de: Logarithmengesetz }
+    formen: [Logarithmengesetz, Logarithmengesetze, Logarithmengesetzen]
+    erklaerung:
+      de: 'Eine Rechenregel für Logarithmen, zum Beispiel $\lg(u \cdot v) = \lg u + \lg v$.'
+  - id: exponentialgleichung
+    wort: { de: Exponentialgleichung }
+    formen: [Exponentialgleichung, Exponentialgleichungen]
+    erklaerung:
+      de: 'Eine Gleichung, bei der x in der Hochzahl steht, zum Beispiel $3^x = 81$.'

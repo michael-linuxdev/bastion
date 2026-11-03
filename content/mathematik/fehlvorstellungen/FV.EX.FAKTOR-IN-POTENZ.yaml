@@ -5,7 +5,7 @@ art: falsche-regel
 beschreibung:
   de: >-
     Rechnet 3 · 2² als 6² = 36. Dass zuerst potenziert und dann malgenommen wird, wird übersehen.
-kompetenzen: [M.SF.EX.FUNKTION]
+kompetenzen: [M.SF.EX.FUNKTION, M.SF.LG.GLEICHUNGEN]
 erklaerung:
   kurz:
     de: 'Potenzieren geht vor Malnehmen: $3 \cdot 2^2 = 3 \cdot 4 = 12$, nicht $6^2$.'

@@ -1,0 +1,25 @@
+id: FV.LG.UMKEHR-EINGESETZT
+name:
+  de: Wert in f statt in die Umkehrfunktion
+art: verwechslung
+beschreibung:
+  de: >-
+    Berechnet für $f^{-1}(14)$ einfach $f(14)$. Dass bei der Umkehrfunktion Eingabe und Ausgabe die Rollen tauschen, wird übersehen.
+kompetenzen: [M.SF.LG.UMKEHRFUNKTION]
+erklaerung:
+  kurz:
+    de: 'Für $f^{-1}(14)$ suchst du das x mit $f(x) = 14$. Du setzt also nicht ein, sondern löst eine [[Gleichung]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Wert in f eingesetzt.'
+    - teil: warum-nicht
+      de: 'Dann bekommst du einen Wert von f, nicht von der [[Umkehrfunktion]].'
+    - teil: so-stimmt-es
+      de: 'Setze den [[Term]] von f gleich dem Wert und löse nach x auf.'
+gegenbeispiel:
+  de: 'Für $f(x) = 2x$ ist $f^{-1}(8) = 4$, aber $f(8) = 16$.'
+rueckweg:
+  vermittlung: M.SF.LG.UMKEHRFUNKTION#erklaeren-tauschen
+kontrast: [M.SF.LG.UMKEHRFUNKTION.WERT]
+herkunft: ki-entwurf
+version: 1

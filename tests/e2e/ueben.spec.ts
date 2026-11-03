@@ -2245,6 +2245,7 @@ test('Klasse 10 wählbar mit ersten Themen; bei Oberschule fehlen Themen, die es
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
   await expect(
     page.getByRole('button', { name: /^Lineares und exponentielles Wachstum/ }),
   ).toBeVisible();
@@ -2268,6 +2269,7 @@ test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
   await thema(page, /^Lineares und exponentielles Wachstum/);
   // Tabelle (Auswahl) oder Bestand (Zahl), je nach Vorlage im Wechsel
   await expect(

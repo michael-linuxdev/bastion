@@ -1,0 +1,24 @@
+# Logarithmus einer Summe – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.LG.LOGARITHMUS.BEGRUENDEN
+kompetenz: M.ZO.LG.LOGARITHMUS
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: lg.summe-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Für welche Rechenart gilt das [[Logarithmengesetz]]?'
+  - de: 'Rechne die [[Summe]] zuerst aus.'
+fehlerbilder:
+  summe:
+    de: 'Ein [[Logarithmengesetz]] gibt es für Produkte, nicht für Summen.'
+    fv: FV.LG.SUMME
+  potenz:
+    de: '$(\log x)^2$ ist etwas anderes als $\log x^2 = 2 \log x$.'
+    fv: FV.LG.POTENZ
+herkunft: ki-entwurf
+version: 1

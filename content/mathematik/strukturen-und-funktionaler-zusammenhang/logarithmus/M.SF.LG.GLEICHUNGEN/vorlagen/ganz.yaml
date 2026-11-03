@@ -1,0 +1,25 @@
+# „Löse 3ˣ = 81.“. Entwurf: noch nicht geprüft.
+id: M.SF.LG.GLEICHUNGEN.GANZ
+kompetenz: M.SF.LG.GLEICHUNGEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: lg.gleichung-ganz@1
+parameter:
+  G: { faktor: false }
+  M: { faktor: true }
+text:
+  aufgabe:
+    de: '**Löse** die [[Gleichung]] ${gleichung}$.'
+hilfen:
+  - de: 'Steht vor der Potenz eine Zahl, teile zuerst durch sie.'
+  - de: 'Schreibe die rechte Seite als Potenz der [[Basis]].'
+fehlerbilder:
+  teilen-statt-log:
+    de: 'Durch die [[Basis]] teilen löst die [[Gleichung]] nicht. Gesucht ist die [[Hochzahl]].'
+    fv: FV.LG.TEILEN-STATT-LOG
+  faktor-zuerst:
+    de: 'Der [[Faktor]] vor der Potenz gehört nicht in die [[Basis]]. Teile zuerst durch ihn.'
+    fv: FV.EX.FAKTOR-IN-POTENZ
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.LG.SPIEGELACHSE
+name:
+  de: An der falschen Achse gespiegelt
+art: verwechslung
+beschreibung:
+  de: >-
+    Spiegelt zur Umkehrfunktion an der x-Achse oder y-Achse statt an der Geraden y = x. Dass die Umkehrfunktion x und y tauscht, ist nicht verankert.
+kompetenzen: [M.SF.LG.UMKEHRFUNKTION]
+erklaerung:
+  kurz:
+    de: 'Die [[Umkehrfunktion]] tauscht x und y: Aus (2|7) wird (7|2). Das ist die [[Spiegelung]] an der [[Geraden]] $y = x$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast an einer Koordinatenachse gespiegelt.'
+    - teil: warum-nicht
+      de: 'Eine [[Spiegelung]] an der x-Achse ändert nur das [[Vorzeichen]] von y. Die [[Umkehrfunktion]] macht f aber rückgängig.'
+    - teil: so-stimmt-es
+      de: 'Tausche x und y. Im Bild ist das die [[Spiegelung]] an der Winkelhalbierenden $y = x$.'
+gegenbeispiel:
+  de: 'Für $f(x) = 2x$ liegt (1|2) auf f. Auf der [[Umkehrfunktion]] $f^{-1}(x) = \frac{x}{2}$ liegt (2|1), nicht (1|−2).'
+rueckweg:
+  vermittlung: M.SF.LG.UMKEHRFUNKTION#erklaeren-tauschen
+kontrast: [M.SF.LG.UMKEHRFUNKTION.SPIEGELN]
+herkunft: ki-entwurf
+version: 1
