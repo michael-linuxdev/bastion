@@ -52,6 +52,8 @@ describe('Arbeitsblatt', () => {
   });
 
   it('meldet Kompetenzen ohne Aufgaben auf dem Niveau', () => {
-    expect(() => arbeitsblatt(eingabe, { ...optionen, niveau: 'E' })).toThrow(/Niveau E/);
+    // Natürliche Zahlen haben bis Klasse 8 kein Niveau E (K-31).
+    const ohneE = eingabeAusInhalten('content', ['M.ZO.NZ.ADD-SUB'], '');
+    expect(() => arbeitsblatt(ohneE, { ...optionen, niveau: 'E' })).toThrow(/Niveau E/);
   });
 });
