@@ -1,0 +1,24 @@
+# Dezimalzahlen ordnen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-ORDNEN.BEGRUENDEN
+kompetenz: M.ZO.BR.DEZ-ORDNEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.laenger-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Vergleiche zuerst die [[Zehntel]].'
+  - de: 'Hänge eine 0 an, damit beide gleich viele Stellen haben.'
+fehlerbilder:
+  laenger-groesser:
+    de: 'Mehr Stellen heißt nicht größer. Vergleiche Stelle für Stelle von links.'
+    fv: FV.BR.LAENGER-GROESSER
+  zeichen-verdreht:
+    de: 'Das Zeichen > zeigt: Links steht die größere Zahl.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
+herkunft: ki-entwurf
+version: 1

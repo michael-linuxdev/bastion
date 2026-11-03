@@ -1,0 +1,24 @@
+# Anteil von einer Größe begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ANTEIL-VON.BEGRUENDEN
+kompetenz: M.ZO.BR.ANTEIL-VON
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.anteil-von-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was bedeutet der [[Nenner]], was der [[Zähler]]?'
+  - de: 'Ein Teil ist erst 1/n.'
+fehlerbilder:
+  anteil-ein-schritt:
+    de: 'Durch den [[Nenner]] teilen ergibt erst einen Teil. Dann nimmt man so viele Teile, wie der [[Zähler]] sagt.'
+    fv: FV.BR.ANTEIL-EIN-SCHRITT
+  vertauscht:
+    de: 'Geteilt wird durch den [[Nenner]], malgenommen mit dem [[Zähler]].'
+    fv: FV.BR.VERTAUSCHT
+herkunft: ki-entwurf
+version: 1
