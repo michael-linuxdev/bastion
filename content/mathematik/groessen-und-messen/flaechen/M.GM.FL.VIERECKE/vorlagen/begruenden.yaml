@@ -1,0 +1,24 @@
+# Fläche des Drachens begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.VIERECKE.BEGRUENDEN
+kompetenz: M.GM.FL.VIERECKE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.drachen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne ein Rechteck um den Drachen.'
+  - de: 'Welcher Teil des Rechtecks gehört zum Drachen?'
+fehlerbilder:
+  nicht-halbiert:
+    de: 'e · f ist das Rechteck um den Drachen. Der Drachen ist nur halb so groß.'
+    fv: FV.FL.NICHT-HALBIERT
+  zerlegen:
+    de: 'Der Drachen besteht aus zwei Dreiecken. Beide gehören zur Fläche.'
+    fv: FV.FL.ZERLEGEN
+herkunft: ki-entwurf
+version: 1

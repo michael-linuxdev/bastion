@@ -1,0 +1,24 @@
+# SsW und sws begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.KONSTRUIEREN.BEGRUENDEN
+kompetenz: M.RF.DV.KONSTRUIEREN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.ssw-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Liegt der [[Winkel]] zwischen den beiden Seiten?'
+  - de: 'Welcher Seite liegt der [[Winkel]] gegenüber?'
+fehlerbilder:
+  sws-falsch:
+    de: 'sws gilt nur, wenn der [[Winkel]] zwischen den Seiten liegt. Sonst prüfe SsW.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
+  zu-wenig:
+    de: 'Mit zwei Seiten und einem [[Winkel]] kann man konstruieren. Die Frage ist, ob die Lösung eindeutig ist.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
+herkunft: ki-entwurf
+version: 1

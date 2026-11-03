@@ -1,0 +1,24 @@
+# Winkel im Kreisdiagramm begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.DA.KREISDIAGRAMM.BEGRUENDEN
+kompetenz: M.DZ.DA.KREISDIAGRAMM
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kd.winkel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viel [[Grad]] hat der ganze Kreis?'
+  - de: '100 % sind der ganze Kreis.'
+fehlerbilder:
+  vollkreis-360:
+    de: '100 % sind 360°, nicht 100°.'
+    fv: FV.DA.VOLLKREIS-360
+  halbkreis:
+    de: 'Der ganze Kreis hat 360°, nicht 180°.'
+    fv: FV.DA.VOLLKREIS-360
+herkunft: ki-entwurf
+version: 1

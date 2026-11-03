@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Bruch durch Bruch mit dem Kehrwert, auch gemischte Zahlen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum man beim Teilen durch einen Bruch mit dem Kehrwert malnimmt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -25,6 +28,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

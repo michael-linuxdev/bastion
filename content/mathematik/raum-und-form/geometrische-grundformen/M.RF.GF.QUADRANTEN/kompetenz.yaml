@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Punkte spiegeln und verschieben und die neuen Koordinaten angeben.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Koordinate sich beim Spiegeln an einer Achse ändert.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

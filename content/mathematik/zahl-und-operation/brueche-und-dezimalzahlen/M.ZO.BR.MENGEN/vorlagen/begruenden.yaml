@@ -1,0 +1,24 @@
+# Natürliche Zahlen als Brüche begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.MENGEN.BEGRUENDEN
+kompetenz: M.ZO.BR.MENGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.mengen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Kann man die Zahl als [[Bruch]] schreiben?'
+  - de: 'Welche Menge ist die größere?'
+fehlerbilder:
+  teilmenge-verdreht:
+    de: 'Die [[natürlichen Zahlen]] liegen in den [[gebrochenen Zahlen]], nicht umgekehrt.'
+    fv: FV.BR.TEILMENGE-VERDREHT
+  schreibweise-zahl:
+    de: 'Eine Zahl hat viele Schreibweisen. 5 und 5/1 sind dieselbe Zahl.'
+    fv: FV.BR.SCHREIBWEISE-ZAHL
+herkunft: ki-entwurf
+version: 1

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Flächen- und Volumenanteile geometrischer Figuren bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum beim Vergleich von Figuren der Anteil zählt und nicht die Anzahl.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

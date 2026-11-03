@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Wissen, dass die Tangente senkrecht auf dem Berührungsradius steht; Mittelpunkt von Inkreis und Umkreis mit den besonderen Linien bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wo der Umkreismittelpunkt je nach Dreiecksart liegt.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

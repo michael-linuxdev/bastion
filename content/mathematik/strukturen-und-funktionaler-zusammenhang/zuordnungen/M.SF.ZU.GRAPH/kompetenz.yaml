@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Den passenden Graphen zu einer Tabelle oder Gleichung auswählen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welcher Graph zu einer proportionalen oder umgekehrt proportionalen Zuordnung passt.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

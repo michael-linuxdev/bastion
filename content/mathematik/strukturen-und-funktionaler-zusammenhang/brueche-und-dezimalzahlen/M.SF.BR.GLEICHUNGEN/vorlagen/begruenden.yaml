@@ -1,0 +1,24 @@
+# Umkehraufgabe begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.BR.GLEICHUNGEN.BEGRUENDEN
+kompetenz: M.SF.BR.GLEICHUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.umkehr-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was wurde zuletzt mit x gemacht?'
+  - de: 'Mache die Schritte in umgekehrter Reihenfolge rückgängig.'
+fehlerbilder:
+  umkehraufgabe:
+    de: 'Ein Rechenschritt wird mit der Gegenrechnung rückgängig gemacht: Minus mit Plus, mal mit geteilt.'
+    fv: FV.NZ.UMKEHRAUFGABE
+  reihenfolge:
+    de: 'Rückwärts heißt: Den letzten Schritt zuerst rückgängig machen.'
+    fv: FV.NZ.UMKEHRAUFGABE
+herkunft: ki-entwurf
+version: 1

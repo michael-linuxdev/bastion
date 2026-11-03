@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Peripherie- und Zentriwinkel berechnen; Gegenwinkel im Sehnenviereck nutzen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie Umfangswinkel und Mittelpunktswinkel zusammenhängen.'
 kmk:
   leitidee: L4
   prozesse:

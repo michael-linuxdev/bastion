@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Entscheiden, ob es keine, genau eine oder mehrere Lösungen gibt (auch SsW); Konstruktionsschritte ordnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann zwei Seiten und ein Winkel ein Dreieck eindeutig festlegen.'
 kmk:
   leitidee: L4
   prozesse:

@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Gleichungen mit zwei Rechenschritten und einfache Ungleichungen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man eine Gleichung mit zwei Rechenschritten rückwärts löst.'
 kmk:
   leitidee: L3
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Vor dem Ausrechnen kürzen; gemischte Zahlen; Ergebnis vollständig gekürzt.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum beim Malnehmen mit einer natürlichen Zahl nur der Zähler malgenommen wird.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -1,0 +1,24 @@
+# Kehrwert beim Teilen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DIV.BEGRUENDEN
+kompetenz: M.ZO.BR.DIV
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.kehrwert-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Von welchem [[Bruch]] nimmt man den [[Kehrwert]]?'
+  - de: 'Durch 1/2 teilen heißt: Wie oft passt 1/2 hinein?'
+fehlerbilder:
+  kehrwert-regel:
+    de: 'Teilen ist nicht Malnehmen. Man nimmt mit dem [[Kehrwert]] des zweiten Bruchs mal.'
+    fv: FV.BR.KEHRWERT-REGEL
+  kehrwert-erster:
+    de: 'Der [[Kehrwert]] gehört zum zweiten [[Bruch]], dem [[Teiler]], nicht zum ersten.'
+    fv: FV.BR.KEHRWERT-REGEL
+herkunft: ki-entwurf
+version: 1

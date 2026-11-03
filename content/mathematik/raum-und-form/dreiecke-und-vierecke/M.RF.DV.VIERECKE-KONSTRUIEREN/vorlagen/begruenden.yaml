@@ -1,0 +1,24 @@
+# Eindeutigkeit eines Vierecks begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE-KONSTRUIEREN.BEGRUENDEN
+kompetenz: M.RF.DV.VIERECKE-KONSTRUIEREN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.viereck-eindeutig-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zerlege das Viereck mit einer [[Diagonale]] in zwei Dreiecke.'
+  - de: 'Ist jedes Dreieck eindeutig?'
+fehlerbilder:
+  zu-wenig:
+    de: 'Vier Seiten allein reichen nicht: Das Viereck kann kippen.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
+  zu-viel:
+    de: 'Fünf passende Stücke reichen. Zwei Dreiecke nach sss legen das Viereck fest.'
+    fv: FV.DV.EINDEUTIG-KONSTRUIERBAR
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Ecken und Kanten der Pyramide begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KP.PYRAMIDEN.BEGRUENDEN
+kompetenz: M.RF.KP.PYRAMIDEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.pyramide-zaehlen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zähle [[Grundfläche]] und Spitze getrennt.'
+  - de: 'Hat eine [[Pyramide]] eine [[Deckfläche]]?'
+fehlerbilder:
+  wie-prisma:
+    de: 'Eine [[Pyramide]] hat keine [[Deckfläche]]. Die Seitenkanten treffen sich in der Spitze.'
+    fv: FV.KP.ZAEHLEN
+  spitze-vergessen:
+    de: 'Die Spitze und die Kanten zur Spitze gehören auch dazu.'
+    fv: FV.KP.ZAEHLEN
+herkunft: ki-entwurf
+version: 1

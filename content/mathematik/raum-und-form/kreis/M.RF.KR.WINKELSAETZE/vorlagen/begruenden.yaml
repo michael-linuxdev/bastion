@@ -1,0 +1,24 @@
+# Umfangs- und Mittelpunktswinkel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KR.WINKELSAETZE.BEGRUENDEN
+kompetenz: M.RF.KR.WINKELSAETZE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kr.zentri-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welcher [[Winkel]] ist größer: der am Mittelpunkt oder der am Kreis?'
+  - de: 'Denke an den [[Satz des Thales]]: 180° und 90°.'
+fehlerbilder:
+  verdoppelt:
+    de: 'Der [[Mittelpunktswinkel]] ist doppelt so groß, der Umfangswinkel also halb so groß.'
+    fv: FV.KR.KREISWINKEL
+  gleichgesetzt:
+    de: 'Gleich groß sind nur Umfangswinkel untereinander, nicht Umfangs- und [[Mittelpunktswinkel]].'
+    fv: FV.KR.KREISWINKEL
+herkunft: ki-entwurf
+version: 1

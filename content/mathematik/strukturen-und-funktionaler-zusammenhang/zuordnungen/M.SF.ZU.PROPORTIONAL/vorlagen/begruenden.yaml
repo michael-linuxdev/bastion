@@ -1,0 +1,24 @@
+# Quotienten- und Produktgleichheit begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.ZU.PROPORTIONAL.BEGRUENDEN
+kompetenz: M.SF.ZU.PROPORTIONAL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zu.quotient-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Rechne y : x für zwei Paare.'
+  - de: 'Rechne x · y für zwei Paare.'
+fehlerbilder:
+  je-desto:
+    de: '„Je mehr, desto mehr“ reicht nicht. Der Quotient y : x muss immer gleich sein.'
+    fv: FV.ZU.JE-DESTO
+  gleich-viel:
+    de: 'Wächst y immer um gleich viel, ist die [[Zuordnung]] nicht automatisch [[proportional]]. Prüfe den [[Quotienten]].'
+    fv: FV.ZU.JE-DESTO
+herkunft: ki-entwurf
+version: 1

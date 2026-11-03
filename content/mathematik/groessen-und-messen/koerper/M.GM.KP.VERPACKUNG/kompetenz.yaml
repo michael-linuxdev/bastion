@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Verpackungen aus Prismen vergleichen, Verschnitt und Zuschläge berücksichtigen und eine Wahl begründen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum gleiches Volumen nicht gleich viel Material bedeutet.'
 kmk:
   leitidee: L2
   prozesse:

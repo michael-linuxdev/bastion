@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Drachenvierecke und zusammengesetzte Figuren durch Zerlegen oder Ergänzen berechnen.'
+  E:
+    beschreibung:
+      de: 'Die Flächenformel des Drachenvierecks mit dem umschließenden Rechteck begründen.'
 kmk:
   leitidee: L2
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

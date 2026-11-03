@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Den Mittelpunktswinkel zu einem Anteil berechnen und umgekehrt.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man aus einem Prozentsatz den Mittelpunktswinkel berechnet.'
 kmk:
   leitidee: L5
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

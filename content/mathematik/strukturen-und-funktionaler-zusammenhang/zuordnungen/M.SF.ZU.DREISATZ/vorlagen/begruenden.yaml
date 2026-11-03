@@ -1,0 +1,24 @@
+# Umgekehrt proportionaler Dreisatz begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DREISATZ.BEGRUENDEN
+kompetenz: M.SF.ZU.DREISATZ
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zu.dreisatz-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Brauchen mehr Helfer mehr oder weniger Zeit?'
+  - de: 'Was bleibt gleich: der Quotient oder das [[Produkt]]?'
+fehlerbilder:
+  art-verwechselt:
+    de: 'Mehr Helfer schaffen die Arbeit schneller. Die [[Zuordnung]] ist [[umgekehrt proportional]].'
+    fv: FV.ZU.ART-VERWECHSELT
+  additiv:
+    de: 'Bei [[Zuordnungen]] wird vervielfacht, nicht um gleich viel verändert.'
+    fv: FV.ZU.ADDITIV
+herkunft: ki-entwurf
+version: 1

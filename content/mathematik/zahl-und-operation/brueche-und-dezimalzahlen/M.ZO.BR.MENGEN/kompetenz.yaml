@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Teilmengen und Mengendiagramme deuten; begründen, warum die natürlichen Zahlen eine Teilmenge der gebrochenen Zahlen sind.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum jede natürliche Zahl auch eine gebrochene Zahl ist.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:

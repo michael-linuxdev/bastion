@@ -1,0 +1,24 @@
+# Endlich oder periodisch begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.PERIODISCH.BEGRUENDEN
+kompetenz: M.ZO.BR.PERIODISCH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.periode-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zerlege den [[Nenner]] in [[Primfaktoren]].'
+  - de: 'Kommen nur 2 und 5 vor?'
+fehlerbilder:
+  periode-ungerade:
+    de: 'Es kommt nicht auf gerade oder ungerade an, sondern auf die [[Primfaktoren]] des Nenners.'
+    fv: FV.BR.PERIODE-UNGERADE
+  komma-als-bruchstrich:
+    de: 'Das Komma ist kein Bruchstrich. Rechne [[Zähler]] geteilt durch [[Nenner]].'
+    fv: FV.BR.KOMMA-ALS-BRUCHSTRICH
+herkunft: ki-entwurf
+version: 1

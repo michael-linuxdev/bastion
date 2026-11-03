@@ -22,6 +22,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Rechenvorteile gezielt nutzen (Vertauschen, Verbinden, Verteilen).'
+  E:
+    beschreibung:
+      de: 'Begründen, warum Ausklammern ein Rechenvorteil ist.'
 kmk:
   leitidee: L1
   prozesse:
@@ -30,6 +33,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

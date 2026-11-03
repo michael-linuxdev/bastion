@@ -22,6 +22,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Oberflächeninhalt als zusammengesetzte Fläche; Körper aus mehreren Prismen.'
+  E:
+    beschreibung:
+      de: 'Begründen, aus welchen Flächen die Oberfläche eines Prismas besteht.'
 kmk:
   leitidee: L2
   prozesse:
@@ -30,6 +33,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

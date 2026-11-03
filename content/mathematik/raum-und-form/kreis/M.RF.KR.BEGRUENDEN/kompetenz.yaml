@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Die Umkehrung eines Satzes bilden und prüfen; Schritte eines Beweises in die richtige Reihenfolge bringen.'
+  E:
+    beschreibung:
+      de: 'Die Umkehrung eines wahren Satzes eigens prüfen und begründen.'
 kmk:
   leitidee: L4
   prozesse:

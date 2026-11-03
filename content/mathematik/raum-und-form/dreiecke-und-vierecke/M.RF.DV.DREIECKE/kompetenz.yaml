@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Seiten-Winkel-Relation und Dreiecksungleichung anwenden.'
+  E:
+    beschreibung:
+      de: 'Mit der Dreiecksungleichung begründen, ob drei Längen ein Dreieck ergeben.'
 kmk:
   leitidee: L4
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

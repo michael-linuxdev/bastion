@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Eindeutige, eineindeutige und mehrdeutige Zuordnungen unterscheiden; Gleichungen aufstellen.'
+  E:
+    beschreibung:
+      de: 'Begründen, ob eine Zuordnung eindeutig, eineindeutig oder mehrdeutig ist.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:

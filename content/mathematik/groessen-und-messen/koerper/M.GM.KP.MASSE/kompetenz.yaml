@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Mit Einheiten wie kg/dm³ und t/m³ rechnen; Volumen oder Dichte aus der Masse bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie Masse, Dichte und Volumen zusammenhängen.'
 kmk:
   leitidee: L2
   prozesse:
@@ -27,6 +30,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
