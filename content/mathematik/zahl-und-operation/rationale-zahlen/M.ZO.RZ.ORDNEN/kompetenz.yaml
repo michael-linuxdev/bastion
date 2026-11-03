@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Brüche und Dezimalzahlen mit Vorzeichen vergleichen und ordnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche von zwei negativen Zahlen größer ist.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

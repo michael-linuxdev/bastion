@@ -1,0 +1,24 @@
+# Abstand über null begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.BEGRIFF.BEGRUENDEN
+kompetenz: M.ZO.RZ.BEGRIFF
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.abstand-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne beide Zahlen auf einer [[Zahlengeraden]] ein.'
+  - de: 'Wie weit ist es bis zur 0, und wie weit danach?'
+fehlerbilder:
+  abstand-ueber-null:
+    de: 'Die Zahlen liegen auf verschiedenen Seiten der 0. Die beiden Strecken bis zur 0 werden addiert.'
+    fv: FV.RZ.ABSTAND-UEBER-NULL
+  unter-null-ignoriert:
+    de: 'Auch die [[Grad]] unter 0 gehören zum Unterschied.'
+    fv: FV.RZ.ABSTAND-UEBER-NULL
+herkunft: ki-entwurf
+version: 1

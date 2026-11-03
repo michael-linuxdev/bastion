@@ -1,0 +1,24 @@
+# Dichte der rationalen Zahlen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ZAHLBEREICHE.BEGRUENDEN
+kompetenz: M.ZO.RZ.ZAHLBEREICHE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.dichte-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Gibt es eine [[Dezimalzahl]] zwischen den beiden Zahlen?'
+  - de: 'Denke an die Mitte der beiden Zahlen.'
+fehlerbilder:
+  dichte:
+    de: 'Anders als bei [[ganzen Zahlen]] hat eine [[rationale Zahl]] keinen direkten Nachfolger.'
+    fv: FV.RZ.DICHTE
+  zahlbereiche:
+    de: 'Negative [[Dezimalzahlen]] sind [[rationale Zahlen]].'
+    fv: FV.RZ.ZAHLBEREICHE
+herkunft: ki-entwurf
+version: 1

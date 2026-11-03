@@ -87,3 +87,4 @@
 | 03.11.2026 | **K-31, Daten und Zufall (Klasse 7) mit E:** `da.achse-aussage` (abgeschnittene Achse), `zf.ereignis-aussage` (Ereignis als Menge), `zf.chance-aussage` (Chancen über den Anteil) mit Pflicht-Tests und E-Vorlagen |
 | 03.11.2026 | **K-31, Gleichungen (Klasse 7) mit E:** `gl.text-aussage`, `gl.formel-aussage`, `gl.loesen-aussage`, `gl.probe-aussage` mit Pflicht-Tests und E-Vorlagen |
 | 03.11.2026 | **K-31, Prozent (Klasse 7) mit E:** `pz.grundwert-begriff-aussage`, `pz.grundwert-aussage`, `pz.um-auf-aussage`, `pz.zeitraum-aussage` mit Pflicht-Tests und E-Vorlagen |
+| 03.11.2026 | **K-31, rationale Zahlen (Klasse 7) mit E:** sieben Generatoren `rz.*-aussage` (Minus einer negativen Zahl, Abstand über 0, Vorzeichen eines Produkts, negative Zahlen ordnen, (−a)² und −a², Gegenzahl, Dichte) mit Pflicht-Tests und E-Vorlagen |

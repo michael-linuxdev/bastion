@@ -1,0 +1,24 @@
+# Gegenzahl beim geschickten Rechnen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.RECHENGESETZE.BEGRUENDEN
+kompetenz: M.ZO.RZ.RECHENGESETZE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.gegenzahl-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Gibt es eine Zahl und ihre [[Gegenzahl]]?'
+  - de: 'Beim Addieren darf man vertauschen.'
+fehlerbilder:
+  gegenzahl-summe:
+    de: 'Das Minus gehört zur Zahl. Eine Zahl und ihre [[Gegenzahl]] ergeben 0.'
+    fv: FV.RZ.GEGENZAHL-SUMME
+  gegenzahl-zusammengefasst:
+    de: '−a und +a ergeben zusammen 0, nicht −2a.'
+    fv: FV.RZ.GEGENZAHL-SUMME
+herkunft: ki-entwurf
+version: 1

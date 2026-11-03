@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Rechenvorteile mit Vertauschen, Verbinden und Verteilen bei Brüchen und Dezimalzahlen mit Vorzeichen nutzen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum ein Rechenweg mit Zahl und Gegenzahl geschickt ist.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

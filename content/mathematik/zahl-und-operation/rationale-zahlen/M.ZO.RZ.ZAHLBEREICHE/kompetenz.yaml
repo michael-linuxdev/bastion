@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Teilmengen, Schnitt- und Vereinigungsmenge der Zahlbereiche angeben; Aussagen über Zahlbereiche prüfen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum zwischen zwei rationalen Zahlen immer weitere liegen.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:
