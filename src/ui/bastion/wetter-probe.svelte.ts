@@ -3,16 +3,29 @@
  * gilt nur für die Ansicht und nur bis zum Neuladen. Wird nicht gespeichert und ändert
  * nichts am echten Wetter oder am Lernen.
  */
-import type { WetterBild } from './grafik/wetter';
+import type { WetterBild, WetterStaerke } from './grafik/wetter';
 
-export type WetterProbe = 'auto' | WetterBild | 'regenbogen';
+export type WetterProbe =
+  'auto' | WetterBild | 'regenbogen' | 'niesel' | 'starkregen' | 'schnee-leicht' | 'gestoeber';
+
+/** Proben mit Stärke: welches Wetterbild und wie dicht */
+const MIT_STAERKE: Partial<Record<WetterProbe, { bild: WetterBild; staerke: WetterStaerke }>> = {
+  niesel: { bild: 'regen', staerke: 'leicht' },
+  starkregen: { bild: 'regen', staerke: 'stark' },
+  'schnee-leicht': { bild: 'schnee', staerke: 'leicht' },
+  gestoeber: { bild: 'schnee', staerke: 'stark' },
+};
 
 export const WETTER_PROBEN: readonly WetterProbe[] = [
   'auto',
   'klar',
   'bewoelkt',
+  'niesel',
   'regen',
+  'starkregen',
+  'schnee-leicht',
   'schnee',
+  'gestoeber',
   'sturm',
   'nebel',
   'regenbogen',
@@ -20,13 +33,17 @@ export const WETTER_PROBEN: readonly WetterProbe[] = [
 
 export const wetterProbe = $state<{ wahl: WetterProbe }>({ wahl: 'auto' });
 
-/** Bild und Regenbogen aus Probe und echtem/Datums-Wetter */
-export function wetterMitProbe(
-  probe: WetterProbe,
-  bild: WetterBild,
-  regenbogen: boolean,
-): { bild: WetterBild; regenbogen: boolean } {
-  if (probe === 'auto') return { bild, regenbogen };
-  if (probe === 'regenbogen') return { bild: 'bewoelkt', regenbogen: true };
-  return { bild: probe, regenbogen: false };
+export interface WetterJetzt {
+  readonly bild: WetterBild;
+  readonly staerke: WetterStaerke;
+  readonly regenbogen: boolean;
+}
+
+/** Bild, Stärke und Regenbogen aus Probe und echtem/Datums-Wetter */
+export function wetterMitProbe(probe: WetterProbe, echt: WetterJetzt): WetterJetzt {
+  if (probe === 'auto') return echt;
+  if (probe === 'regenbogen') return { bild: 'bewoelkt', staerke: 'mittel', regenbogen: true };
+  const mit = MIT_STAERKE[probe];
+  if (mit) return { ...mit, regenbogen: false };
+  return { bild: probe as WetterBild, staerke: 'mittel', regenbogen: false };
 }

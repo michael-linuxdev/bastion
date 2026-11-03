@@ -942,13 +942,17 @@ test('Wetter ausprobieren: jedes Wetter zeigt das Bild ohne Fehler (Grafik Punkt
   page.on('pageerror', (e) => fehler.push(e.message));
   await page.goto('./');
   await bastionOeffnen(page, true);
-  for (const wetter of ['Regen', 'Schnee', 'Sturm', 'Nebel', 'Regenbogen', 'Wie draußen']) {
+  const ueberall = ['Nieselregen', 'Regen', 'Starkregen', 'Schnee', 'Schneegestöber', 'Sturm'];
+  for (const wetter of [...ueberall, 'Nebel', 'Regenbogen', 'Wie draußen']) {
     if (!(await page.getByLabel('Wetter ausprobieren').isVisible())) {
       await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
     }
     await page.getByLabel('Wetter ausprobieren').selectOption({ label: wetter });
     await page.getByRole('button', { name: '← Zur Bastion' }).click();
     await expect.poll(() => page.locator('.bauplatz canvas').count(), { timeout: 30_000 }).toBe(1);
+    // Regen und Schnee fallen über dem ganzen Bild, nicht nur über der Insel
+    if (ueberall.includes(wetter))
+      await expect(page.locator('.wetterschicht .ebene').first()).toBeAttached();
   }
   await page.waitForTimeout(1500);
   expect(fehler).toEqual([]);

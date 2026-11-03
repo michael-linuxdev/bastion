@@ -4,7 +4,13 @@
  * Bei Fehler stiller Fallback (kein Hinweis). Keine Standort-API des Geräts.
  */
 import type { Sonnenzeiten } from './sonne';
-import { regenbogenAusEcht, wetterAusWmo, type WetterBild } from './wetter';
+import {
+  regenbogenAusEcht,
+  staerkeAusWmo,
+  wetterAusWmo,
+  type WetterBild,
+  type WetterStaerke,
+} from './wetter';
 
 const GEO = 'https://geocoding-api.open-meteo.com/v1/search';
 const FORECAST = 'https://api.open-meteo.com/v1/forecast';
@@ -18,6 +24,8 @@ export interface WetterOrt {
 
 export interface WetterStand {
   readonly bild: WetterBild;
+  /** Stärke aus dem Wettercode (fehlt in älteren Cache-Einträgen) */
+  readonly staerke?: WetterStaerke;
   /** Regenbogen: heute Regen, jetzt aufgeklart */
   readonly regenbogen?: boolean;
   readonly ort: WetterOrt;
@@ -98,6 +106,7 @@ export async function wetterAbrufen(ort: WetterOrt): Promise<WetterStand | undef
   const bild = wetterAusWmo(code, data.current?.wind_speed_10m);
   const stand: WetterStand = {
     bild,
+    staerke: staerkeAusWmo(code),
     regenbogen: regenbogenAusEcht(bild, data.daily?.precipitation_sum?.[0]),
     ort,
     tag: lokalerTag(),

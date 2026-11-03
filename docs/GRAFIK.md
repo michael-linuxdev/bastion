@@ -500,6 +500,16 @@ Ruhig und ohne Blitze (R1–R7); bei „ruhig“ und „Bewegung reduzieren“ s
 - **Offen:** wehende Fahnen und Banner bei Sturm. Die Fahnen sind Teil der Gebäudebilder; dafür bräuchte jedes Gebäude mit Fahne eigene Bilder für die Bewegung.
 - Kulissen der anderen Themen (Punkt 3) bekommen dieselben Wetterteile, sobald es sie gibt.
 
+### 15.1 Wetter über dem ganzen Bild und Stärken (Wunsch PV, 03.11.2026)
+
+PV: „Wetter ist schon unterschiedlich, aber nicht viel davon auf dem Bildschirm zu sehen.“ Bisher regnete und schneite es nur über der Insel.
+
+- **Wetterschicht** (`Wetterschicht.svelte`, `grafik/wetter-schicht.ts`) über Kulisse und Bauplatz, über den ganzen Bildschirm; fängt keine Tipper ab. Regen und Schnee sind feste Kacheln (kleine SVG-Bilder im Code, kein Netz, Tropfen und Flocken an festen Stellen) in drei Ebenen, die verschieden schnell fallen. Sturm: schräger Regen, dunkler Schleier, schnelle Wolkenschatten. Nebel: vier Nebelbänke über allem. Wolken: Wolkenschatten ziehen über Insel und Kulisse. Nur Bastion, Dorf und Garten (unter Wasser und im Weltraum regnet es nicht).
+- **Stärke** leicht / mittel / stark (`WetterStaerke`): aus dem Wettercode (Niesel und Schauer leicht, Starkregen und starker Schnee stark; `staerkeAusWmo`) oder offline fest aus dem Datum (`staerkeAusDatum`). Stark: mehr Tropfen, grauer Schleier, beim Gestöber Schneedunst.
+- **Zahnrad:** neu Nieselregen, Starkregen, Leichter Schnee, Schneegestöber.
+- **Nichts mehr direkt über der Insel** (Wunsch PV): Mit Kulisse zeichnet die Bühne keine kleinen Wolken, Tropfen, Flocken, Nebelteilchen und Sturmschatten mehr über der Insel; das übernimmt die Wetterschicht. Was auf der Insel liegt, bleibt: Pfützen, Schnee auf Boden und Dächern, nasse Dächer, Herbstlaub.
+- Bewegung nur bei „voll“ und „leicht“ (leicht: eine Ebene) und ohne „Bewegung reduzieren“; sonst steht das Wetter still im Bild, bleibt aber sichtbar. Die Ebenen bewegen sich nur per CSS-Verschiebung (kein Neuzeichnen je Bild).
+
 ## 16. Erster Tipper und Kamera nach dem Öffnen (Auftrag Punkt 4, #160)
 
 - **Ursache:** Das Bild wurde gebaut, bevor das Wetter geladen war, und baute sich danach ein zweites Mal auf. Ein Tipper in dieser Zeit ging ins Leere, und das Dorf lud seine Bilder doppelt.

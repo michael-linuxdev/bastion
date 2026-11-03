@@ -28,11 +28,13 @@
   import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
+  import { istLandBildart } from './grafik/thema-partikel';
+  import Wetterschicht from './Wetterschicht.svelte';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { buehneFuer, himmelFuer, punkt as feldPunkt } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
-  import type { WetterBild } from './grafik/wetter';
+  import type { WetterBild, WetterStaerke } from './grafik/wetter';
   import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
@@ -148,8 +150,15 @@
   const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
   let wetterEcht = $state<WetterBild>('klar');
   let regenbogenEcht = $state(false);
+  let staerkeEcht = $state<WetterStaerke>('mittel');
   /** Im Zahnrad gewähltes Wetter zum Ausprobieren (nur Ansicht, nicht gespeichert) */
-  const wetterJetzt = $derived(wetterMitProbe(wetterProbe.wahl, wetterEcht, regenbogenEcht));
+  const wetterJetzt = $derived(
+    wetterMitProbe(wetterProbe.wahl, {
+      bild: wetterEcht,
+      staerke: staerkeEcht,
+      regenbogen: regenbogenEcht,
+    }),
+  );
   const wetterBild = $derived(wetterJetzt.bild);
   const regenbogen = $derived(wetterJetzt.regenbogen);
   let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
@@ -167,6 +176,7 @@
       if (abgebrochen) return;
       wetterEcht = s.bild;
       regenbogenEcht = s.regenbogen;
+      staerkeEcht = s.staerke;
       wetterSonne = s.sonne;
       wetterGeladen = true;
       clearTimeout(wetterWarten);
@@ -773,6 +783,13 @@
         bind:this={rahmen}
         aria-hidden="true"
       ></div>
+      <Wetterschicht
+        wetter={wetterBild}
+        staerke={wetterJetzt.staerke}
+        land={istLandBildart(bildartVonThema(aktiv.thema))}
+        {bewegung}
+        nacht={stimmung === 'nacht'}
+      />
     </div>
     {#if hinterhofKnopf && hinterhofFelder.length > 0}
       <button
