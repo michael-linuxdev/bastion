@@ -6,3 +6,4 @@
 | Datum | Änderung |
 |---|---|
 | 03.11.2026 | **Strang Oberfläche angelegt** (Branch `oberflaeche/strang-anlegen`, PV): Start, Mehr, Elternbereich nicht mehr eingefroren; Zuständigkeit in `SESSION-PROMPT.md`, `AGENTS.md`, `OBERFLAECHE.md` |
+| 03.11.2026 | **O1 Startseite aufgeräumt** (Branch `oberflaeche/startseite`): ruhiger Kopf, Vertrauen und Entwurf am Seitenende, Startbild ohne Anschnitt, einheitliche Kacheln, Karte „Über mich“ statt Formular beim ersten Start |

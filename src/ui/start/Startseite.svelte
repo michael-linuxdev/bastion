@@ -68,7 +68,6 @@
     unten?: Snippet;
   } = $props();
 
-  let hilfeOffen = $state(false);
   let mehrSichtbar = $state(false);
 
   const ersteMinute = $derived(erstesMal && !mehrSichtbar);
@@ -93,32 +92,18 @@
           {tt('rueckkehr.bastion')}{/if}
       </p>
       {#if faellig > 0}<p class="leise">{t('rueckkehr.hinweis')}</p>{/if}
+    {:else if nieGeuebt}
+      <!-- Noch nie geübt: Gruß und Einladung in einem Satz (O1) -->
+      <p class="gruss">{t('start.gruss-kurz')}</p>
+      <p class="einladung">{t('start.nie-geuebt')}</p>
     {:else}
       <!-- L17: nach dem ersten Üben kein „Willkommen“ mehr, sondern ein ruhiger Gruß -->
-      <p class="gruss ort-name">{nieGeuebt ? t('start.gruss-kurz') : t('start.gruss')}</p>
-      <button
-        type="button"
-        class="hilfe"
-        aria-expanded={hilfeOffen}
-        aria-controls="hub-hilfe"
-        onclick={() => (hilfeOffen = !hilfeOffen)}
-      >
-        <Symbol name="frage" />
-        <span>{t('start.einstieg-hilfe')}</span>
-      </button>
-      {#if hilfeOffen}
-        <p id="hub-hilfe" class="leise hilfe-text">{t('hub.tueren')}</p>
-      {/if}
+      <p class="gruss">{t('start.gruss')}</p>
     {/if}
     {#if heuteGeuebt}
       <p class="leise heute" role="status">{t('start.heute-geuebt')}</p>
     {/if}
     {#if testphase}<p class="leise test" role="note">{t('test.hinweis')}</p>{/if}
-    <p class="vertrauen" role="note">{t('start.vertrauen')}</p>
-    <!-- F2 (ARCHITEKTUR T-20): dezenter Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
-    {#if entwurfAusgeliefert}<p class="leise entwurf" role="note" data-entwurf>
-        {t('entwurf.vermerk')}
-      </p>{/if}
   </header>
 
   {@render children?.()}
@@ -128,10 +113,6 @@
       <Symbol name="ueben" />
       <span>{t('hub.offen-weiter').replace('{thema}', offenThema)}</span>
     </button>
-  {/if}
-
-  {#if nieGeuebt && !ersteMinute}
-    <p class="einladung">{t('start.nie-geuebt')}</p>
   {/if}
 
   {#if basebau}
@@ -166,8 +147,9 @@
     </button>
 
     {#if basebau}
-      <button class="tuer neben" onclick={() => onziel('bastion')}>
+      <button class="tuer neben" class:breit={ersteMinute} onclick={() => onziel('bastion')}>
         <span class="tuer-titel ort-name"><Symbol name="bastion" /> {t('hub.ort-bastion')}</span>
+        {#if !ersteMinute}<span class="tuer-info">{t('hub.bastion-info')}</span>{/if}
       </button>
     {/if}
 
@@ -190,8 +172,7 @@
     <div class="kacheln" class:erst={!rueckkehr}>
       {#if !nieGeuebt}
         <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-          <Symbol name="wiederholen" />
-          <span class="kachel-name">{t('wiederholen.knopf')}</span>
+          <span class="kachel-name"><Symbol name="wiederholen" /> {t('wiederholen.knopf')}</span>
           {#if rueckkehr || faellig > 0}
             <span class="kachel-info"
               >{faellig === 0
@@ -207,8 +188,7 @@
           disabled={offeneFehler === 0}
           onclick={() => onziel('werkstatt')}
         >
-          <Symbol name="werkstatt" />
-          <span class="kachel-name">{t('werkstatt.knopf')}</span>
+          <span class="kachel-name"><Symbol name="werkstatt" /> {t('werkstatt.knopf')}</span>
           {#if rueckkehr || offeneFehler > 0}
             <span class="kachel-info"
               >{offeneFehler === 0
@@ -221,13 +201,11 @@
         </button>
       {/if}
       <button class="kachel" onclick={() => onziel('diagnose')}>
-        <Symbol name="diagnose" />
-        <span class="kachel-name">{t('diagnose.knopf')}</span>
+        <span class="kachel-name"><Symbol name="diagnose" /> {t('diagnose.knopf')}</span>
         {#if rueckkehr}<span class="kachel-info">{t('start.diagnose-info')}</span>{/if}
       </button>
       <button class="kachel" onclick={() => onziel('stand')}>
-        <Symbol name="stand" />
-        <span class="kachel-name">{t('stand.knopf')}</span>
+        <span class="kachel-name"><Symbol name="stand" /> {t('stand.knopf')}</span>
         {#if rueckkehr}<span class="kachel-info">{t('start.stand-info')}</span>{/if}
       </button>
     </div>
@@ -250,6 +228,12 @@
   {/if}
 
   {@render unten?.()}
+
+  <!-- Vertrauen und F2-Vermerk (ARCHITEKTUR T-20) ruhig am Ende, nicht vor den Türen (O1) -->
+  <footer class="fuss">
+    <p role="note">{t('start.vertrauen')}</p>
+    {#if entwurfAusgeliefert}<p role="note" data-entwurf>{t('entwurf.vermerk')}</p>{/if}
+  </footer>
 </div>
 
 <style>
@@ -271,12 +255,16 @@
   .startseite > :global(*) {
     flex-shrink: 0;
   }
+  /* O1: Das Startbild ist 2 : 1 gemalt. Feste Seitenverhältnisse statt „Rest der Höhe füllen“,
+     sonst schneidet „cover“ am Desktop und beim ersten Start die Türme oben ab. */
   .startseite > .bastion {
-    flex: 1 1 0;
-    min-block-size: 7.5rem;
+    aspect-ratio: 16 / 10;
     max-block-size: 22rem;
     display: flex;
     flex-direction: column;
+  }
+  .startseite > .fuss {
+    margin-block-start: auto;
   }
   .startseite:not(:has(> .bastion)) > .tueren {
     flex: 1 1 auto;
@@ -298,7 +286,7 @@
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.3;
-    margin-block-end: var(--abstand-s);
+    margin-block-end: 0.25rem;
   }
   .gruss.erste {
     font-size: 1.25rem;
@@ -316,42 +304,24 @@
   .leise {
     color: var(--farbe-text-leise);
   }
-  .entwurf {
-    font-size: 0.9rem;
-    margin-block: 0 var(--abstand-s);
-  }
-  .vertrauen {
-    color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-    margin-block: 0 var(--abstand-s);
-  }
   .einladung {
-    margin-block: var(--abstand-s) var(--abstand-m);
-    font-size: 1.125rem;
+    margin-block: 0;
+    color: var(--farbe-text-leise);
+    font-size: 1.05rem;
     line-height: 1.4;
+  }
+  .fuss {
+    padding-block: var(--abstand-m) var(--abstand-s);
+    color: var(--farbe-text-leise);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .fuss p {
+    margin-block: 0 0.25rem;
   }
   .test {
     font-size: 0.875rem;
     margin-block-end: var(--abstand-s);
-  }
-  .hilfe {
-    font: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    min-block-size: var(--ziel);
-    padding-inline: 0;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text-leise);
-    cursor: pointer;
-  }
-  .hilfe :global(svg) {
-    inline-size: 1.15rem;
-    block-size: 1.15rem;
-  }
-  .hilfe-text {
-    margin-block: 0.25rem var(--abstand-s);
   }
   .heute {
     font-size: 0.95rem;
@@ -424,7 +394,7 @@
     display: grid;
     gap: 0.2rem;
     align-content: center;
-    min-block-size: var(--ziel);
+    min-block-size: 4.25rem;
     padding: 0.75rem;
     border: none;
     border-radius: var(--radius-karte);
@@ -432,23 +402,22 @@
     box-shadow: 0 2px 10px var(--farbe-schatten);
     text-align: start;
   }
+  .tuer.neben.breit {
+    grid-column: 1 / -1;
+  }
   .tuer-titel {
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
+    font-weight: 800;
   }
   .tuer.ueben .tuer-titel {
     font-size: 1.5rem;
   }
-  .ueben-dran,
-  .tuer-info {
+  .ueben-dran {
     font-size: 0.95rem;
     font-weight: 600;
-  }
-  .tuer-info {
-    color: var(--farbe-text-leise);
-    font-size: 0.85rem;
   }
 
   .kacheln {
@@ -457,23 +426,19 @@
     gap: var(--abstand-s);
     margin-block-end: var(--abstand-s);
   }
-  .kacheln.erst .kachel {
-    min-block-size: var(--ziel);
-    align-content: center;
-  }
+  /* O1: Kacheln sehen aus wie die Nebentüren – Symbol und Name in einer Zeile, Info darunter */
   .kachel {
     display: grid;
-    align-content: start;
+    align-content: center;
     justify-items: start;
     gap: 0.2rem;
-    min-block-size: 4.5rem;
-    padding: 0.65rem 0.75rem;
+    min-block-size: 4.25rem;
+    padding: 0.75rem;
     border: none;
     border-radius: var(--radius-karte);
-    background: color-mix(in srgb, var(--farbe-flaeche) 88%, transparent);
-    box-shadow: 0 1px 6px var(--farbe-schatten);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
     text-align: start;
-    color: var(--farbe-akzent);
   }
   .kachel.warm {
     border-block-start: 3px solid var(--farbe-akzent-warm);
@@ -488,12 +453,25 @@
     border-block-start-color: transparent;
   }
   .kachel-name {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
     font-weight: 800;
     color: var(--farbe-text);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
+  .kachel-name :global(svg) {
+    color: var(--farbe-akzent);
+    flex-shrink: 0;
+  }
+  .kachel:disabled .kachel-name,
+  .kachel:disabled .kachel-name :global(svg) {
+    color: var(--farbe-text-leise);
+  }
+  .tuer-info,
   .kachel-info {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--farbe-text-leise);
     line-height: 1.35;
   }
@@ -515,8 +493,14 @@
     font-weight: 700;
   }
 
-  /* V112: Querformat – Türen ohne winzige Tap-Ziele */
-  @media (orientation: landscape) {
+  @media (width >= 36rem) {
+    .startseite > .bastion {
+      aspect-ratio: 2 / 1;
+    }
+  }
+
+  /* V112: Querformat (Handy quer) – Türen ohne winzige Tap-Ziele */
+  @media (orientation: landscape) and (height < 32rem) {
     .tueren {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -525,7 +509,9 @@
       min-block-size: max(3.25rem, var(--ziel));
     }
     .startseite > .bastion {
-      max-block-size: 12rem;
+      aspect-ratio: 2 / 1;
+      inline-size: min(100%, 24rem);
+      margin-inline: auto;
     }
   }
 </style>

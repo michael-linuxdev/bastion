@@ -39,7 +39,7 @@ async function angebotUeberspringen(seite: Page) {
 /** Start-Hub: Begrüßung, Willkommen oder erste Minute (noch keine Aufgabe). */
 function startGruss(seite: Page) {
   return seite
-    .getByText('Willkommen in Bastion.')
+    .getByText('Schön, dass du da bist.')
     .or(seite.getByText('Hallo. Schön, dass du da bist.'))
     .or(seite.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.'))
     .or(seite.getByText('Willkommen zurück'));
