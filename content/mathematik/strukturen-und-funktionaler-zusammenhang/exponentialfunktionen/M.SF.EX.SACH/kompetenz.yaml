@@ -1,0 +1,41 @@
+# Wachstum und Zerfall – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.EX.SACH
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: exponentialfunktionen
+titel:
+  de: 'Wachstum und Zerfall'
+kann_satz:
+  de: 'Ich kann Wachstums- und Zerfallsaufgaben lösen, auch mit Verdopplungs- und Halbwertszeit.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.EX.FUNKTION
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Bestand nach einigen Verdopplungen oder Halbierungen berechnen.'
+  M:
+    beschreibung:
+      de: 'Verdopplungs- und Halbwertszeit in ganzen Jahren bestimmen, auch bei Abnahme um einen Prozentsatz.'
+  E:
+    beschreibung:
+      de: 'Grenzen eines exponentiellen Modells erkennen und begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K3
+    - K2
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1

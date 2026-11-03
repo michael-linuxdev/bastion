@@ -39,7 +39,7 @@ async function angebotUeberspringen(seite: Page) {
 /** Start-Hub: Begrüßung, Willkommen oder erste Minute (noch keine Aufgabe). */
 function startGruss(seite: Page) {
   return seite
-    .getByText('Willkommen in Bastion.')
+    .getByText('Schön, dass du da bist.')
     .or(seite.getByText('Hallo. Schön, dass du da bist.'))
     .or(seite.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.'))
     .or(seite.getByText('Willkommen zurück'));
@@ -81,6 +81,14 @@ async function zurStartseite(seite: Page) {
     await seite.goto('./');
   await expect(gruss.first()).toBeVisible();
   await hubVoll(seite);
+}
+
+/** Elternbereich: alle Abschnitte aufklappen (O8 – zu Beginn ist nur der Bericht offen). */
+async function elternAufklappen(seite: Page) {
+  const zu = seite.locator('details.abschnitt:not([open]) > summary');
+  await expect(seite.locator('details.abschnitt').first()).toBeVisible();
+  for (let n = await zu.count(); n > 0; n--) await zu.first().click();
+  await expect(zu).toHaveCount(0);
 }
 
 async function mehr(seite: Page) {
@@ -321,8 +329,8 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
   await hubVoll(page);
-  // Noch nie geübt (Y121): die Kachel Wiederholen ist noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
+  // Noch nie geübt: die Kachel Wiederholen ist da, aber ausgegraut (O3, Wunsch PV)
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
@@ -438,8 +446,8 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await hubVoll(page);
-  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
+  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgegraut (O3)
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
 });
 
 test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
@@ -503,6 +511,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   const code = (await page.locator('.code').innerText()).trim();
   expect(code.split(' ')).toHaveLength(4);
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   // F2 (T-20): Die Werkstatt liefert Entwürfe aus, darum steht der Vermerk da
   await expect(page.locator('[data-entwurf]')).toContainText('noch nicht fachlich geprüft');
   // Auch Eltern können die Bastion ein- und ausschalten (B-13)
@@ -531,9 +540,11 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   await page.getByLabel(/Wiederherstellungscode/).fill(code.toUpperCase());
   await page.getByRole('button', { name: 'Neue PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('2468');
   await page.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(page);
   await expect(page.getByRole('button', { name: 'Details' })).toBeVisible();
 
   // Transparenz: Jugendliche sehen dasselbe unter „Mein Stand“
@@ -565,6 +576,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await expect(page.getByText('Letzte Sicherung: noch keine.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
@@ -600,7 +612,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByLabel(/Geheimer Satz/).fill(code);
   await seite.getByRole('button', { name: 'Zurückholen' }).click();
   await expect(seite.getByText(/Alles aus dieser Sicherung war schon da/)).toBeVisible();
-  await seite.getByRole('button', { name: '← Zurück' }).click();
+  await seite.getByRole('button', { name: 'Zurück', exact: true }).click();
 
   await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(seite.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
@@ -614,6 +626,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByLabel('PIN wiederholen').fill('1357');
   await seite.getByRole('button', { name: 'PIN festlegen' }).click();
   await seite.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(seite);
   const vermerk = /wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung/;
   await expect(seite.getByText(vermerk)).toBeVisible();
   // Erinnerung einstellbar und abschaltbar (D-O4)
@@ -625,6 +638,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await seite.getByLabel('PIN', { exact: true }).fill('1357');
   await seite.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(seite);
   await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('0');
   await seite.reload();
   await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
@@ -1669,7 +1683,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
   await expect(page.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.')).toBeVisible();
   await expect(page.getByRole('group', { name: 'Wohin möchtest du?' })).toBeVisible();
-  await page.getByRole('main').getByRole('button', { name: 'Mit Üben starten' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(
     page
       .getByRole('button', { name: 'Prüfen' })
@@ -1681,7 +1695,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.goto('./');
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
-  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
+  await expect(page.getByText('keine Werbung, keine Käufe')).toBeVisible();
   await page.getByRole('button', { name: 'Zurück' }).click();
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
@@ -1963,6 +1977,7 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
 
   await expect(page.getByText('Das Testprotokoll ist ausgeschaltet.')).toBeVisible();
   await page.getByLabel('Teilnehmer-Nummer').fill('T-01-9');
@@ -1989,6 +2004,7 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByRole('button', { name: 'Für Eltern' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('4711');
   await page.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Protokoll ansehen' }).click();
   await expect(page.getByText('T-01-8', { exact: true })).toBeVisible();
   await expect(page.getByText(/Nutzung: [1-9]/)).toBeVisible();
@@ -2025,6 +2041,7 @@ test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = glei
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
 
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
   await expect(page.getByText('Wähle oben mindestens ein Thema.')).toBeVisible();
@@ -2142,6 +2159,7 @@ test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mi
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
   await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
   await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
@@ -2220,6 +2238,7 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
 
   // Klasse 5: natürliche Zahlen nur G und M, Brüche auch E (K-31)
@@ -2239,13 +2258,16 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await expect(page.locator('[data-druckblatt] [data-aufgabe]').first()).toBeVisible();
 });
 
-test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
+test('Klasse 10 wählbar mit ersten Themen; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
   page,
 }) => {
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 10' }).check();
-  await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await expect(
+    page.getByRole('button', { name: /^Lineares und exponentielles Wachstum/ }),
+  ).toBeVisible();
 
   await page.getByRole('radio', { name: 'Klasse 9' }).check();
   await expect(
@@ -2259,5 +2281,19 @@ test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt',
   await page.getByRole('radio', { name: 'Gymnasium' }).check();
   await expect(
     page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
+});
+
+test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await thema(page, /^Lineares und exponentielles Wachstum/);
+  // Tabelle (Auswahl) oder Bestand (Zahl), je nach Vorlage im Wechsel
+  await expect(
+    page
+      .getByRole('radio', { name: /^exponentiell: Es wird immer/ })
+      .or(page.getByLabel('Deine Antwort')),
   ).toBeVisible();
 });

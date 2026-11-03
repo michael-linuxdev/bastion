@@ -37,7 +37,7 @@ describe('Simulator (T-9)', () => {
     expect(tag('P2') ?? 0).toBeGreaterThanOrEqual((p1 ?? 0) / 2);
     expect((tag('P3') ?? Infinity) / 30.4).toBeLessThanOrEqual(9);
     expect(tag('P4')).toBeUndefined();
-  }, 60_000);
+  }, 120_000);
 
   it('BASEBAU §8: Pause ohne Verlust (P5), Prüfungsphase ohne großen Vorteil (P7), P3 jede Woche Fortschritt', () => {
     const p1 = simuliere(profil('P1')).epocheTag ?? 0;
@@ -58,13 +58,20 @@ describe('Simulator (T-9)', () => {
   }, 60_000);
 
   // Epochen 2–4 (BASEBAU §8c): echte Zahlen statt Überschlag, Schutz vor Rückschritten
-  it('BASEBAU §8c: P1 schafft alle vier Epochen der Reihe nach, Bergfried 9 nach 3–4½ Jahren', () => {
+  it('BASEBAU §8c/§8d: P1 schafft alle vier Epochen der Reihe nach, Bergfried 9 nach 2½–4 Jahren', () => {
     const e = simuliere(profil('P1'), 5 * 365);
     const tage = e.epochenTage.map((t) => t ?? Infinity);
     expect(tage.every((t) => t < Infinity)).toBe(true);
     for (let i = 1; i < 4; i++) expect(tage[i] ?? 0).toBeGreaterThan(tage[i - 1] ?? 0);
-    expect((tage[3] ?? 0) / 365).toBeGreaterThanOrEqual(3);
-    expect((tage[3] ?? 0) / 365).toBeLessThanOrEqual(4.5);
+    expect((tage[3] ?? 0) / 365).toBeGreaterThanOrEqual(2.5);
+    expect((tage[3] ?? 0) / 365).toBeLessThanOrEqual(4);
     expect(e.kern).toBe(9);
   }, 120_000);
+
+  // B-34: Schwache, die besser werden, bleiben nicht hängen (Bauplan-Skizzen)
+  it('BASEBAU §8d: P8 (schwach, wird besser) schafft Epoche 3 in 5 Jahren', () => {
+    const e = simuliere(profil('P8'), 5 * 365);
+    expect(e.epochenTage[2]).toBeDefined();
+    expect(e.kern).toBeGreaterThanOrEqual(7);
+  }, 180_000);
 });

@@ -1,0 +1,39 @@
+# Umkehrfunktionen – Klasse 10, nur Gymnasium (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.LG.UMKEHRFUNKTION
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: logarithmus
+titel:
+  de: 'Umkehrfunktionen'
+kann_satz:
+  de: 'Ich kann zu einer umkehrbaren Funktion die Umkehrfunktion bilden und ihren Graphen durch Spiegeln an y = x erhalten.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.FK.BEGRIFF
+  - M.SF.PF.WURZELFUNKTION
+niveaus:
+  G:
+    beschreibung:
+      de: 'Punkte der Umkehrfunktion durch Tauschen von x und y angeben.'
+  M:
+    beschreibung:
+      de: 'Werte der Umkehrfunktion einer linearen Funktion berechnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum $y = x^2$ nur eingeschränkt umkehrbar ist.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

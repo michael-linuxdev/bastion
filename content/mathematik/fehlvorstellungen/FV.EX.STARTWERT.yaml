@@ -1,0 +1,25 @@
+id: FV.EX.STARTWERT
+name:
+  de: Startwert und Faktor vertauscht
+art: verwechslung
+beschreibung:
+  de: >-
+    Schreibt zum Graphen durch (0|2) und (1|6) den Term 3 · 2ˣ statt 2 · 3ˣ. Welche Zahl der Startwert und welche der Faktor ist, wird verwechselt.
+kompetenzen: [M.SF.EX.FUNKTION]
+erklaerung:
+  kurz:
+    de: 'In $c \cdot a^x$ ist c der Startwert bei $x = 0$, a der [[Faktor]] von Schritt zu Schritt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast Startwert und [[Faktor]] an die falsche Stelle geschrieben.'
+    - teil: warum-nicht
+      de: 'Bei $x = 0$ ist $a^0 = 1$, also $f(0) = c$. Der [[Graph]] geht durch (0|c).'
+    - teil: so-stimmt-es
+      de: 'Lies c bei $x = 0$ ab. Teile dann $f(1)$ durch $f(0)$: Das ist a.'
+gegenbeispiel:
+  de: 'Für $3 \cdot 2^x$ ist $f(0) = 3$, der [[Graph]] geht also durch (0|3), nicht durch (0|2).'
+rueckweg:
+  vermittlung: M.SF.EX.FUNKTION#erklaeren-graph
+kontrast: [M.SF.EX.FUNKTION.GRAPH]
+herkunft: ki-entwurf
+version: 1

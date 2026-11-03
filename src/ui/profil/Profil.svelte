@@ -7,15 +7,10 @@
 
   let {
     profil,
-    erstesMal = false,
     onspeichern,
-    onueberspringen,
   }: {
     profil: Profil;
-    /** Beim ersten Start: mit „Überspringen“ */
-    erstesMal?: boolean;
     onspeichern: (p: Profil) => void;
-    onueberspringen?: () => void;
   } = $props();
 
   let datum = $state('');
@@ -27,12 +22,9 @@
   const heute = new Date().toISOString().slice(0, 10);
 </script>
 
-<section class="profil" aria-labelledby="profil-titel">
-  <h3 id="profil-titel">{t('profil.ueberschrift')}</h3>
-  <p class="freundlich">{t('profil.freundlich')}</p>
+<div class="profil">
   <p class="leise">{t('profil.erklaerung')}</p>
   <form
-    class="karte"
     onsubmit={(e) => {
       e.preventDefault();
       onspeichern({ geburtsdatum: datum === '' ? undefined : datum, erwachsen });
@@ -47,31 +39,14 @@
     >
     <p class="knoepfe">
       <button class="haupt" type="submit">{t('profil.speichern')}</button>
-      {#if erstesMal && onueberspringen}
-        <button type="button" class="zweit" onclick={onueberspringen}
-          >{t('profil.ueberspringen')}</button
-        >
-      {/if}
     </p>
   </form>
-</section>
+</div>
 
 <style>
   .profil {
     display: grid;
-    gap: var(--abstand-s);
-    margin-block: var(--abstand-m);
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-
-  .freundlich {
-    margin: 0;
-    font-size: 1.125rem;
-    font-weight: 700;
+    gap: var(--abstand-m);
   }
 
   .leise {
@@ -79,15 +54,10 @@
     color: var(--farbe-text-leise);
   }
 
-  .karte {
+  form {
     display: grid;
     gap: var(--abstand-m);
     max-inline-size: 26rem;
-    padding: var(--abstand-m);
-    border: none;
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
   }
 
   label {

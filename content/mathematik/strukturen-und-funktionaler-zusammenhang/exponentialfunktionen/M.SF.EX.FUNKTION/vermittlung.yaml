@@ -1,0 +1,85 @@
+id: M.SF.EX.FUNKTION
+kompetenz: M.SF.EX.FUNKTION
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du den [[Graphen]] von $f(x) = c \cdot a^x$ und liest c und a am Graphen ab.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Bestand von 3 verdoppelt sich bei jedem Schritt. Wie groß ist er nach 2 Schritten?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '7', fv: FV.EX.MODELL }] }
+    weiter: entdecken
+    bei: { FV.EX.MODELL: M.SF.EX.WACHSTUM, sonst: M.SF.EX.WACHSTUM }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Für $f(x) = 3 \cdot 2^x$: Wie groß ist $f(0)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '6', fv: FV.EX.STARTWERT }] }
+    weiter: erklaeren-graph
+  - id: erklaeren-graph
+    typ: erklaeren
+    text:
+      de: 'In $f(x) = c \cdot a^x$ ist c der Startwert: Bei $x = 0$ ist $a^0 = 1$, also $f(0) = c$. Die [[Basis]] a ist der [[Faktor]] von Schritt zu Schritt. Erst wird potenziert, dann mit c malgenommen.'
+    weiter: erklaeren-asymptote
+  - id: erklaeren-asymptote
+    typ: erklaeren
+    text:
+      de: 'Ist $a > 1$, steigt der [[Graph]], ist $0 < a < 1$, fällt er. Eine Potenz mit positiver [[Basis]] ist nie 0: Der Graph hat keine [[Nullstelle]]. Er kommt der x-Achse beliebig nahe. Die x-Achse ist eine **[[Asymptote]]**.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Ein [[Graph]] geht durch (0|4) und (1|2). Startwert $c = 4$, [[Faktor]] $a = 2 : 4 = \frac{1}{2}$. Also $f(x) = 4 \cdot \left(\frac{1}{2}\right)^x$. Er fällt: $f(2) = 1$, $f(3) = \frac{1}{2}$, aber nie 0.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne $f(2)$ für $f(x) = 3 \cdot 2^x$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '36', fv: FV.EX.FAKTOR-IN-POTENZ }] }
+    weiter: gegenbeispiel
+    bei: { FV.EX.FAKTOR-IN-POTENZ: erklaeren-graph }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ole sagt: „$f(x) = 8 \cdot \left(\frac{1}{2}\right)^x$ hat bei $x = 4$ eine [[Nullstelle]].“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $f(4) = 8 \cdot \frac{1}{16} = \frac{1}{2}$. Der Wert wird nie 0.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Nach vier Halbierungen ist nichts mehr übrig.' }, fv: FV.EX.ASYMPTOTE }
+    weiter: merksatz
+    bei: { FV.EX.ASYMPTOTE: erklaeren-asymptote }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$f(x) = c \cdot a^x$: Der [[Graph]] geht durch (0|c). Für $a > 1$ steigt er, für $0 < a < 1$ fällt er. Er hat keine [[Nullstelle]], die x-Achse ist [[Asymptote]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Graph]] geht durch (0|2) und (1|6). Welcher [[Term]] passt?'
+    antwort:
+      optionen:
+        - { wert: { de: '$f(x) = 2 \cdot 3^x$' }, richtig: true }
+        - { wert: { de: '$f(x) = 3 \cdot 2^x$' }, fv: FV.EX.STARTWERT }
+        - { wert: { de: '$f(x) = 2 + 4x$' }, fv: FV.EX.MODELL }
+    weiter: uebergang
+    bei: { FV.EX.STARTWERT: erklaeren-graph, FV.EX.MODELL: M.SF.EX.WACHSTUM }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ordnest du selbst [[Graphen]] und [[Terme]] zu.'
+    vorlagen: [M.SF.EX.FUNKTION.GRAPH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

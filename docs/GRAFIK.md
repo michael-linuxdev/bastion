@@ -551,10 +551,31 @@ PV: „Wir brauchen mehr unterschiedliche, z. B. Kraterfelder und Sandbänke und
 - **Eigene Umgebung:** Im Zahnrad „Neue Umgebung würfeln“ (und „Ursprüngliche Umgebung“). Der Startwert wird als Einstellung `basebau.szenerie` gespeichert (Ereignis wie die Kamera, keine Schemaänderung) und mischt Lage, Auswahl, Form und Größe aller Dinge der Kulisse neu; auch die sechs Plätze am Bauplatz. Echter Zufall nur beim Antippen (`src/ui/plattform/zufall.ts`), danach fest. Nur Aussehen: keine Belohnung, nicht ans Lernen gebunden, jederzeit neu oder zurück (R1). 0 = Grundszenerie wie bisher.
 - **Oben und unten gleich voll:** Test prüft, dass über dem Bauplatz etwa so viele Dinge stehen wie darunter.
 
+### 18.3 Noch mehr Dinge und Größen (Wunsch PV, 03.11.2026)
+
+PV: „Mehr Abwechslung, noch mehr unterschiedliche Objekte würfelbar in mehr Größen.“
+
+- **33 neue Dinge** (`tools/grafik/g16_mehr_dinge.py`, 73 Bilder mit Jahreszeiten):
+  - Bastion: Wrack, Fischerboot, Steg, Seehundfelsen, Vogelfelsen, Felseninsel mit Kiefer.
+  - Dorf: Windmühle, Scheune, Holzstapel, Bienenstöcke, Vogelscheuche, Karren (im Herbst mit Kürbissen), Pferd (grast).
+  - Garten: Pavillon, Rosenbogen, kleines Gewächshaus, Vogelhaus, Sonnenuhr, Kürbisbeet.
+  - Unterwasser: Wrack, Amphoren, Riesenmuschel, Korallenbogen, Säulenreste, Muschelbank.
+  - Weltraum: Rover, Landekapsel, Solarfeld, Meteoritenkrater, Funkmast, Kristallfeld.
+- **Größen:** Dinge 0,7–1,5-fach, Flächen 1,6–3,4-fach; kleine häufiger als große. Alles hängt am Szenerie-Startwert (§18.2).
+
 ## 19. Licht, Wasser und Leben an Gebäuden (Wunsch PV, 03.11.2026, Schritt 2 und 3)
 
 - **Lichtschein am Abend:** Vor jedem Gebäude mit erleuchteten Fenstern liegt ein warmer, weicher Schein auf dem Boden (`fensterAbendSprite`, additive Mischung).
 - **Rauch:** Aus Bergfried und Werkstatt (Bastion, Dorf, Garten) steigen ruhige Wölkchen aus der Dachspitze; bei Regen etwas, bei Sturm deutlich schräg und schneller; abends dunkler. Bei „ruhig“ kein Rauch.
-- **Wasser:** Vor der Insel eine Wasserlinie mit Schaum, der langsam an- und abschwillt (bei Sturm schneller und breiter), darunter eine weiche Spiegelung der Inselwände.
+- **Wasser:** An der Küste (§20) schwillt der Schaum langsam an und ab (bei Sturm schneller und breiter), darunter eine weiche Spiegelung der Inselwand im Wasser.
 - Offen: wehende Fahnen (in die Gebäudebilder eingerechnet, dafür bräuchte es eigene Bilder je Bewegung), drehende Mühlenflügel, wandernde Schatten mit der Tageszeit.
+
+## 20. Unförmige Insel (Wunsch PV, 03.11.2026)
+
+PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wobei ein nicht bebaubarer Teil über das bisherige Viereck hinausgeht.“
+
+- **Inselrand** (`grafik/insel-rand.ts`): Der Bauplatz bleibt das Viereck mit seiner Einfassung. Darum liegt eine freie Küstenlinie, 1,1 bis 3,4 Felder über die Einfassung hinaus. Die Buchten und Landzungen entstehen aus drei Wellen mit festen Phasen aus dem Szenerie-Startwert (§18.2), sind also mit „Neue Umgebung würfeln“ veränderbar. Bauen kann man dort nicht.
+- **Gezeichnet in der Kulisse** (hinter der Bühne, wandert mit der Kamera; die Bühne hat nur 24 Bildpunkte Rand und würde ihn abschneiden): Strand (nur am Meer) mit Schaum an der echten Küste, Seitenwand, Oberfläche auf Höhe des Bauplatzes; Farben je Thema (`KulissenThema.insel`), Töne je Jahreszeit.
+- **Bewuchs** (`inselBewuchs`): Bäume, Büsche, Sträucher, Steine bzw. Korallen aus dem Atlas, je Jahreszeit. Hohes nur auf der hinteren Hälfte, weil Vorderes hinter den Wänden der Bühne verschwände. Die Bäume der Bühne am Bauplatzrand stehen jetzt auf Land.
+- **Kulisse-Dinge** halten Abstand zur Küste (Dinge knapp ein Feld, Flächen und die sechs Plätze am Bauplatz knapp zwei).
 

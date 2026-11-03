@@ -8,6 +8,7 @@ import type { Kamera } from './kamera';
 import type { Sonnenzeiten } from './sonne';
 import type { Thema } from '../../../core/policy/einstellung';
 import type { Jahreszeit } from './jahreszeit';
+import { aufInsel, inselRand, type FeldPunkt } from './insel-rand';
 
 export type Stimmung = 'tag' | 'daemmerung' | 'nacht';
 
@@ -39,6 +40,8 @@ export interface KulissenThema {
   readonly jahreszeitDinge: readonly string[];
   /** Boden und Horizont folgen der Jahreszeit (nur über Land) */
   readonly jahreszeitBoden: boolean;
+  /** Inselrand außerhalb des Bauplatzes (§20): Oberfläche, Seitenwand, Strand (nur am Meer) */
+  readonly insel: { readonly oben: string; readonly wand: string; readonly strand?: string };
 }
 
 /** Bild eines Dings in der Jahreszeit: eigenes Bild, wenn es eines gibt; Sommer ohne Zusatz */
@@ -84,12 +87,21 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'inselchen',
       'fels_1',
       'boje',
+      'wrack',
+      'fischerboot',
+      'steg',
+      'seehundfels',
+      'vogelfels',
+      'felseninsel',
+      'felseninsel',
+      'seehundfels',
     ],
     flaechen: ['sandbank', 'riff', 'riff', 'sandbank'],
     leben: ['moewen'],
     varianten: { sandbank: 3, riff: 3 },
-    jahreszeitDinge: ['inselchen'],
+    jahreszeitDinge: ['inselchen', 'steg', 'felseninsel'],
     jahreszeitBoden: true,
+    insel: { oben: '#7bb257', wand: '#5d7f46', strand: '#e4d3a2' },
   },
   dorf: {
     himmel: {
@@ -113,12 +125,34 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'heuballen',
       'baumgruppe',
       'kuh',
+      'windmuehle',
+      'scheune',
+      'holzstapel',
+      'bienenstoecke',
+      'vogelscheuche',
+      'karren',
+      'pferd',
+      'holzstapel',
     ],
     flaechen: ['acker', 'acker', 'teich', 'acker'],
     leben: ['grasen'],
     varianten: { acker: 3, baumgruppe: 3 },
-    jahreszeitDinge: ['hecke', 'obstbaum', 'teich', 'acker', 'baumgruppe', 'zaun'],
+    jahreszeitDinge: [
+      'hecke',
+      'obstbaum',
+      'teich',
+      'acker',
+      'baumgruppe',
+      'zaun',
+      'windmuehle',
+      'scheune',
+      'holzstapel',
+      'bienenstoecke',
+      'vogelscheuche',
+      'karren',
+    ],
     jahreszeitBoden: true,
+    insel: { oben: '#82b555', wand: '#5e8340' },
   },
   garten: {
     himmel: {
@@ -140,6 +174,13 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'obstbaum',
       'blumenbusch',
       'baumgruppe',
+      'pavillon',
+      'rosenbogen',
+      'gewaechshaus',
+      'vogelhaus',
+      'sonnenuhr',
+      'kuerbisbeet',
+      'rosenbogen',
     ],
     flaechen: ['beet', 'teich', 'beet'],
     leben: ['schmetterlinge'],
@@ -153,8 +194,15 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'baumgruppe',
       'bank',
       'vogeltraenke',
+      'pavillon',
+      'rosenbogen',
+      'gewaechshaus',
+      'vogelhaus',
+      'sonnenuhr',
+      'kuerbisbeet',
     ],
     jahreszeitBoden: true,
+    insel: { oben: '#70b54f', wand: '#4f8a3c' },
   },
   unterwasser: {
     himmel: {
@@ -176,12 +224,20 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'anemone',
       'seetang',
       'muschelfels',
+      'wrack',
+      'amphoren',
+      'riesenmuschel',
+      'korallenbogen',
+      'saeulenreste',
+      'muschelbank',
+      'amphoren',
     ],
     flaechen: ['seegras', 'sandrippel', 'seegras'],
     leben: ['schwarm'],
     varianten: { seegras: 3, sandrippel: 3 },
     jahreszeitDinge: [],
     jahreszeitBoden: false,
+    insel: { oben: '#dcc896', wand: '#b49f70' },
   },
   weltraum: {
     himmel: {
@@ -203,12 +259,20 @@ const THEMEN: Record<Thema, KulissenThema> = {
       'geroell',
       'kristall',
       'eisbrocken',
+      'rover',
+      'landekapsel',
+      'solarfeld',
+      'meteorit',
+      'funkmast',
+      'kristallfeld',
+      'meteorit',
     ],
     flaechen: ['kraterfeld', 'kraterfeld'],
     leben: ['satellit'],
     varianten: { kraterfeld: 3, geroell: 3, eisbrocken: 3 },
     jahreszeitDinge: [],
     jahreszeitBoden: false,
+    insel: { oben: '#a6a29b', wand: '#7c7974' },
   },
 };
 
@@ -321,10 +385,26 @@ export function kulissenDinge(
 ): readonly Ding[] {
   // Auch die sechs Plätze am Bauplatz tragen je Szenerie andere Dinge
   const versatz = szenerie % thema.dinge.length;
+  // Nichts auf dem Inselrand (§20): Küste plus ein knappes Feld Abstand
+  const kueste = inselRand(breite, tiefe, szenerie, 0.9);
+  // Flächen (bis 3,4 Felder breit) und die Plätze am Bauplatz brauchen mehr Abstand
+  const kuesteWeit = inselRand(breite, tiefe, szenerie, 1.9);
+  const mitte = { gx: breite / 2, gy: tiefe / 2 };
+  /** Platz auf Land so weit nach außen schieben, bis er vor der Küste liegt */
+  const vorDieKueste = (p: FeldPunkt): FeldPunkt => {
+    let q = p;
+    for (let i = 0; i < 60 && aufInsel(q, kuesteWeit); i++) {
+      const dx = q.gx - mitte.gx;
+      const dy = q.gy - mitte.gy;
+      const l = Math.hypot(dx, dy) || 1;
+      q = { gx: q.gx + (dx / l) * 0.25, gy: q.gy + (dy / l) * 0.25 };
+    }
+    return q;
+  };
   const nah = dingeUmBauplatz(breite, tiefe, [
     ...thema.dinge.slice(versatz),
     ...thema.dinge.slice(0, versatz),
-  ]);
+  ]).map((d) => ({ ...d, ...vorDieKueste(d) }));
   const weit: Ding[] = [];
   const schritt = 3.4;
   const w = KULISSE_WEITE;
@@ -337,7 +417,9 @@ export function kulissenDinge(
       const ax = gx < 0 ? -gx : gx > breite ? gx - breite : 0;
       const ay = gy < 0 ? -gy : gy > tiefe ? gy - tiefe : 0;
       const abstand = Math.max(ax, ay);
-      if (abstand < 2.2) continue;
+      if (abstand < 2.2 || aufInsel({ gx, gy }, kueste)) continue;
+      const flachHier = thema.flaechen.length > 0 && misch(i, j, 4, szenerie) < 0.2;
+      if (flachHier && aufInsel({ gx, gy }, kuesteWeit)) continue;
       if (nah.some((d) => Math.hypot(d.gx - gx, d.gy - gy) < 2.4)) continue;
       // nah dichter, weit lockerer
       let dichte = abstand < 9 ? 0.6 : abstand < 18 ? 0.34 : abstand < 30 ? 0.2 : 0.12;
@@ -350,9 +432,11 @@ export function kulissenDinge(
       // Reihenfolge der Liste mit fester Verschiebung je Zelle, damit nichts im Takt wiederholt
       n += 1 + Math.floor(misch(i, j, 5, szenerie) * 3);
       const bild = liste[n % liste.length] ?? liste[0] ?? 'fels_1';
-      // Größe schwankt etwas (Flächen 2–3 Felder, Dinge 0,85–1,15)
       const g = misch(i, j, 6, szenerie);
-      const bildBreite = Math.round(DING_BREITE * (flach ? 2 + g : 0.85 + g * 0.3));
+      // Größe schwankt (Wunsch PV: „in mehr Größen“): Dinge 0,7–1,5-fach, Flächen 1,6–3,4-fach;
+      // kleine Größen häufiger als große (g² verschiebt zur Mitte und nach unten)
+      const groesse = flach ? 1.6 + g * 1.8 : 0.7 + g * g * 0.8;
+      const bildBreite = Math.round(DING_BREITE * groesse);
       // Form: jede Variante gleich oft, je Zelle fest
       const formen = thema.varianten[bild] ?? 1;
       const variante = 1 + Math.floor(misch(i, j, 7, szenerie) * formen);
@@ -370,4 +454,71 @@ export function kulissenDinge(
     ...weit.filter((d) => d.flach).sort((a, b) => tiefeVon(a) - tiefeVon(b)),
     ...[...nah, ...weit.filter((d) => !d.flach)].sort((a, b) => tiefeVon(a) - tiefeVon(b)),
   ];
+}
+
+/** Bewuchs auf dem Inselrand: Bild aus dem Atlas (`umgebung/…`), Lage in Feldern, Größe */
+export interface Bewuchs {
+  readonly pfad: string;
+  readonly gx: number;
+  readonly gy: number;
+  readonly breite: number;
+  /** hat Bilder je Jahreszeit (`_fruehling`, `_herbst`, `_winter`, G13) */
+  readonly jahreszeit: boolean;
+}
+
+/** Was auf dem Inselrand wächst: hoch (nur hinten) und niedrig (auch vorne) */
+const BEWUCHS: Readonly<Record<Thema, { hoch: readonly string[]; niedrig: readonly string[] }>> = {
+  bastion: {
+    hoch: ['bastion/baum_a', 'bastion/baum_b'],
+    niedrig: ['bastion/busch', 'bastion/stein'],
+  },
+  dorf: { hoch: ['dorf/baum_a', 'dorf/baum_b'], niedrig: ['garten/strauch_a'] },
+  garten: { hoch: ['dorf/baum_b'], niedrig: ['garten/strauch_a', 'garten/strauch_b'] },
+  unterwasser: { hoch: ['unterwasser/koralle_a'], niedrig: ['unterwasser/koralle_b'] },
+  weltraum: { hoch: [], niedrig: [] },
+};
+const OHNE_JAHRESZEIT = /stein|koralle/;
+
+/**
+ * Bäume, Büsche und Steine auf dem Inselrand (§20, Wunsch PV: „Bäume stehen zum Teil im
+ * Wasser“ – jetzt stehen sie auf Land). Fest aus Größe und Szenerie-Startwert. Hohes nur
+ * auf der hinteren Hälfte: Die Kulisse liegt hinter der Bühne, vorne würde ein Baum
+ * hinter den Inselwänden verschwinden.
+ */
+export function inselBewuchs(
+  breite: number,
+  tiefe: number,
+  thema: Thema,
+  szenerie = 0,
+): readonly Bewuchs[] {
+  const art = BEWUCHS[thema];
+  if (art.hoch.length + art.niedrig.length === 0) return [];
+  const kueste = inselRand(breite, tiefe, szenerie, -0.35);
+  const aus: Bewuchs[] = [];
+  const mitteSumme = (breite + tiefe) / 2;
+  for (let k = 0; k < kueste.length; k += 3) {
+    if (misch(k, 1, 40, szenerie) > 0.62) continue;
+    const c = kueste[k];
+    if (!c) continue;
+    // zwischen Einfassung (eine Feldreihe um den Bauplatz) und Küste
+    const rx = Math.max(-1.1, Math.min(breite + 1.1, c.gx));
+    const ry = Math.max(-1.1, Math.min(tiefe + 1.1, c.gy));
+    const t = 0.3 + misch(k, 2, 41, szenerie) * 0.55;
+    const gx = rx + (c.gx - rx) * t;
+    const gy = ry + (c.gy - ry) * t;
+    if (gx > -1.2 && gx < breite + 1.2 && gy > -1.2 && gy < tiefe + 1.2) continue;
+    const hinten = gx + gy < mitteSumme;
+    const liste =
+      hinten && art.hoch.length > 0 && misch(k, 3, 42, szenerie) < 0.6 ? art.hoch : art.niedrig;
+    const pfad = liste[Math.floor(misch(k, 4, 43, szenerie) * liste.length)] ?? liste[0];
+    if (!pfad) continue;
+    aus.push({
+      pfad: `umgebung/${pfad}`,
+      gx,
+      gy,
+      breite: Math.round(52 * (0.75 + misch(k, 5, 44, szenerie) * 0.5)),
+      jahreszeit: !OHNE_JAHRESZEIT.test(pfad),
+    });
+  }
+  return aus.sort((p, q) => p.gx + p.gy - (q.gx + q.gy));
 }
