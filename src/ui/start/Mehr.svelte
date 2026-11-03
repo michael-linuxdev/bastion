@@ -81,10 +81,16 @@
     <ul class="liste">
       {#each fuerDich as e (e.ziel)}
         <li>
-          <button class="eintrag" onclick={() => onziel(e.ziel)}>
+          <!-- Name als Beschriftung, Info als Beschreibung: Screenreader hören „Sicherung“ zuerst -->
+          <button
+            class="eintrag"
+            aria-label={e.name}
+            aria-describedby="mehr-info-{e.ziel}"
+            onclick={() => onziel(e.ziel)}
+          >
             <Symbol name={e.symbol} />
             <span class="name">{e.name}</span>
-            <span class="info">{e.info}</span>
+            <span class="info" id="mehr-info-{e.ziel}">{e.info}</span>
           </button>
         </li>
       {/each}
@@ -96,10 +102,15 @@
       <h3 id="mehr-erwachsene">{t('mehr.fuer-erwachsene')}</h3>
       <ul class="liste">
         <li>
-          <button class="eintrag" onclick={() => onziel('eltern')}>
+          <button
+            class="eintrag"
+            aria-label={t('eltern.knopf')}
+            aria-describedby="mehr-info-eltern"
+            onclick={() => onziel('eltern')}
+          >
             <Symbol name="eltern" />
             <span class="name">{t('eltern.knopf')}</span>
-            <span class="info">{t('mehr.eltern-info')}</span>
+            <span class="info" id="mehr-info-eltern">{t('mehr.eltern-info')}</span>
           </button>
         </li>
       </ul>
