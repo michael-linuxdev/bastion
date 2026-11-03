@@ -22,12 +22,9 @@
   const heute = new Date().toISOString().slice(0, 10);
 </script>
 
-<section class="profil" aria-labelledby="profil-titel">
-  <h3 id="profil-titel">{t('profil.ueberschrift')}</h3>
-  <p class="freundlich">{t('profil.freundlich')}</p>
+<section class="profil" aria-label={t('profil.ueberschrift')}>
   <p class="leise">{t('profil.erklaerung')}</p>
   <form
-    class="karte"
     onsubmit={(e) => {
       e.preventDefault();
       onspeichern({ geburtsdatum: datum === '' ? undefined : datum, erwachsen });
@@ -49,19 +46,7 @@
 <style>
   .profil {
     display: grid;
-    gap: var(--abstand-s);
-    margin-block: var(--abstand-m);
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-
-  .freundlich {
-    margin: 0;
-    font-size: 1.125rem;
-    font-weight: 700;
+    gap: var(--abstand-m);
   }
 
   .leise {
@@ -69,15 +54,10 @@
     color: var(--farbe-text-leise);
   }
 
-  .karte {
+  form {
     display: grid;
     gap: var(--abstand-m);
     max-inline-size: 26rem;
-    padding: var(--abstand-m);
-    border: none;
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche);
-    box-shadow: 0 2px 10px var(--farbe-schatten);
   }
 
   label {

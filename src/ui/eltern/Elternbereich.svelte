@@ -29,6 +29,7 @@
   import Aufgabenblatt from './Aufgabenblatt.svelte';
   import { entwurfAusgeliefert } from '../plattform/paketstand';
   import WetterEinstellung from '../bastion/WetterEinstellung.svelte';
+  import Seitenkopf from '../start/Seitenkopf.svelte';
 
   let {
     kompetenzen,
@@ -38,6 +39,7 @@
     basebau = $bindable(true),
     klasse = $bindable(5),
     schulart = $bindable(undefined),
+    onzurueck,
   }: {
     kompetenzen: readonly Kompetenz[];
     vorlagen: readonly GeneratorVorlage[];
@@ -49,6 +51,8 @@
     klasse?: number;
     /** Klasse und Schulart pflegen auch Eltern (L-17) */
     schulart?: 'oberschule' | 'gymnasium' | undefined;
+    /** O6: Zurück im gemeinsamen Seitenkopf */
+    onzurueck: () => void;
   } = $props();
 
   /** O5: Abschnitte des offenen Elternbereichs, in dieser Reihenfolge */
@@ -136,14 +140,12 @@
 </script>
 
 <section class="eltern register-werkstatt" data-eltern>
-  <header class="kopf">
-    <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
-    <h2>{t('eltern.ueberschrift')}</h2>
-  </header>
-  <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
-  {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
-      {t('entwurf.vermerk')}
-    </p>{/if}
+  <Seitenkopf titel={t('eltern.ueberschrift')} marke={t('eltern.nur-erwachsene')} {onzurueck}>
+    <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
+    {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
+        {t('entwurf.vermerk')}
+      </p>{/if}
+  </Seitenkopf>
   {#if schritt !== 'laden'}<PinVermerke {vermerke} />{/if}
 
   {#if schritt === 'einrichten' || schritt === 'zuruecksetzen'}
@@ -312,27 +314,6 @@
   .eltern {
     display: grid;
     gap: var(--abstand-m);
-  }
-  .kopf {
-    display: grid;
-    gap: 0.35rem;
-  }
-  .badge {
-    margin: 0;
-    justify-self: start;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text-leise);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  h2 {
-    margin: 0;
-    font-size: clamp(1.75rem, 6vw, 2.25rem);
-    color: var(--farbe-akzent);
   }
   h3 {
     margin: 0;
