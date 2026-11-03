@@ -29,6 +29,17 @@ schritte:
     typ: erklaeren
     text:
       de: '$x^2 = a$ hat für positives a zwei Lösungen: $\sqrt{a}$ und $-\sqrt{a}$. Für $a = 0$ nur 0. Für negatives a keine, denn ein Quadrat ist nie negativ.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{}, { art: gerade, a: 0, e: 4, vergleich: true }],
+            x: [-4, 4],
+            y: [-3, 9],
+            punkte: [[-2, 4], [2, 4]],
+          },
+      }
     weiter: erklaeren-produkt
   - id: erklaeren-produkt
     typ: erklaeren

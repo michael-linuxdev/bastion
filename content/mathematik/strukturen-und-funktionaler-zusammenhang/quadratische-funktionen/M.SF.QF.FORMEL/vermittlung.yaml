@@ -34,6 +34,16 @@ schritte:
     typ: erklaeren
     text:
       de: 'Der [[Term]] unter der [[Wurzel]] heißt [[Diskriminante]]: $D = \left(\frac{p}{2}\right)^2 - q$. D positiv: zwei Lösungen. D gleich 0: eine. D negativ: keine.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ a: 2, d: -4, e: -2 }, { a: 2 }, { a: 2, d: 4, e: 2 }],
+            x: [-7, 7],
+            y: [-3, 8],
+          },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
