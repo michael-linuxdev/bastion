@@ -24,6 +24,15 @@ export interface PflichtPruefung<P> {
 
 const seed = fc.nat({ max: 0xffffffff });
 
+/**
+ * Tempo: Vitest-`expect` ist in Schleifen mit 10 000 Läufen teuer. Darum erst billig vergleichen
+ * und nur bei Abweichung `toEqual` aufrufen, das dann die genaue Meldung liefert. JSON kann sich
+ * bei gleichem Inhalt in der Reihenfolge der Schlüssel unterscheiden; dann prüft `toEqual` nach.
+ */
+function gleich(ist: unknown, soll: unknown, meldung?: string): void {
+  if (JSON.stringify(ist) !== JSON.stringify(soll)) expect(ist, meldung).toEqual(soll);
+}
+
 /** Was die Person von einer Aufgabe sieht – Grundlage für den Abwechslungs-Test. */
 const sichtbar = (i: Instanz) => ({
   platzhalter: i.platzhalter,
@@ -58,7 +67,7 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
             fc.assert(
               fc.property(seed, (s) => {
                 const instanz = generator.erzeuge(s, parameter);
-                expect(instanz.loesung).toEqual(pruefung.unabhaengigeLoesung(instanz, parameter));
+                gleich(instanz.loesung, pruefung.unabhaengigeLoesung(instanz, parameter));
               }),
               { numRuns: laeufe },
             );
@@ -71,9 +80,7 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
           () => {
             fc.assert(
               fc.property(seed, (s) => {
-                expect(
-                  pruefung.grenzverletzungen(generator.erzeuge(s, parameter), parameter),
-                ).toEqual([]);
+                gleich(pruefung.grenzverletzungen(generator.erzeuge(s, parameter), parameter), []);
               }),
               { numRuns: laeufe },
             );
@@ -87,23 +94,25 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
             fc.assert(
               fc.property(seed, (s) => {
                 const instanz = generator.erzeuge(s, parameter);
-                const antworten = instanz.fehlerbilder.map((f) => f.antwort);
-                for (const [i, a] of antworten.entries()) {
-                  expect(gleicheLoesung(a, instanz.loesung)).toBe(false);
-                  for (const b of antworten.slice(i + 1)) expect(gleicheLoesung(a, b)).toBe(false);
-                }
-                for (const f of instanz.fehlerbilder) {
-                  expect(generator.fehlerbildIds).toContain(f.id);
+                const probleme: string[] = [];
+                const fb = instanz.fehlerbilder;
+                for (const [i, f] of fb.entries()) {
+                  if (gleicheLoesung(f.antwort, instanz.loesung))
+                    probleme.push(`Fehlerbild ${f.id} ergibt die richtige Antwort`);
+                  for (const g of fb.slice(i + 1))
+                    if (gleicheLoesung(f.antwort, g.antwort))
+                      probleme.push(`Fehlerbilder ${f.id} und ${g.id} ergeben dieselbe Antwort`);
+                  if (!generator.fehlerbildIds.includes(f.id))
+                    probleme.push(`Fehlerbild ${f.id} fehlt in fehlerbildIds`);
                 }
                 // Gerundetes Ergebnis (B3): Lösung ist der gerundete genaue Wert
                 if (instanz.runden) {
-                  expect(instanz.loesung.typ).toBe('zahl');
-                  if (instanz.loesung.typ === 'zahl')
-                    expect(instanz.loesung.wert).toBeCloseTo(
-                      rundeAuf(instanz.runden.genau, instanz.runden.stellen),
-                      9,
-                    );
+                  const soll = rundeAuf(instanz.runden.genau, instanz.runden.stellen);
+                  if (instanz.loesung.typ !== 'zahl') probleme.push('gerundet, aber keine Zahl');
+                  else if (Math.abs(instanz.loesung.wert - soll) >= 5e-10)
+                    probleme.push(`gerundet ${instanz.loesung.wert}, erwartet ${soll}`);
                 }
+                gleich(probleme, [], `Seed ${s}`);
               }),
               { numRuns: laeufe },
             );
@@ -137,12 +146,11 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
             fc.assert(
               fc.property(seed, (s) => {
                 const instanz = generator.erzeuge(s, parameter);
-                expect(Object.keys(instanz.platzhalter).sort()).toEqual(
-                  [...generator.platzhalter].sort(),
-                );
-                for (const wert of Object.values(instanz.platzhalter)) {
-                  expect(wert).toBeDefined();
-                }
+                gleich(Object.keys(instanz.platzhalter).sort(), [...generator.platzhalter].sort());
+                const leer = Object.entries(instanz.platzhalter)
+                  .filter(([, wert]) => wert === undefined)
+                  .map(([name]) => name);
+                gleich(leer, [], 'Platzhalter ohne Wert');
               }),
               { numRuns: laeufe },
             );
@@ -155,7 +163,7 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
           () => {
             fc.assert(
               fc.property(seed, (s) => {
-                expect(generator.erzeuge(s, parameter)).toEqual(generator.erzeuge(s, parameter));
+                gleich(generator.erzeuge(s, parameter), generator.erzeuge(s, parameter));
               }),
               { numRuns: Math.min(laeufe, 1000) },
             );
