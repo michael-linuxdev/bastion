@@ -241,7 +241,7 @@ Prinzip unverändert: **mehr Baupläne** je Epoche, **nicht** mehr Stein pro Woc
 
 **Bauplatz:** Epoche 1: 12×12 · 2: 16×16 · 3: 20×20 · 4: 24×24. Beim Wechsel: Gebäude behalten Relative Position zur Mitte; fehlen Felder am Rand, nur Erweiterung nach außen. *Umgesetzt seit B-32 (02.11.2026) in `bastionAus`.*
 
-**Katalog-Erweiterungen (Startwerte, Simulator prüft später):**
+**Katalog-Erweiterungen (Startwerte, Simulator prüft später):** *Ältere Startwerte vor B-31 und B-33; die gültigen Kosten stehen in `src/core/bastion/katalog.ts`.*
 
 *Epoche 2 – zusätzlich / höher*
 
@@ -429,6 +429,19 @@ Epoche 1 ist unverändert (gleiche Zahlen wie §8b). Befunde:
 
 Keine Regel geändert (B-29). Mögliche Hebel, falls der PV etwas ändern möchte: Fleiß-Kosten der Bergfried-Stufen 6–9 senken, oder Baupläne für P6 früher (Schwelle 85 %). `simulator.test.ts` prüft: P1 schafft alle vier Epochen der Reihe nach, Bergfried 9 nach 3–4½ Jahren.
 
+**Nachher (B-33, 03.11.2026):** Fleiß der Bergfried-Stufen 6–9 halbiert (800 / 1100 / 1500 / 2000 → 400 / 550 / 750 / 1000; Behalten, Können, Schritte unverändert). Epoche geschafft nach … Monaten:
+
+| Profil | Epoche 3 vorher → nachher | Epoche 4 vorher → nachher |
+|---|---|---|
+| P1 regelmäßig | 26.8 → 23.5 | 45.7 → **37.9** |
+| P2 eifrig | 22.5 → 22.5 | 36.2 → 36.2 |
+| P3 Wochenende | 24.6 → 23.9 | 40.9 → 37.0 |
+| P5 Pause | 28.2 → 25.0 | 47.1 → 39.0 |
+| P6 schwach | – | – (Bergfried 4) |
+| P7 Prüfungsphase | 27.6 → 24.9 | 46.5 → 38.4 |
+
+Epoche 1 und 2 unverändert. Bergfried 9 bei P1 nach etwa 3,2 statt 3,8 Jahren. P2 bremsen jetzt die Baupläne (60), nicht mehr der Fleiß – schneller geht es dort nur über mehr gefestigte Themen, und das ist gewollt (R4). P6 ändert sich nicht: Es fehlen Baupläne, nicht Fleiß (offen, §9 Punkt 5).
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:
@@ -476,6 +489,7 @@ Ungeklärte Zweifel, die wir offen weitertragen:
 | B-30 | **Planen und Bauen werden nicht zusammengelegt** (Vorschlag aus G5, `GRAFIK.md` §11.7). `pnpm sim` zeigte für Wochenend-Lernende (P3) Epoche 1 nach 19,7 statt 10,5 Monaten oder 29 statt 77 Gebäude im Jahr 1. Die Bau-Regel im Kern bleibt; das Warten macht G4 sichtbar (Gerüst in Abschnitten). Neubauten schlägt die Oberfläche neben dem Bergfried vor (`vorgeschlagenerPlatz`), ohne Kernänderung | Entschieden (01.11.2026 abends, Projektverantwortlicher) |
 | B-31 | **Doppeltes Tempo für alle Stufen** (Wunsch PV, 02.11.2026: „Die Stufen sollen doppelt so schnell erreicht werden“, für alle Epochen). Alle Kosten der Stufen-Gebäude (Bergfried, Studierstube, Späherturm, Werkstatt, Tor) halbiert: Fleiß und Behalten genau, Können und Bauschritte aufgerundet (mindestens 1). Bauplan-Schwellen der Epochenwechsel 15/40/80/120 → **8/20/40/60**. Einfassung und Zierde bleiben (keine Stufen; Banner 10 Fleiß bleibt der Erfolg der ersten Einheit, §5.1). Einnahmen unverändert. `pnpm sim` vorher/nachher in §8a. Gesamtdauer bis Bergfried 9 bei P1 von etwa 5½ auf etwa 2½–3 Jahre | Entschieden (02.11.2026, Projektverantwortlicher) |
 | B-32 | **Beim Epochenwechsel rückt alles Gebaute zur Mitte** (§5.5, bisher nicht umgesetzt; Fund aus der echten App: in Epoche 4 stand alles in der hinteren Ecke). Umsetzung nur in der Projektion `bastionAus`: Sobald Bergfried und erworbene Baupläne die nächste Epoche freischalten, verschiebt sie alle Bauwerke und Vorhaben um die Hälfte des Zuwachses (je Wechsel 2 Felder). Ereignisse danach tragen schon Lagen im größeren Platz. Keine Schemaänderung, keine Migration; gespeicherte Bastionen in Epoche 2+ (bisher nur Proben) liegen danach anders | Entschieden (02.11.2026, Projektverantwortlicher) |
+| B-33 | **Fleiß der Bergfried-Stufen 6–9 halbiert** (Wunsch PV 03.11.2026 nach dem Simulator für Epoche 2–4, §8c: „ja, Fleißkosten senken“): 800 / 1100 / 1500 / 2000 → 400 / 550 / 750 / 1000. Behalten, Können, Schritte und alle anderen Gebäude bleiben. `pnpm sim` vorher/nachher in §8c: P1 Bergfried 9 nach 37,9 statt 45,7 Monaten. Die Tabellen in §5.5 sind ältere Startwerte; maßgeblich ist `src/core/bastion/katalog.ts` | Entschieden (03.11.2026, Projektverantwortlicher) |
 
 ## 11. Umsetzungsplan Epoche 1 (K-18)
 
