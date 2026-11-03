@@ -1,0 +1,24 @@
+# Bedeutung von m und n begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GRAPH.BEGRUENDEN
+kompetenz: M.SF.FK.LINEAR-GRAPH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.achsenabschnitt-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Auf der y-Achse ist x = 0.'
+  - de: 'Setze x = 0 in die [[Gleichung]] ein.'
+fehlerbilder:
+  m-n-vertauscht:
+    de: 'Die Zahl vor x ist der [[Anstieg]]. Den [[Schnittpunkt]] mit der y-Achse gibt die Zahl ohne x an.'
+    fv: FV.FK.M-N-VERTAUSCHT
+  vorzeichen-graph:
+    de: 'Das [[Vorzeichen]] gehört zur Zahl: Bei y = m · x − 3 schneidet die [[Gerade]] bei −3.'
+    fv: FV.FK.VORZEICHEN-GRAPH
+herkunft: ki-entwurf
+version: 1

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Nullstellen mit Brüchen und Dezimalzahlen berechnen; Schnittpunkte mit beiden Achsen angeben.'
+  E:
+    beschreibung:
+      de: 'Nullstelle und Schnittpunkt mit der y-Achse unterscheiden und die Nullstelle begründet berechnen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

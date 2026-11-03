@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Den Anstieg aus zwei Punkten berechnen (Differenzenquotient) und n bestimmen.'
+  E:
+    beschreibung:
+      de: 'Fehler beim Berechnen des Anstiegs aus zwei Punkten finden und begründen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K2
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Zwei Tarife vergleichen und bestimmen, ab wann sich einer lohnt.'
+  E:
+    beschreibung:
+      de: 'Bei Tarifen mit Grundgebühr die richtige Rechnung begründet wählen.'
 kmk:
   leitidee: L3
   prozesse:

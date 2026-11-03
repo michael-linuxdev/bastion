@@ -1,0 +1,24 @@
+# Steigen und Fallen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.EIGENSCHAFTEN.BEGRUENDEN
+kompetenz: M.SF.FK.EIGENSCHAFTEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.steigen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Zahl in y = m · x + n sagt, wie steil und in welche Richtung der [[Graph]] geht?'
+  - de: 'Rechne f(0) und f(1) aus und vergleiche.'
+fehlerbilder:
+  steigen-fallen:
+    de: 'Steigen oder Fallen hängt am [[Anstieg]] m, nicht an der Zahl n.'
+    fv: FV.FK.STEIGEN-FALLEN
+  x-oder-y:
+    de: 'f(0) = n sagt, wo der [[Graph]] die y-Achse schneidet, nicht wohin er geht.'
+    fv: FV.FK.X-ODER-Y
+herkunft: ki-entwurf
+version: 1
