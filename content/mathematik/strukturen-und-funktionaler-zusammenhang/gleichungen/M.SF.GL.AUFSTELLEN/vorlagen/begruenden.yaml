@@ -1,0 +1,24 @@
+# Gleichung zum Zahlenrätsel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GL.AUFSTELLEN.BEGRUENDEN
+kompetenz: M.SF.GL.AUFSTELLEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.text-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Übersetze den Text Schritt für Schritt in Rechenzeichen.'
+  - de: 'Was passiert zuerst, was danach?'
+fehlerbilder:
+  text-in-term:
+    de: '„Das Dreifache“ heißt mal 3, nicht plus 3.'
+    fv: FV.GL.TEXT-IN-TERM
+  klammer-falsch:
+    de: 'Zuerst wird malgenommen, danach abgezogen. Eine Klammer würde die Reihenfolge umdrehen.'
+    fv: FV.GL.TEXT-IN-TERM
+herkunft: ki-entwurf
+version: 1

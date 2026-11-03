@@ -1,0 +1,24 @@
+# Probe mit negativer Zahl begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GL.TERMWERT.BEGRUENDEN
+kompetenz: M.SF.GL.TERMWERT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.probe-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Setze die [[negative Zahl]] mit Klammer ein.'
+  - de: 'Vergleiche beide Seiten.'
+fehlerbilder:
+  einsetzen-klammer:
+    de: 'Die [[negative Zahl]] muss mit Klammer eingesetzt werden, sonst geht das Minus verloren.'
+    fv: FV.GL.EINSETZEN-KLAMMER
+  probe-halb:
+    de: 'Eine [[Probe]] vergleicht beide Seiten. Dass eine Zahl herauskommt, reicht nicht.'
+    fv: FV.GL.PROBE-HALB
+herkunft: ki-entwurf
+version: 1

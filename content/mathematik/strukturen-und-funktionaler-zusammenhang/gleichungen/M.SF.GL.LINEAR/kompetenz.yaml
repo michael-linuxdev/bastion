@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Gleichungen der Form a·x + b = c·x + d und mit Klammern in wenigen Schritten lösen, auch Verhältnisgleichungen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann eine Gleichung fertig gelöst ist.'
 kmk:
   leitidee: L3
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

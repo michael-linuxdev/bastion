@@ -1,0 +1,24 @@
+# Lösen bis zum Ende begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GL.LINEAR.BEGRUENDEN
+kompetenz: M.SF.GL.LINEAR
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.loesen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Steht x schon allein?'
+  - de: 'Mache die [[Probe]].'
+fehlerbilder:
+  nicht-fertig:
+    de: 'Fertig ist die [[Gleichung]] erst, wenn x allein steht. Teile noch durch die Zahl vor x.'
+    fv: FV.GL.NICHT-FERTIG
+  umkehraufgabe:
+    de: 'Plus wird durch Minus rückgängig gemacht, nicht durch Plus.'
+    fv: FV.NZ.UMKEHRAUFGABE
+herkunft: ki-entwurf
+version: 1
