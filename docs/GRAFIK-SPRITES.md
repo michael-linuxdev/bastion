@@ -578,6 +578,7 @@ Generatoren (alle deterministisch, nur numpy und Pillow):
 | `tools/grafik/g15_varianten.py` | Zwei weitere Formen je Ding für Sandbank, Riff, Acker, Baumgruppe (mit Nadelbäumen), Beet, Seegras, Sandrippel, Kraterfeld, Geröll, Eisbrocken (`<name>_2/_3`, Pflanzliches je Jahreszeit) |
 | `tools/grafik/g16_mehr_dinge.py` | 33 weitere Dinge der Kulisse (6–7 je Thema), Verschneibares und Pflanzliches je Jahreszeit |
 | `tools/grafik/g17_hd.py` | Dieselben Modelle in doppelter Größe als `@2x.png` (Gebäude, Umgebung, Kulisse-Dinge), Manifest `"hd": true`; scharf beim Zoomen auf Geräten mit hoher Pixeldichte |
+| `tools/grafik/g18_fahnen.py` | Lage, Größe und Farbe der Fahnentücher in den Gebäudebildern (ohne Rendern), Manifest `"fahnen"`; die Bühne lässt sie wehen |
 | `tools/grafik/sprites-g3-hinterhof.py` | Hinterhof und Startbild (aus den neuen Bildern zusammengesetzt) |
 
 Reihenfolge: `g12_atlas.py`, `g12_boden.py`, `g12_rest.py`, `sprites-g3-hinterhof.py`. Die G3-Skripte (`sprites-g3-*.py`, `sprites-g3e-*.py`) sind abgelöst und bleiben als Beleg.

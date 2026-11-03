@@ -99,3 +99,4 @@
 | 03.11.2026 | **Boden mit Leben** (Branch `grafik/boden-leben`, Wunsch PV Schritt 7): Gras, Blüten, Blumen, Laub, Spuren je Jahreszeit auf freien Feldern; GRAFIK §23 |
 | 03.11.2026 | **Kein Absturz beim Zoomen** (Branch `grafik/zoom-absturz`, Meldung PV): Wolkenschatten fest, Brandung ohne Verschiebung, kein Filter je Kulisse-Bild, HD nur für Gezeichnetes; herangezoomt 710 → 238 MB Ebenenspeicher; GRAFIK §24 |
 | 03.11.2026 | **Wege und Tagesablauf** (Branch `grafik/tagesablauf`, Wunsch PV Punkt 4): Pfade vom Bergfried zu den Gebäuden, Bewohner gehen nach der Uhr zur Arbeit, machen Besorgungen, gehen abends heim, nachts drinnen; GRAFIK §25 |
+| 03.11.2026 | **Wehende Fahnen** (Branch `grafik/fahnen`, Wunsch PV): Lage der Tücher aus den Modellen (`g18_fahnen.py`), gezeichnetes Tuch wellt sich über dem Bild; GRAFIK §26 |

@@ -14,6 +14,21 @@ export interface AtlasEintrag {
   readonly pixel: { readonly w: number; readonly h: number };
   /** Es gibt `<datei>@2x.png` in doppelter Größe (G17, scharf beim Zoomen) */
   readonly hd?: boolean;
+  /** Fahnen im Bild (G18, wehen auf der Bühne): Bildpunkte des 1x-Bildes ab Fußpunkt */
+  readonly fahnen?: readonly AtlasFahne[];
+}
+
+/**
+ * Ein Fahnentuch im Gebäudebild (`tools/grafik/g18_fahnen.py`): `x, y` Stange oben am Tuch,
+ * `b, s` Weg zum freien Ende (rechts, unten), `h` Höhe, `farbe` aus dem Bild.
+ */
+export interface AtlasFahne {
+  readonly x: number;
+  readonly y: number;
+  readonly b: number;
+  readonly s: number;
+  readonly h: number;
+  readonly farbe: string;
 }
 
 /**
