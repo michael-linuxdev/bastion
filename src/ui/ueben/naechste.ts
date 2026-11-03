@@ -1,5 +1,10 @@
 // Nächste Übungs-Kompetenz für den direkten Sprung von „Üben“ (ohne Übersicht).
-import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
+import {
+  nachGraph,
+  passtZurSchulart,
+  type Kompetenz,
+  type Schulart,
+} from '../../core/competence/kompetenz';
 import { empfohlen } from '../../core/learning/empfehlung';
 import type { GeneratorVorlage } from '../../core/learning/vorlage';
 import type { Zustand } from '../plattform/ablage';
@@ -21,8 +26,9 @@ export function naechsteKompetenz(
   klasse: number,
   zustand: Zustand,
   jetzt: number,
+  schulart?: Schulart,
 ): Kompetenz | undefined {
-  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen);
+  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen) && passtZurSchulart(k, schulart);
 
   const ausIds = (ids: readonly string[]) =>
     ids.flatMap((id) => {

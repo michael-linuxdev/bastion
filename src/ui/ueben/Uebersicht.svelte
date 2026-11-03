@@ -1,7 +1,7 @@
 <script lang="ts">
   // Übersicht der Kompetenzen einer Klassenstufe, nach Bereich und Feld. Ohne Niveau: das wählt
   // die App still je Thema (L-22, src/core/learning/niveau-wahl.ts).
-  import { nachGraph, type Kompetenz } from '../../core/competence/kompetenz';
+  import { nachGraph, passtZurSchulart, type Kompetenz } from '../../core/competence/kompetenz';
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
@@ -52,6 +52,7 @@
         (k) =>
           k.bereich === bereich &&
           k.klassenstufe_typisch.includes(klasse) &&
+          passtZurSchulart(k, schulart) &&
           vorlagen.some((v) => v.kompetenz === k.id),
       ),
     })).filter((b) => b.kompetenzen.length > 0),
@@ -100,6 +101,9 @@
   />
 
   <h3>{t('klasse.name')} {klasse}</h3>
+  {#if bereiche.length === 0}
+    <p class="leise">{t('uebersicht.klasse-leer')}</p>
+  {/if}
   <!-- L18: Bereiche eingeklappt; offen sind der erste Bereich und jeder, in dem schon geübt oder erklärt wurde -->
   {#each bereiche as b, i (b.bereich)}
     <details

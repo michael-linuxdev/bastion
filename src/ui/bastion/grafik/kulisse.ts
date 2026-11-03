@@ -33,6 +33,8 @@ export interface KulissenThema {
   readonly flaechen: readonly string[];
   /** Was sich in der Kulisse ruhig bewegt */
   readonly leben: readonly LebenArt[];
+  /** Wie viele Formen es von einem Ding gibt (`<name>_2.png`, `<name>_3.png`, G15) */
+  readonly varianten: Readonly<Record<string, number>>;
   /** Dinge mit eigenem Bild je Jahreszeit (`<name>_<jahreszeit>.png`, G13) */
   readonly jahreszeitDinge: readonly string[];
   /** Boden und Horizont folgen der Jahreszeit (nur über Land) */
@@ -40,8 +42,11 @@ export interface KulissenThema {
 }
 
 /** Bild eines Dings in der Jahreszeit: eigenes Bild, wenn es eines gibt; Sommer ohne Zusatz */
-export function dingBild(thema: KulissenThema, name: string, jz: Jahreszeit): string {
-  return jz !== 'sommer' && thema.jahreszeitDinge.includes(name) ? `${name}_${jz}` : name;
+export function dingBild(thema: KulissenThema, name: string, jz: Jahreszeit, variante = 1): string {
+  const v = variante > 1 && variante <= (thema.varianten[name] ?? 1) ? `_${variante}` : '';
+  return jz !== 'sommer' && thema.jahreszeitDinge.includes(name)
+    ? `${name}${v}_${jz}`
+    : `${name}${v}`;
 }
 
 /**
@@ -82,6 +87,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['sandbank', 'riff', 'riff', 'sandbank'],
     leben: ['moewen'],
+    varianten: { sandbank: 3, riff: 3 },
     jahreszeitDinge: ['inselchen'],
     jahreszeitBoden: true,
   },
@@ -110,6 +116,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['acker', 'acker', 'teich', 'acker'],
     leben: ['grasen'],
+    varianten: { acker: 3, baumgruppe: 3 },
     jahreszeitDinge: ['hecke', 'obstbaum', 'teich', 'acker', 'baumgruppe', 'zaun'],
     jahreszeitBoden: true,
   },
@@ -136,6 +143,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['beet', 'teich', 'beet'],
     leben: ['schmetterlinge'],
+    varianten: { beet: 3, baumgruppe: 3 },
     jahreszeitDinge: [
       'blumenbusch',
       'teich',
@@ -171,6 +179,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['seegras', 'sandrippel', 'seegras'],
     leben: ['schwarm'],
+    varianten: { seegras: 3, sandrippel: 3 },
     jahreszeitDinge: [],
     jahreszeitBoden: false,
   },
@@ -197,6 +206,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['kraterfeld', 'kraterfeld'],
     leben: ['satellit'],
+    varianten: { kraterfeld: 3, geroell: 3, eisbrocken: 3 },
     jahreszeitDinge: [],
     jahreszeitBoden: false,
   },
@@ -260,6 +270,8 @@ export interface Ding {
   readonly breite?: number;
   /** Fläche am Boden: liegt unter den anderen Dingen */
   readonly flach?: boolean;
+  /** Welche Form (1 = Grundbild, 2, 3 …), siehe `varianten` */
+  readonly variante?: number;
 }
 
 /** Breite der Ding-Bilder in Bühnen-Bildpunkten (doppelt gezeichnet, Fuß unten Mitte) */
@@ -283,8 +295,10 @@ export function dingeUmBauplatz(
 }
 
 /** Feste Mischzahl 0 … 1 (kein Zufall zur Laufzeit) */
-function misch(a: number, b: number, k: number): number {
-  const h = (Math.imul(a + 101, 2654435761) ^ Math.imul(b + 307, 2246822519) ^ (k * 97)) >>> 0;
+function misch(a: number, b: number, k: number, szenerie = 0): number {
+  let h = (Math.imul(a + 101, 2654435761) ^ Math.imul(b + 307, 2246822519) ^ (k * 97)) >>> 0;
+  // Eigene Szenerie des Kindes: der Startwert mischt alles neu (0 = Grundszenerie)
+  if (szenerie !== 0) h = (Math.imul(h ^ szenerie, 2246822519) ^ (h >>> 13)) >>> 0;
   return ((h >>> 9) % 10000) / 10000;
 }
 
@@ -302,16 +316,23 @@ export function kulissenDinge(
   breite: number,
   tiefe: number,
   thema: KulissenThema,
+  /** Szenerie-Startwert des Kindes (Einstellung `basebau.szenerie`); 0 = Grundszenerie */
+  szenerie = 0,
 ): readonly Ding[] {
-  const nah = dingeUmBauplatz(breite, tiefe, thema.dinge);
+  // Auch die sechs Plätze am Bauplatz tragen je Szenerie andere Dinge
+  const versatz = szenerie % thema.dinge.length;
+  const nah = dingeUmBauplatz(breite, tiefe, [
+    ...thema.dinge.slice(versatz),
+    ...thema.dinge.slice(0, versatz),
+  ]);
   const weit: Ding[] = [];
   const schritt = 3.4;
   const w = KULISSE_WEITE;
   let n = 0;
   for (let i = 0; -w + i * schritt < breite + w; i++)
     for (let j = 0; -w + j * schritt < tiefe + w; j++) {
-      const gx = -w + i * schritt + (misch(i, j, 1) - 0.5) * schritt * 0.8;
-      const gy = -w + j * schritt + (misch(i, j, 2) - 0.5) * schritt * 0.8;
+      const gx = -w + i * schritt + (misch(i, j, 1, szenerie) - 0.5) * schritt * 0.8;
+      const gy = -w + j * schritt + (misch(i, j, 2, szenerie) - 0.5) * schritt * 0.8;
       // Abstand zum Bauplatz (0 = am Rand)
       const ax = gx < 0 ? -gx : gx > breite ? gx - breite : 0;
       const ay = gy < 0 ? -gy : gy > tiefe ? gy - tiefe : 0;
@@ -323,16 +344,26 @@ export function kulissenDinge(
       // Oben (hinter dem Bauplatz, Bildschirm-y folgt gx + gy) ist bis zum Horizont weniger
       // Platz zu sehen als unten: dort etwas dichter, damit beide Hälften gleich voll wirken
       if (gx + gy < (breite + tiefe) / 2) dichte *= 1.35;
-      if (misch(i, j, 3) > dichte) continue;
-      const flach = thema.flaechen.length > 0 && misch(i, j, 4) < 0.2;
+      if (misch(i, j, 3, szenerie) > dichte) continue;
+      const flach = thema.flaechen.length > 0 && misch(i, j, 4, szenerie) < 0.2;
       const liste = flach ? thema.flaechen : thema.weitere.length ? thema.weitere : thema.dinge;
       // Reihenfolge der Liste mit fester Verschiebung je Zelle, damit nichts im Takt wiederholt
-      n += 1 + Math.floor(misch(i, j, 5) * 3);
+      n += 1 + Math.floor(misch(i, j, 5, szenerie) * 3);
       const bild = liste[n % liste.length] ?? liste[0] ?? 'fels_1';
       // Größe schwankt etwas (Flächen 2–3 Felder, Dinge 0,85–1,15)
-      const g = misch(i, j, 6);
+      const g = misch(i, j, 6, szenerie);
       const bildBreite = Math.round(DING_BREITE * (flach ? 2 + g : 0.85 + g * 0.3));
-      weit.push({ bild, gx, gy, breite: bildBreite, ...(flach ? { flach: true } : {}) });
+      // Form: jede Variante gleich oft, je Zelle fest
+      const formen = thema.varianten[bild] ?? 1;
+      const variante = 1 + Math.floor(misch(i, j, 7, szenerie) * formen);
+      weit.push({
+        bild,
+        gx,
+        gy,
+        breite: bildBreite,
+        ...(flach ? { flach: true } : {}),
+        ...(variante > 1 ? { variante } : {}),
+      });
     }
   const tiefeVon = (d: Ding) => d.gx + d.gy;
   return [

@@ -979,6 +979,35 @@ test('Jahreszeit ausprobieren: jede Jahreszeit zeigt das Bild ohne Fehler (Wunsc
   expect(fehler).toEqual([]);
 });
 
+test('Eigene Umgebung würfeln und zurück, bleibt nach dem Neuladen (Wunsch PV)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  const fehler: string[] = [];
+  page.on('pageerror', (e) => fehler.push(e.message));
+  const umgebung = () =>
+    page
+      .locator('.kulisse .ding')
+      .evaluateAll((d) => d.map((x) => (x as HTMLImageElement).getAttribute('src')).join('|'));
+  await page.goto('./');
+  await bastionOeffnen(page, false);
+  await expect.poll(() => page.locator('.kulisse .ding').count()).toBeGreaterThan(5);
+  const vorher = await umgebung();
+  await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  await page.getByRole('button', { name: 'Neue Umgebung würfeln' }).click();
+  await expect(page.getByRole('button', { name: 'Ursprüngliche Umgebung' })).toBeVisible();
+  await page.getByRole('button', { name: '← Zur Bastion' }).click();
+  await expect.poll(umgebung).not.toBe(vorher);
+  // bleibt nach dem Neuladen (Einstellung basebau.szenerie)
+  await page.reload();
+  await bastionOeffnen(page, true);
+  await page.getByRole('button', { name: 'Ursprüngliche Umgebung' }).click();
+  await expect(page.getByRole('button', { name: 'Ursprüngliche Umgebung' })).toHaveCount(0);
+  await page.getByRole('button', { name: '← Zur Bastion' }).click();
+  await expect.poll(umgebung).toBe(vorher);
+  expect(fehler).toEqual([]);
+});
+
 test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Punkt 4)', async ({
   page,
 }) => {
@@ -2208,4 +2237,27 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await page.getByRole('checkbox', { name: /^Wurzeln ziehen/ }).check();
   await page.getByRole('radio', { name: 'Erweitert (E)' }).check();
   await expect(page.locator('[data-druckblatt] [data-aufgabe]').first()).toBeVisible();
+});
+
+test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
+
+  await page.getByRole('radio', { name: 'Klasse 9' }).check();
+  await expect(
+    page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await expect(page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ })).toHaveCount(
+    0,
+  );
+  await expect(page.getByRole('button', { name: /^Wurzeln ziehen/ })).toBeVisible();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await expect(
+    page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
 });
