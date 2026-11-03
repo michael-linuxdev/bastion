@@ -77,10 +77,11 @@ export const KATALOG: Readonly<Record<GebaeudeTyp, Gebaeude>> = {
       { kosten: k(250, 80, 2, 8) },
       { kosten: k(400, 125, 3, 10), ab: 2 },
       { kosten: k(600, 200, 4, 12), ab: 2 },
-      { kosten: k(800, 250, 5, 14), ab: 3 },
-      { kosten: k(1100, 350, 6, 16), ab: 3 },
-      { kosten: k(1500, 450, 7, 18), ab: 4 },
-      { kosten: k(2000, 600, 8, 20), ab: 4 },
+      // Stufen 6–9: Fleiß halbiert (B-33, BASEBAU §8c), sonst bremst der Fleiß Epoche 3 und 4
+      { kosten: k(400, 250, 5, 14), ab: 3 },
+      { kosten: k(550, 350, 6, 16), ab: 3 },
+      { kosten: k(750, 450, 7, 18), ab: 4 },
+      { kosten: k(1000, 600, 8, 20), ab: 4 },
     ],
   },
   werkstatt: {
