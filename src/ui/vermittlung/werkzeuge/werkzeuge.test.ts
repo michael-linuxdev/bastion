@@ -152,3 +152,14 @@ describe('Histogramm (histogramm@1)', () => {
     expect(b.beschreibung.de).toContain('0 bis unter 10: 2');
   });
 });
+
+describe('Anleitungsbild (anleitungsbild@1)', () => {
+  it('liefert das Bild mit der Nummer ab 1, sonst nichts', async () => {
+    const { anleitungsbild } = await import('./anleitungsbild');
+    const b = anleitungsbild({ anleitung: 'anleitung.schraegbild-kegel@1', bild: 3 });
+    expect(b?.beschreibung.de).toContain('Von S aus gehen zwei Linien');
+    expect(anleitungsbild({ anleitung: 'anleitung.schraegbild-kegel@1', bild: 9 })).toBeUndefined();
+    expect(anleitungsbild({ anleitung: 'gibt-es-nicht@1', bild: 1 })).toBeUndefined();
+    expect(anleitungsbild({})).toBeUndefined();
+  });
+});

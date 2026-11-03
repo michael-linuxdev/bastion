@@ -669,6 +669,7 @@ Damit verweisen alle 596 Fehlerbilder auf eine der 200 Fehlvorstellungen.
 
 | Werkzeug | Parameter | Interaktiv |
 |---|---|---|
+| `anleitungsbild@1` | `anleitung` (Bilder einer Zeichen-Anleitung als `id@version`), `bild` (Nummer ab 1) | Nur als `bild`: ein Bild aus der Anleitung, etwa der Kegel mit Höhe und Mantellinien. `tools/inhalte/werkzeugbilder.test.ts` prüft, dass es das Bild gibt |
 | `bruchstreifen@1` | `teile` (1–24), `gefaerbt`, `verfeinern` (Knopf „Jedes Teil halbieren“ statt + und −), `ungleich` (erstes Teil absichtlich größer) | Teile antippen färbt sie; + und − ändern die Zahl der Teile |
 | `dreieck@1` | `rechts` (Ecke mit dem rechten Winkel, Standard C), `seiten` (Beschriftung von a, b, c, je höchstens 16 Zeichen) | Nur als `bild`: dieselbe Skizze wie in den Pythagoras- und Trigonometrie-Aufgaben |
 | `graph@1` | `kurven` (bis 4, je `art`: gerade, parabel, potenz, wurzel, kubikwurzel; `a`, `d`, `e` für a · g(x − d) + e; `n` bei potenz; `vergleich: true` gestrichelt), `x`, `y` (Ausschnitt [min, max]), `punkte` ([[x, y]]), `regler` (Teilmenge von a, d, e) | Als `bild` nur der Graph mit Term; als `werkzeug` Schieberegler für a, d, e der ersten Kurve (B8 „Parameter am Graphen“) |
