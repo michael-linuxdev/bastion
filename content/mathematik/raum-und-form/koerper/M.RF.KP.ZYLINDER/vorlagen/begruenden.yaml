@@ -1,0 +1,27 @@
+# Länge des Mantelrechtecks begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZYLINDER.BEGRUENDEN
+kompetenz: M.RF.KP.ZYLINDER
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.mantel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Stell dir vor, du wickelst den [[Mantel]] um eine Dose.'
+  - de: 'Er geht einmal ganz um den Kreis herum: Das ist der [[Umfang]].'
+fehlerbilder:
+  durchmesser:
+    de: 'Der [[Durchmesser]] geht quer durch den Kreis. Der [[Mantel]] läuft aber außen herum.'
+    fv: FV.KR.RADIUS-DURCHMESSER
+  flaeche:
+    de: '[[π]] · r² ist eine Fläche in cm². Die Seite des Rechtecks ist eine Länge: der [[Umfang]] 2 · π · r.'
+    fv: FV.FL.UMFANG-FLAECHE
+  halber-umfang:
+    de: 'Der [[Umfang]] ist 2 · [[π]] · r oder π · d. Mit π · r fehlt die Hälfte.'
+    fv: FV.KR.RADIUS-DURCHMESSER
+herkunft: ki-entwurf
+version: 1

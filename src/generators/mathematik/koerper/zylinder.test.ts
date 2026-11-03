@@ -1,4 +1,6 @@
+import { describe } from 'vitest';
 import type { Bild, Instanz, Loesung, Sprachobjekt } from '../../../core/learning/generator';
+import { kpMantelAussage, kpZylinderAussage } from './zylinder';
 import { pflichttests } from '../../pflichttests';
 import { mantelLaenge, zylinderBerechnen, zylinderNetz, zylinderSach } from './zylinder';
 
@@ -92,4 +94,42 @@ pflichttests(zylinderSach, {
   },
   grenzverletzungen: () => [],
   mindestensVerschieden: { G: 80, M: 80 },
+});
+
+describe('Zylinder: Faktor begründen (E)', () => {
+  pflichttests(kpZylinderAussage, {
+    niveaus: { E: {} },
+    unabhaengigeLoesung(i) {
+      const k = Number(i.platzhalter['faktor']);
+      const soll = Number(i.platzhalter['radius']) ? k * k : k;
+      const t = (i.optionen ?? []).map((o) => o.text?.de ?? '');
+      return {
+        typ: 'auswahl',
+        wert: t.findIndex(
+          (x) => x.startsWith(`Es wird ${soll}-mal`) && x.includes('denn') && x.includes('Faktor'),
+        ),
+      };
+    },
+    grenzverletzungen: (i) => {
+      const t = (i.optionen ?? []).map((o) => o.text?.de ?? '');
+      return new Set(t.map((x) => x.split('-mal')[0])).size === t.length
+        ? []
+        : ['gleiche Faktoren'];
+    },
+    mindestensVerschieden: { E: 4 },
+  });
+});
+
+describe('Zylinder: Mantelrechteck begründen (E)', () => {
+  pflichttests(kpMantelAussage, {
+    niveaus: { E: {} },
+    unabhaengigeLoesung(i) {
+      const r = Number(i.platzhalter['radius']);
+      const u = String(Math.round(2 * 3.14 * r * 100) / 100).replace('.', ',');
+      const t = (i.optionen ?? []).map((o) => o.text?.de ?? '');
+      return { typ: 'auswahl', wert: t.findIndex((x) => x.startsWith(`Etwa ${u} cm`)) };
+    },
+    grenzverletzungen: () => [],
+    mindestensVerschieden: { E: 15 },
+  });
 });

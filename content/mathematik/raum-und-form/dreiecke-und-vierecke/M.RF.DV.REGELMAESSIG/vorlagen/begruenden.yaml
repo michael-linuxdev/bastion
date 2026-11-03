@@ -1,0 +1,27 @@
+# Innenwinkel regelmäßiger Vielecke begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.REGELMAESSIG.BEGRUENDEN
+kompetenz: M.RF.DV.REGELMAESSIG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.innenwinkel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wo liegt der [[Winkel]] 360° : n: an den Ecken oder in der Mitte?'
+  - de: 'Zerlege das Vieleck von einer Ecke aus in Dreiecke.'
+fehlerbilder:
+  mittelpunktswinkel:
+    de: '360° : n ist der [[Winkel]] in der Mitte. Die [[Innenwinkel]] liegen an den Ecken und sind größer.'
+    fv: FV.DV.INNEN-MITTELPUNKT
+  winkelsumme:
+    de: '180° gilt nur im Dreieck. Ein n-Eck hat die [[Innenwinkelsumme]] (n − 2) · 180°.'
+    fv: FV.DV.WINKELSUMME
+  durch-n:
+    de: '180° wäre eine gerade Linie. Die [[Summe]] ist (n − 2) · 180°, nicht n · 180°.'
+    fv: FV.DV.WINKELSUMME
+herkunft: ki-entwurf
+version: 1

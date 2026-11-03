@@ -140,7 +140,9 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     expect(bericht.fehler).toEqual([]);
     expect(bericht.vermittlungen.map((v) => v.id)).toContain('M.ZO.BR.ERWEITERN');
     expect(bericht.fehlvorstellungen.map((f) => f.id)).toContain('FV.BR.ADDIERT');
-  });
+    // Prüft eine Kopie aller Inhalte; mit jeder Klasse und jedem Niveau E wächst die Laufzeit
+    // (unter Last über 5 s). Eigenes Limit statt weniger Prüfung.
+  }, 30_000);
 
   it('meldet einen Rückweg auf einen fehlenden Schritt und ein Fehlerbild mit unbekannter fv', () => {
     writeFileSync(

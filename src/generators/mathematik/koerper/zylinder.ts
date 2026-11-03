@@ -1,6 +1,7 @@
 // Kreiszylinder – Klasse 8 (LEHRPLAN §8d, M.RF.KP.ZYLINDER und M.GM.KP.ZYLINDER):
 // Netz erkennen, Länge des Mantelrechtecks, Volumen, Mantel und Oberfläche,
 // Hohlzylinder und Masse. Gerechnet wird mit π ≈ 3,14 (wie beim Kreis).
+import { aussagenGenerator } from '../../aussagen';
 import { runde10 } from '../../../core/learning/format';
 import { zahlText } from '../../../core/learning/text';
 import type { Bild, Generator } from '../../../core/learning/generator';
@@ -387,3 +388,68 @@ export const zylinderSach: Generator<ZylinderSachParameter> = {
     };
   },
 };
+
+// ---------------------------------------------------------------------------
+// Niveau E (K-31): Begründungen auswählen
+
+/** „Der Radius wird verdoppelt: Wie ändert sich das Volumen?“ (M.GM.KP.ZYLINDER.BEGRUENDEN) */
+export const kpZylinderAussage = aussagenGenerator(
+  'kp.zylinder-aussage',
+  ['gleicher-faktor', 'falsche-hochzahl'],
+  ['faktor', 'radius'],
+  (r) => {
+    const k = r.pick([2, 3]);
+    const radius = r.int(0, 1) === 1;
+    const soll = radius ? k * k : k;
+    return {
+      situation: `Bei einem Zylinder wird ${radius ? 'der Radius' : 'die Höhe'} ${k}-mal so groß, alles andere bleibt. Wie ändert sich das Volumen V = π · r² · h?`,
+      werte: { faktor: k, radius: radius ? 1 : 0 },
+      richtig: `Es wird ${soll}-mal so groß, denn ${radius ? 'r steckt zweimal als Faktor in r²' : 'h steckt nur einmal als Faktor in der Formel'}.`,
+      falsch: [
+        radius
+          ? ['gleicher-faktor', `Es wird ${k}-mal so groß, genau wie der Radius.`]
+          : ['gleicher-faktor', `Es wird ${k * k}-mal so groß, wie beim Radius.`],
+        [
+          'falsche-hochzahl',
+          `Es wird ${k ** 3}-mal so groß, denn ein Volumen wächst immer mit hoch 3.`,
+        ],
+      ],
+      weg: [
+        `Setze ${k} · ${radius ? 'r' : 'h'} in V = π · r² · h ein.`,
+        radius
+          ? `π · (${k} · r)² · h = ${k * k} · π · r² · h: ${k * k}-mal so groß.`
+          : `π · r² · ${k} · h = ${k} · π · r² · h: ${k}-mal so groß.`,
+      ],
+    };
+  },
+);
+
+/** „Wie lang ist das Mantelrechteck im Netz?“ (M.RF.KP.ZYLINDER.BEGRUENDEN) */
+export const kpMantelAussage = aussagenGenerator(
+  'kp.mantel-aussage',
+  ['durchmesser', 'flaeche', 'halber-umfang'],
+  ['radius', 'hoehe'],
+  (r) => {
+    const rr = r.int(3, 7); // nicht 2: dort sind 2 · π · r und π · r² gleich
+    const h = r.int(5, 12);
+    const u = Math.round(2 * 3.14 * rr * 100) / 100;
+    const z = (x: number) => String(Math.round(x * 100) / 100).replace('.', ',');
+    return {
+      situation: `Ein Zylinder hat den Radius ${rr} cm und die Höhe ${h} cm. Im Netz ist der Mantel ein Rechteck. Wie lang ist die lange Seite des Rechtecks? Rechne mit π ≈ 3,14.`,
+      werte: { radius: rr, hoehe: h },
+      richtig: `Etwa ${z(u)} cm, denn der Mantel wird einmal um den Kreis gewickelt: Länge = Umfang 2 · π · r.`,
+      falsch: [
+        ['durchmesser', `${2 * rr} cm, denn das Rechteck ist so lang wie der Durchmesser.`],
+        [
+          'flaeche',
+          `Etwa ${z(3.14 * rr * rr)} cm, denn das Rechteck ist so lang wie die Kreisfläche π · r².`,
+        ],
+        ['halber-umfang', `Etwa ${z(3.14 * rr)} cm, denn π · r ist der Umfang des Kreises.`],
+      ],
+      weg: [
+        'Der Mantel liegt einmal rund um Grund- und Deckkreis.',
+        `Länge = Umfang = 2 · 3,14 · ${rr} cm ≈ ${z(u)} cm, Breite = Höhe = ${h} cm.`,
+      ],
+    };
+  },
+);

@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Streckfaktor aus Original und Bild bestimmen; Bildpunkte im Koordinatensystem angeben.'
+  E:
+    beschreibung:
+      de: 'Den Streckfaktor aus Original und Bild begründet bestimmen und falsche Begründungen erkennen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

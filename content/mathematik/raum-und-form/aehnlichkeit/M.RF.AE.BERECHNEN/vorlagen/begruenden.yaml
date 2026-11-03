@@ -1,0 +1,27 @@
+# Fläche und Volumen beim Strecken begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.AE.BERECHNEN.BEGRUENDEN
+kompetenz: M.RF.AE.BERECHNEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ae.flaeche-volumen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation}'
+hilfen:
+  - de: 'Wie viele Längen werden bei einer Fläche gestreckt, wie viele bei einem [[Volumen]]?'
+  - de: 'Fläche: k · k. [[Volumen]]: k · k · k.'
+fehlerbilder:
+  gleicher-faktor:
+    de: 'Nur Längen wachsen mit k. Eine Fläche hat zwei gestreckte Längen, ein [[Volumen]] drei.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
+  falsche-hochzahl:
+    de: 'Fläche: zwei Längen, also k². [[Volumen]]: drei Längen, also k³.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
+  gleich-viel-dazu:
+    de: 'Beim Strecken wird malgenommen, nicht addiert.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
+herkunft: ki-entwurf
+version: 1

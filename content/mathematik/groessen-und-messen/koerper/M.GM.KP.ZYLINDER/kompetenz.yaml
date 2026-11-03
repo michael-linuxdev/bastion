@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Oberfläche, Hohlzylinder und Masse berechnen; Radius oder Höhe aus dem Volumen bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie sich das Volumen ändert, wenn Radius oder Höhe k-mal so groß werden.'
 kmk:
   leitidee: L2
   prozesse:

@@ -5,7 +5,7 @@ art: falsche-regel
 beschreibung:
   de: >-
     Wird der Radius k-mal so groß, nimmt das Kind für Umfang und Fläche denselben Faktor, verdoppelt den Faktor wegen der 2 in der Formel oder nimmt ihn hoch 3. Dass eine Länge mit k, eine Fläche mit k² wächst, ist nicht verankert.
-kompetenzen: [M.GM.KR.UMFANG-FLAECHE]
+kompetenzen: [M.GM.KR.UMFANG-FLAECHE, M.GM.KP.ZYLINDER]
 erklaerung:
   kurz:
     de: 'Zähle, wie oft r in der [[Formel]] als [[Faktor]] steht. [[Umfang]]: einmal, also k-mal so groß. [[Flächeninhalt]]: zweimal, also k²-mal so groß.'
