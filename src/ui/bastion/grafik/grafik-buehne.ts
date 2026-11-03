@@ -935,6 +935,17 @@ function fensterAbendSprite(
   if (!eintrag || !tex) return;
   const [bw, bt] = KATALOG[typ].groesse;
   const fuss = punkt(pos.x + bw, pos.y + bt);
+  // Licht aus den Fenstern fällt warm auf den Boden vor dem Gebäude (Wunsch PV: Licht)
+  const schein = new Graphics();
+  const m = punkt(pos.x + bw / 2 + 0.5, pos.y + bt / 2 + 0.5);
+  for (const f of [1, 0.72, 0.48, 0.28]) {
+    schein
+      .ellipse(m.x, m.y, (bw * RAUTE_B * 0.46 + 8) * f, (bt * RAUTE_H * 0.46 + 4) * f)
+      .fill({ color: '#ffcf7a', alpha: 0.07 });
+  }
+  schein.blendMode = 'add';
+  schein.zIndex = tiefe * 10 - 1;
+  gebaeude.addChild(schein);
   const spr = new Sprite(tex);
   spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
   spr.width = eintrag.pixel.w / 2;
@@ -1419,6 +1430,29 @@ export async function buehneErstellen(
    * gemerkt werden – Mitte der Krone und wie tief ein Blatt bis zum Boden fällt.
    */
   let laubQuellen: { x: number; y: number; h: number }[] = [];
+  /** Rauch: Stellen über Dächern, aus denen ruhige Wölkchen aufsteigen */
+  let rauchQuellen: { x: number; y: number }[] = [];
+  const rauchLage = new Graphics();
+  app.stage.addChild(rauchLage);
+  const RAUCH_WOELKCHEN = 6;
+  const schornsteinZeichnen = (jetzt: number) => {
+    rauchLage.clear();
+    if (rauchQuellen.length === 0 || bewegung === 'aus') return;
+    // Wind: bei Sturm schräg und schnell, sonst langsam nach oben
+    const wind = wetterBild === 'sturm' ? 2.6 : wetterBild === 'regen' ? 0.9 : 0.4;
+    const dauer = wetterBild === 'sturm' ? 2600 : 5200;
+    const ton = farben.abend ? '#8e96a6' : '#c9cfd6';
+    rauchQuellen.forEach((q, qi) => {
+      for (let k = 0; k < RAUCH_WOELKCHEN; k++) {
+        const t = (((jetzt / dauer + k / RAUCH_WOELKCHEN + qi * 0.37) % 1) + 1) % 1;
+        const x = q.x + t * 26 * wind + Math.sin((t + qi) * 5) * 2;
+        const y = q.y - t * 46;
+        rauchLage
+          .circle(x, y, 2.5 + t * 7)
+          .fill({ color: ton, alpha: 0.5 * (1 - t) * Math.min(1, t * 6) });
+      }
+    });
+  };
   const laubNeu = (t: Tropfen, i: number) => {
     const n = laubQuellen.length;
     if (n === 0) return;
@@ -1656,6 +1690,7 @@ export async function buehneErstellen(
     wolkenLage.x = wolkenVersatz(jetzt, bewegung) * (wetterBild === 'sturm' ? 3 : 1);
     if (wetterBild === 'sturm') schattenZeichnen(jetzt);
     aufstellAnwenden(jetzt);
+    if (tickerAn(bewegung)) schornsteinZeichnen(jetzt);
     if (tickerAn(bewegung) && budget > 0) {
       for (let i = 0; i < tropfen.length; i++) {
         const t = tropfen[i];
@@ -1785,6 +1820,26 @@ export async function buehneErstellen(
       treffer = [];
       laubQuellen = [];
       const epoche = epocheJetzt;
+      // Rauch aus Bergfried und Werkstatt (Wunsch PV: Leben an den Gebäuden), nur über Land
+      rauchQuellen = [];
+      const rauchThema =
+        art === 'dorf'
+          ? 'dorf'
+          : art === 'garten'
+            ? 'garten'
+            : art === 'insel'
+              ? 'bastion'
+              : undefined;
+      if (rauchThema && texturen.size > 0)
+        for (const x of reihe) {
+          if (x.typ !== 'kern' && x.typ !== 'werkstatt') continue;
+          const e = atlasEintrag(atlas, rauchThema, epoche, x.typ, x.stufe);
+          if (!e) continue;
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+          rauchQuellen.push({ x: fuss.x + e.pixel.w * 0.03, y: fuss.y - (e.pixel.h / 2) * 0.78 });
+        }
+      schornsteinZeichnen(performance.now());
       if (art === 'dorf' && texturen.size > 0) {
         // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
         // Bäume aus dem Atlas (G3, GRAFIK-SPRITES §12.10), sonst Code-Baum
