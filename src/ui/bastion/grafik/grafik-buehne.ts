@@ -38,6 +38,7 @@ import {
   atlasWetterId,
   atlasWesenId,
   atlasDatei,
+  type AtlasFahne,
   type AtlasManifest,
   type BodenKachel,
 } from './atlas';
@@ -1016,6 +1017,13 @@ class TexturVorrat extends Map<string, Texture> {
   }
 }
 
+/** Farbe `#rrggbb` mit dem Faktor `f` aufhellen oder abdunkeln (begrenzt auf 0 … 255) */
+function heller(farbe: string, f: number): number {
+  const n = parseInt(farbe.slice(1, 7), 16);
+  const k = (v: number) => Math.min(255, Math.round(v * f));
+  return (k((n >> 16) & 255) << 16) | (k((n >> 8) & 255) << 8) | k(n & 255);
+}
+
 /** Farbe der ausgetretenen Wege je Thema; im Winter festgetretener Schnee */
 const WEG_FARBE: Readonly<Record<string, string>> = {
   insel: '#a9b56c',
@@ -1708,8 +1716,78 @@ export async function buehneErstellen(
     }
   };
 
+  /**
+   * Wehende Fahnen (Wunsch PV, 03.11.2026): Über jedem Tuch im Gebäudebild liegt ein
+   * gezeichnetes Tuch, das sich leicht wellt. Gesammelt nach jedem Zeichnen; bei
+   * „ruhig“ bleibt das stille Tuch aus dem Bild.
+   */
+  let fahnenTuecher: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number }[] =
+    [];
+  const fahnenSammeln = () => {
+    fahnenTuecher = [];
+    if (!tickerAn(bewegung)) return;
+    const idVon = new Map<Texture, string>();
+    for (const [id, tex] of texturen) idVon.set(tex, id);
+    let n = 0;
+    for (const kind of [...gebaeude.children]) {
+      if (!(kind instanceof Sprite)) continue;
+      const id = idVon.get(kind.texture);
+      const eintrag = id ? atlasEintragPerId(atlas, id) : undefined;
+      if (!eintrag?.fahnen) continue;
+      const k = kind.width / (eintrag.pixel.w / 2);
+      for (const f of eintrag.fahnen) {
+        const g = new Graphics();
+        g.zIndex = kind.zIndex + 0.5;
+        g.tint = kind.tint;
+        gebaeude.addChild(g);
+        fahnenTuecher.push({ g, x: kind.x, y: kind.y, k, f, n: n++ });
+      }
+    }
+    fahnenWehen(performance.now());
+  };
+  const fahnenWehen = (jetzt: number) => {
+    const wind = wetterBild === 'sturm' ? 2.2 : 1;
+    for (const t of fahnenTuecher) {
+      const { g, f, k } = t;
+      g.clear();
+      // Bildpunkte des 1x-Bildes sind halbe Bühnenpunkte
+      const s = k / 2;
+      const ox = t.x + f.x * s;
+      const oy = t.y + f.y * s;
+      const amp = 1.1 * s * wind;
+      // Rand größer als die Welle: das stille Tuch im Bild bleibt ganz verdeckt
+      const rand = amp + 0.5 * s;
+      const phase = (jetzt / 1000) * 4.2 * wind + t.n * 1.7;
+      const teile = 6;
+      const punkte: { x: number; y: number; w: number }[] = [];
+      for (let i = 0; i <= teile; i++) {
+        const a = i / teile;
+        const welle = Math.sin(phase - a * 2.6);
+        punkte.push({ x: ox + f.b * s * a, y: oy + f.s * s * a + welle * amp * a, w: welle });
+      }
+      for (let i = 0; i < teile; i++) {
+        const p = punkte[i];
+        const q = punkte[i + 1];
+        if (!p || !q) continue;
+        // Falten: wo die Welle steigt, ist das Tuch heller
+        const licht = 0.9 + 0.1 * Math.cos(phase - ((i + 0.5) / teile) * 2.6);
+        g.poly([
+          p.x,
+          p.y - rand,
+          q.x + 0.2,
+          q.y - rand,
+          q.x + 0.2,
+          q.y + f.h * s + rand,
+          p.x,
+          p.y + f.h * s + rand,
+        ]).fill(heller(f.farbe, licht));
+      }
+    }
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
+    if (fahnenTuecher.length > 0) fahnenWehen(jetzt);
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
     tickerZuletzt = jetzt;
     // Bei Sturm ziehen die Wolken dreimal so schnell
@@ -2554,6 +2632,7 @@ export async function buehneErstellen(
         });
       }
       gebaeude.addChild(g);
+      fahnenSammeln();
     },
     setzeBewegung(b) {
       bewegung = b;

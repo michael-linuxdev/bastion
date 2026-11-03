@@ -618,3 +618,10 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
   - Gleiche Uhrzeit, gleiche Bauwerke → gleiches Bild.
 - Mit „Bewegung reduzieren“ (ruhig) bleiben die Bewohner wie bisher aus. Es gibt weder Druck noch Belohnung: Der Ablauf zeigt nur, dass die Bastion bewohnt ist.
 
+## 26. Wehende Fahnen (Wunsch PV, 03.11.2026)
+
+- Die Fahnen sind in die Gebäudebilder eingerechnet. `tools/grafik/g18_fahnen.py` baut jedes Gebäude-Modell noch einmal auf, ohne zu rendern (Sekunden). Es merkt sich jeden Aufruf von `Szene.fahne` und rechnet die Ecken des Tuchs mit derselben Projektion wie `raum.rendern` in Bildpunkte um. Die Farbe kommt aus dem fertigen Bild (Mitte des Tuchs). Ist das Tuch dort verdeckt oder passt der Farbton nicht, bleibt die Fahne still.
+- Das Manifest trägt je Eintrag `fahnen: [{x, y, b, s, h, farbe}]` (1x-Bildpunkte ab Fußpunkt). Derzeit sind es 23 Fahnen in 20 Bildern: Bergfried und Turm der Bastion, Bergfried und Mühle im Dorf, ein Turm unter Wasser.
+- Die Bühne legt über jedes solche Tuch ein gezeichnetes Tuch in sechs Streifen. Es wellt sich, zum freien Ende hin stärker, mit hellen und dunklen Falten. Bei Sturm weht es doppelt so schnell und stärker. Das gezeichnete Tuch ist etwas höher als die Welle ausschlägt, so bleibt das stille Tuch im Bild ganz verdeckt. Abends hat es dieselbe Tönung wie das Gebäude. Bei „ruhig“ bleibt das stille Tuch aus dem Bild.
+- Test `tools/grafik/atlas-fahnen.test.ts`: Jedes Tuch liegt im Bild und hat eine Farbe.
+
