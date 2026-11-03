@@ -1,0 +1,82 @@
+id: M.ZO.LG.LOGARITHMUS
+kompetenz: M.ZO.LG.LOGARITHMUS
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach bestimmst du [[Logarithmen]] und rechnest mit den [[Logarithmengesetzen]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie groß ist $2^5$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '32', fehler: [{ wert: '10', fv: FV.NZ.HOCHZAHL-MAL }] }
+    weiter: entdecken
+    bei: { FV.NZ.HOCHZAHL-MAL: M.ZO.PW.GESETZE, sonst: M.ZO.PW.GESETZE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Jetzt umgekehrt: 2 hoch wie viel ergibt 64?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '32', fv: FV.LG.TEILEN-STATT-LOG }] }
+    weiter: erklaeren-log
+  - id: erklaeren-log
+    typ: erklaeren
+    text:
+      de: 'Der **[[Logarithmus]]** $\log_b x$ ist die [[Hochzahl]], mit der die [[Basis]] b zu x wird: $\log_2 64 = 6$, denn $2^6 = 64$. $\lg$ ist der Logarithmus zur Basis 10, $\ln$ der zur Basis e.'
+    weiter: erklaeren-gesetze
+  - id: erklaeren-gesetze
+    typ: erklaeren
+    text:
+      de: '[[Logarithmengesetze]]: $\lg(u \cdot v) = \lg u + \lg v$, $\lg \frac{u}{v} = \lg u - \lg v$, $\lg u^k = k \cdot \lg u$. Für Summen gibt es kein Gesetz.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Mit $\lg 2 \approx 0{,}301$: $\lg 8 = \lg 2^3 = 3 \cdot 0{,}301 = 0{,}903$ und $\lg 20 = \lg 2 + \lg 10 = 1{,}301$. Und $\log_3 \frac{1}{9} = -2$, denn $3^{-2} = \frac{1}{9}$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Berechne $\log_5 125$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '25', fv: FV.LG.TEILEN-STATT-LOG }] }
+    weiter: gegenbeispiel
+    bei: { FV.LG.TEILEN-STATT-LOG: erklaeren-log }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia rechnet: $\lg 1000 = (\lg 10)^3 = 1$. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. $\lg 1000 = \lg 10^3 = 3 \cdot \lg 10 = 3$.' }, richtig: true }
+        - { wert: { de: 'Ja, die Hochzahl wird an den Logarithmus gehängt.' }, fv: FV.LG.POTENZ }
+    weiter: merksatz
+    bei: { FV.LG.POTENZ: erklaeren-gesetze }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$\log_b x = y$ heißt $b^y = x$. [[Produkt]] wird [[Summe]], Quotient wird Differenz, [[Hochzahl]] wird [[Faktor]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Rechnung stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\lg 50 + \lg 2 = \lg 100 = 2$' }, richtig: true }
+        - { wert: { de: '$\lg(50 + 50) = \lg 50 + \lg 50$' }, fv: FV.LG.SUMME }
+        - { wert: { de: '$\log_2 8 = 8 : 2 = 4$' }, fv: FV.LG.TEILEN-STATT-LOG }
+    weiter: uebergang
+    bei: { FV.LG.SUMME: erklaeren-gesetze, FV.LG.TEILEN-STATT-LOG: erklaeren-log }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst [[Logarithmen]].'
+    vorlagen: [M.ZO.LG.LOGARITHMUS.WERT]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.EX.ASYMPTOTE
+name:
+  de: Exponentialgraph erreicht die x-Achse
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Meint, ein fallender Exponentialgraph schneide irgendwann die x-Achse oder werde 0. Dass eine Potenz mit positiver Basis immer positiv ist, ist nicht im Blick.
+kompetenzen: [M.SF.EX.FUNKTION]
+erklaerung:
+  kurz:
+    de: 'Eine Potenz mit positiver [[Basis]] ist immer größer als 0. Der [[Graph]] kommt der x-Achse beliebig nahe, berührt sie aber nie.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du denkst: Was immer weiter fällt, kommt irgendwann bei 0 an.'
+    - teil: warum-nicht
+      de: 'Bei der Halbierung bleibt immer die Hälfte übrig. Die Hälfte von etwas Positivem ist wieder positiv.'
+    - teil: so-stimmt-es
+      de: 'Die x-Achse ist eine [[Asymptote]]: Der [[Graph]] nähert sich ihr, erreicht sie aber nicht.'
+gegenbeispiel:
+  de: '64, 32, 16, 8, 4, 2, 1, ½, ¼ … Jeder Wert ist positiv.'
+rueckweg:
+  vermittlung: M.SF.EX.FUNKTION#erklaeren-asymptote
+kontrast: [M.SF.EX.FUNKTION.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

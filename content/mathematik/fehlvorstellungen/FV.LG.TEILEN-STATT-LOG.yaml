@@ -1,0 +1,25 @@
+id: FV.LG.TEILEN-STATT-LOG
+name:
+  de: Durch die Basis geteilt
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet $\log_3 81$ als 81 : 3 = 27 oder löst $2^x = 64$ mit x = 32. Logarithmieren wird mit Teilen verwechselt.
+kompetenzen: [M.ZO.LG.LOGARITHMUS, M.SF.LG.GLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: 'Der [[Logarithmus]] fragt nach der [[Hochzahl]]: Wie oft muss man die [[Basis]] mit sich selbst malnehmen?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast durch die [[Basis]] geteilt.'
+    - teil: warum-nicht
+      de: 'Teilen sagt, wie oft die [[Basis]] in die Zahl passt, nicht wie oft man sie malnimmt.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Zahl als Potenz der [[Basis]] oder logarithmiere.'
+gegenbeispiel:
+  de: '$2^x = 64$: $64 : 2 = 32$, aber $2^{32}$ ist riesig. Richtig: $64 = 2^6$, also $x = 6$.'
+rueckweg:
+  vermittlung: M.ZO.LG.LOGARITHMUS#erklaeren-log
+kontrast: [M.ZO.LG.LOGARITHMUS.WERT, M.SF.LG.GLEICHUNGEN.GANZ]
+herkunft: ki-entwurf
+version: 1

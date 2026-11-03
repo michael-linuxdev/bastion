@@ -1,0 +1,82 @@
+id: M.SF.LG.GLEICHUNGEN
+kompetenz: M.SF.LG.GLEICHUNGEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach löst du Gleichungen, bei denen x in der [[Hochzahl]] steht.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Berechne $\log_3 27$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '9', fv: FV.LG.TEILEN-STATT-LOG }] }
+    weiter: entdecken
+    bei: { FV.LG.TEILEN-STATT-LOG: M.ZO.LG.LOGARITHMUS, sonst: M.ZO.LG.LOGARITHMUS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Löse $5 \cdot 2^x = 40$. Welche Zahl steht nach dem Teilen durch 5 rechts?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '35', fv: FV.NZ.UMKEHRAUFGABE }] }
+    weiter: erklaeren-logarithmieren
+  - id: erklaeren-logarithmieren
+    typ: erklaeren
+    text:
+      de: 'Erst den [[Faktor]] vor der Potenz wegteilen: $2^x = 8$, also $x = 3$. Ist die rechte Seite keine glatte Potenz, logarithmiere: aus $a^x = b$ wird $x = \frac{\ln b}{\ln a}$.'
+    weiter: erklaeren-ln
+  - id: erklaeren-ln
+    typ: erklaeren
+    text:
+      de: '$y = \ln x$ ist die [[Umkehrfunktion]] von $y = e^x$. Weil $e^x$ immer positiv ist, gibt es $\ln x$ nur für $x > 0$. Es gilt $\ln 1 = 0$ und $\ln e = 1$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$2 \cdot 1{,}5^x = 40$: Teilen durch 2 gibt $1{,}5^x = 20$. Dann $x = \frac{\ln 20}{\ln 1{,}5} \approx 7{,}39$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Löse $3 \cdot 2^x = 96$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '48', fv: FV.LG.TEILEN-STATT-LOG }] }
+    weiter: gegenbeispiel
+    bei: { FV.LG.TEILEN-STATT-LOG: erklaeren-logarithmieren }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tom rechnet bei $2 \cdot 3^x = 54$ mit $6^x = 54$. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. Erst durch 2 teilen: $3^x = 27$, also $x = 3$.' }, richtig: true }
+        - { wert: { de: 'Ja, $2 \cdot 3$ ist 6.' }, fv: FV.EX.FAKTOR-IN-POTENZ }
+    weiter: merksatz
+    bei: { FV.EX.FAKTOR-IN-POTENZ: erklaeren-logarithmieren }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Faktor]] wegteilen, dann logarithmieren: $a^x = b$ ergibt $x = \frac{\ln b}{\ln a}$. [[Logarithmen]] gibt es nur von positiven Zahlen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Gleichung]] hat keine Lösung?'
+    antwort:
+      optionen:
+        - { wert: { de: '$2^x = -8$' }, richtig: true }
+        - { wert: { de: '$2^x = \frac{1}{8}$' }, fv: FV.LG.DEFINITION }
+        - { wert: { de: '$2^x = 1$' }, fv: FV.LG.DEFINITION }
+    weiter: uebergang
+    bei: { FV.LG.DEFINITION: erklaeren-ln }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt löst du selbst [[Exponentialgleichungen]].'
+    vorlagen: [M.SF.LG.GLEICHUNGEN.GANZ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

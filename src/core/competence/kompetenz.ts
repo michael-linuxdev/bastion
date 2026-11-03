@@ -76,6 +76,9 @@ export const FELDER: Readonly<Record<string, string>> = {
   PY: 'pythagoras',
   TR: 'trigonometrie',
   ST: 'statistik',
+  // Klasse 10 (LEHRPLAN §8f)
+  EX: 'exponentialfunktionen',
+  LG: 'logarithmus',
 };
 
 const ID_MUSTER = /^M\.([A-Z]{2})\.([A-Z]{2})\.[A-Z0-9]+(?:-[A-Z0-9]+)*$/;

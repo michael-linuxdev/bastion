@@ -1,0 +1,24 @@
+# Asymptote begründen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.EX.FUNKTION.BEGRUENDEN
+kompetenz: M.SF.EX.FUNKTION
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ex.asymptote-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Rechne einige Werte aus: $f(1)$, $f(2)$, $f(3)$.'
+  - de: 'Kann eine Hälfte von etwas Positivem 0 sein?'
+fehlerbilder:
+  asymptote:
+    de: 'Der [[Graph]] fällt immer weiter, wird aber nie 0: Jeder Wert ist ein Teil des vorigen.'
+    fv: FV.EX.ASYMPTOTE
+  modell:
+    de: 'Der [[Graph]] fällt nicht um gleich viel, sondern wird jedes Mal mit derselben Zahl malgenommen.'
+    fv: FV.EX.MODELL
+herkunft: ki-entwurf
+version: 1

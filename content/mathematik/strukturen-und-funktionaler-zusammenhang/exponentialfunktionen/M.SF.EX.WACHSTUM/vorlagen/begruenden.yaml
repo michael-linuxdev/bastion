@@ -1,0 +1,24 @@
+# Modell begründen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.EX.WACHSTUM.BEGRUENDEN
+kompetenz: M.SF.EX.WACHSTUM
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ex.modell-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Vergleiche die Unterschiede und die [[Quotienten]] von Spalte zu Spalte.'
+  - de: 'Auch lineares Wachstum wächst. Entscheidend ist, wie.'
+fehlerbilder:
+  modell:
+    de: 'Auch lineare [[Zuordnungen]] wachsen oder fallen. Entscheidend ist, ob immer dieselbe Zahl dazukommt oder immer mit derselben Zahl malgenommen wird.'
+    fv: FV.EX.MODELL
+  differenz-quotient:
+    de: 'Rechne nach: Gleich sind hier die anderen Werte. Gleiche Unterschiede heißen linear, gleiche [[Quotienten]] exponentiell.'
+    fv: FV.EX.MODELL
+herkunft: ki-entwurf
+version: 1

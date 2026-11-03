@@ -1,0 +1,39 @@
+# Logarithmus – Klasse 10, nur Gymnasium (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.LG.LOGARITHMUS
+fach: mathematik
+bereich: zahl-und-operation
+feld: logarithmus
+titel:
+  de: 'Logarithmus'
+kann_satz:
+  de: 'Ich kann Logarithmen als Umkehrung des Potenzierens bestimmen und die Logarithmengesetze anwenden.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.ZO.PW.GESETZE
+  - M.SF.LG.UMKEHRFUNKTION
+niveaus:
+  G:
+    beschreibung:
+      de: 'Logarithmen wie $\log_2 32$ ohne Rechner bestimmen.'
+  M:
+    beschreibung:
+      de: 'Logarithmen auch von Brüchen bestimmen und mit den Logarithmengesetzen aus bekannten Werten berechnen.'
+  E:
+    beschreibung:
+      de: 'Fehler beim Anwenden der Logarithmengesetze finden, z. B. bei $\log(a + b)$.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

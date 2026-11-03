@@ -1,0 +1,24 @@
+# „Nach wie vielen Jahren hat sich der Bestand erstmals verdoppelt?“. Entwurf: noch nicht geprüft.
+id: M.SF.EX.SACH.VERDOPPLUNG
+kompetenz: M.SF.EX.SACH
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: ex.verdopplung@1
+parameter:
+  M: { abnahme: true }
+text:
+  aufgabe:
+    de: '{satz}'
+hilfen:
+  - de: 'Bestimme den [[Wachstumsfaktor]] q und rechne Jahr für Jahr: $q^1$, $q^2$, $q^3$ …'
+  - de: 'Gesucht ist das erste Jahr, in dem der [[Faktor]] mindestens 2 (oder höchstens ½) ist.'
+fehlerbilder:
+  linear:
+    de: 'Du hast so gerechnet, als käme jedes Jahr derselbe [[Betrag]] dazu. Beim prozentualen Wachstum wird es schneller.'
+    fv: FV.EX.MODELL
+  erstmals:
+    de: 'In diesem Jahr ist das Ziel noch nicht erreicht. Gesucht ist das erste Jahr, in dem es geschafft ist.'
+    fv: FV.EX.ERSTMALS
+herkunft: ki-entwurf
+version: 1

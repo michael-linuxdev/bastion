@@ -1,0 +1,25 @@
+id: FV.EX.MODELL
+name:
+  de: Linear und exponentiell verwechselt
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet bei prozentualem Wachstum jedes Jahr mit demselben Zuwachs oder hält jede wachsende Tabelle für exponentiell. Ob immer dieselbe Zahl dazukommt oder immer mit derselben Zahl malgenommen wird, wird nicht geprüft.
+kompetenzen: [M.SF.EX.WACHSTUM, M.SF.EX.FUNKTION, M.SF.EX.SACH]
+erklaerung:
+  kurz:
+    de: 'Linear: Es kommt immer dieselbe Zahl dazu, die Unterschiede sind gleich. Exponentiell: Es wird immer mit derselben Zahl malgenommen, die [[Quotienten]] sind gleich.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast gesehen, dass die Werte wachsen, und daraus auf die Art geschlossen.'
+    - teil: warum-nicht
+      de: 'Wachsen tun lineare und exponentielle Bestände. Sie unterscheiden sich darin, wie sie wachsen.'
+    - teil: so-stimmt-es
+      de: 'Rechne die Unterschiede und die [[Quotienten]] aus. Sind die Unterschiede gleich, ist es linear. Sind die Quotienten gleich, ist es exponentiell.'
+gegenbeispiel:
+  de: '2, 4, 8, 16: Die Unterschiede 2, 4, 8 sind verschieden, die [[Quotienten]] sind immer 2. Das ist exponentiell.'
+rueckweg:
+  vermittlung: M.SF.EX.WACHSTUM#erklaeren-modell
+kontrast: [M.SF.EX.WACHSTUM.ART, M.SF.EX.WACHSTUM.FAKTOR]
+herkunft: ki-entwurf
+version: 1

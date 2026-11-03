@@ -1,0 +1,43 @@
+# Lineares und exponentielles Wachstum – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.EX.WACHSTUM
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: exponentialfunktionen
+titel:
+  de: 'Lineares und exponentielles Wachstum'
+kann_satz:
+  de: 'Ich kann lineares und exponentielles Wachstum unterscheiden und rekursiv und explizit beschreiben.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.FK.LINEAR-GLEICHUNG
+  - M.ZO.PZ.ZINS
+  - M.ZO.PW.GESETZE
+niveaus:
+  G:
+    beschreibung:
+      de: 'An einer Wertetabelle erkennen, ob immer dieselbe Zahl dazukommt oder immer mit derselben Zahl malgenommen wird.'
+  M:
+    beschreibung:
+      de: 'Den Wachstumsfaktor aus einer Prozentangabe bestimmen, auch bei Abnahme, und den Bestand nach einigen Schritten berechnen.'
+  E:
+    beschreibung:
+      de: 'Aus einer Tabelle begründen, welches Modell passt: gleiche Unterschiede oder gleiche Quotienten.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1

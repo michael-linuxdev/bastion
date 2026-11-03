@@ -1,0 +1,25 @@
+id: FV.LG.UMKEHRBAR
+name:
+  de: Jede Funktion ist umkehrbar
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält $x^2$ ohne Einschränkung für umkehrbar mit $\sqrt{x}$. Dass zu einem y-Wert zwei x-Werte gehören können, wird übersehen.
+kompetenzen: [M.SF.LG.UMKEHRFUNKTION]
+erklaerung:
+  kurz:
+    de: 'Umkehrbar ist eine [[Funktion]] nur, wenn jeder y-Wert zu genau einem x gehört. Bei $x^2$ gilt das nur für $x \geq 0$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du denkst: Die [[Wurzel]] macht das Quadrat immer rückgängig.'
+    - teil: warum-nicht
+      de: '$\sqrt{(-3)^2} = \sqrt{9} = 3$, nicht −3.'
+    - teil: so-stimmt-es
+      de: 'Schränke den [[Definitionsbereich]] ein, dann ist die [[Funktion]] umkehrbar.'
+gegenbeispiel:
+  de: '$f(3) = f(-3) = 9$: Zu 9 gehören zwei x-Werte.'
+rueckweg:
+  vermittlung: M.SF.LG.UMKEHRFUNKTION#erklaeren-umkehrbar
+kontrast: [M.SF.LG.UMKEHRFUNKTION.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1
