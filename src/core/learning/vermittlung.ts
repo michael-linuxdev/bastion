@@ -46,6 +46,7 @@ export const WERKZEUGE: ReadonlySet<string> = new Set([
   'bruchstreifen@1',
   'dreieck@1',
   'graph@1',
+  'histogramm@1',
   'zahlenstrahl@1',
 ]);
 

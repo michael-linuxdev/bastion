@@ -4,6 +4,7 @@ import type { Component } from 'svelte';
 import Bruchstreifen from './Bruchstreifen.svelte';
 import Dreieck from './Dreieck.svelte';
 import Graph from './Graph.svelte';
+import Histogramm from './Histogramm.svelte';
 import Zahlenstrahl from './Zahlenstrahl.svelte';
 
 // Parameter kommen ungeprüft aus dem Inhalt; jede Komponente prüft sie selbst.
@@ -12,6 +13,7 @@ export const WERKZEUG_KOMPONENTEN: Readonly<Record<string, Component<any>>> = {
   'bruchstreifen@1': Bruchstreifen,
   'dreieck@1': Dreieck,
   'graph@1': Graph,
+  'histogramm@1': Histogramm,
   'zahlenstrahl@1': Zahlenstrahl,
 };
 

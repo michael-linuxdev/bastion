@@ -71,3 +71,4 @@
 | 03.11.2026 | **Dreiecksskizze:** Beschriftung der senkrechten Seite lag außerhalb des Bildes, behoben (py.seite, tr.verhaeltnis, tr.berechnen, tr.wechsel @2); Werkzeug `dreieck@1`, Bilder in PY.PYTHAGORAS und TR.BEGRIFFE |
 | 03.11.2026 | **Graphen in weiteren Erstvermittlungen:** QF.INHALTLICH (x² = 4 am Graphen), QF.FORMEL (zwei, eine, keine Nullstelle), QF.SCHNITTPUNKTE (zwei Bilder); Term unter dem Bild nur bei genau einer durchgezogenen Kurve |
 | 03.11.2026 | **Aufgabenblatt mit E:** Niveau E wählbar, sobald eine gewählte Kompetenz E-Vorlagen hat (Klasse 9); Klasse 5–8 unverändert; e2e-Test |
+| 03.11.2026 | **Werkzeug `histogramm@1`:** Histogramm wie in den Aufgaben; drei Bilder in der Erstvermittlung ST.HISTOGRAMM (Klassen, gröbere Einteilung, Beispiel) |

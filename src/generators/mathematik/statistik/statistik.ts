@@ -346,7 +346,7 @@ export const stKlasse: Generator<Record<string, never>> = {
 // ---------------------------------------------------------------------------
 // Histogramm ablesen (M.DZ.ST.HISTOGRAMM.ABLESEN)
 
-function histogramm(
+export function histogramm(
   grenzen: readonly number[],
   haeufig: readonly number[],
 ): ReturnType<typeof bild> {
