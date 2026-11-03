@@ -1,0 +1,24 @@
+# Ungleichung mit Grenze begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.NZ.GLEICHUNGEN.BEGRUENDEN
+kompetenz: M.SF.NZ.GLEICHUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: nz.ungleichung-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Löse zuerst die [[Gleichung]].'
+  - de: 'Gehört die Grenze bei < dazu?'
+fehlerbilder:
+  grenze-mitgezaehlt:
+    de: 'Bei < gehört die Grenze nicht dazu. Die Lösung muss kleiner sein.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
+  umkehraufgabe:
+    de: 'Plus wird mit Minus rückgängig gemacht.'
+    fv: FV.NZ.UMKEHRAUFGABE
+herkunft: ki-entwurf
+version: 1

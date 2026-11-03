@@ -21,6 +21,9 @@ niveaus:
   M:
     beschreibung:
       de: Gleichungen und Ungleichungen wie y + 10 < 25 lösen; zu einem Text eine Gleichung aufstellen.
+  E:
+    beschreibung:
+      de: 'Bei Ungleichungen begründen, ob die Grenze zur Lösung gehört.'
 kmk:
   leitidee: L3
   prozesse:
@@ -30,6 +33,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:
