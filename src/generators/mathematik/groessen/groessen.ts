@@ -2,7 +2,7 @@ import { dezimalDeutsch, runde10, zahlDeutsch } from '../../../core/learning/for
 import type { Generator, Sprachobjekt } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng, type Rng } from '../../../core/rng/rng';
-import { de, verlange, zahl } from '../../hilfen';
+import { de, verlange, zahl, variante } from '../../hilfen';
 
 /** Einheiten je Größe, von klein nach groß, mit Faktor zur nächstgrößeren. */
 export const GROESSEN: Readonly<Record<string, readonly { einheit: string; faktor: number }[]>> = {
@@ -430,3 +430,19 @@ export const sachWeg: Generator<SachWegParameter> = {
     };
   },
 };
+
+/** Variante für M.GM.GR.KOMMA.ZU-KLEINER (Fehler-Schüler A): ohne falsche-stelle, das dort nie vorkommt. */
+export const kommaschreibweiseZuKleiner = variante(
+  kommaschreibweise,
+  'gr.kommaschreibweise-zu-kleiner',
+  ['nullen-falsch'],
+  {},
+);
+
+/** Variante für M.GM.GR.KOMMA.ZU-KOMMA (Fehler-Schüler A): ohne nullen-falsch, das dort nie vorkommt. */
+export const kommaschreibweiseZuKomma = variante(
+  kommaschreibweise,
+  'gr.kommaschreibweise-zu-komma',
+  ['falsche-stelle'],
+  {},
+);

@@ -4,7 +4,7 @@ kompetenz: M.GM.FL.ZUSAMMENGESETZT
 niveaus: [G, M]
 typ: bild-zahl
 quelle: generator
-generator: fl.zusammengesetzt@1
+generator: fl.zusammengesetzt-flaeche@1
 parameter:
   G: { gesucht: flaeche, alle_masse: true, max: 12 }
   M: { gesucht: flaeche, alle_masse: false, max: 30 }
@@ -21,11 +21,5 @@ fehlerbilder:
   addiert-statt-abgezogen:
     de: Das fehlende Rechteck gehört nicht zur Figur. Ziehe es ab, statt es dazuzuzählen.
     fv: FV.FL.ZERLEGEN
-  einschnitt-vergessen:
-    de: 'Das ist ein [[Umfang]], und dabei fehlen noch Seiten. Gesucht ist der [[Flächeninhalt]].'
-    fv: FV.FL.UMFANG-FLAECHE
-  flaeche-statt-umfang:
-    de: 'Prüfe, ob du den [[Flächeninhalt]] in [[Quadrateinheiten]] berechnet hast.'
-    fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

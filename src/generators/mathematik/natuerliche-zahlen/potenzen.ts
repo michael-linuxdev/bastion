@@ -2,7 +2,7 @@ import { zahlDeutsch } from '../../../core/learning/format';
 import type { Generator } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng } from '../../../core/rng/rng';
-import { de, verlange, zahl } from '../../hilfen';
+import { de, verlange, zahl, variante } from '../../hilfen';
 
 export interface QuadratParameter {
   readonly basis_max: number; // 3 … 20
@@ -72,3 +72,9 @@ export const zehnerpotenz: Generator<ZehnerpotenzParameter> = {
     };
   },
 };
+
+/** Variante für M.ZO.NZ.POTENZEN.QUADRAT (Fehler-Schüler A): ohne halbiert, das dort nie vorkommt. */
+export const quadratzahlQuadrat = variante(quadratzahl, 'nz.quadratzahl-quadrat', ['mal-zwei'], {});
+
+/** Variante für M.ZO.NZ.POTENZEN.WURZEL (Fehler-Schüler A): ohne mal-zwei, das dort nie vorkommt. */
+export const quadratzahlWurzel = variante(quadratzahl, 'nz.quadratzahl-wurzel', ['halbiert'], {});

@@ -1,0 +1,27 @@
+# Fehler in einer Kreisring-Rechnung finden – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KR.KREISRING.FEHLER
+kompetenz: M.GM.KR.KREISRING
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kr.ring-fehler@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Ein [[Kreisring]] hat außen den [[Radius]] R = {gross} cm und innen r = {klein} cm. Lena rechnet mit [[π]] ≈ 3,14: {rechnung}. **Stimmt** das? Wähle die passende Antwort.'
+hilfen:
+  - de: 'Der Ring ist der große Kreis ohne das Loch.'
+  - de: 'Rechne beide Kreisflächen aus und vergleiche mit Lenas Ergebnis.'
+fehlerbilder:
+  radien-abgezogen:
+    de: 'Ein Kreis mit dem [[Radius]] R − r ist viel kleiner als der Ring. Ziehe die Flächen ab, nicht die Radien.'
+    fv: FV.KR.KREISRING-RADIEN
+  umfang:
+    de: 'Gesucht ist eine Fläche in cm². Umfänge sind Längen, sie helfen hier nicht.'
+    fv: FV.FL.UMFANG-FLAECHE
+  durchmesser:
+    de: 'Gegeben sind Radien. Die Flächenformel A = [[π]] · r² braucht genau die.'
+    fv: FV.KR.RADIUS-DURCHMESSER
+herkunft: ki-entwurf
+version: 1

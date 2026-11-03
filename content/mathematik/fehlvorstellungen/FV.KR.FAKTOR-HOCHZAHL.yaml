@@ -1,0 +1,25 @@
+id: FV.KR.FAKTOR-HOCHZAHL
+name:
+  de: Meint, Umfang und Fläche wachsen gleich mit dem Radius
+art: falsche-regel
+beschreibung:
+  de: >-
+    Wird der Radius k-mal so groß, nimmt das Kind für Umfang und Fläche denselben Faktor, verdoppelt den Faktor wegen der 2 in der Formel oder nimmt ihn hoch 3. Dass eine Länge mit k, eine Fläche mit k² wächst, ist nicht verankert.
+kompetenzen: [M.GM.KR.UMFANG-FLAECHE]
+erklaerung:
+  kurz:
+    de: 'Zähle, wie oft r in der [[Formel]] als [[Faktor]] steht. [[Umfang]]: einmal, also k-mal so groß. [[Flächeninhalt]]: zweimal, also k²-mal so groß.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast für den Kreis einen [[Faktor]] genommen, der nicht zur [[Formel]] passt.'
+    - teil: warum-nicht
+      de: 'Die 2 in U = 2 · [[π]] · r bleibt immer gleich, sie wächst nicht mit. Wachsen tut nur r, und zwar so oft, wie r in der [[Formel]] steht.'
+    - teil: so-stimmt-es
+      de: '[[Radius]] 3-mal so groß: [[Umfang]] 3-mal, [[Flächeninhalt]] 3 · 3 = 9-mal so groß.'
+gegenbeispiel:
+  de: 'r = 1 cm: A = 3,14 cm². r = 3 cm: A = 28,26 cm². Das ist 9-mal so viel, nicht 3-mal.'
+rueckweg:
+  vermittlung: M.GM.KR.UMFANG-FLAECHE#erklaeren-formeln
+kontrast: [M.GM.KR.UMFANG-FLAECHE.AENDERN]
+herkunft: ki-entwurf
+version: 1

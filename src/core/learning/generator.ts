@@ -129,6 +129,10 @@ export interface Generator<P> {
   readonly platzhalter: readonly string[];
   /** IDs aller Fehlerbilder, die vorkommen können. */
   readonly fehlerbildIds: readonly string[];
+  /** Bei einer Variante (`variante` in src/generators/hilfen.ts): der Generator „id@version“, auf dem sie aufbaut. */
+  readonly basis?: string;
+  /** Bei einer Variante: die festen Parameter, die sie der Basis mitgibt. */
+  readonly basisParameter?: Readonly<Record<string, unknown>>;
   /** Rein und deterministisch: gleicher Seed + gleiche Parameter = gleiche Instanz. */
   erzeuge(seed: number, parameter: P): Instanz;
   /** Zwischenschritte (INHALTSFORMAT §17): IDs in Reihenfolge und Fehlerbild-IDs je Schritt. */

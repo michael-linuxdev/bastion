@@ -4,7 +4,7 @@ kompetenz: M.ZO.NZ.POTENZEN
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: nz.quadratzahl@1
+generator: nz.quadratzahl-wurzel@1
 parameter:
   G: { basis_max: 10, wurzel: true }
   M: { basis_max: 20, wurzel: true }
@@ -14,9 +14,6 @@ text:
 hilfen:
   - de: Welche Zahl ergibt mit sich selbst multipliziert {quadrat}?
 fehlerbilder:
-  mal-zwei:
-    de: Verdoppeln ist hier nicht gemeint.
-    fv: FV.NZ.WURZEL-HALBIERT
   halbiert:
     de: 'Du hast halbiert. Die [[Wurzel]] ist die Zahl, die mit sich selbst multipliziert {quadrat} ergibt.'
     fv: FV.NZ.WURZEL-HALBIERT

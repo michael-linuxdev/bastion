@@ -43,6 +43,8 @@ export function variante<P, F extends Partial<P>>(
   return {
     id,
     version: 1,
+    basis: `${basis.id}@${basis.version}`,
+    basisParameter: fest as Readonly<Record<string, unknown>>,
     platzhalter: basis.platzhalter,
     fehlerbildIds,
     erzeuge: (seed, p) => {

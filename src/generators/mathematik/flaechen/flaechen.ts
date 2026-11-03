@@ -2,7 +2,7 @@ import { zahlDeutsch } from '../../../core/learning/format';
 import type { Generator } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng } from '../../../core/rng/rng';
-import { de, verlange, zahl } from '../../hilfen';
+import { de, verlange, zahl, variante } from '../../hilfen';
 import { bild, text, vieleck } from '../../svg';
 
 type Punkt = readonly [number, number];
@@ -244,3 +244,35 @@ export const zusammengesetzt: Generator<ZusammengesetztParameter> = {
     };
   },
 };
+
+/** Variante für M.GM.FL.RECHTECK.FLAECHE (Fehler-Schüler A): ohne nur-zwei-seiten, das dort nie vorkommt. */
+export const rechteckFlaeche = variante(
+  rechteck,
+  'fl.rechteck-flaeche',
+  ['umfang-flaeche-verwechselt', 'addiert'],
+  {},
+);
+
+/** Variante für M.GM.FL.RECHTECK.UMFANG (Fehler-Schüler A): ohne addiert, das dort nie vorkommt. */
+export const rechteckUmfang = variante(
+  rechteck,
+  'fl.rechteck-umfang',
+  ['umfang-flaeche-verwechselt', 'nur-zwei-seiten'],
+  {},
+);
+
+/** Variante für M.GM.FL.ZUSAMMENGESETZT.FLAECHE (Fehler-Schüler A): ohne einschnitt-vergessen, flaeche-statt-umfang, das dort nie vorkommt. */
+export const zusammengesetztFlaeche = variante(
+  zusammengesetzt,
+  'fl.zusammengesetzt-flaeche',
+  ['aussen-multipliziert', 'addiert-statt-abgezogen'],
+  {},
+);
+
+/** Variante für M.GM.FL.ZUSAMMENGESETZT.UMFANG (Fehler-Schüler A): ohne addiert-statt-abgezogen, aussen-multipliziert, das dort nie vorkommt. */
+export const zusammengesetztUmfang = variante(
+  zusammengesetzt,
+  'fl.zusammengesetzt-umfang',
+  ['einschnitt-vergessen', 'flaeche-statt-umfang'],
+  {},
+);
