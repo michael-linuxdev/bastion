@@ -962,10 +962,32 @@ test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Pu
   page,
 }) => {
   test.setTimeout(60_000);
+  // Die Bilder kommen absichtlich spät: So ist sicher, dass der Tipper vor dem fertigen
+  // Bild kommt – auf schnellen und langsamen Rechnern gleich (vorher wackelig in der CI)
+  let freigeben = () => {};
+  const frei = new Promise<void>((r) => (freigeben = r));
+  await page.route('**/grafik/atlas/manifest.json', async (route) => {
+    await frei;
+    await route.continue();
+  });
   await page.goto('./');
   await bastionOeffnen(page, false);
-  // nicht warten, bis das Bild ruhig steht: tippen, sobald die Kamera sitzt
   await expect(page.locator('.fenster.sichtbar')).toHaveCount(1);
+  // Bauplatz steht ruhig (die Kamera hat sich eingepasst), das Bild fehlt noch
+  let letzte = '';
+  await expect
+    .poll(
+      async () => {
+        const r = await page.locator('.bauplatz').boundingBox();
+        const jetzt = r ? [r.x, r.y, r.width, r.height].map((w) => w.toFixed(1)).join(',') : '';
+        const ruhig = jetzt !== '' && jetzt === letzte;
+        letzte = jetzt;
+        return ruhig;
+      },
+      { intervals: [150], timeout: 15_000 },
+    )
+    .toBe(true);
+  await expect(page.locator('.fenster')).toHaveAttribute('data-bild', 'laedt');
   const fenster = page.locator('.fenster');
   const rahmen = await fenster.boundingBox();
   const flaeche = await page.locator('.bauplatz').boundingBox();
@@ -977,7 +999,8 @@ test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Pu
       y: flaeche.y - rahmen.y + (p.y * flaeche.height) / BUEHNE_H,
     },
   });
-  await expect(page.locator('.wahl')).toContainText('Feuerstelle', { timeout: 10_000 });
+  freigeben();
+  await expect(page.locator('.wahl')).toContainText('Feuerstelle', { timeout: 15_000 });
 });
 
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {
