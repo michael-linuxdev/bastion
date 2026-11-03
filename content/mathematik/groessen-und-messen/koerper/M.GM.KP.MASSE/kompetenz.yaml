@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.GM.KP.PRISMA
   - M.GM.KP.EINHEITEN
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

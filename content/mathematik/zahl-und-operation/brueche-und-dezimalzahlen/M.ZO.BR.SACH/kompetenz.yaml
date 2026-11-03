@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 6
 voraussetzungen:
   - M.ZO.BR.RECHENGESETZE
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

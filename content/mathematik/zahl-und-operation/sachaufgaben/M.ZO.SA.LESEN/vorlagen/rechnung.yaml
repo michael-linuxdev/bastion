@@ -1,0 +1,28 @@
+# „Welche Rechnung beantwortet die Frage?“ Entwurf: noch nicht geprüft.
+id: M.ZO.SA.LESEN.RECHNUNG
+kompetenz: M.ZO.SA.LESEN
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: sa.rechnung@1
+parameter:
+  G: { lang: false }
+  M: { lang: true }
+text:
+  aufgabe:
+    de: '{geschichte} {frage} **Welche** Rechnung beantwortet die Frage?'
+hilfen:
+  - de: 'Lies die Frage zuerst. Was genau ist gesucht?'
+  - de: 'Unterstreiche jede Zahl im Text. Kommt jede in der Rechnung vor?'
+fehlerbilder:
+  zwischenergebnis:
+    de: 'Diese Rechnung ist ein Zwischenschritt. Sie beantwortet die Frage noch nicht.'
+    fv: FV.SA.ZWISCHENERGEBNIS
+  rechenart:
+    de: 'Überlege, was die Zahlen bedeuten. Mehrmals derselbe Preis heißt malnehmen, nicht addieren.'
+    fv: FV.SA.RECHENART
+  angabe-uebersehen:
+    de: 'Eine Angabe aus dem Text fehlt in dieser Rechnung.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
+herkunft: ki-entwurf
+version: 1

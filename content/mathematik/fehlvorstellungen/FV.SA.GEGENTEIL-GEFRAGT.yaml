@@ -20,7 +20,7 @@ erklaerung:
 gegenbeispiel:
   de: 'Wer die günstigste Fahrkarte sucht, kauft nicht die teuerste.'
 rueckweg:
-  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+  vermittlung: M.ZO.SA.LESEN#erklaeren-frage
 kontrast: [M.GM.KP.VERPACKUNG.VERGLEICHEN]
 herkunft: ki-entwurf
 version: 1

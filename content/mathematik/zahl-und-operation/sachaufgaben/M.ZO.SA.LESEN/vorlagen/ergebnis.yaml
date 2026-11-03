@@ -1,0 +1,28 @@
+# Sachaufgabe lösen: Frage finden, rechnen, antworten. Entwurf: noch nicht geprüft.
+id: M.ZO.SA.LESEN.ERGEBNIS
+kompetenz: M.ZO.SA.LESEN
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: sa.ergebnis@1
+parameter:
+  G: { lang: false }
+  M: { lang: true }
+text:
+  aufgabe:
+    de: '{geschichte} **{frage}**'
+hilfen:
+  - de: 'Schreibe zuerst auf, was gesucht ist.'
+  - de: 'Rechne Schritt für Schritt. Prüfe am Ende: Beantwortet deine Zahl die Frage?'
+fehlerbilder:
+  zwischenergebnis:
+    de: 'Das ist ein Zwischenergebnis. Lies die Frage noch einmal: Ein Schritt fehlt noch.'
+    fv: FV.SA.ZWISCHENERGEBNIS
+  rechenart:
+    de: 'Du hast addiert, wo malgenommen werden muss. Was bedeuten die Zahlen in der Geschichte?'
+    fv: FV.SA.RECHENART
+  angabe-uebersehen:
+    de: 'Eine Angabe aus dem Text hast du nicht benutzt.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
+herkunft: ki-entwurf
+version: 1

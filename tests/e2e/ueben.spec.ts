@@ -1091,7 +1091,7 @@ test('Mein Stand und Diagnose für Klasse 6', async ({ page }) => {
   await page.goto('./');
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
-  await expect(page.getByText(/^41\s+Themen insgesamt/)).toBeVisible();
+  await expect(page.getByText(/^42\s+Themen insgesamt/)).toBeVisible();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await expect(page.getByText(/^28\s+Themen insgesamt/)).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();

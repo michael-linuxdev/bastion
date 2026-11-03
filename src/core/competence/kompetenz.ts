@@ -49,6 +49,7 @@ export const BEREICHE: Readonly<Record<string, { slug: string; leitidee: string 
 
 export const FELDER: Readonly<Record<string, string>> = {
   NZ: 'natuerliche-zahlen',
+  SA: 'sachaufgaben',
   TB: 'teilbarkeit',
   BR: 'brueche-und-dezimalzahlen',
   GR: 'groessen',

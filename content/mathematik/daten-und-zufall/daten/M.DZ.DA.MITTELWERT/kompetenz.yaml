@@ -12,6 +12,7 @@ klassenstufe_typisch:
   - 6
 voraussetzungen:
   - M.ZO.BR.DEZ-RECHNEN
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:
