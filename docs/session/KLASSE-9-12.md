@@ -109,7 +109,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 ### Inhaltsdurchsicht Klasse 9 (03.11.2026)
 
-Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. Offen, nur notiert: ST.MANIPULATION.ERKENNEN hat auf G und E dieselben Parameter.
+Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. ST.MANIPULATION.ERKENNEN: G zeigt abgeschnittene Achse und absolute Zahlen, E Prozentpunkte und vorgetäuschte Genauigkeit (neuer, optionaler Parameter `stufe`, ohne Angabe wie bisher).
 
 ### Fehler-Schüler-Funde (03.11.2026)
 

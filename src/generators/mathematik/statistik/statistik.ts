@@ -475,8 +475,9 @@ interface Taeuschung {
   readonly falsch: readonly (readonly [string, string])[];
 }
 
-function taeuschung(r: Rng): Taeuschung {
-  const art = r.int(0, 3);
+/** einfach: abgeschnittene Achse, absolute Zahlen; schwer: Prozentpunkte, vorgetäuschte Genauigkeit */
+function taeuschung(r: Rng, stufe?: 'einfach' | 'schwer'): Taeuschung {
+  const art = stufe === undefined ? r.int(0, 3) : r.pick(stufe === 'einfach' ? [0, 1] : [2, 3]);
   if (art === 0) {
     const a = r.int(95, 98);
     const b = a + r.int(1, 3);
@@ -531,6 +532,8 @@ function taeuschung(r: Rng): Taeuschung {
 
 export interface ManipulationParameter {
   readonly arten: readonly ('erkennen' | 'prozentpunkte')[];
+  /** Nur für erkennen: Auswahl der Täuschungen; ohne Angabe alle vier (wie bisher) */
+  readonly stufe?: 'einfach' | 'schwer';
 }
 
 /** „Was ist an dieser Darstellung irreführend?“ / „Um wie viel Prozent ist der Anteil gestiegen?“ */
@@ -568,7 +571,7 @@ const stManipulation: Generator<ManipulationParameter> = {
         ]),
       };
     }
-    const t = taeuschung(r);
+    const t = taeuschung(r, p.stufe);
     const l = mische(r, [['richtig', t.richtig] as const, ...t.falsch]);
     const index = (id: string) => auswahl(l.findIndex(([k]) => k === id));
     return {
