@@ -182,6 +182,7 @@ Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer
   2. Kompetenzlisten für Klasse 9, 10 und Jahrgang 11/12 (GK und LK) in `LEHRPLAN.md` anlegen, Grundlage Lehrplan Gymnasium (K-16, `docs/quellen/README.md`), dann Klasse für Klasse Vorlagen, Erstvermittlung und Fehlerkatalog. KaTeX-Messung (Schritt 2 der Formeldarstellung) jetzt fällig.
   3. Die mehrfache KI-Prüfung als festen Ablauf beschreiben (mehrere unabhängige Durchgänge, Befunde im Prüfbogen), bevor der Mensch prüft. Stufe 2 bleibt menschliche Prüfung (INHALTSFORMAT §8).
   4. ~~Laufende Pakete (F3, F7–F10, Lehrkraft gewinnen) mit dem PV neu ordnen.~~ *Geklärt 02.11.2026: alles ruht (`KLASSE-9-12.md`, Entscheidung 5).* Die Lern-Oberfläche bleibt nach Regel 7 eingefroren; neuer Stoff läuft über Inhalte und Generatoren.
+- **Zur Kenntnis aus dem Strang Grafik (03.11.2026, B-34, Zustimmung PV):** Das Ledger bucht jetzt auch **Bauplan-Skizzen**. Wird ein Fehler in der Fehlerwerkstatt an einem späteren Lerntag ohne Hilfe richtig gelöst, gibt es eine Skizze, höchstens eine je Kompetenz und Niveau. Zwei Skizzen ergeben einen Bauplan (`skizzenBuchungen` in `src/core/ledger/regeln.ts`). Gelesen werden nur die vorhandenen Felder `korrigiert`, `ergebnis`, `hilfen` und `tag` der Aufgaben-Ereignisse; an der Fehlerwerkstatt ändert sich nichts. Bitte nur melden, falls sich deren Bedeutung (z. B. von `korrigiert`) einmal ändert. Grund: schwache Lernende kamen sonst nicht über Bergfried 4 hinaus (BASEBAU §8d).
 
 ---
 
