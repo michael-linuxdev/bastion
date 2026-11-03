@@ -16,7 +16,8 @@ import {
 } from '../../src/core/bastion/bauen';
 import type { BauEreignis, Bastion } from '../../src/core/bastion/bauen';
 import { epochenstand } from '../../src/core/bastion/epoche';
-import { BAUPLATZ, KATALOG, kosten, type GebaeudeTyp } from '../../src/core/bastion/katalog';
+import { bauplatzFuer, type Epoche } from '../../src/core/bastion/epochen';
+import { hoechstensFuer, KATALOG, kosten, type GebaeudeTyp } from '../../src/core/bastion/katalog';
 import { aufgabeEreignis, type AufgabeEreignis } from '../../src/core/learning/ereignis';
 import { verarbeite, type Projektion } from '../../src/core/learning/fortschritt';
 import { sitzungEreignis, type SitzungEreignis } from '../../src/core/learning/sitzung';
@@ -116,19 +117,70 @@ export const PROFILE: readonly Lernprofil[] = [
   },
 ];
 
-/** Bauplan der Simulation: erst das Banner, dann die Gebäude auf dem Weg zum Ziel der Epoche */
-const ZIELE: readonly { typ: GebaeudeTyp; stufe: number }[] = [
-  { typ: 'zeichen', stufe: 1 },
-  { typ: 'turm', stufe: 1 },
-  { typ: 'wissen', stufe: 1 },
-  { typ: 'kern', stufe: 2 },
-  { typ: 'werkstatt', stufe: 1 },
-  { typ: 'eingang', stufe: 1 },
-  { typ: 'turm', stufe: 1 },
-  { typ: 'wissen', stufe: 2 },
-  { typ: 'turm', stufe: 2 },
-  { typ: 'turm', stufe: 2 },
-  { typ: 'kern', stufe: 3 },
+interface Ziel {
+  readonly typ: GebaeudeTyp;
+  readonly stufe: number;
+  /** Epoche, in der das Kind dieses Ziel angeht (BASEBAU §5.5) */
+  readonly epoche: Epoche;
+}
+const ziele = (epoche: Epoche, liste: readonly [GebaeudeTyp, number][]): Ziel[] =>
+  liste.map(([typ, stufe]) => ({ typ, stufe, epoche }));
+
+/**
+ * Bauplan der Simulation: erst das Banner, dann je Epoche die Gebäude auf dem
+ * Weg zu ihrem Ziel (Bergfried 3 / 5 / 7 / 9). Ab Epoche 2 kommen je zwei
+ * Türme dazu (Höchstzahl 2 / 4 / 6 / 8), die Stufen folgen dem Katalog (§5.5).
+ */
+const ZIELE: readonly Ziel[] = [
+  ...ziele(1, [
+    ['zeichen', 1],
+    ['turm', 1],
+    ['wissen', 1],
+    ['kern', 2],
+    ['werkstatt', 1],
+    ['eingang', 1],
+    ['turm', 1],
+    ['wissen', 2],
+    ['turm', 2],
+    ['turm', 2],
+    ['kern', 3],
+  ]),
+  ...ziele(2, [
+    ['turm', 1],
+    ['turm', 1],
+    ['kern', 4],
+    ['wissen', 3],
+    ['werkstatt', 2],
+    ['eingang', 2],
+    ['turm', 2],
+    ['turm', 2],
+    ['turm', 3],
+    ['kern', 5],
+  ]),
+  ...ziele(3, [
+    ['turm', 1],
+    ['turm', 1],
+    ['kern', 6],
+    ['wissen', 4],
+    ['werkstatt', 3],
+    ['turm', 2],
+    ['turm', 2],
+    ['turm', 3],
+    ['turm', 4],
+    ['kern', 7],
+  ]),
+  ...ziele(4, [
+    ['turm', 1],
+    ['turm', 1],
+    ['kern', 8],
+    ['wissen', 5],
+    ['turm', 2],
+    ['turm', 2],
+    ['turm', 3],
+    ['turm', 4],
+    ['turm', 5],
+    ['kern', 9],
+  ]),
 ];
 /** Aus Überschuss, ohne Können: Einfassung (bis 40) und Zierde im Wechsel */
 const UEBERSCHUSS: readonly GebaeudeTyp[] = [
@@ -143,6 +195,13 @@ export interface Ergebnis {
   readonly profil: Lernprofil;
   /** Tag, an dem die Epoche 1 geschafft ist (undefined = nicht im Zeitraum) */
   readonly epocheTag?: number;
+  /**
+   * Tag, an dem Epoche 1, 2, 3, 4 geschafft ist (Index 0–3; Epoche 4 geschafft =
+   * Bergfried 9 und 60 Baupläne). undefined = nicht im Zeitraum.
+   */
+  readonly epochenTage: readonly (number | undefined)[];
+  /** Stufe des Kerns am Ende */
+  readonly kern: number;
   /** Tage, an denen ein Gebäude fertig wurde (ohne Startzustand), mit Typ */
   readonly fertig: readonly { readonly tag: number; readonly typ: GebaeudeTyp }[];
   readonly lerntage: number;
@@ -164,9 +223,12 @@ export interface Ergebnis {
   readonly bau: readonly BauEreignis[];
 }
 
-const belegt = (b: Bastion) =>
+type Platz = { readonly breite: number; readonly tiefe: number };
+const belegt = (b: Bastion, platz: Platz) =>
   b.bauwerke.reduce((s, x) => s + KATALOG[x.typ].groesse[0] * KATALOG[x.typ].groesse[1], 0) /
-  (BAUPLATZ.breite * BAUPLATZ.tiefe);
+  (platz.breite * platz.tiefe);
+const epocheVon = (b: Bastion, buchungen: readonly BuchungEreignis[]) =>
+  epochenstand(b, kontoAus(PROFIL, buchungen));
 
 export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
   const r: Rng = rng(seed);
@@ -182,7 +244,7 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
   const gebuchtePlaene = new Set<string>();
   const offeneFehler: AufgabeEreignis[] = [];
   let nr = 0;
-  let epocheTag: number | undefined;
+  const epochenTage: (number | undefined)[] = [undefined, undefined, undefined, undefined];
   let belegung12 = 0;
   let zierde = 0;
   let eingelagerteStuecke = 0;
@@ -306,6 +368,8 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
       for (let versuch = 0; versuch < 30; versuch++) {
         const b = bastionAus(bau, buchungen);
         const k = kontoAus(PROFIL, buchungen);
+        const { epoche } = epochenstand(b, k);
+        const platz = bauplatzFuer(epoche);
         const angaben = {
           profil: PROFIL,
           geraet: GERAET,
@@ -313,14 +377,14 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
           jetzt: (jetzt += 1000),
           tag: lerntag(jetzt, VERSATZ),
         };
-        const ziel = naechstesZiel(b);
+        const ziel = naechstesZiel(b, epoche);
         let e = undefined as ReturnType<typeof beginnen> | undefined;
         if (ziel) {
           const ausbau =
             ziel.stufe > 1
               ? b.bauwerke.find((x) => x.typ === ziel.typ && x.stufe === ziel.stufe - 1)
               : undefined;
-          const pos = freierPlatz(b, ziel.typ);
+          const pos = freierPlatz(b, ziel.typ, platz);
           // Kein zusammenhängender Platz frei: Zierde einlagern (B-21) und es noch einmal versuchen
           if (!ausbau && !pos) {
             const zierStueck = b.bauwerke.find((x) => einlagerbar(x.typ) && x.typ !== 'ursprung');
@@ -342,16 +406,16 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
           const naechster = UEBERSCHUSS[zierde % UEBERSCHUSS.length] ?? 'zeichen';
           const einfassungVoll =
             b.bauwerke.filter((x) => x.typ === 'einfassung').length >=
-            (KATALOG.einfassung.hoechstens ?? 0);
+            (hoechstensFuer('einfassung', epoche) ?? 0);
           const typ = naechster === 'einfassung' && einfassungVoll ? 'zeichen' : naechster;
           const preis = kosten(typ, 1)?.fleiss ?? 0;
-          const pos = freierPlatz(b, typ);
+          const pos = freierPlatz(b, typ, platz);
           // Ein vernünftiges Kind hält Platz frei für die Gebäude, die noch fehlen
-          const frei = BAUPLATZ.breite * BAUPLATZ.tiefe * (1 - belegt(b));
+          const frei = platz.breite * platz.tiefe * (1 - belegt(b, platz));
           const flaeche = KATALOG[typ].groesse[0] * KATALOG[typ].groesse[1];
           if (
             pos &&
-            frei - flaeche >= platzFuerZiele(b) &&
+            frei - flaeche >= platzFuerZiele(b, epoche) &&
             k.stand.fleiss - preis >= reserve + 20 &&
             beginnHindernisse(b, k, typ, { pos }).length === 0
           ) {
@@ -373,23 +437,29 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
         fertig.push({ tag: t, typ: f.typ });
         wochen.set(woche, { gelernt: wochen.get(woche)?.gelernt ?? false, fortschritt: true });
       }
-    // Epoche 1 geschafft = freigeschaltete Epoche ≥ 2 (BASEBAU §5.4 / G9)
-    if (epocheTag === undefined && epochenstand(b, kontoAus(PROFIL, buchungen)).epoche >= 2)
-      epocheTag = t;
-    if (t === 365) belegung12 = belegt(b);
+    // Epoche n geschafft = Ziel von n erreicht (BASEBAU §5.4–§5.5 / G9)
+    const stand = epocheVon(b, buchungen);
+    for (let i = 0; i < 4; i++)
+      if (epochenTage[i] === undefined && (stand.epoche > i + 1 || stand.fertig))
+        epochenTage[i] = t;
+    if (t === 365) belegung12 = belegt(b, stand.bauplatz);
   }
 
   const b = bastionAus(bau, buchungen);
   const k = kontoAus(PROFIL, buchungen);
+  const stand = epochenstand(b, k);
+  const epocheTag = epochenTage[0];
   return {
     profil,
     ...(epocheTag !== undefined ? { epocheTag } : {}),
+    epochenTage,
+    kern: stand.kern,
     fertig,
     lerntage: new Set(sitzungen.map((s) => s.tag)).size,
     aufgaben: aufgaben.length,
     erworben: k.erworben,
     gefestigt: [...p.staende.values()].filter((s) => s.gefestigtAm).length,
-    belegung: belegt(b),
+    belegung: belegt(b, stand.bauplatz),
     belegung12,
     wochenOhneFortschritt: [...wochen.values()].filter((w) => w.gelernt && !w.fortschritt).length,
     einfassung: b.bauwerke.filter((x) => x.typ === 'einfassung').length,
@@ -400,11 +470,11 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
     bau,
   };
 
-  /** Felder, die die noch fehlenden Neubauten brauchen */
-  function platzFuerZiele(b: Bastion): number {
+  /** Felder, die die noch fehlenden Neubauten bis zur aktuellen Epoche brauchen */
+  function platzFuerZiele(b: Bastion, epoche: Epoche): number {
     let n = 0;
     const gezaehlt = new Map<GebaeudeTyp, number>();
-    for (const z of ZIELE.filter((x) => x.stufe === 1)) {
+    for (const z of ZIELE.filter((x) => x.stufe === 1 && x.epoche <= epoche)) {
       const schon = gezaehlt.get(z.typ) ?? 0;
       gezaehlt.set(z.typ, schon + 1);
       const start = z.typ === 'einfassung' ? 4 : 0;
@@ -417,10 +487,11 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
     return n;
   }
 
-  function naechstesZiel(b: Bastion) {
-    // Ziele der Reihe nach abhaken: Neubau zählt vorhandene, Ausbau zählt erreichte Stufen
+  function naechstesZiel(b: Bastion, epoche: Epoche) {
+    // Ziele der Reihe nach abhaken: Neubau zählt vorhandene, Ausbau zählt erreichte Stufen.
+    // Ziele späterer Epochen kommen erst dran, wenn der Bauplatz gewachsen ist.
     const zaehle = new Map<string, number>();
-    for (const z of ZIELE) {
+    for (const z of ZIELE.filter((x) => x.epoche <= epoche)) {
       const schluessel = `${z.typ}@${z.stufe}`;
       const schon = zaehle.get(schluessel) ?? 0;
       zaehle.set(schluessel, schon + 1);
@@ -450,6 +521,8 @@ export function auswerten(e: Ergebnis) {
       summeJahr1[b.ressource] += b.menge;
   return {
     epocheTag: e.epocheTag,
+    epochenTage: e.epochenTage,
+    kern: e.kern,
     erstesGebaeude: e.fertig[0]?.tag,
     lerntage: e.lerntage,
     aufgaben: e.aufgaben,

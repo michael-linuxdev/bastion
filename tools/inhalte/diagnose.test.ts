@@ -55,7 +55,9 @@ describe('Diagnose mit dem Graphen der Klasse 5', () => {
       }),
       { numRuns: 500 },
     );
-  });
+    // 500 simulierte Lernende auf dem ganzen Graphen der Klasse 5: lokal etwa 3,5 s, auf dem
+    // CI-Rechner mehr als die 5 s Vorgabe. Eigenes Limit statt weniger Läufe.
+  }, 30_000);
 
   it('Bericht: Aufgaben bis zum Ergebnis', () => {
     const faelle = [

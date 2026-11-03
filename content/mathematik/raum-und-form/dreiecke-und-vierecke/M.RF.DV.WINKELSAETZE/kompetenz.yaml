@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 6
 voraussetzungen:
   - M.RF.GF.WINKELPAARE
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.DZ.DA.KREISDIAGRAMM
   - M.ZO.PZ.GRUNDAUFGABEN
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

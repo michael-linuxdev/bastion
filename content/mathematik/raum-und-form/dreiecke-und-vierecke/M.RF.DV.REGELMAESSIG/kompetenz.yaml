@@ -13,6 +13,7 @@ voraussetzungen:
   - M.RF.DV.WINKELSAETZE
   - M.RF.SY.SYMMETRIE
   - M.RF.KR.LAGE
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

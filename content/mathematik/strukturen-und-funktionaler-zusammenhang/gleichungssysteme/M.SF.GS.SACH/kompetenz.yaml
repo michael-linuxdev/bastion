@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.SF.GS.RECHNERISCH
   - M.SF.GL.AUFSTELLEN
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

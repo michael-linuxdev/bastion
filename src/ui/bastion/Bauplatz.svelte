@@ -757,6 +757,7 @@
     <div
       class="fenster"
       class:sichtbar={kameraSichtbar}
+      data-bild={buehne ? 'bereit' : 'laedt'}
       class:versetzen
       class:zieht
       style:background={kulisse ? 'transparent' : himmelCss}
