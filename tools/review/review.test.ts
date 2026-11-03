@@ -59,6 +59,7 @@ describe('Kennungen auflösen', () => {
       'vermittlung',
       'vorlage',
       'vorlage',
+      'vorlage',
     ]);
   });
 
