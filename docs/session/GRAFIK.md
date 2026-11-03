@@ -64,7 +64,20 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 ### Auftrag für die nächste Grafik-Sitzung (vorbereitet 02.11.2026)
 
-**Stand 03.11.2026:** Punkt 1 umgesetzt als neuer Stil „weich gerendert“ mit neuen, aufbauenden Stufenleitern für alle Gebäude aller Themen und allen übrigen Bildern (Branch `grafik/sprite-qualitaet`, `GRAFIK.md` §14, `GRAFIK-SPRITES.md` §13). Aus Punkt 4 erledigt: Absturz nach Themenwechsel (#206), Fuchs über der Burg und Fenster hinter dem Turm (#207); dazu Bauplan-Buch ohne Niveau (#208, Wunsch Lernkern). Offen: Punkte 2, 3, 4 (Dorf lädt langsam, Tipper in der ersten Sekunde), 5. Festlegung zum Umriss-Test ab Stufe 4 (sichtbar geändert statt +8 % Höhe) beim PV zur Kenntnis.
+**Stand 03.11.2026 (Ende der Sitzung):** Alle fünf Punkte erledigt.
+1. Neuer Stil „weich gerendert“ mit aufbauenden Stufenleitern (#204 ff., `GRAFIK-SPRITES.md` §13).
+2. Mehr Wetter (#218). Dazu, auf Wunsch des PV, Wetter über dem ganzen Bild mit Stärken von Niesel bis Gestöber und ohne kleine Wolken über der Insel (#223, `GRAFIK.md` §15.1).
+3. Kulisse für alle Themen (#219). Dazu mehr Leben: 70–100 Dinge und Flächen bis an den Bildrand, Möwen, grasende Tiere, Schmetterlinge, Fischschwärme, Satellit (Branch `grafik/kulisse-leben`, §18).
+4. Erster Tipper, Kamera, Dorf-Laden (#220). Der Browser-Test ist jetzt verlässlich (#223).
+5. Simulator für Epoche 2–4 (#222, BASEBAU §8c): P1 erreicht Bergfried 9 nach etwa 3,8 Jahren, es bremst der Fleiß; P6 bleibt bei Bergfried 4. **Entscheidung des PV offen**, ob eine Regel geändert wird (B-29).
+
+Neu auf Wunsch des PV: Jahreszeiten in Insel und Kulisse (Bäume, Büsche, Teiche, Boden) und Herbstlaub nur unter Bäumen (#225, §17).
+
+Offen:
+- Blick des PV auf die Fotos.
+- Wehende Fahnen bei Sturm.
+- Gröbere Kraterfelder im Weltraum (wirken noch wie Punktringe).
+- Weniger gleichförmige Sandbänke.
 
 Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.md`, Abschnitt ‚Auftrag für die nächste Grafik-Sitzung‘. Arbeite die Punkte der Reihe nach ab, je Punkt ein PR, Fotos aus der echten App vor dem Commit.“
 
