@@ -66,3 +66,4 @@
 | 03.11.2026 | **Fehler-Schüler-Funde gesenkt:** 24 fachlich klare Voraussetzungen ergänzt (gleiche oder frühere Klasse, ohne Kreis); B 58 → 28, D 5 → 2, Grenze gesenkt; Frage zu FV.SA.* notiert |
 | 03.11.2026 | **Fehler-Schüler E 14 → 0:** In 14 Erstvermittlungen springt eine erkannte Fehlvorstellung jetzt zu ihrem eigenen Erklärschritt (`bei`), Grenze E auf 0 |
 | 03.11.2026 | **Tempo:** Pflicht-Tests vergleichen erst ohne Vitest-`expect`, nur bei Abweichung mit `toEqual`; Generator-Tests 287 s → 126 s, Regeln unverändert |
+| 03.11.2026 | **E für Klasse 5–8 angehalten:** widerspricht K-11 (Prüfung verlangt bis Klasse 8 nur G und M); Entwurf Feld Kreis geparkt in `6bbc70a5`, Frage 6 in KLASSE-9-12.md |

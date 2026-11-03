@@ -105,7 +105,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 *Ergänzung (PV, 02.11.2026, 21:15):* Nach Fertigstellung von Klasse 9 **stoppen, Klasse 10 nicht beginnen**.
 
-13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10.
+13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10. *Angehalten (03.11.2026, 4:45 Uhr):* Das widerspricht K-11 („bis Klasse 8 nur G und M, E später“), und `pnpm inhalte:pruefen` verlangt das ausdrücklich. Bei der Frage am Abend war das nicht gesagt worden. Siehe Frage 6.
 
 ### Inhaltsdurchsicht Klasse 9 (03.11.2026)
 
@@ -125,6 +125,7 @@ Die Pflicht-Tests der Generatoren (`src/generators/pflichttests.ts`) vergleichen
 3. ~~**Werkzeug „Parameter am Graphen“ (B8)**~~ *gebaut 03.11.2026 als `graph@1` mit Reglern für a, d, e (Schieberegler, per Tastatur bedienbar), Vergleichskurve gestrichelt. Aussehen: Vorschau beim PV steht aus (Bildschirmfoto im Bericht).*
 4. ~~**Zeichenanleitung Kegel (L-10)**~~ *erledigt 03.11.2026:* „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`), RF.KP.KEGEL hat jetzt `zeichnen_erklaert`.
 5. **Sachaufgaben-Fehlvorstellungen (FV.SA.*):** Sie zeigen mit dem Rückweg alle auf `M.ZO.BR.SACH#erklaeren-frage`. Das ergibt 16 der 28 verbliebenen B-Funde in Geometrie, Größen, Daten und Gleichungssystemen. Brüche-Sachaufgaben als Voraussetzung dort einzutragen wäre fachlich falsch. Vorschlag: eine kleine eigene Erstvermittlung „Sachaufgaben lesen“ (Klasse 5) als gemeinsamer Rückweg, oder die Prüfung erlaubt für FV.SA.* den Rückweg in jede frühere Klasse. Bis zur Antwort: unverändert.
+6. **Niveau E für Klasse 5 bis 8 und K-11:** Soll K-11 geändert werden (E auch bis Klasse 8)? Dann muss die Prüfung „bis Klasse 8 die Niveaus G und M“ angepasst werden, und dazu gehören Entscheidungslog (STRATEGIE/KONZEPT) und die Niveau-Wahl der App (L-22). Ein fertiger Entwurf für das Feld Kreis liegt im Commit `6bbc70a5b774a396d3bdffc8be02e6fbacc2fdbb` (zwei Generatoren mit Pflicht-Tests, zwei Vorlagen, eine neue Fehlvorstellung) und ist gleich danach zurückgenommen. Übernehmen mit `git cherry-pick 6bbc70a5`. Bis zur Antwort: kein E in Klasse 5 bis 8.
 2. ~~**`pnpm inhalte:begriffe`** verdoppelte Anführungszeichen~~ *behoben 03.11.2026:* Das Komma hinter dem Wert in der mehrzeiligen Kurzform bleibt stehen (`tools/inhalte/begriffe-zeilen.ts` mit Test); DZ.ZF.HAEUFIGKEIT und DZ.ZF.WAHRSCHEINLICHKEIT sind jetzt markiert.
 
 ---
