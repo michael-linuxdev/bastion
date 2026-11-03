@@ -63,6 +63,17 @@
     vorlagen,
     generatoren: gens,
   });
+  // Niveau E nur, wenn eine gewählte Kompetenz E-Vorlagen hat (ab Klasse 9, K-28); Klasse 5–8 bleibt G und M
+  const niveausAngeboten = $derived<readonly Niveau[]>(
+    eingabe.kompetenzen.some((k) =>
+      vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes('E')),
+    )
+      ? ['G', 'M', 'E']
+      : ['G', 'M'],
+  );
+  $effect(() => {
+    if (!niveausAngeboten.includes(niveau)) niveau = 'M';
+  });
   const fehlend = $derived(ohneAufgaben(eingabe, niveau));
   const anzahlOk = $derived(
     Number.isInteger(anzahl) &&
@@ -162,7 +173,7 @@
 
       <fieldset class="reihe">
         <legend>{t('blatt.niveau')}</legend>
-        {#each ['G', 'M'] as const as n (n)}
+        {#each niveausAngeboten as n (n)}
           <label class="haken"
             ><input type="radio" name="blatt-niveau" value={n} bind:group={niveau} />
             {niveauName(n)}</label

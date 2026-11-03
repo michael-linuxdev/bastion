@@ -2092,3 +2092,27 @@ test('Klasse 9: Graph mit Reglern in der Erstvermittlung (B8, graph@1)', async (
   await expect(page.getByText('f(x) = (x − 2)² − 3')).toBeVisible();
   await page.screenshot({ path: test.info().outputPath('graph-regler.png'), fullPage: true });
 });
+
+test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen (Klasse 9)', async ({ page }) => {
+  await page.goto('./');
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await page.getByRole('button', { name: 'PIN festlegen' }).click();
+  await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
+
+  // Klasse 5: nur G und M
+  await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
+  await expect(page.getByRole('radio', { name: 'Mittel (M)' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Erweitert (E)' })).toHaveCount(0);
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).uncheck();
+
+  // Klasse 9: E wählbar, das Blatt hat Aufgaben
+  await page.getByRole('combobox', { name: 'Klasse', exact: true }).selectOption('9');
+  await page.getByRole('checkbox', { name: /^Wurzeln ziehen/ }).check();
+  await page.getByRole('radio', { name: 'Erweitert (E)' }).check();
+  await expect(page.locator('[data-druckblatt] [data-aufgabe]').first()).toBeVisible();
+});
