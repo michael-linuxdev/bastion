@@ -95,6 +95,10 @@
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
   import ZurueckKnopf from './start/ZurueckKnopf.svelte';
+  import InstallLeiste from './start/InstallLeiste.svelte';
+  import InstallSeite from './start/InstallSeite.svelte';
+  import InstallSperre from './start/InstallSperre.svelte';
+  import { geraet, installation, sperre } from './plattform/installation.svelte';
   import ProfilEinladung from './start/ProfilEinladung.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
@@ -129,6 +133,7 @@
     | 'angebot'
     | 'bastion'
     | 'mehr'
+    | 'installieren'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   let buchungsListe = $state<readonly BuchungEreignis[]>([]);
@@ -520,7 +525,13 @@
 
   /** Ein Bereich der App öffnen – vom Start-Hub oder aus Unterseiten. */
   function gehe(ziel: Ziel | 'start') {
-    if (ziel !== 'start' && ziel !== 'mehr' && ziel !== 'sicherung' && ziel !== 'profil')
+    if (
+      ziel !== 'start' &&
+      ziel !== 'mehr' &&
+      ziel !== 'sicherung' &&
+      ziel !== 'profil' &&
+      ziel !== 'installieren'
+    )
       inhalte ??= ladeInhalte();
     switch (ziel) {
       case 'ueben':
@@ -624,6 +635,10 @@
   <h1 class="unsichtbar">{t('start.ueberschrift')}</h1>
 
   {#if ansicht === 'start'}
+    <!-- O14: auf Handy und Tablet im Browser ein ruhiger Hinweis zur Installation -->
+    {#if geraet.system !== 'desktop' && !installation.installiert}
+      <InstallLeiste onclick={() => gehe('installieren')} />
+    {/if}
     <Startseite
       heute={new Date()}
       rueckkehr={rueckkehr === true}
@@ -665,6 +680,8 @@
     </Startseite>
   {:else if ansicht === 'mehr'}
     <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
+  {:else if ansicht === 'installieren'}
+    <InstallSeite onzurueck={() => (ansicht = 'mehr')} />
   {:else if ansicht === 'profil'}
     <UeberMich
       {profil}
@@ -1060,6 +1077,8 @@
 </main>
 
 <UpdateHinweis />
+<!-- O14 (Wunsch PV): beim Öffnen im Browser auf Handy und Tablet zuerst die Anleitung -->
+{#if sperre()}<InstallSperre />{/if}
 
 <style>
   .start {
