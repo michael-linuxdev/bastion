@@ -1,0 +1,49 @@
+# Sparplan über drei Jahre. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.KREDIT.SPARPLAN
+kompetenz: M.ZO.PZ.KREDIT
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.sparplan@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Mia zahlt am Anfang jedes Jahres {rate} € auf ihren [[Sparplan]] ein. Die Bank gibt {p} % [[Zinsen]] im Jahr, die Zinsen bleiben auf dem Konto. **Berechne** den Kontostand am Ende des dritten Jahres in €. Runde jedes Jahr auf ganze Cent.'
+hilfen:
+  - de: 'Jedes Jahr: alter Stand plus Einzahlung, dann die [[Zinsen]] dazu.'
+  - de: 'Mit [[Zinsen]] dazu heißt: mal $1 + \frac{p}{100}$.'
+fehlerbilder:
+  erste:
+    de: 'Auch die zweite und dritte Einzahlung bekommen [[Zinsen]], so lange sie auf dem Konto liegen.'
+    fv: FV.PZ.SPARPLAN
+  einfach:
+    de: 'Die [[Zinsen]] bleiben auf dem Konto und bekommen im nächsten Jahr selbst Zinsen.'
+    fv: FV.PZ.SPARPLAN
+schritte:
+  - id: jahr1
+    frage: { de: 'Wie viel Geld ist am Ende des ersten Jahres auf dem Konto?' }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+  - id: jahr2
+    frage: { de: 'Wie viel ist es am Ende des zweiten Jahres? Runde auf ganze Cent.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      erste:
+        de: 'Die neue Einzahlung liegt das ganze zweite Jahr auf dem Konto und bekommt auch [[Zinsen]].'
+        fv: FV.PZ.SPARPLAN
+      einfach:
+        de: 'Rechne die [[Zinsen]] vom ganzen Stand, auch von den Zinsen des ersten Jahres.'
+        fv: FV.PZ.SPARPLAN
+  - id: jahr3
+    frage: { de: 'Und am Ende des dritten Jahres? Runde auf ganze Cent.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      erste:
+        de: 'Jede Einzahlung bekommt [[Zinsen]], so lange sie auf dem Konto liegt.'
+        fv: FV.PZ.SPARPLAN
+      einfach:
+        de: 'Rechne die [[Zinsen]] vom ganzen Stand, mit allen bisherigen Zinsen.'
+        fv: FV.PZ.SPARPLAN
+herkunft: ki-entwurf
+version: 1

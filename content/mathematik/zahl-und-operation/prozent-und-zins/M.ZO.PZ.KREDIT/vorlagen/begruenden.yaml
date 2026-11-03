@@ -1,0 +1,24 @@
+# Kreditangebote mit Gebühr vergleichen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.KREDIT.BEGRUENDEN
+kompetenz: M.ZO.PZ.KREDIT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.effektiv-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die richtige Antwort mit Begründung.'
+hilfen:
+  - de: 'Wie viel zahlt Ben bei jedem Angebot insgesamt mehr zurück, als er bekommt?'
+  - de: 'Zähle [[Zinsen]] und Gebühren zusammen. Das ist der Preis des [[Kredits]].'
+fehlerbilder:
+  zinssatz:
+    de: 'Der [[Zinssatz]] allein sagt nicht, was ein [[Kredit]] kostet. Auch Gebühren gehören dazu.'
+    fv: FV.PZ.EFFEKTIV
+  gebuehr:
+    de: 'Die Gebühr zahlt Ben zusätzlich. Sie gehört zu den Kosten des [[Kredits]].'
+    fv: FV.PZ.EFFEKTIV
+herkunft: ki-entwurf
+version: 1

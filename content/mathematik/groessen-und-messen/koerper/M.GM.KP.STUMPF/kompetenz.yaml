@@ -1,0 +1,40 @@
+# Pyramiden- und Kegelstumpf – Klasse 10 Oberschule (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.KP.STUMPF
+fach: mathematik
+bereich: groessen-und-messen
+feld: koerper
+titel:
+  de: 'Pyramiden- und Kegelstumpf'
+kann_satz:
+  de: 'Ich kann Oberfläche, Volumen und Masse von Pyramiden- und Kegelstümpfen berechnen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.GM.KP.ZUSAMMENGESETZT
+  - M.GM.KP.MASSE
+  - M.RF.AE.BERECHNEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Das Volumen eines Pyramidenstumpfs als Differenz zweier Pyramiden berechnen.'
+  M:
+    beschreibung:
+      de: 'Volumen mit der Stumpfformel, Oberfläche und Masse von Pyramiden- und Kegelstümpfen berechnen.'
+  E:
+    beschreibung:
+      de: 'Mit der Ähnlichkeit begründen, welchen Anteil der Stumpf am Volumen der Pyramide hat.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K5
+    - K3
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Mathematik im Alltag'
+version: 1

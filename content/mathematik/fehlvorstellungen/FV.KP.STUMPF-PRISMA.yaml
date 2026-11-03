@@ -1,0 +1,25 @@
+id: FV.KP.STUMPF-PRISMA
+name:
+  de: Stumpf wie ein Prisma
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Rechnet das Volumen eines Stumpfs mit Grundfläche mal Höhe oder mit dem Mittelwert aus Grund- und Deckfläche mal Höhe. Dass der Körper nach oben schmaler wird, fehlt in der Rechnung.
+kompetenzen: [M.GM.KP.STUMPF]
+erklaerung:
+  kurz:
+    de: 'Ein [[Pyramidenstumpf]] wird nach oben schmaler. Rechne ganze [[Pyramide]] minus Spitze oder nimm die Stumpfformel.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Stumpf wie ein [[Prisma]] berechnet.'
+    - teil: warum-nicht
+      de: 'Ein [[Prisma]] ist oben so breit wie unten. Beim Stumpf fehlt oben viel davon.'
+    - teil: so-stimmt-es
+      de: 'Rechne das [[Volumen]] der ganzen [[Pyramide]] und ziehe die Spitze ab.'
+gegenbeispiel:
+  de: 'Stumpf mit Grundkante 6 cm, Deckkante 2 cm und [[Höhe]] 6 cm: G · h = 216 cm³, richtig sind 104 cm³.'
+rueckweg:
+  vermittlung: M.GM.KP.STUMPF#erklaeren-differenz
+kontrast: [M.GM.KP.STUMPF.DIFFERENZ, M.GM.KP.STUMPF.FORMEL]
+herkunft: ki-entwurf
+version: 1

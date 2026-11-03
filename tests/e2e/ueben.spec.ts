@@ -2265,6 +2265,22 @@ test('Klasse 10 wählbar mit ersten Themen; bei Oberschule fehlen Themen, die es
   ).toBeVisible();
 });
 
+test('Klasse 10: Pyramiden- und Kegelstumpf nur bei Oberschule, Sparplan bei beiden', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await bereichOeffnen(page, 'Größen und Messen');
+  await expect(page.getByRole('button', { name: /^Pyramiden- und Kegelstumpf/ })).toBeVisible();
+  await bereichOeffnen(page, 'Zahlen und Rechnen');
+  await expect(page.getByRole('button', { name: /^Sparpläne und Kredite/ })).toBeVisible();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await expect(page.getByRole('button', { name: /^Pyramiden- und Kegelstumpf/ })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /^Sparpläne und Kredite/ })).toBeVisible();
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);

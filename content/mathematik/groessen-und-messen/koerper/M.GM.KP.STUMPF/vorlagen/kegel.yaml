@@ -1,0 +1,45 @@
+# Kegelstumpf: Volumen und Masse. Entwurf: noch nicht geprüft.
+id: M.GM.KP.STUMPF.KEGEL
+kompetenz: M.GM.KP.STUMPF
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.kegelstumpf-masse@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Ein Blumenkübel aus {stoff} ist ein massiver [[Kegelstumpf]]: unten [[Radius]] {rg} cm, oben Radius {rd} cm, [[Höhe]] {h} cm. Die [[Dichte]] ist {dichte} g/cm³. **Rechne** mit [[π]] ≈ 3,14 und runde das [[Volumen]] auf eine [[Nachkommastelle]]. **Berechne** die Masse in ganzen Gramm.'
+hilfen:
+  - de: '$V = \frac{\pi \cdot h}{3} \cdot (r_1^2 + r_1 \cdot r_2 + r_2^2)$.'
+  - de: 'Masse = [[Dichte]] · [[Volumen]]: $m = \rho \cdot V$.'
+fehlerbilder:
+  drittel:
+    de: 'In der [[Formel]] steht $\frac{\pi \cdot h}{3}$. Teile noch durch 3.'
+    fv: FV.KP.DRITTEL
+  prisma:
+    de: 'Das ist ein [[Zylinder]] mit dem unteren Kreis. Der Stumpf wird nach oben schmaler.'
+    fv: FV.KP.STUMPF-PRISMA
+  dichte:
+    de: 'Die Masse ist [[Dichte]] mal [[Volumen]], nicht Volumen geteilt durch Dichte.'
+    fv: FV.KP.DICHTE-FORMEL
+schritte:
+  - id: volumen
+    frage: { de: 'Wie groß ist das [[Volumen]] in cm³? Runde auf eine Stelle.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      drittel:
+        de: 'Teile noch durch 3: Vor der Klammer steht $\frac{\pi \cdot h}{3}$.'
+        fv: FV.KP.DRITTEL
+      prisma:
+        de: 'Der Stumpf ist kein [[Zylinder]]. Nimm die Stumpfformel.'
+        fv: FV.KP.STUMPF-PRISMA
+  - id: masse
+    frage: { de: 'Mit $V \approx {volumen}$ cm³: Wie schwer ist der Kübel in ganzen Gramm?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      dichte:
+        de: 'Masse = [[Dichte]] · [[Volumen]].'
+        fv: FV.KP.DICHTE-FORMEL
+herkunft: ki-entwurf
+version: 1
