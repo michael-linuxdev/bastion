@@ -449,7 +449,7 @@ Ein laufendes Bauvorhaben (Neubau oder Ausbau über mehrere Lerneinheiten, Bau-R
 
 Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höheren Bilder (vorher galt die Höhe der alten Code-Formen).
 
-**Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Epoche, Rolle und Stufe (`bastion.ausbau-neu.<thema>.e<epoche>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`); fehlt einer (noch nicht erneuerte Themen), zeigt die App nur die Bilder.
+**Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Rolle und Stufe (`bastion.ausbau-neu.<thema>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`; seit 03.11.2026 ohne Epoche, weil eine Stufe in jeder Epoche gleich aussieht, und für alle Stufen aller Themen, §14); fehlt einer, zeigt die App nur die Bilder.
 
 **Ausbau-Moment (02.11.2026):** Wird eine Stufe fertig, erscheint das neue Bild sanft (dieselbe ruhige Einblendung wie bei einem Neubau, kein Konfetti, keine Truhe, R1). Bei „Bewegung reduzieren“ wechselt das Bild ohne Einblendung. Der weiche Bau-Klang beim Ausbauen gab es schon (Sound-Stufen beachtet). Die Kamera bleibt, wo sie ist – man schaut beim Ausbauen per Antippen ohnehin auf das Gebäude.
 
@@ -472,3 +472,16 @@ Statt der leeren Himmelsfläche liegt hinter dem Bauplatz eine Kulisse, die das 
 - **Bilder:** `tools/grafik/sprites-g3-kulisse.py` → `public/grafik/atlas/kulisse/<thema>/…` (Stimmungen, `dinge/`).
 - **Nebenbei behoben:** Der Rahmen des Bauplatz-Bilds und das Einpassen der Kamera nahmen bisher immer die Größe 12×12 (`buehneBreite()` ohne Neuberechnung). In Epoche 2–4 wurde das Bild darum gestaucht. Jetzt rechnen Rahmen, Kamera und Kulisse mit dem Bauplatz der Epoche (`buehneFuer(bauplatz)`).
 - **Stand:** nur Thema `bastion`. Die anderen Themen folgen mit eigenen Dingen (Felder und Hecken, Riff, Planet).
+
+## 14. Neuer Stil „weich gerendert“ und neue Stufenleitern (PV, 03.11.2026, Auftrag Punkt 1)
+
+Regeln und Technik: `GRAFIK-SPRITES.md` §13. Ablauf mit dem PV:
+
+1. Erster Versuch (vierfach zeichnen, feinere Materialien, §12.12): auf App-Größe kaum zu sehen („sieht ja genau so aus wie vorher“).
+2. Vier Stilproben aus einem eigenen 3D-Renderer (weich gerendert, Comic, Spielzeug, Klötzchen); Wahl des PV: **weich gerendert**.
+3. „Die Abstufungen 1 bis 9 sind noch zu sinnlos, vor allem ab 4“: Die Leitern sind neu gedacht. Jede Stufe ist dasselbe Gebäude wie die vorige plus genau ein Teil, das zur Aufgabe passt (Tabelle §13.3). Auftrag des PV: „für alle Gebäude in allen Themen, alle Objekte inklusive Boden im neuen Stil, nicht nochmal fragen“.
+
+**Umgesetzt (03.11.2026):** alle Gebäude aller fünf Themen (je 9 + 5 + 5 + 3 + 2 Stufen und 5 Zierden, `tools/grafik/g12_modelle.py`, `g12_atlas.py`), Boden (80 Kacheln, `g12_boden.py`), Umgebung, Kulisse-Dinge, Wesen und Bewohner (`g12_rest.py`); Hinterhof und Startbild werden aus den neuen Bildern zusammengesetzt (`sprites-g3-hinterhof.py`). Himmel, Wetter und Auflagen bleiben (weiche 2D-Formen, schon im passenden Stil). Ein Satz je Stufe sagt, was dazukommt (`bastion.ausbau-neu.<thema>.<rolle>.<stufe>`).
+
+- **Umriss-Test** (`atlas-stufen.test.ts`, `GRAFIK-SPRITES.md` §13.2 Nr. 5): bis Stufe 3 wie bisher (Umriss 25 %, Höhe +15 %). **Ab Stufe 4 neu festgelegt** (03.11.2026, nach Fotos aus der App): mindestens 10 % der Fläche sichtbar geändert (Umriss oder Farbe), nicht niedriger als die vorige Stufe. Die alte Regel (Höhe +8 % je Stufe) zwang die aufbauenden Leitern in die Höhe und verzerrte sie. Der PV kann das zurücknehmen; dann müssten die Stufen ab 4 wieder vor allem nach oben wachsen.
+- **Offen beim PV:** Blick auf die neuen Leitern in der App (Fotos im PR).
