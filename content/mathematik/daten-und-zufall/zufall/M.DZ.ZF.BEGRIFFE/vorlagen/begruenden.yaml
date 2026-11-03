@@ -1,0 +1,27 @@
+# Ereignis als Menge begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BEGRIFFE.BEGRUENDEN
+kompetenz: M.DZ.ZF.BEGRIFFE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.ereignis-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Augenzahlen erfüllen die Bedingung?'
+  - de: 'Ein [[Ereignis]] kann aus mehreren Ergebnissen bestehen.'
+fehlerbilder:
+  ereignis-begriff:
+    de: 'Ein [[Ereignis]] ist eine Menge von Ergebnissen, nicht nur ein einzelnes Ergebnis.'
+    fv: FV.ZF.EREIGNIS-BEGRIFF
+  ergebnismenge:
+    de: 'Das ist die ganze [[Ergebnismenge]]. Zum [[Ereignis]] gehören nur die Zahlen, die die Bedingung erfüllen.'
+    fv: FV.ZF.EREIGNIS-BEGRIFF
+  grenze:
+    de: 'Bei „größer als“ und „kleiner als“ gehört die Grenze nicht dazu.'
+    fv: FV.NZ.GRENZE-MITGEZAEHLT
+herkunft: ki-entwurf
+version: 1

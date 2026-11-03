@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Wahrscheinlichkeiten von Ereignissen berechnen und aus vielen Versuchen schätzen, auch bei nicht gleich wahrscheinlichen Ergebnissen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum beim Vergleich von Chancen der Anteil entscheidet.'
 kmk:
   leitidee: L5
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
