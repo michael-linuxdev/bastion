@@ -1,0 +1,24 @@
+# Volumen in Schichten begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.VOLUMEN.BEGRUENDEN
+kompetenz: M.GM.KP.VOLUMEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.schichten-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele [[Würfel]] passen in eine Schicht?'
+  - de: 'Wie viele Schichten liegen übereinander?'
+fehlerbilder:
+  nur-grundflaeche:
+    de: 'Die [[Grundfläche]] ist nur eine Schicht. Es liegen mehrere Schichten übereinander.'
+    fv: FV.KP.NUR-GRUNDFLAECHE
+  volumen-oberflaeche:
+    de: 'Die Flächen zusammen sind die [[Oberfläche]], nicht das [[Volumen]].'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
+herkunft: ki-entwurf
+version: 1

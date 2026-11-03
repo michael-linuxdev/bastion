@@ -1,0 +1,24 @@
+# Symmetrieachsen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.SY.SYMMETRIE.BEGRUENDEN
+kompetenz: M.RF.SY.SYMMETRIE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: sy.achsen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Falte die Figur im Kopf.'
+  - de: 'Passen beide Hälften genau aufeinander?'
+fehlerbilder:
+  achsensymmetrie:
+    de: 'Nicht jede Linie durch die Mitte ist eine [[Symmetrieachse]]. Prüfe durch Falten.'
+    fv: FV.SY.ACHSENSYMMETRIE
+  achsen-gezaehlt:
+    de: 'Zähle nur die Linien, an denen beide Hälften genau aufeinanderpassen.'
+    fv: FV.SY.ACHSENSYMMETRIE
+herkunft: ki-entwurf
+version: 1

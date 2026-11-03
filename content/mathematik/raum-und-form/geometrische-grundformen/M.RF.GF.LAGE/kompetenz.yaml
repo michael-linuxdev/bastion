@@ -16,6 +16,9 @@ niveaus:
   G:
     beschreibung:
       de: In Bildern parallele und senkrechte Geraden erkennen und benennen.
+  E:
+    beschreibung:
+      de: 'Begründen, wann zwei Geraden parallel sind.'
   M:
     beschreibung:
       de:
@@ -28,6 +31,7 @@ kmk:
     - K6
 anforderungsbereiche:
   - I
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

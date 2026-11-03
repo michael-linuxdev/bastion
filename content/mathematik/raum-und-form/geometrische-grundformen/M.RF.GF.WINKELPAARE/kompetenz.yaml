@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Auch Stufen- und Wechselwinkel an geschnittenen Parallelen; Größen begründet bestimmen.
+  E:
+    beschreibung:
+      de: 'Begründen, welche Winkelpaare wie heißen und welche gleich groß sind.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   gymnasium:

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Oberfläche von Quadern und aus Quadern zusammengesetzten Körpern.
+  E:
+    beschreibung:
+      de: 'Begründen, aus welchen Flächen die Oberfläche eines Quaders besteht.'
 kmk:
   leitidee: L2
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
