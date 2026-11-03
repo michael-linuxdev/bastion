@@ -80,7 +80,11 @@
   <!-- O3 (Wunsch PV): Bastion als Banner wie der Titel eines Spiels – Bild und Name in einem -->
   <header class="banner" class:ohne-bild={!basebau}>
     {#if basebau}
-      <span class="bild" aria-hidden="true"><MiniBastion lebendig /></span>
+      <!-- O7: Antippen des Bilds öffnet die Bastion – nur Abkürzung für Finger und Maus;
+           Tastatur und Screenreader nutzen die Tür „Bastion“ darunter (gleiches Ziel). -->
+      <span class="bild antippbar" aria-hidden="true" onclick={() => onziel('bastion')}
+        ><MiniBastion lebendig /></span
+      >
     {/if}
     <p class="titel ort-name">{t('start.ueberschrift')}</p>
   </header>
@@ -152,7 +156,12 @@
 
   <div class="kacheln">
     <button class="kachel" disabled={faellig === 0} onclick={() => onziel('wiederholen')}>
-      <span class="kachel-name"><Symbol name="wiederholen" /> {t('wiederholen.knopf')}</span>
+      <span class="kachel-name"
+        ><Symbol name="wiederholen" />
+        {t('wiederholen.knopf')}{#if faellig > 0}<span class="zahl" aria-hidden="true"
+            >{faellig}</span
+          >{/if}</span
+      >
       <span class="kachel-info"
         >{faellig === 0
           ? t('start.nichts-dran')
@@ -162,7 +171,12 @@
       >
     </button>
     <button class="kachel warm" disabled={offeneFehler === 0} onclick={() => onziel('werkstatt')}>
-      <span class="kachel-name"><Symbol name="werkstatt" /> {t('werkstatt.knopf')}</span>
+      <span class="kachel-name"
+        ><Symbol name="werkstatt" />
+        {t('werkstatt.knopf')}{#if offeneFehler > 0}<span class="zahl" aria-hidden="true"
+            >{offeneFehler}</span
+          >{/if}</span
+      >
       <span class="kachel-info"
         >{offeneFehler === 0
           ? t('start.keine-fehler')
@@ -425,6 +439,29 @@
   }
   .kachel.warm:disabled {
     border-block-start-color: transparent;
+  }
+  /* O7: Zahl-Plakette wie in Spielen – ruhig, ohne Rot, ohne Blinken (R1) */
+  .kachel .kachel-name {
+    justify-self: stretch;
+  }
+  .zahl {
+    margin-inline-start: auto;
+    min-inline-size: 1.6rem;
+    block-size: 1.6rem;
+    padding-inline: 0.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .kachel.warm .zahl {
+    background: var(--farbe-akzent-warm);
+  }
+  .antippbar {
+    cursor: pointer;
   }
   .kachel-name {
     display: flex;
