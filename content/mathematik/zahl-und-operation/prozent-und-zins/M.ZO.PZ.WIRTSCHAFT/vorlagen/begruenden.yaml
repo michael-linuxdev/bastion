@@ -1,0 +1,24 @@
+# Rabatt und Aufschlag begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.WIRTSCHAFT.BEGRUENDEN
+kompetenz: M.ZO.PZ.WIRTSCHAFT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.rabatt-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Rechne den Sommerpreis aus.'
+  - de: 'Von welchem Preis werden die Prozente im Herbst berechnet?'
+fehlerbilder:
+  falscher-grundwert:
+    de: 'Der zweite [[Prozentsatz]] bezieht sich auf den neuen, kleineren Preis.'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
+  richtung:
+    de: 'Rechne nach: Der Aufschlag auf den kleineren Preis ist kleiner als der [[Rabatt]].'
+    fv: FV.PZ.RICHTUNG
+herkunft: ki-entwurf
+version: 1

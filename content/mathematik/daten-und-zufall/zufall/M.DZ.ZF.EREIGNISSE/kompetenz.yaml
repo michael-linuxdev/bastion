@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Vereinigung, Schnitt und Differenz zweier Ereignisse als Menge angeben.'
+  E:
+    beschreibung:
+      de: 'Das Gegenereignis bestimmen und begründen, welche Ergebnisse dazugehören.'
 kmk:
   leitidee: L5
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Angebote mit Grundgebühr, Rabatt oder Ratenzahlung vergleichen; Mehrkosten bei Raten berechnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welches Angebot günstiger ist, über den Preis für dieselbe Menge.'
 kmk:
   leitidee: L1
   prozesse:

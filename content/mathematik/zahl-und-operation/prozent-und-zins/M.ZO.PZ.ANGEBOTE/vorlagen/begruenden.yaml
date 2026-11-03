@@ -1,0 +1,24 @@
+# Angebote vergleichen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.ANGEBOTE.BEGRUENDEN
+kompetenz: M.ZO.PZ.ANGEBOTE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.angebot-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Rechne beide Preise auf 100 g um.'
+  - de: 'Vergleiche erst dann.'
+fehlerbilder:
+  packungsgroesse:
+    de: 'Große Packungen sind nicht immer günstiger. Vergleiche den Preis je 100 g.'
+    fv: FV.PZ.PACKUNGSGROESSE
+  nur-preis:
+    de: 'Mehr Ware heißt nicht günstiger. Entscheidend ist der Preis für dieselbe Menge.'
+    fv: FV.PZ.PACKUNGSGROESSE
+herkunft: ki-entwurf
+version: 1

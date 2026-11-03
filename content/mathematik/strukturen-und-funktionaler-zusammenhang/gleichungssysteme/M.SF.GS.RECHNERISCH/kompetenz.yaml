@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Systeme mit dem Additionsverfahren oder nach Umformen lösen; Lösungspaar angeben.'
+  E:
+    beschreibung:
+      de: 'Den richtigen Einsetzungsschritt bei einem Gleichungssystem begründet wählen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K2
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

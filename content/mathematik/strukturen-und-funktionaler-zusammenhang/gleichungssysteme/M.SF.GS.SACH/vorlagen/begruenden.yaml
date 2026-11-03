@@ -1,0 +1,27 @@
+# Gleichungssystem zur Sachaufgabe begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GS.SACH.BEGRUENDEN
+kompetenz: M.SF.GS.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gs.sach-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Eine [[Gleichung]] zählt die Personen, die andere das Geld.'
+  - de: 'Welcher Preis gehört zu k, welcher zu e?'
+fehlerbilder:
+  vertauscht:
+    de: 'Die Personenzahl gehört zu k + e, der Gesamtpreis zur [[Gleichung]] mit den Preisen.'
+    fv: FV.GS.SACH-AUFSTELLEN
+  preise-vertauscht:
+    de: 'Der Kinderpreis gehört zu k, der Erwachsenenpreis zu e.'
+    fv: FV.GS.SACH-AUFSTELLEN
+  halb-halb:
+    de: 'Ohne Rechnung weißt du nicht, dass es gleich viele sind.'
+    fv: FV.GS.HALB-HALB
+herkunft: ki-entwurf
+version: 1
