@@ -98,3 +98,4 @@
 | 03.11.2026 | **K-31, Geometrie (Klasse 5) mit E:** vierzehn Generatoren (Flächeneinheiten, Breite aus Umfang, Umfang der L-Figur, Liter, Oberfläche und Volumen des Quaders, Koordinaten, parallele Geraden, Winkelart, Scheitel- und Nebenwinkel, Würfelnetz, Verschiebung, Spiegeln, Symmetrieachsen) mit Pflicht-Tests und E-Vorlagen |
 | 03.11.2026 | **K-31, Terme und Gleichungen mit natürlichen Zahlen (Klasse 5) mit E** (Entscheidung PV: zählen zum Feld Terme/Gleichungen): `nz.klammer-aussage`, `nz.ungleichung-aussage` |
 | 03.11.2026 | **Stand 12:15:** K-31 umgesetzt, 107 von 124 Kompetenzen der Klassen 5–8 mit E; Grenzfälle entschieden (Entscheidung 15); Doku in `KLASSE-9-12.md`, `LERNKERN.md`, `PLAN.md`, `LEHRPLAN.md`, `STRATEGIE.md` |
+| 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** Hülle des Elternbereichs gehört jetzt dem Strang Oberfläche (PV); Fach-Bausteine (Aufgabenblatt, Druck, Testphase, Bericht) bleiben hier |
