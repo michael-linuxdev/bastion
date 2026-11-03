@@ -259,9 +259,9 @@ Danach weiter mit den Inhalten: Klasse 7 (K-15, K-17) – begonnen, siehe Phase 
 
 Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] Strang angelegt, Start und Elternbereich nicht mehr eingefroren
-- [ ] Startseite aufräumen
-- [ ] „Mehr“ aufräumen
-- [ ] Elternbereich gliedern und angleichen
+- [x] Startseite aufräumen (O1)
+- [x] „Mehr“ aufräumen (O2)
+- [x] Elternbereich gliedern und angleichen (O5)
 
 ## 5. Änderungsprotokoll
 

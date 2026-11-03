@@ -51,6 +51,16 @@
     schulart?: 'oberschule' | 'gymnasium' | undefined;
   } = $props();
 
+  /** O5: Abschnitte des offenen Elternbereichs, in dieser Reihenfolge */
+  const ABSCHNITTE: readonly { id: string; titel: TextSchluessel }[] = [
+    { id: 'bericht', titel: 'eltern.abschnitt-bericht' },
+    { id: 'klasse', titel: 'eltern.abschnitt-klasse' },
+    { id: 'sicherung', titel: 'eltern.abschnitt-sicherung' },
+    { id: 'bastion', titel: 'eltern.abschnitt-bastion' },
+    { id: 'blatt', titel: 'eltern.abschnitt-blatt' },
+    { id: 'test', titel: 'eltern.abschnitt-test' },
+  ];
+
   type Schritt = 'laden' | 'einrichten' | 'code' | 'gesperrt' | 'zuruecksetzen' | 'offen';
   let schritt = $state<Schritt>('laden');
   let pin = $state('');
@@ -126,8 +136,10 @@
 </script>
 
 <section class="eltern register-werkstatt" data-eltern>
-  <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
-  <h2>{t('eltern.ueberschrift')}</h2>
+  <header class="kopf">
+    <p class="badge" role="note">{t('eltern.nur-erwachsene')}</p>
+    <h2>{t('eltern.ueberschrift')}</h2>
+  </header>
   <!-- F2 (ARCHITEKTUR T-20): Vermerk, solange Inhalte unter Stufe 2 ausgeliefert werden -->
   {#if entwurfAusgeliefert}<p class="entwurf" role="note" data-entwurf>
       {t('entwurf.vermerk')}
@@ -172,16 +184,18 @@
       </button>
     </form>
   {:else if schritt === 'code'}
-    <h3>{t('eltern.code-titel')}</h3>
-    <p>{t('eltern.code-text')}</p>
-    <p class="code">{code}</p>
-    <button
-      class="haupt"
-      onclick={() => {
-        code = '';
-        void oeffnen();
-      }}>{t('eltern.code-notiert')}</button
-    >
+    <div class="code-karte">
+      <h3>{t('eltern.code-titel')}</h3>
+      <p>{t('eltern.code-text')}</p>
+      <p class="code">{code}</p>
+      <button
+        class="haupt"
+        onclick={() => {
+          code = '';
+          void oeffnen();
+        }}>{t('eltern.code-notiert')}</button
+      >
+    </div>
   {:else if schritt === 'gesperrt'}
     <p class="schutz">{t('eltern.schutz')}</p>
     <form onsubmit={entsperren}>
@@ -208,171 +222,247 @@
     <p class="hinweis">{t('eltern.vergessen-hinweis')}</p>
   {:else if schritt === 'offen'}
     <p class="leise">{t('eltern.transparenz')}</p>
-    <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
-    <p>
-      {#if letzte === undefined}{t('eltern.sicherung-keine')}{:else}{t('eltern.sicherung-letzte')}
-        {new Date(letzte).toLocaleDateString('de-DE', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        })}{/if}
-    </p>
-    <p class="leise">
-      {dauerhaft ? t('eltern.speicher-dauerhaft') : t('eltern.speicher-unsicher')}
-    </p>
-    <label class="wahl"
-      >{t('eltern.erinnerung')}
-      <select
-        value={erinnerung}
-        onchange={(e) => {
-          erinnerung = Number(e.currentTarget.value);
-          void erinnerungSetzen(erinnerung);
-        }}
+
+    <!-- O5: eine Seite, aber gegliedert – Sprungleiste zu den Abschnitten -->
+    <nav class="sprung" aria-label={t('eltern.inhalt')}>
+      {#each ABSCHNITTE as a (a.id)}
+        <a href="#abschnitt-{a.id}">{t(a.titel)}</a>
+      {/each}
+    </nav>
+
+    <section class="abschnitt" id="abschnitt-bericht" aria-labelledby="eltern-bericht-titel">
+      <h3 id="eltern-bericht-titel">{t('eltern.abschnitt-bericht')}</h3>
+      <Bericht {kompetenzen} {vorlagen} {zustand} {aufgaben} {klasse} />
+    </section>
+
+    <section class="abschnitt" id="abschnitt-klasse" aria-labelledby="eltern-klasse-titel">
+      <h3 id="eltern-klasse-titel">{t('eltern.klasse-titel')}</h3>
+      <KlassenWahl bind:klasse bind:schulart mitSchulart />
+    </section>
+
+    <section class="abschnitt" id="abschnitt-sicherung" aria-labelledby="eltern-sicherung-titel">
+      <h3 id="eltern-sicherung-titel">{t('eltern.abschnitt-sicherung')}</h3>
+      <p>
+        {#if letzte === undefined}{t('eltern.sicherung-keine')}{:else}{t('eltern.sicherung-letzte')}
+          {new Date(letzte).toLocaleDateString('de-DE', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}{/if}
+      </p>
+      <p class="leise">
+        {dauerhaft ? t('eltern.speicher-dauerhaft') : t('eltern.speicher-unsicher')}
+      </p>
+      <label class="wahl"
+        >{t('eltern.erinnerung')}
+        <select
+          value={erinnerung}
+          onchange={(e) => {
+            erinnerung = Number(e.currentTarget.value);
+            void erinnerungSetzen(erinnerung);
+          }}
+        >
+          {#each ERINNERUNG_WAHL as tage (tage)}
+            <option value={tage}>{t(`eltern.erinnerung-${tage}` as TextSchluessel)}</option>
+          {/each}
+        </select></label
       >
-        {#each ERINNERUNG_WAHL as tage (tage)}
-          <option value={tage}>{t(`eltern.erinnerung-${tage}` as TextSchluessel)}</option>
-        {/each}
-      </select></label
-    >
-    <h3>{t('eltern.klasse-titel')}</h3>
-    <KlassenWahl bind:klasse bind:schulart mitSchulart />
-    <!-- §U108: Basebau/Demo klar von Kind-Bastion getrennt -->
-    <section class="werkstatt-block" aria-labelledby="eltern-kind-bastion">
-      <h3 id="eltern-kind-bastion">{t('eltern.kind-bastion-titel')}</h3>
+    </section>
+
+    <!-- §U108: echte Bastion und Probe klar getrennt -->
+    <section class="abschnitt" id="abschnitt-bastion" aria-labelledby="eltern-bastion-titel">
+      <h3 id="eltern-bastion-titel">{t('eltern.abschnitt-bastion')}</h3>
       <p class="leise">{t('eltern.kind-bastion-text')}</p>
+      <div class="teil">
+        <h4>{t('eltern.basebau-demo-titel')}</h4>
+        <BasebauSchalter bind:an={basebau} durch="eltern" />
+      </div>
+      <div class="teil">
+        <h4>{t('eltern.probe-titel')}</h4>
+        <TestRohstoffe />
+      </div>
+      <div class="teil">
+        <WetterEinstellung durch="eltern" />
+      </div>
     </section>
-    <section class="werkstatt-block demo" aria-labelledby="eltern-basebau">
-      <h3 id="eltern-basebau">{t('eltern.basebau-demo-titel')}</h3>
-      <p class="leise">{t('eltern.basebau-demo-text')}</p>
-      <BasebauSchalter bind:an={basebau} durch="eltern" />
+
+    <section class="abschnitt" id="abschnitt-blatt">
+      <Aufgabenblatt {kompetenzen} {vorlagen} {klasse} />
     </section>
-    <section class="werkstatt-block" aria-labelledby="eltern-probe">
-      <h3 id="eltern-probe">{t('eltern.probe-titel')}</h3>
-      <TestRohstoffe />
+
+    <section class="abschnitt" id="abschnitt-test">
+      <Testphase />
     </section>
-    <WetterEinstellung durch="eltern" />
-    <Testphase />
-    <Aufgabenblatt {kompetenzen} {vorlagen} {klasse} />
-    <p class="leise">{t('eltern.ehrlich')}</p>
-    <button
-      onclick={() => {
-        leeren();
-        schritt = 'gesperrt';
-      }}>{t('eltern.sperren')}</button
-    >
+
+    <footer class="fuss">
+      <p class="leise">{t('eltern.ehrlich')}</p>
+      <button
+        class="zweit"
+        onclick={() => {
+          leeren();
+          schritt = 'gesperrt';
+        }}>{t('eltern.sperren')}</button
+      >
+    </footer>
   {/if}
 </section>
 
 <style>
-  .entwurf {
-    margin: 0;
-    padding-block: 0.25rem;
-    padding-inline: var(--abstand-s);
-    border-inline-start: 3px solid var(--farbe-rand);
-    color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-  }
+  /* O5: gleiche Sprache wie Start und „Mehr“ – Karten, runde Ecken, Knöpfe aus grund.css */
   .eltern {
     display: grid;
-    gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: 4px;
-    background: color-mix(in srgb, var(--farbe-flaeche-leise) 85%, var(--farbe-text) 4%);
-    border: 1px solid var(--farbe-rand);
+    gap: var(--abstand-m);
   }
-
+  .kopf {
+    display: grid;
+    gap: 0.35rem;
+  }
   .badge {
     margin: 0;
     justify-self: start;
-    padding: 0.2rem 0.55rem;
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche);
-    border: 1px solid var(--farbe-rand);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--farbe-flaeche-leise);
     color: var(--farbe-text-leise);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
-
   h2 {
-    margin-block: 0 var(--abstand-s);
-    font-size: 1.25rem;
+    margin: 0;
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    color: var(--farbe-akzent);
+  }
+  h3 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+  }
+  p {
+    margin: 0;
+  }
+  .entwurf,
+  .leise,
+  .schutz {
+    color: var(--farbe-text-leise);
+  }
+  .entwurf {
+    font-size: 0.9rem;
   }
 
-  form {
+  .sprung {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+  }
+  .sprung a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.5rem;
+    padding-inline: 0.85rem;
+    border-radius: 999px;
+    background: var(--farbe-flaeche);
+    box-shadow: 0 1px 4px var(--farbe-schatten);
+    color: var(--farbe-text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .abschnitt,
+  form,
+  .code-karte {
     display: grid;
     gap: var(--abstand-s);
-    max-inline-size: 22rem;
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    scroll-margin-block-start: var(--abstand-m);
+  }
+  form {
+    max-inline-size: 28rem;
+  }
+  .teil {
+    display: grid;
+    gap: var(--abstand-s);
+    padding-block-start: var(--abstand-s);
+    border-block-start: 1px solid var(--farbe-rand);
   }
 
   label {
     display: grid;
-    gap: 0.2rem;
+    gap: 0.25rem;
+    font-weight: 600;
   }
 
-  input {
+  /* Felder und Knöpfe – auch in den Bausteinen darunter (Testphase, Aufgabenblatt, Wetter) */
+  .eltern :global(input:not([type='checkbox']):not([type='radio'])),
+  .eltern :global(select) {
     font: inherit;
-    font-size: 1.25rem;
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-s);
-    border: 1px solid var(--farbe-rand);
-    border-radius: 2px;
+    min-block-size: 2.75rem;
+    padding-inline: 0.75rem;
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
     background: var(--farbe-flaeche);
     color: var(--farbe-text);
   }
-
-  button {
+  input[type='password'] {
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+  }
+  .wahl select {
+    justify-self: start;
+  }
+  .eltern :global(button:not(.haupt):not(.zweit):not(.leise-knopf)) {
     font: inherit;
+    font-weight: 700;
+    justify-self: start;
     min-block-size: 2.75rem;
     padding-inline: var(--abstand-m);
-    border-radius: 2px;
-    border: 1px solid var(--farbe-akzent);
-    background: transparent;
+    border: none;
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
     color: var(--farbe-text);
     cursor: pointer;
+  }
+  .eltern :global(button:disabled) {
+    cursor: default;
+    opacity: 0.6;
+  }
+  .eltern :global(.haupt),
+  .eltern :global(.zweit) {
     justify-self: start;
   }
 
-  .haupt {
-    background: var(--farbe-text);
-    color: var(--farbe-flaeche);
-    border-color: var(--farbe-text);
-  }
-
   .leise-knopf {
-    border-color: transparent;
+    font: inherit;
+    justify-self: start;
+    min-block-size: var(--ziel);
     padding-inline: 0;
+    border: none;
+    background: transparent;
+    color: var(--farbe-text);
     text-decoration: underline;
+    cursor: pointer;
   }
 
   .code {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 800;
     letter-spacing: 0.03em;
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
+    padding: var(--abstand-s) var(--abstand-m);
     border: 2px dashed var(--farbe-akzent);
     border-radius: var(--radius);
   }
 
   .fehler {
-    color: var(--farbe-akzent);
-  }
-
-  .leise {
-    color: var(--farbe-text-leise);
-  }
-
-  .wahl select {
-    font: inherit;
-    justify-self: start;
-    min-block-size: 2.75rem;
-    padding-inline: var(--abstand-s);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche);
-    color: var(--farbe-text);
+    color: var(--farbe-akzent-warm, var(--farbe-akzent));
+    font-weight: 700;
   }
 
   .hinweis {
@@ -380,37 +470,15 @@
     padding-inline-start: var(--abstand-m);
   }
 
-  .werkstatt-block {
+  .fuss {
     display: grid;
     gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche-leise);
-  }
-
-  .werkstatt-block.demo {
-    border: 2px dashed var(--farbe-rand);
-  }
-
-  .werkstatt-block h3 {
-    margin-block: 0;
+    padding-block: var(--abstand-s);
   }
 
   /* K49: stärkere Fokus-Ringe für Tastatur / Eltern-Tablets */
-  .eltern :focus-visible {
-    outline: 4px solid var(--farbe-akzent);
-    outline-offset: 4px;
-  }
-
-  .eltern input:focus-visible,
-  .eltern select:focus-visible,
-  .eltern button:focus-visible {
+  .eltern :global(:focus-visible) {
     outline: 4px solid var(--farbe-akzent);
     outline-offset: 3px;
-  }
-
-  .schutz {
-    color: var(--farbe-text-leise);
-    margin-block-end: 0;
   }
 </style>
