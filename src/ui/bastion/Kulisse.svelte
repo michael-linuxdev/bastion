@@ -108,7 +108,7 @@
     kulissenDinge(platz.breite, platz.tiefe, thema, szenerie).map((d) => ({
       ...d,
       bild: dingBild(thema, d.bild, jahreszeit, d.variante),
-      tier: thema.leben.includes('grasen') && (d.bild === 'kuh' || d.bild === 'schaf'),
+      tier: thema.leben.includes('grasen') && ['kuh', 'schaf', 'pferd'].includes(d.bild),
       ...punkt(d.gx, d.gy, platz),
     })),
   );

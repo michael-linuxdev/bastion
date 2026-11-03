@@ -15,6 +15,7 @@ import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import {
   alleSitzungsBuchungen,
   koennenBuchungen,
+  skizzenBuchungen,
   startpaketBuchungen,
   vermittlungsBuchungen,
   type Buchung,
@@ -79,6 +80,7 @@ export function fehlendeBuchungen(
   const alle: Buchung[] = [
     ...alleSitzungsBuchungen(sitzungen, aufgaben),
     ...koennenBuchungen(staende, schonBauplaene),
+    ...skizzenBuchungen(aufgaben, schonBauplaene),
     ...startpaketBuchungen(aufgaben, staende, schonStartpaket),
     ...vermittlungsBuchungen(vermittlungen, schonVermittelt),
   ];

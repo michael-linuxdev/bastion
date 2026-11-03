@@ -46,7 +46,9 @@ export interface Buchung {
     | 'bau-beginn'
     | 'bau-abbruch'
     /** Bestandene Bewährungsprobe Ernstfall (BASEBAU §5.6, DATENMODELL `belagerung`) */
-    | 'belagerung';
+    | 'belagerung'
+    /** Zwei Bauplan-Skizzen aus der Fehlerwerkstatt ergeben einen Bauplan (B-34, BASEBAU §8d) */
+    | 'fehler-aufgearbeitet';
   /** Sitzungs-ID, "Kompetenz@Niveau", "startpaket:…", "vermittlung:…", "bewaehrung:…" oder Bauvorhaben-ID */
   readonly bezug: string;
   readonly tag: Tag;
@@ -224,6 +226,58 @@ export function koennenBuchungen(
       aufschluesselung: {},
       regel: REGEL,
     }));
+}
+
+/**
+ * Bauplan-Skizzen (B-34, BASEBAU §8d): Wer einen Fehler in der Fehlerwerkstatt an einem
+ * späteren Lerntag ohne Hilfe richtig löst, hat ihn wirklich aufgearbeitet – das ist
+ * echtes Können (R4) und gerade für Lernende wichtig, denen „gefestigt“ lange schwerfällt.
+ * Je Kompetenz und Niveau zählt höchstens eine Skizze (absichtliche Fehler bringen
+ * nichts), zwei Skizzen ergeben einen Bauplan. Fest und vorhersehbar (R1): Die n-te
+ * Buchung `skizzen:n` steht zu, sobald es 2·n Skizzen gibt.
+ */
+export function skizzenBuchungen(
+  aufgaben: readonly AufgabeEreignis[],
+  schonGebucht: ReadonlySet<string>,
+): Buchung[] {
+  const nachId = new Map(aufgaben.map((a) => [a.id, a]));
+  const erste = new Map<string, Tag>();
+  for (const a of aufgaben) {
+    if (!a.korrigiert || a.ergebnis !== 'richtig' || a.hilfen > 0) continue;
+    const alt = nachId.get(a.korrigiert);
+    if (!alt || alt.ergebnis === 'richtig' || alt.tag >= a.tag) continue;
+    const schluessel = `${a.kompetenz}@${a.niveau}`;
+    const schon = erste.get(schluessel);
+    if (schon === undefined || a.tag < schon) erste.set(schluessel, a.tag);
+  }
+  const tage = [...erste.values()].sort();
+  const aus: Buchung[] = [];
+  for (let n = 1; 2 * n <= tage.length; n++) {
+    const bezug = `skizzen:${n}`;
+    if (schonGebucht.has(bezug)) continue;
+    aus.push({
+      ressource: 'koennen',
+      menge: 1,
+      grund: 'fehler-aufgearbeitet',
+      bezug,
+      tag: tage[2 * n - 1] as Tag,
+      aufschluesselung: { skizzen: 2 },
+      regel: REGEL,
+    });
+  }
+  return aus;
+}
+
+/** Wie viele Skizzen es schon gibt (für „noch eine Skizze bis zum nächsten Bauplan“) */
+export function skizzenZahl(aufgaben: readonly AufgabeEreignis[]): number {
+  const nachId = new Map(aufgaben.map((a) => [a.id, a]));
+  const k = new Set<string>();
+  for (const a of aufgaben) {
+    if (!a.korrigiert || a.ergebnis !== 'richtig' || a.hilfen > 0) continue;
+    const alt = nachId.get(a.korrigiert);
+    if (alt && alt.ergebnis !== 'richtig' && alt.tag < a.tag) k.add(`${a.kompetenz}@${a.niveau}`);
+  }
+  return k.size;
 }
 
 /**

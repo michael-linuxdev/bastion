@@ -7,6 +7,8 @@ import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import {
   alleSitzungsBuchungen,
   koennenBuchungen,
+  skizzenBuchungen,
+  skizzenZahl,
   ERTRAG,
   REGEL,
   fleissBis,
@@ -323,5 +325,63 @@ describe('Erstvermittlung abgeschlossen (D-16, ergänzt)', () => {
       ['schritt', 1, 'vermittlung', 'vermittlung:K3', REGEL],
     ]);
     expect(vermittlungsBuchungen([v('1', 'K1', 5)], new Set(['K1']))).toEqual([]);
+  });
+});
+
+describe('Bauplan-Skizzen aus der Fehlerwerkstatt (B-34)', () => {
+  /** Fehler an einem Tag, Korrektur in der Fehlerwerkstatt an einem anderen */
+  const paar = (kompetenz: string, fehlerTag: string, korrekturTag: string, hilfen = 0) => {
+    const f = falsch({ kompetenz, tag: fehlerTag });
+    const k = aufgabe({
+      kompetenz,
+      tag: korrekturTag,
+      modus: 'fehlerwerkstatt',
+      korrigiert: f.id,
+      hilfen,
+    });
+    return [f, k];
+  };
+
+  it('zwei aufgearbeitete Fehler in zwei Themen ergeben einen Bauplan', () => {
+    const a = [
+      ...paar('K1', '2026-10-01', '2026-10-03'),
+      ...paar('K2', '2026-10-02', '2026-10-05'),
+    ];
+    expect(skizzenZahl(a)).toBe(2);
+    const b = skizzenBuchungen(a, new Set());
+    expect(b).toHaveLength(1);
+    expect(b[0]).toMatchObject({
+      ressource: 'koennen',
+      menge: 1,
+      grund: 'fehler-aufgearbeitet',
+      bezug: 'skizzen:1',
+      tag: '2026-10-05',
+    });
+  });
+
+  it('zählt nicht: gleicher Tag, mit Hilfe, oder wieder falsch', () => {
+    const gleicherTag = paar('K1', '2026-10-01', '2026-10-01');
+    const mitHilfe = paar('K2', '2026-10-01', '2026-10-04', 1);
+    const f = falsch({ kompetenz: 'K3', tag: '2026-10-01' });
+    const wiederFalsch = falsch({ kompetenz: 'K3', tag: '2026-10-04', korrigiert: f.id });
+    expect(skizzenZahl([...gleicherTag, ...mitHilfe, f, wiederFalsch])).toBe(0);
+  });
+
+  it('nicht farmbar: viele Fehler im selben Thema bringen nur eine Skizze', () => {
+    const a = [
+      ...paar('K1', '2026-10-01', '2026-10-03'),
+      ...paar('K1', '2026-10-02', '2026-10-04'),
+      ...paar('K1', '2026-10-05', '2026-10-09'),
+    ];
+    expect(skizzenZahl(a)).toBe(1);
+    expect(skizzenBuchungen(a, new Set())).toEqual([]);
+  });
+
+  it('schon Gebuchtes kommt nicht doppelt; je zwei Skizzen ein Bauplan', () => {
+    const a = ['K1', 'K2', 'K3', 'K4', 'K5'].flatMap((k, i) =>
+      paar(k, `2026-10-0${i + 1}`, `2026-10-1${i}`),
+    );
+    expect(skizzenBuchungen(a, new Set()).map((b) => b.bezug)).toEqual(['skizzen:1', 'skizzen:2']);
+    expect(skizzenBuchungen(a, new Set(['skizzen:1'])).map((b) => b.bezug)).toEqual(['skizzen:2']);
   });
 });
