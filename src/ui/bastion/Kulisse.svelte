@@ -112,6 +112,12 @@
       ...d,
       bild: dingBild(thema, d.bild, jahreszeit, d.variante),
       tier: thema.leben.includes('grasen') && ['kuh', 'schaf', 'pferd'].includes(d.bild),
+      // Luftperspektive (Wunsch PV: Tiefe in der Ferne): ab 8 Feldern Abstand blasser,
+      // leicht bläulich, ganz weit minimal unscharf (0 = nah, 1 = am weitesten)
+      dunst: Math.min(
+        1,
+        Math.max(0, (Math.max(-d.gx, d.gx - platz.breite, -d.gy, d.gy - platz.tiefe) - 8) / 30),
+      ).toFixed(2),
       ...punkt(d.gx, d.gy, platz),
     })),
   );
@@ -221,6 +227,13 @@
       style:background-position="{lage.horizontX}px 0"
     ></div>
     <div class="dunst" style:inset-block-start="{wasserFern - 4}px"></div>
+    <!-- Luftperspektive: zum Horizont hin liegt Dunst in der Farbe des Himmels -->
+    <div
+      class="ferne"
+      style:inset-block-start="{wasserFern}px"
+      style:block-size="{Math.max(80, hoch * 2.4)}px"
+      style:background="linear-gradient({himmel[1]}, transparent)"
+    ></div>
   {/if}
   <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
        weit weg, sie wandern beim Verschieben nur wenig mit -->
@@ -299,6 +312,7 @@
       <img
         class="ding"
         src={w.src}
+        srcset="{w.src} 1x, {w.src.replace(/\.png$/, '@2x.png')} 2x"
         alt=""
         style:inline-size="{w.breite}px"
         style:inset-inline-start="{w.x}px"
@@ -323,11 +337,13 @@
           class:flach={d.flach}
           class:tier={d.tier}
           src="{basis}dinge/{d.bild}.png"
+          srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
           alt=""
           style:inline-size="{d.breite ?? DING_BREITE}px"
           style:inset-inline-start="{d.x}px"
           style:inset-block-start="{d.y}px"
           style:--n={i % 7}
+          style:--dunst={d.dunst}
         />
       {/if}
     {/each}
@@ -335,6 +351,7 @@
       <img
         class="ding schwarm"
         src="{basis}dinge/fischschwarm.png"
+        srcset="{basis}dinge/fischschwarm.png 1x, {basis}dinge/fischschwarm@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.3}px"
         style:inset-inline-start="{f.x}px"
@@ -346,6 +363,7 @@
       <img
         class="ding satellit"
         src="{basis}dinge/satellit.png"
+        srcset="{basis}dinge/satellit.png 1x, {basis}dinge/satellit@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.2}px"
         style:inset-inline-start="{satellit.x}px"
@@ -386,6 +404,7 @@
       <img
         class="ding boot"
         src="{basis}dinge/boot.png"
+        srcset="{basis}dinge/boot.png 1x, {basis}dinge/boot@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE}px"
         style:inset-inline-start="{bootStart.x}px"
@@ -408,6 +427,17 @@
   .sterne,
   .meer,
   .horizont,
+  .ferne {
+    position: absolute;
+    inset-inline: 0;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .nacht .ferne {
+    opacity: 0.25;
+  }
+
   .dunst {
     position: absolute;
     inset-inline: 0;
@@ -464,10 +494,15 @@
   }
 
   .ding {
+    --dunst: 0;
     position: absolute;
     block-size: auto;
     /* Fuß unten Mitte auf dem Platz */
     translate: -50% -100%;
+    /* Luftperspektive: weit weg blasser, heller, etwas blau, kaum unscharf */
+    filter: saturate(calc(1 - var(--dunst) * 0.5)) brightness(calc(1 + var(--dunst) * 0.14))
+      hue-rotate(calc(var(--dunst) * 8deg)) blur(calc(var(--dunst) * 0.7px));
+    opacity: calc(1 - var(--dunst) * 0.25);
   }
 
   .himmelwolke {
@@ -558,14 +593,22 @@
     display: none;
   }
 
-  .daemmerung .ding,
   .daemmerung .schaum {
     filter: brightness(0.8) sepia(0.15);
   }
 
-  .nacht .ding,
+  .daemmerung .ding {
+    filter: brightness(calc(0.8 + var(--dunst) * 0.1)) sepia(0.15)
+      saturate(calc(1 - var(--dunst) * 0.5)) blur(calc(var(--dunst) * 0.7px));
+  }
+
   .nacht .schaum {
     filter: brightness(0.45) saturate(0.7);
+  }
+
+  .nacht .ding {
+    filter: brightness(calc(0.45 - var(--dunst) * 0.1)) saturate(0.7)
+      blur(calc(var(--dunst) * 0.7px));
   }
 
   /* —— Jahreszeiten (Wunsch PV 03.11.2026): Felder und Hügel folgen dem Kalender —— */

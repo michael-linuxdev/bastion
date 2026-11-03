@@ -12,6 +12,16 @@ export interface AtlasEintrag {
   readonly felder: readonly [number, number];
   readonly anker: { readonly x: number; readonly y: number };
   readonly pixel: { readonly w: number; readonly h: number };
+  /** Es gibt `<datei>@2x.png` in doppelter Größe (G17, scharf beim Zoomen) */
+  readonly hd?: boolean;
+}
+
+/**
+ * Welche Datei laden: bei hoher Pixeldichte (ab 1,5) die @2x-Fassung, wenn es sie gibt
+ * (Wunsch PV 03.11.2026: scharf beim Zoomen). `pixel` bleibt die logische Größe.
+ */
+export function atlasDatei(e: AtlasEintrag, pixeldichte: number): string {
+  return e.hd && pixeldichte >= 1.5 ? e.datei.replace(/\.png$/, '@2x.png') : e.datei;
 }
 
 export interface AtlasManifest {
