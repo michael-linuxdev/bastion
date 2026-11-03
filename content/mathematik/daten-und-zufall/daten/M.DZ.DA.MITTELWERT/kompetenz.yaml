@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: Den Durchschnitt auch mit Dezimalzahlen berechnen und in Sachzusammenhängen deuten, z. B. Notendurchschnitt.
+  E:
+    beschreibung:
+      de: 'Begründen, durch welche Anzahl man beim Durchschnitt teilt.'
 kmk:
   leitidee: L5
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
