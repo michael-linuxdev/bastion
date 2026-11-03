@@ -97,7 +97,7 @@
 </script>
 
 <div class="bericht">
-  <div class="umschalter" role="group">
+  <div class="umschalter" role="group" aria-label={t('bericht.ansicht')}>
     <button aria-pressed={ansicht === 'einfach'} onclick={() => (ansicht = 'einfach')}>
       {t('bericht.einfach')}
     </button>

@@ -22,7 +22,7 @@
   const heute = new Date().toISOString().slice(0, 10);
 </script>
 
-<section class="profil" aria-label={t('profil.ueberschrift')}>
+<div class="profil">
   <p class="leise">{t('profil.erklaerung')}</p>
   <form
     onsubmit={(e) => {
@@ -41,7 +41,7 @@
       <button class="haupt" type="submit">{t('profil.speichern')}</button>
     </p>
   </form>
-</section>
+</div>
 
 <style>
   .profil {
