@@ -84,10 +84,11 @@ test('Ausgegraute Kacheln bleiben mit der Tastatur erreichbar; Fehler zeigt eine
 test('Seitenkopf: Zurück aus Über mich und Sicherung führt nach „Mehr“ (O6)', async ({ page }) => {
   await start(page);
   await mehr(page);
-  for (const [eintrag, titel] of [
+  const seiten: readonly (readonly [string, string])[] = [
     ['Über mich', 'Über mich'],
     ['Sicherung', 'Alles sicher'],
-  ]) {
+  ];
+  for (const [eintrag, titel] of seiten) {
     await page.getByRole('main').getByRole('button', { name: eintrag, exact: true }).click();
     await expect(page.getByRole('heading', { name: titel, level: 2 })).toBeVisible();
     await page.getByRole('button', { name: 'Zurück', exact: true }).click();
