@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  szenerieAus,
   modusAus,
   MODUS_SCHLUESSEL,
   orientierungAus,
@@ -130,5 +131,16 @@ describe('Bastion-Kamera und Bewohner-Namen (Design L)', () => {
     const { KAMERA_SCHLUESSEL, BEWOHNER_NAMEN_SCHLUESSEL } = await import('./einstellung');
     expect(KAMERA_SCHLUESSEL).toBe('basebau.kamera');
     expect(BEWOHNER_NAMEN_SCHLUESSEL).toBe('basebau.bewohner-namen');
+  });
+});
+
+describe('Eigene Szenerie (basebau.szenerie)', () => {
+  it('nimmt nur ganze Zahlen über 0, sonst Grundszenerie', () => {
+    expect(szenerieAus(123)).toBe(123);
+    expect(szenerieAus(0)).toBe(0);
+    expect(szenerieAus(-5)).toBe(0);
+    expect(szenerieAus(1.5)).toBe(0);
+    expect(szenerieAus('7')).toBe(0);
+    expect(szenerieAus(undefined)).toBe(0);
   });
 });
