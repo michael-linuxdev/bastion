@@ -3,7 +3,12 @@ import { begriffskarte } from '../../src/core/learning/begriffe';
 import { markiereDeZeilen } from './begriffe-zeilen';
 
 const karte = begriffskarte([
-  { id: 'anteil', formen: ['Anteil'], erklaerung: { de: 'Teil vom Ganzen' } },
+  {
+    id: 'anteil',
+    wort: { de: 'Anteil' },
+    formen: ['Anteil'],
+    erklaerung: { de: 'Teil vom Ganzen' },
+  },
 ]);
 
 describe('Begriffe in de-Zeilen markieren (pnpm inhalte:begriffe)', () => {
