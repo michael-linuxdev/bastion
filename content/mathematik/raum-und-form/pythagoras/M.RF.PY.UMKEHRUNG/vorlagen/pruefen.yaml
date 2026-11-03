@@ -10,7 +10,7 @@ parameter:
   M: { wo: true }
 text:
   aufgabe:
-    de: 'Ein Dreieck hat die Seiten {seiten} (in cm). **Prüfe** mit der [[Umkehrung]] des Satzes von Pythagoras: Ist es rechtwinklig, und wo liegt der rechte [[Winkel]]?'
+    de: 'Ein Dreieck hat die Seiten {seiten} (in cm). **Prüfe** mit der [[Umkehrung]] des Satzes von Pythagoras und wähle die passende Antwort.'
 hilfen:
   - de: 'Nur die längste Seite kann die [[Hypotenuse]] sein.'
   - de: 'Vergleiche die [[Summe]] der Quadrate der beiden kürzeren Seiten mit dem Quadrat der längsten.'

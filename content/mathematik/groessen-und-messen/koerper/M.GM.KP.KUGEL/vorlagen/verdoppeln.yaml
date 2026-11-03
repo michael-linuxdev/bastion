@@ -4,7 +4,7 @@ kompetenz: M.GM.KP.KUGEL
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: kp.verdoppeln@1
+generator: kp.verdoppeln@2
 parameter:
   E: {}
 text:

@@ -62,3 +62,4 @@
 | 03.11.2026 | **B8 Werkzeug `graph@1`:** Funktionsgraphen in der Erstvermittlung, als Bild oder mit Reglern für a, d, e („Parameter am Graphen“); Bilder in QF.GRAPH, QF.SCHEITEL, PF.POTENZFUNKTION, PF.WURZELFUNKTION, PF.PARAMETER; Tests und e2e-Test |
 | 03.11.2026 | **Begriffe-Werkzeug repariert:** `pnpm inhalte:begriffe` lässt das Komma hinter Werten der mehrzeiligen Kurzform stehen (Test `begriffe-zeilen.test.ts`); zwei Antworten in DZ.ZF markiert |
 | 03.11.2026 | **L-10 Kegel:** Anleitung „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`, Mantellinien berühren die Ellipse), RF.KP.KEGEL mit `zeichnen_erklaert` |
+| 03.11.2026 | **Inhaltsdurchsicht Klasse 9:** sechs Generatoren in Fassung 2 (doppelte Möglichkeit, Grammatik, ungekürzte Hochzahl, Lösungsweg), alte Fassungen bleiben registriert; Prüfung „Vorlage nutzt neueste Fassung“; PY.UMKEHRUNG.PRUEFEN umformuliert |

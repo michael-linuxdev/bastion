@@ -107,6 +107,10 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10.
 
+### Inhaltsdurchsicht Klasse 9 (03.11.2026)
+
+Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. Offen, nur notiert: ST.MANIPULATION.ERKENNEN hat auf G und E dieselben Parameter.
+
 ### Offene Fragen der Nachtarbeit
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.

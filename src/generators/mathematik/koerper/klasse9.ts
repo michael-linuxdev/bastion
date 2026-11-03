@@ -160,59 +160,68 @@ export const kpPyramideHoehe: Generator<PyramideHoehenParameter> = {
 // Welche Strecke ist die Hypotenuse? (M.GM.KP.PYRAMIDE-HOEHEN.HYPOTENUSE, Niveau E)
 
 /** „Im Dreieck aus h, h_s und a/2: Welche Strecke ist die Hypotenuse?“ */
-export const kpHypotenuse: Generator<Record<string, never>> = {
-  id: 'kp.hypotenuse',
-  version: 1,
-  platzhalter: ['dreieck'],
-  fehlerbildIds: ['laengste-gegeben', 'senkrecht', 'grundkante'],
+function kpHypotenuseFassung(fassung: 1 | 2): Generator<Record<string, never>> {
+  return {
+    id: 'kp.hypotenuse',
+    version: fassung,
+    platzhalter: ['dreieck'],
+    fehlerbildIds: ['laengste-gegeben', 'senkrecht', 'grundkante'],
 
-  erzeuge(seed) {
-    const r = rng(seed);
-    const fall = r.pick([
-      {
-        dreieck: 'der Körperhöhe h, der halben Grundkante und der Seitenhöhe $h_s$',
-        hyp: '$h_s$',
-        senkrecht: 'h',
-        grund: 'die halbe Grundkante',
-      },
-      {
-        dreieck: 'der Körperhöhe h, der halben Diagonale der Grundfläche und der Seitenkante s',
-        hyp: 's',
-        senkrecht: 'h',
-        grund: 'die halbe Diagonale',
-      },
-      {
-        dreieck: 'der Seitenhöhe $h_s$, der halben Grundkante und der Seitenkante s',
-        hyp: 's',
-        senkrecht: '$h_s$',
-        grund: 'die halbe Grundkante',
-      },
-    ] as const);
-    const andere = fall.hyp === 's' ? (fall.senkrecht === 'h' ? '$h_s$' : 'h') : 's';
-    const kandidaten: [string, string][] = [
-      ['richtig', `${fall.hyp}, denn sie liegt dem rechten Winkel gegenüber.`],
-      ['senkrecht', `${fall.senkrecht}, denn sie steht senkrecht.`],
-      ['grundkante', `${fall.grund}, denn sie liegt unten.`],
-      ['laengste-gegeben', `${andere}, denn sie ist die längste Strecke der Pyramide.`],
-    ];
-    const liste = mische(r, kandidaten);
-    const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
-    return {
-      platzhalter: { dreieck: de(fall.dreieck) },
-      optionen: liste.map(([, x]) => ({ text: de(x) satisfies Sprachobjekt })),
-      loesung: index('richtig'),
-      loesungsweg: [
-        de('Suche den rechten Winkel im Dreieck. Die Hypotenuse liegt ihm gegenüber.'),
-        de(
-          `Hier liegt der rechte Winkel zwischen ${fall.senkrecht} und ${fall.grund}. Also ist ${fall.hyp} die Hypotenuse.`,
-        ),
-      ],
-      fehlerbilder: liste
-        .filter(([id]) => id !== 'richtig')
-        .map(([id]) => ({ id, antwort: index(id) })),
-    };
-  },
-};
+    erzeuge(seed) {
+      const r = rng(seed);
+      const fall = r.pick([
+        {
+          dreieck: 'der Körperhöhe h, der halben Grundkante und der Seitenhöhe $h_s$',
+          hyp: '$h_s$',
+          senkrecht: 'h',
+          grund: 'die halbe Grundkante',
+          grundDativ: 'der halben Grundkante',
+        },
+        {
+          dreieck: 'der Körperhöhe h, der halben Diagonale der Grundfläche und der Seitenkante s',
+          hyp: 's',
+          senkrecht: 'h',
+          grund: 'die halbe Diagonale',
+          grundDativ: 'der halben Diagonale',
+        },
+        {
+          dreieck: 'der Seitenhöhe $h_s$, der halben Grundkante und der Seitenkante s',
+          hyp: 's',
+          senkrecht: '$h_s$',
+          grund: 'die halbe Grundkante',
+          grundDativ: 'der halben Grundkante',
+        },
+      ] as const);
+      const andere = fall.hyp === 's' ? (fall.senkrecht === 'h' ? '$h_s$' : 'h') : 's';
+      const kandidaten: [string, string][] = [
+        ['richtig', `${fall.hyp}, denn sie liegt dem rechten Winkel gegenüber.`],
+        ['senkrecht', `${fall.senkrecht}, denn sie steht senkrecht.`],
+        ['grundkante', `${fall.grund}, denn sie liegt unten.`],
+        ['laengste-gegeben', `${andere}, denn sie ist die längste Strecke der Pyramide.`],
+      ];
+      const liste = mische(r, kandidaten);
+      const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
+      return {
+        platzhalter: { dreieck: de(fall.dreieck) },
+        optionen: liste.map(([, x]) => ({ text: de(x) satisfies Sprachobjekt })),
+        loesung: index('richtig'),
+        loesungsweg: [
+          de('Suche den rechten Winkel im Dreieck. Die Hypotenuse liegt ihm gegenüber.'),
+          de(
+            `Hier liegt der rechte Winkel zwischen ${fall.senkrecht} und ${fassung === 2 ? fall.grundDativ : fall.grund}. Also ist ${fall.hyp} die Hypotenuse.`,
+          ),
+        ],
+        fehlerbilder: liste
+          .filter(([id]) => id !== 'richtig')
+          .map(([id]) => ({ id, antwort: index(id) })),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): „zwischen h und die halbe Diagonale“. */
+export const kpHypotenuseV1 = kpHypotenuseFassung(1);
+export const kpHypotenuse = kpHypotenuseFassung(2);
 
 // ---------------------------------------------------------------------------
 // Kreiskegel (M.GM.KP.KEGEL.BERECHNEN)
@@ -465,49 +474,62 @@ export const kpKugel: Generator<KugelParameter> = {
 // Radius verdoppeln (M.GM.KP.KUGEL.VERDOPPELN, Niveau E)
 
 /** „Der Radius einer Kugel wird verdoppelt. Wie ändert sich das Volumen?“ */
-export const kpVerdoppeln: Generator<Record<string, never>> = {
-  id: 'kp.verdoppeln',
-  version: 1,
-  platzhalter: ['groesse', 'faktor'],
-  fehlerbildIds: ['linear', 'quadratisch', 'kubisch-statt-quadratisch', 'summe'],
+function kpVerdoppelnFassung(fassung: 1 | 2): Generator<Record<string, never>> {
+  return {
+    id: 'kp.verdoppeln',
+    version: fassung,
+    platzhalter: ['groesse', 'faktor'],
+    fehlerbildIds: ['linear', 'quadratisch', 'kubisch-statt-quadratisch', 'summe'],
 
-  erzeuge(seed) {
-    const r = rng(seed);
-    const k = r.pick([2, 3]);
-    const groesse = r.pick(['Volumen', 'Oberfläche'] as const);
-    const v = groesse === 'Volumen';
-    const kandidaten: [string, string][] = [
-      [
-        'richtig',
-        `Es wird ${v ? k ** 3 : k * k}-mal so groß, denn r steckt ${v ? 'hoch 3' : 'hoch 2'} in der Formel.`,
-      ],
-      ['linear', `Es wird ${k}-mal so groß, wie der Radius.`],
-      [
-        v ? 'quadratisch' : 'kubisch-statt-quadratisch',
-        `Es wird ${v ? k * k : k ** 3}-mal so groß.`,
-      ],
-      ['summe', `Es wird ${2 * k}-mal so groß.`],
-    ];
-    const liste = mische(r, kandidaten);
-    const index = (id: string) => auswahl(liste.findIndex(([q]) => q === id));
-    return {
-      platzhalter: { groesse: de(groesse), faktor: k },
-      optionen: liste.map(([, x]) => ({ text: de(x) })),
-      loesung: index('richtig'),
-      loesungsweg: [
-        de(
-          v
-            ? '$V = \\frac{4}{3} \\pi r^3$: Mit $k \\cdot r$ wird $r^3$ zu $k^3 \\cdot r^3$.'
-            : '$O = 4 \\pi r^2$: Mit $k \\cdot r$ wird $r^2$ zu $k^2 \\cdot r^2$.',
-        ),
-        de(`Hier $k = ${k}$: Faktor ${v ? k ** 3 : k * k}.`),
-      ],
-      fehlerbilder: liste
-        .filter(([id]) => id !== 'richtig')
-        .map(([id]) => ({ id, antwort: index(id) })),
-    };
-  },
-};
+    erzeuge(seed) {
+      const r = rng(seed);
+      // Fassung 2 ohne k = 2: Dort fällt 2 · k mit k² zusammen, zwei Möglichkeiten wären gleich.
+      const k = r.pick(fassung === 2 ? [3, 4] : [2, 3]);
+      const groesse = r.pick(['Volumen', 'Oberfläche'] as const);
+      const v = groesse === 'Volumen';
+      const er = fassung === 2 && !v ? 'Sie' : 'Es';
+      const kandidaten: [string, string, number][] = [
+        [
+          'richtig',
+          `${er} wird ${v ? k ** 3 : k * k}-mal so groß, denn r steckt ${v ? 'hoch 3' : 'hoch 2'} in der Formel.`,
+          v ? k ** 3 : k * k,
+        ],
+        ['linear', `${er} wird ${k}-mal so groß${fassung === 2 ? '' : ','} wie der Radius.`, k],
+        [
+          v ? 'quadratisch' : 'kubisch-statt-quadratisch',
+          `${er} wird ${v ? k * k : k ** 3}-mal so groß.`,
+          v ? k * k : k ** 3,
+        ],
+        ['summe', `${er} wird ${2 * k}-mal so groß.`, 2 * k],
+      ];
+      const liste = mische(
+        r,
+        kandidaten.map(([id, t]) => [id, t] as [string, string]),
+      );
+      const index = (id: string) => auswahl(liste.findIndex(([q]) => q === id));
+      return {
+        platzhalter: { groesse: de(groesse), faktor: k },
+        optionen: liste.map(([, x]) => ({ text: de(x) })),
+        loesung: index('richtig'),
+        loesungsweg: [
+          de(
+            v
+              ? '$V = \\frac{4}{3} \\pi r^3$: Mit $k \\cdot r$ wird $r^3$ zu $k^3 \\cdot r^3$.'
+              : '$O = 4 \\pi r^2$: Mit $k \\cdot r$ wird $r^2$ zu $k^2 \\cdot r^2$.',
+          ),
+          de(`Hier $k = ${k}$: Faktor ${v ? k ** 3 : k * k}.`),
+        ],
+        fehlerbilder: liste
+          .filter(([id]) => id !== 'richtig')
+          .map(([id]) => ({ id, antwort: index(id) })),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): „Es wird …“ auch für die Oberfläche, doppelte Möglichkeit bei k = 2. */
+export const kpVerdoppelnV1 = kpVerdoppelnFassung(1);
+export const kpVerdoppeln = kpVerdoppelnFassung(2);
 
 // ---------------------------------------------------------------------------
 // Kegel darstellen (M.RF.KP.KEGEL.ERKENNEN): Zweitafelbild, Netz, liegender Kegel

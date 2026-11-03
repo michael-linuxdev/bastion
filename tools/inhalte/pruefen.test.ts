@@ -38,7 +38,31 @@ describe('Inhalte in content/', () => {
 
   it('jeder registrierte Generator wird von einer Vorlage genutzt', () => {
     const genutzt = new Set(vorlagen.map((v) => v.generator));
-    expect([...generatoren.keys()].filter((g) => !genutzt.has(g))).toEqual([]);
+    // Ältere Fassungen bleiben für gespeicherte Aufgaben, wenn eine Vorlage eine neuere nutzt
+    // (INHALTSFORMAT §6.1 Regel 5).
+    const neuere = (g: string) => {
+      const [id, version] = g.split('@');
+      return [...genutzt].some((n) => {
+        const [nid, nv] = n.split('@');
+        return nid === id && Number(nv) > Number(version);
+      });
+    };
+    expect([...generatoren.keys()].filter((g) => !genutzt.has(g) && !neuere(g))).toEqual([]);
+  });
+
+  it('jede Vorlage nutzt die neueste Fassung ihres Generators', () => {
+    const neueste = new Map<string, number>();
+    for (const g of generatoren.keys()) {
+      const [id, v] = g.split('@');
+      neueste.set(id ?? '', Math.max(neueste.get(id ?? '') ?? 0, Number(v)));
+    }
+    const veraltet = vorlagen
+      .filter((v) => {
+        const [id, n] = v.generator.split('@');
+        return Number(n) < (neueste.get(id ?? '') ?? 0);
+      })
+      .map((v) => `${v.id}: ${v.generator}`);
+    expect(veraltet).toEqual([]);
   });
 
   it('Bericht', () => {
