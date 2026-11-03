@@ -516,3 +516,50 @@ Gilt für alle Bilder des G3-Generators (`tools/grafik/g3_stil.py`). Maße, Fuß
 - **Weiche Eigenschatten** (`Iso.abdunkeln`, dunkelt nur schon Gezeichnetes ab, nie die Luft): Dachüberstand auf der Wand (Pyramide, Satteldach, Kegel auf dem Rundturm), Körper auf dem, worauf er steht (Turm auf Mauer, Aufsatz auf Kranz), Wandfuß etwas dunkler.
 - **Dateigröße:** Gebäude, Umgebung und Kulisse-Dinge werden als Palette-PNG mit 256 Farben gespeichert (fein gestreut). So bleibt der Atlas trotz der feineren Bilder etwa so groß wie vorher. `atlas-stufen.test.ts` liest dafür auch Palette-PNGs.
 - **Umriss-Test:** Die alten Bilder hatten durch die gestanzten Konturen Löcher im Umriss; das hob den gemessenen Unterschied zwischen zwei Stufen künstlich an. Mit geschlossenen Konturen liegen neun Übergänge knapp unter der Grenze (siehe `GRAFIK.md` §14). Sie lagen auch vorher schon darunter, wenn man die Löcher füllt.
+
+## 13. Stil „weich gerendert“ und neue Stufenleitern (PV, 03.11.2026) – Entwurf zur Abnahme
+
+> **Stand 03.11.2026: Vorschau beim PV.** Der PV hat aus vier Stilproben (weich gerendert, Comic, Spielzeug, Klötzchen) **„weich gerendert“** gewählt. Zugleich: „Die einzelnen Abstufungen 1 bis 9 sind noch zu sinnlos, vor allem ab 4. Ein Gewächshaus Stufe 4 hat nichts mit einem Gewächshaus zu tun.“ Darum werden die Stufen neu gedacht. Erst nach Abnahme der Vorschau (Bergfried 1–9, Gewächshaus 1–5) folgen die übrigen Leitern.
+
+### 13.1 Stil
+
+Eigener 3D-Renderer `tools/grafik/raum.py` (nur numpy und Pillow, kein Zufall): Gebäude sind Körper, Licht von rechts oben, weiche Eigenschatten, Umgebungsverdeckung, Materialien aus festen Mustern (Mauerwerk, Ziegel, Schiefer, Schindel, Kupfer, Holz, Putz, Fachwerk, Laub), durchsichtiges Glas mit sichtbarem Inneren. Fenster und Türen sind Einlagen auf den Flächen; abends leuchtet nur, was im Tagbild zu sehen ist. Raster, Fußpunkt und Bildbreiten wie §12.2.
+
+### 13.2 Regel für die Stufen
+
+1. **Aufbauend:** Stufe n ist **dasselbe Gebäude** wie Stufe n−1 plus **genau ein** neues, gut sichtbares Teil. Nichts verschwindet; nur das Material darf in den ersten Stufen reifen (Holz → Fachwerk → Stein) und ganz oben einmal zum Kupfer wechseln (Krönung).
+2. **Passt zur Aufgabe:** Jedes neue Teil gehört zur Aufgabe des Gebäudes (ein Gewächshaus bekommt mehr Glas, Pflanzen, Wasser – keine Türme).
+3. **Wachstum:** Stufen 1–3 wachsen vor allem in die Höhe, ab Stufe 4 in den Hof hinein (Mauer, Anbau, Flügel), die letzte Stufe krönt das Ganze.
+4. **Ohne Ziffer lesbar:** Man sieht, was dazugekommen ist, weil alles andere gleich bleibt.
+
+### 13.3 Leitern (Entwurf)
+
+| Thema | Gebäude | Stufen (jede Stufe = vorige + …) |
+|---|---|---|
+| bastion | Bergfried (1–9) | 1 Holzturm auf Steinsockel · 2 Stein unten, Fachwerk oben · 3 Steinturm mit Zinnen und Helm · 4 Ringmauer · 5 Torhaus · 6 zwei Ecktürme · 7 Palas im Hof · 8 Turm ein Geschoss höher mit Erkertürmchen · 9 Krönung: Kupferdächer, hohe Spitze, dritter Eckturm, Fahnen |
+| bastion | Studierstube (1–5) | 1 Holzhütte mit Lesefenster · 2 Fachwerk-Obergeschoss · 3 Steinsaal mit hohen Fenstern · 4 Treppenturm · 5 Sternwarten-Kuppel mit Fernrohr auf dem Treppenturm |
+| bastion | Späherturm (1–5) | 1 offenes Holzgerüst mit Plattform · 2 Stube auf der Plattform · 3 Steinsockel · 4 ganz aus Stein mit Zinnen · 5 Signalfeuer unter Kupferhelm |
+| bastion | Zimmerei (1–3) | 1 Unterstand mit Hobelbank · 2 geschlossene Werkstatt mit Bretterlager · 3 Holzkran |
+| bastion | Tor (1–2) | 1 Holztor mit Dach · 2 Torhaus aus Stein mit Fallgitter |
+| garten | Baumhaus (1–9) | 1 Plattform im Baum · 2 Hütte mit Dach · 3 Treppe und Veranda · 4 zweite Hütte höher im Baum · 5 Hängebrücke zum Nachbarbaum · 6 Hütte im Nachbarbaum · 7 Wendeltreppe · 8 Ausguck auf der Krone · 9 Krönung: Dachgarten, Laternen, Fahnen |
+| garten | Gewächshaus (1–5) | 1 Frühbeet mit Töpfen · 2 kleines Glashaus · 3 langes Glashaus auf Steinsockel, Regentonne · 4 zweiter Flügel (L-Form) mit Kletterpflanzen · 5 Palmenhaus: runder Glasbau mit Kuppel und Palme |
+| garten | Aussichtsbaum (1–5) | 1 Leiter am Baum · 2 Plattform · 3 Geländer und Dach · 4 zweite Plattform höher · 5 Ausguck-Korb mit Fernrohr |
+| garten | Geräteschuppen (1–3) | 1 Werkzeugkiste unter Vordach · 2 Schuppen · 3 Wasserpumpe mit Tank |
+| garten | Gartentor (1–2) | 1 Holztor · 2 Rosenbogen über dem Tor |
+| dorf | Gemeindehaus (1–9) | 1 Fachwerkhaus · 2 zweites Geschoss · 3 Dachreiter mit Glocke · 4 Seitenflügel · 5 Laubengang zum Markt · 6 Uhrturm · 7 zweiter Flügel (Hof) · 8 Ratssaal-Erker · 9 Krönung: Kupferhaube auf dem Uhrturm |
+| dorf | Bücherei (1–5) | 1 Bücherhäuschen · 2 Haus · 3 Lesegaube · 4 Anbau mit großem Fenster · 5 Turmzimmer |
+| dorf | Windmühle (1–5) | 1 kleine Bockmühle · 2 größere Flügel · 3 Steinsockel · 4 Galerie · 5 Kupferkappe mit Fahne |
+| dorf | Schreinerei (1–3) | 1 Werkbank unter Dach · 2 Werkstatt · 3 Wasserrad (Säge) |
+| dorf | Dorfbrücke (1–2) | 1 Holzsteg · 2 Steinbrücke mit Laternen |
+| unterwasser | Hauptkuppel (1–9) | 1 kleine Kuppel · 2 größer mit Bullaugen · 3 Röhre zur Nebenkuppel · 4 zweite Nebenkuppel · 5 Aufsatz-Kuppel · 6 Röhrenring · 7 Turm mit Glasspitze · 8 Seegras-Gartenkuppel · 9 Krönung: Leuchtperle |
+| unterwasser | Perlenkammer (1–5) | 1 Muscheltruhe · 2 kleine Kuppel · 3 Schaufenster mit Perlen · 4 Schneckenturm · 5 zweiter Schneckenturm mit Perle |
+| unterwasser | Leuchtturm (1–5) | 1 Lichtboje · 2 Mast · 3 Turm · 4 Galerie · 5 große Laterne |
+| unterwasser | Werft (1–3) | 1 Steg · 2 Halle · 3 Kran mit U-Boot |
+| unterwasser | Tauchschleuse (1–2) | 1 Luke · 2 Schleusenkammer mit Glaskuppel |
+| weltraum | Kommandomodul (1–9) | 1 Modul · 2 Solarflügel · 3 zweites Modul · 4 Andockring · 5 angedockte Fähre · 6 Wohnring · 7 Turm mit Kuppel · 8 zweites Paar Solarflügel · 9 Krönung: Antennenspitze mit Fahne |
+| weltraum | Sternwarte (1–5) | 1 Fernrohr auf Stativ · 2 Hütte mit Klappdach · 3 Kuppel · 4 Schüssel · 5 zweites Teleskop |
+| weltraum | Antennenmast (1–5) | 1 Stange · 2 Schüssel · 3 höherer Mast · 4 Ringplattform · 5 zweite Schüssel mit Licht |
+| weltraum | Montagehalle (1–3) | 1 Gerüst · 2 Halle · 3 Rakete im Startturm |
+| weltraum | Luftschleuse (1–2) | 1 Tür · 2 Doppelschleuse mit Glaskanzel |
+
+Vorschau-Skript: `tools/grafik/stufen_raum.py` (Bergfried, Gewächshaus).
