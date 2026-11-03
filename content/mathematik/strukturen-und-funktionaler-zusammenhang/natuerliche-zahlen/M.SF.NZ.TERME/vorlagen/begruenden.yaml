@@ -1,0 +1,24 @@
+# Punkt vor Strich und Klammern begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.NZ.TERME.BEGRUENDEN
+kompetenz: M.SF.NZ.TERME
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: nz.klammer-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Gibt es eine Klammer?'
+  - de: 'Was kommt zuerst: Punkt- oder Strichrechnung?'
+fehlerbilder:
+  punkt-vor-strich:
+    de: 'Ohne Klammer gilt [[Punkt vor Strich]], nicht von links nach rechts.'
+    fv: FV.NZ.PUNKT-VOR-STRICH
+  klammer:
+    de: 'Eine Klammer wird immer zuerst gerechnet. Man darf keine dazudenken oder weglassen.'
+    fv: FV.NZ.KLAMMER
+herkunft: ki-entwurf
+version: 1

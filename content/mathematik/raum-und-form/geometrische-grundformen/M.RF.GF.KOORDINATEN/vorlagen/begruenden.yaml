@@ -1,0 +1,24 @@
+# Koordinaten eintragen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.GF.KOORDINATEN.BEGRUENDEN
+kompetenz: M.RF.GF.KOORDINATEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gf.koordinate-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Zahl steht zuerst?'
+  - de: 'Die Zahlen gehören zu den Linien.'
+fehlerbilder:
+  x-y-vertauscht:
+    de: 'Zuerst kommt x: nach rechts. Dann y: nach oben.'
+    fv: FV.GF.X-Y-VERTAUSCHT
+  kaestchen-linien:
+    de: 'Gezählt werden Linien, nicht angefangene Kästchen.'
+    fv: FV.GF.KAESTCHEN-LINIEN
+herkunft: ki-entwurf
+version: 1

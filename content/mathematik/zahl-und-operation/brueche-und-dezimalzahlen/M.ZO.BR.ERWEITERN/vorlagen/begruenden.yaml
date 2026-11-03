@@ -1,0 +1,24 @@
+# Erweitern begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ERWEITERN.BEGRUENDEN
+kompetenz: M.ZO.BR.ERWEITERN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.erweitern-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was passiert mit der Größe der Teile beim [[Erweitern]]?'
+  - de: 'Prüfe mit einem Bild.'
+fehlerbilder:
+  additiv:
+    de: '[[Erweitern]] heißt malnehmen. Addieren ändert den Wert des Bruchs.'
+    fv: FV.BR.ADDITIV
+  nur-nenner:
+    de: 'Wenn die Teile kleiner werden, braucht man mehr davon: Auch der [[Zähler]] ändert sich.'
+    fv: FV.BR.NUR-NENNER
+herkunft: ki-entwurf
+version: 1

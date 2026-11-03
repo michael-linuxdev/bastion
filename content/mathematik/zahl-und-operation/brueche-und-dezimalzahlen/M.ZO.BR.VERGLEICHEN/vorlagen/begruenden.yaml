@@ -1,0 +1,24 @@
+# Brüche vergleichen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.VERGLEICHEN.BEGRUENDEN
+kompetenz: M.ZO.BR.VERGLEICHEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.vergleich-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie groß sind die Teile?'
+  - de: 'Mache die [[Brüche]] gleichnamig.'
+fehlerbilder:
+  nenner-groesser:
+    de: 'Ein größerer [[Nenner]] bedeutet kleinere Teile.'
+    fv: FV.BR.NENNER-GROESSER
+  nur-zaehler:
+    de: 'Der [[Zähler]] allein entscheidet nur bei gleichen Nennern.'
+    fv: FV.BR.NUR-ZAEHLER
+herkunft: ki-entwurf
+version: 1

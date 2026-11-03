@@ -19,6 +19,9 @@ niveaus:
   G:
     beschreibung:
       de: Dezimalzahlen addieren und subtrahieren; mit 10, 100, 1000 multiplizieren und dividieren.
+  E:
+    beschreibung:
+      de: 'Begründen, warum beim schriftlichen Addieren Komma unter Komma steht.'
   M:
     beschreibung:
       de:
@@ -30,6 +33,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

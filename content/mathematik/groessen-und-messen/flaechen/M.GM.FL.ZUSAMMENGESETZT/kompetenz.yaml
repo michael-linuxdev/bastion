@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: Figuren aus mehreren Rechtecken, auch durch Ergänzen; Umfang als Summe der Seitenlängen.
+  E:
+    beschreibung:
+      de: 'Begründen, warum sich der Umfang beim Ausschneiden einer Ecke nicht ändern muss.'
 kmk:
   leitidee: L2
   prozesse:
@@ -25,6 +28,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

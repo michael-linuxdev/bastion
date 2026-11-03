@@ -1,0 +1,24 @@
+# Parallele Geraden begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.GF.LAGE.BEGRUENDEN
+kompetenz: M.RF.GF.LAGE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gf.lage-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: '[[Geraden]] sind unendlich lang.'
+  - de: 'Miss den Abstand an zwei Stellen.'
+fehlerbilder:
+  lagebeziehung:
+    de: 'Sich im Bild nicht zu berühren reicht nicht. [[Parallele]] [[Geraden]] haben überall denselben Abstand.'
+    fv: FV.GF.LAGEBEZIEHUNG
+  senkrecht:
+    de: 'Senkrecht heißt: Sie schneiden sich im [[rechten Winkel]].'
+    fv: FV.GF.LAGEBEZIEHUNG
+herkunft: ki-entwurf
+version: 1

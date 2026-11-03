@@ -64,7 +64,7 @@ export function regenKachel(
   }
   return svg(
     groesse,
-    `<g stroke='rgb(214,228,240)' stroke-width='1.4' stroke-linecap='round'>${striche}</g>`,
+    `<g stroke='rgb(214,228,240)' stroke-width='1.1' stroke-linecap='round'>${striche}</g>`,
   );
 }
 
@@ -103,21 +103,23 @@ export function wetterschicht(
     // Neigung so, dass der Weg je Durchlauf ganze Kacheln bleibt (nahtlos)
     const neigung = sturm ? 1 / 3 : 0;
     const g = 180;
-    const liste: SchichtEbene[] = [0, 1, 2].map((e) => {
-      const lang = (sturm ? 26 : 16) + e * 7;
+    // Zurückhaltend (PV 03.11.2026: „Der Regen ist viel zu stark“): zwei Ebenen, wenige,
+    // kurze, blasse Striche – Insel und Gebäude bleiben gut zu erkennen
+    const liste: SchichtEbene[] = [0, 1].map((e) => {
+      const lang = (sturm ? 20 : 12) + e * 5;
       // Schnelle Ebene vorn (länger, deutlicher), langsame hinten
       const wegY = g * (sturm ? 3 : 2);
       return {
-        kachel: regenKachel(g, Math.round((sturm ? 14 : 10) * d * (1 + e * 0.3)), lang, neigung, e),
+        kachel: regenKachel(g, Math.round((sturm ? 8 : 5) * d * (1 + e * 0.3)), lang, neigung, e),
         groesse: g,
         weg: { x: -Math.round(neigung * wegY), y: wegY },
         dauer: (sturm ? 0.5 : 0.8) / (1 + e * 0.35),
-        deckkraft: Math.min(0.85, (0.28 + e * 0.14) * (staerke === 'leicht' ? 0.8 : 1)),
+        deckkraft: Math.min(0.5, (0.16 + e * 0.08) * (staerke === 'leicht' ? 0.8 : 1)),
       };
     });
     return {
       ebenen: ebenen(liste),
-      schleier: sturm ? 0.2 : staerke === 'stark' ? 0.16 : staerke === 'mittel' ? 0.08 : 0.03,
+      schleier: sturm ? 0.1 : staerke === 'stark' ? 0.07 : staerke === 'mittel' ? 0.03 : 0,
       nebel: staerke === 'stark' && !sturm ? 1 : 0,
       wolkenschatten: sturm ? 4 : 2,
     };
@@ -125,21 +127,21 @@ export function wetterschicht(
   if (bild === 'schnee') {
     const g = 200;
     const liste: SchichtEbene[] = [0, 1, 2].map((e) => ({
-      kachel: schneeKachel(g, Math.round(9 * d * (1 + e * 0.4)), 1.6 + e * 1.1, e + 3),
+      kachel: schneeKachel(g, Math.round(7 * d * (1 + e * 0.4)), 1.5 + e * 1.0, e + 3),
       groesse: g,
       // Flocken treiben schräg: eine Kachel zur Seite, zwei nach unten
       weg: { x: (e % 2 === 0 ? 1 : -1) * g, y: g * 2 },
       dauer: (staerke === 'stark' ? 9 : 14) / (1 + e * 0.45),
-      deckkraft: 0.7 + e * 0.1,
+      deckkraft: 0.55 + e * 0.1,
     }));
     return {
       ebenen: ebenen(liste),
-      schleier: staerke === 'stark' ? 0.14 : 0.04,
+      schleier: staerke === 'stark' ? 0.08 : 0.02,
       nebel: staerke === 'stark' ? 2 : 0,
       wolkenschatten: 0,
     };
   }
-  if (bild === 'nebel') return { ebenen: [], schleier: 0.1, nebel: 4, wolkenschatten: 0 };
+  if (bild === 'nebel') return { ebenen: [], schleier: 0.06, nebel: 4, wolkenschatten: 0 };
   if (bild === 'bewoelkt') return { ebenen: [], schleier: 0, nebel: 0, wolkenschatten: 3 };
   return LEER;
 }

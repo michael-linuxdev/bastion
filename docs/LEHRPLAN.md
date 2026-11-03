@@ -91,7 +91,7 @@ version: 1
 ~~**Entscheidung L-3:**~~ *(ersetzt durch L-22)* Niveauwechsel sind **Vorschläge, keine Automatik**. Die App schlägt höher vor, wenn eine Kompetenz schnell und sicher gekonnt wird, und tiefer, wenn sie wiederholt nicht gelingt. Der Jugendliche entscheidet.
 *Warum:* Automatisches Herabstufen wirkt beschämend; automatisches Hochstufen kann überfordern. Selbstbestimmung über das eigene Niveau ist Teil der Autonomie, die langfristige Motivation trägt.
 
-~~*Scope bis Monat 12 (K-11):* Inhalte entstehen nur für **G** und **M**.~~ *Geändert durch K-31 (03.11.2026):* Ab Klasse 9 haben alle Kompetenzen G, M und E. In Klasse 5 bis 8 bekommen die Felder Geometrie, Brüche/Prozent/rationale Zahlen, Terme/Gleichungen/Funktionen sowie Daten und Zufall Niveau E (je Kompetenz mindestens eine E-Vorlage); natürliche Zahlen, Teilbarkeit und Größen bleiben vorerst bei G und M. Die App wählt E still, sobald M gekonnt ist (L-22).
+~~*Scope bis Monat 12 (K-11):* Inhalte entstehen nur für **G** und **M**.~~ *Geändert durch K-31 (03.11.2026):* Ab Klasse 9 haben alle Kompetenzen G, M und E. In Klasse 5 bis 8 bekommen die Felder Geometrie, Brüche/Prozent/rationale Zahlen, Terme/Gleichungen/Funktionen sowie Daten und Zufall Niveau E (je Kompetenz mindestens eine E-Vorlage); natürliche Zahlen, Teilbarkeit und Größen bleiben vorerst bei G und M. Terme und Gleichungen mit natürlichen Zahlen (Klasse 5) zählen zu Terme/Gleichungen und haben E; „Sachaufgaben lesen“ hat kein E. *Stand 03.11.2026:* 107 von 124 Kompetenzen der Klassen 5 bis 8 haben E. Die App wählt E still, sobald M gekonnt ist (L-22).
 
 ### 4.2 Niveau und Bauplan
 

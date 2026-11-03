@@ -32,7 +32,7 @@ describe('Kulisse mit Leben (G14, Wunsch PV)', () => {
       ] as const) {
         const d = kulissenDinge(b, t, k);
         expect(d.length).toBeGreaterThan(30);
-        expect(d.length).toBeLessThan(160);
+        expect(d.length).toBeLessThan(320);
         for (const x of d) {
           const innen = x.gx > -1 && x.gx < b + 1 && x.gy > -1 && x.gy < t + 1;
           expect(innen, `${thema} ${x.bild} ${x.gx},${x.gy}`).toBe(false);

@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: Auf einen Zielnenner erweitern, vollständig kürzen.
+  E:
+    beschreibung:
+      de: 'Begründen, warum man beim Erweitern malnimmt und nicht addiert.'
 kmk:
   leitidee: L1
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

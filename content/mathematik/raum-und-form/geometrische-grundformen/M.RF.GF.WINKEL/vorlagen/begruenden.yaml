@@ -1,0 +1,24 @@
+# Winkelart begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKEL.BEGRUENDEN
+kompetenz: M.RF.GF.WINKEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gf.winkelart-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wo liegen die Grenzen 90° und 180°?'
+  - de: 'Welcher [[Winkel]] ist mit dem Bogen gemeint?'
+fehlerbilder:
+  winkelart:
+    de: 'Spitz: unter 90°. Stumpf: zwischen 90° und 180°. Überstumpf: über 180°.'
+    fv: FV.GF.WINKELART
+  gegenseite:
+    de: 'Gemeint ist der [[Winkel]] mit dem Bogen, nicht der auf der anderen Seite.'
+    fv: FV.GF.WINKELART
+herkunft: ki-entwurf
+version: 1

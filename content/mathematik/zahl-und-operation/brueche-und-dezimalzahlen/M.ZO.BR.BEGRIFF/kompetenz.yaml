@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: Anteile an Figuren und Körpern in verschiedenen Einteilungen; echte und unechte Brüche unterscheiden.
+  E:
+    beschreibung:
+      de: 'Begründen, was Zähler und Nenner bei einem Anteil zählen.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:
