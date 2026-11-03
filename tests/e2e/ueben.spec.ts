@@ -321,8 +321,8 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
   await hubVoll(page);
-  // Noch nie geübt (Y121): die Kachel Wiederholen ist noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
+  // Noch nie geübt: die Kachel Wiederholen ist da, aber ausgegraut (O3, Wunsch PV)
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
@@ -438,8 +438,8 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await hubVoll(page);
-  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
+  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgegraut (O3)
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
 });
 
 test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
