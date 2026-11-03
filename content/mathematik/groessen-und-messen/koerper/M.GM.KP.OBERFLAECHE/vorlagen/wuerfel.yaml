@@ -4,7 +4,7 @@ kompetenz: M.GM.KP.OBERFLAECHE
 niveaus: [G, M]
 typ: bild-zahl
 quelle: generator
-generator: kp.oberflaeche@1
+generator: kp.oberflaeche-wuerfel@1
 parameter:
   G: { wuerfel: true, gegeben: kanten, max: 10 }
   M: { wuerfel: true, gegeben: kanten, max: 20 }
@@ -17,9 +17,6 @@ hilfen:
 fehlerbilder:
   nur-eine-flaeche:
     de: 'Das ist erst eine Fläche. Ein [[Würfel]] hat sechs davon.'
-    fv: FV.KP.FLAECHEN-VERGESSEN
-  nur-drei-flaechen:
-    de: Du hast nur drei Flächen gezählt. Jede kommt zweimal vor – vorne und hinten, oben und unten, links und rechts.
     fv: FV.KP.FLAECHEN-VERGESSEN
   vier-flaechen:
     de: 'Du hast nur vier Flächen gezählt. Denk an Deckel und Boden – ein [[Würfel]] hat sechs Flächen.'

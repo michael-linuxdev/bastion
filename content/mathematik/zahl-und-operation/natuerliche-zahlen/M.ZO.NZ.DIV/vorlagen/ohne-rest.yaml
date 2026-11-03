@@ -4,7 +4,7 @@ kompetenz: M.ZO.NZ.DIV
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: nz.schriftlich-dividieren@1
+generator: nz.schriftlich-dividieren-ohne-rest@1
 parameter:
   G: { stellen_min: 3, stellen_max: 4, mit_rest: false }
   M: { stellen_min: 4, stellen_max: 6, mit_rest: false }
@@ -19,11 +19,5 @@ fehlerbilder:
   null-vergessen:
     de: Im Ergebnis fehlt eine 0. Wenn {b} in eine Stelle nicht hineinpasst, schreibst du eine 0 ins Ergebnis.
     fv: FV.NZ.NULL-PLATZHALTER
-  rest-zu-gross:
-    de: 'Der Rest ist größer als die Zahl, durch die du teilst – dann passt {b} noch einmal hinein.'
-    fv: FV.NZ.REST-ZU-GROSS
-  rest-vergessen:
-    de: Es bleibt ein Rest. Gib ihn mit an.
-    fv: FV.NZ.REST-VERGESSEN
 herkunft: ki-entwurf
 version: 1

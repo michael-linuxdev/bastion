@@ -4,7 +4,7 @@ kompetenz: M.GM.FL.RECHTECK
 niveaus: [G, M]
 typ: bild-zahl
 quelle: generator
-generator: fl.rechteck@1
+generator: fl.rechteck-flaeche@1
 parameter:
   G: { gesucht: flaeche, max: 12, einheiten: [cm, m] }
   M: { gesucht: flaeche, max: 60, einheiten: [mm, cm, dm, m] }
@@ -20,9 +20,6 @@ fehlerbilder:
     fv: FV.FL.UMFANG-FLAECHE
   addiert:
     de: 'Du hast Länge und Breite addiert. Für den [[Flächeninhalt]] wird multipliziert.'
-    fv: FV.FL.UMFANG-FLAECHE
-  nur-zwei-seiten:
-    de: 'Du hast nur zwei Seiten addiert. Für den [[Flächeninhalt]] wird multipliziert.'
     fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1

@@ -4,7 +4,7 @@ kompetenz: M.SF.NZ.TERME
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: nz.term-berechnen@1
+generator: nz.term-berechnen-klammern@1
 parameter:
   G: { zahl_max: 20, klammern: true }
   M: { zahl_max: 99, klammern: true }
@@ -15,9 +15,6 @@ hilfen:
   - de: Rechne zuerst, was in der Klammer steht.
   - de: 'Danach gilt [[Punkt vor Strich]].'
 fehlerbilder:
-  von-links-gerechnet:
-    de: Achte auf die Reihenfolge der Rechenschritte.
-    fv: FV.NZ.PUNKT-VOR-STRICH
   klammer-uebersehen:
     de: Du hast die Klammer übersehen. Was in der Klammer steht, wird immer zuerst gerechnet.
     fv: FV.NZ.KLAMMER

@@ -3,7 +3,7 @@ import { bruch, ggT, type Bruch } from '../../../core/learning/bruch';
 import type { Generator, Loesung } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng } from '../../../core/rng/rng';
-import { auswahl, de, mische, verlange, zahl } from '../../hilfen';
+import { auswahl, de, mische, verlange, zahl, variante } from '../../hilfen';
 import { bruchText } from './begriff';
 
 const alsBruch = (b: Bruch): Loesung => ({ typ: 'bruch', wert: b });
@@ -346,3 +346,19 @@ export const prozentschreibweise: Generator<ProzentParameter> = {
     };
   },
 };
+
+/** Variante für M.ZO.BR.PROZENT.DEZIMAL-ZU-PROZENT (Fehler-Schüler A): ohne prozent-als-nenner-zehn, das dort nie vorkommt. */
+export const prozentschreibweiseDezimalZuProzent = variante(
+  prozentschreibweise,
+  'br.prozentschreibweise-dezimal-zu-prozent',
+  ['komma-verschoben'],
+  {},
+);
+
+/** Variante für M.ZO.BR.PROZENT.PROZENT-ZU-BRUCH (Fehler-Schüler A): ohne komma-verschoben, das dort nie vorkommt. */
+export const prozentschreibweiseProzentZuBruch = variante(
+  prozentschreibweise,
+  'br.prozentschreibweise-prozent-zu-bruch',
+  ['prozent-als-nenner-zehn'],
+  {},
+);

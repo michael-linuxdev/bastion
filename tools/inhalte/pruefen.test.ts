@@ -63,7 +63,16 @@ describe('Inhalte in content/', () => {
         return nid === id && Number(nv) > Number(version);
       });
     };
-    expect([...generatoren.keys()].filter((g) => !genutzt.has(g) && !neuere(g))).toEqual([]);
+    // Basis von Varianten bleibt für gespeicherte Aufgaben, auch ohne eigene Vorlage
+    const basis = new Set(
+      [...genutzt].flatMap((g) => {
+        const b = generatoren.get(g)?.basis;
+        return b ? [b] : [];
+      }),
+    );
+    expect(
+      [...generatoren.keys()].filter((g) => !genutzt.has(g) && !neuere(g) && !basis.has(g)),
+    ).toEqual([]);
   });
 
   it('jede Vorlage nutzt die neueste Fassung ihres Generators', () => {

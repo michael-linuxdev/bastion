@@ -2,7 +2,7 @@ import { zahlDeutsch } from '../../../core/learning/format';
 import type { Generator } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng } from '../../../core/rng/rng';
-import { de, verlange, zahl } from '../../hilfen';
+import { de, verlange, zahl, variante } from '../../hilfen';
 
 export interface TermParameter {
   readonly zahl_max: number; // 9 … 99
@@ -68,3 +68,19 @@ export const termBerechnen: Generator<TermParameter> = {
     };
   },
 };
+
+/** Variante für M.SF.NZ.TERME.KLAMMERN (Fehler-Schüler A): ohne von-links-gerechnet, das dort nie vorkommt. */
+export const termBerechnenKlammern = variante(
+  termBerechnen,
+  'nz.term-berechnen-klammern',
+  ['klammer-uebersehen'],
+  {},
+);
+
+/** Variante für M.SF.NZ.TERME.PUNKT-VOR-STRICH (Fehler-Schüler A): ohne klammer-uebersehen, das dort nie vorkommt. */
+export const termBerechnenPunktVorStrich = variante(
+  termBerechnen,
+  'nz.term-berechnen-punkt-vor-strich',
+  ['von-links-gerechnet'],
+  {},
+);

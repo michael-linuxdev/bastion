@@ -2,7 +2,7 @@ import { zahlDeutsch } from '../../../core/learning/format';
 import type { Generator } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng, type Rng } from '../../../core/rng/rng';
-import { de, verlange, zahl } from '../../hilfen';
+import { de, verlange, zahl, variante } from '../../hilfen';
 import { bild, linie, text } from '../../svg';
 
 /** Schrägbild eines Quaders (Breite a, Tiefe b, Höhe c): Tiefe unter 45°, verkürzt auf die Hälfte. */
@@ -210,3 +210,19 @@ export const oberflaeche: Generator<OberflaecheParameter> = {
     };
   },
 };
+
+/** Variante für M.GM.KP.OBERFLAECHE.QUADER (Fehler-Schüler A): ohne nur-eine-flaeche, vier-flaechen, das dort nie vorkommt. */
+export const oberflaecheQuader = variante(
+  oberflaeche,
+  'kp.oberflaeche-quader',
+  ['nur-drei-flaechen', 'volumen-berechnet'],
+  {},
+);
+
+/** Variante für M.GM.KP.OBERFLAECHE.WUERFEL (Fehler-Schüler A): ohne nur-drei-flaechen, das dort nie vorkommt. */
+export const oberflaecheWuerfel = variante(
+  oberflaeche,
+  'kp.oberflaeche-wuerfel',
+  ['nur-eine-flaeche', 'vier-flaechen', 'volumen-berechnet'],
+  {},
+);

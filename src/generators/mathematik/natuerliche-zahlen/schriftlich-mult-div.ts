@@ -2,7 +2,7 @@ import { zahlDeutsch } from '../../../core/learning/format';
 import type { Generator, Loesung } from '../../../core/learning/generator';
 import { fehlerbilderAus } from '../../../core/learning/loesung';
 import { rng } from '../../../core/rng/rng';
-import { de, verlange, zahl, zahlMitStellen } from '../../hilfen';
+import { de, verlange, zahl, zahlMitStellen, variante } from '../../hilfen';
 
 /** Fehler „Übertrag vergessen“ beim Malnehmen mit einstelliger Zahl. */
 export function malOhneUebertrag(a: number, b: number): number {
@@ -124,3 +124,11 @@ export const schriftlichDividieren: Generator<DividierenParameter> = {
     };
   },
 };
+
+/** Variante für M.ZO.NZ.DIV.OHNE-REST (Fehler-Schüler A): ohne rest-vergessen, rest-zu-gross, das dort nie vorkommt. */
+export const schriftlichDividierenOhneRest = variante(
+  schriftlichDividieren,
+  'nz.schriftlich-dividieren-ohne-rest',
+  ['null-vergessen'],
+  {},
+);
