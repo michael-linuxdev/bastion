@@ -579,3 +579,8 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Bewuchs** (`inselBewuchs`): Bäume, Büsche, Sträucher, Steine bzw. Korallen aus dem Atlas, je Jahreszeit. Hohes nur auf der hinteren Hälfte, weil Vorderes hinter den Wänden der Bühne verschwände. Die Bäume der Bühne am Bauplatzrand stehen jetzt auf Land.
 - **Kulisse-Dinge** halten Abstand zur Küste (Dinge knapp ein Feld, Flächen und die sechs Plätze am Bauplatz knapp zwei).
 
+## 22. Tiefe in der Ferne (Wunsch PV, 03.11.2026, Schritt 6)
+
+- **Luftperspektive:** Dinge der Kulisse ab 8 Feldern Abstand vom Bauplatz werden mit wachsendem Abstand blasser, etwas heller und bläulicher und ganz weit draußen minimal unscharf (CSS-Variable `--dunst` 0 … 1, auch in Dämmerung und Nacht).
+- **Dunst am Horizont:** Vom Horizont abwärts liegt ein weicher Schleier in der unteren Himmelsfarbe (`.ferne`), nachts schwächer.
+
