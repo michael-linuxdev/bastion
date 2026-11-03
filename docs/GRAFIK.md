@@ -579,3 +579,11 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Bewuchs** (`inselBewuchs`): Bäume, Büsche, Sträucher, Steine bzw. Korallen aus dem Atlas, je Jahreszeit. Hohes nur auf der hinteren Hälfte, weil Vorderes hinter den Wänden der Bühne verschwände. Die Bäume der Bühne am Bauplatzrand stehen jetzt auf Land.
 - **Kulisse-Dinge** halten Abstand zur Küste (Dinge knapp ein Feld, Flächen und die sechs Plätze am Bauplatz knapp zwei).
 
+## 21. Scharf beim Zoomen (Wunsch PV, 03.11.2026, Schritt 1)
+
+- **Ursache:** Die Bühne zeichnet bis zur vierfachen Auflösung, die Bilder lagen aber nur in doppelter Größe vor. Auf dem iPhone (dreifache Pixeldichte) wirkten sie schon ohne Zoom weich, bei 2,4-fachem Zoom deutlich unscharf.
+- **Lösung:** `tools/grafik/g17_hd.py` rechnet dieselben Modelle mit `skala=2` noch einmal (doppelte Breite und Höhe, zweifache statt dreifache Kantenglättung) und legt `<datei>@2x.png` daneben, genau doppelt so groß wie das Original (unten bündig ausgerichtet). Betroffen: Gebäude aller Themen und Epochen, Umgebung (mit Jahreszeiten), alle Kulisse-Dinge. Nicht: Wesen, Bewohner, Boden, Himmel, Bänder.
+- **App:** Das Manifest markiert solche Einträge mit `"hd": true`. `atlasDatei` nimmt bei Pixeldichte ab 1,5 die @2x-Datei; die logische Größe (`pixel`) bleibt, die Bühne rechnet unverändert. Die Kulisse nutzt `srcset` (1x/2x). Geladen wird nur das aktive Thema und nur auf Geräten, die es brauchen; der Atlas wächst im Repository von 7,7 auf 15 MB.
+- **Laufzeit:** etwa zwei Stunden für alle 383 Aufträge (vier Prozesse). Der Lauf schreibt zuerst in einen Zwischenordner (`BASTION_HD_ZWISCHEN`) und kopiert am Ende.
+- Test `tools/grafik/atlas-hd.test.ts`: jedes Gebäude hat ein @2x-Bild in doppelter Größe, jedes Kulisse-Ding hat eines (sonst wäre es auf dem Handy kaputt), niedrige Pixeldichte lädt weiter das kleine Bild.
+
