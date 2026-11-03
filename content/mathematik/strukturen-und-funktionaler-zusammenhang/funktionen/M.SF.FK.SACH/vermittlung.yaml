@@ -15,7 +15,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '25', fehler: [{ wert: '70', fv: FV.FK.GRUNDGEBUEHR }] }
     weiter: entdecken
-    bei: { sonst: M.SF.FK.LINEAR-GLEICHUNG }
+    bei: { FV.FK.GRUNDGEBUEHR: erklaeren-tarif, sonst: M.SF.FK.LINEAR-GLEICHUNG }
   - id: entdecken
     typ: entdecken
     text:

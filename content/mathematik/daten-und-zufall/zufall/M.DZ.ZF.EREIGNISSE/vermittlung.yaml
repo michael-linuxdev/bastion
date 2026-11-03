@@ -17,7 +17,7 @@ schritte:
         - { wert: { de: '{2, 4, 6}' }, richtig: true }
         - { wert: { de: '{1, 3, 5}' }, fv: FV.ZF.GEGENEREIGNIS }
     weiter: entdecken
-    bei: { sonst: M.DZ.ZF.BEGRIFFE }
+    bei: { FV.ZF.GEGENEREIGNIS: erklaeren-gegenereignis, sonst: M.DZ.ZF.BEGRIFFE }
   - id: entdecken
     typ: entdecken
     text:

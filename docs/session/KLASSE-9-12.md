@@ -113,7 +113,7 @@ Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichk
 
 ### Fehler-Schüler-Funde (03.11.2026)
 
-24 fachlich klare Voraussetzungen ergänzt (etwa Brüche vergleichen ← Erweitern, Prim ← Teilbarkeitsregeln, Zylinder ← Kreis, Kreis ← Potenzen und Umrechnen, Zinsen ← prozentuale Veränderung), nur zu gleicher oder früherer Klasse und ohne Kreis im Graphen. Funde B 58 → 28, D 5 → 2; Grenze gesenkt. Rest siehe Frage 5.
+24 fachlich klare Voraussetzungen ergänzt (etwa Brüche vergleichen ← Erweitern, Prim ← Teilbarkeitsregeln, Zylinder ← Kreis, Kreis ← Potenzen und Umrechnen, Zinsen ← prozentuale Veränderung), nur zu gleicher oder früherer Klasse und ohne Kreis im Graphen. Funde B 58 → 28, D 5 → 2. Dazu in 14 Erstvermittlungen der Sprung bei einer Fehlvorstellung auf ihren eigenen Erklärschritt gesetzt: E 14 → 0. Grenze gesenkt. Offen: A 18 (braucht neue Generator-Fassungen), B 28 (davon 16 FV.SA.*, Frage 5).
 
 ### Offene Fragen der Nachtarbeit
 

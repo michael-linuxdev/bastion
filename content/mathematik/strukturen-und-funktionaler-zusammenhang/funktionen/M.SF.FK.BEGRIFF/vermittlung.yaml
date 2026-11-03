@@ -23,6 +23,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '11', fehler: [{ wert: '5', fv: FV.FK.X-ODER-Y }] }
     weiter: erklaeren-funktion
+    bei: { FV.FK.X-ODER-Y: erklaeren-stelle-wert }
   - id: erklaeren-funktion
     typ: erklaeren
     text:

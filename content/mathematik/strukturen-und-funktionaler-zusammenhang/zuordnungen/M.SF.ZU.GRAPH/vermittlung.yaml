@@ -25,6 +25,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '0', fehler: [{ wert: '3', fv: FV.ZU.GRAPH-FORM }] }
     weiter: erklaeren-ablesen
+    bei: { FV.ZU.GRAPH-FORM: erklaeren-form }
   - id: erklaeren-ablesen
     typ: erklaeren
     text:

@@ -17,7 +17,7 @@ schritte:
         - { wert: { de: '−6' }, richtig: true }
         - { wert: { de: '6' }, fv: FV.RZ.VORZEICHEN-FALSCH }
     weiter: entdecken
-    bei: { sonst: M.ZO.RZ.ADD-SUB }
+    bei: { FV.RZ.VORZEICHEN-FALSCH: erklaeren-vorzeichen, sonst: M.ZO.RZ.ADD-SUB }
   - id: entdecken
     typ: entdecken
     text:
