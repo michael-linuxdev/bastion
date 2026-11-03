@@ -18,9 +18,6 @@ niveaus:
   M:
     beschreibung:
       de: 'Figuren aus Rechtecken und Kreisteilen berechnen (Zerlegungsprinzip).'
-  E:
-    beschreibung:
-      de: 'Fehler in einer Kreisring-Rechnung finden und begründen.'
 kmk:
   leitidee: L2
   prozesse:
@@ -28,7 +25,6 @@ kmk:
     - K2
 anforderungsbereiche:
   - II
-  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -22,9 +22,6 @@ niveaus:
   M:
     beschreibung:
       de: 'Radius oder Durchmesser aus Umfang oder Flächeninhalt bestimmen; Sachaufgaben lösen.'
-  E:
-    beschreibung:
-      de: 'Begründen, wie sich Umfang und Flächeninhalt ändern, wenn der Radius k-mal so groß wird.'
 kmk:
   leitidee: L2
   prozesse:
@@ -33,7 +30,6 @@ kmk:
 anforderungsbereiche:
   - I
   - II
-  - III
 abdeckung: generator
 sachsen:
   oberschule:
