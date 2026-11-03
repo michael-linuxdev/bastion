@@ -94,6 +94,7 @@
   import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
+  import ZurueckKnopf from './start/ZurueckKnopf.svelte';
   import ProfilEinladung from './start/ProfilEinladung.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
@@ -812,7 +813,7 @@
           bind:schulart
         />
       {:else if ansicht === 'stand'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <MeinStand
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -824,13 +825,12 @@
           onueben={(k) => zumUeben(geladen, k)}
         />
       {:else if ansicht === 'diagnose'}
-        <button
-          class="zurueck"
+        <ZurueckKnopf
           onclick={() => {
             ansicht = 'start';
             void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
+          }}
+        />
         <Diagnose
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -871,7 +871,7 @@
           }}
         />
       {:else if ansicht === 'klassenarbeit'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <KlassenarbeitAnsicht
           kompetenzen={geladen.kompetenzen.filter(
             (k) => vorlagenFuer(geladen.vorlagen, k.id, 'G').length > 0,
@@ -892,7 +892,7 @@
           }}
         />
       {:else if ansicht === 'werkstatt'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <Werkstatt
           gruppen={gruppenNachUrsache(geladen)}
           fehlvorstellungen={geladen.fehlvorstellungen}
@@ -1111,16 +1111,6 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  .zurueck {
-    font: inherit;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
-    min-block-size: 2.75rem;
   }
 
   .anleitungen {
