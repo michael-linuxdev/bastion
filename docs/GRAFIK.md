@@ -536,3 +536,10 @@ PV: „Die Kulissen sind noch zu viel freie Fläche, die mit Leben gefüllt werd
 - **Neue Dinge** (`tools/grafik/g14_kulisse_leben.py`): Bastion Boje, Leuchtturm (selten); Dorf Baumgruppe, Kuh, Schaf, Zaun; Garten Baumgruppe, Bank, Vogeltränke; Unterwasser Anemone, Seestern; Weltraum Geröll, Antenne, Eisbrocken. Pflanzliches gibt es je Jahreszeit (Acker im Frühling grün, im Sommer Korn, im Herbst gepflügt, im Winter verschneit).
 - **Bewegtes**, ruhig und nur bei „voll“/„leicht“ ohne „Bewegung reduzieren“: Möwen kreisen über dem Meer (einfache Form aus dem Code), Kühe und Schafe grasen (nicken), Schmetterlinge flattern im Garten (nachts nicht), Fischschwärme ziehen unter Wasser hin und her, ein Satellit zieht über den Weltraum.
 
+### 18.1 Nachbesserung nach den iPhone-Fotos des PV (03.11.2026)
+
+- **Regen ruhiger:** zwei statt drei Ebenen, weniger, kürzere und blassere Striche; Schleier bei Regen kaum noch (mittel 3 %, stark 7 %, Sturm 10 %). Schnee etwas zurückgenommen. Insel und Gebäude bleiben bei jedem Wetter gut zu erkennen.
+- **Wolken und Nebel wandern mit:** Wolkenschatten und Nebelbänke hängen an der Welt (gleiche Verschiebung und gleicher Zoom wie der Bauplatz), über einem Stück Welt dreimal so groß wie die Bühne; beim Neubeginn blenden sie weich ein und aus. Nur Regen und Schnee fallen weiter in Blickrichtung über den Bildschirm.
+- **Szenerie bis weit hinaus:** keine Sperre mehr an den Seiten (beim Verschieben sah man sonst leere Fläche), Verteilung bis 44 Felder; oben (bis zum Horizont) etwas dichter als unten, damit beide Hälften gleich voll wirken. Gezeichnet wird nur, was im Bild oder knapp daneben liegt.
+- **Himmel:** ruhige Wolken über dem Horizont (Land und Meer), die beim Verschieben nur wenig mitwandern; bei Regen und Sturm grauer, nachts kaum zu sehen. Vor der Bastion ferne Segel auf der Horizontlinie.
+

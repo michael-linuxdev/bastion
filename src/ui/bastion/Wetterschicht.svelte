@@ -6,6 +6,7 @@
    * „voll“/„leicht“ und ohne „Bewegung reduzieren“; sonst steht das Wetter still im Bild.
    */
   import type { Bewegung } from './grafik/atmosphaere';
+  import type { Kamera } from './grafik/kamera';
   import type { WetterBild, WetterStaerke } from './grafik/wetter';
   import { wetterschicht } from './grafik/wetter-schicht';
 
@@ -15,12 +16,17 @@
     land,
     bewegung,
     nacht = false,
+    kamera,
+    welt,
   }: {
     wetter: WetterBild;
     staerke: WetterStaerke;
     land: boolean;
     bewegung: Bewegung;
     nacht?: boolean;
+    /** Wolken und Nebel gehören zur Welt: sie wandern beim Verschieben und Zoomen mit */
+    kamera: Kamera;
+    welt: { readonly breite: number; readonly hoehe: number };
   } = $props();
 
   const schicht = $derived(wetterschicht(wetter, staerke, land, bewegung === 'leicht'));
@@ -33,19 +39,33 @@
     class:nacht
     aria-hidden="true"
   >
-    {#each Array.from({ length: schicht.wolkenschatten }, (_, i) => i) as i (i)}
-      <div
-        class="wolkenschatten"
-        style:--n={i}
-        style:inset-block-start="{8 + ((i * 37) % 70)}%"
-      ></div>
-    {/each}
+    <div
+      class="welt"
+      style:inline-size="{welt.breite}px"
+      style:block-size="{welt.hoehe}px"
+      style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
+    >
+      <!-- Feste Plätze über einem großen Stück Welt (dreimal so breit und hoch wie die Bühne) -->
+      {#each Array.from({ length: schicht.wolkenschatten * 3 }, (_, i) => i) as i (i)}
+        <div
+          class="wolkenschatten"
+          style:--n={i}
+          style:inset-block-start="{-110 + ((i * 47) % 300)}%"
+          style:translate="{(i * 113) % 420}% 0"
+        ></div>
+      {/each}
+      {#each Array.from({ length: schicht.nebel * 3 }, (_, i) => i) as i (i)}
+        <div
+          class="nebelbank"
+          style:--n={i}
+          style:inset-block-start="{-100 + ((i * 41) % 290)}%"
+          style:translate="{(i * 97) % 360}% 0"
+        ></div>
+      {/each}
+    </div>
     {#if schicht.schleier > 0}
       <div class="schleier" style:opacity={schicht.schleier}></div>
     {/if}
-    {#each Array.from({ length: schicht.nebel }, (_, i) => i) as i (i)}
-      <div class="nebelbank" style:--n={i} style:inset-block-start="{6 + ((i * 29) % 80)}%"></div>
-    {/each}
     {#each schicht.ebenen as e, i (i)}
       <div
         class="ebene"
@@ -91,20 +111,27 @@
     background: rgb(232 236 240);
   }
 
+  .welt {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    transform-origin: 0 0;
+  }
+
   .nebelbank {
     position: absolute;
-    inset-inline-start: -40%;
-    inline-size: 90%;
-    block-size: 22%;
+    inset-inline-start: -120%;
+    inline-size: 110%;
+    block-size: 28%;
     background: radial-gradient(ellipse at center, rgb(240 244 248 / 0.6), transparent 70%);
     filter: blur(8px);
   }
 
   .wolkenschatten {
     position: absolute;
-    inset-inline-start: -50%;
-    inline-size: 75%;
-    block-size: 26%;
+    inset-inline-start: -120%;
+    inline-size: 90%;
+    block-size: 34%;
     background: radial-gradient(ellipse at center, rgb(20 30 44 / 0.24), transparent 70%);
   }
 
@@ -114,12 +141,6 @@
 
   .nacht .wolkenschatten {
     opacity: 0.5;
-  }
-
-  /* Ohne Bewegung stehen Nebel und Schatten an festen, versetzten Stellen */
-  .nebelbank,
-  .wolkenschatten {
-    translate: calc(var(--n) * 38%) 0;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -151,12 +172,19 @@
     }
   }
 
+  /* Weich ein- und ausblenden: beim Neubeginn springt nichts sichtbar */
   @keyframes ziehen {
     from {
       transform: translateX(0);
+      opacity: 0;
+    }
+    15%,
+    85% {
+      opacity: 1;
     }
     to {
-      transform: translateX(220%);
+      transform: translateX(160%);
+      opacity: 0;
     }
   }
 </style>
