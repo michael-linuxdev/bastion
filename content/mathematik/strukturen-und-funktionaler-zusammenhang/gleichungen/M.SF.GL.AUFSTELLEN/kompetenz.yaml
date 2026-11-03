@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Zu Sachaufgaben aus Alltag und Geometrie selbst eine Gleichung aufstellen, lösen und das Ergebnis prüfen – auch durch Rückwärtsarbeiten.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Gleichung zu einem Zahlenrätsel passt, auch mit der Reihenfolge der Rechenschritte.'
 kmk:
   leitidee: L3
   prozesse:

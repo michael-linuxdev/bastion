@@ -84,3 +84,5 @@
 | 03.11.2026 | **K-31, Feld Terme mit E:** fünf Generatoren `tu.*-aussage` (Minusklammer, Ausmultiplizieren, binomische Formel, erster Schritt einer Gleichung, Ungleichung) mit Pflicht-Tests und E-Vorlagen |
 | 03.11.2026 | **K-31, Feld Funktionen mit E:** sechs Generatoren `fk.*-aussage` (Funktion oder nicht, Steigen/Fallen, Anstieg aus zwei Punkten, Nullstelle, y-Achsenabschnitt, Tarif mit Grundgebühr) mit Pflicht-Tests und E-Vorlagen |
 | 03.11.2026 | **K-31, Gleichungssysteme, Zufall und Prozent (Klasse 8) mit E:** acht Generatoren (`gs.loesbarkeit-`, `gs.einsetzen-`, `gs.sach-`, `zf.zaehlen-`, `zf.pfad-`, `zf.gegenereignis-`, `pz.rabatt-`, `pz.angebot-aussage`) mit Pflicht-Tests und E-Vorlagen |
+| 03.11.2026 | **K-31, Daten und Zufall (Klasse 7) mit E:** `da.achse-aussage` (abgeschnittene Achse), `zf.ereignis-aussage` (Ereignis als Menge), `zf.chance-aussage` (Chancen über den Anteil) mit Pflicht-Tests und E-Vorlagen |
+| 03.11.2026 | **K-31, Gleichungen (Klasse 7) mit E:** `gl.text-aussage`, `gl.formel-aussage`, `gl.loesen-aussage`, `gl.probe-aussage` mit Pflicht-Tests und E-Vorlagen |

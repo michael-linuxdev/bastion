@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Ereignisse als Teilmengen der Ergebnismenge angeben, z. B. „gerade Zahl würfeln“.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum ein Ereignis eine Menge von Ergebnissen ist.'
 kmk:
   leitidee: L5
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

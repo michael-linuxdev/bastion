@@ -1,0 +1,24 @@
+# Formel umstellen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GL.FORMELN.BEGRUENDEN
+kompetenz: M.SF.GL.FORMELN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gl.formel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Größen stehen bei c auf derselben Seite?'
+  - de: 'Teile durch alle bekannten [[Faktoren]].'
+fehlerbilder:
+  umstellen-halb:
+    de: 'Du hast nur durch a geteilt. Auch b steht als [[Faktor]] bei c.'
+    fv: FV.GL.UMSTELLEN-HALB
+  teilen-vertauscht:
+    de: 'Geteilt wird V durch a · b, nicht umgekehrt.'
+    fv: FV.GL.TEILEN-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1

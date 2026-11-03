@@ -1,0 +1,24 @@
+# Abgeschnittene Achse begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.DA.DIAGRAMME.BEGRUENDEN
+kompetenz: M.DZ.DA.DIAGRAMME
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: da.achse-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Bei welcher Zahl beginnt die y-Achse?'
+  - de: 'Vergleiche die Werte, nicht die Höhen der Säulen.'
+fehlerbilder:
+  achse-nicht-null:
+    de: 'Die Achse beginnt nicht bei 0. Deshalb sagt die [[Höhe]] der Säule nichts über das Verhältnis der Werte.'
+    fv: FV.DA.ACHSE-NICHT-NULL
+  hoehe-abgelesen:
+    de: 'Du hast die [[Höhe]] über dem Achsenanfang abgelesen. Der Wert steht an der Achse.'
+    fv: FV.DA.ACHSE-NICHT-NULL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Chancen über den Anteil begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.WAHRSCHEINLICHKEIT.BEGRUENDEN
+kompetenz: M.DZ.ZF.WAHRSCHEINLICHKEIT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.chance-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele Kugeln liegen insgesamt in jedem Beutel?'
+  - de: 'Vergleiche rote Kugeln durch alle Kugeln.'
+fehlerbilder:
+  anzahl-statt-anteil:
+    de: 'Mehr rote Kugeln heißt nicht mehr Chance. Es kommt auf den [[Anteil]] an.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
+  nur-blaue:
+    de: 'Das Ergebnis stimmt, die Begründung nicht: Nur auf die blauen Kugeln zu schauen reicht nicht.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
+herkunft: ki-entwurf
+version: 1

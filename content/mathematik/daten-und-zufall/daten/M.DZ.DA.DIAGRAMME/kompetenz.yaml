@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Diagramme beurteilen, z. B. abgeschnittene Achsen oder unpassende Anteile erkennen; Aussagen über Daten prüfen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum ein Diagramm mit abgeschnittener Achse täuschen kann.'
 kmk:
   leitidee: L5
   prozesse:

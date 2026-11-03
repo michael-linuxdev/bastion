@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Formeln aus Geometrie und Physik wie V = a·b·c oder s = v·t nach jeder Größe umstellen und Werte einsetzen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man eine Formel mit mehreren Faktoren richtig umstellt.'
 kmk:
   leitidee: L3
   prozesse:
@@ -25,6 +28,7 @@ kmk:
     - K3
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
