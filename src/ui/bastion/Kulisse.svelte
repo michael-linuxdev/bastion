@@ -299,8 +299,8 @@
   }
 
   .wetter-nebel .dunst {
-    block-size: 9rem;
-    background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.2));
+    block-size: 12rem;
+    background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.25) 60%, transparent);
   }
 
   .wetter-sturm .schaum polygon {

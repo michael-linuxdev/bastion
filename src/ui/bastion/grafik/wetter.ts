@@ -85,6 +85,26 @@ export function regenbogenAusEcht(bild: WetterBild, niederschlagMm: number | und
   return (bild === 'klar' || bild === 'bewoelkt') && (niederschlagMm ?? 0) >= 0.5;
 }
 
+/**
+ * Stärke des Wetters (Wunsch PV 03.11.2026): Niesel bis Starkregen, leichter Schnee bis
+ * Gestöber. Bestimmt, wie dicht die Wetterschicht über dem ganzen Bild ist.
+ */
+export const WETTER_STAERKEN = ['leicht', 'mittel', 'stark'] as const;
+export type WetterStaerke = (typeof WETTER_STAERKEN)[number];
+
+/** Stärke aus dem WMO-Code (Open-Meteo): Niesel/Schauer leicht, starker Regen/Schnee stark. */
+export function staerkeAusWmo(code: number): WetterStaerke {
+  if ([51, 56, 61, 66, 71, 77, 80, 85].includes(code)) return 'leicht';
+  if ([55, 57, 65, 67, 75, 82, 86, 96, 99].includes(code)) return 'stark';
+  return 'mittel';
+}
+
+/** Stärke offline aus dem Datum: fest je Tag, kein Zufall zur Laufzeit. */
+export function staerkeAusDatum(d: Date): WetterStaerke {
+  const h = ((tagImJahr(d) * 2654435761) >>> 0) >>> 11;
+  return WETTER_STAERKEN[h % 3] ?? 'mittel';
+}
+
 /** Wie viele Partikel höchstens (leicht = weniger). Sturm: Windstriche. */
 export function partikelBudget(bild: WetterBild, leicht: boolean): number {
   if (bild === 'klar' || bild === 'bewoelkt') return 0;

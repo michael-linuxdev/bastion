@@ -3,6 +3,8 @@ import {
   partikelBudget,
   regenbogenAusDatum,
   regenbogenAusEcht,
+  staerkeAusDatum,
+  staerkeAusWmo,
   wetterAusDatum,
   wetterAusWmo,
 } from './wetter';
@@ -53,5 +55,22 @@ describe('wetter', () => {
     expect(regenbogenAusDatum(new Date(2026, 5, 3, 9))).toBe(
       regenbogenAusDatum(new Date(2026, 5, 3, 18)),
     );
+  });
+
+  it('Stärke aus dem Wettercode: Niesel leicht, Starkregen und Gestöber stark', () => {
+    expect(staerkeAusWmo(51)).toBe('leicht');
+    expect(staerkeAusWmo(63)).toBe('mittel');
+    expect(staerkeAusWmo(65)).toBe('stark');
+    expect(staerkeAusWmo(71)).toBe('leicht');
+    expect(staerkeAusWmo(75)).toBe('stark');
+  });
+
+  it('Stärke aus dem Datum: fest je Tag, über das Jahr alle drei', () => {
+    const tag = new Date(2026, 10, 3, 12);
+    expect(staerkeAusDatum(tag)).toBe(staerkeAusDatum(new Date(2026, 10, 3, 18)));
+    const alle = new Set(
+      Array.from({ length: 60 }, (_, i) => staerkeAusDatum(new Date(2026, 0, 1 + i, 12))),
+    );
+    expect(alle).toEqual(new Set(['leicht', 'mittel', 'stark']));
   });
 });

@@ -1307,8 +1307,15 @@ export async function buehneErstellen(
   }
   spannungHimmelZeichnen(overlayLage, farben, atlas, texturen);
   const wolkenLage = new Container();
+  /**
+   * Mit Kulisse liegt das Wetter als eigene Schicht über dem ganzen Bild (GRAFIK §15.1):
+   * dann keine kleinen Wolken, Tropfen, Flocken und Schatten mehr direkt über der Insel
+   * (Wunsch PV 03.11.2026). Was auf der Insel liegt (Pfützen, Schnee, Laub), bleibt.
+   */
+  const wetterUeberAllem = farben.kulisse === true && istLandBildart(art);
   // Wolken nur über Land; unter Wasser und im Weltraum gibt es keine (Grafik Punkt 3)
-  if (istLandBildart(art)) wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
+  if (istLandBildart(art) && !wetterUeberAllem)
+    wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();
   gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
@@ -1321,7 +1328,7 @@ export async function buehneErstellen(
   const schattenLage = new Graphics();
   const schattenZeichnen = (zeit: number) => {
     schattenLage.clear();
-    if (wetterBild !== 'sturm') return;
+    if (wetterBild !== 'sturm' || wetterUeberAllem) return;
     for (const w of wolkenSchatten(zeit, buehneBreite(), buehneHoehe(), tickerAn(bewegung))) {
       for (const f of [1, 0.75, 0.5]) {
         schattenLage.ellipse(w.x, w.y, w.rx * f, w.ry * f).fill({ color: '#1c2430', alpha: 0.05 });
@@ -1366,18 +1373,22 @@ export async function buehneErstellen(
   const landThema = istLandBildart(art);
   const laubBudget =
     jahreszeit === 'herbst' && bewegungStart !== 'aus' && landThema ? (leicht ? 4 : 8) : 0;
-  const wetterBudget = partikelBudget(wetterBild, leicht);
+  const wetterBudget = wetterUeberAllem ? 0 : partikelBudget(wetterBild, leicht);
   const budget = wetterBudget + laubBudget;
   const partikelArt: 'regen' | 'schnee' | 'nebel' | 'laub' | 'keine' =
-    wetterBild === 'schnee'
-      ? 'schnee'
-      : wetterBild === 'nebel'
-        ? 'nebel'
-        : wetterBild === 'regen'
-          ? 'regen'
-          : laubBudget > 0
-            ? 'laub'
-            : 'keine';
+    wetterBudget === 0
+      ? laubBudget > 0
+        ? 'laub'
+        : 'keine'
+      : wetterBild === 'schnee'
+        ? 'schnee'
+        : wetterBild === 'nebel'
+          ? 'nebel'
+          : wetterBild === 'regen'
+            ? 'regen'
+            : laubBudget > 0
+              ? 'laub'
+              : 'keine';
 
   const wetterTexId =
     partikelArt === 'schnee'
