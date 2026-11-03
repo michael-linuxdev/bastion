@@ -11,6 +11,9 @@ import type { Jahreszeit } from './jahreszeit';
 
 export type Stimmung = 'tag' | 'daemmerung' | 'nacht';
 
+/** Bewegtes in der Kulisse: Möwen, grasende Tiere, Schmetterlinge, Fischschwarm, Satellit */
+export type LebenArt = 'moewen' | 'grasen' | 'schmetterlinge' | 'schwarm' | 'satellit';
+
 export interface KulissenThema {
   /** Himmel oben → unten je Stimmung */
   readonly himmel: Readonly<Record<Stimmung, readonly [string, string]>>;
@@ -24,6 +27,12 @@ export interface KulissenThema {
   readonly boot: boolean;
   /** Sterne auch am Tag (Weltraum) */
   readonly sterneImmer: boolean;
+  /** Weitere Dinge, locker verteilt bis an den Bildrand (Wunsch PV: mehr Leben, G14) */
+  readonly weitere: readonly string[];
+  /** Flächen am Boden, zwei Felder breit (Acker, Sandbank, Beet …), liegen unter allem */
+  readonly flaechen: readonly string[];
+  /** Was sich in der Kulisse ruhig bewegt */
+  readonly leben: readonly LebenArt[];
   /** Dinge mit eigenem Bild je Jahreszeit (`<name>_<jahreszeit>.png`, G13) */
   readonly jahreszeitDinge: readonly string[];
   /** Boden und Horizont folgen der Jahreszeit (nur über Land) */
@@ -52,6 +61,27 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: true,
     boot: true,
     sterneImmer: false,
+    // Leuchtturm selten (einer von sechzehn), Felsen und Bojen oft
+    weitere: [
+      'fels_2',
+      'boje',
+      'fels_1',
+      'inselchen',
+      'fels_2',
+      'fels_1',
+      'boje',
+      'inselchen',
+      'fels_2',
+      'leuchtturm',
+      'fels_1',
+      'boje',
+      'fels_2',
+      'inselchen',
+      'fels_1',
+      'boje',
+    ],
+    flaechen: ['sandbank', 'riff', 'riff', 'sandbank'],
+    leben: ['moewen'],
     jahreszeitDinge: ['inselchen'],
     jahreszeitBoden: true,
   },
@@ -66,7 +96,21 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
-    jahreszeitDinge: ['hecke', 'obstbaum', 'teich'],
+    weitere: [
+      'baumgruppe',
+      'kuh',
+      'hecke',
+      'schaf',
+      'zaun',
+      'obstbaum',
+      'schaf',
+      'heuballen',
+      'baumgruppe',
+      'kuh',
+    ],
+    flaechen: ['acker', 'acker', 'teich', 'acker'],
+    leben: ['grasen'],
+    jahreszeitDinge: ['hecke', 'obstbaum', 'teich', 'acker', 'baumgruppe', 'zaun'],
     jahreszeitBoden: true,
   },
   garten: {
@@ -80,7 +124,28 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
-    jahreszeitDinge: ['blumenbusch', 'teich', 'hecke', 'obstbaum'],
+    weitere: [
+      'baumgruppe',
+      'blumenbusch',
+      'bank',
+      'hecke',
+      'vogeltraenke',
+      'obstbaum',
+      'blumenbusch',
+      'baumgruppe',
+    ],
+    flaechen: ['beet', 'teich', 'beet'],
+    leben: ['schmetterlinge'],
+    jahreszeitDinge: [
+      'blumenbusch',
+      'teich',
+      'hecke',
+      'obstbaum',
+      'beet',
+      'baumgruppe',
+      'bank',
+      'vogeltraenke',
+    ],
     jahreszeitBoden: true,
   },
   unterwasser: {
@@ -94,6 +159,18 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
+    weitere: [
+      'anemone',
+      'seetang',
+      'seestern',
+      'koralle',
+      'fels',
+      'anemone',
+      'seetang',
+      'muschelfels',
+    ],
+    flaechen: ['seegras', 'sandrippel', 'seegras'],
+    leben: ['schwarm'],
     jahreszeitDinge: [],
     jahreszeitBoden: false,
   },
@@ -108,6 +185,18 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: true,
+    weitere: [
+      'geroell',
+      'eisbrocken',
+      'krater',
+      'antenne',
+      'felsbrocken',
+      'geroell',
+      'kristall',
+      'eisbrocken',
+    ],
+    flaechen: ['kraterfeld', 'kraterfeld'],
+    leben: ['satellit'],
     jahreszeitDinge: [],
     jahreszeitBoden: false,
   },
@@ -167,6 +256,10 @@ export interface Ding {
   readonly bild: string;
   readonly gx: number;
   readonly gy: number;
+  /** Breite in Bühnen-Bildpunkten (Standard DING_BREITE) */
+  readonly breite?: number;
+  /** Fläche am Boden: liegt unter den anderen Dingen */
+  readonly flach?: boolean;
 }
 
 /** Breite der Ding-Bilder in Bühnen-Bildpunkten (doppelt gezeichnet, Fuß unten Mitte) */
@@ -187,4 +280,63 @@ export function dingeUmBauplatz(
     { gx: breite * 0.2, gy: -3 },
   ];
   return plaetze.map((p, i) => ({ bild: namen[i % namen.length] ?? 'fels_1', ...p }));
+}
+
+/** Feste Mischzahl 0 … 1 (kein Zufall zur Laufzeit) */
+function misch(a: number, b: number, k: number): number {
+  const h = (Math.imul(a + 101, 2654435761) ^ Math.imul(b + 307, 2246822519) ^ (k * 97)) >>> 0;
+  return ((h >>> 9) % 10000) / 10000;
+}
+
+/** Wie weit die Kulisse um den Bauplatz reicht (Felder) – bis über den Bildrand */
+export const KULISSE_WEITE = 30;
+
+/**
+ * Alle Dinge der Kulisse (Wunsch PV 03.11.2026: weniger leere Fläche): die sechs
+ * festen Plätze am Bauplatz, dazu locker verteilte Dinge und Flächen bis weit hinaus.
+ * Raster mit fester Verschiebung je Zelle, kein Zufall. Nichts liegt auf dem Bauplatz
+ * oder direkt am Rand; weiter weg wird es lockerer. Reihenfolge: erst die Flächen,
+ * dann alles nach Tiefe (hinten zuerst), damit Vorderes vorn liegt.
+ */
+export function kulissenDinge(
+  breite: number,
+  tiefe: number,
+  thema: KulissenThema,
+): readonly Ding[] {
+  const nah = dingeUmBauplatz(breite, tiefe, thema.dinge);
+  const weit: Ding[] = [];
+  const schritt = 3.4;
+  const w = KULISSE_WEITE;
+  let n = 0;
+  for (let i = 0; -w + i * schritt < breite + w; i++)
+    for (let j = 0; -w + j * schritt < tiefe + w; j++) {
+      const gx = -w + i * schritt + (misch(i, j, 1) - 0.5) * schritt * 0.8;
+      const gy = -w + j * schritt + (misch(i, j, 2) - 0.5) * schritt * 0.8;
+      // Abstand zum Bauplatz (0 = am Rand)
+      const ax = gx < 0 ? -gx : gx > breite ? gx - breite : 0;
+      const ay = gy < 0 ? -gy : gy > tiefe ? gy - tiefe : 0;
+      const abstand = Math.max(ax, ay);
+      if (abstand < 2.2) continue;
+      // Im Hochformat reicht das Bild seitlich kaum über den Bauplatz hinaus (Bildschirm-x
+      // folgt gx − gy): weit seitlich nichts hinlegen, das sähe ohnehin niemand
+      if (Math.abs(gx - gy - (breite - tiefe) / 2) > (breite + tiefe) / 2 + 8) continue;
+      if (nah.some((d) => Math.hypot(d.gx - gx, d.gy - gy) < 2.4)) continue;
+      // nah dichter, weit lockerer
+      const dichte = abstand < 9 ? 0.6 : abstand < 18 ? 0.36 : 0.2;
+      if (misch(i, j, 3) > dichte) continue;
+      const flach = thema.flaechen.length > 0 && misch(i, j, 4) < 0.2;
+      const liste = flach ? thema.flaechen : thema.weitere.length ? thema.weitere : thema.dinge;
+      // Reihenfolge der Liste mit fester Verschiebung je Zelle, damit nichts im Takt wiederholt
+      n += 1 + Math.floor(misch(i, j, 5) * 3);
+      const bild = liste[n % liste.length] ?? liste[0] ?? 'fels_1';
+      // Größe schwankt etwas (Flächen 2–3 Felder, Dinge 0,85–1,15)
+      const g = misch(i, j, 6);
+      const bildBreite = Math.round(DING_BREITE * (flach ? 2 + g : 0.85 + g * 0.3));
+      weit.push({ bild, gx, gy, breite: bildBreite, ...(flach ? { flach: true } : {}) });
+    }
+  const tiefeVon = (d: Ding) => d.gx + d.gy;
+  return [
+    ...weit.filter((d) => d.flach).sort((a, b) => tiefeVon(a) - tiefeVon(b)),
+    ...[...nah, ...weit.filter((d) => !d.flach)].sort((a, b) => tiefeVon(a) - tiefeVon(b)),
+  ];
 }
