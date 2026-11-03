@@ -14,7 +14,7 @@
   import type { Bewegung } from './grafik/atmosphaere';
   import { buehneFuer, punkt } from './grafik/iso';
   import {
-    DING_MASS,
+    DING_BREITE,
     HORIZONT,
     MEER,
     STERNE,
@@ -67,8 +67,11 @@
     }
     return aus;
   }
-  const ringe = $derived(wetter === 'regen' || wetter === 'sturm' ? meerPlaetze(18, 1.2, 0) : []);
-  const schollen = $derived(wetter === 'schnee' ? meerPlaetze(10, 0.5, 1) : []);
+  const ringe = $derived(
+    thema.wasser && (wetter === 'regen' || wetter === 'sturm') ? meerPlaetze(18, 1.2, 0) : [],
+  );
+  const schollen = $derived(thema.wasser && wetter === 'schnee' ? meerPlaetze(10, 0.5, 1) : []);
+  const sterneZeigen = $derived(stimmung === 'nacht' || thema.sterneImmer);
 
   const buehne = $derived(buehneFuer(platz));
   const basis = $derived(`${import.meta.env.BASE_URL}grafik/atlas/kulisse/${themaName}/`);
@@ -80,7 +83,10 @@
   const hoch = $derived(HORIZONT.hoehe * lage.horizontSkala);
   const wasserFern = $derived(hY - (HORIZONT.hoehe - HORIZONT.wasser) * lage.horizontSkala);
   const dinge = $derived(
-    dingeUmBauplatz(platz.breite, platz.tiefe).map((d) => ({ ...d, ...punkt(d.gx, d.gy, platz) })),
+    dingeUmBauplatz(platz.breite, platz.tiefe, thema.dinge).map((d) => ({
+      ...d,
+      ...punkt(d.gx, d.gy, platz),
+    })),
   );
   /** Rand des Bauplatzes (Raute) für den Schaumring, in Bühnen-Bildpunkten */
   const raute = $derived(
@@ -100,12 +106,13 @@
 <div
   class="kulisse {stimmung} wetter-{wetter}"
   class:bewegt={bewegung !== 'aus'}
+  class:wasser={thema.wasser}
   aria-hidden="true"
   style:background="linear-gradient({himmel[0]}, {himmel[1]}
   {wasserFern}px, {meer}
   {wasserFern}px)"
 >
-  {#if stimmung === 'nacht' && wasserFern > 0}
+  {#if sterneZeigen && wasserFern > 0}
     <div
       class="sterne"
       style:block-size="{wasserFern}px"
@@ -157,7 +164,9 @@
     style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
   >
     <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
-      <polygon points={raute} />
+      {#if thema.wasser}
+        <polygon points={raute} />
+      {/if}
       {#each schollen as s (s.i)}
         <polygon
           class="scholle"
@@ -179,21 +188,23 @@
         class="ding"
         src="{basis}dinge/{d.bild}.png"
         alt=""
-        style:inline-size="{DING_MASS[d.bild].w}px"
-        style:inset-inline-start="{d.x - DING_MASS[d.bild].w / 2}px"
-        style:inset-block-start="{d.y - DING_MASS[d.bild].h}px"
+        style:inline-size="{DING_BREITE}px"
+        style:inset-inline-start="{d.x}px"
+        style:inset-block-start="{d.y}px"
       />
     {/each}
-    <img
-      class="ding boot"
-      src="{basis}dinge/boot.png"
-      alt=""
-      style:inline-size="{DING_MASS.boot.w}px"
-      style:inset-inline-start="{bootStart.x - DING_MASS.boot.w / 2}px"
-      style:inset-block-start="{bootStart.y - DING_MASS.boot.h}px"
-      style:--boot-x="{bootZiel.x - bootStart.x}px"
-      style:--boot-y="{bootZiel.y - bootStart.y}px"
-    />
+    {#if thema.boot}
+      <img
+        class="ding boot"
+        src="{basis}dinge/boot.png"
+        alt=""
+        style:inline-size="{DING_BREITE}px"
+        style:inset-inline-start="{bootStart.x}px"
+        style:inset-block-start="{bootStart.y}px"
+        style:--boot-x="{bootZiel.x - bootStart.x}px"
+        style:--boot-y="{bootZiel.y - bootStart.y}px"
+      />
+    {/if}
   </div>
 </div>
 
@@ -258,6 +269,8 @@
   .ding {
     position: absolute;
     block-size: auto;
+    /* Fuß unten Mitte auf dem Platz */
+    translate: -50% -100%;
   }
 
   .daemmerung .ding,
@@ -366,7 +379,7 @@
     }
 
     /* Wellen ziehen langsam (eine Kachel in 40 s); das Boot quert in 3 Minuten */
-    .kulisse.bewegt .meer {
+    .kulisse.bewegt.wasser .meer {
       animation: wellen 40s linear infinite;
     }
 

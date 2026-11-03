@@ -170,9 +170,7 @@
     szeneAbend(darstellung.modus, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
   );
   /** Kulisse hinter dem Bauplatz (GRAFIK §13): nur für Themen mit Bildern, nur im Bild */
-  const kulisse = $derived(
-    bildartVonThema(aktiv.thema) === 'insel' ? kulisseFuer(aktiv.thema) : undefined,
-  );
+  const kulisse = $derived(kulisseFuer(aktiv.thema));
   const stimmung = $derived(
     stimmungAus(abend, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
   );
