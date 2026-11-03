@@ -1,0 +1,89 @@
+id: M.GM.KP.KUGEL
+kompetenz: M.GM.KP.KUGEL
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du [[Volumen]] und [[Oberfläche]] einer Kugel berechnen und aus dem Volumen den [[Radius]] bestimmen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel ist $2^3$?'
+    antwort:
+      optionen:
+        - { wert: { de: '8' }, richtig: true }
+        - { wert: { de: '6' }, fv: FV.NZ.HOCHZAHL-MAL }
+    weiter: entdecken
+    bei: { FV.NZ.HOCHZAHL-MAL: M.ZO.PW.WURZEL, sonst: M.ZO.PW.WURZEL }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein [[Würfel]] mit doppelter [[Kantenlänge]] besteht aus wie vielen kleinen Würfeln?'
+    antwort:
+      eingabe: { art: zahl, loesung: '8', fehler: [{ wert: '2', fv: FV.KP.HOCHZAHL-FORMEL }] }
+    weiter: erklaeren-kugel
+  - id: erklaeren-kugel
+    typ: erklaeren
+    text:
+      de: 'Kugel: $V = \frac{4}{3} \cdot \pi \cdot r^3$ und $O = 4 \cdot \pi \cdot r^2$. [[Volumen]] hoch 3, Fläche hoch 2. Doppelter [[Radius]]: 8-faches Volumen, 4-fache [[Oberfläche]].'
+    weiter: erklaeren-rueckwaerts
+  - id: erklaeren-rueckwaerts
+    typ: erklaeren
+    text:
+      de: '[[Radius]] aus dem [[Volumen]]: $r^3 = \frac{3 \cdot V}{4 \cdot \pi}$, dann die dritte [[Wurzel]] ziehen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$r = 3$ cm: $V = \frac{4}{3} \cdot 3{,}14 \cdot 27 \approx 113{,}0$ cm³, $O = 4 \cdot 3{,}14 \cdot 9 = 113{,}04$ cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Der [[Radius]] einer Kugel wird verdoppelt. Wie oft so groß wird ihr [[Volumen]]?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '8',
+          fehler:
+            [{ wert: '2', fv: FV.KP.HOCHZAHL-FORMEL }, { wert: '4', fv: FV.KP.HOCHZAHL-FORMEL }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.KP.HOCHZAHL-FORMEL: erklaeren-kugel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lisa rechnet das Kugelvolumen mit $\frac{4}{3} \cdot \pi \cdot r^2$. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, beim Volumen steht $r^3$.' }, richtig: true }
+        - { wert: { de: 'Ja, wie bei der Kreisfläche.' }, fv: FV.KP.HOCHZAHL-FORMEL }
+    weiter: merksatz
+    bei: { FV.KP.HOCHZAHL-FORMEL: erklaeren-kugel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$V = \frac{4}{3} \pi r^3$, $O = 4 \pi r^2$. Rückwärts: umstellen und dritte [[Wurzel]]. Achte auf [[Radius]] statt [[Durchmesser]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Eine Kugel hat den [[Durchmesser]] 10 cm. Mit welchem r rechnest du?'
+    antwort:
+      optionen:
+        - { wert: { de: '5 cm' }, richtig: true }
+        - { wert: { de: '10 cm' }, fv: FV.KR.RADIUS-DURCHMESSER }
+    weiter: uebergang
+    bei: { FV.KR.RADIUS-DURCHMESSER: erklaeren-kugel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Kugeln.'
+    vorlagen: [M.GM.KP.KUGEL.BERECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

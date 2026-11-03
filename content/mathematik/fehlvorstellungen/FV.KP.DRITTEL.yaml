@@ -1,0 +1,25 @@
+id: FV.KP.DRITTEL
+name:
+  de: Vergisst beim Kegel das Drittel oder deutet es falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet das Kegelvolumen wie beim Zylinder (π · r² · h) oder meint, der Zylinder sei ein Drittel des Kegels. Dass spitze Körper ein Drittel des passenden Prismas oder Zylinders haben, ist nicht verankert.
+kompetenzen: [M.GM.KP.KEGEL, M.GM.KP.ZUSAMMENGESETZT]
+erklaerung:
+  kurz:
+    de: 'Ein Kegel hat ein Drittel des [[Volumens]] eines [[Zylinders]] mit gleicher [[Grundfläche]] und [[Höhe]]: $V = \frac{1}{3} \cdot \pi \cdot r^2 \cdot h$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Kegel wie einen [[Zylinder]] gerechnet.'
+    - teil: warum-nicht
+      de: 'Der Kegel läuft spitz zu. Nach oben ist immer weniger Platz. Drei Kegelfüllungen füllen den [[Zylinder]].'
+    - teil: so-stimmt-es
+      de: 'Prüfe bei jedem spitzen Körper (Kegel, [[Pyramide]]) das Drittel.'
+gegenbeispiel:
+  de: 'Ein Kegel in einem [[Zylinder]]: Rund um die Spitze bleibt viel Raum frei. Also ist er deutlich kleiner.'
+rueckweg:
+  vermittlung: M.GM.KP.KEGEL#erklaeren-volumen
+kontrast: [M.GM.KP.KEGEL.BERECHNEN, M.GM.KP.KEGEL.VERGLEICH]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,40 @@
+# Kreiskegel darstellen – Klasse 9 (LEHRPLAN §8e). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.KP.KEGEL
+fach: mathematik
+bereich: raum-und-form
+feld: koerper
+titel:
+  de: 'Kreiskegel darstellen'
+kann_satz:
+  de: 'Ich kann Netze, Schrägbilder und Ansichten von Kreiskegeln erkennen und skizzieren.'
+klassenstufe_typisch:
+  - 9
+voraussetzungen:
+  - M.RF.KP.ZYLINDER
+  - M.RF.KP.PYRAMIDEN
+  - M.RF.KP.ZWEITAFEL
+niveaus:
+  G:
+    beschreibung:
+      de: 'Einen Kegel am Zweitafelbild erkennen und von Zylinder, Pyramide und Kugel unterscheiden.'
+  M:
+    beschreibung:
+      de: 'Das Netz eines Kegels beschreiben: Kreis und Kreisausschnitt.'
+  E:
+    beschreibung:
+      de: 'Einen liegenden Kegel am Zweitafelbild erkennen.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K5
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: gemischt
+sachsen:
+  oberschule:
+    klassenstufe: 9
+    lernbereich: 'LB 2 Pyramide, Kreiskegel, Kugel'
+version: 1

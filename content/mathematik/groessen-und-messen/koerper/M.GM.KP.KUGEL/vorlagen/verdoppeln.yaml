@@ -1,0 +1,30 @@
+# „Radius verdoppelt: Wie ändert sich das Volumen?“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KP.KUGEL.VERDOPPELN
+kompetenz: M.GM.KP.KUGEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.verdoppeln@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: 'Der [[Radius]] einer Kugel wird {faktor}-mal so groß. **Wie** ändert sich ihre {groesse}?'
+hilfen:
+  - de: 'Setze in die [[Formel]] $k \cdot r$ statt r ein und vereinfache.'
+  - de: '[[Volumen]]: r hoch 3. [[Oberfläche]]: r hoch 2.'
+fehlerbilder:
+  linear:
+    de: 'Der [[Radius]] steckt nicht einfach, sondern mit einer [[Hochzahl]] in der [[Formel]].'
+    fv: FV.KP.HOCHZAHL-FORMEL
+  quadratisch:
+    de: 'Beim [[Volumen]] steht $r^3$. Der [[Faktor]] wird also hoch 3 genommen.'
+    fv: FV.KP.HOCHZAHL-FORMEL
+  kubisch-statt-quadratisch:
+    de: 'Bei der [[Oberfläche]] steht $r^2$. Der [[Faktor]] wird also hoch 2 genommen.'
+    fv: FV.KP.HOCHZAHL-FORMEL
+  summe:
+    de: 'Der [[Faktor]] wird nicht verdoppelt, sondern hoch 2 oder hoch 3 genommen.'
+    fv: FV.KP.HOCHZAHL-FORMEL
+herkunft: ki-entwurf
+version: 1

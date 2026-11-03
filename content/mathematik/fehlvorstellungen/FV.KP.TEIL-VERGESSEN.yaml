@@ -1,0 +1,25 @@
+id: FV.KP.TEIL-VERGESSEN
+name:
+  de: Vergisst einen Teil eines Körpers
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet beim Kegel nur den Mantel als Oberfläche, beim zusammengesetzten Körper nur einen Teilkörper oder nimmt eine ganze statt einer halben Kugel.
+kompetenzen: [M.GM.KP.ZUSAMMENGESETZT]
+erklaerung:
+  kurz:
+    de: 'Liste alle Teile auf: [[Grundfläche]] und [[Mantel]], alle Teilkörper, und prüfe, ob eine Kugel ganz oder halb ist.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur den Teil gerechnet, der dir zuerst aufgefallen ist.'
+    - teil: warum-nicht
+      de: 'Fehlt ein Teil, ist das Ergebnis zu klein. Ist eine Halbkugel ganz gerechnet, ist es zu groß.'
+    - teil: so-stimmt-es
+      de: 'Schreibe vor dem Rechnen eine Liste: Teil 1, Teil 2 … und hake ab.'
+gegenbeispiel:
+  de: 'Eine Eistüte ohne Eis ist leichter zu tragen, aber nicht das, was gefragt ist.'
+rueckweg:
+  vermittlung: M.GM.KP.ZUSAMMENGESETZT#erklaeren-zerlegen
+kontrast: [M.GM.KP.ZUSAMMENGESETZT.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.KP.KUBIKWURZEL
+name:
+  de: Zieht beim Kugelradius die Quadratwurzel statt der dritten Wurzel
+art: rechenfehler
+beschreibung:
+  de: >-
+    Bestimmt aus r³ = 125 den Radius als √125 ≈ 11,2. Dass zu einer dritten Potenz die dritte Wurzel gehört, wird übersehen.
+kompetenzen: [M.GM.KP.KUGEL]
+erklaerung:
+  kurz:
+    de: 'Zu $r^3$ gehört die dritte [[Wurzel]]: $r^3 = 125$, also $r = \sqrt[3]{125} = 5$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die gewohnte Quadratwurzel gezogen.'
+    - teil: warum-nicht
+      de: 'Die Quadratwurzel macht nur ein Quadrat rückgängig. $11{,}2^3$ ist viel mehr als 125.'
+    - teil: so-stimmt-es
+      de: 'Schau auf die [[Hochzahl]]: hoch 3 verlangt die dritte [[Wurzel]].'
+gegenbeispiel:
+  de: '[[Probe]]: $5^3 = 125$. Mit $11{,}2$ käme etwa 1405 heraus.'
+rueckweg:
+  vermittlung: M.GM.KP.KUGEL#erklaeren-rueckwaerts
+kontrast: [M.GM.KP.KUGEL.BERECHNEN]
+herkunft: ki-entwurf
+version: 1

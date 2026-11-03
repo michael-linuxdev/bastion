@@ -1,0 +1,31 @@
+# Volumen, Oberfläche, Radius aus Volumen. Entwurf: noch nicht geprüft.
+id: M.GM.KP.KUGEL.BERECHNEN
+kompetenz: M.GM.KP.KUGEL
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.kugel@1
+parameter:
+  G: { rueckwaerts: false }
+  M: { rueckwaerts: true }
+text:
+  aufgabe:
+    de: '**Rechne** mit [[π]] ≈ 3,14: {angabe} **Berechne** {gesucht} in {einheit}. Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: '[[Volumen]]: $V = \frac{4}{3} \cdot \pi \cdot r^3$. [[Oberfläche]]: $O = 4 \cdot \pi \cdot r^2$.'
+  - de: '[[Radius]] aus dem [[Volumen]]: $r^3 = \frac{3 \cdot V}{4 \cdot \pi}$, dann die dritte [[Wurzel]].'
+fehlerbilder:
+  quadrat-statt-hoch3:
+    de: 'Beim [[Volumen]] steht $r^3$, bei der [[Oberfläche]] $r^2$. Prüfe die [[Hochzahl]].'
+    fv: FV.KP.HOCHZAHL-FORMEL
+  durchmesser:
+    de: 'Du hast mit dem [[Durchmesser]] statt dem [[Radius]] gerechnet.'
+    fv: FV.KR.RADIUS-DURCHMESSER
+  oberflaeche-formel:
+    de: 'Das ist die [[Oberfläche]]. Für das [[Volumen]] brauchst du $\frac{4}{3} \cdot \pi \cdot r^3$.'
+    fv: FV.KP.HOCHZAHL-FORMEL
+  quadratwurzel:
+    de: 'Bei $r^3$ brauchst du die dritte [[Wurzel]], nicht die Quadratwurzel.'
+    fv: FV.KP.KUBIKWURZEL
+herkunft: ki-entwurf
+version: 1
