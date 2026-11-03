@@ -1,0 +1,24 @@
+# Nullstelle begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.NULLSTELLE.BEGRUENDEN
+kompetenz: M.SF.FK.NULLSTELLE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.nullstelle-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Eine [[Nullstelle]] ist eine Stelle x mit f(x) = 0.'
+  - de: 'Setze f(x) = 0 und löse nach x auf.'
+fehlerbilder:
+  nullstelle-achse:
+    de: 'Die Zahl ohne x ist der [[Schnittpunkt]] mit der y-Achse. Die [[Nullstelle]] liegt auf der x-Achse.'
+    fv: FV.FK.NULLSTELLE-ACHSE
+  vorzeichen-graph:
+    de: 'Achte beim Auflösen auf das [[Vorzeichen]]. Mach die [[Probe]]: Ist f(x) dann wirklich 0?'
+    fv: FV.FK.VORZEICHEN-GRAPH
+herkunft: ki-entwurf
+version: 1

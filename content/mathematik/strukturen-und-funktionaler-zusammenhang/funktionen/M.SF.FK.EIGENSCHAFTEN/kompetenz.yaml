@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Hoch- und Tiefpunkte, Symmetrie und Monotoniebereiche am Graphen erkennen.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum der Anstieg und nicht der y-Achsenabschnitt über Steigen und Fallen entscheidet.'
 kmk:
   leitidee: L3
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   gymnasium:

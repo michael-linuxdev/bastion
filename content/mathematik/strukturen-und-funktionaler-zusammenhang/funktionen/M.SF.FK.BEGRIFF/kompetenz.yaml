@@ -21,6 +21,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Definitions- und Wertebereich angeben; Funktionen in Worten, Tabelle, Graph und Gleichung einander zuordnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, ob eine Zuordnung eine Funktion ist: Jedes x hat genau einen y-Wert.'
 kmk:
   leitidee: L3
   prozesse:
@@ -29,6 +32,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

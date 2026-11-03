@@ -1,0 +1,24 @@
+# Einsetzen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.GS.RECHNERISCH.BEGRUENDEN
+kompetenz: M.SF.GS.RECHNERISCH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gs.einsetzen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche [[Variable]] steht in einer [[Gleichung]] schon allein?'
+  - de: 'Setze den ganzen [[Term]] in Klammern ein.'
+fehlerbilder:
+  falsch-eingesetzt:
+    de: 'Für y wird der ganze [[Term]] eingesetzt, auch die Zahl.'
+    fv: FV.GS.FALSCH-EINGESETZT
+  x-y-vertauscht:
+    de: 'Der [[Term]] steht für y, nicht für x.'
+    fv: FV.GF.X-Y-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1

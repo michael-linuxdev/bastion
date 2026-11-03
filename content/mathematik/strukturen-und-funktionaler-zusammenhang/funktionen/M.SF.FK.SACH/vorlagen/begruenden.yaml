@@ -1,0 +1,27 @@
+# Tarif mit Grundgebühr begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.SACH.BEGRUENDEN
+kompetenz: M.SF.FK.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.tarif-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welcher [[Betrag]] fällt einmal an, welcher je Kilometer?'
+  - de: 'Kosten = [[Grundgebühr]] + Preis je km · km.'
+fehlerbilder:
+  grundgebuehr:
+    de: 'Die [[Grundgebühr]] zahlt man auch: einmal pro Fahrt.'
+    fv: FV.FK.GRUNDGEBUEHR
+  grundgebuehr-mal:
+    de: 'Die [[Grundgebühr]] fällt nur einmal an, nicht für jeden Kilometer.'
+    fv: FV.FK.GRUNDGEBUEHR
+  m-n-vertauscht:
+    de: 'Malgenommen wird der Preis je Kilometer, die [[Grundgebühr]] kommt einmal dazu.'
+    fv: FV.FK.M-N-VERTAUSCHT
+herkunft: ki-entwurf
+version: 1

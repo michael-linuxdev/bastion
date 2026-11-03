@@ -1,0 +1,24 @@
+# Gegenereignis begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.EREIGNISSE.BEGRUENDEN
+kompetenz: M.DZ.ZF.EREIGNISSE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.gegenereignis-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Schreibe alle Ergebnisse von A auf.'
+  - de: 'Das [[Gegenereignis]] enthält alle übrigen Ergebnisse.'
+fehlerbilder:
+  grenze:
+    de: 'Die Grenze gehört nicht zu A, also gehört sie zum [[Gegenereignis]].'
+    fv: FV.ZF.GEGENEREIGNIS
+  ereignis-begriff:
+    de: 'Das [[Gegenereignis]] enthält alle Ergebnisse, die nicht zu A gehören, nicht nur eins.'
+    fv: FV.ZF.EREIGNIS-BEGRIFF
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Funktion oder nicht begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.BEGRIFF.BEGRUENDEN
+kompetenz: M.SF.FK.BEGRIFF
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.funktion-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Schau auf die x-Werte: Kommt einer zweimal vor?'
+  - de: 'Gleiche y-Werte für verschiedene x sind erlaubt.'
+fehlerbilder:
+  eindeutigkeit:
+    de: 'Es kommt auf die x-Werte an: Jedes x braucht genau einen y-Wert. Gleiche y-Werte sind erlaubt.'
+    fv: FV.ZU.EINDEUTIGKEIT
+  x-oder-y:
+    de: 'Die Bedingung gilt für jedes x, nicht für jedes y.'
+    fv: FV.FK.X-ODER-Y
+herkunft: ki-entwurf
+version: 1

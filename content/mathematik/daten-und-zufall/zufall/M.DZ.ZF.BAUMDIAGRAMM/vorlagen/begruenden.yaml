@@ -1,0 +1,24 @@
+# Pfadregel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.BAUMDIAGRAMM.BEGRUENDEN
+kompetenz: M.DZ.ZF.BAUMDIAGRAMM
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.pfad-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne ein [[Baumdiagramm]] mit zwei Stufen.'
+  - de: 'Entlang eines [[Pfades]] wird multipliziert.'
+fehlerbilder:
+  addiert:
+    de: 'Entlang eines [[Pfades]] wird multipliziert, addiert wird nur über verschiedene Pfade.'
+    fv: FV.ZF.PFADREGELN
+  ohne-zuruecklegen:
+    de: 'Mit Zurücklegen ändert sich beim zweiten Zug nichts.'
+    fv: FV.ZF.OHNE-ZURUECKLEGEN
+herkunft: ki-entwurf
+version: 1

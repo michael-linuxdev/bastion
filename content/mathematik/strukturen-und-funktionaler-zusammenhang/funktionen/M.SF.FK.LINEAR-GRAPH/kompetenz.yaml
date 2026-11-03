@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Zum Graphen die Gleichung wählen; mit dem Steigungsdreieck den Anstieg m bestimmen.'
+  E:
+    beschreibung:
+      de: 'Die Bedeutung von m und n begründen: n ist der Schnittpunkt mit der y-Achse, m der Anstieg.'
 kmk:
   leitidee: L3
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Anordnungen mit n! zählen; mit und ohne Wiederholung unterscheiden.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum man beim mehrstufigen Zählen multipliziert.'
 kmk:
   leitidee: L5
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K3
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

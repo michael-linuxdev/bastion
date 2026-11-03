@@ -1,0 +1,24 @@
+# Anstieg aus zwei Punkten begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.FK.LINEAR-GLEICHUNG.BEGRUENDEN
+kompetenz: M.SF.FK.LINEAR-GLEICHUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fk.anstieg-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: '[[Anstieg]] = Höhenunterschied : Breite.'
+  - de: 'Oben die y-Werte, unten die x-Werte, beide in derselben Reihenfolge.'
+fehlerbilder:
+  kehrwert:
+    de: 'Oben gehört der Unterschied der y-Werte hin, unten der der x-Werte.'
+    fv: FV.FK.ANSTIEG
+  reihenfolge:
+    de: 'Nimm oben und unten dieselbe Reihenfolge der Punkte, sonst dreht sich das [[Vorzeichen]].'
+    fv: FV.FK.ANSTIEG
+herkunft: ki-entwurf
+version: 1

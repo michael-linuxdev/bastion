@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Auch mit negativen Faktoren und Variablen ausmultiplizieren und ausklammern, z. B. 12·x − 18 = 6·(2·x − 3).'
+  E:
+    beschreibung:
+      de: 'Ausmultiplizierte Terme prüfen, auch mit negativen Faktoren, und die richtige Begründung wählen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -25,6 +28,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Entscheiden, ob es genau eine, keine oder unendlich viele Lösungen gibt (schneidend, parallel, identisch).'
+  E:
+    beschreibung:
+      de: 'Begründen, ob ein lineares Gleichungssystem keine oder genau eine Lösung hat.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

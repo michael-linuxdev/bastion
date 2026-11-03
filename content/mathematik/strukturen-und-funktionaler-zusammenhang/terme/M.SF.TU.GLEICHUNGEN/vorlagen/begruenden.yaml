@@ -1,0 +1,24 @@
+# Ersten Schritt einer Gleichung mit Klammer begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.TU.GLEICHUNGEN.BEGRUENDEN
+kompetenz: M.SF.TU.GLEICHUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tu.gleichung-schritt-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Löse zuerst die Klammer auf.'
+  - de: 'Mache am Ende die [[Probe]].'
+fehlerbilder:
+  klammer-halb:
+    de: 'Der [[Faktor]] vor der Klammer gehört zu beiden Gliedern in der Klammer.'
+    fv: FV.TU.KLAMMER-HALB
+  vorzeichen-falsch:
+    de: 'Plus mal Minus bleibt Minus.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
+herkunft: ki-entwurf
+version: 1

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Mit der Summenregel Ereignisse aus mehreren Pfaden berechnen; Ziehen ohne Zurücklegen.'
+  E:
+    beschreibung:
+      de: 'Die Pfadregel beim zweimaligen Ziehen mit Zurücklegen begründen.'
 kmk:
   leitidee: L5
   prozesse:

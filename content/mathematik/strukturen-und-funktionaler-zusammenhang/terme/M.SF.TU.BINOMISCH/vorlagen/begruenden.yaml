@@ -1,0 +1,27 @@
+# Binomische Formel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.TU.BINOMISCH.BEGRUENDEN
+kompetenz: M.SF.TU.BINOMISCH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tu.binomisch-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Schreibe das Quadrat als [[Produkt]] aus zwei Klammern.'
+  - de: 'Nimm jedes Glied mit jedem mal.'
+fehlerbilder:
+  mittelglied:
+    de: 'Beim Quadrieren einer [[Summe]] entsteht ein Mittelglied: 2 · a · x.'
+    fv: FV.TU.MITTELGLIED
+  quadrat-mal-zwei:
+    de: 'Hoch 2 heißt mit sich selbst malnehmen, nicht mal 2.'
+    fv: FV.NZ.QUADRAT-MAL-ZWEI
+  vorzeichen-falsch:
+    de: 'Das Mittelglied hat das [[Vorzeichen]] aus der Klammer, das letzte Glied ist immer positiv.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
+herkunft: ki-entwurf
+version: 1

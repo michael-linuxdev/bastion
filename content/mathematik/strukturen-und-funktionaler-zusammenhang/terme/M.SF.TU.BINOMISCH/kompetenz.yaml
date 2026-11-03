@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Auch (a + b)·(a − b) und Terme wie (2·x − 3)² ausmultiplizieren; Lücken in binomischen Formeln ergänzen.'
+  E:
+    beschreibung:
+      de: 'Fehler beim Quadrieren von Summen und Differenzen finden und begründen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   gymnasium:

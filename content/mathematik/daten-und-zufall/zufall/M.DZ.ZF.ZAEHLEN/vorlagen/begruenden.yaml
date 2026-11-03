@@ -1,0 +1,24 @@
+# Zählprinzip begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.ZAEHLEN.BEGRUENDEN
+kompetenz: M.DZ.ZF.ZAEHLEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.zaehlen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zu jedem T-Shirt passt jede Hose.'
+  - de: 'Jede Stufe zählt mit.'
+fehlerbilder:
+  addiert:
+    de: 'Bei mehreren Stufen wird multipliziert, nicht addiert.'
+    fv: FV.ZF.ZAEHLPRINZIP
+  stufe-vergessen:
+    de: 'Jede Stufe vervielfacht die Möglichkeiten, auch die letzte.'
+    fv: FV.ZF.ZAEHLPRINZIP
+herkunft: ki-entwurf
+version: 1

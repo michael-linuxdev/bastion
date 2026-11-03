@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Ein Gleichungssystem selbst aufstellen, lösen und das Ergebnis im Sachzusammenhang deuten.'
+  E:
+    beschreibung:
+      de: 'Begründen, welches Gleichungssystem zu einer Sachaufgabe passt.'
 kmk:
   leitidee: L3
   prozesse:
