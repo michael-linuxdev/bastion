@@ -29,16 +29,20 @@ schritte:
     typ: erklaeren
     text:
       de: 'Bei vielen Daten fasst man Werte in Klassen zusammen: „10 bis unter 20“ enthält 10, aber nicht 20. Im Histogramm ist jede Klasse eine Säule, ihre [[Höhe]] die Anzahl der Werte.'
+    bild:
+      { werkzeug: histogramm@1, parameter: { grenzen: [0, 10, 20, 30, 40], haeufig: [2, 5, 3, 1] } }
     weiter: erklaeren-einteilung
   - id: erklaeren-einteilung
     typ: erklaeren
     text:
       de: 'Breitere Klassen fassen mehr zusammen: weniger, höhere Säulen, gröberes Bild. Schmalere Klassen zeigen mehr Einzelheiten. Die Daten bleiben gleich.'
+    bild: { werkzeug: histogramm@1, parameter: { grenzen: [0, 20, 40], haeufig: [7, 4] } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: 'Säulen der [[Höhe]] 2, 5, 3 für die Klassen 0–10, 10–20, 20–30: insgesamt 10 Werte, davon 8 mindestens 10.'
+    bild: { werkzeug: histogramm@1, parameter: { grenzen: [0, 10, 20, 30], haeufig: [2, 5, 3] } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

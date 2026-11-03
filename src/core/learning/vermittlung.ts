@@ -43,9 +43,11 @@ const PFLICHT: readonly SchrittTyp[] = [
 
 /** Interaktive Werkzeuge (VERMITTLUNG §2.3); die Umsetzung liegt in src/ui. */
 export const WERKZEUGE: ReadonlySet<string> = new Set([
+  'anleitungsbild@1',
   'bruchstreifen@1',
   'dreieck@1',
   'graph@1',
+  'histogramm@1',
   'zahlenstrahl@1',
 ]);
 

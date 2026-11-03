@@ -34,6 +34,11 @@ schritte:
     typ: beispiel
     text:
       de: 'Turm 50 m entfernt, Höhenwinkel 30°: $h = 50 \cdot \tan 30° \approx 28{,}9$ m. 10 % Steigung: $\tan \alpha = 0{,}1$, $\alpha \approx 5{,}7°$.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter: { rechts: C, seiten: { a: 'Turm: ?', b: 'Abstand: 50 m', c: 'Sichtlinie' } },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
