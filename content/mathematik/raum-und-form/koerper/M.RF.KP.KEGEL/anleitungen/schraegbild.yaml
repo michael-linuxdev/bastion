@@ -1,0 +1,18 @@
+# Schrägbild eines Kreiskegels zeichnen (LEHRPLAN L-10). Entwurf: noch nicht geprüft.
+id: M.RF.KP.KEGEL.SCHRAEGBILD
+kompetenz: M.RF.KP.KEGEL
+titel:
+  de: 'Das [[Schrägbild]] eines Kegels zeichnen'
+material:
+  de: 'Kariertes Papier, spitzer Bleistift, [[Geodreieck]]'
+bilder: anleitung.schraegbild-kegel@1
+schritte:
+  - de: 'Zeichne die [[Grundfläche]] als flache Ellipse: so breit wie der [[Durchmesser]], nach hinten nur halb so tief. Die hintere Hälfte zeichnest du gestrichelt. Markiere den Mittelpunkt M.'
+  - de: 'Trage von M aus die [[Höhe]] des Kegels [[senkrecht]] nach oben ab. Dort liegt die Spitze S.'
+  - de: 'Zeichne von S aus zwei Linien zum linken und zum rechten Rand der Ellipse. Sie berühren die Ellipse nur, sie schneiden sie nicht.'
+  - de: 'Radiere Hilfslinien weg. Sichtbar bleiben die beiden Mantellinien und der vordere Bogen der [[Grundfläche]]. Der hintere Bogen bleibt gestrichelt.'
+pruefen:
+  - de: 'Liegt die Spitze genau [[senkrecht]] über dem Mittelpunkt?'
+  - de: 'Berühren die Mantellinien die Ellipse nur am Rand?'
+herkunft: ki-entwurf
+version: 1

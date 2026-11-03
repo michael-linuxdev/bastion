@@ -4,7 +4,7 @@ kompetenz: M.GM.KP.PYRAMIDE-HOEHEN
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: kp.hypotenuse@1
+generator: kp.hypotenuse@2
 parameter:
   E: {}
 text:

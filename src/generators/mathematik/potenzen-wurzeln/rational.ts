@@ -19,13 +19,14 @@ export interface RationalWertParameter {
 }
 
 /** n-te Wurzel w und Hochzahl m/n; Basis w^n, Ergebnis w^m */
-function rationalWerte(seed: number, p: RationalWertParameter) {
+function rationalWerte(seed: number, p: RationalWertParameter, fassung: 1 | 2 = 2) {
   const r = rng(seed);
   for (;;) {
-    const n = r.pick([2, 2, 3, 3, 4]);
-    const w = r.int(2, n === 2 ? 12 : n === 3 ? 6 : 4);
+    const n = r.pick(fassung === 2 ? [2, 2, 3, 3, 4, 5] : [2, 2, 3, 3, 4]);
+    const w = r.int(2, n === 2 ? 12 : n === 3 ? 6 : n === 4 ? 4 : 3);
     const m = p.zaehler ? r.int(2, n === 2 ? 3 : 4) : 1;
     if (p.zaehler && m % n === 0) continue; // 8^(3/3) wäre nur 8
+    if (fassung === 2 && m > 1 && n % m === 0) continue; // 16^(2/4): Hochzahl ungekürzt
     const ergebnis = w ** m;
     if (ergebnis > 2000) continue;
     return { n, w, m, basis: w ** n, ergebnis };
@@ -33,61 +34,67 @@ function rationalWerte(seed: number, p: RationalWertParameter) {
 }
 
 /** „Berechne 27^(1/3)“ oder „8^(2/3)“ */
-export const pwRationalWert: Generator<RationalWertParameter> = {
-  id: 'pw.rational-wert',
-  version: 1,
-  platzhalter: ['term', 'basis', 'n', 'm'],
-  fehlerbildIds: ['geteilt', 'mal-bruch', 'nur-wurzel', 'nur-potenz'],
+function pwRationalWertFassung(fassung: 1 | 2): Generator<RationalWertParameter> {
+  return {
+    id: 'pw.rational-wert',
+    version: fassung,
+    platzhalter: ['term', 'basis', 'n', 'm'],
+    fehlerbildIds: ['geteilt', 'mal-bruch', 'nur-wurzel', 'nur-potenz'],
 
-  schritte: [
-    { id: 'wurzel', fehlerbildIds: ['geteilt'] },
-    { id: 'potenz', fehlerbildIds: ['mal-statt-hoch'], platzhalter: ['w'] },
-  ],
+    schritte: [
+      { id: 'wurzel', fehlerbildIds: ['geteilt'] },
+      { id: 'potenz', fehlerbildIds: ['mal-statt-hoch'], platzhalter: ['w'] },
+    ],
 
-  erzeuge(seed, p) {
-    const { n, w, m, basis, ergebnis } = rationalWerte(seed, p);
-    const richtig = zahl(ergebnis);
-    const hoch = `${basis}^{${frac(m, n)}}`;
-    return {
-      platzhalter: { term: de(hoch), basis, n, m },
-      loesung: richtig,
-      loesungsweg: [
-        de(
-          m === 1
-            ? `$a^{\\frac{1}{n}} = \\sqrt[n]{a}$, also $${hoch} = ${wurzel(n, String(basis))}$.`
-            : `$a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^m$, also $${hoch} = \\left(${wurzel(n, String(basis))}\\right)^{${m}}$.`,
-        ),
-        de(`$${wurzel(n, String(basis))} = ${w}$, denn $${w}^{${n}} = ${basis}$.`),
-        ...(m === 1 ? [] : [de(`$${w}^{${m}} = ${ergebnis}$`)]),
-      ],
-      fehlerbilder: fehlerbilderAus(richtig, [
-        ['geteilt', m === 1 && basis % n === 0 ? zahl(basis / n) : undefined],
-        ['mal-bruch', m > 1 && (basis * m) % n === 0 ? zahl((basis * m) / n) : undefined],
-        ['nur-wurzel', m > 1 ? zahl(w) : undefined],
-        ['nur-potenz', m > 1 && basis ** m <= 100_000 ? zahl(basis ** m) : undefined],
-      ]),
-    };
-  },
-
-  schritt(seed, p, id) {
-    const { n, w, m, basis, ergebnis } = rationalWerte(seed, p);
-    if (id === 'wurzel') {
-      const loesung = zahl(w);
+    erzeuge(seed, p) {
+      const { n, w, m, basis, ergebnis } = rationalWerte(seed, p, fassung);
+      const richtig = zahl(ergebnis);
+      const hoch = `${basis}^{${frac(m, n)}}`;
       return {
-        loesung,
-        fehlerbilder: fehlerbilderAus(loesung, [
-          ['geteilt', basis % n === 0 ? zahl(basis / n) : undefined],
+        platzhalter: { term: de(hoch), basis, n, m },
+        loesung: richtig,
+        loesungsweg: [
+          de(
+            m === 1
+              ? `$a^{\\frac{1}{n}} = \\sqrt[n]{a}$, also $${hoch} = ${wurzel(n, String(basis))}$.`
+              : `$a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^m$, also $${hoch} = \\left(${wurzel(n, String(basis))}\\right)^{${m}}$.`,
+          ),
+          de(`$${wurzel(n, String(basis))} = ${w}$, denn $${w}^{${n}} = ${basis}$.`),
+          ...(m === 1 ? [] : [de(`$${w}^{${m}} = ${ergebnis}$`)]),
+        ],
+        fehlerbilder: fehlerbilderAus(richtig, [
+          ['geteilt', m === 1 && basis % n === 0 ? zahl(basis / n) : undefined],
+          ['mal-bruch', m > 1 && (basis * m) % n === 0 ? zahl((basis * m) / n) : undefined],
+          ['nur-wurzel', m > 1 ? zahl(w) : undefined],
+          ['nur-potenz', m > 1 && basis ** m <= 100_000 ? zahl(basis ** m) : undefined],
         ]),
       };
-    }
-    const loesung = zahl(ergebnis);
-    return {
-      loesung,
-      fehlerbilder: fehlerbilderAus(loesung, [['mal-statt-hoch', zahl(w * m)]]),
-      platzhalter: { w },
-    };
-  },
-};
+    },
+
+    schritt(seed, p, id) {
+      const { n, w, m, basis, ergebnis } = rationalWerte(seed, p, fassung);
+      if (id === 'wurzel') {
+        const loesung = zahl(w);
+        return {
+          loesung,
+          fehlerbilder: fehlerbilderAus(loesung, [
+            ['geteilt', basis % n === 0 ? zahl(basis / n) : undefined],
+          ]),
+        };
+      }
+      const loesung = zahl(ergebnis);
+      return {
+        loesung,
+        fehlerbilder: fehlerbilderAus(loesung, [['mal-statt-hoch', zahl(w * m)]]),
+        platzhalter: { w },
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): ungekürzte Hochzahl wie 2/4. */
+export const pwRationalWertV1 = pwRationalWertFassung(1);
+export const pwRationalWert = pwRationalWertFassung(2);
 
 // ---------------------------------------------------------------------------
 // Schreibweisen (M.ZO.PW.RATIONAL.SCHREIBWEISE)

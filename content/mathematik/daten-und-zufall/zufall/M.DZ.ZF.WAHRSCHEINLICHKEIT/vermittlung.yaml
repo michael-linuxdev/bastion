@@ -64,7 +64,7 @@ schritte:
         - {
             wert:
               {
-                de: 'Nein, entscheidend ist der Anteil: $\frac{3}{10}$ ist kleiner als $\frac{2}{4}$.',
+                de: 'Nein, entscheidend ist der [[Anteil]]: $\frac{3}{10}$ ist kleiner als $\frac{2}{4}$.',
               },
             richtig: true,
           }

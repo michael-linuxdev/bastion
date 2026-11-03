@@ -442,54 +442,66 @@ const SAETZE = [
 ] as const;
 
 /** „Gegeben: p und q, gesucht: h. Welcher Satz hilft direkt?“ */
-export const pySatzWahl: Generator<Record<string, never>> = {
-  id: 'py.satz-wahl',
-  version: 1,
-  platzhalter: ['gegeben', 'gesucht'],
-  fehlerbildIds: ['pythagoras', 'hoehensatz', 'kathetensatz'],
+function pySatzWahlFassung(fassung: 1 | 2): Generator<Record<string, never>> {
+  return {
+    id: 'py.satz-wahl',
+    version: fassung,
+    platzhalter: ['gegeben', 'gesucht'],
+    fehlerbildIds: ['pythagoras', 'hoehensatz', 'kathetensatz'],
 
-  erzeuge(seed) {
-    const r = rng(seed);
-    const fall = r.pick([
-      { gegeben: 'die Hypotenusenabschnitte p und q', gesucht: 'die Höhe h', satz: 'hoehensatz' },
-      { gegeben: 'die Höhe h und den Abschnitt p', gesucht: 'den Abschnitt q', satz: 'hoehensatz' },
-      {
-        gegeben: 'die Hypotenuse c und den Abschnitt p',
-        gesucht: 'die Kathete a',
-        satz: 'kathetensatz',
-      },
-      {
-        gegeben: 'die Kathete b und die Hypotenuse c',
-        gesucht: 'den Abschnitt q',
-        satz: 'kathetensatz',
-      },
-      { gegeben: 'die Katheten a und b', gesucht: 'die Hypotenuse c', satz: 'pythagoras' },
-      {
-        gegeben: 'die Kathete a und die Hypotenuse c',
-        gesucht: 'die Kathete b',
-        satz: 'pythagoras',
-      },
-    ] as const);
-    const liste = mische(r, [...SAETZE]);
-    const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
-    return {
-      platzhalter: { gegeben: de(fall.gegeben), gesucht: de(fall.gesucht) },
-      optionen: liste.map(([, t]) => ({ text: de(t) })),
-      loesung: index(fall.satz),
-      loesungsweg: [
-        de(
-          'Pythagoras verbindet die drei Seiten. Der Höhensatz verbindet h, p und q. Der Kathetensatz verbindet eine Kathete, c und den anliegenden Abschnitt.',
-        ),
-        de(
-          `Gegeben sind ${fall.gegeben}, gesucht ${fall.gesucht}: ${SAETZE.find(([k]) => k === fall.satz)?.[1] ?? ''}.`,
-        ),
-      ],
-      fehlerbilder: liste
-        .filter(([k]) => k !== fall.satz)
-        .map(([k]) => ({ id: k, antwort: index(k) })),
-    };
-  },
-};
+    erzeuge(seed) {
+      const r = rng(seed);
+      const fall = r.pick([
+        { gegeben: 'die Hypotenusenabschnitte p und q', gesucht: 'die Höhe h', satz: 'hoehensatz' },
+        {
+          gegeben: 'die Höhe h und den Abschnitt p',
+          gesucht: 'den Abschnitt q',
+          satz: 'hoehensatz',
+        },
+        {
+          gegeben: 'die Hypotenuse c und den Abschnitt p',
+          gesucht: 'die Kathete a',
+          satz: 'kathetensatz',
+        },
+        {
+          gegeben: 'die Kathete b und die Hypotenuse c',
+          gesucht: 'den Abschnitt q',
+          satz: 'kathetensatz',
+        },
+        { gegeben: 'die Katheten a und b', gesucht: 'die Hypotenuse c', satz: 'pythagoras' },
+        {
+          gegeben: 'die Kathete a und die Hypotenuse c',
+          gesucht: 'die Kathete b',
+          satz: 'pythagoras',
+        },
+      ] as const);
+      const liste = mische(r, [...SAETZE]);
+      const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
+      return {
+        platzhalter: { gegeben: de(fall.gegeben), gesucht: de(fall.gesucht) },
+        optionen: liste.map(([, t]) => ({ text: de(t) })),
+        loesung: index(fall.satz),
+        loesungsweg: [
+          de(
+            'Pythagoras verbindet die drei Seiten. Der Höhensatz verbindet h, p und q. Der Kathetensatz verbindet eine Kathete, c und den anliegenden Abschnitt.',
+          ),
+          de(
+            fassung === 2
+              ? `Du kennst ${fall.gegeben} und suchst ${fall.gesucht}: ${SAETZE.find(([k]) => k === fall.satz)?.[1] ?? ''}.`
+              : `Gegeben sind ${fall.gegeben}, gesucht ${fall.gesucht}: ${SAETZE.find(([k]) => k === fall.satz)?.[1] ?? ''}.`,
+          ),
+        ],
+        fehlerbilder: liste
+          .filter(([k]) => k !== fall.satz)
+          .map(([k]) => ({ id: k, antwort: index(k) })),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Lösungsweg „gesucht den Abschnitt q“. */
+export const pySatzWahlV1 = pySatzWahlFassung(1);
+export const pySatzWahl = pySatzWahlFassung(2);
 
 // ---------------------------------------------------------------------------
 // Sachaufgaben (M.RF.PY.SACH.BERECHNEN)

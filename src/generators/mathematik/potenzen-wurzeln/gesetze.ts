@@ -136,68 +136,79 @@ function wertAufgabe(seed: number, p: WertParameter) {
 }
 
 /** „Berechne geschickt: 2⁷ : 2⁴“ – erst als eine Potenz schreiben, dann ausrechnen */
-export const pwGesetzWert: Generator<WertParameter> = {
-  id: 'pw.gesetz-wert',
-  version: 1,
-  platzhalter: ['term', 'basis'],
-  fehlerbildIds: ['mal-statt-plus', 'plus-statt-mal', 'geteilt', 'vorzeichen', 'basen-mal'],
+function pwGesetzWertFassung(fassung: 1 | 2): Generator<WertParameter> {
+  return {
+    id: 'pw.gesetz-wert',
+    version: fassung,
+    platzhalter: ['term', 'basis'],
+    fehlerbildIds: ['mal-statt-plus', 'plus-statt-mal', 'geteilt', 'vorzeichen', 'basen-mal'],
 
-  schritte: [
-    { id: 'potenz', fehlerbildIds: ['mal-statt-plus', 'plus-statt-mal', 'geteilt', 'vorzeichen'] },
-    { id: 'wert', fehlerbildIds: ['hochzahl-mal'] },
-  ],
+    schritte: [
+      {
+        id: 'potenz',
+        fehlerbildIds: ['mal-statt-plus', 'plus-statt-mal', 'geteilt', 'vorzeichen'],
+      },
+      { id: 'wert', fehlerbildIds: ['hochzahl-mal'] },
+    ],
 
-  erzeuge(seed, p) {
-    const { art, b, m, n, k } = wertAufgabe(seed, p);
-    const wert = b ** k;
-    const richtig = zahl(wert);
-    const alsWert = (h: number | undefined) =>
-      h === undefined || h < 0 || h > 12 || b ** h > 10_000_000 ? undefined : zahl(b ** h);
-    const basenMal = art === 'mal' && (b * b) ** k <= 10_000_000 ? zahl((b * b) ** k) : undefined;
-    return {
-      platzhalter: { term: de(term(art, texZahl(b), m, n)), basis: b },
-      loesung: richtig,
-      loesungsweg: [
-        de(REGEL[art]),
-        de(
-          `$${term(art, texZahl(b), m, n)} = ${texZahl(b)}^{${rechnung(art, m, n)}} = ${potWert(b, k)}$`,
-        ),
-        de(
-          `$${potWert(b, k)} = ${Array.from({ length: k }, () => texZahl(b)).join(' \\cdot ')} = ${texZahl(wert)}$`,
-        ),
-      ],
-      fehlerbilder: fehlerbilderAus(richtig, [
-        ...falscheHochzahlen(art, m, n).map(
-          ([id, h]) => [id, alsWert(h)] as [string, Loesung | undefined],
-        ),
-        ['basen-mal', basenMal],
-      ]),
-    };
-  },
+    erzeuge(seed, p) {
+      const { art, b, m, n, k } = wertAufgabe(seed, p);
+      const wert = b ** k;
+      const richtig = zahl(wert);
+      const alsWert = (h: number | undefined) =>
+        h === undefined || h < 0 || h > 12 || b ** h > 10_000_000 ? undefined : zahl(b ** h);
+      const basenMal = art === 'mal' && (b * b) ** k <= 10_000_000 ? zahl((b * b) ** k) : undefined;
+      return {
+        platzhalter: { term: de(term(art, texZahl(b), m, n)), basis: b },
+        loesung: richtig,
+        loesungsweg: [
+          de(REGEL[art]),
+          de(
+            `$${term(art, texZahl(b), m, n)} = ${texZahl(b)}^{${rechnung(art, m, n)}} = ${potWert(b, k)}$`,
+          ),
+          de(
+            fassung === 2 && k === 1
+              ? `$${potWert(b, k)} = ${texZahl(wert)}$`
+              : `$${potWert(b, k)} = ${Array.from({ length: k }, () => texZahl(b)).join(' \\cdot ')} = ${texZahl(wert)}$`,
+          ),
+        ],
+        fehlerbilder: fehlerbilderAus(richtig, [
+          ...falscheHochzahlen(art, m, n).map(
+            ([id, h]) => [id, alsWert(h)] as [string, Loesung | undefined],
+          ),
+          ['basen-mal', basenMal],
+        ]),
+      };
+    },
 
-  schritt(seed, p, id) {
-    const { art, b, m, n, k } = wertAufgabe(seed, p);
-    if (id === 'potenz') {
-      const loesung = zahl(k);
+    schritt(seed, p, id) {
+      const { art, b, m, n, k } = wertAufgabe(seed, p);
+      if (id === 'potenz') {
+        const loesung = zahl(k);
+        return {
+          loesung,
+          fehlerbilder: fehlerbilderAus(
+            loesung,
+            falscheHochzahlen(art, m, n).map(([fid, h]) => [
+              fid,
+              h === undefined ? undefined : zahl(h),
+            ]),
+          ),
+        };
+      }
+      const loesung = zahl(b ** k);
       return {
         loesung,
-        fehlerbilder: fehlerbilderAus(
-          loesung,
-          falscheHochzahlen(art, m, n).map(([fid, h]) => [
-            fid,
-            h === undefined ? undefined : zahl(h),
-          ]),
-        ),
+        fehlerbilder: fehlerbilderAus(loesung, [['hochzahl-mal', zahl(b * k)]]),
+        platzhalter: { potenz: k },
       };
-    }
-    const loesung = zahl(b ** k);
-    return {
-      loesung,
-      fehlerbilder: fehlerbilderAus(loesung, [['hochzahl-mal', zahl(b * k)]]),
-      platzhalter: { potenz: k },
-    };
-  },
-};
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): „10¹ = 10 = 10“. */
+export const pwGesetzWertV1 = pwGesetzWertFassung(1);
+export const pwGesetzWert = pwGesetzWertFassung(2);
 
 // ---------------------------------------------------------------------------
 // Fehler finden (M.ZO.PW.GESETZE.FEHLER, Niveau E)

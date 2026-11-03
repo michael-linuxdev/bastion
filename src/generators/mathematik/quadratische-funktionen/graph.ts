@@ -66,39 +66,46 @@ export interface WertetabelleParameter {
 }
 
 /** „Berechne f(−3) für f(x) = x² − 4.“ */
-export const qfWertetabelle: Generator<WertetabelleParameter> = {
-  id: 'qf.wertetabelle',
-  version: 1,
-  platzhalter: ['funktion', 'x'],
-  fehlerbildIds: ['minus-quadrat', 'mal-zwei', 'faktor-vergessen'],
+function qfWertetabelleFassung(fassung: 1 | 2): Generator<WertetabelleParameter> {
+  return {
+    id: 'qf.wertetabelle',
+    version: fassung,
+    platzhalter: ['funktion', 'x'],
+    fehlerbildIds: ['minus-quadrat', 'mal-zwei', 'faktor-vergessen'],
 
-  erzeuge(seed, p) {
-    verlange(p.faktoren.length > 0, 'faktoren: mindestens einer');
-    const r = rng(seed);
-    const a = r.pick(p.faktoren);
-    const c = r.int(-6, 6);
-    const x = r.int(0, 2) === 0 ? r.int(1, 5) : -r.int(1, 5);
-    const f: Parabel = { a, d: 0, e: c };
-    const y = wert(f, x);
-    const richtig = zahl(y);
-    return {
-      platzhalter: { funktion: de(`f(x) = ${scheitelform(f)}`), x },
-      vorzeichen: true,
-      loesung: richtig,
-      loesungsweg: [
-        de(
-          `Setze $x = ${texZahl(x)}$ ein: $f(${texZahl(x)}) = ${scheitelform(f).replace('x^2', `(${texZahl(x)})^2`)}$.`,
-        ),
-        de(`$(${texZahl(x)})^2 = ${texZahl(x * x)}$, also $f(${texZahl(x)}) = ${texZahl(y)}$.`),
-      ],
-      fehlerbilder: fehlerbilderAus(richtig, [
-        ['minus-quadrat', x < 0 ? zahl(-a * x * x + c) : undefined],
-        ['mal-zwei', zahl(a * 2 * x + c)],
-        ['faktor-vergessen', a === 1 ? undefined : zahl(x * x + c)],
-      ]),
-    };
-  },
-};
+    erzeuge(seed, p) {
+      verlange(p.faktoren.length > 0, 'faktoren: mindestens einer');
+      const r = rng(seed);
+      const a = r.pick(p.faktoren);
+      const c = r.int(-6, 6);
+      const x = r.int(0, 2) === 0 ? r.int(1, 5) : -r.int(1, 5);
+      const f: Parabel = { a, d: 0, e: c };
+      const y = wert(f, x);
+      const richtig = zahl(y);
+      const eingesetzt = fassung === 1 || x < 0 ? `(${texZahl(x)})` : texZahl(x);
+      return {
+        platzhalter: { funktion: de(`f(x) = ${scheitelform(f)}`), x },
+        vorzeichen: true,
+        loesung: richtig,
+        loesungsweg: [
+          de(
+            `Setze $x = ${texZahl(x)}$ ein: $f(${texZahl(x)}) = ${scheitelform(f).replace('x^2', `${eingesetzt}^2`)}$.`,
+          ),
+          de(`$${eingesetzt}^2 = ${texZahl(x * x)}$, also $f(${texZahl(x)}) = ${texZahl(y)}$.`),
+        ],
+        fehlerbilder: fehlerbilderAus(richtig, [
+          ['minus-quadrat', x < 0 ? zahl(-a * x * x + c) : undefined],
+          ['mal-zwei', zahl(a * 2 * x + c)],
+          ['faktor-vergessen', a === 1 ? undefined : zahl(x * x + c)],
+        ]),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Klammern auch um positive x: „(3)²“. */
+export const qfWertetabelleV1 = qfWertetabelleFassung(1);
+export const qfWertetabelle = qfWertetabelleFassung(2);
 
 // ---------------------------------------------------------------------------
 // Am Graphen ablesen (M.SF.QF.GRAPH.ABLESEN): Nullstellen (G), Wertebereich (M)

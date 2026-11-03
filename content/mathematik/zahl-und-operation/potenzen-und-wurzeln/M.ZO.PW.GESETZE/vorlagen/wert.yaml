@@ -4,7 +4,7 @@ kompetenz: M.ZO.PW.GESETZE
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: pw.gesetz-wert@1
+generator: pw.gesetz-wert@2
 parameter:
   G: { gesetze: [mal, durch], negativ: false }
   M: { gesetze: [mal, durch, hoch], negativ: true }

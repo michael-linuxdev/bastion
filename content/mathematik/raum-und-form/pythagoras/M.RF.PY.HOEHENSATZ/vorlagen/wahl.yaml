@@ -4,12 +4,12 @@ kompetenz: M.RF.PY.HOEHENSATZ
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: py.satz-wahl@1
+generator: py.satz-wahl@2
 parameter:
   E: {}
 text:
   aufgabe:
-    de: 'In einem rechtwinkligen Dreieck kennst du {gegeben}. Gesucht ist {gesucht}. **Welcher** Satz führt direkt zum Ziel?'
+    de: 'In einem rechtwinkligen Dreieck kennst du {gegeben}. Du suchst {gesucht}. **Welcher** Satz führt direkt zum Ziel?'
 hilfen:
   - de: 'Schreibe zu jedem Satz die Größen auf, die darin vorkommen.'
   - de: 'Der passende Satz enthält genau die gegebenen und die gesuchte Größe.'

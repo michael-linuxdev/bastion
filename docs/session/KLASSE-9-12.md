@@ -107,12 +107,16 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10.
 
+### Inhaltsdurchsicht Klasse 9 (03.11.2026)
+
+Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. Offen, nur notiert: ST.MANIPULATION.ERKENNEN hat auf G und E dieselben Parameter.
+
 ### Offene Fragen der Nachtarbeit
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.
 3. ~~**Werkzeug „Parameter am Graphen“ (B8)**~~ *gebaut 03.11.2026 als `graph@1` mit Reglern für a, d, e (Schieberegler, per Tastatur bedienbar), Vergleichskurve gestrichelt. Aussehen: Vorschau beim PV steht aus (Bildschirmfoto im Bericht).*
-4. **Zeichenanleitung Kegel (L-10):** RF.KP.KEGEL hat noch keine Schritt-für-Schritt-Anleitung mit Bildern (wie `anleitung.schraegbild-zylinder@1`); dafür braucht es neue Bilder in der Oberfläche. Bis dahin ohne `zeichnen_erklaert`.
-2. **`pnpm inhalte:begriffe`** verdoppelt Anführungszeichen in mehrzeiligen Flow-Optionen (DZ.ZF.HAEUFIGKEIT, DZ.ZF.WAHRSCHEINLICHKEIT); nach jedem Lauf zurückgesetzt. Reparatur des Werkzeugs steht aus.
+4. ~~**Zeichenanleitung Kegel (L-10)**~~ *erledigt 03.11.2026:* „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`), RF.KP.KEGEL hat jetzt `zeichnen_erklaert`.
+2. ~~**`pnpm inhalte:begriffe`** verdoppelte Anführungszeichen~~ *behoben 03.11.2026:* Das Komma hinter dem Wert in der mehrzeiligen Kurzform bleibt stehen (`tools/inhalte/begriffe-zeilen.ts` mit Test); DZ.ZF.HAEUFIGKEIT und DZ.ZF.WAHRSCHEINLICHKEIT sind jetzt markiert.
 
 ---
 

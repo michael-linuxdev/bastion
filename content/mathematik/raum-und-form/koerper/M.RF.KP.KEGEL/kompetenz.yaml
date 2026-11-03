@@ -33,6 +33,7 @@ anforderungsbereiche:
   - II
   - III
 abdeckung: gemischt
+zeichnen_erklaert: true
 sachsen:
   oberschule:
     klassenstufe: 9

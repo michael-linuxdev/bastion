@@ -4,7 +4,7 @@ kompetenz: M.SF.QF.GRAPH
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: qf.wertetabelle@1
+generator: qf.wertetabelle@2
 parameter:
   G: { faktoren: [1] }
   M: { faktoren: [-2, -1, 0.5, 2] }
