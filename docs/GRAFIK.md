@@ -471,7 +471,7 @@ Statt der leeren Himmelsfläche liegt hinter dem Bauplatz eine Kulisse, die das 
 - **Bühne:** Mit Kulisse ist das Pixi-Bild durchsichtig (`Farben.kulisse`, Schwarz mit Deckkraft 0) und zeichnet kein Gestirn.
 - **Bilder:** `tools/grafik/sprites-g3-kulisse.py` → `public/grafik/atlas/kulisse/<thema>/…` (Stimmungen, `dinge/`).
 - **Nebenbei behoben:** Der Rahmen des Bauplatz-Bilds und das Einpassen der Kamera nahmen bisher immer die Größe 12×12 (`buehneBreite()` ohne Neuberechnung). In Epoche 2–4 wurde das Bild darum gestaucht. Jetzt rechnen Rahmen, Kamera und Kulisse mit dem Bauplatz der Epoche (`buehneFuer(bauplatz)`).
-- **Stand:** nur Thema `bastion`. Die anderen Themen folgen mit eigenen Dingen (Felder und Hecken, Riff, Planet).
+- **Stand 03.11.2026 (Auftrag Punkt 3):** alle fünf Themen haben eine Kulisse (`tools/grafik/g12_kulisse.py`, Stil „weich gerendert“): **Dorf** Felder in Streifen, Hecken, Bach, ferne Dächer und Kirchturm; **Garten** Wiese mit Blumen, Hecken, Teiche, ferne Bäume; **Unterwasser** Riff in drei Schichten, Lichtstrahlen von oben, Tiefe im Blau; **Weltraum** Kraterrand, Planet mit Ring, Sterne auch am Tag. Je Thema eigene Dinge um den Bauplatz (`kulisseFuer(thema).dinge`); Schaumring, Tropfenringe, Eisschollen und Boot nur, wo Wasser ist (Bastion). Wolken ziehen nur über Land. Das Wetter (§15) wirkt in allen Kulissen.
 
 ## 14. Neuer Stil „weich gerendert“ und neue Stufenleitern (PV, 03.11.2026, Auftrag Punkt 1)
 

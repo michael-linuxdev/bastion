@@ -1307,7 +1307,8 @@ export async function buehneErstellen(
   }
   spannungHimmelZeichnen(overlayLage, farben, atlas, texturen);
   const wolkenLage = new Container();
-  wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
+  // Wolken nur über Land; unter Wasser und im Weltraum gibt es keine (Grafik Punkt 3)
+  if (istLandBildart(art)) wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();
   gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
