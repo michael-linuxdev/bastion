@@ -1070,3 +1070,29 @@ begriffe:
     formen: [Ankathete]
     erklaerung:
       de: 'Die Kathete, die an einem Winkel anliegt (nicht die Hypotenuse).'
+  # Klasse 10: Exponentielles Wachstum
+  - id: wachstumsfaktor
+    wort: { de: Wachstumsfaktor }
+    formen: [Wachstumsfaktor, Wachstumsfaktors]
+    erklaerung:
+      de: 'Die Zahl, mit der ein Bestand bei jedem Schritt malgenommen wird. Wachstum um 20 % heißt Wachstumsfaktor 1,2.'
+  - id: exponentialfunktion
+    wort: { de: Exponentialfunktion }
+    formen: [Exponentialfunktion, Exponentialfunktionen]
+    erklaerung:
+      de: 'Eine Funktion wie $f(x) = c \cdot a^x$: Das x steht in der Hochzahl. Bei jedem Schritt um 1 wird mit a malgenommen.'
+  - id: asymptote
+    wort: { de: Asymptote }
+    formen: [Asymptote, Asymptoten]
+    erklaerung:
+      de: 'Eine Gerade, der sich ein Graph immer weiter nähert, ohne sie zu erreichen.'
+  - id: halbwertszeit
+    wort: { de: Halbwertszeit }
+    formen: [Halbwertszeit]
+    erklaerung:
+      de: 'Die Zeit, nach der von einem Bestand nur noch die Hälfte übrig ist.'
+  - id: verdopplungszeit
+    wort: { de: Verdopplungszeit }
+    formen: [Verdopplungszeit]
+    erklaerung:
+      de: 'Die Zeit, nach der sich ein Bestand verdoppelt hat.'

@@ -1,0 +1,27 @@
+# Eigenschaften der Exponentialfunktion – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.EX.FUNKTION.EIGENSCHAFT
+kompetenz: M.SF.EX.FUNKTION
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: ex.eigenschaft@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Aussage, die stimmt.'
+hilfen:
+  - de: 'Setze $x = 0$ ein.'
+  - de: 'Kann $a^x$ null oder negativ werden?'
+fehlerbilder:
+  asymptote:
+    de: 'Eine Potenz mit positiver [[Basis]] ist nie 0. Der [[Graph]] hat keine [[Nullstelle]].'
+    fv: FV.EX.ASYMPTOTE
+  faktor-in-potenz:
+    de: 'Erst wird potenziert, dann mit c malgenommen: $c \cdot a^2$, nicht $(c \cdot a)^2$.'
+    fv: FV.EX.FAKTOR-IN-POTENZ
+  abnahme-faktor:
+    de: 'Ist die [[Basis]] größer als 1, steigt der [[Graph]]. Ist sie kleiner als 1, fällt er.'
+    fv: FV.EX.ABNAHME-FAKTOR
+herkunft: ki-entwurf
+version: 1

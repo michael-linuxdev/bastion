@@ -1,0 +1,28 @@
+# „Welche Art von Wachstum zeigt die Tabelle?“. Entwurf: noch nicht geprüft.
+id: M.SF.EX.WACHSTUM.ART
+kompetenz: M.SF.EX.WACHSTUM
+niveaus: [G, M]
+typ: auswahl
+quelle: generator
+generator: ex.wachstum-art@1
+parameter:
+  G: { weder: false }
+  M: { weder: true }
+text:
+  aufgabe:
+    de: '**Entscheide**, welche Art von Wachstum die Tabelle zeigt: ${tabelle}$'
+hilfen:
+  - de: 'Rechne die Unterschiede von Spalte zu Spalte aus. Sind sie gleich?'
+  - de: 'Rechne die [[Quotienten]] von Spalte zu Spalte aus: rechte Zahl geteilt durch linke Zahl.'
+fehlerbilder:
+  additiv-gesehen:
+    de: 'Die Unterschiede sind nicht gleich. Prüfe die [[Quotienten]]: Wird immer mit derselben Zahl malgenommen?'
+    fv: FV.EX.MODELL
+  multiplikativ-gesehen:
+    de: 'Die [[Quotienten]] sind nicht gleich. Prüfe die Unterschiede: Kommt immer dieselbe Zahl dazu?'
+    fv: FV.EX.MODELL
+  weder-gewaehlt:
+    de: 'Sieh noch einmal hin: Entweder die Unterschiede oder die [[Quotienten]] sind alle gleich.'
+    fv: FV.EX.MODELL
+herkunft: ki-entwurf
+version: 1

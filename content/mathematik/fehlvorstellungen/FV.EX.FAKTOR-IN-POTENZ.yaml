@@ -1,0 +1,25 @@
+id: FV.EX.FAKTOR-IN-POTENZ
+name:
+  de: Faktor mit in die Potenz genommen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet 3 · 2² als 6² = 36. Dass zuerst potenziert und dann malgenommen wird, wird übersehen.
+kompetenzen: [M.SF.EX.FUNKTION]
+erklaerung:
+  kurz:
+    de: 'Potenzieren geht vor Malnehmen: $3 \cdot 2^2 = 3 \cdot 4 = 12$, nicht $6^2$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast erst c · a gerechnet und dann potenziert.'
+    - teil: warum-nicht
+      de: 'In $c \cdot a^x$ gehört die [[Hochzahl]] nur zu a. Der [[Faktor]] c ist der Startwert.'
+    - teil: so-stimmt-es
+      de: 'Erst $a^x$ ausrechnen, dann mit c malnehmen.'
+gegenbeispiel:
+  de: '$3 \cdot 2^2 = 12$, aber $6^2 = 36$. Das ist dreimal so viel.'
+rueckweg:
+  vermittlung: M.SF.EX.FUNKTION#erklaeren-graph
+kontrast: [M.SF.EX.FUNKTION.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

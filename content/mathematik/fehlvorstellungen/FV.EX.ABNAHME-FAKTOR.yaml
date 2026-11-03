@@ -1,0 +1,25 @@
+id: FV.EX.ABNAHME-FAKTOR
+name:
+  de: Wachstum und Abnahme am Faktor verwechselt
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet bei einer Abnahme um 10 % mit dem Faktor 1,1 oder hält einen Graphen mit Basis kleiner als 1 für steigend. Welche Basis zu Wachstum und welche zu Abnahme gehört, ist nicht sicher.
+kompetenzen: [M.SF.EX.WACHSTUM, M.SF.EX.FUNKTION]
+erklaerung:
+  kurz:
+    de: 'Abnahme um p %: [[Faktor]] 1 − p/100, kleiner als 1, der [[Graph]] fällt. Wachstum um p %: Faktor 1 + p/100, größer als 1, der Graph steigt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast bei einer Abnahme einen [[Faktor]] größer als 1 genommen oder umgekehrt.'
+    - teil: warum-nicht
+      de: 'Mit einem [[Faktor]] größer als 1 wird der Bestand bei jedem Schritt größer. Bei einer Abnahme muss er kleiner werden.'
+    - teil: so-stimmt-es
+      de: 'Prüfe zuerst die Richtung: wächst oder nimmt ab? Dann ist der [[Faktor]] größer oder kleiner als 1.'
+gegenbeispiel:
+  de: '100 · 1,1 = 110 ist mehr als 100, obwohl der Bestand um 10 % abnehmen sollte. Richtig: 100 · 0,9 = 90.'
+rueckweg:
+  vermittlung: M.SF.EX.WACHSTUM#erklaeren-faktor
+kontrast: [M.SF.EX.WACHSTUM.FAKTOR, M.SF.EX.FUNKTION.GRAPH]
+herkunft: ki-entwurf
+version: 1
