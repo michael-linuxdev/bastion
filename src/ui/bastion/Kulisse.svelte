@@ -13,7 +13,7 @@
   import type { Jahreszeit } from './grafik/jahreszeit';
   import type { Kamera } from './grafik/kamera';
   import type { Bewegung } from './grafik/atmosphaere';
-  import { buehneFuer, punkt } from './grafik/iso';
+  import { buehneFuer, INSEL, punkt } from './grafik/iso';
   import {
     DING_BREITE,
     HORIZONT,
@@ -155,6 +155,22 @@
       .map((q) => `${q.x},${q.y}`)
       .join(' '),
   );
+  /**
+   * Vordere Wasserlinie der Insel (links → unten → rechts, unter den Seitenwänden) und die
+   * Spiegelung darunter (Wunsch PV: Licht und Wasser). Die Wände sind INSEL Bildpunkte hoch.
+   */
+  const ufer = $derived.by(() => {
+    const l = punkt(0, platz.tiefe, platz);
+    const u = punkt(platz.breite, platz.tiefe, platz);
+    const r = punkt(platz.breite, 0, platz);
+    const linie = [l, u, r].map((q) => `${q.x},${q.y + INSEL}`).join(' ');
+    const tief = INSEL * 2.2;
+    const spiegel = [
+      ...[l, u, r].map((q) => `${q.x},${q.y + INSEL}`),
+      ...[r, u, l].map((q) => `${q.x},${q.y + INSEL + tief}`),
+    ].join(' ');
+    return { linie, spiegel, oben: l.y + INSEL, unten: u.y + INSEL + tief };
+  });
   const bootStart = $derived(punkt(-4, platz.tiefe + 5, platz));
   const bootZiel = $derived(punkt(platz.breite + 5, platz.tiefe + 5, platz));
 </script>
@@ -247,7 +263,16 @@
   >
     <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
       {#if thema.wasser}
+        <defs>
+          <linearGradient id="spiegelung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgb(30 50 40)" stop-opacity="0.28" />
+            <stop offset="1" stop-color="rgb(30 50 40)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <polygon class="spiegelung" points={ufer.spiegel} />
         <polygon points={raute} />
+        <polyline class="ufer" points={ufer.linie} />
+        <polyline class="ufer welle" points={ufer.linie} />
       {/if}
       {#each schollen as s (s.i)}
         <polygon
@@ -560,6 +585,30 @@
     stroke-width: 12;
   }
 
+  .schaum .spiegelung {
+    fill: url(#spiegelung);
+    stroke: none;
+  }
+
+  .schaum .ufer {
+    fill: none;
+    stroke: rgb(240 248 250 / 0.7);
+    stroke-width: 4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .schaum .ufer.welle {
+    stroke: rgb(240 248 250 / 0.35);
+    stroke-width: 9;
+    opacity: 0.6;
+  }
+
+  .wetter-sturm .schaum .ufer.welle {
+    stroke-width: 11;
+    stroke: rgb(240 248 250 / 0.28);
+  }
+
   .schaum polygon.scholle {
     fill: rgb(240 246 250 / 0.92);
     stroke: rgb(190 214 228 / 0.9);
@@ -611,6 +660,15 @@
 
     .kulisse.bewegt .boot {
       animation: segeln 180s linear infinite;
+    }
+
+    /* Wellen laufen ans Ufer: der Schaum schwillt langsam an und ab */
+    .kulisse.bewegt .ufer.welle {
+      animation: brandung 5s ease-in-out infinite;
+    }
+
+    .kulisse.bewegt.wetter-sturm .ufer.welle {
+      animation-duration: 2.4s;
     }
 
     .kulisse.bewegt .himmelwolke {
@@ -758,6 +816,18 @@
     }
     to {
       transform: translateX(160%);
+    }
+  }
+
+  @keyframes brandung {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0.75;
+      transform: translateY(3px);
     }
   }
 

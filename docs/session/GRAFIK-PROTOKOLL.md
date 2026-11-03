@@ -87,3 +87,4 @@
 | 03.11.2026 | **Regen ruhiger, Wolken wandern mit, Szenerie bis weit hinaus** (Branch `grafik/wetter-ruhiger`, iPhone-Fotos des PV): Wetterschicht zurückgenommen, Wolkenschatten/Nebel an der Welt, Verteilung bis 44 Felder ohne Seitensperre, oben dichter, Wolken am Himmel, ferne Segel; GRAFIK §18.1 |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `src/ui/start/` gehört jetzt dem Strang Oberfläche (PV); Bastion-Bild und `src/ui/bastion/` bleiben hier |
 | 03.11.2026 | **Vielfalt und eigene Umgebung** (Branch `grafik/szenerie-wuerfeln`, Wunsch PV): drei Formen je Ding (`g15_varianten.py`, 46 Bilder, Nadelbäume), „Neue Umgebung würfeln“ im Zahnrad mit gespeichertem Startwert `basebau.szenerie`; Test oben/unten gleich voll; GRAFIK §18.2 |
+| 03.11.2026 | **Licht, Wasser, Rauch** (Branch `grafik/licht-leben`, Wunsch PV Schritt 2+3): Lichtschein vor Abendfenstern, Rauch aus Bergfried/Werkstatt, Uferschaum mit Brandung, Spiegelung; GRAFIK §19 |
