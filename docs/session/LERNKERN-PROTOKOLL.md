@@ -103,3 +103,4 @@
 | 03.11.2026 | **Antworten des PV zum Bauplan 10–12** eingetragen (`KLASSE-10-12-BAUPLAN.md` §7, Entscheidung 17 in `KLASSE-9-12.md`); Rundungsregel: Lehrplan nennt keine feste Stellenzahl, Vorschlag festgehalten |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** Elternbereich neu gegliedert; Aufgabenblatt und Testphase sitzen in eigenen Karten, Knöpfe dort sehen über die Hülle einheitlich aus (Logik unverändert) |
 | 03.11.2026 | **Etappe 10-0:** Klasse 10 wählbar (Hinweis, solange es keine Themen gibt); `passtZurSchulart` blendet bei gewählter Schulart Themen aus, die ihr Lehrplan nicht enthält (Übersicht, Weiter üben, Diagnose), mit Unit- und e2e-Test |
+| 03.11.2026 | **Etappe 10-0b:** `graph@1` kann exp, log, sin, cos und den Parameter b (Regler auf Wunsch); `dreieck@1` zeichnet mit `winkel` beliebige Dreiecke (`allgemeine-dreiecke/skizze.ts`); alle 13 vorhandenen Graph-Bilder unverändert (Vergleich vorher/nachher); Vorschaubild an den PV |
