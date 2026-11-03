@@ -29,6 +29,17 @@ schritte:
     typ: erklaeren
     text:
       de: 'Ein Quadrat ist nie negativ und am kleinsten, wenn es null ist. Bei $y = (x - 2)^2 + 3$ also für $x = 2$, und dann ist $y = 3$. Der [[Scheitelpunkt]] ist $S(2|3)$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ d: 2, e: 3 }, { vergleich: true }],
+            x: [-3, 6],
+            y: [-1, 9],
+            punkte: [[2, 3]],
+          },
+      }
     weiter: erklaeren-ergaenzen
   - id: erklaeren-ergaenzen
     typ: erklaeren
@@ -65,6 +76,11 @@ schritte:
     typ: merksatz
     text:
       de: '$y = a(x - d)^2 + e$ hat den [[Scheitelpunkt]] $S(d|e)$. Ist a positiv, ist e der kleinste Wert (Minimum), ist a negativ, der größte (Maximum).'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter: { kurven: [{ d: 2, e: -1 }, { vergleich: true }], x: [-6, 6], y: [-6, 6] },
+      }
     weiter: pruefen
   - id: pruefen
     typ: pruefen

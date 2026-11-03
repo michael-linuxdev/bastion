@@ -29,11 +29,18 @@ schritte:
     typ: erklaeren
     text:
       de: '[[Gerade]] [[Hochzahl]]: $(-x)^n = x^n$, der [[Graph]] ist symmetrisch zur y-Achse wie die [[Parabel]]. Ungerade Hochzahl: $(-x)^n = -x^n$, der Graph ist symmetrisch zum [[Ursprung]].'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter: { kurven: [{ art: potenz, n: 3 }, { vergleich: true }], x: [-3, 3], y: [-6, 6] },
+      }
     weiter: erklaeren-negativ
   - id: erklaeren-negativ
     typ: erklaeren
     text:
       de: 'Negative [[Hochzahl]] heißt [[Kehrwert]]: $x^{-2} = \frac{1}{x^2}$. Bei $x = 0$ ist das nicht erklärt. Dort hat der [[Graph]] eine Polstelle, und er nähert sich den Achsen an.'
+    bild:
+      { werkzeug: graph@1, parameter: { kurven: [{ art: potenz, n: -2 }], x: [-4, 4], y: [-2, 5] } }
     weiter: erklaeren-wertebereich
   - id: erklaeren-wertebereich
     typ: erklaeren
@@ -44,6 +51,8 @@ schritte:
     typ: beispiel
     text:
       de: '$y = x^{-1}$: ungerade [[Hochzahl]], also punktsymmetrisch zum [[Ursprung]]; negativ, also Polstelle bei 0. Links liegt der [[Graph]] unten, rechts oben.'
+    bild:
+      { werkzeug: graph@1, parameter: { kurven: [{ art: potenz, n: -1 }], x: [-4, 4], y: [-4, 4] } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

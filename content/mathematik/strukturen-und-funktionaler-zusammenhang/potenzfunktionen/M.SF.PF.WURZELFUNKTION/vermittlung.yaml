@@ -35,11 +35,22 @@ schritte:
     typ: erklaeren
     text:
       de: 'Unter der [[Wurzel]] darf keine [[negative Zahl]] stehen. Darum gilt der [[Graph]] nur für $x \geq 0$. Er beginnt bei $(0|0)$, geht durch $(1|1)$ und $(4|2)$ und steigt immer flacher.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          { kurven: [{ art: wurzel }], x: [-1, 9], y: [-1, 4], punkte: [[0, 0], [1, 1], [4, 2]] },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: '$f(x) = \sqrt{x - 3}$: Unter der [[Wurzel]] muss $x - 3 \geq 0$ sein, also $x \geq 3$. Der [[Graph]] beginnt bei $(3|0)$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter: { kurven: [{ art: wurzel, d: 3 }], x: [-1, 12], y: [-1, 4], punkte: [[3, 0]] },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
