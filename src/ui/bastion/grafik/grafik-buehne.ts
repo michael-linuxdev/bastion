@@ -39,6 +39,7 @@ import {
   atlasWesenId,
   atlasDatei,
   type AtlasFahne,
+  type AtlasFluegel,
   type AtlasManifest,
   type BodenKachel,
 } from './atlas';
@@ -1723,9 +1724,10 @@ export async function buehneErstellen(
    */
   let fahnenTuecher: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number }[] =
     [];
+  let muehlen: { g: Graphics; x: number; y: number; k: number; f: AtlasFluegel; n: number }[] = [];
   const fahnenSammeln = () => {
     fahnenTuecher = [];
-    if (!tickerAn(bewegung)) return;
+    muehlen = [];
     const idVon = new Map<Texture, string>();
     for (const [id, tex] of texturen) idVon.set(tex, id);
     let n = 0;
@@ -1733,8 +1735,22 @@ export async function buehneErstellen(
       if (!(kind instanceof Sprite)) continue;
       const id = idVon.get(kind.texture);
       const eintrag = id ? atlasEintragPerId(atlas, id) : undefined;
-      if (!eintrag?.fahnen) continue;
+      if (!eintrag) continue;
       const k = kind.width / (eintrag.pixel.w / 2);
+      // Mühle: Bild ohne Flügel zeigen und die Flügel selbst zeichnen (auch bei „ruhig“,
+      // dann stehen sie still)
+      const ohne = eintrag.fluegel ? atlasEintragPerId(atlas, eintrag.fluegel.ohne) : undefined;
+      const ohneTex = ohne ? texturen.get(ohne.id) : undefined;
+      if (eintrag.fluegel && ohne && ohneTex) {
+        kind.texture = ohneTex;
+        kind.height = (ohne.pixel.h / 2) * k;
+        const g = new Graphics();
+        g.zIndex = kind.zIndex + 0.5;
+        g.tint = kind.tint;
+        gebaeude.addChild(g);
+        muehlen.push({ g, x: kind.x, y: kind.y, k, f: eintrag.fluegel, n: n++ });
+      }
+      if (!eintrag.fahnen || !tickerAn(bewegung)) continue;
       for (const f of eintrag.fahnen) {
         const g = new Graphics();
         g.zIndex = kind.zIndex + 0.5;
@@ -1744,6 +1760,53 @@ export async function buehneErstellen(
       }
     }
     fahnenWehen(performance.now());
+    muehlenDrehen(performance.now());
+  };
+  /**
+   * Drehende Mühlenflügel (Wunsch PV, 03.11.2026): vier Flügel vor der rechten Wand, in
+   * derselben Ebene wie im Modell (`muehle_fluegel` in `g12_modelle.py`), eine Umdrehung
+   * in zwölf Sekunden, bei Sturm schneller. Bei „ruhig“ stehen sie wie im alten Bild.
+   */
+  const muehlenDrehen = (jetzt: number) => {
+    const dreht = tickerAn(bewegung);
+    const tempo = wetterBild === 'sturm' ? 2.5 : 1;
+    for (const m of muehlen) {
+      const { g, f, k } = m;
+      g.clear();
+      const s = k / 2;
+      const nx = m.x + f.x * s;
+      const ny = m.y + f.y * s;
+      // Bildpunkte je Feld in der Ebene der rechten Wand (iso: 48 / 24 / 58,79)
+      const qx = 48 * s;
+      const qy = 24 * s;
+      const qz = 58.79 * s * f.f;
+      // Richtung in der Wand-Ebene: dy = Feld nach hinten, dz = nach oben
+      const bild = (dy: number, dz: number) => ({ x: nx - dy * qx, y: ny + dy * qy - dz * qz });
+      const drehung = dreht ? -((jetzt / 12_000) * Math.PI * 2 * tempo + m.n) : 0;
+      for (let i = 0; i < 4; i++) {
+        const a = Math.PI / 4 + (i * Math.PI) / 2 + drehung;
+        const ca = Math.cos(a);
+        const sa = Math.sin(a);
+        // Flügel entlang (−cos a, sin a), Tuch quer dazu (sin a, cos a), 0,24 Felder breit
+        const ende = bild(-f.l * ca, f.l * sa);
+        const ecken = [
+          [0.25, -0.12],
+          [1, -0.12],
+          [1, 0.12],
+          [0.25, 0.12],
+        ].map(([t = 0, q = 0]) => bild(-f.l * t * ca + q * sa, f.l * t * sa + q * ca));
+        // Tuch: im Licht heller, wenn es nach oben zeigt
+        const licht = 0.9 + 0.1 * sa;
+        g.poly(ecken.flatMap((p) => [p.x, p.y]))
+          .fill(heller('#f0e8d6', licht))
+          .stroke({ width: 0.8 * s, color: 0x8a6a4a, alpha: 0.7 });
+        // Rute über dem Tuch, wie im alten Bild
+        g.moveTo(nx, ny)
+          .lineTo(ende.x, ende.y)
+          .stroke({ width: 1.6 * s, color: 0x5c3e28, cap: 'round' });
+      }
+      g.circle(nx, ny, 2.4 * s).fill(0x4a3220);
+    }
   };
   const fahnenWehen = (jetzt: number) => {
     const wind = wetterBild === 'sturm' ? 2.2 : 1;
@@ -1788,6 +1851,7 @@ export async function buehneErstellen(
   const ticker = () => {
     const jetzt = performance.now();
     if (fahnenTuecher.length > 0) fahnenWehen(jetzt);
+    if (muehlen.length > 0) muehlenDrehen(jetzt);
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
     tickerZuletzt = jetzt;
     // Bei Sturm ziehen die Wolken dreimal so schnell

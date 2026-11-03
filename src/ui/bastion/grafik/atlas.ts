@@ -16,6 +16,20 @@ export interface AtlasEintrag {
   readonly hd?: boolean;
   /** Fahnen im Bild (G18, wehen auf der Bühne): Bildpunkte des 1x-Bildes ab Fußpunkt */
   readonly fahnen?: readonly AtlasFahne[];
+  /** Mühlenflügel (G19): die Bühne zeigt das Bild `ohne` und dreht die Flügel dazu */
+  readonly fluegel?: AtlasFluegel;
+}
+
+/**
+ * Mühlenflügel (`tools/grafik/g19_muehle.py`): Nabe `x, y` in 1x-Bildpunkten ab Fußpunkt,
+ * Flügellänge `l` in Feldern, Höhenstreckung `f` des Modells, Bild ohne Flügel `ohne`.
+ */
+export interface AtlasFluegel {
+  readonly x: number;
+  readonly y: number;
+  readonly l: number;
+  readonly f: number;
+  readonly ohne: string;
 }
 
 /**
