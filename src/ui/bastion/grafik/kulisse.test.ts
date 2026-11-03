@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dingeUmBauplatz, kulisseFuer, kulissenLage, stimmungAus } from './kulisse';
+import { dingBild, dingeUmBauplatz, kulisseFuer, kulissenLage, stimmungAus } from './kulisse';
 
 const zeiten = { aufgangMin: 7 * 60, untergangMin: 17 * 60 };
 const um = (h: number, m = 0) => new Date(2026, 10, 2, h, m);
@@ -43,5 +43,14 @@ describe('Kulisse (GRAFIK §13)', () => {
   it('die Dinge eines Themas liegen an den festen Plätzen', () => {
     const d = dingeUmBauplatz(12, 12, ['a', 'b']);
     expect(d.map((x) => x.bild)).toEqual(['a', 'b', 'a', 'b', 'a', 'b']);
+  });
+
+  it('Dinge je Jahreszeit: eigenes Bild nur, wo es eines gibt; Sommer ohne Zusatz', () => {
+    const dorf = kulisseFuer('dorf');
+    if (!dorf) throw new Error('dorf');
+    expect(dingBild(dorf, 'obstbaum', 'herbst')).toBe('obstbaum_herbst');
+    expect(dingBild(dorf, 'obstbaum', 'sommer')).toBe('obstbaum');
+    expect(dingBild(dorf, 'heuballen', 'winter')).toBe('heuballen');
+    expect(kulisseFuer('weltraum')?.jahreszeitBoden).toBe(false);
   });
 });

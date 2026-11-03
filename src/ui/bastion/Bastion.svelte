@@ -44,7 +44,12 @@
   import Symbol from '../grafik/Symbol.svelte';
   import FarbWahl from './FarbWahl.svelte';
   import WetterEinstellung from './WetterEinstellung.svelte';
-  import { WETTER_PROBEN, wetterProbe } from './wetter-probe.svelte';
+  import {
+    JAHRESZEIT_PROBEN,
+    jahreszeitProbe,
+    WETTER_PROBEN,
+    wetterProbe,
+  } from './wetter-probe.svelte';
   import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
   import Hinterhof from './Hinterhof.svelte';
   import {
@@ -848,6 +853,14 @@
           <select bind:value={wetterProbe.wahl}>
             {#each WETTER_PROBEN as w (w)}
               <option value={w}>{tt(`bastion.wetter-probe.${w}` as TextSchluessel)}</option>
+            {/each}
+          </select>
+        </label>
+        <label class="wetter-probe">
+          {tt('bastion.jahreszeit-probe')}
+          <select bind:value={jahreszeitProbe.wahl}>
+            {#each JAHRESZEIT_PROBEN as j (j)}
+              <option value={j}>{tt(`bastion.jahreszeit-probe.${j}` as TextSchluessel)}</option>
             {/each}
           </select>
         </label>

@@ -3304,6 +3304,45 @@
       }
     },
     {
+      "id": "bastion/umgebung/baum_a_fruehling",
+      "datei": "umgebung/bastion/baum_a_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 179
+      }
+    },
+    {
+      "id": "bastion/umgebung/baum_a_herbst",
+      "datei": "umgebung/bastion/baum_a_herbst.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 168
+      }
+    },
+    {
+      "id": "bastion/umgebung/baum_a_winter",
+      "datei": "umgebung/bastion/baum_a_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 181
+      }
+    },
+    {
       "id": "bastion/umgebung/baum_b",
       "datei": "umgebung/bastion/baum_b.png",
       "felder": [1, 1],
@@ -3317,6 +3356,45 @@
       }
     },
     {
+      "id": "bastion/umgebung/baum_b_winter",
+      "datei": "umgebung/bastion/baum_b_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 147
+      }
+    },
+    {
+      "id": "bastion/umgebung/baum_b_herbst",
+      "datei": "umgebung/bastion/baum_b_herbst.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 135
+      }
+    },
+    {
+      "id": "bastion/umgebung/baum_b_fruehling",
+      "datei": "umgebung/bastion/baum_b_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 145
+      }
+    },
+    {
       "id": "bastion/umgebung/busch",
       "datei": "umgebung/bastion/busch.png",
       "felder": [1, 1],
@@ -3327,6 +3405,45 @@
       "pixel": {
         "w": 104,
         "h": 61
+      }
+    },
+    {
+      "id": "bastion/umgebung/busch_winter",
+      "datei": "umgebung/bastion/busch_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 73
+      }
+    },
+    {
+      "id": "bastion/umgebung/busch_herbst",
+      "datei": "umgebung/bastion/busch_herbst.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 61
+      }
+    },
+    {
+      "id": "bastion/umgebung/busch_fruehling",
+      "datei": "umgebung/bastion/busch_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 69
       }
     },
     {
@@ -3356,8 +3473,86 @@
       }
     },
     {
+      "id": "dorf/umgebung/baum_a_fruehling",
+      "datei": "umgebung/dorf/baum_a_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 175
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_a_herbst",
+      "datei": "umgebung/dorf/baum_a_herbst.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 164
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_a_winter",
+      "datei": "umgebung/dorf/baum_a_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 177
+      }
+    },
+    {
       "id": "dorf/umgebung/baum_b",
       "datei": "umgebung/dorf/baum_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 132
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_b_winter",
+      "datei": "umgebung/dorf/baum_b_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 143
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_b_fruehling",
+      "datei": "umgebung/dorf/baum_b_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 141
+      }
+    },
+    {
+      "id": "dorf/umgebung/baum_b_herbst",
+      "datei": "umgebung/dorf/baum_b_herbst.png",
       "felder": [1, 1],
       "anker": {
         "x": 0.5,
@@ -3382,8 +3577,86 @@
       }
     },
     {
+      "id": "garten/umgebung/strauch_a_winter",
+      "datei": "umgebung/garten/strauch_a_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 76
+      }
+    },
+    {
+      "id": "garten/umgebung/strauch_a_herbst",
+      "datei": "umgebung/garten/strauch_a_herbst.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 73
+      }
+    },
+    {
+      "id": "garten/umgebung/strauch_a_fruehling",
+      "datei": "umgebung/garten/strauch_a_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 73
+      }
+    },
+    {
       "id": "garten/umgebung/strauch_b",
       "datei": "umgebung/garten/strauch_b.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 73
+      }
+    },
+    {
+      "id": "garten/umgebung/strauch_b_winter",
+      "datei": "umgebung/garten/strauch_b_winter.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 76
+      }
+    },
+    {
+      "id": "garten/umgebung/strauch_b_fruehling",
+      "datei": "umgebung/garten/strauch_b_fruehling.png",
+      "felder": [1, 1],
+      "anker": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "pixel": {
+        "w": 104,
+        "h": 73
+      }
+    },
+    {
+      "id": "garten/umgebung/strauch_b_herbst",
+      "datei": "umgebung/garten/strauch_b_herbst.png",
       "felder": [1, 1],
       "anker": {
         "x": 0.5,

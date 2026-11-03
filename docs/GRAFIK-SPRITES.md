@@ -573,6 +573,7 @@ Generatoren (alle deterministisch, nur numpy und Pillow):
 | `tools/grafik/g12_boden.py` | `boden/<thema>/e<n>/flaeche|flaeche_b|flaeche_hell|rand.png` |
 | `tools/grafik/g12_rest.py` | Umgebung, Kulisse-Dinge, Wesen, Bewohner |
 | `tools/grafik/g12_kulisse.py` | Kulissen für Dorf, Garten, Unterwasser, Weltraum (Horizont, Grund-Kachel, Sterne, Dinge) |
+| `tools/grafik/g13_jahreszeiten.py` | Bäume, Büsche, Sträucher, Hecken, Teiche und Inselchen je Jahreszeit (`<name>_fruehling/_herbst/_winter`; Sommer = Bild ohne Zusatz), trägt neue IDs ins Manifest ein |
 | `tools/grafik/sprites-g3-hinterhof.py` | Hinterhof und Startbild (aus den neuen Bildern zusammengesetzt) |
 
 Reihenfolge: `g12_atlas.py`, `g12_boden.py`, `g12_rest.py`, `sprites-g3-hinterhof.py`. Die G3-Skripte (`sprites-g3-*.py`, `sprites-g3e-*.py`) sind abgelöst und bleiben als Beleg.

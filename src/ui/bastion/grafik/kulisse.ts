@@ -7,6 +7,7 @@
 import type { Kamera } from './kamera';
 import type { Sonnenzeiten } from './sonne';
 import type { Thema } from '../../../core/policy/einstellung';
+import type { Jahreszeit } from './jahreszeit';
 
 export type Stimmung = 'tag' | 'daemmerung' | 'nacht';
 
@@ -23,6 +24,15 @@ export interface KulissenThema {
   readonly boot: boolean;
   /** Sterne auch am Tag (Weltraum) */
   readonly sterneImmer: boolean;
+  /** Dinge mit eigenem Bild je Jahreszeit (`<name>_<jahreszeit>.png`, G13) */
+  readonly jahreszeitDinge: readonly string[];
+  /** Boden und Horizont folgen der Jahreszeit (nur über Land) */
+  readonly jahreszeitBoden: boolean;
+}
+
+/** Bild eines Dings in der Jahreszeit: eigenes Bild, wenn es eines gibt; Sommer ohne Zusatz */
+export function dingBild(thema: KulissenThema, name: string, jz: Jahreszeit): string {
+  return jz !== 'sommer' && thema.jahreszeitDinge.includes(name) ? `${name}_${jz}` : name;
 }
 
 /**
@@ -42,6 +52,8 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: true,
     boot: true,
     sterneImmer: false,
+    jahreszeitDinge: ['inselchen'],
+    jahreszeitBoden: true,
   },
   dorf: {
     himmel: {
@@ -54,6 +66,8 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
+    jahreszeitDinge: ['hecke', 'obstbaum', 'teich'],
+    jahreszeitBoden: true,
   },
   garten: {
     himmel: {
@@ -66,6 +80,8 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
+    jahreszeitDinge: ['blumenbusch', 'teich', 'hecke', 'obstbaum'],
+    jahreszeitBoden: true,
   },
   unterwasser: {
     himmel: {
@@ -78,6 +94,8 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: false,
+    jahreszeitDinge: [],
+    jahreszeitBoden: false,
   },
   weltraum: {
     himmel: {
@@ -90,6 +108,8 @@ const THEMEN: Record<Thema, KulissenThema> = {
     wasser: false,
     boot: false,
     sterneImmer: true,
+    jahreszeitDinge: [],
+    jahreszeitBoden: false,
   },
 };
 
