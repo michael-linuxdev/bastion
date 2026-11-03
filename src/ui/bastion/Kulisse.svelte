@@ -287,6 +287,7 @@
       <img
         class="ding"
         src={w.src}
+        srcset="{w.src} 1x, {w.src.replace(/\.png$/, '@2x.png')} 2x"
         alt=""
         style:inline-size="{w.breite}px"
         style:inset-inline-start="{w.x}px"
@@ -311,6 +312,7 @@
           class:flach={d.flach}
           class:tier={d.tier}
           src="{basis}dinge/{d.bild}.png"
+          srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
           alt=""
           style:inline-size="{d.breite ?? DING_BREITE}px"
           style:inset-inline-start="{d.x}px"
@@ -323,6 +325,7 @@
       <img
         class="ding schwarm"
         src="{basis}dinge/fischschwarm.png"
+        srcset="{basis}dinge/fischschwarm.png 1x, {basis}dinge/fischschwarm@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.3}px"
         style:inset-inline-start="{f.x}px"
@@ -334,6 +337,7 @@
       <img
         class="ding satellit"
         src="{basis}dinge/satellit.png"
+        srcset="{basis}dinge/satellit.png 1x, {basis}dinge/satellit@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.2}px"
         style:inset-inline-start="{satellit.x}px"
@@ -374,6 +378,7 @@
       <img
         class="ding boot"
         src="{basis}dinge/boot.png"
+        srcset="{basis}dinge/boot.png 1x, {basis}dinge/boot@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE}px"
         style:inset-inline-start="{bootStart.x}px"

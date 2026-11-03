@@ -130,6 +130,32 @@ def auftraege(teile: list[str]) -> list:
     return jobs
 
 
+def ausrichten() -> int:
+    """Jedes @2x-Bild auf genau die doppelte Größe des Originals bringen: unten bündig
+    (Fußpunkt), seitlich mittig; oben auffüllen oder abschneiden. Der Zuschnitt beim
+    Rechnen weicht sonst um ein paar Bildpunkte ab, und die App würde das Bild stauchen."""
+    n = 0
+    for gross in ATLAS.rglob("*@2x.png"):
+        klein = gross.with_name(gross.name.replace("@2x", ""))
+        if not klein.exists():
+            continue
+        with Image.open(klein) as k:
+            w, h = k.size
+        bild = Image.open(gross).convert("RGBA")
+        if bild.size == (2 * w, 2 * h):
+            continue
+        neu = Image.new("RGBA", (2 * w, 2 * h), (0, 0, 0, 0))
+        # unten bündig, seitlich mittig; was übersteht, schneidet paste ab
+        neu.paste(bild, ((2 * w - bild.width) // 2, 2 * h - bild.height), bild)
+        if "fenster" in gross.name:
+            neu.save(gross, "PNG", optimize=True)
+        else:
+            neu.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.FLOYDSTEINBERG).save(gross, "PNG", optimize=True)
+        n += 1
+    print(n, "@2x-Bilder ausgerichtet")
+    return n
+
+
 def main() -> int:
     teile = sys.argv[1:] or ["gebaeude", "umgebung", "kulisse"]
     jobs = auftraege(teile)
@@ -143,6 +169,7 @@ def main() -> int:
             ziel = ATLAS / q.relative_to(ZWISCHEN)
             ziel.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(q, ziel)
+    ausrichten()
     # Manifest: "hd" für alle Einträge, deren @2x-Bild es gibt (die Größen bleiben die logischen)
     manifest_pfad = ATLAS / "manifest.json"
     manifest = json.loads(manifest_pfad.read_text(encoding="utf-8"))
