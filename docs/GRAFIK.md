@@ -606,3 +606,15 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
   - Kein Filter mehr an einzelnen Kulisse-Bildern. Abend und Nacht färbt eine einzige Tönung in Fenstergröße (`.abendton`), die Luftperspektive wirkt nur über die Deckkraft.
   - Die Bühne lädt alle Bilder zuerst in einfacher Größe. Scharfe @2x-Bilder lädt sie nur für die Einträge nach, die beim Zeichnen wirklich gebraucht werden (`TexturVorrat` merkt sich die IDs), und zeichnet dann einmal neu.
 - **Messung** (Chromium, 390 × 844, Pixeldichte 3, ganz herangezoomt, Ebenenfläche × Zoom²): vorher 178 MPx ≈ 710 MB in 52 Ebenen, nachher 60 MPx ≈ 238 MB in 38 Ebenen. Messwerkzeug: CDP `LayerTree` mit Playwright.
+
+## 25. Wege und Tagesablauf der Bewohner (Wunsch PV, 03.11.2026, Punkt 4)
+
+- **Wege:** Vom Feld vor dem Bergfried führt ein ausgetretener Pfad zu jedem Gebäude (nicht zu Mauerstücken und Flächen). Der Weg sucht den kürzesten Pfad über freie Felder und biegt dabei selten ab (`wegSuchen`: Schritt 1, Abbiegen 0,4), also ein gerader Pfad mit Knick statt einer Treppe. Gezeichnet wird ein durchgehendes Band (deckend, abends dunkler), im Winter festgetretener Schnee. Auf Wegfeldern wächst kein Boden-Leben (§23). Nur über Land.
+- **Tagesablauf nach der Uhr** (`grafik/tagesablauf.ts`, rein, ohne Zufall):
+  - Zuhause ist ein Feld vor dem Bergfried, die Arbeit das Feld vor dem eigenen Gebäude.
+  - Ab 7:00 brechen die Bewohner auf, jeder 4 Minuten nach dem vorigen, und gehen den Weg zur Arbeit (1,6 s je Feld).
+  - Tagsüber geht jeder alle 12 Minuten kurz zum Platz (Banner, sonst Mitte des Bauplatzes), bleibt 20 s und geht zurück.
+  - Ab 18:00 gehen alle heim (je 5 Minuten versetzt), danach sind sie drinnen und werden nicht gezeichnet. Antippen geht dann auch nicht.
+  - Gleiche Uhrzeit, gleiche Bauwerke → gleiches Bild.
+- Mit „Bewegung reduzieren“ (ruhig) bleiben die Bewohner wie bisher aus. Es gibt weder Druck noch Belohnung: Der Ablauf zeigt nur, dass die Bastion bewohnt ist.
+

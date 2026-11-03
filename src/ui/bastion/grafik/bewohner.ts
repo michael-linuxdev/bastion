@@ -7,8 +7,15 @@ import type { Bastion } from '../../../core/bastion/bauen';
 import type { Epoche } from '../../../core/bastion/epochen';
 import type { Bauwerk, Position } from '../../../core/bastion/katalog';
 import type { Konto } from '../../../core/ledger/buchung';
-import { bauplatzAktiv, type BauplatzMass } from './iso';
+import { bauplatzAktiv, punkt, type BauplatzMass } from './iso';
 import { belegteFelder, feldMittePunkt, freiesFeld } from './pfad';
+import {
+  bewohnerOrt,
+  bewohnerWege,
+  feldVor,
+  type BewohnerWege,
+  type Tagesphase,
+} from './tagesablauf';
 
 export type BewohnerArt = 'zwerg' | 'gaertner' | 'bibliothek' | 'torhueter' | 'handwerk' | 'imker';
 
@@ -157,6 +164,10 @@ export interface BewohnerZustand {
   taetigkeit: Taetigkeit;
   phase: number;
   reactBis: number;
+  /** Wege für den Tagesablauf nach der Uhr (Punkt 4) */
+  readonly wege?: BewohnerWege;
+  /** Abschnitt des Tages; „drinnen“ wird nicht gezeichnet */
+  tagesphase?: Tagesphase;
 }
 
 const FARBEN: Readonly<Record<BewohnerArt, string>> = {
@@ -212,9 +223,11 @@ function ankerFeld(
               : 'zeichen';
   const geb = bauwerke.find((b) => b.typ === typBevorzugt);
   if (geb) {
-    // Neben dem Gebäude, nicht darauf
-    const kandidat = freiesFeld(geb.pos.x + geb.pos.y + index + 11, belegt, platz);
-    return kandidat;
+    // Direkt vor dem Gebäude (dort endet auch der Weg), sonst irgendwo frei
+    return (
+      feldVor(geb, belegt, platz, index) ??
+      freiesFeld(geb.pos.x + geb.pos.y + index + 11, belegt, platz)
+    );
   }
   return freiesFeld(index * 5 + 3, belegt, platz);
 }
@@ -234,6 +247,7 @@ export function bewohnerStarten(
       id: `b-${i}-${art}`,
       art,
       feld,
+      wege: bewohnerWege(i, feld, bauwerke, belegt, platz),
       x: p.x,
       y: p.y,
       taetigkeit: taetigkeitFuer(art, 0, i, f),
@@ -243,14 +257,32 @@ export function bewohnerStarten(
   });
 }
 
-/** Tätigkeiten fortschreiben; leichte Wippe am Anker, kein Wanderdruck. */
+/**
+ * Tätigkeiten fortschreiben; leichte Wippe am Anker, kein Wanderdruck. Mit `sekunde`
+ * (Sekunde des Tages, Ortszeit) folgt der Bewohner seinem Tagesablauf: Weg zur Arbeit,
+ * Besorgungen, Heimweg, nachts drinnen.
+ */
 export function bewohnerTick(
   b: BewohnerZustand,
   dt: number,
   jetzt: number,
   index: number,
   f?: BewohnerFortschritt,
+  sekunde?: number,
 ): void {
+  if (sekunde !== undefined && b.wege) {
+    const ort = bewohnerOrt(sekunde, index, b.wege);
+    b.tagesphase = ort.phase;
+    if (ort.phase !== 'arbeit') {
+      const p = punkt(ort.gx, ort.gy);
+      b.taetigkeit = ort.phase === 'besorgung' && !ort.geht ? 'schauen' : 'ruhen';
+      b.phase += dt * (ort.geht ? 6 : 2);
+      b.x = p.x;
+      // beim Gehen ein kleines Auf und Ab je Schritt
+      b.y = p.y - (ort.geht ? Math.abs(Math.sin(b.phase * 1.4)) * 1.2 : 0);
+      return;
+    }
+  }
   b.taetigkeit = taetigkeitFuer(b.art, jetzt, index, f);
   const ruhigArt =
     b.taetigkeit === 'ruhen' || b.taetigkeit === 'lesen' || b.taetigkeit === 'wachen';
