@@ -1652,7 +1652,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.goto('./');
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
-  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
+  await expect(page.getByText('keine Werbung, keine Käufe')).toBeVisible();
   await page.getByRole('button', { name: 'Zurück' }).click();
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();

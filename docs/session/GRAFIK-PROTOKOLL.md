@@ -86,3 +86,4 @@
 | 03.11.2026 | **Fleiß Bergfried 6–9 halbiert** (Branch `grafik/fleiss-bergfried`, B-33, Zustimmung PV): 800/1100/1500/2000 → 400/550/750/1000; `pnpm sim`: P1 Bergfried 9 nach 37,9 statt 45,7 Monaten; BASEBAU §8c |
 | 03.11.2026 | **Regen ruhiger, Wolken wandern mit, Szenerie bis weit hinaus** (Branch `grafik/wetter-ruhiger`, iPhone-Fotos des PV): Wetterschicht zurückgenommen, Wolkenschatten/Nebel an der Welt, Verteilung bis 44 Felder ohne Seitensperre, oben dichter, Wolken am Himmel, ferne Segel; GRAFIK §18.1 |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `src/ui/start/` gehört jetzt dem Strang Oberfläche (PV); Bastion-Bild und `src/ui/bastion/` bleiben hier |
+| 03.11.2026 | **Wunsch aus dem Strang Oberfläche:** Symbole `person`, `sicherung`, `kalender` (Wünsche in `GRAFIK.md`) |
