@@ -7,15 +7,10 @@
 
   let {
     profil,
-    erstesMal = false,
     onspeichern,
-    onueberspringen,
   }: {
     profil: Profil;
-    /** Beim ersten Start: mit „Überspringen“ */
-    erstesMal?: boolean;
     onspeichern: (p: Profil) => void;
-    onueberspringen?: () => void;
   } = $props();
 
   let datum = $state('');
@@ -47,11 +42,6 @@
     >
     <p class="knoepfe">
       <button class="haupt" type="submit">{t('profil.speichern')}</button>
-      {#if erstesMal && onueberspringen}
-        <button type="button" class="zweit" onclick={onueberspringen}
-          >{t('profil.ueberspringen')}</button
-        >
-      {/if}
     </p>
   </form>
 </section>

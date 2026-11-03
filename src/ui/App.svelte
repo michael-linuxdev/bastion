@@ -96,6 +96,7 @@
   import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
+  import ProfilEinladung from './start/ProfilEinladung.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
   import Angebot from './vermittlung/Angebot.svelte';
@@ -653,15 +654,9 @@
       {/if}
       {#snippet unten()}
         {#if !profilGefragt}
-          <ProfilForm
-            {profil}
-            erstesMal
-            onspeichern={(p) => {
-              profil = p;
-              profilGefragt = true;
-              void profilSetzen(p);
-            }}
-            onueberspringen={() => {
+          <ProfilEinladung
+            onjetzt={() => (ansicht = 'profil')}
+            onspaeter={() => {
               profilGefragt = true;
               void profilUebersprungen();
             }}

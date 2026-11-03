@@ -39,7 +39,7 @@ async function angebotUeberspringen(seite: Page) {
 /** Start-Hub: Begrüßung, Willkommen oder erste Minute (noch keine Aufgabe). */
 function startGruss(seite: Page) {
   return seite
-    .getByText('Willkommen in Bastion.')
+    .getByText('Schön, dass du da bist.')
     .or(seite.getByText('Hallo. Schön, dass du da bist.'))
     .or(seite.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.'))
     .or(seite.getByText('Willkommen zurück'));
@@ -321,8 +321,8 @@ test('bietet geübte Aufgaben später zum Wiederholen an', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T10:00:00Z') });
   await page.goto('./');
   await hubVoll(page);
-  // Noch nie geübt (Y121): die Kachel Wiederholen ist noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Wiederholen' })).toHaveCount(0);
+  // Noch nie geübt: die Kachel Wiederholen ist da, aber ausgegraut (O3, Wunsch PV)
+  await expect(page.getByRole('button', { name: 'Wiederholen' })).toBeDisabled();
 
   await themenWaehlen(page);
   await thema(page, /^Addieren und Subtrahieren/);
@@ -438,8 +438,8 @@ test('Diagnose: ohne Punkte, mit Halbzeit, Ergebnis mit Empfehlung zum Üben', a
   await page.getByRole('button', { name: /Zurück/ }).click();
   await page.goto('./');
   await hubVoll(page);
-  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgeblendet
-  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toHaveCount(0);
+  // Diagnose allein zählt noch nicht als Üben (Y121): Werkstatt-Kachel noch ausgegraut (O3)
+  await expect(page.getByRole('button', { name: 'Fehlerwerkstatt' })).toBeDisabled();
 });
 
 test('Mein Stand und Rückweg: nach drei Fehlern eine Voraussetzung vorschlagen', async ({
@@ -1669,7 +1669,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
   await expect(page.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.')).toBeVisible();
   await expect(page.getByRole('group', { name: 'Wohin möchtest du?' })).toBeVisible();
-  await page.getByRole('main').getByRole('button', { name: 'Mit Üben starten' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(
     page
       .getByRole('button', { name: 'Prüfen' })
@@ -1681,7 +1681,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.goto('./');
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
-  await expect(page.getByText('Keine Werbung. Keine Käufe.')).toBeVisible();
+  await expect(page.getByText('keine Werbung, keine Käufe')).toBeVisible();
   await page.getByRole('button', { name: 'Zurück' }).click();
   await hubVoll(page);
   await page.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
