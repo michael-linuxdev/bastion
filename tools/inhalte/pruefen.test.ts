@@ -29,11 +29,27 @@ describe('Inhalte in content/', () => {
     expect(ab(8)).toHaveLength(27);
   });
 
-  it('haben bis Klasse 8 die Niveaus G und M (K-11), ab Klasse 9 G, M und E (K-28, K-30)', () => {
-    for (const k of kompetenzen)
-      expect(Object.keys(k.niveaus).sort(), k.id).toEqual(
-        Math.min(...k.klassenstufe_typisch) >= 9 ? ['E', 'G', 'M'] : ['G', 'M'],
-      );
+  it('haben G und M, ab Klasse 9 auch E; bis Klasse 8 ist E erlaubt (K-28, K-30, K-31)', () => {
+    for (const k of kompetenzen) {
+      const n = Object.keys(k.niveaus).sort();
+      if (Math.min(...k.klassenstufe_typisch) >= 9) expect(n, k.id).toEqual(['E', 'G', 'M']);
+      else
+        expect(
+          [
+            ['G', 'M'],
+            ['E', 'G', 'M'],
+          ],
+          k.id,
+        ).toContainEqual(n);
+    }
+  });
+
+  it('jede Kompetenz mit Niveau E hat eine E-Vorlage (K-31)', () => {
+    const ohne = kompetenzen
+      .filter((k) => 'E' in k.niveaus)
+      .filter((k) => !vorlagen.some((v) => v.kompetenz === k.id && v.niveaus.includes('E')))
+      .map((k) => k.id);
+    expect(ohne).toEqual([]);
   });
 
   it('jeder registrierte Generator wird von einer Vorlage genutzt', () => {
