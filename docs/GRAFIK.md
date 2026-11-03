@@ -551,3 +551,15 @@ PV: „Wir brauchen mehr unterschiedliche, z. B. Kraterfelder und Sandbänke und
 - **Eigene Umgebung:** Im Zahnrad „Neue Umgebung würfeln“ (und „Ursprüngliche Umgebung“). Der Startwert wird als Einstellung `basebau.szenerie` gespeichert (Ereignis wie die Kamera, keine Schemaänderung) und mischt Lage, Auswahl, Form und Größe aller Dinge der Kulisse neu; auch die sechs Plätze am Bauplatz. Echter Zufall nur beim Antippen (`src/ui/plattform/zufall.ts`), danach fest. Nur Aussehen: keine Belohnung, nicht ans Lernen gebunden, jederzeit neu oder zurück (R1). 0 = Grundszenerie wie bisher.
 - **Oben und unten gleich voll:** Test prüft, dass über dem Bauplatz etwa so viele Dinge stehen wie darunter.
 
+### 18.3 Noch mehr Dinge und Größen (Wunsch PV, 03.11.2026)
+
+PV: „Mehr Abwechslung, noch mehr unterschiedliche Objekte würfelbar in mehr Größen.“
+
+- **33 neue Dinge** (`tools/grafik/g16_mehr_dinge.py`, 73 Bilder mit Jahreszeiten):
+  - Bastion: Wrack, Fischerboot, Steg, Seehundfelsen, Vogelfelsen, Felseninsel mit Kiefer.
+  - Dorf: Windmühle, Scheune, Holzstapel, Bienenstöcke, Vogelscheuche, Karren (im Herbst mit Kürbissen), Pferd (grast).
+  - Garten: Pavillon, Rosenbogen, kleines Gewächshaus, Vogelhaus, Sonnenuhr, Kürbisbeet.
+  - Unterwasser: Wrack, Amphoren, Riesenmuschel, Korallenbogen, Säulenreste, Muschelbank.
+  - Weltraum: Rover, Landekapsel, Solarfeld, Meteoritenkrater, Funkmast, Kristallfeld.
+- **Größen:** Dinge 0,7–1,5-fach, Flächen 1,6–3,4-fach; kleine häufiger als große. Alles hängt am Szenerie-Startwert (§18.2).
+
