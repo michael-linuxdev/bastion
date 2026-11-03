@@ -153,6 +153,13 @@
   const wetterBild = $derived(wetterJetzt.bild);
   const regenbogen = $derived(wetterJetzt.regenbogen);
   let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
+  /**
+   * Das Bild wird erst gebaut, wenn das Wetter bekannt ist (höchstens 1,2 s warten).
+   * Sonst baut es sich nach dem Öffnen ein zweites Mal auf, und ein Tipper in dieser
+   * Zeit geht ins Leere (#160, Auftrag Grafik Punkt 4).
+   */
+  let wetterGeladen = $state(false);
+  const wetterWarten = setTimeout(() => (wetterGeladen = true), 1200);
   $effect(() => {
     const d = jetzt;
     let abgebrochen = false;
@@ -161,6 +168,8 @@
       wetterEcht = s.bild;
       regenbogenEcht = s.regenbogen;
       wetterSonne = s.sonne;
+      wetterGeladen = true;
+      clearTimeout(wetterWarten);
     });
     return () => {
       abgebrochen = true;
@@ -194,6 +203,8 @@
   let zoomGeladen = $state(false);
   /** Der Nutzer hat selbst gezoomt oder gezogen – dann nicht beim Größenwechsel neu einpassen. */
   let eigene = false;
+  /** Die Kamera kam aus dem Speicher und der Nutzer hat sie noch nicht bewegt */
+  let nurWiederhergestellt = false;
   let kameraGestartet = false;
   let bewohnerNamen = $state<Record<string, string>>({});
   void Promise.all([kameraWahl(), bewohnerNamenWahl()]).then(([k, n]) => {
@@ -208,6 +219,29 @@
     const r = el.getBoundingClientRect();
     return { x: clientX - r.left, y: clientY - r.top };
   }
+
+  /**
+   * Die echte Größe des Bauplatzes (Epoche) kommt oft erst nach dem ersten Einpassen.
+   * Dann neu einpassen bzw. die gemerkte Kamera neu legen, solange der Nutzer die Kamera
+   * nicht selbst bewegt hat (sonst sitzt sie in den ersten Sekunden falsch).
+   */
+  let letzterPlatz = '';
+  $effect(() => {
+    const schluessel = `${bauplatz.breite}x${bauplatz.tiefe}`;
+    const el = untrack(() => fenster);
+    if (!el || !kameraGestartet) {
+      letzterPlatz = schluessel;
+      return;
+    }
+    if (schluessel === letzterPlatz) return;
+    letzterPlatz = schluessel;
+    const gewaehlt = untrack(() => gemerkteKamera);
+    if (nurWiederhergestellt && gewaehlt !== undefined) {
+      kamera = kameraWiederherstellen(el.clientWidth, el.clientHeight, gewaehlt, bauplatz);
+    } else if (!eigene) {
+      kamera = einpassen(el.clientWidth, el.clientHeight, bauplatz);
+    }
+  });
 
   let merkenTimer: ReturnType<typeof setTimeout> | undefined;
   function merken() {
@@ -225,6 +259,7 @@
       const gewaehlt = gemerkteKamera;
       if (!kameraGestartet && gewaehlt !== undefined) {
         eigene = true;
+        nurWiederhergestellt = true;
         kamera = kameraWiederherstellen(breite, hoehe, gewaehlt, bauplatz);
       } else if (!eigene) {
         kamera = einpassen(breite, hoehe, bauplatz);
@@ -242,6 +277,7 @@
       event.preventDefault();
       const ort = imFenster(event.clientX, event.clientY);
       eigene = true;
+      nurWiederhergestellt = false;
       kamera = zoomAn(
         kamera,
         ort.x,
@@ -324,6 +360,7 @@
         };
         kniff = naechstes;
         eigene = true;
+        nurWiederhergestellt = false;
         zieht = true;
         merken();
       }
@@ -360,6 +397,7 @@
         y: kamera.y + (event.clientY - vorher.y),
       };
       eigene = true;
+      nurWiederhergestellt = false;
       zieht = true;
     }
   }
@@ -473,7 +511,7 @@
 
   $effect(() => {
     const ort = rahmen;
-    if (!ort) return;
+    if (!ort || !wetterGeladen) return;
     // Neu zeichnen bei Modus, Jahreszeit, Abend, Wetter, Thema (GRAFIK §2, §4.3, §6).
     void darstellung.modus;
     void jahreszeit;
@@ -513,6 +551,13 @@
         ort.querySelectorAll(':scope > canvas').forEach((c) => {
           if (c !== b.view) c.remove();
         });
+        // Ein Tipper, der kam, bevor das Bild stand, gilt jetzt – an derselben Stelle
+        // im Bild, auch wenn die Kamera sich inzwischen eingepasst hat
+        const t = wartenderTipp;
+        wartenderTipp = undefined;
+        const r = rahmen?.getBoundingClientRect();
+        if (t && r)
+          void angetippt({ clientX: r.left + t.fx * r.width, clientY: r.top + t.fy * r.height });
       })
       .catch(() => (fehlgeschlagen = true));
     return () => {
@@ -534,6 +579,7 @@
     const el = fenster;
     if (!el) return;
     eigene = true;
+    nurWiederhergestellt = false;
     if (zielBlick === 'hinterhof' && hinterhofFelder.length > 0) {
       const m = hinterhofMitte(hinterhofFelder.length);
       // Bildpunkt in die Fenstermitte legen
@@ -570,6 +616,7 @@
       ),
     );
     eigene = true;
+    nurWiederhergestellt = false;
     kamera = {
       x: el.clientWidth / 2 - m.x * zoom,
       y: el.clientHeight * 0.4 - m.y * zoom,
@@ -624,7 +671,20 @@
     });
   }
 
-  async function angetippt(e: PointerEvent) {
+  /**
+   * Tipper, bevor das Bild fertig ist: merken und nach dem Aufbau ausführen.
+   * Gemerkt wird die Stelle im Bild (Anteil von Breite und Höhe), nicht auf dem
+   * Bildschirm – sonst trifft der Tipper daneben, wenn die Kamera noch rückt.
+   */
+  let wartenderTipp: { fx: number; fy: number } | undefined;
+
+  async function angetippt(e: { readonly clientX: number; readonly clientY: number }) {
+    if (!buehne) {
+      const r = rahmen?.getBoundingClientRect();
+      if (r && r.width > 0 && r.height > 0)
+        wartenderTipp = { fx: (e.clientX - r.left) / r.width, fy: (e.clientY - r.top) / r.height };
+      return;
+    }
     // Bewohner / Wesen zuerst – kurze Reaktion, kein Gebäude wählen
     if (!versetzen) {
       const bid = buehne?.bewohnerBei(e.clientX, e.clientY);
