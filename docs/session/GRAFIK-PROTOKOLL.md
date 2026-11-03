@@ -101,3 +101,4 @@
 | 03.11.2026 | **Wege und Tagesablauf** (Branch `grafik/tagesablauf`, Wunsch PV Punkt 4): Pfade vom Bergfried zu den Gebäuden, Bewohner gehen nach der Uhr zur Arbeit, machen Besorgungen, gehen abends heim, nachts drinnen; GRAFIK §25 |
 | 03.11.2026 | **Wehende Fahnen** (Branch `grafik/fahnen`, Wunsch PV): Lage der Tücher aus den Modellen (`g18_fahnen.py`), gezeichnetes Tuch wellt sich über dem Bild; GRAFIK §26 |
 | 03.11.2026 | **Drehende Mühlenflügel** (Branch `grafik/muehle`, Wunsch PV): Mühle ohne Flügel (`g19_muehle.py`), Bühne dreht vier Flügel; Fahnen berücksichtigen jetzt die Höhenstreckung (35 statt 23); GRAFIK §27 |
+| 03.11.2026 | **Bauen als Schauspiel** (Branch `grafik/baustelle`, Wunsch PV Punkt 5): Kran mit Last und Arbeiter auf dem Gerüst; Kamerafahrt einmal je neuer Epoche (4 s, abbrechbar, nicht bei „Bewegung reduzieren“), Einstellung `basebau.kamerafahrt`; GRAFIK §28 |
