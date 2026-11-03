@@ -172,6 +172,14 @@ def schuessel(sz: Szene, x, y, z, r, *, mast=True):
     sz.zylinder(x, y, 0.012, z + 4, z + 4 + r * 70, "metall", METALL, n=8)
 
 
+def laterne(sz: Szene, x, y, z, *, pfahl=True, farbe=LATERNE):
+    """Kleine Laterne (leuchtet abends), auf Pfahl oder hängend an z."""
+    if pfahl:
+        sz.zylinder(x, y, 0.016, 0, z, "eisen", EISEN, n=8)
+    sz.quader(x - 0.035, x + 0.035, y - 0.035, y + 0.035, z, z + 12, "licht", farbe)
+    sz.pyramide(x - 0.04, x + 0.04, y - 0.04, y + 0.04, z + 12, 6, "eisen", EISEN, ueber=0)
+
+
 # ═════ bastion ═══════════════════════════════════════════════════════════════
 
 
@@ -326,6 +334,7 @@ def bastion_turm(stufe: int) -> Szene:
                 sz.quader(px - 0.03, px + 0.03, py - 0.03, py + 0.03, 122, 160, "holz", HOLZ)
             sz.quader(-0.46, 0.46, 0.43, 0.47, 140, 144, "holz", BALKEN)
             sz.quader(0.43, 0.47, -0.46, 0.46, 140, 144, "holz", BALKEN)
+            laterne(sz, 0.1, 0.1, 122, pfahl=False)
             sz.pyramide(-0.42, 0.42, -0.42, 0.42, 160, 42, "schindel", SCHINDEL, ueber=0.08)
             return sz
         sz.quader(-0.42, 0.42, -0.42, 0.42, 122, 186, "fachwerk", PUTZ)
@@ -371,6 +380,7 @@ def bastion_werkstatt(stufe: int) -> Szene:
         sz.quader(-0.4, 0.3, 0.05, 0.3, 0, 26, "holz", (176, 128, 80))  # Hobelbank
         for k in range(3):
             sz.quader(0.35, 0.75, -0.55 + k * 0.12, -0.45 + k * 0.12, 0, 10 + k * 8, "holz", (166, 118, 72))
+        laterne(sz, 0.85, 0.75, 50, pfahl=False)
         return sz
     sz.quader(-0.9, 0.9, -0.75, -0.1, 0, 96, "holz", HOLZ)
     sz.quader(0.2, 0.9, -0.1, 0.75, 0, 96, "holz", HOLZ)
@@ -542,6 +552,7 @@ def garten_kern(stufe: int) -> Szene:
         for k in range(7):
             t = (k + 0.5) / 7
             sz.balken((0.62 - 0.12 * t, 0.9 - 0.24 * t, zp * t), (0.82 - 0.12 * t, 0.78 - 0.24 * t, zp * t), 0.02, 0.02, "holz", BALKEN)
+    laterne(sz, 0.55, 0.45, zp, pfahl=False)
     if stufe >= 2:
         huette(sz, 0.15, 0.15, zp, 0.3, 54)
     if stufe >= 3:
@@ -600,12 +611,17 @@ def fruehbeet(sz: Szene):
     sz.quader(-0.58, 0.08, 0.52, 0.9, 30, 31, "glas", GLAS_F)
 
 
+def garten_wissen_licht(sz: Szene):
+    laterne(sz, 0.25, 0.95, 26)
+
+
 def garten_wissen(stufe: int) -> Szene:
     """Gewächshaus: 1 Frühbeet mit Töpfen · 2 kleines Glashaus · 3 langes Glashaus auf
     Steinsockel, Regentonne · 4 zweiter, höherer Flügel · 5 Palmenhaus mit Glaskuppel."""
     sz = Szene()
     sz.schatten_r = 0.6 if stufe == 1 else 1.0
     fruehbeet(sz)
+    garten_wissen_licht(sz)
     for k, (x, y) in enumerate(((0.3, 0.75), (0.48, 0.62), (0.62, 0.82))):
         if stufe == 1 or k < 2:
             sz.zylinder(x, y, 0.06, 0, 12, "glatt", TERRAKOTTA, n=16)
@@ -689,6 +705,7 @@ def garten_werkstatt(stufe: int) -> Szene:
         sz.satteldach(-0.6, 0.6, -0.45, 0.4, 66, 18, "schindel", SCHINDEL, giebel=HOLZ)
         sz.balken((0.1, 0.15, 0), (0.25, 0.2, 60), 0.02, 0.02, "holz", (150, 110, 70))
         sz.balken((0.25, 0.15, 0), (0.33, 0.22, 56), 0.02, 0.02, "eisen", EISEN)
+        laterne(sz, 0.5, 0.3, 50, pfahl=False)
         return sz
     sz.quader(-0.75, 0.75, -0.65, 0.4, 0, 96, "holz", (120, 150, 110))
     sz.fenster("l", -0.3, 0.4, 0, 0.36, 60, art="tuer", bogen=False)
@@ -952,6 +969,7 @@ def dorf_werkstatt(stufe: int) -> Szene:
         sz.quader(-0.35, 0.35, -0.15, 0.12, 0, 26, "holz", (176, 128, 80))
         for k in range(3):
             sz.quader(0.7, 0.95, -0.6 + k * 0.1, -0.5 + k * 0.1, 0, 12 + k * 6, "holz", (186, 138, 88))
+        laterne(sz, 0.6, 0.4, 46, pfahl=False)
         return sz
     haus(sz, -0.85, 0.65, -0.8, 0.35, 92, "fachwerk", PUTZ, "ziegel", ZIEGEL, 52, sockel=10, fenster=False)
     sz.fenster("l", -0.35, 0.35, 10, 0.4, 50, art="tuer", bogen=False)
@@ -1071,6 +1089,8 @@ def unterwasser_kern(stufe: int) -> Szene:
         sz.zylinder(0, 0, 0.78, 0, 8, "metall", MESSING)
         kuppelbau(sz, 0, 0, 0.7, 40, 90, fenster=False)
         sz.fenster_rund(0, 0, 0.7, 0.785, 6, 0.26, 26, art="tuer")
+        for wkl in (0.1, 1.45):
+            sz.fenster_rund(0, 0, 0.7, wkl, 14, 0.12, 16)
         return sz
     r = 0.95
     h = round(70 * g)
@@ -1136,7 +1156,7 @@ def unterwasser_wissen(stufe: int) -> Szene:
     if stufe == 1:
         sz.kuppel(0, 0.2, 0.42, 0, 26, "perlmutt", (232, 196, 184))
         sz.kugel(0, 0.2, 30, 0.42, "perlmutt", (240, 214, 200), rz=0.12)
-        sz.kugel(0.1, 0.55, 18, 0.07, "scheibe", (250, 246, 240))
+        sz.kugel(0.1, 0.55, 18, 0.07, "licht", (250, 246, 240))
         return sz
     g = w(stufe, 2, 1.12)
     kuppelbau(sz, -0.15, -0.15, 0.62, round(50 * g), round(84 * g))
@@ -1202,6 +1222,7 @@ def unterwasser_werkstatt(stufe: int) -> Szene:
     sz.quader(-0.9, 0.9, 0.38, 0.9, 24, 30, "holz", (160, 120, 84))
     if stufe == 1:
         sz.kugel(0.3, 0.65, 40, 0.12, "glatt", KORALLE, rz=0.1)
+        laterne(sz, 0.8, 0.85, 70, farbe=(250, 240, 200))
         return sz
     sz.quader(-0.9, 0.9, -0.9, 0.3, 0, 90, "perlmutt", PERLMUTT)
     sz.fenster("l", -0.3, 0.3, 0, 0.6, 70, art="tuer", bogen=True)
@@ -1369,9 +1390,13 @@ def weltraum_wissen(stufe: int) -> Szene:
         for a in (0.3, 2.4, 4.5):
             sz.balken((0.25 * math.cos(a), 0.25 * math.sin(a), 0), (0, 0, 50), 0.025, 0.025, "metall", METALL)
         sz.balken((-0.1, 0.1, 44), (0.3, -0.2, 90), 0.1, 0.1, "paneel", PANEEL)
+        sz.quader(0.2, 0.4, 0.25, 0.4, 0, 30, "metall", METALL)
+        sz.quader(0.22, 0.38, 0.4, 0.41, 14, 26, "licht", (120, 220, 255))
         return sz
     sz.quader(-0.6, 0.6, -0.6, 0.6, 0, round(70 * g), "paneel", PANEEL)
     sz.fenster("l", -0.2, 0.6, 0, 0.28, 44, art="tuer", bogen=False)
+    sz.fenster("l", 0.3, 0.6, 22, 0.22, 20, bogen=False)
+    sz.fenster("r", 0.0, 0.6, 22, 0.22, 20, bogen=False)
     oben = round(70 * g)
     if stufe == 2:
         sz.quader(-0.6, 0.0, -0.6, 0.6, oben, oben + 6, "metall", METALL)
@@ -1427,6 +1452,7 @@ def weltraum_werkstatt(stufe: int) -> Szene:
         for z in (30, 60, 90):
             sz.ring(0, 0, z, 0.92, 0.02, 0.02, "metall", WARN, teile=4)
         sz.quader(-0.3, 0.3, -0.25, 0.25, 0, 30, "paneel", PANEEL)
+        laterne(sz, 0.7, 0.6, 90, pfahl=False, farbe=(255, 240, 200))
         return sz
     sz.quader(-0.9, 0.5, -0.9, 0.5, 0, 110, "paneel", PANEEL)
     sz.fenster("l", -0.2, 0.5, 0, 0.7, 80, art="tuer", bogen=False)
