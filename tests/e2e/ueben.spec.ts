@@ -913,9 +913,25 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
   await expect(
     page
       .getByRole('listitem')
-      .filter({ hasText: /Ich kann Zahlen runden[\s\S]*grundlegend,\s+seit\s+4\.\s+November/ }),
+      .filter({ hasText: /Ich kann Zahlen runden[\s\S]*\(seit\s+4\.\s+November/ }),
   ).toBeVisible();
   await expect(page.getByText(/Mit dem Gebäude „Studierstube“/)).toBeVisible();
+});
+
+test('Thema wechseln: das Bild bleibt stehen (#160, Dorf-Szene)', async ({ page }) => {
+  test.setTimeout(60_000);
+  // Vorher gab die alte Bühne beim Zerstören die globalen Ressourcen von PixiJS frei;
+  // die neue Bühne stürzte im nächsten Bild ab, und der Bauplatz blieb leer.
+  const fehler: string[] = [];
+  page.on('pageerror', (e) => fehler.push(e.message));
+  await page.goto('./');
+  // gleich nach dem Öffnen wechseln, wie ein Kind, das sich umschaut
+  await bastionOeffnen(page, true);
+  await page.getByRole('radio', { name: 'Dorf' }).check();
+  await page.getByRole('button', { name: '← Zur Bastion' }).click();
+  await expect.poll(() => page.locator('.bauplatz canvas').count(), { timeout: 30_000 }).toBe(1);
+  await page.waitForTimeout(4000);
+  expect(fehler).toEqual([]);
 });
 
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {

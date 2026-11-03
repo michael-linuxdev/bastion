@@ -12,7 +12,7 @@ import json
 import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 HW, HH = 48, 24  # halbe Rautenbreite/-höhe je Feld (2×)
 BREITE, ROH_H = 296, 1000  # Höhe nur Arbeitsfläche, oben wird beschnitten
@@ -42,11 +42,13 @@ class Iso:
         self.d = ImageDraw.Draw(bild)
         self.cx = bild.width / 2
         self.cy0 = bild.height - 4 - n * HH  # Mitte des n×n-Fußabdrucks
+        self.farbe_von: dict[int, tuple] = {}  # Vieleck → (Vieleck, Füllfarbe); hält es fest, damit id() eindeutig bleibt
 
     def p(self, x: float, y: float, z: float) -> tuple[float, float]:
         return (self.cx + (x - y) * HW, self.cy0 + (x + y) * HH - z)
 
     def poly(self, pts, farbe, kontur=None) -> None:
+        self.farbe_von[id(pts)] = (pts, farbe)
         self.d.polygon([(round(a), round(b)) for a, b in pts], fill=farbe, outline=kontur)
 
     def linie(self, a, b, farbe, w: int = 1) -> None:
@@ -308,10 +310,29 @@ def erzeuge_mit(zeichne, n: int, breite: int) -> tuple[Image.Image, Image.Image]
     fenster: list = []
     zeichne(iso, fenster)
     abend = Image.new("RGBA", bild.size, (0, 0, 0, 0))
-    da = ImageDraw.Draw(abend)
+    tag = bild.load()
     for pts in fenster:
-        if pts:
-            da.polygon([(round(a), round(b)) for a, b in pts], fill=FENSTER_ABEND)
+        if not pts:
+            continue
+        flaeche = Image.new("L", bild.size, 0)
+        ImageDraw.Draw(flaeche).polygon([(round(a), round(b)) for a, b in pts], fill=255)
+        eintrag_farbe = iso.farbe_von.get(id(pts))
+        farbe = eintrag_farbe[1] if eintrag_farbe and eintrag_farbe[0] is pts else None
+        if farbe is not None:
+            # nur leuchten, wo das Fenster im Tagbild zu sehen ist (nicht hinter einem Turm)
+            sichtbar = Image.new("L", bild.size, 0)
+            sv = sichtbar.load()
+            f = flaeche.load()
+            box = flaeche.getbbox()
+            if box:
+                for y in range(box[1], box[3]):
+                    for x in range(box[0], box[2]):
+                        if f[x, y] and tuple(tag[x, y][:3]) == tuple(farbe[:3]):
+                            sv[x, y] = 255
+            # ein Pixel Rand dazu: die Kontur übermalt den Rand der Öffnung
+            sichtbar = sichtbar.filter(ImageFilter.MaxFilter(3))
+            flaeche = ImageChops.multiply(flaeche, sichtbar)
+        abend.paste(Image.new("RGBA", bild.size, FENSTER_ABEND), (0, 0), flaeche)
     box = bild.getbbox()
     assert box
     oben = max(0, box[1] - 4)
