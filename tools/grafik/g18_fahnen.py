@@ -26,7 +26,7 @@ from PIL import Image
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import raum  # noqa: E402
-from g12_modelle import EPOCHE_VON, ROLLEN, THEMEN, modell  # noqa: E402
+from g12_modelle import EPOCHE_VON, ROLLEN, THEMEN, modell, streckung, zier_faktor  # noqa: E402
 
 ATLAS = Path(__file__).resolve().parents[2] / "public" / "grafik" / "atlas"
 
@@ -47,6 +47,13 @@ def tuecher(thema: str, rolle: str, stufe: int) -> list[tuple]:
         raum.Szene.fahne = alt
     # Manche Modelle bauen Teile mehrfach auf: jede Fahne nur einmal
     return list(dict.fromkeys(gemerkt))
+
+
+def hoehen_faktor(thema: str, rolle: str, stufe: int) -> float:
+    """Höhenstreckung, die `modell` nach dem Aufbau anwendet (die Fahne wird mitgestreckt)."""
+    if ROLLEN[rolle][0] == 1:
+        return zier_faktor(thema, rolle)
+    return streckung(thema, rolle)[stufe - 1]
 
 
 def bild_punkt(x: float, y: float, z_px: float, fuss_y: float) -> tuple[float, float]:
@@ -79,11 +86,13 @@ def main() -> int:
                 # Bodenpunkt (0, 0, 0) liegt n·HH + 4 Bildpunkte über dem unteren Rand
                 fuss_y = -(4 + n * raum.HH)
                 liste = []
+                f = hoehen_faktor(thema, rolle, stufe)
                 for x, y, z, hoehe, farbe in tuecher(thema, rolle, stufe):
-                    # Tuch wie `Szene.fahne`: von y − 0,015 bis y − 0,27, z + hoehe − 22 … − 3
-                    ox, oy = bild_punkt(x, y - 0.015, z + hoehe - 3, fuss_y)
-                    ex, ey = bild_punkt(x, y - 0.27, z + hoehe - 3, fuss_y)
-                    mx, my = bild_punkt(x, y - 0.14, z + hoehe - 12.5, fuss_y)
+                    # Tuch wie `Szene.fahne`: von y − 0,015 bis y − 0,27, z + hoehe − 22 … − 3,
+                    # danach mit dem ganzen Modell in der Höhe gestreckt
+                    ox, oy = bild_punkt(x, y - 0.015, (z + hoehe - 3) * f, fuss_y)
+                    ex, ey = bild_punkt(x, y - 0.27, (z + hoehe - 3) * f, fuss_y)
+                    mx, my = bild_punkt(x, y - 0.14, (z + hoehe - 12.5) * f, fuss_y)
                     px, py = round(w / 2 + mx), round(h + my)
                     if not (0 <= px < w and 0 <= py < h):
                         continue
@@ -98,7 +107,7 @@ def main() -> int:
                             "y": round(oy, 1),
                             "b": round(ex - ox, 1),
                             "s": round(ey - oy, 1),
-                            "h": 19,
+                            "h": round(19 * f, 1),
                             "farbe": f"#{r:02x}{g:02x}{b:02x}",
                         }
                     )

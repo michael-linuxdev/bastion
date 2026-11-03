@@ -100,3 +100,4 @@
 | 03.11.2026 | **Kein Absturz beim Zoomen** (Branch `grafik/zoom-absturz`, Meldung PV): Wolkenschatten fest, Brandung ohne Verschiebung, kein Filter je Kulisse-Bild, HD nur für Gezeichnetes; herangezoomt 710 → 238 MB Ebenenspeicher; GRAFIK §24 |
 | 03.11.2026 | **Wege und Tagesablauf** (Branch `grafik/tagesablauf`, Wunsch PV Punkt 4): Pfade vom Bergfried zu den Gebäuden, Bewohner gehen nach der Uhr zur Arbeit, machen Besorgungen, gehen abends heim, nachts drinnen; GRAFIK §25 |
 | 03.11.2026 | **Wehende Fahnen** (Branch `grafik/fahnen`, Wunsch PV): Lage der Tücher aus den Modellen (`g18_fahnen.py`), gezeichnetes Tuch wellt sich über dem Bild; GRAFIK §26 |
+| 03.11.2026 | **Drehende Mühlenflügel** (Branch `grafik/muehle`, Wunsch PV): Mühle ohne Flügel (`g19_muehle.py`), Bühne dreht vier Flügel; Fahnen berücksichtigen jetzt die Höhenstreckung (35 statt 23); GRAFIK §27 |

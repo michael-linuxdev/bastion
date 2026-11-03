@@ -974,9 +974,10 @@ def muehle_fluegel(sz: Szene, x, y, z, laenge, *, voll=True):
 ZE_W = 58.79  # Pixel je Feldeinheit in der Höhe (für Flügel in Feldmaß)
 
 
-def dorf_turm(stufe: int) -> Szene:
+def dorf_turm(stufe: int, *, fluegel: bool = True) -> Szene:
     """Windmühle: 1 kleine Bockmühle · 2 größere Flügel · 3 Steinsockel · 4 Galerie ·
-    5 Kupferkappe mit Fahne."""
+    5 Kupferkappe mit Fahne. `fluegel=False`: ohne Flügel – die Bühne zeichnet sie
+    drehend dazu (G19, `g19_muehle.py`)."""
     sz = Szene()
     sz.schatten_r = 0.5
     g = w(stufe, 1, 1.14)
@@ -1004,7 +1005,10 @@ def dorf_turm(stufe: int) -> Szene:
     else:
         sz.satteldach(-0.36, 0.36, -0.36, 0.36, oben, 38, "schindel", SCHINDEL, giebel=(160, 116, 72), ueber=0.06)
     laenge = (0.5 if stufe == 1 else 0.7) * (1 + 0.06 * max(0, stufe - 2))
-    muehle_fluegel(sz, 0.36, 0.0, oben - 22, laenge)
+    if fluegel:
+        muehle_fluegel(sz, 0.36, 0.0, oben - 22, laenge)
+    # Nabe und Flügellänge für die Bühne (G19)
+    sz.muehle = (0.38, 0.0, oben - 22, laenge)
     return sz
 
 

@@ -621,7 +621,15 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 ## 26. Wehende Fahnen (Wunsch PV, 03.11.2026)
 
 - Die Fahnen sind in die Gebäudebilder eingerechnet. `tools/grafik/g18_fahnen.py` baut jedes Gebäude-Modell noch einmal auf, ohne zu rendern (Sekunden). Es merkt sich jeden Aufruf von `Szene.fahne` und rechnet die Ecken des Tuchs mit derselben Projektion wie `raum.rendern` in Bildpunkte um. Die Farbe kommt aus dem fertigen Bild (Mitte des Tuchs). Ist das Tuch dort verdeckt oder passt der Farbton nicht, bleibt die Fahne still.
-- Das Manifest trägt je Eintrag `fahnen: [{x, y, b, s, h, farbe}]` (1x-Bildpunkte ab Fußpunkt). Derzeit sind es 23 Fahnen in 20 Bildern: Bergfried und Turm der Bastion, Bergfried und Mühle im Dorf, ein Turm unter Wasser.
+- Das Manifest trägt je Eintrag `fahnen: [{x, y, b, s, h, farbe}]` (1x-Bildpunkte ab Fußpunkt). Die Höhenstreckung, die `modell` nach dem Aufbau anwendet (GRAFIK-SPRITES §13.2), rechnet das Werkzeug mit ein. Derzeit sind es 35 Fahnen in allen fünf Themen.
 - Die Bühne legt über jedes solche Tuch ein gezeichnetes Tuch in sechs Streifen. Es wellt sich, zum freien Ende hin stärker, mit hellen und dunklen Falten. Bei Sturm weht es doppelt so schnell und stärker. Das gezeichnete Tuch ist etwas höher als die Welle ausschlägt, so bleibt das stille Tuch im Bild ganz verdeckt. Abends hat es dieselbe Tönung wie das Gebäude. Bei „ruhig“ bleibt das stille Tuch aus dem Bild.
 - Test `tools/grafik/atlas-fahnen.test.ts`: Jedes Tuch liegt im Bild und hat eine Farbe.
+
+## 27. Drehende Mühlenflügel (Wunsch PV, 03.11.2026)
+
+- Die Windmühle des Dorfs (Turm, Stufen 1–5) hatte ihre Flügel im Bild. `tools/grafik/g19_muehle.py` rechnet sie ohne Flügel (`dorf_turm(…, fluegel=False)`, gleiche Höhenstreckung), in einfacher und doppelter Größe, als `turm_s<k>_ohne.png`. Das Bild mit Flügeln bleibt für Vorschau und Bauliste.
+- Das Manifest trägt am Mühlenbild `fluegel: {x, y, l, f, ohne}`: Nabe, Flügellänge in Feldern, Höhenstreckung, ID des Bildes ohne Flügel.
+- Die Bühne tauscht das Bild und zeichnet vier Flügel in der Ebene der rechten Wand, mit derselben Projektion wie das Modell: Tuch von einem Viertel bis zum Ende, 0,24 Felder breit, Rute darüber, Nabe. Sie drehen einmal in zwölf Sekunden, bei Sturm schneller, und bei „ruhig“ stehen sie still wie im alten Bild. Nebenbei sind die Flügel jetzt ganz zu sehen; im Bild waren sie am Rand abgeschnitten.
+- Reihenfolge beim Neurechnen: `g12_atlas.py`, dann `g17_hd.py`, dann `g18_fahnen.py` und `g19_muehle.py`.
+- Test `tools/grafik/atlas-muehle.test.ts`.
 
