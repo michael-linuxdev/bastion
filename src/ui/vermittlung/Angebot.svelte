@@ -2,6 +2,7 @@
   // Angebot vor dem ersten Üben einer neuen Kompetenz (VERMITTLUNG §2.4):
   // erst erklären lassen oder gleich üben – nie erzwungen.
   import { t } from '../texte/texte';
+  import ZurueckKnopf from '../start/ZurueckKnopf.svelte';
 
   let {
     titel,
@@ -20,7 +21,7 @@
 </script>
 
 <section class="angebot">
-  <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+  <ZurueckKnopf onclick={onzurueck} />
   <article class="karte">
     <h2>{titel}</h2>
     <p class="neu">{t('vermittlung.angebot.neu')} {t('vermittlung.angebot.frage')}</p>
@@ -43,17 +44,6 @@
   .angebot {
     display: grid;
     gap: var(--abstand-m);
-  }
-
-  .zurueck {
-    font: inherit;
-    justify-self: start;
-    min-block-size: var(--ziel);
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
   }
 
   .karte {

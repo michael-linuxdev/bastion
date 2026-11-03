@@ -20,6 +20,7 @@
    * ohne Zähler verpasster Tage und ohne Druck.
    */
   import { t } from '../texte/texte';
+  import ZurueckKnopf from '../start/ZurueckKnopf.svelte';
 
   let {
     faecher,
@@ -35,7 +36,7 @@
 </script>
 
 <section class="regal" aria-labelledby="regal-titel">
-  <button type="button" class="zurueck" onclick={onzurueck}>{t('uebung.zurueck')}</button>
+  <ZurueckKnopf onclick={onzurueck} />
   <h2 id="regal-titel">{t('wiederholen.ueberschrift')}</h2>
   <p class="leise">{t('wiederholen.regal-hinweis')}</p>
   {#if faecher.length === 0}
@@ -65,17 +66,6 @@
   .regal {
     display: grid;
     gap: var(--abstand-m);
-  }
-
-  .zurueck {
-    font: inherit;
-    justify-self: start;
-    min-block-size: var(--ziel);
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
   }
 
   h2 {

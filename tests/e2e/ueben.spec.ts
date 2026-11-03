@@ -1360,7 +1360,7 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
   await expect(tastatur.getByRole('button', { name: 'Bruchstrich' })).toHaveCount(0);
 
   // Brüche in Klasse 6: eigene Felder für Zähler und Nenner, darum kein „/“ und kein Minus (L13)
-  await page.getByRole('button', { name: '← Zurück' }).click();
+  await page.getByRole('button', { name: 'Zurück', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
   await page.getByRole('button', { name: 'Ich kann das schon' }).click();

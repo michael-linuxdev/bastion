@@ -51,10 +51,10 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
    - **O10** Rundgang Tastatur, Screenreader, Kontrast: alle Texte ≥ 5,9 : 1, Fokus-Ring sichtbar. Behoben: Banner-Titel nicht doppelt vorgelesen; Türen und Kacheln heißen nur nach ihrem Namen, Infozeile als Beschreibung; ausgegraute Kacheln mit `aria-disabled` statt `disabled`, damit sie mit der Tastatur erreichbar bleiben; Bericht-Umschalter mit Namen; „Über mich“ nicht mehr doppelt als Region.
 
 6. ~~Zurück-Knopf auch bei Mein Stand, Wo stehe ich?, Klassenarbeit (PV: „fass an“).~~ Erledigt (O11): `ZurueckKnopf.svelte`, auch im Seitenkopf; ebenso in der Fehlerwerkstatt. Nur der Knopf in `App.svelte`, die Seiten selbst unverändert.
+7. ~~Zurück-Knopf auch in Übung, Anleitung, Erstvermittlung, Angebot und Wiederholen-Regal (PV).~~ Erledigt (O12): `ZurueckKnopf.svelte` überall; nur der Knopf, sonst nichts an der Lern-Oberfläche geändert.
 
 ## Nächste Schritte (Vorschläge)
 
-- Übung, Anleitung, Erstvermittlung und Wiederholen-Regal haben noch `← Zurück` (in der Lern-Oberfläche selbst).
 
 - Start: Querformat am Tablet einmal am echten Gerät ansehen.
 

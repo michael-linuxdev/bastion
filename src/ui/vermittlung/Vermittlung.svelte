@@ -3,6 +3,7 @@
   // Antworten mit Rückmeldung, Verzweigung nach der Sequenz. Gespeichert wird
   // über `onantwort` und `onende` (Ereignis `vermittlung`, DATENMODELL §4.7).
   import { untrack } from 'svelte';
+  import ZurueckKnopf from '../start/ZurueckKnopf.svelte';
   import {
     bewerte,
     erster,
@@ -123,7 +124,7 @@
 </script>
 
 <section class="vermittlung">
-  <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+  <ZurueckKnopf onclick={onzurueck} />
   <header class="kopf">
     <h2>{titel}</h2>
     <!-- L6: eigene Leiste, gleich in allen Browsern -->
@@ -309,17 +310,6 @@
     block-size: 100%;
     background: var(--farbe-akzent);
     border-radius: inherit;
-  }
-
-  .zurueck {
-    font: inherit;
-    justify-self: start;
-    min-block-size: var(--ziel);
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
   }
 
   .karte {
