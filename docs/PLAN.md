@@ -261,7 +261,7 @@ Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] Strang angelegt, Start und Elternbereich nicht mehr eingefroren
 - [x] Startseite aufräumen (O1)
 - [x] „Mehr“ aufräumen (O2)
-- [ ] Elternbereich gliedern und angleichen
+- [x] Elternbereich gliedern und angleichen (O5)
 
 ## 5. Änderungsprotokoll
 

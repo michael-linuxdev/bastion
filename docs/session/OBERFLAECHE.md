@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4)
+Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5)
 
 ---
 
@@ -41,7 +41,12 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 2a. ~~Wunsch PV: „Bastion“ als Banner wie ein Spieltitel, Farbverlauf raus, immer alle Kacheln.~~ Erledigt (O3): Bild und Name „BASTION“ in einem Banner (gold mit Kontur, leicht schräg, Schleier unten); kein Verlauf hinter dem Kopf; keine „erste Minute“ mehr, kein „Mehr entdecken“: Üben, Bastion, Mehr, Wiederholen, Fehlerwerkstatt, Wo stehe ich?, Mein Stand immer sichtbar, leere sind ausgegraut.
 3. ~~„Mehr“ aufräumen.~~ Erledigt (O2): nur noch Zurück und eine Überschrift „Mehr“ (ohne „Werkstatt“, „Bastion“, „Wenige Einträge“); jeder Eintrag mit Symbol und einer Infozeile wie die Kacheln der Startseite; Zone „Für Erwachsene“ nur, wenn es den Elternbereich gibt, ohne Versionszeile; Vertrauen in einem Satz am Ende; Offline-Hinweis oben als Hinweiskarte. Symbole `person`, `sicherung`, `kalender` als Wunsch an den Strang Grafik.
 3a. ~~Wunsch PV: Symbole in den Menüs neu und aus einem Guss.~~ Erledigt (O4): `src/ui/grafik/Symbol.svelte` neu (24er-Raster, nur Striche, runde Enden); neue Symbole `person`, `sicherung`, `kalender` für „Mehr“; Symbole auf hellen Kacheln einheitlich in der Akzentfarbe. Ausnahme vom eigenen Bereich, weil der PV es ausdrücklich verlangt hat; Hinweis im Protokoll Grafik.
-4. Elternbereich gliedern und angleichen.
+4. ~~Elternbereich gliedern und angleichen.~~ Erledigt (O5): Sprungleiste (Bericht, Klasse, Sicherung, Bastion, Aufgabenblatt, Testphase) und je Abschnitt eine Karte; PIN-Eingabe und Wiederherstellungscode als Karte; Knöpfe und Felder einheitlich, auch in den Bausteinen darunter (nur Aussehen, über `:global` in der Hülle); Texte ohne „Security-Theater“, „Ledger“, „Kind-Bastion“, „Basebau“; Texte zu Bastion-Schalter und Wetter ohne „du“, weil sie auch Eltern lesen.
+
+## Nächste Schritte (Vorschläge)
+
+- Über mich und Sicherung im selben Kartenstil.
+- Bericht (Lernkern-Baustein): Reiter „Brief / Details / Für die Lehrkraft“ brechen am Handy um.
 
 ## Wünsche aus dem anderen Strang
 

@@ -10,3 +10,4 @@
 | 03.11.2026 | **O2 „Mehr“ aufgeräumt** (Branch `oberflaeche/mehr`): eine Überschrift, Einträge mit Symbol und Infozeile, Vertrauen in einem Satz, Offline-Hinweis oben; Symbol-Wunsch an Grafik |
 | 03.11.2026 | **O3 Startseite als Spiel-Banner** (Branch `oberflaeche/startseite`, Wunsch PV): Bild und Name als Banner, ohne Farbverlauf, immer alle Kacheln, „Mehr entdecken“ entfällt |
 | 03.11.2026 | **O4 Symbole aus einem Guss** (Branch `oberflaeche/symbole`, Wunsch PV): Satz neu, nur Striche, neue Symbole person, sicherung, kalender; Symbole auf hellen Kacheln in Akzentfarbe |
+| 03.11.2026 | **O5 Elternbereich gegliedert** (Branch `oberflaeche/eltern`): Sprungleiste und Karten je Abschnitt, einheitliche Knöpfe und Felder, Texte ohne Fachsprache |
