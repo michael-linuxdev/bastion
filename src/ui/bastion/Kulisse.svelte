@@ -10,6 +10,7 @@
    * Meer (der Horizont verschwindet), Regenbogen nach Regen. Ruhig, ohne Blitze.
    */
   import type { WetterBild } from './grafik/wetter';
+  import type { Jahreszeit } from './grafik/jahreszeit';
   import type { Kamera } from './grafik/kamera';
   import type { Bewegung } from './grafik/atmosphaere';
   import { buehneFuer, punkt } from './grafik/iso';
@@ -18,6 +19,7 @@
     HORIZONT,
     MEER,
     STERNE,
+    dingBild,
     dingeUmBauplatz,
     kulissenLage,
     type KulissenThema,
@@ -34,6 +36,7 @@
     bewegung,
     wetter = 'klar',
     regenbogen = false,
+    jahreszeit = 'sommer',
   }: {
     thema: KulissenThema;
     themaName: string;
@@ -44,6 +47,7 @@
     bewegung: Bewegung;
     wetter?: WetterBild;
     regenbogen?: boolean;
+    jahreszeit?: Jahreszeit;
   } = $props();
 
   /** Feste Plätze im Meer rund um den Bauplatz (Felder), kein Zufall */
@@ -85,6 +89,7 @@
   const dinge = $derived(
     dingeUmBauplatz(platz.breite, platz.tiefe, thema.dinge).map((d) => ({
       ...d,
+      bild: dingBild(thema, d.bild, jahreszeit),
       ...punkt(d.gx, d.gy, platz),
     })),
   );
@@ -105,6 +110,9 @@
 
 <div
   class="kulisse {stimmung} wetter-{wetter}"
+  class:jz-fruehling={thema.jahreszeitBoden && jahreszeit === 'fruehling'}
+  class:jz-herbst={thema.jahreszeitBoden && jahreszeit === 'herbst'}
+  class:jz-winter={thema.jahreszeitBoden && jahreszeit === 'winter'}
   class:bewegt={bewegung !== 'aus'}
   class:wasser={thema.wasser}
   aria-hidden="true"
@@ -283,6 +291,29 @@
     filter: brightness(0.45) saturate(0.7);
   }
 
+  /* —— Jahreszeiten (Wunsch PV 03.11.2026): Felder und Hügel folgen dem Kalender —— */
+  .jz-fruehling:not(.wasser) .meer,
+  .jz-fruehling .horizont {
+    filter: saturate(1.15) brightness(1.06) hue-rotate(-6deg);
+  }
+
+  .jz-herbst:not(.wasser) .meer,
+  .jz-herbst .horizont {
+    filter: sepia(0.35) saturate(1.1) hue-rotate(-18deg) brightness(0.98);
+  }
+
+  .jz-winter:not(.wasser) .meer {
+    filter: saturate(0.25) brightness(1.55) contrast(0.8);
+  }
+
+  .jz-winter .horizont {
+    filter: saturate(0.3) brightness(1.4);
+  }
+
+  .jz-winter.wasser .meer {
+    filter: saturate(0.75) brightness(0.95);
+  }
+
   /* —— Wetter (Auftrag Grafik Punkt 2) —— */
   .wetter-regen .meer,
   .wetter-sturm .meer {
@@ -299,8 +330,8 @@
   }
 
   .wetter-nebel .dunst {
-    block-size: 9rem;
-    background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.2));
+    block-size: 12rem;
+    background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.25) 60%, transparent);
   }
 
   .wetter-sturm .schaum polygon {

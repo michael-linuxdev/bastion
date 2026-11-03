@@ -1,23 +1,61 @@
 import { describe, expect, it } from 'vitest';
-import { WETTER_PROBEN, wetterMitProbe } from './wetter-probe.svelte';
+import {
+  JAHRESZEIT_PROBEN,
+  jahreszeitMitProbe,
+  WETTER_PROBEN,
+  wetterMitProbe,
+} from './wetter-probe.svelte';
+
+const echt = (bild: 'regen' | 'klar', regenbogen = false) =>
+  ({ bild, staerke: 'leicht', regenbogen }) as const;
 
 describe('Wetter zum Ausprobieren', () => {
   it('Automatisch lässt das Wetter, wie es ist', () => {
-    expect(wetterMitProbe('auto', 'regen', false)).toEqual({ bild: 'regen', regenbogen: false });
-    expect(wetterMitProbe('auto', 'klar', true)).toEqual({ bild: 'klar', regenbogen: true });
+    expect(wetterMitProbe('auto', echt('regen'))).toEqual(echt('regen'));
+    expect(wetterMitProbe('auto', echt('klar', true))).toEqual(echt('klar', true));
   });
 
   it('eine Wahl ersetzt das Wetter; Regenbogen über leichten Wolken', () => {
-    expect(wetterMitProbe('sturm', 'klar', true)).toEqual({ bild: 'sturm', regenbogen: false });
-    expect(wetterMitProbe('regenbogen', 'schnee', false)).toEqual({
+    expect(wetterMitProbe('sturm', echt('klar', true))).toEqual({
+      bild: 'sturm',
+      staerke: 'mittel',
+      regenbogen: false,
+    });
+    expect(wetterMitProbe('regenbogen', echt('regen'))).toEqual({
       bild: 'bewoelkt',
+      staerke: 'mittel',
       regenbogen: true,
     });
   });
 
-  it('bietet alle Wetterbilder und den Regenbogen an', () => {
-    expect(WETTER_PROBEN).toContain('sturm');
-    expect(WETTER_PROBEN).toContain('regenbogen');
+  it('Niesel bis Starkregen, leichter Schnee bis Gestöber', () => {
+    expect(wetterMitProbe('niesel', echt('klar'))).toMatchObject({
+      bild: 'regen',
+      staerke: 'leicht',
+    });
+    expect(wetterMitProbe('starkregen', echt('klar'))).toMatchObject({
+      bild: 'regen',
+      staerke: 'stark',
+    });
+    expect(wetterMitProbe('schnee-leicht', echt('klar'))).toMatchObject({
+      bild: 'schnee',
+      staerke: 'leicht',
+    });
+    expect(wetterMitProbe('gestoeber', echt('klar'))).toMatchObject({
+      bild: 'schnee',
+      staerke: 'stark',
+    });
+  });
+
+  it('bietet alle Wetterbilder, Stärken und den Regenbogen an', () => {
+    for (const w of ['sturm', 'regenbogen', 'niesel', 'starkregen', 'gestoeber'] as const)
+      expect(WETTER_PROBEN).toContain(w);
     expect(WETTER_PROBEN[0]).toBe('auto');
+  });
+
+  it('Jahreszeit ausprobieren: Kalender oder eine der vier', () => {
+    expect(jahreszeitMitProbe('auto', 'herbst')).toBe('herbst');
+    expect(jahreszeitMitProbe('winter', 'sommer')).toBe('winter');
+    expect(JAHRESZEIT_PROBEN).toEqual(['auto', 'fruehling', 'sommer', 'herbst', 'winter']);
   });
 });

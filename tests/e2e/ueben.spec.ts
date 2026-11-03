@@ -942,15 +942,40 @@ test('Wetter ausprobieren: jedes Wetter zeigt das Bild ohne Fehler (Grafik Punkt
   page.on('pageerror', (e) => fehler.push(e.message));
   await page.goto('./');
   await bastionOeffnen(page, true);
-  for (const wetter of ['Regen', 'Schnee', 'Sturm', 'Nebel', 'Regenbogen', 'Wie draußen']) {
+  const ueberall = ['Nieselregen', 'Regen', 'Starkregen', 'Schnee', 'Schneegestöber', 'Sturm'];
+  for (const wetter of [...ueberall, 'Nebel', 'Regenbogen', 'Wie draußen']) {
     if (!(await page.getByLabel('Wetter ausprobieren').isVisible())) {
       await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
     }
     await page.getByLabel('Wetter ausprobieren').selectOption({ label: wetter });
     await page.getByRole('button', { name: '← Zur Bastion' }).click();
     await expect.poll(() => page.locator('.bauplatz canvas').count(), { timeout: 30_000 }).toBe(1);
+    // Regen und Schnee fallen über dem ganzen Bild, nicht nur über der Insel
+    if (ueberall.includes(wetter))
+      await expect(page.locator('.wetterschicht .ebene').first()).toBeAttached();
   }
   await page.waitForTimeout(1500);
+  expect(fehler).toEqual([]);
+});
+
+test('Jahreszeit ausprobieren: jede Jahreszeit zeigt das Bild ohne Fehler (Wunsch PV)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  const fehler: string[] = [];
+  page.on('pageerror', (e) => fehler.push(e.message));
+  await page.goto('./');
+  await bastionOeffnen(page, true);
+  for (const jz of ['Frühling', 'Herbst', 'Winter', 'Wie im Kalender']) {
+    if (!(await page.getByLabel('Jahreszeit ausprobieren').isVisible())) {
+      await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+    }
+    await page.getByLabel('Jahreszeit ausprobieren').selectOption({ label: jz });
+    await page.getByRole('button', { name: '← Zur Bastion' }).click();
+    await expect.poll(() => page.locator('.bauplatz canvas').count(), { timeout: 30_000 }).toBe(1);
+    if (jz === 'Winter') await expect(page.locator('.kulisse.jz-winter')).toBeAttached();
+  }
+  await page.waitForTimeout(1000);
   expect(fehler).toEqual([]);
 });
 
@@ -958,10 +983,32 @@ test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Pu
   page,
 }) => {
   test.setTimeout(60_000);
+  // Die Bilder kommen absichtlich spät: So ist sicher, dass der Tipper vor dem fertigen
+  // Bild kommt – auf schnellen und langsamen Rechnern gleich (vorher wackelig in der CI)
+  let freigeben = () => {};
+  const frei = new Promise<void>((r) => (freigeben = r));
+  await page.route('**/grafik/atlas/manifest.json', async (route) => {
+    await frei;
+    await route.continue();
+  });
   await page.goto('./');
   await bastionOeffnen(page, false);
-  // nicht warten, bis das Bild ruhig steht: tippen, sobald die Kamera sitzt
   await expect(page.locator('.fenster.sichtbar')).toHaveCount(1);
+  // Bauplatz steht ruhig (die Kamera hat sich eingepasst), das Bild fehlt noch
+  let letzte = '';
+  await expect
+    .poll(
+      async () => {
+        const r = await page.locator('.bauplatz').boundingBox();
+        const jetzt = r ? [r.x, r.y, r.width, r.height].map((w) => w.toFixed(1)).join(',') : '';
+        const ruhig = jetzt !== '' && jetzt === letzte;
+        letzte = jetzt;
+        return ruhig;
+      },
+      { intervals: [150], timeout: 15_000 },
+    )
+    .toBe(true);
+  await expect(page.locator('.fenster')).toHaveAttribute('data-bild', 'laedt');
   const fenster = page.locator('.fenster');
   const rahmen = await fenster.boundingBox();
   const flaeche = await page.locator('.bauplatz').boundingBox();
@@ -973,7 +1020,8 @@ test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Pu
       y: flaeche.y - rahmen.y + (p.y * flaeche.height) / BUEHNE_H,
     },
   });
-  await expect(page.locator('.wahl')).toContainText('Feuerstelle', { timeout: 10_000 });
+  freigeben();
+  await expect(page.locator('.wahl')).toContainText('Feuerstelle', { timeout: 15_000 });
 });
 
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {

@@ -1019,7 +1019,24 @@ async function atlasTexturenLaden(
 }
 
 /** Welche Atlas-IDs die Bühne braucht (P0–P6: Himmel/Wetter/Belagerung + Themen). */
-function atlasBrauchtId(art: Bildart, id: string): boolean {
+/** Bilder je Jahreszeit (G13): `<id>_<jahreszeit>`; der Sommer ist das Bild ohne Zusatz */
+const JAHRESZEIT_ENDUNG = /_(fruehling|herbst|winter)$/;
+/** Umgebungsbilder mit Laubkrone: dort fällt im Herbst Laub */
+const KRONE_LAUB = /\/umgebung\/(baum_|strauch_)/;
+
+/** Umgebungsbild in der passenden Jahreszeit, sonst das Sommerbild */
+function umgebungEintrag(atlas: AtlasManifest | null, id: string, jz: Jahreszeit | undefined) {
+  if (jz && jz !== 'sommer') {
+    const e = atlasEintragPerId(atlas, `${id}_${jz}`);
+    if (e) return e;
+  }
+  return atlasEintragPerId(atlas, id);
+}
+
+function atlasBrauchtId(art: Bildart, id: string, jz?: Jahreszeit): boolean {
+  // Nur die Bilder der aktuellen Jahreszeit laden
+  const endung = JAHRESZEIT_ENDUNG.exec(id);
+  if (endung && endung[1] !== jz) return false;
   if (
     id.startsWith('himmel/') ||
     id.startsWith('wetter/') ||
@@ -1153,7 +1170,9 @@ export async function buehneErstellen(
   // P1 Himmel/Wetter für alle Themen; Gebäude/Boden/Wesen/Hinterhof aus Atlas (P0–P5).
   // Bauplatz tauscht atomar (altes Canvas bleibt bis diese Promise fertig ist).
   const atlas: AtlasManifest | null = await atlasLaden();
-  const texturen = await atlasTexturenLaden(atlas, (id) => atlasBrauchtId(art, id));
+  const texturen = await atlasTexturenLaden(atlas, (id) =>
+    atlasBrauchtId(art, id, farben.jahreszeit),
+  );
 
   const wetterBild: WetterBild = farben.wetter ?? 'klar';
   // Himmel / Boden / Overlay getrennt: Boden kann Atlas-Sprites sein
@@ -1266,6 +1285,32 @@ export async function buehneErstellen(
         .fill({ color: '#ffffff', alpha: 0.5 });
     }
   }
+  // Jahreszeit auf dem Boden (Wunsch PV 03.11.2026): passt zur Kulisse ringsherum –
+  // Frühling frisch, Herbst warm und trockener, Winter mit Raureif und etwas Schnee
+  const jzBoden = farben.jahreszeit;
+  if (istLandBildart(art) && jzBoden && jzBoden !== 'sommer' && wetterBild !== 'schnee') {
+    // mit dem Rand der Insel (ein gutes halbes Feld rundherum)
+    const r = 0.6;
+    const flaeche = [
+      punkt(-r, -r),
+      punkt(platzJetzt.breite + r, -r),
+      punkt(platzJetzt.breite + r, platzJetzt.tiefe + r),
+      punkt(-r, platzJetzt.tiefe + r),
+    ].flatMap((q) => [q.x, q.y]);
+    const ton = {
+      fruehling: ['#d2f0a0', 0.12],
+      herbst: ['#c8923a', 0.36],
+      winter: ['#eef3f6', 0.4],
+    }[jzBoden] as [string, number];
+    bodenWetter.poly(flaeche).fill({ color: ton[0], alpha: ton[1] });
+    if (jzBoden === 'winter')
+      for (const { pos, groesse } of schneeFlecken(platzJetzt.breite, platzJetzt.tiefe)) {
+        const m = punkt(pos.x + 0.5, pos.y + 0.5);
+        bodenWetter
+          .ellipse(m.x, m.y, (groesse * RAUTE_B) / 2, (groesse * RAUTE_H) / 2)
+          .fill({ color: '#ffffff', alpha: 0.4 });
+      }
+  }
   // Regenbogen über der Insel, wenn keine Kulisse ihn zeigt (sanft, R1)
   if (farben.regenbogen && !farben.kulisse) {
     const bogen = new Graphics();
@@ -1307,8 +1352,15 @@ export async function buehneErstellen(
   }
   spannungHimmelZeichnen(overlayLage, farben, atlas, texturen);
   const wolkenLage = new Container();
+  /**
+   * Mit Kulisse liegt das Wetter als eigene Schicht über dem ganzen Bild (GRAFIK §15.1):
+   * dann keine kleinen Wolken, Tropfen, Flocken und Schatten mehr direkt über der Insel
+   * (Wunsch PV 03.11.2026). Was auf der Insel liegt (Pfützen, Schnee, Laub), bleibt.
+   */
+  const wetterUeberAllem = farben.kulisse === true && istLandBildart(art);
   // Wolken nur über Land; unter Wasser und im Weltraum gibt es keine (Grafik Punkt 3)
-  if (istLandBildart(art)) wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
+  if (istLandBildart(art) && !wetterUeberAllem)
+    wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();
   gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
@@ -1321,7 +1373,7 @@ export async function buehneErstellen(
   const schattenLage = new Graphics();
   const schattenZeichnen = (zeit: number) => {
     schattenLage.clear();
-    if (wetterBild !== 'sturm') return;
+    if (wetterBild !== 'sturm' || wetterUeberAllem) return;
     for (const w of wolkenSchatten(zeit, buehneBreite(), buehneHoehe(), tickerAn(bewegung))) {
       for (const f of [1, 0.75, 0.5]) {
         schattenLage.ellipse(w.x, w.y, w.rx * f, w.ry * f).fill({ color: '#1c2430', alpha: 0.05 });
@@ -1359,25 +1411,44 @@ export async function buehneErstellen(
   /** Solange kleiner 1, wächst die Gebäude-Lage noch (Aufstell-Effekt). */
   let aufstellAktiv = false;
 
-  type Tropfen = { x: number; y: number; v: number; spr?: Sprite };
+  type Tropfen = { x: number; y: number; v: number; spr?: Sprite; bis?: number; q?: number };
+  /**
+   * Herbstlaub fällt nur unter Bäumen (Wunsch PV 03.11.2026): Kronen, die beim Zeichnen
+   * gemerkt werden – Mitte der Krone und wie tief ein Blatt bis zum Boden fällt.
+   */
+  let laubQuellen: { x: number; y: number; h: number }[] = [];
+  const laubNeu = (t: Tropfen, i: number) => {
+    const n = laubQuellen.length;
+    if (n === 0) return;
+    t.q = ((t.q ?? i) + 3) % n;
+    const q = laubQuellen[t.q];
+    if (!q) return;
+    t.x = q.x + (((i * 37) % 21) - 10) * 0.9;
+    t.y = q.y + ((i * 11) % 7);
+    t.bis = q.y + q.h;
+  };
   const leicht = bewegungStart === 'leicht';
   const jahreszeit = farben.jahreszeit;
   // Herbstlaub nur über Land (Dorf/Garten/Bastion) – nicht Unterwasser/Weltraum (P3 Feinschliff)
   const landThema = istLandBildart(art);
   const laubBudget =
     jahreszeit === 'herbst' && bewegungStart !== 'aus' && landThema ? (leicht ? 4 : 8) : 0;
-  const wetterBudget = partikelBudget(wetterBild, leicht);
+  const wetterBudget = wetterUeberAllem ? 0 : partikelBudget(wetterBild, leicht);
   const budget = wetterBudget + laubBudget;
   const partikelArt: 'regen' | 'schnee' | 'nebel' | 'laub' | 'keine' =
-    wetterBild === 'schnee'
-      ? 'schnee'
-      : wetterBild === 'nebel'
-        ? 'nebel'
-        : wetterBild === 'regen'
-          ? 'regen'
-          : laubBudget > 0
-            ? 'laub'
-            : 'keine';
+    wetterBudget === 0
+      ? laubBudget > 0
+        ? 'laub'
+        : 'keine'
+      : wetterBild === 'schnee'
+        ? 'schnee'
+        : wetterBild === 'nebel'
+          ? 'nebel'
+          : wetterBild === 'regen'
+            ? 'regen'
+            : laubBudget > 0
+              ? 'laub'
+              : 'keine';
 
   const wetterTexId =
     partikelArt === 'schnee'
@@ -1413,6 +1484,8 @@ export async function buehneErstellen(
         spr.width = e.pixel.w / 2;
         spr.height = e.pixel.h / 2;
         spr.alpha = 0.9;
+        // erst sichtbar, wenn es unter einer Krone startet (Ticker)
+        spr.visible = false;
         t.spr = spr;
         partikelLage.addChild(spr);
       }
@@ -1585,6 +1658,14 @@ export async function buehneErstellen(
       for (let i = 0; i < tropfen.length; i++) {
         const t = tropfen[i];
         if (!t) continue;
+        if (i >= wetterBudget) {
+          // Laub: von der Krone bis zum Boden unter dem Baum, dann zur nächsten Krone
+          if (t.spr) t.spr.visible = laubQuellen.length > 0;
+          if (t.bis === undefined || t.y > t.bis) laubNeu(t, i);
+          t.y += t.v;
+          t.x += Math.sin((jetzt + i * 300) / 400) * 0.3;
+          continue;
+        }
         t.y += t.v;
         if (wetterBild === 'sturm' && i < wetterBudget) {
           t.x += 3.2 + t.v * 6; // der Wind treibt waagrecht
@@ -1700,6 +1781,7 @@ export async function buehneErstellen(
         return p.pos.x + p.pos.y + (pw + pt) / 2 - (q.pos.x + q.pos.y + (qw + qt) / 2);
       });
       treffer = [];
+      laubQuellen = [];
       const epoche = epocheJetzt;
       if (art === 'dorf' && texturen.size > 0) {
         // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
@@ -1707,7 +1789,7 @@ export async function buehneErstellen(
         const lagen: { tiefe: number; zeichne: () => void }[] = dorfBaumLagen().map((b) => ({
           tiefe: b.tiefe,
           zeichne: () => {
-            const eintrag = atlasEintragPerId(atlas, `dorf/umgebung/${b.art}`);
+            const eintrag = umgebungEintrag(atlas, `dorf/umgebung/${b.art}`, farben.jahreszeit);
             const tex = eintrag ? texturen.get(eintrag.id) : undefined;
             if (eintrag && tex) {
               // Der Code-Baum steht mit dem Stamm auf punkt(x, y); das Bild hat seinen
@@ -1720,6 +1802,12 @@ export async function buehneErstellen(
               spr.position.set(fuss.x, fuss.y);
               spr.zIndex = b.tiefe * 10;
               gebaeude.addChild(spr);
+              if (KRONE_LAUB.test(eintrag.id))
+                laubQuellen.push({
+                  x: fuss.x,
+                  y: fuss.y - spr.height * 0.72,
+                  h: spr.height * 0.68,
+                });
               return;
             }
             const stueck = new Graphics();
@@ -1811,7 +1899,7 @@ export async function buehneErstellen(
         const lagen: { tiefe: number; zeichne: () => void }[] = gartenStrauchLagen().map((b) => ({
           tiefe: b.tiefe,
           zeichne: () => {
-            const eintrag = atlasEintragPerId(atlas, `garten/umgebung/${b.art}`);
+            const eintrag = umgebungEintrag(atlas, `garten/umgebung/${b.art}`, farben.jahreszeit);
             const tex = eintrag ? texturen.get(eintrag.id) : undefined;
             if (eintrag && tex) {
               // Der Code-Strauch steht auf punkt(x, y); das Bild hat seinen Fußpunkt an der
@@ -1824,6 +1912,12 @@ export async function buehneErstellen(
               spr.position.set(fuss.x, fuss.y);
               spr.zIndex = b.tiefe * 10;
               gebaeude.addChild(spr);
+              if (KRONE_LAUB.test(eintrag.id))
+                laubQuellen.push({
+                  x: fuss.x,
+                  y: fuss.y - spr.height * 0.72,
+                  h: spr.height * 0.68,
+                });
               return;
             }
             const stueck = new Graphics();
@@ -1927,6 +2021,12 @@ export async function buehneErstellen(
               spr.position.set(fuss.x, fuss.y);
               spr.zIndex = b.tiefe * 10;
               gebaeude.addChild(spr);
+              if (KRONE_LAUB.test(eintrag.id))
+                laubQuellen.push({
+                  x: fuss.x,
+                  y: fuss.y - spr.height * 0.72,
+                  h: spr.height * 0.68,
+                });
               return;
             }
             const stueck = new Graphics();
@@ -2094,7 +2194,7 @@ export async function buehneErstellen(
         // Umgebung am Inselrand (G3, GRAFIK-SPRITES §12.7): feste Plätze, kein Zufall
         const { breite: pw, tiefe: pt } = bauplatzAktiv();
         for (const u of inselUmgebung(pw, pt)) {
-          const eintrag = atlasEintragPerId(atlas, `bastion/umgebung/${u.art}`);
+          const eintrag = umgebungEintrag(atlas, `bastion/umgebung/${u.art}`, farben.jahreszeit);
           const tex = eintrag ? texturen.get(eintrag.id) : undefined;
           if (!eintrag || !tex) continue;
           lagen.push({
@@ -2108,6 +2208,12 @@ export async function buehneErstellen(
               spr.position.set(fuss.x, fuss.y);
               spr.zIndex = (u.x + u.y + 1) * 10;
               gebaeude.addChild(spr);
+              if (KRONE_LAUB.test(eintrag.id))
+                laubQuellen.push({
+                  x: fuss.x,
+                  y: fuss.y - spr.height * 0.72,
+                  h: spr.height * 0.68,
+                });
             },
           });
         }

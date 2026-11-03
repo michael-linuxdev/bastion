@@ -28,11 +28,13 @@
   import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
   import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
+  import { istLandBildart } from './grafik/thema-partikel';
+  import Wetterschicht from './Wetterschicht.svelte';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { buehneFuer, himmelFuer, punkt as feldPunkt } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
-  import type { WetterBild } from './grafik/wetter';
+  import type { WetterBild, WetterStaerke } from './grafik/wetter';
   import { szeneWetterLaden } from './grafik/wetter-stand';
   import {
     ZIEH_SCHWELLE,
@@ -46,7 +48,12 @@
   import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import Kulisse from './Kulisse.svelte';
-  import { wetterMitProbe, wetterProbe } from './wetter-probe.svelte';
+  import {
+    jahreszeitMitProbe,
+    jahreszeitProbe,
+    wetterMitProbe,
+    wetterProbe,
+  } from './wetter-probe.svelte';
   import { kulisseFuer, stimmungAus } from './grafik/kulisse';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
@@ -145,11 +152,19 @@
     const id = setInterval(() => (jetzt = new Date()), 60_000);
     return () => clearInterval(id);
   });
-  const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
+  /** Jahreszeit aus dem Datum, im Zahnrad zum Ausprobieren wählbar (nur Ansicht) */
+  const jahreszeit = $derived(jahreszeitMitProbe(jahreszeitProbe.wahl, jahreszeitAusDatum(jetzt)));
   let wetterEcht = $state<WetterBild>('klar');
   let regenbogenEcht = $state(false);
+  let staerkeEcht = $state<WetterStaerke>('mittel');
   /** Im Zahnrad gewähltes Wetter zum Ausprobieren (nur Ansicht, nicht gespeichert) */
-  const wetterJetzt = $derived(wetterMitProbe(wetterProbe.wahl, wetterEcht, regenbogenEcht));
+  const wetterJetzt = $derived(
+    wetterMitProbe(wetterProbe.wahl, {
+      bild: wetterEcht,
+      staerke: staerkeEcht,
+      regenbogen: regenbogenEcht,
+    }),
+  );
   const wetterBild = $derived(wetterJetzt.bild);
   const regenbogen = $derived(wetterJetzt.regenbogen);
   let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
@@ -167,6 +182,7 @@
       if (abgebrochen) return;
       wetterEcht = s.bild;
       regenbogenEcht = s.regenbogen;
+      staerkeEcht = s.staerke;
       wetterSonne = s.sonne;
       wetterGeladen = true;
       clearTimeout(wetterWarten);
@@ -741,6 +757,7 @@
     <div
       class="fenster"
       class:sichtbar={kameraSichtbar}
+      data-bild={buehne ? 'bereit' : 'laedt'}
       class:versetzen
       class:zieht
       style:background={kulisse ? 'transparent' : himmelCss}
@@ -763,6 +780,7 @@
           {bewegung}
           wetter={wetterBild}
           {regenbogen}
+          {jahreszeit}
         />
       {/if}
       <div
@@ -773,6 +791,13 @@
         bind:this={rahmen}
         aria-hidden="true"
       ></div>
+      <Wetterschicht
+        wetter={wetterBild}
+        staerke={wetterJetzt.staerke}
+        land={istLandBildart(bildartVonThema(aktiv.thema))}
+        {bewegung}
+        nacht={stimmung === 'nacht'}
+      />
     </div>
     {#if hinterhofKnopf && hinterhofFelder.length > 0}
       <button
