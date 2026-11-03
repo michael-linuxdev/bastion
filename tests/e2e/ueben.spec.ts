@@ -1640,7 +1640,7 @@ test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
   await expect(page.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.')).toBeVisible();
   await expect(page.getByRole('group', { name: 'Wohin möchtest du?' })).toBeVisible();
-  await page.getByRole('main').getByRole('button', { name: 'Mit Üben starten' }).click();
+  await page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }).click();
   await expect(
     page
       .getByRole('button', { name: 'Prüfen' })
