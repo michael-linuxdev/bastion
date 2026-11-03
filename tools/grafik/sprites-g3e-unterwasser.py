@@ -20,7 +20,6 @@ import math
 import sys
 from pathlib import Path
 
-from PIL import ImageDraw
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -54,7 +53,7 @@ TURMWEISS = (236, 232, 224)
 
 def glocke(iso: Iso, x, y, r: float, z: float, h: float) -> None:
     """Große, durchscheinende Glasglocke mit Messingrippen (über schon Gezeichnetem)."""
-    d = ImageDraw.Draw(iso.d._image, "RGBA")
+    d = iso.d  # ersetzt Pixel: die Glocke bleibt durchscheinend
     cx, cy = iso.p(x, y, z)
     rx, ry = r * HW * math.sqrt(2), r * HH * math.sqrt(2)
     n = 32
@@ -454,7 +453,7 @@ def werkstatt3(iso: Iso, fenster: list) -> None:
             iso.linie(a, b, MESSING, 2)
     dach = [p(-0.85, 0.6 * math.cos(math.pi * j / 12), 70 + 74 * math.sin(math.pi * j / 12)) for j in range(13)]
     dach += [p(0.85, 0.6 * math.cos(math.pi * j / 12), 70 + 74 * math.sin(math.pi * j / 12)) for j in range(12, -1, -1)]
-    d = ImageDraw.Draw(iso.d._image, "RGBA")
+    d = iso.d  # ersetzt Pixel: die Glocke bleibt durchscheinend
     d.polygon([(round(a), round(b)) for a, b in dach], fill=(190, 228, 236, 150))
     giebel = [p(0.85, 0.6 * math.cos(math.pi * j / 12), 70 + 74 * math.sin(math.pi * j / 12)) for j in range(13)]
     iso.poly(giebel, GLAS, KONTUR)

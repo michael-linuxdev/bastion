@@ -15,10 +15,22 @@ export interface KulissenThema {
   readonly himmel: Readonly<Record<Stimmung, readonly [string, string]>>;
   /** Grundfarbe unter den Bändern (Meer, Feld …), falls ein Bild fehlt */
   readonly grund: Readonly<Record<Stimmung, string>>;
+  /** Dinge rund um den Bauplatz (Bilder in `kulisse/<thema>/dinge/`), der Reihe nach */
+  readonly dinge: readonly string[];
+  /** Wasser um die Insel: Schaumring, Tropfenringe bei Regen, Eisschollen bei Schnee */
+  readonly wasser: boolean;
+  /** Segelboot quert (nur auf dem Meer der Bastion) */
+  readonly boot: boolean;
+  /** Sterne auch am Tag (Weltraum) */
+  readonly sterneImmer: boolean;
 }
 
-/** Bisher nur das Thema `bastion`; die anderen behalten den Himmel der Bühne. */
-const THEMEN: Partial<Record<Thema, KulissenThema>> = {
+/**
+ * Kulisse je Thema (GRAFIK §13, Auftrag Grafik Punkt 3): Bastion Meer rundherum,
+ * Dorf Felder mit Hecken und Bach, Garten Wiese mit Teich, Unterwasser Riff in Schichten
+ * mit Lichtstrahlen, Weltraum Kraterrand mit Planet und Sternen.
+ */
+const THEMEN: Record<Thema, KulissenThema> = {
   bastion: {
     himmel: {
       tag: ['#8ec9e8', '#d6ecf3'],
@@ -26,6 +38,58 @@ const THEMEN: Partial<Record<Thema, KulissenThema>> = {
       nacht: ['#0e1628', '#2e3e5e'],
     },
     grund: { tag: '#3e8fb0', daemmerung: '#465c82', nacht: '#14283a' },
+    dinge: ['fels_1', 'fels_2', 'inselchen', 'fels_2', 'inselchen', 'fels_1'],
+    wasser: true,
+    boot: true,
+    sterneImmer: false,
+  },
+  dorf: {
+    himmel: {
+      tag: ['#94cbe6', '#e2f0f2'],
+      daemmerung: ['#5c6096', '#f2a86b'],
+      nacht: ['#0e1628', '#2e3e5e'],
+    },
+    grund: { tag: '#74a44c', daemmerung: '#546a44', nacht: '#1e2a1c' },
+    dinge: ['hecke', 'obstbaum', 'heuballen', 'teich', 'obstbaum', 'hecke'],
+    wasser: false,
+    boot: false,
+    sterneImmer: false,
+  },
+  garten: {
+    himmel: {
+      tag: ['#9ad0ea', '#e8f4ee'],
+      daemmerung: ['#5c6096', '#f2a86b'],
+      nacht: ['#0e1628', '#2e3e5e'],
+    },
+    grund: { tag: '#5faa48', daemmerung: '#46703c', nacht: '#18281a' },
+    dinge: ['blumenbusch', 'teich', 'hecke', 'obstbaum', 'blumenbusch', 'hecke'],
+    wasser: false,
+    boot: false,
+    sterneImmer: false,
+  },
+  unterwasser: {
+    himmel: {
+      tag: ['#1f5e86', '#5fa8c8'],
+      daemmerung: ['#20406a', '#4a7c9e'],
+      nacht: ['#06101e', '#12304a'],
+    },
+    grund: { tag: '#cebc90', daemmerung: '#8a8070', nacht: '#2a2a2e' },
+    dinge: ['koralle', 'fels', 'seetang', 'koralle', 'seetang', 'muschelfels'],
+    wasser: false,
+    boot: false,
+    sterneImmer: false,
+  },
+  weltraum: {
+    himmel: {
+      tag: ['#080c1c', '#2a2e48'],
+      daemmerung: ['#080c1c', '#3a2e48'],
+      nacht: ['#04060e', '#141828'],
+    },
+    grund: { tag: '#94908a', daemmerung: '#6c6866', nacht: '#34323a' },
+    dinge: ['krater', 'felsbrocken', 'kristall', 'schuessel', 'krater', 'kristall'],
+    wasser: false,
+    boot: false,
+    sterneImmer: true,
   },
 };
 
@@ -78,30 +142,29 @@ export function kulissenLage(k: Kamera, inselOben: number): KulissenLage {
   };
 }
 
-/** Ein Ding im Meer: Bild, Lage in Feldern (darf außerhalb des Bauplatzes liegen), Maßstab */
+/** Ein Ding um den Bauplatz: Bild, Lage in Feldern (außerhalb des Bauplatzes) */
 export interface Ding {
-  readonly bild: 'fels_1' | 'fels_2' | 'inselchen' | 'boot';
+  readonly bild: string;
   readonly gx: number;
   readonly gy: number;
 }
 
-/** Bildmaße der Dinge in Bühnen-Bildpunkten (Bilder doppelt gezeichnet, Fuß unten Mitte) */
-export const DING_MASS: Readonly<Record<Ding['bild'], { readonly w: number; readonly h: number }>> =
-  {
-    fels_1: { w: 80, h: 34 },
-    fels_2: { w: 80, h: 29 },
-    inselchen: { w: 80, h: 63 },
-    boot: { w: 80, h: 57 },
-  };
+/** Breite der Ding-Bilder in Bühnen-Bildpunkten (doppelt gezeichnet, Fuß unten Mitte) */
+export const DING_BREITE = 80;
 
 /** Feste Plätze rund um den Bauplatz (kein Zufall), wachsen mit der Bauplatzgröße */
-export function dingeUmBauplatz(breite: number, tiefe: number): readonly Ding[] {
-  return [
-    { bild: 'fels_1', gx: -2.6, gy: tiefe * 0.3 },
-    { bild: 'fels_2', gx: breite + 1.8, gy: tiefe * 0.55 },
-    { bild: 'inselchen', gx: breite * 0.7, gy: tiefe + 3.2 },
-    { bild: 'fels_2', gx: -3.5, gy: tiefe + 1.5 },
-    { bild: 'inselchen', gx: breite + 3.5, gy: -2.5 },
-    { bild: 'fels_1', gx: breite * 0.2, gy: -3 },
+export function dingeUmBauplatz(
+  breite: number,
+  tiefe: number,
+  namen: readonly string[] = THEMEN.bastion.dinge,
+): readonly Ding[] {
+  const plaetze = [
+    { gx: -2.6, gy: tiefe * 0.3 },
+    { gx: breite + 1.8, gy: tiefe * 0.55 },
+    { gx: breite * 0.7, gy: tiefe + 3.2 },
+    { gx: -3.5, gy: tiefe + 1.5 },
+    { gx: breite + 3.5, gy: -2.5 },
+    { gx: breite * 0.2, gy: -3 },
   ];
+  return plaetze.map((p, i) => ({ bild: namen[i % namen.length] ?? 'fels_1', ...p }));
 }

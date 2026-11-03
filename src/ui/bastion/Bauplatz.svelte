@@ -46,6 +46,7 @@
   import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import Kulisse from './Kulisse.svelte';
+  import { wetterMitProbe, wetterProbe } from './wetter-probe.svelte';
   import { kulisseFuer, stimmungAus } from './grafik/kulisse';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
@@ -145,14 +146,20 @@
     return () => clearInterval(id);
   });
   const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
-  let wetterBild = $state<WetterBild>('klar');
+  let wetterEcht = $state<WetterBild>('klar');
+  let regenbogenEcht = $state(false);
+  /** Im Zahnrad gewähltes Wetter zum Ausprobieren (nur Ansicht, nicht gespeichert) */
+  const wetterJetzt = $derived(wetterMitProbe(wetterProbe.wahl, wetterEcht, regenbogenEcht));
+  const wetterBild = $derived(wetterJetzt.bild);
+  const regenbogen = $derived(wetterJetzt.regenbogen);
   let wetterSonne = $state<ReturnType<typeof sonnenzeitenMitteleuropa> | undefined>(undefined);
   $effect(() => {
     const d = jetzt;
     let abgebrochen = false;
     void szeneWetterLaden(d).then((s) => {
       if (abgebrochen) return;
-      wetterBild = s.bild;
+      wetterEcht = s.bild;
+      regenbogenEcht = s.regenbogen;
       wetterSonne = s.sonne;
     });
     return () => {
@@ -163,9 +170,7 @@
     szeneAbend(darstellung.modus, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
   );
   /** Kulisse hinter dem Bauplatz (GRAFIK §13): nur für Themen mit Bildern, nur im Bild */
-  const kulisse = $derived(
-    bildartVonThema(aktiv.thema) === 'insel' ? kulisseFuer(aktiv.thema) : undefined,
-  );
+  const kulisse = $derived(kulisseFuer(aktiv.thema));
   const stimmung = $derived(
     stimmungAus(abend, jetzt, wetterSonne ?? sonnenzeitenMitteleuropa(jetzt)),
   );
@@ -432,7 +437,7 @@
     const himmel =
       wetterBild === 'nebel'
         ? schattieren(himmelRoh, -25)
-        : wetterBild === 'regen' || wetterBild === 'schnee'
+        : wetterBild === 'regen' || wetterBild === 'schnee' || wetterBild === 'sturm'
           ? schattieren(himmelRoh, -18)
           : wetterBild === 'bewoelkt'
             ? schattieren(himmelRoh, -10)
@@ -453,6 +458,7 @@
       abend,
       jahreszeit,
       wetter: wetterBild,
+      regenbogen,
       spannung,
       familie: {
         kern: farbeSkalieren(v('--bastion-kern'), optik.wandFaktor),
@@ -473,6 +479,7 @@
     void jahreszeit;
     void abend;
     void wetterBild;
+    void regenbogen;
     void bauplatz.breite;
     void bauplatz.tiefe;
     void epoche;
@@ -694,6 +701,8 @@
           inselOben={himmelFuer(bauplatz)}
           platz={bauplatz}
           {bewegung}
+          wetter={wetterBild}
+          {regenbogen}
         />
       {/if}
       <div

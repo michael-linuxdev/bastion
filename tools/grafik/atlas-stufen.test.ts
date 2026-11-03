@@ -5,17 +5,19 @@
  * - Umriss: XOR der Alpha-Masken geteilt durch ihre Vereinigung, ausgerichtet am Anker
  *   unten Mitte – mindestens 25 % (Entscheidung PV, 01.11.2026).
  * - Höhe: sichtbare Höhe (Alpha) mindestens 15 % über der vorigen Stufe.
- * - Ab Stufe 4 (Epochen 2–4, GRAFIK-SPRITES.md §12.11): Umriss mindestens 10 %, Höhe
- *   mindestens 8 %. Der Fußabdruck wächst nicht mit; ab Stufe 4 ist er gefüllt, und
- *   25 % Umriss ginge nur mit 30 % Höhe je Stufe. Die Stufe zeigt sich dann an je einem
- *   neuen Merkmal (Torhaus, Erker, Kuppel, Spitze, Kupferdach).
+ * - Ab Stufe 4 (GRAFIK-SPRITES.md §13.2, Festlegung 03.11.2026): mindestens 10 % der
+ *   Fläche sichtbar geändert (Umriss oder Farbe) und nicht niedriger als die vorige Stufe.
+ *   Grund: Jede Stufe ist die vorige plus ein Teil; steht es vor dem Gebäude (Torhaus,
+ *   Erker, Fähre), ändert es den Umriss kaum, man sieht es aber sofort. Die frühere Regel
+ *   (Umriss 10 %, Höhe +8 %) zwang die Leitern in die Höhe und verzerrte sie.
  * Die Kette läuft über die Epochen: jede Stufe hat ein Bild, in der Epoche, in der sie
  * zuerst baubar ist (Rückfall wie `atlasEintrag`).
  *
  * Gleiche Messung wie `pnpm grafik:stufen` (tools/grafik/stufen-vergleich.py).
  * Der Test gilt nur für erneuerte Chargen und wächst Charge für Charge (G3).
- * PNGs werden ohne Zusatzpaket gelesen: nur 8 Bit RGBA ohne Zeilensprung,
- * so wie die Generatoren (Pillow) sie schreiben.
+ * PNGs werden ohne Zusatzpaket gelesen: nur 8 Bit RGBA oder 8 Bit Palette mit
+ * Deckkraft-Tabelle (tRNS), ohne Zeilensprung, so wie die Generatoren (Pillow) sie
+ * schreiben (Gebäude seit §12.12 als Palette).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -43,8 +45,10 @@ const ERNEUERT: readonly (readonly [string, string, number])[] = [
 
 const MIN_UMRISS = 0.25;
 const MIN_HOEHE = 0.15;
-const MIN_UMRISS_AB_4 = 0.1;
-const MIN_HOEHE_AB_4 = 0.08;
+const MIN_SICHTBAR_AB_4 = 0.1;
+const MIN_HOEHE_AB_4 = 0;
+/** Summe der Farbunterschiede (R+G+B), ab der ein Bildpunkt als geändert zählt */
+const FARB_GRENZE = 60;
 
 /** Erneuert über alle Epochen (G3 Epochen 2–4): [Thema, Rolle, höchste Stufe] */
 const ERNEUERT_EPOCHEN: readonly (readonly [string, string, number])[] = [
@@ -89,6 +93,8 @@ interface Maske {
   readonly w: number;
   readonly h: number;
   readonly an: Uint8Array;
+  /** Farbe je Bildpunkt (R, G, B) */
+  readonly rgb: Uint8Array;
 }
 
 function pngMaske(pfad: string): Maske {
@@ -96,6 +102,9 @@ function pngMaske(pfad: string): Maske {
   let pos = 8;
   let w = 0;
   let h = 0;
+  let farbtyp = 6;
+  let deckkraft: Uint8Array = new Uint8Array(0);
+  let palette: Uint8Array = new Uint8Array(0);
   const idat: Buffer[] = [];
   while (pos < roh.length) {
     const laenge = roh.readUInt32BE(pos);
@@ -107,14 +116,17 @@ function pngMaske(pfad: string): Maske {
       const tiefe = daten[8];
       const farbe = daten[9];
       const zeilensprung = daten[12];
-      if (tiefe !== 8 || farbe !== 6 || zeilensprung !== 0)
-        throw new Error(`${pfad}: nur 8 Bit RGBA ohne Zeilensprung`);
-    } else if (typ === 'IDAT') idat.push(daten);
+      if (tiefe !== 8 || (farbe !== 6 && farbe !== 3) || zeilensprung !== 0)
+        throw new Error(`${pfad}: nur 8 Bit RGBA oder Palette ohne Zeilensprung`);
+      farbtyp = farbe ?? 6;
+    } else if (typ === 'tRNS') deckkraft = new Uint8Array(daten);
+    else if (typ === 'PLTE') palette = new Uint8Array(daten);
+    else if (typ === 'IDAT') idat.push(daten);
     else if (typ === 'IEND') break;
     pos += 12 + laenge;
   }
   const daten = inflateSync(Buffer.concat(idat));
-  const bpp = 4;
+  const bpp = farbtyp === 3 ? 1 : 4;
   const zeile = w * bpp;
   const px = new Uint8Array(h * zeile);
   for (let y = 0; y < h; y++) {
@@ -141,8 +153,15 @@ function pngMaske(pfad: string): Maske {
     }
   }
   const an = new Uint8Array(w * h);
-  for (let i = 0; i < w * h; i++) an[i] = (px[i * 4 + 3] ?? 0) >= ALPHA_GRENZE ? 1 : 0;
-  return { w, h, an };
+  const rgb = new Uint8Array(w * h * 3);
+  for (let i = 0; i < w * h; i++) {
+    for (let k = 0; k < 3; k++)
+      rgb[i * 3 + k] = farbtyp === 3 ? (palette[(px[i] ?? 0) * 3 + k] ?? 0) : (px[i * 4 + k] ?? 0);
+    // Palette: Deckkraft aus tRNS (fehlt ein Eintrag, ist die Farbe deckend)
+    const alpha = farbtyp === 3 ? (deckkraft[px[i] ?? 0] ?? 255) : (px[i * 4 + 3] ?? 0);
+    an[i] = alpha >= ALPHA_GRENZE ? 1 : 0;
+  }
+  return { w, h, an, rgb };
 }
 
 /** Sichtbare Höhe: von der obersten Zeile mit Umriss bis zum unteren Bildrand (Anker) */
@@ -173,6 +192,37 @@ function umrissAnders(a: Maske, b: Maske): number {
   return oder === 0 ? 0 : xor / oder;
 }
 
+/** Anteil der Fläche, der sich sichtbar ändert: anderer Umriss oder deutlich andere Farbe */
+function sichtbarAnders(a: Maske, b: Maske): number {
+  const w = Math.max(a.w, b.w);
+  const h = Math.max(a.h, b.h);
+  const index = (m: Maske, x: number, y: number) => {
+    const mx = x - Math.floor((w - m.w) / 2);
+    const my = y - (h - m.h);
+    if (mx < 0 || my < 0 || mx >= m.w || my >= m.h) return -1;
+    return my * m.w + mx;
+  };
+  let anders = 0;
+  let oder = 0;
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const i = index(a, x, y);
+      const j = index(b, x, y);
+      const p = i >= 0 ? (a.an[i] ?? 0) : 0;
+      const q = j >= 0 ? (b.an[j] ?? 0) : 0;
+      if (!p && !q) continue;
+      oder++;
+      if (p !== q) anders++;
+      else {
+        let d = 0;
+        for (let k = 0; k < 3; k++)
+          d += Math.abs((a.rgb[i * 3 + k] ?? 0) - (b.rgb[j * 3 + k] ?? 0));
+        if (d > FARB_GRENZE) anders++;
+      }
+    }
+  return oder === 0 ? 0 : anders / oder;
+}
+
 describe('G3: jede Stufe ein sichtbares Upgrade (Umriss und Höhe)', () => {
   for (const [ordner, rolle, stufen] of ERNEUERT) {
     for (let s = 2; s <= stufen; s++) {
@@ -190,10 +240,13 @@ describe('G3: jede Stufe ein sichtbares Upgrade (Umriss und Höhe)', () => {
       it(`${thema}/${rolle} über Epochen: Stufe ${s - 1} → ${s}`, () => {
         const vorher = pngMaske(stufenBild(thema, rolle, s - 1));
         const nachher = pngMaske(stufenBild(thema, rolle, s));
-        const umriss = s >= 4 ? MIN_UMRISS_AB_4 : MIN_UMRISS;
-        const hoch = s >= 4 ? MIN_HOEHE_AB_4 : MIN_HOEHE;
-        expect(umrissAnders(vorher, nachher)).toBeGreaterThanOrEqual(umriss);
-        expect(hoehe(nachher)).toBeGreaterThanOrEqual(hoehe(vorher) * (1 + hoch));
+        if (s >= 4) {
+          expect(sichtbarAnders(vorher, nachher)).toBeGreaterThanOrEqual(MIN_SICHTBAR_AB_4);
+          expect(hoehe(nachher)).toBeGreaterThanOrEqual(hoehe(vorher) * (1 + MIN_HOEHE_AB_4));
+        } else {
+          expect(umrissAnders(vorher, nachher)).toBeGreaterThanOrEqual(MIN_UMRISS);
+          expect(hoehe(nachher)).toBeGreaterThanOrEqual(hoehe(vorher) * (1 + MIN_HOEHE));
+        }
       });
     }
   }
@@ -201,6 +254,7 @@ describe('G3: jede Stufe ein sichtbares Upgrade (Umriss und Höhe)', () => {
   it('Gegenprobe: dasselbe Bild zählt als kein Upgrade', () => {
     const a = pngMaske(resolve('public/grafik/atlas/gebaeude/bastion/e1/kern_s2.png'));
     expect(umrissAnders(a, a)).toBe(0);
+    expect(sichtbarAnders(a, a)).toBe(0);
     expect(hoehe(a)).toBeLessThan(hoehe(a) * (1 + MIN_HOEHE));
   });
 });

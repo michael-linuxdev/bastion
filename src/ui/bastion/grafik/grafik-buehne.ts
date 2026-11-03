@@ -90,6 +90,7 @@ import {
   buehneHoehe,
   INSEL,
   feldUnter,
+  himmelFuer,
   punkt,
   RAUTE_B,
   RAUTE_H,
@@ -97,6 +98,7 @@ import {
 } from './iso';
 import type { Jahreszeit } from './jahreszeit';
 import { partikelBudget, type WetterBild } from './wetter';
+import { pfuetzen, REGENBOGEN_FARBEN, schneeFlecken, wolkenSchatten } from './wetter-optik';
 import { hinterhofZeichnen } from './hinterhof-szene';
 import {
   bewohnerFortschritt,
@@ -142,6 +144,8 @@ export interface Farben {
   readonly jahreszeit?: Jahreszeit;
   /** Wetterbild für Himmel und Partikel (GRAFIK §4.3) */
   readonly wetter?: WetterBild;
+  /** Regenbogen am Himmel (nach Regen, aus Datum oder echtem Wetter) */
+  readonly regenbogen?: boolean;
   /** Bewährungsprobe aktiv: spannender Himmel, leichter Rauch (GRAFIK §8 / G11) */
   readonly spannung?: boolean;
 }
@@ -1231,6 +1235,50 @@ export async function buehneErstellen(
     }
   };
   bodenBauen(1);
+  // Wetter auf dem Boden (Auftrag Grafik Punkt 2): Pfützen-Glanz, liegender Schnee
+  const bodenWetter = new Graphics();
+  hintergrund.addChildAt(bodenWetter, hintergrund.getChildIndex(bodenLage) + 1);
+  const platzJetzt = bauplatzAktiv();
+  if (wetterBild === 'regen' || wetterBild === 'sturm') {
+    for (const { pos, groesse } of pfuetzen(platzJetzt.breite, platzJetzt.tiefe)) {
+      const m = punkt(pos.x + 0.5, pos.y + 0.5);
+      const rx = (groesse * RAUTE_B) / 2;
+      const ry = (groesse * RAUTE_H) / 2;
+      bodenWetter.ellipse(m.x, m.y, rx, ry).fill({ color: '#3c5a70', alpha: 0.22 });
+      bodenWetter.ellipse(m.x, m.y, rx * 0.85, ry * 0.75).fill({ color: '#d6e8f2', alpha: 0.32 });
+      bodenWetter
+        .ellipse(m.x + rx * 0.25, m.y - ry * 0.2, rx * 0.3, ry * 0.18)
+        .fill({ color: '#ffffff', alpha: 0.45 });
+    }
+  } else if (wetterBild === 'schnee') {
+    const ecke = (x: number, y: number) => punkt(x, y);
+    const r = [
+      ecke(0, 0),
+      ecke(platzJetzt.breite, 0),
+      ecke(platzJetzt.breite, platzJetzt.tiefe),
+      ecke(0, platzJetzt.tiefe),
+    ];
+    bodenWetter.poly(r.flatMap((q) => [q.x, q.y])).fill({ color: '#f2f6fa', alpha: 0.42 });
+    for (const { pos, groesse } of schneeFlecken(platzJetzt.breite, platzJetzt.tiefe)) {
+      const m = punkt(pos.x + 0.5, pos.y + 0.5);
+      bodenWetter
+        .ellipse(m.x, m.y, (groesse * RAUTE_B) / 2, (groesse * RAUTE_H) / 2)
+        .fill({ color: '#ffffff', alpha: 0.5 });
+    }
+  }
+  // Regenbogen über der Insel, wenn keine Kulisse ihn zeigt (sanft, R1)
+  if (farben.regenbogen && !farben.kulisse) {
+    const bogen = new Graphics();
+    const cx = buehneBreite() * 0.62;
+    const cy = himmelFuer(platzJetzt) + 40;
+    const r0 = buehneBreite() * 0.34;
+    REGENBOGEN_FARBEN.forEach((farbe, i) => {
+      bogen
+        .arc(cx, cy, r0 - i * 5, Math.PI, 2 * Math.PI)
+        .stroke({ width: 5, color: farbe, alpha: 0.28 });
+    });
+    himmelLage.addChild(bogen);
+  }
   rauchZeichnen(overlayLage, farben, atlas, texturen);
   if (wetterBild === 'nebel') {
     const nebelId = atlasWetterId('nebel');
@@ -1259,7 +1307,8 @@ export async function buehneErstellen(
   }
   spannungHimmelZeichnen(overlayLage, farben, atlas, texturen);
   const wolkenLage = new Container();
-  wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
+  // Wolken nur über Land; unter Wasser und im Weltraum gibt es keine (Grafik Punkt 3)
+  if (istLandBildart(art)) wolkenZeichnen(wolkenLage, farben, wetterBild, atlas, texturen);
   const gebaeude = new Container();
   gebaeude.sortableChildren = true;
   // Pivot in der Bühnenmitte, damit Aufstellen von der Mitte her wächst
@@ -1268,7 +1317,27 @@ export async function buehneErstellen(
   const partikelLage = new Container();
   const wesenLage = new Container();
   const bewohnerLage = new Container();
-  app.stage.addChild(hintergrund, wolkenLage, gebaeude, wesenLage, bewohnerLage, partikelLage);
+  // Sturm: Wolkenschatten ziehen über Insel und Gebäude; Regen: nasse, dunklere Dächer
+  const schattenLage = new Graphics();
+  const schattenZeichnen = (zeit: number) => {
+    schattenLage.clear();
+    if (wetterBild !== 'sturm') return;
+    for (const w of wolkenSchatten(zeit, buehneBreite(), buehneHoehe(), tickerAn(bewegung))) {
+      for (const f of [1, 0.75, 0.5]) {
+        schattenLage.ellipse(w.x, w.y, w.rx * f, w.ry * f).fill({ color: '#1c2430', alpha: 0.05 });
+      }
+    }
+  };
+  if (wetterBild === 'regen' || wetterBild === 'sturm') gebaeude.tint = 0xd2d8e2;
+  app.stage.addChild(
+    hintergrund,
+    wolkenLage,
+    gebaeude,
+    schattenLage,
+    wesenLage,
+    bewohnerLage,
+    partikelLage,
+  );
   let wesen: WesenZustand[] = [];
   let bewohner: BewohnerZustand[] = [];
   let letzteWesenZahl = -1;
@@ -1281,6 +1350,7 @@ export async function buehneErstellen(
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
   let bewegung: Bewegung = bewegungStart;
+  schattenZeichnen(0);
   let bekannt = new Set<string>();
   /** Stufe je Gebäude beim letzten Zeichnen: Ein Ausbau soll wie ein Neubau sanft erscheinen (G4) */
   let bekannteStufen = new Map<string, number>();
@@ -1329,7 +1399,9 @@ export async function buehneErstellen(
         ? 0.35 + (i % 4) * 0.06
         : wetterBild === 'schnee'
           ? 0.4 + (i % 5) * 0.08
-          : 1.2 + (i % 7) * 0.15,
+          : wetterBild === 'sturm'
+            ? 0.15 + (i % 5) * 0.04
+            : 1.2 + (i % 7) * 0.15,
     };
     if (istLaub) {
       const n = ((i % 3) + 1) as 1 | 2 | 3;
@@ -1377,6 +1449,12 @@ export async function buehneErstellen(
         partikelGfx.circle(t.x, t.y, 1.6).fill({ color: '#f4f7fb', alpha: 0.9 });
       } else if (wetterBild === 'nebel') {
         partikelGfx.ellipse(t.x, t.y, 18, 6).fill({ color: '#dce4ec', alpha: 0.12 });
+      } else if (wetterBild === 'sturm') {
+        // Windstrich: kurz, waagrecht, leicht geschwungen
+        partikelGfx
+          .moveTo(t.x, t.y)
+          .quadraticCurveTo(t.x + 9, t.y - 2, t.x + 20, t.y)
+          .stroke({ width: 1.2, color: '#f4f8fb', alpha: 0.5 });
       } else {
         partikelGfx
           .moveTo(t.x, t.y)
@@ -1499,13 +1577,19 @@ export async function buehneErstellen(
     const jetzt = performance.now();
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
     tickerZuletzt = jetzt;
-    wolkenLage.x = wolkenVersatz(jetzt, bewegung);
+    // Bei Sturm ziehen die Wolken dreimal so schnell
+    wolkenLage.x = wolkenVersatz(jetzt, bewegung) * (wetterBild === 'sturm' ? 3 : 1);
+    if (wetterBild === 'sturm') schattenZeichnen(jetzt);
     aufstellAnwenden(jetzt);
     if (tickerAn(bewegung) && budget > 0) {
       for (let i = 0; i < tropfen.length; i++) {
         const t = tropfen[i];
         if (!t) continue;
         t.y += t.v;
+        if (wetterBild === 'sturm' && i < wetterBudget) {
+          t.x += 3.2 + t.v * 6; // der Wind treibt waagrecht
+          if (t.x > buehneBreite()) t.x = -24;
+        }
         const drift =
           i >= wetterBudget || wetterBild === 'schnee' ? Math.sin((jetzt + t.y) / 400) * 0.3 : 0;
         if (drift) t.x += drift;
@@ -1674,7 +1758,7 @@ export async function buehneErstellen(
                     texturen,
                   );
                 }
-                if (farben.jahreszeit === 'winter') {
+                if (farben.jahreszeit === 'winter' || farben.wetter === 'schnee') {
                   schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
                 }
                 if (a.auswahl === x.id) {
@@ -1778,7 +1862,7 @@ export async function buehneErstellen(
                     texturen,
                   );
                 }
-                if (farben.jahreszeit === 'winter') {
+                if (farben.jahreszeit === 'winter' || farben.wetter === 'schnee') {
                   schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
                 }
                 if (a.auswahl === x.id) {
@@ -2057,7 +2141,7 @@ export async function buehneErstellen(
                     texturen,
                   );
                 }
-                if (farben.jahreszeit === 'winter') {
+                if (farben.jahreszeit === 'winter' || farben.wetter === 'schnee') {
                   schneeDachSprite(gebaeude, x.pos, x.typ, tiefe, atlas, texturen);
                 }
                 if (a.auswahl === x.id) {

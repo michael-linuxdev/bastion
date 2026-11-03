@@ -24,7 +24,7 @@ from PIL import Image, ImageDraw
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from g3_stil import ATLAS, hell  # noqa: E402
+from g3_stil import ATLAS, S, Zeichner, hell  # noqa: E402
 
 W, H = 96, 48
 
@@ -48,10 +48,20 @@ def rp(u: float, v: float) -> tuple[float, float]:
 
 class Kachel:
     def __init__(self, grund) -> None:
-        self.bild = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        self.d = ImageDraw.Draw(self.bild)
+        self.gross = Image.new("RGBA", (W * S, H * S), (0, 0, 0, 0))
+        self.d = Zeichner(self.gross, S)  # vierfach zeichnen (§12.12)
         self.grund = grund
         self.d.polygon([(48, 0), (96, 24), (48, 48), (0, 24)], fill=grund)
+
+    @property
+    def bild(self) -> Image.Image:
+        """Weich verkleinert; die Kante der Raute bleibt hart wie vorher, damit
+        zwischen den Kacheln keine Fugen entstehen."""
+        klein = self.gross.resize((W, H), Image.LANCZOS)
+        maske = Image.new("L", (W, H), 0)
+        ImageDraw.Draw(maske).polygon([(48, 0), (96, 24), (48, 48), (0, 24)], fill=255)
+        klein.putalpha(maske)
+        return klein
 
     def zelle(self, u0, u1, v0, v1, farbe, einzug=0.0) -> None:
         pts = [rp(u0 + einzug, v0 + einzug), rp(u1 - einzug, v0 + einzug), rp(u1 - einzug, v1 - einzug), rp(u0 + einzug, v1 - einzug)]

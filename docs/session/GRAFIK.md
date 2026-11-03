@@ -9,7 +9,7 @@
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alles (Punkt 1) · vorher 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -63,6 +63,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 **Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
 
 ### Auftrag für die nächste Grafik-Sitzung (vorbereitet 02.11.2026)
+
+**Stand 03.11.2026:** Punkt 1 umgesetzt als neuer Stil „weich gerendert“ mit neuen, aufbauenden Stufenleitern für alle Gebäude aller Themen und allen übrigen Bildern (Branch `grafik/sprite-qualitaet`, `GRAFIK.md` §14, `GRAFIK-SPRITES.md` §13). Aus Punkt 4 erledigt: Absturz nach Themenwechsel (#206), Fuchs über der Burg und Fenster hinter dem Turm (#207); dazu Bauplan-Buch ohne Niveau (#208, Wunsch Lernkern). Offen: Punkte 2, 3, 4 (Dorf lädt langsam, Tipper in der ersten Sekunde), 5. Festlegung zum Umriss-Test ab Stufe 4 (sichtbar geändert statt +8 % Höhe) beim PV zur Kenntnis.
 
 Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.md`, Abschnitt ‚Auftrag für die nächste Grafik-Sitzung‘. Arbeite die Punkte der Reihe nach ab, je Punkt ein PR, Fotos aus der echten App vor dem Commit.“
 

@@ -29,8 +29,19 @@ describe('Kulisse (GRAFIK §13)', () => {
     }
   });
 
-  it('nur für Themen mit Bildern', () => {
-    expect(kulisseFuer('bastion')).toBeDefined();
-    expect(kulisseFuer('dorf')).toBeUndefined();
+  it('jedes Thema hat eine Kulisse (Grafik Punkt 3); Wasser und Boot nur bei der Bastion', () => {
+    for (const t of ['bastion', 'dorf', 'garten', 'unterwasser', 'weltraum'] as const) {
+      const k = kulisseFuer(t);
+      expect(k, t).toBeDefined();
+      expect(k?.dinge.length, t).toBeGreaterThan(0);
+    }
+    expect(kulisseFuer('bastion')?.wasser).toBe(true);
+    expect(kulisseFuer('dorf')?.boot).toBe(false);
+    expect(kulisseFuer('weltraum')?.sterneImmer).toBe(true);
+  });
+
+  it('die Dinge eines Themas liegen an den festen Plätzen', () => {
+    const d = dingeUmBauplatz(12, 12, ['a', 'b']);
+    expect(d.map((x) => x.bild)).toEqual(['a', 'b', 'a', 'b', 'a', 'b']);
   });
 });
