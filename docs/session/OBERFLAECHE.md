@@ -50,9 +50,12 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
    - **O9** Bericht-Umschalter als Segmente in einer Zeile; Wetter und Bastion-Schalter mit „Sie“ für Eltern und „du“ für Jugendliche (`durch`); Banner am Abend mit dunklerem Schleier und warmem Schein.
    - **O10** Rundgang Tastatur, Screenreader, Kontrast: alle Texte ≥ 5,9 : 1, Fokus-Ring sichtbar. Behoben: Banner-Titel nicht doppelt vorgelesen; Türen und Kacheln heißen nur nach ihrem Namen, Infozeile als Beschreibung; ausgegraute Kacheln mit `aria-disabled` statt `disabled`, damit sie mit der Tastatur erreichbar bleiben; Bericht-Umschalter mit Namen; „Über mich“ nicht mehr doppelt als Region.
 
+6. ~~Zurück-Knopf auch bei Mein Stand, Wo stehe ich?, Klassenarbeit (PV: „fass an“).~~ Erledigt (O11): `ZurueckKnopf.svelte`, auch im Seitenkopf; ebenso in der Fehlerwerkstatt. Nur der Knopf in `App.svelte`, die Seiten selbst unverändert.
+
 ## Nächste Schritte (Vorschläge)
 
-- Mein Stand, Klassenarbeit, Diagnose nutzen noch den alten Zurück-Knopf (`← Zurück`); sie liegen in der eingefrorenen Lern-Oberfläche.
+- Übung, Anleitung, Erstvermittlung und Wiederholen-Regal haben noch `← Zurück` (in der Lern-Oberfläche selbst).
+
 - Start: Querformat am Tablet einmal am echten Gerät ansehen.
 
 ## Wünsche aus dem anderen Strang

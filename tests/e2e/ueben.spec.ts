@@ -618,7 +618,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await expect(seite.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 
   // Die alte PIN gilt hier nicht – neue PIN, dauerhafter Vermerk
-  await seite.getByRole('button', { name: '← Zurück' }).click();
+  await seite.getByRole('button', { name: 'Zurück', exact: true }).click();
   await mehr(seite);
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await expect(seite.getByText(/Die PIN von früher gilt hier nicht/)).toBeVisible();

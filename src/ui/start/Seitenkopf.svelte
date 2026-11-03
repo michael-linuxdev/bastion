@@ -2,8 +2,7 @@
   // O6: ein Kopf für alle Unterseiten außerhalb des Lernpfads (Mehr, Elternbereich, Über mich,
   // Sicherung): Zurück mit Symbol, große Überschrift in der Akzentfarbe, optional Marke und Hinweis.
   import type { Snippet } from 'svelte';
-  import Symbol from '../grafik/Symbol.svelte';
-  import { t } from '../texte/texte';
+  import ZurueckKnopf from './ZurueckKnopf.svelte';
 
   let {
     titel,
@@ -21,10 +20,7 @@
 </script>
 
 <header class="seitenkopf">
-  <button type="button" class="zurueck" onclick={onzurueck}>
-    <Symbol name="zurueck" />
-    {t('uebung.zurueck')}
-  </button>
+  <ZurueckKnopf onclick={onzurueck} />
   {#if marke}<p class="marke" role="note">{marke}</p>{/if}
   <h2>{titel}</h2>
   {@render children?.()}
@@ -35,29 +31,6 @@
     display: grid;
     gap: 0.35rem;
     margin-block-end: var(--abstand-s);
-  }
-  .zurueck {
-    font: inherit;
-    font-weight: 700;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-block-size: var(--ziel);
-    padding-inline: 0.75rem 1rem;
-    margin-inline-start: -0.75rem;
-    border: none;
-    border-radius: 999px;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-  }
-  .zurueck:hover {
-    background: var(--farbe-flaeche-leise);
-  }
-  .zurueck :global(svg) {
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
   }
   .marke {
     margin: 0;

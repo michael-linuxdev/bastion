@@ -12,3 +12,4 @@
 | 03.11.2026 | **O4 Symbole aus einem Guss** (Branch `oberflaeche/symbole`, Wunsch PV): Satz neu, nur Striche, neue Symbole person, sicherung, kalender; Symbole auf hellen Kacheln in Akzentfarbe |
 | 03.11.2026 | **O5 Elternbereich gegliedert** (Branch `oberflaeche/eltern`): Sprungleiste und Karten je Abschnitt, einheitliche Knöpfe und Felder, Texte ohne Fachsprache |
 | 03.11.2026 | **O6–O10 Feinschliff** (Branch `oberflaeche/feinschliff`, PV): Seitenkopf, Über mich und Sicherung als Karten, Zahl-Plaketten, Banner antippbar, Eltern-Klappkarten und PIN, Bericht-Segmente, du/Sie, Banner abends, Barrierefreiheits-Rundgang |
+| 03.11.2026 | **O11 Zurück-Knopf überall gleich** (Branch `oberflaeche/zurueck`, PV): `ZurueckKnopf.svelte` bei Mein Stand, Wo stehe ich?, Klassenarbeit, Fehlerwerkstatt und im Seitenkopf |
