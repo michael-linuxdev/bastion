@@ -24,7 +24,9 @@
     interaktiv && erste ? [{ ...erste, ...werte }, ...start.slice(1)] : kurvenAus(parameter),
   );
   const b = $derived(graphBild(parameter, kurven));
-  const haupt = $derived(kurven.find((k) => !k.vergleich) ?? kurven[0]);
+  // Term unter dem Bild nur bei genau einer durchgezogenen Kurve; sonst nennt ihn die Beschreibung
+  const durchgezogen = $derived(kurven.filter((k) => !k.vergleich));
+  const haupt = $derived(durchgezogen.length === 1 ? durchgezogen[0] : undefined);
 </script>
 
 <figure class="graph">

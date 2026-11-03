@@ -69,3 +69,5 @@
 | 03.11.2026 | **E für Klasse 5–8 angehalten:** widerspricht K-11 (Prüfung verlangt bis Klasse 8 nur G und M); Entwurf Feld Kreis geparkt in `6bbc70a5`, Frage 6 in KLASSE-9-12.md |
 | 03.11.2026 | **ST.MANIPULATION.ERKENNEN:** G und E unterscheiden sich jetzt (Parameter `stufe`: einfach/schwer), Niveaubeschreibungen angepasst |
 | 03.11.2026 | **Dreiecksskizze:** Beschriftung der senkrechten Seite lag außerhalb des Bildes, behoben (py.seite, tr.verhaeltnis, tr.berechnen, tr.wechsel @2); Werkzeug `dreieck@1`, Bilder in PY.PYTHAGORAS und TR.BEGRIFFE |
+| 03.11.2026 | **Graphen in weiteren Erstvermittlungen:** QF.INHALTLICH (x² = 4 am Graphen), QF.FORMEL (zwei, eine, keine Nullstelle), QF.SCHNITTPUNKTE (zwei Bilder); Term unter dem Bild nur bei genau einer durchgezogenen Kurve |
+| 03.11.2026 | **Aufgabenblatt mit E:** Niveau E wählbar, sobald eine gewählte Kompetenz E-Vorlagen hat (Klasse 9); Klasse 5–8 unverändert; e2e-Test |

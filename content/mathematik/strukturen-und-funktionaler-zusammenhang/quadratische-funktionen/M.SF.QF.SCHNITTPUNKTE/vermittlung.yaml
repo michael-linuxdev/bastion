@@ -29,6 +29,17 @@ schritte:
     typ: erklaeren
     text:
       de: 'An einem [[Schnittpunkt]] sind die y-Werte gleich. Darum setzt du die [[Terme]] gleich: $x^2 = 9$. Die Lösungen $\pm 3$ sind die x-[[Koordinaten]] der Schnittpunkte.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{}, { art: gerade, a: 0, e: 9 }],
+            x: [-4, 4],
+            y: [-1, 10],
+            punkte: [[-3, 9], [3, 9]],
+          },
+      }
     weiter: erklaeren-anzahl
   - id: erklaeren-anzahl
     typ: erklaeren
@@ -39,6 +50,17 @@ schritte:
     typ: beispiel
     text:
       de: '$y = x^2 - 1$ und $y = 2x + 2$: $x^2 - 1 = 2x + 2$, also $x^2 - 2x - 3 = 0$. Lösungen $-1$ und 3: zwei Schnittpunkte, $(-1|0)$ und $(3|8)$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ e: -1 }, { art: gerade, a: 2, e: 2 }],
+            x: [-3, 5],
+            y: [-2, 10],
+            punkte: [[-1, 0], [3, 8]],
+          },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
