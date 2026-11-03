@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Relative Häufigkeiten als Bruch, Dezimalzahl und in Prozent angeben.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man eine relative Häufigkeit in Prozent angibt.'
 kmk:
   leitidee: L5
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

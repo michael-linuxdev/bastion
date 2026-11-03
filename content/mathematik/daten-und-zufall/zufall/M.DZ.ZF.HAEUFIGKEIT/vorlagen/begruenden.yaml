@@ -1,0 +1,24 @@
+# Relative Häufigkeit begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.ZF.HAEUFIGKEIT.BEGRUENDEN
+kompetenz: M.DZ.ZF.HAEUFIGKEIT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zf.relativ-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Teile die Anzahl durch die Zahl aller Würfe.'
+  - de: 'Wie viele [[Hundertstel]] sind das?'
+fehlerbilder:
+  anzahl-statt-anteil:
+    de: 'Die Anzahl ist die [[absolute Häufigkeit]]. [[Prozent]] geben den [[Anteil]] an allen Würfen an.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
+  prozent-hundertstel:
+    de: '0,15 sind 15 [[Hundertstel]], also 15 %, nicht 0,15 %.'
+    fv: FV.BR.PROZENT-HUNDERTSTEL
+herkunft: ki-entwurf
+version: 1
