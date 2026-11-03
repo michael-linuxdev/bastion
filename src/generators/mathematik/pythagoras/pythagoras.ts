@@ -33,9 +33,15 @@ export const TRIPEL = [
  * Skizze eines rechtwinkligen Dreiecks: rechter Winkel unten links an `rechts`, die Seiten mit
  * Namen und, wenn angegeben, Längen beschriftet („a = 6 cm“, „c = ?“).
  */
-export function dreieckSkizze(rechts: Ecke, beschriftung: Readonly<Record<string, string>>): Bild {
+export function dreieckSkizze(
+  rechts: Ecke,
+  beschriftung: Readonly<Record<string, string>>,
+  /** Fassung 1: Beschriftung der senkrechten Seite lag links außerhalb des Bildes */
+  fassung: 1 | 2,
+): Bild {
   const [unten, oben] = ANDERE[rechts];
-  const P = { [rechts]: [40, 170], [unten]: [250, 170], [oben]: [40, 40] } as Record<
+  const links = fassung === 1 ? 40 : 130;
+  const P = { [rechts]: [links, 170], [unten]: [links + 210, 170], [oben]: [links, 40] } as Record<
     Ecke,
     [number, number]
   >;
@@ -57,19 +63,33 @@ export function dreieckSkizze(rechts: Ecke, beschriftung: Readonly<Record<string
     const [mx, my] = mitte(e);
     const name = SEITE[e];
     const t = beschriftung[name] ?? name;
-    const dx = e === rechts ? 10 : e === unten ? -64 : 4;
-    const dy = e === rechts ? -8 : e === unten ? 4 : 22;
+    // Fassung 2: Abstand nach der Länge der Beschriftung (etwa 3,6 Pixel je halbes Zeichen),
+    // links neben der senkrechten Seite, rechts oberhalb der Hypotenuse
+    const halb = 3.6 * t.length;
+    const dx =
+      fassung === 1
+        ? e === rechts
+          ? 10
+          : e === unten
+            ? -64
+            : 4
+        : e === rechts
+          ? 12 + halb
+          : e === unten
+            ? -10 - halb
+            : 0;
+    const dy = e === rechts ? (fassung === 1 ? -8 : -10) : e === unten ? 4 : 22;
     teile.push(text(mx + dx, my + dy, t, 13));
   }
   const besch = Object.entries(beschriftung)
     .map(([k, v]) => v.replace(/^[a-z] = /, `${k} = `))
     .join(', ');
   return bild(
-    300,
+    fassung === 1 ? 300 : 390,
     200,
     teile,
     de(
-      `Skizze eines rechtwinkligen Dreiecks ABC, nicht maßstäblich. Der rechte Winkel liegt bei ${rechts}. ${besch}.`,
+      `Skizze eines rechtwinkligen Dreiecks ABC, nicht maßstäblich. Der rechte Winkel liegt bei ${rechts}.${besch ? ` ${besch}.` : ''}`,
     ),
   );
 }
@@ -85,104 +105,110 @@ export interface SeiteParameter {
 }
 
 /** „Berechne die Länge der Seite c.“ – mit Skizze */
-export const pySeite: Generator<SeiteParameter> = {
-  id: 'py.seite',
-  version: 1,
-  platzhalter: ['gesucht', 'einheit'],
-  fehlerbildIds: ['summe', 'wurzel-vergessen', 'kathete-addiert', 'hypotenuse-falsch'],
+function pySeiteFassung(fassung: 1 | 2): Generator<SeiteParameter> {
+  return {
+    id: 'py.seite',
+    version: fassung,
+    platzhalter: ['gesucht', 'einheit'],
+    fehlerbildIds: ['summe', 'wurzel-vergessen', 'kathete-addiert', 'hypotenuse-falsch'],
 
-  erzeuge(seed, p) {
-    const r = rng(seed);
-    const rechts: Ecke = p.gerundet ? r.pick(['A', 'B', 'C']) : 'C';
-    const [e1, e2] = ANDERE[rechts];
-    const hyp = SEITE[rechts];
-    const k1 = SEITE[e1];
-    const k2 = SEITE[e2];
-    let x: number;
-    let y: number;
-    if (p.gerundet) {
-      x = r.int(2, 15);
-      y = r.int(2, 15);
-      if (x === y) y = y + 1;
-    } else {
-      const [a, b] = r.pick(TRIPEL);
-      const k = r.pick([1, 1, 2]);
-      [x, y] = r.int(0, 1) === 0 ? [a * k, b * k] : [b * k, a * k];
-    }
-    const z = Math.sqrt(x * x + y * y); // Hypotenuse
-    const hypotenuseGesucht = r.int(0, 2) !== 0;
-    const u = einheit(r);
-    const beschriftung: Record<string, string> = {};
-    let gesucht: string;
-    let genau: number;
-    let weg: string[];
-    const zG = rundeAuf(z, 1);
-    const falsch: [string, number | undefined][] = [];
-    if (hypotenuseGesucht) {
-      beschriftung[k1] = `${k1} = ${zahlText(x)} ${u}`;
-      beschriftung[k2] = `${k2} = ${zahlText(y)} ${u}`;
-      beschriftung[hyp] = `${hyp} = ?`;
-      gesucht = hyp;
-      genau = z;
-      weg = [
-        `Der rechte Winkel liegt bei ${rechts}, also ist ${hyp} die Hypotenuse.`,
-        `$${hyp}^2 = ${k1}^2 + ${k2}^2 = ${x * x} + ${y * y} = ${x * x + y * y}$`,
-        `$${hyp} = \\sqrt{${x * x + y * y}} ${Number.isInteger(z) ? '=' : '\\approx'} ${texZahl(Number.isInteger(z) ? z : zG)}$ ${u}`,
-      ];
-      falsch.push(['summe', x + y], ['wurzel-vergessen', x * x + y * y]);
-    } else {
-      // Kathete gesucht: z und x gegeben
-      const zz = p.gerundet ? r.int(Math.max(x, y) + 1, Math.max(x, y) + 10) : z;
-      const kat = Math.sqrt(zz * zz - x * x);
-      beschriftung[k1] = `${k1} = ${zahlText(x)} ${u}`;
-      beschriftung[hyp] = `${hyp} = ${zahlText(zz)} ${u}`;
-      beschriftung[k2] = `${k2} = ?`;
-      gesucht = k2;
-      genau = kat;
-      weg = [
-        `Der rechte Winkel liegt bei ${rechts}, also ist ${hyp} die Hypotenuse.`,
-        `$${k2}^2 = ${hyp}^2 - ${k1}^2 = ${zz * zz} - ${x * x} = ${zz * zz - x * x}$`,
-        `$${k2} = \\sqrt{${zz * zz - x * x}} ${Number.isInteger(kat) ? '=' : '\\approx'} ${texZahl(Number.isInteger(kat) ? kat : rundeAuf(kat, 1))}$ ${u}`,
-      ];
-      falsch.push(
-        ['kathete-addiert', rundeAuf(Math.sqrt(zz * zz + x * x), p.gerundet ? 1 : 6)],
-        ['wurzel-vergessen', zz * zz - x * x],
-      );
-    }
-    if (p.gerundet && rechts !== 'C') {
-      // „c ist immer die Hypotenuse“: c² = Summe der anderen beiden Quadrate
-      const gegeben = Object.entries(beschriftung).filter(([, v]) => !v.endsWith('?'));
-      const werte = Object.fromEntries(
-        gegeben.map(([k, v]) => [k, Number(v.split(' = ')[1]?.split(' ')[0]?.replace(',', '.'))]),
-      );
-      if (gesucht === 'c') {
-        const andere = Object.values(werte);
-        falsch.push([
-          'hypotenuse-falsch',
-          rundeAuf(Math.sqrt(andere.reduce((s, w) => s + w * w, 0)), 1),
-        ]);
-      } else if (werte['c'] !== undefined) {
-        const rest = Object.entries(werte).find(([k]) => k !== 'c')?.[1] ?? 0;
-        const q = (werte['c'] ?? 0) ** 2 - rest * rest;
-        if (q > 0) falsch.push(['hypotenuse-falsch', rundeAuf(Math.sqrt(q), 1)]);
+    erzeuge(seed, p) {
+      const r = rng(seed);
+      const rechts: Ecke = p.gerundet ? r.pick(['A', 'B', 'C']) : 'C';
+      const [e1, e2] = ANDERE[rechts];
+      const hyp = SEITE[rechts];
+      const k1 = SEITE[e1];
+      const k2 = SEITE[e2];
+      let x: number;
+      let y: number;
+      if (p.gerundet) {
+        x = r.int(2, 15);
+        y = r.int(2, 15);
+        if (x === y) y = y + 1;
+      } else {
+        const [a, b] = r.pick(TRIPEL);
+        const k = r.pick([1, 1, 2]);
+        [x, y] = r.int(0, 1) === 0 ? [a * k, b * k] : [b * k, a * k];
       }
-    }
-    const loesungWert = Number.isInteger(genau) ? genau : rundeAuf(genau, 1);
-    const richtig = zahl(loesungWert);
-    const instanz: Instanz = {
-      platzhalter: { gesucht: de(gesucht), einheit: de(u) },
-      bild: dreieckSkizze(rechts, beschriftung),
-      loesung: richtig,
-      ...(Number.isInteger(genau) ? {} : { runden: { stellen: 1, genau } }),
-      loesungsweg: weg.map(de),
-      fehlerbilder: fehlerbilderAus(
-        richtig,
-        falsch.map(([id, w]) => [id, w === undefined || Number.isNaN(w) ? undefined : zahl(w)]),
-      ),
-    };
-    return instanz;
-  },
-};
+      const z = Math.sqrt(x * x + y * y); // Hypotenuse
+      const hypotenuseGesucht = r.int(0, 2) !== 0;
+      const u = einheit(r);
+      const beschriftung: Record<string, string> = {};
+      let gesucht: string;
+      let genau: number;
+      let weg: string[];
+      const zG = rundeAuf(z, 1);
+      const falsch: [string, number | undefined][] = [];
+      if (hypotenuseGesucht) {
+        beschriftung[k1] = `${k1} = ${zahlText(x)} ${u}`;
+        beschriftung[k2] = `${k2} = ${zahlText(y)} ${u}`;
+        beschriftung[hyp] = `${hyp} = ?`;
+        gesucht = hyp;
+        genau = z;
+        weg = [
+          `Der rechte Winkel liegt bei ${rechts}, also ist ${hyp} die Hypotenuse.`,
+          `$${hyp}^2 = ${k1}^2 + ${k2}^2 = ${x * x} + ${y * y} = ${x * x + y * y}$`,
+          `$${hyp} = \\sqrt{${x * x + y * y}} ${Number.isInteger(z) ? '=' : '\\approx'} ${texZahl(Number.isInteger(z) ? z : zG)}$ ${u}`,
+        ];
+        falsch.push(['summe', x + y], ['wurzel-vergessen', x * x + y * y]);
+      } else {
+        // Kathete gesucht: z und x gegeben
+        const zz = p.gerundet ? r.int(Math.max(x, y) + 1, Math.max(x, y) + 10) : z;
+        const kat = Math.sqrt(zz * zz - x * x);
+        beschriftung[k1] = `${k1} = ${zahlText(x)} ${u}`;
+        beschriftung[hyp] = `${hyp} = ${zahlText(zz)} ${u}`;
+        beschriftung[k2] = `${k2} = ?`;
+        gesucht = k2;
+        genau = kat;
+        weg = [
+          `Der rechte Winkel liegt bei ${rechts}, also ist ${hyp} die Hypotenuse.`,
+          `$${k2}^2 = ${hyp}^2 - ${k1}^2 = ${zz * zz} - ${x * x} = ${zz * zz - x * x}$`,
+          `$${k2} = \\sqrt{${zz * zz - x * x}} ${Number.isInteger(kat) ? '=' : '\\approx'} ${texZahl(Number.isInteger(kat) ? kat : rundeAuf(kat, 1))}$ ${u}`,
+        ];
+        falsch.push(
+          ['kathete-addiert', rundeAuf(Math.sqrt(zz * zz + x * x), p.gerundet ? 1 : 6)],
+          ['wurzel-vergessen', zz * zz - x * x],
+        );
+      }
+      if (p.gerundet && rechts !== 'C') {
+        // „c ist immer die Hypotenuse“: c² = Summe der anderen beiden Quadrate
+        const gegeben = Object.entries(beschriftung).filter(([, v]) => !v.endsWith('?'));
+        const werte = Object.fromEntries(
+          gegeben.map(([k, v]) => [k, Number(v.split(' = ')[1]?.split(' ')[0]?.replace(',', '.'))]),
+        );
+        if (gesucht === 'c') {
+          const andere = Object.values(werte);
+          falsch.push([
+            'hypotenuse-falsch',
+            rundeAuf(Math.sqrt(andere.reduce((s, w) => s + w * w, 0)), 1),
+          ]);
+        } else if (werte['c'] !== undefined) {
+          const rest = Object.entries(werte).find(([k]) => k !== 'c')?.[1] ?? 0;
+          const q = (werte['c'] ?? 0) ** 2 - rest * rest;
+          if (q > 0) falsch.push(['hypotenuse-falsch', rundeAuf(Math.sqrt(q), 1)]);
+        }
+      }
+      const loesungWert = Number.isInteger(genau) ? genau : rundeAuf(genau, 1);
+      const richtig = zahl(loesungWert);
+      const instanz: Instanz = {
+        platzhalter: { gesucht: de(gesucht), einheit: de(u) },
+        bild: dreieckSkizze(rechts, beschriftung, fassung),
+        loesung: richtig,
+        ...(Number.isInteger(genau) ? {} : { runden: { stellen: 1, genau } }),
+        loesungsweg: weg.map(de),
+        fehlerbilder: fehlerbilderAus(
+          richtig,
+          falsch.map(([id, w]) => [id, w === undefined || Number.isNaN(w) ? undefined : zahl(w)]),
+        ),
+      };
+      return instanz;
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Beschriftung der senkrechten Seite außerhalb des Bildes. */
+export const pySeiteV1 = pySeiteFassung(1);
+export const pySeite = pySeiteFassung(2);
 
 // ---------------------------------------------------------------------------
 // Fehler finden (M.RF.PY.PYTHAGORAS.FEHLER, Niveau E)

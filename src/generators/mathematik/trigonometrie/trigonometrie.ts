@@ -44,56 +44,62 @@ export interface VerhaeltnisParameter {
 type Funktion = 'sin' | 'cos' | 'tan';
 
 /** „Welches Seitenverhältnis ist sin α?“ – mit Skizze */
-export const trVerhaeltnis: Generator<VerhaeltnisParameter> = {
-  id: 'tr.verhaeltnis',
-  version: 1,
-  platzhalter: ['funktion', 'winkel'],
-  fehlerbildIds: ['an-gegen', 'kehrwert', 'andere-funktion'],
+function trVerhaeltnisFassung(fassung: 1 | 2): Generator<VerhaeltnisParameter> {
+  return {
+    id: 'tr.verhaeltnis',
+    version: fassung,
+    platzhalter: ['funktion', 'winkel'],
+    fehlerbildIds: ['an-gegen', 'kehrwert', 'andere-funktion'],
 
-  erzeuge(seed, p) {
-    const r = rng(seed);
-    const rechts: Ecke = p.gemischt ? r.pick(['A', 'B', 'C']) : 'C';
-    const ecke = r.pick(ANDERE[rechts]);
-    const f = r.pick(['sin', 'cos', 'tan'] as const satisfies readonly Funktion[]);
-    const { hypotenuse: h, gegen: g, an: a } = rollen(rechts, ecke);
-    const bruch = (z: string, n: string) => `$\\frac{${z}}{${n}}$`;
-    const soll: Record<Funktion, [string, string]> = { sin: [g, h], cos: [a, h], tan: [g, a] };
-    const [z, n] = soll[f];
-    const kandidaten: [string, string][] = [['richtig', bruch(z, n)]];
-    // Ankathete und Gegenkathete vertauscht
-    const tausch: Record<Funktion, [string, string]> = { sin: [a, h], cos: [g, h], tan: [a, g] };
-    kandidaten.push(['an-gegen', bruch(...tausch[f])]);
-    kandidaten.push(['kehrwert', bruch(n, z)]);
-    const andere: Record<Funktion, [string, string]> = { sin: [g, a], cos: [g, a], tan: [g, h] };
-    kandidaten.push(['andere-funktion', bruch(...andere[f])]);
-    const eindeutig = kandidaten.filter(
-      ([, t], i) => kandidaten.findIndex(([, u]) => u === t) === i,
-    );
-    const liste = mische(r, eindeutig);
-    const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
-    const beschriftung: Record<string, string> = {};
-    return {
-      platzhalter: { funktion: de(`\\${f}`), winkel: de(TEX[ecke]) },
-      bild: dreieckSkizze(rechts, beschriftung),
-      optionen: liste.map(([, t]) => ({ text: de(t) })),
-      loesung: index('richtig'),
-      loesungsweg: [
-        de(`Der rechte Winkel liegt bei ${rechts}, die Hypotenuse ist ${h}.`),
-        de(`Vom Winkel ${GRIECH[ecke]} aus: Gegenkathete ${g}, Ankathete ${a}.`),
-        de(
-          f === 'sin'
-            ? `$\\sin ${TEX[ecke]} = \\frac{\\text{Gegenkathete}}{\\text{Hypotenuse}} = \\frac{${g}}{${h}}$`
-            : f === 'cos'
-              ? `$\\cos ${TEX[ecke]} = \\frac{\\text{Ankathete}}{\\text{Hypotenuse}} = \\frac{${a}}{${h}}$`
-              : `$\\tan ${TEX[ecke]} = \\frac{\\text{Gegenkathete}}{\\text{Ankathete}} = \\frac{${g}}{${a}}$`,
-        ),
-      ],
-      fehlerbilder: liste
-        .filter(([id]) => id !== 'richtig')
-        .map(([id]) => ({ id, antwort: index(id) })),
-    };
-  },
-};
+    erzeuge(seed, p) {
+      const r = rng(seed);
+      const rechts: Ecke = p.gemischt ? r.pick(['A', 'B', 'C']) : 'C';
+      const ecke = r.pick(ANDERE[rechts]);
+      const f = r.pick(['sin', 'cos', 'tan'] as const satisfies readonly Funktion[]);
+      const { hypotenuse: h, gegen: g, an: a } = rollen(rechts, ecke);
+      const bruch = (z: string, n: string) => `$\\frac{${z}}{${n}}$`;
+      const soll: Record<Funktion, [string, string]> = { sin: [g, h], cos: [a, h], tan: [g, a] };
+      const [z, n] = soll[f];
+      const kandidaten: [string, string][] = [['richtig', bruch(z, n)]];
+      // Ankathete und Gegenkathete vertauscht
+      const tausch: Record<Funktion, [string, string]> = { sin: [a, h], cos: [g, h], tan: [a, g] };
+      kandidaten.push(['an-gegen', bruch(...tausch[f])]);
+      kandidaten.push(['kehrwert', bruch(n, z)]);
+      const andere: Record<Funktion, [string, string]> = { sin: [g, a], cos: [g, a], tan: [g, h] };
+      kandidaten.push(['andere-funktion', bruch(...andere[f])]);
+      const eindeutig = kandidaten.filter(
+        ([, t], i) => kandidaten.findIndex(([, u]) => u === t) === i,
+      );
+      const liste = mische(r, eindeutig);
+      const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
+      const beschriftung: Record<string, string> = {};
+      return {
+        platzhalter: { funktion: de(`\\${f}`), winkel: de(TEX[ecke]) },
+        bild: dreieckSkizze(rechts, beschriftung, fassung),
+        optionen: liste.map(([, t]) => ({ text: de(t) })),
+        loesung: index('richtig'),
+        loesungsweg: [
+          de(`Der rechte Winkel liegt bei ${rechts}, die Hypotenuse ist ${h}.`),
+          de(`Vom Winkel ${GRIECH[ecke]} aus: Gegenkathete ${g}, Ankathete ${a}.`),
+          de(
+            f === 'sin'
+              ? `$\\sin ${TEX[ecke]} = \\frac{\\text{Gegenkathete}}{\\text{Hypotenuse}} = \\frac{${g}}{${h}}$`
+              : f === 'cos'
+                ? `$\\cos ${TEX[ecke]} = \\frac{\\text{Ankathete}}{\\text{Hypotenuse}} = \\frac{${a}}{${h}}$`
+                : `$\\tan ${TEX[ecke]} = \\frac{\\text{Gegenkathete}}{\\text{Ankathete}} = \\frac{${g}}{${a}}$`,
+          ),
+        ],
+        fehlerbilder: liste
+          .filter(([id]) => id !== 'richtig')
+          .map(([id]) => ({ id, antwort: index(id) })),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Beschriftung der senkrechten Seite außerhalb des Bildes. */
+export const trVerhaeltnisV1 = trVerhaeltnisFassung(1);
+export const trVerhaeltnis = trVerhaeltnisFassung(2);
 
 // ---------------------------------------------------------------------------
 // Warum nur vom Winkel? (M.RF.TR.BEGRIFFE.BEGRUENDEN, Niveau E)
@@ -157,46 +163,84 @@ function aufgabe(r: Rng, p: BerechnenParameter) {
 }
 
 /** „Berechne die Seite a.“ / „Berechne den Winkel α.“ – mit Skizze */
-export const trBerechnen: Generator<BerechnenParameter> = {
-  id: 'tr.berechnen',
-  version: 1,
-  platzhalter: ['gesucht', 'einheit'],
-  fehlerbildIds: ['falsche-funktion', 'kehrwert', 'bogenmass'],
+function trBerechnenFassung(fassung: 1 | 2): Generator<BerechnenParameter> {
+  return {
+    id: 'tr.berechnen',
+    version: fassung,
+    platzhalter: ['gesucht', 'einheit'],
+    fehlerbildIds: ['falsche-funktion', 'kehrwert', 'bogenmass'],
 
-  erzeuge(seed, p) {
-    const r = rng(seed);
-    const { rechts, ecke, w, h, hypotenuse, gegen, an } = aufgabe(r, p);
-    const winkelGesucht = p.gemischt && r.int(0, 2) === 0;
-    const beschriftung: Record<string, string> = {};
-    if (winkelGesucht) {
-      // zwei Seiten gegeben, Winkel gesucht: aus Gegenkathete und Hypotenuse (sin) oder beiden Katheten (tan)
-      const mitTan = r.int(0, 1) === 0;
-      const g = r1(h * sin(w));
-      const a = r1(h * cos(w));
-      const genau = mitTan ? Math.atan(g / a) / RAD : Math.asin(g / h) / RAD;
-      beschriftung[gegen] = `${gegen} = ${zahlText(g)} cm`;
-      if (mitTan) beschriftung[an] = `${an} = ${zahlText(a)} cm`;
-      else beschriftung[hypotenuse] = `${hypotenuse} = ${h} cm`;
+    erzeuge(seed, p) {
+      const r = rng(seed);
+      const { rechts, ecke, w, h, hypotenuse, gegen, an } = aufgabe(r, p);
+      const winkelGesucht = p.gemischt && r.int(0, 2) === 0;
+      const beschriftung: Record<string, string> = {};
+      if (winkelGesucht) {
+        // zwei Seiten gegeben, Winkel gesucht: aus Gegenkathete und Hypotenuse (sin) oder beiden Katheten (tan)
+        const mitTan = r.int(0, 1) === 0;
+        const g = r1(h * sin(w));
+        const a = r1(h * cos(w));
+        const genau = mitTan ? Math.atan(g / a) / RAD : Math.asin(g / h) / RAD;
+        beschriftung[gegen] = `${gegen} = ${zahlText(g)} cm`;
+        if (mitTan) beschriftung[an] = `${an} = ${zahlText(a)} cm`;
+        else beschriftung[hypotenuse] = `${hypotenuse} = ${h} cm`;
+        const loesung = zahl(r1(genau));
+        const falsch: [string, Loesung | undefined][] = [
+          [
+            'falsche-funktion',
+            mitTan ? zahl(r1(Math.atan(a / g) / RAD)) : zahl(r1(Math.acos(g / h) / RAD)),
+          ],
+        ];
+        return {
+          platzhalter: { gesucht: de(`den Winkel ${GRIECH[ecke]}`), einheit: de('Grad') },
+          bild: dreieckSkizze(rechts, beschriftung, fassung),
+          loesung,
+          runden: { stellen: 1, genau },
+          loesungsweg: [
+            de(
+              `Vom Winkel ${GRIECH[ecke]} aus ist ${gegen} die Gegenkathete${mitTan ? ` und ${an} die Ankathete` : ` und ${hypotenuse} die Hypotenuse`}.`,
+            ),
+            de(
+              mitTan
+                ? `$\\tan ${TEX[ecke]} = \\frac{${texZahl(g)}}{${texZahl(a)}}$, also $${TEX[ecke]} \\approx ${texZahl(r1(genau))}°$.`
+                : `$\\sin ${TEX[ecke]} = \\frac{${texZahl(g)}}{${h}}$, also $${TEX[ecke]} \\approx ${texZahl(r1(genau))}°$.`,
+            ),
+          ],
+          fehlerbilder: fehlerbilderAus(
+            loesung,
+            falsch.filter(
+              ([, l]) =>
+                l === undefined || (l.typ === 'zahl' && Math.abs(l.wert - r1(genau)) > 0.15),
+            ),
+          ),
+        };
+      }
+      // Seite gesucht: Hypotenuse und Winkel gegeben
+      beschriftung[hypotenuse] = `${hypotenuse} = ${h} cm`;
+      const gegenGesucht = r.int(0, 1) === 0;
+      const gesucht = gegenGesucht ? gegen : an;
+      beschriftung[gesucht] = `${gesucht} = ?`;
+      const genau = gegenGesucht ? h * sin(w) : h * cos(w);
       const loesung = zahl(r1(genau));
       const falsch: [string, Loesung | undefined][] = [
-        [
-          'falsche-funktion',
-          mitTan ? zahl(r1(Math.atan(a / g) / RAD)) : zahl(r1(Math.acos(g / h) / RAD)),
-        ],
+        ['falsche-funktion', zahl(r1(gegenGesucht ? h * cos(w) : h * sin(w)))],
+        ['kehrwert', zahl(r1(gegenGesucht ? h / sin(w) : h / cos(w)))],
+        ['bogenmass', zahl(r1(gegenGesucht ? h * Math.sin(w) : h * Math.cos(w)))],
       ];
       return {
-        platzhalter: { gesucht: de(`den Winkel ${GRIECH[ecke]}`), einheit: de('Grad') },
-        bild: dreieckSkizze(rechts, beschriftung),
+        platzhalter: {
+          gesucht: de(`die Seite ${gesucht} (Winkel ${GRIECH[ecke]} = ${w}°)`),
+          einheit: de('cm'),
+        },
+        bild: dreieckSkizze(rechts, beschriftung, fassung),
         loesung,
         runden: { stellen: 1, genau },
         loesungsweg: [
           de(
-            `Vom Winkel ${GRIECH[ecke]} aus ist ${gegen} die Gegenkathete${mitTan ? ` und ${an} die Ankathete` : ` und ${hypotenuse} die Hypotenuse`}.`,
+            `Vom Winkel ${GRIECH[ecke]} aus ist ${gesucht} die ${gegenGesucht ? 'Gegenkathete' : 'Ankathete'}, ${hypotenuse} die Hypotenuse.`,
           ),
           de(
-            mitTan
-              ? `$\\tan ${TEX[ecke]} = \\frac{${texZahl(g)}}{${texZahl(a)}}$, also $${TEX[ecke]} \\approx ${texZahl(r1(genau))}°$.`
-              : `$\\sin ${TEX[ecke]} = \\frac{${texZahl(g)}}{${h}}$, also $${TEX[ecke]} \\approx ${texZahl(r1(genau))}°$.`,
+            `$${gesucht} = ${h} \\cdot \\${gegenGesucht ? 'sin' : 'cos'} ${w}° \\approx ${texZahl(r1(genau))}$ cm`,
           ),
         ],
         fehlerbilder: fehlerbilderAus(
@@ -206,86 +250,61 @@ export const trBerechnen: Generator<BerechnenParameter> = {
           ),
         ),
       };
-    }
-    // Seite gesucht: Hypotenuse und Winkel gegeben
-    beschriftung[hypotenuse] = `${hypotenuse} = ${h} cm`;
-    const gegenGesucht = r.int(0, 1) === 0;
-    const gesucht = gegenGesucht ? gegen : an;
-    beschriftung[gesucht] = `${gesucht} = ?`;
-    const genau = gegenGesucht ? h * sin(w) : h * cos(w);
-    const loesung = zahl(r1(genau));
-    const falsch: [string, Loesung | undefined][] = [
-      ['falsche-funktion', zahl(r1(gegenGesucht ? h * cos(w) : h * sin(w)))],
-      ['kehrwert', zahl(r1(gegenGesucht ? h / sin(w) : h / cos(w)))],
-      ['bogenmass', zahl(r1(gegenGesucht ? h * Math.sin(w) : h * Math.cos(w)))],
-    ];
-    return {
-      platzhalter: {
-        gesucht: de(`die Seite ${gesucht} (Winkel ${GRIECH[ecke]} = ${w}°)`),
-        einheit: de('cm'),
-      },
-      bild: dreieckSkizze(rechts, beschriftung),
-      loesung,
-      runden: { stellen: 1, genau },
-      loesungsweg: [
-        de(
-          `Vom Winkel ${GRIECH[ecke]} aus ist ${gesucht} die ${gegenGesucht ? 'Gegenkathete' : 'Ankathete'}, ${hypotenuse} die Hypotenuse.`,
-        ),
-        de(
-          `$${gesucht} = ${h} \\cdot \\${gegenGesucht ? 'sin' : 'cos'} ${w}° \\approx ${texZahl(r1(genau))}$ cm`,
-        ),
-      ],
-      fehlerbilder: fehlerbilderAus(
-        loesung,
-        falsch.filter(
-          ([, l]) => l === undefined || (l.typ === 'zahl' && Math.abs(l.wert - r1(genau)) > 0.15),
-        ),
-      ),
-    };
-  },
-};
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Beschriftung der senkrechten Seite außerhalb des Bildes. */
+export const trBerechnenV1 = trBerechnenFassung(1);
+export const trBerechnen = trBerechnenFassung(2);
 
 // ---------------------------------------------------------------------------
 // Vom anderen Winkel aus (M.RF.TR.BERECHNEN.WECHSEL, Niveau E)
 
 /** „Für β ist a die Ankathete“ – welche Aussage stimmt? */
-export const trWechsel: Generator<Record<string, never>> = {
-  id: 'tr.wechsel',
-  version: 1,
-  platzhalter: [],
-  fehlerbildIds: ['rolle-fest', 'hypotenuse', 'gleich'],
+function trWechselFassung(fassung: 1 | 2): Generator<Record<string, never>> {
+  return {
+    id: 'tr.wechsel',
+    version: fassung,
+    platzhalter: [],
+    fehlerbildIds: ['rolle-fest', 'hypotenuse', 'gleich'],
 
-  erzeuge(seed) {
-    const r = rng(seed);
-    const w = r.int(20, 70);
-    const kandidaten: [string, string][] = [
-      [
-        'richtig',
-        `$\\sin \\alpha = \\cos \\beta$, denn die Gegenkathete von α ist die Ankathete von β.`,
-      ],
-      ['rolle-fest', 'Für α und β ist a immer die Gegenkathete.'],
-      ['hypotenuse', 'Von β aus ist a die Hypotenuse.'],
-      ['gleich', `Wenn $\\alpha = ${w}°$ ist, dann ist auch $\\beta = ${w}°$.`],
-    ];
-    const liste = mische(r, kandidaten);
-    const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
-    return {
-      platzhalter: {},
-      bild: dreieckSkizze('C', {}),
-      optionen: liste.map(([, t]) => ({ text: de(t) satisfies Sprachobjekt })),
-      loesung: index('richtig'),
-      loesungsweg: [
-        de('Im Dreieck mit rechtem Winkel bei C liegt a gegenüber von α: Gegenkathete von α.'),
-        de(
-          'Von β aus liegt a am Winkel an: Ankathete von β. Darum $\\sin \\alpha = \\frac{a}{c} = \\cos \\beta$, und $\\alpha + \\beta = 90°$.',
-        ),
-      ],
-      fehlerbilder: liste
-        .filter(([id]) => id !== 'richtig')
-        .map(([id]) => ({ id, antwort: index(id) })),
-    };
-  },
-};
+    erzeuge(seed) {
+      const r = rng(seed);
+      const w = r.int(20, 70);
+      const kandidaten: [string, string][] = [
+        [
+          'richtig',
+          `$\\sin \\alpha = \\cos \\beta$, denn die Gegenkathete von α ist die Ankathete von β.`,
+        ],
+        ['rolle-fest', 'Für α und β ist a immer die Gegenkathete.'],
+        ['hypotenuse', 'Von β aus ist a die Hypotenuse.'],
+        ['gleich', `Wenn $\\alpha = ${w}°$ ist, dann ist auch $\\beta = ${w}°$.`],
+      ];
+      const liste = mische(r, kandidaten);
+      const index = (id: string) => auswahl(liste.findIndex(([k]) => k === id));
+      return {
+        platzhalter: {},
+        bild: dreieckSkizze('C', {}, fassung),
+        optionen: liste.map(([, t]) => ({ text: de(t) satisfies Sprachobjekt })),
+        loesung: index('richtig'),
+        loesungsweg: [
+          de('Im Dreieck mit rechtem Winkel bei C liegt a gegenüber von α: Gegenkathete von α.'),
+          de(
+            'Von β aus liegt a am Winkel an: Ankathete von β. Darum $\\sin \\alpha = \\frac{a}{c} = \\cos \\beta$, und $\\alpha + \\beta = 90°$.',
+          ),
+        ],
+        fehlerbilder: liste
+          .filter(([id]) => id !== 'richtig')
+          .map(([id]) => ({ id, antwort: index(id) })),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Beschriftung der senkrechten Seite außerhalb des Bildes. */
+export const trWechselV1 = trWechselFassung(1);
+export const trWechsel = trWechselFassung(2);
 
 // ---------------------------------------------------------------------------
 // Sachaufgaben (M.RF.TR.SACH.BERECHNEN)

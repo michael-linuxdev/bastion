@@ -29,11 +29,18 @@ schritte:
     typ: erklaeren
     text:
       de: 'Im rechtwinkligen Dreieck gilt: Die Quadrate über den beiden [[Katheten]] sind zusammen so groß wie das Quadrat über der [[Hypotenuse]]: $a^2 + b^2 = c^2$. Die Seite ist dann die [[Wurzel]].'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          { rechts: C, seiten: { a: 'a (Kathete)', b: 'b (Kathete)', c: 'c (Hypotenuse)' } },
+      }
     weiter: erklaeren-hypotenuse
   - id: erklaeren-hypotenuse
     typ: erklaeren
     text:
       de: 'Die [[Hypotenuse]] liegt dem [[rechten Winkel]] gegenüber und ist die längste Seite. Sie heißt nicht immer c. Liegt der rechte [[Winkel]] bei A, gilt $b^2 + c^2 = a^2$.'
+    bild: { werkzeug: dreieck@1, parameter: { rechts: A, seiten: { a: 'a (Hypotenuse)' } } }
     weiter: erklaeren-kathete
   - id: erklaeren-kathete
     typ: erklaeren
@@ -44,6 +51,11 @@ schritte:
     typ: beispiel
     text:
       de: '[[Hypotenuse]] 13 cm, [[Kathete]] 5 cm: $b^2 = 13^2 - 5^2 = 169 - 25 = 144$, also $b = 12$ cm.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter: { rechts: C, seiten: { a: 'a = 5 cm', b: 'b = ?', c: 'c = 13 cm' } },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

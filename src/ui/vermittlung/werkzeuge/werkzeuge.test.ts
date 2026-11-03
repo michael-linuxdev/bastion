@@ -106,3 +106,22 @@ describe('Graph (graph@1)', () => {
     expect(bereich(undefined, [-2, 8])).toEqual({ min: -2, max: 8 });
   });
 });
+
+describe('Dreieck (dreieck@1)', () => {
+  it('nimmt C als Standard und nur Seiten a, b, c', async () => {
+    const { dreieckAus } = await import('./dreieck');
+    expect(dreieckAus({})).toEqual({ rechts: 'C', seiten: {} });
+    expect(dreieckAus({ rechts: 'X', seiten: { a: 'a = 3 cm', d: 'nein', c: 5 } })).toEqual({
+      rechts: 'C',
+      seiten: { a: 'a = 3 cm', c: 'c = 5' },
+    });
+    expect(dreieckAus({ rechts: 'B', seiten: { b: 'x'.repeat(40) } }).seiten).toEqual({});
+  });
+
+  it('zeichnet die Skizze der Aufgaben mit Beschreibung', async () => {
+    const { dreieckBild } = await import('./dreieck');
+    const b = dreieckBild({ rechts: 'A', seiten: { a: 'a = ?' } });
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.beschreibung.de).toContain('rechte Winkel liegt bei A');
+  });
+});

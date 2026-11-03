@@ -119,6 +119,10 @@ Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichk
 
 Die Pflicht-Tests der Generatoren (`src/generators/pflichttests.ts`) vergleichen erst billig und rufen Vitest-`expect` nur bei einer Abweichung auf; in Schleifen mit 10 000 Läufen war `expect` der größte Kostenpunkt. Generator-Tests 287 s → 126 s (4 Kerne), Regeln unverändert; geprüft mit absichtlich falscher Lösung und absichtlich richtiger Fehlerbild-Antwort (beides wird erkannt).
 
+### Dreiecksskizze (03.11.2026)
+
+Fehler gefunden: In der Dreiecksskizze der Pythagoras- und Trigonometrie-Aufgaben lag die Beschriftung der senkrechten Seite links außerhalb des Bildes (etwa „a = 9 mm“ fehlte). Behoben in Fassung 2 von `py.seite`, `tr.verhaeltnis`, `tr.berechnen`, `tr.wechsel`. Dazu das Werkzeug `dreieck@1` mit derselben Skizze; Bilder in den Erstvermittlungen PY.PYTHAGORAS (drei) und TR.BEGRIFFE (eins).
+
 ### Offene Fragen der Nachtarbeit
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.

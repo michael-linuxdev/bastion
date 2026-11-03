@@ -44,6 +44,12 @@ schritte:
     typ: beispiel
     text:
       de: 'Rechter [[Winkel]] bei C: Für α ist a die [[Gegenkathete]], b die [[Ankathete]], c die [[Hypotenuse]]. Also $\sin \alpha = \frac{a}{c}$ und $\tan \alpha = \frac{a}{b}$.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          { rechts: C, seiten: { a: 'a: Gegenkathete', b: 'b: Ankathete', c: 'c: Hypotenuse' } },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

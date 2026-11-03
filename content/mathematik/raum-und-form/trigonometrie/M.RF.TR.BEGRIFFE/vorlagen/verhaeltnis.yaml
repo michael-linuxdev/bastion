@@ -4,7 +4,7 @@ kompetenz: M.RF.TR.BEGRIFFE
 niveaus: [G, M]
 typ: auswahl
 quelle: generator
-generator: tr.verhaeltnis@1
+generator: tr.verhaeltnis@2
 parameter:
   G: { gemischt: false }
   M: { gemischt: true }

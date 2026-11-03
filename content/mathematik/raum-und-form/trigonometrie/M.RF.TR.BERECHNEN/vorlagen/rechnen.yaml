@@ -4,7 +4,7 @@ kompetenz: M.RF.TR.BERECHNEN
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: tr.berechnen@1
+generator: tr.berechnen@2
 parameter:
   G: { gemischt: false }
   M: { gemischt: true }
