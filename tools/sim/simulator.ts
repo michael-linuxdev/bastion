@@ -25,6 +25,7 @@ import { buchungsId, kontoAus, type BuchungEreignis } from '../../src/core/ledge
 import {
   koennenBuchungen,
   LEERER_TAG,
+  skizzenBuchungen,
   sitzungsBuchungen,
   type Buchung,
   type Tagesstand,
@@ -54,6 +55,11 @@ export interface Lernprofil {
   readonly plan: (t: number) => readonly number[];
   /** Wahrscheinlichkeit einer richtigen Antwort */
   readonly richtig: number;
+  /**
+   * Lernkurve: Trefferquote am Tag `t`, falls das Kind besser wird (überschreibt `richtig`).
+   * BASEBAU §8d: Schwache bleiben in Wirklichkeit selten jahrelang bei 50 %.
+   */
+  readonly richtigAm?: (t: number) => number;
   /** Bearbeitungszeit je Aufgabe in Sekunden */
   readonly sekunden: number;
   /** nur leichte Aufgaben üben: keine Wiederholungen, keine Werkstatt, immer dieselben Themen */
@@ -106,6 +112,14 @@ export const PROFILE: readonly Lernprofil[] = [
     name: 'schwach (P1, Fehlerquote 50 %)',
     plan: an([0, 1, 3, 5], 15),
     richtig: 0.5,
+    sekunden: 45,
+  },
+  {
+    id: 'P8',
+    name: 'schwach, wird besser (P1, 50 % → 70 % richtig in 2 Jahren)',
+    plan: an([0, 1, 3, 5], 15),
+    richtig: 0.5,
+    richtigAm: (t) => 0.5 + 0.2 * Math.min(1, t / 730),
     sekunden: 45,
   },
   {
@@ -243,6 +257,7 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
   const nachId = new Map<string, AufgabeEreignis>();
   const gebuchtePlaene = new Set<string>();
   const offeneFehler: AufgabeEreignis[] = [];
+  const werkstatt: AufgabeEreignis[] = [];
   let nr = 0;
   const epochenTage: (number | undefined)[] = [undefined, undefined, undefined, undefined];
   let belegung12 = 0;
@@ -303,7 +318,7 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
         const sekunden = Math.max(3, profil.sekunden + r.int(-10, 10));
         jetzt += (sekunden + 15) * 1000;
         const karte = p.karten.get(`${PROFIL}|${a.vorlage}|G`);
-        const richtig = zufallZahl() < profil.richtig;
+        const richtig = zufallZahl() < (profil.richtigAm?.(t) ?? profil.richtig);
         const e = aufgabeEreignis(
           {
             profil: PROFIL,
@@ -334,6 +349,11 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
         diese.push(e);
         nachId.set(e.id, e);
         if (!richtig && !profil.farmer) offeneFehler.push(e);
+        if (e.korrigiert) {
+          const alt = nachId.get(e.korrigiert);
+          if (alt) werkstatt.push(alt);
+          werkstatt.push(e);
+        }
       }
       if (diese.length === 0) continue;
       wochen.set(woche, { gelernt: true, fortschritt: wochen.get(woche)?.fortschritt ?? false });
@@ -349,7 +369,12 @@ export function simuliere(profil: Lernprofil, tage = 730, seed = 1): Ergebnis {
         (id) => nachId.get(id),
       );
       tagesstaende.set(s.tag, danach);
-      const plaene = koennenBuchungen([...p.staende.values()], gebuchtePlaene);
+      const plaene = [
+        ...koennenBuchungen([...p.staende.values()], gebuchtePlaene),
+        // Bauplan-Skizzen aus der Fehlerwerkstatt (B-34)
+        // nur Fehlerwerkstatt und ihre ursprünglichen Fehler: gleiches Ergebnis, viel schneller
+        ...skizzenBuchungen(werkstatt, gebuchtePlaene),
+      ];
       plaene.forEach((b) => gebuchtePlaene.add(b.bezug));
       const alsEreignis = (b: Buchung): BuchungEreignis => ({
         ...b,
