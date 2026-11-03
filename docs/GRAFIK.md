@@ -587,3 +587,8 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Laufzeit:** etwa zwei Stunden für alle 383 Aufträge (vier Prozesse). Der Lauf schreibt zuerst in einen Zwischenordner (`BASTION_HD_ZWISCHEN`) und kopiert am Ende.
 - Test `tools/grafik/atlas-hd.test.ts`: jedes Gebäude hat ein @2x-Bild in doppelter Größe, jedes Kulisse-Ding hat eines (sonst wäre es auf dem Handy kaputt), niedrige Pixeldichte lädt weiter das kleine Bild.
 
+## 22. Tiefe in der Ferne (Wunsch PV, 03.11.2026, Schritt 6)
+
+- **Luftperspektive:** Dinge der Kulisse ab 8 Feldern Abstand vom Bauplatz werden mit wachsendem Abstand blasser, etwas heller und bläulicher und ganz weit draußen minimal unscharf (CSS-Variable `--dunst` 0 … 1, auch in Dämmerung und Nacht).
+- **Dunst am Horizont:** Vom Horizont abwärts liegt ein weicher Schleier in der unteren Himmelsfarbe (`.ferne`), nachts schwächer.
+
