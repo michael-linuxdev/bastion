@@ -587,3 +587,7 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Laufzeit:** etwa zwei Stunden für alle 383 Aufträge (vier Prozesse). Der Lauf schreibt zuerst in einen Zwischenordner (`BASTION_HD_ZWISCHEN`) und kopiert am Ende.
 - Test `tools/grafik/atlas-hd.test.ts`: jedes Gebäude hat ein @2x-Bild in doppelter Größe, jedes Kulisse-Ding hat eines (sonst wäre es auf dem Handy kaputt), niedrige Pixeldichte lädt weiter das kleine Bild.
 
+## 23. Boden mit Leben (Wunsch PV, 03.11.2026, Schritt 7)
+
+- Auf jedem freien Feld der Insel 1 bis 4 kleine Einzelheiten (`grafik/boden-leben.ts`), fest aus der Lage des Feldes: Grasbüschel; im Frühling viele Blüten (rosa, weiß, gelb, lila), im Sommer einzelne Blumen, im Herbst Laub am Boden, im Winter vereiste Büschel und Spuren im Schnee. Bebaute Felder (auch im Bau) bleiben frei; abends gedämpft. Nur über Land (Bastion, Dorf, Garten).
+

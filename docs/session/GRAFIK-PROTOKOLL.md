@@ -95,3 +95,4 @@
 | 03.11.2026 | **Noch mehr Dinge und Größen** (Branch `grafik/mehr-dinge`, Wunsch PV): 33 neue Dinge (`g16_mehr_dinge.py`, 73 Bilder), Größen 0,7–1,5 bzw. 1,6–3,4; GRAFIK §18.3 |
 | 03.11.2026 | **Unförmige Insel** (Branch `grafik/insel-form`, Wunsch PV): freie Küste um den Bauplatz aus dem Szenerie-Startwert, Strand und Schaum, Bewuchs auf dem Rand, Bäume nicht mehr im Wasser; GRAFIK §20 |
 | 03.11.2026 | **Scharf beim Zoomen** (Branch `grafik/schaerfe`, Wunsch PV Schritt 1): 490 @2x-Bilder (`g17_hd.py`), Auswahl nach Pixeldichte, `srcset` in der Kulisse; GRAFIK §21 |
+| 03.11.2026 | **Boden mit Leben** (Branch `grafik/boden-leben`, Wunsch PV Schritt 7): Gras, Blüten, Blumen, Laub, Spuren je Jahreszeit auf freien Feldern; GRAFIK §23 |
