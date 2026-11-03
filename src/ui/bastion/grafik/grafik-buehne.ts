@@ -2188,7 +2188,10 @@ export async function buehneErstellen(
     zerstoere() {
       app.ticker.remove(ticker);
       const view = app.canvas;
-      app.destroy(true, { children: true });
+      // Nicht `destroy(true)`: das gäbe auch die globalen Ressourcen von PixiJS frei (Vorrat
+      // an Zeichen-Stapeln), die die neue Bühne nach einem Themenwechsel schon nutzt.
+      // Danach stürzte das Bild ab und blieb leer (#160, Dorf-Szene).
+      app.destroy({ removeView: true }, { children: true });
       // Pixi entfernt die View nicht zuverlässig, wenn destroy nach Abbruch kommt
       view.remove();
     },
