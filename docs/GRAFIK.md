@@ -499,3 +499,10 @@ Ruhig und ohne Blitze (R1–R7); bei „ruhig“ und „Bewegung reduzieren“ s
 - **Zahnrad:** „Wetter ausprobieren“ (Wie draußen, Sonne, Wolken, Regen, Schnee, Sturm, Nebel, Regenbogen); gilt nur für die Ansicht bis zum Neuladen und wird nicht gespeichert (`wetter-probe.svelte.ts`).
 - **Offen:** wehende Fahnen und Banner bei Sturm. Die Fahnen sind Teil der Gebäudebilder; dafür bräuchte jedes Gebäude mit Fahne eigene Bilder für die Bewegung.
 - Kulissen der anderen Themen (Punkt 3) bekommen dieselben Wetterteile, sobald es sie gibt.
+
+## 16. Erster Tipper und Kamera nach dem Öffnen (Auftrag Punkt 4, #160)
+
+- **Ursache:** Das Bild wurde gebaut, bevor das Wetter geladen war, und baute sich danach ein zweites Mal auf. Ein Tipper in dieser Zeit ging ins Leere, und das Dorf lud seine Bilder doppelt.
+- **Jetzt:** Der Bauplatz wartet auf das Wetter (höchstens 1,2 s, dann ohne) und baut sich einmal auf. Gemessen mit fester Uhr an einem Tag mit Wetter „klar“: vorher 2 Aufbauten nach dem Öffnen (Bastion und Dorf), jetzt 1.
+- **Tipper vor dem fertigen Bild:** wird gemerkt und ausgeführt, sobald das Bild steht. Gemerkt wird die Stelle im Bild, nicht auf dem Bildschirm – so trifft der Tipper auch, wenn die Kamera sich bis dahin noch einpasst (vermutete Ursache des ersten roten CI-Laufs; lokal nicht nachstellbar). Browser-Test „Erster Tipper gleich nach dem Öffnen geht nicht verloren“ (ohne die Korrektur rot).
+- **Kamera:** Kommt die Größe des Bauplatzes (Epoche) erst nach dem ersten Einpassen, passt die Kamera sich neu ein bzw. legt die gemerkte Kamera neu, solange man sie noch nicht selbst bewegt hat.

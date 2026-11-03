@@ -954,6 +954,28 @@ test('Wetter ausprobieren: jedes Wetter zeigt das Bild ohne Fehler (Grafik Punkt
   expect(fehler).toEqual([]);
 });
 
+test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Punkt 4)', async ({
+  page,
+}) => {
+  test.setTimeout(60_000);
+  await page.goto('./');
+  await bastionOeffnen(page, false);
+  // nicht warten, bis das Bild ruhig steht: tippen, sobald die Kamera sitzt
+  await expect(page.locator('.fenster.sichtbar')).toHaveCount(1);
+  const fenster = page.locator('.fenster');
+  const rahmen = await fenster.boundingBox();
+  const flaeche = await page.locator('.bauplatz').boundingBox();
+  if (!rahmen || !flaeche) throw new Error('kein Bauplatz');
+  const p = punkt(6.5, 8.5);
+  await fenster.click({
+    position: {
+      x: flaeche.x - rahmen.x + (p.x * flaeche.width) / BUEHNE_B,
+      y: flaeche.y - rahmen.y + (p.y * flaeche.height) / BUEHNE_H,
+    },
+  });
+  await expect(page.locator('.wahl')).toContainText('Feuerstelle', { timeout: 10_000 });
+});
+
 test('Thema wechseln: gleiche Bastion, andere Wörter (B-17)', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('./');
