@@ -4,7 +4,7 @@ kompetenz: M.RF.PY.PYTHAGORAS
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: py.seite@1
+generator: py.seite@2
 parameter:
   G: { gerundet: false }
   M: { gerundet: true }

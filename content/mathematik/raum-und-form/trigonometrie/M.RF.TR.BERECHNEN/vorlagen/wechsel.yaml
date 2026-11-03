@@ -4,7 +4,7 @@ kompetenz: M.RF.TR.BERECHNEN
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: tr.wechsel@1
+generator: tr.wechsel@2
 parameter:
   E: {}
 text:

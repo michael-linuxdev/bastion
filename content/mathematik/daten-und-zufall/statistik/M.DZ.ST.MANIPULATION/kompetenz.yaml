@@ -16,13 +16,13 @@ voraussetzungen:
 niveaus:
   G:
     beschreibung:
-      de: 'Erkennen, was an einer Darstellung oder Aussage irreführend ist.'
+      de: 'Erkennen, was an einer Darstellung irreführend ist: abgeschnittene Achse, absolute statt relativer Zahlen.'
   M:
     beschreibung:
       de: 'Prozent und Prozentpunkte unterscheiden und richtig rechnen.'
   E:
     beschreibung:
-      de: 'Zu einer irreführenden Darstellung die passende Begründung auswählen.'
+      de: 'Feinere Täuschungen begründen: Prozentpunkte als Prozent, vorgetäuschte Genauigkeit bei wenigen Befragten.'
 kmk:
   leitidee: L5
   prozesse:

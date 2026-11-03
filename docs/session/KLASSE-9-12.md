@@ -105,11 +105,11 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 *Ergänzung (PV, 02.11.2026, 21:15):* Nach Fertigstellung von Klasse 9 **stoppen, Klasse 10 nicht beginnen**.
 
-13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10.
+13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10. *Angehalten (03.11.2026, 4:45 Uhr):* Das widerspricht K-11 („bis Klasse 8 nur G und M, E später“), und `pnpm inhalte:pruefen` verlangt das ausdrücklich. Bei der Frage am Abend war das nicht gesagt worden. Siehe Frage 6.
 
 ### Inhaltsdurchsicht Klasse 9 (03.11.2026)
 
-Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. Offen, nur notiert: ST.MANIPULATION.ERKENNEN hat auf G und E dieselben Parameter.
+Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. ST.MANIPULATION.ERKENNEN: G zeigt abgeschnittene Achse und absolute Zahlen, E Prozentpunkte und vorgetäuschte Genauigkeit (neuer, optionaler Parameter `stufe`, ohne Angabe wie bisher).
 
 ### Fehler-Schüler-Funde (03.11.2026)
 
@@ -119,12 +119,17 @@ Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichk
 
 Die Pflicht-Tests der Generatoren (`src/generators/pflichttests.ts`) vergleichen erst billig und rufen Vitest-`expect` nur bei einer Abweichung auf; in Schleifen mit 10 000 Läufen war `expect` der größte Kostenpunkt. Generator-Tests 287 s → 126 s (4 Kerne), Regeln unverändert; geprüft mit absichtlich falscher Lösung und absichtlich richtiger Fehlerbild-Antwort (beides wird erkannt).
 
+### Dreiecksskizze (03.11.2026)
+
+Fehler gefunden: In der Dreiecksskizze der Pythagoras- und Trigonometrie-Aufgaben lag die Beschriftung der senkrechten Seite links außerhalb des Bildes (etwa „a = 9 mm“ fehlte). Behoben in Fassung 2 von `py.seite`, `tr.verhaeltnis`, `tr.berechnen`, `tr.wechsel`. Dazu das Werkzeug `dreieck@1` mit derselben Skizze; Bilder in den Erstvermittlungen PY.PYTHAGORAS (drei) und TR.BEGRIFFE (eins).
+
 ### Offene Fragen der Nachtarbeit
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.
 3. ~~**Werkzeug „Parameter am Graphen“ (B8)**~~ *gebaut 03.11.2026 als `graph@1` mit Reglern für a, d, e (Schieberegler, per Tastatur bedienbar), Vergleichskurve gestrichelt. Aussehen: Vorschau beim PV steht aus (Bildschirmfoto im Bericht).*
 4. ~~**Zeichenanleitung Kegel (L-10)**~~ *erledigt 03.11.2026:* „Das Schrägbild eines Kegels zeichnen“ mit vier Bildern (`anleitung.schraegbild-kegel@1`), RF.KP.KEGEL hat jetzt `zeichnen_erklaert`.
 5. **Sachaufgaben-Fehlvorstellungen (FV.SA.*):** Sie zeigen mit dem Rückweg alle auf `M.ZO.BR.SACH#erklaeren-frage`. Das ergibt 16 der 28 verbliebenen B-Funde in Geometrie, Größen, Daten und Gleichungssystemen. Brüche-Sachaufgaben als Voraussetzung dort einzutragen wäre fachlich falsch. Vorschlag: eine kleine eigene Erstvermittlung „Sachaufgaben lesen“ (Klasse 5) als gemeinsamer Rückweg, oder die Prüfung erlaubt für FV.SA.* den Rückweg in jede frühere Klasse. Bis zur Antwort: unverändert.
+6. **Niveau E für Klasse 5 bis 8 und K-11:** Soll K-11 geändert werden (E auch bis Klasse 8)? Dann muss die Prüfung „bis Klasse 8 die Niveaus G und M“ angepasst werden, und dazu gehören Entscheidungslog (STRATEGIE/KONZEPT) und die Niveau-Wahl der App (L-22). Ein fertiger Entwurf für das Feld Kreis liegt im Commit `6bbc70a5b774a396d3bdffc8be02e6fbacc2fdbb` (zwei Generatoren mit Pflicht-Tests, zwei Vorlagen, eine neue Fehlvorstellung) und ist gleich danach zurückgenommen. Übernehmen mit `git cherry-pick 6bbc70a5`. Bis zur Antwort: kein E in Klasse 5 bis 8.
 2. ~~**`pnpm inhalte:begriffe`** verdoppelte Anführungszeichen~~ *behoben 03.11.2026:* Das Komma hinter dem Wert in der mehrzeiligen Kurzform bleibt stehen (`tools/inhalte/begriffe-zeilen.ts` mit Test); DZ.ZF.HAEUFIGKEIT und DZ.ZF.WAHRSCHEINLICHKEIT sind jetzt markiert.
 
 ---

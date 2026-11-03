@@ -6,8 +6,8 @@ typ: auswahl
 quelle: generator
 generator: st.taeuschung@1
 parameter:
-  G: {}
-  E: {}
+  G: { stufe: einfach }
+  E: { stufe: schwer }
 text:
   aufgabe:
     de: '{situation} **{frage}**'

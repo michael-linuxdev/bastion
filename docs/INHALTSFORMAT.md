@@ -291,7 +291,7 @@ export interface Fehlerbild {
 2. **Endlich.** Höchstens eine feste Zahl von Versuchen bei Wiederholungen („neu würfeln“); danach ein sicherer Standardfall.
 3. **Keine trivialen oder hässlichen Fälle.** Kein Faktor 1, keine Aufgaben, deren Antwort im Text steht, keine Zahlen, die das Niveau sprengen.
 4. **Unabhängig geprüfte Lösung.** Der Test berechnet die Lösung auf einem zweiten, einfachen Weg und vergleicht.
-5. **Versionierung.** Jede Verhaltensänderung erhöht `version`. Alte Versionen werden nicht gelöscht, solange Ereignisse auf sie verweisen könnten (s. 6.3). *Umsetzung (seit 03.11.2026):* Der Generator wird eine Fabrik `xFassung(fassung)`; `export const xV1 = xFassung(1)` bleibt registriert, `export const x = xFassung(2)` ist die neue Fassung, Unterschiede stehen als `fassung === 2 ? … : …` im Code. Vorlagen nutzen immer die neueste Fassung; `pnpm inhalte:pruefen` prüft das und lässt ältere Fassungen ohne Vorlage zu. Erste Fälle: `kp.verdoppeln`, `kp.hypotenuse`, `py.satz-wahl`, `pw.rational-wert`, `pw.gesetz-wert`, `qf.wertetabelle` @2.
+5. **Versionierung.** Jede Verhaltensänderung erhöht `version`. Alte Versionen werden nicht gelöscht, solange Ereignisse auf sie verweisen könnten (s. 6.3). *Umsetzung (seit 03.11.2026):* Der Generator wird eine Fabrik `xFassung(fassung)`; `export const xV1 = xFassung(1)` bleibt registriert, `export const x = xFassung(2)` ist die neue Fassung, Unterschiede stehen als `fassung === 2 ? … : …` im Code. Vorlagen nutzen immer die neueste Fassung; `pnpm inhalte:pruefen` prüft das und lässt ältere Fassungen ohne Vorlage zu. Erste Fälle: `kp.verdoppeln`, `kp.hypotenuse`, `py.satz-wahl`, `pw.rational-wert`, `pw.gesetz-wert`, `qf.wertetabelle`, `py.seite`, `tr.verhaeltnis`, `tr.berechnen`, `tr.wechsel` @2.
 
 ### 6.2 Beispiel: `bruch.erweitern-zielnenner@1`
 
@@ -670,6 +670,7 @@ Damit verweisen alle 596 Fehlerbilder auf eine der 200 Fehlvorstellungen.
 | Werkzeug | Parameter | Interaktiv |
 |---|---|---|
 | `bruchstreifen@1` | `teile` (1–24), `gefaerbt`, `verfeinern` (Knopf „Jedes Teil halbieren“ statt + und −), `ungleich` (erstes Teil absichtlich größer) | Teile antippen färbt sie; + und − ändern die Zahl der Teile |
+| `dreieck@1` | `rechts` (Ecke mit dem rechten Winkel, Standard C), `seiten` (Beschriftung von a, b, c, je höchstens 16 Zeichen) | Nur als `bild`: dieselbe Skizze wie in den Pythagoras- und Trigonometrie-Aufgaben |
 | `graph@1` | `kurven` (bis 4, je `art`: gerade, parabel, potenz, wurzel, kubikwurzel; `a`, `d`, `e` für a · g(x − d) + e; `n` bei potenz; `vergleich: true` gestrichelt), `x`, `y` (Ausschnitt [min, max]), `punkte` ([[x, y]]), `regler` (Teilmenge von a, d, e) | Als `bild` nur der Graph mit Term; als `werkzeug` Schieberegler für a, d, e der ersten Kurve (B8 „Parameter am Graphen“) |
 | `zahlenstrahl@1` | `von`, `bis` (ganze Zahlen), `einteilung` (Teile je Einheit), `markiert` (Zähler bezogen auf die Einteilung) | Striche antippen markiert eine Stelle |
 

@@ -142,7 +142,7 @@ describe('Klasseneinteilung (E)', () => {
 
 describe('Täuschung erkennen', () => {
   pflichttests(stTaeuschung, {
-    niveaus: { G: {}, E: {} },
+    niveaus: { G: { stufe: 'einfach' }, E: { stufe: 'schwer' } },
     unabhaengigeLoesung: einzigeOhneFehlerbild,
     ...vier,
     mindestensVerschieden: { G: 15, E: 15 },
