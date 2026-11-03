@@ -563,3 +563,12 @@ PV: „Mehr Abwechslung, noch mehr unterschiedliche Objekte würfelbar in mehr G
   - Weltraum: Rover, Landekapsel, Solarfeld, Meteoritenkrater, Funkmast, Kristallfeld.
 - **Größen:** Dinge 0,7–1,5-fach, Flächen 1,6–3,4-fach; kleine häufiger als große. Alles hängt am Szenerie-Startwert (§18.2).
 
+## 20. Unförmige Insel (Wunsch PV, 03.11.2026)
+
+PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wobei ein nicht bebaubarer Teil über das bisherige Viereck hinausgeht.“
+
+- **Inselrand** (`grafik/insel-rand.ts`): Der Bauplatz bleibt das Viereck mit seiner Einfassung. Darum liegt eine freie Küstenlinie, 1,1 bis 3,4 Felder über die Einfassung hinaus. Die Buchten und Landzungen entstehen aus drei Wellen mit festen Phasen aus dem Szenerie-Startwert (§18.2), sind also mit „Neue Umgebung würfeln“ veränderbar. Bauen kann man dort nicht.
+- **Gezeichnet in der Kulisse** (hinter der Bühne, wandert mit der Kamera; die Bühne hat nur 24 Bildpunkte Rand und würde ihn abschneiden): Strand (nur am Meer) mit Schaum an der echten Küste, Seitenwand, Oberfläche auf Höhe des Bauplatzes; Farben je Thema (`KulissenThema.insel`), Töne je Jahreszeit.
+- **Bewuchs** (`inselBewuchs`): Bäume, Büsche, Sträucher, Steine bzw. Korallen aus dem Atlas, je Jahreszeit. Hohes nur auf der hinteren Hälfte, weil Vorderes hinter den Wänden der Bühne verschwände. Die Bäume der Bühne am Bauplatzrand stehen jetzt auf Land.
+- **Kulisse-Dinge** halten Abstand zur Küste (Dinge knapp ein Feld, Flächen und die sechs Plätze am Bauplatz knapp zwei).
+

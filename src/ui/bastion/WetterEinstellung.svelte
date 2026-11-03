@@ -62,7 +62,8 @@
 
 <section class="wetter" aria-labelledby="wetter-titel">
   <h3 id="wetter-titel">{t('wetter.titel')}</h3>
-  <p class="leise">{t('wetter.erklaerung')}</p>
+  <!-- O9: Eltern lesen „Sie“, Jugendliche „du“ -->
+  <p class="leise">{t(durch === 'eltern' ? 'wetter.erklaerung-eltern' : 'wetter.erklaerung')}</p>
   <p class="leise">{t('wetter.open-meteo')}</p>
   <label>
     <input

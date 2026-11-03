@@ -90,4 +90,6 @@
 | 03.11.2026 | **Wunsch aus dem Strang Oberfläche:** Symbole `person`, `sicherung`, `kalender` (Wünsche in `GRAFIK.md`) |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `Symbol.svelte` auf Wunsch des PV neu gezeichnet (nur Striche, Regler statt Zahnrad, Beutel als Umriss); Bastion-Symbole stein, erz, bauplan, bauen, planen, hinterhof unverändert |
 | 03.11.2026 | **Vielfalt und eigene Umgebung** (Branch `grafik/szenerie-wuerfeln`, Wunsch PV): drei Formen je Ding (`g15_varianten.py`, 46 Bilder, Nadelbäume), „Neue Umgebung würfeln“ im Zahnrad mit gespeichertem Startwert `basebau.szenerie`; Test oben/unten gleich voll; GRAFIK §18.2 |
+| 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `WetterEinstellung` und `BasebauSchalter` wählen den Text nach `durch` (neue Schlüssel `…-eltern`, „Sie“) |
 | 03.11.2026 | **Noch mehr Dinge und Größen** (Branch `grafik/mehr-dinge`, Wunsch PV): 33 neue Dinge (`g16_mehr_dinge.py`, 73 Bilder), Größen 0,7–1,5 bzw. 1,6–3,4; GRAFIK §18.3 |
+| 03.11.2026 | **Unförmige Insel** (Branch `grafik/insel-form`, Wunsch PV): freie Küste um den Bauplatz aus dem Szenerie-Startwert, Strand und Schaum, Bewuchs auf dem Rand, Bäume nicht mehr im Wasser; GRAFIK §20 |

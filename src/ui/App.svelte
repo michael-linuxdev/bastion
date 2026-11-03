@@ -70,7 +70,7 @@
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
-  import ProfilForm from './profil/Profil.svelte';
+  import UeberMich from './profil/UeberMich.svelte';
   import {
     schuljahrFragen,
     schuljahrVon,
@@ -90,12 +90,11 @@
   import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen, kontrastAnwenden } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
-  import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import Leerzustand from './grafik/Leerzustand.svelte';
-  import ModusWahl from './profil/ModusWahl.svelte';
   import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
+  import ZurueckKnopf from './start/ZurueckKnopf.svelte';
   import ProfilEinladung from './start/ProfilEinladung.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
@@ -667,9 +666,9 @@
   {:else if ansicht === 'mehr'}
     <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
   {:else if ansicht === 'profil'}
-    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-    <ProfilForm
+    <UeberMich
       {profil}
+      onzurueck={() => (ansicht = 'mehr')}
       onspeichern={(p) => {
         profil = p;
         profilGefragt = true;
@@ -677,17 +676,14 @@
         ansicht = 'start';
       }}
     />
-    <ModusWahl />
-    <OrientierungWahl />
   {:else if ansicht === 'sicherung'}
-    <button
-      class="zurueck"
-      onclick={() => {
-        ansicht = 'start';
+    <Sicherung
+      onzurueck={() => {
+        ansicht = 'mehr';
         void aktualisiere();
-      }}>← {t('uebung.zurueck')}</button
-    >
-    <Sicherung oneingespielt={() => void aktualisiere()} />
+      }}
+      oneingespielt={() => void aktualisiere()}
+    />
   {:else if inhalte}
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
@@ -803,14 +799,11 @@
           onbastion={() => gehe('bastion')}
         />
       {:else if ansicht === 'eltern'}
-        <button
-          class="zurueck"
-          onclick={() => {
-            ansicht = 'start';
-            void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
         <Elternbereich
+          onzurueck={() => {
+            ansicht = 'mehr';
+            void aktualisiere();
+          }}
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}
@@ -820,7 +813,7 @@
           bind:schulart
         />
       {:else if ansicht === 'stand'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <MeinStand
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -832,13 +825,12 @@
           onueben={(k) => zumUeben(geladen, k)}
         />
       {:else if ansicht === 'diagnose'}
-        <button
-          class="zurueck"
+        <ZurueckKnopf
           onclick={() => {
             ansicht = 'start';
             void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
+          }}
+        />
         <Diagnose
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -879,7 +871,7 @@
           }}
         />
       {:else if ansicht === 'klassenarbeit'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <KlassenarbeitAnsicht
           kompetenzen={geladen.kompetenzen.filter(
             (k) => vorlagenFuer(geladen.vorlagen, k.id, 'G').length > 0,
@@ -900,7 +892,7 @@
           }}
         />
       {:else if ansicht === 'werkstatt'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <Werkstatt
           gruppen={gruppenNachUrsache(geladen)}
           fehlvorstellungen={geladen.fehlvorstellungen}
@@ -1119,16 +1111,6 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  .zurueck {
-    font: inherit;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
-    min-block-size: 2.75rem;
   }
 
   .anleitungen {

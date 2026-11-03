@@ -6,6 +6,7 @@
   import Symbol, { type SymbolName } from '../grafik/Symbol.svelte';
   import { offlineHinweisGesehen, offlineHinweisSetzen } from '../plattform/ablage';
   import { t } from '../texte/texte';
+  import Seitenkopf from './Seitenkopf.svelte';
   import type { Ziel } from './Startseite.svelte';
 
   let {
@@ -63,11 +64,7 @@
 </script>
 
 <section class="mehr">
-  <button class="zurueck" onclick={() => onziel('start')}>
-    <Symbol name="zurueck" />
-    {t('uebung.zurueck')}
-  </button>
-  <h2>{t('mehr.ueberschrift')}</h2>
+  <Seitenkopf titel={t('mehr.ueberschrift')} onzurueck={() => onziel('start')} />
 
   {#if offlineZeigen}
     <p class="offline" role="status">
@@ -124,28 +121,6 @@
   .mehr {
     display: grid;
     gap: var(--abstand-m);
-  }
-  .zurueck {
-    font: inherit;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
-    min-block-size: var(--ziel);
-  }
-  .zurueck :global(svg) {
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
-  }
-  h2 {
-    margin: 0;
-    font-size: clamp(1.75rem, 6vw, 2.25rem);
-    color: var(--farbe-akzent);
   }
   h3 {
     margin: 0;

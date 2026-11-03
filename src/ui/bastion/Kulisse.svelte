@@ -11,15 +11,18 @@
    */
   import type { WetterBild } from './grafik/wetter';
   import type { Jahreszeit } from './grafik/jahreszeit';
+  import type { Thema } from '../../core/policy/einstellung';
   import type { Kamera } from './grafik/kamera';
   import type { Bewegung } from './grafik/atmosphaere';
-  import { buehneFuer, punkt } from './grafik/iso';
+  import { buehneFuer, INSEL, punkt } from './grafik/iso';
+  import { inselRand } from './grafik/insel-rand';
   import {
     DING_BREITE,
     HORIZONT,
     MEER,
     STERNE,
     dingBild,
+    inselBewuchs,
     kulissenDinge,
     kulissenLage,
     type KulissenThema,
@@ -40,7 +43,7 @@
     szenerie = 0,
   }: {
     thema: KulissenThema;
-    themaName: string;
+    themaName: Thema;
     stimmung: Stimmung;
     kamera: Kamera;
     inselOben: number;
@@ -145,16 +148,31 @@
   );
   const satellit = $derived(thema.leben.includes('satellit') ? lebenPlatz(-6, -10) : undefined);
   /** Rand des Bauplatzes (Raute) für den Schaumring, in Bühnen-Bildpunkten */
-  const raute = $derived(
-    [
-      punkt(0, 0, platz),
-      punkt(platz.breite, 0, platz),
-      punkt(platz.breite, platz.tiefe, platz),
-      punkt(0, platz.tiefe, platz),
-    ]
-      .map((q) => `${q.x},${q.y}`)
-      .join(' '),
+  /**
+   * Inselrand mit freier Küste (§20, Wunsch PV): Strand (nur am Meer), Seitenwand und
+   * Oberfläche, in Bühnen-Bildpunkten. Die Oberfläche liegt auf Höhe des Bauplatzes.
+   */
+  const inselLinie = (zusatz: number, tiefer: number) =>
+    inselRand(platz.breite, platz.tiefe, szenerie, zusatz)
+      .map((p) => {
+        const q = punkt(p.gx, p.gy, platz);
+        return `${q.x.toFixed(1)},${(q.y + tiefer).toFixed(1)}`;
+      })
+      .join(' ');
+  const atlasBasis = `${import.meta.env.BASE_URL}grafik/atlas/`;
+  const bewuchs = $derived(
+    inselBewuchs(platz.breite, platz.tiefe, themaName, szenerie).map((w) => ({
+      ...w,
+      src: `${atlasBasis}${w.pfad}${w.jahreszeit && jahreszeit !== 'sommer' ? `_${jahreszeit}` : ''}.png`,
+      ...punkt(w.gx, w.gy, platz),
+    })),
   );
+  const insel = $derived({
+    strand: thema.insel.strand ? inselLinie(0.55, INSEL) : '',
+    wand: inselLinie(0, INSEL),
+    oben: inselLinie(0, 0),
+  });
+
   const bootStart = $derived(punkt(-4, platz.tiefe + 5, platz));
   const bootZiel = $derived(punkt(platz.breite + 5, platz.tiefe + 5, platz));
 </script>
@@ -246,8 +264,16 @@
     style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
   >
     <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
+      <g class="inselrand">
+        {#if insel.strand}
+          <polygon class="strand" points={insel.strand} style:fill={thema.insel.strand} />
+        {/if}
+        <polygon class="wand" points={insel.wand} style:fill={thema.insel.wand} />
+        <polygon class="oben" points={insel.oben} style:fill={thema.insel.oben} />
+      </g>
       {#if thema.wasser}
-        <polygon points={raute} />
+        <!-- Schaum an der echten Küste, nicht mehr am Viereck -->
+        <polygon points={insel.strand} />
       {/if}
       {#each schollen as s (s.i)}
         <polygon
@@ -257,6 +283,16 @@
         />
       {/each}
     </svg>
+    {#each bewuchs as w, i (i)}
+      <img
+        class="ding"
+        src={w.src}
+        alt=""
+        style:inline-size="{w.breite}px"
+        style:inset-inline-start="{w.x}px"
+        style:inset-block-start="{w.y}px"
+      />
+    {/each}
     {#each ringe as r (r.i)}
       <span
         class="ring"
@@ -400,6 +436,14 @@
     overflow: visible;
   }
 
+  .schaum .inselrand polygon {
+    stroke: none;
+  }
+
+  .schaum .inselrand .wand {
+    filter: brightness(0.92);
+  }
+
   .schaum polygon {
     fill: none;
     stroke: rgb(236 246 248 / 0.55);
@@ -516,6 +560,19 @@
   .jz-fruehling:not(.wasser) .meer,
   .jz-fruehling .horizont {
     filter: saturate(1.15) brightness(1.06) hue-rotate(-6deg);
+  }
+
+  /* Inselrand folgt der Jahreszeit wie der Boden des Bauplatzes */
+  .jz-fruehling .inselrand .oben {
+    filter: saturate(1.15) brightness(1.06);
+  }
+
+  .jz-herbst .inselrand .oben {
+    filter: sepia(0.4) saturate(1.1) hue-rotate(-18deg);
+  }
+
+  .jz-winter .inselrand .oben {
+    filter: saturate(0.25) brightness(1.5) contrast(0.8);
   }
 
   .jz-herbst:not(.wasser) .meer,

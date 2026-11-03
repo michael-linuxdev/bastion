@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5)
+Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -43,10 +43,20 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 3a. ~~Wunsch PV: Symbole in den Menüs neu und aus einem Guss.~~ Erledigt (O4): `src/ui/grafik/Symbol.svelte` neu (24er-Raster, nur Striche, runde Enden); neue Symbole `person`, `sicherung`, `kalender` für „Mehr“; Symbole auf hellen Kacheln einheitlich in der Akzentfarbe. Ausnahme vom eigenen Bereich, weil der PV es ausdrücklich verlangt hat; Hinweis im Protokoll Grafik.
 4. ~~Elternbereich gliedern und angleichen.~~ Erledigt (O5): Sprungleiste (Bericht, Klasse, Sicherung, Bastion, Aufgabenblatt, Testphase) und je Abschnitt eine Karte; PIN-Eingabe und Wiederherstellungscode als Karte; Knöpfe und Felder einheitlich, auch in den Bausteinen darunter (nur Aussehen, über `:global` in der Hülle); Texte ohne „Security-Theater“, „Ledger“, „Kind-Bastion“, „Basebau“; Texte zu Bastion-Schalter und Wetter ohne „du“, weil sie auch Eltern lesen.
 
+5. ~~Vorschläge 1–11 (PV: „Baue alles davon“).~~ Erledigt:
+   - **O6** `Seitenkopf.svelte` (Zurück mit Symbol, große Überschrift, Marke, Hinweis) für Mehr, Elternbereich, Über mich, Sicherung; Zurück aus Unterseiten von „Mehr“ führt nach „Mehr“; „Über mich“ (`UeberMich.svelte`) und „Sicherung“ als Karten.
+   - **O7** Zahl-Plaketten auf Wiederholen und Fehlerwerkstatt (ruhig, ohne Rot); Rückkehr-Hinweis kürzer; Antippen des Banners öffnet die Bastion (nur Zeiger, die Tür bleibt für Tastatur).
+   - **O8** Elternbereich: Klappkarten (nur Bericht offen), Sprungleiste bleibt oben und klappt auf, „Nach oben“; PIN groß mit Ziffernabstand, höchstens 8 Ziffern, Regel am Feld. Einzelne Ziffernfelder bewusst nicht: Ein Feld bleibt für Passwort-Manager und Tests stabil.
+   - **O9** Bericht-Umschalter als Segmente in einer Zeile; Wetter und Bastion-Schalter mit „Sie“ für Eltern und „du“ für Jugendliche (`durch`); Banner am Abend mit dunklerem Schleier und warmem Schein.
+   - **O10** Rundgang Tastatur, Screenreader, Kontrast: alle Texte ≥ 5,9 : 1, Fokus-Ring sichtbar. Behoben: Banner-Titel nicht doppelt vorgelesen; Türen und Kacheln heißen nur nach ihrem Namen, Infozeile als Beschreibung; ausgegraute Kacheln mit `aria-disabled` statt `disabled`, damit sie mit der Tastatur erreichbar bleiben; Bericht-Umschalter mit Namen; „Über mich“ nicht mehr doppelt als Region.
+
+6. ~~Zurück-Knopf auch bei Mein Stand, Wo stehe ich?, Klassenarbeit (PV: „fass an“).~~ Erledigt (O11): `ZurueckKnopf.svelte`, auch im Seitenkopf; ebenso in der Fehlerwerkstatt. Nur der Knopf in `App.svelte`, die Seiten selbst unverändert.
+
 ## Nächste Schritte (Vorschläge)
 
-- Über mich und Sicherung im selben Kartenstil.
-- Bericht (Lernkern-Baustein): Reiter „Brief / Details / Für die Lehrkraft“ brechen am Handy um.
+- Übung, Anleitung, Erstvermittlung und Wiederholen-Regal haben noch `← Zurück` (in der Lern-Oberfläche selbst).
+
+- Start: Querformat am Tablet einmal am echten Gerät ansehen.
 
 ## Wünsche aus dem anderen Strang
 
@@ -63,5 +73,7 @@ _(noch keine)_
 **Lehren:**
 
 - Infozeilen in Knöpfen werden Teil des Namens, den Screenreader und Browser-Tests sehen („Sicherung Deinen Stand …“). Dann `aria-label` mit dem Namen und `aria-describedby` für die Infozeile setzen. Sonst greifen `exact: true` und Suchen wie „Zurück“ daneben.
+- Klappkarten (`details`) verstecken Felder vor Browser-Tests. Der Helfer `elternAufklappen(page)` in `tests/e2e/ueben.spec.ts` öffnet alle Abschnitte; er steht nach jedem „Ich habe den Code aufgeschrieben“ und „Öffnen“.
+- Ausgegraute Knöpfe mit `aria-disabled` statt `disabled`: Playwright wertet beides für `toBeDisabled()`, aber nur `aria-disabled` bleibt mit Tab erreichbar. Den Klick dann selbst abfangen.
 - IDs im Elternbereich nicht mit `eltern-…` beginnen: Die Bausteine darunter nutzen selbst solche IDs (`eltern-blatt`). Die Hülle nimmt `abschnitt-…`.
 - GitHub beachtet `merge=union` nicht. Wenn `main` weiterläuft, meldet der PR einen Konflikt in den Protokollen. Dann `origin/main` lokal hineinmergen; git führt sie zusammen.
