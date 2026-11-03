@@ -958,6 +958,27 @@ test('Wetter ausprobieren: jedes Wetter zeigt das Bild ohne Fehler (Grafik Punkt
   expect(fehler).toEqual([]);
 });
 
+test('Jahreszeit ausprobieren: jede Jahreszeit zeigt das Bild ohne Fehler (Wunsch PV)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  const fehler: string[] = [];
+  page.on('pageerror', (e) => fehler.push(e.message));
+  await page.goto('./');
+  await bastionOeffnen(page, true);
+  for (const jz of ['Frühling', 'Herbst', 'Winter', 'Wie im Kalender']) {
+    if (!(await page.getByLabel('Jahreszeit ausprobieren').isVisible())) {
+      await page.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+    }
+    await page.getByLabel('Jahreszeit ausprobieren').selectOption({ label: jz });
+    await page.getByRole('button', { name: '← Zur Bastion' }).click();
+    await expect.poll(() => page.locator('.bauplatz canvas').count(), { timeout: 30_000 }).toBe(1);
+    if (jz === 'Winter') await expect(page.locator('.kulisse.jz-winter')).toBeAttached();
+  }
+  await page.waitForTimeout(1000);
+  expect(fehler).toEqual([]);
+});
+
 test('Erster Tipper gleich nach dem Öffnen geht nicht verloren (#160, Grafik Punkt 4)', async ({
   page,
 }) => {

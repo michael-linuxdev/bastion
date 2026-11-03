@@ -89,11 +89,55 @@ def rundturm(sz: Szene, x, y, r, h, dach="ziegel", dachfarbe=ZIEGEL, kh=None, *,
     return spitze
 
 
-def baum(sz: Szene, x, y, h, r, *, stamm=0.07, farbe=LAUB):
-    """Laubbaum: Stamm und Krone aus mehreren Kugeln (feste Lage)."""
+KRONE = ((0, 0, 0.7, 1.0), (-0.55, 0.25, 0.58, 0.7), (0.5, -0.15, 0.6, 0.72), (0.15, 0.5, 0.56, 0.66), (0.05, -0.25, 0.84, 0.66))
+HERBST = ((208, 124, 52), (226, 172, 64), (180, 76, 46), (196, 150, 62), (200, 100, 50))
+SCHNEE = (244, 247, 252)
+BLUETE_FRUEH = ((244, 186, 204), (250, 244, 246), (236, 160, 186))
+JAHRESZEITEN = ("fruehling", "sommer", "herbst", "winter")
+
+
+def frueh(c):
+    """Frühlingsgrün: heller und frischer als im Sommer."""
+    return tuple(round(v * 0.55 + w * 0.45) for v, w in zip(c, (156, 204, 104)))
+
+
+def blueten(sz: Szene, x, y, z, r, k, *, n=4):
+    """Kleine Blüten vorn auf einer Kugel (zur Kamera hin, sonst unsichtbar)."""
+    for j in range(n):
+        a = -math.pi / 4 + (j - (n - 1) / 2) * 0.55
+        el = 0.35 + 0.25 * ((j + k) % 2)
+        dx, dy = math.cos(a) * math.cos(el), math.sin(a) * math.cos(el)
+        sz.kugel(x + dx * r * 0.92, y + dy * r * 0.92, z + math.sin(el) * r * 0.85 * 58.79, r * 0.2, "glatt", BLUETE_FRUEH[(j + k) % 3])
+
+
+def baum(sz: Szene, x, y, h, r, *, stamm=0.07, farbe=LAUB, jz="sommer"):
+    """Laubbaum: Stamm und Krone aus mehreren Kugeln (feste Lage).
+    `jz`: Frühling hellgrün mit Blüten, Herbst bunt, Winter kahle Äste mit Schnee."""
     sz.zylinder(x, y, stamm, 0, h * 0.5, "holz", (112, 80, 52), n=14)
-    for dx, dy, dz, f in ((0, 0, 0.7, 1.0), (-0.55, 0.25, 0.58, 0.7), (0.5, -0.15, 0.6, 0.72), (0.15, 0.5, 0.56, 0.66), (0.05, -0.25, 0.84, 0.66)):
-        sz.kugel(x + dx * r, y + dy * r, h * dz, r * f, "laub", farbe, rz=r * f * 0.88)
+    if jz == "winter":
+        ast = (100, 74, 52)
+        for k, (dx, dy, dz, f) in enumerate(KRONE):
+            # Äste weit nach außen (sonst wirkt der kahle Baum wie ein Stab)
+            sx, sy = (dx * 1.5, dy * 1.5) if k else (0.12, -0.12)
+            ende = (x + sx * r, y + sy * r, h * dz + (14 if k == 0 else 0))
+            mitte = (x + sx * r * 0.45, y + sy * r * 0.45, h * (0.42 + (dz - 0.42) * 0.4))
+            sz.balken((x, y, h * 0.42), mitte, stamm * 0.7, stamm * 0.7, "holz", ast)
+            sz.balken(mitte, ende, stamm * 0.5, stamm * 0.5, "holz", ast)
+            for j, (qx, qy, qz) in enumerate(((0.35, -0.1, 0.1), (-0.3, 0.15, 0.12), (0.1, 0.32, 0.08), (-0.12, -0.3, 0.14))):
+                spitze = (ende[0] + qx * r * f, ende[1] + qy * r * f, ende[2] + h * qz * f)
+                sz.balken(ende, spitze, stamm * 0.3, stamm * 0.3, "holz", ast)
+                if j < 2:
+                    sz.kugel(spitze[0], spitze[1], spitze[2] + 1, r * 0.09 + 0.01, "glatt", SCHNEE, rz=0.02)
+            # Zweige von der Mitte aus
+            for qx, qy in ((0.3, 0.25), (-0.25, -0.3)):
+                sz.balken(mitte, (mitte[0] + qx * r * f, mitte[1] + qy * r * f, mitte[2] + h * 0.1), stamm * 0.28, stamm * 0.28, "holz", ast)
+            sz.kugel(ende[0], ende[1], ende[2] + 2, r * 0.14 * f + 0.02, "glatt", SCHNEE, rz=0.03)
+        return
+    for k, (dx, dy, dz, f) in enumerate(KRONE):
+        c = HERBST[k % len(HERBST)] if jz == "herbst" else frueh(farbe) if jz == "fruehling" else farbe
+        sz.kugel(x + dx * r, y + dy * r, h * dz, r * f, "laub", c, rz=r * f * 0.88)
+        if jz == "fruehling":
+            blueten(sz, x + dx * r, y + dy * r, h * dz, r * f, k)
 
 
 def pflanzen(sz: Szene, x0, x1, y0, y1, boden: float, reihe: int):

@@ -516,3 +516,14 @@ PV: „Wetter ist schon unterschiedlich, aber nicht viel davon auf dem Bildschir
 - **Jetzt:** Der Bauplatz wartet auf das Wetter (höchstens 1,2 s, dann ohne) und baut sich einmal auf. Gemessen mit fester Uhr an einem Tag mit Wetter „klar“: vorher 2 Aufbauten nach dem Öffnen (Bastion und Dorf), jetzt 1.
 - **Tipper vor dem fertigen Bild:** wird gemerkt und ausgeführt, sobald das Bild steht. Gemerkt wird die Stelle im Bild, nicht auf dem Bildschirm – so trifft der Tipper auch, wenn die Kamera sich bis dahin noch einpasst (vermutete Ursache des ersten roten CI-Laufs; lokal nicht nachstellbar). Der Browser-Test hält jetzt die Bildliste (`manifest.json`) zurück, bis getippt ist, und prüft am Fenster `data-bild="laedt"`. So trifft er auf jedem Rechner genau den Fall „Tipper vor dem fertigen Bild“ (vorher in der CI manchmal rot, weil das Bild dort schon fertig war oder die Kamera noch rückte). Browser-Test „Erster Tipper gleich nach dem Öffnen geht nicht verloren“ (ohne die Korrektur rot).
 - **Kamera:** Kommt die Größe des Bauplatzes (Epoche) erst nach dem ersten Einpassen, passt die Kamera sich neu ein bzw. legt die gemerkte Kamera neu, solange man sie noch nicht selbst bewegt hat.
+
+## 17. Jahreszeiten in Insel und Kulisse (Wunsch PV, 03.11.2026)
+
+PV: „Herbstlaub nur innerhalb der Insel bzw. dort, wo tatsächlich Bäume sind; die passen sich ebenfalls den Jahreszeiten an.“ Bisher färbte die Jahreszeit nur die Farben ein, im Winter lag Schnee auf den Dächern, und das Laub fiel irgendwo über das ganze Bild.
+
+- **Bäume je Jahreszeit** (`tools/grafik/g13_jahreszeiten.py`, gleicher Renderer wie G12): Frühling hellgrün mit Blüten, Sommer wie bisher, Herbst bunt (orange, gelb, rot), Winter kahle Äste mit Schnee. Büsche, Sträucher und Hecken im Winter immergrün mit Schneehaube, im Herbst mit Hagebutten. Obstbäume tragen im Sommer und Herbst Äpfel. Teiche frieren im Winter zu (Eis mit Rissen). Gilt für die Umgebung auf der Insel (Bastion, Dorf, Garten) und für die Dinge der Kulisse.
+- **Laden:** Die App lädt nur die Bilder der aktuellen Jahreszeit (`atlasBrauchtId`); fehlt ein Bild, nimmt sie das Sommerbild.
+- **Herbstlaub fällt nur unter Bäumen:** Beim Zeichnen merkt sich die Bühne die Kronen; jedes Blatt fällt von einer Krone bis zum Boden unter dem Baum und startet dann an der nächsten Krone. Ohne Bäume fällt kein Laub.
+- **Boden:** Die Insel samt Rand bekommt einen Ton je Jahreszeit (Frühling frisch, Herbst warm, Winter Raureif mit Schneeflecken). Die Kulisse tönt Felder, Wiese und Hügel genauso (`jz-…`-Klassen in `Kulisse.svelte`). Unter Wasser und im Weltraum bleibt alles, wie es ist.
+- **Zahnrad:** „Jahreszeit ausprobieren“ (Wie im Kalender, Frühling, Sommer, Herbst, Winter) – wie beim Wetter nur für die Ansicht bis zum Neuladen.
+

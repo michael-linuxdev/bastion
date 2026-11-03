@@ -48,7 +48,12 @@
   import { BEWOHNER_NAMEN, istBewohnerName } from './grafik/bewohner-namen';
   import { aktiv, gebaeudeName, tt } from './thema.svelte';
   import Kulisse from './Kulisse.svelte';
-  import { wetterMitProbe, wetterProbe } from './wetter-probe.svelte';
+  import {
+    jahreszeitMitProbe,
+    jahreszeitProbe,
+    wetterMitProbe,
+    wetterProbe,
+  } from './wetter-probe.svelte';
   import { kulisseFuer, stimmungAus } from './grafik/kulisse';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
@@ -147,7 +152,8 @@
     const id = setInterval(() => (jetzt = new Date()), 60_000);
     return () => clearInterval(id);
   });
-  const jahreszeit = $derived(jahreszeitAusDatum(jetzt));
+  /** Jahreszeit aus dem Datum, im Zahnrad zum Ausprobieren wählbar (nur Ansicht) */
+  const jahreszeit = $derived(jahreszeitMitProbe(jahreszeitProbe.wahl, jahreszeitAusDatum(jetzt)));
   let wetterEcht = $state<WetterBild>('klar');
   let regenbogenEcht = $state(false);
   let staerkeEcht = $state<WetterStaerke>('mittel');
@@ -774,6 +780,7 @@
           {bewegung}
           wetter={wetterBild}
           {regenbogen}
+          {jahreszeit}
         />
       {/if}
       <div

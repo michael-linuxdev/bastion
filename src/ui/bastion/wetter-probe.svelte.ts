@@ -3,6 +3,7 @@
  * gilt nur für die Ansicht und nur bis zum Neuladen. Wird nicht gespeichert und ändert
  * nichts am echten Wetter oder am Lernen.
  */
+import type { Jahreszeit } from './grafik/jahreszeit';
 import type { WetterBild, WetterStaerke } from './grafik/wetter';
 
 export type WetterProbe =
@@ -46,4 +47,19 @@ export function wetterMitProbe(probe: WetterProbe, echt: WetterJetzt): WetterJet
   const mit = MIT_STAERKE[probe];
   if (mit) return { ...mit, regenbogen: false };
   return { bild: probe as WetterBild, staerke: 'mittel', regenbogen: false };
+}
+
+/** Jahreszeit zum Ausprobieren (Wunsch PV 03.11.2026), wie das Wetter nur für die Ansicht */
+export type JahreszeitProbe = 'auto' | Jahreszeit;
+export const JAHRESZEIT_PROBEN: readonly JahreszeitProbe[] = [
+  'auto',
+  'fruehling',
+  'sommer',
+  'herbst',
+  'winter',
+];
+export const jahreszeitProbe = $state<{ wahl: JahreszeitProbe }>({ wahl: 'auto' });
+
+export function jahreszeitMitProbe(probe: JahreszeitProbe, echt: Jahreszeit): Jahreszeit {
+  return probe === 'auto' ? echt : probe;
 }
