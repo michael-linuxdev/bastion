@@ -52,6 +52,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 
 6. ~~Zurück-Knopf auch bei Mein Stand, Wo stehe ich?, Klassenarbeit (PV: „fass an“).~~ Erledigt (O11): `ZurueckKnopf.svelte`, auch im Seitenkopf; ebenso in der Fehlerwerkstatt. Nur der Knopf in `App.svelte`, die Seiten selbst unverändert.
 7. ~~Zurück-Knopf auch in Übung, Anleitung, Erstvermittlung, Angebot und Wiederholen-Regal (PV).~~ Erledigt (O12): `ZurueckKnopf.svelte` überall; nur der Knopf, sonst nichts an der Lern-Oberfläche geändert.
+8. ~~Neue Funktionen mit Tests absichern.~~ Erledigt (O13): `tests/e2e/oberflaeche.spec.ts` (Banner, Plaketten, erreichbare ausgegraute Kacheln, Seitenkopf, Klappkarten, Sprungleiste, PIN-Feld). `pnpm budget`: App-Hülle 182 von 250 KB.
 
 ## Nächste Schritte (Vorschläge)
 
