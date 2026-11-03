@@ -519,7 +519,7 @@ Gilt für alle Bilder des G3-Generators (`tools/grafik/g3_stil.py`). Maße, Fuß
 
 ## 13. Stil „weich gerendert“ und neue Stufenleitern (PV, 03.11.2026) – Entwurf zur Abnahme
 
-> **Stand 03.11.2026: Vorschau beim PV.** Der PV hat aus vier Stilproben (weich gerendert, Comic, Spielzeug, Klötzchen) **„weich gerendert“** gewählt. Zugleich: „Die einzelnen Abstufungen 1 bis 9 sind noch zu sinnlos, vor allem ab 4. Ein Gewächshaus Stufe 4 hat nichts mit einem Gewächshaus zu tun.“ Darum werden die Stufen neu gedacht. Erst nach Abnahme der Vorschau (Bergfried 1–9, Gewächshaus 1–5) folgen die übrigen Leitern.
+> **Stand 03.11.2026: umgesetzt für alle Themen** (Auftrag PV: „Die Leitern müssen für alle Gebäude in allen Themen passen … baue alle Objekte inklusive Boden im neuen Stil“). Der PV hat aus vier Stilproben (weich gerendert, Comic, Spielzeug, Klötzchen) **„weich gerendert“** gewählt. Zugleich: „Die einzelnen Abstufungen 1 bis 9 sind noch zu sinnlos, vor allem ab 4. Ein Gewächshaus Stufe 4 hat nichts mit einem Gewächshaus zu tun.“ Darum werden die Stufen neu gedacht. Alle Leitern stehen in §13.3; Modelle in `tools/grafik/g12_modelle.py`.
 
 ### 13.1 Stil
 
@@ -532,7 +532,7 @@ Eigener 3D-Renderer `tools/grafik/raum.py` (nur numpy und Pillow, kein Zufall): 
 3. **Wachstum:** Stufen 1–3 wachsen vor allem in die Höhe, ab Stufe 4 in den Hof hinein (Mauer, Anbau, Flügel), die letzte Stufe krönt das Ganze.
 4. **Ohne Ziffer lesbar:** Man sieht, was dazugekommen ist, weil alles andere gleich bleibt.
 
-### 13.3 Leitern (Entwurf)
+### 13.3 Leitern
 
 | Thema | Gebäude | Stufen (jede Stufe = vorige + …) |
 |---|---|---|
@@ -562,4 +562,19 @@ Eigener 3D-Renderer `tools/grafik/raum.py` (nur numpy und Pillow, kein Zufall): 
 | weltraum | Montagehalle (1–3) | 1 Gerüst · 2 Halle · 3 Rakete im Startturm |
 | weltraum | Luftschleuse (1–2) | 1 Tür · 2 Doppelschleuse mit Glaskanzel |
 
-Vorschau-Skript: `tools/grafik/stufen_raum.py` (Bergfried, Gewächshaus).
+Generatoren (alle deterministisch, nur numpy und Pillow):
+
+| Skript | Schreibt |
+|---|---|
+| `tools/grafik/raum.py` | Renderer (Körper, Licht, Schatten, Materialien, Glas, Einlagen) |
+| `tools/grafik/g12_modelle.py` | Modelle aller Gebäude, Höhenstreckung für den Umriss-Test |
+| `tools/grafik/g12_atlas.py` | `gebaeude/<thema>/e<n>/<rolle>_s<k>(_fenster).png` und Manifest |
+| `tools/grafik/g12_boden.py` | `boden/<thema>/e<n>/flaeche|flaeche_b|flaeche_hell|rand.png` |
+| `tools/grafik/g12_rest.py` | Umgebung, Kulisse-Dinge, Wesen, Bewohner |
+| `tools/grafik/sprites-g3-hinterhof.py` | Hinterhof und Startbild (aus den neuen Bildern zusammengesetzt) |
+
+Reihenfolge: `g12_atlas.py`, `g12_boden.py`, `g12_rest.py`, `sprites-g3-hinterhof.py`. Die G3-Skripte (`sprites-g3-*.py`, `sprites-g3e-*.py`) sind abgelöst und bleiben als Beleg.
+
+### 13.4 Wesen und Bewohner
+
+Aus denselben Körpern (Kugeln, Balken, Kegel), Fuß bei (32, 56) im 64 × 64-Bild wie bisher, Blick nach rechts (die App spiegelt). Ruhe: leichtes Wippen; Gehen: Beine bzw. Flügel im Takt; Reaktion: kleiner Sprung. Bewohner tragen ihr Werkzeug (Hammer, Spaten, Buch, Speer, Imkerzange).

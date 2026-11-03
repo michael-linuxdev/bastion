@@ -178,11 +178,12 @@ class Szene:
         self._neu(eb, mat, farbe, ecken, giebel=giebel, rund=("quer",) if quer else None)
 
     def kuppel(self, cx, cy, r, z, h, mat="kupfer", farbe=KUPFER):
-        z0, hh = _z(z), _z(h)
+        """Kuppel; höchstens so hoch wie breit (sonst wirkt sie wie ein Ei)."""
+        z0, hh = _z(z), min(_z(h), r * 1.05)
         ecken = np.array([(cx - r, cy - r, z0), (cx + r, cy + r, z0 + hh)])
         k = Koerper(None, mat, farbe, ecken, kugel=(cx, cy, z0, r, r, hh, z0), mitte=np.array([cx, cy, z0 + hh / 2]), radius=max(r, hh) * 1.5, rund=(cx, cy))
         self.koerper.append(k)
-        return (cx, cy, z + h)
+        return (cx, cy, z + hh * ZE)
 
     def kugel(self, cx, cy, z, r, mat="laub", farbe=LAUB, rz=None):
         cz = _z(z)
@@ -190,6 +191,86 @@ class Szene:
         ecken = np.array([(cx - r, cy - r, cz - rz), (cx + r, cy + r, cz + rz)])
         k = Koerper(None, mat, farbe, ecken, kugel=(cx, cy, cz, r, r, rz, -99.0), mitte=np.array([cx, cy, cz]), radius=max(r, rz) * 1.01)
         self.koerper.append(k)
+
+    def balken(self, a, b, breite=0.04, dicke=None, mat="holz", farbe=HOLZ, quer=(0.0, 0.0, 1.0)):
+        """Gerader Balken von a nach b (Punkte (x, y, z-Pixel)), beliebig schräg.
+        `quer` legt fest, wohin die Breite zeigt (Standard: nach oben bzw. waagrecht)."""
+        pa = np.array([a[0], a[1], _z(a[2])])
+        pb = np.array([b[0], b[1], _z(b[2])])
+        u = pb - pa
+        laenge = float(np.linalg.norm(u))
+        u = u / max(laenge, 1e-9)
+        q = np.array(quer, dtype=np.float64)
+        if abs(float(q @ u)) > 0.95:
+            q = np.array([1.0, 0, 0]) if abs(u[0]) < 0.9 else np.array([0, 1.0, 0])
+        v = q - (q @ u) * u
+        v /= np.linalg.norm(v)
+        w = np.cross(u, v)
+        hb, hd = breite / 2, (dicke if dicke is not None else breite) / 2
+        m = (pa + pb) / 2
+        eb = []
+        for ach, h in ((u, laenge / 2), (v, hb), (w, hd)):
+            eb.append((*ach, float(ach @ m + h)))
+            eb.append((*(-ach), float(-ach @ m + h)))
+        ecken = [m + su * u * laenge / 2 + sv * v * hb + sw * w * hd for su in (-1, 1) for sv in (-1, 1) for sw in (-1, 1)]
+        return self._neu(eb, mat, farbe, ecken)
+
+    def walze(self, mitte, achse, r, laenge, mat="holz", farbe=HOLZ, n=32):
+        """Zylinder mit beliebiger Achse (Wasserrad, Röhre, Tank liegend); mitte (x, y, z-Pixel)."""
+        m = np.array([mitte[0], mitte[1], _z(mitte[2])])
+        u = np.array(achse, dtype=np.float64)
+        u /= np.linalg.norm(u)
+        hilf = np.array([0, 0, 1.0]) if abs(u[2]) < 0.9 else np.array([1.0, 0, 0])
+        v = np.cross(u, hilf)
+        v /= np.linalg.norm(v)
+        w = np.cross(u, v)
+        eb = [(*u, float(u @ m + laenge / 2)), (*(-u), float(-u @ m + laenge / 2))]
+        for i in range(n):
+            t = 2 * math.pi * (i + 0.5) / n
+            nn = v * math.cos(t) + w * math.sin(t)
+            eb.append((*nn, float(nn @ m + r)))
+        ecken = [m + su * u * laenge / 2 + sv * v * r + sw * w * r for su in (-1, 1) for sv in (-1, 1) for sw in (-1, 1)]
+        return self._neu(eb, mat, farbe, ecken)
+
+    def ring(self, cx, cy, z, r, dicke=0.05, hoehe=None, mat="metall", farbe=(200, 204, 210), teile=20):
+        """Ring aus kurzen Balken (Wohnring, Röhrenring, Geländer)."""
+        for i in range(teile):
+            a0, a1 = 2 * math.pi * i / teile, 2 * math.pi * (i + 1.02) / teile
+            self.balken((cx + r * math.cos(a0), cy + r * math.sin(a0), z), (cx + r * math.cos(a1), cy + r * math.sin(a1), z), dicke, hoehe or dicke, mat, farbe)
+
+    def strecken(self, f: float) -> None:
+        """Ganze Szene in der Höhe um f strecken (Gebäude wächst; Fußabdruck bleibt)."""
+        if abs(f - 1) < 1e-9:
+            return
+        for k in self.koerper:
+            if k.ebenen is not None:
+                e = k.ebenen.copy()
+                e[:, 2] /= f
+                laenge = np.linalg.norm(e[:, :3], axis=1, keepdims=True)
+                k.ebenen = e / laenge
+            if k.kugel is not None:
+                cx, cy, cz, rx, ry, rz, zmin = k.kugel
+                k.kugel = (cx, cy, cz * f, rx, ry, rz * f, zmin * f if zmin > -50 else zmin)
+            if k.rahmen is not None:
+                x0, x1, y0, y1, z0, z1 = k.rahmen
+                k.rahmen = (x0, x1, y0, y1, z0 * f, z1 * f)
+            k.ecken = k.ecken * np.array([1.0, 1.0, f])
+            k.mitte = k.mitte * np.array([1.0, 1.0, f])
+            k.radius = k.radius * max(1.0, f)
+        for e in self.einlagen:
+            e["z0"] *= f
+            e["h"] *= f
+
+    def hoehe_px(self, n_felder: int) -> float:
+        """Sichtbare Höhe in Pixeln wie `pnpm grafik:stufen` (von oben bis zum Bildrand)."""
+        top = 0.0
+        for k in self.koerper:
+            e = k.ecken
+            if k.kugel is not None:
+                cx, cy, cz, rx, ry, rz, _ = k.kugel
+                e = np.array([(cx, cy, cz + rz)])
+            top = max(top, float((e[:, 2] * ZE - (e[:, 0] + e[:, 1]) * HH).max()))
+        return top + n_felder * HH + 4
 
     # —— zusammengesetzte Bauteile ——
     def zinnen(self, x0, x1, y0, y1, z, h=16, n=4, w=0.15, farbe=STEIN, mat="stein"):
@@ -394,6 +475,37 @@ def material(k: Koerper, p: np.ndarray, n: np.ndarray):
         glanz[:] = 0.7
     elif mat == "glatt":
         farbe *= (0.96 + 0.06 * rauschen(a, b, 7))[:, None]
+    elif mat == "paneel":
+        fa = a / 0.22 - np.floor(a / 0.22)
+        fb = b / 0.18 - np.floor(b / 0.18)
+        naht = (np.minimum(fa, 1 - fa) < 0.04) | (np.minimum(fb, 1 - fb) < 0.05)
+        farbe *= (0.96 + 0.06 * hashf(np.floor(a / 0.22).astype(np.int64), np.floor(b / 0.18).astype(np.int64)))[:, None]
+        farbe[naht] *= 0.72
+        glanz[:] = 0.2
+    elif mat == "solar":
+        fa = a / 0.07 - np.floor(a / 0.07)
+        fb = b / 0.07 - np.floor(b / 0.07)
+        farbe[(np.minimum(fa, 1 - fa) < 0.08) | (np.minimum(fb, 1 - fb) < 0.08)] = lin((180, 190, 206))
+        glanz[:] = 0.6
+    elif mat == "metall":
+        farbe *= (0.92 + 0.12 * rauschen(a, b, 5))[:, None]
+        glanz[:] = 0.4
+    elif mat == "scheibe":
+        glanz[:] = 0.8
+        farbe *= (0.85 + 0.3 * np.clip(n[:, 2], 0, 1))[:, None]
+    elif mat == "perlmutt":
+        r = rauschen(a, b, 4)
+        farbe *= (0.95 + 0.08 * r)[:, None]
+        farbe += lin((236, 214, 230)) * 0.08 * np.sin(a * 9 + b * 7)[:, None] ** 2
+        glanz[:] = 0.45
+    elif mat == "koralle":
+        r = rauschen(p[:, 0] * 2 + p[:, 2], p[:, 1] * 2 - p[:, 2], 14)
+        farbe *= (0.78 + 0.4 * r)[:, None]
+        knick = (r - 0.5) * 1.4
+    elif mat == "sand":
+        farbe *= (0.9 + 0.14 * rauschen(a, b, 30))[:, None]
+    elif mat in ("glut", "licht"):
+        glanz[:] = 0.0
     return farbe, knick, glanz
 
 
@@ -469,6 +581,9 @@ def schattieren(sz: Szene, p, n, ki, d, *, ao_strahlen=8, schatten_strahlen=3, g
     farbe[art == 4] = lin((50, 46, 44))
     glanz[art == 1] = 0.55
     leuchten = art == 1
+    for k_i in np.unique(ki):
+        if sz.koerper[k_i].mat in ("glut", "licht"):
+            leuchten[ki == k_i] = True
     # Kanten leicht runden (Fase): Normale zur Nachbarfläche neigen
     for k_i in np.unique(ki):
         k = sz.koerper[k_i]
@@ -502,27 +617,48 @@ def schattieren(sz: Szene, p, n, ki, d, *, ao_strahlen=8, schatten_strahlen=3, g
     h = LICHT + SICHT
     h /= np.linalg.norm(h)
     col += (np.clip(nb @ h, 0, 1) ** 40 * glanz * licht)[:, None] * 0.8
+    for k_i in np.unique(ki):  # Glut und Laternen leuchten auch am Tag ein wenig
+        k = sz.koerper[k_i]
+        if k.mat in ("glut", "licht"):
+            sel = ki == k_i
+            col[sel] = farbe[sel] * 0.9 + lin(k.farbe) * 0.35
     return col, leuchten
 
 
-def rendern(sz: Szene, breite: int, n_felder: int, *, s: int = 3, rand_oben: int = 4, schatten_r: float | None = None):
-    """Tagbild und Abend-Ebene (RGBA, Endgröße); Fußpunkt wie G3, oben beschnitten."""
+def rendern(sz: Szene, breite: int, n_felder: int, *, s: int = 3, rand_oben: int = 4, schatten_r: float | None = None, fest: tuple | None = None, skala: float = 1.0):
+    """Tagbild und Abend-Ebene (RGBA, Endgröße); Fußpunkt wie G3, oben beschnitten.
+    `fest=(hoehe, fuss_y)`: feste Bildgröße, Bodenpunkt (0, 0, 0) bei (breite/2, fuss_y),
+    ohne Beschnitt und ohne Bodenschatten (für Wesen). `skala` vergrößert die Szene."""
+    global HW, HH
+    alt_hw, alt_hh = HW, HH
+    HW, HH = alt_hw * skala, alt_hh * skala
+    try:
+        return _rendern(sz, breite, n_felder, s=s, rand_oben=rand_oben, schatten_r=schatten_r, fest=fest, skala=skala)
+    finally:
+        HW, HH = alt_hw, alt_hh
+
+
+def _rendern(sz: Szene, breite: int, n_felder: int, *, s, rand_oben, schatten_r, fest, skala):
+    ze = ZE * skala
     alle = np.concatenate([k.ecken for k in sz.koerper])
     hoehe_px = 4 + n_felder * HH * 2
-    # Höhe des Bilds: höchster Punkt der Szene
     cx = breite / 2
-    sy_min = ((alle[:, 0] + alle[:, 1]) * HH - alle[:, 2] * ZE).min()
-    cy0_rel = -sy_min + rand_oben + 6
-    H_end = int(math.ceil(cy0_rel + n_felder * HH + 4))
-    hoehe = max(H_end, hoehe_px)
-    cy0 = hoehe - 4 - n_felder * HH
+    if fest is not None:
+        hoehe, fy = fest
+        cy0 = fy
+    else:
+        sy_min = ((alle[:, 0] + alle[:, 1]) * HH - alle[:, 2] * ze).min()
+        cy0_rel = -sy_min + rand_oben + 6
+        H_end = int(math.ceil(cy0_rel + n_felder * HH + 4))
+        hoehe = int(max(H_end, hoehe_px))
+        cy0 = hoehe - 4 - n_felder * HH
     W, H = breite * s, hoehe * s
     jj, ii = np.mgrid[0:H, 0:W]
     sx = (ii.ravel() + 0.5) / s
     sy = (jj.ravel() + 0.5) / s
     u = (sx - cx) / HW
     v = (sy - cy0) / HH
-    o = np.stack([(u + v) / 2, (v - u) / 2, np.zeros_like(u)], axis=1) + SICHT[None, :] * 40
+    o = np.stack([(u + v) / 2, (v - u) / 2, np.zeros_like(u)], axis=1) + SICHT[None, :] * 200
     d = np.repeat(-SICHT[None, :], o.shape[0], axis=0)
 
     def auswahl(k: Koerper):
@@ -531,7 +667,7 @@ def rendern(sz: Szene, breite: int, n_felder: int, *, s: int = 3, rand_oben: int
             cxk, cyk, czk, rx, ry, rz, _ = k.kugel
             e = np.array([(cxk + a * rx, cyk + b * ry, czk + c * rz) for a in (-1, 1) for b in (-1, 1) for c in (-1, 1)])
         px = (cx + (e[:, 0] - e[:, 1]) * HW) * s
-        py = (cy0 + (e[:, 0] + e[:, 1]) * HH - e[:, 2] * ZE) * s
+        py = (cy0 + (e[:, 0] + e[:, 1]) * HH - e[:, 2] * ze) * s
         x0, x1 = max(0, int(px.min()) - 2), min(W, int(px.max()) + 3)
         y0, y1 = max(0, int(py.min()) - 2), min(H, int(py.max()) + 3)
         if x1 <= x0 or y1 <= y0:
@@ -570,6 +706,8 @@ def rendern(sz: Szene, breite: int, n_felder: int, *, s: int = 3, rand_oben: int
     ab[..., :3] = np.array([255, 200, 90]) / 255
     ab[..., 3] = abend.reshape(H, W)
     abend_bild = Image.fromarray((ab * 255).round().astype(np.uint8), "RGBA").resize((breite, hoehe), Image.LANCZOS)
+    if fest is not None:
+        return tag, abend_bild
     r = sz.schatten_r if schatten_r is None else schatten_r
     tag = bodenschatten(tag, n_felder, r)
     box = tag.getbbox()

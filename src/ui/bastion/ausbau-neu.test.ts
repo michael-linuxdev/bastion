@@ -2,18 +2,22 @@ import { describe, expect, it } from 'vitest';
 import { KATALOG } from '../../core/bastion/katalog';
 import { ausbauNeu } from './ausbau-neu';
 
-describe('Satz zum Ausbau (G4)', () => {
+describe('Satz zum Ausbau (G4, GRAFIK-SPRITES.md §13.2)', () => {
   for (const thema of ['bastion', 'dorf', 'garten', 'unterwasser', 'weltraum'] as const) {
-    it(`hat für jede Ausbau-Stufe der Epoche 1 im Thema ${thema} einen Satz`, () => {
-      for (const typ of ['kern', 'wissen', 'turm'] as const) {
+    it(`hat für jede Ausbau-Stufe im Thema ${thema} einen Satz`, () => {
+      for (const typ of ['kern', 'wissen', 'turm', 'werkstatt', 'eingang'] as const) {
         const stufen = KATALOG[typ].stufen.length;
-        for (let s = 2; s <= Math.min(stufen, typ === 'kern' ? 3 : 2); s++)
-          expect(ausbauNeu(thema, 1, typ, s)).toMatch(/\S/);
+        for (let s = 2; s <= stufen; s++)
+          expect(ausbauNeu(thema, 1, typ, s), `${typ} ${s}`).toMatch(/\S/);
       }
     });
   }
 
-  it('ohne Satz (Epoche noch nicht erneuert) gibt es nichts', () => {
-    expect(ausbauNeu('weltraum', 2, 'kern', 2)).toBeUndefined();
+  it('der Satz hängt nicht von der Epoche ab (eine Stufe, ein Bild)', () => {
+    expect(ausbauNeu('weltraum', 3, 'kern', 4)).toBe(ausbauNeu('weltraum', 2, 'kern', 4));
+  });
+
+  it('ohne Satz (Stufe 1, nichts auszubauen) gibt es nichts', () => {
+    expect(ausbauNeu('weltraum', 1, 'kern', 1)).toBeUndefined();
   });
 });

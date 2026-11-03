@@ -449,7 +449,7 @@ Ein laufendes Bauvorhaben (Neubau oder Ausbau über mehrere Lerneinheiten, Bau-R
 
 Außerdem reicht die Fläche zum Antippen jetzt bis zur Spitze der neuen, höheren Bilder (vorher galt die Höhe der alten Code-Formen).
 
-**Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Epoche, Rolle und Stufe (`bastion.ausbau-neu.<thema>.e<epoche>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`); fehlt einer (noch nicht erneuerte Themen), zeigt die App nur die Bilder.
+**Vorher/Nachher (02.11.2026):** Beim Antippen eines Gebäudes steht unter „Ausbauen“ klein die heutige und die nächste Stufe nebeneinander, dazu ein Satz, was neu dazukommt („Bekommt ein Steingeschoss, darüber Fachwerk mit Ziegeldach, einen Anbau und ein Banner.“). Dasselbe im Bau-Blatt: heutige Stufe klein, Pfeil, neue Stufe groß. Die Sätze stehen in `de.json` je Thema, Rolle und Stufe (`bastion.ausbau-neu.<thema>.<rolle>.<stufe>`, `src/ui/bastion/ausbau-neu.ts`; seit 03.11.2026 ohne Epoche, weil eine Stufe in jeder Epoche gleich aussieht, und für alle Stufen aller Themen, §14); fehlt einer, zeigt die App nur die Bilder.
 
 **Ausbau-Moment (02.11.2026):** Wird eine Stufe fertig, erscheint das neue Bild sanft (dieselbe ruhige Einblendung wie bei einem Neubau, kein Konfetti, keine Truhe, R1). Bei „Bewegung reduzieren“ wechselt das Bild ohne Einblendung. Der weiche Bau-Klang beim Ausbauen gab es schon (Sound-Stufen beachtet). Die Kamera bleibt, wo sie ist – man schaut beim Ausbauen per Antippen ohnehin auf das Gebäude.
 
@@ -473,9 +473,15 @@ Statt der leeren Himmelsfläche liegt hinter dem Bauplatz eine Kulisse, die das 
 - **Nebenbei behoben:** Der Rahmen des Bauplatz-Bilds und das Einpassen der Kamera nahmen bisher immer die Größe 12×12 (`buehneBreite()` ohne Neuberechnung). In Epoche 2–4 wurde das Bild darum gestaucht. Jetzt rechnen Rahmen, Kamera und Kulisse mit dem Bauplatz der Epoche (`buehneFuer(bauplatz)`).
 - **Stand:** nur Thema `bastion`. Die anderen Themen folgen mit eigenen Dingen (Felder und Hecken, Riff, Planet).
 
-## 14. Sprites in höherer Qualität (Wunsch PV, 02.11.2026, Auftrag Punkt 1)
+## 14. Neuer Stil „weich gerendert“ und neue Stufenleitern (PV, 03.11.2026, Auftrag Punkt 1)
 
-Regeln und Technik: `GRAFIK-SPRITES.md` §12.12. Stand 03.11.2026: **Generator fertig, wartet auf die Freigabe des PV** (Vorher/Nachher-Blatt je Thema und Fotos aus der App). Erst danach werden die Bilder des Atlas neu geschrieben („in die Breite“).
+Regeln und Technik: `GRAFIK-SPRITES.md` §13. Ablauf mit dem PV:
 
-- **Größe:** ganzer Atlas etwa 4,7 MB → etwa 5,4 MB (Gebäude als Palette-PNG; ohne Palette wären es 11 MB).
-- **Offen beim PV – Umriss-Test:** Mit geschlossenen Konturen liegen neun Stufen-Übergänge knapp unter der Grenze aus §12.6/§12.11: `kern` 7→8 und 8→9 (`bastion`, `dorf`), `kern` 5→6 (`dorf`, `unterwasser`), `kern` 8→9 (`unterwasser`), `wissen` 2→3 (`bastion`, `dorf`). Gemessen 0,079–0,097 statt 0,10 bzw. 0,20–0,21 statt 0,25. Sie lagen auch vorher darunter; nur die durchsichtigen Konturlinien hoben die Messung über die Grenze.
+1. Erster Versuch (vierfach zeichnen, feinere Materialien, §12.12): auf App-Größe kaum zu sehen („sieht ja genau so aus wie vorher“).
+2. Vier Stilproben aus einem eigenen 3D-Renderer (weich gerendert, Comic, Spielzeug, Klötzchen); Wahl des PV: **weich gerendert**.
+3. „Die Abstufungen 1 bis 9 sind noch zu sinnlos, vor allem ab 4“: Die Leitern sind neu gedacht. Jede Stufe ist dasselbe Gebäude wie die vorige plus genau ein Teil, das zur Aufgabe passt (Tabelle §13.3). Auftrag des PV: „für alle Gebäude in allen Themen, alle Objekte inklusive Boden im neuen Stil, nicht nochmal fragen“.
+
+**Umgesetzt (03.11.2026):** alle Gebäude aller fünf Themen (je 9 + 5 + 5 + 3 + 2 Stufen und 5 Zierden, `tools/grafik/g12_modelle.py`, `g12_atlas.py`), Boden (80 Kacheln, `g12_boden.py`), Umgebung, Kulisse-Dinge, Wesen und Bewohner (`g12_rest.py`); Hinterhof und Startbild werden aus den neuen Bildern zusammengesetzt (`sprites-g3-hinterhof.py`). Himmel, Wetter und Auflagen bleiben (weiche 2D-Formen, schon im passenden Stil). Ein Satz je Stufe sagt, was dazukommt (`bastion.ausbau-neu.<thema>.<rolle>.<stufe>`).
+
+- **Umriss-Test** (`atlas-stufen.test.ts`) gilt unverändert für alle Leitern: Jede Stufe ist bis Stufe 3 mindestens 15 %, ab Stufe 4 mindestens 8 % höher und unterscheidet sich im Umriss um 25 % bzw. 10 %. Wächst ein neues Teil nur in die Breite, streckt der Generator die ganze Stufe so weit in die Höhe, dass sie die Regel erfüllt (`streckung` in `g12_modelle.py`, feste Rechnung, kein Zufall).
+- **Offen beim PV:** Blick auf die neuen Leitern in der App (Fotos im PR).
