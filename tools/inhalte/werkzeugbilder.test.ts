@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { parse } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { anleitungsbild } from '../../src/ui/vermittlung/werkzeuge/anleitungsbild';
+import { dreieckAus } from '../../src/ui/vermittlung/werkzeuge/dreieck';
 import { histogrammAus } from '../../src/ui/vermittlung/werkzeuge/histogramm';
 
 function dateien(ordner: string): string[] {
@@ -42,6 +43,22 @@ describe('Werkzeug-Bilder in Erstvermittlungen', () => {
       .filter((a) => {
         const h = histogrammAus(a.parameter ?? {});
         return JSON.stringify(h.grenzen) !== JSON.stringify(a.parameter?.['grenzen']);
+      })
+      .map((a) => a.wo);
+    expect(falsch).toEqual([]);
+  });
+
+  it('jedes Dreieck zeigt alle angegebenen Beschriftungen', () => {
+    expect(angaben.filter((a) => a.werkzeug === 'dreieck@1').length).toBeGreaterThan(0);
+    const falsch = angaben
+      .filter((a) => a.werkzeug === 'dreieck@1')
+      .filter((a) => {
+        const seiten = (a.parameter?.['seiten'] ?? {}) as Record<string, unknown>;
+        const d = dreieckAus(a.parameter ?? {});
+        return (
+          Object.keys(seiten).length !== Object.keys(d.seiten).length ||
+          (a.parameter?.['rechts'] !== undefined && a.parameter['rechts'] !== d.rechts)
+        );
       })
       .map((a) => a.wo);
     expect(falsch).toEqual([]);

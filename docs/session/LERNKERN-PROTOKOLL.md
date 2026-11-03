@@ -74,3 +74,4 @@
 | 03.11.2026 | **Werkzeug `histogramm@1`:** Histogramm wie in den Aufgaben; drei Bilder in der Erstvermittlung ST.HISTOGRAMM (Klassen, gröbere Einteilung, Beispiel) |
 | 03.11.2026 | **Werkzeug `anleitungsbild@1`:** ein Bild aus einer Zeichen-Anleitung in der Erstvermittlung; Pyramide mit Höhe (KP.PYRAMIDE-HOEHEN), Kegel mit Mantellinien (KP.KEGEL); Test `werkzeugbilder.test.ts` prüft alle Werkzeug-Bilder in Inhalten |
 | 03.11.2026 | **App-Hülle kleiner:** Dreiecksskizze und Histogramm in eigene kleine Module (`pythagoras/skizze.ts`, `statistik/histogramm.ts`), damit die Werkzeuge der Erstvermittlung nicht ganze Generator-Dateien in die App-Hülle ziehen (186,5 → 178,3 KB gzip); Generatoren unverändert |
+| 03.11.2026 | **Dreiecke in weiteren Erstvermittlungen:** TR.BERECHNEN, TR.SACH, PY.SACH, PY.UMKEHRUNG; Test prüft, dass keine Dreiecks-Beschriftung wegfällt |

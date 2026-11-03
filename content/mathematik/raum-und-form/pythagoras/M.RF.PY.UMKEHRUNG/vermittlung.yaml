@@ -34,6 +34,11 @@ schritte:
     typ: beispiel
     text:
       de: 'Seiten 5, 12, 13: $25 + 144 = 169 = 13^2$, also rechtwinklig. Seiten 5, 12, 14: $169 \neq 196$, also nicht rechtwinklig.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter: { rechts: C, seiten: { a: 'a = 5', b: 'b = 12', c: 'c = 13' } },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
