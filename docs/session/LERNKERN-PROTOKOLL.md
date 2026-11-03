@@ -71,3 +71,7 @@
 | 03.11.2026 | **Dreiecksskizze:** Beschriftung der senkrechten Seite lag außerhalb des Bildes, behoben (py.seite, tr.verhaeltnis, tr.berechnen, tr.wechsel @2); Werkzeug `dreieck@1`, Bilder in PY.PYTHAGORAS und TR.BEGRIFFE |
 | 03.11.2026 | **Graphen in weiteren Erstvermittlungen:** QF.INHALTLICH (x² = 4 am Graphen), QF.FORMEL (zwei, eine, keine Nullstelle), QF.SCHNITTPUNKTE (zwei Bilder); Term unter dem Bild nur bei genau einer durchgezogenen Kurve |
 | 03.11.2026 | **Aufgabenblatt mit E:** Niveau E wählbar, sobald eine gewählte Kompetenz E-Vorlagen hat (Klasse 9); Klasse 5–8 unverändert; e2e-Test |
+| 03.11.2026 | **Werkzeug `histogramm@1`:** Histogramm wie in den Aufgaben; drei Bilder in der Erstvermittlung ST.HISTOGRAMM (Klassen, gröbere Einteilung, Beispiel) |
+| 03.11.2026 | **Werkzeug `anleitungsbild@1`:** ein Bild aus einer Zeichen-Anleitung in der Erstvermittlung; Pyramide mit Höhe (KP.PYRAMIDE-HOEHEN), Kegel mit Mantellinien (KP.KEGEL); Test `werkzeugbilder.test.ts` prüft alle Werkzeug-Bilder in Inhalten |
+| 03.11.2026 | **App-Hülle kleiner:** Dreiecksskizze und Histogramm in eigene kleine Module (`pythagoras/skizze.ts`, `statistik/histogramm.ts`), damit die Werkzeuge der Erstvermittlung nicht ganze Generator-Dateien in die App-Hülle ziehen (186,5 → 178,3 KB gzip); Generatoren unverändert |
+| 03.11.2026 | **Dreiecke in weiteren Erstvermittlungen:** TR.BERECHNEN, TR.SACH, PY.SACH, PY.UMKEHRUNG; Test prüft, dass keine Dreiecks-Beschriftung wegfällt |

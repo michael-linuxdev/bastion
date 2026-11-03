@@ -29,6 +29,11 @@ schritte:
     typ: erklaeren
     text:
       de: 'Suche das rechtwinklige Dreieck und markiere die [[Hypotenuse]]. Beim Dach ist es die halbe Breite, die [[Höhe]] und der Sparren. Bei einer Kiste brauchst du zwei Dreiecke nacheinander.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter: { rechts: C, seiten: { a: 'Höhe', b: 'halbe Breite', c: 'Sparren' } },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel

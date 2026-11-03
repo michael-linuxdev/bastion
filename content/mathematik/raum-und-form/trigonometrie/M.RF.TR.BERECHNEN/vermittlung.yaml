@@ -39,6 +39,7 @@ schritte:
     typ: beispiel
     text:
       de: '[[Hypotenuse]] 8 cm, $\alpha = 40°$, gesucht die [[Ankathete]] b: $b = 8 \cdot \cos 40° \approx 6{,}1$ cm.'
+    bild: { werkzeug: dreieck@1, parameter: { rechts: C, seiten: { b: 'b = ?', c: 'c = 8 cm' } } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

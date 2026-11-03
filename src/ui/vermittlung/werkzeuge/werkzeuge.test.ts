@@ -125,3 +125,41 @@ describe('Dreieck (dreieck@1)', () => {
     expect(b.beschreibung.de).toContain('rechte Winkel liegt bei A');
   });
 });
+
+describe('Histogramm (histogramm@1)', () => {
+  it('nimmt gültige Klassen und Häufigkeiten', async () => {
+    const { histogrammAus } = await import('./histogramm');
+    expect(histogrammAus({ grenzen: [0, 10, 20, 30], haeufig: [2, 5, 3] })).toEqual({
+      grenzen: [0, 10, 20, 30],
+      haeufig: [2, 5, 3],
+    });
+  });
+
+  it('fällt bei Unsinn auf ein kleines Standard-Histogramm zurück', async () => {
+    const { histogrammAus } = await import('./histogramm');
+    const standard = { grenzen: [0, 10, 20], haeufig: [1, 1] };
+    expect(histogrammAus({})).toEqual(standard);
+    expect(histogrammAus({ grenzen: [0, 10], haeufig: [2, 3] })).toEqual(standard);
+    expect(histogrammAus({ grenzen: [0, 20, 10], haeufig: [2, 3] })).toEqual(standard);
+    expect(histogrammAus({ grenzen: [0, 10, 20], haeufig: [2, 99] })).toEqual(standard);
+    expect(histogrammAus({ grenzen: [0, 10, 20], haeufig: [0, 0] })).toEqual(standard);
+  });
+
+  it('beschreibt das Bild mit Klassen und Häufigkeiten', async () => {
+    const { histogrammBild } = await import('./histogramm');
+    const b = histogrammBild({ grenzen: [0, 10, 20], haeufig: [2, 5] });
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.beschreibung.de).toContain('0 bis unter 10: 2');
+  });
+});
+
+describe('Anleitungsbild (anleitungsbild@1)', () => {
+  it('liefert das Bild mit der Nummer ab 1, sonst nichts', async () => {
+    const { anleitungsbild } = await import('./anleitungsbild');
+    const b = anleitungsbild({ anleitung: 'anleitung.schraegbild-kegel@1', bild: 3 });
+    expect(b?.beschreibung.de).toContain('Von S aus gehen zwei Linien');
+    expect(anleitungsbild({ anleitung: 'anleitung.schraegbild-kegel@1', bild: 9 })).toBeUndefined();
+    expect(anleitungsbild({ anleitung: 'gibt-es-nicht@1', bild: 1 })).toBeUndefined();
+    expect(anleitungsbild({})).toBeUndefined();
+  });
+});

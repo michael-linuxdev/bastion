@@ -29,6 +29,11 @@ schritte:
     typ: erklaeren
     text:
       de: 'Körperhöhe h, halbe Grundkante und Seitenhöhe $h_s$ bilden ein rechtwinkliges Dreieck mit $h_s$ als [[Hypotenuse]]. Körperhöhe, halbe [[Diagonale]] und Seitenkante s bilden ein zweites, mit s als Hypotenuse.'
+    bild:
+      {
+        werkzeug: anleitungsbild@1,
+        parameter: { anleitung: anleitung.schraegbild-pyramide@1, bild: 4 },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
