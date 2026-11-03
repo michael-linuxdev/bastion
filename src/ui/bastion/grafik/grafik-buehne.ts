@@ -1848,8 +1848,117 @@ export async function buehneErstellen(
     }
   };
 
+  /**
+   * Baustelle als kleines Schauspiel (Wunsch PV, 03.11.2026, Punkt 5): neben jedem laufenden
+   * Bauvorhaben ein hölzerner Kran, dessen Ausleger langsam hin und her schwenkt und eine
+   * Last hebt und senkt; auf jeder fertigen zweiten Gerüst-Ebene arbeitet jemand mit dem
+   * Hammer. Bei „ruhig“ steht alles still. Kein Fortschritt hängt davon ab – es ist Bild.
+   */
+  let baustellen: {
+    kran: Graphics;
+    leute: Graphics;
+    mast: { gx: number; gy: number };
+    hoehe: number;
+    arm: number;
+    pos: Position;
+    typ: GebaeudeTyp;
+    hoeheZiel: number;
+    ebenen: number;
+    fertig: number;
+    n: number;
+  }[] = [];
+  const baustelleZeichnen = (jetzt: number) => {
+    const bewegt = tickerAn(bewegung);
+    const t = bewegt ? jetzt / 1000 : 0;
+    const holz = 0x7a5232;
+    const dunkel = 0x4a3220;
+    for (const b of baustellen) {
+      const { kran: g, mast, hoehe: h, arm } = b;
+      g.clear();
+      const fuss = punkt(mast.gx, mast.gy);
+      const oben = { x: fuss.x, y: fuss.y - h };
+      // Mast: zwei Stangen mit Querstreben, Fuß aus Balken
+      g.moveTo(fuss.x - 7, fuss.y + 2)
+        .lineTo(fuss.x + 7, fuss.y - 2)
+        .stroke({ width: 3, color: dunkel, cap: 'round' });
+      for (const dx of [-1.8, 1.8])
+        g.moveTo(fuss.x + dx, fuss.y)
+          .lineTo(oben.x + dx * 0.6, oben.y)
+          .stroke({ width: 2, color: holz, cap: 'round' });
+      for (let k = 1; k < 6; k++) {
+        const y0 = fuss.y - (h * (k - 1)) / 6;
+        const y1 = fuss.y - (h * k) / 6;
+        g.moveTo(fuss.x - 1.8, y0)
+          .lineTo(fuss.x + 1.8, y1)
+          .stroke({ width: 1, color: dunkel, alpha: 0.8 });
+      }
+      // Ausleger schwenkt langsam zwischen zwei Richtungen (Feldebene, über der Baustelle)
+      const winkel = Math.PI * 0.95 + Math.sin(t * 0.28 + b.n * 2.1) * 0.55;
+      const richtung = { x: Math.cos(winkel), y: Math.sin(winkel) };
+      const ort = (f: number) => {
+        const p = punkt(mast.gx + richtung.x * arm * f, mast.gy + richtung.y * arm * f);
+        return { x: p.x, y: p.y - h };
+      };
+      const spitze = ort(1);
+      const gegen = ort(-0.35);
+      g.moveTo(gegen.x, gegen.y)
+        .lineTo(spitze.x, spitze.y)
+        .stroke({ width: 2.4, color: holz, cap: 'round' });
+      // Spannseil vom Mastkopf zur Spitze, Gegengewicht hinten
+      g.moveTo(oben.x, oben.y - 7)
+        .lineTo(spitze.x, spitze.y)
+        .moveTo(oben.x, oben.y - 7)
+        .lineTo(gegen.x, gegen.y)
+        .stroke({ width: 0.8, color: dunkel, alpha: 0.85 });
+      g.moveTo(oben.x, oben.y)
+        .lineTo(oben.x, oben.y - 7)
+        .stroke({ width: 2, color: holz, cap: 'round' });
+      g.rect(gegen.x - 3, gegen.y - 1, 6, 5).fill(0x8c8478);
+      // Last hebt und senkt sich am Seil (ein Steinblock auf Holz)
+      const haken = ort(0.72);
+      const hub = 0.5 - 0.5 * Math.cos(t * 0.5 + b.n);
+      const lastY = haken.y + 6 + hub * (h * 0.7);
+      g.moveTo(haken.x, haken.y).lineTo(haken.x, lastY).stroke({ width: 0.8, color: dunkel });
+      g.rect(haken.x - 4, lastY, 8, 5)
+        .fill(0xb4aa98)
+        .stroke({ width: 0.8, color: dunkel, alpha: 0.7 });
+
+      // Arbeiter auf dem Gerüst: je zwei fertige Ebenen einer, höchstens zwei
+      const l = b.leute;
+      l.clear();
+      const [w, tt] = KATALOG[b.typ].groesse;
+      const anzahl = Math.min(2, Math.max(1, Math.floor(b.fertig / 2)));
+      if (b.fertig === 0) continue;
+      for (let i = 0; i < anzahl; i++) {
+        const ebene = Math.max(1, b.fertig - i * 2);
+        const z = (b.hoeheZiel * ebene) / b.ebenen;
+        // Auf dem Laufbrett vorn, links und rechts der Mitte
+        const p = punkt(b.pos.x + w * (i === 0 ? 0.75 : 0.3), b.pos.y + tt + 0.05);
+        const x = p.x;
+        const y = p.y - z;
+        const schlag = Math.max(0, Math.sin(t * 5.2 + i * 1.9 + b.n));
+        // Körper, Kopf, Mütze, Arm mit Hammer
+        l.roundRect(x - 2.2, y - 9, 4.4, 7, 1.8).fill(i === 0 ? 0x5a7aa0 : 0x8a5a3a);
+        l.circle(x, y - 11, 2.2).fill(0xe6c09a);
+        l.ellipse(x, y - 12.6, 2.4, 1.1).fill(0x6a4a2a);
+        const ax = x + 2 + Math.cos(-0.6 - schlag * 1.2) * 4.5;
+        const ay = y - 7 + Math.sin(-0.6 - schlag * 1.2) * 4.5;
+        l.moveTo(x + 1.6, y - 7)
+          .lineTo(ax, ay)
+          .stroke({ width: 1.4, color: 0xe6c09a, cap: 'round' });
+        l.rect(ax - 1, ay - 2, 2.6, 2.2).fill(0x5a5a5a);
+        l.moveTo(x - 1, y - 2)
+          .lineTo(x - 1.2, y)
+          .moveTo(x + 1, y - 2)
+          .lineTo(x + 1.2, y)
+          .stroke({ width: 1.2, color: 0x3a3a44, cap: 'round' });
+      }
+    }
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
+    if (baustellen.length > 0) baustelleZeichnen(jetzt);
     if (fahnenTuecher.length > 0) fahnenWehen(jetzt);
     if (muehlen.length > 0) muehlenDrehen(jetzt);
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
@@ -2021,6 +2130,7 @@ export async function buehneErstellen(
         }
       }
       gebaeude.removeChildren().forEach((c) => c.destroy());
+      baustellen = [];
       const g = new Graphics();
       g.zIndex = 0;
       if (a.hinterhof && a.hinterhof.length > 0) {
@@ -2668,7 +2778,32 @@ export async function buehneErstellen(
         geruest(stueck, v.pos, v.typ, hoeheZiel, v.bedarf, v.fortschritt);
         stueck.zIndex = (v.pos.x + v.pos.y + (vw + vt) / 2) * 10 + 5;
         gebaeude.addChild(stueck);
+        // Kran und Arbeiter (Wunsch PV Punkt 5: Bauen als kleines Schauspiel), nur über Land
+        if (istLandBildart(art)) {
+          const kran = new Graphics();
+          // Der Kran steht hinten rechts neben der Baustelle
+          const mast = { gx: v.pos.x + vw + 0.45, gy: v.pos.y + 0.15 };
+          kran.zIndex = (mast.gx + mast.gy) * 10 + 4;
+          const leute = new Graphics();
+          leute.zIndex = stueck.zIndex + 1;
+          gebaeude.addChild(kran, leute);
+          const { ebenen, fertig } = geruestEbenen(v.bedarf, v.fortschritt);
+          baustellen.push({
+            kran,
+            leute,
+            mast,
+            hoehe: hoeheZiel * 1.12 + 10,
+            arm: Math.max(1.3, Math.max(vw, vt) * 0.95),
+            pos: v.pos,
+            typ: v.typ,
+            hoeheZiel,
+            ebenen,
+            fertig,
+            n: baustellen.length,
+          });
+        }
       }
+      baustelleZeichnen(performance.now());
       if (a.vorschlag) {
         const v = a.vorschlag;
         raute(g, v.pos, v.typ, 0.05).fill({ color: farben.auswahl, alpha: 0.16 });
