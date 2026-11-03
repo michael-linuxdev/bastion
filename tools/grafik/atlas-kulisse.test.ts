@@ -49,4 +49,42 @@ describe('Kulisse mit Leben (G14, Wunsch PV)', () => {
     if (!k) throw new Error('dorf');
     expect(kulissenDinge(16, 16, k)).toEqual(kulissenDinge(16, 16, k));
   });
+
+  it('Varianten (G15): jede Form hat ein Bild, Pflanzliches auch je Jahreszeit', () => {
+    for (const thema of THEMEN) {
+      const k = kulisseFuer(thema);
+      if (!k) throw new Error(thema);
+      for (const [name, n] of Object.entries(k.varianten))
+        for (let v = 2; v <= n; v++) {
+          expect(existsSync(datei(thema, `${name}_${v}`)), `${thema}/${name}_${v}`).toBe(true);
+          if (k.jahreszeitDinge.includes(name))
+            for (const jz of JZ)
+              expect(existsSync(datei(thema, `${name}_${v}_${jz}`)), `${name}_${v}_${jz}`).toBe(
+                true,
+              );
+        }
+    }
+  });
+
+  it('eigene Szenerie: anderer Startwert, andere Umgebung; gleicher Startwert, gleiche', () => {
+    const k = kulisseFuer('weltraum');
+    if (!k) throw new Error('weltraum');
+    const a = kulissenDinge(12, 12, k, 0);
+    const b = kulissenDinge(12, 12, k, 123456);
+    expect(kulissenDinge(12, 12, k, 123456)).toEqual(b);
+    expect(b).not.toEqual(a);
+    // Varianten kommen vor, alle Formen
+    const formen = new Set(b.filter((d) => d.bild === 'kraterfeld').map((d) => d.variante ?? 1));
+    expect(formen.size).toBeGreaterThan(1);
+  });
+
+  it('oben und unten etwa gleich voll (PV: unten waren mehr)', () => {
+    const k = kulisseFuer('bastion');
+    if (!k) throw new Error('bastion');
+    const d = kulissenDinge(12, 12, k).filter((x) => Math.abs(x.gx - x.gy) < 14);
+    // nah am Bauplatz, bis 14 Felder darüber bzw. darunter (Bildschirm-y folgt gx + gy)
+    const oben = d.filter((x) => x.gx + x.gy < 0 && x.gx + x.gy > -28).length;
+    const unten = d.filter((x) => x.gx + x.gy > 24 && x.gx + x.gy < 52).length;
+    expect(oben / unten).toBeGreaterThan(0.8);
+  });
 });

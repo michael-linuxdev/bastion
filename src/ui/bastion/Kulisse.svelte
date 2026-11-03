@@ -37,6 +37,7 @@
     wetter = 'klar',
     regenbogen = false,
     jahreszeit = 'sommer',
+    szenerie = 0,
   }: {
     thema: KulissenThema;
     themaName: string;
@@ -48,6 +49,8 @@
     wetter?: WetterBild;
     regenbogen?: boolean;
     jahreszeit?: Jahreszeit;
+    /** Eigene Szenerie des Kindes (gewürfelter Startwert), 0 = Grundszenerie */
+    szenerie?: number;
   } = $props();
 
   /** Feste Plätze im Meer rund um den Bauplatz (Felder), kein Zufall */
@@ -102,9 +105,9 @@
   const hoch = $derived(HORIZONT.hoehe * lage.horizontSkala);
   const wasserFern = $derived(hY - (HORIZONT.hoehe - HORIZONT.wasser) * lage.horizontSkala);
   const dinge = $derived(
-    kulissenDinge(platz.breite, platz.tiefe, thema).map((d) => ({
+    kulissenDinge(platz.breite, platz.tiefe, thema, szenerie).map((d) => ({
       ...d,
-      bild: dingBild(thema, d.bild, jahreszeit),
+      bild: dingBild(thema, d.bild, jahreszeit, d.variante),
       tier: thema.leben.includes('grasen') && (d.bild === 'kuh' || d.bild === 'schaf'),
       ...punkt(d.gx, d.gy, platz),
     })),

@@ -30,6 +30,7 @@
   import { bildartVonThema } from './grafik/bildart';
   import { istLandBildart } from './grafik/thema-partikel';
   import Wetterschicht from './Wetterschicht.svelte';
+  import { szenerie, szenerieLaden } from './szenerie.svelte';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { buehneFuer, himmelFuer, punkt as feldPunkt } from './grafik/iso';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
@@ -223,6 +224,7 @@
   let nurWiederhergestellt = false;
   let kameraGestartet = false;
   let bewohnerNamen = $state<Record<string, string>>({});
+  szenerieLaden();
   void Promise.all([kameraWahl(), bewohnerNamenWahl()]).then(([k, n]) => {
     gemerkteKamera = k;
     bewohnerNamen = Object.fromEntries(n);
@@ -781,6 +783,7 @@
           wetter={wetterBild}
           {regenbogen}
           {jahreszeit}
+          szenerie={szenerie.startwert}
         />
       {/if}
       <div

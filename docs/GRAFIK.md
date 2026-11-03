@@ -543,3 +543,11 @@ PV: „Die Kulissen sind noch zu viel freie Fläche, die mit Leben gefüllt werd
 - **Szenerie bis weit hinaus:** keine Sperre mehr an den Seiten (beim Verschieben sah man sonst leere Fläche), Verteilung bis 44 Felder; oben (bis zum Horizont) etwas dichter als unten, damit beide Hälften gleich voll wirken. Gezeichnet wird nur, was im Bild oder knapp daneben liegt.
 - **Himmel:** ruhige Wolken über dem Horizont (Land und Meer), die beim Verschieben nur wenig mitwandern; bei Regen und Sturm grauer, nachts kaum zu sehen. Vor der Bastion ferne Segel auf der Horizontlinie.
 
+### 18.2 Vielfalt und eigene Umgebung (Wunsch PV, 03.11.2026)
+
+PV: „Wir brauchen mehr unterschiedliche, z. B. Kraterfelder und Sandbänke und Bäume, einfach alles unterschiedlich (jeder Schüler kann zufällig eine Szenerie generieren).“
+
+- **Varianten** (`tools/grafik/g15_varianten.py`, 46 Bilder): von Sandbank, Riff, Acker, Baumgruppe (Bastion-Dorf und Garten, jetzt auch mit Nadelbäumen, im Winter grün mit Schnee), Beet (auch rund), Seegras, Sandrippel, Kraterfeld, Geröll und Eisbrocken je drei Formen (`<name>_2`, `<name>_3`), Pflanzliches je Jahreszeit. Welche Form wo steht, legt `kulissenDinge` fest (`KulissenThema.varianten`).
+- **Eigene Umgebung:** Im Zahnrad „Neue Umgebung würfeln“ (und „Ursprüngliche Umgebung“). Der Startwert wird als Einstellung `basebau.szenerie` gespeichert (Ereignis wie die Kamera, keine Schemaänderung) und mischt Lage, Auswahl, Form und Größe aller Dinge der Kulisse neu; auch die sechs Plätze am Bauplatz. Echter Zufall nur beim Antippen (`src/ui/plattform/zufall.ts`), danach fest. Nur Aussehen: keine Belohnung, nicht ans Lernen gebunden, jederzeit neu oder zurück (R1). 0 = Grundszenerie wie bisher.
+- **Oben und unten gleich voll:** Test prüft, dass über dem Bauplatz etwa so viele Dinge stehen wie darunter.
+

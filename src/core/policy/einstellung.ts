@@ -115,6 +115,15 @@ export const KAMERA_SCHLUESSEL = 'basebau.kamera';
  */
 export const BEWOHNER_NAMEN_SCHLUESSEL = 'basebau.bewohner-namen';
 
+/**
+ * Eigene Szenerie (Wunsch PV 03.11.2026): Startwert für die Umgebung der Bastion – welche
+ * Dinge wo stehen und in welcher Form. Nur Aussehen, keine Belohnung, nicht ans Lernen
+ * gebunden (R1). 0 oder fehlend = Grundszenerie.
+ */
+export const SZENERIE_SCHLUESSEL = 'basebau.szenerie';
+export const szenerieAus = (wert: unknown): number =>
+  typeof wert === 'number' && Number.isInteger(wert) && wert > 0 && wert < 2 ** 32 ? wert : 0;
+
 /** Hell, dunkel oder wie das System (GRAFIK §2): Einstellung `darstellung.modus`. */
 export const MODUS_SCHLUESSEL = 'darstellung.modus';
 export const MODI = ['system', 'hell', 'dunkel'] as const;
