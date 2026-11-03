@@ -4,7 +4,7 @@
 > Gilt zusammen mit `docs/session/KLASSE-9-12.md` (Auftrag K-30, Phasen, Entscheidungen 1–15) und `docs/LEHRPLAN.md` §8f (Klasse 10, 22 Kompetenzen) und §8g (Jahrgangsstufen 11/12, 55 Kompetenzen). Strang **Lernkern**.
 > **Noch nichts davon ist gebaut.** Die Datei ist ein Entwurf: Was hier steht, darf beim Bauen besser werden. Dann bitte hier nachtragen.
 
-Stand: 03.11.2026 · 77 Kompetenzen geplant (Klasse 10: 22, Jgst. 11/12: 55, davon 7 nur LK) · Offene Fragen an den PV: §7
+Stand: 03.11.2026 · 77 Kompetenzen geplant (Klasse 10: 22, Jgst. 11/12: 55, davon 7 nur LK) · Fragen an den PV beantwortet (§7), offen nur die genaue Rundungsregel aus den PDFs
 
 ---
 
@@ -74,7 +74,7 @@ Etwa **37 PRs**. Jeder PR: ein Feld (oder ein Baustein), ein Commit je Feld, Pro
 | **B9b Jgst. 11/12 und Kurs** | Abitur GK/LK | `KLASSEN` um 11 (für „11/12“); Einstellung `kurs: gk \| lk` neben der Schulart (kein Datenbankschema, Einstellung wie Schulart); `kompetenz.yaml` → `sachsen.gymnasium.kurs: [gk, lk]` oder `[lk]`; INHALTSFORMAT §3 nachtragen | Kern: LK-Kompetenz fehlt bei GK; e2e Kurswahl |
 | **`graph@1` erweitern** | EX, LG, TF, FS, GW, AB, NV | Heute nur `gerade`, `parabel`, `potenz`, `wurzel`, `kubikwurzel` mit a, d, e. Neu: Arten `exp` (Basis als Parameter `basis`, auch e), `log`, `sin`, `cos`, `glocke` (μ, σ); Regler `b` für f(b·x) (Periode). Bestehende Bilder unverändert (Test) | werkzeuge.test.ts: alte Parameter geben dasselbe Bild |
 | **`dreieck@1` erweitern** | AD | Heute immer rechtwinklig (`rechts`). Neu: `winkel: {alpha, beta}` für beliebige Dreiecke, Beschriftung von Winkeln | werkzeuge.test.ts |
-| **B10 hilfsmittelfrei** | Teil A Abitur/RS | Vorlagenfeld `hilfsmittelfrei: true`; Pflicht-Test: Lösung ganzzahlig oder Bruch mit Nenner ≤ 12 oder „schöner“ Wert aus fester Liste (√2, π, e, ln 2 …) | Pflicht-Test in `pflichttests.ts` (optional per Vorlage) |
+| **B10 hilfsmittelfrei** | Teil A Abitur/RS | Vorlagenfeld `hilfsmittelfrei: true`, in der App als Kennzeichen „ohne Taschenrechner“ sichtbar (§7 Frage 2); Pflicht-Test: Lösung ganzzahlig oder Bruch mit Nenner ≤ 12 oder „schöner“ Wert aus fester Liste (√2, π, e, ln 2 …) | Pflicht-Test in `pflichttests.ts` (optional per Vorlage) |
 | **B7 `tabelle`** | Wertetabellen, Verteilungen, Vierfeldertafel, kumulierte Binomialtabelle | SVG-Baustein in `svg.ts` + Feld `beschreibung` für Vorlesen (wie `bild`) | Snapshot und Lesbarkeit (Textlänge) |
 | **`stabdiagramm`** | ZG, BV (Verteilung) | SVG wie `histogramm` mit Stäben statt Säulen; Wahrscheinlichkeiten an der Achse | Test: Stabhöhen = Werte |
 | **`baum`** | ZF/WS: Baumdiagramm mit Pfadwahrscheinlichkeiten | SVG-Baustein; Wahrscheinlichkeiten als Text an den Ästen; später Eingabe an Ästen über `felder-eingabe` | Test: Summe je Knoten = 1 |
@@ -365,18 +365,16 @@ Zum Vergleich Klasse 9: 30 Kompetenzen, 69 Vorlagen, rund 25 PRs. Klasse 10 ist 
 
 ---
 
-## 7. Offene Fragen an den PV (vor dem Bauen beantworten)
+## 7. Fragen an den PV – beantwortet am 03.11.2026
 
-1. **Kurswahl GK/LK in der App (B9b):** Wo soll sie stehen – bei der Klasse (Profil) oder als Einstellung beim Üben? *Empfehlung:* im Profil neben der Schulart, änderbar; ohne Angabe gilt GK, LK-Kompetenzen bleiben dann ausgeblendet.
-2. **Hilfsmittelfrei (B10):** Sollen Teil-A-Aufgaben in der App als „ohne Taschenrechner“ gekennzeichnet werden (Symbol), oder nur intern für spätere Prüfungen? *Empfehlung:* nur intern, Kennzeichnung erst mit den Prüfungen (U7).
-3. **Oberschule Klasse 10:** OS hat kein LG, FS.TRANSFORMATION, FS.VERKNUEPFEN, FS.FOLGEN, ZG.STREUUNG; GY hat kein KP.STUMPF. Soll die App diese Kompetenzen bei der falschen Schulart **ausblenden** oder als „Zusatz“ anbieten? *Empfehlung:* ausblenden, wie schon bei 5–9 über `sachsen`.
-4. **Werkzeuge:** Vier neue Werkzeuge (`einheitskreis@1`, `sekante@1`, `streifen@1`, `vierfelder@1`) und drei SVG-Bausteine (`tabelle`, `stabdiagramm`, `baum`, später `raum3d`). Sollen Vorschaubilder vor dem Einbau in die Inhalte zum PV (wie bei `graph@1`)? *Empfehlung:* ja, je Werkzeug ein Bildschirmfoto im Bericht, Einbau trotzdem gleich.
-5. **Rechnerergebnisse (Teil B):** Bei Bayes, Binomialtabellen und Exponentialgleichungen rechnet man gerundet. Reicht `runden: 2` (B3), oder sollen auch 4 Stellen für Wahrscheinlichkeiten möglich sein? *Empfehlung:* je Vorlage wählbar, Wahrscheinlichkeiten auf 4 Stellen oder in Prozent auf 1 Stelle.
-6. **Tempo:** Klasse 10 in einer Sitzung, 11/12 in zwei bis drei Sitzungen? Und wieder „voll je Kompetenz“ (Entscheidung 12) statt erst die Breite? *Empfehlung:* voll je Kompetenz; Klasse 10 zuerst ganz, dann eine Vorschau für den PV, dann 11/12.
-7. **Phase C (KI-Prüfung):** nach Klasse 10 gleich für 9 und 10 gemeinsam, oder erst am Ende für 9–12? *Empfehlung:* nach Klasse 10 für 9 und 10, damit Fehler früh auffallen.
-
----
+1. **Kurswahl GK/LK:** im **Profil** neben der Schulart, änderbar; ohne Angabe gilt GK, LK-Kompetenzen bleiben dann ausgeblendet. (Wie empfohlen.)
+2. **Hilfsmittelfrei:** **in der App gekennzeichnet** (abweichend von der Empfehlung). Folge für B10: Vorlagen mit `hilfsmittelfrei: true` zeigen beim Üben ein Kennzeichen „ohne Taschenrechner“ (Symbol mit Text für die Vorlese-Funktion, Text in der Übersetzungsdatei). Das ist eine Änderung der Lern-Oberfläche: eigener PR, vorhandene Aufgaben sehen gleich aus (Test), Vorschaubild für den PV.
+3. **Oberschule:** Themen, die es an der Oberschule nicht gibt, werden **ausgeblendet, wenn Oberschule gewählt ist** (über `sachsen.oberschule`). Umgekehrt KP.STUMPF beim Gymnasium ebenso.
+4. **Werkzeuge:** **Vorschaubild vor dem Einbau.** Je neues Werkzeug und je neuer SVG-Baustein ein Bildschirmfoto an den PV; in Inhalte eingebaut wird erst nach seinem Ok. Bis dahin an Feldern weiterbauen, die das Werkzeug nicht brauchen (Reihenfolge in §1 entsprechend tauschen).
+5. **Runden:** *PV fragt: Was sagt der Lehrplan?* Antwort aus den Unterlagen im Repository: **Eine feste Stellenzahl steht dort nicht.** Die ausgewerteten Lehrpläne verlangen „Ergebnisse überschlagen und sinnvoll runden“ bzw. „Ergebnis mit sinnvoller Genauigkeit angeben“ (`LEHRPLAN.md` §8, z. B. M.ZO.BR.SACH, M.GM.GR.SACH). Die Lehrplan-PDFs und Musteraufgaben liegen nicht im Repository (`docs/quellen/README.md`); dort ist eine genaue Regel für Wahrscheinlichkeiten nicht belegt. **Vorschlag bis zur Klärung:** Rundung je Vorlage wie in der Aufgabe angegeben („auf Hundertstel“, „in Prozent auf eine Stelle“); bei Wahrscheinlichkeiten **vier Stellen nach dem Komma oder Prozent mit einer Stelle**, beide Schreibweisen gelten als richtig; eine genauer oder etwas anders gerundete Eingabe bekommt den Hinweis „richtig, aber anders gerundet“ (B3). Bei der nächsten Sitzung mit den PDFs (Musteraufgaben Abitur, Erwartungshorizonte) prüfen und hier festhalten.
+6. **Tempo:** **eine Sitzung für Klasse 10, zwei bis drei für 11/12**, voll je Kompetenz (wie Entscheidung 12).
+7. **KI-Prüfung (Phase C):** **erst am Ende**, für Klasse 9 bis 12 gemeinsam.
 
 ## 8. Startsatz für die nächste Sitzung
 
-„Lies CLAUDE.md, `docs/session/KLASSE-9-12.md` und `docs/session/KLASSE-10-12-BAUPLAN.md`. Arbeite im Strang Lernkern. Stelle die offenen Fragen aus §7 des Bauplans, falls sie noch nicht beantwortet sind. Dann Etappe 10-0 (Klasse 10 wählbar) und weiter in der Reihenfolge aus §1, je Feld ein PR, nach jedem PR kurz melden.“
+„Lies CLAUDE.md, `docs/session/KLASSE-9-12.md` und `docs/session/KLASSE-10-12-BAUPLAN.md`. Arbeite im Strang Lernkern. Die Fragen in §7 sind beantwortet; zuerst die Rundungsregel mit den Lehrplan-PDFs klären, falls der PV sie bereitstellt. Dann Etappe 10-0 (Klasse 10 wählbar) und weiter in der Reihenfolge aus §1, je Feld ein PR, nach jedem PR kurz melden.“

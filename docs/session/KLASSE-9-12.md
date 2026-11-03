@@ -115,6 +115,8 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 16. **Klasse 10 bis 12 vorbereiten** (PV, 03.11.2026, 11:20): „in voller Tiefe vorbereiten für die nächste Sitzung“. Ergebnis: `docs/session/KLASSE-10-12-BAUPLAN.md` mit Reihenfolge, PR-Schnitt, Bausteinen, Vorlagen G/M/E je Kompetenz, Fehlvorstellungen und offenen Fragen (§7). Noch nichts gebaut.
 
+17. **Antworten zum Bauplan 10–12** (PV, 03.11.2026, 11:45): Kurswahl im Profil; „ohne Taschenrechner“ **in der App gekennzeichnet**; Oberschul-fremde Themen bei Schulart Oberschule ausgeblendet; Vorschaubild jedes neuen Werkzeugs **vor** dem Einbau; Runden: Lehrplan nennt keine feste Stellenzahl („sinnvoll runden“), Vorschlag vier Stellen oder Prozent mit einer Stelle bis zur Prüfung mit den PDFs; eine Sitzung für Klasse 10, zwei bis drei für 11/12; KI-Prüfung erst am Ende. Einzelheiten in `KLASSE-10-12-BAUPLAN.md` §7.
+
 ### Inhaltsdurchsicht Klasse 9 (03.11.2026)
 
 Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg). Behoben (Generatoren in Fassung 2, alte Fassung bleibt): doppelte Möglichkeit „4-mal“ bei Kugel mit k = 2 (jetzt k = 3 oder 4) und „Es wird“ für die Oberfläche; „zwischen h und die halbe Diagonale“; „Gesucht ist den Abschnitt q“; ungekürzte Hochzahl $16^{\frac{2}{4}}$; „$10^1 = 10 = 10$“; Klammern um positive x in der Wertetabelle. Vorlage PY.UMKEHRUNG.PRUEFEN fragt auf G nicht mehr nach der Lage des Winkels. ST.MANIPULATION.ERKENNEN: G zeigt abgeschnittene Achse und absolute Zahlen, E Prozentpunkte und vorgetäuschte Genauigkeit (neuer, optionaler Parameter `stufe`, ohne Angabe wie bisher).
@@ -150,4 +152,4 @@ Je PR eine Zeile unten in `docs/session/LERNKERN-PROTOKOLL.md`. Stand dieses Auf
 
 ## Startsatz für eine neue Sitzung
 
-„Lies CLAUDE.md, `docs/session/KLASSE-9-12.md` und `docs/session/KLASSE-10-12-BAUPLAN.md`. Arbeite im Strang Lernkern. Stelle die offenen Fragen aus §7 des Bauplans, dann Etappe 10-0 und weiter nach §1 des Bauplans.“
+„Lies CLAUDE.md, `docs/session/KLASSE-9-12.md` und `docs/session/KLASSE-10-12-BAUPLAN.md`. Arbeite im Strang Lernkern. Die Fragen in §7 des Bauplans sind beantwortet; dann Etappe 10-0 und weiter nach §1 des Bauplans.“
