@@ -58,6 +58,8 @@ import {
   ZOOM_SCHLUESSEL,
   KAMERA_SCHLUESSEL,
   BEWOHNER_NAMEN_SCHLUESSEL,
+  SZENERIE_SCHLUESSEL,
+  szenerieAus,
   KLASSE_SCHLUESSEL,
   klasseAus,
   SCHULART_SCHLUESSEL,
@@ -697,6 +699,17 @@ export async function bewohnerNamenWahl(): Promise<ReadonlyMap<string, string>> 
   }
   return map;
 }
+
+/** Eigene Szenerie der Umgebung (Startwert), 0 = Grundszenerie */
+export async function szenerieWahl(): Promise<number> {
+  const inst = await bereit();
+  if (!inst) return 0;
+  const w = await einstellung(db, inst.profil, SZENERIE_SCHLUESSEL).catch(() => undefined);
+  return szenerieAus(w);
+}
+
+export const szenerieSetzen = (startwert: number) =>
+  setze(SZENERIE_SCHLUESSEL, szenerieAus(startwert), 'jugendlich');
 
 export const bewohnerNamenSetzen = (namen: ReadonlyMap<string, string>) => {
   const text = [...namen.entries()]

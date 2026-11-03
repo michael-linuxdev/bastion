@@ -50,6 +50,7 @@
     WETTER_PROBEN,
     wetterProbe,
   } from './wetter-probe.svelte';
+  import { szenerie, szenerieWuerfeln, szenerieZurueck } from './szenerie.svelte';
   import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
   import Hinterhof from './Hinterhof.svelte';
   import {
@@ -866,6 +867,18 @@
         </label>
         <p class="leise">{tt('bastion.wetter-probe-erklaerung')}</p>
 
+        <div class="szenerie-knoepfe">
+          <button type="button" onclick={() => void szenerieWuerfeln()}>
+            {tt('bastion.szenerie.wuerfeln')}
+          </button>
+          {#if szenerie.startwert !== 0}
+            <button type="button" class="leise-knopf" onclick={() => void szenerieZurueck()}>
+              {tt('bastion.szenerie.zurueck')}
+            </button>
+          {/if}
+        </div>
+        <p class="leise">{tt('bastion.szenerie.erklaerung')}</p>
+
         {#if wetterEinstellen}
           <WetterEinstellung durch="jugendlich" />
         {/if}
@@ -993,6 +1006,26 @@
   .vorschlag-titel {
     font-weight: 800;
     font-size: 1.1rem;
+  }
+
+  .szenerie-knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--abstand-s);
+    margin-block-start: var(--abstand-m);
+  }
+
+  .szenerie-knoepfe button {
+    min-block-size: var(--ziel);
+    padding-inline: var(--abstand-m);
+    border-radius: var(--radius);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .szenerie-knoepfe .leise-knopf {
+    font-weight: 400;
   }
 
   .vorschlag-knoepfe {

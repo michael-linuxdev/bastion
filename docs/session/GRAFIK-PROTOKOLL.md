@@ -88,3 +88,4 @@
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `src/ui/start/` gehört jetzt dem Strang Oberfläche (PV); Bastion-Bild und `src/ui/bastion/` bleiben hier |
 | 03.11.2026 | **Wunsch aus dem Strang Oberfläche:** Symbole `person`, `sicherung`, `kalender` (Wünsche in `GRAFIK.md`) |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `Symbol.svelte` auf Wunsch des PV neu gezeichnet (nur Striche, Regler statt Zahnrad, Beutel als Umriss); Bastion-Symbole stein, erz, bauplan, bauen, planen, hinterhof unverändert |
+| 03.11.2026 | **Vielfalt und eigene Umgebung** (Branch `grafik/szenerie-wuerfeln`, Wunsch PV): drei Formen je Ding (`g15_varianten.py`, 46 Bilder, Nadelbäume), „Neue Umgebung würfeln“ im Zahnrad mit gespeichertem Startwert `basebau.szenerie`; Test oben/unten gleich voll; GRAFIK §18.2 |
