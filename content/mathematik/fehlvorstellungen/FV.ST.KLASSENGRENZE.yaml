@@ -1,0 +1,25 @@
+id: FV.ST.KLASSENGRENZE
+name:
+  de: Ordnet Werte auf der Klassengrenze falsch zu
+art: lesefehler
+beschreibung:
+  de: >-
+    Zählt den Wert 30 zur Klasse „20 bis unter 30“ oder lässt den Wert 20 weg. Was „bis unter“ bedeutet, ist nicht sicher.
+kompetenzen: [M.DZ.ST.HISTOGRAMM]
+erklaerung:
+  kurz:
+    de: '„20 bis unter 30“: 20 gehört dazu, 30 nicht. So gehört jeder Wert zu genau einer Klasse.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Grenze falsch zugeordnet.'
+    - teil: warum-nicht
+      de: 'Würde 30 in beide Klassen fallen, wäre er doppelt gezählt.'
+    - teil: so-stimmt-es
+      de: 'Untere Grenze dazu, obere Grenze zur nächsten Klasse.'
+gegenbeispiel:
+  de: 'Der Wert 30 gehört zur Klasse „30 bis unter 40“.'
+rueckweg:
+  vermittlung: M.DZ.ST.HISTOGRAMM#erklaeren-klassen
+kontrast: [M.DZ.ST.HISTOGRAMM.KLASSE]
+herkunft: ki-entwurf
+version: 1

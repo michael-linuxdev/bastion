@@ -1,0 +1,25 @@
+id: FV.ST.AUSREISSER
+name:
+  de: Nimmt bei Ausreißern das arithmetische Mittel als typischen Wert
+art: falsche-regel
+beschreibung:
+  de: >-
+    Beschreibt Gehälter wie 2 000, 2 100, 2 200, 2 300 und 15 000 € mit dem Mittel 4 720 €. Dass ein Ausreißer das Mittel stark verschiebt, den Median aber kaum, ist nicht verankert.
+kompetenzen: [M.DZ.ST.MITTELWERTE]
+erklaerung:
+  kurz:
+    de: 'Ein Ausreißer zieht das [[arithmetische Mittel]] weit weg. Der Median bleibt bei den typischen Werten.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Mittel genommen, weil es alle Werte berücksichtigt.'
+    - teil: warum-nicht
+      de: '[[Gerade]] weil es alle Werte berücksichtigt, verschiebt ein einziger extremer Wert das Mittel.'
+    - teil: so-stimmt-es
+      de: 'Prüfe auf Ausreißer. Gibt es welche, beschreibt der Median das Typische besser.'
+gegenbeispiel:
+  de: 'Vier verdienen um 2 000 €, das Mittel sagt 4 720 €. Keiner verdient so viel.'
+rueckweg:
+  vermittlung: M.DZ.ST.MITTELWERTE#erklaeren-ausreisser
+kontrast: [M.DZ.ST.MITTELWERTE.WAEHLEN]
+herkunft: ki-entwurf
+version: 1

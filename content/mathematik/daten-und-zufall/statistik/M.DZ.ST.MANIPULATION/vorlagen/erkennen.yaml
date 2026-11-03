@@ -1,0 +1,28 @@
+# Irreführende Darstellungen erkennen; Prozent und Prozentpunkte. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.MANIPULATION.ERKENNEN
+kompetenz: M.DZ.ST.MANIPULATION
+niveaus: [G, E]
+typ: auswahl
+quelle: generator
+generator: st.taeuschung@1
+parameter:
+  G: {}
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **{frage}**'
+hilfen:
+  - de: 'Frage dich: Welchen Eindruck soll die Darstellung machen, und was zeigen die Zahlen wirklich?'
+  - de: 'Typische Täuschungen: abgeschnittene Achse, absolute statt relativer Zahlen, Prozentpunkte als [[Prozent]], zu genaue Angaben.'
+fehlerbilder:
+  stimmt:
+    de: 'Prüfe genauer: Die Darstellung erweckt einen falschen Eindruck.'
+    fv: FV.ST.TAEUSCHUNG
+  nebensache:
+    de: 'Das ist nicht der Kern der Täuschung. Was führt den Leser zu einem falschen Schluss?'
+    fv: FV.ST.TAEUSCHUNG
+  andere-taeuschung:
+    de: 'Das trifft hier nicht zu. Schau, was die Zahlen wirklich sagen.'
+    fv: FV.ST.TAEUSCHUNG
+herkunft: ki-entwurf
+version: 1

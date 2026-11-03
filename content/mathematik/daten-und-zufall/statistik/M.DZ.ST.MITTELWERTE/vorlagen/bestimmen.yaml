@@ -1,0 +1,31 @@
+# Modalwert, Median, arithmetisches Mittel. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.MITTELWERTE.BESTIMMEN
+kompetenz: M.DZ.ST.MITTELWERTE
+niveaus: [G, M]
+typ: zahl-eingabe
+quelle: generator
+generator: st.mittelwerte@1
+parameter:
+  G: { arten: [modalwert, median], gerade: false }
+  M: { arten: [median, mittel], gerade: true }
+text:
+  aufgabe:
+    de: 'Daten: {werte}. **Bestimme** {gesucht}. Runde, wenn nötig, auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: 'Modalwert: der häufigste Wert. Median: der mittlere Wert der geordneten Liste.'
+  - de: 'Bei gerader Anzahl liegen zwei Werte in der Mitte. Der Median ist ihr Mittelwert.'
+fehlerbilder:
+  unsortiert:
+    de: 'Ordne die Werte zuerst der Größe nach. Erst dann ist der mittlere Wert der Median.'
+    fv: FV.ST.MEDIAN-UNSORTIERT
+  median-gerade:
+    de: 'Bei gerader Anzahl gibt es zwei mittlere Werte. Nimm ihren Mittelwert.'
+    fv: FV.ST.MEDIAN-UNSORTIERT
+  haeufigkeit-statt-wert:
+    de: 'Das ist, wie oft der Wert vorkommt. Gefragt ist der Wert selbst.'
+    fv: FV.ST.MITTELWERT-ART
+  mittel-statt-median:
+    de: 'Du hast den falschen Mittelwert berechnet. Prüfe, welcher gefragt ist.'
+    fv: FV.ST.MITTELWERT-ART
+herkunft: ki-entwurf
+version: 1

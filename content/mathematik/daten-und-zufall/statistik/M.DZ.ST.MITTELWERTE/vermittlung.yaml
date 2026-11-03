@@ -1,0 +1,96 @@
+id: M.DZ.ST.MITTELWERTE
+kompetenz: M.DZ.ST.MITTELWERTE
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du Modalwert, Median und Mittelwert bestimmen und sagen, welcher die Daten am besten beschreibt.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie groß ist der [[Durchschnitt]] von 2, 4 und 9?'
+    antwort:
+      optionen:
+        - { wert: { de: '5' }, richtig: true }
+        - { wert: { de: '15' }, fv: FV.ST.MITTELWERT-ART }
+    weiter: entdecken
+    bei: { FV.ST.MITTELWERT-ART: erklaeren-median, sonst: M.DZ.DA.MITTELWERT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ordne 9; 2; 5; 7; 3 der Größe nach. Welche Zahl steht dann genau in der Mitte?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '7', fv: FV.ST.MEDIAN-UNSORTIERT }] }
+    weiter: erklaeren-median
+  - id: erklaeren-median
+    typ: erklaeren
+    text:
+      de: 'Der Median ist der mittlere Wert der geordneten Liste. Bei gerader Anzahl ist er der Mittelwert der beiden mittleren. Der Modalwert ist der häufigste Wert.'
+    weiter: erklaeren-ausreisser
+  - id: erklaeren-ausreisser
+    typ: erklaeren
+    text:
+      de: 'Ein Ausreißer ist ein Wert, der weit von den anderen entfernt liegt. Er zieht das [[arithmetische Mittel]] stark mit, den Median kaum.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Taschengeld 20; 25; 25; 30; 300 €: Modalwert 25, Median 25, Mittel 80. Typisch sind etwa 25 €, das Mittel täuscht.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Bestimme den Median von 4; 8; 6; 2.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '5',
+          fehler:
+            [
+              { wert: '8', fv: FV.ST.MEDIAN-UNSORTIERT },
+              { wert: '6', fv: FV.ST.MEDIAN-UNSORTIERT },
+            ],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ST.MEDIAN-UNSORTIERT: erklaeren-median }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Gehälter 2 000; 2 100; 2 200; 15 000 €. Max sagt: „Typisch sind 5 325 €, das ist das Mittel.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              { de: 'Nein, der Ausreißer verfälscht das Mittel. Der Median 2 150 € passt besser.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, das Mittel ist immer der beste Wert.' }, fv: FV.ST.AUSREISSER }
+    weiter: merksatz
+    bei: { FV.ST.AUSREISSER: erklaeren-ausreisser }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Modalwert: am häufigsten. Median: Mitte der geordneten Liste. Mittel: [[Summe]] durch Anzahl. Bei Ausreißern beschreibt der Median das Typische besser.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welcher Wert ist der Modalwert von 3; 7; 7; 9?'
+    antwort:
+      optionen:
+        - { wert: { de: '7' }, richtig: true }
+        - { wert: { de: '2' }, fv: FV.ST.MITTELWERT-ART }
+    weiter: uebergang
+    bei: { FV.ST.MITTELWERT-ART: erklaeren-median }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt bestimmst du selbst Mittelwerte.'
+    vorlagen: [M.DZ.ST.MITTELWERTE.BESTIMMEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

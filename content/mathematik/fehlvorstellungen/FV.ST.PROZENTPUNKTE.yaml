@@ -1,0 +1,25 @@
+id: FV.ST.PROZENTPUNKTE
+name:
+  de: Verwechselt Prozent und Prozentpunkte
+art: verwechslung
+beschreibung:
+  de: >-
+    Sagt bei einem Anstieg von 20 % auf 25 %, der Anteil sei um 5 % gestiegen. Dass das 5 Prozentpunkte, aber 25 % mehr sind, ist nicht verankert.
+kompetenzen: [M.DZ.ST.MANIPULATION]
+erklaerung:
+  kurz:
+    de: 'Der Abstand zweier [[Prozentsätze]] heißt Prozentpunkte. In [[Prozent]] bezieht man ihn auf den alten Wert: $\frac{5}{20} = 25\,\%$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Differenz der [[Prozentsätze]] als [[Prozent]] bezeichnet.'
+    - teil: warum-nicht
+      de: '[[Prozent]] ist immer ein [[Anteil]] von etwas. 5 von 20 sind ein Viertel, also 25 %.'
+    - teil: so-stimmt-es
+      de: 'Rechne zuerst die Differenz (Prozentpunkte), dann teile durch den alten [[Anteil]].'
+gegenbeispiel:
+  de: 'Von 2 % auf 4 % sind nur 2 Prozentpunkte, aber eine Verdopplung, also 100 % mehr.'
+rueckweg:
+  vermittlung: M.DZ.ST.MANIPULATION#erklaeren-prozentpunkte
+kontrast: [M.DZ.ST.MANIPULATION.PROZENTPUNKTE]
+herkunft: ki-entwurf
+version: 1

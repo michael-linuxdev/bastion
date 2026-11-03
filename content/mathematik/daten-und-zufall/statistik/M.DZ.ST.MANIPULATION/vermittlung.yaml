@@ -1,0 +1,86 @@
+id: M.DZ.ST.MANIPULATION
+kompetenz: M.DZ.ST.MANIPULATION
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach erkennst du, wann eine Statistik täuscht: durch abgeschnittene Achsen, falsche Vergleiche oder Prozentpunkte, die als [[Prozent]] ausgegeben werden.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie viel [[Prozent]] sind 5 von 20?'
+    antwort:
+      optionen:
+        - { wert: { de: '25 %' }, richtig: true }
+        - { wert: { de: '5 %' }, fv: FV.ST.PROZENTPUNKTE }
+    weiter: entdecken
+    bei: { FV.ST.PROZENTPUNKTE: erklaeren-prozentpunkte, sonst: M.ZO.PZ.GRUNDAUFGABEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Diagramm zeigt 97 und 98 Verkäufe, die y-Achse beginnt bei 96. Die zweite Säule wirkt doppelt so hoch. Um wie viele Verkäufe unterscheiden sich die Werte wirklich?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '97', fv: FV.ST.TAEUSCHUNG }] }
+    weiter: erklaeren-taeuschung
+  - id: erklaeren-taeuschung
+    typ: erklaeren
+    text:
+      de: 'Typische Täuschungen: Die Achse beginnt nicht bei 0, verschieden große Gruppen werden mit absoluten Zahlen verglichen, eine kleine Umfrage wird mit vielen [[Nachkommastellen]] angegeben.'
+    weiter: erklaeren-prozentpunkte
+  - id: erklaeren-prozentpunkte
+    typ: erklaeren
+    text:
+      de: 'Steigt ein [[Anteil]] von 20 % auf 25 %, sind das 5 Prozentpunkte. In [[Prozent]] ist es ein [[Anstieg]] um $\frac{5}{20} = 25\,\%$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '30 Diebstähle in einer Großstadt mit 400 000 Einwohnern sind weniger je Einwohner als 20 in einer Kleinstadt mit 50 000.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein [[Anteil]] stieg von 10 % auf 15 %. Um wie viele Prozentpunkte?'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '50', fv: FV.ST.PROZENTPUNKTE }] }
+    weiter: gegenbeispiel
+    bei: { FV.ST.PROZENTPUNKTE: erklaeren-prozentpunkte }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Eine Umfrage unter 40 Personen meldet „62,517 % zufrieden“. Ist diese Genauigkeit sinnvoll?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein, eine Person mehr ändert den Anteil um 2,5 Prozentpunkte.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, genauer ist immer besser.' }, fv: FV.ST.TAEUSCHUNG }
+    weiter: merksatz
+    bei: { FV.ST.TAEUSCHUNG: erklaeren-taeuschung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Achse prüfen, Bezugsgröße prüfen, [[Prozent]] und Prozentpunkte unterscheiden, Genauigkeit an die Datenmenge anpassen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein [[Anteil]] stieg von 20 % auf 30 %. Welche Aussage stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Er stieg um 10 Prozentpunkte, also um 50 %.' }, richtig: true }
+        - { wert: { de: 'Er stieg um 10 %.' }, fv: FV.ST.PROZENTPUNKTE }
+    weiter: uebergang
+    bei: { FV.ST.PROZENTPUNKTE: erklaeren-prozentpunkte }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt prüfst du selbst Statistiken.'
+    vorlagen: [M.DZ.ST.MANIPULATION.ERKENNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

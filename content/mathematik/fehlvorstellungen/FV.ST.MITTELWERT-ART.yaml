@@ -1,0 +1,25 @@
+id: FV.ST.MITTELWERT-ART
+name:
+  de: Verwechselt Modalwert, Median, Mittel und Spannweite
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet das arithmetische Mittel, wenn der Median gefragt ist, nennt beim Modalwert die Häufigkeit statt des Wertes oder hält die Spannweite für einen Mittelwert.
+kompetenzen: [M.DZ.ST.MITTELWERTE]
+erklaerung:
+  kurz:
+    de: 'Modalwert: häufigster Wert. Median: mittlerer Wert der geordneten Liste. Arithmetisches Mittel: [[Summe]] durch Anzahl. Spannweite: kein Mittelwert, sondern ein Streumaß.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine andere Kenngröße bestimmt als gefragt.'
+    - teil: warum-nicht
+      de: 'Die Kenngrößen beantworten verschiedene Fragen und haben meist verschiedene Werte.'
+    - teil: so-stimmt-es
+      de: 'Lies das Wort in der Frage und schreibe die passende Regel daneben.'
+gegenbeispiel:
+  de: 'Daten 1; 1; 4: Modalwert 1, Median 1, Mittel 2, Spannweite 3.'
+rueckweg:
+  vermittlung: M.DZ.ST.MITTELWERTE#erklaeren-median
+kontrast: [M.DZ.ST.MITTELWERTE.BESTIMMEN, M.DZ.ST.MITTELWERTE.WAEHLEN]
+herkunft: ki-entwurf
+version: 1

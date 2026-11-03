@@ -1,0 +1,25 @@
+id: FV.ST.TAEUSCHUNG
+name:
+  de: Erkennt irreführende Darstellungen nicht
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Nimmt eine abgeschnittene Achse, einen Vergleich absoluter Zahlen verschieden großer Gruppen oder eine übergenaue Prozentzahl für bare Münze.
+kompetenzen: [M.DZ.ST.MANIPULATION]
+erklaerung:
+  kurz:
+    de: 'Prüfe bei jeder Statistik: Wo beginnt die Achse? Worauf beziehen sich die Zahlen? Passt die Genauigkeit zur Datenmenge?'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dem ersten Eindruck vertraut.'
+    - teil: warum-nicht
+      de: 'Darstellungen können richtig gerechnet und trotzdem irreführend sein.'
+    - teil: so-stimmt-es
+      de: 'Rechne den Unterschied selbst aus und vergleiche ihn mit dem Eindruck.'
+gegenbeispiel:
+  de: 'Eine Säule mit 98 statt 97 wirkt bei Achsenbeginn 94 viermal so hoch.'
+rueckweg:
+  vermittlung: M.DZ.ST.MANIPULATION#erklaeren-taeuschung
+kontrast: [M.DZ.ST.MANIPULATION.ERKENNEN]
+herkunft: ki-entwurf
+version: 1

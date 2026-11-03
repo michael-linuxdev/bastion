@@ -1,0 +1,24 @@
+# Histogramm ablesen. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.HISTOGRAMM.ABLESEN
+kompetenz: M.DZ.ST.HISTOGRAMM
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: st.histogramm@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '**{frage}**'
+hilfen:
+  - de: 'Die [[Höhe]] jeder Säule ist die Anzahl der Werte in dieser Klasse.'
+  - de: 'Addiere die Höhen der passenden Säulen.'
+fehlerbilder:
+  saeulen-gezaehlt:
+    de: 'Du hast die Säulen gezählt. Addiere ihre Höhen.'
+    fv: FV.ST.SAEULEN
+  eine-klasse:
+    de: 'Das ist nur eine Klasse. „Mindestens“ schließt alle Klassen ab dieser Grenze ein.'
+    fv: FV.ST.SAEULEN
+herkunft: ki-entwurf
+version: 1

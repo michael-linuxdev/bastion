@@ -1,0 +1,27 @@
+# Passender Mittelwert bei Ausreißern – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ST.MITTELWERTE.WAEHLEN
+kompetenz: M.DZ.ST.MITTELWERTE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: st.passender-mittelwert@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Welcher** Wert beschreibt das Typische am besten?'
+hilfen:
+  - de: 'Gibt es einen Wert, der weit von den anderen entfernt liegt?'
+  - de: 'Welcher Mittelwert ändert sich kaum, wenn man den größten Wert noch größer macht?'
+fehlerbilder:
+  ausreisser:
+    de: 'Ein einzelner sehr großer Wert zieht das [[arithmetische Mittel]] weit nach oben. Es beschreibt dann keinen typischen Wert.'
+    fv: FV.ST.AUSREISSER
+  modal:
+    de: 'Hier kommt kein Wert mehrfach vor. Ein Modalwert hilft nicht.'
+    fv: FV.ST.MITTELWERT-ART
+  streumass:
+    de: 'Die Spannweite misst, wie weit die Werte auseinander liegen, nicht welcher Wert typisch ist.'
+    fv: FV.ST.MITTELWERT-ART
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.ST.MEDIAN-UNSORTIERT
+name:
+  de: Bestimmt den Median ohne zu ordnen oder bei gerader Anzahl falsch
+art: rechenfehler
+beschreibung:
+  de: >-
+    Nimmt den mittleren Wert der ungeordneten Liste oder bei gerader Anzahl einen der beiden mittleren Werte. Dass der Median die Mitte der geordneten Werte ist, ist nicht verankert.
+kompetenzen: [M.DZ.ST.MITTELWERTE]
+erklaerung:
+  kurz:
+    de: 'Ordne die Werte der Größe nach. Der Median steht genau in der Mitte. Bei gerader Anzahl ist er der Mittelwert der beiden mittleren Werte.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Mitte der Liste genommen, so wie sie dasteht.'
+    - teil: warum-nicht
+      de: 'In 9; 2; 5 steht 2 in der Mitte, aber 2 ist der kleinste Wert, nicht der mittlere.'
+    - teil: so-stimmt-es
+      de: 'Erst ordnen, dann abzählen. Bei gerader Anzahl die zwei mittleren mitteln.'
+gegenbeispiel:
+  de: 'Daten 9; 2; 5: geordnet 2; 5; 9, Median 5.'
+rueckweg:
+  vermittlung: M.DZ.ST.MITTELWERTE#erklaeren-median
+kontrast: [M.DZ.ST.MITTELWERTE.BESTIMMEN]
+herkunft: ki-entwurf
+version: 1
