@@ -36,7 +36,7 @@ Grundlage: Entscheidung 3 (zuerst, was das Abitur trägt) und 7 (B6, B7, B10 vor
 
 | Etappe | Inhalt | PRs | Bausteine vorher |
 |---|---|---|---|
-| **10-0** | B9: Klasse 10 wählbar (`KLASSEN`), Schulart beachten (OS hat kein LG, FS nur teilweise) | 1 | – |
+| **10-0** | ~~B9: Klasse 10 wählbar (`KLASSEN`), Schulart beachten~~ *erledigt 03.11.2026:* Klasse 10 wählbar (Hinweis „Themen entstehen gerade“, solange es keine gibt); `passtZurSchulart` blendet in Übersicht, „Weiter üben“ und Diagnose Themen aus, die der Lehrplan der gewählten Schulart nicht enthält (gilt auch für Klasse 5–9) | 1 | – |
 | **10-0b** | `graph@1` um `exp`, `log`, `sin`, `cos` und Regler b erweitern; `dreieck@1` für beliebige Dreiecke | 2 | – |
 | **10-1** | Feld EX (3) | 1 | – |
 | **10-2** | Feld LG (3, nur GY) | 1 | – |

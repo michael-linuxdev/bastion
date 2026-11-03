@@ -2209,3 +2209,26 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await page.getByRole('radio', { name: 'Erweitert (E)' }).check();
   await expect(page.locator('[data-druckblatt] [data-aufgabe]').first()).toBeVisible();
 });
+
+test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
+
+  await page.getByRole('radio', { name: 'Klasse 9' }).check();
+  await expect(
+    page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await expect(page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ })).toHaveCount(
+    0,
+  );
+  await expect(page.getByRole('button', { name: /^Wurzeln ziehen/ })).toBeVisible();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await expect(
+    page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
+});

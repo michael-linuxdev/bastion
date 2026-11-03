@@ -476,6 +476,7 @@
       klasse,
       zustand,
       Date.now(),
+      schulart,
     );
     if (k) zumUeben(geladen, k);
     else ansicht = 'uebersicht';
@@ -847,6 +848,7 @@
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           paketVon={geladen.paketVon}
+          {schulart}
           bind:antworten={diagnoseAntworten}
           bind:klasse={diagnoseKlasse}
           auswahl={diagnoseAuswahl}
