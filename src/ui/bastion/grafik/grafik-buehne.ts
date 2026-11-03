@@ -116,6 +116,7 @@ import {
 } from './bewohner';
 import { belegteFelder } from './pfad';
 import { bodenLeben } from './boden-leben';
+import { sekundeDesTages, wegeFelder, wegeListe } from './tagesablauf';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import { atlasThema, type Bildart } from './bildart';
 import { geruestEbenen } from './geruest';
@@ -1015,6 +1016,14 @@ class TexturVorrat extends Map<string, Texture> {
   }
 }
 
+/** Farbe der ausgetretenen Wege je Thema; im Winter festgetretener Schnee */
+const WEG_FARBE: Readonly<Record<string, string>> = {
+  insel: '#a9b56c',
+  dorf: '#a79a66',
+  garten: '#b4b48a',
+  winter: '#dfe5ec',
+};
+
 /** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
 async function atlasTexturenLaden(
   manifest: AtlasManifest | null,
@@ -1674,6 +1683,8 @@ export async function buehneErstellen(
       aufBoden(c, y, 6);
     };
     for (const b of bewohner) {
+      // Nachts drinnen (Tagesablauf, Punkt 4)
+      if (b.tagesphase === 'drinnen') continue;
       const { zyklus, frame } = bewohnerFrame(b, jetzt);
       const eintrag = atlasEintragPerId(atlas, atlasBewohnerId(b.art, zyklus, frame));
       const tex = eintrag ? texturen.get(eintrag.id) : undefined;
@@ -1739,7 +1750,13 @@ export async function buehneErstellen(
       wesenZeichnen(jetzt);
     }
     if (tickerAn(bewegung) && bewohner.length > 0) {
-      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF));
+      const uhr = new Date();
+      const sekunde = sekundeDesTages(
+        uhr.getHours(),
+        uhr.getMinutes(),
+        uhr.getSeconds() + uhr.getMilliseconds() / 1000,
+      );
+      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF, sekunde));
       bewohnerZeichnen(jetzt);
     }
   };
@@ -1886,7 +1903,24 @@ export async function buehneErstellen(
         leben.zIndex = 1;
         const { breite: lw, tiefe: lt } = bauplatzAktiv();
         const dunkel = farben.abend ? 0.55 : 1;
-        for (const d of bodenLeben(lw, lt, farben.jahreszeit ?? 'sommer', belegt)) {
+        // Ausgetretene Wege vom Bergfried zu den Gebäuden (Punkt 4); dort wächst nichts
+        const wege = wegeListe(b.bauwerke, belegt, bauplatzAktiv());
+        const wegFarbe = WEG_FARBE[farben.jahreszeit === 'winter' ? 'winter' : art] ?? '#c8b48a';
+        const pfade = new Graphics();
+        for (const weg of wege) {
+          weg.forEach((f, i) => {
+            const p = punkt(f.x + 0.5, f.y + 0.5);
+            if (i === 0) pfade.moveTo(p.x, p.y);
+            else pfade.lineTo(p.x, p.y);
+          });
+        }
+        // Deckend gezeichnet: halb durchsichtige Wege dunkeln sich dort ab, wo sie sich
+        // überlappen. Abends dunkler gefärbt statt durchsichtiger.
+        pfade.stroke({ width: 13, color: dunkler(wegFarbe, dunkel), cap: 'round', join: 'round' });
+        pfade.zIndex = 0.5;
+        gebaeude.addChild(pfade);
+        const frei = new Set([...belegt, ...wegeFelder(b.bauwerke, belegt, bauplatzAktiv())]);
+        for (const d of bodenLeben(lw, lt, farben.jahreszeit ?? 'sommer', frei)) {
           const p = punkt(d.x, d.y);
           if (d.art === 'buesche') {
             for (const [dx, h] of [
@@ -2554,6 +2588,7 @@ export async function buehneErstellen(
       const x = ((clientX - r.left) / r.width) * buehneBreite();
       const y = ((clientY - r.top) / r.height) * buehneHoehe();
       for (const b of [...bewohner].reverse()) {
+        if (b.tagesphase === 'drinnen') continue;
         if (Math.hypot(b.x - x, b.y - y) < 16) return b.id;
       }
       return undefined;
