@@ -1,0 +1,24 @@
+# Anteile vergleichen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ANTEILE.BEGRUENDEN
+kompetenz: M.ZO.BR.ANTEILE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.anteil-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Schreibe für jede Figur den [[Anteil]] als [[Bruch]].'
+  - de: 'Vergleiche die [[Brüche]].'
+fehlerbilder:
+  anzahl-statt-anteil:
+    de: 'Mehr gefärbte Felder heißt nicht mehr [[Anteil]]. Es kommt darauf an, wie viele Felder es insgesamt gibt.'
+    fv: FV.BR.ANZAHL-STATT-ANTEIL
+  gegenteil:
+    de: 'Die ungefärbten Felder allein sagen nichts. Vergleiche gefärbte Felder durch alle Felder.'
+    fv: FV.BR.GEGENTEIL
+herkunft: ki-entwurf
+version: 1

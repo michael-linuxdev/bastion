@@ -1,0 +1,24 @@
+# Bruch mal Zahl begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.MULT.BEGRUENDEN
+kompetenz: M.ZO.BR.MULT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.mal-zahl-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Schreibe das [[Produkt]] als [[Summe]] gleicher [[Brüche]].'
+  - de: 'Ändert sich die Größe der Teile?'
+fehlerbilder:
+  erweitert-statt-gerechnet:
+    de: '[[Zähler]] und [[Nenner]] mit derselben Zahl malnehmen ist [[Erweitern]]. Der Wert bleibt dann gleich.'
+    fv: FV.BR.ERWEITERT-STATT-GERECHNET
+  zaehler-oder-nenner:
+    de: 'Ein größerer [[Nenner]] macht die Teile kleiner. Beim Malnehmen werden es mehr Teile: Der [[Zähler]] wächst.'
+    fv: FV.BR.ZAEHLER-ODER-NENNER
+herkunft: ki-entwurf
+version: 1

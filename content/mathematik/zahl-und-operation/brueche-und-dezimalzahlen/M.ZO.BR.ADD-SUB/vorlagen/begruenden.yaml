@@ -1,0 +1,24 @@
+# Brüche addieren begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.ADD-SUB.BEGRUENDEN
+kompetenz: M.ZO.BR.ADD-SUB
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.nenner-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Kann das Ergebnis kleiner sein als einer der beiden [[Brüche]]?'
+  - de: 'Mache die [[Brüche]] zuerst gleichnamig.'
+fehlerbilder:
+  nenner-addiert:
+    de: 'Addiert werden nur gleich große Teile: Erst gleichnamig machen, dann die [[Zähler]] addieren.'
+    fv: FV.BR.NENNER-ADDIERT
+  einen-nenner:
+    de: 'Einen der [[Nenner]] zu übernehmen reicht nicht. Beide [[Brüche]] müssen auf den Hauptnenner erweitert werden.'
+    fv: FV.BR.EINEN-NENNER
+herkunft: ki-entwurf
+version: 1

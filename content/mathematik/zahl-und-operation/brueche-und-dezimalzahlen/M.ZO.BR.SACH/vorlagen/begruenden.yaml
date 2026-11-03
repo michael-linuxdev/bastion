@@ -1,0 +1,24 @@
+# Rückgeld beim Einkauf begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.SACH.BEGRUENDEN
+kompetenz: M.ZO.BR.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.sach-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was kostet jede Ware?'
+  - de: 'Was ist am Ende gefragt?'
+fehlerbilder:
+  zwischenergebnis:
+    de: 'Der Preis des Einkaufs ist ein Zwischenergebnis. Gefragt ist das Rückgeld.'
+    fv: FV.SA.ZWISCHENERGEBNIS
+  angabe-uebersehen:
+    de: 'Der Käse gehört auch zum Einkauf.'
+    fv: FV.SA.ANGABE-UEBERSEHEN
+herkunft: ki-entwurf
+version: 1

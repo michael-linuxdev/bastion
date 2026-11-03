@@ -1,0 +1,24 @@
+# Durch eine Dezimalzahl teilen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-MULT-DIV.BEGRUENDEN
+kompetenz: M.ZO.BR.DEZ-MULT-DIV
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.komma-division-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie oft passt 0,5 in 1?'
+  - de: 'Verschiebe das Komma bei beiden Zahlen um gleich viele Stellen.'
+fehlerbilder:
+  komma-nur-teiler:
+    de: 'Wenn das Komma nur beim [[Teiler]] wegfällt, ändert sich die Aufgabe. Verschiebe es bei beiden Zahlen.'
+    fv: FV.BR.KOMMA-DIVISION
+  kleiner-gemacht:
+    de: 'Teilen durch eine Zahl kleiner als 1 macht das Ergebnis größer.'
+    fv: FV.BR.KOMMA-DIVISION
+herkunft: ki-entwurf
+version: 1

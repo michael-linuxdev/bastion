@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Periodische Dezimalzahlen mit Periodenstrich schreiben; endliche Dezimalzahlen als vollständig gekürzte Brüche angeben.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann ein Bruch eine endliche und wann eine periodische Dezimalzahl ergibt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -28,6 +31,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

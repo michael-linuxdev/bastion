@@ -1,0 +1,24 @@
+# Ausklammern begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.RECHENGESETZE.BEGRUENDEN
+kompetenz: M.ZO.BR.RECHENGESETZE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.ausklammern-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welcher [[Faktor]] kommt zweimal vor?'
+  - de: 'Welche [[Summe]] ergibt eine glatte Zahl?'
+fehlerbilder:
+  klammer:
+    de: 'Ohne Klammer gehört der [[Faktor]] nur zur ersten Zahl. Beim [[Ausklammern]] braucht man eine Klammer.'
+    fv: FV.NZ.KLAMMER
+  komma-mal:
+    de: 'Die [[Summe]] ist eine [[natürliche Zahl]]. Prüfe, wo das Komma steht.'
+    fv: FV.BR.KOMMA-MAL
+herkunft: ki-entwurf
+version: 1

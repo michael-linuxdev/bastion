@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Beliebige ungleichnamige Brüche und gemischte Zahlen; Ergebnis vollständig gekürzt.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum man beim Addieren die Nenner nicht addiert.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

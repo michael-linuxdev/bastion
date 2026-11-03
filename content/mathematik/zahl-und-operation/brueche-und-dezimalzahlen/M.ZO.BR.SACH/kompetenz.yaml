@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Mehrschrittige Sachaufgaben; Ergebnis mit sinnvoller Genauigkeit angeben.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Angaben und Schritte eine mehrschrittige Sachaufgabe braucht.'
 kmk:
   leitidee: L1
   prozesse:
