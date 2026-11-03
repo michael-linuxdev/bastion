@@ -1,0 +1,24 @@
+# „f(x) = 3x + 2. Berechne f⁻¹(14).“. Entwurf: noch nicht geprüft.
+id: M.SF.LG.UMKEHRFUNKTION.WERT
+kompetenz: M.SF.LG.UMKEHRFUNKTION
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: lg.umkehr-wert@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Es ist $f(x) = {term}$. **Berechne** $f^{-1}({c})$.'
+hilfen:
+  - de: '$f^{-1}(c)$ ist die Zahl x, für die $f(x) = c$ gilt.'
+  - de: 'Setze den [[Term]] gleich dem gegebenen Wert und löse nach x auf.'
+fehlerbilder:
+  eingesetzt:
+    de: 'Du hast den Wert in f eingesetzt. Gesucht ist umgekehrt das x, für das f diesen Wert liefert.'
+    fv: FV.LG.UMKEHR-EINGESETZT
+  kehrwert:
+    de: '$f^{-1}$ ist nicht der [[Kehrwert]]. Gesucht ist das x, für das f den gegebenen Wert liefert.'
+    fv: FV.LG.UMKEHR-KEHRWERT
+herkunft: ki-entwurf
+version: 1

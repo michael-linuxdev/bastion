@@ -1,0 +1,25 @@
+id: FV.LG.SUMME
+name:
+  de: Logarithmengesetze vermischt
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet $\log(a + b) = \log a + \log b$ oder $\lg(a \cdot b) = \lg a \cdot \lg b$. Für welche Rechenart welches Gesetz gilt, wird vermischt.
+kompetenzen: [M.ZO.LG.LOGARITHMUS]
+erklaerung:
+  kurz:
+    de: 'Aus einem [[Produkt]] wird eine [[Summe]]: $\lg(u \cdot v) = \lg u + \lg v$. Für Summen gibt es kein Gesetz.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast ein Gesetz auf eine andere Rechenart übertragen.'
+    - teil: warum-nicht
+      de: 'Der [[Logarithmus]] macht aus Malnehmen Addieren, nicht aus Addieren Addieren.'
+    - teil: so-stimmt-es
+      de: 'Prüfe zuerst: Steht ein [[Produkt]], ein Quotient oder eine Potenz im [[Logarithmus]]?'
+gegenbeispiel:
+  de: '$\lg(10 + 10) = \lg 20 \approx 1{,}3$, aber $\lg 10 + \lg 10 = 2$.'
+rueckweg:
+  vermittlung: M.ZO.LG.LOGARITHMUS#erklaeren-gesetze
+kontrast: [M.ZO.LG.LOGARITHMUS.GESETZE, M.ZO.LG.LOGARITHMUS.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

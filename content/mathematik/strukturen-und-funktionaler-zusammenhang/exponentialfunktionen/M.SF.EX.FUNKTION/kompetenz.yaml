@@ -1,0 +1,42 @@
+# Exponentialfunktionen – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.EX.FUNKTION
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: exponentialfunktionen
+titel:
+  de: 'Exponentialfunktionen'
+kann_satz:
+  de: 'Ich kann Exponentialfunktionen y = c · aˣ zeichnen, ihre Eigenschaften angeben und den Einfluss der Parameter beschreiben.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.EX.WACHSTUM
+  - M.SF.PF.PARAMETER
+niveaus:
+  G:
+    beschreibung:
+      de: 'Zu einem Graphen den passenden Term c · aˣ wählen: Startwert bei x = 0, Faktor von Schritt zu Schritt.'
+  M:
+    beschreibung:
+      de: 'Eigenschaften angeben: Schnitt mit der y-Achse, steigend oder fallend, keine Nullstelle, die x-Achse als Asymptote.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum der Graph die x-Achse nie erreicht.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1

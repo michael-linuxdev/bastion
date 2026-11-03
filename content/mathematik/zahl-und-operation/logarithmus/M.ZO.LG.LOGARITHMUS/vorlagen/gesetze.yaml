@@ -1,0 +1,27 @@
+# „Es ist lg 2 ≈ 0,301. Berechne lg 8.“. Entwurf: noch nicht geprüft.
+id: M.ZO.LG.LOGARITHMUS.GESETZE
+kompetenz: M.ZO.LG.LOGARITHMUS
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: lg.gesetze@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Es ist $\lg {a} \approx {l}$. **Berechne** ${term}$ mit den [[Logarithmengesetzen]], gerundet auf drei Stellen.'
+hilfen:
+  - de: 'Schreibe die Zahl als [[Produkt]], Quotient oder Potenz der gegebenen Zahl und 10.'
+  - de: '$\lg(u \cdot v) = \lg u + \lg v$, $\lg u^k = k \cdot \lg u$, $\lg 10 = 1$.'
+fehlerbilder:
+  potenz:
+    de: 'Die [[Hochzahl]] kommt vor den [[Logarithmus]]: $\lg u^k = k \cdot \lg u$, nicht $(\lg u)^k$.'
+    fv: FV.LG.POTENZ
+  summe:
+    de: 'Aus einem [[Produkt]] wird eine [[Summe]] der [[Logarithmen]], nicht ein Produkt. Und $\lg \frac{10}{a} = \lg 10 - \lg a$.'
+    fv: FV.LG.SUMME
+  kehrwert:
+    de: '$\lg \frac{1}{a}$ ist $-\lg a$, nicht der [[Kehrwert]] von $\lg a$.'
+    fv: FV.LG.UMKEHR-KEHRWERT
+herkunft: ki-entwurf
+version: 1

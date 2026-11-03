@@ -2239,13 +2239,16 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await expect(page.locator('[data-druckblatt] [data-aufgabe]').first()).toBeVisible();
 });
 
-test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
+test('Klasse 10 wählbar mit ersten Themen; bei Oberschule fehlen Themen, die es dort nicht gibt', async ({
   page,
 }) => {
   await page.goto('./');
   await themenWaehlen(page);
   await page.getByRole('radio', { name: 'Klasse 10' }).check();
-  await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await expect(
+    page.getByRole('button', { name: /^Lineares und exponentielles Wachstum/ }),
+  ).toBeVisible();
 
   await page.getByRole('radio', { name: 'Klasse 9' }).check();
   await expect(
@@ -2259,5 +2262,19 @@ test('Klasse 10 wählbar; bei Oberschule fehlen Themen, die es dort nicht gibt',
   await page.getByRole('radio', { name: 'Gymnasium' }).check();
   await expect(
     page.getByRole('button', { name: /^Rationale und irrationale Zahlen/ }),
+  ).toBeVisible();
+});
+
+test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await thema(page, /^Lineares und exponentielles Wachstum/);
+  // Tabelle (Auswahl) oder Bestand (Zahl), je nach Vorlage im Wechsel
+  await expect(
+    page
+      .getByRole('radio', { name: /^exponentiell: Es wird immer/ })
+      .or(page.getByLabel('Deine Antwort')),
   ).toBeVisible();
 });

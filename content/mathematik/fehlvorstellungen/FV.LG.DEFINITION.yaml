@@ -1,0 +1,25 @@
+id: FV.LG.DEFINITION
+name:
+  de: Logarithmus negativer Zahlen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Gibt $\ln(-5)$ oder $\lg 0$ einen Wert. Dass der Logarithmus nur für positive Zahlen definiert ist, wird übersehen.
+kompetenzen: [M.SF.LG.GLEICHUNGEN]
+erklaerung:
+  kurz:
+    de: '$\ln x$ ist nur für $x > 0$ definiert, denn $e^y$ ist immer positiv.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dem [[Logarithmus]] einer negativen Zahl einen Wert gegeben.'
+    - teil: warum-nicht
+      de: 'Es gibt keine [[Hochzahl]] y mit $e^y = -5$.'
+    - teil: so-stimmt-es
+      de: 'Prüfe vor dem Logarithmieren, ob die Zahl positiv ist.'
+gegenbeispiel:
+  de: '$e^y$ ist für $y = -100$ winzig, aber immer noch positiv.'
+rueckweg:
+  vermittlung: M.SF.LG.GLEICHUNGEN#erklaeren-ln
+kontrast: [M.SF.LG.GLEICHUNGEN.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

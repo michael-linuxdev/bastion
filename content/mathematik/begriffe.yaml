@@ -1070,3 +1070,50 @@ begriffe:
     formen: [Ankathete]
     erklaerung:
       de: 'Die Kathete, die an einem Winkel anliegt (nicht die Hypotenuse).'
+  # Klasse 10: Exponentielles Wachstum
+  - id: wachstumsfaktor
+    wort: { de: Wachstumsfaktor }
+    formen: [Wachstumsfaktor, Wachstumsfaktors]
+    erklaerung:
+      de: 'Die Zahl, mit der ein Bestand bei jedem Schritt malgenommen wird. Wachstum um 20 % heißt Wachstumsfaktor 1,2.'
+  - id: exponentialfunktion
+    wort: { de: Exponentialfunktion }
+    formen: [Exponentialfunktion, Exponentialfunktionen]
+    erklaerung:
+      de: 'Eine Funktion wie $f(x) = c \cdot a^x$: Das x steht in der Hochzahl. Bei jedem Schritt um 1 wird mit a malgenommen.'
+  - id: asymptote
+    wort: { de: Asymptote }
+    formen: [Asymptote, Asymptoten]
+    erklaerung:
+      de: 'Eine Gerade, der sich ein Graph immer weiter nähert, ohne sie zu erreichen.'
+  - id: halbwertszeit
+    wort: { de: Halbwertszeit }
+    formen: [Halbwertszeit]
+    erklaerung:
+      de: 'Die Zeit, nach der von einem Bestand nur noch die Hälfte übrig ist.'
+  - id: verdopplungszeit
+    wort: { de: Verdopplungszeit }
+    formen: [Verdopplungszeit]
+    erklaerung:
+      de: 'Die Zeit, nach der sich ein Bestand verdoppelt hat.'
+  # Klasse 10: Logarithmus
+  - id: umkehrfunktion
+    wort: { de: Umkehrfunktion }
+    formen: [Umkehrfunktion, Umkehrfunktionen]
+    erklaerung:
+      de: 'Die Funktion, die eine andere rückgängig macht: Sie tauscht x und y. Ihr Graph ist an der Geraden $y = x$ gespiegelt.'
+  - id: logarithmus
+    wort: { de: Logarithmus }
+    formen: [Logarithmus, Logarithmen]
+    erklaerung:
+      de: 'Die Hochzahl, mit der man eine Basis potenzieren muss, um eine Zahl zu bekommen: $\log_2 8 = 3$, denn $2^3 = 8$.'
+  - id: logarithmengesetz
+    wort: { de: Logarithmengesetz }
+    formen: [Logarithmengesetz, Logarithmengesetze, Logarithmengesetzen]
+    erklaerung:
+      de: 'Eine Rechenregel für Logarithmen, zum Beispiel $\lg(u \cdot v) = \lg u + \lg v$.'
+  - id: exponentialgleichung
+    wort: { de: Exponentialgleichung }
+    formen: [Exponentialgleichung, Exponentialgleichungen]
+    erklaerung:
+      de: 'Eine Gleichung, bei der x in der Hochzahl steht, zum Beispiel $3^x = 81$.'

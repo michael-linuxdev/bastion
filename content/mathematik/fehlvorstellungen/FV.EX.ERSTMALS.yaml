@@ -1,0 +1,25 @@
+id: FV.EX.ERSTMALS
+name:
+  de: Ein Jahr zu früh
+art: lesefehler
+beschreibung:
+  de: >-
+    Gibt beim Verdoppeln das letzte Jahr an, in dem das Ziel noch nicht erreicht ist. „Erstmals erreicht“ wird nicht genau gelesen.
+kompetenzen: [M.SF.EX.SACH]
+erklaerung:
+  kurz:
+    de: 'Gesucht ist das erste Jahr, in dem der Bestand das Ziel erreicht oder überschreitet, nicht das Jahr davor.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das Jahr genommen, in dem der Bestand dem Ziel am nächsten, aber noch darunter ist.'
+    - teil: warum-nicht
+      de: 'In diesem Jahr ist er noch nicht verdoppelt. Das passiert erst ein Jahr später.'
+    - teil: so-stimmt-es
+      de: 'Rechne Jahr für Jahr und hör erst auf, wenn das Ziel erreicht ist.'
+gegenbeispiel:
+  de: 'Bei 30 %: nach 2 Jahren mal 1,69, nach 3 Jahren mal 2,197. Erstmals verdoppelt nach 3 Jahren.'
+rueckweg:
+  vermittlung: M.SF.EX.SACH#erklaeren-halbwert
+kontrast: [M.SF.EX.SACH.VERDOPPLUNG]
+herkunft: ki-entwurf
+version: 1

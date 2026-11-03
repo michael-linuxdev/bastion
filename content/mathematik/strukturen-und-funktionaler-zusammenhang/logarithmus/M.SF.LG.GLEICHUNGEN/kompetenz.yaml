@@ -1,0 +1,39 @@
+# Exponentialgleichungen – Klasse 10, nur Gymnasium (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.LG.GLEICHUNGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: logarithmus
+titel:
+  de: 'Exponentialgleichungen'
+kann_satz:
+  de: 'Ich kann Exponentialgleichungen $a^x = b$ lösen und die Logarithmusfunktion $y = \ln x$ als Umkehrung von $y = e^x$ beschreiben.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.ZO.LG.LOGARITHMUS
+  - M.SF.EX.FUNKTION
+niveaus:
+  G:
+    beschreibung:
+      de: 'Gleichungen wie $3^x = 81$ lösen, bei denen x eine ganze Zahl ist.'
+  M:
+    beschreibung:
+      de: 'Gleichungen wie $2 \cdot 1{,}5^x = 40$ mit dem Logarithmus lösen und sinnvoll runden.'
+  E:
+    beschreibung:
+      de: 'Eigenschaften von $\ln x$ aus denen von $e^x$ begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K5
+    - K1
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

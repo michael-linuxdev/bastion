@@ -1,0 +1,24 @@
+# Umkehrbarkeit von x² begründen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.LG.UMKEHRFUNKTION.BEGRUENDEN
+kompetenz: M.SF.LG.UMKEHRFUNKTION
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: lg.umkehrbar-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Gehört jeder y-Wert zu genau einem x?'
+  - de: 'Rechne $f(3)$ und $f(-3)$ aus.'
+fehlerbilder:
+  umkehrbar:
+    de: 'Die [[Wurzel]] kehrt das Quadrieren nur für $x \geq 0$ um. Für negative x stimmt es nicht.'
+    fv: FV.LG.UMKEHRBAR
+  kehrwert:
+    de: 'Die [[Umkehrfunktion]] ist nicht der [[Kehrwert]].'
+    fv: FV.LG.UMKEHR-KEHRWERT
+herkunft: ki-entwurf
+version: 1

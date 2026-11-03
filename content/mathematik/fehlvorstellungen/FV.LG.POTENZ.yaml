@@ -1,0 +1,25 @@
+id: FV.LG.POTENZ
+name:
+  de: Hochzahl falsch aus dem Logarithmus gezogen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet $\lg 2^3$ als $(\lg 2)^3$. Dass die Hochzahl als Faktor vor den Logarithmus kommt, ist nicht sicher.
+kompetenzen: [M.ZO.LG.LOGARITHMUS]
+erklaerung:
+  kurz:
+    de: '$\lg u^k = k \cdot \lg u$: Die [[Hochzahl]] wird zum [[Faktor]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Logarithmus]] hoch k genommen.'
+    - teil: warum-nicht
+      de: '$(\lg u)^k$ ist eine andere Zahl. Für $\lg 8$ wäre das $0{,}301^3 \approx 0{,}03$ statt $0{,}9$.'
+    - teil: so-stimmt-es
+      de: 'Hole die [[Hochzahl]] als [[Faktor]] nach vorn.'
+gegenbeispiel:
+  de: '$\lg 1000 = \lg 10^3 = 3$, aber $(\lg 10)^3 = 1$.'
+rueckweg:
+  vermittlung: M.ZO.LG.LOGARITHMUS#erklaeren-gesetze
+kontrast: [M.ZO.LG.LOGARITHMUS.GESETZE]
+herkunft: ki-entwurf
+version: 1

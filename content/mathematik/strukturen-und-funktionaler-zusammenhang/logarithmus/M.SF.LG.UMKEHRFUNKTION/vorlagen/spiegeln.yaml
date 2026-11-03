@@ -1,0 +1,24 @@
+# „P(2|7) liegt auf f. Welcher Punkt liegt auf der Umkehrfunktion?“. Entwurf: noch nicht geprüft.
+id: M.SF.LG.UMKEHRFUNKTION.SPIEGELN
+kompetenz: M.SF.LG.UMKEHRFUNKTION
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: lg.spiegeln@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Der Punkt $P({x}|{y})$ liegt auf dem [[Graphen]] von f. **Wähle** den Punkt, der auf dem Graphen der [[Umkehrfunktion]] liegt.'
+hilfen:
+  - de: 'Die [[Umkehrfunktion]] macht f rückgängig: Was bei f herauskommt, steckt man hinein.'
+  - de: 'Gespiegelt wird an der [[Geraden]] $y = x$.'
+fehlerbilder:
+  spiegelachse:
+    de: 'Das ist die [[Spiegelung]] an der x-Achse. Die [[Umkehrfunktion]] spiegelt an $y = x$: x und y tauschen die Plätze.'
+    fv: FV.LG.SPIEGELACHSE
+  kehrwert:
+    de: 'Die [[Umkehrfunktion]] ist nicht der [[Kehrwert]]. Sie tauscht x und y.'
+    fv: FV.LG.UMKEHR-KEHRWERT
+herkunft: ki-entwurf
+version: 1

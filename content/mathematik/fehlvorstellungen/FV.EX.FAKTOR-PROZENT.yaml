@@ -1,0 +1,25 @@
+id: FV.EX.FAKTOR-PROZENT
+name:
+  de: Prozentsatz statt Wachstumsfaktor
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet bei einem Wachstum um 20 % mit dem Faktor 0,2 oder 20 statt 1,2. Dass der alte Bestand erhalten bleibt und der Zuwachs dazukommt, fehlt im Faktor.
+kompetenzen: [M.SF.EX.WACHSTUM]
+erklaerung:
+  kurz:
+    de: 'Plus 20 % heißt: 100 % bleiben und 20 % kommen dazu, zusammen 120 %. Der [[Wachstumsfaktor]] ist also 1,2.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Prozentsatz]] als [[Faktor]] genommen.'
+    - teil: warum-nicht
+      de: 'Mal 0,2 bleibt nur ein Fünftel übrig. Der Bestand würde schrumpfen, obwohl er wachsen soll.'
+    - teil: so-stimmt-es
+      de: '[[Wachstumsfaktor]] = 1 + p/100. Bei 20 % also 1 + 0,2 = 1,2.'
+gegenbeispiel:
+  de: '100 · 0,2 = 20, aber nach einem Wachstum um 20 % sind es 120.'
+rueckweg:
+  vermittlung: M.SF.EX.WACHSTUM#erklaeren-faktor
+kontrast: [M.SF.EX.WACHSTUM.FAKTOR]
+herkunft: ki-entwurf
+version: 1
