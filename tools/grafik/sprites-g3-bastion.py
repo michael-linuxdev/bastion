@@ -82,7 +82,8 @@ def stufe3(iso: Iso, fenster: list) -> None:
     iso.textur_stein(-0.82, 0.82, -0.82, 0.82, 0, 250)
     iso.fenster_l(0.3, 0.82, 0, b=0.34, h=40, farbe=(70, 46, 28))
     for z in (78, 140, 196):
-        fenster.append(iso.fenster_l(-0.3, 0.82, z))
+        # links in die Mitte der sichtbaren Wand: bei −0,3 stand der runde Seitenturm davor
+        fenster.append(iso.fenster_l(0.4, 0.82, z))
         fenster.append(iso.fenster_r(0.82, -0.3, z))
     iso.banner_r(0.82, 0.32, 236, 70, PETROL)
     # Kragsims und Zinnenkranz

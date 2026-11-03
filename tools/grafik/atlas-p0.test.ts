@@ -32,12 +32,12 @@ const P0_BODEN = [
   'boden/dorf/e1/flaeche_hell',
 ] as const;
 
-/** Abend-Fenster-Layer für Gebäude mit Fenstern (GRAFIK-SPRITES.md §3). */
+/** Abend-Fenster-Layer für Gebäude mit Fenstern (GRAFIK-SPRITES.md §3).
+ * Die Werkstatt Stufe 1 hat keine: ihre Laterne ist im Tagbild ganz verdeckt (G-Fix 03.11.2026). */
 const P0_FENSTER = [
   'dorf/e1/kern_s1_fenster',
   'dorf/e1/kern_s2_fenster',
   'dorf/e1/kern_s3_fenster',
-  'dorf/e1/werkstatt_s1_fenster',
   'dorf/e1/wissen_s1_fenster',
   'dorf/e1/wissen_s2_fenster',
   'dorf/e1/turm_s1_fenster',
