@@ -2,12 +2,14 @@
 // Die Liste der IDs steht im Kern (WERKZEUGE); ein Test hält beide gleich.
 import type { Component } from 'svelte';
 import Bruchstreifen from './Bruchstreifen.svelte';
+import Graph from './Graph.svelte';
 import Zahlenstrahl from './Zahlenstrahl.svelte';
 
 // Parameter kommen ungeprüft aus dem Inhalt; jede Komponente prüft sie selbst.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Komponenten mit verschiedenen Props
 export const WERKZEUG_KOMPONENTEN: Readonly<Record<string, Component<any>>> = {
   'bruchstreifen@1': Bruchstreifen,
+  'graph@1': Graph,
   'zahlenstrahl@1': Zahlenstrahl,
 };
 

@@ -30,11 +30,22 @@ schritte:
     typ: erklaeren
     text:
       de: '$f(x) + e$ verschiebt um e nach oben (negativ: nach unten). $f(x - d)$ verschiebt um d nach rechts, $f(x + d)$ nach links. In der Klammer ist die Richtung umgekehrt.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter:
+          { kurven: [{ d: 2, e: 1 }, { vergleich: true }], x: [-6, 6], y: [-5, 7], regler: [d, e] },
+      }
     weiter: erklaeren-strecken
   - id: erklaeren-strecken
     typ: erklaeren
     text:
       de: '$c \cdot f(x)$ streckt den [[Graphen]] in y-Richtung: Jeder [[Funktionswert]] wird mit c malgenommen. Für $c > 1$ wird er steiler, für c zwischen 0 und 1 flacher. Punkte auf der x-Achse bleiben.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter: { kurven: [{ a: 2 }, { vergleich: true }], x: [-4, 4], y: [-6, 8], regler: [a] },
+      }
     weiter: erklaeren-reihenfolge
   - id: erklaeren-reihenfolge
     typ: erklaeren
@@ -45,6 +56,17 @@ schritte:
     typ: beispiel
     text:
       de: '$y = 3(x + 1)^2 - 2$: um 1 nach links verschieben, mit 3 strecken, um 2 nach unten verschieben. Der Scheitel liegt bei $(-1|-2)$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ a: 3, d: -1, e: -2 }, { vergleich: true }],
+            x: [-4, 3],
+            y: [-3, 8],
+            punkte: [[-1, -2]],
+          },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

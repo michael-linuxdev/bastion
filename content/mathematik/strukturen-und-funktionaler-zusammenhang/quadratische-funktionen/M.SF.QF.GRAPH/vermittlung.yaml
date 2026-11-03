@@ -30,16 +30,31 @@ schritte:
     typ: erklaeren
     text:
       de: 'Gegenüberliegende x haben denselben [[Funktionswert]]. Darum ist der [[Graph]] von $y = x^2$ eine [[Parabel]], spiegelsymmetrisch zur y-Achse. Ihr tiefster Punkt ist der [[Scheitelpunkt]] $(0|0)$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter: { kurven: [{}], x: [-4, 4], y: [-1, 9], punkte: [[-2, 4], [2, 4], [0, 0]] },
+      }
     weiter: erklaeren-faktor
   - id: erklaeren-faktor
     typ: erklaeren
     text:
       de: 'Bei $y = 2x^2$ werden alle Werte verdoppelt: Die [[Parabel]] wird schmaler. Ein Minus wie bei $y = -x^2$ klappt sie nach unten, der [[Scheitelpunkt]] ist dann der höchste Punkt.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter: { kurven: [{ a: 2 }, { vergleich: true }], x: [-4, 4], y: [-6, 8], regler: [a] },
+      }
     weiter: erklaeren-ablesen
   - id: erklaeren-ablesen
     typ: erklaeren
     text:
       de: '[[Nullstellen]]: Wo schneidet der [[Graph]] die x-Achse? Es können zwei, eine oder keine sein. [[Wertebereich]]: Alle y ab dem tiefsten Punkt, bei $y = x^2 - 4$ also $y \geq -4$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter: { kurven: [{ e: -4 }], x: [-4, 4], y: [-5, 5], punkte: [[-2, 0], [2, 0]] },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel

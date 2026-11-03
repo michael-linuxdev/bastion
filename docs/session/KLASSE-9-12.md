@@ -105,10 +105,12 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 *Ergänzung (PV, 02.11.2026, 21:15):* Nach Fertigstellung von Klasse 9 **stoppen, Klasse 10 nicht beginnen**.
 
+13. **Nachtarbeit 03.11.2026, 3:15 bis 7 Uhr** (PV, 02.11.2026, 0:35): Klasse 9 optimieren in dieser Reihenfolge: offene Punkte (Graph-Werkzeug, B8, Kegel-Anleitung, Begriffe-Werkzeug), Inhalte prüfen, Fehler-Schüler-Funde senken, Tempo der Prüfungen. Danach **Niveau E für Klasse 5 bis 8** nachbauen (alle 123 Kompetenzen haben nur G und M), ab Klasse 8 abwärts, je Feld ein PR. Weiter keine Klasse 10.
+
 ### Offene Fragen der Nachtarbeit
 
-1. **Bilder in Erstvermittlungen zu Parabeln:** Ein Schritt der Erstvermittlung zeigt Bilder nur über ein Werkzeug (`bruchstreifen@1` …). Für Parabeln gibt es noch keins; QF.GRAPH und QF.SCHEITEL erklären darum vorerst nur mit Text. Vorschlag: ein einfaches Werkzeug `parabel@1` (statisches Bild aus `kurve`) vor dem interaktiven „Parameter am Graphen“ (B8). Bis zur Antwort: Text.
-3. **Werkzeug „Parameter am Graphen“ (B8)** ist in der Nachtarbeit nicht gebaut: Es ist neue Oberfläche mit Bedienung, die eine Vorschau beim PV braucht. Die Inhalte PF und QF sind fertig; das Werkzeug kann später in die Erstvermittlungen eingehängt werden.
+1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.
+3. ~~**Werkzeug „Parameter am Graphen“ (B8)**~~ *gebaut 03.11.2026 als `graph@1` mit Reglern für a, d, e (Schieberegler, per Tastatur bedienbar), Vergleichskurve gestrichelt. Aussehen: Vorschau beim PV steht aus (Bildschirmfoto im Bericht).*
 4. **Zeichenanleitung Kegel (L-10):** RF.KP.KEGEL hat noch keine Schritt-für-Schritt-Anleitung mit Bildern (wie `anleitung.schraegbild-zylinder@1`); dafür braucht es neue Bilder in der Oberfläche. Bis dahin ohne `zeichnen_erklaert`.
 2. **`pnpm inhalte:begriffe`** verdoppelt Anführungszeichen in mehrzeiligen Flow-Optionen (DZ.ZF.HAEUFIGKEIT, DZ.ZF.WAHRSCHEINLICHKEIT); nach jedem Lauf zurückgesetzt. Reparatur des Werkzeugs steht aus.
 

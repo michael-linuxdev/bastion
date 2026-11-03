@@ -42,7 +42,11 @@ const PFLICHT: readonly SchrittTyp[] = [
 ];
 
 /** Interaktive Werkzeuge (VERMITTLUNG §2.3); die Umsetzung liegt in src/ui. */
-export const WERKZEUGE: ReadonlySet<string> = new Set(['bruchstreifen@1', 'zahlenstrahl@1']);
+export const WERKZEUGE: ReadonlySet<string> = new Set([
+  'bruchstreifen@1',
+  'graph@1',
+  'zahlenstrahl@1',
+]);
 
 /** Höchstens so viele Wörter je Schritt (V8) und Minuten je Sequenz (V7). */
 export const SCHRITT_WOERTER = 40;

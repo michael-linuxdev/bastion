@@ -2068,3 +2068,27 @@ test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mi
   await druck.goto(new URL('./?blatt=1&k=M.XX.YY.ZZ&n=G&a=6&nr=7', page.url()).toString());
   await expect(druck.getByRole('alert')).toContainText('lässt sich nicht erzeugen');
 });
+
+test('Klasse 9: Graph mit Reglern in der Erstvermittlung (B8, graph@1)', async ({ page }) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 9' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await page.getByRole('button', { name: /^Graphen verschieben und strecken/ }).click();
+  await page.getByRole('button', { name: 'Erklär es mir' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Vorwissen: die erste Möglichkeit ist richtig
+  await page.getByRole('radio').first().check();
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Entdecken: um 2 nach rechts
+  await page.getByLabel('Deine Antwort').fill('2');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Verschieben: Bild mit Term, Regler für d und e
+  await expect(page.getByRole('img', { name: /Koordinatensystem mit dem Graphen/ })).toBeVisible();
+  await expect(page.getByText('f(x) = (x − 2)² + 1')).toBeVisible();
+  await page.getByRole('slider').last().fill('-3');
+  await expect(page.getByText('f(x) = (x − 2)² − 3')).toBeVisible();
+  await page.screenshot({ path: test.info().outputPath('graph-regler.png'), fullPage: true });
+});
