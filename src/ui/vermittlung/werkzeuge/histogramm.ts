@@ -2,7 +2,7 @@
 // Reine Logik; das Bild kommt aus `histogramm` der Statistik-Generatoren, damit Erklärung und
 // Aufgabe gleich aussehen.
 import type { Bild } from '../../../core/learning/generator';
-import { histogramm } from '../../../generators/mathematik/statistik/statistik';
+import { histogramm } from '../../../generators/mathematik/statistik/histogramm';
 
 export interface HistogrammParameter {
   /** Klassengrenzen, eine mehr als Säulen, aufsteigend, z. B. [0, 10, 20, 30] */

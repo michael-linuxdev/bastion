@@ -2,7 +2,7 @@
 // rechtem Winkel an einer Ecke und beschrifteten Seiten. Reine Logik; das Bild kommt aus
 // `dreieckSkizze` der Pythagoras-Generatoren, damit Erklärung und Aufgabe gleich aussehen.
 import type { Bild } from '../../../core/learning/generator';
-import { dreieckSkizze } from '../../../generators/mathematik/pythagoras/pythagoras';
+import { dreieckSkizze } from '../../../generators/mathematik/pythagoras/skizze';
 
 export interface DreieckParameter {
   /** Ecke mit dem rechten Winkel (Standard C) */
