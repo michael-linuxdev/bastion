@@ -37,6 +37,7 @@ import {
   atlasSchneeDachId,
   atlasWetterId,
   atlasWesenId,
+  atlasDatei,
   type AtlasManifest,
   type BodenKachel,
 } from './atlas';
@@ -1002,7 +1003,8 @@ async function atlasTexturenLaden(
     liste.map(async (e) => {
       try {
         // Timeout: offline/ohne Cache soll die Bühne nicht hängen (Code-Fallback)
-        const geladen = Assets.load(basis + e.datei) as Promise<Texture>;
+        const datei = atlasDatei(e, globalThis.devicePixelRatio || 1);
+        const geladen = Assets.load(basis + datei) as Promise<Texture>;
         const tex = await Promise.race([
           geladen,
           new Promise<Texture>((_, ablehnen) => {
