@@ -1,0 +1,24 @@
+# Ähnlichkeit von Dreiecken begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.AE.AEHNLICH.BEGRUENDEN
+kompetenz: M.RF.AE.AEHNLICH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ae.aehnlich-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Berechne in beiden Dreiecken den dritten [[Winkel]].'
+  - de: 'Ähnlich heißt: gleiche Form, die Größe darf verschieden sein.'
+fehlerbilder:
+  ein-winkel-reicht:
+    de: 'Ein gleicher [[Winkel]] reicht nicht, und Seiten braucht man nicht: Prüfe, ob zwei Winkel übereinstimmen.'
+    fv: FV.AE.AEHNLICH-PRUEFEN
+  groesse:
+    de: 'Ähnliche Figuren dürfen verschieden groß sein. Es kommt nur auf die [[Winkel]] an.'
+    fv: FV.AE.AEHNLICH-PRUEFEN
+herkunft: ki-entwurf
+version: 1

@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Flächeninhalt (k²) und Volumen (k³) ähnlicher Figuren berechnen; Höhen mit Schattenlängen bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie Flächeninhalt (k²) und Volumen (k³) beim Strecken wachsen.'
 kmk:
   leitidee: L4
   prozesse:

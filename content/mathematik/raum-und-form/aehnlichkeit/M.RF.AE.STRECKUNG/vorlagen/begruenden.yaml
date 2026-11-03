@@ -1,0 +1,27 @@
+# Streckfaktor begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.AE.STRECKUNG.BEGRUENDEN
+kompetenz: M.RF.AE.STRECKUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ae.streckfaktor-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Welche** Aussage über den [[Streckfaktor]] k stimmt?'
+hilfen:
+  - de: 'Der [[Streckfaktor]] sagt, mit welcher Zahl jede Länge malgenommen wird.'
+  - de: 'Rechne Bildlänge geteilt durch Originallänge.'
+fehlerbilder:
+  kehrwert:
+    de: 'Umgekehrt: k = Bild : Original. Sonst wäre das Bild nicht länger, sondern kürzer.'
+    fv: FV.AE.STRECKFAKTOR-KEHRWERT
+  gleich-viel-dazu:
+    de: 'Beim Strecken wird malgenommen, nicht addiert. Sonst würden kurze und lange Strecken um gleich viel wachsen.'
+    fv: FV.AE.GLEICH-VIEL-DAZU
+  streckzentrum:
+    de: 'Das [[Streckzentrum]] bestimmt, wo das Bild liegt, nicht wie groß es ist. Der [[Faktor]] folgt aus den Längen.'
+    fv: FV.AE.STRECKZENTRUM
+herkunft: ki-entwurf
+version: 1

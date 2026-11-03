@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Mit dem Hauptähnlichkeitssatz (zwei gleiche Winkel) begründen, dass Dreiecke ähnlich sind; Kongruenz als Sonderfall (k = 1).'
+  E:
+    beschreibung:
+      de: 'Begründen, ob Dreiecke ähnlich sind: alle Winkel vergleichen, die Größe spielt keine Rolle.'
 kmk:
   leitidee: L4
   prozesse:
