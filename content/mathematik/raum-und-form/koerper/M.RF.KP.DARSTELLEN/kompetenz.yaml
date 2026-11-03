@@ -19,6 +19,9 @@ niveaus:
       de:
         Netze, Schrägbilder, Grundriss und Seitenansichten von Quadern und zusammengesetzten Körpern
         zuordnen; Zeichnen des Schrägbilds wird erklärt.
+  E:
+    beschreibung:
+      de: 'Am Würfelnetz begründen, welche Flächen beim Falten gegenüberliegen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

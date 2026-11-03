@@ -19,12 +19,16 @@ niveaus:
   M:
     beschreibung:
       de: Über mehrere Einheiten umrechnen, auch mit Dezimalzahlen; Einheiten sinnvoll wählen.
+  E:
+    beschreibung:
+      de: 'Begründen, warum die Umrechnungszahl bei Flächeneinheiten 100 ist.'
 kmk:
   leitidee: L2
   prozesse:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

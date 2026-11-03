@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Ablesen und Eintragen auch über 1 hinaus und bei Einteilungen, die nicht zum Nenner passen.
+  E:
+    beschreibung:
+      de: 'Begründen, wie man den Nenner am Zahlenstrahl aus den Abschnitten bestimmt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

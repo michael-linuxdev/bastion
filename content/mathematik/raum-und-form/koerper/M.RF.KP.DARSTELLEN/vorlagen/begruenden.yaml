@@ -1,0 +1,24 @@
+# Würfelnetz falten begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KP.DARSTELLEN.BEGRUENDEN
+kompetenz: M.RF.KP.DARSTELLEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.netz-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Falte das [[Netz]] im Kopf um Fläche 2 herum.'
+  - de: 'Im Streifen liegen sich jeweils die übernächsten Flächen gegenüber.'
+fehlerbilder:
+  netz-falten:
+    de: 'Falte Schritt für Schritt: Im Streifen liegen sich die übernächsten Flächen gegenüber.'
+    fv: FV.KP.NETZ-FALTEN
+  netz-nachbar:
+    de: 'Prüfe, ob die beiden Flächen beim Falten eine gemeinsame [[Kante]] bekommen.'
+    fv: FV.KP.NETZ-FALTEN
+herkunft: ki-entwurf
+version: 1

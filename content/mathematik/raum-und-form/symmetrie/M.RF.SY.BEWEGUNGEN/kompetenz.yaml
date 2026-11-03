@@ -22,6 +22,9 @@ niveaus:
       de:
         Spiegelung, Verschiebung und Drehung unterscheiden; Verschiebungen durch Richtung und Weite
         (auch im Koordinatensystem) angeben.
+  E:
+    beschreibung:
+      de: 'Begründen, was zur Angabe einer Verschiebung gehört.'
 kmk:
   leitidee: L4
   prozesse:
@@ -30,6 +33,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 sachsen:
   oberschule:

@@ -17,6 +17,9 @@ niveaus:
   G:
     beschreibung:
       de: Zehnerbrüche wie 7/10 und 23/100 als Dezimalzahl schreiben und umgekehrt.
+  E:
+    beschreibung:
+      de: 'Mit den Stellenwerten begründen, wie man Zehnerbrüche als Dezimalzahl schreibt.'
   M:
     beschreibung:
       de:
@@ -29,6 +32,7 @@ kmk:
     - K4
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

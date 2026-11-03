@@ -1,0 +1,24 @@
+# Komma unter Komma begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZ-RECHNEN.BEGRUENDEN
+kompetenz: M.ZO.BR.DEZ-RECHNEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.komma-unter-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Stellen stehen untereinander?'
+  - de: 'Fülle mit Nullen auf.'
+fehlerbilder:
+  komma-unter-komma:
+    de: 'Bei [[Dezimalzahlen]] steht Komma unter Komma, damit gleiche Stellenwerte untereinander stehen.'
+    fv: FV.BR.KOMMA-UNTER-KOMMA
+  ziffern-getrennt:
+    de: 'Hinter dem Komma stehen [[Zehntel]] und [[Hundertstel]]. 5 Zehntel und 25 Hundertstel kann man nicht einfach als 5 + 25 rechnen.'
+    fv: FV.BR.KOMMA-UNTER-KOMMA
+herkunft: ki-entwurf
+version: 1

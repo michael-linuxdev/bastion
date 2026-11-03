@@ -1,0 +1,24 @@
+# Stellenwert hinter dem Komma begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.DEZIMAL.BEGRUENDEN
+kompetenz: M.ZO.BR.DEZIMAL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.stellenwert-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Stelle hinter dem Komma sind die [[Hundertstel]]?'
+  - de: '0,7 sind 7 [[Zehntel]].'
+fehlerbilder:
+  stellenwert-dezimal:
+    de: 'Die erste Stelle hinter dem Komma sind [[Zehntel]], die zweite [[Hundertstel]], die dritte [[Tausendstel]].'
+    fv: FV.BR.STELLENWERT-DEZIMAL
+  komma-als-bruchstrich:
+    de: 'Das Komma ist kein Bruchstrich.'
+    fv: FV.BR.KOMMA-ALS-BRUCHSTRICH
+herkunft: ki-entwurf
+version: 1

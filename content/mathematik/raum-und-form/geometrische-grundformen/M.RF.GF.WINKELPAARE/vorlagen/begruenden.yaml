@@ -1,0 +1,24 @@
+# Scheitel- und Nebenwinkel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.GF.WINKELPAARE.BEGRUENDEN
+kompetenz: M.RF.GF.WINKELPAARE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gf.winkelpaar-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Liegen die [[Winkel]] nebeneinander oder gegenüber?'
+  - de: 'Was ergeben [[Nebenwinkel]] zusammen?'
+fehlerbilder:
+  winkelpaare-namen:
+    de: 'Gegenüberliegende [[Winkel]] heißen [[Scheitelwinkel]], nebeneinanderliegende [[Nebenwinkel]].'
+    fv: FV.GF.WINKELPAARE-NAMEN
+  gleich-oder-180:
+    de: '[[Scheitelwinkel]] sind gleich groß. 180° ergeben [[Nebenwinkel]].'
+    fv: FV.GF.GLEICH-ODER-180
+herkunft: ki-entwurf
+version: 1

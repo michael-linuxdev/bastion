@@ -1,0 +1,24 @@
+# Flächeneinheiten begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.EINHEITEN.BEGRUENDEN
+kompetenz: M.GM.FL.EINHEITEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.einheit-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne ein Quadrat mit der Seitenlänge 1 der großen Einheit.'
+  - de: 'Wie viele kleine Quadrate passen hinein?'
+fehlerbilder:
+  flaeche-100:
+    de: 'Bei Flächen ist die [[Umrechnungszahl]] 10 · 10 = 100, nicht 10.'
+    fv: FV.FL.FLAECHE-100
+  umrechnen-richtung:
+    de: 'In eine kleinere Einheit wird die Zahl größer: malnehmen, nicht teilen.'
+    fv: FV.GR.UMRECHNEN-RICHTUNG
+herkunft: ki-entwurf
+version: 1

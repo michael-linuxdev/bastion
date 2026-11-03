@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: Ungleichnamige Brüche vergleichen und ordnen, mit verschiedenen Strategien.
+  E:
+    beschreibung:
+      de: 'Begründen, warum man Brüche nicht nur am Zähler oder Nenner vergleicht.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

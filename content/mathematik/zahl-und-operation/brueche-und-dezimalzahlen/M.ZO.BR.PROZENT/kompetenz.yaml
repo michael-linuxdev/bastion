@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: Die Anteile 0,01; 0,1; 0,2; 0,25; 0,5; 0,75 und 1 zwischen Bruch, Dezimalzahl und Prozent umwandeln.
+  E:
+    beschreibung:
+      de: 'Begründen, warum Prozent Hundertstel sind.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - I
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

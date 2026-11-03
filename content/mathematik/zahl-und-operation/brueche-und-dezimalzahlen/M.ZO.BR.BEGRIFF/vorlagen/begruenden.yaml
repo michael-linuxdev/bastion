@@ -1,0 +1,27 @@
+# Bruch zum Bild begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.BR.BEGRIFF.BEGRUENDEN
+kompetenz: M.ZO.BR.BEGRIFF
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: br.bild-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele Teile gibt es insgesamt?'
+  - de: 'Wie viele davon sind gefärbt?'
+fehlerbilder:
+  teil-zu-rest:
+    de: 'Der [[Nenner]] zählt alle Teile, nicht nur die ungefärbten.'
+    fv: FV.BR.TEIL-ZU-REST
+  vertauscht:
+    de: 'Unten steht die Zahl aller Teile, oben die Zahl der gefärbten.'
+    fv: FV.BR.VERTAUSCHT
+  gegenteil:
+    de: 'Gefragt ist der gefärbte [[Anteil]], nicht der ungefärbte.'
+    fv: FV.BR.GEGENTEIL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Spiegeln an einer Achse begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.SY.SPIEGELN.BEGRUENDEN
+kompetenz: M.RF.SY.SPIEGELN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: sy.spiegel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie weit ist der Punkt von der Achse entfernt?'
+  - de: 'Gehe genauso weit auf die andere Seite.'
+fehlerbilder:
+  spiegelabstand:
+    de: 'Der [[Bildpunkt]] liegt genauso weit hinter der Achse wie der Punkt davor.'
+    fv: FV.SY.SPIEGELABSTAND
+  spiegeln-koordinate:
+    de: 'Bei einer senkrechten Achse ändert sich x, y bleibt gleich.'
+    fv: FV.GF.SPIEGELN-KOORDINATE
+herkunft: ki-entwurf
+version: 1

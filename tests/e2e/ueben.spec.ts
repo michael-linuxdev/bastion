@@ -2212,7 +2212,7 @@ test('Klasse 9: Graph mit Reglern in der Erstvermittlung (B8, graph@1)', async (
   await page.screenshot({ path: test.info().outputPath('graph-regler.png'), fullPage: true });
 });
 
-test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen (Klasse 9)', async ({ page }) => {
+test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) => {
   await page.goto('./');
   await mehr(page);
   await page.getByRole('button', { name: 'Für Eltern' }).click();
@@ -2222,11 +2222,14 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen (Klasse 9)', async 
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
 
-  // Klasse 5: nur G und M
+  // Klasse 5: natürliche Zahlen nur G und M, Brüche auch E (K-31)
   await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
-  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
+  await page.getByRole('checkbox', { name: 'Runden, schätzen, überschlagen' }).check();
   await expect(page.getByRole('radio', { name: 'Mittel (M)' })).toBeVisible();
   await expect(page.getByRole('radio', { name: 'Erweitert (E)' })).toHaveCount(0);
+  await page.getByRole('checkbox', { name: 'Runden, schätzen, überschlagen' }).uncheck();
+  await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
+  await expect(page.getByRole('radio', { name: 'Erweitert (E)' })).toBeVisible();
   await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).uncheck();
 
   // Klasse 9: E wählbar, das Blatt hat Aufgaben

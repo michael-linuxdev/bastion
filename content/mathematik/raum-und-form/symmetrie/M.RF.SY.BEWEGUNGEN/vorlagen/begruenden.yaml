@@ -1,0 +1,24 @@
+# Verschiebung begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.SY.BEWEGUNGEN.BEGRUENDEN
+kompetenz: M.RF.SY.BEWEGUNGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: sy.bewegung-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie ändert sich x, wie ändert sich y?'
+  - de: 'Ist die Figur seitenverkehrt?'
+fehlerbilder:
+  verschiebung:
+    de: 'Eine [[Verschiebung]] kann auch nach oben oder unten gehen. Gib beide Richtungen an.'
+    fv: FV.SY.VERSCHIEBUNG
+  bewegung-erkennen:
+    de: 'Bei einer [[Spiegelung]] wird die Figur umgeklappt. Hier wird nur verschoben.'
+    fv: FV.SY.BEWEGUNG-ERKENNEN
+herkunft: ki-entwurf
+version: 1

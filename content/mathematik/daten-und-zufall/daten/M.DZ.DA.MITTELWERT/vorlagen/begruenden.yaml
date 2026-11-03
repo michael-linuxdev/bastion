@@ -1,0 +1,24 @@
+# Durchschnitt begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.DZ.DA.MITTELWERT.BEGRUENDEN
+kompetenz: M.DZ.DA.MITTELWERT
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: da.mittelwert-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viele Werte gibt es insgesamt?'
+  - de: 'Zählen doppelte Werte mit?'
+fehlerbilder:
+  mittelwert-anzahl:
+    de: 'Jeder Wert zählt, auch wenn er mehrmals vorkommt.'
+    fv: FV.DA.MITTELWERT-ANZAHL
+  zwischenergebnis:
+    de: 'Die [[Summe]] ist erst ein Zwischenergebnis. Teile noch durch die Anzahl.'
+    fv: FV.SA.ZWISCHENERGEBNIS
+herkunft: ki-entwurf
+version: 1
