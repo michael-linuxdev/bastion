@@ -115,6 +115,7 @@ import {
   type Taetigkeit,
 } from './bewohner';
 import { belegteFelder } from './pfad';
+import { bodenLeben } from './boden-leben';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import { atlasThema, type Bildart } from './bildart';
 import { geruestEbenen } from './geruest';
@@ -1819,6 +1820,43 @@ export async function buehneErstellen(
       });
       treffer = [];
       laubQuellen = [];
+      // Boden mit Leben (Wunsch PV, Schritt 7): Gras, Blumen, Laub, Spuren auf freien Feldern
+      if (istLandBildart(art) && texturen.size > 0) {
+        const leben = new Graphics();
+        leben.zIndex = 1;
+        const { breite: lw, tiefe: lt } = bauplatzAktiv();
+        const dunkel = farben.abend ? 0.55 : 1;
+        for (const d of bodenLeben(lw, lt, farben.jahreszeit ?? 'sommer', belegt)) {
+          const p = punkt(d.x, d.y);
+          if (d.art === 'buesche') {
+            for (const [dx, h] of [
+              [-2.2, 6],
+              [0, 8],
+              [2.2, 5.4],
+            ] as const)
+              leben
+                .moveTo(p.x + dx, p.y)
+                .lineTo(p.x + dx * 1.7, p.y - h)
+                .stroke({ width: 1.5, color: d.farbe, alpha: 0.85 * dunkel, cap: 'round' });
+          } else if (d.art === 'bluete') {
+            leben
+              .moveTo(p.x, p.y)
+              .lineTo(p.x, p.y - 6)
+              .stroke({ width: 0.9, color: '#4d8f35', alpha: dunkel });
+            leben.circle(p.x, p.y - 6.8, 2.6).fill({ color: d.farbe, alpha: dunkel });
+            leben.circle(p.x, p.y - 6.8, 0.9).fill({ color: '#f6d24a', alpha: dunkel });
+          } else if (d.art === 'laub') {
+            leben.ellipse(p.x, p.y, 3.4, 1.7).fill({ color: d.farbe, alpha: 0.9 * dunkel });
+          } else {
+            // Spuren im Schnee: ein paar Abdrücke hintereinander
+            for (let k = 0; k < 3; k++)
+              leben
+                .ellipse(p.x + k * 3.2 + (k % 2) * 1.2, p.y + k * 1.6 - (k % 2) * 1.4, 1.3, 0.7)
+                .fill({ color: d.farbe, alpha: 0.55 * dunkel });
+          }
+        }
+        gebaeude.addChild(leben);
+      }
       const epoche = epocheJetzt;
       // Rauch aus Bergfried und Werkstatt (Wunsch PV: Leben an den Gebäuden), nur über Land
       rauchQuellen = [];

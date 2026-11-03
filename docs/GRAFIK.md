@@ -592,3 +592,7 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Luftperspektive:** Dinge der Kulisse ab 8 Feldern Abstand vom Bauplatz werden mit wachsendem Abstand blasser, etwas heller und bläulicher und ganz weit draußen minimal unscharf (CSS-Variable `--dunst` 0 … 1, auch in Dämmerung und Nacht).
 - **Dunst am Horizont:** Vom Horizont abwärts liegt ein weicher Schleier in der unteren Himmelsfarbe (`.ferne`), nachts schwächer.
 
+## 23. Boden mit Leben (Wunsch PV, 03.11.2026, Schritt 7)
+
+- Auf jedem freien Feld der Insel 1 bis 4 kleine Einzelheiten (`grafik/boden-leben.ts`), fest aus der Lage des Feldes: Grasbüschel; im Frühling viele Blüten (rosa, weiß, gelb, lila), im Sommer einzelne Blumen, im Herbst Laub am Boden, im Winter vereiste Büschel und Spuren im Schnee. Bebaute Felder (auch im Bau) bleiben frei; abends gedämpft. Nur über Land (Bastion, Dorf, Garten).
+
