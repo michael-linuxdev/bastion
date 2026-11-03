@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { BAUPLATZ } from '../../../core/bastion/katalog';
-import { BUEHNE_B, BUEHNE_H, feldUnter, punkt } from './iso';
+import { BUEHNE_B, BUEHNE_H, bodenTiefe, feldUnter, punkt } from './iso';
 
 describe('Schräg von oben (GRAFIK §1)', () => {
   it('die Mitte jedes Feldes führt zurück zu genau diesem Feld', () => {
@@ -26,5 +26,12 @@ describe('Schräg von oben (GRAFIK §1)', () => {
     }
     expect(feldUnter(2, 2)).toBeUndefined();
     expect(feldUnter(BUEHNE_B - 2, BUEHNE_H - 2)).toBeUndefined();
+  });
+});
+
+describe('Tiefe am Boden (Wesen zwischen Gebäuden)', () => {
+  it('gibt für einen Bildpunkt gx + gy zurück, wie die Sortierung der Gebäude', () => {
+    expect(bodenTiefe(punkt(3, 4, BAUPLATZ).y, BAUPLATZ)).toBeCloseTo(7);
+    expect(bodenTiefe(punkt(0.5, 0.5, BAUPLATZ).y, BAUPLATZ)).toBeCloseTo(1);
   });
 });

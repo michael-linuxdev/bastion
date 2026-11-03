@@ -83,6 +83,14 @@ export function punkt(
   };
 }
 
+/**
+ * Tiefe eines Bildpunkts am Boden in Feldern (gx + gy), wie die Sortierung der
+ * Gebäude (`pos.x + pos.y + (Breite + Tiefe) / 2`): größer heißt weiter vorn.
+ */
+export function bodenTiefe(y: number, platz: BauplatzMass = aktiv): number {
+  return (y - himmelFuer(platz)) / (RAUTE_H / 2);
+}
+
 /** Feld unter einem Bildpunkt – oder undefined neben dem Bauplatz */
 export function feldUnter(x: number, y: number): Position | undefined {
   const { mitteX } = buehneFuer();
