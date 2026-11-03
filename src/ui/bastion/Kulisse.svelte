@@ -20,7 +20,7 @@
     MEER,
     STERNE,
     dingBild,
-    dingeUmBauplatz,
+    kulissenDinge,
     kulissenLage,
     type KulissenThema,
     type Stimmung,
@@ -87,12 +87,45 @@
   const hoch = $derived(HORIZONT.hoehe * lage.horizontSkala);
   const wasserFern = $derived(hY - (HORIZONT.hoehe - HORIZONT.wasser) * lage.horizontSkala);
   const dinge = $derived(
-    dingeUmBauplatz(platz.breite, platz.tiefe, thema.dinge).map((d) => ({
+    kulissenDinge(platz.breite, platz.tiefe, thema).map((d) => ({
       ...d,
       bild: dingBild(thema, d.bild, jahreszeit),
+      tier: thema.leben.includes('grasen') && (d.bild === 'kuh' || d.bild === 'schaf'),
       ...punkt(d.gx, d.gy, platz),
     })),
   );
+  /** Bewegtes (Wunsch PV: mehr Leben): feste Plätze rund um den Bauplatz, in Feldern */
+  const lebenPlatz = (gx: number, gy: number) => punkt(gx, gy, platz);
+  const moewen = $derived(
+    thema.leben.includes('moewen')
+      ? [
+          { ...lebenPlatz(-3, platz.tiefe * 0.4), r: 70, d: 34, n: 0 },
+          { ...lebenPlatz(platz.breite + 4, -2), r: 110, d: 48, n: 1 },
+          { ...lebenPlatz(platz.breite * 0.5, platz.tiefe + 6), r: 90, d: 41, n: 2 },
+          { ...lebenPlatz(-8, -6), r: 60, d: 29, n: 3 },
+        ]
+      : [],
+  );
+  const falter = $derived(
+    thema.leben.includes('schmetterlinge')
+      ? [
+          { ...lebenPlatz(-1.5, platz.tiefe * 0.5), r: 26, d: 14, n: 0 },
+          { ...lebenPlatz(platz.breite + 1.5, platz.tiefe * 0.3), r: 34, d: 17, n: 1 },
+          { ...lebenPlatz(platz.breite * 0.4, platz.tiefe + 2), r: 22, d: 12, n: 2 },
+          { ...lebenPlatz(platz.breite * 0.6, -2), r: 30, d: 16, n: 3 },
+        ]
+      : [],
+  );
+  const schwaerme = $derived(
+    thema.leben.includes('schwarm')
+      ? [
+          { ...lebenPlatz(-4, platz.tiefe * 0.6), n: 0 },
+          { ...lebenPlatz(platz.breite + 3, platz.tiefe * 0.2), n: 1 },
+          { ...lebenPlatz(platz.breite * 0.3, platz.tiefe + 7), n: 2 },
+        ]
+      : [],
+  );
+  const satellit = $derived(thema.leben.includes('satellit') ? lebenPlatz(-6, -10) : undefined);
   /** Rand des Bauplatzes (Raute) für den Schaumring, in Bühnen-Bildpunkten */
   const raute = $derived(
     [
@@ -192,14 +225,71 @@
       ></span>
     {/each}
     {#each dinge as d, i (i)}
+      <!-- Hinter dem Horizont liegt nichts: weit Entferntes sonst am Himmel (herausgezoomt) -->
+      {#if kamera.y + d.y * kamera.zoom > wasserFern + 8}
+        <img
+          class="ding"
+          class:flach={d.flach}
+          class:tier={d.tier}
+          src="{basis}dinge/{d.bild}.png"
+          alt=""
+          style:inline-size="{d.breite ?? DING_BREITE}px"
+          style:inset-inline-start="{d.x}px"
+          style:inset-block-start="{d.y}px"
+          style:--n={i % 7}
+        />
+      {/if}
+    {/each}
+    {#each schwaerme as f (f.n)}
       <img
-        class="ding"
-        src="{basis}dinge/{d.bild}.png"
+        class="ding schwarm"
+        src="{basis}dinge/fischschwarm.png"
         alt=""
-        style:inline-size="{DING_BREITE}px"
-        style:inset-inline-start="{d.x}px"
-        style:inset-block-start="{d.y}px"
+        style:inline-size="{DING_BREITE * 1.3}px"
+        style:inset-inline-start="{f.x}px"
+        style:inset-block-start="{f.y}px"
+        style:--n={f.n}
       />
+    {/each}
+    {#if satellit}
+      <img
+        class="ding satellit"
+        src="{basis}dinge/satellit.png"
+        alt=""
+        style:inline-size="{DING_BREITE * 1.2}px"
+        style:inset-inline-start="{satellit.x}px"
+        style:inset-block-start="{satellit.y}px"
+      />
+    {/if}
+    {#each moewen as m (m.n)}
+      <span
+        class="kreis"
+        style:inset-inline-start="{m.x}px"
+        style:inset-block-start="{m.y - 140}px"
+        style:--r="{m.r}px"
+        style:--d="{m.d}s"
+        style:--n={m.n}
+      >
+        <svg class="moewe" viewBox="0 0 28 12" aria-hidden="true">
+          <path d="M1 7 Q7 0 14 7 Q21 0 27 7" />
+        </svg>
+      </span>
+    {/each}
+    {#each falter as f (f.n)}
+      <span
+        class="kreis"
+        style:inset-inline-start="{f.x}px"
+        style:inset-block-start="{f.y - 30}px"
+        style:--r="{f.r}px"
+        style:--d="{f.d}s"
+        style:--n={f.n}
+      >
+        <svg class="falter" viewBox="0 0 12 10" aria-hidden="true" style:--n={f.n}>
+          <ellipse cx="3.4" cy="4" rx="3.2" ry="3.6" />
+          <ellipse cx="8.6" cy="4" rx="3.2" ry="3.6" />
+          <rect x="5.4" y="2" width="1.2" height="7" rx="0.6" class="leib" />
+        </svg>
+      </span>
     {/each}
     {#if thema.boot}
       <img
@@ -279,6 +369,51 @@
     block-size: auto;
     /* Fuß unten Mitte auf dem Platz */
     translate: -50% -100%;
+  }
+
+  /* Flächen am Boden: Fuß in der Mitte, nicht unten */
+  .ding.flach {
+    translate: -50% -60%;
+  }
+
+  .kreis {
+    position: absolute;
+    inline-size: 0;
+    block-size: 0;
+  }
+
+  .moewe {
+    position: absolute;
+    inline-size: 26px;
+    block-size: 11px;
+    translate: -50% -50%;
+    fill: none;
+    stroke: rgb(250 250 248);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 1px 0 rgb(60 70 80 / 0.45));
+  }
+
+  .falter {
+    position: absolute;
+    inline-size: 12px;
+    block-size: 10px;
+    translate: -50% -50%;
+    fill: hsl(calc(20 + var(--n) * 70) 80% 62%);
+  }
+
+  .falter .leib {
+    fill: rgb(60 50 44);
+  }
+
+  .daemmerung .moewe,
+  .nacht .moewe {
+    opacity: 0.5;
+  }
+
+  .nacht .falter {
+    display: none;
   }
 
   .daemmerung .ding,
@@ -416,6 +551,110 @@
 
     .kulisse.bewegt .boot {
       animation: segeln 180s linear infinite;
+    }
+
+    /* Möwen und Schmetterlinge ziehen ruhige Kreise, Flügel schlagen */
+    .kulisse.bewegt .kreis {
+      animation: kreisen var(--d) linear infinite;
+      animation-delay: calc(var(--n) * -7s);
+    }
+
+    .kulisse.bewegt .kreis > svg {
+      animation: gegenkreisen var(--d) linear infinite;
+      animation-delay: calc(var(--n) * -7s);
+    }
+
+    .kulisse.bewegt .moewe path {
+      animation: fluegel 1.1s ease-in-out infinite alternate;
+      transform-origin: 50% 60%;
+    }
+
+    .kulisse.bewegt .falter ellipse {
+      animation: flattern 0.25s ease-in-out infinite alternate;
+      transform-origin: 50% 50%;
+    }
+
+    .kulisse.bewegt .tier {
+      animation: grasen 6s ease-in-out infinite;
+      animation-delay: calc(var(--n) * -0.9s);
+      transform-origin: 50% 100%;
+    }
+
+    .kulisse.bewegt .schwarm {
+      animation: schwimmen 36s ease-in-out infinite alternate;
+      animation-delay: calc(var(--n) * -12s);
+    }
+
+    .kulisse.bewegt .satellit {
+      animation: umlauf 150s linear infinite;
+    }
+  }
+
+  @keyframes kreisen {
+    from {
+      transform: rotate(0deg) translateX(var(--r));
+    }
+    to {
+      transform: rotate(360deg) translateX(var(--r));
+    }
+  }
+
+  @keyframes gegenkreisen {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: -360deg;
+    }
+  }
+
+  @keyframes fluegel {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0.45);
+    }
+  }
+
+  @keyframes flattern {
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0.35);
+    }
+  }
+
+  @keyframes grasen {
+    0%,
+    70%,
+    100% {
+      transform: rotate(0deg);
+    }
+    80% {
+      transform: rotate(-2deg);
+    }
+    90% {
+      transform: rotate(1.5deg);
+    }
+  }
+
+  @keyframes schwimmen {
+    from {
+      transform: translate(-90px, 10px);
+    }
+    to {
+      transform: translate(90px, -14px);
+    }
+  }
+
+  @keyframes umlauf {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(900px, 260px);
     }
   }
 

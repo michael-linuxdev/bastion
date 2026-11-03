@@ -38,7 +38,9 @@ describe('Atlas: Jahreszeiten (G13)', () => {
       const k = kulisseFuer(thema);
       expect(k?.jahreszeitDinge.length).toBeGreaterThan(0);
       for (const name of k?.jahreszeitDinge ?? []) {
-        expect(k?.dinge).toContain(name);
+        expect([...(k?.dinge ?? []), ...(k?.weitere ?? []), ...(k?.flaechen ?? [])]).toContain(
+          name,
+        );
         for (const jz of JZ)
           expect(
             existsSync(resolve(`public/grafik/atlas/kulisse/${thema}/dinge/${name}_${jz}.png`)),

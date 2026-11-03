@@ -527,3 +527,12 @@ PV: „Herbstlaub nur innerhalb der Insel bzw. dort, wo tatsächlich Bäume sind
 - **Boden:** Die Insel samt Rand bekommt einen Ton je Jahreszeit (Frühling frisch, Herbst warm, Winter Raureif mit Schneeflecken). Die Kulisse tönt Felder, Wiese und Hügel genauso (`jz-…`-Klassen in `Kulisse.svelte`). Unter Wasser und im Weltraum bleibt alles, wie es ist.
 - **Zahnrad:** „Jahreszeit ausprobieren“ (Wie im Kalender, Frühling, Sommer, Herbst, Winter) – wie beim Wetter nur für die Ansicht bis zum Neuladen.
 
+## 18. Mehr Leben in der Kulisse (Wunsch PV, 03.11.2026)
+
+PV: „Die Kulissen sind noch zu viel freie Fläche, die mit Leben gefüllt werden muss.“ Bisher standen sechs Dinge rund um den Bauplatz.
+
+- **Verteilung** (`kulissenDinge` in `grafik/kulisse.ts`): die sechs festen Plätze am Bauplatz, dazu ein Raster mit fester Verschiebung je Zelle bis 30 Felder hinaus; nah dichter, weit lockerer; nichts auf dem Bauplatz und direkt am Rand; weit seitlich nichts (im Hochformat unsichtbar); etwa 70–100 Dinge je nach Epoche. Kein Zufall: gleiche Größe, gleiche Plätze. Größen schwanken leicht. Hinter dem Horizont wird nichts gezeigt (sonst stünde es herausgezoomt am Himmel).
+- **Flächen am Boden** (zwei bis drei Felder, liegen unter allem): Bastion Sandbänke und Riffe, Dorf Äcker und Teiche, Garten Beete und Teiche, Unterwasser Seegraswiesen und Sandrippel, Weltraum Kraterfelder.
+- **Neue Dinge** (`tools/grafik/g14_kulisse_leben.py`): Bastion Boje, Leuchtturm (selten); Dorf Baumgruppe, Kuh, Schaf, Zaun; Garten Baumgruppe, Bank, Vogeltränke; Unterwasser Anemone, Seestern; Weltraum Geröll, Antenne, Eisbrocken. Pflanzliches gibt es je Jahreszeit (Acker im Frühling grün, im Sommer Korn, im Herbst gepflügt, im Winter verschneit).
+- **Bewegtes**, ruhig und nur bei „voll“/„leicht“ ohne „Bewegung reduzieren“: Möwen kreisen über dem Meer (einfache Form aus dem Code), Kühe und Schafe grasen (nicken), Schmetterlinge flattern im Garten (nachts nicht), Fischschwärme ziehen unter Wasser hin und her, ein Satellit zieht über den Weltraum.
+
