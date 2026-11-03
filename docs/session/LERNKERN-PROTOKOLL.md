@@ -99,3 +99,5 @@
 | 03.11.2026 | **K-31, Terme und Gleichungen mit natürlichen Zahlen (Klasse 5) mit E** (Entscheidung PV: zählen zum Feld Terme/Gleichungen): `nz.klammer-aussage`, `nz.ungleichung-aussage` |
 | 03.11.2026 | **Stand 12:15:** K-31 umgesetzt, 107 von 124 Kompetenzen der Klassen 5–8 mit E; Grenzfälle entschieden (Entscheidung 15); Doku in `KLASSE-9-12.md`, `LERNKERN.md`, `PLAN.md`, `LEHRPLAN.md`, `STRATEGIE.md` |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** Hülle des Elternbereichs gehört jetzt dem Strang Oberfläche (PV); Fach-Bausteine (Aufgabenblatt, Druck, Testphase, Bericht) bleiben hier |
+| 03.11.2026 | **Bauplan Klasse 10 bis 12** (`docs/session/KLASSE-10-12-BAUPLAN.md`): Reihenfolge, etwa 37 PRs, Bausteine (Kurs GK/LK, hilfsmittelfrei, Tabelle, Stabdiagramm, Baum, Raum, vier Werkzeuge, Erweiterung `graph@1` und `dreieck@1`), Vorlagen G/M/E und Fehlvorstellungen je Kompetenz für alle 77 Kompetenzen, sieben offene Fragen |
+| 03.11.2026 | **Antworten des PV zum Bauplan 10–12** eingetragen (`KLASSE-10-12-BAUPLAN.md` §7, Entscheidung 17 in `KLASSE-9-12.md`); Rundungsregel: Lehrplan nennt keine feste Stellenzahl, Vorschlag festgehalten |
