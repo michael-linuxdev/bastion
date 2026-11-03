@@ -531,6 +531,7 @@ Eigener 3D-Renderer `tools/grafik/raum.py` (nur numpy und Pillow, kein Zufall): 
 2. **Passt zur Aufgabe:** Jedes neue Teil gehört zur Aufgabe des Gebäudes (ein Gewächshaus bekommt mehr Glas, Pflanzen, Wasser – keine Türme).
 3. **Wachstum:** Stufen 1–3 wachsen vor allem in die Höhe, ab Stufe 4 in den Hof hinein (Mauer, Anbau, Flügel), die letzte Stufe krönt das Ganze.
 4. **Ohne Ziffer lesbar:** Man sieht, was dazugekommen ist, weil alles andere gleich bleibt.
+5. **Messung (Festlegung 03.11.2026, `atlas-stufen.test.ts`):** Bis Stufe 3 unverändert (Umriss 25 %, Höhe +15 %, Entscheidung PV 01.11.2026). **Ab Stufe 4: mindestens 10 % der Fläche sichtbar geändert (Umriss oder Farbe) und nicht niedriger als die vorige Stufe.** Bisher galten ab Stufe 4 Umriss 10 % und Höhe +8 %. Mit aufbauenden Leitern zwang das jede Stufe in die Höhe; die Fotos aus der App zeigten verzerrte Gebäude (Gemeindehaus als Fachwerk-Hochhaus, Kuppeln als Eier, Baumstamm als Mast). Ein Teil vor dem Gebäude (Torhaus, Erker, Fähre) ändert den Umriss kaum, ist aber sofort zu sehen; darum zählt ab Stufe 4 auch die Farbe. Gestreckt wird nur noch in frühen Stufen, wenn eine Stufe sonst keine 15 % höher wäre (höchstens 1,22-fach).
 
 ### 13.3 Leitern
 

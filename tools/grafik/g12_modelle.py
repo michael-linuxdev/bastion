@@ -394,15 +394,20 @@ def bastion_werkstatt(stufe: int) -> Szene:
         for dx in (-0.12, 0.12):
             sz.balken((-0.65 + dx, 0.65, 16), (-0.65, 0.65, 120), 0.05, 0.05, "holz", HOLZ)
         sz.balken((-0.65, 0.55, 16), (-0.65, 0.65, 120), 0.05, 0.05, "holz", HOLZ)
-        sz.balken((-0.65, 0.65, 30), (0.55, 0.85, 300), 0.07, 0.07, "holz", HOLZ)
+        sz.balken((-0.65, 0.65, 30), (0.55, 0.85, 300), 0.12, 0.12, "holz", HOLZ)
+        sz.balken((-0.65, 0.65, 30), (-0.95, 0.6, 130), 0.08, 0.08, "holz", HOLZ)
+        sz.quader(-1.0, -0.8, 0.5, 0.75, 110, 150, "stein", SOCKEL)  # Gegengewicht
         sz.balken((-0.65, 0.65, 120), (0.55, 0.85, 300), 0.012, 0.012, "eisen", EISEN)
         sz.balken((0.55, 0.85, 300), (0.55, 0.85, 150), 0.01, 0.01, "eisen", EISEN)
         sz.quader(0.3, 0.8, 0.78, 0.92, 140, 150, "holz", (186, 138, 88))
+        for px, py in ((-0.92, 0.2), (0.12, 0.2), (-0.92, 0.95), (0.12, 0.95)):  # Holzlager unter Dach
+            sz.quader(px - 0.03, px + 0.03, py - 0.03, py + 0.03, 0, 92, "holz", HOLZ)
+        sz.satteldach(-0.95, 0.15, 0.17, 0.98, 92, 34, "schindel", SCHINDEL, giebel=HOLZ, ueber=0.06)
         for k in range(3):  # Stapel Stämme für den Kran
             for j in range(3 - k):
                 sz.walze((0.6, -0.95 + 0.2 * j + 0.1 * k, 12 + k * 20), (1, 0, 0), 0.1, 0.7, "holz", (156, 112, 70), n=16)
-        sz.walze((-0.65, 0.82, 64), (0, 1, 0), 0.62, 0.16, "holz", (150, 108, 70), n=28)  # Tretrad
-        sz.walze((-0.65, 0.82, 64), (0, 1, 0), 0.08, 0.3, "holz", BALKEN)
+        sz.walze((-0.6, 0.86, 104), (0, 1, 0), 1.0, 0.18, "holz", (150, 108, 70), n=32)  # Tretrad
+        sz.walze((-0.6, 0.86, 104), (0, 1, 0), 0.08, 0.3, "holz", BALKEN)
     return sz
 
 
@@ -534,7 +539,7 @@ def garten_kern(stufe: int) -> Szene:
     Der Baum wächst mit (Faktor g), die oberen Teile reiten auf der Krone."""
     sz = Szene()
     sz.schatten_r = 1.2 if stufe < 5 else 1.5
-    g = w(stufe, 1, 1.03)
+    g = 1.16 ** min(stufe - 1, 2) * w(stufe, 3, 1.03)  # der Baum wächst früh schneller
     kz = 205 * g  # Mitte der Krone
     kr, kh = min(1.0 * g ** 0.4, 1.3), 0.62 * g ** 0.5  # Kronenradius, Kronenhöhe (Einheiten)
     sz.zylinder(0, 0, 0.24, 0, kz, "holz", (122, 88, 56), n=24)
@@ -831,11 +836,11 @@ def dorf_kern(stufe: int) -> Szene:
     sz.satteldach(x0, x1, y0, y1, hoch, 70, "ziegel", ZIEGEL, ueber=0.14)
     if stufe >= 3:
         zr = hoch + 64
-        sz.quader(-0.4, 0.4, -0.4, 0.24, zr - 40, zr + 50, "holz", (150, 108, 70))
+        sz.quader(-0.4, 0.4, -0.4, 0.24, zr - 40, zr + 90, "holz", (150, 108, 70))
         sz.fenster("l", 0.0, 0.24, zr + 4, 0.3, 36, bogen=True)
         sz.fenster("r", -0.08, 0.4, zr + 4, 0.3, 36, bogen=True)
         sz.kugel(0, -0.08, zr + 16, 0.11, "gold", GOLD)
-        sz.fahne(sz.pyramide(-0.4, 0.4, -0.4, 0.24, zr + 50, 90, "schiefer", SCHIEFER, ueber=0.06), 28)
+        sz.fahne(sz.pyramide(-0.4, 0.4, -0.4, 0.24, zr + 90, 120, "schiefer", SCHIEFER, ueber=0.08), 28)
     if stufe >= 4:
         haus(sz, 0.45, 1.35, -1.35, -0.75, round(110 * g), "fachwerk", PUTZ, "ziegel", ZIEGEL, 54, quer=True, sockel=12, fenster=False)
         sz.fenster("r", -1.05, 1.35, 40, 0.2, 24, bogen=False)
@@ -1098,8 +1103,10 @@ def unterwasser_kern(stufe: int) -> Szene:
     oben = kuppelbau(sz, 0, 0, r, h, round(120 * g))
     sz.fenster_rund(0, 0, r, 0.785, 8, 0.3, 30, art="tuer")
     if stufe >= 3:
-        kuppelbau(sz, 0.95, 0.95, 0.52, 56, 60)
-        roehre(sz, (0.6, 0.6, 30), (0.7, 0.7, 30))
+        kuppelbau(sz, 1.0, 1.0, 0.5, 70, 60)
+        roehre(sz, (0.6, 0.6, 30), (0.72, 0.72, 30))
+        sz.zylinder(1.0, 1.0, 0.06, 120, 180, "metall", MESSING, n=12)
+        sz.kugel(1.0, 1.0, 186, 0.08, "licht", (250, 240, 200))
     if stufe >= 4:
         kuppelbau(sz, -1.05, 0.95, 0.38, 40, 48)
         roehre(sz, (-0.62, 0.55, 28), (-0.8, 0.72, 28))
@@ -1403,8 +1410,8 @@ def weltraum_wissen(stufe: int) -> Szene:
         sz.balken((-0.6, 0.6, oben + 6), (0.0, 0.6, oben + 50), 0.03, 0.03, "metall", METALL)
         sz.balken((0.1, 0.0, oben), (0.4, -0.3, oben + 50), 0.12, 0.12, "paneel", PANEEL)
         return sz
-    sz.zylinder(0, 0, 0.7, oben, oben + 14, "metall", METALL)
-    sp = sz.kuppel(0, 0, 0.68, oben + 14, round(80 * g), "paneel", PANEEL)
+    sz.zylinder(0, 0, 0.8, oben, oben + 20, "metall", METALL)
+    sp = sz.kuppel(0, 0, 0.78, oben + 20, round(80 * g), "paneel", PANEEL)
     sz.balken((0.1, 0.1, oben + 40), (0.35, -0.25, sp[2] + 24), 0.1, 0.1, "metall", (90, 96, 110))
     if stufe >= 4:
         sz.zylinder(0.72, 0.72, 0.04, 0, round(130 * g), "metall", METALL, n=12)
@@ -1461,13 +1468,13 @@ def weltraum_werkstatt(stufe: int) -> Szene:
         sz.quader(-0.9 + k * 0.29, -0.85 + k * 0.29, 0.5, 0.52, 0, 6, "glatt", WARN)
     if stufe >= 3:
         sz.quader(0.55, 0.95, 0.55, 0.95, 0, 8, "metall", METALL)
-        sz.quader(0.7, 0.98, 0.94, 0.98, 8, 320, "metall", WARN)  # Startturm
-        sz.quader(0.94, 0.98, 0.45, 0.98, 8, 320, "metall", WARN)
+        sz.quader(0.35, 0.98, 0.98, 1.0, 8, 320, "metall", WARN)  # Startturm
+        sz.quader(0.98, 1.0, 0.3, 1.0, 8, 320, "metall", WARN)
         for z in range(40, 320, 46):
             sz.quader(0.45, 0.98, 0.45, 0.98, z, z + 6, "metall", WARN)
         sz.quader(0.82, 0.96, 0.6, 0.7, 200, 214, "metall", METALL)
-        sz.zylinder(0.68, 0.72, 0.2, 8, 250, "paneel", PANEEL)
-        sz.kegel(0.68, 0.72, 0.2, 250, 80, "glatt", (200, 60, 56))
+        sz.zylinder(0.68, 0.72, 0.27, 8, 250, "paneel", PANEEL)
+        sz.kegel(0.68, 0.72, 0.27, 250, 90, "glatt", (200, 60, 56))
         for dx, dy in ((-0.24, 0.0), (0.0, -0.24)):
             sz.zylinder(0.68 + dx, 0.72 + dy, 0.08, 8, 140, "paneel", PANEEL, n=16)
             sz.kegel(0.68 + dx, 0.72 + dy, 0.08, 140, 30, "glatt", (200, 60, 56), n=16)
@@ -1568,23 +1575,18 @@ ROLLEN = {
 THEMEN = ("bastion", "dorf", "garten", "unterwasser", "weltraum")
 
 
-# Jede Stufe sichtbar höher als die vorige (GRAFIK-SPRITES.md §12.6, §12.11): bis Stufe 3
-# um mindestens 15 %, ab Stufe 4 um mindestens 8 % (Umriss-Test). Wo eine Leiter von sich
-# aus weniger wächst, streckt `streckung` die ganze Stufe in der Höhe (mit Rand).
-ZIEL_FRUEH, ZIEL_SPAET = 1.27, 1.095
+# Höhe (GRAFIK-SPRITES.md §13.2): bis Stufe 3 jede Stufe mindestens 15 % höher, ab Stufe 4
+# mindestens so hoch wie die vorige (Umriss-Test). Wo eine frühe Stufe von sich aus weniger
+# wächst, streckt `streckung` sie in der Höhe; ab Stufe 4 wird nicht mehr gestreckt, weil
+# das die Gebäude verzerrt (Fachwerk-Hochhaus, Ei-Kuppeln; Fotos 03.11.2026).
+ZIEL_FRUEH, ZIEL_SPAET = 1.2, 1.0
 # Stufen, deren neues Teil schlank ist (Kran, Spitze): dort wächst das Gebäude etwas mehr,
 # damit sich auch der Umriss deutlich ändert (Umriss-Test 25 % bzw. 10 %).
-ZIEL_EXTRA = {
-    ("bastion", "werkstatt", 3): 1.3,
-    ("dorf", "kern", 3): 1.4,
-    ("dorf", "kern", 9): 1.25,
-    ("bastion", "kern", 9): 1.06,
-    ("unterwasser", "kern", 8): 1.06,
-    ("unterwasser", "kern", 4): 1.04,
-    ("unterwasser", "kern", 3): 1.04,
-    ("unterwasser", "werkstatt", 3): 1.12,
-    ("weltraum", "wissen", 3): 1.06,
-    ("weltraum", "werkstatt", 3): 1.25,
+ZIEL_EXTRA: dict[tuple[str, str, int], float] = {
+    ("unterwasser", "kern", 3): 1.08,
+    ("unterwasser", "wissen", 3): 1.06,
+    ("weltraum", "kern", 2): 1.05,
+    ("bastion", "werkstatt", 3): 1.38,
 }
 
 
@@ -1619,10 +1621,44 @@ def streckung(thema: str, rolle: str) -> list[float]:
 _STRECKUNG: dict[tuple[str, str], list[float]] = {}
 
 
+# Bildhöhen der Zierde wie bisher (G3), damit Tippflächen und Abstände gleich bleiben:
+# eine höhere Palisade überdeckte sonst die Feuerstelle dahinter (Browser-Test).
+ZIER_HOEHE = {
+    "bastion": {"einfassung": 103, "ursprung": 60, "zeichen": 162, "flaeche": 111, "denkmal": 147},
+    "dorf": {"einfassung": 84, "ursprung": 138, "zeichen": 150, "flaeche": 154, "denkmal": 151},
+    "garten": {"einfassung": 88, "ursprung": 90, "zeichen": 154, "flaeche": 122, "denkmal": 108},
+    "unterwasser": {"einfassung": 95, "ursprung": 112, "zeichen": 152, "flaeche": 125, "denkmal": 130},
+    "weltraum": {"einfassung": 96, "ursprung": 54, "zeichen": 153, "flaeche": 121, "denkmal": 152},
+}
+
+
+def zier_faktor(thema: str, rolle: str) -> float:
+    roh = globals()[f"{thema}_{rolle}"]
+    _, n, _ = ROLLEN[rolle]
+    ziel = ZIER_HOEHE[thema][rolle] - 4  # oberer Rand des Bildes
+    lo, hi = 0.65, 1.5  # höchstens um ein Drittel stauchen, sonst wirkt es platt
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        t = roh(1)
+        t.strecken(mid)
+        if t.hoehe_px(n) > ziel:
+            hi = mid
+        else:
+            lo = mid
+    return lo
+
+
 def modell(thema: str, rolle: str):
     roh = globals()[f"{thema}_{rolle}"]
     if ROLLEN[rolle][0] == 1:
-        return roh
+        f = zier_faktor(thema, rolle)
+
+        def gestaucht(stufe: int):
+            sz = roh(stufe)
+            sz.strecken(f)
+            return sz
+
+        return gestaucht
     if (thema, rolle) not in _STRECKUNG:
         _STRECKUNG[(thema, rolle)] = streckung(thema, rolle)
 
