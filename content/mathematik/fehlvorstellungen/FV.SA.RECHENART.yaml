@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Addiert Menge und Preis je Kilogramm, statt sie malzunehmen. Die Rechenart wird geraten oder
     nach Gewohnheit gewählt. Was die Zahlen in der Sache bedeuten, wird nicht übersetzt.
-kompetenzen: [M.ZO.BR.SACH]
+kompetenzen: [M.ZO.SA.LESEN, M.ZO.BR.SACH]
 erklaerung:
   kurz:
     de: 'Frage dich, was die Zahlen bedeuten. Preis je Kilogramm mal Kilogramm ergibt den Gesamtpreis.'
@@ -20,7 +20,7 @@ erklaerung:
 gegenbeispiel:
   de: '10 kg Kartoffeln zu 1 € je kg kosten 10 €, nicht 11 €.'
 rueckweg:
-  vermittlung: M.ZO.BR.SACH#erklaeren-rechenart
+  vermittlung: M.ZO.SA.LESEN#erklaeren-rechenart
 kontrast: [M.ZO.BR.SACH.PREIS]
 herkunft: ki-entwurf
 version: 1

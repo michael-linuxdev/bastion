@@ -8,6 +8,7 @@ beschreibung:
     werden nicht vollständig erfasst.
 kompetenzen:
   [
+    M.ZO.SA.LESEN,
     M.ZO.BR.SACH,
     M.ZO.PZ.ANGEBOTE,
     M.GM.GR.SACH,
@@ -29,7 +30,7 @@ erklaerung:
 gegenbeispiel:
   de: 'Wer zweimal einkaufen geht, hat danach weniger Geld als nach dem ersten Einkauf.'
 rueckweg:
-  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+  vermittlung: M.ZO.SA.LESEN#erklaeren-frage
 kontrast:
   [
     M.ZO.BR.SACH.ANTEIL,

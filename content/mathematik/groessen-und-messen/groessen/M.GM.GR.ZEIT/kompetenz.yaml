@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 5
 voraussetzungen:
   - M.ZO.NZ.ADD-SUB
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:

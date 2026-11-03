@@ -17,8 +17,8 @@ describe('Inhalte in content/', () => {
     expect(fehler).toEqual([]);
   });
 
-  it('enthalten die 41 Kompetenzen der Klasse 5 (LEHRPLAN §8)', () => {
-    expect(kompetenzen.filter((k) => k.klassenstufe_typisch.includes(5))).toHaveLength(41);
+  it('enthalten die 42 Kompetenzen der Klasse 5 (LEHRPLAN §8, mit SA.LESEN seit 03.11.2026)', () => {
+    expect(kompetenzen.filter((k) => k.klassenstufe_typisch.includes(5))).toHaveLength(42);
   });
 
   it('enthalten die 26 Kompetenzen der Klasse 6 (LEHRPLAN §8b) die 29 der Klasse 7 (§8c) und die 27 der Klasse 8 (§8d)', () => {

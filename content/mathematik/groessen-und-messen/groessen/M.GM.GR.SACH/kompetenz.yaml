@@ -13,6 +13,7 @@ voraussetzungen:
   - M.GM.GR.UMRECHNEN
   - M.GM.GR.ZEIT
   - M.ZO.BR.DEZ-RECHNEN
+  - M.ZO.SA.LESEN
 niveaus:
   G:
     beschreibung:
