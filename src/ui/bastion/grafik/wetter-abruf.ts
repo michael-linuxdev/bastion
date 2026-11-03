@@ -4,7 +4,7 @@
  * Bei Fehler stiller Fallback (kein Hinweis). Keine Standort-API des Geräts.
  */
 import type { Sonnenzeiten } from './sonne';
-import { wetterAusWmo, type WetterBild } from './wetter';
+import { regenbogenAusEcht, wetterAusWmo, type WetterBild } from './wetter';
 
 const GEO = 'https://geocoding-api.open-meteo.com/v1/search';
 const FORECAST = 'https://api.open-meteo.com/v1/forecast';
@@ -18,6 +18,8 @@ export interface WetterOrt {
 
 export interface WetterStand {
   readonly bild: WetterBild;
+  /** Regenbogen: heute Regen, jetzt aufgeklart */
+  readonly regenbogen?: boolean;
   readonly ort: WetterOrt;
   /** Sonnenzeiten am Ort, Minuten seit Mitternacht Ortszeit der Antwort */
   readonly sonne?: Sonnenzeiten;
@@ -81,19 +83,22 @@ export async function ortSuchen(freitext: string): Promise<WetterOrt | undefined
 export async function wetterAbrufen(ort: WetterOrt): Promise<WetterStand | undefined> {
   const url =
     `${FORECAST}?latitude=${ort.lat}&longitude=${ort.lon}` +
-    `&current=weather_code&daily=sunrise,sunset&timezone=auto&forecast_days=1`;
+    `&current=weather_code,wind_speed_10m&daily=sunrise,sunset,precipitation_sum` +
+    `&timezone=auto&forecast_days=1`;
   const antwort = await fetch(url);
   if (!antwort.ok) return undefined;
   const data = (await antwort.json()) as {
-    current?: { weather_code?: number };
-    daily?: { sunrise?: string[]; sunset?: string[] };
+    current?: { weather_code?: number; wind_speed_10m?: number };
+    daily?: { sunrise?: string[]; sunset?: string[]; precipitation_sum?: number[] };
   };
   const code = data.current?.weather_code;
   if (typeof code !== 'number') return undefined;
   const aufgang = data.daily?.sunrise?.[0] ? minutenAusIso(data.daily.sunrise[0]) : undefined;
   const untergang = data.daily?.sunset?.[0] ? minutenAusIso(data.daily.sunset[0]) : undefined;
+  const bild = wetterAusWmo(code, data.current?.wind_speed_10m);
   const stand: WetterStand = {
-    bild: wetterAusWmo(code),
+    bild,
+    regenbogen: regenbogenAusEcht(bild, data.daily?.precipitation_sum?.[0]),
     ort,
     tag: lokalerTag(),
     quelle: 'netz',

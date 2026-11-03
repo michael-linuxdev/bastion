@@ -485,3 +485,17 @@ Regeln und Technik: `GRAFIK-SPRITES.md` §13. Ablauf mit dem PV:
 
 - **Umriss-Test** (`atlas-stufen.test.ts`, `GRAFIK-SPRITES.md` §13.2 Nr. 5): bis Stufe 3 wie bisher (Umriss 25 %, Höhe +15 %). **Ab Stufe 4 neu festgelegt** (03.11.2026, nach Fotos aus der App): mindestens 10 % der Fläche sichtbar geändert (Umriss oder Farbe), nicht niedriger als die vorige Stufe. Die alte Regel (Höhe +8 % je Stufe) zwang die aufbauenden Leitern in die Höhe und verzerrte sie. Der PV kann das zurücknehmen; dann müssten die Stufen ab 4 wieder vor allem nach oben wachsen.
 - **Offen beim PV:** Blick auf die neuen Leitern in der App (Fotos im PR).
+
+## 15. Mehr Wetter (Wunsch PV, 02.11.2026, Auftrag Punkt 2)
+
+Ruhig und ohne Blitze (R1–R7); bei „ruhig“ und „Bewegung reduzieren“ steht alles still.
+
+- **Wetterbilder:** klar, bewölkt, Regen, Schnee, Nebel und neu **Sturm**. Gewitter (WMO 95–99) zeigt die App als Sturm, ohne Blitze. Aus echtem Wetter (Open-Meteo, nur nach Einschalten, T-15) zusätzlich Wind (`wind_speed_10m`, ab 50 km/h Sturm) und Niederschlag des Tages.
+- **Regenbogen:** nach Regen, wenn es aufklart. Offline aus dem Datum (gestern Regen, heute klar oder bewölkt, an zwei von drei solchen Tagen; `regenbogenAusDatum`), mit echtem Wetter aus dem Niederschlag des Tages (`regenbogenAusEcht`). Kein Zufall zur Laufzeit.
+- **Regen:** dunkleres Meer und Tropfenringe in der Kulisse, nasse, dunklere Dächer (Tönung der Gebäude), Pfützen mit Glanz auf festen Feldern (`wetter-optik.ts`).
+- **Schnee:** liegender Schnee auf Boden und Dächern, weiße Hügel am Horizont, Eisschollen am Ufer.
+- **Sturm:** schnellere Wellen und kräftigerer Schaum, dreimal so schnelle Wolken, ziehende Wolkenschatten über Insel und Meer, Windstriche.
+- **Nebel:** Nebelbänke über dem Meer, Horizont und Dinge im Meer verschwinden fast.
+- **Zahnrad:** „Wetter ausprobieren“ (Wie draußen, Sonne, Wolken, Regen, Schnee, Sturm, Nebel, Regenbogen); gilt nur für die Ansicht bis zum Neuladen und wird nicht gespeichert (`wetter-probe.svelte.ts`).
+- **Offen:** wehende Fahnen und Banner bei Sturm. Die Fahnen sind Teil der Gebäudebilder; dafür bräuchte jedes Gebäude mit Fahne eigene Bilder für die Bewegung.
+- Kulissen der anderen Themen (Punkt 3) bekommen dieselben Wetterteile, sobald es sie gibt.
