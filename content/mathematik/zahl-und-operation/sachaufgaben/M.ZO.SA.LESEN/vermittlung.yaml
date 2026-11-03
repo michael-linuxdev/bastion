@@ -1,0 +1,90 @@
+id: M.ZO.SA.LESEN
+kompetenz: M.ZO.SA.LESEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kannst du in einer Sachaufgabe die Frage finden, alle Angaben nutzen und die passende Rechnung wählen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Heft kostet 2 €. Wie viel Euro kosten 5 Hefte?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '7', fv: FV.SA.RECHENART }] }
+    weiter: entdecken
+    bei: { FV.SA.RECHENART: erklaeren-rechenart, sonst: M.ZO.NZ.MULT }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Lea kauft 3 Hefte zu je 2 € und bezahlt mit 10 €. Die Frage lautet: „Wie viel Euro bekommt sie zurück?“ Was ist gesucht?'
+    antwort:
+      optionen:
+        - { wert: { de: 'das Geld, das Lea zurückbekommt' }, richtig: true }
+        - { wert: { de: 'der Preis der Hefte' }, fv: FV.SA.ZWISCHENERGEBNIS }
+    weiter: erklaeren-frage
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-frage }
+  - id: erklaeren-frage
+    typ: erklaeren
+    text:
+      de: 'Lies zuerst die Frage und sage in eigenen Worten, was gesucht ist. Unterstreiche dann jede Zahl im Text. Am Ende prüfst du: Beantwortet meine Zahl genau diese Frage?'
+    weiter: erklaeren-rechenart
+  - id: erklaeren-rechenart
+    typ: erklaeren
+    text:
+      de: 'Überlege, was jede Zahl bedeutet. Mehrmals derselbe Preis: malnehmen. Etwas ausgeben oder aussteigen: abziehen. Etwas kommt dazu: addieren. Bist du unsicher, probiere es mit kleinen Zahlen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Lea kauft 3 Hefte zu je 2 € und zahlt mit 10 €. Gesucht ist das Rückgeld. Hefte: 3 · 2 € = 6 €. Rückgeld: 10 € − 6 € = 4 €.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Im Bus sitzen 25 Kinder. An der Haltestelle steigen 6 aus und 4 ein. Wie viele Kinder sitzen jetzt im Bus?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '23',
+          fehler: [{ wert: '19', fv: FV.SA.ZWISCHENERGEBNIS }, { wert: '35', fv: FV.SA.RECHENART }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-frage, FV.SA.RECHENART: erklaeren-rechenart }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben hat 10 €. Er kauft ein Buch für 4 € und Stifte für 3 €. Tom rechnet den Rest so: 10 € − 4 € = 6 €. Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein, auch die 3 € muss er abziehen. Es bleiben 3 €.' }, richtig: true }
+        - { wert: { de: 'Ja, so viel bleibt übrig.' }, fv: FV.SA.ANGABE-UEBERSEHEN }
+    weiter: merksatz
+    bei: { FV.SA.ANGABE-UEBERSEHEN: erklaeren-frage }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erst die Frage, dann jede Zahl. Die Rechenart kommt aus der Sache, nicht aus den Zahlen. Zum Schluss prüfen: Passt meine Antwort zur Frage?'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Stift kostet 2 €. Du kaufst 4 Stifte und zahlst mit 20 €. Wie viel Euro bekommst du zurück?'
+    antwort:
+      optionen:
+        - { wert: { de: '12 €' }, richtig: true }
+        - { wert: { de: '8 €' }, fv: FV.SA.ZWISCHENERGEBNIS }
+        - { wert: { de: '14 €' }, fv: FV.SA.RECHENART }
+    weiter: uebergang
+    bei: { FV.SA.ZWISCHENERGEBNIS: erklaeren-frage, FV.SA.RECHENART: erklaeren-rechenart }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Sehr gut. Jetzt löst du selbst Sachaufgaben.'
+    vorlagen: [M.ZO.SA.LESEN.RECHNUNG, M.ZO.SA.LESEN.ERGEBNIS]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

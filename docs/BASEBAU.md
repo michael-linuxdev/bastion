@@ -405,6 +405,30 @@ Epoche 1 geschafft nach … Monaten (`pnpm sim`, 730 Tage):
 
 Epoche 1 wird für regelmäßig Lernende etwa 1,5-mal so schnell erreicht, nicht doppelt: Die 8 Baupläne hängen am Festigen (Wiederholungen über Wochen), das bleibt gleich schnell. Auffällig: P5 und P6 sind jetzt etwas schneller als P1. Grund im Simulator: Wer weniger Fleiß sammelt, baut weniger Zierde und Einfassung, die ebenfalls Bauschritte brauchen; der Weg zum Bergfried bekommt die Schritte früher. In der App entscheidet das Kind selbst, was es baut. Kein Handlungsbedarf, aber beim Test U4b beobachten. Für Epochen 2–4 (Simulator rechnet sie noch nicht) überschlagen: bis Bergfried 9 bei P1 etwa 2½–3 statt 5½ Jahre (Baupläne 60 statt 120 bei etwa 22 je Jahr).
 
+### 8c. Simulator für Epoche 2–4 (03.11.2026, echte Zahlen statt Überschlag)
+
+Der Simulator rechnet jetzt alle vier Epochen: Der Bauplatz wächst mit der Epoche (12 → 16 → 20 → 24 Felder), Höchstzahlen für Türme und Einfassung gelten je Epoche, und das simulierte Kind hat je Epoche eigene Ziele (zwei Türme mehr, die nächsten Stufen von Studierstube, Werkstatt, Tor und Türmen, am Ende der Bergfried). Ziele einer späteren Epoche geht es erst an, wenn sie freigeschaltet ist. `pnpm sim` rechnet 5 Jahre.
+
+Epoche geschafft nach … Monaten (Epoche 4 geschafft = Bergfried 9 und 60 Baupläne):
+
+| Profil | Epoche 1 | Epoche 2 | Epoche 3 | Epoche 4 |
+|---|---|---|---|---|
+| P1 regelmäßig | 6.6 | 14.9 | 26.8 | 45.7 |
+| P2 eifrig | 6.0 | 13.3 | 22.5 | 36.2 |
+| P3 Wochenende | 6.6 | 13.3 | 24.6 | 40.9 |
+| P4 Farmer | – | – | – | – |
+| P5 Pause | 5.7 | 16.3 | 28.2 | 47.1 |
+| P6 schwach | 5.1 | – (Bergfried 4) | – | – |
+| P7 Prüfungsphase | 6.1 | 15.7 | 27.6 | 46.5 |
+
+Epoche 1 ist unverändert (gleiche Zahlen wie §8b). Befunde:
+
+1. **Bergfried 9 bei P1 nach etwa 3,8 Jahren**, nicht 2½–3 wie in §8b überschlagen. Die 60 Baupläne hat P1 schon nach etwa 2,4 Jahren (22 / 49 / 74 / 100 / 124 nach Jahr 1–5). Es bremst der **Fleiß**: Die Ziele der Epochen 2–4 kosten zusammen rund 9 900 Fleiß, P1 sammelt etwa 3 100 im Jahr. Behalten bleibt reichlich übrig (über 5 000 am Ende).
+2. **P6 (Fehlerquote 50 %) bleibt in Epoche 2 bei Bergfried 4.** Nach Jahr 1 kommen kaum noch Baupläne dazu (16 → 21 in vier Jahren), und das simulierte Kind gibt sie für Türme aus, bevor der Bergfried 5 drankommt. Nach B-19 darf das Ziel bei P6 später kommen; dass es in 5 Jahren nie kommt, ist ein Befund für den PV (vgl. §9 Punkt 5, Bauplan-Schwelle).
+3. **Belegung:** Mit dem wachsenden Bauplatz sinkt der Anteil belegter Felder nach dem Wechsel (P1 nach 12 Monaten 41 % von 16 × 16 statt 80 % von 12 × 12); nur P2 füllt auch die großen Plätze fast ganz.
+
+Keine Regel geändert (B-29). Mögliche Hebel, falls der PV etwas ändern möchte: Fleiß-Kosten der Bergfried-Stufen 6–9 senken, oder Baupläne für P6 früher (Schwelle 85 %). `simulator.test.ts` prüft: P1 schafft alle vier Epochen der Reihe nach, Bergfried 9 nach 3–4½ Jahren.
+
 ## 9. Kritische Gegenprüfung
 
 Ungeklärte Zweifel, die wir offen weitertragen:

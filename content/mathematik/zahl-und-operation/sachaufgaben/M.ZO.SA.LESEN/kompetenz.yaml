@@ -1,0 +1,38 @@
+# Sachaufgaben lesen – Klasse 5 (LEHRPLAN §8). Gemeinsamer Rückweg der Sachaufgaben-Fehlvorstellungen FV.SA.* (PV, 03.11.2026). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.SA.LESEN
+fach: mathematik
+bereich: zahl-und-operation
+feld: sachaufgaben
+titel:
+  de: 'Sachaufgaben lesen'
+kann_satz:
+  de: 'Ich kann in einer Sachaufgabe die Frage finden, alle nötigen Angaben nutzen und die passende Rechnung wählen.'
+klassenstufe_typisch:
+  - 5
+voraussetzungen:
+  - M.ZO.NZ.ADD-SUB
+  - M.ZO.NZ.MULT
+niveaus:
+  G:
+    beschreibung:
+      de: 'Kurze Sachaufgaben mit zwei Rechenschritten: Frage finden, Rechnung wählen und lösen.'
+  M:
+    beschreibung:
+      de: 'Sachaufgaben mit drei Rechenschritten und mehreren Angaben, keine darf fehlen.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K6
+anforderungsbereiche:
+  - I
+  - II
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 5
+    lernbereich: 'LB 1 Natürliche Zahlen'
+  gymnasium:
+    klassenstufe: 5
+    lernbereich: 'LB 1 Arbeiten mit natürlichen Zahlen'
+version: 1

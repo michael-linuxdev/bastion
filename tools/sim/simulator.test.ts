@@ -56,4 +56,15 @@ describe('Simulator (T-9)', () => {
     expect(p1.lueckeJahr1).toBeLessThanOrEqual(60);
     expect(p6.fertigJahr1).toBeGreaterThanOrEqual(0.85 * p1.fertigJahr1);
   }, 60_000);
+
+  // Epochen 2–4 (BASEBAU §8c): echte Zahlen statt Überschlag, Schutz vor Rückschritten
+  it('BASEBAU §8c: P1 schafft alle vier Epochen der Reihe nach, Bergfried 9 nach 3–4½ Jahren', () => {
+    const e = simuliere(profil('P1'), 5 * 365);
+    const tage = e.epochenTage.map((t) => t ?? Infinity);
+    expect(tage.every((t) => t < Infinity)).toBe(true);
+    for (let i = 1; i < 4; i++) expect(tage[i] ?? 0).toBeGreaterThan(tage[i - 1] ?? 0);
+    expect((tage[3] ?? 0) / 365).toBeGreaterThanOrEqual(3);
+    expect((tage[3] ?? 0) / 365).toBeLessThanOrEqual(4.5);
+    expect(e.kern).toBe(9);
+  }, 120_000);
 });

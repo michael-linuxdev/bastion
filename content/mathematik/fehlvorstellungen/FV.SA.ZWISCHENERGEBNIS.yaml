@@ -8,6 +8,7 @@ beschreibung:
     das ausgegebene Geld statt des Rests. Die Frage wurde am Ende nicht noch einmal gelesen.
 kompetenzen:
   [
+    M.ZO.SA.LESEN,
     M.ZO.BR.SACH,
     M.ZO.PZ.ANGEBOTE,
     M.SF.GS.SACH,
@@ -32,7 +33,7 @@ erklaerung:
 gegenbeispiel:
   de: 'Gefragt „Wie viel Geld bleibt übrig?“ kann die Antwort nicht der Preis sein, sonst hättest du ja gar nichts ausgegeben.'
 rueckweg:
-  vermittlung: M.ZO.BR.SACH#erklaeren-frage
+  vermittlung: M.ZO.SA.LESEN#erklaeren-frage
 kontrast:
   [
     M.ZO.BR.SACH.ANTEIL,

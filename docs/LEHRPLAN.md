@@ -91,7 +91,7 @@ version: 1
 ~~**Entscheidung L-3:**~~ *(ersetzt durch L-22)* Niveauwechsel sind **Vorschläge, keine Automatik**. Die App schlägt höher vor, wenn eine Kompetenz schnell und sicher gekonnt wird, und tiefer, wenn sie wiederholt nicht gelingt. Der Jugendliche entscheidet.
 *Warum:* Automatisches Herabstufen wirkt beschämend; automatisches Hochstufen kann überfordern. Selbstbestimmung über das eigene Niveau ist Teil der Autonomie, die langfristige Motivation trägt.
 
-*Scope bis Monat 12 (K-11):* Inhalte entstehen nur für **G** und **M**. Niveau E bleibt im Modell (IDs, Datenfelder), wird aber erst nach Monat 12 mit Aufgaben gefüllt. Bis dahin schlägt die App kein Hochstufen über M hinaus vor.
+~~*Scope bis Monat 12 (K-11):* Inhalte entstehen nur für **G** und **M**.~~ *Geändert durch K-31 (03.11.2026):* Ab Klasse 9 haben alle Kompetenzen G, M und E. In Klasse 5 bis 8 bekommen die Felder Geometrie, Brüche/Prozent/rationale Zahlen, Terme/Gleichungen/Funktionen sowie Daten und Zufall Niveau E (je Kompetenz mindestens eine E-Vorlage); natürliche Zahlen, Teilbarkeit und Größen bleiben vorerst bei G und M. Die App wählt E still, sobald M gekonnt ist (L-22).
 
 ### 4.2 Niveau und Bauplan
 
@@ -219,6 +219,7 @@ Legende: **Gen** = Generator · **Hand** = handverfasst · **Mix** = gemischt ·
 | M.ZO.NZ.DIV | Ich kann durch eine einstellige Zahl dividieren, auch mit Rest. | MULT | OS LB 1, GY LB 1 | Gen |
 | M.ZO.NZ.POTENZEN *(neu)* | Ich kann Zehnerpotenzen und Quadratzahlen bis 20² angeben und die Quadratwurzel als Umkehrung nutzen. | MULT | OS LB 1, GY LB 1 (Wurzel nur OS) | Gen |
 | M.ZO.NZ.REGELN | Ich kann Rechengesetze und Rechenvorteile nutzen, um geschickt zu rechnen. | ADD-SUB, MULT | OS LB 1, GY LB 1 | Gen |
+| M.ZO.SA.LESEN | Ich kann in einer Sachaufgabe die Frage finden, alle nötigen Angaben nutzen und die passende Rechnung wählen. | ADD-SUB, MULT | OS LB 1, GY LB 1 | Gen |
 | M.SF.NZ.TERME | Ich kann Terme mit Klammern und Punkt-vor-Strich berechnen. | REGELN | OS LB 1 (Vorrangregeln), GY LB 1 | Gen |
 | M.SF.NZ.GLEICHUNGEN *(neu)* | Ich kann einfache Gleichungen und Ungleichungen durch Probieren oder mit der Umkehraufgabe lösen und Textgleichungen aufstellen. | ADD-SUB, MULT | OS LB 1, GY LB 1 | Mix |
 
@@ -288,7 +289,7 @@ Legende: **Gen** = Generator · **Hand** = handverfasst · **Mix** = gemischt ·
 | M.GM.KP.OBERFLAECHE *(neu)* | Ich kann den Oberflächeninhalt von Würfeln und Quadern berechnen. | FL.RECHTECK, DARSTELLEN | OS LB 3 (Würfel), GY LB 4 | Gen |
 | M.GM.KP.EINHEITEN *(neu)* | Ich kann Volumeneinheiten und Hohlmaße umrechnen (mm³ bis m³, ml, l). | VOLUMEN, GR.UMRECHNEN | OS LB 3, GY LB 4 | Gen |
 
-**Summe Klasse 5:** 41 Kompetenzen × 2 Niveaus (G, M). Davon 34 überwiegend generatorbasiert, 7 gemischt; bei 4 wird zusätzlich Zeichnen erklärt (L-10). Datenquelle: `content/mathematik/…/kompetenz.yaml`.
+**Summe Klasse 5:** 42 Kompetenzen × 2 Niveaus (G, M). Davon 35 überwiegend generatorbasiert, 7 gemischt; bei 4 wird zusätzlich Zeichnen erklärt (L-10). *Seit 03.11.2026 dazu M.ZO.SA.LESEN (Feld Sachaufgaben, PV): gemeinsamer Rückweg der Sachaufgaben-Fehlvorstellungen FV.SA.* und Voraussetzung aller Sachaufgaben-Kompetenzen, die sie nutzen.* Datenquelle: `content/mathematik/…/kompetenz.yaml`.
 
 **Aus dem früheren Ausschnitt nach Klasse 6 verschoben** (Lehrplan OS Kl. 6 LB 1 bzw. GY Kl. 6 LB 1): M.ZO.BR.ADD-SUB, M.ZO.BR.MULT, M.ZO.BR.DIV. IDs bleiben unverändert (L-1).
 **Nicht ausdrücklich im Lehrplan:** M.ZO.TB.GGT-KGV steht weder im OS- noch im GY-Lehrplan Kl. 5–6. Es bleibt als Hilfskompetenz für das Addieren ungleichnamiger Brüche (Hauptnenner) in Klasse 6 im Graphen, zählt aber nicht zu den Abschlusskriterien.
