@@ -913,7 +913,7 @@ test('Studierstube: ein Buch je gefestigtem Thema, kostenlos (B-6)', async ({ pa
   await expect(
     page
       .getByRole('listitem')
-      .filter({ hasText: /Ich kann Zahlen runden[\s\S]*grundlegend,\s+seit\s+4\.\s+November/ }),
+      .filter({ hasText: /Ich kann Zahlen runden[\s\S]*\(seit\s+4\.\s+November/ }),
   ).toBeVisible();
   await expect(page.getByText(/Mit dem Gebäude „Studierstube“/)).toBeVisible();
 });

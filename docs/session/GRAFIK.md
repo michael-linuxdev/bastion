@@ -95,7 +95,7 @@ Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.
 
 Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer Teil, Regel 1). Erledigtes durchstreichen und mit Datum versehen.
 
-- **Aus dem Lernkern (02.11.2026, LEHRPLAN L-22):** Lernende sehen keine Niveaus mehr. Im Bauplan-Buch der Bastion steht noch „(grundlegend, seit …)“ bzw. „(mittel, seit …)“ (`src/ui/bastion/Bastion.svelte`, Zeile mit `buch.niveau`). Bitte das Niveau dort weglassen, nur „seit …“ zeigen; der Browser-Test „Studierstube“ (`grundlegend,\s+seit`) muss dann mit.
+- ~~**Aus dem Lernkern (02.11.2026, LEHRPLAN L-22):** Lernende sehen keine Niveaus mehr. Im Bauplan-Buch der Bastion steht noch „(grundlegend, seit …)“ bzw. „(mittel, seit …)“ (`src/ui/bastion/Bastion.svelte`, Zeile mit `buch.niveau`). Bitte das Niveau dort weglassen, nur „seit …“ zeigen; der Browser-Test „Studierstube“ (`grundlegend,\s+seit`) muss dann mit.~~ – erledigt 03.11.2026 (Branch `grafik/bauplanbuch-ohne-niveau`).
 - ~~Startseite aus Paket L (L16, L17)~~ – erledigt 01.11.2026 vom Lernkern auf Wunsch des PV: „Über mich“ unter den Türen, kein Schild im Bastion-Bild, Bild schwebt ohne freie Kante (`MiniBastion.svelte`), Gruß nach dem ersten Üben ohne „Willkommen“.
 
 ---

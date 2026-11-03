@@ -802,10 +802,8 @@
               <li>
                 {wort('wissen-zeichen')}
                 {kannSatz.get(buch.kompetenz) ?? buch.kompetenz}
-                <small class="leise"
-                  >({tt(buch.niveau === 'M' ? 'niveau.M' : 'niveau.G')}, {tt('bastion.seit')}
-                  {datum(Date.parse(buch.seit))})</small
-                >
+                <!-- Lernende sehen keine Niveaus (LEHRPLAN L-22), nur seit wann -->
+                <small class="leise">({tt('bastion.seit')} {datum(Date.parse(buch.seit))})</small>
               </li>
             {/each}
           </ul>
