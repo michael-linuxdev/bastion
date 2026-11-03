@@ -563,6 +563,13 @@ PV: „Mehr Abwechslung, noch mehr unterschiedliche Objekte würfelbar in mehr G
   - Weltraum: Rover, Landekapsel, Solarfeld, Meteoritenkrater, Funkmast, Kristallfeld.
 - **Größen:** Dinge 0,7–1,5-fach, Flächen 1,6–3,4-fach; kleine häufiger als große. Alles hängt am Szenerie-Startwert (§18.2).
 
+## 19. Licht, Wasser und Leben an Gebäuden (Wunsch PV, 03.11.2026, Schritt 2 und 3)
+
+- **Lichtschein am Abend:** Vor jedem Gebäude mit erleuchteten Fenstern liegt ein warmer, weicher Schein auf dem Boden (`fensterAbendSprite`, additive Mischung).
+- **Rauch:** Aus Bergfried und Werkstatt (Bastion, Dorf, Garten) steigen ruhige Wölkchen aus der Dachspitze; bei Regen etwas, bei Sturm deutlich schräg und schneller; abends dunkler. Bei „ruhig“ kein Rauch.
+- **Wasser:** An der Küste (§20) schwillt der Schaum langsam an und ab (bei Sturm schneller und breiter), darunter eine weiche Spiegelung der Inselwand im Wasser.
+- Offen: wehende Fahnen (in die Gebäudebilder eingerechnet, dafür bräuchte es eigene Bilder je Bewegung), drehende Mühlenflügel, wandernde Schatten mit der Tageszeit.
+
 ## 20. Unförmige Insel (Wunsch PV, 03.11.2026)
 
 PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wobei ein nicht bebaubarer Teil über das bisherige Viereck hinausgeht.“

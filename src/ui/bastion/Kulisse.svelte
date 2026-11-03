@@ -171,6 +171,8 @@
     strand: thema.insel.strand ? inselLinie(0.55, INSEL) : '',
     wand: inselLinie(0, INSEL),
     oben: inselLinie(0, 0),
+    // Spiegelung der Inselwand im Wasser (Wunsch PV: Licht und Wasser): unter dem Strand
+    spiegel: thema.wasser ? inselLinie(0.55, INSEL * 3.2) : '',
   });
 
   const bootStart = $derived(punkt(-4, platz.tiefe + 5, platz));
@@ -264,6 +266,15 @@
     style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
   >
     <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
+      {#if insel.spiegel}
+        <defs>
+          <linearGradient id="spiegelung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.55" stop-color="rgb(30 50 40)" stop-opacity="0.3" />
+            <stop offset="1" stop-color="rgb(30 50 40)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <polygon class="spiegelung" points={insel.spiegel} />
+      {/if}
       <g class="inselrand">
         {#if insel.strand}
           <polygon class="strand" points={insel.strand} style:fill={thema.insel.strand} />
@@ -272,8 +283,9 @@
         <polygon class="oben" points={insel.oben} style:fill={thema.insel.oben} />
       </g>
       {#if thema.wasser}
-        <!-- Schaum an der echten Küste, nicht mehr am Viereck -->
-        <polygon points={insel.strand} />
+        <!-- Schaum an der echten Küste, die Brandung schwillt an und ab -->
+        <polygon class="kueste" points={insel.strand} />
+        <polygon class="kueste ufer welle" points={insel.strand} />
       {/if}
       {#each schollen as s (s.i)}
         <polygon
@@ -444,7 +456,7 @@
     filter: brightness(0.92);
   }
 
-  .schaum polygon {
+  .schaum polygon.kueste {
     fill: none;
     stroke: rgb(236 246 248 / 0.55);
     stroke-width: 7;
@@ -571,6 +583,10 @@
     filter: sepia(0.4) saturate(1.1) hue-rotate(-18deg);
   }
 
+  .wetter-schnee .inselrand .oben {
+    filter: saturate(0.15) brightness(1.75) contrast(0.75);
+  }
+
   .jz-winter .inselrand .oben {
     filter: saturate(0.25) brightness(1.5) contrast(0.8);
   }
@@ -612,9 +628,33 @@
     background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.25) 60%, transparent);
   }
 
-  .wetter-sturm .schaum polygon {
+  .wetter-sturm .schaum polygon.kueste:not(.welle) {
     stroke: rgb(244 250 252 / 0.8);
     stroke-width: 12;
+  }
+
+  .schaum .spiegelung {
+    fill: url(#spiegelung);
+    stroke: none;
+  }
+
+  .schaum .ufer {
+    fill: none;
+    stroke: rgb(240 248 250 / 0.7);
+    stroke-width: 4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .schaum .ufer.welle {
+    stroke: rgb(240 248 250 / 0.35);
+    stroke-width: 9;
+    opacity: 0.6;
+  }
+
+  .wetter-sturm .schaum .ufer.welle {
+    stroke-width: 11;
+    stroke: rgb(240 248 250 / 0.28);
   }
 
   .schaum polygon.scholle {
@@ -668,6 +708,15 @@
 
     .kulisse.bewegt .boot {
       animation: segeln 180s linear infinite;
+    }
+
+    /* Wellen laufen ans Ufer: der Schaum schwillt langsam an und ab */
+    .kulisse.bewegt .ufer.welle {
+      animation: brandung 5s ease-in-out infinite;
+    }
+
+    .kulisse.bewegt.wetter-sturm .ufer.welle {
+      animation-duration: 2.4s;
     }
 
     .kulisse.bewegt .himmelwolke {
@@ -815,6 +864,18 @@
     }
     to {
       transform: translateX(160%);
+    }
+  }
+
+  @keyframes brandung {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0.75;
+      transform: translateY(3px);
     }
   }
 
