@@ -1,0 +1,24 @@
+# Seitenhöhe der Pyramide begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.PYRAMIDE.BEGRUENDEN
+kompetenz: M.GM.KP.PYRAMIDE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.pyramide-hoehe-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche [[Höhe]] gehört zu einem Seitendreieck?'
+  - de: 'Ein Dreieck ist ein halbes Rechteck.'
+fehlerbilder:
+  hoehenarten:
+    de: 'Die Körperhöhe steht innen [[senkrecht]]. Für die Seitendreiecke braucht man die Seitenhöhe.'
+    fv: FV.KP.HOEHENARTEN
+  nicht-halbiert:
+    de: 'Ein Dreieck ist ein halbes Rechteck: Teile durch 2.'
+    fv: FV.FL.NICHT-HALBIERT
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Umkehrung eines Satzes begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KR.BEGRUENDEN.BEGRUENDEN
+kompetenz: M.RF.KR.BEGRUENDEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kr.umkehrung-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Tausche [[Voraussetzung]] und [[Behauptung]].'
+  - de: 'Suche ein [[Gegenbeispiel]] für die [[Umkehrung]].'
+fehlerbilder:
+  satz-umkehrung:
+    de: 'Die [[Umkehrung]] eines wahren Satzes kann wahr oder falsch sein. Man muss sie prüfen.'
+    fv: FV.KR.SATZ-UMKEHRUNG
+  gegenbeispiel:
+    de: 'Ein [[Gegenbeispiel]] muss die [[Voraussetzung]] erfüllen, die [[Behauptung]] aber nicht.'
+    fv: FV.KR.GEGENBEISPIEL
+herkunft: ki-entwurf
+version: 1

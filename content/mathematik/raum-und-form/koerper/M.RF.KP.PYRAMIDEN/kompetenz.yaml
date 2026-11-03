@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Schrägbild, Zweitafelbild und Netz einer Pyramide oder eines Pyramidenstumpfs zuordnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie viele Ecken und Kanten eine Pyramide hat.'
 kmk:
   leitidee: L4
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

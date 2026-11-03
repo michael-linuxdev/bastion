@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Selbst eine geschickte Zerlegung wählen; Umfang und Flächeninhalt von Vielecken im Koordinatensystem berechnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann man beim Zerlegen und Ergänzen addiert und wann man abzieht.'
 kmk:
   leitidee: L2
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

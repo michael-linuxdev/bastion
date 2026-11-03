@@ -1,0 +1,24 @@
+# Zusammengesetzte Fläche begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.VIELECKE.BEGRUENDEN
+kompetenz: M.GM.FL.VIELECKE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.vieleck-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Ist das kleine Rechteck Teil der Figur oder fehlt es?'
+  - de: 'Ergänze zum großen Rechteck.'
+fehlerbilder:
+  zerlegen:
+    de: 'Das kleine Rechteck fehlt in der Figur. Ein fehlendes Stück wird abgezogen.'
+    fv: FV.FL.ZERLEGEN
+  umfang-flaeche:
+    de: '2 · (a + b) ist der [[Umfang]], nicht der [[Flächeninhalt]].'
+    fv: FV.FL.UMFANG-FLAECHE
+herkunft: ki-entwurf
+version: 1

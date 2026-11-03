@@ -1,0 +1,24 @@
+# Volumen und Oberfläche begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.VERPACKUNG.BEGRUENDEN
+kompetenz: M.GM.KP.VERPACKUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.verpackung-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was misst das [[Volumen]], was die [[Oberfläche]]?'
+  - de: 'Rechne beide Oberflächen aus.'
+fehlerbilder:
+  volumen-oberflaeche:
+    de: 'Das [[Volumen]] sagt, wie viel hineinpasst. Für die Pappe zählt die [[Oberfläche]].'
+    fv: FV.KP.VOLUMEN-OBERFLAECHE
+  gegenteil-gefragt:
+    de: 'Die größere [[Oberfläche]] braucht mehr Pappe, nicht weniger.'
+    fv: FV.SA.GEGENTEIL-GEFRAGT
+herkunft: ki-entwurf
+version: 1

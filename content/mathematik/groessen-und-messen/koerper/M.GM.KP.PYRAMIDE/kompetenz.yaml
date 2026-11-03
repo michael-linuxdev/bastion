@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Oberfläche gerader Pyramiden mit quadratischer oder rechteckiger Grundfläche; zusammengesetzte Körper aus Prismen und Pyramiden.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Höhe man für den Mantel einer Pyramide braucht.'
 kmk:
   leitidee: L2
   prozesse:

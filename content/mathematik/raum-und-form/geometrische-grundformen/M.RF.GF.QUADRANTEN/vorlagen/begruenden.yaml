@@ -1,0 +1,24 @@
+# Spiegeln an einer Achse begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.GF.QUADRANTEN.BEGRUENDEN
+kompetenz: M.RF.GF.QUADRANTEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: gf.spiegeln-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne den Punkt und seinen Spiegelpunkt ein.'
+  - de: 'Welche [[Koordinate]] bleibt gleich?'
+fehlerbilder:
+  spiegeln-koordinate:
+    de: 'An der x-Achse bleibt x gleich und y wechselt das [[Vorzeichen]], an der y-Achse umgekehrt.'
+    fv: FV.GF.SPIEGELN-KOORDINATE
+  beide-vorzeichen:
+    de: 'Beide [[Vorzeichen]] wechseln nur beim Spiegeln am [[Ursprung]].'
+    fv: FV.GF.SPIEGELN-KOORDINATE
+herkunft: ki-entwurf
+version: 1

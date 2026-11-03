@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Konstruktionsschritte ordnen und entscheiden, ob die gegebenen Stücke ein Viereck eindeutig festlegen.'
+  E:
+    beschreibung:
+      de: 'Begründen, ob gegebene Stücke ein Viereck eindeutig festlegen.'
 kmk:
   leitidee: L4
   prozesse:

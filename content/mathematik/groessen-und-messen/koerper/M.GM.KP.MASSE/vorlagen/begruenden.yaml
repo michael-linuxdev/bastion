@@ -1,0 +1,24 @@
+# Masse aus Dichte begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.KP.MASSE.BEGRUENDEN
+kompetenz: M.GM.KP.MASSE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.dichte-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viel wiegt ein dm³?'
+  - de: 'Rechne zuerst das [[Volumen]] aus.'
+fehlerbilder:
+  dichte-formel:
+    de: 'Die [[Dichte]] sagt, wie viel ein dm³ wiegt. Also Masse = Dichte · [[Volumen]].'
+    fv: FV.KP.DICHTE-FORMEL
+  zwischenergebnis:
+    de: 'Das [[Volumen]] ist erst ein Zwischenergebnis. Gefragt ist die Masse.'
+    fv: FV.SA.ZWISCHENERGEBNIS
+herkunft: ki-entwurf
+version: 1

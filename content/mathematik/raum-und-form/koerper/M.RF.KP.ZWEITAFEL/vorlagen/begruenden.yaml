@@ -1,0 +1,24 @@
+# Körper aus dem Aufriss begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KP.ZWEITAFEL.BEGRUENDEN
+kompetenz: M.RF.KP.ZWEITAFEL
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.zweitafel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Körper sehen von vorn genauso aus?'
+  - de: 'Was zeigt der [[Grundriss]]?'
+fehlerbilder:
+  nur-aufriss:
+    de: 'Mehrere Körper haben denselben [[Aufriss]]. Erst mit dem [[Grundriss]] ist der Körper klar.'
+    fv: FV.KP.ANSICHTEN
+  ansicht-vollstaendig:
+    de: 'Der [[Aufriss]] zeigt den Körper nur von vorn.'
+    fv: FV.KP.ANSICHTEN
+herkunft: ki-entwurf
+version: 1
