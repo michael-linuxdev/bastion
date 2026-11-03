@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Alle besonderen Linien unterscheiden und wissen, welche sich im Umkreis- bzw. Inkreismittelpunkt schneiden.'
+  E:
+    beschreibung:
+      de: 'Besondere Linien im Dreieck an ihren Merkmalen unterscheiden und begründen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

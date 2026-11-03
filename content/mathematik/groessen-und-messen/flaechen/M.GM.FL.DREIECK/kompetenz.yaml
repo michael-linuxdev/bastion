@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Die passende Höhe zur Grundseite wählen; fehlende Seite oder Höhe rückwärts berechnen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Länge man als Höhe für den Flächeninhalt braucht.'
 kmk:
   leitidee: L2
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

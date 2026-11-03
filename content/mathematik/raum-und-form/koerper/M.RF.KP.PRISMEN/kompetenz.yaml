@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Netz, Schrägbild (Kavalierperspektive), Grundriss und Seitenansichten zuordnen – auch bei aus Quadern zusammengesetzten Körpern.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie viele Flächen und Kanten ein Prisma hat.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: gemischt
 zeichnen_erklaert: true
 sachsen:

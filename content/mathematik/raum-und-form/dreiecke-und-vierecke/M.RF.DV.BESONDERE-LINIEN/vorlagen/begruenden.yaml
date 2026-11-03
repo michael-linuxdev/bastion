@@ -1,0 +1,24 @@
+# Besondere Linien begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.BESONDERE-LINIEN.BEGRUENDEN
+kompetenz: M.RF.DV.BESONDERE-LINIEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.linie-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Geht die Linie durch eine Ecke?'
+  - de: 'Steht sie [[senkrecht]] auf der Seite?'
+fehlerbilder:
+  besondere-linien:
+    de: 'Prüfe beide Merkmale getrennt: durch eine Ecke? [[senkrecht]]?'
+    fv: FV.DV.BESONDERE-LINIEN
+  um-inkreis:
+    de: '[[Umkreis]]: Mittelsenkrechten. [[Inkreis]]: [[Winkelhalbierende]].'
+    fv: FV.DV.UM-INKREIS
+herkunft: ki-entwurf
+version: 1

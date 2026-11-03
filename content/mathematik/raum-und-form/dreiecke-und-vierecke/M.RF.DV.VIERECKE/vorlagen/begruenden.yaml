@@ -1,0 +1,24 @@
+# Haus der Vierecke begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.VIERECKE.BEGRUENDEN
+kompetenz: M.RF.DV.VIERECKE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.haus-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Eigenschaften hat das erste Viereck?'
+  - de: 'Hat es alle Eigenschaften des zweiten?'
+fehlerbilder:
+  haus:
+    de: 'Ein Viereck kann mehrere Namen haben, wenn es alle nötigen Eigenschaften hat.'
+    fv: FV.DV.VIERECKE-HAUS
+  umkehrung:
+    de: 'Wenn jedes A ein B ist, muss nicht jedes B ein A sein.'
+    fv: FV.DV.VIERECKE-HAUS
+herkunft: ki-entwurf
+version: 1

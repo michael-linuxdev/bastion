@@ -1,0 +1,24 @@
+# Neben- und Stufenwinkel begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.DV.WINKELSAETZE.BEGRUENDEN
+kompetenz: M.RF.DV.WINKELSAETZE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: dv.winkel-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Um welches Winkelpaar geht es?'
+  - de: 'Zeichne die Situation.'
+fehlerbilder:
+  gleich-oder-180:
+    de: '[[Scheitel-]], [[Stufen-]] und [[Wechselwinkel]] sind gleich groß, [[Nebenwinkel]] ergänzen sich zu 180°.'
+    fv: FV.GF.GLEICH-ODER-180
+  winkelsumme:
+    de: '360° gehört zum Vollwinkel, nicht zu einem Winkelpaar.'
+    fv: FV.DV.WINKELSUMME
+herkunft: ki-entwurf
+version: 1

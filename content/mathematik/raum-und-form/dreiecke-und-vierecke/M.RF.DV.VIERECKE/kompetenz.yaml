@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Beziehungen zwischen den Vierecken begründen, z. B. „Jedes Quadrat ist eine Raute“.'
+  E:
+    beschreibung:
+      de: 'Aussagen über Beziehungen zwischen Vierecken prüfen und begründen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

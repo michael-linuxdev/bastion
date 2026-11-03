@@ -1,0 +1,24 @@
+# Flächen und Kanten des Prismas begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.RF.KP.PRISMEN.BEGRUENDEN
+kompetenz: M.RF.KP.PRISMEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.prisma-zaehlen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zähle unten, oben und an der Seite getrennt.'
+  - de: 'Ein [[Prisma]] hat zwei Grundflächen.'
+fehlerbilder:
+  deckel-vergessen:
+    de: 'Die [[Deckfläche]] oder die Seitenkanten gehören auch dazu.'
+    fv: FV.KP.ZAEHLEN
+  falsch-gezaehlt:
+    de: 'Zähle Flächen, Kanten und Ecken getrennt.'
+    fv: FV.KP.ZAEHLEN
+herkunft: ki-entwurf
+version: 1

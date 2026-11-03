@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Winkel an geschnittenen Parallelen und im Dreieck in mehreren Schritten berechnen und den Satz nennen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Winkelpaare gleich groß sind und welche sich zu 180° ergänzen.'
 kmk:
   leitidee: L4
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

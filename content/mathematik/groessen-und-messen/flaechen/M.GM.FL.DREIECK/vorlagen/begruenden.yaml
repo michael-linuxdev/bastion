@@ -1,0 +1,24 @@
+# Höhe im Dreieck begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.GM.FL.DREIECK.BEGRUENDEN
+kompetenz: M.GM.FL.DREIECK
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fl.hoehe-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Länge steht [[senkrecht]] auf der Grundseite?'
+  - de: 'Ein Dreieck ist ein halbes Rechteck.'
+fehlerbilder:
+  seite-statt-hoehe:
+    de: 'Die schräge Seite ist nicht die [[Höhe]]. Die Höhe ist der senkrechte Abstand zur Grundseite.'
+    fv: FV.FL.SEITE-STATT-HOEHE
+  nicht-halbiert:
+    de: 'Ein Dreieck ist halb so groß wie das Rechteck aus Grundseite und [[Höhe]].'
+    fv: FV.FL.NICHT-HALBIERT
+herkunft: ki-entwurf
+version: 1
