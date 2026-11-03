@@ -15,7 +15,9 @@ Stand: 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alle
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/start/`, `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` (Backlog AA–ZZ).
+> **Seit 03.11.2026 (PV):** Start, Mehr und Elternbereich (`src/ui/start/`, `src/ui/eltern/`) gehören dem neuen Strang Oberfläche (`docs/session/OBERFLAECHE.md`). Das Bastion-Bild auf der Startseite und alles in `src/ui/bastion/` bleiben hier.
+
+Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mit `grafik/` und `sound/`), `src/ui/grund.css`, `src/core/bastion/`, `src/core/ledger/`, `tools/sim/`, `public/` (Atlas, Sound). Dokumente: `GRAFIK.md`, `GRAFIK-SPRITES.md`, `BASEBAU.md`, `DESIGN-IDEEN.md` (Backlog AA–ZZ).
 
 **Grenzen:** Der Basebau bleibt Nebensache (K-27). Design-Regeln R1–R7 (`VISION.md` §9) gelten für jedes Bild: keine Zufallsbelohnungen, keine Echtzeit-Timer, kein Verfall, „Bewegung reduzieren“ wird beachtet. Grafik ändert nie Daten (B-27): Lernstand und Bastion kennen keine Bilder.
 

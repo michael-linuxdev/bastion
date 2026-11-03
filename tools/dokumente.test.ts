@@ -21,7 +21,7 @@ describe('Dokumente für parallele Stränge', () => {
     expect(planProtokoll().length).toBeLessThanOrEqual(63);
   });
 
-  for (const strang of ['LERNKERN', 'GRAFIK']) {
+  for (const strang of ['LERNKERN', 'GRAFIK', 'OBERFLAECHE']) {
     it(`${strang}-PROTOKOLL.md enthält nur Kopf und Tabellenzeilen`, () => {
       const zeilen = lies(`docs/session/${strang}-PROTOKOLL.md`).trimEnd().split('\n');
       const tabelle = zeilen.slice(zeilen.indexOf('| Datum | Änderung |') + 2);

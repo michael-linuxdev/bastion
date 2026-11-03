@@ -2,7 +2,7 @@
 
 ## Zuerst lesen
 1. `docs/SESSION-PROMPT.md` – gemeinsamer Teil, Regeln für parallele Stränge
-   und danach die Datei des eigenen Strangs: `docs/session/LERNKERN.md` oder `docs/session/GRAFIK.md` – aktueller Auftrag und letzter Stand
+   und danach die Datei des eigenen Strangs: `docs/session/LERNKERN.md`, `docs/session/GRAFIK.md` oder `docs/session/OBERFLAECHE.md` – aktueller Auftrag und letzter Stand
 2. `docs/VISION.md` §3 und §9 – die vier Kernaufgaben (Qualitätskriterien), Grundprinzipien und Design-Regeln R1–R7
 3. Die im Auftrag genannten Dokumente in `docs/`
 
@@ -29,5 +29,5 @@ Bei Widerspruch zwischen Code und Dokumenten: nachfragen, nicht raten.
 - **Erkläre jede Änderung in einfachem Deutsch:** Was wurde geändert, warum, wie kann ich es selbst ausprobieren? Der Projektverantwortliche ist kein Framework-Experte.
 - **Dokumente im selben Commit aktualisieren**, wenn sich Verhalten, Struktur oder Entscheidungen ändern.
 - **Am Ende jeder Sitzung:** die Datei des eigenen Strangs (`docs/session/…`) und den eigenen Abschnitt von `docs/PLAN.md` aktualisieren. `docs/SESSION-PROMPT.md` nur bei Änderungen für alle Stränge.
-- **Parallele Stränge:** nur im eigenen Bereich ändern (Tabelle in `docs/SESSION-PROMPT.md`), Branch-Namen `lernkern/…` oder `grafik/…`. Protokoll: eine Zeile unten in `docs/session/<STRANG>-PROTOKOLL.md`, nie in `docs/PLAN.md` §5. Gleiche Regeln für andere Agenten: `AGENTS.md`.
+- **Parallele Stränge:** nur im eigenen Bereich ändern (Tabelle in `docs/SESSION-PROMPT.md`), Branch-Namen `lernkern/…`, `grafik/…` oder `oberflaeche/…`. Protokoll: eine Zeile unten in `docs/session/<STRANG>-PROTOKOLL.md`, nie in `docs/PLAN.md` §5. Gleiche Regeln für andere Agenten: `AGENTS.md`.
 - Commit-Nachrichten auf Deutsch, im Präsens, mit Aufgaben-Nummer: `0.7: Projektgerüst mit Vite und Svelte 5 anlegen`.

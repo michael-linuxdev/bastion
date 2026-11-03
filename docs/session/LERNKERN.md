@@ -9,7 +9,7 @@ Stand: 03.11.2026, 12:15 · **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/se
 
 ## Zuständigkeit
 
-Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, `src/ui/eltern/`, `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
+Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/core/competence/`, `src/core/testphase/`, `src/core/srs/`, `src/generators/`, `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`, die Fach-Bausteine in `src/ui/eltern/` (Aufgabenblatt, Druck, Testphase, Bericht; die Hülle `Elternbereich.svelte` gehört seit 03.11.2026 dem Strang Oberfläche), `tools/inhalte/`, `tools/pruefbogen/`, `tools/review/`, `tools/auswertung/`. Dokumente: `VERMITTLUNG.md`, `INHALTSFORMAT.md`, `LEHRPLAN.md`, `PRUEFUNGEN.md`, `TESTS.md`, `DATENMODELL.md` (Lernereignisse).
 
 **Besonders kritisch prüfen:** die didaktische Qualität der Erstvermittlung und der Fehlererklärungen.
 
