@@ -2,6 +2,7 @@
   // Zeichen-Anleitung (LEHRPLAN L-10): Schritt für Schritt zum Nachmachen auf
   // Papier. Nicht bewertet; die Prüfliste am Ende wird nicht gespeichert.
   import type { Anleitung } from '../../core/learning/anleitung';
+  import ZurueckKnopf from '../start/ZurueckKnopf.svelte';
   import { alsText, fuelle } from '../../core/learning/text';
   import { anleitungsBilder } from '../../generators/anleitungen';
   import { t } from '../texte/texte';
@@ -17,7 +18,7 @@
 </script>
 
 <section class="anleitung">
-  <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+  <ZurueckKnopf onclick={onzurueck} />
   <h2>{alsText(fuelle(anleitung.titel.de, {}))}</h2>
   <p class="leise">
     {t('anleitung.material')}
@@ -139,11 +140,5 @@
   .haupt {
     background: var(--farbe-akzent);
     color: var(--farbe-auf-akzent);
-  }
-
-  .zurueck {
-    justify-self: start;
-    border-color: transparent;
-    padding-inline: 0;
   }
 </style>
