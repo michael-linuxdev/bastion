@@ -115,6 +115,10 @@ Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichk
 
 24 fachlich klare Voraussetzungen ergänzt (etwa Brüche vergleichen ← Erweitern, Prim ← Teilbarkeitsregeln, Zylinder ← Kreis, Kreis ← Potenzen und Umrechnen, Zinsen ← prozentuale Veränderung), nur zu gleicher oder früherer Klasse und ohne Kreis im Graphen. Funde B 58 → 28, D 5 → 2. Dazu in 14 Erstvermittlungen der Sprung bei einer Fehlvorstellung auf ihren eigenen Erklärschritt gesetzt: E 14 → 0. Grenze gesenkt. Offen: A 18 (braucht neue Generator-Fassungen), B 28 (davon 16 FV.SA.*, Frage 5).
 
+### Tempo der Prüfungen (03.11.2026)
+
+Die Pflicht-Tests der Generatoren (`src/generators/pflichttests.ts`) vergleichen erst billig und rufen Vitest-`expect` nur bei einer Abweichung auf; in Schleifen mit 10 000 Läufen war `expect` der größte Kostenpunkt. Generator-Tests 287 s → 126 s (4 Kerne), Regeln unverändert; geprüft mit absichtlich falscher Lösung und absichtlich richtiger Fehlerbild-Antwort (beides wird erkannt).
+
 ### Offene Fragen der Nachtarbeit
 
 1. ~~**Bilder in Erstvermittlungen zu Parabeln**~~ *erledigt 03.11.2026:* Werkzeug `graph@1` (Bild und interaktiv in einem), QF.GRAPH, QF.SCHEITEL, PF.* zeigen Graphen.
