@@ -85,6 +85,7 @@ import { epocheOptik, farbeSkalieren } from './epoche-optik';
 import {
   bauplatzAktiv,
   bauplatzAktivSetzen,
+  bodenTiefe,
   buehneBreite,
   buehneHoehe,
   INSEL,
@@ -1395,9 +1396,43 @@ export async function buehneErstellen(
     if (f >= 1) aufstellAktiv = false;
   };
 
+  /**
+   * Wesen am Boden und Bewohner stehen zwischen den Gebäuden: Sie liegen in derselben,
+   * nach Tiefe sortierten Ebene (`gebaeude`), sonst läuft der Fuchs hinter dem Turm
+   * über die Burg.
+   */
+  const amBoden: Container[] = [];
+  const bodenWeg = () => {
+    for (const c of amBoden.splice(0)) {
+      if (!c.destroyed) {
+        c.parent?.removeChild(c);
+        c.destroy();
+      }
+    }
+  };
+  const aufBoden = (c: Container, fussY: number, zusatz: number) => {
+    c.zIndex = bodenTiefe(fussY) * 10 + zusatz;
+    gebaeude.addChild(c);
+    amBoden.push(c);
+  };
   const wesenZeichnen = (jetzt: number) => {
     wesenLage.removeChildren().forEach((c) => c.destroy());
+    for (const c of [...amBoden]) {
+      if (c.label === 'wesen') {
+        amBoden.splice(amBoden.indexOf(c), 1);
+        if (!c.destroyed) {
+          c.parent?.removeChild(c);
+          c.destroy();
+        }
+      }
+    }
     if (!tickerAn(bewegung)) return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
+    // Auch Flieger (Möwe) nach ihrem Punkt über dem Boden: Sie landen zwischen den
+    // Gebäuden, sonst säße die Möwe hinter dem Turm sichtbar auf den Zinnen.
+    const ablegen = (c: Container, w: WesenZustand) => {
+      c.label = 'wesen';
+      aufBoden(c, w.y, 5);
+    };
     for (const w of wesen) {
       const { zyklus, frame } = wesenFrame(w, jetzt);
       const id = atlasWesenId(thema, w.art, zyklus, frame);
@@ -1411,18 +1446,31 @@ export async function buehneErstellen(
         spr.height = (eintrag.pixel.h / eintrag.pixel.w) * skal;
         spr.position.set(w.x, w.y);
         spr.scale.x = w.richtung * Math.abs(spr.scale.x);
-        wesenLage.addChild(spr);
+        ablegen(spr, w);
       } else {
         const g = new Graphics();
         zeichneWesen(g, w, jetzt);
-        wesenLage.addChild(g);
+        ablegen(g, w);
       }
     }
   };
 
   const bewohnerZeichnen = (jetzt: number) => {
     bewohnerLage.removeChildren().forEach((c) => c.destroy());
+    for (const c of [...amBoden]) {
+      if (c.label === 'bewohner') {
+        amBoden.splice(amBoden.indexOf(c), 1);
+        if (!c.destroyed) {
+          c.parent?.removeChild(c);
+          c.destroy();
+        }
+      }
+    }
     if (!tickerAn(bewegung)) return;
+    const ablegen = (c: Container, y: number) => {
+      c.label = 'bewohner';
+      aufBoden(c, y, 6);
+    };
     for (const b of bewohner) {
       const { zyklus, frame } = bewohnerFrame(b, jetzt);
       const eintrag = atlasEintragPerId(atlas, atlasBewohnerId(b.art, zyklus, frame));
@@ -1435,14 +1483,14 @@ export async function buehneErstellen(
         spr.width = breite;
         spr.height = (eintrag.pixel.h / eintrag.pixel.w) * breite;
         spr.position.set(b.x, b.y + 4);
-        bewohnerLage.addChild(spr);
+        ablegen(spr, b.y);
         const g = new Graphics();
         zeichneStatusgeste(g, b.x, b.y - 12, 1, b.taetigkeit);
-        bewohnerLage.addChild(g);
+        ablegen(g, b.y);
       } else {
         const g = new Graphics();
         zeichneBewohner(g, b, jetzt);
-        bewohnerLage.addChild(g);
+        ablegen(g, b.y);
       }
     }
   };
@@ -1492,6 +1540,7 @@ export async function buehneErstellen(
       partikelZeichnen();
       wesenLage.removeChildren().forEach((c) => c.destroy());
       bewohnerLage.removeChildren().forEach((c) => c.destroy());
+      bodenWeg();
     }
   };
   tickerSync();

@@ -35,10 +35,9 @@ const FENSTER: Record<(typeof THEMEN)[number], readonly string[]> = {
     'kern_s1_fenster',
     'kern_s2_fenster',
     'kern_s3_fenster',
-    'werkstatt_s1_fenster',
+    // werkstatt_s1, turm_s1: Laterne ganz verdeckt, darum keine Abend-Ebene (G-Fix 03.11.2026)
     'wissen_s1_fenster',
     'wissen_s2_fenster',
-    'turm_s1_fenster',
     'turm_s2_fenster',
   ],
   unterwasser: [
