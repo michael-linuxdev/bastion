@@ -262,6 +262,15 @@
     opacity: 0.75;
     pointer-events: none;
   }
+  /* O9: Abend in der Bastion (GRAFIK §2): Schleier dunkler, Titel leuchtet warm wie Laternenlicht */
+  :global(html[data-bastion-abend='ja']) .banner::after {
+    opacity: 0.95;
+  }
+  :global(html[data-bastion-abend='ja']) .titel {
+    text-shadow:
+      0 0.06em 0 color-mix(in srgb, var(--farbe-akzent) 35%, black),
+      0 0 0.5em color-mix(in srgb, #ffe08a 55%, transparent);
+  }
   .banner.ohne-bild {
     aspect-ratio: auto;
     min-block-size: 7rem;

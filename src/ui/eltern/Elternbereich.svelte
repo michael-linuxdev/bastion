@@ -427,6 +427,12 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
+  /* Bericht sitzt schon in einer Karte: kein zweiter Rahmen */
+  #abschnitt-bericht :global(.bericht) {
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
   .nach-oben {
     justify-self: start;
     color: var(--farbe-text);
@@ -473,7 +479,7 @@
   .wahl select {
     justify-self: start;
   }
-  .eltern :global(button:not(.haupt):not(.zweit):not(.leise-knopf)) {
+  .eltern :global(button:not(.haupt):not(.zweit):not(.leise-knopf):not([aria-pressed])) {
     font: inherit;
     font-weight: 700;
     justify-self: start;
