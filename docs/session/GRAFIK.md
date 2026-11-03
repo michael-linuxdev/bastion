@@ -83,7 +83,7 @@ Startsatz: „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/GRAFIK.
    - alles auch aus echtem Wetter (Open-Meteo nur nach Einschalten, T-15) und im Zahnrad zum Ausprobieren.
 3. **Kulisse für die anderen Themen** (Variante C wie `bastion`): Dorf (Felder, Hecken, Bach, ferne Dächer), Garten (Wiese, Teich, Hecken), Unterwasser (Riff in Schichten, Lichtstrahlen, Tiefe), Weltraum (Krater, Planet am Horizont, Sterne). Eigene `dinge` je Thema.
 4. **Fehlerbehebungen:** Dorf-Szene lädt langsam, die Kamera sitzt in den ersten Sekunden falsch; ein Tipper in der ersten Sekunde geht verloren (#160).
-5. **Simulator für Epoche 2–4** (`tools/sim/`): echte Zahlen statt Überschlag (BASEBAU §8b).
+5. ~~**Simulator für Epoche 2–4** (`tools/sim/`): echte Zahlen statt Überschlag (BASEBAU §8b).~~ – erledigt 03.11.2026, BASEBAU §8c: P1 Bergfried 9 nach etwa 3,8 Jahren (Fleiß bremst), P6 bleibt bei Bergfried 4 – Entscheidung des PV offen.
 
 **Als Nächstes (vorher):** **G6** durch den PV (Seite zum Zeigen: https://claude.ai/artifact/JsQNiwe5nzjtRBJGgJ6k4K), danach „G abgenommen“ in `FOKUS.md`. Bis U4b nur Fehlerbehebungen. Auftrag für die nächste Grafik-Sitzung: `FOKUS.md` „Nächste Sitzungen“.
 
