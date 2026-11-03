@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.ZO.BR.DEZIMAL
   - M.ZO.BR.ERWEITERN
+  - M.ZO.TB.PRIM
 niveaus:
   G:
     beschreibung:

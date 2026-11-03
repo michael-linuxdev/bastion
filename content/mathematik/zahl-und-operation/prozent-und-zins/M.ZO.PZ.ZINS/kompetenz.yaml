@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 7
 voraussetzungen:
   - M.ZO.PZ.GRUNDAUFGABEN
+  - M.ZO.PZ.VERAENDERUNG
 niveaus:
   G:
     beschreibung:

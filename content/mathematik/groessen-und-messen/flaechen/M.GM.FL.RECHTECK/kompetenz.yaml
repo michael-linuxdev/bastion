@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 5
 voraussetzungen:
   - M.ZO.NZ.MULT
+  - M.SF.NZ.GLEICHUNGEN
 niveaus:
   G:
     beschreibung:

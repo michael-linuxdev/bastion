@@ -15,7 +15,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '7', fv: FV.AE.GLEICH-VIEL-DAZU }] }
     weiter: entdecken
-    bei: { sonst: M.RF.AE.STRECKUNG }
+    bei: { FV.AE.GLEICH-VIEL-DAZU: erklaeren-aehnlich, sonst: M.RF.AE.STRECKUNG }
   - id: entdecken
     typ: entdecken
     text:

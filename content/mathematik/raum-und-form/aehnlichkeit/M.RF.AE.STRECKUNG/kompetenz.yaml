@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.RF.GF.QUADRANTEN
   - M.ZO.BR.ANTEILE
+  - M.SF.ZU.PROPORTIONAL
 niveaus:
   G:
     beschreibung:

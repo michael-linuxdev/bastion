@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.ZO.BR.BEGRIFF
   - M.ZO.BR.DEZIMAL
+  - M.ZO.BR.PROZENT
 niveaus:
   G:
     beschreibung:

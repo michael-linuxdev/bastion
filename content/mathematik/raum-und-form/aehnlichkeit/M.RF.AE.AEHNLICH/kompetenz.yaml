@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.RF.AE.STRECKUNG
   - M.RF.DV.WINKELSAETZE
+  - M.SF.ZU.PROPORTIONAL
 niveaus:
   G:
     beschreibung:

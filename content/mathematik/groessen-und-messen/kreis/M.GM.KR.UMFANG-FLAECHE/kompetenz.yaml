@@ -12,6 +12,9 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.RF.KR.LAGE
   - M.GM.FL.VIELECKE
+  - M.ZO.NZ.POTENZEN
+  - M.GM.GR.UMRECHNEN
+  - M.SF.GL.LINEAR
 niveaus:
   G:
     beschreibung:

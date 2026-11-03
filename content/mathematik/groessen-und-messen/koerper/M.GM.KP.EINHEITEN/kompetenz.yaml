@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.GM.KP.VOLUMEN
   - M.GM.GR.UMRECHNEN
+  - M.GM.FL.EINHEITEN
 niveaus:
   G:
     beschreibung:

@@ -15,7 +15,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '4', fv: FV.KP.ZAEHLEN }] }
     weiter: entdecken
-    bei: { sonst: M.RF.KP.DARSTELLEN }
+    bei: { FV.KP.ZAEHLEN: erklaeren-zaehlen, sonst: M.RF.KP.DARSTELLEN }
   - id: entdecken
     typ: entdecken
     text:

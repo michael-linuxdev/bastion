@@ -11,6 +11,7 @@ klassenstufe_typisch:
   - 5
 voraussetzungen:
   - M.GM.FL.RECHTECK
+  - M.SF.NZ.GLEICHUNGEN
 niveaus:
   G:
     beschreibung:

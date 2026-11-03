@@ -26,6 +26,7 @@ schritte:
       eingabe:
         { art: zahl, loesung: '0,7', fehler: [{ wert: '7,1', fv: FV.BR.KOMMA-ALS-BRUCHSTRICH }] }
     weiter: erklaeren-stellenwert
+    bei: { FV.BR.KOMMA-ALS-BRUCHSTRICH: erklaeren-umwandeln }
   - id: erklaeren-stellenwert
     typ: erklaeren
     text:

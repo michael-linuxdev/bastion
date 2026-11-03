@@ -27,6 +27,7 @@ schritte:
         - { wert: { de: 'kleiner' }, richtig: true }
         - { wert: { de: 'größer' }, fv: FV.BR.NENNER-GROESSER }
     weiter: erklaeren-gleichnamig
+    bei: { FV.BR.NENNER-GROESSER: erklaeren-gleicher-zaehler }
   - id: erklaeren-gleichnamig
     typ: erklaeren
     text:

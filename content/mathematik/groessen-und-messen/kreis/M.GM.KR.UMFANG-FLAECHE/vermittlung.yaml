@@ -15,7 +15,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '16', fv: FV.KR.RADIUS-DURCHMESSER }] }
     weiter: entdecken
-    bei: { sonst: M.RF.KR.LAGE }
+    bei: { FV.KR.RADIUS-DURCHMESSER: erklaeren-radius, sonst: M.RF.KR.LAGE }
   - id: entdecken
     typ: entdecken
     text:

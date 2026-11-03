@@ -15,7 +15,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '36', fehler: [{ wert: '12', fv: FV.NZ.QUADRAT-MAL-ZWEI }] }
     weiter: entdecken
-    bei: { sonst: M.ZO.NZ.MULT }
+    bei: { FV.NZ.QUADRAT-MAL-ZWEI: erklaeren-quadrat, sonst: M.ZO.NZ.MULT }
   - id: entdecken
     typ: entdecken
     text:

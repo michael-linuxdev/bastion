@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.ZO.BR.DEZIMAL
   - M.ZO.NZ.RUNDEN
+  - M.ZO.NZ.ORDNEN
 niveaus:
   G:
     beschreibung:

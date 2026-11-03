@@ -12,6 +12,7 @@ klassenstufe_typisch:
 voraussetzungen:
   - M.SF.FK.BEGRIFF
   - M.RF.GF.QUADRANTEN
+  - M.SF.FK.NULLSTELLE
 niveaus:
   G:
     beschreibung:

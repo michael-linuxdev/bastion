@@ -23,6 +23,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '1', fv: FV.FK.M-N-VERTAUSCHT }] }
     weiter: erklaeren-anstieg
+    bei: { FV.FK.M-N-VERTAUSCHT: erklaeren-gleichung }
   - id: erklaeren-anstieg
     typ: erklaeren
     text:

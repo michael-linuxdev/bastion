@@ -26,6 +26,7 @@ schritte:
       eingabe:
         { art: zahl, loesung: '2', fehler: [{ wert: '0,5', fv: FV.AE.STRECKFAKTOR-KEHRWERT }] }
     weiter: erklaeren-streckung
+    bei: { FV.AE.STRECKFAKTOR-KEHRWERT: erklaeren-streckfaktor }
   - id: erklaeren-streckung
     typ: erklaeren
     text:
