@@ -115,7 +115,7 @@ Fragerunde des PV vom 02.11.2026 (Sitzung Lernkern, vor Phase A):
 
 16. **Klasse 10 bis 12 vorbereiten** (PV, 03.11.2026, 11:20): „in voller Tiefe vorbereiten für die nächste Sitzung“. Ergebnis: `docs/session/KLASSE-10-12-BAUPLAN.md` mit Reihenfolge, PR-Schnitt, Bausteinen, Vorlagen G/M/E je Kompetenz, Fehlvorstellungen und offenen Fragen (§7). Noch nichts gebaut.
 
-17. **Antworten zum Bauplan 10–12** (PV, 03.11.2026, 11:45): Kurswahl im Profil; „ohne Taschenrechner“ **in der App gekennzeichnet**; Oberschul-fremde Themen bei Schulart Oberschule ausgeblendet; Vorschaubild jedes neuen Werkzeugs **vor** dem Einbau; Runden: Lehrplan nennt keine feste Stellenzahl („sinnvoll runden“), Vorschlag vier Stellen oder Prozent mit einer Stelle bis zur Prüfung mit den PDFs; eine Sitzung für Klasse 10, zwei bis drei für 11/12; KI-Prüfung erst am Ende. Einzelheiten in `KLASSE-10-12-BAUPLAN.md` §7.
+17. **Antworten zum Bauplan 10–12** (PV, 03.11.2026, 11:45): Kurswahl im Profil; „ohne Taschenrechner“ **in der App gekennzeichnet**; Oberschul-fremde Themen bei Schulart Oberschule ausgeblendet; Vorschaubild jedes neuen Werkzeugs **vor** dem Einbau; Runden: Lehrplan nennt keine feste Stellenzahl („sinnvoll runden“); bis zur Prüfung mit den PDFs gilt (vom PV bestätigt): jede Aufgabe nennt ihre Rundung, Wahrscheinlichkeiten mit vier Stellen oder in Prozent mit einer Stelle (beides richtig), anders Gerundetes bekommt „richtig, aber anders gerundet“; eine Sitzung für Klasse 10, zwei bis drei für 11/12; KI-Prüfung erst am Ende. Sitzung Klasse 10 beginnt am 03.11.2026 um 13:15 Uhr. Einzelheiten in `KLASSE-10-12-BAUPLAN.md` §7.
 
 ### Inhaltsdurchsicht Klasse 9 (03.11.2026)
 
