@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Mit Quotientengleichheit und Produktgleichheit begründen.'
+  E:
+    beschreibung:
+      de: 'Mit Quotienten- oder Produktgleichheit begründen, ob eine Zuordnung (umgekehrt) proportional ist.'
 kmk:
   leitidee: L3
   prozesse:
@@ -26,6 +29,7 @@ kmk:
     - K3
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

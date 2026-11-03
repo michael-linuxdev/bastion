@@ -1,0 +1,24 @@
+# Art einer Zuordnung begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.SF.ZU.DARSTELLEN.BEGRUENDEN
+kompetenz: M.SF.ZU.DARSTELLEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zu.eindeutig-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Kommt ein x-Wert zweimal vor?'
+  - de: 'Kommt ein y-Wert zweimal vor?'
+fehlerbilder:
+  eindeutigkeit:
+    de: 'Für eindeutig prüft man die x-Werte: Hat jedes x genau ein y?'
+    fv: FV.ZU.EINDEUTIGKEIT
+  eineindeutig:
+    de: 'Eineindeutig heißt: Auch jedes y gehört zu genau einem x. Prüfe beide Richtungen.'
+    fv: FV.ZU.EINDEUTIGKEIT
+herkunft: ki-entwurf
+version: 1

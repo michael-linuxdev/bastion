@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Auch umgekehrt proportionale Zuordnungen und Verhältnisgleichungen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wann eine Zuordnung umgekehrt proportional ist, und damit rechnen.'
 kmk:
   leitidee: L3
   prozesse:
@@ -25,6 +28,7 @@ kmk:
     - K5
 anforderungsbereiche:
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:
