@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Alle drei Grundaufgaben lösen, auch den Grundwert und den Prozentsatz, und den passenden Lösungsweg wählen.'
+  E:
+    beschreibung:
+      de: 'Begründen, welche Rechnung zur gesuchten Größe passt, besonders beim Grundwert.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

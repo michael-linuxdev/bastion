@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Bequeme Prozentsätze (1 %, 5 %, 20 %, 75 % …) im Kopf nutzen; Angaben in Texten richtig zuordnen.'
+  E:
+    beschreibung:
+      de: 'In einem Text begründen, welche Zahl Grundwert, Prozentwert und Prozentsatz ist.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

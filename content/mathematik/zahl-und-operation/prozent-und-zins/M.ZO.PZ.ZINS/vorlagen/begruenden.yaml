@@ -1,0 +1,24 @@
+# Zinsen für Monate begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.ZINS.BEGRUENDEN
+kompetenz: M.ZO.PZ.ZINS
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.zeitraum-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Für welchen Zeitraum gilt der [[Zinssatz]]?'
+  - de: 'Welcher Teil eines Jahres sind die Monate?'
+fehlerbilder:
+  zeitraum:
+    de: 'Der [[Zinssatz]] gilt für ein ganzes Jahr. Für weniger Zeit gibt es weniger [[Zinsen]].'
+    fv: FV.PZ.ZEITRAUM
+  zeitraum-mal:
+    de: 'Die Jahreszinsen gelten für 12 Monate. Teile deshalb noch durch 12.'
+    fv: FV.PZ.ZEITRAUM
+herkunft: ki-entwurf
+version: 1

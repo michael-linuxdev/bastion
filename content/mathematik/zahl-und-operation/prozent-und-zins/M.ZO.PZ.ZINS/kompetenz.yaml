@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Tageszinsen, Zinssatz oder Kapital berechnen; Zinseszins über wenige Jahre.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man Zinsen für einen Teil des Jahres berechnet.'
 kmk:
   leitidee: L1
   prozesse:

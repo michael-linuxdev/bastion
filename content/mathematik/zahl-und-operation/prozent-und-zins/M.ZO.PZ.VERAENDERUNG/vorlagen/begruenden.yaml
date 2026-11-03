@@ -1,0 +1,24 @@
+# „um“ und „auf“ begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.VERAENDERUNG.BEGRUENDEN
+kompetenz: M.ZO.PZ.VERAENDERUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.um-auf-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie viel Euro ist der Preis gestiegen?'
+  - de: 'Der alte Preis ist der [[Grundwert]].'
+fehlerbilder:
+  um-auf:
+    de: 'Auf 125 % heißt um 25 % gestiegen. „Um“ meint nur die Änderung.'
+    fv: FV.PZ.UM-AUF
+  falscher-grundwert:
+    de: 'Die Erhöhung bezieht sich auf den alten Preis, nicht auf den neuen.'
+    fv: FV.PZ.FALSCHER-GRUNDWERT
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Grundwert im Text begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.BEGRIFFE.BEGRUENDEN
+kompetenz: M.ZO.PZ.BEGRIFFE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.grundwert-begriff-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wovon werden die Prozente genommen?'
+  - de: 'Das Ganze ist der [[Grundwert]], der Teil der [[Prozentwert]].'
+fehlerbilder:
+  teil-als-ganzes:
+    de: 'Das ist der Teil, also der [[Prozentwert]]. Der [[Grundwert]] ist das Ganze.'
+    fv: FV.PZ.DREI-GROESSEN
+  satz-als-wert:
+    de: 'Die Zahl mit dem Prozentzeichen ist der [[Prozentsatz]], nicht der [[Grundwert]].'
+    fv: FV.PZ.DREI-GROESSEN
+herkunft: ki-entwurf
+version: 1
