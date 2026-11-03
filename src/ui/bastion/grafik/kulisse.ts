@@ -289,7 +289,7 @@ function misch(a: number, b: number, k: number): number {
 }
 
 /** Wie weit die Kulisse um den Bauplatz reicht (Felder) – bis über den Bildrand */
-export const KULISSE_WEITE = 30;
+export const KULISSE_WEITE = 44;
 
 /**
  * Alle Dinge der Kulisse (Wunsch PV 03.11.2026: weniger leere Fläche): die sechs
@@ -317,12 +317,12 @@ export function kulissenDinge(
       const ay = gy < 0 ? -gy : gy > tiefe ? gy - tiefe : 0;
       const abstand = Math.max(ax, ay);
       if (abstand < 2.2) continue;
-      // Im Hochformat reicht das Bild seitlich kaum über den Bauplatz hinaus (Bildschirm-x
-      // folgt gx − gy): weit seitlich nichts hinlegen, das sähe ohnehin niemand
-      if (Math.abs(gx - gy - (breite - tiefe) / 2) > (breite + tiefe) / 2 + 8) continue;
       if (nah.some((d) => Math.hypot(d.gx - gx, d.gy - gy) < 2.4)) continue;
       // nah dichter, weit lockerer
-      const dichte = abstand < 9 ? 0.6 : abstand < 18 ? 0.36 : 0.2;
+      let dichte = abstand < 9 ? 0.6 : abstand < 18 ? 0.34 : abstand < 30 ? 0.2 : 0.12;
+      // Oben (hinter dem Bauplatz, Bildschirm-y folgt gx + gy) ist bis zum Horizont weniger
+      // Platz zu sehen als unten: dort etwas dichter, damit beide Hälften gleich voll wirken
+      if (gx + gy < (breite + tiefe) / 2) dichte *= 1.35;
       if (misch(i, j, 3) > dichte) continue;
       const flach = thema.flaechen.length > 0 && misch(i, j, 4) < 0.2;
       const liste = flach ? thema.flaechen : thema.weitere.length ? thema.weitere : thema.dinge;

@@ -75,12 +75,27 @@
     thema.wasser && (wetter === 'regen' || wetter === 'sturm') ? meerPlaetze(18, 1.2, 0) : [],
   );
   const schollen = $derived(thema.wasser && wetter === 'schnee' ? meerPlaetze(10, 0.5, 1) : []);
+  /** Wolken am Himmel: Land und Meer (nicht unter Wasser, nicht im Weltraum) */
+  const himmelWolken = $derived(!thema.sterneImmer && thema.jahreszeitBoden);
+  /** Feste Wolken: Lage in Prozent der Breite, Höhe über dem Horizont, Breite */
+  const WOLKEN = [
+    { x: -6, hoch: 100, b: 150 },
+    { x: 22, hoch: 120, b: 110 },
+    { x: 44, hoch: 90, b: 190 },
+    { x: 68, hoch: 150, b: 130 },
+    { x: 86, hoch: 115, b: 160 },
+    { x: 8, hoch: 200, b: 120 },
+    { x: 56, hoch: 230, b: 140 },
+  ] as const;
   const sterneZeigen = $derived(stimmung === 'nacht' || thema.sterneImmer);
 
   const buehne = $derived(buehneFuer(platz));
   const basis = $derived(`${import.meta.env.BASE_URL}grafik/atlas/kulisse/${themaName}/`);
   const pfad = $derived(`${basis}${stimmung}/`);
   const lage = $derived(kulissenLage(kamera, inselOben));
+  /** Größe des Fensters: Dinge weit außerhalb werden nicht gezeichnet (bis zu 270 Plätze) */
+  let fensterB = $state(800);
+  let fensterH = $state(1200);
   const himmel = $derived(thema.himmel[stimmung]);
   const meer = $derived(thema.grund[stimmung]);
   const hY = $derived(Math.round(lage.horizontY));
@@ -142,6 +157,8 @@
 </script>
 
 <div
+  bind:clientWidth={fensterB}
+  bind:clientHeight={fensterH}
   class="kulisse {stimmung} wetter-{wetter}"
   class:jz-fruehling={thema.jahreszeitBoden && jahreszeit === 'fruehling'}
   class:jz-herbst={thema.jahreszeitBoden && jahreszeit === 'herbst'}
@@ -182,22 +199,43 @@
     ></div>
     <div class="dunst" style:inset-block-start="{wasserFern - 4}px"></div>
   {/if}
+  <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
+       weit weg, sie wandern beim Verschieben nur wenig mit -->
+  {#if himmelWolken && wasserFern > 40}
+    {#each WOLKEN as w, i (i)}
+      <div
+        class="himmelwolke"
+        style:inset-block-start="{wasserFern - w.hoch * lage.horizontSkala * 2.2}px"
+        style:inset-inline-start="calc({w.x}% + {lage.horizontX * 0.6}px)"
+        style:inline-size="{w.b * lage.horizontSkala * 3.2}px"
+        style:block-size="{w.b * lage.horizontSkala * 1.05}px"
+        style:--n={i}
+      ></div>
+    {/each}
+  {/if}
+  {#if thema.boot && wasserFern > 20}
+    {#each [18, 57, 83] as x, i (i)}
+      <svg
+        class="segel-fern"
+        viewBox="0 0 10 12"
+        aria-hidden="true"
+        style:inset-block-start="{wasserFern - 11}px"
+        style:inset-inline-start="calc({x}% + {lage.horizontX * 0.8}px)"
+        style:--n={i}
+      >
+        <path d="M5 0 L5 10 L1 10 Z" />
+        <path d="M5.6 2 L5.6 10 L9 10 Z" />
+        <rect x="0" y="10.2" width="10" height="1.4" rx="0.7" />
+      </svg>
+    {/each}
+  {/if}
   {#if regenbogen && stimmung !== 'nacht'}
     <div
       class="regenbogen"
       style:inset-block-start="{(wasserFern > 120 ? wasserFern : 220) - 200}px"
     ></div>
   {/if}
-  {#if wetter === 'nebel'}
-    {#each [0.25, 0.5, 0.75] as h, i (i)}
-      <div class="nebelbank" style:inset-block-start="{h * 100}%" style:--n={i}></div>
-    {/each}
-  {/if}
-  {#if wetter === 'sturm'}
-    {#each [0, 1, 2] as i (i)}
-      <div class="wolkenschatten" style:inset-block-start="{20 + i * 28}%" style:--n={i}></div>
-    {/each}
-  {/if}
+  <!-- Nebelbänke und Wolkenschatten: Wetterschicht, an der Welt (wandern mit der Kamera) -->
   <div
     class="welt"
     style:inline-size="{buehne.breite}px"
@@ -226,7 +264,9 @@
     {/each}
     {#each dinge as d, i (i)}
       <!-- Hinter dem Horizont liegt nichts: weit Entferntes sonst am Himmel (herausgezoomt) -->
-      {#if kamera.y + d.y * kamera.zoom > wasserFern + 8}
+      {@const sx = kamera.x + d.x * kamera.zoom}
+      {@const sy = kamera.y + d.y * kamera.zoom}
+      {#if sy > wasserFern + 8 && sy < fensterH + 260 && sx > -260 && sx < fensterB + 260}
         <img
           class="ding"
           class:flach={d.flach}
@@ -371,6 +411,49 @@
     translate: -50% -100%;
   }
 
+  .himmelwolke {
+    position: absolute;
+    border-radius: 50%;
+    /* Weiß oben, leicht grau unten – so hebt sich die Wolke vom hellen Himmel ab */
+    background:
+      radial-gradient(ellipse 45% 55% at 32% 55%, rgb(255 255 255), transparent 70%),
+      radial-gradient(ellipse 40% 60% at 60% 40%, rgb(255 255 255), transparent 70%),
+      radial-gradient(ellipse 35% 45% at 80% 62%, rgb(250 252 255), transparent 70%),
+      radial-gradient(ellipse 70% 40% at 50% 78%, rgb(196 210 226 / 0.9), transparent 75%);
+    filter: blur(1.5px);
+    opacity: 0.95;
+  }
+
+  .wetter-bewoelkt .himmelwolke,
+  .wetter-regen .himmelwolke,
+  .wetter-sturm .himmelwolke {
+    filter: blur(3px) brightness(0.82) saturate(0.6);
+    opacity: 1;
+  }
+
+  .daemmerung .himmelwolke {
+    filter: blur(2px) sepia(0.4) brightness(0.85);
+  }
+
+  .nacht .himmelwolke {
+    opacity: 0.18;
+  }
+
+  .segel-fern {
+    position: absolute;
+    inline-size: 9px;
+    block-size: 11px;
+    fill: rgb(244 244 240 / 0.85);
+  }
+
+  .segel-fern rect {
+    fill: rgb(90 70 56 / 0.7);
+  }
+
+  .nacht .segel-fern {
+    opacity: 0.3;
+  }
+
   /* Flächen am Boden: Fuß in der Mitte, nicht unten */
   .ding.flach {
     translate: -50% -60%;
@@ -488,22 +571,6 @@
     border-radius: 50%;
   }
 
-  .nebelbank {
-    position: absolute;
-    inset-inline: -20%;
-    block-size: 18%;
-    background: radial-gradient(ellipse at center, rgb(240 244 248 / 0.75), transparent 70%);
-    filter: blur(6px);
-  }
-
-  .wolkenschatten {
-    position: absolute;
-    inset-inline-start: -30%;
-    inline-size: 60%;
-    block-size: 22%;
-    background: radial-gradient(ellipse at center, rgb(20 30 44 / 0.22), transparent 70%);
-  }
-
   .regenbogen {
     position: absolute;
     inset-inline-start: 25%;
@@ -534,16 +601,6 @@
       animation-duration: 12s;
     }
 
-    .kulisse.bewegt .nebelbank {
-      animation: ziehen 90s linear infinite;
-      animation-delay: calc(var(--n) * -30s);
-    }
-
-    .kulisse.bewegt .wolkenschatten {
-      animation: ziehen 40s linear infinite;
-      animation-delay: calc(var(--n) * -13s);
-    }
-
     /* Wellen ziehen langsam (eine Kachel in 40 s); das Boot quert in 3 Minuten */
     .kulisse.bewegt.wasser .meer {
       animation: wellen 40s linear infinite;
@@ -551,6 +608,20 @@
 
     .kulisse.bewegt .boot {
       animation: segeln 180s linear infinite;
+    }
+
+    .kulisse.bewegt .himmelwolke {
+      animation: wolkenzug 160s ease-in-out infinite alternate;
+      animation-delay: calc(var(--n) * -23s);
+    }
+
+    .kulisse.bewegt.wetter-sturm .himmelwolke {
+      animation-duration: 50s;
+    }
+
+    .kulisse.bewegt .segel-fern {
+      animation: wolkenzug 240s ease-in-out infinite alternate;
+      animation-delay: calc(var(--n) * -70s);
     }
 
     /* Möwen und Schmetterlinge ziehen ruhige Kreise, Flügel schlagen */
@@ -684,6 +755,15 @@
     }
     to {
       transform: translateX(160%);
+    }
+  }
+
+  @keyframes wolkenzug {
+    from {
+      transform: translateX(-40px);
+    }
+    to {
+      transform: translateX(40px);
     }
   }
 

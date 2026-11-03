@@ -797,6 +797,8 @@
         land={istLandBildart(bildartVonThema(aktiv.thema))}
         {bewegung}
         nacht={stimmung === 'nacht'}
+        {kamera}
+        welt={buehneFuer(bauplatz)}
       />
     </div>
     {#if hinterhofKnopf && hinterhofFelder.length > 0}
