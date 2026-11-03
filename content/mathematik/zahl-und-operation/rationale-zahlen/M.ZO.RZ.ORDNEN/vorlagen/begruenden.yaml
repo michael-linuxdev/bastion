@@ -1,0 +1,24 @@
+# Negative Zahlen ordnen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ORDNEN.BEGRUENDEN
+kompetenz: M.ZO.RZ.ORDNEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.ordnen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welche Zahl liegt auf der [[Zahlengeraden]] weiter rechts?'
+  - de: 'Weiter rechts heißt größer.'
+fehlerbilder:
+  nach-betrag:
+    de: 'Bei [[negativen Zahlen]] ist die Zahl größer, die näher an 0 liegt.'
+    fv: FV.RZ.NACH-BETRAG
+  zeichen-verdreht:
+    de: 'Das Zeichen < zeigt auf die kleinere Zahl. Lies die Aussage noch einmal.'
+    fv: FV.NZ.ZEICHEN-VERDREHT
+herkunft: ki-entwurf
+version: 1

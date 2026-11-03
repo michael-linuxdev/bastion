@@ -1,0 +1,27 @@
+# Vorzeichen eines Produkts begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.MULT-DIV.BEGRUENDEN
+kompetenz: M.ZO.RZ.MULT-DIV
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.vorzeichen-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zähle die negativen [[Faktoren]].'
+  - de: 'Ist einer der [[Faktoren]] 0?'
+fehlerbilder:
+  vorzeichen-falsch:
+    de: 'Zähle die negativen [[Faktoren]]: Bei einer ungeraden Anzahl ist das Ergebnis negativ.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
+  null-faktor:
+    de: 'Ist ein [[Faktor]] 0, ist das [[Produkt]] 0. Die 0 ist weder positiv noch negativ.'
+    fv: FV.RZ.NULL-FAKTOR
+  komma-mal:
+    de: 'Das [[Vorzeichen]] stimmt, das Komma nicht. 0, hat eine Stelle nach dem Komma.'
+    fv: FV.BR.KOMMA-MAL
+herkunft: ki-entwurf
+version: 1

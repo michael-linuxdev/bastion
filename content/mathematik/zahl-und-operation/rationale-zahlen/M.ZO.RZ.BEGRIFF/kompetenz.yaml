@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Gegenzahl und Betrag auch von Brüchen und Dezimalzahlen angeben; Abstände auf der Zahlengeraden bestimmen.'
+  E:
+    beschreibung:
+      de: 'Begründen, wie man den Abstand zweier Zahlen auf verschiedenen Seiten der 0 bestimmt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

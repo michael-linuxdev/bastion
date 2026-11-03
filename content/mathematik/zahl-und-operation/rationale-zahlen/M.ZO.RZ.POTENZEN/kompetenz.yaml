@@ -19,6 +19,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Potenzen von Brüchen und Dezimalzahlen mit Vorzeichen; Unterschied zwischen (−2)² und −2²; Wurzeln aus Brüchen und Dezimalzahlen.'
+  E:
+    beschreibung:
+      de: 'Den Unterschied zwischen (−a)² und −a² begründen.'
 kmk:
   leitidee: L1
   prozesse:
@@ -26,6 +29,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

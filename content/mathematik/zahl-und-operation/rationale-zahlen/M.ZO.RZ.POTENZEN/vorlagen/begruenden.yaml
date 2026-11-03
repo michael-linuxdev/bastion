@@ -1,0 +1,24 @@
+# Potenz mit und ohne Klammer begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.POTENZEN.BEGRUENDEN
+kompetenz: M.ZO.RZ.POTENZEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.potenz-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Gehört das Minus zur [[Basis]] oder nicht?'
+  - de: 'Schreibe die Potenz als [[Produkt]].'
+fehlerbilder:
+  potenz-klammer:
+    de: 'Mit Klammer gehört das Minus zur [[Basis]], ohne Klammer nicht.'
+    fv: FV.RZ.POTENZ-KLAMMER
+  hochzahl-mal:
+    de: 'Hoch 2 heißt mit sich selbst malnehmen, nicht mal 2.'
+    fv: FV.NZ.HOCHZAHL-MAL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Minus einer negativen Zahl begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.RZ.ADD-SUB.BEGRUENDEN
+kompetenz: M.ZO.RZ.ADD-SUB
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: rz.minus-minus-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Unterscheide das Rechenzeichen vom [[Vorzeichen]] der Zahl in der Klammer.'
+  - de: 'Eine [[negative Zahl]] subtrahieren heißt ihre [[Gegenzahl]] addieren.'
+fehlerbilder:
+  rechen-vorzeichen:
+    de: 'Rechenzeichen und [[Vorzeichen]] sind verschieden. Minus vor einer negativen Zahl macht Plus.'
+    fv: FV.RZ.RECHEN-VORZEICHEN
+  vorzeichen-falsch:
+    de: 'Der [[Betrag]] stimmt, das [[Vorzeichen]] nicht. Zwei positive Zahlen werden addiert.'
+    fv: FV.RZ.VORZEICHEN-FALSCH
+herkunft: ki-entwurf
+version: 1

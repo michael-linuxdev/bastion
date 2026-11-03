@@ -1,0 +1,24 @@
+# Grundwert berechnen begründen – Niveau E (K-31). Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.GRUNDAUFGABEN.BEGRUENDEN
+kompetenz: M.ZO.PZ.GRUNDAUFGABEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: pz.grundwert-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Was ist gegeben, was ist gesucht?'
+  - de: 'Der [[Grundwert]] ist größer als der [[Prozentwert]].'
+fehlerbilder:
+  grundaufgabe:
+    de: 'Mit W · p rechnest du einen Teil vom Teil aus. Für den [[Grundwert]] teilst du W durch p.'
+    fv: FV.PZ.GRUNDAUFGABE
+  falsch-herum-geteilt:
+    de: 'Geteilt wird der [[Prozentwert]] durch den [[Prozentsatz]], nicht umgekehrt.'
+    fv: FV.PZ.FALSCH-HERUM-GETEILT
+herkunft: ki-entwurf
+version: 1

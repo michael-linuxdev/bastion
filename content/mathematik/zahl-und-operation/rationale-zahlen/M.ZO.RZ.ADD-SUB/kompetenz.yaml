@@ -20,6 +20,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Brüche und Dezimalzahlen mit Vorzeichen addieren und subtrahieren, auch mehrere Glieder.'
+  E:
+    beschreibung:
+      de: 'Begründen, warum das Subtrahieren einer negativen Zahl wie Addieren wirkt.'
 kmk:
   leitidee: L1
   prozesse:
@@ -27,6 +30,7 @@ kmk:
 anforderungsbereiche:
   - I
   - II
+  - III
 abdeckung: generator
 sachsen:
   oberschule:

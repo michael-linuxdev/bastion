@@ -18,6 +18,9 @@ niveaus:
   M:
     beschreibung:
       de: 'Vom neuen Preis auf den alten schließen; „um“ und „auf“ unterscheiden; Prozentangaben in Medien kritisch prüfen.'
+  E:
+    beschreibung:
+      de: 'Begründen, um wie viel Prozent sich ein Preis geändert hat und worauf sich die Prozente beziehen.'
 kmk:
   leitidee: L1
   prozesse:
