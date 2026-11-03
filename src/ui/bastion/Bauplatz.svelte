@@ -551,10 +551,13 @@
         ort.querySelectorAll(':scope > canvas').forEach((c) => {
           if (c !== b.view) c.remove();
         });
-        // Ein Tipper, der kam, bevor das Bild stand, gilt jetzt (höchstens 2 s alt)
+        // Ein Tipper, der kam, bevor das Bild stand, gilt jetzt – an derselben Stelle
+        // im Bild, auch wenn die Kamera sich inzwischen eingepasst hat
         const t = wartenderTipp;
         wartenderTipp = undefined;
-        if (t && performance.now() - t.zeit < 2000) void angetippt(t.e);
+        const r = rahmen?.getBoundingClientRect();
+        if (t && r)
+          void angetippt({ clientX: r.left + t.fx * r.width, clientY: r.top + t.fy * r.height });
       })
       .catch(() => (fehlgeschlagen = true));
     return () => {
@@ -668,12 +671,18 @@
     });
   }
 
-  /** Tipper, bevor das Bild fertig ist: merken und nach dem Aufbau ausführen */
-  let wartenderTipp: { e: PointerEvent; zeit: number } | undefined;
+  /**
+   * Tipper, bevor das Bild fertig ist: merken und nach dem Aufbau ausführen.
+   * Gemerkt wird die Stelle im Bild (Anteil von Breite und Höhe), nicht auf dem
+   * Bildschirm – sonst trifft der Tipper daneben, wenn die Kamera noch rückt.
+   */
+  let wartenderTipp: { fx: number; fy: number } | undefined;
 
-  async function angetippt(e: PointerEvent) {
+  async function angetippt(e: { readonly clientX: number; readonly clientY: number }) {
     if (!buehne) {
-      wartenderTipp = { e, zeit: performance.now() };
+      const r = rahmen?.getBoundingClientRect();
+      if (r && r.width > 0 && r.height > 0)
+        wartenderTipp = { fx: (e.clientX - r.left) / r.width, fy: (e.clientY - r.top) / r.height };
       return;
     }
     // Bewohner / Wesen zuerst – kurze Reaktion, kein Gebäude wählen
