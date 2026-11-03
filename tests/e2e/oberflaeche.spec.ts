@@ -128,3 +128,54 @@ test('Elternbereich: nur der Bericht offen, Sprungleiste klappt auf, Zurück nac
   await page.getByRole('button', { name: 'Zurück', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Mehr', level: 2 })).toBeVisible();
 });
+
+test('Handy im Browser: zuerst die Installationsanleitung, dann Leiste und Seite unter „Mehr“ (O14)', async ({
+  browser,
+  baseURL,
+}) => {
+  const iphone =
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
+  const kontext = await browser.newContext({
+    ...(baseURL ? { baseURL } : {}),
+    userAgent: iphone,
+    viewport: { width: 390, height: 844 },
+  });
+  const seite = await kontext.newPage();
+  await seite.goto('./');
+  const sperre = seite.getByRole('dialog', { name: 'Zuerst Bastion installieren' });
+  await expect(sperre).toBeVisible();
+  await expect(sperre.getByText('Erkannt: iPhone / iPad · Safari')).toBeVisible();
+  await expect(sperre.getByText('„Zum Home-Bildschirm“')).toBeVisible();
+  await expect(sperre.getByText(/Wichtig auf iPhone und iPad/)).toBeVisible();
+  await sperre.getByRole('button', { name: 'Ohne Installation im Browser weiter' }).click();
+  await expect(sperre).toHaveCount(0);
+  // Bis zum nächsten Öffnen nicht noch einmal – auch nicht nach Neuladen im selben Tab
+  await seite.reload();
+  await expect(
+    seite.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+  await expect(sperre).toHaveCount(0);
+  // Ruhige Leiste oben führt zur Anleitung
+  await seite.getByRole('button', { name: /App nicht installiert/ }).click();
+  await expect(
+    seite.getByRole('heading', { name: 'Als App installieren', level: 2 }),
+  ).toBeVisible();
+  await seite.getByText('Android · Chrome').click();
+  await expect(seite.getByText('Mit „Installieren“ bestätigen.')).toBeVisible();
+  await seite.getByRole('button', { name: 'Zurück', exact: true }).click();
+  await expect(
+    seite.getByRole('main').getByRole('button', { name: 'Als App installieren' }),
+  ).toBeVisible();
+  await kontext.close();
+});
+
+test('Computer: keine Sperre und keine Leiste, Anleitung nur unter „Mehr“ (O14)', async ({
+  page,
+}) => {
+  await start(page);
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /App nicht installiert/ })).toHaveCount(0);
+  await mehr(page);
+  await page.getByRole('main').getByRole('button', { name: 'Als App installieren' }).click();
+  await expect(page.getByText(/Erkannt: Computer/)).toBeVisible();
+});

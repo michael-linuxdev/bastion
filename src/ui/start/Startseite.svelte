@@ -11,7 +11,8 @@
     | 'sicherung'
     | 'profil'
     | 'eltern'
-    | 'mehr';
+    | 'mehr'
+    | 'installieren';
 </script>
 
 <script lang="ts">

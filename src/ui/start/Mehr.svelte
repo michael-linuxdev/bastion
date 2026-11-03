@@ -60,6 +60,12 @@
       info: t('mehr.sicherung-info'),
       symbol: 'sicherung',
     },
+    {
+      ziel: 'installieren',
+      name: t('installieren.titel'),
+      info: t('installieren.mehr-info'),
+      symbol: 'start',
+    },
   ]);
 </script>
 

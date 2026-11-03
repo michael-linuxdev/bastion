@@ -263,6 +263,7 @@ Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] „Mehr“ aufräumen (O2)
 - [x] Elternbereich gliedern und angleichen (O5)
 - [x] Feinschliff O6–O10: Seitenkopf, Plaketten, Klappkarten, Anrede, Barrierefreiheit
+- [x] O11–O12 gemeinsamer Zurück-Knopf · O13 Browser-Tests der Oberfläche · O14 Installationsanleitung beim Erststart
 
 ## 5. Änderungsprotokoll
 

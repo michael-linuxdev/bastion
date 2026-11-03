@@ -53,6 +53,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 6. ~~Zurück-Knopf auch bei Mein Stand, Wo stehe ich?, Klassenarbeit (PV: „fass an“).~~ Erledigt (O11): `ZurueckKnopf.svelte`, auch im Seitenkopf; ebenso in der Fehlerwerkstatt. Nur der Knopf in `App.svelte`, die Seiten selbst unverändert.
 7. ~~Zurück-Knopf auch in Übung, Anleitung, Erstvermittlung, Angebot und Wiederholen-Regal (PV).~~ Erledigt (O12): `ZurueckKnopf.svelte` überall; nur der Knopf, sonst nichts an der Lern-Oberfläche geändert.
 8. ~~Neue Funktionen mit Tests absichern.~~ Erledigt (O13): `tests/e2e/oberflaeche.spec.ts` (Banner, Plaketten, erreichbare ausgegraute Kacheln, Seitenkopf, Klappkarten, Sprungleiste, PIN-Feld). `pnpm budget`: App-Hülle 182 von 250 KB.
+9. ~~Erststart: Installationsanleitung wie in `michael-linuxdev/einbuergerung` (PV).~~ Erledigt (O14): Auf Handy und Tablet im Browser erscheint zuerst „Zuerst Bastion installieren“ mit Schritten für das erkannte Gerät (`plattform/geraet.ts`, 16 Anleitungen), drei Gründen, dem Hinweis für iPhone/iPad (Browser-Stand kommt nicht mit in die App) und „Ohne Installation im Browser weiter“ (gilt bis zum nächsten Öffnen, `sessionStorage`). Danach eine ruhige Leiste „App nicht installiert – Installieren ›“ auf der Startseite. Unter „Mehr“: „Als App installieren“ mit dem eigenen Gerät und anderen Geräten. Bietet der Browser selbst ein Installieren an (`beforeinstallprompt`), steht „Jetzt installieren“ darüber. Am Computer keine Sperre und keine Leiste. Keine neue Abhängigkeit, keine Netzabfrage.
 
 ## Nächste Schritte (Vorschläge)
 
@@ -72,6 +73,8 @@ _(noch keine)_
 **Übergabe (03.11.2026):** O0 ist auf `main` (#239). O1 bis O5 kommen gemeinsam in einem PR (Branch `oberflaeche/eltern`), weil die Schritte aufeinander aufbauen; die Commits bleiben einzeln lesbar. Offen sind die Vorschläge oben unter „Nächste Schritte“.
 
 **Lehren:**
+
+- Die Browser-Tests laufen als „Desktop Chrome“. Für Handy-Verhalten (Installationssperre) im Test einen eigenen Kontext mit iPhone-`userAgent` öffnen (`tests/e2e/oberflaeche.spec.ts`).
 
 - Infozeilen in Knöpfen werden Teil des Namens, den Screenreader und Browser-Tests sehen („Sicherung Deinen Stand …“). Dann `aria-label` mit dem Namen und `aria-describedby` für die Infozeile setzen. Sonst greifen `exact: true` und Suchen wie „Zurück“ daneben.
 - Klappkarten (`details`) verstecken Felder vor Browser-Tests. Der Helfer `elternAufklappen(page)` in `tests/e2e/ueben.spec.ts` öffnet alle Abschnitte; er steht nach jedem „Ich habe den Code aufgeschrieben“ und „Öffnen“.
