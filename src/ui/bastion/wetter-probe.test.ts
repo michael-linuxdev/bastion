@@ -9,9 +9,6 @@ import {
 const echt = (bild: 'regen' | 'klar', regenbogen = false) =>
   ({ bild, staerke: 'leicht', regenbogen }) as const;
 
-const echt = (bild: 'regen' | 'klar', regenbogen = false) =>
-  ({ bild, staerke: 'leicht', regenbogen }) as const;
-
 describe('Wetter zum Ausprobieren', () => {
   it('Automatisch lässt das Wetter, wie es ist', () => {
     expect(wetterMitProbe('auto', echt('regen'))).toEqual(echt('regen'));
