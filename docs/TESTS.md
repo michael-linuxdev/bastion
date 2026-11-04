@@ -51,6 +51,8 @@ Nicht: „Finden sie den Knopf?“ Sondern:
 
 Zwei Teile: Eltern willigen schriftlich ein, das Kind stimmt in eigenen Worten zu. Ohne beides keine Teilnahme.
 
+**Druckfertig (04.11.2026):** `docs/vorlagen/test-unterlagen.html` im Browser öffnen, die gestrichelten Lücken (Testende, Löschdatum, Kontakt, Adresse der App) ausfüllen und drucken. Fünf A4-Seiten: Info für Eltern, Einwilligung (getrennt aufbewahren), Starttreffen mit Zustimmung des Kindes und Anleitung zum Testprotokoll, Gesprächsleitfaden (§4.3), Protokollvorlage (§4.4). Die Seite speichert nichts und lädt nichts nach. Ausgefüllte Blätter gehören nicht ins Repository.
+
 **Info- und Einwilligungsblatt für Eltern (Gliederung):**
 
 1. Worum es geht: Test einer Mathe-App für Jugendliche ab Kl. 5, Dauer etwa bis …, freiwillig.

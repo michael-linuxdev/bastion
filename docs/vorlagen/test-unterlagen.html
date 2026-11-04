@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testunterlagen U4b</title>
+    <!--
+      Unterlagen für den Test mit Jugendlichen (U4b), aus docs/TESTS.md §2–§4.
+      Lücken (gestrichelt) im Browser ausfüllen, dann drucken (Strg+P / Teilen → Drucken).
+      Die Seite speichert nichts und lädt nichts nach. Ausgefüllte Ausdrucke mit Namen
+      gehören NICHT ins Repository (TESTS.md, Hinweis oben).
+      Keine Rechtsberatung: vor der ersten Runde von jemandem mit Datenschutz-Erfahrung
+      gegenlesen lassen (TESTS.md §3).
+    -->
+    <style>
+      :root {
+        --text: #1d1d1b;
+        --leise: #5a5a55;
+        --linie: #b9b4a8;
+        --akzent: #1f7a72;
+        --papier: #ffffff;
+        --hinweis: #f3efe4;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #ebe7dc;
+        color: var(--text);
+        font:
+          11.5pt/1.5 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+      }
+      .werkzeug {
+        position: sticky;
+        inset-block-start: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        background: var(--akzent);
+        color: #fff;
+        z-index: 1;
+      }
+      .werkzeug button {
+        font: inherit;
+        padding: 0.35rem 0.9rem;
+        border: 0;
+        border-radius: 0.4rem;
+        background: #fff;
+        color: var(--akzent);
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .seite {
+        max-inline-size: 21cm;
+        margin: 1rem auto;
+        padding: 1.6cm 1.8cm;
+        background: var(--papier);
+        box-shadow: 0 1px 4px rgb(0 0 0 / 0.15);
+      }
+      h1 {
+        font-size: 17pt;
+        margin: 0 0 0.3rem;
+        color: var(--akzent);
+      }
+      h2 {
+        font-size: 13pt;
+        margin: 1.1rem 0 0.3rem;
+      }
+      p,
+      li {
+        margin: 0.25rem 0;
+      }
+      .unter {
+        color: var(--leise);
+        margin-block-end: 0.9rem;
+      }
+      .luecke {
+        display: inline-block;
+        min-inline-size: 7rem;
+        padding-inline: 0.2rem;
+        border-block-end: 1.5px dashed var(--linie);
+        outline: none;
+      }
+      .luecke:empty::before {
+        content: attr(data-platz);
+        color: #b0aa9c;
+      }
+      .linie {
+        border-block-end: 1px solid var(--text);
+        block-size: 2.1rem;
+        margin-block-end: 0.3rem;
+      }
+      .feld {
+        display: grid;
+        grid-template-columns: 11rem 1fr;
+        gap: 0.4rem 1rem;
+        align-items: end;
+        margin-block: 1rem;
+      }
+      .kasten {
+        background: var(--hinweis);
+        border-radius: 0.4rem;
+        padding: 0.6rem 0.9rem;
+        margin-block: 0.7rem;
+      }
+      blockquote {
+        margin: 0.6rem 0;
+        padding: 0.7rem 1rem;
+        border-inline-start: 4px solid var(--akzent);
+        background: var(--hinweis);
+        font-size: 12.5pt;
+      }
+      table {
+        inline-size: 100%;
+        border-collapse: collapse;
+        margin-block: 0.5rem;
+        font-size: 10.5pt;
+      }
+      th,
+      td {
+        text-align: start;
+        vertical-align: top;
+        border: 1px solid var(--linie);
+        padding: 0.35rem 0.5rem;
+      }
+      th {
+        background: var(--hinweis);
+      }
+      .ankreuz {
+        display: inline-block;
+        inline-size: 0.9rem;
+        block-size: 0.9rem;
+        border: 1.5px solid var(--text);
+        margin-inline-end: 0.4rem;
+        vertical-align: -0.1rem;
+      }
+      .protokoll {
+        white-space: pre-wrap;
+        font:
+          10.5pt/1.9 ui-monospace,
+          'SF Mono',
+          Menlo,
+          Consolas,
+          monospace;
+      }
+      .fuss {
+        margin-block-start: 1rem;
+        color: var(--leise);
+        font-size: 9.5pt;
+      }
+      @media (max-width: 640px) {
+        .seite {
+          margin: 0.6rem 0.5rem;
+          padding: 1rem;
+        }
+        .feld {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .werkzeug {
+          display: none;
+        }
+        .seite {
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+          max-inline-size: none;
+          break-after: page;
+        }
+        .luecke {
+          border-block-end-style: solid;
+        }
+        body {
+          font-size: 10.5pt;
+          line-height: 1.42;
+        }
+        .luecke:empty::before {
+          content: '';
+        }
+        @page {
+          size: A4;
+          margin: 1.6cm 1.8cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="werkzeug">
+      <strong>Testunterlagen U4b</strong>
+      <span
+        >Gestrichelte Lücken anklicken und ausfüllen, dann drucken. Die Seite speichert
+        nichts.</span
+      >
+      <button type="button" onclick="window.print()">Drucken</button>
+    </div>
+
+    <!-- Seite 1: Info für Eltern (TESTS.md §3) -->
+    <section class="seite">
+      <h1>Bastion – Test einer Mathe-App</h1>
+      <p class="unter">Information für Eltern · bitte behalten</p>
+
+      <h2>1. Worum es geht</h2>
+      <p>
+        Ich entwickle in meiner Freizeit eine Mathe-App für Jugendliche ab Klasse 5. Sie hat keine
+        Werbung, kein Konto und keine Käufe. Ich suche Jugendliche, die sie ein paar Wochen
+        ausprobieren und mir ehrlich sagen, was sie davon halten. Gerade auch, wenn sie Lern-Apps
+        sonst nicht mögen. Die Teilnahme ist freiwillig. Der Test dauert etwa bis
+        <span class="luecke" contenteditable="true" data-platz="Datum Testende"></span>.
+      </p>
+
+      <h2>2. Was passiert</h2>
+      <ul>
+        <li>
+          Ein Starttreffen von etwa 30 Minuten. Sie dürfen dabei sein. Ihr Kind öffnet die App auf
+          dem eigenen Gerät, ich schaue zu und helfe nicht.
+        </li>
+        <li>
+          Danach nutzt Ihr Kind die App, wann und wie oft es will. Bitte erinnern Sie es nicht
+          daran. Wenn doch, sagen Sie es mir beim nächsten Gespräch.
+        </li>
+        <li>Alle drei bis vier Wochen ein Gespräch von etwa 15 Minuten.</li>
+        <li>
+          Vielleicht ein kurzer Mathe-Test auf Papier. Es gibt keine Note, nichts geht an die
+          Schule.
+        </li>
+      </ul>
+
+      <h2>3. Welche Daten entstehen</h2>
+      <ul>
+        <li><strong>In der App:</strong> Alles bleibt auf dem Gerät. Die App sendet nichts.</li>
+        <li>
+          <strong>Gesprächsnotizen:</strong> handschriftlich oder auf meinem Rechner, ohne Namen,
+          nur mit einer Teilnehmer-Nummer.
+        </li>
+        <li>
+          <strong>Testprotokoll</strong>, nur wenn Sie es selbst einschalten (ich zeige es Ihnen
+          beim Starttreffen). Es enthält, welche Aufgaben bearbeitet wurden, die Antworten bei
+          Fehlern, welche Seiten geöffnet wurden und wie lange. Es enthält keinen Namen, nur die
+          Teilnehmer-Nummer. Sie können es vorher in der App lesen. Sie geben die Datei selbst an
+          mich weiter. Ausschalten und Löschen geht jederzeit.
+        </li>
+        <li>Keine Fotos, keine Ton- oder Videoaufnahmen.</li>
+      </ul>
+
+      <h2>4. Wer die Daten sieht</h2>
+      <p>
+        Nur ich. Veröffentlicht werden nur Zusammenfassungen ohne Personenbezug, etwa „2 von 3
+        sagten …“, und einzelne Zitate ohne Namen und ohne Schule, das Alter nur als Klassenstufe.
+      </p>
+
+      <h2>5. Widerruf und Löschung</h2>
+      <p>
+        Sie und Ihr Kind können jederzeit aufhören, ohne Begründung. Dann lösche ich die Notizen.
+        Spätestens am
+        <span class="luecke" contenteditable="true" data-platz="Datum Löschung"></span> lösche ich
+        alle Notizen.
+      </p>
+
+      <h2>6. Kontakt</h2>
+      <p>
+        <span class="luecke" contenteditable="true" data-platz="Name"></span> ·
+        <span class="luecke" contenteditable="true" data-platz="Telefon oder E-Mail"></span>
+      </p>
+      <p class="fuss">
+        Die Einwilligung ist ein eigenes Blatt. Ich bewahre es getrennt von den Notizen auf.
+      </p>
+    </section>
+
+    <!-- Seite 2: Einwilligung (getrennt aufbewahren) -->
+    <section class="seite">
+      <h1>Einwilligung</h1>
+      <p class="unter">
+        Bitte unterschreiben und mir zurückgeben · wird getrennt von den Notizen aufbewahrt
+      </p>
+      <p>
+        Ich habe die Information zum Test der App „Bastion“ gelesen. Ich bin einverstanden, dass
+        mein Kind teilnimmt und dass Gesprächsnotizen ohne Namen, nur mit Teilnehmer-Nummer,
+        entstehen. Ich weiß, dass ich jederzeit ohne Begründung widerrufen kann.
+      </p>
+      <p>
+        <span class="ankreuz"></span>Ich schalte das Testprotokoll in der App ein und gebe die Datei
+        selbst weiter. (freiwillig)
+      </p>
+      <div class="feld">
+        <span>Name des Kindes</span>
+        <div class="linie"></div>
+        <span>Name Elternteil</span>
+        <div class="linie"></div>
+        <span>Ort, Datum</span>
+        <div class="linie"></div>
+        <span>Unterschrift</span>
+        <div class="linie"></div>
+        <span>Teilnehmer-Nummer</span>
+        <div><span class="luecke" contenteditable="true" data-platz="z. B. T-01-8"></span></div>
+      </div>
+      <div class="kasten">
+        Nur auf diesem Blatt stehen Name und Nummer zusammen. Es wird getrennt von allen Notizen
+        aufbewahrt und mit ihnen gelöscht.
+      </div>
+    </section>
+
+    <!-- Seite 3: Zustimmung des Kindes und Starttreffen (für den Projektverantwortlichen) -->
+    <section class="seite">
+      <h1>Starttreffen</h1>
+      <p class="unter">Für mich · etwa 30 Minuten</p>
+
+      <h2>Zustimmung des Kindes (vorlesen oder lesen lassen)</h2>
+      <blockquote>
+        Du testest eine Mathe-App. Du darfst alles sagen, auch wenn es gemein klingt – genau das
+        hilft. Du musst nichts gut finden. Du kannst jederzeit aufhören, ohne zu sagen warum. Ich
+        schreibe auf, was du sagst, aber nicht deinen Namen. Okay?
+      </blockquote>
+      <p><span class="ankreuz"></span>Kind hat zugestimmt (in eigenen Worten)</p>
+
+      <h2>Ablauf</h2>
+      <ol>
+        <li>
+          App auf dem eigenen Gerät öffnen lassen:
+          <span class="luecke" contenteditable="true" data-platz="Adresse der App"></span>.
+          <strong>Nicht helfen.</strong> Nur notieren, wo das Kind hängt.
+        </li>
+        <li>„Sag einfach, was du gerade denkst.“ (laut denken)</li>
+        <li>Nach 15 Minuten die offenen Fragen (nächste Seite), dann Ende.</li>
+        <li>
+          Nicht zum regelmäßigen Üben auffordern. Keine Erinnerungen bis zum nächsten Gespräch.
+        </li>
+      </ol>
+
+      <h2>Testprotokoll einschalten (mit den Eltern, nach der Einwilligung)</h2>
+      <ol>
+        <li>Startseite → <strong>Mehr</strong> → <strong>Für Eltern</strong>.</li>
+        <li>Eine PIN festlegen (die Eltern wählen sie und schreiben sie sich auf).</li>
+        <li>
+          Abschnitt <strong>Testphase</strong> aufklappen →
+          <strong>Teilnehmer-Nummer</strong> eintragen → <strong>Einschalten</strong>. Die App prüft
+          die Nummer. Bei einem Tippfehler sagt sie „Diese Nummer stimmt nicht“.
+        </li>
+        <li>
+          Auf der Startseite steht danach „Testphase: Die Nutzung wird auf diesem Gerät
+          protokolliert.“
+        </li>
+      </ol>
+
+      <h2>Teilnehmer-Nummern</h2>
+      <p>
+        Ausgegeben mit <code>pnpm testnummern 3</code>: <strong>T-01-8</strong>,
+        <strong>T-02-6</strong>, <strong>T-03-4</strong>. Die letzte Ziffer ist eine Prüfziffer.
+      </p>
+    </section>
+
+    <!-- Seite 4: Gesprächsleitfaden (TESTS.md §4.3) -->
+    <section class="seite">
+      <h1>Gespräch</h1>
+      <p class="unter">
+        Alle 3–4 Wochen · etwa 15 Minuten · offene Fragen, wörtlich mitschreiben, auch Abwertendes
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Thema</th>
+            <th>Fragen (offen)</th>
+            <th>Nicht fragen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wiederkommen</td>
+            <td>
+              „Wann hast du die App zuletzt aufgemacht? Warum da?“ · „Was hat dich davon
+              abgehalten?“
+            </td>
+            <td>„Nutzt du sie regelmäßig?“</td>
+          </tr>
+          <tr>
+            <td>Vergleich</td>
+            <td>„Wie übst du sonst Mathe? Was ist hier anders – besser oder schlechter?“</td>
+            <td>„Ist das besser als …?“</td>
+          </tr>
+          <tr>
+            <td>Fehler</td>
+            <td>
+              „Erinnerst du dich an eine Aufgabe, bei der du was falsch hattest? Was ist dann
+              passiert?“
+            </td>
+            <td>„Hilft dir die Fehlerwerkstatt?“</td>
+          </tr>
+          <tr>
+            <td>Können</td>
+            <td>„Was kannst du jetzt, was du vorher nicht konntest?“</td>
+            <td>„Hast du was gelernt?“</td>
+          </tr>
+          <tr>
+            <td>Bastion</td>
+            <td>
+              „Erzähl mal: Was ist das da?“ · „Wem würdest du das zeigen – oder lieber nicht?“ ·
+              „Was wäre, wenn das weg wäre?“
+            </td>
+            <td>„Gefällt dir deine Bastion?“, „Ist das deine?“</td>
+          </tr>
+          <tr>
+            <td>Nerven</td>
+            <td>„Was nervt am meisten?“ · „Was würdest du sofort rauswerfen?“</td>
+            <td>–</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Testprotokoll abholen (Eltern)</h2>
+      <p>
+        Mehr → Für Eltern → PIN → Testphase → <strong>Protokoll ansehen</strong> →
+        <strong>Als Datei speichern</strong>. Die Datei heißt
+        <code>bastion-testprotokoll-T-…-Datum.json</code> und wird von Hand weitergegeben.
+        Auswerten: <code>pnpm auswertung protokoll-1.json … &gt; bericht.md</code>
+        (TESTS.md §4.5). Die Dateien nie ins Repository legen.
+      </p>
+    </section>
+
+    <!-- Seite 5: Protokollvorlage (TESTS.md §4.4) -->
+    <section class="seite">
+      <h1>Protokoll</h1>
+      <p class="unter">
+        Eines je Gespräch · nur mit Nummer, ohne Namen · Eindruck getrennt von den Zitaten
+      </p>
+      <pre class="protokoll">
+Teilnehmer-Nr.: ________   Runde: ______   Datum: ____________
+Klasse: ____   Mag Lern-Apps: ja / nein
+Mathe nach eigener Aussage: „______________________________“
+Zuletzt geöffnet (eigene Aussage): „______________________________“
+
+Wörtliche Zitate:
+  – „______________________________________________________“
+  – „______________________________________________________“
+  – „______________________________________________________“
+
+Beobachtet (wo gehangen, was übersprungen):
+  – ________________________________________________________
+  – ________________________________________________________
+
+Unaufgefordert über die Bastion:  ja / nein
+  Zitat: „______________________________________________“
+Besser/schlechter als bisheriges Üben:
+  besser / gleich / schlechter / weiß nicht
+  Zitat: „______________________________________________“
+
+Mein Eindruck (getrennt von den Zitaten!):
+  ________________________________________________________
+  ________________________________________________________
+</pre>
+      <p class="fuss">
+        Ins Repository kommt nur eine Zusammenfassung je Runde (TESTS.md §7), ohne Nummern, wenn die
+        Gruppe so klein ist, dass das jemanden erkennbar machen könnte.
+      </p>
+    </section>
+  </body>
+</html>
