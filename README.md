@@ -14,14 +14,15 @@ Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahr
 
 ## Für wen
 
-- **Schülerinnen und Schüler** der Klassen 5 bis 8 an Oberschule und Gymnasium in Sachsen. Klasse 9 bis 12 folgen.
+- **Schülerinnen und Schüler** der Klassen 5 bis 10 an Oberschule und Gymnasium in Sachsen. Jahrgang 11/12 (Grund- und Leistungskurs) ist wählbar, die Themen dafür entstehen gerade.
 - **Erwachsene**, die Schulmathematik neu lernen oder auffrischen möchten. Ab 18 Jahren verwaltet man sich selbst, ganz ohne Elternbereich.
 - **Eltern**: Im Elternbereich (mit PIN) sehen sie, was geübt wurde, und können Klasse und Schulart einstellen.
 - **Lehrkräfte**: Auf Wunsch zeigen Kinder oder Eltern einen Bericht je Lernfeld, auch als Textdatei.
 
 ## Was die App heute kann
 
-- **Üben:** 255 Aufgabenvorlagen zu 123 Themen aus Klasse 5 bis 8, je auf zwei Niveaus (Grundlagen und mehr). Dazu gibt es Hilfen, Lösungswege, Bilder und Zeichen-Anleitungen. Fachbegriffe lassen sich antippen und werden erklärt.
+- **Üben:** 501 Aufgabenvorlagen zu 176 Themen aus Klasse 5 bis 10, auf drei Niveaus (Grundlagen, mittel, erweitert; erweitert bei 159 Themen). Dazu gibt es Hilfen, Lösungswege, Zwischenschritte, Bilder, Formeln und Zeichen-Anleitungen. Fachbegriffe lassen sich antippen und werden erklärt. Aufgaben ohne Taschenrechner sind gekennzeichnet.
+- **Erklären:** Jedes Thema hat eine Erstvermittlung Schritt für Schritt, mit Fragen zwischendurch. Wer einen typischen Denkfehler macht, bekommt genau dazu eine Erklärung und den Weg zurück zur passenden Stelle (338 beschriebene Fehlvorstellungen).
 - **Wiederholen** zur richtigen Zeit. Die Fehlerwerkstatt arbeitet falsch gelöste Aufgaben gezielt auf.
 - **„Wo stehe ich?“:** Diagnose für eine Klasse oder für alles ab Klasse 5. Für den Wiedereinstieg zeigt sie, welcher Klasse der eigene Stand etwa entspricht.
 - **Schulalltag:** Was ist gerade in der Schule dran? Wann ist die nächste Klassenarbeit, mit welchen Themen? Dazu gibt es eine Probe-Klassenarbeit ohne Note. Das Datum steht da, ohne Countdown.
@@ -36,7 +37,7 @@ Was man nachweislich kann, wird sichtbar: als eigene Bastion, die über die Jahr
 
 Auf `main` liegen alle Inhalte, auch Entwürfe. Die öffentliche Seite zeigt nur Themen ab einer Review-Stufe (`docs/INHALTSFORMAT.md` §8, Entscheidung T-20). Die Stufe steht in der Repository-Variable `BASTION_MINDESTSTUFE` (GitHub → Settings → Secrets and variables → Actions → Variables). Ohne Variable gilt 0: Die Seite zeigt alles und sagt Eltern auf der Startseite und im Elternbereich, dass es ein Entwurf ist. Mit 2 zeigt sie nur Themen, die eine Lehrkraft geprüft hat. Ein Thema kommt nur ganz hinein, mit Erklärung, allen Aufgaben und allen Fehlvorstellungen.
 
-Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur Themen, deren Dateien alle mindestens Stufe 1 haben. Seit B3 (02.11.2026) sind das vorerst keine: Vier Dateien des Musterfelds wurden geändert und brauchen Stufe 1 neu. Bis dahin zeigt die Seite die Hinweisseite.
+Selbst ausprobieren: `BASTION_MINDESTSTUFE=1 pnpm build && pnpm preview`. Dann erscheinen nur Themen, deren Dateien alle mindestens Stufe 1 haben. Stand 04.11.2026: Das sind die drei Themen des Musterfelds Brüche (Anteile, Erweitern und Kürzen, Addieren und Subtrahieren) mit allen Vorlagen, Erklärungen und Fehlvorstellungen. `pnpm review` zeigt den Stand.
 
 ## Für Entwickler: selbst bauen
 
@@ -53,6 +54,12 @@ pnpm budget      # Größenbudget prüfen (nach pnpm build)
 pnpm test:e2e    # Ende-zu-Ende-Tests im Browser (nach pnpm build)
 pnpm messen      # Ladezeiten auf nachgeahmtem Altgerät messen (nach pnpm build)
 pnpm inhalte:pruefen  # Inhalte in content/ prüfen und Abdeckung anzeigen
+pnpm fehlerschueler   # Verdachtsfälle im Fehlerkatalog suchen (in der CI: --grenze)
+pnpm review           # Review-Stufen und veraltete Vermerke anzeigen
+pnpm pruefbogen <IDs> # Prüfbogen für eine Lehrkraft (HTML, als PDF drucken)
+pnpm arbeitsblatt <IDs> --niveau G --anzahl 12   # Arbeitsblatt drucken
+pnpm testnummern 3    # Teilnehmer-Nummern für den Test mit Jugendlichen
+pnpm auswertung <Dateien>   # Testprotokolle auswerten (TESTS.md §4.5)
 ```
 
 Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, warten bis „funktioniert jetzt auch ohne Internet“ erscheint, dann in den Entwicklerwerkzeugen „Offline“ einschalten (oder WLAN aus) und neu laden.
@@ -66,16 +73,16 @@ Offline ausprobieren: `pnpm build && pnpm preview`, Seite im Browser öffnen, wa
 | [ARCHITEKTUR](docs/ARCHITEKTUR.md) | Tech-Stack und Architektur |
 | [BASEBAU](docs/BASEBAU.md) | Ressourcen, Gebäude, Balancing |
 | [GRAFIK](docs/GRAFIK.md) | Aussehen: Richtung, Farben, hell und dunkel, austauschbare Grafik |
-| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell; Klasse 5 bis 8 nach den sächsischen Lehrplänen, Entscheidungen L-1 bis L-19 |
+| [LEHRPLAN](docs/LEHRPLAN.md) | Kompetenzmodell nach den sächsischen Lehrplänen, Klasse 5 bis 12 |
 | [Quellen](docs/quellen/README.md) | Verbindliche Lehrpläne (Sachsen) |
 | [INHALTSFORMAT](docs/INHALTSFORMAT.md) | Aufgabenformat, Generatoren, Review |
 | [DATENMODELL](docs/DATENMODELL.md) | Ereignisse, Speicherung, Export, Datenschutz |
 | [STRATEGIE](docs/STRATEGIE.md) | Ziel, Scope und Erfolgskriterien für die nächsten 12 Monate |
 | [WETTBEWERB](docs/WETTBEWERB.md) | Vergleich mit bestehenden Angeboten, Hypothesen |
-| [TESTS](docs/TESTS.md) | Realitätstests mit Jugendlichen: Ansprache, Einwilligung, Ablauf |
+| [TESTS](docs/TESTS.md) | Realitätstests mit Jugendlichen: Ansprache, Einwilligung, Ablauf; druckfertige [Unterlagen](docs/vorlagen/test-unterlagen.html) |
 | [PLAN](docs/PLAN.md) | Aktueller Stand, Aufgaben, Nicht-Ziele |
 | [ENTSCHEIDUNGEN](docs/ENTSCHEIDUNGEN.md) | Entscheidungs-Review (Checkliste) |
-| [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung, mit den Strängen [Lernkern](docs/session/LERNKERN.md) und [Grafik](docs/session/GRAFIK.md) |
+| [SESSION-PROMPT](docs/SESSION-PROMPT.md) | Einstieg in die nächste Arbeitssitzung, mit den Strängen [Lernkern](docs/session/LERNKERN.md), [Grafik](docs/session/GRAFIK.md) und [Oberfläche](docs/session/OBERFLAECHE.md) |
 
 ## Lizenz
 

@@ -25,10 +25,12 @@ export function aussagenGenerator(
   fehlerbildIds: readonly string[],
   werteNamen: readonly string[],
   baue: (r: Rng) => Aussagen,
+  /** Fassung des Generators; steigt, wenn sich ein Text ändert (INHALTSFORMAT §6.1, Regel 5) */
+  version = 1,
 ): Generator<Record<string, never>> {
   return {
     id,
-    version: 1,
+    version,
     platzhalter: ['situation', ...werteNamen],
     fehlerbildIds,
     erzeuge(seed) {

@@ -10,40 +10,55 @@ const kurz = (z: number, n: number) => {
 const dez = (x: number) => String(Math.round(x * 1000) / 1000).replace('.', ',');
 const euro = (cent: number) => (cent / 100).toFixed(2).replace('.', ',');
 
-/** „p/a + q/b = (p + q)/(a + b)?“ (M.ZO.BR.ADD-SUB.BEGRUENDEN) */
-export const brNennerAussage = aussagenGenerator(
-  'br.nenner-aussage',
-  ['nenner-addiert', 'einen-nenner'],
-  ['p', 'a', 'q', 'b'],
-  (r) => {
-    const [a, b] = r.pick([
-      [2, 3],
-      [3, 4],
-      [2, 5],
-      [3, 5],
-      [4, 5],
-      [2, 7],
-      [3, 7],
-      [5, 6],
-    ] as const);
-    const p = r.int(1, a - 1);
-    const q = r.int(1, b - 1);
-    const s = p * b + q * a;
-    return {
-      situation: `Tim rechnet: ${p}/${a} + ${q}/${b} = ${p + q}/${a + b}. Stimmt das?`,
-      werte: { p, a, q, b },
-      richtig: `Nein. Erst gleichnamig machen: ${p * b}/${a * b} + ${q * a}/${a * b} = ${s}/${a * b}.`,
-      falsch: [
-        ['nenner-addiert', 'Ja. Man rechnet Zähler plus Zähler und Nenner plus Nenner.'],
-        ['einen-nenner', `Nein. Richtig ist ${p + q}/${b}.`],
-      ],
-      weg: [
-        `Hauptnenner von ${a} und ${b}: ${a * b}.`,
-        `${p}/${a} = ${p * b}/${a * b} und ${q}/${b} = ${q * a}/${a * b}, zusammen ${s}/${a * b}. Probe: Das Ergebnis muss größer als ${p}/${a} sein.`,
-      ],
-    };
-  },
-);
+/**
+ * „p/a + q/b = (p + q)/(a + b)?“ (M.ZO.BR.ADD-SUB.BEGRUENDEN). Fassung 2 (Stufe-1-Prüfung
+ * 04.11.2026): „gemeinsamer Nenner“ statt „gleichnamig“ und „Hauptnenner“ – diese Wörter
+ * führt die Erstvermittlung nicht ein. Fassung 1 bleibt für gespeicherte Aufgaben.
+ */
+function brNennerAussageFassung(fassung: 1 | 2) {
+  return aussagenGenerator(
+    'br.nenner-aussage',
+    ['nenner-addiert', 'einen-nenner'],
+    ['p', 'a', 'q', 'b'],
+    (r) => {
+      const [a, b] = r.pick([
+        [2, 3],
+        [3, 4],
+        [2, 5],
+        [3, 5],
+        [4, 5],
+        [2, 7],
+        [3, 7],
+        [5, 6],
+      ] as const);
+      const p = r.int(1, a - 1);
+      const q = r.int(1, b - 1);
+      const s = p * b + q * a;
+      return {
+        situation: `Tim rechnet: ${p}/${a} + ${q}/${b} = ${p + q}/${a + b}. Stimmt das?`,
+        werte: { p, a, q, b },
+        richtig:
+          fassung === 1
+            ? `Nein. Erst gleichnamig machen: ${p * b}/${a * b} + ${q * a}/${a * b} = ${s}/${a * b}.`
+            : `Nein. Erst auf einen gemeinsamen Nenner bringen: ${p * b}/${a * b} + ${q * a}/${a * b} = ${s}/${a * b}.`,
+        falsch: [
+          ['nenner-addiert', 'Ja. Man rechnet Zähler plus Zähler und Nenner plus Nenner.'],
+          ['einen-nenner', `Nein. Richtig ist ${p + q}/${b}.`],
+        ],
+        weg: [
+          fassung === 1
+            ? `Hauptnenner von ${a} und ${b}: ${a * b}.`
+            : `Gemeinsamer Nenner von ${a} und ${b}: ${a * b}.`,
+          `${p}/${a} = ${p * b}/${a * b} und ${q}/${b} = ${q * a}/${a * b}, zusammen ${s}/${a * b}. Probe: Das Ergebnis muss größer als ${p}/${a} sein.`,
+        ],
+      };
+    },
+    fassung,
+  );
+}
+
+export const brNennerAussageV1 = brNennerAussageFassung(1);
+export const brNennerAussage = brNennerAussageFassung(2);
 
 /** „Mehr gefärbte Felder, also größerer Anteil?“ (M.ZO.BR.ANTEILE.BEGRUENDEN) */
 export const brAnteilAussage = aussagenGenerator(
