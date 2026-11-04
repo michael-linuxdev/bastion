@@ -1,0 +1,24 @@
+# Symmetrie am Einheitskreis begründen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.TF.BOGENMASS.BEGRUENDEN
+kompetenz: M.SF.TF.BOGENMASS
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tf.quadrant-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Zeichne beide Punkte auf den [[Einheitskreis]]. Liegen sie gleich hoch oder gleich weit rechts?'
+  - de: 'Der Sinus ist die [[Höhe]], der Kosinus die Lage rechts oder links.'
+fehlerbilder:
+  vorzeichen:
+    de: 'Schau, wo P liegt: über oder unter der x-Achse, rechts oder links der y-Achse. Davon hängt das [[Vorzeichen]] ab.'
+    fv: FV.TF.VORZEICHEN-QUADRANT
+  sin-cos:
+    de: 'Beim Spiegeln bleibt der Sinus Sinus. Er wird nicht zum Kosinus.'
+    fv: FV.TF.SIN-COS
+herkunft: ki-entwurf
+version: 1

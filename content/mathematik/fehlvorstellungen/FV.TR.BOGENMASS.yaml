@@ -11,9 +11,9 @@ erklaerung:
     de: 'Stelle den Taschenrechner auf [[Grad]] (DEG). Prüfe mit $\sin 30° = 0{,}5$: Kommt etwas anderes heraus, stimmt die Einstellung nicht.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast richtig gerechnet, aber der Taschenrechner hat 30 als Bogenmaß genommen.'
+      de: 'Du hast richtig gerechnet, aber der Taschenrechner hat 30 als [[Bogenmaß]] genommen.'
     - teil: warum-nicht
-      de: 'Im Bogenmaß ist 30 fast fünf ganze Umdrehungen, nicht 30°. Darum kommt ein ganz anderer Wert heraus.'
+      de: 'Im [[Bogenmaß]] ist 30 fast fünf ganze Umdrehungen, nicht 30°. Darum kommt ein ganz anderer Wert heraus.'
     - teil: so-stimmt-es
       de: 'Vor jeder Aufgabe kurz testen: $\sin 30°$ muss 0,5 ergeben.'
 gegenbeispiel:

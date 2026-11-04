@@ -47,6 +47,8 @@ export interface GraphParameter {
   readonly punkte?: readonly (readonly number[])[];
   /** interaktiv: welche Regler (Teilmenge von a, b, d, e; ohne Angabe a, d, e) */
   readonly regler?: readonly string[];
+  /** x-Achse in Vielfachen von π/2: Ausschnitt und Punkte in halben π (x: [0, 4] heißt 0 bis 2π) */
+  readonly pi?: boolean;
 }
 
 export interface Kurve {
@@ -203,14 +205,28 @@ export function reglerAus(p: GraphParameter): ReglerName[] {
   return (['a', 'b', 'd', 'e'] as const).filter((n) => r.includes(n));
 }
 
+/** Beschriftung in halben π: 1 → π/2, 2 → π, 3 → 3π/2, −2 → −π */
+export function halbePi(k: number): string {
+  const vz = k < 0 ? '−' : '';
+  const n = Math.abs(k);
+  if (n % 2 === 0) return `${vz}${n === 2 ? '' : n / 2}π`;
+  return `${vz}${n === 1 ? '' : n}π/2`;
+}
+
 /** Das SVG-Bild zu den Kurven; `beschreibung` liest der Bildschirmleser vor. */
 export function graphBild(p: GraphParameter, kurven: readonly Kurve[]): Bild {
-  const xb = bereich(p.x, [-5, 5]);
-  const yb = bereich(p.y, [-2, 8]);
-  const ks = koordinatensystemBereich(xb.min, xb.max, yb.min, yb.max, 24);
+  const pi = p.pi === true;
+  const xb = bereich(p.x, pi ? [0, 4] : [-5, 5]);
+  const yb = bereich(p.y, pi ? [-2, 2] : [-2, 8]);
+  const ks = pi
+    ? koordinatensystemBereich(xb.min, xb.max, yb.min, yb.max, 36, 1, halbePi)
+    : koordinatensystemBereich(xb.min, xb.max, yb.min, yb.max, 24);
   const teile = [...ks.teile];
+  const skala = pi ? Math.PI / 2 : 1;
   for (const k of kurven) {
-    const pfad = kurve(ks, funktion(k), xb.min, xb.max, { ymin: yb.min, ymax: yb.max }, 160);
+    const f = funktion(k);
+    const g = pi ? (x: number) => f(x * skala) : f;
+    const pfad = kurve(ks, g, xb.min, xb.max, { ymin: yb.min, ymax: yb.max }, 160);
     teile.push(
       k.vergleich
         ? pfad.replace('<path ', '<path stroke-dasharray="6 5" stroke-opacity="0.6" ')

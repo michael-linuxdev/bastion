@@ -1,0 +1,25 @@
+id: FV.TF.SYMMETRIE
+name:
+  de: Verwechselt die Symmetrie von Sinus und Kosinus
+art: verwechslung
+beschreibung:
+  de: >-
+    Hält den Sinus für achsensymmetrisch zur y-Achse (sin(−x) = sin x) oder den Kosinus für punktsymmetrisch. Die Spiegelung von P an der x-Achse ist nicht mit den Graphen verbunden.
+kompetenzen: [M.SF.TF.SINUS]
+erklaerung:
+  kurz:
+    de: 'Bei $-x$ liegt P an der x-Achse gespiegelt. Die [[Höhe]] wechselt das [[Vorzeichen]]: $\sin(-x) = -\sin x$. Rechts oder links bleibt gleich: $\cos(-x) = \cos x$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast beiden [[Graphen]] dieselbe Symmetrie gegeben.'
+    - teil: warum-nicht
+      de: 'Der Sinus beginnt bei 0 und steigt. Links von 0 fällt er unter die x-Achse. Das ist [[Punktsymmetrie]] zum [[Ursprung]].'
+    - teil: so-stimmt-es
+      de: 'Sinus: punktsymmetrisch zum [[Ursprung]]. Kosinus: [[achsensymmetrisch]] zur y-Achse.'
+gegenbeispiel:
+  de: '$\sin \frac{\pi}{2} = 1$, aber $\sin(-\frac{\pi}{2}) = -1$.'
+rueckweg:
+  vermittlung: M.SF.TF.SINUS#erklaeren-periode
+kontrast: [M.SF.TF.SINUS.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Nullstellen, Hoch- und Tiefstellen in [0; 2π] – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.TF.SINUS.STELLEN
+kompetenz: M.SF.TF.SINUS
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: tf.nullstellen@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{frage} **Wähle**.'
+hilfen:
+  - de: 'Denke an den [[Einheitskreis]]: Wo ist P ganz oben, ganz unten, auf der x-Achse, auf der y-Achse?'
+  - de: '$\frac{\pi}{2}$ ist 90°, $\pi$ ist 180°, $\frac{3\pi}{2}$ ist 270°, $2\pi$ ist 360°.'
+fehlerbilder:
+  sin-cos:
+    de: 'Das sind die Stellen der anderen [[Funktion]]. Der Sinus ist die [[Höhe]] von P, der Kosinus die Lage rechts oder links.'
+    fv: FV.TF.SIN-COS
+  stellen:
+    de: 'Das sind andere besondere Stellen. Prüfe: Ist der Wert dort 0, 1 oder −1?'
+    fv: FV.TF.STELLEN
+herkunft: ki-entwurf
+version: 1

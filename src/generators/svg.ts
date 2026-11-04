@@ -180,6 +180,8 @@ export function koordinatensystemBereich(
   ymax: number,
   raster = 26,
   alle = 1,
+  /** eigene Beschriftung der x-Achse, etwa Vielfache von π/2 (Standard: die Zahl) */
+  xText: (x: number) => string = zahlBeschriftung,
 ) {
   const rand = 22;
   const breite = 2 * rand + (xmax - xmin) * raster;
@@ -194,7 +196,7 @@ export function koordinatensystemBereich(
     linie(px(0), py(ymin), px(0), py(ymax), 2),
   );
   for (let x = xmin; x <= xmax; x++)
-    if (x !== 0 && x % alle === 0) teile.push(text(px(x), py(0) + 16, zahlBeschriftung(x), 11));
+    if (x !== 0 && x % alle === 0) teile.push(text(px(x), py(0) + 16, xText(x), 11));
   for (let y = ymin; y <= ymax; y++)
     if (y !== 0 && y % alle === 0) teile.push(text(px(0) - 14, py(y) + 4, zahlBeschriftung(y), 11));
   teile.push(text(px(0) - 10, py(0) + 16, '0', 11));

@@ -1,0 +1,25 @@
+id: FV.TF.PERIODE-B
+name:
+  de: Hält b für die Periode
+art: falsche-regel
+beschreibung:
+  de: >-
+    Liest bei y = sin(b·x) die Periode als b oder als b · 360° ab. Dass b angibt, wie viele Wellen in 360° (2π) passen, und die Periode darum 360° : b ist, ist nicht verankert.
+kompetenzen: [M.SF.TF.PARAMETER]
+erklaerung:
+  kurz:
+    de: 'Eine ganze Welle ist fertig, wenn $b \cdot x = 360°$ ist. Also ist die [[Periode]] $360° : b$. Großes b heißt schmale Welle.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast b als Länge der Welle gelesen.'
+    - teil: warum-nicht
+      de: 'Bei $\sin(2x)$ läuft der [[Winkel]] doppelt so schnell. Die Welle ist schon nach 180° fertig.'
+    - teil: so-stimmt-es
+      de: '[[Periode]] $= \frac{360°}{b}$ oder im [[Bogenmaß]] $\frac{2\pi}{b}$.'
+gegenbeispiel:
+  de: '$y = \sin(2x)$ hat bei $x = 90°$ den Wert $\sin 180° = 0$ und bei $x = 180°$ schon wieder $\sin 360° = 0$ mit gleichem Verlauf: [[Periode]] 180°, nicht 2.'
+rueckweg:
+  vermittlung: M.SF.TF.PARAMETER#erklaeren-b
+kontrast: [M.SF.TF.PARAMETER.PERIODE, M.SF.TF.PARAMETER.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

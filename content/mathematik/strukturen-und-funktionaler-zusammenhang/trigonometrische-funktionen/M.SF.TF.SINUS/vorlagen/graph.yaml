@@ -1,0 +1,30 @@
+# Graph erkennen, Periode ablesen – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.TF.SINUS.GRAPH
+kompetenz: M.SF.TF.SINUS
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: tf.eigenschaft@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '{frage} **Wähle**.'
+hilfen:
+  - de: 'Schau auf $x = 0$: Die [[Sinusfunktion]] beginnt bei 0, die [[Kosinusfunktion]] bei 1.'
+  - de: 'Die [[Periode]] ist die Länge, nach der sich der [[Graph]] genau wiederholt.'
+fehlerbilder:
+  sin-cos:
+    de: 'Prüfe den Wert bei $x = 0$: $\sin 0 = 0$, $\cos 0 = 1$.'
+    fv: FV.TF.SIN-COS
+  gespiegelt:
+    de: 'Der [[Graph]] von $-\sin x$ fällt bei 0, der von $-\cos x$ beginnt bei $-1$. Prüfe die Richtung am Anfang.'
+    fv: FV.TF.SIN-COS
+  nullstellen-abstand:
+    de: 'Zwischen zwei [[Nullstellen]] liegt nur eine halbe Welle. Die [[Periode]] reicht vom [[Hochpunkt]] bis zum nächsten Hochpunkt.'
+    fv: FV.TF.PERIODE-ABLESEN
+  bis-hochpunkt:
+    de: 'Bis zum ersten [[Hochpunkt]] ist erst ein Viertel der Welle vorbei. Die [[Periode]] ist die ganze Welle.'
+    fv: FV.TF.PERIODE-ABLESEN
+herkunft: ki-entwurf
+version: 1

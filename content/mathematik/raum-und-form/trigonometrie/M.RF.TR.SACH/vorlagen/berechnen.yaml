@@ -19,7 +19,7 @@ fehlerbilder:
     de: 'Prüfe, welche Seiten vom [[Winkel]] aus Gegen- und [[Ankathete]] sind, und wähle danach die [[Funktion]].'
     fv: FV.TR.FUNKTION-VERWECHSELT
   bogenmass:
-    de: 'Dein Taschenrechner rechnet im Bogenmaß (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
+    de: 'Dein Taschenrechner rechnet im [[Bogenmaß]] (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
     fv: FV.TR.BOGENMASS
 herkunft: ki-entwurf
 version: 1

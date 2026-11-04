@@ -1,0 +1,24 @@
+# Periode aus b und b aus der Periode – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.TF.PARAMETER.PERIODE
+kompetenz: M.SF.TF.PARAMETER
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: tf.periode@1
+parameter:
+  M: { umgekehrt: true }
+text:
+  aufgabe:
+    de: '{satz} **Berechne**.'
+hilfen:
+  - de: 'Eine ganze Welle ist fertig, wenn $b \cdot x = 360°$.'
+  - de: 'Ist b größer als 1, wird die Welle schmaler, die [[Periode]] also kleiner als 360°.'
+fehlerbilder:
+  periode-b:
+    de: 'b ist nicht die [[Periode]]. b sagt, wie viele Wellen in 360° passen: Periode $= 360° : b$.'
+    fv: FV.TF.PERIODE-B
+  periode-mal:
+    de: 'Ein großes b macht die Welle schmaler, nicht breiter. Teile 360° durch b.'
+    fv: FV.TF.PERIODE-B
+herkunft: ki-entwurf
+version: 1

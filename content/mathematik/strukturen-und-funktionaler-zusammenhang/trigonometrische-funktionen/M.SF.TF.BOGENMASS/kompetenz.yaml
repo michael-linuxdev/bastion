@@ -1,0 +1,42 @@
+# Periodische Vorgänge – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TF.BOGENMASS
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: trigonometrische-funktionen
+titel:
+  de: 'Bogenmaß und Einheitskreis'
+kann_satz:
+  de: 'Ich kann Winkel zwischen Grad- und Bogenmaß umrechnen und Sinus und Kosinus am Einheitskreis ablesen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.RF.TR.BEGRIFFE
+  - M.GM.KR.UMFANG-FLAECHE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Winkel wie 30°, 90° oder 150° ins Bogenmaß als Vielfaches von π umrechnen.'
+  M:
+    beschreibung:
+      de: 'Sinus und Kosinus für Winkel über 90° am Einheitskreis bestimmen, mit dem richtigen Vorzeichen.'
+  E:
+    beschreibung:
+      de: 'Werte über 90° am Einheitskreis begründen, etwa sin 150° = sin 30°.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1

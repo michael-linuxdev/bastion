@@ -1,0 +1,25 @@
+id: FV.TF.STELLEN
+name:
+  de: Verwechselt Nullstellen, Hoch- und Tiefstellen
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt bei Sinus oder Kosinus die Hochstellen statt der Tiefstellen an oder die Extremstellen statt der Nullstellen. Die Werte 0, 1 und −1 sind nicht mit der Lage von P am Einheitskreis verbunden.
+kompetenzen: [M.SF.TF.SINUS]
+erklaerung:
+  kurz:
+    de: 'Prüfe jede Stelle: Ist der Wert dort 0, 1 oder −1? Beim Sinus heißt das: P liegt auf der x-Achse, ganz oben oder ganz unten.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast besondere Stellen gefunden, aber nicht die gefragten.'
+    - teil: warum-nicht
+      de: 'Eine [[Nullstelle]] hat den Wert 0, ein [[Hochpunkt]] den Wert 1, ein Tiefpunkt den Wert −1.'
+    - teil: so-stimmt-es
+      de: 'Setze jede Stelle ein, etwa $\sin \frac{3\pi}{2} = -1$: Dort ist der Tiefpunkt.'
+gegenbeispiel:
+  de: '$\sin \frac{\pi}{2} = 1$. Bei $\frac{\pi}{2}$ hat der Sinus also keine [[Nullstelle]], sondern seinen größten Wert.'
+rueckweg:
+  vermittlung: M.SF.TF.SINUS#erklaeren-graph
+kontrast: [M.SF.TF.SINUS.STELLEN]
+herkunft: ki-entwurf
+version: 1

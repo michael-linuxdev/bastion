@@ -1,0 +1,25 @@
+id: FV.TF.VORZEICHEN-QUADRANT
+name:
+  de: Übersieht das Vorzeichen im 2. bis 4. Quadranten
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Nimmt für Winkel über 90° den Wert des Bezugswinkels ohne Vorzeichen, etwa cos 120° = 0,5 statt −0,5. Dass Sinus und Kosinus die Koordinaten von P am Einheitskreis sind und darum negativ werden können, ist nicht im Blick.
+kompetenzen: [M.SF.TF.BOGENMASS]
+erklaerung:
+  kurz:
+    de: 'Sinus ist die [[Höhe]] von P, Kosinus die Lage rechts oder links. Liegt P unter der x-Achse, ist der Sinus negativ. Liegt P links, ist der Kosinus negativ.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Wert vom [[Winkel]] im ersten [[Quadranten]] übernommen.'
+    - teil: warum-nicht
+      de: 'Der [[Betrag]] stimmt, aber P liegt jetzt woanders. Links von der y-Achse ist die x-[[Koordinate]] negativ.'
+    - teil: so-stimmt-es
+      de: 'Erst den [[Betrag]] über den Bezugswinkel, dann das [[Vorzeichen]] aus der Lage von P.'
+gegenbeispiel:
+  de: 'Bei 180° liegt P ganz links bei $(-1|0)$. $\cos 180° = -1$, nicht 1.'
+rueckweg:
+  vermittlung: M.SF.TF.BOGENMASS#erklaeren-kreis
+kontrast: [M.SF.TF.BOGENMASS.EINHEITSKREIS, M.SF.TF.BOGENMASS.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

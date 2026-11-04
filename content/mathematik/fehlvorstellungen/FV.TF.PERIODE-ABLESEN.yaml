@@ -1,0 +1,25 @@
+id: FV.TF.PERIODE-ABLESEN
+name:
+  de: Liest die Periode zu kurz ab
+art: lesefehler
+beschreibung:
+  de: >-
+    Nimmt den Abstand zweier Nullstellen (π) oder den Weg bis zum ersten Hochpunkt als Periode. Dass sich der Graph erst nach einer ganzen Welle (2π) genau wiederholt, ist nicht im Blick.
+kompetenzen: [M.SF.TF.SINUS]
+erklaerung:
+  kurz:
+    de: 'Die [[Periode]] ist die Länge, nach der sich der [[Graph]] genau wiederholt: von einem [[Hochpunkt]] bis zum nächsten. Bei Sinus und Kosinus sind das $2\pi$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den Abstand zweier besonderer Stellen gemessen.'
+    - teil: warum-nicht
+      de: 'Nach einer [[Nullstelle]] geht es einmal nach oben, nach der nächsten nach unten. Das ist nicht dasselbe Stück.'
+    - teil: so-stimmt-es
+      de: 'Suche zwei Punkte, an denen der [[Graph]] gleich hoch ist und gleich weiterläuft, etwa zwei Hochpunkte.'
+gegenbeispiel:
+  de: '$\sin \frac{\pi}{2} = 1$, aber $\sin(\frac{\pi}{2} + \pi) = -1$. Nach $\pi$ wiederholt sich der Sinus also nicht.'
+rueckweg:
+  vermittlung: M.SF.TF.SINUS#erklaeren-periode
+kontrast: [M.SF.TF.SINUS.GRAPH, M.SF.TF.SINUS.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

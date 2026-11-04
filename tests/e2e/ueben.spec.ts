@@ -2300,6 +2300,39 @@ test('Klasse 10: Pyramiden- und Kegelstumpf nur bei Oberschule, Sparplan bei bei
   await expect(page.getByRole('button', { name: /^Sparpläne und Kredite/ })).toBeVisible();
 });
 
+test('Klasse 10: Einheitskreis mit Regler und Bogenmaß in der Erstvermittlung (Feld TF)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await page.getByRole('button', { name: /^Bogenmaß und Einheitskreis/ }).click();
+  await page.getByRole('button', { name: 'Erklär es mir' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Vorwissen: sin α = 3 : 6
+  await page.getByLabel('Deine Antwort').fill('0,5');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Entdecken: halber Umfang
+  await page.getByLabel('Deine Antwort').fill('3,14');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Bogenmaß: Bild des Einheitskreises
+  await expect(
+    page.getByRole('img', { name: /Einheitskreis mit dem Winkel α = 180°/ }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  // Werkzeug: Regler auf 150°, Werte mit Vorzeichen, Umschalten auf Bogenmaß
+  await expect(page.getByText('sin α = 0,5').first()).toBeVisible();
+  await page.getByRole('slider').fill('150');
+  await expect(page.getByText('cos α = −0,87').first()).toBeVisible();
+  await expect(page.getByText('2. Quadrant')).toBeVisible();
+  await page.getByRole('button', { name: 'Bogenmaß' }).click();
+  await expect(page.getByText('α = 5π/6').first()).toBeVisible();
+  await page.screenshot({ path: test.info().outputPath('einheitskreis.png'), fullPage: true });
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);

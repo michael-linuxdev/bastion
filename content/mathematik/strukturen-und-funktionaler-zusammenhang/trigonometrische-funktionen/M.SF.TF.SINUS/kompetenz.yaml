@@ -1,0 +1,42 @@
+# Sinus- und Kosinusfunktion – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.TF.SINUS
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: trigonometrische-funktionen
+titel:
+  de: 'Sinus- und Kosinusfunktion'
+kann_satz:
+  de: 'Ich kann Graph und Eigenschaften der Sinus- und Kosinusfunktion angeben: Periode, Nullstellen, Extrema, Wertebereich.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.TF.BOGENMASS
+  - M.SF.FK.EIGENSCHAFTEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Graphen von Sinus oder Kosinus erkennen und die Periode ablesen.'
+  M:
+    beschreibung:
+      de: 'Nullstellen, Hoch- und Tiefstellen zwischen 0 und 2π als Vielfache von π angeben.'
+  E:
+    beschreibung:
+      de: 'Periodizität und Symmetrie begründen, etwa sin(x + 2π) = sin x.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1
