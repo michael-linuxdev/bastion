@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet das Volumen einer Pyramide wie das eines Prismas (G · h) oder teilt durch 2 statt durch
     3. Die Regel vom Dreieck („halbes Rechteck“) wird auf die Pyramide übertragen.
-kompetenzen: [M.GM.KP.PYRAMIDE]
+kompetenzen: [M.GM.KP.PYRAMIDE, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Eine [[Pyramide]] hat ein Drittel des [[Volumens]] eines [[Prismas]] mit gleicher [[Grundfläche]] und [[Höhe]]: V = G · h : 3.'

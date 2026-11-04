@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Meint, bei doppelter Länge sei auch die Fläche doppelt so groß, oder rechnet beim Volumen mit k².
     Dass Flächen mit k² und Volumen mit k³ wachsen, ist nicht verankert.
-kompetenzen: [M.RF.AE.BERECHNEN]
+kompetenzen: [M.RF.AE.BERECHNEN, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Längen wachsen mit k, Flächen mit k², [[Volumen]] mit k³. Bei k = 2 wird die Fläche viermal, das Volumen achtmal so groß.'
