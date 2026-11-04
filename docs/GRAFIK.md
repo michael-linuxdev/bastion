@@ -605,6 +605,7 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
   - Die Brandung schwillt über die Strichdeckkraft in zehn Stufen je Durchlauf statt über eine Verschiebung. Das braucht keine eigene Ebene.
   - Kein Filter mehr an einzelnen Kulisse-Bildern. Abend und Nacht färbt eine einzige Tönung in Fenstergröße (`.abendton`), die Luftperspektive wirkt nur über die Deckkraft.
   - Die Bühne lädt alle Bilder zuerst in einfacher Größe. Scharfe @2x-Bilder lädt sie nur für die Einträge nach, die beim Zeichnen wirklich gebraucht werden (`TexturVorrat` merkt sich die IDs), und zeichnet dann einmal neu.
+- **Nachgezogen (selbst optimiert, 03.11.2026):** Die Bühne glättet Kanten nur noch bei einfacher Auflösung (unter 2,5-fach). Bei 3-facher Pixeldichte zeichnet sie 4-fach, das Verkleinern glättet ohnehin, und die Glättung bräuchte einen vierfachen Bildpuffer (bei 3264 × 2544 Bildpunkten rund 100 MB). Im Vergleichsbild sieht man keinen Unterschied. Wesen, Bewohner und Statusgesten kommen aus einem Vorrat: je Figur ein Sprite, das nur Bild und Lage wechselt. Vorher entstanden 60-mal je Sekunde neue Objekte, die gleich wieder zerstört wurden.
 - **Messung** (Chromium, 390 × 844, Pixeldichte 3, ganz herangezoomt, Ebenenfläche × Zoom²): vorher 178 MPx ≈ 710 MB in 52 Ebenen, nachher 60 MPx ≈ 238 MB in 38 Ebenen. Messwerkzeug: CDP `LayerTree` mit Playwright.
 
 ## 25. Wege und Tagesablauf der Bewohner (Wunsch PV, 03.11.2026, Punkt 4)
