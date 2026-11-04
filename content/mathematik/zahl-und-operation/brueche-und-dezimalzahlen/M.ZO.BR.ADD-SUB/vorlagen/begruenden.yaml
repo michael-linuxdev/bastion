@@ -12,13 +12,13 @@ text:
     de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
 hilfen:
   - de: 'Kann das Ergebnis kleiner sein als einer der beiden [[Brüche]]?'
-  - de: 'Mache die [[Brüche]] zuerst gleichnamig.'
+  - de: 'Bringe die [[Brüche]] zuerst auf einen [[gemeinsamen Nenner]].'
 fehlerbilder:
   nenner-addiert:
-    de: 'Addiert werden nur gleich große Teile: Erst gleichnamig machen, dann die [[Zähler]] addieren.'
+    de: 'Addiert werden nur gleich große Teile: Erst auf einen [[gemeinsamen Nenner]] bringen, dann die [[Zähler]] addieren.'
     fv: FV.BR.NENNER-ADDIERT
   einen-nenner:
-    de: 'Einen der [[Nenner]] zu übernehmen reicht nicht. Beide [[Brüche]] müssen auf den Hauptnenner erweitert werden.'
+    de: 'Einen der [[Nenner]] zu übernehmen reicht nicht. Beide [[Brüche]] müssen auf einen [[gemeinsamen Nenner]] erweitert werden.'
     fv: FV.BR.EINEN-NENNER
 herkunft: ki-entwurf
 version: 1
