@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Das Gegenteil von „Ich gewinne“ ist „Ich gewinne nicht“, nicht „Ich gewinne zweimal“.'
 rueckweg:
   vermittlung: M.DZ.ZF.EREIGNISSE#erklaeren-gegenereignis
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.DZ.ZF.BEGRIFFE: M.DZ.ZF.BEGRIFFE#erklaeren-ereignis
 kontrast: [M.DZ.ZF.BEGRIFFE.ZAEHLEN, M.DZ.ZF.EREIGNISSE.MENGE, M.DZ.ZF.EREIGNISSE.ZAEHLEN]
 herkunft: ki-entwurf
 version: 1

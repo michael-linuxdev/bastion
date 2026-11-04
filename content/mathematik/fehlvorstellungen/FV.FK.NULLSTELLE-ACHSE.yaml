@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Ein Wasserstand, der um 6 Uhr bei 4 m liegt und um 9 Uhr bei 0 m, ist um 9 Uhr leer, nicht um 6 Uhr.'
 rueckweg:
   vermittlung: M.SF.FK.NULLSTELLE#erklaeren-nullstelle
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.SF.FK.LINEAR-GRAPH: M.SF.FK.LINEAR-GRAPH#erklaeren-gleichung
 kontrast: [M.SF.FK.NULLSTELLE.ABLESEN, M.SF.FK.NULLSTELLE.BERECHNEN, M.SF.FK.LINEAR-GRAPH.ABLESEN]
 herkunft: ki-entwurf
 version: 1

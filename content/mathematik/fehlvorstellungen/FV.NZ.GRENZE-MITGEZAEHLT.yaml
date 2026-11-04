@@ -23,6 +23,10 @@ gegenbeispiel:
   de: 'Wer jünger als 10 sein muss, darf nicht 10 Jahre alt sein.'
 rueckweg:
   vermittlung: M.SF.NZ.GLEICHUNGEN#erklaeren-ungleichung
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.ZO.TB.TEILER: M.ZO.TB.TEILER#erklaeren-teiler-vielfache
+    M.DZ.ZF.BEGRIFFE: M.DZ.ZF.BEGRIFFE#erklaeren-ereignis
 kontrast:
   [
     M.SF.NZ.GLEICHUNGEN.UNGLEICHUNG,

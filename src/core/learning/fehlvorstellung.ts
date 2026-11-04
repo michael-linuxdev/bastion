@@ -43,7 +43,16 @@ export interface Fehlvorstellung {
     })[];
   };
   readonly gegenbeispiel: Sprachobjekt;
-  readonly rueckweg: { readonly vermittlung: string; readonly voraussetzung?: string };
+  readonly rueckweg: {
+    readonly vermittlung: string;
+    readonly voraussetzung?: string;
+    /**
+     * Eigener Rückweg je Kompetenz (Fehler-Schüler B, 04.11.2026): Kommt die
+     * Fehlvorstellung in einer früheren Kompetenz vor, führt sie dort in deren eigene
+     * Erstvermittlung statt in eine spätere, die das Kind noch nicht kennt.
+     */
+    readonly je?: Readonly<Record<string, string>>;
+  };
   readonly kontrast: readonly string[];
   readonly quelle?: Sprachobjekt;
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
@@ -53,6 +62,14 @@ export interface Fehlvorstellung {
 }
 
 export const FV_ID = /^FV\.[A-Z]{2}\.[A-Z0-9-]+$/;
+
+/** Rückweg „<Kompetenz-ID>#<Schritt-ID>“ beim Üben von `kompetenz` (ohne Angabe: der allgemeine) */
+export function rueckwegFuer(
+  fv: Pick<Fehlvorstellung, 'rueckweg'>,
+  kompetenz: string | undefined,
+): string {
+  return (kompetenz && fv.rueckweg.je?.[kompetenz]) || fv.rueckweg.vermittlung;
+}
 
 const istObjekt = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -123,6 +140,20 @@ export function pruefeFehlvorstellung(
     }
     if (r['voraussetzung'] !== undefined && !kontext.kompetenzen.has(String(r['voraussetzung'])))
       f.push(`rueckweg.voraussetzung ${String(r['voraussetzung'])} fehlt`);
+    const je = r['je'];
+    if (je !== undefined) {
+      if (!istObjekt(je)) f.push('rueckweg.je muss Kompetenz → <Kompetenz-ID>#<Schritt-ID> sein');
+      else
+        for (const [k, ziel] of Object.entries(je)) {
+          if (!Array.isArray(ks) || !ks.includes(k))
+            f.push(`rueckweg.je: ${k} steht nicht unter kompetenzen`);
+          const [zk = '', zs = ''] = String(ziel).split('#');
+          if (!kontext.kompetenzen.has(zk) || zs === '')
+            f.push(`rueckweg.je.${k} muss <Kompetenz-ID>#<Schritt-ID> sein`);
+          else if (kontext.vermittlungen.get(zk) && !kontext.vermittlungen.get(zk)?.has(zs))
+            f.push(`rueckweg.je.${k}: Schritt ${zs} fehlt in der Erstvermittlung von ${zk}`);
+        }
+    }
   }
 
   const kontrast = daten['kontrast'];

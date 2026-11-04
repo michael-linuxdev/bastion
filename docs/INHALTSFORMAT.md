@@ -642,7 +642,7 @@ version: 1
 - `kompetenzen`: mindestens eine, alle vorhanden. Jede Kompetenz, in deren Vorlagen ein Fehlerbild auf die Fehlvorstellung verweist, steht darin (Test in `tools/inhalte/pruefen.test.ts`).
 - `erklaerung.kurz` hat höchstens 35 Wörter. `erklaerung.lang` enthält genau die Teile `so-denkst-du`, `warum-nicht` und `so-stimmt-es`, in dieser Reihenfolge (F3, F4).
 - `gegenbeispiel` ist Pflicht.
-- `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID.
+- `rueckweg.vermittlung` hat die Form `<Kompetenz-ID>#<Schritt-ID>`. Hat die Kompetenz schon eine Erstvermittlung, muss es den Schritt geben. `rueckweg.voraussetzung` ist eine Kompetenz-ID. `rueckweg.je` (optional, 04.11.2026) ordnet einzelnen Kompetenzen der Fehlvorstellung einen eigenen Rückweg zu, ebenfalls `<Kompetenz-ID>#<Schritt-ID>`. Gebraucht wird das, wenn der allgemeine Rückweg in einer Kompetenz liegt, die für diese keine Voraussetzung ist (Fehler-Schüler B), etwa beim Vorzeichen: Beim Addieren geht es zur Zahlengeraden in RZ.ADD-SUB, nicht zur Vorzeichenregel beim Malnehmen. Die App wählt mit `rueckwegFuer(fv, kompetenz)`; der Schlüssel muss unter `kompetenzen` stehen.
 - `kontrast`: mindestens eine vorhandene Vorlage (F3).
 - `review` ist optional und folgt §8. Ohne Feld gilt Stufe 0.
 

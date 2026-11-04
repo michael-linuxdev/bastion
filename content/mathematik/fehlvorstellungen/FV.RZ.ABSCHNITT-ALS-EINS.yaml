@@ -22,6 +22,9 @@ gegenbeispiel:
   de: 'Auf einem Lineal sind die kleinen Striche Millimeter. Wer sie als Zentimeter zählt, misst alles zehnmal zu lang.'
 rueckweg:
   vermittlung: M.ZO.RZ.BEGRIFF#erklaeren-zahlengerade
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.SF.ZU.GRAPH: M.SF.ZU.GRAPH#erklaeren-ablesen
 kontrast: [M.ZO.RZ.BEGRIFF.ZAHLENGERADE, M.SF.ZU.GRAPH.ABLESEN]
 herkunft: ki-entwurf
 version: 1
