@@ -122,7 +122,7 @@ Ins Repository kommt pro Runde nur eine **Zusammenfassung** in §7 – ohne Numm
 
 1. **Dateien einsammeln.** Eltern speichern das Testprotokoll im Elternbereich (Testphase → Export) und geben die JSON-Datei von Hand weiter. Die Dateien liegen nur lokal beim Projektverantwortlichen, nie im Repository.
 2. **Auswerten:** `pnpm auswertung protokoll-1.json protokoll-2.json … > bericht.md`. Mehrere Dateien derselben Person (zweimal exportiert) werden zusammengeführt, doppelte Ereignisse zählen einmal.
-3. **Bericht lesen.** Er beantwortet die messbaren Kriterien aus `STRATEGIE.md` §0 mit ja, nein oder „noch offen“. Personen heißen „Person 1 …“ in der Reihenfolge der Dateien. Mit `--nummern` stehen die Teilnehmer-Nummern daneben; so einen Bericht nicht weitergeben.
+3. **Bericht lesen.** Unbekannte Fehler stehen lesbar da („Aufgabe bruch 2/4 · Lösung 1/2 · Antwort 0/9“; bei Bild-Aufgaben „im Bild“). Er beantwortet die messbaren Kriterien aus `STRATEGIE.md` §0 mit ja, nein oder „noch offen“. Personen heißen „Person 1 …“ in der Reihenfolge der Dateien. Mit `--nummern` stehen die Teilnehmer-Nummern daneben; so einen Bericht nicht weitergeben.
 4. **Mit den Notizen abgleichen.** Wer das Thema laut Gespräch schon vorher konnte, zählt für Kriterium 1 nicht (die App weiß das nur, wenn vorher in ihr geübt wurde). Solche Personen beim Lesen der Tabelle von Hand herausnehmen.
 5. Die Zusammenfassung ohne Nummern kommt in §7.
 
@@ -139,6 +139,8 @@ Ins Repository kommt pro Runde nur eine **Zusammenfassung** in §7 – ohne Numm
 **Außerdem im Bericht, je Person:** Tipps und Lösungswege, Zwischenschritte (im ersten oder zweiten Versuch richtig, gezeigt), „Weiter ohne Weg“ und abgebrochene Erstvermittlungen mit dem zuletzt beantworteten Schritt. Schritte zum reinen Lesen erzeugen kein Ereignis; „vor der ersten Antwort“ heißt also, beim Lesen oder bei der ersten Frage aufgehört.
 
 Die Rechnungen stehen rein und getestet in `src/core/testphase/auswertung.ts`, das Werkzeug in `tools/auswertung/`.
+
+**Generalprobe (04.11.2026):** Eine gespielte Testerin in der echten App (Browser-Test, nicht im Repository): Testprotokoll mit T-01-8 einschalten, zwei Erstvermittlungen mit falschen Antworten und Rückweg-Angebot („Trotzdem weiter“), je fünf Aufgaben mit Tipp und „Weiter ohne Weg“, Export, `pnpm auswertung`. Alle Zahlen im Bericht stimmten mit dem Ablauf überein (10 Aufgaben, 2 Tipps, 5 × „Weiter ohne Weg“, 2 Erstvermittlungen abgeschlossen). Einziger Fund: Die unbekannten Fehler standen als JSON da, jetzt lesbar.
 
 ### 4.6 Aufgabenblatt für die prüfende Lehrkraft (B2, 02.11.2026)
 

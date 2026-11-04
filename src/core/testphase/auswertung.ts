@@ -8,7 +8,10 @@
  * - F5 (Diagnostizieren): Mindestens 80 % der falschen Antworten haben ein Fehlerbild.
  * - Dazu Zwischenschritte, „Weiter ohne Weg“ und abgebrochene Erstvermittlungen.
  */
+import { loesungAlsText } from '../learning/arbeitsblatt';
 import type { AufgabeEreignis } from '../learning/ereignis';
+import type { Loesung } from '../learning/generator';
+import { zahlText } from '../learning/text';
 import type { VermittlungEreignis } from '../learning/vermittlung-ereignis';
 import type { NutzungEreignis } from './nutzung';
 import { PROTOKOLL_FORMAT, type ProtokollEreignis, type Testprotokoll } from './protokoll';
@@ -373,6 +376,43 @@ const STATUS: Record<EinstiegStatus, string> = {
 const prozent = (x: number) => `${(x * 100).toFixed(1).replace('.', ',')} %`;
 const json = (x: unknown) => (x === undefined ? '–' : JSON.stringify(x));
 
+const LOESUNG_TYPEN = new Set([
+  'bruch',
+  'zahl',
+  'auswahl',
+  'reihenfolge',
+  'punkt',
+  'mit-rest',
+  'felder',
+]);
+
+/** Lösung oder Antwort lesbar: „2/3“, „B“, „(1 | 2)“; Unbekanntes bleibt JSON */
+function loesungLesbar(x: unknown): string {
+  if (
+    typeof x === 'object' &&
+    x !== null &&
+    LOESUNG_TYPEN.has(String((x as { typ?: unknown }).typ))
+  )
+    return loesungAlsText(x as Loesung);
+  return json(x);
+}
+
+/** Werte der Aufgabe lesbar: „bruch 2/4, zielnenner 18“; ohne Werte (Bild-Aufgabe) „im Bild“ */
+function platzhalterLesbar(x: unknown): string {
+  if (typeof x !== 'object' || x === null) return json(x);
+  const teile = Object.entries(x as Record<string, unknown>).map(([k, w]) => {
+    if (typeof w === 'number') return `${k} ${zahlText(w)}`;
+    if (typeof w === 'object' && w !== null) {
+      const o = w as { zaehler?: unknown; nenner?: unknown; de?: unknown };
+      if (typeof o.zaehler === 'number' && typeof o.nenner === 'number')
+        return `${k} ${zahlText(o.zaehler)}/${zahlText(o.nenner)}`;
+      if (typeof o.de === 'string') return `${k} „${o.de}“`;
+    }
+    return `${k} ${json(w)}`;
+  });
+  return teile.length > 0 ? teile.join(', ') : 'im Bild';
+}
+
 /**
  * Bericht als Markdown. Personen heißen „Person 1 …“ in der Reihenfolge der
  * Dateien; die Teilnehmer-Nummern erscheinen nur mit `mitNummern`, damit der
@@ -413,7 +453,7 @@ export function bericht(g: Gesamt, optionen: { readonly mitNummern?: boolean } =
       z.push(`- **${u.vorlage}** (${u.antworten.length})`);
       for (const a of u.antworten)
         z.push(
-          `  - ${a.niveau}: Aufgabe ${json(a.platzhalter)}, Lösung ${json(a.loesung)}, Antwort ${json(a.antwort)}`,
+          `  - ${a.niveau}: Aufgabe ${platzhalterLesbar(a.platzhalter)} · Lösung ${loesungLesbar(a.loesung)} · Antwort ${loesungLesbar(a.antwort)}`,
         );
     }
     z.push('');
