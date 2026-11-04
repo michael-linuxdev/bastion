@@ -1,0 +1,50 @@
+# Restschuld nach zwei Jahren. Entwurf: noch nicht geprüft.
+id: M.ZO.PZ.KREDIT.TILGUNG
+kompetenz: M.ZO.PZ.KREDIT
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: pz.tilgung@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Familie Kaya nimmt einen [[Kredit]] über {kredit} € auf, {p} % [[Zinsen]] im Jahr. Am Ende jedes Jahres zahlt sie eine Rate von {rate} € zurück. **Berechne** die [[Restschuld]] nach zwei Jahren in €. Runde auf ganze Cent.'
+hilfen:
+  - de: 'Jedes Jahr kommen erst die [[Zinsen]] auf die Schuld, dann wird die Rate abgezogen.'
+  - de: 'Im zweiten Jahr gibt es [[Zinsen]] nur noch auf die [[Restschuld]].'
+fehlerbilder:
+  ohne-zins:
+    de: 'Auf die Schuld kommen jedes Jahr [[Zinsen]]. Nur der Rest der Rate verkleinert die Schuld.'
+    fv: FV.PZ.TILGUNG-ZINS
+  anfang:
+    de: 'Im zweiten Jahr gibt es [[Zinsen]] nur noch auf die [[Restschuld]], nicht mehr auf den ganzen [[Kredit]].'
+    fv: FV.PZ.TILGUNG-ZINS
+schritte:
+  - id: zinsen1
+    frage: { de: 'Wie viele [[Zinsen]] fallen im ersten Jahr an?' }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+  - id: rest1
+    frage: { de: 'Wie hoch ist die [[Restschuld]] nach der ersten Rate?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      ohne-zins:
+        de: 'Erst kommen die [[Zinsen]] dazu, dann wird die Rate abgezogen.'
+        fv: FV.PZ.TILGUNG-ZINS
+  - id: zinsen2
+    frage: { de: 'Wie viele [[Zinsen]] fallen im zweiten Jahr an? Runde auf ganze Cent.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      anfang:
+        de: 'Die [[Zinsen]] gibt es auf die [[Restschuld]], nicht auf den ganzen [[Kredit]].'
+        fv: FV.PZ.TILGUNG-ZINS
+  - id: rest2
+    frage: { de: 'Wie hoch ist die [[Restschuld]] nach der zweiten Rate?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      ohne-zins:
+        de: 'Zähle die [[Zinsen]] des zweiten Jahres dazu, bevor du die Rate abziehst.'
+        fv: FV.PZ.TILGUNG-ZINS
+herkunft: ki-entwurf
+version: 1

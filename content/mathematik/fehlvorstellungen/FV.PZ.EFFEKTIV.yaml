@@ -1,0 +1,25 @@
+id: FV.PZ.EFFEKTIV
+name:
+  de: Nur den Zinssatz verglichen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Vergleicht Kreditangebote nur über den Zinssatz und lässt Gebühren weg. Was der Kredit insgesamt kostet, wird nicht ausgerechnet.
+kompetenzen: [M.ZO.PZ.KREDIT]
+erklaerung:
+  kurz:
+    de: 'Vergleiche Kredite mit allen Kosten: [[Zinsen]] plus Gebühren.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur auf den [[Zinssatz]] geschaut.'
+    - teil: warum-nicht
+      de: 'Gebühren muss man zusätzlich bezahlen. Sie können einen kleinen [[Zinssatz]] teurer machen.'
+    - teil: so-stimmt-es
+      de: 'Rechne für jedes Angebot [[Zinsen]] und Gebühren zusammen und vergleiche die Summen.'
+gegenbeispiel:
+  de: '5000 € für ein Jahr: 4 % und 80 € Gebühr kosten 280 €, 5 % ohne Gebühr nur 250 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.KREDIT#erklaeren-tilgung
+kontrast: [M.ZO.PZ.KREDIT.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

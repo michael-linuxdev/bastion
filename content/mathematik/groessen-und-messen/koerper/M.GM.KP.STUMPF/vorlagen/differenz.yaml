@@ -1,0 +1,49 @@
+# „Pyramide minus abgeschnittene Spitze“. Entwurf: noch nicht geprüft.
+id: M.GM.KP.STUMPF.DIFFERENZ
+kompetenz: M.GM.KP.STUMPF
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.stumpf-differenz@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Eine quadratische [[Pyramide]] hat die Grundkante {a} cm und die [[Höhe]] {h} cm. Oben wird [[parallel]] zur [[Grundfläche]] eine kleine Pyramide abgeschnitten: Grundkante {ak} cm, Höhe {hk} cm. **Berechne** das [[Volumen]] des [[Pyramidenstumpfs]] in cm³.'
+hilfen:
+  - de: 'Der Stumpf ist die große [[Pyramide]] ohne die kleine Spitze.'
+  - de: 'Jede [[Pyramide]]: $V = \frac{1}{3} \cdot G \cdot h$.'
+fehlerbilder:
+  drittel:
+    de: 'Eine [[Pyramide]] hat nur ein Drittel des [[Volumens]] eines [[Prismas]]. Teile G · h durch 3.'
+    fv: FV.KP.PYRAMIDE-DRITTEL
+  prisma:
+    de: 'Der Stumpf ist oben schmaler als unten. Er ist kein [[Prisma]], darum gilt nicht G · h.'
+    fv: FV.KP.STUMPF-PRISMA
+  teil:
+    de: 'Das ist die ganze [[Pyramide]]. Ziehe die abgeschnittene Spitze noch ab.'
+    fv: FV.KP.TEIL-VERGESSEN
+schritte:
+  - id: gross
+    frage: { de: 'Wie groß ist das [[Volumen]] der ganzen Pyramide in cm³?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      drittel:
+        de: 'Bei der [[Pyramide]] teilst du G · h noch durch 3.'
+        fv: FV.KP.PYRAMIDE-DRITTEL
+  - id: klein
+    frage: { de: 'Wie groß ist das [[Volumen]] der abgeschnittenen Spitze in cm³?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      drittel:
+        de: 'Auch die Spitze ist eine [[Pyramide]]: G · h durch 3.'
+        fv: FV.KP.PYRAMIDE-DRITTEL
+  - id: stumpf
+    frage:
+      {
+        de: 'Ganze Pyramide {gross} cm³, Spitze {klein} cm³. Wie groß ist das Volumen des Stumpfs?',
+      }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+herkunft: ki-entwurf
+version: 1

@@ -5,7 +5,7 @@ art: falsche-regel
 beschreibung:
   de: >-
     Rechnet das Kegelvolumen wie beim Zylinder (π · r² · h) oder meint, der Zylinder sei ein Drittel des Kegels. Dass spitze Körper ein Drittel des passenden Prismas oder Zylinders haben, ist nicht verankert.
-kompetenzen: [M.GM.KP.KEGEL, M.GM.KP.ZUSAMMENGESETZT]
+kompetenzen: [M.GM.KP.KEGEL, M.GM.KP.ZUSAMMENGESETZT, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Ein Kegel hat ein Drittel des [[Volumens]] eines [[Zylinders]] mit gleicher [[Grundfläche]] und [[Höhe]]: $V = \frac{1}{3} \cdot \pi \cdot r^2 \cdot h$.'

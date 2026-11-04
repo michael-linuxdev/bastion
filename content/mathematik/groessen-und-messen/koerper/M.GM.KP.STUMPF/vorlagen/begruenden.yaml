@@ -1,0 +1,24 @@
+# Anteil des Stumpfs am Volumen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.KP.STUMPF.BEGRUENDEN
+kompetenz: M.GM.KP.STUMPF
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: kp.stumpf-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die richtige Antwort mit Begründung.'
+hilfen:
+  - de: 'Die Spitze ist eine verkleinerte [[Pyramide]]. Mit welchem [[Faktor]] ändern sich alle Längen?'
+  - de: 'Ändern sich alle Längen mit dem [[Faktor]] k, ändert sich das [[Volumen]] mit $k^3$.'
+fehlerbilder:
+  linear:
+    de: 'Breite und Tiefe der Spitze werden auch kleiner. Das [[Volumen]] ändert sich mit $k^3$, nicht mit k.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
+  quadrat:
+    de: '$k^2$ gilt für Flächen. Für das [[Volumen]] gilt $k^3$.'
+    fv: FV.AE.FLAECHE-VOLUMEN-FAKTOR
+herkunft: ki-entwurf
+version: 1

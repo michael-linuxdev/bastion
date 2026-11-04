@@ -64,6 +64,22 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
 
+### Stand 03.11.2026 spät (Ende der Sitzung)
+
+Nach den fünf Punkten unten kamen auf Wunsch des PV hinzu (alle gemergt, je ein PR):
+- Wetter, Jahreszeiten, mehr Leben in der Kulisse, Kulisse bis weit hinaus, Wolken wandern mit (#223–#233). Varianten und eigene Umgebung würfeln (#237), 33 weitere Dinge (#242). Unförmige Insel (#248). Licht, Rauch, Brandung (#250). Scharf beim Zoomen mit @2x (#252). Tiefe in der Ferne (#253). Boden mit Leben (#255).
+- Fleißkosten Bergfried 6–9 halbiert (B-33, #234). Simulator P8 mit Lernkurve und Bauplan-Skizzen (B-34, #241).
+- **Absturz beim Zoomen auf dem iPhone behoben** (#256, `GRAFIK.md` §24): Animierte Ebenen in der vergrößerten Welt brauchten herangezoomt rund 710 MB, jetzt rund 238 MB. HD-Bilder werden nur für Gezeichnetes nachgeladen.
+- Wege zwischen den Gebäuden und Tagesablauf der Bewohner nach der Uhr (#257, §25).
+- Wehende Fahnen (#258, §26), drehende Mühlenflügel (#259, §27).
+- Bauen als Schauspiel: Kran, Arbeiter, Kamerafahrt beim Epochenwechsel (#260, §28).
+
+Offen:
+- Blick des PV auf dem iPhone, ob der Zoom jetzt stabil bleibt. Messung in Chromium ist in §24 beschrieben, Safari selbst ließ sich hier nicht messen.
+- Banner (Fahnenmast) weht noch nicht; das Tuch hängt senkrecht und braucht eine eigene Form.
+- Kraterfelder im Weltraum gröber, Sandbänke weniger gleichförmig.
+- Entscheidung zu BASEBAU §8c (P6 nach B-33/B-34).
+
 ### Auftrag für die nächste Grafik-Sitzung (vorbereitet 02.11.2026)
 
 **Stand 03.11.2026 (Ende der Sitzung):** Alle fünf Punkte erledigt.

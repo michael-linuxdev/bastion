@@ -1,0 +1,25 @@
+id: FV.PZ.SPARPLAN
+name:
+  de: Zinsen beim Sparplan falsch verteilt
+art: falsche-regel
+beschreibung:
+  de: >-
+    Gibt beim Sparplan nur der ersten Einzahlung Zinsen oder rechnet Zinsen nur vom eingezahlten Geld, nicht von den Zinsen der Vorjahre.
+kompetenzen: [M.ZO.PZ.KREDIT]
+erklaerung:
+  kurz:
+    de: 'Rechne Jahr für Jahr: alter Stand plus Einzahlung, dann mal den Zinsfaktor. So bekommt jedes Geld auf dem Konto [[Zinsen]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur einen Teil des Geldes verzinst.'
+    - teil: warum-nicht
+      de: 'Jedes Geld auf dem Konto bekommt [[Zinsen]]: jede Einzahlung und auch die Zinsen vom Vorjahr.'
+    - teil: so-stimmt-es
+      de: 'Rechne den Stand Jahr für Jahr mit dem Zinsfaktor.'
+gegenbeispiel:
+  de: '500 € jedes Jahr, 2 %: Nach zwei Jahren sind es 1030,20 €, nicht 1020,20 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.KREDIT#erklaeren-sparplan
+kontrast: [M.ZO.PZ.KREDIT.SPARPLAN]
+herkunft: ki-entwurf
+version: 1

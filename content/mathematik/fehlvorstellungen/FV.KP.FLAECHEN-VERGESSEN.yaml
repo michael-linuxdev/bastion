@@ -6,7 +6,8 @@ beschreibung:
   de: >-
     Zählt beim Quader nur eine, drei oder vier Flächen, beim Prisma nur eine Grundfläche oder beim
     Zylinder nur den Mantel. Der Körper wird nicht in sein Netz zerlegt.
-kompetenzen: [M.GM.KP.OBERFLAECHE, M.GM.KP.PRISMA, M.GM.KP.PYRAMIDE, M.GM.KP.ZYLINDER]
+kompetenzen:
+  [M.GM.KP.OBERFLAECHE, M.GM.KP.PRISMA, M.GM.KP.PYRAMIDE, M.GM.KP.ZYLINDER, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Die [[Oberfläche]] sind **alle** Flächen des Körpers zusammen. Stell dir das [[Netz]] vor und zähle jede Fläche: Ein [[Quader]] hat sechs, ein [[Zylinder]] zwei Kreise und einen [[Mantel]].'
