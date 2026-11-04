@@ -551,6 +551,9 @@ PV: „Wir brauchen mehr unterschiedliche, z. B. Kraterfelder und Sandbänke und
 - **Eigene Umgebung:** Im Zahnrad „Neue Umgebung würfeln“ (und „Ursprüngliche Umgebung“). Der Startwert wird als Einstellung `basebau.szenerie` gespeichert (Ereignis wie die Kamera, keine Schemaänderung) und mischt Lage, Auswahl, Form und Größe aller Dinge der Kulisse neu; auch die sechs Plätze am Bauplatz. Echter Zufall nur beim Antippen (`src/ui/plattform/zufall.ts`), danach fest. Nur Aussehen: keine Belohnung, nicht ans Lernen gebunden, jederzeit neu oder zurück (R1). 0 = Grundszenerie wie bisher.
 - **Oben und unten gleich voll:** Test prüft, dass über dem Bauplatz etwa so viele Dinge stehen wie darunter.
 
+- **Sandbänke und Krater (04.11.2026, `tools/grafik/g20_flaechen.py`):** vier neue Sandbänke (Landzunge, Sichel um eine Lagune, Inselkette, breite Bank mit Priel; Muscheln, Treibholz), aus Ellipsoiden mit eigener Länge und Breite statt runder Kugeln. Alle sieben Kraterfelder neu und gröber: geschlossener Wall statt Perlenkette, dunkler Boden, große Krater mit Zentralberg, Auswurfdecke außen. Je Bild 1x und @2x. In der App: `sandbank: 7`, `kraterfeld: 7`. Flächen liegen dazu bei jedem zweiten Platz seitenverkehrt (`gespiegelt`, ruhendes `scale`, keine eigene Grafikebene).
+- **Gleich verteilt:** Die Mischzahl `misch` in `kulisse.ts` mischt jetzt alle Eingaben gründlich. Vorher veränderte die Nummer der Frage nur abgeschnittene Bits: In der Grundszenerie hingen „ist eine Fläche“ und „welche Form“ zusammen, 57 von 69 Sandbänken hatten Form 1. Die Grundszenerie sieht dadurch anders aus, bleibt aber fest.
+
 ### 18.3 Noch mehr Dinge und Größen (Wunsch PV, 03.11.2026)
 
 PV: „Mehr Abwechslung, noch mehr unterschiedliche Objekte würfelbar in mehr Größen.“

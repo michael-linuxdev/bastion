@@ -98,7 +98,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['sandbank', 'riff', 'riff', 'sandbank'],
     leben: ['moewen'],
-    varianten: { sandbank: 3, riff: 3 },
+    varianten: { sandbank: 7, riff: 3 },
     jahreszeitDinge: ['inselchen', 'steg', 'felseninsel'],
     jahreszeitBoden: true,
     insel: { oben: '#7bb257', wand: '#5d7f46', strand: '#e4d3a2' },
@@ -269,7 +269,7 @@ const THEMEN: Record<Thema, KulissenThema> = {
     ],
     flaechen: ['kraterfeld', 'kraterfeld'],
     leben: ['satellit'],
-    varianten: { kraterfeld: 3, geroell: 3, eisbrocken: 3 },
+    varianten: { kraterfeld: 7, geroell: 3, eisbrocken: 3 },
     jahreszeitDinge: [],
     jahreszeitBoden: false,
     insel: { oben: '#a6a29b', wand: '#7c7974' },
@@ -336,6 +336,8 @@ export interface Ding {
   readonly flach?: boolean;
   /** Welche Form (1 = Grundbild, 2, 3 …), siehe `varianten` */
   readonly variante?: number;
+  /** Fläche seitenverkehrt zeigen (mehr Abwechslung ohne weitere Bilder) */
+  readonly gespiegelt?: boolean;
 }
 
 /** Breite der Ding-Bilder in Bühnen-Bildpunkten (doppelt gezeichnet, Fuß unten Mitte) */
@@ -360,10 +362,22 @@ export function dingeUmBauplatz(
 
 /** Feste Mischzahl 0 … 1 (kein Zufall zur Laufzeit) */
 function misch(a: number, b: number, k: number, szenerie = 0): number {
-  let h = (Math.imul(a + 101, 2654435761) ^ Math.imul(b + 307, 2246822519) ^ (k * 97)) >>> 0;
-  // Eigene Szenerie des Kindes: der Startwert mischt alles neu (0 = Grundszenerie)
-  if (szenerie !== 0) h = (Math.imul(h ^ szenerie, 2246822519) ^ (h >>> 13)) >>> 0;
-  return ((h >>> 9) % 10000) / 10000;
+  // Alle vier Eingaben gehen mit eigenem Faktor ein; danach gründlich durchmischen.
+  // Früher veränderte `k` nur die untersten Bits, die abgeschnitten wurden: In der
+  // Grundszenerie hingen „ist eine Fläche“ und „welche Form“ fast gleich zusammen, und
+  // fast alle Sandbänke bekamen Form 1 (04.11.2026). Eigene Szenerie: der Startwert
+  // mischt alles neu (0 = Grundszenerie).
+  let h =
+    Math.imul(a + 101, 2654435761) ^
+    Math.imul(b + 307, 2246822519) ^
+    Math.imul(k + 13, 3266489917) ^
+    Math.imul(szenerie + 1, 668265263);
+  h ^= h >>> 16;
+  h = Math.imul(h, 2246822507);
+  h ^= h >>> 13;
+  h = Math.imul(h, 3266489909);
+  h ^= h >>> 16;
+  return ((h >>> 0) % 10000) / 10000;
 }
 
 /** Wie weit die Kulisse um den Bauplatz reicht (Felder) – bis über den Bildrand */
@@ -447,6 +461,8 @@ export function kulissenDinge(
         breite: bildBreite,
         ...(flach ? { flach: true } : {}),
         ...(variante > 1 ? { variante } : {}),
+        // Flächen liegen flach: gespiegelt wirken sie wie eine weitere Form (fest je Zelle)
+        ...(flach && misch(i, j, 8, szenerie) < 0.5 ? { gespiegelt: true } : {}),
       });
     }
   const tiefeVon = (d: Ding) => d.gx + d.gy;

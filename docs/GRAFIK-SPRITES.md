@@ -580,6 +580,7 @@ Generatoren (alle deterministisch, nur numpy und Pillow):
 | `tools/grafik/g17_hd.py` | Dieselben Modelle in doppelter Größe als `@2x.png` (Gebäude, Umgebung, Kulisse-Dinge), Manifest `"hd": true`; scharf beim Zoomen auf Geräten mit hoher Pixeldichte |
 | `tools/grafik/g18_fahnen.py` | Lage, Größe und Farbe der Fahnentücher in den Gebäudebildern (ohne Rendern), Manifest `"fahnen"`; die Bühne lässt sie wehen |
 | `tools/grafik/g19_muehle.py` | Windmühle des Dorfs ohne Flügel (`turm_s<k>_ohne`, 1x und @2x), Manifest `"fluegel"`; die Bühne dreht die Flügel |
+| `tools/grafik/g20_flaechen.py` | Vier neue Sandbänke (Zunge, Sichel, Kette, Priel) und alle sieben Kraterfelder gröber (Wall, Zentralberg, Auswurf), je 1x und @2x |
 | `tools/grafik/sprites-g3-hinterhof.py` | Hinterhof und Startbild (aus den neuen Bildern zusammengesetzt) |
 
 Reihenfolge: `g12_atlas.py`, `g12_boden.py`, `g12_rest.py`, `sprites-g3-hinterhof.py`. Die G3-Skripte (`sprites-g3-*.py`, `sprites-g3e-*.py`) sind abgelöst und bleiben als Beleg.

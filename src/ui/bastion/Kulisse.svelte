@@ -336,6 +336,7 @@
           class="ding"
           class:flach={d.flach}
           class:tier={d.tier}
+          class:gespiegelt={d.gespiegelt}
           src="{basis}dinge/{d.bild}.png"
           srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
           alt=""
@@ -554,6 +555,11 @@
   /* Flächen am Boden: Fuß in der Mitte, nicht unten */
   .ding.flach {
     translate: -50% -60%;
+  }
+
+  /* Seitenverkehrt (feste Wahl je Platz): ruhend, also keine eigene Grafikebene */
+  .ding.gespiegelt {
+    scale: -1 1;
   }
 
   .kreis {
