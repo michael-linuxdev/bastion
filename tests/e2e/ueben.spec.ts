@@ -2399,10 +2399,19 @@ test('Jahrgang 11/12: Kurs nur am Gymnasium wählbar und gespeichert (B9b)', asy
   await page.getByRole('radio', { name: 'Gymnasium' }).check();
   await page.getByRole('radio', { name: 'Leistungskurs' }).check();
   await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
-  await page.reload();
-  await themenWaehlen(page);
-  await expect(page.getByRole('radio', { name: 'Jahrgang 11/12' })).toBeChecked();
-  await expect(page.getByRole('radio', { name: 'Leistungskurs' })).toBeChecked();
+  // Gespeichert wird im Hintergrund: kurz warten, damit das Neuladen das Speichern nicht
+  // abbricht, dann neu laden, bis die Wahl angekommen ist
+  await page.waitForTimeout(1000);
+  await expect(async () => {
+    await page.reload();
+    await themenWaehlen(page);
+    await expect(page.getByRole('radio', { name: 'Jahrgang 11/12' })).toBeChecked({
+      timeout: 1000,
+    });
+    await expect(page.getByRole('radio', { name: 'Leistungskurs' })).toBeChecked({
+      timeout: 1000,
+    });
+  }).toPass({ timeout: 15_000 });
 });
 
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
