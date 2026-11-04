@@ -452,36 +452,46 @@ const ZERFALL: readonly Kontext[] = [
     `Im Blut sind ${b} mg eines Medikaments. Jede Stunde wird die Hälfte abgebaut. Wie viel mg sind nach ${n} Stunden noch im Blut?`,
 ];
 
-/** „500 Bakterien, Verdopplung jede Stunde: Wie viele nach 4 Stunden?“ (Niveau G) */
-export const exBestand: Generator<BestandParameter> = {
-  id: 'ex.bestand',
-  version: 1,
-  platzhalter: ['satz', 'anfang', 'schritte'],
-  fehlerbildIds: ['linear', 'hochzahl-mal'],
+/**
+ * „500 Bakterien, Verdopplung jede Stunde: Wie viele nach 4 Stunden?“ (Niveau G). Fassung 2
+ * (Durchsicht 04.11.2026): ½ hoch n mit Klammer im Lösungsweg.
+ */
+function exBestandFassung(fassung: 1 | 2): Generator<BestandParameter> {
+  return {
+    id: 'ex.bestand',
+    version: fassung,
+    platzhalter: ['satz', 'anfang', 'schritte'],
+    fehlerbildIds: ['linear', 'hochzahl-mal'],
 
-  erzeuge(seed, p) {
-    const a = bestandAufgabe(seed, p);
-    const satz = (a.halb ? ZERFALL : WACHSTUM)[a.kontext] ?? WACHSTUM[0];
-    const richtig = zahl(a.ende);
-    const q = a.halb ? '\\frac{1}{2}' : '2';
-    return {
-      platzhalter: {
-        satz: de(satz ? satz(a.b, a.n) : ''),
-        anfang: a.b,
-        schritte: a.n,
-      },
-      loesung: richtig,
-      loesungsweg: [
-        de(`Jeder Schritt: mal ${a.halb ? '½' : '2'}. Nach ${a.n} Schritten: mal $${q}^{${a.n}}$.`),
-        de(`$${a.b} \\cdot ${q}^{${a.n}} = ${texZahl(a.ende)}$`),
-      ],
-      fehlerbilder: fehlerbilderAus(richtig, [
-        ['linear', zahl(a.halb ? a.b - a.n * (a.b / 2) : a.b + a.n * a.b)],
-        ['hochzahl-mal', zahl(a.halb ? a.b / (2 * a.n) : a.b * 2 * a.n)],
-      ]),
-    };
-  },
-};
+    erzeuge(seed, p) {
+      const a = bestandAufgabe(seed, p);
+      const satz = (a.halb ? ZERFALL : WACHSTUM)[a.kontext] ?? WACHSTUM[0];
+      const richtig = zahl(a.ende);
+      const q = a.halb ? (fassung === 2 ? '\\left(\\frac{1}{2}\\right)' : '\\frac{1}{2}') : '2';
+      return {
+        platzhalter: {
+          satz: de(satz ? satz(a.b, a.n) : ''),
+          anfang: a.b,
+          schritte: a.n,
+        },
+        loesung: richtig,
+        loesungsweg: [
+          de(
+            `Jeder Schritt: mal ${a.halb ? '½' : '2'}. Nach ${a.n} Schritten: mal $${q}^{${a.n}}$.`,
+          ),
+          de(`$${a.b} \\cdot ${q}^{${a.n}} = ${texZahl(a.ende)}$`),
+        ],
+        fehlerbilder: fehlerbilderAus(richtig, [
+          ['linear', zahl(a.halb ? a.b - a.n * (a.b / 2) : a.b + a.n * a.b)],
+          ['hochzahl-mal', zahl(a.halb ? a.b / (2 * a.n) : a.b * 2 * a.n)],
+        ]),
+      };
+    },
+  };
+}
+
+export const exBestandV1 = exBestandFassung(1);
+export const exBestand = exBestandFassung(2);
 
 export interface VerdopplungParameter {
   /** auch Halbwertszeit bei Abnahme um p % */

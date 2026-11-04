@@ -206,3 +206,15 @@ describe('„Periode = b“ widerlegen (E)', () => {
     expect(texte(i).some((t) => t.includes(`\\frac{2\\pi}{${b}}`))).toBe(true);
   });
 });
+
+describe('Bogenmaß Fassung 2', () => {
+  it('schreibt den umgedrehten Bruch bei Nenner 1 als ganzes Vielfaches von π', async () => {
+    const { tfBogenmass, tfBogenmassV1 } = await import('./tf');
+    expect(tfBogenmass.version).toBe(2);
+    expect(tfBogenmassV1.version).toBe(1);
+    for (let seed = 0; seed < 400; seed++) {
+      const i = tfBogenmass.erzeuge(seed, {});
+      for (const o of i.optionen ?? []) expect(o.text?.de).not.toMatch(/\}\{1\}/);
+    }
+  });
+});
