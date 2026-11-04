@@ -7985,7 +7985,24 @@
         "w": 104,
         "h": 165
       },
-      "hd": true
+      "hd": true,
+      "fahnen": [
+        {
+          "x": 2.4,
+          "y": -144.9,
+          "b": 9.6,
+          "s": -4.8,
+          "h": 68.2,
+          "farbe": "#22837c",
+          "haengt": true,
+          "wappen": {
+            "x": 7.4,
+            "y": -112.2,
+            "r": 2.9,
+            "farbe": "#fdfead"
+          }
+        }
+      ]
     },
     {
       "id": "dorf/e1/denkmal_s1",

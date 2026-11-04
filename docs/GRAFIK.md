@@ -627,7 +627,8 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - Die Fahnen sind in die Gebäudebilder eingerechnet. `tools/grafik/g18_fahnen.py` baut jedes Gebäude-Modell noch einmal auf, ohne zu rendern (Sekunden). Es merkt sich jeden Aufruf von `Szene.fahne` und rechnet die Ecken des Tuchs mit derselben Projektion wie `raum.rendern` in Bildpunkte um. Die Farbe kommt aus dem fertigen Bild (Mitte des Tuchs). Ist das Tuch dort verdeckt oder passt der Farbton nicht, bleibt die Fahne still.
 - Das Manifest trägt je Eintrag `fahnen: [{x, y, b, s, h, farbe}]` (1x-Bildpunkte ab Fußpunkt). Die Höhenstreckung, die `modell` nach dem Aufbau anwendet (GRAFIK-SPRITES §13.2), rechnet das Werkzeug mit ein. Derzeit sind es 35 Fahnen in allen fünf Themen.
 - Die Bühne legt über jedes solche Tuch ein gezeichnetes Tuch in sechs Streifen. Es wellt sich, zum freien Ende hin stärker, mit hellen und dunklen Falten. Bei Sturm weht es doppelt so schnell und stärker. Das gezeichnete Tuch ist etwas höher als die Welle ausschlägt, so bleibt das stille Tuch im Bild ganz verdeckt. Abends hat es dieselbe Tönung wie das Gebäude. Bei „ruhig“ bleibt das stille Tuch aus dem Bild.
-- Test `tools/grafik/atlas-fahnen.test.ts`: Jedes Tuch liegt im Bild und hat eine Farbe.
+- **Banner** (Fahnenmast, 04.11.2026): Das Tuch hängt senkrecht am Mast. `g18_fahnen.py` erfasst es über die Aufrufe von `fahnenmast` mit `haengt: true` und dem Wappen (Mitte, Halbmesser, Farbe aus dem Bild). Auf der Bühne bleibt es oben fest und schwingt unten sacht zur Seite, in Streifen mit Falten; das Wappen schwingt mit.
+- Test `tools/grafik/atlas-fahnen.test.ts`: Jedes Tuch liegt im Bild und hat eine Farbe, das Banner trägt sein Wappen.
 
 ## 27. Drehende Mühlenflügel (Wunsch PV, 03.11.2026)
 
