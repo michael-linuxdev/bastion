@@ -357,6 +357,26 @@
             <p class="herkunft">{aufgabe.kompetenz.titel.de}</p>
           {/if}
           <p class="gesucht">{t('uebung.gesucht')}</p>
+          {#if aufgabe.vorlage.hilfsmittelfrei}
+            <!-- B10: Teil-A-Aufgaben (Abitur, Realschulabschluss) ohne Taschenrechner -->
+            <p class="ohne-rechner">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                <rect
+                  x="4"
+                  y="2"
+                  width="12"
+                  height="16"
+                  rx="2"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <rect x="6.5" y="4.5" width="7" height="3" fill="currentColor" />
+                <line x1="2" y1="18" x2="18" y2="2" stroke="currentColor" stroke-width="1.8" />
+              </svg>
+              {t('uebung.ohne-rechner')}
+            </p>
+          {/if}
           <p class="text">
             <Textteile
               teile={fuelle(aufgabe.vorlage.text.aufgabe.de, aufgabe.instanz.platzhalter)}
@@ -793,6 +813,21 @@
     color: var(--farbe-text-leise);
     font-size: 1rem;
     margin-block: 0;
+  }
+
+  .ohne-rechner {
+    display: inline-flex;
+    inline-size: fit-content;
+    justify-self: start;
+    align-items: center;
+    gap: var(--abstand-s);
+    margin: 0;
+    margin-block-start: var(--abstand-s);
+    padding-inline: var(--abstand-s);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche-leise);
+    font-size: 0.9rem;
+    font-weight: 700;
   }
 
   .gesucht {

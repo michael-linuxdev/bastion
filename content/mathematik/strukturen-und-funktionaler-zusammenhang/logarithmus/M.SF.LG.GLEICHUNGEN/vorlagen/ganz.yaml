@@ -21,5 +21,6 @@ fehlerbilder:
   faktor-zuerst:
     de: 'Der [[Faktor]] vor der Potenz gehört nicht in die [[Basis]]. Teile zuerst durch ihn.'
     fv: FV.EX.FAKTOR-IN-POTENZ
+hilfsmittelfrei: true
 herkunft: ki-entwurf
 version: 1

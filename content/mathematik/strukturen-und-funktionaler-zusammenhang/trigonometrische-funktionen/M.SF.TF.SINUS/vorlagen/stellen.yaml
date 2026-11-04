@@ -20,5 +20,6 @@ fehlerbilder:
   stellen:
     de: 'Das sind andere besondere Stellen. Prüfe: Ist der Wert dort 0, 1 oder −1?'
     fv: FV.TF.STELLEN
+hilfsmittelfrei: true
 herkunft: ki-entwurf
 version: 1

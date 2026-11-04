@@ -232,6 +232,10 @@ Alle Bilder werden im Generator als SVG erzeugt (keine Bilddateien aus dem Netz)
 
 *Umsetzung:* `src/core/learning/auswertung.ts` liest Zahlen, Brüche (auch gemischt, „1 3/4“), Primfaktoren und Uhrzeiten und wertet Antworten aus. Ohne `antwort.form` gilt für Brüche `beliebig`. Erkannt wird zuerst die exakt gleiche Fehler-Antwort, dann eine wertgleiche (6/10 bei Fehlerbild 3/5). Wertgleich, aber in falscher Form, ergibt einen eigenen Hinweis (`nicht-gekuerzt`, `andere-schreibweise`). Ein Probelauf mit allen Vorlagen (`tools/inhalte/auswertung.test.ts`) stellt sicher, dass jede echte Lösung als richtig und jede Fehlerbild-Antwort als genau dieses Fehlerbild erkannt wird.
 
+### 5.1a Ohne Taschenrechner (`hilfsmittelfrei`, 04.11.2026, B10)
+
+Für Aufgaben wie im Teil A von Abitur und Realschulabschluss: `hilfsmittelfrei: true` in der Vorlage. Beim Üben steht über der Aufgabe das Kennzeichen „Ohne Taschenrechner“ (Symbol und Text, Text in der Übersetzungsdatei). `tools/inhalte/hilfsmittelfrei.test.ts` prüft je Vorlage und Niveau 300 Aufgaben: kein gerundetes Ergebnis (`runden`), eine Zahl als Lösung ist ganz oder ein Bruch mit Nenner bis 12. Auswahlaufgaben mit exakten Werten wie $\sqrt{2}$ oder $\pi$ sind erlaubt (B4). Erste Vorlagen: LG.LOGARITHMUS.WERT, LG.GLEICHUNGEN.GANZ, TF.BOGENMASS.UMRECHNEN, TF.SINUS.STELLEN, FS.VERKNUEPFEN.WERT.
+
 ### 5.2 Eigene Tastatur (`tastatur`, 31.10.2026)
 
 Zahlen, Brüche, Punkte und Division mit Rest gibt man über eine eigene Tastatur der App ein. Sie läuft offline, braucht keine Bibliothek und ist in Üben, Wiederholen, Fehlerwerkstatt, Diagnose, Zwischenschritten und Erstvermittlung dieselbe (`src/ui/eingabe/Tastatur.svelte`). Die Felder haben `inputmode="none"`. So öffnet sich auf dem Handy nicht zusätzlich die Systemtastatur, am Rechner tippt man weiter mit der echten Tastatur. Die Systemtastatur bleibt für Namen und Freitext. Primfaktoren (Malpunkt) und Uhrzeiten (Doppelpunkt) haben seit L13 (01.11.2026) eigene Tasten.

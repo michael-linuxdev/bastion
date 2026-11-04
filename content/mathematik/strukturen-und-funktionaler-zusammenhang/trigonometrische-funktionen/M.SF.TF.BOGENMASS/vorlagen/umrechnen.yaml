@@ -23,5 +23,6 @@ fehlerbilder:
   doppelt:
     de: '$\pi$ gehört zu 180°. Ein [[rechter Winkel]] ist darum $\frac{\pi}{2}$, nicht $\pi$.'
     fv: FV.TF.PI-180
+hilfsmittelfrei: true
 herkunft: ki-entwurf
 version: 1
