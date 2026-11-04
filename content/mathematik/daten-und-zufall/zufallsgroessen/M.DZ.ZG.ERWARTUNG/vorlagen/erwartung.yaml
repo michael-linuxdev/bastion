@@ -1,0 +1,21 @@
+# Erwartungswert aus der Tabelle – Niveau G. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.ERWARTUNG.ERWARTUNG
+kompetenz: M.DZ.ZG.ERWARTUNG
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.erwartung@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Die Tabelle zeigt die Verteilung von X: ${tabelle}$ **Berechne** den [[Erwartungswert]] $E(X)$.'
+hilfen:
+  - de: 'Nimm jeden Wert mit seiner [[Wahrscheinlichkeit]] mal.'
+  - de: 'Addiere alle Produkte.'
+fehlerbilder:
+  ungewichtet:
+    de: 'Das ist der einfache Mittelwert der Werte. Seltene Werte zählen aber weniger: Nimm jeden mit seiner [[Wahrscheinlichkeit]] mal.'
+    fv: FV.ZG.UNGEWICHTET
+herkunft: ki-entwurf
+version: 1

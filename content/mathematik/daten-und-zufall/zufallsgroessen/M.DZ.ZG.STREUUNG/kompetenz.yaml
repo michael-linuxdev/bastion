@@ -1,0 +1,39 @@
+# Zufallsgrößen – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZG.STREUUNG
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufallsgroessen
+titel:
+  de: 'Varianz und Standardabweichung'
+kann_satz:
+  de: 'Ich kann Varianz und Standardabweichung einer Zufallsgröße berechnen und als Maß für das Risiko deuten.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.DZ.ZG.ERWARTUNG
+  - M.DZ.ST.STREUUNG
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die Varianz aus einer Tabelle berechnen.'
+  M:
+    beschreibung:
+      de: 'Die Standardabweichung berechnen.'
+  E:
+    beschreibung:
+      de: 'Zwei Spiele mit gleichem Erwartungswert nach ihrem Risiko vergleichen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K1
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Diskrete Zufallsgrößen'
+version: 1

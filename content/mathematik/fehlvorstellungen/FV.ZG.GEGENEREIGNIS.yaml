@@ -1,0 +1,25 @@
+id: FV.ZG.GEGENEREIGNIS
+name:
+  de: Addiert Wahrscheinlichkeiten bei „mindestens eins“
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet für „mindestens eine Sechs bei n Würfen“ n · 1/6, statt über das Gegenereignis „keine Sechs“ zu gehen. Dass Wahrscheinlichkeiten nur bei unvereinbaren Ereignissen addiert werden dürfen, ist nicht im Blick.
+kompetenzen: [M.DZ.ZG.VERTEILUNG]
+erklaerung:
+  kurz:
+    de: '„Mindestens eins“ ist das Gegenteil von „keins“. Rechne $1 - P(\text{keins})$, also bei n Würfen $1 - \left(\frac{5}{6}\right)^n$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast für jeden Wurf $\frac{1}{6}$ addiert.'
+    - teil: warum-nicht
+      de: 'Bei 6 Würfen käme 1 heraus, bei 7 Würfen mehr als 1. Aber eine Sechs ist auch nach 7 Würfen nicht sicher.'
+    - teil: so-stimmt-es
+      de: 'Über das [[Gegenereignis]]: $P(\text{keine Sechs}) = \left(\frac{5}{6}\right)^n$, dann $1 -$ diesen Wert.'
+gegenbeispiel:
+  de: 'Bei 7 Würfen wäre $7 \cdot \frac{1}{6} = \frac{7}{6}$ größer als 1. Eine [[Wahrscheinlichkeit]] kann nicht größer als 1 sein.'
+rueckweg:
+  vermittlung: M.DZ.ZG.VERTEILUNG#erklaeren-kumuliert
+kontrast: [M.DZ.ZG.VERTEILUNG.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

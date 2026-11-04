@@ -1,0 +1,24 @@
+# Gewinnchance und Gewinnerwartung – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.ERWARTUNG.BEGRUENDEN
+kompetenz: M.DZ.ZG.ERWARTUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zg.chance-gewinn-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Berechne für beide Spiele den [[Erwartungswert]].'
+  - de: '[[Wahrscheinlichkeit]] mal [[Betrag]] – beides zählt.'
+fehlerbilder:
+  chance:
+    de: 'Oft gewinnen heißt nicht viel gewinnen. Der [[Erwartungswert]] verbindet [[Wahrscheinlichkeit]] und [[Betrag]].'
+    fv: FV.ZG.UNGEWICHTET
+  ungewichtet:
+    de: 'Der [[Betrag]] allein reicht nicht. Ein großer Gewinn, der selten kommt, zählt weniger.'
+    fv: FV.ZG.UNGEWICHTET
+herkunft: ki-entwurf
+version: 1

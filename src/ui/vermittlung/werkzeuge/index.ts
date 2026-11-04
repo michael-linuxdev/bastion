@@ -7,6 +7,7 @@ import Dreieck from './Dreieck.svelte';
 import Einheitskreis from './Einheitskreis.svelte';
 import Graph from './Graph.svelte';
 import Histogramm from './Histogramm.svelte';
+import Stabdiagramm from './Stabdiagramm.svelte';
 import Zahlenstrahl from './Zahlenstrahl.svelte';
 
 // Parameter kommen ungeprüft aus dem Inhalt; jede Komponente prüft sie selbst.
@@ -18,6 +19,7 @@ export const WERKZEUG_KOMPONENTEN: Readonly<Record<string, Component<any>>> = {
   'einheitskreis@1': Einheitskreis,
   'graph@1': Graph,
   'histogramm@1': Histogramm,
+  'stabdiagramm@1': Stabdiagramm,
   'zahlenstrahl@1': Zahlenstrahl,
 };
 

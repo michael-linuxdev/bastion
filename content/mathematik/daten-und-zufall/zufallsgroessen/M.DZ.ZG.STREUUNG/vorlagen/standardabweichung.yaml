@@ -1,0 +1,24 @@
+# Standardabweichung – Niveau M. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.STREUUNG.STANDARDABWEICHUNG
+kompetenz: M.DZ.ZG.STREUUNG
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.standardabweichung@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Die Tabelle zeigt die Verteilung von X: ${tabelle}$ **Berechne** die [[Standardabweichung]] σ auf zwei Stellen.'
+hilfen:
+  - de: 'Berechne erst μ, dann die [[Varianz]].'
+  - de: 'Die [[Standardabweichung]] ist die [[Wurzel]] aus der [[Varianz]].'
+fehlerbilder:
+  wurzel:
+    de: 'Das ist die [[Varianz]]. Die [[Standardabweichung]] ist ihre [[Wurzel]].'
+    fv: FV.ZG.STREUMASS
+  ohne-quadrat:
+    de: 'Für die [[Varianz]] werden die Abweichungen quadriert. Du hast nur die Abstände genommen.'
+    fv: FV.ZG.VARIANZ-QUADRAT
+herkunft: ki-entwurf
+version: 1

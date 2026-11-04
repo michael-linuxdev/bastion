@@ -1,0 +1,33 @@
+# Varianz aus der Tabelle – Niveau G. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.STREUUNG.VARIANZ
+kompetenz: M.DZ.ZG.STREUUNG
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.varianz@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Die Tabelle zeigt die Verteilung von X: ${tabelle}$ **Berechne** die [[Varianz]] $V(X)$.'
+hilfen:
+  - de: 'Berechne zuerst den [[Erwartungswert]] μ.'
+  - de: '$V(X)$: Abweichung von μ quadrieren, mit der [[Wahrscheinlichkeit]] malnehmen, alles addieren.'
+fehlerbilder:
+  ohne-quadrat:
+    de: 'Die Abweichungen müssen quadriert werden. Du hast nur die Abstände genommen.'
+    fv: FV.ZG.VARIANZ-QUADRAT
+schritte:
+  - id: mittel
+    frage: { de: 'Wie groß ist der Erwartungswert μ?' }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+  - id: varianz
+    frage: { de: 'Mit $\mu = {mittel}$: Wie groß ist die Varianz?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      ohne-quadrat:
+        de: 'Quadriere jede Abweichung, bevor du malnimmst.'
+        fv: FV.ZG.VARIANZ-QUADRAT
+herkunft: ki-entwurf
+version: 1

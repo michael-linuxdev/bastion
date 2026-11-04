@@ -1,0 +1,82 @@
+id: M.DZ.ZG.STREUUNG
+kompetenz: M.DZ.ZG.STREUUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du [[Varianz]] und [[Standardabweichung]] und vergleichst damit das Risiko von Spielen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'X ist 2 mit 0,5 und 6 mit 0,5. Wie groß ist der [[Erwartungswert]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '8', fv: FV.ZG.UNGEWICHTET }] }
+    weiter: entdecken
+    bei: { FV.ZG.UNGEWICHTET: M.DZ.ZG.ERWARTUNG, sonst: M.DZ.ZG.ERWARTUNG }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Spiel A zahlt immer 4 € aus. Spiel B zahlt 2 € oder 6 € mit je 0,5. Beide haben den [[Erwartungswert]] 4 €. Wie weit liegen die Auszahlungen von B von 4 € entfernt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2' }
+    weiter: erklaeren-varianz
+  - id: erklaeren-varianz
+    typ: erklaeren
+    text:
+      de: 'Die **[[Varianz]]** misst, wie stark X um μ streut: Abweichung quadrieren, mit der [[Wahrscheinlichkeit]] malnehmen, addieren. Für B: $V(X) = (2 - 4)^2 \cdot 0{,}5 + (6 - 4)^2 \cdot 0{,}5 = 4$.'
+    bild: { werkzeug: stabdiagramm@1, parameter: { werte: [2, 4, 6], p: [0.5, 0, 0.5] } }
+    weiter: erklaeren-sigma
+  - id: erklaeren-sigma
+    typ: erklaeren
+    text:
+      de: 'Die **[[Standardabweichung]]** ist die [[Wurzel]] aus der [[Varianz]]: $\sigma = \sqrt{V(X)}$. Für B ist $\sigma = 2$: So weit liegen die Werte typisch vom Mittel. Großes σ heißt großes Risiko.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'X ist 0, 5 und 10 mit 0,25; 0,5; 0,25. $\mu = 5$, $V(X) = 25 \cdot 0{,}25 + 0 + 25 \cdot 0{,}25 = 12{,}5$, $\sigma \approx 3{,}54$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'X ist 1 oder 7, je mit 0,5. $\mu = 4$. Berechne die [[Varianz]].'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '3', fv: FV.ZG.VARIANZ-QUADRAT }] }
+    weiter: gegenbeispiel
+    bei: { FV.ZG.VARIANZ-QUADRAT: erklaeren-varianz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Für eine [[Zufallsgröße]] ist $V(X) = 16$. Mia sagt: „Dann ist $\sigma = 16$.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. $\sigma = \sqrt{16} = 4$.' }, richtig: true }
+        - { wert: { de: 'Ja. Varianz und Standardabweichung sind dasselbe.' }, fv: FV.ZG.STREUMASS }
+    weiter: merksatz
+    bei: { FV.ZG.STREUMASS: erklaeren-sigma }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$V(X) = (x_1 - \mu)^2 \cdot p_1 + (x_2 - \mu)^2 \cdot p_2 + \dots$, $\sigma = \sqrt{V(X)}$. Gleicher [[Erwartungswert]], größeres σ: mehr Risiko.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'X ist 3 oder 7, je mit 0,5. Wie groß ist σ?'
+    antwort:
+      optionen:
+        - { wert: { de: '2' }, richtig: true }
+        - { wert: { de: '4' }, fv: FV.ZG.STREUMASS }
+    weiter: uebergang
+    bei: { FV.ZG.STREUMASS: erklaeren-sigma }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst [[Varianzen]].'
+    vorlagen: [M.DZ.ZG.STREUUNG.VARIANZ]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

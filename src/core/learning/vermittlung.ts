@@ -49,6 +49,7 @@ export const WERKZEUGE: ReadonlySet<string> = new Set([
   'einheitskreis@1',
   'graph@1',
   'histogramm@1',
+  'stabdiagramm@1',
   'zahlenstrahl@1',
 ]);
 

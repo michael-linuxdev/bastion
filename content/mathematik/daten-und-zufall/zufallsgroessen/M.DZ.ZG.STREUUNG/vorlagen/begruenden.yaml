@@ -1,0 +1,24 @@
+# Gleicher Erwartungswert, anderes Risiko – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.STREUUNG.BEGRUENDEN
+kompetenz: M.DZ.ZG.STREUUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zg.risiko-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie weit liegen die Auszahlungen jeweils vom Mittel weg?'
+  - de: 'Eine größere [[Standardabweichung]] heißt mehr Risiko.'
+fehlerbilder:
+  ungewichtet:
+    de: 'Der [[Erwartungswert]] sagt nichts darüber, wie stark die Werte schwanken. Das misst die [[Standardabweichung]].'
+    fv: FV.ZG.UNGEWICHTET
+  wurzel:
+    de: 'Eine größere [[Varianz]] heißt mehr Streuung, also mehr Risiko, nicht weniger.'
+    fv: FV.ZG.STREUMASS
+herkunft: ki-entwurf
+version: 1

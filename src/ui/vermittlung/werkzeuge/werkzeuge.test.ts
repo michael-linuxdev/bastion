@@ -291,3 +291,20 @@ describe('Graph mit x-Achse in Vielfachen von π (graph@1, pi)', () => {
     expect(b.beschreibung.de).toContain('sin(x)');
   });
 });
+
+describe('Stabdiagramm (stabdiagramm@1)', () => {
+  it('prüft die Parameter und zeichnet je Wert einen Stab', async () => {
+    const { stabdiagrammAus, stabdiagrammBild } = await import('./stabdiagramm');
+    expect(stabdiagrammAus({ werte: [1, 2, 3], p: [0.2, 0.3, 0.5] }).p).toEqual([0.2, 0.3, 0.5]);
+    expect(stabdiagrammAus({ werte: [1, 2], p: [0.5, null] }).p).toEqual([0.5, undefined]);
+    // Summe nicht 1, falsche Länge, nicht aufsteigend: Standard
+    expect(stabdiagrammAus({ werte: [1, 2], p: [0.5, 0.6] }).werte).toEqual([0, 1]);
+    expect(stabdiagrammAus({ werte: [1, 2, 3], p: [0.5, 0.5] }).werte).toEqual([0, 1]);
+    expect(stabdiagrammAus({ werte: [2, 1], p: [0.5, 0.5] }).werte).toEqual([0, 1]);
+    const b = stabdiagrammBild({ werte: [1, 2, 5], p: [0.5, 0.3, null] });
+    expect(b.beschreibung.de).toBe(
+      'Stabdiagramm einer Verteilung: P(X = 1) = 0,5; P(X = 2) = 0,3; P(X = 5) = gesucht.',
+    );
+    expect(b.svg).toContain('>?<');
+  });
+});

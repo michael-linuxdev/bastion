@@ -1,0 +1,25 @@
+id: FV.ZG.STREUMASS
+name:
+  de: Verwechselt Varianz und Standardabweichung
+art: verwechslung
+beschreibung:
+  de: >-
+    Gibt die Varianz als Standardabweichung an oder deutet eine große Varianz als wenig Risiko. Dass σ die Wurzel aus der Varianz ist und beide die Streuung messen, ist nicht sicher.
+kompetenzen: [M.DZ.ZG.STREUUNG]
+erklaerung:
+  kurz:
+    de: 'Die [[Standardabweichung]] ist die [[Wurzel]] aus der [[Varianz]]: $\sigma = \sqrt{V(X)}$. Beide messen die Streuung: Je größer, desto mehr Risiko.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[Varianz]] und [[Standardabweichung]] gleichgesetzt.'
+    - teil: warum-nicht
+      de: 'Die [[Varianz]] hat quadrierte Einheiten, etwa €². Die [[Wurzel]] bringt sie zurück in €.'
+    - teil: so-stimmt-es
+      de: 'Erst die [[Varianz]], dann die [[Wurzel]] ziehen.'
+gegenbeispiel:
+  de: 'X ist 0 oder 4, je mit 0,5. $V(X) = 4$, aber die Werte liegen nur 2 vom Mittel weg: $\sigma = 2$.'
+rueckweg:
+  vermittlung: M.DZ.ZG.STREUUNG#erklaeren-sigma
+kontrast: [M.DZ.ZG.STREUUNG.STANDARDABWEICHUNG, M.DZ.ZG.STREUUNG.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

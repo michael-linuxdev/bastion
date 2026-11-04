@@ -1,0 +1,25 @@
+id: FV.ZG.SUMME-EINS
+name:
+  de: Beachtet nicht, dass die Verteilung zusammen 1 ergibt
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Ergänzt eine fehlende Wahrscheinlichkeit mit der Summe der anderen oder bemerkt nicht, dass eine Tabelle zusammen mehr oder weniger als 1 ergibt. Dass irgendein Wert sicher eintritt, ist nicht mit der Summe 1 verbunden.
+kompetenzen: [M.DZ.ZG.VERTEILUNG]
+erklaerung:
+  kurz:
+    de: 'Irgendeinen Wert nimmt X sicher an. Darum ergeben alle Wahrscheinlichkeiten einer [[Wahrscheinlichkeitsverteilung]] zusammen genau 1. Der fehlende Wert ist, was bis 1 fehlt.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die bekannten Wahrscheinlichkeiten addiert und das Ergebnis eingetragen.'
+    - teil: warum-nicht
+      de: 'Dann wäre die [[Summe]] aller Werte doppelt so groß wie die bekannten. Sie muss aber 1 sein.'
+    - teil: so-stimmt-es
+      de: 'Fehlender Wert $= 1 -$ [[Summe]] der bekannten Werte.'
+gegenbeispiel:
+  de: 'Münze: $P(\text{Kopf}) = 0{,}5$. Dann ist $P(\text{Zahl}) = 1 - 0{,}5 = 0{,}5$, nicht noch einmal die [[Summe]].'
+rueckweg:
+  vermittlung: M.DZ.ZG.VERTEILUNG#erklaeren-verteilung
+kontrast: [M.DZ.ZG.VERTEILUNG.ERGAENZEN]
+herkunft: ki-entwurf
+version: 1

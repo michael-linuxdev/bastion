@@ -8,16 +8,16 @@ beschreibung:
 kompetenzen: [M.DZ.ST.STREUUNG]
 erklaerung:
   kurz:
-    de: 'Spannweite: Maximum minus Minimum. Standardabweichung: [[Wurzel]] aus der Varianz, dem Mittel der quadrierten Abweichungen.'
+    de: 'Spannweite: Maximum minus Minimum. [[Standardabweichung]]: [[Wurzel]] aus der [[Varianz]], dem Mittel der quadrierten Abweichungen.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast einen Schritt ausgelassen oder eine Zwischengröße als Ergebnis genommen.'
     - teil: warum-nicht
-      de: 'Die Varianz hat die Einheit zum Quadrat. Erst die [[Wurzel]] bringt die Streuung zurück in die Einheit der Daten.'
+      de: 'Die [[Varianz]] hat die Einheit zum Quadrat. Erst die [[Wurzel]] bringt die Streuung zurück in die Einheit der Daten.'
     - teil: so-stimmt-es
       de: 'Schreibe die Schritte auf: Mittel, Abweichungen, Quadrate, Mittel der Quadrate, [[Wurzel]].'
 gegenbeispiel:
-  de: 'Daten 2; 4; 6: Varianz $\frac{8}{3} \approx 2{,}7$, Standardabweichung $\approx 1{,}6$.'
+  de: 'Daten 2; 4; 6: [[Varianz]] $\frac{8}{3} \approx 2{,}7$, [[Standardabweichung]] $\approx 1{,}6$.'
 rueckweg:
   vermittlung: M.DZ.ST.STREUUNG#erklaeren-streuung
 kontrast: [M.DZ.ST.STREUUNG.BESTIMMEN]
