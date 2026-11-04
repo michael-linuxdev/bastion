@@ -44,7 +44,7 @@ Grundlage: Entscheidung 3 (zuerst, was das Abitur trägt) und 7 (B6, B7, B10 vor
 | **10-4** | Feld AD (4) | 1 | `dreieck@1` reicht |
 | **10-5** | Feld ZG (3), mit SVG-Baustein **`stabdiagramm`** | 1 | – |
 | **10-6** | Feld FS (4) | 1 | – |
-| **10-7** | KP.STUMPF, PZ.KREDIT (2) | 1 | – |
+| **10-7** | ~~KP.STUMPF, PZ.KREDIT (2)~~ *gebaut 03.11.2026:* 8 Generatoren (`kp.stumpf-*`, `kp.kegelstumpf-masse`, `pz.sparplan`, `pz.tilgung`, `pz.effektiv-aussage`), 8 Vorlagen (G/M/E, 4 mit Zwischenschritten), 2 Erstvermittlungen, 4 neue Fehlvorstellungen, 4 Begriffe; KP.STUMPF nur Oberschule. Geld wird je Jahr auf ganze Cent gerundet (Aufgabe sagt es) | 1 | – |
 | **10-Ende** | Inhaltsdurchsicht Klasse 10, Fehler-Schüler, Vorschau für den PV | 1 | – |
 | **11-0** | B9: Jgst. 11/12 wählbar, **Kurs GK/LK** (Einstellung), LK-Kompetenzen nur bei LK | 1 | – |
 | **11-0b** | B10: `hilfsmittelfrei: true` je Vorlage, Pflicht-Test „ohne Rechner lösbar“ | 1 | – |

@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rechnet Masse = Volumen : Dichte oder Volumen = Masse · Dichte. Die Formel m = ρ · V wird nicht
     sicher umgestellt.
-kompetenzen: [M.GM.KP.MASSE]
+kompetenzen: [M.GM.KP.MASSE, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Masse = [[Dichte]] · [[Volumen]]. Für das Volumen teilst du die Masse durch die Dichte, für die Dichte die Masse durch das Volumen.'

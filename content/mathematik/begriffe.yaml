@@ -801,7 +801,7 @@ begriffe:
       de: 'Ein Körper mit einem Vieleck als Grundfläche und Dreiecken als Seitenflächen, die sich oben in einer Spitze treffen.'
   - id: pyramidenstumpf
     wort: { de: Pyramidenstumpf }
-    formen: [Pyramidenstumpf]
+    formen: [Pyramidenstumpf, Pyramidenstumpfs]
     erklaerung:
       de: 'Eine Pyramide, deren Spitze parallel zur Grundfläche abgeschnitten ist. Die Seitenflächen sind Trapeze.'
   - id: zweitafelbild
@@ -1000,6 +1000,27 @@ begriffe:
     formen: [Mehrwertsteuer]
     erklaerung:
       de: 'Eine Steuer, die auf den Preis aufgeschlagen wird, in Deutschland meist 19 %. Netto ist der Preis ohne, brutto der Preis mit Mehrwertsteuer.'
+  # Klasse 10: Stümpfe, Sparpläne und Kredite
+  - id: kegelstumpf
+    wort: { de: Kegelstumpf }
+    formen: [Kegelstumpf, Kegelstumpfs]
+    erklaerung:
+      de: 'Ein Kegel, dessen Spitze parallel zum Grundkreis abgeschnitten ist. Unten und oben ist je ein Kreis, oben der kleinere.'
+  - id: sparplan
+    wort: { de: Sparplan }
+    formen: [Sparplan, Sparplans]
+    erklaerung:
+      de: 'Man zahlt regelmäßig, etwa jedes Jahr, denselben Betrag auf ein Konto ein. Das Geld bekommt Zinsen, auch die Zinsen selbst.'
+  - id: kredit
+    wort: { de: Kredit }
+    formen: [Kredit, Kredits]
+    erklaerung:
+      de: 'Geld, das man sich von einer Bank leiht. Man zahlt es in Raten zurück und bezahlt dafür Zinsen.'
+  - id: restschuld
+    wort: { de: Restschuld }
+    formen: [Restschuld]
+    erklaerung:
+      de: 'Der Teil eines Kredits, der noch nicht zurückgezahlt ist. Auf die Restschuld kommen weiter Zinsen.'
   - id: ratenkauf
     wort: { de: Ratenkauf }
     formen: [Ratenkauf, Raten]

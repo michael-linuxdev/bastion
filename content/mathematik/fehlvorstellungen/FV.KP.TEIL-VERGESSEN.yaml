@@ -5,7 +5,7 @@ art: rechenfehler
 beschreibung:
   de: >-
     Rechnet beim Kegel nur den Mantel als Oberfläche, beim zusammengesetzten Körper nur einen Teilkörper oder nimmt eine ganze statt einer halben Kugel.
-kompetenzen: [M.GM.KP.ZUSAMMENGESETZT]
+kompetenzen: [M.GM.KP.ZUSAMMENGESETZT, M.GM.KP.STUMPF]
 erklaerung:
   kurz:
     de: 'Liste alle Teile auf: [[Grundfläche]] und [[Mantel]], alle Teilkörper, und prüfe, ob eine Kugel ganz oder halb ist.'

@@ -1,0 +1,25 @@
+id: FV.PZ.TILGUNG-ZINS
+name:
+  de: Zinsen beim Kredit vergessen
+art: falsche-regel
+beschreibung:
+  de: >-
+    Zieht beim Kredit die Rate einfach von der Schuld ab oder rechnet die Zinsen jedes Jahr vom ganzen Kredit. Dass die Rate zuerst die Zinsen der Restschuld bezahlt, fehlt.
+kompetenzen: [M.ZO.PZ.KREDIT]
+erklaerung:
+  kurz:
+    de: 'Auf die [[Restschuld]] kommen jedes Jahr [[Zinsen]], dann wird die Rate abgezogen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Rate direkt von der Schuld abgezogen oder die [[Zinsen]] vom ganzen [[Kredit]] gerechnet.'
+    - teil: warum-nicht
+      de: 'Die Bank will jedes Jahr [[Zinsen]] auf das, was noch geschuldet ist.'
+    - teil: so-stimmt-es
+      de: 'Erst [[Zinsen]] auf die [[Restschuld]] dazu, dann die Rate ab.'
+gegenbeispiel:
+  de: '[[Kredit]] 2000 €, 5 %, Rate 600 €: [[Restschuld]] 1500 €, nicht 1400 €.'
+rueckweg:
+  vermittlung: M.ZO.PZ.KREDIT#erklaeren-tilgung
+kontrast: [M.ZO.PZ.KREDIT.TILGUNG]
+herkunft: ki-entwurf
+version: 1

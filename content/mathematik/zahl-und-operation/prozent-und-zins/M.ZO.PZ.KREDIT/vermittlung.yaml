@@ -1,0 +1,83 @@
+id: M.ZO.PZ.KREDIT
+kompetenz: M.ZO.PZ.KREDIT
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du, wie ein [[Sparplan]] wächst und wie ein [[Kredit]] kleiner wird.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Auf dem Konto liegen 500 €. Es gibt 2 % [[Zinsen]]. Wie viel Geld ist nach einem Jahr auf dem Konto in €?'
+    antwort:
+      eingabe: { art: zahl, loesung: '510', fehler: [{ wert: '10', fv: FV.PZ.NUR-AENDERUNG }] }
+    weiter: entdecken
+    bei: { FV.PZ.NUR-AENDERUNG: M.ZO.PZ.ZINS, sonst: M.ZO.PZ.ZINS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Mia zahlt jedes Jahr am Anfang 500 € ein. Bekommt die zweite Einzahlung im zweiten Jahr auch [[Zinsen]]?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, sie liegt das ganze zweite Jahr auf dem Konto.' }, richtig: true }
+        - { wert: { de: 'Nein, nur die erste Einzahlung bekommt Zinsen.' }, fv: FV.PZ.SPARPLAN }
+    weiter: erklaeren-sparplan
+  - id: erklaeren-sparplan
+    typ: erklaeren
+    text:
+      de: 'Beim [[Sparplan]] rechnest du Jahr für Jahr: alter Stand plus Einzahlung, dann mal den Zinsfaktor, etwa 1,02 bei 2 %. So bekommt jedes Geld [[Zinsen]], auch die Zinsen vom Vorjahr.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '500 € jedes Jahr, 2 %. Jahr 1: $500 \cdot 1{,}02 = 510$ €. Jahr 2: $(510 + 500) \cdot 1{,}02 = 1030{,}20$ €.'
+    weiter: erklaeren-tilgung
+  - id: erklaeren-tilgung
+    typ: erklaeren
+    text:
+      de: 'Beim [[Kredit]] ist es umgekehrt: Auf die Schuld kommen jedes Jahr [[Zinsen]], dann wird die Rate abgezogen. Was übrig bleibt, ist die [[Restschuld]]. Nur der Teil der Rate über den Zinsen tilgt die Schuld.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '[[Kredit]] 2000 €, 5 % [[Zinsen]], Rate 600 € am Jahresende. Wie hoch ist die [[Restschuld]] nach einem Jahr in €?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1500', fehler: [{ wert: '1400', fv: FV.PZ.TILGUNG-ZINS }] }
+    weiter: gegenbeispiel
+    bei: { FV.PZ.TILGUNG-ZINS: erklaeren-tilgung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: '[[Kredit]] A: 4 % und 80 € Gebühr. Kredit B: 5 % ohne Gebühr. Beide über 5000 € für ein Jahr. Lisa sagt: „A ist billiger.“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. A kostet 200 € + 80 € = 280 €, B nur 250 €.' }, richtig: true }
+        - { wert: { de: 'Ja, A hat den kleineren Zinssatz.' }, fv: FV.PZ.EFFEKTIV }
+    weiter: merksatz
+    bei: { FV.PZ.EFFEKTIV: erklaeren-tilgung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Sparen und [[Kredit]] rechnest du Jahr für Jahr. Beim [[Sparplan]]: Stand plus Einzahlung, dann [[Zinsen]] dazu. Beim [[Kredit]]: Zinsen dazu, dann Rate ab. Angebote vergleichst du mit allen Kosten.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ole hat 1000 € Schulden, 3 % [[Zinsen]], und zahlt am Jahresende 300 € zurück. Wie hoch ist seine [[Restschuld]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '730 €' }, richtig: true }
+        - { wert: { de: '700 €' }, fv: FV.PZ.TILGUNG-ZINS }
+    weiter: uebergang
+    bei: { FV.PZ.TILGUNG-ZINS: erklaeren-tilgung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst einen [[Sparplan]].'
+    vorlagen: [M.ZO.PZ.KREDIT.SPARPLAN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

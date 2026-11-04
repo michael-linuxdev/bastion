@@ -1,0 +1,42 @@
+# Sparpläne, Kredite und Tilgung – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.ZO.PZ.KREDIT
+fach: mathematik
+bereich: zahl-und-operation
+feld: prozent-und-zins
+titel:
+  de: 'Sparpläne und Kredite'
+kann_satz:
+  de: 'Ich kann Sparpläne, Kredite und Tilgung berechnen und vergleichen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.ZO.PZ.ZINS
+  - M.SF.EX.SACH
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Kontostand eines Sparplans Jahr für Jahr berechnen.'
+  M:
+    beschreibung:
+      de: 'Die Restschuld eines Kredits mit fester Rate Jahr für Jahr berechnen.'
+  E:
+    beschreibung:
+      de: 'Kreditangebote mit allen Kosten vergleichen und begründen, welches günstiger ist.'
+kmk:
+  leitidee: L1
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Mathematik im Alltag'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 5 Vernetzung: Zinsrechnung'
+version: 1

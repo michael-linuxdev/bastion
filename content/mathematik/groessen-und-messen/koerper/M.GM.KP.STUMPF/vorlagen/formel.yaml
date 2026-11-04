@@ -1,0 +1,27 @@
+# Stumpfformel für den quadratischen Pyramidenstumpf. Entwurf: noch nicht geprüft.
+id: M.GM.KP.STUMPF.FORMEL
+kompetenz: M.GM.KP.STUMPF
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: kp.stumpf-formel@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Ein [[Pyramidenstumpf]] hat eine quadratische [[Grundfläche]] mit der [[Kante]] {a} cm und eine quadratische [[Deckfläche]] mit der Kante {ad} cm. Er ist {h} cm hoch. **Berechne** sein [[Volumen]] in cm³. Runde auf eine [[Nachkommastelle]].'
+hilfen:
+  - de: '$V = \frac{h}{3} \cdot (G + \sqrt{G \cdot D} + D)$ mit [[Grundfläche]] G und [[Deckfläche]] D.'
+  - de: 'Hier ist $G = a^2$ und $D = a_2^2$, also $\sqrt{G \cdot D} = a \cdot a_2$.'
+fehlerbilder:
+  drittel:
+    de: 'In der Stumpfformel steht $\frac{h}{3}$, nicht h. Teile noch durch 3.'
+    fv: FV.KP.PYRAMIDE-DRITTEL
+  prisma:
+    de: 'G · h wäre ein [[Prisma]]. Der Stumpf wird nach oben schmaler.'
+    fv: FV.KP.STUMPF-PRISMA
+  mittel:
+    de: 'Der Mittelwert von G und D mal h passt nur zu einem Körper mit geraden Seiten wie einem [[Prisma]]. Nimm die Stumpfformel.'
+    fv: FV.KP.STUMPF-PRISMA
+herkunft: ki-entwurf
+version: 1
