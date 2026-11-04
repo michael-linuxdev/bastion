@@ -64,6 +64,12 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
 
+### Stand 04.11.2026: Strang ruht (PV)
+
+PV nach #274: „Immer noch ruckelt es, sieht aber schon ziemlich nice aus. Lassen wir erstmal so. Fokus ab jetzt Lernkern.“ Der Grafik-Strang ruht. Für später:
+- **Ruckeln auf dem iPhone:** Der Absturz ist behoben (#256, #272), flüssig ist es noch nicht. Ansatzpunkte: Bildrate der Bühne bei Ruhe senken (Pixi-Ticker nur bei Bewegung), Kulisse beim Zoomen nicht bei jedem Schritt neu ausrichten (Culling mit Abstand), Bewohner/Wesen/Fahnen in einem gemeinsamen Takt mit 30 Bildern je Sekunde, Messung mit Safari-Webinspektor am echten Gerät.
+- Entscheidung zu BASEBAU §8c (P6) weiter offen.
+
 ### Stand 03.11.2026 spät (Ende der Sitzung)
 
 Nach den fünf Punkten unten kamen auf Wunsch des PV hinzu (alle gemergt, je ein PR):
