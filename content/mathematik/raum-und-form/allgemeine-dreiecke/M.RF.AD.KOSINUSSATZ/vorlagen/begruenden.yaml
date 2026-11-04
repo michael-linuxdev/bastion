@@ -1,0 +1,24 @@
+# Pythagoras als Sonderfall – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.AD.KOSINUSSATZ.BEGRUENDEN
+kompetenz: M.RF.AD.KOSINUSSATZ
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ad.pythagoras-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wie groß ist $\cos 90°$?'
+  - de: 'Was bleibt vom [[Kosinussatz]] übrig, wenn der letzte Summand 0 ist?'
+fehlerbilder:
+  satz-wahl:
+    de: 'Der [[Kosinussatz]] gilt in jedem Dreieck, auch im rechtwinkligen. Dort wird er zum Satz des Pythagoras.'
+    fv: FV.AD.SATZ-WAHL
+  vorzeichen:
+    de: '$\cos 90° = 0$, nicht negativ. Negativ wird der Kosinus erst bei stumpfen Winkeln.'
+    fv: FV.AD.KOSINUS-VORZEICHEN
+herkunft: ki-entwurf
+version: 1

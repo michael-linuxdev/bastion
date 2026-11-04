@@ -2333,6 +2333,16 @@ test('Klasse 10: Einheitskreis mit Regler und Bogenmaß in der Erstvermittlung (
   await page.screenshot({ path: test.info().outputPath('einheitskreis.png'), fullPage: true });
 });
 
+test('Klasse 10: Sinussatz mit Dreiecksskizze, gerundetes Ergebnis (Feld AD)', async ({ page }) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await bereichOeffnen(page, 'Raum und Form');
+  await thema(page, /^Sinussatz/);
+  await expect(page.getByRole('img', { name: /Skizze eines Dreiecks ABC/ })).toBeVisible();
+  await expect(page.getByLabel('Deine Antwort')).toBeVisible();
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);

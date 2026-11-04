@@ -1,0 +1,24 @@
+# Winkel aus drei Seiten – Niveau M. Entwurf: noch nicht geprüft.
+id: M.RF.AD.KOSINUSSATZ.WINKEL
+kompetenz: M.RF.AD.KOSINUSSATZ
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.kosinussatz-winkel@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Ein Dreieck hat die Seiten $a = {a}$ cm, $b = {b}$ cm und $c = {c}$ cm. **Berechne** γ in [[Grad]] auf eine Stelle nach dem Komma.'
+hilfen:
+  - de: 'γ liegt c gegenüber. [[Kosinussatz]]: $c^2 = a^2 + b^2 - 2ab \cdot \cos \gamma$.'
+  - de: 'Umgestellt: $\cos \gamma = \frac{a^2 + b^2 - c^2}{2ab}$, dann $\cos^{-1}$.'
+fehlerbilder:
+  vorzeichen:
+    de: 'Im [[Zähler]] steht $a^2 + b^2 - c^2$. Das [[Vorzeichen]] ist vertauscht.'
+    fv: FV.AD.KOSINUS-VORZEICHEN
+  bogenmass:
+    de: 'Das Ergebnis ist im [[Bogenmaß]]. Stelle den Taschenrechner auf [[Grad]] (DEG).'
+    fv: FV.TR.BOGENMASS
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,39 @@
+# Flussbreite vermessen – Niveau G. Entwurf: noch nicht geprüft.
+id: M.RF.AD.SACH.VERMESSUNG
+kompetenz: M.RF.AD.SACH
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.vermessung@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Zwei Punkte A und B am Ufer liegen ${s}$ m auseinander. Ein Baum C steht am anderen Ufer. Bei A misst man den [[Winkel]] $\alpha = {alpha}°$, bei B $\beta = {beta}°$. **Berechne** die Entfernung b von A zum Baum in m auf eine Stelle.'
+hilfen:
+  - de: 'Erst den [[Winkel]] γ beim Baum aus der [[Innenwinkelsumme]].'
+  - de: 'Dann der [[Sinussatz]] mit c und γ: $b = \frac{c \cdot \sin \beta}{\sin \gamma}$.'
+fehlerbilder:
+  paar:
+    de: 'Zu b gehört der [[Gegenwinkel]] β, nicht α.'
+    fv: FV.AD.PAAR
+  rechtwinklig:
+    de: 'Du hast gerechnet, als wäre γ ein [[rechter Winkel]]. Teile noch durch $\sin \gamma$.'
+    fv: FV.AD.SATZ-WAHL
+schritte:
+  - id: gamma
+    frage: { de: 'Wie groß ist der Winkel γ beim Baum?' }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+  - id: seite
+    frage: { de: 'Mit $\gamma = {gamma}°$: Wie lang ist b? Runde auf eine Stelle.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      paar:
+        de: 'Zu b gehört der [[Gegenwinkel]] β.'
+        fv: FV.AD.PAAR
+      rechtwinklig:
+        de: 'γ ist kein [[rechter Winkel]]. Teile durch $\sin \gamma$.'
+        fv: FV.AD.SATZ-WAHL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Herleitung der Flächenformel – Niveau E. Entwurf: noch nicht geprüft.
+id: M.GM.AD.FLAECHE.BEGRUENDEN
+kompetenz: M.GM.AD.FLAECHE
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ad.flaeche-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle**.'
+hilfen:
+  - de: 'Zeichne die [[Höhe]] ein. Welches rechtwinklige Dreieck enthält γ?'
+  - de: 'In diesem Dreieck ist b die [[Hypotenuse]].'
+fehlerbilder:
+  nicht-halbiert:
+    de: 'Der [[Flächeninhalt]] eines Dreiecks ist $\frac{1}{2} \cdot g \cdot h$, nicht $g \cdot h$.'
+    fv: FV.FL.NICHT-HALBIERT
+  paar:
+    de: 'Die [[Höhe]] liegt im Teildreieck mit der Seite b, nicht mit a. Darum $h_a = b \cdot \sin \gamma$.'
+    fv: FV.AD.PAAR
+herkunft: ki-entwurf
+version: 1

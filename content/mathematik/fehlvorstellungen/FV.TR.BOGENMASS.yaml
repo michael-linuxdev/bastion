@@ -5,7 +5,7 @@ art: rechenfehler
 beschreibung:
   de: >-
     Erhält für 10 · sin 30° den Wert −9,9 statt 5, weil der Taschenrechner auf RAD steht. Dass Winkel in Grad eine Einstellung DEG brauchen, ist nicht bekannt oder wird nicht geprüft.
-kompetenzen: [M.RF.TR.BERECHNEN, M.RF.TR.SACH]
+kompetenzen: [M.RF.TR.BERECHNEN, M.RF.TR.SACH, M.RF.AD.SINUSSATZ, M.RF.AD.KOSINUSSATZ]
 erklaerung:
   kurz:
     de: 'Stelle den Taschenrechner auf [[Grad]] (DEG). Prüfe mit $\sin 30° = 0{,}5$: Kommt etwas anderes heraus, stimmt die Einstellung nicht.'

@@ -1,0 +1,24 @@
+# Lösungsplan: welcher Satz zuerst? – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.AD.SACH.BEGRUENDEN
+kompetenz: M.RF.AD.SACH
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ad.plan-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle**.'
+hilfen:
+  - de: 'Kennst du eine Seite und ihren [[Gegenwinkel]]? Dann hilft der [[Sinussatz]].'
+  - de: 'Sonst: zwei Seiten und der [[Winkel]] dazwischen oder drei Seiten – [[Kosinussatz]].'
+fehlerbilder:
+  sinussatz:
+    de: 'Der [[Sinussatz]] braucht ein Paar aus Seite und [[Gegenwinkel]]. Prüfe, ob du eins hast.'
+    fv: FV.AD.SATZ-WAHL
+  pythagoras:
+    de: 'Der Satz des Pythagoras gilt nur im rechtwinkligen Dreieck.'
+    fv: FV.AD.SATZ-WAHL
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Winkel mit dem Sinussatz – Niveau M. Entwurf: noch nicht geprüft.
+id: M.RF.AD.SINUSSATZ.WINKEL
+kompetenz: M.RF.AD.SINUSSATZ
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.sinussatz-winkel@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Im Dreieck ABC ist $a = {a}$ cm, $b = {b}$ cm und $\alpha = {alpha}°$. **Berechne** β in [[Grad]] auf eine Stelle nach dem Komma.'
+hilfen:
+  - de: '[[Sinussatz]] nach $\sin \beta$ umstellen: $\sin \beta = \frac{b \cdot \sin \alpha}{a}$.'
+  - de: 'Den [[Winkel]] liefert $\sin^{-1}$ auf dem Taschenrechner.'
+fehlerbilder:
+  paar:
+    de: 'Du hast a und b vertauscht. β liegt b gegenüber, also steht b im [[Zähler]]: $\sin \beta = \frac{b \cdot \sin \alpha}{a}$.'
+    fv: FV.AD.PAAR
+  bogenmass:
+    de: 'Das Ergebnis ist im [[Bogenmaß]]. Stelle den Taschenrechner auf [[Grad]] (DEG).'
+    fv: FV.TR.BOGENMASS
+herkunft: ki-entwurf
+version: 1

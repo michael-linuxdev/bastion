@@ -1,0 +1,25 @@
+id: FV.AD.PAAR
+name:
+  de: Nimmt im Sinussatz das falsche Paar aus Seite und Winkel
+art: verwechslung
+beschreibung:
+  de: >-
+    Setzt im Sinussatz eine Seite mit einem Winkel zusammen, der ihr nicht gegenüberliegt, etwa a mit β. Dass jede Seite zu ihrem Gegenwinkel gehört, ist nicht sicher.
+kompetenzen: [M.RF.AD.SINUSSATZ, M.GM.AD.FLAECHE, M.RF.AD.SACH]
+erklaerung:
+  kurz:
+    de: 'Im [[Sinussatz]] gehört jede Seite zu ihrem [[Gegenwinkel]]: a zu α, b zu β, c zu γ. Der [[Winkel]] liegt der Seite gegenüber.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast eine Seite mit einem [[Winkel]] daneben verbunden.'
+    - teil: warum-nicht
+      de: 'Je größer ein [[Winkel]], desto länger die Seite gegenüber. Nur dieses Paar hat immer denselben [[Quotienten]].'
+    - teil: so-stimmt-es
+      de: 'Markiere in der Skizze jedes Paar mit derselben Farbe, bevor du einsetzt.'
+gegenbeispiel:
+  de: 'Im gleichseitigen Dreieck wäre jedes Paar gleich. Bei $\alpha = 90°$ ist a die längste Seite, nicht b.'
+rueckweg:
+  vermittlung: M.RF.AD.SINUSSATZ#erklaeren-paar
+kontrast: [M.RF.AD.SINUSSATZ.SEITE, M.RF.AD.SINUSSATZ.WINKEL, M.RF.AD.SACH.VERMESSUNG]
+herkunft: ki-entwurf
+version: 1

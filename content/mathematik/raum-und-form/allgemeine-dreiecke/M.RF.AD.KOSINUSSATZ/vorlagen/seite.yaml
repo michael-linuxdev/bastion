@@ -1,0 +1,45 @@
+# Dritte Seite mit dem Kosinussatz – Niveau G. Entwurf: noch nicht geprüft.
+id: M.RF.AD.KOSINUSSATZ.SEITE
+kompetenz: M.RF.AD.KOSINUSSATZ
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.kosinussatz-seite@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Im Dreieck ABC ist $b = {b}$ cm, $c = {c}$ cm und $\alpha = {alpha}°$. **Berechne** a in cm auf eine Stelle nach dem Komma.'
+hilfen:
+  - de: '[[Kosinussatz]]: $a^2 = b^2 + c^2 - 2bc \cdot \cos \alpha$.'
+  - de: 'Am Ende die [[Wurzel]] ziehen.'
+fehlerbilder:
+  vorzeichen:
+    de: 'Im [[Kosinussatz]] steht ein Minus: $- 2bc \cdot \cos \alpha$.'
+    fv: FV.AD.KOSINUS-VORZEICHEN
+  pythagoras:
+    de: 'Das ist der Satz des Pythagoras. Er gilt nur mit rechtem [[Winkel]]. Hier fehlt noch $- 2bc \cdot \cos \alpha$.'
+    fv: FV.AD.SATZ-WAHL
+  wurzel-vergessen:
+    de: 'Das ist erst $a^2$. Ziehe noch die [[Wurzel]].'
+    fv: FV.PY.WURZEL-VERGESSEN
+schritte:
+  - id: quadrat
+    frage: { de: 'Wie groß ist $a^2$? Runde auf eine Stelle.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      vorzeichen:
+        de: 'Achte auf das Minus vor $2bc \cdot \cos \alpha$.'
+        fv: FV.AD.KOSINUS-VORZEICHEN
+      pythagoras:
+        de: 'Es fehlt noch $- 2bc \cdot \cos \alpha$. Ohne [[rechten Winkel]] gilt Pythagoras nicht.'
+        fv: FV.AD.SATZ-WAHL
+  - id: seite
+    frage: { de: 'Mit $a^2 \approx {quadrat}$: Wie lang ist a?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      wurzel-vergessen:
+        de: 'Das ist noch $a^2$. Ziehe die [[Wurzel]].'
+        fv: FV.PY.WURZEL-VERGESSEN
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,21 @@
+# Flächeninhalt mit ½·a·b·sin γ – Niveau G. Entwurf: noch nicht geprüft.
+id: M.GM.AD.FLAECHE.DREIECK
+kompetenz: M.GM.AD.FLAECHE
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.flaeche@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Ein Dreieck hat $a = {a}$ cm, $b = {b}$ cm und den [[Winkel]] $\gamma = {gamma}°$ zwischen a und b. **Berechne** den [[Flächeninhalt]] in cm² auf eine Stelle nach dem Komma.'
+hilfen:
+  - de: '$A = \frac{1}{2} \cdot a \cdot b \cdot \sin \gamma$'
+  - de: 'Stelle den Taschenrechner auf [[Grad]] (DEG).'
+fehlerbilder:
+  nicht-halbiert:
+    de: 'Du hast das Doppelte. Ein Dreieck ist ein halbes [[Parallelogramm]]: $\frac{1}{2}$ nicht vergessen.'
+    fv: FV.FL.NICHT-HALBIERT
+herkunft: ki-entwurf
+version: 1
