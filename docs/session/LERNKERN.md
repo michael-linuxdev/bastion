@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 04.11.2026, Vormittag (PV: „Fokus ab jetzt Lernkern“) · **Fehler-Schüler ohne Verdachtsfälle:** alle Arten A–E auf 0 (#276, #277), Grenze in der CI überall 0. Neu dafür: `Generator.fehlerbildIdsFuer` (Fehlerbilder je Parameter) und `rueckweg.je` (Rückweg je Kompetenz), INHALTSFORMAT §6, §10.1, §16. Offen: Review-Vermerke der geänderten Dateien sind weg, darunter `gleichnamig.yaml` aus dem Musterfeld (vorher Stufe 1). · Davor, Nachtschicht: **Aktueller Auftrag: Klasse 9 bis 12 (K-30, `docs/session/KLASSE-9-12.md`).** **Klasse 10 vollständig als Entwurf:** alle 22 Kompetenzen mit G/M/E, Erstvermittlung und Fehlerkatalog (EX, LG, TF, AD, ZG, FS, KP.STUMPF, PZ.KREDIT), neue Werkzeuge `einheitskreis@1` und `stabdiagramm@1`, `graph@1` mit `pi: true`, Inhaltsdurchsicht (`KLASSE-10-12-BAUPLAN.md` §8). **Bausteine für 11/12 gebaut:** Jahrgang 11/12 mit Kurs GK/LK (Einstellung `lernen.kurs`), Kennzeichen „Ohne Taschenrechner“ (`hilfsmittelfrei`), SVG-Tabellen (`src/generators/tabelle.ts`). **Nächster Schritt:** Inhalte 11/12 ab Etappe 11-1 (GW) nach dem Bauplan; dafür hat der PV noch nichts freigegeben (Auftrag der Nachtschicht endete mit 11-0c). Offen: genaue Rundungsregel aus den Lehrplan-PDFs (bisher: ab 5 aufrunden, eine Stelle bei Längen und Winkeln, zwei bei σ und Logarithmen). · Zuvor (03.11.): Klasse 9 fertig, Niveau E für Klasse 5 bis 8, Klasse 10 wählbar.
+Stand: 04.11.2026, Ende der Sitzung (PV: „Fokus ab jetzt Lernkern“, Grafik ruht) · **Aktueller Auftrag: Test U4b vorbereiten** (siehe „Übergabe der Sitzung 04.11.2026“ unten). Fehler-Schüler ohne Verdachtsfälle (#276, #277), Generalprobe der Auswertung, Testunterlagen und Musterfeld auf Stufe 1 (#278). · Danach weiter mit Jahrgang 11/12 ab 11-1 (`KLASSE-10-12-BAUPLAN.md`), sobald der PV es freigibt.
 
 ---
 
@@ -199,6 +199,30 @@ Hier trägt der andere Strang ein, was er in diesem Bereich braucht (gemeinsamer
 Steht in `docs/session/LERNKERN-PROTOKOLL.md`. Neue Zeilen dort unten anhängen, nicht hier.
 
 ---
+
+## Übergabe der Sitzung 04.11.2026 (Fehler-Schüler, U4b vorbereitet)
+
+**Startsatz für die nächste Sitzung:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/LERNKERN.md`, Abschnitt ‚Übergabe der Sitzung 04.11.2026‘. Arbeite im Strang Lernkern. Erledige zuerst die offenen Punkte zu U4b, dann frag den PV, ob 11-1 (Grenzwerte) beginnt.“
+
+**Erledigt (alle gemergt):**
+
+- **Fehler-Schüler ohne Verdachtsfälle** (#276, #277): A, B, C, D, E alle 0, Grenze in der CI überall 0.
+  - Neu `Generator.fehlerbildIdsFuer(parameter)`: Eine Vorlage führt nur Fehlerbilder auf, die mit ihren Parametern vorkommen (INHALTSFORMAT §6, §10.1). Fünf tote Fehlerbilder entfernt, Aufgaben unverändert.
+  - Neu `rueckweg.je` mit `rueckwegFuer(fv, kompetenz)`: eigener Rückweg je Kompetenz, wenn der allgemeine in eine spätere Kompetenz führt (INHALTSFORMAT §16). App.svelte nutzt ihn (eigener Commit).
+- **U4b vorbereitet** (#278):
+  - Generalprobe: gespielte Testerin in der echten App bis zum Bericht von `pnpm auswertung`, alles stimmig. Unbekannte Fehler stehen jetzt lesbar im Bericht. Das Skript liegt nicht im Repository; es ist schnell neu gebaut (Elternbereich → PIN → Testphase → Nummer → üben → Protokoll speichern).
+  - Druckfertige Unterlagen `docs/vorlagen/test-unterlagen.html` (fünf A4-Seiten, Lücken im Browser ausfüllen). Teilnehmer-Nummern: T-01-8, T-02-6, T-03-4.
+  - Musterfeld Brüche: 16 veraltete Dateien durch ein zweites Modell (Sub-Agent mit leerem Kontext) geprüft, 14 ohne Widerspruch, zwei Erklärungen (FV.BR.ADDITIV, FV.BR.NUR-NENNER) nannten nur das Erweitern und wurden korrigiert und nachgeprüft. Alle Dateien mit Vermerk stehen auf Stufe 1.
+  - Prüfbogen (59 Seiten) und Arbeitsblatt (3 Seiten) neu als PDF erzeugt und dem PV gegeben.
+- README auf den Stand gebracht (Klasse 5–10, 176 Themen, 501 Vorlagen, Werkzeuge).
+
+**Offen:**
+
+1. **Drei Vorlagen ohne Stufe 1:** `M.ZO.BR.BEGRIFF/vorlagen/begruenden.yaml`, `M.ZO.BR.ERWEITERN/vorlagen/begruenden.yaml`, `M.ZO.BR.ADD-SUB/vorlagen/begruenden.yaml` (Niveau E, nach dem ersten Review entstanden). Ein zweites Modell prüft sie gerade (Sub-Agent, Ergebnis folgt in dieser Übergabe). Erst wenn sie Stufe 1 haben, zeigt `BASTION_MINDESTSTUFE=1` die drei Musterfeld-Themen.
+2. **Online-Prüfbogen:** Die alte Seite (claude.ai/artifact/NKSg…) ist von hier nicht mehr erreichbar. Neu veröffentlichen nur, wenn der PV es will (`pnpm pruefbogen --online --name "Musterfeld Brüche" …`, braucht die Fähigkeit für die Sammlung `bewertung`).
+3. **Beim PV:** Unterlagen gegenlesen lassen (Datenschutz), Einwilligungen einholen, Prüfbogen an eine Lehrkraft, Starttermine. Ergebnisse des Prüfbogens mit `pnpm pruefbogen einlesen` einarbeiten (Stufe 2 setzt nur ein Mensch).
+4. **Hinweise ohne Fund** aus der Stufe-1-Prüfung: Abschnitt oben in dieser Datei.
+5. Im Fehler-Schüler bleibt die Frage offen, ob „die kurze Erklärung passt zu jedem Fehlerbild“ regelbasiert geprüft werden kann – bisher nur durch das prüfende Modell.
 
 ## Übergabe der Sitzung 02.11.2026 (Nachtschicht, B1–B5)
 
