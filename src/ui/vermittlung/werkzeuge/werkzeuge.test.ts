@@ -221,3 +221,61 @@ describe('Anleitungsbild (anleitungsbild@1)', () => {
     expect(anleitungsbild({})).toBeUndefined();
   });
 });
+
+describe('Einheitskreis (einheitskreis@1)', () => {
+  it('prüft die Parameter und fällt auf Standards zurück', async () => {
+    const { einheitskreisAus } = await import('./einheitskreis');
+    expect(einheitskreisAus({})).toEqual({
+      winkel: 30,
+      einheit: 'grad',
+      schritt: 15,
+      werte: true,
+      vergleich: undefined,
+    });
+    const z = einheitskreisAus({
+      winkel: 400,
+      einheit: 'bogen',
+      schritt: 7,
+      werte: false,
+      vergleich: 30,
+    });
+    expect(z).toEqual({ winkel: 30, einheit: 'bogen', schritt: 15, werte: false, vergleich: 30 });
+  });
+
+  it('zeigt Winkel in Grad und im Bogenmaß als Vielfaches von π', async () => {
+    const { winkelText } = await import('./einheitskreis');
+    expect(winkelText(150, 'grad')).toBe('150°');
+    expect(winkelText(150, 'bogen')).toBe('5π/6');
+    expect(winkelText(180, 'bogen')).toBe('π');
+    expect(winkelText(270, 'bogen')).toBe('3π/2');
+    expect(winkelText(360, 'bogen')).toBe('2π');
+    expect(winkelText(0, 'bogen')).toBe('0');
+    expect(winkelText(45, 'bogen')).toBe('π/4');
+    expect(winkelText(1, 'bogen')).toBe('π/180');
+  });
+
+  it('nennt sin und cos mit Vorzeichen und den Quadranten', async () => {
+    const { anzeige } = await import('./einheitskreis');
+    expect(anzeige(150, 'grad')).toEqual({ winkel: '150°', sin: '0,5', cos: '−0,87', quadrant: 2 });
+    expect(anzeige(225, 'grad')).toMatchObject({ sin: '−0,71', cos: '−0,71', quadrant: 3 });
+    expect(anzeige(300, 'grad')).toMatchObject({ sin: '−0,87', cos: '0,5', quadrant: 4 });
+    expect(anzeige(90, 'grad')).toMatchObject({ sin: '1', cos: '0', quadrant: 0 });
+    expect(anzeige(180, 'grad')).toMatchObject({ sin: '0', cos: '−1', quadrant: 0 });
+  });
+
+  it('das Bild ist ein SVG ohne Fremdes und beschreibt die Lage von P', async () => {
+    const { einheitskreisBild } =
+      await import('../../../generators/mathematik/trigonometrische-funktionen/einheitskreis');
+    const b = einheitskreisBild(150);
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.svg).not.toMatch(/<script|href|url\(/);
+    expect(b.svg).toContain('sin α = 0,5');
+    expect(b.svg).toContain('cos α = −0,87');
+    expect(b.beschreibung.de).toBe(
+      'Einheitskreis mit dem Winkel α = 150°. P liegt bei (−0,87 | 0,5).',
+    );
+    const ohne = einheitskreisBild(150, { werte: false });
+    expect(ohne.svg).not.toContain('0,87');
+    expect(ohne.beschreibung.de).not.toContain('0,87');
+  });
+});
