@@ -25,6 +25,7 @@ from PIL import Image
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import g12_modelle  # noqa: E402
 import raum  # noqa: E402
 from g12_modelle import EPOCHE_VON, ROLLEN, THEMEN, modell, streckung, zier_faktor  # noqa: E402
 
@@ -46,6 +47,23 @@ def tuecher(thema: str, rolle: str, stufe: int) -> list[tuple]:
     finally:
         raum.Szene.fahne = alt
     # Manche Modelle bauen Teile mehrfach auf: jede Fahne nur einmal
+    return list(dict.fromkeys(gemerkt))
+
+
+def banner_aufrufe(thema: str, rolle: str, stufe: int) -> list[tuple]:
+    """Alle `fahnenmast`-Aufrufe des Modells (Banner): (h, tuch, emblem)."""
+    gemerkt: list[tuple] = []
+    alt = g12_modelle.fahnenmast
+
+    def merken(sz, tuch=raum.PETROL, emblem=(244, 222, 140), *, h=150):
+        gemerkt.append((h, tuch, emblem))
+        return alt(sz, tuch, emblem, h=h)
+
+    g12_modelle.fahnenmast = merken
+    try:
+        modell(thema, rolle)(stufe)
+    finally:
+        g12_modelle.fahnenmast = alt
     return list(dict.fromkeys(gemerkt))
 
 
@@ -109,6 +127,39 @@ def main() -> int:
                             "s": round(ey - oy, 1),
                             "h": round(19 * f, 1),
                             "farbe": f"#{r:02x}{g:02x}{b:02x}",
+                        }
+                    )
+                # Banner am Fahnenmast (`fahnenmast`): Tuch vor dem Mast, Fläche x = 0,05,
+                # von y = 0 bis y = −0,2, z von h − 90 bis h − 8; Kugel als Wappen davor
+                for hm, tuch, _emblem in banner_aufrufe(thema, rolle, stufe):
+                    ox, oy = bild_punkt(0.05, 0.0, (hm - 8) * f, fuss_y)
+                    ex, ey = bild_punkt(0.05, -0.2, (hm - 8) * f, fuss_y)
+                    mx, my = bild_punkt(0.05, -0.1, (hm - 30) * f, fuss_y)
+                    wx, wy = bild_punkt(0.055, -0.1, (hm - 50) * f, fuss_y)
+                    px, py = round(w / 2 + mx), round(h + my)
+                    qx, qy = round(w / 2 + wx), round(h + wy)
+                    if not (0 <= px < w and 0 <= py < h and 0 <= qx < w and 0 <= qy < h):
+                        continue
+                    r, g, b, a = bild.getpixel((px, py))
+                    if a < 200 or farbton_abstand((r, g, b), tuch) > 0.22:
+                        continue
+                    wr, wg, wb, _ = bild.getpixel((qx, qy))
+                    liste.append(
+                        {
+                            "x": round(ox, 1),
+                            "y": round(oy, 1),
+                            "b": round(ex - ox, 1),
+                            "s": round(ey - oy, 1),
+                            "h": round(82 * f, 1),
+                            "farbe": f"#{r:02x}{g:02x}{b:02x}",
+                            # hängt am Mast und schwingt unten, statt waagrecht zu wehen
+                            "haengt": True,
+                            "wappen": {
+                                "x": round(wx, 1),
+                                "y": round(wy, 1),
+                                "r": round(0.06 * raum.HW, 1),
+                                "farbe": f"#{wr:02x}{wg:02x}{wb:02x}",
+                            },
                         }
                     )
                 if liste:

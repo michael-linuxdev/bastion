@@ -1858,6 +1858,49 @@ export async function buehneErstellen(
       g.circle(nx, ny, 2.4 * s).fill(0x4a3220);
     }
   };
+  /**
+   * Banner am Mast: Das Tuch hängt und schwingt unten sacht zur Seite (oben fest), in
+   * Streifen mit hellen und dunklen Falten; das Wappen schwingt mit.
+   */
+  const bannerSchwingen = (
+    t: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number },
+    jetzt: number,
+    wind: number,
+  ) => {
+    const { g, f, k } = t;
+    const s = k / 2;
+    const ox = t.x + f.x * s;
+    const oy = t.y + f.y * s;
+    const amp = 1.4 * s * wind;
+    const rand = 0.4 * s;
+    const phase = (jetzt / 1000) * 1.6 * wind + t.n * 1.3;
+    const versatz = (v: number) => Math.sin(phase - v * 1.2) * amp * v * v;
+    const teile = 6;
+    for (let i = 0; i < teile; i++) {
+      const v0 = i / teile;
+      const v1 = (i + 1) / teile;
+      const d0 = versatz(v0);
+      const d1 = versatz(v1);
+      const y0 = oy + f.h * s * v0;
+      const y1 = oy + f.h * s * v1;
+      const licht = 0.92 + 0.08 * Math.cos(phase - ((i + 0.5) / teile) * 1.2);
+      g.poly([
+        ox + d0 - rand,
+        y0 - rand,
+        ox + f.b * s + d0 + rand,
+        y0 + f.s * s - rand,
+        ox + f.b * s + d1 + rand,
+        y1 + f.s * s + rand,
+        ox + d1 - rand,
+        y1 + rand,
+      ]).fill(heller(f.farbe, licht));
+    }
+    const w = f.wappen;
+    if (w) {
+      const v = (w.y - f.y) / f.h;
+      g.circle(t.x + w.x * s + versatz(v), t.y + w.y * s, w.r * s).fill(heller(w.farbe, 0.88));
+    }
+  };
   const fahnenWehen = (jetzt: number) => {
     const wind = wetterBild === 'sturm' ? 2.2 : 1;
     for (const t of fahnenTuecher) {
@@ -1870,6 +1913,10 @@ export async function buehneErstellen(
       const amp = 1.1 * s * wind;
       // Rand größer als die Welle: das stille Tuch im Bild bleibt ganz verdeckt
       const rand = amp + 0.5 * s;
+      if (f.haengt) {
+        bannerSchwingen(t, jetzt, wind);
+        continue;
+      }
       const phase = (jetzt / 1000) * 4.2 * wind + t.n * 1.7;
       const teile = 6;
       const punkte: { x: number; y: number; w: number }[] = [];
