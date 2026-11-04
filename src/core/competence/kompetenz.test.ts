@@ -114,3 +114,35 @@ describe('passtZurSchulart', () => {
     expect(passtZurSchulart({ sachsen: {} }, 'oberschule')).toBe(true);
   });
 });
+
+describe('Kurs GK/LK in Jahrgang 11/12 (B9b)', () => {
+  const nurLk = {
+    sachsen: {
+      gymnasium: { klassenstufe: 11, lernbereich: 'LB 3 Analysis', kurs: ['lk'] as const },
+    },
+  };
+  const beideKurse = {
+    sachsen: {
+      gymnasium: { klassenstufe: 11, lernbereich: 'LB 3 Analysis', kurs: ['gk', 'lk'] as const },
+    },
+  };
+  it('blendet LK-Kompetenzen bei GK aus, ohne Kurs bleibt alles', () => {
+    expect(passtZurSchulart(nurLk, 'gymnasium', 'gk')).toBe(false);
+    expect(passtZurSchulart(nurLk, 'gymnasium', 'lk')).toBe(true);
+    expect(passtZurSchulart(nurLk, 'gymnasium')).toBe(true);
+    expect(passtZurSchulart(nurLk, undefined, 'gk')).toBe(false);
+    expect(passtZurSchulart(beideKurse, 'gymnasium', 'gk')).toBe(true);
+  });
+  it('prüft das Feld kurs in kompetenz.yaml', () => {
+    const k = gueltig();
+    const mit = (kurs: unknown, art = 'gymnasium') => ({
+      ...k,
+      sachsen: { [art]: { klassenstufe: 11, lernbereich: 'LB 3 Analysis', kurs } },
+    });
+    expect(pruefeKompetenz(mit(['gk', 'lk']), PFAD)).toEqual([]);
+    expect(pruefeKompetenz(mit(['lk']), PFAD)).toEqual([]);
+    expect(pruefeKompetenz(mit([]), PFAD).join()).toContain('Liste aus gk und lk');
+    expect(pruefeKompetenz(mit(['ek']), PFAD).join()).toContain('Liste aus gk und lk');
+    expect(pruefeKompetenz(mit(['lk'], 'oberschule'), PFAD).join()).toContain('nur am Gymnasium');
+  });
+});

@@ -65,6 +65,8 @@ import {
   KLASSE_SCHLUESSEL,
   klasseAus,
   SCHULART_SCHLUESSEL,
+  KURS_SCHLUESSEL,
+  kursAus,
   schulartAus,
   GEBURTSDATUM_SCHLUESSEL,
   ERWACHSEN_SCHLUESSEL,
@@ -464,11 +466,13 @@ export const orientierungMerken = (o: Orientierung) =>
 export async function lernWahl(): Promise<{
   klasse: number;
   schulart: 'oberschule' | 'gymnasium' | undefined;
+  /** Kurs in Jahrgang 11/12 (B9b), freiwillig */
+  kurs: 'gk' | 'lk' | undefined;
   /** noch nie gewählt – dann zählt beim ersten Hochstellen auch Klasse 5 als übersprungen */
   neu: boolean;
 }> {
   const inst = await bereit();
-  if (!inst) return { klasse: 5, schulart: undefined, neu: true };
+  if (!inst) return { klasse: 5, schulart: undefined, kurs: undefined, neu: true };
   const k = await einstellung(db, inst.profil, KLASSE_SCHLUESSEL).catch(() => undefined);
   return {
     neu: k === undefined,
@@ -476,6 +480,7 @@ export async function lernWahl(): Promise<{
     schulart: schulartAus(
       await einstellung(db, inst.profil, SCHULART_SCHLUESSEL).catch(() => undefined),
     ),
+    kurs: kursAus(await einstellung(db, inst.profil, KURS_SCHLUESSEL).catch(() => undefined)),
   };
 }
 
@@ -487,6 +492,11 @@ export const schulartSetzen = (
   schulart: 'oberschule' | 'gymnasium' | undefined,
   durch: 'jugendlich' | 'eltern' = 'jugendlich',
 ) => setze(SCHULART_SCHLUESSEL, schulart ?? '', durch);
+/** Kurs in Jahrgang 11/12 (B9b); keine Angabe als leerer Text. */
+export const kursSetzen = (
+  kurs: 'gk' | 'lk' | undefined,
+  durch: 'jugendlich' | 'eltern' = 'jugendlich',
+) => setze(KURS_SCHLUESSEL, kurs ?? '', durch);
 
 /** Profil (L-15): freiwilliges Geburtsdatum, „Ich bin erwachsen“, ob schon gefragt wurde. */
 export async function profilWahl(): Promise<Profil & { gefragt: boolean }> {

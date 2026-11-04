@@ -3,6 +3,7 @@ import {
   nachGraph,
   passtZurSchulart,
   type Kompetenz,
+  type Kurs,
   type Schulart,
 } from '../../core/competence/kompetenz';
 import { empfohlen } from '../../core/learning/empfehlung';
@@ -27,8 +28,9 @@ export function naechsteKompetenz(
   zustand: Zustand,
   jetzt: number,
   schulart?: Schulart,
+  kurs?: Kurs,
 ): Kompetenz | undefined {
-  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen) && passtZurSchulart(k, schulart);
+  const passt = (k: Kompetenz) => hatAufgaben(k, vorlagen) && passtZurSchulart(k, schulart, kurs);
 
   const ausIds = (ids: readonly string[]) =>
     ids.flatMap((id) => {

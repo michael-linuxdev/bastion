@@ -81,7 +81,7 @@ review:                     # optional; ohne Feld gilt Stufe 0 (Abschnitt 8)
 ```
 
 **Ergänzt (27.10.2026):**
-- `sachsen` (Pflicht, LEHRPLAN L-9): Lehrplanbezug je Schulart, z. B. `gymnasium: { klassenstufe: 5, lernbereich: "LB 2 Gemeine Brüche und Dezimalzahlen" }`. Fehlt eine Schulart, steht die Kompetenz dort nicht in den ausgewerteten Klassenstufen.
+- `sachsen` (Pflicht, LEHRPLAN L-9): Lehrplanbezug je Schulart, z. B. `gymnasium: { klassenstufe: 5, lernbereich: "LB 2 Gemeine Brüche und Dezimalzahlen" }`. Fehlt eine Schulart, steht die Kompetenz dort nicht in den ausgewerteten Klassenstufen. *Jahrgang 11/12 (seit 04.11.2026, B9b):* Am Gymnasium optional `kurs: [gk, lk]` oder `kurs: [lk]`; ohne Angabe gilt die Kompetenz für beide Kurse. Wer in der App „Grundkurs“ wählt (Einstellung `lernen.kurs`), sieht reine LK-Kompetenzen nicht. Die Jahrgangsstufe 11/12 trägt `klassenstufe_typisch: [11, 12]` und erscheint in der Klassenwahl als „Jahrgang 11/12“.
 - `zeichnen_erklaert: true` (optional, LEHRPLAN L-10): Zur Kompetenz gehört eine Zeichen- oder Konstruktionsanleitung, die nicht bewertet wird.
 - `review` ist optional. Solange es fehlt, gilt Stufe 0. Keine der heutigen Dateien trägt das Feld.
 

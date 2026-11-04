@@ -171,6 +171,12 @@ export const SCHULARTEN = ['oberschule', 'gymnasium'] as const;
 export const schulartAus = (wert: unknown): (typeof SCHULARTEN)[number] | undefined =>
   SCHULARTEN.find((s) => s === wert);
 
+/** Kurs in Jahrgang 11/12 am Gymnasium (B9b), freiwillig: `lernen.kurs` – Grund- oder Leistungskurs. */
+export const KURS_SCHLUESSEL = 'lernen.kurs';
+export const KURSARTEN = ['gk', 'lk'] as const;
+export const kursAus = (wert: unknown): (typeof KURSARTEN)[number] | undefined =>
+  KURSARTEN.find((k) => k === wert);
+
 /** Profil (L-15), freiwillig: Geburtsdatum „JJJJ-MM-TT“, „Ich bin erwachsen“, schon gefragt. */
 export const GEBURTSDATUM_SCHLUESSEL = 'profil.geburtsdatum';
 export const ERWACHSEN_SCHLUESSEL = 'profil.erwachsen';

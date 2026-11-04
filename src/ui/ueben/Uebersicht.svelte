@@ -18,6 +18,7 @@
     zustand,
     klasse = $bindable(5),
     schulart = $bindable(undefined),
+    kurs = $bindable(undefined),
     geradeDran = $bindable([]),
     vermittelt = new Set(),
     onwahl,
@@ -28,6 +29,8 @@
     /** Klassenstufe, deren Kompetenzen gezeigt werden (K-15: 5 und 6 haben Inhalte) */
     klasse?: number;
     schulart?: 'oberschule' | 'gymnasium' | undefined;
+    /** Kurs in Jahrgang 11/12 (B9b): LK-Themen fehlen im Grundkurs */
+    kurs?: 'gk' | 'lk' | undefined;
     /** „Gerade in der Schule dran“ (L-18) */
     geradeDran?: readonly string[];
     /** Kompetenzen mit abgeschlossener Erstvermittlung: Zustand „erklärt“ vor dem ersten Üben */
@@ -52,7 +55,7 @@
         (k) =>
           k.bereich === bereich &&
           k.klassenstufe_typisch.includes(klasse) &&
-          passtZurSchulart(k, schulart) &&
+          passtZurSchulart(k, schulart, kurs) &&
           vorlagen.some((v) => v.kompetenz === k.id),
       ),
     })).filter((b) => b.kompetenzen.length > 0),
@@ -90,7 +93,7 @@
     {/if}
   {/if}
 
-  <KlassenWahl bind:klasse bind:schulart mitSchulart />
+  <KlassenWahl bind:klasse bind:schulart bind:kurs mitSchulart />
 
   <GeradeDran
     kompetenzen={kompetenzen.filter((k) => vorlagen.some((v) => v.kompetenz === k.id))}
