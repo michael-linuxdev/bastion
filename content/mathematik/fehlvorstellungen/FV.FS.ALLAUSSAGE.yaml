@@ -1,0 +1,25 @@
+id: FV.FS.ALLAUSSAGE
+name:
+  de: Prüft eine Aussage „jede …“ nur an Beispielen
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Hält eine Aussage über alle Funktionen einer Klasse für bewiesen, weil sie für ein oder zwei Beispiele stimmt, oder verwirft eine wahre Aussage wegen eines falschen Gegenbeispiels.
+kompetenzen: [M.SF.FS.SYSTEMATIK]
+erklaerung:
+  kurz:
+    de: 'Eine Aussage „jede …“ stimmt erst, wenn man sie allgemein zeigt. Ein einziges passendes [[Gegenbeispiel]] widerlegt sie.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Aussage an einem Beispiel geprüft.'
+    - teil: warum-nicht
+      de: 'Beispiele zeigen nur Einzelfälle. [[Gerade]] ungewöhnliche Fälle wie $\frac{1}{x}$ oder negative Hochzahlen fallen oft heraus.'
+    - teil: so-stimmt-es
+      de: 'Suche gezielt ein [[Gegenbeispiel]]. Findest du keins, prüfe allgemein, etwa mit x = 1 oder x = 0 eingesetzt.'
+gegenbeispiel:
+  de: 'Alle Potenzfunktionen gehen durch $(1|1)$, aber nicht alle durch $(0|0)$: $\frac{1}{x}$ ist das [[Gegenbeispiel]].'
+rueckweg:
+  vermittlung: M.SF.FS.SYSTEMATIK#erklaeren-eigenschaften
+kontrast: [M.SF.FS.SYSTEMATIK.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,25 @@
+id: FV.FS.INNEN-AUSSEN
+name:
+  de: Vertauscht innere und äußere Funktion
+art: verwechslung
+beschreibung:
+  de: >-
+    Rechnet bei f(g(x)) zuerst f oder nennt die äußere Funktion innere. Dass man von innen nach außen rechnet, ist nicht sicher.
+kompetenzen: [M.SF.FS.VERKNUEPFEN]
+erklaerung:
+  kurz:
+    de: 'Bei $f(g(x))$ rechnet man zuerst $g(x)$, die [[innere Funktion]]. Das Ergebnis setzt man in f ein, die äußere.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Reihenfolge umgedreht.'
+    - teil: warum-nicht
+      de: '$f(g(x))$ und $g(f(x))$ sind meist verschieden: Erst quadrieren und dann verdoppeln ist etwas anderes als umgekehrt.'
+    - teil: so-stimmt-es
+      de: 'Setze eine Zahl ein und schreibe auf, was du zuerst rechnest.'
+gegenbeispiel:
+  de: '$f(x) = x^2$, $g(x) = x + 1$: $f(g(2)) = 9$, aber $g(f(2)) = 5$.'
+rueckweg:
+  vermittlung: M.SF.FS.VERKNUEPFEN#erklaeren-verkettung
+kontrast: [M.SF.FS.VERKNUEPFEN.VERKETTUNG, M.SF.FS.VERKNUEPFEN.WERT]
+herkunft: ki-entwurf
+version: 1

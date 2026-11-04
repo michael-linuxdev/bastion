@@ -1,0 +1,24 @@
+# Aussagen über Funktionsklassen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.FS.SYSTEMATIK.BEGRUENDEN
+kompetenz: M.SF.FS.SYSTEMATIK
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fs.klasse-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Eine Aussage „jede …“ ist falsch, wenn ein [[Gegenbeispiel]] reicht.'
+  - de: 'Ein Beispiel allein beweist eine Aussage „jede …“ nicht.'
+fehlerbilder:
+  gegenbeispiel:
+    de: 'Prüfe die Aussage an mehreren [[Funktionen]], auch an ungewöhnlichen wie $\frac{1}{x}$.'
+    fv: FV.FS.ALLAUSSAGE
+  einzelfall:
+    de: 'Ein einzelnes Beispiel reicht nicht für „jede“.'
+    fv: FV.FS.ALLAUSSAGE
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,24 @@
+# Term aus dem verschobenen Graphen – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.FS.TRANSFORMATION.TERM
+kompetenz: M.SF.FS.TRANSFORMATION
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: fs.term-aus-graph@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Der durchgezogene [[Graph]] entsteht durch Verschieben aus dem gestrichelten. **Wähle** den passenden [[Term]].'
+hilfen:
+  - de: 'Wohin ist der Punkt $(0|0)$ gewandert?'
+  - de: 'Nach rechts um d heißt $x - d$ im Inneren, nach oben um e heißt $+ e$ außen.'
+fehlerbilder:
+  richtung:
+    de: 'Innen wirkt umgekehrt: Nach rechts verschoben heißt $x - d$.'
+    fv: FV.FS.RICHTUNG
+  achse:
+    de: 'Die [[Verschiebung]] nach rechts gehört ins Innere, die nach oben nach außen.'
+    fv: FV.FS.STRECKUNG-X
+herkunft: ki-entwurf
+version: 1

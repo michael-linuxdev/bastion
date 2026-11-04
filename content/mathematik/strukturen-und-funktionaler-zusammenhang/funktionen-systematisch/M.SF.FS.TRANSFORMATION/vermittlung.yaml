@@ -1,0 +1,100 @@
+id: M.SF.FS.TRANSFORMATION
+kompetenz: M.SF.FS.TRANSFORMATION
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach weißt du, wie $c \cdot f(x)$, $f(x) + c$, $f(x + c)$ und $f(c \cdot x)$ jeden [[Graphen]] verändern.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wo liegt der [[Scheitelpunkt]] von $y = (x - 3)^2$? Gib die x-[[Koordinate]] an.'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '3', fehler: [{ wert: '-3', fv: FV.PF.VERSCHIEBUNG-RICHTUNG }] }
+    weiter: entdecken
+    bei: { FV.PF.VERSCHIEBUNG-RICHTUNG: M.SF.PF.PARAMETER, sonst: M.SF.PF.PARAMETER }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Bei $y = \sqrt{x}$ beginnt der [[Graph]] bei $x = 0$. Bei welchem x beginnt der Graph von $y = \sqrt{x + 2}$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-2', fehler: [{ wert: '2', fv: FV.FS.RICHTUNG }] }
+    weiter: erklaeren-innen
+  - id: erklaeren-innen
+    typ: erklaeren
+    text:
+      de: 'Außen wirkt eine Zahl in y-Richtung, wie gelesen: $f(x) + c$ schiebt hoch, $c \cdot f(x)$ streckt. Innen wirkt sie in x-Richtung, umgekehrt: $f(x + c)$ schiebt nach links, $f(c \cdot x)$ staucht.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter:
+          {
+            kurven: [{ art: wurzel }, { art: wurzel, vergleich: true }],
+            x: [-4, 6],
+            y: [-2, 5],
+            regler: [a, b, d, e],
+          },
+      }
+    weiter: erklaeren-reihenfolge
+  - id: erklaeren-reihenfolge
+    typ: erklaeren
+    text:
+      de: 'Bei $y = a \cdot f(x - d) + e$ geht man von innen nach außen: erst um d nach rechts, dann mit a strecken, zuletzt um e nach oben. Sonst würde die Streckung die [[Verschiebung]] nach oben mitstrecken.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = 2 \cdot \sin(x - 1) + 3$: Die Sinuswelle wandert um 1 nach rechts, wird doppelt so hoch und schwingt dann um die Mittellinie $y = 3$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Der [[Graph]] von $y = e^x$ geht durch $(0|1)$. Durch welchen Punkt $(0|?)$ geht $y = e^x + 4$? Gib den y-Wert an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '5', fehler: [{ wert: '1', fv: FV.FS.STRECKUNG-X }] }
+    weiter: gegenbeispiel
+    bei: { FV.FS.STRECKUNG-X: erklaeren-innen }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lea sagt: „$y = (2x)^2$ ist die Normalparabel in x-Richtung mit 2 gestreckt, also breiter.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. Innen wirkt umgekehrt: Der [[Graph]] wird auf die Hälfte gestaucht, also schmaler.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Der Faktor 2 streckt immer.' }, fv: FV.FS.RICHTUNG }
+    weiter: merksatz
+    bei: { FV.FS.RICHTUNG: erklaeren-innen }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Außen: y-Richtung, wie gelesen. Innen: x-Richtung, umgekehrt. Mehrere Schritte von innen nach außen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie entsteht $y = \sin(x + 2)$ aus $y = \sin x$?'
+    antwort:
+      optionen:
+        - { wert: { de: 'um 2 nach links verschoben' }, richtig: true }
+        - { wert: { de: 'um 2 nach rechts verschoben' }, fv: FV.FS.RICHTUNG }
+        - { wert: { de: 'um 2 nach oben verschoben' }, fv: FV.FS.STRECKUNG-X }
+    weiter: uebergang
+    bei: { FV.FS.RICHTUNG: erklaeren-innen, FV.FS.STRECKUNG-X: erklaeren-innen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt beschreibst du selbst Transformationen.'
+    vorlagen: [M.SF.FS.TRANSFORMATION.WIRKUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

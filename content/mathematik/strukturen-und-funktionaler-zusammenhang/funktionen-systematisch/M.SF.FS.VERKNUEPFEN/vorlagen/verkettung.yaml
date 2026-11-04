@@ -1,0 +1,24 @@
+# Innere und äußere Funktion – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.FS.VERKNUEPFEN.VERKETTUNG
+kompetenz: M.SF.FS.VERKNUEPFEN
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: fs.verkettung@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Gegeben ist {term}. **Wähle** die [[innere Funktion]] und die [[äußere Funktion]].'
+hilfen:
+  - de: 'Setze eine Zahl ein. Was rechnest du zuerst?'
+  - de: 'Das zuerst Gerechnete ist die [[innere Funktion]].'
+fehlerbilder:
+  innen-aussen:
+    de: 'Innen und außen sind vertauscht. Innen ist, was man zuerst rechnet.'
+    fv: FV.FS.INNEN-AUSSEN
+  produkt:
+    de: 'Hier wird nicht malgenommen: Das Ergebnis der [[inneren Funktion]] wird in die äußere eingesetzt.'
+    fv: FV.FS.VERKETTUNG-PRODUKT
+herkunft: ki-entwurf
+version: 1

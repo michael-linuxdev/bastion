@@ -1,0 +1,24 @@
+# Beschränkt, also konvergent? – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.FS.FOLGEN.BEGRUENDEN
+kompetenz: M.SF.FS.FOLGEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fs.konvergent-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Suche eine Folge, die zwischen zwei Zahlen hin und her springt.'
+  - de: 'Denke an $(-1)^n$.'
+fehlerbilder:
+  beschraenkt-konvergent:
+    de: 'Beschränkt allein reicht nicht: $(-1)^n$ springt immer hin und her.'
+    fv: FV.FS.BESCHRAENKT-KONVERGENT
+  monoton:
+    de: 'Eine [[beschränkte]] Folge muss nicht steigen oder fallen.'
+    fv: FV.FS.MONOTON
+herkunft: ki-entwurf
+version: 1

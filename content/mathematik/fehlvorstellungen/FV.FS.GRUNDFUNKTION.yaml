@@ -1,0 +1,25 @@
+id: FV.FS.GRUNDFUNKTION
+name:
+  de: Verwechselt die Graphen der Grundfunktionen
+art: verwechslung
+beschreibung:
+  de: >-
+    Ordnet einem Graphen eine ähnlich aussehende Grundfunktion zu, etwa √x statt x² oder 1/x statt eˣ, oder schreibt einer Funktion die Eigenschaft einer anderen zu.
+kompetenzen: [M.SF.FS.SYSTEMATIK]
+erklaerung:
+  kurz:
+    de: 'Jede Grundfunktion hat ein eigenes Bild: x² ist eine [[Parabel]], √x ein halber liegender Ast, $\frac{1}{x}$ eine Hyperbel mit Lücke bei 0, $e^x$ steigt immer und bleibt über der x-Achse.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nach dem ersten Eindruck gewählt.'
+    - teil: warum-nicht
+      de: 'Viele [[Graphen]] gehen durch $(1|1)$. Erst ein zweiter Punkt oder der Verlauf für negative x unterscheidet sie.'
+    - teil: so-stimmt-es
+      de: 'Prüfe zwei Punkte, etwa $x = -1$ und $x = 2$, und vergleiche mit dem [[Graphen]].'
+gegenbeispiel:
+  de: '$x^2$ und $\sqrt{x}$ gehen beide durch $(1|1)$. Bei $x = 4$ ist aber $x^2 = 16$ und $\sqrt{x} = 2$.'
+rueckweg:
+  vermittlung: M.SF.FS.SYSTEMATIK#erklaeren-steckbrief
+kontrast: [M.SF.FS.SYSTEMATIK.GRAPH, M.SF.FS.SYSTEMATIK.EIGENSCHAFT]
+herkunft: ki-entwurf
+version: 1

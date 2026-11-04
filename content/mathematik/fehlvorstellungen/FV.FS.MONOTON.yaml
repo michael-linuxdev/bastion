@@ -1,0 +1,25 @@
+id: FV.FS.MONOTON
+name:
+  de: Beurteilt die Monotonie einer Folge falsch
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Hält 1/n für steigend, weil n wächst, oder eine springende Folge für monoton. Monotonie wird nicht an den Gliedern selbst geprüft.
+kompetenzen: [M.SF.FS.FOLGEN]
+erklaerung:
+  kurz:
+    de: 'Monoton steigend heißt: Jedes Glied ist größer als das vorige. Entscheidend sind die Glieder $a_n$, nicht n.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast aus dem [[Term]] geschlossen, ohne die Glieder zu vergleichen.'
+    - teil: warum-nicht
+      de: 'Bei $\frac{1}{n}$ wächst n, aber der [[Bruch]] wird kleiner.'
+    - teil: so-stimmt-es
+      de: 'Rechne $a_1$ bis $a_4$ aus und vergleiche sie.'
+gegenbeispiel:
+  de: '$\frac{1}{1} = 1$, $\frac{1}{2}$, $\frac{1}{3}$: Die Glieder werden kleiner, die Folge fällt.'
+rueckweg:
+  vermittlung: M.SF.FS.FOLGEN#erklaeren-grenzwert
+kontrast: [M.SF.FS.FOLGEN.EIGENSCHAFT, M.SF.FS.FOLGEN.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

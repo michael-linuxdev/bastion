@@ -1,0 +1,25 @@
+id: FV.FS.BESCHRAENKT-KONVERGENT
+name:
+  de: Meint, jede beschränkte Folge sei konvergent
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Schließt aus der Beschränktheit auf einen Grenzwert oder hält jede steigende Folge für unbeschränkt. Beschränkt und konvergent werden gleichgesetzt.
+kompetenzen: [M.SF.FS.FOLGEN]
+erklaerung:
+  kurz:
+    de: 'Beschränkt heißt: Die Glieder bleiben zwischen zwei Zahlen. Konvergent heißt: Sie nähern sich einer Zahl. $(-1)^n$ ist [[beschränkt]], aber nicht konvergent.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast [[beschränkt]] und konvergent gleichgesetzt.'
+    - teil: warum-nicht
+      de: 'Eine Folge kann zwischen −1 und 1 hin und her springen, ohne sich einer Zahl zu nähern.'
+    - teil: so-stimmt-es
+      de: 'Prüfe beides getrennt. Erst [[beschränkt]] und [[monoton]] zusammen sichern einen [[Grenzwert]].'
+gegenbeispiel:
+  de: '$(-1)^n$: −1, 1, −1, 1, … bleibt [[beschränkt]], nähert sich aber keiner Zahl.'
+rueckweg:
+  vermittlung: M.SF.FS.FOLGEN#erklaeren-grenzwert
+kontrast: [M.SF.FS.FOLGEN.EIGENSCHAFT, M.SF.FS.FOLGEN.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

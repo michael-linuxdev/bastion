@@ -1,0 +1,91 @@
+id: M.SF.FS.VERKNUEPFEN
+kompetenz: M.SF.FS.VERKNUEPFEN
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach verkettest du [[Funktionen]] und erkennst innere und äußere [[Funktion]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Für $f(x) = x^2$: Wie groß ist $f(3)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '6', fv: FV.FS.GRUNDFUNKTION }] }
+    weiter: entdecken
+    bei: { FV.FS.GRUNDFUNKTION: M.SF.FS.SYSTEMATIK, sonst: M.SF.FS.SYSTEMATIK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Erst wird zu x eins addiert, dann wird quadriert. Was kommt für $x = 2$ heraus?'
+    antwort:
+      eingabe: { art: zahl, loesung: '9', fehler: [{ wert: '5', fv: FV.FS.INNEN-AUSSEN }] }
+    weiter: erklaeren-verkettung
+  - id: erklaeren-verkettung
+    typ: erklaeren
+    text:
+      de: 'Das ist die **[[Verkettung]]** $f(g(x))$ mit $g(x) = x + 1$ und $f(x) = x^2$: $(x + 1)^2$. g rechnet man zuerst, das ist die **[[innere Funktion]]**. f ist die **äußere**. Verketten heißt einsetzen, nicht malnehmen.'
+    weiter: erklaeren-quotient
+  - id: erklaeren-quotient
+    typ: erklaeren
+    text:
+      de: 'Man kann [[Funktionen]] auch addieren, multiplizieren oder teilen, etwa $\tan x = \frac{\sin x}{\cos x}$. Ein Quotient hat eine Lücke, wo der [[Nenner]] 0 ist, beim Tangens bei $x = \frac{\pi}{2}$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$h(x) = \sqrt{3x - 6}$: innen $3x - 6$, außen $\sqrt{u}$. Für $x = 5$: innen $15 - 6 = 9$, außen $\sqrt{9} = 3$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: '$f(x) = x^2$ und $g(x) = 2x$. Berechne $f(g(3))$.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '36',
+          fehler:
+            [{ wert: '18', fv: FV.FS.INNEN-AUSSEN }, { wert: '54', fv: FV.FS.VERKETTUNG-PRODUKT }],
+        }
+    weiter: gegenbeispiel
+    bei:
+      { FV.FS.INNEN-AUSSEN: erklaeren-verkettung, FV.FS.VERKETTUNG-PRODUKT: erklaeren-verkettung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ole sagt: „Bei $(4x - 1)^3$ ist $x^3$ die [[innere Funktion]].“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Zuerst rechnet man $4x - 1$, das ist innen. Hoch 3 ist außen.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Die Hochzahl steht am Ende, also innen.' }, fv: FV.FS.INNEN-AUSSEN }
+    weiter: merksatz
+    bei: { FV.FS.INNEN-AUSSEN: erklaeren-verkettung }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$f(g(x))$: erst g (innen), dann f (außen). Verketten heißt einsetzen. [[Quotienten]] haben Lücken, wo der [[Nenner]] 0 ist.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Funktion]] ist bei $h(x) = e^{2x + 1}$ innen?'
+    antwort:
+      optionen:
+        - { wert: { de: '$2x + 1$' }, richtig: true }
+        - { wert: { de: '$e^x$' }, fv: FV.FS.INNEN-AUSSEN }
+    weiter: uebergang
+    bei: { FV.FS.INNEN-AUSSEN: erklaeren-verkettung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt zerlegst du selbst [[Verkettungen]].'
+    vorlagen: [M.SF.FS.VERKNUEPFEN.VERKETTUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

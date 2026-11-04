@@ -1,0 +1,24 @@
+# Reihenfolge der Abbildungen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.FS.TRANSFORMATION.BEGRUENDEN
+kompetenz: M.SF.FS.TRANSFORMATION
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fs.reihenfolge-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle**.'
+hilfen:
+  - de: 'Rechne für einen Punkt nach: Was passiert zuerst mit x, was zuletzt mit y?'
+  - de: 'Von innen nach außen.'
+fehlerbilder:
+  reihenfolge:
+    de: 'Erst strecken, dann nach oben schieben. Sonst wird die [[Verschiebung]] mitgestreckt.'
+    fv: FV.PF.REIHENFOLGE
+  richtung:
+    de: '$x - d$ im Inneren schiebt nach rechts, nicht nach links.'
+    fv: FV.FS.RICHTUNG
+herkunft: ki-entwurf
+version: 1

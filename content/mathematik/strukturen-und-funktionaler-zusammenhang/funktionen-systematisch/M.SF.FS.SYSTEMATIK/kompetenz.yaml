@@ -1,0 +1,44 @@
+# Funktionen systematisch – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FS.SYSTEMATIK
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen-systematisch
+titel:
+  de: 'Grundfunktionen im Überblick'
+kann_satz:
+  de: 'Ich kann die Graphen und Eigenschaften von y = x, x², √x, 1/x, eˣ, ln x und sin x ohne Hilfsmittel angeben und zuordnen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.PF.WURZELFUNKTION
+  - M.SF.EX.FUNKTION
+  - M.SF.LG.GLEICHUNGEN
+  - M.SF.TF.SINUS
+niveaus:
+  G:
+    beschreibung:
+      de: 'Zu einem Graphen den passenden Term einer Grundfunktion wählen.'
+  M:
+    beschreibung:
+      de: 'Eigenschaften einer Grundfunktion angeben: Definitionsbereich, Wertebereich, Nullstellen, Symmetrie.'
+  E:
+    beschreibung:
+      de: 'Aussagen über Funktionsklassen prüfen: „Jede … hat …“.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

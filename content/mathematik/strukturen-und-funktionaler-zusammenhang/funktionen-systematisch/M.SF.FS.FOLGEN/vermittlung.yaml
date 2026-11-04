@@ -1,0 +1,99 @@
+id: M.SF.FS.FOLGEN
+kompetenz: M.SF.FS.FOLGEN
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach beschreibst du [[Zahlenfolgen]] und erkennst, ob sie steigen, fallen und sich einer Zahl nähern.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Bestand von 3 verdoppelt sich bei jedem Schritt. Wie groß ist er nach 3 Schritten?'
+    antwort:
+      eingabe: { art: zahl, loesung: '24', fehler: [{ wert: '9', fv: FV.EX.MODELL }] }
+    weiter: entdecken
+    bei: { FV.EX.MODELL: M.SF.EX.WACHSTUM, sonst: M.SF.EX.WACHSTUM }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die Folge 2, 5, 8, 11, … wächst immer um 3. Wie lautet das zehnte Glied?'
+    antwort:
+      eingabe: { art: zahl, loesung: '29', fehler: [{ wert: '32', fv: FV.FS.INDEX }] }
+    weiter: erklaeren-folge
+  - id: erklaeren-folge
+    typ: erklaeren
+    text:
+      de: 'Eine **[[Zahlenfolge]]** $a_1, a_2, a_3, \dots$ ordnet jeder Nummer n eine Zahl zu. **Explizit:** $a_n = 2 + (n - 1) \cdot 3$. **Rekursiv:** $a_{n+1} = a_n + 3$. Bis $a_n$ sind es $n - 1$ Schritte.'
+    weiter: erklaeren-grenzwert
+  - id: erklaeren-grenzwert
+    typ: erklaeren
+    text:
+      de: '$a_n = \frac{1}{n}$ fällt: 1, $\frac{1}{2}$, $\frac{1}{3}$, … Die Glieder bleiben über 0, sie ist **[[beschränkt]]**. Sie nähert sich 0: Der **[[Grenzwert]]** ist 0. Beschränkt allein reicht nicht: $(-1)^n$ springt hin und her.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ art: potenz, n: -1, vergleich: true }],
+            x: [0, 6],
+            y: [0, 2],
+            punkte: [[1, 1], [2, 0.5], [3, 0.33], [4, 0.25], [5, 0.2], [6, 0.17]],
+          },
+      }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$a_n = 3 \cdot 2^{n-1}$: 3, 6, 12, 24, … steigt und ist nicht [[beschränkt]]. $a_n = \frac{n}{n + 1}$: $\frac{1}{2}$, $\frac{2}{3}$, $\frac{3}{4}$, … steigt, bleibt unter 1 und nähert sich 1.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Die Folge 5, 15, 45, … wird jedes Mal mit 3 malgenommen. Berechne $a_4$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '135', fehler: [{ wert: '405', fv: FV.FS.INDEX }] }
+    weiter: gegenbeispiel
+    bei: { FV.FS.INDEX: erklaeren-folge }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan sagt: „$a_n = (-1)^n$ bleibt immer zwischen −1 und 1. Also hat sie einen [[Grenzwert]].“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Sie springt immer zwischen −1 und 1 und nähert sich keiner Zahl.' },
+            richtig: true,
+          }
+        - {
+            wert: { de: 'Ja. Jede beschränkte Folge hat einen Grenzwert.' },
+            fv: FV.FS.BESCHRAENKT-KONVERGENT,
+          }
+    weiter: merksatz
+    bei: { FV.FS.BESCHRAENKT-KONVERGENT: erklaeren-grenzwert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Arithmetisch: $a_n = a_1 + (n - 1) \cdot d$. Geometrisch: $a_n = a_1 \cdot q^{n-1}$. Beschränkt und [[monoton]] zusammen sichern einen [[Grenzwert]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche Folge ist fallend?'
+    antwort:
+      optionen:
+        - { wert: { de: '$a_n = \frac{1}{n}$' }, richtig: true }
+        - { wert: { de: '$a_n = \frac{n}{n + 1}$' }, fv: FV.FS.MONOTON }
+        - { wert: { de: '$a_n = (-1)^n$' }, fv: FV.FS.MONOTON }
+    weiter: uebergang
+    bei: { FV.FS.MONOTON: erklaeren-grenzwert }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Glieder von Folgen.'
+    vorlagen: [M.SF.FS.FOLGEN.GLIED]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

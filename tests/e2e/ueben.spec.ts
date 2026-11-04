@@ -2373,6 +2373,22 @@ test('Klasse 10: Stabdiagramm in der Erstvermittlung, Varianz nur am Gymnasium (
   ).toBeVisible();
 });
 
+test('Klasse 10: Grundfunktionen für beide Schularten, Folgen nur am Gymnasium (Feld FS)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await expect(page.getByRole('button', { name: /^Zahlenfolgen/ })).toBeVisible();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await expect(page.getByRole('button', { name: /^Zahlenfolgen/ })).toHaveCount(0);
+  await thema(page, /^Grundfunktionen im Überblick/);
+  await expect(page.getByRole('img', { name: /^Ein Graph durch die Punkte/ })).toBeVisible();
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);

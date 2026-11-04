@@ -82,6 +82,7 @@ export const FELDER: Readonly<Record<string, string>> = {
   TF: 'trigonometrische-funktionen',
   AD: 'allgemeine-dreiecke',
   ZG: 'zufallsgroessen',
+  FS: 'funktionen-systematisch',
 };
 
 const ID_MUSTER = /^M\.([A-Z]{2})\.([A-Z]{2})\.[A-Z0-9]+(?:-[A-Z0-9]+)*$/;

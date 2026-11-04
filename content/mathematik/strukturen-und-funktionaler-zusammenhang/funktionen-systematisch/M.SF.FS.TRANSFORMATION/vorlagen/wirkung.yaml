@@ -1,0 +1,24 @@
+# Wirkung einer Transformation – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.FS.TRANSFORMATION.WIRKUNG
+kompetenz: M.SF.FS.TRANSFORMATION
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: fs.wirkung@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Wie entsteht der [[Graph]] von {term} aus dem [[Graphen]] der Grundfunktion? **Wähle**.'
+hilfen:
+  - de: 'Steht die Zahl außen (an f) oder innen (am x)?'
+  - de: 'Außen wirkt in y-Richtung wie gelesen, innen in x-Richtung umgekehrt.'
+fehlerbilder:
+  richtung:
+    de: 'Eine Zahl im Inneren wirkt umgekehrt: $+ c$ schiebt nach links, $\cdot c$ staucht.'
+    fv: FV.FS.RICHTUNG
+  achse:
+    de: 'Außen wirkt in y-Richtung, innen in x-Richtung.'
+    fv: FV.FS.STRECKUNG-X
+herkunft: ki-entwurf
+version: 1

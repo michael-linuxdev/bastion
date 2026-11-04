@@ -1,0 +1,40 @@
+# Funktionen systematisch – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FS.TRANSFORMATION
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen-systematisch
+titel:
+  de: 'Transformationen von Funktionen'
+kann_satz:
+  de: 'Ich kann für beliebige bekannte Funktionen den Einfluss von c·f(x), f(x) + c, f(x + c) und f(c·x) auf Graph und Eigenschaften angeben.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.FS.SYSTEMATIK
+  - M.SF.TF.PARAMETER
+  - M.SF.PF.PARAMETER
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die Wirkung einer Verschiebung oder Streckung beschreiben.'
+  M:
+    beschreibung:
+      de: 'Den Term zu einem verschobenen Graphen wählen.'
+  E:
+    beschreibung:
+      de: 'Die Reihenfolge der Abbildungen bei y = a · f(x − d) + e begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1
