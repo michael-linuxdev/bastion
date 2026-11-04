@@ -37,6 +37,9 @@ import {
   atlasSchneeDachId,
   atlasWetterId,
   atlasWesenId,
+  atlasDatei,
+  type AtlasFahne,
+  type AtlasFluegel,
   type AtlasManifest,
   type BodenKachel,
 } from './atlas';
@@ -114,6 +117,8 @@ import {
   type Taetigkeit,
 } from './bewohner';
 import { belegteFelder } from './pfad';
+import { bodenLeben } from './boden-leben';
+import { sekundeDesTages, wegeFelder, wegeListe } from './tagesablauf';
 import { wesenReagieren, wesenStarten, wesenTick, type WesenZustand } from './wesen';
 import { atlasThema, type Bildart } from './bildart';
 import { geruestEbenen } from './geruest';
@@ -934,6 +939,17 @@ function fensterAbendSprite(
   if (!eintrag || !tex) return;
   const [bw, bt] = KATALOG[typ].groesse;
   const fuss = punkt(pos.x + bw, pos.y + bt);
+  // Licht aus den Fenstern fällt warm auf den Boden vor dem Gebäude (Wunsch PV: Licht)
+  const schein = new Graphics();
+  const m = punkt(pos.x + bw / 2 + 0.5, pos.y + bt / 2 + 0.5);
+  for (const f of [1, 0.72, 0.48, 0.28]) {
+    schein
+      .ellipse(m.x, m.y, (bw * RAUTE_B * 0.46 + 8) * f, (bt * RAUTE_H * 0.46 + 4) * f)
+      .fill({ color: '#ffcf7a', alpha: 0.07 });
+  }
+  schein.blendMode = 'add';
+  schein.zIndex = tiefe * 10 - 1;
+  gebaeude.addChild(schein);
   const spr = new Sprite(tex);
   spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
   spr.width = eintrag.pixel.w / 2;
@@ -989,12 +1005,40 @@ function stiftVon(g: Graphics): Stift {
   };
 }
 
+/**
+ * Texturen-Vorrat, der sich merkt, welche IDs die Bühne beim Zeichnen tatsächlich abfragt.
+ * Nur diese bekommen später ein scharfes @2x-Bild (Absturz beim Zoomen auf dem iPhone,
+ * PV 03.11.2026: alle Gebäude aller Stufen in HD waren rund 76 MB Grafikspeicher).
+ */
+class TexturVorrat extends Map<string, Texture> {
+  readonly gebraucht = new Set<string>();
+  override get(id: string): Texture | undefined {
+    this.gebraucht.add(id);
+    return super.get(id);
+  }
+}
+
+/** Farbe `#rrggbb` mit dem Faktor `f` aufhellen oder abdunkeln (begrenzt auf 0 … 255) */
+function heller(farbe: string, f: number): number {
+  const n = parseInt(farbe.slice(1, 7), 16);
+  const k = (v: number) => Math.min(255, Math.round(v * f));
+  return (k((n >> 16) & 255) << 16) | (k((n >> 8) & 255) << 8) | k(n & 255);
+}
+
+/** Farbe der ausgetretenen Wege je Thema; im Winter festgetretener Schnee */
+const WEG_FARBE: Readonly<Record<string, string>> = {
+  insel: '#a9b56c',
+  dorf: '#a79a66',
+  garten: '#b4b48a',
+  winter: '#dfe5ec',
+};
+
 /** Texturen aus dem Manifest laden (eigene Adresse); Fehler → Eintrag fehlt, Fallback. */
 async function atlasTexturenLaden(
   manifest: AtlasManifest | null,
   braucht: (id: string) => boolean = () => true,
-): Promise<Map<string, Texture>> {
-  const map = new Map<string, Texture>();
+): Promise<TexturVorrat> {
+  const map = new TexturVorrat();
   if (!manifest || manifest.eintraege.length === 0) return map;
   const basis = atlasBasisUrl();
   const liste = manifest.eintraege.filter((e) => braucht(e.id));
@@ -1002,7 +1046,9 @@ async function atlasTexturenLaden(
     liste.map(async (e) => {
       try {
         // Timeout: offline/ohne Cache soll die Bühne nicht hängen (Code-Fallback)
-        const geladen = Assets.load(basis + e.datei) as Promise<Texture>;
+        // Erst alles in einfacher Größe; scharfe Bilder zieht hdNachziehen nur für Sichtbares nach
+        const datei = atlasDatei(e, 1);
+        const geladen = Assets.load(basis + datei) as Promise<Texture>;
         const tex = await Promise.race([
           geladen,
           new Promise<Texture>((_, ablehnen) => {
@@ -1417,6 +1463,29 @@ export async function buehneErstellen(
    * gemerkt werden – Mitte der Krone und wie tief ein Blatt bis zum Boden fällt.
    */
   let laubQuellen: { x: number; y: number; h: number }[] = [];
+  /** Rauch: Stellen über Dächern, aus denen ruhige Wölkchen aufsteigen */
+  let rauchQuellen: { x: number; y: number }[] = [];
+  const rauchLage = new Graphics();
+  app.stage.addChild(rauchLage);
+  const RAUCH_WOELKCHEN = 6;
+  const schornsteinZeichnen = (jetzt: number) => {
+    rauchLage.clear();
+    if (rauchQuellen.length === 0 || bewegung === 'aus') return;
+    // Wind: bei Sturm schräg und schnell, sonst langsam nach oben
+    const wind = wetterBild === 'sturm' ? 2.6 : wetterBild === 'regen' ? 0.9 : 0.4;
+    const dauer = wetterBild === 'sturm' ? 2600 : 5200;
+    const ton = farben.abend ? '#8e96a6' : '#c9cfd6';
+    rauchQuellen.forEach((q, qi) => {
+      for (let k = 0; k < RAUCH_WOELKCHEN; k++) {
+        const t = (((jetzt / dauer + k / RAUCH_WOELKCHEN + qi * 0.37) % 1) + 1) % 1;
+        const x = q.x + t * 26 * wind + Math.sin((t + qi) * 5) * 2;
+        const y = q.y - t * 46;
+        rauchLage
+          .circle(x, y, 2.5 + t * 7)
+          .fill({ color: ton, alpha: 0.5 * (1 - t) * Math.min(1, t * 6) });
+      }
+    });
+  };
   const laubNeu = (t: Tropfen, i: number) => {
     const n = laubQuellen.length;
     if (n === 0) return;
@@ -1623,6 +1692,8 @@ export async function buehneErstellen(
       aufBoden(c, y, 6);
     };
     for (const b of bewohner) {
+      // Nachts drinnen (Tagesablauf, Punkt 4)
+      if (b.tagesphase === 'drinnen') continue;
       const { zyklus, frame } = bewohnerFrame(b, jetzt);
       const eintrag = atlasEintragPerId(atlas, atlasBewohnerId(b.art, zyklus, frame));
       const tex = eintrag ? texturen.get(eintrag.id) : undefined;
@@ -1646,14 +1717,148 @@ export async function buehneErstellen(
     }
   };
 
+  /**
+   * Wehende Fahnen (Wunsch PV, 03.11.2026): Über jedem Tuch im Gebäudebild liegt ein
+   * gezeichnetes Tuch, das sich leicht wellt. Gesammelt nach jedem Zeichnen; bei
+   * „ruhig“ bleibt das stille Tuch aus dem Bild.
+   */
+  let fahnenTuecher: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number }[] =
+    [];
+  let muehlen: { g: Graphics; x: number; y: number; k: number; f: AtlasFluegel; n: number }[] = [];
+  const fahnenSammeln = () => {
+    fahnenTuecher = [];
+    muehlen = [];
+    const idVon = new Map<Texture, string>();
+    for (const [id, tex] of texturen) idVon.set(tex, id);
+    let n = 0;
+    for (const kind of [...gebaeude.children]) {
+      if (!(kind instanceof Sprite)) continue;
+      const id = idVon.get(kind.texture);
+      const eintrag = id ? atlasEintragPerId(atlas, id) : undefined;
+      if (!eintrag) continue;
+      const k = kind.width / (eintrag.pixel.w / 2);
+      // Mühle: Bild ohne Flügel zeigen und die Flügel selbst zeichnen (auch bei „ruhig“,
+      // dann stehen sie still)
+      const ohne = eintrag.fluegel ? atlasEintragPerId(atlas, eintrag.fluegel.ohne) : undefined;
+      const ohneTex = ohne ? texturen.get(ohne.id) : undefined;
+      if (eintrag.fluegel && ohne && ohneTex) {
+        kind.texture = ohneTex;
+        kind.height = (ohne.pixel.h / 2) * k;
+        const g = new Graphics();
+        g.zIndex = kind.zIndex + 0.5;
+        g.tint = kind.tint;
+        gebaeude.addChild(g);
+        muehlen.push({ g, x: kind.x, y: kind.y, k, f: eintrag.fluegel, n: n++ });
+      }
+      if (!eintrag.fahnen || !tickerAn(bewegung)) continue;
+      for (const f of eintrag.fahnen) {
+        const g = new Graphics();
+        g.zIndex = kind.zIndex + 0.5;
+        g.tint = kind.tint;
+        gebaeude.addChild(g);
+        fahnenTuecher.push({ g, x: kind.x, y: kind.y, k, f, n: n++ });
+      }
+    }
+    fahnenWehen(performance.now());
+    muehlenDrehen(performance.now());
+  };
+  /**
+   * Drehende Mühlenflügel (Wunsch PV, 03.11.2026): vier Flügel vor der rechten Wand, in
+   * derselben Ebene wie im Modell (`muehle_fluegel` in `g12_modelle.py`), eine Umdrehung
+   * in zwölf Sekunden, bei Sturm schneller. Bei „ruhig“ stehen sie wie im alten Bild.
+   */
+  const muehlenDrehen = (jetzt: number) => {
+    const dreht = tickerAn(bewegung);
+    const tempo = wetterBild === 'sturm' ? 2.5 : 1;
+    for (const m of muehlen) {
+      const { g, f, k } = m;
+      g.clear();
+      const s = k / 2;
+      const nx = m.x + f.x * s;
+      const ny = m.y + f.y * s;
+      // Bildpunkte je Feld in der Ebene der rechten Wand (iso: 48 / 24 / 58,79)
+      const qx = 48 * s;
+      const qy = 24 * s;
+      const qz = 58.79 * s * f.f;
+      // Richtung in der Wand-Ebene: dy = Feld nach hinten, dz = nach oben
+      const bild = (dy: number, dz: number) => ({ x: nx - dy * qx, y: ny + dy * qy - dz * qz });
+      const drehung = dreht ? -((jetzt / 12_000) * Math.PI * 2 * tempo + m.n) : 0;
+      for (let i = 0; i < 4; i++) {
+        const a = Math.PI / 4 + (i * Math.PI) / 2 + drehung;
+        const ca = Math.cos(a);
+        const sa = Math.sin(a);
+        // Flügel entlang (−cos a, sin a), Tuch quer dazu (sin a, cos a), 0,24 Felder breit
+        const ende = bild(-f.l * ca, f.l * sa);
+        const ecken = [
+          [0.25, -0.12],
+          [1, -0.12],
+          [1, 0.12],
+          [0.25, 0.12],
+        ].map(([t = 0, q = 0]) => bild(-f.l * t * ca + q * sa, f.l * t * sa + q * ca));
+        // Tuch: im Licht heller, wenn es nach oben zeigt
+        const licht = 0.9 + 0.1 * sa;
+        g.poly(ecken.flatMap((p) => [p.x, p.y]))
+          .fill(heller('#f0e8d6', licht))
+          .stroke({ width: 0.8 * s, color: 0x8a6a4a, alpha: 0.7 });
+        // Rute über dem Tuch, wie im alten Bild
+        g.moveTo(nx, ny)
+          .lineTo(ende.x, ende.y)
+          .stroke({ width: 1.6 * s, color: 0x5c3e28, cap: 'round' });
+      }
+      g.circle(nx, ny, 2.4 * s).fill(0x4a3220);
+    }
+  };
+  const fahnenWehen = (jetzt: number) => {
+    const wind = wetterBild === 'sturm' ? 2.2 : 1;
+    for (const t of fahnenTuecher) {
+      const { g, f, k } = t;
+      g.clear();
+      // Bildpunkte des 1x-Bildes sind halbe Bühnenpunkte
+      const s = k / 2;
+      const ox = t.x + f.x * s;
+      const oy = t.y + f.y * s;
+      const amp = 1.1 * s * wind;
+      // Rand größer als die Welle: das stille Tuch im Bild bleibt ganz verdeckt
+      const rand = amp + 0.5 * s;
+      const phase = (jetzt / 1000) * 4.2 * wind + t.n * 1.7;
+      const teile = 6;
+      const punkte: { x: number; y: number; w: number }[] = [];
+      for (let i = 0; i <= teile; i++) {
+        const a = i / teile;
+        const welle = Math.sin(phase - a * 2.6);
+        punkte.push({ x: ox + f.b * s * a, y: oy + f.s * s * a + welle * amp * a, w: welle });
+      }
+      for (let i = 0; i < teile; i++) {
+        const p = punkte[i];
+        const q = punkte[i + 1];
+        if (!p || !q) continue;
+        // Falten: wo die Welle steigt, ist das Tuch heller
+        const licht = 0.9 + 0.1 * Math.cos(phase - ((i + 0.5) / teile) * 2.6);
+        g.poly([
+          p.x,
+          p.y - rand,
+          q.x + 0.2,
+          q.y - rand,
+          q.x + 0.2,
+          q.y + f.h * s + rand,
+          p.x,
+          p.y + f.h * s + rand,
+        ]).fill(heller(f.farbe, licht));
+      }
+    }
+  };
+
   const ticker = () => {
     const jetzt = performance.now();
+    if (fahnenTuecher.length > 0) fahnenWehen(jetzt);
+    if (muehlen.length > 0) muehlenDrehen(jetzt);
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
     tickerZuletzt = jetzt;
     // Bei Sturm ziehen die Wolken dreimal so schnell
     wolkenLage.x = wolkenVersatz(jetzt, bewegung) * (wetterBild === 'sturm' ? 3 : 1);
     if (wetterBild === 'sturm') schattenZeichnen(jetzt);
     aufstellAnwenden(jetzt);
+    if (tickerAn(bewegung)) schornsteinZeichnen(jetzt);
     if (tickerAn(bewegung) && budget > 0) {
       for (let i = 0; i < tropfen.length; i++) {
         const t = tropfen[i];
@@ -1687,7 +1892,13 @@ export async function buehneErstellen(
       wesenZeichnen(jetzt);
     }
     if (tickerAn(bewegung) && bewohner.length > 0) {
-      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF));
+      const uhr = new Date();
+      const sekunde = sekundeDesTages(
+        uhr.getHours(),
+        uhr.getMinutes(),
+        uhr.getSeconds() + uhr.getMilliseconds() / 1000,
+      );
+      bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF, sekunde));
       bewohnerZeichnen(jetzt);
     }
   };
@@ -1710,8 +1921,54 @@ export async function buehneErstellen(
   };
   tickerSync();
 
-  return {
+  /**
+   * Scharfe Bilder nachladen: nur für die Einträge, die die letzte Zeichnung wirklich
+   * abgefragt hat (stehende Gebäude, Umgebung, Fenster). Danach einmal neu zeichnen.
+   * Läuft nur bei hoher Pixeldichte.
+   */
+  const pixeldichte = globalThis.devicePixelRatio || 1;
+  const hdFertig = new Set<string>();
+  let hdLaeuft = false;
+  let zerstoert = false;
+  let letzteZeichnung: [Bastion, Ansicht] | undefined;
+  const hdNachziehen = () => {
+    if (hdLaeuft || zerstoert || pixeldichte < 1.5) return;
+    const basis = atlasBasisUrl();
+    const offen = [...texturen.gebraucht]
+      .filter((id) => !hdFertig.has(id))
+      .map((id) => atlasEintragPerId(atlas, id))
+      .filter((e): e is NonNullable<typeof e> => !!e && !!e.hd && texturen.has(e.id));
+    for (const e of offen) hdFertig.add(e.id);
+    if (offen.length === 0) return;
+    hdLaeuft = true;
+    void Promise.all(
+      offen.map(async (e) => {
+        try {
+          const tex = (await Assets.load(basis + atlasDatei(e, pixeldichte))) as Texture;
+          return { e, tex };
+        } catch {
+          return undefined;
+        }
+      }),
+    ).then((liste) => {
+      hdLaeuft = false;
+      if (zerstoert) return;
+      let neu = 0;
+      for (const x of liste) {
+        if (!x) continue;
+        texturen.set(x.e.id, x.tex);
+        neu++;
+      }
+      // Die einfachen Bilder bleiben im Vorrat (manche Sprites entstehen außerhalb von
+      // zeichne); ungenutzt räumt PixiJS sie nach einer Weile aus dem Grafikspeicher.
+      if (neu > 0 && letzteZeichnung) buehne.zeichne(...letzteZeichnung);
+    });
+  };
+
+  const buehne: Buehne = {
     zeichne(b, a) {
+      letzteZeichnung = [b, a];
+      queueMicrotask(hdNachziehen);
       const ids = new Set(b.bauwerke.map((x) => x.id));
       const anzahl = b.bauwerke.length;
       letzteBauwerke = b.bauwerke;
@@ -1782,7 +2039,81 @@ export async function buehneErstellen(
       });
       treffer = [];
       laubQuellen = [];
+      // Boden mit Leben (Wunsch PV, Schritt 7): Gras, Blumen, Laub, Spuren auf freien Feldern
+      if (istLandBildart(art) && texturen.size > 0) {
+        const leben = new Graphics();
+        leben.zIndex = 1;
+        const { breite: lw, tiefe: lt } = bauplatzAktiv();
+        const dunkel = farben.abend ? 0.55 : 1;
+        // Ausgetretene Wege vom Bergfried zu den Gebäuden (Punkt 4); dort wächst nichts
+        const wege = wegeListe(b.bauwerke, belegt, bauplatzAktiv());
+        const wegFarbe = WEG_FARBE[farben.jahreszeit === 'winter' ? 'winter' : art] ?? '#c8b48a';
+        const pfade = new Graphics();
+        for (const weg of wege) {
+          weg.forEach((f, i) => {
+            const p = punkt(f.x + 0.5, f.y + 0.5);
+            if (i === 0) pfade.moveTo(p.x, p.y);
+            else pfade.lineTo(p.x, p.y);
+          });
+        }
+        // Deckend gezeichnet: halb durchsichtige Wege dunkeln sich dort ab, wo sie sich
+        // überlappen. Abends dunkler gefärbt statt durchsichtiger.
+        pfade.stroke({ width: 13, color: dunkler(wegFarbe, dunkel), cap: 'round', join: 'round' });
+        pfade.zIndex = 0.5;
+        gebaeude.addChild(pfade);
+        const frei = new Set([...belegt, ...wegeFelder(b.bauwerke, belegt, bauplatzAktiv())]);
+        for (const d of bodenLeben(lw, lt, farben.jahreszeit ?? 'sommer', frei)) {
+          const p = punkt(d.x, d.y);
+          if (d.art === 'buesche') {
+            for (const [dx, h] of [
+              [-2.2, 6],
+              [0, 8],
+              [2.2, 5.4],
+            ] as const)
+              leben
+                .moveTo(p.x + dx, p.y)
+                .lineTo(p.x + dx * 1.7, p.y - h)
+                .stroke({ width: 1.5, color: d.farbe, alpha: 0.85 * dunkel, cap: 'round' });
+          } else if (d.art === 'bluete') {
+            leben
+              .moveTo(p.x, p.y)
+              .lineTo(p.x, p.y - 6)
+              .stroke({ width: 0.9, color: '#4d8f35', alpha: dunkel });
+            leben.circle(p.x, p.y - 6.8, 2.6).fill({ color: d.farbe, alpha: dunkel });
+            leben.circle(p.x, p.y - 6.8, 0.9).fill({ color: '#f6d24a', alpha: dunkel });
+          } else if (d.art === 'laub') {
+            leben.ellipse(p.x, p.y, 3.4, 1.7).fill({ color: d.farbe, alpha: 0.9 * dunkel });
+          } else {
+            // Spuren im Schnee: ein paar Abdrücke hintereinander
+            for (let k = 0; k < 3; k++)
+              leben
+                .ellipse(p.x + k * 3.2 + (k % 2) * 1.2, p.y + k * 1.6 - (k % 2) * 1.4, 1.3, 0.7)
+                .fill({ color: d.farbe, alpha: 0.55 * dunkel });
+          }
+        }
+        gebaeude.addChild(leben);
+      }
       const epoche = epocheJetzt;
+      // Rauch aus Bergfried und Werkstatt (Wunsch PV: Leben an den Gebäuden), nur über Land
+      rauchQuellen = [];
+      const rauchThema =
+        art === 'dorf'
+          ? 'dorf'
+          : art === 'garten'
+            ? 'garten'
+            : art === 'insel'
+              ? 'bastion'
+              : undefined;
+      if (rauchThema && texturen.size > 0)
+        for (const x of reihe) {
+          if (x.typ !== 'kern' && x.typ !== 'werkstatt') continue;
+          const e = atlasEintrag(atlas, rauchThema, epoche, x.typ, x.stufe);
+          if (!e) continue;
+          const [bw, bt] = KATALOG[x.typ].groesse;
+          const fuss = punkt(x.pos.x + bw, x.pos.y + bt);
+          rauchQuellen.push({ x: fuss.x + e.pixel.w * 0.03, y: fuss.y - (e.pixel.h / 2) * 0.78 });
+        }
+      schornsteinZeichnen(performance.now());
       if (art === 'dorf' && texturen.size > 0) {
         // Atlas-Dorf: Bäume + Gebäude-Sprites (Fallback je Rolle, GRAFIK-SPRITES P0)
         // Bäume aus dem Atlas (G3, GRAFIK-SPRITES §12.10), sonst Code-Baum
@@ -2365,6 +2696,7 @@ export async function buehneErstellen(
         });
       }
       gebaeude.addChild(g);
+      fahnenSammeln();
     },
     setzeBewegung(b) {
       bewegung = b;
@@ -2399,6 +2731,7 @@ export async function buehneErstellen(
       const x = ((clientX - r.left) / r.width) * buehneBreite();
       const y = ((clientY - r.top) / r.height) * buehneHoehe();
       for (const b of [...bewohner].reverse()) {
+        if (b.tagesphase === 'drinnen') continue;
         if (Math.hypot(b.x - x, b.y - y) < 16) return b.id;
       }
       return undefined;
@@ -2425,6 +2758,7 @@ export async function buehneErstellen(
       return app.canvas;
     },
     zerstoere() {
+      zerstoert = true;
       app.ticker.remove(ticker);
       const view = app.canvas;
       // Nicht `destroy(true)`: das gäbe auch die globalen Ressourcen von PixiJS frei (Vorrat
@@ -2435,6 +2769,7 @@ export async function buehneErstellen(
       view.remove();
     },
   };
+  return buehne;
 }
 
 /** Liegt (x, y) im Vieleck? (Strahlverfahren) */

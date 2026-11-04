@@ -11,15 +11,18 @@
    */
   import type { WetterBild } from './grafik/wetter';
   import type { Jahreszeit } from './grafik/jahreszeit';
+  import type { Thema } from '../../core/policy/einstellung';
   import type { Kamera } from './grafik/kamera';
   import type { Bewegung } from './grafik/atmosphaere';
-  import { buehneFuer, punkt } from './grafik/iso';
+  import { buehneFuer, INSEL, punkt } from './grafik/iso';
+  import { inselRand } from './grafik/insel-rand';
   import {
     DING_BREITE,
     HORIZONT,
     MEER,
     STERNE,
     dingBild,
+    inselBewuchs,
     kulissenDinge,
     kulissenLage,
     type KulissenThema,
@@ -40,7 +43,7 @@
     szenerie = 0,
   }: {
     thema: KulissenThema;
-    themaName: string;
+    themaName: Thema;
     stimmung: Stimmung;
     kamera: Kamera;
     inselOben: number;
@@ -109,6 +112,12 @@
       ...d,
       bild: dingBild(thema, d.bild, jahreszeit, d.variante),
       tier: thema.leben.includes('grasen') && ['kuh', 'schaf', 'pferd'].includes(d.bild),
+      // Luftperspektive (Wunsch PV: Tiefe in der Ferne): ab 8 Feldern Abstand blasser,
+      // leicht bläulich, ganz weit minimal unscharf (0 = nah, 1 = am weitesten)
+      dunst: Math.min(
+        1,
+        Math.max(0, (Math.max(-d.gx, d.gx - platz.breite, -d.gy, d.gy - platz.tiefe) - 8) / 30),
+      ).toFixed(2),
       ...punkt(d.gx, d.gy, platz),
     })),
   );
@@ -145,16 +154,33 @@
   );
   const satellit = $derived(thema.leben.includes('satellit') ? lebenPlatz(-6, -10) : undefined);
   /** Rand des Bauplatzes (Raute) für den Schaumring, in Bühnen-Bildpunkten */
-  const raute = $derived(
-    [
-      punkt(0, 0, platz),
-      punkt(platz.breite, 0, platz),
-      punkt(platz.breite, platz.tiefe, platz),
-      punkt(0, platz.tiefe, platz),
-    ]
-      .map((q) => `${q.x},${q.y}`)
-      .join(' '),
+  /**
+   * Inselrand mit freier Küste (§20, Wunsch PV): Strand (nur am Meer), Seitenwand und
+   * Oberfläche, in Bühnen-Bildpunkten. Die Oberfläche liegt auf Höhe des Bauplatzes.
+   */
+  const inselLinie = (zusatz: number, tiefer: number) =>
+    inselRand(platz.breite, platz.tiefe, szenerie, zusatz)
+      .map((p) => {
+        const q = punkt(p.gx, p.gy, platz);
+        return `${q.x.toFixed(1)},${(q.y + tiefer).toFixed(1)}`;
+      })
+      .join(' ');
+  const atlasBasis = `${import.meta.env.BASE_URL}grafik/atlas/`;
+  const bewuchs = $derived(
+    inselBewuchs(platz.breite, platz.tiefe, themaName, szenerie).map((w) => ({
+      ...w,
+      src: `${atlasBasis}${w.pfad}${w.jahreszeit && jahreszeit !== 'sommer' ? `_${jahreszeit}` : ''}.png`,
+      ...punkt(w.gx, w.gy, platz),
+    })),
   );
+  const insel = $derived({
+    strand: thema.insel.strand ? inselLinie(0.55, INSEL) : '',
+    wand: inselLinie(0, INSEL),
+    oben: inselLinie(0, 0),
+    // Spiegelung der Inselwand im Wasser (Wunsch PV: Licht und Wasser): unter dem Strand
+    spiegel: thema.wasser ? inselLinie(0.55, INSEL * 3.2) : '',
+  });
+
   const bootStart = $derived(punkt(-4, platz.tiefe + 5, platz));
   const bootZiel = $derived(punkt(platz.breite + 5, platz.tiefe + 5, platz));
 </script>
@@ -201,6 +227,13 @@
       style:background-position="{lage.horizontX}px 0"
     ></div>
     <div class="dunst" style:inset-block-start="{wasserFern - 4}px"></div>
+    <!-- Luftperspektive: zum Horizont hin liegt Dunst in der Farbe des Himmels -->
+    <div
+      class="ferne"
+      style:inset-block-start="{wasserFern}px"
+      style:block-size="{Math.max(80, hoch * 2.4)}px"
+      style:background="linear-gradient({himmel[1]}, transparent)"
+    ></div>
   {/if}
   <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
        weit weg, sie wandern beim Verschieben nur wenig mit -->
@@ -246,8 +279,26 @@
     style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
   >
     <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
+      {#if insel.spiegel}
+        <defs>
+          <linearGradient id="spiegelung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.55" stop-color="rgb(30 50 40)" stop-opacity="0.3" />
+            <stop offset="1" stop-color="rgb(30 50 40)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <polygon class="spiegelung" points={insel.spiegel} />
+      {/if}
+      <g class="inselrand">
+        {#if insel.strand}
+          <polygon class="strand" points={insel.strand} style:fill={thema.insel.strand} />
+        {/if}
+        <polygon class="wand" points={insel.wand} style:fill={thema.insel.wand} />
+        <polygon class="oben" points={insel.oben} style:fill={thema.insel.oben} />
+      </g>
       {#if thema.wasser}
-        <polygon points={raute} />
+        <!-- Schaum an der echten Küste, die Brandung schwillt an und ab -->
+        <polygon class="kueste" points={insel.strand} />
+        <polygon class="kueste ufer welle" points={insel.strand} />
       {/if}
       {#each schollen as s (s.i)}
         <polygon
@@ -257,6 +308,17 @@
         />
       {/each}
     </svg>
+    {#each bewuchs as w, i (i)}
+      <img
+        class="ding"
+        src={w.src}
+        srcset="{w.src} 1x, {w.src.replace(/\.png$/, '@2x.png')} 2x"
+        alt=""
+        style:inline-size="{w.breite}px"
+        style:inset-inline-start="{w.x}px"
+        style:inset-block-start="{w.y}px"
+      />
+    {/each}
     {#each ringe as r (r.i)}
       <span
         class="ring"
@@ -275,11 +337,13 @@
           class:flach={d.flach}
           class:tier={d.tier}
           src="{basis}dinge/{d.bild}.png"
+          srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
           alt=""
           style:inline-size="{d.breite ?? DING_BREITE}px"
           style:inset-inline-start="{d.x}px"
           style:inset-block-start="{d.y}px"
           style:--n={i % 7}
+          style:--dunst={d.dunst}
         />
       {/if}
     {/each}
@@ -287,6 +351,7 @@
       <img
         class="ding schwarm"
         src="{basis}dinge/fischschwarm.png"
+        srcset="{basis}dinge/fischschwarm.png 1x, {basis}dinge/fischschwarm@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.3}px"
         style:inset-inline-start="{f.x}px"
@@ -298,6 +363,7 @@
       <img
         class="ding satellit"
         src="{basis}dinge/satellit.png"
+        srcset="{basis}dinge/satellit.png 1x, {basis}dinge/satellit@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE * 1.2}px"
         style:inset-inline-start="{satellit.x}px"
@@ -338,6 +404,7 @@
       <img
         class="ding boot"
         src="{basis}dinge/boot.png"
+        srcset="{basis}dinge/boot.png 1x, {basis}dinge/boot@2x.png 2x"
         alt=""
         style:inline-size="{DING_BREITE}px"
         style:inset-inline-start="{bootStart.x}px"
@@ -347,6 +414,9 @@
       />
     {/if}
   </div>
+  {#if stimmung !== 'tag'}
+    <div class="abendton" style:inset-block-start="{Math.max(0, wasserFern)}px"></div>
+  {/if}
 </div>
 
 <style>
@@ -360,6 +430,17 @@
   .sterne,
   .meer,
   .horizont,
+  .ferne {
+    position: absolute;
+    inset-inline: 0;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .nacht .ferne {
+    opacity: 0.25;
+  }
+
   .dunst {
     position: absolute;
     inset-inline: 0;
@@ -400,7 +481,15 @@
     overflow: visible;
   }
 
-  .schaum polygon {
+  .schaum .inselrand polygon {
+    stroke: none;
+  }
+
+  .schaum .inselrand .wand {
+    filter: brightness(0.92);
+  }
+
+  .schaum polygon.kueste {
     fill: none;
     stroke: rgb(236 246 248 / 0.55);
     stroke-width: 7;
@@ -408,10 +497,15 @@
   }
 
   .ding {
+    --dunst: 0;
     position: absolute;
     block-size: auto;
     /* Fuß unten Mitte auf dem Platz */
     translate: -50% -100%;
+    /* Luftperspektive: weit weg blasser – nur über die Deckkraft, ohne Filter. Ein Filter
+       je Bild gab jedem der bis zu 270 Dinge eine eigene Grafikebene; beim Zoomen lief
+       der Speicher auf dem iPhone über und die App stürzte ab (PV 03.11.2026). */
+    opacity: calc(1 - var(--dunst) * 0.35);
   }
 
   .himmelwolke {
@@ -502,20 +596,44 @@
     display: none;
   }
 
-  .daemmerung .ding,
-  .daemmerung .schaum {
-    filter: brightness(0.8) sepia(0.15);
+  /* Abend und Nacht: eine Tönung in Fenstergröße über Meer, Inselrand und Dingen statt
+     eines Filters an jedem Bild (Speicher, siehe .ding) */
+  .abendton {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    pointer-events: none;
   }
 
-  .nacht .ding,
-  .nacht .schaum {
-    filter: brightness(0.45) saturate(0.7);
+  .daemmerung .abendton {
+    background: rgb(70 36 20 / 0.2);
+  }
+
+  .nacht .abendton {
+    background: rgb(6 12 30 / 0.52);
   }
 
   /* —— Jahreszeiten (Wunsch PV 03.11.2026): Felder und Hügel folgen dem Kalender —— */
   .jz-fruehling:not(.wasser) .meer,
   .jz-fruehling .horizont {
     filter: saturate(1.15) brightness(1.06) hue-rotate(-6deg);
+  }
+
+  /* Inselrand folgt der Jahreszeit wie der Boden des Bauplatzes */
+  .jz-fruehling .inselrand .oben {
+    filter: saturate(1.15) brightness(1.06);
+  }
+
+  .jz-herbst .inselrand .oben {
+    filter: sepia(0.4) saturate(1.1) hue-rotate(-18deg);
+  }
+
+  .wetter-schnee .inselrand .oben {
+    filter: saturate(0.15) brightness(1.75) contrast(0.75);
+  }
+
+  .jz-winter .inselrand .oben {
+    filter: saturate(0.25) brightness(1.5) contrast(0.8);
   }
 
   .jz-herbst:not(.wasser) .meer,
@@ -555,9 +673,33 @@
     background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.25) 60%, transparent);
   }
 
-  .wetter-sturm .schaum polygon {
+  .wetter-sturm .schaum polygon.kueste:not(.welle) {
     stroke: rgb(244 250 252 / 0.8);
     stroke-width: 12;
+  }
+
+  .schaum .spiegelung {
+    fill: url(#spiegelung);
+    stroke: none;
+  }
+
+  .schaum .ufer {
+    fill: none;
+    stroke: rgb(240 248 250 / 0.7);
+    stroke-width: 4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .schaum .ufer.welle {
+    stroke: rgb(240 248 250 / 0.35);
+    stroke-width: 9;
+    opacity: 0.6;
+  }
+
+  .wetter-sturm .schaum .ufer.welle {
+    stroke-width: 11;
+    stroke: rgb(240 248 250 / 0.28);
   }
 
   .schaum polygon.scholle {
@@ -611,6 +753,16 @@
 
     .kulisse.bewegt .boot {
       animation: segeln 180s linear infinite;
+    }
+
+    /* Wellen laufen ans Ufer: der Schaum schwillt langsam an und ab */
+    /* In Stufen: der Browser malt die Küste nur ein paar Mal je Sekunde neu */
+    .kulisse.bewegt .ufer.welle {
+      animation: brandung 5s steps(10) infinite;
+    }
+
+    .kulisse.bewegt.wetter-sturm .ufer.welle {
+      animation-duration: 2.4s;
     }
 
     .kulisse.bewegt .himmelwolke {
@@ -758,6 +910,18 @@
     }
     to {
       transform: translateX(160%);
+    }
+  }
+
+  /* Nur die Strichdeckkraft, keine Verschiebung: eine Verschiebung bekäme eine eigene
+     Grafikebene, die beim Zoomen mitwächst (Absturz auf dem iPhone, PV 03.11.2026) */
+  @keyframes brandung {
+    0%,
+    100% {
+      stroke-opacity: 0.25;
+    }
+    50% {
+      stroke-opacity: 1;
     }
   }
 

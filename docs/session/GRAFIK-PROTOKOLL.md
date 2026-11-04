@@ -90,4 +90,14 @@
 | 03.11.2026 | **Wunsch aus dem Strang Oberfläche:** Symbole `person`, `sicherung`, `kalender` (Wünsche in `GRAFIK.md`) |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `Symbol.svelte` auf Wunsch des PV neu gezeichnet (nur Striche, Regler statt Zahnrad, Beutel als Umriss); Bastion-Symbole stein, erz, bauplan, bauen, planen, hinterhof unverändert |
 | 03.11.2026 | **Vielfalt und eigene Umgebung** (Branch `grafik/szenerie-wuerfeln`, Wunsch PV): drei Formen je Ding (`g15_varianten.py`, 46 Bilder, Nadelbäume), „Neue Umgebung würfeln“ im Zahnrad mit gespeichertem Startwert `basebau.szenerie`; Test oben/unten gleich voll; GRAFIK §18.2 |
+| 03.11.2026 | **Licht, Wasser, Rauch** (Branch `grafik/licht-leben`, Wunsch PV Schritt 2+3): Lichtschein vor Abendfenstern, Rauch aus Bergfried/Werkstatt, Uferschaum mit Brandung, Spiegelung; GRAFIK §19 |
+| 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** `WetterEinstellung` und `BasebauSchalter` wählen den Text nach `durch` (neue Schlüssel `…-eltern`, „Sie“) |
 | 03.11.2026 | **Noch mehr Dinge und Größen** (Branch `grafik/mehr-dinge`, Wunsch PV): 33 neue Dinge (`g16_mehr_dinge.py`, 73 Bilder), Größen 0,7–1,5 bzw. 1,6–3,4; GRAFIK §18.3 |
+| 03.11.2026 | **Unförmige Insel** (Branch `grafik/insel-form`, Wunsch PV): freie Küste um den Bauplatz aus dem Szenerie-Startwert, Strand und Schaum, Bewuchs auf dem Rand, Bäume nicht mehr im Wasser; GRAFIK §20 |
+| 03.11.2026 | **Tiefe in der Ferne** (Branch `grafik/tiefe`, Wunsch PV Schritt 6): Luftperspektive für ferne Dinge, Dunst am Horizont; GRAFIK §22 |
+| 03.11.2026 | **Scharf beim Zoomen** (Branch `grafik/schaerfe`, Wunsch PV Schritt 1): 490 @2x-Bilder (`g17_hd.py`), Auswahl nach Pixeldichte, `srcset` in der Kulisse; GRAFIK §21 |
+| 03.11.2026 | **Boden mit Leben** (Branch `grafik/boden-leben`, Wunsch PV Schritt 7): Gras, Blüten, Blumen, Laub, Spuren je Jahreszeit auf freien Feldern; GRAFIK §23 |
+| 03.11.2026 | **Kein Absturz beim Zoomen** (Branch `grafik/zoom-absturz`, Meldung PV): Wolkenschatten fest, Brandung ohne Verschiebung, kein Filter je Kulisse-Bild, HD nur für Gezeichnetes; herangezoomt 710 → 238 MB Ebenenspeicher; GRAFIK §24 |
+| 03.11.2026 | **Wege und Tagesablauf** (Branch `grafik/tagesablauf`, Wunsch PV Punkt 4): Pfade vom Bergfried zu den Gebäuden, Bewohner gehen nach der Uhr zur Arbeit, machen Besorgungen, gehen abends heim, nachts drinnen; GRAFIK §25 |
+| 03.11.2026 | **Wehende Fahnen** (Branch `grafik/fahnen`, Wunsch PV): Lage der Tücher aus den Modellen (`g18_fahnen.py`), gezeichnetes Tuch wellt sich über dem Bild; GRAFIK §26 |
+| 03.11.2026 | **Drehende Mühlenflügel** (Branch `grafik/muehle`, Wunsch PV): Mühle ohne Flügel (`g19_muehle.py`), Bühne dreht vier Flügel; Fahnen berücksichtigen jetzt die Höhenstreckung (35 statt 23); GRAFIK §27 |

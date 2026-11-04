@@ -12,6 +12,45 @@ export interface AtlasEintrag {
   readonly felder: readonly [number, number];
   readonly anker: { readonly x: number; readonly y: number };
   readonly pixel: { readonly w: number; readonly h: number };
+  /** Es gibt `<datei>@2x.png` in doppelter Größe (G17, scharf beim Zoomen) */
+  readonly hd?: boolean;
+  /** Fahnen im Bild (G18, wehen auf der Bühne): Bildpunkte des 1x-Bildes ab Fußpunkt */
+  readonly fahnen?: readonly AtlasFahne[];
+  /** Mühlenflügel (G19): die Bühne zeigt das Bild `ohne` und dreht die Flügel dazu */
+  readonly fluegel?: AtlasFluegel;
+}
+
+/**
+ * Mühlenflügel (`tools/grafik/g19_muehle.py`): Nabe `x, y` in 1x-Bildpunkten ab Fußpunkt,
+ * Flügellänge `l` in Feldern, Höhenstreckung `f` des Modells, Bild ohne Flügel `ohne`.
+ */
+export interface AtlasFluegel {
+  readonly x: number;
+  readonly y: number;
+  readonly l: number;
+  readonly f: number;
+  readonly ohne: string;
+}
+
+/**
+ * Ein Fahnentuch im Gebäudebild (`tools/grafik/g18_fahnen.py`): `x, y` Stange oben am Tuch,
+ * `b, s` Weg zum freien Ende (rechts, unten), `h` Höhe, `farbe` aus dem Bild.
+ */
+export interface AtlasFahne {
+  readonly x: number;
+  readonly y: number;
+  readonly b: number;
+  readonly s: number;
+  readonly h: number;
+  readonly farbe: string;
+}
+
+/**
+ * Welche Datei laden: bei hoher Pixeldichte (ab 1,5) die @2x-Fassung, wenn es sie gibt
+ * (Wunsch PV 03.11.2026: scharf beim Zoomen). `pixel` bleibt die logische Größe.
+ */
+export function atlasDatei(e: AtlasEintrag, pixeldichte: number): string {
+  return e.hd && pixeldichte >= 1.5 ? e.datei.replace(/\.png$/, '@2x.png') : e.datei;
 }
 
 export interface AtlasManifest {

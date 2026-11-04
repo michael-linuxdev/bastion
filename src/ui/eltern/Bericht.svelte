@@ -97,7 +97,7 @@
 </script>
 
 <div class="bericht">
-  <div class="umschalter" role="group">
+  <div class="umschalter" role="group" aria-label={t('bericht.ansicht')}>
     <button aria-pressed={ansicht === 'einfach'} onclick={() => (ansicht = 'einfach')}>
       {t('bericht.einfach')}
     </button>
@@ -264,26 +264,33 @@
     border: 1px solid var(--farbe-rand);
   }
 
+  /* O9: Umschalter in einer Zeile (Segmente), bricht am Handy nicht mehr in zwei Reihen um */
   .umschalter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-s);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche-leise);
   }
 
   .umschalter button {
     font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
     min-block-size: 2.75rem;
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border: 2px solid var(--farbe-rand);
-    background: #fff;
+    padding: 0.35rem 0.5rem;
+    border: none;
+    border-radius: calc(var(--radius-karte) - 0.25rem);
+    background: transparent;
     color: #1a1a1a;
     cursor: pointer;
   }
 
   .umschalter button[aria-pressed='true'] {
-    background: var(--farbe-flaeche-leise);
-    border-color: var(--farbe-text);
+    background: #fff;
+    box-shadow: 0 1px 4px var(--farbe-schatten);
     color: #1a1a1a;
   }
 

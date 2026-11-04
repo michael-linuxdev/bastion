@@ -18,7 +18,9 @@
   />
   {tt('basebau.schalter')}
 </label>
-<p class="leise">{tt('basebau.schalter-erklaerung')}</p>
+<p class="leise">
+  {tt(durch === 'eltern' ? 'basebau.schalter-erklaerung-eltern' : 'basebau.schalter-erklaerung')}
+</p>
 
 <style>
   .schalter {

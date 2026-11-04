@@ -70,7 +70,7 @@
   import Werkstatt from './ueben/Werkstatt.svelte';
   import UpdateHinweis from './UpdateHinweis.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
-  import ProfilForm from './profil/Profil.svelte';
+  import UeberMich from './profil/UeberMich.svelte';
   import {
     schuljahrFragen,
     schuljahrVon,
@@ -90,12 +90,15 @@
   import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen, kontrastAnwenden } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
-  import OrientierungWahl from './grafik/OrientierungWahl.svelte';
   import Leerzustand from './grafik/Leerzustand.svelte';
-  import ModusWahl from './profil/ModusWahl.svelte';
   import { soundSteuern } from './bastion/sound/sound';
   import Startseite, { type Ziel } from './start/Startseite.svelte';
   import Mehr from './start/Mehr.svelte';
+  import ZurueckKnopf from './start/ZurueckKnopf.svelte';
+  import InstallLeiste from './start/InstallLeiste.svelte';
+  import InstallSeite from './start/InstallSeite.svelte';
+  import InstallSperre from './start/InstallSperre.svelte';
+  import { geraet, installation, sperre } from './plattform/installation.svelte';
   import ProfilEinladung from './start/ProfilEinladung.svelte';
   import { naechsteKompetenz } from './ueben/naechste';
   import VermittlungAnsicht from './vermittlung/Vermittlung.svelte';
@@ -130,6 +133,7 @@
     | 'angebot'
     | 'bastion'
     | 'mehr'
+    | 'installieren'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
   let buchungsListe = $state<readonly BuchungEreignis[]>([]);
@@ -521,7 +525,13 @@
 
   /** Ein Bereich der App öffnen – vom Start-Hub oder aus Unterseiten. */
   function gehe(ziel: Ziel | 'start') {
-    if (ziel !== 'start' && ziel !== 'mehr' && ziel !== 'sicherung' && ziel !== 'profil')
+    if (
+      ziel !== 'start' &&
+      ziel !== 'mehr' &&
+      ziel !== 'sicherung' &&
+      ziel !== 'profil' &&
+      ziel !== 'installieren'
+    )
       inhalte ??= ladeInhalte();
     switch (ziel) {
       case 'ueben':
@@ -625,6 +635,10 @@
   <h1 class="unsichtbar">{t('start.ueberschrift')}</h1>
 
   {#if ansicht === 'start'}
+    <!-- O14: auf Handy und Tablet im Browser ein ruhiger Hinweis zur Installation -->
+    {#if geraet.system !== 'desktop' && !installation.installiert}
+      <InstallLeiste onclick={() => gehe('installieren')} />
+    {/if}
     <Startseite
       heute={new Date()}
       rueckkehr={rueckkehr === true}
@@ -666,10 +680,12 @@
     </Startseite>
   {:else if ansicht === 'mehr'}
     <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
+  {:else if ansicht === 'installieren'}
+    <InstallSeite onzurueck={() => (ansicht = 'mehr')} />
   {:else if ansicht === 'profil'}
-    <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
-    <ProfilForm
+    <UeberMich
       {profil}
+      onzurueck={() => (ansicht = 'mehr')}
       onspeichern={(p) => {
         profil = p;
         profilGefragt = true;
@@ -677,17 +693,14 @@
         ansicht = 'start';
       }}
     />
-    <ModusWahl />
-    <OrientierungWahl />
   {:else if ansicht === 'sicherung'}
-    <button
-      class="zurueck"
-      onclick={() => {
-        ansicht = 'start';
+    <Sicherung
+      onzurueck={() => {
+        ansicht = 'mehr';
         void aktualisiere();
-      }}>← {t('uebung.zurueck')}</button
-    >
-    <Sicherung oneingespielt={() => void aktualisiere()} />
+      }}
+      oneingespielt={() => void aktualisiere()}
+    />
   {:else if inhalte}
     {#await inhalte}
       <p role="status">{t('uebersicht.laedt')}</p>
@@ -803,14 +816,11 @@
           onbastion={() => gehe('bastion')}
         />
       {:else if ansicht === 'eltern'}
-        <button
-          class="zurueck"
-          onclick={() => {
-            ansicht = 'start';
-            void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
         <Elternbereich
+          onzurueck={() => {
+            ansicht = 'mehr';
+            void aktualisiere();
+          }}
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
           {zustand}
@@ -820,7 +830,7 @@
           bind:schulart
         />
       {:else if ansicht === 'stand'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <MeinStand
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -832,13 +842,12 @@
           onueben={(k) => zumUeben(geladen, k)}
         />
       {:else if ansicht === 'diagnose'}
-        <button
-          class="zurueck"
+        <ZurueckKnopf
           onclick={() => {
             ansicht = 'start';
             void aktualisiere();
-          }}>← {t('uebung.zurueck')}</button
-        >
+          }}
+        />
         <Diagnose
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -879,7 +888,7 @@
           }}
         />
       {:else if ansicht === 'klassenarbeit'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <KlassenarbeitAnsicht
           kompetenzen={geladen.kompetenzen.filter(
             (k) => vorlagenFuer(geladen.vorlagen, k.id, 'G').length > 0,
@@ -900,7 +909,7 @@
           }}
         />
       {:else if ansicht === 'werkstatt'}
-        <button class="zurueck" onclick={() => (ansicht = 'start')}>← {t('uebung.zurueck')}</button>
+        <ZurueckKnopf onclick={() => (ansicht = 'start')} />
         <Werkstatt
           gruppen={gruppenNachUrsache(geladen)}
           fehlvorstellungen={geladen.fehlvorstellungen}
@@ -1068,6 +1077,8 @@
 </main>
 
 <UpdateHinweis />
+<!-- O14 (Wunsch PV): beim Öffnen im Browser auf Handy und Tablet zuerst die Anleitung -->
+{#if sperre()}<InstallSperre />{/if}
 
 <style>
   .start {
@@ -1119,16 +1130,6 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  .zurueck {
-    font: inherit;
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
-    min-block-size: 2.75rem;
   }
 
   .anleitungen {

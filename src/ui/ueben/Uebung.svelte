@@ -5,6 +5,7 @@
   // Karten (Wiederholen). Ohne Zeitdruck und ohne Punkte (R1, R2).
   // Ein-/Ausgabe: ein Arbeitsblatt, zwei Phasen (ueben-io-design P0/P1).
   import type { Kompetenz } from '../../core/competence/kompetenz';
+  import ZurueckKnopf from '../start/ZurueckKnopf.svelte';
   import { auswerten, type Bruchform, type Ergebnis } from '../../core/learning/auswertung';
   import type { Generator, Instanz, Loesung } from '../../core/learning/generator';
   import { fuelle } from '../../core/learning/text';
@@ -296,7 +297,7 @@
 
 <section class="uebung">
   <div class="oben">
-    <button class="zurueck" onclick={onzurueck}>← {t('uebung.zurueck')}</button>
+    <ZurueckKnopf onclick={onzurueck} />
     <button
       class="zahnrad"
       aria-expanded={sessionEinstellungen}
@@ -878,17 +879,6 @@
 
   .fertig {
     justify-self: start;
-  }
-
-  .zurueck {
-    font: inherit;
-    justify-self: start;
-    min-block-size: var(--ziel);
-    border: none;
-    background: transparent;
-    color: var(--farbe-text);
-    cursor: pointer;
-    padding-inline: 0;
   }
 
   .antwort-spiegel {

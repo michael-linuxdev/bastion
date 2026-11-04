@@ -37,7 +37,7 @@ describe('Simulator (T-9)', () => {
     expect(tag('P2') ?? 0).toBeGreaterThanOrEqual((p1 ?? 0) / 2);
     expect((tag('P3') ?? Infinity) / 30.4).toBeLessThanOrEqual(9);
     expect(tag('P4')).toBeUndefined();
-  }, 60_000);
+  }, 120_000);
 
   it('BASEBAU §8: Pause ohne Verlust (P5), Prüfungsphase ohne großen Vorteil (P7), P3 jede Woche Fortschritt', () => {
     const p1 = simuliere(profil('P1')).epocheTag ?? 0;

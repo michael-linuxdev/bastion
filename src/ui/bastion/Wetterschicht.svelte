@@ -148,19 +148,10 @@
       animation: fallen var(--dauer) linear infinite;
     }
 
-    .wetterschicht.bewegt .nebelbank {
-      animation: ziehen 80s linear infinite;
-      animation-delay: calc(var(--n) * -21s);
-    }
-
-    .wetterschicht.bewegt .wolkenschatten {
-      animation: ziehen 45s linear infinite;
-      animation-delay: calc(var(--n) * -11s);
-    }
-
-    .wetterschicht.bewegt.wetter-sturm .wolkenschatten {
-      animation-duration: 22s;
-    }
+    /* Nebelbänke und Wolkenschatten ziehen nicht selbst, sie liegen fest in der Welt und
+       wandern nur mit der Kamera. Animiert bekäme jede eine eigene Grafikebene, die beim
+       Heranzoomen mitwächst – zwölf Wolkenschatten brachten das iPhone zum Absturz
+       (PV 03.11.2026). */
   }
 
   @keyframes fallen {
@@ -169,22 +160,6 @@
     }
     to {
       transform: translate(var(--weg-x), var(--weg-y));
-    }
-  }
-
-  /* Weich ein- und ausblenden: beim Neubeginn springt nichts sichtbar */
-  @keyframes ziehen {
-    from {
-      transform: translateX(0);
-      opacity: 0;
-    }
-    15%,
-    85% {
-      opacity: 1;
-    }
-    to {
-      transform: translateX(160%);
-      opacity: 0;
     }
   }
 </style>

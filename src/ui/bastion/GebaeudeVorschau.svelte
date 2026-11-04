@@ -8,7 +8,13 @@
   import type { Farbe, GebaeudeTyp } from '../../core/bastion/katalog';
   import { FARBWERT } from './farben';
   import { aktiv } from './thema.svelte';
-  import { atlasBasisUrl, atlasEintrag, atlasLaden, type AtlasManifest } from './grafik/atlas';
+  import {
+    atlasDatei,
+    atlasBasisUrl,
+    atlasEintrag,
+    atlasLaden,
+    type AtlasManifest,
+  } from './grafik/atlas';
 
   let {
     typ,
@@ -44,7 +50,7 @@
   const eintrag = $derived(atlasEintrag(manifest, aktiv.thema, epoche, typ, stufe));
   const src = $derived(
     !gesperrt && !geist && eintrag && !bildFehler
-      ? `${atlasBasisUrl()}${eintrag.datei}`
+      ? `${atlasBasisUrl()}${atlasDatei(eintrag, globalThis.devicePixelRatio || 1)}`
       : undefined,
   );
   const tint = $derived(farbe ? FARBWERT[farbe] : undefined);

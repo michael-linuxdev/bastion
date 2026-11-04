@@ -83,6 +83,14 @@ async function zurStartseite(seite: Page) {
   await hubVoll(seite);
 }
 
+/** Elternbereich: alle Abschnitte aufklappen (O8 – zu Beginn ist nur der Bericht offen). */
+async function elternAufklappen(seite: Page) {
+  const zu = seite.locator('details.abschnitt:not([open]) > summary');
+  await expect(seite.locator('details.abschnitt').first()).toBeVisible();
+  for (let n = await zu.count(); n > 0; n--) await zu.first().click();
+  await expect(zu).toHaveCount(0);
+}
+
 async function mehr(seite: Page) {
   await zurStartseite(seite);
   await seite.getByRole('main').getByRole('button', { name: 'Mehr' }).click();
@@ -503,6 +511,7 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   const code = (await page.locator('.code').innerText()).trim();
   expect(code.split(' ')).toHaveLength(4);
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   // F2 (T-20): Die Werkstatt liefert Entwürfe aus, darum steht der Vermerk da
   await expect(page.locator('[data-entwurf]')).toContainText('noch nicht fachlich geprüft');
   // Auch Eltern können die Bastion ein- und ausschalten (B-13)
@@ -531,9 +540,11 @@ test('Elternbereich: PIN, Wiederherstellungscode, beide Ansichten, Transparenz',
   await page.getByLabel(/Wiederherstellungscode/).fill(code.toUpperCase());
   await page.getByRole('button', { name: 'Neue PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Elternbereich schließen' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('2468');
   await page.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(page);
   await expect(page.getByRole('button', { name: 'Details' })).toBeVisible();
 
   // Transparenz: Jugendliche sehen dasselbe unter „Mein Stand“
@@ -565,6 +576,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await expect(page.getByText('Letzte Sicherung: noch keine.')).toBeVisible();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
@@ -600,13 +612,13 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByLabel(/Geheimer Satz/).fill(code);
   await seite.getByRole('button', { name: 'Zurückholen' }).click();
   await expect(seite.getByText(/Alles aus dieser Sicherung war schon da/)).toBeVisible();
-  await seite.getByRole('button', { name: '← Zurück' }).click();
+  await seite.getByRole('button', { name: 'Zurück', exact: true }).click();
 
   await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
   await expect(seite.getByRole('heading', { name: 'In Arbeit (1)' })).toBeVisible();
 
   // Die alte PIN gilt hier nicht – neue PIN, dauerhafter Vermerk
-  await seite.getByRole('button', { name: '← Zurück' }).click();
+  await seite.getByRole('button', { name: 'Zurück', exact: true }).click();
   await mehr(seite);
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await expect(seite.getByText(/Die PIN von früher gilt hier nicht/)).toBeVisible();
@@ -614,6 +626,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByLabel('PIN wiederholen').fill('1357');
   await seite.getByRole('button', { name: 'PIN festlegen' }).click();
   await seite.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(seite);
   const vermerk = /wurde die PIN auf diesem Gerät neu festgelegt, nachdem eine Sicherung/;
   await expect(seite.getByText(vermerk)).toBeVisible();
   // Erinnerung einstellbar und abschaltbar (D-O4)
@@ -625,6 +638,7 @@ test('Sicherung: erstellen, auf einem neuen Gerät einspielen, PIN mit Vermerk (
   await seite.getByRole('button', { name: 'Für Eltern' }).click();
   await seite.getByLabel('PIN', { exact: true }).fill('1357');
   await seite.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(seite);
   await expect(seite.getByLabel(/An eine Sicherung erinnern/)).toHaveValue('0');
   await seite.reload();
   await seite.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
@@ -1346,7 +1360,7 @@ test('Eigene Tastatur: Minus nur bei negativen Zahlen, Bruchstrich bei Brüchen 
   await expect(tastatur.getByRole('button', { name: 'Bruchstrich' })).toHaveCount(0);
 
   // Brüche in Klasse 6: eigene Felder für Zähler und Nenner, darum kein „/“ und kein Minus (L13)
-  await page.getByRole('button', { name: '← Zurück' }).click();
+  await page.getByRole('button', { name: 'Zurück', exact: true }).click();
   await page.getByRole('radio', { name: 'Klasse 6' }).check();
   await page.getByRole('button', { name: /^Brüche addieren und subtrahieren/ }).click();
   await page.getByRole('button', { name: 'Ich kann das schon' }).click();
@@ -1963,6 +1977,7 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
 
   await expect(page.getByText('Das Testprotokoll ist ausgeschaltet.')).toBeVisible();
   await page.getByLabel('Teilnehmer-Nummer').fill('T-01-9');
@@ -1989,6 +2004,7 @@ test('Testprotokoll: mit Teilnehmer-Nummer einschalten, Hinweis, Vorschau, Datei
   await page.getByRole('button', { name: 'Für Eltern' }).click();
   await page.getByLabel('PIN', { exact: true }).fill('4711');
   await page.getByRole('button', { name: 'Öffnen' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Protokoll ansehen' }).click();
   await expect(page.getByText('T-01-8', { exact: true })).toBeVisible();
   await expect(page.getByText(/Nutzung: [1-9]/)).toBeVisible();
@@ -2025,6 +2041,7 @@ test('Für Lehrkräfte: Aufgabenblatt im Elternbereich, gleiche Blatt-Nr. = glei
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
 
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
   await expect(page.getByText('Wähle oben mindestens ein Thema.')).toBeVisible();
@@ -2142,6 +2159,7 @@ test('Aufgabenblatt in der iPhone-App: Safari-Link, Link kopieren, Druckseite mi
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
   await page.getByLabel('Bereich').selectOption({ label: 'Zahlen und Rechnen' });
   await page.getByRole('checkbox', { name: 'Brüche erweitern und kürzen' }).check();
@@ -2220,6 +2238,7 @@ test('Aufgabenblatt: Niveau E nur für Themen mit E-Vorlagen', async ({ page }) 
   await page.getByLabel('PIN wiederholen').fill('4711');
   await page.getByRole('button', { name: 'PIN festlegen' }).click();
   await page.getByRole('button', { name: 'Ich habe den Code aufgeschrieben' }).click();
+  await elternAufklappen(page);
   await page.getByRole('button', { name: 'Aufgabenblatt zusammenstellen' }).click();
 
   // Klasse 5: natürliche Zahlen nur G und M, Brüche auch E (K-31)
