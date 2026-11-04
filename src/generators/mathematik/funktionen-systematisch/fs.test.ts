@@ -172,7 +172,7 @@ describe('Glieder einer Folge (G)', () => {
   pflichttests(fsFolgeGlied, {
     niveaus: { G: {} },
     unabhaengigeLoesung(i) {
-      const geo = s(i, 'satz').includes('-Fache');
+      const geo = s(i, 'satz').includes('das vorige mal');
       let x = w(i, 'a1');
       for (let k = 2; k <= w(i, 'n'); k++) x = geo ? x * w(i, 'd') : x + w(i, 'd');
       return { typ: 'zahl', wert: x };

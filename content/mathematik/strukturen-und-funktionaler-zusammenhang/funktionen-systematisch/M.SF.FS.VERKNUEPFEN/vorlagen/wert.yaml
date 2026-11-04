@@ -9,7 +9,7 @@ parameter:
   M: {}
 text:
   aufgabe:
-    de: '$f(x) = x^2 + ({k})$ und $g(x) = {m}x + ({b})$. **Berechne** $f(g({a}))$.'
+    de: '{funktionen}. **Berechne** $f(g({a}))$.'
 hilfen:
   - de: 'Zuerst $g({a})$ ausrechnen.'
   - de: 'Das Ergebnis in f einsetzen.'

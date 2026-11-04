@@ -354,9 +354,9 @@ export const fsTermAusGraph: Generator<Record<string, never>> = {
         platzhalter: { d, e },
         bild: graphBild(
           [(x) => f(x - d) + e, f],
-          `Ein Graph und gestrichelt der Graph von $y = ${GRUND[g].tex}$. Der durchgezogene Graph hat seinen ${g === 'x2' ? 'Scheitelpunkt' : 'Anfangspunkt'} bei (${d}|${e}).`.replace(
-            /\$/g,
-            '',
+          `Ein Graph und gestrichelt die ${GRUND[g].name}. Der durchgezogene Graph hat seinen ${g === 'x2' ? 'Scheitelpunkt' : 'Anfangspunkt'} bei (${d}|${e}).`.replace(
+            /-/g,
+            '−',
           ),
         ),
         optionen: liste.map(([, t]) => ({ text: de(`$y = ${t}$`) })),
@@ -480,7 +480,7 @@ export const fsVerkettung: Generator<Record<string, never>> = {
 export const fsVerkettungWert: Generator<Record<string, never>> = {
   id: 'fs.verkettung-wert',
   version: 1,
-  platzhalter: ['m', 'b', 'k', 'a'],
+  platzhalter: ['funktionen', 'm', 'b', 'k', 'a'],
   fehlerbildIds: ['innen-aussen', 'produkt'],
 
   erzeuge(seed) {
@@ -501,7 +501,13 @@ export const fsVerkettungWert: Generator<Record<string, never>> = {
       const kTex = k === 0 ? '' : ` ${k > 0 ? '+' : '-'} ${Math.abs(k)}`;
       const bTex = b === 0 ? '' : ` ${b > 0 ? '+' : '-'} ${Math.abs(b)}`;
       return {
-        platzhalter: { m, b, k, a },
+        platzhalter: {
+          funktionen: de(`$f(x) = x^2${kTex}$ und $g(x) = ${m}x${bTex}$`),
+          m,
+          b,
+          k,
+          a,
+        },
         vorzeichen: true,
         loesung: richtig,
         loesungsweg: [
@@ -581,12 +587,15 @@ export const fsFolgeGlied: Generator<Record<string, never>> = {
     const f = folge(seed);
     const wert = glied(f, f.n);
     const richtig = zahl(wert);
-    const anfang = [1, 2, 3].map((k) => glied(f, k)).join('; ');
+    const anfang = [1, 2, 3]
+      .map((k) => glied(f, k))
+      .map((x) => (x < 0 ? `−${-x}` : String(x)))
+      .join('; ');
     return {
       platzhalter: {
         satz: de(
           f.geo
-            ? `Eine Folge beginnt mit ${anfang} … Jedes Glied ist das ${f.d}-Fache des vorigen. Berechne $a_{${f.n}}$.`
+            ? `Eine Folge beginnt mit ${anfang} … Jedes Glied ist das vorige mal ${f.d < 0 ? `(−${-f.d})` : f.d}. Berechne $a_{${f.n}}$.`
             : `Eine Folge beginnt mit ${anfang} … Jedes Glied ist um ${Math.abs(f.d)} ${f.d > 0 ? 'größer' : 'kleiner'} als das vorige. Berechne $a_{${f.n}}$.`,
         ),
         a1: f.a1,
