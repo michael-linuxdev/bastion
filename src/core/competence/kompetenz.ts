@@ -280,7 +280,7 @@ export function passtZurSchulart(
   kurs?: Kurs,
 ): boolean {
   // Kurs (B9b): Ist am Gymnasium ein Kurs gewählt, fehlen Kompetenzen nur des anderen Kurses
-  const kurse = k.sachsen.gymnasium?.kurs;
+  const kurse = kurs ? k.sachsen?.gymnasium?.kurs : undefined;
   if (kurs && schulart !== 'oberschule' && kurse && !kurse.includes(kurs)) return false;
   if (!schulart || Object.keys(k.sachsen).length === 0) return true;
   return k.sachsen[schulart] !== undefined;
