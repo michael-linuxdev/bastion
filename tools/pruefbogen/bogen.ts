@@ -273,6 +273,10 @@ function fehlvorstellungHtml(k: Kontext, fv: Fehlvorstellung): string {
   ]);
   const rueckweg = [
     `Erklärung: ${ziel(k, fv.rueckweg.vermittlung)}`,
+    ...Object.entries(fv.rueckweg.je ?? {}).map(
+      ([kid, weg]) =>
+        `Erklärung beim Üben von ${esc(k.e.alleKompetenzen.get(kid)?.titel.de ?? kid)}: ${ziel(k, weg)}`,
+    ),
     ...(fv.rueckweg.voraussetzung ? [`Voraussetzung: ${ziel(k, fv.rueckweg.voraussetzung)}`] : []),
   ].join('<br>');
   return `${abschnitt('fv', `B-${fv.id}`, fv.name.de)} id="${esc(fv.id)}"><h3>${esc(fv.name.de)}</h3>

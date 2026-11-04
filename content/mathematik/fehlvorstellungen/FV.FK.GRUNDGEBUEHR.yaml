@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Wer im Schwimmbad einmal Eintritt zahlt, zahlt ihn nicht für jede Bahn noch einmal.'
 rueckweg:
   vermittlung: M.SF.FK.SACH#erklaeren-tarif
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.SF.ZU.DARSTELLEN: M.SF.ZU.DARSTELLEN#erklaeren-tabelle
 kontrast: [M.SF.FK.SACH.KOSTEN, M.SF.FK.SACH.GLEICHUNG, M.SF.ZU.DARSTELLEN.TABELLE]
 herkunft: ki-entwurf
 version: 1

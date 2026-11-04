@@ -112,7 +112,7 @@
     type FvZustand,
   } from '../core/learning/fv-diagnose';
   import type { VermittlungEreignis } from '../core/learning/vermittlung-ereignis';
-  import type { Fehlvorstellung } from '../core/learning/fehlvorstellung';
+  import { rueckwegFuer, type Fehlvorstellung } from '../core/learning/fehlvorstellung';
 
   let ansicht = $state<
     | 'start'
@@ -345,7 +345,8 @@
     const v = fv.rueckweg.voraussetzung;
     if (zustand === 'wieder-da' && v && geladen.kompetenzen.some((k) => k.id === v))
       return 'grundlage';
-    const kid = fv.rueckweg.vermittlung.split('#')[0] ?? '';
+    // Rückweg je Kompetenz (Fehler-Schüler B): beim Üben einer früheren Kompetenz in deren Erstvermittlung
+    const kid = rueckwegFuer(fv, gewaehlt?.id).split('#')[0] ?? '';
     return geladen.vermittlungen.has(kid) ? 'erklaerung' : undefined;
   }
 
@@ -355,7 +356,7 @@
       if (k) zumUeben(geladen, k);
       return;
     }
-    const [kid = '', schritt] = fv.rueckweg.vermittlung.split('#');
+    const [kid = '', schritt] = rueckwegFuer(fv, gewaehlt?.id).split('#');
     const k = geladen.kompetenzen.find((x) => x.id === kid);
     if (!k) return;
     gewaehlt = k;

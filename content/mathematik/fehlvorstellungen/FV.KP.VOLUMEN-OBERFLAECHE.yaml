@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Ein [[Würfel]] mit 2 cm [[Kante]] fasst 8 cm³ und hat 24 cm² [[Oberfläche]]: zwei verschiedene Zahlen.'
 rueckweg:
   vermittlung: M.GM.KP.VOLUMEN#erklaeren-volumen
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.GM.KP.OBERFLAECHE: M.GM.KP.OBERFLAECHE#erklaeren-netz
 kontrast: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.OBERFLAECHE.QUADER, M.GM.KP.VERPACKUNG.MATERIAL]
 herkunft: ki-entwurf
 version: 1

@@ -21,7 +21,7 @@
 //   E  Erstvermittlung: der Rückweg im Schritt (`bei`) führt woanders hin als der
 //      Rückweg der Fehlvorstellung in derselben Erstvermittlung
 import type { Kompetenz } from '../../src/core/competence/kompetenz';
-import type { Fehlvorstellung } from '../../src/core/learning/fehlvorstellung';
+import { rueckwegFuer, type Fehlvorstellung } from '../../src/core/learning/fehlvorstellung';
 import type { Generator } from '../../src/core/learning/generator';
 import type { Schritt } from '../../src/core/learning/vermittlung';
 import { musterweg } from '../../src/core/learning/zwischenschritte';
@@ -84,14 +84,10 @@ export function fehlerschueler(
   /** B: Rückweg (und Voraussetzung) der Fehlvorstellung liegen in der Kompetenz oder darunter */
   const pruefeRueckweg = (k: string, wo: string, fv: Fehlvorstellung) => {
     const erlaubt = mitVoraussetzungen(k, nachId);
-    const ziel = kompetenzDes(fv.rueckweg.vermittlung);
+    const weg = rueckwegFuer(fv, k);
+    const ziel = kompetenzDes(weg);
     if (!erlaubt.has(ziel))
-      melde(
-        k,
-        'B',
-        wo,
-        `${fv.id}: Rückweg ${fv.rueckweg.vermittlung} liegt weder in ${k} noch in einer Voraussetzung`,
-      );
+      melde(k, 'B', wo, `${fv.id}: Rückweg ${weg} liegt weder in ${k} noch in einer Voraussetzung`);
     const vor = fv.rueckweg.voraussetzung;
     if (vor && !erlaubt.has(vor))
       melde(k, 'B', wo, `${fv.id}: Grundlage ${vor} ist keine Voraussetzung von ${k}`);
@@ -158,7 +154,7 @@ export function fehlerschueler(
           melde(k, 'D', wo, `${fv.id} gehört zu ${fv.kompetenzen.join(', ')}`);
         pruefeRueckweg(k, wo, fv);
         // E: Rückweg im Schritt gegen Rückweg der Fehlvorstellung
-        const [zielK = '', zielSchritt = ''] = fv.rueckweg.vermittlung.split('#');
+        const [zielK = '', zielSchritt = ''] = rueckwegFuer(fv, k).split('#');
         const tatsaechlich = s.bei?.[fvId] ?? s.bei?.['sonst'] ?? s.weiter;
         if (zielK === k) {
           if (tatsaechlich !== zielSchritt)

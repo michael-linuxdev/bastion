@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Ein [[Quader]] mit V = 24 cm³, a = 2 cm, b = 3 cm hat c = 4 cm. Mit 24 : 2 käme 12 cm heraus.'
 rueckweg:
   vermittlung: M.SF.GL.FORMELN#erklaeren-umstellen
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.GM.KP.VOLUMEN: M.GM.KP.VOLUMEN#erklaeren-volumen
 kontrast: [M.SF.GL.FORMELN.ANWENDEN, M.GM.KP.VOLUMEN.KANTE-FEHLT]
 herkunft: ki-entwurf
 version: 1

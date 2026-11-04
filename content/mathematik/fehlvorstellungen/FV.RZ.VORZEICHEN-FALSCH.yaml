@@ -33,6 +33,9 @@ gegenbeispiel:
   de: '3 Tage lang je 4 € Schulden machen ergibt 12 € Schulden, also −12 €, nicht 12 € Guthaben.'
 rueckweg:
   vermittlung: M.ZO.RZ.MULT-DIV#erklaeren-vorzeichen
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.ZO.RZ.ADD-SUB: M.ZO.RZ.ADD-SUB#erklaeren-zahlengerade
 kontrast:
   [
     M.ZO.RZ.MULT-DIV.TERM,

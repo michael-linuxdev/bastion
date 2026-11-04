@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Kompetenz } from '../competence/kompetenz';
-import { pruefeFehlvorstellung } from './fehlvorstellung';
+import { pruefeFehlvorstellung, rueckwegFuer } from './fehlvorstellung';
 
 const kontext = {
   dateiname: 'FV.BR.ADDIERT',
@@ -44,6 +44,37 @@ const mit = (aendern: (d: Record<string, unknown>) => void) => {
   aendern(d);
   return pruefeFehlvorstellung(d, kontext);
 };
+
+describe('Rückweg je Kompetenz (Fehler-Schüler B)', () => {
+  const fv = {
+    rueckweg: {
+      vermittlung: 'M.ZO.BR.ERWEITERN#erklaeren',
+      je: { 'M.ZO.BR.BEGRIFF': 'M.ZO.BR.BEGRIFF#anteil' },
+    },
+  };
+  it('führt beim Üben der genannten Kompetenz in deren Schritt, sonst den allgemeinen Weg', () => {
+    expect(rueckwegFuer(fv, 'M.ZO.BR.BEGRIFF')).toBe('M.ZO.BR.BEGRIFF#anteil');
+    expect(rueckwegFuer(fv, 'M.ZO.BR.ERWEITERN')).toBe('M.ZO.BR.ERWEITERN#erklaeren');
+    expect(rueckwegFuer(fv, undefined)).toBe('M.ZO.BR.ERWEITERN#erklaeren');
+  });
+  it('prüft Kompetenz und Schritt', () => {
+    const je = (w: Record<string, string>) =>
+      mit((d) => {
+        d['kompetenzen'] = ['M.ZO.BR.ERWEITERN', 'M.ZO.BR.BEGRIFF'];
+        d['rueckweg'] = { vermittlung: 'M.ZO.BR.ERWEITERN#erklaeren', je: w };
+      });
+    expect(je({ 'M.ZO.BR.BEGRIFF': 'M.ZO.BR.ERWEITERN#beispiel' })).toEqual([]);
+    expect(je({ 'M.ZO.BR.BEGRIFF': 'M.ZO.BR.ERWEITERN#gibts-nicht' }).join(' | ')).toContain(
+      'Schritt gibts-nicht fehlt',
+    );
+    expect(je({ 'M.ZO.BR.ANDERS': 'M.ZO.BR.ERWEITERN#beispiel' }).join(' | ')).toContain(
+      'steht nicht unter kompetenzen',
+    );
+    expect(je({ 'M.ZO.BR.BEGRIFF': 'ohne-raute' }).join(' | ')).toContain(
+      'muss <Kompetenz-ID>#<Schritt-ID> sein',
+    );
+  });
+});
 
 describe('Fehlvorstellung prüfen (INHALTSFORMAT §16)', () => {
   it('ein vollständiger Eintrag hat keine Fehler', () => {

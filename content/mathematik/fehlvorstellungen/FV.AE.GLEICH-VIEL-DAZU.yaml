@@ -22,6 +22,9 @@ gegenbeispiel:
 rueckweg:
   vermittlung: M.RF.AE.AEHNLICH#erklaeren-aehnlich
   voraussetzung: M.SF.ZU.PROPORTIONAL
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.RF.AE.STRECKUNG: M.RF.AE.STRECKUNG#erklaeren-streckfaktor
 kontrast: [M.RF.AE.AEHNLICH.PRUEFEN, M.RF.AE.AEHNLICH.WAEHLEN, M.RF.AE.BERECHNEN.SEITE]
 herkunft: ki-entwurf
 version: 1

@@ -21,6 +21,9 @@ gegenbeispiel:
   de: '„Wann war es 20 [[Grad]]?“ fragt nach einer Uhrzeit, nicht nach einer Temperatur.'
 rueckweg:
   vermittlung: M.SF.FK.BEGRIFF#erklaeren-stelle-wert
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.SF.ZU.GRAPH: M.SF.ZU.GRAPH#erklaeren-ablesen
 kontrast: [M.SF.FK.BEGRIFF.WERT, M.SF.FK.EIGENSCHAFTEN.ABLESEN, M.SF.ZU.GRAPH.ABLESEN]
 herkunft: ki-entwurf
 version: 1

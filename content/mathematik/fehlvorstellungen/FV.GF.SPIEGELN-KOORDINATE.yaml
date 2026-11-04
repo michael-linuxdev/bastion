@@ -21,6 +21,9 @@ gegenbeispiel:
   de: 'Ein Baum spiegelt sich im See: Die Spitze zeigt nach unten, aber der Baum steht noch an derselben Stelle am Ufer.'
 rueckweg:
   vermittlung: M.RF.GF.QUADRANTEN#erklaeren-spiegeln
+  # Dort in die eigene Erstvermittlung: Die allgemeine liegt in keiner Voraussetzung (Fehler-Schüler B)
+  je:
+    M.RF.SY.SPIEGELN: M.RF.SY.SPIEGELN#erklaeren-spiegeln
 kontrast: [M.RF.GF.QUADRANTEN.SPIEGELN, M.RF.SY.SPIEGELN.PUNKT]
 herkunft: ki-entwurf
 version: 1

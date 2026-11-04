@@ -40,6 +40,7 @@ schritte:
     antwort:
       eingabe: { art: zahl, loesung: '36', fehler: [{ wert: '30', fv: FV.NZ.GRENZE-MITGEZAEHLT }] }
     weiter: gegenbeispiel
+    bei: { FV.NZ.GRENZE-MITGEZAEHLT: erklaeren-teiler-vielfache }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
