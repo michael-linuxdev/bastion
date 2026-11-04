@@ -109,3 +109,4 @@
 | 03.11.2026 | **Klasse 10, Feld LG (Logarithmus, nur Gymnasium):** M.SF.LG.UMKEHRFUNKTION, M.ZO.LG.LOGARITHMUS, M.SF.LG.GLEICHUNGEN mit 9 Generatoren (`lg.*`, Pflicht-Tests), 9 Vorlagen G/M/E, Erstvermittlungen, 9 neue Fehlvorstellungen FV.LG.*, 4 Begriffe; Feld LG im Kern |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** In `App.svelte` haben Mein Stand, Wo stehe ich?, Klassenarbeit und Fehlerwerkstatt den neuen Zurück-Knopf (PV: „fass an“); die Seiten selbst sind unverändert |
 | 03.11.2026 | **Hinweis aus dem Strang Oberfläche:** Auf Wunsch des PV haben Übung, Anleitung, Erstvermittlung, Angebot und Wiederholen-Regal den gemeinsamen `ZurueckKnopf` (nur der Knopf und sein Stil, sonst unverändert) |
+| 04.11.2026 | **Graph-Bilder in EX und LG** (PV hat `graph@1` freigegeben): 7 Bilder in sechs Erstvermittlungen, davon eines mit Regler für c in $c \cdot 2^x$; LG zeigt Funktion, Umkehrfunktion und $y = x$ gestrichelt |
