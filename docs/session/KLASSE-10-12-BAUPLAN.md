@@ -37,8 +37,8 @@ Grundlage: Entscheidung 3 (zuerst, was das Abitur trägt) und 7 (B6, B7, B10 vor
 | Etappe | Inhalt | PRs | Bausteine vorher |
 |---|---|---|---|
 | **10-0** | ~~B9: Klasse 10 wählbar (`KLASSEN`), Schulart beachten~~ *erledigt 03.11.2026:* Klasse 10 wählbar (Hinweis „Themen entstehen gerade“, solange es keine gibt); `passtZurSchulart` blendet in Übersicht, „Weiter üben“ und Diagnose Themen aus, die der Lehrplan der gewählten Schulart nicht enthält (gilt auch für Klasse 5–9) | 1 | – |
-| **10-0b** | ~~`graph@1` um `exp`, `log`, `sin`, `cos` und Regler b erweitern; `dreieck@1` für beliebige Dreiecke~~ *gebaut 03.11.2026 (ein PR), Vorschaubild beim PV; Einbau in Inhalte erst nach seinem Ok* | 1 | – |
-| **10-1** | ~~Feld EX (3)~~ *gebaut 03.11.2026:* 9 Generatoren, 9 Vorlagen (G/M/E), 3 Erstvermittlungen (noch ohne Graph-Bilder, die folgen nach dem Ok zum Vorschaubild), 8 neue Fehlvorstellungen, 5 Begriffe | 1 | – |
+| **10-0b** | ~~`graph@1` um `exp`, `log`, `sin`, `cos` und Regler b erweitern; `dreieck@1` für beliebige Dreiecke~~ *gebaut 03.11.2026 (ein PR), vom PV freigegeben am 03.11.2026* | 1 | – |
+| **10-1** | ~~Feld EX (3)~~ *gebaut 03.11.2026:* 9 Generatoren, 9 Vorlagen (G/M/E), 3 Erstvermittlungen (Graph-Bilder seit 04.11.2026, auch in LG), 8 neue Fehlvorstellungen, 5 Begriffe | 1 | – |
 | **10-2** | ~~Feld LG (3, nur GY)~~ *gebaut 03.11.2026:* 9 Generatoren `lg.*`, 9 Vorlagen (G/M/E), 3 Erstvermittlungen, 9 neue Fehlvorstellungen FV.LG.*, 4 Begriffe; Feld LG in zwei Bereichen (SF und ZO) | 1 | – |
 | **10-3** | ~~Feld TF (3), mit Werkzeug **`einheitskreis@1`**~~ *gebaut 04.11.2026:* Werkzeug, 9 Generatoren `tf.*`, 9 Vorlagen (G/M/E), 3 Erstvermittlungen mit Einheitskreis und `graph@1` (neu: `pi: true`), 8 neue Fehlvorstellungen FV.TF.*, 6 Begriffe. Abweichungen: Nullstellen als Auswahl statt Felder; Amplitude ohne Verschiebung d und Periode in Grad (c, d für das Gymnasium folgen mit FS.TRANSFORMATION) | 2 (Werkzeug, Inhalte) | B8 |
 | **10-4** | Feld AD (4) | 1 | `dreieck@1` reicht |
