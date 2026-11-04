@@ -1,0 +1,25 @@
+id: FV.ZG.EINSATZ
+name:
+  de: Vergisst den Einsatz beim Glücksspiel
+art: rechenfehler
+beschreibung:
+  de: >-
+    Nimmt die erwartete Auszahlung als Gewinn und zieht den Einsatz nicht ab. Ein Spiel wirkt dadurch günstiger, als es ist.
+kompetenzen: [M.DZ.ZG.ERWARTUNG]
+erklaerung:
+  kurz:
+    de: 'Gewinn je Spiel = erwartete Auszahlung minus Einsatz. Ist das 0, ist das Spiel [[fair]]. Ist es negativ, verliert man im Mittel.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast nur die Auszahlung berechnet.'
+    - teil: warum-nicht
+      de: 'Den Einsatz bezahlt man in jedem Spiel, auch wenn man nichts gewinnt.'
+    - teil: so-stimmt-es
+      de: 'Erst $E(\text{Auszahlung})$, dann den Einsatz abziehen.'
+gegenbeispiel:
+  de: 'Ein Spiel zahlt immer 1 € aus und kostet 2 € Einsatz. Die Auszahlung ist 1 €, aber man verliert jedes Mal 1 €.'
+rueckweg:
+  vermittlung: M.DZ.ZG.ERWARTUNG#erklaeren-fair
+kontrast: [M.DZ.ZG.ERWARTUNG.FAIR]
+herkunft: ki-entwurf
+version: 1

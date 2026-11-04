@@ -13,13 +13,13 @@ text:
     de: 'Daten: {werte}. **Bestimme** {gesucht}. Runde, wenn nötig, auf eine [[Nachkommastelle]].'
 hilfen:
   - de: 'Spannweite: größter minus kleinster Wert.'
-  - de: 'Standardabweichung: Abweichungen vom Mittelwert quadrieren, Mittelwert davon bilden (Varianz), dann die [[Wurzel]].'
+  - de: '[[Standardabweichung]]: Abweichungen vom Mittelwert quadrieren, Mittelwert davon bilden ([[Varianz]]), dann die [[Wurzel]].'
 fehlerbilder:
   maximum:
     de: 'Das ist der größte Wert. Ziehe noch den kleinsten ab.'
     fv: FV.ST.STREUMASS
   varianz-statt-sigma:
-    de: 'Das ist die Varianz. Die Standardabweichung ist ihre [[Wurzel]].'
+    de: 'Das ist die [[Varianz]]. Die [[Standardabweichung]] ist ihre [[Wurzel]].'
     fv: FV.ST.STREUMASS
   ohne-quadrat:
     de: 'Die Abweichungen werden quadriert, nicht nur ohne [[Vorzeichen]] gemittelt.'

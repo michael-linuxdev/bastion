@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du messen, wie weit Daten auseinander liegen: mit Spannweite und Standardabweichung.'
+      de: 'Danach kannst du messen, wie weit Daten auseinander liegen: mit Spannweite und [[Standardabweichung]].'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -33,12 +33,12 @@ schritte:
   - id: erklaeren-streuung
     typ: erklaeren
     text:
-      de: 'Genauer misst die Standardabweichung: Abweichungen vom Mittel quadrieren, davon das Mittel nehmen (Varianz), dann die [[Wurzel]] ziehen.'
+      de: 'Genauer misst die [[Standardabweichung]]: Abweichungen vom Mittel quadrieren, davon das Mittel nehmen ([[Varianz]]), dann die [[Wurzel]] ziehen.'
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Daten 2; 4; 6: Mittel 4, Abweichungen $-2$, 0, 2, Quadrate 4, 0, 4. Varianz $\frac{8}{3} \approx 2{,}7$, Standardabweichung $\approx 1{,}6$.'
+      de: 'Daten 2; 4; 6: Mittel 4, Abweichungen $-2$, 0, 2, Quadrate 4, 0, 4. [[Varianz]] $\frac{8}{3} \approx 2{,}7$, [[Standardabweichung]] $\approx 1{,}6$.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -51,7 +51,7 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Ella sagt: „Die Varianz 9 ist die Standardabweichung.“ Stimmt das?'
+      de: 'Ella sagt: „Die [[Varianz]] 9 ist die [[Standardabweichung]].“ Stimmt das?'
     antwort:
       optionen:
         - { wert: { de: 'Nein, die Standardabweichung ist die Wurzel daraus: 3.' }, richtig: true }
@@ -61,7 +61,7 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: 'Spannweite: Maximum minus Minimum. Standardabweichung: [[Wurzel]] aus dem Mittel der quadrierten Abweichungen. Zum Vergleich von Daten gehören Mittel und Streuung.'
+      de: 'Spannweite: Maximum minus Minimum. [[Standardabweichung]]: [[Wurzel]] aus dem Mittel der quadrierten Abweichungen. Zum Vergleich von Daten gehören Mittel und Streuung.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen

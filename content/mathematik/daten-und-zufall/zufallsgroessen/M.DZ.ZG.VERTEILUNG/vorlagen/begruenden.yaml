@@ -1,0 +1,24 @@
+# „Mindestens eine Sechs“ – Niveau E. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.VERTEILUNG.BEGRUENDEN
+kompetenz: M.DZ.ZG.VERTEILUNG
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: zg.mindestens-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** den richtigen Weg.'
+hilfen:
+  - de: 'Was ist das Gegenteil von „mindestens eine Sechs“?'
+  - de: 'Die [[Wahrscheinlichkeit]] für „keine Sechs“ ist bei jedem Wurf $\frac{5}{6}$.'
+fehlerbilder:
+  gegenereignis:
+    de: 'Die Wahrscheinlichkeiten der Würfe darf man nicht addieren: Bei 6 Würfen käme 1 heraus, als wäre eine Sechs sicher.'
+    fv: FV.ZG.GEGENEREIGNIS
+  grenze:
+    de: '„Genau eine“ ist nur ein Teil von „mindestens eine“. Auch zwei oder mehr Sechsen zählen.'
+    fv: FV.ZG.GRENZE
+herkunft: ki-entwurf
+version: 1

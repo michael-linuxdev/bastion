@@ -1,0 +1,25 @@
+id: FV.ZG.VARIANZ-QUADRAT
+name:
+  de: Quadriert die Abweichungen bei der Varianz nicht
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet bei der Varianz mit den Abständen |x − μ| statt mit ihren Quadraten. Das ergibt die mittlere Abweichung, nicht die Varianz.
+kompetenzen: [M.DZ.ZG.STREUUNG]
+erklaerung:
+  kurz:
+    de: 'Bei der [[Varianz]] wird jede Abweichung quadriert: $V(X) = (x_1 - \mu)^2 \cdot p_1 + (x_2 - \mu)^2 \cdot p_2 + \dots$'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die Abstände vom Mittel genommen, ohne sie zu quadrieren.'
+    - teil: warum-nicht
+      de: 'Die [[Varianz]] ist so festgelegt: Große Abweichungen sollen stärker zählen als kleine.'
+    - teil: so-stimmt-es
+      de: 'Abweichung, quadrieren, mit p malnehmen, addieren.'
+gegenbeispiel:
+  de: 'X ist 0 oder 4, je mit 0,5. μ = 2. Abstände: 2 und 2, Mittel 2. [[Varianz]]: $4 \cdot 0{,}5 + 4 \cdot 0{,}5 = 4$.'
+rueckweg:
+  vermittlung: M.DZ.ZG.STREUUNG#erklaeren-varianz
+kontrast: [M.DZ.ZG.STREUUNG.VARIANZ, M.DZ.ZG.STREUUNG.STANDARDABWEICHUNG]
+herkunft: ki-entwurf
+version: 1

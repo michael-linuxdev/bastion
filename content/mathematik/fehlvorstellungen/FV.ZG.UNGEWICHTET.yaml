@@ -1,0 +1,25 @@
+id: FV.ZG.UNGEWICHTET
+name:
+  de: Rechnet den Erwartungswert ohne Gewichte
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Bildet den einfachen Mittelwert der möglichen Werte oder beurteilt ein Spiel nur nach der Gewinnchance oder nur nach dem Betrag. Dass der Erwartungswert jeden Wert mit seiner Wahrscheinlichkeit gewichtet, ist nicht verankert.
+kompetenzen: [M.DZ.ZG.ERWARTUNG, M.DZ.ZG.STREUUNG]
+erklaerung:
+  kurz:
+    de: 'Der [[Erwartungswert]] gewichtet: Jeder Wert wird mit seiner [[Wahrscheinlichkeit]] malgenommen, dann wird addiert. Häufige Werte zählen mehr als seltene.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast alle Werte gleich gezählt, als kämen sie gleich oft vor.'
+    - teil: warum-nicht
+      de: 'Ein Gewinn von 100 €, der fast nie kommt, hebt den Mittelwert kaum.'
+    - teil: so-stimmt-es
+      de: '$E(X) = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots$'
+gegenbeispiel:
+  de: 'X ist 0 mit 0,9 und 10 mit 0,1. Der einfache Mittelwert wäre 5, der [[Erwartungswert]] ist $0 + 10 \cdot 0{,}1 = 1$.'
+rueckweg:
+  vermittlung: M.DZ.ZG.ERWARTUNG#erklaeren-erwartung
+kontrast: [M.DZ.ZG.ERWARTUNG.ERWARTUNG, M.DZ.ZG.ERWARTUNG.FAIR, M.DZ.ZG.ERWARTUNG.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

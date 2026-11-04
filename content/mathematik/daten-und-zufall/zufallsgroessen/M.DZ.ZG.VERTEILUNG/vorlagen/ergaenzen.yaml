@@ -1,0 +1,21 @@
+# Fehlende Wahrscheinlichkeit ergänzen – Niveau G. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.VERTEILUNG.ERGAENZEN
+kompetenz: M.DZ.ZG.VERTEILUNG
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.verteilung@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Die Tabelle zeigt die [[Wahrscheinlichkeitsverteilung]] einer [[Zufallsgröße]] X. ${tabelle}$ **Ergänze** die fehlende [[Wahrscheinlichkeit]].'
+hilfen:
+  - de: 'Alle Wahrscheinlichkeiten einer Verteilung ergeben zusammen 1.'
+  - de: 'Addiere die bekannten Werte und ziehe sie von 1 ab.'
+fehlerbilder:
+  summe-eins:
+    de: 'Das ist die [[Summe]] der bekannten Werte. Gesucht ist, was bis 1 noch fehlt.'
+    fv: FV.ZG.SUMME-EINS
+herkunft: ki-entwurf
+version: 1

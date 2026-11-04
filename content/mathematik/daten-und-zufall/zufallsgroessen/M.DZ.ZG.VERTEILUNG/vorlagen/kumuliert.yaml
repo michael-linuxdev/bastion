@@ -1,0 +1,24 @@
+# Mindestens und höchstens k – Niveau M. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.VERTEILUNG.KUMULIERT
+kompetenz: M.DZ.ZG.VERTEILUNG
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.kumuliert@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Die Tabelle zeigt die Verteilung von X. ${tabelle}$ **Berechne** {frage}.'
+hilfen:
+  - de: '„Mindestens k“ heißt k oder mehr, „höchstens k“ heißt k oder weniger. k gehört immer dazu.'
+  - de: 'Addiere die passenden Wahrscheinlichkeiten.'
+fehlerbilder:
+  grenze:
+    de: 'Der Wert k selbst gehört dazu. Du hast ihn weggelassen.'
+    fv: FV.ZG.GRENZE
+  richtung:
+    de: 'Das ist die andere Seite. „Mindestens“ heißt k und größer, „höchstens“ k und kleiner.'
+    fv: FV.ZG.GRENZE
+herkunft: ki-entwurf
+version: 1

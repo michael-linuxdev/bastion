@@ -1,0 +1,85 @@
+id: M.DZ.ZG.ERWARTUNG
+kompetenz: M.DZ.ZG.ERWARTUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du den [[Erwartungswert]] und entscheidest, ob ein Spiel [[fair]] ist.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Vier Kinder sind 10, 12, 12 und 14 Jahre alt. Wie groß ist das [[arithmetische Mittel]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '12' }
+    weiter: entdecken
+    bei: { sonst: M.DZ.ST.MITTELWERTE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Glücksrad hat 10 Felder: 5 Felder 0 €, 3 Felder 1 €, 2 Felder 5 €. Wie viel € zahlt es in 10 Spielen etwa aus, wenn jedes Feld genau einmal kommt?'
+    antwort:
+      eingabe: { art: zahl, loesung: '13', fehler: [{ wert: '6', fv: FV.ZG.UNGEWICHTET }] }
+    weiter: erklaeren-erwartung
+  - id: erklaeren-erwartung
+    typ: erklaeren
+    text:
+      de: 'Je Spiel sind das im Mittel 1,30 €. Das ist der **[[Erwartungswert]]**: jeden Wert mit seiner [[Wahrscheinlichkeit]] malnehmen und addieren. $E(X) = 0 \cdot 0{,}5 + 1 \cdot 0{,}3 + 5 \cdot 0{,}2 = 1{,}3$.'
+    bild: { werkzeug: stabdiagramm@1, parameter: { werte: [0, 1, 5], p: [0.5, 0.3, 0.2] } }
+    weiter: erklaeren-fair
+  - id: erklaeren-fair
+    typ: erklaeren
+    text:
+      de: 'Kostet ein Spiel Einsatz, zieht man ihn ab: Gewinn im Mittel = $E(X) - \text{Einsatz}$. Ist das 0, ist das Spiel **[[fair]]**. Ist es negativ, verliert man auf Dauer.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Das Glücksrad oben kostet 1,50 € Einsatz. Gewinn im Mittel: $1{,}30 - 1{,}50 = -0{,}20$ €. Auf Dauer verliert man 20 Cent je Spiel: nicht [[fair]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'X ist 0 mit 0,6 und 10 mit 0,4. Berechne $E(X)$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '5', fv: FV.ZG.UNGEWICHTET }] }
+    weiter: gegenbeispiel
+    bei: { FV.ZG.UNGEWICHTET: erklaeren-erwartung }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ein Spiel zahlt im Mittel 2 € aus und kostet 2 € Einsatz. Ole sagt: „Ich gewinne im Mittel 2 € je Spiel.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. $2 - 2 = 0$: Im Mittel gewinnt man nichts, das Spiel ist fair.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Die Auszahlung ist der Gewinn.' }, fv: FV.ZG.EINSATZ }
+    weiter: merksatz
+    bei: { FV.ZG.EINSATZ: erklaeren-fair }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$E(X) = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots$ Gewinn im Mittel $= E(X) - \text{Einsatz}$. Fair heißt: Gewinn im Mittel 0.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'X ist 2 mit 0,5, 4 mit 0,25 und 8 mit 0,25. Wie groß ist $E(X)$?'
+    antwort:
+      optionen:
+        - { wert: { de: '4' }, richtig: true }
+        - { wert: { de: '4,67' }, fv: FV.ZG.UNGEWICHTET }
+    weiter: uebergang
+    bei: { FV.ZG.UNGEWICHTET: erklaeren-erwartung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst [[Erwartungswerte]].'
+    vorlagen: [M.DZ.ZG.ERWARTUNG.ERWARTUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

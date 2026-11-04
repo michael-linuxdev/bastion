@@ -1,0 +1,39 @@
+# Gewinn je Spiel und faires Spiel – Niveau M. Entwurf: noch nicht geprüft.
+id: M.DZ.ZG.ERWARTUNG.FAIR
+kompetenz: M.DZ.ZG.ERWARTUNG
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: zg.fair@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{satz} **Berechne**, wie viel € man im Mittel je Spiel gewinnt (positiv) oder verliert (negativ).'
+hilfen:
+  - de: 'Berechne zuerst die erwartete Auszahlung: [[Betrag]] mal [[Anteil]] der Felder.'
+  - de: 'Ziehe dann den Einsatz ab. Ist das Ergebnis 0, ist das Spiel [[fair]].'
+fehlerbilder:
+  einsatz:
+    de: 'Das ist die Auszahlung. Den Einsatz bezahlt man aber vorher: Ziehe ihn ab.'
+    fv: FV.ZG.EINSATZ
+  ungewichtet:
+    de: 'Du hast alle [[Beträge]] gleich gezählt. Ein Betrag auf vielen Feldern kommt öfter vor.'
+    fv: FV.ZG.UNGEWICHTET
+schritte:
+  - id: auszahlung
+    frage: { de: 'Wie groß ist die erwartete Auszahlung in €?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      ungewichtet:
+        de: 'Nimm jeden [[Betrag]] mit seinem [[Anteil]] der Felder mal.'
+        fv: FV.ZG.UNGEWICHTET
+  - id: gewinn
+    frage: { de: 'Die Auszahlung ist im Mittel {auszahlung} €. Wie viel bleibt nach dem Einsatz?' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      einsatz:
+        de: 'Ziehe den Einsatz noch ab.'
+        fv: FV.ZG.EINSATZ
+herkunft: ki-entwurf
+version: 1

@@ -1164,6 +1164,37 @@ begriffe:
     formen: [Gegenwinkel, Gegenwinkels]
     erklaerung:
       de: 'Der Winkel, der einer Seite gegenüberliegt: Zu a gehört α, zu b β, zu c γ.'
+  # Klasse 10: Zufallsgrößen
+  - id: zufallsgroesse
+    wort: { de: Zufallsgröße }
+    formen: [Zufallsgröße, Zufallsgrößen]
+    erklaerung:
+      de: 'Eine Größe, die jedem Ergebnis eines Zufallsversuchs eine Zahl zuordnet, etwa die Augensumme zweier Würfel.'
+  - id: wahrscheinlichkeitsverteilung
+    wort: { de: Wahrscheinlichkeitsverteilung }
+    formen: [Wahrscheinlichkeitsverteilung, Wahrscheinlichkeitsverteilungen]
+    erklaerung:
+      de: 'Die Liste aller Werte einer Zufallsgröße mit ihren Wahrscheinlichkeiten. Zusammen ergeben sie 1.'
+  - id: erwartungswert
+    wort: { de: Erwartungswert }
+    formen: [Erwartungswert, Erwartungswerte, Erwartungswerts]
+    erklaerung:
+      de: 'Der Wert, den eine Zufallsgröße im Mittel auf lange Sicht annimmt: jeder Wert mal seine Wahrscheinlichkeit, alles addiert.'
+  - id: fair
+    wort: { de: fair }
+    formen: [fair, faires, fairer, faire]
+    erklaerung:
+      de: 'Ein Spiel ist fair, wenn man im Mittel weder gewinnt noch verliert: erwartete Auszahlung gleich Einsatz.'
+  - id: varianz
+    wort: { de: Varianz }
+    formen: [Varianz, Varianzen]
+    erklaerung:
+      de: 'Ein Maß für die Streuung: der Erwartungswert der quadrierten Abweichungen vom Mittel.'
+  - id: standardabweichung
+    wort: { de: Standardabweichung }
+    formen: [Standardabweichung, Standardabweichungen]
+    erklaerung:
+      de: 'Die Wurzel aus der Varianz, Zeichen σ. Sie sagt, wie weit die Werte typischerweise vom Mittel entfernt liegen.'
   # Klasse 10: Logarithmus
   - id: umkehrfunktion
     wort: { de: Umkehrfunktion }

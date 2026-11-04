@@ -1,0 +1,42 @@
+# Zufallsgrößen – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZG.ERWARTUNG
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufallsgroessen
+titel:
+  de: 'Erwartungswert und faire Spiele'
+kann_satz:
+  de: 'Ich kann den Erwartungswert einer Zufallsgröße berechnen, mit dem Mittelwert vergleichen und Spiele als fair oder unfair beurteilen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.DZ.ZG.VERTEILUNG
+  - M.DZ.ST.MITTELWERTE
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Erwartungswert aus einer Tabelle berechnen.'
+  M:
+    beschreibung:
+      de: 'Den mittleren Gewinn eines Glücksspiels mit Einsatz berechnen und beurteilen, ob es fair ist.'
+  E:
+    beschreibung:
+      de: 'Gewinnchance und Gewinnerwartung unterscheiden.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K3
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 3 Zufallsgrößen'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Diskrete Zufallsgrößen'
+version: 1

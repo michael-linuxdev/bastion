@@ -1,0 +1,93 @@
+id: M.DZ.ZG.VERTEILUNG
+kompetenz: M.DZ.ZG.VERTEILUNG
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach stellst du eine [[Wahrscheinlichkeitsverteilung]] auf und berechnest Wahrscheinlichkeiten für „mindestens“ und „höchstens“.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Eine Münze wird zweimal geworfen. Wie groß ist die [[Wahrscheinlichkeit]] für zweimal Kopf? Gib sie als [[Dezimalzahl]] an.'
+    antwort:
+      eingabe: { art: zahl, loesung: '0,25', fehler: [{ wert: '0,5', fv: FV.ZF.PFADREGELN }] }
+    weiter: entdecken
+    bei: { FV.ZF.PFADREGELN: M.DZ.ZF.BAUMDIAGRAMM, sonst: M.DZ.ZF.BAUMDIAGRAMM }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'X ist die Anzahl Kopf bei zwei Münzwürfen. $P(X = 0) = 0{,}25$ und $P(X = 2) = 0{,}25$. Wie groß ist $P(X = 1)$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '0,5', fehler: [{ wert: '0,25', fv: FV.ZG.SUMME-EINS }] }
+    weiter: erklaeren-verteilung
+  - id: erklaeren-verteilung
+    typ: erklaeren
+    text:
+      de: 'Eine **[[Zufallsgröße]]** X ordnet jedem Ergebnis eine Zahl zu. Die **[[Wahrscheinlichkeitsverteilung]]** gibt zu jedem Wert x die [[Wahrscheinlichkeit]] $P(X = x)$ an. Zusammen ergeben alle genau 1.'
+    bild: { werkzeug: stabdiagramm@1, parameter: { werte: [0, 1, 2], p: [0.25, 0.5, 0.25] } }
+    weiter: erklaeren-kumuliert
+  - id: erklaeren-kumuliert
+    typ: erklaeren
+    text:
+      de: '„Mindestens 1“ heißt $X \geq 1$: die Werte 1 und 2. „Höchstens 1“ heißt $X \leq 1$: die Werte 0 und 1. Die Grenze zählt mit. Für „mindestens 1“ geht es oft schneller mit $1 - P(X = 0)$.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Bei zwei Münzwürfen ist $P(X \geq 1) = 0{,}5 + 0{,}25 = 0{,}75$. Ebenso $1 - P(X = 0) = 1 - 0{,}25 = 0{,}75$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'X hat die Werte 0, 1, 2, 3 mit $P = 0{,}1$; $0{,}3$; $0{,}4$; $0{,}2$. Berechne $P(X \leq 1)$.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '0,4',
+          fehler: [{ wert: '0,1', fv: FV.ZG.GRENZE }, { wert: '0,9', fv: FV.ZG.GRENZE }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.ZG.GRENZE: erklaeren-kumuliert }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jonas sagt: „Bei 3 Würfen ist die [[Wahrscheinlichkeit]] für mindestens eine Sechs $3 \cdot \frac{1}{6} = \frac{1}{2}$.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. Richtig ist $1 - \left(\frac{5}{6}\right)^3 \approx 0{,}42$. Addieren ginge bei 7 Würfen über 1.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Jeder Wurf bringt $\frac{1}{6}$ dazu.' }, fv: FV.ZG.GEGENEREIGNIS }
+    weiter: merksatz
+    bei: { FV.ZG.GEGENEREIGNIS: erklaeren-kumuliert }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Alle Wahrscheinlichkeiten einer Verteilung ergeben 1. Mindestens k: k und mehr. Höchstens k: k und weniger. „Mindestens eins“ $= 1 - P(\text{keins})$.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'X hat die Werte 1, 2, 3 mit $P(X = 1) = 0{,}2$ und $P(X = 2) = 0{,}5$. Wie groß ist $P(X = 3)$?'
+    antwort:
+      optionen:
+        - { wert: { de: '0,3' }, richtig: true }
+        - { wert: { de: '0,7' }, fv: FV.ZG.SUMME-EINS }
+    weiter: uebergang
+    bei: { FV.ZG.SUMME-EINS: erklaeren-verteilung }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ergänzt du selbst Verteilungen.'
+    vorlagen: [M.DZ.ZG.VERTEILUNG.ERGAENZEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

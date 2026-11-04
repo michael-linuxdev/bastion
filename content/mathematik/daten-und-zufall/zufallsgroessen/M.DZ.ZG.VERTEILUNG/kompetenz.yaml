@@ -1,0 +1,42 @@
+# Zufallsgrößen – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.DZ.ZG.VERTEILUNG
+fach: mathematik
+bereich: daten-und-zufall
+feld: zufallsgroessen
+titel:
+  de: 'Wahrscheinlichkeitsverteilung'
+kann_satz:
+  de: 'Ich kann zu einer Zufallsgröße die Wahrscheinlichkeitsverteilung aufstellen, als Stabdiagramm darstellen und Wahrscheinlichkeiten für „genau“, „mindestens“ und „höchstens k“ berechnen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.DZ.ZF.BAUMDIAGRAMM
+  - M.DZ.ZF.ZAEHLEN
+niveaus:
+  G:
+    beschreibung:
+      de: 'Eine fehlende Wahrscheinlichkeit der Verteilung ergänzen: Alle zusammen ergeben 1.'
+  M:
+    beschreibung:
+      de: 'Wahrscheinlichkeiten für „mindestens k“ und „höchstens k“ aus einer Tabelle berechnen.'
+  E:
+    beschreibung:
+      de: '„Mindestens eins“ über das Gegenereignis begründen.'
+kmk:
+  leitidee: L5
+  prozesse:
+    - K2
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 3 Zufallsgrößen'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Diskrete Zufallsgrößen'
+version: 1

@@ -157,5 +157,6 @@ describe('Erstvermittlung und Fehlerkatalog in den Inhalten', () => {
     const fehler = pruefen().fehler.join('\n');
     expect(fehler).toContain('Schritt weg fehlt in der Erstvermittlung von M.ZO.BR.ERWEITERN');
     expect(fehler).toContain('verweist auf unbekannte Fehlvorstellung FV.BR.GIBTS-NICHT');
-  });
+    // prüft wie oben eine Kopie aller Inhalte: gleiches Limit
+  }, 30_000);
 });

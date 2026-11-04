@@ -1,0 +1,25 @@
+id: FV.ZG.GRENZE
+name:
+  de: Verwechselt die Grenze bei „mindestens“ und „höchstens“
+art: lesefehler
+beschreibung:
+  de: >-
+    Lässt bei P(X ≥ k) oder P(X ≤ k) den Wert k weg, nimmt die falsche Seite oder hält „genau eins“ für „mindestens eins“. Die Bedeutung von mindestens und höchstens ist nicht sicher.
+kompetenzen: [M.DZ.ZG.VERTEILUNG]
+erklaerung:
+  kurz:
+    de: '„Mindestens k“ heißt k oder mehr: $X \geq k$. „Höchstens k“ heißt k oder weniger: $X \leq k$. Der Wert k gehört beide Male dazu.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast k weggelassen oder die andere Seite genommen.'
+    - teil: warum-nicht
+      de: 'Wer mindestens 2 Tore schießt, darf genau 2 Tore schießen. Die Grenze zählt mit.'
+    - teil: so-stimmt-es
+      de: 'Schreibe die Werte auf, die zählen, etwa „2, 3, 4“, und addiere genau diese.'
+gegenbeispiel:
+  de: 'Mindestens 1 Sechs bei 2 Würfen: Auch zwei Sechsen zählen, nicht nur genau eine.'
+rueckweg:
+  vermittlung: M.DZ.ZG.VERTEILUNG#erklaeren-kumuliert
+kontrast: [M.DZ.ZG.VERTEILUNG.KUMULIERT, M.DZ.ZG.VERTEILUNG.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

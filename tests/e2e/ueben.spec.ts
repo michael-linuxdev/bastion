@@ -2343,6 +2343,36 @@ test('Klasse 10: Sinussatz mit Dreiecksskizze, gerundetes Ergebnis (Feld AD)', a
   await expect(page.getByLabel('Deine Antwort')).toBeVisible();
 });
 
+test('Klasse 10: Stabdiagramm in der Erstvermittlung, Varianz nur am Gymnasium (Feld ZG)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await bereichOeffnen(page, 'Daten');
+  await expect(page.getByRole('button', { name: /^Varianz und Standardabweichung/ })).toBeVisible();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await bereichOeffnen(page, 'Daten');
+  await expect(page.getByRole('button', { name: /^Varianz und Standardabweichung/ })).toHaveCount(
+    0,
+  );
+  await page.getByRole('button', { name: /^Wahrscheinlichkeitsverteilung/ }).click();
+  await page.getByRole('button', { name: 'Erklär es mir' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  await page.getByLabel('Deine Antwort').fill('0,25');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  await page.getByLabel('Deine Antwort').fill('0,5');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Weiter' }).click();
+  await expect(
+    page.getByRole('img', {
+      name: 'Stabdiagramm einer Verteilung: P(X = 0) = 0,25; P(X = 1) = 0,5; P(X = 2) = 0,25.',
+    }),
+  ).toBeVisible();
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);
