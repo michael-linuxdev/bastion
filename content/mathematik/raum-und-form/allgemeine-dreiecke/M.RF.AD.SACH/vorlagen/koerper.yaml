@@ -1,0 +1,24 @@
+# Grundkante einer Pyramide – Niveau M. Entwurf: noch nicht geprüft.
+id: M.RF.AD.SACH.KOERPER
+kompetenz: M.RF.AD.SACH
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.koerper@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Eine quadratische [[Pyramide]] hat Seitenkanten von ${s}$ cm. Zwei benachbarte Seitenkanten schließen an der Spitze den [[Winkel]] ${phi}°$ ein. **Berechne** die Grundkante a in cm auf eine Stelle.'
+hilfen:
+  - de: 'Eine Seitenfläche ist ein Dreieck: zwei Seitenkanten und die Grundkante.'
+  - de: '[[Kosinussatz]] mit dem [[Winkel]] an der Spitze: $a^2 = s^2 + s^2 - 2s^2 \cdot \cos \varphi$.'
+fehlerbilder:
+  vorzeichen:
+    de: 'Im [[Kosinussatz]] steht ein Minus vor $2s^2 \cdot \cos \varphi$.'
+    fv: FV.AD.KOSINUS-VORZEICHEN
+  wurzel-vergessen:
+    de: 'Das ist $a^2$. Ziehe noch die [[Wurzel]].'
+    fv: FV.PY.WURZEL-VERGESSEN
+herkunft: ki-entwurf
+version: 1

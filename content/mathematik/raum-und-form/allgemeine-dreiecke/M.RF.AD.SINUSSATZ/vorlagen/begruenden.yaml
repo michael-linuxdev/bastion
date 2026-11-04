@@ -1,0 +1,24 @@
+# Zwei Dreiecke im Fall SsW – Niveau E. Entwurf: noch nicht geprüft.
+id: M.RF.AD.SINUSSATZ.BEGRUENDEN
+kompetenz: M.RF.AD.SINUSSATZ
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: ad.ssw-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Welcher stumpfe [[Winkel]] hat denselben Sinus? Denke an $180° - \beta$.'
+  - de: 'Passt dieser [[Winkel]] zusammen mit α noch in die [[Innenwinkelsumme]] von 180°?'
+fehlerbilder:
+  ssw-zwei:
+    de: 'Zum selben Sinus gehören zwei [[Winkel]]: β und $180° - \beta$. Ob beide passen, entscheidet die [[Innenwinkelsumme]].'
+    fv: FV.AD.SSW-ZWEI
+  paar:
+    de: 'β liegt der Seite b gegenüber, nicht α. Ein [[Winkel]] ist nicht automatisch gleich einem anderen.'
+    fv: FV.AD.PAAR
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,101 @@
+id: M.RF.AD.SINUSSATZ
+kompetenz: M.RF.AD.SINUSSATZ
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du Seiten und [[Winkel]] in Dreiecken ohne [[rechten Winkel]] mit dem [[Sinussatz]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein rechtwinkliges Dreieck hat die [[Hypotenuse]] 10 cm und $\alpha = 30°$. Wie lang ist die [[Gegenkathete]] von α?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '5', fehler: [{ wert: '8,7', fv: FV.TR.FUNKTION-VERWECHSELT }] }
+    weiter: entdecken
+    bei: { FV.TR.FUNKTION-VERWECHSELT: M.RF.TR.BERECHNEN, sonst: M.RF.TR.BERECHNEN }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Dreieck hat $a = 5$ cm und $\alpha = 30°$. Berechne $a : \sin \alpha$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '2,5', fv: FV.AD.PAAR }] }
+    weiter: erklaeren-paar
+  - id: erklaeren-paar
+    typ: erklaeren
+    text:
+      de: 'Dieser Quotient ist für jede Seite gleich, wenn man sie durch den Sinus ihres **[[Gegenwinkels]]** teilt. Das ist der **[[Sinussatz]]**: $\frac{a}{\sin \alpha} = \frac{b}{\sin \beta} = \frac{c}{\sin \gamma}$.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter: { winkel: { alpha: 50, beta: 60 }, seiten: { a: a, b: b, c: c } },
+      }
+    weiter: erklaeren-zwei
+  - id: erklaeren-zwei
+    typ: erklaeren
+    text:
+      de: 'Sucht man einen [[Winkel]], zeigt der Taschenrechner nur den spitzen. $180°$ minus diesen Winkel hat denselben Sinus. Passt er neben den anderen Winkeln in die [[Innenwinkelsumme]], gibt es zwei Dreiecke.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Gegeben $b = 7$ cm, $\alpha = 50°$ und $\beta = 60°$. Dann $a = \frac{7 \cdot \sin 50°}{\sin 60°} \approx 6{,}2$ cm.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          {
+            winkel: { alpha: 50, beta: 60 },
+            seiten: { a: 'a = ?', b: 'b = 7 cm' },
+            winkeltexte: { α: 'α = 50°', β: 'β = 60°' },
+          },
+      }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'In einem Dreieck ist $\frac{a}{\sin \alpha} = 12$ und $\alpha = 30°$. Wie lang ist a?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '24', fv: FV.TR.KEHRWERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.TR.KEHRWERT: erklaeren-paar }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Mia schreibt: $\frac{a}{\sin \beta} = \frac{b}{\sin \alpha}$. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Zu a gehört der Gegenwinkel α, zu b der Gegenwinkel β.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Die Reihenfolge der Winkel ist egal.' }, fv: FV.AD.PAAR }
+    weiter: merksatz
+    bei: { FV.AD.PAAR: erklaeren-paar }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Sinussatz]]: $\frac{a}{\sin \alpha} = \frac{b}{\sin \beta} = \frac{c}{\sin \gamma}$. Er braucht ein Paar aus Seite und [[Gegenwinkel]]. Bei einem gesuchten [[Winkel]] auch an $180° - \beta$ denken.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Gegeben $b = 5$ cm, $\alpha = 40°$, $\beta = 70°$. Welcher Ansatz für a stimmt?'
+    antwort:
+      optionen:
+        - { wert: { de: '$a = \frac{5 \cdot \sin 40°}{\sin 70°}$' }, richtig: true }
+        - { wert: { de: '$a = \frac{5 \cdot \sin 70°}{\sin 40°}$' }, fv: FV.AD.PAAR }
+        - { wert: { de: '$a = 5 \cdot \cos 40°$' }, fv: FV.TR.FUNKTION-VERWECHSELT }
+    weiter: uebergang
+    bei: { FV.AD.PAAR: erklaeren-paar, FV.TR.FUNKTION-VERWECHSELT: M.RF.TR.BERECHNEN }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit dem [[Sinussatz]].'
+    vorlagen: [M.RF.AD.SINUSSATZ.SEITE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

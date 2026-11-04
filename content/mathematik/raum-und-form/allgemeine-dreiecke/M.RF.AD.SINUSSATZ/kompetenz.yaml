@@ -1,0 +1,42 @@
+# Allgemeine Dreiecke – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.RF.AD.SINUSSATZ
+fach: mathematik
+bereich: raum-und-form
+feld: allgemeine-dreiecke
+titel:
+  de: 'Sinussatz'
+kann_satz:
+  de: 'Ich kann mit dem Sinussatz Seiten und Winkel in beliebigen Dreiecken berechnen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.RF.TR.BERECHNEN
+  - M.SF.TF.BOGENMASS
+niveaus:
+  G:
+    beschreibung:
+      de: 'Eine fehlende Seite berechnen, wenn zwei Winkel und eine Seite bekannt sind.'
+  M:
+    beschreibung:
+      de: 'Einen fehlenden Winkel berechnen, wenn zwei Seiten und ein Gegenwinkel bekannt sind.'
+  E:
+    beschreibung:
+      de: 'Erkennen, wann es im Fall SsW zwei Dreiecke gibt.'
+kmk:
+  leitidee: L4
+  prozesse:
+    - K2
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Dreiecke und Vielecke'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 3 Algebraisches Lösen geometrischer Probleme'
+version: 1

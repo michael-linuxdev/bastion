@@ -1,0 +1,109 @@
+id: M.RF.AD.KOSINUSSATZ
+kompetenz: M.RF.AD.KOSINUSSATZ
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du mit dem [[Kosinussatz]] die dritte Seite oder einen [[Winkel]], auch ohne [[rechten Winkel]].'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein rechtwinkliges Dreieck hat die [[Katheten]] 6 cm und 8 cm. Wie lang ist die [[Hypotenuse]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '10', fehler: [{ wert: '14', fv: FV.PY.OHNE-QUADRATE }] }
+    weiter: entdecken
+    bei: { FV.PY.OHNE-QUADRATE: M.RF.PY.PYTHAGORAS, sonst: M.RF.PY.PYTHAGORAS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Zwei Stäbe von 6 cm und 8 cm sind an einem Gelenk verbunden. Bei 90° liegen ihre Enden 10 cm auseinander. Was passiert, wenn man den [[Winkel]] auf 120° öffnet?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Die Enden liegen weiter als 10 cm auseinander.' }, richtig: true }
+        - {
+            wert: { de: 'Die Enden liegen näher als 10 cm beieinander.' },
+            fv: FV.AD.KOSINUS-VORZEICHEN,
+          }
+    weiter: erklaeren-satz
+  - id: erklaeren-satz
+    typ: erklaeren
+    text:
+      de: 'Der **[[Kosinussatz]]** erweitert Pythagoras: $a^2 = b^2 + c^2 - 2bc \cdot \cos \alpha$. Bei 90° ist $\cos \alpha = 0$. Bei stumpfem α ist $\cos \alpha$ negativ, dann wird a länger.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          {
+            winkel: { alpha: 110, beta: 35 },
+            seiten: { a: a, b: b, c: c },
+            winkeltexte: { α: 'α' },
+          },
+      }
+    weiter: erklaeren-winkel
+  - id: erklaeren-winkel
+    typ: erklaeren
+    text:
+      de: 'Kennt man alle drei Seiten, stellt man nach dem Kosinus um: $\cos \gamma = \frac{a^2 + b^2 - c^2}{2ab}$. Dann liefert $\cos^{-1}$ den [[Winkel]], auch einen stumpfen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Gegeben $b = 5$ cm, $c = 7$ cm, $\alpha = 60°$. $a^2 = 25 + 49 - 70 \cdot 0{,}5 = 39$, also $a \approx 6{,}2$ cm.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Gegeben $b = 3$ cm, $c = 5$ cm, $\alpha = 60°$, also $\cos \alpha = 0{,}5$. Berechne $a^2$.'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '19',
+          fehler:
+            [{ wert: '49', fv: FV.AD.KOSINUS-VORZEICHEN }, { wert: '34', fv: FV.AD.SATZ-WAHL }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.AD.KOSINUS-VORZEICHEN: erklaeren-satz, FV.AD.SATZ-WAHL: erklaeren-satz }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Leo sagt: „Bei $\alpha = 120°$ wird a kürzer als bei 90°, denn im [[Kosinussatz]] steht ein Minus.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. $\cos 120° = -0{,}5$ ist negativ. Minus mal minus: Es kommt etwas dazu, a wird länger.',
+              },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Das Minus macht a immer kürzer.' }, fv: FV.AD.KOSINUS-VORZEICHEN }
+    weiter: merksatz
+    bei: { FV.AD.KOSINUS-VORZEICHEN: erklaeren-satz }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '[[Kosinussatz]]: $a^2 = b^2 + c^2 - 2bc \cdot \cos \alpha$. Für zwei Seiten mit dem [[Winkel]] dazwischen oder für drei Seiten. Bei 90° wird er zum Satz des Pythagoras.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Dreieck hat $a = 4$, $b = 5$ und $c = 6$. Womit findest du γ?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\cos \gamma = \frac{16 + 25 - 36}{40}$' }, richtig: true }
+        - { wert: { de: '$\cos \gamma = \frac{16 + 25 + 36}{40}$' }, fv: FV.AD.KOSINUS-VORZEICHEN }
+        - { wert: { de: '$6^2 = 4^2 + 5^2$' }, fv: FV.AD.SATZ-WAHL }
+    weiter: uebergang
+    bei: { FV.AD.KOSINUS-VORZEICHEN: erklaeren-satz, FV.AD.SATZ-WAHL: erklaeren-satz }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst mit dem [[Kosinussatz]].'
+    vorlagen: [M.RF.AD.KOSINUSSATZ.SEITE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

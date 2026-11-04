@@ -1,0 +1,90 @@
+id: M.GM.AD.FLAECHE
+kompetenz: M.GM.AD.FLAECHE
+niveau: G
+dauer_min: 10
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach berechnest du den [[Flächeninhalt]] eines Dreiecks aus zwei Seiten und dem [[Winkel]] dazwischen.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Ein Dreieck hat die Grundseite 8 cm und die [[Höhe]] 5 cm. Wie groß ist sein [[Flächeninhalt]] in cm²?'
+    antwort:
+      eingabe: { art: zahl, loesung: '20', fehler: [{ wert: '40', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: entdecken
+    bei: { FV.FL.NICHT-HALBIERT: M.GM.FL.DREIECK, sonst: M.GM.FL.DREIECK }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die [[Höhe]] h auf a teilt das Dreieck. Im Teildreieck mit γ gilt $\sin \gamma = \frac{h}{b}$. Wie lang ist h bei $b = 6$ cm und $\gamma = 30°$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '3', fehler: [{ wert: '12', fv: FV.TR.KEHRWERT }] }
+    weiter: erklaeren-formel
+  - id: erklaeren-formel
+    typ: erklaeren
+    text:
+      de: 'Mit $h = b \cdot \sin \gamma$ wird $A = \frac{1}{2} \cdot a \cdot h$ zu $A = \frac{1}{2} \cdot a \cdot b \cdot \sin \gamma$. Man braucht zwei Seiten und den [[Winkel]] **zwischen** ihnen.'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          { winkel: { alpha: 55, beta: 65 }, seiten: { a: a, b: b }, winkeltexte: { γ: 'γ' } },
+      }
+    weiter: erklaeren-vieleck
+  - id: erklaeren-vieleck
+    typ: erklaeren
+    text:
+      de: 'Ein Vieleck zerlegt man mit [[Diagonalen]] in Dreiecke. Man berechnet jedes Dreieck und addiert die Flächen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Gegeben $a = 8$ cm, $b = 5$ cm und $\gamma = 30°$: $A = \frac{1}{2} \cdot 8 \cdot 5 \cdot \sin 30° = \frac{1}{2} \cdot 40 \cdot 0{,}5 = 10$ cm².'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Ein Dreieck hat $a = 6$ cm, $b = 4$ cm und $\gamma = 30°$. Wie groß ist sein [[Flächeninhalt]] in cm²?'
+    antwort:
+      eingabe: { art: zahl, loesung: '6', fehler: [{ wert: '12', fv: FV.FL.NICHT-HALBIERT }] }
+    weiter: gegenbeispiel
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-formel }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Jan kennt a, b und den [[Winkel]] α. Er rechnet $A = \frac{1}{2} \cdot a \cdot b \cdot \sin \alpha$. Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Der Winkel muss zwischen a und b liegen, das ist γ.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Jeder Winkel des Dreiecks passt.' }, fv: FV.AD.PAAR }
+    weiter: merksatz
+    bei: { FV.AD.PAAR: erklaeren-formel }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$A = \frac{1}{2} \cdot a \cdot b \cdot \sin \gamma$ mit dem [[Winkel]] γ zwischen a und b. Vielecke in Dreiecke zerlegen.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Ein Dreieck hat $a = 10$ cm, $b = 7$ cm und $\gamma = 30°$. Wie groß ist der [[Flächeninhalt]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '17,5 cm²' }, richtig: true }
+        - { wert: { de: '35 cm²' }, fv: FV.FL.NICHT-HALBIERT }
+    weiter: uebergang
+    bei: { FV.FL.NICHT-HALBIERT: erklaeren-formel }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt berechnest du selbst Flächen.'
+    vorlagen: [M.GM.AD.FLAECHE.DREIECK]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

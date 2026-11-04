@@ -1148,6 +1148,22 @@ begriffe:
     formen: [Kosinusfunktion, Kosinusfunktionen]
     erklaerung:
       de: 'Die Funktion $y = \cos x$. Ihr Graph ist dieselbe Welle wie beim Sinus, beginnt aber bei 1.'
+  # Klasse 10: Allgemeine Dreiecke
+  - id: sinussatz
+    wort: { de: Sinussatz }
+    formen: [Sinussatz, Sinussatzes]
+    erklaerung:
+      de: 'In jedem Dreieck ist eine Seite geteilt durch den Sinus ihres Gegenwinkels immer gleich: $\frac{a}{\sin \alpha} = \frac{b}{\sin \beta}$.'
+  - id: kosinussatz
+    wort: { de: Kosinussatz }
+    formen: [Kosinussatz, Kosinussatzes]
+    erklaerung:
+      de: 'Erweiterung des Satzes des Pythagoras für jedes Dreieck: $a^2 = b^2 + c^2 - 2bc \cdot \cos \alpha$.'
+  - id: gegenwinkel
+    wort: { de: Gegenwinkel }
+    formen: [Gegenwinkel, Gegenwinkels]
+    erklaerung:
+      de: 'Der Winkel, der einer Seite gegenüberliegt: Zu a gehört α, zu b β, zu c γ.'
   # Klasse 10: Logarithmus
   - id: umkehrfunktion
     wort: { de: Umkehrfunktion }

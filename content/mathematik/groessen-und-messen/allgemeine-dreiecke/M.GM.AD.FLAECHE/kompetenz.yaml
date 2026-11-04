@@ -1,0 +1,42 @@
+# Allgemeine Dreiecke – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.GM.AD.FLAECHE
+fach: mathematik
+bereich: groessen-und-messen
+feld: allgemeine-dreiecke
+titel:
+  de: 'Flächeninhalt mit dem Sinus'
+kann_satz:
+  de: 'Ich kann den Flächeninhalt beliebiger Dreiecke und Vielecke mit A = ½·a·b·sin γ berechnen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.RF.AD.SINUSSATZ
+  - M.GM.FL.DREIECK
+niveaus:
+  G:
+    beschreibung:
+      de: 'Den Flächeninhalt eines Dreiecks aus zwei Seiten und dem Winkel dazwischen berechnen.'
+  M:
+    beschreibung:
+      de: 'Ein Viereck in zwei Dreiecke zerlegen und den Flächeninhalt berechnen.'
+  E:
+    beschreibung:
+      de: 'Die Formel aus A = ½·g·h herleiten.'
+kmk:
+  leitidee: L2
+  prozesse:
+    - K2
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Dreiecke und Vielecke'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 3 Algebraisches Lösen geometrischer Probleme'
+version: 1

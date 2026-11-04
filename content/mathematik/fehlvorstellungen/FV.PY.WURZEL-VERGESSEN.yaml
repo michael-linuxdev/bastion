@@ -5,7 +5,7 @@ art: rechenfehler
 beschreibung:
   de: >-
     Gibt bei c² = 25 die Länge c = 25 an. Das Quadrat der Seite wird mit der Seite verwechselt.
-kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.HOEHENSATZ]
+kompetenzen: [M.RF.PY.PYTHAGORAS, M.RF.PY.HOEHENSATZ, M.RF.AD.KOSINUSSATZ, M.RF.AD.SACH]
 erklaerung:
   kurz:
     de: 'Die Rechnung liefert erst das Quadrat: $c^2 = 25$. Die Seite selbst ist $c = \sqrt{25} = 5$.'

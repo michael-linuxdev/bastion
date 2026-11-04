@@ -1,0 +1,25 @@
+id: FV.AD.SATZ-WAHL
+name:
+  de: Wählt den falschen Satz für das Dreieck
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet im schiefwinkligen Dreieck mit dem Satz des Pythagoras oder den Seitenverhältnissen des rechtwinkligen Dreiecks, oder nimmt den Sinussatz ohne ein Paar aus Seite und Gegenwinkel. Wann welcher Satz passt, ist nicht klar.
+kompetenzen: [M.RF.AD.KOSINUSSATZ, M.RF.AD.SACH]
+erklaerung:
+  kurz:
+    de: 'Pythagoras nur mit rechtem [[Winkel]]. [[Sinussatz]], wenn ein Paar aus Seite und [[Gegenwinkel]] bekannt ist. Sonst, bei SWS oder SSS, der [[Kosinussatz]].'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast einen Satz genommen, der für dieses Dreieck nicht passt.'
+    - teil: warum-nicht
+      de: 'Ohne [[rechten Winkel]] fehlt bei Pythagoras der Teil $- 2bc \cdot \cos \alpha$. Der [[Sinussatz]] braucht ein vollständiges Paar.'
+    - teil: so-stimmt-es
+      de: 'Schreibe in die Skizze, was bekannt ist, und prüfe dann: [[rechter Winkel]]? Paar? Sonst [[Kosinussatz]].'
+gegenbeispiel:
+  de: 'Bei $b = c = 1$ und $\alpha = 60°$ ist a = 1 ([[gleichseitig]]). Pythagoras gäbe $a = \sqrt{2} \approx 1{,}41$.'
+rueckweg:
+  vermittlung: M.RF.AD.KOSINUSSATZ#erklaeren-satz
+kontrast: [M.RF.AD.KOSINUSSATZ.SEITE, M.RF.AD.SACH.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

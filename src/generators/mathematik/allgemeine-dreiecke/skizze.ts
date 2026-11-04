@@ -45,6 +45,8 @@ export function allgemeinesDreieck(
   w: DreieckWinkel,
   seiten: Readonly<Record<string, string>>,
   winkelText: Readonly<Record<string, string>>,
+  /** γ als Schätzwert in der Beschreibung nennen; aus, wenn ein Winkel gesucht ist */
+  gammaNennen = true,
 ): Bild {
   const P = ecken(w);
   const gamma = 180 - w.alpha - w.beta;
@@ -92,7 +94,7 @@ export function allgemeinesDreieck(
     HOEHE,
     teile,
     de(
-      `Skizze eines Dreiecks ABC, nicht maßstäblich, mit den Winkeln α bei A, β bei B und γ bei C (γ etwa ${Math.round(gamma)}°).${besch ? ` ${besch}.` : ''}`,
+      `Skizze eines Dreiecks ABC, nicht maßstäblich, mit den Winkeln α bei A, β bei B und γ bei C${gammaNennen ? ` (γ etwa ${Math.round(gamma)}°)` : ''}.${besch ? ` ${besch}.` : ''}`,
     ),
   );
 }

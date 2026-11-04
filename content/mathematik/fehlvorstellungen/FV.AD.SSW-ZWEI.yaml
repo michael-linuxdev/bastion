@@ -1,0 +1,25 @@
+id: FV.AD.SSW-ZWEI
+name:
+  de: Übersieht die zweite Lösung beim Sinussatz
+art: uebergeneralisiert
+beschreibung:
+  de: >-
+    Nimmt beim Fall SsW nur den Winkel, den der Taschenrechner anzeigt, oder meint, es gebe immer zwei Lösungen. Dass auch 180° − β denselben Sinus hat und die Winkelsumme entscheidet, ist nicht im Blick.
+kompetenzen: [M.RF.AD.SINUSSATZ]
+erklaerung:
+  kurz:
+    de: 'Zu einem Sinuswert gehören zwei [[Winkel]]: β und $180° - \beta$. Passt auch der stumpfe Winkel neben α in die 180°, gibt es zwei Dreiecke.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast dem Taschenrechner geglaubt: Er zeigt immer nur den spitzen [[Winkel]].'
+    - teil: warum-nicht
+      de: 'Am [[Einheitskreis]] liegen P bei β und bei $180° - \beta$ gleich hoch. Beide haben denselben Sinus.'
+    - teil: so-stimmt-es
+      de: 'Rechne immer auch $180° - \beta$ aus und prüfe die [[Innenwinkelsumme]].'
+gegenbeispiel:
+  de: '$\sin 30° = \sin 150° = 0{,}5$. Bei $\alpha = 20°$ passen beide: $20° + 150° = 170° < 180°$.'
+rueckweg:
+  vermittlung: M.RF.AD.SINUSSATZ#erklaeren-zwei
+kontrast: [M.RF.AD.SINUSSATZ.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

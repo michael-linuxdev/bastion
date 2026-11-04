@@ -1,0 +1,97 @@
+id: M.RF.AD.SACH
+kompetenz: M.RF.AD.SACH
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach vermisst du Entfernungen im Gelände und berechnest Kanten von Körpern mit einem Lösungsplan.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Bekannt sind zwei Seiten und der [[Winkel]] dazwischen. Welchen Satz brauchst du für die dritte Seite?'
+    antwort:
+      optionen:
+        - { wert: { de: 'den Kosinussatz' }, richtig: true }
+        - { wert: { de: 'den Sinussatz' }, fv: FV.AD.SATZ-WAHL }
+    weiter: entdecken
+    bei: { FV.AD.SATZ-WAHL: M.RF.AD.KOSINUSSATZ, sonst: M.RF.AD.KOSINUSSATZ }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Von zwei Punkten A und B am Ufer sieht man einen Baum C am anderen Ufer. Bei A misst man 70°, bei B 60°. Wie groß ist der [[Winkel]] beim Baum?'
+    antwort:
+      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '230', fv: FV.AD.SATZ-WAHL }] }
+    weiter: erklaeren-plan
+  - id: erklaeren-plan
+    typ: erklaeren
+    text:
+      de: 'Lösungsplan: Skizze mit allen bekannten Stücken. Fehlt ein [[Winkel]], hilft die [[Innenwinkelsumme]]. Gibt es ein Paar aus Seite und [[Gegenwinkel]], nimm den [[Sinussatz]], sonst den [[Kosinussatz]].'
+    bild:
+      {
+        werkzeug: dreieck@1,
+        parameter:
+          {
+            winkel: { alpha: 70, beta: 60 },
+            seiten: { c: 'c = 50 m', b: 'b = ?' },
+            winkeltexte: { α: 'α = 70°', β: 'β = 60°', γ: 'γ = ?' },
+          },
+      }
+    weiter: erklaeren-koerper
+  - id: erklaeren-koerper
+    typ: erklaeren
+    text:
+      de: 'In Körpern sucht man passende Dreiecke. Bei einer [[Pyramide]] bilden zwei Seitenkanten und eine Grundkante ein Dreieck, mit dem [[Winkel]] an der Spitze dazwischen.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Standlinie $c = 50$ m, $\alpha = 70°$, $\beta = 60°$. Dann $\gamma = 50°$ und $b = \frac{50 \cdot \sin 60°}{\sin 50°} \approx 56{,}5$ m.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Standlinie $c = 100$ m, $\alpha = 60°$, $\beta = 30°$, also $\gamma = 90°$. Berechne $b = \frac{100 \cdot \sin \beta}{\sin \gamma}$.'
+    antwort:
+      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '86,6', fv: FV.AD.PAAR }] }
+    weiter: gegenbeispiel
+    bei: { FV.AD.PAAR: erklaeren-plan }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Pia sagt: „Ich fange immer mit dem [[Sinussatz]] an.“ Klappt das bei drei bekannten Seiten?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Ohne bekannten Winkel gibt es kein Paar. Erst der Kosinussatz.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Der Sinussatz passt immer.' }, fv: FV.AD.SATZ-WAHL }
+    weiter: merksatz
+    bei: { FV.AD.SATZ-WAHL: erklaeren-plan }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Skizze, Bekanntes markieren, dann wählen: [[rechter Winkel]] – Pythagoras. Paar aus Seite und [[Gegenwinkel]] – [[Sinussatz]]. Sonst [[Kosinussatz]].'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Von einem Dreieck ohne [[rechten Winkel]] kennt man a, b und den [[Winkel]] γ zwischen ihnen. Womit beginnst du?'
+    antwort:
+      optionen:
+        - { wert: { de: 'mit dem Kosinussatz für c' }, richtig: true }
+        - { wert: { de: 'mit dem Sinussatz für α' }, fv: FV.AD.SATZ-WAHL }
+        - { wert: { de: 'mit dem Satz des Pythagoras für c' }, fv: FV.AD.SATZ-WAHL }
+    weiter: uebergang
+    bei: { FV.AD.SATZ-WAHL: erklaeren-plan }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt vermisst du selbst.'
+    vorlagen: [M.RF.AD.SACH.VERMESSUNG]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

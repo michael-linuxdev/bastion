@@ -1,0 +1,25 @@
+id: FV.AD.KOSINUS-VORZEICHEN
+name:
+  de: Vertauscht das Vorzeichen im Kosinussatz
+art: falsche-regel
+beschreibung:
+  de: >-
+    Rechnet a² = b² + c² + 2bc·cos α oder meint, bei stumpfem Winkel werde die Seite kürzer. Dass der Kosinus bei stumpfen Winkeln negativ ist und das Minus im Satz dann die Seite verlängert, ist nicht verankert.
+kompetenzen: [M.RF.AD.KOSINUSSATZ, M.RF.AD.SACH]
+erklaerung:
+  kurz:
+    de: '[[Kosinussatz]]: $a^2 = b^2 + c^2 - 2bc \cdot \cos \alpha$, immer mit Minus. Bei stumpfem α ist $\cos \alpha$ negativ, minus mal minus macht a länger.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das [[Vorzeichen]] vor $2bc \cdot \cos \alpha$ umgedreht.'
+    - teil: warum-nicht
+      de: 'Bei 90° ist $\cos \alpha = 0$: Es bleibt Pythagoras. Ein spitzer [[Winkel]] macht a kürzer, ein stumpfer länger.'
+    - teil: so-stimmt-es
+      de: 'Schreibe den Satz immer mit Minus auf und setze $\cos \alpha$ mit seinem [[Vorzeichen]] ein.'
+gegenbeispiel:
+  de: 'Bei $b = c = 1$ und $\alpha = 60°$ ist das Dreieck [[gleichseitig]]: $a^2 = 1 + 1 - 2 \cdot 0{,}5 = 1$. Mit Plus käme $a^2 = 3$ heraus.'
+rueckweg:
+  vermittlung: M.RF.AD.KOSINUSSATZ#erklaeren-satz
+kontrast: [M.RF.AD.KOSINUSSATZ.SEITE, M.RF.AD.KOSINUSSATZ.WINKEL, M.RF.AD.SACH.KOERPER]
+herkunft: ki-entwurf
+version: 1

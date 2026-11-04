@@ -1,0 +1,40 @@
+# Viereck aus zwei Dreiecken – Niveau M. Entwurf: noch nicht geprüft.
+id: M.GM.AD.FLAECHE.VIERECK
+kompetenz: M.GM.AD.FLAECHE
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: ad.flaeche-vieleck@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: 'Die [[Diagonale]] BD teilt das Viereck ABCD in zwei Dreiecke. Dreieck ABD: $|AB| = {a}$ cm, $|AD| = {d}$ cm, [[Winkel]] bei A ${alpha}°$. Dreieck CDB: $|CB| = {b}$ cm, $|CD| = {c}$ cm, Winkel bei C ${gamma}°$. **Berechne** den [[Flächeninhalt]] des Vierecks in cm² auf eine Stelle.'
+hilfen:
+  - de: 'Berechne jedes Dreieck mit $A = \frac{1}{2} \cdot a \cdot b \cdot \sin \gamma$.'
+  - de: 'Addiere beide Flächen.'
+fehlerbilder:
+  nicht-halbiert:
+    de: 'Du hast das Doppelte. Jedes Dreieck hat $\frac{1}{2} \cdot a \cdot b \cdot \sin \gamma$.'
+    fv: FV.FL.NICHT-HALBIERT
+schritte:
+  - id: erstes
+    frage: { de: 'Wie groß ist das Dreieck ABD? Runde auf eine Stelle.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      nicht-halbiert:
+        de: '$\frac{1}{2}$ nicht vergessen.'
+        fv: FV.FL.NICHT-HALBIERT
+  - id: zweites
+    frage: { de: 'Wie groß ist das Dreieck CDB? Runde auf eine Stelle.' }
+    typ: zahl-eingabe
+    fehlerbilder:
+      nicht-halbiert:
+        de: '$\frac{1}{2}$ nicht vergessen.'
+        fv: FV.FL.NICHT-HALBIERT
+  - id: summe
+    frage: { de: 'Mit ${eins}$ cm² und ${zwei}$ cm²: Wie groß ist das Viereck?' }
+    typ: zahl-eingabe
+    fehlerbilder: {}
+herkunft: ki-entwurf
+version: 1
