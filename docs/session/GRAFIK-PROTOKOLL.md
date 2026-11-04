@@ -105,3 +105,4 @@
 | 03.11.2026 | **Selbst optimiert** (Branch `grafik/vorrat`): keine Kantenglättung ab 2,5-facher Auflösung (rund 100 MB weniger Grafikspeicher auf dem iPhone), Wesen und Bewohner aus einem Vorrat statt 60 neuer Objekte je Sekunde; GRAFIK §24 |
 | 04.11.2026 | **Sandbänke und Krater** (Branch `grafik/flaechen`): `g20_flaechen.py` (4 neue Sandbänke, 7 gröbere Kraterfelder), Flächen gespiegelt, Mischzahl der Kulisse gleich verteilt; GRAFIK §18.2 |
 | 04.11.2026 | **Banner schwingt** (Branch `grafik/banner`): Tuch am Fahnenmast aus `g18_fahnen.py` (`haengt`, Wappen), schwingt unten sacht; GRAFIK §26 |
+| 04.11.2026 | **Strang ruht** (PV: „Lassen wir erstmal so. Fokus ab jetzt Lernkern“): Ruckeln auf dem iPhone und Ansatzpunkte in der Strang-Datei festgehalten |
