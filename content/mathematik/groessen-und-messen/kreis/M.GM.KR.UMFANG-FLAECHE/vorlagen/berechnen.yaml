@@ -22,9 +22,6 @@ fehlerbilder:
   umfang-flaeche:
     de: 'Das ist die andere Größe. [[Umfang]] ist die Länge um den Kreis herum (u = 2 · [[π]] · r), [[Flächeninhalt]] die Fläche innen (A = π · r²).'
     fv: FV.FL.UMFANG-FLAECHE
-  mal-zwei-statt-quadrat:
-    de: 'r² heißt r · r, nicht 2 · r.'
-    fv: FV.NZ.QUADRAT-MAL-ZWEI
   wurzel-vergessen:
     de: 'A : 3,14 ergibt r², noch nicht r. Ziehe die [[Wurzel]].'
     fv: FV.GL.NICHT-FERTIG

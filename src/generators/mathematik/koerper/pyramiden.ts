@@ -250,7 +250,9 @@ export const pyramideOberflaeche: Generator<PyramideOberflaecheParameter> = {
   id: 'kp.pyramide-oberflaeche',
   version: 1,
   platzhalter: ['aufgabe'],
-  fehlerbildIds: ['grundflaeche-vergessen', 'dreieck-nicht-halbiert', 'koerperhoehe-genommen'],
+  // Die Aufgabe nennt die Höhe der Seitenflächen; „Körperhöhe genommen“ kann so nicht
+  // vorkommen (Fehler-Schüler A)
+  fehlerbildIds: ['grundflaeche-vergessen', 'dreieck-nicht-halbiert'],
 
   erzeuge(seed, p) {
     const r = rng(seed);

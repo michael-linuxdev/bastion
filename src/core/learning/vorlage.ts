@@ -65,6 +65,8 @@ export interface GeneratorVorlage {
 export interface GeneratorAngaben {
   readonly platzhalter: readonly string[];
   readonly fehlerbildIds: readonly string[];
+  /** Fehlerbilder je Parameter (Generator.fehlerbildIdsFuer); die Parameter kommen ungeprüft aus der Vorlage */
+  fehlerbildIdsFuer?(parameter: never): readonly string[];
   readonly schritte?: Generator<unknown>['schritte'];
 }
 
@@ -84,6 +86,25 @@ export { platzhalterIn };
  * @param dateiname Name der Datei ohne Endung, z. B. "ziffer-an-stelle"
  * @param ordnerKompetenz ID der Kompetenz, in deren Ordner die Datei liegt
  */
+/**
+ * Welche Fehlerbilder eine Vorlage aufführen muss: bei `fehlerbildIdsFuer` die Vereinigung
+ * über die Parameter ihrer Niveaus, sonst alle des Generators (INHALTSFORMAT §10.1).
+ */
+export function erwarteteFehlerbilder(
+  generator: GeneratorAngaben,
+  parameter: unknown,
+  niveaus: unknown,
+): readonly string[] {
+  const fuer = generator.fehlerbildIdsFuer as ((p: unknown) => readonly string[]) | undefined;
+  if (!fuer || !istObjekt(parameter) || !Array.isArray(niveaus)) return generator.fehlerbildIds;
+  const ids = new Set<string>();
+  for (const n of niveaus) {
+    const p = parameter[String(n)];
+    if (istObjekt(p)) for (const id of fuer(p)) ids.add(id);
+  }
+  return generator.fehlerbildIds.filter((id) => ids.has(id));
+}
+
 export function pruefeVorlage(
   daten: unknown,
   kontext: {
@@ -169,12 +190,15 @@ export function pruefeVorlage(
       }
     }
     if (istObjekt(fehlerbilder)) {
-      for (const fid of generator.fehlerbildIds) {
+      const erwartet = erwarteteFehlerbilder(generator, d['parameter'], niveaus);
+      for (const fid of erwartet) {
         if (!(fid in fehlerbilder)) f.push(`Rückmeldung für Fehlerbild „${fid}“ fehlt`);
       }
       for (const fid of Object.keys(fehlerbilder)) {
         if (!generator.fehlerbildIds.includes(fid))
           f.push(`Fehlerbild „${fid}“ kennt der Generator nicht`);
+        else if (!erwartet.includes(fid))
+          f.push(`Fehlerbild „${fid}“ kommt mit den Parametern dieser Vorlage nie vor`);
       }
     }
   }
