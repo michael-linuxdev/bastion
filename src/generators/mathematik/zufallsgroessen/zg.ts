@@ -125,7 +125,7 @@ export const zgKumuliert: Generator<Record<string, never>> = {
           `$X ${zeichen} ${a.k}$ heißt: ${a.mindestens ? 'mindestens' : 'höchstens'} ${a.k}, also ${a.k} selbst gehört dazu.`,
         ),
         de(
-          `Addiere $P(X = ${a.mindestens ? `${a.k}` : '0'})$ bis $P(X = ${a.mindestens ? `${n - 1}` : `${a.k}`})$: ${texZahl(h(wert))}.`,
+          `Addiere $P(X = ${a.mindestens ? `${a.k}` : '0'})$ bis $P(X = ${a.mindestens ? `${n - 1}` : `${a.k}`})$: $${texZahl(h(wert))}$.`,
         ),
       ],
       fehlerbilder: fehlerbilderAus(richtig, [
@@ -443,7 +443,9 @@ export const zgStandardabweichung: Generator<Record<string, never>> = {
       ...(Math.abs(wert - s) < 1e-9 ? {} : { runden: { stellen: 2, genau: s } }),
       loesungsweg: [
         de(`Erwartungswert $\\mu = ${texZahl(mittel(t))}$, Varianz $V(X) = ${texZahl(v)}$.`),
-        de(`$\\sigma = \\sqrt{V(X)} = \\sqrt{${texZahl(v)}} \\approx ${texZahl(wert)}$.`),
+        de(
+          `$\\sigma = \\sqrt{V(X)} = \\sqrt{${texZahl(v)}} ${Math.abs(wert - s) < 1e-9 ? '=' : '\\approx'} ${texZahl(wert)}$.`,
+        ),
       ],
       fehlerbilder: fehlerbilderAus(richtig, [
         ['wurzel', Math.abs(v - wert) > 0.015 ? zahl(v) : undefined],
