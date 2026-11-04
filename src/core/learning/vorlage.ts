@@ -53,6 +53,8 @@ export interface GeneratorVorlage {
   readonly schritte?: readonly VorlagenSchritt[];
   /** Tasten der eigenen Tastatur (INHALTSFORMAT §5.2); ohne Angabe nach Art der Lösung */
   readonly tastatur?: readonly Taste[];
+  /** Teil-A-Aufgabe ohne Taschenrechner (B10): Kennzeichen beim Üben, „schöne“ Lösungen geprüft */
+  readonly hilfsmittelfrei?: boolean;
   readonly herkunft: 'eigen' | 'ki-entwurf' | 'oer';
   readonly version: number;
   /** Optional. Fehlt es, gilt Stufe 0 (INHALTSFORMAT §8). */
@@ -115,6 +117,8 @@ export function pruefeVorlage(
     f.push(`unbekannter typ ${String(d['typ'])}`);
   if (d['quelle'] !== 'generator')
     f.push('quelle muss „generator“ sein (handverfasst folgt später)');
+  if (d['hilfsmittelfrei'] !== undefined && typeof d['hilfsmittelfrei'] !== 'boolean')
+    f.push('hilfsmittelfrei muss true oder false sein');
   if (!['eigen', 'ki-entwurf', 'oer'].includes(d['herkunft'] as string)) {
     f.push('herkunft muss eigen, ki-entwurf oder oer sein');
   }

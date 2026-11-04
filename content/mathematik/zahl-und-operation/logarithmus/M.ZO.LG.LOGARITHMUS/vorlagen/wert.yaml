@@ -21,5 +21,6 @@ fehlerbilder:
   teilen-statt-log:
     de: 'Der [[Logarithmus]] ist keine Division. Gesucht ist die [[Hochzahl]].'
     fv: FV.LG.TEILEN-STATT-LOG
+hilfsmittelfrei: true
 herkunft: ki-entwurf
 version: 1

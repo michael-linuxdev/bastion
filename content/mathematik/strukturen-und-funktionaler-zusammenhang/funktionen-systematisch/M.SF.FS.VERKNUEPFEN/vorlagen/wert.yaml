@@ -20,5 +20,6 @@ fehlerbilder:
   produkt:
     de: 'Das ist $f({a}) \cdot g({a})$. Verketten heißt einsetzen, nicht malnehmen.'
     fv: FV.FS.VERKETTUNG-PRODUKT
+hilfsmittelfrei: true
 herkunft: ki-entwurf
 version: 1
