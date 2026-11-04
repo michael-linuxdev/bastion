@@ -37,6 +37,37 @@ describe('pruefeVorlage', () => {
     expect(pruefeVorlage(gueltig(), kontext)).toEqual([]);
   });
 
+  it('Fehlerbilder je Parameter: nur die aufführen, die mit diesen Parametern vorkommen', () => {
+    // „lang“ gibt es nur bei mehr als 9 Stellen (wie „nicht erweitert“ nur bei verschiedenen Nennern)
+    const mitFuer = {
+      ...kontext,
+      generatoren: new Map([
+        [
+          'nz.ziffer-an-stelle@1',
+          {
+            platzhalter: ['zahl', 'stelle'],
+            fehlerbildIds: ['von-links', 'lang'],
+            fehlerbildIdsFuer: (p: { stellen_max: number }) =>
+              p.stellen_max > 9 ? ['von-links', 'lang'] : ['von-links'],
+          },
+        ],
+      ]),
+    };
+    // M hat 12 Stellen: „lang“ muss stehen
+    expect(pruefeVorlage(gueltig(), mitFuer).join(' | ')).toContain(
+      'Rückmeldung für Fehlerbild „lang“ fehlt',
+    );
+    // Nur G mit 7 Stellen: „lang“ darf nicht stehen
+    const nurG = { ...gueltig(), niveaus: ['G'], parameter: { G: { stellen_max: 7 } } };
+    expect(pruefeVorlage(nurG, mitFuer)).toEqual([]);
+    expect(
+      pruefeVorlage(
+        { ...nurG, fehlerbilder: { ...nurG.fehlerbilder, lang: { de: 'Zu lang.' } } },
+        mitFuer,
+      ).join(' | '),
+    ).toContain('„lang“ kommt mit den Parametern dieser Vorlage nie vor');
+  });
+
   it('akzeptiert einen passenden Review-Block und lehnt eine kaputte Stufe ab', () => {
     const daten = gueltig();
     expect(

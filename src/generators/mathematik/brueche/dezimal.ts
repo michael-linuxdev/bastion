@@ -161,6 +161,11 @@ export const dezimalMalDurch: Generator<DezMalDurchParameter> = {
   version: 1,
   platzhalter: ['a', 'b', 'zeichen'],
   fehlerbildIds: ['komma-um-eine-stelle-falsch', 'komma-falsche-richtung'],
+  // Die falsche Richtung des Kommas gibt es nur bei Zehnerpotenzen
+  fehlerbildIdsFuer: (p) =>
+    p.mit_zehnerpotenz
+      ? ['komma-um-eine-stelle-falsch', 'komma-falsche-richtung']
+      : ['komma-um-eine-stelle-falsch'],
 
   erzeuge(seed, p) {
     const r = rng(seed);

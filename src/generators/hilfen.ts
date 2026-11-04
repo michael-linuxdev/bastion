@@ -47,6 +47,14 @@ export function variante<P, F extends Partial<P>>(
     basisParameter: fest as Readonly<Record<string, unknown>>,
     platzhalter: basis.platzhalter,
     fehlerbildIds,
+    ...(basis.fehlerbildIdsFuer
+      ? {
+          fehlerbildIdsFuer: (p: Omit<P, keyof F>) =>
+            (basis.fehlerbildIdsFuer?.({ ...p, ...fest } as P) ?? []).filter((id) =>
+              fehlerbildIds.includes(id),
+            ),
+        }
+      : {}),
     erzeuge: (seed, p) => {
       const i = basis.erzeuge(seed, { ...p, ...fest } as P);
       return { ...i, fehlerbilder: i.fehlerbilder.filter((f) => fehlerbildIds.includes(f.id)) };

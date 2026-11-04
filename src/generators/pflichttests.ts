@@ -104,6 +104,12 @@ export function pflichttests<P>(generator: Generator<P>, pruefung: PflichtPruefu
                       probleme.push(`Fehlerbilder ${f.id} und ${g.id} ergeben dieselbe Antwort`);
                   if (!generator.fehlerbildIds.includes(f.id))
                     probleme.push(`Fehlerbild ${f.id} fehlt in fehlerbildIds`);
+                  // Angabe je Parameter muss stimmen, sonst fehlt der Vorlage die Rückmeldung
+                  if (
+                    generator.fehlerbildIdsFuer &&
+                    !generator.fehlerbildIdsFuer(parameter).includes(f.id)
+                  )
+                    probleme.push(`Fehlerbild ${f.id} fehlt in fehlerbildIdsFuer`);
                 }
                 // Gerundetes Ergebnis (B3): Lösung ist der gerundete genaue Wert
                 if (instanz.runden) {

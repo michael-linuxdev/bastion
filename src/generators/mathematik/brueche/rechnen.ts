@@ -156,6 +156,9 @@ export const bruchAddSub: Generator<BruchAddSubParameter> = {
   version: 1,
   platzhalter: ['a', 'zeichen', 'b'],
   fehlerbildIds: ['nenner-addiert', 'nicht-erweitert'],
+  // Bei gleichen Nennern gibt es nichts zu erweitern
+  fehlerbildIdsFuer: (p) =>
+    p.art === 'gleichnamig' ? ['nenner-addiert'] : ['nenner-addiert', 'nicht-erweitert'],
 
   // Zwischenschritte (INHALTSFORMAT §17): gemeinsamer Nenner, beide Brüche erweitern,
   // Zähler verrechnen, kürzen. Ein anderer gemeinsamer Nenner ist auch richtig.

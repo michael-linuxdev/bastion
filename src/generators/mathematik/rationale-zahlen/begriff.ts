@@ -106,7 +106,7 @@ export const gegenzahlBetrag: Generator<GegenzahlBetragParameter> = {
   id: 'rz.gegenzahl-betrag',
   version: 1,
   platzhalter: ['was', 'zahl'],
-  fehlerbildIds: ['zahl-selbst', 'betrag-statt-gegenzahl', 'gegenzahl-statt-betrag'],
+  fehlerbildIds: ['zahl-selbst', 'gegenzahl-statt-betrag'],
 
   erzeuge(seed, p) {
     verlange(p.max >= 10 && p.max <= 100, 'max: 10 … 100');
@@ -137,7 +137,8 @@ export const gegenzahlBetrag: Generator<GegenzahlBetragParameter> = {
           ],
       fehlerbilder: fehlerbilderAus(richtig, [
         ['zahl-selbst', zahl(x)],
-        ['betrag-statt-gegenzahl', betrag ? undefined : zahl(Math.abs(x))],
+        // „Betrag statt Gegenzahl“ ist bei negativem x die Lösung und bei positivem die Zahl
+        // selbst – nie eine eigene Antwort, darum kein eigenes Fehlerbild (Fehler-Schüler A)
         ['gegenzahl-statt-betrag', betrag ? zahl(-x) : undefined],
       ]),
     };

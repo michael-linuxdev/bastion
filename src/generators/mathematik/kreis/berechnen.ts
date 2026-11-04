@@ -70,12 +70,7 @@ export const kreisBerechnen: Generator<KreisParameter> = {
   id: 'kr.berechnen',
   version: 1,
   platzhalter: ['aufgabe'],
-  fehlerbildIds: [
-    'radius-durchmesser',
-    'umfang-flaeche',
-    'mal-zwei-statt-quadrat',
-    'wurzel-vergessen',
-  ],
+  fehlerbildIds: ['radius-durchmesser', 'umfang-flaeche', 'wurzel-vergessen'],
 
   erzeuge(seed, p) {
     const r = rng(seed);
@@ -113,8 +108,9 @@ export const kreisBerechnen: Generator<KreisParameter> = {
                   : 4 * PI * rad,
             ),
           ],
+          // „2 · r statt r²“ ergibt π · 2 · r, also genau den Umfang: dieselbe Antwort wie
+          // „Umfang statt Fläche“, darum kein eigenes Fehlerbild (Fehler-Schüler A)
           ['umfang-flaeche', zz(flaeche ? 2 * PI * rad : PI * rad * rad)],
-          ['mal-zwei-statt-quadrat', flaeche && rad !== 2 ? zz(PI * 2 * rad) : undefined],
         ]),
       };
     }

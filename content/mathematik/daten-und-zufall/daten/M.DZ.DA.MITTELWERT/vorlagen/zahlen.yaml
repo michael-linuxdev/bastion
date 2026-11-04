@@ -21,8 +21,5 @@ fehlerbilder:
   nur-summe:
     de: 'Das ist erst die [[Summe]]. Teile sie noch durch die Anzahl der Werte.'
     fv: FV.SA.ZWISCHENERGEBNIS
-  nicht-gerundet:
-    de: Runde das Ergebnis wie verlangt.
-    fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1
