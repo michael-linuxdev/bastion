@@ -1,0 +1,24 @@
+# Definitionslücke eines Quotienten – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.FS.VERKNUEPFEN.BEGRUENDEN
+kompetenz: M.SF.FS.VERKNUEPFEN
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: fs.luecke-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Wann ist ein [[Bruch]] nicht definiert?'
+  - de: 'Setze die [[Nullstelle]] des Nenners ein.'
+fehlerbilder:
+  luecke-zaehler:
+    de: 'Ein [[Zähler]] 0 ist erlaubt. Nur ein [[Nenner]] 0 macht den [[Bruch]] undefiniert.'
+    fv: FV.FS.DEFINITION
+  luecke-keine:
+    de: 'Durch 0 darf man nicht teilen. Wo der [[Nenner]] 0 ist, hat der Quotient eine Lücke.'
+    fv: FV.FS.DEFINITION
+herkunft: ki-entwurf
+version: 1

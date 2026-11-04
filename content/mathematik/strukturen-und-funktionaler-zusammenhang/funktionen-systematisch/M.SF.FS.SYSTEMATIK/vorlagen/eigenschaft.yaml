@@ -1,0 +1,24 @@
+# Eigenschaften einer Grundfunktion – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.FS.SYSTEMATIK.EIGENSCHAFT
+kompetenz: M.SF.FS.SYSTEMATIK
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: fs.eigenschaft@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle**.'
+hilfen:
+  - de: 'Skizziere den [[Graphen]].'
+  - de: 'Prüfe: Welche x darf man einsetzen? Welche y kommen heraus? Ist der [[Graph]] symmetrisch?'
+fehlerbilder:
+  definition:
+    de: 'Prüfe, welche Zahlen man wirklich einsetzen darf.'
+    fv: FV.FS.DEFINITION
+  eigenschaft:
+    de: 'Diese Eigenschaft gehört zu einer anderen Grundfunktion. Skizziere den [[Graphen]].'
+    fv: FV.FS.GRUNDFUNKTION
+herkunft: ki-entwurf
+version: 1

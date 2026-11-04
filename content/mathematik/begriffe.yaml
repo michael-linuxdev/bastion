@@ -1195,6 +1195,42 @@ begriffe:
     formen: [Standardabweichung, Standardabweichungen]
     erklaerung:
       de: 'Die Wurzel aus der Varianz, Zeichen σ. Sie sagt, wie weit die Werte typischerweise vom Mittel entfernt liegen.'
+  # Klasse 10: Funktionen systematisch
+  - id: verkettung
+    wort: { de: Verkettung }
+    formen: [Verkettung, Verkettungen]
+    erklaerung:
+      de: 'Zwei Funktionen hintereinander: Das Ergebnis der inneren Funktion wird in die äußere eingesetzt, etwa $(x + 1)^2$.'
+  - id: innere-funktion
+    wort: { de: innere Funktion }
+    formen: [innere Funktion, inneren Funktion]
+    erklaerung:
+      de: 'Bei einer Verkettung $f(g(x))$ die Funktion g, die man zuerst rechnet.'
+  - id: aeussere-funktion
+    wort: { de: äußere Funktion }
+    formen: [äußere Funktion, äußeren Funktion]
+    erklaerung:
+      de: 'Bei einer Verkettung $f(g(x))$ die Funktion f, in die man das Ergebnis der inneren einsetzt.'
+  - id: zahlenfolge
+    wort: { de: Zahlenfolge }
+    formen: [Zahlenfolge, Zahlenfolgen]
+    erklaerung:
+      de: 'Eine Liste von Zahlen $a_1, a_2, a_3, \dots$, bei der jede Nummer n eine Zahl $a_n$ bekommt.'
+  - id: grenzwert
+    wort: { de: Grenzwert }
+    formen: [Grenzwert, Grenzwerte, Grenzwerts]
+    erklaerung:
+      de: 'Die Zahl, der sich die Glieder einer Folge immer mehr nähern. Bei $\frac{1}{n}$ ist es 0.'
+  - id: beschraenkt
+    wort: { de: beschränkt }
+    formen: [beschränkt, beschränkte, beschränkten]
+    erklaerung:
+      de: 'Eine Folge ist beschränkt, wenn alle Glieder zwischen zwei festen Zahlen liegen.'
+  - id: monoton
+    wort: { de: monoton }
+    formen: [monoton, monotone]
+    erklaerung:
+      de: 'Monoton steigend: Jedes Glied ist mindestens so groß wie das vorige. Monoton fallend: höchstens so groß.'
   # Klasse 10: Logarithmus
   - id: umkehrfunktion
     wort: { de: Umkehrfunktion }

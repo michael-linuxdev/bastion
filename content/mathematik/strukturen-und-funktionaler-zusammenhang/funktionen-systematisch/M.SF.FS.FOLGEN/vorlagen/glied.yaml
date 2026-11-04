@@ -1,0 +1,21 @@
+# Glied einer Folge – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.FS.FOLGEN.GLIED
+kompetenz: M.SF.FS.FOLGEN
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: fs.folge-glied@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '{satz}'
+hilfen:
+  - de: 'Wie viele Schritte sind es vom ersten bis zum n-ten Glied?'
+  - de: 'Vom ersten bis zum n-ten Glied sind es $n - 1$ Schritte.'
+fehlerbilder:
+  index:
+    de: 'Das ist ein Glied zu weit. Bis $a_n$ sind es nur $n - 1$ Schritte.'
+    fv: FV.FS.INDEX
+herkunft: ki-entwurf
+version: 1

@@ -1,0 +1,39 @@
+# Funktionen systematisch – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FS.FOLGEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen-systematisch
+titel:
+  de: 'Zahlenfolgen'
+kann_satz:
+  de: 'Ich kann Zahlenfolgen explizit und rekursiv beschreiben und Schranken und Grenzwerte anschaulich bestimmen.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.EX.WACHSTUM
+  - M.SF.FK.BEGRIFF
+niveaus:
+  G:
+    beschreibung:
+      de: 'Ein Glied einer arithmetischen oder geometrischen Folge berechnen.'
+  M:
+    beschreibung:
+      de: 'Monotonie, Schranken und Grenzwert einer Folge erkennen.'
+  E:
+    beschreibung:
+      de: '„Beschränkt, also konvergent?“ mit einem Gegenbeispiel widerlegen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K1
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

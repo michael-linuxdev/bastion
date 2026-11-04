@@ -5,7 +5,7 @@ art: uebergeneralisiert
 beschreibung:
   de: >-
     Hält „erst um 3 nach oben, dann mit 2 strecken“ für dasselbe wie „erst strecken, dann verschieben“. Dass die Streckung eine schon addierte Zahl mitstreckt, wird übersehen.
-kompetenzen: [M.SF.PF.PARAMETER]
+kompetenzen: [M.SF.PF.PARAMETER, M.SF.FS.TRANSFORMATION]
 erklaerung:
   kurz:
     de: 'Erst verschieben, dann strecken: $2 \cdot (x^2 + 3) = 2x^2 + 6$. Erst strecken, dann verschieben: $2x^2 + 3$. Das ist nicht dasselbe.'

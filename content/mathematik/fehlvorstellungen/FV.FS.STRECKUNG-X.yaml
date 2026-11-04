@@ -1,0 +1,25 @@
+id: FV.FS.STRECKUNG-X
+name:
+  de: Verwechselt x- und y-Richtung
+art: verwechslung
+beschreibung:
+  de: >-
+    Ordnet eine Zahl außen einer Verschiebung nach links oder rechts zu oder eine Zahl im Inneren einer Wirkung nach oben oder unten. Innen und außen sind nicht mit x und y verbunden.
+kompetenzen: [M.SF.FS.TRANSFORMATION]
+erklaerung:
+  kurz:
+    de: 'Was außen an f steht, wirkt auf die y-Werte: nach oben oder unten, Streckung in y-Richtung. Was innen am x steht, wirkt in x-Richtung.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast x- und y-Richtung vertauscht.'
+    - teil: warum-nicht
+      de: '$f(x) + 3$ ändert nur die Werte, nicht die Stellen: Jeder Punkt geht 3 nach oben.'
+    - teil: so-stimmt-es
+      de: 'Außen: y-Richtung, wie gelesen. Innen: x-Richtung, umgekehrt.'
+gegenbeispiel:
+  de: '$x^2 + 3$ hat den Scheitel $(0|3)$, $(x + 3)^2$ den Scheitel $(-3|0)$.'
+rueckweg:
+  vermittlung: M.SF.FS.TRANSFORMATION#erklaeren-innen
+kontrast: [M.SF.FS.TRANSFORMATION.WIRKUNG, M.SF.FS.TRANSFORMATION.TERM]
+herkunft: ki-entwurf
+version: 1

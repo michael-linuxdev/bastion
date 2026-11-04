@@ -1,0 +1,24 @@
+# Wert einer Verkettung – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.FS.VERKNUEPFEN.WERT
+kompetenz: M.SF.FS.VERKNUEPFEN
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: fs.verkettung-wert@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '$f(x) = x^2 + ({k})$ und $g(x) = {m}x + ({b})$. **Berechne** $f(g({a}))$.'
+hilfen:
+  - de: 'Zuerst $g({a})$ ausrechnen.'
+  - de: 'Das Ergebnis in f einsetzen.'
+fehlerbilder:
+  innen-aussen:
+    de: 'Das ist $g(f({a}))$. Bei $f(g(x))$ rechnet man zuerst g.'
+    fv: FV.FS.INNEN-AUSSEN
+  produkt:
+    de: 'Das ist $f({a}) \cdot g({a})$. Verketten heißt einsetzen, nicht malnehmen.'
+    fv: FV.FS.VERKETTUNG-PRODUKT
+herkunft: ki-entwurf
+version: 1

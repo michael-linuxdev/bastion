@@ -1,0 +1,26 @@
+id: FV.FS.RICHTUNG
+name:
+  de: Liest Zahlen im Inneren in der falschen Richtung
+art: falsche-regel
+beschreibung:
+  de: >-
+    Verschiebt bei f(x + c) nach rechts statt nach links oder streckt bei f(c·x), statt zu stauchen. Dass eine Zahl im Inneren umgekehrt wirkt, ist nicht verankert.
+kompetenzen: [M.SF.FS.TRANSFORMATION]
+erklaerung:
+  kurz:
+    de: 'Im Inneren wirkt eine Zahl umgekehrt: $f(x + 2)$ ist um 2 nach links verschoben, $f(2x)$ ist in x-Richtung auf die Hälfte gestaucht.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast das [[Vorzeichen]] oder den [[Faktor]] im Inneren wörtlich genommen.'
+    - teil: warum-nicht
+      de: '$f(x + 2)$ hat den Wert $f(0)$ schon bei $x = -2$. Der [[Graph]] ist also früher dran, links.'
+    - teil: so-stimmt-es
+      de: 'Frage: Bei welchem x ist das Innere 0 (oder 1)? Dorthin wandert der besondere Punkt.'
+gegenbeispiel:
+  de: '$(x + 2)^2$ hat den Scheitel bei $x = -2$, also links.'
+rueckweg:
+  vermittlung: M.SF.FS.TRANSFORMATION#erklaeren-innen
+kontrast:
+  [M.SF.FS.TRANSFORMATION.WIRKUNG, M.SF.FS.TRANSFORMATION.TERM, M.SF.FS.TRANSFORMATION.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

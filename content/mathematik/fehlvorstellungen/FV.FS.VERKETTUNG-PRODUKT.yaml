@@ -1,0 +1,25 @@
+id: FV.FS.VERKETTUNG-PRODUKT
+name:
+  de: Hält eine Verkettung für ein Produkt
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Rechnet f(g(x)) als f(x) · g(x) oder sieht in (3x − 1)⁴ ein Produkt aus 3x − 1 und x⁴. Einsetzen und Malnehmen werden verwechselt.
+kompetenzen: [M.SF.FS.VERKNUEPFEN]
+erklaerung:
+  kurz:
+    de: 'Verketten heißt einsetzen: Das Ergebnis von g wird zur Eingabe von f. Malnehmen ist etwas anderes.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden [[Funktionen]] malgenommen.'
+    - teil: warum-nicht
+      de: '$f(g(x))$ schreibt man ohne Malpunkt, weil g in f hineingesteckt wird.'
+    - teil: so-stimmt-es
+      de: 'Ersetze in f jedes x durch den ganzen [[Term]] von g.'
+gegenbeispiel:
+  de: '$f(x) = x^2$, $g(x) = x + 1$: $f(g(x)) = (x + 1)^2$, aber $f(x) \cdot g(x) = x^3 + x^2$.'
+rueckweg:
+  vermittlung: M.SF.FS.VERKNUEPFEN#erklaeren-verkettung
+kontrast: [M.SF.FS.VERKNUEPFEN.VERKETTUNG, M.SF.FS.VERKNUEPFEN.WERT]
+herkunft: ki-entwurf
+version: 1

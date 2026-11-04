@@ -1,0 +1,25 @@
+id: FV.FS.DEFINITION
+name:
+  de: Bestimmt den Definitionsbereich falsch
+art: falsche-regel
+beschreibung:
+  de: >-
+    Hält Funktionen für überall definiert, auch wo durch 0 geteilt oder die Wurzel einer negativen Zahl gezogen würde, oder schränkt den Definitionsbereich ohne Grund ein. Bei Quotienten wird eine Nullstelle des Zählers für eine Lücke gehalten.
+kompetenzen: [M.SF.FS.SYSTEMATIK, M.SF.FS.VERKNUEPFEN]
+erklaerung:
+  kurz:
+    de: 'Ausgeschlossen sind nur Zahlen, für die man nicht rechnen kann: [[Nenner]] 0, [[Wurzel]] aus Negativem, [[Logarithmus]] von 0 oder Negativem. Alles andere darf man einsetzen.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den [[Definitionsbereich]] nach Gefühl bestimmt.'
+    - teil: warum-nicht
+      de: 'Bei $\frac{1}{x}$ geht $x = 0$ nicht, bei $x^3$ dagegen jede Zahl.'
+    - teil: so-stimmt-es
+      de: 'Frage bei jedem Rechenschritt: Kann man diese Zahl hier einsetzen?'
+gegenbeispiel:
+  de: '$\frac{x - 2}{x - 5}$ ist bei $x = 2$ gleich 0, das ist erlaubt. Bei $x = 5$ wäre der [[Nenner]] 0: Dort ist die Lücke.'
+rueckweg:
+  vermittlung: M.SF.FS.SYSTEMATIK#erklaeren-eigenschaften
+kontrast: [M.SF.FS.SYSTEMATIK.EIGENSCHAFT, M.SF.FS.VERKNUEPFEN.BEGRUENDEN]
+herkunft: ki-entwurf
+version: 1

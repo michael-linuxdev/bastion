@@ -1,0 +1,96 @@
+id: M.SF.FS.SYSTEMATIK
+kompetenz: M.SF.FS.SYSTEMATIK
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach erkennst du die wichtigsten Grundfunktionen an ihrem [[Graphen]] und kennst ihre Eigenschaften.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Für welche x ist $\sqrt{x}$ definiert? Gib die kleinste Zahl an, die man einsetzen darf.'
+    antwort:
+      eingabe: { art: zahl, loesung: '0', fehler: [{ wert: '1', fv: FV.PF.WURZEL-DEFINITION }] }
+    weiter: entdecken
+    bei: { FV.PF.WURZEL-DEFINITION: M.SF.PF.WURZELFUNKTION, sonst: M.SF.PF.WURZELFUNKTION }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Die [[Graphen]] von $y = x^2$ und $y = \sqrt{x}$ gehen beide durch $(1|1)$. Welchen Wert hat $x^2$ bei $x = 4$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '16', fehler: [{ wert: '2', fv: FV.FS.GRUNDFUNKTION }] }
+    weiter: erklaeren-steckbrief
+  - id: erklaeren-steckbrief
+    typ: erklaeren
+    text:
+      de: 'Jede Grundfunktion hat ihren Steckbrief: $x^2$ ist eine [[Parabel]], $\sqrt{x}$ ein liegender halber Ast, $\frac{1}{x}$ eine Hyperbel mit Lücke bei 0, $e^x$ steigt immer und bleibt über der x-Achse.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven:
+              [{ art: parabel }, { art: wurzel }, { art: potenz, n: -1 }, { art: exp, basis: e }],
+            x: [-4, 4],
+            y: [-3, 5],
+          },
+      }
+    weiter: erklaeren-eigenschaften
+  - id: erklaeren-eigenschaften
+    typ: erklaeren
+    text:
+      de: 'Zum Steckbrief gehören [[Definitionsbereich]], [[Wertebereich]], [[Nullstellen]] und Symmetrie. Ausgeschlossen sind nur Zahlen, mit denen man nicht rechnen kann: [[Nenner]] 0, [[Wurzel]] aus Negativem.'
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = \frac{1}{x}$: Alle x außer 0 sind erlaubt. Der Wert 0 kommt nie heraus, es gibt keine [[Nullstelle]]. Der [[Graph]] ist punktsymmetrisch zum [[Ursprung]].'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welchen Wert hat $\frac{1}{x}$ bei $x = -2$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-0,5', fehler: [{ wert: '0,5', fv: FV.FS.GRUNDFUNKTION }] }
+    weiter: gegenbeispiel
+    bei: { FV.FS.GRUNDFUNKTION: erklaeren-steckbrief }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim sagt: „Jede Grundfunktion hat eine [[Nullstelle]].“ Stimmt das?'
+    antwort:
+      optionen:
+        - { wert: { de: 'Nein. $e^x$ und $\frac{1}{x}$ werden nie 0.' }, richtig: true }
+        - {
+            wert: { de: 'Ja. $x^2$, $\sqrt{x}$ und $\sin x$ haben alle eine.' },
+            fv: FV.FS.ALLAUSSAGE,
+          }
+    weiter: merksatz
+    bei: { FV.FS.ALLAUSSAGE: erklaeren-eigenschaften }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Erkenne Grundfunktionen an Form, besonderen Punkten und Lücken. Prüfe Eigenschaften am [[Graphen]] und mit einem eingesetzten Wert.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Funktion]] ist bei $x = 0$ nicht definiert?'
+    antwort:
+      optionen:
+        - { wert: { de: '$y = \frac{1}{x}$' }, richtig: true }
+        - { wert: { de: '$y = \sqrt{x}$' }, fv: FV.FS.DEFINITION }
+        - { wert: { de: '$y = e^x$' }, fv: FV.FS.DEFINITION }
+    weiter: uebergang
+    bei: { FV.FS.DEFINITION: erklaeren-eigenschaften }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt ordnest du selbst [[Graphen]] zu.'
+    vorlagen: [M.SF.FS.SYSTEMATIK.GRAPH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

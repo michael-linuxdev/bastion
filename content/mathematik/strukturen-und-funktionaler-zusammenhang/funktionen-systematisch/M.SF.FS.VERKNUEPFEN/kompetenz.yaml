@@ -1,0 +1,38 @@
+# Funktionen systematisch – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+id: M.SF.FS.VERKNUEPFEN
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: funktionen-systematisch
+titel:
+  de: 'Funktionen verketten'
+kann_satz:
+  de: 'Ich kann Summen, Produkte, Quotienten und Verkettungen einfacher Funktionen bilden und innere und äußere Funktion angeben, auch tan x = sin x / cos x.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.FS.SYSTEMATIK
+niveaus:
+  G:
+    beschreibung:
+      de: 'Innere und äußere Funktion einer Verkettung angeben.'
+  M:
+    beschreibung:
+      de: 'Werte einer Verkettung f(g(a)) berechnen.'
+  E:
+    beschreibung:
+      de: 'Definitionslücken eines Quotienten begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K4
+    - K5
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 4 Funktionale Zusammenhänge'
+version: 1

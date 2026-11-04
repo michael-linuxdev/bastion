@@ -1,0 +1,25 @@
+id: FV.FS.INDEX
+name:
+  de: Zählt bei Folgen einen Schritt zu viel
+art: rechenfehler
+beschreibung:
+  de: >-
+    Rechnet das n-te Glied mit n statt n − 1 Schritten: a₁ + n·d oder a₁·qⁿ. Dass zwischen dem ersten und dem n-ten Glied n − 1 Schritte liegen, ist nicht im Blick.
+kompetenzen: [M.SF.FS.FOLGEN]
+erklaerung:
+  kurz:
+    de: 'Vom ersten zum n-ten Glied sind es $n - 1$ Schritte: $a_n = a_1 + (n - 1) \cdot d$ oder $a_n = a_1 \cdot q^{n-1}$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast n Schritte gezählt.'
+    - teil: warum-nicht
+      de: 'Für $n = 1$ muss $a_1$ selbst herauskommen. Mit n Schritten wäre schon $a_1$ falsch.'
+    - teil: so-stimmt-es
+      de: 'Prüfe deine [[Formel]] mit $n = 1$.'
+gegenbeispiel:
+  de: '2, 5, 8, …: $a_3 = 2 + 2 \cdot 3 = 8$. Mit $3 \cdot 3$ käme 11 heraus, das ist schon $a_4$.'
+rueckweg:
+  vermittlung: M.SF.FS.FOLGEN#erklaeren-folge
+kontrast: [M.SF.FS.FOLGEN.GLIED]
+herkunft: ki-entwurf
+version: 1

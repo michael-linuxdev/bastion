@@ -1,0 +1,24 @@
+# Eigenschaften von Folgen – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.FS.FOLGEN.EIGENSCHAFT
+kompetenz: M.SF.FS.FOLGEN
+niveaus: [M]
+typ: auswahl
+quelle: generator
+generator: fs.folge-eigenschaft@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle**.'
+hilfen:
+  - de: 'Schreibe die ersten vier Glieder auf.'
+  - de: 'Steigen oder fallen sie? Bleiben sie in einem Bereich? Nähern sie sich einer Zahl?'
+fehlerbilder:
+  monoton:
+    de: 'Rechne die ersten Glieder aus und vergleiche sie der Reihe nach.'
+    fv: FV.FS.MONOTON
+  beschraenkt-konvergent:
+    de: 'Beschränkt heißt noch nicht konvergent, und nicht jede wachsende Folge ist unbeschränkt. Prüfe beides getrennt.'
+    fv: FV.FS.BESCHRAENKT-KONVERGENT
+herkunft: ki-entwurf
+version: 1
