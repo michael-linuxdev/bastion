@@ -43,6 +43,15 @@ export interface AtlasFahne {
   readonly s: number;
   readonly h: number;
   readonly farbe: string;
+  /** Banner: hängt am Mast und schwingt unten, statt waagrecht zu wehen */
+  readonly haengt?: boolean;
+  /** Wappen auf dem Banner (Mitte, Halbmesser, Farbe), Bildpunkte ab Fußpunkt */
+  readonly wappen?: {
+    readonly x: number;
+    readonly y: number;
+    readonly r: number;
+    readonly farbe: string;
+  };
 }
 
 /**

@@ -15,6 +15,19 @@ describe('Fahnen im Atlas (G18)', () => {
     expect(mitFahne.map((e) => e.id)).toContain('bastion/e1/kern_s2');
   });
 
+  it('das Banner der Bastion hängt am Mast und trägt ein Wappen', () => {
+    const banner = mitFahne
+      .find((e) => e.id === 'bastion/e1/zeichen_s1')
+      ?.fahnen?.find((f) => f.haengt);
+    expect(banner?.wappen?.farbe).toMatch(/^#[0-9a-f]{6}$/);
+    const w = banner?.wappen;
+    if (banner && w) {
+      // Wappen auf dem Tuch, zwischen oberem und unterem Rand
+      expect(w.y).toBeGreaterThan(banner.y);
+      expect(w.y).toBeLessThan(banner.y + banner.h);
+    }
+  });
+
   it('jedes Tuch liegt ganz im Bild und hat eine Farbe', () => {
     for (const e of mitFahne)
       for (const f of e.fahnen ?? []) {
