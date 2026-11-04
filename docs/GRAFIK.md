@@ -633,3 +633,11 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - Reihenfolge beim Neurechnen: `g12_atlas.py`, dann `g17_hd.py`, dann `g18_fahnen.py` und `g19_muehle.py`.
 - Test `tools/grafik/atlas-muehle.test.ts`.
 
+## 28. Bauen als kleines Schauspiel (Wunsch PV, 03.11.2026, Punkt 5)
+
+- **Baustelle:** Neben jedem laufenden Bauvorhaben steht hinten rechts ein hölzerner Kran (Mast mit Streben, Ausleger mit Gegengewicht, Spannseile). Der Ausleger schwenkt langsam über die Baustelle, am Seil hebt und senkt sich ein Steinblock. Auf dem Gerüst (§10, wächst mit den Bauschritten) arbeitet ab der ersten fertigen Ebene jemand mit dem Hammer, ab vier Ebenen zwei. Alles ist im Code gezeichnet, nur über Land. Bei „ruhig“ steht alles still. Am Fortschritt ändert das nichts, es ist nur Bild.
+- **Kamerafahrt beim Epochenwechsel** (`grafik/kamerafahrt.ts`, Bauplatz): Erreicht die Bastion eine neue Epoche, fährt die Kamera beim nächsten Blick auf den Bauplatz einmal in etwa vier Sekunden vom Bergfried (Zoom 1,9) auf das ganze, gewachsene Bild. Sie fährt weich an und hält weich an, der Zoom ändert sich gleichmäßig im Verhältnis. Ein Tipper oder das Mausrad bricht ab und springt ans Ende. Bei „Bewegung reduzieren“ (ruhig oder System) gibt es keine Fahrt.
+  - Gemerkt wird die höchste Epoche, deren Fahrt lief: Einstellung `basebau.kamerafahrt`, ein Ereignis wie die Kamera.
+  - Fehlt der Wert (erste Nutzung oder Update), merkt sich die App die jetzige Epoche ohne Fahrt.
+  - Kein Timer und kein Druck: Die Fahrt zeigt nur, dass der Platz gewachsen ist.
+

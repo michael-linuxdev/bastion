@@ -59,6 +59,8 @@ import {
   KAMERA_SCHLUESSEL,
   BEWOHNER_NAMEN_SCHLUESSEL,
   SZENERIE_SCHLUESSEL,
+  KAMERAFAHRT_SCHLUESSEL,
+  kamerafahrtAus,
   szenerieAus,
   KLASSE_SCHLUESSEL,
   klasseAus,
@@ -710,6 +712,17 @@ export async function szenerieWahl(): Promise<number> {
 
 export const szenerieSetzen = (startwert: number) =>
   setze(SZENERIE_SCHLUESSEL, szenerieAus(startwert), 'jugendlich');
+
+/** Höchste Epoche, deren Kamerafahrt schon lief (0 = noch nie gemerkt) */
+export async function kamerafahrtWahl(): Promise<number> {
+  const inst = await bereit();
+  if (!inst) return 0;
+  const w = await einstellung(db, inst.profil, KAMERAFAHRT_SCHLUESSEL).catch(() => undefined);
+  return kamerafahrtAus(w);
+}
+
+export const kamerafahrtSetzen = (epoche: number) =>
+  setze(KAMERAFAHRT_SCHLUESSEL, kamerafahrtAus(epoche), 'jugendlich');
 
 export const bewohnerNamenSetzen = (namen: ReadonlyMap<string, string>) => {
   const text = [...namen.entries()]
