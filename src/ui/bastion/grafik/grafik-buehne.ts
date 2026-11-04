@@ -1192,6 +1192,7 @@ export async function buehneErstellen(
   platz?: BauplatzMass,
 ): Promise<Buehne> {
   if (platz) bauplatzAktivSetzen(platz);
+  const aufloesung = Math.min(4, (globalThis.devicePixelRatio || 1) * 2);
   const app = new Application();
   await app.init({
     width: buehneBreite(),
@@ -1200,9 +1201,12 @@ export async function buehneErstellen(
     // die Himmelfarbe aufhellend hinein (vormultiplizierte Deckkraft)
     background: farben.kulisse ? '#000000' : farben.himmel,
     backgroundAlpha: farben.kulisse ? 0 : 1,
-    antialias: true,
+    // Kantenglättung nur bei einfacher Auflösung: Ab 2,5-facher Auflösung glättet das
+    // Verkleinern ohnehin, und die Glättung bräuchte auf dem iPhone einen vierfachen
+    // Bildpuffer (bei 3264 × 2544 Bildpunkten rund 100 MB, Absturz beim Zoomen, GRAFIK §24)
+    antialias: aufloesung < 2.5,
     // doppelte Auflösung, damit das Bild auch beim Zoom (bis 200 %) scharf bleibt
-    resolution: Math.min(4, (globalThis.devicePixelRatio || 1) * 2),
+    resolution: aufloesung,
     autoDensity: true,
     // keine Erweiterungen nachladen, die wir nicht brauchen (Größe, A3)
     manageImports: false,
@@ -1635,6 +1639,37 @@ export async function buehneErstellen(
     gebaeude.addChild(c);
     amBoden.push(c);
   };
+  /**
+   * Vorrat an Figuren, die jedes Bild neu stehen (Wesen, Bewohner, Statusgesten): je Figur
+   * ein Sprite bzw. eine Grafik, die nur Bild und Lage wechselt. Vorher entstanden 60-mal
+   * je Sekunde neue Objekte und wurden gleich wieder zerstört – viel Arbeit für die
+   * Speicherbereinigung auf dem Handy. Was `zeichne` mit den Gebäuden abräumt, entsteht
+   * beim nächsten Bild neu.
+   */
+  const dauerSprites = new Map<string, Sprite>();
+  const dauerGrafik = new Map<string, Graphics>();
+  const dauerHolen = <T extends Sprite | Graphics>(
+    vorrat: Map<string, T>,
+    schluessel: string,
+    neu: () => T,
+    gesehen: Set<string>,
+  ): T => {
+    let c = vorrat.get(schluessel);
+    if (!c || c.destroyed) {
+      c = neu();
+      vorrat.set(schluessel, c);
+    }
+    if (c.parent !== gebaeude) gebaeude.addChild(c);
+    c.visible = true;
+    gesehen.add(schluessel);
+    return c;
+  };
+  /** Figuren einer Art, die in diesem Bild nicht vorkamen, ausblenden */
+  const dauerAusblenden = (praefix: string, gesehen: ReadonlySet<string>) => {
+    for (const vorrat of [dauerSprites, dauerGrafik] as Map<string, Container>[])
+      for (const [k, c] of vorrat)
+        if (k.startsWith(praefix) && !gesehen.has(k) && !c.destroyed) c.visible = false;
+  };
   const wesenZeichnen = (jetzt: number) => {
     wesenLage.removeChildren().forEach((c) => c.destroy());
     for (const c of [...amBoden]) {
@@ -1646,7 +1681,11 @@ export async function buehneErstellen(
         }
       }
     }
-    if (!tickerAn(bewegung)) return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
+    const gesehen = new Set<string>();
+    if (!tickerAn(bewegung)) {
+      dauerAusblenden('w:', gesehen);
+      return; // bei „ruhig“ keine Wesen (GRAFIK §4.4)
+    }
     // Auch Flieger (Möwe) nach ihrem Punkt über dem Boden: Sie landen zwischen den
     // Gebäuden, sonst säße die Möwe hinter dem Turm sichtbar auf den Zinnen.
     const ablegen = (c: Container, w: WesenZustand) => {
@@ -1659,20 +1698,23 @@ export async function buehneErstellen(
       const eintrag = atlasEintragPerId(atlas, id);
       const tex = eintrag ? texturen.get(eintrag.id) : undefined;
       if (eintrag && tex) {
-        const spr = new Sprite(tex);
+        const spr = dauerHolen(dauerSprites, `w:${w.id}`, () => new Sprite(), gesehen);
+        spr.texture = tex;
+        spr.scale.set(1);
+        spr.zIndex = bodenTiefe(w.y) * 10 + 5;
         spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
         const skal = (eintrag.pixel.w / 2) * w.skala * (jetzt < w.reactBis ? 1.12 : 1);
         spr.width = skal;
         spr.height = (eintrag.pixel.h / eintrag.pixel.w) * skal;
         spr.position.set(w.x, w.y);
         spr.scale.x = w.richtung * Math.abs(spr.scale.x);
-        ablegen(spr, w);
       } else {
         const g = new Graphics();
         zeichneWesen(g, w, jetzt);
         ablegen(g, w);
       }
     }
+    dauerAusblenden('w:', gesehen);
   };
 
   const bewohnerZeichnen = (jetzt: number) => {
@@ -1686,7 +1728,11 @@ export async function buehneErstellen(
         }
       }
     }
-    if (!tickerAn(bewegung)) return;
+    const gesehen = new Set<string>();
+    if (!tickerAn(bewegung)) {
+      dauerAusblenden('b:', gesehen);
+      return;
+    }
     const ablegen = (c: Container, y: number) => {
       c.label = 'bewohner';
       aufBoden(c, y, 6);
@@ -1699,22 +1745,26 @@ export async function buehneErstellen(
       const tex = eintrag ? texturen.get(eintrag.id) : undefined;
       if (eintrag && tex) {
         // Bild aus dem Generator (G3); die Statusgeste bleibt darüber (Design „Danach“ J35)
-        const spr = new Sprite(tex);
+        const spr = dauerHolen(dauerSprites, `b:${b.id}`, () => new Sprite(), gesehen);
+        spr.texture = tex;
+        spr.scale.set(1);
+        spr.zIndex = bodenTiefe(b.y) * 10 + 6;
         spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
         const breite = (eintrag.pixel.w / 2) * (jetzt < b.reactBis ? 1.1 : 1);
         spr.width = breite;
         spr.height = (eintrag.pixel.h / eintrag.pixel.w) * breite;
         spr.position.set(b.x, b.y + 4);
-        ablegen(spr, b.y);
-        const g = new Graphics();
+        const g = dauerHolen(dauerGrafik, `b:${b.id}`, () => new Graphics(), gesehen);
+        g.clear();
+        g.zIndex = spr.zIndex;
         zeichneStatusgeste(g, b.x, b.y - 12, 1, b.taetigkeit);
-        ablegen(g, b.y);
       } else {
         const g = new Graphics();
         zeichneBewohner(g, b, jetzt);
         ablegen(g, b.y);
       }
     }
+    dauerAusblenden('b:', gesehen);
   };
 
   /**
@@ -2026,6 +2076,7 @@ export async function buehneErstellen(
       wesenLage.removeChildren().forEach((c) => c.destroy());
       bewohnerLage.removeChildren().forEach((c) => c.destroy());
       bodenWeg();
+      dauerAusblenden('', new Set());
     }
   };
   tickerSync();
