@@ -27,6 +27,18 @@ schritte:
     typ: erklaeren
     text:
       de: 'Der **[[Logarithmus]]** $\log_b x$ ist die [[Hochzahl]], mit der die [[Basis]] b zu x wird: $\log_2 64 = 6$, denn $2^6 = 64$. $\lg$ ist der Logarithmus zur Basis 10, $\ln$ der zur Basis e.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven:
+              [{ art: exp, basis: 2 }, { art: log, basis: 2 }, { art: gerade, vergleich: true }],
+            x: [-4, 8],
+            y: [-4, 8],
+            punkte: [[3, 8], [8, 3]],
+          },
+      }
     weiter: erklaeren-gesetze
   - id: erklaeren-gesetze
     typ: erklaeren
