@@ -35,6 +35,7 @@
     alleVermittlungen,
     vermittelteKompetenzen,
     schulartSetzen,
+    kursSetzen,
     sicherungAnstehend,
     bewaehrungBelohnen,
     orientierungWahl,
@@ -150,6 +151,15 @@
   let klasse = $state(5);
   /** Freiwillige Schulart (L-9) */
   let schulart = $state<'oberschule' | 'gymnasium' | undefined>(undefined);
+  /** Freiwilliger Kurs in Jahrgang 11/12 (B9b); gespeichert, sobald er sich ändert */
+  let kurs = $state<'gk' | 'lk' | undefined>(undefined);
+  let kursGespeichert: string | undefined;
+  $effect(() => {
+    const text = kurs ?? '';
+    if (kursGespeichert === undefined || text === kursGespeichert) return;
+    kursGespeichert = text;
+    void kursSetzen(kurs, ansicht === 'eltern' ? 'eltern' : 'jugendlich');
+  });
   /** Zuletzt gespeicherte Wahl – Vergleich für „Wechsel begleiten“ (L-12) */
   let gemerkt = $state<{
     klasse: number;
@@ -390,6 +400,8 @@
       const w = await lernWahl();
       klasse = w.klasse;
       schulart = w.schulart;
+      kurs = w.kurs;
+      kursGespeichert = w.kurs ?? '';
       gemerkt = w;
       const gd = await geradeDranWahl();
       geradeDranGespeichert = typeof gd === 'string' ? gd : '';
@@ -482,6 +494,7 @@
       zustand,
       Date.now(),
       schulart,
+      kurs,
     );
     if (k) zumUeben(geladen, k);
     else ansicht = 'uebersicht';
@@ -853,6 +866,7 @@
           vorlagen={geladen.vorlagen}
           paketVon={geladen.paketVon}
           {schulart}
+          {kurs}
           bind:antworten={diagnoseAntworten}
           bind:klasse={diagnoseKlasse}
           auswahl={diagnoseAuswahl}
@@ -1052,6 +1066,7 @@
           {zustand}
           bind:klasse
           bind:schulart
+          bind:kurs
           bind:geradeDran
           vermittelt={vermittelte}
           onwahl={(k) => zumUeben(geladen, k)}

@@ -2389,6 +2389,22 @@ test('Klasse 10: Grundfunktionen für beide Schularten, Folgen nur am Gymnasium 
   await expect(page.getByRole('img', { name: /^Ein Graph durch die Punkte/ })).toBeVisible();
 });
 
+test('Jahrgang 11/12: Kurs nur am Gymnasium wählbar und gespeichert (B9b)', async ({ page }) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Jahrgang 11/12' }).check();
+  await page.getByRole('radio', { name: 'Oberschule' }).check();
+  await expect(page.getByText('Jahrgang 11/12 gibt es nur am Gymnasium.')).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Leistungskurs' })).toHaveCount(0);
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await page.getByRole('radio', { name: 'Leistungskurs' }).check();
+  await expect(page.getByText('Für diese Klasse entstehen die Themen gerade.')).toBeVisible();
+  await page.reload();
+  await themenWaehlen(page);
+  await expect(page.getByRole('radio', { name: 'Jahrgang 11/12' })).toBeChecked();
+  await expect(page.getByRole('radio', { name: 'Leistungskurs' })).toBeChecked();
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);
