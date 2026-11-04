@@ -1,0 +1,120 @@
+id: M.SF.TF.SINUS
+kompetenz: M.SF.TF.SINUS
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach kennst du die [[Graphen]] von $y = \sin x$ und $y = \cos x$ mit [[Periode]], [[Nullstellen]], Hoch- und Tiefpunkten.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Wie groß ist $\sin 90°$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '1', fehler: [{ wert: '0', fv: FV.TF.SIN-COS }] }
+    weiter: entdecken
+    bei: { FV.TF.SIN-COS: M.SF.TF.BOGENMASS, sonst: M.SF.TF.BOGENMASS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Eine Gondel im Riesenrad startet in [[Höhe]] der Achse und fährt nach oben. Nach wie viel [[Grad]] [[Drehung]] ist sie zum ersten Mal ganz oben?'
+    antwort:
+      eingabe: { art: zahl, loesung: '90', fehler: [{ wert: '180', fv: FV.TF.STELLEN }] }
+    weiter: erklaeren-graph
+  - id: erklaeren-graph
+    typ: erklaeren
+    text:
+      de: 'Trägt man die [[Höhe]] von P über dem [[Winkel]] x ab, entsteht der [[Graph]] von $y = \sin x$. Er beginnt bei 0, ist bei $\frac{\pi}{2}$ ganz oben bei 1 und bei $\frac{3\pi}{2}$ ganz unten bei −1.'
+    bild:
+      { werkzeug: graph@1, parameter: { kurven: [{ art: sin }], x: [0, 4], y: [-2, 2], pi: true } }
+    weiter: erklaeren-periode
+  - id: erklaeren-periode
+    typ: erklaeren
+    text:
+      de: 'Nach $2\pi$ wiederholt sich alles: Die **[[Periode]]** ist $2\pi$. Der Kosinus ist derselbe [[Graph]], um $\frac{\pi}{2}$ nach links verschoben. Er beginnt bei 1.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ art: cos }, { art: sin, vergleich: true }],
+            x: [0, 4],
+            y: [-2, 2],
+            pi: true,
+          },
+      }
+    weiter: erklaeren-symmetrie
+  - id: erklaeren-symmetrie
+    typ: erklaeren
+    text:
+      de: 'Der Sinus ist punktsymmetrisch zum [[Ursprung]]: $\sin(-x) = -\sin x$. Der Kosinus ist [[achsensymmetrisch]] zur y-Achse: $\cos(-x) = \cos x$.'
+    bild:
+      {
+        werkzeug: graph@1,
+        parameter:
+          {
+            kurven: [{ art: sin }, { art: cos, vergleich: true }],
+            x: [-4, 4],
+            y: [-2, 2],
+            pi: true,
+          },
+      }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = \cos x$ hat zwischen 0 und $2\pi$ die [[Nullstellen]] $\frac{\pi}{2}$ und $\frac{3\pi}{2}$. Den größten Wert 1 hat er bei 0 und $2\pi$, den kleinsten Wert −1 bei $\pi$.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Wie groß ist $\sin \frac{3\pi}{2}$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '-1', fehler: [{ wert: '1', fv: FV.TF.STELLEN }] }
+    weiter: gegenbeispiel
+    bei: { FV.TF.STELLEN: erklaeren-graph }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Lina sagt: „Die [[Nullstellen]] von $\sin x$ liegen im Abstand $\pi$. Also ist die [[Periode]] $\pi$.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert:
+              {
+                de: 'Nein. Nach $\pi$ ist der Sinus unter der x-Achse statt darüber. Erst nach $2\pi$ wiederholt sich alles.',
+              },
+            richtig: true,
+          }
+        - {
+            wert: { de: 'Ja. Die Periode ist der Abstand zweier Nullstellen.' },
+            fv: FV.TF.PERIODE-ABLESEN,
+          }
+    weiter: merksatz
+    bei: { FV.TF.PERIODE-ABLESEN: erklaeren-periode }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: 'Sinus und Kosinus haben die [[Periode]] $2\pi$ und Werte von −1 bis 1. Der Sinus beginnt bei 0, der Kosinus bei 1.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Nullstellen]] hat $y = \cos x$ zwischen 0 und $2\pi$?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{\pi}{2}$ und $\frac{3\pi}{2}$' }, richtig: true }
+        - { wert: { de: '$0$, $\pi$ und $2\pi$' }, fv: FV.TF.SIN-COS }
+        - { wert: { de: '$0$ und $2\pi$' }, fv: FV.TF.STELLEN }
+    weiter: uebergang
+    bei: { FV.TF.SIN-COS: erklaeren-periode, FV.TF.STELLEN: erklaeren-graph }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt erkennst du selbst die [[Graphen]].'
+    vorlagen: [M.SF.TF.SINUS.GRAPH]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

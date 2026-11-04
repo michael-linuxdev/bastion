@@ -279,3 +279,15 @@ describe('Einheitskreis (einheitskreis@1)', () => {
     expect(ohne.beschreibung.de).not.toContain('0,87');
   });
 });
+
+describe('Graph mit x-Achse in Vielfachen von π (graph@1, pi)', () => {
+  it('beschriftet halbe π und rechnet die Kurve im Bogenmaß', async () => {
+    const { graphBild, halbePi, kurvenAus } = await import('./graph');
+    expect([1, 2, 3, 4, -2, -3].map(halbePi)).toEqual(['π/2', 'π', '3π/2', '2π', '−π', '−3π/2']);
+    const p = { kurven: [{ art: 'sin' }], x: [0, 4], y: [-2, 2], pi: true };
+    const b = graphBild(p, kurvenAus(p));
+    expect(b.svg).toContain('>3π/2<');
+    expect(b.svg).not.toContain('>3<');
+    expect(b.beschreibung.de).toContain('sin(x)');
+  });
+});

@@ -1,0 +1,24 @@
+# Periodizität und Symmetrie begründen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.TF.SINUS.BEGRUENDEN
+kompetenz: M.SF.TF.SINUS
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tf.periode-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Setze eine Zahl ein, etwa $x = \frac{\pi}{2}$, und vergleiche beide Seiten.'
+  - de: 'Eine Aussage „für jedes x“ ist falsch, wenn ein einziges [[Gegenbeispiel]] reicht.'
+fehlerbilder:
+  nullstellen-abstand:
+    de: 'Nach $\pi$ ist erst eine halbe Welle vorbei. Die [[Periode]] von Sinus und Kosinus ist $2\pi$.'
+    fv: FV.TF.PERIODE-ABLESEN
+  symmetrie:
+    de: 'Der Sinus ist punktsymmetrisch zum [[Ursprung]]: $\sin(-x) = -\sin x$. Der Kosinus ist [[achsensymmetrisch]]: $\cos(-x) = \cos x$.'
+    fv: FV.TF.SYMMETRIE
+herkunft: ki-entwurf
+version: 1

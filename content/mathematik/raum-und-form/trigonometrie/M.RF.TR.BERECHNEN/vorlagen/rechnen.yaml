@@ -22,7 +22,7 @@ fehlerbilder:
     de: 'Die [[Kathete]] ist kürzer als die [[Hypotenuse]]. Nimm mit sin oder cos mal, statt zu teilen.'
     fv: FV.TR.KEHRWERT
   bogenmass:
-    de: 'Dein Taschenrechner rechnet im Bogenmaß (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
+    de: 'Dein Taschenrechner rechnet im [[Bogenmaß]] (RAD). Stelle ihn auf [[Grad]] (DEG) um.'
     fv: FV.TR.BOGENMASS
 herkunft: ki-entwurf
 version: 1

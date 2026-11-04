@@ -9,7 +9,7 @@ beschreibung:
 kompetenzen: [M.ZO.PW.REELL]
 erklaerung:
   kurz:
-    de: 'Der Taschenrechner rundet. √7 hat unendlich viele [[Nachkommastellen]] ohne Periode, [[π]] auch. Beide sind irrational.'
+    de: 'Der Taschenrechner rundet. √7 hat unendlich viele [[Nachkommastellen]] ohne [[Periode]], [[π]] auch. Beide sind irrational.'
   lang:
     - teil: so-denkst-du
       de: 'Du hast der Anzeige des Taschenrechners geglaubt: Sie endet, also ist die Zahl eine endliche [[Dezimalzahl]].'

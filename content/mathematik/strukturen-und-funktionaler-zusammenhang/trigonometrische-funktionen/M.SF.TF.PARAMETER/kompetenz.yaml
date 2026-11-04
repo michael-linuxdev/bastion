@@ -1,0 +1,43 @@
+# Parameter der Sinusfunktion – Klasse 10 (LEHRPLAN §8f). Entwurf: noch nicht geprüft (INHALTSFORMAT §8).
+# Oberschule nur a und b; c und d bleiben für eine spätere Vorlage (nur Gymnasium).
+id: M.SF.TF.PARAMETER
+fach: mathematik
+bereich: strukturen-und-funktionaler-zusammenhang
+feld: trigonometrische-funktionen
+titel:
+  de: 'Amplitude und Periode'
+kann_satz:
+  de: 'Ich kann den Einfluss der Parameter in y = a·sin(b·(x + c)) + d beschreiben und periodische Vorgänge damit modellieren.'
+klassenstufe_typisch:
+  - 10
+voraussetzungen:
+  - M.SF.TF.SINUS
+  - M.SF.PF.PARAMETER
+niveaus:
+  G:
+    beschreibung:
+      de: 'Die Amplitude a am Graphen ablesen.'
+  M:
+    beschreibung:
+      de: 'Die Periode aus b bestimmen (360° : b) und b aus der Periode.'
+  E:
+    beschreibung:
+      de: 'Den Fehler „Periode = b“ finden und begründen.'
+kmk:
+  leitidee: L3
+  prozesse:
+    - K3
+    - K4
+anforderungsbereiche:
+  - I
+  - II
+  - III
+abdeckung: generator
+sachsen:
+  oberschule:
+    klassenstufe: 10
+    lernbereich: 'LB 2 Funktionale Zusammenhänge'
+  gymnasium:
+    klassenstufe: 10
+    lernbereich: 'LB 1 Wachstumsvorgänge und periodische Vorgänge'
+version: 1

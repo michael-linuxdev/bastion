@@ -1,0 +1,25 @@
+id: FV.TF.PI-180
+name:
+  de: Rechnet Grad und Bogenmaß falsch um
+art: falsche-regel
+beschreibung:
+  de: >-
+    Setzt π mit 360° oder 90° gleich oder dreht den Bruch um, etwa 150° = 5π/12 oder 6π/5 statt 5π/6. Dass der halbe Kreis 180° hat und sein Bogen am Einheitskreis π lang ist, ist nicht verankert.
+kompetenzen: [M.SF.TF.BOGENMASS]
+erklaerung:
+  kurz:
+    de: 'Der halbe [[Einheitskreis]] hat 180°, sein Bogen ist $\pi$ lang. Also $180° = \pi$ und $\text{Winkel} = \frac{\text{Grad}}{180} \cdot \pi$.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast $\pi$ mit einem anderen [[Winkel]] verbunden oder den [[Bruch]] umgedreht.'
+    - teil: warum-nicht
+      de: 'Der ganze [[Einheitskreis]] hat den [[Umfang]] $2\pi$. Der halbe Kreis, also 180°, hat den Bogen $\pi$.'
+    - teil: so-stimmt-es
+      de: '[[Grad]] durch 180, mal $\pi$: $90° = \frac{\pi}{2}$, $150° = \frac{5\pi}{6}$.'
+gegenbeispiel:
+  de: '$90°$ ist ein Viertel des Kreises. Der ganze Bogen ist $2\pi$, ein Viertel davon $\frac{\pi}{2}$, nicht $\pi$.'
+rueckweg:
+  vermittlung: M.SF.TF.BOGENMASS#erklaeren-bogen
+kontrast: [M.SF.TF.BOGENMASS.UMRECHNEN]
+herkunft: ki-entwurf
+version: 1

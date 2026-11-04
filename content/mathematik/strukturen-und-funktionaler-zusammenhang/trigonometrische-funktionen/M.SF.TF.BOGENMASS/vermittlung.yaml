@@ -1,0 +1,89 @@
+id: M.SF.TF.BOGENMASS
+kompetenz: M.SF.TF.BOGENMASS
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach rechnest du [[Winkel]] ins [[Bogenmaß]] um und liest Sinus und Kosinus am [[Einheitskreis]] ab, auch über 90°.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'In einem rechtwinkligen Dreieck ist die [[Gegenkathete]] von α 3 cm lang, die [[Hypotenuse]] 6 cm. Wie groß ist $\sin \alpha$?'
+    antwort:
+      eingabe: { art: zahl, loesung: '0,5', fehler: [{ wert: '2', fv: FV.TR.KEHRWERT }] }
+    weiter: entdecken
+    bei: { FV.TR.KEHRWERT: M.RF.TR.BEGRIFFE, sonst: M.RF.TR.BEGRIFFE }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Ein Kreis mit [[Radius]] 1 hat den [[Umfang]] $2\pi \approx 6{,}28$. Wie lang ist der Bogen eines halben Kreises? Runde auf zwei Stellen.'
+    antwort:
+      eingabe: { art: zahl, loesung: '3,14', fehler: [{ wert: '6,28', fv: FV.TF.PI-180 }] }
+    weiter: erklaeren-bogen
+  - id: erklaeren-bogen
+    typ: erklaeren
+    text:
+      de: 'Das **[[Bogenmaß]]** misst einen [[Winkel]] durch die Länge seines Bogens am [[Einheitskreis]]. Der halbe Kreis hat 180° und den Bogen $\pi$. Also ist $90° = \frac{\pi}{2}$ und $360° = 2\pi$.'
+    bild: { werkzeug: einheitskreis@1, parameter: { winkel: 180, werte: false } }
+    weiter: erklaeren-kreis
+  - id: erklaeren-kreis
+    typ: erklaeren
+    text:
+      de: 'Am [[Einheitskreis]] ist der **Sinus** die [[Höhe]] von P, der **Kosinus** die Lage rechts oder links. Unter der x-Achse ist der Sinus negativ, links der y-Achse der Kosinus. Verschiebe den Regler.'
+    werkzeug: { id: einheitskreis@1, parameter: { winkel: 30, schritt: 15 } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '150° liegt im 2. [[Quadranten]]. P liegt so hoch wie bei 30°, aber links. Also $\sin 150° = \sin 30° = 0{,}5$ und $\cos 150° \approx -0{,}87$. Im [[Bogenmaß]]: $150° = \frac{5\pi}{6}$.'
+    bild: { werkzeug: einheitskreis@1, parameter: { winkel: 150, vergleich: 30 } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Es gilt $\cos 60° = 0{,}5$. Wie groß ist $\cos 120°$?'
+    antwort:
+      eingabe:
+        { art: zahl, loesung: '-0,5', fehler: [{ wert: '0,5', fv: FV.TF.VORZEICHEN-QUADRANT }] }
+    weiter: gegenbeispiel
+    bei: { FV.TF.VORZEICHEN-QUADRANT: erklaeren-kreis }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Ben sagt: „$\sin 210° = 0{,}5$, denn $\sin 30° = 0{,}5$.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Bei 210° liegt P unter der x-Achse: $\sin 210° = -0{,}5$.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. 210° gehört zum Bezugswinkel 30°.' }, fv: FV.TF.VORZEICHEN-QUADRANT }
+    weiter: merksatz
+    bei: { FV.TF.VORZEICHEN-QUADRANT: erklaeren-kreis }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$180° = \pi$. Am [[Einheitskreis]] hat P die [[Koordinaten]] $(\cos \alpha | \sin \alpha)$. Unter der x-Achse ist der Sinus negativ, links der y-Achse der Kosinus.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Wie viel ist 270° im [[Bogenmaß]]?'
+    antwort:
+      optionen:
+        - { wert: { de: '$\frac{3\pi}{2}$' }, richtig: true }
+        - { wert: { de: '$\frac{3\pi}{4}$' }, fv: FV.TF.PI-180 }
+        - { wert: { de: '$\frac{2\pi}{3}$' }, fv: FV.TF.PI-180 }
+    weiter: uebergang
+    bei: { FV.TF.PI-180: erklaeren-bogen }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt rechnest du selbst [[Winkel]] ins [[Bogenmaß]] um.'
+    vorlagen: [M.SF.TF.BOGENMASS.UMRECHNEN]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

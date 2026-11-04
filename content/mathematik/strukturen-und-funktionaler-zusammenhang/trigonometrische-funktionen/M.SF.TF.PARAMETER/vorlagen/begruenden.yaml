@@ -1,0 +1,24 @@
+# „Die Periode ist b“ widerlegen – Niveau E. Entwurf: noch nicht geprüft.
+id: M.SF.TF.PARAMETER.BEGRUENDEN
+kompetenz: M.SF.TF.PARAMETER
+niveaus: [E]
+typ: auswahl
+quelle: generator
+generator: tf.periode-b-aussage@1
+parameter:
+  E: {}
+text:
+  aufgabe:
+    de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
+hilfen:
+  - de: 'Für welches x ist $b \cdot x = 2\pi$?'
+  - de: 'Zeichne oder denke $y = \sin(2x)$: Passt die Welle zweimal oder halb in $2\pi$?'
+fehlerbilder:
+  periode-b:
+    de: 'b ist nicht die [[Periode]]. Die Periode ist $\frac{2\pi}{b}$.'
+    fv: FV.TF.PERIODE-B
+  periode-mal:
+    de: 'Ein großes b macht die Welle schmaler. Die [[Periode]] ist $\frac{2\pi}{b}$, nicht $b \cdot 2\pi$.'
+    fv: FV.TF.PERIODE-B
+herkunft: ki-entwurf
+version: 1

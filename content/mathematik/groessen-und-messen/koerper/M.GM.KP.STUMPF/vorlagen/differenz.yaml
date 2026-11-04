@@ -41,7 +41,7 @@ schritte:
   - id: stumpf
     frage:
       {
-        de: 'Ganze Pyramide {gross} cm³, Spitze {klein} cm³. Wie groß ist das Volumen des Stumpfs?',
+        de: 'Ganze [[Pyramide]] {gross} cm³, Spitze {klein} cm³. Wie groß ist das [[Volumen]] des Stumpfs?',
       }
     typ: zahl-eingabe
     fehlerbilder: {}

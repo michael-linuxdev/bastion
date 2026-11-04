@@ -1,0 +1,27 @@
+# „Wie viel ist 150° im Bogenmaß?“ – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.TF.BOGENMASS.UMRECHNEN
+kompetenz: M.SF.TF.BOGENMASS
+niveaus: [G]
+typ: auswahl
+quelle: generator
+generator: tf.bogenmass@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: '**Wähle**: Wie viel ist ${grad}°$ im [[Bogenmaß]]?'
+hilfen:
+  - de: 'Der halbe Kreis hat 180°. Im [[Bogenmaß]] ist das $\pi$.'
+  - de: 'Rechne $\frac{\text{Winkel}}{180} \cdot \pi$ und [[kürze]] den [[Bruch]].'
+fehlerbilder:
+  pi-360:
+    de: '$\pi$ gehört zu 180°, nicht zu 360°. Darum ist das Ergebnis doppelt so groß.'
+    fv: FV.TF.PI-180
+  kehrwert:
+    de: 'Der [[Winkel]] gehört in den [[Zähler]]: $\frac{\text{Winkel}}{180} \cdot \pi$, nicht umgekehrt.'
+    fv: FV.TF.PI-180
+  doppelt:
+    de: '$\pi$ gehört zu 180°. Ein [[rechter Winkel]] ist darum $\frac{\pi}{2}$, nicht $\pi$.'
+    fv: FV.TF.PI-180
+herkunft: ki-entwurf
+version: 1

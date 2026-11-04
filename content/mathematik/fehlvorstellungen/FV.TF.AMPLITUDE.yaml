@@ -1,0 +1,25 @@
+id: FV.TF.AMPLITUDE
+name:
+  de: Nimmt den ganzen Ausschlag als Amplitude
+art: falsche-grundvorstellung
+beschreibung:
+  de: >-
+    Gibt als Amplitude den Abstand vom größten zum kleinsten Wert an oder den größten Wert, auch wenn der Graph nach oben verschoben ist. Dass die Amplitude von der Mittellinie aus gemessen wird, ist nicht verankert.
+kompetenzen: [M.SF.TF.PARAMETER]
+erklaerung:
+  kurz:
+    de: 'Die [[Amplitude]] misst von der Mittellinie bis zum höchsten Punkt. Sie ist der halbe Abstand zwischen größtem und kleinstem Wert.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast den ganzen Ausschlag gemessen oder von der x-Achse aus.'
+    - teil: warum-nicht
+      de: 'Bei $y = 2 \cdot \sin x$ geht der [[Graph]] von −2 bis 2. Der [[Faktor]] 2 ist die [[Amplitude]], nicht 4.'
+    - teil: so-stimmt-es
+      de: '$\text{Amplitude} = \frac{\text{größter Wert} - \text{kleinster Wert}}{2}$.'
+gegenbeispiel:
+  de: '$y = \sin x$ geht von −1 bis 1. Seine [[Amplitude]] ist 1, nicht 2.'
+rueckweg:
+  vermittlung: M.SF.TF.PARAMETER#erklaeren-a
+kontrast: [M.SF.TF.PARAMETER.AMPLITUDE]
+herkunft: ki-entwurf
+version: 1

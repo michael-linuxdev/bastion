@@ -27,17 +27,6 @@ schritte:
     typ: erklaeren
     text:
       de: 'Bei Lea kommt immer dieselbe Zahl dazu: **lineares Wachstum**, die Unterschiede sind gleich. Bei Ben wird immer mit derselben Zahl malgenommen: **exponentielles Wachstum**, die [[Quotienten]] sind gleich.'
-    bild:
-      {
-        werkzeug: graph@1,
-        parameter:
-          {
-            kurven: [{ art: exp, basis: 2 }, { art: gerade, a: 2, e: 1, vergleich: true }],
-            x: [0, 3],
-            y: [0, 8],
-            punkte: [[0, 1], [1, 2], [2, 4], [3, 8]],
-          },
-      }
     weiter: erklaeren-faktor
   - id: erklaeren-faktor
     typ: erklaeren

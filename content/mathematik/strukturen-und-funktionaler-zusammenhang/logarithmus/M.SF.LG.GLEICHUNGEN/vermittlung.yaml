@@ -32,18 +32,6 @@ schritte:
     typ: erklaeren
     text:
       de: '$y = \ln x$ ist die [[Umkehrfunktion]] von $y = e^x$. Weil $e^x$ immer positiv ist, gibt es $\ln x$ nur für $x > 0$. Es gilt $\ln 1 = 0$ und $\ln e = 1$.'
-    bild:
-      {
-        werkzeug: graph@1,
-        parameter:
-          {
-            kurven:
-              [{ art: exp, basis: e }, { art: log, basis: e }, { art: gerade, vergleich: true }],
-            x: [-4, 6],
-            y: [-4, 6],
-            punkte: [[0, 1], [1, 0]],
-          },
-      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel

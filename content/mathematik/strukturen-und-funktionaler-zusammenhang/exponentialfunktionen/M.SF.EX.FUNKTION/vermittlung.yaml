@@ -27,33 +27,11 @@ schritte:
     typ: erklaeren
     text:
       de: 'In $f(x) = c \cdot a^x$ ist c der Startwert: Bei $x = 0$ ist $a^0 = 1$, also $f(0) = c$. Die [[Basis]] a ist der [[Faktor]] von Schritt zu Schritt. Erst wird potenziert, dann mit c malgenommen.'
-    werkzeug:
-      {
-        id: graph@1,
-        parameter:
-          {
-            kurven: [{ art: exp, basis: 2, a: 3 }, { art: exp, basis: 2, vergleich: true }],
-            x: [-4, 3],
-            y: [-1, 12],
-            regler: [a],
-          },
-      }
     weiter: erklaeren-asymptote
   - id: erklaeren-asymptote
     typ: erklaeren
     text:
       de: 'Ist $a > 1$, steigt der [[Graph]], ist $0 < a < 1$, fällt er. Eine Potenz mit positiver [[Basis]] ist nie 0: Der Graph hat keine [[Nullstelle]]. Er kommt der x-Achse beliebig nahe. Die x-Achse ist eine **[[Asymptote]]**.'
-    bild:
-      {
-        werkzeug: graph@1,
-        parameter:
-          {
-            kurven: [{ art: exp, basis: 2 }, { art: exp, basis: 0.5 }],
-            x: [-4, 4],
-            y: [-1, 8],
-            punkte: [[0, 1]],
-          },
-      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel

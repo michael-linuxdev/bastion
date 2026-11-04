@@ -30,7 +30,7 @@ schritte:
   - id: erklaeren-irrational
     typ: erklaeren
     text:
-      de: '√2 lässt sich als [[Dezimalzahl]] nie genau aufschreiben: unendlich viele Stellen, keine Periode. Solche Zahlen heißen irrational. Auch [[π]] ist irrational. Der Taschenrechner zeigt nur gerundete Werte.'
+      de: '√2 lässt sich als [[Dezimalzahl]] nie genau aufschreiben: unendlich viele Stellen, keine [[Periode]]. Solche Zahlen heißen irrational. Auch [[π]] ist irrational. Der Taschenrechner zeigt nur gerundete Werte.'
     weiter: erklaeren-bereiche
   - id: erklaeren-bereiche
     typ: erklaeren
@@ -62,7 +62,7 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: 'Rational: als [[Bruch]] schreibbar, auch periodische [[Dezimalzahlen]]. Irrational: unendlich viele Stellen ohne Periode, zum Beispiel √2 und [[π]]. ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ.'
+      de: 'Rational: als [[Bruch]] schreibbar, auch periodische [[Dezimalzahlen]]. Irrational: unendlich viele Stellen ohne [[Periode]], zum Beispiel √2 und [[π]]. ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen

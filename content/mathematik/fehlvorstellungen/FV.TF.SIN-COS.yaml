@@ -1,0 +1,25 @@
+id: FV.TF.SIN-COS
+name:
+  de: Verwechselt Sinus und Kosinus am Einheitskreis
+art: verwechslung
+beschreibung:
+  de: >-
+    Nimmt die x-Koordinate von P als Sinus oder erkennt am Graphen nicht, ob er bei 0 (Sinus) oder bei 1 (Kosinus) beginnt. Die Zuordnung Sinus = Höhe, Kosinus = Lage rechts oder links ist nicht sicher.
+kompetenzen: [M.SF.TF.BOGENMASS, M.SF.TF.SINUS]
+erklaerung:
+  kurz:
+    de: 'P hat die [[Koordinaten]] $(\cos\alpha | \sin\alpha)$. Der Sinus ist die [[Höhe]], der Kosinus die Lage rechts oder links. Darum beginnt der Sinus bei 0, der Kosinus bei 1.'
+  lang:
+    - teil: so-denkst-du
+      de: 'Du hast die beiden [[Koordinaten]] von P vertauscht.'
+    - teil: warum-nicht
+      de: 'Im rechtwinkligen Dreieck ist der Sinus [[Gegenkathete]] durch [[Hypotenuse]]. Am [[Einheitskreis]] ist die Gegenkathete die senkrechte Strecke, also die [[Höhe]].'
+    - teil: so-stimmt-es
+      de: 'Merke: Sinus [[senkrecht]], Kosinus waagerecht. Bei 0° liegt P bei $(1|0)$: $\cos 0° = 1$, $\sin 0° = 0$.'
+gegenbeispiel:
+  de: 'Bei 90° liegt P ganz oben bei $(0|1)$. $\sin 90° = 1$, $\cos 90° = 0$.'
+rueckweg:
+  vermittlung: M.SF.TF.BOGENMASS#erklaeren-kreis
+kontrast: [M.SF.TF.BOGENMASS.EINHEITSKREIS, M.SF.TF.SINUS.GRAPH, M.SF.TF.SINUS.STELLEN]
+herkunft: ki-entwurf
+version: 1

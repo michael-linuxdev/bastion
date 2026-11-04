@@ -1,0 +1,24 @@
+# Sinus und Kosinus über 90° am Einheitskreis – Niveau M. Entwurf: noch nicht geprüft.
+id: M.SF.TF.BOGENMASS.EINHEITSKREIS
+kompetenz: M.SF.TF.BOGENMASS
+niveaus: [M]
+typ: zahl-eingabe
+quelle: generator
+generator: tf.einheitskreis@1
+parameter:
+  M: {}
+text:
+  aufgabe:
+    de: '{satz} **Lies** am [[Einheitskreis]] ab.'
+hilfen:
+  - de: 'Suche den [[Winkel]] im ersten [[Quadranten]], der gleich hoch oder gleich weit rechts liegt.'
+  - de: 'Der Sinus ist die [[Höhe]] von P, der Kosinus die Lage rechts oder links. Unten und links ist der Wert negativ.'
+fehlerbilder:
+  vorzeichen:
+    de: 'Der [[Betrag]] stimmt, das [[Vorzeichen]] nicht. Liegt P unter der x-Achse, ist der Sinus negativ. Liegt P links, ist der Kosinus negativ.'
+    fv: FV.TF.VORZEICHEN-QUADRANT
+  sin-cos:
+    de: 'Das ist der andere Wert. Der Sinus ist die [[Höhe]] von P, der Kosinus die Lage nach rechts oder links.'
+    fv: FV.TF.SIN-COS
+herkunft: ki-entwurf
+version: 1

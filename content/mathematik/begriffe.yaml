@@ -1117,6 +1117,37 @@ begriffe:
     formen: [Verdopplungszeit]
     erklaerung:
       de: 'Die Zeit, nach der sich ein Bestand verdoppelt hat.'
+  # Klasse 10: Periodische Vorgänge und Sinusfunktion
+  - id: bogenmass
+    wort: { de: Bogenmaß }
+    formen: [Bogenmaß]
+    erklaerung:
+      de: 'Ein Winkel, gemessen durch die Länge seines Bogens am Einheitskreis. Der halbe Kreis, also 180°, hat den Bogen $\pi$.'
+  - id: einheitskreis
+    wort: { de: Einheitskreis }
+    formen: [Einheitskreis, Einheitskreises]
+    erklaerung:
+      de: 'Ein Kreis mit dem Radius 1 um den Ursprung. Ein Punkt P darauf hat die Koordinaten $(\cos \alpha | \sin \alpha)$.'
+  - id: periode
+    wort: { de: Periode }
+    formen: [Periode, Perioden]
+    erklaerung:
+      de: 'Die Länge, nach der sich ein Graph genau wiederholt. Bei Sinus und Kosinus ist sie $2\pi$, also 360°.'
+  - id: amplitude
+    wort: { de: Amplitude }
+    formen: [Amplitude]
+    erklaerung:
+      de: 'Der Ausschlag einer Welle von der Mittellinie bis zum höchsten Punkt. Bei $y = a \cdot \sin x$ ist sie a.'
+  - id: sinusfunktion
+    wort: { de: Sinusfunktion }
+    formen: [Sinusfunktion, Sinusfunktionen]
+    erklaerung:
+      de: 'Die Funktion $y = \sin x$. Ihr Graph ist eine Welle, die bei 0 beginnt und zwischen −1 und 1 schwingt.'
+  - id: kosinusfunktion
+    wort: { de: Kosinusfunktion }
+    formen: [Kosinusfunktion, Kosinusfunktionen]
+    erklaerung:
+      de: 'Die Funktion $y = \cos x$. Ihr Graph ist dieselbe Welle wie beim Sinus, beginnt aber bei 1.'
   # Klasse 10: Logarithmus
   - id: umkehrfunktion
     wort: { de: Umkehrfunktion }

@@ -1,0 +1,21 @@
+# Amplitude am Graphen ablesen – Niveau G. Entwurf: noch nicht geprüft.
+id: M.SF.TF.PARAMETER.AMPLITUDE
+kompetenz: M.SF.TF.PARAMETER
+niveaus: [G]
+typ: zahl-eingabe
+quelle: generator
+generator: tf.amplitude@1
+parameter:
+  G: {}
+text:
+  aufgabe:
+    de: 'Der [[Graph]] gehört zu $y = a \cdot \sin x$ oder $y = a \cdot \cos x$. **Lies** die [[Amplitude]] a ab.'
+hilfen:
+  - de: 'Wie weit reicht der [[Graph]] über die Mittellinie hinaus?'
+  - de: 'Die [[Amplitude]] ist der halbe Abstand zwischen größtem und kleinstem Wert.'
+fehlerbilder:
+  max-min:
+    de: 'Das ist der ganze Abstand von oben nach unten. Die [[Amplitude]] ist nur die Hälfte davon.'
+    fv: FV.TF.AMPLITUDE
+herkunft: ki-entwurf
+version: 1

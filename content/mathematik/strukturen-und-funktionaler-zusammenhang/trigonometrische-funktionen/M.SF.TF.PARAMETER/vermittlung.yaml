@@ -1,0 +1,114 @@
+id: M.SF.TF.PARAMETER
+kompetenz: M.SF.TF.PARAMETER
+niveau: G
+dauer_min: 12
+schritte:
+  - id: ziel
+    typ: ziel
+    text:
+      de: 'Danach liest du [[Amplitude]] und [[Periode]] von $y = a \cdot \sin(b \cdot x)$ ab und rechnest sie aus.'
+    weiter: vorwissen
+  - id: vorwissen
+    typ: anknuepfen
+    text:
+      de: 'Welche [[Periode]] hat $y = \sin x$ in [[Grad]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '360', fehler: [{ wert: '180', fv: FV.TF.PERIODE-ABLESEN }] }
+    weiter: entdecken
+    bei: { FV.TF.PERIODE-ABLESEN: M.SF.TF.SINUS, sonst: M.SF.TF.SINUS }
+  - id: entdecken
+    typ: entdecken
+    text:
+      de: 'Bei $y = 2 \cdot \sin x$ wird jeder Wert des Sinus verdoppelt. Welchen größten Wert hat der [[Graph]]?'
+    antwort:
+      eingabe: { art: zahl, loesung: '2', fehler: [{ wert: '4', fv: FV.TF.AMPLITUDE }] }
+    weiter: erklaeren-a
+  - id: erklaeren-a
+    typ: erklaeren
+    text:
+      de: 'Bei $y = a \cdot \sin x$ schwingt der [[Graph]] zwischen $-a$ und $a$. Die Zahl a heißt **[[Amplitude]]**: der Ausschlag von der Mittellinie nach oben. Ziehe am Regler.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter:
+          {
+            kurven: [{ art: sin, a: 2 }, { art: sin, vergleich: true }],
+            x: [0, 4],
+            y: [-3, 3],
+            pi: true,
+            regler: [a],
+          },
+      }
+    weiter: erklaeren-b
+  - id: erklaeren-b
+    typ: erklaeren
+    text:
+      de: 'Bei $y = \sin(b \cdot x)$ läuft der [[Winkel]] b-mal so schnell. Eine Welle ist fertig, wenn $b \cdot x = 360°$. Die **[[Periode]]** ist also $360° : b$, im [[Bogenmaß]] $\frac{2\pi}{b}$.'
+    werkzeug:
+      {
+        id: graph@1,
+        parameter:
+          {
+            kurven: [{ art: sin, b: 2 }, { art: sin, vergleich: true }],
+            x: [0, 4],
+            y: [-2, 2],
+            pi: true,
+            regler: [b],
+          },
+      }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: '$y = 3 \cdot \sin(2x)$ hat die [[Amplitude]] 3: Die Werte gehen von −3 bis 3. Die [[Periode]] ist $360° : 2 = 180°$, also $\pi$. In $2\pi$ passen zwei Wellen.'
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Welche [[Periode]] in [[Grad]] hat $y = \sin(4x)$?'
+    antwort:
+      eingabe:
+        {
+          art: zahl,
+          loesung: '90',
+          fehler: [{ wert: '4', fv: FV.TF.PERIODE-B }, { wert: '1440', fv: FV.TF.PERIODE-B }],
+        }
+    weiter: gegenbeispiel
+    bei: { FV.TF.PERIODE-B: erklaeren-b }
+  - id: gegenbeispiel
+    typ: gegenbeispiel
+    text:
+      de: 'Tim sagt: „$y = 2 \cdot \sin x$ geht von −2 bis 2. Die [[Amplitude]] ist also 4.“ Stimmt das?'
+    antwort:
+      optionen:
+        - {
+            wert: { de: 'Nein. Die Amplitude misst von der Mittellinie bis ganz oben: 2.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja. Von −2 bis 2 sind es 4.' }, fv: FV.TF.AMPLITUDE }
+    weiter: merksatz
+    bei: { FV.TF.AMPLITUDE: erklaeren-a }
+  - id: merksatz
+    typ: merksatz
+    text:
+      de: '$y = a \cdot \sin(b \cdot x)$ hat die [[Amplitude]] a und die [[Periode]] $\frac{360°}{b}$. Großes a: höhere Welle. Großes b: schmalere Welle.'
+    weiter: pruefen
+  - id: pruefen
+    typ: pruefen
+    text:
+      de: 'Welche [[Periode]] hat $y = \sin(3x)$?'
+    antwort:
+      optionen:
+        - { wert: { de: '120°' }, richtig: true }
+        - { wert: { de: '3°' }, fv: FV.TF.PERIODE-B }
+        - { wert: { de: '1080°' }, fv: FV.TF.PERIODE-B }
+    weiter: uebergang
+    bei: { FV.TF.PERIODE-B: erklaeren-b }
+  - id: uebergang
+    typ: uebergang
+    text:
+      de: 'Gut. Jetzt liest du selbst die [[Amplitude]] ab.'
+    vorlagen: [M.SF.TF.PARAMETER.AMPLITUDE]
+    anzahl: 3
+herkunft: ki-entwurf
+version: 1

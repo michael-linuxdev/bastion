@@ -79,6 +79,7 @@ export const FELDER: Readonly<Record<string, string>> = {
   // Klasse 10 (LEHRPLAN §8f)
   EX: 'exponentialfunktionen',
   LG: 'logarithmus',
+  TF: 'trigonometrische-funktionen',
 };
 
 const ID_MUSTER = /^M\.([A-Z]{2})\.([A-Z]{2})\.[A-Z0-9]+(?:-[A-Z0-9]+)*$/;
