@@ -77,7 +77,7 @@ Nach den fünf Punkten unten kamen auf Wunsch des PV hinzu (alle gemergt, je ein
 Offen:
 - Blick des PV auf dem iPhone, ob der Zoom jetzt stabil bleibt. Messung in Chromium ist in §24 beschrieben, Safari selbst ließ sich hier nicht messen.
 - ~~Banner weht noch nicht~~ – erledigt 04.11.2026 (schwingt am Mast, GRAFIK §26).
-- Kraterfelder im Weltraum gröber, Sandbänke weniger gleichförmig.
+- ~~Kraterfelder gröber, Sandbänke weniger gleichförmig~~ – erledigt 04.11.2026 (GRAFIK §18.2).
 - Entscheidung zu BASEBAU §8c (P6 nach B-33/B-34).
 
 ### Auftrag für die nächste Grafik-Sitzung (vorbereitet 02.11.2026)
