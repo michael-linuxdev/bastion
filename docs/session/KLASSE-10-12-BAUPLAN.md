@@ -45,7 +45,7 @@ Grundlage: Entscheidung 3 (zuerst, was das Abitur trägt) und 7 (B6, B7, B10 vor
 | **10-5** | ~~Feld ZG (3), mit SVG-Baustein **`stabdiagramm`**~~ *gebaut 04.11.2026:* Baustein `stabdiagramm` und Werkzeug `stabdiagramm@1`, 9 Generatoren `zg.*` (Wahrscheinlichkeiten in Hundertsteln gerechnet), 9 Vorlagen (G/M/E, Zwischenschritte bei Spiel und Varianz), 3 Erstvermittlungen, 7 neue Fehlvorstellungen FV.ZG.*, 6 Begriffe; STREUUNG nur Gymnasium. Abweichung: Verteilung ergänzen als eine Lücke statt Augensumme zweier Würfel | 1 | – |
 | **10-6** | ~~Feld FS (4)~~ *gebaut 04.11.2026:* 12 Generatoren `fs.*`, 12 Vorlagen (G/M/E), 4 Erstvermittlungen (Steckbrief mit `graph@1`, Regler für a, b, d, e an √x, Folge 1/n als Punkte), 10 neue Fehlvorstellungen FV.FS.*, 7 Begriffe; TRANSFORMATION, VERKNUEPFEN, FOLGEN nur Gymnasium. Abweichungen: Term aus Graph als Auswahl statt zwei Felder, Reihenfolge der Abbildungen als Auswahl statt `ordnen`; ln x nicht in den G-Aufgaben (Oberschule ohne ln) | 1 | – |
 | **10-7** | ~~KP.STUMPF, PZ.KREDIT (2)~~ *gebaut 03.11.2026:* 8 Generatoren (`kp.stumpf-*`, `kp.kegelstumpf-masse`, `pz.sparplan`, `pz.tilgung`, `pz.effektiv-aussage`), 8 Vorlagen (G/M/E, 4 mit Zwischenschritten), 2 Erstvermittlungen, 4 neue Fehlvorstellungen, 4 Begriffe; KP.STUMPF nur Oberschule. Geld wird je Jahr auf ganze Cent gerundet (Aufgabe sagt es) | 1 | – |
-| **10-Ende** | Inhaltsdurchsicht Klasse 10, Fehler-Schüler, Vorschau für den PV | 1 | – |
+| **10-Ende** | ~~Inhaltsdurchsicht Klasse 10, Fehler-Schüler, Vorschau für den PV~~ *erledigt 04.11.2026:* je Vorlage und Niveau zwei Beispielaufgaben gelesen (§8 unten), `tf.bogenmass` und `ex.bestand` in Fassung 2, Fehler-Schüler ohne neue Funde (Grenze unverändert) | 1 | – |
 | **11-0** | B9: Jgst. 11/12 wählbar, **Kurs GK/LK** (Einstellung), LK-Kompetenzen nur bei LK | 1 | – |
 | **11-0b** | B10: `hilfsmittelfrei: true` je Vorlage, Pflicht-Test „ohne Rechner lösbar“ | 1 | – |
 | **11-0c** | B7: SVG-Baustein `tabelle` (Wertetabelle, Vierfeldertafel, Binomialtabelle) mit Textbeschreibung | 1 | – |
@@ -378,3 +378,19 @@ Zum Vergleich Klasse 9: 30 Kompetenzen, 69 Vorlagen, rund 25 PRs. Klasse 10 ist 
 ## 8. Startsatz für die nächste Sitzung
 
 „Lies CLAUDE.md, `docs/session/KLASSE-9-12.md` und `docs/session/KLASSE-10-12-BAUPLAN.md`. Arbeite im Strang Lernkern. Die Fragen in §7 sind beantwortet; zuerst die Rundungsregel mit den Lehrplan-PDFs klären, falls der PV sie bereitstellt. Dann Etappe 10-0 (Klasse 10 wählbar) und weiter in der Reihenfolge aus §1, je Feld ein PR, nach jedem PR kurz melden.“
+
+---
+
+## 8. Inhaltsdurchsicht Klasse 10 (04.11.2026)
+
+Je Vorlage und Niveau zwei Beispielaufgaben als Text gelesen (Aufgabe, Möglichkeiten, Lösung, Lösungsweg, Fehlerbilder, Bildbeschreibung), für alle 22 Kompetenzen der Klasse 10. Behoben:
+
+- `tf.bogenmass` Fassung 2: Der umgedrehte Bruch bei 90° hieß „$\frac{2\pi}{1}$“, jetzt „$2\pi$“.
+- `ex.bestand` Fassung 2: „$\frac{1}{2}^{5}$“ im Lösungsweg jetzt mit Klammer.
+- ZG (vor dem Merge): Zahl im Lösungsweg von „mindestens/höchstens“ steht jetzt im Formelsatz; bei glatter Wurzel „=“ statt „≈“.
+- FS (vor dem Merge): Funktionen der Verkettungsaufgabe als Text statt „$x^2 + (4)$“; Minuszeichen und „das vorige mal (−2)“ bei Folgen; Bildbeschreibung ohne LaTeX.
+
+Bewusst gelassen: „≈“ bei glatten Zinsen in PZ.KREDIT (Rundungsschritt bleibt sichtbar), Komma ohne `{,}` in einem Lösungsweg von `ex.asymptote-aussage` (Aussagen-Fabrik hat keine Fassungen; nur ein Abstand nach dem Komma).
+
+**Vorschau für den PV:** Ausprobieren mit Klasse 10 und Gymnasium. Neu sind die Werkzeuge Einheitskreis (Bogenmaß und Einheitskreis, vierter Schritt), Graph mit Reglern a und b an der Sinuswelle (Amplitude und Periode) und an der Wurzel (Transformationen von Funktionen), dazu Stabdiagramme (Wahrscheinlichkeitsverteilung, Erwartungswert). Bildschirmfotos liegen den Browser-Tests bei (`einheitskreis.png`).
+

@@ -33,56 +33,71 @@ export const zwei = (w: number) => {
 
 const WINKEL_G = [30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360];
 
-/** „Wie viel ist 150° im Bogenmaß?“ – Auswahl mit Vielfachen von π. */
-export const tfBogenmass: Generator<Record<string, never>> = {
-  id: 'tf.bogenmass',
-  version: 1,
-  platzhalter: ['grad'],
-  fehlerbildIds: ['pi-360', 'kehrwert', 'doppelt'],
+/**
+ * „Wie viel ist 150° im Bogenmaß?“ – Auswahl mit Vielfachen von π. Fassung 2 (Durchsicht
+ * 04.11.2026): Der umgedrehte Bruch heißt bei Nenner 1 „2π“ statt „2π/1“.
+ */
+function tfBogenmassFassung(fassung: 1 | 2): Generator<Record<string, never>> {
+  return {
+    id: 'tf.bogenmass',
+    version: fassung,
+    platzhalter: ['grad'],
+    fehlerbildIds: ['pi-360', 'kehrwert', 'doppelt'],
 
-  erzeuge(seed) {
-    const r = rng(seed);
-    for (;;) {
-      const g = r.pick(WINKEL_G);
-      const t = ggt(g, 180);
-      const kandidaten: [string, string][] = [
-        ['richtig', piTex(g)],
-        // π als 360° gerechnet: nur die Hälfte
-        ['pi-360', piTex(g / 2)],
-        // Bruch umgedreht: 180/g · π
-        ['kehrwert', g === 180 ? '' : `\\frac{${180 / t}\\pi}{${g / t}}`],
-        // π als 90° gerechnet: das Doppelte
-        ['doppelt', piTex(2 * g)],
-      ];
-      const liste = mische(
-        r,
-        kandidaten.filter(([, x]) => x !== ''),
-      );
-      if (new Set(liste.map(([, x]) => x)).size !== liste.length) continue;
-      const idx = (k: string) => {
-        const i = liste.findIndex(([q]) => q === k);
-        return i < 0 ? undefined : auswahl(i);
-      };
-      const richtig = auswahl(liste.findIndex(([q]) => q === 'richtig'));
-      return {
-        platzhalter: { grad: g },
-        optionen: liste.map(([, x]) => ({ text: de(`$${x}$`) })),
-        loesung: richtig,
-        loesungsweg: [
-          de('Der halbe Kreis hat 180°, sein Bogen ist π lang: $180° = \\pi$.'),
-          de(
-            `Also $${g}° = \\frac{${g}}{180} \\cdot \\pi = ${piTex(g)}$${g === 180 ? '' : ` (gekürzt)`}.`,
-          ),
-        ],
-        fehlerbilder: fehlerbilderAus(richtig, [
-          ['pi-360', idx('pi-360')],
-          ['kehrwert', idx('kehrwert')],
-          ['doppelt', idx('doppelt')],
-        ]),
-      };
-    }
-  },
-};
+    erzeuge(seed) {
+      const r = rng(seed);
+      for (;;) {
+        const g = r.pick(WINKEL_G);
+        const t = ggt(g, 180);
+        const kandidaten: [string, string][] = [
+          ['richtig', piTex(g)],
+          // π als 360° gerechnet: nur die Hälfte
+          ['pi-360', piTex(g / 2)],
+          // Bruch umgedreht: 180/g · π
+          [
+            'kehrwert',
+            g === 180
+              ? ''
+              : fassung === 2 && g / t === 1
+                ? `${180 / t}\\pi`
+                : `\\frac{${180 / t}\\pi}{${g / t}}`,
+          ],
+          // π als 90° gerechnet: das Doppelte
+          ['doppelt', piTex(2 * g)],
+        ];
+        const liste = mische(
+          r,
+          kandidaten.filter(([, x]) => x !== ''),
+        );
+        if (new Set(liste.map(([, x]) => x)).size !== liste.length) continue;
+        const idx = (k: string) => {
+          const i = liste.findIndex(([q]) => q === k);
+          return i < 0 ? undefined : auswahl(i);
+        };
+        const richtig = auswahl(liste.findIndex(([q]) => q === 'richtig'));
+        return {
+          platzhalter: { grad: g },
+          optionen: liste.map(([, x]) => ({ text: de(`$${x}$`) })),
+          loesung: richtig,
+          loesungsweg: [
+            de('Der halbe Kreis hat 180°, sein Bogen ist π lang: $180° = \\pi$.'),
+            de(
+              `Also $${g}° = \\frac{${g}}{180} \\cdot \\pi = ${piTex(g)}$${g === 180 ? '' : ` (gekürzt)`}.`,
+            ),
+          ],
+          fehlerbilder: fehlerbilderAus(richtig, [
+            ['pi-360', idx('pi-360')],
+            ['kehrwert', idx('kehrwert')],
+            ['doppelt', idx('doppelt')],
+          ]),
+        };
+      }
+    },
+  };
+}
+
+export const tfBogenmassV1 = tfBogenmassFassung(1);
+export const tfBogenmass = tfBogenmassFassung(2);
 
 // ---------------------------------------------------------------------------
 // Sinus und Kosinus am Einheitskreis (M.SF.TF.BOGENMASS.EINHEITSKREIS, Niveau M)

@@ -4,7 +4,7 @@ kompetenz: M.SF.TF.BOGENMASS
 niveaus: [G]
 typ: auswahl
 quelle: generator
-generator: tf.bogenmass@1
+generator: tf.bogenmass@2
 parameter:
   G: {}
 text:

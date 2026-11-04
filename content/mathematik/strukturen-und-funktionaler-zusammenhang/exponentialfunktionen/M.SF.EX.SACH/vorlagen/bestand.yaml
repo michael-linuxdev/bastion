@@ -4,7 +4,7 @@ kompetenz: M.SF.EX.SACH
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: ex.bestand@1
+generator: ex.bestand@2
 parameter:
   G: { zerfall: false }
   M: { zerfall: true }
