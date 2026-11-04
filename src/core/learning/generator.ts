@@ -129,6 +129,12 @@ export interface Generator<P> {
   readonly platzhalter: readonly string[];
   /** IDs aller Fehlerbilder, die vorkommen können. */
   readonly fehlerbildIds: readonly string[];
+  /**
+   * Fehlerbilder, die mit diesen Parametern vorkommen können (Teilmenge von `fehlerbildIds`).
+   * Fehlt es, gelten alle. Eine Vorlage führt genau diese auf (INHALTSFORMAT §10.1), so steht
+   * kein Text in ihr, der nie erscheint – etwa „nicht erweitert“ bei gleichen Nennern.
+   */
+  fehlerbildIdsFuer?(parameter: P): readonly string[];
   /** Bei einer Variante (`variante` in src/generators/hilfen.ts): der Generator „id@version“, auf dem sie aufbaut. */
   readonly basis?: string;
   /** Bei einer Variante: die festen Parameter, die sie der Basis mitgibt. */

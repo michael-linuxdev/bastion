@@ -21,6 +21,11 @@ export const mittelwert: Generator<MittelwertParameter> = {
   version: 1,
   platzhalter: ['werte', 'anzahl'],
   fehlerbildIds: ['durch-falsche-anzahl', 'nur-summe', 'nicht-gerundet'],
+  // Gerundet wird nur bei Noten
+  fehlerbildIdsFuer: (p) =>
+    p.noten
+      ? ['durch-falsche-anzahl', 'nur-summe', 'nicht-gerundet']
+      : ['durch-falsche-anzahl', 'nur-summe'],
 
   erzeuge(seed, p) {
     verlange(

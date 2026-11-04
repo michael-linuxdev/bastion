@@ -77,7 +77,7 @@ export const quadrantBestimmen: Generator<QuadrantenParameter> = {
   id: 'gf.quadrant',
   version: 1,
   platzhalter: ['punkt'],
-  fehlerbildIds: ['x-y-vertauscht', 'falsch-herum-gezaehlt'],
+  fehlerbildIds: ['x-y-vertauscht'],
 
   erzeuge(seed, p) {
     verlange(p.max >= 3 && p.max <= 8, 'max: 3 … 8');
@@ -86,7 +86,6 @@ export const quadrantBestimmen: Generator<QuadrantenParameter> = {
     const qu = quadrant(q);
     const richtig = auswahl(qu);
     // Im Uhrzeigersinn gezählt: II und IV vertauscht
-    const uhrzeiger = [0, 3, 2, 1][qu] ?? 0;
     return {
       platzhalter: { punkt: de(P(q)) },
       optionen: ROEMISCH.map((t) => ({ text: de(t) })),
@@ -100,8 +99,9 @@ export const quadrantBestimmen: Generator<QuadrantenParameter> = {
         ),
       ],
       fehlerbilder: fehlerbilderAus(richtig, [
+        // „Im Uhrzeigersinn gezählt“ ergibt hier immer die Lösung (I, III) oder dieselbe
+        // Antwort wie „x und y vertauscht“ (II ↔ IV) – die Rückmeldung dazu greift (Fehler-Schüler A)
         ['x-y-vertauscht', auswahl(quadrant({ x: q.y, y: q.x }))],
-        ['falsch-herum-gezaehlt', auswahl(uhrzeiger)],
       ]),
     };
   },

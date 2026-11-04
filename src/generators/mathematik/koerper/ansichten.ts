@@ -390,7 +390,7 @@ export const zweitafelKoerper: Generator<AnsichtParameter> = {
   id: 'kp.zweitafel-koerper',
   version: 1,
   platzhalter: [],
-  fehlerbildIds: ['nur-aufriss', 'nur-grundriss'],
+  fehlerbildIds: ['nur-aufriss'],
 
   erzeuge(seed, p) {
     const r = rng(seed);
@@ -412,7 +412,7 @@ export const zweitafelKoerper: Generator<AnsichtParameter> = {
     const optionen = mische(r, [k, ...andere]);
     const richtig = auswahl(optionen.indexOf(k));
     const nurAuf = optionen.findIndex((o) => o !== k && form(o, 'vorne') === form(k, 'vorne'));
-    const nurGrund = optionen.findIndex((o) => o !== k && form(o, 'oben') === form(k, 'oben'));
+    // Gleicher Grundriss bei anderem Aufriss kommt unter den Körpern nicht vor (Fehler-Schüler A)
     return {
       platzhalter: {},
       bild: bild(
@@ -433,7 +433,6 @@ export const zweitafelKoerper: Generator<AnsichtParameter> = {
       ],
       fehlerbilder: fehlerbilderAus(richtig, [
         ['nur-aufriss', nurAuf >= 0 ? auswahl(nurAuf) : undefined],
-        ['nur-grundriss', nurGrund >= 0 ? auswahl(nurGrund) : undefined],
       ]),
     };
   },

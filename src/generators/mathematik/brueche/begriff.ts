@@ -144,6 +144,9 @@ export const zahlenstrahlAblesen: Generator<ZahlenstrahlParameter> = {
   version: 1,
   platzhalter: [],
   fehlerbildIds: ['striche-statt-abstaende', 'nur-teile-gezaehlt'],
+  // „Nur die Teile gezählt“ entsteht nur, wenn als Dezimalzahl geantwortet wird
+  fehlerbildIdsFuer: (p) =>
+    p.dezimal ? ['striche-statt-abstaende', 'nur-teile-gezaehlt'] : ['striche-statt-abstaende'],
 
   erzeuge(seed, p) {
     verlange(p.bis === 1 || p.bis === 2, 'bis: 1 oder 2');
@@ -209,6 +212,11 @@ export const anteilVon: Generator<AnteilVonParameter> = {
   version: 1,
   platzhalter: ['anteil', 'ganzes', 'einheit'],
   fehlerbildIds: ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
+  // Beim Stammbruch (Zähler 1) ist „nur geteilt“ die Lösung und „mit dem Zähler mal“ das Ganze
+  fehlerbildIdsFuer: (p) =>
+    p.stammbruch
+      ? ['zaehler-nenner-vertauscht']
+      : ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
 
   erzeuge(seed, p) {
     verlange(p.nenner_max >= 2 && p.nenner_max <= 12, 'nenner_max: 2 … 12');
