@@ -20,6 +20,8 @@
     bildZeigen,
     kameraSetzen,
     kameraWahl,
+    kamerafahrtSetzen,
+    kamerafahrtWahl,
     bewohnerNamenWahl,
     bewohnerNamenSetzen,
     type BauAuftrag,
@@ -33,6 +35,7 @@
   import { szenerie, szenerieLaden } from './szenerie.svelte';
   import type { Ansicht, Buehne, Farben } from './grafik/grafik-buehne';
   import { buehneFuer, himmelFuer, punkt as feldPunkt } from './grafik/iso';
+  import { FAHRT_DAUER_MS, fahrtFaellig, fahrtKamera } from './grafik/kamerafahrt';
   import { farbenMitJahreszeit, jahreszeitAusDatum, schattieren } from './grafik/jahreszeit';
   import { sonnenzeitenMitteleuropa, szeneAbend } from './grafik/sonne';
   import type { WetterBild, WetterStaerke } from './grafik/wetter';
@@ -293,6 +296,7 @@
     beobachter.observe(el);
     const rad = (event: WheelEvent) => {
       event.preventDefault();
+      fahrtBeenden();
       const ort = imFenster(event.clientX, event.clientY);
       eigene = true;
       nurWiederhergestellt = false;
@@ -343,6 +347,11 @@
   function zeigerRunter(event: PointerEvent) {
     const el = fenster;
     if (!el) return;
+    // Ein Tipper während der Kamerafahrt bricht sie ab (und wählt nichts aus)
+    if (fahrt) {
+      fahrtBeenden();
+      return;
+    }
     el.setPointerCapture(event.pointerId);
     zeiger[event.pointerId] = { x: event.clientX, y: event.clientY };
     if (zeigerAnzahl() === 1) {
@@ -642,6 +651,68 @@
     };
     kameraSichtbar = true;
   });
+
+  /**
+   * Kamerafahrt beim Epochenwechsel (Wunsch PV, Punkt 5): einmal je neuer Epoche, etwa vier
+   * Sekunden vom Bergfried auf das ganze, gewachsene Bild. Ein Tipper oder das Mausrad
+   * bricht ab; bei „Bewegung reduzieren“ gibt es keine Fahrt (GRAFIK §28).
+   */
+  let fahrtGepruefteEpoche = 0;
+  let fahrt: { bild: number } | undefined;
+  /** Ziel: das ganze Bild – jedes Mal neu, weil der Bauplatz mit der Epoche erst nachwächst */
+  const fahrtZiel = () =>
+    einpassen(fenster?.clientWidth ?? 0, fenster?.clientHeight ?? 0, bauplatz);
+  function fahrtBeenden() {
+    if (!fahrt) return;
+    cancelAnimationFrame(fahrt.bild);
+    fahrt = undefined;
+    if (fenster && fenster.clientWidth > 0) kamera = fahrtZiel();
+    eigene = false;
+  }
+  $effect(() => {
+    const ep = epoche;
+    const el = fenster;
+    if (!el || !kameraSichtbar || !zoomGeladen || ep === fahrtGepruefteEpoche) return;
+    fahrtGepruefteEpoche = ep;
+    const aus = untrack(() => bewegung) === 'aus';
+    void kamerafahrtWahl().then((gesehen) => {
+      if (ep > gesehen) void kamerafahrtSetzen(ep);
+      if (!fahrtFaellig(ep, gesehen, aus) || untrack(() => blick) !== 'bauplatz') return;
+      const kern = bastion.bauwerke.find((b) => b.typ === 'kern');
+      const breite = el.clientWidth;
+      const hoehe = el.clientHeight;
+      const [w, t] = kern ? KATALOG[kern.typ].groesse : [1, 1];
+      const m = kern
+        ? feldPunkt(kern.pos.x + w / 2, kern.pos.y + t / 2, bauplatz)
+        : feldPunkt(bauplatz.breite / 2, bauplatz.tiefe / 2, bauplatz);
+      const zoomStart = Math.min(ZOOM_MAX, 1.9);
+      // Etwas oberhalb der Mitte: der Bergfried ist hoch
+      const start = {
+        x: breite / 2 - m.x * zoomStart,
+        y: hoehe * 0.6 - m.y * zoomStart,
+        zoom: zoomStart,
+      };
+      // Zeit nur aus den Bild-Zeitstempeln messen (eine Uhr, auch wenn die Seite ruckelt)
+      let beginn: number | undefined;
+      // Während der Fahrt passt nichts anderes die Kamera an (Größenwechsel, Wiederherstellen)
+      eigene = true;
+      nurWiederhergestellt = false;
+      const schritt = (jetzt: number) => {
+        if (!fahrt) return;
+        beginn ??= jetzt;
+        const anteil = (jetzt - beginn) / FAHRT_DAUER_MS;
+        if (anteil >= 1) {
+          fahrtBeenden();
+          return;
+        }
+        kamera = fahrtKamera(start, fahrtZiel(), anteil, { breite, hoehe });
+        fahrt.bild = requestAnimationFrame(schritt);
+      };
+      kamera = start;
+      fahrt = { bild: requestAnimationFrame(schritt) };
+    });
+  });
+  $effect(() => () => fahrtBeenden());
 
   // Chrome oben ändert `blick` – Kamera nachziehen (erster Lauf = Startlage)
   let blickKamera: 'bauplatz' | 'hinterhof' | undefined = undefined;

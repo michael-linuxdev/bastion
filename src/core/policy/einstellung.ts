@@ -124,6 +124,14 @@ export const SZENERIE_SCHLUESSEL = 'basebau.szenerie';
 export const szenerieAus = (wert: unknown): number =>
   typeof wert === 'number' && Number.isInteger(wert) && wert > 0 && wert < 2 ** 32 ? wert : 0;
 
+/**
+ * Kamerafahrt beim Epochenwechsel (Wunsch PV 03.11.2026): höchste Epoche, deren Fahrt schon
+ * lief. Fehlt der Wert, merkt sich die App die jetzige Epoche ohne Fahrt. Nur Aussehen.
+ */
+export const KAMERAFAHRT_SCHLUESSEL = 'basebau.kamerafahrt';
+export const kamerafahrtAus = (wert: unknown): number =>
+  typeof wert === 'number' && Number.isInteger(wert) && wert >= 1 && wert <= 9 ? wert : 0;
+
 /** Hell, dunkel oder wie das System (GRAFIK §2): Einstellung `darstellung.modus`. */
 export const MODUS_SCHLUESSEL = 'darstellung.modus';
 export const MODI = ['system', 'hell', 'dunkel'] as const;
