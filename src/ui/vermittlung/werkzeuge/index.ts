@@ -4,6 +4,7 @@ import type { Component } from 'svelte';
 import Anleitungsbild from './Anleitungsbild.svelte';
 import Bruchstreifen from './Bruchstreifen.svelte';
 import Dreieck from './Dreieck.svelte';
+import Einheitskreis from './Einheitskreis.svelte';
 import Graph from './Graph.svelte';
 import Histogramm from './Histogramm.svelte';
 import Zahlenstrahl from './Zahlenstrahl.svelte';
@@ -14,6 +15,7 @@ export const WERKZEUG_KOMPONENTEN: Readonly<Record<string, Component<any>>> = {
   'anleitungsbild@1': Anleitungsbild,
   'bruchstreifen@1': Bruchstreifen,
   'dreieck@1': Dreieck,
+  'einheitskreis@1': Einheitskreis,
   'graph@1': Graph,
   'histogramm@1': Histogramm,
   'zahlenstrahl@1': Zahlenstrahl,
