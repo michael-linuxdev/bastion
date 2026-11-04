@@ -2,7 +2,7 @@
   // Schuljahreswechsel (LEHRPLAN L-17): einmal je Schuljahr ab 1. August fragen.
   // Vorschlag Klasse + 1; dieselbe Klasse zu wählen ist ohne Kommentar möglich.
   import { t } from '../texte/texte';
-  import { KLASSEN } from './klassen';
+  import { KLASSEN, OBERSTUFE } from './klassen';
 
   let { vorschlag, onbestaetigen }: { vorschlag: number; onbestaetigen: (klasse: number) => void } =
     $props();
@@ -15,7 +15,10 @@
   <fieldset>
     <legend>{t('schuljahr.frage')}</legend>
     {#each KLASSEN as k (k)}
-      <label><input type="radio" value={k} bind:group={wahl} /> {t('klasse.name')} {k}</label>
+      <label
+        ><input type="radio" value={k} bind:group={wahl} />
+        {k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}</label
+      >
     {/each}
   </fieldset>
   <p class="leise">{t('schuljahr.hinweis')}</p>

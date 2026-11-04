@@ -10,10 +10,15 @@ import { pruefeReview, type Review } from '../learning/review';
 
 export type Niveau = 'G' | 'M' | 'E';
 export type Schulart = 'oberschule' | 'gymnasium';
+/** Kurs in der gymnasialen Oberstufe (Jahrgang 11/12, Bedarf B9b): Grund- oder Leistungskurs. */
+export type Kurs = 'gk' | 'lk';
+export const KURSE: readonly Kurs[] = ['gk', 'lk'];
 
 export interface LehrplanBezug {
   readonly klassenstufe: number;
   readonly lernbereich: string;
+  /** Nur Gymnasium, Jahrgang 11/12: in welchen Kursen die Kompetenz vorkommt (ohne Angabe: in beiden). */
+  readonly kurs?: readonly Kurs[];
 }
 
 export interface Kompetenz {
@@ -204,6 +209,17 @@ export function pruefeKompetenz(daten: unknown, pfadTeile?: readonly string[]): 
       ) {
         f.push(`sachsen.${art}: braucht klassenstufe und lernbereich („LB n Titel“)`);
       }
+      const kurs = istObjekt(bezug) ? bezug['kurs'] : undefined;
+      if (kurs !== undefined) {
+        if (art !== 'gymnasium') f.push(`sachsen.${art}: kurs gibt es nur am Gymnasium`);
+        if (
+          !Array.isArray(kurs) ||
+          kurs.length === 0 ||
+          !kurs.every((x) => KURSE.includes(x as Kurs)) ||
+          new Set(kurs).size !== kurs.length
+        )
+          f.push(`sachsen.${art}.kurs: Liste aus gk und lk`);
+      }
     }
   }
 
@@ -261,7 +277,11 @@ export function pruefeGraph(
 export function passtZurSchulart(
   k: Pick<Kompetenz, 'sachsen'>,
   schulart: Schulart | undefined,
+  kurs?: Kurs,
 ): boolean {
+  // Kurs (B9b): Ist am Gymnasium ein Kurs gewählt, fehlen Kompetenzen nur des anderen Kurses
+  const kurse = k.sachsen.gymnasium?.kurs;
+  if (kurs && schulart !== 'oberschule' && kurse && !kurse.includes(kurs)) return false;
   if (!schulart || Object.keys(k.sachsen).length === 0) return true;
   return k.sachsen[schulart] !== undefined;
 }

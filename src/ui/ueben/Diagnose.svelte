@@ -35,6 +35,7 @@
     vorlagen,
     paketVon,
     schulart,
+    kurs,
     antworten = $bindable(),
     klasse = $bindable(5),
     auswahl,
@@ -52,6 +53,8 @@
     paketVon: ReadonlyMap<string, string>;
     /** Schulart: Themen, die es dort nicht gibt, kommen nicht dran (PV, 03.11.2026) */
     schulart?: Schulart | undefined;
+    /** Kurs in Jahrgang 11/12 (B9b) */
+    kurs?: 'gk' | 'lk' | undefined;
     /** Antworten dieses Diagnosegangs – beim Elternteil gehalten, damit „Später“ weitergeht */
     antworten: Antwort[];
     /** Klassenstufe der Diagnose; wählbar, solange noch nichts beantwortet ist */
@@ -83,7 +86,7 @@
           : uebergreifend
             ? Math.min(...k.klassenstufe_typisch) <= (KLASSEN[KLASSEN.length - 1] ?? 5)
             : k.klassenstufe_typisch.includes(klasse)) &&
-        passtZurSchulart(k, schulart) &&
+        passtZurSchulart(k, schulart, kurs) &&
         vorlagenFuer(vorlagen, k.id, 'G').length > 0,
     ),
   );
