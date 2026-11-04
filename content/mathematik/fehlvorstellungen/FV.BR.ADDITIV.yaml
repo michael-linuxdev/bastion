@@ -17,7 +17,7 @@ erklaerung:
       de: 'Die Idee „mit beiden dasselbe machen“ ist gut. Aber Plus verändert den [[Anteil]]: $\frac{1}{2}$ ist die Hälfte, $\frac{2}{3}$ ist mehr als die Hälfte.'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } }
     - teil: so-stimmt-es
-      de: 'Teile jedes Stück in gleich viele kleinere: Das ist Malnehmen. Aus $\frac{1}{2}$ wird $\frac{2}{4}$ oder $\frac{3}{6}$ – der [[Anteil]] bleibt gleich.'
+      de: 'Teile jedes Stück in gleich viele kleinere: Das ist Malnehmen. Aus $\frac{1}{2}$ wird $\frac{2}{4}$ oder $\frac{3}{6}$ – der [[Anteil]] bleibt gleich. Beim [[Kürzen]] geht es rückwärts: beide durch dieselbe Zahl teilen, aus $\frac{6}{8}$ wird $\frac{3}{4}$.'
 gegenbeispiel:
   de: 'Plus 1 macht aus $\frac{1}{2}$ den [[Bruch]] $\frac{2}{3}$ und aus $\frac{2}{3}$ den Bruch $\frac{3}{4}$. Wären das gleiche Anteile, wäre die Hälfte gleich drei Viertel.'
 rueckweg:
@@ -29,6 +29,6 @@ herkunft: ki-entwurf
 version: 1
 review:
   stufe: 1
-  datum: 2026-11-02
+  datum: 2026-11-04
   pruefer: maschine
-  hash: bdbcac745bbe3221904c2483eeb42d74412617dd3983f590013ebd7f42071a9b
+  hash: 762816a2efc58ce857d8bb68f6456856de67adde93f7d6bec9bc65d9631c393c

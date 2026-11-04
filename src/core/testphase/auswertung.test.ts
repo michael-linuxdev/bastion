@@ -203,6 +203,9 @@ describe('Testlauf, der alles erfüllt', () => {
     expect(text).toContain('8 von 10 falschen Antworten (80,0 %)');
     expect(text).not.toContain('X-1');
     expect(bericht(g, { mitNummern: true })).toContain('Person 1 (X-1)');
+    // Unbekannte Fehler lesbar statt JSON (Generalprobe U4b, 04.11.2026)
+    expect(text).toContain('M: Aufgabe z 1 · Lösung 4 · Antwort 1');
+    expect(text).not.toContain('"typ"');
   });
 });
 
