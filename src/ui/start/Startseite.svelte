@@ -12,6 +12,7 @@
     | 'profil'
     | 'eltern'
     | 'mehr'
+    | 'einstellungen'
     | 'installieren';
 </script>
 
@@ -24,6 +25,7 @@
   import Symbol from '../grafik/Symbol.svelte';
   import { tt } from '../bastion/thema.svelte';
   import { t } from '../texte/texte';
+  import { OBERSTUFE } from '../ueben/klassen';
 
   let {
     heute,
@@ -40,6 +42,8 @@
     nieGeuebt = false,
     /** Noch keine Aufgabe bearbeitet: erste Minute = ein Satz + ein Einstieg (J37) */
     erstesMal = false,
+    klasse = undefined,
+    naechstThema = undefined,
     onziel,
     children,
     unten,
@@ -63,11 +67,27 @@
     /** Noch nie geübt (Y121): Satz + Wiederholen/Werkstatt ausgeblendet */
     nieGeuebt?: boolean;
     erstesMal?: boolean;
+    /** O16: gewählte Klasse – die Üben-Tür sagt, wo es weitergeht */
+    klasse?: number | undefined;
+    /** O16: Thema, das „Üben“ als Nächstes öffnet (nur wenn die Inhalte schon geladen sind) */
+    naechstThema?: string | undefined;
     onziel: (z: Ziel) => void;
     children?: Snippet;
     /** L16: Freiwilliges (z. B. „Über mich“) unter den Türen, nicht davor */
     unten?: Snippet;
   } = $props();
+
+  const klassenName = $derived(
+    klasse === undefined
+      ? undefined
+      : klasse >= OBERSTUFE
+        ? t('klasse.oberstufe')
+        : `${t('klasse.name')} ${klasse}`,
+  );
+  /** O16: „Klasse 5 · Brüche“ – Kinder und Eltern sehen, wo „Üben“ hinführt */
+  const uebenWohin = $derived(
+    [klassenName, naechstThema].filter((x): x is string => x !== undefined).join(' · '),
+  );
 
   const datum = (d: Date, mitTag = true) =>
     d.toLocaleDateString('de-DE', {
@@ -133,7 +153,7 @@
     >
       <span class="tuer-titel ort-name"><Symbol name="ueben" /> {t('hub.ort-ueben')}</span>
       <span class="ueben-dran" id="ueben-dran"
-        >{nieGeuebt
+        >{#if uebenWohin}<span class="ueben-wohin">{uebenWohin}</span>{/if}{nieGeuebt
           ? t('start.nie-geuebt-ueben')
           : geradeDran === 0
             ? t('start.ueben-frei')
@@ -166,9 +186,9 @@
     </button>
   </div>
 
-  <div class="kacheln">
-    <!-- O10: „aria-disabled“ statt „disabled“ – ausgegraute Kacheln bleiben mit der Tastatur
-         erreichbar, damit ihre Erklärung („Gerade ist nichts dran“) vorgelesen werden kann -->
+  <!-- O16 (PV 04.11.2026): alle Kacheln bleiben (O3), aber was gerade nichts hat, steht ruhig
+       hinten. Reihenfolge im Code = Reihenfolge für Tastatur und Screenreader. -->
+  {#snippet kachelWiederholen()}
     <button
       class="kachel"
       aria-label={t('wiederholen.knopf')}
@@ -190,6 +210,8 @@
             : `${faellig} ${t('wiederholen.mehrere')}`}</span
       >
     </button>
+  {/snippet}
+  {#snippet kachelWerkstatt()}
     <button
       class="kachel warm"
       aria-label={t('werkstatt.knopf')}
@@ -211,6 +233,10 @@
             : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
       >
     </button>
+  {/snippet}
+  <div class="kacheln">
+    {#if faellig > 0}{@render kachelWiederholen()}{/if}
+    {#if offeneFehler > 0}{@render kachelWerkstatt()}{/if}
     <button
       class="kachel"
       aria-label={t('diagnose.knopf')}
@@ -229,6 +255,8 @@
       <span class="kachel-name"><Symbol name="stand" /> {t('stand.knopf')}</span>
       <span class="kachel-info" id="info-stand">{t('start.stand-info')}</span>
     </button>
+    {#if faellig === 0}{@render kachelWiederholen()}{/if}
+    {#if offeneFehler === 0}{@render kachelWerkstatt()}{/if}
   </div>
 
   {#if klassenarbeit}
@@ -321,7 +349,9 @@
     inset-inline-start: var(--abstand-m);
     inset-block-end: 0.35rem;
     margin: 0;
-    font-size: clamp(2.6rem, 13vw, 4.25rem);
+    /* O16: wächst mit der Breite des Banners, nicht mit der Schrift – sonst ragt der Name bei
+       großer Schrift aus dem Bild (er ist nur Schmuck, die h1 trägt den Namen) */
+    font-size: min(13vw, 4.25rem);
     font-weight: 1000;
     line-height: 1;
     letter-spacing: 0.05em;
@@ -399,10 +429,12 @@
     cursor: pointer;
   }
 
+  /* O16: Spalten nach Platz, nicht fest – bei großer Schrift stehen die Kacheln untereinander
+     und nichts muss seitlich gewischt werden */
   .tueren {
     display: grid;
     gap: var(--abstand-s);
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
     margin-block-end: var(--abstand-s);
   }
   .tueren.ohne-bastion {
@@ -452,10 +484,14 @@
     font-size: 0.95rem;
     font-weight: 600;
   }
+  .ueben-wohin {
+    display: block;
+    font-weight: 800;
+  }
 
   .kacheln {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
     gap: var(--abstand-s);
     margin-block-end: var(--abstand-s);
   }
@@ -477,6 +513,8 @@
     border-block-start: 3px solid var(--farbe-akzent-warm);
   }
   .kachel[aria-disabled='true'] {
+    min-block-size: 3.25rem;
+    padding-block: 0.5rem;
     cursor: default;
     box-shadow: none;
     background: var(--farbe-flaeche-leise);
@@ -507,6 +545,12 @@
   }
   .antippbar {
     cursor: pointer;
+  }
+  .kachel-name,
+  .tuer-titel {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
   .kachel-name {
     display: flex;
@@ -566,6 +610,36 @@
     }
     .banner {
       aspect-ratio: 3 / 1;
+      /* O16: flach genug, dass darunter noch Kacheln zu sehen sind */
+      max-block-size: 40dvh;
+    }
+  }
+
+  /* O16: großer Bildschirm – Banner links, Türen und Kacheln rechts, statt einer schmalen Spalte */
+  @media (width >= 64rem) and (orientation: landscape) {
+    .startseite {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      grid-auto-rows: min-content;
+      column-gap: var(--abstand-l);
+      align-content: start;
+    }
+    .startseite > :global(*) {
+      grid-column: 2;
+    }
+    .startseite > .banner {
+      grid-column: 1;
+      grid-row: 1 / span 12;
+      position: sticky;
+      inset-block-start: var(--abstand-l);
+      align-self: start;
+      max-block-size: none;
+      aspect-ratio: 4 / 3;
+    }
+    .startseite > .fuss {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      margin-block-start: var(--abstand-l);
     }
   }
 </style>

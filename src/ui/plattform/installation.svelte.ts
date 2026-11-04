@@ -1,7 +1,9 @@
 // Installation als App (O14): Läuft Bastion schon vom Startbildschirm? Bietet der Browser
 // ein eigenes Installieren an (Chrome/Edge/Android: „beforeinstallprompt“)? Hat die Person
-// „Ohne Installation weiter“ gewählt? Das Letzte gilt bis zum nächsten Öffnen der App
-// (sessionStorage) – danach erscheint die Anleitung wieder, wie im Vorbild einbuergerung.
+// „Ohne Installation weiter“ gewählt? O17 (PV 04.11.2026): Das merkt sich das Gerät
+// (localStorage), wer bewusst im Browser lernt, sieht die Anleitung nicht bei jedem Öffnen.
+// Ausnahme iPhone und iPad: Dort kommt der Stand aus dem Browser nicht mit in die App, darum
+// gilt die Wahl nur bis zum nächsten Öffnen (sessionStorage), wie im Vorbild einbuergerung.
 import { erkenneGeraet, sperreZeigen, type Geraet } from './geraet';
 
 interface InstallAngebot extends Event {
@@ -20,18 +22,23 @@ function vomStartbildschirm(): boolean {
   );
 }
 
-function weiterGewaehlt(): boolean {
-  try {
-    return sessionStorage.getItem(WEITER) === 'ja';
-  } catch {
-    return false;
-  }
-}
-
 export const geraet: Geraet =
   typeof navigator === 'undefined'
     ? { system: 'desktop', browser: 'other' }
     : erkenneGeraet(navigator.userAgent, navigator.platform, navigator.maxTouchPoints);
+
+/** Wo die Wahl liegt: auf iPhone/iPad nur für dieses Öffnen, sonst dauerhaft auf dem Gerät. */
+function ablage(): Storage {
+  return geraet.system === 'ios' ? sessionStorage : localStorage;
+}
+
+function weiterGewaehlt(): boolean {
+  try {
+    return ablage().getItem(WEITER) === 'ja';
+  } catch {
+    return false;
+  }
+}
 
 export const installation = $state({
   installiert: vomStartbildschirm(),
@@ -58,11 +65,11 @@ if (typeof window !== 'undefined') {
 export const sperre = (): boolean =>
   sperreZeigen(geraet, installation.installiert, installation.weiter);
 
-/** „Ohne Installation im Browser weiter“ – gilt bis zum nächsten Öffnen. */
+/** „Ohne Installation im Browser weiter“ – gemerkt (iPhone/iPad: bis zum nächsten Öffnen). */
 export function ohneInstallationWeiter(): void {
   installation.weiter = true;
   try {
-    sessionStorage.setItem(WEITER, 'ja');
+    ablage().setItem(WEITER, 'ja');
   } catch {
     // Ohne sessionStorage gilt die Wahl nur bis zum Neuladen
   }

@@ -265,6 +265,7 @@ Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] Elternbereich gliedern und angleichen (O5)
 - [x] Feinschliff O6–O10: Seitenkopf, Plaketten, Klappkarten, Anrede, Barrierefreiheit
 - [x] O11–O12 gemeinsamer Zurück-Knopf · O13 Browser-Tests der Oberfläche · O14 Installationsanleitung beim Erststart
+- [x] O15–O22 Bedienbarkeit (PV 04.11.2026: „alles umsetzen“): Zurück-Taste des Geräts, Fokus und Titel je Seite, Startseite bei großer Schrift und am Desktop, Erststart, Mein Stand, Seite „Einstellungen“ mit Schriftgröße, PIN, Übung und Bastion-Leiste
 
 ## 5. Änderungsprotokoll
 

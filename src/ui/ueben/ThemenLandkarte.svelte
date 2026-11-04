@@ -24,6 +24,23 @@
     })).filter((g) => g.liste.length > 0),
   );
 
+  /** O18: je Bereich zwei Zahlen in der Kopfzeile – wie viel sitzt, woran gerade gearbeitet wird */
+  const zaehle = (liste: readonly Kompetenz[]) => {
+    let sicher = 0;
+    let arbeit = 0;
+    for (const k of liste) {
+      const s = status.get(k.id);
+      if (s === 'gekonnt' || s === 'gefestigt') sicher++;
+      else if (s === 'in-arbeit' || s === 'auffrischen') arbeit++;
+    }
+    return { sicher, arbeit };
+  };
+  /** Offen ist, wo gerade etwas läuft; ist nichts angefangen, der erste Bereich */
+  const offen = $derived.by(() => {
+    const laufend = gruppen.filter((g) => zaehle(g.liste).arbeit > 0).map((g) => g.bereich);
+    return new Set(laufend.length > 0 ? laufend : gruppen.slice(0, 1).map((g) => g.bereich));
+  });
+
   const stein = (s: AnzeigeStatus | undefined): string => {
     if (s === 'gefestigt') return 'voll';
     if (s === 'gekonnt') return 'sicher';
@@ -42,26 +59,39 @@
   {:else}
     <ul class="felder">
       {#each gruppen as g (g.bereich)}
+        {@const z = zaehle(g.liste)}
         <li class="feld">
-          <h4>{t(`bereich.${g.bereich}` as TextSchluessel)}</h4>
-          <ul class="steine">
-            {#each g.liste as k (k.id)}
-              {@const s = status.get(k.id) ?? 'neu'}
-              {@const statusText =
-                s === 'neu' ? t('stand.neu') : t(`status.${s}` as TextSchluessel)}
-              <li>
-                <button
-                  class="stein {stein(s)}"
-                  title="{k.titel.de} – {statusText}"
-                  aria-label="{k.titel.de}: {statusText}"
-                  onclick={() => onueben(k)}
-                >
-                  <span class="punkt" aria-hidden="true"></span>
-                  <span class="name">{k.titel.de}</span>
-                </button>
-              </li>
-            {/each}
-          </ul>
+          <!-- O18: Klappkarten statt einer 3 800 px langen Seite am Handy -->
+          <details open={offen.has(g.bereich)}>
+            <summary>
+              <h4>{t(`bereich.${g.bereich}` as TextSchluessel)}</h4>
+              <span class="feld-zahlen"
+                >{z.sicher}
+                {t('landkarte.von')}
+                {g.liste.length}
+                {t('landkarte.sicher')}{#if z.arbeit > 0}
+                  · {z.arbeit} {t('landkarte.in-arbeit')}{/if}</span
+              >
+            </summary>
+            <ul class="steine">
+              {#each g.liste as k (k.id)}
+                {@const s = status.get(k.id) ?? 'neu'}
+                {@const statusText =
+                  s === 'neu' ? t('stand.neu') : t(`status.${s}` as TextSchluessel)}
+                <li>
+                  <button
+                    class="stein {stein(s)}"
+                    title="{k.titel.de} – {statusText}"
+                    aria-label="{k.titel.de}: {statusText}"
+                    onclick={() => onueben(k)}
+                  >
+                    <span class="punkt" aria-hidden="true"></span>
+                    <span class="name">{k.titel.de}</span>
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          </details>
         </li>
       {/each}
     </ul>
@@ -116,10 +146,51 @@
     border: 1px solid color-mix(in srgb, var(--farbe-rand) 70%, transparent);
   }
 
+  summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: var(--abstand-s);
+    min-block-size: var(--ziel, 2.75rem);
+    align-content: center;
+    cursor: pointer;
+    list-style: none;
+  }
+  details[open] > summary {
+    margin-block-end: 0.35rem;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  /* Pfeil zeigt, dass sich der Bereich aufklappen lässt */
+  summary::after {
+    content: '';
+    order: 2;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    margin-inline-start: 0.25rem;
+    border-inline-end: 2px solid var(--farbe-text-leise);
+    border-block-end: 2px solid var(--farbe-text-leise);
+    transform: rotate(-45deg);
+    align-self: center;
+  }
+  details[open] > summary::after {
+    transform: rotate(45deg);
+  }
+  .feld-zahlen {
+    margin-inline-start: auto;
+  }
   h4 {
-    margin: 0 0 0.35rem;
+    display: inline;
+    margin: 0;
     font-size: 0.95rem;
     color: var(--farbe-akzent);
+  }
+  .feld-zahlen {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--farbe-text-leise);
   }
 
   .steine {
@@ -174,9 +245,7 @@
     font-size: 0.85rem;
     font-weight: 700;
     line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-inline-size: 12rem;
+    /* O18: ganze Namen, umgebrochen statt „Brüche und Dezimalzahlen a…“ */
+    overflow-wrap: anywhere;
   }
 </style>

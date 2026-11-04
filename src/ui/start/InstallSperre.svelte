@@ -1,6 +1,7 @@
 <script lang="ts">
   // O14 (Wunsch PV, Vorbild einbuergerung): Auf Handy und Tablet im Browser zuerst die
-  // Anleitung zum Installieren. „Ohne Installation weiter“ gilt bis zum nächsten Öffnen.
+  // Anleitung zum Installieren. „Ohne Installation weiter“ merkt sich das Gerät (O17), auf
+  // iPhone und iPad nur bis zum nächsten Öffnen.
   // Ruhig: kein Zähler, kein Druck – nur die Schritte und drei Gründe.
   import { geraet, ohneInstallationWeiter } from '../plattform/installation.svelte';
   import { t } from '../texte/texte';
@@ -34,17 +35,19 @@
         {#if kopiert}<p role="status">{t('installieren.adresse-kopiert')}</p>{/if}
       {/if}
     </section>
-    <ul class="warum">
-      <li>{t('installieren.warum-1')}</li>
-      <li>{t('installieren.warum-2')}</li>
-      <li>{t('installieren.warum-3')}</li>
-    </ul>
+    <!-- O17: Erst die Warnung (iPhone/iPad), dann gleich der Weg ohne Installation – nicht
+         als blasser Link ganz unten, den man erst nach dem Scrollen findet -->
     {#if geraet.system === 'ios' && geraet.browser !== 'inapp'}
       <p class="wichtig" role="note">{t('installieren.ios-wichtig')}</p>
     {/if}
     <button type="button" class="weiter" onclick={ohneInstallationWeiter}
       >{t('installieren.weiter')}</button
     >
+    <ul class="warum" aria-label={t('installieren.warum')}>
+      <li>{t('installieren.warum-1')}</li>
+      <li>{t('installieren.warum-2')}</li>
+      <li>{t('installieren.warum-3')}</li>
+    </ul>
   </div>
 </div>
 
@@ -134,14 +137,14 @@
   }
   .weiter {
     font: inherit;
-    justify-self: center;
+    font-weight: 700;
+    justify-self: stretch;
     min-block-size: var(--ziel);
     padding-inline: var(--abstand-m);
-    border: none;
-    background: transparent;
-    color: var(--farbe-text-leise);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    border: 2px solid var(--farbe-rand);
+    border-radius: var(--radius);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
     cursor: pointer;
   }
 </style>

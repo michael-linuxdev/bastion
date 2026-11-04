@@ -143,16 +143,18 @@
     flex-shrink: 0;
   }
 
+  /* O22: als kleine Plakette mit Fläche – über Wasser und Wiese lesbar, nicht als blasser Link */
   .klappen {
     font: inherit;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
     min-block-size: 2rem;
-    padding-inline: 0.45rem;
+    padding-inline: 0.7rem;
     border: none;
-    border-radius: var(--radius);
-    background: transparent;
-    color: var(--farbe-text-leise);
-    text-decoration: underline;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent);
+    box-shadow: 0 1px 6px var(--farbe-schatten);
+    color: var(--farbe-text);
     cursor: pointer;
   }
 

@@ -97,6 +97,19 @@ async function mehr(seite: Page) {
   await expect(seite.getByRole('heading', { name: 'Mehr' })).toBeVisible();
 }
 
+/** O19: Einstellungen (Schrift, Bastion an/aus, Abend, Ton) – unter Mehr. */
+async function einstellungen(seite: Page) {
+  await mehr(seite);
+  await seite.getByRole('main').getByRole('button', { name: 'Einstellungen' }).click();
+  await expect(seite.getByRole('heading', { name: 'Einstellungen', level: 2 })).toBeVisible();
+}
+
+/** O17: Die Karte „Über mich“ kommt erst nach der ersten Aufgabe – wegtippen, falls sie da ist. */
+async function einladungWeg(seite: Page) {
+  const spaeter = seite.getByRole('button', { name: 'Lieber später' });
+  if (await spaeter.isVisible().catch(() => false)) await spaeter.click();
+}
+
 /** Themenübersicht (Klasse, Niveau) – unter Mehr, nicht unter Üben. */
 async function themenWaehlen(seite: Page) {
   await mehr(seite);
@@ -709,7 +722,8 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   };
   await page.goto('./');
   await hubVoll(page);
-  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
+  // O19: Der Schalter steht jetzt unter Mehr → Einstellungen
+  await einstellungen(page);
   const schalter = page.getByRole('checkbox', { name: 'Bastion anzeigen' });
   await expect(schalter).toBeChecked();
   await schalter.uncheck();
@@ -717,7 +731,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.reload();
   await hubVoll(page);
-  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
+  await einstellungen(page);
   await expect(schalter).not.toBeChecked();
   await page.getByRole('button', { name: /Zurück/ }).click();
 
@@ -728,7 +742,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   await page.getByRole('button', { name: 'Für heute schließen' }).click();
 
   // Wieder an: Der Stein von eben ist da (B-10)
-  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
+  await einstellungen(page);
   await schalter.check();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await antworten(false);
@@ -905,7 +919,7 @@ test('Bastion als Liste: bauen, Fortschritt, abbrechen, versetzen (BASEBAU §4.2
   // Frisch laden: nach langer Bastion-Sitzung ist die Start-Kachel sonst hinter der Leiste
   await page.goto('./');
   await hubVoll(page);
-  await page.getByRole('main').getByRole('button', { name: 'Mein Stand' }).click();
+  await einstellungen(page);
   await page.getByRole('checkbox', { name: 'Bastion anzeigen' }).uncheck();
   await expect.poll(() => einstellungImSpeicher(page, 'basebau.aktiv')).toBe(false);
   await page.getByRole('button', { name: /Zurück/ }).click();
@@ -1520,6 +1534,14 @@ test('Bericht für die Lehrkraft: je Lernfeld, als Datei (L-13)', async ({ page 
 
 test('Profil: freiwillig, ab 18 ohne Elternbereich (L-15)', async ({ page }) => {
   await page.goto('./');
+  // O17: Beim allerersten Start noch keine Einladung – erst nach der ersten Aufgabe
+  await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
+  await themenWaehlen(page);
+  await thema(page, /^Addieren und Subtrahieren/);
+  await page.getByLabel('Deine Antwort').fill('0');
+  await page.getByRole('button', { name: 'Prüfen' }).click();
+  await page.getByRole('button', { name: 'Fertig für heute' }).click();
+  await page.getByRole('button', { name: 'Für heute schließen' }).click();
   await expect(page.getByRole('heading', { name: 'Über mich' })).toBeVisible();
   await page.getByRole('button', { name: 'Lieber später' }).click();
   await expect(page.getByRole('heading', { name: 'Über mich' })).toHaveCount(0);
@@ -1654,9 +1676,8 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   // Lernflächen bleiben hell; Abend nur als Bastion-Flag (Design L61)
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
   await expect(wurzel).toHaveAttribute('data-bastion-abend', 'ja');
-  await page.getByRole('button', { name: 'Lieber später' }).click();
-  await mehr(page);
-  await page.getByRole('button', { name: 'Über mich' }).click();
+  await einladungWeg(page);
+  await einstellungen(page);
   await page.getByLabel('Bastion bei Tag').check();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
   await expect(wurzel).toHaveAttribute('data-bastion-abend', 'nein');
@@ -1664,8 +1685,7 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
   await page.reload();
   await expect(wurzel).toHaveAttribute('data-modus', 'hell');
   await expect(wurzel).toHaveAttribute('data-bastion-abend', 'nein');
-  await mehr(page);
-  await page.getByRole('button', { name: 'Über mich' }).click();
+  await einstellungen(page);
   await page
     .getByRole('group', { name: 'Abend in der Bastion' })
     .getByLabel('Wie draußen (Sonnenstand)')
@@ -1679,7 +1699,7 @@ test('Aussehen: hell, dunkel oder wie das Gerät (GRAFIK §2)', async ({ page })
 test('Start-Hub: Üben, Bastion, Mehr ohne Reiterleiste', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
-  await page.getByRole('button', { name: 'Lieber später' }).click();
+  await einladungWeg(page);
   await expect(page.getByRole('navigation', { name: 'Bereiche' })).toHaveCount(0);
   await expect(page.getByText('Ein Ort zum Üben – und eine Bastion, die mitwächst.')).toBeVisible();
   await expect(page.getByRole('group', { name: 'Wohin möchtest du?' })).toBeVisible();

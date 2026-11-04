@@ -451,7 +451,13 @@
             />
 
             <div class="knoepfe">
-              <button type="submit" form="antwort" class="haupt pruefen" disabled={!bereit}>
+              <button
+                type="submit"
+                form="antwort"
+                class="haupt pruefen"
+                disabled={!bereit}
+                aria-describedby={bereit ? undefined : 'pruefen-hinweis'}
+              >
                 {t('uebung.pruefen')}
               </button>
               {#if hilfen < aufgabe.vorlage.hilfen.length}
@@ -467,7 +473,10 @@
               {/if}
             </div>
             {#if !bereit}
-              <p class="pruefen-hinweis">{t('uebung.pruefen-hinweis')}</p>
+              <!-- O22: Hinweis kräftiger und mit dem Knopf verbunden (Screenreader liest ihn mit) -->
+              <p class="pruefen-hinweis" id="pruefen-hinweis">
+                <span class="hinweis-punkt" aria-hidden="true">i</span>{t('uebung.pruefen-hinweis')}
+              </p>
             {/if}
           {:else}
             <div
@@ -859,7 +868,16 @@
     display: block;
     inline-size: 100%;
     block-size: auto;
-    max-block-size: max(8rem, 22dvh);
+    /* O22: etwas größer, damit Beschriftungen wie „a“ bis „d“ am Handy lesbar sind (vorher ≈ 9 px) */
+    max-block-size: max(10rem, 28dvh);
+  }
+  /* O22: Beschriftungen kräftig und mit hellem Rand, damit sie auch über Linien lesbar bleiben */
+  .bild :global(svg text) {
+    font-weight: 700;
+    paint-order: stroke fill;
+    stroke: var(--farbe-flaeche);
+    stroke-width: 3px;
+    stroke-linejoin: round;
   }
 
   /* L19: gefärbte Teile in derselben warmen Farbe wie der Bruchstreifen der Erklärung */
@@ -907,9 +925,26 @@
   }
 
   .pruefen-hinweis {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     margin-block: 0;
     font-size: 0.9375rem;
-    color: var(--farbe-text-leise);
+    font-weight: 600;
+    color: var(--farbe-text);
+  }
+  .hinweis-punkt {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    inline-size: 1.2rem;
+    block-size: 1.2rem;
+    border-radius: 50%;
+    background: var(--farbe-hinweis-rand);
+    color: var(--farbe-text);
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-style: italic;
   }
 
   .fertig {

@@ -40,6 +40,7 @@
     bewaehrungBelohnen,
     orientierungWahl,
     kontrastWahl,
+    schriftWahl,
     soundStufe,
     zustand as ladeZustand,
     type Antwortdaten,
@@ -72,6 +73,8 @@
   import UpdateHinweis from './UpdateHinweis.svelte';
   import Wechsel from './ueben/Wechsel.svelte';
   import UeberMich from './profil/UeberMich.svelte';
+  import Einstellungen from './profil/Einstellungen.svelte';
+  import { schriftAnwenden } from './profil/schrift.svelte';
   import {
     schuljahrFragen,
     schuljahrVon,
@@ -87,7 +90,7 @@
     klassenarbeitText,
     type Klassenarbeit,
   } from '../core/learning/klassenarbeit';
-  import { untrack } from 'svelte';
+  import { tick, untrack } from 'svelte';
   import { aktiv } from './bastion/thema.svelte';
   import { darstellungSetzen, kontrastAnwenden } from './grafik/darstellung.svelte';
   import { orientierungLaden } from './grafik/orientierung.svelte';
@@ -134,6 +137,7 @@
     | 'angebot'
     | 'bastion'
     | 'mehr'
+    | 'einstellungen'
     | 'installieren'
   >('start');
   let aufgabenListe = $state<readonly AufgabeEreignis[]>([]);
@@ -293,6 +297,138 @@
     document.addEventListener('visibilitychange', sichtbar);
     return () => document.removeEventListener('visibilitychange', sichtbar);
   });
+  // O15: Zurück-Taste und Wischgeste des Geräts. Jeder Schritt weg von der Startseite legt
+  // einen eigenen Eintrag in den Verlauf des Browsers (`tiefe` zählt sie). Zurück nimmt einen
+  // weg; dann drückt die App den sichtbaren Zurück-Knopf der Seite – gleicher Weg wie mit dem
+  // Finger. Ohne Knopf geht es zur Startseite. Ein Zurück-Knopf in der App nimmt ebenfalls einen
+  // Eintrag weg, die Startseite alle. Auf der Startseite verlässt Zurück die App wie gewohnt.
+  let tiefe = 0;
+  /** So viele „popstate“ kommen von uns selbst (history.back/go) und werden übergangen */
+  let ignoriere = 0;
+  /** Der Wechsel kommt aus dem Verlauf – dann nichts neu eintragen */
+  let ausVerlauf = false;
+  /** Ein Zurück-Knopf der App wurde gedrückt */
+  let zurueckGeklickt = false;
+  /** Einträge, die Anker-Sprünge innerhalb einer Seite hinterlassen haben */
+  let anker = 0;
+  const EINTRAG = { bastion: 'zurueck' } as const;
+
+  function verlaufAbbauen(bis: number) {
+    if (tiefe + anker <= bis) return;
+    ignoriere++;
+    history.go(bis - tiefe - anker);
+    tiefe = bis;
+    anker = 0;
+  }
+  function verlaufAngleichen() {
+    if (ansicht === 'start') verlaufAbbauen(0);
+    else if (tiefe === 0) {
+      history.pushState(EINTRAG, '');
+      tiefe = 1;
+    }
+  }
+  $effect(() => {
+    const a = ansicht;
+    untrack(() => {
+      if (ausVerlauf) {
+        ausVerlauf = false;
+        verlaufAngleichen();
+        return;
+      }
+      const knopf = zurueckGeklickt;
+      zurueckGeklickt = false;
+      if (a === 'start') verlaufAbbauen(0);
+      else if (knopf) verlaufAbbauen(Math.max(1, tiefe - 1));
+      else {
+        history.pushState(EINTRAG, '');
+        tiefe++;
+      }
+    });
+  });
+  $effect(() => {
+    const geklickt = (e: MouseEvent) => {
+      if (!ausVerlauf && e.target instanceof Element && e.target.closest('main [data-zurueck]'))
+        zurueckGeklickt = true;
+    };
+    const zurueck = () => {
+      if (ignoriere > 0) {
+        ignoriere--;
+        return;
+      }
+      // Sprünge innerhalb einer Seite (Anker wie die Sprungleiste im Elternbereich) und Zurück von
+      // so einem Sprung sind kein Seitenwechsel – der Browser scrollt selbst
+      const stand: unknown = history.state;
+      const eigener =
+        typeof stand === 'object' && stand !== null && 'bastion' in stand
+          ? stand.bastion === 'zurueck'
+          : false;
+      if (location.hash !== '') {
+        anker++;
+        return;
+      }
+      if (eigener && anker > 0) {
+        anker--;
+        return;
+      }
+      tiefe = Math.max(0, tiefe - 1);
+      if (ansicht === 'start') return;
+      ausVerlauf = true;
+      const knopf = document.querySelector<HTMLButtonElement>('main [data-zurueck]');
+      if (knopf) knopf.click();
+      else {
+        bewaehrungSpannung = false;
+        bewaehrungHinweis = undefined;
+        gehe('start');
+      }
+      // Ändert sich die Seite nicht, gleicht niemand sonst den Verlauf an
+      void tick().then(() => {
+        if (!ausVerlauf) return;
+        ausVerlauf = false;
+        verlaufAngleichen();
+      });
+    };
+    document.addEventListener('click', geklickt, true);
+    window.addEventListener('popstate', zurueck);
+    return () => {
+      document.removeEventListener('click', geklickt, true);
+      window.removeEventListener('popstate', zurueck);
+    };
+  });
+
+  // O15: Nach jedem Seitenwechsel steht der Fokus auf der Überschrift der neuen Seite, damit
+  // Screenreader sie ansagen und die Tastatur oben weitergeht; der Titel im Tab nennt die Seite.
+  let ersteAnsicht = true;
+  let ansichtNr = 0;
+  $effect(() => {
+    const a = ansicht;
+    untrack(() => {
+      const erste = ersteAnsicht;
+      ersteAnsicht = false;
+      const nr = ++ansichtNr;
+      if (!erste) window.scrollTo({ top: 0 });
+      // Anker der vorigen Seite (z. B. #abschnitt-test) nicht in die nächste mitnehmen
+      if (!erste && location.hash !== '')
+        history.replaceState(history.state, '', location.pathname + location.search);
+      // Seiten mit Inhalten erscheinen erst nach dem Laden: einige Bilder lang nach der Überschrift sehen
+      let versuche = 30;
+      const ansehen = () => {
+        if (nr !== ansichtNr) return;
+        const kopf = document.querySelector<HTMLElement>('main h2');
+        if (!kopf && a !== 'start' && --versuche > 0) {
+          requestAnimationFrame(ansehen);
+          return;
+        }
+        const name = t('start.ueberschrift');
+        const titel = a === 'start' ? '' : (kopf?.textContent ?? '').trim();
+        document.title = titel ? `${titel} – ${name}` : name;
+        if (erste || !kopf || a === 'start' || a === 'bastion') return;
+        if (!kopf.hasAttribute('tabindex')) kopf.setAttribute('tabindex', '-1');
+        kopf.focus({ preventScroll: true });
+      };
+      void tick().then(ansehen);
+    });
+  });
+
   /** Rückweg aus dem Fehlerkatalog: an dieser Stelle der Erstvermittlung beginnen */
   let vermittlungStart = $state<string | undefined>(undefined);
   /**
@@ -391,6 +527,7 @@
     aktiv.thema = await themaWahl();
     darstellungSetzen(await modusWahl());
     kontrastAnwenden(await kontrastWahl());
+    schriftAnwenden(await schriftWahl());
     const cue = await soundStufe();
     soundSteuern({ stufe: cue, ruhig: false });
     orientierungLaden(await orientierungWahl());
@@ -415,6 +552,28 @@
       neuesSchuljahr = !w.neu && schuljahrFragen(sj, heuteTag, profil.erwachsen);
     }
   }
+
+  // O16: Thema, zu dem „Üben“ springt – nur wenn die Inhalte ohnehin schon geladen sind
+  // (kein zusätzliches Laden beim Start der App)
+  let geladenJetzt = $state<Inhalte | undefined>(undefined);
+  $effect(() => {
+    void inhalte?.then((i) => (geladenJetzt = i)).catch(() => undefined);
+  });
+  const naechstThema = $derived.by(() => {
+    const g = geladenJetzt;
+    if (!g) return offenAufgabe?.titel;
+    if (offenAufgabe) return offenAufgabe.titel;
+    return naechsteKompetenz(
+      g.kompetenzen,
+      g.vorlagen,
+      geradeDran,
+      klasse,
+      zustand,
+      Date.now(),
+      schulart,
+      kurs,
+    )?.titel.de;
+  });
 
   const offeneFehler = $derived(gruppen.reduce((n, g) => n + g.fehler.length, 0));
 
@@ -544,6 +703,7 @@
       ziel !== 'mehr' &&
       ziel !== 'sicherung' &&
       ziel !== 'profil' &&
+      ziel !== 'einstellungen' &&
       ziel !== 'installieren'
     )
       inhalte ??= ladeInhalte();
@@ -667,6 +827,8 @@
       offenThema={offenAufgabe?.titel}
       nieGeuebt={aufgabenListe.length === 0 && zustand.staende.size === 0}
       erstesMal={aufgabenListe.length === 0}
+      {klasse}
+      {naechstThema}
       onziel={gehe}
     >
       {#if neuesSchuljahr}
@@ -681,7 +843,8 @@
         />
       {/if}
       {#snippet unten()}
-        {#if !profilGefragt}
+        <!-- O17: „Über mich“ erst nach der ersten Aufgabe – vorher zählt nur der Einstieg -->
+        {#if !profilGefragt && aufgabenListe.length > 0}
           <ProfilEinladung
             onjetzt={() => (ansicht = 'profil')}
             onspaeter={() => {
@@ -693,7 +856,9 @@
       {/snippet}
     </Startseite>
   {:else if ansicht === 'mehr'}
-    <Mehr eltern={!selbst} offline={offline.bereit} onziel={gehe} />
+    <Mehr eltern={!selbst} offline={offline.bereit} {sichern} onziel={gehe} />
+  {:else if ansicht === 'einstellungen'}
+    <Einstellungen bind:basebau onzurueck={() => (ansicht = 'mehr')} />
   {:else if ansicht === 'installieren'}
     <InstallSeite onzurueck={() => (ansicht = 'mehr')} />
   {:else if ansicht === 'profil'}
@@ -850,7 +1015,6 @@
           vorlagen={geladen.vorlagen}
           {zustand}
           aufgaben={aufgabenListe}
-          bind:basebau
           bind:klasse
           {selbst}
           onueben={(k) => zumUeben(geladen, k)}
@@ -1139,6 +1303,18 @@
     overflow: visible;
   }
 
+  /* O16: Startseite am großen Bildschirm breiter (Banner neben den Kacheln) */
+  @media (width >= 64rem) and (orientation: landscape) {
+    .start:has(> :global(.startseite)) {
+      max-inline-size: 64rem;
+    }
+  }
+
+  /* O15: Überschriften bekommen den Fokus nur zum Ansagen – kein Rahmen wie bei Knöpfen */
+  .start :global(h2[tabindex='-1']:focus) {
+    outline: none;
+  }
+
   .unsichtbar {
     position: absolute;
     inline-size: 1px;
@@ -1148,12 +1324,22 @@
     white-space: nowrap;
   }
 
+  /* O22: „Zeichnen lernen“ als kleine Karte – Überschrift in einer Zeile, jede Anleitung als
+     eigene Zeile mit großem Tipp-Ziel, statt quer umbrechender Links */
   .anleitungen {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    column-gap: var(--abstand-m);
-    margin-block: 0;
+    display: grid;
+    gap: 0.25rem;
+    margin-block: var(--abstand-s) 0;
+    padding: var(--abstand-s) var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+    font-weight: 700;
+  }
+  .anleitungen :global(.dezent) {
+    justify-self: start;
+    min-block-size: var(--ziel);
+    text-align: start;
   }
 
   .paket-fehlt {

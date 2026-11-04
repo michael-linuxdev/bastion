@@ -14,6 +14,8 @@ import {
   SOUND_SCHLUESSEL,
   kontrastAn,
   KONTRAST_SCHLUESSEL,
+  SCHRIFT_SCHLUESSEL,
+  schriftAus,
   type EinstellungEreignis,
 } from './einstellung';
 
@@ -123,6 +125,16 @@ describe('Kontrast (V110)', () => {
     expect(kontrastAn(false)).toBe(false);
     expect(kontrastAn(true)).toBe(true);
     expect(KONTRAST_SCHLUESSEL).toBe('darstellung.kontrast');
+  });
+});
+
+describe('Schriftgröße (O19)', () => {
+  it('drei Stufen, Unbekanntes wird „normal“', () => {
+    expect(schriftAus(undefined)).toBe('normal');
+    expect(schriftAus('gross')).toBe('gross');
+    expect(schriftAus('sehr-gross')).toBe('sehr-gross');
+    expect(schriftAus('riesig')).toBe('normal');
+    expect(SCHRIFT_SCHLUESSEL).toBe('darstellung.schrift');
   });
 });
 

@@ -52,6 +52,9 @@ import {
   type SoundStufe,
   KONTRAST_SCHLUESSEL,
   kontrastAn,
+  SCHRIFT_SCHLUESSEL,
+  schriftAus,
+  type SchriftStufe,
   WETTER_ECHT_SCHLUESSEL,
   WETTER_ORT_SCHLUESSEL,
   WETTER_KOORD_SCHLUESSEL,
@@ -606,6 +609,16 @@ export async function kontrastWahl(): Promise<boolean> {
 }
 
 export const kontrastSetzen = (an: boolean) => setze(KONTRAST_SCHLUESSEL, an, 'jugendlich');
+
+/** Schriftgröße der App (O19); Standard „normal“. */
+export async function schriftWahl(): Promise<SchriftStufe> {
+  const inst = await bereit();
+  if (!inst) return 'normal';
+  return schriftAus(await einstellung(db, inst.profil, SCHRIFT_SCHLUESSEL).catch(() => undefined));
+}
+
+export const schriftSetzen = (stufe: SchriftStufe) =>
+  setze(SCHRIFT_SCHLUESSEL, stufe, 'jugendlich');
 
 /** Offline-Hinweis schon gesehen (K47)? Standard nein. */
 export async function offlineHinweisGesehen(): Promise<boolean> {

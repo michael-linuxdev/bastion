@@ -1,11 +1,9 @@
 <script lang="ts">
-  // O6: Seite „Über mich“ – gemeinsamer Seitenkopf, darunter drei Karten:
-  // Angaben (L-15), Aussehen und Ton, Bildschirm.
+  // O6: Seite „Über mich“ – gemeinsamer Seitenkopf, darunter die Angaben (L-15).
+  // O19: Aussehen, Ton und Bildschirm stehen jetzt unter „Einstellungen“.
   import type { Profil } from '../../core/policy/alter';
-  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
   import Seitenkopf from '../start/Seitenkopf.svelte';
   import { t } from '../texte/texte';
-  import ModusWahl from './ModusWahl.svelte';
   import ProfilForm from './Profil.svelte';
 
   let {
@@ -20,8 +18,8 @@
     <p>{t('profil.freundlich')}</p>
   </Seitenkopf>
   <div class="karte"><ProfilForm {profil} {onspeichern} /></div>
-  <div class="karte"><ModusWahl /></div>
-  <div class="karte"><OrientierungWahl /></div>
+  <!-- O20: Bastion kennt einen Stand je Browser – Familien mit einem Tablet sollen das wissen -->
+  <p class="leise" role="note">{t('profil.geschwister')}</p>
 </section>
 
 <style>
@@ -34,6 +32,10 @@
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
     box-shadow: 0 2px 10px var(--farbe-schatten);
+  }
+  .leise {
+    margin: 0;
+    color: var(--farbe-text-leise);
   }
   .karte :global(fieldset) {
     margin-block: 0;
