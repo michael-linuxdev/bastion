@@ -17,7 +17,7 @@ erklaerung:
       de: 'Neue Teilgrößen sind richtig gedacht. Doch wenn jedes Teil halb so groß ist, brauchst du doppelt so viele. Werden die Teile größer, brauchst du weniger. Sonst ändert sich der [[Anteil]].'
       bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 3 } }
     - teil: so-stimmt-es
-      de: 'Nimm [[Zähler]] und [[Nenner]] mit derselben Zahl mal: $\frac{3}{4} = \frac{6}{8}$.'
+      de: 'Verändere [[Zähler]] und [[Nenner]] mit derselben Zahl: beim [[Erweitern]] mal, $\frac{3}{4} = \frac{6}{8}$, beim [[Kürzen]] geteilt, $\frac{6}{8} = \frac{3}{4}$.'
 gegenbeispiel:
   de: '$\frac{3}{4}$ einer Pizza sind fast alles. $\frac{3}{8}$ sind weniger als die Hälfte – das kann nicht dasselbe sein.'
 rueckweg:
@@ -27,6 +27,6 @@ herkunft: ki-entwurf
 version: 1
 review:
   stufe: 1
-  datum: 2026-10-31
+  datum: 2026-11-04
   pruefer: maschine
-  hash: 4af3266c5fff61d83469fffe6395d57a981a69f622703fdd2991a6caf9f3e4cc
+  hash: 8dd5d167d67bcbf52f89141d31e6a130faba0eacb0b90af1192f76e25192b271

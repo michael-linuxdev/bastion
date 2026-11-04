@@ -47,6 +47,14 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 
 ---
 
+## Hinweise aus der Stufe-1-Prüfung des Musterfelds (04.11.2026)
+
+Nach dem Prüfkatalog keine Funde, aber für eine spätere Runde vorgemerkt. Jede Änderung kostet die Stufe 1 der Datei.
+
+- **Ein Fehler, zwei Fehlvorstellungen:** 1/2 + 1/4 = 2/4 führt in der Erstvermittlung von ADD-SUB zu FV.BR.EINEN-NENNER, in der Vorlage UNGLEICHNAMIG (Fehlerbild `nicht-erweitert`) zu FV.BR.NUR-NENNER. Die Rückwege sind darum verschieden.
+- **FV.BR.EINEN-NENNER, langer Text „so-denkst-du“** („Zähler addiert und einen Nenner übernommen“) passt nicht zum Schritt `nenner` von UNGLEICHNAMIG, dort gibt das Kind nur den Nenner an. Der kurze Text passt.
+- **ERWEITERN, Schritt `entdecken`:** Die additive Antwort mit Nenner 6 (5/6, beide plus 3) wird nicht erkannt, nur 3/4.
+
 ## Bedarfsliste Klasse 9 bis 12 (Phase A, 02.11.2026)
 
 Grundlage: die 107 Kompetenzen in `LEHRPLAN.md` §8e–§8g. Frage je Bedarf: Was braucht der Stoff, was gibt es heute, was fehlt? Nach Entscheidung 4 (`KLASSE-9-12.md`) darf das Fehlende gebaut werden, je Typ ein PR. **Die Reihenfolge und die Wahl bei der Formeldarstellung entscheidet der PV (Rückfrage unten).**
