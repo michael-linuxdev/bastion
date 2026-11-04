@@ -2405,6 +2405,25 @@ test('Jahrgang 11/12: Kurs nur am Gymnasium wählbar und gespeichert (B9b)', asy
   await expect(page.getByRole('radio', { name: 'Leistungskurs' })).toBeChecked();
 });
 
+test('Klasse 10: hilfsmittelfreie Aufgabe zeigt „Ohne Taschenrechner“, andere nicht (B10)', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await themenWaehlen(page);
+  await page.getByRole('radio', { name: 'Klasse 10' }).check();
+  await page.getByRole('radio', { name: 'Gymnasium' }).check();
+  await bereichOeffnen(page, 'Zahlen und Rechnen');
+  await thema(page, /^Logarithmus/);
+  await expect(page.getByText('Ohne Taschenrechner')).toBeVisible();
+  await page.screenshot({ path: test.info().outputPath('ohne-rechner.png'), fullPage: true });
+  await page.goto('./');
+  await themenWaehlen(page);
+  await bereichOeffnen(page, 'Terme und Gleichungen');
+  await thema(page, /^Lineares und exponentielles Wachstum/);
+  await expect(page.getByLabel('Deine Antwort').or(page.getByRole('radio').first())).toBeVisible();
+  await expect(page.getByText('Ohne Taschenrechner')).toHaveCount(0);
+});
+
 test('Klasse 10: Wachstumsart aus einer Wertetabelle (Feld EX)', async ({ page }) => {
   await page.goto('./');
   await themenWaehlen(page);
