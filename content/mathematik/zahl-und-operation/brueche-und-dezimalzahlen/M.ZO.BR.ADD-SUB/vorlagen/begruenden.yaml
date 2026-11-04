@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.BR.EINEN-NENNER
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-04
+  pruefer: maschine
+  hash: 8e558dda2d9e52a3a73a31f1be9ce68064db76aea9f339379e74c5a908bc1642

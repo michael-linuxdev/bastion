@@ -218,7 +218,7 @@ Steht in `docs/session/LERNKERN-PROTOKOLL.md`. Neue Zeilen dort unten anhängen,
 
 **Offen:**
 
-1. **Drei Vorlagen ohne Stufe 1:** `M.ZO.BR.BEGRIFF/vorlagen/begruenden.yaml`, `M.ZO.BR.ERWEITERN/vorlagen/begruenden.yaml`, `M.ZO.BR.ADD-SUB/vorlagen/begruenden.yaml` (Niveau E, nach dem ersten Review entstanden). Ein zweites Modell prüft sie gerade (Sub-Agent, Ergebnis folgt in dieser Übergabe). Erst wenn sie Stufe 1 haben, zeigt `BASTION_MINDESTSTUFE=1` die drei Musterfeld-Themen.
+1. ~~Drei Vorlagen ohne Stufe 1~~ – erledigt: Die drei E-Vorlagen `begruenden.yaml` sind geprüft, BEGRIFF und ERWEITERN ohne Widerspruch. In ADD-SUB standen „gleichnamig“ und „Hauptnenner“ unerklärt da, auch im Generator; jetzt „gemeinsamer Nenner“ (`br.nenner-aussage@2`). **Das ganze Musterfeld steht auf Stufe 1:** `BASTION_MINDESTSTUFE=1` liefert die drei Themen mit 9 Vorlagen, 3 Erstvermittlungen und 10 Fehlvorstellungen aus. Ob die öffentliche Seite das schon zeigen soll (Repository-Variable `BASTION_MINDESTSTUFE`), entscheidet der PV.
 2. **Online-Prüfbogen:** Die alte Seite (claude.ai/artifact/NKSg…) ist von hier nicht mehr erreichbar. Neu veröffentlichen nur, wenn der PV es will (`pnpm pruefbogen --online --name "Musterfeld Brüche" …`, braucht die Fähigkeit für die Sammlung `bewertung`).
 3. **Beim PV:** Unterlagen gegenlesen lassen (Datenschutz), Einwilligungen einholen, Prüfbogen an eine Lehrkraft, Starttermine. Ergebnisse des Prüfbogens mit `pnpm pruefbogen einlesen` einarbeiten (Stufe 2 setzt nur ein Mensch).
 4. **Hinweise ohne Fund** aus der Stufe-1-Prüfung: Abschnitt oben in dieser Datei.
