@@ -1,4 +1,4 @@
-import { describe } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Instanz, Loesung } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
 import {
@@ -9,6 +9,7 @@ import {
   brMalZahlAussage,
   brMengenAussage,
   brNennerAussage,
+  brNennerAussageV1,
   brPeriodeAussage,
   brSachAussage,
 } from './aussagen6';
@@ -33,6 +34,16 @@ describe('Brüche addieren begründen (E)', () => {
       return wo(i, (t) => t.startsWith('Nein. Erst') && t.endsWith(`= ${p * b + q * a}/${a * b}.`));
     },
     mindestensVerschieden: { E: 30 },
+  });
+  it('Fassung 2 sagt „gemeinsamer Nenner“, Fassung 1 bleibt für gespeicherte Aufgaben', () => {
+    expect([brNennerAussageV1.version, brNennerAussage.version]).toEqual([1, 2]);
+    for (let s = 1; s <= 30; s++) {
+      const i = brNennerAussage.erzeuge(s, {});
+      const alles = [...texte(i), ...i.loesungsweg.map((x) => x.de)].join(' ');
+      expect(alles).toContain('gemeinsamen Nenner');
+      expect(alles).not.toMatch(/gleichnamig|Hauptnenner/);
+      expect(texte(brNennerAussageV1.erzeuge(s, {})).join(' ')).toContain('gleichnamig');
+    }
   });
 });
 

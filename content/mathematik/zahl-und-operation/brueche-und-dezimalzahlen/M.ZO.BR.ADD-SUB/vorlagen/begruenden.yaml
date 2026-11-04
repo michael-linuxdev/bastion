@@ -4,7 +4,7 @@ kompetenz: M.ZO.BR.ADD-SUB
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: br.nenner-aussage@1
+generator: br.nenner-aussage@2
 parameter:
   E: {}
 text:
