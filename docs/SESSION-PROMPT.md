@@ -10,9 +10,11 @@
 >
 > **Klasse 9 bis 12 (K-30, 02.11.2026):** Der Bau läuft im Strang Lernkern nach `docs/session/KLASSE-9-12.md`.
 >
-> **Seit 01.11.2026 gilt vorrangig der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`** (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern schließt zuerst die Lern-Oberfläche ab (Paket L, vom PV ausgewählte Punkte) und bearbeitet dann F2–F10; eingefroren wird mit der Abnahme von L (Regel 7). U4b erst nach Abnahme von L und G.
+> **Seit 05.11.2026 gilt vorrangig der Auftrag „Qualität Klasse 5 bis 10“: `docs/session/QUALITAET-5-10.md`** (K-32). Tests mit Lernenden (U4b) erst nach dessen Abnahme; Jahrgang 11/12 angehalten; das Einfrieren der Lern-Oberfläche ist aufgehoben. Die Pakete Q-L, Q-O und Q-G stehen dort je Strang.
+>
+> *Davor (01.11.2026) galt der Fokus-Auftrag „Prüfen statt Bauen“: `docs/session/FOKUS.md`* (Ergebnis des Reviews). **Vorrang hat Paket G für den Strang Grafik:** Bauen und Ausbau einfacher, jede Stufe ein sichtbares Upgrade (PV, 01.11.2026). Der Lernkern schließt zuerst die Lern-Oberfläche ab (Paket L, vom PV ausgewählte Punkte) und bearbeitet dann F2–F10; eingefroren wird mit der Abnahme von L (Regel 7). U4b erst nach Abnahme von L und G.
 
-Stand: 31.10.2026 (42) · Design-Bündel Hub/Bau/Eltern/Typo (#130); Grafik B-28 Spez+Atlas P0–P6+CC0
+Stand: 05.11.2026 · Auftrag „Qualität Klasse 5 bis 10“ (K-32), Meilenstein M5 in `docs/session/QUALITAET-5-10.md`
 
 ---
 
@@ -97,7 +99,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang (Lernkern, Grafik, O
 4. **Konflikte in gemeinsamen Dateien:** beide Seiten behalten. Bei echten Widersprüchen (gleiche Zeile, verschiedene Absicht) nachfragen, nicht raten.
 5. **Rote CI durch den anderen Strang:** Ist `main` selbst rot, ist das nicht der eigene Fehler. Den Fehler nennen, nicht im fremden Bereich reparieren, außer er ist eine Zeile und eindeutig.
 6. **Gemeinsame Entscheidungen** (neue Abhängigkeit, Schema, Datenschutz, R-Regeln) stehen im passenden Entscheidungslog und werden in beiden Strang-Dateien kurz erwähnt.
-7. **Lern-Oberfläche: eingefroren seit der Abnahme von L am 02.11.2026, bis zur Auswertung von U4b.** Betroffen sind `src/ui/ueben/`, `src/ui/vermittlung/` und `src/ui/eingabe/`.
+7. **Lern-Oberfläche: Einfrieren aufgehoben (PV, 05.11.2026, K-32).** Seitdem gilt: Der Strang Oberfläche darf in `src/ui/ueben/`, `src/ui/vermittlung/` und `src/ui/eingabe/` Aufbau, Abstände, Hierarchie, Karten und Texte ändern (Paket Q-O1 in `docs/session/QUALITAET-5-10.md`); die Logik dort (Auswertung, Abspieler, Diagnose, Ereignisse) bleibt beim Lernkern. Beide melden sich Änderungen im Protokoll des anderen Strangs. *Bis dahin (02.11. bis 05.11.2026) galt:* eingefroren seit der Abnahme von L, bis zur Auswertung von U4b. Betroffen waren `src/ui/ueben/`, `src/ui/vermittlung/` und `src/ui/eingabe/`.
    - Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
    - **Ausnahme Klasse 9 bis 12 (PV, 02.11.2026):** Der Strang Lernkern darf neue Aufgabentypen, Tasten und Darstellungen bauen, die der Stoff der Klassen 9–12 braucht (`docs/session/KLASSE-9-12.md`, Entscheidung 4). Je Typ ein eigener PR; vorhandene Aufgaben der Klassen 5–8 sehen danach gleich aus. Ebenso erlaubt (PV, 02.11.2026): Niveaus für Lernende ausblenden und automatisch wählen (LEHRPLAN L-22).
    - **Aufgehoben für Start, Mehr und Elternbereich (PV, 03.11.2026):** `src/ui/start/` und `src/ui/eltern/` sind nicht mehr eingefroren. Sie gehören jetzt dem Strang Oberfläche, der sie aufräumt und auch umbauen darf (`docs/session/OBERFLAECHE.md`).
@@ -123,7 +125,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang (Lernkern, Grafik, O
 
 ## Dokumente (Lesereihenfolge)
 
-1. Dieser Session-Prompt und die Datei des eigenen Strangs (verbindlich)
+1. Dieser Session-Prompt, `docs/session/QUALITAET-5-10.md` (solange er gilt) und die Datei des eigenen Strangs (verbindlich)
 2. `docs/VISION.md` v1.0 – Unterrichtsersatz ohne KI, Variante A zuerst
 3. `docs/VERMITTLUNG.md` – Konzept Vermitteln und Diagnostizieren ohne KI; `docs/PRUEFUNGEN.md` – Aufbau der sächsischen Prüfungen
 4. `docs/STRATEGIE.md` §0 (Schwelle für Variante B) und §9 (K-23 bis K-28)
@@ -153,9 +155,10 @@ Steht in der Datei des Strangs. Für beide gilt:
 3. Quellen bereitstellen:
    - die sächsischen Abitur-Vorgaben und Prüfungen der letzten Jahrgänge (GK und LK),
    - später die Lehrplan-PDFs für Klasse 9 bis 12.
-4. **0.15** Testpersonen ansprechen (`TESTS.md` §2–3). Die drei Testerinnen stehen bereit.
+4. **0.15** Testpersonen ansprechen (`TESTS.md` §2–3). Die drei Testerinnen stehen bereit. *Seit 05.11.2026 (K-32): U4b erst nach der Abnahme in `QUALITAET-5-10.md`.*
+7. **Lehrkraft gewinnen** für Stufe 2 (Prüfbogen und Arbeitsblatt liegen bereit) – der eine Punkt, den keine Sitzung ersetzen kann.
 5. ~~**0.17** K-14 entscheiden~~ – entschieden am 29.10.2026: Testprotokoll mit Testcode, Export als JSON-Datei (STRATEGIE §7, D-18), gebaut in U4a.
-6. **0.10** Drei Referenzgeräte festlegen und darauf messen.
+6. **0.10** Drei Referenzgeräte festlegen und darauf messen (Q-G0, mindestens das iPhone 13).
 
 ---
 

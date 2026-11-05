@@ -52,4 +52,4 @@ Die Blatt-Logik (Ziehen, Review-Stufe, Punkte, Lösung als Text) liegt seit 02.1
 
 ## Review-Vermerk (`review/`)
 
-`pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.
+`pnpm review` zeigt die wirksamen Review-Stufen aller Inhaltsdateien und veraltete Vermerke. `pnpm review --klasse 5` zeigt dasselbe nur für die Kompetenzen der Klassenstufe 5 (Ordnerinhalt und die Fehlvorstellungen, die sie nennen) und listet je Kompetenz, was noch unter Stufe 1 liegt (Meilenstein M5, `docs/session/QUALITAET-5-10.md`). `pnpm review setzen --stufe N --pruefer "…" <Kennungen>` schreibt den Block `review:` (INHALTSFORMAT §8). Eine Stufe braucht die vorige. Es schreibt alle Dateien oder keine.

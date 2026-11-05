@@ -1,5 +1,7 @@
 # Fokus-Sitzung „Prüfen statt Bauen“ – Session-Prompt
 
+> **Seit 05.11.2026 abgelöst durch `docs/session/QUALITAET-5-10.md` (K-32):** U4b ohne Termin, Einfrieren aufgehoben. Diese Datei bleibt als Beleg; offene Pakete (F3, F7–F10) gehen in Q-L1 bis Q-L4 auf (F7 ist der Meilenstein M5).
+>
 > Ein Auftrag aus dem Review vom 01.11.2026, der beide Stränge betrifft. Er gilt, bis Paket G und alle Pakete F1 bis F10 erledigt oder vom Projektverantwortlichen gestrichen sind.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md`, `docs/STRATEGIE.md` §0, `docs/INHALTSFORMAT.md` §8.
 > **Paket G** bearbeitet der **Strang Grafik** (Branch `grafik/…`, zusätzlich `docs/session/GRAFIK.md` lesen). **F1 bis F10** bearbeitet der **Strang Lernkern** (Branch `lernkern/…`, Protokollzeile in `LERNKERN-PROTOKOLL.md`). Ausnahmen für fremde und gemeinsame Dateien stehen bei jedem Paket.
