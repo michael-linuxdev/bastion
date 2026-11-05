@@ -8,7 +8,8 @@
   let { onclick }: { onclick: () => void } = $props();
 </script>
 
-<button type="button" class="zurueck" {onclick}>
+<!-- O15: data-zurueck – die Zurück-Taste des Geräts drückt genau diesen Knopf (App.svelte) -->
+<button type="button" class="zurueck" data-zurueck {onclick}>
   <Symbol name="zurueck" />
   {t('uebung.zurueck')}
 </button>
@@ -30,8 +31,11 @@
     color: var(--farbe-text);
     cursor: pointer;
   }
-  .zurueck:hover {
-    background: var(--farbe-flaeche-leise);
+  /* O20: Hover nur mit Maus – am Handy blieb die Fläche nach dem Antippen stehen */
+  @media (hover: hover) {
+    .zurueck:hover {
+      background: var(--farbe-flaeche-leise);
+    }
   }
   .zurueck :global(svg) {
     inline-size: 1.25rem;

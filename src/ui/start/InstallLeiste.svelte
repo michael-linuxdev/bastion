@@ -15,11 +15,13 @@
   .leiste {
     font: inherit;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--abstand-s);
+    gap: 0 var(--abstand-s);
     inline-size: 100%;
     min-block-size: var(--ziel);
+    padding-block: 0.35rem;
     margin-block-end: var(--abstand-s);
     padding-inline: var(--abstand-m);
     border: 2px solid var(--farbe-hinweis-rand);
@@ -32,6 +34,5 @@
   }
   .los {
     color: var(--farbe-akzent);
-    white-space: nowrap;
   }
 </style>

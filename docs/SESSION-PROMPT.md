@@ -101,6 +101,7 @@ Mehrere Sitzungen arbeiten gleichzeitig, je eine pro Strang (Lernkern, Grafik, O
    - Erlaubt sind nur Fehlerbehebungen und Pakete aus `FOKUS.md` (z. B. Vermerk „Entwurf“ aus F2). Sonst ändert sich der Test U4b unter den Händen und lässt sich nicht auswerten.
    - **Ausnahme Klasse 9 bis 12 (PV, 02.11.2026):** Der Strang Lernkern darf neue Aufgabentypen, Tasten und Darstellungen bauen, die der Stoff der Klassen 9–12 braucht (`docs/session/KLASSE-9-12.md`, Entscheidung 4). Je Typ ein eigener PR; vorhandene Aufgaben der Klassen 5–8 sehen danach gleich aus. Ebenso erlaubt (PV, 02.11.2026): Niveaus für Lernende ausblenden und automatisch wählen (LEHRPLAN L-22).
    - **Aufgehoben für Start, Mehr und Elternbereich (PV, 03.11.2026):** `src/ui/start/` und `src/ui/eltern/` sind nicht mehr eingefroren. Sie gehören jetzt dem Strang Oberfläche, der sie aufräumt und auch umbauen darf (`docs/session/OBERFLAECHE.md`).
+   - **Ausnahme Bedienbarkeit (PV, 04.11.2026):** Der Strang Oberfläche hat `MeinStand.svelte`, `ThemenLandkarte.svelte`, `KlassenWahl.svelte` (nur die Option `kompakt`) und in `Uebung.svelte` Bildgröße, Beschriftung und Prüfen-Hinweis geändert (O18, O22, `docs/session/OBERFLAECHE.md`). Für die Auswertung von U4b gilt Mein Stand in dieser Fassung.
    - Die Ausnahme „Aufräumen nach `GRAFIK.md` §9“ aus Regel 1 ruht. Der Strang Grafik arbeitet nur an Paket G und der Bastion.
 ---
 

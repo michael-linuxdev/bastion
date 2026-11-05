@@ -75,6 +75,16 @@
   let wiederherstellung = $state('');
   let code = $state('');
   let fehler = $state<TextSchluessel | undefined>(undefined);
+  /** O20: Rückmeldung zur Wiederholung schon beim Tippen, nicht erst nach dem Absenden */
+  const pin2Stand = $derived(
+    pin2.length === 0
+      ? undefined
+      : pin2 === pin && pinGueltig(pin)
+        ? 'passt'
+        : pin2.length >= pin.length && pin2 !== pin
+          ? 'anders'
+          : undefined,
+  );
   let beschaeftigt = $state(false);
 
   let ausSicherung = $state(false);
@@ -177,7 +187,10 @@
           bind:value={pin}
         /></label
       >
-      <p class="regel" id="pin-regel">{t('eltern.pin-regel')}</p>
+      <!-- O20: die Regel steht nur hier und zeigt während der Eingabe, ob sie erfüllt ist -->
+      <p class="regel" class:erfuellt={pinGueltig(pin)} id="pin-regel">
+        {#if pinGueltig(pin)}<span aria-hidden="true">✓ </span>{/if}{t('eltern.pin-regel')}
+      </p>
       <label
         >{t('eltern.pin-wiederholen')}
         <input
@@ -186,9 +199,16 @@
           pattern="[0-9]*"
           maxlength="8"
           autocomplete="new-password"
+          aria-describedby="pin-gleich"
           bind:value={pin2}
         /></label
       >
+      <p class="regel" class:erfuellt={pin2Stand === 'passt'} id="pin-gleich" aria-live="polite">
+        {#if pin2Stand === 'passt'}<span aria-hidden="true">✓ </span>{t('eltern.pin-passt')}
+        {:else if pin2Stand === 'anders' && fehler !== 'eltern.pin-ungleich'}{t(
+            'eltern.pin-ungleich',
+          )}{/if}
+      </p>
       {#if fehler}<p class="fehler" role="alert">{t(fehler)}</p>{/if}
       <button class="haupt" disabled={beschaeftigt}>
         {schritt === 'einrichten' ? t('eltern.festlegen') : t('eltern.zuruecksetzen')}
@@ -441,6 +461,13 @@
   .regel {
     font-size: 0.9rem;
     color: var(--farbe-text-leise);
+  }
+  .regel:empty {
+    display: none;
+  }
+  .regel.erfuellt {
+    color: var(--farbe-akzent);
+    font-weight: 700;
   }
   form {
     max-inline-size: 28rem;

@@ -10,11 +10,14 @@
     schulart = $bindable(undefined),
     kurs = $bindable(undefined),
     mitSchulart = false,
+    kompakt = false,
   }: {
     klasse?: number;
     schulart?: 'oberschule' | 'gymnasium' | undefined;
     kurs?: 'gk' | 'lk' | undefined;
     mitSchulart?: boolean;
+    /** O18: als Segmentleiste in einer Zeile (Mein Stand); Übersicht und Diagnose unverändert */
+    kompakt?: boolean;
   } = $props();
 
   /** „keine Angabe“ als leerer Wert im Formular */
@@ -24,12 +27,15 @@
   const KURSE = ['', 'gk', 'lk'] as const;
 </script>
 
-<fieldset class="klasse">
+<fieldset class="klasse" class:kompakt>
   <legend>{t('klasse.ueberschrift')}</legend>
   {#each KLASSEN as k (k)}
     <label
       ><input type="radio" value={k} bind:group={klasse} />
-      {k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}</label
+      {#if kompakt}<span aria-hidden="true">{k === OBERSTUFE ? '11/12' : k}</span><span
+          class="unsichtbar"
+          >{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}</span
+        >{:else}{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}{/if}</label
     >
   {/each}
 </fieldset>
@@ -90,6 +96,53 @@
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
+  }
+
+  /* O18: Segmente – das Feld selbst bleibt für Tastatur und Screenreader da, nur unsichtbar */
+  .klasse.kompakt {
+    gap: 0.35rem;
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+  .klasse.kompakt legend {
+    font-weight: 700;
+    margin-block-end: 0.35rem;
+  }
+  .klasse.kompakt label {
+    position: relative;
+    justify-content: center;
+    min-inline-size: 2.75rem;
+    padding-inline: 0.75rem;
+    border-radius: 999px;
+    background: var(--farbe-flaeche);
+    box-shadow: inset 0 0 0 1px var(--farbe-rand);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .klasse.kompakt input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .klasse.kompakt label:has(input:checked) {
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    box-shadow: none;
+  }
+  .klasse.kompakt label:has(input:focus-visible) {
+    outline: 3px solid var(--farbe-akzent);
+    outline-offset: 2px;
+  }
+  .unsichtbar {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .hinweis {

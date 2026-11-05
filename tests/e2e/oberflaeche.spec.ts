@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-// Strang Oberfläche (docs/session/OBERFLAECHE.md, O1–O12): sichert ab, was neu ist und
+// Strang Oberfläche (docs/session/OBERFLAECHE.md, O1–O22): sichert ab, was neu ist und
 // sonst kein Test sieht – Banner, Plaketten, erreichbare ausgegraute Kacheln, Seitenkopf,
 // Klappkarten und Sprungleiste im Elternbereich.
 
@@ -178,4 +178,113 @@ test('Computer: keine Sperre und keine Leiste, Anleitung nur unter „Mehr“ (O
   await mehr(page);
   await page.getByRole('main').getByRole('button', { name: 'Als App installieren' }).click();
   await expect(page.getByText(/Erkannt: Computer/)).toBeVisible();
+});
+
+test('Zurück-Taste des Geräts führt Seite für Seite zurück; Titel und Fokus folgen (O15)', async ({
+  page,
+}) => {
+  await start(page);
+  await mehr(page);
+  await expect(page).toHaveTitle('Mehr – Bastion');
+  await expect(page.getByRole('heading', { name: 'Mehr', level: 2 })).toBeFocused();
+  await page.getByRole('main').getByRole('button', { name: 'Sicherung', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Alles sicher', level: 2 })).toBeVisible();
+  // Zurück wie mit dem Zurück-Knopf der Seite – nicht aus der App heraus
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: 'Mehr', level: 2 })).toBeVisible();
+  await page.goBack();
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+  await expect(page).toHaveTitle('Bastion');
+  // Zurück per Knopf in der App lässt keinen leeren Schritt im Verlauf
+  await mehr(page);
+  await page.getByRole('button', { name: 'Zurück', exact: true }).click();
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+  await mehr(page);
+  await page.goBack();
+  await expect(
+    page.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+});
+
+test('Einstellungen: Schriftgröße wirkt sofort und bleibt; große Schrift ohne Seitwärts-Wischen (O16, O19)', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await start(page);
+  await mehr(page);
+  await page.getByRole('main').getByRole('button', { name: 'Einstellungen', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Einstellungen', level: 2 })).toBeVisible();
+  await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toBeChecked();
+  await page.getByLabel('Sehr groß').check();
+  const wurzel = page.locator('html');
+  await expect(wurzel).toHaveCSS('font-size', '20px');
+  await page.reload();
+  await expect(wurzel).toHaveCSS('font-size', '20px');
+  // Doppelte Schrift (Einstellung am Gerät): die Startseite bleibt so breit wie der Bildschirm
+  await page.evaluate(() => (document.documentElement.style.fontSize = '200%'));
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
+    .toBeLessThanOrEqual(390);
+});
+
+test('Erststart Android: „Im Browser weiter“ merkt sich das Gerät (O17)', async ({
+  browser,
+  baseURL,
+}) => {
+  const android =
+    'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Mobile Safari/537.36';
+  const kontext = await browser.newContext({
+    ...(baseURL ? { baseURL } : {}),
+    userAgent: android,
+    viewport: { width: 412, height: 915 },
+  });
+  const seite = await kontext.newPage();
+  await seite.goto('./');
+  const sperre = seite.getByRole('dialog', { name: 'Zuerst Bastion installieren' });
+  await sperre.getByRole('button', { name: 'Ohne Installation im Browser weiter' }).click();
+  await expect(sperre).toHaveCount(0);
+  // Neues Öffnen (neuer Tab): keine Anleitung mehr, nur die ruhige Leiste
+  const zweite = await kontext.newPage();
+  await zweite.goto('./');
+  await expect(
+    zweite.getByRole('main').getByRole('button', { name: 'Üben', exact: true }),
+  ).toBeVisible();
+  await expect(zweite.getByRole('dialog')).toHaveCount(0);
+  // Beim allerersten Start noch keine Karte „Über mich“
+  await expect(zweite.getByRole('button', { name: 'Lieber später' })).toHaveCount(0);
+  await kontext.close();
+});
+
+test('Mein Stand: Einstieg oben, Klasse als Segmente, Bereiche als Klappkarten (O18)', async ({
+  page,
+}) => {
+  await start(page);
+  await page.getByRole('main').getByRole('button', { name: 'Mein Stand', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Mein Stand', level: 2 })).toBeVisible();
+  const weiter = page.getByRole('button', { name: /^Weiter mit:/ });
+  await expect(weiter).toBeVisible();
+  // Nur ein Bereich offen, die anderen zu; Namen ungekürzt
+  await expect(page.locator('.landkarte details[open]')).toHaveCount(1);
+  expect(await page.locator('.landkarte details').count()).toBeGreaterThan(1);
+  await expect(page.locator('.landkarte .name').first()).toHaveCSS('white-space', 'normal');
+  // Segmente: das Feld heißt weiter „Klasse 6“
+  await page.getByLabel('Klasse 6').check();
+  await expect(page.getByLabel('Klasse 6')).toBeChecked();
+  // Kein Bastion-Schalter mehr hier (steht unter Einstellungen)
+  await expect(page.getByRole('checkbox', { name: 'Bastion anzeigen' })).toHaveCount(0);
+});
+
+test('PIN: Rückmeldung schon beim Tippen (O20)', async ({ page }) => {
+  await start(page);
+  await mehr(page);
+  await page.getByRole('button', { name: 'Für Eltern' }).click();
+  await page.getByLabel('PIN', { exact: true }).fill('4711');
+  await page.getByLabel('PIN wiederholen').fill('4712');
+  await expect(page.getByText('Die beiden Eingaben stimmen nicht überein.')).toBeVisible();
+  await page.getByLabel('PIN wiederholen').fill('4711');
+  await expect(page.getByText('Beide Eingaben stimmen überein.')).toBeVisible();
 });

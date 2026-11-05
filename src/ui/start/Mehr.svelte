@@ -12,11 +12,14 @@
   let {
     eltern,
     offline,
+    sichern = false,
     onziel,
   }: {
     /** Elternbereich anbieten (nicht bei Erwachsenen, L-15) */
     eltern: boolean;
     offline: boolean;
+    /** O20: Sicherung ist wieder dran (monatliche Erinnerung) – die Infozeile sagt es ruhig */
+    sichern?: boolean;
     onziel: (z: Ziel | 'start') => void;
   } = $props();
 
@@ -55,9 +58,15 @@
       symbol: 'person',
     },
     {
+      ziel: 'einstellungen',
+      name: t('mehr.einstellungen'),
+      info: t('mehr.einstellungen-info'),
+      symbol: 'einstellungen',
+    },
+    {
       ziel: 'sicherung',
       name: t('sicherung.knopf'),
-      info: t('mehr.sicherung-info'),
+      info: sichern ? t('mehr.sicherung-faellig') : t('mehr.sicherung-info'),
       symbol: 'sicherung',
     },
     {

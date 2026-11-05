@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 03.11.2026 · Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
+Stand: 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -55,6 +55,17 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 8. ~~Neue Funktionen mit Tests absichern.~~ Erledigt (O13): `tests/e2e/oberflaeche.spec.ts` (Banner, Plaketten, erreichbare ausgegraute Kacheln, Seitenkopf, Klappkarten, Sprungleiste, PIN-Feld). `pnpm budget`: App-Hülle 182 von 250 KB.
 9. ~~Erststart: Installationsanleitung wie in `michael-linuxdev/einbuergerung` (PV).~~ Erledigt (O14): Auf Handy und Tablet im Browser erscheint zuerst „Zuerst Bastion installieren“ mit Schritten für das erkannte Gerät (`plattform/geraet.ts`, 16 Anleitungen), drei Gründen, dem Hinweis für iPhone/iPad (Browser-Stand kommt nicht mit in die App) und „Ohne Installation im Browser weiter“ (gilt bis zum nächsten Öffnen, `sessionStorage`). Danach eine ruhige Leiste „App nicht installiert – Installieren ›“ auf der Startseite. Unter „Mehr“: „Als App installieren“ mit dem eigenen Gerät und anderen Geräten. Bietet der Browser selbst ein Installieren an (`beforeinstallprompt`), steht „Jetzt installieren“ darüber. Am Computer keine Sperre und keine Leiste. Keine neue Abhängigkeit, keine Netzabfrage.
 
+10. ~~Bedienbarkeit, zwei Rundgänge vom 04.11.2026 (PV: „Setze alles davon um“, auch Punkt 6 selbst).~~ Erledigt:
+   - **O15 Zurück-Taste des Geräts** (`App.svelte`): Außerhalb der Startseite liegt genau ein eigener Eintrag im Verlauf. Zurück (Taste, Wischgeste, Browser) drückt den sichtbaren Zurück-Knopf der Seite (`data-zurueck` in `ZurueckKnopf.svelte`), ohne Knopf geht es zur Startseite. Zurück per Knopf in der App nimmt den Eintrag wieder weg. Nach jedem Wechsel: oben anfangen, Fokus auf die Überschrift (`tabindex=-1`, ohne Rahmen), Titel im Tab „Seite – Bastion“.
+   - **O16 Startseite:** Spalten nach Platz (`auto-fit`, `minmax(min(100%, 10rem), 1fr)`): bei großer Schrift untereinander, kein Seitwärts-Wischen. Lange Namen brechen um. Üben-Tür nennt „Klasse 5 · Thema“ (Thema nur, wenn die Inhalte schon geladen sind; kein zusätzliches Laden beim Start). Leere Kacheln (Wiederholen, Fehlerwerkstatt) bleiben (O3), stehen aber flacher hinter den aktiven – im Code in derselben Reihenfolge, damit Tastatur und Screenreader sie gleich erleben. Handy quer: Banner höchstens 40 % der Höhe. Ab 64rem quer: Banner links (klebt), Türen rechts, Spalte 64rem.
+   - **O17 Erststart:** „Ohne Installation im Browser weiter“ als Knopf direkt nach den Schritten (auf iPhone/iPad nach der Warnung), Gründe darunter. Die Wahl merkt sich das Gerät (`localStorage`); auf iPhone/iPad weiter nur bis zum nächsten Öffnen, weil der Stand aus dem Browser nicht mit in die App kommt. Karte „Über mich“ erst nach der ersten Aufgabe.
+   - **O18 Mein Stand** (Ausnahme von Regel 7, PV): oben eine Karte mit Zusammenfassung bzw. Einstiegssatz und „Weiter mit: …“; Klasse als Segmentleiste (`KlassenWahl kompakt`, Feldnamen bleiben „Klasse 6“); Bereiche der Landkarte als Klappkarten mit „x von y sicher · z in Arbeit“, offen nur Bereiche mit laufenden Themen (sonst der erste); Themennamen ungekürzt. Bastion-Schalter nicht mehr hier.
+   - **O19 Einstellungen** (`src/ui/profil/Einstellungen.svelte`, unter Mehr): Schriftgröße (Normal, Groß 112,5 %, Sehr groß 125 %; neue Einstellung `darstellung.schrift`, kein neues Schema), Bastion an/aus, Abend in der Bastion, kräftiger Text, Ton, Bildschirm. „Über mich“ enthält nur noch die Angaben und einen Hinweis für Geschwister an einem Gerät. Wetter, Kamera und Bewegung bleiben in der Bastion.
+   - **O20 PIN und Kleines:** Regel nur noch am Feld, mit ✓, sobald sie erfüllt ist; „Beide Eingaben stimmen überein“ bzw. „stimmen nicht überein“ schon beim Tippen. Zurück-Knopf mit Hover nur bei Maus (am Handy blieb die Fläche stehen). Unter Mehr sagt die Infozeile der Sicherung, wenn sie wieder dran ist.
+   - **O22 Punkt 6 selbst** (Ausnahme PV von Regel 1 und 7): Übungsbild größer (`max(10rem, 28dvh)`), Beschriftung fett mit hellem Rand; „Zeichnen lernen“ als kleine Karte mit einer Zeile je Anleitung; Prüfen-Hinweis kräftiger und per `aria-describedby` am Knopf. Bastion: „Vorrat zeigen“ als Plakette mit Fläche.
+   - **Geprüft, war schon da:** Zifferntastatur der PIN (`inputmode="numeric"`), Enter prüft (Formular), Seite „Fertig für heute“ (R5), Meldung bei fehlendem Inhaltspaket mit „Nochmal“, Datum der letzten Sicherung und Bestätigung nach dem Einspielen.
+   - **Bewusst nicht gebaut:** Elternbereich ohne erneute PIN offen lassen – ein Kind bekäme das Gerät sonst direkt mit offenem Elternbereich zurück. Dunkelmodus: Lernflächen bleiben nach Design L61 hell; Wunsch zum Banner-Schleier an Grafik. Bericht in Alltagssprache gehört zum Lernkern-Baustein. Entwurf-Vermerk bleibt auf Start (für Lernende) und im Elternbereich (T-20 verlangt ihn für Eltern).
+
 ## Nächste Schritte (Vorschläge)
 
 
@@ -66,6 +77,8 @@ _(noch keine)_
 
 ## Wünsche an andere Stränge
 
+- An Grafik (04.11.2026): Banner bei dunklem Gerät ohne grauen Schleier (`GRAFIK.md`, Wünsche).
+
 - ~~An Grafik (03.11.2026): Symbole `person`, `sicherung`, `kalender`.~~ Selbst erledigt in O4 (Wunsch PV).
 
 ## Übergabe und Lehren
@@ -73,6 +86,9 @@ _(noch keine)_
 **Übergabe (03.11.2026):** O0 ist auf `main` (#239). O1 bis O5 kommen gemeinsam in einem PR (Branch `oberflaeche/eltern`), weil die Schritte aufeinander aufbauen; die Commits bleiben einzeln lesbar. Offen sind die Vorschläge oben unter „Nächste Schritte“.
 
 **Lehren:**
+
+- Die Unit-Tests (`pnpm test`) brauchen in der Cloud-Sitzung rund acht Minuten; im Hintergrund laufen lassen und dabei weiterarbeiten.
+- Neue Wege brechen Tests im Lernkern-Bereich (`ueben.spec.ts`), die Einstellungen oder „Über mich“ direkt ansteuern. Dafür gibt es jetzt die Helfer `einstellungen(page)` und `einladungWeg(page)`.
 
 - Die Browser-Tests laufen als „Desktop Chrome“. Für Handy-Verhalten (Installationssperre) im Test einen eigenen Kontext mit iPhone-`userAgent` öffnen (`tests/e2e/oberflaeche.spec.ts`).
 

@@ -8,11 +8,8 @@
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
   import Bericht from '../eltern/Bericht.svelte';
   import PinVermerke from '../eltern/PinVermerke.svelte';
-  import Leerzustand from '../grafik/Leerzustand.svelte';
   import { pinVermerke, type Zustand } from '../plattform/ablage';
-  import { tt } from '../bastion/thema.svelte';
   import { t, type TextSchluessel } from '../texte/texte';
-  import BasebauSchalter from '../bastion/BasebauSchalter.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
   import { nachBereich } from './reihenfolge';
   import { naechsteWiederholungGesamt, sitzt, statusGesamt } from './stand';
@@ -24,7 +21,6 @@
     zustand,
     aufgaben,
     klasse = $bindable(5),
-    basebau = $bindable(true),
     selbst = false,
     onueben,
   }: {
@@ -33,8 +29,6 @@
     zustand: Zustand;
     aufgaben: readonly AufgabeEreignis[];
     klasse?: number;
-    /** Basebau-Schalter (R7) */
-    basebau?: boolean;
     /** selbstverwaltet (L-15): kein Elternbereich – der Bericht gehört einem selbst */
     selbst?: boolean;
     onueben: (k: Kompetenz) => void;
@@ -63,6 +57,8 @@
   const allesSitzt = $derived(
     angefangen && themen.length > 0 && themen.every((k) => sitzt(status.get(k.id) ?? 'neu')),
   );
+  /** O18: der eine nächste Schritt oben auf der Seite */
+  const naechstes = $derived(weiter[0] ?? (angefangen ? undefined : themen[0]));
   const datum = (ms: number) =>
     new Date(ms).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' });
 
@@ -71,45 +67,40 @@
 
 <section class="stand register-ort">
   <h2>{t('stand.ueberschrift')}</h2>
-  <p class="leise">{t('stand.landkarte-hinweis')}</p>
 
-  <KlassenWahl bind:klasse />
+  <!-- O18 (PV 04.11.2026, Ausnahme von Regel 7): oben in einem Blick, wo ich stehe und wie
+       es weitergeht; darunter Klasse als Segmente und die Bereiche als Klappkarten -->
+  <div class="ueberblick">
+    {#if allesSitzt}
+      <p class="feier" role="status">{t('stand.alles-sitzt')}</p>
+    {:else}
+      <p class="zahlen">
+        {themen.length}
+        {t('stand.zusammenfassung')} ·
+        {gruppe('gefestigt').length}
+        {t('status.gefestigt')} ·
+        {gruppe('gekonnt').length + gruppe('auffrischen').length}
+        {t('status.gekonnt')} ·
+        {gruppe('in-arbeit').length}
+        {t('status.in-arbeit')}
+      </p>
+    {/if}
+    {#if !angefangen}<p class="einstieg">{t('stand.leer')}</p>{/if}
+    {#if naechstes && !allesSitzt}
+      <button class="haupt" onclick={() => onueben(naechstes)}
+        >{t('stand.weiter-mit')} {naechstes.titel.de}</button
+      >
+    {/if}
+  </div>
 
-  {#if allesSitzt}
-    <p class="feier" role="status">{t('stand.alles-sitzt')}</p>
-  {:else}
-    <p class="zahlen">
-      {themen.length}
-      {t('stand.zusammenfassung')} ·
-      {gruppe('gefestigt').length}
-      {t('status.gefestigt')} ·
-      {gruppe('gekonnt').length + gruppe('auffrischen').length}
-      {t('status.gekonnt')} ·
-      {gruppe('in-arbeit').length}
-      {t('status.in-arbeit')}
-    </p>
-  {/if}
+  <KlassenWahl bind:klasse kompakt />
 
   <ThemenLandkarte {themen} {status} {onueben} />
 
-  {#if !angefangen}
-    {@const erstes = themen[0]}
-    {#if erstes}
-      <Leerzustand
-        symbol="stand"
-        text={t('stand.leer')}
-        knopf={t('leer.ueben')}
-        onknopf={() => onueben(erstes)}
-      />
-    {:else}
-      <Leerzustand symbol="stand" text={t('stand.leer')} />
-    {/if}
-  {/if}
-
-  {#if weiter.length > 0}
+  {#if weiter.length > 1}
     <h3>{t('stand.empfohlen')}</h3>
     <ul class="liste">
-      {#each weiter as k (k.id)}
+      {#each weiter.slice(1) as k (k.id)}
         <li>
           <span>{k.titel.de}</span>
           <button onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
@@ -144,9 +135,6 @@
     <p class="leise">{t('stand.neu')}: {gruppe('neu').length}</p>
   {/if}
 
-  <h3>{tt('basebau.ueberschrift')}</h3>
-  <BasebauSchalter bind:an={basebau} durch="jugendlich" />
-
   <!-- Transparenz (KONZEPT §10): genau das, was Eltern sehen können -->
   <details class="eltern-sehen">
     <summary>{selbst ? t('stand.bericht-selbst') : t('stand.eltern-sehen')}</summary>
@@ -168,6 +156,29 @@
 
   .zahlen {
     font-weight: bold;
+    margin: 0;
+  }
+
+  .ueberblick {
+    display: grid;
+    gap: var(--abstand-s);
+    justify-items: start;
+    padding: var(--abstand-m);
+    border-radius: var(--radius-karte);
+    background: var(--farbe-flaeche);
+    box-shadow: 0 2px 10px var(--farbe-schatten);
+  }
+
+  .einstieg {
+    margin: 0;
+  }
+
+  .ueberblick .haupt {
+    border: none;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
+    font-weight: 700;
+    text-align: start;
   }
 
   .feier {

@@ -88,6 +88,13 @@ export const soundStufeAus = (wert: unknown): SoundStufe => {
 export const KONTRAST_SCHLUESSEL = 'darstellung.kontrast';
 export const kontrastAn = (wert: unknown): boolean => wert === true;
 
+/** Schriftgröße der App (O19): drei Stufen, Standard „normal“. */
+export const SCHRIFT_SCHLUESSEL = 'darstellung.schrift';
+export const SCHRIFT_STUFEN = ['normal', 'gross', 'sehr-gross'] as const;
+export type SchriftStufe = (typeof SCHRIFT_STUFEN)[number];
+export const schriftAus = (wert: unknown): SchriftStufe =>
+  SCHRIFT_STUFEN.find((x) => x === wert) ?? 'normal';
+
 /** Offline-Hinweis einmalig gesehen (Design-Ideen K47); nur `true` = schon gezeigt. */
 export const OFFLINE_HINWEIS_SCHLUESSEL = 'ui.offline-hinweis';
 
