@@ -497,6 +497,7 @@
   }
   /* O1: Kacheln sehen aus wie die Nebentüren – Symbol und Name in einer Zeile, Info darunter */
   .kachel {
+    position: relative;
     display: grid;
     align-content: center;
     justify-items: start;
@@ -528,7 +529,9 @@
     justify-self: stretch;
   }
   .zahl {
-    margin-inline-start: auto;
+    position: absolute;
+    inset-block-start: 0.6rem;
+    inset-inline-end: 0.6rem;
     min-inline-size: 1.6rem;
     block-size: 1.6rem;
     padding-inline: 0.4rem;
@@ -550,12 +553,15 @@
   .tuer-titel {
     min-inline-size: 0;
     overflow-wrap: anywhere;
-    hyphens: manual;
+    hyphens: auto;
   }
-  /* D4 (Q-O1): die Plakette rutscht in die nächste Zeile, statt den Namen zu trennen */
+  /* D4 (Q-O1): die Plakette sitzt in der Ecke der Kachel, nicht in der Namenszeile – so bricht
+     „Wiederholen“ nicht mehr; der Name hält rechts Platz für sie frei */
+  .kachel-name:has(.zahl) {
+    padding-inline-end: 2rem;
+  }
   .kachel-name {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
     font-weight: 800;
