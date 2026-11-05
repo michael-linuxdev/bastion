@@ -26,7 +26,6 @@
   import Textteile from './Textteile.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import { soundUiErgebnis } from '../bastion/sound/sound';
-  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
 
   let {
     ueberschrift,
@@ -83,7 +82,6 @@
   } = $props();
   let fehlerInFolge = $state(0);
   /** Session-Zahnrad: Orientierung, ohne die Übung zu überfrachten */
-  let sessionEinstellungen = $state(false);
   /** Großer Pausenblock (Einladung nach fünf Aufgaben, R5 / N77) */
   const BLOCK = 5;
   /** Früher ruhiger Atemzug nach wenigen Aufgaben (M65) */
@@ -296,25 +294,18 @@
 </script>
 
 <section class="uebung">
+  <!-- B7 (Q-O1): „Bildschirm drehen“ steht unter Mehr → Einstellungen, nicht mehr in der Übung -->
   <div class="oben">
     <ZurueckKnopf onclick={onzurueck} />
-    <button
-      class="zahnrad"
-      aria-expanded={sessionEinstellungen}
-      aria-controls="session-einstellungen"
-      aria-label={t('session.einstellungen')}
-      onclick={() => (sessionEinstellungen = !sessionEinstellungen)}
-    >
-      <Symbol name="einstellungen" />
-    </button>
   </div>
-  {#if sessionEinstellungen}
-    <div id="session-einstellungen" class="session">
-      <OrientierungWahl kompakt />
-    </div>
-  {/if}
   <header class="kopf">
-    <h2>{ueberschrift}</h2>
+    {#if modus !== 'ueben' && aufgabe}
+      <!-- B8 (Q-O1): das Thema als Überschrift, die Art (Wiederholen, Werkstatt) als Zeile darüber -->
+      <p class="herkunft">{ueberschrift}</p>
+      <h2>{aufgabe.kompetenz.titel.de}</h2>
+    {:else}
+      <h2>{ueberschrift}</h2>
+    {/if}
     {#if stufe}<span class="stufe" aria-label="{t('niveau.stufe')}: {stufe}">{stufe}</span>{/if}
     {#if onerklaerung}
       <button
@@ -324,6 +315,7 @@
         onclick={onerklaerung}
       >
         <Symbol name="buch" />
+        <span aria-hidden="true">{t('vermittlung.knopf')}</span>
       </button>
     {/if}
     {#if aufgabe || erledigt > 0}
@@ -354,11 +346,6 @@
       <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil; live nur Urteil -->
       <article class="arbeitsblatt aufgabe" class:phase-rueckmeldung={ergebnis !== undefined}>
         <div class="prompt aufgabe-frage" id="aufgabe-frage">
-          {#if modus !== 'ueben'}
-            <!-- Ohne Niveau (L-22): Lernende sehen es nicht -->
-            <p class="herkunft">{aufgabe.kompetenz.titel.de}</p>
-          {/if}
-          <p class="gesucht">{t('uebung.gesucht')}</p>
           {#if aufgabe.vorlage.hilfsmittelfrei}
             <!-- B10: Teil-A-Aufgaben (Abitur, Realschulabschluss) ohne Taschenrechner -->
             <p class="ohne-rechner">
@@ -394,28 +381,23 @@
           {/if}
 
           {#if aufgabe.frueher}
+            <!-- B8 (Q-O1): eine Zeile statt zweier Kästen; „heute“ sagt, was zu tun ist (L10) -->
             <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
-              <!-- L10: Beschriftung vor dem Wert; „heute“ sagt, was zu tun ist -->
-              <div class="seite damals">
-                <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
-                <p class="seite-leise">{t('werkstatt.damals')}</p>
-                <p class="seite-wert">
-                  <strong
-                    ><Rechentext
-                      text={antwortText(
-                        aufgabe.frueher,
-                        aufgabe.instanz.optionen,
-                        aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-                      )}
-                      erklaeren={false}
-                    /></strong
-                  >
-                </p>
-              </div>
-              <div class="seite heute">
-                <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
-                <p class="seite-leise">{t('werkstatt.paar-heute-text')}</p>
-              </div>
+              <span class="damals"
+                ><strong>{t('werkstatt.paar-damals')}:</strong>
+                <Rechentext
+                  text={antwortText(
+                    aufgabe.frueher,
+                    aufgabe.instanz.optionen,
+                    aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                  )}
+                  erklaeren={false}
+                /></span
+              >
+              <span class="heute"
+                ><strong>{t('werkstatt.paar-heute')}:</strong>
+                {t('werkstatt.paar-heute-text')}</span
+              >
             </div>
           {/if}
 
@@ -643,28 +625,6 @@
     gap: var(--abstand-s);
   }
 
-  .zahnrad {
-    font: inherit;
-    display: grid;
-    place-items: center;
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    padding: 0;
-    border: none;
-    border-radius: var(--radius);
-    background: transparent;
-    color: var(--farbe-text-leise);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .session {
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche-leise);
-  }
-
   .kopf {
     display: flex;
     flex-wrap: wrap;
@@ -688,13 +648,14 @@
     letter-spacing: 0.02em;
   }
 
+  /* B7 (Q-O1): Buch mit Wort, damit klar ist, was der Knopf tut */
   .erklaerung {
     font: inherit;
-    display: grid;
-    place-items: center;
-    inline-size: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     block-size: 2.75rem;
-    padding: 0;
+    padding-inline: var(--abstand-s) var(--abstand-m);
     border: none;
     border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
@@ -784,54 +745,24 @@
   .paar {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--abstand-s);
-    align-items: stretch;
-  }
-
-  .seite {
+    gap: 0.25rem var(--abstand-m);
+    margin-block-start: var(--abstand-s);
+    padding-block: 0.5rem;
+    padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    padding: var(--abstand-s);
-    flex: 1 1 8rem;
-  }
-
-  .seite.damals {
     background: var(--farbe-flaeche-leise);
+    font-size: 1rem;
+  }
+
+  .paar .damals {
     color: var(--farbe-text-leise);
-  }
-
-  .seite.heute {
-    flex: 2 1 14rem;
-    background: color-mix(in srgb, var(--farbe-flaeche) 70%, var(--farbe-akzent));
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 25%, transparent);
-  }
-
-  .seite-titel {
-    margin: 0 0 0.25rem;
-    font-size: 0.85rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .seite-wert {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--farbe-text);
-  }
-
-  .seite-leise {
-    margin: 0.35rem 0 0;
-    font-size: 0.85rem;
-  }
-
-  .damals {
-    color: var(--farbe-text-leise);
-    margin-block: 0;
   }
 
   .herkunft {
+    flex-basis: 100%;
     color: var(--farbe-text-leise);
     font-size: 1rem;
+    font-weight: 700;
     margin-block: 0;
   }
 
@@ -848,15 +779,6 @@
     background: var(--farbe-flaeche-leise);
     font-size: 0.9rem;
     font-weight: 700;
-  }
-
-  .gesucht {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: var(--farbe-text-leise);
   }
 
   .text {
@@ -1062,12 +984,6 @@
 
     h2 {
       font-size: 1.125rem;
-    }
-
-    .session {
-      padding-block: 0.25rem;
-      padding-inline: var(--abstand-s);
-      font-size: 0.875rem;
     }
 
     .aufgabe {

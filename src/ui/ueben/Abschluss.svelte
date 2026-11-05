@@ -10,7 +10,6 @@
   import { tagesertrag } from '../../core/ledger/heute';
   import { lerntag } from '../../core/policy/lerntag';
   import type { Zustand } from '../plattform/ablage';
-  import Symbol from '../grafik/Symbol.svelte';
   import { menge, tt } from '../bastion/thema.svelte';
   import { t } from '../texte/texte';
 
@@ -71,16 +70,17 @@
       ] as const
     ).filter(([, n]) => n > 0),
   );
+  // B6 (Q-O1): ein Satz statt Satz, Klammer und Beutel-Liste – die Herkunft steht darunter
   const steinSatz = $derived(
-    ertrag.menge.fleiss + ertrag.startpaket.fleiss > 0
-      ? `${tt('abschluss.stein-verdient')} (${menge('fleiss', ertrag.menge.fleiss + ertrag.startpaket.fleiss)})`
+    beutel.length > 0
+      ? `${tt('abschluss.stein-verdient')} ${beutel.map(([r, n]) => menge(r, n)).join(` ${tt('abschluss.und')} `)}`
       : undefined,
   );
 </script>
 
 <section class="abschluss register-ort">
-  <p class="ritual">{tt('abschluss.ritual')}</p>
   <h2>{tt('abschluss.ueberschrift')}</h2>
+  <p class="ritual">{tt('abschluss.ritual')}</p>
 
   {#if bilanz.aufgaben === 0}
     <p>{tt('abschluss.nichts')}</p>
@@ -123,31 +123,8 @@
       {/if}
     </ul>
     {#if basebau}
-      {#if steinSatz || beutel.length > 0}
-        <aside class="beutel" aria-label={t('abschluss.beutel-titel')}>
-          {#if steinSatz}
-            <p class="stein" role="status">{steinSatz}</p>
-          {/if}
-          {#if beutel.length > 0}
-            <p class="beutel-titel">{t('abschluss.beutel-titel')}</p>
-            <ul class="chips">
-              {#each beutel as [r, n] (r)}
-                <li>
-                  <Symbol
-                    name={r === 'fleiss'
-                      ? 'ueben'
-                      : r === 'behalten'
-                        ? 'wiederholen'
-                        : r === 'koennen'
-                          ? 'diagnose'
-                          : 'bastion'}
-                  />
-                  <span>{menge(r, n)}</span>
-                </li>
-              {/each}
-            </ul>
-          {/if}
-        </aside>
+      {#if steinSatz}
+        <p class="stein" role="status">{steinSatz}</p>
       {/if}
       <h3>{tt('abschluss.ertrag')}</h3>
       {#if ertrag.menge.fleiss + ertrag.menge.behalten + ertrag.menge.schritt + ertrag.menge.koennen + ertrag.startpaket.kompetenzen === 0}
@@ -269,46 +246,11 @@
     gap: var(--abstand-s);
   }
 
-  .beutel {
-    display: grid;
-    gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: color-mix(in srgb, var(--farbe-flaeche) 88%, var(--farbe-akzent));
-    box-shadow: 0 2px 8px var(--farbe-schatten);
-  }
-
   .stein {
     margin: 0;
+    margin-block-start: var(--abstand-s);
     font-weight: 800;
     font-size: 1.125rem;
-  }
-
-  .beutel-titel {
-    margin: 0;
-    color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-  }
-
-  .chips {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
-  }
-
-  .chips li {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 700;
-  }
-
-  .chips :global(svg) {
-    inline-size: 1.1rem;
-    block-size: 1.1rem;
     color: var(--farbe-akzent);
   }
 

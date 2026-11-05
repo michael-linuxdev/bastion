@@ -525,6 +525,12 @@
     background: color-mix(in srgb, var(--farbe-akzent) 10%, var(--farbe-flaeche));
   }
 
+  /* D3 (Q-O1): Brüche in Antwortmöglichkeiten in Textgröße und mittig */
+  .option :global(.formel) {
+    font-size: 1.15em;
+    vertical-align: middle;
+  }
+
   .bild {
     display: block;
     inline-size: 100%;

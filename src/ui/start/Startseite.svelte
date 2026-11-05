@@ -550,10 +550,12 @@
   .tuer-titel {
     min-inline-size: 0;
     overflow-wrap: anywhere;
-    hyphens: auto;
+    hyphens: manual;
   }
+  /* D4 (Q-O1): die Plakette rutscht in die nächste Zeile, statt den Namen zu trennen */
   .kachel-name {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--abstand-s);
     font-weight: 800;

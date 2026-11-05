@@ -381,15 +381,32 @@
     border-inline-start: 4px solid var(--farbe-akzent-warm);
   }
 
-  .stein.naechster {
-    outline: 2px solid var(--farbe-akzent);
-    outline-offset: 1px;
+  /* C6 (Q-O1): „Das wackelt noch“ als Zeilen in voller Breite, Knopf rechts, Plakette im Text */
+  .feld.wackelt .steine {
+    display: grid;
+  }
+
+  .stein.wackelt {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .stein.wackelt .haupt {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 
   .naechster-label {
+    grid-column: 1;
+    justify-self: start;
+    padding-block: 0.1rem;
+    padding-inline: 0.5rem;
+    border-radius: 999px;
+    background: var(--farbe-akzent);
+    color: var(--farbe-auf-akzent);
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--farbe-akzent);
   }
 
   .diagnose {
