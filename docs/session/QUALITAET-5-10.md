@@ -109,17 +109,17 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | | M.GM.KP.EINHEITEN | Volumeneinheiten und Hohlmaße | Würfel | |
 | | M.GM.KP.VOLUMEN | Volumen von Würfel und Quader | Quader | |
 | | M.GM.KP.OBERFLAECHE | Oberfläche von Würfel und Quader | Netz | Flächen, Summe |
-| Raum und Form | M.RF.GF.LAGE | Parallel, senkrecht, schneidend | Geraden | |
-| | M.RF.GF.WINKEL | Winkel | Winkel | |
-| | M.RF.GF.WINKELPAARE | Winkelpaare an Geraden | Geraden | |
-| | M.RF.GF.KOORDINATEN | Koordinatensystem | Koordinaten ✓ | |
-| | M.RF.KP.DARSTELLEN | Würfel und Quader darstellen | Schrägbild, Netz | |
-| | M.RF.SY.SYMMETRIE | Symmetrische Figuren | Figur | |
-| | M.RF.SY.SPIEGELN | An einer Geraden spiegeln | Gitter | |
-| | M.RF.SY.BEWEGUNGEN | Spiegeln, Verschieben, Drehen | Gitter | |
+| Raum und Form | M.RF.GF.LAGE | Parallel, senkrecht, schneidend | Geraden ✓ | |
+| | M.RF.GF.WINKEL | Winkel | Winkel ✓ | |
+| | M.RF.GF.WINKELPAARE | Winkelpaare an Geraden | Geraden ✓ | |
+| | M.RF.GF.KOORDINATEN | Koordinatensystem | Gitter ✓ (vorher ohne Bild, die Tabelle war falsch) | |
+| | M.RF.KP.DARSTELLEN | Würfel und Quader darstellen | Netz, Schrägbild ✓ | |
+| | M.RF.SY.SYMMETRIE | Symmetrische Figuren | Gitter ✓ | |
+| | M.RF.SY.SPIEGELN | An einer Geraden spiegeln | Gitter ✓ | |
+| | M.RF.SY.BEWEGUNGEN | Spiegeln, Verschieben, Drehen | Gitter ✓ | |
 | Daten und Zufall | M.DZ.DA.MITTELWERT | Arithmetisches Mittel | Säulen | Summe, teilen |
 
-Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht, keine Prüfung. Die Sitzung, die ein Feld übernimmt, prüft sie an den Dateien und korrigiert die Tabelle.
+Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht, keine Prüfung. Ein ✓ heißt: Paket Q-L2 für diese Kompetenz erledigt (Bild oder Werkzeug an der Stelle, die erklärt). Die Sitzung, die ein Feld übernimmt, prüft sie an den Dateien und korrigiert die Tabelle.
 
 ## Startsätze
 

@@ -21,26 +21,38 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Auf einer Karte stehen die Buchstaben unten, die Zahlen am Rand links. Ein Schatz liegt bei „C 4“. Was suchst du zuerst: den Buchstaben unten oder die Zahl links?'
+      de: 'Bewege den Punkt P mit den Pfeilen nach rechts und schau auf die Klammer. Welche der beiden Zahlen ändert sich?'
+    werkzeug: { id: gitter@1, parameter: { max: 6, beweglich: { x: 1, y: 2, name: 'P' } } }
     antwort:
       optionen:
-        - { wert: { de: 'den Buchstaben unten' }, richtig: true }
-        - { wert: { de: 'die Zahl links' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: 'die erste Zahl' }, richtig: true }
+        - { wert: { de: 'die zweite Zahl' }, fv: FV.GF.X-Y-VERTAUSCHT }
     weiter: erklaeren-koordinaten
   - id: erklaeren-koordinaten
     typ: erklaeren
     text:
-      de: 'Ein Punkt P(3|5) hat zwei [[Koordinaten]]. Erst x: 3 nach rechts. Dann y: 5 nach oben. Die Zahlen stehen an den Linien, nicht in den Kästchen. Gezählt wird ab dem [[Ursprung]] (0|0).'
+      de: 'P(3|5) hat zwei [[Koordinaten]]. Erst x: 3 nach rechts. Dann y: 5 nach oben. Die Zahlen stehen an den Linien, nicht in den Kästchen. Gezählt wird ab dem [[Ursprung]] (0|0).'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 6, punkte: [{ x: 3, y: 5, name: 'P' }], hilfslinien: true },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Ein Punkt liegt dort, wo sich die Linie bei 2 auf der x-Achse und die Linie bei 6 auf der y-Achse kreuzen. Seine [[Koordinaten]] sind (2|6).'
+      de: 'Q liegt dort, wo sich die Linie bei 2 auf der x-Achse und die Linie bei 6 auf der y-Achse kreuzen. Seine [[Koordinaten]]: Q(2|6).'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 7, punkte: [{ x: 2, y: 6, name: 'Q' }], hilfslinien: true },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Der Punkt Q liegt 4 nach rechts und 1 nach oben vom [[Ursprung]]. Welche [[Koordinaten]] hat er?'
+      de: 'Welche [[Koordinaten]] hat der Punkt R?'
+    bild: { werkzeug: gitter@1, parameter: { max: 6, punkte: [{ x: 4, y: 1, name: 'R' }] } }
     antwort:
       optionen:
         - { wert: { de: '(4|1)' }, richtig: true }
@@ -52,10 +64,15 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Lina soll den Punkt (2|5) einzeichnen. Sie geht 5 nach rechts und 2 nach oben. Stimmt das?'
+      de: 'Lina soll den Punkt (2|5) einzeichnen. Sie geht 5 nach rechts und 2 nach oben, wie im Bild. Stimmt das?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 6, punkte: [{ x: 5, y: 2, name: 'L' }], hilfslinien: true },
+      }
     antwort:
       optionen:
-        - { wert: { de: 'Nein, erst x: 2 nach rechts, dann 5 nach oben.' }, richtig: true }
+        - { wert: { de: 'Nein, erst x: 2 nach rechts, dann y: 5 nach oben.' }, richtig: true }
         - { wert: { de: 'Ja.' }, fv: FV.GF.X-Y-VERTAUSCHT }
     weiter: merksatz
     bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten }
@@ -67,13 +84,16 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Ein Punkt liegt 6 nach rechts und 3 nach oben. Wie heißen seine [[Koordinaten]]?'
+      de: 'Wie heißen die [[Koordinaten]] von S?'
+    bild: { werkzeug: gitter@1, parameter: { max: 8, punkte: [{ x: 6, y: 3, name: 'S' }] } }
     antwort:
       optionen:
         - { wert: { de: '(6|3)' }, richtig: true }
         - { wert: { de: '(3|6)' }, fv: FV.GF.X-Y-VERTAUSCHT }
+        - { wert: { de: '(7|4)' }, fv: FV.GF.KAESTCHEN-LINIEN }
     weiter: uebergang
-    bei: { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten }
+    bei:
+      { FV.GF.X-Y-VERTAUSCHT: erklaeren-koordinaten, FV.GF.KAESTCHEN-LINIEN: erklaeren-koordinaten }
   - id: uebergang
     typ: uebergang
     text:

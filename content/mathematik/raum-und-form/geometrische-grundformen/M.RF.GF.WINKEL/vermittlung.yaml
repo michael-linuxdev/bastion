@@ -11,34 +11,39 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Eine Uhr um 3 Uhr: Die Zeiger bilden eine Ecke wie ein Blatt Papier. Wie viel [[Grad]] hat diese Ecke?'
+      de: 'Mach den [[Winkel]] mit + Schritt für Schritt größer. Schau auf die [[Winkelart]]. Bei wie viel [[Grad]] wird aus „spitz“ „recht“?'
+    werkzeug: { id: winkel@1, parameter: { grad: 30 } }
     antwort:
       eingabe:
         {
           art: zahl,
           loesung: '90',
-          fehler: [{ wert: '180', fv: FV.GF.WINKELART }, { wert: '3', fv: FV.GF.WINKELART }],
+          fehler: [{ wert: '180', fv: FV.GF.WINKELART }, { wert: '100', fv: FV.GF.WINKELART }],
         }
     weiter: erklaeren-winkelarten
   - id: erklaeren-winkelarten
     typ: erklaeren
     text:
-      de: 'Winkelarten: spitz unter 90°, recht genau 90°, stumpf zwischen 90° und 180°, gestreckt genau 180°, überstumpf über 180°, voll 360°.'
+      de: 'Fünf Winkelarten: spitz unter 90°, recht genau 90°, stumpf zwischen 90° und 180°, gestreckt genau 180°, überstumpf über 180°. Der Bogen zeigt, welcher [[Winkel]] gemeint ist.'
+    bild: { werkzeug: winkel@1, parameter: { grad: 120 } }
     weiter: erklaeren-messen
   - id: erklaeren-messen
     typ: erklaeren
     text:
-      de: 'Am [[Winkelmesser]] gibt es zwei [[Skalen]]. Lege die Mitte auf den Scheitel und die 0 auf einen [[Schenkel]]. Lies auf der Skala ab, die bei diesem Schenkel mit 0 beginnt.'
+      de: 'Am [[Winkelmesser]] gibt es zwei [[Skalen]]. Lege die Mitte auf den Scheitel und die 0 auf einen [[Schenkel]]. Lies auf der Skala ab, die bei diesem Schenkel mit 0 beginnt: hier 40°.'
+    bild: { werkzeug: winkel@1, parameter: { grad: 40, winkelmesser: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Ein [[Schenkel]] liegt rechts auf der 0 der inneren [[Skala]]. Der andere Schenkel zeigt innen auf 40 und außen auf 140. Der [[Winkel]] ist spitz, also 40°.'
+      de: 'Der erste [[Schenkel]] liegt links auf der 0 der inneren [[Skala]]. Der zweite zeigt innen auf 40 und außen auf 140. Der [[Winkel]] ist spitz, also 40°.'
+    bild: { werkzeug: winkel@1, parameter: { grad: 40, winkelmesser: true, links: true } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Welche [[Winkelart]] hat ein [[Winkel]] von 120°?'
+      de: 'Welche [[Winkelart]] hat dieser [[Winkel]] von 120°?'
+    bild: { werkzeug: winkel@1, parameter: { grad: 120 } }
     antwort:
       optionen:
         - { wert: { de: 'stumpf' }, richtig: true }
@@ -49,11 +54,16 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Ein [[Winkel]] ist deutlich spitz. Am [[Winkelmesser]] zeigt der [[Schenkel]] auf 30 und auf 150. Mia schreibt 150°. Stimmt das?'
+      de: 'Mia liest diesen [[Winkel]] ab und schreibt 150°. Stimmt das?'
+    bild: { werkzeug: winkel@1, parameter: { grad: 30, winkelmesser: true } }
     antwort:
       optionen:
-        - { wert: { de: 'Nein, ein spitzer Winkel ist kleiner als 90°: 30°.' }, richtig: true }
-        - { wert: { de: 'Ja.' }, fv: FV.GF.WINKELMESSER-SKALA }
+        - {
+            wert:
+              { de: 'Nein, der Winkel ist spitz. Auf der Skala mit der 0 am Schenkel steht 30.' },
+            richtig: true,
+          }
+        - { wert: { de: 'Ja, 150 steht doch am zweiten Schenkel.' }, fv: FV.GF.WINKELMESSER-SKALA }
     weiter: merksatz
     bei: { FV.GF.WINKELMESSER-SKALA: erklaeren-messen }
   - id: merksatz
@@ -64,7 +74,8 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Ein stumpfer [[Winkel]]. Der [[Schenkel]] zeigt auf 70 und auf 110. Wie groß ist der Winkel?'
+      de: 'Wie groß ist dieser [[Winkel]]?'
+    bild: { werkzeug: winkel@1, parameter: { grad: 110, winkelmesser: true } }
     antwort:
       optionen:
         - { wert: { de: '110°' }, richtig: true }
