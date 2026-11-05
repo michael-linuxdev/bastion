@@ -23,6 +23,8 @@ export interface KoerpernetzParameter {
   readonly boden?: unknown;
   /** true: daneben der gefaltete Würfel als Schrägbild */
   readonly schraegbild?: unknown;
+  /** true: Die Beschreibung sagt nicht, ob es ein Würfelnetz ist (das Bild gehört zu einer Frage) */
+  readonly frage?: unknown;
 }
 
 export interface Koerpernetz {
@@ -32,6 +34,7 @@ export interface Koerpernetz {
   readonly boden?: number;
   readonly schraegbild: boolean;
   readonly istNetz: boolean;
+  readonly frage: boolean;
 }
 
 const STANDARD = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -91,6 +94,7 @@ export function koerpernetzAus(p: KoerpernetzParameter): Koerpernetz {
     ...(boden >= 0 ? { boden } : {}),
     schraegbild: p.schraegbild === true,
     istNetz: istWuerfelnetz(netz),
+    frage: p.frage === true,
   };
 }
 
@@ -101,6 +105,7 @@ export function mitBoden(z: Koerpernetz, boden: number | undefined): Koerpernetz
     buchstaben: z.buchstaben,
     schraegbild: z.schraegbild,
     istNetz: z.istNetz,
+    frage: z.frage,
   };
   return boden !== undefined && boden >= 0 && boden < 6 ? { ...ohne, boden } : ohne;
 }
@@ -144,7 +149,7 @@ export function beschreibung(z: Koerpernetz): string {
         .join(', ')}`,
   );
   const saetze = [
-    `${t(z.istNetz ? 'werkzeug.koerpernetz.netz' : 'werkzeug.koerpernetz.kein-netz')} ${t('werkzeug.koerpernetz.zeilen')} ${zeilen.join('; ')}.`,
+    `${t(z.frage ? 'werkzeug.koerpernetz.sechs' : z.istNetz ? 'werkzeug.koerpernetz.netz' : 'werkzeug.koerpernetz.kein-netz')} ${t('werkzeug.koerpernetz.zeilen')} ${zeilen.join('; ')}.`,
     `${t('werkzeug.koerpernetz.beschriftung')} ${z.buchstaben.join(', ')}.`,
   ];
   if (z.boden !== undefined) {

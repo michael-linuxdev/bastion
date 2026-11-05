@@ -17,6 +17,8 @@ export interface WinkelParameter {
   readonly links?: unknown;
   /** Schrittweite der Knöpfe in Grad (Standard 10) */
   readonly schritt?: unknown;
+  /** true: Die Beschreibung nennt Größe und Winkelart nicht (das Bild gehört zu einer Frage) */
+  readonly frage?: unknown;
 }
 
 export interface Winkel {
@@ -25,6 +27,7 @@ export interface Winkel {
   readonly winkelmesser: boolean;
   readonly links: boolean;
   readonly schritt: number;
+  readonly frage: boolean;
 }
 
 export const WINKELARTEN = [
@@ -57,6 +60,7 @@ export function winkelAus(p: WinkelParameter): Winkel {
     winkelmesser,
     links: p.links === true,
     schritt: ganz(p.schritt, 1, 45, 10),
+    frage: p.frage === true,
   };
 }
 
@@ -70,7 +74,9 @@ export function geaendert(z: Winkel, delta: number): Winkel {
 export function beschreibung(z: Winkel): string {
   const art = t(`werkzeug.winkel.art.${winkelart(z.grad)}`);
   const saetze = [
-    `${t('werkzeug.winkel.ein')} ${z.name} ${t('werkzeug.winkel.von')} ${z.grad}°, ${art}.`,
+    z.frage
+      ? `${t('werkzeug.winkel.ein')} ${z.name}.`
+      : `${t('werkzeug.winkel.ein')} ${z.name} ${t('werkzeug.winkel.von')} ${z.grad}°, ${art}.`,
   ];
   if (z.winkelmesser) {
     const skala = (g: number) =>

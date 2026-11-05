@@ -27,6 +27,8 @@ export interface GeradenParameter {
   readonly namen?: unknown;
   /** Schrittweite beim Drehen in Grad (Standard 10) */
   readonly schritt?: unknown;
+  /** true: Die Beschreibung nennt weder Lage noch Winkelgrößen (das Bild gehört zu einer Frage) */
+  readonly frage?: unknown;
 }
 
 export interface Geraden {
@@ -40,6 +42,7 @@ export interface Geraden {
   readonly felder2: readonly string[];
   readonly namen: readonly [string, string];
   readonly schritt: number;
+  readonly frage: boolean;
 }
 
 const BREITE = 320;
@@ -79,6 +82,7 @@ export function geradenAus(p: GeradenParameter): Geraden {
     felder2: [0, 1, 2, 3].map((i) => felder2[i] ?? ''),
     namen: [namen[0] || 'g', namen[1] || 'h'],
     schritt: ganz(p.schritt, 1, 45, 10),
+    frage: p.frage === true,
   };
 }
 
@@ -224,13 +228,16 @@ export function beschreibung(z: Geraden): string {
       `${t('werkzeug.geraden.zwei')} ${g} ${t('werkzeug.geraden.und')} ${h}. ` +
         `${g} ${t('werkzeug.geraden.verlauf')} ${grad(z.richtung)} ${t('werkzeug.geraden.zur-waagerechten')}, ${h} ${t('werkzeug.geraden.verlauf')} ${grad(r2)}.`,
     );
-    saetze.push(t(`werkzeug.geraden.${lage}`));
+    // Kurze Stücke: Die Lage verrät sich erst nach dem Verlängern (Schritt „entdecken“).
+    if ((!z.kurz || z.verlaengert) && !z.frage) saetze.push(t(`werkzeug.geraden.${lage}`));
     if (z.kurz)
       saetze.push(t(z.verlaengert ? 'werkzeug.geraden.verlaengert' : 'werkzeug.geraden.kurz'));
   }
   const groessen = feldgroessen(z.winkel);
   const liste = (felder: readonly string[]) =>
-    felder.flatMap((n, i) => (n ? [`${n} = ${grad(groessen[i] ?? 0)}`] : [])).join(', ');
+    felder
+      .flatMap((n, i) => (n ? [z.frage ? n : `${n} = ${grad(groessen[i] ?? 0)}`] : []))
+      .join(', ');
   const anS = liste(z.felder);
   const anT = z.parallelen ? liste(z.felder2) : '';
   if (anS) saetze.push(`${t('werkzeug.geraden.an')} S: ${anS}.`);
