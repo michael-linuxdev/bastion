@@ -32,6 +32,8 @@ export interface GitterParameter {
   readonly spiegelachse?: unknown;
   /** Pfeile [{ von: [x, y], nach: [x, y] }] */
   readonly pfeile?: unknown;
+  /** Linien [{ von: [x, y], nach: [x, y], gestrichelt: true }], etwa Diagonalen oder Faltlinien */
+  readonly linien?: unknown;
   /** true: gestrichelte Hilfslinien von jedem Punkt zu den Achsen */
   readonly hilfslinien?: unknown;
   /** beweglicher Punkt { x, y, name } (interaktiv mit Knöpfen) */
@@ -55,6 +57,10 @@ export interface Pfeil {
   readonly nach: readonly [number, number];
 }
 
+export interface Linie extends Pfeil {
+  readonly gestrichelt: boolean;
+}
+
 export type Achse = { readonly x: number } | { readonly y: number };
 
 export interface Gitter {
@@ -66,6 +72,7 @@ export interface Gitter {
   readonly kaestchen: readonly (readonly [number, number])[];
   readonly achse?: Achse;
   readonly pfeile: readonly Pfeil[];
+  readonly linien: readonly Linie[];
   readonly hilfslinien: boolean;
   readonly beweglich?: NamensPunkt;
   readonly verschiebung?: readonly [number, number];
@@ -136,6 +143,12 @@ export function gitterAus(p: GitterParameter): Gitter {
     const nach = paar(f['nach'], xmax, ymax);
     return von && nach ? [{ von, nach }] : [];
   });
+  const linien = (Array.isArray(p.linien) ? p.linien : []).slice(0, 8).flatMap((f) => {
+    if (!istObjekt(f)) return [];
+    const von = paar(f['von'], xmax, ymax);
+    const nach = paar(f['nach'], xmax, ymax);
+    return von && nach ? [{ von, nach, gestrichelt: f['gestrichelt'] === true }] : [];
+  });
   const beweglich = namensPunkt(p.beweglich, xmax, ymax, 'P');
   let verschiebung: readonly [number, number] | undefined;
   if (Array.isArray(p.verschiebung) && p.verschiebung.length === 2) {
@@ -157,6 +170,7 @@ export function gitterAus(p: GitterParameter): Gitter {
     kaestchen,
     ...(achse ? { achse } : {}),
     pfeile,
+    linien,
     hilfslinien: p.hilfslinien === true,
     ...(beweglich ? { beweglich } : {}),
     ...(verschiebung ? { verschiebung } : {}),
@@ -251,6 +265,10 @@ export function beschreibung(z: Gitter): string {
     saetze.push(
       `${t('werkzeug.gitter.pfeil')} ${koordinaten({ x: p.von[0], y: p.von[1] })} ${t('werkzeug.gitter.nach')} ${koordinaten({ x: p.nach[0], y: p.nach[1] })}.`,
     );
+  for (const l of z.linien)
+    saetze.push(
+      `${t(l.gestrichelt ? 'werkzeug.gitter.linie-gestrichelt' : 'werkzeug.gitter.linie')} ${koordinaten({ x: l.von[0], y: l.von[1] })} ${t('werkzeug.gitter.nach')} ${koordinaten({ x: l.nach[0], y: l.nach[1] })}.`,
+    );
   return saetze.join(' ');
 }
 
@@ -279,6 +297,12 @@ export function gitterBild(z: Gitter): Bild {
       'x' in z.achse
         ? linie(px(z.achse.x), py(0) + 8, px(z.achse.x), py(z.ymax) - 8, 3.5)
         : linie(px(0) - 8, py(z.achse.y), px(z.xmax) + 8, py(z.achse.y), 3.5),
+    );
+  for (const l of z.linien)
+    teile.push(
+      l.gestrichelt
+        ? gestrichelt(px(l.von[0]), py(l.von[1]), px(l.nach[0]), py(l.nach[1]), 2)
+        : linie(px(l.von[0]), py(l.von[1]), px(l.nach[0]), py(l.nach[1]), 2),
     );
   for (const f of z.figuren) {
     const ecken = f.ecken.map(([x, y]) => [px(x), py(y)] as const);

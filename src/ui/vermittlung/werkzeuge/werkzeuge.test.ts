@@ -451,6 +451,17 @@ describe('Gitter (gitter@1)', () => {
     expect(b.beschreibung.de).toContain('P′(1|5)');
     expect(b.svg).toContain('stroke-dasharray');
     expect(verschiebungText([3, -2])).toBe('3 nach rechts, 2 nach unten');
+    const l = gitterBild(
+      gitterAus({
+        max: 6,
+        linien: [
+          { von: [1, 1], nach: [5, 5], gestrichelt: true },
+          { von: [0, 3], nach: [6, 3] },
+        ],
+      }),
+    );
+    expect(l.beschreibung.de).toContain('Gestrichelte Linie von (1|1) nach (5|5)');
+    expect(l.beschreibung.de).toContain('Linie von (0|3) nach (6|3)');
     const r = gitterBild(
       gitterAus({
         achsen: false,
