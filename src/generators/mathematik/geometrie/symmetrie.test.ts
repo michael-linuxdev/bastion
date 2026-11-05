@@ -19,11 +19,14 @@ describe('sy.bewegung-erkennen', () => {
       const rechts = alle.filter(([s]) => s >= 7);
       expect(links).toHaveLength(5);
       expect(rechts).toHaveLength(5);
-      if (a.bild?.svg.includes('x1="145" y1="0" x2="145" y2="130" stroke-width="2.5"')) {
+      // Die Linie steht bei jeder Bewegung da, damit sie die Spiegelung nicht verrät.
+      expect(a.bild?.svg).toContain('x1="145" y1="0" x2="145" y2="130" stroke-width="2.5"');
+      const erwartet = links.map(([s, z]) => `${13 - s},${z}`).sort();
+      const istSpiegelung = a.loesung.typ === 'auswahl' && a.loesung.wert === 0;
+      if (istSpiegelung) {
         gespiegelt++;
-        const erwartet = links.map(([s, z]) => `${13 - s},${z}`).sort();
         expect(rechts.map(([s, z]) => `${s},${z}`).sort()).toEqual(erwartet);
-      }
+      } else expect(rechts.map(([s, z]) => `${s},${z}`).sort()).not.toEqual(erwartet);
     }
     expect(gespiegelt).toBeGreaterThan(5);
   });

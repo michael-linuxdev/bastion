@@ -62,6 +62,51 @@ Pfade relativ zu `content/mathematik/`. Status: **behoben** (im PR „Q-L1 Durch
 
 Alle acht `kompetenz.yaml`; LAGE: parallele-finden, zwei-geraden, Anleitungen parallele und senkrechte; WINKEL: art, Anleitung zeichnen; WINKELPAARE: begruenden, benennen, groesse; KOORDINATEN: ablesen, begruenden, finden; KP.DARSTELLEN: begruenden, gegenueber, kein-netz; SYMMETRIE: figur-waehlen; SPIEGELN: vermittlung, begruenden, dreieck, punkt, Anleitung kaestchen; BEWEGUNGEN: vermittlung, begruenden; Fehlvorstellungen FV.GF.LAGEBEZIEHUNG, FV.GF.WINKELMESSER-SKALA, FV.GF.GLEICH-ODER-180, FV.GF.X-Y-VERTAUSCHT, FV.GF.KAESTCHEN-LINIEN, FV.KP.NETZ-FALTEN, FV.SY.ACHSENSYMMETRIE, FV.SY.SPIEGELABSTAND, FV.SY.VERSCHIEBUNG.
 
-## Durchgang 2
+## Durchgang 2 (06.11.2026)
 
-Folgt nach dem Merge der Korrekturen aus Durchgang 1.
+Zwei frische Sub-Agenten über dieselben 46 Dateien, nach den Korrekturen aus Durchgang 1.
+
+### Funde
+
+| Datei | Stelle | Frage | Fund | Status |
+|---|---|---|---|---|
+| M.RF.GF.LAGE/vorlagen/parallele-finden.yaml | Generator `gf.parallele-finden@1`, Niveau G | 4, 1 | In rund einem Drittel der Aufgaben lag die gesuchte Parallele auf derselben Geraden wie a (unterbrochene Linie statt zweiter Gerade). | behoben: Die Parallele wird immer 22 px quer zu a versetzt gezeichnet. |
+| M.RF.GF.LAGE/anleitungen/parallele.yaml, senkrechte.yaml, M.RF.GF.WINKEL/anleitungen/zeichnen.yaml | `[[Kante]]` | 4, 6 | Der markierte Begriff zeigt die Erklärung der Körperkante („Ein Quader hat 12 Kanten“), gemeint ist die lange Seite des Geodreiecks. | behoben: „lange Seite“. |
+| M.RF.SY.BEWEGUNGEN/vorlagen/erkennen.yaml | Bild des Generators `sy.bewegung-erkennen@1` | 7 | Die dicke Linie wurde nur bei einer Spiegelung gezeichnet; auf Niveau G hieß die Aufgabe damit „Ist eine Linie da?“. | behoben: Die Linie steht bei jeder Bewegung (bei der Spiegelung ist sie die Achse), Test. |
+| M.RF.SY.BEWEGUNGEN/vermittlung.yaml | `entdecken` | 7 | Der Text nannte „3 nach rechts, 2 nach oben“, die richtige Option wiederholte es. | behoben: Text ohne Zahlen, das Kind liest die Verschiebung am Werkzeug ab. |
+
+### Hinweise ohne Fund (Durchgang 2)
+
+| Datei | Stelle | Hinweis | Status |
+|---|---|---|---|
+| M.RF.GF.WINKELPAARE/vermittlung.yaml | `gegenbeispiel` | `frage: true` fehlte, die Beschreibung nannte α = 50°, β = 130°. | behoben |
+| M.RF.GF.LAGE/vermittlung.yaml | `entdecken` | Mit den Drehknöpfen ließ sich h parallel drehen, dann trafen sich die Geraden nicht. | behoben: `drehbar: false`, nur der Knopf zum Verlängern |
+| M.RF.GF.LAGE/vermittlung.yaml | `gegenbeispiel` | Beschreibung „h verläuft unter 90°“ (Richtung, nicht Winkel zwischen g und h) war missverständlich. | behoben (`richtung: 10`) |
+| M.RF.SY.SYMMETRIE/vermittlung.yaml | `pruefen` | Fragte nach dem Quadrat, dessen Achsenzahl das Beispiel schon nannte. | behoben (Rechteck, 2 Achsen) |
+| M.RF.SY.BEWEGUNGEN/vermittlung.yaml | `pruefen` | Option (−1|3) mit negativer Koordinate in Klasse 5. | behoben (Q(5|5), Optionen (8|7), (8|5), (2|3)) |
+| M.RF.KP.DARSTELLEN/vermittlung.yaml | `merksatz` | „jedes zweite Quadrat“ schwer lesbar. | behoben („das erste und das dritte“) |
+| M.RF.KP.DARSTELLEN/vorlagen (Generator `netze.ts`) | Bildbeschreibung | Dativ „aus 6 Quadrate“. | behoben |
+| M.RF.KP.DARSTELLEN/anleitungen/wuerfelnetz.yaml | Bilder 3 und 4 | Zwei Klebelaschen treffen beim Falten dieselbe Kante, ein Kantenpaar hat keine; der Würfel schließt trotzdem. | offen (Anleitungsbild `bilder.ts`) |
+| M.RF.KP.DARSTELLEN/kompetenz.yaml | `kann_satz`, Niveau M | verspricht Schrägbilder, Grundriss, Seitenansichten; die Vorlagen behandeln nur Netze. | offen, Lücke für den PV (Inhalt oder Beschreibung anpassen) |
+| M.RF.GF.LAGE/kompetenz.yaml, M.RF.GF.KOORDINATEN/kompetenz.yaml | Niveau M | Beschreibung verspricht Figuren und Koordinatensystem bzw. Brüche und Dezimalzahlen; die M-Vorlagen tun das nicht. | offen, Lücke für den PV |
+| M.RF.GF.WINKEL/vermittlung.yaml, vorlagen/art.yaml | `[[Winkelart]]` | Antippen des Begriffs zeigt die Einteilung, also die Antwort. Markierung ist projektweit Pflicht. | Entscheidung: bleibt |
+| M.RF.GF.WINKELPAARE/vermittlung.yaml | `pruefen` mit `frage: true` | Die Beschreibung sagt nicht, ob β neben oder gegenüber α liegt. | offen (Werkzeug könnte die Lage der Felder nennen) |
+| M.RF.SY.SPIEGELN/vermittlung.yaml | `entdecken`, Option „auch nach rechts“ | zeigt auf FV.SY.SPIEGELABSTAND, deren `so-denkst-du` nur „bis zur Achse“ nennt; die kurze Erklärung widerlegt die Option trotzdem. | offen |
+| M.RF.SY.SYMMETRIE/vorlagen/figur-waehlen.yaml | Fehlerbild `fast-symmetrisch` | Das verschobene Kästchen kann die Figur zerreißen; die Aufgabe bleibt eindeutig. | offen |
+| fehlvorstellungen/FV.GF.SPIEGELN-KOORDINATE.yaml | `kurz` („Am Ursprung“), `so-stimmt-es` | für Klasse 5 über dem Niveau, fachlich richtig; das Klasse-5-Beispiel steht jetzt voran. | offen (geteilt mit QUADRANTEN) |
+| M.RF.GF.LAGE/vorlagen/begruenden.yaml | Option `senkrecht` | aus den Angaben nicht streng ausgeschlossen, praktisch eindeutig. | offen |
+| M.RF.GF.LAGE/anleitungen/senkrechte.yaml | `titel` | „Senkrechte“ ist keine Wortform im Wörterbuch. | offen |
+
+### Ohne Fund in Durchgang 2
+
+Alle Dateien außer den vier oben: alle acht `kompetenz.yaml`, alle Erstvermittlungen außer BEWEGUNGEN, alle Vorlagen außer parallele-finden und erkennen, Anleitungen wuerfelnetz und kaestchen, alle 13 Fehlvorstellungen.
+
+## Durchgang 3 (Nachprüfung, 06.11.2026)
+
+Dateien, die nach ihrem letzten Durchgang ohne Fund noch geändert wurden, prüft ein weiterer frischer Sub-Agent: LAGE/vermittlung, LAGE/anleitungen parallele und senkrechte, LAGE/parallele-finden (Generator), WINKEL/anleitungen zeichnen, WINKELPAARE/vermittlung, KP.DARSTELLEN/vermittlung, SYMMETRIE/vermittlung, BEWEGUNGEN/vermittlung, BEWEGUNGEN/erkennen (Generator).
+
+Ergebnis folgt.
+
+## Stufe 1
+
+Regel für dieses Feld (wie beim Musterfeld Brüche am 04.11.2026): Stufe 1 bekommt eine Datei, wenn sie in zwei unabhängigen Durchgängen geprüft wurde und nach ihrer letzten Änderung ein Durchgang ohne Fund lag.

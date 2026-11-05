@@ -12,7 +12,7 @@ schritte:
     typ: entdecken
     text:
       de: 'Hier siehst du zwei kurze Stücke von [[Geraden]]. Eine [[Gerade]] hat aber kein Ende. Verlängere beide mit dem Knopf. Treffen sie sich?'
-    werkzeug: { id: geraden@1, parameter: { kurz: true, winkel: 20, richtung: 10 } }
+    werkzeug: { id: geraden@1, parameter: { kurz: true, winkel: 20, richtung: 10, drehbar: false } }
     antwort:
       optionen:
         - { wert: { de: 'Ja, weiter draußen schneiden sie sich.' }, richtig: true }
@@ -55,7 +55,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Ben sagt: Diese [[Geraden]] stehen [[senkrecht]] aufeinander, sie kreuzen sich doch. Stimmt das?'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 70, richtung: 20, frage: true } }
+    bild: { werkzeug: geraden@1, parameter: { winkel: 70, richtung: 10, frage: true } }
     antwort:
       optionen:
         - {

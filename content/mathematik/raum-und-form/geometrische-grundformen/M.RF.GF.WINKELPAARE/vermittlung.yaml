@@ -85,7 +85,8 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Kim sagt: α und β liegen am selben [[Schnittpunkt]], also sind sie [[Scheitelwinkel]]. Stimmt das?'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''] } }
+    bild:
+      { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''], frage: true } }
     antwort:
       optionen:
         - {

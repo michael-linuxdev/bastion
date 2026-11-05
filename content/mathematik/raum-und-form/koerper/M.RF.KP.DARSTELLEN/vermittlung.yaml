@@ -67,7 +67,7 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Würfelnetz]]: 6 Quadrate, jede Fläche entsteht beim Falten genau einmal. Nie mehr als vier in einer Reihe. In einer Reihe liegt jedes zweite Quadrat gegenüber.'
+      de: '[[Würfelnetz]]: 6 Quadrate, jede Fläche entsteht beim Falten genau einmal. Nie mehr als vier in einer Reihe. In einer Reihe liegen das erste und das dritte Quadrat gegenüber.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen

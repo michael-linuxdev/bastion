@@ -337,7 +337,8 @@ export const bewegungErkennen: Generator<BewegungParameter> = {
       ...f.map(([s, z]) => kaestchen(5, 5, 20, s, z)),
       ...verschoben.map(([s, z]) => kaestchen(5, 5, 20, s, z)),
     ];
-    if (art === 0) teile.push(linie(5 + 7 * 20, 0, 5 + 7 * 20, 130, 2.5));
+    // Die Linie steht bei jeder Bewegung da, sonst verriete sie die Spiegelung; dort ist sie die Achse.
+    teile.push(linie(5 + 7 * 20, 0, 5 + 7 * 20, 130, 2.5));
     const zeilen = (g: Figur) =>
       [...new Set(g.map(([, z]) => z))]
         .sort((a, b) => a - b)
@@ -357,8 +358,7 @@ export const bewegungErkennen: Generator<BewegungParameter> = {
         130,
         teile,
         de(
-          `Rasterpapier mit 14 Spalten und 6 Zeilen. Links eine Figur aus 5 Kästchen (${zeilen(f)}), rechts eine zweite Figur (${zeilen(verschoben)}).` +
-            (art === 0 ? ' Zwischen Spalte 7 und 8 eine dicke senkrechte Linie.' : ''),
+          `Rasterpapier mit 14 Spalten und 6 Zeilen, zwischen Spalte 7 und 8 eine dicke senkrechte Linie. Links eine Figur aus 5 Kästchen (${zeilen(f)}), rechts eine zweite Figur (${zeilen(verschoben)}).`,
         ),
       ),
       optionen: p.mit_drehung ? BEWEGUNGEN : BEWEGUNGEN.slice(0, 2),

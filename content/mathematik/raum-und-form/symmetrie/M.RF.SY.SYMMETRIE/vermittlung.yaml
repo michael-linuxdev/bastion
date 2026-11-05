@@ -133,18 +133,18 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Wie viele [[Symmetrieachsen]] hat dieses Quadrat?'
+      de: 'Wie viele [[Symmetrieachsen]] hat dieses Rechteck?'
     bild:
       {
         werkzeug: gitter@1,
         parameter:
-          { achsen: false, max: 8, figuren: [{ ecken: [[2, 2], [6, 2], [6, 6], [2, 6]] }] },
+          { achsen: false, max: 8, figuren: [{ ecken: [[1, 3], [7, 3], [7, 6], [1, 6]] }] },
       }
     antwort:
       optionen:
-        - { wert: { de: '4' }, richtig: true }
-        - { wert: { de: '2' }, fv: FV.SY.ACHSENSYMMETRIE }
-        - { wert: { de: '1' }, fv: FV.SY.ACHSENSYMMETRIE }
+        - { wert: { de: '2' }, richtig: true }
+        - { wert: { de: '4' }, fv: FV.SY.ACHSENSYMMETRIE }
+        - { wert: { de: '0' }, fv: FV.SY.ACHSENSYMMETRIE }
     weiter: uebergang
     bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-achsen }
   - id: uebergang

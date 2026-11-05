@@ -112,7 +112,10 @@ export const paralleleFinden: Generator<ParalleleParameter> = {
     const namen = ['b', 'c', 'd'];
     const teile = [...strecke(80, 60, g, -42, 42, 'a')];
     rollen.forEach((rolle, i) => {
-      const [x, y] = orte[i + 1] ?? [0, 0];
+      const [ox, oy] = orte[i + 1] ?? [0, 0];
+      // Die Parallele etwas quer zu a versetzen, sonst läge sie bei g = 0° oder 90° auf
+      // derselben Geraden wie a (unterbrochene Linie statt zweiter Gerade).
+      const [x, y] = rolle === 'parallel' ? aufKreis(ox, oy, 22, g + 90) : [ox, oy];
       teile.push(...strecke(x, y, winkel[rolle], -42, 42, namen[i] ?? ''));
     });
     const loesung = auswahl(rollen.indexOf('parallel'));

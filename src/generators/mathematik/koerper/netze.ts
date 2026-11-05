@@ -175,7 +175,7 @@ function netzBild(n: Netz, groesse: number, buchstaben?: readonly string[], mark
 }
 
 const beschreibe = (n: Netz) =>
-  `${n.length} Quadrate, nach Zeilen von oben: ` +
+  `${n.length} Quadraten, nach Zeilen von oben: ` +
   [...new Set(n.map(([, z]) => z))]
     .map(
       (z) =>
