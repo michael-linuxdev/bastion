@@ -308,3 +308,258 @@ describe('Stabdiagramm (stabdiagramm@1)', () => {
     expect(b.svg).toContain('>?<');
   });
 });
+
+describe('Geraden (geraden@1)', () => {
+  it('liest Lage, Richtung und Winkel; Unsinn wird zum Standard', async () => {
+    const { geradenAus, lageVon } = await import('./geraden');
+    expect(geradenAus({})).toMatchObject({
+      richtung: 0,
+      winkel: 50,
+      kurz: false,
+      namen: ['g', 'h'],
+    });
+    expect(geradenAus({ lage: 'parallel' }).winkel).toBe(0);
+    expect(geradenAus({ lage: 'senkrecht', winkel: 30 }).winkel).toBe(90);
+    expect(geradenAus({ winkel: 400, richtung: -5, namen: ['a', 'zu-lang'] })).toMatchObject({
+      winkel: 50,
+      richtung: 0,
+      namen: ['a', 'h'],
+    });
+    expect(geradenAus({ parallelen: true, winkel: 10 }).winkel).toBe(30);
+    expect(lageVon(0)).toBe('parallel');
+    expect(lageVon(90)).toBe('senkrecht');
+    expect(lageVon(45)).toBe('schneidend');
+  });
+
+  it('dreht h im Kreis und hält Parallelen im Bereich', async () => {
+    const { gedreht, geradenAus } = await import('./geraden');
+    const z = geradenAus({ winkel: 170 });
+    expect(gedreht(z, 10).winkel).toBe(0);
+    expect(gedreht(geradenAus({ lage: 'parallel' }), -10).winkel).toBe(170);
+    expect(gedreht(geradenAus({ parallelen: true, winkel: 150 }), 10).winkel).toBe(150);
+  });
+
+  it('Winkelfelder: gegenüber gleich, nebeneinander zusammen 180°', async () => {
+    const { feldgroessen } = await import('./geraden');
+    const [a, b, c, d] = feldgroessen(60);
+    expect(a).toBe(c);
+    expect(b).toBe(d);
+    expect(a + b).toBe(180);
+  });
+
+  it('beschreibt Lage und beschriftete Winkel, zeichnet kurze Stücke gestrichelt verlängert', async () => {
+    const { geradenAus, geradenBild, verlaengert } = await import('./geraden');
+    const b = geradenBild(geradenAus({ lage: 'senkrecht' }));
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.beschreibung.de).toContain('senkrecht');
+    const p = geradenBild(
+      geradenAus({ parallelen: true, winkel: 60, felder: ['α'], felder2: ['', '', '', 'β'] }),
+    );
+    expect(p.beschreibung.de).toContain('α = 60°');
+    expect(p.beschreibung.de).toContain('β = 120°');
+    expect(p.svg).toContain('>α<');
+    const kurz = geradenAus({ kurz: true, winkel: 40 });
+    expect(geradenBild(kurz).svg).not.toContain('stroke-dasharray');
+    expect(geradenBild(verlaengert(kurz, true)).svg).toContain('stroke-dasharray');
+  });
+});
+
+describe('Winkel (winkel@1)', () => {
+  it('kennt die Winkelarten und hält den Bereich', async () => {
+    const { geaendert, winkelart, winkelAus } = await import('./winkel');
+    expect(['spitz', 'recht', 'stumpf', 'gestreckt', 'ueberstumpf', 'voll']).toEqual(
+      [45, 90, 120, 180, 270, 360].map(winkelart),
+    );
+    expect(winkelAus({})).toMatchObject({ grad: 60, name: 'α', winkelmesser: false });
+    expect(winkelAus({ grad: 200, winkelmesser: true }).grad).toBe(60);
+    expect(geaendert(winkelAus({ grad: 355 }), 10).grad).toBe(360);
+    expect(geaendert(winkelAus({ grad: 175, winkelmesser: true }), 10).grad).toBe(180);
+    expect(geaendert(winkelAus({ grad: 5 }), -10).grad).toBe(0);
+  });
+
+  it('beschreibt den Winkel, am Winkelmesser beide Skalen', async () => {
+    const { winkelAus, winkelBild } = await import('./winkel');
+    const b = winkelBild(winkelAus({ grad: 120, name: 'β' }));
+    expect(b.beschreibung.de).toContain('β von 120°, stumpf');
+    expect(b.svg).toContain('>β<');
+    const m = winkelBild(winkelAus({ grad: 40, winkelmesser: true }));
+    expect(m.beschreibung.de).toContain('40 auf der äußeren Skala und 140 auf der inneren Skala');
+    expect(m.svg).toContain('>180<');
+    const links = winkelBild(winkelAus({ grad: 40, winkelmesser: true, links: true }));
+    expect(links.beschreibung.de).toContain('Der erste Schenkel zeigt auf 180');
+  });
+});
+
+describe('Gitter (gitter@1)', () => {
+  it('liest Punkte, Figuren, Achse und Pfeile; Unsinn fällt weg', async () => {
+    const { gitterAus } = await import('./gitter');
+    const z = gitterAus({
+      max: 6,
+      punkte: [{ x: 2, y: 3, name: 'P' }, { x: 9, y: 1 }, 'nein'],
+      figuren: [
+        {
+          ecken: [
+            [1, 1],
+            [3, 1],
+            [2, 3],
+          ],
+          namen: ['A', 'B', 'C'],
+        },
+        { ecken: [[1, 1]] },
+      ],
+      spiegelachse: { x: 4 },
+      pfeile: [{ von: [0, 0], nach: [2, 1] }],
+      kaestchen: [
+        [5, 5],
+        [6, 6],
+      ],
+    });
+    expect(z.punkte).toEqual([{ x: 2, y: 3, name: 'P' }]);
+    expect(z.figuren).toHaveLength(1);
+    expect(z.achse).toEqual({ x: 4 });
+    expect(z.pfeile).toHaveLength(1);
+    expect(z.kaestchen).toEqual([[5, 5]]);
+    expect(gitterAus({ max: 99 }).xmax).toBe(8);
+  });
+
+  it('bewegt den Punkt im Gitter und spiegelt oder verschiebt ihn', async () => {
+    const { bewegt, bildpunkt, gespiegelt, gitterAus } = await import('./gitter');
+    const z = gitterAus({ max: 8, beweglich: { x: 1, y: 3, name: 'P' }, spiegelachse: { x: 4 } });
+    expect(bildpunkt(z)).toEqual({ x: 7, y: 3, name: 'P′' });
+    expect(bewegt(z, -5, 0).beweglich?.x).toBe(0);
+    expect(bildpunkt(bewegt(z, 2, 0))).toEqual({ x: 5, y: 3, name: 'P′' });
+    expect(gespiegelt({ x: 2, y: 6 }, { y: 2 })).toEqual({ x: 2, y: -2 });
+    const v = gitterAus({ beweglich: { x: 1, y: 1 }, verschiebung: [3, 2] });
+    expect(bildpunkt(v)).toEqual({ x: 4, y: 3, name: 'P′' });
+    expect(bildpunkt(gitterAus({ beweglich: { x: 1, y: 1 } }))).toBeUndefined();
+  });
+
+  it('beschreibt das Bild für den Bildschirmleser', async () => {
+    const { gitterAus, gitterBild, verschiebungText } = await import('./gitter');
+    const b = gitterBild(
+      gitterAus({
+        max: 6,
+        punkte: [{ x: 2, y: 5, name: 'Q' }],
+        spiegelachse: { y: 3 },
+        beweglich: { x: 1, y: 1, name: 'P' },
+        hilfslinien: true,
+      }),
+    );
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.beschreibung.de).toContain('Q(2|5)');
+    expect(b.beschreibung.de).toContain('Spiegelachse waagerecht bei y = 3');
+    expect(b.beschreibung.de).toContain('P′(1|5)');
+    expect(b.svg).toContain('stroke-dasharray');
+    expect(verschiebungText([3, -2])).toBe('3 nach rechts, 2 nach unten');
+    const r = gitterBild(
+      gitterAus({
+        achsen: false,
+        max: 5,
+        kaestchen: [
+          [0, 0],
+          [1, 0],
+        ],
+      }),
+    );
+    expect(r.beschreibung.de).toContain('Rasterpapier');
+    expect(r.svg).not.toContain('>3<');
+  });
+});
+
+describe('Körpernetz (koerpernetz@1)', () => {
+  it('nimmt eine Netznummer oder eigene Kästchen und erkennt Nicht-Netze', async () => {
+    const { koerpernetzAus } = await import('./koerpernetz');
+    const kreuz = koerpernetzAus({ netz: 1, buchstaben: ['A', 'B', 'C', 'D', 'E', 'F'] });
+    expect(kreuz.netz).toHaveLength(6);
+    expect(kreuz.istNetz).toBe(true);
+    const reihe = koerpernetzAus({
+      netz: [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0],
+      ],
+    });
+    expect(reihe.istNetz).toBe(false);
+    expect(koerpernetzAus({ netz: 'nein' }).istNetz).toBe(true);
+    expect(
+      koerpernetzAus({
+        netz: [
+          [0, 0],
+          [2, 0],
+          [3, 0],
+          [4, 0],
+          [5, 0],
+          [6, 0],
+        ],
+      }).netz,
+    ).toEqual(koerpernetzAus({}).netz);
+    expect(koerpernetzAus({ boden: 'C' }).boden).toBe(2);
+    expect(koerpernetzAus({ boden: 'Z' }).boden).toBeUndefined();
+  });
+
+  it('findet beim Kreuz die gegenüberliegende Fläche: in einer Dreierreihe das übernächste', async () => {
+    const { gegenueber, koerpernetzAus } = await import('./koerpernetz');
+    // Netz 1: Reihe in Zeile 2 (Spalten 1–4), darüber und darunter je ein Quadrat an Spalte 1.
+    // Zeilenweise: A (oben), B C D E (Reihe), F (unten).
+    const z = koerpernetzAus({ netz: 1 });
+    expect(z.netz).toEqual([
+      [0, 0],
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [3, 1],
+      [0, 2],
+    ]);
+    expect(gegenueber(z, 1)).toBe(3); // B gegenüber D
+    expect(gegenueber(z, 2)).toBe(4); // C gegenüber E
+    expect(gegenueber(z, 0)).toBe(5); // A gegenüber F
+    expect(gegenueber(z, 3)).toBe(1);
+  });
+
+  it('zeigt bei einer Sechserreihe, welche Quadrate aufeinanderfallen', async () => {
+    const { doppelte, koerpernetzAus } = await import('./koerpernetz');
+    const reihe = koerpernetzAus({
+      netz: [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0],
+      ],
+    });
+    expect(doppelte(reihe, 0)).toEqual([
+      [0, 4],
+      [1, 5],
+    ]);
+  });
+
+  it('beschreibt Netz, Boden und Schrägbild', async () => {
+    const { koerpernetzAus, koerpernetzBild } = await import('./koerpernetz');
+    const b = koerpernetzBild(koerpernetzAus({ netz: 1, boden: 'B', schraegbild: true }));
+    expect(b.svg).toMatch(/^<svg /);
+    expect(b.beschreibung.de).toContain('Würfelnetz aus 6 Quadraten');
+    expect(b.beschreibung.de).toContain('Boden: B, gegenüber liegt D');
+    expect(b.beschreibung.de).toMatch(
+      /Schrägbild des gefalteten Würfels: vorn \w, oben D, rechts \w/,
+    );
+    const reihe = koerpernetzBild(
+      koerpernetzAus({
+        netz: [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [3, 0],
+          [4, 0],
+          [5, 0],
+        ],
+        boden: 'A',
+      }),
+    );
+    expect(reihe.beschreibung.de).toContain('kein Würfelnetz');
+    expect(reihe.beschreibung.de).toContain('A und E; B und F');
+  });
+});
