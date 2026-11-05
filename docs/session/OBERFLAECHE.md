@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang auf 390 px, Mängelliste an den PV, dann kleine PRs. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
+Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang auf 390 px erledigt, Mängelliste A1–D5 liegt beim PV (dort unter Q-O1), dann kleine PRs. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -70,8 +70,8 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 
 ## Nächste Schritte
 
-1. **Q-O1** nach `docs/session/QUALITAET-5-10.md`: Rundgang der Lern-Oberfläche (Erstvermittlung, Üben, Rückmeldung nach Fehler, Zwischenschritte, Themenwahl, Fehlerwerkstatt, Wiederholen) auf 390 px, Mängelliste mit Bildschirmfotos (Scratchpad) an den PV, Gruppen A Fehler, B Verständlichkeit, C Bedienung, D Aussehen. Bekannte Punkte stehen dort.
-2. Der PV wählt; dann kleine PRs, je Bildschirm einer. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt.
+1. ~~**Q-O1** Rundgang der Lern-Oberfläche auf 390 px, Mängelliste an den PV.~~ Erledigt 05.11.2026: 74 Bildschirme, Mängelliste A1–A3, B1–B10, C1–C6, D1–D5 in `QUALITAET-5-10.md` unter Q-O1 (mit Empfehlung je Punkt und Vorschlag der Reihenfolge).
+2. **Der PV wählt**; dann kleine PRs, je Bildschirm einer: (1) Fehler A1–A3, (2) Rückmeldung als ein Kasten, (3) Themenwahl, (4) Erstvermittlung, (5) Kleines. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt; A3 ändert Verhalten (Zurück aus der Erstvermittlung) und braucht die Zustimmung des PV.
 
 Vorschläge von früher:
 
@@ -89,6 +89,8 @@ _(noch keine)_
 
 ## Übergabe und Lehren
 
+**Übergabe (05.11.2026, Branch `oberflaeche/q-o1-lernoberflaeche`):** Rundgang für Q-O1 gemacht, Mängelliste in `QUALITAET-5-10.md`. Das Skript des Rundgangs (Playwright, 390 × 844, iPhone-13-Profil, alle Lernwege mit Bildschirmfoto je Schritt) liegt im Scratchpad der Sitzung und ist in ein paar Minuten neu geschrieben: Wege wie in `tests/e2e/ueben.spec.ts` (Helfer `themenWaehlen`, `thema`, `angebotUeberspringen`), je Bildschirm `page.screenshot` plus `document.documentElement.scrollWidth` für den Überlauf. Noch nichts gebaut; es wartet auf die Auswahl des PV.
+
 **Übergabe (03.11.2026):** O0 ist auf `main` (#239). O1 bis O5 kommen gemeinsam in einem PR (Branch `oberflaeche/eltern`), weil die Schritte aufeinander aufbauen; die Commits bleiben einzeln lesbar. Offen sind die Vorschläge oben unter „Nächste Schritte“.
 
 **Lehren:**
@@ -102,4 +104,6 @@ _(noch keine)_
 - Klappkarten (`details`) verstecken Felder vor Browser-Tests. Der Helfer `elternAufklappen(page)` in `tests/e2e/ueben.spec.ts` öffnet alle Abschnitte; er steht nach jedem „Ich habe den Code aufgeschrieben“ und „Öffnen“.
 - Ausgegraute Knöpfe mit `aria-disabled` statt `disabled`: Playwright wertet beides für `toBeDisabled()`, aber nur `aria-disabled` bleibt mit Tab erreichbar. Den Klick dann selbst abfangen.
 - IDs im Elternbereich nicht mit `eltern-…` beginnen: Die Bausteine darunter nutzen selbst solche IDs (`eltern-blatt`). Die Hülle nimmt `abschnitt-…`.
+- Das Geräteprofil `devices['iPhone 13']` von Playwright hat nur 664 px Höhe (Browserleisten abgezogen). Für den Rundgang auf 390 × 844 den `viewport` ausdrücklich setzen.
+- `Textteile` liefert mehrere Knoten (Text, Fachbegriff-Knopf, Text). In einem `display: flex`-Elternteil wird jeder Knoten eine Spalte (A1 der Mängelliste). Textteile immer in ein `span` fassen.
 - GitHub beachtet `merge=union` nicht. Wenn `main` weiterläuft, meldet der PR einen Konflikt in den Protokollen. Dann `origin/main` lokal hineinmergen; git führt sie zusammen.
