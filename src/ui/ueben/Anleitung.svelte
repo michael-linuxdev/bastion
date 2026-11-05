@@ -56,7 +56,12 @@
     <ul class="pruefen">
       {#each anleitung.pruefen as punkt, i (i)}
         <li>
-          <label><input type="checkbox" /> <Textteile teile={fuelle(punkt.de, {})} /></label>
+          <!-- A1 (Q-O1): Textteile liefert mehrere Knoten; im Flex-Label wird jeder zur Spalte,
+               darum der Text in einem span -->
+          <label
+            ><input type="checkbox" />
+            <span><Textteile teile={fuelle(punkt.de, {})} /></span></label
+          >
         </li>
       {/each}
     </ul>

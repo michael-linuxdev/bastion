@@ -1174,6 +1174,12 @@ test('Zeichen-Anleitung: Schritt für Schritt, Prüfliste ohne Bewertung (L-10)'
   await page.getByRole('button', { name: 'Fertig gezeichnet' }).click();
   await expect(page.getByRole('heading', { name: 'Prüfe deine Zeichnung' })).toBeVisible();
   await expect(page.getByText(/nicht gespeichert und nicht bewertet/)).toBeVisible();
+  // A1 (Q-O1): Prüfpunkte in einer Zeile, kein seitlicher Überlauf
+  const breite = await page.evaluate(() => ({
+    inhalt: document.documentElement.scrollWidth,
+    fenster: document.documentElement.clientWidth,
+  }));
+  expect(breite.inhalt).toBeLessThanOrEqual(breite.fenster);
   await page.getByRole('button', { name: 'Zurück zum Üben' }).click();
   await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
 });
@@ -1785,8 +1791,11 @@ test('Erstvermittlung: Schritt für Schritt, Rückmeldung zur Fehlvorstellung, d
     ['entdecken', false, 'FV.BR.TEIL-ZU-REST'],
   ]);
 
+  // A3 (Q-O1): Zurück führt dahin, woher man kam – hier aus dem Angebot zur Themenwahl.
+  // Vorher landete man in der ersten Aufgabe, also vorwärts statt zurück.
   await page.getByRole('button', { name: /Zurück/ }).click();
-  await expect(page.getByRole('button', { name: 'Prüfen' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Was möchtest du üben?' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Prüfen' })).toHaveCount(0);
 });
 
 test('Erstvermittlung bis zum Ende: Bauschritt, „erklärt“, kein Angebot mehr, Kurzfassung (U3d)', async ({

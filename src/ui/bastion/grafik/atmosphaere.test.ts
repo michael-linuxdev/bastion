@@ -3,6 +3,9 @@ import {
   aufstellDauerMs,
   aufstellFortschritt,
   bewegungAus,
+  KAMERA_RUHE_MS,
+  TAKT_HZ,
+  taktFuer,
   tickerAn,
   wolkenVersatz,
 } from './atmosphaere';
@@ -19,6 +22,20 @@ describe('atmosphaere', () => {
     expect(tickerAn('aus')).toBe(false);
     expect(tickerAn('leicht')).toBe(true);
     expect(tickerAn('voll')).toBe(true);
+  });
+
+  it('Takt: 30 Hz nur mit Bewegung, ruhender Kamera und etwas zu bewegen (Q-G1)', () => {
+    expect(TAKT_HZ).toBe(30);
+    expect(taktFuer({ bewegung: 'voll', bewegt: true, kameraBewegt: false })).toBe(TAKT_HZ);
+    expect(taktFuer({ bewegung: 'leicht', bewegt: true, kameraBewegt: false })).toBe(TAKT_HZ);
+    // „Bewegung reduzieren“: Ticker steht, auch wenn es Wesen gäbe
+    expect(taktFuer({ bewegung: 'aus', bewegt: true, kameraBewegt: false })).toBe(0);
+    // Zoomen und Schwenken: das Bild steht, der Browser bewegt es
+    expect(taktFuer({ bewegung: 'voll', bewegt: true, kameraBewegt: true })).toBe(0);
+    // Nichts zu bewegen (keine Wesen, Fahnen, Partikel): kein Takt
+    expect(taktFuer({ bewegung: 'voll', bewegt: false, kameraBewegt: false })).toBe(0);
+    expect(KAMERA_RUHE_MS).toBeGreaterThan(0);
+    expect(KAMERA_RUHE_MS).toBeLessThan(500);
   });
 
   it('Wolkenversatz ist deterministisch und bei aus 0', () => {
