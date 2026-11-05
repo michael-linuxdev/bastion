@@ -646,3 +646,30 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
   - Fehlt der Wert (erste Nutzung oder Update), merkt sich die App die jetzige Epoche ohne Fahrt.
   - Kein Timer und kein Druck: Die Fahrt zeigt nur, dass der Platz gewachsen ist.
 
+## 29. Takt der Bühne (Q-G1, PR 1, 05.11.2026)
+
+- **Befund:** Der Pixi-Ticker lief immer mit 60 Bildern je Sekunde, auch bei „Bewegung reduzieren“: Dort nahm die Bühne nur ihren eigenen Rückruf vom Ticker, PixiJS zeichnete das unveränderte Bild trotzdem 60-mal je Sekunde neu (bei dreifacher Pixeldichte 3264 × 2544 Bildpunkte). Beim Zoomen und Schwenken kam dieselbe Arbeit dazu, obwohl die Kamera das fertige Bild nur per CSS-Transform verschiebt und vergrößert.
+- **Regel** (`atmosphaere.ts`, `taktFuer`, rein mit Test): Der Takt ist 0, wenn Bewegung aus ist („ruhig“ oder System-Ruhe), wenn die Kamera sich bewegt (Geste oder Kamerafahrt, bis `KAMERA_RUHE_MS` = 150 ms nach der letzten Änderung) oder wenn es nichts zu bewegen gibt (keine Wesen, Bewohner, Wolken, Partikel, Fahnen, Mühlen, Baustellen, Rauch, kein Aufstellen, kein Sturm). Sonst `TAKT_HZ` = 30: Sprites mit zwei bis vier Bildern je Zyklus, ziehende Wolken und wehende Fahnen brauchen keine 60 Bilder (§4.5: „wenn knapp, 30 fps anpeilen“).
+- **Bühne** (`grafik-buehne.ts`): `autoStart: false`; `taktSync` startet und stoppt den Pixi-Ticker (mit `app.render` daran) nach der Regel und setzt `maxFPS`. Steht der Takt, zeichnet `bildAnfordern` beim nächsten Browser-Bild ein Einzelbild, sobald sich etwas ändert (`zeichne`, Auswahl, Bewegung umgeschaltet, Tippen auf Wesen oder Bewohner, scharfe Bilder nachgeladen). Der Ticker prüft am Ende jedes Durchlaufs, ob noch etwas in Bewegung ist (etwa das Aufstellen vorbei), und hält sonst an. `Bauplatz.svelte` meldet jede Kamera-Änderung an `setzeKameraBewegt`.
+- **Nicht abschaltbar:** Pixis `SchedulerSystem` hängt an `Ticker.system` (geschützt) und läuft mit 60 Hz weiter, rund 0,2 ms je Bild. Das Ereignis-System (`renderer.events`) ist im Build nicht registriert; der Versuch, es abzuhängen, lässt die Bühne leer (Lehre in `docs/session/GRAFIK.md`).
+- **Messung** mit `pnpm tempo` (`tools/grafik/tempo.ts`, Beschreibung in `tools/README.md`): Chromium ohne Grafikkarte, 390 × 844 bei Pixeldichte 3, CPU ÷4, je Phase 6 s. Die Bühne wird über die Chrome-Ablaufverfolgung beobachtet: Bilder/s = gezeigte Bilder, Takt/s = Durchläufe des Pixi-Tickers, Hauptfaden und GPU = belegte Zeit, Hänger = über 100 ms ohne Bild, Ebenen wie §24. Ohne Grafikkarte kostet jedes neue Pixi-Bild den Hauptfaden rund 250 ms („Commit“, Kopie des Canvas); darum ist der Hauptfaden hier voll, sobald die Bühne zeichnet, und der Takt kommt nicht über 8 bis 11 je Sekunde. Die Zahlen taugen zum Vergleich, nicht als Maß für das iPhone (der PV misst dort, Q-G0).
+
+- **Zahlen vorher → nachher** (Chromium, 390 × 844, Pixeldichte 3, je Phase 6 s; vorher = `main` vom 05.11.2026 mit demselben Werkzeug):
+
+  | Lage | Phase | Bilder/s | Takt/s | ms je Takt | Hauptfaden | GPU | Hänger | Ebenen |
+  |---|---|---|---|---|---|---|---|---|
+  | CPU ÷4, Bewegung voll | Ruhe | 59,9 → 59,1 | 8,4 → 7,1 | 3,5 → 2,3 | 100 % → 100 % | 71 % → 78 % | 0 → 0 | 45 MB → 45 MB |
+  | | Zoomen | 59,9 → 60,0 | 8,4 → 14,1 | 1,9 → 0,9 | 100 % → 99 % | 71 % → 66 % | 0 → 0 | 35 MB → 37 MB |
+  | | Schwenken | 60,0 → 57,7 | 8,5 → 20,5 | 1,9 → 0,5 | 100 % → 95 % | 71 % → 67 % | 0 → 1 | 33 MB → 38 MB |
+  | | Herangezoomt | 14,4 → 22,1 | 8,6 → 12,4 | 1,8 → 1,1 | 100 % → 97 % | 71 % → 70 % | 49 → 21 | 106 MB → 105 MB |
+  | CPU ÷1, Bewegung voll | Ruhe | 58,6 → 56,8 | 9,7 → 10,1 | 0,8 → 0,8 | 100 % → 100 % | 91 % → 92 % | 0 → 1 | 45 MB → 45 MB |
+  | | Zoomen | 60,0 → 60,2 | 10,0 → 20,5 | 0,7 → 0,2 | 100 % → 95 % | 90 % → 81 % | 0 → 0 | 33 MB → 33 MB |
+  | | Schwenken | 60,0 → 60,1 | 9,9 → 28,1 | 0,5 → 0,1 | 100 % → 89 % | 90 % → 77 % | 0 → 0 | 32 MB → 37 MB |
+  | | Herangezoomt | 13,7 → 60,0 | 10,3 → 13,5 | 0,5 → 0,6 | 100 % → 98 % | 90 % → 87 % | 58 → 0 | 98 MB → 130 MB |
+  | CPU ÷4, Bewegung reduzieren | Ruhe | 4,1 → 0,0 | 8,3 → 60,0 | 1,1 → 0,3 | **100 % → 6 %** | **79 % → 0 %** | 24 → 0 | 16 MB → 16 MB |
+  | | Zoomen | 5,2 → 8,0 | 7,4 → 9,2 | 0,7 → 1,4 | 100 % → 99 % | 75 % → 72 % | 24 → 19 | 84 MB → 65 MB |
+  | | Schwenken | 5,0 → 6,4 | 7,0 → 10,2 | 0,9 → 1,1 | 100 % → 99 % | 75 % → 70 % | 24 → 22 | 16 MB → 16 MB |
+  | | Herangezoomt | 4,8 → 4,5 | 7,5 → 33,4 | 0,8 → 0,4 | 100 % → 56 % | 78 % → 39 % | 50 → 20 | 63 MB → 63 MB |
+
+  Lesart: „Takt/s“ zählt alle Animationsbilder des Hauptfadens; nachher sind das beim Zoomen und Schwenken Pixis Scheduler und das Einzelbild (billig, 0,1 bis 0,9 ms), vorher die Durchläufe der Bühne (1,9 bis 3,5 ms samt Canvas-Kopie). Bei „Bewegung reduzieren“ ist die Bühne in Ruhe jetzt still (0 Bilder, Hauptfaden 6 %, GPU 0 %), vorher zeichnete sie weiter. Herangezoomt zeigt Chromium jetzt 22 statt 14 Bilder je Sekunde (ungedrosselt 60 statt 14) mit weniger Hängern. In Ruhe mit Bewegung ändert sich in Chromium ohne Grafikkarte nichts: Der Hauptfaden ist dort schon mit 7 bis 10 Bildern je Sekunde voll, die Grenze von 30 greift erst auf einem Gerät mit Grafikkarte (iPhone: halbe Arbeit für den Grafikprozessor, Messung durch den PV). Beim Zoomen und Schwenken bleibt der Hauptfaden mit 95 bis 99 % voll, obwohl die Bühne steht: Das ist die Kulisse (`Kulisse.svelte`, rund 70 Commits in 4 s), der nächste Punkt in Q-G1.
+
