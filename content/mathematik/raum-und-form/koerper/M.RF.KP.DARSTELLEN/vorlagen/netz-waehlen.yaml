@@ -16,7 +16,7 @@ hilfen:
   - de: 'Landen zwei Quadrate aufeinander, ist es kein [[Würfelnetz]].'
 fehlerbilder:
   falsch-gefaltet:
-    de: Falte diese Figur noch einmal in Gedanken, Quadrat für Quadrat. Zwei Quadrate landen aufeinander, und eine Würfelfläche bleibt offen.
+    de: Falte diese Figur noch einmal in Gedanken, Quadrat für Quadrat. Zwei Quadrate landen aufeinander, und mindestens eine Würfelfläche bleibt offen.
     fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1

@@ -32,6 +32,9 @@ fehlerbilder:
   diagonalen-als-achsen:
     de: 'Nicht jede [[Diagonale]] ist eine [[Symmetrieachse]]. Falte in Gedanken – liegen die Hälften wirklich aufeinander?'
     fv: FV.SY.ACHSENSYMMETRIE
+  mittellinien-als-achsen:
+    de: 'Nicht jede Linie durch die Mitte ist eine [[Symmetrieachse]]. Falte in Gedanken an jeder Linie – nur wo beide Hälften genau aufeinanderliegen, zählt sie.'
+    fv: FV.SY.ACHSENSYMMETRIE
   punktsymmetrie-als-achse:
     de: 'Die Figur sieht nach einer halben [[Drehung]] gleich aus – das ist [[Punktsymmetrie]], keine Achse.'
     fv: FV.SY.ACHSENSYMMETRIE

@@ -57,21 +57,23 @@ const FORMEN: readonly Form[] = [
   {
     name: 'gleichschenkliges Dreieck',
     achsen: 1,
+    // deutlich höher als breit, damit es nie wie ein gleichseitiges aussieht
     ecken: (r) => {
-      const b = r.int(80, 180);
+      const b = r.int(60, 110);
       return [
         [100 - b / 2, 180],
         [100 + b / 2, 180],
-        [100, r.int(10, 50)],
+        [100, r.int(10, 30)],
       ];
     },
-    fehler: [['diagonalen-als-achsen', 3]],
+    fehler: [['mittellinien-als-achsen', 3]],
   },
   {
     name: 'Raute',
     achsen: 2,
+    // kurze Diagonale höchstens 130 zu 190, damit sie nie wie ein gedrehtes Quadrat aussieht
     ecken: (r) => {
-      const b = r.int(50, 90);
+      const b = r.int(40, 65);
       return [
         [100, 10],
         [100 + b, 105],
@@ -79,7 +81,7 @@ const FORMEN: readonly Form[] = [
         [100 - b, 105],
       ];
     },
-    fehler: [['diagonalen-als-achsen', 4]],
+    fehler: [['mittellinien-als-achsen', 4]],
   },
   {
     name: 'gleichschenkliges Trapez',
@@ -93,7 +95,7 @@ const FORMEN: readonly Form[] = [
         [10 + o, 50],
       ];
     },
-    fehler: [['diagonalen-als-achsen', 2]],
+    fehler: [['mittellinien-als-achsen', 2]],
   },
   {
     name: 'Parallelogramm',
@@ -149,7 +151,12 @@ export const achsenZaehlen: Generator<AchsenParameter> = {
   id: 'sy.achsen-zaehlen',
   version: 1,
   platzhalter: [],
-  fehlerbildIds: ['nur-waagerecht-senkrecht', 'diagonalen-als-achsen', 'punktsymmetrie-als-achse'],
+  fehlerbildIds: [
+    'nur-waagerecht-senkrecht',
+    'diagonalen-als-achsen',
+    'mittellinien-als-achsen',
+    'punktsymmetrie-als-achse',
+  ],
 
   erzeuge(seed, p) {
     const auswahlFormen = FORMEN.filter((f) => p.formen.includes(f.name));
@@ -317,24 +324,32 @@ export const bewegungErkennen: Generator<BewegungParameter> = {
       f = zufallsfigur(r, 5);
     }
     const art = r.int(0, p.mit_drehung ? 2 : 1);
-    const bildFigur: Figur =
+    // Spiegelung: wirklich an der gezeichneten Linie zwischen Spalte 7 und 8 (Spalte s → 13 − s),
+    // damit die Abstände zur Linie stimmen. Verschiebung und Drehung: 8 Spalten nach rechts.
+    const verschoben: Figur =
       art === 0
-        ? spiegelSenkrecht(f)
+        ? f.map(([s, z]) => [13 - s, z] as const)
         : art === 1
-          ? f
-          : normiert(f.map(([s, z]) => [-s, -z] as const));
-    const verschoben = bildFigur.map(([s, z]) => [s + 8, z] as const);
+          ? f.map(([s, z]) => [s + 8, z] as const)
+          : normiert(f.map(([s, z]) => [-s, -z] as const)).map(([s, z]) => [s + 8, z] as const);
     const teile = [
       ...raster(5, 5, 20, 14, 6),
       ...f.map(([s, z]) => kaestchen(5, 5, 20, s, z)),
       ...verschoben.map(([s, z]) => kaestchen(5, 5, 20, s, z)),
     ];
-    if (art === 0) teile.push(linie(5 + 7.5 * 20, 0, 5 + 7.5 * 20, 130, 2.5));
-    const namen = [
-      'eine Spiegelung an der senkrechten Linie',
-      'eine Verschiebung nach rechts',
-      'eine Drehung um einen halben Kreis',
-    ];
+    if (art === 0) teile.push(linie(5 + 7 * 20, 0, 5 + 7 * 20, 130, 2.5));
+    const zeilen = (g: Figur) =>
+      [...new Set(g.map(([, z]) => z))]
+        .sort((a, b) => a - b)
+        .map(
+          (z) =>
+            `Zeile ${z + 1}: Spalten ${g
+              .filter(([, b]) => b === z)
+              .map(([s]) => s + 1)
+              .sort((a, b) => a - b)
+              .join(', ')}`,
+        )
+        .join('; ');
     return {
       platzhalter: {},
       bild: bild(
@@ -342,7 +357,8 @@ export const bewegungErkennen: Generator<BewegungParameter> = {
         130,
         teile,
         de(
-          `Links eine Figur aus 5 Kästchen, rechts ihr Bild. Das Bild entstand durch ${namen[art] ?? ''}.`,
+          `Rasterpapier mit 14 Spalten und 6 Zeilen. Links eine Figur aus 5 Kästchen (${zeilen(f)}), rechts eine zweite Figur (${zeilen(verschoben)}).` +
+            (art === 0 ? ' Zwischen Spalte 7 und 8 eine dicke senkrechte Linie.' : ''),
         ),
       ),
       optionen: p.mit_drehung ? BEWEGUNGEN : BEWEGUNGEN.slice(0, 2),

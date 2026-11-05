@@ -224,7 +224,7 @@ export const wuerfelnetzWaehlen: Generator<NetzWaehlenParameter> = {
         de(
           netz
             ? 'Falte in Gedanken: Ein Quadrat ist der Boden, die anderen klappst du hoch. Beim Würfelnetz entsteht jede Fläche genau einmal.'
-            : 'Falte in Gedanken: Bei dieser Figur würden zwei Quadrate aufeinander landen, und eine Fläche bliebe offen.',
+            : 'Falte in Gedanken: Bei dieser Figur würden zwei Quadrate aufeinander landen, und mindestens eine Fläche bliebe offen.',
         ),
         de(
           'Merke: In einem Würfelnetz liegen nie mehr als vier Quadrate in einer Reihe, und nie bilden vier Quadrate ein großes Quadrat.',

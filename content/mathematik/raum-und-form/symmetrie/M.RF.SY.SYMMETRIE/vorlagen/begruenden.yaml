@@ -15,10 +15,10 @@ hilfen:
   - de: 'Passen beide Hälften genau aufeinander?'
 fehlerbilder:
   achsensymmetrie:
-    de: 'Nicht jede Linie durch die Mitte ist eine [[Symmetrieachse]]. Prüfe durch Falten.'
+    de: 'Prüfe jede Linie durch Falten, auch schräge. Nur wo beide Hälften genau aufeinanderliegen, ist eine [[Symmetrieachse]].'
     fv: FV.SY.ACHSENSYMMETRIE
   achsen-gezaehlt:
-    de: 'Zähle nur die Linien, an denen beide Hälften genau aufeinanderpassen.'
+    de: 'Zähle alle Linien, an denen beide Hälften genau aufeinanderpassen – nicht mehr und nicht weniger.'
     fv: FV.SY.ACHSENSYMMETRIE
 herkunft: ki-entwurf
 version: 1

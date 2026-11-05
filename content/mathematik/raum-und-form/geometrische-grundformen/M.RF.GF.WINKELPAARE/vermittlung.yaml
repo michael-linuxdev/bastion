@@ -12,7 +12,7 @@ schritte:
     typ: anknuepfen
     text:
       de: 'Wie viel [[Grad]] hat dieser gestreckte [[Winkel]]?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 180 } }
+    bild: { werkzeug: winkel@1, parameter: { grad: 180, frage: true } }
     antwort:
       eingabe:
         {
@@ -26,7 +26,7 @@ schritte:
     typ: anknuepfen
     text:
       de: 'Wie liegen diese beiden [[Geraden]] zueinander?'
-    bild: { werkzeug: geraden@1, parameter: { lage: parallel, richtung: 10 } }
+    bild: { werkzeug: geraden@1, parameter: { lage: parallel, richtung: 10, frage: true } }
     antwort:
       optionen:
         - { wert: { de: 'parallel' }, richtig: true }
@@ -75,7 +75,8 @@ schritte:
     typ: ergaenzen
     text:
       de: 'α = 35°. β ist der [[Scheitelwinkel]] von α. Wie viel [[Grad]] hat β?'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 35, felder: ['α', '', 'β', ''] } }
+    bild:
+      { werkzeug: geraden@1, parameter: { winkel: 35, felder: ['α', '', 'β', ''], frage: true } }
     antwort:
       eingabe: { art: zahl, loesung: '35', fehler: [{ wert: '145', fv: FV.GF.GLEICH-ODER-180 }] }
     weiter: gegenbeispiel
@@ -100,13 +101,14 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Nebenwinkel]] (nebeneinander): zusammen 180°. [[Scheitelwinkel]] (gegenüber), [[Stufenwinkel]] (F) und [[Wechselwinkel]] (Z) an Parallelen: gleich groß.'
+      de: '[[Nebenwinkel]] (nebeneinander): zusammen 180°. [[Scheitelwinkel]] (gegenüber): gleich groß. An Parallelen auch [[Stufenwinkel]] (F) und [[Wechselwinkel]] (Z): gleich groß.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
     text:
       de: 'α = 50°. Wie groß ist β?'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''] } }
+    bild:
+      { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''], frage: true } }
     antwort:
       optionen:
         - { wert: { de: '130°' }, richtig: true }

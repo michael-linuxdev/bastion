@@ -7,7 +7,7 @@ quelle: generator
 generator: sy.symmetrische-figur@1
 parameter:
   G: { kaestchen: 4 }
-  M: { kaestchen: 7 }
+  M: { kaestchen: 8 }
 text:
   aufgabe:
     de: '**Wähle** die Figur **aus**, die [[achsensymmetrisch]] ist.'

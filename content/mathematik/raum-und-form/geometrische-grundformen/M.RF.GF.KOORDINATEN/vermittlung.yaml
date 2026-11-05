@@ -11,11 +11,11 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Welche Zahl ist größer: 7 oder 4?'
+      de: 'Welcher Vergleich stimmt?'
     antwort:
       optionen:
-        - { wert: { de: '7' }, richtig: true }
-        - { wert: { de: '4' }, fv: FV.NZ.ZEICHEN-VERDREHT }
+        - { wert: { de: '7 > 4' }, richtig: true }
+        - { wert: { de: '7 < 4' }, fv: FV.NZ.ZEICHEN-VERDREHT }
     weiter: entdecken
     bei: { sonst: M.ZO.NZ.ORDNEN }
   - id: entdecken

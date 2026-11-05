@@ -112,7 +112,7 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Der linke Pfeil zeigt nach rechts, der rechte nach links. Tom sagt: Der rechte ist nur verschoben. Stimmt das?'
+      de: 'Bei der linken Figur zeigt der Fuß nach rechts, bei der rechten nach links. Tom sagt: Die rechte ist nur verschoben. Stimmt das?'
     bild:
       {
         werkzeug: gitter@1,
@@ -122,15 +122,15 @@ schritte:
             max: 12,
             figuren:
               [
-                { ecken: [[1, 3], [3, 3], [3, 2], [5, 4], [3, 6], [3, 5], [1, 5]] },
-                { ecken: [[11, 3], [9, 3], [9, 2], [7, 4], [9, 6], [9, 5], [11, 5]], bild: true },
+                { ecken: [[1, 1], [3, 1], [3, 2], [2, 2], [2, 4], [1, 4]] },
+                { ecken: [[11, 1], [9, 1], [9, 2], [10, 2], [10, 4], [11, 4]], bild: true },
               ],
           },
       }
     antwort:
       optionen:
         - {
-            wert: { de: 'Nein, die Richtung hat sich umgedreht: Das ist eine Spiegelung.' },
+            wert: { de: 'Nein, die Figur ist umgeklappt: Das ist eine Spiegelung.' },
             richtig: true,
           }
         - { wert: { de: 'Ja.' }, fv: FV.SY.BEWEGUNG-ERKENNEN }

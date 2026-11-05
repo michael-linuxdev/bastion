@@ -88,7 +88,7 @@ schritte:
     bild:
       {
         werkzeug: gitter@1,
-        parameter: { achsen: false, max: 8, figuren: [{ ecken: [[1, 1], [7, 1], [4, 6]] }] },
+        parameter: { achsen: false, max: 9, figuren: [{ ecken: [[1, 1], [7, 1], [4, 8]] }] },
       }
     antwort:
       eingabe:

@@ -12,7 +12,7 @@ text:
     de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
 hilfen:
   - de: '[[Geraden]] sind unendlich lang.'
-  - de: 'Miss den Abstand an zwei Stellen.'
+  - de: 'Vergleiche die beiden Abstände.'
 fehlerbilder:
   lagebeziehung:
     de: 'Sich im Bild nicht zu berühren reicht nicht. [[Parallele]] [[Geraden]] haben überall denselben Abstand.'

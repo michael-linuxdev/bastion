@@ -17,7 +17,7 @@ erklaerung:
     - teil: warum-nicht
       de: 'Waagerechte und senkrechte Achsen fallen am meisten auf. Aber auch schräge Linien können Achsen sein, und nicht jede [[Diagonale]] ist eine. Beim Rechteck passen die Hälften entlang der Diagonale nicht aufeinander.'
     - teil: so-stimmt-es
-      de: 'Falte in Gedanken entlang der Linie. Liegt jede Ecke auf einer Ecke? Dann ist es eine Achse. Sieht die Figur nur nach einer halben [[Drehung]] gleich aus, ist sie [[Punktsymmetrie]].'
+      de: 'Falte in Gedanken entlang der Linie. Liegt jede Ecke auf einer Ecke? Dann ist es eine Achse. Sieht die Figur nur nach einer halben [[Drehung]] gleich aus, hat sie [[Punktsymmetrie]].'
 gegenbeispiel:
   de: 'Ein Quadrat hat vier Achsen, ein Rechteck nur zwei, obwohl beide zwei [[Diagonalen]] haben.'
 rueckweg:

@@ -12,13 +12,13 @@ text:
     de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
 hilfen:
   - de: 'Wo liegen die Grenzen 90° und 180°?'
-  - de: 'Welcher [[Winkel]] ist mit dem Bogen gemeint?'
+  - de: 'Gemeint ist genau der genannte [[Winkel]], nicht der Rest bis 360°.'
 fehlerbilder:
   winkelart:
     de: 'Spitz: unter 90°. Stumpf: zwischen 90° und 180°. Überstumpf: über 180°.'
     fv: FV.GF.WINKELART
   gegenseite:
-    de: 'Gemeint ist der [[Winkel]] mit dem Bogen, nicht der auf der anderen Seite.'
+    de: 'Gemeint ist der genannte [[Winkel]], nicht der Rest bis 360°. Winkel über 180° gibt es auch: Sie heißen überstumpf.'
     fv: FV.GF.WINKELART
 herkunft: ki-entwurf
 version: 1

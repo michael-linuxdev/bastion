@@ -53,7 +53,10 @@ schritte:
       optionen:
         - { wert: { de: 'Er kommt der Linie von der anderen Seite genauso nah.' }, richtig: true }
         - { wert: { de: 'Er bleibt stehen.' }, fv: FV.SY.SPIEGELABSTAND }
-        - { wert: { de: 'Er wandert in dieselbe Richtung wie P.' }, fv: FV.SY.SPIEGELABSTAND }
+        - {
+            wert: { de: 'Er wandert auch nach rechts, von der Linie weg.' },
+            fv: FV.SY.SPIEGELABSTAND,
+          }
     weiter: erklaeren-spiegeln
   - id: erklaeren-spiegeln
     typ: erklaeren
