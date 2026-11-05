@@ -20,6 +20,7 @@ import {
 import {
   aufstellDauerMs,
   aufstellFortschritt,
+  taktFuer,
   tickerAn,
   wolkenVersatz,
   type Bewegung,
@@ -178,6 +179,11 @@ export interface Buehne {
   zeichne(b: Bastion, a: Ansicht): void;
   /** Bewegung umschalten, ohne die Bühne neu zu bauen (GRAFIK §4.5) */
   setzeBewegung(b: Bewegung): void;
+  /**
+   * Die Kamera zoomt oder schwenkt gerade (GRAFIK §29): Solange das gilt, steht der Takt,
+   * das Bild bleibt stehen, und nur der Browser verschiebt und vergrößert es.
+   */
+  setzeKameraBewegt(bewegt: boolean): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
   /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
@@ -1211,6 +1217,9 @@ export async function buehneErstellen(
     // keine Erweiterungen nachladen, die wir nicht brauchen (Größe, A3)
     manageImports: false,
     preference: 'webgl',
+    // Den Ticker startet die Bühne selbst (`taktSync`, GRAFIK §29): nur wenn es etwas zu
+    // bewegen gibt und die Kamera ruht, sonst zeichnet sie Einzelbilder bei Bedarf
+    autoStart: false,
   });
   app.canvas.style.inlineSize = '100%';
   app.canvas.style.blockSize = 'auto';
@@ -1448,6 +1457,25 @@ export async function buehneErstellen(
   let belegt = belegteFelder([]);
   let letzteBauwerke: Bastion['bauwerke'] = [];
   let tickerZuletzt = performance.now();
+  let zerstoert = false;
+  /** Die Kamera bewegt sich gerade (Geste oder Kamerafahrt) – der Takt steht (GRAFIK §29) */
+  let kameraBewegt = false;
+  /** Ob der eigene Rückruf am Pixi-Ticker hängt */
+  let tickerAngehaengt = false;
+  let bildAngefordert = false;
+  /**
+   * Ein Einzelbild zeichnen, sobald der Browser bereit ist – nur, wenn der Ticker steht.
+   * Läuft er, zeichnet er ohnehin. Mehrere Anforderungen je Bild werden zu einer.
+   */
+  const bildAnfordern = () => {
+    if (bildAngefordert || zerstoert) return;
+    bildAngefordert = true;
+    requestAnimationFrame(() => {
+      bildAngefordert = false;
+      if (zerstoert || app.ticker.started) return;
+      app.render();
+    });
+  };
 
   /** Gezeichnete Gebäude für das Antippen: Umriss auf dem Bild → Platz des Gebäudes */
   let treffer: { pos: Position; umriss: number[] }[] = [];
@@ -2107,17 +2135,40 @@ export async function buehneErstellen(
       bewohner.forEach((b, i) => bewohnerTick(b, dt, jetzt, i, bewohnerF, sekunde));
       bewohnerZeichnen(jetzt);
     }
+    // Ist das Aufstellen vorbei und sonst nichts in Bewegung, hält der Takt an
+    if (!hatBewegung()) taktSync();
   };
 
-  const tickerSync = () => {
-    app.ticker.remove(ticker);
-    if (tickerAn(bewegung)) {
-      app.ticker.add(ticker);
-      wesenZeichnen(performance.now());
-    } else {
+  /**
+   * Gibt es gerade etwas zu bewegen? Mit Kulisse liegen Wolken und Wetter außerhalb der
+   * Bühne (§15.1); dann steht die Bühne ohne Wesen, Bewohner, Fahnen, Mühlen, Baustellen,
+   * Rauch und Laub still – und der Takt mit ihr (GRAFIK §29).
+   */
+  const hatBewegung = (): boolean =>
+    aufstellAktiv ||
+    wesen.length > 0 ||
+    bewohner.length > 0 ||
+    wolkenLage.children.length > 0 ||
+    (budget > 0 && tropfen.length > 0) ||
+    fahnenTuecher.length > 0 ||
+    muehlen.length > 0 ||
+    baustellen.length > 0 ||
+    rauchQuellen.length > 0 ||
+    (wetterBild === 'sturm' && !wetterUeberAllem);
+
+  /**
+   * Takt an die Lage anpassen (GRAFIK §29): Pixi rechnet nur, wenn `taktFuer` einen Takt
+   * nennt, mit höchstens TAKT_HZ Bildern je Sekunde. Steht der Takt, zeichnet die Bühne
+   * ein Einzelbild, damit der letzte Stand zu sehen ist. Vorher lief der Pixi-Ticker
+   * immer mit 60 Hz, auch bei „ruhig“ (dort fehlte nur der eigene Rückruf).
+   */
+  const taktSync = () => {
+    if (zerstoert) return;
+    if (!tickerAn(bewegung)) {
       wolkenLage.x = 0;
       gebaeude.scale.set(1);
       gebaeude.alpha = 1;
+      aufstellAktiv = false;
       // Standbild der Partikel bei „ruhig“; Wesen und Bewohner aus
       partikelZeichnen();
       wesenLage.removeChildren().forEach((c) => c.destroy());
@@ -2125,8 +2176,26 @@ export async function buehneErstellen(
       bodenWeg();
       dauerAusblenden('', new Set());
     }
+    const takt = taktFuer({ bewegung, bewegt: hatBewegung(), kameraBewegt });
+    if (takt > 0) {
+      app.ticker.maxFPS = takt;
+      if (!tickerAngehaengt) {
+        app.ticker.add(ticker);
+        tickerAngehaengt = true;
+        tickerZuletzt = performance.now();
+        wesenZeichnen(tickerZuletzt);
+      }
+      app.start();
+    } else {
+      if (tickerAngehaengt) {
+        app.ticker.remove(ticker);
+        tickerAngehaengt = false;
+      }
+      app.stop();
+      bildAnfordern();
+    }
   };
-  tickerSync();
+  taktSync();
 
   /**
    * Scharfe Bilder nachladen: nur für die Einträge, die die letzte Zeichnung wirklich
@@ -2136,7 +2205,6 @@ export async function buehneErstellen(
   const pixeldichte = globalThis.devicePixelRatio || 1;
   const hdFertig = new Set<string>();
   let hdLaeuft = false;
-  let zerstoert = false;
   let letzteZeichnung: [Bastion, Ansicht] | undefined;
   const hdNachziehen = () => {
     if (hdLaeuft || zerstoert || pixeldichte < 1.5) return;
@@ -2224,7 +2292,6 @@ export async function buehneErstellen(
           aufstellAktiv = true;
           gebaeude.scale.set(0.92);
           gebaeude.alpha = 0;
-          tickerSync();
         }
       }
       gebaeude.removeChildren().forEach((c) => c.destroy());
@@ -2930,6 +2997,10 @@ export async function buehneErstellen(
       }
       gebaeude.addChild(g);
       fahnenSammeln();
+      // Neue Fahnen, Baustellen oder ein Aufstellen können den Takt starten; steht er,
+      // zeigt ein Einzelbild den neuen Stand
+      taktSync();
+      bildAnfordern();
     },
     setzeBewegung(b) {
       bewegung = b;
@@ -2938,7 +3009,13 @@ export async function buehneErstellen(
         platz: bauplatzAktiv(),
       });
       letzteBewohnerKey = '';
-      tickerSync();
+      taktSync();
+      bildAnfordern();
+    },
+    setzeKameraBewegt(bewegt) {
+      if (bewegt === kameraBewegt) return;
+      kameraBewegt = bewegt;
+      taktSync();
     },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
@@ -2974,6 +3051,7 @@ export async function buehneErstellen(
       if (w) {
         wesenReagieren(w, performance.now());
         wesenZeichnen(performance.now());
+        bildAnfordern();
       }
     },
     tippeBewohner(id) {
@@ -2981,6 +3059,7 @@ export async function buehneErstellen(
       if (b) {
         bewohnerReagieren(b, performance.now());
         bewohnerZeichnen(performance.now());
+        bildAnfordern();
       }
       return b;
     },
@@ -2992,7 +3071,8 @@ export async function buehneErstellen(
     },
     zerstoere() {
       zerstoert = true;
-      app.ticker.remove(ticker);
+      if (tickerAngehaengt) app.ticker.remove(ticker);
+      tickerAngehaengt = false;
       const view = app.canvas;
       // Nicht `destroy(true)`: das gäbe auch die globalen Ressourcen von PixiJS frei (Vorrat
       // an Zeichen-Stapeln), die die neue Bühne nach einem Themenwechsel schon nutzt.
