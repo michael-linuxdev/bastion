@@ -1,6 +1,10 @@
 # tools
 
-Werkzeuge für Entwicklung und Build: Größenbudget, Inhalts-Build und -Prüfung, Balancing-Simulator (`sim/`, `pnpm sim`, BASEBAU §8).
+Werkzeuge für Entwicklung und Build: Größenbudget, Inhalts-Build und -Prüfung, Balancing-Simulator (`sim/`, `pnpm sim`, BASEBAU §8), Tempo der Bastion-Bühne (`grafik/tempo.ts`, `pnpm tempo`, GRAFIK §29).
+
+## Tempo der Bastion (`grafik/tempo.ts`)
+
+`pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion] [--ruhig]` öffnet den Build in Chromium wie auf dem iPhone 13 (390 × 844, dreifache Pixeldichte, CPU gedrosselt) und misst die Bühne in vier Phasen: Ruhe, Zoomen mit dem Rad, Schwenken mit gedrücktem Zeiger, Ruhe ganz herangezoomt. Je Phase: gezeigte Bilder je Sekunde, Takt des Pixi-Tickers je Sekunde und seine Dauer, belegte Zeit von Hauptfaden und GPU-Prozess, Hänger (über 100 ms ohne Bild), Zahl und Speicher der Grafikebenen wie in GRAFIK §24. `--ruhig` misst mit „Bewegung reduzieren“. Die Werte kommen aus der Chrome-Ablaufverfolgung; ohne Grafikkarte zeichnet Chromium in Software, darum ist der Hauptfaden dort schneller voll als auf dem Gerät. Die Zahlen taugen zum Vergleich vorher und nachher, nicht als Messung am iPhone (Q-G0, PV). `--ablage datei.json` legt die Ablaufverfolgung ab.
 
 ## Prüfbogen (`pruefbogen/`)
 
