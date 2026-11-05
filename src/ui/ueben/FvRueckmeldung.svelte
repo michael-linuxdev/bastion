@@ -1,6 +1,7 @@
 <script lang="ts">
-  // Rückmeldung zur erkannten Fehlvorstellung (VERMITTLUNG §3.3): Titel + Schema
-  // zuerst; langer Text einklappbar (§S98). Kurzform beim ersten Treffer.
+  // Rückmeldung zur erkannten Fehlvorstellung (VERMITTLUNG §3.3): Überschrift „Dein Denkfehler“,
+  // Name, Schema; langer Text einklappbar (§S98). Kurzform beim ersten Treffer.
+  // B2 (Q-O1): kein eigener Kasten mehr, der Kurzsatz nur, wenn die Ursache ihn nicht schon sagt.
   import type { Fehlvorstellung } from '../../core/learning/fehlvorstellung';
   import type { FvZustand } from '../../core/learning/fv-diagnose';
   import { fuelle } from '../../core/learning/text';
@@ -12,12 +13,15 @@
     fv,
     zustand,
     rueckweg,
+    kurzZeigen = true,
     onrueckweg,
   }: {
     fv: Fehlvorstellung;
     zustand: FvZustand | undefined;
     /** Beschriftung des Rückwegs, falls es einen gibt */
     rueckweg: 'erklaerung' | 'grundlage' | undefined;
+    /** Kurzerklärung zeigen (false, wenn das Urteil die Ursache schon nennt) */
+    kurzZeigen?: boolean;
     onrueckweg: () => void;
   } = $props();
 
@@ -25,16 +29,19 @@
   const schema = $derived(fv.erklaerung.lang.find((teil) => teil.bild)?.bild);
 </script>
 
-{#if lang}
-  <section class="lang" aria-label={fv.name.de}>
-    <h3 class="titel">{fv.name.de}</h3>
+<section class="denkfehler" class:lang aria-label={fv.name.de}>
+  <p class="label">{t('fv.titel')}</p>
+  <h3 class="titel">{fv.name.de}</h3>
+  {#if lang}
     <p class="einstieg">{t(zustand === 'wieder-da' ? 'fv.wieder-da' : 'fv.vermutet')}</p>
-    {#if schema}
-      {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
-      {#if Bild}
-        <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
-      {/if}
+  {/if}
+  {#if schema}
+    {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
+    {#if Bild}
+      <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
     {/if}
+  {/if}
+  {#if lang}
     <details class="mehr">
       <summary>{t('fv.mehr-lesen')}</summary>
       {#each fv.erklaerung.lang as teil (teil.teil)}
@@ -58,56 +65,51 @@
         >{t(rueckweg === 'grundlage' ? 'fv.grundlage' : 'fv.zur-erklaerung')}</button
       >
     {/if}
-  </section>
-{:else}
-  <aside class="kurz" aria-label={fv.name.de}>
-    <h3 class="titel">{fv.name.de}</h3>
-    {#if schema}
-      {@const Bild = WERKZEUG_KOMPONENTEN[schema.werkzeug]}
-      {#if Bild}
-        <div class="bild"><Bild parameter={schema.parameter ?? {}} /></div>
-      {/if}
-    {/if}
+  {:else if kurzZeigen}
     <p><Textteile teile={fuelle(fv.erklaerung.kurz.de, {})} /></p>
-  </aside>
-{/if}
+  {/if}
+</section>
 
 <style>
-  .lang {
+  .denkfehler {
     display: grid;
     gap: var(--abstand-s);
-    margin-block: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius);
-    border-inline-start: 4px solid var(--farbe-akzent);
-    background: var(--farbe-flaeche-leise);
-  }
-
-  .lang p,
-  .lang h3,
-  .lang h4,
-  .kurz h3 {
-    margin-block: 0;
-  }
-
-  .titel {
-    font-size: 1.05rem;
-    font-weight: 800;
+    padding-block-start: var(--abstand-s);
+    border-block-start: 1px solid var(--farbe-rand);
     color: var(--farbe-text);
   }
 
-  h4 {
-    font-size: 1rem;
+  .denkfehler p,
+  .denkfehler h3,
+  .denkfehler h4 {
+    margin-block: 0;
+  }
+
+  .label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--farbe-akzent);
   }
 
-  .einstieg {
+  .titel {
+    font-size: 1.0625rem;
     font-weight: 700;
+  }
+
+  .einstieg {
+    font-weight: 600;
   }
 
   .teil {
     display: grid;
     gap: 0.25rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    color: var(--farbe-akzent);
   }
 
   .bild {
@@ -122,7 +124,7 @@
     display: flex;
     align-items: center;
     gap: var(--abstand-s);
-    color: var(--farbe-text);
+    color: var(--farbe-akzent);
     list-style: none;
   }
 
@@ -143,27 +145,11 @@
     gap: var(--abstand-s);
   }
 
-  .lang button {
+  .denkfehler button {
     justify-self: start;
   }
 
   .leise {
     color: var(--farbe-text-leise);
-  }
-
-  .kurz {
-    display: grid;
-    gap: var(--abstand-s);
-    margin-block: var(--abstand-s);
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border-inline-start: 3px solid var(--farbe-akzent);
-    background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text);
-  }
-
-  .kurz p {
-    margin-block: 0;
   }
 </style>
