@@ -335,6 +335,8 @@
         {#each Array.from({ length: steine.gesamt }, (_, i) => i) as i (i)}
           <span class="stein" class:voll={i < steine.voll}></span>
         {/each}
+        <!-- B9 (Q-O1): Zahl zu den Steinen -->
+        <span class="steine-text">{steine.voll} {t('uebung.von')} {steine.gesamt}</span>
       </span>
     {/if}
   </header>
@@ -718,11 +720,18 @@
   }
 
   .stein {
-    inline-size: 0.85rem;
-    block-size: 0.55rem;
+    inline-size: 0.95rem;
+    block-size: 0.65rem;
     border-radius: 0.2rem;
     background: var(--farbe-flaeche-leise);
-    box-shadow: inset 0 0 0 1.5px var(--farbe-rand);
+    box-shadow: inset 0 0 0 2px var(--farbe-text-leise);
+  }
+
+  .steine-text {
+    margin-inline-start: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--farbe-text-leise);
   }
 
   .stein.voll {

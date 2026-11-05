@@ -60,8 +60,26 @@
   let nenner = $state('');
   let hinweis = $state<TextSchluessel | undefined>(undefined);
   let karte = $state<HTMLElement | undefined>(undefined);
+  let rueckmeldungEl = $state<HTMLElement | undefined>(undefined);
+  let knoepfeEl = $state<HTMLElement | undefined>(undefined);
   /** Kurzfassung zum Nachschlagen: nur Beispiele und Merksätze (VERMITTLUNG §2.4) */
   let kurz = $state(false);
+
+  /**
+   * C2 (Q-O1): Liegt etwas unter dem Bildschirmrand (Prüfen-Knopf, Rückmeldung), rückt es ins
+   * Bild – wie `sichtbarMachen` im Üben (L12).
+   */
+  function sichtbar(el: HTMLElement | undefined) {
+    if (!el || typeof window === 'undefined') return;
+    if (el.getBoundingClientRect().bottom <= window.innerHeight) return;
+    const ruhig = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ block: 'end', behavior: ruhig ? 'auto' : 'smooth' });
+  }
+
+  // Nach dem Prüfen: Rückmeldung und Weiter-Knopf ins Bild
+  $effect(() => {
+    if (beantwortet) sichtbar(knoepfeEl ?? rueckmeldungEl);
+  });
 
   // L6: über die ID suchen – `schritt` ist ein $state-Proxy, indexOf fand ihn nie (immer 0)
   const nummer = $derived(
@@ -127,6 +145,15 @@
   <ZurueckKnopf onclick={onzurueck} />
   <header class="kopf">
     <h2>{titel}</h2>
+    {#if !kurz}
+      <!-- B9 (Q-O1): Schrittzahl zur Leiste -->
+      <p class="stand">
+        {t('vermittlung.schritt')}
+        {nummer}
+        {t('uebung.von')}
+        {vermittlung.schritte.length}
+      </p>
+    {/if}
     <!-- L6: eigene Leiste, gleich in allen Browsern -->
     <div
       class="fortschritt"
@@ -138,15 +165,12 @@
     >
       <span style:inline-size="{(100 * nummer) / Math.max(1, vermittlung.schritte.length)}%"></span>
     </div>
-    <button class="dezent umschalten" aria-pressed={kurz} onclick={() => (kurz = !kurz)}
-      >{kurz ? t('vermittlung.ganz') : t('vermittlung.kurzfassung')}</button
-    >
   </header>
 
   {#if kurz}
     {#each kurzfassung(vermittlung) as s (s.id)}
       <article class="karte">
-        <p class="typ">{t(`vermittlung.typ.${s.typ}`)}</p>
+        <h3 class="typ">{t(`vermittlung.typ.${s.typ}`)}</h3>
         <p class="text"><Textteile teile={fuelle(s.text.de, {})} /></p>
         {#if s.bild}
           {@const Bild = WERKZEUG_KOMPONENTEN[s.bild.werkzeug]}
@@ -174,7 +198,7 @@
   {:else if schritt}
     {#key schritt}
       <article class="karte" bind:this={karte} aria-live="polite">
-        <p class="typ">{t(`vermittlung.typ.${schritt.typ}`)}</p>
+        <h3 class="typ">{t(`vermittlung.typ.${schritt.typ}`)}</h3>
         <p class="text"><Textteile teile={fuelle(schritt.text.de, {})} /></p>
 
         {#if schritt.bild}
@@ -193,7 +217,7 @@
         {/if}
 
         {#if schritt.antwort}
-          <form id="vermittlung-antwort" onsubmit={pruefen}>
+          <form id="vermittlung-antwort" onsubmit={pruefen} onfocusin={() => sichtbar(knoepfeEl)}>
             {#if 'optionen' in schritt.antwort}
               <fieldset class="optionen" disabled={beantwortet}>
                 <legend class="unsichtbar">{t('vermittlung.antwort')}</legend>
@@ -244,7 +268,12 @@
         {/if}
 
         {#if beantwortet && bewertung && 'richtig' in bewertung}
-          <div class="rueckmeldung" class:richtig={bewertung.richtig} role="status">
+          <div
+            class="rueckmeldung"
+            class:richtig={bewertung.richtig}
+            role="status"
+            bind:this={rueckmeldungEl}
+          >
             <p class="urteil">
               {bewertung.richtig ? t('vermittlung.richtig') : t('vermittlung.falsch')}
             </p>
@@ -260,7 +289,7 @@
           </div>
         {/if}
 
-        <div class="knoepfe">
+        <div class="knoepfe" bind:this={knoepfeEl}>
           {#if schritt.typ === 'uebergang'}
             <button class="haupt" onclick={onende}>{t('vermittlung.jetzt-ueben')}</button>
           {:else if schritt.antwort && !beantwortet}
@@ -274,6 +303,10 @@
       </article>
     {/key}
   {/if}
+  <!-- D1 (Q-O1): Kurzfassung als Zweitknopf unter der Karte, nicht als Link über ihr -->
+  <button class="zweit umschalten" aria-pressed={kurz} onclick={() => (kurz = !kurz)}
+    >{kurz ? t('vermittlung.ganz') : t('vermittlung.kurzfassung')}</button
+  >
 </section>
 
 <style>
@@ -296,6 +329,13 @@
     justify-self: start;
   }
 
+  .stand {
+    margin-block: 0;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--farbe-text-leise);
+  }
+
   .fortschritt {
     inline-size: 100%;
     block-size: 0.5rem;
@@ -312,9 +352,13 @@
     border-radius: inherit;
   }
 
+  /* D1 (Q-O1): Die Karte füllt den Bildschirm, der Knopf steht immer unten – bei jedem Schritt
+     an derselben Stelle. Auf niedrigen Bildschirmen (Querformat) wächst sie nur mit dem Inhalt. */
   .karte {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--abstand-m);
+    min-block-size: calc(100dvh - 15rem);
     background: var(--farbe-flaeche);
     border-radius: var(--radius-karte);
     box-shadow: 0 2px 10px var(--farbe-schatten);
@@ -322,15 +366,19 @@
     scroll-margin-block-start: var(--abstand-m);
   }
 
+  @media (max-block-size: 36rem) {
+    .karte {
+      min-block-size: 0;
+    }
+  }
+
   .karte > :global(*) {
     margin-block: 0;
   }
 
   .typ {
-    font-size: 0.875rem;
+    font-size: 1.0625rem;
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--farbe-akzent);
   }
 
@@ -429,9 +477,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
+    margin-block-start: auto;
   }
 
   .knoepfe .haupt {
+    flex: 1 1 12rem;
     padding-inline: var(--abstand-l);
   }
 
