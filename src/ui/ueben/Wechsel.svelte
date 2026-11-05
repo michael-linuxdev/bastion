@@ -61,11 +61,11 @@
       {/each}
       <p class="knoepfe">
         <button
-          class="zweit"
+          class="haupt"
           onclick={() => onauswahl(klassenOffen.flatMap((g) => g.themen.map((k) => k.id)))}
           >{t('wechsel.luecken-pruefen')}</button
         >
-        <button class="leise-knopf" onclick={onschliessen}>{t('wechsel.nicht-jetzt')}</button>
+        <button class="zweit" onclick={onschliessen}>{t('wechsel.nicht-jetzt')}</button>
       </p>
     {:else}
       <h3 id="wechsel-titel">{t('wechsel.schulart-titel')}</h3>
@@ -74,33 +74,40 @@
         {#each luecken as k (k.id)}<li>{k.titel.de}</li>{/each}
       </ul>
       <p class="knoepfe">
-        <button class="zweit" onclick={() => onauswahl(luecken.map((k) => k.id))}
+        <button class="haupt" onclick={() => onauswahl(luecken.map((k) => k.id))}
           >{t('wechsel.kurz-pruefen')}</button
         >
-        <button class="leise-knopf" onclick={onschliessen}>{t('wechsel.nicht-jetzt')}</button>
+        <button class="zweit" onclick={onschliessen}>{t('wechsel.nicht-jetzt')}</button>
       </p>
     {/if}
   </aside>
 {/if}
 
 <style>
+  /* C4 (Q-O1): Karte unter der Überschrift der Themenwahl, Klappzeile 44 px, zwei klare Knöpfe */
   .wechsel {
-    border: 1px solid var(--farbe-rand);
-    border-radius: var(--radius);
+    display: grid;
+    gap: var(--abstand-s);
+    border-radius: var(--radius-karte);
     padding: var(--abstand-m);
-    margin-block: var(--abstand-m);
     background: var(--farbe-flaeche);
+    box-shadow: 0 2px 8px var(--farbe-schatten);
+  }
+  .wechsel h3,
+  .wechsel p,
+  .wechsel ul {
+    margin-block: 0;
+  }
+  summary {
+    min-block-size: var(--ziel);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
   }
   .knoepfe {
     display: flex;
     flex-wrap: wrap;
     gap: var(--abstand-s);
-  }
-  .leise-knopf {
-    background: none;
-    border: none;
-    text-decoration: underline;
-    color: var(--farbe-text-leise);
-    min-block-size: 2.75rem;
   }
 </style>

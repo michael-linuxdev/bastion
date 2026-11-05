@@ -209,7 +209,7 @@
           {t('diagnose.alle-klassen')}</label
         >
       </fieldset>
-      {#if !uebergreifend}<KlassenWahl bind:klasse />{/if}
+      {#if !uebergreifend}<KlassenWahl bind:klasse kompakt />{/if}
     {/if}
     <p class="leise">{t('diagnose.dauer')}</p>
     <button class="haupt" onclick={starte}
