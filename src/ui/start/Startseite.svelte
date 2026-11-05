@@ -530,7 +530,7 @@
   }
   .zahl {
     position: absolute;
-    inset-block-start: 0.6rem;
+    inset-block-end: 0.6rem;
     inset-inline-end: 0.6rem;
     min-inline-size: 1.6rem;
     block-size: 1.6rem;
@@ -555,9 +555,9 @@
     overflow-wrap: anywhere;
     hyphens: auto;
   }
-  /* D4 (Q-O1): die Plakette sitzt in der Ecke der Kachel, nicht in der Namenszeile – so bricht
-     „Wiederholen“ nicht mehr; der Name hält rechts Platz für sie frei */
-  .kachel-name:has(.zahl) {
+  /* D4 (Q-O1): die Plakette sitzt unten rechts in der Kachel, nicht in der Namenszeile – so
+     bricht „Wiederholen“ nicht mehr; die Infozeile hält rechts Platz für sie frei */
+  .kachel:has(.zahl) .kachel-info {
     padding-inline-end: 2rem;
   }
   .kachel-name {
