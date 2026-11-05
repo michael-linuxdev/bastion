@@ -360,7 +360,14 @@ describe('Geraden (geraden@1)', () => {
     expect(p.svg).toContain('>α<');
     const kurz = geradenAus({ kurz: true, winkel: 40 });
     expect(geradenBild(kurz).svg).not.toContain('stroke-dasharray');
+    expect(geradenBild(kurz).beschreibung.de).not.toContain('schneiden sich');
     expect(geradenBild(verlaengert(kurz, true)).svg).toContain('stroke-dasharray');
+    expect(geradenBild(verlaengert(kurz, true)).beschreibung.de).toContain('schneiden sich');
+    // frage: Beschreibung ohne Lage und ohne Winkelgrößen (das Bild gehört zu einer Frage)
+    const frage = geradenBild(geradenAus({ lage: 'parallel', felder: ['α', 'β'], frage: true }));
+    expect(frage.beschreibung.de).not.toContain('parallel');
+    expect(frage.beschreibung.de).toContain('An S: α, β.');
+    expect(frage.beschreibung.de).not.toContain('= ');
   });
 });
 
@@ -387,6 +394,10 @@ describe('Winkel (winkel@1)', () => {
     expect(m.svg).toContain('>180<');
     const links = winkelBild(winkelAus({ grad: 40, winkelmesser: true, links: true }));
     expect(links.beschreibung.de).toContain('Der erste Schenkel zeigt auf 180');
+    const frage = winkelBild(winkelAus({ grad: 110, winkelmesser: true, frage: true }));
+    expect(frage.beschreibung.de).not.toContain('110°');
+    expect(frage.beschreibung.de).not.toContain('stumpf');
+    expect(frage.beschreibung.de).toContain('110 auf der äußeren Skala');
   });
 });
 
@@ -447,7 +458,7 @@ describe('Gitter (gitter@1)', () => {
     );
     expect(b.svg).toMatch(/^<svg /);
     expect(b.beschreibung.de).toContain('Q(2|5)');
-    expect(b.beschreibung.de).toContain('Spiegelachse waagerecht bei y = 3');
+    expect(b.beschreibung.de).toContain('Dicke Linie waagerecht bei y = 3');
     expect(b.beschreibung.de).toContain('P′(1|5)');
     expect(b.svg).toContain('stroke-dasharray');
     expect(verschiebungText([3, -2])).toBe('3 nach rechts, 2 nach unten');
@@ -572,5 +583,21 @@ describe('Körpernetz (koerpernetz@1)', () => {
     );
     expect(reihe.beschreibung.de).toContain('kein Würfelnetz');
     expect(reihe.beschreibung.de).toContain('A und E; B und F');
+    const frage = koerpernetzBild(
+      koerpernetzAus({
+        netz: [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [3, 0],
+          [4, 0],
+          [5, 0],
+        ],
+        frage: true,
+      }),
+    );
+    expect(frage.beschreibung.de).toMatch(/^Sechs Quadrate,/);
+    expect(frage.beschreibung.de).not.toContain('kein Würfelnetz');
+    expect(frage.svg).not.toContain('fill-opacity');
   });
 });

@@ -33,7 +33,9 @@
   </div>
   {#if interaktiv}
     <figcaption class="stand" aria-live="polite">
-      <strong>{zustand.namen[0]} {t('werkzeug.geraden.und')} {zustand.namen[1]}: {lage}.</strong>
+      {#if !zustand.kurz || zustand.verlaengert}
+        <strong>{zustand.namen[0]} {t('werkzeug.geraden.und')} {zustand.namen[1]}: {lage}.</strong>
+      {/if}
       {beschreibung(zustand)}
     </figcaption>
   {/if}
