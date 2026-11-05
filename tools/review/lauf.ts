@@ -1,5 +1,7 @@
 // Review-Stufen ansehen und setzen (INHALTSFORMAT §8).
 //   pnpm review                       Stand: wie viele Dateien auf welcher Stufe, veraltete Vermerke
+//   pnpm review --klasse 5            dasselbe nur für Kompetenzen der Klassenstufe 5 (Meilenstein M5),
+//                                     dazu die Liste der Dateien unter Stufe 1 je Kompetenz
 //   pnpm review setzen --stufe 2 --pruefer "Name" M.ZO.BR.BEGRIFF FV.BR.ADDITIV …
 // Stufe 1 (Prüfer „maschine“) erst setzen, wenn `pnpm test` grün ist und der Prüfkatalog
 // (INHALTSFORMAT §8) für genau diese Dateien keinen Widerspruch gefunden hat.
@@ -18,6 +20,7 @@ const { values, positionals } = parseArgs({
     stufe: { type: 'string' },
     pruefer: { type: 'string' },
     datum: { type: 'string' },
+    klasse: { type: 'string' },
   },
 });
 const [befehl, ...angaben] = positionals;
@@ -29,20 +32,85 @@ const eingetragen = (d: Inhaltsdatei) => {
 };
 
 function stand(): void {
+  const klasse = values.klasse === undefined ? undefined : Number(values.klasse);
+  if (klasse !== undefined && !Number.isInteger(klasse)) {
+    console.error('--klasse braucht eine Zahl, z. B. --klasse 5');
+    process.exitCode = 1;
+    return;
+  }
+  const dateien = klasse === undefined ? alle : dateienDerKlasse(alle, klasse);
   const zahl: Record<string, number[]> = {};
   const veraltet: string[] = [];
-  for (const d of alle) {
+  for (const d of dateien) {
     const w = wirksameStufe(d.daten);
     (zahl[d.art] ??= [0, 0, 0, 0])[w] = (zahl[d.art]?.[w] ?? 0) + 1;
     if (eingetragen(d) > w) veraltet.push(`${d.datei} (eingetragen ${eingetragen(d)}, gilt ${w})`);
   }
-  console.log('Wirksame Review-Stufen (0 Entwurf · 1 Maschine · 2 Stichprobe · 3 mit Lernenden)');
+  console.log(
+    `Wirksame Review-Stufen${klasse === undefined ? '' : ` der Klasse ${klasse}`} (0 Entwurf · 1 Maschine · 2 Stichprobe · 3 mit Lernenden)`,
+  );
   for (const [art, z] of Object.entries(zahl))
     console.log(`  ${art.padEnd(16)} ${z.map((n, i) => `${i}: ${n}`).join('  ')}`);
   if (veraltet.length > 0) {
     console.log(`\nVeraltet (nach dem Vermerk geändert, Stufe neu setzen):`);
     for (const v of veraltet) console.log(`  ${v}`);
   }
+  if (klasse !== undefined) {
+    const offen = offeneJeKompetenz(dateien);
+    const fertig = kompetenzenDerKlasse(alle, klasse).filter((k) => !offen.has(k));
+    console.log(
+      `\nKompetenzen fertig (alle Dateien ab Stufe 1): ${fertig.length} von ${fertig.length + offen.size}`,
+    );
+    if (offen.size > 0) {
+      console.log('Noch unter Stufe 1:');
+      for (const [k, liste] of [...offen].sort(([a], [b]) => a.localeCompare(b)))
+        console.log(`  ${k}: ${liste.join(', ')}`);
+    }
+  }
+}
+
+/** IDs der Kompetenzen, deren `klassenstufe_typisch` die Klasse nennt. */
+function kompetenzenDerKlasse(liste: readonly Inhaltsdatei[], klasse: number): string[] {
+  return liste
+    .filter((d) => {
+      if (d.art !== 'kompetenz') return false;
+      const k = d.daten['klassenstufe_typisch'];
+      return Array.isArray(k) ? k.includes(klasse) : k === klasse;
+    })
+    .map((d) => d.id)
+    .sort();
+}
+
+/**
+ * Dateien einer Klassenstufe: alles im Ordner ihrer Kompetenzen und die Fehlvorstellungen,
+ * die eine dieser Kompetenzen nennen (`kompetenzen`). Eine Fehlvorstellung kann so zu mehreren
+ * Klassen zählen; sie muss für jede davon geprüft sein.
+ */
+function dateienDerKlasse(liste: readonly Inhaltsdatei[], klasse: number): Inhaltsdatei[] {
+  const ids = new Set(kompetenzenDerKlasse(liste, klasse));
+  return liste.filter((d) => {
+    if (d.art === 'fehlvorstellung') {
+      const k = d.daten['kompetenzen'];
+      return Array.isArray(k) && k.some((x) => ids.has(String(x)));
+    }
+    return d.kompetenz !== undefined && ids.has(d.kompetenz);
+  });
+}
+
+/** Je Kompetenz die Dateien unter Stufe 1; Fehlvorstellungen zählen zu jeder genannten Kompetenz. */
+function offeneJeKompetenz(liste: readonly Inhaltsdatei[]): Map<string, string[]> {
+  const offen = new Map<string, string[]>();
+  const merke = (k: string, datei: string) => offen.set(k, [...(offen.get(k) ?? []), datei]);
+  const ids = new Set(liste.map((d) => d.kompetenz).filter((k): k is string => k !== undefined));
+  for (const d of liste) {
+    if (wirksameStufe(d.daten) >= 1) continue;
+    const name = d.datei.split('/').at(-1) ?? d.datei;
+    if (d.art === 'fehlvorstellung') {
+      const k = d.daten['kompetenzen'];
+      if (Array.isArray(k)) for (const x of k) if (ids.has(String(x))) merke(String(x), d.id);
+    } else if (d.kompetenz !== undefined) merke(d.kompetenz, name);
+  }
+  return offen;
 }
 
 function setzen(): number {

@@ -1,5 +1,7 @@
 # Bauplan Klasse 10 bis 12
 
+> **Seit 05.11.2026 (K-32): Jahrgang 11/12 angehalten** bis zur Abnahme von `docs/session/QUALITAET-5-10.md`. Klasse 10 ist fertig als Entwurf.
+>
 > Auftrag des PV vom 03.11.2026: „Klasse 10 bis 12 in voller Tiefe vorbereiten für die nächste Sitzung.“ Diese Datei ist der **Arbeitsplan** dafür. Sie legt je Kompetenz fest, was gebaut wird, damit die nächste Sitzung ohne Vorarbeit anfangen kann.
 > Gilt zusammen mit `docs/session/KLASSE-9-12.md` (Auftrag K-30, Phasen, Entscheidungen 1–15) und `docs/LEHRPLAN.md` §8f (Klasse 10, 22 Kompetenzen) und §8g (Jahrgangsstufen 11/12, 55 Kompetenzen). Strang **Lernkern**.
 > **Noch nichts davon ist gebaut.** Die Datei ist ein Entwurf: Was hier steht, darf beim Bauen besser werden. Dann bitte hier nachtragen.

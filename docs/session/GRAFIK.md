@@ -3,13 +3,15 @@
 > Für Sitzungen, die an Grafik und Basebau arbeiten: Aussehen, Startseite, Bastion, Themen, Bauplatz.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei, `docs/GRAFIK.md` und den Abschnitt §4a in `docs/PLAN.md` aktualisieren.
 
+> **Seit 05.11.2026 (K-32): Q-G1 Tempo, sonst nichts** (`docs/session/QUALITAET-5-10.md`). Bis die Bastion auf dem iPhone 13 flüssig ist, keine neuen Dinge, Wesen, Wetter oder Themen. Jeder PR mit Messung vorher und nachher. Der Kasten darunter ist Geschichte.
+>
 > **Fokus Paket G bis zur Abnahme (Entscheidung PV, 01.11.2026).** Dieser Strang arbeitet nur an Paket G in `docs/session/FOKUS.md`: Bauen und Ausbau einfacher, jede Stufe eines Gebäudes ein sichtbares Upgrade. Die Design-Wellen und der Backlog AA–ZZ (`DESIGN-IDEEN.md`) ruhen bis nach dem Test U4b. Die Lern-Oberfläche schließt der Lernkern mit Paket L ab und friert sie danach ein (`SESSION-PROMPT.md`, Regel 7); das Aufräumen nach `GRAFIK.md` §9 ruht ebenfalls. Funde aus L für die Startseite kommen unten unter „Wünsche aus dem anderen Strang“.
 >
 > **Gemeinsame Entscheidung aus dem Lernkern (PV, 02.11.2026):** KaTeX kommt als neue Abhängigkeit für Formeln ab Klasse 9 (ARCHITEKTUR T-22), nachgeladen mit den Inhalten, nicht in der App-Hülle. Ebenso neu: `html2canvas-pro` für „Als PDF speichern“ beim Aufgabenblatt (T-23), nachgeladen nur bei diesem Knopf. Für die Grafik ändert sich nichts. Außerdem darf der Lernkern für Klasse 9–12 neue Aufgabentypen in der Lern-Oberfläche bauen (`SESSION-PROMPT.md` Regel 7, Ausnahme); `src/ui/start/` bleibt unberührt.
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alles (Punkt 1) · vorher 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 05.11.2026 · **Aktueller Auftrag: Q-G1 Tempo** (K-32), Ansatzpunkte unter „Stand 04.11.2026“ · 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alles (Punkt 1) · vorher 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -64,9 +66,9 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 
 **Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
 
-### Stand 04.11.2026: Strang ruht (PV)
+### Stand 04.11.2026: Strang ruht (PV) – seit 05.11.2026 Q-G1 Tempo
 
-PV nach #274: „Immer noch ruckelt es, sieht aber schon ziemlich nice aus. Lassen wir erstmal so. Fokus ab jetzt Lernkern.“ Der Grafik-Strang ruht. Für später:
+PV nach #274: „Immer noch ruckelt es, sieht aber schon ziemlich nice aus. Lassen wir erstmal so. Fokus ab jetzt Lernkern.“ Seit 05.11.2026 (K-32) ist das Ruckeln der Auftrag des Strangs (Q-G1): die Punkte unten der Reihe nach, je Punkt ein PR mit Bildrate und Speicher vorher und nachher (Messung in Chromium nach `GRAFIK.md` §24, der PV misst am iPhone). Nichts Neues, bis es flüssig ist.
 - **Ruckeln auf dem iPhone:** Der Absturz ist behoben (#256, #272), flüssig ist es noch nicht. Ansatzpunkte: Bildrate der Bühne bei Ruhe senken (Pixi-Ticker nur bei Bewegung), Kulisse beim Zoomen nicht bei jedem Schritt neu ausrichten (Culling mit Abstand), Bewohner/Wesen/Fahnen in einem gemeinsamen Takt mit 30 Bildern je Sekunde, Messung mit Safari-Webinspektor am echten Gerät.
 - Entscheidung zu BASEBAU §8c (P6) weiter offen.
 

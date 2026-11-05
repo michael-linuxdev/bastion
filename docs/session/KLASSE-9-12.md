@@ -1,6 +1,8 @@
 # Klasse 9 bis 12 bauen – Session-Prompt
 
 > Auftrag aus der Entscheidung **K-30** des Projektverantwortlichen (PV) vom 02.11.2026 (`STRATEGIE.md`): **Klasse 9 bis 12 jetzt komplett im neuen Format bauen, danach alles gesammelt prüfen – erst mehrfach durch KI, dann durch einen Menschen.**
+> **Seit 05.11.2026 (K-32): Jahrgang 11/12 angehalten.** Klasse 9 und 10 sind gebaut; ihre Prüfung (Phase C) läuft im Auftrag `docs/session/QUALITAET-5-10.md` nach Klasse 5 bis 8. Inhalte ab 11-1 erst nach dessen Abnahme.
+>
 > Strang **Lernkern** (Branch `lernkern/…`, Protokollzeile in `docs/session/LERNKERN-PROTOKOLL.md`). Diese Datei gilt, bis Klasse 9 bis 12 gebaut und die gesammelte KI-Prüfung abgeschlossen ist.
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` (vor allem „Wünsche aus dem anderen Strang“), `docs/STRATEGIE.md` K-23, K-25, K-28, K-30, dann `docs/INHALTSFORMAT.md` (ganz), `docs/VERMITTLUNG.md` §2–§3.6, `docs/LEHRPLAN.md` §1–§8d, `docs/PRUEFUNGEN.md`.
 

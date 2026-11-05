@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
+Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang auf 390 px, Mängelliste an den PV, dann kleine PRs. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -15,6 +15,8 @@ Stand: 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11
 4. **Mergen:** kleine PRs, je Bereich einer. Merge per Squash ohne den PV, sobald lint, test, build und E2E grün sind.
 
 ## Zuständigkeit
+
+**Seit 05.11.2026 (K-32):** zusätzlich Aufbau, Abstände, Hierarchie, Karten und Texte in `src/ui/ueben/`, `src/ui/vermittlung/` und `src/ui/eingabe/` (Paket Q-O1). Die Logik dort (Auswertung, Abspieler, Diagnose, Ereignisse) bleibt beim Lernkern; Änderungen im Protokoll des Lernkerns melden.
 
 Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild selbst), die Hülle des Elternbereichs (`src/ui/eltern/Elternbereich.svelte`, `PinVermerke.svelte`, `SafariWeg.svelte`), `src/ui/profil/`, `src/ui/sicherung/`, `src/ui/UpdateHinweis.svelte`. Texte in `src/ui/texte/de.json` mit den Präfixen `start.`, `mehr.`, `eltern.`, `profil.`, `sicherung.`.
 
@@ -66,8 +68,12 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
    - **Geprüft, war schon da:** Zifferntastatur der PIN (`inputmode="numeric"`), Enter prüft (Formular), Seite „Fertig für heute“ (R5), Meldung bei fehlendem Inhaltspaket mit „Nochmal“, Datum der letzten Sicherung und Bestätigung nach dem Einspielen.
    - **Bewusst nicht gebaut:** Elternbereich ohne erneute PIN offen lassen – ein Kind bekäme das Gerät sonst direkt mit offenem Elternbereich zurück. Dunkelmodus: Lernflächen bleiben nach Design L61 hell; Wunsch zum Banner-Schleier an Grafik. Bericht in Alltagssprache gehört zum Lernkern-Baustein. Entwurf-Vermerk bleibt auf Start (für Lernende) und im Elternbereich (T-20 verlangt ihn für Eltern).
 
-## Nächste Schritte (Vorschläge)
+## Nächste Schritte
 
+1. **Q-O1** nach `docs/session/QUALITAET-5-10.md`: Rundgang der Lern-Oberfläche (Erstvermittlung, Üben, Rückmeldung nach Fehler, Zwischenschritte, Themenwahl, Fehlerwerkstatt, Wiederholen) auf 390 px, Mängelliste mit Bildschirmfotos (Scratchpad) an den PV, Gruppen A Fehler, B Verständlichkeit, C Bedienung, D Aussehen. Bekannte Punkte stehen dort.
+2. Der PV wählt; dann kleine PRs, je Bildschirm einer. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt.
+
+Vorschläge von früher:
 
 - Start: Querformat am Tablet einmal am echten Gerät ansehen.
 
