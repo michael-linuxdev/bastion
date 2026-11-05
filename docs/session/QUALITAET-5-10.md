@@ -102,6 +102,8 @@ Reihenfolge innerhalb der Klasse: entlang des Graphen, Kompetenzen ohne Vorausse
 
 *Vorschlag Reihenfolge, je ein PR:* (1) A1–A3, (2) B1+B2+D5 Rückmeldung, (3) B3+B4+C1+C3+C4+D2 Themenwahl, (4) D1+B9+C2 Erstvermittlung, (5) Kleines (B5–B8, C5, C6, D3, D4).
 
+**Auswahl des PV (05.11.2026, über die koordinierende Sitzung eingeholt): alle Punkte, Reihenfolge 1–5.** B10 geht an den Lernkern. Bei A3 wird der Browser-Test des Lernkerns bewusst angepasst und im PR begründet; Änderungen an Logik oder Tests, die mehr als das Aussehen betreffen, kommen ins Lernkern-Protokoll.
+
 ### Strang Grafik (Branch `grafik/…`)
 
 **Q-G1 – Tempo, sonst nichts.** Bis die Bastion auf dem iPhone 13 flüssig ist, keine neuen Dinge, Wesen, Wetter oder Themen. Ansatzpunkte aus `GRAFIK.md` (04.11.2026): Pixi-Ticker nur bei Bewegung, Kulisse beim Zoomen nicht je Schritt neu ausrichten (Culling mit Abstand), Bewohner, Wesen und Fahnen in einem gemeinsamen 30-Hz-Takt, HD-Bilder nur im Sichtfeld. Jeder PR nennt Bildrate und Speicher vorher und nachher (Chromium-Messung nach `GRAFIK.md` §24; der PV misst am Gerät). **Q-G0 (PV):** drei Referenzgeräte festlegen (0.10), mindestens das iPhone 13.
@@ -168,4 +170,4 @@ Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht,
 Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Datum durchstreichen, neue Rückfragen an den PV. Dazu eine Zeile im Protokoll des eigenen Strangs und die Zeile des Strangs in `docs/PLAN.md` §1.
 
 - **05.11.2026, Gesamtsicht (Branch `claude/qualitaet-5-10-auftrag`):** Auftrag angelegt, K-32 im Entscheidungslog, Regel 7 aufgehoben, 11/12 angehalten, `pnpm review --klasse N`. Noch kein Paket begonnen.
-- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. **Rückfrage an den PV:** Welche Punkte vor den Tests? Vorschlag: alle, in der Reihenfolge (1) bis (5).
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. Rückfrage an den PV, welche Punkte vor den Tests: **Antwort (über die koordinierende Sitzung): alle, Reihenfolge (1) bis (5).** Als Nächstes PR (1) A1–A3.
