@@ -17,7 +17,12 @@
 {/await}
 
 <style>
+  /* A2 (Q-O1): Große Brüche im Fließtext (displaystyle) ragen über die Zeile hinaus; die
+     Zeilenhöhe des Absatzes hilft nicht, weil der KaTeX-Strut den Zeilenkasten bestimmt.
+     Als Inline-Block mit etwas Luft oben und unten berühren sich zwei Bruchzeilen nicht mehr. */
   .formel {
+    display: inline-block;
+    padding-block: 0.3em;
     white-space: nowrap;
   }
   .laedt {

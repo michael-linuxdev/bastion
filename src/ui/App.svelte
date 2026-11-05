@@ -431,6 +431,8 @@
 
   /** Rückweg aus dem Fehlerkatalog: an dieser Stelle der Erstvermittlung beginnen */
   let vermittlungStart = $state<string | undefined>(undefined);
+  /** A3 (Q-O1): Woher die Erstvermittlung geöffnet wurde – dorthin führt „Zurück“. */
+  let vermittlungHerkunft = $state<'uebersicht' | 'uebung'>('uebung');
   /**
    * Kontrastaufgaben, die beim Üben als Nächstes drankommen (VERMITTLUNG §3.3).
    * Bewusst nicht reaktiv: Die laufende Aufgabe darf sich dadurch nicht ändern.
@@ -497,6 +499,7 @@
     if (!k) return;
     gewaehlt = k;
     vermittlungStart = schritt;
+    vermittlungHerkunft = 'uebung';
     ansicht = 'vermittlung';
   }
 
@@ -936,7 +939,10 @@
         <Angebot
           titel={k.titel.de}
           dauer={geladen.vermittlungen.get(k.id)?.dauer_min}
-          onja={() => (ansicht = 'vermittlung')}
+          onja={() => {
+            vermittlungHerkunft = 'uebersicht';
+            ansicht = 'vermittlung';
+          }}
           onnein={() => (ansicht = 'uebung')}
           onzurueck={() => (ansicht = 'uebersicht')}
         />
@@ -978,7 +984,9 @@
             }}
             onzurueck={() => {
               void nutzungMerken('abbruch', `vermittlung:${k.id}`);
-              ansicht = 'uebung';
+              // A3 (Q-O1): zurück dahin, woher man kam – aus dem Angebot zur Themenwahl,
+              // aus der Übung (Erklärung, Rückweg) in die Übung
+              ansicht = vermittlungHerkunft;
             }}
           />
         {/if}
@@ -1184,6 +1192,7 @@
             onerklaerung={geladen.vermittlungen.has(gewaehlt.id)
               ? () => {
                   vermittlungStart = undefined;
+                  vermittlungHerkunft = 'uebung';
                   ansicht = 'vermittlung';
                 }
               : undefined}

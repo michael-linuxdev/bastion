@@ -28,7 +28,7 @@
   } from '../plattform/ablage';
   import type { SoundStufe } from '../../core/policy/einstellung';
   import { soundSteuern, soundTipp, ambientStoppen } from './sound/sound';
-  import { bewegungAus, type Bewegung } from './grafik/atmosphaere';
+  import { bewegungAus, KAMERA_RUHE_MS, type Bewegung } from './grafik/atmosphaere';
   import { bildartVonThema } from './grafik/bildart';
   import { istLandBildart } from './grafik/thema-partikel';
   import Wetterschicht from './Wetterschicht.svelte';
@@ -601,6 +601,25 @@
   $effect(() => {
     buehne?.setzeBewegung(bewegung);
   });
+
+  /**
+   * Zoomen, Schwenken und Kamerafahrt melden sich bei der Bühne (GRAFIK §29): Solange die
+   * Kamera sich bewegt, steht der Takt der Bühne; KAMERA_RUHE_MS nach der letzten Änderung
+   * läuft er weiter. Die Bühne selbst rechnet nicht mit der Kamera – nur der Browser
+   * verschiebt und vergrößert das fertige Bild.
+   */
+  let kameraRuheTimer: ReturnType<typeof setTimeout> | undefined;
+  $effect(() => {
+    void kamera.x;
+    void kamera.y;
+    void kamera.zoom;
+    const b = untrack(() => buehne);
+    if (!b) return;
+    b.setzeKameraBewegt(true);
+    clearTimeout(kameraRuheTimer);
+    kameraRuheTimer = setTimeout(() => buehne?.setzeKameraBewegt(false), KAMERA_RUHE_MS);
+  });
+  onDestroy(() => clearTimeout(kameraRuheTimer));
 
   function kameraAufBlick(zielBlick: 'bauplatz' | 'hinterhof') {
     const el = fenster;

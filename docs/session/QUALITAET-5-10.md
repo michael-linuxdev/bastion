@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, die Datei des eigenen Strangs, `docs/INHALTSFORMAT.md` §8 (Prüfkatalog), `docs/VERMITTLUNG.md` §2.5 (V1–V9).
 > Alle drei Stränge arbeiten parallel, jeder an seinen Paketen (Q-L, Q-O, Q-G). Protokollzeile je PR im eigenen Protokoll.
 
-Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · noch kein Paket begonnen
+Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) A1–A3 und PR (2) Rückmeldung erledigt, PR (3) Themenwahl als Nächstes · Q-G1 PR 1 (Takt der Bühne) gemergt als #285
 
 ---
 
@@ -65,6 +65,44 @@ Reihenfolge innerhalb der Klasse: entlang des Graphen, Kompetenzen ohne Vorausse
 - Themenwahl: Liste über 7 000 px mit grauen Platzhalter-Bildern; Bereiche als Karten, Platzhalter weg oder echte Symbole je Feld.
 - „Zeichnen lernen“ hängt als eigene Karte unter der Aufgabe.
 - Lernpfad bleibt ohne Animationen, Wesen, Sound, Wetter (`GRAFIK.md` §9) und ohne Noten (K-26). R1–R7.
+
+**Mängelliste vom 05.11.2026** (Rundgang auf 390 × 844 px, 74 Bildschirme, kein JS-Fehler; Bildschirmfotos im Scratchpad der Sitzung, nicht im Repository). **Der PV wählt**, was gebaut wird; Vorschlag der Reihenfolge am Ende.
+
+*A – Fehler*
+- ~~**A1** Zeichen-Anleitung „Prüfe deine Zeichnung“: Prüfliste zerfällt in Wortspalten, Seite läuft seitlich über (474 px). Ursache `display: flex` am Label mit mehreren Textknoten (`Anleitung.svelte`). Empfehlung: Text in einen `span`, Label als Raster.~~ Erledigt 05.11.2026 (PR 1): Text im `span`, Browser-Test prüft die Breite.
+- ~~**A2** Lange Denkfehler-Erklärung: Brüche im Fließtext überlappen die Nachbarzeilen (`FvRueckmeldung.svelte`). Empfehlung: Zeilenhöhe bei Formel-Absätzen erhöhen, Gleichungen in eigener Zeile.~~ Erledigt 05.11.2026 (PR 1): Die Zeilenhöhe half nicht, weil der KaTeX-Strut den Zeilenkasten bestimmt; `Formel.svelte` setzt die Formel als Inline-Block mit 0,3 em Luft oben und unten, gilt überall (Aufgabe, Lösungsweg, Optionen).
+- ~~**A3** „Zurück“ in der Erstvermittlung führt in die erste Aufgabe, nicht zurück zur Themenwahl (im Browser-Test so festgeschrieben). Empfehlung: Zurück führt dahin, woher man kam; ins Üben nur über „Jetzt üben“ (`App.svelte`, Test anpassen).~~ Erledigt 05.11.2026 (PR 1): `App.svelte` merkt sich die Herkunft (`vermittlungHerkunft`): aus dem Angebot zurück zur Themenwahl, aus der Übung (Buch, Rückweg) zurück in die Übung. Test U3c angepasst, Meldung im Lernkern-Protokoll.
+
+*B – Verständlichkeit*
+- ~~**B1** Rückmeldung nach falscher Antwort: bis zu vier Rahmen ineinander, drei beige Knöpfe („Später weiter“, „Fertig für heute“, „Lösungsweg ansehen“); Seite nach dem zweiten Denkfehler 1 480 px. Empfehlung: ein Kasten mit Urteil als Überschrift („Noch nicht – richtig ist 7059“), Denkfehler als Absatz mit Bild, Lösungsweg als Klappzeile, „Nächste Aufgabe“ als einziger Hauptknopf; „Später weiter“ und „Fertig für heute“ zu einem leisen Textknopf zusammenlegen.~~ Erledigt 05.11.2026 (PR 2): ein Kasten mit Urteil, Antwortzeile („Deine Antwort 0 · Richtig ist 7059“) und Ursache; kein Rahmen um die Rückmeldung; Lösungsweg als Klappzeile ohne Rahmen; „Nächste Aufgabe“ einziger Knopf, „Später weiter“ und „Fertig für heute“ als leise Textknöpfe (bleiben getrennt, weil sie Verschiedenes tun). Seite nach dem zweiten Denkfehler 1 214 px.
+- ~~**B2** Denkfehler-Kasten: Katalogname als fette Überschrift, Kurzsatz doppelt (im Urteil und im Kasten), „Zurück zur Erklärung“ sieht aus wie Text und klingt nach Navigation. Empfehlung: Überschrift „Dein Denkfehler“, ein Satz, Zweitknopf „Erklärung noch einmal ansehen“.~~ Erledigt 05.11.2026 (PR 2): Abschnitt „Dein Denkfehler“ ohne Kasten, Name in normaler Größe, Kurzsatz nur, wenn das Urteil die Ursache nicht schon nennt; Knopf „Erklärung noch einmal ansehen“ als Zweitknopf (Test U3i angepasst).
+- **B3** Themenwahl: Steinkette (Voraussetzungen als 12,8-px-Punkte mit abgeschnittenen Namen) unter jedem der 21 Themen, ohne Erklärung. Empfehlung: aus der Liste nehmen; Voraussetzungen ins Angebot („Dafür brauchst du …“).
+- **B4** Themenwahl, Kopf: Entwurf-Vermerk, Speicher-Satz, 7 Klassen-Radios, Schulart, „gerade dran“ vor dem ersten Thema (1,5 Bildschirme). Empfehlung: Klasse als Segmentleiste (`KlassenWahl kompakt`), Rest in eine Klappzeile, Vermerke ans Seitenende.
+- **B5** „WAS WIRD GESUCHT?“ als Dauer-Label über jeder Aufgabe, auch über „Berechne schriftlich: 355 + 6704“. Empfehlung: Label entfernen (fetter Auftrag reicht); falls der Lernkern es für Sachaufgaben will, nur dort.
+- **B6** Abschluss: „Du hast neue Stein verdient. (2 Stein)“, dieselbe Zahl dreimal, Einleitungssatz über der Überschrift. Empfehlung: eine Zeile „2 Steine und 1 Bauschritt verdient – aus 2 Aufgaben und 1 Lerneinheit.“
+- **B7** Üben: zwei unbeschriftete Symbole oben; der Schieberegler öffnet „Bildschirm drehen“ mitten in der Übung (gibt es seit O19 in den Einstellungen), das Buch ist die Erklärung. Empfehlung: Schieberegler raus, Buch mit Wort „Erklärung“.
+- **B8** Wiederholen und Fehlerwerkstatt: Thema nur als kleine graue Zeile im Kasten; Werkstatt mit zwei Kästen „Damals“/„Heute deine Chance“ vor der Eingabe. Empfehlung: Thema in die Kopfzeile, Werkstatt-Hinweis als eine Zeile.
+- **B9** Fortschritt ohne Zahl: Balken der Erstvermittlung (bekannt) und blasse Steine im Üben. Empfehlung: „Schritt 3 von 12“, „2 von 5“.
+- **B10** Inhalt (an Lernkern, Q-L1/Q-L2, kein Punkt für Q-O1): „Probier es aus“ fragt nach der Zahl, die im Satz davor steht; Beispiel „Kreis in 8 Stücke“ ohne Bild; Lösungsweg der schriftlichen Addition ohne Stellentafel.
+
+*C – Bedienung*
+- **C1** Themenwahl ohne Zurück-Knopf (nur Gerätetaste); alle anderen Seiten haben einen. Empfehlung: `ZurueckKnopf` in `App.svelte` bei `ansicht === 'uebersicht'`.
+- **C2** Erstvermittlung: „Prüfen“ unter der Tastatur und „Weiter“ nach „Stimmt.“ unter dem Falz; Rückmeldung „Noch nicht ganz“ erscheint ohne Scrollen unterhalb. Empfehlung: zur Rückmeldung scrollen, Prüfen neben die Tastatur wie im Üben.
+- **C3** Klassenwahl mit 7 Radios in Themenwahl und Diagnose. Empfehlung: überall `KlassenWahl kompakt`.
+- **C4** Klassenwechsel: Karte „Neue Klasse – willkommen.“ über der Überschrift, Klappzeile 27 px, „Nicht jetzt“ 13 px. Empfehlung: unter die Überschrift, 44 px, normaler Zweitknopf.
+- **C5** Fachbegriff-Knöpfe 29 px hoch, ohne Hinweis auf Antippen. Empfehlung: Tippfläche 44 px über `padding-block`.
+- **C6** Diagnose-Ergebnis: Zeilen unterschiedlich breit, Üben-Knöpfe versetzt. Empfehlung: volle Breite, Knopf rechts bündig.
+
+*D – Aussehen*
+- **D1** Erstvermittlung: Karte füllt bei Textschritten ein Drittel, Rest leer; Schrittart als Kapitälchen; „Nur Kurzfassung“ als Link darüber (bekannt). Empfehlung: ruhige Seite statt Formularkarte, Schrittart als Überschrift, Weiter in voller Breite unten, Kurzfassung als Zweitknopf.
+- **D2** Themenwahl: Platzhalter-Verläufe vor jedem Thema, 5 600 px (ein Bereich offen) bis 10 000 px (bekannt). Empfehlung: Platzhalter weg, Symbol je Bereich, Thema als flache Zeile (Titel, Status, Pfeil), „Ich kann …“ erst im Angebot; Ziel unter 2 500 px.
+- **D3** Antwortoptionen mit Brüchen: Bruch kleiner als Text, links oben statt mittig. Empfehlung: Textgröße, mittig.
+- **D4** Startseite (eigener Bereich, O7): „Wieder-holen“, „Fehler-werkstatt“ brechen wegen der Plakette. Empfehlung: Plakette unter den Titel.
+- ~~**D5** Zwischenschritte: vier Rahmen ineinander. Geht mit B1 mit.~~ Erledigt 05.11.2026 (PR 2): Rahmen um die Rückmeldung weg, bleiben Karte und Schrittkasten.
+
+*Vorschlag Reihenfolge, je ein PR:* (1) A1–A3, (2) B1+B2+D5 Rückmeldung, (3) B3+B4+C1+C3+C4+D2 Themenwahl, (4) D1+B9+C2 Erstvermittlung, (5) Kleines (B5–B8, C5, C6, D3, D4).
+
+**Auswahl des PV (05.11.2026, über die koordinierende Sitzung eingeholt): alle Punkte, Reihenfolge 1–5.** B10 geht an den Lernkern. Bei A3 wird der Browser-Test des Lernkerns bewusst angepasst und im PR begründet; Änderungen an Logik oder Tests, die mehr als das Aussehen betreffen, kommen ins Lernkern-Protokoll.
 
 ### Strang Grafik (Branch `grafik/…`)
 
@@ -132,3 +170,7 @@ Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht,
 Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Datum durchstreichen, neue Rückfragen an den PV. Dazu eine Zeile im Protokoll des eigenen Strangs und die Zeile des Strangs in `docs/PLAN.md` §1.
 
 - **05.11.2026, Gesamtsicht (Branch `claude/qualitaet-5-10-auftrag`):** Auftrag angelegt, K-32 im Entscheidungslog, Regel 7 aufgehoben, 11/12 angehalten, `pnpm review --klasse N`. Noch kein Paket begonnen.
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. Rückfrage an den PV, welche Punkte vor den Tests: **Antwort (über die koordinierende Sitzung): alle, Reihenfolge (1) bis (5).** #282 gemergt.
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-fehler`):** PR (1) ~~A1, A2, A3~~ erledigt (Fehler).
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-rueckmeldung`):** PR (2) ~~B1, B2, D5~~ erledigt (Rückmeldung als ein Kasten). Als Nächstes PR (3): Themenwahl (B3, B4, C1, C3, C4, D2).
+- **05.11.2026, Grafik, Q-G1 PR 1 (Branch `grafik/q-g1-ticker`):** Takt der Bühne: Pixi-Ticker steht bei „ruhig“, beim Zoomen und Schwenken und ohne bewegte Teile, sonst 30 Hz statt 60; Einzelbild bei Änderung. Messwerkzeug `pnpm tempo` (GRAFIK §29, Zahlen vorher/nachher dort). Befund für die nächsten PRs: Beim Zoomen bleibt der Hauptfaden auch mit stehender Bühne voll, Ursache liegt in der Kulisse (Punkt 2). Offen beim PV: Messung am iPhone 13 nach jedem PR, Referenzgeräte (Q-G0).

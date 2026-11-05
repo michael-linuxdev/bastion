@@ -11,7 +11,7 @@
 >
 > **G0 (Klärung PV, 02.11.2026, `FOKUS.md`):** Bilder nur aus dem eigenen Generator (a), für alles in der Bastion. **Vor U4b alle fünf Themen in Epoche 1**, nicht nur `bastion`; Epochen 2–4 danach. Gemeinsame Entscheidung: öffentliche Seite über Filter im Build (ARCHITEKTUR T-20).
 
-Stand: 05.11.2026 · **Aktueller Auftrag: Q-G1 Tempo** (K-32), Ansatzpunkte unter „Stand 04.11.2026“ · 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alles (Punkt 1) · vorher 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
+Stand: 05.11.2026 (abends) · **Aktueller Auftrag: Q-G1 Tempo** (K-32), PR 1 „Takt der Bühne“ fertig (`GRAFIK.md` §29, Messung mit `pnpm tempo`), als Nächstes Punkt 2 bis 4 unter „Stand 05.11.2026“ · 03.11.2026 · neuer Stil „weich gerendert“ und neue Leitern für alles (Punkt 1) · vorher 02.11.2026 (spät) · Auftrag für die nächste Sitzung unten vorbereitet · **Epochen 2–4 vorgezogen und für alle fünf Themen erneuert** (Stufen 4–9 im neuen Stil, eine Stufe ein Bild, `GRAFIK-SPRITES.md` §12.11, Branch `grafik/g3-epochen`) · Paket G: G2 abgenommen, G3 und G4 für Thema `bastion`, Epoche 1 umgesetzt; G3 für alle fünf Themen der Epoche 1 erledigt: Gebäude, Umgebung, Wesen aus dem eigenen Generator (`GRAFIK.md` §11.8, Klärung PV 02.11.2026). Offen: G6 (Blick von 2–3 Jugendlichen, PV).
 
 ---
 
@@ -65,6 +65,17 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/grafik/`, `src/ui/bastion/` (mi
 **Zuletzt (02.11.2026 abends):** Epochen 2–4 für alle Themen (je 15 Bilder, `sprites-g3e-<thema>.py`). Ab Stufe 4 gilt Umriss 10 %, Höhe 8 %. Offen: PR von `grafik/g3-epochen` nach `main` (nur auf Wunsch des PV); Boden der Epochen 2–4 ist noch der alte P5-Boden.
 
 **Sitzung 02.11.2026 abends (PV):** Epochen 2–4 für alle fünf Themen im neuen Stil (eine Stufe, ein Bild; ab Stufe 4 Umriss 10 %, Höhe 8 %), Boden/Himmel/Wetter/Hinterhof/Startbild/Bewohner neu, doppeltes Tempo (B-31), Umzug zur Mitte (B-32), Himmel wächst mit der Epoche, Kulisse Variante C für `bastion` (`GRAFIK.md` §13), Trampelpfade entfernt (Linien zwischen den Gebäuden), Rahmen/Kamera rechnen mit dem Bauplatz der Epoche.
+
+### Stand 05.11.2026: Q-G1 Tempo, PR 1 fertig (Branch `grafik/q-g1-ticker`)
+
+**Erledigt (PR 1, Takt der Bühne, `GRAFIK.md` §29):** Der Pixi-Ticker lief bisher immer mit 60 Hz, auch bei „Bewegung reduzieren“ (dort fehlte nur der eigene Rückruf, Pixi zeichnete trotzdem jedes Bild neu). Jetzt startet die Bühne den Ticker selbst (`taktSync`): 30 Hz, nur wenn es etwas zu bewegen gibt und die Kamera ruht; bei „ruhig“, beim Zoomen und Schwenken (150 ms nach der letzten Kamera-Änderung läuft er weiter) und ohne bewegte Teile steht er, und die Bühne zeichnet ein Einzelbild, wenn sich etwas ändert. Regel rein in `atmosphaere.ts` (`taktFuer`, Test). Messwerkzeug `pnpm tempo` (`tools/grafik/tempo.ts`): Bildrate, Takt, Hauptfaden, GPU, Hänger und Ebenenspeicher in Ruhe, beim Zoomen, beim Schwenken und herangezoomt, wahlweise mit „Bewegung reduzieren“. Zahlen vorher und nachher in §29.
+
+**Als Nächstes, der Reihe nach, je Punkt ein PR mit Messung vorher und nachher (`pnpm tempo`, der PV misst am iPhone 13):**
+2. **Kulisse beim Zoomen nicht je Schritt neu ausrichten (Culling mit Abstand).** Messung PR 1: Beim Zoomen und Schwenken ist der Hauptfaden auch mit stehender Bühne über 90 % belegt, mit rund 70 Commits in vier Sekunden; die Bühne ist da schon aus dem Spiel. Verdacht: `Kulisse.svelte` setzt bei jeder Kamera-Änderung die Lage aller 70–100 Dinge neu (Layout, Paint, Commit).
+3. **Bewohner, Wesen und Fahnen in einem gemeinsamen 30-Hz-Takt.** Der Ticker läuft seit PR 1 mit höchstens 30 Hz; offen ist, dass `fahnenWehen`, `wesenZeichnen` und `bewohnerZeichnen` je Takt ihre Graphics neu aufbauen (2 bis 3 ms je Takt bei CPU ÷4).
+4. **HD-Bilder nur im Sichtfeld.** Herangezoomt liegen die Ebenen bei rund 100 MB (§24: 238 MB vor dem Absturz-Fix); welche Texturen die Bühne hält, zählt `TexturVorrat`.
+
+Lehre aus PR 1: Das Ereignis-System von PixiJS (`app.renderer.events`) ist in unserem Build nicht registriert (`manageImports: false`); `setTargetElement(null)` wirft darum und die Bühne bleibt leer (der Fehler landet still in `fehlgeschlagen`). Was bei „ruhig“ noch mit 60 Hz läuft, ist Pixis `SchedulerSystem` an `Ticker.system` (0,2 ms je Bild, geschützt, nicht abschaltbar); der Hauptfaden liegt damit bei 5 %.
 
 ### Stand 04.11.2026: Strang ruht (PV) – seit 05.11.2026 Q-G1 Tempo
 

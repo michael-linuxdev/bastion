@@ -21,6 +21,7 @@
     "budget": "node tools/groessenbudget.ts",
     "grafik:stufen": "python3 tools/grafik/stufen-vergleich.py",
     "messen": "node tools/messung.ts",
+    "tempo": "node tools/grafik/tempo.ts",
     "inhalte:pruefen": "vitest run tools/inhalte --silent=false",
     "fehlerschueler": "node --experimental-strip-types --no-warnings tools/inhalte/fehlerschueler-lauf.ts",
     "inhalte:begriffe": "node --experimental-strip-types --no-warnings --import ./tools/ts-aufloesen.mjs tools/inhalte/begriffe-markieren.ts",
