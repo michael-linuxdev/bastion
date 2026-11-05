@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, die Datei des eigenen Strangs, `docs/INHALTSFORMAT.md` §8 (Prüfkatalog), `docs/VERMITTLUNG.md` §2.5 (V1–V9).
 > Alle drei Stränge arbeiten parallel, jeder an seinen Paketen (Q-L, Q-O, Q-G). Protokollzeile je PR im eigenen Protokoll.
 
-Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang erledigt, Mängelliste liegt beim PV (unten), Auswahl offen
+Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) A1–A3 erledigt, PR (2) Rückmeldung als Nächstes
 
 ---
 
@@ -69,9 +69,9 @@ Reihenfolge innerhalb der Klasse: entlang des Graphen, Kompetenzen ohne Vorausse
 **Mängelliste vom 05.11.2026** (Rundgang auf 390 × 844 px, 74 Bildschirme, kein JS-Fehler; Bildschirmfotos im Scratchpad der Sitzung, nicht im Repository). **Der PV wählt**, was gebaut wird; Vorschlag der Reihenfolge am Ende.
 
 *A – Fehler*
-- **A1** Zeichen-Anleitung „Prüfe deine Zeichnung“: Prüfliste zerfällt in Wortspalten, Seite läuft seitlich über (474 px). Ursache `display: flex` am Label mit mehreren Textknoten (`Anleitung.svelte`). Empfehlung: Text in einen `span`, Label als Raster.
-- **A2** Lange Denkfehler-Erklärung: Brüche im Fließtext überlappen die Nachbarzeilen (`FvRueckmeldung.svelte`). Empfehlung: Zeilenhöhe bei Formel-Absätzen erhöhen, Gleichungen in eigener Zeile.
-- **A3** „Zurück“ in der Erstvermittlung führt in die erste Aufgabe, nicht zurück zur Themenwahl (im Browser-Test so festgeschrieben). Empfehlung: Zurück führt dahin, woher man kam; ins Üben nur über „Jetzt üben“ (`App.svelte`, Test anpassen).
+- ~~**A1** Zeichen-Anleitung „Prüfe deine Zeichnung“: Prüfliste zerfällt in Wortspalten, Seite läuft seitlich über (474 px). Ursache `display: flex` am Label mit mehreren Textknoten (`Anleitung.svelte`). Empfehlung: Text in einen `span`, Label als Raster.~~ Erledigt 05.11.2026 (PR 1): Text im `span`, Browser-Test prüft die Breite.
+- ~~**A2** Lange Denkfehler-Erklärung: Brüche im Fließtext überlappen die Nachbarzeilen (`FvRueckmeldung.svelte`). Empfehlung: Zeilenhöhe bei Formel-Absätzen erhöhen, Gleichungen in eigener Zeile.~~ Erledigt 05.11.2026 (PR 1): Die Zeilenhöhe half nicht, weil der KaTeX-Strut den Zeilenkasten bestimmt; `Formel.svelte` setzt die Formel als Inline-Block mit 0,3 em Luft oben und unten, gilt überall (Aufgabe, Lösungsweg, Optionen).
+- ~~**A3** „Zurück“ in der Erstvermittlung führt in die erste Aufgabe, nicht zurück zur Themenwahl (im Browser-Test so festgeschrieben). Empfehlung: Zurück führt dahin, woher man kam; ins Üben nur über „Jetzt üben“ (`App.svelte`, Test anpassen).~~ Erledigt 05.11.2026 (PR 1): `App.svelte` merkt sich die Herkunft (`vermittlungHerkunft`): aus dem Angebot zurück zur Themenwahl, aus der Übung (Buch, Rückweg) zurück in die Übung. Test U3c angepasst, Meldung im Lernkern-Protokoll.
 
 *B – Verständlichkeit*
 - **B1** Rückmeldung nach falscher Antwort: bis zu vier Rahmen ineinander, drei beige Knöpfe („Später weiter“, „Fertig für heute“, „Lösungsweg ansehen“); Seite nach dem zweiten Denkfehler 1 480 px. Empfehlung: ein Kasten mit Urteil als Überschrift („Noch nicht – richtig ist 7059“), Denkfehler als Absatz mit Bild, Lösungsweg als Klappzeile, „Nächste Aufgabe“ als einziger Hauptknopf; „Später weiter“ und „Fertig für heute“ zu einem leisen Textknopf zusammenlegen.
@@ -170,4 +170,5 @@ Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht,
 Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Datum durchstreichen, neue Rückfragen an den PV. Dazu eine Zeile im Protokoll des eigenen Strangs und die Zeile des Strangs in `docs/PLAN.md` §1.
 
 - **05.11.2026, Gesamtsicht (Branch `claude/qualitaet-5-10-auftrag`):** Auftrag angelegt, K-32 im Entscheidungslog, Regel 7 aufgehoben, 11/12 angehalten, `pnpm review --klasse N`. Noch kein Paket begonnen.
-- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. Rückfrage an den PV, welche Punkte vor den Tests: **Antwort (über die koordinierende Sitzung): alle, Reihenfolge (1) bis (5).** Als Nächstes PR (1) A1–A3.
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. Rückfrage an den PV, welche Punkte vor den Tests: **Antwort (über die koordinierende Sitzung): alle, Reihenfolge (1) bis (5).** #282 gemergt.
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-fehler`):** PR (1) ~~A1, A2, A3~~ erledigt (Fehler). Als Nächstes PR (2): Rückmeldung als ein Kasten (B1, B2, D5).

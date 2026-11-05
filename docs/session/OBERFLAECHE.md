@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang auf 390 px erledigt, Mängelliste A1–D5 liegt beim PV (dort unter Q-O1), dann kleine PRs. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
+Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang und Mängelliste A1–D5 erledigt (dort unter Q-O1), PV: alle Punkte in Reihenfolge 1–5; PR (1) A1–A3 erledigt, als Nächstes PR (2) Rückmeldung. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -71,7 +71,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 ## Nächste Schritte
 
 1. ~~**Q-O1** Rundgang der Lern-Oberfläche auf 390 px, Mängelliste an den PV.~~ Erledigt 05.11.2026: 74 Bildschirme, Mängelliste A1–A3, B1–B10, C1–C6, D1–D5 in `QUALITAET-5-10.md` unter Q-O1 (mit Empfehlung je Punkt und Vorschlag der Reihenfolge).
-2. **Auswahl des PV (05.11.2026, über die koordinierende Sitzung): alle Punkte, Reihenfolge 1–5.** Kleine PRs, je Bildschirm einer: (1) Fehler A1–A3, (2) Rückmeldung als ein Kasten, (3) Themenwahl, (4) Erstvermittlung, (5) Kleines. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt; A3 ändert Verhalten (Zurück aus der Erstvermittlung), der Test wird bewusst angepasst und im PR begründet, Meldung im Lernkern-Protokoll.
+2. **Auswahl des PV (05.11.2026, über die koordinierende Sitzung): alle Punkte, Reihenfolge 1–5.** Kleine PRs, je Bildschirm einer: ~~(1) Fehler A1–A3~~ (erledigt 05.11.2026), (2) Rückmeldung als ein Kasten, (3) Themenwahl, (4) Erstvermittlung, (5) Kleines. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt; A3 ändert Verhalten (Zurück aus der Erstvermittlung), der Test wird bewusst angepasst und im PR begründet, Meldung im Lernkern-Protokoll.
 
 Vorschläge von früher:
 
@@ -104,6 +104,7 @@ _(noch keine)_
 - Klappkarten (`details`) verstecken Felder vor Browser-Tests. Der Helfer `elternAufklappen(page)` in `tests/e2e/ueben.spec.ts` öffnet alle Abschnitte; er steht nach jedem „Ich habe den Code aufgeschrieben“ und „Öffnen“.
 - Ausgegraute Knöpfe mit `aria-disabled` statt `disabled`: Playwright wertet beides für `toBeDisabled()`, aber nur `aria-disabled` bleibt mit Tab erreichbar. Den Klick dann selbst abfangen.
 - IDs im Elternbereich nicht mit `eltern-…` beginnen: Die Bausteine darunter nutzen selbst solche IDs (`eltern-blatt`). Die Hülle nimmt `abschnitt-…`.
+- KaTeX-Brüche im Fließtext (`\displaystyle`): Die Zeilenhöhe des Absatzes ändert nichts, weil der KaTeX-Strut den Zeilenkasten bestimmt. Luft gibt nur ein Inline-Block mit `padding-block` um die Formel (`Formel.svelte`).
 - Das Geräteprofil `devices['iPhone 13']` von Playwright hat nur 664 px Höhe (Browserleisten abgezogen). Für den Rundgang auf 390 × 844 den `viewport` ausdrücklich setzen.
 - `Textteile` liefert mehrere Knoten (Text, Fachbegriff-Knopf, Text). In einem `display: flex`-Elternteil wird jeder Knoten eine Spalte (A1 der Mängelliste). Textteile immer in ein `span` fassen.
 - GitHub beachtet `merge=union` nicht. Wenn `main` weiterläuft, meldet der PR einen Konflikt in den Protokollen. Dann `origin/main` lokal hineinmergen; git führt sie zusammen.
