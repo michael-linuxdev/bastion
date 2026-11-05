@@ -8,7 +8,7 @@ const ARTEN = ['spitz', 'recht', 'stumpf', 'gestreckt', 'überstumpf'];
 const artVon = (w: number) => (w < 90 ? 0 : w === 90 ? 1 : w < 180 ? 2 : w === 180 ? 3 : 4);
 
 /** Rechter-Winkel-Zeichen: kleines Quadrat mit Punkt am Scheitel (cx, cy). */
-function rechterWinkel(cx: number, cy: number, start: number): string[] {
+export function rechterWinkel(cx: number, cy: number, start: number): string[] {
   const [ax, ay] = aufKreis(cx, cy, 20, start);
   const [bx, by] = aufKreis(cx, cy, 28.28, start + 45);
   const [ex, ey] = aufKreis(cx, cy, 20, start + 90);
@@ -67,6 +67,30 @@ export const winkelart: Generator<WinkelartParameter> = {
   },
 };
 
+/**
+ * Winkelmesser mit Mittelpunkt (cx, cy): Halbkreis, Striche alle 5°, äußere Skala 0 … 180 von
+ * rechts, innere 180 … 0. Auch das Werkzeug winkel@1 zeichnet damit, Aufgabe und Erklärung
+ * sehen gleich aus.
+ */
+export function winkelmesserTeile(cx: number, cy: number): string[] {
+  const teile: string[] = [
+    `<path d="M${cx - 145} ${cy} A145 145 0 0 1 ${cx + 145} ${cy} Z" stroke-width="1.5"/>`,
+  ];
+  for (let g = 0; g <= 180; g += 5) {
+    const [a1, b1] = aufKreis(cx, cy, 145, g);
+    const [a2, b2] = aufKreis(cx, cy, g % 10 === 0 ? 130 : 137, g);
+    teile.push(linie(a1, b1, a2, b2, g % 10 === 0 ? 1.2 : 0.7));
+    if (g % 10 === 0) {
+      // 0 und 180 etwas nach innen, damit sie nicht auf der Grundlinie stehen
+      const lage = Math.min(Math.max(g, 5), 175);
+      const [ax, ay] = aufKreis(cx, cy, 120, lage);
+      const [ix, iy] = aufKreis(cx, cy, 102, lage);
+      teile.push(text(ax, ay + 3, String(g), 9), text(ix, iy + 3, String(180 - g), 7));
+    }
+  }
+  return teile;
+}
+
 export interface WinkelAblesenParameter {
   readonly schritt: number; // 10 oder 5
   readonly beide_seiten: boolean; // true: erster Schenkel auch links (innere Skala)
@@ -86,21 +110,7 @@ export const winkelAblesen: Generator<WinkelAblesenParameter> = {
     if (w === 90) w = r.pick([80, 100]); // bei 90° sind beide Skalen gleich
     const links = p.beide_seiten && r.int(0, 1) === 1;
     const [cx, cy] = [160, 175];
-    const teile: string[] = [
-      `<path d="M${cx - 145} ${cy} A145 145 0 0 1 ${cx + 145} ${cy} Z" stroke-width="1.5"/>`,
-    ];
-    for (let g = 0; g <= 180; g += 5) {
-      const [a1, b1] = aufKreis(cx, cy, 145, g);
-      const [a2, b2] = aufKreis(cx, cy, g % 10 === 0 ? 130 : 137, g);
-      teile.push(linie(a1, b1, a2, b2, g % 10 === 0 ? 1.2 : 0.7));
-      if (g % 10 === 0) {
-        // 0 und 180 etwas nach innen, damit sie nicht auf der Grundlinie stehen
-        const lage = Math.min(Math.max(g, 5), 175);
-        const [ax, ay] = aufKreis(cx, cy, 120, lage);
-        const [ix, iy] = aufKreis(cx, cy, 102, lage);
-        teile.push(text(ax, ay + 3, String(g), 9), text(ix, iy + 3, String(180 - g), 7));
-      }
-    }
+    const teile = winkelmesserTeile(cx, cy);
     const erster = links ? 180 : 0;
     const zweiter = links ? 180 - w : w;
     const [ex, ey] = aufKreis(cx, cy, 158, erster);

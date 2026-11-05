@@ -5,9 +5,13 @@ import Anleitungsbild from './Anleitungsbild.svelte';
 import Bruchstreifen from './Bruchstreifen.svelte';
 import Dreieck from './Dreieck.svelte';
 import Einheitskreis from './Einheitskreis.svelte';
+import Geraden from './Geraden.svelte';
+import Gitter from './Gitter.svelte';
 import Graph from './Graph.svelte';
 import Histogramm from './Histogramm.svelte';
+import Koerpernetz from './Koerpernetz.svelte';
 import Stabdiagramm from './Stabdiagramm.svelte';
+import Winkel from './Winkel.svelte';
 import Zahlenstrahl from './Zahlenstrahl.svelte';
 
 // Parameter kommen ungeprüft aus dem Inhalt; jede Komponente prüft sie selbst.
@@ -17,9 +21,13 @@ export const WERKZEUG_KOMPONENTEN: Readonly<Record<string, Component<any>>> = {
   'bruchstreifen@1': Bruchstreifen,
   'dreieck@1': Dreieck,
   'einheitskreis@1': Einheitskreis,
+  'geraden@1': Geraden,
+  'gitter@1': Gitter,
   'graph@1': Graph,
   'histogramm@1': Histogramm,
+  'koerpernetz@1': Koerpernetz,
   'stabdiagramm@1': Stabdiagramm,
+  'winkel@1': Winkel,
   'zahlenstrahl@1': Zahlenstrahl,
 };
 
