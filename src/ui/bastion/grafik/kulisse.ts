@@ -300,7 +300,7 @@ export const STERNE = 256;
 /** Abstand des Horizonts über der Inselspitze in Bühnen-Bildpunkten (Variante C, PV) */
 export const HORIZONT_ABSTAND = 520;
 /** Der ferne Horizont erscheint kleiner als die Insel */
-const HORIZONT_SKALA = 0.55;
+export const HORIZONT_SKALA = 0.55;
 
 export interface KulissenLage {
   /** Wasserlinie des Horizonts im Fenster; negativ = über dem Fenster (nur Meer) */
@@ -323,6 +323,39 @@ export function kulissenLage(k: Kamera, inselOben: number): KulissenLage {
     horizontSkala: HORIZONT_SKALA * (0.6 + 0.4 * k.zoom),
     horizontX: k.x * 0.25,
   };
+}
+
+/** Wasserlinie des Horizont-Bands, in Band-Bildpunkten über der Linie `horizontY` */
+export const HORIZONT_WASSERLINIE = HORIZONT.hoehe - HORIZONT.wasser;
+
+/**
+ * Culling mit Abstand (GRAFIK §30, Q-G1): Die Kamera, nach der die Dinge der Kulisse
+ * ein- und ausgeblendet werden, folgt der echten Kamera erst, wenn die sich um ein
+ * Achtel des Fensters verschoben oder um ein Zehntel gezoomt hat. Dazwischen bleibt
+ * der Baum der Dinge unverändert, und der Browser bewegt nur die fertige Ebene.
+ * Ein Achtel statt eines Viertels hält den Sichtkasten (`cullRand`) und damit den
+ * Grafikspeicher klein; dafür wird er beim Schwenken öfter neu gesetzt.
+ */
+export function cullKamera(
+  alt: Kamera | undefined,
+  neu: Kamera,
+  fenster: { readonly breite: number; readonly hoehe: number },
+): Kamera {
+  if (!alt) return neu;
+  const z = neu.zoom / alt.zoom;
+  if (
+    Math.abs(neu.x - alt.x) < fenster.breite / 8 &&
+    Math.abs(neu.y - alt.y) < fenster.hoehe / 8 &&
+    z > 1 / 1.1 &&
+    z < 1.1
+  )
+    return alt;
+  return neu;
+}
+
+/** Rand um das Fenster, in dem Dinge schon gezeichnet werden: ein Achtel plus Bildgröße */
+export function cullRand(fenster: { readonly breite: number; readonly hoehe: number }): number {
+  return Math.max(fenster.breite, fenster.hoehe) / 8 + 160;
 }
 
 /** Ein Ding um den Bauplatz: Bild, Lage in Feldern (außerhalb des Bauplatzes) */
