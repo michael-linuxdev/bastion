@@ -59,6 +59,7 @@
     wetterProbe,
   } from './wetter-probe.svelte';
   import { kulisseFuer, stimmungAus } from './grafik/kulisse';
+  import { sichtfeldAus } from './grafik/takt';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
   import { ausbauNeu } from './ausbau-neu';
@@ -609,6 +610,21 @@
    * verschiebt und vergrößert das fertige Bild.
    */
   let kameraRuheTimer: ReturnType<typeof setTimeout> | undefined;
+  /**
+   * Sichtfeld an die Bühne (GRAFIK §34): Bei Kamera-Ruhe rechnet Bauplatz aus der Kamera,
+   * welcher Teil der Bühne im Fenster liegt (plus ein Achtel Rand); Fahnen, Mühlen, Kräne,
+   * Wesen und Bewohner außerhalb bewegt die Bühne nicht. Reine Rechnung, keine Ebene.
+   */
+  function kameraRuhe() {
+    const b = buehne;
+    if (!b) return;
+    const el = fenster;
+    if (el && el.clientWidth > 0) {
+      const f = { breite: el.clientWidth, hoehe: el.clientHeight };
+      b.setzeSichtfeld(sichtfeldAus(kamera, f, Math.min(f.breite, f.hoehe) / 8));
+    }
+    b.setzeKameraBewegt(false);
+  }
   $effect(() => {
     void kamera.x;
     void kamera.y;
@@ -617,7 +633,7 @@
     if (!b) return;
     b.setzeKameraBewegt(true);
     clearTimeout(kameraRuheTimer);
-    kameraRuheTimer = setTimeout(() => buehne?.setzeKameraBewegt(false), KAMERA_RUHE_MS);
+    kameraRuheTimer = setTimeout(kameraRuhe, KAMERA_RUHE_MS);
   });
   onDestroy(() => clearTimeout(kameraRuheTimer));
 
