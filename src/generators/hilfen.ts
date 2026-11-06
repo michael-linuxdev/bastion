@@ -33,16 +33,17 @@ export function verlange(bedingung: boolean, meldung: string): void {
   if (!bedingung) throw new RangeError(meldung);
 }
 
-/** Variante eines internen Generators mit festen Parametern und eigenen Fehlerbildern. */
+/** Variante eines internen Generators mit festen Parametern und eigenen Fehlerbildern; `version` ist ihre Fassung (steigt mit der Basis). */
 export function variante<P, F extends Partial<P>>(
   basis: Generator<P>,
   id: string,
   fehlerbildIds: readonly string[],
   fest: F,
+  version = 1,
 ): Generator<Omit<P, keyof F>> {
   return {
     id,
-    version: 1,
+    version,
     basis: `${basis.id}@${basis.version}`,
     basisParameter: fest as Readonly<Record<string, unknown>>,
     platzhalter: basis.platzhalter,

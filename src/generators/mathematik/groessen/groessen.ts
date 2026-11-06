@@ -76,6 +76,12 @@ export interface UmrechnenParameter {
   readonly dezimal: boolean; // Ausgangswert darf Kommazahl sein bzw. Ergebnis Kommazahl
 }
 
+/** Zahl mit höchstens 6 Nachkommastellen als Lösung, sonst nichts. */
+const genau = (x: number) => {
+  const g = runde10(x, 6);
+  return x !== 0 && Math.abs(g - x) <= Math.abs(x) * 1e-12 ? zahl(g) : undefined;
+};
+
 /** „Rechne um: 3 km = ? m“ – Vorlagen M.GM.GR.UMRECHNEN.IN-KLEINERE und .IN-GROESSERE */
 export const einheitenUmrechnen: Generator<UmrechnenParameter> = {
   id: 'gr.einheiten-umrechnen',
@@ -121,10 +127,9 @@ export const einheitenUmrechnen: Generator<UmrechnenParameter> = {
         ),
       ],
       fehlerbilder: fehlerbilderAus(zahl(richtig), [
-        [
-          'falsche-richtung',
-          zahl(p.richtung === 'in-kleinere' ? runde10(wert / f, 6) : runde10(wert * f, 6)),
-        ],
+        // Nur, wenn die Zahl mit höchstens 6 Nachkommastellen genau ist (sonst wäre sie 0 oder
+        // abgeschnitten, und wer wirklich geteilt hat, träfe sie nicht)
+        ['falsche-richtung', genau(p.richtung === 'in-kleinere' ? wert / f : wert * f)],
         [
           'falsche-umrechnungszahl',
           g === 'zeit' || (g === 'geld' && f === 100)
@@ -287,6 +292,8 @@ export const kommaschreibweise: Generator<KommaParameter> = {
       };
     }
     const richtig = gross * f + klein;
+    const nachKomma = dezimalDeutsch(kommazahl).split(',')[1] ?? '';
+    const ohneNull = /^0+[1-9]/.test(nachKomma) ? nachKomma.replace(/^0+/, '') : undefined;
     return {
       platzhalter: {
         gross,
@@ -302,8 +309,9 @@ export const kommaschreibweise: Generator<KommaParameter> = {
       ],
       fehlerbilder: fehlerbilderAus(zahl(richtig), [
         ['falsche-stelle', undefined],
-        // Fehler: Ziffern hinter dem Komma ohne führende Null angehängt (3,07 m → 37 cm)
-        ['nullen-falsch', zahl(Number(`${gross}${klein}`))],
+        // Fehler: Ziffern hinter dem Komma ohne führende Null angehängt (3,07 m → 37 cm), aus
+        // der angezeigten Kommazahl gebildet (13,04 kg → 134 g); ohne führende Null kein Fehlerbild
+        ['nullen-falsch', ohneNull !== undefined ? zahl(Number(`${gross}${ohneNull}`)) : undefined],
       ]),
     };
   },
@@ -391,45 +399,57 @@ export interface SachWegParameter {
   readonly km_max: number; // 2 … 50
 }
 
-/** „Der Radweg ist 4,5 km lang. Hin und zurück, dazu 800 m …“ – Vorlage M.GM.GR.SACH.WEG */
-export const sachWeg: Generator<SachWegParameter> = {
-  id: 'gr.sach-weg',
-  version: 1,
-  platzhalter: ['geschichte'],
-  fehlerbildIds: ['einheiten-nicht-umgerechnet', 'nur-einfache-strecke'],
+/** Genitiv eines Namens: „Lenas“, aber „Jonas’“ (Name endet auf s, ß, x oder z). */
+export const genitiv = (name: string) => (/[sßxz]$/.test(name) ? `${name}’` : `${name}s`);
 
-  erzeuge(seed, p) {
-    verlange(p.km_max >= 2 && p.km_max <= 50, 'km_max: 2 … 50');
-    const r = rng(seed);
-    const name = r.pick(NAMEN);
-    const strecke = r.int(10, p.km_max * 10) * 100; // in m, auf 100 m genau
-    const umweg = r.int(1, 9) * 100;
-    const gesamt = 2 * strecke + umweg;
-    return {
-      platzhalter: {
-        geschichte: de(
-          `Der Weg von ${name}s Wohnung zum Sportplatz ist ${dezimalDeutsch(strecke / 1000)} km lang. ` +
-            `${name} fährt hin und zurück und macht unterwegs einen Umweg von ${umweg} m zum Bäcker. ` +
-            'Wie viele Kilometer fährt ' +
-            name +
-            ' insgesamt?',
-        ),
-      },
-      loesung: zahl(runde10(gesamt / 1000, 3)),
-      loesungsweg: [
-        de(
-          `Hin und zurück: 2 · ${dezimalDeutsch(strecke / 1000)} km = ${dezimalDeutsch((2 * strecke) / 1000)} km`,
-        ),
-        de(`${umweg} m = ${dezimalDeutsch(umweg / 1000)} km`),
-        de(`Zusammen: ${dezimalDeutsch(gesamt / 1000)} km`),
-      ],
-      fehlerbilder: fehlerbilderAus(zahl(runde10(gesamt / 1000, 3)), [
-        ['einheiten-nicht-umgerechnet', zahl(runde10((2 * strecke) / 1000 + umweg, 3))],
-        ['nur-einfache-strecke', zahl(runde10((strecke + umweg) / 1000, 3))],
-      ]),
-    };
-  },
-};
+/**
+ * „Der Radweg ist 4,5 km lang. Hin und zurück, dazu 800 m …“ – Vorlage M.GM.GR.SACH.WEG.
+ * Fassung 2 (Q-L1, 06.11.2026): „Jonas’ Wohnung“ statt „Jonass Wohnung“.
+ */
+function sachWegFassung(fassung: 1 | 2): Generator<SachWegParameter> {
+  return {
+    id: 'gr.sach-weg',
+    version: fassung,
+    platzhalter: ['geschichte'],
+    fehlerbildIds: ['einheiten-nicht-umgerechnet', 'nur-einfache-strecke'],
+
+    erzeuge(seed, p) {
+      verlange(p.km_max >= 2 && p.km_max <= 50, 'km_max: 2 … 50');
+      const r = rng(seed);
+      const name = r.pick(NAMEN);
+      const strecke = r.int(10, p.km_max * 10) * 100; // in m, auf 100 m genau
+      const umweg = r.int(1, 9) * 100;
+      const gesamt = 2 * strecke + umweg;
+      return {
+        platzhalter: {
+          geschichte: de(
+            `Der Weg von ${fassung === 2 ? genitiv(name) : `${name}s`} Wohnung zum Sportplatz ist ${dezimalDeutsch(strecke / 1000)} km lang. ` +
+              `${name} fährt hin und zurück und macht unterwegs einen Umweg von ${umweg} m zum Bäcker. ` +
+              'Wie viele Kilometer fährt ' +
+              name +
+              ' insgesamt?',
+          ),
+        },
+        loesung: zahl(runde10(gesamt / 1000, 3)),
+        loesungsweg: [
+          de(
+            `Hin und zurück: 2 · ${dezimalDeutsch(strecke / 1000)} km = ${dezimalDeutsch((2 * strecke) / 1000)} km`,
+          ),
+          de(`${umweg} m = ${dezimalDeutsch(umweg / 1000)} km`),
+          de(`Zusammen: ${dezimalDeutsch(gesamt / 1000)} km`),
+        ],
+        fehlerbilder: fehlerbilderAus(zahl(runde10(gesamt / 1000, 3)), [
+          ['einheiten-nicht-umgerechnet', zahl(runde10((2 * strecke) / 1000 + umweg, 3))],
+          ['nur-einfache-strecke', zahl(runde10((strecke + umweg) / 1000, 3))],
+        ]),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): „Jonass Wohnung“. */
+export const sachWegV1 = sachWegFassung(1);
+export const sachWeg = sachWegFassung(2);
 
 /** Variante für M.GM.GR.KOMMA.ZU-KLEINER (Fehler-Schüler A): ohne falsche-stelle, das dort nie vorkommt. */
 export const kommaschreibweiseZuKleiner = variante(
