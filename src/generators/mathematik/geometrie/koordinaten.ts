@@ -210,9 +210,10 @@ export const verschiebung: Generator<VerschiebenParameter> = {
   erzeuge(seed, p) {
     verlange(p.max >= 8 && p.max <= 15, 'max: 8 … 15');
     const r = rng(seed);
-    let dx = r.int(-4, 4);
-    const dy = r.int(-4, 4);
-    if (dx === 0 && dy === 0) dx = 3;
+    // beide Richtungen ungleich 0, sonst fällt das Fehlerbild „nur x verschoben“ mit der Lösung
+    // oder dem unveränderten Punkt zusammen
+    const dx = r.pick([-4, -3, -2, -1, 1, 2, 3, 4]);
+    const dy = r.pick([-4, -3, -2, -1, 1, 2, 3, 4]);
     const im = (d: number) => r.int(Math.max(0, -d), Math.min(p.max, p.max - d));
     const P1: Punkt = { x: im(dx), y: im(dy) };
     let Q: Punkt = { x: im(dx), y: im(dy) };

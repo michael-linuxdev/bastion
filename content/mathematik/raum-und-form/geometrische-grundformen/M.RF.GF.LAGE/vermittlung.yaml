@@ -12,7 +12,7 @@ schritte:
     typ: entdecken
     text:
       de: 'Hier siehst du zwei kurze Stücke von [[Geraden]]. Eine [[Gerade]] hat aber kein Ende. Verlängere beide mit dem Knopf. Treffen sie sich?'
-    werkzeug: { id: geraden@1, parameter: { kurz: true, winkel: 20, richtung: 10 } }
+    werkzeug: { id: geraden@1, parameter: { kurz: true, winkel: 20, richtung: 10, drehbar: false } }
     antwort:
       optionen:
         - { wert: { de: 'Ja, weiter draußen schneiden sie sich.' }, richtig: true }
@@ -27,14 +27,14 @@ schritte:
   - id: erklaeren-senkrecht
     typ: erklaeren
     text:
-      de: 'Stehen zwei [[Geraden]] [[senkrecht]] aufeinander, schneiden sie sich im [[rechten Winkel]], wie die Ecke eines Blatts. Das kleine Quadrat zeigt den rechten Winkel. Alle anderen Geraden schneiden sich schräg.'
+      de: 'Stehen zwei [[Geraden]] [[senkrecht]] aufeinander, schneiden sie sich im [[rechten Winkel]], wie die Ecke eines Blatts. Das kleine Quadrat zeigt den rechten Winkel. Schneiden sich Geraden sonst, dann schräg.'
     bild: { werkzeug: geraden@1, parameter: { lage: senkrecht, richtung: 0 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: 'Die Linien in deinem Heft sind [[parallel]]. Der Heftrand steht [[senkrecht]] auf ihnen. Die Zeiger einer Uhr um 2 Uhr schneiden sich schräg, wie g und h hier.'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 60, richtung: 90 } }
+    bild: { werkzeug: geraden@1, parameter: { winkel: 120, richtung: 90 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -55,7 +55,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Ben sagt: Diese [[Geraden]] stehen [[senkrecht]] aufeinander, sie kreuzen sich doch. Stimmt das?'
-    bild: { werkzeug: geraden@1, parameter: { winkel: 70, richtung: 20 } }
+    bild: { werkzeug: geraden@1, parameter: { winkel: 70, richtung: 10, frage: true } }
     antwort:
       optionen:
         - {
@@ -74,7 +74,7 @@ schritte:
     typ: pruefen
     text:
       de: 'Wie liegen g und h zueinander?'
-    bild: { werkzeug: geraden@1, parameter: { lage: parallel, richtung: 0 } }
+    bild: { werkzeug: geraden@1, parameter: { lage: parallel, richtung: 0, frage: true } }
     antwort:
       optionen:
         - { wert: { de: 'parallel' }, richtig: true }

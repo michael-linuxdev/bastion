@@ -326,6 +326,8 @@ describe('Geraden (geraden@1)', () => {
       namen: ['a', 'h'],
     });
     expect(geradenAus({ parallelen: true, winkel: 10 }).winkel).toBe(30);
+    expect(geradenAus({}).drehbar).toBe(true);
+    expect(geradenAus({ drehbar: false }).drehbar).toBe(false);
     expect(lageVon(0)).toBe('parallel');
     expect(lageVon(90)).toBe('senkrecht');
     expect(lageVon(45)).toBe('schneidend');

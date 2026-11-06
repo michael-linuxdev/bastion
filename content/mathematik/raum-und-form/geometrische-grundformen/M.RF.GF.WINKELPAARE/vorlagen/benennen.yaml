@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.GF.WINKELPAARE-NAMEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 0a6b0351b2569c1dda11f827e598605bd3a8cb7dfe7777c5157ced62c6f5c5da

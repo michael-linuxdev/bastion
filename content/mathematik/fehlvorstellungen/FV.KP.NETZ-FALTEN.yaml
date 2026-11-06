@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.RF.KP.DARSTELLEN.GEGENUEBER, M.RF.KP.DARSTELLEN.NETZ-WAEHLEN, M.RF.KP.ZYLINDER.NETZ]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 16cabd76e14e819ecfeb0091c4cb7c3af275cb7b0ef482db505bc027f79196b4

@@ -17,3 +17,8 @@ pruefen:
   - de: 'Ist jeder [[Bildpunkt]] genauso weit von der Achse entfernt wie sein Punkt?'
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 084ada9db259495435e854c6b0d48c9f86793ea07a063d971061442fd7a9a732
