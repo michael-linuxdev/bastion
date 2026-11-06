@@ -6,7 +6,15 @@
 // und Skin (B-17, B-18, B-27). Das Thema Dorf zeichnet stattdessen die Dorfbilder
 // (`dorf.ts`). Diese Datei ist der einzige Ort, der PixiJS importiert; die
 // Listenansicht bleibt gleichwertig.
-import { Application, Assets, Container, Graphics, Sprite, Texture } from 'pixi.js';
+import {
+  Application,
+  Assets,
+  Container,
+  Graphics,
+  GraphicsContext,
+  Sprite,
+  Texture,
+} from 'pixi.js';
 import type { Bastion } from '../../../core/bastion/bauen';
 import type { HinterhofFeld } from '../../../core/learning/hinterhof';
 import type { Thema } from '../../../core/policy/einstellung';
@@ -125,6 +133,16 @@ import { atlasThema, type Bildart } from './bildart';
 import { geruestEbenen } from './geruest';
 import { inselUmgebung } from './insel-umgebung';
 import { istLandBildart } from './thema-partikel';
+import {
+  BildVorrat,
+  bilderJeUmlauf,
+  imSichtfeld,
+  phasenStufe,
+  stufenPhase,
+  taktSchritt,
+  taktZeit,
+  type Rechteck,
+} from './takt';
 export type { Bildart } from './bildart';
 export { bildartVonThema } from './bildart';
 export { istLandBildart } from './thema-partikel';
@@ -184,6 +202,12 @@ export interface Buehne {
    * das Bild bleibt stehen, und nur der Browser verschiebt und vergrößert es.
    */
   setzeKameraBewegt(bewegt: boolean): void;
+  /**
+   * Sichtfeld der Kamera in Bühnen-Bildpunkten, mit Rand (GRAFIK §31): Fahnen, Mühlen,
+   * Kräne, Wesen und Bewohner außerhalb werden nicht bewegt. Bauplatz meldet es nur, wenn
+   * die Cull-Kamera springt (`cullKamera`), nicht bei jedem Zoom-Schritt.
+   */
+  setzeSichtfeld(r: Rechteck | undefined): void;
   /** Feld unter einem Punkt in Bildschirmkoordinaten – oder undefined außerhalb */
   feldBei(clientX: number, clientY: number): Position | undefined;
   /** Wesen unter dem Punkt – für Tippen (GRAFIK §4.4) */
@@ -242,7 +266,13 @@ function zeichneWesen(g: Graphics, w: WesenZustand, jetzt: number) {
 
 /** Silhouette eines Bewohners (Zwerg o. Ä.) mit ruhiger Tätigkeit. */
 /** Statusgeste über dem Kopf – Tätigkeit ohne Popup lesbar (Design „Danach“ J35). */
-function zeichneStatusgeste(g: Graphics, x: number, y: number, s: number, taetigkeit: Taetigkeit) {
+function zeichneStatusgeste(
+  g: GraphicsContext,
+  x: number,
+  y: number,
+  s: number,
+  taetigkeit: Taetigkeit,
+) {
   const kx = x;
   const ky = y - 14 * s;
   g.circle(kx, ky, 3.4 * s).fill({ color: '#fff8ef', alpha: 0.92 });
@@ -297,7 +327,7 @@ function zeichneBewohner(g: Graphics, b: BewohnerZustand, jetzt: number) {
   const x = b.x;
   const y = b.y;
   const farbe = bewohnerFarbe(b.art);
-  zeichneStatusgeste(g, x, y, s, b.taetigkeit);
+  zeichneStatusgeste(g.context, x, y, s, b.taetigkeit);
   // Körper + Mütze (Form je Art leicht unterscheidbar)
   g.ellipse(x, y, 4.5 * s, 3 * s).fill(farbe);
   if (b.art === 'imker') {
@@ -1698,6 +1728,16 @@ export async function buehneErstellen(
       for (const [k, c] of vorrat)
         if (k.startsWith(praefix) && !gesehen.has(k) && !c.destroyed) c.visible = false;
   };
+  /**
+   * Sichtfeld der Kamera in Bühnen-Bildpunkten (GRAFIK §31): Was außerhalb liegt, wird
+   * nicht bewegt. Undefiniert, bis sich die Kamera meldet – dann gilt alles als sichtbar.
+   */
+  let sicht: Rechteck | undefined;
+  /** Rand um eine Figur für die Sichtprüfung (Bild, Statusgeste, Reaktion) */
+  const FIGUR_RAND = 40;
+  /** Vorberechnete Bilder: Statusgesten je Tätigkeit, Fahnen und Mühlen je Takt-Bild */
+  const gesten = new BildVorrat<GraphicsContext>();
+  const tuchBilder = new BildVorrat<GraphicsContext>();
   const wesenZeichnen = (jetzt: number) => {
     wesenLage.removeChildren().forEach((c) => c.destroy());
     for (const c of [...amBoden]) {
@@ -1727,15 +1767,20 @@ export async function buehneErstellen(
       const tex = eintrag ? texturen.get(eintrag.id) : undefined;
       if (eintrag && tex) {
         const spr = dauerHolen(dauerSprites, `w:${w.id}`, () => new Sprite(), gesehen);
+        // Außerhalb des Sichtfelds bleibt das letzte Bild stehen (GRAFIK §31). Nicht
+        // ausblenden: Beim Schwenken zeigt der Browser das alte Bild der Bühne weiter.
+        if (spr.texture !== Texture.EMPTY && !imSichtfeld(w.x, w.y, FIGUR_RAND, FIGUR_RAND, sicht))
+          continue;
         spr.texture = tex;
-        spr.scale.set(1);
         spr.zIndex = bodenTiefe(w.y) * 10 + 5;
         spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
         const skal = (eintrag.pixel.w / 2) * w.skala * (jetzt < w.reactBis ? 1.12 : 1);
-        spr.width = skal;
-        spr.height = (eintrag.pixel.h / eintrag.pixel.w) * skal;
+        // Maßstab direkt statt über `width`/`height` (das misst jedes Mal die Grenzen aus)
+        spr.scale.set(
+          (w.richtung * skal) / tex.orig.width,
+          ((eintrag.pixel.h / eintrag.pixel.w) * skal) / tex.orig.height,
+        );
         spr.position.set(w.x, w.y);
-        spr.scale.x = w.richtung * Math.abs(spr.scale.x);
       } else {
         const g = new Graphics();
         zeichneWesen(g, w, jetzt);
@@ -1774,18 +1819,27 @@ export async function buehneErstellen(
       if (eintrag && tex) {
         // Bild aus dem Generator (G3); die Statusgeste bleibt darüber (Design „Danach“ J35)
         const spr = dauerHolen(dauerSprites, `b:${b.id}`, () => new Sprite(), gesehen);
+        const g = dauerHolen(dauerGrafik, `b:${b.id}`, () => new Graphics(), gesehen);
+        // Außerhalb des Sichtfelds bleibt das letzte Bild stehen (GRAFIK §31)
+        if (spr.texture !== Texture.EMPTY && !imSichtfeld(b.x, b.y, FIGUR_RAND, FIGUR_RAND, sicht))
+          continue;
         spr.texture = tex;
-        spr.scale.set(1);
         spr.zIndex = bodenTiefe(b.y) * 10 + 6;
         spr.anchor.set(eintrag.anker.x, eintrag.anker.y);
         const breite = (eintrag.pixel.w / 2) * (jetzt < b.reactBis ? 1.1 : 1);
-        spr.width = breite;
-        spr.height = (eintrag.pixel.h / eintrag.pixel.w) * breite;
+        spr.scale.set(
+          breite / tex.orig.width,
+          ((eintrag.pixel.h / eintrag.pixel.w) * breite) / tex.orig.height,
+        );
         spr.position.set(b.x, b.y + 4);
-        const g = dauerHolen(dauerGrafik, `b:${b.id}`, () => new Graphics(), gesehen);
-        g.clear();
+        // Statusgeste: je Tätigkeit einmal gezeichnet, danach nur verschoben (GRAFIK §31)
+        g.context = gesten.holen(b.taetigkeit, () => {
+          const c = new GraphicsContext();
+          zeichneStatusgeste(c, 0, 0, 1, b.taetigkeit);
+          return c;
+        });
+        g.position.set(b.x, b.y - 12);
         g.zIndex = spr.zIndex;
-        zeichneStatusgeste(g, b.x, b.y - 12, 1, b.taetigkeit);
       } else {
         const g = new Graphics();
         zeichneBewohner(g, b, jetzt);
@@ -1799,10 +1853,47 @@ export async function buehneErstellen(
    * Wehende Fahnen (Wunsch PV, 03.11.2026): Über jedem Tuch im Gebäudebild liegt ein
    * gezeichnetes Tuch, das sich leicht wellt. Gesammelt nach jedem Zeichnen; bei
    * „ruhig“ bleibt das stille Tuch aus dem Bild.
+   *
+   * Seit Q-G1 PR 3 (GRAFIK §31) entsteht jedes Bild der Welle nur einmal: Die Phase wird
+   * auf so viele Stufen je Umlauf gerundet, wie Takt-Schritte hineinpassen, und jede Stufe
+   * liegt als fertige Zeichnung (`GraphicsContext`) im Vorrat. Im Takt tauscht die Bühne
+   * nur, welche Zeichnung das Tuch zeigt. Gleich große Tücher teilen sich die Bilder.
    */
-  let fahnenTuecher: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number }[] =
-    [];
-  let muehlen: { g: Graphics; x: number; y: number; k: number; f: AtlasFluegel; n: number }[] = [];
+  interface Tuch {
+    g: Graphics;
+    x: number;
+    y: number;
+    k: number;
+    n: number;
+    /** Ursprung der Zeichnung (Ecke des Tuchs bzw. Nabe) in Bühnen-Bildpunkten */
+    ox: number;
+    oy: number;
+    /** im Sichtfeld – sonst bleibt das letzte Bild stehen */
+    sichtbar: boolean;
+    /** Schlüssel des gezeigten Bildes */
+    bild: string;
+  }
+  let fahnenTuecher: (Tuch & { f: AtlasFahne })[] = [];
+  let muehlen: (Tuch & { f: AtlasFluegel })[] = [];
+  /** Lage der Tücher und Mühlen zum Sichtfeld neu bestimmen */
+  const tuecherSichten = () => {
+    for (const t of fahnenTuecher) {
+      const s = t.k / 2;
+      const rand = 4 * s * 2.2;
+      t.sichtbar = imSichtfeld(
+        t.ox + (t.f.b * s) / 2,
+        t.oy + ((t.f.h + t.f.s) * s) / 2,
+        (Math.abs(t.f.b) * s) / 2 + rand,
+        ((Math.abs(t.f.h) + Math.abs(t.f.s)) * s) / 2 + rand,
+        sicht,
+      );
+    }
+    for (const m of muehlen) {
+      const s = m.k / 2;
+      const r = m.f.l * Math.max(48, 58.79 * m.f.f) * s + 8;
+      m.sichtbar = imSichtfeld(m.ox, m.oy, r, r, sicht);
+    }
+  };
   const fahnenSammeln = () => {
     fahnenTuecher = [];
     muehlen = [];
@@ -1815,6 +1906,7 @@ export async function buehneErstellen(
       const eintrag = id ? atlasEintragPerId(atlas, id) : undefined;
       if (!eintrag) continue;
       const k = kind.width / (eintrag.pixel.w / 2);
+      const s = k / 2;
       // Mühle: Bild ohne Flügel zeigen und die Flügel selbst zeichnen (auch bei „ruhig“,
       // dann stehen sie still)
       const ohne = eintrag.fluegel ? atlasEintragPerId(atlas, eintrag.fluegel.ohne) : undefined;
@@ -1826,7 +1918,19 @@ export async function buehneErstellen(
         g.zIndex = kind.zIndex + 0.5;
         g.tint = kind.tint;
         gebaeude.addChild(g);
-        muehlen.push({ g, x: kind.x, y: kind.y, k, f: eintrag.fluegel, n: n++ });
+        const f = eintrag.fluegel;
+        muehlen.push({
+          g,
+          x: kind.x,
+          y: kind.y,
+          k,
+          f,
+          n: n++,
+          ox: kind.x + f.x * s,
+          oy: kind.y + f.y * s,
+          sichtbar: true,
+          bild: '',
+        });
       }
       if (!eintrag.fahnen || !tickerAn(bewegung)) continue;
       for (const f of eintrag.fahnen) {
@@ -1834,74 +1938,104 @@ export async function buehneErstellen(
         g.zIndex = kind.zIndex + 0.5;
         g.tint = kind.tint;
         gebaeude.addChild(g);
-        fahnenTuecher.push({ g, x: kind.x, y: kind.y, k, f, n: n++ });
+        fahnenTuecher.push({
+          g,
+          x: kind.x,
+          y: kind.y,
+          k,
+          f,
+          n: n++,
+          ox: kind.x + f.x * s,
+          oy: kind.y + f.y * s,
+          sichtbar: true,
+          bild: '',
+        });
       }
     }
-    fahnenWehen(performance.now());
-    muehlenDrehen(performance.now());
+    tuecherSichten();
+    const jetzt = taktZeit(taktSchritt(performance.now()));
+    // Erstes Bild immer zeichnen, auch außerhalb des Sichtfelds
+    fahnenWehen(jetzt, true);
+    muehlenDrehen(jetzt, true);
+  };
+  /** Ein Tuch zeigt das Bild zum Schlüssel; gebaut wird es nur beim ersten Mal */
+  const tuchZeigen = (t: Tuch, schluessel: string, bauen: (c: GraphicsContext) => void) => {
+    if (t.bild === schluessel) return;
+    t.bild = schluessel;
+    t.g.context = tuchBilder.holen(schluessel, () => {
+      const c = new GraphicsContext();
+      bauen(c);
+      return c;
+    });
+    t.g.position.set(t.ox, t.oy);
   };
   /**
    * Drehende Mühlenflügel (Wunsch PV, 03.11.2026): vier Flügel vor der rechten Wand, in
    * derselben Ebene wie im Modell (`muehle_fluegel` in `g12_modelle.py`), eine Umdrehung
    * in zwölf Sekunden, bei Sturm schneller. Bei „ruhig“ stehen sie wie im alten Bild.
+   * Vier gleiche Flügel: Nach einer Vierteldrehung sieht das Bild gleich aus, darum reicht
+   * ein Vorrat für eine Vierteldrehung.
    */
-  const muehlenDrehen = (jetzt: number) => {
+  const muehlenDrehen = (jetzt: number, immer = false) => {
     const dreht = tickerAn(bewegung);
     const tempo = wetterBild === 'sturm' ? 2.5 : 1;
+    const viertel = Math.PI / 2;
+    const stufen = dreht ? bilderJeUmlauf(((Math.PI * 2) / 12) * tempo, viertel) : 1;
     for (const m of muehlen) {
-      const { g, f, k } = m;
-      g.clear();
+      if (!m.sichtbar && !immer) continue;
+      const { f, k } = m;
       const s = k / 2;
-      const nx = m.x + f.x * s;
-      const ny = m.y + f.y * s;
-      // Bildpunkte je Feld in der Ebene der rechten Wand (iso: 48 / 24 / 58,79)
-      const qx = 48 * s;
-      const qy = 24 * s;
-      const qz = 58.79 * s * f.f;
-      // Richtung in der Wand-Ebene: dy = Feld nach hinten, dz = nach oben
-      const bild = (dy: number, dz: number) => ({ x: nx - dy * qx, y: ny + dy * qy - dz * qz });
       const drehung = dreht ? -((jetzt / 12_000) * Math.PI * 2 * tempo + m.n) : 0;
-      for (let i = 0; i < 4; i++) {
-        const a = Math.PI / 4 + (i * Math.PI) / 2 + drehung;
-        const ca = Math.cos(a);
-        const sa = Math.sin(a);
-        // Flügel entlang (−cos a, sin a), Tuch quer dazu (sin a, cos a), 0,24 Felder breit
-        const ende = bild(-f.l * ca, f.l * sa);
-        const ecken = [
-          [0.25, -0.12],
-          [1, -0.12],
-          [1, 0.12],
-          [0.25, 0.12],
-        ].map(([t = 0, q = 0]) => bild(-f.l * t * ca + q * sa, f.l * t * sa + q * ca));
-        // Tuch: im Licht heller, wenn es nach oben zeigt
-        const licht = 0.9 + 0.1 * sa;
-        g.poly(ecken.flatMap((p) => [p.x, p.y]))
-          .fill(heller('#f0e8d6', licht))
-          .stroke({ width: 0.8 * s, color: 0x8a6a4a, alpha: 0.7 });
-        // Rute über dem Tuch, wie im alten Bild
-        g.moveTo(nx, ny)
-          .lineTo(ende.x, ende.y)
-          .stroke({ width: 1.6 * s, color: 0x5c3e28, cap: 'round' });
-      }
-      g.circle(nx, ny, 2.4 * s).fill(0x4a3220);
+      const stufe = phasenStufe(drehung, stufen, viertel);
+      const schluessel = `m|${f.l}|${f.f}|${s}|${stufe}/${stufen}`;
+      tuchZeigen(m, schluessel, (g) => {
+        const winkel = stufenPhase(stufe, stufen, viertel);
+        // Bildpunkte je Feld in der Ebene der rechten Wand (iso: 48 / 24 / 58,79)
+        const qx = 48 * s;
+        const qy = 24 * s;
+        const qz = 58.79 * s * f.f;
+        // Richtung in der Wand-Ebene: dy = Feld nach hinten, dz = nach oben (Nabe bei 0, 0)
+        const bild = (dy: number, dz: number) => ({ x: -dy * qx, y: dy * qy - dz * qz });
+        for (let i = 0; i < 4; i++) {
+          const a = Math.PI / 4 + (i * Math.PI) / 2 + winkel;
+          const ca = Math.cos(a);
+          const sa = Math.sin(a);
+          // Flügel entlang (−cos a, sin a), Tuch quer dazu (sin a, cos a), 0,24 Felder breit
+          const ende = bild(-f.l * ca, f.l * sa);
+          const ecken = [
+            [0.25, -0.12],
+            [1, -0.12],
+            [1, 0.12],
+            [0.25, 0.12],
+          ].map(([t = 0, q = 0]) => bild(-f.l * t * ca + q * sa, f.l * t * sa + q * ca));
+          // Tuch: im Licht heller, wenn es nach oben zeigt
+          const licht = 0.9 + 0.1 * sa;
+          g.poly(ecken.flatMap((p) => [p.x, p.y]))
+            .fill(heller('#f0e8d6', licht))
+            .stroke({ width: 0.8 * s, color: 0x8a6a4a, alpha: 0.7 });
+          // Rute über dem Tuch, wie im alten Bild
+          g.moveTo(0, 0)
+            .lineTo(ende.x, ende.y)
+            .stroke({ width: 1.6 * s, color: 0x5c3e28, cap: 'round' });
+        }
+        g.circle(0, 0, 2.4 * s).fill(0x4a3220);
+      });
     }
   };
   /**
    * Banner am Mast: Das Tuch hängt und schwingt unten sacht zur Seite (oben fest), in
-   * Streifen mit hellen und dunklen Falten; das Wappen schwingt mit.
+   * Streifen mit hellen und dunklen Falten; das Wappen schwingt mit. Gezeichnet ab der
+   * oberen Ecke des Tuchs (0, 0).
    */
-  const bannerSchwingen = (
-    t: { g: Graphics; x: number; y: number; k: number; f: AtlasFahne; n: number },
-    jetzt: number,
+  const bannerZeichnen = (
+    g: GraphicsContext,
+    f: AtlasFahne,
+    s: number,
     wind: number,
+    phase: number,
   ) => {
-    const { g, f, k } = t;
-    const s = k / 2;
-    const ox = t.x + f.x * s;
-    const oy = t.y + f.y * s;
     const amp = 1.4 * s * wind;
     const rand = 0.4 * s;
-    const phase = (jetzt / 1000) * 1.6 * wind + t.n * 1.3;
     const versatz = (v: number) => Math.sin(phase - v * 1.2) * amp * v * v;
     const teile = 6;
     for (let i = 0; i < teile; i++) {
@@ -1909,67 +2043,80 @@ export async function buehneErstellen(
       const v1 = (i + 1) / teile;
       const d0 = versatz(v0);
       const d1 = versatz(v1);
-      const y0 = oy + f.h * s * v0;
-      const y1 = oy + f.h * s * v1;
+      const y0 = f.h * s * v0;
+      const y1 = f.h * s * v1;
       const licht = 0.92 + 0.08 * Math.cos(phase - ((i + 0.5) / teile) * 1.2);
       g.poly([
-        ox + d0 - rand,
+        d0 - rand,
         y0 - rand,
-        ox + f.b * s + d0 + rand,
+        f.b * s + d0 + rand,
         y0 + f.s * s - rand,
-        ox + f.b * s + d1 + rand,
+        f.b * s + d1 + rand,
         y1 + f.s * s + rand,
-        ox + d1 - rand,
+        d1 - rand,
         y1 + rand,
       ]).fill(heller(f.farbe, licht));
     }
     const w = f.wappen;
     if (w) {
       const v = (w.y - f.y) / f.h;
-      g.circle(t.x + w.x * s + versatz(v), t.y + w.y * s, w.r * s).fill(heller(w.farbe, 0.88));
+      g.circle((w.x - f.x) * s + versatz(v), (w.y - f.y) * s, w.r * s).fill(heller(w.farbe, 0.88));
     }
   };
-  const fahnenWehen = (jetzt: number) => {
+  /** Wehendes Tuch, gezeichnet ab der Ecke am Mast (0, 0) */
+  const fahneZeichnen = (
+    g: GraphicsContext,
+    f: AtlasFahne,
+    s: number,
+    wind: number,
+    phase: number,
+  ) => {
+    const amp = 1.1 * s * wind;
+    // Rand größer als die Welle: das stille Tuch im Bild bleibt ganz verdeckt
+    const rand = amp + 0.5 * s;
+    const teile = 6;
+    const punkte: { x: number; y: number }[] = [];
+    for (let i = 0; i <= teile; i++) {
+      const a = i / teile;
+      const welle = Math.sin(phase - a * 2.6);
+      punkte.push({ x: f.b * s * a, y: f.s * s * a + welle * amp * a });
+    }
+    for (let i = 0; i < teile; i++) {
+      const p = punkte[i];
+      const q = punkte[i + 1];
+      if (!p || !q) continue;
+      // Falten: wo die Welle steigt, ist das Tuch heller
+      const licht = 0.9 + 0.1 * Math.cos(phase - ((i + 0.5) / teile) * 2.6);
+      g.poly([
+        p.x,
+        p.y - rand,
+        q.x + 0.2,
+        q.y - rand,
+        q.x + 0.2,
+        q.y + f.h * s + rand,
+        p.x,
+        p.y + f.h * s + rand,
+      ]).fill(heller(f.farbe, licht));
+    }
+  };
+  const fahnenWehen = (jetzt: number, immer = false) => {
     const wind = wetterBild === 'sturm' ? 2.2 : 1;
     for (const t of fahnenTuecher) {
-      const { g, f, k } = t;
-      g.clear();
+      if (!t.sichtbar && !immer) continue;
+      const { f, k } = t;
       // Bildpunkte des 1x-Bildes sind halbe Bühnenpunkte
       const s = k / 2;
-      const ox = t.x + f.x * s;
-      const oy = t.y + f.y * s;
-      const amp = 1.1 * s * wind;
-      // Rand größer als die Welle: das stille Tuch im Bild bleibt ganz verdeckt
-      const rand = amp + 0.5 * s;
-      if (f.haengt) {
-        bannerSchwingen(t, jetzt, wind);
-        continue;
-      }
-      const phase = (jetzt / 1000) * 4.2 * wind + t.n * 1.7;
-      const teile = 6;
-      const punkte: { x: number; y: number; w: number }[] = [];
-      for (let i = 0; i <= teile; i++) {
-        const a = i / teile;
-        const welle = Math.sin(phase - a * 2.6);
-        punkte.push({ x: ox + f.b * s * a, y: oy + f.s * s * a + welle * amp * a, w: welle });
-      }
-      for (let i = 0; i < teile; i++) {
-        const p = punkte[i];
-        const q = punkte[i + 1];
-        if (!p || !q) continue;
-        // Falten: wo die Welle steigt, ist das Tuch heller
-        const licht = 0.9 + 0.1 * Math.cos(phase - ((i + 0.5) / teile) * 2.6);
-        g.poly([
-          p.x,
-          p.y - rand,
-          q.x + 0.2,
-          q.y - rand,
-          q.x + 0.2,
-          q.y + f.h * s + rand,
-          p.x,
-          p.y + f.h * s + rand,
-        ]).fill(heller(f.farbe, licht));
-      }
+      // Banner schwingen langsamer (1,6 rad/s) als Fahnen wehen (4,2 rad/s)
+      const omega = (f.haengt ? 1.6 : 4.2) * wind;
+      const phase = (jetzt / 1000) * omega + t.n * (f.haengt ? 1.3 : 1.7);
+      const stufen = bilderJeUmlauf(omega);
+      const stufe = phasenStufe(phase, stufen);
+      const w = f.wappen;
+      const art = f.haengt ? `b|${w ? `${w.x - f.x},${w.y - f.y},${w.r},${w.farbe}` : ''}` : 'f';
+      const schluessel = `${art}|${f.b}|${f.s}|${f.h}|${f.farbe}|${s}|${wind}|${stufe}/${stufen}`;
+      tuchZeigen(t, schluessel, (g) =>
+        (f.haengt ? bannerZeichnen : fahneZeichnen)(g, f, s, wind, stufenPhase(stufe, stufen)),
+      );
     }
   };
 
@@ -1991,7 +2138,14 @@ export async function buehneErstellen(
     ebenen: number;
     fertig: number;
     n: number;
+    /** schon einmal gezeichnet – erst danach darf die Sichtprüfung überspringen */
+    gezeichnet?: boolean;
   }[] = [];
+  /** Kran samt Ausleger und Arbeitern liegt im Sichtfeld */
+  const baustelleSichtbar = (b: (typeof baustellen)[number]): boolean => {
+    const fuss = punkt(b.mast.gx, b.mast.gy);
+    return imSichtfeld(fuss.x, fuss.y - b.hoehe / 2, b.arm * 48 + 40, b.hoehe / 2 + 60, sicht);
+  };
   const baustelleZeichnen = (jetzt: number) => {
     const bewegt = tickerAn(bewegung);
     const t = bewegt ? jetzt / 1000 : 0;
@@ -1999,8 +2153,11 @@ export async function buehneErstellen(
     const dunkel = 0x4a3220;
     for (const b of baustellen) {
       const { kran: g, mast, hoehe: h, arm } = b;
-      g.clear();
       const fuss = punkt(mast.gx, mast.gy);
+      // Außerhalb des Sichtfelds bleibt das letzte Bild stehen (GRAFIK §31)
+      if (b.gezeichnet && !baustelleSichtbar(b)) continue;
+      b.gezeichnet = true;
+      g.clear();
       const oben = { x: fuss.x, y: fuss.y - h };
       // Mast: zwei Stangen mit Querstreben, Fuß aus Balken
       g.moveTo(fuss.x - 7, fuss.y + 2)
@@ -2081,11 +2238,20 @@ export async function buehneErstellen(
     }
   };
 
+  /** Letzter Takt-Schritt, in dem Fahnen, Mühlen und Baustellen weitergestellt wurden */
+  let letzterSchritt = -1;
   const ticker = () => {
     const jetzt = performance.now();
-    if (baustellen.length > 0) baustelleZeichnen(jetzt);
-    if (fahnenTuecher.length > 0) fahnenWehen(jetzt);
-    if (muehlen.length > 0) muehlenDrehen(jetzt);
+    // Gemeinsamer Takt (GRAFIK §31): Fahnen, Mühlen und Baustellen sehen dieselbe, auf
+    // den Takt gerundete Zeit und rücken höchstens einmal je Takt-Schritt weiter.
+    const schritt = taktSchritt(jetzt);
+    if (schritt !== letzterSchritt) {
+      letzterSchritt = schritt;
+      const taktJetzt = taktZeit(schritt);
+      if (baustellen.length > 0) baustelleZeichnen(taktJetzt);
+      if (fahnenTuecher.length > 0) fahnenWehen(taktJetzt);
+      if (muehlen.length > 0) muehlenDrehen(taktJetzt);
+    }
     const dt = Math.min(0.05, (jetzt - tickerZuletzt) / 1000);
     tickerZuletzt = jetzt;
     // Bei Sturm ziehen die Wolken dreimal so schnell
@@ -2150,9 +2316,11 @@ export async function buehneErstellen(
     bewohner.length > 0 ||
     wolkenLage.children.length > 0 ||
     (budget > 0 && tropfen.length > 0) ||
-    fahnenTuecher.length > 0 ||
-    muehlen.length > 0 ||
-    baustellen.length > 0 ||
+    // Fahnen, Mühlen und Kräne stehen fest: außerhalb des Sichtfelds bewegt sich nichts
+    // davon, und ohne anderes Bewegtes steht der Takt (GRAFIK §31)
+    fahnenTuecher.some((t) => t.sichtbar) ||
+    muehlen.some((m) => m.sichtbar && tickerAn(bewegung)) ||
+    baustellen.some(baustelleSichtbar) ||
     rauchQuellen.length > 0 ||
     (wetterBild === 'sturm' && !wetterUeberAllem);
 
@@ -3013,6 +3181,11 @@ export async function buehneErstellen(
       taktSync();
       bildAnfordern();
     },
+    setzeSichtfeld(r) {
+      sicht = r;
+      tuecherSichten();
+      taktSync(false);
+    },
     setzeKameraBewegt(bewegt) {
       if (bewegt === kameraBewegt) return;
       kameraBewegt = bewegt;
@@ -3081,6 +3254,9 @@ export async function buehneErstellen(
       app.destroy({ removeView: true }, { children: true });
       // Pixi entfernt die View nicht zuverlässig, wenn destroy nach Abbruch kommt
       view.remove();
+      // Geteilte Zeichnungen gehören keiner Grafik, darum hier abgeben (GRAFIK §31)
+      gesten.leeren((c) => c.destroy());
+      tuchBilder.leeren((c) => c.destroy());
     },
   };
   return buehne;
