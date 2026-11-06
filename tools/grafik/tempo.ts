@@ -3,11 +3,7 @@
 // beim Zoomen und beim Schwenken. Ersetzt nicht die Messung am iPhone 13 (Q-G0), macht
 // aber Veränderungen von PR zu PR sichtbar.
 //
-// Aufruf: pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion] [--ruhig] [--reich]
-//        [--wetter regen] (Wetter-Probe aus dem Zahnrad, z. B. regen, starkregen, schnee, sturm)
-//        [--foto /tmp/…/bild.png] (Bildschirmfoto nach dem Öffnen und ganz herangezoomt als
-//        bild-heran.png)
-//        [--ebenen] (je Phase die größten Ebenen nach der §24-Rechnung ausgeben)
+// Aufruf: pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion]
 //
 // Messung: Fenster 390 × 844 bei dreifacher Pixeldichte wie das iPhone 13, CPU gedrosselt
 // (Standard vierfach, wirkt relativ zum Messrechner). Die Bühne wird über die Chrome-Ablaufverfolgung
@@ -35,29 +31,6 @@ const SEKUNDEN = Number(option('sekunden', '6'));
 const THEMA = option('thema', 'bastion');
 /** `--ruhig`: Gerät meldet „Bewegung reduzieren“ → Bühne ohne Bewegung (GRAFIK §4.5) */
 const RUHIG = argumente.includes('--ruhig');
-/**
- * `--reich`: Vor der Messung eine gewachsene Bastion bauen (Bergfried Stufe 3, Banner,
- * Späherturm Stufe 2, Tor, Studierstube, Garten) – mit Fahnen, mehr Bewohnern und einer
- * Baustelle, wie sie ein Kind nach einigen Wochen hat (GRAFIK §31). Ohne die Option misst
- * das Werkzeug die frische Bastion wie in §29 und §30.
- */
-const REICH = argumente.includes('--reich');
-/** `--wetter regen`: Wetter-Probe aus den Bastion-Einstellungen (gilt nur für die Ansicht) */
-const WETTER = option('wetter', '');
-/** `--ebenen`: je Phase die größten Ebenen ausgeben (Größe, Maßstab, Speicher) */
-const EBENEN_LISTE = argumente.includes('--ebenen');
-/** Bauaufträge für `--reich`, der Reihe nach über die Liste in den Bastion-Einstellungen */
-const REICH_BAUEN = [
-  /^Bergfried auf Stufe 2/,
-  /^Banner/,
-  /^Späherturm/,
-  /^Tor/,
-  /^Studierstube/,
-  /^Garten/,
-  /^Bergfried auf Stufe 3/,
-  /^Späherturm auf Stufe 2/,
-  /^Statue/,
-];
 
 interface Ereignis {
   name: string;
@@ -105,93 +78,17 @@ async function warteAufServer(): Promise<void> {
 
 const pause = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
-/**
- * Vorrat anlegen wie der Browser-Test „Bastion als Liste“ (`vorratAnlegen` in
- * `tests/e2e/ueben.spec.ts`): Buchungen und Kontostand ins lokale Speichern der Seite.
- */
-async function vorratAnlegen(seite: Page, stand: Record<string, number>): Promise<void> {
-  await seite.evaluate(
-    (stand) =>
-      new Promise<void>((fertig, fehler) => {
-        const anfrage = indexedDB.open('bastion');
-        anfrage.onerror = () => fehler(anfrage.error);
-        anfrage.onsuccess = () => {
-          const db = anfrage.result;
-          const tx = db.transaction(['profile', 'buchungen', 'konto', 'bastion'], 'readwrite');
-          const profile = tx.objectStore('profile').getAll();
-          profile.onsuccess = () => {
-            const profil = (profile.result[0] as { id: string }).id;
-            for (const [ressource, menge] of Object.entries(stand))
-              tx.objectStore('buchungen').put({
-                id: `${profil}.${ressource}.TEMPO`,
-                art: 'buchung',
-                v: 1,
-                profil,
-                ts: Date.now() - 60_000,
-                tag: '2026-01-01',
-                geraet: 'tempo001',
-                ressource,
-                menge,
-                grund: 'sitzung',
-                bezug: 'TEMPO',
-                aufschluesselung: {},
-                regel: 1,
-              });
-            tx.objectStore('konto').put({ profil, stand, erworben: stand });
-            tx.objectStore('bastion').delete(profil);
-          };
-          tx.oncomplete = () => {
-            db.close();
-            fertig();
-          };
-          tx.onerror = () => fehler(tx.error);
-        };
-      }),
-    stand,
-  );
-}
-
-/** Für `--reich`: Vorrat anlegen und über die Liste der Einstellungen bauen. */
-async function reichBauen(seite: Page): Promise<void> {
-  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).waitFor();
-  await vorratAnlegen(seite, { fleiss: 9000, behalten: 900, koennen: 30, schritt: 400 });
-  await seite.reload();
-  const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
-  if (await entdecken.isVisible().catch(() => false))
-    await entdecken.click({ timeout: 2000 }).catch(() => {});
-  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
-  await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).waitFor({ timeout: 30_000 });
-  await pause(1500);
-  if (!(await seite.getByRole('heading', { name: 'Bastion-Einstellungen' }).isVisible()))
-    await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
-  for (const name of REICH_BAUEN) {
-    const knopf = seite
-      .getByRole('listitem')
-      .filter({ hasText: name })
-      .getByRole('button', { name: 'Bauen' })
-      .first();
-    if (await knopf.isEnabled({ timeout: 3000 }).catch(() => false)) {
-      await knopf.click();
-      await pause(600);
-    } else console.log(`(--reich: ${String(name)} nicht baubar)`);
-  }
-  await seite.getByRole('button', { name: '← Zur Bastion' }).click();
-}
-
 /** Bastion öffnen wie der Browser-Test „Bauplatz als Bild“ und warten, bis das Bild steht. */
 async function bastionOeffnen(seite: Page): Promise<void> {
   await seite.goto(URL_START);
   const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
   if (await entdecken.isVisible().catch(() => false))
     await entdecken.click({ timeout: 2000 }).catch(() => {});
-  if (REICH) await reichBauen(seite);
-  else await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).waitFor({ timeout: 30_000 });
-  if (THEMA !== 'bastion' || WETTER) {
+  if (THEMA !== 'bastion') {
     await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
-    if (THEMA !== 'bastion')
-      await seite.getByRole('radio', { name: new RegExp(`^${THEMA}`, 'i') }).check();
-    if (WETTER) await seite.locator('.wetter-probe select').first().selectOption(WETTER);
+    await seite.getByRole('radio', { name: new RegExp(`^${THEMA}`, 'i') }).check();
     await seite.getByRole('button', { name: '← Zur Bastion' }).click();
   }
   const bild = seite.locator('.bauplatz canvas');
@@ -202,12 +99,7 @@ async function bastionOeffnen(seite: Page): Promise<void> {
 }
 
 /** Ebenenspeicher wie GRAFIK §24: Fläche jeder Ebene mal wirksamer Maßstab². */
-function ebenenSpeicher(ebenen: LayerTreeEbene[]): {
-  mpx: number;
-  mb: number;
-  anzahl: number;
-  groesste: { text: string; knoten: number | undefined; id: string }[];
-} {
+function ebenenSpeicher(ebenen: LayerTreeEbene[]): { mpx: number; mb: number; anzahl: number } {
   const perId = new Map(ebenen.map((e) => [e.layerId, e]));
   const massstab = (e: LayerTreeEbene): number => {
     let s = 1;
@@ -222,25 +114,13 @@ function ebenenSpeicher(ebenen: LayerTreeEbene[]): {
   };
   let px = 0;
   let anzahl = 0;
-  const liste: { px: number; text: string; knoten: number | undefined; id: string }[] = [];
   for (const e of ebenen) {
     if (!e.drawsContent) continue;
     const s = massstab(e);
-    const flaeche = e.width * e.height * s * s * PIXELDICHTE * PIXELDICHTE;
-    px += flaeche;
+    px += e.width * e.height * s * s * PIXELDICHTE * PIXELDICHTE;
     anzahl++;
-    liste.push({
-      px: flaeche,
-      text: `${e.width.toFixed(0)} × ${e.height.toFixed(0)} · Maßstab ${s.toFixed(2)} · ${((flaeche * 4) / 1024 / 1024).toFixed(0)} MB`,
-      knoten: e.backendNodeId,
-      id: e.layerId,
-    });
   }
-  const groesste = liste
-    .sort((a, b) => b.px - a.px)
-    .slice(0, 12)
-    .map(({ text, knoten, id }) => ({ text, knoten, id }));
-  return { mpx: px / 1e6, mb: (px * 4) / 1024 / 1024, anzahl, groesste };
+  return { mpx: px / 1e6, mb: (px * 4) / 1024 / 1024, anzahl };
 }
 
 interface LayerTreeEbene {
@@ -250,22 +130,6 @@ interface LayerTreeEbene {
   height: number;
   drawsContent: boolean;
   transform?: number[];
-  backendNodeId?: number;
-}
-
-/** Für `--ebenen`: zu welchem Element eine Ebene gehört (Tag und Klassen) */
-async function knotenName(cdp: CDPSession, knoten: number | undefined): Promise<string> {
-  if (knoten === undefined) return '(Sammelebene)';
-  try {
-    const { node } = (await cdp.send('DOM.describeNode', { backendNodeId: knoten })) as {
-      node: { localName: string; attributes?: string[] };
-    };
-    const attr = node.attributes ?? [];
-    const klasse = attr[attr.indexOf('class') + 1];
-    return `<${node.localName}${attr.includes('class') && klasse ? ` .${klasse.split(' ').join('.')}` : ''}>`;
-  } catch {
-    return '(?)';
-  }
 }
 
 async function phaseMessen(
@@ -282,18 +146,7 @@ async function phaseMessen(
   await seite.evaluate((n) => performance.mark(`tempo:${n}:ende`), name);
   await pause(300);
   const ebenen = ebenenSpeicher(ebenenLesen());
-  if (EBENEN_LISTE) {
-    const zeilen = [];
-    for (const e of ebenen.groesste) {
-      const grund = (await cdp
-        .send('LayerTree.compositingReasons', { layerId: e.id })
-        .catch(() => ({ compositingReasonIds: [] }))) as { compositingReasonIds?: string[] };
-      zeilen.push(
-        `${e.text} · ${await knotenName(cdp, e.knoten)} · ${(grund.compositingReasonIds ?? []).join(', ')}`,
-      );
-    }
-    console.log(`Ebenen ${name}:\n  ${zeilen.join('\n  ')}`);
-  }
+  void cdp;
   return { name, start, ende, ebenen };
 }
 
@@ -366,8 +219,6 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
     if (e.layers) ebenen = e.layers;
   });
   await bastionOeffnen(seite);
-  const foto = option('foto', '');
-  if (foto) await seite.screenshot({ path: foto });
   // Erst jetzt einschalten: Die erste Meldung bringt den ganzen Ebenenbaum der Bühne
   await cdp.send('LayerTree.enable');
   await pause(500);
@@ -452,8 +303,6 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
     ),
   );
   const puffer = await browser.stopTracing();
-  // Zweites Foto ganz herangezoomt (zum Vergleich vorher/nachher)
-  if (foto) await seite.screenshot({ path: foto.replace(/\.png$/, '') + '-heran.png' });
   const ereignisse = (JSON.parse(puffer.toString()) as { traceEvents: Ereignis[] }).traceEvents;
   const ablage = option('ablage', '');
   if (ablage) (await import('node:fs/promises')).writeFile(ablage, puffer);
@@ -466,28 +315,9 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
   return auswerten(ereignisse, phasen);
 }
 
-// Läuft auf dem Port noch ein alter Server (etwa aus einem abgebrochenen Lauf), würde das
-// Werkzeug still dessen Build messen: darum vorher prüfen und abbrechen.
-if (
-  await fetch(URL_START).then(
-    () => true,
-    () => false,
-  )
-)
-  throw new Error(`Port ${PORT} ist belegt – alten Vorschau-Server beenden.`);
-// Eigene Prozessgruppe: `pnpm preview` startet Vite als Kindprozess, der beim Beenden
-// sonst weiterläuft und den Port für den nächsten Lauf belegt
 const server = spawn('pnpm', ['preview', '--port', String(PORT), '--strictPort'], {
   stdio: 'ignore',
-  detached: true,
 });
-const serverBeenden = () => {
-  try {
-    if (server.pid) process.kill(-server.pid);
-  } catch {
-    server.kill();
-  }
-};
 
 try {
   await warteAufServer();
@@ -495,7 +325,7 @@ try {
   const ergebnisse = await messen(browser);
   await browser.close();
   console.log(
-    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}${REICH ? ' · gewachsene Bastion' : ''}${WETTER ? ` · Wetter ${WETTER}` : ''}`,
+    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}`,
   );
   console.log(
     '| Phase | Bilder/s | Takt/s | ms je Takt | Hauptfaden | GPU | Hänger | Ebenen | Ebenenspeicher |',
@@ -507,5 +337,5 @@ try {
     );
   }
 } finally {
-  serverBeenden();
+  server.kill();
 }

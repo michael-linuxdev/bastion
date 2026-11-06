@@ -14,19 +14,11 @@
   import type { Thema } from '../../core/policy/einstellung';
   import type { Kamera } from './grafik/kamera';
   import type { Bewegung } from './grafik/atmosphaere';
-  import { untrack } from 'svelte';
   import { buehneFuer, INSEL, punkt } from './grafik/iso';
   import { inselRand } from './grafik/insel-rand';
   import {
-    cullKamera,
-    cullRand,
-    sichtKasten,
-    sichtRand,
     DING_BREITE,
     HORIZONT,
-    HORIZONT_ABSTAND,
-    HORIZONT_SKALA,
-    HORIZONT_WASSERLINIE,
     MEER,
     STERNE,
     dingBild,
@@ -106,54 +98,15 @@
   const buehne = $derived(buehneFuer(platz));
   const basis = $derived(`${import.meta.env.BASE_URL}grafik/atlas/kulisse/${themaName}/`);
   const pfad = $derived(`${basis}${stimmung}/`);
-  /**
-   * Ferne Schicht (GRAFIK §30): Horizont, Sterne, Wolken, Dunst und Abendton liegen in einem
-   * Behälter, den nur eine Transform bewegt (Parallaxe, Höhe und Maßstab aus `kulissenLage`).
-   * Der Ursprung ist die Horizontlinie; die Wasserlinie des Bands liegt WASSER darüber.
-   */
   const lage = $derived(kulissenLage(kamera, inselOben));
-  const fernTransform = $derived(
-    `translate(${lage.horizontX}px, ${lage.horizontY}px) scale(${lage.horizontSkala})`,
-  );
-  const WASSER = HORIZONT_WASSERLINIE;
   /** Größe des Fensters: Dinge weit außerhalb werden nicht gezeichnet (bis zu 270 Plätze) */
   let fensterB = $state(800);
   let fensterH = $state(1200);
-  /**
-   * Culling mit Abstand (GRAFIK §30): Die Dinge werden nach dieser Kamera ein- und
-   * ausgeblendet. Sie folgt der echten Kamera erst nach einem Viertel Fenster oder 10 % Zoom,
-   * dazwischen bewegt der Browser nur die fertige Ebene.
-   */
-  let cull = $state<Kamera>({ x: 0, y: 0, zoom: 1 });
-  $effect(() => {
-    const neu = cullKamera(
-      untrack(() => cull),
-      kamera,
-      { breite: fensterB, hoehe: fensterH },
-    );
-    if (neu !== untrack(() => cull)) cull = neu;
-  });
-  const cullLage = $derived(kulissenLage(cull, inselOben));
-  /** Wasserlinie im Fenster nach der Cull-Kamera: dahinter liegt nichts */
-  const cullWasser = $derived(cullLage.horizontY - WASSER * cullLage.horizontSkala);
-  /** Welche Dinge ins Bild kommen: großzügig, auch was nur mit dem Bild hereinragt */
-  const rand = $derived(cullRand({ breite: fensterB, hoehe: fensterH }));
-  /** Rand des Sichtkastens (GRAFIK §32): knapp, die Cull-Kamera springt rechtzeitig */
-  const kastenRand = $derived(sichtRand({ breite: fensterB, hoehe: fensterH }));
-  /** Oberkante der Wellenkachel in der Welt: knapp unter der Horizontlinie */
-  const meerOben = $derived(inselOben - HORIZONT_ABSTAND + 60);
-  /**
-   * Waagrecht gleichförmige Bänder der Ferne (Wasser unter der Linie, Dunst, Luftperspektive,
-   * Abendton) liegen in der Welt-Ebene statt in einer eigenen: Lage und Länge in
-   * Bühnen-Bildpunkten aus der Cull-Kamera; zwischen zwei Sprüngen weichen sie höchstens
-   * um den Zoom-Drift von 10 % ab, was man bei gleichförmigen Bändern nicht sieht.
-   */
-  const bandY = (u: number) =>
-    (cullLage.horizontY + u * cullLage.horizontSkala - cull.y) / cull.zoom;
-  const bandMass = $derived(cullLage.horizontSkala / cull.zoom);
-  const wasserOben = $derived(bandY(-WASSER));
   const himmel = $derived(thema.himmel[stimmung]);
   const meer = $derived(thema.grund[stimmung]);
+  const hY = $derived(Math.round(lage.horizontY));
+  const hoch = $derived(HORIZONT.hoehe * lage.horizontSkala);
+  const wasserFern = $derived(hY - (HORIZONT.hoehe - HORIZONT.wasser) * lage.horizontSkala);
   const dinge = $derived(
     kulissenDinge(platz.breite, platz.tiefe, thema, szenerie).map((d) => ({
       ...d,
@@ -168,37 +121,6 @@
       ...punkt(d.gx, d.gy, platz),
     })),
   );
-  /** Höchstes Ding über seinem Fuß (Bilder sind höchstens so hoch wie breit) */
-  const dingHoch = $derived(
-    Math.max(DING_BREITE, ...dinge.map((d) => d.breite ?? DING_BREITE)) + 16,
-  );
-  /**
-   * Sichtkasten in der Welt (GRAFIK §30, §32): Fenster plus Rand nach der Cull-Kamera, in
-   * Bühnen-Bildpunkten. Nur dieser Kasten wird als Ebene gehalten; er wandert erst mit,
-   * wenn die Cull-Kamera springt. Oben endet er über der Wasserlinie, so hoch wie das
-   * höchste Ding: Darüber liegt in der Welt nichts (der Himmel ist die Ferne).
-   */
-  const sicht = $derived(
-    sichtKasten(cull, { breite: fensterB, hoehe: fensterH }, kastenRand, {
-      oben: bandY(-WASSER - 4) - dingHoch,
-    }),
-  );
-  /**
-   * Dasselbe für die ferne Schicht, in Band-Bildpunkten. Unten endet er mit dem
-   * Horizont-Band; herangezoomt liegt die Ferne ganz über dem Fenster (Höhe 0, keine Ebene).
-   */
-  const fernSicht = $derived(
-    sichtKasten(
-      { x: cullLage.horizontX, y: cullLage.horizontY, zoom: cullLage.horizontSkala },
-      { breite: fensterB, hoehe: fensterH },
-      kastenRand,
-      { unten: HORIZONT.hoehe - HORIZONT.wasser },
-    ),
-  );
-  const meerGrund = $derived.by(() => {
-    const oben = Math.max(sicht.y0, wasserOben);
-    return { oben, hoehe: Math.max(0, sicht.y0 + sicht.h - oben) };
-  });
   /** Bewegtes (Wunsch PV: mehr Leben): feste Plätze rund um den Bauplatz, in Feldern */
   const lebenPlatz = (gx: number, gy: number) => punkt(gx, gy, platz);
   const moewen = $derived(
@@ -273,72 +195,82 @@
   class:bewegt={bewegung !== 'aus'}
   class:wasser={thema.wasser}
   aria-hidden="true"
-  style:background="linear-gradient({himmel[0]}, {himmel[1]} 40%, {himmel[1]})"
-  style:--meer={meer}
+  style:background="linear-gradient({himmel[0]}, {himmel[1]}
+  {wasserFern}px, {meer}
+  {wasserFern}px)"
 >
-  <!-- Ferne Schicht: nur ihre Transform ändert sich mit der Kamera (GRAFIK §30) -->
-  <div class="fern" style:transform={fernTransform}>
-    <!-- Herangezoomt liegt die Ferne ganz über dem Fenster: dann keine Ebene (GRAFIK §32) -->
-    {#if fernSicht.h > 0}
+  {#if sterneZeigen && wasserFern > 0}
+    <div
+      class="sterne"
+      style:block-size="{wasserFern}px"
+      style:background-image="url({pfad}sterne.png)"
+      style:background-size="{STERNE}px {STERNE}px"
+      style:background-position="{lage.horizontX}px 0"
+    ></div>
+  {/if}
+  <div
+    class="meer"
+    style:inset-block-start="{Math.max(0, wasserFern)}px"
+    style:background-image="url({pfad}meer.png)"
+    style:background-size="{MEER.breite * kamera.zoom}px {MEER.hoehe * kamera.zoom}px"
+    style:--meer-x="{kamera.x}px"
+    style:--meer-y="{kamera.y}px"
+    style:--meer-weg="{MEER.breite * kamera.zoom}px"
+  ></div>
+  {#if hY + hoch > 0}
+    <div
+      class="horizont"
+      style:inset-block-start="{hY - HORIZONT.wasser * lage.horizontSkala}px"
+      style:block-size="{hoch}px"
+      style:background-image="url({pfad}horizont.png)"
+      style:background-size="{HORIZONT.breite * lage.horizontSkala}px {hoch}px"
+      style:background-position="{lage.horizontX}px 0"
+    ></div>
+    <div class="dunst" style:inset-block-start="{wasserFern - 4}px"></div>
+    <!-- Luftperspektive: zum Horizont hin liegt Dunst in der Farbe des Himmels -->
+    <div
+      class="ferne"
+      style:inset-block-start="{wasserFern}px"
+      style:block-size="{Math.max(80, hoch * 2.4)}px"
+      style:background="linear-gradient({himmel[1]}, transparent)"
+    ></div>
+  {/if}
+  <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
+       weit weg, sie wandern beim Verschieben nur wenig mit -->
+  {#if himmelWolken && wasserFern > 40}
+    {#each WOLKEN as w, i (i)}
       <div
-        class="sicht"
-        style:inset-inline-start="{fernSicht.x0}px"
-        style:inset-block-start="{fernSicht.y0}px"
-        style:inline-size="{fernSicht.b}px"
-        style:block-size="{fernSicht.h}px"
+        class="himmelwolke"
+        style:inset-block-start="{wasserFern - w.hoch * lage.horizontSkala * 2.2}px"
+        style:inset-inline-start="calc({w.x}% + {lage.horizontX * 0.6}px)"
+        style:inline-size="{w.b * lage.horizontSkala * 3.2}px"
+        style:block-size="{w.b * lage.horizontSkala * 1.05}px"
+        style:--n={i}
+      ></div>
+    {/each}
+  {/if}
+  {#if thema.boot && wasserFern > 20}
+    {#each [18, 57, 83] as x, i (i)}
+      <svg
+        class="segel-fern"
+        viewBox="0 0 10 12"
+        aria-hidden="true"
+        style:inset-block-start="{wasserFern - 11}px"
+        style:inset-inline-start="calc({x}% + {lage.horizontX * 0.8}px)"
+        style:--n={i}
       >
-        <div class="versatz" style:translate="{-fernSicht.x0}px {-fernSicht.y0}px">
-          {#if sterneZeigen}
-            <div
-              class="sterne"
-              style:background-image="url({pfad}sterne.png)"
-              style:background-size="{STERNE / HORIZONT_SKALA}px {STERNE / HORIZONT_SKALA}px"
-            ></div>
-          {/if}
-          <div
-            class="horizont"
-            style:inset-block-start="{-HORIZONT.wasser}px"
-            style:block-size="{HORIZONT.hoehe}px"
-            style:background-image="url({pfad}horizont.png)"
-            style:background-size="{HORIZONT.breite}px {HORIZONT.hoehe}px"
-          ></div>
-          <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
-         weit weg, sie wandern beim Verschieben nur wenig mit -->
-          {#if himmelWolken}
-            {#each WOLKEN as w, i (i)}
-              <div
-                class="himmelwolke"
-                style:inset-block-start="{-WASSER - w.hoch * 2.2}px"
-                style:inset-inline-start="{(w.x - 50) * 24}px"
-                style:inline-size="{w.b * 3.2}px"
-                style:block-size="{w.b * 1.05}px"
-                style:--n={i}
-              ></div>
-            {/each}
-          {/if}
-          {#if thema.boot}
-            {#each [18, 57, 83] as x, i (i)}
-              <svg
-                class="segel-fern"
-                viewBox="0 0 10 12"
-                aria-hidden="true"
-                style:inset-block-start="{-WASSER - 11}px"
-                style:inset-inline-start="{(x - 50) * 24}px"
-                style:--n={i}
-              >
-                <path d="M5 0 L5 10 L1 10 Z" />
-                <path d="M5.6 2 L5.6 10 L9 10 Z" />
-                <rect x="0" y="10.2" width="10" height="1.4" rx="0.7" />
-              </svg>
-            {/each}
-          {/if}
-          {#if regenbogen && stimmung !== 'nacht'}
-            <div class="regenbogen" style:inset-block-start="{-WASSER - 200}px"></div>
-          {/if}
-        </div>
-      </div>
-    {/if}
-  </div>
+        <path d="M5 0 L5 10 L1 10 Z" />
+        <path d="M5.6 2 L5.6 10 L9 10 Z" />
+        <rect x="0" y="10.2" width="10" height="1.4" rx="0.7" />
+      </svg>
+    {/each}
+  {/if}
+  {#if regenbogen && stimmung !== 'nacht'}
+    <div
+      class="regenbogen"
+      style:inset-block-start="{(wasserFern > 120 ? wasserFern : 220) - 200}px"
+    ></div>
+  {/if}
   <!-- Nebelbänke und Wolkenschatten: Wetterschicht, an der Welt (wandern mit der Kamera) -->
   <div
     class="welt"
@@ -346,207 +278,146 @@
     style:block-size="{buehne.hoehe}px"
     style:transform="translate({kamera.x}px, {kamera.y}px) scale({kamera.zoom})"
   >
-    <div
-      class="sicht"
-      style:inset-inline-start="{sicht.x0}px"
-      style:inset-block-start="{sicht.y0}px"
-      style:inline-size="{sicht.b}px"
-      style:block-size="{sicht.h}px"
-    >
-      <div class="versatz" style:translate="{-sicht.x0}px {-sicht.y0}px">
-        <!-- Meer als Fläche in der Welt (GRAFIK §30): bewegt sich mit der Insel, ohne Neuzeichnen.
-         Oben beginnt sie unter der Horizontlinie; die Lücke deckt das Wasserband der Ferne. -->
-        {#if meerGrund.hoehe > 0}
-          <div
-            class="meer-grund"
-            style:inset-inline-start="{sicht.x0}px"
-            style:inline-size="{sicht.b}px"
-            style:inset-block-start="{meerGrund.oben}px"
-            style:block-size="{meerGrund.hoehe}px"
-          >
-            <div
-              class="meer"
-              style:inset-block-start="{Math.max(0, meerOben - meerGrund.oben)}px"
-              style:background-image="url({pfad}meer.png)"
-              style:background-size="{MEER.breite}px {MEER.hoehe}px"
-              style:--meer-weg="{MEER.breite}px"
-            ></div>
-          </div>
+    <svg class="schaum" viewBox="0 0 {buehne.breite} {buehne.hoehe}" aria-hidden="true">
+      {#if insel.spiegel}
+        <defs>
+          <linearGradient id="spiegelung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.55" stop-color="rgb(30 50 40)" stop-opacity="0.3" />
+            <stop offset="1" stop-color="rgb(30 50 40)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <polygon class="spiegelung" points={insel.spiegel} />
+      {/if}
+      <g class="inselrand">
+        {#if insel.strand}
+          <polygon class="strand" points={insel.strand} style:fill={thema.insel.strand} />
         {/if}
-        <svg
-          class="schaum"
-          viewBox="0 0 {buehne.breite} {buehne.hoehe}"
-          style:inline-size="{buehne.breite}px"
-          style:block-size="{buehne.hoehe}px"
-          aria-hidden="true"
-        >
-          {#if insel.spiegel}
-            <defs>
-              <linearGradient id="spiegelung" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0.55" stop-color="rgb(30 50 40)" stop-opacity="0.3" />
-                <stop offset="1" stop-color="rgb(30 50 40)" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-            <polygon class="spiegelung" points={insel.spiegel} />
-          {/if}
-          <g class="inselrand">
-            {#if insel.strand}
-              <polygon class="strand" points={insel.strand} style:fill={thema.insel.strand} />
-            {/if}
-            <polygon class="wand" points={insel.wand} style:fill={thema.insel.wand} />
-            <polygon class="oben" points={insel.oben} style:fill={thema.insel.oben} />
-          </g>
-          {#if thema.wasser}
-            <!-- Schaum an der echten Küste, die Brandung schwillt an und ab -->
-            <polygon class="kueste" points={insel.strand} />
-            <polygon class="kueste ufer welle" points={insel.strand} />
-          {/if}
-          {#each schollen as s (s.i)}
-            <polygon
-              class="scholle"
-              points="{s.x - 22},{s.y} {s.x - 8},{s.y - 9} {s.x + 16},{s.y - 7} {s.x + 24},{s.y +
-                2} {s.x + 6},{s.y + 9} {s.x - 14},{s.y + 7}"
-            />
-          {/each}
+        <polygon class="wand" points={insel.wand} style:fill={thema.insel.wand} />
+        <polygon class="oben" points={insel.oben} style:fill={thema.insel.oben} />
+      </g>
+      {#if thema.wasser}
+        <!-- Schaum an der echten Küste, die Brandung schwillt an und ab -->
+        <polygon class="kueste" points={insel.strand} />
+        <polygon class="kueste ufer welle" points={insel.strand} />
+      {/if}
+      {#each schollen as s (s.i)}
+        <polygon
+          class="scholle"
+          points="{s.x - 22},{s.y} {s.x - 8},{s.y - 9} {s.x + 16},{s.y - 7} {s.x + 24},{s.y +
+            2} {s.x + 6},{s.y + 9} {s.x - 14},{s.y + 7}"
+        />
+      {/each}
+    </svg>
+    {#each bewuchs as w, i (i)}
+      <img
+        class="ding"
+        src={w.src}
+        srcset="{w.src} 1x, {w.src.replace(/\.png$/, '@2x.png')} 2x"
+        alt=""
+        style:inline-size="{w.breite}px"
+        style:inset-inline-start="{w.x}px"
+        style:inset-block-start="{w.y}px"
+      />
+    {/each}
+    {#each ringe as r (r.i)}
+      <span
+        class="ring"
+        style:inset-inline-start="{r.x - 10}px"
+        style:inset-block-start="{r.y - 5}px"
+        style:--n={r.i}
+      ></span>
+    {/each}
+    {#each dinge as d, i (i)}
+      <!-- Hinter dem Horizont liegt nichts: weit Entferntes sonst am Himmel (herausgezoomt) -->
+      {@const sx = kamera.x + d.x * kamera.zoom}
+      {@const sy = kamera.y + d.y * kamera.zoom}
+      {#if sy > wasserFern + 8 && sy < fensterH + 260 && sx > -260 && sx < fensterB + 260}
+        <img
+          class="ding"
+          class:flach={d.flach}
+          class:tier={d.tier}
+          class:gespiegelt={d.gespiegelt}
+          src="{basis}dinge/{d.bild}.png"
+          srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
+          alt=""
+          style:inline-size="{d.breite ?? DING_BREITE}px"
+          style:inset-inline-start="{d.x}px"
+          style:inset-block-start="{d.y}px"
+          style:--n={i % 7}
+          style:--dunst={d.dunst}
+        />
+      {/if}
+    {/each}
+    {#each schwaerme as f (f.n)}
+      <img
+        class="ding schwarm"
+        src="{basis}dinge/fischschwarm.png"
+        srcset="{basis}dinge/fischschwarm.png 1x, {basis}dinge/fischschwarm@2x.png 2x"
+        alt=""
+        style:inline-size="{DING_BREITE * 1.3}px"
+        style:inset-inline-start="{f.x}px"
+        style:inset-block-start="{f.y}px"
+        style:--n={f.n}
+      />
+    {/each}
+    {#if satellit}
+      <img
+        class="ding satellit"
+        src="{basis}dinge/satellit.png"
+        srcset="{basis}dinge/satellit.png 1x, {basis}dinge/satellit@2x.png 2x"
+        alt=""
+        style:inline-size="{DING_BREITE * 1.2}px"
+        style:inset-inline-start="{satellit.x}px"
+        style:inset-block-start="{satellit.y}px"
+      />
+    {/if}
+    {#each moewen as m (m.n)}
+      <span
+        class="kreis"
+        style:inset-inline-start="{m.x}px"
+        style:inset-block-start="{m.y - 140}px"
+        style:--r="{m.r}px"
+        style:--d="{m.d}s"
+        style:--n={m.n}
+      >
+        <svg class="moewe" viewBox="0 0 28 12" aria-hidden="true">
+          <path d="M1 7 Q7 0 14 7 Q21 0 27 7" />
         </svg>
-        {#each bewuchs as w, i (i)}
-          <img
-            class="ding"
-            src={w.src}
-            srcset="{w.src} 1x, {w.src.replace(/\.png$/, '@2x.png')} 2x"
-            alt=""
-            style:inline-size="{w.breite}px"
-            style:inset-inline-start="{w.x}px"
-            style:inset-block-start="{w.y}px"
-          />
-        {/each}
-        {#each dinge as d, i (i)}
-          <!-- Hinter dem Horizont liegt nichts: weit Entferntes sonst am Himmel (herausgezoomt) -->
-          {@const sx = cull.x + d.x * cull.zoom}
-          {@const sy = cull.y + d.y * cull.zoom}
-          {#if sy > cullWasser + 8 && sy < fensterH + rand && sx > -rand && sx < fensterB + rand}
-            <img
-              class="ding"
-              class:flach={d.flach}
-              class:tier={d.tier}
-              class:gespiegelt={d.gespiegelt}
-              src="{basis}dinge/{d.bild}.png"
-              srcset="{basis}dinge/{d.bild}.png 1x, {basis}dinge/{d.bild}@2x.png 2x"
-              alt=""
-              style:inline-size="{d.breite ?? DING_BREITE}px"
-              style:inset-inline-start="{d.x}px"
-              style:inset-block-start="{d.y}px"
-              style:--n={i % 7}
-              style:--dunst={d.dunst}
-            />
-          {/if}
-        {/each}
-        {#each schwaerme as f (f.n)}
-          <img
-            class="ding schwarm"
-            src="{basis}dinge/fischschwarm.png"
-            srcset="{basis}dinge/fischschwarm.png 1x, {basis}dinge/fischschwarm@2x.png 2x"
-            alt=""
-            style:inline-size="{DING_BREITE * 1.3}px"
-            style:inset-inline-start="{f.x}px"
-            style:inset-block-start="{f.y}px"
-            style:--n={f.n}
-          />
-        {/each}
-        {#if satellit}
-          <img
-            class="ding satellit"
-            src="{basis}dinge/satellit.png"
-            srcset="{basis}dinge/satellit.png 1x, {basis}dinge/satellit@2x.png 2x"
-            alt=""
-            style:inline-size="{DING_BREITE * 1.2}px"
-            style:inset-inline-start="{satellit.x}px"
-            style:inset-block-start="{satellit.y}px"
-          />
-        {/if}
-        {#each moewen as m (m.n)}
-          <span
-            class="kreis"
-            style:inset-inline-start="{m.x}px"
-            style:inset-block-start="{m.y - 140}px"
-            style:--r="{m.r}px"
-            style:--d="{m.d}s"
-            style:--n={m.n}
-          >
-            <svg class="moewe" viewBox="0 0 28 12" aria-hidden="true">
-              <path d="M1 7 Q7 0 14 7 Q21 0 27 7" />
-            </svg>
-          </span>
-        {/each}
-        {#each falter as f (f.n)}
-          <span
-            class="kreis"
-            style:inset-inline-start="{f.x}px"
-            style:inset-block-start="{f.y - 30}px"
-            style:--r="{f.r}px"
-            style:--d="{f.d}s"
-            style:--n={f.n}
-          >
-            <svg class="falter" viewBox="0 0 12 10" aria-hidden="true" style:--n={f.n}>
-              <ellipse cx="3.4" cy="4" rx="3.2" ry="3.6" />
-              <ellipse cx="8.6" cy="4" rx="3.2" ry="3.6" />
-              <rect x="5.4" y="2" width="1.2" height="7" rx="0.6" class="leib" />
-            </svg>
-          </span>
-        {/each}
-        {#if thema.boot}
-          <img
-            class="ding boot"
-            src="{basis}dinge/boot.png"
-            srcset="{basis}dinge/boot.png 1x, {basis}dinge/boot@2x.png 2x"
-            alt=""
-            style:inline-size="{DING_BREITE}px"
-            style:inset-inline-start="{bootStart.x}px"
-            style:inset-block-start="{bootStart.y}px"
-            style:--boot-x="{bootZiel.x - bootStart.x}px"
-            style:--boot-y="{bootZiel.y - bootStart.y}px"
-          />
-        {/if}
-        <!-- Über Meer, Inselrand und Dingen: Dunst und Luftperspektive am Horizont, abends die
-             Tönung unter der Wasserlinie (eine Fläche, kein Filter je Bild, §24) -->
-        <div
-          class="band dunst"
-          style:inset-inline-start="{sicht.x0}px"
-          style:inline-size="{sicht.b}px"
-          style:inset-block-start="{bandY(-WASSER - 4)}px"
-          style:block-size="{(wetter === 'nebel' ? 192 : 48) * bandMass}px"
-        ></div>
-        <div
-          class="band ferne"
-          style:inset-inline-start="{sicht.x0}px"
-          style:inline-size="{sicht.b}px"
-          style:inset-block-start="{wasserOben}px"
-          style:block-size="{HORIZONT.hoehe * 2.4 * bandMass}px"
-          style:background="linear-gradient({himmel[1]}, transparent)"
-        ></div>
-        {#if stimmung !== 'tag'}
-          <div
-            class="band abendton"
-            style:inset-inline-start="{sicht.x0}px"
-            style:inline-size="{sicht.b}px"
-            style:inset-block-start="{meerGrund.oben}px"
-            style:block-size="{meerGrund.hoehe}px"
-          ></div>
-        {/if}
-        <!-- Tropfenringe zuletzt (GRAFIK §32): Sie schwellen als eigene Ebenen; lägen Dinge
-             darüber, bekämen die eine gemeinsame Sammelebene (bei Regen bis 41 MB). Die
-             Tönung von Abend und Nacht steckt darum in der Farbe der Ringe. -->
-        {#each ringe as r (r.i)}
-          <span
-            class="ring"
-            style:inset-inline-start="{r.x - 10}px"
-            style:inset-block-start="{r.y - 5}px"
-            style:--n={r.i}
-          ></span>
-        {/each}
-      </div>
-    </div>
+      </span>
+    {/each}
+    {#each falter as f (f.n)}
+      <span
+        class="kreis"
+        style:inset-inline-start="{f.x}px"
+        style:inset-block-start="{f.y - 30}px"
+        style:--r="{f.r}px"
+        style:--d="{f.d}s"
+        style:--n={f.n}
+      >
+        <svg class="falter" viewBox="0 0 12 10" aria-hidden="true" style:--n={f.n}>
+          <ellipse cx="3.4" cy="4" rx="3.2" ry="3.6" />
+          <ellipse cx="8.6" cy="4" rx="3.2" ry="3.6" />
+          <rect x="5.4" y="2" width="1.2" height="7" rx="0.6" class="leib" />
+        </svg>
+      </span>
+    {/each}
+    {#if thema.boot}
+      <img
+        class="ding boot"
+        src="{basis}dinge/boot.png"
+        srcset="{basis}dinge/boot.png 1x, {basis}dinge/boot@2x.png 2x"
+        alt=""
+        style:inline-size="{DING_BREITE}px"
+        style:inset-inline-start="{bootStart.x}px"
+        style:inset-block-start="{bootStart.y}px"
+        style:--boot-x="{bootZiel.x - bootStart.x}px"
+        style:--boot-y="{bootZiel.y - bootStart.y}px"
+      />
+    {/if}
   </div>
+  {#if stimmung !== 'tag'}
+    <div class="abendton" style:inset-block-start="{Math.max(0, wasserFern)}px"></div>
+  {/if}
 </div>
 
 <style>
@@ -557,58 +428,27 @@
     pointer-events: none;
   }
 
-  /* Ferne Schicht (GRAFIK §30): Ursprung auf der Horizontlinie, Maßstab des Bands; der
-     Browser bewegt sie als fertige Ebene (will-change), nichts darin wird je Schritt neu
-     ausgerichtet. Breite FERN_BREITE, mittig um 0 (Parallaxe ein Viertel der Kamera). */
-  .fern {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    inline-size: 0;
-    block-size: 0;
-    transform-origin: 0 0;
-    pointer-events: none;
-  }
-
-  /* Sichtkasten (GRAFIK §30): die einzige Ebene, die der Browser für Welt und Ferne hält –
-     Fenster plus Rand, beschnitten, als fertige Ebene bewegt (will-change). Alles darin
-     behält seine Welt-Koordinaten über den Versatz. Größe und Lage ändern sich nur, wenn
-     die Cull-Kamera springt. */
-  .sicht {
-    position: absolute;
-    overflow: clip;
-    will-change: transform;
-  }
-
-  .versatz {
-    position: absolute;
-    inset: 0;
-  }
-
   .sterne,
-  .horizont {
-    position: absolute;
-    inset-inline-start: -3072px;
-    inline-size: 6144px;
-  }
-
-  .band {
-    position: absolute;
-  }
-
-  .sterne,
+  .meer,
   .horizont,
   .ferne {
+    position: absolute;
+    inset-inline: 0;
     opacity: 0.45;
+    pointer-events: none;
   }
 
   .nacht .ferne {
     opacity: 0.25;
   }
 
+  .dunst {
+    position: absolute;
+    inset-inline: 0;
+  }
+
   .sterne {
-    inset-block-start: -4096px;
-    block-size: 4070px;
+    inset-block-start: 0;
     background-repeat: repeat;
   }
 
@@ -617,22 +457,14 @@
   }
 
   .dunst {
+    block-size: 3rem;
     background: linear-gradient(rgb(255 255 255 / 0.22), transparent);
   }
 
-  /* Meer in der Welt: Grundfarbe und darüber die Wellenkachel; die Wellen ziehen als
-     Transform der Kachel-Ebene (Compositor), nicht als Neuzeichnen des Musters. */
-  .meer-grund {
-    position: absolute;
-    background: var(--meer);
-    overflow: hidden;
-  }
-
   .meer {
-    position: absolute;
-    inset: 0;
-    opacity: 0.45;
+    inset-block-end: 0;
     background-repeat: repeat;
+    background-position: var(--meer-x) var(--meer-y);
   }
 
   .welt {
@@ -644,8 +476,9 @@
 
   .schaum {
     position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
     overflow: visible;
   }
 
@@ -771,6 +604,12 @@
 
   /* Abend und Nacht: eine Tönung in Fenstergröße über Meer, Inselrand und Dingen statt
      eines Filters an jedem Bild (Speicher, siehe .ding) */
+  .abendton {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    pointer-events: none;
+  }
 
   .daemmerung .abendton {
     background: rgb(70 36 20 / 0.2);
@@ -836,6 +675,7 @@
   }
 
   .wetter-nebel .dunst {
+    block-size: 12rem;
     background: linear-gradient(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.25) 60%, transparent);
   }
 
@@ -882,20 +722,10 @@
     border-radius: 50%;
   }
 
-  /* Ringfarbe mit dem Abendton darüber gemischt (Tönung über Farbe c: Ton·α + c·(1 − α)),
-     weil die Ringe über dem Abendton liegen – gleiches Bild wie vorher */
-  .daemmerung .ring {
-    border-color: rgb(203 204 202 / 0.55);
-  }
-
-  .nacht .ring {
-    border-color: rgb(116 124 135 / 0.55);
-  }
-
   .regenbogen {
     position: absolute;
-    inset-inline-start: -700px;
-    inline-size: 1400px;
+    inset-inline-start: 25%;
+    inline-size: 70%;
     block-size: 200px;
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     background: radial-gradient(
@@ -924,7 +754,7 @@
 
     /* Wellen ziehen langsam (eine Kachel in 40 s); das Boot quert in 3 Minuten */
     .kulisse.bewegt.wasser .meer {
-      animation: wellen 40s steps(128) infinite;
+      animation: wellen 40s linear infinite;
     }
 
     .kulisse.bewegt .boot {
@@ -1060,13 +890,12 @@
     }
   }
 
-  /* In Stufen: eine Kachel in 40 s, der Browser malt das Meer nur gut dreimal je Sekunde neu */
   @keyframes wellen {
     from {
-      background-position: 0 0;
+      background-position: var(--meer-x) var(--meer-y);
     }
     to {
-      background-position: var(--meer-weg) 0;
+      background-position: calc(var(--meer-x) + var(--meer-weg)) var(--meer-y);
     }
   }
 

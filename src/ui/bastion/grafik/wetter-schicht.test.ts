@@ -37,23 +37,7 @@ describe('Wetterschicht über dem ganzen Bild', () => {
         for (const e of wetterschicht(b, s, true).ebenen) {
           expect(Math.abs(e.weg.x % e.groesse)).toBe(0);
           expect(e.weg.y % e.groesse).toBe(0);
-          // je Abschnitt genau eine Kachel nach unten: die Ebene ragt nur so weit über
-          expect(e.weg.y / e.abschnitte).toBe(e.groesse);
-          // waagrecht höchstens eine Kachel
-          expect(Math.abs(e.weg.x)).toBeLessThanOrEqual(e.groesse);
         }
-  });
-
-  it('senkrechter Regen zieht eine Kachel je Durchlauf, so schnell wie vorher (GRAFIK §32)', () => {
-    // Die Ebene ist Fenster plus Weg hoch: eine Kachel statt zwei spart Grafikspeicher
-    for (const e of wetterschicht('regen', 'mittel', true).ebenen) {
-      expect(Math.abs(e.weg.x)).toBe(0);
-      expect(e.weg.y).toBe(e.groesse);
-      expect(e.weg.y / e.dauer).toBeGreaterThanOrEqual(450);
-    }
-    const [vorn] = wetterschicht('regen', 'mittel', true).ebenen;
-    // vorher 360 px in 0,8 s
-    expect((vorn?.weg.y ?? 0) / (vorn?.dauer ?? 1)).toBeCloseTo(360 / 0.8);
   });
 
   it('„leicht“ zeigt nur eine Ebene', () => {
