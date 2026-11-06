@@ -16,6 +16,13 @@ export interface SchichtEbene {
   readonly weg: { readonly x: number; readonly y: number };
   /** Dauer eines Durchlaufs in Sekunden */
   readonly dauer: number;
+  /**
+   * In wie viele Abschnitte der Durchlauf zerfällt (GRAFIK §32): Nach jedem Abschnitt springt
+   * die Ebene eine Kachel zurück nach oben. Das Muster wiederholt sich je Kachel, darum sieht
+   * man den Sprung nicht; die Ebene muss so nur eine Kachel über das Fenster ragen statt des
+   * ganzen Wegs. `weg.y / abschnitte` ist genau eine Kachel.
+   */
+  readonly abschnitte: number;
   readonly deckkraft: number;
 }
 
@@ -107,13 +114,19 @@ export function wetterschicht(
     // kurze, blasse Striche – Insel und Gebäude bleiben gut zu erkennen
     const liste: SchichtEbene[] = [0, 1].map((e) => {
       const lang = (sturm ? 20 : 12) + e * 5;
-      // Schnelle Ebene vorn (länger, deutlicher), langsame hinten
-      const wegY = g * (sturm ? 3 : 2);
+      // Schnelle Ebene vorn (länger, deutlicher), langsame hinten. Senkrechter Regen zieht
+      // je Durchlauf eine Kachel in der halben Zeit statt zwei (gleiches Tempo, gleiches
+      // Bild): Die Ebene ist so nur Fenster plus eine Kachel hoch (GRAFIK §32). Sturm braucht
+      // drei Kacheln, damit der schräge Weg waagrecht eine ganze Kachel bleibt; er läuft in
+      // drei Abschnitten, darum ragt auch seine Ebene nur eine Kachel über das Fenster.
+      const kacheln = sturm ? 3 : 1;
+      const wegY = g * kacheln;
       return {
         kachel: regenKachel(g, Math.round((sturm ? 8 : 5) * d * (1 + e * 0.3)), lang, neigung, e),
         groesse: g,
         weg: { x: -Math.round(neigung * wegY), y: wegY },
-        dauer: (sturm ? 0.5 : 0.8) / (1 + e * 0.35),
+        dauer: (sturm ? 0.5 : 0.4) / (1 + e * 0.35),
+        abschnitte: kacheln,
         deckkraft: Math.min(0.5, (0.16 + e * 0.08) * (staerke === 'leicht' ? 0.8 : 1)),
       };
     });
@@ -132,6 +145,7 @@ export function wetterschicht(
       // Flocken treiben schräg: eine Kachel zur Seite, zwei nach unten
       weg: { x: (e % 2 === 0 ? 1 : -1) * g, y: g * 2 },
       dauer: (staerke === 'stark' ? 9 : 14) / (1 + e * 0.45),
+      abschnitte: 2,
       deckkraft: 0.55 + e * 0.1,
     }));
     return {

@@ -69,14 +69,18 @@
     {#each schicht.ebenen as e, i (i)}
       <div
         class="ebene"
+        class:zwei={e.abschnitte === 2}
+        class:drei={e.abschnitte === 3}
         style:background-image={e.kachel}
         style:background-size="{e.groesse}px {e.groesse}px"
         style:opacity={nacht ? e.deckkraft * 0.6 : e.deckkraft}
-        style:inset-block-start="-{e.weg.y}px"
-        style:inset-inline="-{Math.abs(e.weg.x)}px"
+        style:inset-block-start="-{e.weg.y / e.abschnitte}px"
+        style:inset-inline-start="{-Math.max(0, e.weg.x)}px"
+        style:inset-inline-end="{Math.min(0, e.weg.x)}px"
         style:--weg-x="{e.weg.x}px"
         style:--weg-y="{e.weg.y}px"
         style:--dauer="{e.dauer}s"
+        style:--kachel="{e.groesse}px"
       ></div>
     {/each}
   </div>
@@ -84,12 +88,17 @@
 
 <style>
   .wetterschicht {
+    /* Die Kacheln ziehen in festen Bildschirm-Richtungen (translate); die Ränder der Ebenen
+       folgen dem, auch bei Schrift von rechts nach links */
+    direction: ltr;
     position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
   }
 
+  /* Die Ebene ragt nur auf der Seite über das Fenster, von der die Kachel hereinzieht
+     (oben und gegen die Zugrichtung) – genau so weit wie ein Durchlauf (GRAFIK §32) */
   .ebene {
     position: absolute;
     inset-block-end: 0;
@@ -145,7 +154,15 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .wetterschicht.bewegt .ebene {
-      animation: fallen var(--dauer) linear infinite;
+      animation: fallen-1 var(--dauer) linear infinite;
+    }
+
+    .wetterschicht.bewegt .ebene.zwei {
+      animation-name: fallen-2;
+    }
+
+    .wetterschicht.bewegt .ebene.drei {
+      animation-name: fallen-3;
     }
 
     /* Nebelbänke und Wolkenschatten ziehen nicht selbst, sie liegen fest in der Welt und
@@ -154,12 +171,54 @@
        (PV 03.11.2026). */
   }
 
-  @keyframes fallen {
+  /* Ein Durchlauf in ein bis drei Abschnitten (GRAFIK §32): Am Ende eines Abschnitts springt
+     die Ebene eine Kachel nach oben – das Muster wiederholt sich je Kachel, der Sprung ist
+     unsichtbar, und die Ebene ragt nur eine Kachel über das Fenster */
+  @keyframes fallen-1 {
     from {
       transform: translate(0, 0);
     }
     to {
       transform: translate(var(--weg-x), var(--weg-y));
+    }
+  }
+
+  @keyframes fallen-2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    49.99% {
+      transform: translate(calc(var(--weg-x) / 2), calc(var(--weg-y) / 2));
+    }
+    50% {
+      transform: translate(calc(var(--weg-x) / 2), calc(var(--weg-y) / 2 - var(--kachel)));
+    }
+    100% {
+      transform: translate(var(--weg-x), calc(var(--weg-y) - var(--kachel)));
+    }
+  }
+
+  @keyframes fallen-3 {
+    0% {
+      transform: translate(0, 0);
+    }
+    33.33% {
+      transform: translate(calc(var(--weg-x) / 3), calc(var(--weg-y) / 3));
+    }
+    33.34% {
+      transform: translate(calc(var(--weg-x) / 3), calc(var(--weg-y) / 3 - var(--kachel)));
+    }
+    66.66% {
+      transform: translate(calc(var(--weg-x) * 2 / 3), calc(var(--weg-y) * 2 / 3 - var(--kachel)));
+    }
+    66.67% {
+      transform: translate(
+        calc(var(--weg-x) * 2 / 3),
+        calc(var(--weg-y) * 2 / 3 - 2 * var(--kachel))
+      );
+    }
+    100% {
+      transform: translate(var(--weg-x), calc(var(--weg-y) - 2 * var(--kachel)));
     }
   }
 </style>
