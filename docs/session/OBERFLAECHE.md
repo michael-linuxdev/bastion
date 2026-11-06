@@ -90,6 +90,8 @@ _(noch keine)_
 
 ## Übergabe und Lehren
 
+**Übergabe (06.11.2026, Branch `oberflaeche/q-o1-kleines`):** Alle fünf PRs aus Q-O1 sind gebaut (#284 Fehler, #286 Rückmeldung, #287 Themenwahl, #289 Erstvermittlung, PR 5 Kleines). Zweiter Rundgang auf 390 × 844 ohne Funde der Gruppen A und B (Zahlen in `QUALITAET-5-10.md` unter Q-O1). Das Skript des Rundgangs im Scratchpad läuft gegen `pnpm preview --port 4174` (Helfer wie in `ueben.spec.ts`). Offen: Abnahme A4 durch den PV; Wunsch an Grafik: Symbole je Bereich der Themenwahl.
+
 **Übergabe (05.11.2026, Branch `oberflaeche/q-o1-lernoberflaeche`):** Rundgang für Q-O1 gemacht, Mängelliste in `QUALITAET-5-10.md`. Das Skript des Rundgangs (Playwright, 390 × 844, iPhone-13-Profil, alle Lernwege mit Bildschirmfoto je Schritt) liegt im Scratchpad der Sitzung und ist in ein paar Minuten neu geschrieben: Wege wie in `tests/e2e/ueben.spec.ts` (Helfer `themenWaehlen`, `thema`, `angebotUeberspringen`), je Bildschirm `page.screenshot` plus `document.documentElement.scrollWidth` für den Überlauf. Noch nichts gebaut; es wartet auf die Auswahl des PV.
 
 **Übergabe (03.11.2026):** O0 ist auf `main` (#239). O1 bis O5 kommen gemeinsam in einem PR (Branch `oberflaeche/eltern`), weil die Schritte aufeinander aufbauen; die Commits bleiben einzeln lesbar. Offen sind die Vorschläge oben unter „Nächste Schritte“.
