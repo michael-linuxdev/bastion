@@ -72,7 +72,7 @@ Schritte, die eine Antwort verlangen (`anknuepfen`, `entdecken`, `ergaenzen`, `g
 *Umsetzung (U3c, 29.10.2026):* Der Abspieler (`src/core/learning/abspielen.ts`, Oberfläche `src/ui/vermittlung/Vermittlung.svelte`) zeigt einen Schritt nach dem anderen mit Fortschrittsbalken.
 - Antworten werden sofort ausgewertet. Brüche müssen genau so geschrieben sein wie verlangt, weil es ums Ablesen geht.
 - Nach einer falschen Antwort zeigt er die kurze Erklärung der erkannten Fehlvorstellung und die richtige Antwort. Dann folgt er `bei` (Fehlvorstellung, sonst `sonst`, sonst `weiter`).
-- Ein Ziel, das kein Schritt ist, ist eine Voraussetzung. Dann fragt er „Erst das üben“ oder „Trotzdem weiter“.
+- Ein Ziel, das kein Schritt ist, ist eine Voraussetzung. Dann fragt er „Erst das üben“ oder „Mit der Erklärung weitermachen“; zwei Sätze sagen, warum (die Antwort eben zeigt, dass das Vorwissen noch nicht ganz sitzt) und wo die Erklärung danach wieder zu finden ist (Q-O1 B11).
 - Jede Antwort und der Abschluss werden als Ereignis `vermittlung` gespeichert.
 - Ein Probelauf über alle Sequenzen prüft, dass richtige Antworten ans Ende führen und jede bekannte falsche Antwort ihre Fehlvorstellung ergibt (`tools/inhalte/abspielen.test.ts`).
 
