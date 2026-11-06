@@ -4,7 +4,7 @@ kompetenz: M.GM.FL.ZUSAMMENGESETZT
 niveaus: [G, M]
 typ: bild-zahl
 quelle: generator
-generator: fl.zusammengesetzt-flaeche@1
+generator: fl.zusammengesetzt-flaeche@2
 parameter:
   G: { gesucht: flaeche, alle_masse: true, max: 12 }
   M: { gesucht: flaeche, alle_masse: false, max: 30 }

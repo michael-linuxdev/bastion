@@ -13,7 +13,7 @@ text:
     de: '{angabe} **Berechne** das [[Volumen]] in {einheit}.'
 hilfen:
   - de: 'Wie viele [[Einheitswürfel]] passen in die unterste Schicht? Wie viele Schichten gibt es?'
-  - de: '[[Volumen]] = Länge · Breite · [[Höhe]].'
+  - de: '[[Volumen]] = Breite · Tiefe · [[Höhe]], also die drei [[Kantenlängen]] malnehmen.'
 fehlerbilder:
   kanten-addiert:
     de: 'Du hast die [[Kantenlängen]] addiert. Für das [[Volumen]] wird multipliziert.'

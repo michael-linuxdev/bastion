@@ -56,16 +56,12 @@ schritte:
           loesung: '425',
           fehler:
             [
-              { wert: '4,25', fv: FV.GR.UMRECHNEN-RICHTUNG },
+              { wert: '0,0425', fv: FV.GR.UMRECHNEN-RICHTUNG },
               { wert: '42,5', fv: FV.GR.KOMMASCHREIBWEISE },
             ],
         }
     weiter: gegenbeispiel
-    bei:
-      {
-        FV.GR.KOMMASCHREIBWEISE: erklaeren-kommaschreibweise,
-        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-kommaschreibweise,
-      }
+    bei: { FV.GR.KOMMASCHREIBWEISE: erklaeren-kommaschreibweise }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:

@@ -15,7 +15,7 @@ hilfen:
   - de: 'Multipliziere mit der [[Umrechnungszahl]]. Das Komma wandert nach rechts.'
 fehlerbilder:
   nullen-falsch:
-    de: 'Die Null hinter dem Komma zählt mit: 3,07 m sind 3 m und 7 cm, also 307 cm.'
+    de: 'Die Null hinter dem Komma zählt mit: 3,07 m sind 307 cm, 3,04 kg sind 3 040 g. Jede Stelle hinter dem Komma hat ihren Platz.'
     fv: FV.GR.KOMMASCHREIBWEISE
 herkunft: ki-entwurf
 version: 1

@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du Längen, Gewichte und Geld in eine andere Einheit umrechnen, zum Beispiel 3 m in cm.'
+      de: 'Danach kannst du Längen, Gewichte, Geld und Zeiten in eine andere Einheit umrechnen, zum Beispiel 3 m in cm oder 2 min in s.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -49,6 +49,11 @@ schritte:
     text:
       de: 'Die [[Umrechnungszahl]] hängt von den Einheiten ab: 1 km = 1000 m, 1 m = 10 dm = 100 cm, 1 cm = 10 mm. 1 kg = 1000 g, 1 t = 1000 kg. 1 € = 100 ct.'
     bild: { werkzeug: einheitentafel@1, parameter: { wert: 1, einheit: km, ziel: m } }
+    weiter: erklaeren-zeit
+  - id: erklaeren-zeit
+    typ: erklaeren
+    text:
+      de: 'Bei der Zeit sind die [[Umrechnungszahlen]] anders: 1 min = 60 s, 1 h = 60 min, 1 d = 24 h. Sonst rechnest du genauso: 2 min = 2 · 60 s = 120 s.'
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -100,7 +105,7 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: 'Groß nach klein: mal. Klein nach groß: geteilt. Die richtige [[Umrechnungszahl]] nehmen: 10, 100 oder 1000.'
+      de: 'Groß nach klein: mal. Klein nach groß: geteilt. Die richtige [[Umrechnungszahl]] nehmen: 10, 100 oder 1000, bei der Zeit 60 oder 24.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
