@@ -437,6 +437,17 @@ describe('Gitter (gitter@1)', () => {
     expect(leer.beschreibung.de).toContain('Leerer Umriss');
   });
 
+  it('nennt mit frage die Verschiebung nicht, nur Punkt und Bildpunkt (Q-L1)', async () => {
+    const { gitterAus, gitterBild } = await import('./gitter');
+    const p = { max: 8, verschiebung: [3, 2], beweglich: { x: 1, y: 1, name: 'P' } };
+    const offen = gitterBild(gitterAus(p)).beschreibung.de;
+    const frage = gitterBild(gitterAus({ ...p, frage: true })).beschreibung.de;
+    expect(offen).toContain('3 nach rechts');
+    expect(frage).not.toContain('nach rechts');
+    expect(frage).not.toContain('nach oben');
+    expect(frage).toContain('P′(4|3)');
+  });
+
   it('liest Punkte, Figuren, Achse und Pfeile; Unsinn fällt weg', async () => {
     const { gitterAus } = await import('./gitter');
     const z = gitterAus({
