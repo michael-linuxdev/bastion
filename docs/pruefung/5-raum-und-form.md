@@ -131,7 +131,7 @@ LAGE: vermittlung, parallele-finden, Anleitungen parallele und senkrechte; WINKE
 
 Die vier Dateien mit Fund (WINKEL vermittlung und ablesen, SYMMETRIE vermittlung, BEWEGUNGEN vermittlung) wurden nach der Korrektur erneut gelesen, die geänderten Bilder neu gerendert: ohne weiteren Fund. Ihre Änderungen sind kleine Text- und Bildkorrekturen an genau der Fundstelle; die übrigen Schritte waren in Durchgang 1 und 2 ohne Fund.
 
-**Stufe 1 (06.11.2026):** alle zwölf Dateien oben. Damit haben alle Dateien der acht Kompetenzen Stufe 1 (`pnpm review --klasse 5`: keine M.RF-Kompetenz mehr unter Stufe 1). Öffentlich (Mindeststufe 1) sind jetzt sieben der acht Kompetenzen; KOORDINATEN wartet auf ihre Voraussetzung M.ZO.NZ.ORDNEN.
+**Stufe 1 (06.11.2026):** alle zwölf Dateien oben. Damit haben alle Dateien der acht Kompetenzen Stufe 1 (`pnpm review --klasse 5`: keine M.RF-Kompetenz mehr unter Stufe 1). Öffentlich (Mindeststufe 1) sind jetzt alle acht Kompetenzen (KOORDINATEN seit M.ZO.NZ.ORDNEN Stufe 1 hat, #305).
 
 ## Stufe 1
 

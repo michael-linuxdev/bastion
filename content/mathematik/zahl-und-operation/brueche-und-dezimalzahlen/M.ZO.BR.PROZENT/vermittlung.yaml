@@ -89,11 +89,11 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Welcher [[Bruch]] ist 25 %?'
+      de: 'Welcher [[Bruch]] ist 20 %?'
     antwort:
       optionen:
-        - { wert: { de: '$\frac{1}{4}$' }, richtig: true }
-        - { wert: { de: '$\frac{25}{10}$' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
+        - { wert: { de: '$\frac{1}{5}$' }, richtig: true }
+        - { wert: { de: '$\frac{20}{10}$' }, fv: FV.BR.PROZENT-HUNDERTSTEL }
     weiter: uebergang
     bei: { FV.BR.PROZENT-HUNDERTSTEL: erklaeren-hundertstel }
   - id: uebergang
@@ -104,3 +104,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 6370ec07f9e74b4be89e1e47deac68cc1ac29395c2118ae0a1b96c68947a5a3a

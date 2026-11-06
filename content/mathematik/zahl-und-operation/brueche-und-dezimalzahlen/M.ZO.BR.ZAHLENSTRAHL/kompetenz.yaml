@@ -39,3 +39,8 @@ sachsen:
     klassenstufe: 5
     lernbereich: LB 2 Gemeine Brüche und Dezimalzahlen
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 3d10a9770111634a9d84de40e0212d81601d4fcc67f716e88598b7b9f6107435

@@ -9,10 +9,10 @@ beschreibung:
 kompetenzen: [M.ZO.BR.DEZIMAL]
 erklaerung:
   kurz:
-    de: 'Hinter dem Komma: erste Stelle [[Zehntel]], zweite Stelle [[Hundertstel]], dritte Stelle [[Tausendstel]]. Zähle die Stellen.'
+    de: 'Ein [[Zehntel]] sind 10 [[Hundertstel]], ein Hundertstel sind 10 [[Tausendstel]]. Hinter dem Komma: erste Stelle Zehntel, zweite Hundertstel, dritte Tausendstel.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast eine [[Ziffer]] an die falsche Stelle hinter dem Komma gesetzt.'
+      de: 'Du hast [[Zehntel]], [[Hundertstel]] oder [[Tausendstel]] miteinander verwechselt.'
     - teil: warum-nicht
       de: 'Die Stellen hinter dem Komma haben keinen eigenen Namen auf dem Papier, darum verrutscht man leicht. Aber jede Stelle ist zehnmal kleiner als die davor: 0,7 sind 7 [[Zehntel]], 0,07 nur 7 [[Hundertstel]].'
       bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 7 } }
@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.DEZIMAL.BRUCH-ZU-DEZIMAL, M.ZO.BR.DEZIMAL.DEZIMAL-ZU-BRUCH]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 0c5ea25760587c946464f8f70a50ab5868ec5ddda36ef0e8997cc633445feb82

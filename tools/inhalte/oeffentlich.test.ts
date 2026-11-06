@@ -116,10 +116,12 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
     const kompetenzen = grund['kompetenzen'] as Daten[];
-    // Stand 06.11.2026: Musterfeld Brüche und aus Raum und Form (Q-L1, Durchgang 3) sieben der
-    // acht Kompetenzen – KOORDINATEN hat Voraussetzungen ohne Stufe 1 und fällt wegen „ohne
-    // Lücke“ heraus
+    // Stand 06.11.2026: Musterfeld Brüche, Raum und Form Klasse 5 ganz (Q-L1, Durchgang 3),
+    // Zahlen, Brüche, Daten Klasse 5 (Q-L1) ohne MITTELWERT (FV.SA.ZWISCHENERGEBNIS wartet auf
+    // Größen und Messen). Eine Voraussetzung unter Stufe 1 gilt als „nicht verfügbar“
+    // (INHALTSFORMAT §8), etwa DEZIMAL für PROZENT.
     const erlaubt = [
+      'M.RF.GF.KOORDINATEN',
       'M.RF.GF.LAGE',
       'M.RF.GF.WINKEL',
       'M.RF.GF.WINKELPAARE',
@@ -128,8 +130,14 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
       'M.RF.SY.SPIEGELN',
       'M.RF.SY.SYMMETRIE',
       'M.ZO.BR.ADD-SUB',
+      'M.ZO.BR.ANTEIL-VON',
       'M.ZO.BR.BEGRIFF',
+      'M.ZO.BR.DEZ-ORDNEN',
       'M.ZO.BR.ERWEITERN',
+      'M.ZO.BR.PROZENT',
+      'M.ZO.BR.VERGLEICHEN',
+      'M.ZO.BR.ZAHLENSTRAHL',
+      'M.ZO.NZ.ORDNEN',
     ];
     for (const k of kompetenzen) expect(erlaubt).toContain(k['id']);
     for (const k of kompetenzen)

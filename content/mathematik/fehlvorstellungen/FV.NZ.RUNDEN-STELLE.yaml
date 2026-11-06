@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast richtig gerundet, aber auf eine andere Stelle.'
     - teil: warum-nicht
-      de: 'Die Namen der Stellen klingen [[ähnlich]], das verwirrt leicht. Doch jede Stelle führt zu einem anderen Ergebnis: 4 572 ist auf Zehner 4 570, auf Hunderter 4 600. Bei Kommazahlen genauso: 3,476 ist auf [[Zehntel]] 3,5 und auf [[Hundertstel]] 3,48.'
+      de: 'Manche Namen der Stellen klingen fast gleich, etwa Zehner und [[Zehntel]]. Das verwirrt leicht. Doch jede Stelle führt zu einem anderen Ergebnis: 4 572 ist auf Zehner 4 570, auf Hunderter 4 600. Bei Kommazahlen genauso: 3,476 ist auf [[Zehntel]] 3,5 und auf [[Hundertstel]] 3,48.'
     - teil: so-stimmt-es
       de: 'Suche zuerst die [[Rundungsstelle]] und unterstreiche sie. Dann schau auf die [[Ziffer]] rechts daneben.'
 gegenbeispiel:
@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.DEZ-ORDNEN.RUNDEN, M.ZO.NZ.RUNDEN.AUF-STELLE, M.DZ.DA.MITTELWERT.NOTEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: be7a2665d4b60d39ffc7b8bf7422f6f1cabd90b95bc6af533690c1f84970365a

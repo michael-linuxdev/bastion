@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.ZO.NZ.ORDNEN.DER-GROESSE-NACH, M.ZO.RZ.ORDNEN.DER-GROESSE-NACH]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: c93d24dd70d1ee1631aceabc36a1f79f86ffb894b006db470482be60fae68e3a
