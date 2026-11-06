@@ -785,3 +785,33 @@ PV: „Bäume stehen zum Teil im Wasser. Die Insel darf auch unförmig sein, wob
 - **Lehre:** Kein Grafik-PR, der Ebenen innerhalb der Kamera-Transformation anlegt oder vergrößert, ohne Probe am iPhone vor dem Merge. Bis Referenzgeräte feststehen (Q-G0), ist der PV die einzige verlässliche Messung.
 - **Weiter:** PR 3 (gemeinsamer Takt, nur Pixi) einzeln neu einbringen, ohne Abhängigkeit von der Cull-Kamera; PR 2 und 4 nur mit einem Ansatz ohne große transformierte Ebenen und erst nach Probe am Gerät.
 
+
+## 34. Gemeinsamer Takt neu, nur Pixi (Q-G1, PR 3 neu, 06.11.2026)
+
+- **Was:** Der Inhalt von §31 kommt einzeln zurück, nur der Teil in der Pixi-Bühne: vorberechnete Bilder für Fahnen, Banner und Mühlenflügel (`BildVorrat`, `bilderJeUmlauf`, `phasenStufe`), Statusgesten je Tätigkeit einmal, Wesen und Bewohner setzen den Maßstab direkt, alle sehen dieselbe auf 30 Hz gerundete Zeit (`taktSchritt`, `taktZeit`). Reine Logik in `takt.ts` mit Tests; Beschreibung wie in §31.
+- **Anders als #292:** keine Cull-Kamera und kein `cullRand` aus §30. Das Sichtfeld rechnet `Bauplatz.svelte` bei Kamera-Ruhe (150 ms nach der letzten Änderung, `KAMERA_RUHE_MS`) aus der aktuellen Kamera (`sichtfeldAus`, Fenster plus ein Achtel Rand) und meldet es der Bühne, gleich bevor der Takt wieder anläuft. Während der Geste steht der Takt ohnehin (§29). Das Sichtfeld ist eine reine Rechnung: Es legt keine Ebene an, ändert kein CSS und kein `will-change`. `Kulisse.svelte`, `Wetterschicht.svelte` und alle Stile sind unverändert.
+- **Ebenen:** keine neuen. Die Zahl der Grafikebenen ist je Lauf vorher und nachher gleich (Ruhe frisch 45 / 45 / 45 → 45 / 45 / 45, gewachsen 53 / 53 / 54 → 53 / 53 / 54; herangezoomt 37 / 38 / 38 → 37 / 38 / 38 bzw. 37 / 37 / 38 → 37 / 37 / 38; „ruhig“ 9 → 9). Beim Zoomen und Schwenken schwankt die Zahl von Lauf zu Lauf in beiden Ständen (je nachdem, wann `LayerTree` mitten in der Geste meldet, z. B. gewachsen beim Schwenken vorher 53 / 53 / 42, nachher 41 / 46 / 41); die Bühne bleibt ein einziges Canvas.
+- **Zahlen vorher → nachher** (`pnpm tempo` und `pnpm tempo --reich`, Chromium ohne Grafikkarte, 390 × 844, Pixeldichte 3, CPU ÷4, je Phase 6 s; vorher = `main` nach #299 mit demselben Werkzeug; Median aus drei Läufen, vorher und nachher im Wechsel, „ruhig“ je ein Lauf; der Messrechner war zu Beginn durch andere Sitzungen belastet):
+
+  | Lage | Phase | Bilder/s | Takt/s | ms je Takt | Hauptfaden | GPU | Hänger | Ebenen | Ebenenspeicher (§24-Rechnung) |
+  |---|---|---|---|---|---|---|---|---|---|
+  | frisch | Ruhe | 57,7 → 58,6 | 5,1 → 6,8 | **3,7 → 3,2** | 100 % → 100 % | 76 % → 76 % | 1 → 0 | 45 → 45 | 81 MB → 81 MB |
+  | | Zoomen | 59,0 → 59,9 | 8,4 → 11,9 | **1,1 → 0,8** | 100 % → 100 % | 73 % → 66 % | 0 → 0 | 39 → 39 | 80 MB → 80 MB |
+  | | Schwenken | 59,2 → 60,0 | 10,7 → 14,0 | **1,0 → 0,8** | 98 % → 98 % | 67 % → 65 % | 0 → 0 | 39 → 39 | 82 MB → 81 MB |
+  | | Herangezoomt | 59,7 → 58,7 | 6,8 → 6,9 | **2,1 → 1,6** | 100 % → 100 % | 76 % → 75 % | 0 → 1 | 38 → 38 | 169 MB → 172 MB |
+  | gewachsen (`--reich`) | Ruhe | 59,9 → 59,7 | 3,9 → 3,0 | 5,0 → 4,9 | 100 % → 100 % | 78 % → 84 % | 0 → 0 | 53 → 53 | 83 MB → 83 MB |
+  | | Zoomen | 60,1 → 59,9 | 6,4 → 4,3 | 1,8 → 2,1 | 100 % → 100 % | 74 % → 79 % | 0 → 0 | 42 → 42 | 82 MB → 88 MB |
+  | | Schwenken | 60,0 → 59,8 | 7,4 → 5,2 | **1,7 → 1,4** | 100 % → 100 % | 73 % → 77 % | 0 → 0 | 53 → 41 | 101 MB → 96 MB |
+  | | Herangezoomt | 59,9 → 59,8 | 5,9 → 6,5 | **2,4 → 2,1** | 100 % → 100 % | 76 % → 75 % | 0 → 0 | 37 → 37 | 181 MB → 205 MB |
+  | frisch, ruhig | Ruhe | 0 → 0 | 59,9 → 60,1 | 0,2 → 0,2 | 5 % → 5 % | 0 % → 0 % | 0 → 0 | 9 → 9 | 62 MB → 62 MB |
+  | | Zoomen | 9,5 → 8,2 | 8,9 → 9,2 | 1,7 → 1,3 | 99 % → 99 % | 71 % → 70 % | 21 → 20 | 25 → 24 | 136 MB → 121 MB |
+  | | Schwenken | 7,0 → 7,5 | 10,0 → 10,2 | 0,9 → 1,1 | 100 % → 99 % | 67 % → 66 % | 22 → 21 | 9 → 9 | 62 MB → 63 MB |
+  | | Herangezoomt | 4,5 → 5,0 | 33,1 → 33,2 | 0,3 → 0,3 | 55 % → 56 % | 39 % → 39 % | 18 → 21 | 9 → 9 | 98 MB → 107 MB |
+  | gewachsen, ruhig | Ruhe | 0 → 0 | 60,1 → 60,1 | 0,2 → 0,2 | 6 % → 6 % | 0 % → 0 % | 0 → 0 | 9 → 9 | 61 MB → 61 MB |
+  | | Zoomen | 5,4 → 5,5 | 6,4 → 6,0 | 1,5 → 1,0 | 99 % → 99 % | 72 % → 73 % | 13 → 13 | 24 → 24 | 136 MB → 148 MB |
+  | | Schwenken | 4,2 → 4,2 | 6,7 → 6,5 | 1,0 → 1,8 | 100 % → 100 % | 71 % → 71 % | 14 → 14 | 9 → 9 | 63 MB → 64 MB |
+  | | Herangezoomt | 3,7 → 3,7 | 23,8 → 23,0 | 0,4 → 0,4 | 69 % → 70 % | 50 % → 51 % | 20 → 22 | 9 → 9 | 115 MB → 128 MB |
+
+  Lesart: Wie in §31 zeigt sich die Ersparnis in „ms je Takt“ (Durchlauf im Hauptfaden), hier kleiner als damals, weil die Läufe auf dem Stand nach #285 ohne die Kulisse aus §30 kürzer sind: frisch 3,7 → 3,2 ms in Ruhe, herangezoomt 2,1 → 1,6; gewachsen nach dem Schwenken 1,7 → 1,4, herangezoomt 2,4 → 2,1. Bilder/s, Hauptfaden und GPU bleiben in Chromium ohne Grafikkarte voll (Kopie des Canvas, §29). Der **Ebenenspeicher** streut zwischen den Läufen stark, in beiden Ständen gleich (gewachsen herangezoomt vorher 165 / 181 / 255 MB, nachher 205 / 187 / 253 MB; frisch 150 / 169 / 177 → 161 / 172 / 175 MB): Er hängt am Regen und an den Kulisse-Ebenen, die dieser PR nicht anfasst. Bei „ruhig“ ändert sich nichts (keine Tücher, Wesen und Bewohner).
+- **Aussehen:** Fotos vorher/nachher (390 × 844, frisch und gewachsen, voll und ruhig) sind gleich: bei „ruhig“ Bildpunkt für Bildpunkt (0,0 % Abweichung), mit Bewegung weichen 0,4 % der Bildpunkte ab (Wege der Wesen, Regen, Phase der Fahnen). Fahnen, Banner mit Wappen und Statusgesten stehen an derselben Stelle.
+- **Probe am iPhone vor dem Merge (§33):** Bastion mit Fahnen öffnen, mehrfach ganz herein- und herauszoomen und schwenken (stabil, kein Absturz); wehen Fahnen und Banner, drehen Mühlen und laufen Wesen und Bewohner nach dem Loslassen weiter, auch an Stellen, die vorher außerhalb des Bildes lagen.
