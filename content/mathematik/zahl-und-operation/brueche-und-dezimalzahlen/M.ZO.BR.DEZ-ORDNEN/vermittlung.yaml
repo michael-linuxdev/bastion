@@ -29,18 +29,19 @@ schritte:
   - id: erklaeren-vergleichen
     typ: erklaeren
     text:
-      de: 'Vergleiche Stelle für Stelle von links, zuerst die Einer, dann die [[Zehntel]]. Oder hänge Nullen an, bis beide gleich viele [[Nachkommastellen]] haben: 0,50 und 0,45. 50 [[Hundertstel]] sind mehr als 45.'
-    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 5 } }
+      de: 'Vergleiche Stelle für Stelle von links: zuerst die Einer, dann die [[Zehntel]]. Oder hänge Nullen an: 0,50 und 0,45. 50 [[Hundertstel]] sind mehr als 45. Im Bild ist 0,45 markiert, knapp links von der Mitte 0,5.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 20, markiert: 9 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '2,3 und 2,28: Die Einer sind gleich, 2. Bei den [[Zehntel]] ist 3 größer als 2. Also ist 2,3 > 2,28, obwohl 2,28 mehr [[Ziffern]] hat.'
+      de: '2,3 und 2,28: Die Einer sind gleich. Bei den [[Zehntel]] ist 3 größer als 2. Also ist 2,3 > 2,28, obwohl 2,28 mehr [[Ziffern]] hat. Im Bild ist 2,3 markiert, 2,28 liegt knapp links davon.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 2, bis: 3, einteilung: 10, markiert: 23 } }
     weiter: erklaeren-runden
   - id: erklaeren-runden
     typ: erklaeren
     text:
-      de: 'Auf [[Zehntel]] runden: Schau auf die [[Ziffer]] dahinter, die Hundertstelziffer. Bei 0 bis 4 rundest du ab, bei 5 bis 9 auf. 3,47 liegt näher an 3,5 als an 3,4.'
+      de: 'Auf [[Zehntel]] runden: Schau auf die [[Ziffer]] dahinter, die Hundertstelziffer. Bei 0 bis 4 rundest du ab, bei 5 bis 9 auf. 3,47 liegt zwischen 3,4 und 3,5, näher an 3,5. Im Bild ist 3,5 markiert.'
     bild: { werkzeug: zahlenstrahl@1, parameter: { von: 3, bis: 4, einteilung: 10, markiert: 35 } }
     weiter: ergaenzen
   - id: ergaenzen
