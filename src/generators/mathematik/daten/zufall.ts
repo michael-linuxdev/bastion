@@ -234,6 +234,7 @@ export const kreisWinkel: Generator<KreisWinkelParameter> = {
       return {
         platzhalter: { anteil: de(`${pz} %`) },
         loesung: zahl(w),
+        einheit: '°',
         loesungsweg: [
           de(`Der ganze Kreis hat 360°. 1 % sind 3,6°.`),
           de(`${pz} % · 3,6° = ${dezimalDeutsch(w)}°`),
@@ -249,6 +250,7 @@ export const kreisWinkel: Generator<KreisWinkelParameter> = {
     return {
       platzhalter: { anteil: de(`${a.zaehler}/${a.nenner}`) },
       loesung: zahl(w),
+      einheit: '°',
       loesungsweg: [
         de(`Der ganze Kreis hat 360°.`),
         de(

@@ -85,15 +85,23 @@ export function gruppiere(
 
 const uhr = (min: number) => `${Math.floor(min / 60)}:${String(min % 60).padStart(2, '0')}`;
 
-/** Eine gegebene Antwort lesbar machen, z. B. „Deine Antwort damals: 3/5“. */
+/** Einheit hinter eine Zahl: „140°“, „25 %“, „12 cm“ (DIN 1338: ° ohne Leerzeichen). */
+export const mitEinheit = (zahl: string, einheit?: string): string =>
+  !einheit ? zahl : einheit === '°' ? `${zahl}°` : `${zahl} ${einheit}`;
+
+/**
+ * Eine gegebene Antwort lesbar machen, z. B. „Deine Antwort damals: 3/5“. `einheit` (D8) steht
+ * hinter einer Zahl, z. B. „140°“.
+ */
 export function antwortText(
   antwort: Loesung,
   optionen: readonly Option[] = [],
   uhrzeit = false,
+  einheit?: string,
 ): string {
   switch (antwort.typ) {
     case 'zahl':
-      return uhrzeit ? uhr(antwort.wert) : zahlText(antwort.wert);
+      return uhrzeit ? uhr(antwort.wert) : mitEinheit(zahlText(antwort.wert), einheit);
     case 'bruch': {
       const b = bruch(antwort.wert.zaehler, antwort.wert.nenner);
       return `${zahlText(b.zaehler)}/${zahlText(b.nenner)}`;

@@ -18,7 +18,7 @@
   {#if interaktiv}
     <p class="anleitung">{t('werkzeug.winkel.anleitung')}</p>
   {/if}
-  <div class="bild" role="img" aria-label={b.beschreibung.de}>
+  <div class="bild" class:voll={zustand.winkelmesser} role="img" aria-label={b.beschreibung.de}>
     <!-- eslint-disable-next-line svelte/no-at-html-tags -- SVG aus dem eigenen Baukasten, ohne Fremdinhalt -->
     {@html b.svg}
   </div>
@@ -59,10 +59,24 @@
     color: var(--farbe-text);
   }
 
+  /* B12: Am Winkelmesser wird abgelesen – das Bild bekommt die volle Breite (Zahlen ≈ 14 px) */
+  .bild.voll {
+    max-inline-size: 28rem;
+  }
+
   .bild :global(svg) {
     display: block;
     inline-size: 100%;
     block-size: auto;
+  }
+
+  /* Wie im Üben (O22): Beschriftung kräftig, mit hellem Rand, über Linien lesbar */
+  .bild :global(svg text) {
+    font-weight: 700;
+    paint-order: stroke fill;
+    stroke: var(--farbe-flaeche);
+    stroke-width: 3px;
+    stroke-linejoin: round;
   }
 
   .anleitung,
