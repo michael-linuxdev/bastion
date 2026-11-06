@@ -300,7 +300,7 @@ export const STERNE = 256;
 /** Abstand des Horizonts über der Inselspitze in Bühnen-Bildpunkten (Variante C, PV) */
 export const HORIZONT_ABSTAND = 520;
 /** Der ferne Horizont erscheint kleiner als die Insel */
-export const HORIZONT_SKALA = 0.55;
+const HORIZONT_SKALA = 0.55;
 
 export interface KulissenLage {
   /** Wasserlinie des Horizonts im Fenster; negativ = über dem Fenster (nur Meer) */
@@ -323,104 +323,6 @@ export function kulissenLage(k: Kamera, inselOben: number): KulissenLage {
     horizontSkala: HORIZONT_SKALA * (0.6 + 0.4 * k.zoom),
     horizontX: k.x * 0.25,
   };
-}
-
-/** Wasserlinie des Horizont-Bands, in Band-Bildpunkten über der Linie `horizontY` */
-export const HORIZONT_WASSERLINIE = HORIZONT.hoehe - HORIZONT.wasser;
-
-/** Fenstergröße in CSS-Bildpunkten */
-export interface Fenster {
-  readonly breite: number;
-  readonly hoehe: number;
-}
-
-/** Rand des Sichtkastens je Achse in Fenster-Bildpunkten (GRAFIK §32) */
-export interface SichtRand {
-  readonly x: number;
-  readonly y: number;
-}
-
-/** Sicherheitsabstand: so weit vor dem Rand des Sichtkastens springt die Cull-Kamera */
-export const SICHT_SICHER = 8;
-
-/**
- * Rand des Sichtkastens (GRAFIK §32, Q-G1 PR 4): je Achse ein Achtel des Fensters plus
- * 24 Bildpunkte. Vorher galt für beide Achsen `cullRand` (ein Achtel der längeren Seite plus
- * 160 px); der Kasten war damit rund 1,6 Fensterflächen groß statt 1,3 – und jede seiner
- * Ebenen hielt bei dreifacher Pixeldichte rund 43 MB. Was über den Rand ragt, schneidet der
- * Kasten ab; ins Fenster reicht es nie, weil die Cull-Kamera vorher springt (`cullKamera`).
- */
-export function sichtRand(fenster: Fenster): SichtRand {
-  return { x: fenster.breite / 8 + 24, y: fenster.hoehe / 8 + 24 };
-}
-
-/**
- * Culling mit Abstand (GRAFIK §30, §32, Q-G1): Die Kamera, nach der die Dinge der Kulisse
- * ein- und ausgeblendet werden und der Sichtkasten liegt, folgt der echten Kamera erst, wenn
- * sie um ein Zehntel gezoomt hat oder das Fenster dem Rand des Sichtkastens (`rand`) bis auf
- * `SICHT_SICHER` nahekommt. Dazwischen bleibt der Baum der Dinge unverändert, und der
- * Browser bewegt nur die fertige Ebene. Weil der Sprung an der Deckung des Kastens hängt
- * und nicht an festen Schritten, darf der Kasten klein sein, auch wenn Zoomen und
- * Verschieben zusammenkommen (zwei Finger): Ins Fenster ragt nie eine leere Kante.
- */
-export function cullKamera(
-  alt: Kamera | undefined,
-  neu: Kamera,
-  fenster: Fenster,
-  rand: SichtRand = sichtRand(fenster),
-): Kamera {
-  if (!alt) return neu;
-  const z = neu.zoom / alt.zoom;
-  if (z <= 1 / 1.1 || z >= 1.1) return neu;
-  // Kasten der alten Cull-Kamera in Welt-Koordinaten, dann mit der neuen Kamera ins Fenster
-  const imFenster = (welt: number, achse: 'x' | 'y') => neu[achse] + welt * neu.zoom;
-  const links = imFenster((-rand.x - alt.x) / alt.zoom, 'x');
-  const rechts = imFenster((fenster.breite + rand.x - alt.x) / alt.zoom, 'x');
-  const oben = imFenster((-rand.y - alt.y) / alt.zoom, 'y');
-  const unten = imFenster((fenster.hoehe + rand.y - alt.y) / alt.zoom, 'y');
-  const gedeckt =
-    links <= -SICHT_SICHER &&
-    oben <= -SICHT_SICHER &&
-    rechts >= fenster.breite + SICHT_SICHER &&
-    unten >= fenster.hoehe + SICHT_SICHER;
-  return gedeckt ? alt : neu;
-}
-
-/**
- * Rand um das Fenster, in dem Dinge der Kulisse schon ins Bild genommen werden und Figuren
- * der Bühne weiterlaufen (`sichtfeldAus`): ein Achtel plus Bildgröße. Größer als `sichtRand`,
- * damit alles, was in den Kasten ragt, auch dabei ist.
- */
-export function cullRand(fenster: Fenster): number {
-  return Math.max(fenster.breite, fenster.hoehe) / 8 + 160;
-}
-
-/** Sichtkasten in den Koordinaten einer Ebene (Welt oder ferne Schicht) */
-export interface SichtKasten {
-  readonly x0: number;
-  readonly y0: number;
-  readonly b: number;
-  readonly h: number;
-}
-
-/**
- * Sichtkasten einer Ebene (GRAFIK §30, §32): Fenster plus `rand`, umgerechnet mit der
- * Transform der Ebene (`lage`: Verschiebung und Maßstab im Fenster). `inhalt` begrenzt den
- * Kasten oben und unten auf das, was in der Ebene überhaupt liegt (in ihren Koordinaten):
- * Über der Wasserlinie liegt in der Welt nichts, unter dem Horizont-Band in der Ferne nichts.
- * Leere Flächen in einer Ebene kosten trotzdem Grafikspeicher. Höhe 0 = Ebene ganz aus dem Bild.
- */
-export function sichtKasten(
-  lage: Kamera,
-  fenster: Fenster,
-  rand: SichtRand,
-  inhalt: { readonly oben?: number; readonly unten?: number } = {},
-): SichtKasten {
-  const x0 = (-rand.x - lage.x) / lage.zoom;
-  const b = (fenster.breite + 2 * rand.x) / lage.zoom;
-  const y0 = Math.max((-rand.y - lage.y) / lage.zoom, inhalt.oben ?? -Infinity);
-  const y1 = Math.min((fenster.hoehe + rand.y - lage.y) / lage.zoom, inhalt.unten ?? Infinity);
-  return { x0, y0, b, h: Math.max(0, y1 - y0) };
 }
 
 /** Ein Ding um den Bauplatz: Bild, Lage in Feldern (außerhalb des Bauplatzes) */

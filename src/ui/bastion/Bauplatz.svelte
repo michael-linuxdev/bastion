@@ -58,8 +58,7 @@
     wetterMitProbe,
     wetterProbe,
   } from './wetter-probe.svelte';
-  import { cullKamera, cullRand, kulisseFuer, stimmungAus } from './grafik/kulisse';
-  import { sichtfeldAus } from './grafik/takt';
+  import { kulisseFuer, stimmungAus } from './grafik/kulisse';
   import FarbWahl from './FarbWahl.svelte';
   import GebaeudeVorschau from './GebaeudeVorschau.svelte';
   import { ausbauNeu } from './ausbau-neu';
@@ -610,32 +609,12 @@
    * verschiebt und vergrößert das fertige Bild.
    */
   let kameraRuheTimer: ReturnType<typeof setTimeout> | undefined;
-  /**
-   * Sichtfeld an die Bühne (GRAFIK §31): Was außerhalb liegt, bewegt die Bühne nicht. Gemeldet
-   * wird nur, wenn die Cull-Kamera springt (wie bei der Kulisse, §30), nicht je Zoom-Schritt;
-   * der Rand ist größer als der Sprung, darum liegt alles im Fenster immer im Sichtfeld.
-   */
-  let sichtKamera: Kamera | undefined;
-  function sichtMelden(b: Buehne, k: Kamera, neu = false) {
-    const el = fenster;
-    if (!el || el.clientWidth === 0) return;
-    const f = { breite: el.clientWidth, hoehe: el.clientHeight };
-    const naechste = cullKamera(neu ? undefined : sichtKamera, k, f);
-    if (!neu && naechste === sichtKamera) return;
-    sichtKamera = naechste;
-    b.setzeSichtfeld(sichtfeldAus(naechste, f, cullRand(f)));
-  }
-  $effect(() => {
-    const b = buehne;
-    if (b) untrack(() => sichtMelden(b, kamera, true));
-  });
   $effect(() => {
     void kamera.x;
     void kamera.y;
     void kamera.zoom;
     const b = untrack(() => buehne);
     if (!b) return;
-    sichtMelden(b, kamera);
     b.setzeKameraBewegt(true);
     clearTimeout(kameraRuheTimer);
     kameraRuheTimer = setTimeout(() => buehne?.setzeKameraBewegt(false), KAMERA_RUHE_MS);
