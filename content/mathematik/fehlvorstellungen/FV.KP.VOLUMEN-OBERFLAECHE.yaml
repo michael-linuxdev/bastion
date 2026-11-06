@@ -27,3 +27,8 @@ rueckweg:
 kontrast: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.OBERFLAECHE.QUADER, M.GM.KP.VERPACKUNG.MATERIAL]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 8fe13a0cc011f08c433a8b445aa92cf157d241654167d50930b0cc03aa09478b

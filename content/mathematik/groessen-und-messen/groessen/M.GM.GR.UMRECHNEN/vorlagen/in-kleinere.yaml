@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.GR.UMRECHNUNGSZAHL
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 489687062a9e9a4d42319c82db54e3b17f580bb1610e9a9435db2662e9396dea

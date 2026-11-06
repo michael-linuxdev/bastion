@@ -31,3 +31,8 @@ kontrast:
   ]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 60fafbf91fc11a1d68981383d7d2067f81a24f1713d6a5b657ac819a07c834ee

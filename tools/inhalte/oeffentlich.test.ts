@@ -116,11 +116,21 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
     const kompetenzen = grund['kompetenzen'] as Daten[];
-    // Stand 06.11.2026: Musterfeld Brüche, Raum und Form Klasse 5 ganz (Q-L1, Durchgang 3),
-    // Zahlen, Brüche, Daten Klasse 5 (Q-L1) ohne MITTELWERT (FV.SA.ZWISCHENERGEBNIS wartet auf
-    // Größen und Messen). Eine Voraussetzung unter Stufe 1 gilt als „nicht verfügbar“
-    // (INHALTSFORMAT §8), etwa DEZIMAL für PROZENT.
+    // Stand 06.11.2026: Musterfeld Brüche und Klasse 5 nach Q-L1: Raum und Form ganz (Durchgang 3),
+    // Zahlen, Brüche, Daten (#305) sowie Größen und Messen (#306). Eine Voraussetzung unter
+    // Stufe 1 gilt als „nicht verfügbar“ (INHALTSFORMAT §8), etwa DEZIMAL für PROZENT.
     const erlaubt = [
+      'M.DZ.DA.MITTELWERT',
+      'M.GM.FL.EINHEITEN',
+      'M.GM.FL.RECHTECK',
+      'M.GM.FL.ZUSAMMENGESETZT',
+      'M.GM.GR.KOMMA',
+      'M.GM.GR.SACH',
+      'M.GM.GR.UMRECHNEN',
+      'M.GM.GR.ZEIT',
+      'M.GM.KP.EINHEITEN',
+      'M.GM.KP.OBERFLAECHE',
+      'M.GM.KP.VOLUMEN',
       'M.RF.GF.KOORDINATEN',
       'M.RF.GF.LAGE',
       'M.RF.GF.WINKEL',

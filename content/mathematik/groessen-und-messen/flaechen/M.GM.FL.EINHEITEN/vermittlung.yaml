@@ -62,11 +62,7 @@ schritte:
             [{ wert: '70', fv: FV.FL.FLAECHE-100 }, { wert: '0,07', fv: FV.GR.UMRECHNEN-RICHTUNG }],
         }
     weiter: gegenbeispiel
-    bei:
-      {
-        FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten,
-        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-flaecheneinheiten,
-      }
+    bei: { FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten, FV.GR.UMRECHNEN-RICHTUNG: beispiel }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
@@ -92,11 +88,7 @@ schritte:
         - { wert: { de: '250' }, fv: FV.FL.FLAECHE-100 }
         - { wert: { de: '250 000' }, fv: FV.GR.UMRECHNEN-RICHTUNG }
     weiter: uebergang
-    bei:
-      {
-        FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten,
-        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-flaecheneinheiten,
-      }
+    bei: { FV.FL.FLAECHE-100: erklaeren-flaecheneinheiten, FV.GR.UMRECHNEN-RICHTUNG: beispiel }
   - id: uebergang
     typ: uebergang
     text:
@@ -105,3 +97,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 37709af8988ac1168fb221dc96cf0acade60581ba661b82dbfae10c91d5999a0

@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.GM.GR.KOMMA.ZU-KOMMA, M.GM.GR.KOMMA.ZU-KLEINER]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: c7b60c3e69bcbb0c4378e3cf555e20009212f0cd8a7351b37a98c25c1561062d
