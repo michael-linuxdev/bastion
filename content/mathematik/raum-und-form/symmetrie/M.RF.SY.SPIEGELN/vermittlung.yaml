@@ -11,57 +11,109 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Der Punkt liegt 3 nach rechts und 4 nach oben. Welche [[Koordinaten]] hat er?'
+      de: 'Welche [[Koordinaten]] hat der Punkt P?'
+    bild: { werkzeug: gitter@1, parameter: { max: 6, punkte: [{ x: 3, y: 4, name: 'P' }] } }
     antwort:
       optionen:
         - { wert: { de: '(3|4)' }, richtig: true }
         - { wert: { de: '(4|3)' }, fv: FV.GF.X-Y-VERTAUSCHT }
-    weiter: entdecken
+    weiter: vorwissen-achse
     bei: { sonst: M.RF.GF.KOORDINATEN }
+  - id: vorwissen-achse
+    typ: anknuepfen
+    text:
+      de: 'Ist die dicke Linie eine [[Symmetrieachse]] des Rechtecks?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 8,
+            spiegelachse: { x: 4 },
+            figuren: [{ ecken: [[1, 2], [7, 2], [7, 6], [1, 6]] }],
+          },
+      }
+    antwort:
+      optionen:
+        - { wert: { de: 'Ja, beide Hälften passen beim Falten aufeinander.' }, richtig: true }
+        - { wert: { de: 'Nein.' }, fv: FV.SY.ACHSENSYMMETRIE }
+    weiter: entdecken
+    bei: { sonst: M.RF.SY.SYMMETRIE }
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Du stehst 2 Schritte vor einem Spiegel. Wie viele Schritte hinter dem Spiegel scheint dein Spiegelbild zu stehen?'
+      de: 'Die dicke Linie ist ein Spiegel. Bewege P mit den Pfeilen auf die Linie zu. Was macht der [[Bildpunkt]] P′?'
+    werkzeug:
+      {
+        id: gitter@1,
+        parameter: { max: 8, spiegelachse: { x: 4 }, beweglich: { x: 1, y: 3, name: 'P' } },
+      }
     antwort:
-      eingabe:
-        {
-          art: zahl,
-          loesung: '2',
-          fehler:
-            [{ wert: '0', fv: FV.SY.SPIEGELABSTAND }, { wert: '4', fv: FV.SY.SPIEGELABSTAND }],
-        }
+      optionen:
+        - { wert: { de: 'Er kommt der Linie von der anderen Seite genauso nah.' }, richtig: true }
+        - { wert: { de: 'Er bleibt stehen.' }, fv: FV.SY.SPIEGELABSTAND }
+        - { wert: { de: 'Er wandert in dieselbe Richtung wie P.' }, fv: FV.SY.SPIEGELABSTAND }
     weiter: erklaeren-spiegeln
   - id: erklaeren-spiegeln
     typ: erklaeren
     text:
-      de: 'Beim Spiegeln gehst du vom Punkt [[senkrecht]] zur Achse und zählst den Abstand. Dann gehst du genauso weit auf der anderen Seite weiter. Der [[Bildpunkt]] hat denselben Abstand zur Achse.'
+      de: 'Beim Spiegeln gehst du von P [[senkrecht]] zur [[Spiegelachse]] und zählst den Abstand: 3 Kästchen. Dann gehst du genauso weit auf der anderen Seite weiter. Der [[Bildpunkt]] P′ hat denselben Abstand zur Achse.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 8, spiegelachse: { x: 4 }, beweglich: { x: 1, y: 3, name: 'P' } },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Achse: die senkrechte Linie bei x = 4. P(1|3) liegt 3 links davon. Der [[Bildpunkt]] liegt 3 rechts davon: P′(7|3). y bleibt gleich.'
+      de: 'Die Achse ist die senkrechte Linie bei x = 4. P(1|3) liegt 3 links davon. P′ liegt 3 rechts davon: P′(7|3). y bleibt gleich.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 8, spiegelachse: { x: 4 }, beweglich: { x: 1, y: 3, name: 'P' } },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Achse: die senkrechte Linie bei x = 5. Der Punkt P(2|6) wird gespiegelt. Welche x-[[Koordinate]] hat der [[Bildpunkt]]?'
+      de: '[[Spiegle]] P(2|6) an der senkrechten Achse bei x = 5. Welche x-[[Koordinate]] hat der [[Bildpunkt]] P′?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 8, spiegelachse: { x: 5 }, punkte: [{ x: 2, y: 6, name: 'P' }] },
+      }
     antwort:
       eingabe:
         {
           art: zahl,
           loesung: '8',
           fehler:
-            [{ wert: '5', fv: FV.SY.SPIEGELABSTAND }, { wert: '3', fv: FV.SY.SPIEGELABSTAND }],
+            [{ wert: '5', fv: FV.SY.SPIEGELABSTAND }, { wert: '2', fv: FV.SY.SPIEGELABSTAND }],
         }
     weiter: gegenbeispiel
     bei: { FV.SY.SPIEGELABSTAND: erklaeren-spiegeln }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Achse: die waagerechte Linie bei y = 2. Ida spiegelt P(3|5) und schreibt P′(5|3). Stimmt das?'
+      de: 'Ida spiegelt P(5|6) an der waagerechten Achse bei y = 4. Sie zeichnet P′(3|6) und sagt: „x wird um 2 kleiner.“ Stimmt das?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            max: 8,
+            spiegelachse: { y: 4 },
+            punkte: [{ x: 5, y: 6, name: 'P' }, { x: 3, y: 6, name: 'P′' }],
+          },
+      }
     antwort:
       optionen:
-        - { wert: { de: 'Nein, x bleibt, y geht 3 unter die Achse: P′(3|−1).' }, richtig: true }
+        - {
+            wert: { de: 'Nein, bei einer waagerechten Achse ändert sich y: P′(5|2).' },
+            richtig: true,
+          }
         - { wert: { de: 'Ja.' }, fv: FV.GF.SPIEGELN-KOORDINATE }
     weiter: merksatz
     bei: { FV.GF.SPIEGELN-KOORDINATE: erklaeren-spiegeln }
@@ -73,7 +125,12 @@ schritte:
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Achse: die senkrechte Linie bei x = 3. [[Spiegle]] P(1|4). Welcher [[Bildpunkt]] entsteht?'
+      de: '[[Spiegle]] P an der dicken Linie. Welcher [[Bildpunkt]] P′ entsteht?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { max: 8, spiegelachse: { x: 3 }, punkte: [{ x: 1, y: 4, name: 'P' }] },
+      }
     antwort:
       optionen:
         - { wert: { de: '(5|4)' }, richtig: true }
