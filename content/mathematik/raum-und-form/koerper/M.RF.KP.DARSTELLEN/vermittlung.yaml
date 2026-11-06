@@ -6,68 +6,79 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du in Gedanken ein [[Netz]] zu einem [[Würfel]] falten und sagen, welche Flächen sich gegenüberliegen.'
+      de: 'Danach kannst du erkennen, ob sechs Quadrate ein [[Würfelnetz]] sind, und sagen, welche Flächen sich beim Falten gegenüberliegen.'
     weiter: entdecken
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Du schneidest einen [[Würfel]] aus Pappe an einigen Kanten auf und legst ihn flach hin. Wie viele Quadrate siehst du?'
-    antwort:
-      eingabe:
-        {
-          art: zahl,
-          loesung: '6',
-          fehler: [{ wert: '4', fv: FV.KP.NETZ-FALTEN }, { wert: '8', fv: FV.KP.NETZ-FALTEN }],
-        }
-    weiter: erklaeren-netz
-  - id: erklaeren-netz
-    typ: erklaeren
-    text:
-      de: 'Ein [[Würfelnetz]] hat 6 Quadrate, die an Kanten zusammenhängen. Falte in Gedanken: Wähle ein Quadrat als Boden und klappe die anderen hoch. In einer Reihe von drei liegen das erste und das dritte gegenüber.'
-    weiter: beispiel
-  - id: beispiel
-    typ: beispiel
-    text:
-      de: 'Kreuz-[[Netz]]: Eine Reihe 1, 2, 3, 4 und je ein Quadrat oben und unten an der 2. Dann liegen 1 und 3 gegenüber, 2 und 4 gegenüber, oben und unten gegenüber.'
-    weiter: ergaenzen
-  - id: ergaenzen
-    typ: ergaenzen
-    text:
-      de: 'Im [[Netz]] liegen vier Quadrate in einer Reihe: A, B, C, D. Welches liegt beim fertigen [[Würfel]] gegenüber von B?'
+      de: 'Hier liegt ein [[Würfel]] aufgeklappt. Wähle B als Boden und schau auf den gefalteten Würfel. Welches Quadrat liegt dann oben, gegenüber von B?'
+    werkzeug: { id: koerpernetz@1, parameter: { netz: 1, schraegbild: true } }
     antwort:
       optionen:
         - { wert: { de: 'D' }, richtig: true }
         - { wert: { de: 'C' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'A' }, fv: FV.KP.NETZ-FALTEN }
+    weiter: erklaeren-netz
+  - id: erklaeren-netz
+    typ: erklaeren
+    text:
+      de: 'Ein [[Würfelnetz]] hat 6 Quadrate, die an den Seiten zusammenhängen. Falte in Gedanken: Ein Quadrat ist der Boden, die Nachbarn klappen hoch. In einer Reihe von drei liegen das erste und das dritte gegenüber.'
+    bild: { werkzeug: koerpernetz@1, parameter: { netz: 1, boden: 'C', schraegbild: true } }
+    weiter: beispiel
+  - id: beispiel
+    typ: beispiel
+    text:
+      de: 'Kreuz-[[Netz]]: die Reihe B, C, D, E und dazu A oben und F unten an B. Boden B: D liegt gegenüber. C und E liegen gegenüber, A und F auch.'
+    bild: { werkzeug: koerpernetz@1, parameter: { netz: 1, boden: 'B', schraegbild: true } }
+    weiter: ergaenzen
+  - id: ergaenzen
+    typ: ergaenzen
+    text:
+      de: 'Im [[Netz]] liegen vier Quadrate in einer Reihe: B, C, D, E. Welches liegt beim fertigen [[Würfel]] gegenüber von C?'
+    bild: { werkzeug: koerpernetz@1, parameter: { netz: 4 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'E' }, richtig: true }
+        - { wert: { de: 'D' }, fv: FV.KP.NETZ-FALTEN }
         - { wert: { de: 'A' }, fv: FV.KP.NETZ-FALTEN }
     weiter: gegenbeispiel
     bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Ein [[Netz]] hat 6 Quadrate in einer langen Reihe. Tim sagt: Daraus wird ein [[Würfel]]. Stimmt das?'
+      de: 'Tim sagt: Sechs Quadrate in einer Reihe sind auch ein [[Würfelnetz]]. Stimmt das?'
+    bild:
+      {
+        werkzeug: koerpernetz@1,
+        parameter: { netz: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]], boden: 'A' },
+      }
     antwort:
       optionen:
         - {
             wert:
-              { de: 'Nein, nach vier Quadraten ist der Ring zu, die letzten zwei liegen doppelt.' },
+              {
+                de: 'Nein, nach vier Quadraten ist der Ring zu. E fällt auf A, F auf B. Zwei Flächen bleiben offen.',
+              },
             richtig: true,
           }
-        - { wert: { de: 'Ja, es sind 6 Quadrate.' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'Ja, es sind sechs Quadrate.' }, fv: FV.KP.NETZ-FALTEN }
     weiter: merksatz
     bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Würfelnetz]]: 6 Quadrate. In Gedanken einen Boden wählen und hochklappen. In einer Reihe liegt jedes zweite Quadrat gegenüber.'
+      de: '[[Würfelnetz]]: 6 Quadrate, jede Fläche entsteht beim Falten genau einmal. Nie mehr als vier in einer Reihe. In einer Reihe liegt jedes zweite Quadrat gegenüber.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Im [[Netz]] liegen drei Quadrate in einer Reihe: X, Y, Z. Welche zwei liegen beim [[Würfel]] gegenüber?'
+      de: 'Welche zwei Quadrate liegen beim fertigen [[Würfel]] gegenüber?'
+    bild: { werkzeug: koerpernetz@1, parameter: { netz: 7 } }
     antwort:
       optionen:
-        - { wert: { de: 'X und Z' }, richtig: true }
-        - { wert: { de: 'X und Y' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'C und E' }, richtig: true }
+        - { wert: { de: 'C und D' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'B und C' }, fv: FV.KP.NETZ-FALTEN }
     weiter: uebergang
     bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
   - id: uebergang

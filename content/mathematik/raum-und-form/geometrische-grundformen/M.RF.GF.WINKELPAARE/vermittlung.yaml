@@ -6,12 +6,13 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kennst du [[Scheitelwinkel]], [[Nebenwinkel]], [[Stufenwinkel]] und [[Wechselwinkel]] und kannst ihre Größe ausrechnen.'
+      de: 'Danach kennst du [[Scheitelwinkel]] und [[Nebenwinkel]] an zwei sich schneidenden [[Geraden]] und kannst ihre Größe ausrechnen. Auch [[Stufenwinkel]] und [[Wechselwinkel]] lernst du kennen.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Wie viel [[Grad]] hat ein gestreckter [[Winkel]]?'
+      de: 'Wie viel [[Grad]] hat dieser gestreckte [[Winkel]]?'
+    bild: { werkzeug: winkel@1, parameter: { grad: 180 } }
     antwort:
       eingabe:
         {
@@ -19,29 +20,62 @@ schritte:
           loesung: '180',
           fehler: [{ wert: '90', fv: FV.GF.WINKELART }, { wert: '360', fv: FV.GF.WINKELART }],
         }
-    weiter: entdecken
+    weiter: vorwissen-lage
     bei: { sonst: M.RF.GF.WINKEL }
+  - id: vorwissen-lage
+    typ: anknuepfen
+    text:
+      de: 'Wie liegen diese beiden [[Geraden]] zueinander?'
+    bild: { werkzeug: geraden@1, parameter: { lage: parallel, richtung: 10 } }
+    antwort:
+      optionen:
+        - { wert: { de: 'parallel' }, richtig: true }
+        - { wert: { de: 'senkrecht' }, fv: FV.GF.LAGEBEZIEHUNG }
+        - { wert: { de: 'schneidend' }, fv: FV.GF.LAGEBEZIEHUNG }
+    weiter: entdecken
+    bei: { sonst: M.RF.GF.LAGE }
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Zwei [[Geraden]] kreuzen sich. Ein [[Winkel]] ist 60°. Der Winkel direkt daneben bildet mit ihm zusammen eine gerade Linie. Wie groß ist er?'
+      de: 'α und β liegen nebeneinander auf der [[Geraden]] g. Drehe h und schau auf die Größen. Was ergeben α und β zusammen, egal wie du drehst?'
+    werkzeug: { id: geraden@1, parameter: { winkel: 60, felder: ['α', 'β', '', ''] } }
     antwort:
-      eingabe: { art: zahl, loesung: '120', fehler: [{ wert: '60', fv: FV.GF.GLEICH-ODER-180 }] }
+      eingabe:
+        {
+          art: zahl,
+          loesung: '180',
+          fehler:
+            [{ wert: '90', fv: FV.GF.GLEICH-ODER-180 }, { wert: '360', fv: FV.GF.GLEICH-ODER-180 }],
+        }
     weiter: erklaeren-winkelpaare
   - id: erklaeren-winkelpaare
     typ: erklaeren
     text:
-      de: '[[Nebenwinkel]] liegen nebeneinander auf einer [[Geraden]]: zusammen 180°. [[Scheitelwinkel]] liegen sich gegenüber: gleich groß. An Parallelen sind [[Stufenwinkel]] (gleiche Lage) und [[Wechselwinkel]] (über Kreuz) gleich groß.'
+      de: '[[Nebenwinkel]] liegen nebeneinander auf einer [[Geraden]], wie α und β: zusammen 180°. [[Scheitelwinkel]] liegen sich am [[Schnittpunkt]] gegenüber, wie α und γ: gleich groß.'
+    bild: { werkzeug: geraden@1, parameter: { winkel: 60, felder: ['α', 'β', 'γ', 'δ'] } }
+    weiter: erklaeren-parallelen
+  - id: erklaeren-parallelen
+    typ: erklaeren
+    text:
+      de: 'Schneidet h zwei [[Geraden]], die [[parallel]] sind, gibt es mehr gleiche [[Winkel]]. [[Stufenwinkel]] liegen an derselben Stelle, wie α und β (F-Form). [[Wechselwinkel]] liegen über Kreuz, wie α und γ (Z-Form).'
+    bild:
+      {
+        werkzeug: geraden@1,
+        parameter:
+          { parallelen: true, winkel: 60, felder: ['α', '', '', ''], felder2: ['β', '', 'γ', ''] },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'α = 70°. Sein [[Nebenwinkel]]: 180° − 70° = 110°. Sein [[Scheitelwinkel]]: 70°. An einer Parallelen ist der [[Stufenwinkel]] von α auch 70°.'
+      de: 'α = 70°. Sein [[Nebenwinkel]] β: 180° − 70° = 110°. Sein [[Scheitelwinkel]] γ: 70°.'
+    bild: { werkzeug: geraden@1, parameter: { winkel: 70, felder: ['α', 'β', 'γ', ''] } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
       de: 'α = 35°. β ist der [[Scheitelwinkel]] von α. Wie viel [[Grad]] hat β?'
+    bild: { werkzeug: geraden@1, parameter: { winkel: 35, felder: ['α', '', 'β', ''] } }
     antwort:
       eingabe: { art: zahl, loesung: '35', fehler: [{ wert: '145', fv: FV.GF.GLEICH-ODER-180 }] }
     weiter: gegenbeispiel
@@ -49,11 +83,15 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Zwei [[Winkel]] liegen nebeneinander auf einer [[Geraden]]. Kim nennt sie [[Scheitelwinkel]]. Stimmt das?'
+      de: 'Kim sagt: α und β liegen am selben [[Schnittpunkt]], also sind sie [[Scheitelwinkel]]. Stimmt das?'
+    bild: { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''] } }
     antwort:
       optionen:
         - {
-            wert: { de: 'Nein, nebeneinander heißt Nebenwinkel. Scheitelwinkel liegen gegenüber.' },
+            wert:
+              {
+                de: 'Nein, sie liegen nebeneinander auf g: Nebenwinkel. Scheitelwinkel liegen gegenüber.',
+              },
             richtig: true,
           }
         - { wert: { de: 'Ja.' }, fv: FV.GF.WINKELPAARE-NAMEN }
@@ -62,23 +100,19 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Nebenwinkel]]: zusammen 180°. [[Scheitelwinkel]], [[Stufenwinkel]] und [[Wechselwinkel]]: gleich groß.'
+      de: '[[Nebenwinkel]] (nebeneinander): zusammen 180°. [[Scheitelwinkel]] (gegenüber), [[Stufenwinkel]] (F) und [[Wechselwinkel]] (Z) an Parallelen: gleich groß.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
     text:
-      de: 'α = 50°. β ist der [[Nebenwinkel]] von α. Wie groß ist β?'
+      de: 'α = 50°. Wie groß ist β?'
+    bild: { werkzeug: geraden@1, parameter: { winkel: 50, felder: ['α', 'β', '', ''] } }
     antwort:
       optionen:
         - { wert: { de: '130°' }, richtig: true }
         - { wert: { de: '50°' }, fv: FV.GF.GLEICH-ODER-180 }
-        - { wert: { de: '310°' }, fv: FV.GF.WINKELPAARE-NAMEN }
     weiter: uebergang
-    bei:
-      {
-        FV.GF.GLEICH-ODER-180: erklaeren-winkelpaare,
-        FV.GF.WINKELPAARE-NAMEN: erklaeren-winkelpaare,
-      }
+    bei: { FV.GF.GLEICH-ODER-180: erklaeren-winkelpaare }
   - id: uebergang
     typ: uebergang
     text:

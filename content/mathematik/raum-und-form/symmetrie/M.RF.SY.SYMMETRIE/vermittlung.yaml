@@ -11,40 +11,110 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Du faltest ein Herz aus Papier genau in der Mitte von oben nach unten. Liegen beide Hälften genau aufeinander?'
+      de: 'Falte die Figur in Gedanken an der dicken Linie. Liegen beide Hälften dann genau aufeinander?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 8,
+            spiegelachse: { x: 4 },
+            kaestchen:
+              [
+                [3, 1],
+                [4, 1],
+                [2, 2],
+                [5, 2],
+                [1, 3],
+                [6, 3],
+                [2, 4],
+                [5, 4],
+                [3, 5],
+                [4, 5],
+                [3, 6],
+                [4, 6],
+              ],
+          },
+      }
     antwort:
       optionen:
-        - { wert: { de: 'Ja.' }, richtig: true }
+        - { wert: { de: 'Ja, jedes Kästchen trifft ein Kästchen.' }, richtig: true }
         - { wert: { de: 'Nein.' }, fv: FV.SY.ACHSENSYMMETRIE }
     weiter: erklaeren-achsen
   - id: erklaeren-achsen
     typ: erklaeren
     text:
-      de: 'Eine Figur ist [[achsensymmetrisch]], wenn du sie so falten kannst, dass beide Hälften genau aufeinanderliegen. Die Faltlinie heißt [[Symmetrieachse]]. Prüfe jede mögliche Linie, nicht nur die, die gerade aussieht.'
+      de: 'Eine Figur ist [[achsensymmetrisch]], wenn du sie so falten kannst, dass beide Hälften genau aufeinanderliegen. Die Faltlinie heißt [[Symmetrieachse]]. Die dicke Linie ist eine. Die gestrichelte [[Diagonale]] nicht: Die Ecken passen nicht aufeinander.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 8,
+            spiegelachse: { x: 4 },
+            figuren: [{ ecken: [[1, 2], [7, 2], [7, 6], [1, 6]] }],
+            linien: [{ von: [1, 2], nach: [7, 6], gestrichelt: true }],
+          },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Ein Rechteck hat 2 [[Symmetrieachsen]]: waagerecht und [[senkrecht]] durch die Mitte. Die [[Diagonalen]] sind keine, die Ecken passen nicht aufeinander. Ein Quadrat hat 4: auch die Diagonalen.'
+      de: 'Ein Rechteck hat 2 [[Symmetrieachsen]]: waagerecht und [[senkrecht]] durch die Mitte. Ein Quadrat hat 4: dazu die beiden [[Diagonalen]], weil alle Seiten gleich lang sind.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 8,
+            figuren: [{ ecken: [[2, 2], [6, 2], [6, 6], [2, 6]] }],
+            linien:
+              [
+                { von: [4, 1], nach: [4, 7] },
+                { von: [1, 4], nach: [7, 4] },
+                { von: [1, 1], nach: [7, 7] },
+                { von: [1, 7], nach: [7, 1] },
+              ],
+          },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Wie viele [[Symmetrieachsen]] hat ein gleichseitiges Dreieck?'
+      de: 'Wie viele [[Symmetrieachsen]] hat dieses Dreieck mit zwei gleich langen Seiten?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter: { achsen: false, max: 8, figuren: [{ ecken: [[1, 1], [7, 1], [4, 6]] }] },
+      }
     antwort:
       eingabe:
         {
           art: zahl,
-          loesung: '3',
+          loesung: '1',
           fehler:
-            [{ wert: '1', fv: FV.SY.ACHSENSYMMETRIE }, { wert: '0', fv: FV.SY.ACHSENSYMMETRIE }],
+            [{ wert: '3', fv: FV.SY.ACHSENSYMMETRIE }, { wert: '0', fv: FV.SY.ACHSENSYMMETRIE }],
         }
     weiter: gegenbeispiel
     bei: { FV.SY.ACHSENSYMMETRIE: erklaeren-achsen }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Jan sagt: Die [[Diagonale]] teilt ein Rechteck in zwei gleiche Dreiecke, also ist sie eine [[Symmetrieachse]]. Stimmt das?'
+      de: 'Jan sagt: Die [[Diagonale]] teilt das Rechteck in zwei gleiche Dreiecke, also ist sie eine [[Symmetrieachse]]. Stimmt das?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 8,
+            figuren: [{ ecken: [[1, 2], [7, 2], [7, 6], [1, 6]] }],
+            linien: [{ von: [1, 2], nach: [7, 6], gestrichelt: true }],
+          },
+      }
     antwort:
       optionen:
         - {
@@ -58,12 +128,18 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Symmetrieachse]]: Faltlinie, an der beide Hälften genau aufeinanderliegen. Zwei gleich große Teile reichen nicht.'
+      de: '[[Symmetrieachse]]: Faltlinie, an der beide Hälften genau aufeinanderliegen. Zwei gleich große Teile reichen nicht. Prüfe auch schräge Linien.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Wie viele [[Symmetrieachsen]] hat ein Quadrat?'
+      de: 'Wie viele [[Symmetrieachsen]] hat dieses Quadrat?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          { achsen: false, max: 8, figuren: [{ ecken: [[2, 2], [6, 2], [6, 6], [2, 6]] }] },
+      }
     antwort:
       optionen:
         - { wert: { de: '4' }, richtig: true }
