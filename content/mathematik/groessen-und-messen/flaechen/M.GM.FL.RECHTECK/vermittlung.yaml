@@ -19,7 +19,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Ein Beet ist 5 m lang und 3 m breit. Du legst Platten von 1 m mal 1 m darauf, Reihe für Reihe. Wie viele Platten brauchst du?'
+      de: 'Ein Beet ist 5 m lang und 3 m breit. Lege Platten von 1 m mal 1 m darauf, Reihe für Reihe. Wie viele Platten brauchst du?'
+    werkzeug: { id: flaeche@1, parameter: { rechtecke: [[0, 0, 5, 3]], einheit: m, reihen: 0 } }
     antwort:
       eingabe:
         {
@@ -32,7 +33,9 @@ schritte:
   - id: erklaeren-umfang-flaeche
     typ: erklaeren
     text:
-      de: 'Der [[Flächeninhalt]] sagt, wie viele [[Einheitsquadrate]] hineinpassen: Länge · Breite, in cm² oder m². Der [[Umfang]] ist der Weg einmal um den Rand: alle vier Seiten addiert, in cm oder m.'
+      de: 'Der [[Flächeninhalt]] sagt, wie viele [[Einheitsquadrate]] hineinpassen: Länge · Breite, in cm² oder m². Der [[Umfang]] ist der Weg einmal um den dicken Rand: alle vier Seiten addiert, in cm oder m.'
+    bild:
+      { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 5, 3]], einheit: m, quadrate: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -43,6 +46,7 @@ schritte:
     typ: ergaenzen
     text:
       de: 'Ein Rechteck ist 7 cm lang und 2 cm breit. Wie viele Zentimeter ist sein [[Umfang]]?'
+    bild: { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 7, 2]] } }
     antwort:
       eingabe:
         {
@@ -61,6 +65,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Für einen Zaun um einen Garten, 10 m lang und 6 m breit, rechnet Jan 10 · 6 = 60 m. Stimmt das?'
+    bild: { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 10, 6]], einheit: m } }
     antwort:
       optionen:
         - { wert: { de: 'Nein, der Zaun ist der Umfang: 10 + 6 + 10 + 6 = 32 m.' }, richtig: true }

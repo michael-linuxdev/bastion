@@ -19,7 +19,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Du klappst einen [[Würfel]] auf. Wie viele Quadrate hat sein [[Netz]]?'
+      de: 'Rechts siehst du einen [[Würfel]], links ist er aufgeklappt. Im [[Schrägbild]] siehst du nur drei Flächen. Tippe im [[Netz]] auf die Buchstaben. Wie viele Flächen hat der Würfel?'
+    werkzeug: { id: koerpernetz@1, parameter: { netz: 1, schraegbild: true } }
     antwort:
       eingabe:
         {
@@ -36,6 +37,7 @@ schritte:
     typ: erklaeren
     text:
       de: 'Die [[Oberfläche]] ist alles, was du zum Einpacken brauchst: alle Flächen des Netzes. Ein [[Quader]] hat 6 Rechtecke, je zwei gleiche gegenüber: oben und unten, vorne und hinten, links und rechts.'
+    bild: { werkzeug: quader@1, parameter: { laenge: 5, breite: 3, hoehe: 2, netz: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -46,6 +48,7 @@ schritte:
     typ: ergaenzen
     text:
       de: 'Ein [[Würfel]] hat die [[Kante]] 3 cm. Wie viele cm² ist sein [[Oberflächeninhalt]]?'
+    bild: { werkzeug: quader@1, parameter: { laenge: 3, breite: 3, hoehe: 3, netz: true } }
     antwort:
       eingabe:
         {
@@ -63,7 +66,8 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: '[[Quader]] 4 cm, 2 cm, 1 cm. Mia rechnet 4 · 2 + 4 · 1 + 2 · 1 = 14 cm². Stimmt das?'
+      de: '[[Quader]] 4 cm, 2 cm, 1 cm. Mia rechnet 4 · 2 + 4 · 1 + 2 · 1 = 14 cm². Stimmt das? Schau ins [[Netz]].'
+    bild: { werkzeug: quader@1, parameter: { laenge: 4, breite: 2, hoehe: 1, netz: true } }
     antwort:
       optionen:
         - { wert: { de: 'Nein, jede Fläche gibt es zweimal: 28 cm².' }, richtig: true }

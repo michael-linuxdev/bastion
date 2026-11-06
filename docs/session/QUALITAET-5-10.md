@@ -137,16 +137,16 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | | M.ZO.BR.DEZ-ORDNEN | Dezimalzahlen vergleichen und runden | Zahlenstrahl | |
 | | M.ZO.BR.DEZ-RECHNEN | Mit Dezimalzahlen rechnen | | schriftlich |
 | | M.ZO.BR.PROZENT | Prozentschreibweise | Hundertertafel | |
-| Größen und Messen | M.GM.GR.UMRECHNEN | Einheiten umrechnen | Stellenwerttafel | |
-| | M.GM.GR.KOMMA | Größen in verschiedenen Schreibweisen | Stellenwerttafel | |
-| | M.GM.GR.ZEIT | Uhrzeiten und Zeitspannen | Uhr | zwei Schritte |
-| | M.GM.GR.SACH | Sachaufgaben mit Größen | | mehrschrittig |
-| | M.GM.FL.EINHEITEN | Flächeneinheiten | Quadrat | |
-| | M.GM.FL.RECHTECK | Umfang und Fläche des Rechtecks | Rechteck | |
-| | M.GM.FL.ZUSAMMENGESETZT | Zusammengesetzte Figuren | Figur | zerlegen, rechnen |
-| | M.GM.KP.EINHEITEN | Volumeneinheiten und Hohlmaße | Würfel | |
-| | M.GM.KP.VOLUMEN | Volumen von Würfel und Quader | Quader | |
-| | M.GM.KP.OBERFLAECHE | Oberfläche von Würfel und Quader | Netz | Flächen, Summe |
+| Größen und Messen | M.GM.GR.UMRECHNEN | Einheiten umrechnen | Stellenwerttafel ✓ | |
+| | M.GM.GR.KOMMA | Größen in verschiedenen Schreibweisen | Stellenwerttafel ✓ | |
+| | M.GM.GR.ZEIT | Uhrzeiten und Zeitspannen | Uhr, Zeitleiste ✓ | zwei Schritte |
+| | M.GM.GR.SACH | Sachaufgaben mit Größen | (nicht bildhaft; Stellenwerttafel beim Umrechnen ✓) | mehrschrittig |
+| | M.GM.FL.EINHEITEN | Flächeneinheiten | Quadrat, Stellenwerttafel ✓ | |
+| | M.GM.FL.RECHTECK | Umfang und Fläche des Rechtecks | Rechteck ✓ | |
+| | M.GM.FL.ZUSAMMENGESETZT | Zusammengesetzte Figuren | Figur ✓ | zerlegen, rechnen |
+| | M.GM.KP.EINHEITEN | Volumeneinheiten und Hohlmaße | Würfel, Stellenwerttafel ✓ | |
+| | M.GM.KP.VOLUMEN | Volumen von Würfel und Quader | Quader ✓ | |
+| | M.GM.KP.OBERFLAECHE | Oberfläche von Würfel und Quader | Netz ✓ | Flächen, Summe |
 | Raum und Form | M.RF.GF.LAGE | Parallel, senkrecht, schneidend | Geraden ✓ | |
 | | M.RF.GF.WINKEL | Winkel | Winkel ✓ | |
 | | M.RF.GF.WINKELPAARE | Winkelpaare an Geraden | Geraden ✓ | |
@@ -176,3 +176,4 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-themenwahl`):** PR (3) ~~B3, B4, C1, C3, C4, D2~~ erledigt (Themenwahl).
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-erstvermittlung`):** PR (4) ~~D1, B9, C2~~ erledigt (Erstvermittlung). Als Nächstes PR (5): Kleines (B5–B8, C5, C6, D3, D4).
 - **05.11.2026, Grafik, Q-G1 PR 1 (Branch `grafik/q-g1-ticker`):** Takt der Bühne: Pixi-Ticker steht bei „ruhig“, beim Zoomen und Schwenken und ohne bewegte Teile, sonst 30 Hz statt 60; Einzelbild bei Änderung. Messwerkzeug `pnpm tempo` (GRAFIK §29, Zahlen vorher/nachher dort). Befund für die nächsten PRs: Beim Zoomen bleibt der Hauptfaden auch mit stehender Bühne voll, Ursache liegt in der Kulisse (Punkt 2). Offen beim PV: Messung am iPhone 13 nach jedem PR, Referenzgeräte (Q-G0).
+- **06.11.2026, Lernkern, Q-L2 Größen und Messen (Branches `lernkern/q-l2-werkzeuge-groessen`, darauf `lernkern/q-l2-groessen-messen`):** Werkzeuge `einheitentafel@1`, `uhr@1`, `flaeche@1`, `quader@1`; zehn Erstvermittlungen der Klasse 5 mit Bild oder Werkzeug an der erklärenden Stelle, M5-Tabelle abgehakt. Geänderte Dateien haben Stufe 0 und kommen in Q-L1 dran. Offen beim PV: Vorschaubilder ansehen.
