@@ -19,3 +19,8 @@ fehlerbilder:
     fv: FV.GR.KOMMASCHREIBWEISE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 7246edd73c0efde5ba0cfb6859d6ae530692a092ea3238ff38fad05c4d0f0aa2

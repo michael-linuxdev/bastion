@@ -27,3 +27,8 @@ rueckweg:
 kontrast: [M.SF.GL.FORMELN.ANWENDEN, M.GM.KP.VOLUMEN.KANTE-FEHLT]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 5efe7912e1b1920de82e0120cdfdd391718381618217ccff3eaee50b08fedd50

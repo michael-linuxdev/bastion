@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.KP.VOLUMEN-OBERFLAECHE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 1d559c1bdfa265ad05c990bd938c07f26387c1868eaec20a3c1659200441ae23

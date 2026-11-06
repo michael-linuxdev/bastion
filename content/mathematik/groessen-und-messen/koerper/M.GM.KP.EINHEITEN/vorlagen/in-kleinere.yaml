@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.KP.VOLUMEN-1000
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: bd79c019933e0a441c138cb0391ab3a6a734bf53865c277b789ac8524237f5c7

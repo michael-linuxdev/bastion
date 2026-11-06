@@ -11,9 +11,9 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Ein [[Würfel]] hat die [[Kante]] 10 cm. Wie viele cm³ ist sein [[Volumen]]?'
+      de: 'Ein [[Quader]] ist 4 cm lang, 3 cm breit und 2 cm hoch. Wie viele cm³ ist sein [[Volumen]]?'
     antwort:
-      eingabe: { art: zahl, loesung: '1000', fehler: [{ wert: '100', fv: FV.KP.NUR-GRUNDFLAECHE }] }
+      eingabe: { art: zahl, loesung: '24', fehler: [{ wert: '12', fv: FV.KP.NUR-GRUNDFLAECHE }] }
     weiter: entdecken
     bei: { sonst: M.GM.KP.VOLUMEN }
   - id: entdecken
@@ -72,11 +72,7 @@ schritte:
             ],
         }
     weiter: gegenbeispiel
-    bei:
-      {
-        FV.KP.VOLUMEN-1000: erklaeren-volumeneinheiten,
-        FV.GR.UMRECHNEN-RICHTUNG: erklaeren-volumeneinheiten,
-      }
+    bei: { FV.KP.VOLUMEN-1000: erklaeren-volumeneinheiten }
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
@@ -112,3 +108,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 35234325da9049479b4c4aca8f9ef1098a5554cd015ce5b8c8de843a20395bca

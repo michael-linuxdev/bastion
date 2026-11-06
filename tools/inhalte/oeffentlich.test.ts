@@ -116,9 +116,35 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
     const kompetenzen = grund['kompetenzen'] as Daten[];
-    // Stand 06.11.2026: Musterfeld Brüche und aus Raum und Form (Q-L1) nur SPIEGELN – die übrigen
-    // sieben haben Voraussetzungen ohne Stufe 1 und fallen wegen „ohne Lücke“ heraus
-    const erlaubt = ['M.RF.SY.SPIEGELN', 'M.ZO.BR.ADD-SUB', 'M.ZO.BR.BEGRIFF', 'M.ZO.BR.ERWEITERN'];
+    // Stand 06.11.2026: Musterfeld Brüche, aus Raum und Form (Q-L1) SPIEGELN (die übrigen haben
+    // noch Dateien unter Stufe 1), Größen und Messen Klasse 5 (Q-L1) mit allen zehn Kompetenzen.
+    // Die Liste enthält auch, was der PR für Zahlen, Brüche, Daten (#305) öffentlich macht
+    // (KOORDINATEN und die sieben Kompetenzen dort); die Prüfung unten verlangt nur „enthalten“.
+    // Eine Voraussetzung unter Stufe 1 gilt als „nicht verfügbar“ (INHALTSFORMAT §8).
+    const erlaubt = [
+      'M.DZ.DA.MITTELWERT',
+      'M.GM.FL.EINHEITEN',
+      'M.GM.FL.RECHTECK',
+      'M.GM.FL.ZUSAMMENGESETZT',
+      'M.GM.GR.KOMMA',
+      'M.GM.GR.SACH',
+      'M.GM.GR.UMRECHNEN',
+      'M.GM.GR.ZEIT',
+      'M.GM.KP.EINHEITEN',
+      'M.GM.KP.OBERFLAECHE',
+      'M.GM.KP.VOLUMEN',
+      'M.RF.GF.KOORDINATEN',
+      'M.RF.SY.SPIEGELN',
+      'M.ZO.BR.ADD-SUB',
+      'M.ZO.BR.ANTEIL-VON',
+      'M.ZO.BR.BEGRIFF',
+      'M.ZO.BR.DEZ-ORDNEN',
+      'M.ZO.BR.ERWEITERN',
+      'M.ZO.BR.PROZENT',
+      'M.ZO.BR.VERGLEICHEN',
+      'M.ZO.BR.ZAHLENSTRAHL',
+      'M.ZO.NZ.ORDNEN',
+    ];
     for (const k of kompetenzen) expect(erlaubt).toContain(k['id']);
     for (const k of kompetenzen)
       expect(wirksameStufe(k), String(k['id'])).toBeGreaterThanOrEqual(1);

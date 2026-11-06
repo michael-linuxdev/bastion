@@ -31,7 +31,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Schreibe vor dem Rechnen auf, was gesucht ist. Prüfe am Ende: Passt meine Zahl zu dieser Frage? Wer mit 20 € bezahlt und 13,50 € ausgibt, bekommt 6,50 € zurück.'
 gegenbeispiel:
-  de: 'Gefragt „Wie viel Geld bleibt übrig?“ kann die Antwort nicht der Preis sein, sonst hättest du ja gar nichts ausgegeben.'
+  de: 'Wer mit 5 € bezahlt und 3,20 € ausgibt, bekommt nicht 3,20 € zurück, sondern 1,80 €. Der Preis ist nur ein Zwischenergebnis.'
 rueckweg:
   vermittlung: M.ZO.SA.LESEN#erklaeren-frage
 kontrast:
@@ -47,3 +47,8 @@ kontrast:
   ]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: c3dd904719a648f3f6a214e27fc24e97ea047b77ab03bcfdc591c930b96aeb47

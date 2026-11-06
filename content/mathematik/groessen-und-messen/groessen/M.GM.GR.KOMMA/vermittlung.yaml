@@ -23,7 +23,7 @@ schritte:
     werkzeug:
       { id: einheitentafel@1, parameter: { groesse: geld, wert: '3,50', einheit: €, ziel: € } }
     antwort:
-      eingabe: { art: zahl, loesung: '350', fehler: [{ wert: '53', fv: FV.GR.KOMMASCHREIBWEISE }] }
+      eingabe: { art: zahl, loesung: '350', fehler: [{ wert: '35', fv: FV.GR.KOMMASCHREIBWEISE }] }
     weiter: erklaeren-kommaschreibweise
   - id: erklaeren-kommaschreibweise
     typ: erklaeren
@@ -101,3 +101,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 4aaa2d03ab264a137d0057070c718cda4f4d23564715d8cdab731c1c5be2f8bc

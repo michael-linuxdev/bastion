@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.GM.FL.EINHEITEN.IN-GROESSERE, M.GM.FL.EINHEITEN.IN-KLEINERE]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 5a848b6c1316a7d6af1ae1006110c2b3cabaf53238a2228effa65fd8c3cd02c7

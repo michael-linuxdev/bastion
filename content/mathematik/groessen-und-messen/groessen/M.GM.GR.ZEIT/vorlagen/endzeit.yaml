@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.GR.ZEITRECHNEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: aa7e9b37e4e65b87faa82a57b64a22a76aabc31c951aaf53b0982044d9b1b65b

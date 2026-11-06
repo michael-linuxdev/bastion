@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.KP.LITER
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: b887ef52b6d7aca4a11945681e8b78bd56bb176099edae90e62a6952cfcf8205
