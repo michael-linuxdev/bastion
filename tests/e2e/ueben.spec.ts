@@ -705,7 +705,7 @@ test('Fertig für heute: Ressourcen unter dem Können, mit „woher“ (BASEBAU 
   const gekonnt = page.getByRole('heading', { name: 'Was du heute gekonnt hast' });
   const ertrag = page.getByRole('heading', { name: 'Dafür hast du erarbeitet' });
   await expect(ertrag).toBeVisible();
-  await expect(page.getByText('1 Stein – aus 1 bearbeiteten Aufgabe')).toBeVisible();
+  await expect(page.getByText('1 Stein – aus 1 Aufgabe in Ruhe')).toBeVisible();
   // Erst das Können, dann die Ressourcen (§9 Punkt 2)
   const oben = async (l: typeof gekonnt) => (await l.boundingBox())?.y ?? 0;
   expect(await oben(gekonnt)).toBeLessThan(await oben(ertrag));
@@ -748,7 +748,7 @@ test('Basebau-Schalter: aus blendet Ressourcen aus, an zeigt alles Erarbeitete (
   await schalter.check();
   await page.getByRole('button', { name: /Zurück/ }).click();
   await antworten(false);
-  await expect(page.getByText('1 Stein – aus 1 bearbeiteten Aufgabe')).toBeVisible();
+  await expect(page.getByText('1 Stein – aus 1 Aufgabe in Ruhe')).toBeVisible();
 });
 
 /** Erarbeitete Ressourcen direkt in die Ablage schreiben (Buchungen und passendes Konto). */
