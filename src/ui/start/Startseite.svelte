@@ -196,18 +196,17 @@
       aria-disabled={faellig === 0}
       onclick={() => faellig > 0 && onziel('wiederholen')}
     >
-      <span class="kachel-name"
-        ><Symbol name="wiederholen" />
-        {t('wiederholen.knopf')}{#if faellig > 0}<span class="zahl" aria-hidden="true"
-            >{faellig}</span
-          >{/if}</span
-      >
-      <span class="kachel-info" id="info-wiederholen"
-        >{faellig === 0
-          ? t('start.nichts-dran')
-          : faellig === 1
-            ? t('wiederholen.eine')
-            : `${faellig} ${t('wiederholen.mehrere')}`}</span
+      <span class="kachel-name"><Symbol name="wiederholen" /> {t('wiederholen.knopf')}</span>
+      <!-- D4 (Q-O1): Plakette unter dem Titel, damit der Name nicht mehr umbricht -->
+      <span class="kachel-zeile">
+        {#if faellig > 0}<span class="zahl" aria-hidden="true">{faellig}</span>{/if}
+        <span class="kachel-info" id="info-wiederholen"
+          >{faellig === 0
+            ? t('start.nichts-dran')
+            : faellig === 1
+              ? t('wiederholen.eine')
+              : `${faellig} ${t('wiederholen.mehrere')}`}</span
+        ></span
       >
     </button>
   {/snippet}
@@ -219,18 +218,17 @@
       aria-disabled={offeneFehler === 0}
       onclick={() => offeneFehler > 0 && onziel('werkstatt')}
     >
-      <span class="kachel-name"
-        ><Symbol name="werkstatt" />
-        {t('werkstatt.knopf')}{#if offeneFehler > 0}<span class="zahl" aria-hidden="true"
-            >{offeneFehler}</span
-          >{/if}</span
-      >
-      <span class="kachel-info" id="info-werkstatt"
-        >{offeneFehler === 0
-          ? t('start.keine-fehler')
-          : offeneFehler === 1
-            ? t('werkstatt.offen-eins')
-            : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+      <span class="kachel-name"><Symbol name="werkstatt" /> {t('werkstatt.knopf')}</span>
+      <!-- D4 (Q-O1): Plakette unter dem Titel, damit der Name nicht mehr umbricht -->
+      <span class="kachel-zeile">
+        {#if offeneFehler > 0}<span class="zahl" aria-hidden="true">{offeneFehler}</span>{/if}
+        <span class="kachel-info" id="info-werkstatt"
+          >{offeneFehler === 0
+            ? t('start.keine-fehler')
+            : offeneFehler === 1
+              ? t('werkstatt.offen-eins')
+              : `${offeneFehler} ${t('werkstatt.offen-mehrere')}`}</span
+        ></span
       >
     </button>
   {/snippet}
@@ -527,8 +525,13 @@
   .kachel .kachel-name {
     justify-self: stretch;
   }
+  .kachel-zeile {
+    display: flex;
+    align-items: center;
+    gap: var(--abstand-s);
+  }
   .zahl {
-    margin-inline-start: auto;
+    flex-shrink: 0;
     min-inline-size: 1.6rem;
     block-size: 1.6rem;
     padding-inline: 0.4rem;
@@ -552,17 +555,21 @@
     overflow-wrap: anywhere;
     hyphens: auto;
   }
+  /* D4 (Q-O1): Symbol und Abstand etwas kleiner, damit „Fehlerwerkstatt“ auf 390 px in eine
+     Zeile passt */
   .kachel-name {
     display: flex;
     align-items: center;
-    gap: var(--abstand-s);
+    gap: 0.4rem;
     font-weight: 800;
     color: var(--farbe-text);
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
   .kachel-name :global(svg) {
     color: var(--farbe-akzent);
     flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
   }
   .kachel[aria-disabled='true'] .kachel-name,
   .kachel[aria-disabled='true'] .kachel-name :global(svg) {

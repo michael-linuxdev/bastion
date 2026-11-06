@@ -294,9 +294,12 @@
           </h4>
           <ul class="steine">
             {#each weiterMit as k, i (k.id)}
+              <!-- C6 (Q-O1): jede Zeile volle Breite, Üben-Knopf rechts bündig -->
               <li class="stein wackelt" class:naechster={i === 0}>
-                <span>{k.titel.de}</span>
-                {#if i === 0}<span class="naechster-label">{t('diagnose.naechster')}</span>{/if}
+                <span class="name">
+                  {k.titel.de}
+                  {#if i === 0}<span class="naechster-label">{t('diagnose.naechster')}</span>{/if}
+                </span>
                 <button class="haupt" onclick={() => onueben(k)}>{t('diagnose.ueben')}</button>
               </li>
             {/each}
@@ -379,6 +382,19 @@
 
   .stein.wackelt {
     border-inline-start: 4px solid var(--farbe-akzent-warm);
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: var(--abstand-m);
+  }
+
+  .stein.wackelt .name {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .stein.wackelt button {
+    flex-shrink: 0;
   }
 
   .stein.naechster {
@@ -387,6 +403,7 @@
   }
 
   .naechster-label {
+    display: block;
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--farbe-akzent);
