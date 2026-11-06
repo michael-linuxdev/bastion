@@ -26,7 +26,6 @@
   import Textteile from './Textteile.svelte';
   import Symbol from '../grafik/Symbol.svelte';
   import { soundUiErgebnis } from '../bastion/sound/sound';
-  import OrientierungWahl from '../grafik/OrientierungWahl.svelte';
 
   let {
     ueberschrift,
@@ -83,7 +82,6 @@
   } = $props();
   let fehlerInFolge = $state(0);
   /** Session-Zahnrad: Orientierung, ohne die Übung zu überfrachten */
-  let sessionEinstellungen = $state(false);
   /** Großer Pausenblock (Einladung nach fünf Aufgaben, R5 / N77) */
   const BLOCK = 5;
   /** Früher ruhiger Atemzug nach wenigen Aufgaben (M65) */
@@ -296,36 +294,27 @@
 </script>
 
 <section class="uebung">
+  <!-- B7 (Q-O1): oben nur Zurück und die Erklärung mit Wort; „Bildschirm drehen“ steht unter
+       Mehr → Einstellungen (O19), nicht mehr mitten in der Übung -->
   <div class="oben">
     <ZurueckKnopf onclick={onzurueck} />
-    <button
-      class="zahnrad"
-      aria-expanded={sessionEinstellungen}
-      aria-controls="session-einstellungen"
-      aria-label={t('session.einstellungen')}
-      onclick={() => (sessionEinstellungen = !sessionEinstellungen)}
-    >
-      <Symbol name="einstellungen" />
-    </button>
-  </div>
-  {#if sessionEinstellungen}
-    <div id="session-einstellungen" class="session">
-      <OrientierungWahl kompakt />
-    </div>
-  {/if}
-  <header class="kopf">
-    <h2>{ueberschrift}</h2>
-    {#if stufe}<span class="stufe" aria-label="{t('niveau.stufe')}: {stufe}">{stufe}</span>{/if}
     {#if onerklaerung}
-      <button
-        class="dezent erklaerung"
-        aria-label={t('vermittlung.knopf')}
-        title={t('vermittlung.knopf')}
-        onclick={onerklaerung}
-      >
+      <button class="erklaerung" onclick={onerklaerung}>
         <Symbol name="buch" />
+        <span>{t('vermittlung.knopf')}</span>
       </button>
     {/if}
+  </div>
+  <header class="kopf">
+    <div class="titel">
+      <h2>{ueberschrift}</h2>
+      {#if modus !== 'ueben' && aufgabe}
+        <!-- B8 (Q-O1): Beim Wiederholen und in der Werkstatt steht das Thema in der Kopfzeile.
+             Ohne Niveau (L-22): Lernende sehen es nicht -->
+        <p class="herkunft">{aufgabe.kompetenz.titel.de}</p>
+      {/if}
+    </div>
+    {#if stufe}<span class="stufe" aria-label="{t('niveau.stufe')}: {stufe}">{stufe}</span>{/if}
     {#if aufgabe || erledigt > 0}
       <span
         class="steine"
@@ -354,11 +343,6 @@
       <!-- V111: feste Reihenfolge Aufgabe → Eingabe → Urteil; live nur Urteil -->
       <article class="arbeitsblatt aufgabe" class:phase-rueckmeldung={ergebnis !== undefined}>
         <div class="prompt aufgabe-frage" id="aufgabe-frage">
-          {#if modus !== 'ueben'}
-            <!-- Ohne Niveau (L-22): Lernende sehen es nicht -->
-            <p class="herkunft">{aufgabe.kompetenz.titel.de}</p>
-          {/if}
-          <p class="gesucht">{t('uebung.gesucht')}</p>
           {#if aufgabe.vorlage.hilfsmittelfrei}
             <!-- B10: Teil-A-Aufgaben (Abitur, Realschulabschluss) ohne Taschenrechner -->
             <p class="ohne-rechner">
@@ -394,29 +378,21 @@
           {/if}
 
           {#if aufgabe.frueher}
-            <div class="paar" role="group" aria-label={t('werkstatt.ueberschrift')}>
-              <!-- L10: Beschriftung vor dem Wert; „heute“ sagt, was zu tun ist -->
-              <div class="seite damals">
-                <p class="seite-titel">{t('werkstatt.paar-damals')}</p>
-                <p class="seite-leise">{t('werkstatt.damals')}</p>
-                <p class="seite-wert">
-                  <strong
-                    ><Rechentext
-                      text={antwortText(
-                        aufgabe.frueher,
-                        aufgabe.instanz.optionen,
-                        aufgabe.vorlage.typ === 'uhrzeit-eingabe',
-                      )}
-                      erklaeren={false}
-                    /></strong
-                  >
-                </p>
-              </div>
-              <div class="seite heute">
-                <p class="seite-titel">{t('werkstatt.paar-heute')}</p>
-                <p class="seite-leise">{t('werkstatt.paar-heute-text')}</p>
-              </div>
-            </div>
+            <!-- B8 (Q-O1): Werkstatt-Hinweis als eine Zeile statt zwei Kästen -->
+            <p class="damals-zeile">
+              {t('werkstatt.damals')}
+              <strong
+                ><Rechentext
+                  text={antwortText(
+                    aufgabe.frueher,
+                    aufgabe.instanz.optionen,
+                    aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                  )}
+                  erklaeren={false}
+                /></strong
+              >
+              · {t('werkstatt.noch-einmal')}
+            </p>
           {/if}
 
           {#if hilfen > 0 && ergebnis === undefined}
@@ -643,28 +619,6 @@
     gap: var(--abstand-s);
   }
 
-  .zahnrad {
-    font: inherit;
-    display: grid;
-    place-items: center;
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    padding: 0;
-    border: none;
-    border-radius: var(--radius);
-    background: transparent;
-    color: var(--farbe-text-leise);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .session {
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: var(--farbe-flaeche-leise);
-  }
-
   .kopf {
     display: flex;
     flex-wrap: wrap;
@@ -688,28 +642,28 @@
     letter-spacing: 0.02em;
   }
 
+  /* B7 (Q-O1): Erklärung als Knopf mit Wort, rechts neben Zurück */
   .erklaerung {
     font: inherit;
-    display: grid;
-    place-items: center;
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    padding: 0;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-block-size: 2.75rem;
+    padding-block: 0;
+    padding-inline: var(--abstand-m);
     border: none;
     border-radius: var(--radius);
     background: var(--farbe-flaeche-leise);
     color: var(--farbe-text);
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .erklaerung :global(svg) {
-    inline-size: 1.35rem;
-    block-size: 1.35rem;
-  }
-
-  .erklaerung {
-    font-size: 0.9375rem;
-    font-weight: 600;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
   }
 
   .steine {
@@ -748,7 +702,7 @@
     padding: var(--abstand-m);
   }
 
-  /* K51: Aufgabentext mit Luft + „Was wird gesucht?“ */
+  /* K51: Aufgabentext mit Luft (das Label „Was wird gesucht?“ ist seit B5, Q-O1, weg) */
   .prompt {
     display: grid;
     gap: 0.5rem;
@@ -781,58 +735,27 @@
     background: var(--farbe-hinweis-flaeche);
   }
 
-  .paar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--abstand-s);
-    align-items: stretch;
+  .titel {
+    display: grid;
+    gap: 0.125rem;
   }
 
-  .seite {
-    border-radius: var(--radius);
-    padding: var(--abstand-s);
-    flex: 1 1 8rem;
-  }
-
-  .seite.damals {
-    background: var(--farbe-flaeche-leise);
-    color: var(--farbe-text-leise);
-  }
-
-  .seite.heute {
-    flex: 2 1 14rem;
-    background: color-mix(in srgb, var(--farbe-flaeche) 70%, var(--farbe-akzent));
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 25%, transparent);
-  }
-
-  .seite-titel {
-    margin: 0 0 0.25rem;
-    font-size: 0.85rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .seite-wert {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--farbe-text);
-  }
-
-  .seite-leise {
-    margin: 0.35rem 0 0;
-    font-size: 0.85rem;
-  }
-
-  .damals {
-    color: var(--farbe-text-leise);
+  /* B8 (Q-O1): Thema in der Kopfzeile, gut lesbar */
+  .herkunft {
+    font-size: 1rem;
+    font-weight: 600;
     margin-block: 0;
   }
 
-  .herkunft {
+  /* B8 (Q-O1): Werkstatt-Hinweis als eine Zeile */
+  .damals-zeile {
+    margin-block: 0;
     color: var(--farbe-text-leise);
     font-size: 1rem;
-    margin-block: 0;
+  }
+
+  .damals-zeile strong {
+    color: var(--farbe-text);
   }
 
   .ohne-rechner {
@@ -848,15 +771,6 @@
     background: var(--farbe-flaeche-leise);
     font-size: 0.9rem;
     font-weight: 700;
-  }
-
-  .gesucht {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: var(--farbe-text-leise);
   }
 
   .text {
@@ -1062,12 +976,6 @@
 
     h2 {
       font-size: 1.125rem;
-    }
-
-    .session {
-      padding-block: 0.25rem;
-      padding-inline: var(--abstand-s);
-      font-size: 0.875rem;
     }
 
     .aufgabe {

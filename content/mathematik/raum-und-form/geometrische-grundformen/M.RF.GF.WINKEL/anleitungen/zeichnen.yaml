@@ -8,7 +8,7 @@ material:
 bilder: anleitung.winkel@1
 schritte:
   - de: 'Markiere einen Punkt S. Das wird der Scheitel. Zeichne von S aus eine Linie nach rechts. Das ist der erste [[Schenkel]].'
-  - de: 'Lege die lange [[Kante]] des Geodreiecks auf den [[Schenkel]]. Der Nullpunkt in der Mitte der langen Kante muss genau auf S liegen.'
+  - de: 'Lege die lange Seite des [[Geodreieck]]s auf den [[Schenkel]]. Der Nullpunkt in der Mitte der langen Seite muss genau auf S liegen.'
   - de: 'Suche auf der Winkelskala 50°. Zähle von der Seite aus, auf der dein [[Schenkel]] liegt – dort beginnt die [[Skala]] bei 0. Markiere bei 50° einen Punkt am Rand des Geodreiecks.'
   - de: 'Nimm das [[Geodreieck]] weg. Verbinde S mit deinem Punkt und zeichne die Linie etwas länger. Das ist der zweite [[Schenkel]].'
   - de: Zeichne zwischen den beiden Schenkeln einen kleinen Bogen und schreibe 50° daneben.

@@ -53,19 +53,21 @@
         )}</button
       >
     {/if}
-    <button
-      type="button"
-      class="zweit"
-      aria-label={t('werkzeug.geraden.links')}
-      onclick={() => (zustand = gedreht(zustand, zustand.schritt))}>↶</button
-    >
-    <span class="winkel">{zustand.winkel}°</span>
-    <button
-      type="button"
-      class="zweit"
-      aria-label={t('werkzeug.geraden.rechts')}
-      onclick={() => (zustand = gedreht(zustand, -zustand.schritt))}>↷</button
-    >
+    {#if zustand.drehbar}
+      <button
+        type="button"
+        class="zweit"
+        aria-label={t('werkzeug.geraden.links')}
+        onclick={() => (zustand = gedreht(zustand, zustand.schritt))}>↶</button
+      >
+      <span class="winkel">{zustand.winkel}°</span>
+      <button
+        type="button"
+        class="zweit"
+        aria-label={t('werkzeug.geraden.rechts')}
+        onclick={() => (zustand = gedreht(zustand, -zustand.schritt))}>↷</button
+      >
+    {/if}
   </div>
 {/if}
 

@@ -43,7 +43,7 @@ schritte:
     typ: ergaenzen
     text:
       de: 'Welche [[Winkelart]] hat dieser [[Winkel]] von 120°?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 120 } }
+    bild: { werkzeug: winkel@1, parameter: { grad: 120, frage: true } }
     antwort:
       optionen:
         - { wert: { de: 'stumpf' }, richtig: true }
@@ -55,7 +55,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Mia liest diesen [[Winkel]] ab und schreibt 150°. Stimmt das?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 30, winkelmesser: true } }
+    bild: { werkzeug: winkel@1, parameter: { grad: 30, winkelmesser: true, frage: true } }
     antwort:
       optionen:
         - {
@@ -75,7 +75,7 @@ schritte:
     typ: pruefen
     text:
       de: 'Wie groß ist dieser [[Winkel]]?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 110, winkelmesser: true } }
+    bild: { werkzeug: winkel@1, parameter: { grad: 110, winkelmesser: true, frage: true } }
     antwort:
       optionen:
         - { wert: { de: '110°' }, richtig: true }
@@ -90,3 +90,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: b62aa064e6190f9e9ce7e53ba439499970a6cbc5bb7211541c1522ce9e119023

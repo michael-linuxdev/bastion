@@ -53,7 +53,10 @@ schritte:
       optionen:
         - { wert: { de: 'Er kommt der Linie von der anderen Seite genauso nah.' }, richtig: true }
         - { wert: { de: 'Er bleibt stehen.' }, fv: FV.SY.SPIEGELABSTAND }
-        - { wert: { de: 'Er wandert in dieselbe Richtung wie P.' }, fv: FV.SY.SPIEGELABSTAND }
+        - {
+            wert: { de: 'Er wandert auch nach rechts, von der Linie weg.' },
+            fv: FV.SY.SPIEGELABSTAND,
+          }
     weiter: erklaeren-spiegeln
   - id: erklaeren-spiegeln
     typ: erklaeren
@@ -146,3 +149,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 7c978eab3b27a87aaa19a34d359fdfee6a88d7ddfcca0608c7b96d891a541b4d

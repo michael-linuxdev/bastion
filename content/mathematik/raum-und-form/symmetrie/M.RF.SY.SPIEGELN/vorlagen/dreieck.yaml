@@ -26,3 +26,8 @@ fehlerbilder:
     fv: FV.GF.SPIEGELN-KOORDINATE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a06ad66a0acd522b34fb7007064960643ee33bf0c004beea9cfe4f04bb0ffb7b

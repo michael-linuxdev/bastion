@@ -57,24 +57,26 @@
 {/each}
 
 <style>
-  /* L14: größere Antippfläche (etwa 44 Pixel hoch), ohne dass der Text springt */
+  /* C5 (Q-O1): Tippfläche mindestens 44 px hoch über padding-block; der negative Rand hält
+     die Zeile ruhig, damit der Text nicht springt. Der helle Grund zeigt: antippbar (L-7). */
   .begriff {
-    position: relative;
     font: inherit;
     color: inherit;
-    background: none;
+    vertical-align: baseline;
+    min-block-size: 2.75rem;
+    padding-block: 0.45rem;
+    margin-block: -0.45rem;
+    padding-inline: 0.15em;
+    margin-inline: -0.05em;
     border: none;
-    padding: 0;
-    cursor: help;
+    border-radius: 0.3em;
+    background: color-mix(in srgb, var(--farbe-akzent) 12%, transparent);
+    background-clip: content-box;
+    cursor: pointer;
     text-decoration: underline dotted;
+    text-decoration-color: var(--farbe-akzent);
     text-decoration-thickness: 0.1em;
     text-underline-offset: 0.2em;
-  }
-
-  .begriff::after {
-    content: '';
-    position: absolute;
-    inset: -0.5rem -0.25rem;
   }
 
   .begriff.fett {

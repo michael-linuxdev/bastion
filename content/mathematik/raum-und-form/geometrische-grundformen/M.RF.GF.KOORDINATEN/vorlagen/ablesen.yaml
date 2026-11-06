@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.GF.KAESTCHEN-LINIEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e7bc1e71e8f52425d4f40348441448d69ea2abf2a01093bae24796a02c855246

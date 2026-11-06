@@ -28,8 +28,8 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Kreuz-[[Netz]]: die Reihe B, C, D, E und dazu A oben und F unten an B. Boden B: D liegt gegenüber. C und E liegen gegenüber, A und F auch.'
-    bild: { werkzeug: koerpernetz@1, parameter: { netz: 1, boden: 'B', schraegbild: true } }
+      de: 'Kreuz-[[Netz]]: die Reihe B, C, D, E und dazu A oben und F unten an C. Boden B: D liegt gegenüber. C und E liegen gegenüber, A und F auch.'
+    bild: { werkzeug: koerpernetz@1, parameter: { netz: 5, boden: 'B', schraegbild: true } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -50,7 +50,7 @@ schritte:
     bild:
       {
         werkzeug: koerpernetz@1,
-        parameter: { netz: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]], boden: 'A' },
+        parameter: { netz: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]], frage: true },
       }
     antwort:
       optionen:
@@ -67,18 +67,18 @@ schritte:
   - id: merksatz
     typ: merksatz
     text:
-      de: '[[Würfelnetz]]: 6 Quadrate, jede Fläche entsteht beim Falten genau einmal. Nie mehr als vier in einer Reihe. In einer Reihe liegt jedes zweite Quadrat gegenüber.'
+      de: '[[Würfelnetz]]: 6 Quadrate, jede Fläche entsteht beim Falten genau einmal. Nie mehr als vier in einer Reihe. In einer Reihe liegen das erste und das dritte Quadrat gegenüber.'
     weiter: pruefen
   - id: pruefen
     typ: pruefen
     text:
-      de: 'Welche zwei Quadrate liegen beim fertigen [[Würfel]] gegenüber?'
+      de: 'Welches Quadrat liegt beim fertigen [[Würfel]] gegenüber von C?'
     bild: { werkzeug: koerpernetz@1, parameter: { netz: 7 } }
     antwort:
       optionen:
-        - { wert: { de: 'C und E' }, richtig: true }
-        - { wert: { de: 'C und D' }, fv: FV.KP.NETZ-FALTEN }
-        - { wert: { de: 'B und C' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'E' }, richtig: true }
+        - { wert: { de: 'D' }, fv: FV.KP.NETZ-FALTEN }
+        - { wert: { de: 'B' }, fv: FV.KP.NETZ-FALTEN }
     weiter: uebergang
     bei: { FV.KP.NETZ-FALTEN: erklaeren-netz }
   - id: uebergang

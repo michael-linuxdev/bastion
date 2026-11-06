@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast die Bewegung nach dem ersten Eindruck benannt.'
     - teil: warum-nicht
-      de: 'Gespiegelte und gedrehte Figuren sehen sich oft [[ähnlich]]. Aber bei einer [[Spiegelung]] wird links zu rechts, wie bei deiner Hand im Spiegel. Bei einer [[Drehung]] bleibt eine rechte Hand eine rechte Hand.'
+      de: 'Gespiegelte und gedrehte Figuren sehen oft fast gleich aus. Aber bei einer [[Spiegelung]] wird links zu rechts, wie bei deiner Hand im Spiegel. Bei einer [[Drehung]] bleibt eine rechte Hand eine rechte Hand.'
     - teil: so-stimmt-es
       de: 'Markiere eine Ecke und verfolge, wohin sie wandert. Ist die Reihenfolge der Ecken umgekehrt, wurde gespiegelt.'
 gegenbeispiel:
@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.SY.BEWEGUNGEN.ERKENNEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: f79104755a6b33718836a35e18d316c5057f26e70265f1f85fff731a131a7f57

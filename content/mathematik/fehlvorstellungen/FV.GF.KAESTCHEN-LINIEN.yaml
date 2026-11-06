@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.KOORDINATEN.ABLESEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: ea8b647efc7cbf78e9a6739149f3b9f823dca659f96d9d908f894992773eb75c
