@@ -62,7 +62,8 @@
       : `${teile.slice(0, -1).join(', ')} ${tt('abschluss.und')} ${teile[teile.length - 1]}`;
   /**
    * B6 (Q-O1): eine Zeile statt Satz, Beutel und Liste mit derselben Zahl, z. B.
-   * „2 Stein und 1 Bauschritt – aus 2 bearbeiteten Aufgaben und 1 Lerneinheit“.
+   * „2 Stein und 1 Bauschritt – aus 2 Aufgaben in Ruhe und 1 Lerneinheit“. B13: „in Ruhe“
+   * statt „bearbeitet“, weil oben alle bearbeiteten Aufgaben stehen, auch die nicht gezählten.
    */
   const ertragZeile = $derived.by(() => {
     const mengen = (['fleiss', 'behalten', 'schritt'] as const)
@@ -72,8 +73,8 @@
       ertrag.menge.fleiss > 0
         ? mit(
             ertrag.fleissAufgaben,
-            tt('abschluss.aufgabe-bearbeitet-eine'),
-            tt('abschluss.aufgaben-bearbeitet'),
+            tt('abschluss.aufgabe-ruhig-eine'),
+            tt('abschluss.aufgaben-ruhig'),
           )
         : '',
       ertrag.menge.behalten > 0 && ertrag.wiederholungen > 0
@@ -177,7 +178,11 @@
           {/if}
         </ul>
       {/if}
-      {#if ertrag.geraten > 0}<p class="leise">{tt('abschluss.geraten')}</p>{/if}
+      <!-- B13 (Q-O1): Die nicht gezählten Aufgaben mit Zahl, damit beide Zahlen zusammenpassen -->
+      {#if ertrag.geraten > 0}<p class="leise">
+          {ertrag.geraten}
+          {tt(ertrag.geraten === 1 ? 'abschluss.geraten-eine' : 'abschluss.geraten-viele')}
+        </p>{/if}
       {#if ertrag.weniger}<p class="leise">{tt('abschluss.weniger')}</p>{/if}
       {#if ertrag.gekappt > 0}<p class="leise">{tt('abschluss.gekappt')}</p>{/if}
       {#if ertrag.schritteVoll}<p class="leise">{tt('abschluss.schritte-voll')}</p>{/if}

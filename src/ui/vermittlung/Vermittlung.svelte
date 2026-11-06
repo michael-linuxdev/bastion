@@ -179,9 +179,12 @@
       </article>
     {/each}
   {:else if rueckweg}
-    <article class="karte" aria-live="polite">
+    <!-- B11 (Q-O1): Grund und Rückweg in Worten, Knöpfe direkt unter dem Text statt am Rand -->
+    <article class="karte vorab" aria-live="polite">
       <p class="text">{t('vermittlung.voraussetzung')}</p>
       <p class="voraussetzung">{kompetenzName(rueckweg.kompetenz) ?? rueckweg.kompetenz}</p>
+      <p class="grund">{t('vermittlung.voraussetzung-grund')}</p>
+      <p class="grund">{t('vermittlung.voraussetzung-rueckweg')}</p>
       <div class="knoepfe">
         <button class="haupt" onclick={() => rueckweg && onvoraussetzung(rueckweg.kompetenz)}
           >{t('vermittlung.voraussetzung-ueben')}</button
@@ -391,6 +394,20 @@
   .voraussetzung {
     font-size: 1.25rem;
     font-weight: 800;
+  }
+
+  /* B11 (Q-O1): Die Karte zur Voraussetzung wächst nur mit dem Inhalt */
+  .karte.vorab {
+    min-block-size: 0;
+  }
+
+  .karte.vorab .knoepfe {
+    margin-block-start: var(--abstand-s);
+  }
+
+  .grund {
+    font-size: 1.0625rem;
+    line-height: 1.5;
   }
 
   .werkzeug {
