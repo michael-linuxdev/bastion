@@ -115,7 +115,7 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | Feld | Kompetenz | Thema | Bild | Schritte |
 |---|---|---|---|---|
 | Natürliche Zahlen | M.ZO.NZ.STELLENWERT | Große Zahlen und Stellenwerte | | |
-| | M.ZO.NZ.ORDNEN | Zahlen vergleichen und ordnen | Zahlenstrahl | |
+| | M.ZO.NZ.ORDNEN | Zahlen vergleichen und ordnen | Zahlenstrahl ✓ (nur 0 bis 12: `zahlenstrahl@1` beschriftet nur ganze Einheiten) | |
 | | M.ZO.NZ.RUNDEN | Runden, schätzen, überschlagen | | |
 | | M.ZO.NZ.ADD-SUB | Addieren und Subtrahieren | | schriftlich |
 | | M.ZO.NZ.MULT | Multiplizieren | | schriftlich |
@@ -130,13 +130,13 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | | M.SF.NZ.GLEICHUNGEN | Einfache Gleichungen und Ungleichungen | | Rechenzeilen |
 | Brüche und Dezimalzahlen | M.ZO.BR.BEGRIFF | Brüche als Anteile | Bruchstreifen ✓ | |
 | | M.ZO.BR.ERWEITERN | Brüche erweitern und kürzen | Bruchstreifen ✓ | ✓ |
-| | M.ZO.BR.VERGLEICHEN | Brüche vergleichen | Bruchstreifen | |
-| | M.ZO.BR.ZAHLENSTRAHL | Brüche und Dezimalzahlen am Zahlenstrahl | Zahlenstrahl | |
-| | M.ZO.BR.ANTEIL-VON | Anteile von Größen | Bruchstreifen | zwei Schritte |
+| | M.ZO.BR.VERGLEICHEN | Brüche vergleichen | Bruchstreifen ✓ (zwei untereinander) | |
+| | M.ZO.BR.ZAHLENSTRAHL | Brüche und Dezimalzahlen am Zahlenstrahl | Zahlenstrahl ✓ (hatte schon Bilder; `entdecken` verriet die Antwort) | |
+| | M.ZO.BR.ANTEIL-VON | Anteile von Größen | Säulen aus Kästchen ✓ (`gitter@1`, jedes Kästchen ein Stück) | zwei Schritte |
 | | M.ZO.BR.DEZIMAL | Brüche und Dezimalzahlen umwandeln | | |
-| | M.ZO.BR.DEZ-ORDNEN | Dezimalzahlen vergleichen und runden | Zahlenstrahl | |
+| | M.ZO.BR.DEZ-ORDNEN | Dezimalzahlen vergleichen und runden | Zahlenstrahl ✓ | |
 | | M.ZO.BR.DEZ-RECHNEN | Mit Dezimalzahlen rechnen | | schriftlich |
-| | M.ZO.BR.PROZENT | Prozentschreibweise | Hundertertafel | |
+| | M.ZO.BR.PROZENT | Prozentschreibweise | Hundertertafel ✓ (`gitter@1`, Rasterpapier 10 × 10) | |
 | Größen und Messen | M.GM.GR.UMRECHNEN | Einheiten umrechnen | Stellenwerttafel | |
 | | M.GM.GR.KOMMA | Größen in verschiedenen Schreibweisen | Stellenwerttafel | |
 | | M.GM.GR.ZEIT | Uhrzeiten und Zeitspannen | Uhr | zwei Schritte |
@@ -155,7 +155,7 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | | M.RF.SY.SYMMETRIE | Symmetrische Figuren | Gitter ✓ | |
 | | M.RF.SY.SPIEGELN | An einer Geraden spiegeln | Gitter ✓ | |
 | | M.RF.SY.BEWEGUNGEN | Spiegeln, Verschieben, Drehen | Gitter ✓ | |
-| Daten und Zufall | M.DZ.DA.MITTELWERT | Arithmetisches Mittel | Säulen | Summe, teilen |
+| Daten und Zufall | M.DZ.DA.MITTELWERT | Arithmetisches Mittel | Säulen aus Kästchen ✓ (`gitter@1`) | Summe, teilen |
 
 Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht, keine Prüfung. Ein ✓ heißt: Paket Q-L2 für diese Kompetenz erledigt (Bild oder Werkzeug an der Stelle, die erklärt). Die Sitzung, die ein Feld übernimmt, prüft sie an den Dateien und korrigiert die Tabelle.
 
@@ -180,3 +180,4 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **06.11.2026, Grafik, Q-G1 PR 2 (Branch `grafik/q-g1-kulisse`):** Kulisse beim Zoomen nicht je Schritt neu ausrichten (GRAFIK §30): nur noch zwei Transforms folgen der Kamera, Meer als Fläche in der Welt, Culling mit Abstand (Cull-Kamera, Sichtkasten Fenster plus Rand). Hauptfaden beim Zoomen 92 → 66 %, Schwenken 96 → 68 %, GPU 55–65 → 13–16 %. Rückfrage an den PV: Zoom-Probe aus §24 am iPhone 13 (mehrfach herein und heraus), weil Welt und Ferne jetzt je eine eigene Ebene halten. Danach PR 3 (gemeinsamer 30-Hz-Takt) und PR 4 (HD-Bilder nur im Sichtfeld).
 - **06.11.2026, Lernkern, Q-L1 Raum und Form Klasse 5 (Branch `lernkern/q-l1-raum-und-form`):** Zwei unabhängige Durchgänge (je zwei Sub-Agenten mit leerem Kontext) aus der Nachtsitzung, die nur auf `lernkern/m5-raum-und-form-pruefung` lagen, von der koordinierenden Sitzung auf den Stand von #288 übertragen: Durchgang 1 22 Funde, Durchgang 2 6 Funde, alle behoben oder begründet (`docs/pruefung/5-raum-und-form.md`), 49 Dateien auf Stufe 1. Öffentliche Seite (Mindeststufe 1) zeigt dadurch zusätzlich `M.RF.SY.SPIEGELN`; die übrigen sieben Kompetenzen des Felds warten auf Voraussetzungen mit Stufe 1.
 - **06.11.2026, Grafik, Q-G1 PR 3 (Branch `grafik/q-g1-takt`):** Fahnen, Banner, Mühlen, Statusgesten aus vorberechneten Bildern im gemeinsamen 30-Hz-Takt, nichts außerhalb des Sichtfelds weiterstellen (GRAFIK §31); `pnpm tempo --reich` für eine gewachsene Bastion. ms je Takt gewachsen in Ruhe 14,9 → 8,5, frisch 13,7 → 11,2; Ebenenspeicher unverändert. Beim PV: am iPhone 13 eine gewachsene Bastion mit Fahnen ansehen (ruckelt es weniger, sehen Fahnen, Banner und Mühle aus wie vorher). Danach PR 4 (HD-Bilder nur im Sichtfeld).
+- **06.11.2026, Lernkern, Q-L2 Zahlen, Brüche, Daten Klasse 5 (Branch `lernkern/q-l2-zahlen-brueche-daten`):** Sieben Erstvermittlungen mit Bild oder Werkzeug an der erklärenden Stelle und in `entdecken`, nur mit vorhandenen Werkzeugen: NZ.ORDNEN (Zahlenstrahl 0 bis 12), BR.VERGLEICHEN (zwei Bruchstreifen untereinander), BR.ZAHLENSTRAHL (`entdecken` als Bild, weil die Statuszeile den Nenner verriet), BR.ANTEIL-VON (Säulen aus Kästchen, `gitter@1`), BR.DEZ-ORDNEN (Zahlenstrahl), BR.PROZENT (Hundertertafel aus `gitter@1`, auch in `FV.BR.PROZENT-HUNDERTSTEL`), DA.MITTELWERT (Säulen aus Kästchen mit Ausgleichspfeil). Kein neues Werkzeug. Rückfrage an den PV: `zahlenstrahl@1` beschriftet nur ganze Einheiten als ganze Zahl oder Bruch; für große Zahlen (0, 1 000, 2 000 …) und Dezimalzahlen (0,1; 0,2 …) bräuchte es zwei Parameter (Wert einer Einheit, Dezimalschreibweise). Danach Q-L1 für diese sieben Kompetenzen.
