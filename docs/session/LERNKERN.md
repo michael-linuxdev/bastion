@@ -21,6 +21,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `content/`, `src/core/learning/`, `src/
 
 **Erledigt:**
 
+- **06.11.2026, B12 und D8** (Rundgang 2, `QUALITAET-5-10.md`): Winkelmesser lesbar (Skalenzahlen 14 px am Handy, beschriftet je 20°), Grad hinter Winkel-Lösungen in Übung und Erstvermittlung (nur Anzeige, Feld `einheit`). Offen aus dem Rundgang für den Lernkern: B11 (Rückweg erst nach zwei falschen Vorwissen-Fragen), D10 (Bildhöhe von `winkel@1` ohne Winkelmesser).
 - **U0 bis U2:** neue Vision, Format, Musterfeld Brüche.
 - **U3 vollständig** (PLAN §4b): Abspieler der Erstvermittlung und Angebot vor dem ersten Üben (Zustand „erklärt“, Abschluss = Bauschritt), Diagnose der Fehlvorstellungen, Rückmeldung mit kurzer und langer Erklärung, Rückweg, Kontrastaufgaben, Zwischenschritte (K-29) im Musterfeld und Fehlerwerkstatt nach Ursachen.
 - **U4a:** Testprotokoll (K-14, D-18).

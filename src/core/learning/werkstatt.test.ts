@@ -87,6 +87,9 @@ describe('Fehlerwerkstatt', () => {
   it('macht Antworten lesbar', () => {
     expect(antwortText({ typ: 'zahl', wert: 4.5 })).toBe('4,5');
     expect(antwortText({ typ: 'zahl', wert: 465 }, [], true)).toBe('7:45');
+    // D8: Einheit hinter der Zahl, Grad ohne Leerzeichen
+    expect(antwortText({ typ: 'zahl', wert: 140 }, [], false, '°')).toBe('140°');
+    expect(antwortText({ typ: 'zahl', wert: 2.5 }, [], false, 'cm')).toBe('2,5 cm');
     expect(antwortText({ typ: 'bruch', wert: bruch(3, 5) })).toBe('3/5');
     expect(
       antwortText({ typ: 'auswahl', wert: 1 }, [{ text: { de: 'a' } }, { text: { de: 'b' } }]),

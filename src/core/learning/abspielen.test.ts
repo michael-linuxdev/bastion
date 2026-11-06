@@ -112,6 +112,14 @@ describe('Abspielen einer Erstvermittlung', () => {
     expect(richtigeAntwort(schritt('pruefen'))).toBe('3/5');
     expect(richtigeAntwort(schritt('ergaenzen'))).toBe('2/6');
     expect(richtigeAntwort(schritt('merksatz'))).toBeUndefined();
+    // D8: Zahl-Antwort am Winkel-Werkzeug mit Grad
+    const pruefen = { id: 'w', typ: 'pruefen' as const, text: { de: 'Wie groß?' } };
+    const antwort = { eingabe: { art: 'zahl' as const, loesung: '90' } };
+    expect(richtigeAntwort({ ...pruefen, antwort, bild: { werkzeug: 'winkel@1' } })).toBe('90°');
+    expect(richtigeAntwort({ ...pruefen, antwort, werkzeug: { id: 'geraden@1' } })).toBe('90°');
+    expect(richtigeAntwort({ ...pruefen, antwort, bild: { werkzeug: 'zahlenstrahl@1' } })).toBe(
+      '90',
+    );
     expect(kurzfassung(v).map((x) => x.id)).toEqual(['beispiel', 'merksatz']);
   });
 });

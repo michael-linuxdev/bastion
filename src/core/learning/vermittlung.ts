@@ -61,6 +61,15 @@ export const WERKZEUGE: ReadonlySet<string> = new Set([
   'zahlenstrahl@1',
 ]);
 
+/**
+ * Einheit einer Zahl-Antwort in Schritten mit diesem Werkzeug (D8): Bei Winkel und Geraden
+ * ist jede gefragte Zahl ein Winkel in Grad. Nur für die Anzeige der Lösung.
+ */
+export const WERKZEUG_EINHEIT: Readonly<Record<string, string>> = {
+  'geraden@1': '°',
+  'winkel@1': '°',
+};
+
 /** Höchstens so viele Wörter je Schritt (V8) und Minuten je Sequenz (V7). */
 export const SCHRITT_WOERTER = 40;
 export const DAUER_MAX = 15;

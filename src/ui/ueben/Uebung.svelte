@@ -278,6 +278,7 @@
           letzteAntwort,
           aufgabe.instanz.optionen,
           aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+          aufgabe.instanz.einheit,
         )
       : '',
   );
@@ -288,6 +289,7 @@
           aufgabe.instanz.loesung,
           aufgabe.instanz.optionen,
           aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+          aufgabe.instanz.einheit,
         )
       : '',
   );
@@ -387,6 +389,7 @@
                     aufgabe.frueher,
                     aufgabe.instanz.optionen,
                     aufgabe.vorlage.typ === 'uhrzeit-eingabe',
+                    aufgabe.instanz.einheit,
                   )}
                   erklaeren={false}
                 /></strong
@@ -784,6 +787,9 @@
   .bild {
     margin-inline: auto;
     margin-block: var(--abstand-s);
+    /* B12: volle Breite der Karte; ohne das schrumpft die Figur auf 300 px (Standardbreite
+       eines SVG ohne width), am Handy etwa 8 % kleiner als möglich */
+    inline-size: 100%;
     max-inline-size: 28rem;
   }
 
