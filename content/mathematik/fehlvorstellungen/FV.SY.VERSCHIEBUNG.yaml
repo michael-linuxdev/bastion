@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.SY.BEWEGUNGEN.VERSCHIEBUNG]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 59a74e7f6501d24f9f7a2d7730165d94d5d7ad919a1cb92ef636876d109164c0

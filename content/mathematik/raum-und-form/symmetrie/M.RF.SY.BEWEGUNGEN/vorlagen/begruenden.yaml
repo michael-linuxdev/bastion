@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.SY.BEWEGUNG-ERKENNEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 1d0b3ad6497d2ccdf5e2dcea6d83413d73fa07fef43b80aa15c74e83d8f2e8b9

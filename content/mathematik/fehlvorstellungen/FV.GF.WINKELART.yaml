@@ -9,10 +9,10 @@ beschreibung:
 kompetenzen: [M.RF.GF.WINKEL]
 erklaerung:
   kurz:
-    de: 'Spitz: kleiner als 90°. Recht: 90°. Stumpf: zwischen 90° und 180°. Überstumpf: mehr als 180°. Der Bogen zeigt, welcher [[Winkel]] gemeint ist.'
+    de: 'Spitz: kleiner als 90°. Recht: 90°. Stumpf: zwischen 90° und 180°. Gestreckt: 180°. Überstumpf: mehr als 180°. Der Bogen zeigt, welcher [[Winkel]] gemeint ist.'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast eine andere [[Winkelart]] gewählt.'
+      de: 'Du hast den [[Winkel]] einer anderen [[Winkelart]] zugeordnet oder ihre Gradzahl verwechselt.'
     - teil: warum-nicht
       de: '„Spitz“ und „stumpf“ werden leicht vertauscht. Ein spitzer [[Winkel]] ist aber wie eine Nadelspitze: eng. Und ein Bogen außen herum meint den großen Winkel, nicht den kleinen.'
     - teil: so-stimmt-es
@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.WINKEL.ART]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 67c71ee7d77a1ad7af87b145b9bbdfc8d09d889e8cd8fd423388118cf58c478f

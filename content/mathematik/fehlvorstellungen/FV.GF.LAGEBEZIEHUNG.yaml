@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.LAGE.PARALLELE-FINDEN, M.RF.GF.LAGE.ZWEI-GERADEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 982010b6064ca8d0a90a23620e44659be4f174c4b448e311ddc947e5cb6b80df

@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.SY.SPIEGELN.PUNKT, M.RF.SY.SPIEGELN.DREIECK]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 7c0e77ef81f0bd0d943f3f8b3a431781a954382264ba053f5fa0cd28a4fe5b1c

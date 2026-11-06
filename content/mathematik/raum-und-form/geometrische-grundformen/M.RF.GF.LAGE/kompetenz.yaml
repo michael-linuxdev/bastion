@@ -42,3 +42,8 @@ sachsen:
     klassenstufe: 5
     lernbereich: LB 3 Lagebeziehungen geometrischer Objekte
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: c9d61b6ee56a8e574261fbe8faaae26d62e850acffc05d93d66cac6763550d46
