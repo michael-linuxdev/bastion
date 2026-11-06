@@ -15,7 +15,6 @@ kompetenzen:
     M.GM.GR.ZEIT,
     M.GM.KP.VERPACKUNG,
     M.RF.DV.WINKELSAETZE,
-    M.DZ.DA.MITTELWERT,
   ]
 erklaerung:
   kurz:
@@ -39,7 +38,6 @@ kontrast:
     M.GM.GR.ZEIT.ENDZEIT,
     M.GM.KP.VERPACKUNG.MATERIAL,
     M.RF.DV.WINKELSAETZE.INNENWINKEL,
-    M.DZ.DA.MITTELWERT.NOTEN,
   ]
 herkunft: ki-entwurf
 version: 1

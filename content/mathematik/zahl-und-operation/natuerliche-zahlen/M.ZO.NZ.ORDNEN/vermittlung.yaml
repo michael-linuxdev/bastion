@@ -43,9 +43,9 @@ schritte:
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Welche Zahl ist kleiner: 1 090 oder 1 009?'
+      de: 'Welche Zahl ist kleiner: 987 oder 1 009?'
     antwort:
-      eingabe: { art: zahl, loesung: '1009', fehler: [{ wert: '1090', fv: FV.NZ.ERSTE-ZIFFER }] }
+      eingabe: { art: zahl, loesung: '987', fehler: [{ wert: '1009', fv: FV.NZ.ERSTE-ZIFFER }] }
     weiter: gegenbeispiel
     bei: { FV.NZ.ERSTE-ZIFFER: erklaeren-vergleichen }
   - id: gegenbeispiel

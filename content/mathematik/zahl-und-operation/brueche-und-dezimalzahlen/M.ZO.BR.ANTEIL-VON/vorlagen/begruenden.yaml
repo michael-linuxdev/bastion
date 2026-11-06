@@ -12,7 +12,7 @@ text:
     de: '{situation} **Wähle** die Antwort mit der richtigen Begründung.'
 hilfen:
   - de: 'Was bedeutet der [[Nenner]], was der [[Zähler]]?'
-  - de: 'Ein Teil ist erst 1/n.'
+  - de: 'Durch den [[Nenner]] teilen ergibt erst einen Teil, etwa ein Siebtel. Wie viele Teile sagt der [[Zähler]]?'
 fehlerbilder:
   anteil-ein-schritt:
     de: 'Durch den [[Nenner]] teilen ergibt erst einen Teil. Dann nimmt man so viele Teile, wie der [[Zähler]] sagt.'
