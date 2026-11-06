@@ -2,7 +2,8 @@
   // Abschlussbildschirm (KONZEPT §2, BASEBAU §6.1): Was habe ich heute gekonnt?
   // Zuerst das Können, ohne Punkte und Prozente; darunter die Ressourcen mit
   // „woher“ (§3.5, §9 Punkt 2: erst das Können, dann die Ressourcen);
-  // stiller Übergang zur Bastion (Design „Danach“ J33): Stein verdient + Beutel.
+  // stiller Übergang zur Bastion (Design „Danach“ J33). Seit B6 (Q-O1) steht der Ertrag nur
+  // noch einmal da, als eine Zeile unter „Dafür hast du erarbeitet“.
   import type { Kompetenz } from '../../core/competence/kompetenz';
   import type { AufgabeEreignis } from '../../core/learning/ereignis';
   import { tagesbilanz, type Thema } from '../../core/learning/heute';
@@ -10,7 +11,6 @@
   import { tagesertrag } from '../../core/ledger/heute';
   import { lerntag } from '../../core/policy/lerntag';
   import type { Zustand } from '../plattform/ablage';
-  import Symbol from '../grafik/Symbol.svelte';
   import { menge, tt } from '../bastion/thema.svelte';
   import { t } from '../texte/texte';
 
@@ -45,22 +45,6 @@
   const ertrag = $derived(tagesertrag(buchungen, aufgaben, tag));
   /** „1 Lerneinheit“, „2 Lerneinheiten“ */
   const mit = (n: number, eins: string, mehrere: string) => `${n} ${n === 1 ? eins : mehrere}`;
-  const erzWoher = $derived(
-    [
-      ertrag.wiederholungen > 0
-        ? mit(
-            ertrag.wiederholungen,
-            tt('abschluss.wiederholung-eine'),
-            tt('abschluss.wiederholungen'),
-          )
-        : '',
-      ertrag.korrekturen > 0
-        ? mit(ertrag.korrekturen, tt('abschluss.fehler-einer'), tt('abschluss.fehler'))
-        : '',
-    ]
-      .filter(Boolean)
-      .join(` ${tt('abschluss.und')} `),
-  );
   const beutel = $derived(
     (
       [
@@ -71,16 +55,50 @@
       ] as const
     ).filter(([, n]) => n > 0),
   );
-  const steinSatz = $derived(
-    ertrag.menge.fleiss + ertrag.startpaket.fleiss > 0
-      ? `${tt('abschluss.stein-verdient')} (${menge('fleiss', ertrag.menge.fleiss + ertrag.startpaket.fleiss)})`
-      : undefined,
-  );
+  /** „a, b und c“ – das „und“ kommt aus der Textdatei */
+  const liste = (teile: readonly string[]) =>
+    teile.length <= 1
+      ? (teile[0] ?? '')
+      : `${teile.slice(0, -1).join(', ')} ${tt('abschluss.und')} ${teile[teile.length - 1]}`;
+  /**
+   * B6 (Q-O1): eine Zeile statt Satz, Beutel und Liste mit derselben Zahl, z. B.
+   * „2 Stein und 1 Bauschritt – aus 2 bearbeiteten Aufgaben und 1 Lerneinheit“.
+   */
+  const ertragZeile = $derived.by(() => {
+    const mengen = (['fleiss', 'behalten', 'schritt'] as const)
+      .filter((r) => ertrag.menge[r] > 0)
+      .map((r) => menge(r, ertrag.menge[r]));
+    const quellen = [
+      ertrag.menge.fleiss > 0
+        ? mit(
+            ertrag.fleissAufgaben,
+            tt('abschluss.aufgabe-bearbeitet-eine'),
+            tt('abschluss.aufgaben-bearbeitet'),
+          )
+        : '',
+      ertrag.menge.behalten > 0 && ertrag.wiederholungen > 0
+        ? mit(
+            ertrag.wiederholungen,
+            tt('abschluss.wiederholung-eine'),
+            tt('abschluss.wiederholungen'),
+          )
+        : '',
+      ertrag.menge.behalten > 0 && ertrag.korrekturen > 0
+        ? mit(ertrag.korrekturen, tt('abschluss.fehler-einer'), tt('abschluss.fehler'))
+        : '',
+      ertrag.menge.schritt > 0
+        ? mit(ertrag.menge.schritt, tt('abschluss.lerneinheit-eine'), tt('abschluss.lerneinheiten'))
+        : '',
+    ].filter(Boolean);
+    if (mengen.length === 0) return undefined;
+    return { mengen: liste(mengen), quellen: liste(quellen) };
+  });
 </script>
 
 <section class="abschluss register-ort">
-  <p class="ritual">{tt('abschluss.ritual')}</p>
   <h2>{tt('abschluss.ueberschrift')}</h2>
+  <!-- B6 (Q-O1): der Einleitungssatz steht unter der Überschrift, nicht darüber -->
+  <p class="ritual">{tt('abschluss.ritual')}</p>
 
   {#if bilanz.aufgaben === 0}
     <p>{tt('abschluss.nichts')}</p>
@@ -123,62 +141,16 @@
       {/if}
     </ul>
     {#if basebau}
-      {#if steinSatz || beutel.length > 0}
-        <aside class="beutel" aria-label={t('abschluss.beutel-titel')}>
-          {#if steinSatz}
-            <p class="stein" role="status">{steinSatz}</p>
-          {/if}
-          {#if beutel.length > 0}
-            <p class="beutel-titel">{t('abschluss.beutel-titel')}</p>
-            <ul class="chips">
-              {#each beutel as [r, n] (r)}
-                <li>
-                  <Symbol
-                    name={r === 'fleiss'
-                      ? 'ueben'
-                      : r === 'behalten'
-                        ? 'wiederholen'
-                        : r === 'koennen'
-                          ? 'diagnose'
-                          : 'bastion'}
-                  />
-                  <span>{menge(r, n)}</span>
-                </li>
-              {/each}
-            </ul>
-          {/if}
-        </aside>
-      {/if}
       <h3>{tt('abschluss.ertrag')}</h3>
       {#if ertrag.menge.fleiss + ertrag.menge.behalten + ertrag.menge.schritt + ertrag.menge.koennen + ertrag.startpaket.kompetenzen === 0}
         <p class="leise">{tt('abschluss.ertrag-nichts')}</p>
       {:else}
         <ul class="ertrag">
-          {#if ertrag.menge.fleiss > 0}
-            <li>
-              <strong>{menge('fleiss', ertrag.menge.fleiss)}</strong> – {tt('abschluss.aus')}
-              {mit(
-                ertrag.fleissAufgaben,
-                tt('abschluss.aufgabe-bearbeitet-eine'),
-                tt('abschluss.aufgaben-bearbeitet'),
-              )}
-            </li>
-          {/if}
-          {#if ertrag.menge.behalten > 0}
-            <li>
-              <strong>{menge('behalten', ertrag.menge.behalten)}</strong> – {tt('abschluss.aus')}
-              {erzWoher}
-            </li>
-          {/if}
-          {#if ertrag.menge.schritt > 0}
-            <li>
-              <strong>{menge('schritt', ertrag.menge.schritt)}</strong>
-              – {tt('abschluss.aus')}
-              {mit(
-                ertrag.menge.schritt,
-                tt('abschluss.lerneinheit-eine'),
-                tt('abschluss.lerneinheiten'),
-              )}
+          {#if ertragZeile}
+            <li role="status">
+              <strong>{ertragZeile.mengen}</strong>{ertragZeile.quellen
+                ? ` – ${tt('abschluss.aus')} ${ertragZeile.quellen}`
+                : ''}
             </li>
           {/if}
           {#if ertrag.menge.koennen > 0}
@@ -231,12 +203,14 @@
     padding-block: var(--abstand-m);
   }
 
+  h2 {
+    margin-block-end: 0;
+  }
+
   .ritual {
     margin: 0;
     color: var(--farbe-text-leise);
     font-size: 1.05rem;
-    border-inline-start: 4px solid var(--farbe-akzent);
-    padding-inline-start: var(--abstand-m);
   }
 
   h3 {
@@ -267,49 +241,6 @@
     padding-inline-start: 0;
     display: grid;
     gap: var(--abstand-s);
-  }
-
-  .beutel {
-    display: grid;
-    gap: var(--abstand-s);
-    padding: var(--abstand-m);
-    border-radius: var(--radius-karte);
-    background: color-mix(in srgb, var(--farbe-flaeche) 88%, var(--farbe-akzent));
-    box-shadow: 0 2px 8px var(--farbe-schatten);
-  }
-
-  .stein {
-    margin: 0;
-    font-weight: 800;
-    font-size: 1.125rem;
-  }
-
-  .beutel-titel {
-    margin: 0;
-    color: var(--farbe-text-leise);
-    font-size: 0.95rem;
-  }
-
-  .chips {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
-  }
-
-  .chips li {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 700;
-  }
-
-  .chips :global(svg) {
-    inline-size: 1.1rem;
-    block-size: 1.1rem;
-    color: var(--farbe-akzent);
   }
 
   .leise {
