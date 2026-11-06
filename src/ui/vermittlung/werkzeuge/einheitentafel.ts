@@ -276,9 +276,10 @@ export function beschreibung(z: Einheitentafel): string {
 
 const BREITE = 340;
 
-export function einheitentafelBild(z: Einheitentafel): Bild {
+/** Bild der Tafel; `mitZeile` false lässt die Zeile „3,45 m = 345 cm“ weg (steht dann im Stand). */
+export function einheitentafelBild(z: Einheitentafel, mitZeile = true): Bild {
   const n = z.spalten.length;
-  const k = Math.min(34, (BREITE - 10) / n);
+  const k = Math.min(48, (BREITE - 10) / n);
   const x0 = (BREITE - n * k) / 2;
   const mehrstellig = z.einheiten.some((e) => e.stellen > 1);
   const kopf = 28;
@@ -287,7 +288,7 @@ export function einheitentafelBild(z: Einheitentafel): Bild {
   const y0 = 6;
   const yZiffern = y0 + kopf + unter;
   const l = lesung(z);
-  const text2 = lesungText(z);
+  const text2 = mitZeile ? lesungText(z) : undefined;
   const hoehe = yZiffern + zeile + (text2 ? 40 : 10);
   const teile: string[] = [];
   const eZiel = z.ziel === undefined ? -1 : einerSpalte(z, z.ziel);

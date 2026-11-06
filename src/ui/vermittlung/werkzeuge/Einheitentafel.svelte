@@ -18,7 +18,7 @@
   }: { parameter: EinheitentafelParameter; interaktiv?: boolean } = $props();
 
   let zustand = $state(untrack(() => einheitentafelAus(parameter)));
-  const b = $derived(einheitentafelBild(zustand));
+  const b = $derived(einheitentafelBild(zustand, !interaktiv));
   const stand = $derived(lesungText(zustand) ?? t('werkzeug.einheitentafel.tippen'));
 </script>
 

@@ -106,6 +106,13 @@ describe('Einheitentafel (einheitentafel@1)', () => {
     expect(b.beschreibung.de).toContain('Eingetragen ist 3 m: 3 unter m (Einer).');
     expect(b.beschreibung.de).toContain('Das Komma steht hinter cm: 3 m = 300 cm.');
     expect(b.beschreibung.de).toContain('Ergänzte Nullen unter dm, cm.');
+    expect(b.svg).toContain('3 m = 300 cm');
+    const ohneZeile = einheitentafelBild(
+      einheitentafelAus({ wert: 3, einheit: 'm', ziel: 'cm' }),
+      false,
+    );
+    expect(ohneZeile.svg).not.toContain('3 m = 300 cm');
+    expect(ohneZeile.beschreibung.de).toContain('3 m = 300 cm');
     const leer = einheitentafelBild(einheitentafelAus({ groesse: 'volumen' }));
     expect(leer.beschreibung.de).toContain('dm³ (l)');
     expect(leer.beschreibung.de).not.toContain('Eingetragen');
