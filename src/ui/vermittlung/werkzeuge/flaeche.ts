@@ -235,7 +235,7 @@ export function flaecheBild(z: Flaeche): Bild {
   const xmax = Math.max(...alle.map(([x, , b]) => x + b));
   const ymin = Math.min(...alle.map(([, y]) => y));
   const ymax = Math.max(...alle.map(([, y, , h]) => y + h));
-  const k = Math.min(30, (BREITE - 110) / (xmax - xmin), 190 / (ymax - ymin));
+  const k = Math.min(36, (BREITE - 110) / (xmax - xmin), 200 / (ymax - ymin));
   const ox = (BREITE - (xmax - xmin) * k) / 2 - xmin * k;
   const hoehe = (ymax - ymin) * k + 64;
   const oy = 30 + (ymax - ymin) * k + ymin * k;

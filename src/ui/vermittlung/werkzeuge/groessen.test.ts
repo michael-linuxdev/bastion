@@ -271,6 +271,9 @@ describe('Quader (quader@1)', () => {
     expect(q.beschreibung.de).toContain('Quader, 4 cm lang, 3 cm breit, 2 cm hoch.');
     expect(q.beschreibung.de).toContain('1 von 2 Schichten gelegt');
     expect(q.svg).toContain('stroke-dasharray');
+    // Voll mit Würfeln: keine verdeckten Kanten; ohne Würfel durchsichtig mit gestrichelten Kanten
+    expect(w.svg).not.toContain('stroke-dasharray');
+    expect(quaderBild(quaderAus({})).svg).toContain('stroke-dasharray');
     const n = quaderBild(quaderAus({ laenge: 5, breite: 3, hoehe: 2, netz: true }));
     expect(n.beschreibung.de).toContain(
       'vorne und hinten je 5 cm mal 2 cm, oben und unten je 5 cm mal 3 cm, links und rechts je 3 cm mal 2 cm.',

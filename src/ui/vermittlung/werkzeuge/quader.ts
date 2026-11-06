@@ -96,7 +96,7 @@ const BREITE = 340;
 function schraegbild(z: Quader): { teile: string[]; hoehe: number } {
   const { laenge: l, breite: b, hoehe: h } = z;
   const f = 0.5 * Math.SQRT1_2; // Tiefe unter 45°, verkürzt auf die Hälfte
-  const s = Math.min(30, 230 / (l + b * f), 170 / (h + b * f));
+  const s = Math.min(40, 230 / (l + b * f), 170 / (h + b * f));
   const dx = b * s * f;
   const x0 = (BREITE - (l * s + dx)) / 2;
   const y0 = 16 + h * s + dx;
@@ -151,12 +151,14 @@ function schraegbild(z: Quader): { teile: string[]; hoehe: number } {
       strich(p(0, h, 0), p(0, h, b), true),
       strich(p(0, h, b), p(l, h, b), true),
     );
-  // Verdeckte Kanten hinten unten links
-  teile.push(
-    strich(p(0, 0, 0), p(0, 0, b), true),
-    strich(p(0, 0, b), p(l, 0, b), true),
-    strich(p(0, 0, b), p(0, h, b), true),
-  );
+  // Verdeckte Kanten hinten unten links; hinter gelegten Würfeln sieht man sie nicht.
+  if (!z.wuerfel || hs === 0)
+    teile.push(
+      strich(p(0, 0, 0), p(0, 0, b), true),
+      strich(p(0, 0, b), p(l, 0, b), true),
+      strich(p(0, 0, b), p(0, h, b), true),
+    );
+  else if (leer) teile.push(strich(p(0, hs, b), p(0, h, b), true));
   if (z.masse) {
     const [ax, ay] = p(0, 0, 0);
     const [bx, by] = p(l, 0, 0);
