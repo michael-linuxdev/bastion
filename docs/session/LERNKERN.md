@@ -3,7 +3,7 @@
 > Für Sitzungen, die am Lernkern arbeiten: Inhalte, Erstvermittlung, Fehlerkataloge, Üben, Diagnose, Prüfungen.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung nur diese Datei und den Abschnitt §4b in `docs/PLAN.md` aktualisieren.
 
-Stand: 05.11.2026 · **Aktueller Auftrag: Qualität Klasse 5 bis 10, Meilenstein M5** (`docs/session/QUALITAET-5-10.md`, K-32): Q-L2 Erstvermittlungen mit Bild oder Werkzeug, Q-L1 Prüfen in zwei Durchgängen bis Stufe 1, Q-L3 Zwischenschritte, je Feld ein PR, Beginn Raum und Form Klasse 5. Jahrgang 11/12 angehalten, U4b ohne Termin. · Davor (04.11.2026): U4b vorbereitet (#276–#279), Unterlagen liegen bereit.
+Stand: 06.11.2026 (abends) · M5 Klasse 5: Q-L2 für alle bildhaften Themen fertig (#288, #294/#295, #297), Q-L1 fertig für Raum und Form (#293, #308), Zahlen/Brüche/Daten (#305) und Größen und Messen (#306), zusammen 27 von 42 Kompetenzen auf Stufe 1; Fundlisten in `docs/pruefung/5-*.md`; Übergabe und Startsatz in `docs/session/QUALITAET-5-10.md` · 05.11.2026 · **Aktueller Auftrag: Qualität Klasse 5 bis 10, Meilenstein M5** (`docs/session/QUALITAET-5-10.md`, K-32): Q-L2 Erstvermittlungen mit Bild oder Werkzeug, Q-L1 Prüfen in zwei Durchgängen bis Stufe 1, Q-L3 Zwischenschritte, je Feld ein PR, Beginn Raum und Form Klasse 5. Jahrgang 11/12 angehalten, U4b ohne Termin. · Davor (04.11.2026): U4b vorbereitet (#276–#279), Unterlagen liegen bereit.
 
 ---
 
