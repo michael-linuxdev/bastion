@@ -3,7 +3,8 @@
 // beim Zoomen und beim Schwenken. Ersetzt nicht die Messung am iPhone 13 (Q-G0), macht
 // aber Veränderungen von PR zu PR sichtbar.
 //
-// Aufruf: pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion]
+// Aufruf: pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion] [--ruhig] [--reich]
+//        [--foto /tmp/…/bild.png] (Bildschirmfoto nach dem Öffnen, vor der Messung)
 //
 // Messung: Fenster 390 × 844 bei dreifacher Pixeldichte wie das iPhone 13, CPU gedrosselt
 // (Standard vierfach, wirkt relativ zum Messrechner). Die Bühne wird über die Chrome-Ablaufverfolgung
@@ -31,6 +32,25 @@ const SEKUNDEN = Number(option('sekunden', '6'));
 const THEMA = option('thema', 'bastion');
 /** `--ruhig`: Gerät meldet „Bewegung reduzieren“ → Bühne ohne Bewegung (GRAFIK §4.5) */
 const RUHIG = argumente.includes('--ruhig');
+/**
+ * `--reich`: Vor der Messung eine gewachsene Bastion bauen (Bergfried Stufe 3, Banner,
+ * Späherturm Stufe 2, Tor, Studierstube, Garten) – mit Fahnen, mehr Bewohnern und einer
+ * Baustelle, wie sie ein Kind nach einigen Wochen hat (GRAFIK §31). Ohne die Option misst
+ * das Werkzeug die frische Bastion wie in §29 und §30.
+ */
+const REICH = argumente.includes('--reich');
+/** Bauaufträge für `--reich`, der Reihe nach über die Liste in den Bastion-Einstellungen */
+const REICH_BAUEN = [
+  /^Bergfried auf Stufe 2/,
+  /^Banner/,
+  /^Späherturm/,
+  /^Tor/,
+  /^Studierstube/,
+  /^Garten/,
+  /^Bergfried auf Stufe 3/,
+  /^Späherturm auf Stufe 2/,
+  /^Statue/,
+];
 
 interface Ereignis {
   name: string;
@@ -78,13 +98,87 @@ async function warteAufServer(): Promise<void> {
 
 const pause = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * Vorrat anlegen wie der Browser-Test „Bastion als Liste“ (`vorratAnlegen` in
+ * `tests/e2e/ueben.spec.ts`): Buchungen und Kontostand ins lokale Speichern der Seite.
+ */
+async function vorratAnlegen(seite: Page, stand: Record<string, number>): Promise<void> {
+  await seite.evaluate(
+    (stand) =>
+      new Promise<void>((fertig, fehler) => {
+        const anfrage = indexedDB.open('bastion');
+        anfrage.onerror = () => fehler(anfrage.error);
+        anfrage.onsuccess = () => {
+          const db = anfrage.result;
+          const tx = db.transaction(['profile', 'buchungen', 'konto', 'bastion'], 'readwrite');
+          const profile = tx.objectStore('profile').getAll();
+          profile.onsuccess = () => {
+            const profil = (profile.result[0] as { id: string }).id;
+            for (const [ressource, menge] of Object.entries(stand))
+              tx.objectStore('buchungen').put({
+                id: `${profil}.${ressource}.TEMPO`,
+                art: 'buchung',
+                v: 1,
+                profil,
+                ts: Date.now() - 60_000,
+                tag: '2026-01-01',
+                geraet: 'tempo001',
+                ressource,
+                menge,
+                grund: 'sitzung',
+                bezug: 'TEMPO',
+                aufschluesselung: {},
+                regel: 1,
+              });
+            tx.objectStore('konto').put({ profil, stand, erworben: stand });
+            tx.objectStore('bastion').delete(profil);
+          };
+          tx.oncomplete = () => {
+            db.close();
+            fertig();
+          };
+          tx.onerror = () => fehler(tx.error);
+        };
+      }),
+    stand,
+  );
+}
+
+/** Für `--reich`: Vorrat anlegen und über die Liste der Einstellungen bauen. */
+async function reichBauen(seite: Page): Promise<void> {
+  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).waitFor();
+  await vorratAnlegen(seite, { fleiss: 9000, behalten: 900, koennen: 30, schritt: 400 });
+  await seite.reload();
+  const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
+  if (await entdecken.isVisible().catch(() => false))
+    await entdecken.click({ timeout: 2000 }).catch(() => {});
+  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).waitFor({ timeout: 30_000 });
+  await pause(1500);
+  if (!(await seite.getByRole('heading', { name: 'Bastion-Einstellungen' }).isVisible()))
+    await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
+  for (const name of REICH_BAUEN) {
+    const knopf = seite
+      .getByRole('listitem')
+      .filter({ hasText: name })
+      .getByRole('button', { name: 'Bauen' })
+      .first();
+    if (await knopf.isEnabled({ timeout: 3000 }).catch(() => false)) {
+      await knopf.click();
+      await pause(600);
+    } else console.log(`(--reich: ${String(name)} nicht baubar)`);
+  }
+  await seite.getByRole('button', { name: '← Zur Bastion' }).click();
+}
+
 /** Bastion öffnen wie der Browser-Test „Bauplatz als Bild“ und warten, bis das Bild steht. */
 async function bastionOeffnen(seite: Page): Promise<void> {
   await seite.goto(URL_START);
   const entdecken = seite.getByRole('button', { name: 'Mehr entdecken' });
   if (await entdecken.isVisible().catch(() => false))
     await entdecken.click({ timeout: 2000 }).catch(() => {});
-  await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
+  if (REICH) await reichBauen(seite);
+  else await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).waitFor({ timeout: 30_000 });
   if (THEMA !== 'bastion') {
     await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
@@ -219,6 +313,8 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
     if (e.layers) ebenen = e.layers;
   });
   await bastionOeffnen(seite);
+  const foto = option('foto', '');
+  if (foto) await seite.screenshot({ path: foto });
   // Erst jetzt einschalten: Die erste Meldung bringt den ganzen Ebenenbaum der Bühne
   await cdp.send('LayerTree.enable');
   await pause(500);
@@ -325,7 +421,7 @@ try {
   const ergebnisse = await messen(browser);
   await browser.close();
   console.log(
-    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}`,
+    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}${REICH ? ' · gewachsene Bastion' : ''}`,
   );
   console.log(
     '| Phase | Bilder/s | Takt/s | ms je Takt | Hauptfaden | GPU | Hänger | Ebenen | Ebenenspeicher |',
