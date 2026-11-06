@@ -19,7 +19,7 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Dieser [[Würfel]] ist 1 dm lang, 1 dm breit und 1 dm hoch, also 1 dm³. Fülle ihn Schicht für Schicht mit Würfeln von 1 cm³. Wie viele passen hinein?'
+      de: 'Dieser [[Würfel]] ist 1 dm lang, 1 dm breit und 1 dm hoch, also 1 dm³. 1 dm sind 10 cm. Fülle ihn Schicht für Schicht mit Würfeln von 1 cm³. Wie viele passen hinein?'
     werkzeug: { id: quader@1, parameter: { laenge: 10, breite: 10, hoehe: 10, schichten: 1 } }
     antwort:
       eingabe:

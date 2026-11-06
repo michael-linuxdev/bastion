@@ -21,6 +21,8 @@ gegenbeispiel:
   de: 'Wer um einen Sportplatz läuft, läuft beide Längsseiten und beide Kurven, nicht nur eine.'
 rueckweg:
   vermittlung: M.GM.FL.RECHTECK#erklaeren-umfang-flaeche
+  je:
+    M.GM.FL.ZUSAMMENGESETZT: M.GM.FL.ZUSAMMENGESETZT#erklaeren-umfang
 kontrast: [M.GM.FL.RECHTECK.UMFANG, M.GM.FL.RECHTECK.SEITE-FEHLT, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
 herkunft: ki-entwurf
 version: 1

@@ -71,7 +71,20 @@ for (const gesucht of ['umfang', 'flaeche'] as const) {
         return Math.round(Math.hypot(x2 - x1, y2 - y1) / s);
       });
       const masse = [...(i.bild?.svg ?? '').matchAll(/>(\d+) (?:cm|m)</g)].map((m) => Number(m[1]));
-      return masse.filter((m) => !seiten.includes(m)).map((m) => `Maß ${m} passt zu keiner Seite`);
+      const f = masse
+        .filter((m) => !seiten.includes(m))
+        .map((m) => `Maß ${m} passt zu keiner Seite`);
+      // Keine zwei Maße übereinander (Schrift 13 px, etwa 7 px je Zeichen)
+      const schilder = [
+        ...(i.bild?.svg ?? '').matchAll(/<text x="([\d.-]+)" y="([\d.-]+)"[^>]*>([^<]+)</g),
+      ].map((m) => ({ x: Number(m[1]), y: Number(m[2]), b: (m[3] ?? '').length * 7 }));
+      schilder.forEach((a, k) =>
+        schilder.slice(k + 1).forEach((b) => {
+          if (Math.abs(a.x - b.x) < (a.b + b.b) / 2 && Math.abs(a.y - b.y) < 14)
+            f.push(`Maße bei (${a.x}|${a.y}) und (${b.x}|${b.y}) überlagern sich`);
+        }),
+      );
+      return f;
     },
     mindestensVerschieden: { G: 90, M: 95 },
   });

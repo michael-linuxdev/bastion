@@ -18,7 +18,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Merke die Brücke: 1 l = 1 dm³. Von dort rechnest du mit 1000 weiter: 1 dm³ = 1000 cm³ = 1000 ml.'
 gegenbeispiel:
-  de: 'Eine Flasche mit 1,5 l passt in einen [[Würfel]] mit 10 cm [[Kante]] nicht hinein, eine mit 1 l genau.'
+  de: 'Der Inhalt einer 1-l-Flasche füllt einen [[Würfel]] mit 10 cm [[Kante]] genau, 1,5 l laufen über.'
 rueckweg:
   vermittlung: M.GM.KP.EINHEITEN#erklaeren-liter
 kontrast: [M.GM.KP.EINHEITEN.LITER, M.GM.KP.ZYLINDER.SACH]

@@ -1,4 +1,4 @@
-import { describe } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Instanz, Sprachobjekt } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
 import {
@@ -194,6 +194,45 @@ pflichttests(sachWeg, {
       wert: r6((Math.round(zahlAus(m?.[1] ?? '0') * 1000) * 2 + Number(m?.[2])) / 1000),
     };
   },
-  grenzverletzungen: () => [],
+  grenzverletzungen: (i) => (/ss Wohnung/.test(t(i, 'geschichte')) ? ['Genitiv'] : []),
   mindestensVerschieden: { G: 98, M: 98 },
+});
+
+describe('Fehlerbilder (Q-L1)', () => {
+  it('falsche-richtung ist nie 0 und nie abgeschnitten', () => {
+    for (const richtung of ['in-kleinere', 'in-groessere'] as const)
+      for (const dezimal of [false, true])
+        for (let seed = 0; seed < 2000; seed++) {
+          const p = {
+            groessen: ['laenge', 'masse', 'geld', 'zeit'],
+            richtung,
+            sprung_max: 3,
+            dezimal,
+          };
+          const i = einheitenUmrechnen.erzeuge(seed, p);
+          const f = i.fehlerbilder.find((x) => x.id === 'falsche-richtung')?.antwort;
+          if (f?.typ !== 'zahl' || i.loesung.typ !== 'zahl') continue;
+          const wert = zahlAus(t(i, 'wert'));
+          // falsch = wert² / richtig (geteilt statt mal bzw. umgekehrt)
+          expect(f.wert).not.toBe(0);
+          expect(Math.abs(f.wert * i.loesung.wert - wert * wert)).toBeLessThanOrEqual(
+            wert * wert * 1e-9,
+          );
+        }
+  });
+
+  it('nullen-falsch hängt die Ziffern ohne führende Null an (13,04 kg → 134 g)', () => {
+    for (let seed = 0; seed < 2000; seed++) {
+      const i = kommaschreibweise.erzeuge(seed, {
+        groessen: ['geld', 'laenge', 'masse'],
+        richtung: 'zu-kleiner',
+      });
+      const f = i.fehlerbilder.find((x) => x.id === 'nullen-falsch')?.antwort;
+      const [ganz = '', nach = ''] = t(i, 'komma').split(',');
+      const falsch = Number(ganz + nach.replace(/^0+/, ''));
+      if (/^0+[1-9]/.test(nach) && !(i.loesung.typ === 'zahl' && i.loesung.wert === falsch))
+        expect(f).toEqual({ typ: 'zahl', wert: falsch });
+      else expect(f).toBeUndefined();
+    }
+  });
 });

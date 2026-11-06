@@ -15,6 +15,7 @@ function massbild(
   punkte: readonly Punkt[],
   masse: readonly (number | undefined)[],
   einheit: string,
+  ausweichen = false,
 ) {
   const xs = punkte.map((p) => p[0]);
   const ys = punkte.map((p) => p[1]);
@@ -31,6 +32,7 @@ function massbild(
   });
   const aussen = flaeche2 > 0 ? 1 : -1;
   const teile = [vieleck(px, true)];
+  const belegt: Kasten[] = [];
   masse.forEach((m, i) => {
     if (m === undefined) return;
     const [x1, y1] = px[i] ?? [0, 0];
@@ -41,9 +43,65 @@ function massbild(
     const inhalt = `${zahlDeutsch(m)} ${einheit}`;
     // Neben senkrechten Seiten braucht die Beschriftung Platz für ihre halbe Breite.
     const abstand = Math.abs(nx) > 0.5 ? 8 + inhalt.length * 3.6 : 14;
-    teile.push(text((x1 + x2) / 2 + nx * abstand, (y1 + y2) / 2 + ny * abstand + 5, inhalt, 13));
+    let [cx, cy] = [(x1 + x2) / 2 + nx * abstand, (y1 + y2) / 2 + ny * abstand];
+    if (ausweichen)
+      [cx, cy] = freieStelle(
+        cx,
+        cy,
+        inhalt,
+        belegt,
+        [(x2 - x1) / len, (y2 - y1) / len],
+        [nx, ny],
+        len,
+      );
+    belegt.push(kasten(cx, cy, inhalt));
+    teile.push(text(cx, cy + 5, inhalt, 13));
   });
   return teile;
+}
+
+/** Platz einer Beschriftung (Schrift 13 px, etwa 7,2 px je Zeichen), Mitte (x, y). */
+interface Kasten {
+  readonly x: number;
+  readonly y: number;
+  readonly b: number;
+  readonly h: number;
+}
+const kasten = (x: number, y: number, inhalt: string): Kasten => ({
+  x,
+  y,
+  b: inhalt.length * 7.2,
+  h: 14,
+});
+export const ueberlappen = (a: Kasten, b: Kasten, luft = 2) =>
+  Math.abs(a.x - b.x) < (a.b + b.b) / 2 + luft && Math.abs(a.y - b.y) < (a.h + b.h) / 2 + luft;
+
+/**
+ * Überlagert eine Beschriftung eine frühere (kleiner Einschnitt: zwei Maße an der inneren Ecke),
+ * rückt sie an ihrer Seite entlang weg von der anderen, höchstens etwas über das Ende der Seite, und
+ * sonst weiter nach außen.
+ */
+function freieStelle(
+  x: number,
+  y: number,
+  inhalt: string,
+  belegt: readonly Kasten[],
+  [tx, ty]: readonly [number, number],
+  [nx, ny]: readonly [number, number],
+  len: number,
+): [number, number] {
+  const frei = (cx: number, cy: number) =>
+    !belegt.some((k) => ueberlappen(k, kasten(cx, cy, inhalt)));
+  const stoerer = belegt.find((k) => ueberlappen(k, kasten(x, y, inhalt)));
+  if (!stoerer) return [x, y];
+  const richtung = tx * (x - stoerer.x) + ty * (y - stoerer.y) >= 0 ? 1 : -1;
+  for (let raus = 0; raus <= 60; raus += 4)
+    for (let weg = 0; weg <= len / 2 + 24; weg += 2) {
+      const cx = x + richtung * tx * weg + nx * raus;
+      const cy = y + richtung * ty * weg + ny * raus;
+      if (frei(cx, cy)) return [cx, cy];
+    }
+  return [x, y];
 }
 
 export interface RechteckParameter {
@@ -170,80 +228,89 @@ export interface ZusammengesetztParameter {
   readonly max: number;
 }
 
-/** L-förmige Figur: Flächeninhalt oder Umfang – Vorlagen M.GM.FL.ZUSAMMENGESETZT.FLAECHE und .UMFANG */
-export const zusammengesetzt: Generator<ZusammengesetztParameter> = {
-  id: 'fl.zusammengesetzt',
-  version: 1,
-  platzhalter: ['einheit'],
-  fehlerbildIds: [
-    'aussen-multipliziert',
-    'addiert-statt-abgezogen',
-    'einschnitt-vergessen',
-    'flaeche-statt-umfang',
-  ],
+/**
+ * L-förmige Figur: Flächeninhalt oder Umfang – Vorlagen M.GM.FL.ZUSAMMENGESETZT.FLAECHE und
+ * .UMFANG. Fassung 2 (Q-L1, 06.11.2026): Maße am kleinen Einschnitt überlagern sich nicht mehr.
+ */
+function zusammengesetztFassung(fassung: 1 | 2): Generator<ZusammengesetztParameter> {
+  return {
+    id: 'fl.zusammengesetzt',
+    version: fassung,
+    platzhalter: ['einheit'],
+    fehlerbildIds: [
+      'aussen-multipliziert',
+      'addiert-statt-abgezogen',
+      'einschnitt-vergessen',
+      'flaeche-statt-umfang',
+    ],
 
-  erzeuge(seed, p) {
-    verlange(p.max >= 8, 'max: mindestens 8');
-    const r = rng(seed);
-    // Seitenverhältnis und Einschnitt nicht zu extrem, damit die Maße lesbar bleiben.
-    const W = r.int(6, p.max);
-    const H = r.int(Math.max(6, Math.ceil(W / 2)), Math.min(p.max, Math.floor(W * 1.5)));
-    const w = r.int(Math.max(3, Math.ceil(W / 4)), W - Math.max(3, Math.ceil(W / 4)));
-    const h = r.int(Math.max(3, Math.ceil(H / 4)), H - Math.max(3, Math.ceil(H / 4)));
-    const ecke = r.int(0, 3);
-    const e = r.pick(['cm', 'm']);
-    // Ausschnitt oben rechts; die anderen Ecken entstehen durch Spiegeln.
-    const grund: Punkt[] = [
-      [0, 0],
-      [W, 0],
-      [W, H - h],
-      [W - w, H - h],
-      [W - w, H],
-      [0, H],
-    ];
-    const spiegelX = ecke === 1 || ecke === 3;
-    const spiegelY = ecke === 2 || ecke === 3;
-    const punkte = grund.map(([x, y]) => [spiegelX ? W - x : x, spiegelY ? H - y : y] as const);
-    // Seiten: unten W, rechts H − h, Einschnitt w, Einschnitt h, oben W − w, links H
-    const masse = p.alle_masse ? [W, H - h, w, h, W - w, H] : [W, undefined, w, h, undefined, H];
-    const A = W * H - w * h;
-    const u = 2 * (W + H);
-    const umfang = p.gesucht === 'umfang';
-    const loesung = zahl(umfang ? u : A);
-    return {
-      platzhalter: { einheit: de(umfang ? e : `${e}²`) },
-      bild: bild(
-        320,
-        220,
-        massbild(punkte, masse, e),
-        de(
-          `Eine L-förmige Figur: ein Rechteck, ${W} ${e} breit und ${H} ${e} hoch, ` +
-            `dem an der Ecke ${ECKEN[ecke] ?? ''} ein Rechteck, ${w} ${e} breit und ${h} ${e} hoch, fehlt.`,
+    erzeuge(seed, p) {
+      verlange(p.max >= 8, 'max: mindestens 8');
+      const r = rng(seed);
+      // Seitenverhältnis und Einschnitt nicht zu extrem, damit die Maße lesbar bleiben.
+      const W = r.int(6, p.max);
+      const H = r.int(Math.max(6, Math.ceil(W / 2)), Math.min(p.max, Math.floor(W * 1.5)));
+      const w = r.int(Math.max(3, Math.ceil(W / 4)), W - Math.max(3, Math.ceil(W / 4)));
+      const h = r.int(Math.max(3, Math.ceil(H / 4)), H - Math.max(3, Math.ceil(H / 4)));
+      const ecke = r.int(0, 3);
+      const e = r.pick(['cm', 'm']);
+      // Ausschnitt oben rechts; die anderen Ecken entstehen durch Spiegeln.
+      const grund: Punkt[] = [
+        [0, 0],
+        [W, 0],
+        [W, H - h],
+        [W - w, H - h],
+        [W - w, H],
+        [0, H],
+      ];
+      const spiegelX = ecke === 1 || ecke === 3;
+      const spiegelY = ecke === 2 || ecke === 3;
+      const punkte = grund.map(([x, y]) => [spiegelX ? W - x : x, spiegelY ? H - y : y] as const);
+      // Seiten: unten W, rechts H − h, Einschnitt w, Einschnitt h, oben W − w, links H
+      const masse = p.alle_masse ? [W, H - h, w, h, W - w, H] : [W, undefined, w, h, undefined, H];
+      const A = W * H - w * h;
+      const u = 2 * (W + H);
+      const umfang = p.gesucht === 'umfang';
+      const loesung = zahl(umfang ? u : A);
+      return {
+        platzhalter: { einheit: de(umfang ? e : `${e}²`) },
+        bild: bild(
+          320,
+          220,
+          massbild(punkte, masse, e, fassung === 2),
+          de(
+            `Eine L-förmige Figur: ein Rechteck, ${W} ${e} breit und ${H} ${e} hoch, ` +
+              `dem an der Ecke ${ECKEN[ecke] ?? ''} ein Rechteck, ${w} ${e} breit und ${h} ${e} hoch, fehlt.`,
+          ),
         ),
-      ),
-      loesung,
-      loesungsweg: umfang
-        ? [
-            de('Gehe einmal außen um die Figur herum und addiere alle sechs Seiten.'),
-            de(
-              `${W} + ${H - h} + ${w} + ${h} + ${W - w} + ${H} = ${zahlDeutsch(u)} – also ${zahlDeutsch(u)} ${e}.`,
-            ),
-          ]
-        : [
-            de('Ergänze die Figur zu einem großen Rechteck und ziehe das fehlende Rechteck ab.'),
-            de(
-              `${W} · ${H} − ${w} · ${h} = ${zahlDeutsch(W * H)} − ${zahlDeutsch(w * h)} = ${zahlDeutsch(A)} – also ${zahlDeutsch(A)} ${e}².`,
-            ),
-          ],
-      fehlerbilder: fehlerbilderAus(loesung, [
-        ['aussen-multipliziert', umfang ? undefined : zahl(W * H)],
-        ['addiert-statt-abgezogen', umfang ? undefined : zahl(W * H + w * h)],
-        ['einschnitt-vergessen', umfang ? zahl(u - w - h) : undefined],
-        ['flaeche-statt-umfang', umfang ? zahl(A) : undefined],
-      ]),
-    };
-  },
-};
+        loesung,
+        loesungsweg: umfang
+          ? [
+              de('Gehe einmal außen um die Figur herum und addiere alle sechs Seiten.'),
+              de(
+                `${W} + ${H - h} + ${w} + ${h} + ${W - w} + ${H} = ${zahlDeutsch(u)} – also ${zahlDeutsch(u)} ${e}.`,
+              ),
+            ]
+          : [
+              de('Ergänze die Figur zu einem großen Rechteck und ziehe das fehlende Rechteck ab.'),
+              de(
+                `${W} · ${H} − ${w} · ${h} = ${zahlDeutsch(W * H)} − ${zahlDeutsch(w * h)} = ${zahlDeutsch(A)} – also ${zahlDeutsch(A)} ${e}².`,
+              ),
+            ],
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['aussen-multipliziert', umfang ? undefined : zahl(W * H)],
+          ['addiert-statt-abgezogen', umfang ? undefined : zahl(W * H + w * h)],
+          ['einschnitt-vergessen', umfang ? zahl(u - w - h) : undefined],
+          ['flaeche-statt-umfang', umfang ? zahl(A) : undefined],
+        ]),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): Maße am Einschnitt überlagert. */
+export const zusammengesetztV1 = zusammengesetztFassung(1);
+export const zusammengesetzt = zusammengesetztFassung(2);
 
 /** Variante für M.GM.FL.RECHTECK.FLAECHE (Fehler-Schüler A): ohne nur-zwei-seiten, das dort nie vorkommt. */
 export const rechteckFlaeche = variante(
@@ -267,11 +334,27 @@ export const zusammengesetztFlaeche = variante(
   'fl.zusammengesetzt-flaeche',
   ['aussen-multipliziert', 'addiert-statt-abgezogen'],
   {},
+  2,
 );
 
 /** Variante für M.GM.FL.ZUSAMMENGESETZT.UMFANG (Fehler-Schüler A): ohne addiert-statt-abgezogen, aussen-multipliziert, das dort nie vorkommt. */
 export const zusammengesetztUmfang = variante(
   zusammengesetzt,
+  'fl.zusammengesetzt-umfang',
+  ['einschnitt-vergessen', 'flaeche-statt-umfang'],
+  {},
+  2,
+);
+
+/** Fassung 1 der Varianten bleibt für gespeicherte Aufgaben (auf `fl.zusammengesetzt@1`). */
+export const zusammengesetztFlaecheV1 = variante(
+  zusammengesetztV1,
+  'fl.zusammengesetzt-flaeche',
+  ['aussen-multipliziert', 'addiert-statt-abgezogen'],
+  {},
+);
+export const zusammengesetztUmfangV1 = variante(
+  zusammengesetztV1,
   'fl.zusammengesetzt-umfang',
   ['einschnitt-vergessen', 'flaeche-statt-umfang'],
   {},

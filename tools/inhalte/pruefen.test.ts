@@ -63,12 +63,15 @@ describe('Inhalte in content/', () => {
         return nid === id && Number(nv) > Number(version);
       });
     };
-    // Basis von Varianten bleibt für gespeicherte Aufgaben, auch ohne eigene Vorlage
+    // Basis von Varianten bleibt für gespeicherte Aufgaben, auch ohne eigene Vorlage – auch die
+    // Basis einer älteren Fassung der Variante (fl.zusammengesetzt@1 unter -flaeche@1)
     const basis = new Set(
-      [...genutzt].flatMap((g) => {
-        const b = generatoren.get(g)?.basis;
-        return b ? [b] : [];
-      }),
+      [...generatoren.keys()]
+        .filter((g) => genutzt.has(g) || neuere(g))
+        .flatMap((g) => {
+          const b = generatoren.get(g)?.basis;
+          return b ? [b] : [];
+        }),
     );
     expect(
       [...generatoren.keys()].filter((g) => !genutzt.has(g) && !neuere(g) && !basis.has(g)),

@@ -66,7 +66,11 @@ for (const [wuerfel, gegeben] of [
       }
       return { typ: 'zahl', wert: sechsFlaechen(kantenAusBild(i)) };
     },
-    grenzverletzungen: bildFehler,
+    grenzverletzungen(i) {
+      const k = kantenAusBild(i);
+      const wuerfelStattQuader = !wuerfel && k[0] === k[1] && k[1] === k[2] ? ['Würfel'] : [];
+      return [...bildFehler(i), ...wuerfelStattQuader];
+    },
     mindestensVerschieden: wuerfel ? { G: 9, M: 19 } : { G: 90, M: 95 },
   });
 }

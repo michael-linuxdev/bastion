@@ -155,61 +155,75 @@ export interface OberflaecheParameter {
   readonly max: number;
 }
 
-/** Oberflächeninhalt von Würfel oder Quader – Vorlagen M.GM.KP.OBERFLAECHE.WUERFEL und .QUADER */
-export const oberflaeche: Generator<OberflaecheParameter> = {
-  id: 'kp.oberflaeche',
-  version: 1,
-  platzhalter: ['angabe', 'einheit'],
-  fehlerbildIds: ['nur-eine-flaeche', 'nur-drei-flaechen', 'vier-flaechen', 'volumen-berechnet'],
+/**
+ * Oberflächeninhalt von Würfel oder Quader – Vorlagen M.GM.KP.OBERFLAECHE.WUERFEL und .QUADER.
+ * Fassung 2 (Q-L1, 06.11.2026): Ein Quader ist nie ein Würfel, und die gegebenen Flächen heißen
+ * „je eine Fläche jedes Paars“ statt „die drei verschiedenen“ (sie können gleich groß sein).
+ */
+function oberflaecheFassung(fassung: 1 | 2): Generator<OberflaecheParameter> {
+  return {
+    id: 'kp.oberflaeche',
+    version: fassung,
+    platzhalter: ['angabe', 'einheit'],
+    fehlerbildIds: ['nur-eine-flaeche', 'nur-drei-flaechen', 'vier-flaechen', 'volumen-berechnet'],
 
-  erzeuge(seed, p) {
-    verlange(!(p.wuerfel && p.gegeben === 'flaechen'), 'Würfel nur mit gegebener Kante');
-    const r = rng(seed);
-    const [a, b, c] = kanten(r, p.wuerfel, p.max);
-    const e = r.pick(['cm', 'dm', 'm']);
-    const [ab, ac, bc] = [a * b, a * c, b * c];
-    const O = 2 * (ab + ac + bc);
-    const loesung = zahl(O);
-    const angabe = p.wuerfel
-      ? `Ein Würfel hat die Kantenlänge ${a} ${e}.`
-      : p.gegeben === 'kanten'
-        ? `Ein Quader ist ${a} ${e} breit, ${b} ${e} tief und ${c} ${e} hoch.`
-        : `Die drei verschiedenen Seitenflächen eines Quaders sind ${ab} ${e}², ${ac} ${e}² und ${bc} ${e}² groß.`;
-    return {
-      platzhalter: { angabe: de(angabe), einheit: de(`${e}²`) },
-      bild: bild(
-        320,
-        230,
-        schraegbild(a, b, c, e),
-        de(
-          p.wuerfel
-            ? `Schrägbild eines Würfels mit ${a} ${e} Kantenlänge.`
-            : `Schrägbild eines Quaders, ${a} ${e} breit, ${b} ${e} tief und ${c} ${e} hoch.`,
+    erzeuge(seed, p) {
+      verlange(!(p.wuerfel && p.gegeben === 'flaechen'), 'Würfel nur mit gegebener Kante');
+      const r = rng(seed);
+      const [a, b, k] = kanten(r, p.wuerfel, p.max);
+      // Fassung 2: kein Würfel, wenn ein Quader verlangt ist
+      const c = fassung === 2 && !p.wuerfel && a === b && b === k ? (k < p.max ? k + 1 : k - 1) : k;
+      const e = r.pick(['cm', 'dm', 'm']);
+      const [ab, ac, bc] = [a * b, a * c, b * c];
+      const O = 2 * (ab + ac + bc);
+      const loesung = zahl(O);
+      const angabe = p.wuerfel
+        ? `Ein Würfel hat die Kantenlänge ${a} ${e}.`
+        : p.gegeben === 'kanten'
+          ? `Ein Quader ist ${a} ${e} breit, ${b} ${e} tief und ${c} ${e} hoch.`
+          : fassung === 2
+            ? `Ein Quader hat drei Paare gleicher Seitenflächen. Je eine Fläche jedes Paars ist ${ab} ${e}², ${ac} ${e}² und ${bc} ${e}² groß.`
+            : `Die drei verschiedenen Seitenflächen eines Quaders sind ${ab} ${e}², ${ac} ${e}² und ${bc} ${e}² groß.`;
+      return {
+        platzhalter: { angabe: de(angabe), einheit: de(`${e}²`) },
+        bild: bild(
+          320,
+          230,
+          schraegbild(a, b, c, e),
+          de(
+            p.wuerfel
+              ? `Schrägbild eines Würfels mit ${a} ${e} Kantenlänge.`
+              : `Schrägbild eines Quaders, ${a} ${e} breit, ${b} ${e} tief und ${c} ${e} hoch.`,
+          ),
         ),
-      ),
-      loesung,
-      loesungsweg: p.wuerfel
-        ? [
-            de('Ein Würfel hat 6 gleich große quadratische Flächen: O = 6 · a · a.'),
-            de(`O = 6 · ${a} ${e} · ${a} ${e} = 6 · ${a * a} ${e}² = ${zahlDeutsch(O)} ${e}²`),
-          ]
-        : [
-            de(
-              'Ein Quader hat 6 Flächen, je zwei sind gleich groß: O = 2 · (a · b + a · c + b · c).',
-            ),
-            de(
-              `O = 2 · (${ab} + ${ac} + ${bc}) ${e}² = 2 · ${ab + ac + bc} ${e}² = ${zahlDeutsch(O)} ${e}²`,
-            ),
-          ],
-      fehlerbilder: fehlerbilderAus(loesung, [
-        ['nur-eine-flaeche', p.wuerfel ? zahl(a * a) : undefined],
-        ['nur-drei-flaechen', p.wuerfel ? undefined : zahl(ab + ac + bc)],
-        ['vier-flaechen', p.wuerfel ? zahl(4 * a * a) : undefined],
-        ['volumen-berechnet', p.gegeben === 'kanten' ? zahl(a * b * c) : undefined],
-      ]),
-    };
-  },
-};
+        loesung,
+        loesungsweg: p.wuerfel
+          ? [
+              de('Ein Würfel hat 6 gleich große quadratische Flächen: O = 6 · a · a.'),
+              de(`O = 6 · ${a} ${e} · ${a} ${e} = 6 · ${a * a} ${e}² = ${zahlDeutsch(O)} ${e}²`),
+            ]
+          : [
+              de(
+                'Ein Quader hat 6 Flächen, je zwei sind gleich groß: O = 2 · (a · b + a · c + b · c).',
+              ),
+              de(
+                `O = 2 · (${ab} + ${ac} + ${bc}) ${e}² = 2 · ${ab + ac + bc} ${e}² = ${zahlDeutsch(O)} ${e}²`,
+              ),
+            ],
+        fehlerbilder: fehlerbilderAus(loesung, [
+          ['nur-eine-flaeche', p.wuerfel ? zahl(a * a) : undefined],
+          ['nur-drei-flaechen', p.wuerfel ? undefined : zahl(ab + ac + bc)],
+          ['vier-flaechen', p.wuerfel ? zahl(4 * a * a) : undefined],
+          ['volumen-berechnet', p.gegeben === 'kanten' ? zahl(a * b * c) : undefined],
+        ]),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): auch Würfel als „Quader“. */
+export const oberflaecheV1 = oberflaecheFassung(1);
+export const oberflaeche = oberflaecheFassung(2);
 
 /** Variante für M.GM.KP.OBERFLAECHE.QUADER (Fehler-Schüler A): ohne nur-eine-flaeche, vier-flaechen, das dort nie vorkommt. */
 export const oberflaecheQuader = variante(
@@ -217,11 +231,18 @@ export const oberflaecheQuader = variante(
   'kp.oberflaeche-quader',
   ['nur-drei-flaechen', 'volumen-berechnet'],
   {},
+  2,
+);
+export const oberflaecheQuaderV1 = variante(
+  oberflaecheV1,
+  'kp.oberflaeche-quader',
+  ['nur-drei-flaechen', 'volumen-berechnet'],
+  {},
 );
 
-/** Variante für M.GM.KP.OBERFLAECHE.WUERFEL (Fehler-Schüler A): ohne nur-drei-flaechen, das dort nie vorkommt. */
+/** Variante für M.GM.KP.OBERFLAECHE.WUERFEL (Fehler-Schüler A): ohne nur-drei-flaechen, das dort nie vorkommt. Beim Würfel sind beide Fassungen gleich. */
 export const oberflaecheWuerfel = variante(
-  oberflaeche,
+  oberflaecheV1,
   'kp.oberflaeche-wuerfel',
   ['nur-eine-flaeche', 'vier-flaechen', 'volumen-berechnet'],
   {},

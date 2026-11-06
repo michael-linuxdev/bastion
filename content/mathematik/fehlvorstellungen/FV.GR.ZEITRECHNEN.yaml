@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast die Uhrzeiten wie [[Dezimalzahlen]] verrechnet.'
     - teil: warum-nicht
-      de: 'Uhrzeiten sehen aus wie Kommazahlen, darum liegt das nahe. Aber nach 59 Minuten kommt die nächste Stunde, nicht 60 Minuten.'
+      de: 'Uhrzeiten sehen aus wie Kommazahlen, darum liegt das nahe. Aber auf 8:59 folgt 9:00, nicht 8:60: 60 Minuten sind schon eine Stunde.'
     - teil: so-stimmt-es
       de: 'Von 9:45 bis 10:00 sind es 15 Minuten, von 10:00 bis 10:15 noch einmal 15. Zusammen 30 Minuten.'
 gegenbeispiel:

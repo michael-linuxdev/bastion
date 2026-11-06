@@ -19,7 +19,7 @@ fehlerbilder:
     de: Du hast multipliziert statt geteilt. Größere Einheit heißt weniger Stück – die Zahl muss kleiner werden.
     fv: FV.GR.UMRECHNEN-RICHTUNG
   falsche-umrechnungszahl:
-    de: 'Du hast wie bei Längen durch 10 geteilt. Bei Flächen ist die [[Umrechnungszahl]] 100 je Schritt.'
+    de: 'Du hast die [[Umrechnungszahl]] der Längen genommen. Bei Flächen ist sie 100 je Schritt, über zwei Schritte 10 000.'
     fv: FV.FL.FLAECHE-100
 herkunft: ki-entwurf
 version: 1

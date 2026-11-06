@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du den [[Flächeninhalt]] von Figuren aus mehreren Rechtecken ausrechnen.'
+      de: 'Danach kannst du den [[Flächeninhalt]] und den [[Umfang]] von Figuren aus mehreren Rechtecken ausrechnen.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -41,6 +41,12 @@ schritte:
         werkzeug: flaeche@1,
         parameter: { rechtecke: [[0, 0, 6, 2], [0, 2, 2, 3]], fehlend: [[2, 2, 4, 3]] },
       }
+    weiter: erklaeren-umfang
+  - id: erklaeren-umfang
+    typ: erklaeren
+    text:
+      de: 'Für den [[Umfang]] gehst du außen herum und addierst alle sechs Seiten, auch die zwei am Einschnitt: 6 + 2 + 4 + 3 + 2 + 5 = 22 cm. Das ist eine Länge, kein [[Flächeninhalt]].'
+    bild: { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 6, 2], [0, 2, 2, 3]] } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -87,7 +93,7 @@ schritte:
         - { wert: { de: '16 cm²' }, fv: FV.FL.ZERLEGEN }
         - { wert: { de: '18 cm²' }, fv: FV.FL.UMFANG-FLAECHE }
     weiter: uebergang
-    bei: { FV.FL.ZERLEGEN: erklaeren-zerlegen, FV.FL.UMFANG-FLAECHE: erklaeren-zerlegen }
+    bei: { FV.FL.ZERLEGEN: erklaeren-zerlegen, FV.FL.UMFANG-FLAECHE: erklaeren-umfang }
   - id: uebergang
     typ: uebergang
     text:

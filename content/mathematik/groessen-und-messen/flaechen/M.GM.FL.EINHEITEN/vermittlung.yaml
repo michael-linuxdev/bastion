@@ -6,7 +6,7 @@ schritte:
   - id: ziel
     typ: ziel
     text:
-      de: 'Danach kannst du [[Flächeneinheiten]] wie cm² und m² ineinander umrechnen.'
+      de: 'Danach kannst du [[Flächeneinheiten]] wie cm², m², a und ha ineinander umrechnen.'
     weiter: vorwissen
   - id: vorwissen
     typ: anknuepfen
@@ -43,6 +43,11 @@ schritte:
         werkzeug: einheitentafel@1,
         parameter: { groesse: flaeche, wert: 3, einheit: m², ziel: dm² },
       }
+    weiter: erklaeren-ar
+  - id: erklaeren-ar
+    typ: erklaeren
+    text:
+      de: 'Für Gärten und Felder gibt es größere Einheiten: 1 a (ein Ar) = 100 m², 1 ha (ein Hektar) = 100 a, 1 km² = 100 ha. Auch hier ist die [[Umrechnungszahl]] 100.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
