@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.SA.ZWISCHENERGEBNIS
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: eb557d1b076597e239bb3746367cf68e04c2c623675655e5286552d129084ca6

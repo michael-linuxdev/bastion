@@ -4,7 +4,7 @@ kompetenz: M.ZO.BR.ANTEIL-VON
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: br.anteil-von@1
+generator: br.anteil-von@2
 parameter:
   G: { stammbruch: false, nenner_max: 6, ganzes_max: 60 }
   M: { stammbruch: false, nenner_max: 12, ganzes_max: 1000 }
@@ -26,3 +26,8 @@ fehlerbilder:
     fv: FV.BR.VERTAUSCHT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 9c7d8e97ff20bf8ad99a47e75ee41cb748c7c3df5b0706ffe4c51d0c5118c523

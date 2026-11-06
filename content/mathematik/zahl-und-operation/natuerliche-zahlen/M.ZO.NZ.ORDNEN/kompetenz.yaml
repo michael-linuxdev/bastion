@@ -34,3 +34,8 @@ sachsen:
     klassenstufe: 5
     lernbereich: LB 1 Arbeiten mit natürlichen Zahlen
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 51d35065f84c7da81149995428e542da1adf4d351d782445baeffa3bc927a194

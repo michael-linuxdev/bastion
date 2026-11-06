@@ -19,3 +19,8 @@ fehlerbilder:
     fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a914ef0b79bb9ae583a4eb87557c45dd0d912a98e13df3f021ea2edc15c69a95

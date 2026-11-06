@@ -27,3 +27,8 @@ rueckweg:
 kontrast: [M.ZO.BR.VERGLEICHEN.ZEICHEN, M.ZO.BR.VERGLEICHEN.GROESSTER]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: f078a5bd832df555dc0cdc3bf1f99f0ad1c3e10e9913bd8ea016b8289a4a29c9

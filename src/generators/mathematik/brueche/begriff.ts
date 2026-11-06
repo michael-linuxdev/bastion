@@ -192,13 +192,14 @@ export const zahlenstrahlAblesen: Generator<ZahlenstrahlParameter> = {
   },
 };
 
-const EINHEITEN: readonly Sprachobjekt[] = [
+// Fassung 1 hatte „Schüler“ („von 33 Schüler“); Fassung 2 steht nach „von“ im Dativ
+const einheitenFuer = (fassung: 1 | 2): readonly Sprachobjekt[] => [
   de('km'),
   de('m'),
   de('kg'),
   de('g'),
   de('€'),
-  de('Schüler'),
+  de(fassung === 2 ? 'Kindern' : 'Schüler'),
   de('min'),
   de('l'),
 ];
@@ -210,48 +211,72 @@ export interface AnteilVonParameter {
 }
 
 /** „Berechne 2/3 von 27 km.“ – Vorlagen M.ZO.BR.ANTEIL-VON.STAMMBRUCH und .ALLGEMEIN */
-export const anteilVon: Generator<AnteilVonParameter> = {
-  id: 'br.anteil-von',
-  version: 1,
-  platzhalter: ['anteil', 'ganzes', 'einheit'],
-  fehlerbildIds: ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
-  // Beim Stammbruch (Zähler 1) ist „nur geteilt“ die Lösung und „mit dem Zähler mal“ das Ganze
-  fehlerbildIdsFuer: (p) =>
-    p.stammbruch
-      ? ['zaehler-nenner-vertauscht']
-      : ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
-
-  erzeuge(seed, p) {
-    verlange(p.nenner_max >= 2 && p.nenner_max <= 12, 'nenner_max: 2 … 12');
-    verlange(p.ganzes_max >= 20 && p.ganzes_max <= 1000, 'ganzes_max: 20 … 1000');
-    const r = rng(seed);
-    const n = r.int(2, p.nenner_max);
-    let z = p.stammbruch ? 1 : r.int(2, n - 1 > 1 ? n - 1 : 2);
-    if (z >= n) z = 1;
-    const g = ggT(z, n);
-    const [zz, nn] = [z / g, n / g];
-    const ganzes = nn * r.int(2, Math.max(2, Math.floor(p.ganzes_max / nn)));
-    const teil = ganzes / nn;
-    const richtig = teil * zz;
-    return {
-      platzhalter: { anteil: bruch(zz, nn), ganzes, einheit: r.pick(EINHEITEN) },
-      loesung: zahl(richtig),
-      loesungsweg: [
-        de(
-          `Ein ${nn}-tel von ${zahlDeutsch(ganzes)}: ${zahlDeutsch(ganzes)} : ${nn} = ${zahlDeutsch(teil)}`,
-        ),
-        ...(zz > 1
-          ? [de(`${zz} solche Teile: ${zahlDeutsch(teil)} · ${zz} = ${zahlDeutsch(richtig)}`)]
-          : []),
-      ],
-      fehlerbilder: fehlerbilderAus(zahl(richtig), [
-        ['nur-geteilt', zz > 1 ? zahl(teil) : undefined],
-        ['nur-mit-zaehler-mal', zz > 1 ? zahl(ganzes * zz) : undefined],
-        [
-          'zaehler-nenner-vertauscht',
-          (ganzes * nn) % zz === 0 ? zahl((ganzes * nn) / zz) : undefined,
-        ],
-      ]),
-    };
-  },
+/** Name des Stammbruchs für den Lösungsweg („Ein Drittel von 27“), Nenner 2 … 12 */
+const STAMMBRUCH: Readonly<Record<number, string>> = {
+  2: 'Die Hälfte',
+  3: 'Ein Drittel',
+  4: 'Ein Viertel',
+  5: 'Ein Fünftel',
+  6: 'Ein Sechstel',
+  7: 'Ein Siebtel',
+  8: 'Ein Achtel',
+  9: 'Ein Neuntel',
+  10: 'Ein Zehntel',
+  11: 'Ein Elftel',
+  12: 'Ein Zwölftel',
 };
+
+/**
+ * Fassung 2 (Q-L1, 06.11.2026): Einheit „Kindern“ statt „Schüler“, Stammbruch im Lösungsweg
+ * mit Namen („Ein Drittel von 27“ statt „Ein 3-tel von 27“). Aufgaben und Lösungen sonst gleich.
+ */
+function anteilVonFassung(fassung: 1 | 2): Generator<AnteilVonParameter> {
+  const einheiten = einheitenFuer(fassung);
+  return {
+    id: 'br.anteil-von',
+    version: fassung,
+    platzhalter: ['anteil', 'ganzes', 'einheit'],
+    fehlerbildIds: ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
+    // Beim Stammbruch (Zähler 1) ist „nur geteilt“ die Lösung und „mit dem Zähler mal“ das Ganze
+    fehlerbildIdsFuer: (p) =>
+      p.stammbruch
+        ? ['zaehler-nenner-vertauscht']
+        : ['nur-geteilt', 'nur-mit-zaehler-mal', 'zaehler-nenner-vertauscht'],
+
+    erzeuge(seed, p) {
+      verlange(p.nenner_max >= 2 && p.nenner_max <= 12, 'nenner_max: 2 … 12');
+      verlange(p.ganzes_max >= 20 && p.ganzes_max <= 1000, 'ganzes_max: 20 … 1000');
+      const r = rng(seed);
+      const n = r.int(2, p.nenner_max);
+      let z = p.stammbruch ? 1 : r.int(2, n - 1 > 1 ? n - 1 : 2);
+      if (z >= n) z = 1;
+      const g = ggT(z, n);
+      const [zz, nn] = [z / g, n / g];
+      const ganzes = nn * r.int(2, Math.max(2, Math.floor(p.ganzes_max / nn)));
+      const teil = ganzes / nn;
+      const richtig = teil * zz;
+      return {
+        platzhalter: { anteil: bruch(zz, nn), ganzes, einheit: r.pick(einheiten) },
+        loesung: zahl(richtig),
+        loesungsweg: [
+          de(
+            `${fassung === 2 ? (STAMMBRUCH[nn] ?? `1/${nn}`) : `Ein ${nn}-tel`} von ${zahlDeutsch(ganzes)}: ${zahlDeutsch(ganzes)} : ${nn} = ${zahlDeutsch(teil)}`,
+          ),
+          ...(zz > 1
+            ? [de(`${zz} solche Teile: ${zahlDeutsch(teil)} · ${zz} = ${zahlDeutsch(richtig)}`)]
+            : []),
+        ],
+        fehlerbilder: fehlerbilderAus(zahl(richtig), [
+          ['nur-geteilt', zz > 1 ? zahl(teil) : undefined],
+          ['nur-mit-zaehler-mal', zz > 1 ? zahl(ganzes * zz) : undefined],
+          [
+            'zaehler-nenner-vertauscht',
+            (ganzes * nn) % zz === 0 ? zahl((ganzes * nn) / zz) : undefined,
+          ],
+        ]),
+      };
+    },
+  };
+}
+export const anteilVonV1 = anteilVonFassung(1);
+export const anteilVon = anteilVonFassung(2);

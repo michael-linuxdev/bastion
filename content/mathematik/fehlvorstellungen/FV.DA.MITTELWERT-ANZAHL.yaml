@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.DZ.DA.MITTELWERT.NOTEN, M.DZ.DA.MITTELWERT.ZAHLEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e1e1cfd739f618e4f8cfb8fc8203902beef549a2dba07b76c7c4f2265c9c9f46

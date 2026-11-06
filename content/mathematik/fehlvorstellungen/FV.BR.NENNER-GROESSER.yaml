@@ -19,7 +19,7 @@ erklaerung:
     - teil: so-stimmt-es
       de: 'Haben zwei [[Brüche]] denselben [[Zähler]], dann ist der mit dem kleineren [[Nenner]] größer: $\frac{1}{4} > \frac{1}{8}$.'
 gegenbeispiel:
-  de: 'Teilst du eine Pizza mit 8 Freunden statt mit 4, bekommt jeder weniger. $\frac{1}{8}$ ist kleiner als $\frac{1}{4}$.'
+  de: 'Teilen sich 8 Kinder eine Pizza statt 4, bekommt jedes weniger. $\frac{1}{8}$ ist kleiner als $\frac{1}{4}$.'
 rueckweg:
   vermittlung: M.ZO.BR.VERGLEICHEN#erklaeren-gleicher-zaehler
   voraussetzung: M.ZO.BR.BEGRIFF
@@ -28,3 +28,8 @@ quelle:
   de: Fachdidaktik Bruchrechnung (Übertragung von den natürlichen Zahlen)
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 7260f495c89babef05d03a277c0c95017bbc7efde1701df75ffe58789c3725dd

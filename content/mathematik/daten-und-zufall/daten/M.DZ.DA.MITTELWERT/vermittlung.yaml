@@ -11,9 +11,9 @@ schritte:
   - id: vorwissen
     typ: anknuepfen
     text:
-      de: 'Was ergibt 12 : 4?'
+      de: 'Was ergibt 7,5 : 3?'
     antwort:
-      eingabe: { art: zahl, loesung: '3' }
+      eingabe: { art: zahl, loesung: '2,5' }
     weiter: entdecken
     bei: { sonst: M.ZO.BR.DEZ-RECHNEN }
   - id: entdecken
@@ -63,7 +63,7 @@ schritte:
   - id: erklaeren-mittelwert
     typ: erklaeren
     text:
-      de: 'Das [[arithmetische Mittel]] ist dieser gerechte [[Anteil]]. Die hohe Säule gibt 3 Kästchen ab: Dann reichen alle bis zur gestrichelten Linie, 5 Kästchen hoch. Rechnen: alle Werte addieren, durch ihre Anzahl teilen. Jeder Wert zählt, auch 0 und doppelte.'
+      de: 'Das [[arithmetische Mittel]] ist diese gerechte Menge. Die hohe Säule gibt 3 Kästchen ab: Dann reichen alle bis zur gestrichelten Linie, 5 Kästchen hoch. Rechnen: alle Werte addieren, durch ihre Anzahl teilen. Jeder Wert zählt, auch 0 und doppelte.'
     bild:
       {
         werkzeug: gitter@1,
@@ -159,3 +159,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 44f5ca9def824db2e65bfcff98cc2ab013c5a0c89d7487575bdb3ff602f5fd9d

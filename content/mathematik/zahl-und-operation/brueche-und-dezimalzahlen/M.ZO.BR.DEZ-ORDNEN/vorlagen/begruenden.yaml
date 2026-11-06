@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.NZ.ZEICHEN-VERDREHT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 8ff16a8329d35bd696ffdfd2b19ba5a61e8b025c68a80e6883683c3804ebb8f7
