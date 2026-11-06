@@ -56,6 +56,7 @@ describe('Einheitentafel (einheitentafel@1)', () => {
       '5000 m = 5 km',
     );
     expect(lesungText(gelesenIn(z, undefined))).toBeUndefined();
+    expect(lesungText(gelesenIn(z, 1))).toBe('3,45 m');
   });
 
   it('kennt Gewichte, Geld, Flächen und Volumen mit Liter', () => {
@@ -70,10 +71,14 @@ describe('Einheitentafel (einheitentafel@1)', () => {
     expect(lesungText(f)).toBe('7 dm² = 700 cm²');
     expect(
       lesungText(einheitentafelAus({ groesse: 'volumen', wert: 2500, einheit: 'ml', ziel: 'dm³' })),
-    ).toBe('2500 cm³ = 2,5 dm³ = 2,5 l');
+    ).toBe('2500 ml = 2,5 dm³ = 2,5 l');
     expect(
       lesungText(einheitentafelAus({ groesse: 'volumen', wert: 5, einheit: 'm³', ziel: 'dm³' })),
     ).toBe('5 m³ = 5000 dm³ = 5000 l');
+    const liter = einheitentafelAus({ groesse: 'volumen', wert: 1, einheit: 'l', ziel: 'cm³' });
+    expect(lesungText(liter)).toBe('1 l = 1000 cm³ = 1000 ml');
+    expect(lesungText(gelesenIn(liter, 1))).toBe('1 l = 1 dm³');
+    expect(einheitentafelBild(liter).beschreibung.de).toContain('Eingetragen ist 1 l: 1 unter dm³');
   });
 
   it('verwirft Unsinn: unbekannte Größe, unpassende Werte, Lücken in den Einheiten', () => {

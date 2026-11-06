@@ -94,6 +94,8 @@ export interface Einheitentafel {
   readonly einheit?: number;
   /** wie die Maßzahl angegeben war, als Text („3,45“) */
   readonly wert?: string;
+  /** Name der Einheit, wie angegeben (bei Volumen auch l oder ml) */
+  readonly name?: string;
   /** Index der Einheit, in der gelesen wird */
   readonly ziel?: number;
 }
@@ -161,7 +163,7 @@ export function einheitentafelAus(p: EinheitentafelParameter): Einheitentafel {
   const ziffern = [...leer];
   [...ganz].forEach((c, i) => (ziffern[start + i] = c));
   [...nach].forEach((c, i) => (ziffern[e + 1 + i] = c));
-  return { ...basis, ziffern, einheit, wert: roh };
+  return { ...basis, ziffern, einheit, wert: roh, name: String(p.einheit) };
 }
 
 /** Lesen in einer anderen Einheit (Index) oder ohne Komma (undefined). */
@@ -173,6 +175,7 @@ export function gelesenIn(z: Einheitentafel, ziel: number | undefined): Einheite
     ziffern: z.ziffern,
     ...(z.einheit !== undefined ? { einheit: z.einheit } : {}),
     ...(z.wert !== undefined ? { wert: z.wert } : {}),
+    ...(z.name !== undefined ? { name: z.name } : {}),
   };
   return ziel !== undefined && ziel >= 0 && ziel < z.einheiten.length ? { ...ohne, ziel } : ohne;
 }
@@ -211,15 +214,25 @@ export function lesung(z: Einheitentafel, ziel = z.ziel): Lesung | undefined {
 
 const nameMit = (e: Einheit | undefined) => (e ? e.name : '');
 
-/** „3,45 m = 345 cm“ (bei Volumen mit Liter: „… = 2,5 dm³ = 2,5 l“); undefined ohne Lesung. */
+/** Die eingetragene Größe als Text, etwa „3,45 m“ oder „1 l“. */
+function eintragText(z: Einheitentafel): string {
+  if (z.wert === undefined || z.einheit === undefined) return '';
+  const [ganz = '', nach] = z.wert.split(',');
+  const zahl = `${zahlDeutsch(Number(ganz))}${nach === undefined ? '' : `,${nach}`}`;
+  return `${zahl} ${z.name ?? nameMit(z.einheiten[z.einheit])}`;
+}
+
+/**
+ * „3,45 m = 345 cm“ (bei Volumen mit Liter: „… = 2,5 dm³ = 2,5 l“); in derselben Einheit nur
+ * „3,45 m“. Undefined ohne Lesung.
+ */
 export function lesungText(z: Einheitentafel): string | undefined {
   const l = lesung(z);
-  if (!l || z.einheit === undefined || z.ziel === undefined || z.wert === undefined)
-    return undefined;
+  if (!l || z.ziel === undefined) return undefined;
   const ziel = z.einheiten[z.ziel];
-  const vorher = `${zahlDeutsch(Number(z.wert.split(',')[0]))}${z.wert.includes(',') ? `,${z.wert.split(',')[1] ?? ''}` : ''}`;
-  const auch = ziel?.auch ? ` = ${l.zahl} ${ziel.auch}` : '';
-  return `${vorher} ${nameMit(z.einheiten[z.einheit])} = ${l.zahl} ${nameMit(ziel)}${auch}`;
+  const teile = [eintragText(z), `${l.zahl} ${nameMit(ziel)}`];
+  if (ziel?.auch) teile.push(`${l.zahl} ${ziel.auch}`);
+  return [...new Set(teile)].join(' = ');
 }
 
 const STELLEN_WORT: Readonly<Record<string, TextSchluessel>> = {
@@ -246,7 +259,7 @@ export function beschreibung(z: Einheitentafel): string {
       c === null ? [] : [`${c} ${t('werkzeug.einheitentafel.unter')} ${spaltenName(z, i)}`],
     );
     saetze.push(
-      `${t('werkzeug.einheitentafel.eingetragen')} ${z.wert} ${nameMit(z.einheiten[z.einheit])}: ${eintraege.join(', ')}.`,
+      `${t('werkzeug.einheitentafel.eingetragen')} ${eintragText(z)}: ${eintraege.join(', ')}.`,
     );
   }
   const l = lesung(z);
