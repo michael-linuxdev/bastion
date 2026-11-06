@@ -20,7 +20,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Teile den Streifen in 4 Teile und färbe eins. Stell dir dann denselben Streifen mit 8 Teilen vor. Ist $\frac{1}{8}$ größer oder kleiner als $\frac{1}{4}$?'
+      de: 'Oben ist $\frac{1}{4}$ gefärbt. Stelle den unteren Streifen mit + auf 8 Teile: Dann ist dort $\frac{1}{8}$ gefärbt. Ist $\frac{1}{8}$ größer oder kleiner als $\frac{1}{4}$?'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
     werkzeug: { id: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
     antwort:
       optionen:
@@ -31,14 +32,15 @@ schritte:
   - id: erklaeren-gleichnamig
     typ: erklaeren
     text:
-      de: 'Gleicher [[Nenner]]: Alle Teile sind gleich groß. Dann ist der [[Bruch]] mit dem größeren [[Zähler]] größer: $\frac{3}{5} > \frac{2}{5}$.'
+      de: 'Gleicher [[Nenner]]: Alle Teile sind gleich groß. Im Bild sind 3 Fünftel gefärbt, ein Teil mehr als bei 2 Fünfteln. Der [[Bruch]] mit dem größeren [[Zähler]] ist größer: $\frac{3}{5} > \frac{2}{5}$.'
     bild: { werkzeug: bruchstreifen@1, parameter: { teile: 5, gefaerbt: 3 } }
     weiter: erklaeren-gleicher-zaehler
   - id: erklaeren-gleicher-zaehler
     typ: erklaeren
     text:
-      de: 'Gleicher [[Zähler]]: Gleich viele Teile, aber verschieden groß. Ein größerer [[Nenner]] macht die Teile kleiner: $\frac{1}{4} > \frac{1}{8}$.'
-    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 1 } }
+      de: 'Gleicher [[Zähler]]: Gleich viele Teile, aber verschieden groß. Oben ist $\frac{1}{4}$ gefärbt, darunter $\frac{1}{8}$. Ein größerer [[Nenner]] macht die Teile kleiner: $\frac{1}{4} > \frac{1}{8}$.'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 1 } }
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 1 } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -48,7 +50,9 @@ schritte:
   - id: erklaeren-ungleichnamig
     typ: erklaeren
     text:
-      de: 'Sind [[Zähler]] und [[Nenner]] verschieden, vergleiche mit einem Halben: $\frac{3}{8}$ ist weniger als die Hälfte, $\frac{2}{3}$ mehr. Oder bringe beide auf einen [[gemeinsamen Nenner]].'
+      de: 'Sind [[Zähler]] und [[Nenner]] verschieden, vergleiche mit einem Halben: Oben ist $\frac{3}{8}$ gefärbt, weniger als die Hälfte. Darunter $\frac{2}{3}$, mehr als die Hälfte. Oder bringe beide auf einen [[gemeinsamen Nenner]].'
+    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 8, gefaerbt: 3 } }
+    werkzeug: { id: bruchstreifen@1, parameter: { teile: 3, gefaerbt: 2 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
