@@ -2,7 +2,11 @@
 // Bogen, auf Wunsch am Winkelmesser. Interaktiv wird er mit Knöpfen größer und kleiner, die
 // Winkelart steht dabei. Reine Logik; die Darstellung ist Winkel.svelte.
 import type { Bild } from '../../../core/learning/generator';
-import { rechterWinkel, winkelmesserTeile } from '../../../generators/mathematik/geometrie/winkel';
+import {
+  rechterWinkel,
+  WINKELMESSER,
+  winkelmesserTeile,
+} from '../../../generators/mathematik/geometrie/winkel';
 import { aufKreis, bild, bogen, kreis, linie, text } from '../../../generators/svg';
 import { t } from '../../texte/texte';
 
@@ -99,17 +103,17 @@ export function winkelBild(z: Winkel): Bild {
   const von = z.links ? 180 - z.grad : 0;
   const bis = z.links ? 180 : z.grad;
   if (z.winkelmesser) {
-    const [cx, cy] = [160, 175];
-    teile.push(...winkelmesserTeile(cx, cy));
-    const [ex, ey] = aufKreis(cx, cy, 158, erster);
-    const [zx, zy] = aufKreis(cx, cy, 158, zweiter);
-    teile.push(linie(cx, cy, ex, ey, 2.5), linie(cx, cy, zx, zy, 2.5));
-    if (z.grad > 0) teile.push(bogen(cx, cy, 34, von, bis));
+    // B12: gleiche Maße wie die Aufgabe; Schenkel unter den Zahlen, damit diese lesbar bleiben
+    const { cx, cy, schenkel, breite, hoehe } = WINKELMESSER;
+    const [ex, ey] = aufKreis(cx, cy, schenkel, erster);
+    const [zx, zy] = aufKreis(cx, cy, schenkel, zweiter);
+    const unten = [linie(cx, cy, ex, ey, 2.5), linie(cx, cy, zx, zy, 2.5)];
+    if (z.grad > 0) unten.push(bogen(cx, cy, 34, von, bis));
     if (z.grad >= 20) {
       const [lx, ly] = aufKreis(cx, cy, 52, (von + bis) / 2);
-      teile.push(text(lx, ly + 5, z.name, 15));
+      unten.push(text(lx, ly + 5, z.name, 15));
     }
-    return bild(320, 185, teile, { de: beschreibung(z) });
+    return bild(breite, hoehe, winkelmesserTeile(cx, cy, unten), { de: beschreibung(z) });
   }
   const [cx, cy] = [150, 110];
   const [x1, y1] = aufKreis(cx, cy, 100, erster);

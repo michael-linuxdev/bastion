@@ -16,7 +16,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Auftrag seit 05.11.2026 | **Qualität Klasse 5 bis 10 vor Tests** (K-32, `docs/session/QUALITAET-5-10.md`): U4b ohne Termin, 11/12 angehalten, Einfrieren aufgehoben. Abnahme A1–A5 dort |
 | Nächster Schritt Lernkern | Meilenstein M5 (Klasse 5, 42 Kompetenzen): Q-L2 Erstvermittlungen mit Bild, dann Q-L1 Prüfen (Phase C), je Feld ein PR, Beginn Raum und Form. Fortschritt `pnpm review --klasse 5`. U4b vorbereitet (04.11.2026), Unterlagen liegen bereit |
-| Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Mängelliste A1–D5 abgearbeitet in fünf PRs (bis 06.11.2026, `QUALITAET-5-10.md`), B10 beim Lernkern; zweiter Rundgang für A4: keine A-, drei B-Funde (B11–B13), PV wählt |
+| Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Mängelliste A1–D5 abgearbeitet in fünf PRs (bis 06.11.2026, `QUALITAET-5-10.md`), B10 beim Lernkern; zweiter Rundgang für A4: keine A-, drei B-Funde (B11–B13); PV wählte B11, B13, C7, C9, erledigt in PR (6); B12 beim Lernkern, C8 und D6–D10 nach Wahl |
 | Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13: PR 1 Takt der Bühne (#285) gilt; PR 2 bis 4 (#290, #292, #298) am 06.11.2026 zurückgenommen, weil die App auf dem iPhone beim Zoomen abstürzte (GRAFIK §33). Als Nächstes PR 3 (Takt, nur Pixi) einzeln neu, dann ein Kulissen-Ansatz ohne große transformierte Ebenen, jeweils erst nach Probe am iPhone. Beim PV: Referenzgeräte (0.10) |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (Stufe 2; VERMITTLUNG §8, Frage 2) |
 
@@ -212,6 +212,7 @@ Konzept: `VERMITTLUNG.md`. Reihenfolge nach K-28, jeder Schritt ein PR:
   - [x] **U4a** Testprotokoll (K-14, D-18): Teilnehmer-Nummer mit Prüfziffer im Elternbereich (sie ist zugleich der Testcode), unbekannte Fehler gesondert aufgeführt, Ereignis `nutzung`, Hinweis in der App, Export als JSON-Datei mit Vorschau, Ausschalten und Löschen
   - [ ] **U4b** Test mit den drei Testerinnen (`TESTS.md` §2). Auswertung vorbereitet (F4, 01.11.2026): `pnpm auswertung` beantwortet Kriterium 1 und F5 aus `STRATEGIE.md` §0 (`TESTS.md` §4.5). Unterlagen druckfertig (04.11.2026). *Seit 05.11.2026 (K-32): ohne Termin, erst nach der Abnahme in `docs/session/QUALITAET-5-10.md`*
 - [ ] **Q – Qualität Klasse 5 bis 10** (K-32, 05.11.2026, `docs/session/QUALITAET-5-10.md`): Meilenstein **M5** (Klasse 5, 42 Kompetenzen, Liste dort), dann Klasse 6 bis 10. Je Klasse: Q-L2 Erstvermittlungen mit Bild oder Werkzeug, Q-L1 Prüfen in zwei Durchgängen bis Stufe 1, Q-L3 Zwischenschritte (bis Klasse 7). Parallel Q-O1 (Lern-Oberfläche) und Q-G1 (Tempo). Fortschritt: `pnpm review --klasse 5`
+  - [x] Rundgang 2, Wünsche an den Lernkern: B12 Winkelmesser lesbar, D8 Grad hinter Winkel-Lösungen (06.11.2026)
 - [ ] **U5** Klasse 5 bis 8 Feld für Feld nachrüsten (123 Kompetenzen); bestehende 596 Fehlerbilder den Fehlvorstellungen zuordnen; mehrschrittige Vorlagen bekommen Zwischenschritte (F6)
   - [x] **U5a** Fehlerbilder zuordnen, Feld Brüche und Dezimalzahlen: 67 Fehlerbilder, 35 neue Fehlvorstellungen (INHALTSFORMAT §16); Stand 82 von 596 mit `fv`
   - [x] **U5c** Erstvermittlungen für alle Kompetenzen der Klassen 5 bis 8, je Feld ein PR (INHALTSFORMAT §15). Jede legt die Schritte an, auf die die Rückwege des Fehlerkatalogs zeigen:
@@ -270,7 +271,7 @@ Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] O11–O12 gemeinsamer Zurück-Knopf · O13 Browser-Tests der Oberfläche · O14 Installationsanleitung beim Erststart
 - [x] O15–O22 Bedienbarkeit (PV 04.11.2026: „alles umsetzen“): Zurück-Taste des Geräts, Fokus und Titel je Seite, Startseite bei großer Schrift und am Desktop, Erststart, Mein Stand, Seite „Einstellungen“ mit Schriftgröße, PIN, Übung und Bastion-Leiste
 - [x] Q-O1 Lern-Oberfläche (K-32, `docs/session/QUALITAET-5-10.md`): Rundgang und Mängelliste A1–D5 erledigt (05.11.2026), PV: alle Punkte; je ein PR für Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines – alle erledigt (06.11.2026), B10 (Inhalt) beim Lernkern
-- [ ] Q-O1 zweiter Rundgang für A4 (06.11.2026): keine A-, drei B-Funde (B11–B13), C7–C9, D6–D10; wartet auf die Wahl des PV
+- [ ] Q-O1 zweiter Rundgang für A4 (06.11.2026): keine A-, drei B-Funde (B11–B13), C7–C9, D6–D10; PV wählte B11, B13, C7, C9 – erledigt in PR (6) (06.11.2026); B12 beim Lernkern; C8, D6–D10 nach Wahl, danach dritter Rundgang
 
 ## 5. Änderungsprotokoll
 

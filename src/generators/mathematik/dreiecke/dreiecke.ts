@@ -93,6 +93,7 @@ export const innenwinkel: Generator<InnenwinkelParameter> = {
           : `Ein Dreieck ABC. Bei A ist α = ${alpha}°, bei B ist β = ${beta}° markiert, bei C der gesuchte Winkel γ.`,
       }),
       loesung: zahl(gamma),
+      einheit: '°',
       loesungsweg: basis
         ? [
             de(`Basiswinkel sind gleich groß: Auch bei B sind es ${alpha}°.`),
@@ -182,6 +183,7 @@ export const parallelenWinkel: Generator<ParallelenWinkelParameter> = {
         de: `Zwei parallele Geraden g und h werden von einer dritten Geraden geschnitten. α liegt am Schnittpunkt mit g links unten, β am Schnittpunkt mit h ${{ stufen: 'links unten', wechsel: 'rechts oben', 'ergaenzung-oben': 'links oben', 'ergaenzung-unten': 'rechts unten' }[lage]}.`,
       }),
       loesung: zahl(beta),
+      einheit: '°',
       loesungsweg: weg[lage].map((w) => de(w)),
       fehlerbilder: fehlerbilderAus(zahl(beta), [
         ['gleich-statt-ergaenzt', gleich ? undefined : zahl(alpha)],

@@ -83,6 +83,12 @@ export interface Instanz {
   readonly tastatur?: readonly Taste[];
   readonly loesung: Loesung;
   /**
+   * Einheit einer Zahl-Lösung, nur für die Anzeige (D8): „Richtig ist 140°“, „Deine Antwort:
+   * 40°“. Eingegeben wird weiter nur die Zahl; „°“ und „%“ stehen ohne Leerzeichen dahinter,
+   * andere Einheiten mit.
+   */
+  readonly einheit?: string;
+  /**
    * Gerundetes Ergebnis (ab Klasse 9, Bedarfsliste B3): `loesung` ist der auf `stellen`
    * Nachkommastellen gerundete Wert, `genau` der ungerundete. Eine Antwort nah an `genau`,
    * aber anders gerundet, bekommt den Hinweis „anders gerundet“ statt „falsch“.

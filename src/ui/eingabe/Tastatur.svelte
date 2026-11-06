@@ -224,8 +224,9 @@
       max-inline-size: 16rem;
     }
 
+    /* C7 (Q-O1): auch mit Maus mindestens 44 px hoch */
     button {
-      min-block-size: 2.5rem;
+      min-block-size: var(--ziel);
       font-size: 1.25rem;
     }
   }

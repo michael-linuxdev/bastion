@@ -407,6 +407,11 @@ describe('Winkel (winkel@1)', () => {
     const m = winkelBild(winkelAus({ grad: 40, winkelmesser: true }));
     expect(m.beschreibung.de).toContain('40 auf der äußeren Skala und 140 auf der inneren Skala');
     expect(m.svg).toContain('>180<');
+    // B12: nur 20er-Marken beschriftet, Schrift 14
+    expect(m.svg).toContain(
+      'font-size="14" text-anchor="middle" fill="currentColor" stroke="none">160<',
+    );
+    expect(m.svg).not.toContain('>150<');
     const links = winkelBild(winkelAus({ grad: 40, winkelmesser: true, links: true }));
     expect(links.beschreibung.de).toContain('Der erste Schenkel zeigt auf 180');
     const frage = winkelBild(winkelAus({ grad: 110, winkelmesser: true, frage: true }));

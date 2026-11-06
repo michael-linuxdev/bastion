@@ -95,6 +95,13 @@
       var(--farbe-flaeche);
     box-shadow: 0 2px 8px var(--farbe-schatten);
   }
+  /* C9 (Q-O1): Klappzeile mindestens 44 px, auch wenn sie in eine Zeile passt (wie C4) */
+  summary {
+    min-block-size: var(--ziel);
+    padding-block: 0.5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
   .felder {
     list-style: none;
     margin: 0;

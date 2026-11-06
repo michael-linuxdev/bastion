@@ -54,16 +54,16 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Mia liest diesen [[Winkel]] ab und schreibt 150°. Stimmt das?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 30, winkelmesser: true, frage: true } }
+      de: 'Mia liest diesen [[Winkel]] ab und schreibt 160°. Stimmt das?'
+    bild: { werkzeug: winkel@1, parameter: { grad: 20, winkelmesser: true, frage: true } }
     antwort:
       optionen:
         - {
             wert:
-              { de: 'Nein, der Winkel ist spitz. Auf der Skala mit der 0 am Schenkel steht 30.' },
+              { de: 'Nein, der Winkel ist spitz. Auf der Skala mit der 0 am Schenkel steht 20.' },
             richtig: true,
           }
-        - { wert: { de: 'Ja, 150 steht doch am zweiten Schenkel.' }, fv: FV.GF.WINKELMESSER-SKALA }
+        - { wert: { de: 'Ja, 160 steht doch am zweiten Schenkel.' }, fv: FV.GF.WINKELMESSER-SKALA }
     weiter: merksatz
     bei: { FV.GF.WINKELMESSER-SKALA: erklaeren-messen }
   - id: merksatz
@@ -75,11 +75,11 @@ schritte:
     typ: pruefen
     text:
       de: 'Wie groß ist dieser [[Winkel]]?'
-    bild: { werkzeug: winkel@1, parameter: { grad: 110, winkelmesser: true, frage: true } }
+    bild: { werkzeug: winkel@1, parameter: { grad: 120, winkelmesser: true, frage: true } }
     antwort:
       optionen:
-        - { wert: { de: '110°' }, richtig: true }
-        - { wert: { de: '70°' }, fv: FV.GF.WINKELMESSER-SKALA }
+        - { wert: { de: '120°' }, richtig: true }
+        - { wert: { de: '60°' }, fv: FV.GF.WINKELMESSER-SKALA }
     weiter: uebergang
     bei: { FV.GF.WINKELMESSER-SKALA: erklaeren-messen }
   - id: uebergang
@@ -90,8 +90,3 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
-review:
-  stufe: 1
-  datum: 2026-11-06
-  pruefer: maschine
-  hash: b62aa064e6190f9e9ce7e53ba439499970a6cbc5bb7211541c1522ce9e119023

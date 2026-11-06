@@ -116,6 +116,7 @@ export const winkelpaarGroesse: Generator<WinkelpaarParameter> = {
       platzhalter: { alpha, beziehung: de(beziehung) },
       bild: bild(320, 230, teile, de(beschreibung)),
       loesung,
+      einheit: '°',
       loesungsweg: [
         de(gleich ? `${beziehung} sind gleich groß.` : 'Nebenwinkel ergänzen sich zu 180°.'),
         de(gleich ? `β = α = ${alpha}°` : `β = 180° − ${alpha}° = ${beta}°`),

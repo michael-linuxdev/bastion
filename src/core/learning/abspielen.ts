@@ -7,7 +7,8 @@
  */
 import { leseBruch, leseZahl } from './auswertung';
 import { gleichGeschrieben } from './bruch';
-import type { Schritt, Vermittlung } from './vermittlung';
+import { WERKZEUG_EINHEIT, type Schritt, type Vermittlung } from './vermittlung';
+import { mitEinheit } from './werkstatt';
 
 /** Antwort der lernenden Person: Index der gewählten Option oder die Eingabe als Text. */
 export type Eingabe = { readonly option: number } | { readonly text: string };
@@ -96,7 +97,10 @@ export function richtigeAntwort(schritt: Schritt): string | undefined {
   const a = schritt.antwort;
   if (!a) return undefined;
   if ('optionen' in a) return a.optionen.find((o) => o.richtig === true)?.wert.de;
-  return a.eingabe.loesung;
+  if (a.eingabe.art !== 'zahl') return a.eingabe.loesung;
+  // D8: „So ist es richtig: 90°“ – die Einheit kommt vom Werkzeug des Schritts
+  const werkzeug = schritt.werkzeug?.id ?? schritt.bild?.werkzeug;
+  return mitEinheit(a.eingabe.loesung, werkzeug ? WERKZEUG_EINHEIT[werkzeug] : undefined);
 }
 
 /** Kurzfassung zum Nachschlagen (VERMITTLUNG §2.4): nur Beispiele und Merksätze. */

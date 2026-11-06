@@ -68,27 +68,56 @@ export const winkelart: Generator<WinkelartParameter> = {
 };
 
 /**
- * Winkelmesser mit Mittelpunkt (cx, cy): Halbkreis, Striche alle 5°, äußere Skala 0 … 180 von
- * rechts, innere 180 … 0. Auch das Werkzeug winkel@1 zeichnet damit, Aufgabe und Erklärung
- * sehen gleich aus.
+ * Maße des Winkelmessers (B12): Bildfläche, Mittelpunkt, Radius des Bogens und Länge der
+ * Schenkel. Das Bild ist knapp so hoch wie der Halbkreis, damit es am Handy die volle Breite
+ * bekommt (Seitenverhältnis fast 2 : 1); 1 Einheit ist dort etwa 1 px.
  */
-export function winkelmesserTeile(cx: number, cy: number): string[] {
-  const teile: string[] = [
-    `<path d="M${cx - 145} ${cy} A145 145 0 0 1 ${cx + 145} ${cy} Z" stroke-width="1.5"/>`,
+export const WINKELMESSER = {
+  breite: 324,
+  hoehe: 170,
+  cx: 162,
+  cy: 164,
+  radius: 148,
+  schenkel: 160,
+  schrift: 14,
+} as const;
+
+/**
+ * Winkelmesser mit Mittelpunkt (cx, cy): Halbkreis, Striche alle 5° (lang alle 20°, mittel
+ * alle 10°), äußere Skala 0 … 180 von rechts, innere 180 … 0. Beschriftet ist jede 20°-Marke
+ * (B12): Mehr Zahlen passen in der lesbaren Größe (14 px am Handy) nicht nebeneinander.
+ * `schenkel` liegt zwischen Strichen und Zahlen: Die Zahlen bleiben über den Schenkeln
+ * lesbar, die Striche unter den Schenkeln zeigen die Lage. Auch das Werkzeug winkel@1
+ * zeichnet damit, Aufgabe und Erklärung sehen gleich aus.
+ */
+export function winkelmesserTeile(
+  cx: number,
+  cy: number,
+  schenkel: readonly string[] = [],
+): string[] {
+  const { radius: r, schrift } = WINKELMESSER;
+  const striche: string[] = [
+    `<path d="M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy} Z" stroke-width="1.5"/>`,
   ];
+  const zahlen: string[] = [];
   for (let g = 0; g <= 180; g += 5) {
-    const [a1, b1] = aufKreis(cx, cy, 145, g);
-    const [a2, b2] = aufKreis(cx, cy, g % 10 === 0 ? 130 : 137, g);
-    teile.push(linie(a1, b1, a2, b2, g % 10 === 0 ? 1.2 : 0.7));
-    if (g % 10 === 0) {
-      // 0 und 180 etwas nach innen, damit sie nicht auf der Grundlinie stehen
+    const laenge = g % 20 === 0 ? 17 : g % 10 === 0 ? 12 : 7;
+    const [a1, b1] = aufKreis(cx, cy, r, g);
+    const [a2, b2] = aufKreis(cx, cy, r - laenge, g);
+    striche.push(linie(a1, b1, a2, b2, g % 10 === 0 ? 1.4 : 0.8));
+    if (g % 20 === 0) {
+      // 0 und 180 etwas nach oben, damit sie nicht auf der Grundlinie stehen
       const lage = Math.min(Math.max(g, 5), 175);
-      const [ax, ay] = aufKreis(cx, cy, 120, lage);
-      const [ix, iy] = aufKreis(cx, cy, 102, lage);
-      teile.push(text(ax, ay + 3, String(g), 9), text(ix, iy + 3, String(180 - g), 7));
+      const [ax, ay] = aufKreis(cx, cy, r - 30, lage);
+      const [ix, iy] = aufKreis(cx, cy, r - 58, lage);
+      const mitte = schrift * 0.36; // Ziffern senkrecht mittig auf den Punkt
+      zahlen.push(
+        text(ax, ay + mitte, String(g), schrift),
+        text(ix, iy + mitte, String(180 - g), schrift),
+      );
     }
   }
-  return teile;
+  return [...striche, ...schenkel, ...zahlen];
 }
 
 export interface WinkelAblesenParameter {
@@ -109,24 +138,23 @@ export const winkelAblesen: Generator<WinkelAblesenParameter> = {
     let w = r.int(10 / p.schritt, 170 / p.schritt) * p.schritt;
     if (w === 90) w = r.pick([80, 100]); // bei 90° sind beide Skalen gleich
     const links = p.beide_seiten && r.int(0, 1) === 1;
-    const [cx, cy] = [160, 175];
-    const teile = winkelmesserTeile(cx, cy);
+    const { cx, cy, schenkel: l } = WINKELMESSER;
     const erster = links ? 180 : 0;
     const zweiter = links ? 180 - w : w;
-    const [ex, ey] = aufKreis(cx, cy, 158, erster);
-    const [zx, zy] = aufKreis(cx, cy, 158, zweiter);
-    teile.push(
+    const [ex, ey] = aufKreis(cx, cy, l, erster);
+    const [zx, zy] = aufKreis(cx, cy, l, zweiter);
+    const teile = winkelmesserTeile(cx, cy, [
       linie(cx, cy, ex, ey, 2.5),
       linie(cx, cy, zx, zy, 2.5),
       bogen(cx, cy, 34, Math.min(erster, zweiter), Math.max(erster, zweiter)),
-    );
+    ]);
     const skala = (g: number) => `${g} auf der äußeren und ${180 - g} auf der inneren Skala`;
     const loesung = zahl(w);
     return {
       platzhalter: {},
       bild: bild(
-        320,
-        185,
+        WINKELMESSER.breite,
+        WINKELMESSER.hoehe,
         teile,
         de(
           `Ein Winkelmesser liegt mit seinem Mittelpunkt am Scheitel eines Winkels. ` +
@@ -134,6 +162,7 @@ export const winkelAblesen: Generator<WinkelAblesenParameter> = {
         ),
       ),
       loesung,
+      einheit: '°',
       loesungsweg: [
         de(
           `Lies auf der Skala ab, die beim ersten Schenkel bei 0 beginnt – hier die ${links ? 'innere' : 'äußere'}.`,
