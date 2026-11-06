@@ -4,7 +4,7 @@ kompetenz: M.DZ.DA.MITTELWERT
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: da.mittelwert@1
+generator: da.mittelwert@2
 parameter:
   G: { anzahl_min: 3, anzahl_max: 5, wert_max: 6, noten: true, ganzzahlig: false }
   M: { anzahl_min: 5, anzahl_max: 8, wert_max: 6, noten: true, ganzzahlig: false }
@@ -23,6 +23,6 @@ fehlerbilder:
     fv: FV.SA.ZWISCHENERGEBNIS
   nicht-gerundet:
     de: 'Fast! Runde noch auf eine [[Nachkommastelle]].'
-    fv: FV.SA.ANGABE-UEBERSEHEN
+    fv: FV.NZ.RUNDEN-STELLE
 herkunft: ki-entwurf
 version: 1

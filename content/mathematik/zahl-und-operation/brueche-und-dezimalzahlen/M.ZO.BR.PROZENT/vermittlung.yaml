@@ -28,7 +28,7 @@ schritte:
           { achsen: false, max: 10, figuren: [{ ecken: [[0, 5], [10, 5], [10, 10], [0, 10]] }] },
       }
     antwort:
-      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '5', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
+      eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '5', fv: FV.BR.STELLENWERT-DEZIMAL }] }
     weiter: erklaeren-hundertstel
   - id: erklaeren-hundertstel
     typ: erklaeren

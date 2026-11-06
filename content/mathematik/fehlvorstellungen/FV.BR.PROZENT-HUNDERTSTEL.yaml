@@ -15,7 +15,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast [[Prozent]] nicht als [[Hundertstel]] umgewandelt.'
     - teil: warum-nicht
-      de: 'Das Komma zu verschieben ist der richtige Weg, nur die Zahl der Stellen stimmt nicht. Die Prozentzahl zählt [[Hundertstel]]: 0,25 sind 25 Hundertstel, 25 Kästchen der Hundertertafel, also 25 %.'
+      de: 'Mit Zehnteln rechnest du schon lange, darum rutscht man leicht dorthin, beim Komma wie beim [[Nenner]]. Die Prozentzahl zählt aber [[Hundertstel]]: 0,25 sind 25 Hundertstel, 25 Kästchen der Hundertertafel, also 25 %.'
       bild:
         {
           werkzeug: gitter@1,

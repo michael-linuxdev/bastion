@@ -6,7 +6,7 @@ beschreibung:
   de: >-
     Rundet auf Zehner statt auf Hunderter oder auf Hundertstel statt auf Zehntel. Meist werden die
     Namen der Stellen verwechselt oder die Aufgabe zu schnell gelesen.
-kompetenzen: [M.ZO.BR.DEZ-ORDNEN, M.ZO.NZ.RUNDEN]
+kompetenzen: [M.ZO.BR.DEZ-ORDNEN, M.ZO.NZ.RUNDEN, M.DZ.DA.MITTELWERT]
 erklaerung:
   kurz:
     de: 'Lies genau, auf welche Stelle gerundet wird, und unterstreiche sie. Rechts von ihr stehen danach nur noch Nullen oder keine Stellen mehr.'
@@ -21,6 +21,8 @@ gegenbeispiel:
   de: 'Wer auf ganze Euro rundet, schreibt keine Cent mehr. 4,63 € werden 5 €, nicht 4,60 €.'
 rueckweg:
   vermittlung: M.ZO.NZ.RUNDEN#erklaeren-runden
-kontrast: [M.ZO.BR.DEZ-ORDNEN.RUNDEN, M.ZO.NZ.RUNDEN.AUF-STELLE]
+  je:
+    M.DZ.DA.MITTELWERT: M.DZ.DA.MITTELWERT#beispiel
+kontrast: [M.ZO.BR.DEZ-ORDNEN.RUNDEN, M.ZO.NZ.RUNDEN.AUF-STELLE, M.DZ.DA.MITTELWERT.NOTEN]
 herkunft: ki-entwurf
 version: 1

@@ -4,7 +4,7 @@ kompetenz: M.ZO.BR.DEZ-ORDNEN
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: br.dezimal-runden@1
+generator: br.dezimal-runden@2
 parameter:
   G: { ganz_max: 20, stellen_max: 1 }
   M: { ganz_max: 1000, stellen_max: 2 }

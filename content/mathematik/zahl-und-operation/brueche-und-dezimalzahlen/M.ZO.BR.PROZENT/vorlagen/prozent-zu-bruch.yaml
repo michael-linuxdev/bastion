@@ -6,8 +6,8 @@ typ: bruch-eingabe
 quelle: generator
 generator: br.prozentschreibweise-prozent-zu-bruch@1
 parameter:
-  G: { richtung: prozent-zu-bruch, prozente: [10, 25, 50, 75, 100] }
-  M: { richtung: prozent-zu-bruch, prozente: [1, 10, 20, 25, 50, 75, 100] }
+  G: { richtung: prozent-zu-bruch, prozente: [10, 25, 50, 75] }
+  M: { richtung: prozent-zu-bruch, prozente: [1, 10, 20, 25, 50, 75] }
 antwort:
   form: gekuerzt
 text:
