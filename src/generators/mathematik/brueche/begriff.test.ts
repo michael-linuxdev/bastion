@@ -50,22 +50,41 @@ for (const dezimal of [false, true]) {
         M: { nenner: [3, 4, 5, 6, 8, 10], bis: 2, dezimal },
       },
       unabhaengigeLoesung(i) {
-        const [n, k] = ausBeschreibung(i, /in (\d+) gleiche Abschnitte.*am (\d+)\. Teilstrich/) as [
+        const [striche, k] = ausBeschreibung(i, /stehen (\d+) Striche.*am (\d+)\. Strich/) as [
           number,
           number,
         ];
+        const n = striche - 1;
         return dezimal
           ? { typ: 'zahl', wert: Math.round((k / n) * 1e6) / 1e6 }
           : { typ: 'bruch', wert: { zaehler: k, nenner: n } };
       },
       grenzverletzungen(i, p) {
-        const [n, k] = ausBeschreibung(i, /in (\d+) gleiche Abschnitte.*am (\d+)\. Teilstrich/) as [
+        const [striche, k] = ausBeschreibung(i, /stehen (\d+) Striche.*am (\d+)\. Strich/) as [
           number,
           number,
         ];
+        const n = striche - 1;
         return k <= 0 || k >= n * p.bis || k % n === 0 ? [`Markierung bei ${k}/${n}`] : [];
       },
       mindestensVerschieden: dezimal ? { G: 9, M: 18 } : { G: 15, M: 40 },
+    });
+
+    it('Beschreibung nennt keine Abschnitte; Striche gezählt heißt ein Strich zu viel', () => {
+      for (let seed = 0; seed < 200; seed++) {
+        const i = zahlenstrahlAblesen.erzeuge(seed, { nenner: [2, 4, 5, 10], bis: 1, dezimal });
+        expect(i.bild?.beschreibung.de).not.toContain('Abschnitt');
+        const [striche, k] = ausBeschreibung(i, /stehen (\d+) Striche.*am (\d+)\. Strich/) as [
+          number,
+          number,
+        ];
+        const f = i.fehlerbilder.find((x) => x.id === 'striche-statt-abstaende')?.antwort;
+        expect(f).toEqual(
+          dezimal
+            ? { typ: 'zahl', wert: Math.round(((k + 1) / 10) * 1e6) / 1e6 }
+            : { typ: 'bruch', wert: { zaehler: k, nenner: striche } },
+        );
+      }
     });
   });
 }

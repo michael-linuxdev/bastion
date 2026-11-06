@@ -1,4 +1,4 @@
-import { describe } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Instanz, Sprachobjekt } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
 import { dezimalAddSub, dezimalMalDurch, dezimalRunden, dezimalVergleichen } from './dezimal';
@@ -34,6 +34,25 @@ pflichttests(dezimalRunden, {
   },
   grenzverletzungen: () => [],
   mindestensVerschieden: { G: 90, M: 95 },
+});
+
+describe('br.dezimal-runden@2', () => {
+  it('Ergebnis endet an der Rundungsstelle nie auf 0; „falsche Stelle“ ist nie die Zahl selbst', () => {
+    for (const p of [
+      { ganz_max: 20, stellen_max: 1 },
+      { ganz_max: 1000, stellen_max: 2 },
+    ])
+      for (let seed = 0; seed < 2000; seed++) {
+        const i = dezimalRunden.erzeuge(seed, p);
+        const stelle = ['Ganze', 'Zehntel', 'Hundertstel'].indexOf(t(i, 'stelle'));
+        const m = alsMillionstel(t(i, 'zahl'));
+        const loesung = i.loesung.typ === 'zahl' ? i.loesung.wert : NaN;
+        if (stelle > 0)
+          expect(Math.round(loesung * 10 ** stelle) % 10, `${t(i, 'zahl')}`).not.toBe(0);
+        const f = i.fehlerbilder.find((x) => x.id === 'falsche-stelle')?.antwort;
+        if (f?.typ === 'zahl') expect(f.wert).not.toBe(ausMillionstel(m));
+      }
+  });
 });
 
 pflichttests(dezimalAddSub, {

@@ -1,4 +1,4 @@
-import { describe } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Sprachobjekt } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
 import { mittelwert } from './mittelwert';
@@ -19,10 +19,10 @@ for (const noten of [false, true]) {
           },
       unabhaengigeLoesung(i) {
         const w = werte((i.platzhalter['werte'] as Sprachobjekt).de);
-        // Mit ganzen Zahlen gerechnet: Summe · 10 / Anzahl, kaufmännisch gerundet
+        // Mit ganzen Zahlen gerechnet: Summe · 10 (Noten) bzw. · 100 / Anzahl, kaufmännisch gerundet
         const summe = w.reduce((a, b) => a + b, 0);
-        if (noten) return { typ: 'zahl', wert: Math.floor((summe * 10) / w.length + 0.5) / 10 };
-        return { typ: 'zahl', wert: Math.round((summe / w.length) * 1e6) / 1e6 };
+        const f = noten ? 10 : 100;
+        return { typ: 'zahl', wert: Math.floor((summe * f) / w.length + 0.5) / f };
       },
       grenzverletzungen(i, p) {
         const w = werte((i.platzhalter['werte'] as Sprachobjekt).de);
@@ -36,3 +36,24 @@ for (const noten of [false, true]) {
     });
   });
 }
+
+describe('da.mittelwert@2 ohne Noten', () => {
+  it('rundet auf zwei Nachkommastellen; „nicht gerundet“ nur, wenn gerundet wurde', () => {
+    const p = { anzahl_min: 4, anzahl_max: 6, wert_max: 200, noten: false, ganzzahlig: false };
+    let gerundet = 0;
+    for (let seed = 0; seed < 2000; seed++) {
+      const i = mittelwert.erzeuge(seed, p);
+      const w = werte((i.platzhalter['werte'] as Sprachobjekt).de);
+      const genau = w.reduce((a, b) => a + b, 0) / w.length;
+      const loesung = i.loesung.typ === 'zahl' ? i.loesung.wert : NaN;
+      expect(Math.abs(loesung * 100 - Math.round(loesung * 100))).toBeLessThan(1e-9);
+      const f = i.fehlerbilder.find((x) => x.id === 'nicht-gerundet');
+      if (Math.abs(genau - loesung) < 1e-9) expect(f).toBeUndefined();
+      else {
+        gerundet++;
+        expect(f).toBeDefined();
+      }
+    }
+    expect(gerundet).toBeGreaterThan(0);
+  });
+});

@@ -162,9 +162,10 @@ export const zahlenstrahlAblesen: Generator<ZahlenstrahlParameter> = {
       teile.push(linie(x(t), 52, x(t), 68, t % n === 0 ? 3 : 1.5));
     for (let g = 0; g <= p.bis; g++) teile.push(text(x(g * n), 90, String(g)));
     teile.push(markierung(x(k), 48));
+    // Nur Striche nennen, nicht die Abschnitte: Die abzuzählen ist die Aufgabe (Q-L1, Frage 7)
     const beschreibung = de(
-      `Ein Zahlenstrahl von 0 bis ${p.bis}. Jede Einheit ist in ${n} gleiche Abschnitte geteilt. ` +
-        `Die Markierung steht am ${k}. Teilstrich nach der 0.`,
+      `Ein Zahlenstrahl von 0 bis ${p.bis}. Von der 0 bis zur 1 stehen ${n + 1} Striche, ` +
+        `die 0 und die 1 mitgezählt. Die Markierung steht am ${k}. Strich nach der 0.`,
     );
     const wert = (zaehler: number, nenner: number): Loesung =>
       p.dezimal ? zahl(runde10(zaehler / nenner, 6)) : alsBruch(bruch(zaehler, nenner));
@@ -182,7 +183,9 @@ export const zahlenstrahlAblesen: Generator<ZahlenstrahlParameter> = {
         ),
       ],
       fehlerbilder: fehlerbilderAus(richtig, [
-        ['striche-statt-abstaende', wert(k, n + 1)],
+        // Striche statt Abschnitte gezählt: als Bruch ein Nenner zu viel (5/7 statt 5/6),
+        // als Dezimalzahl ein Strich zu viel (0,5 statt 0,4) wie in der Erstvermittlung
+        ['striche-statt-abstaende', p.dezimal ? zahl(runde10((k + 1) / 10, 6)) : wert(k, n + 1)],
         ['nur-teile-gezaehlt', p.dezimal ? zahl(k) : undefined],
       ]),
     };
