@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.GR.UMRECHNEN-RICHTUNG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 23f152ebf46246deefe5012a7f360492aebd97a1e276dffc70cce91383a82b52

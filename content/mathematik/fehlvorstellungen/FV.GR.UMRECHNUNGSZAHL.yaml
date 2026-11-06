@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.GM.GR.UMRECHNEN.IN-GROESSERE, M.GM.GR.UMRECHNEN.IN-KLEINERE]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 14b706ebad82374bb885bb7b62c0db689fb24a5c0c870eed0e58bfd8442ca575

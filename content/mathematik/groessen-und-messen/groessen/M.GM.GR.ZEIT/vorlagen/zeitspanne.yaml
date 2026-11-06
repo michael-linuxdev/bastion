@@ -4,7 +4,7 @@ kompetenz: M.GM.GR.ZEIT
 niveaus: [G, M]
 typ: zahl-eingabe
 quelle: generator
-generator: gr.zeitspanne@1
+generator: gr.zeitspanne@2
 parameter:
   G: { bis_stunden: 3 }
   M: { bis_stunden: 10 }
@@ -12,14 +12,19 @@ text:
   aufgabe:
     de: '**Bestimme**, wie viele Minuten von {beginn} bis {ende} vergehen.'
 hilfen:
-  - de: Rechne zuerst bis zur nächsten vollen Stunde, dann in ganzen Stunden weiter.
+  - de: Rechne bis zur nächsten vollen Stunde, dann in ganzen Stunden weiter und zuletzt die Minuten bis zum Ende.
   - de: Eine Stunde hat 60 Minuten.
 fehlerbilder:
   wie-dezimalzahl-gerechnet:
     de: Du hast die Uhrzeiten wie Zahlen abgezogen. Eine Stunde hat aber 60 Minuten, nicht 100.
     fv: FV.GR.ZEITRECHNEN
   nur-stunden:
-    de: Du hast nur die vollen Stunden gezählt. Die Minuten am Anfang und am Ende gehören dazu.
+    de: Du hast nur die Stundenzahlen abgezogen und die Minuten nicht beachtet. Rechne zuerst bis zur nächsten vollen Stunde.
     fv: FV.GR.ZEITRECHNEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 33c819a1fb103b6fe84ba709aa95147e12587fabd9a762b8c83648661b55171d

@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.GM.KP.VOLUMEN.QUADER, M.GM.KP.PRISMA.VOLUMEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: fa81f7784a563dffb2ca217f70706050b34676115b0ff74a580fd9acf6f8b2f5

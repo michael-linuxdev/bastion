@@ -40,3 +40,8 @@ sachsen:
     klassenstufe: 5
     lernbereich: LB 4 Rechtecke und Quader
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: c1c8100184bff580fe0c1b40bd08b89ab7d348f5b23c1f70dcf45bf9b3c7a051

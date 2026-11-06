@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.GM.GR.ZEIT.ZEITSPANNE, M.GM.GR.ZEIT.ENDZEIT]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 60e67d14122ccf60b88c2e5d0f6fbb33f0dc0cf2f5a846ccc0ab59f07755d1d7
