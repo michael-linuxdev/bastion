@@ -162,16 +162,16 @@ Kompetenzen mit `klassenstufe_typisch` 5 (`pnpm review --klasse 5`). Spalte „B
 | | M.ZO.BR.DEZ-ORDNEN | Dezimalzahlen vergleichen und runden | Zahlenstrahl ✓ | |
 | | M.ZO.BR.DEZ-RECHNEN | Mit Dezimalzahlen rechnen | | schriftlich |
 | | M.ZO.BR.PROZENT | Prozentschreibweise | Hundertertafel ✓ (`gitter@1`, Rasterpapier 10 × 10) | |
-| Größen und Messen | M.GM.GR.UMRECHNEN | Einheiten umrechnen | Stellenwerttafel | |
-| | M.GM.GR.KOMMA | Größen in verschiedenen Schreibweisen | Stellenwerttafel | |
-| | M.GM.GR.ZEIT | Uhrzeiten und Zeitspannen | Uhr | zwei Schritte |
-| | M.GM.GR.SACH | Sachaufgaben mit Größen | | mehrschrittig |
-| | M.GM.FL.EINHEITEN | Flächeneinheiten | Quadrat | |
-| | M.GM.FL.RECHTECK | Umfang und Fläche des Rechtecks | Rechteck | |
-| | M.GM.FL.ZUSAMMENGESETZT | Zusammengesetzte Figuren | Figur | zerlegen, rechnen |
-| | M.GM.KP.EINHEITEN | Volumeneinheiten und Hohlmaße | Würfel | |
-| | M.GM.KP.VOLUMEN | Volumen von Würfel und Quader | Quader | |
-| | M.GM.KP.OBERFLAECHE | Oberfläche von Würfel und Quader | Netz | Flächen, Summe |
+| Größen und Messen | M.GM.GR.UMRECHNEN | Einheiten umrechnen | Stellenwerttafel ✓ | |
+| | M.GM.GR.KOMMA | Größen in verschiedenen Schreibweisen | Stellenwerttafel ✓ | |
+| | M.GM.GR.ZEIT | Uhrzeiten und Zeitspannen | Uhr, Zeitleiste ✓ | zwei Schritte |
+| | M.GM.GR.SACH | Sachaufgaben mit Größen | (nicht bildhaft; Stellenwerttafel beim Umrechnen ✓) | mehrschrittig |
+| | M.GM.FL.EINHEITEN | Flächeneinheiten | Quadrat, Stellenwerttafel ✓ | |
+| | M.GM.FL.RECHTECK | Umfang und Fläche des Rechtecks | Rechteck ✓ | |
+| | M.GM.FL.ZUSAMMENGESETZT | Zusammengesetzte Figuren | Figur ✓ | zerlegen, rechnen |
+| | M.GM.KP.EINHEITEN | Volumeneinheiten und Hohlmaße | Würfel, Stellenwerttafel ✓ | |
+| | M.GM.KP.VOLUMEN | Volumen von Würfel und Quader | Quader ✓ | |
+| | M.GM.KP.OBERFLAECHE | Oberfläche von Würfel und Quader | Netz ✓ | Flächen, Summe |
 | Raum und Form | M.RF.GF.LAGE | Parallel, senkrecht, schneidend | Geraden ✓ | |
 | | M.RF.GF.WINKEL | Winkel | Winkel ✓ | |
 | | M.RF.GF.WINKELPAARE | Winkelpaare an Geraden | Geraden ✓ | |
@@ -209,3 +209,4 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **06.11.2026, Lernkern, Q-L2 Zahlen, Brüche, Daten Klasse 5 (Branch `lernkern/q-l2-zahlen-brueche-daten`):** Sieben Erstvermittlungen mit Bild oder Werkzeug an der erklärenden Stelle und in `entdecken`, nur mit vorhandenen Werkzeugen: NZ.ORDNEN (Zahlenstrahl 0 bis 12), BR.VERGLEICHEN (zwei Bruchstreifen untereinander), BR.ZAHLENSTRAHL (`entdecken` als Bild, weil die Statuszeile den Nenner verriet), BR.ANTEIL-VON (Säulen aus Kästchen, `gitter@1`), BR.DEZ-ORDNEN (Zahlenstrahl), BR.PROZENT (Hundertertafel aus `gitter@1`, auch in `FV.BR.PROZENT-HUNDERTSTEL`), DA.MITTELWERT (Säulen aus Kästchen mit Ausgleichspfeil). Kein neues Werkzeug. Rückfrage an den PV: `zahlenstrahl@1` beschriftet nur ganze Einheiten als ganze Zahl oder Bruch; für große Zahlen (0, 1 000, 2 000 …) und Dezimalzahlen (0,1; 0,2 …) bräuchte es zwei Parameter (Wert einer Einheit, Dezimalschreibweise). Danach Q-L1 für diese sieben Kompetenzen.
 - **06.11.2026, Grafik, Q-G1 PR 4 (Branch `grafik/q-g1-hd`):** Ebenenspeicher senken (GRAFIK §32): Der Speicher lag in den Ebenen des Browsers, nicht in den Pixi-Texturen. Knapper Sichtkasten mit Deckungsprüfung, Kästen nur wo Inhalt liegt, Tropfenringe zuletzt (keine Sammelebene), Wetter-Ebenen nur eine Kachel über dem Fenster. Bei Regen 191 → 88 MB, herangezoomt 216 → 137 MB (vorher bis 289 MB), Sturm herangezoomt 281 → 137 MB, Schnee 244 → 172 MB; Aussehen gleich. Beim PV: am iPhone 13 bei Regen (Zahnrad, Wetter zum Ausprobieren) mehrfach ganz herein- und herauszoomen und schwenken – stabil, kein leerer Rand, Regen und Tropfenringe wie vorher? Danach entscheidet der PV, ob Q-G1 fertig ist.
 - **06.11.2026, Gesamtsicht, Q-G1 zurückgenommen (Branch `grafik/q-g1-zuruecknehmen`):** PV meldet Absturz beim Zoomen auf dem iPhone. Code von PR 2 bis 4 (#290, #292, #298) zurückgenommen, es gilt PR 1 (#285); GRAFIK §33. Q-G1 bleibt offen, A5 nicht erfüllt.
+- **06.11.2026, Lernkern, Q-L2 Größen und Messen (Branches `lernkern/q-l2-werkzeuge-groessen`, darauf `lernkern/q-l2-groessen-messen`):** Werkzeuge `einheitentafel@1`, `uhr@1`, `flaeche@1`, `quader@1`; zehn Erstvermittlungen der Klasse 5 mit Bild oder Werkzeug an der erklärenden Stelle, M5-Tabelle abgehakt. Geänderte Dateien haben Stufe 0 und kommen in Q-L1 dran. Offen beim PV: Vorschaubilder ansehen.

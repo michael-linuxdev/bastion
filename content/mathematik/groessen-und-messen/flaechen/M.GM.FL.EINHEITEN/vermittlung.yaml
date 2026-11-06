@@ -19,19 +19,30 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Ein Quadrat ist 1 cm lang und 1 cm breit, also 10 mm mal 10 mm. Wie viele kleine Quadrate von 1 mm² passen hinein?'
+      de: 'Ein Quadrat ist 1 cm lang und 1 cm breit, also 10 mm mal 10 mm. Lege Reihe für Reihe kleine Quadrate von 1 mm². Wie viele passen hinein?'
+    werkzeug: { id: flaeche@1, parameter: { rechtecke: [[0, 0, 10, 10]], einheit: mm, reihen: 1 } }
     antwort:
       eingabe: { art: zahl, loesung: '100', fehler: [{ wert: '10', fv: FV.FL.FLAECHE-100 }] }
     weiter: erklaeren-flaecheneinheiten
   - id: erklaeren-flaecheneinheiten
     typ: erklaeren
     text:
-      de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100, nicht 10: 1 cm² = 100 mm², 1 dm² = 100 cm², 1 m² = 100 dm². Denn Länge und Breite werden beide 10-mal so lang.'
+      de: 'Bei [[Flächeneinheiten]] ist die [[Umrechnungszahl]] 100, nicht 10: 1 cm² = 100 mm², 1 dm² = 100 cm², 1 m² = 100 dm². Denn Länge und Breite werden beide 10-mal so lang. Darum hat jede Einheit zwei Spalten.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: flaeche, wert: 1, einheit: cm², ziel: mm² },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: '3 m² in dm²: groß nach klein, mal 100: 300 dm². 500 cm² in dm²: klein nach groß, durch 100: 5 dm².'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: flaeche, wert: 3, einheit: m², ziel: dm² },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

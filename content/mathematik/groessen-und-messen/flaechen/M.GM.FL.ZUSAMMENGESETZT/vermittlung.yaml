@@ -19,7 +19,9 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Eine L-Figur besteht aus einem Rechteck 6 cm mal 2 cm und einem zweiten Rechteck 2 cm mal 3 cm darauf. Wie viele cm² sind es zusammen?'
+      de: 'Diese L-Figur besteht aus einem Rechteck 6 cm mal 2 cm und einem zweiten Rechteck 2 cm mal 3 cm darauf. Tippe auf „Zerlegen“. Wie viele cm² sind es zusammen?'
+    werkzeug:
+      { id: flaeche@1, parameter: { rechtecke: [[0, 0, 6, 2], [0, 2, 2, 3]], quadrate: true } }
     antwort:
       eingabe: { art: zahl, loesung: '18', fehler: [{ wert: '12', fv: FV.FL.ZERLEGEN }] }
     weiter: erklaeren-zerlegen
@@ -27,16 +29,25 @@ schritte:
     typ: erklaeren
     text:
       de: 'Zerlege die Figur in Rechtecke, die sich nicht überlappen. Rechne jede Teilfläche aus und addiere alle. Oder ergänze zu einem großen Rechteck und ziehe das fehlende Stück ab.'
+    bild:
+      { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 6, 2], [0, 2, 2, 3]], inhalte: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: 'L-Figur: unten 6 cm mal 2 cm = 12 cm², oben 2 cm mal 3 cm = 6 cm². Zusammen 18 cm². [[Probe]] mit Ergänzen: 6 · 5 = 30, minus 4 · 3 = 12, ergibt 18 cm².'
+    bild:
+      {
+        werkzeug: flaeche@1,
+        parameter: { rechtecke: [[0, 0, 6, 2], [0, 2, 2, 3]], fehlend: [[2, 2, 4, 3]] },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
       de: 'Ein Rechteck 8 m mal 5 m hat in einer Ecke eine Aussparung von 2 m mal 2 m. Wie viele m² bleiben?'
+    bild:
+      { werkzeug: flaeche@1, parameter: { rechtecke: [[0, 0, 8, 3], [0, 3, 6, 2]], einheit: m } }
     antwort:
       eingabe:
         {
@@ -50,6 +61,11 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Eine Figur besteht aus drei Rechtecken mit 10 cm², 6 cm² und 4 cm². Ida rechnet 10 + 6 = 16 cm². Stimmt das?'
+    bild:
+      {
+        werkzeug: flaeche@1,
+        parameter: { rechtecke: [[0, 0, 5, 2], [0, 2, 3, 2], [5, 0, 2, 2]], inhalte: true },
+      }
     antwort:
       optionen:
         - { wert: { de: 'Nein, alle Teilflächen zählen: 20 cm².' }, richtig: true }

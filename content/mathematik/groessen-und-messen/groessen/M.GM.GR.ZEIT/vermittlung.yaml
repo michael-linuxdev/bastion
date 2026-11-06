@@ -19,24 +19,31 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Eine Stunde hat 60 Minuten. Von 9:40 Uhr bis 10:00 Uhr: Wie viele Minuten sind das?'
+      de: 'Die Uhr zeigt 9:40 Uhr. Stelle sie mit „+ 5 min“ Schritt für Schritt vor. Welche Uhrzeit kommt nach 9:55 Uhr?'
+    werkzeug: { id: uhr@1, parameter: { von: '9:40' } }
     antwort:
-      eingabe: { art: zahl, loesung: '20', fehler: [{ wert: '60', fv: FV.GR.ZEITRECHNEN }] }
+      optionen:
+        - { wert: { de: '10:00 Uhr' }, richtig: true }
+        - { wert: { de: '9:60 Uhr' }, fv: FV.GR.ZEITRECHNEN }
     weiter: erklaeren-zeitspanne
+    bei: { FV.GR.ZEITRECHNEN: erklaeren-zeitspanne }
   - id: erklaeren-zeitspanne
     typ: erklaeren
     text:
-      de: 'Uhrzeiten sind keine Kommazahlen: Nach 59 Minuten kommt die nächste volle Stunde. Rechne darum in Etappen: erst bis zur vollen Stunde, dann volle Stunden, dann die restlichen Minuten.'
+      de: 'Uhrzeiten sind keine Kommazahlen: Eine Stunde hat 60 Minuten, nach 59 Minuten kommt die nächste volle Stunde. Rechne darum in Etappen: erst bis zur vollen Stunde, dann volle Stunden, dann die restlichen Minuten.'
+    bild: { werkzeug: uhr@1, parameter: { von: '10:45', bis: '12:10', etappen: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: 'Von 9:40 Uhr bis 11:15 Uhr: bis 10:00 sind 20 min, bis 11:00 noch 60 min, bis 11:15 noch 15 min. Zusammen 95 min, also 1 h 35 min.'
+    bild: { werkzeug: uhr@1, parameter: { von: '9:40', bis: '11:15', etappen: true } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
       de: 'Wie viele Minuten vergehen von 8:50 Uhr bis 9:30 Uhr?'
+    bild: { werkzeug: uhr@1, parameter: { von: '8:50', bis: '9:30' } }
     antwort:
       eingabe:
         {

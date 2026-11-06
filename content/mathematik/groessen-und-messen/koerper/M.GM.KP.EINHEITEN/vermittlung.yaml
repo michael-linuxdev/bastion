@@ -19,7 +19,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Dieser [[Würfel]] ist 1 dm lang, 1 dm breit und 1 dm hoch, also 1 dm³. Wie viele cm³ passen hinein?'
+      de: 'Dieser [[Würfel]] ist 1 dm lang, 1 dm breit und 1 dm hoch, also 1 dm³. Fülle ihn Schicht für Schicht mit Würfeln von 1 cm³. Wie viele passen hinein?'
+    werkzeug: { id: quader@1, parameter: { laenge: 10, breite: 10, hoehe: 10, schichten: 1 } }
     antwort:
       eingabe:
         {
@@ -31,17 +32,29 @@ schritte:
   - id: erklaeren-volumeneinheiten
     typ: erklaeren
     text:
-      de: 'Bei [[Volumeneinheiten]] ist die [[Umrechnungszahl]] 1000: 1 cm³ = 1000 mm³, 1 dm³ = 1000 cm³, 1 m³ = 1000 dm³. Denn Länge, Breite und [[Höhe]] werden alle 10-mal so lang.'
+      de: 'Bei [[Volumeneinheiten]] ist die [[Umrechnungszahl]] 1000: 1 cm³ = 1000 mm³, 1 dm³ = 1000 cm³, 1 m³ = 1000 dm³. Denn Länge, Breite und [[Höhe]] werden alle 10-mal so lang. Darum hat jede Einheit drei Spalten.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: volumen, wert: 1, einheit: dm³, ziel: cm³ },
+      }
     weiter: erklaeren-liter
   - id: erklaeren-liter
     typ: erklaeren
     text:
       de: 'Ein Liter ist genau 1 dm³, ein Milliliter genau 1 cm³. Also 1 l = 1000 ml. So kannst du zwischen [[Hohlmaßen]] und [[Volumeneinheiten]] wechseln.'
+    bild:
+      { werkzeug: einheitentafel@1, parameter: { groesse: volumen, wert: 1, einheit: l, ziel: ml } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: '3 dm³ = 3000 cm³. 4000 cm³ = 4 dm³ = 4 l. 250 ml = 250 cm³.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: volumen, wert: 4000, einheit: cm³, ziel: dm³ },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
