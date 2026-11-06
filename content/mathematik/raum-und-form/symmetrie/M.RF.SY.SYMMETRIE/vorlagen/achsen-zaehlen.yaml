@@ -40,3 +40,8 @@ fehlerbilder:
     fv: FV.SY.ACHSENSYMMETRIE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 701377f4263b36575b84b9e89e678a6beeede3891deb7b6ca7842e51e0305b48

@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.GF.WINKELART
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 6d68057bf83cd45c9552897aae89db35549850ae15351ec86acb9ac2ca227e36

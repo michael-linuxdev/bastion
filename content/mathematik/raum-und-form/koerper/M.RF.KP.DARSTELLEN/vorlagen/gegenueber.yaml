@@ -20,3 +20,8 @@ fehlerbilder:
     fv: FV.KP.NETZ-FALTEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e8edc5cbb146fc986a1ee94908ae9afb51441cffeb1fac7a30c9736d6ea3298f

@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.WINKELPAARE.BENENNEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a80ba29e9a101c3caca7fbc7b6d716a846c475894203a8196c12f0723baa0dbe

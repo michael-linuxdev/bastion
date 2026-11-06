@@ -27,3 +27,8 @@ rueckweg:
 kontrast: [M.RF.GF.QUADRANTEN.SPIEGELN, M.RF.SY.SPIEGELN.PUNKT]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a8c7509ecaa31a3829cc8f545b5a63e916ab84592913b02967582fde099c9fed

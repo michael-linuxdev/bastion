@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.RF.SY.SYMMETRIE.ACHSEN-ZAEHLEN, M.RF.SY.SYMMETRIE.FIGUR-WAEHLEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 052a97a1e28d2f4957fb6af559eecb8b6ff3675258c78f74e788045647726324

@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.GF.LAGEBEZIEHUNG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 932f662ab70c4857c14a5e92c3812763355489d639fb91d75adb36e65d857557

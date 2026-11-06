@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.SY.BEWEGUNGEN.ERKENNEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: f79104755a6b33718836a35e18d316c5057f26e70265f1f85fff731a131a7f57

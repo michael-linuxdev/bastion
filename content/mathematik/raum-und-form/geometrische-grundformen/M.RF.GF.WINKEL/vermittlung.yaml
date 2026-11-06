@@ -90,3 +90,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: b62aa064e6190f9e9ce7e53ba439499970a6cbc5bb7211541c1522ce9e119023

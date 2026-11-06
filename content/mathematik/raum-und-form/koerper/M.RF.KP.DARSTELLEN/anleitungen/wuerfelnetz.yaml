@@ -16,3 +16,8 @@ pruefen:
   - de: 'Probiere auch ein anderes [[Netz]]. Nicht jede Anordnung von sechs Quadraten lässt sich zu einem [[Würfel]] falten.'
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 0dcf33f66bf9bfc02a83a49cf18e151292601eeb6ef8aa73ce5fd026d354cda6

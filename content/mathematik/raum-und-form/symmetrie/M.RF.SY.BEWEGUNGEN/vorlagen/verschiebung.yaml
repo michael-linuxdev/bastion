@@ -26,3 +26,8 @@ fehlerbilder:
     fv: FV.SY.VERSCHIEBUNG
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: f5688228832b5b3a920a7c2f34bcea631158207ecd072b85bd555223591e100d

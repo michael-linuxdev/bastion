@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.GF.GLEICH-ODER-180
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a7484ff56a4b89f102a702102d5b1d7ec0c1b02315b4c8d1ca317b336e725424

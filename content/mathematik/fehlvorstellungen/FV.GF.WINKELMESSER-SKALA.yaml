@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.WINKEL.ABLESEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 9bdafceacf0083a5534a259a16318bb52192373808aacbb8bd75d4c163a7e8d0
