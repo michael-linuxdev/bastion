@@ -17,7 +17,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Auftrag seit 05.11.2026 | **Qualität Klasse 5 bis 10 vor Tests** (K-32, `docs/session/QUALITAET-5-10.md`): U4b ohne Termin, 11/12 angehalten, Einfrieren aufgehoben. Abnahme A1–A5 dort |
 | Nächster Schritt Lernkern | Meilenstein M5 (Klasse 5, 42 Kompetenzen): Q-L2 Erstvermittlungen mit Bild, dann Q-L1 Prüfen (Phase C), je Feld ein PR, Beginn Raum und Form. Fortschritt `pnpm review --klasse 5`. U4b vorbereitet (04.11.2026), Unterlagen liegen bereit |
 | Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Rundgang erledigt, Mängelliste A1–D5 liegt beim PV (`QUALITAET-5-10.md`), dann kleine PRs (Fehler, Rückmeldung, Themenwahl, Erstvermittlung) |
-| Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13, mit Messung je PR (`pnpm tempo`, GRAFIK §29); PR 1 Takt der Bühne fertig (05.11.2026), als Nächstes Kulisse beim Zoomen (Culling mit Abstand), dann gemeinsamer 30-Hz-Takt für Bewohner/Wesen/Fahnen, HD-Bilder nur im Sichtfeld; keine neuen Dinge bis es flüssig ist. Beim PV: Referenzgeräte (0.10) und Messung am iPhone |
+| Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13, mit Messung je PR (`pnpm tempo`, GRAFIK §29); PR 1 Takt der Bühne (#285) und PR 2 Kulisse beim Zoomen (GRAFIK §30) fertig, als Nächstes gemeinsamer 30-Hz-Takt für Bewohner/Wesen/Fahnen, HD-Bilder nur im Sichtfeld; keine neuen Dinge bis es flüssig ist. Beim PV: Referenzgeräte (0.10) und Messung am iPhone |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (Stufe 2; VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
