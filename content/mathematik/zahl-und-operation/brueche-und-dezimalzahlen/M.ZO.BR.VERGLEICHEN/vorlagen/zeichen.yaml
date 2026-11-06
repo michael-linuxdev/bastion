@@ -24,3 +24,8 @@ fehlerbilder:
     fv: FV.BR.NUR-ZAEHLER
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 0d9ad72bb4c97324036265c5230d226abddf263d1f1cc511ba84270b8ab69d9c

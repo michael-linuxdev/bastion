@@ -1,4 +1,4 @@
-import { describe } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Instanz, Loesung } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
 import {
@@ -8,6 +8,7 @@ import {
   brKommaUnterAussage,
   brLaengerAussage,
   brProzentAussage,
+  brProzentAussageV1,
   brStellenwertAussage,
   brStrahlAussage,
   brVergleichAussage,
@@ -93,6 +94,27 @@ describe('Prozent als Hundertstel begründen (E)', () => {
       return wo(i, (t) => t.startsWith('Nein. Prozent') && t.endsWith(`= ${p} %.`));
     },
     mindestensVerschieden: { E: 6 },
+  });
+
+  it('Fassung 1 bleibt für alte Lernereignisse unverändert', () => {
+    expect([brProzentAussageV1.version, brProzentAussage.version]).toEqual([1, 2]);
+    expect(texte(brProzentAussageV1.erzeuge(3, {}))).toContain(
+      'Ja. Man schreibt die Ziffern hinter dem Komma und hängt % an.',
+    );
+  });
+
+  // Frage 2 des Prüfkatalogs: Die Regel der falschen Option führt genau zu Linas Zahl.
+  it('Fehlerbild prozent-hundertstel: die genannte Regel ergibt Linas Prozentzahl', () => {
+    for (let seed = 1; seed <= 300; seed++) {
+      const i = brProzentAussage.erzeuge(seed, {});
+      const x = w(i, 'wert');
+      const situation = String((i.platzhalter.situation as { de: string }).de);
+      const lina = Number((/= ([\d,]+) %/.exec(situation)?.[1] ?? '').replace(',', '.'));
+      const option = texte(i).find((t) => t.startsWith('Ja.')) ?? '';
+      const ziffern = Number(String(x).split('.')[1] ?? '');
+      const regel = option.includes('mal 10') ? x * 10 : ziffern;
+      expect(Math.abs(regel - lina), `Seed ${seed}: ${situation} / ${option}`).toBeLessThan(1e-9);
+    }
   });
 });
 

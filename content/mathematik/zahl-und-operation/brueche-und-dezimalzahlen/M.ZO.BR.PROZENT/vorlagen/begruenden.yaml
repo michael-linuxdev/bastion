@@ -4,7 +4,7 @@ kompetenz: M.ZO.BR.PROZENT
 niveaus: [E]
 typ: auswahl
 quelle: generator
-generator: br.prozent-aussage@1
+generator: br.prozent-aussage@2
 parameter:
   E: {}
 text:
@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.BR.PROZENT-HUNDERTSTEL
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 052c4aee5272556137f9f49ddea1f97e098558d7c6d5572e735f94c5c2d75b61

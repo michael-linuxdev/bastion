@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.NZ.RUNDEN-STELLE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 3d728d5d528ac2f973d9b9f9de531637debbd73b3de2958896310cd1ba53129b

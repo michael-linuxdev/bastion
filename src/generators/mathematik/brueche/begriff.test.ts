@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Bruch } from '../../../core/learning/bruch';
 import type { Instanz } from '../../../core/learning/generator';
 import { pflichttests } from '../../pflichttests';
-import { anteilAblesen, anteilVon, bildZuBruch, zahlenstrahlAblesen } from './begriff';
+import { anteilAblesen, anteilVon, anteilVonV1, bildZuBruch, zahlenstrahlAblesen } from './begriff';
 
 // Unabhängig: aus der Bildbeschreibung lesen (die auch der Screenreader vorliest).
 const ausBeschreibung = (i: Instanz, muster: RegExp) => {
@@ -108,6 +108,29 @@ for (const stammbruch of [true, false]) {
     });
   });
 }
+
+describe('br.anteil-von@2: Sprache', () => {
+  it('Einheit passt nach „von“, Lösungsweg nennt den Stammbruch mit Namen', () => {
+    for (let seed = 1; seed <= 300; seed++) {
+      const i = anteilVon.erzeuge(seed, { stammbruch: false, nenner_max: 12, ganzes_max: 1000 });
+      const einheit = (i.platzhalter['einheit'] as { de: string }).de;
+      expect(einheit).not.toBe('Schüler');
+      expect(i.loesungsweg?.[0]?.de).toMatch(/^(Die Hälfte|Ein [A-ZÄÖÜ][a-zäöü]+tel) von /);
+    }
+  });
+
+  it('Fassung 1 bleibt für alte Lernereignisse: gleiche Aufgabe, alter Lösungsweg', () => {
+    const p = { stammbruch: false, nenner_max: 12, ganzes_max: 1000 };
+    expect([anteilVonV1.version, anteilVon.version]).toEqual([1, 2]);
+    for (let seed = 1; seed <= 50; seed++) {
+      const alt = anteilVonV1.erzeuge(seed, p);
+      const neu = anteilVon.erzeuge(seed, p);
+      expect(neu.loesung).toEqual(alt.loesung);
+      expect(neu.platzhalter['anteil']).toEqual(alt.platzhalter['anteil']);
+      expect(alt.loesungsweg?.[0]?.de).toMatch(/^Ein \d+-tel von /);
+    }
+  });
+});
 
 describe('Bilder', () => {
   it('beschreiben genau, was zu sehen ist', () => {

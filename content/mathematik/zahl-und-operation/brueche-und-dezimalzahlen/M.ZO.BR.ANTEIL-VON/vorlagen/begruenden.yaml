@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.BR.VERTAUSCHT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: f4c4835c670588f923b530fd2e0700cf6b0b5bae60f25e0adcaf00662dc0a64e

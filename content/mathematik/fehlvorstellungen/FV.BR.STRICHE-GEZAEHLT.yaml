@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.ZAHLENSTRAHL.BRUCH, M.ZO.BR.ZAHLENSTRAHL.DEZIMAL, M.ZO.RZ.BEGRIFF.ZAHLENGERADE]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 930f1b701dcc64bff6401f265eb7cc7c7c44eb0bcaa688ca1eadd6d53f8c98ac

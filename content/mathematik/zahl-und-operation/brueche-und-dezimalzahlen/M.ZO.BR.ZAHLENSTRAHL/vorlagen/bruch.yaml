@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.BR.STRICHE-GEZAEHLT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e4d752dc95394f08ce2d83bbb9571f4e12fd5ce0801c53c412a7a9cd00ebfa56

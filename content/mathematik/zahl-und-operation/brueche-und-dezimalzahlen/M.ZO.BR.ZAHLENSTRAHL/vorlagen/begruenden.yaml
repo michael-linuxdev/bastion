@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.BR.ANZAHL-STATT-ANTEIL
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: b2c93c8c38d3e48378a1d09c013ee094fb3e5696dddffb7bdd2ce3ea04863a4e

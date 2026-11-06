@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.DEZ-ORDNEN.RUNDEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: cc705ce5bda6f2ad1fc2581b1e33f55c16a7b01d99d20529494c6be20b776cfe
