@@ -1,6 +1,7 @@
 // Zahlenstrahl (VERMITTLUNG §2.3, Werkzeug zahlenstrahl@1): Abschnitt von `von`
 // bis `bis`, jede Einheit in `einteilung` gleiche Teile geteilt. Reine Logik;
 // die Darstellung ist Zahlenstrahl.svelte.
+import { t } from '../../texte/texte';
 
 export interface StrahlParameter {
   readonly von?: number;
@@ -9,6 +10,11 @@ export interface StrahlParameter {
   readonly einteilung?: number;
   /** markierter Strich als Zähler bezogen auf die Einteilung, z. B. 3 für 3/4 */
   readonly markiert?: number;
+  /**
+   * true: Das Bild gehört zu einer Frage. Die Beschreibung nennt dann nur die Zahl der Striche
+   * und den wievielten Strich, nicht den Wert der Markierung (Q-L1, Frage 7).
+   */
+  readonly frage?: boolean;
 }
 
 export interface Strich {
@@ -40,4 +46,22 @@ export function striche(p: StrahlParameter): Strich[] {
 /** Text für eine Stelle: ganze Zahl oder Bruch „3/4“ (ungekürzt, wie die Einteilung). */
 export function stelle(zaehler: number, einteilung: number): string {
   return zaehler % einteilung === 0 ? String(zaehler / einteilung) : `${zaehler}/${einteilung}`;
+}
+
+/** Name des Bilds für Bildschirmleser; `markiert` ist die gerade markierte Stelle. */
+export function beschreibung(p: StrahlParameter, markiert: number | undefined): string {
+  const von = p.von ?? 0;
+  const e = Number.isInteger(p.einteilung) && (p.einteilung ?? 0) > 0 ? (p.einteilung ?? 1) : 1;
+  const kopf = `${t('werkzeug.zahlenstrahl.name')} ${t('werkzeug.zahlenstrahl.von')} ${von} ${t('werkzeug.zahlenstrahl.bis')} ${p.bis ?? 1}`;
+  if (p.frage !== true)
+    return (
+      kopf +
+      (markiert !== undefined
+        ? `, ${t('werkzeug.zahlenstrahl.markiert')} ${stelle(markiert, e)}`
+        : '')
+    );
+  const anzahl = striche(p).length;
+  const teil = `${kopf} ${t('werkzeug.zahlenstrahl.mit')} ${anzahl} ${t('werkzeug.zahlenstrahl.strichen')}.`;
+  if (markiert === undefined) return teil;
+  return `${teil} ${t('werkzeug.zahlenstrahl.markierung-am')} ${markiert - von * e}. ${t('werkzeug.zahlenstrahl.strich-nach')} ${von}.`;
 }

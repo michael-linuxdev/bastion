@@ -8,7 +8,7 @@ import {
   umgeschaltet,
   verfeinert,
 } from './bruchstreifen';
-import { stelle, striche } from './zahlenstrahl';
+import { beschreibung as strahlBeschreibung, stelle, striche } from './zahlenstrahl';
 import { WERKZEUG_NAMEN } from './index';
 
 describe('Bruchstreifen (bruchstreifen@1)', () => {
@@ -58,6 +58,19 @@ describe('Zahlenstrahl (zahlenstrahl@1)', () => {
   it('schreibt Stellen als ganze Zahl oder Bruch', () => {
     expect(stelle(3, 4)).toBe('3/4');
     expect(stelle(8, 4)).toBe('2');
+  });
+
+  it('nennt mit frage nur Striche, nicht den Wert der Markierung', () => {
+    expect(strahlBeschreibung({ von: 0, bis: 1, einteilung: 6 }, 5)).toBe(
+      'Zahlenstrahl von 0 bis 1, Markiert: 5/6',
+    );
+    const frage = strahlBeschreibung({ von: 0, bis: 1, einteilung: 6, frage: true }, 5);
+    expect(frage).toBe(
+      'Zahlenstrahl von 0 bis 1 mit 7 Strichen. Die Markierung steht am 5. Strich nach der 0.',
+    );
+    expect(strahlBeschreibung({ von: 0, bis: 1, einteilung: 4, frage: true }, undefined)).toBe(
+      'Zahlenstrahl von 0 bis 1 mit 5 Strichen.',
+    );
   });
 });
 
@@ -404,6 +417,21 @@ describe('Winkel (winkel@1)', () => {
 });
 
 describe('Gitter (gitter@1)', () => {
+  it('zeichnet leere Figuren nur als Umriss', async () => {
+    const { gitterAus, gitterBild } = await import('./gitter');
+    const ecken = [
+      [7, 0],
+      [8, 0],
+      [8, 3],
+      [7, 3],
+    ];
+    const voll = gitterBild(gitterAus({ achsen: false, max: 9, figuren: [{ ecken }] }));
+    const leer = gitterBild(gitterAus({ achsen: false, max: 9, figuren: [{ ecken, leer: true }] }));
+    expect(voll.svg).toContain('fill-opacity');
+    expect(leer.svg).not.toContain('fill-opacity');
+    expect(leer.beschreibung.de).toContain('Leerer Umriss');
+  });
+
   it('liest Punkte, Figuren, Achse und Pfeile; Unsinn fällt weg', async () => {
     const { gitterAus } = await import('./gitter');
     const z = gitterAus({

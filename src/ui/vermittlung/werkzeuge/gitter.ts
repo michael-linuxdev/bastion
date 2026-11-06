@@ -24,7 +24,10 @@ export interface GitterParameter {
   readonly achsen?: unknown;
   /** Punkte [{ x, y, name }] */
   readonly punkte?: unknown;
-  /** Figuren [{ ecken: [[x, y], …], namen: ['A', …], bild: true }] – `bild` zeichnet sie als Bildfigur gestrichelt */
+  /**
+   * Figuren [{ ecken: [[x, y], …], namen: ['A', …], bild: true }] – `bild` zeichnet sie als
+   * Bildfigur gestrichelt, `leer` nur als Umriss ohne Füllung (etwa der Rest eines Ganzen)
+   */
   readonly figuren?: unknown;
   /** gefüllte Kästchen [[x, y], …] (linke untere Ecke) */
   readonly kaestchen?: unknown;
@@ -50,6 +53,8 @@ export interface Figur {
   readonly ecken: readonly (readonly [number, number])[];
   readonly namen: readonly string[];
   readonly bild: boolean;
+  /** nur Umriss, keine Füllung */
+  readonly leer: boolean;
 }
 
 export interface Pfeil {
@@ -123,7 +128,7 @@ export function gitterAus(p: GitterParameter): Gitter {
     const namen = Array.isArray(f['namen'])
       ? f['namen'].map((n) => (typeof n === 'string' && n.length <= 3 ? n : ''))
       : [];
-    return [{ ecken, namen, bild: f['bild'] === true }];
+    return [{ ecken, namen, bild: f['bild'] === true, leer: f['leer'] === true }];
   });
   const kaestchen = (Array.isArray(p.kaestchen) ? p.kaestchen : []).slice(0, 40).flatMap((k) => {
     const q = paar(k, xmax - 1, ymax - 1);
@@ -255,7 +260,7 @@ export function beschreibung(z: Gitter): string {
     );
   for (const f of z.figuren)
     saetze.push(
-      `${t(f.bild ? 'werkzeug.gitter.bildfigur' : 'werkzeug.gitter.figur')} ${f.ecken
+      `${t(f.bild ? 'werkzeug.gitter.bildfigur' : f.leer ? 'werkzeug.gitter.umriss' : 'werkzeug.gitter.figur')} ${f.ecken
         .map(([x, y], i) => `${f.namen[i] ?? ''}${koordinaten({ x, y })}`)
         .join(', ')}.`,
     );
@@ -309,7 +314,7 @@ export function gitterBild(z: Gitter): Bild {
     teile.push(
       f.bild
         ? `<polygon points="${ecken.map(([x, y]) => `${x},${y}`).join(' ')}" fill="currentColor" fill-opacity="0.12" stroke-dasharray="6 5"/>`
-        : vieleck(ecken, true),
+        : vieleck(ecken, !f.leer),
     );
     f.ecken.forEach(([x, y], i) => {
       const n = f.namen[i];
