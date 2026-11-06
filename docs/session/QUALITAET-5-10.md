@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, die Datei des eigenen Strangs, `docs/INHALTSFORMAT.md` §8 (Prüfkatalog), `docs/VERMITTLUNG.md` §2.5 (V1–V9).
 > Alle drei Stränge arbeiten parallel, jeder an seinen Paketen (Q-L, Q-O, Q-G). Protokollzeile je PR im eigenen Protokoll.
 
-Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) Fehler, PR (2) Rückmeldung und PR (3) Themenwahl erledigt, PR (4) Erstvermittlung als Nächstes · Q-G1 PR 1 (Takt der Bühne) gemergt als #285
+Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) bis (4) erledigt (Fehler, Rückmeldung, Themenwahl, Erstvermittlung), PR (5) Kleines als Nächstes · Q-G1 PR 1 (Takt der Bühne) gemergt als #285
 
 ---
 
@@ -82,19 +82,19 @@ Reihenfolge innerhalb der Klasse: entlang des Graphen, Kompetenzen ohne Vorausse
 - **B6** Abschluss: „Du hast neue Stein verdient. (2 Stein)“, dieselbe Zahl dreimal, Einleitungssatz über der Überschrift. Empfehlung: eine Zeile „2 Steine und 1 Bauschritt verdient – aus 2 Aufgaben und 1 Lerneinheit.“
 - **B7** Üben: zwei unbeschriftete Symbole oben; der Schieberegler öffnet „Bildschirm drehen“ mitten in der Übung (gibt es seit O19 in den Einstellungen), das Buch ist die Erklärung. Empfehlung: Schieberegler raus, Buch mit Wort „Erklärung“.
 - **B8** Wiederholen und Fehlerwerkstatt: Thema nur als kleine graue Zeile im Kasten; Werkstatt mit zwei Kästen „Damals“/„Heute deine Chance“ vor der Eingabe. Empfehlung: Thema in die Kopfzeile, Werkstatt-Hinweis als eine Zeile.
-- **B9** Fortschritt ohne Zahl: Balken der Erstvermittlung (bekannt) und blasse Steine im Üben. Empfehlung: „Schritt 3 von 12“, „2 von 5“.
+- ~~**B9** Fortschritt ohne Zahl: Balken der Erstvermittlung (bekannt) und blasse Steine im Üben. Empfehlung: „Schritt 3 von 12“, „2 von 5“.~~ Erledigt 05.11.2026 (PR 4): „Schritt 3 von 11“ über dem Balken; Steine im Üben kräftiger mit „2 von 5“.
 - **B10** Inhalt (an Lernkern, Q-L1/Q-L2, kein Punkt für Q-O1): „Probier es aus“ fragt nach der Zahl, die im Satz davor steht; Beispiel „Kreis in 8 Stücke“ ohne Bild; Lösungsweg der schriftlichen Addition ohne Stellentafel.
 
 *C – Bedienung*
 - ~~**C1** Themenwahl ohne Zurück-Knopf (nur Gerätetaste); alle anderen Seiten haben einen. Empfehlung: `ZurueckKnopf` in `App.svelte` bei `ansicht === 'uebersicht'`.~~ Erledigt 05.11.2026 (PR 3): Zurück führt dahin, woher man kam (`uebersichtHerkunft`: Start oder Mehr).
-- **C2** Erstvermittlung: „Prüfen“ unter der Tastatur und „Weiter“ nach „Stimmt.“ unter dem Falz; Rückmeldung „Noch nicht ganz“ erscheint ohne Scrollen unterhalb. Empfehlung: zur Rückmeldung scrollen, Prüfen neben die Tastatur wie im Üben.
+- ~~**C2** Erstvermittlung: „Prüfen“ unter der Tastatur und „Weiter“ nach „Stimmt.“ unter dem Falz; Rückmeldung „Noch nicht ganz“ erscheint ohne Scrollen unterhalb. Empfehlung: zur Rückmeldung scrollen, Prüfen neben die Tastatur wie im Üben.~~ Erledigt 05.11.2026 (PR 4): Nach dem Prüfen rücken Rückmeldung und Weiter-Knopf ins Bild, beim Tippen ins Feld der Prüfen-Knopf (wie `sichtbarMachen` im Üben). Auf 390 × 844 passen Feld, Tastatur und Prüfen ohne Scrollen auf den Bildschirm; der Knopf bleibt unten in der Karte.
 - ~~**C3** Klassenwahl mit 7 Radios in Themenwahl und Diagnose. Empfehlung: überall `KlassenWahl kompakt`.~~ Erledigt 05.11.2026 (PR 3): kompakt in Themenwahl und Diagnose; Schulart und Kurs ebenfalls kompakt.
 - ~~**C4** Klassenwechsel: Karte „Neue Klasse – willkommen.“ über der Überschrift, Klappzeile 27 px, „Nicht jetzt“ 13 px. Empfehlung: unter die Überschrift, 44 px, normaler Zweitknopf.~~ Erledigt 05.11.2026 (PR 3): Karte unter der Überschrift (als Snippet in der Übersicht), Klappzeile 44 px, „Lücken gezielt prüfen“ Hauptknopf, „Nicht jetzt“ Zweitknopf.
 - **C5** Fachbegriff-Knöpfe 29 px hoch, ohne Hinweis auf Antippen. Empfehlung: Tippfläche 44 px über `padding-block`.
 - **C6** Diagnose-Ergebnis: Zeilen unterschiedlich breit, Üben-Knöpfe versetzt. Empfehlung: volle Breite, Knopf rechts bündig.
 
 *D – Aussehen*
-- **D1** Erstvermittlung: Karte füllt bei Textschritten ein Drittel, Rest leer; Schrittart als Kapitälchen; „Nur Kurzfassung“ als Link darüber (bekannt). Empfehlung: ruhige Seite statt Formularkarte, Schrittart als Überschrift, Weiter in voller Breite unten, Kurzfassung als Zweitknopf.
+- ~~**D1** Erstvermittlung: Karte füllt bei Textschritten ein Drittel, Rest leer; Schrittart als Kapitälchen; „Nur Kurzfassung“ als Link darüber (bekannt). Empfehlung: ruhige Seite statt Formularkarte, Schrittart als Überschrift, Weiter in voller Breite unten, Kurzfassung als Zweitknopf.~~ Erledigt 05.11.2026 (PR 4): Die Karte füllt den Bildschirm, der Knopf steht bei jedem Schritt unten an derselben Stelle in voller Breite; Schrittart als Überschrift in normaler Größe; „Nur Kurzfassung“ als Zweitknopf unter der Karte. Die weiße Karte bleibt (gleiches Arbeitsblatt wie im Üben). Bild oder Werkzeug je Schritt kommt aus Q-L2.
 - ~~**D2** Themenwahl: Platzhalter-Verläufe vor jedem Thema, 5 600 px (ein Bereich offen) bis 10 000 px (bekannt). Empfehlung: Platzhalter weg, Symbol je Bereich, Thema als flache Zeile (Titel, Status, Pfeil), „Ich kann …“ erst im Angebot; Ziel unter 2 500 px.~~ Erledigt 05.11.2026 (PR 3): Platzhalter weg, flache Zeilen mit Titel, Status und Pfeil; Klasse 5 mit einem Bereich offen 2 460 px (vorher 5 647). Symbole je Bereich gibt es noch nicht (`Symbol.svelte` gehört dem Strang Grafik, Wunsch dort eingetragen).
 - **D3** Antwortoptionen mit Brüchen: Bruch kleiner als Text, links oben statt mittig. Empfehlung: Textgröße, mittig.
 - **D4** Startseite (eigener Bereich, O7): „Wieder-holen“, „Fehler-werkstatt“ brechen wegen der Plakette. Empfehlung: Plakette unter den Titel.
@@ -173,5 +173,6 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-lernoberflaeche`):** Q-O1 Schritt 1 und 2 erledigt: Rundgang auf 390 × 844 px (74 Bildschirme, kein JS-Fehler, ein Überlauf) und Mängelliste A1–D5 oben bei Q-O1, Bildschirmfotos im Scratchpad. Noch nichts gebaut. Rückfrage an den PV, welche Punkte vor den Tests: **Antwort (über die koordinierende Sitzung): alle, Reihenfolge (1) bis (5).** #282 gemergt.
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-fehler`):** PR (1) ~~A1, A2, A3~~ erledigt (Fehler).
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-rueckmeldung`):** PR (2) ~~B1, B2, D5~~ erledigt (Rückmeldung als ein Kasten).
-- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-themenwahl`):** PR (3) ~~B3, B4, C1, C3, C4, D2~~ erledigt (Themenwahl). Als Nächstes PR (4): Erstvermittlung (D1, B9, C2).
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-themenwahl`):** PR (3) ~~B3, B4, C1, C3, C4, D2~~ erledigt (Themenwahl).
+- **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-erstvermittlung`):** PR (4) ~~D1, B9, C2~~ erledigt (Erstvermittlung). Als Nächstes PR (5): Kleines (B5–B8, C5, C6, D3, D4).
 - **05.11.2026, Grafik, Q-G1 PR 1 (Branch `grafik/q-g1-ticker`):** Takt der Bühne: Pixi-Ticker steht bei „ruhig“, beim Zoomen und Schwenken und ohne bewegte Teile, sonst 30 Hz statt 60; Einzelbild bei Änderung. Messwerkzeug `pnpm tempo` (GRAFIK §29, Zahlen vorher/nachher dort). Befund für die nächsten PRs: Beim Zoomen bleibt der Hauptfaden auch mit stehender Bühne voll, Ursache liegt in der Kulisse (Punkt 2). Offen beim PV: Messung am iPhone 13 nach jedem PR, Referenzgeräte (Q-G0).
