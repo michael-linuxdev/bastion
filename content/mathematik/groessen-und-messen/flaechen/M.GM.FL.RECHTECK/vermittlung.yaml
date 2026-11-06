@@ -27,7 +27,7 @@ schritte:
           art: zahl,
           loesung: '15',
           fehler:
-            [{ wert: '16', fv: FV.FL.UMFANG-FLAECHE }, { wert: '8', fv: FV.FL.UMFANG-SEITEN }],
+            [{ wert: '16', fv: FV.FL.UMFANG-FLAECHE }, { wert: '8', fv: FV.FL.UMFANG-FLAECHE }],
         }
     weiter: erklaeren-umfang-flaeche
   - id: erklaeren-umfang-flaeche
@@ -85,13 +85,9 @@ schritte:
       optionen:
         - { wert: { de: '12 m²' }, richtig: true }
         - { wert: { de: '14 m²' }, fv: FV.FL.UMFANG-FLAECHE }
-        - { wert: { de: '7 m²' }, fv: FV.FL.UMFANG-SEITEN }
+        - { wert: { de: '7 m²' }, fv: FV.FL.UMFANG-FLAECHE }
     weiter: uebergang
-    bei:
-      {
-        FV.FL.UMFANG-FLAECHE: erklaeren-umfang-flaeche,
-        FV.FL.UMFANG-SEITEN: erklaeren-umfang-flaeche,
-      }
+    bei: { FV.FL.UMFANG-FLAECHE: erklaeren-umfang-flaeche }
   - id: uebergang
     typ: uebergang
     text:
@@ -100,3 +96,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 13fb642fa3a678346d2242dcd9ac76a9c0a4b493fad15a8cef08323cdac896f3

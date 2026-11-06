@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.FL.FLAECHE-100
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 138f1d98ad49d72f36e7d65664585c3878f18661fa07b71e401db90ed0c2c550

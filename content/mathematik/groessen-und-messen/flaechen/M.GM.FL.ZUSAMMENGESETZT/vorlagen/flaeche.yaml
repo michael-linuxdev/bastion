@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.FL.ZERLEGEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 88beadda23e515ef1f9eb7bc78834b3c3ebea3c0902dd9dfdf6bde4508c0c3f3

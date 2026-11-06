@@ -152,39 +152,84 @@ export interface ZeitspanneParameter {
   readonly bis_stunden: number; // höchste Dauer in Stunden (1 … 12)
 }
 
-/** „Wie viele Minuten liegen zwischen 7:45 Uhr und 13:20 Uhr?“ – Vorlage M.GM.GR.ZEIT.ZEITSPANNE */
-export const zeitspanne: Generator<ZeitspanneParameter> = {
-  id: 'gr.zeitspanne',
-  version: 1,
-  platzhalter: ['beginn', 'ende'],
-  fehlerbildIds: ['wie-dezimalzahl-gerechnet', 'nur-stunden'],
+/**
+ * Lösungsweg in Etappen (Fassung 2): bis zur nächsten vollen Stunde (fehlt bei vollem Beginn),
+ * volle Stunden, Minuten bis zum Ende (fehlt bei vollem Ende), zusammen.
+ */
+function etappenWeg(beginn: number, ende: number): Sprachobjekt[] {
+  const erste = Math.ceil(beginn / 60) * 60;
+  const letzte = Math.floor(ende / 60) * 60;
+  const weg: Sprachobjekt[] = [];
+  if (erste > beginn) weg.push(de(`Von ${uhr(beginn)} bis ${uhr(erste)}: ${erste - beginn} min`));
+  if (letzte > erste)
+    weg.push(
+      de(
+        `Von ${uhr(erste)} bis ${uhr(letzte)}: ${(letzte - erste) / 60} h = ${letzte - erste} min`,
+      ),
+    );
+  if (ende > letzte) weg.push(de(`Von ${uhr(letzte)} bis ${uhr(ende)}: ${ende - letzte} min`));
+  const d = ende - beginn;
+  weg.push(
+    de(
+      d < 60 ? `Zusammen: ${d} min` : `Zusammen: ${Math.floor(d / 60)} h ${d % 60} min = ${d} min`,
+    ),
+  );
+  return weg;
+}
 
-  erzeuge(seed, p) {
-    verlange(p.bis_stunden >= 1 && p.bis_stunden <= 12, 'bis_stunden: 1 … 12');
-    const r = rng(seed);
-    let dauer = r.int(3, p.bis_stunden * 12) * 5;
-    if (dauer % 60 === 0) dauer += 5;
-    // Beginn zwischen 6:00 und 18:00, Ende spätestens 23:55 (keine Spanne über Mitternacht)
-    const beginn = r.int(6 * 12, Math.min(18 * 12, (24 * 60 - 5 - dauer) / 5)) * 5;
-    const ende = beginn + dauer;
-    // Fehler: Uhrzeiten wie Dezimalzahlen abgezogen (13:20 − 7:45 → 1320 − 745 = 575)
-    const alsZahl = (m: number) => Math.floor(m / 60) * 100 + (m % 60);
-    const dezimal = alsZahl(ende) - alsZahl(beginn);
-    return {
-      platzhalter: { beginn: de(uhr(beginn)), ende: de(uhr(ende)) },
-      loesung: zahl(dauer),
-      loesungsweg: [
-        de(`Von ${uhr(beginn)} bis zur nächsten vollen Stunde: ${(60 - (beginn % 60)) % 60} min`),
-        de(`Dann in ganzen Stunden und Minuten weiter bis ${uhr(ende)}.`),
-        de(`Zusammen: ${Math.floor(dauer / 60)} h ${dauer % 60} min = ${dauer} min`),
-      ],
-      fehlerbilder: fehlerbilderAus(zahl(dauer), [
-        ['wie-dezimalzahl-gerechnet', dezimal > 0 ? zahl(dezimal) : undefined],
-        ['nur-stunden', zahl((Math.floor(ende / 60) - Math.floor(beginn / 60)) * 60)],
-      ]),
-    };
-  },
-};
+/**
+ * „Wie viele Minuten liegen zwischen 7:45 Uhr und 13:20 Uhr?“ – Vorlage M.GM.GR.ZEIT.ZEITSPANNE.
+ * Fassung 2 (Q-L1, 06.11.2026): Zwischen Beginn und Ende liegt immer eine volle Stunde (sonst
+ * führte „erst bis zur vollen Stunde“ in die Irre), der Lösungsweg nennt nur Etappen, die es gibt.
+ */
+function zeitspanneFassung(fassung: 1 | 2): Generator<ZeitspanneParameter> {
+  return {
+    id: 'gr.zeitspanne',
+    version: fassung,
+    platzhalter: ['beginn', 'ende'],
+    fehlerbildIds: ['wie-dezimalzahl-gerechnet', 'nur-stunden'],
+
+    erzeuge(seed, p) {
+      verlange(p.bis_stunden >= 1 && p.bis_stunden <= 12, 'bis_stunden: 1 … 12');
+      const r = rng(seed);
+      let dauer = r.int(3, p.bis_stunden * 12) * 5;
+      if (dauer % 60 === 0) dauer += 5;
+      // Beginn zwischen 6:00 und 18:00, Ende spätestens 23:55 (keine Spanne über Mitternacht)
+      let beginn = r.int(6 * 12, Math.min(18 * 12, (24 * 60 - 5 - dauer) / 5)) * 5;
+      // Fassung 2: Liegt die Spanne in einer Stunde, rückt der Beginn in derselben Stunde so weit
+      // nach hinten, dass das Ende in der nächsten Stunde liegt (dauer < 60, Ende bis 19:50)
+      if (fassung === 2 && Math.floor((beginn + dauer) / 60) === Math.floor(beginn / 60)) {
+        const stunde = Math.floor(beginn / 60) * 60;
+        beginn = stunde + 60 - dauer + r.int(1, dauer / 5 - 1) * 5;
+      }
+      const ende = beginn + dauer;
+      // Fehler: Uhrzeiten wie Dezimalzahlen abgezogen (13:20 − 7:45 → 1320 − 745 = 575)
+      const alsZahl = (m: number) => Math.floor(m / 60) * 100 + (m % 60);
+      const dezimal = alsZahl(ende) - alsZahl(beginn);
+      return {
+        platzhalter: { beginn: de(uhr(beginn)), ende: de(uhr(ende)) },
+        loesung: zahl(dauer),
+        loesungsweg:
+          fassung === 2
+            ? etappenWeg(beginn, ende)
+            : [
+                de(
+                  `Von ${uhr(beginn)} bis zur nächsten vollen Stunde: ${(60 - (beginn % 60)) % 60} min`,
+                ),
+                de(`Dann in ganzen Stunden und Minuten weiter bis ${uhr(ende)}.`),
+                de(`Zusammen: ${Math.floor(dauer / 60)} h ${dauer % 60} min = ${dauer} min`),
+              ],
+        fehlerbilder: fehlerbilderAus(zahl(dauer), [
+          ['wie-dezimalzahl-gerechnet', dezimal > 0 ? zahl(dezimal) : undefined],
+          // Nur die Stundenzahlen abgezogen, Minuten nicht beachtet (9:30 bis 12:05 → 3 · 60)
+          ['nur-stunden', zahl((Math.floor(ende / 60) - Math.floor(beginn / 60)) * 60)],
+        ]),
+      };
+    },
+  };
+}
+export const zeitspanneV1 = zeitspanneFassung(1);
+export const zeitspanne = zeitspanneFassung(2);
 
 export interface EndzeitParameter {
   readonly bis_stunden: number; // 1 … 12

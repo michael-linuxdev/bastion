@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.NZ.UMKEHRAUFGABE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 15c40fc52ee1c57a5d3c86ee6df45caf1fee1fcb446afeb4384f4390fd566b2e

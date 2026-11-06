@@ -8,6 +8,7 @@ import {
   sachEinkauf,
   sachWeg,
   zeitspanne,
+  zeitspanneV1,
 } from './groessen';
 
 const t = (i: Instanz, n: string) => (i.platzhalter[n] as Sprachobjekt).de;
@@ -122,6 +123,32 @@ pflichttests(zeitspanne, {
       ? ['Dauer']
       : [],
   mindestensVerschieden: { G: 95, M: 98 },
+});
+
+describe('gr.zeitspanne@2', () => {
+  it('eine volle Stunde liegt dazwischen, die Etappen ergeben die Dauer, keine 0-min-Etappe', () => {
+    for (const bis_stunden of [3, 10])
+      for (let seed = 1; seed <= 500; seed++) {
+        const i = zeitspanne.erzeuge(seed, { bis_stunden });
+        const b = minuten(t(i, 'beginn'));
+        const e = minuten(t(i, 'ende'));
+        expect(Math.floor(e / 60), `Seed ${seed}`).toBeGreaterThan(Math.floor(b / 60));
+        const weg = (i.loesungsweg ?? []).map((s) => s.de);
+        expect(weg.join(' ')).not.toMatch(/: 0 min/);
+        const etappen = weg.slice(0, -1).map((s) => Number(/(\d+) min$/.exec(s)?.[1] ?? NaN));
+        expect(
+          etappen.reduce((x, y) => x + y, 0),
+          weg.join(' | '),
+        ).toBe(e - b);
+      }
+  });
+
+  it('Fassung 1 bleibt für alte Lernereignisse', () => {
+    expect([zeitspanneV1.version, zeitspanne.version]).toEqual([1, 2]);
+    expect(zeitspanneV1.erzeuge(1, { bis_stunden: 3 }).loesungsweg?.[1]?.de).toMatch(
+      /^Dann in ganzen/,
+    );
+  });
 });
 
 for (const ueber_mitternacht of [false, true]) {

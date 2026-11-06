@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.GM.GR.SACH.WEG, M.GM.KR.UMFANG-FLAECHE.RAD]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: de805617a5c6da304b3bb62b94de62bc9b42e3be271de3e373ee818cc2f04387

@@ -22,3 +22,8 @@ fehlerbilder:
     fv: FV.FL.UMFANG-FLAECHE
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e07b9446114b95915b73cdfa95d6c9fa8809577dbbf89f2969357c18917055eb

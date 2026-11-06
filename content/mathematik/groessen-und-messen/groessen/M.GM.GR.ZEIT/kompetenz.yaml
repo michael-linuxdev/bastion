@@ -36,3 +36,8 @@ sachsen:
     klassenstufe: 5
     lernbereich: 'LB 5 Vernetzung: Mathematik im Alltag'
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: d50f5ded3ac6bde98336d421700b4ad93026e96be54d250ca0eddb158f150026

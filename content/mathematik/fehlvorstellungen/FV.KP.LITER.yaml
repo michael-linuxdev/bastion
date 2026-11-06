@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.GM.KP.EINHEITEN.LITER, M.GM.KP.ZYLINDER.SACH]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 59310673ab7f425ed0df57be71980d912caeec8cfdb1176998eb1290c2dd1d30

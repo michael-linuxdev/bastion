@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.SA.ANGABE-UEBERSEHEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 8cee3e8a8e5af1284a2744a958b6afe57db9ebc6a3253de74e39ea8efc0d4a32

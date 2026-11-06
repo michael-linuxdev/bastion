@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.GM.FL.RECHTECK.UMFANG, M.GM.FL.RECHTECK.SEITE-FEHLT, M.GM.FL.ZUSAMMENGESETZT.UMFANG]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e11056ba6c933ff3b772f5f6aa998bb7cde23a0d3007326455d86802ee3838fd

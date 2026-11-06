@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.FL.UMFANG-SEITEN
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: a2a0bee97a246f0affca097b167b7f07c636a07e34c962934918d37969b71dfc
