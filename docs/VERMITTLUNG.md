@@ -91,6 +91,8 @@ Jedes Werkzeug hat eine gleichwertige Bedienung ohne Ziehen (Tastatur, Knöpfe) 
 
 *Stand 05.11.2026 (Q-L2):* Für Raum und Form gibt es `geraden@1` (Lage zweier Geraden, Winkelpaare), `winkel@1` (Winkel mit Winkelart, auch am Winkelmesser), `gitter@1` (Koordinatensystem und Rasterpapier mit Punkten, Figuren, Spiegelachse, Verschiebung) und `koerpernetz@1` (Würfelnetz mit Schrägbild). Parameter in `INHALTSFORMAT.md` §16.
 
+*Stand 06.11.2026 (Q-L2):* Für Größen und Messen gibt es `einheitentafel@1` (Stellenwerttafel für Längen, Gewichte, Geld, Flächen und Volumen; ein Knopf je Einheit setzt das Komma, fehlende Stellen werden mit 0 gefüllt), `uhr@1` (Zeigeruhren für Anfang und Ende, Zeitleiste in Etappen über die volle Stunde), `flaeche@1` (Rechteck oder Figur aus Rechtecken mit Maßen und Einheitsquadraten; Reihe für Reihe auslegen, zerlegen, ergänzen) und `quader@1` (Schrägbild aus Einheitswürfeln, Schicht für Schicht füllen, oder das Netz). Parameter in `INHALTSFORMAT.md` §16.
+
 ### 2.4 Zustand „vermittelt“
 
 - Eine Kompetenz, deren Sequenz bis zum `uebergang` durchlaufen ist, gilt als **vermittelt**. Das ist ein neuer Zustand vor „geübt“ und „gekonnt“ (LEHRPLAN L-5 wird ergänzt).
