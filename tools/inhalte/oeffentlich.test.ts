@@ -116,9 +116,21 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
     const kompetenzen = grund['kompetenzen'] as Daten[];
-    // Stand 06.11.2026: Musterfeld Brüche und aus Raum und Form (Q-L1) nur SPIEGELN – die übrigen
-    // sieben haben Voraussetzungen ohne Stufe 1 und fallen wegen „ohne Lücke“ heraus
-    const erlaubt = ['M.RF.SY.SPIEGELN', 'M.ZO.BR.ADD-SUB', 'M.ZO.BR.BEGRIFF', 'M.ZO.BR.ERWEITERN'];
+    // Stand 06.11.2026: Musterfeld Brüche und aus Raum und Form (Q-L1, Durchgang 3) sieben der
+    // acht Kompetenzen – KOORDINATEN hat Voraussetzungen ohne Stufe 1 und fällt wegen „ohne
+    // Lücke“ heraus
+    const erlaubt = [
+      'M.RF.GF.LAGE',
+      'M.RF.GF.WINKEL',
+      'M.RF.GF.WINKELPAARE',
+      'M.RF.KP.DARSTELLEN',
+      'M.RF.SY.BEWEGUNGEN',
+      'M.RF.SY.SPIEGELN',
+      'M.RF.SY.SYMMETRIE',
+      'M.ZO.BR.ADD-SUB',
+      'M.ZO.BR.BEGRIFF',
+      'M.ZO.BR.ERWEITERN',
+    ];
     for (const k of kompetenzen) expect(erlaubt).toContain(k['id']);
     for (const k of kompetenzen)
       expect(wirksameStufe(k), String(k['id'])).toBeGreaterThanOrEqual(1);

@@ -43,6 +43,8 @@ export interface GitterParameter {
   readonly beweglich?: unknown;
   /** Verschiebung [dx, dy]: der Bildpunkt des beweglichen Punktes wandert mit */
   readonly verschiebung?: unknown;
+  /** true: Die Beschreibung nennt die Verschiebung nicht (das Bild gehört zu einer Frage danach) */
+  readonly frage?: unknown;
 }
 
 export interface NamensPunkt extends Punkt {
@@ -81,6 +83,7 @@ export interface Gitter {
   readonly hilfslinien: boolean;
   readonly beweglich?: NamensPunkt;
   readonly verschiebung?: readonly [number, number];
+  readonly frage: boolean;
 }
 
 const ganz = (x: unknown, von: number, bis: number, sonst: number) =>
@@ -179,6 +182,7 @@ export function gitterAus(p: GitterParameter): Gitter {
     hilfslinien: p.hilfslinien === true,
     ...(beweglich ? { beweglich } : {}),
     ...(verschiebung ? { verschiebung } : {}),
+    frage: p.frage === true,
   };
 }
 
@@ -249,7 +253,7 @@ export function beschreibung(z: Gitter): string {
         ? `${t('werkzeug.gitter.achse-senkrecht')} ${z.achse.x}.`
         : `${t('werkzeug.gitter.achse-waagerecht')} ${z.achse.y}.`,
     );
-  if (z.verschiebung)
+  if (z.verschiebung && !z.frage)
     saetze.push(`${t('werkzeug.gitter.verschiebung')} ${verschiebungText(z.verschiebung)}.`);
   const b = bildpunkt(z);
   if (b)

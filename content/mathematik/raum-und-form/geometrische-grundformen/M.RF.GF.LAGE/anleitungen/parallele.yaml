@@ -16,3 +16,8 @@ pruefen:
   - de: Geht h genau durch P?
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 72ad14568328f00591c91f7858ef62ef39055ce27435f685a7ebd244144dd5aa

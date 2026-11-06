@@ -103,9 +103,35 @@ Alle Dateien außer den vier oben: alle acht `kompetenz.yaml`, alle Erstvermittl
 
 ## Durchgang 3 (Nachprüfung, 06.11.2026)
 
-Dateien, die nach ihrem letzten Durchgang ohne Fund noch geändert wurden, prüft ein weiterer frischer Sub-Agent: LAGE/vermittlung, LAGE/anleitungen parallele und senkrechte, LAGE/parallele-finden (Generator), WINKEL/anleitungen zeichnen, WINKELPAARE/vermittlung, KP.DARSTELLEN/vermittlung, SYMMETRIE/vermittlung, BEWEGUNGEN/vermittlung, BEWEGUNGEN/erkennen (Generator).
+Dateien, die nach ihrem letzten Durchgang ohne Fund noch geändert wurden, prüft eine weitere frische Sitzung (Fragen 1 bis 7): LAGE/vermittlung, LAGE/anleitungen parallele und senkrechte, LAGE/parallele-finden (Generator), WINKEL/anleitungen zeichnen, WINKELPAARE/vermittlung, KP.DARSTELLEN/vermittlung, SYMMETRIE/vermittlung, BEWEGUNGEN/vermittlung, BEWEGUNGEN/erkennen (Generator). Dazu WINKEL/vermittlung, die #300 („B12: Winkelmesser lesbar machen“) geändert hat, und WINKEL/vorlagen/ablesen.yaml: Ihr Vermerk galt noch, weil `gf.winkel-ablesen@1` die Version behielt, das Bild ist aber neu (nur jede 20°-Marke beschriftet, Einheit „°“). Alle Bilder der Erstvermittlungen und Anleitungen sowie je Niveau Beispiele der drei Generatoren wurden gerendert und angesehen (`pnpm pruefbogen` für die Texte).
 
-Ergebnis folgt.
+### Funde
+
+| Datei | Stelle | Frage | Fund | Status |
+|---|---|---|---|---|
+| M.RF.GF.WINKEL/vorlagen/ablesen.yaml | Hilfen, Generator `gf.winkel-ablesen@1` | 5 | Seit B12 stehen Zahlen nur an jeder 20°-Marke. Auf Niveau G (10er-Schritte) liegt der zweite Schenkel oft an einer Marke ohne Zahl (10°, 130°, 150° …), auf M auch bei 5er-Werten. Keine Hilfe sagte, wie man zwischen den Zahlen abliest. | behoben: Hilfe 2 ergänzt „Zahlen stehen nur alle 20°. Von Strich zu Strich sind es 5°.“ |
+| M.RF.GF.WINKEL/vermittlung.yaml | `erklaeren-messen` | 5 (V4) | Die Erstvermittlung liest nur beschriftete Marken ab, im Üben folgen unbeschriftete. | behoben: „Zahlen stehen alle 20°, jeder Strich zählt 5°.“ (39 Wörter) |
+| M.RF.SY.BEWEGUNGEN/vermittlung.yaml | `entdecken` | 7 | Die Vorlesebeschreibung von `gitter@1` nannte „Verschiebung: 3 nach rechts, 2 nach oben“, wörtlich die richtige Option. Ein Zugang ohne Antwort ist da: Die Beschreibung nennt P und P′ mit Koordinaten. | behoben: neuer Parameter `frage: true` für `gitter@1` (Beschreibung ohne Verschiebung, Test), im Schritt gesetzt |
+| M.RF.SY.SYMMETRIE/vermittlung.yaml | `pruefen` | 7 | Gefragt war die Achsenzahl eines Rechtecks; das `beispiel` sagt „Ein Rechteck hat 2 Symmetrieachsen“. Die Korrektur aus Durchgang 2 (Quadrat → Rechteck) hatte das nicht gelöst. | behoben: gleichschenkliges Trapez (1\|2), (7\|2), (5\|6), (3\|6), „diese Figur“, Optionen 1 (richtig), 2 und 0 |
+| M.RF.SY.SYMMETRIE/vermittlung.yaml | `gegenbeispiel` | 7 | Gleiches Bild wie in `erklaeren-achsen` (Rechteck mit derselben gestrichelten Diagonale), dort steht schon „Die gestrichelte Diagonale nicht“. | behoben: hochkantes Rechteck (2\|1) bis (6\|7) mit der anderen Diagonale |
+
+### Hinweise ohne Fund (Durchgang 3)
+
+| Datei | Stelle | Hinweis | Status |
+|---|---|---|---|
+| Generator `gf.winkel-ablesen@1` | Lösungsweg | Nennt nur die Skala und das Ergebnis, nicht das Weiterzählen von der letzten Zahl. Ändern braucht eine neue Fassung `@2`. | offen |
+| M.RF.KP.DARSTELLEN/vermittlung.yaml, M.RF.GF.WINKEL/vermittlung.yaml, M.RF.GF.LAGE/vermittlung.yaml | `entdecken`, `ergaenzen` mit Werkzeug | Die Statuszeile zeigt das Ergebnis erst nach der Handlung, die gefragt ist (Boden wählen, Winkel vergrößern, h drehen). Das ist die Entdeckung selbst. | Entscheidung: bleibt |
+| M.RF.SY.SYMMETRIE/vermittlung.yaml | `entdecken` | Die Beschreibung nennt nur Achse und Zahl der Kästchen; ohne Bild lässt sich die Symmetrie nicht prüfen. Verrät nichts. | offen (Barrierefreiheit) |
+| `gf.parallele-finden@1`, `sy.bewegung-erkennen@1` | Bildbeschreibung | Richtungen bzw. Kästchen beider Figuren lassen die Antwort erschließen; ohne sie gäbe es keinen Zugang. | Entscheidung wie KOORDINATEN |
+| INHALTSFORMAT §16 | Tabelle der Werkzeuge | `frage` war bei `geraden@1`, `winkel@1`, `koerpernetz@1` nicht beschrieben. | behoben (auch `gitter@1`) |
+
+### Ohne Fund in Durchgang 3
+
+LAGE: vermittlung, parallele-finden, Anleitungen parallele und senkrechte; WINKEL: Anleitung zeichnen; WINKELPAARE: vermittlung; KP.DARSTELLEN: vermittlung; BEWEGUNGEN: erkennen.
+
+Die vier Dateien mit Fund (WINKEL vermittlung und ablesen, SYMMETRIE vermittlung, BEWEGUNGEN vermittlung) wurden nach der Korrektur erneut gelesen, die geänderten Bilder neu gerendert: ohne weiteren Fund. Ihre Änderungen sind kleine Text- und Bildkorrekturen an genau der Fundstelle; die übrigen Schritte waren in Durchgang 1 und 2 ohne Fund.
+
+**Stufe 1 (06.11.2026):** alle zwölf Dateien oben. Damit haben alle Dateien der acht Kompetenzen Stufe 1 (`pnpm review --klasse 5`: keine M.RF-Kompetenz mehr unter Stufe 1). Öffentlich (Mindeststufe 1) sind jetzt sieben der acht Kompetenzen; KOORDINATEN wartet auf ihre Voraussetzung M.ZO.NZ.ORDNEN.
 
 ## Stufe 1
 
