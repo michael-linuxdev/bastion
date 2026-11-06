@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, die Datei des eigenen Strangs, `docs/INHALTSFORMAT.md` §8 (Prüfkatalog), `docs/VERMITTLUNG.md` §2.5 (V1–V9).
 > Alle drei Stränge arbeiten parallel, jeder an seinen Paketen (Q-L, Q-O, Q-G). Protokollzeile je PR im eigenen Protokoll.
 
-Stand: 05.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) bis (5) erledigt (Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines); offen nur B10 beim Lernkern · Q-G1 PR 1 (Takt der Bühne) gemergt als #285
+Stand: 06.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) bis (5) erledigt (Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines); offen nur B10 beim Lernkern · Q-L2 Raum und Form Klasse 5 erledigt (#283, #288) · Q-G1 PR 1 (Takt der Bühne) gemergt als #285, PR 2 (Kulisse beim Zoomen) als #290
 
 ---
 
@@ -177,3 +177,4 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **05.11.2026, Oberfläche (Branch `oberflaeche/q-o1-erstvermittlung`):** PR (4) ~~D1, B9, C2~~ erledigt (Erstvermittlung). Als Nächstes PR (5): Kleines (B5–B8, C5, C6, D3, D4).
 - **06.11.2026, Oberfläche (Branch `oberflaeche/q-o1-kleines`):** PR (5) ~~B5, B6, B7, B8, C5, C6, D3, D4~~ erledigt (Kleines). Damit ist die Mängelliste von Q-O1 abgearbeitet; B10 (Inhalt) liegt beim Lernkern. Offen beim Strang Grafik: Mehrzahl „Steine“ für das Thema Bastion (Wunsch in `GRAFIK.md`).
 - **05.11.2026, Grafik, Q-G1 PR 1 (Branch `grafik/q-g1-ticker`):** Takt der Bühne: Pixi-Ticker steht bei „ruhig“, beim Zoomen und Schwenken und ohne bewegte Teile, sonst 30 Hz statt 60; Einzelbild bei Änderung. Messwerkzeug `pnpm tempo` (GRAFIK §29, Zahlen vorher/nachher dort). Befund für die nächsten PRs: Beim Zoomen bleibt der Hauptfaden auch mit stehender Bühne voll, Ursache liegt in der Kulisse (Punkt 2). Offen beim PV: Messung am iPhone 13 nach jedem PR, Referenzgeräte (Q-G0).
+- **06.11.2026, Grafik, Q-G1 PR 2 (Branch `grafik/q-g1-kulisse`):** Kulisse beim Zoomen nicht je Schritt neu ausrichten (GRAFIK §30): nur noch zwei Transforms folgen der Kamera, Meer als Fläche in der Welt, Culling mit Abstand (Cull-Kamera, Sichtkasten Fenster plus Rand). Hauptfaden beim Zoomen 92 → 66 %, Schwenken 96 → 68 %, GPU 55–65 → 13–16 %. Rückfrage an den PV: Zoom-Probe aus §24 am iPhone 13 (mehrfach herein und heraus), weil Welt und Ferne jetzt je eine eigene Ebene halten. Danach PR 3 (gemeinsamer 30-Hz-Takt) und PR 4 (HD-Bilder nur im Sichtfeld).

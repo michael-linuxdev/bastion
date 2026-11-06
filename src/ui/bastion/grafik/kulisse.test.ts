@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { dingBild, dingeUmBauplatz, kulisseFuer, kulissenLage, stimmungAus } from './kulisse';
+import {
+  cullKamera,
+  cullRand,
+  dingBild,
+  dingeUmBauplatz,
+  kulisseFuer,
+  kulissenLage,
+  stimmungAus,
+} from './kulisse';
 
 const zeiten = { aufgangMin: 7 * 60, untergangMin: 17 * 60 };
 const um = (h: number, m = 0) => new Date(2026, 10, 2, h, m);
@@ -20,6 +28,24 @@ describe('Kulisse (GRAFIK §13)', () => {
     expect(nah.horizontY).toBeLessThan(0);
     // weit weg: der Horizont bewegt sich beim Verschieben kaum
     expect(kulissenLage({ x: 100, y: 0, zoom: 1 }, 160).horizontX).toBe(25);
+  });
+
+  it('Culling mit Abstand: die Cull-Kamera folgt erst nach einem Achtel Fenster oder 10 % Zoom', () => {
+    const fenster = { breite: 400, hoehe: 800 };
+    const start = { x: 0, y: 0, zoom: 1 };
+    expect(cullKamera(undefined, start, fenster)).toBe(start);
+    // kleine Schritte: bleibt
+    expect(cullKamera(start, { x: 49, y: 99, zoom: 1.09 }, fenster)).toBe(start);
+    expect(cullKamera(start, { x: -49, y: -99, zoom: 1 / 1.09 }, fenster)).toBe(start);
+    // ein Achtel verschoben oder 10 % gezoomt: springt
+    const weit = { x: 50, y: 0, zoom: 1 };
+    expect(cullKamera(start, weit, fenster)).toBe(weit);
+    const hoch = { x: 0, y: 100, zoom: 1 };
+    expect(cullKamera(start, hoch, fenster)).toBe(hoch);
+    const nah = { x: 0, y: 0, zoom: 1.1 };
+    expect(cullKamera(start, nah, fenster)).toBe(nah);
+    // der Rand deckt den Achtel-Schritt samt Bildgröße ab
+    expect(cullRand(fenster)).toBeGreaterThanOrEqual(100 + 160);
   });
 
   it('Dinge liegen außerhalb des Bauplatzes', () => {

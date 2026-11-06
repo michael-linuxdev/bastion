@@ -2162,7 +2162,7 @@ export async function buehneErstellen(
    * ein Einzelbild, damit der letzte Stand zu sehen ist. Vorher lief der Pixi-Ticker
    * immer mit 60 Hz, auch bei „ruhig“ (dort fehlte nur der eigene Rückruf).
    */
-  const taktSync = () => {
+  const taktSync = (einzelbild = true) => {
     if (zerstoert) return;
     if (!tickerAn(bewegung)) {
       wolkenLage.x = 0;
@@ -2192,7 +2192,8 @@ export async function buehneErstellen(
         tickerAngehaengt = false;
       }
       app.stop();
-      bildAnfordern();
+      // Beim Anhalten für eine Kamera-Geste hat sich am Bild nichts geändert: kein Einzelbild
+      if (einzelbild) bildAnfordern();
     }
   };
   taktSync();
@@ -3015,7 +3016,7 @@ export async function buehneErstellen(
     setzeKameraBewegt(bewegt) {
       if (bewegt === kameraBewegt) return;
       kameraBewegt = bewegt;
-      taktSync();
+      taktSync(false);
     },
     feldBei(clientX, clientY) {
       const r = app.canvas.getBoundingClientRect();
