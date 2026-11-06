@@ -6,12 +6,18 @@
 
   let {
     titel,
+    kann,
+    voraussetzungen = [],
     dauer,
     onja,
     onnein,
     onzurueck,
   }: {
     titel: string;
+    /** „Ich kann …“-Satz der Kompetenz (D2: steht nicht mehr in der Themenwahl) */
+    kann?: string;
+    /** Namen der Themen, auf denen dieses aufbaut (B3: statt der Steinkette in der Liste) */
+    voraussetzungen?: readonly string[];
     /** Minuten laut Sequenz */
     dauer: number | undefined;
     onja: () => void;
@@ -24,6 +30,10 @@
   <ZurueckKnopf onclick={onzurueck} />
   <article class="karte">
     <h2>{titel}</h2>
+    {#if kann}<p class="kann">{kann}</p>{/if}
+    {#if voraussetzungen.length > 0}
+      <p class="leise">{t('vermittlung.angebot.voraussetzungen')} {voraussetzungen.join(', ')}</p>
+    {/if}
     <p class="neu">{t('vermittlung.angebot.neu')} {t('vermittlung.angebot.frage')}</p>
     {#if dauer}
       <p class="leise">
@@ -66,6 +76,10 @@
   .neu {
     font-size: 1.25rem;
     font-weight: 700;
+  }
+
+  .kann {
+    color: var(--farbe-text);
   }
 
   .leise {

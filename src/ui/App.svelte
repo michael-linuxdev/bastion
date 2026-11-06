@@ -433,6 +433,8 @@
   let vermittlungStart = $state<string | undefined>(undefined);
   /** A3 (Q-O1): Woher die Erstvermittlung geöffnet wurde – dorthin führt „Zurück“. */
   let vermittlungHerkunft = $state<'uebersicht' | 'uebung'>('uebung');
+  /** C1 (Q-O1): Woher die Themenwahl geöffnet wurde (Start oder Mehr) – dorthin führt „Zurück“. */
+  let uebersichtHerkunft = $state<'start' | 'mehr'>('start');
   /**
    * Kontrastaufgaben, die beim Üben als Nächstes drankommen (VERMITTLUNG §3.3).
    * Bewusst nicht reaktiv: Die laufende Aufgabe darf sich dadurch nicht ändern.
@@ -712,9 +714,11 @@
       inhalte ??= ladeInhalte();
     switch (ziel) {
       case 'ueben':
+        uebersichtHerkunft = 'start';
         void zumNaechstenUeben();
         return;
       case 'themen':
+        uebersichtHerkunft = 'mehr';
         ueben();
         return;
       case 'wiederholen':
@@ -938,6 +942,11 @@
         {@const k = gewaehlt}
         <Angebot
           titel={k.titel.de}
+          kann={k.kann_satz.de}
+          voraussetzungen={k.voraussetzungen.flatMap((id) => {
+            const v = geladen.kompetenzen.find((x) => x.id === id);
+            return v ? [v.titel.de] : [];
+          })}
           dauer={geladen.vermittlungen.get(k.id)?.dauer_min}
           onja={() => {
             vermittlungHerkunft = 'uebersicht';
@@ -1219,21 +1228,7 @@
           </p>
         {/if}
       {:else}
-        {#if wechsel}
-          <Wechsel
-            hinweis={wechsel}
-            kompetenzen={geladen.kompetenzen}
-            staende={[...zustand.staende.values()]}
-            onauswahl={(ids) => {
-              wechsel = undefined;
-              diagnoseAntworten = [];
-              diagnoseAuswahl = ids;
-              diagnoseProbe = false;
-              ansicht = 'diagnose';
-            }}
-            onschliessen={() => (wechsel = undefined)}
-          />
-        {/if}
+        <ZurueckKnopf onclick={() => (ansicht = uebersichtHerkunft)} />
         <Uebersicht
           kompetenzen={geladen.kompetenzen}
           vorlagen={geladen.vorlagen}
@@ -1244,7 +1239,25 @@
           bind:geradeDran
           vermittelt={vermittelte}
           onwahl={(k) => zumUeben(geladen, k)}
-        />
+        >
+          {#snippet hinweis()}
+            {#if wechsel}
+              <Wechsel
+                hinweis={wechsel}
+                kompetenzen={geladen.kompetenzen}
+                staende={[...zustand.staende.values()]}
+                onauswahl={(ids) => {
+                  wechsel = undefined;
+                  diagnoseAntworten = [];
+                  diagnoseAuswahl = ids;
+                  diagnoseProbe = false;
+                  ansicht = 'diagnose';
+                }}
+                onschliessen={() => (wechsel = undefined)}
+              />
+            {/if}
+          {/snippet}
+        </Uebersicht>
       {/if}
     {:catch}
       <section class="paket-fehlt" role="status">

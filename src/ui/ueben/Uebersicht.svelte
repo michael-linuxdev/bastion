@@ -5,10 +5,10 @@
   import { empfohlen } from '../../core/learning/empfehlung';
   import type { Zustand } from '../plattform/ablage';
   import type { GeneratorVorlage } from '../../core/learning/vorlage';
+  import type { Snippet } from 'svelte';
   import { t, type TextSchluessel } from '../texte/texte';
   import GeradeDran from './GeradeDran.svelte';
   import KlassenWahl from './KlassenWahl.svelte';
-  import Steinkette from './Steinkette.svelte';
   import { BEREICHE } from './reihenfolge';
   import { sitzt, statusGesamt } from './stand';
 
@@ -21,6 +21,7 @@
     kurs = $bindable(undefined),
     geradeDran = $bindable([]),
     vermittelt = new Set(),
+    hinweis,
     onwahl,
   }: {
     kompetenzen: readonly Kompetenz[];
@@ -35,6 +36,8 @@
     geradeDran?: readonly string[];
     /** Kompetenzen mit abgeschlossener Erstvermittlung: Zustand „erklärt“ vor dem ersten Üben */
     vermittelt?: ReadonlySet<string>;
+    /** Hinweiskarte unter der Überschrift, z. B. nach einem Klassenwechsel (C4) */
+    hinweis?: Snippet;
     onwahl: (kompetenz: Kompetenz) => void;
   } = $props();
 
@@ -60,14 +63,11 @@
       ),
     })).filter((b) => b.kompetenzen.length > 0),
   );
-  const nachId = $derived(new Map(kompetenzen.map((k) => [k.id, k])));
-  const sitztId = (id: string) => sitzt(statusGesamt(zustand, id, jetzt));
 </script>
 
 <section class="uebersicht register-ort">
   <h2>{t('uebersicht.ueberschrift')}</h2>
-  <p class="entwurf">{t('uebersicht.entwurf')}</p>
-  <p class="leise">{t('uebersicht.gespeichert')}</p>
+  {@render hinweis?.()}
 
   <!-- L18: „Neues Thema“ erst, wenn schon etwas geübt wurde – beim ersten Besuch ist alles neu -->
   {#if empfehlungen.size > 0 && !entdeckungWeg && zustand.staende.size > 0}
@@ -93,7 +93,8 @@
     {/if}
   {/if}
 
-  <KlassenWahl bind:klasse bind:schulart bind:kurs mitSchulart />
+  <!-- B4/C3 (Q-O1): Klasse und Schulart als Segmentleisten, nicht als große Radiogruppen -->
+  <KlassenWahl bind:klasse bind:schulart bind:kurs mitSchulart kompakt />
 
   <GeradeDran
     kompetenzen={kompetenzen.filter((k) => vorlagen.some((v) => v.kompetenz === k.id))}
@@ -123,8 +124,9 @@
       <ul class="orte">
         {#each b.kompetenzen as k (k.id)}
           <li>
+            <!-- D2 (Q-O1): flache Zeile – Titel, Status, Pfeil; „Ich kann …“ und Voraussetzungen
+                 stehen im Angebot -->
             <button class="ort" onclick={() => onwahl(k)}>
-              <span class="ort-bild" aria-hidden="true" data-feld={k.feld ?? b.bereich}></span>
               <span class="ort-text">
                 <span class="titel">
                   {k.titel.de}
@@ -140,15 +142,17 @@
                     <span class="status empfohlen">{t('status.empfohlen')}</span>
                   {/if}
                 </span>
-                <span class="kann">{k.kann_satz.de}</span>
-                <Steinkette kompetenz={k} kompetenzen={nachId} sitzt={sitztId} />
               </span>
+              <span class="pfeil" aria-hidden="true">›</span>
             </button>
           </li>
         {/each}
       </ul>
     </details>
   {/each}
+  <!-- B4 (Q-O1): Vermerke ruhig am Seitenende wie auf der Startseite -->
+  <p class="leise fuss">{t('uebersicht.gespeichert')}</p>
+  <p class="entwurf">{t('uebersicht.entwurf')}</p>
 </section>
 
 <style>
@@ -259,12 +263,12 @@
     inline-size: 100%;
     text-align: start;
     display: grid;
-    grid-template-columns: 3.5rem 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--abstand-s);
     align-items: center;
-    min-block-size: var(--ziel);
+    min-block-size: 3.5rem;
     padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-s);
+    padding-inline: var(--abstand-m);
     border: 2px solid transparent;
     border-radius: var(--radius-karte);
     background: var(--farbe-flaeche);
@@ -278,16 +282,10 @@
     border-color: var(--farbe-akzent);
   }
 
-  .ort-bild {
-    inline-size: 3.25rem;
-    block-size: 3.25rem;
-    border-radius: var(--radius);
-    background: linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--farbe-akzent) 35%, var(--farbe-himmel, #cfe7f5)),
-      var(--farbe-akzent-warm)
-    );
-    box-shadow: inset 0 -0.55rem 0 color-mix(in srgb, var(--farbe-boden, #6b8f4e) 70%, transparent);
+  .pfeil {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--farbe-akzent);
   }
 
   .ort-text {
@@ -327,8 +325,7 @@
     margin-block: 0;
   }
 
-  .kann {
-    color: var(--farbe-text-leise);
-    font-size: 1rem;
+  .fuss {
+    margin-block-start: var(--abstand-m);
   }
 </style>

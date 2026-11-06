@@ -11,13 +11,16 @@
     kurs = $bindable(undefined),
     mitSchulart = false,
     kompakt = false,
+    ohneKlasse = false,
   }: {
     klasse?: number;
     schulart?: 'oberschule' | 'gymnasium' | undefined;
     kurs?: 'gk' | 'lk' | undefined;
     mitSchulart?: boolean;
-    /** O18: als Segmentleiste in einer Zeile (Mein Stand); Übersicht und Diagnose unverändert */
+    /** O18: als Segmentleiste in einer Zeile; seit Q-O1 (C3) auch in Übersicht und Diagnose */
     kompakt?: boolean;
+    /** Nur Schulart und Kurs zeigen (die Klasse steht woanders) */
+    ohneKlasse?: boolean;
   } = $props();
 
   /** „keine Angabe“ als leerer Wert im Formular */
@@ -27,20 +30,22 @@
   const KURSE = ['', 'gk', 'lk'] as const;
 </script>
 
-<fieldset class="klasse" class:kompakt>
-  <legend>{t('klasse.ueberschrift')}</legend>
-  {#each KLASSEN as k (k)}
-    <label
-      ><input type="radio" value={k} bind:group={klasse} />
-      {#if kompakt}<span aria-hidden="true">{k === OBERSTUFE ? '11/12' : k}</span><span
-          class="unsichtbar"
-          >{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}</span
-        >{:else}{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}{/if}</label
-    >
-  {/each}
-</fieldset>
+{#if !ohneKlasse}
+  <fieldset class="klasse" class:kompakt>
+    <legend>{t('klasse.ueberschrift')}</legend>
+    {#each KLASSEN as k (k)}
+      <label
+        ><input type="radio" value={k} bind:group={klasse} />
+        {#if kompakt}<span aria-hidden="true">{k === OBERSTUFE ? '11/12' : k}</span><span
+            class="unsichtbar"
+            >{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}</span
+          >{:else}{k === OBERSTUFE ? t('klasse.oberstufe') : `${t('klasse.name')} ${k}`}{/if}</label
+      >
+    {/each}
+  </fieldset>
+{/if}
 {#if mitSchulart}
-  <fieldset class="klasse">
+  <fieldset class="klasse" class:kompakt>
     <legend>{t('klasse.schulart')}</legend>
     {#each SCHULARTEN as s (s)}
       <label
@@ -64,7 +69,7 @@
   {#if klasse === OBERSTUFE && schulart === 'oberschule'}
     <p class="hinweis">{t('klasse.oberstufe-gymnasium')}</p>
   {:else if klasse === OBERSTUFE}
-    <fieldset class="klasse">
+    <fieldset class="klasse" class:kompakt>
       <legend>{t('klasse.kurs')}</legend>
       {#each KURSE as k (k)}
         <label
