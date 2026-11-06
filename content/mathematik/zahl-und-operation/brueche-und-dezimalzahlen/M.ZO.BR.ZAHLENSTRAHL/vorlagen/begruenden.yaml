@@ -18,7 +18,7 @@ fehlerbilder:
     de: 'Es gibt einen Strich mehr als Abschnitte. Der [[Nenner]] zählt die Abschnitte.'
     fv: FV.BR.STRICHE-GEZAEHLT
   anzahl-statt-anteil:
-    de: 'Die Marke zeigt einen [[Anteil]] von 1, nicht die Zahl der Striche.'
+    de: 'Die Marke zeigt einen Teil der Strecke von 0 bis 1, keine Anzahl. Die Abschnitte bis 1 ergeben den [[Nenner]].'
     fv: FV.BR.ANZAHL-STATT-ANTEIL
 herkunft: ki-entwurf
 version: 1

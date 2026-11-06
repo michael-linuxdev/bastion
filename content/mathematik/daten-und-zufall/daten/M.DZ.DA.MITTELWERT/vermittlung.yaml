@@ -98,7 +98,7 @@ schritte:
   - id: beispiel
     typ: beispiel
     text:
-      de: 'Noten 2, 3, 3 und 4: [[Summe]] 12, Anzahl 4. [[Durchschnitt]] 12 : 4 = 3.'
+      de: 'Noten 2, 3, 3 und 4: [[Summe]] 12, Anzahl 4. [[Durchschnitt]] 12 : 4 = 3. Bei 2, 3 und 3 geht es nicht auf: 8 : 3 = 2,666…, auf eine [[Nachkommastelle]] gerundet 2,7.'
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen

@@ -73,38 +73,63 @@ export interface DezRundenParameter {
   readonly stellen_max: number; // Rundungsstelle bis: 1 = Zehntel, 2 = Hundertstel
 }
 
-/** „Runde 3,476 auf Zehntel.“ – Vorlage M.ZO.BR.DEZ-ORDNEN.RUNDEN */
-export const dezimalRunden: Generator<DezRundenParameter> = {
-  id: 'br.dezimal-runden',
-  version: 1,
-  platzhalter: ['zahl', 'stelle'],
-  fehlerbildIds: ['abgeschnitten', 'falsche-stelle'],
+/**
+ * „Runde 3,476 auf Zehntel.“ – Vorlage M.ZO.BR.DEZ-ORDNEN.RUNDEN. Fassung 2 (Q-L1, 06.11.2026):
+ * Das Ergebnis endet an der Rundungsstelle nie auf 0 (sonst zeigte die Lösung 907,7 statt
+ * 907,70); „falsche Stelle“ ist nie die unveränderte Zahl.
+ */
+function dezimalRundenFassung(fassung: 1 | 2): Generator<DezRundenParameter> {
+  return {
+    id: 'br.dezimal-runden',
+    version: fassung,
+    platzhalter: ['zahl', 'stelle'],
+    fehlerbildIds: ['abgeschnitten', 'falsche-stelle'],
 
-  erzeuge(seed, p) {
-    verlange(p.stellen_max >= 1 && p.stellen_max <= 2, 'stellen_max: 1 … 2');
-    const r = rng(seed);
-    const ziel = r.int(0, p.stellen_max); // 0 = Ganze, 1 = Zehntel, 2 = Hundertstel
-    const n = dezimal(r, p.ganz_max, Math.min(3, ziel + r.int(1, 2)));
-    const einheit = 10 ** (3 - ziel);
-    const richtig = Math.floor(n / einheit + 0.5) * einheit;
-    const ab = Math.floor(n / einheit) * einheit;
-    const nachbar = ziel < 2 ? Math.floor(n / (einheit / 10) + 0.5) * (einheit / 10) : undefined;
-    return {
-      platzhalter: { zahl: anzeige(n), stelle: RUNDUNG[ziel] ?? de('') },
-      loesung: zahl(wert(richtig)),
-      loesungsweg: [
-        de(
-          `Entscheidend ist die Ziffer rechts von den ${RUNDUNG[ziel]?.de ?? ''}n: ${Math.floor((n % einheit) / (einheit / 10))}.`,
-        ),
-        de(`${dezimalDeutsch(n / T)} ≈ ${dezimalDeutsch(richtig / T)}`),
-      ],
-      fehlerbilder: fehlerbilderAus(zahl(wert(richtig)), [
-        ['abgeschnitten', zahl(wert(ab))],
-        ['falsche-stelle', nachbar !== undefined ? zahl(wert(nachbar)) : undefined],
-      ]),
-    };
-  },
-};
+    erzeuge(seed, p) {
+      verlange(p.stellen_max >= 1 && p.stellen_max <= 2, 'stellen_max: 1 … 2');
+      const r = rng(seed);
+      const ziel = r.int(0, p.stellen_max); // 0 = Ganze, 1 = Zehntel, 2 = Hundertstel
+      let n = dezimal(r, p.ganz_max, Math.min(3, ziel + r.int(1, 2)));
+      const einheit = 10 ** (3 - ziel);
+      const gerundet = (x: number, e: number) => Math.floor(x / e + 0.5) * e;
+      // Fassung 2: Ziffer an der Rundungsstelle des Ergebnisses ist 0 → eine Einheit weiter weg
+      // (die Stellen dahinter bleiben, also auch die Zahl der Nachkommastellen)
+      if (fassung === 2 && ziel > 0 && (gerundet(n, einheit) / einheit) % 10 === 0)
+        n += n >= einheit ? -einheit : einheit;
+      const richtig = gerundet(n, einheit);
+      const ab = Math.floor(n / einheit) * einheit;
+      const feiner = ziel < 2 ? gerundet(n, einheit / 10) : undefined;
+      // Fassung 2: Ist die Zahl auf der feineren Stelle schon fertig, wäre „falsche Stelle“ die
+      // unveränderte Zahl; dann auf die gröbere Stelle gerundet (bei Ganzen: keins)
+      const groeber = ziel > 0 ? gerundet(n, einheit * 10) : undefined;
+      const nachbar =
+        fassung === 1 ? feiner : feiner !== undefined && feiner !== n ? feiner : groeber;
+      return {
+        platzhalter: { zahl: anzeige(n), stelle: RUNDUNG[ziel] ?? de('') },
+        loesung: zahl(wert(richtig)),
+        loesungsweg: [
+          de(
+            `Entscheidend ist die Ziffer rechts von den ${RUNDUNG[ziel]?.de ?? ''}n: ${Math.floor((n % einheit) / (einheit / 10))}.`,
+          ),
+          de(`${dezimalDeutsch(n / T)} ≈ ${dezimalDeutsch(richtig / T)}`),
+        ],
+        fehlerbilder: fehlerbilderAus(zahl(wert(richtig)), [
+          ['abgeschnitten', zahl(wert(ab))],
+          [
+            'falsche-stelle',
+            nachbar !== undefined && (fassung === 1 || nachbar !== n)
+              ? zahl(wert(nachbar))
+              : undefined,
+          ],
+        ]),
+      };
+    },
+  };
+}
+
+/** Fassung 1 bleibt für gespeicherte Aufgaben (INHALTSFORMAT §6.1 Regel 5): 907,704 → 907,7. */
+export const dezimalRundenV1 = dezimalRundenFassung(1);
+export const dezimalRunden = dezimalRundenFassung(2);
 
 export interface DezAddSubParameter {
   readonly ganz_max: number; // 1 … 1000

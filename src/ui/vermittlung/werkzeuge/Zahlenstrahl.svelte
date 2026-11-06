@@ -3,7 +3,12 @@
   // Jeder Strich ist ein Knopf; die gewählte Stelle wird als Bruch gemeldet.
   import { untrack } from 'svelte';
   import { t } from '../../texte/texte';
-  import { stelle, striche, type StrahlParameter } from './zahlenstrahl';
+  import {
+    beschreibung as beschreibe,
+    stelle,
+    striche,
+    type StrahlParameter,
+  } from './zahlenstrahl';
 
   let {
     parameter,
@@ -23,13 +28,7 @@
   );
   const liste = $derived(striche(parameter));
   let markiert = $state<number | undefined>(untrack(() => parameter.markiert));
-  const beschreibung = $derived(
-    `${t('werkzeug.zahlenstrahl.name')} ${t('werkzeug.zahlenstrahl.von')} ${parameter.von ?? 0} ` +
-      `${t('werkzeug.zahlenstrahl.bis')} ${parameter.bis ?? 1}` +
-      (markiert !== undefined
-        ? `, ${t('werkzeug.zahlenstrahl.markiert')} ${stelle(markiert, einteilung)}`
-        : ''),
-  );
+  const beschreibung = $derived(beschreibe(parameter, markiert));
 </script>
 
 <div class="strahl" role={interaktiv ? 'group' : 'img'} aria-label={beschreibung}>
