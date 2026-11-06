@@ -4,7 +4,10 @@
 // aber Veränderungen von PR zu PR sichtbar.
 //
 // Aufruf: pnpm build && pnpm tempo [--cpu 4] [--sekunden 6] [--thema bastion] [--ruhig] [--reich]
-//        [--foto /tmp/…/bild.png] (Bildschirmfoto nach dem Öffnen, vor der Messung)
+//        [--wetter regen] (Wetter-Probe aus dem Zahnrad, z. B. regen, starkregen, schnee, sturm)
+//        [--foto /tmp/…/bild.png] (Bildschirmfoto nach dem Öffnen und ganz herangezoomt als
+//        bild-heran.png)
+//        [--ebenen] (je Phase die größten Ebenen nach der §24-Rechnung ausgeben)
 //
 // Messung: Fenster 390 × 844 bei dreifacher Pixeldichte wie das iPhone 13, CPU gedrosselt
 // (Standard vierfach, wirkt relativ zum Messrechner). Die Bühne wird über die Chrome-Ablaufverfolgung
@@ -39,6 +42,10 @@ const RUHIG = argumente.includes('--ruhig');
  * das Werkzeug die frische Bastion wie in §29 und §30.
  */
 const REICH = argumente.includes('--reich');
+/** `--wetter regen`: Wetter-Probe aus den Bastion-Einstellungen (gilt nur für die Ansicht) */
+const WETTER = option('wetter', '');
+/** `--ebenen`: je Phase die größten Ebenen ausgeben (Größe, Maßstab, Speicher) */
+const EBENEN_LISTE = argumente.includes('--ebenen');
 /** Bauaufträge für `--reich`, der Reihe nach über die Liste in den Bastion-Einstellungen */
 const REICH_BAUEN = [
   /^Bergfried auf Stufe 2/,
@@ -180,9 +187,11 @@ async function bastionOeffnen(seite: Page): Promise<void> {
   if (REICH) await reichBauen(seite);
   else await seite.getByRole('main').getByRole('button', { name: 'Bastion' }).click();
   await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).waitFor({ timeout: 30_000 });
-  if (THEMA !== 'bastion') {
+  if (THEMA !== 'bastion' || WETTER) {
     await seite.getByRole('button', { name: 'Bastion-Einstellungen' }).click();
-    await seite.getByRole('radio', { name: new RegExp(`^${THEMA}`, 'i') }).check();
+    if (THEMA !== 'bastion')
+      await seite.getByRole('radio', { name: new RegExp(`^${THEMA}`, 'i') }).check();
+    if (WETTER) await seite.locator('.wetter-probe select').first().selectOption(WETTER);
     await seite.getByRole('button', { name: '← Zur Bastion' }).click();
   }
   const bild = seite.locator('.bauplatz canvas');
@@ -193,7 +202,12 @@ async function bastionOeffnen(seite: Page): Promise<void> {
 }
 
 /** Ebenenspeicher wie GRAFIK §24: Fläche jeder Ebene mal wirksamer Maßstab². */
-function ebenenSpeicher(ebenen: LayerTreeEbene[]): { mpx: number; mb: number; anzahl: number } {
+function ebenenSpeicher(ebenen: LayerTreeEbene[]): {
+  mpx: number;
+  mb: number;
+  anzahl: number;
+  groesste: { text: string; knoten: number | undefined; id: string }[];
+} {
   const perId = new Map(ebenen.map((e) => [e.layerId, e]));
   const massstab = (e: LayerTreeEbene): number => {
     let s = 1;
@@ -208,13 +222,25 @@ function ebenenSpeicher(ebenen: LayerTreeEbene[]): { mpx: number; mb: number; an
   };
   let px = 0;
   let anzahl = 0;
+  const liste: { px: number; text: string; knoten: number | undefined; id: string }[] = [];
   for (const e of ebenen) {
     if (!e.drawsContent) continue;
     const s = massstab(e);
-    px += e.width * e.height * s * s * PIXELDICHTE * PIXELDICHTE;
+    const flaeche = e.width * e.height * s * s * PIXELDICHTE * PIXELDICHTE;
+    px += flaeche;
     anzahl++;
+    liste.push({
+      px: flaeche,
+      text: `${e.width.toFixed(0)} × ${e.height.toFixed(0)} · Maßstab ${s.toFixed(2)} · ${((flaeche * 4) / 1024 / 1024).toFixed(0)} MB`,
+      knoten: e.backendNodeId,
+      id: e.layerId,
+    });
   }
-  return { mpx: px / 1e6, mb: (px * 4) / 1024 / 1024, anzahl };
+  const groesste = liste
+    .sort((a, b) => b.px - a.px)
+    .slice(0, 12)
+    .map(({ text, knoten, id }) => ({ text, knoten, id }));
+  return { mpx: px / 1e6, mb: (px * 4) / 1024 / 1024, anzahl, groesste };
 }
 
 interface LayerTreeEbene {
@@ -224,6 +250,22 @@ interface LayerTreeEbene {
   height: number;
   drawsContent: boolean;
   transform?: number[];
+  backendNodeId?: number;
+}
+
+/** Für `--ebenen`: zu welchem Element eine Ebene gehört (Tag und Klassen) */
+async function knotenName(cdp: CDPSession, knoten: number | undefined): Promise<string> {
+  if (knoten === undefined) return '(Sammelebene)';
+  try {
+    const { node } = (await cdp.send('DOM.describeNode', { backendNodeId: knoten })) as {
+      node: { localName: string; attributes?: string[] };
+    };
+    const attr = node.attributes ?? [];
+    const klasse = attr[attr.indexOf('class') + 1];
+    return `<${node.localName}${attr.includes('class') && klasse ? ` .${klasse.split(' ').join('.')}` : ''}>`;
+  } catch {
+    return '(?)';
+  }
 }
 
 async function phaseMessen(
@@ -240,7 +282,18 @@ async function phaseMessen(
   await seite.evaluate((n) => performance.mark(`tempo:${n}:ende`), name);
   await pause(300);
   const ebenen = ebenenSpeicher(ebenenLesen());
-  void cdp;
+  if (EBENEN_LISTE) {
+    const zeilen = [];
+    for (const e of ebenen.groesste) {
+      const grund = (await cdp
+        .send('LayerTree.compositingReasons', { layerId: e.id })
+        .catch(() => ({ compositingReasonIds: [] }))) as { compositingReasonIds?: string[] };
+      zeilen.push(
+        `${e.text} · ${await knotenName(cdp, e.knoten)} · ${(grund.compositingReasonIds ?? []).join(', ')}`,
+      );
+    }
+    console.log(`Ebenen ${name}:\n  ${zeilen.join('\n  ')}`);
+  }
   return { name, start, ende, ebenen };
 }
 
@@ -399,6 +452,8 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
     ),
   );
   const puffer = await browser.stopTracing();
+  // Zweites Foto ganz herangezoomt (zum Vergleich vorher/nachher)
+  if (foto) await seite.screenshot({ path: foto.replace(/\.png$/, '') + '-heran.png' });
   const ereignisse = (JSON.parse(puffer.toString()) as { traceEvents: Ereignis[] }).traceEvents;
   const ablage = option('ablage', '');
   if (ablage) (await import('node:fs/promises')).writeFile(ablage, puffer);
@@ -411,9 +466,28 @@ async function messen(browser: Browser): Promise<Ergebnis[]> {
   return auswerten(ereignisse, phasen);
 }
 
+// Läuft auf dem Port noch ein alter Server (etwa aus einem abgebrochenen Lauf), würde das
+// Werkzeug still dessen Build messen: darum vorher prüfen und abbrechen.
+if (
+  await fetch(URL_START).then(
+    () => true,
+    () => false,
+  )
+)
+  throw new Error(`Port ${PORT} ist belegt – alten Vorschau-Server beenden.`);
+// Eigene Prozessgruppe: `pnpm preview` startet Vite als Kindprozess, der beim Beenden
+// sonst weiterläuft und den Port für den nächsten Lauf belegt
 const server = spawn('pnpm', ['preview', '--port', String(PORT), '--strictPort'], {
   stdio: 'ignore',
+  detached: true,
 });
+const serverBeenden = () => {
+  try {
+    if (server.pid) process.kill(-server.pid);
+  } catch {
+    server.kill();
+  }
+};
 
 try {
   await warteAufServer();
@@ -421,7 +495,7 @@ try {
   const ergebnisse = await messen(browser);
   await browser.close();
   console.log(
-    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}${REICH ? ' · gewachsene Bastion' : ''}`,
+    `Tempo der Bühne · Thema ${THEMA} · ${BREITE} × ${HOEHE} bei Pixeldichte ${PIXELDICHTE} · CPU ÷${CPU} · je Phase ${SEKUNDEN} s${RUHIG ? ' · Bewegung reduzieren' : ''}${REICH ? ' · gewachsene Bastion' : ''}${WETTER ? ` · Wetter ${WETTER}` : ''}`,
   );
   console.log(
     '| Phase | Bilder/s | Takt/s | ms je Takt | Hauptfaden | GPU | Hänger | Ebenen | Ebenenspeicher |',
@@ -433,5 +507,5 @@ try {
     );
   }
 } finally {
-  server.kill();
+  serverBeenden();
 }

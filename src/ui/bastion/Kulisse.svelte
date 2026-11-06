@@ -20,6 +20,8 @@
   import {
     cullKamera,
     cullRand,
+    sichtKasten,
+    sichtRand,
     DING_BREITE,
     HORIZONT,
     HORIZONT_ABSTAND,
@@ -134,25 +136,10 @@
   const cullLage = $derived(kulissenLage(cull, inselOben));
   /** Wasserlinie im Fenster nach der Cull-Kamera: dahinter liegt nichts */
   const cullWasser = $derived(cullLage.horizontY - WASSER * cullLage.horizontSkala);
+  /** Welche Dinge ins Bild kommen: großzügig, auch was nur mit dem Bild hereinragt */
   const rand = $derived(cullRand({ breite: fensterB, hoehe: fensterH }));
-  /**
-   * Sichtkasten in der Welt (GRAFIK §30): Fenster plus Rand nach der Cull-Kamera, in
-   * Bühnen-Bildpunkten. Nur dieser Kasten wird als Ebene gehalten; er wandert erst mit,
-   * wenn die Cull-Kamera springt. So bleibt der Grafikspeicher bei Fenstergröße.
-   */
-  const sicht = $derived({
-    x0: (-rand - cull.x) / cull.zoom,
-    y0: (-rand - cull.y) / cull.zoom,
-    b: (fensterB + 2 * rand) / cull.zoom,
-    h: (fensterH + 2 * rand) / cull.zoom,
-  });
-  /** Dasselbe für die ferne Schicht, in Band-Bildpunkten */
-  const fernSicht = $derived({
-    x0: (-rand - cullLage.horizontX) / cullLage.horizontSkala,
-    y0: (-rand - cullLage.horizontY) / cullLage.horizontSkala,
-    b: (fensterB + 2 * rand) / cullLage.horizontSkala,
-    h: (fensterH + 2 * rand) / cullLage.horizontSkala,
-  });
+  /** Rand des Sichtkastens (GRAFIK §32): knapp, die Cull-Kamera springt rechtzeitig */
+  const kastenRand = $derived(sichtRand({ breite: fensterB, hoehe: fensterH }));
   /** Oberkante der Wellenkachel in der Welt: knapp unter der Horizontlinie */
   const meerOben = $derived(inselOben - HORIZONT_ABSTAND + 60);
   /**
@@ -165,10 +152,6 @@
     (cullLage.horizontY + u * cullLage.horizontSkala - cull.y) / cull.zoom;
   const bandMass = $derived(cullLage.horizontSkala / cull.zoom);
   const wasserOben = $derived(bandY(-WASSER));
-  const meerGrund = $derived.by(() => {
-    const oben = Math.max(sicht.y0, wasserOben);
-    return { oben, hoehe: Math.max(0, sicht.y0 + sicht.h - oben) };
-  });
   const himmel = $derived(thema.himmel[stimmung]);
   const meer = $derived(thema.grund[stimmung]);
   const dinge = $derived(
@@ -185,6 +168,37 @@
       ...punkt(d.gx, d.gy, platz),
     })),
   );
+  /** Höchstes Ding über seinem Fuß (Bilder sind höchstens so hoch wie breit) */
+  const dingHoch = $derived(
+    Math.max(DING_BREITE, ...dinge.map((d) => d.breite ?? DING_BREITE)) + 16,
+  );
+  /**
+   * Sichtkasten in der Welt (GRAFIK §30, §32): Fenster plus Rand nach der Cull-Kamera, in
+   * Bühnen-Bildpunkten. Nur dieser Kasten wird als Ebene gehalten; er wandert erst mit,
+   * wenn die Cull-Kamera springt. Oben endet er über der Wasserlinie, so hoch wie das
+   * höchste Ding: Darüber liegt in der Welt nichts (der Himmel ist die Ferne).
+   */
+  const sicht = $derived(
+    sichtKasten(cull, { breite: fensterB, hoehe: fensterH }, kastenRand, {
+      oben: bandY(-WASSER - 4) - dingHoch,
+    }),
+  );
+  /**
+   * Dasselbe für die ferne Schicht, in Band-Bildpunkten. Unten endet er mit dem
+   * Horizont-Band; herangezoomt liegt die Ferne ganz über dem Fenster (Höhe 0, keine Ebene).
+   */
+  const fernSicht = $derived(
+    sichtKasten(
+      { x: cullLage.horizontX, y: cullLage.horizontY, zoom: cullLage.horizontSkala },
+      { breite: fensterB, hoehe: fensterH },
+      kastenRand,
+      { unten: HORIZONT.hoehe - HORIZONT.wasser },
+    ),
+  );
+  const meerGrund = $derived.by(() => {
+    const oben = Math.max(sicht.y0, wasserOben);
+    return { oben, hoehe: Math.max(0, sicht.y0 + sicht.h - oben) };
+  });
   /** Bewegtes (Wunsch PV: mehr Leben): feste Plätze rund um den Bauplatz, in Feldern */
   const lebenPlatz = (gx: number, gy: number) => punkt(gx, gy, platz);
   const moewen = $derived(
@@ -264,63 +278,66 @@
 >
   <!-- Ferne Schicht: nur ihre Transform ändert sich mit der Kamera (GRAFIK §30) -->
   <div class="fern" style:transform={fernTransform}>
-    <div
-      class="sicht"
-      style:inset-inline-start="{fernSicht.x0}px"
-      style:inset-block-start="{fernSicht.y0}px"
-      style:inline-size="{fernSicht.b}px"
-      style:block-size="{fernSicht.h}px"
-    >
-      <div class="versatz" style:translate="{-fernSicht.x0}px {-fernSicht.y0}px">
-        {#if sterneZeigen}
-          <div
-            class="sterne"
-            style:background-image="url({pfad}sterne.png)"
-            style:background-size="{STERNE / HORIZONT_SKALA}px {STERNE / HORIZONT_SKALA}px"
-          ></div>
-        {/if}
-        <div
-          class="horizont"
-          style:inset-block-start="{-HORIZONT.wasser}px"
-          style:block-size="{HORIZONT.hoehe}px"
-          style:background-image="url({pfad}horizont.png)"
-          style:background-size="{HORIZONT.breite}px {HORIZONT.hoehe}px"
-        ></div>
-        <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
-         weit weg, sie wandern beim Verschieben nur wenig mit -->
-        {#if himmelWolken}
-          {#each WOLKEN as w, i (i)}
+    <!-- Herangezoomt liegt die Ferne ganz über dem Fenster: dann keine Ebene (GRAFIK §32) -->
+    {#if fernSicht.h > 0}
+      <div
+        class="sicht"
+        style:inset-inline-start="{fernSicht.x0}px"
+        style:inset-block-start="{fernSicht.y0}px"
+        style:inline-size="{fernSicht.b}px"
+        style:block-size="{fernSicht.h}px"
+      >
+        <div class="versatz" style:translate="{-fernSicht.x0}px {-fernSicht.y0}px">
+          {#if sterneZeigen}
             <div
-              class="himmelwolke"
-              style:inset-block-start="{-WASSER - w.hoch * 2.2}px"
-              style:inset-inline-start="{(w.x - 50) * 24}px"
-              style:inline-size="{w.b * 3.2}px"
-              style:block-size="{w.b * 1.05}px"
-              style:--n={i}
+              class="sterne"
+              style:background-image="url({pfad}sterne.png)"
+              style:background-size="{STERNE / HORIZONT_SKALA}px {STERNE / HORIZONT_SKALA}px"
             ></div>
-          {/each}
-        {/if}
-        {#if thema.boot}
-          {#each [18, 57, 83] as x, i (i)}
-            <svg
-              class="segel-fern"
-              viewBox="0 0 10 12"
-              aria-hidden="true"
-              style:inset-block-start="{-WASSER - 11}px"
-              style:inset-inline-start="{(x - 50) * 24}px"
-              style:--n={i}
-            >
-              <path d="M5 0 L5 10 L1 10 Z" />
-              <path d="M5.6 2 L5.6 10 L9 10 Z" />
-              <rect x="0" y="10.2" width="10" height="1.4" rx="0.7" />
-            </svg>
-          {/each}
-        {/if}
-        {#if regenbogen && stimmung !== 'nacht'}
-          <div class="regenbogen" style:inset-block-start="{-WASSER - 200}px"></div>
-        {/if}
+          {/if}
+          <div
+            class="horizont"
+            style:inset-block-start="{-HORIZONT.wasser}px"
+            style:block-size="{HORIZONT.hoehe}px"
+            style:background-image="url({pfad}horizont.png)"
+            style:background-size="{HORIZONT.breite}px {HORIZONT.hoehe}px"
+          ></div>
+          <!-- Himmel über dem Horizont (PV: „hinterm Horizont ist nichts“): ruhige Wolken,
+         weit weg, sie wandern beim Verschieben nur wenig mit -->
+          {#if himmelWolken}
+            {#each WOLKEN as w, i (i)}
+              <div
+                class="himmelwolke"
+                style:inset-block-start="{-WASSER - w.hoch * 2.2}px"
+                style:inset-inline-start="{(w.x - 50) * 24}px"
+                style:inline-size="{w.b * 3.2}px"
+                style:block-size="{w.b * 1.05}px"
+                style:--n={i}
+              ></div>
+            {/each}
+          {/if}
+          {#if thema.boot}
+            {#each [18, 57, 83] as x, i (i)}
+              <svg
+                class="segel-fern"
+                viewBox="0 0 10 12"
+                aria-hidden="true"
+                style:inset-block-start="{-WASSER - 11}px"
+                style:inset-inline-start="{(x - 50) * 24}px"
+                style:--n={i}
+              >
+                <path d="M5 0 L5 10 L1 10 Z" />
+                <path d="M5.6 2 L5.6 10 L9 10 Z" />
+                <rect x="0" y="10.2" width="10" height="1.4" rx="0.7" />
+              </svg>
+            {/each}
+          {/if}
+          {#if regenbogen && stimmung !== 'nacht'}
+            <div class="regenbogen" style:inset-block-start="{-WASSER - 200}px"></div>
+          {/if}
+        </div>
       </div>
-    </div>
+    {/if}
   </div>
   <!-- Nebelbänke und Wolkenschatten: Wetterschicht, an der Welt (wandern mit der Kamera) -->
   <div
@@ -402,14 +419,6 @@
             style:inset-inline-start="{w.x}px"
             style:inset-block-start="{w.y}px"
           />
-        {/each}
-        {#each ringe as r (r.i)}
-          <span
-            class="ring"
-            style:inset-inline-start="{r.x - 10}px"
-            style:inset-block-start="{r.y - 5}px"
-            style:--n={r.i}
-          ></span>
         {/each}
         {#each dinge as d, i (i)}
           <!-- Hinter dem Horizont liegt nichts: weit Entferntes sonst am Himmel (herausgezoomt) -->
@@ -524,6 +533,17 @@
             style:block-size="{meerGrund.hoehe}px"
           ></div>
         {/if}
+        <!-- Tropfenringe zuletzt (GRAFIK §32): Sie schwellen als eigene Ebenen; lägen Dinge
+             darüber, bekämen die eine gemeinsame Sammelebene (bei Regen bis 41 MB). Die
+             Tönung von Abend und Nacht steckt darum in der Farbe der Ringe. -->
+        {#each ringe as r (r.i)}
+          <span
+            class="ring"
+            style:inset-inline-start="{r.x - 10}px"
+            style:inset-block-start="{r.y - 5}px"
+            style:--n={r.i}
+          ></span>
+        {/each}
       </div>
     </div>
   </div>
@@ -860,6 +880,16 @@
     block-size: 10px;
     border: 1.5px solid rgb(236 246 248 / 0.55);
     border-radius: 50%;
+  }
+
+  /* Ringfarbe mit dem Abendton darüber gemischt (Tönung über Farbe c: Ton·α + c·(1 − α)),
+     weil die Ringe über dem Abendton liegen – gleiches Bild wie vorher */
+  .daemmerung .ring {
+    border-color: rgb(203 204 202 / 0.55);
+  }
+
+  .nacht .ring {
+    border-color: rgb(116 124 135 / 0.55);
   }
 
   .regenbogen {

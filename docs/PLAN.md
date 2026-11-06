@@ -17,7 +17,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Auftrag seit 05.11.2026 | **Qualität Klasse 5 bis 10 vor Tests** (K-32, `docs/session/QUALITAET-5-10.md`): U4b ohne Termin, 11/12 angehalten, Einfrieren aufgehoben. Abnahme A1–A5 dort |
 | Nächster Schritt Lernkern | Meilenstein M5 (Klasse 5, 42 Kompetenzen): Q-L2 Erstvermittlungen mit Bild, dann Q-L1 Prüfen (Phase C), je Feld ein PR, Beginn Raum und Form. Fortschritt `pnpm review --klasse 5`. U4b vorbereitet (04.11.2026), Unterlagen liegen bereit |
 | Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Mängelliste A1–D5 abgearbeitet in fünf PRs (bis 06.11.2026, `QUALITAET-5-10.md`), B10 beim Lernkern; zweiter Rundgang für A4: keine A-, drei B-Funde (B11–B13), PV wählt |
-| Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13, mit Messung je PR (`pnpm tempo`, GRAFIK §29); PR 1 Takt der Bühne (#285), PR 2 Kulisse beim Zoomen (#290, GRAFIK §30) und PR 3 gemeinsamer 30-Hz-Takt für Fahnen, Mühlen, Bewohner und Wesen (GRAFIK §31) fertig, als Nächstes HD-Bilder nur im Sichtfeld; keine neuen Dinge bis es flüssig ist. Beim PV: Referenzgeräte (0.10) und Messung am iPhone |
+| Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13, mit Messung je PR (`pnpm tempo`, GRAFIK §29); PR 1 Takt der Bühne (#285), PR 2 Kulisse beim Zoomen (#290, GRAFIK §30), PR 3 gemeinsamer 30-Hz-Takt für Fahnen, Mühlen, Bewohner und Wesen (#292, GRAFIK §31) und PR 4 Ebenenspeicher senken (GRAFIK §32) fertig; als Nächstes Messung des PV am iPhone 13, keine neuen Dinge bis es flüssig ist. Beim PV: Referenzgeräte (0.10) und Messung am iPhone |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (Stufe 2; VERMITTLUNG §8, Frage 2) |
 
 ## 2. Phasenübersicht
