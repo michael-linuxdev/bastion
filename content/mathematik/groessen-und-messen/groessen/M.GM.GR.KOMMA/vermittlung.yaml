@@ -19,7 +19,9 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Ein Euro hat 100 Cent. 3 € 50 ct schreibt man 3,50 €. Wie viele Cent sind das insgesamt?'
+      de: 'Ein Euro hat 100 Cent. 3 € 50 ct schreibt man 3,50 €. Tippe in der Tafel auf ct. Wie viele Cent sind das insgesamt?'
+    werkzeug:
+      { id: einheitentafel@1, parameter: { groesse: geld, wert: '3,50', einheit: €, ziel: € } }
     antwort:
       eingabe: { art: zahl, loesung: '350', fehler: [{ wert: '53', fv: FV.GR.KOMMASCHREIBWEISE }] }
     weiter: erklaeren-kommaschreibweise
@@ -27,11 +29,21 @@ schritte:
     typ: erklaeren
     text:
       de: 'Vor dem Komma steht die große Einheit. Nach dem Komma steht die kleine, mit so vielen Stellen, wie die [[Umrechnungszahl]] Nullen hat. Bei m und cm sind das 2 Stellen, bei km und m 3.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { wert: '3,45', einheit: m, einheiten: [m, dm, cm], ziel: m },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '3 m 45 cm = 3,45 m. 3 m 5 cm = 3,05 m, die Null füllt die Stelle. 2 km 50 m = 2,050 km.'
+      de: '3 m 45 cm = 3,45 m. 3 m 5 cm = 3,05 m, die Null füllt die Stelle der dm. 2 km 50 m = 2,050 km.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { wert: '3,05', einheit: m, einheiten: [m, dm, cm], ziel: m },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
@@ -57,7 +69,12 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Tim schreibt 5 kg 80 g als 5,80 kg. Stimmt das?'
+      de: 'Tim schreibt 5 kg 80 g als 5,80 kg. Stimmt das? In der Tafel stehen 5 kg und 80 g.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: masse, wert: 5080, einheit: g, einheiten: [kg, g] },
+      }
     antwort:
       optionen:
         - { wert: { de: 'Nein, kg und g brauchen 3 Stellen: 5,080 kg.' }, richtig: true }

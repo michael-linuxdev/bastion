@@ -19,7 +19,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Ein Meter hat 100 Zentimeter. Ein Brett ist 3 m lang. Wie viele Zentimeter sind das?'
+      de: 'Ein Brett ist 3 m lang. In der Tafel steht die 3 unter m. Tippe auf cm. Wie viele Zentimeter sind das?'
+    werkzeug: { id: einheitentafel@1, parameter: { wert: 3, einheit: m, einheiten: [m, dm, cm] } }
     antwort:
       eingabe:
         {
@@ -36,22 +37,38 @@ schritte:
   - id: erklaeren-umrechnen
     typ: erklaeren
     text:
-      de: 'Von der großen in die kleine Einheit wird die Zahl größer: Du multiplizierst. Von der kleinen in die große wird sie kleiner: Du teilst. Rechnen kannst du erst, wenn alles dieselbe Einheit hat.'
+      de: 'Von der großen in die kleine Einheit wird die Zahl größer: Du multiplizierst. Von der kleinen in die große wird sie kleiner: Du teilst. In der Tafel bleiben die [[Ziffern]] stehen, nur das Komma rückt.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { groesse: masse, wert: 2500, einheit: g, einheiten: [kg, g], ziel: kg },
+      }
     weiter: erklaeren-umrechnungszahlen
   - id: erklaeren-umrechnungszahlen
     typ: erklaeren
     text:
       de: 'Die [[Umrechnungszahl]] hängt von den Einheiten ab: 1 km = 1000 m, 1 m = 10 dm = 100 cm, 1 cm = 10 mm. 1 kg = 1000 g, 1 t = 1000 kg. 1 € = 100 ct.'
+    bild: { werkzeug: einheitentafel@1, parameter: { wert: 1, einheit: km, ziel: m } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
       de: '4 km in m: groß nach klein, also mal 1000: 4000 m. 2500 g in kg: klein nach groß, also durch 1000: 2,5 kg.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { wert: 4, einheit: km, einheiten: [km, m], ziel: m },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
       de: 'Rechne um: 6 cm = ? mm'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { wert: 6, einheit: cm, einheiten: [m, dm, cm, mm] },
+      }
     antwort:
       eingabe:
         {
@@ -72,7 +89,8 @@ schritte:
   - id: gegenbeispiel
     typ: gegenbeispiel
     text:
-      de: 'Lena rechnet 5000 m in km um und schreibt 5 000 000 km. Stimmt das?'
+      de: 'Lena rechnet 5000 m in km um und schreibt 5 000 000 km. Stimmt das? Schau, wo die 5 in der Tafel steht.'
+    bild: { werkzeug: einheitentafel@1, parameter: { wert: 5000, einheit: m, einheiten: [km, m] } }
     antwort:
       optionen:
         - { wert: { de: 'Nein, klein nach groß heißt teilen: 5 km.' }, richtig: true }

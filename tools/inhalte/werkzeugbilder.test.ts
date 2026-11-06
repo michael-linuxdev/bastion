@@ -7,10 +7,14 @@ import { parse } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { anleitungsbild } from '../../src/ui/vermittlung/werkzeuge/anleitungsbild';
 import { dreieckAus } from '../../src/ui/vermittlung/werkzeuge/dreieck';
+import { einheitentafelAus } from '../../src/ui/vermittlung/werkzeuge/einheitentafel';
+import { flaecheAus } from '../../src/ui/vermittlung/werkzeuge/flaeche';
 import { geradenAus } from '../../src/ui/vermittlung/werkzeuge/geraden';
 import { gitterAus } from '../../src/ui/vermittlung/werkzeuge/gitter';
 import { histogrammAus } from '../../src/ui/vermittlung/werkzeuge/histogramm';
 import { koerpernetzAus } from '../../src/ui/vermittlung/werkzeuge/koerpernetz';
+import { quaderAus } from '../../src/ui/vermittlung/werkzeuge/quader';
+import { minutenAus, uhrAus } from '../../src/ui/vermittlung/werkzeuge/uhr';
 import { winkelAus } from '../../src/ui/vermittlung/werkzeuge/winkel';
 
 function dateien(ordner: string): string[] {
@@ -116,6 +120,56 @@ describe('Werkzeug-Bilder in Erstvermittlungen', () => {
       }
     }
     expect(angaben.filter((a) => a.werkzeug === 'gitter@1').length).toBeGreaterThan(0);
+    expect(falsch).toEqual([]);
+  });
+
+  it('Einheitentafel, Uhr, Fläche und Quader übernehmen jede Angabe (kein stiller Standard)', () => {
+    const falsch: string[] = [];
+    const gleich = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+    for (const a of angaben) {
+      const p = a.parameter ?? {};
+      if (a.werkzeug === 'einheitentafel@1') {
+        const z = einheitentafelAus(p);
+        if (
+          (p['groesse'] !== undefined && z.groesse !== p['groesse']) ||
+          (p['einheiten'] !== undefined &&
+            !gleich(
+              z.einheiten.map((e) => e.name),
+              p['einheiten'],
+            )) ||
+          (p['wert'] !== undefined && z.wert === undefined) ||
+          (p['ziel'] !== undefined && z.ziel === undefined)
+        )
+          falsch.push(a.wo);
+      } else if (a.werkzeug === 'uhr@1') {
+        const z = uhrAus(p);
+        if (
+          (p['von'] !== undefined && z.von !== minutenAus(p['von'])) ||
+          (p['bis'] !== undefined && z.bis === undefined) ||
+          (p['etappen'] === true && !z.etappen)
+        )
+          falsch.push(a.wo);
+      } else if (a.werkzeug === 'flaeche@1') {
+        const z = flaecheAus(p);
+        if (
+          (p['rechtecke'] !== undefined && !gleich(z.rechtecke, p['rechtecke'])) ||
+          z.fehlend.length !== anzahl(p['fehlend']) ||
+          (p['einheit'] !== undefined && z.einheit !== p['einheit']) ||
+          (p['reihen'] !== undefined && z.reihen !== p['reihen'])
+        )
+          falsch.push(a.wo);
+      } else if (a.werkzeug === 'quader@1') {
+        const z = quaderAus(p);
+        if (
+          (['laenge', 'breite', 'hoehe', 'einheit', 'schichten'] as const).some(
+            (k) => p[k] !== undefined && z[k] !== p[k],
+          )
+        )
+          falsch.push(a.wo);
+      }
+    }
+    for (const w of ['einheitentafel@1', 'uhr@1', 'flaeche@1', 'quader@1'])
+      expect(angaben.filter((a) => a.werkzeug === w).length).toBeGreaterThan(0);
     expect(falsch).toEqual([]);
   });
 });

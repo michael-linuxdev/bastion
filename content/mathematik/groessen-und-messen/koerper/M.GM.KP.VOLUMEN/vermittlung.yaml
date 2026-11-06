@@ -19,7 +19,8 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'In eine Kiste passen unten 4 mal 3 [[Würfel]] von 1 cm³. Du stapelst 2 solche Schichten. Wie viele Würfel sind es?'
+      de: 'In diese Kiste passen unten 4 mal 3 [[Würfel]] von 1 cm³. Lege Schicht für Schicht hinein, bis die Kiste voll ist. Wie viele Würfel sind es?'
+    werkzeug: { id: quader@1, parameter: { laenge: 4, breite: 3, hoehe: 2, schichten: 1 } }
     antwort:
       eingabe:
         {
@@ -36,6 +37,7 @@ schritte:
     typ: erklaeren
     text:
       de: 'Das [[Volumen]] sagt, wie viele [[Einheitswürfel]] hineinpassen. Beim [[Quader]]: Länge · Breite ergibt eine Schicht, mal [[Höhe]] ergibt alle Schichten. Einheit cm³ oder m³. Die [[Oberfläche]] ist etwas anderes: die Haut außen.'
+    bild: { werkzeug: quader@1, parameter: { laenge: 5, breite: 3, hoehe: 2, wuerfel: true } }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -46,6 +48,7 @@ schritte:
     typ: ergaenzen
     text:
       de: 'Ein [[Quader]] ist 6 cm lang, 2 cm breit und 5 cm hoch. Wie viele cm³ ist sein [[Volumen]]?'
+    bild: { werkzeug: quader@1, parameter: { laenge: 6, breite: 2, hoehe: 5 } }
     antwort:
       eingabe:
         {
@@ -63,6 +66,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Ein [[Würfel]] hat die [[Kante]] 3 cm. Ben rechnet 3 · 3 = 9 cm³. Stimmt das?'
+    bild: { werkzeug: quader@1, parameter: { laenge: 3, breite: 3, hoehe: 3, wuerfel: true } }
     antwort:
       optionen:
         - { wert: { de: 'Nein, auch mal die Höhe: 3 · 3 · 3 = 27 cm³.' }, richtig: true }

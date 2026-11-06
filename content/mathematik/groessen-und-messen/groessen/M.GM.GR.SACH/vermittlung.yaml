@@ -27,7 +27,12 @@ schritte:
   - id: erklaeren-vorgehen
     typ: erklaeren
     text:
-      de: 'Erstens: Was ist gefragt? Zweitens: Alle Angaben heraussuchen. Drittens: Alles in dieselbe Einheit umrechnen. Dann rechnen und prüfen, ob die Antwort zur Frage passt.'
+      de: 'Erstens: Was ist gefragt? Zweitens: Alle Angaben heraussuchen. Drittens: Alles in dieselbe Einheit umrechnen, etwa 2 km in 2000 m. Dann rechnen und prüfen, ob die Antwort zur Frage passt.'
+    bild:
+      {
+        werkzeug: einheitentafel@1,
+        parameter: { wert: 2, einheit: km, einheiten: [km, m], ziel: m },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
