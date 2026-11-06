@@ -47,9 +47,13 @@ export const WERKZEUGE: ReadonlySet<string> = new Set([
   'bruchstreifen@1',
   'dreieck@1',
   'einheitskreis@1',
+  'geraden@1',
+  'gitter@1',
   'graph@1',
   'histogramm@1',
+  'koerpernetz@1',
   'stabdiagramm@1',
+  'winkel@1',
   'zahlenstrahl@1',
 ]);
 

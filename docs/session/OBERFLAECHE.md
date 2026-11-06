@@ -3,7 +3,7 @@
 > Für Sitzungen, die an UI und UX **außerhalb der Bastion** arbeiten: Startseite, „Mehr“, Elternbereich, Über mich, Sicherung, Hinweise der App-Hülle.
 > Vorher den gemeinsamen Teil lesen: `docs/SESSION-PROMPT.md`. Am Ende der Sitzung diese Datei und §4c in `docs/PLAN.md` aktualisieren, je PR eine Zeile unten in `docs/session/OBERFLAECHE-PROTOKOLL.md`.
 
-Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang und Mängelliste A1–D5 erledigt (dort unter Q-O1), PV: alle Punkte in Reihenfolge 1–5; PR (1) A1–A3 erledigt, als Nächstes PR (2) Rückmeldung. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
+Stand: 05.11.2026 · **Aktueller Auftrag: Q-O1 Lern-Oberfläche überarbeiten** (`docs/session/QUALITAET-5-10.md`, K-32): Rundgang und Mängelliste A1–D5 erledigt (dort unter Q-O1), PV: alle Punkte in Reihenfolge 1–5; PR (1) Fehler und PR (2) Rückmeldung erledigt, als Nächstes PR (3) Themenwahl. Zuständigkeit erweitert auf Aufbau und Aussehen von `src/ui/ueben/`, `src/ui/vermittlung/`, `src/ui/eingabe/`. · 04.11.2026 · O15–O22 Bedienbarkeit (PV: „alles umsetzen“) · 03.11.2026: Strang angelegt (PV) · Startseite aufgeräumt (O1) · „Mehr“ aufgeräumt (O2) · Spiel-Banner und alle Kacheln (O3) · Symbole aus einem Guss (O4) · Elternbereich gegliedert (O5) · Feinschliff O6–O10 (Wunsch PV: „alle Vorschläge bauen“)
 
 ---
 
@@ -71,7 +71,7 @@ Siehe Tabelle im gemeinsamen Teil. Kurz: `src/ui/start/` (ohne das Bastion-Bild 
 ## Nächste Schritte
 
 1. ~~**Q-O1** Rundgang der Lern-Oberfläche auf 390 px, Mängelliste an den PV.~~ Erledigt 05.11.2026: 74 Bildschirme, Mängelliste A1–A3, B1–B10, C1–C6, D1–D5 in `QUALITAET-5-10.md` unter Q-O1 (mit Empfehlung je Punkt und Vorschlag der Reihenfolge).
-2. **Auswahl des PV (05.11.2026, über die koordinierende Sitzung): alle Punkte, Reihenfolge 1–5.** Kleine PRs, je Bildschirm einer: ~~(1) Fehler A1–A3~~ (erledigt 05.11.2026), (2) Rückmeldung als ein Kasten, (3) Themenwahl, (4) Erstvermittlung, (5) Kleines. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt; A3 ändert Verhalten (Zurück aus der Erstvermittlung), der Test wird bewusst angepasst und im PR begründet, Meldung im Lernkern-Protokoll.
+2. **Auswahl des PV (05.11.2026, über die koordinierende Sitzung): alle Punkte, Reihenfolge 1–5.** Kleine PRs, je Bildschirm einer: ~~(1) Fehler A1–A3~~ (erledigt 05.11.2026), ~~(2) Rückmeldung als ein Kasten~~ (erledigt 05.11.2026), (3) Themenwahl, (4) Erstvermittlung, (5) Kleines. Browser-Tests in `ueben.spec.ts` dürfen mit, wenn nur das Aussehen wechselt; A3 ändert Verhalten (Zurück aus der Erstvermittlung), der Test wird bewusst angepasst und im PR begründet, Meldung im Lernkern-Protokoll.
 
 Vorschläge von früher:
 

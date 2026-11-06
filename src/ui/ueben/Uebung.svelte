@@ -479,25 +479,10 @@
               </p>
             {/if}
           {:else}
+            <!-- B1 (Q-O1): ein Kasten statt zweier – Urteil als Überschrift, darunter
+                 die Antwort in einer Zeile, dann die Ursache -->
             <div
-              class="antwort-spiegel"
-              class:richtig={ergebnis.richtig}
-              class:falsch={!ergebnis.richtig}
-            >
-              <p class="spiegel-label">{t('uebung.deine-antwort')}</p>
-              <p class="spiegel-wert">
-                <strong><Rechentext text={eigeneAntwortText} erklaeren={false} /></strong>
-              </p>
-              {#if erwarteteFormZeigen}
-                <p class="spiegel-erwartet">
-                  <span class="spiegel-label">{t('uebung.erwartet')}</span>
-                  <strong><Rechentext text={erwarteteAntwortText} erklaeren={false} /></strong>
-                </p>
-              {/if}
-            </div>
-
-            <div
-              class="rueckmeldung"
+              class="urteil-kasten"
               class:richtig={ergebnis.richtig}
               class:falsch={!ergebnis.richtig}
               id="aufgabe-urteil"
@@ -507,6 +492,18 @@
             >
               <p class="urteil">
                 {ergebnis.richtig ? t('uebung.richtig-kurz') : t('uebung.falsch')}
+              </p>
+              <p class="antwort-zeile">
+                <span class="spiegel-label">{t('uebung.deine-antwort')}</span>
+                <strong class="spiegel-wert"
+                  ><Rechentext text={eigeneAntwortText} erklaeren={false} /></strong
+                >
+                {#if erwarteteFormZeigen}
+                  <span class="spiegel-label erwartet">{t('uebung.erwartet')}</span>
+                  <strong class="spiegel-wert"
+                    ><Rechentext text={erwarteteAntwortText} erklaeren={false} /></strong
+                  >
+                {/if}
               </p>
               {#if weg !== 'laeuft'}
                 {#if rueckmeldung}<p class="ursache"><Textteile teile={rueckmeldung} /></p>{/if}
@@ -536,7 +533,7 @@
                 <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
                 {#if onspaeter && aufgabe}
                   <button
-                    class="zweit"
+                    class="dezent"
                     onclick={() => onspaeter(aufgabe.kompetenz.id, aufgabe.kompetenz.titel.de)}
                     >{t('uebung.spaeter')}</button
                   >
@@ -576,6 +573,7 @@
                   {fv}
                   {zustand}
                   rueckweg={art}
+                  kurzZeigen={!rueckmeldung}
                   onrueckweg={() => art && onrueckweg?.(fv, art)}
                 />
               {/each}
@@ -613,7 +611,7 @@
                 <button class="haupt" onclick={weiter}>{t('uebung.weiter')}</button>
                 {#if onspaeter && aufgabe}
                   <button
-                    class="zweit"
+                    class="dezent"
                     onclick={() => onspaeter(aufgabe.kompetenz.id, aufgabe.kompetenz.titel.de)}
                     >{t('uebung.spaeter')}</button
                   >
@@ -626,7 +624,7 @@
     {/key}
   {/if}
   {#if onfertig && nummer + (ergebnis ? 1 : 0) > 0}
-    <button class="zweit fertig" onclick={onfertig}>{t('abschluss.knopf')}</button>
+    <button class="dezent fertig" onclick={onfertig}>{t('abschluss.knopf')}</button>
   {/if}
 </section>
 
@@ -758,8 +756,12 @@
     border: 1px solid var(--farbe-rand);
   }
 
+  /* B1/D5 (Q-O1): in der Rückmeldung kein zweiter Rahmen in der Karte */
   .phase-rueckmeldung .arbeitsflaeche {
-    background: var(--farbe-flaeche);
+    background: transparent;
+    border: none;
+    padding: 0;
+    gap: var(--abstand-m);
   }
 
   .rueckweg {
@@ -951,73 +953,52 @@
     justify-self: start;
   }
 
-  .antwort-spiegel {
+  /* B1 (Q-O1): ein Kasten – Urteil, Antwortzeile, Ursache; nur ein farbiger Rand links */
+  .urteil-kasten {
+    display: grid;
+    gap: 0.35rem;
     padding-block: var(--abstand-s);
     padding-inline: var(--abstand-m);
     border-radius: var(--radius);
-    border: 2px solid var(--farbe-rand);
-    background: var(--farbe-flaeche);
+    border-inline-start: 5px solid var(--farbe-akzent-warm);
+    background: var(--farbe-flaeche-leise);
   }
 
-  .antwort-spiegel.richtig {
-    border-color: var(--farbe-erfolg);
-    background: color-mix(in srgb, var(--farbe-erfolg) 8%, var(--farbe-flaeche));
+  .urteil-kasten.richtig {
+    border-inline-start-color: var(--farbe-erfolg);
   }
 
-  .antwort-spiegel.falsch {
-    border-color: var(--farbe-akzent-warm);
-    background: color-mix(in srgb, var(--farbe-akzent-warm) 8%, var(--farbe-flaeche));
+  .urteil-kasten p {
+    margin-block: 0;
+  }
+
+  .urteil {
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+
+  .urteil-kasten.richtig .urteil {
+    color: var(--farbe-erfolg);
+  }
+
+  .antwort-zeile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem var(--abstand-s);
+    align-items: baseline;
   }
 
   .spiegel-label {
-    margin-block: 0;
-    font-size: 0.8125rem;
-    font-weight: 700;
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: var(--farbe-text-leise);
   }
 
   .spiegel-wert {
-    margin-block: 0.15rem 0;
     font-size: 1.25rem;
   }
 
-  .spiegel-erwartet {
-    margin-block: var(--abstand-s) 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem var(--abstand-s);
-    align-items: baseline;
-    font-size: 1.0625rem;
-  }
-
-  .rueckmeldung {
-    padding-block: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border-radius: var(--radius);
-    border-inline-start: 4px solid var(--farbe-akzent-warm);
-    background: var(--farbe-flaeche-leise);
-  }
-
-  .rueckmeldung.richtig {
-    border-inline-start-color: var(--farbe-erfolg);
-  }
-
-  .rueckmeldung p:last-child {
-    margin-block-end: 0;
-  }
-
-  .urteil {
-    margin-block: 0;
-    font-weight: 700;
-    font-size: 1.125rem;
-  }
-
-  .rueckmeldung.richtig .urteil {
-    color: var(--farbe-erfolg);
-  }
-
   .ursache {
-    margin-block: 0.35rem 0;
     color: var(--farbe-text);
   }
 
@@ -1025,7 +1006,8 @@
     margin-block: var(--abstand-s);
   }
 
-  /* L2: als Knopf erkennbar – Pfeil zeigt, dass sich etwas aufklappen lässt */
+  /* L2: Pfeil zeigt, dass sich etwas aufklappen lässt; B1 (Q-O1): ohne Rahmen, damit
+     „Nächste Aufgabe“ der einzige Knopf bleibt */
   .weg summary {
     cursor: pointer;
     font-weight: 700;
@@ -1033,10 +1015,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--abstand-s);
-    padding-inline: var(--abstand-m);
-    border: 2px solid var(--farbe-rand);
-    border-radius: var(--radius);
-    background: var(--farbe-flaeche);
+    color: var(--farbe-akzent);
     list-style: none;
   }
 
@@ -1157,8 +1136,7 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .phase-rueckmeldung .rueckmeldung,
-    .phase-rueckmeldung .antwort-spiegel {
+    .phase-rueckmeldung .urteil-kasten {
       animation: einblenden 180ms ease-out;
     }
   }

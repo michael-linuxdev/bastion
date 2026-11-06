@@ -89,6 +89,8 @@ Handelnde Darstellungen sind App-Code wie die Generatoren (I-1): ein fester Satz
 
 Jedes Werkzeug hat eine gleichwertige Bedienung ohne Ziehen (Tastatur, Knöpfe) und eine Beschreibung für Screenreader.
 
+*Stand 05.11.2026 (Q-L2):* Für Raum und Form gibt es `geraden@1` (Lage zweier Geraden, Winkelpaare), `winkel@1` (Winkel mit Winkelart, auch am Winkelmesser), `gitter@1` (Koordinatensystem und Rasterpapier mit Punkten, Figuren, Spiegelachse, Verschiebung) und `koerpernetz@1` (Würfelnetz mit Schrägbild). Parameter in `INHALTSFORMAT.md` §16.
+
 ### 2.4 Zustand „vermittelt“
 
 - Eine Kompetenz, deren Sequenz bis zum `uebergang` durchlaufen ist, gilt als **vermittelt**. Das ist ein neuer Zustand vor „geübt“ und „gekonnt“ (LEHRPLAN L-5 wird ergänzt).
