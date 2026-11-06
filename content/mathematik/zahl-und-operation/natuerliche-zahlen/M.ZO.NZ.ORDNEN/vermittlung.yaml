@@ -19,14 +19,15 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Welche Zahl ist größer, 9 oder 30? Gib sie an.'
+      de: 'Am Zahlenstrahl ist die 9 markiert. Liegt die 12 links oder rechts davon? Welche Zahl ist größer, 9 oder 12?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 12, einteilung: 1, markiert: 9 } }
     antwort:
-      eingabe: { art: zahl, loesung: '30', fehler: [{ wert: '9', fv: FV.NZ.ERSTE-ZIFFER }] }
+      eingabe: { art: zahl, loesung: '12', fehler: [{ wert: '9', fv: FV.NZ.ERSTE-ZIFFER }] }
     weiter: erklaeren-vergleichen
   - id: erklaeren-vergleichen
     typ: erklaeren
     text:
-      de: 'Zähle zuerst die Stellen: Die Zahl mit mehr Stellen ist größer. Haben beide gleich viele, vergleichst du von links [[Ziffer]] für Ziffer, bis sich zwei unterscheiden.'
+      de: 'Am Zahlenstrahl liegt die größere Zahl rechts. 12 hat zwei Stellen, 9 nur eine. Darum gilt: Zähle zuerst die Stellen, mehr Stellen heißt größer. Bei gleich vielen vergleichst du von links [[Ziffer]] für Ziffer.'
     weiter: beispiel
   - id: beispiel
     typ: beispiel
@@ -36,7 +37,8 @@ schritte:
   - id: erklaeren-zeichen
     typ: erklaeren
     text:
-      de: 'Das Zeichen öffnet sich zur größeren Zahl, die Spitze zeigt auf die kleinere. 3 < 5 liest du „3 ist kleiner als 5“, 5 > 3 „5 ist größer als 3“.'
+      de: 'Im Bild liegt die 3 links von der 5. Das Zeichen öffnet sich zur größeren Zahl, die Spitze zeigt auf die kleinere. 3 < 5 liest du „3 ist kleiner als 5“, 5 > 3 „5 ist größer als 3“.'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 10, einteilung: 1, markiert: 3 } }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
