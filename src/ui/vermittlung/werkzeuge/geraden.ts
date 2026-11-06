@@ -29,6 +29,8 @@ export interface GeradenParameter {
   readonly schritt?: unknown;
   /** true: Die Beschreibung nennt weder Lage noch Winkelgrößen (das Bild gehört zu einer Frage) */
   readonly frage?: unknown;
+  /** false: interaktiv ohne Drehknöpfe (nur verlängern), Standard true */
+  readonly drehbar?: unknown;
 }
 
 export interface Geraden {
@@ -43,6 +45,7 @@ export interface Geraden {
   readonly namen: readonly [string, string];
   readonly schritt: number;
   readonly frage: boolean;
+  readonly drehbar: boolean;
 }
 
 const BREITE = 320;
@@ -83,6 +86,7 @@ export function geradenAus(p: GeradenParameter): Geraden {
     namen: [namen[0] || 'g', namen[1] || 'h'],
     schritt: ganz(p.schritt, 1, 45, 10),
     frage: p.frage === true,
+    drehbar: p.drehbar !== false,
   };
 }
 

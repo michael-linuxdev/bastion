@@ -24,3 +24,8 @@ rueckweg:
 kontrast: [M.RF.GF.WINKELPAARE.GROESSE, M.RF.DV.WINKELSAETZE.PARALLELEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: b710a70f0de01698f4ff778db58c0e2b84d1f12ea7852a2747bf49397565390e

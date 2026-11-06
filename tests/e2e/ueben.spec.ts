@@ -387,8 +387,10 @@ test('Fehlerwerkstatt: genau die falsch gelöste Aufgabe noch einmal, dann erled
   await expect(page.getByText('1 Fehler wartet in der Fehlerwerkstatt.')).toBeVisible();
   await page.getByRole('button', { name: 'Fehlerwerkstatt' }).click();
   await page.getByRole('button', { name: 'Aufarbeiten' }).click();
-  await expect(page.locator('.paar .damals')).toContainText('0');
-  await expect(page.getByText('Heute deine Chance')).toBeVisible();
+  // B8 (Q-O1): Hinweis als eine Zeile, Thema in der Kopfzeile
+  await expect(page.locator('.damals-zeile')).toContainText('Deine Antwort damals: 0');
+  await expect(page.locator('.damals-zeile')).toContainText('Rechne die Aufgabe noch einmal.');
+  await expect(page.locator('.kopf')).toContainText('Addieren und Subtrahieren');
   const nochmal = (await page.locator('.aufgabe .text').innerText()).replace(/[\s\u202f]/g, '');
   expect(nochmal).toBe(text);
 

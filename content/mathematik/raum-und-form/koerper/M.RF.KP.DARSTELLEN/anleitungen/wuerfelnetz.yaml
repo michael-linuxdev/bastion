@@ -7,7 +7,7 @@ material:
   de: Kästchenpapier, Bleistift, Lineal, Schere, Kleber
 bilder: anleitung.wuerfelnetz@1
 schritte:
-  - de: Zeichne vier gleich große Quadrate in einer Reihe, jedes 4 Kästchen lang und 4 Kästchen breit.
+  - de: Zeichne vier gleich große Quadrate in einer Reihe, jedes 2 Kästchen lang und 2 Kästchen breit.
   - de: 'Setze über und unter das zweite Quadrat je ein weiteres Quadrat. Jetzt hast du ein [[Würfelnetz]] aus sechs Quadraten.'
   - de: 'Zeichne an einige Außenkanten schmale Klebelaschen. Sie sind etwas kürzer als die [[Kante]].'
   - de: 'Schneide das [[Netz]] mit den Laschen aus. Falte an allen Linien zwischen den Quadraten und an den Laschen. Klebe die Laschen innen fest.'
@@ -16,3 +16,8 @@ pruefen:
   - de: 'Probiere auch ein anderes [[Netz]]. Nicht jede Anordnung von sechs Quadraten lässt sich zu einem [[Würfel]] falten.'
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 0dcf33f66bf9bfc02a83a49cf18e151292601eeb6ef8aa73ce5fd026d354cda6

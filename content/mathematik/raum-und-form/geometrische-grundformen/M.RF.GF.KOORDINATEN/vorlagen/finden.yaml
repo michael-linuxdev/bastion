@@ -19,3 +19,8 @@ fehlerbilder:
     fv: FV.GF.X-Y-VERTAUSCHT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 2780e13a9a4f1ac8efbfbc7d90f7022e50d5621bbf17d9cfaea56cba79e8b739

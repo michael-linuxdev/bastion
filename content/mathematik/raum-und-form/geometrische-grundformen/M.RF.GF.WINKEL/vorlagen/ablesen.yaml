@@ -16,7 +16,12 @@ hilfen:
   - de: 'Lies auf der [[Skala]] weiter, die bei diesem [[Schenkel]] mit 0 beginnt.'
 fehlerbilder:
   falsche-skala:
-    de: 'Du hast auf der falschen [[Skala]] abgelesen. Nimm die Skala, die beim ersten [[Schenkel]] bei 0 anfängt. Spitze [[Winkel]] sind kleiner als 90°.'
+    de: 'Du hast auf der falschen [[Skala]] abgelesen. Nimm die Skala, die beim ersten [[Schenkel]] bei 0 anfängt. Schätze vorher: Ist der [[Winkel]] spitz oder stumpf?'
     fv: FV.GF.WINKELMESSER-SKALA
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 55a7dc5478c76b2ac0aefaf3532de555248f65b829ed8235ea022dd32b3ef080

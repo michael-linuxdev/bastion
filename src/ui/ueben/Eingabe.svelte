@@ -165,7 +165,8 @@
                 {@html option.bild.svg}
               </span>
             {/if}
-            {#if option.text}<span><Rechentext text={option.text.de} /></span>{/if}
+            {#if option.text}<span class="option-text"><Rechentext text={option.text.de} /></span
+              >{/if}
             {#if !option.text && !option.bild}{t('eingabe.option')} {i + 1}{/if}
           </label>
         {/each}
@@ -518,6 +519,21 @@
 
   .bilder .option {
     flex-direction: column;
+  }
+
+  /* D3 (Q-O1): Brüche in Antwortoptionen so groß wie der Text und mittig zur Zeile */
+  .option-text {
+    display: block;
+    line-height: 1.4;
+  }
+
+  .option-text :global(.formel) {
+    padding-block: 0;
+    vertical-align: middle;
+  }
+
+  .option-text :global(.katex) {
+    font-size: 1.15em;
   }
 
   .option.gewaehlt {

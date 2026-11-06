@@ -20,26 +20,52 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Die Hälfte des Streifens ist gefärbt. Stell dir den Streifen in 100 kleine Teile geteilt vor. Wie viele [[Hundertstel]] sind gefärbt?'
-    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 4, gefaerbt: 2 } }
+      de: 'Die Tafel ist in 100 gleiche Kästchen geteilt. Jedes Kästchen ist ein [[Hundertstel]] der Tafel. Wie viele Hundertstel sind gefärbt?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          { achsen: false, max: 10, figuren: [{ ecken: [[0, 5], [10, 5], [10, 10], [0, 10]] }] },
+      }
     antwort:
       eingabe: { art: zahl, loesung: '50', fehler: [{ wert: '5', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
     weiter: erklaeren-hundertstel
   - id: erklaeren-hundertstel
     typ: erklaeren
     text:
-      de: '[[Prozent]] heißt „von Hundert“. 1 % ist ein [[Hundertstel]]. 50 % sind $\frac{50}{100}$, also $\frac{1}{2}$ oder 0,5. 100 % sind das Ganze.'
-    bild: { werkzeug: bruchstreifen@1, parameter: { teile: 2, gefaerbt: 1 } }
+      de: '[[Prozent]] heißt „von Hundert“. 1 % ist ein [[Hundertstel]], ein Kästchen der Tafel. 50 % sind $\frac{50}{100}$, also $\frac{1}{2}$ oder 0,5. 100 % sind die ganze Tafel.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          { achsen: false, max: 10, figuren: [{ ecken: [[0, 5], [10, 5], [10, 10], [0, 10]] }] },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel
     text:
-      de: '25 % = $\frac{25}{100}$. Gekürzt ist das $\frac{1}{4}$. Als [[Dezimalzahl]]: 0,25.'
+      de: '25 % = $\frac{25}{100}$: 25 Kästchen, ein Viertel der Tafel. Gekürzt ist das $\frac{1}{4}$. Als [[Dezimalzahl]]: 0,25.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          { achsen: false, max: 10, figuren: [{ ecken: [[0, 5], [5, 5], [5, 10], [0, 10]] }] },
+      }
     weiter: ergaenzen
   - id: ergaenzen
     typ: ergaenzen
     text:
-      de: 'Wie viel [[Prozent]] sind 0,75? Zähle die [[Hundertstel]].'
+      de: 'Die Tafel zeigt 0,75. Wie viel [[Prozent]] sind das? Zähle die [[Hundertstel]].'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            max: 10,
+            figuren: [{ ecken: [[0, 0], [10, 0], [10, 10], [5, 10], [5, 5], [0, 5]] }],
+          },
+      }
     antwort:
       eingabe:
         { art: zahl, loesung: '75', fehler: [{ wert: '7,5', fv: FV.BR.PROZENT-HUNDERTSTEL }] }
