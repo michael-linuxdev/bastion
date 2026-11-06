@@ -116,11 +116,9 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
     const { dateien, stand } = paketeMitStand('content', 1);
     const grund = lies(dateien, 'mathematik.grund');
     const kompetenzen = grund['kompetenzen'] as Daten[];
-    // Stand 06.11.2026: Musterfeld Brüche, aus Raum und Form (Q-L1) SPIEGELN (die übrigen haben
-    // noch Dateien unter Stufe 1), Größen und Messen Klasse 5 (Q-L1) mit allen zehn Kompetenzen.
-    // Die Liste enthält auch, was der PR für Zahlen, Brüche, Daten (#305) öffentlich macht
-    // (KOORDINATEN und die sieben Kompetenzen dort); die Prüfung unten verlangt nur „enthalten“.
-    // Eine Voraussetzung unter Stufe 1 gilt als „nicht verfügbar“ (INHALTSFORMAT §8).
+    // Stand 06.11.2026: Musterfeld Brüche und Klasse 5 nach Q-L1: Raum und Form ganz (Durchgang 3),
+    // Zahlen, Brüche, Daten (#305) sowie Größen und Messen (#306). Eine Voraussetzung unter
+    // Stufe 1 gilt als „nicht verfügbar“ (INHALTSFORMAT §8), etwa DEZIMAL für PROZENT.
     const erlaubt = [
       'M.DZ.DA.MITTELWERT',
       'M.GM.FL.EINHEITEN',
@@ -134,7 +132,13 @@ describe('Öffentliche Seite mit den echten Inhalten', () => {
       'M.GM.KP.OBERFLAECHE',
       'M.GM.KP.VOLUMEN',
       'M.RF.GF.KOORDINATEN',
+      'M.RF.GF.LAGE',
+      'M.RF.GF.WINKEL',
+      'M.RF.GF.WINKELPAARE',
+      'M.RF.KP.DARSTELLEN',
+      'M.RF.SY.BEWEGUNGEN',
       'M.RF.SY.SPIEGELN',
+      'M.RF.SY.SYMMETRIE',
       'M.ZO.BR.ADD-SUB',
       'M.ZO.BR.ANTEIL-VON',
       'M.ZO.BR.BEGRIFF',

@@ -29,7 +29,8 @@ schritte:
     werkzeug:
       {
         id: gitter@1,
-        parameter: { max: 8, verschiebung: [3, 2], beweglich: { x: 1, y: 1, name: 'P' } },
+        parameter:
+          { max: 8, verschiebung: [3, 2], beweglich: { x: 1, y: 1, name: 'P' }, frage: true },
       }
     antwort:
       optionen:
@@ -171,3 +172,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 285056619ebab3e487dffdaceee233e6d2e27b4a7a8efecfb7d60834c41f5c7a

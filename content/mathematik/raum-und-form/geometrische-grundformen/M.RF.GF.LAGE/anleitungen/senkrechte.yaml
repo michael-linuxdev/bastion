@@ -16,3 +16,8 @@ pruefen:
   - de: 'Lege das [[Geodreieck]] noch einmal an. Ist der [[Winkel]] zwischen g und deiner Linie genau 90°?'
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 9ebf445b8d21e160de9f59131542a25172ead8b78a3e73267f2aa64a73d8f988

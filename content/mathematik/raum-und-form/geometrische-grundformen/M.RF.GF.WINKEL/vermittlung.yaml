@@ -30,7 +30,7 @@ schritte:
   - id: erklaeren-messen
     typ: erklaeren
     text:
-      de: 'Am [[Winkelmesser]] gibt es zwei [[Skalen]]. Lege die Mitte auf den Scheitel und die 0 auf einen [[Schenkel]]. Lies auf der Skala ab, die bei diesem Schenkel mit 0 beginnt: hier 40°.'
+      de: 'Am [[Winkelmesser]] gibt es zwei [[Skalen]]. Lege die Mitte auf den Scheitel und die 0 auf einen [[Schenkel]]. Lies auf der Skala ab, die dort mit 0 beginnt: hier 40°. Zahlen stehen alle 20°, jeder Strich zählt 5°.'
     bild: { werkzeug: winkel@1, parameter: { grad: 40, winkelmesser: true } }
     weiter: beispiel
   - id: beispiel
@@ -90,3 +90,8 @@ schritte:
     anzahl: 3
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 6417ab896b02efdda6b9117e743880cd40d2bebf79aa97e37f92bc68ee3a28b9

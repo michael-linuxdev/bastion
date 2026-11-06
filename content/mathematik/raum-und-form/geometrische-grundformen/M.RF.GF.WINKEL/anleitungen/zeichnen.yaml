@@ -17,3 +17,8 @@ pruefen:
   - de: 'Ein [[Winkel]] von 50° ist spitz, also kleiner als ein [[rechter Winkel]]. Sieht dein Winkel so aus? Wenn er stumpf ist, hast du auf der falschen [[Skala]] gezählt.'
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: bdd3f08537dc2e0cd6e971f08f22ce2d60b6336fb5c02b570b923c84d424c539
