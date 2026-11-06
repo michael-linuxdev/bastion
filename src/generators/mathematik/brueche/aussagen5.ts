@@ -172,36 +172,47 @@ export const brErweiternAussage = aussagenGenerator(
   },
 );
 
+// Wert, richtige Prozentzahl, Linas Zahl und die Regel, die genau zu Linas Zahl führt
+const ZIFFERN = 'Man schreibt die Ziffern hinter dem Komma und hängt % an.';
+const MAL_10 = 'Man nimmt die Zahl mal 10 und hängt % an.';
 const PROZENTE = [
-  [0.5, 50, '5'],
-  [0.25, 25, '2,5'],
-  [0.75, 75, '7,5'],
-  [0.1, 10, '1'],
-  [0.2, 20, '2'],
-  [0.01, 1, '0,1'],
+  [0.5, 50, '5', ZIFFERN],
+  [0.25, 25, '2,5', MAL_10],
+  [0.75, 75, '7,5', MAL_10],
+  [0.1, 10, '1', ZIFFERN],
+  [0.2, 20, '2', ZIFFERN],
+  [0.01, 1, '0,1', MAL_10],
 ] as const;
 
-/** „0,5 = 5 %?“ (M.ZO.BR.PROZENT.BEGRUENDEN) */
-export const brProzentAussage = aussagenGenerator(
-  'br.prozent-aussage',
-  ['prozent-hundertstel', 'komma-verschoben'],
-  ['wert'],
-  (r) => {
-    const i = r.int(0, PROZENTE.length - 1);
-    const [x, p, falschP] = PROZENTE[i] ?? PROZENTE[0];
-    const X = String(x).replace('.', ',');
-    return {
-      situation: `Lina sagt: „${X} = ${falschP} %.“ Stimmt das?`,
-      werte: { wert: x },
-      richtig: `Nein. Prozent heißt Hundertstel: ${X} = ${p}/100 = ${p} %.`,
-      falsch: [
-        ['prozent-hundertstel', 'Ja. Man schreibt die Ziffern hinter dem Komma und hängt % an.'],
-        ['komma-verschoben', `Nein. ${X} = ${p * 10} %.`],
-      ],
-      weg: ['1 % = 1/100 = 0,01.', `${X} = ${p} Hundertstel = ${p} %`],
-    };
-  },
-);
+/**
+ * „0,5 = 5 %?“ (M.ZO.BR.PROZENT.BEGRUENDEN). Fassung 2 (Q-L1, 06.11.2026): Die falsche
+ * Option nennt je Wert die Regel, die zu Linas Zahl führt; Fassung 1 hatte immer
+ * „Ziffern hinter dem Komma“, das bei 0,25 → 2,5 % nicht passt.
+ */
+const brProzentAussageFassung = (fassung: 1 | 2) =>
+  aussagenGenerator(
+    'br.prozent-aussage',
+    ['prozent-hundertstel', 'komma-verschoben'],
+    ['wert'],
+    (r) => {
+      const i = r.int(0, PROZENTE.length - 1);
+      const [x, p, falschP, regel] = PROZENTE[i] ?? PROZENTE[0];
+      const X = String(x).replace('.', ',');
+      return {
+        situation: `Lina sagt: „${X} = ${falschP} %.“ Stimmt das?`,
+        werte: { wert: x },
+        richtig: `Nein. Prozent heißt Hundertstel: ${X} = ${p}/100 = ${p} %.`,
+        falsch: [
+          ['prozent-hundertstel', `Ja. ${fassung === 2 ? regel : ZIFFERN}`],
+          ['komma-verschoben', `Nein. ${X} = ${p * 10} %.`],
+        ],
+        weg: ['1 % = 1/100 = 0,01.', `${X} = ${p} Hundertstel = ${p} %`],
+      };
+    },
+    fassung,
+  );
+export const brProzentAussageV1 = brProzentAussageFassung(1);
+export const brProzentAussage = brProzentAussageFassung(2);
 
 /** „Größerer Nenner oder größerer Zähler, also größer?“ (M.ZO.BR.VERGLEICHEN.BEGRUENDEN) */
 export const brVergleichAussage = aussagenGenerator(

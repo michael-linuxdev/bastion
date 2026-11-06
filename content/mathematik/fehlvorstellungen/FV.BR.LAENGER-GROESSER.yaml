@@ -12,7 +12,7 @@ erklaerung:
     de: 'Mehr Stellen machen eine [[Dezimalzahl]] nicht größer. Vergleiche Stelle für Stelle von links, zuerst die [[Zehntel]].'
   lang:
     - teil: so-denkst-du
-      de: 'Du hast die [[Ziffern]] hinter dem Komma wie eine [[ganze Zahl]] gelesen: 45 ist mehr als 5.'
+      de: 'Du hast die [[Ziffern]] hinter dem Komma wie eine [[natürliche Zahl]] gelesen: 45 ist mehr als 5.'
     - teil: warum-nicht
       de: 'Bei [[natürlichen Zahlen]] ist die längere Zahl größer, darum liegt der Gedanke nahe. Hinter dem Komma ist es anders: 0,5 sind 5 [[Zehntel]], 0,45 nur 4 Zehntel und 5 [[Hundertstel]].'
       bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 5 } }
@@ -28,3 +28,8 @@ quelle:
   de: Fachdidaktik Dezimalzahlen („Länger ist größer“)
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: e603385313043a50c3f5917478ce51fb71bd01e99f166bfd3cebdb77944e29c6

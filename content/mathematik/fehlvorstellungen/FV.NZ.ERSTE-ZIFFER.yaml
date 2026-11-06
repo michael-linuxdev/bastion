@@ -14,7 +14,7 @@ erklaerung:
     - teil: so-denkst-du
       de: 'Du hast nur auf die erste [[Ziffer]] geschaut.'
     - teil: warum-nicht
-      de: 'Bei gleich langen Zahlen klappt das, darum wirkt es richtig. Aber bei 315 ist die 3 ein Hunderter, bei 92 ist die 9 nur ein Zehner.'
+      de: 'Bei gleich langen Zahlen hilft die erste [[Ziffer]] oft, darum wirkt es richtig. Aber bei 315 ist die 3 ein Hunderter, bei 92 ist die 9 nur ein Zehner.'
     - teil: so-stimmt-es
       de: 'Erst die Stellen zählen: 315 hat drei, 92 hat zwei. Also ist 315 größer.'
 gegenbeispiel:
@@ -25,3 +25,8 @@ rueckweg:
 kontrast: [M.ZO.NZ.ORDNEN.DER-GROESSE-NACH, M.ZO.NZ.ORDNEN.VERGLEICHSZEICHEN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: d505b4a3c5b7da61dde4a789f05f26941a52611ece731ee65fff53352a47403f

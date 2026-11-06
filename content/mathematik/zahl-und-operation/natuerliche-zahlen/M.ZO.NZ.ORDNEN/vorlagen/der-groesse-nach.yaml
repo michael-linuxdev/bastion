@@ -23,3 +23,8 @@ fehlerbilder:
     fv: FV.NZ.REIHENFOLGE-UMGEKEHRT
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 9a495b9a3952116a5ee585896eec9e2361b32d445f1077c4b399df27175c5e88

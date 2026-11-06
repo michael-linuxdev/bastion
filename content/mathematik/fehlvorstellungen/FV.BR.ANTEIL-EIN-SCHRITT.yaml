@@ -26,3 +26,8 @@ rueckweg:
 kontrast: [M.ZO.BR.ANTEIL-VON.ALLGEMEIN]
 herkunft: ki-entwurf
 version: 1
+review:
+  stufe: 1
+  datum: 2026-11-06
+  pruefer: maschine
+  hash: 61cdafe7480586bfc872f99954ef10a717d13d483d42daf7b22b18d2969921ea
