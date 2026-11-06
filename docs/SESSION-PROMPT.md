@@ -177,6 +177,10 @@ Steht in der Datei des Strangs. Für beide gilt:
 - Browser-Tests starten nur `vite preview` und nutzen den letzten Build. Nach Änderungen an Inhalten oder Oberfläche erst `pnpm build`.
 - Beim Squash-Merge per Werkzeug braucht `expectedHeadSha` die volle SHA mit 40 Zeichen.
 
+- **Grafik nur nach Probe am Gerät (06.11.2026, GRAFIK §33):** PRs, die Ebenen, CSS oder `will-change` in der Bastion ändern, kommen erst nach einer Probe des PV am iPhone auf `main`. Die Chromium-Messung (§24-Rechnung) hat einen Absturz nicht vorhergesagt. PRs haben keine Pages-Vorschau.
+- **Agenten-Worktrees liegen unter `.claude/worktrees/` im Repository.** `pnpm lint` im Hauptordner läuft dort hinein und scheitert an fremden Zwischendateien; das ist kein Fehler des eigenen Stands. In `.git/info/exclude` eintragen, damit sie nicht committet werden. Mehr als drei bis vier parallele Agenten treiben die Last auf über 20, dann laufen Tests in die 5-s-Grenze: dann betroffene Dateien mit `--maxWorkers=2` nachweisen und die CI entscheiden lassen.
+- **Prüfdurchgänge (Q-L1):** Prüfer sind frische Agenten, die den Entwurf nicht kennen; sie schreiben nur die Fundliste (eigener Branch, kein PR). Behoben wird in einem eigenen PR, danach Durchgang 2, dann Nachprüfung der zuletzt geänderten Dateien und Stufe 1 (`docs/pruefung/5-*.md`).
+
 ## Am Ende der Sitzung aktualisieren
 
 - [ ] In der Datei des eigenen Strangs: „Aktueller Auftrag“, Übergabe und Lehren; im Protokoll des Strangs eine Zeile unten anhängen

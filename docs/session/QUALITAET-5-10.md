@@ -4,7 +4,7 @@
 > Vorher lesen: `CLAUDE.md`, `docs/SESSION-PROMPT.md`, die Datei des eigenen Strangs, `docs/INHALTSFORMAT.md` §8 (Prüfkatalog), `docs/VERMITTLUNG.md` §2.5 (V1–V9).
 > Alle drei Stränge arbeiten parallel, jeder an seinen Paketen (Q-L, Q-O, Q-G). Protokollzeile je PR im eigenen Protokoll.
 
-Stand: 06.11.2026 · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) bis (5) erledigt (Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines); offen nur B10 beim Lernkern; zweiter Rundgang (06.11.2026): keine A-, drei B-Funde, Mängelliste B11–D10 beim PV · Q-L2 Raum und Form Klasse 5 erledigt (#283, #288) · Q-G1 PR 1 (Takt der Bühne) gemergt als #285, PR 2 (Kulisse beim Zoomen) als #290, PR 3 (gemeinsamer Takt) als #292, PR 4 (Ebenenspeicher) als #298 · Q-L2 Zahlen, Brüche, Daten Klasse 5 erledigt (#297)
+Stand: 06.11.2026 (abends) · **Übergabe der koordinierenden Sitzung unten („Übergabe 06.11.2026 abends“)** · Klasse 5: A2 erfüllt (alle bildhaften Erstvermittlungen mit Bild/Werkzeug); A1 bei 10 von 42 Kompetenzen auf `main`, mit #306 21 von 42 · A4: zweiter Rundgang ohne A-Fund, B11–B13 behoben, dritter Rundgang offen · A5: Q-G1 PR 2–4 zurückgenommen (Absturz iPhone), PR 3 neu als #302 wartet auf PV · Auftrag angelegt, Meilenstein M5 (Klasse 5) festgelegt, `pnpm review --klasse 5` zeigt den Fortschritt · Q-O1: Rundgang und Mängelliste erledigt, PV: alle Punkte in Reihenfolge 1–5; PR (1) bis (5) erledigt (Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines); offen nur B10 beim Lernkern; zweiter Rundgang (06.11.2026): keine A-, drei B-Funde, Mängelliste B11–D10 beim PV · Q-L2 Raum und Form Klasse 5 erledigt (#283, #288) · Q-G1 PR 1 (Takt der Bühne) gemergt als #285, PR 2 (Kulisse beim Zoomen) als #290, PR 3 (gemeinsamer Takt) als #292, PR 4 (Ebenenspeicher) als #298 · Q-L2 Zahlen, Brüche, Daten Klasse 5 erledigt (#297)
 
 ---
 
@@ -186,9 +186,12 @@ Die Einträge in „Bild“ und „Schritte“ sind Vorschläge der Gesamtsicht,
 
 ## Startsätze
 
-- **Lernkern:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` und `docs/session/QUALITAET-5-10.md`. Arbeite im Strang Lernkern an Meilenstein M5: zuerst Q-L2 für das Feld Raum und Form (Klasse 5), dann Q-L1 für dasselbe Feld. Je Feld ein PR. Melde nach jedem PR kurz in einfachem Deutsch.“
-- **Oberfläche:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/OBERFLAECHE.md` und `docs/session/QUALITAET-5-10.md`. Mach Q-O1: Rundgang der Lern-Oberfläche auf 390 px, Mängelliste mit Bildschirmfotos an den PV, dann warten, was er wählt.“
-- **Grafik:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/GRAFIK.md` und `docs/session/QUALITAET-5-10.md`. Mach Q-G1: Tempo der Bastion. Erster PR: Ticker nur bei Bewegung, mit Messung vorher und nachher.“
+Stand 06.11.2026 abends. Ältere Startsätze stehen in der Geschichte dieser Datei.
+
+- **Koordinierende Sitzung:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md` und `docs/session/QUALITAET-5-10.md`, Abschnitt ‚Übergabe 06.11.2026 abends‘. Du bist gesamtverantwortlich und koordinierst die drei Stränge: offene PRs prüfen und nach grüner CI mergen, je Strang den nächsten Auftrag an einen Agenten im eigenen Worktree geben, höchstens drei bis vier gleichzeitig. Grafik-PRs, die Ebenen oder CSS der Bastion ändern, erst nach Probe des PV am iPhone mergen.“
+- **Lernkern:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/LERNKERN.md` und `docs/session/QUALITAET-5-10.md`. Arbeite an Meilenstein M5: zuerst die Felder ohne Stufe 1 (Natürliche Zahlen, Teilbarkeit, Terme und Gleichungen, Brüche BEGRIFF bis DEZ-RECHNEN), je Feld Q-L2 falls bildhaft, dann Q-L1 in zwei unabhängigen Durchgängen (Prüfer ohne Entwurf im Verlauf) und Stufe 1. Danach Q-L3 Zwischenschritte Klasse 5.“
+- **Oberfläche:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/OBERFLAECHE.md` und `docs/session/QUALITAET-5-10.md`. Mach den dritten Rundgang auf 390 px nur über die seit dem zweiten Rundgang geänderten Stellen (B11, B13, C7, C9, Winkelmesser, Werkzeuge Größen und Messen) als Grundlage für die Abnahme A4; dann die offenen C/D-Punkte, die der PV wählt.“
+- **Grafik:** „Lies CLAUDE.md, `docs/SESSION-PROMPT.md`, `docs/session/GRAFIK.md`, `docs/GRAFIK.md` §24 und §29–§34. #302 (Takt, nur Pixi) wartet auf die Probe des PV. Danach Q-G1 weiter nur mit Ansätzen ohne große Ebenen in der Kamera-Transformation, jeder PR erst nach Probe am iPhone.“
 
 ## Übergaben
 
@@ -214,3 +217,26 @@ Jede Sitzung trägt am Ende hier ein: Paket, Stand, PR-Nummer, Erledigtes mit Da
 - **06.11.2026, Lernkern, Q-L1 Zahlen, Brüche, Daten Klasse 5, Funde aus Durchgang 1 (Branch `lernkern/q-l1-zahlen-brueche-daten`):** Fundliste aus `lernkern/q-l1-zahlen-brueche-daten-d1` übernommen, alle 13 Funde behoben (Bruchstreifen-Beschreibung als Entscheidung wie KOORDINATEN), 2 von 18 Hinweisen behoben, Rest offen; `br.dezimal-runden@2`, `da.mittelwert@2`. Keine Stufe gesetzt. Nächster Schritt: Durchgang 2 in frischer Sitzung, dann Stufe 1.
 - **06.11.2026, Lernkern, Q-L1 Größen und Messen Klasse 5, Funde aus Durchgang 1 (Branch `lernkern/q-l1-groessen-messen`):** Fundliste aus `lernkern/q-l1-groessen-messen-d1` übernommen, 14 Funde behoben, 1 Entscheidung (Würfelnetz-Beschreibung wie KOORDINATEN), 2 von 15 Hinweisen behoben. **Rückfrage an den PV:** Zeit-Umrechnung in GR.UMRECHNEN Niveau G ist jetzt in der Erstvermittlung erklärt (Schritt `erklaeren-zeit`, kleinerer Eingriff); soll sie stattdessen aus den Vorlagen heraus (dann nur bei GR.ZEIT)? Keine Stufe gesetzt; nächster Schritt Durchgang 2.
 - **06.11.2026, Lernkern, Q-L1 Zahlen, Brüche, Daten Klasse 5, Stufe 1 (Branch `lernkern/q-l1-zahlen-brueche-daten-stufe1`):** Durchgang 2 aus `lernkern/q-l1-zahlen-brueche-daten-d2` übernommen, alle 7 Funde und das halbe Urteil (PROZENT `entdecken`) behoben, 3 Hinweise behoben; `br.prozent-aussage@2`, `br.anteil-von@2` (Fassung 1 bleibt registriert). Durchgang 3 prüft die zehn geänderten Dateien nach (ein kleiner Fund in FV.NZ.RUNDEN-STELLE behoben). 51 von 52 Dateien des Felds auf Stufe 1; FV.SA.ZWISCHENERGEBNIS wartet auf den Fund aus Größen und Messen (Durchgang 2), darum MITTELWERT noch nicht fertig. Klasse 5: 10 von 42 Kompetenzen fertig. Öffentliche Seite (Mindeststufe 1) zeigt zusätzlich sechs Kompetenzen des Felds und M.RF.GF.KOORDINATEN.
+- **06.11.2026, Lernkern, Q-L1 Größen und Messen Klasse 5, Stufe 1 (Branch `lernkern/q-l1-groessen-messen-stufe1`, #306):** Durchgang 2 behoben, Nachprüfung, Stufe 1 für 67 Dateien. Stand bei Übergabe: CI läuft, noch nicht gemergt.
+
+### Übergabe 06.11.2026 abends (koordinierende Sitzung, Branch `claude/uebergabe-06-11`)
+
+**Heute auf `main` (06.11.):** #288–#301, #303–#305. Lernkern: Q-L2 für alle bildhaften Themen der Klasse 5 (Raum und Form #288, Zahlen/Brüche/Daten #297, Größen und Messen #294 Werkzeuge + #295 Inhalte), Q-L1 Raum und Form (#293, 49 Dateien), Q-L1 Durchgang 1 behoben für Zahlen/Brüche/Daten (#303) und Größen und Messen (#304), Stufe 1 Zahlen/Brüche/Daten (#305), Winkelmesser lesbar (#300, B12/D8). Oberfläche: Q-O1 PR 4 und 5 (#289, #291), zweiter Rundgang (#296), B11/B13/C7/C9 (#301). Grafik: PR 2–4 (#290, #292, #298) gemergt und nach Absturzmeldung des PV wieder zurückgenommen (#299, GRAFIK §33).
+
+**Offen bei Übergabe:**
+- **#306** (Stufe 1 Größen und Messen): CI lief, `main` schon hineingemergt. Nach grüner CI mergen. Danach `pnpm review --klasse 5`: erwartet 21 von 42.
+- **Raum und Form, Durchgang 3:** Ein Prüf-Agent prüft die Dateien von LAGE, WINKEL (nach #300 ohne Stufe), WINKELPAARE, KP.DARSTELLEN, SYMMETRIE, BEWEGUNGEN, die noch ohne Stufe 1 sind (Branch `lernkern/q-l1-raum-und-form-d3`, PR folgt). Fehlt der PR, neu ansetzen.
+- **#302** (Grafik, Takt nur in Pixi, keine Ebenen): wartet auf den PV. PRs haben keine Vorschau, prüfen geht nur nach dem Merge. Vorschlag an den PV: mergen, am iPhone prüfen, bei Absturz sofort zurücknehmen.
+- Branches ohne PR, durch Merges überholt (können gelöscht werden, der PV entscheidet): `oberflaeche/q-o1-kleines` (alte Fassung von PR 5), `lernkern/m5-raum-und-form-pruefung` (übertragen in #293), die Prüf-Branches `lernkern/q-l1-*-d1`, `-d2`.
+
+**Rückfragen an den PV (offen):**
+1. #302 mergen und am Gerät prüfen?
+2. Dritter Rundgang für A4 starten?
+3. Zeit in GR.UMRECHNEN: bleibt in den Vorlagen, Erstvermittlung erklärt sie jetzt (`erklaeren-zeit`) – so lassen? (Empfehlung: ja.)
+4. `zahlenstrahl@1` für Tausender und Dezimalzahlen erweitern? Hundertertafel und Säulen aus `gitter@1` als Behelf in Ordnung? (Annahme bis zur Antwort: ja, später erweitern.)
+5. Referenzgeräte (Q-G0) und welches iPhone/iOS beim Absturz, ob bei jedem Zoomen oder nur herangezoomt/bei Wetter.
+
+**Angenommen nach „Sieht gut aus. Weiter geht's“ (PV, 06.11.):** Absturz nach #299 behoben; Werkzeuge Größen und Messen abgenommen; Uhr-Einstieg mit zwei Antworten; Nullen am Ende bleiben, wie sie sind; Vorschlag aus dem zweiten Rundgang gebaut.
+
+**Nebenbei gefunden:** `pz.bequem` (M.ZO.PZ.BEGRIFFE, Klasse 6/7) schreibt „von 80 Schüler“ – beim Prüfen von Klasse 6 mitnehmen.
+
