@@ -19,7 +19,35 @@ schritte:
   - id: entdecken
     typ: entdecken
     text:
-      de: 'Drei Kinder haben 2, 5 und 8 Bonbons. Sie legen alle zusammen und teilen gerecht. Wie viele bekommt jedes?'
+      de: 'Drei Kinder haben 2, 5 und 8 Bonbons, im Bild als Säulen aus Kästchen. Sie legen alle zusammen und teilen gerecht. Wie viele bekommt jedes?'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            xmax: 11,
+            ymax: 8,
+            kaestchen:
+              [
+                [2, 0],
+                [2, 1],
+                [5, 0],
+                [5, 1],
+                [5, 2],
+                [5, 3],
+                [5, 4],
+                [8, 0],
+                [8, 1],
+                [8, 2],
+                [8, 3],
+                [8, 4],
+                [8, 5],
+                [8, 6],
+                [8, 7],
+              ],
+          },
+      }
     antwort:
       eingabe:
         {
@@ -35,7 +63,37 @@ schritte:
   - id: erklaeren-mittelwert
     typ: erklaeren
     text:
-      de: 'Das [[arithmetische Mittel]] ist dieser gerechte [[Anteil]]. Addiere alle Werte und teile durch die Anzahl der Werte. Zähle genau: Auch eine 0 oder ein doppelter Wert zählt mit.'
+      de: 'Das [[arithmetische Mittel]] ist dieser gerechte [[Anteil]]. Die hohe Säule gibt 3 Kästchen ab: Dann reichen alle bis zur gestrichelten Linie, 5 Kästchen hoch. Rechnen: alle Werte addieren, durch ihre Anzahl teilen. Jeder Wert zählt, auch 0 und doppelte.'
+    bild:
+      {
+        werkzeug: gitter@1,
+        parameter:
+          {
+            achsen: false,
+            xmax: 11,
+            ymax: 8,
+            kaestchen:
+              [
+                [2, 0],
+                [2, 1],
+                [5, 0],
+                [5, 1],
+                [5, 2],
+                [5, 3],
+                [5, 4],
+                [8, 0],
+                [8, 1],
+                [8, 2],
+                [8, 3],
+                [8, 4],
+                [8, 5],
+                [8, 6],
+                [8, 7],
+              ],
+            linien: [{ von: [0, 5], nach: [11, 5], gestrichelt: true }],
+            pfeile: [{ von: [8, 8], nach: [3, 5] }],
+          },
+      }
     weiter: beispiel
   - id: beispiel
     typ: beispiel

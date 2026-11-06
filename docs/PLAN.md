@@ -16,7 +16,7 @@ Roadmap-Begründung: `KONZEPT.md` §12–13. **Strategie und Scope bis Monat 12:
 | Stränge | Seit 31.10.2026 parallel: **Lernkern** (`docs/session/LERNKERN.md`, §4b) und **Grafik** (`docs/session/GRAFIK.md`, §4a). Gemeinsame Regeln in `SESSION-PROMPT.md` |
 | Auftrag seit 05.11.2026 | **Qualität Klasse 5 bis 10 vor Tests** (K-32, `docs/session/QUALITAET-5-10.md`): U4b ohne Termin, 11/12 angehalten, Einfrieren aufgehoben. Abnahme A1–A5 dort |
 | Nächster Schritt Lernkern | Meilenstein M5 (Klasse 5, 42 Kompetenzen): Q-L2 Erstvermittlungen mit Bild, dann Q-L1 Prüfen (Phase C), je Feld ein PR, Beginn Raum und Form. Fortschritt `pnpm review --klasse 5`. U4b vorbereitet (04.11.2026), Unterlagen liegen bereit |
-| Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Mängelliste A1–D5 abgearbeitet in fünf PRs (bis 06.11.2026, `QUALITAET-5-10.md`), B10 beim Lernkern; nächster Auftrag vom PV |
+| Nächster Schritt Oberfläche | Q-O1 Lern-Oberfläche: Mängelliste A1–D5 abgearbeitet in fünf PRs (bis 06.11.2026, `QUALITAET-5-10.md`), B10 beim Lernkern; zweiter Rundgang für A4: keine A-, drei B-Funde (B11–B13), PV wählt |
 | Nächster Schritt Grafik | Q-G1 Tempo der Bastion auf dem iPhone 13, mit Messung je PR (`pnpm tempo`, GRAFIK §29); PR 1 Takt der Bühne (#285), PR 2 Kulisse beim Zoomen (#290, GRAFIK §30), PR 3 gemeinsamer 30-Hz-Takt für Fahnen, Mühlen, Bewohner und Wesen (#292, GRAFIK §31) und PR 4 Ebenenspeicher senken (GRAFIK §32) fertig; als Nächstes Messung des PV am iPhone 13, keine neuen Dinge bis es flüssig ist. Beim PV: Referenzgeräte (0.10) und Messung am iPhone |
 | Blocker | eine Lehrkraft für die fachliche Prüfung (Stufe 2; VERMITTLUNG §8, Frage 2) |
 
@@ -270,6 +270,7 @@ Seit 03.11.2026 (PV), Strang Oberfläche, `docs/session/OBERFLAECHE.md`:
 - [x] O11–O12 gemeinsamer Zurück-Knopf · O13 Browser-Tests der Oberfläche · O14 Installationsanleitung beim Erststart
 - [x] O15–O22 Bedienbarkeit (PV 04.11.2026: „alles umsetzen“): Zurück-Taste des Geräts, Fokus und Titel je Seite, Startseite bei großer Schrift und am Desktop, Erststart, Mein Stand, Seite „Einstellungen“ mit Schriftgröße, PIN, Übung und Bastion-Leiste
 - [x] Q-O1 Lern-Oberfläche (K-32, `docs/session/QUALITAET-5-10.md`): Rundgang und Mängelliste A1–D5 erledigt (05.11.2026), PV: alle Punkte; je ein PR für Fehler, Rückmeldung, Themenwahl, Erstvermittlung, Kleines – alle erledigt (06.11.2026), B10 (Inhalt) beim Lernkern
+- [ ] Q-O1 zweiter Rundgang für A4 (06.11.2026): keine A-, drei B-Funde (B11–B13), C7–C9, D6–D10; wartet auf die Wahl des PV
 
 ## 5. Änderungsprotokoll
 

@@ -21,7 +21,7 @@ schritte:
     typ: entdecken
     text:
       de: 'Schau dir den Zahlenstrahl an. In wie viele Abschnitte ist die Strecke von 0 bis 1 geteilt?'
-    werkzeug: { id: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 4 } }
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 4 } }
     antwort:
       eingabe: { art: zahl, loesung: '4', fehler: [{ wert: '5', fv: FV.BR.STRICHE-GEZAEHLT }] }
     weiter: erklaeren-abschnitte
@@ -50,6 +50,7 @@ schritte:
     typ: gegenbeispiel
     text:
       de: 'Ole sieht 3 von 10 Abschnitten bis zur Markierung und schreibt „3“. Stimmt das?'
+    bild: { werkzeug: zahlenstrahl@1, parameter: { von: 0, bis: 1, einteilung: 10, markiert: 3 } }
     antwort:
       optionen:
         - { wert: { de: 'Nein, die Zahl ist $\frac{3}{10}$ oder 0,3.' }, richtig: true }
